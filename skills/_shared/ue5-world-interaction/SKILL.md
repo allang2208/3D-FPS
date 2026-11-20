@@ -9,7 +9,7 @@ description: UE5.6-UE5.8 world interaction systems for pickups, spawners, overla
 
 - 沿实际 overlap、瞄准 trace 或使用键入口修改；拾取资格、库存提交和 Actor 消耗构成一次成功事务，失败不得丢物品。 原因：物品转移涉及来源与目标两侧状态，部分成功不能造成物品丢失或重复生成。
 - 成功后立即更新可交互状态；退出模式、卸载与 EndPlay 都清理预览和委托，保留现有碰撞通道与权威路径。
-- 挖掘、采集和近战不共用未经区分的射线距离；高度差保持一次符号约定。具体案例见[交互问题记录](references/interaction-pitfalls.md)。
+- 挖掘、采集和近战不共用未经区分的射线距离；高度差保持一次符号约定。具体案例及分屏下的村民交互轮廓、店内亮部选择见[交互问题记录](references/interaction-pitfalls.md)。
 - 连续环境声使用持续音频组件、淡入淡出与并发预算；字段及来源记录见同一参考的喷泉章节。
 
 ## 项目资料

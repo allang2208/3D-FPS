@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/Monsters/HangingBellM09.cpp
++++ b/Source/FPSGAME/Monsters/HangingBellM09.cpp
+@@ -1,4 +1,5 @@
+ #include "HangingBellM09.h"
++#include "MonsterTargeting.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "../Multiplayer/FPSStatusReplicationComponent.h"
+ #include "M09ResonanceDamage.h"
+@@ -471,7 +472,7 @@
+ }
+ void AHangingBellM09::Deal(APawn* P,float Damage,bool Magic,FVector Point)
+ {
+- if(!HasAuthority()||Dead()||!IsValid(P)||!P->IsPlayerControlled())return;
++ if(!HasAuthority()||Dead()||!IsValid(P)||!MonsterTargeting::IsOpponentPawn(P))return;
+  FHitResult H;H.ImpactPoint=H.Location=Point;const FVector D=(P->GetActorLocation()-Eye()).GetSafeNormal();
+  UGameplayStatics::ApplyPointDamage(P,Damage,D,H,GetController(),this,Magic?UStatusMagicDamage::StaticClass():UEnemyMeleeDamage::StaticClass());
+ }
+@@ -480,14 +481,16 @@
+  TArray<FHitResult> Hits;FCollisionQueryParams Q(SCENE_QUERY_STAT(M09OrganStrike),false,this);
+  GetWorld()->SweepMultiByChannel(Hits,From,To,FQuat::Identity,ECC_Pawn,FCollisionShape::MakeSphere(Radius),Q);
+  for(const auto& H:Hits)
+-  if(auto* P=Cast<APawn>(H.GetActor());P&&P->IsPlayerControlled()&&!HitVictims.Contains(P)&&HasAttackSight(P))
++  if(auto* P=Cast<APawn>(H.GetActor());P&&MonsterTargeting::IsOpponentPawn(P)&&!HitVictims.Contains(P)&&HasAttackSight(P))
+   {HitVictims.Add(P);Deal(P,Damage,false,H.ImpactPoint);if(Dead()||State==EM09State::Stagger)return;}
+ }
+ void AHangingBellM09::ResonancePulse()
+ {
+  // One server-side damage application per player per pulse. Cover is traced from
+  // the same locked torso origin that drives the visible shock wave.
+- for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)if(auto* PC=It->Get())if(APawn* P=PC->GetPawn())
++ TArray<APawn*> Victims;
++ MonsterTargeting::GatherAreaOpponents(GetWorld(),ResonanceOrigin,ResonanceRange,Victims);
++ for(APawn* P:Victims)
+  {
+   if(auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead())continue;
+   const FVector Point=P->GetActorLocation()+FVector(0,0,35),D=Point-ResonanceOrigin;

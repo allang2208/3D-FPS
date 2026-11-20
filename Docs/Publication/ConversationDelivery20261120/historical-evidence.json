@@ -1,0 +1,710 @@
+{
+  "recorded": "2026-11-20",
+  "scope": "Local project, isolated profiles; UDP processes and an off-screen GPU calibration as indicated. Publication did not run the game.",
+  "records": {
+    "artisan_services": {
+      "local_source": "Saved/ArtisanVillageNetwork/NpcDelivery20261120R3/resident-services-result.json",
+      "source_sha256": "e0e14cdb8ffec9a958dcba16873cf90052166c811903a3ccb3d56dcd96d0ec58",
+      "cases": [
+        {
+          "case": "ruined",
+          "peer": "server"
+        },
+        {
+          "case": "ruined",
+          "peer": "owner"
+        },
+        {
+          "case": "repair-blacksmith",
+          "peer": "server"
+        },
+        {
+          "case": "repair-carpenter",
+          "peer": "server"
+        },
+        {
+          "case": "repair-tavern",
+          "peer": "server"
+        },
+        {
+          "case": "repair-herbalist",
+          "peer": "server"
+        },
+        {
+          "case": "repair-bakery",
+          "peer": "server"
+        },
+        {
+          "case": "saved-shops",
+          "peer": "server"
+        },
+        {
+          "case": "host-layout",
+          "peer": "server"
+        },
+        {
+          "case": "shop-facing",
+          "peer": "server"
+        },
+        {
+          "case": "counter-VillageTavernKeeper",
+          "peer": "server"
+        },
+        {
+          "case": "counter-VillageBaker",
+          "peer": "server"
+        },
+        {
+          "case": "restored",
+          "peer": "owner"
+        },
+        {
+          "case": "stock",
+          "peer": "owner"
+        },
+        {
+          "case": "smith-talk",
+          "peer": "owner"
+        },
+        {
+          "case": "smith-materials",
+          "peer": "owner"
+        },
+        {
+          "case": "purchase",
+          "peer": "owner"
+        },
+        {
+          "case": "carpenter-talk",
+          "peer": "owner"
+        },
+        {
+          "case": "carpenter",
+          "peer": "owner"
+        },
+        {
+          "case": "host-isolation",
+          "peer": "server"
+        },
+        {
+          "case": "monster-knockdown",
+          "peer": "server"
+        },
+        {
+          "case": "aim-kneeling",
+          "peer": "server"
+        },
+        {
+          "case": "knockdown-away-from-work",
+          "peer": "server"
+        },
+        {
+          "case": "kneeling",
+          "peer": "owner"
+        },
+        {
+          "case": "aid-start",
+          "peer": "server"
+        },
+        {
+          "case": "aid-cancel",
+          "peer": "server"
+        },
+        {
+          "case": "aid-restart",
+          "peer": "server"
+        },
+        {
+          "case": "resumed-work",
+          "peer": "server"
+        },
+        {
+          "case": "recovered",
+          "peer": "owner"
+        },
+        {
+          "case": "late-layout",
+          "peer": "visitor"
+        },
+        {
+          "case": "profile",
+          "peer": "visitor"
+        },
+        {
+          "case": "visitor-authority",
+          "peer": "server"
+        },
+        {
+          "case": "late-layout",
+          "peer": "rejoin"
+        },
+        {
+          "case": "profile",
+          "peer": "rejoin"
+        },
+        {
+          "case": "rejoin-authority",
+          "peer": "server"
+        }
+      ],
+      "passed": true,
+      "count": 35
+    },
+    "artisan_defense": {
+      "local_source": "Saved/ArtisanVillageNetwork/NpcGuards20261120R3/result.json",
+      "source_sha256": "e7b334432721249eedc9ea78c7edd7713f67a7432b835aef5ee8be0dbea1ee81",
+      "cases": [
+        {
+          "case": "ruined",
+          "peer": "owner"
+        },
+        {
+          "case": "bow-kill-and-watch",
+          "peer": "server"
+        },
+        {
+          "case": "bow-reacquired-and-killed",
+          "peer": "server"
+        },
+        {
+          "case": "bow-return",
+          "peer": "server"
+        },
+        {
+          "case": "bow-target",
+          "peer": "server"
+        },
+        {
+          "case": "bow-watch-target",
+          "peer": "server"
+        },
+        {
+          "case": "counter-VillageBaker",
+          "peer": "server"
+        },
+        {
+          "case": "counter-VillageTavernKeeper",
+          "peer": "server"
+        },
+        {
+          "case": "done",
+          "peer": "server"
+        },
+        {
+          "case": "hammer-kill-and-watch",
+          "peer": "server"
+        },
+        {
+          "case": "hammer-reacquired-and-killed",
+          "peer": "server"
+        },
+        {
+          "case": "hammer-return",
+          "peer": "server"
+        },
+        {
+          "case": "hammer-target",
+          "peer": "server"
+        },
+        {
+          "case": "hammer-watch-target",
+          "peer": "server"
+        },
+        {
+          "case": "host-layout",
+          "peer": "server"
+        },
+        {
+          "case": "repair-bakery",
+          "peer": "server"
+        },
+        {
+          "case": "repair-blacksmith",
+          "peer": "server"
+        },
+        {
+          "case": "repair-carpenter",
+          "peer": "server"
+        },
+        {
+          "case": "repair-herbalist",
+          "peer": "server"
+        },
+        {
+          "case": "repair-tavern",
+          "peer": "server"
+        },
+        {
+          "case": "repair-windmill",
+          "peer": "server"
+        },
+        {
+          "case": "ruined",
+          "peer": "server"
+        },
+        {
+          "case": "saved-shops",
+          "peer": "server"
+        },
+        {
+          "case": "shop-facing",
+          "peer": "server"
+        },
+        {
+          "case": "transport",
+          "peer": "server"
+        }
+      ],
+      "passed": true,
+      "count": 25
+    },
+    "shops_and_guest_reconnect": {
+      "local_source": "Saved/ResidentMerchantWire/20261120-220655-2413/summary.json",
+      "source_sha256": "4a5f663049db4b320a48e6817c136969a6a244bc6b12020f45b0f8555870f4c2",
+      "events": [
+        "guest.denied0",
+        "guest.denied1",
+        "guest.denied2",
+        "guest.done",
+        "guest.left0",
+        "guest.left1",
+        "guest.left2",
+        "guest.paid0",
+        "guest.paid1",
+        "guest.paid2",
+        "guest.talk0",
+        "guest.talk1",
+        "guest.talk2",
+        "host.at0",
+        "host.at1",
+        "host.at2",
+        "host.authority0",
+        "host.authority1",
+        "host.authority2",
+        "host.denied0",
+        "host.denied1",
+        "host.denied2",
+        "host.disconnected",
+        "host.done",
+        "host.left0",
+        "host.left1",
+        "host.left2",
+        "host.paid0",
+        "host.paid1",
+        "host.paid2",
+        "host.seed",
+        "host.talk0",
+        "host.talk1",
+        "host.talk2",
+        "host.transport",
+        "rejoin.done"
+      ],
+      "passed": true,
+      "count": 36
+    },
+    "herbalist_udp_menu": {
+      "local_source": "Saved/HerbalistConversation/ConversationAuditWalkWire/20261120-221331/result.json",
+      "source_sha256": "86621045f067f8579985e727cd5c86d3b2ec8f528d978dd12101fc85356b70d7",
+      "cases": [
+        {
+          "case": "menu.greeting-and-services"
+        },
+        {
+          "case": "menu.lesson-placeholder-stays-on-main"
+        },
+        {
+          "case": "menu.talk-opens-topics"
+        },
+        {
+          "case": "topic.1.story"
+        },
+        {
+          "case": "topic.1.followup"
+        },
+        {
+          "case": "topic.1.back-to-story-and-topics"
+        },
+        {
+          "case": "topic.2.story"
+        },
+        {
+          "case": "topic.2.followup"
+        },
+        {
+          "case": "topic.2.back-to-story-and-topics"
+        },
+        {
+          "case": "topic.3.story"
+        },
+        {
+          "case": "topic.3.followup"
+        },
+        {
+          "case": "topic.3.back-to-story-and-topics"
+        },
+        {
+          "case": "topic.4.story"
+        },
+        {
+          "case": "topic.4.followup"
+        },
+        {
+          "case": "topic.4.back-to-story-and-topics"
+        },
+        {
+          "case": "menu.topics-back-to-main"
+        }
+      ],
+      "passed": true,
+      "count": 16
+    },
+    "herbalist_production_map": {
+      "local_source": "Saved/HerbalistConversation/NpcDeliveryReview20261120/20261120-215638/result.json",
+      "source_sha256": "fea6b7650e35468152fad1d990d41b006901b9d36a5dc0c12f7d1adbc7b91457",
+      "cases": [
+        {
+          "case": "repaired-shop.resident"
+        },
+        {
+          "case": "walking.focus-and-prompt"
+        },
+        {
+          "case": "E.open-and-lock-input"
+        },
+        {
+          "case": "menu.greeting-and-services"
+        },
+        {
+          "case": "menu.lesson-placeholder-stays-on-main"
+        },
+        {
+          "case": "menu.talk-opens-topics"
+        },
+        {
+          "case": "topic.1.story"
+        },
+        {
+          "case": "topic.1.followup"
+        },
+        {
+          "case": "topic.1.back-to-story-and-topics"
+        },
+        {
+          "case": "topic.2.story"
+        },
+        {
+          "case": "topic.2.followup"
+        },
+        {
+          "case": "topic.2.back-to-story-and-topics"
+        },
+        {
+          "case": "topic.3.story"
+        },
+        {
+          "case": "topic.3.followup"
+        },
+        {
+          "case": "topic.3.back-to-story-and-topics"
+        },
+        {
+          "case": "topic.4.story"
+        },
+        {
+          "case": "topic.4.followup"
+        },
+        {
+          "case": "topic.4.back-to-story-and-topics"
+        },
+        {
+          "case": "menu.topics-back-to-main"
+        },
+        {
+          "case": "patrol.moved-before-E"
+        },
+        {
+          "case": "conversation.stays-still"
+        },
+        {
+          "case": "Esc.close-and-restore-input"
+        },
+        {
+          "case": "closed.walk-resumes"
+        },
+        {
+          "case": "E.reopen"
+        },
+        {
+          "case": "concurrent.authority-fixture-open"
+        },
+        {
+          "case": "out-of-reach.auto-close"
+        },
+        {
+          "case": "concurrent.one-session-still-holds"
+        },
+        {
+          "case": "concurrent.controller-teardown-resumes-walk"
+        }
+      ],
+      "passed": true,
+      "count": 28
+    },
+    "outfit_replication": {
+      "local_source": "Saved/ModernTacticalOutfitWire/Wire/20261120-221427/host.json",
+      "source_sha256": "6763063d172449337b2c02e60d0eec396e162f3ee65561a6b9e22e6450f50f44",
+      "cases": [
+        {
+          "case": 0
+        },
+        {
+          "case": 1
+        },
+        {
+          "case": 2
+        },
+        {
+          "case": 3
+        },
+        {
+          "case": 4
+        },
+        {
+          "case": 5
+        },
+        {
+          "case": 6
+        },
+        {
+          "case": 0
+        },
+        {
+          "case": 1
+        },
+        {
+          "case": 2
+        },
+        {
+          "case": 3
+        },
+        {
+          "case": 4
+        },
+        {
+          "case": 5
+        },
+        {
+          "case": 6
+        }
+      ],
+      "passed": true,
+      "count": 14
+    },
+    "meal_receipts": {
+      "local_source": "Saved/ConversationReview20261120/Host/Saved/MealNetworkReview/Wire/20261120-221318/host.json",
+      "source_sha256": "6fcf02a26f2d5fb708854edf139632dd57368a7c9b545f3cb168469aa830c2e5",
+      "cases": [
+        {
+          "case": 0
+        },
+        {
+          "case": 1
+        },
+        {
+          "case": 2
+        },
+        {
+          "case": 3
+        },
+        {
+          "case": 4
+        },
+        {
+          "case": 5
+        },
+        {
+          "case": 6
+        },
+        {
+          "case": 7
+        },
+        {
+          "case": 8
+        }
+      ],
+      "passed": true,
+      "count": 9
+    },
+    "reopen_world": {
+      "local_source": "Saved/ArtisanVillageNetwork/NpcWorldRestart20261120/result.json",
+      "source_sha256": "ff28d449edfa6061aacfa0fd2b8213f8bdb19523ab1680f78bd7eaec547dc160",
+      "passed": true
+    },
+    "material_mask": {
+      "local_source": "Saved/ConversationAudit/Lighting-20261120-214253/gpu-mask-result.json",
+      "source_sha256": "fc8a918d2eff7c037fc297eb73a76041af83c8be87b821d0b4a396aa56d90120",
+      "passed": true,
+      "samples": {
+        "0": [
+          4.02734,
+          4.02734,
+          0.14124,
+          4.02734,
+          4.02734
+        ],
+        "1": [
+          2.8125,
+          4.02734,
+          0.14124,
+          4.02734,
+          4.02734
+        ],
+        "32768": [
+          4.02734,
+          2.8125,
+          0.14124,
+          4.02734,
+          4.02734
+        ],
+        "32769": [
+          2.8125,
+          2.8125,
+          0.14124,
+          4.02734,
+          4.02734
+        ]
+      },
+      "checks": {
+        "bright_and_dark_inputs_detected": true,
+        "1_first_resident": true,
+        "1_last_resident": true,
+        "1_dark": true,
+        "1_environment": true,
+        "1_occluder": true,
+        "32768_first_resident": true,
+        "32768_last_resident": true,
+        "32768_dark": true,
+        "32768_environment": true,
+        "32768_occluder": true,
+        "32769_first_resident": true,
+        "32769_last_resident": true,
+        "32769_dark": true,
+        "32769_environment": true,
+        "32769_occluder": true
+      }
+    },
+    "green_outline": {
+      "local_source": "Saved/ConversationAudit/Lighting-20261120-214253/gpu-outline-result.json",
+      "source_sha256": "095ef3245ac482b72ef612c80d83eda86e6a58642a8dac2184f92de9b0ce5721",
+      "passed": true,
+      "green_edge_pixels": {
+        "0": [
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "176": [
+          210,
+          0,
+          210,
+          0,
+          0
+        ],
+        "191": [
+          0,
+          210,
+          0,
+          0,
+          0
+        ]
+      },
+      "target": [
+        481,
+        163
+      ]
+    },
+    "game_build": {
+      "local_source": "Saved/ConversationAudit/Lighting-20261120-214253/FPSGAME-built.json",
+      "source_sha256": "ace2c8b1236441edb6963da86f6109d1d0d84f3adea9ef414850f88163ec45cb",
+      "passed": true
+    },
+    "editor_build": {
+      "local_source": "Saved/ConversationAudit/Lighting-20261120-214253/FPSGAMEEditor-built.json",
+      "source_sha256": "a1b803a347531c52498b7cdcbd56539253f074dd0e2e55858e5621362d3a1bd9",
+      "passed": true
+    },
+    "food_pose_jason": {
+      "local_source": "Saved/ConversationReview20261120/NativeR2/food-poses-jason.json",
+      "source_sha256": "32aee51828126e148880e10fc80eab57f674650d22707fcfd8df97aac917080c",
+      "samples": 23,
+      "food_types": 10,
+      "max_bite_to_mouth_mm": 0.6260738991100468
+    },
+    "food_pose_kaitlin": {
+      "local_source": "Saved/ConversationReview20261120/NativeR2/food-poses-kaitlin.json",
+      "source_sha256": "322660c398193ecaca28ae3d11ad8806077e6d1596f994973ba6b01c19e1b505",
+      "samples": 23,
+      "food_types": 10,
+      "max_bite_to_mouth_mm": 0.6260738991094322
+    },
+    "outfit_materials": {
+      "local_source": "Saved/ConversationReview20261120/NativeR2/wear-material-readback.json",
+      "source_sha256": "b6f2c6c2fa4b8028e3c4d44fc8949e2345ce7045bb6f83738e8f96affd6129a8",
+      "loadouts": 18,
+      "slots": 152
+    },
+    "outfit_lods": {
+      "local_source": "Saved/ConversationReview20261120/ShirtLOD/installed.json",
+      "source_sha256": "1a899cd9d0a7a2389a395d81969e725e2a40decc816ec7620bb8bafeff927cab",
+      "asset": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Wear/Kaitlin/CrouchFit/SK_TS01_Patrol_Kaitlin_238e1d0435cfb0bd.SK_TS01_Patrol_Kaitlin_238e1d0435cfb0bd",
+      "lods": [
+        {
+          "vertices": 152526,
+          "sections": 13
+        },
+        {
+          "vertices": 92215,
+          "sections": 13
+        },
+        {
+          "vertices": 57378,
+          "sections": 9
+        }
+      ],
+      "after": "2F77FEF304F8BC8786B12C263247548DABFD9B299220C3A6C4045CAA338BE7E1",
+      "before": "301AAC6DD07E4B235AF0074E68300A79043BECFBA09120D3FA349FCB5AE37B24"
+    },
+    "finger_motion": {
+      "local_source": "Saved/ConversationReview20261120/Gloves/M870-finger-pose.json",
+      "source_sha256": "6b83e918c9bc6eef245c7254a47b0119ba7585c4b61d023549dc66948edb6688"
+    },
+    "bare_wrist": {
+      "local_source": "Saved/ConversationReview20261120/Gloves/saved/m870-posed-wrist-review.json",
+      "source_sha256": "167d23e0cbe074929dc6de2838a8e7d024500bf63ef856bff9afeb6f45626b80"
+    },
+    "cuff_overlap": {
+      "local_source": "Saved/ConversationReview20261120/Gloves/saved/M870-cuff-overlap.json",
+      "source_sha256": "209502091209025cdb0d971b06e6a9935d6816ff27fb9cc2a55dc7b4db317128"
+    },
+    "shop_meshes_and_walls": {
+      "local_source": "Saved/ConversationAudit/Lighting-20261120-214253/Assets/content.json",
+      "source_sha256": "9aeabf5cf3bae4ad9cae34ffd6aed1d542146785a916ef882f71798e44d01097",
+      "models": 8,
+      "material_slots": 57,
+      "checks": {
+        "tavern_present": true,
+        "original_stone": true,
+        "wall_slots_resolved": true,
+        "npc_meshes_and_skeletons": true
+      }
+    },
+    "cook_routes": {
+      "local_source": "Saved/ConversationAudit/Lighting-20261120-214253/Assets/resident-cook-routes.json",
+      "source_sha256": "16f1a70780d38012aebfa469263847f4e62cbd17f8fa930469a2dff59b0eed22",
+      "packages": 31,
+      "passed": true
+    }
+  }
+}

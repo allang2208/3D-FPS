@@ -1,0 +1,44 @@
+--- a/Source/FPSGAME/Monsters/WitchProjectile.cpp
++++ b/Source/FPSGAME/Monsters/WitchProjectile.cpp
+@@ -1,4 +1,5 @@
+ #include "WitchProjectile.h"
++#include "MonsterTargeting.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "GameFramework/PlayerController.h"
+ #include "Net/UnrealNetwork.h"
+@@ -246,11 +247,12 @@
+ void AWitchProjectile::Pulse()
+ {
+     if (!Shooter.IsValid()) return;
+-    for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
+-    {
+-        APawn* Player = It->IsValid() ? It->Get()->GetPawn() : nullptr;
+-        auto* Health = Player ? Player->FindComponentByClass<UFPSCombatHealthComponent>() : nullptr;
+-        if (!Health || Health->IsDead() || Health->IsInvulnerable()) continue;
++    TArray<APawn*> Victims;
++    MonsterTargeting::GatherAreaOpponents(GetWorld(),GetActorLocation(),PoolRadius+50.f,Victims);
++    for (APawn* Player : Victims)
++    {
++        auto* Health = Player->FindComponentByClass<UFPSCombatHealthComponent>();
++        if (Health ? (Health->IsDead() || Health->IsInvulnerable()) : !MonsterTargeting::IsActiveArtisan(Player)) continue;
+         const FVector Feet = Player->GetActorLocation() - FVector(0,0,Player->GetSimpleCollisionHalfHeight());
+         const float Boundary=PoolBoundary(Feet);
+         if (Boundary<=.001f || FVector::DistSquared2D(Feet, GetActorLocation()) > FMath::Square(PoolRadius*Boundary)
+@@ -329,7 +331,7 @@
+     for (const auto& Hit : Contacts)
+     {
+         const auto* Part = Hit.GetComponent(); const auto* Pawn = Cast<APawn>(Hit.GetActor());
+-        const bool Player = Pawn && Pawn->IsPlayerControlled() && Part == Pawn->GetRootComponent();
++        const bool Player = Pawn && MonsterTargeting::IsOpponentPawn(Pawn) && Part == Pawn->GetRootComponent();
+         if (Part && (Player || Part->GetCollisionResponseToChannel(ECC_Visibility) == ECR_Block)
+             && (!First || Hit.Time < First->Time)) First = &Hit;
+     }
+@@ -352,7 +354,7 @@
+         {
+             UpdateLiquidVisual(Delta * First->Time, Start, First->Location);
+             MulticastImpact(*First,Velocity,false);
+-            if (auto* Pawn = Cast<APawn>(First->GetActor())) if (Pawn->IsPlayerControlled())
++            if (auto* Pawn = Cast<APawn>(First->GetActor())) if (MonsterTargeting::IsOpponentPawn(Pawn))
+                 UGameplayStatics::ApplyDamage(Pawn, HitDamage, Shooter->GetController(), Shooter.Get(), UWitchMagicDamage::StaticClass());
+             Destroy();
+         }

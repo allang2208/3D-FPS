@@ -1,0 +1,846 @@
+{
+  "reference_commit": "c8d8c3b8502274e38b297462753c213a53aabbec",
+  "previous_package": "Docs/Publication/ArtisanVillage20261119",
+  "sha256": "UTF-8, LF",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Characters/VillageArtisanVitalsComponent.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "8d8fcaa0607a275ce35a22eb0c661ad936a8a39a112592d3e19d0e395b91c201"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/VillageArtisanVitalsComponent.h",
+      "kind": "implementation",
+      "after_sha256_lf": "cc9b07f118b57f4a6963ebc60cd74292aeac48dbf9287058093ec3dc14ec7ed3"
+    },
+    {
+      "path": "Source/FPSGAME/Combat/RangedAttackQuery.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Combat__RangedAttackQuery.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "82941f7ebd214cfc7c8ca168082bd0c9810397d96239444f452bfa00d90589bd",
+      "after_sha256_lf": "8eace83afce4c4276879991b6f7f3689228aa5774becedba9683f946da05c753"
+    },
+    {
+      "path": "Source/FPSGAME/Development/ArtisanVillageNetworkProbe.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "5841f6969f79753e82054511a4684c590ddec37fc4f816ee724f8de1d1135e84",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "07b4d4ad20f72390018de19a6004357da2be3801322b232b66e63db09b0eef50"
+    },
+    {
+      "path": "Source/FPSGAME/Development/HerbalistConversationProbe.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "0700f56ed8ef53ebb1b42de0110a4186a1fccca1011de6c6ac35a2d44c1eacb8"
+    },
+    {
+      "path": "Source/FPSGAME/Development/ResidentMerchantWire.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "8b32f5c7ceceb7ffd33190a62156db8fb9e3ae4f1540142bd31774c37a044242"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__FPSGAMEPlayerController.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "10799a9d0653ff7df7891b6e10d537d8520a5cdd3c43c8b32e4de6269183f19a",
+      "after_sha256_lf": "2a3592d4423e44c9deef17f3244d9908d057279d20d473e224f0b7bade19831c"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BellowSacLobber.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__BellowSacLobber.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "f459890992acbee78998ac2922a71f0eef8ef0d22ac632c80ffe0004eb4e61fb",
+      "after_sha256_lf": "00134f368d4ca9463bb3fdb2e31ae299f4216df0888d9719303528708d0b6903"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BellowSacProjectile.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__BellowSacProjectile.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "a593d778a6bb8df75d5a2951438993ea68147f33799e74b180e93e5e0dcf6213",
+      "after_sha256_lf": "9f8241a649fe0d0e08d0d3b832280f72e34b79a861c1a2583459a0bf903bd4a5"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__BlindSupplicantCombatMagic.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "d3b7a5c3063672d2a704e3d43d112d1f6beed731bec4a251d53e3774b9f3d426",
+      "after_sha256_lf": "b5ffebaec4e4aebda403da8264fe978ecb0d27010baaf401e1dd6036556a27e8"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/BoundCongregateMelee.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__BoundCongregateMelee.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "879a4c7e8a45eafd1a56be712929179d19a2f4d6eac6d13e2187383a14712cee",
+      "after_sha256_lf": "085643aaa59a3d4963b7e5b3173d1728827fcfb3ad47a25f57f54a068fc9147c"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FatZombiePusPool.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__FatZombiePusPool.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "23aca90a0843fcb3cc64ad063e6fce0c759aafd4c91f503e98b06183f46788a1",
+      "after_sha256_lf": "5411d5cbd179e5f08357ed2920efae6d1057f72ae2ae9e6b0d4abf5f5e421780"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FleshHandMonster.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__FleshHandMonster.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "5f36bc1d2cde1f4030241df3e9285de70eb5c6dfcd1d53d9cc89b68f1ee022a8",
+      "after_sha256_lf": "00738ab84d7701f22019f92261c817d92d35e5e9c418a443cab2fdb142f5f1b5"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HandBrainMonster.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__HandBrainMonster.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "2acc6d29256d56b79639e88aef92168e03b97557b3c53bcc8c0f25c60e301592",
+      "after_sha256_lf": "9349f7c6d068503f623da4fc93e342a16931e6f6aac457c0171e397663aadfde"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HangingBellM09.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__HangingBellM09.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "b7357a07cdcf465ea703e9199597ade5eb4f6fa0766f4918a44476e247b51d4c",
+      "after_sha256_lf": "af70618c4f0e905f777830cb8cac8b6cca92bf18f89683e0e94fdd7c2db78391"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueHeavyClamp.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__HeQueHeavyClamp.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "fef4bb5c681a8e9e28d8bbc4d727cb38a17cc6b0194de0cb09e243e9fb6cec20",
+      "after_sha256_lf": "686489f88dd5ac0d0f5e5cec0103834e11edf70f57d2994c80ffcb81559db86a"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueRiftPressure.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__HeQueRiftPressure.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "8a1c0f82f6f7fd5f4e99bbcd8d9f067ccf2c664edba9740317491d3df2bda513",
+      "after_sha256_lf": "47ba14ef79b34ef45d2244c5f4a29dc13964f6ede41e455647437e43344b53a4"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HeQueSideCrush.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__HeQueSideCrush.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "770a6298dca7eea069f80cad86fc1560bc15d8a1b3334fcd44bce01423d3d86e",
+      "after_sha256_lf": "9930743fea7b0339bf096cc9b1657010079857796ee309875525b2ab210a2a2a"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HundredEyedSlagMonster.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__HundredEyedSlagMonster.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "c5e523a7d33bd16f09557f3a1dff7c18d5ddf6b3afbaca3023e1cea2800ee06f",
+      "after_sha256_lf": "0fcd3c9f64ec079ebf0496838834555132ad0dba44cd0a2febbaaf9fea4f7949"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/HundredEyedSlagSpecialAttacks.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__HundredEyedSlagSpecialAttacks.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "e2ff2b07fee871ff4b62da2ede529b1b9a80c4deab43cab123675d6d3644054c",
+      "after_sha256_lf": "8a7a64fb1d8f27d4b48a04457fe724b923cb98ddd72e46da4dd3d330a8179841"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M07MagicAttack.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__M07MagicAttack.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "dc7ab68591eba900f47d808b2480ed2812f8f3ef4688d8dfb5b1fb1244ee24b3",
+      "after_sha256_lf": "58ec0f596e210a654de7f21b9fc1acdfb327f9406b0566ae7eced7e3f797dddf"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M08AirCannonProjectile.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__M08AirCannonProjectile.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "b5ab783f8b9ce12d9f5ba61c1b5c0fc7aadce60618be98f96a9380e9d2779b37",
+      "after_sha256_lf": "c16a648462ead024ef69be47250f3c9e97f9e2cd6f39203f38d69dd36a37d2bd"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M09Claw.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__M09Claw.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "c1e1a7ad36879c29ff6f0dd0a96ba05d152cab018c3744d9d808313f5b7e97b0",
+      "after_sha256_lf": "d7dba4e7f451bcf91f14bc2555a005d8791a7416d4463e12cadd0d2024fe2553"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M10Howl.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__M10Howl.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "3fa43ad658f8b606108a7f1562b9215d63729d6892e0a7cdce4e52d4c1dc7716",
+      "after_sha256_lf": "e74a331d48bf400a6d34e90fc026d85b49e44906465b72a3e2a7b73d0d8ecb8f"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M14MucusProjectile.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__M14MucusProjectile.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "cd4d7c67017354139c3ea55ef3ce5da15d67e7b91d4d869a480531fc738f180f",
+      "after_sha256_lf": "597b40455010687fc3f986741b14a0bb34d230ecbedca6f4ab20955065495059"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M25BiteComponent.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__M25BiteComponent.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "580d01d7cebf5b6dded5f064aee4548a16aa3b8abff3fb85def4cca2fa0e916d",
+      "after_sha256_lf": "0aa0dc47a0c3cda961479bd25c346a159ce947345ce1769af236312d0d36379b"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M25MagicComponent.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__M25MagicComponent.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "3577929ad57fd9b8e107a4a514a16859febc11049c4041f6cc61f567b41f0aa9",
+      "after_sha256_lf": "72b00b0cc470d1b452c8101db1c4932762b869033880fa1303061e93e2b029af"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66ClawSweep.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__M66ClawSweep.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "a25565ba18400e831f5a005e019d600923bb270786a84166e9649f7f64140726",
+      "after_sha256_lf": "ab1b22c858805c0993ec0e18b711d3d78fd5f857b8e927c72ed349db0195689d"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66FurnaceBreath.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__M66FurnaceBreath.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "a0f4b13bd93cb90da8f309c7e5e5a2406b0c1163a51bf90cfb8a56475f6c5c9b",
+      "after_sha256_lf": "c9947634376eb783c9c7fe24c936422901da45d07d493dea7ad9b11d53a3eaea"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/M66SlamWave.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__M66SlamWave.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "65852c5160dc029b0d46bc5a2c541a4a7091e074962b89091bab98e7049719d7",
+      "after_sha256_lf": "86d61e69d14ba3748713079b9606da5a2cf5efb0feeada873cc550005c52c59c"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MantisM27Monster.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__MantisM27Monster.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "519bace2dd8fd7f39b88807e030bef39cd633bbe9430e3436239cd5f46bfe48e",
+      "after_sha256_lf": "75a45264d631b9d403a5edf6d2ce712ffb50c4e021c0d5dee099dc3e9d8c7c26"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MantisM27Pounce.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__MantisM27Pounce.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "61b8e07a8f64965130a18006c01df082c570170a7b4a842e2e150e893c6d31c0",
+      "after_sha256_lf": "4cfa87517b5bc91a3e06ee218858c7527751c03d069c61693adf9e8ddd93d755"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterAIController.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__MonsterAIController.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "46f98c96154f903ef1a4c90413ed4eb73dbdb53f6e5781e2b41da53393ad9c9d",
+      "after_sha256_lf": "340198dbf8fdb610edd8114017fd708371b0aa8579f59fd943000cb1b1e98465"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterAIController.h",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__MonsterAIController.h.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "44f6ae4ea7d1e36a02e2e3a87711d93488993917574d78736d53b30f240cc501",
+      "after_sha256_lf": "ad1fd9180f2cc23742d01b567e659f2fe5e9b597d03fd5900794e9a4cbf00552"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterAwareness.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__MonsterAwareness.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "e80a308369f56ff0e7aac722d5e92d3d55b4ca9f4d48398fe97872c9e1929c09",
+      "after_sha256_lf": "5a8b78c8fc55588fbfd2553a07991b2ea5da2c992e4603b506d6f5ce8980f083"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterCombatComponent.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__MonsterCombatComponent.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "f311eef75c67e9382295fede59d1315d427a092eab3ebecd22b6a34303bfc1ad",
+      "after_sha256_lf": "ff26ca1b4baed2f6139feba413193ec37eb114aa3d9d17f2f7a3b94078a736ce"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterTargetReplacement.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__MonsterTargetReplacement.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "055605934ba25db6a95c00a0cc1887d7d8ca12df7671b61f8af1678908e405e6",
+      "after_sha256_lf": "04e64206a95596f1bb57d22532976c0a047704699c0f88af873ed3599d511549"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterTargeting.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "9026d14e3abe434df6b83cdc2ca4e6c22af90fcc03d2548ac8f80a24a18ce192"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/MonsterTargeting.h",
+      "kind": "implementation",
+      "after_sha256_lf": "3e41fa5acf4ce0eefde0a1ff32a7c6458094e9ee13e69b0a82d057bdbf6d45ce"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/Mutant3Feral.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__Mutant3Feral.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "035a4d292fba232211c0035252b15e545c6c6c61cbb0867b5b50f880d98f95ad",
+      "after_sha256_lf": "26ccbd8b0f75922529ff04c25f139768931303ed6993c0e96fe0fecc4286af21"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NightWardenMelee.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__NightWardenMelee.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "b6885e07a18d4528b5c7b1c14d43d51a591127046e980e5bda4252488dd59812",
+      "after_sha256_lf": "14bac27d3009dc909b41d9ffdd40f26a0ebbaaa577da911f7137160cabadb917"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/NurseZombie.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__NurseZombie.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "90c70dd429581239635199e09f558c45880895fa33160df845ff3c2be47b79d9",
+      "after_sha256_lf": "544560cfd98d88721123af8720fad95fd7271e62a57f59d46698cfad1a2a538b"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__PoisonMaggotProjectile.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "0b444ce90950cd68f25c04b808c69ad164af5e8f6e73265693aa7206769e409a",
+      "after_sha256_lf": "01e0f4194aa04a2f1c78ec06514bd561f74d036b9b0ee5d20f83dbef15365f0e"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownNeedleProjectile.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__RootCrownNeedleProjectile.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "ed766010824bae6141c606c5985828bdc058fa2761119efdc046a55f0577f2f5",
+      "after_sha256_lf": "894470c00a729e34c37ec6cba5fbb2eb76fe9b00a85d4589dcf17c8714d196e6"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownNeedles.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__RootCrownNeedles.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "704ad7e8214f003cd39e0bfd6f4ff5fb3c8bbac49beaf8f4382387a104457132",
+      "after_sha256_lf": "7b3170440c4b7b01c0682a80d2a42432d022ce88b777d4285456b89bc5bc4420"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/RootCrownSlash.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__RootCrownSlash.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "471a548a7505e4d194c982c5fbbe9c81747010dc0b8f4f66243740aa48362ea8",
+      "after_sha256_lf": "ed748fa52030563aaed73e45920b0dcd7b22e614cfa48d91a9cf72d4a0a91e36"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpiralPillarM14Attacks.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__SpiralPillarM14Attacks.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "e491feb4102df01f1518d64b89f444845e45931b7bb3f46d3d1116244e2d10eb",
+      "after_sha256_lf": "5c69ae7dea58b5f44936abeff5aceef785dc963f4f63cf2740718cfc2ddbba2c"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpiralPillarM14Slam.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__SpiralPillarM14Slam.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "987d1e4c82299b26ba06db3ffbb3b4847bb250fc145c5e9ff9a2cb3c4a800222",
+      "after_sha256_lf": "0ebe2dc143413439d6a1dcfcc600759b406e7048756791e125c334e15e3d55d7"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/SpiralPillarM14Whirlwind.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__SpiralPillarM14Whirlwind.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "ed1994f45cbbbdb60d4015981106e23bcbba9d7411a475346953d2ba1ccdf092",
+      "after_sha256_lf": "bd9511310b4e187fe5d3e47a7bf6f4cdb31a47d88e5a52a4302d22ef4c186213"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/UnknownHumanoid.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__UnknownHumanoid.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "f338438483dd8165b3db1f0a67690b49b3cc8ad26d099b84736f6e54ae6a0f66",
+      "after_sha256_lf": "6991dfa52c424a72766154f4f379f5f1c68b8c695fc80d661fa51cb1c259727f"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/UnknownSpellCombat.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__UnknownSpellCombat.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "b7e4e0d14259e19ee5e10b5adaeaab7a4d4ccc65516c86f76937d835c5724bda",
+      "after_sha256_lf": "87e13f98d14d8c851c6ec8b76a7b694fae897e9bc3a74ac3b165916bd68f5c02"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WitchProjectile.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__WitchProjectile.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "3dd83cfd47574c045acec4473dae21fc41259661f7aa58b5fc4345a0ec9be5cd",
+      "after_sha256_lf": "b43d5672aae42862cc4005a390f151f4eb21f05ce2e0869b949f3cedebe3da9e"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/WolfMonster.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Monsters__WolfMonster.cpp.patch",
+      "before": "public",
+      "before_sha256_lf": "daf4109f35842e918da06dfe94a468617eefbdc1a6ec8d77dd0e6f2dabf0e9a8",
+      "after_sha256_lf": "a375e4987923582ecfd614a42c0b6e191173a43cc776f060b6bcc9290d483983"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__Multiplayer__ColdSteelInventoryRequests.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "a8c7af7c796f40fe6e2d58db6145744b983d5919181c79ec15337a61423bca4e",
+      "after_sha256_lf": "5ffeca224b535163f187c4ea431c9ca007b2546f2d98fd2d63e5329edb22aa6f"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ArtisanDefenseArrow.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "486d5121c1a2bae719ebbcd1f94c4adaececc28855732b4fe84d1b756a4f6d94"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ArtisanDefenseArrow.h",
+      "kind": "implementation",
+      "after_sha256_lf": "6d4ab538f745e54cf563cd97d4e3650e53b0a66aa698557c83a4475c6e594d56"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ArtisanDefenseComponent.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "91d8b2b113bd23cea3d54d0ce317908f7e94c36f6b0d1938bd0d9a14d8fb1f02"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ArtisanDefenseComponent.h",
+      "kind": "implementation",
+      "after_sha256_lf": "14a0927153db4ba938c17c93c4af39340aada5837271ddbec2187a2de710f620"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ArtisanDefensePresentation.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "1428de37e25bf75e7947bccb0bb3aecc2a3713aed9f63ea619376bd01ad878ec"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ArtisanWoundedAnimInstance.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "18a0db7fae0f5373072d0043487dabd201533aa401f946bbad29b61a8577dbf9"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ArtisanWoundedAnimInstance.h",
+      "kind": "implementation",
+      "after_sha256_lf": "11bc89651b1f9190c402a56f2778aef5a90a26d0ba3be6f5f9cac0cecdfc0081"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__NPC__ChapelDialogueComponent.cpp.patch",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "e3d012faf206e6cb6882f50fd16ff2658bae4f93b52cbb3f16598e37886584aa",
+      "after_sha256_lf": "bc199a21e9a3c417b8ee1da5075e075149e509751f045bc5a5217e93a8fece9c"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.h",
+      "kind": "implementation",
+      "after_sha256_lf": "25cd3242d2b2a8b5688b16058a970149d7aa8e9e611f5ba3abce0ddccbd282c7",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "ea2ede77e696809f99a8901ae91f526217cf670bf292ea458e16765c815891cf"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ChapelDialogueFirstAid.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "5b31f467f786ed7d14ee7307c69c66e40a400812f5f811db9168048cf2ae29db"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/HerbalistRoamAnimInstance.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "7381fc16a7aa690031041de92d03a8a908d8b426b366db26b305a88eb3d28962"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/HerbalistRoamAnimInstance.h",
+      "kind": "implementation",
+      "after_sha256_lf": "522ca8af8c21e74a5cf19b89b216b80aadc09d0de644ba734c1f8a449913e55b"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ResidentConversation.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "4e8a7de4306a6bfabdc3272dca698fed062ed037e254c57d10c26deafd85403d",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "cfdba8e49f78a1a2fe4866d782988a51209341d8172f20eee8879a1c05c738a4"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ResidentConversation.h",
+      "kind": "implementation",
+      "after_sha256_lf": "cd10e4e1ad877b47118280665a51b386c8db9e6eb9f9200ba8123e43a8190d28",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "ff39746b23604966c1ac422a080763e362384c9e6523d0e032f6040df24c58cb"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/SmithHammerAnimInstance.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "0bcdacb476a4c3f98756de0056f9edef37f5b458bdd2c9943d7b528b70149e40"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/SmithHammerAnimInstance.h",
+      "kind": "implementation",
+      "after_sha256_lf": "f146068fb3ed06c07d16b80759949087edd78083a88693140dec4462c631f734"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/SmithHammerTiming.h",
+      "kind": "implementation",
+      "after_sha256_lf": "0bc24383074c5b672d35a55a66013a0272ab71bd76d3cf072faa465bcaf49cdb"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/VillageArtisanAppearance.h",
+      "kind": "implementation",
+      "after_sha256_lf": "f6292c12a0bca1ba6bc1e0d416220774cc2b4138d558980ad8cc36786c2457b7",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "0c2dc5aba776a6b21e87ea9342bd9810359717f361c892f56bf274bcc06b112b"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/VillageArtisanMerchant.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "bfd7e1ba7a8b2b5b1930c53a88fff3d0511612bf02e204d806a689aae4bc7108",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "d14bdb16b87e7e9b0a1bf9dd54bc44710bcebb1134d81d2f823911060ed34d65"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/VillageArtisanMerchant.h",
+      "kind": "implementation",
+      "after_sha256_lf": "ad078d7cf284bf6243fc9b9e36c585b3e07fe1a27cc14c63c5a002a4c736dfc9",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "305237e44f7cecb8445477cf2ed03d8a980ea707add39f3c104dc6b8d033e5d7"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/VillageBaker.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "9b362ac511bb1dd4696595ba7e6b948faafc98811c5fdfee854b8b3173df2a13"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/VillageBaker.h",
+      "kind": "implementation",
+      "after_sha256_lf": "8922b04ce3ce6158dc7fdc0a6b06f82169a4559544e30c3236bdd4b78ce81477"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/VillageBlacksmithResident.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "0d045b0eff60496e4f7eab5fc07da8fe123590ab8af5c05efe921f41688e9a92",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "8f72f90a56d6ed8edd99474d0a37794211eb817db68ba8b4c9f4a9ce0a88c045"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/VillageCarpenterResident.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "9a289a19c79437cb44e505a53199f0e2ae2c7a1c973dd74cd86f150edbb85856",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "9bba4ef0e17fd4c309b60a9185624bdade4b9f9f8e99acb8b9d96c702ae0212c"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/VillageHerbalist.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "2d9e23c3854a10f5840e97a7c5deb95e075d8896f1ab668134de6cb0be3f12d5"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/VillageHerbalist.h",
+      "kind": "implementation",
+      "after_sha256_lf": "c9f1258440cac442bcffe3f4d0dab40499bad60d2e0b1a5d202f180adaceef13"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/VillageTavernKeeper.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "8183dd1d55d55d2aeca4292dcfa4dbeed35ad0ba17896f78354898bd1f8cf4e5"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/VillageTavernKeeper.h",
+      "kind": "implementation",
+      "after_sha256_lf": "fcc250601b52e1b2247c2e873cd40f8257054527719e9bb4f98f3f35078e5fbf"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__UI__ColdSteelCharacterSheet.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "d9c4a2bc045c2cfb3cad1aaebe54bb43ca6a13441be20a4d4ca786f673d53a47",
+      "after_sha256_lf": "2da1dfaf367dbf5c88ab6eff6b2569c3729ea81370bb2ed762582d0ec8bb8333"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "00e3c71fb4022c9e642f6866f5ba23bb060ef985f0d76133355f87a5fc56fe9a",
+      "after_sha256_lf": "bc1c1ba3b72af01932907393746f4d315e1c4788c203c327c037234b55908cfc"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__UI__ColdSteelHUDWidget.h.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "4c4720eafa2308734244a206148de446c7663688ba3fa48e71a27e32c701267b",
+      "after_sha256_lf": "9bda015cf67e21e2fc3bc331e8ffe075e5d60c2a662ee98b1762f11eba7d0d33"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__UI__ColdSteelInventoryPopup.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "ebcad5dcaf8ac9d6c618711aadb6f855cd7565e9ca10a67ba24f16f603894ac1",
+      "after_sha256_lf": "fa6c4cdc4986d5a0cb8b2cb23ead5110d5bd91b9ee31f9206e2c769bc1aa87f8"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__UI__ColdSteelInventoryWidget.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "500256e51edbc3f05bb077a3180173a6a4f4f5971b39dceebd3ac56bd7cc9d8e",
+      "after_sha256_lf": "e555db7765f72c2ae78165222bcd6e8c9d0d5b0777358ce069b1cf869c0284d0"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "67432eef743a331eaa6960e0e05cd223dfe027820c855ba31bb7ffed8909fc1e",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "1b981c546ab94e6f9d919a72956891255ff60624bd7f4f1e4dd57b973d2c8912"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelNpcDialogueArtisans.h",
+      "kind": "implementation",
+      "after_sha256_lf": "1f4d7b1172efe89708121afecace55320f2578f68ef16fd21783d02eb529d13e",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "8dfb47479e9d77fef4c847d658675752004cf5b71ffacbb6fd72aa0c46b3884d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelShopGrid.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__UI__ColdSteelShopGrid.cpp.patch",
+      "before": "artisan-integration-postimage",
+      "before_sha256_lf": "e1d5a79514d0bc57dcacfba94e48db9a924fae06a6bf4abde84574c4a9872d23",
+      "after_sha256_lf": "237217c72b48ea1fda8d4a7e8444ea3b3b42ba1aaa3b18643c192ef8105cf722"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelShopHUD.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__UI__ColdSteelShopHUD.cpp.patch",
+      "before": "artisan-integration-postimage",
+      "before_sha256_lf": "b3b3dad122108981168957f1243a2ef2e0322a9252825ee556dd31547d5cebb0",
+      "after_sha256_lf": "ec903d51ee065890ffbcfb6b21bb2b6b2a1dc4746f2030a1bd1c6a993b6aa218"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelShopModel.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__UI__ColdSteelShopModel.cpp.patch",
+      "before": "artisan-integration-postimage",
+      "before_sha256_lf": "9056032f204baa8737f49bc0a7b7e2c05631db91bf0458f2fa5ea5998b5f58b0",
+      "after_sha256_lf": "096bce61d93c026ba954dadedce6219bee5734802dd33531cd9e15f2532ce7c3"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelShopModel.h",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__UI__ColdSteelShopModel.h.patch",
+      "before": "artisan-integration-postimage",
+      "before_sha256_lf": "c359fd07b6385bdc8b088b1f5ce8092c8cc57a0e5f92bc5e6f1e188996a8c2d1",
+      "after_sha256_lf": "ecfdf63aa92551a662de439a6ed839e34bd82c01c1a4bb416f81c78fdc3c0184"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelShopWidget.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__UI__ColdSteelShopWidget.cpp.patch",
+      "before": "artisan-integration-postimage",
+      "before_sha256_lf": "c3af653455f09e7095c6dc3697942c1c92fb45c4cad99da0cfb82055681ff0b9",
+      "after_sha256_lf": "5b845bb80126857844f27239a34193bd800eaa43ede7da8ed3d9d7d02f29d4ac"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelShopWidget.h",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__UI__ColdSteelShopWidget.h.patch",
+      "before": "artisan-integration-postimage",
+      "before_sha256_lf": "3f95aca4fadf9d37b0334ab498e6563a9a64f1481fda5ccc0d2c7511c4c1f59b",
+      "after_sha256_lf": "e97c4844e190e7bcaa73e2a13e5dcc6a9a5c2bad07ea0153e051a4eefac35192"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelVillageTree.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__UI__ColdSteelVillageTree.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "1f849b665edec184d0cdb5b032376f91fd2964c44ef893e9a6b6bfd48ca9aaf4",
+      "after_sha256_lf": "5b0ec5c5aef9febcd2ffe274a0c7437377a2877c6dff8fd36aaf87b6a23f1a8a"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__UI__ColdSteelWorldInteraction.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "cf499f45ec9dd9cacc01a46153cb1fc62dca9c27ce801fb18313330d3a4aa51d",
+      "after_sha256_lf": "7c6dca67583b883f507299eabdae6e53f94fd25b0691c32d440e7501b1881a86"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.h",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__UI__ColdSteelWorldInteraction.h.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "4941e85761dd018087b301dda8d6cd88055776a458c9ca2bebd9cbfc1bda71ca",
+      "after_sha256_lf": "fa91c9bc3001fe58046b5cfb2e50fd3a5169d8a96d515ee293c945f7b8b05874"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ResidentHighlightSubsystem.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "c964553350050d3acfbc386df503ca4ae3cb8941f522ee5dd53f0d3cd5960b98"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ResidentHighlightSubsystem.h",
+      "kind": "implementation",
+      "after_sha256_lf": "446442b988274e1c160287f81d8a87187ca322348be632b890f73609e2b5557d"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsBakerySite.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "5b52e6b250156c230ba8962a70d6c3fe58f1d91b3f3c5efccde259704a393ed4"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsBakerySite.h",
+      "kind": "implementation",
+      "after_sha256_lf": "3066b2bef1d695516392da8d1663da7fdd25640d3d807e9ac403dbc6f86f96ca"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__WorldGeneration__HillsBlacksmith.cpp.patch",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "50df0c4a0b1005bd485710a27641251302202a3970b1372e0406a9ab3fb6a52f",
+      "after_sha256_lf": "e6a0221dc09db9588825482a998d5f5263f89ff938180709bfcebd5ea6548c35"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsCarpenterWorkshop.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__WorldGeneration__HillsCarpenterWorkshop.cpp.patch",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "cb96546c8f18a06dea9e1cbd64c3ddfc8a3671b6d2fbfa323cd23d0e72c36a7f",
+      "after_sha256_lf": "8a240fd6101a8445a7861b756894645823510f0972d33480328b467ad125a045"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsHerbalistWorkshop.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "1418bc2467e74b9d3d74c2da81694eab39f9dc4ceefc54bfb6461b1c8c0358b5"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsHerbalistWorkshop.h",
+      "kind": "implementation",
+      "after_sha256_lf": "10c6f17b8cb91d53ab809228495353ab0dcd10d742c931489439930a46ff74e6"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__WorldGeneration__HillsNavigationSystem.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "29b6de5c3b73642c057baf74e67ab156a83f0ea44643cc8880e1977d8d5cced3",
+      "after_sha256_lf": "d39384466d32adaf51ca42b2b1259cc4c5ea0aea6934b4fac7b3b1ef108b9c61"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsTavernInterior.cpp",
+      "kind": "normal-source",
+      "after_sha256_lf": "61f4cd2eb92f625ef60d377deb39de662c8f5183ea24d81d407939abfe4daf5b",
+      "before": "public",
+      "before_sha256_lf": "6d563a3eebc40592cdf4ff85bb50bca7e0c091b85dd91e4b7bdd41ec19025f12"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__WorldGeneration__HillsTavernSite.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "e7b4bbbbdd8f21cfd62cfd06d45a64f60a0fbfeecc5f7a5d6d153cebd1128faf",
+      "after_sha256_lf": "9b25d8f209d4b34d787c749d8b0ae53eb9960b4838e17c5a1857eb0a0aeb8df8"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsTavernSite.h",
+      "kind": "implementation",
+      "after_sha256_lf": "963a095b41c9ab11f48d2504c4a57b703c9ecc95036a345affa931180bf13f83",
+      "before": "artisan-implementation",
+      "before_sha256_lf": "7dc6b95267e7473dd4300eb22cf2326de38fce0a33c7c891c1de37d1bc2ec2a4"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__WorldGeneration__TemperateHillsStreaming.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "572cd7f6d46011d921d58c495bf934ae11728306f9ba7c3aa513c51dde22299b",
+      "after_sha256_lf": "b983a26a5cdcbebe5bdc01a0de1418a35909178862f9d227e18d186a028b3fd5"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__WorldGeneration__TemperateHillsTerrain.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "43db889a2641c21f1bd21ad4f38b8c59807fc1ea93910253409a39c1d0b3527c",
+      "after_sha256_lf": "dde506b4ccd7a422b0d542025130f95826a0fcf799f6fce85ae12bc45b55f497"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__WorldGeneration__TemperateHillsWorld.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "b8c6a504592ef47d74c56c3df085fc12a43069a02c1e76e6375467e521c40b84",
+      "after_sha256_lf": "1450b9770010e154c4f040955873dd93a1572cf9b7d438edbbc0ebcd9731bdd8"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "d42c366c74bbfa3f224328902115bff5ec74dfed167d37a5484c32fd6d4b5742",
+      "after_sha256_lf": "0df7f52f7ba3b542418bb933553459d94f9736a7f915505bda0ea6dc42986239"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp",
+      "kind": "patch",
+      "patch": "Source__FPSGAME__WorldGeneration__TemperateVillagePlans.cpp.patch",
+      "before": "local-feature-preimage",
+      "before_sha256_lf": "0a4dd57a30e6c44731ad2771c77a580b5ebfa5c5d2c7715f1367e31f833cd2af",
+      "after_sha256_lf": "0105e4d0dc53ac9cd394daa3baae1d4a600bf5c2df5d2617259d6214e98bd998"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageShopTorches.cpp",
+      "kind": "implementation",
+      "after_sha256_lf": "cd8b529acaf9c435bac329699e5ced21bbae21c900057c751a0ecad122742ff7"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageShopTorches.h",
+      "kind": "implementation",
+      "after_sha256_lf": "15f6ac5636c5a887dbf6a8e194f51dfb0ece27699d5f5f0387aed301e80e7955"
+    }
+  ],
+  "unchanged_inherited": [
+    "Source/FPSGAME/NPC/ChapelDialogueSmithTraining.cpp",
+    "Source/FPSGAME/NPC/ResidentTurnAnimInstance.cpp",
+    "Source/FPSGAME/NPC/ResidentTurnAnimInstance.h",
+    "Source/FPSGAME/NPC/VillageArtisanAppearance.cpp",
+    "Source/FPSGAME/NPC/VillageBlacksmithResident.h",
+    "Source/FPSGAME/NPC/VillageCarpenterResident.h",
+    "Source/FPSGAME/UI/ColdSteelDialogueViewport.cpp",
+    "Source/FPSGAME/UI/ColdSteelDialogueViewport.h",
+    "Source/FPSGAME/UI/ColdSteelNpcDialogue.h",
+    "Source/FPSGAME/UI/ColdSteelNpcDialogueSpeech.cpp",
+    "Source/FPSGAME/UI/ColdSteelNpcDialogueSpeech.h",
+    "Source/FPSGAME/WorldGeneration/HillsTavernInterior.h",
+    "Source/FPSGAME/WorldGeneration/VillageShopFacing.h"
+  ]
+}

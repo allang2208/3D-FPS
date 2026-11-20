@@ -1,4 +1,4 @@
-param([string]$EngineRoot='E:/Program Files (x86)/UE_5.8', [switch]$DiningFinishOnly)
+param([string]$EngineRoot='E:/Program Files (x86)/UE_5.8', [switch]$DiningFinishOnly, [switch]$ServiceCounterOnly)
 $ErrorActionPreference='Stop'
 $root=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../../..'))
 $stage=Join-Path $env:TEMP ('FPSGAME-TavernFurniture-'+[Guid]::NewGuid().ToString('N'))
@@ -37,6 +37,8 @@ foreach($group in $inputGroups){
 $stageScript=Join-Path $PSScriptRoot 'stage_existing.py'
 if ($DiningFinishOnly) {
     & python $stageScript $root $stage 'dining-finish'
+} elseif ($ServiceCounterOnly) {
+    & python $stageScript $root $stage 'counter-service'
 } else {
     & python $stageScript $root $stage
 }
@@ -139,7 +141,7 @@ if loaded:
         }
         throw
     }
-    if (-not $DiningFinishOnly) {
+    if (-not $DiningFinishOnly -and -not $ServiceCounterOnly) {
         Copy-Item -LiteralPath "$stage/saved.json" -Destination "$PSScriptRoot/saved.json" -Force
     }
     if (-not $DiningFinishOnly) {

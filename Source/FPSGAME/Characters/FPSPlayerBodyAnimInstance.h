@@ -50,6 +50,7 @@ public:
     bool bCoupledActionWrists=false;
     FVector ConsumeMouthInHead=FVector::ZeroVector;
     FVector ConsumePropContact=FVector::ZeroVector;
+    TSharedPtr<const struct FPotionUseMotion> CookedFoodTrajectory;
     bool bHasConsumeProp=false;
     FName FurnitureClip;
     float FurnitureSeconds=0.f,FurnitureWeight=0.f,FurnitureFootDrop=0.f;

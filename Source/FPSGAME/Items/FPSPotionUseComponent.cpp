@@ -1,6 +1,8 @@
 #include "FPSPotionUseComponent.h"
+#include "../Production/ProductionToolComponent.h"
 #include "../Skills/LightningHasteSpeed.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "CampfireFoodCatalog.h"
 #include "PotionVisuals.h"
 #include "../FPSGAMECharacter.h"
@@ -56,6 +58,7 @@ void UFPSPotionUseComponent::BeginPlay()
 {
     Super::BeginPlay();AddTickPrerequisiteActor(GetOwner());
     if(auto* Bow=GetOwner()->FindComponentByClass<UBowWeaponComponent>())AddTickPrerequisiteComponent(Bow);
+    if(auto* Tool=GetOwner()->FindComponentByClass<UProductionToolComponent>())AddTickPrerequisiteComponent(Tool);
     HealthMotion.Load(false);ManaMotion.Load(true);WaterMotion.Load(false,TEXT("mineral_water"));
     FoodMotion.Load(false,TEXT("baguette_bread"));
     BreadMotion.Load(false,TEXT("bread"));
@@ -156,6 +159,7 @@ bool UFPSPotionUseComponent::HandlePrimaryPress()
     StartTime = GetWorld()->GetTimeSeconds() - (Motion.Duration + RaiseAge) / UseRate;
     StopSwallowAudio();
     Bottle->SetVisibility(false);
+    ReleaseFoodGrip();
     Liquid->SetVisibility(false);
     Stopper->SetVisibility(false);
     if (ActiveHands == FallbackHands && FallbackHands) FallbackHands->SetVisibility(false);
@@ -192,7 +196,11 @@ const FPotionUseMotion& UFPSPotionUseComponent::MotionFor(const FString& Definit
 float UFPSPotionUseComponent::MinimumContactDelay(const FString& Definition) const
 {
     const auto& Use=MotionFor(Definition);
-    return (Use.Contact+(Use.bTwoHanded?OffhandLowerSeconds:0.f))/LightningHaste::ActionSpeed(GetOwner());
+    // Remote pawns do not instantiate the owner's first-person offhand rigs.
+    // Read that pawn's authoritative equipment, never the host's inventory.
+    const auto* Model=ColdSteelAuthority::ForPawn(Cast<APawn>(GetOwner()));
+    const bool Stow=Use.bTwoHanded||(Model&&Model->Equipped(Model->Snapshot().ActiveWeaponSlot==6?8:11));
+    return (Use.Contact+(Stow?OffhandLowerSeconds:0.f))/LightningHaste::ActionSpeed(GetOwner());
 }
 
 void UFPSPotionUseComponent::CancelUnsubmittedContact()
@@ -265,6 +273,11 @@ bool UFPSPotionUseComponent::TryBegin(const FString& ItemId,const FString& Defin
     Motion=MotionFor(Definition);
     Motion.GripHeight=Visual.GripHeightCm;
     if(Motion.Keys.IsEmpty()){Model->Message=TEXT("消耗品动作尚未加载");return false;}
+    if(Food)
+    {
+        const auto& Bounds=SolidVisual->GetBounds();
+        Motion.PrepareFirstPersonFood(Bounds.Origin+FVector(0,0,Bounds.BoxExtent.Z));
+    }
     // Resolve ownership, not visibility: the inventory temporarily hides native
     // sword/tool/staff arms, which return as soon as the menu closes.
     auto* NativeHands=Player->ConsumableHands();
@@ -301,7 +314,7 @@ bool UFPSPotionUseComponent::TryBegin(const FString& ItemId,const FString& Defin
     const auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();
     bBowSupport=!Motion.bTwoHanded&&Bow&&Bow->IsEquipped()&&UseHands==Bow->ArmsMesh();
     bWaitingForBow=bBowSupport&&!Bow->IsCastHandoffReady();
-    bStowOffhand=Motion.bTwoHanded||Player->HasOffhandPistol()||Player->HasOffhandSpellbook();
+    bStowOffhand=Motion.bTwoHanded||Model->Equipped(Model->Snapshot().ActiveWeaponSlot==6?8:11);
     bCommitted=bUncapped=bDiscarded=false;
     // Keep every authored contact/audio/release time relative to actual use;
     // the leading equipment transition must never consume the item early.
@@ -335,8 +348,7 @@ float UFPSPotionUseComponent::OffhandLowerWeight() const
         (float(GetWorld()->GetTimeSeconds()-BowReturnStartedAt)*UseRate-BowReturnHoldSeconds)/OffhandRaiseSeconds));
     if(!IsStowingOffhand())return 0.f;
     const float T=Age();
-    return FPotionUseMotion::Ease((T+OffhandLowerSeconds)/OffhandLowerSeconds)*
-        (1.f-FPotionUseMotion::Ease((T-Motion.Duration)/OffhandRaiseSeconds));
+    return PotionEquipmentHandoff::Weight(T,Motion.Duration);
 }
 bool UFPSPotionUseComponent::IsOffhandWeaponHidden() const
 {
@@ -352,11 +364,20 @@ void UFPSPotionUseComponent::ApplyHandPose(UFPSCastingMeshComponent& Mesh)
     // Keep the original equipped grasp while lowering/raising the entire rig.
     // Only the use phase takes over the native arm and fingers.
     if(T<0.f||T>=Motion.Duration){LastHandPoseFrame=GFrameCounter;return;}
-    FTransform PalmWorld;
-    if(ArmPose.Apply(Mesh,Motion,T,PalmWorld,false,nullptr,Motion.bTwoHanded))
+    FTransform PalmWorld,WristWorld;
+    if(ArmPose.Apply(Mesh,Motion,T,PalmWorld,false,nullptr,Motion.bTwoHanded,&WristWorld))
     {
         LastHandPoseFrame=GFrameCounter;
-        UpdateBottle(PalmWorld);
+        const FTransform ObjectWorld=Motion.ObjectFromPalm(PalmWorld);
+        if(bFood&&T>=Motion.Grab&&T<Motion.Release&&Bottle->GetAttachParent()!=&Mesh)
+        {
+            // Weapon rigs can move after bone evaluation (sway, bow recoil,
+            // offhand stow). Attach once in the binding's actual wrist scale
+            // so those final transforms carry both the fingers and the food.
+            Bottle->AttachToComponent(&Mesh,FAttachmentTransformRules::KeepRelativeTransform,TEXT("hand_l"));
+            Bottle->SetRelativeTransform(ObjectWorld.GetRelativeTransform(WristWorld));
+        }
+        UpdateBottle(ObjectWorld);
         if(Motion.bTwoHanded)
         {
             const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();
@@ -364,7 +385,7 @@ void UFPSPotionUseComponent::ApplyHandPose(UFPSCastingMeshComponent& Mesh)
             {
                 // Solve the support hand from the achieved food transform, so
                 // it cannot drift when the primary arm adjusts its reach.
-                const FTransform Object=Bottle->GetComponentTransform().GetRelativeTransform(Camera->GetComponentTransform());
+                const FTransform Object=ObjectWorld.GetRelativeTransform(Camera->GetComponentTransform());
                 const FQuat RightPalm=Object.GetRotation()*Motion.ObjectRotation.Inverse()*
                     Motion.PalmBasis(true);
                 const FTransform Target(RightPalm,Object.TransformPosition(Motion.RightObjectGrip)-RightPalm.RotateVector(Motion.RightGripInPalm));
@@ -373,17 +394,18 @@ void UFPSPotionUseComponent::ApplyHandPose(UFPSCastingMeshComponent& Mesh)
         }
     }
 }
-void UFPSPotionUseComponent::UpdateBottle(const FTransform& PalmWorld)
+void UFPSPotionUseComponent::ReleaseFoodGrip()
+{
+    if(!bFood||!Bottle||!ActiveHands.IsValid()||Bottle->GetAttachParent()!=ActiveHands.Get())return;
+    if(auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>())
+        Bottle->AttachToComponent(Camera,FAttachmentTransformRules::SnapToTargetIncludingScale);
+}
+void UFPSPotionUseComponent::UpdateBottle(const FTransform& World)
 {
     const float T=Age();
-    // Follow the solved hand (including this rig's entry blend), never a socket
-    // from the previous frame or an independently animated bottle trajectory.
-    const FQuat Upright=Motion.PalmBasis();
-    const FQuat Rotation=PalmWorld.GetRotation()*Upright.Inverse()*Motion.ObjectRotation;
-    const FVector Grip=PalmWorld.TransformPosition(Motion.GripInPalm);
-    const FTransform World(Rotation,Grip-Rotation.RotateVector(Motion.ObjectGripPoint()));
     const bool Show=T>=Motion.Grab&&T<Motion.Release&&!bDiscarded;
-    Bottle->SetWorldTransform(World);Bottle->SetVisibility(Show);
+    if(!bFood)Bottle->SetWorldTransform(World);
+    Bottle->SetVisibility(Show);
     if(bFood||bSoda)
     {
         Liquid->SetVisibility(false);Stopper->SetVisibility(false);
@@ -391,6 +413,7 @@ void UFPSPotionUseComponent::UpdateBottle(const FTransform& PalmWorld)
     }
     if(bWater)
     {
+        const FQuat Rotation=World.GetRotation();
         // The same solved palm carries the bottle, cap and liquid. Collapse the
         // cavity's upper rings onto the fill plane, without narrowing the water.
         const float Progress=bCommitted?1.f:FPotionUseMotion::Ease((T-Motion.DrinkStart)/(Motion.Contact-Motion.DrinkStart));
@@ -415,7 +438,7 @@ void UFPSPotionUseComponent::UpdateBottle(const FTransform& PalmWorld)
     Stopper->SetWorldTransform(World);Stopper->SetVisibility(Show&&T<Motion.Uncap&&!bUncapped);
     const float Fill=1.f-FPotionUseMotion::Ease((T-Motion.DrinkStart)/(Motion.DrinkEnd-Motion.DrinkStart));
     FTransform Fluid=World;Fluid.SetScale3D(FVector(1,1,FMath::Max(.015f,Fill)));
-    Fluid.AddToTranslation(Rotation.RotateVector(FVector(0,0,.62f*(1.f-Fill))));
+    Fluid.AddToTranslation(World.GetRotation().RotateVector(FVector(0,0,.62f*(1.f-Fill))));
     Liquid->SetWorldTransform(Fluid);Liquid->SetVisibility(Show&&!bCommitted&&Fill>.015f);
 }
 void UFPSPotionUseComponent::Discard(UStaticMeshComponent* Visual,const FVector& Velocity,float Lifetime)
@@ -513,7 +536,7 @@ void UFPSPotionUseComponent::TickComponent(float Delta,ELevelTick Type,FActorCom
         if(!Applied){bCommitted=false;bContactSubmitted=false;Cancel();return;}
         if(!bWater)Liquid->SetVisibility(false);
     }
-    if(T>=Motion.Release&&!bDiscarded){bDiscarded=true;if(bCommitted&&!bWater&&!bFood&&!bSoda)Discard(Bottle,FVector(540,-360,190),7.f);Bottle->SetVisibility(false);Liquid->SetVisibility(false);Stopper->SetVisibility(false);}
+    if(T>=Motion.Release&&!bDiscarded){bDiscarded=true;if(bCommitted&&!bWater&&!bFood&&!bSoda)Discard(Bottle,FVector(540,-360,190),7.f);Bottle->SetVisibility(false);ReleaseFoodGrip();Liquid->SetVisibility(false);Stopper->SetVisibility(false);}
     if(T>=Motion.Duration+(bStowOffhand?OffhandRaiseSeconds:0.f))Finish();
 }
 void UFPSPotionUseComponent::Cancel()
@@ -559,10 +582,12 @@ void UFPSPotionUseComponent::Finish()
     NetworkUseId.Invalidate();bContactSubmitted=false;
     bReturningFromMeal=false;
     BowReturnWeight=0.f;
+    if(Bottle)Bottle->SetVisibility(false);
+    ReleaseFoodGrip();
     if(ActiveHands.IsValid())RemoveTickPrerequisiteComponent(ActiveHands.Get());
     RestoreEquipment();
     bActive=false;bStowOffhand=false;bBowSupport=bWaitingForBow=false;UsingItem.Reset();ActiveHands.Reset();ArmPose.Reset();RightArmPose.Reset();SetComponentTickEnabled(false);
-    if(Bottle)Bottle->SetVisibility(false);if(Liquid)Liquid->SetVisibility(false);if(Stopper)Stopper->SetVisibility(false);
+    if(Liquid)Liquid->SetVisibility(false);if(Stopper)Stopper->SetVisibility(false);
     if(FallbackHands){FallbackHands->SetVisibility(false);FallbackHands->HideBoneByName(TEXT("clavicle_r"),EPhysBodyOp::PBO_None);}
 }
 void UFPSPotionUseComponent::EndPlay(const EEndPlayReason::Type Reason)

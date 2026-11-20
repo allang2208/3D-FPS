@@ -29,7 +29,11 @@ void UFPSPlayerBodyComponent::CreateConsumable(FName Definition)
     ++ConsumableRequest;if(ConsumableLoad){ConsumableLoad->CancelHandle();ConsumableLoad.Reset();}
     for(const auto& Part:ConsumableParts)if(Part)Part->DestroyComponent();ConsumableParts.Reset();ConsumableLiquid=nullptr;
     WorldConsumable=Definition;LastLiquidLevel=-10000.f;
-    if(BodyAnimation)BodyAnimation->bHasConsumeProp=false;
+    if(BodyAnimation)
+    {
+        BodyAnimation->bHasConsumeProp=false;
+        BodyAnimation->CookedFoodTrajectory.Reset();
+    }
     if(Definition.IsNone())return;
     TArray<FSoftObjectPath> Paths;const FString Name=Definition.ToString();
     const int32 Tier=PotionVisuals::FindTier(Name);
@@ -61,11 +65,14 @@ void UFPSPlayerBodyComponent::CreateConsumable(FName Definition)
             {
                 const auto Bounds=Asset->GetBounds();
                 BodyAnimation->ConsumePropContact=Bounds.Origin+FVector(0,0,Bounds.BoxExtent.Z);
-                if(const auto* Food=CampfireFood::Cooked(WorldConsumable.ToString()))
+                if(const auto* Use=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>())
                 {
-                    // Each authored food carries its actual bite contact in the original mesh frame.
-                    FPotionUseMotion FoodMotion;FoodMotion.Load(false,*Food->MotionProfile);
-                    BodyAnimation->ConsumePropContact=FoodMotion.BiteInObject;
+                    if(const auto* Food=Use->CookedFoodMotions.Find(WorldConsumable.ToString()))
+                    {
+                        BodyAnimation->ConsumePropContact=Food->BiteInObject;
+                        if(!Food->bTwoHanded&&!Food->Keys.IsEmpty())
+                            BodyAnimation->CookedFoodTrajectory=MakeShared<FPotionUseMotion>(*Food);
+                    }
                 }
                 BodyAnimation->bHasConsumeProp=true;
             }

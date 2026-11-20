@@ -358,6 +358,13 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleRemoteAuthorityState() const
         State.ActionStartedAt=ReplicatedState.Action==EFPSBodyAction::Dead?ReplicatedState.ActionStartedAt:Now;
         State.Contacts=FFPSBodyMotionSample();
     }
+    // CMC may deliver a priority movement interruption before the owner's
+    // cosmetic end packet. Do not show food or a stowed weapon through it.
+    if(State.Action==EFPSBodyAction::Consume&&(State.Motion==EFPSBodyMotion::Dodge||State.Motion==EFPSBodyMotion::Slide))
+    {
+        State.Action=EFPSBodyAction::None;State.bHasActionProgress=false;State.ActionProgressRate=0.f;
+        State.Contacts=FFPSBodyMotionSample();
+    }
     if(State.Action!=EFPSBodyAction::Consume)
     {State.ConsumeHands=0;State.ConsumeStowWeight=0.f;State.bConsumeWeaponsHidden=false;}
     if(State.Action==EFPSBodyAction::Dead||State.Action==EFPSBodyAction::Traverse)

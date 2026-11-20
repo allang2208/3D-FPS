@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/WorldGeneration/HillsCarpenterWorkshop.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsCarpenterWorkshop.cpp
+@@ -1,6 +1,7 @@
+ #include "HillsCarpenterWorkshop.h"
+ #include "HillsBlacksmith.h"
+ #include "VillageShopFacing.h"
++#include "VillageShopTorches.h"
+ 
+ #include "TemperateHillsWorld.h"
+ #include "../Building/VoxelBuildWorld.h"
+@@ -125,6 +126,7 @@
+     }
+     Body()->SetReceivesDecals(false);
+     RefreshRegistration();
++    VillageShopTorches::Apply(*this,VillageShopTorches::EShop::Carpenter,Repaired);
+ }
+ 
+ void AHillsCarpenterWorkshop::UpdateResident(bool bRepaired)

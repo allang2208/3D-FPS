@@ -4,7 +4,9 @@
 #include "Weapons/Bow/BowArmsMeshComponent.h"
 #include "Weapons/Staff/StaffWeaponComponent.h"
 #include "Weapons/Spellbook/SpellbookComponent.h"
+#include "Weapons/Kukri/OffhandKukriComponent.h"
 #include "Weapons/Kukri/KukriWeaponComponent.h"
+#include "Weapons/Kukri/KukriArmsMeshComponent.h"
 #include "Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "Weapons/PistolDualWieldComponent.h"
 #include "Items/FPSPotionUseComponent.h"
@@ -56,7 +58,9 @@ void AFPSGAMECharacter::PrepareForConsumableUse()
 USkeletalMeshComponent* AFPSGAMECharacter::ConsumableHands() const
 {
     if(HasOffhandSpellbook())return Spellbook->ArmsMesh();
+    if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();OffhandKukri&&OffhandKukri->IsEquipped())return OffhandKukri->ArmsMesh();
     if(HasOffhandPistol())return DualPistols->Hand(1).Mesh.Get();
+    if(const auto* Blade=FindComponentByClass<UKukriWeaponComponent>();Blade&&Blade->IsEquipped())return Blade->ArmsMesh();
     if(RuneSword && RuneSword->IsEquipped())return RuneSword->ArmsMesh();
     if(const auto* Tool=FindComponentByClass<UProductionToolComponent>();Tool && Tool->IsEquipped())return Tool->ArmsMesh();
     if(Bow && Bow->IsEquipped())return Bow->ArmsMesh();

@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+@@ -493,8 +493,8 @@
+                 GetGameInstance()->GetSubsystem<UColdSteelCraftingSystem>()->OnNetworkResult.Broadcast(PendingInventoryRequest.Definition,Confirmed,Result);
+         }
+         if(PendingInventoryRequest.Action==EColdSteelInventoryAction::Shop)
+-            GetGameInstance()->GetSubsystem<UColdSteelShopModel>()->NetworkTradeFinished(Decoded&&Reply->bSuccess,
+-                Decoded?Reply->Message:TEXT("交易结果等待档案同步"));
++            GetGameInstance()->GetSubsystem<UColdSteelShopModel>()->NetworkTradeFinished(OwnerAppliedReceipt,
++                Decoded&&Applied?Reply->Message:TEXT("交易结果等待档案同步"));
+         if(Applied&&Reply->bSuccess)AcknowledgedInventoryBaseline=InventoryBaseline(Model->Snapshot());
+         else AcknowledgedInventoryBaseline.Reset();
+         const bool InitialOpen=PendingInventoryRequest.Action==EColdSteelInventoryAction::ContainerOpen&&PendingInventoryRequest.Count==0;

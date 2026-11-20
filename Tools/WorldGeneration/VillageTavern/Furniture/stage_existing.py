@@ -15,6 +15,9 @@ names = ['SM_Tavern'+s for s in ('Table','Stool','Counter','Backbar','BrokenTabl
 names.append('M_TavernOiledOak')
 if 'dining-finish' in sys.argv[3:]:
     names = ['SM_TavernTable','M_TavernOiledOak','M_TavernDiningOak','T_TavernTableWear']
+elif 'counter-service' in sys.argv[3:]:
+    names = ['SM_TavernCounter','M_TavernOiledOak','SM_TavernCounter_Service']
+    (stage/'counter-service.only').touch()
 original = {}
 payloads = {}
 pending = []

@@ -6629,3 +6629,21 @@ __pycache__/
 /SourceAssets/ZhanmadaoDamascus20261111/**/BeforeAssets/
 /SourceAssets/DaoLongitudinal20261110/BeforeAssets/
 /SourceAssets/DaoLongitudinal20261110/BeforeData/
+
+# Village residents and modern tactical outfit: local art inputs, review outputs and isolated hosts.
+/Tools/ModernTacticalSet/ShoulderFitHost/
+/SourceAssets/ModernTacticalSet20261113/**
+!/SourceAssets/ModernTacticalSet20261113/**/
+!/SourceAssets/ModernTacticalSet20261113/author_set.py
+!/SourceAssets/ModernTacticalSet20261113/carrier_surface.py
+!/SourceAssets/ModernTacticalSet20261113/refine_boots.py
+!/SourceAssets/ModernTacticalSet20261113/trouser_gusset.py
+/SourceAssets/VillageBaker/**
+!/SourceAssets/VillageBaker/**/
+/SourceAssets/VillageHerbalist/**
+!/SourceAssets/VillageHerbalist/**/
+!/SourceAssets/VillageHerbalist/FullBody/Character.md
+/SourceAssets/VillageTavernKeeper/**
+!/SourceAssets/VillageTavernKeeper/**/
+!/SourceAssets/VillageTavernKeeper/FullBody/MeshyR1/generate.py
+!/SourceAssets/VillageTavernKeeper/FullBody/RigR1/rig.py

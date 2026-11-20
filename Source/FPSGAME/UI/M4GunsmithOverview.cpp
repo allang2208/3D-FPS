@@ -50,8 +50,10 @@ void UM4GunsmithWidget::RefreshPresentation()
         SelectedCategory.Reset();
         for(const auto& Key:G->Slots(G->Definition()))if(IsCategoryAvailable(Key)){SelectedCategory=Key;break;}
     }
-    const auto S=G->CalculateItem(*I,G->Draft());
-    const auto B=G->CalculateItem(*I,bCompareFactory?FGunsmithParts():G->Installed(*I));
+    auto S=G->CalculateItem(*I,G->Draft());
+    auto B=G->CalculateItem(*I,bCompareFactory?FGunsmithParts():G->Installed(*I));
+    ColdSteelWeaponStats::ApplyFirearmEquipmentHandling(S,P);
+    ColdSteelWeaponStats::ApplyFirearmEquipmentHandling(B,P);
     Overview.Reset();
     auto Row=[this](const TCHAR* Name,double Before,double After,int32 Digits,const TCHAR* Unit,bool Lower=false)
     {

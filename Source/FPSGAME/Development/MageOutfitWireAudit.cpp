@@ -7,8 +7,10 @@
 #include "../Multiplayer/ColdSteelPlayerState.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "Components/StaticMeshComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/SkeletalMesh.h"
+#include "Engine/StaticMesh.h"
 #include "Engine/World.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "HAL/FileManager.h"
@@ -24,13 +26,24 @@
 namespace MageOutfitWire
 {
 bool Enabled(){return FParse::Param(FCommandLine::Get(),TEXT("MageOutfitWireAudit"));}
+bool Tactical(){return FParse::Param(FCommandLine::Get(),TEXT("ModernTacticalOutfitWire"));}
 const TCHAR* Names[]={TEXT("hat"),TEXT("robe"),TEXT("gloves"),TEXT("pants"),TEXT("boots")};
 const int32 Slots[]={1,7,3,15,13};
 const int32 Masks[]={31,30,29,15,31,0,31};
 // Divergent outfits catch accidental use of the host's singleton for a guest.
 const int32 HostMasks[]={31,15,0,29,30,31,31};
 FString Id(int32 I){return FString(TEXT("MageAudit_"))+Names[I];}
-FString Definition(int32 I){return LeatherBootsWire::Enabled()&&I>=3?(I==3?TEXT("ue_leather_pants"):TEXT("ue_leather_boots")):FString(TEXT("ue_blue_mage_"))+Names[I];}
+int32 GuestMask(int32 Phase)
+{
+    static constexpr int32 TacticalMasks[]={31,27,23,15,31,0,31};
+    return Tactical()?TacticalMasks[Phase]:Masks[Phase];
+}
+FString Definition(int32 I)
+{
+    static const TCHAR* Modern[]={TEXT("ue_modern_tactical_helmet"),TEXT("ue_modern_kevlar_vest"),TEXT("ue_modern_tactical_gloves"),TEXT("ue_modern_tactical_pants"),TEXT("ue_modern_tactical_boots")};
+    if(Tactical())return Modern[I];
+    return LeatherBootsWire::Enabled()&&I>=3?(I==3?TEXT("ue_leather_pants"):TEXT("ue_leather_boots")):FString(TEXT("ue_blue_mage_"))+Names[I];
+}
 void Freeze(AFPSGAMECharacter* Pawn,bool Host)
 {
     if(!Pawn)return;
@@ -45,6 +58,7 @@ bool Seed(UColdSteelStatusModel* Model,AFPSGAMECharacter* Pawn)
     if(!Model->FindItem(Id(0)))
     {
         auto State=Model->Snapshot();State.Items.Reset();State.ActiveWeaponSlot=6;State.ActiveProductionTool.Reset();State.DungeonRun={};
+        if(Tactical()){State.PlayerHeadId=Pawn->HasAuthority()?FName(TEXT("jason")):FName(TEXT("kaitlin"));State.PlayerHairId=NAME_None;}
         for(int32 I=0;I<5;++I){auto Item=Model->CreateItem(Definition(I));Item.InstanceId=Id(I);Item.Place=1;Item.Cell=Slots[I];State.Items.Add(Item);}
         if(LeatherBootsWire::Enabled()){auto Item=Model->CreateItem(TEXT("ue_field_sweater"));Item.InstanceId=TEXT("LeatherAudit_Shirt");Item.Place=0;Item.Cell=0;State.Items.Add(Item);}
         FString Reason;if(!ColdSteelInventory::Validate(State,Reason)){UE_LOG(LogTemp,Error,TEXT("MAGE_WIRE_SEED_REJECTED %s"),*Reason);return false;}
@@ -85,10 +99,36 @@ bool Presentation(AFPSGAMECharacter* Pawn,int32 Mask,FString& Details)
     if(!Pawn)return false;
     auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>();auto* Source=Body?Body->GetBodyMesh():nullptr;if(!Source)return false;
     int32 Counts[5]={},Shirts=0;bool Binding=true,PantsFit=true,Cloth=true;TArray<USkinnedMeshComponent*> Meshes;Pawn->GetComponents(Meshes);
+    const bool ExpectKaitlin=Tactical()&&Pawn->IsLocallyControlled()==(Pawn->GetNetMode()==NM_Client);
+    if(Tactical())
+    {
+        Binding&=Source->GetSkinnedAsset()&&Source->GetSkinnedAsset()->GetPathName().Contains(TEXT("Kaitlin"))==ExpectKaitlin;
+        TArray<UStaticMeshComponent*> Rigid;
+        Pawn->GetComponents(Rigid);
+        for(const auto* Part:Rigid)
+        {
+            if(!Part->IsVisible()||Part->bHiddenInGame||!Part->GetStaticMesh()||!Part->ComponentHasTag(TEXT("HeadEquipment")))continue;
+            if(!Part->GetStaticMesh()->GetPathName().Contains(TEXT("/ExfilReferenceR4/")))continue;
+            ++Counts[0];Binding&=Part->GetAttachParent()==Source&&Part->GetAttachSocketName()==TEXT("head");
+            Binding&=Part->GetStaticMesh()->GetPathName().Contains(TEXT("Kaitlin"))==ExpectKaitlin;
+        }
+    }
     for(auto* Part:Meshes)
     {
         if(!Part||!Part->IsVisible()||Part->bHiddenInGame||Part->bOnlyOwnerSee||!Part->GetSkinnedAsset())continue;
         const FString Path=Part->GetSkinnedAsset()->GetPathName();
+        if(Tactical())
+        {
+            static const TCHAR* Families[]={TEXT("/PatrolShirtR2/"),TEXT("/CoyoteGlovesR2/"),TEXT("/FieldTrousersR2/"),TEXT("/RidgeBootsR2/")};
+            for(int32 I=0;I<UE_ARRAY_COUNT(Families);++I)
+            {
+                if(!Path.Contains(Families[I]))continue;
+                ++Counts[I+1];Binding&=Part->LeaderPoseComponent.Get()==Source;
+                Binding&=Path.Contains(ExpectKaitlin?TEXT("/Kaitlin/"):TEXT("/Jason/"));
+                if(I==2)PantsFit&=Path.Contains(TEXT("FieldTrousers_tactical_"))==bool(Mask&16);
+            }
+            continue;
+        }
         if(LeatherBootsWire::Enabled()&&LeatherBootsWire::IsShirt(Path)){++Shirts;PantsFit&=Path==LeatherBootsWire::Shirt(Mask);Binding&=Part->LeaderPoseComponent.Get()==Source;}
         for(int32 I=0;I<5;++I)
         {
@@ -128,7 +168,7 @@ void AMageOutfitWireAuditController::ClientCase_Implementation(int32 Phase,AFPSG
     auto* ControlledPawn=Cast<AFPSGAMECharacter>(GetPawn());auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Subject||!MageOutfitWire::Seed(Model,ControlledPawn))return;
     MageOutfitWire::Freeze(ControlledPawn,false);Host=Subject;Current=Phase;Started=GetWorld()->GetRealTimeSeconds();LastSent=-10;
-    MovesOK=MageOutfitWire::Wear(Model,MageOutfitWire::Masks[Phase]);
+    MovesOK=MageOutfitWire::Wear(Model,MageOutfitWire::GuestMask(Phase));
     if(Phase==4)MovesOK=MageOutfitWire::Wear(Model,0)&&MageOutfitWire::Wear(Model,31)&&MovesOK;
 }
 void AMageOutfitWireAuditController::Tick(float Delta)
@@ -136,16 +176,18 @@ void AMageOutfitWireAuditController::Tick(float Delta)
     Super::Tick(Delta);if(!MageOutfitWire::Enabled()||HasAuthority()||!IsLocalController())return;
     const double Now=GetWorld()->GetRealTimeSeconds();if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return;}
     if(Current<0||Now-Started<3||Now-LastSent<1)return;
-    FString OwnerDetails,Remote;const int32 Mask=MageOutfitWire::Masks[Current];auto* ControlledPawn=Cast<AFPSGAMECharacter>(GetPawn());
+    FString OwnerDetails,Remote;const int32 Mask=MageOutfitWire::GuestMask(Current);auto* ControlledPawn=Cast<AFPSGAMECharacter>(GetPawn());
     FString DropDetails;const bool DropOK=LeatherBootsWire::LegacyDrop(GetWorld(),DropDetails);
     const bool OwnerOK=MageOutfitWire::Presentation(ControlledPawn,Mask,OwnerDetails),RemoteOK=MageOutfitWire::Presentation(Host,MageOutfitWire::HostMasks[Current],Remote);
     const bool OK=OwnerOK&&RemoteOK&&DropOK;
-    if(OK||Now-Started>45.){ServerResult(Current,OK&&MovesOK,OwnerDetails+TEXT(" | remote: ")+Remote+TEXT(" | ")+DropDetails);LastSent=Now;}
+    // A cold first load can build both bodies and five equipped meshes per player.
+    const double PresentationTimeout = MageOutfitWire::Tactical() && Current == 0 ? 120. : 45.;
+    if(OK||Now-Started>PresentationTimeout){ServerResult(Current,OK&&MovesOK,OwnerDetails+TEXT(" | remote: ")+Remote+TEXT(" | ")+DropDetails);LastSent=Now;}
 }
 void AMageOutfitWireAuditController::ServerResult_Implementation(int32 Phase,bool ClientPassed,const FString& Details)
 {
     if(!MageOutfitWire::Enabled()||Phase!=Finished||Phase>=UE_ARRAY_COUNT(MageOutfitWire::Masks))return;
-    auto* ControlledPawn=Cast<AFPSGAMECharacter>(GetPawn());auto* PS=GetPlayerState<AColdSteelPlayerState>();const int32 Mask=MageOutfitWire::Masks[Phase];FString Remote;
+    auto* ControlledPawn=Cast<AFPSGAMECharacter>(GetPawn());auto* PS=GetPlayerState<AColdSteelPlayerState>();const int32 Mask=MageOutfitWire::GuestMask(Phase);FString Remote;
     const bool Inventory=PS&&MageOutfitWire::InventoryMask(PS->GetShadowModel())==Mask;
     const bool Replication=ControlledPawn&&MageOutfitWire::ReplicatedMask(ControlledPawn->FindComponentByClass<UFPSPlayerBodyComponent>())==Mask;
     const bool Visible=MageOutfitWire::Presentation(ControlledPawn,Mask,Remote);

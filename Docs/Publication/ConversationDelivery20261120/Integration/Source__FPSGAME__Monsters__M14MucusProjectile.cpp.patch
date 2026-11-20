@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/M14MucusProjectile.cpp
++++ b/Source/FPSGAME/Monsters/M14MucusProjectile.cpp
+@@ -1,4 +1,5 @@
+ #include "M14MucusProjectile.h"
++#include "MonsterTargeting.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "SpiralPillarM14.h"
+ #include "PoisonMaggotVenomFX.h"
+@@ -157,7 +158,7 @@
+                 }
+             }
+         }
+-        else if(HitActor&&HitActor->IsA<AFPSIceWall>())
++        else if(MonsterTargeting::IsActiveArtisan(HitPawn)||(HitActor&&HitActor->IsA<AFPSIceWall>()))
+             UGameplayStatics::ApplyPointDamage(HitActor,HitDamage,Velocity.GetSafeNormal(),*First,
+                 Shooter->GetController(),Shooter.Get(),UEnemyRangedDamage::StaticClass());
+         Destroy();return;

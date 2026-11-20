@@ -360,17 +360,20 @@ def stool(m, broken=False):
         m.lathe(a,b,((0,1.52),(.14,1.6),(.22,1.33),(.78,1.33),(.86,1.6),(1,1.52)),'Oak')
 
 
-def counter(m, broken=False):
+def counter(m, broken=False, service=None):
     # 3 framed front panels, working shelves to the rear and a projecting oak cap.
-    for i in range(4):
-        x=-27+i*18
-        if broken:
-            y=(72,53,45,64)[i]
-            p=[(x-8.9,-130),(x+8.9,-130),(x+8.9,y),(x+5,y-5),(x+3,y+4),
-               (x+1.4,y-9),(x-.9,y-6),(x-4,y+2),(x-7,y-3),(x-8.9,y+3)]
-            m.slab(p,99.4,5.6,wood='Rot',collision=True)
-        else:
-            m.rect((x,0,102.2),(17.85,260,5.6),'OiledOak',edge=.54)
+    if service:
+        service.top(m)
+    else:
+        for i in range(4):
+            x=-27+i*18
+            if broken:
+                y=(72,53,45,64)[i]
+                p=[(x-8.9,-130),(x+8.9,-130),(x+8.9,y),(x+5,y-5),(x+3,y+4),
+                   (x+1.4,y-9),(x-.9,y-6),(x-4,y+2),(x-7,y-3),(x-8.9,y+3)]
+                m.slab(p,99.4,5.6,wood='Rot',collision=True)
+            else:
+                m.rect((x,0,102.2),(17.85,260,5.6),'OiledOak',edge=.54)
     if not broken:
         m.rect((0,0,102.15),(72,260,5.7),collision=True,draw=False)
     # Front rails, molded drip lip, inset field uprights and punched wrought nails.
@@ -412,13 +415,16 @@ def counter(m, broken=False):
             m.rect((0,y,shelf_z-4.1),(49,7.5,5.2),edge=.35)
     for bay,y in enumerate((-81.5,0,81.5)):
         if broken and bay==2: continue
-        for j in range(5):
-            yy=y+(j-2)*14.35
-            m.rect((23.6,yy,50.5),(4.9,14.12,72),edge=.43)
-        for yy in (y-35,y+35):
-            m.rect((26.75,yy,50.7),(2.4,2.7,61.5),'Sawn',.62)
-        for z in (21,80.4):
-            m.rect((26.6,y,z),(2.8,70.5,2.8),'Sawn',.56)
+        if service:
+            service.panel(m,y)
+        else:
+            for j in range(5):
+                yy=y+(j-2)*14.35
+                m.rect((23.6,yy,50.5),(4.9,14.12,72),edge=.43)
+            for yy in (y-35,y+35):
+                m.rect((26.75,yy,50.7),(2.4,2.7,61.5),'Sawn',.62)
+            for z in (21,80.4):
+                m.rect((26.6,y,z),(2.8,70.5,2.8),'Sawn',.56)
         m.rect((23.6,y,51),(5.2,80.7,96.4),collision=True,draw=False)
         for z in (15,55):
             for x in (-13.9,5.4):

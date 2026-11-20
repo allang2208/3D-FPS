@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/SpiralPillarM14Attacks.cpp
++++ b/Source/FPSGAME/Monsters/SpiralPillarM14Attacks.cpp
+@@ -1,4 +1,5 @@
+ #include "SpiralPillarM14.h"
++#include "MonsterTargeting.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "M14MucusProjectile.h"
+ #include "MonsterAIController.h"
+@@ -222,7 +223,7 @@
+         {
+             AActor* Actor=Hit.GetActor();const auto* Component=Hit.GetComponent();
+             APawn* Pawn=Cast<APawn>(Actor);
+-            const bool PlayerBody=Pawn&&Pawn->IsPlayerControlled()&&Component==Pawn->GetRootComponent();
++            const bool PlayerBody=Pawn&&MonsterTargeting::IsOpponentPawn(Pawn)&&Component==Pawn->GetRootComponent();
+             if(!IsValid(Actor)||!Component||(!PlayerBody&&Component->GetCollisionResponseToChannel(ECC_Visibility)!=ECR_Block))continue;
+             if(PlayerBody||Actor->IsA<AFPSIceWall>())
+             {

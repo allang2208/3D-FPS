@@ -1,0 +1,87 @@
+--- a/Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp
+@@ -2,9 +2,11 @@
+ 
+ #include "HillsTavernInterior.h"
+ #include "HillsWindmill.h"
++#include "VillageShopTorches.h"
+ #include "VillageChimneySmoke.h"
+ #include "TemperateHillsStreamingPrivate.h"
+ #include "AI/NavigationSystemBase.h"
++#include "../NPC/VillageTavernKeeper.h"
+ #include "Components/StaticMeshComponent.h"
+ #include "Engine/Level.h"
+ #include "Engine/LevelStreamingDynamic.h"
+@@ -15,6 +17,7 @@
+     ULevelStreamingDynamic* Stream = Streaming ? Streaming->VillageLevel.Get() : nullptr;
+     ULevel* Level = Stream ? Stream->GetLoadedLevel() : nullptr;
+     StreamedWindmill.Reset();
++    StreamedBakery.Reset();
+     if (!Level) return;
+     AActor* Tavern = nullptr;
+     for (AActor* Actor : Level->Actors)
+@@ -22,10 +25,12 @@
+         if (!IsValid(Actor)) continue;
+         if (Actor->ActorHasTag(TEXT("VillageWindmill.Site"))) StreamedWindmill = Cast<AHillsWindmill>(Actor);
+         else if (Actor->ActorHasTag(TEXT("VillageTavern.Site"))) Tavern = Actor;
+-        if (Tavern && StreamedWindmill.IsValid()) break;
++        else if (Actor->ActorHasTag(TEXT("VillageBakery.Site"))) StreamedBakery = Actor;
++        if (Tavern && StreamedWindmill.IsValid() && StreamedBakery.IsValid()) break;
+     }
+     if (AHillsWindmill* Windmill = StreamedWindmill.Get())
+         Windmill->ApplyRepairState(IsWindmillRepaired());
++    OnRep_VillageBakery();
+     if (Tavern)
+     {
+         UHillsTavernSite* Site = Tavern->FindComponentByClass<UHillsTavernSite>();
+@@ -80,6 +85,7 @@
+ {
+     if (!Hills.IsValid()) return;
+     const bool bRepaired = Hills->IsTavernRepaired();
++    if (Hills->HasAuthority()) UpdateKeeper(bRepaired);
+     if (Furnishings.IsValid() && bShowingRepaired == bRepaired) return;
+ 
+     AActor* Shell = GetOwner();
+@@ -103,6 +109,7 @@
+         }
+     }
+ 
++    VillageShopTorches::Apply(*Shell,VillageShopTorches::EShop::Tavern,bRepaired);
+     VillageChimneySmoke::Apply(*Shell,bRepaired);
+     if (Furnishings.IsValid()) Furnishings->Destroy();
+     FActorSpawnParameters Spawn;
+@@ -124,6 +131,26 @@
+     FHillsTavernInterior::Populate(*Interior,*RoomRoot,bRepaired);
+ }
+ 
++void UHillsTavernSite::UpdateKeeper(bool bRepaired)
++{
++    if (!bRepaired)
++    {
++        if (Keeper.IsValid()) Keeper->Destroy();
++        Keeper.Reset();
++        return;
++    }
++    if (Keeper.IsValid()) return;
++
++    AActor* Shell = GetOwner();
++    // The repaired counter is at Y=182 and the backbar is at Y=354. Face the guests at -Y.
++    const FTransform StandingPoint(FRotator(0., -90., 0.), FVector(-120., 267., -2.3));
++    FActorSpawnParameters Spawn;
++    Spawn.Owner = Hills.Get();
++    Spawn.OverrideLevel = Shell->GetLevel();
++    Spawn.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++    Keeper = GetWorld()->SpawnActor<AVillageTavernKeeper>(AVillageTavernKeeper::StaticClass(),
++        StandingPoint * Shell->GetActorTransform(), Spawn);
++}
+ 
+ void UHillsTavernSite::EndPlay(EEndPlayReason::Type Reason)
+ {
+@@ -132,6 +159,7 @@
+         Hills->OnTavernRepairChanged.RemoveAll(this);
+         if (Hills->TavernAreaOccupied.IsBoundToObject(this)) Hills->TavernAreaOccupied.Unbind();
+     }
++    UpdateKeeper(false);
+     if (Furnishings.IsValid()) Furnishings->Destroy();
+     Furnishings.Reset();
+     Hills.Reset();

@@ -36,6 +36,7 @@ struct FPotionUseMotion
     // Per-food palm bases keep the object path independent of wrist orientation.
     FQuat PalmRotation=FQuat::Identity,RightPalmRotation=FQuat::Identity;
     bool bHasObjectGrip=false;
+    bool bHasBiteInObject=false;
     bool bTwoHanded=false;
     FVector RightObjectGrip=FVector::ZeroVector,RightGripInPalm{6.95,0,3.3};
     FVector ObjectGripPoint() const { return bHasObjectGrip?ObjectGrip:FVector(0,0,GripHeight); }
@@ -47,11 +48,18 @@ struct FPotionUseMotion
     FPotionDigitPose RightThumb;
     bool bHasRightThumb=false;
     void Load(bool bMana,const TCHAR* Definition=nullptr);
+    void PrepareFirstPersonFood(const FVector& MeshTop);
+    bool IsFirstPersonFood() const { return !FoodBiteTrack.IsEmpty(); }
     static float Ease(float X) { X=FMath::Clamp(X,0.f,1.f);return X*X*X*(X*(X*6.f-15.f)+10.f); }
     FTransform GripAt(float Age) const;
     FTransform BottleAt(float Age) const;
+    FTransform ObjectFromPalm(const FTransform& PalmWorld) const;
     FTransform PalmAt(float Age) const;
     FQuat PalmBasis(bool bRight=false) const;
     float Layer(float Age) const;
     float FingerClosure(float Age) const;
+private:
+    // A physical bite point travels along this track while the wrist rotates around it.
+    TArray<FVector> FoodBiteTrack;
+    FVector BiteFromGrip=FVector::ZeroVector;
 };

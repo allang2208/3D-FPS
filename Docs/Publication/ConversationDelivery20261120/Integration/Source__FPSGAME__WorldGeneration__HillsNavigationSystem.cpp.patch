@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp
+@@ -10,6 +10,7 @@
+ #include "ChapelShrine.h"
+ #include "HillsNightPortal.h"
+ #include "../Monsters/MonsterCombatComponent.h"
++#include "../NPC/VillageArtisanMerchant.h"
+ #include "GameFramework/Pawn.h"
+ #if WITH_EDITOR
+ #include "Builders/CubeBuilder.h"
+@@ -59,7 +60,7 @@
+         for(int32 Index:{0,1})if(Agents.Contains(Index))Selected.Set(Index);
+     }
+     else if(const auto* Pawn=Cast<APawn>(&Invoker);Pawn &&
+-        (Pawn->FindComponentByClass<UMonsterCombatComponent>()))
++        (Pawn->IsA<AVillageArtisanMerchant>() || Pawn->FindComponentByClass<UMonsterCombatComponent>()))
+     {
+         // Prefer the configured profile even before its dynamic data registers;
+         // GetNavDataForProps can temporarily return a smaller fallback mesh.

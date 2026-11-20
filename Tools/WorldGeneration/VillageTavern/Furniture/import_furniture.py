@@ -21,6 +21,9 @@ tools = ue.AssetToolsHelpers.get_asset_tools()
 editor = ue.EditorAssetLibrary
 subsystem = ue.get_editor_subsystem(ue.StaticMeshEditorSubsystem) or ue.new_object(ue.StaticMeshEditorSubsystem)
 host = Path(ue.Paths.convert_relative_path_to_full(ue.Paths.project_dir()))
+service_only = (host/'counter-service.only').exists()
+if service_only:
+    ASSETS = ('Counter_Service',)
 ue.AssetRegistryHelpers.get_asset_registry().scan_paths_synchronous([DEST],True)
 paths = []
 report = {}
@@ -103,7 +106,12 @@ for label in ASSETS:
     name = 'SM_Tavern'+label
     path = DEST+'/'+name
     previous = ue.load_asset(path) if editor.does_asset_exist(path) else None
-    previous_slots = {slot_key(s):s.material_interface for s in previous.static_materials} if previous else {}
+    donor = previous
+    if service_only and not donor:
+        donor = ue.load_asset(DEST+'/SM_TavernCounter')
+        if not donor:
+            raise RuntimeError('Missing source serving counter')
+    previous_slots = {slot_key(s):s.material_interface for s in donor.static_materials} if donor else {}
     if previous and not isinstance(previous,ue.StaticMesh):
         raise RuntimeError('Existing furniture package is not a StaticMesh: '+path)
     task = ue.AssetImportTask()
@@ -145,11 +153,14 @@ for label in ASSETS:
             material=MATERIALS[key]
         mesh.set_material(index,material)
     body = mesh.get_editor_property('body_setup')
-    if not previous:
+    if service_only and not previous:
+        body.set_editor_property('collision_trace_flag',donor.get_editor_property('body_setup').get_editor_property('collision_trace_flag'))
+        mesh.set_editor_property('nanite_settings',donor.get_editor_property('nanite_settings'))
+    elif not previous:
         body.set_editor_property('collision_trace_flag',ue.CollisionTraceFlag.CTF_USE_SIMPLE_AND_COMPLEX)
     slots = list(mesh.static_materials)
     used = {slot_key(slots[subsystem.get_lod_material_slot(mesh,0,i)]) for i in range(mesh.get_num_sections(0))}
-    required = 'Rot' if label.startswith('Broken') else ('OiledOak' if label in ('Table','Stool','Counter') else 'Oak')
+    required = 'Rot' if label.startswith('Broken') else ('OiledOak' if label in ('Table','Stool','Counter','Counter_Service') else 'Oak')
     if required not in used:
         raise RuntimeError('Missing imported section '+required+' on '+name+' '+str(used))
     if not editor.save_loaded_asset(mesh,False):

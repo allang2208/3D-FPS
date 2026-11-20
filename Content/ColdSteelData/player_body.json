@@ -136,6 +136,30 @@
       },
       "covers_scalp_hair": true,
       "first_person_overlay": "/Game/Characters/ModularOutfit20260924/SteelArmet20261019/ReferenceMatchV5/Textures/T_SteelArmet_Visor.T_SteelArmet_Visor"
+    },
+    "ue_modern_tactical_helmet": {
+      "static_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Wear/SM_TS01_Helmet_Jason_JawFit.SM_TS01_Helmet_Jason_JawFit",
+      "attach_bone": "head",
+      "covers_scalp_hair": false,
+      "fits": {
+        "jason": {
+          "location": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            1,
+            1
+          ]
+        }
+      }
     }
   },
   "first_person_body": {
@@ -445,7 +469,8 @@
         "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_mountain_backpack_chainmail_shirt.SK_Jason_mountain_backpack_chainmail_shirt",
         "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_mountain_backpack_blue_mage_robe.SK_Jason_mountain_backpack_blue_mage_robe",
         "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_mountain_backpack_st6_sleeves.SK_Jason_mountain_backpack_st6_sleeves",
-        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_mountain_backpack_work_jacket.SK_Jason_mountain_backpack_work_jacket"
+        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_mountain_backpack_work_jacket.SK_Jason_mountain_backpack_work_jacket",
+        "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Jason/SK_Jason_mountain_backpack_TS01.SK_Jason_mountain_backpack_TS01"
       },
       "backpack_motion": {
         "frequency_hz": 3.0,
@@ -590,6 +615,23 @@
               -0.14610053598880768,
               141.8489227294922
             ]
+          },
+          "ue_modern_kevlar_vest": {
+            "pivot": [
+              0.0,
+              -15.264609708789228,
+              134.0
+            ],
+            "bounds_min": [
+              -20.78873634338379,
+              -38.6012358099203,
+              94.46770477294922
+            ],
+            "bounds_max": [
+              18.833168029785156,
+              -13.264609757063852,
+              141.8489227294922
+            ]
           }
         }
       },
@@ -604,7 +646,8 @@
         "ue_chainmail_shirt": "/Game/Characters/SimpleSlingBag20261022/GravityFitR3/SK_Jason_SimpleSling_Chainmail.SK_Jason_SimpleSling_Chainmail",
         "ue_blue_mage_robe": "/Game/Characters/SimpleSlingBag20261022/GravityFitR3/SK_Jason_SimpleSling_Robe.SK_Jason_SimpleSling_Robe",
         "ue_st6_sleeves": "/Game/Characters/SimpleSlingBag20261022/GravityFitR3/SK_Jason_SimpleSling_ST6.SK_Jason_SimpleSling_ST6",
-        "ue_work_jacket": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_simple_sling_bag_WorkJacketR2.SK_Jason_ue_simple_sling_bag_WorkJacketR2"
+        "ue_work_jacket": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Jason/SK_Jason_ue_simple_sling_bag_WorkJacketR2.SK_Jason_ue_simple_sling_bag_WorkJacketR2",
+        "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalShoulders20261118/Jason/SK_Jason_simple_sling_bag_modern_kevlar_vest.SK_Jason_simple_sling_bag_modern_kevlar_vest"
       },
       "rigid_pack": {
         "mesh": "/Game/Characters/SimpleSlingBag20261022/SM_SimpleSlingPouch.SM_SimpleSlingPouch",
@@ -649,7 +692,15 @@
             0.0,
             -18.46478181899771,
             123.0
+          ],
+          "ue_modern_kevlar_vest": [
+            1.2466061758484338e-08,
+            -20.414775130375745,
+            122.99999993989285
           ]
+        },
+        "mesh_by_shirt": {
+          "ue_modern_kevlar_vest": "/Game/Characters/SimpleSlingBag20261022/SM_SimpleSlingPouch.SM_SimpleSlingPouch"
         }
       },
       "backpack_motion": {
@@ -5889,6 +5940,751 @@
               115.39978475391996
             ]
           ]
+        },
+        "ue_modern_kevlar_vest": {
+          "center": [
+            1.2466061758484338e-08,
+            -20.414775130375745,
+            122.99999993989285
+          ],
+          "tethers": [
+            {
+              "point": [
+                -5.515536851815229,
+                -17.570889231785657,
+                138.80684431539984
+              ],
+              "support": [
+                {
+                  "bone": "clavicle_r",
+                  "local": [
+                    -7.284963126095775,
+                    9.934480378162448,
+                    -2.7097114362246773
+                  ],
+                  "weight": 0.5584320858913305
+                },
+                {
+                  "bone": "spine_04",
+                  "local": [
+                    30.58592153471297,
+                    -9.924708378951706,
+                    9.732511629972972
+                  ],
+                  "weight": 0.3484958997934477
+                },
+                {
+                  "bone": "upperarm_r",
+                  "local": [
+                    5.237087464408189,
+                    9.795509390966426,
+                    0.5360630740689976
+                  ],
+                  "weight": 0.09307201431522176
+                }
+              ],
+              "length": 8.87559862998721
+            },
+            {
+              "point": [
+                14.843246031959803,
+                -11.387974447607522,
+                114.78472140052583
+              ],
+              "support": [
+                {
+                  "bone": "spine_02",
+                  "local": [
+                    9.997124992300215,
+                    -8.400907379847517,
+                    -11.230654158838435
+                  ],
+                  "weight": 0.4360908335439279
+                },
+                {
+                  "bone": "spine_03",
+                  "local": [
+                    3.9478084099544253,
+                    -7.749585720510853,
+                    -11.199142758371986
+                  ],
+                  "weight": 0.33084170969046306
+                },
+                {
+                  "bone": "spine_01",
+                  "local": [
+                    17.36881907623174,
+                    -8.142764833191878,
+                    -11.108158363488934
+                  ],
+                  "weight": 0.19526060687238048
+                },
+                {
+                  "bone": "pelvis",
+                  "local": [
+                    22.231264203084052,
+                    -5.158722205540252,
+                    -11.518279063337987
+                  ],
+                  "weight": 0.02507889241404429
+                },
+                {
+                  "bone": "spine_04",
+                  "local": [
+                    -4.145659723045324,
+                    -8.284539120198701,
+                    -11.187350646933947
+                  ],
+                  "weight": 0.012727957479184279
+                }
+              ],
+              "length": 10.055376106390822
+            }
+          ],
+          "hulls": [
+            {
+              "bone": "spine_01",
+              "side_planes": 12,
+              "planes": [
+                [
+                  0.007705359944236987,
+                  0.00016921308315187564,
+                  -0.9999702989564552,
+                  -16.552005665014487
+                ],
+                [
+                  0.08818045414808083,
+                  0.49345783880251376,
+                  -0.8652881420836591,
+                  -16.040633101112036
+                ],
+                [
+                  0.14502766687473678,
+                  0.8545248351159349,
+                  -0.4987527263193201,
+                  -13.640546184283437
+                ],
+                [
+                  0.16301483338213713,
+                  0.9866225919477032,
+                  0.0014230796851015884,
+                  -13.537556376826933
+                ],
+                [
+                  0.1373223069304998,
+                  0.8543556220327831,
+                  0.501217572637135,
+                  -13.53172016245819
+                ],
+                [
+                  0.07483437923405628,
+                  0.4931647531451893,
+                  0.8667112217687607,
+                  -15.914302600644186
+                ],
+                [
+                  -0.007705359944236967,
+                  -0.0001692130831517548,
+                  0.9999702989564552,
+                  -16.419731861866143
+                ],
+                [
+                  -0.0881804541480808,
+                  -0.49345783880251354,
+                  0.8652881420836592,
+                  -15.430239514464118
+                ],
+                [
+                  -0.14502766687473675,
+                  -0.8545248351159348,
+                  0.49875272631932044,
+                  -14.47911845142869
+                ],
+                [
+                  -0.16301483338213713,
+                  -0.9866225919477032,
+                  -0.0014230796851014658,
+                  -12.921000311045818
+                ],
+                [
+                  -0.1373223069304998,
+                  -0.854355622032783,
+                  -0.5012175726371353,
+                  -14.468048687145355
+                ],
+                [
+                  -0.07483437923405636,
+                  -0.4931647531451898,
+                  -0.8667112217687604,
+                  -15.506081619131768
+                ],
+                [
+                  -0.9865935290308385,
+                  0.1630209570126754,
+                  -0.0075746979575170275,
+                  -4.507263183593735
+                ],
+                [
+                  0.9865935290308385,
+                  -0.1630209570126754,
+                  0.0075746979575170275,
+                  -7.02358500162809
+                ]
+              ]
+            },
+            {
+              "bone": "spine_03",
+              "side_planes": 12,
+              "planes": [
+                [
+                  0.0038366667485947303,
+                  -0.000562689827583748,
+                  -0.9999924816559463,
+                  -15.248924915345661
+                ],
+                [
+                  -0.011175376288973693,
+                  0.4993023458059515,
+                  -0.8663557458904939,
+                  -13.727722574152848
+                ],
+                [
+                  -0.0231929862747977,
+                  0.8653797211018169,
+                  -0.5005796876556206,
+                  -11.902820691689671
+                ],
+                [
+                  -0.028996054318223552,
+                  0.9995792989821803,
+                  -0.0006737063660000516,
+                  -11.001537647323067
+                ],
+                [
+                  -0.027029653023392435,
+                  0.8659424109294008,
+                  0.4994127940003257,
+                  -11.631526557149037
+                ],
+                [
+                  -0.017820678029249856,
+                  0.5002769531762288,
+                  0.8656820395244939,
+                  -13.587393544750135
+                ],
+                [
+                  -0.003836666748594734,
+                  0.0005626898275838704,
+                  0.9999924816559463,
+                  -15.329018316958571
+                ],
+                [
+                  0.011175376288973686,
+                  -0.4993023458059513,
+                  0.866355745890494,
+                  -15.67831869007114
+                ],
+                [
+                  0.023192986274797697,
+                  -0.8653797211018168,
+                  0.5005796876556209,
+                  -14.866556289641455
+                ],
+                [
+                  0.028996054318223552,
+                  -0.9995792989821803,
+                  0.000673706366000174,
+                  -13.532596031384829
+                ],
+                [
+                  0.02702965302339243,
+                  -0.8659424109294007,
+                  -0.499412794000326,
+                  -14.629920515077446
+                ],
+                [
+                  0.01782067802924987,
+                  -0.5002769531762292,
+                  -0.8656820395244935,
+                  -15.584637440795898
+                ],
+                [
+                  -0.9995721628888207,
+                  -0.028998421102723736,
+                  -0.003818736874183548,
+                  -8.677052815754735
+                ],
+                [
+                  0.9995721628888207,
+                  0.028998421102723736,
+                  0.003818736874183548,
+                  -2.8537953694670932
+                ]
+              ]
+            },
+            {
+              "bone": "spine_04",
+              "side_planes": 12,
+              "planes": [
+                [
+                  0.0002634371717912809,
+                  0.0002670989151643405,
+                  -0.9999999296295107,
+                  -14.497678364141743
+                ],
+                [
+                  -0.07283408463815699,
+                  0.4948644088823792,
+                  -0.8659124741776246,
+                  -14.351957384528045
+                ],
+                [
+                  -0.12641577228785106,
+                  0.8568632001266557,
+                  -0.49980447055380867,
+                  -13.292140139968067
+                ],
+                [
+                  -0.14612445584245876,
+                  0.9892661888730474,
+                  0.00022573732836526344,
+                  -11.295676428461162
+                ],
+                [
+                  -0.12667920945964237,
+                  0.8565961012114915,
+                  0.500195459075702,
+                  -13.189308532821665
+                ],
+                [
+                  -0.07329037120430174,
+                  0.494401779990668,
+                  0.8661382115059898,
+                  -14.10281857096397
+                ],
+                [
+                  -0.0002634371717912988,
+                  -0.0002670989151642193,
+                  0.9999999296295107,
+                  -14.323871981227642
+                ],
+                [
+                  0.07283408463815697,
+                  -0.49486440888237904,
+                  0.8659124741776247,
+                  -14.931407157385086
+                ],
+                [
+                  0.12641577228785106,
+                  -0.8568632001266556,
+                  0.499804470553809,
+                  -14.558180185293246
+                ],
+                [
+                  0.14612445584245876,
+                  -0.9892661888730474,
+                  -0.00022573732836514098,
+                  -13.30540490463652
+                ],
+                [
+                  0.12667920945964234,
+                  -0.8565961012114914,
+                  -0.5001954590757023,
+                  -13.592950232687322
+                ],
+                [
+                  0.07329037120430182,
+                  -0.49440177999066853,
+                  -0.8661382115059897,
+                  -14.553338875778888
+                ],
+                [
+                  -0.9892661795520971,
+                  -0.14612438609200595,
+                  -0.00029963917058001277,
+                  -7.139918009439185
+                ],
+                [
+                  0.9892661795520971,
+                  0.14612438609200595,
+                  0.00029963917058001277,
+                  -4.390930175782643
+                ]
+              ]
+            },
+            {
+              "bone": "spine_04",
+              "side_planes": 12,
+              "planes": [
+                [
+                  0.0002634371717912809,
+                  0.0002670989151643405,
+                  -0.9999999296295107,
+                  -28.82534679842489
+                ],
+                [
+                  -0.07283408463815699,
+                  0.4948644088823792,
+                  -0.8659124741776246,
+                  -22.80763951752707
+                ],
+                [
+                  -0.12641577228785106,
+                  0.8568632001266557,
+                  -0.49980447055380867,
+                  -13.462429533938353
+                ],
+                [
+                  -0.14612445584245876,
+                  0.9892661888730474,
+                  0.00022573732836526344,
+                  -11.070044198306615
+                ],
+                [
+                  -0.12667920945964237,
+                  0.8565961012114915,
+                  0.500195459075702,
+                  -13.577471386755724
+                ],
+                [
+                  -0.07329037120430174,
+                  0.494401779990668,
+                  0.8661382115059898,
+                  -22.95085914132404
+                ],
+                [
+                  -0.0002634371717912988,
+                  -0.0002670989151642193,
+                  0.9999999296295107,
+                  -28.52169570113792
+                ],
+                [
+                  0.07283408463815697,
+                  -0.49486440888237904,
+                  0.8659124741776247,
+                  -28.304101487301963
+                ],
+                [
+                  0.12641577228785106,
+                  -0.8568632001266556,
+                  0.499804470553809,
+                  -21.71333025234105
+                ],
+                [
+                  0.14612445584245876,
+                  -0.9892661888730474,
+                  -0.00022573732836514098,
+                  -14.252958180939135
+                ],
+                [
+                  0.12667920945964234,
+                  -0.8565961012114914,
+                  -0.5001954590757023,
+                  -22.269411155020947
+                ],
+                [
+                  0.07329037120430182,
+                  -0.49440177999066853,
+                  -0.8661382115059897,
+                  -28.23623919996814
+                ],
+                [
+                  -0.9892661795520971,
+                  -0.14612438609200595,
+                  -0.00029963917058001277,
+                  3.3909301757826427
+                ],
+                [
+                  0.9892661795520971,
+                  0.14612438609200595,
+                  0.00029963917058001277,
+                  -14.92177836100447
+                ]
+              ]
+            },
+            {
+              "bone": "spine_05",
+              "side_planes": 12,
+              "planes": [
+                [
+                  0.0002634371717912809,
+                  0.00026709891516435436,
+                  -0.9999999296295107,
+                  -28.820067777087203
+                ],
+                [
+                  -0.07283408463815703,
+                  0.49486440888237926,
+                  -0.8659124741776246,
+                  -24.267182655341013
+                ],
+                [
+                  -0.12641577228785114,
+                  0.8568632001266557,
+                  -0.49980447055380867,
+                  -15.694918151716312
+                ],
+                [
+                  -0.14612445584245884,
+                  0.9892661888730474,
+                  0.00022573732836526344,
+                  -13.13291383125257
+                ],
+                [
+                  -0.12667920945964245,
+                  0.8565961012114915,
+                  0.500195459075702,
+                  -15.756552718893483
+                ],
+                [
+                  -0.07329037120430178,
+                  0.4944017799906679,
+                  0.8661382115059898,
+                  -24.419545812309096
+                ],
+                [
+                  -0.0002634371717912988,
+                  -0.0002670989151642332,
+                  0.9999999296295107,
+                  -28.526974722475604
+                ],
+                [
+                  0.072834084638157,
+                  -0.49486440888237904,
+                  0.8659124741776247,
+                  -26.844558349488018
+                ],
+                [
+                  0.1264157722878511,
+                  -0.8568632001266556,
+                  0.499804470553809,
+                  -19.180048360471105
+                ],
+                [
+                  0.14612445584245884,
+                  -0.9892661888730474,
+                  -0.00022573732836514098,
+                  -11.762833327297109
+                ],
+                [
+                  0.12667920945964242,
+                  -0.8565961012114914,
+                  -0.5001954590757023,
+                  -19.62685417496563
+                ],
+                [
+                  0.07329037120430186,
+                  -0.49440177999066853,
+                  -0.8661382115059897,
+                  -26.767552528983078
+                ],
+                [
+                  -0.9892661795520971,
+                  -0.146124386092006,
+                  -0.00029963917058001277,
+                  -5.902409871419593
+                ],
+                [
+                  0.9892661795520971,
+                  0.146124386092006,
+                  0.00029963917058001277,
+                  -5.628438313802235
+                ]
+              ]
+            },
+            {
+              "bone": "spine_05",
+              "side_planes": 12,
+              "planes": [
+                [
+                  0.0002634371717912809,
+                  0.00026709891516435436,
+                  -0.9999999296295107,
+                  -23.78431845683303
+                ],
+                [
+                  -0.07283408463815703,
+                  0.49486440888237926,
+                  -0.8659124741776246,
+                  -20.12120868355861
+                ],
+                [
+                  -0.12641577228785114,
+                  0.8568632001266557,
+                  -0.49980447055380867,
+                  -12.650170575177253
+                ],
+                [
+                  -0.14612445584245884,
+                  0.9892661888730474,
+                  0.00022573732836526344,
+                  -8.755522417367235
+                ],
+                [
+                  -0.12667920945964245,
+                  0.8565961012114915,
+                  0.500195459075702,
+                  -12.718378408765613
+                ],
+                [
+                  -0.07329037120430178,
+                  0.4944017799906679,
+                  0.8661382115059898,
+                  -20.186795830542348
+                ],
+                [
+                  -0.0002634371717912988,
+                  -0.0002670989151642332,
+                  0.9999999296295107,
+                  -23.83057120774776
+                ],
+                [
+                  0.072834084638157,
+                  -0.49486440888237904,
+                  0.8659124741776247,
+                  -22.285263715078745
+                ],
+                [
+                  0.1264157722878511,
+                  -0.8568632001266556,
+                  0.499804470553809,
+                  -15.99586670480002
+                ],
+                [
+                  0.14612445584245884,
+                  -0.9892661888730474,
+                  -0.00022573732836514098,
+                  -11.298915406335464
+                ],
+                [
+                  0.12667920945964242,
+                  -0.8565961012114914,
+                  -0.5001954590757023,
+                  -16.536695472260593
+                ],
+                [
+                  0.07329037120430186,
+                  -0.49440177999066853,
+                  -0.8661382115059897,
+                  -22.37156036541832
+                ],
+                [
+                  -0.9892661795520971,
+                  -0.146124386092006,
+                  -0.00029963917058001277,
+                  4.628438313802235
+                ],
+                [
+                  0.9892661795520971,
+                  0.146124386092006,
+                  0.00029963917058001277,
+                  -16.159286499024063
+                ]
+              ]
+            }
+          ],
+          "probes": [
+            [
+              -10.549286749917238,
+              -17.432442662342908,
+              127.62201154398417
+            ],
+            [
+              -10.07738725095721,
+              -16.947075602635266,
+              117.06155202350043
+            ],
+            [
+              -9.849716538958246,
+              -19.246745583638074,
+              137.098972787853
+            ],
+            [
+              -8.441054743641878,
+              -17.346880671604993,
+              137.74204090077617
+            ],
+            [
+              -7.834104744939359,
+              -18.999572035893323,
+              106.637772221617
+            ],
+            [
+              -5.685515236108752,
+              -16.549456355198743,
+              105.44662140827245
+            ],
+            [
+              -2.1466521877767244,
+              -14.364632365330579,
+              116.47654469810936
+            ],
+            [
+              -1.7834974531671663,
+              -16.29828190527809,
+              105.77778118856286
+            ],
+            [
+              -1.8489090589956307,
+              -14.6268551322068,
+              128.04600337629395
+            ],
+            [
+              -2.049727613969172,
+              -17.94283890448463,
+              139.15915801239214
+            ],
+            [
+              4.263120039119869,
+              -24.8488051863755,
+              136.4030780040635
+            ],
+            [
+              6.517980018820955,
+              -23.821943518742444,
+              107.55968547292242
+            ],
+            [
+              6.300489031613953,
+              -25.561455962284924,
+              133.9814082404688
+            ],
+            [
+              7.065564450048949,
+              -14.455335852726819,
+              116.64639601639801
+            ],
+            [
+              7.080022123883704,
+              -15.658059355839612,
+              127.91031133487459
+            ],
+            [
+              11.94489512034865,
+              -22.262725350483777,
+              124.56090123310739
+            ],
+            [
+              13.449557859775974,
+              -17.690710064991833,
+              110.38097835875153
+            ],
+            [
+              15.123403683462174,
+              -11.38797402106178,
+              113.26057395034532
+            ],
+            [
+              15.206279555778025,
+              -12.523664233311536,
+              116.71628580930414
+            ],
+            [
+              16.31370052199727,
+              -11.38797402106178,
+              115.3997846938128
+            ]
+          ]
         }
       }
     },
@@ -6053,6 +6849,23 @@
               0.23873230814933777,
               145.0
             ]
+          },
+          "ue_modern_kevlar_vest": {
+            "pivot": [
+              0.0,
+              -17.121214969792835,
+              134.0
+            ],
+            "bounds_min": [
+              -24.165117263793945,
+              -53.97767175022649,
+              99.38407897949219
+            ],
+            "bounds_max": [
+              24.165117263793945,
+              -15.121214993634695,
+              145.0
+            ]
           }
         }
       },
@@ -6063,7 +6876,8 @@
         "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_portable_backpack_chainmail_shirt.SK_Jason_portable_backpack_chainmail_shirt",
         "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_portable_backpack_blue_mage_robe.SK_Jason_portable_backpack_blue_mage_robe",
         "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_portable_backpack_st6_sleeves.SK_Jason_portable_backpack_st6_sleeves",
-        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_portable_backpack_work_jacket.SK_Jason_portable_backpack_work_jacket"
+        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_portable_backpack_work_jacket.SK_Jason_portable_backpack_work_jacket",
+        "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Jason/SK_Jason_portable_backpack_TS01.SK_Jason_portable_backpack_TS01"
       },
       "inventory_static_mesh": "/Game/Characters/BackpackFit20261024/InventoryFront20261025/SM_AliceBackpack_InventoryFront.SM_AliceBackpack_InventoryFront"
     },
@@ -6076,7 +6890,8 @@
         "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_expedition_backpack_chainmail_shirt.SK_Jason_expedition_backpack_chainmail_shirt",
         "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_expedition_backpack_blue_mage_robe.SK_Jason_expedition_backpack_blue_mage_robe",
         "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_expedition_backpack_st6_sleeves.SK_Jason_expedition_backpack_st6_sleeves",
-        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_expedition_backpack_work_jacket.SK_Jason_expedition_backpack_work_jacket"
+        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_expedition_backpack_work_jacket.SK_Jason_expedition_backpack_work_jacket",
+        "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Jason/SK_Jason_expedition_backpack_TS01.SK_Jason_expedition_backpack_TS01"
       },
       "backpack_motion": {
         "frequency_hz": 2.6,
@@ -6221,6 +7036,23 @@
               -2.903057336807251,
               153.0
             ]
+          },
+          "ue_modern_kevlar_vest": {
+            "pivot": [
+              0.0,
+              -17.76061679513264,
+              134.0
+            ],
+            "bounds_min": [
+              -19.704004287719727,
+              -40.33359462226198,
+              91.0
+            ],
+            "bounds_max": [
+              19.704004287719727,
+              -15.76061660254762,
+              153.0
+            ]
           }
         }
       }
@@ -6234,7 +7066,8 @@
         "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_pathfinder_backpack_chainmail_shirt.SK_Jason_pathfinder_backpack_chainmail_shirt",
         "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_pathfinder_backpack_blue_mage_robe.SK_Jason_pathfinder_backpack_blue_mage_robe",
         "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_pathfinder_backpack_st6_sleeves.SK_Jason_pathfinder_backpack_st6_sleeves",
-        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_pathfinder_backpack_work_jacket.SK_Jason_pathfinder_backpack_work_jacket"
+        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_pathfinder_backpack_work_jacket.SK_Jason_pathfinder_backpack_work_jacket",
+        "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Jason/SK_Jason_pathfinder_backpack_TS01.SK_Jason_pathfinder_backpack_TS01"
       },
       "rigid_pack": {
         "mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_pathfinder_backpack_bare_Contact.SM_Jason_ue_pathfinder_backpack_bare_Contact",
@@ -6279,6 +7112,11 @@
             -3.3328599313640824e-08,
             -11.684266438169956,
             122.00000016069936
+          ],
+          "ue_modern_kevlar_vest": [
+            -1.6782112975068952e-08,
+            -19.922801231906927,
+            122.00000008091777
           ]
         },
         "mesh_by_shirt": {
@@ -6287,7 +7125,8 @@
           "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_pathfinder_backpack_ue_field_sweater_Contact.SM_Jason_ue_pathfinder_backpack_ue_field_sweater_Contact",
           "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_pathfinder_backpack_ue_field_sweater_charcoal_Contact.SM_Jason_ue_pathfinder_backpack_ue_field_sweater_charcoal_Contact",
           "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_pathfinder_backpack_ue_chainmail_shirt_Contact.SM_Jason_ue_pathfinder_backpack_ue_chainmail_shirt_Contact",
-          "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_pathfinder_backpack_ue_st6_sleeves_Contact.SM_Jason_ue_pathfinder_backpack_ue_st6_sleeves_Contact"
+          "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_pathfinder_backpack_ue_st6_sleeves_Contact.SM_Jason_ue_pathfinder_backpack_ue_st6_sleeves_Contact",
+          "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Jason/SM_Jason_pathfinder_backpack_TS01.SM_Jason_pathfinder_backpack_TS01"
         }
       },
       "backpack_motion": {
@@ -6433,6 +7272,23 @@
               2.564005826790204,
               156.00000018332943
             ]
+          },
+          "ue_modern_kevlar_vest": {
+            "pivot": [
+              -3.6898440095125365e-08,
+              -12.695328983468233,
+              134.00000017791191
+            ],
+            "bounds_min": [
+              -26.000001924130746,
+              -46.61479494528584,
+              88.00000008091777
+            ],
+            "bounds_max": [
+              26.00000189056652,
+              -14.770501350925482,
+              156.00000008091777
+            ]
           }
         }
       }
@@ -6446,7 +7302,8 @@
         "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_farreach_backpack_chainmail_shirt.SK_Jason_farreach_backpack_chainmail_shirt",
         "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_farreach_backpack_blue_mage_robe.SK_Jason_farreach_backpack_blue_mage_robe",
         "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_farreach_backpack_st6_sleeves.SK_Jason_farreach_backpack_st6_sleeves",
-        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_farreach_backpack_work_jacket.SK_Jason_farreach_backpack_work_jacket"
+        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_farreach_backpack_work_jacket.SK_Jason_farreach_backpack_work_jacket",
+        "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Jason/SK_Jason_farreach_backpack_TS01_EXFIL.SK_Jason_farreach_backpack_TS01_EXFIL"
       },
       "rigid_pack": {
         "mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_farreach_backpack_bare_Contact.SM_Jason_ue_farreach_backpack_bare_Contact",
@@ -6491,6 +7348,11 @@
             -1.132183633359843e-08,
             -16.20889578117847,
             124.00000005459015
+          ],
+          "ue_modern_kevlar_vest": [
+            2.0376213175171904e-08,
+            -20.723962599504347,
+            123.9999999017528
           ]
         },
         "mesh_by_shirt": {
@@ -6499,7 +7361,8 @@
           "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_farreach_backpack_ue_field_sweater_Contact.SM_Jason_ue_farreach_backpack_ue_field_sweater_Contact",
           "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_farreach_backpack_ue_field_sweater_charcoal_Contact.SM_Jason_ue_farreach_backpack_ue_field_sweater_charcoal_Contact",
           "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_farreach_backpack_ue_chainmail_shirt_Contact.SM_Jason_ue_farreach_backpack_ue_chainmail_shirt_Contact",
-          "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_farreach_backpack_ue_st6_sleeves_Contact.SM_Jason_ue_farreach_backpack_ue_st6_sleeves_Contact"
+          "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_farreach_backpack_ue_st6_sleeves_Contact.SM_Jason_ue_farreach_backpack_ue_st6_sleeves_Contact",
+          "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Jason/SM_Jason_farreach_backpack_TS01.SM_Jason_farreach_backpack_TS01"
         }
       },
       "backpack_motion": {
@@ -6645,6 +7508,23 @@
               -1.8628162883705546,
               159.10841927385616
             ]
+          },
+          "ue_modern_kevlar_vest": {
+            "pivot": [
+              -2.772914826636437e-09,
+              -12.3385659734393,
+              135.8577205102564
+            ],
+            "bounds_min": [
+              -25.999999979623787,
+              -46.284214367965674,
+              89.03476404927972
+            ],
+            "bounds_max": [
+              26.000000020376213,
+              -15.461412893012804,
+              159.10841885345744
+            ]
           }
         }
       }
@@ -6658,7 +7538,8 @@
         "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_special_duty_backpack_chainmail_shirt.SK_Jason_special_duty_backpack_chainmail_shirt",
         "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_special_duty_backpack_blue_mage_robe.SK_Jason_special_duty_backpack_blue_mage_robe",
         "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_special_duty_backpack_st6_sleeves.SK_Jason_special_duty_backpack_st6_sleeves",
-        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_special_duty_backpack_work_jacket.SK_Jason_special_duty_backpack_work_jacket"
+        "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SK_Jason_special_duty_backpack_work_jacket.SK_Jason_special_duty_backpack_work_jacket",
+        "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Jason/SK_Jason_special_duty_backpack_TS01_EXFIL.SK_Jason_special_duty_backpack_TS01_EXFIL"
       },
       "rigid_pack": {
         "mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_special_duty_backpack_bare_Contact.SM_Jason_ue_special_duty_backpack_bare_Contact",
@@ -6703,6 +7584,11 @@
             -1.903285580403844e-08,
             -15.752331125015353,
             124.00000009177009
+          ],
+          "ue_modern_kevlar_vest": [
+            1.397530037393107e-08,
+            -22.29579923313923,
+            123.99999993261584
           ]
         },
         "mesh_by_shirt": {
@@ -6711,7 +7597,8 @@
           "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_special_duty_backpack_ue_field_sweater_Contact.SM_Jason_ue_special_duty_backpack_ue_field_sweater_Contact",
           "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_special_duty_backpack_ue_field_sweater_charcoal_Contact.SM_Jason_ue_special_duty_backpack_ue_field_sweater_charcoal_Contact",
           "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_special_duty_backpack_ue_chainmail_shirt_Contact.SM_Jason_ue_special_duty_backpack_ue_chainmail_shirt_Contact",
-          "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_special_duty_backpack_ue_st6_sleeves_Contact.SM_Jason_ue_special_duty_backpack_ue_st6_sleeves_Contact"
+          "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Jason/SM_Jason_ue_special_duty_backpack_ue_st6_sleeves_Contact.SM_Jason_ue_special_duty_backpack_ue_st6_sleeves_Contact",
+          "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Jason/SM_Jason_special_duty_backpack_TS01.SM_Jason_special_duty_backpack_TS01"
         }
       },
       "backpack_motion": {
@@ -6856,6 +7743,23 @@
               22.205001818868546,
               -0.6278435875860833,
               160.20712578673556
+            ]
+          },
+          "ue_modern_kevlar_vest": {
+            "pivot": [
+              -9.211651772101284e-09,
+              -13.902453813804888,
+              135.85772054130183
+            ],
+            "bounds_min": [
+              -22.205007539125287,
+              -41.13366198956013,
+              88.08779927364863
+            ],
+            "bounds_max": [
+              22.205007567075885,
+              -15.742708645321288,
+              160.20712597258404
             ]
           }
         }
@@ -7732,6 +8636,30 @@
             }
           },
           "covers_scalp_hair": false
+        },
+        "ue_modern_tactical_helmet": {
+          "static_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Wear/SM_TS01_Helmet_Kaitlin_JawFit.SM_TS01_Helmet_Kaitlin_JawFit",
+          "attach_bone": "head",
+          "covers_scalp_hair": false,
+          "fits": {
+            "kaitlin": {
+              "location": [
+                0,
+                0,
+                0
+              ],
+              "rotation": [
+                0,
+                0,
+                0
+              ],
+              "scale": [
+                1,
+                1,
+                1
+              ]
+            }
+          }
         }
       },
       "first_person_body": {
@@ -8061,7 +8989,8 @@
             "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_mountain_backpack_chainmail_shirt.SK_Kaitlin_mountain_backpack_chainmail_shirt",
             "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_mountain_backpack_blue_mage_robe.SK_Kaitlin_mountain_backpack_blue_mage_robe",
             "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_mountain_backpack_st6_sleeves.SK_Kaitlin_mountain_backpack_st6_sleeves",
-            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_mountain_backpack_work_jacket.SK_Kaitlin_mountain_backpack_work_jacket"
+            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_mountain_backpack_work_jacket.SK_Kaitlin_mountain_backpack_work_jacket",
+            "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Kaitlin/SK_Kaitlin_mountain_backpack_TS01.SK_Kaitlin_mountain_backpack_TS01"
           },
           "backpack_motion": {
             "frequency_hz": 3.0,
@@ -8205,6 +9134,23 @@
                   18.80577850341797,
                   1.679114580154419,
                   140.1033172607422
+                ]
+              },
+              "ue_modern_kevlar_vest": {
+                "pivot": [
+                  -0.029405694283141263,
+                  -14.493405160166361,
+                  131.98288616042794
+                ],
+                "bounds_min": [
+                  -20.808908462524414,
+                  -36.146659536135864,
+                  91.94747924804688
+                ],
+                "bounds_max": [
+                  18.80679702758789,
+                  -11.041319532168576,
+                  139.30630493164062
                 ]
               }
             }
@@ -8372,6 +9318,23 @@
                   2.7003841400146484,
                   143.10401916503906
                 ]
+              },
+              "ue_modern_kevlar_vest": {
+                "pivot": [
+                  -0.028840344128557488,
+                  -14.913607444227186,
+                  131.8091989951801
+                ],
+                "bounds_min": [
+                  -24.182395935058594,
+                  -50.1285777898724,
+                  95.80449676513672
+                ],
+                "bounds_max": [
+                  24.14725685119629,
+                  -10.883444389909027,
+                  142.3109130859375
+                ]
               }
             }
           },
@@ -8382,7 +9345,8 @@
             "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_portable_backpack_chainmail_shirt.SK_Kaitlin_portable_backpack_chainmail_shirt",
             "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_portable_backpack_blue_mage_robe.SK_Kaitlin_portable_backpack_blue_mage_robe",
             "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_portable_backpack_st6_sleeves.SK_Kaitlin_portable_backpack_st6_sleeves",
-            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_portable_backpack_work_jacket.SK_Kaitlin_portable_backpack_work_jacket"
+            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_portable_backpack_work_jacket.SK_Kaitlin_portable_backpack_work_jacket",
+            "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Kaitlin/SK_Kaitlin_portable_backpack_TS01.SK_Kaitlin_portable_backpack_TS01"
           },
           "inventory_static_mesh": "/Game/Characters/BackpackFit20261024/InventoryFront20261025/SM_AliceBackpack_InventoryFront.SM_AliceBackpack_InventoryFront"
         },
@@ -8395,7 +9359,8 @@
             "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_expedition_backpack_chainmail_shirt.SK_Kaitlin_expedition_backpack_chainmail_shirt",
             "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_expedition_backpack_blue_mage_robe.SK_Kaitlin_expedition_backpack_blue_mage_robe",
             "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_expedition_backpack_st6_sleeves.SK_Kaitlin_expedition_backpack_st6_sleeves",
-            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_expedition_backpack_work_jacket.SK_Kaitlin_expedition_backpack_work_jacket"
+            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_expedition_backpack_work_jacket.SK_Kaitlin_expedition_backpack_work_jacket",
+            "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Kaitlin/SK_Kaitlin_expedition_backpack_TS01.SK_Kaitlin_expedition_backpack_TS01"
           },
           "backpack_motion": {
             "frequency_hz": 2.6,
@@ -8540,6 +9505,23 @@
                   -0.41903623938560486,
                   151.01547241210938
                 ]
+              },
+              "ue_modern_kevlar_vest": {
+                "pivot": [
+                  -0.0288994484693242,
+                  -16.664814439716228,
+                  131.82735706114755
+                ],
+                "bounds_min": [
+                  -19.728281021118164,
+                  -38.34726858602631,
+                  87.84627532958984
+                ],
+                "bounds_max": [
+                  19.679792404174805,
+                  -11.901289467679142,
+                  150.19679260253906
+                ]
               }
             }
           }
@@ -8553,7 +9535,8 @@
             "ue_chainmail_shirt": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_simple_sling_bag_78ce16b022.SK_Kaitlin_ue_simple_sling_bag_78ce16b022",
             "ue_blue_mage_robe": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_simple_sling_bag_951b8f5b40.SK_Kaitlin_ue_simple_sling_bag_951b8f5b40",
             "ue_st6_sleeves": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/Backpacks/SK_Kaitlin_ue_simple_sling_bag_23fbe32f43.SK_Kaitlin_ue_simple_sling_bag_23fbe32f43",
-            "ue_work_jacket": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_simple_sling_bag_WorkJacketR2.SK_Kaitlin_ue_simple_sling_bag_WorkJacketR2"
+            "ue_work_jacket": "/Game/Characters/ModularOutfit20260924/WorkJacketPacks20261024/Kaitlin/SK_Kaitlin_ue_simple_sling_bag_WorkJacketR2.SK_Kaitlin_ue_simple_sling_bag_WorkJacketR2",
+            "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalShoulders20261118/Kaitlin/SK_Kaitlin_simple_sling_bag_modern_kevlar_vest.SK_Kaitlin_simple_sling_bag_modern_kevlar_vest"
           },
           "rigid_pack": {
             "mesh": "/Game/Characters/SimpleSlingBag20261022/SM_SimpleSlingPouch.SM_SimpleSlingPouch",
@@ -8598,7 +9581,15 @@
                 -0.024792294857019198,
                 -17.093919572722697,
                 120.57077719234394
+              ],
+              "ue_modern_kevlar_vest": [
+                -0.023981219261218475,
+                -19.256226971735373,
+                120.3215961781035
               ]
+            },
+            "mesh_by_shirt": {
+              "ue_modern_kevlar_vest": "/Game/Characters/SimpleSlingBag20261022/SM_SimpleSlingPouch.SM_SimpleSlingPouch"
             }
           },
           "backpack_motion": {
@@ -13838,6 +14829,751 @@
                   113.61615124113162
                 ]
               ]
+            },
+            "ue_modern_kevlar_vest": {
+              "center": [
+                -0.023981219261218475,
+                -19.256226971735373,
+                120.3215961781035
+              ],
+              "tethers": [
+                {
+                  "point": [
+                    -5.5447354032276355,
+                    -17.510344916148192,
+                    136.28525278005839
+                  ],
+                  "support": [
+                    {
+                      "bone": "clavicle_r",
+                      "local": [
+                        -6.975277116091939,
+                        6.075739274708599,
+                        -1.0162046382924113
+                      ],
+                      "weight": 0.5584320858913305
+                    },
+                    {
+                      "bone": "spine_04",
+                      "local": [
+                        27.554095497008454,
+                        -7.503948270514147,
+                        10.453876222370589
+                      ],
+                      "weight": 0.3484958997934477
+                    },
+                    {
+                      "bone": "upperarm_r",
+                      "local": [
+                        5.121122929596565,
+                        7.336824052670405,
+                        2.5380954613630173
+                      ],
+                      "weight": 0.09307201431522176
+                    }
+                  ],
+                  "length": 9.302569693533718
+                },
+                {
+                  "point": [
+                    14.819617481779582,
+                    -9.68132973957059,
+                    112.75292357077191
+                  ],
+                  "support": [
+                    {
+                      "bone": "spine_02",
+                      "local": [
+                        7.054359736485822,
+                        -7.90072331931409,
+                        -9.961885995384137
+                      ],
+                      "weight": 0.4360908335439279
+                    },
+                    {
+                      "bone": "spine_03",
+                      "local": [
+                        0.552929259816224,
+                        -8.549459903580319,
+                        -10.703090093185489
+                      ],
+                      "weight": 0.33084170969046306
+                    },
+                    {
+                      "bone": "spine_01",
+                      "local": [
+                        15.029023870921144,
+                        -8.291999586777063,
+                        -10.565585805549405
+                      ],
+                      "weight": 0.19526060687238048
+                    },
+                    {
+                      "bone": "pelvis",
+                      "local": [
+                        19.911372482083895,
+                        -5.883547731829855,
+                        -11.06748658776758
+                      ],
+                      "weight": 0.02507889241404429
+                    },
+                    {
+                      "bone": "spine_04",
+                      "local": [
+                        -7.533463144561589,
+                        -9.933741768767893,
+                        -11.008608241966432
+                      ],
+                      "weight": 0.012727957479184279
+                    }
+                  ],
+                  "length": 9.581826060784495
+                }
+              ],
+              "hulls": [
+                {
+                  "bone": "spine_01",
+                  "side_planes": 12,
+                  "planes": [
+                    [
+                      3.839991163434585e-06,
+                      1.3073365492943798e-07,
+                      -0.9999999999926188,
+                      -16.60495981569821
+                    ],
+                    [
+                      0.11250412043148937,
+                      0.48717931140580595,
+                      -0.8660249080852709,
+                      -16.399303260039794
+                    ],
+                    [
+                      0.19485901265702396,
+                      0.8438191890176209,
+                      -0.4999991414312374,
+                      -13.480697881292269
+                    ],
+                    [
+                      0.22500158980318308,
+                      0.9743583963742795,
+                      9.913855509245357e-07,
+                      -11.880787193860208
+                    ],
+                    [
+                      0.19485517266586055,
+                      0.8438190582839661,
+                      0.5000008585613813,
+                      -13.477480334119454
+                    ],
+                    [
+                      0.11249746937169365,
+                      0.4871790849684733,
+                      0.8660258994708218,
+                      -16.39396608562484
+                    ],
+                    [
+                      -3.8399911634070306e-06,
+                      -1.3073365481011348e-07,
+                      0.9999999999926188,
+                      -16.596198521195078
+                    ],
+                    [
+                      -0.11250412043148929,
+                      -0.48717931140580567,
+                      0.8660249080852709,
+                      -15.788403916292872
+                    ],
+                    [
+                      -0.1948590126570239,
+                      -0.8438191890176207,
+                      0.49999914143123764,
+                      -14.800505297146312
+                    ],
+                    [
+                      -0.22500158980318308,
+                      -0.9743583963742795,
+                      -9.91385550802071e-07,
+                      -12.594491854170775
+                    ],
+                    [
+                      -0.19485517266586053,
+                      -0.843819058283966,
+                      -0.5000008585613817,
+                      -14.800445129767201
+                    ],
+                    [
+                      -0.1124974693716938,
+                      -0.48717908496847384,
+                      -0.8660258994708215,
+                      -15.791187839521003
+                    ],
+                    [
+                      -0.9743583963672169,
+                      0.22500158980532914,
+                      -3.7121123518946125e-06,
+                      -3.0135148208428704
+                    ],
+                    [
+                      0.9743583963672169,
+                      -0.22500158980532914,
+                      3.7121123518946125e-06,
+                      -6.458974726169001
+                    ]
+                  ]
+                },
+                {
+                  "bone": "spine_03",
+                  "side_planes": 12,
+                  "planes": [
+                    [
+                      9.938370567785794e-06,
+                      1.2367476418320702e-06,
+                      -0.9999999999498497,
+                      -14.672094056550932
+                    ],
+                    [
+                      -0.033337492810891614,
+                      0.4988878694723437,
+                      -0.8660251181498314,
+                      -14.243355909726763
+                    ],
+                    [
+                      -0.05775216971599426,
+                      0.8640979004582479,
+                      -0.49999950531649834,
+                      -11.354079487615019
+                    ],
+                    [
+                      -0.0666921993845511,
+                      0.9977735968349358,
+                      5.711823514663005e-07,
+                      -10.20095603965497
+                    ],
+                    [
+                      -0.05776210808656206,
+                      0.8640966637106062,
+                      0.5000004946333513,
+                      -11.091651828227329
+                    ],
+                    [
+                      -0.03335470657365948,
+                      0.49888572736259196,
+                      0.8660256893321829,
+                      -14.055417747807926
+                    ],
+                    [
+                      -9.938370567793961e-06,
+                      -1.236747641709878e-06,
+                      0.9999999999498497,
+                      -14.722263196242295
+                    ],
+                    [
+                      0.0333374928108916,
+                      -0.4988878694723435,
+                      0.8660251181498315,
+                      -14.448282752071847
+                    ],
+                    [
+                      0.05775216971599425,
+                      -0.8640979004582476,
+                      0.4999995053164986,
+                      -13.113209795597
+                    ],
+                    [
+                      0.0666921993845511,
+                      -0.9977735968349358,
+                      -5.711823513438358e-07,
+                      -11.021521528107796
+                    ],
+                    [
+                      0.05776210808656205,
+                      -0.864096663710606,
+                      -0.5000004946333516,
+                      -12.97202129925663
+                    ],
+                    [
+                      0.03335470657365951,
+                      -0.49888572736259246,
+                      -0.8660256893321827,
+                      -14.192019991117023
+                    ],
+                    [
+                      -0.9977735967856035,
+                      -0.06669219937552984,
+                      -9.99872516832534e-06,
+                      -5.287297544805185
+                    ],
+                    [
+                      0.9977735967856035,
+                      0.06669219937552984,
+                      9.99872516832534e-06,
+                      -4.185192002206676
+                    ]
+                  ]
+                },
+                {
+                  "bone": "spine_04",
+                  "side_planes": 12,
+                  "planes": [
+                    [
+                      9.64485496962597e-06,
+                      2.697682558103209e-06,
+                      -0.9999999999498498,
+                      -17.1168403429736
+                    ],
+                    [
+                      -0.10699191759749302,
+                      0.48841910722516146,
+                      -0.8660251181496917,
+                      -13.45383781979964
+                    ],
+                    [
+                      -0.18532508213305018,
+                      0.845964011418853,
+                      -0.49999950531625625,
+                      -12.60656566753925
+                    ],
+                    [
+                      -0.2140005405738251,
+                      0.9768335419270697,
+                      5.71182630937191e-07,
+                      -11.035791737781567
+                    ],
+                    [
+                      -0.1853347269880199,
+                      0.8459613137362951,
+                      0.5000004946335933,
+                      -12.199427944223078
+                    ],
+                    [
+                      -0.10700862297633204,
+                      0.48841443470190815,
+                      0.8660256893323227,
+                      -13.816662741700299
+                    ],
+                    [
+                      -9.644854969652177e-06,
+                      -2.697682557983581e-06,
+                      0.9999999999498498,
+                      -18.172614700689717
+                    ],
+                    [
+                      0.10699191759749298,
+                      -0.48841910722516124,
+                      0.8660251181496919,
+                      -17.686024145510487
+                    ],
+                    [
+                      0.18532508213305016,
+                      -0.8459640114188529,
+                      0.4999995053162566,
+                      -13.793678806983394
+                    ],
+                    [
+                      0.2140005405738251,
+                      -0.9768335419270697,
+                      -5.711826308147264e-07,
+                      -11.779471795207881
+                    ],
+                    [
+                      0.1853347269880198,
+                      -0.8459613137362949,
+                      -0.5000004946335935,
+                      -13.498304411201378
+                    ],
+                    [
+                      0.10700862297633217,
+                      -0.48841443470190876,
+                      -0.8660256893323225,
+                      -17.457676419479434
+                    ],
+                    [
+                      -0.9768335418796222,
+                      -0.2140005405575839,
+                      -9.998723367099503e-06,
+                      -5.3143130849047955
+                    ],
+                    [
+                      0.9768335418796222,
+                      0.2140005405575839,
+                      9.998723367099503e-06,
+                      -4.158176462107078
+                    ]
+                  ]
+                },
+                {
+                  "bone": "spine_05",
+                  "side_planes": 12,
+                  "planes": [
+                    [
+                      9.71355962331444e-06,
+                      2.438745171612356e-06,
+                      -0.9999999999498497,
+                      -24.653428463138575
+                    ],
+                    [
+                      -0.09388982732744602,
+                      0.49110609348513984,
+                      -0.8660251181496917,
+                      -20.155579187942006
+                    ],
+                    [
+                      -0.16263166480462862,
+                      0.8506182670777616,
+                      -0.49999950531625625,
+                      -16.629358179632582
+                    ],
+                    [
+                      -0.187796479033682,
+                      0.9822079629397359,
+                      5.711826309649469e-07,
+                      -15.000924323837951
+                    ],
+                    [
+                      -0.162641378364252,
+                      0.8506158283325901,
+                      0.5000004946335934,
+                      -16.58223937029337
+                    ],
+                    [
+                      -0.09390665170623595,
+                      0.49110186945459594,
+                      0.8660256893323227,
+                      -19.075283059913076
+                    ],
+                    [
+                      -9.713559623337439e-06,
+                      -2.43874517149207e-06,
+                      0.9999999999498497,
+                      -24.066589612494667
+                    ],
+                    [
+                      0.09388982732744598,
+                      -0.49110609348513967,
+                      0.8660251181496919,
+                      -22.75719616274883
+                    ],
+                    [
+                      0.1626316648046286,
+                      -0.8506182670777613,
+                      0.49999950531625653,
+                      -16.26562419245336
+                    ],
+                    [
+                      0.187796479033682,
+                      -0.9822079629397359,
+                      -5.711826308424823e-07,
+                      -10.355766241969924
+                    ],
+                    [
+                      0.16264137836425194,
+                      -0.8506158283325899,
+                      -0.5000004946335936,
+                      -16.26209635822089
+                    ],
+                    [
+                      0.09390665170623605,
+                      -0.49110186945459644,
+                      -0.8660256893323225,
+                      -22.752619931447295
+                    ],
+                    [
+                      -0.9822079628918708,
+                      -0.1877964790187157,
+                      -9.998723366932975e-06,
+                      -9.462273035010487
+                    ],
+                    [
+                      0.9822079628918708,
+                      0.1877964790187157,
+                      9.998723366932975e-06,
+                      -0.010216512001377968
+                    ]
+                  ]
+                },
+                {
+                  "bone": "spine_05",
+                  "side_planes": 12,
+                  "planes": [
+                    [
+                      9.71355962331444e-06,
+                      2.438745171612356e-06,
+                      -0.9999999999498497,
+                      -24.653428463138575
+                    ],
+                    [
+                      -0.09388982732744602,
+                      0.49110609348513984,
+                      -0.8660251181496917,
+                      -20.575686850097398
+                    ],
+                    [
+                      -0.16263166480462862,
+                      0.8506182670777616,
+                      -0.49999950531625625,
+                      -16.134424520776896
+                    ],
+                    [
+                      -0.187796479033682,
+                      0.9822079629397359,
+                      5.711826309649469e-07,
+                      -13.899633259247139
+                    ],
+                    [
+                      -0.162641378364252,
+                      0.8506158283325901,
+                      0.5000004946335934,
+                      -16.157000920776948
+                    ],
+                    [
+                      -0.09390665170623595,
+                      0.49110186945459594,
+                      0.8660256893323227,
+                      -19.974499784023955
+                    ],
+                    [
+                      -9.713559623337439e-06,
+                      -2.43874517149207e-06,
+                      0.9999999999498497,
+                      -24.085393068029006
+                    ],
+                    [
+                      0.09388982732744598,
+                      -0.49110609348513967,
+                      0.8660251181496919,
+                      -23.00359607470704
+                    ],
+                    [
+                      0.1626316648046286,
+                      -0.8506182670777613,
+                      0.49999950531625653,
+                      -16.466895014425884
+                    ],
+                    [
+                      0.187796479033682,
+                      -0.9822079629397359,
+                      -5.711826308424823e-07,
+                      -10.500677172916856
+                    ],
+                    [
+                      0.16264137836425194,
+                      -0.8506158283325899,
+                      -0.5000004946335936,
+                      -16.389326395851004
+                    ],
+                    [
+                      0.09390665170623605,
+                      -0.49110186945459644,
+                      -0.8660256893323225,
+                      -22.95201989146496
+                    ],
+                    [
+                      -0.9822079628918708,
+                      -0.1877964790187157,
+                      -9.998723366932975e-06,
+                      -0.9897834879986224
+                    ],
+                    [
+                      0.9822079628918708,
+                      0.1877964790187157,
+                      9.998723366932975e-06,
+                      -8.482706059013243
+                    ]
+                  ]
+                },
+                {
+                  "bone": "spine_05",
+                  "side_planes": 12,
+                  "planes": [
+                    [
+                      9.71355962331444e-06,
+                      2.438745171612356e-06,
+                      -0.9999999999498497,
+                      -20.8344201241534
+                    ],
+                    [
+                      -0.09388982732744602,
+                      0.49110609348513984,
+                      -0.8660251181496917,
+                      -17.28731860908005
+                    ],
+                    [
+                      -0.16263166480462862,
+                      0.8506182670777616,
+                      -0.49999950531625625,
+                      -10.25908608959319
+                    ],
+                    [
+                      -0.187796479033682,
+                      0.9822079629397359,
+                      5.711826309649469e-07,
+                      -6.412325449315956
+                    ],
+                    [
+                      -0.162641378364252,
+                      0.8506158283325901,
+                      0.5000004946335934,
+                      -10.262446774896622
+                    ],
+                    [
+                      -0.09390665170623595,
+                      0.49110186945459594,
+                      0.8660256893323227,
+                      -17.314657569743087
+                    ],
+                    [
+                      -9.713559623337439e-06,
+                      -2.43874517149207e-06,
+                      0.9999999999498497,
+                      -20.851123046547453
+                    ],
+                    [
+                      0.09388982732744598,
+                      -0.49110609348513967,
+                      0.8660251181496919,
+                      -19.675887795532287
+                    ],
+                    [
+                      0.1626316648046286,
+                      -0.8506182670777613,
+                      0.49999950531625653,
+                      -14.457207002938032
+                    ],
+                    [
+                      0.187796479033682,
+                      -0.9822079629397359,
+                      -5.711826308424823e-07,
+                      -9.727021688912508
+                    ],
+                    [
+                      0.16264137836425194,
+                      -0.8506158283325899,
+                      -0.5000004946335936,
+                      -14.453704085945953
+                    ],
+                    [
+                      0.09390665170623605,
+                      -0.49110186945459644,
+                      -0.8660256893323225,
+                      -19.63393887015259
+                    ],
+                    [
+                      -0.9822079628918708,
+                      -0.1877964790187157,
+                      -9.998723366932975e-06,
+                      7.482706059013242
+                    ],
+                    [
+                      0.9822079628918708,
+                      0.1877964790187157,
+                      9.998723366932975e-06,
+                      -16.955195606025136
+                    ]
+                  ]
+                }
+              ],
+              "probes": [
+                [
+                  -10.57527575465159,
+                  -16.601900567121923,
+                  125.13506523673954
+                ],
+                [
+                  -10.100425837976248,
+                  -15.389298213492431,
+                  114.63336591271825
+                ],
+                [
+                  -9.878043829883653,
+                  -19.06531309617734,
+                  134.46455366552544
+                ],
+                [
+                  -8.46999490613137,
+                  -17.214032980171396,
+                  135.2375423432032
+                ],
+                [
+                  -7.853662935422677,
+                  -16.717581695169166,
+                  104.09353845585214
+                ],
+                [
+                  -5.705278487106664,
+                  -14.190714363543837,
+                  103.07484824927681
+                ],
+                [
+                  -2.170101530231471,
+                  -12.771041290184627,
+                  114.23026252081311
+                ],
+                [
+                  -1.8034132875430107,
+                  -13.962180261485052,
+                  103.42372976411752
+                ],
+                [
+                  -1.87565127256137,
+                  -13.830458569823247,
+                  125.75418198989074
+                ],
+                [
+                  -2.078944970204313,
+                  -17.90499918131124,
+                  136.61213174634548
+                ],
+                [
+                  4.236250942504822,
+                  -24.603164390953708,
+                  133.38827129674928
+                ],
+                [
+                  6.499236298904471,
+                  -21.589123416514838,
+                  104.6850557033855
+                ],
+                [
+                  6.27448133911327,
+                  -25.146694122761026,
+                  130.92384027420627
+                ],
+                [
+                  7.042085643295477,
+                  -12.871363535534027,
+                  114.39625921408127
+                ],
+                [
+                  7.05355010374791,
+                  -14.84802851819887,
+                  125.55041562608916
+                ],
+                [
+                  11.920875711697127,
+                  -21.204987547386864,
+                  121.75497579257978
+                ],
+                [
+                  13.42862000878319,
+                  -15.665642449886573,
+                  107.9245777694469
+                ],
+                [
+                  15.100216665442135,
+                  -9.576160416899587,
+                  111.2324903195951
+                ],
+                [
+                  15.182346337284384,
+                  -10.947450502971027,
+                  114.60167766039494
+                ],
+                [
+                  16.28989368688895,
+                  -9.723446800465897,
+                  113.36697022689118
+                ]
+              ]
             }
           }
         },
@@ -13850,7 +15586,8 @@
             "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_pathfinder_backpack_chainmail_shirt.SK_Kaitlin_pathfinder_backpack_chainmail_shirt",
             "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_pathfinder_backpack_blue_mage_robe.SK_Kaitlin_pathfinder_backpack_blue_mage_robe",
             "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_pathfinder_backpack_st6_sleeves.SK_Kaitlin_pathfinder_backpack_st6_sleeves",
-            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_pathfinder_backpack_work_jacket.SK_Kaitlin_pathfinder_backpack_work_jacket"
+            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_pathfinder_backpack_work_jacket.SK_Kaitlin_pathfinder_backpack_work_jacket",
+            "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Kaitlin/SK_Kaitlin_pathfinder_backpack_TS01.SK_Kaitlin_pathfinder_backpack_TS01"
           },
           "rigid_pack": {
             "mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_pathfinder_backpack_bare_Contact.SM_Kaitlin_ue_pathfinder_backpack_bare_Contact",
@@ -13895,6 +15632,11 @@
                 -0.024923999410378667,
                 -11.381438402765243,
                 114.84396059241367
+              ],
+              "ue_modern_kevlar_vest": [
+                -0.023975470478043603,
+                -19.597377595170048,
+                114.55255076252931
               ]
             },
             "mesh_by_shirt": {
@@ -13903,7 +15645,8 @@
               "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_pathfinder_backpack_ue_field_sweater_Contact.SM_Kaitlin_ue_pathfinder_backpack_ue_field_sweater_Contact",
               "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_pathfinder_backpack_ue_field_sweater_charcoal_Contact.SM_Kaitlin_ue_pathfinder_backpack_ue_field_sweater_charcoal_Contact",
               "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_pathfinder_backpack_ue_chainmail_shirt_Contact.SM_Kaitlin_ue_pathfinder_backpack_ue_chainmail_shirt_Contact",
-              "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_pathfinder_backpack_ue_st6_sleeves_Contact.SM_Kaitlin_ue_pathfinder_backpack_ue_st6_sleeves_Contact"
+              "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_pathfinder_backpack_ue_st6_sleeves_Contact.SM_Kaitlin_ue_pathfinder_backpack_ue_st6_sleeves_Contact",
+              "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Kaitlin/SM_Kaitlin_pathfinder_backpack_TS01.SM_Kaitlin_pathfinder_backpack_TS01"
             }
           },
           "backpack_motion": {
@@ -14049,6 +15792,23 @@
                   2.722815142314543,
                   150.09470514902088
                 ]
+              },
+              "ue_modern_kevlar_vest": {
+                "pivot": [
+                  -0.02919699699963515,
+                  -11.944709172681199,
+                  126.57463122074725
+                ],
+                "bounds_min": [
+                  -26.024253296855644,
+                  -46.60305193760243,
+                  81.02484480276189
+                ],
+                "bounds_max": [
+                  25.97709821789243,
+                  -13.252382389794885,
+                  149.2813676198325
+                ]
               }
             }
           }
@@ -14062,7 +15822,8 @@
             "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_farreach_backpack_chainmail_shirt.SK_Kaitlin_farreach_backpack_chainmail_shirt",
             "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_farreach_backpack_blue_mage_robe.SK_Kaitlin_farreach_backpack_blue_mage_robe",
             "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_farreach_backpack_st6_sleeves.SK_Kaitlin_farreach_backpack_st6_sleeves",
-            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_farreach_backpack_work_jacket.SK_Kaitlin_farreach_backpack_work_jacket"
+            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_farreach_backpack_work_jacket.SK_Kaitlin_farreach_backpack_work_jacket",
+            "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Kaitlin/SK_Kaitlin_farreach_backpack_TS01_EXFIL.SK_Kaitlin_farreach_backpack_TS01_EXFIL"
           },
           "rigid_pack": {
             "mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_farreach_backpack_bare_Contact.SM_Kaitlin_ue_farreach_backpack_bare_Contact",
@@ -14107,6 +15868,11 @@
                 -0.024674080708258207,
                 -15.317486946047142,
                 116.5844102189536
+              ],
+              "ue_modern_kevlar_vest": [
+                -0.023282592517805192,
+                -21.43211312446723,
+                116.15691315160765
               ]
             },
             "mesh_by_shirt": {
@@ -14115,7 +15881,8 @@
               "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_farreach_backpack_ue_field_sweater_Contact.SM_Kaitlin_ue_farreach_backpack_ue_field_sweater_Contact",
               "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_farreach_backpack_ue_field_sweater_charcoal_Contact.SM_Kaitlin_ue_farreach_backpack_ue_field_sweater_charcoal_Contact",
               "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_farreach_backpack_ue_chainmail_shirt_Contact.SM_Kaitlin_ue_farreach_backpack_ue_chainmail_shirt_Contact",
-              "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_farreach_backpack_ue_st6_sleeves_Contact.SM_Kaitlin_ue_farreach_backpack_ue_st6_sleeves_Contact"
+              "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_farreach_backpack_ue_st6_sleeves_Contact.SM_Kaitlin_ue_farreach_backpack_ue_st6_sleeves_Contact",
+              "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Kaitlin/SM_Kaitlin_farreach_backpack_TS01.SM_Kaitlin_farreach_backpack_TS01"
             }
           },
           "backpack_motion": {
@@ -14261,6 +16028,23 @@
                   -0.5787297543626462,
                   152.0110203966191
                 ]
+              },
+              "ue_modern_kevlar_vest": {
+                "pivot": [
+                  -0.028677290124123705,
+                  -13.0098363054048,
+                  128.23219573642487
+                ],
+                "bounds_min": [
+                  -26.02528691823209,
+                  -47.18897347265459,
+                  81.22982790732209
+                ],
+                "bounds_max": [
+                  25.973935302514736,
+                  -15.415029171589552,
+                  151.29895872099814
+                ]
               }
             }
           }
@@ -14274,7 +16058,8 @@
             "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_special_duty_backpack_chainmail_shirt.SK_Kaitlin_special_duty_backpack_chainmail_shirt",
             "ue_blue_mage_robe": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_special_duty_backpack_blue_mage_robe.SK_Kaitlin_special_duty_backpack_blue_mage_robe",
             "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_special_duty_backpack_st6_sleeves.SK_Kaitlin_special_duty_backpack_st6_sleeves",
-            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_special_duty_backpack_work_jacket.SK_Kaitlin_special_duty_backpack_work_jacket"
+            "ue_work_jacket": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SK_Kaitlin_special_duty_backpack_work_jacket.SK_Kaitlin_special_duty_backpack_work_jacket",
+            "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Kaitlin/SK_Kaitlin_special_duty_backpack_TS01_EXFIL.SK_Kaitlin_special_duty_backpack_TS01_EXFIL"
           },
           "rigid_pack": {
             "mesh": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_special_duty_backpack_bare_Contact.SM_Kaitlin_ue_special_duty_backpack_bare_Contact",
@@ -14319,6 +16104,11 @@
                 -0.024174948287492823,
                 -15.25305321622775,
                 116.43106717985329
+              ],
+              "ue_modern_kevlar_vest": [
+                -0.023420403960497715,
+                -22.66907331399622,
+                116.19925262987266
               ]
             },
             "mesh_by_shirt": {
@@ -14327,7 +16117,8 @@
               "ue_field_sweater": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_special_duty_backpack_ue_field_sweater_Contact.SM_Kaitlin_ue_special_duty_backpack_ue_field_sweater_Contact",
               "ue_field_sweater_charcoal": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_special_duty_backpack_ue_field_sweater_charcoal_Contact.SM_Kaitlin_ue_special_duty_backpack_ue_field_sweater_charcoal_Contact",
               "ue_chainmail_shirt": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_special_duty_backpack_ue_chainmail_shirt_Contact.SM_Kaitlin_ue_special_duty_backpack_ue_chainmail_shirt_Contact",
-              "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_special_duty_backpack_ue_st6_sleeves_Contact.SM_Kaitlin_ue_special_duty_backpack_ue_st6_sleeves_Contact"
+              "ue_st6_sleeves": "/Game/Characters/BackpackFit20261024/ContactFitR3/Kaitlin/SM_Kaitlin_ue_special_duty_backpack_ue_st6_sleeves_Contact.SM_Kaitlin_ue_special_duty_backpack_ue_st6_sleeves_Contact",
+              "ue_modern_kevlar_vest": "/Game/Characters/BackpackFit20261024/ModernTacticalNativePacks20261118/Kaitlin/SM_Kaitlin_special_duty_backpack_TS01.SM_Kaitlin_special_duty_backpack_TS01"
             }
           },
           "backpack_motion": {
@@ -14472,6 +16263,23 @@
                   22.185666364078106,
                   -0.182053046513591,
                   153.40123287356062
+                ]
+              },
+              "ue_modern_kevlar_vest": {
+                "pivot": [
+                  -0.028781289991734252,
+                  -14.397062182334755,
+                  128.26414752380677
+                ],
+                "bounds_min": [
+                  -22.229773973111175,
+                  -41.500050870751366,
+                  80.33265452672191
+                ],
+                "bounds_max": [
+                  22.186957753187393,
+                  -15.350460856601503,
+                  152.52510802145454
                 ]
               }
             }

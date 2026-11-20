@@ -14,6 +14,8 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--engine',type=Path,default=Path('E:/Program Files (x86)/UE_5.8'))
 parser.add_argument('--module',type=Path,default=root/'Binaries/Win64/UnrealEditor-FPSGAME.dll')
 parser.add_argument('--run',default=time.strftime('%Y%m%d-%H%M%S'))
+parser.add_argument('--port',type=int,default=0)
+parser.add_argument('--guards-only', action='store_true')
 args = parser.parse_args()
 run = root/'Saved/ArtisanVillageNetwork'/args.run
 host = run/'Host'
@@ -28,7 +30,7 @@ shutil.copy2(args.module,host/'Binaries/Win64/UnrealEditor-FPSGAME.dll')
 shutil.copy2(root/'Binaries/Win64/UnrealEditor.modules',host/'Binaries/Win64/UnrealEditor.modules')
 exe = args.engine/'Engine/Binaries/Win64/UnrealEditor-Cmd.exe'
 with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as probe:
-    probe.bind(('127.0.0.1',0))
+    probe.bind(('127.0.0.1',args.port))
     port = probe.getsockname()[1]
 peers = {}
 
@@ -54,6 +56,8 @@ def launch(role):
            '-ini:EditorPerProjectUserSettings:[/Script/ModelContextProtocolEngine.ModelContextProtocolSettings]:bAutoStartServer=False']
     if authority:
         cmd.extend(['-HillsNewWorld','-HillsSeed=1518277816'])
+    if args.guards_only:
+        cmd.append('-ArtisanGuardOnly')
     peers[role] = subprocess.Popen(cmd,creationflags=subprocess.CREATE_NO_WINDOW)
     print(role,peers[role].pid,port,flush=True)
 
@@ -105,19 +109,23 @@ try:
             raise RuntimeError('listen server did not bind its UDP port')
         time.sleep(2)
     launch('owner')
-    wait_for('owner','done')
-    first=wait_for('server','personal-carpenter')
-    close_after_ack('owner')
-    launch('visitor')
-    second=wait_for('visitor','profile')
-    wait_for('server','visitor-authority')
-    close_after_ack('visitor')
-    launch('rejoin')
-    restored=wait_for('rejoin','profile')
-    wait_for('server','rejoin-authority')
-    wait_for('server','done')
-    result['identities_distinct_and_restored'] = first['detail']==restored['detail'] and first['detail']!=second['detail']
-    result['passed']=result['identities_distinct_and_restored']
+    if args.guards_only:
+        result['scope'] = 'guard combat'
+        result['passed'] = wait_for('server','done')['passed']
+    else:
+        wait_for('owner','done')
+        first=wait_for('server','personal-carpenter')
+        close_after_ack('owner')
+        launch('visitor')
+        second=wait_for('visitor','profile')
+        wait_for('server','visitor-authority')
+        close_after_ack('visitor')
+        launch('rejoin')
+        restored=wait_for('rejoin','profile')
+        wait_for('server','rejoin-authority')
+        wait_for('server','done')
+        result['identities_distinct_and_restored'] = first['detail']==restored['detail'] and first['detail']!=second['detail']
+        result['passed']=result['identities_distinct_and_restored']
 except Exception as exc:
     result['error']=str(exc)
 finally:

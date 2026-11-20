@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/Mutant3Feral.cpp
++++ b/Source/FPSGAME/Monsters/Mutant3Feral.cpp
+@@ -1,4 +1,5 @@
+ #include "Mutant3.h"
++#include "MonsterTargeting.h"
+ #include "FatZombieAnimInstance.h"
+ #include "FPSCombatHealthComponent.h"
+ #include "MonsterCombatTuning.h"
+@@ -233,7 +234,7 @@
+     for (const FOverlapResult& Hit : Hits)
+     {
+         APawn* Victim = Cast<APawn>(Hit.GetActor());
+-        if (!IsValid(Victim) || !Victim->IsPlayerControlled() || Contacted.Contains(Victim)) continue;
++        if (!IsValid(Victim) || !MonsterTargeting::IsOpponentPawn(Victim) || Contacted.Contains(Victim)) continue;
+         Contacted.Add(Victim);
+         float VictimRadius, VictimHalfHeight;
+         Victim->GetSimpleCollisionCylinder(VictimRadius, VictimHalfHeight);

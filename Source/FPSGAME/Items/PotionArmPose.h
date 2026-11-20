@@ -9,12 +9,13 @@ struct FPotionArmPose
 {
     void Reset();
     bool Apply(USkeletalMeshComponent& Mesh,const FPotionUseMotion& Motion,float Age,FTransform& OutPalmWorld,
-        bool bRight=false,const FTransform* PalmOverride=nullptr,bool bFullWeight=false);
+        bool bRight=false,const FTransform* PalmOverride=nullptr,bool bFullWeight=false,FTransform* OutWristWorld=nullptr);
 private:
     TWeakObjectPtr<USkeletalMesh> CachedMesh;
     TArray<FTransform> Rest,Source,Goal;
     TArray<int32> Bones;
     int32 Clavicle=INDEX_NONE,Upper=INDEX_NONE,Lower=INDEX_NONE,Hand=INDEX_NONE;
+    int32 WristTwist=INDEX_NONE,MidForearmTwist=INDEX_NONE;
     FQuat PalmReference=FQuat::Identity;
     bool bCachedRight=false;
 };

@@ -78,6 +78,22 @@ bool RebaseProfile(FColdSteelProfile& P,const FFoodClockSample& Now)
     Changed|=P.FoodVersion!=1||P.FoodClockId!=Now.Id||P.FoodClockDay!=Now.Day;
     P.FoodVersion=1;P.FoodClockId=Now.Id;P.FoodClockDay=Now.Day;return Changed;
 }
+void ObserveReplicatedClock(FColdSteelProfile& P,const FFoodClockSample& Sample)
+{
+    if(!Sample.Id.IsValid()||!FMath::IsFinite(Sample.Day)||Sample.Day<0.)return;
+    if(P.FoodClockId!=Sample.Id)
+    {
+        // The clock may arrive before the first upload to a new host. Fold the
+        // saved old-domain elapsed days into each owned food before losing that
+        // checkpoint. This only rebases timestamps; expiry remains server-owned.
+        RebaseProfile(P,Sample);
+        return;
+    }
+    // A late clock or full mirror must not rewind the same authority domain,
+    // nor repeatedly rewrite batch timestamps (also used by inventory baselines).
+    P.FoodClockDay=FMath::Max(P.FoodClockDay,Sample.Day);
+    P.FoodClockId=Sample.Id;P.FoodVersion=1;
+}
 bool Compatible(const FColdSteelItem& A,const FColdSteelItem& B)
 {
     if(LifetimeDays(A)<=0.&&LifetimeDays(B)<=0.)return true;

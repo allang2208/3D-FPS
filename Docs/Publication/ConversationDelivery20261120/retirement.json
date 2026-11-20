@@ -1,0 +1,59 @@
+{
+  "verified_regular_files": 4718,
+  "verified_bytes": 19082449524,
+  "images_or_video": 478,
+  "gif": 0,
+  "inert_link_descriptors": 774,
+  "failed_operations": 0,
+  "components": [
+    {
+      "manifest": "manifest.jsonl",
+      "sha256": "8c55d5a11184a883b886334eda8eaa7316f0308061e9aad2ee2f4a30d8e6f9e9",
+      "receipt": "receipt.json",
+      "verified": {
+        "files": 4303,
+        "bytes": 16964390738,
+        "images_or_video": 411,
+        "gif": 0
+      },
+      "inert_link_descriptors": 397
+    },
+    {
+      "manifest": "Supplement/manifest.jsonl",
+      "sha256": "842f48a8cd7a311fc6ecbe081d90757aafb257652b32b13303646bb16a80a4e3",
+      "receipt": "Supplement/receipt.json",
+      "verified": {
+        "files": 398,
+        "bytes": 2105580095,
+        "images_or_video": 55,
+        "gif": 0
+      },
+      "inert_link_descriptors": 370
+    },
+    {
+      "manifest": "External/manifest.jsonl",
+      "sha256": "5fc1768f855d3e97812e459ca8c62cf6bce0813a0a2b30691e5ca54364988849",
+      "receipt": "External/receipt.json",
+      "verified": {
+        "files": 13,
+        "bytes": 12477529,
+        "images_or_video": 12,
+        "gif": 0
+      },
+      "inert_link_descriptors": 0
+    },
+    {
+      "manifest": "ReviewHosts/manifest.jsonl",
+      "sha256": "90e3454269b6ea4fd3d17cbaaae107ebb3fa5a318bc1d6189fe8d908171ba6bd",
+      "receipt": "ReviewHosts/receipt.json",
+      "verified": {
+        "files": 4,
+        "bytes": 1162,
+        "images_or_video": 0,
+        "gif": 0
+      },
+      "inert_link_descriptors": 7
+    }
+  ],
+  "prior_archive_note": "The previous November 19 receipt remains separate. Its historic 04-bar.png was already unavailable before this cleanup; no copy with its recorded hash was found among the current files moved. The retained comparison.json contains the historic path and digest."
+}

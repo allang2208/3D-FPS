@@ -30,7 +30,19 @@ TSharedPtr<FJsonObject> CombatItemFormula::Read(const FColdSteelItem& Item)
     if(!Catalog)return Data;FString WeaponId,Name;Data->TryGetStringField(TEXT("weaponId"),WeaponId);Data->TryGetStringField(TEXT("name"),Name);
     const TSharedPtr<FJsonObject>* Source=nullptr;
     if(!Catalog->TryGetObjectField(WeaponId,Source)&&!Catalog->TryGetObjectField(Name,Source)&&!Catalog->TryGetObjectField(Item.Definition,Source))return Data;
-    for(const auto& Pair:(*Source)->Values)if(!Data->HasField(Pair.Key))Data->SetField(Pair.Key,Pair.Value);
+    // Modern tactical tuning is definition-owned, including already-owned items.
+    // Keep enhancement level, enchants, appearance and inventory identity on the instance.
+    const bool bModernTactical=Item.Definition==TEXT("ue_modern_tactical_helmet")
+        ||Item.Definition==TEXT("ue_modern_kevlar_vest")||Item.Definition==TEXT("ue_modern_tactical_gloves")
+        ||Item.Definition==TEXT("ue_modern_tactical_pants")||Item.Definition==TEXT("ue_modern_tactical_boots");
+    if(bModernTactical)Catalog->TryGetObjectField(Item.Definition,Source);
+    for(const auto& Pair:(*Source)->Values)
+    {
+        const bool bTuning=bModernTactical&&(Pair.Key==TEXT("defense")||Pair.Key==TEXT("bonusStats")
+            ||Pair.Key==TEXT("bonusPerEnhance")||Pair.Key==TEXT("enhancement")
+            ||Pair.Key==TEXT("armorSet")||Pair.Key==TEXT("setBonusDesc"));
+        if(bTuning||!Data->HasField(Pair.Key))Data->SetField(Pair.Key,Pair.Value);
+    }
     return Data;
 }
 

@@ -290,6 +290,7 @@ void UPistolDualWieldComponent::RefreshEquipment(UColdSteelStatusModel* Model)
             RSH12HeavyGrip::ShowFactory(H.Mesh,!(RSH12HeavyGrip::IsPart(Parts.FindRef(TEXT("grip_body")))
                 &&Player->GripBodyAttachment&&Player->GripBodyAttachment->IsVisible()));
         H.Stats=G->Calculate(H.Item.Definition,Parts,true);
+        ColdSteelWeaponStats::ApplyFirearmEquipmentHandling(H.Stats,Profile);
         H.Stats.Damage=ColdSteelWeaponStats::Damage(H.Item,Profile,H.Stats.Damage)*Profile->AmmoDamageMultiplier(H.Item);
         H.Stats.Interval=ColdSteelWeaponStats::Interval(&H.Item,Profile,H.Stats.Interval);
         H.Stats.Reload=ColdSteelWeaponStats::Reload(&H.Item,Profile,H.Stats.Reload);

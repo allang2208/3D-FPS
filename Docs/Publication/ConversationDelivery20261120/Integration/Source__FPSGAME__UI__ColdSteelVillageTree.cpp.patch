@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/UI/ColdSteelVillageTree.cpp
++++ b/Source/FPSGAME/UI/ColdSteelVillageTree.cpp
+@@ -60,9 +60,15 @@
+         {TEXT("carpenter"), TEXT("production"), TEXT("修复木工工坊"), TEXT("木"), TEXT("村庄生产"),
+             TEXT("修补铁匠铺对面的木工工坊，将院里的木料码齐，整理工作台和二楼住处。"),
+             TEXT("修复后可在一楼使用木工工作台，沿楼梯进入木匠的起居室。")},
++        {TEXT("herbalist"), TEXT("production"), TEXT("修复草药铺"), TEXT("药"), TEXT("村庄生产"),
++            TEXT("修补广场北屋的屋顶和窗墙，重新挂起药铺招牌，在柜台陈列草药。"),
++            TEXT("修复后可使用店内的炼药工作台，按配方研磨、调制和装瓶。")},
+         {TEXT("windmill"), TEXT("production"), TEXT("修复风车"), TEXT("风"), TEXT("村庄生产"),
+             TEXT("补上磨坊破损的外墙，修整风车的轮轴和风帆。"),
+             TEXT("风车重新随风转动，并解锁面包屋的修复。")},
++        {TEXT("bakery"), TEXT("production"), TEXT("修复面包屋"), TEXT("麦"), TEXT("村庄生产"),
++            TEXT("将风车旁的东侧长屋修成面包屋，修好石窑、烟囱和通往二楼的木梯。"),
++            TEXT("一楼陈列面包、备料和烘烤，二楼恢复为面包师的住处。"),false,TEXT("windmill")},
+         {TEXT("tavern"), TEXT("community"), TEXT("重建酒馆"), TEXT("酒"), TEXT("村庄生活"),
+             TEXT("把木工工坊旁的长屋修成酒馆，重新摆好吧台、桌椅和酒桶。"),
+             TEXT("修复后的酒馆向所有玩家开放。")}

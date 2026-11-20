@@ -11,6 +11,19 @@
 #include "Kismet/GameplayStatics.h"
 #include "UObject/UnrealType.h"
 
+void ColdSteelWeaponStats::ApplyFirearmEquipmentHandling(FGunsmithStats& Stats,const UColdSteelStatusModel* Model)
+{
+    if(!Model)return;
+    // Equipment and full-set bonuses add within one layer, after weapon attachments.
+    const double Stability=1.+Model->EquipmentBonus(TEXT("firearmStabilityPercent"))+Model->SetEffect(TEXT("firearmStabilityPercent"));
+    const double Recoil=FMath::Max(0.,1.+Model->EquipmentBonus(TEXT("firearmRecoilPercent"))+Model->SetEffect(TEXT("firearmRecoilPercent")));
+    Stats.Handling=Stats.Handling.WithStabilityMultiplier(Stability);
+    Stats.Handling.RecoilIndex*=Recoil;
+    Stats.Handling.RecoilScale*=Recoil;
+    Stats.Recoil=Stats.Handling.RecoilIndex;
+    Stats.Shake=Stats.Handling.ShakeIndex;
+}
+
 double ColdSteelWeaponStats::Damage(const FColdSteelItem& Item,const UColdSteelStatusModel* Model,double Base)
 {return DamageParts(Item,Model,Base).Total();}
 

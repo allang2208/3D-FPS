@@ -22,6 +22,8 @@ namespace ColdSteelFood
     void Stamp(FColdSteelItem& Item,const FFoodClockSample& Now,double Age=0.);
     bool Rebase(FColdSteelItem& Item,const FFoodClockSample& Now);
     bool RebaseProfile(FColdSteelProfile& Profile,const FFoodClockSample& Now);
+    // Preserve the old domain checkpoint before an owner-only clock replaces it.
+    void ObserveReplicatedClock(FColdSteelProfile& Profile,const FFoodClockSample& Sample);
     bool Compatible(const FColdSteelItem& A,const FColdSteelItem& B);
     // false + empty Reason means unchanged. Failure leaves the complete array intact.
     bool SettleLoose(TArray<FColdSteelItem>& Items,const UColdSteelStatusModel* Model,const FFoodClockSample& Now,FString& Reason);

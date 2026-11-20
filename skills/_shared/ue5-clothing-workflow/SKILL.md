@@ -20,6 +20,8 @@ description: 制作和修复 FPSGAME 玩家服装的上衣裤装衔接、扎腰�
 - 源资产、裤腰、算法或绑定变化时重制受影响配对；使用散列确认续接输入，不把旧 `published.json` 当当前验收。交付明确资产保存、本地接入及未进行的动作／游戏验收。
 - 上衣与裤腰保存发布后运行 `Tools/BackpackFit/run.ps1`，补做七款背包在双身体上的受影响配对。工装/裤腰入口已调用；其他新服装入口遵循同一顺序。规则和回执边界见 [背包贴合制作](../../../Docs/Characters/backpack-contact-workflow.md)。
 
+用户要求排查远景衣物闪面或材质错位时，从实际穿搭表列出身体、姿态和对应网格，再读每个 LOD 的材质槽映射和区段。简化后的区段数可以变少。若 UE 仅在加载某一派生包时报告自动修复区段索引，单独重存该包并重新加载，核对材质槽和各 LOD 区段；近景母版可能始终正常。
+
 ## 按需资料
 
 - [衣物表面、厚度与材质](../ue5-fps-arms-animation/references/glove-clothing-surface-production.md)

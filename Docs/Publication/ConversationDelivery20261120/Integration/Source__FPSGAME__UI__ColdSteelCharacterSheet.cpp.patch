@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp
+@@ -5,6 +5,7 @@
+ #include "ColdSteelDetailRow.h"
+ #include "ColdSteelStatusModel.h"
+ #include "ColdSteelUIStyle.h"
++#include "ColdSteelWorldInteraction.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Weapons/WeaponStatEvaluation.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+@@ -54,6 +55,7 @@
+ }
+ void UColdSteelHUDWidget::NativeDestruct()
+ {
++    ColdSteelWorldInteraction::UpdateResidentHighlight(GetOwningPlayer(), nullptr);
+     if(SkillTreeScreen){SkillTreeScreen->RemoveFromParent();SkillTreeScreen=nullptr;}
+     ExpeditionEquipmentClosed.Unbind();
+     ResourceBarTransitions.Reset();

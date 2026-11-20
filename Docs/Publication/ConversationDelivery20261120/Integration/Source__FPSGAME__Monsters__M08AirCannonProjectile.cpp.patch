@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/M08AirCannonProjectile.cpp
++++ b/Source/FPSGAME/Monsters/M08AirCannonProjectile.cpp
+@@ -1,4 +1,5 @@
+ #include "M08AirCannonProjectile.h"
++#include "MonsterTargeting.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "LurkerM08Monster.h"
+ #include "FPSCombatHealthComponent.h"
+@@ -80,7 +81,7 @@
+                 if (auto* Status = UCombatStatusFormula::GetOrAdd(Actor)) Status->AddStun(StunSeconds);
+         }
+     }
+-    else if (Actor && Actor->IsA<AFPSIceWall>())
++    else if (MonsterTargeting::IsActiveArtisan(Cast<APawn>(Actor)) || (Actor && Actor->IsA<AFPSIceWall>()))
+         UGameplayStatics::ApplyPointDamage(Actor, Damage, Velocity.GetSafeNormal(), Hit,
+             Shooter->GetController(), Shooter.Get(), UEnemyRangedDamage::StaticClass());
+ }

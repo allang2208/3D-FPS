@@ -1,9 +1,11 @@
-param([switch]$SkipBuild)
+param([switch]$SkipBuild,[switch]$ModernTactical)
 $ErrorActionPreference='Stop'
 $mageProject='D:/FPS3D/FPSGAME';$mageStamp=Get-Date -Format 'yyyyMMdd-HHmmss'
-$mageOut=Join-Path $mageProject ('SourceAssets/BlueMageSetAudit20261019/Wire/'+$mageStamp)
+$mageOutputRoot=if($ModernTactical){'Saved/ModernTacticalOutfitWire'}else{'SourceAssets/BlueMageSetAudit20261019'}
+$mageOut=Join-Path $mageProject ($mageOutputRoot+'/Wire/'+$mageStamp)
 [void](New-Item -ItemType Directory -Force -Path $mageOut)
-$magePort=19943;$mageGate=[Threading.Mutex]::new($false,'Local\CodexUeMcp-Port-8000');$mageHeld=$false
+$magePort=if($ModernTactical){19541}else{19943}
+$mageGate=[Threading.Mutex]::new($false,'Local\CodexUeMcp-Port-8000');$mageHeld=$false
 $mageOwned=[System.Collections.Generic.List[System.Diagnostics.Process]]::new()
 function Start-MagePeer([string]$Role,[string]$Map){
     $profileRole=if($Role -eq 'host'){'host'}else{'client'}
@@ -12,6 +14,7 @@ function Start-MagePeer([string]$Role,[string]$Map){
       ('-ColdSteelProfile=MageAudit_'+$mageStamp+'_'+$profileRole),('-port='+$magePort),('-UserDir="'+$mageOut+'/'+$profileRole+'/"'),
       ('-MageOutfitWireOutput="'+$mageOut+'/'+$Role+'.json"'),('-abslog="'+$mageOut+'/'+$Role+'.log"'),
       '-ExecCmds="fps.body.AsyncPreload 0,t.MaxFPS 30,NetEmulation.PktLag 60,NetEmulation.PktLoss 3"')
+    if($ModernTactical){$arguments+='-ModernTacticalOutfitWire'}
     $peer=Start-Process -FilePath 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor-Cmd.exe' -ArgumentList $arguments -WindowStyle Hidden -PassThru
     $mageOwned.Add($peer);Write-Output "MAGE_WIRE_PEER $Role PID=$($peer.Id)";return $peer
 }
@@ -48,7 +51,7 @@ try{
     $started=Start-MagePeer 'rejoin' ('127.0.0.1:'+$magePort);$started | Where-Object {$_ -is [string]} | Write-Output
     Wait-MageMarker 'MAGE_WIRE_RESULT' $mageHost
     $result=Get-Content -LiteralPath "$mageOut/host.json" -Raw | ConvertFrom-Json
-    @{directory=$mageOut;passed=$result.passed;transport='UDP listen host + client + same-profile reconnect';port=$magePort;lag_ms_each_peer=60;loss_percent_each_peer=3;rendered=$false} | ConvertTo-Json | Set-Content -LiteralPath "$mageProject/SourceAssets/BlueMageSetAudit20261019/wire-receipt.json" -Encoding utf8
+    @{directory=$mageOut;passed=$result.passed;transport='UDP listen host + client + same-profile reconnect';port=$magePort;lag_ms_each_peer=60;loss_percent_each_peer=3;rendered=$false} | ConvertTo-Json | Set-Content -LiteralPath "$mageProject/$mageOutputRoot/wire-receipt.json" -Encoding utf8
     Write-Output "MAGE_WIRE_FINISHED PASS=$($result.passed) PATH=$mageOut"
     if(-not $result.passed){exit 1}
 }finally{

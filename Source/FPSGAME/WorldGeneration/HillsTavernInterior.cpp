@@ -27,7 +27,7 @@ struct FPropModel { const TCHAR* Package; bool bBlocks; };
 constexpr FPropModel Models[] = {
     {TEXT("/Game/WorldGeneration/VillageTavern/Furniture/SM_TavernTable"),true},
     {TEXT("/Game/WorldGeneration/VillageTavern/Furniture/SM_TavernStool"),true},
-    {TEXT("/Game/WorldGeneration/VillageTavern/Furniture/SM_TavernCounter"),true},
+    {TEXT("/Game/WorldGeneration/VillageTavern/Furniture/SM_TavernCounter_Service"),true},
     {TEXT("/Game/WorldGeneration/VillageTavern/Furniture/SM_TavernBackbar"),true},
     {TEXT("/Game/WorldGeneration/VillageTavern/Furniture/SM_TavernBrokenTable"),true},
     {TEXT("/Game/WorldGeneration/VillageTavern/Furniture/SM_TavernBrokenStool"),true},
@@ -142,46 +142,51 @@ void SeatGroup(TArray<FPlacement>& Out, FVector Center, double GrainYaw,
 void FurnishTaproom(TArray<FPlacement>& Out)
 {
     // The east rear bay is the kitchen. Keep the entrance and the right end of the bar clear.
-    SeatGroup(Out,{-199.,-118.,-2.4},12.,{{42.,81.,-1.0},{165.,85.,-.8},{275.,79.,-2.4}},{
-        {EProp::Jug,{-4.,4.,0.},114.}, {EProp::Cup,{1.,34.,0.},-28.},
-        {EProp::Cup,{-43.,-9.,0.},145.}, {EProp::Cup,{27.,-24.,0.},215.},
-        {EProp::StewBowl,{23.,21.,0.},-14.}, {EProp::Chopsticks,{33.,9.,0.},-136.},
-        {EProp::Bowl,{-29.,9.,0.},73.}, {EProp::Chopsticks,{-26.,25.,0.},-12.},
-        {EProp::Bread,{3.,-31.,0.},-35.,16.}, {EProp::WoodSpoon,{-16.,-31.,0.},96.}});
-    SeatGroup(Out,{-408.,119.,-2.1},82.,{{52.,82.,-2.3},{205.,87.,-1.0}},{
-        {EProp::GameBoard,{-2.,0.,0.},-24.}, {EProp::Lantern,{27.,-24.,0.},28.,-29.},
-        {EProp::Cup,{-26.,-24.,0.},173.}, {EProp::Cup,{23.,24.,0.},38.}});
-    SeatGroup(Out,{335.,-207.,-1.7},-13.,{{26.,85.,-1.6},{140.,80.,-2.5},{257.,83.,-1.3}},{
-        {EProp::Jug,{0.,1.,0.},84.}, {EProp::Cup,{6.,35.,0.},18.},
+    // Pull the aisle-side stool out of the diagonal from the doorway to the middle of the bar.
+    SeatGroup(Out,{-222.,-121.,-2.7},12.,{{63.,80.,-3.3},{169.,82.,-1.2},{276.,79.,-2.1}},{
+        {EProp::Jug,{-3.,-1.,0.},114.}, {EProp::Cup,{-8.,37.,0.},-28.},
+        {EProp::Cup,{-38.,-14.,0.},145.}, {EProp::Cup,{27.,-24.,0.},215.},
+        {EProp::StewBowl,{15.,29.,0.},-14.}, {EProp::WoodSpoon,{30.,24.,0.},67.},
+        {EProp::Bowl,{-32.,7.,0.},73.}, {EProp::Chopsticks,{-29.,23.,0.},-9.},
+        {EProp::Bread,{3.,-31.,0.},-35.,16.}});
+    // Opposing seats face the two players' edges of the open board.
+    SeatGroup(Out,{-408.,119.,-2.1},82.,{{67.,79.,-2.1},{238.,80.,-2.8}},{
+        {EProp::GameBoard,{-2.,0.,0.},-24.}, {EProp::Lantern,{34.,-13.,0.},28.,-26.},
+        {EProp::Cup,{-30.,-19.,0.},173.}, {EProp::Cup,{5.,32.,0.},38.}});
+    SeatGroup(Out,{335.,-207.,-1.7},-13.,{{26.,85.,-1.6},{165.,80.,-2.3},{257.,83.,-1.3}},{
+        {EProp::Jug,{0.,1.,0.},84.}, {EProp::Cup,{18.,35.,0.},18.},
         {EProp::Cup,{16.,-33.,0.},195.}, {EProp::Chicken,{28.,13.,0.},25.,20.5},
-        {EProp::Chopsticks,{35.,-6.,0.},-151.}, {EProp::StewBowl,{-25.,21.,0.},-48.},
-        {EProp::WoodSpoon,{-15.,37.,0.},-39.}, {EProp::Bread,{-7.,-28.,0.},-77.,15.},
+        {EProp::Chopsticks,{35.,-6.,0.},-151.}, {EProp::StewBowl,{-32.,9.,0.},-48.},
+        {EProp::WoodSpoon,{-29.,26.,0.},165.}, {EProp::Bread,{-7.,-28.,0.},-77.,15.},
         {EProp::Chopsticks,{-26.,-24.,0.},77.}});
-    SeatGroup(Out,{-472.,-213.,-1.6},36.,{{65.,84.,-2.3},{181.,82.,-1.4},{299.,86.,-1.5}},{
-        {EProp::Lantern,{14.,-13.,0.},-8.,-29.}, {EProp::Cup,{-9.,33.,0.},177.},
-        {EProp::Cup,{-13.,-32.,0.},-55.}, {EProp::Ribs,{13.,27.,0.},18.,23.5},
-        {EProp::Chopsticks,{31.,18.,0.},-116.}, {EProp::Bowl,{-32.,0.,0.},117.},
-        {EProp::WoodSpoon,{-29.,16.,0.},8.}});
+    SeatGroup(Out,{-457.,-213.,-1.2},36.,{{65.,84.,-1.0},{220.,82.,-1.4},{299.,86.,-1.3}},{
+        {EProp::Lantern,{0.,3.,0.},-8.,-26.}, {EProp::Cup,{-9.,33.,0.},177.},
+        {EProp::Cup,{16.,-30.,0.},-55.}, {EProp::Ribs,{13.,27.,0.},18.,23.5},
+        {EProp::Chopsticks,{31.,18.,0.},-116.}, {EProp::Bowl,{-25.,-18.,0.},117.},
+        {EProp::WoodSpoon,{-34.,-4.,0.},-148.}});
     constexpr double CounterFloor = -2.3;
     constexpr double CounterTop = CounterFloor+105.;
     constexpr double RackFloor = -2.6;
+    // Plate food at the west end and drain the cups beside the tap cask at the east end.
+    // Guests at the central service point can see the keeper and set down a plate.
     Out.Append({
         {EProp::Counter,{-120.,182.,CounterFloor},-90.}, {EProp::Rack,{-87.,354.,RackFloor},-90.},
         {EProp::Cask,{-285.,342.,-.7},16.}, {EProp::Cask,{-355.,335.,-2.7},-43.},
         {EProp::TapCask,{62.,344.,-2.0},-90.},
-        {EProp::Lantern,{-224.,188.,CounterTop},-14.,-31.}, {EProp::Jug,{-34.,193.,CounterTop},-48.},
-        {EProp::Cup,{-181.,162.,CounterTop},-60.}, {EProp::Cup,{-159.,176.,CounterTop},22.},
-        {EProp::Baguette,{-96.,201.,CounterTop},8.,42.}, {EProp::Dish,{-100.,164.,CounterTop},51.},
-        {EProp::Chicken,{-100.,164.,CounterTop+1.25},74.,21.},
-        {EProp::Chopsticks,{-77.,167.,CounterTop},76.}
+        {EProp::Lantern,{-233.,198.,CounterTop},-14.,-28.}, {EProp::Jug,{-54.,169.,CounterTop},-48.},
+        {EProp::Cup,{-34.,191.,CounterTop-.02},-55.}, {EProp::Cup,{-15.,191.,CounterTop-.02},24.},
+        {EProp::Baguette,{-186.,196.,CounterTop},8.,34.},
+        {EProp::Dish,{-227.,165.,CounterTop},51.}, {EProp::Chicken,{-227.,165.,CounterTop+1.25},74.,21.},
+        {EProp::Dish,{-189.,165.,CounterTop},-14.}, {EProp::Sausage,{-189.,165.,CounterTop+1.25},-8.,20.},
+        {EProp::Chopsticks,{-211.,192.,CounterTop},81.}
     });
 
-    // These are the upper board faces of the backbar: shelf centres + 1.85 cm.
-    for (const double X : {-158.,-141.,-124.})
-        Out.Add({EProp::Cup,{X,352.,RackFloor+110.85},(X+150.)*3.});
+    // The upper bay has only 24.3 cm of headroom. The taller pulled jug spouts go a shelf lower.
     Out.Append({
-        {EProp::Jug,{-32.,353.,RackFloor+110.85},17.}, {EProp::Jug,{-58.,354.,RackFloor+152.85},-36.},
-        {EProp::Cup,{-143.,354.,RackFloor+152.85},58.}, {EProp::Dish,{-98.,352.,RackFloor+66.85},-8.},
+        {EProp::Jug,{-38.,353.,RackFloor+110.85},17.}, {EProp::Jug,{-148.,351.,RackFloor+110.85},-36.},
+        {EProp::Cup,{-161.,354.,RackFloor+152.85},-52.}, {EProp::Cup,{-143.,350.,RackFloor+152.85},58.},
+        {EProp::Cup,{-49.,351.,RackFloor+152.85},15.}, {EProp::Cup,{-31.,355.,RackFloor+152.85},-30.},
+        {EProp::Dish,{-98.,352.,RackFloor+66.85},-8.},
         {EProp::Dish,{-98.,352.,RackFloor+68.60},12.}, {EProp::Dish,{-98.,352.,RackFloor+70.35},40.},
         {EProp::Bowl,{-47.,350.,RackFloor+66.85},32.},
         {EProp::Bowl,{-73.,350.,RackFloor+66.85},-21.}

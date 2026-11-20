@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/MantisM27Monster.cpp
++++ b/Source/FPSGAME/Monsters/MantisM27Monster.cpp
+@@ -1,4 +1,5 @@
+ #include "MantisM27Monster.h"
++#include "MonsterTargeting.h"
+ #include "AIController.h"
+ #include "FatZombieAnimInstance.h"
+ #include "HumanoidKnockdownComponent.h"
+@@ -193,7 +194,7 @@
+ }
+ bool AMantisM27Monster::TryScytheHit(APawn* Victim)
+ {
+-    if (bContactConsumed || !IsValid(Victim) || !Victim->IsPlayerControlled()) return false;
++    if (bContactConsumed || !IsValid(Victim) || !MonsterTargeting::IsOpponentPawn(Victim)) return false;
+     const float Reach = MonsterCombatTuning::AttackDistance(AttackRange);
+     const float VictimRadius = Victim->GetSimpleCollisionRadius();
+     if (!CanMeleeFrom(Victim, GetActorLocation(), Reach+VictimRadius)) return false;

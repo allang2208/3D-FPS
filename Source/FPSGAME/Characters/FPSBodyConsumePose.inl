@@ -63,9 +63,24 @@ void FControls::BlendConsume(FPoseContext& Out,FCSPose<FCompactPose>& Pose)
     Pose.LocalBlendCSBoneTransforms(Anchor,1.f);
     if(bConsumeTwoHands)
     {
-        // This clip owns both complete native arm chains, including the helper
-        // bones, wrists and the real rack contacts. Re-applying single-hand
-        // bread IK or the FPS right-from-left frame would break that fit.
+        // Keep the authored two-handed grip. Both wrists need the same small
+        // correction when the owner's face has a different mouth position.
+        if(bHasConsumeProp && ConsumeContactWeight > ZERO_ANIMWEIGHT_THRESH && Head.IsValidToEvaluate(Bones)
+            && Hands[0].IsValidToEvaluate(Bones) && Hands[1].IsValidToEvaluate(Bones))
+        {
+            FTransform Targets[2] = {Pose.GetComponentSpaceTransform(Hands[0].GetCompactPoseIndex(Bones)),
+                                     Pose.GetComponentSpaceTransform(Hands[1].GetCompactPoseIndex(Bones))};
+            const FVector Mouth = Pose.GetComponentSpaceTransform(Head.GetCompactPoseIndex(Bones)).TransformPosition(ConsumeMouthInHead);
+            const FVector Bite = (State.Contacts.Props[0] * Targets[1]).TransformPosition(ConsumePropContact);
+            const FVector Offset = (Mouth - Bite).GetClampedToMaxSize(4.) * ConsumeContactWeight;
+            for(auto& Target : Targets) Target.AddToTranslation(Offset);
+            FitHandPair(Pose, Targets);
+            for(int32 Side = 0; Side < 2; ++Side)
+            {
+                const auto Elbow = Bones.GetParentBoneIndex(Hands[Side].GetCompactPoseIndex(Bones));
+                Solve(Pose, Hands[Side], Targets[Side], Pose.GetComponentSpaceTransform(Elbow).GetLocation(), 1.f);
+            }
+        }
         CorrectConsumeElbows(Pose);
         for(int32 Side=0;Side<2;++Side)if(Hands[Side].IsValidToEvaluate(Bones))
             LastHands[Side]=Pose.GetComponentSpaceTransform(Hands[Side].GetCompactPoseIndex(Bones));
@@ -80,6 +95,7 @@ void FControls::BlendConsume(FPoseContext& Out,FCSPose<FCompactPose>& Pose)
         FLegReference Arm;
         Arm.Set(Pose.GetComponentSpaceTransform(S).GetLocation(),Pose.GetComponentSpaceTransform(E).GetLocation(),Target.GetLocation());
         const FVector Mouth=Pose.GetComponentSpaceTransform(Head.GetCompactPoseIndex(Bones)).TransformPosition(ConsumeMouthInHead);
+        const FVector BiteTarget=Mouth+ConsumeBiteOffset;
         const FVector Rim=State.Contacts.Props[0].TransformPosition(ConsumePropContact);
         if(bConsumeNativeArm)
         {
@@ -92,7 +108,7 @@ void FControls::BlendConsume(FPoseContext& Out,FCSPose<FCompactPose>& Pose)
             FTransform Tip(FQuat::Identity,CurrentRim);
             const double Upper=FVector::Distance(Root.GetLocation(),Joint.GetLocation());
             const double Lever=FVector::Distance(Joint.GetLocation(),CurrentRim);
-            const FVector Wanted=FMath::Lerp(CurrentRim,Mouth,ConsumeContactWeight*ConsumeWeight);
+            const FVector Wanted=FMath::Lerp(CurrentRim,BiteTarget,ConsumeContactWeight*ConsumeWeight);
             const FVector Reach=Wanted-Root.GetLocation();
             const double Length=FMath::Clamp(Reach.Size(),FMath::Abs(Upper-Lever)+.01,(Upper+Lever)*.97);
             const FVector Goal=Root.GetLocation()+Reach.GetSafeNormal()*Length;
@@ -104,7 +120,7 @@ void FControls::BlendConsume(FPoseContext& Out,FCSPose<FCompactPose>& Pose)
         }
         else
         {
-            const FVector Contact=Mouth-Target.TransformVector(Rim);
+            const FVector Contact=BiteTarget-Target.TransformVector(Rim);
             Target.SetLocation(FMath::Lerp(Target.GetLocation(),Contact,ConsumeContactWeight*ConsumeWeight));
             Solve(Pose,Hands[1],Target,Arm.Pole(Arm.Hip,Target.GetLocation()),1.f);
         }

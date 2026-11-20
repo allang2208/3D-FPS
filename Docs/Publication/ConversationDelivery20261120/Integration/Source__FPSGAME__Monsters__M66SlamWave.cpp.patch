@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Monsters/M66SlamWave.cpp
++++ b/Source/FPSGAME/Monsters/M66SlamWave.cpp
+@@ -1,4 +1,5 @@
+ #include "M66SlamWave.h"
++#include "MonsterTargeting.h"
+ #include "M66IncineratorMonster.h"
+ #include "MonsterCombatComponent.h"
+ #include "FPSCombatHealthComponent.h"
+@@ -69,7 +70,7 @@
+         Seen.Add(Target);
+         auto* Vitals=Target->FindComponentByClass<UFPSCombatHealthComponent>();
+         auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
+-        if((!Vitals&&!Combat)||(Vitals&&Vitals->IsDead())||(Combat&&Combat->IsDead()))continue;
++        if((!Vitals&&!Combat&&!MonsterTargeting::IsActiveArtisan(Target))||(Vitals&&Vitals->IsDead())||(Combat&&Combat->IsDead()))continue;
+         auto* Shape=Cast<UPrimitiveComponent>(Target->GetRootComponent());if(!Shape)continue;
+         float BodyRadius=0,Half=0;Target->GetSimpleCollisionCylinder(BodyRadius,Half);
+         const FVector Feet=Target->GetActorLocation()-FVector(0,0,Half),Delta=Feet-Point;
+@@ -86,7 +87,8 @@
+         const float Before=Vitals?Vitals->Health:0.f;
+         const float Applied=UGameplayStatics::ApplyPointDamage(Target,Damage,(Contact-Point).GetSafeNormal(),Hit,
+             Source->GetController(),Source,UEnemyMeleeDamage::StaticClass());
+-        if(!IsValid(Target)||Applied<=0.f||(Vitals&&(Vitals->IsDead()||Vitals->Health>=Before))||(Combat&&Combat->IsDead()))continue;
++        if(!IsValid(Target)||Applied<=0.f||(Vitals&&(Vitals->IsDead()||Vitals->Health>=Before))||
++            (Combat&&Combat->IsDead())||MonsterTargeting::IsDownedArtisan(Target))continue;
+         if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddStun(StunSeconds);
+     }
+ }

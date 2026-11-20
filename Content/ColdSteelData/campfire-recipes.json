@@ -85,6 +85,29 @@
       }
     },
     {
+      "id": "roast_meat_chunk",
+      "enabled": true,
+      "input": {
+        "item": "raw_meat_chunk",
+        "count": 1
+      },
+      "output": {
+        "item": "roasted_meat_chunk",
+        "count": 1
+      },
+      "seconds": 30,
+      "presentation": {
+        "rawMesh": "/Game/Items/Consumables/WildGame20261026/SM_RawVenison.SM_RawVenison",
+        "cookedMesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedVenison.SM_RoastedVenison",
+        "motionProfile": "roasted_venison",
+        "spitAnchor": [
+          0,
+          -0.16,
+          0.12
+        ]
+      }
+    },
+    {
       "id": "roast_venison",
       "enabled": true,
       "input": {
@@ -99,7 +122,7 @@
       "presentation": {
         "rawMesh": "/Game/Items/Consumables/WildGame20261026/SM_RawVenison.SM_RawVenison",
         "cookedMesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedVenison.SM_RoastedVenison",
-        "motionProfile": "roasted_sausage",
+        "motionProfile": "roasted_venison",
         "spitAnchor": [
           0,
           -0.16,
@@ -122,7 +145,7 @@
       "presentation": {
         "rawMesh": "/Game/Items/Consumables/WildGame20261026/SM_RawBoarMeat.SM_RawBoarMeat",
         "cookedMesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedBoarMeat.SM_RoastedBoarMeat",
-        "motionProfile": "roasted_sausage",
+        "motionProfile": "roasted_boar_meat",
         "spitAnchor": [
           0,
           -0.16,
@@ -145,7 +168,7 @@
       "presentation": {
         "rawMesh": "/Game/Items/Consumables/WildGame20261026/SM_RawFoxMeat.SM_RawFoxMeat",
         "cookedMesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedFoxMeat.SM_RoastedFoxMeat",
-        "motionProfile": "roasted_sausage",
+        "motionProfile": "roasted_fox_meat",
         "spitAnchor": [
           0,
           -0.16,

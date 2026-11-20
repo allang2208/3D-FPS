@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp
++++ b/Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp
+@@ -1,4 +1,5 @@
+ #include "PoisonMaggotProjectile.h"
++#include "MonsterTargeting.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "Net/UnrealNetwork.h"
+ #include "PoisonMaggotMonster.h"
+@@ -95,7 +96,11 @@
+   if(auto* Wall=Cast<AFPSIceWall>(Hit.GetActor()))
+    UGameplayStatics::ApplyDamage(Wall,HitDamage,Shooter->GetController(),Shooter.Get(),UMaggotVenomDamage::StaticClass());
+   if(FParse::Param(FCommandLine::Get(),TEXT("MonsterFeedbackProbe")))UE_LOG(LogTemp,Display,TEXT("MAGGOT_IMPACT_PROBE actor=%s component=%s profile=%s visibility=%d pawn=%d initial=%d"),*GetPathNameSafe(Hit.GetActor()),*GetNameSafe(Hit.GetComponent()),Hit.GetComponent()?*Hit.GetComponent()->GetCollisionProfileName().ToString():TEXT("none"),Hit.GetComponent()?int32(Hit.GetComponent()->GetCollisionResponseToChannel(ECC_Visibility)):-1,Hit.GetComponent()?int32(Hit.GetComponent()->GetCollisionResponseToChannel(ECC_Pawn)):-1,Hit.bStartPenetrating);
+-  if(auto* P=Cast<APawn>(Hit.GetActor()))if(P->IsPlayerControlled())
++  if(auto* P=Cast<APawn>(Hit.GetActor());MonsterTargeting::IsActiveArtisan(P))
++  {
++   if(UGameplayStatics::ApplyDamage(P,HitDamage,Shooter->GetController(),Shooter.Get(),UMaggotVenomDamage::StaticClass())>0.f)++Shooter->ProjectileHits;
++  }
++  else if(P&&P->IsPlayerControlled())
+   {
+    auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();
+    if(H&&!H->IsDead())

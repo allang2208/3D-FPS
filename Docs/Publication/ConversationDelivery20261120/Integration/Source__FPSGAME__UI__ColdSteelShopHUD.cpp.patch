@@ -1,0 +1,127 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelShopHUD.cpp
+@@ -1,13 +1,18 @@
+ #include "ColdSteelHUDWidget.h"
+ #include "ColdSteelShopWidget.h"
+ #include "ColdSteelShopModel.h"
++#include "../NPC/ChapelDialogueComponent.h"
+ #include "../NPC/VillageBlacksmithResident.h"
++#include "../NPC/VillageBaker.h"
++#include "../NPC/VillageHerbalist.h"
++#include "../NPC/VillageTavernKeeper.h"
+ #include "ColdSteelUIStyle.h"
+ #include "Blueprint/WidgetTree.h"
+ #include "Blueprint/WidgetBlueprintLibrary.h"
+ #include "Components/CanvasPanel.h"
+ #include "Components/CanvasPanelSlot.h"
+ #include "Engine/GameInstance.h"
++#include "GameFramework/PlayerController.h"
+ 
+ void UColdSteelHUDWidget::OpenShop()
+ {
+@@ -21,42 +26,85 @@
+ {
+     if(IsValid(Seller))OpenShopFor(Seller);
+ }
+-void UColdSteelHUDWidget::OpenShopFor(AActor* Seller)
++void UColdSteelHUDWidget::OpenTavernShop(AVillageTavernKeeper* Seller)
+ {
+-    if(bShopOpen)return;
+-    auto* ShopModel=GetGameInstance()->GetSubsystem<UColdSteelShopModel>();
++    if(IsValid(Seller))OpenShopFor(Seller);
++}
++void UColdSteelHUDWidget::OpenBakerShop(AVillageBaker* Seller)
++{
++    if(IsValid(Seller))OpenShopFor(Seller);
++}
++bool UColdSteelHUDWidget::OpenHerbalistShop(AVillageHerbalist* Seller)
++{
++    return IsValid(Seller) && OpenShopFor(Seller);
++}
++bool UColdSteelHUDWidget::OpenShopFor(AActor* Seller)
++{
++    if(bShopOpen)return false;
++    auto* Player=GetOwningPlayer();
++    auto* Root=WidgetTree?Cast<UCanvasPanel>(WidgetTree->RootWidget):nullptr;
++    auto* ShopModel=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelShopModel>():nullptr;
++    if(!Player||!Root||!ShopModel)return false;
+     if(!Seller)ShopModel->BeginSession();
+     else if(auto* Artisan=Cast<AVillageArtisanMerchant>(Seller))
+     {
+-        if(!ShopModel->BeginArtisanSession(Artisan))return;
++        if(!ShopModel->BeginArtisanSession(Artisan))return false;
+     }
+-    else return;
+-    if(!ShopModel->IsOpen())return;
+-    UWidgetBlueprintLibrary::CancelDragDrop();
+-    CloseWarehouse();HideForgingInstantly();HideSmeltingInstantly();HideWorkbenchInstantly();
+-    SetInventoryPage(1);SetInventoryOpen(true);HideItemTooltip(true);
++    else if(auto* Baker=Cast<AVillageBaker>(Seller))
++    {
++        if(!ShopModel->BeginBakerSession(Baker))return false;
++    }
++    else if(auto* Keeper=Cast<AVillageTavernKeeper>(Seller))
++    {
++        if(!ShopModel->BeginTavernSession(Keeper))return false;
++    }
++    else if(auto* Herbalist=Cast<AVillageHerbalist>(Seller))
++    {
++        if(!ShopModel->BeginHerbalistSession(Herbalist))return false;
++    }
++    else return false;
++    if(!ShopModel->IsOpen())return false;
+     if(!ShopWidget)
+     {
+-        ShopWidget=CreateWidget<UColdSteelShopWidget>(GetOwningPlayer());ShopWidget->Configure(this);
+-        auto* Root=CastChecked<UCanvasPanel>(WidgetTree->RootWidget);
++        ShopWidget=CreateWidget<UColdSteelShopWidget>(Player);
++        if(!ShopWidget){ShopModel->EndSession();return false;}
++        ShopWidget->Configure(this);
+         ShopSlot=Root->AddChildToCanvas(ShopWidget);
++        if(!ShopSlot){ShopWidget=nullptr;ShopModel->EndSession();return false;}
+         ShopSlot->SetAnchors(FAnchors(1,0,1,1));ShopSlot->SetAlignment(FVector2D(1,0));ShopSlot->SetAutoSize(false);ShopSlot->SetZOrder(40);
+         // Give the first frame the same full-height allocation as the backpack;
+         // UpdateInventoryLayout refits both drawers to the viewport on the next tick.
+         const float Scale=ColdSteelUI::PixelScale(this);
+         ShopSlot->SetOffsets(FMargin(-(InventoryWidth+ColdSteelUI::NavigationDrawerInset)/Scale,12/Scale,InventoryWidth/Scale,12/Scale));
+     }
++    UWidgetBlueprintLibrary::CancelDragDrop();
++    CloseWarehouse();HideForgingInstantly();HideSmeltingInstantly();HideWorkbenchInstantly();
++    SetInventoryPage(1);SetInventoryOpen(true);HideItemTooltip(true);
+     bShopOpen=true;InventoryLayoutSize=FVector2D::ZeroVector;
++    if(Seller)ShopModel->WatchSeller(FSimpleDelegate::CreateWeakLambda(this,[this]{SetInventoryOpen(false);}));
+     ShopWidget->ResetSession();ShopWidget->SetVisibility(ESlateVisibility::HitTestInvisible);ShopWidget->SetRenderOpacity(0);
++    return true;
+ }
+ void UColdSteelHUDWidget::CloseShop()
+ {
+     if(!bShopOpen)return;
+     UWidgetBlueprintLibrary::CancelDragDrop();bShopOpen=false;HideItemTooltip(true);
+     ShopWidget->CancelConfirmation();ShopWidget->SetVisibility(ESlateVisibility::HitTestInvisible);
+-    GetGameInstance()->GetSubsystem<UColdSteelShopModel>()->EndSession();
++    auto* ShopModel=ShopWidget->ShopModel();
++    const bool bHerbalist=ShopModel->IsHerbalistShop();
++    ShopModel->EndSession();
++    if(bHerbalist)
++    {
++        auto* Player=GetOwningPlayer();
++        auto* Dialogue=Player?Player->FindComponentByClass<UChapelDialogueComponent>():nullptr;
++        if(Dialogue)Dialogue->EndHerbalistTrade();
++    }
+ }
+ void UColdSteelHUDWidget::ToggleShop(){if(bShopOpen)SetInventoryOpen(false);else OpenShop();}
++bool UColdSteelHUDWidget::CanOfferShopSale() const
++{
++    return bShopOpen && ShopWidget && ShopWidget->ShopModel() && !ShopWidget->ShopModel()->IsPurchaseOnly();
++}
+ bool UColdSteelHUDWidget::AddShopSaleItem(const FString& Id){return bShopOpen&&ShopWidget&&ShopWidget->AddToSale(Id);}
+ bool UColdSteelHUDWidget::HandleShopConfirmationKey(const FKey& Key)
+ {
+@@ -67,7 +115,6 @@
+ void UColdSteelHUDWidget::TickShop(float Delta)
+ {
+     if(!ShopWidget)return;
+-    if(bShopOpen&&ShopWidget->ShopModel()->SellerHasLeft())CloseShop();
+     // Reveal from behind the backpack only after its drawer has reached its dock.
+     const float Target=bShopOpen&&DrawerProgress>1.f-KINDA_SMALL_NUMBER?1.f:0.f;
+     ShopMotion=FMath::FInterpConstantTo(ShopMotion,Target,Delta,4.f);

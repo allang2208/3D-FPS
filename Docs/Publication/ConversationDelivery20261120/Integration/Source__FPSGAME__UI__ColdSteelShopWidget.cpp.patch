@@ -1,0 +1,57 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelShopWidget.cpp
+@@ -136,10 +136,10 @@
+     };
+     AddSection(false);
+     auto* Divider=WidgetTree->ConstructWidget<UBorder>();Divider->SetBrushColor(ColdSteelUI::Border);Divider->SetPadding(FMargin(0));
+-    auto* SaleDivider=WidgetTree->ConstructWidget<USizeBox>();SaleDivider->SetHeightOverride(1);SaleDivider->SetContent(Divider);
++    SaleDivider=WidgetTree->ConstructWidget<USizeBox>();SaleDivider->SetHeightOverride(1);SaleDivider->SetContent(Divider);
+     Body->AddChildToVerticalBox(SaleDivider)->SetPadding(FMargin(12,0));
+     AddSection(true);
+-    auto* SaleFooter=WidgetTree->ConstructWidget<UHorizontalBox>();Body->AddChildToVerticalBox(SaleFooter)->SetPadding(FMargin(12,8,12,4));
++    SaleFooter=WidgetTree->ConstructWidget<UHorizontalBox>();Body->AddChildToVerticalBox(SaleFooter)->SetPadding(FMargin(12,8,12,4));
+     Total=ShopText(WidgetTree,TEXT(""),14,true);Total->SetColorAndOpacity(ColdSteelUI::HUDGoldLight);Total->SetTextOverflowPolicy(ETextOverflowPolicy::Ellipsis);
+     auto* TotalSlot=SaleFooter->AddChildToHorizontalBox(Total);TotalSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));TotalSlot->SetVerticalAlignment(VAlign_Center);
+     auto* ClearButton=ShopButton(WidgetTree,TEXT("清空"));ClearButton->OnClicked.AddDynamic(this,&ThisClass::Clear);
+@@ -177,7 +177,14 @@
+ void UColdSteelShopWidget::ResetSession()
+ {
+     CancelConfirmation();
+-    ShopSet(ShopTitle,Model->IsArtisanShop()?Model->MerchantName()+TEXT("商店"):TEXT("商店"));
++    FString Title=TEXT("商店");
++    if(Model->IsPurchaseOnly())Title=Model->MerchantName();
++    else if(Model->IsArtisanShop())Title=Model->MerchantName()+TEXT("商店");
++    ShopSet(ShopTitle,Title);
++    const bool bPurchaseOnly=Model->IsPurchaseOnly();
++    SaleArea->SetVisibility(bPurchaseOnly?ESlateVisibility::Collapsed:ESlateVisibility::Visible);
++    SaleDivider->SetVisibility(bPurchaseOnly?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
++    SaleFooter->SetVisibility(bPurchaseOnly?ESlateVisibility::Collapsed:ESlateVisibility::SelfHitTestInvisible);
+     BuyGrid->ResetPage();SaleGrid->ResetPage();
+     BuyQuantity->SetText(FText::FromString(TEXT("1")));
+     Refresh();
+@@ -237,14 +244,14 @@
+ {
+     if(IsConfirming())return FReply::Handled();const int32 Direction=E.GetWheelDelta()>0?-1:E.GetWheelDelta()<0?1:0;
+     if(BuyArea->GetCachedGeometry().IsUnderLocation(E.GetScreenSpacePosition())){BuyGrid->TurnPage(Direction,true);return FReply::Handled();}
+-    if(SaleArea->GetCachedGeometry().IsUnderLocation(E.GetScreenSpacePosition())){SaleGrid->TurnPage(Direction,true);return FReply::Handled();}
++    if(!Model->IsPurchaseOnly()&&SaleArea->GetCachedGeometry().IsUnderLocation(E.GetScreenSpacePosition())){SaleGrid->TurnPage(Direction,true);return FReply::Handled();}
+     return Super::NativeOnMouseWheel(G,E);
+ }
+ void UColdSteelShopWidget::Close(){if(HUD&&HUD->IsShopOpen())HUD->ToggleShop();}
+ void UColdSteelShopWidget::Clear(){CancelConfirmation();Model->ClearSale();}
+ bool UColdSteelShopWidget::AddToSale(const FString& Id)
+ {
+-    if(IsConfirming()||!Model||!Model->AddToSale(Id))return false;
++    if(IsConfirming()||!Model||Model->IsPurchaseOnly()||!Model->AddToSale(Id))return false;
+     SaleGrid->SelectKey(Id,true);return true;
+ }
+ bool UColdSteelShopWidget::IsConfirming()const{return Confirmation&&Confirmation->GetVisibility()!=ESlateVisibility::Collapsed;}
+@@ -264,7 +271,7 @@
+ {
+     if(!Drag||!GetCachedGeometry().IsUnderLocation(Position))return false;
+     const auto* Status=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+-    if(!IsConfirming()&&SaleArea->GetCachedGeometry().IsUnderLocation(Position)&&Drag->IsCurrent(Status))AddToSale(Drag->ItemId);
++    if(!Model->IsPurchaseOnly()&&!IsConfirming()&&SaleArea->GetCachedGeometry().IsUnderLocation(Position)&&Drag->IsCurrent(Status))AddToSale(Drag->ItemId);
+     return true; // Never let a drop over the shop fall through to world-drop.
+ }
+ bool UColdSteelShopWidget::NativeOnDragOver(const FGeometry&,const FDragDropEvent&,UDragDropOperation* Op){return Cast<UColdSteelItemDrag>(Op)!=nullptr;}

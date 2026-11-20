@@ -1,0 +1,34 @@
+--- a/Source/FPSGAME/Monsters/MonsterTargetReplacement.cpp
++++ b/Source/FPSGAME/Monsters/MonsterTargetReplacement.cpp
+@@ -1,4 +1,5 @@
+ #include "MonsterAIController.h"
++#include "MonsterTargeting.h"
+ #include "Perception/AIPerceptionComponent.h"
+ #include "Perception/AISense_Sight.h"
+ #include "MonsterCombatComponent.h"
+@@ -55,7 +56,8 @@
+     // A moving hunter on a long detour may switch only to an immediately usable attack.
+     if((!Stopped&&Now-LastClosure<7.)||Now<NextAlternativeCheck)return;
+     NextAlternativeCheck=Now+1.;
+-    if(GetWorld()->GetNumPlayerControllers()<2&&!bHillsPursuitRecovery&&AlternateEvidence.IsEmpty())return;
++    if(GetWorld()->GetNumPlayerControllers()<2&&!bHillsPursuitRecovery&&AlternateEvidence.IsEmpty()&&
++        !MonsterTargeting::IsActiveArtisan(KnownTarget.Get()))return;
+     if(const auto* Mantis=Cast<AMantisM27Monster>(GetPawn());Mantis&&Mantis->bCloaked)return;
+     if(CanSeePlayer(KnownTarget.Get(),false)&&Combat()->CanAttack(KnownTarget.Get()))return;
+     if(APawn* Next=FindReplacement(true,!Stopped))
+@@ -95,6 +97,15 @@
+     {
+         auto* PC=It->Get();
+         Consider(PC?PC->GetPawn().Get():nullptr);
++    }
++    if(!Area)
++    {
++        TArray<AActor*> Seen;
++        Senses->GetCurrentlyPerceivedActors(UAISense_Sight::StaticClass(),Seen);
++        for(AActor* Actor:Seen)
++            if(auto* P=Cast<APawn>(Actor);MonsterTargeting::IsActiveArtisan(P))Consider(P);
++        for(const auto& Evidence:AlternateEvidence)
++            if(auto* P=Evidence.Key.Get();Evidence.Value>Now&&MonsterTargeting::IsActiveArtisan(P))Consider(P);
+     }
+     Candidates.Sort([&](const APawn& A,const APawn& B)
+     {

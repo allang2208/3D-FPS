@@ -1,0 +1,89 @@
+--- a/Source/FPSGAME/Items/ConsumableReceiptWireAudit.cpp
++++ b/Source/FPSGAME/Items/ConsumableReceiptWireAudit.cpp
+@@ -4,0 +5 @@
++#include "../Skills/LightningHasteSpeed.h"
+@@ -17 +18 @@
+-enum ECase { NoStart,CancelBefore,RefusedContact,CancelAfter,FirstSip,Replay,SecondSip,ManaPotion,Count };
++enum ECase { NoStart,CancelBefore,RefusedContact,CancelAfter,FirstSip,Replay,SecondSip,ManaPotion,Bread,Count };
+@@ -18,0 +20,2 @@
++bool DualHandoff(){return FParse::Param(FCommandLine::Get(),TEXT("MealHandoffWire"));}
++int32 CaseCount(){return DualHandoff()?Count:Bread;}
+@@ -31,0 +35,2 @@
++        UE_LOG(LogTemp,Display,TEXT("MEAL_WIRE_NETWORK mode=%d lag_ms=%d loss_percent=%d"),
++            int32(World->GetNetMode()),Driver->PacketSimulationSettings.PktLag,Driver->PacketSimulationSettings.PktLoss);
+@@ -43,0 +49,11 @@
++    }
++    if(DualHandoff())
++    {
++        auto Food=Model->CreateItem(TEXT("bread"));Food.InstanceId=Session+TEXT("bread");ColdSteelInventory::Insert(P.Items,Food);
++        // Host is unequipped to expose an accidental read of its inventory.
++        if(!Session.StartsWith(TEXT("host-")))for(int32 Side=0;Side<2;++Side)
++        {
++            const bool Pistols=FParse::Param(FCommandLine::Get(),TEXT("MealHandoffPistols"));
++            auto Item=Model->CreateItem(Pistols?TEXT("ue_m1911"):TEXT("ue_tactical_hatchet"));
++            Item.Place=1;Item.Cell=Side?8:6;Item.InstanceId=Session+FString::Printf(TEXT("hand_%d"),Side);P.Items.Add(Item);
++        }
+@@ -64 +80 @@
+-    AmmoStage=0;bReported=false;SentAt=-1.;
++    AmmoStage=0;AmmoFired=0;bReported=false;SentAt=-1.;
+@@ -84 +100,2 @@
+-    const FString Id=Weapon+(Water?TEXT("mineral_water"):Current==MealWire::ManaPotion?TEXT("mp_potion"):TEXT("roasted_large_lamb"));
++    const FString Id=Weapon+(Water?TEXT("mineral_water"):Current==MealWire::ManaPotion?TEXT("mp_potion"):
++        Current==MealWire::Bread?TEXT("bread"):TEXT("roasted_large_lamb"));
+@@ -100,0 +118,6 @@
++        if(MealWire::DualHandoff()&&Use->IsActive())
++        {
++            if(Use->Age()<0.f&&Use->OffhandLowerWeight()>0.f&&!Use->IsOffhandWeaponHidden())AmmoFired|=1;
++            if(Use->IsOffhandWeaponHidden())AmmoFired|=2;
++            if(Use->Age()>=Use->Motion.Duration&&Use->OffhandLowerWeight()>0.f&&!Use->IsOffhandWeaponHidden())AmmoFired|=4;
++        }
+@@ -112 +135 @@
+-        else if((Water||Current==MealWire::ManaPotion) && !Use->IsActive())AmmoStage=2;
++        else if((Water||Current==MealWire::ManaPotion||Current==MealWire::Bread) && !Use->IsActive())AmmoStage=2;
+@@ -120 +143,3 @@
+-        (Current!=MealWire::ManaPotion||(!Model->FindItem(Id)&&Model->Mana()>=25.f));
++        (Current!=MealWire::ManaPotion||(!Model->FindItem(Id)&&Model->Mana()>=25.f)) &&
++        (Current!=MealWire::Bread||!Model->FindItem(Id)) &&
++        (!MealWire::DualHandoff()||Current==MealWire::Replay||!(Water||Current==MealWire::ManaPotion||Current==MealWire::Bread)||AmmoFired==7);
+@@ -122,0 +148 @@
++    Row->SetNumberField(TEXT("owner_handoff_phases"),AmmoFired);
+@@ -148 +174 @@
+-    const int32 ExpectedRevision=Phase<MealWire::CancelAfter?0:Phase==MealWire::CancelAfter?1:Phase==MealWire::ManaPotion?4:Phase==MealWire::SecondSip?3:2;
++    const int32 ExpectedRevision=Phase<MealWire::CancelAfter?0:Phase==MealWire::CancelAfter?1:Phase==MealWire::Bread?5:Phase==MealWire::ManaPotion?4:Phase==MealWire::SecondSip?3:2;
+@@ -151,0 +178,4 @@
++    const auto* Use=GetPawn()->FindComponentByClass<UFPSPotionUseComponent>();
++    const bool ContactDelayOK=!MealWire::DualHandoff()||(Use&&FMath::IsNearlyEqual(Use->MinimumContactDelay(TEXT("mineral_water")),
++        (Use->MotionFor(TEXT("mineral_water")).Contact+PotionEquipmentHandoff::LowerSeconds)/LightningHaste::ActionSpeed(GetPawn()),.0001f));
++    const bool FullHandoff=Phase==MealWire::FirstSip||Phase==MealWire::SecondSip||Phase==MealWire::ManaPotion||Phase==MealWire::Bread;
+@@ -154 +184,3 @@
+-        (Phase!=MealWire::ManaPotion||(!Model->FindItem(Weapon+TEXT("mp_potion"))&&Model->Mana()>=25.f));
++        (Phase!=MealWire::ManaPotion||(!Model->FindItem(Weapon+TEXT("mp_potion"))&&Model->Mana()>=25.f)) &&
++        (Phase!=MealWire::Bread||!Model->FindItem(Weapon+TEXT("bread"))) && ContactDelayOK &&
++        (!MealWire::DualHandoff()||!FullHandoff||AmmoFired==7);
+@@ -161,0 +194,2 @@
++    R->SetBoolField(TEXT("authority_contact_includes_offhand_stow"),ContactDelayOK);
++    R->SetNumberField(TEXT("observer_handoff_phases"),AmmoFired);
+@@ -175,3 +209,3 @@
+-    if(Guest->Finished>=MealWire::Count||Now-Joined>230.)
+-    {
+-        const bool OK=Guest->Finished==MealWire::Count&&Guest->bAllPassed;
++    if(Guest->Finished>=MealWire::CaseCount()||Now-Joined>290.)
++    {
++        const bool OK=Guest->Finished==MealWire::CaseCount()&&Guest->bAllPassed;
+@@ -182 +216 @@
+-        Prepared=Guest->Finished;Guest->Expected=Prepared;Guest->bObservedMeal=false;
++        Prepared=Guest->Finished;Guest->Expected=Prepared;Guest->bObservedMeal=false;Guest->AmmoFired=0;
+@@ -190 +224 @@
+-            if(!PS->ShadowModel){Guest->bAllPassed=false;Guest->Finished=MealWire::Count;return true;}
++            if(!PS->ShadowModel){Guest->bAllPassed=false;Guest->Finished=MealWire::CaseCount();return true;}
+@@ -196 +230,9 @@
+-        Guest->bObservedMeal|=Body->GetBodyState().Action==EFPSBodyAction::Consume;
++    {
++        const auto& S=Body->GetBodyState();Guest->bObservedMeal|=S.Action==EFPSBodyAction::Consume;
++        if(S.Action==EFPSBodyAction::Consume&&S.ConsumeStowWeight>0.f)
++        {
++            if(!S.bConsumeWeaponsHidden&&S.ActionProgress<=0.f)Guest->AmmoFired|=1;
++            if(S.bConsumeWeaponsHidden)Guest->AmmoFired|=2;
++            if(!S.bConsumeWeaponsHidden&&S.ActionProgress>=1.f)Guest->AmmoFired|=4;
++        }
++    }

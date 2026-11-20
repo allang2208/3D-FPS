@@ -377,7 +377,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     }
     auto& Main=Out.Cards.AddDefaulted_GetRef();Main.MinimumWidth=460;
     const TArray<TSharedPtr<FJsonValue>>* Stats=nullptr;
-    FGunsmithStats S;if(Weapon)S=G->CalculateItem(I,Parts);
+    FGunsmithStats S;if(Weapon){S=G->CalculateItem(I,Parts);ColdSteelWeaponStats::ApplyFirearmEquipmentHandling(S,Model);}
     const bool bConsumable=ColdSteelConsumable::IsConsumable(O.Get());
     if(!bConsumable&&O->TryGetArrayField(TEXT("stats"),Stats))for(const auto& V:*Stats){const auto St=V->AsObject();const FString Label=String(St,TEXT("name"),String(St,TEXT("label")));FString Val=St->HasField(TEXT("value"))?Value(St->Values[TEXT("value")]):TEXT("");
         // 枪/剑/杖的攻防展示走下面的计算行，目录 stats 里的静态行（含转轮的

@@ -1,0 +1,71 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -30,6 +30,8 @@
+ #include "Monsters/FPSCombatHealthComponent.h"
+ #include "NPC/ChapelNun.h"
+ #include "NPC/VillageArtisanMerchant.h"
++#include "NPC/VillageHerbalist.h"
++#include "NPC/ResidentConversation.h"
+ #include "NPC/ChapelDialogueComponent.h"
+ #include "UI/ColdSteelWarehouseChest.h"
+ #include "UI/ColdSteelSceneContainer.h"
+@@ -413,6 +415,8 @@
+ 
+ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
+ {
++    if(Params.Key==EKeys::E && Params.Event==IE_Released && ChapelDialogue && ChapelDialogue->ReleaseFirstAid())
++        return true;
+     if(ChapelDialogue&&ChapelDialogue->IsOpen())
+         return Params.Event==IE_Released?Super::InputKey(Params):true;
+     if (IsGameMenuOpen())
+@@ -560,8 +564,15 @@
+                 RequestVillageRepair(Section);
+                 return true;
+             }
++            if(auto* Artisan=Cast<AVillageArtisanMerchant>(Target); Artisan && ResidentConversation::IsSpeakerDowned(Artisan))
++            {
++                InterruptInspection();
++                ChapelDialogue->BeginFirstAid(Artisan);
++                return true;
++            }
+             if(Rest&&Rest->Interact())return true;
+             if(auto* Nun=Cast<AChapelNun>(Target)){InterruptInspection();ChapelDialogue->Open(Nun);return true;}
++            if(auto* Herbalist=Cast<AVillageHerbalist>(Target)){InterruptInspection();ChapelDialogue->OpenHerbalist(Herbalist);return true;}
+             if(auto* Artisan=Cast<AVillageArtisanMerchant>(Target)){InterruptInspection();ChapelDialogue->OpenArtisan(Artisan);return true;}
+             if(auto* Pump=Cast<AHeQuePumpControl>(Target))
+             {InterruptInspection();ServerUseHeQuePump(Pump);return true;}
+@@ -600,6 +611,16 @@
+                     return true;
+                 }
+             }
++            if (Focus.CounterResident && ChapelDialogue->CanStartConversation(Focus.CounterResident))
++            {
++                const auto* Guest = Cast<AFPSGAMECharacter>(GetPawn());
++                if (Guest && !Guest->IsAmmoWheelOpen())
++                {
++                    InterruptInspection();
++                    ChapelDialogue->OpenMerchant(Focus.CounterResident);
++                    return true;
++                }
++            }
+             // Proximity-only portals receive E once aimed interactions have had their turn.
+             for(TActorIterator<ASceneTestPortal> It(GetWorld());It;++It)if(It->IsWithinInteractionRange(GetPawn())){InterruptInspection();return Super::InputKey(Params);}
+         }
+@@ -625,7 +646,7 @@
+ void AFPSGAMEPlayerController::PlayerTick(float DeltaTime)
+ {
+     Super::PlayerTick(DeltaTime);
+-    if(IsLocalController()&&!IsGameMenuOpen()&&!AlchemyPanel&&!WoodworkingPanel&&!ExpeditionPanel&&!GunsmithPanel&&!EnhancementPanel
++    if(IsLocalController()&&!(ChapelDialogue&&ChapelDialogue->IsOpen())&&!IsGameMenuOpen()&&!AlchemyPanel&&!WoodworkingPanel&&!ExpeditionPanel&&!GunsmithPanel&&!EnhancementPanel
+         &&(!ColdSteelHUD||(!ColdSteelHUD->IsWorldForging()&&!ColdSteelHUD->IsGunAssembly()))
+         &&(!WeatherPanel||!WeatherPanel->IsPanelOpen())
+         &&(!ColdSteelHUD||!ColdSteelHUD->IsInventoryOpen()))
+@@ -700,7 +721,7 @@
+ 
+ void AFPSGAMEPlayerController::ToggleTimelineInteraction()
+ {
+-    if (IsGameMenuOpen()) return;
++    if (IsGameMenuOpen() || (ChapelDialogue && ChapelDialogue->IsOpen())) return;
+     if(ColdSteelHUD&&(ColdSteelHUD->IsWorldForging()||ColdSteelHUD->IsGunAssembly()))return;
+     if (AlchemyPanel || WoodworkingPanel || GunsmithPanel || EnhancementPanel || ExpeditionPanel) return;
+     if (WeatherPanel && WeatherPanel->IsPanelOpen()) return;

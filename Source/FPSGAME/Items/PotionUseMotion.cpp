@@ -6,6 +6,7 @@
 
 void FPotionUseMotion::Load(bool bMana,const TCHAR* Definition)
 {
+    FoodBiteTrack.Reset();
     FString Text;TSharedPtr<FJsonObject> Root;
     if(!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/potion_use_motion.json"))) ||
         !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Root))return;
@@ -26,6 +27,7 @@ void FPotionUseMotion::Load(bool bMana,const TCHAR* Definition)
     ObjectGrip=FVector::ZeroVector;Vec(Family,TEXT("grip_in_object"),ObjectGrip);
     bTwoHanded=false;Family->TryGetBoolField(TEXT("two_handed"),bTwoHanded);
     Vec(Family,TEXT("right_grip_in_object"),RightObjectGrip);Vec(Family,TEXT("right_grip_in_palm"),RightGripInPalm);
+    bHasBiteInObject=Family->HasField(TEXT("bite_in_object"));
     BiteInObject=FVector::ZeroVector;Vec(Family,TEXT("bite_in_object"),BiteInObject);
     FVector ObjectEuler=FVector::ZeroVector;Vec(Family,TEXT("object_rotation"),ObjectEuler);
     ObjectRotation=FRotator(ObjectEuler.X,ObjectEuler.Y,ObjectEuler.Z).Quaternion();
@@ -84,9 +86,39 @@ void FPotionUseMotion::Load(bool bMana,const TCHAR* Definition)
     }
 }
 
+void FPotionUseMotion::PrepareFirstPersonFood(const FVector& MeshTop)
+{
+    if(Keys.IsEmpty())return;
+    BiteFromGrip=ObjectRotation.RotateVector((bHasBiteInObject?BiteInObject:MeshTop)-ObjectGripPoint());
+    const FTransform ContactGrip=GripAt(Contact);
+    const FVector ContactBite=ContactGrip.TransformPosition(BiteFromGrip);
+    const bool ReturnsForward=GripAt(Release).TransformPosition(BiteFromGrip).X>ContactBite.X+1.;
+    FoodBiteTrack.Reset(Keys.Num());
+    for(auto& Key:Keys)
+    {
+        FVector Bite=Key.Grip+Key.Rotation.RotateVector(BiteFromGrip);
+        // Several original single-hand tracks return the food up to 23 cm
+        // forward after the bite. Lower it out of view at its contact depth;
+        // preserve the wrist/food angle so a long loaf cannot pivot into the eye.
+        if(ReturnsForward&&Key.Time>Contact)
+        {
+            Bite.X=ContactBite.X;
+            Bite.Z=FMath::Min(Bite.Z,ContactBite.Z);
+            Key.Rotation=ContactGrip.GetRotation();
+        }
+        FoodBiteTrack.Add(Bite);
+    }
+}
+
 FTransform FPotionUseMotion::GripAt(float Age) const
 {
     if(Keys.IsEmpty())return FTransform::Identity;
+    const bool Food=FoodBiteTrack.Num()==Keys.Num();
+    const auto Position=[&](int32 J){return Food?FoodBiteTrack[J]:Keys[J].Grip;};
+    const auto Grip=[&](const FQuat& Rotation,const FVector& Point)
+    {
+        return FTransform(Rotation,Food?Point-Rotation.RotateVector(BiteFromGrip):Point);
+    };
     for(int32 I=1;I<Keys.Num();++I)if(Age<=Keys[I].Time)
     {
         const auto& A=Keys[I-1];const auto& B=Keys[I];
@@ -96,19 +128,36 @@ FTransform FPotionUseMotion::GripAt(float Age) const
         const auto Tangent=[&](int32 J)
         {
             if(J==0||J==Keys.Num()-1)return FVector::ZeroVector;
-            if(Keys[J].Grip.Equals(Keys[J-1].Grip,.01)||Keys[J].Grip.Equals(Keys[J+1].Grip,.01))return FVector::ZeroVector;
-            return (Keys[J+1].Grip-Keys[J-1].Grip)/(Keys[J+1].Time-Keys[J-1].Time);
+            const FVector Before=Position(J)-Position(J-1),After=Position(J+1)-Position(J);
+            if(Before.IsNearlyZero(.01)||After.IsNearlyZero(.01))return FVector::ZeroVector;
+            if(!Food)return (Before+After)/(Keys[J+1].Time-Keys[J-1].Time);
+            // Stationary/extremal coordinates at the lips must not overshoot
+            // between keys. Steffen's monotone cubic slope also handles
+            // the uneven key spacing without flattening a continuing lift.
+            const double PrevTime=Keys[J].Time-Keys[J-1].Time,NextTime=Keys[J+1].Time-Keys[J].Time;
+            const FVector In=Before/PrevTime,Out=After/NextTime;
+            const FVector Mean=(In*NextTime+Out*PrevTime)/(PrevTime+NextTime);
+            FVector Slope=FVector::ZeroVector;
+            for(int32 Axis=0;Axis<3;++Axis)
+                if(In[Axis]*Out[Axis]>0.)
+                    Slope[Axis]=FMath::Sign(In[Axis])*FMath::Min3(2.*FMath::Abs(In[Axis]),2.*FMath::Abs(Out[Axis]),FMath::Abs(Mean[Axis]));
+            return Slope;
         };
-        const FVector P=FMath::CubicInterp(A.Grip,Tangent(I-1)*(B.Time-A.Time),B.Grip,Tangent(I)*(B.Time-A.Time),T);
-        return FTransform(FQuat::Slerp(A.Rotation,B.Rotation,Ease(T)).GetNormalized(),P);
+        const FVector P=FMath::CubicInterp(Position(I-1),Tangent(I-1)*(B.Time-A.Time),Position(I),Tangent(I)*(B.Time-A.Time),T);
+        return Grip(FQuat::Slerp(A.Rotation,B.Rotation,Ease(T)).GetNormalized(),P);
     }
-    return FTransform(Keys.Last().Rotation,Keys.Last().Grip);
+    return Grip(Keys.Last().Rotation,Position(Keys.Num()-1));
 }
 FTransform FPotionUseMotion::BottleAt(float Age) const
 {
     const FTransform G=GripAt(Age);
     const FQuat Rotation=G.GetRotation()*ObjectRotation;
     return FTransform(Rotation,G.GetLocation()-Rotation.RotateVector(ObjectGripPoint()));
+}
+FTransform FPotionUseMotion::ObjectFromPalm(const FTransform& PalmWorld) const
+{
+    const FQuat Rotation=PalmWorld.GetRotation()*PalmBasis().Inverse()*ObjectRotation;
+    return FTransform(Rotation,PalmWorld.TransformPosition(GripInPalm)-Rotation.RotateVector(ObjectGripPoint()));
 }
 FQuat FPotionUseMotion::PalmBasis(bool bRight) const
 {
@@ -128,6 +177,6 @@ float FPotionUseMotion::Layer(float Age) const
 float FPotionUseMotion::FingerClosure(float Age) const
 {
     // A two-hand food stays grasped until its visibility window has ended.
-    const float OpenAt=bTwoHanded?Release:Release-.025f;
+    const float OpenAt=bTwoHanded||!FoodBiteTrack.IsEmpty()?Release:Release-.025f;
     return Ease((Age-Grab*.42f)/(Grab*.58f))*(1.f-Ease((Age-OpenAt)/.08f));
 }

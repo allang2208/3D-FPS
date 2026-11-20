@@ -37,6 +37,7 @@ TArray<FMetric> Metrics(const FColdSteelItem& Item,UColdSteelStatusModel* Model,
     if(G&&G->Weapon(Item.Definition))
     {
         auto S=G->CalculateItem(Item,G->Installed(Item));
+        ColdSteelWeaponStats::ApplyFirearmEquipmentHandling(S,Model);
         const auto Damage=ColdSteelWeaponStats::DamageParts(Item,Model,S.Damage);
         Add(TEXT("damage"),ColdSteelWeaponText::TotalDamage,Damage.Total(),TEXT(""),2);
         Add(TEXT("base_physical_damage"),ColdSteelWeaponText::BasePhysical,Damage.BasePhysical,TEXT(""),2,false,false);

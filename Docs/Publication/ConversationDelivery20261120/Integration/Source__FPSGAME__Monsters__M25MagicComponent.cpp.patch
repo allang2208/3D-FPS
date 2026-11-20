@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Monsters/M25MagicComponent.cpp
++++ b/Source/FPSGAME/Monsters/M25MagicComponent.cpp
+@@ -1,4 +1,5 @@
+ #include "M25MagicComponent.h"
++#include "MonsterTargeting.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "VortexCofferM25.h"
+ #include "MonsterAIController.h"
+@@ -90,6 +91,7 @@
+ 
+ bool UM25MagicComponent::LivingEnemyPlayer(const APawn* Target) const
+ {
++    if (MonsterTargeting::IsActiveArtisan(Target)) return true;
+     if (!IsValid(Target) || !Target->IsPlayerControlled() || Target->IsActorBeingDestroyed()) return false;
+     const auto* Health = Target->FindComponentByClass<UFPSCombatHealthComponent>();
+     return Health && !Health->IsDead();
+@@ -406,7 +408,7 @@
+         const auto* Component = Contact.GetComponent();
+         const auto* Pawn = Cast<APawn>(Contact.GetActor());
+         // Player capsules intentionally ignore Visibility; overlap-only volumes never block spells.
+-        const bool PlayerCapsule = Pawn && Pawn->IsPlayerControlled() && Component == Pawn->GetRootComponent();
++        const bool PlayerCapsule = Pawn && MonsterTargeting::IsOpponentPawn(Pawn) && Component == Pawn->GetRootComponent();
+         if (!Component || (!PlayerCapsule && Component->GetCollisionResponseToChannel(ECC_Visibility) != ECR_Block)) continue;
+         if (!Found || Contact.Time < Hit.Time) { Hit = Contact; Found = true; }
+     }

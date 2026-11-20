@@ -1,0 +1,43 @@
+--- a/Source/FPSGAME/Monsters/M07MagicAttack.cpp
++++ b/Source/FPSGAME/Monsters/M07MagicAttack.cpp
+@@ -1,4 +1,5 @@
+ #include "M07MagicAttack.h"
++#include "MonsterTargeting.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "FPSCombatHealthComponent.h"
+ #include "MonsterCombatComponent.h"
+@@ -193,8 +194,10 @@
+ 
+ bool AM07MagicAttack::IsHostilePlayer(APawn* Pawn) const
+ {
+-    if (!IsValid(Pawn) || Pawn == Shooter.Get() || !Pawn->IsPlayerControlled()) return false;
++    if (!IsValid(Pawn) || Pawn == Shooter.Get()) return false;
+     if (Shooter.IsValid() && (Shooter->ActorHasTag(TEXT("Friendly")) || Shooter->ActorHasTag(TEXT("Summoned")))) return false;
++    if (MonsterTargeting::IsActiveArtisan(Pawn)) return true;
++    if (!Pawn->IsPlayerControlled()) return false;
+     const auto* Health = Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
+     return Health && !Health->IsDead();
+ }
+@@ -212,7 +215,7 @@
+         const auto* Component = Contact.GetComponent();
+         const auto* Pawn = Cast<APawn>(Contact.GetActor());
+         // FPS capsules ignore Visibility; overlap-only triggers and fog must not stop a spell.
+-        const bool bPlayerBody = Pawn && Pawn->IsPlayerControlled() && Component == Pawn->GetRootComponent();
++        const bool bPlayerBody = Pawn && MonsterTargeting::IsLivingOpponent(Pawn) && Component == Pawn->GetRootComponent();
+         if (!Component || (!bPlayerBody && Component->GetCollisionResponseToChannel(ECC_Visibility) != ECR_Block)) continue;
+         if (!bBlocked || Contact.Time < Hit.Time) { Hit = Contact; bBlocked = true; }
+     }
+@@ -375,10 +378,10 @@
+             // At most one pass per connected player, after the direct-hit dedup entry.
+             const FVector Center = Presentation.Impact;
+             const FVector SightStart = Center + FVector(Presentation.Normal) * 3.f;
+-            for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
++            TArray<APawn*> Victims;
++            MonsterTargeting::GatherAreaOpponents(GetWorld(),Center,Presentation.Radius,Victims);
++            for (APawn* Target : Victims)
+             {
+-                const auto* Controller = It->Get();
+-                APawn* Target = Controller ? Controller->GetPawn() : nullptr;
+                 if (!IsHostilePlayer(Target) || HitPlayers.Contains(Target)) continue;
+                 FVector TargetPoint = Target->GetActorLocation();
+                 if (const auto* Capsule = Target->FindComponentByClass<UCapsuleComponent>())

@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/SpiralPillarM14Whirlwind.cpp
++++ b/Source/FPSGAME/Monsters/SpiralPillarM14Whirlwind.cpp
+@@ -1,4 +1,5 @@
+ #include "SpiralPillarM14.h"
++#include "MonsterTargeting.h"
+ #include "M14WhirlwindMotion.h"
+ #include "FleshHandMonster.h"
+ #include "FPSCombatHealthComponent.h"
+@@ -51,7 +52,7 @@
+     {
+         if(State!=EM14State::Whirlwind||Dead())return;
+         AActor* Victim=Hit.GetActor();APawn* Pawn=Cast<APawn>(Victim);
+-        const bool PlayerBody=Pawn&&Pawn->IsPlayerControlled()&&Hit.GetComponent()==Pawn->GetRootComponent();
++        const bool PlayerBody=Pawn&&MonsterTargeting::IsOpponentPawn(Pawn)&&Hit.GetComponent()==Pawn->GetRootComponent();
+         if(!IsValid(Victim)||(!PlayerBody&&!Victim->IsA<AFPSIceWall>())||WhirlwindVictims.Contains(Victim))continue;
+         auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
+         if(Vitals&&(Vitals->IsDead()||Vitals->IsInvulnerable()))continue;

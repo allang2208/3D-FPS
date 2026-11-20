@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp
++++ b/Source/FPSGAME/Monsters/MonsterCombatComponent.cpp
+@@ -1,4 +1,5 @@
+ #include "MonsterCombatComponent.h"
++#include "MonsterTargeting.h"
+ #include "../WorldGeneration/VillageDefenseCombat.h"
+ #include "../WorldGeneration/VillageThreatOutlines.h"
+ #include "../WorldGeneration/VillageDefenseSection.h"
+@@ -258,6 +259,7 @@
+ }
+ bool UMonsterCombatComponent::CanAttack(APawn* P) const
+ {
++ if(MonsterTargeting::IsDownedArtisan(P))return false;
+  if(Cast<ANurseZombie>(GetOwner()))if(auto* Wall=VillageDefenseCombat::Blocking(Cast<APawn>(GetOwner()),P))P=Wall;
+  if(const auto* Unknown=Cast<AUnknownHumanoid>(GetOwner()))return Unknown->CanAttack(P);
+ 
+@@ -289,6 +291,7 @@
+ }
+ bool UMonsterCombatComponent::TryAttack(APawn* P)
+ {
++ if(MonsterTargeting::IsDownedArtisan(P))return false;
+  if(Cast<ANurseZombie>(GetOwner()))if(auto* Wall=VillageDefenseCombat::Blocking(Cast<APawn>(GetOwner()),P))P=Wall;
+  if(auto* Budget=GetWorld()->GetSubsystem<UMonsterPresentationBudget>())Budget->Promote(this);
+  if(auto* Unknown=Cast<AUnknownHumanoid>(GetOwner()))return Unknown->StartAttack(P);

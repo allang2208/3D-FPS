@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
+@@ -819,6 +819,8 @@
+ void ATemperateHillsWorld::EndStreaming()
+ {
+     StreamedWindmill.Reset();
++    StreamedBakery.Reset();
++    OnRep_VillageBakery();
+     ReleaseVillageGroundCache();
+     ForestWaterPlan.Reset();
+     if(auto* RiverFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())RiverFX->UnbindRiver(this);

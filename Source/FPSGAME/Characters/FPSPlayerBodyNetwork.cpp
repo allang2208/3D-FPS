@@ -1,4 +1,5 @@
 #include "FPSPlayerBodyComponent.h"
+#include "FPSBodyConsumeMotion.h"
 #include "FPSBodyKukriMotion.h"
 #include "../FPSGAMECharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -70,7 +71,7 @@ void UFPSPlayerBodyComponent::SendBodyPresentation(float Delta)
         if(DisplayState.Action==P.Action&&DisplayState.ActionVariant==P.ActionVariant
             &&(DisplayState.Action==EFPSBodyAction::Guard||DisplayState.ActionProgress+.08f>=P.ActionProgress))
             // Preserve the executor rate at hit-stop and resume transitions.
-            if(!FPSBodyKukriMotion::HasExecutorClock(DisplayState))
+            if(!FPSBodyKukriMotion::HasExecutorClock(DisplayState)&&DisplayState.Action!=EFPSBodyAction::Consume)
                 DisplayState.ActionProgressRate=Rate(DisplayState.ActionProgress,P.ActionProgress,Delta);
         if(DisplayState.Motion==P.Motion&&DisplayState.MotionProgress+.08f>=P.MotionProgress)
             DisplayState.MotionProgressRate=Rate(DisplayState.MotionProgress,P.MotionProgress,Delta);
@@ -128,7 +129,10 @@ void UFPSPlayerBodyComponent::AcceptBodyPresentation(const FFPSBodyState& Incomi
     if(!Next.Contacts.IsSane())Next.Contacts=FFPSBodyMotionSample();
     Next.Contacts.Light=FMath::Clamp(Next.Contacts.Light,0.f,1.f);
     Next.ActionDuration=FMath::IsFinite(Next.ActionDuration)?FMath::Clamp(Next.ActionDuration,0.f,60.f):0.f;
-    Next.ActionStartedAt=FMath::IsFinite(Next.ActionStartedAt)?FMath::Clamp(Next.ActionStartedAt,Now-60.f,Now):Now;
+    // Consume starts after the equipment has lowered. Preserve that bounded
+    // future origin so peers cannot skip the stow when sanitizing a lead-in.
+    const float LatestStart=Next.Action==EFPSBodyAction::Consume?Now+1.f:Now;
+    Next.ActionStartedAt=FMath::IsFinite(Next.ActionStartedAt)?FMath::Clamp(Next.ActionStartedAt,Now-60.f,LatestStart):Now;
     Next.PresentationSampledAt=FMath::IsFinite(Next.PresentationSampledAt)?FMath::Clamp(Next.PresentationSampledAt,Now-.5f,Now):Now;
     Next.MotionSampledAt=Next.PresentationSampledAt;
     Next.ActionProgress=Unit(Next.ActionProgress);Next.ActionWeight=Unit(Next.ActionWeight,1.f);
@@ -188,12 +192,13 @@ void UFPSPlayerBodyComponent::AcceptBodyPresentation(const FFPSBodyState& Incomi
 void UFPSPlayerBodyComponent::AdvanceBodyPresentation(FFPSBodyState& State,float Now)
 {
     const float Age=FMath::Clamp(Now-State.PresentationSampledAt,0.f,.12f);
+    FPSBodyConsumeMotion::Advance(State,Age);
     State.OffhandReloadProgress=FMath::Clamp(State.OffhandReloadProgress+State.OffhandReloadProgressRate*Age,0.f,1.f);
     State.BowClipTime=FMath::Clamp(State.BowClipTime+State.BowClipRate*Age,0.f,60.f);
     State.BowCastTransfer=FMath::Clamp(State.BowCastTransfer+State.BowCastTransferRate*Age,0.f,1.f);
     State.BowStowWeight=FMath::Clamp(State.BowStowWeight+State.BowStowRate*Age,0.f,1.f);
     if(State.bBowClipLooping&&State.BowClipLength>SMALL_NUMBER)State.BowClipTime=FMath::Fmod(State.BowClipTime,State.BowClipLength);
-    if(State.bHasActionProgress)State.ActionProgress=FMath::Clamp(State.ActionProgress+State.ActionProgressRate*Age,0.f,1.f);
+    if(State.bHasActionProgress&&State.Action!=EFPSBodyAction::Consume)State.ActionProgress=FMath::Clamp(State.ActionProgress+State.ActionProgressRate*Age,0.f,1.f);
     State.RightHand.Progress=FMath::Clamp(State.RightHand.Progress+State.RightHand.ProgressRate*Age,0.f,1.f);
     State.LeftHand.Progress=FMath::Clamp(State.LeftHand.Progress+State.LeftHand.ProgressRate*Age,0.f,1.f);
     State.MotionProgress=FMath::Clamp(State.MotionProgress+State.MotionProgressRate*FMath::Clamp(Now-State.MotionSampledAt,0.f,.12f),0.f,1.f);

@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp
+@@ -270,7 +270,7 @@
+     if(Hit(G,E.GetScreenSpacePosition(),PressPlace,PressCell)){
+         FocusPlace=PressPlace;FocusCell=PressCell;Selected=IdAt(PressPlace,PressCell);bConfirmDrop=false;InteractionMessage.Empty();
+         if(E.GetEffectingButton()==EKeys::RightMouseButton){
+-            if(auto* HUD=TooltipHUD();HUD&&HUD->IsShopOpen()&&!E.IsShiftDown()&&!Selected.IsEmpty())
++            if(auto* HUD=TooltipHUD();HUD&&HUD->CanOfferShopSale()&&!E.IsShiftDown()&&!Selected.IsEmpty())
+             {HUD->AddShopSaleItem(Selected);return FReply::Handled();}
+             if(E.IsShiftDown()&&!Selected.IsEmpty())OpenItemMenu(E.GetScreenSpacePosition());
+             else if(!Selected.IsEmpty())
+@@ -301,13 +301,13 @@
+     }
+     return FReply::Handled();
+ }
+-FReply UColdSteelInventoryWidget::NativeOnMouseButtonDoubleClick(const FGeometry& G,const FPointerEvent& E){bPendingClick=false;if(E.GetEffectingButton()!=EKeys::LeftMouseButton)return FReply::Unhandled();if(auto* HUD=TooltipHUD())HUD->HideItemTooltip(true);int32 P,C;if(Hit(G,E.GetScreenSpacePosition(),P,C)){Selected=IdAt(P,C);if(!Selected.IsEmpty()){if(auto* HUD=TooltipHUD();HUD&&HUD->IsShopOpen())HUD->AddShopSaleItem(Selected);else Model->DefaultAction(Selected);}InteractionMessage=Model->ResultMessage();}return FReply::Handled();}
++FReply UColdSteelInventoryWidget::NativeOnMouseButtonDoubleClick(const FGeometry& G,const FPointerEvent& E){bPendingClick=false;if(E.GetEffectingButton()!=EKeys::LeftMouseButton)return FReply::Unhandled();if(auto* HUD=TooltipHUD())HUD->HideItemTooltip(true);int32 P,C;if(Hit(G,E.GetScreenSpacePosition(),P,C)){Selected=IdAt(P,C);if(!Selected.IsEmpty()){if(auto* HUD=TooltipHUD();HUD&&HUD->CanOfferShopSale())HUD->AddShopSaleItem(Selected);else Model->DefaultAction(Selected);}InteractionMessage=Model->ResultMessage();}return FReply::Handled();}
+ void UColdSteelInventoryWidget::PerformAction(int32 Action)
+ {
+     if(auto* HUD=TooltipHUD())HUD->HideItemTooltip(true);
+     if(!Model)return;
+     const auto L=Layout(GetCachedGeometry());
+-    if(Action==0)if(auto* HUD=TooltipHUD();HUD&&HUD->IsShopOpen()){HUD->AddShopSaleItem(Selected);return;}
++    if(Action==0)if(auto* HUD=TooltipHUD();HUD&&HUD->CanOfferShopSale()){HUD->AddShopSaleItem(Selected);return;}
+     if(Action==7)if(const auto* I=Model->FindItem(Selected))if(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ModifiableWeapon(I->Definition))
+     {if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer()))PC->OpenGunsmith(Selected);return;}
+     switch(Action){case 0:Model->DefaultAction(Selected);break;case 1:OpenItemMenu(GetCachedGeometry().LocalToAbsolute(FVector2D(12,L.BagY)/Scale),true);break;case 2:if(bConfirmDrop){Model->Drop(Selected);bConfirmDrop=false;}else bConfirmDrop=true;break;case 3:if(bWarehouse)Model->SortWarehouse(TEXT("category"));else Model->Sort();break;case 4:if(auto* HUD=TooltipHUD()){HUD->ShowItemTooltip(Selected,GetCachedGeometry().LocalToAbsolute(FVector2D(12,L.BagY)/Scale),true,this);HUD->FocusItemTooltip();}break;case 5:OpenItemMenu(GetCachedGeometry().LocalToAbsolute(FVector2D(12,L.BagY)/Scale));break;case 6:Model->SaveNow();break;case 7:Selected.Empty();bConfirmDrop=false;break;case 8:Model->SortCompartment();break;}

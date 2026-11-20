@@ -1,0 +1,98 @@
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -3,8 +3,13 @@
+ #include "../WorldGeneration/VillageDefenseStairs.h"
+ #include "../WorldGeneration/HighVillageDefense.h"
+ #include "../WorldGeneration/VillageDefenseRepairTargets.h"
++#include "../NPC/ArtisanDefenseComponent.h"
+ #include "../NPC/ChapelNun.h"
+ #include "../NPC/VillageArtisanMerchant.h"
++#include "../NPC/VillageBaker.h"
++#include "../NPC/VillageTavernKeeper.h"
++#include "../NPC/VillageHerbalist.h"
++#include "../NPC/ResidentConversation.h"
+ #include "Engine/World.h"
+ #include "../Dungeons/HeQuePumpControl.h"
+ #include "Engine/GameInstance.h"
+@@ -51,6 +56,11 @@
+ {
+     const FName TreasureOpeningTag(TEXT("DungeonTreasure.Opening"));
+     const FName TreasureOpenedTag(TEXT("DungeonTreasure.Opened"));
++
++    bool IsCounterResident(const AActor* Actor)
++    {
++        return Actor && (Actor->IsA<AVillageTavernKeeper>() || Actor->IsA<AVillageBaker>());
++    }
+ }
+ void ColdSteelWorldInteraction::GetReachViewPoint(const APlayerController* PC,FVector& Eye,FRotator& View)
+ {
+@@ -70,12 +80,21 @@
+     FVector Eye;FRotator View;GetReachViewPoint(PC,Eye,View);
+     FCollisionQueryParams Query(SCENE_QUERY_STAT(ColdSteelUse),false,PC->GetPawn());
+     TArray<FHitResult> Hits;
++    // Overlaps are ordered up to the first blocking surface. Keep the counter
++    // as a fallback so an item on it can still be picked up.
+     PC->GetWorld()->LineTraceMultiByChannel(Hits,Eye,Eye+View.Vector()*Reach,ECC_Visibility,Query);
+     float ClearReach = FMath::Min(Reach,UVillageDefenseRepairTargets::Reach);
+     for (const FHitResult& Hit : Hits)
+     {
+         AActor* Target=Hit.GetActor();
+         if (Hit.bBlockingHit) ClearReach = FMath::Min(ClearReach,Hit.Distance);
++        if (IsCounterResident(Target))
++        {
++            if (!Found.CounterResident && ResidentConversation::CanReach(PC->GetPawn(), Target))
++                Found.CounterResident = Target;
++            if (Hit.bBlockingHit) break;
++            continue;
++        }
+         if (const auto* Arrow = Cast<ABowArrow>(Target); Arrow && Arrow->CanRecover())
+         {
+             Found.Target=Target;
+@@ -93,7 +112,7 @@
+                 ||Cast<AColdSteelCampfire>(Target)||Cast<AColdSteelFountain>(Target)||Cast<AColdSteelPickup>(Target)
+                 ||Cast<AColdSteelWarehouseChest>(Target)||Cast<AColdSteelSceneContainer>(Target)||IsTreasureChest(Target)||IsExpeditionAltar(Target)
+                 ||Cast<AVoxelBuildPrefabActor>(Target)||Cast<AApartmentDeviceControl>(Target)||Cast<AHeQuePumpControl>(Target)
+-                ||Cast<AChapelNun>(Target)||Cast<AVillageArtisanMerchant>(Target)||Cast<AVillageDefenseSection>(Target)
++                ||Cast<AChapelNun>(Target)||Cast<AVillageArtisanMerchant>(Target)||Cast<AVillageHerbalist>(Target)||Cast<AVillageDefenseSection>(Target)
+                 ||(UDungeonRunSubsystem::Get(PC->GetWorld())&&UDungeonRunSubsystem::Get(PC->GetWorld())->IsShrine(Target))?Target:nullptr;
+             break;
+         }
+@@ -107,7 +126,7 @@
+ AActor* ColdSteelWorldInteraction::TraceTarget(const APlayerController* PC,float Reach)
+ {
+     const FUseTargets Found=TraceUseTargets(PC,Reach);
+-    return Found.Target;
++    return Found.Target ? Found.Target : Found.CounterResident;
+ }
+ bool ColdSteelWorldInteraction::IsFocused(const APawn* Pawn,const AActor* Target,float Reach)
+ {
+@@ -125,6 +144,7 @@
+     World->LineTraceMultiByChannel(Hits,Feet+FVector(0,0,HalfHeight*.6f),Position+FVector(0,0,10),ECC_Visibility,Query);
+     for(const auto& Hit:Hits)
+     {
++        if(!Hit.bBlockingHit && IsCounterResident(Hit.GetActor()))continue;
+         if(Hit.GetActor()&&Hit.ImpactPoint.Z-Feet.Z>40.f)return false;
+     }
+     return true;
+@@ -415,10 +435,20 @@
+     }
+     if(Target->IsA<AHighVillageGate>()){Hint.Title=TEXT("升降铁闸");Hint.Text=TEXT("开／关");return Hint;}
+     if(Target->IsA<AVillageDefenseGate>()){Hint.Title=TEXT("村门");Hint.Text=TEXT("开／关");return Hint;}
++    if(Cast<AVillageTavernKeeper>(Target)){Hint.Text=TEXT("酒馆老板娘 · 交谈");return Hint;}
++    if(Cast<AVillageBaker>(Target)){Hint.Text=TEXT("面包师 · 交谈");return Hint;}
++    if(Cast<AVillageHerbalist>(Target)){Hint.Text=TEXT("草药师林芷 · 交谈");return Hint;}
+     if(Cast<AChapelNun>(Target)){Hint.Text=TEXT("修女 · 交谈");return Hint;}
+     if(const auto* Artisan=Cast<AVillageArtisanMerchant>(Target))
+     {
+-        Hint.Text=FString::Printf(TEXT("%s · 交谈"),Artisan->MerchantName());return Hint;
++        const bool bDowned = ResidentConversation::IsSpeakerDowned(Artisan);
++        const bool bDefending = !bDowned && Artisan->IsDefending();
++        Hint.bAction = !bDefending;
++        const auto* Guard = bDefending ? Artisan->FindComponentByClass<UArtisanDefenseComponent>() : nullptr;
++        const TCHAR* AlertText = Guard && Guard->IsKeepingWatch() ? TEXT("战后警戒") : TEXT("正在迎敌");
++        Hint.Text=FString::Printf(TEXT("%s · %s"),Artisan->MerchantName(),
++            bDowned ? TEXT("长按急救") : bDefending ? AlertText : TEXT("交谈"));
++        return Hint;
+     }
+     if(const auto* Pump=Cast<AHeQuePumpControl>(Target)){Hint.Text=Pump->Prompt();Hint.bAction=Pump->CanActivate();return Hint;}
+     if(const auto* Control=Cast<AApartmentDeviceControl>(Target)){Hint.Text=Control->GetPrompt();return Hint;}

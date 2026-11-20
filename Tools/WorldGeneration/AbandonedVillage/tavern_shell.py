@@ -1,11 +1,16 @@
 """House 02, remade as an open stone hall in its original street frontage."""
 import math
 from collections import defaultdict
+from pathlib import Path
+import sys
 
 import unreal as u
 
 from author_shop import require
 from tavern_flue import flue_roof
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'VillageTavern'))
+from install_chimney import attach_chimney
 
 
 SITE_TAG = 'VillageTavern.Site'
@@ -212,6 +217,7 @@ def build_tavern(house, pieces, plan, shape):
             comp.set_visibility(False)
             comp.set_hidden_in_game(True)
             comp.set_collision_enabled(u.CollisionEnabled.NO_COLLISION)
-    return dict(house=house[0], states=['Ruined','Repaired'], anchor=SITE_TAG,
+    chimney = attach_chimney(anchor)
+    return dict(house=house[0], states=['Ruined','Repaired'], anchor=SITE_TAG, chimney=chimney,
                 footprint_cm=[900*xy_scale,600*xy_scale], centre_m=shape['center'],
                 heading=house[5]-90., shell_instances=sum(map(len,batches.values())))

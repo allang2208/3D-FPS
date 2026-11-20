@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/NightWardenMelee.cpp
++++ b/Source/FPSGAME/Monsters/NightWardenMelee.cpp
+@@ -1,4 +1,5 @@
+ #include "NightWardenMonster.h"
++#include "MonsterTargeting.h"
+ #include "MonsterAIController.h"
+ #include "MonsterCombatComponent.h"
+ #include "FPSCombatHealthComponent.h"
+@@ -15,7 +16,7 @@
+ {
+ bool WardenLivingPlayer(const APawn* Pawn)
+ {
+-    if (!IsValid(Pawn) || !Pawn->IsPlayerControlled()) return false;
++    if (!IsValid(Pawn) || !MonsterTargeting::IsOpponentPawn(Pawn)) return false;
+     const auto* Health = Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
+     return !Health || !Health->IsDead();
+ }

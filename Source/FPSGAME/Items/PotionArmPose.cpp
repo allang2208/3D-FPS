@@ -8,7 +8,7 @@
 namespace { FQuat Frame(const FVector& X,const FVector& Z){return FRotationMatrix::MakeFromXZ(X,Z).ToQuat();} }
 void FPotionArmPose::Reset(){CachedMesh.Reset();Bones.Reset();Rest.Reset();}
 bool FPotionArmPose::Apply(USkeletalMeshComponent& Mesh,const FPotionUseMotion& Motion,float Age,FTransform& OutPalmWorld,
-    bool bRight,const FTransform* PalmOverride,bool bFullWeight)
+    bool bRight,const FTransform* PalmOverride,bool bFullWeight,FTransform* OutWristWorld)
 {
     auto* Asset=Mesh.GetSkeletalMeshAsset();const auto* Camera=Mesh.GetOwner()->FindComponentByClass<UCameraComponent>();
     if(!Asset||!Camera)return false;
@@ -20,6 +20,7 @@ bool FPotionArmPose::Apply(USkeletalMeshComponent& Mesh,const FPotionUseMotion& 
         Reset();CachedMesh=Asset;bCachedRight=bRight;Rest=Ref.GetRefBonePose();
         Clavicle=Bone(TEXT("clavicle"));Upper=Bone(TEXT("upperarm"));
         Lower=Bone(TEXT("lowerarm"));Hand=Bone(TEXT("hand"));
+        WristTwist=Bone(TEXT("lowerarm_twist_01"));MidForearmTwist=Bone(TEXT("lowerarm_twist_02"));
         const int32 Index=Bone(TEXT("index_01")),Middle=Bone(TEXT("middle_01")),Pinky=Bone(TEXT("pinky_01"));
         if(Clavicle<0||Upper<0||Lower<0||Hand<0||Index<0||Middle<0||Pinky<0)return false;
         for(int32 I=0;I<Rest.Num();++I)
@@ -47,12 +48,26 @@ bool FPotionArmPose::Apply(USkeletalMeshComponent& Mesh,const FPotionUseMotion& 
     const FVector UD=(E-A).GetSafeNormal(),LD=(H-E).GetSafeNormal();
     const FQuat DesiredPalm=CToM*Palm.GetRotation();
     const FQuat HandRotation=DesiredPalm*PalmReference.Inverse()*Rest[Hand].GetRotation();
-    // Follow the palm-width axis, then carry that same deformation through the
-    // elbow. Helpers inherit a complete bone segment; no fractional double roll.
-    const FVector Across=DesiredPalm.GetAxisY();
-    const FQuat LowerDeform=FRotationMatrix::MakeFromXY(LD,Across).ToQuat()*
-        FRotationMatrix::MakeFromXY(RL,PalmReference.GetAxisY()).ToQuat().Inverse();
-    const FQuat UpperDeform=FQuat::FindBetweenNormals(LowerDeform.RotateVector(RU.GetSafeNormal()),UD)*LowerDeform;
+    FQuat LowerDeform,UpperDeform,ForearmRoll=FQuat::Identity;
+    const FVector ElbowPlane=UD^LD,BindPlane=RU^RL;
+    if(Motion.IsFirstPersonFood()&&!ElbowPlane.IsNearlyZero()&&!BindPlane.IsNearlyZero())
+    {
+        // The elbow bends about the native hinge. Opposing the fingers on
+        // different foods rotates the distal forearm, not the elbow crease.
+        LowerDeform=Frame(LD,ElbowPlane)*Frame(RL,BindPlane).Inverse();
+        UpperDeform=Frame(UD,ElbowPlane)*Frame(RU,BindPlane).Inverse();
+        const FQuat HandDeform=HandRotation*Rest[Hand].GetRotation().Inverse();
+        FQuat Swing;
+        (HandDeform*LowerDeform.Inverse()).ToSwingTwist(LD,Swing,ForearmRoll);
+        ForearmRoll.Normalize();
+        if(ForearmRoll.W<0.)ForearmRoll=ForearmRoll*-1.;
+    }
+    else
+    {
+        LowerDeform=FRotationMatrix::MakeFromXY(LD,DesiredPalm.GetAxisY()).ToQuat()*
+            FRotationMatrix::MakeFromXY(RL,PalmReference.GetAxisY()).ToQuat().Inverse();
+        UpperDeform=FQuat::FindBetweenNormals(LowerDeform.RotateVector(RU.GetSafeNormal()),UD)*LowerDeform;
+    }
     const float Closed=Motion.FingerClosure(Age);
     for(int32 I:Bones)
     {
@@ -63,7 +78,14 @@ bool FPotionArmPose::Apply(USkeletalMeshComponent& Mesh,const FPotionUseMotion& 
         else if(I==Hand){Goal[I]=Rest[I];Goal[I].SetLocation(H);Goal[I].SetRotation(HandRotation);}
         else
         {
-            Goal[I]=Local*Goal[P];const FString Name=Ref.GetBoneName(I).ToString();
+            Goal[I]=Local*Goal[P];
+            if(Motion.IsFirstPersonFood()&&(I==WristTwist||I==MidForearmTwist))
+            {
+                const FQuat Roll=I==WristTwist?ForearmRoll:FQuat::Slerp(FQuat::Identity,ForearmRoll,.5f);
+                Goal[I].SetRotation((Roll*Goal[I].GetRotation()).GetNormalized());
+                continue;
+            }
+            const FString Name=Ref.GetBoneName(I).ToString();
             for(const auto& Digit:Motion.Digits)
             {
                 const FString Prefix=Digit.Key.ToString()+TEXT("_");
@@ -120,6 +142,7 @@ bool FPotionArmPose::Apply(USkeletalMeshComponent& Mesh,const FPotionUseMotion& 
         Pose[I]=Local*Pose[P];
     }
     const FTransform HandWorld=Pose[Hand]*MW;
+    if(OutWristWorld)*OutWristWorld=HandWorld;
     OutPalmWorld=FTransform(HandWorld.GetRotation()*Rest[Hand].GetRotation().Inverse()*PalmReference,HandWorld.GetLocation());
     return true;
 }

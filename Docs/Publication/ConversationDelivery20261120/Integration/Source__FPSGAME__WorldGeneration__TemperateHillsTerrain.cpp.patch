@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp
+@@ -142,10 +142,13 @@
+     Save->bVillageWallRepaired=bVillageWallRepaired;
+     Save->bVillageBlacksmithRepaired=bVillageBlacksmithRepaired;
+     Save->VillagePlansUnlocked=VillagePlansUnlocked;
++    Save->bVillageBakeryRepaired=bVillageBakeryRepaired;
+     Save->VillageDefenseGeneration=VillageDefenseGeneration;
+-    if(IsWindmillRepaired())Save->VillagePlanVersion=FMath::Max(8,Save->VillagePlanVersion);
++    if(IsBakeryRepaired())Save->VillagePlanVersion=FMath::Max(9,Save->VillagePlanVersion);
++    else if(IsWindmillRepaired())Save->VillagePlanVersion=FMath::Max(8,Save->VillagePlanVersion);
+     else if(HasVillageHighWall())Save->VillagePlanVersion=FMath::Max(7,Save->VillagePlanVersion);
+     else if(VillagePlansUnlocked & UTemperateHillsSave::ConstructionPlan)Save->VillagePlanVersion=FMath::Max(6,Save->VillagePlanVersion);
++    else if(IsHerbalistRepaired())Save->VillagePlanVersion=FMath::Max(5,Save->VillagePlanVersion);
+     else if(IsTavernRepaired())Save->VillagePlanVersion=FMath::Max(4,Save->VillagePlanVersion);
+     else if(IsVillageCarpenterRepaired())Save->VillagePlanVersion=FMath::Max(3,Save->VillagePlanVersion);
+     Save->Craters.Reset();

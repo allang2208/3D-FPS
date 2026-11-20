@@ -1,5 +1,6 @@
 #include "FPSConsumableAuditCommandlet.h"
 #include "FPSPotionUseComponent.h"
+#include "../Characters/FPSBodyConsumeMotion.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
@@ -150,6 +151,24 @@ int32 UFPSConsumableAuditCommandlet::Main(const FString& Params)
     for(const TCHAR* Definition:{TEXT("bread"),TEXT("baguette_bread"),TEXT("mineral_water"),TEXT("soda_can"),
         TEXT("hp_potion"),TEXT("hp_potion_high"),TEXT("mp_potion"),TEXT("mp_potion_high")})
         Check(UFPSPotionUseComponent::IsAnimatedConsumable(Definition),FString(Definition)+TEXT(" uses shared action path"));
+    for(float Rate:{.75f,1.f,1.5f,2.f})for(float SourceAge:{-.27f,-.12f,1.f,2.15f,2.30f})
+    {
+        FFPSBodyState S;S.Action=EFPSBodyAction::Consume;S.ConsumeHands=2;S.bHasActionProgress=true;
+        S.ActionDuration=2.1f;S.ActionProgressRate=Rate/S.ActionDuration;
+        S.PresentationSampledAt=100.f;S.ActionStartedAt=100.f-SourceAge/Rate;
+        S.ConsumeStowWeight=PotionEquipmentHandoff::Weight(SourceAge,S.ActionDuration);
+        S.bConsumeWeaponsHidden=SourceAge>=0.f&&SourceAge<S.ActionDuration;
+        FPSBodyConsumeMotion::Advance(S,.08f);
+        Check(FMath::IsNearlyEqual(S.ConsumeStowWeight,PotionEquipmentHandoff::Weight(SourceAge+.08f*Rate,S.ActionDuration),.0002f),
+            FString::Printf(TEXT("remote stow/return follows source clock at rate %.2f age %.2f"),Rate,SourceAge));
+        Check(FMath::IsNearlyEqual(S.ActionProgress,FMath::Clamp((SourceAge+.08f*Rate)/S.ActionDuration,0.f,1.f),.0002f),
+            TEXT("remote use progress never advances from a clamped lead-in sample"));
+    }
+    FFPSBodyState EmptyHand;EmptyHand.Action=EFPSBodyAction::Consume;EmptyHand.ConsumeHands=2;
+    EmptyHand.ActionDuration=2.1f;EmptyHand.ActionProgressRate=1.f/2.1f;
+    EmptyHand.ActionStartedAt=100.f;EmptyHand.PresentationSampledAt=100.2f;
+    FPSBodyConsumeMotion::Advance(EmptyHand,.08f);
+    Check(EmptyHand.ConsumeStowWeight==0.f,TEXT("empty offhand/bow support does not acquire a network stow"));
     World->DestroyWorld(false);
     Report+=FString::Printf(TEXT("RESULT passed=%d failed=%d\n"),Passed,Failed);
     const FString Folder=FPaths::ProjectSavedDir()/TEXT("ConsumableWeaponFix20261006");

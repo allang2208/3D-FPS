@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Monsters/FatZombiePusPool.cpp
++++ b/Source/FPSGAME/Monsters/FatZombiePusPool.cpp
+@@ -1,4 +1,5 @@
+ #include "FatZombiePusPool.h"
++#include "MonsterTargeting.h"
+ #include "Net/UnrealNetwork.h"
+ #include "GameFramework/GameStateBase.h"
+ #include "FPSCombatHealthComponent.h"
+@@ -126,7 +127,8 @@
+ 
+ bool AFatZombiePusPool::IsHostile(const APawn* Target) const
+ {
+-    if (!IsValid(Target) || Target == SourcePawn.Get() || !Target->CanBeDamaged()) return false;
++    if (!IsValid(Target) || Target == SourcePawn.Get() || !Target->CanBeDamaged() ||
++        MonsterTargeting::IsDownedArtisan(Target)) return false;
+     if (const auto* Health = Target->FindComponentByClass<UFPSCombatHealthComponent>(); Health && Health->IsDead()) return false;
+     if (const auto* Combat = Target->FindComponentByClass<UMonsterCombatComponent>(); Combat && Combat->IsDead()) return false;
+     const uint8 OtherTeam = TeamOf(Target);

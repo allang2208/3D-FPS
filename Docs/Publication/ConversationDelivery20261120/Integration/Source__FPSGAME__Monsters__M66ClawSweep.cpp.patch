@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Monsters/M66ClawSweep.cpp
++++ b/Source/FPSGAME/Monsters/M66ClawSweep.cpp
+@@ -1,4 +1,5 @@
+ #include "M66IncineratorMonster.h"
++#include "MonsterTargeting.h"
+ #include "M66SweepTiming.h"
+ #include "M66SlamTiming.h"
+ #include "M66BreathTiming.h"
+@@ -38,7 +39,7 @@
+ bool AM66IncineratorMonster::CanAttack(APawn* Victim) const
+ {
+     if(Busy()||ActionClock()<NextAttackAt||!GetCharacterMovement()->IsMovingOnGround()
+-        ||!IsValid(Victim)||!Victim->IsPlayerControlled())return false;
++        ||!IsValid(Victim)||!MonsterTargeting::IsOpponentPawn(Victim))return false;
+     if(Status&&(Status->IsFrozen()||Status->IsPetrified()||Status->IsStunned()))return false;
+     const auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
+     if(Vitals&&Vitals->IsDead())return false;
+@@ -175,7 +176,7 @@
+             if(!IsSweeping()||IsActorBeingDestroyed())return;
+             AActor* Victim=Hit.GetActor();APawn* Player=Cast<APawn>(Victim);
+             if(!IsValid(Victim)||SweepVictims.Contains(Victim)||
+-                (!(Player&&Player->IsPlayerControlled()&&Hit.GetComponent()==Player->GetRootComponent())&&!Victim->IsA<AFPSIceWall>()))continue;
++                (!(Player&&MonsterTargeting::IsOpponentPawn(Player)&&Hit.GetComponent()==Player->GetRootComponent())&&!Victim->IsA<AFPSIceWall>()))continue;
+             const auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
+             if(Vitals&&(Vitals->IsDead()||Vitals->IsInvulnerable()))continue;
+             FHitResult Block;

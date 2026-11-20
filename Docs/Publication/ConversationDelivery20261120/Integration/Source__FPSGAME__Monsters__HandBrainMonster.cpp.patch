@@ -1,0 +1,37 @@
+--- a/Source/FPSGAME/Monsters/HandBrainMonster.cpp
++++ b/Source/FPSGAME/Monsters/HandBrainMonster.cpp
+@@ -1,4 +1,5 @@
+ #include "HandBrainMonster.h"
++#include "MonsterTargeting.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "GameFramework/GameStateBase.h"
+ #include "../Multiplayer/FPSStatusReplicationComponent.h"
+@@ -160,9 +161,10 @@
+  if(bSlamConsumed||Dead())return;bSlamConsumed=true;
+  if(SlamSound)UGameplayStatics::PlaySoundAtLocation(this,SlamSound,SlamCenter,.9f);
+  if(IceWallCombat::ApplyMelee(this,Target.Get(),SlamTriggerRange,PhysicalAttack*2))return;
+- for(FConstPlayerControllerIterator It=GetWorld()->GetPlayerControllerIterator();It;++It)
+- {
+-  APawn* P=It->Get()?It->Get()->GetPawn():nullptr;if(!P)continue;
++ TArray<APawn*> Victims;
++ MonsterTargeting::GatherAreaOpponents(GetWorld(),SlamCenter,SlamRadius+170.f,Victims);
++ for(APawn* P:Victims)
++ {
+   auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();if(H&&H->IsDead())continue;
+   FVector Delta=P->GetActorLocation()-SlamCenter;
+   if(Delta.Size2D()>SlamRadius||FMath::Abs(Delta.Z)>170||!CanSee(P,SlamCenter+FVector(0,0,60)))continue;
+@@ -174,9 +176,11 @@
+ void AHandBrainMonster::DealHowl()
+ {
+  if(Dead())return;
+- for(FConstPlayerControllerIterator It=GetWorld()->GetPlayerControllerIterator();It;++It)
+- {
+-  APawn* P=It->Get()?It->Get()->GetPawn():nullptr;if(!P)continue;auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();if(H&&H->IsDead())continue;
++ TArray<APawn*> Victims;
++ MonsterTargeting::GatherAreaOpponents(GetWorld(),GetActorLocation(),HowlRadius+170.f,Victims);
++ for(APawn* P:Victims)
++ {
++  auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();if(H&&H->IsDead())continue;
+   FVector Delta=P->GetActorLocation()-GetActorLocation();
+   if(Delta.Size2D()>HowlRadius||FMath::Abs(Delta.Z)>170||!CanSee(P,GetActorLocation()+FVector(0,0,30)))continue;
+   const float Applied=UGameplayStatics::ApplyDamage(P,MagicAttack*.5f,GetController(),this,UHandBrainMagicDamage::StaticClass());++HowlHits;

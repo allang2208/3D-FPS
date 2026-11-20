@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/Monsters/UnknownHumanoid.cpp
++++ b/Source/FPSGAME/Monsters/UnknownHumanoid.cpp
+@@ -1,4 +1,5 @@
+ #include "UnknownHumanoid.h"
++#include "MonsterTargeting.h"
+ #include "UnknownHumanoidBow.h"
+ #include "../Skills/FPSLightningHasteComponent.h"
+ #include "../Skills/FPSIceArmorComponent.h"
+@@ -175,7 +176,7 @@
+ 
+ bool AUnknownHumanoid::CanAttack(APawn* Target) const
+ {
+-    if (!Sheet || (!IsValid(Target) || !Target->IsPlayerControlled()) || Busy() || Controlled() || ServerTime()<NextAttack) return false;
++    if (!Sheet || !MonsterTargeting::IsLivingOpponent(Target) || Busy() || Controlled() || ServerTime()<NextAttack) return false;
+     if (Loadout.Role==EUnknownRole::Magic && !HasChosenMagic()) return false;
+     if (IsRanged())
+     {
+@@ -414,7 +415,9 @@
+     if (!HasAuthority() || Dead()) return;
+     FCollisionQueryParams Query(SCENE_QUERY_STAT(UnknownBlast),false,this);
+     TArray<APawn*> Victims;
+-    for (auto It=GetWorld()->GetPlayerControllerIterator(); It; ++It) if (auto* PC=It->Get()) if(auto* Pawn=PC->GetPawn()) Victims.Add(Pawn);
++    MonsterTargeting::GatherAreaOpponents(GetWorld(),Center,CastData.Radius,Victims);
++    if (Direct)
++        if(auto* Pawn=Cast<APawn>(Direct->GetActor());MonsterTargeting::IsActiveArtisan(Pawn))Victims.AddUnique(Pawn);
+     for (APawn* Pawn : Victims) Query.AddIgnoredActor(Pawn);
+     for (APawn* Victim : Victims)
+     {

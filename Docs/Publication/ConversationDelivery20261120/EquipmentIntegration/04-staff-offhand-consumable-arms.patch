@@ -1,0 +1,8 @@
+--- a/Source/FPSGAME/FPSGAMEConsumableUse.cpp
++++ b/Source/FPSGAME/FPSGAMEConsumableUse.cpp
+@@ -5,0 +6 @@
++#include "Weapons/Staff/StaffOffhandMeleeComponent.h"
+@@ -20,0 +22 @@
++    if(const auto* Pair=FindComponentByClass<UStaffOffhandMeleeComponent>();Pair&&Pair->IsEquipped()&&Pair->IsActionPresentationActive())return false;
+@@ -59,0 +62 @@
++    if(const auto* Pair=FindComponentByClass<UStaffOffhandMeleeComponent>();Pair&&Pair->IsEquipped())return Pair->ArmsMesh();

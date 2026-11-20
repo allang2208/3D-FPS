@@ -3,6 +3,7 @@
 #include "Components/ActorComponent.h"
 #include "PotionUseMotion.h"
 #include "PotionArmPose.h"
+#include "PotionEquipmentHandoff.h"
 #include "TimerManager.h"
 #include "FPSPotionUseComponent.generated.h"
 
@@ -38,6 +39,7 @@ public:
     void ReceiveContactResult(FGuid UseId,bool Accepted);
     bool EquippedHandsChanged(const class UColdSteelStatusModel& Model,int32 ActiveSlot) const;
     bool IsStowingOffhand() const { return bActive && bStowOffhand; }
+    bool UsesHandMesh(const UFPSCastingMeshComponent* Mesh) const { return bActive&&ActiveHands.Get()==Mesh; }
     float OffhandLowerWeight() const;
     bool IsOffhandWeaponHidden() const;
     bool IsTwoHanded() const { return bActive&&Motion.bTwoHanded; }
@@ -94,7 +96,8 @@ private:
     FString UseMainItem,UseOffhandItem;
     float Age() const;
     void Finish();
-    void UpdateBottle(const FTransform& PalmWorld);
+    void UpdateBottle(const FTransform& World);
+    void ReleaseFoodGrip();
     void Discard(UStaticMeshComponent* Visual,const FVector& Velocity,float Lifetime);
     UPROPERTY(Transient) TArray<TObjectPtr<UMaterialInterface>> LiquidMaterials;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> WaterMaterial;
@@ -138,6 +141,6 @@ private:
     float BowReturnWeight=0.f;
     double BowReturnStartedAt=0;
     static constexpr float BowReturnHoldSeconds=.1f;
-    static constexpr float OffhandLowerSeconds=.28f;
-    static constexpr float OffhandRaiseSeconds=.26f;
+    static constexpr float OffhandLowerSeconds=PotionEquipmentHandoff::LowerSeconds;
+    static constexpr float OffhandRaiseSeconds=PotionEquipmentHandoff::RaiseSeconds;
 };

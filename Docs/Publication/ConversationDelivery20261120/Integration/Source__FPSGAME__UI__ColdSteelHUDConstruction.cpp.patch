@@ -1,0 +1,110 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
+@@ -2,6 +2,11 @@
+ #include "StatusEffectsHUD.h"
+ #include "../Dungeons/DungeonRoomSubsystem.h"
+ #include "../FPSGAMEPlayerController.h"
++#include "../NPC/ChapelDialogueComponent.h"
++#include "../NPC/ChapelNun.h"
++#include "../NPC/VillageArtisanMerchant.h"
++#include "../NPC/VillageHerbalist.h"
++#include "../NPC/ResidentConversation.h"
+ #include "../Movement/FPSFurnitureRestComponent.h"
+ #include "../WorldGeneration/VillageDefenseSection.h"
+ #include "../WorldGeneration/VillageDefenseFocusVisual.h"
+@@ -113,6 +118,17 @@
+     auto* TextSlot=Row->AddChildToHorizontalBox(InteractHintText);
+     TextSlot->SetVerticalAlignment(VAlign_Center);
+ 
++    FirstAidBarBox=WidgetTree->ConstructWidget<USizeBox>();
++    FirstAidBarBox->SetMinDesiredWidth(ReferenceUnits(172));
++    FirstAidBarBox->SetHeightOverride(ReferenceUnits(8));
++    FirstAidBarBox->SetVisibility(ESlateVisibility::Collapsed);
++    auto* BarSlot=Content->AddChildToVerticalBox(FirstAidBarBox);
++    BarSlot->SetPadding(FMargin(0,ReferenceUnits(5),0,0));
++    FirstAidBar=WidgetTree->ConstructWidget<UProgressBar>();
++    FirstAidBar->SetWidgetStyle(StatusBarStyle());
++    FirstAidBar->SetFillColorAndOpacity(ColdSteelUI::Success);
++    FirstAidBar->SetBorderPadding(FVector2D(ReferenceUnits(1)));
++    FirstAidBarBox->SetContent(FirstAidBar);
+ 
+     auto* HintSlot=Root->AddChildToCanvas(Blur);
+     HintSlot->SetAnchors(FAnchors(0.5f,0.5f));
+@@ -129,6 +145,7 @@
+     auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer());
+     const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
+     FString Text,Title;bool bAction=true;
++    TOptional<float> AidProgress;
+     const bool bWorldInteraction=Character&&!IsWorldForging()&&!IsGunAssembly()&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen();
+     const bool bOrdinaryUse=bWorldInteraction && !PC->IsInBuildMode();
+     const auto* PlayerHealth=Character?Character->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+@@ -138,23 +155,64 @@
+     const bool bRepair=Defense && Defense->GetHealth()<=0.f;
+     if(auto* Visual=Character?Character->FindComponentByClass<UVillageDefenseFocusVisual>():nullptr)
+         Visual->SetFocus(Defense,bDefenseFocus ? Focus.NearbyBreach : nullptr);
++    const auto* Conversation=PC ? PC->GetChapelDialogue() : nullptr;
+     FocusedDefense=Defense;
++    const auto* Artisan=Cast<AVillageArtisanMerchant>(Focus.Target);
++    const bool bDirectResident=Artisan || Cast<AChapelNun>(Focus.Target) || Cast<AVillageHerbalist>(Focus.Target);
+     const bool bResting=UFPSFurnitureRestComponent::IsResting(Character);
+-    AActor* ContainerFocus=ColdSteelWorldInteraction::UpdateSceneContainerHighlight(PC,bOrdinaryUse && !bResting && !bRepair);
++    const bool bAidTarget=bOrdinaryUse && Artisan && !bResting && ResidentConversation::IsSpeakerDowned(Artisan);
++    AActor* ResidentFocus=nullptr;
++    AActor* ContainerFocus=ColdSteelWorldInteraction::UpdateSceneContainerHighlight(PC,bOrdinaryUse && !bResting && !bDirectResident && !bRepair);
+     if(auto* Rest=Character?Character->FindComponentByClass<UFPSFurnitureRestComponent>():nullptr)
+-        Text=Rest->UpdateFocus(bOrdinaryUse && !ContainerFocus && !bRepair);
+-    if((bOrdinaryUse || bRepair) && !bResting && Text.IsEmpty() && (bDefenseFocus || !Cast<AVillageDefenseSection>(Focus.Target)))
++        Text=Rest->UpdateFocus(bOrdinaryUse && !ContainerFocus && !bAidTarget && !bRepair);
++    if(bAidTarget)
++    {
++        if(Conversation && Conversation->CanAidFocusedArtisan(Artisan))
++        {
++            ResidentFocus=Focus.Target;
++            AidProgress=Conversation->FirstAidProgress(Artisan);
++            if(!AidProgress.IsSet())
++                Text=ColdSteelWorldInteraction::ResolveInteractionHint(Artisan,PC->GetPawn()).Text;
++            else if(AidProgress.GetValue()<1.f)
++                Text=FString::Printf(TEXT("%s · 急救中 %d%%"),Artisan->MerchantName(),
++                    FMath::FloorToInt(AidProgress.GetValue()*100.f));
++            else
++            {
++                Text=FString::Printf(TEXT("%s · 等待急救结果"),Artisan->MerchantName());
++                bAction=false;
++            }
++        }
++    }
++    else if((bOrdinaryUse || bRepair) && !bResting && Text.IsEmpty() && (bDefenseFocus || !Cast<AVillageDefenseSection>(Focus.Target)))
+     {
+         AActor* Candidate=ContainerFocus ? ContainerFocus : Focus.Target;
+         auto Hint=ColdSteelWorldInteraction::ResolveInteractionHint(Candidate,PC->GetPawn());
++        if(Hint.Text.IsEmpty() && Focus.CounterResident)
++        {
++            Candidate=Focus.CounterResident;
++            Hint=ColdSteelWorldInteraction::ResolveInteractionHint(Candidate,PC->GetPawn());
++        }
++        const bool bTalkTarget=Candidate && (bDirectResident || Candidate==Focus.CounterResident);
+         FMonsterHitFeedback Feedback;
+-        if(Defense || !Character->GetMonsterHitFeedback(Feedback))
+-        {
++        if(bTalkTarget || Defense || !Character->GetMonsterHitFeedback(Feedback))
++        {
++            if(bTalkTarget && Hint.bAction)
++            {
++                if(Conversation && Conversation->CanStartConversation(Candidate))
++                    ResidentFocus=Candidate;
++                else
++                    Hint.Text.Reset();
++            }
+             Text=MoveTemp(Hint.Text);
+             Title=MoveTemp(Hint.Title);
+             bAction=Hint.bAction;
+         }
+     }
++    ColdSteelWorldInteraction::UpdateResidentHighlight(PC,ResidentFocus);
++    const bool bShowAidBar=AidProgress.IsSet();
++    const auto BarVisibility=bShowAidBar?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed;
++    if(FirstAidBarBox->GetVisibility()!=BarVisibility) FirstAidBarBox->SetVisibility(BarVisibility);
++    if(bShowAidBar && FirstAidBar->GetPercent()!=AidProgress.GetValue()) FirstAidBar->SetPercent(AidProgress.GetValue());
+     if(Text.IsEmpty()){InteractHintBlur->SetVisibility(ESlateVisibility::Collapsed);LastInteractHintText.Reset();return;}
+     InteractHintBlur->SetVisibility(ESlateVisibility::HitTestInvisible);
+     if(Title!=LastInteractHintTitle)

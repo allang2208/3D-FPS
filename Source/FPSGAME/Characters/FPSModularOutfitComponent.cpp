@@ -244,6 +244,12 @@ void UFPSModularOutfitComponent::CollectBodyAssets(FName BodyId,const FString& B
             }
             else if(Child.Key==TEXT("pants_fit_default"))
             {if(!bHasExactShirtFit&&!SelectedPants.IsEmpty())Collect(Child.Value);}
+            else if(Child.Key==TEXT("bare_wrist_materials"))
+            {
+                const auto Map=Child.Value->AsObject();
+                if(Map&&Equipped.FindRef(3).IsNone())
+                    for(const FString& Path:SelectedInnerSources)Collect(Map->TryGetField(Path));
+            }
             else if(Child.Key==TEXT("underlayer_meshes"))
             {
                 const auto Map=Child.Value->AsObject();
@@ -482,6 +488,17 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     bool bGloveInBase=false;if(Gloves)Gloves->TryGetBoolField(TEXT("glove_in_base"),bGloveInBase);
     if(Flag(Profile,TEXT("separate_gloves")))bGloveInBase=false;
     if(Gloves&&!bGloveInBase){MeshPaths.Add(PartMesh(Gloves,TEXT("gloves")));MaterialPaths.Add(String(Gloves,TEXT("material")));}
+    // Keep native wrist morphs and LODs on the very same mesh as the bare hand.
+    // A skin without a wrist section draws only the distal part of its forearm.
+    const auto WristMaterials=Object(Shirt,TEXT("bare_wrist_materials"));
+    const bool bBareWrists=WristMaterials.IsValid()&&!bLowerBody&&Equipped.FindRef(3).IsNone();
+    int32 WristSlot=INDEX_NONE;
+    if(const auto Wrist=bBareWrists?Object(WristMaterials,MeshPaths[0]):nullptr)
+    {
+        const FString Material=String(Wrist,TEXT("material"));
+        if(!Material.IsEmpty()&&Wrist->TryGetNumberField(TEXT("slot"),WristSlot)&&WristSlot>=0)
+            BaseMaterialPaths.Add(WristSlot,Material);
+    }
     if(Pants)
     {
         // Boot-specific cuffs share the normal inventory item and follow the
@@ -613,6 +630,11 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         const FString Rig=String(Profile,TEXT("rig_profile"));
         if(RigCoverage&&RigCoverage->HasField(Rig))Covered.Append(Numbers(RigCoverage,*Rig));
         else Covered.Append(Shirt->HasField(CoverageKey)?Numbers(Shirt,CoverageKey):Numbers(Profile,TEXT("shirt_covers")));
+        if(bBareWrists)
+        {
+            const int32 NativeWrist=WristSlot!=INDEX_NONE?WristSlot:Base->GetMaterialIndex(TEXT("WristUnderlapSkin"));
+            if(NativeWrist!=INDEX_NONE)Covered.Remove(NativeWrist);
+        }
     }
     // Open-finger gloves keep the exposed skin sections in the assembled base.
     // Missing per-item coverage preserves the existing full-glove recipe.

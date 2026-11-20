@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopGrid.cpp
++++ b/Source/FPSGAME/UI/ColdSteelShopGrid.cpp
+@@ -56,7 +56,8 @@
+     {
+         auto& Entry=Entries.AddDefaulted_GetRef();Entry.Line=Line;
+         Entry.Key=Line.Item.InstanceId;
+-        Entry.Name=ColdSteelInventory::Text(Line.Item,TEXT("name"));
++        Entry.Name=bSale?FString():ColdSteelInventory::Text(Line.Item,TEXT("shop_name"));
++        if(Entry.Name.IsEmpty())Entry.Name=ColdSteelInventory::Text(Line.Item,TEXT("name"));
+         Entry.Description=Entry.Name;
+         if(!bSale)
+         {

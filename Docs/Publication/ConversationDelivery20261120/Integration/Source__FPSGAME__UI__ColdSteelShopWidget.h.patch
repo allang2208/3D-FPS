@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelShopWidget.h
+@@ -12,6 +12,7 @@
+ class UButton;
+ class UBorder;
+ class USizeBox;
++class UHorizontalBox;
+ 
+ /** A view of shop stock / the sale selection using the backpack's spatial grid. */
+ UCLASS()
+@@ -136,6 +137,8 @@
+     UPROPERTY(Transient) TObjectPtr<UButton> SaleNext;
+     UPROPERTY(Transient) TObjectPtr<UBorder> BuyArea;
+     UPROPERTY(Transient) TObjectPtr<UBorder> SaleArea;
++    UPROPERTY(Transient) TObjectPtr<USizeBox> SaleDivider;
++    UPROPERTY(Transient) TObjectPtr<UHorizontalBox> SaleFooter;
+     UPROPERTY(Transient) TObjectPtr<UBorder> Confirmation;
+     UPROPERTY(Transient) TObjectPtr<USizeBox> ConfirmationCard;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> ConfirmationSummary;

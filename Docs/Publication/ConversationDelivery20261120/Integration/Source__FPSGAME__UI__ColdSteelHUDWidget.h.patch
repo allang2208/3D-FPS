@@ -1,0 +1,34 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -109,9 +109,13 @@
+     void OpenShop();
+     void OpenBlacksmithShop(class AVillageBlacksmithResident* Blacksmith);
+     void OpenArtisanShop(class AVillageArtisanMerchant* Seller);
++    void OpenTavernShop(class AVillageTavernKeeper* Seller);
++    void OpenBakerShop(class AVillageBaker* Seller);
++    bool OpenHerbalistShop(class AVillageHerbalist* Seller);
+     void CloseShop();
+     void ToggleShop();
+     bool IsShopOpen() const { return bShopOpen; }
++    bool CanOfferShopSale() const;
+     bool AddShopSaleItem(const FString& Id);
+     bool HandleShopConfirmationKey(const FKey& Key);
+     /** 冶炼高炉 E 交互：打开背包并把冶炼面板挂到背包左侧（同一开合生命周期）。
+@@ -204,7 +208,7 @@
+     FSimpleDelegate ExpeditionEquipmentClosed;
+     bool bClosingInventory=false;
+     float WarehouseMotion=0,WarehouseStart=0,WarehouseElapsed=.3f;
+-    void OpenShopFor(class AVillageArtisanMerchant* Seller);
++    bool OpenShopFor(AActor* Seller);
+     void TickShop(float Delta);
+     UPROPERTY(Transient) TObjectPtr<class UColdSteelShopWidget> ShopWidget;
+     UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> ShopSlot;
+@@ -430,6 +434,8 @@
+     UPROPERTY(Transient) TObjectPtr<class UTextBlock> InteractHintKey;
+     UPROPERTY(Transient) TObjectPtr<class UTextBlock> InteractHintTitle;
+     UPROPERTY(Transient) TObjectPtr<class UTextBlock> InteractHintText;
++    UPROPERTY(Transient) TObjectPtr<USizeBox> FirstAidBarBox;
++    UPROPERTY(Transient) TObjectPtr<UProgressBar> FirstAidBar;
+     FString LastInteractHintText;
+     FString LastInteractHintTitle;
+     bool bLastInteractHintAction=true;

@@ -1,0 +1,54 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopModel.h
++++ b/Source/FPSGAME/UI/ColdSteelShopModel.h
+@@ -2,10 +2,14 @@
+ #include "CoreMinimal.h"
+ #include "Subsystems/GameInstanceSubsystem.h"
+ #include "ColdSteelInventoryTypes.h"
++#include "Engine/TimerHandle.h"
+ #include "ColdSteelShopModel.generated.h"
+-
+ class UColdSteelStatusModel;
+ class AVillageArtisanMerchant;
++class AVillageBaker;
++class AVillageHerbalist;
++class AVillageTavernKeeper;
++struct FColdSteelResidentMenu;
+ struct FColdSteelInventoryRequest;
+ struct FColdSteelShopSelection { FString Id; int64 Count = 1; };
+ struct FColdSteelShopSaleLine { FColdSteelItem Item; int64 Count = 1; int64 UnitPrice = 0; };
+@@ -25,8 +29,14 @@
+ public:
+     void BeginSession();
+     bool BeginArtisanSession(AVillageArtisanMerchant* Seller);
++    bool BeginBakerSession(AVillageBaker* Seller);
++    bool BeginTavernSession(AVillageTavernKeeper* Seller);
++    bool BeginHerbalistSession(AVillageHerbalist* Seller);
+     bool IsArtisanShop() const { return !Merchant.IsExplicitlyNull(); }
+-    bool SellerHasLeft();
++    bool IsTavernShop() const;
++    bool IsHerbalistShop() const;
++    bool IsPurchaseOnly() const { return Menu != nullptr; }
++    void WatchSeller(FSimpleDelegate OnLeft);
+     FString MerchantName() const;
+     static bool ExecuteNetworkTrade(UColdSteelStatusModel* Profile,const FColdSteelInventoryRequest& Request,const FString& HostSlot,FString& Reason);
+     void NetworkTradeFinished(bool Success,const FString& Reason);
+@@ -50,6 +60,8 @@
+     FColdSteelShopChanged OnChanged;
+ private:
+     bool OpenProfile();
++    bool BeginMenuSession(AActor* Seller);
++    bool SellerHasLeft() const;
+     void RefreshArtisanStock();
+     void ProfileChanged();
+     bool Fail(const FString& Reason);
+@@ -57,6 +69,10 @@
+     UPROPERTY(Transient) TObjectPtr<UColdSteelStatusModel> Model;
+     FDelegateHandle ProfileHandle;
+     TWeakObjectPtr<AVillageArtisanMerchant> Merchant;
++    TWeakObjectPtr<AActor> MenuSeller;
++    const FColdSteelResidentMenu* Menu = nullptr;
++    TWeakObjectPtr<class APawn> BuyerPawn;
++    FTimerHandle ReachTimer;
+     FDelegateHandle StockHandle;
+     TArray<FColdSteelItem> Shelf;
+     TArray<FColdSteelShopSelection> Basket;

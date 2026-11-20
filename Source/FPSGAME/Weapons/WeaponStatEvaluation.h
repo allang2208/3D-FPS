@@ -3,10 +3,13 @@
 #include "../UI/ColdSteelInventoryTypes.h"
 #include "../Combat/WeaponDamageTypes.h"
 class UColdSteelStatusModel;
+struct FGunsmithStats;
 
 /** Shared post-processing for runtime weapons and read-only item inspectors. */
 namespace ColdSteelWeaponStats
 {
+    /** Apply once to freshly calculated firearm stats, using their wearer's equipment. */
+    void ApplyFirearmEquipmentHandling(FGunsmithStats& Stats,const UColdSteelStatusModel* Model);
     double Damage(const FColdSteelItem& Item,const UColdSteelStatusModel* Model,double WeaponBase);
     FWeaponDamageParts DamageParts(const FColdSteelItem& Item,const UColdSteelStatusModel* Model,double WeaponBase);
     /** 拉弓速度增量 = 改造 + 装备 + 当前弓的附魔，各项相加。 */

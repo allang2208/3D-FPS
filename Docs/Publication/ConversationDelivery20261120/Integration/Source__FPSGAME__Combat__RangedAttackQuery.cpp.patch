@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Combat/RangedAttackQuery.cpp
++++ b/Source/FPSGAME/Combat/RangedAttackQuery.cpp
+@@ -1,6 +1,7 @@
+ #include "RangedAttackQuery.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Monsters/MonsterCombatComponent.h"
++#include "../Monsters/MonsterTargeting.h"
+ #include "Components/PrimitiveComponent.h"
+ #include "Engine/World.h"
+ #include "GameFramework/Controller.h"
+@@ -107,7 +108,7 @@
+     {
+         const auto* Player=Cast<APawn>(Contact.GetActor());
+         if(!Player || Contact.GetComponent()!=Player->GetRootComponent())continue;
+-        if(!Player->IsPlayerControlled())continue;
++        if(!Player->IsPlayerControlled() && !MonsterTargeting::IsActiveArtisan(Player))continue;
+         if(IsFriendlyUnit(Source,Player))continue;
+         if(!Found || Contact.Time<Hit.Time)
+         {

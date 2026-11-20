@@ -12,10 +12,8 @@ void UColdSteelStatusModel::ObserveFoodClock(const FFoodClockSample& Sample)
     if(!Sample.Id.IsValid()||!FMath::IsFinite(Sample.Day)||Sample.Day<0.)return;
     if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client)
     {
-        // Owner-only time samples update presentation, never client item ages.
-        // A delayed full profile may arrive behind this lightweight sample.
-        Current.FoodClockDay=Current.FoodClockId==Sample.Id?FMath::Max(Current.FoodClockDay,Sample.Day):Sample.Day;
-        Current.FoodClockId=Sample.Id;Current.FoodVersion=1;return;
+        ColdSteelFood::ObserveReplicatedClock(Current,Sample);
+        return;
     }
     if(ColdSteelFood::RebaseProfile(Current,Sample))bTrainingDirty=true;
 }

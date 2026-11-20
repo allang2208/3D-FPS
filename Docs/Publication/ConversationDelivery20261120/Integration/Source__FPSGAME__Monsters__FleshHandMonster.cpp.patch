@@ -1,0 +1,46 @@
+--- a/Source/FPSGAME/Monsters/FleshHandMonster.cpp
++++ b/Source/FPSGAME/Monsters/FleshHandMonster.cpp
+@@ -1,4 +1,5 @@
+ #include "FleshHandMonster.h"
++#include "MonsterTargeting.h"
+ #include "GameFramework/GameStateBase.h"
+ #include "../Multiplayer/FPSStatusReplicationComponent.h"
+ #include "../Characters/FPSPlayerBodyComponent.h"
+@@ -51,7 +52,7 @@
+  TMap<TWeakObjectPtr<UWorld>,TArray<TWeakObjectPtr<AFleshHandMonster>>> SummonedHands;
+  bool Alive(const APawn* P)
+  {
+-  if(!IsValid(P))return false;
++  if(!IsValid(P)||MonsterTargeting::IsDownedArtisan(P))return false;
+   const auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();return !H||!H->IsDead();
+  }
+  bool Attacking(EFleshHandState S){return S==EFleshHandState::Hammer||S==EFleshHandState::Slam||S==EFleshHandState::GrandSlam;}
+@@ -496,9 +497,10 @@
+  }
+  const float WallMultiplier=Attack==EFleshHandState::Hammer?1.f:Attack==EFleshHandState::Slam?1.5f:2.f;
+  if(IceWallCombat::ApplyMelee(this,LockedTarget.Get(),Attack==EFleshHandState::Hammer?HammerRange:SlamRadius,PhysicalAttack*WallMultiplier))return;
+- for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+- {
+-  APawn* P=It->Get()?It->Get()->GetPawn().Get():nullptr;
++ TArray<APawn*> Victims;
++ MonsterTargeting::GatherAreaOpponents(GetWorld(),GetActorLocation(),Attack==EFleshHandState::Hammer?HammerRange:SlamRadius,Victims);
++ for(APawn* P:Victims)
++ {
+   if(Attack==EFleshHandState::Hammer&&P!=LockedTarget.Get())continue;
+   if(!CanReach(P,Attack==EFleshHandState::Hammer?HammerRange:SlamRadius))continue;
+   if(Attack==EFleshHandState::Hammer&&FVector::DotProduct(StrikeDirection,(P->GetActorLocation()-GetActorLocation()).GetSafeNormal2D())<.35f)continue;
+@@ -522,9 +524,11 @@
+ void AFleshHandMonster::ContactDamage()
+ {
+  if(IceWallCombat::ApplyMelee(this,Target.Get(),150,PhysicalAttack))return;
+- for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+- {
+-  APawn* P=It->Get()?It->Get()->GetPawn().Get():nullptr;if(!CanReach(P,150))continue;
++ TArray<APawn*> Victims;
++ MonsterTargeting::GatherAreaOpponents(GetWorld(),GetActorLocation(),150.f,Victims);
++ for(APawn* P:Victims)
++ {
++  if(!CanReach(P,150))continue;
+   const FVector D=GetActorTransform().InverseTransformPosition(P->GetActorLocation());bool Touch=false;
+   for(const FVector Zone:{FVector(30,0,40.8),FVector(34.8,-31.2,26.4),FVector(34.8,31.2,26.4)})
+    Touch|=FVector2D(D.X-Zone.X*1.35,D.Y-Zone.Y*1.35).SizeSquared()<=FMath::Square(Zone.Z*1.35);

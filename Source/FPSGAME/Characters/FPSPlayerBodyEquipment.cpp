@@ -665,7 +665,8 @@ bool UFPSPlayerBodyComponent::IsWorldWeaponStowed(UPrimitiveComponent* Mesh) con
     if(IsDeathViewActive())return true;
     if(FPSBodyPoses::Traversing(DisplayState.Motion)||Now<WorldWeaponsHiddenUntil)return true;
     const auto* Hand=WorldEquipmentHands.Find(Mesh);
-    const bool BusyLeft=DisplayState.Action==EFPSBodyAction::Consume||DisplayState.Action==EFPSBodyAction::DoorPush
+    if(Hand&&(DisplayState.ConsumeHands&(1<<*Hand))&&DisplayState.bConsumeWeaponsHidden)return true;
+    const bool BusyLeft=DisplayState.Action==EFPSBodyAction::DoorPush
         ||(DisplayState.Action==EFPSBodyAction::Cast&&DisplayState.Contacts.Channel!=TEXT("StaffCast"));
     return Hand&&*Hand==1&&(((DisplayState.bDual||DisplayState.bOffhandPistol)&&BusyLeft)||Now<OffhandWeaponHiddenUntil);
 }

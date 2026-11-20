@@ -1,0 +1,65 @@
+--- a/Source/FPSGAME/Monsters/MonsterAwareness.cpp
++++ b/Source/FPSGAME/Monsters/MonsterAwareness.cpp
+@@ -35,7 +35,7 @@
+ {
+     TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_CanSeePlayer);
+     const auto* C = Combat();
+-    if (!GetPawn() || !C || C->AggroRange() <= 0.f || (!IsValid(Player) || !Player->IsPlayerControlled())) return false;
++    if (!GetPawn() || !C || C->AggroRange() <= 0.f || !IsCombatOpponent(Player)) return false;
+     const auto* Sight = Senses->GetSenseConfig<UAISenseConfig_Sight>();
+     const float Range = RequireFacing || !Sight ? C->AggroRange() : FMath::Max(C->AggroRange(), Sight->LoseSightRadius);
+     const FVector Delta = Player->GetActorLocation() - GetPawn()->GetActorLocation();
+@@ -66,7 +66,7 @@
+     TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_DiscoverPlayer);
+     const auto* C = Combat();
+     if (!HasAuthority() || !bDecisionEnabled || !GetPawn() || !GetPawn()->IsActorTickEnabled()
+-        || !C || C->IsDead() || C->AggroRange() <= 0.f || (!IsValid(Player) || !Player->IsPlayerControlled())) return;
++        || !C || C->IsDead() || C->AggroRange() <= 0.f || !IsCombatOpponent(Player)) return;
+     if (bAwaitingReplacement && C->IsBusy()) return;
+     const bool AlreadyConfirmed = bConfirmedTarget && KnownTarget.Get() == Player;
+     KnownTarget = Player; LastKnown = Player->GetNavAgentLocation();
+@@ -85,7 +85,7 @@
+     auto* Player = Cast<APawn>(Actor);
+     const auto* C = Combat();
+     if (!HasAuthority() || !bDecisionEnabled || !GetPawn() || !GetPawn()->IsActorTickEnabled()
+-        || (!IsValid(Player) || !Player->IsPlayerControlled()) || !C || C->IsDead() || C->AggroRange() <= 0.f || !Stimulus.WasSuccessfullySensed()) return;
++        || !IsCombatOpponent(Player) || !C || C->IsDead() || C->AggroRange() <= 0.f || !Stimulus.WasSuccessfullySensed()) return;
+     // Once engaged, an unrelated stimulus must not oscillate the target.
+     const bool Other = bConfirmedTarget && KnownTarget.Get() != Player;
+     if (Stimulus.Type == UAISense::GetSenseID<UAISense_Sight>())
+@@ -148,7 +148,7 @@
+     TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_DamageDiscovery);
+     const auto* C = Combat();
+     if (!HasAuthority() || !bDecisionEnabled || !GetPawn() || !GetPawn()->IsActorTickEnabled()
+-        || (!IsValid(Player) || !Player->IsPlayerControlled()) || !C || C->IsDead() || C->AggroRange() <= 0.f) return;
++        || !IsCombatOpponent(Player) || !C || C->IsDead() || C->AggroRange() <= 0.f) return;
+     if (bConfirmedTarget && KnownTarget.IsValid())
+     {
+         // Further hits during combat do not re-enter the passive reaction phase.
+@@ -173,7 +173,7 @@
+ {
+     TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_PassiveDiscovery);
+     if (PassiveDiscoveryAt < 0.f) return;
+-    if ((!PendingDamageTarget.IsValid() || !PendingDamageTarget->IsPlayerControlled())) { PendingDamageTarget.Reset(); PassiveDiscoveryAt = -1.f; return; }
++    if (!IsCombatOpponent(PendingDamageTarget.Get())) { PendingDamageTarget.Reset(); PassiveDiscoveryAt = -1.f; return; }
+     if (GetWorld()->GetTimeSeconds() < PassiveDiscoveryAt) return;
+     APawn* Player = PendingDamageTarget.Get();
+     PendingDamageTarget.Reset(); PassiveDiscoveryAt = -1.f;
+@@ -184,7 +184,7 @@
+ {
+     TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_GroupAlertAttempt);
+     const float Now = GetWorld()->GetTimeSeconds();
+-    if (!bPendingGroupAlert || (!KnownTarget.IsValid() || !KnownTarget->IsPlayerControlled()) || Now < NextBroadcast) return;
++    if (!bPendingGroupAlert || !IsCombatOpponent(KnownTarget.Get()) || Now < NextBroadcast) return;
+     if (GroupAlertRadius <= 0.f) { bPendingGroupAlert = false; return; }
+     if (!TakeGroupAlertBudget()) return;
+     TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_GroupAlertAdmitted);
+@@ -210,7 +210,7 @@
+             || Ally->EncounterArea != EncounterArea) continue;
+         const auto* AllyCombat = Ally->Combat();
+         if (!AllyCombat || AllyCombat->IsDead() || !Ally->bDecisionEnabled || !NearbyPawn->IsActorTickEnabled()) continue;
+-        if (Ally->bConfirmedTarget && (Ally->KnownTarget.IsValid() && Ally->KnownTarget->IsPlayerControlled())) continue;
++        if (Ally->bConfirmedTarget && Ally->IsCombatOpponent(Ally->KnownTarget.Get())) continue;
+         // Exactly one hop from the triggering monster, including upper/lower
+         // floors in this sphere. No recursive broadcast, no wall-ray per ally.
+         TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_GroupAlertRecipient);

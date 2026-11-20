@@ -1,0 +1,59 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
+@@ -196,18 +196,23 @@
+     UPROPERTY() int32 VillagePlanVersion = 1;
+     // V1 recorded unlocks only. V2 atomically restored the wall and smithy.
+     // From V3 onward each new plan bit records a committed restoration.
+-    static constexpr int32 CurrentVillagePlanVersion = 8;
++    static constexpr int32 CurrentVillagePlanVersion = 9;
+     static constexpr uint8 CarpenterPlan = 4;
+     static constexpr uint8 TavernPlan = 8;
++    static constexpr uint8 HerbalistPlan = 16;
+     static constexpr uint8 ConstructionPlan = 32;
+     static constexpr uint8 HighWallPlan = 64;
+     static constexpr uint8 WindmillPlan = 128;
++    // The original serialized byte is full. Keep its reflected type for V1–8 saves.
++    static constexpr uint16 BakeryPlan = 256;
++    UPROPERTY() bool bVillageBakeryRepaired = false;
+     UPROPERTY() uint8 VillagePlansUnlocked = 0;
+     uint8 SavedVillagePlans() const
+     {
+         uint8 Mask = 3;
+         if (VillagePlanVersion >= 3) Mask |= CarpenterPlan;
+         if (VillagePlanVersion >= 4) Mask |= TavernPlan;
++        if (VillagePlanVersion >= 5) Mask |= HerbalistPlan;
+         if (VillagePlanVersion >= 6) Mask |= ConstructionPlan;
+         if (VillagePlanVersion >= 7 && bVillageWallRepaired) Mask |= HighWallPlan;
+         if (VillagePlanVersion >= 8) Mask |= WindmillPlan;
+@@ -291,7 +296,9 @@
+     UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Hills|Village")
+     bool CompleteVillageCarpenterRepair(FText& FailureReason);
+     UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsTavernRepaired() const { return (VillagePlansUnlocked & UTemperateHillsSave::TavernPlan) != 0; }
++    UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsHerbalistRepaired() const { return (VillagePlansUnlocked & UTemperateHillsSave::HerbalistPlan) != 0; }
+     UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsWindmillRepaired() const { return (VillagePlansUnlocked & UTemperateHillsSave::WindmillPlan) != 0; }
++    UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsBakeryRepaired() const { return bVillageBakeryRepaired; }
+     // The streamed tavern supplies its construction footprint while present.
+     DECLARE_DELEGATE_RetVal(bool, FTavernAreaOccupied);
+     FTavernAreaOccupied TavernAreaOccupied;
+@@ -444,6 +451,8 @@
+     void TickStreaming();
+     UFUNCTION() void BindStreamedVillageBuildings();
+     TWeakObjectPtr<class AHillsWindmill> StreamedWindmill;
++    TWeakObjectPtr<AActor> StreamedBakery;
++    TWeakObjectPtr<class AVillageBaker> BakeryResident;
+     void EndStreaming();
+     void LoadNextEnvironmentStage();
+     void TickPreparation();
+@@ -491,9 +500,11 @@
+     UPROPERTY(ReplicatedUsing=OnRep_VillageWall) bool bVillageWallRepaired=false;
+     UPROPERTY(ReplicatedUsing=OnRep_VillageBlacksmith) bool bVillageBlacksmithRepaired=false;
+     UPROPERTY(ReplicatedUsing=OnRep_VillagePlansUnlocked) uint8 VillagePlansUnlocked=0;
++    UPROPERTY(ReplicatedUsing=OnRep_VillageBakery) bool bVillageBakeryRepaired=false;
++    UFUNCTION() void OnRep_VillageBakery();
+     FGuid VillageDefenseGeneration;
+     UFUNCTION() void OnRep_VillagePlansUnlocked(uint8 PreviousPlans);
+-    bool CommitVillagePlanRepair(uint8 PlanBit, int32 RequiredVersion, const TCHAR* SaveError, FText& FailureReason);
++    bool CommitVillagePlanRepair(uint16 PlanBit, int32 RequiredVersion, const TCHAR* SaveError, FText& FailureReason);
+     UFUNCTION() void OnRep_VillageBlacksmith();
+     UPROPERTY(Transient) TArray<TObjectPtr<UInstancedStaticMeshComponent>> VillageWallParts;
+     UPROPERTY(Transient) TArray<TObjectPtr<class AVillageDefenseSection>> VillageDefenseParts;

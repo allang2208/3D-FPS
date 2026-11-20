@@ -1,0 +1,319 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelShopModel.cpp
+@@ -1,6 +1,10 @@
+ #include "ColdSteelShopModel.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../NPC/VillageArtisanMerchant.h"
++#include "../NPC/VillageBaker.h"
++#include "../NPC/VillageHerbalist.h"
++#include "../NPC/VillageTavernKeeper.h"
++#include "../NPC/ResidentConversation.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../Multiplayer/ColdSteelInventoryRequestTypes.h"
+ #include "GameFramework/PlayerController.h"
+@@ -8,6 +12,7 @@
+ #include "ColdSteelCurrency.h"
+ #include "Engine/GameInstance.h"
+ #include "Engine/World.h"
++#include "TimerManager.h"
+ using namespace ColdSteelInventory;
+ 
+ namespace
+@@ -17,7 +22,75 @@
+     const double Price = Number(Item, TEXT("price"), 0.);
+     return FMath::IsFinite(Price) && Price >= 1 && Price <= 1000000000. ? FMath::FloorToInt64(Price) : 0;
+ }
+-
++}
++
++struct FColdSteelMenuOffer
++{
++    const TCHAR* Definition;
++    int64 PriceIfUnlisted = 0;
++
++    int64 Price(const FColdSteelItem& Item) const
++    {
++        if (Item.Data.IsEmpty()) return 0;
++        const int64 CatalogPrice = ShopUnitPrice(Item);
++        return CatalogPrice > 0 ? CatalogPrice : PriceIfUnlisted;
++    }
++};
++
++struct FColdSteelResidentMenu
++{
++    TConstArrayView<FColdSteelMenuOffer> Offers;
++    const TCHAR* BuyMode;
++    const TCHAR* Title;
++    const TCHAR* BuyPrompt;
++    const TCHAR* ReachPrompt;
++    const TCHAR* InvalidOffer;
++
++    const FColdSteelMenuOffer* FindOffer(const FString& Definition) const
++    {
++        return Offers.FindByPredicate([&Definition](const auto& Offer) { return Definition == Offer.Definition; });
++    }
++};
++
++namespace
++{
++constexpr FColdSteelMenuOffer BakerMenu[] = {
++    {TEXT("bread")}, {TEXT("baguette_bread")}
++};
++
++constexpr FColdSteelMenuOffer TavernMenu[] = {
++    {TEXT("roasted_sausage"), 14}, {TEXT("roasted_chicken_leg"), 22},
++    {TEXT("roasted_lamb_ribs"), 22}, {TEXT("roasted_large_lamb"), 40}
++};
++
++constexpr FColdSteelMenuOffer HerbalistMenu[] = {
++    {TEXT("hp_potion")},         {TEXT("mp_potion")},
++    {TEXT("hp_potion_medium")},  {TEXT("mp_potion_medium")},
++    {TEXT("hp_potion_high")},    {TEXT("mp_potion_high")},
++    {TEXT("hp_potion_special")}, {TEXT("mp_potion_special")}
++};
++
++const FColdSteelResidentMenu BakeryShopMenu = {
++    MakeArrayView(BakerMenu), TEXT("baker.buy"), TEXT("村庄面包屋"), TEXT("选好面包和数量后购买。"),
++    TEXT("请回到面包屋柜台前再购买"), TEXT("请选择货架上的面包，购买数量为 1～99")
++};
++const FColdSteelResidentMenu TavernShopMenu = {
++    MakeArrayView(TavernMenu), TEXT("tavern.buy"), TEXT("酒馆餐食"), TEXT("选好餐食和数量后购买。"),
++    TEXT("请回到酒馆柜台前再购买"), TEXT("请选择菜单上的餐食，购买数量为 1～99")
++};
++const FColdSteelResidentMenu HerbalistShopMenu = {
++    MakeArrayView(HerbalistMenu), TEXT("herbalist.buy"), TEXT("林芷药铺"), TEXT("选择药水和购买数量。"),
++    TEXT("请回到林芷身边再购买"), TEXT("请选择货架上的药水，购买数量为 1～99")
++};
++
++const FColdSteelResidentMenu* MenuForSeller(const AActor* Seller)
++{
++    if (!IsValid(Seller)) return nullptr;
++    if (Seller->IsA<AVillageBaker>()) return &BakeryShopMenu;
++    if (Seller->IsA<AVillageTavernKeeper>()) return &TavernShopMenu;
++    if (Seller->IsA<AVillageHerbalist>()) return &HerbalistShopMenu;
++    return nullptr;
++}
+ }
+ 
+ bool UColdSteelShopModel::OpenProfile()
+@@ -44,6 +117,7 @@
+ 
+ FString UColdSteelShopModel::MerchantName() const
+ {
++    if (Menu) return Menu->Title;
+     const auto* Seller = Merchant.Get();
+     return Seller ? Seller->MerchantName() : TEXT("商店");
+ }
+@@ -53,6 +127,7 @@
+     const auto* PC = GetGameInstance()->GetFirstLocalPlayerController();
+     if (!IsValid(Seller) || !Seller->CanTradeWith(PC ? PC->GetPawn() : nullptr) || !OpenProfile()) return false;
+     Merchant = Seller;
++    BuyerPawn = PC->GetPawn();
+     StockHandle = Seller->OnStockChanged.AddUObject(this, &ThisClass::RefreshArtisanStock);
+     Message = Seller->IsCarpenterMerchant()
+         ? TEXT("弓和法杖按基础品质出售，伐木斧可直接装备。买下一件后会补货。")
+@@ -61,10 +136,58 @@
+     return true;
+ }
+ 
+-
+-bool UColdSteelShopModel::SellerHasLeft()
+-{
+-    return IsArtisanShop() && !Merchant.IsValid();
++bool UColdSteelShopModel::BeginTavernSession(AVillageTavernKeeper* Seller)
++{
++    return BeginMenuSession(Seller);
++}
++
++bool UColdSteelShopModel::BeginBakerSession(AVillageBaker* Seller)
++{
++    return BeginMenuSession(Seller);
++}
++
++bool UColdSteelShopModel::BeginHerbalistSession(AVillageHerbalist* Seller)
++{
++    return BeginMenuSession(Seller);
++}
++
++bool UColdSteelShopModel::IsTavernShop() const { return Menu == &TavernShopMenu; }
++bool UColdSteelShopModel::IsHerbalistShop() const { return Menu == &HerbalistShopMenu; }
++
++bool UColdSteelShopModel::BeginMenuSession(AActor* Seller)
++{
++    const auto* NewMenu = MenuForSeller(Seller);
++    const auto* PC = GetGameInstance()->GetFirstLocalPlayerController();
++    if (!NewMenu || !PC || !ResidentConversation::CanReach(PC->GetPawn(), Seller) || !OpenProfile()) return false;
++    Menu = NewMenu;
++    MenuSeller = Seller;
++    BuyerPawn = PC->GetPawn();
++    for (const auto& Offer : Menu->Offers)
++    {
++        auto Item = Model->CreateItem(Offer.Definition);
++        if (Offer.Price(Item) > 0) Shelf.Add(MoveTemp(Item));
++    }
++    Message = Menu->BuyPrompt;
++    OnChanged.Broadcast();
++    return true;
++}
++
++void UColdSteelShopModel::WatchSeller(FSimpleDelegate OnLeft)
++{
++    if (!IsPurchaseOnly() && !IsArtisanShop()) return;
++    GetWorld()->GetTimerManager().SetTimer(ReachTimer, FTimerDelegate::CreateWeakLambda(this, [this, OnLeft]()
++    {
++        if (!OnLeft.IsBound()) EndSession();
++        else if (SellerHasLeft()) OnLeft.Execute();
++    }), .25f, true);
++}
++
++bool UColdSteelShopModel::SellerHasLeft() const
++{
++    const AActor* Seller = IsPurchaseOnly() ? MenuSeller.Get() : Merchant.Get();
++    const auto* PC = GetGameInstance()->GetFirstLocalPlayerController();
++    if (!Seller || !PC || !BuyerPawn.IsValid() || PC->GetPawn() != BuyerPawn.Get()) return true;
++    return !ResidentConversation::CanReach(PC->GetPawn(), Seller);
+ }
+ 
+ void UColdSteelShopModel::RefreshArtisanStock()
+@@ -81,8 +204,12 @@
+ 
+ void UColdSteelShopModel::EndSession()
+ {
++    if (auto* World = GetWorld()) World->GetTimerManager().ClearTimer(ReachTimer);
+     if (Merchant.IsValid()) Merchant->OnStockChanged.Remove(StockHandle);
+     StockHandle.Reset(); Merchant.Reset();
++    MenuSeller.Reset();
++    BuyerPawn.Reset();
++    Menu = nullptr;
+     if (Model && ProfileHandle.IsValid()) Model->OnChanged.Remove(ProfileHandle);
+     ProfileHandle.Reset();
+     bOpen = false; Basket.Reset(); Shelf.Reset(); SaleRules.Reset(); ++BasketRevision;
+@@ -95,6 +222,11 @@
+ {
+     const auto* Item = Shelf.FindByPredicate([&Definition](const auto& I) { return I.Definition == Definition; });
+     if (!Item) return 0;
++    if (IsPurchaseOnly())
++    {
++        const auto* Offer = Menu->FindOffer(Definition);
++        return Offer ? Offer->Price(*Item) : 0;
++    }
+     return ShopUnitPrice(*Item);
+ }
+ 
+@@ -124,7 +256,7 @@
+ 
+ bool UColdSteelShopModel::CanSell(const FColdSteelItem& Item) const
+ {
+-    return (Item.Place == 0 || Item.Place == ColdSteelCompartment::Place) && Item.Container.IsEmpty()
++    return !IsPurchaseOnly() && (Item.Place == 0 || Item.Place == ColdSteelCompartment::Place) && Item.Container.IsEmpty()
+         && Item.Count > 0 && !Flag(Item,TEXT("unsellable")) && !Flag(Item,TEXT("questItem")) && SellPrice(Item) > 0;
+ }
+ 
+@@ -134,10 +266,16 @@
+ bool UColdSteelShopModel::CanTrade()
+ {
+     if (!bOpen || !Model || bCommitting) return false;
++    if (IsPurchaseOnly())
++    {
++        const auto* PC = GetGameInstance()->GetFirstLocalPlayerController();
++        if (!PC || PC->GetPawn() != BuyerPawn.Get() || !ResidentConversation::CanReach(PC->GetPawn(), MenuSeller.Get()))
++            return Fail(Menu->ReachPrompt);
++    }
+     if (IsArtisanShop())
+     {
+         const auto* PC = GetGameInstance()->GetFirstLocalPlayerController();
+-        if (!Merchant.IsValid() || !Merchant->CanTradeWith(PC ? PC->GetPawn() : nullptr))
++        if (!Merchant.IsValid() || !PC || PC->GetPawn() != BuyerPawn.Get() || !Merchant->CanTradeWith(PC->GetPawn()))
+             return Fail(TEXT("请回到工匠身边再交易"));
+     }
+     if(Model->IsCampfireInventoryPending())return Fail(TEXT("上一笔物品操作正在结算"));
+@@ -146,7 +284,7 @@
+ 
+ bool UColdSteelShopModel::AddToSale(const FString& Id)
+ {
+-    if (!bOpen || !Model || bCommitting) return false;
++    if (!bOpen || !Model || bCommitting || IsPurchaseOnly()) return false;
+     const auto* Item = Model->FindItem(Id);
+     if (!Item || !CanSell(*Item)) return Fail(TEXT("仅可出售背包或夹层中有售价的物品；已装备物品请先卸下"));
+     if (Basket.ContainsByPredicate([&Id](const auto& Entry) { return Entry.Id == Id; }))
+@@ -206,9 +344,9 @@
+     const auto* Selected = Shelf.FindByPredicate([&](const auto& Item) { return Item.InstanceId == StockItemId; });
+     if (!Selected) return Fail(TEXT("商品已更新，请重新选择"));
+     const FString Definition = Selected->Definition;
+-    const int64 UnitPrice = ShopUnitPrice(*Selected);
++    const int64 UnitPrice = IsPurchaseOnly() ? BuyPrice(Definition) : ShopUnitPrice(*Selected);
+     if (UnitPrice <= 0 || Count < 1 || Count > 99) return Fail(TEXT("请选择有效商品，购买数量为 1～99"));
+-    if(IsArtisanShop()||GetWorld()->GetNetMode()!=NM_Standalone)
++    if(IsArtisanShop()||IsPurchaseOnly()||GetWorld()->GetNetMode()!=NM_Standalone)
+     {
+         auto* PC=GetGameInstance()->GetFirstLocalPlayerController();auto* PS=PC?PC->GetPlayerState<AColdSteelPlayerState>():nullptr;
+         FColdSteelInventoryRequest R;R.Action=EColdSteelInventoryAction::Shop;R.Mode=TEXT("shop.buy");R.Definition=FName(*Definition);R.Count=Count;
+@@ -216,6 +354,10 @@
+         {
+             if(Count!=1)return Fail(TEXT("工匠货架上的商品请逐件购买"));
+             R.Mode=Merchant->TradeMode(false);R.Target=Merchant.Get();R.Item=StockItemId;
++        }
++        else if(IsPurchaseOnly())
++        {
++            R.Mode=Menu->BuyMode;R.Target=MenuSeller.Get();
+         }
+         if(GetWorld()->GetNetMode()==NM_Standalone)
+         {
+@@ -244,7 +386,7 @@
+ 
+ bool UColdSteelShopModel::ConfirmSale(const FColdSteelShopQuote& Quote)
+ {
+-    if (!CanTrade()) return false;
++    if (IsPurchaseOnly() || !CanTrade()) return false;
+     if (Quote.BasketRevision != BasketRevision || Quote.Lines.IsEmpty()) return Fail(TEXT("待售选择已变化，请重新确认"));
+     Model->SyncRuntime();
+     FColdSteelShopQuote Current;
+@@ -305,6 +447,9 @@
+     auto* Seller=Cast<AVillageArtisanMerchant>(R.Target.Get());
+     const bool ArtisanBuy=IsValid(Seller)&&R.Mode==Seller->TradeMode(false);
+     const bool ArtisanSale=IsValid(Seller)&&R.Mode==Seller->TradeMode(true);
++    const auto* Vendor=R.Target.Get();
++    const auto* SellerMenu=MenuForSeller(Vendor);
++    const bool MenuBuy=SellerMenu && R.Mode==SellerMenu->BuyMode;
+     const bool GeneralBuy=!R.Target && R.Mode==TEXT("shop.buy");
+     const bool GeneralSale=!R.Target && R.Mode==TEXT("shop.sell");
+     FGuid SoldLot;
+@@ -313,7 +458,13 @@
+         if(Seller->GetWorld()!=Profile->GetWorld()||Profile->RuntimePawn()!=R.Pawn.Get()||!Seller->CanTradeWith(R.Pawn.Get()))
+         {Reason=TEXT("请回到工匠身边再交易");return false;}
+     }
+-    if(ArtisanBuy||GeneralBuy)
++    if(MenuBuy)
++    {
++        if(Vendor->GetWorld()!=Profile->GetWorld()||Profile->RuntimePawn()!=R.Pawn.Get()
++            ||!ResidentConversation::CanReach(R.Pawn.Get(),Vendor))
++        {Reason=SellerMenu->ReachPrompt;return false;}
++    }
++    if(ArtisanBuy||MenuBuy||GeneralBuy)
+     {
+         const FString Id=R.Definition.ToString();
+         FColdSteelItem Item;
+@@ -328,6 +479,14 @@
+             {Reason=TEXT("这件商品已售出，请重新选择");return false;}
+             UnitPrice=ShopUnitPrice(Item);
+         }
++        else if(MenuBuy)
++        {
++            const auto* Offer=SellerMenu->FindOffer(Id);
++            if(!Offer||R.Count<1||R.Count>99||!R.TradeItems.IsEmpty())
++            {Reason=SellerMenu->InvalidOffer;return false;}
++            Item=Profile->CreateItem(Offer->Definition,R.Count);
++            UnitPrice=Offer->Price(Item);
++        }
+         else
+         {
+             if(Id!=TEXT("bread")&&Id!=TEXT("baguette_bread")&&Id!=TEXT("mineral_water")&&Id!=TEXT("soda_can"))return false;
+@@ -361,7 +520,7 @@
+         if(Credit>ColdSteelCurrency::MaxSouls-Next.ServerSoulCredits||Debit>ColdSteelCurrency::MaxSouls-Next.ServerSoulDebits)return false;
+         Next.ServerSoulCredits+=Credit;Next.ServerSoulDebits+=Debit;
+     }
+-    const bool Saved=(ArtisanBuy)&&HostSlot.IsEmpty()&&Profile->GetWorld()->GetNetMode()==NM_Standalone
++    const bool Saved=(ArtisanBuy||MenuBuy)&&HostSlot.IsEmpty()&&Profile->GetWorld()->GetNetMode()==NM_Standalone
+         ?Profile->CommitState(MoveTemp(Next)):Profile->CommitCampfireState(MoveTemp(Next),TEXT("Inventory"),HostSlot);
+     if(!Saved){Reason=Profile->ResultMessage();return false;}
+     if(ArtisanBuy)Seller->RestockSoldLot(SoldLot);

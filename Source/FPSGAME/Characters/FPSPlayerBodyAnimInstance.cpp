@@ -1,4 +1,5 @@
 #include "FPSPlayerBodyAnimInstance.h"
+#include "../Items/PotionUseMotion.h"
 #include "../Skills/ChainSlashMotion.h"
 #include "../Movement/FPSFurnitureRestComponent.h"
 #include "FPSPlayerBodyPoses.h"
@@ -174,6 +175,7 @@ struct FControls : FAnimNode_Base
     TArray<FTransform> LastStaffCastPose,StaffCastEntryPose;
     FTransform LastStaffCastChest=FTransform::Identity,StaffCastEntryChest=FTransform::Identity;
     float ConsumeWeight=0.f,ConsumeContactWeight=0.f;
+    FVector ConsumeBiteOffset=FVector::ZeroVector;
     bool bHasConsumeProp=false,bConsumeNativeArm=false,bConsumeTwoHands=false,bConsumeFood=false;
     struct FConsumeHelper
     {
@@ -1263,6 +1265,7 @@ struct FProxy : FAnimInstanceProxy
         auto* NextConsume=D->Clips.FindRef(ConsumeKey).Get();
         const bool HasConsume=NextConsume&&IdleClip&&NextConsume->GetSkeleton()==IdleClip->GetSkeleton();
         Controls.ConsumeContactWeight=0.f;
+        Controls.ConsumeBiteOffset=FVector::ZeroVector;
         if(HasConsume)
         {
             if(NextConsume!=ConsumeAsset)
@@ -1290,7 +1293,23 @@ struct FProxy : FAnimInstanceProxy
             Set(Consume,ConsumeAsset,Sample*ConsumeAsset->GetPlayLength(),false);
             // Only correct the food's final bite with the rigid arm/prop lever;
             // do not pull the whole slow approach onto the lips prematurely.
-            if(NativeFood)
+            if(NativeFood&&D->CookedFoodTrajectory)
+            {
+                // The donor was fitted to short bread. A rib, sausage or leg can
+                // pass through the cheek long before that clip's bite marker.
+                // Follow this food's original bite-point travel relative to its
+                // contact frame, with the body's own lips as the origin.
+                const auto& Meal=*D->CookedFoodTrajectory;
+                const float Seconds=P*Meal.Duration;
+                const FVector Current=Meal.BottleAt(Seconds).TransformPosition(Meal.BiteInObject);
+                const FVector AtBite=Meal.BottleAt(Meal.Contact).TransformPosition(Meal.BiteInObject);
+                const FVector Offset=Current-AtBite;
+                // Profile axes are X forward/Y right, the character mesh faces +Y.
+                Controls.ConsumeBiteOffset=FVector(-Offset.Y,Offset.X,Offset.Z);
+                Controls.ConsumeContactWeight=FMath::SmoothStep(Meal.Grab,Meal.DrinkStart,Seconds)*
+                    (1.f-FMath::SmoothStep(Meal.DrinkEnd,Meal.Release,Seconds));
+            }
+            else if(NativeFood)
                 Controls.ConsumeContactWeight=Ease((Sample-ConsumeContact+.06f)/.06f)*
                     (1.f-Ease((Sample-ConsumeRelease)/.08f));
             else if(ConsumeKey==TEXT("Consume.Drink"))

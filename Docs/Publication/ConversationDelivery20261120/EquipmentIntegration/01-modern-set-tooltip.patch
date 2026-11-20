@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp
+@@ -56,0 +57,4 @@
++    static const FSetBonusDef Modern[]={{TEXT("def"),TEXT("防御力"),12.,true,false},
++                                        {TEXT("firearmRecoilPercent"),TEXT("枪械后坐力"),8.,true,true},
++                                        {TEXT("firearmStabilityPercent"),TEXT("枪械稳定性"),10.,true,false},
++                                        {TEXT("adsPercent"),TEXT("ADS 瞄准时间"),5.,true,true}};
+@@ -63,0 +68 @@
++    if(Set==TEXT("modern_tactical")){OutCount=UE_ARRAY_COUNT(Modern);return Modern;}
+@@ -73,0 +79 @@
++    if(Set==TEXT("modern_tactical"))return TEXT("现代战术套装");

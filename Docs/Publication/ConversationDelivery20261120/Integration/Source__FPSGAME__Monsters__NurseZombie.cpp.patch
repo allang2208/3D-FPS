@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/NurseZombie.cpp
++++ b/Source/FPSGAME/Monsters/NurseZombie.cpp
+@@ -1,4 +1,5 @@
+ #include "NurseZombie.h"
++#include "MonsterTargeting.h"
+ #include "FatZombieAnimInstance.h"
+ #include "Net/UnrealNetwork.h"
+ #include "MonsterReactionTiming.h"
+@@ -315,7 +316,7 @@
+ 
+ void ANurseZombie::TryMelee()
+ {
+-    if (bAttackConsumed || !Target.IsValid()) return;
++    if (bAttackConsumed || !Target.IsValid() || MonsterTargeting::IsDownedArtisan(Target.Get())) return;
+     if(IceWallCombat::ApplyMelee(this,Target.Get(),MonsterCombatTuning::AttackDistance(AttackRange),AttackDamage,.55f))
+     {bAttackConsumed=true;return;}
+     const FVector Offset = Target->GetActorLocation() - GetActorLocation();

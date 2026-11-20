@@ -23,6 +23,15 @@ FFormulaBonusJson Read(const FColdSteelItem* I){return I?CombatItemFormula::Read
 FFormulaBonusJson Obj(FFormulaBonusJson O,const TCHAR* K){const TSharedPtr<FJsonObject>* V=nullptr;return O&&O->TryGetObjectField(K,V)?*V:nullptr;}
 double Num(FFormulaBonusJson O,const TCHAR* K,double Default=0){double V=Default;if(O)O->TryGetNumberField(K,V);return V;}
 double Now(){return FDateTime::UtcNow().ToUnixTimestamp();}
+bool ModernTacticalComplete(const UColdSteelStatusModel& Model)
+{
+    for(const int32 Slot:{1,3,7,13,15})
+    {
+        const auto Data=Read(Model.Equipped(Slot));FString Set;
+        if(!Data||!Data->TryGetStringField(TEXT("armorSet"),Set)||Set!=TEXT("modern_tactical"))return false;
+    }
+    return true;
+}
 bool WorkwearComplete(const UColdSteelStatusModel& Model)
 {
     for(const int32 Slot:{1,3,7,13,15})
@@ -55,6 +64,13 @@ bool UColdSteelStatusModel::RangerFieldSetComplete()const
 double UColdSteelStatusModel::SetEffect(FName Key)const
 {
     const FString S=ArmorSet();
+    if(S==TEXT("modern_tactical")&&ModernTacticalComplete(*this))
+    {
+        if(Key==TEXT("defense"))return .12;
+        if(Key==TEXT("firearmRecoilPercent"))return -.08;
+        if(Key==TEXT("firearmStabilityPercent"))return .10;
+        if(Key==TEXT("adsPercent"))return -.05;
+    }
     if(Key==TEXT("actionStaminaCost"))return S==TEXT("workwear")&&WorkwearComplete(*this)?.85:1.;
     if(Key==TEXT("survivalConsumption"))return S==TEXT("workwear")&&WorkwearComplete(*this)?.75:1.;
     if(Key==TEXT("speed")&&S==TEXT("workwear"))return WorkwearComplete(*this)?1.10:1.;
@@ -153,6 +169,7 @@ double UColdSteelStatusModel::AdjustCombatStat(FName Key,double Value)const
     if(Key==TEXT("matk"))Value=std::floor(Value*ColdSteelMelee::EquippedModifiers(this).MagicAttack);
     if(Key==TEXT("atk"))Value=std::floor(Value*(1+SetEffect(TEXT("atk"))));
     if(Key==TEXT("crit"))Value+=SetEffect(TEXT("crit"));
+    if(Key==TEXT("def")&&ArmorSet()==TEXT("modern_tactical"))Value=std::floor(Value*(1+SetEffect(TEXT("defense"))));
     const FName Percent(*(Key.ToString()+TEXT("Percent")));
     if(Key==TEXT("atk")||Key==TEXT("matk")||Key==TEXT("def")||Key==TEXT("mdef"))Value=std::floor(Value*(1+DungeonEffect(Percent)/100.));
     if(Key==TEXT("atk")||Key==TEXT("matk")||Key==TEXT("def")||Key==TEXT("mdef")||Key==TEXT("crit"))Value=std::floor(Value*TributeEffect(Percent));

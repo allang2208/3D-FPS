@@ -4423,7 +4423,8 @@
     "icon": "",
     "icon_fallback": "🥖",
     "ue_icon": "Icons/baguette_bread.png",
-    "world_mesh": "/Game/Items/Consumables/Baguette20261003/SM_Baguette.SM_Baguette"
+    "world_mesh": "/Game/Items/Consumables/Baguette20261003/SM_Baguette.SM_Baguette",
+    "spoilDays": 8
   },
   "bread": {
     "id": "bread",
@@ -4463,7 +4464,8 @@
     "icon": "",
     "icon_fallback": "面包",
     "ue_icon": "Icons/bread.png",
-    "world_mesh": "/Game/Items/Consumables/Bread20261003/SM_Bread.SM_Bread"
+    "world_mesh": "/Game/Items/Consumables/Bread20261003/SM_Bread.SM_Bread",
+    "spoilDays": 8
   },
   "ue_rsh12": {
     "id": "ue_rsh12",
@@ -6439,5 +6441,235 @@
     "icon_fallback": "单手斧",
     "melee_animation_family": "kukri",
     "offhand_melee_mesh": "/Game/Weapons/TacticalHatchet20261101/SM_TacticalHatchet.SM_TacticalHatchet"
+  },
+  "ue_modern_tactical_boots": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "sprintStaminaCost": -0.05,
+      "firearmStabilityPercent": 0.03
+    },
+    "id": "ue_modern_tactical_boots",
+    "name": "现代战术靴",
+    "category": "equipment",
+    "type": "鞋靴",
+    "equipSlot": "boots",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 55,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 10,
+      "perEnhance": 1
+    },
+    "desc": "沙褐色绒面革与织物拼接的高帮系带靴。外侧支撑框从后跟延伸至前掌，橡胶外底带有分区凸齿。",
+    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_tactical_boots.png",
+    "icon_fallback": "靴",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Display/SM_TS01_RidgeBoots_Pickup.SM_TS01_RidgeBoots_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Display/SM_TS01_RidgeBoots_Display.SM_TS01_RidgeBoots_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0
+  },
+  "ue_modern_tactical_pants": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "critRes": 8,
+      "firearmRecoilPercent": -0.03
+    },
+    "id": "ue_modern_tactical_pants",
+    "name": "现代战术裤",
+    "category": "equipment",
+    "type": "裤装",
+    "equipSlot": "pants",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 65,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 14,
+      "perEnhance": 2
+    },
+    "desc": "土棕色防撕裂战术裤，裆底拼入深棕弹力布。两侧设有立体口袋，裤脚可随靴型收束。",
+    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_tactical_pants.png",
+    "icon_fallback": "裤",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Display/SM_TS01_FieldTrousers_Pickup.SM_TS01_FieldTrousers_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Display/SM_TS01_FieldTrousers_Display.SM_TS01_FieldTrousers_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0
+  },
+  "ue_modern_tactical_gloves": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "reloadSpeed": 0.06,
+      "adsPercent": -0.04
+    },
+    "id": "ue_modern_tactical_gloves",
+    "name": "现代战术手套",
+    "category": "equipment",
+    "type": "手套",
+    "equipSlot": "gloves",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 30,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 10,
+      "perEnhance": 1
+    },
+    "desc": "土棕色全指手套配深褐皮革掌面。手背的圆弧护片逐个覆盖指节，腕口以织带收紧。",
+    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_tactical_gloves.png",
+    "icon_fallback": "手",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Display/SM_TS01_CoyoteGloves_Pickup.SM_TS01_CoyoteGloves_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Display/SM_TS01_CoyoteGloves_Display.SM_TS01_CoyoteGloves_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0
+  },
+  "ue_modern_tactical_helmet": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "critRes": 8,
+      "firearmStabilityPercent": 0.04,
+      "adsPercent": -0.03
+    },
+    "id": "ue_modern_tactical_helmet",
+    "name": "现代战术头盔",
+    "category": "equipment",
+    "type": "头盔",
+    "equipSlot": "helmet",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 75,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 18,
+      "perEnhance": 2
+    },
+    "desc": "土棕色高切战术头盔，采用细颗粒复合壳体、连续橡胶盔缘、开槽侧导轨和三点前支座。内置缓冲垫、四点下颏带与后部调节旋钮。",
+    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_tactical_helmet.png",
+    "icon_fallback": "盔",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Pickups/SM_TS01_Helmet.SM_TS01_Helmet",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Icons/SM_TS01_Helmet_Display.SM_TS01_Helmet_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0
+  },
+  "ue_modern_kevlar_vest": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "maxHp": 30,
+      "firearmRecoilPercent": -0.05
+    },
+    "id": "ue_modern_kevlar_vest",
+    "name": "凯夫拉防弹衣",
+    "category": "equipment",
+    "type": "上衣",
+    "equipSlot": "armor",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 120,
+    "grid_w": 3,
+    "grid_h": 3,
+    "defense": {
+      "base": 30,
+      "perEnhance": 4
+    },
+    "desc": "土棕色凯夫拉防弹衣搭配作战上衣。弹力躯干连接防撕裂插肩袖，上臂带拉链袋，肘部有活动褶与补强裁片，袖口以织物袢收紧。",
+    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_kevlar_vest.png",
+    "icon_fallback": "衣",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Display/SM_TS01_PatrolShirt_Pickup.SM_TS01_PatrolShirt_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Display/SM_TS01_PatrolShirt_Display.SM_TS01_PatrolShirt_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0
+  },
+  "raw_meat_chunk": {
+    "id": "raw_meat_chunk",
+    "name": "生肉块",
+    "category": "material",
+    "type": "食材",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "spoilDays": 3,
+    "desc": "狩猎取得的新鲜肉块。可放在有燃料的篝火上烤熟。",
+    "icon": "",
+    "icon_fallback": "生肉块",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RawVenison.SM_RawVenison",
+    "ue_icon": "Icons/raw_venison.png"
+  },
+  "roasted_meat_chunk": {
+    "id": "roasted_meat_chunk",
+    "name": "烤肉块",
+    "category": "consumable",
+    "type": "食物",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "spoilDays": 4,
+    "icon": "",
+    "icon_fallback": "烤肉块",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedVenison.SM_RoastedVenison",
+    "ue_icon": "Icons/roasted_venison.png",
+    "desc": "在篝火上烤熟的肉块，表面焦香。食用可恢复饱食度。",
+    "maxUses": 1,
+    "useEffect": {
+      "maxHungerPercent": 25
+    },
+    "useDuration": 2.4,
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复饱食度",
+        "value": "+25%上限"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ]
   }
 }

@@ -1,4 +1,5 @@
 #include "KukriArmsMeshComponent.h"
+#include "../../Items/FPSPotionUseComponent.h"
 #include "KukriLeftRest.h"
 #include "../../FPSGAMECharacter.h"
 #include "Engine/SkeletalMesh.h"
@@ -178,12 +179,16 @@ void UKukriArmsMeshComponent::FinalizeBoneTransform()
             const FTransform Hidden(FQuat::Identity,Pose[LeftChain[0]].GetLocation(),FVector::ZeroVector);
             for(const int32 I:LeftChain)Pose[I]=Hidden;
         }
-        if(FMath::Abs(LeftRestWeight)>UE_KINDA_SMALL_NUMBER&&!LeftChain.IsEmpty())
+        const auto* Use=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();
+        const bool ConsumeStow=Use&&Use->UsesHandMesh(this)&&Use->IsStowingOffhand()&&!Use->IsTwoHanded();
+        const float LowerWeight=ConsumeStow?Use->OffhandLowerWeight():0.f;
+        if(FMath::Max(FMath::Abs(LeftRestWeight),LowerWeight)>UE_KINDA_SMALL_NUMBER&&!LeftChain.IsEmpty())
         {
             // Dual-wield whirlwind: the clip raises the free left arm as a guard fist, and a dual-wield off-hand weapon
             // rides hand_l -- it filled the upper view.  Blend the whole left chain to the single-hand Idle's hanging arm
             // (KukriLeftRest.h), in parent space so every segment keeps its length and the shoulder stays anchored.
-            const float W=FMath::Clamp(LeftRestWeight,0.f,1.f);
+            const float W=FMath::Clamp(FMath::Max(LeftRestWeight,LowerWeight),0.f,1.f);
+            const int32 HandL=Ref.FindBoneIndex(TEXT("hand_l"));
             TArray<FTransform> Local;Local.SetNum(Pose.Num());
             for(const int32 I:LeftChain)
             {
@@ -194,8 +199,10 @@ void UKukriArmsMeshComponent::FinalizeBoneTransform()
             {
                 const int32 I=Ref.FindBoneIndex(Bone.Name);
                 if(I==INDEX_NONE||!LeftChain.Contains(I))continue;
-                const FTransform Rest(FQuat(Bone.Q[0],Bone.Q[1],Bone.Q[2],Bone.Q[3]),
-                    FVector(Bone.P[0],Bone.P[1],Bone.P[2]),FVector::OneVector);
+                if(ConsumeStow&&HandL!=INDEX_NONE&&I!=HandL&&Ref.BoneIsChildOf(I,HandL))continue;
+                const FTransform Rest(FQuat(Bone.Q[0],Bone.Q[1],Bone.Q[2],Bone.Q[3]).GetNormalized(),
+                    ConsumeStow?Local[I].GetLocation():FVector(Bone.P[0],Bone.P[1],Bone.P[2]),
+                    ConsumeStow?Local[I].GetScale3D():FVector::OneVector);
                 FTransform Blend;Blend.Blend(Local[I],Rest,W);
                 Local[I]=Blend;
             }

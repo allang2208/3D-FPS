@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Monsters/HeQueSideCrush.cpp
++++ b/Source/FPSGAME/Monsters/HeQueSideCrush.cpp
+@@ -1,4 +1,5 @@
+ #include "HeQueMonster.h"
++#include "MonsterTargeting.h"
+ #include "HeQueSweepTiming.h"
+ #include "MonsterAIController.h"
+ #include "FPSCombatHealthComponent.h"
+@@ -42,7 +43,7 @@
+ bool AHeQueMonster::CanSweep(APawn* Victim) const
+ {
+     if(Busy()||SweepBlocked()||!SweepClip||SweepFrames.Num()<2||ActionClock()<NextSweepAt||
+-        !IsValid(Victim)||!Victim->IsPlayerControlled())return false;
++        !IsValid(Victim)||!MonsterTargeting::IsOpponentPawn(Victim))return false;
+     const auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
+     if(Vitals&&Vitals->IsDead())return false;
+     const FVector Delta=Victim->GetActorLocation()-GetActorLocation();
+@@ -157,7 +158,7 @@
+             if(!Active())return;
+             AActor* Victim=Hit.GetActor();APawn* Player=Cast<APawn>(Victim);
+             if(!IsValid(Victim)||Victims.Contains(Victim)||
+-                (!(Player&&Player->IsPlayerControlled()&&Hit.GetComponent()==Player->GetRootComponent())&&!Victim->IsA<AFPSIceWall>()))continue;
++                (!(Player&&MonsterTargeting::IsOpponentPawn(Player)&&Hit.GetComponent()==Player->GetRootComponent())&&!Victim->IsA<AFPSIceWall>()))continue;
+             const auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
+             if(Vitals&&(Vitals->IsDead()||Vitals->IsInvulnerable()))continue;
+             if(!bClamp&&FVector::DotProduct(Victim->GetActorLocation()-GetActorLocation(),GetActorForwardVector())<0.f)continue;

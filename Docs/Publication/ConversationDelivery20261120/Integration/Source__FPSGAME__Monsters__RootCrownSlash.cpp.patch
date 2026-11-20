@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Monsters/RootCrownSlash.cpp
++++ b/Source/FPSGAME/Monsters/RootCrownSlash.cpp
+@@ -1,4 +1,5 @@
+ #include "RootCrownRigPreview.h"
++#include "MonsterTargeting.h"
+ #include "RootCrownSlashTiming.h"
+ #include "RootCrownRootField.h"
+ #include "MonsterAIController.h"
+@@ -41,7 +42,7 @@
+ bool ARootCrownRigPreview::CanSlash(APawn* Victim) const
+ {
+     if(Busy() || !SlashClip || SlashFrames.Num()<2 || !GetCharacterMovement()->IsMovingOnGround()
+-        || ActionClock()<NextSlashAt || !IsValid(Victim) || !Victim->IsPlayerControlled())return false;
++        || ActionClock()<NextSlashAt || !IsValid(Victim) || !MonsterTargeting::IsOpponentPawn(Victim))return false;
+     const auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
+     if(Vitals&&Vitals->IsDead())return false;
+     const FVector Delta=Victim->GetActorLocation()-GetActorLocation();
+@@ -161,7 +162,7 @@
+         {
+             if(!IsSlashing() || Controlled() || IsActorBeingDestroyed())return;
+             AActor* Victim=Hit.GetActor();APawn* Pawn=Cast<APawn>(Victim);
+-            const bool Player=Pawn && Pawn->IsPlayerControlled() && Hit.GetComponent()==Pawn->GetRootComponent();
++            const bool Player=Pawn && MonsterTargeting::IsOpponentPawn(Pawn) && Hit.GetComponent()==Pawn->GetRootComponent();
+             if(!IsValid(Victim) || (!Player&&!Victim->IsA<AFPSIceWall>()) || SlashVictims.Contains(Victim))continue;
+             const FVector Delta=Victim->GetActorLocation()-GetActorLocation();
+             if(Delta.Size2D()>SlashTriggerRange+70.f*SlashReachScale || FVector::DotProduct(Delta.GetSafeNormal2D(),GetActorForwardVector())<FMath::Cos(FMath::DegreesToRadians(50.f)))continue;

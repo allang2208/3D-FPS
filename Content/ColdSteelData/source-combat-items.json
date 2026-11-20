@@ -1,4 +1,90 @@
 {
+  "ue_modern_tactical_boots": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "sprintStaminaCost": -0.05,
+      "firearmStabilityPercent": 0.03
+    },
+    "name": "现代战术靴",
+    "defense": {
+      "base": 10,
+      "perEnhance": 1
+    }
+  },
+  "ue_modern_tactical_pants": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "critRes": 8,
+      "firearmRecoilPercent": -0.03
+    },
+    "name": "现代战术裤",
+    "defense": {
+      "base": 14,
+      "perEnhance": 2
+    }
+  },
+  "ue_modern_tactical_gloves": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "reloadSpeed": 0.06,
+      "adsPercent": -0.04
+    },
+    "name": "现代战术手套",
+    "defense": {
+      "base": 10,
+      "perEnhance": 1
+    }
+  },
+  "ue_modern_tactical_helmet": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "critRes": 8,
+      "firearmStabilityPercent": 0.04,
+      "adsPercent": -0.03
+    },
+    "name": "现代战术头盔",
+    "defense": {
+      "base": 18,
+      "perEnhance": 2
+    }
+  },
+  "ue_modern_kevlar_vest": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "maxHp": 30,
+      "firearmRecoilPercent": -0.05
+    },
+    "name": "凯夫拉防弹衣",
+    "defense": {
+      "base": 30,
+      "perEnhance": 4
+    }
+  },
   "ue_work_jacket": {
     "armorSet": "workwear",
     "setName": "户外工作套装",

@@ -1,0 +1,178 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp
+@@ -1,20 +1,25 @@
+ #include "TemperateHillsWorld.h"
+ #include "VillageDefenseState.h"
+ #include "HillsCarpenterWorkshop.h"
++#include "HillsHerbalistWorkshop.h"
+ #include "HillsWindmill.h"
++#include "HillsBakerySite.h"
++#include "../NPC/VillageBaker.h"
+ #include "EngineUtils.h"
+ #include "Engine/World.h"
+ #include "Kismet/GameplayStatics.h"
+ 
+ namespace
+ {
+-uint8 VillagePlanBit(FName Plan)
++uint16 VillagePlanBit(FName Plan)
+ {
+     if(Plan==TEXT("wall"))return 1;
+     if(Plan==TEXT("blacksmith"))return 2;
+     if(Plan==TEXT("carpenter"))return UTemperateHillsSave::CarpenterPlan;
+     if(Plan==TEXT("tavern"))return UTemperateHillsSave::TavernPlan;
++    if(Plan==TEXT("herbalist"))return UTemperateHillsSave::HerbalistPlan;
+     if(Plan==TEXT("windmill"))return UTemperateHillsSave::WindmillPlan;
++    if(Plan==TEXT("bakery"))return UTemperateHillsSave::BakeryPlan;
+     if(Plan==TEXT("village_construction"))return UTemperateHillsSave::ConstructionPlan;
+     if(Plan==TEXT("high_wall"))return UTemperateHillsSave::HighWallPlan;
+     return 0;
+@@ -22,12 +27,13 @@
+ }
+ bool ATemperateHillsWorld::IsVillagePlanUnlocked(FName Plan) const
+ {
+-    const uint8 Bit=VillagePlanBit(Plan);
++    const uint16 Bit=VillagePlanBit(Plan);
++    if(Bit==UTemperateHillsSave::BakeryPlan)return IsBakeryRepaired();
+     return (VillagePlansUnlocked&Bit)!=0||(Bit==1&&bVillageWallRepaired)||(Bit==2&&bVillageBlacksmithRepaired);
+ }
+ bool ATemperateHillsWorld::UnlockVillagePlan(FName Plan,FText& FailureReason)
+ {
+-    const uint8 Bit=VillagePlanBit(Plan);FailureReason=FText::GetEmpty();
++    const uint16 Bit=VillagePlanBit(Plan);FailureReason=FText::GetEmpty();
+     if(!HasAuthority()||!Bit||Slot.IsEmpty()||!WorldId.IsValid()||!VillageSite.bPlaced)
+     {FailureReason=FText::FromString(TEXT("当前村庄尚未准备好。"));return false;}
+     if(Bit==UTemperateHillsSave::ConstructionPlan)
+@@ -41,6 +47,19 @@
+     if(Bit==UTemperateHillsSave::HighWallPlan)return CompleteVillageHighWallUpgrade(FailureReason);
+     if(Bit==2)return CompleteVillageBlacksmithRepair(FailureReason);
+     if(Bit==UTemperateHillsSave::CarpenterPlan)return CompleteVillageCarpenterRepair(FailureReason);
++    if(Bit==UTemperateHillsSave::HerbalistPlan)
++    {
++        if(IsHerbalistRepaired())return true;
++        TActorIterator<AHillsHerbalistWorkshop> Shop(GetWorld());
++        if(!Shop)
++        {
++            FailureReason=FText::FromString(TEXT("草药铺还未准备好，请稍后重试。"));
++            return false;
++        }
++        if(!Shop->CanRepair(FailureReason))return false;
++        return CommitVillagePlanRepair(Bit,5,TEXT("草药铺修复未能保存，请重试。"),FailureReason);
++    }
++
+     if(Bit==UTemperateHillsSave::WindmillPlan)
+     {
+         if(IsWindmillRepaired())return true;
+@@ -57,6 +76,27 @@
+         }
+         return CommitVillagePlanRepair(Bit,8,TEXT("风车修复未能保存，请重试。"),FailureReason);
+     }
++    if(Bit==UTemperateHillsSave::BakeryPlan)
++    {
++        if(IsBakeryRepaired())return true;
++        if(!IsWindmillRepaired())
++        {
++            FailureReason=FText::FromString(TEXT("请先修复风车磨坊，再修复面包屋。"));
++            return false;
++        }
++        const AActor* Shop=StreamedBakery.Get();
++        if(!Shop)
++        {
++            FailureReason=FText::FromString(TEXT("面包屋尚未载入，请稍后重试。"));
++            return false;
++        }
++        if(HillsBakerySite::IsOccupied(*Shop))
++        {
++            FailureReason=FText::FromString(TEXT("请让人员和动物离开面包屋施工区域，再完成修复。"));
++            return false;
++        }
++        return CommitVillagePlanRepair(Bit,9,TEXT("面包屋修复未能保存，请重试。"),FailureReason);
++    }
+     if(IsTavernRepaired())return true;
+     if(!TavernAreaOccupied.IsBound())
+     {
+@@ -71,7 +111,7 @@
+     return CommitVillagePlanRepair(Bit,4,TEXT("酒馆修复未能保存，请重试。"),FailureReason);
+ }
+ 
+-bool ATemperateHillsWorld::CommitVillagePlanRepair(uint8 PlanBit,int32 RequiredVersion,const TCHAR* SaveError,FText& FailureReason)
++bool ATemperateHillsWorld::CommitVillagePlanRepair(uint16 PlanBit,int32 RequiredVersion,const TCHAR* SaveError,FText& FailureReason)
+ {
+     auto* Save=Cast<UTemperateHillsSave>(UGameplayStatics::LoadGameFromSlot(Slot,0));
+     if(!Save||Save->WorldId!=WorldId||Save->Seed!=Seed||Save->Version>6||
+@@ -81,7 +121,8 @@
+         return false;
+     }
+     Save->Version=6;
+-    Save->VillagePlansUnlocked=Save->SavedVillagePlans()|PlanBit;
++    Save->VillagePlansUnlocked=Save->SavedVillagePlans()|static_cast<uint8>(PlanBit);
++    if(PlanBit==UTemperateHillsSave::BakeryPlan)Save->bVillageBakeryRepaired=true;
+     Save->VillagePlanVersion=FMath::Max(RequiredVersion,Save->VillagePlanVersion);
+     if(!UGameplayStatics::SaveGameToSlot(Save,Slot,0))
+     {
+@@ -91,10 +132,36 @@
+     const uint8 PreviousPlans=VillagePlansUnlocked;
+     VillagePlansUnlocked=Save->VillagePlansUnlocked;
+     OnRep_VillagePlansUnlocked(PreviousPlans);
++    if(bVillageBakeryRepaired!=Save->bVillageBakeryRepaired)
++    {
++        bVillageBakeryRepaired=Save->bVillageBakeryRepaired;
++        OnRep_VillageBakery();
++    }
+     ForceNetUpdate();
+     return true;
+ }
+ 
++void ATemperateHillsWorld::OnRep_VillageBakery()
++{
++    AActor* Site = StreamedBakery.Get();
++    if (Site) HillsBakerySite::Apply(*Site, bVillageBakeryRepaired);
++    if (!HasAuthority()) return;
++
++    if (AVillageBaker* Baker = BakeryResident.Get())
++    {
++        if (Site && bVillageBakeryRepaired && Baker->GetLevel() == Site->GetLevel()) return;
++        Baker->Destroy();
++        BakeryResident.Reset();
++    }
++    if (!Site || !bVillageBakeryRepaired) return;
++
++    FActorSpawnParameters Spawn;
++    Spawn.Owner = this;
++    Spawn.OverrideLevel = Site->GetLevel();
++    Spawn.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++    BakeryResident = GetWorld()->SpawnActor<AVillageBaker>(AVillageBaker::StaticClass(),
++        AVillageBaker::GetStandingTransform(Site->GetActorTransform()), Spawn);
++}
+ 
+ void ATemperateHillsWorld::OnRep_VillagePlansUnlocked(uint8 PreviousPlans)
+ {
+@@ -104,6 +171,8 @@
+         for(TActorIterator<AHillsCarpenterWorkshop> It(GetWorld());It;++It)It->ApplyVillageState();
+     if(Changed&UTemperateHillsSave::TavernPlan)
+         OnTavernRepairChanged.Broadcast();
++    if(Changed&UTemperateHillsSave::HerbalistPlan)
++        for(TActorIterator<AHillsHerbalistWorkshop> It(GetWorld());It;++It)It->ApplyVillageState();
+     if(Changed&UTemperateHillsSave::WindmillPlan)
+         if(AHillsWindmill* Windmill=StreamedWindmill.Get())Windmill->ApplyRepairState(IsWindmillRepaired());
+ }
+@@ -125,6 +194,7 @@
+     }
+     Save->bVillageWallRepaired=false;
+     Save->bVillageBlacksmithRepaired=false;
++    Save->bVillageBakeryRepaired=false;
+     Save->VillagePlansUnlocked=0;
+     Save->VillagePlanVersion=UTemperateHillsSave::CurrentVillagePlanVersion;
+     Save->VillageDefenseGeneration=FGuid::NewGuid();
+@@ -138,6 +208,11 @@
+     const bool HadBlacksmith=bVillageBlacksmithRepaired;
+     bVillageWallRepaired=false;
+     bVillageBlacksmithRepaired=false;
++    if(bVillageBakeryRepaired)
++    {
++        bVillageBakeryRepaired=false;
++        OnRep_VillageBakery();
++    }
+     VillagePlansUnlocked=0;
+     VillageDefenseGeneration=Save->VillageDefenseGeneration;
+     GetWorld()->GetSubsystem<UVillageDefenseState>()->SelectGeneration(WorldId,VillageDefenseGeneration);

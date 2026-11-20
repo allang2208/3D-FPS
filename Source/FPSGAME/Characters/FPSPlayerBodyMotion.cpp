@@ -390,9 +390,10 @@ void UFPSPlayerBodyComponent::CaptureMotion(FFPSBodyState& State)
             Sample.Channel=TEXT("Consume");State.Action=EFPSBodyAction::Consume;
             const auto& Use=Potion->Motion;const float Age=Potion->Age();
             State.ActionVariant=Potion->PresentationDefinition;
-            State.ActionDuration=Use.Duration;State.ActionStartedAt=ServerClock()-Age;
+            State.ActionDuration=Use.Duration;State.ActionStartedAt=ServerClock()-Age/FMath::Max(.01f,Potion->UseRate);
             State.bHasActionProgress=true;
             State.ActionProgress=FMath::Clamp(Age/FMath::Max(Use.Duration,SMALL_NUMBER),0.f,1.f);
+            State.ActionProgressRate=Potion->bWaitingForBow?0.f:Potion->UseRate/FMath::Max(Use.Duration,SMALL_NUMBER);
             State.ActionWeight=Use.Layer(Age);
             State.ConsumeHands=Potion->IsTwoHanded()?3:2;
             State.ConsumeStowWeight=Potion->OffhandLowerWeight();

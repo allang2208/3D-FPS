@@ -1,0 +1,340 @@
+--- a/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp
++++ b/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp
+@@ -2,6 +2,9 @@
+ #include "ChapelNun.h"
+ #include "ResidentConversation.h"
+ #include "VillageArtisanMerchant.h"
++#include "VillageBaker.h"
++#include "VillageHerbalist.h"
++#include "VillageTavernKeeper.h"
+ #include "../FPSGAMEPlayerController.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../UI/ColdSteelNpcDialogue.h"
+@@ -17,6 +20,15 @@
+ #include "Engine/World.h"
+ #include "TimerManager.h"
+ 
++namespace
++{
++bool IsVillageSpeaker(const AActor* Speaker)
++{
++    return IsValid(Speaker) && (Speaker->IsA<AVillageArtisanMerchant>() ||
++        Speaker->IsA<AVillageBaker>() || Speaker->IsA<AVillageTavernKeeper>() || Speaker->IsA<AVillageHerbalist>());
++}
++}
++
+ UChapelDialogueComponent::UChapelDialogueComponent()
+ {
+     SetIsReplicatedByDefault(true);
+@@ -35,14 +47,24 @@
+ void UChapelDialogueComponent::SetLocalFacing(APlayerController* Player)
+ {
+     if(auto* Artisan=Cast<AVillageArtisanMerchant>(LocalMerchant.Get()))Artisan->SetLocalConversation(Player);
++    else if(auto* Baker=Cast<AVillageBaker>(LocalMerchant.Get()))Baker->SetLocalConversation(Player);
++    else if(auto* Keeper=Cast<AVillageTavernKeeper>(LocalMerchant.Get()))Keeper->SetLocalConversation(Player);
++    else if(auto* Herbalist=Cast<AVillageHerbalist>(LocalMerchant.Get()))Herbalist->SetLocalConversation(Player);
+     else if(auto* Nun=LocalNun.Get())Nun->SetLocalConversation(Player);
+ }
++bool UChapelDialogueComponent::CanStartConversation(const AActor* Speaker) const
++{
++    const auto* PC = Cast<AFPSGAMEPlayerController>(GetOwner());
++    if (!PC || Screen || bPending || bTradingWithHerbalist || !PC->CanOpenGameMenu() || !InReach(Speaker)) return false;
++    if (const auto* Nun = Cast<AChapelNun>(Speaker))
++        return TemperateHillsChapel::FindNun(Cast<ATemperateHillsWorld>(Nun->GetParentActor())) == Nun;
++    return IsVillageSpeaker(Speaker);
++}
+ void UChapelDialogueComponent::Open(AChapelNun* Nun)
+ {
+-    auto* PC=Cast<AFPSGAMEPlayerController>(GetOwner());
+-    if(!PC||!PC->CanOpenGameMenu()||Screen||bPending||!InReach(Nun))return;
++    if(!CanStartConversation(Nun))return;
++    auto* PC=CastChecked<AFPSGAMEPlayerController>(GetOwner());
+     auto* Village = Cast<ATemperateHillsWorld>(Nun->GetParentActor());
+-    if (TemperateHillsChapel::FindNun(Village) != Nun) return;
+     Hills=Village;ConversationPawn=PC->GetPawn();LocalNun=Nun;Message.Reset();bPending=true;
+     ServerOpen(++LocalSession,Village,ConversationPawn.Get());
+ }
+@@ -60,22 +82,41 @@
+ {
+     OpenMerchant(Artisan);
+ }
++bool UChapelDialogueComponent::IsHerbalist() const
++{
++    return Cast<AVillageHerbalist>(LocalMerchant.Get()) != nullptr;
++}
++void UChapelDialogueComponent::OpenHerbalist(AVillageHerbalist* Herbalist)
++{
++    OpenMerchant(Herbalist);
++}
++bool UChapelDialogueComponent::IsTavernKeeper() const
++{
++    return Cast<AVillageTavernKeeper>(LocalMerchant.Get()) != nullptr;
++}
++bool UChapelDialogueComponent::IsBaker() const
++{
++    return Cast<AVillageBaker>(LocalMerchant.Get()) != nullptr;
++}
++void UChapelDialogueComponent::OpenTavernKeeper(AVillageTavernKeeper* Keeper)
++{
++    OpenMerchant(Keeper);
++}
+ void UChapelDialogueComponent::OpenMerchant(AActor* Merchant)
+ {
+-    auto* PC=Cast<AFPSGAMEPlayerController>(GetOwner());
+-    if(!PC||!PC->CanOpenGameMenu()||Screen||bPending||!InReach(Merchant))return;
++    if(!CanStartConversation(Merchant))return;
++    auto* PC=CastChecked<AFPSGAMEPlayerController>(GetOwner());
+     ConversationPawn=PC->GetPawn();LocalMerchant=Merchant;Message.Reset();bPending=true;
+     ServerOpenMerchant(++LocalSession,Merchant,ConversationPawn.Get());
+ }
+ void UChapelDialogueComponent::ServerOpenMerchant_Implementation(uint32 Session,AActor* Merchant,APawn* Initiator)
+ {
+     const auto* PC=Cast<APlayerController>(GetOwner());
+-    const bool IsMerchant=IsValid(Merchant) && Merchant->IsA<AVillageArtisanMerchant>();
+-    const bool Accepted=Session!=0 && PC && PC->GetPawn()==Initiator && IsMerchant && InReach(Merchant);
++    const bool Accepted=Session!=0 && PC && PC->GetPawn()==Initiator && IsVillageSpeaker(Merchant) && InReach(Merchant);
+     AuthorityNun.Reset();
+-    AuthorityMerchant=Accepted?Merchant:nullptr;
+     AuthorityConversationPawn=Accepted?Initiator:nullptr;
+     AuthoritySession=Accepted?Session:0;
++    SetAuthorityMerchant(Accepted ? Merchant : nullptr);
+     ClientOpened(Session,Accepted,Accepted?FString():TEXT("请靠近对方后再交谈。"));
+ }
+ void UChapelDialogueComponent::ServerOpen_Implementation(uint32 Session,ATemperateHillsWorld* Village,APawn* Initiator)
+@@ -84,7 +125,7 @@
+     auto* Nun = TemperateHillsChapel::FindNun(Village);
+     const auto* PC=Cast<APlayerController>(GetOwner());
+     const bool Accepted = Session != 0 && PC && PC->GetPawn()==Initiator && InReach(Nun);
+-    AuthorityMerchant.Reset();
++    SetAuthorityMerchant(nullptr);
+     AuthorityNun=Accepted?Nun:nullptr;
+     AuthorityConversationPawn=Accepted?Initiator:nullptr;
+     AuthoritySession=Accepted?Session:0;
+@@ -102,9 +143,24 @@
+     if(PC->GetPawn()!=ConversationPawn.Get()||!InReach(Seller)){Close();return;}
+     auto* HUD=PC->GetColdSteelHUD();
+     if(!HUD)return;
++    if (auto* Herbalist = Cast<AVillageHerbalist>(Seller))
++    {
++        if (HUD->IsShopOpen()) return;
++        // The HUD takes input, but the current buyer still holds her patrol in place.
++        DismissDialogueScreen();
++        bTradingWithHerbalist = true;
++        if (!HUD->OpenHerbalistShop(Herbalist)) EndHerbalistTrade();
++        return;
++    }
+     // The shop lives in the normal HUD layer and owns its inventory input mode.
+     Close();
+-    if(auto* Artisan=Cast<AVillageArtisanMerchant>(Seller))HUD->OpenArtisanShop(Artisan);
++    if(auto* Baker=Cast<AVillageBaker>(Seller))HUD->OpenBakerShop(Baker);
++    else if(auto* Keeper=Cast<AVillageTavernKeeper>(Seller))HUD->OpenTavernShop(Keeper);
++    else if(auto* Artisan=Cast<AVillageArtisanMerchant>(Seller))HUD->OpenArtisanShop(Artisan);
++}
++void UChapelDialogueComponent::EndHerbalistTrade()
++{
++    if (bTradingWithHerbalist) Close();
+ }
+ void UChapelDialogueComponent::ClientOpened_Implementation(uint32 Session,bool Accepted,const FString& Reason)
+ {
+@@ -129,15 +185,8 @@
+     PreviousState=INDEX_NONE;GetWorld()->GetTimerManager().SetTimer(WatchTimer,this,&UChapelDialogueComponent::Watch,.25f,true);
+     return true;
+ }
+-void UChapelDialogueComponent::ReleaseLocal()
+-{
+-    GetWorld()->GetTimerManager().ClearTimer(WatchTimer);
+-    if(bOwnsInput)SetLocalFacing(nullptr);
+-    ConversationPawn.Reset();
+-    LocalNun.Reset();
+-    LocalMerchant.Reset();
+-    Hills.Reset();
+-    LastNunAction=NAME_None;
++void UChapelDialogueComponent::DismissDialogueScreen()
++{
+     if(Screen)
+     {
+         if(auto* Instance=Screen->GetGameInstance())
+@@ -166,7 +215,25 @@
+             }
+         }
+     }
+-    bOwnsInput=false;bPending=false;
++    bOwnsInput=false;
++}
++void UChapelDialogueComponent::ReleaseLocal()
++{
++    GetWorld()->GetTimerManager().ClearTimer(WatchTimer);
++    if(bOwnsInput || bTradingWithHerbalist)SetLocalFacing(nullptr);
++    ConversationPawn.Reset();
++    LocalNun.Reset();
++    LocalMerchant.Reset();
++    Hills.Reset();
++    LastNunAction=NAME_None;
++    DismissDialogueScreen();
++    bPending=false;
++    if (bTradingWithHerbalist)
++    {
++        bTradingWithHerbalist = false;
++        auto* PC = Cast<AFPSGAMEPlayerController>(GetOwner());
++        if (auto* HUD = PC ? PC->GetColdSteelHUD() : nullptr; HUD && HUD->IsShopOpen()) HUD->ToggleShop();
++    }
+ }
+ void UChapelDialogueComponent::Close()
+ {
+@@ -178,10 +245,52 @@
+ void UChapelDialogueComponent::ServerClose_Implementation(uint32 Session)
+ {
+     if(Session!=AuthoritySession)return;
+-    AuthorityNun.Reset();AuthorityMerchant.Reset();AuthorityConversationPawn.Reset();AuthoritySession=0;
++    EndAuthorityConversation();
++}
++
++void UChapelDialogueComponent::EndAuthorityConversation()
++{
++    SetAuthorityMerchant(nullptr);
++    AuthorityNun.Reset();AuthorityConversationPawn.Reset();AuthoritySession=0;
++}
++
++void UChapelDialogueComponent::SetAuthorityMerchant(AActor* Merchant)
++{
++    auto* PC = Cast<APlayerController>(GetOwner());
++    auto* Previous = Cast<AVillageHerbalist>(AuthorityMerchant.Get());
++    auto* Next = Cast<AVillageHerbalist>(Merchant);
++    AuthorityMerchant = Merchant;
++    if (Previous && Previous != Next) Previous->SetConversationParticipant(PC, false);
++    if (!Next)
++    {
++        GetWorld()->GetTimerManager().ClearTimer(HerbalistWatchTimer);
++    }
++    else if (Next != Previous)
++    {
++        Next->SetConversationParticipant(PC, true);
++        GetWorld()->GetTimerManager().SetTimer(HerbalistWatchTimer, this,
++            &UChapelDialogueComponent::WatchAuthorityHerbalist, .4f, true);
++    }
++}
++
++void UChapelDialogueComponent::WatchAuthorityHerbalist()
++{
++    const auto* PC = Cast<APlayerController>(GetOwner());
++    if (PC && PC->GetPawn() == AuthorityConversationPawn.Get() && InReach(AuthorityMerchant.Get())) return;
++    const uint32 Ending = AuthoritySession;
++    EndAuthorityConversation();
++    ClientEndHerbalistConversation(Ending);
++}
++
++void UChapelDialogueComponent::ClientEndHerbalistConversation_Implementation(uint32 Session)
++{
++    if (Session == LocalSession) Close();
+ }
+ void UChapelDialogueComponent::EndPlay(const EEndPlayReason::Type Reason)
+ {
++    EndLocalFirstAid();
++    EndAuthorityFirstAid();
++    if (GetOwner() && GetOwner()->HasAuthority()) EndAuthorityConversation();
+     if(auto* Tracking=GetWorld()->GetSubsystem<UTaskTrackingSubsystem>())Tracking->UnregisterSource(this);
+     ReleaseLocal();
+     Super::EndPlay(Reason);
+@@ -193,6 +302,8 @@
+     if(Plan==TEXT("wall"))return Hills->IsVillageWallRepaired();
+     if(Plan==TEXT("blacksmith"))return Hills->IsVillageBlacksmithRepaired();
+     if(Plan==TEXT("carpenter"))return Hills->IsVillageCarpenterRepaired();
++    if(Plan==TEXT("herbalist"))return Hills->IsHerbalistRepaired();
++    if(Plan==TEXT("bakery"))return Hills->IsBakeryRepaired();
+     return Plan==TEXT("tavern")&&Hills->IsTavernRepaired();
+ }
+ bool UChapelDialogueComponent::HolyLightLearned() const
+@@ -209,12 +320,21 @@
+ }
+ void UChapelDialogueComponent::Watch()
+ {
+-    if(!Screen)return;
+-    const auto* PC=Cast<APlayerController>(GetOwner());
++    if(!Screen && !bTradingWithHerbalist)return;
++    const auto* PC=Cast<AFPSGAMEPlayerController>(GetOwner());
+     auto* Instance=GetWorld()->GetGameInstance();
+     auto* M=Instance->GetSubsystem<UColdSteelStatusModel>();
+     const auto* Loading=Instance->GetSubsystem<UTransitLoadingSubsystem>();
+-    if(!PC||PC->GetPawn()!=ConversationPawn.Get()||!InReach(LocalSpeaker())||(M&&M->ProfileView().Health<=0)||(Loading&&Loading->OwnsPlayerCursor())){Close();return;}
++    // While shopping the HUD checks the seller's reach and closes the shop when it is lost.
++    if(!PC||PC->GetPawn()!=ConversationPawn.Get()||(!bTradingWithHerbalist && !InReach(LocalSpeaker()))||
++       (M&&M->ProfileView().Health<=0)||(Loading&&Loading->OwnsPlayerCursor())){Close();return;}
++    if (bTradingWithHerbalist)
++    {
++        const auto* HUD = PC->GetColdSteelHUD();
++        if (!HUD || !HUD->IsShopOpen()) EndHerbalistTrade();
++        return;
++    }
++    if(IsBaker() || IsTavernKeeper() || IsHerbalist())return;
+     if(LocalMerchant.IsValid())
+     {
+         const uint8 Stage=static_cast<uint8>(IsCarpenter()?CarpenterTrainingStage():SmithTrainingStage());
+@@ -222,17 +342,14 @@
+         if(PreviousState!=State){PreviousState=State;OnChanged.Broadcast();}
+         return;
+     }
+-    const uint8 State=(PlanUnlocked(TEXT("wall"))?1:0)|(PlanUnlocked(TEXT("blacksmith"))?2:0)|(HolyLightLearned()?4:0)
++    const int32 State=(PlanUnlocked(TEXT("wall"))?1:0)|(PlanUnlocked(TEXT("blacksmith"))?2:0)|(HolyLightLearned()?4:0)
+         |(BuildingRepaired(TEXT("wall"))?8:0)|(BuildingRepaired(TEXT("blacksmith"))?16:0)
+-        |(BuildingRepaired(TEXT("carpenter"))?32:0)|(BuildingRepaired(TEXT("tavern"))?64:0);
++        |(BuildingRepaired(TEXT("carpenter"))?32:0)|(BuildingRepaired(TEXT("tavern"))?64:0)
++        |(BuildingRepaired(TEXT("herbalist"))?128:0)
++        |(BuildingRepaired(TEXT("bakery"))?2048:0);
+     const int32 PlayerLevel=M?M->ProfileView().Level:0;
+     if(State!=PreviousState || PlayerLevel!=PreviousPlayerLevel)
+     {
+-        // A world reset can revoke a repair while this player's tree is open.
+-        // Discard its old receipt when rebuilding the actionable detail card.
+-        constexpr uint8 RepairStates = 8 | 16 | 32 | 64;
+-        if (PreviousState != INDEX_NONE && !bPending && (PreviousState & ~State & RepairStates))
+-            Message.Reset();
+         PreviousPlayerLevel=PlayerLevel;PreviousState=State;OnChanged.Broadcast();
+     }
+ }
+@@ -248,7 +365,14 @@
+ const FString& UChapelDialogueComponent::NunActionMessage(FName Action) const
+ {
+     static const FString Empty;
+-    return LastNunAction==Action ? Message : Empty;
++    if (LastNunAction!=Action) return Empty;
++    if (!bPending && Action!=TEXT("holyLight"))
++    {
++        // The controller's reliable reply and the village's replicated state can arrive in either order.
++        const bool bComplete=BuildingRepaired(Action);
++        if (bLastNunActionSucceeded!=bComplete) return Empty;
++    }
++    return Message;
+ }
+ void UChapelDialogueComponent::ServerAction_Implementation(uint32 Session,FName Action)
+ {
+@@ -258,7 +382,8 @@
+     if(!Session||Session!=AuthoritySession||!PC||PC->GetPawn()!=AuthorityConversationPawn.Get()||!InReach(Nun))
+     {ClientResult(Session,false,TEXT("交谈已结束，请重新与修女交谈。"));return;}
+     bool Success=false;FString Result;
+-    if(Action==TEXT("wall")||Action==TEXT("blacksmith")||Action==TEXT("carpenter")||Action==TEXT("tavern"))
++    if(Action==TEXT("wall")||Action==TEXT("blacksmith")||Action==TEXT("carpenter")||Action==TEXT("tavern")||
++        Action==TEXT("herbalist")||Action==TEXT("bakery"))
+     {
+         auto* Village=Cast<ATemperateHillsWorld>(Nun->GetParentActor());
+         FText Error;Success=IsValid(Village)&&Village->UnlockVillagePlan(Action,Error);
+@@ -266,6 +391,8 @@
+         else if(Action==TEXT("wall"))Result=TEXT("围墙已整体修复，村庄建设进度已保存。");
+         else if(Action==TEXT("blacksmith"))Result=TEXT("铁匠铺已修复并恢复使用，村庄建设进度已保存。");
+         else if(Action==TEXT("carpenter"))Result=TEXT("木工工坊已修复，可以使用一楼的木工工作台了。");
++        else if(Action==TEXT("herbalist"))Result=TEXT("草药铺已修复，可以使用店内的炼药工作台了。");
++        else if(Action==TEXT("bakery"))Result=TEXT("面包屋已修复，可以到柜台找面包师买面包了。");
+         else Result=TEXT("酒馆已修复，村庄建设进度已保存。");
+     }
+     else if(Action==TEXT("holyLight"))
+@@ -279,4 +406,10 @@
+     ClientResult(Session,Success,Result);
+ }
+ void UChapelDialogueComponent::ClientResult_Implementation(uint32 Session,bool Success,const FString& Result)
+-{if(Session!=LocalSession)return;bPending=false;Message=Result;OnChanged.Broadcast();}
++{
++    if(Session!=LocalSession)return;
++    bPending=false;
++    bLastNunActionSucceeded=Success;
++    Message=Result;
++    OnChanged.Broadcast();
++}

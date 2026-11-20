@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/Monsters/MonsterAIController.cpp
++++ b/Source/FPSGAME/Monsters/MonsterAIController.cpp
+@@ -1,4 +1,5 @@
+ #include "MonsterAIController.h"
++#include "MonsterTargeting.h"
+ #include "../WorldGeneration/VillageDefenseCombat.h"
+ #include "WildlifeSubsystem.h"
+ #include "../WorldGeneration/ChapelShrine.h"
+@@ -69,16 +70,25 @@
+ {
+  // Defenses are explicit path obstacles, not 150 additional perception targets.
+  if(Other.ActorHasTag(TEXT("VillageDefense")))return ETeamAttitude::Friendly;
++ // Native sight keeps artisan sources subscribed across knockdown and rescue.
++ // Live status is checked when acquiring, retaining or damaging a target.
+  const auto* TargetPawn=Cast<APawn>(&Other);
++ if(TargetPawn && (Other.ActorHasTag(TEXT("VillageBlacksmith")) || Other.ActorHasTag(TEXT("VillageCarpenter"))))
++  return CanHuntArtisans()?ETeamAttitude::Hostile:ETeamAttitude::Friendly;
+  // Reject fellow monsters before native sight allocates queries for the crowd.
+  // The combat component exists before possession; no global team IDs change.
+  if(TargetPawn&&!TargetPawn->IsPlayerControlled()&&TargetPawn->FindComponentByClass<UMonsterCombatComponent>())
+   return ETeamAttitude::Friendly;
+  return Super::GetTeamAttitudeTowards(Other);
+ }
++bool AMonsterAIController::CanHuntArtisans() const
++{
++ const APawn* Hunter=GetPawn();
++ return Hunter&&!Hunter->ActorHasTag(TEXT("Friendly"))&&!Hunter->ActorHasTag(TEXT("Wildlife"));
++}
+ bool AMonsterAIController::IsCombatOpponent(const APawn* Candidate) const
+ {
+- return IsValid(Candidate)&&Candidate->IsPlayerControlled();
++ return MonsterTargeting::IsLivingOpponent(Candidate)&&(Candidate->IsPlayerControlled()||CanHuntArtisans());
+ }
+ UMonsterCombatComponent* AMonsterAIController::Combat() const{return GetPawn()?GetPawn()->FindComponentByClass<UMonsterCombatComponent>():nullptr;}
+ void AMonsterAIController::OnPossess(APawn* P)

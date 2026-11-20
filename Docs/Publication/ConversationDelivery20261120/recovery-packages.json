@@ -1,0 +1,1196 @@
+{
+  "scope": "Direct packages referenced by the resident cook audit, sampled outfit meshes and their actual materials/textures, resident models and their materials, tavern wall materials and the re-saved crouch shirt. Additional dependencies and source geometry remain local.",
+  "packages": {
+    "/Game/AsianMale_Jason/Material/MI_Body_Baked": {
+      "bytes": 17804,
+      "sha256": "fb48526c6a7347bfcdefed8a39af627a96036de5cdc73152ef6f7688d1700a2a"
+    },
+    "/Game/AsianMale_Jason/Material/M_Jason_bodyOpacity": {
+      "bytes": 9824,
+      "sha256": "bf21d2407109776370c79bd94a4213c96dbb380682c2d71423d68b2f9f5994c2"
+    },
+    "/Game/AsianMale_Jason/Mesh/Body/SKM_Jason_body_Skeleton": {
+      "bytes": 107699,
+      "sha256": "0262a74e770ccfc2226eeecc00c43a2269eec09bbd6f95c9a05cbe5c5bd268e4"
+    },
+    "/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick": {
+      "bytes": 36652,
+      "sha256": "86e956dc60105d5e668362aa50e721d3fdf1e2bdf22c819b42a2912eb6018625"
+    },
+    "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Unarmed_Walk_Fwd": {
+      "bytes": 642313,
+      "sha256": "924248a1eb5e0f1ad6fae88f198a8943ba14ae472cde24f0a32dc8b2c0459a17"
+    },
+    "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Carry": {
+      "bytes": 1038975,
+      "sha256": "de24c1158bc4fdc8a521a252354342a417127566082de5ec2c4ff7c1c5864b6e"
+    },
+    "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Draw": {
+      "bytes": 653288,
+      "sha256": "5dea2c2d239b956298d0508d09e54f5d4b744dc806fad90df61722ab26d2374b"
+    },
+    "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Release": {
+      "bytes": 457099,
+      "sha256": "4b251354b44ad4a06da823bb7edaff4e797fb81051186855fb077f09ddfbe8e4"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash1": {
+      "bytes": 735382,
+      "sha256": "cd63f32d5a571211fb5d73ac535ddcabcac4cfccec8cd450cebbd02c9b610e61"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash2": {
+      "bytes": 758005,
+      "sha256": "aae05d927513ad64fd72c6bcfeb7a249350f1e51af825dae6db2d80455b9c423"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd": {
+      "bytes": 584418,
+      "sha256": "72bd8efece663d63dab818d5ee3704c10b1552f6aac8d585d2b48c79246f694c"
+    },
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Idle": {
+      "bytes": 1546619,
+      "sha256": "cc0df746dbdbe3846393f103d2b47e6b6576f0e1041bf30af37a963fca1114c9"
+    },
+    "/Game/Characters/KaitlinPlayer20261023/Native/Kaitlin/Body/Materials/MI_Body_Baked": {
+      "bytes": 9424,
+      "sha256": "b2bac8c4ad0c41a34f4c28a99883d4cb17673161f89a613ab8f6e8d227a72423"
+    },
+    "/Game/Characters/ModularOutfit20260924/BareSkinV9/MI_BareSkinV9": {
+      "bytes": 2707,
+      "sha256": "2018ce8d0e459abe92dfd96e8ecb61ac390351d181d38ceb6c3cf69edca64f5d"
+    },
+    "/Game/Characters/ModularOutfit20260924/BareSkinV9M4/Textures/T_M4SkinV9_Colour": {
+      "bytes": 4684563,
+      "sha256": "a702abbe2864eff4277184a719e527674f07b4c7a1a96b5934fb59095230cf98"
+    },
+    "/Game/Characters/ModularOutfit20260924/BareSkinV9M4/Textures/T_M4SkinV9_Masks": {
+      "bytes": 14096725,
+      "sha256": "6b58ba66fd747b1ee1c6444e904ed89762de71e46556367f8f257c72d06052e3"
+    },
+    "/Game/Characters/ModularOutfit20260924/BareSkinV9M4/Textures/T_M4SkinV9_Normal": {
+      "bytes": 16848797,
+      "sha256": "24f4e2d7757361153501b964e2ea2b2d960bcdb593a852620ae4823ad3f71805"
+    },
+    "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/ViewSkin/MI_Kaitlin_V9": {
+      "bytes": 3492,
+      "sha256": "e478697348e0b750aa1c2fa5ee8b25e36fbbe0a57f33b5c91b2a0b586b929ca5"
+    },
+    "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/ViewSkin/SK_KaitlinView_Super90_1ccb27296f": {
+      "bytes": 8040245,
+      "sha256": "57232c39b039c58d7c6ff443e88410efad84b1b2270316d15aa8c7a9c201538a"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Materials/M_CombatCarrier": {
+      "bytes": 10340,
+      "sha256": "a2b8d017f193296e1f464a4cbfdf0c4578ffb727c3421653ec1c43796c14cc97"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Materials/M_CombatRipstop": {
+      "bytes": 10340,
+      "sha256": "0ef201dfed54a7f65d89c5e9f7dda635dd53c675e93bc20faeae298966cedd8f"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Materials/M_CombatStretch": {
+      "bytes": 10340,
+      "sha256": "7b247387c775b5d9770f4ae2bf03fee036b1fb75a2fcc62361f6a214a7d26416"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Materials/M_CombatThread": {
+      "bytes": 10329,
+      "sha256": "c4d2c58c8c99ac3c112d95ef087296718d8088541668411178862fa1181af247"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Textures/CombatCarrier_BaseColor": {
+      "bytes": 4466038,
+      "sha256": "1170918503e93999439c42faafce8e98e263ae50bd6a4f89e767d120c925f0bf"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Textures/CombatCarrier_NormalGL": {
+      "bytes": 7459122,
+      "sha256": "e0cbb62605dbc0a1961b4790ac469f610ff616d5b26f3a65979cb39729da1e8e"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Textures/CombatCarrier_ORM": {
+      "bytes": 6933694,
+      "sha256": "c49b49d704359361f157ae83c6cc5461065686dd238c52b9bb2d04084ea91e2a"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Textures/CombatRipstop_BaseColor": {
+      "bytes": 4644094,
+      "sha256": "6f6fe191cea63759b1620fe6ddfd3ee468909b25d07d16d3f3741db84cd7614c"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Textures/CombatRipstop_NormalGL": {
+      "bytes": 7459122,
+      "sha256": "1d5b3d00b722fe16aaf565803b956e40018317b8a02af24b4d2da1a656ca9105"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Textures/CombatRipstop_ORM": {
+      "bytes": 6933694,
+      "sha256": "41baa9b0668c34004ca4082ccec7419ece0adf52cd1ad815057b818711f27a4e"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Textures/CombatStretch_BaseColor": {
+      "bytes": 3967138,
+      "sha256": "f70efc9f3b620963a49e7ab07ba8872b8701d500017599afa17e7d70dce21a81"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Textures/CombatStretch_NormalGL": {
+      "bytes": 6793042,
+      "sha256": "05547ba434f08cfb6a31484aace0b6eade89e46b8bc022b7bd49bb6321be30af"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Textures/CombatStretch_ORM": {
+      "bytes": 6462812,
+      "sha256": "8980836e72c4365c6102e33694bf1f4e3ec1370ebec55dad10239d9551e90322"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Textures/CombatThread_BaseColor": {
+      "bytes": 4772749,
+      "sha256": "b2c9d3ce7e2de0335a2504ee18ce74910b6e402efa54f7105da0df2a4d3a002a"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Textures/CombatThread_NormalGL": {
+      "bytes": 7215550,
+      "sha256": "7d4f75c78f6835a93ec574d0f924adb0567fec28ba45910564b6b7905bde450e"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR3/Textures/CombatThread_ORM": {
+      "bytes": 6907622,
+      "sha256": "2cb44b8874ae21f304f244f801a6e3fea3e08d47a7b6af7ca8997033fa05718b"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR4/BareWrists20261118/MI_Wrist_Jason_Super90_a1f055f7c8": {
+      "bytes": 4240,
+      "sha256": "dd5a3905c3880da773d3b58d4273ce0ad468f0079672597b94d36b7f99be1cb5"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CombatShirtR4/BareWrists20261118/MI_Wrist_Kaitlin_Super90_57232c39b0": {
+      "bytes": 4250,
+      "sha256": "c06d193755ffd389eaea75e701347db69699e3212d77dab46f45e6891cab3f7b"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Materials/M_CG_Knit": {
+      "bytes": 10050,
+      "sha256": "1eee88665e37ee3e187162cdda47a77801d35600f5387f2d0b254f1fa86f8e45"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Materials/M_CG_Label": {
+      "bytes": 8750,
+      "sha256": "cc9170121d2818ab1518f418c8e4f40a98376cbc5fdaafea35ce76900ba4d36c"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Materials/M_CG_Rubber": {
+      "bytes": 8761,
+      "sha256": "6441bd0a410efbcdf65018796f9003dfbc906a1923a7019f6df05420347a1313"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Materials/M_CG_Stretch": {
+      "bytes": 10083,
+      "sha256": "7945303b8e3c313626918cec59c02ce08f4224b7783dfa36310e6068055bbfa0"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Materials/M_CG_Suede": {
+      "bytes": 10061,
+      "sha256": "96af535a05d005d3250e11b05625a964f14ae6b6e737ae392b677d8e6188a25c"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Materials/M_CG_Thread": {
+      "bytes": 10072,
+      "sha256": "48d5a8e6ffab854d5e620955525911be7d49e9d95806849a68e92c8a015f98cb"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Materials/M_CG_Webbing": {
+      "bytes": 10083,
+      "sha256": "7dfbe33ae32e99e6083e37f7053f96057b6d6ae0d761b17d88a121b0b113ef39"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Knit_BaseColor": {
+      "bytes": 4552404,
+      "sha256": "1b591116cdf07b894af5f451bac80bf697a148d4731e9b525cc12c3f1bd38a8f"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Knit_NormalGL": {
+      "bytes": 12099625,
+      "sha256": "df2f625b322df8d770818dcab73b950f60ea47efd81ecd6025fcadc2f67dbe96"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Knit_ORM": {
+      "bytes": 2076183,
+      "sha256": "4adbf72ce5af158fd4391384f6b4dc008b8945940a8662c52e15a5ec728a0c9f"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Label_BaseColor": {
+      "bytes": 924027,
+      "sha256": "0e05d8875e52a73f836b139834420f4700a3b7d90f2925ab5cf6f0e2c2c6c05d"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Label_NormalGL": {
+      "bytes": 2550540,
+      "sha256": "dfe68f93440ea477cb09d58f0966b0bf926a7674e0517ab1ddfdc44fcce57b0c"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Label_ORM": {
+      "bytes": 307719,
+      "sha256": "4d2b870981d1ee27ea3720f29ba0a999c2c2eeeac5ed6a4d60fbcaf7cde39bd0"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Rubber_BaseColor": {
+      "bytes": 908622,
+      "sha256": "68f1f534ed8411eef7922ae25e3e7f45986fad24ad90be4dc880c552a0db3424"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Rubber_NormalGL": {
+      "bytes": 2952867,
+      "sha256": "066b40b413d5cbffce6c6cb05e821a93a49dc81e2049e3ea858d975105c10ec9"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Rubber_ORM": {
+      "bytes": 298641,
+      "sha256": "e4f225615b3f8e81ec3b0a6d767a89c0c46d32845a13058ee2384f89991d05b5"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Stretch_BaseColor": {
+      "bytes": 1182558,
+      "sha256": "33c5fe53d93586c5f3e49f029fbb0a62e561d6d28028575c44549e0f1366ba49"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Stretch_NormalGL": {
+      "bytes": 2953290,
+      "sha256": "3d0551e59fa82a11b0e348b26a646326e65d215a54b4a46c6f3d45400548f3a0"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Stretch_ORM": {
+      "bytes": 614569,
+      "sha256": "17748f7512b3d5d12f1bd9553305b2b0cbac075904a6139eef91406606af238b"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Suede_BaseColor": {
+      "bytes": 4819752,
+      "sha256": "2c02478e58ffc6677fc9ad266c1eb4dc857fa960bc37f81aef201f096c5eae1f"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Suede_NormalGL": {
+      "bytes": 12972472,
+      "sha256": "1e552c5ead163c5bbd5618264f5b79b5f3ce1716e9606e6b2bd57468160ded58"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Suede_ORM": {
+      "bytes": 2578237,
+      "sha256": "c1bc05c315ff4afd643e61c6b9a7de8236a884bd5d5d8757a13851d6719124a6"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Thread_BaseColor": {
+      "bytes": 322136,
+      "sha256": "e3b17d50a15d37ebab291000d9227fb52bdc6295f4c5d32abc8ac52f77caf4aa"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Thread_NormalGL": {
+      "bytes": 616680,
+      "sha256": "69779c60192ca0e40c7f08a0b14ac9f8cc9cdaf174acd6dc2e840e421c5c594a"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Thread_ORM": {
+      "bytes": 169934,
+      "sha256": "6032eb1a95b06d3132b8e38fc5a82c4c8b3fb18ce567b27f3ee5c827faaf4e7a"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Webbing_BaseColor": {
+      "bytes": 1209401,
+      "sha256": "8a962211453f64946b65fc9d953552e3076438baeb2f7a435da42b6c7f3a1917"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Webbing_NormalGL": {
+      "bytes": 2917138,
+      "sha256": "334e98241c4a525a551834f0f18ee1377663fbe0bc07e954b7dd723c6ccbf157"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Textures/CG_Webbing_ORM": {
+      "bytes": 583250,
+      "sha256": "8904b877e0ae5fcf4bf193d0eb8191dc1eb1ee3aa322595dc69b41af7ce408a9"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Wear/Jason/SK_TS01_CoyoteGloves_Jason": {
+      "bytes": 21010776,
+      "sha256": "1380b009ceb15c917fedab6744c6804fc2e91c336e5a2c98bb502e6f3fe76258"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Wear/Kaitlin/SK_TS01_CoyoteGloves_Kaitlin": {
+      "bytes": 20508295,
+      "sha256": "8f1697882308c80ad2b9b1abb0d0b9b01eb753a951d851ccbe0ed3817339fdfc"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Wear/Super90/SK_TS01_CoyoteGloves_Super90": {
+      "bytes": 20483191,
+      "sha256": "78ecb3b23fe82129a625fd97e09a224a88738eeddee756a564d2282d2759c02d"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Materials/M_H1_Composite": {
+      "bytes": 10054,
+      "sha256": "bffa8e48922ee8ba174f3667bcc7655b7f20be3938b330c41e7371e4ed3c2624"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Materials/M_H1_DarkPolymer": {
+      "bytes": 8719,
+      "sha256": "2fadb467d8b924fbf585744440abf94de3cda5e0d711c5f9f72747e00e656936"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Materials/M_H1_Label": {
+      "bytes": 8653,
+      "sha256": "1714bdbc628b25c4d73eaebfbf447cf116b54439118750cd63915623f9acc0b9"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Materials/M_H1_LoopPile": {
+      "bytes": 10873,
+      "sha256": "356df28c48c1906bcf39f75faa5db52352a01161114861d331e2dc1fc0deb31c"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Materials/M_H1_Metal": {
+      "bytes": 8653,
+      "sha256": "d9f4b471941bfa1081dd09c0081fa220513b90ae10fe76ac2103b951e3c8be84"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Materials/M_H1_PadMesh": {
+      "bytes": 10862,
+      "sha256": "4128232374e7632fb396d8281aeb6f50b28289a9d7290ebfa8b46dd0b99ee1e2"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Materials/M_H1_Polymer": {
+      "bytes": 8675,
+      "sha256": "2b9ad6465d140120443ef24d3c31f161cba2f81aaf12225be2c95ac5ef8da045"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Materials/M_H1_Rubber": {
+      "bytes": 8664,
+      "sha256": "3b8dc5bef26287ef16a4fc5aac5830e669abd264a9724f652ddab76eed5682ef"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Materials/M_H1_Stitch": {
+      "bytes": 10851,
+      "sha256": "a603fd5f02feb9cd0d7c3d65bcd0970a5df723920b7931aec06974e5b9c97f70"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Materials/M_H1_Webbing": {
+      "bytes": 10862,
+      "sha256": "9548df6c908420245df9a4e20a38910cea28143fac3181bf557e2f5fbb3418b5"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Composite_BaseColor": {
+      "bytes": 3189772,
+      "sha256": "b5fa3e3a8ae9fe5134aa2f0b1a6781514530a26ffef512d0cec3824254344e6d"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Composite_NormalGL": {
+      "bytes": 8100269,
+      "sha256": "dbc813b34ad8d5afaf9e9c9a30469a2e978739439e2e5f0463e6ca8eb5eee50a"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Composite_ORM": {
+      "bytes": 2165126,
+      "sha256": "0634ea9f3da663bb747d3f0c4b91a404b95e39beed1c0d9af7a74e96403a2193"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_DarkPolymer_BaseColor": {
+      "bytes": 337554,
+      "sha256": "653db813d7b0edb5ad74e2e2fd18de38c409d6b01e0052734b841b3ad445ea63"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_DarkPolymer_NormalGL": {
+      "bytes": 2057569,
+      "sha256": "29bb5e6328149c109719d06bc68725501cc6f69e2f93260223a44d747e4e4da1"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_DarkPolymer_ORM": {
+      "bytes": 429263,
+      "sha256": "70a7ccbf8195c86d84231903ef5dd2ee0446fd8aae4fbcbdab445bac9a93b6cb"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Label_BaseColor": {
+      "bytes": 585975,
+      "sha256": "cca5f7794bbb73329ef3071fd06960de16cece5fbc40a4e6d451d70a6de31b28"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Label_NormalGL": {
+      "bytes": 1981145,
+      "sha256": "3b6ee80a15a7196305b15a13ab484bef8e54a31422b3f1c70e53f3f7708f836d"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Label_ORM": {
+      "bytes": 443290,
+      "sha256": "df6669306a7f6a76e42f8b8765c2cca062a267af268d8868abb90437e78000b0"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_LoopPile_BaseColor": {
+      "bytes": 1290253,
+      "sha256": "3bdfa1f4beae6a9cb400bea7fec442f952c506f19a8f0d2e11ed7e790b9adf3d"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_LoopPile_NormalGL": {
+      "bytes": 3426808,
+      "sha256": "7982f8e3aa266e7e5202cfd4e646f341a64358971f06f0ef38602ffa332d9c06"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_LoopPile_ORM": {
+      "bytes": 867461,
+      "sha256": "0dd408b751cac4f757848f868de6a59e5022f6883242d0c3848b87fcbde2eb06"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Metal_BaseColor": {
+      "bytes": 176336,
+      "sha256": "a1ce961f0b772ebdfb29dbd7089e2f099f7668470aef925fd6e5be1e9f96ac9e"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Metal_NormalGL": {
+      "bytes": 360265,
+      "sha256": "6e7b6aa1dcce734776d353c664d32b469f71ee72af2b4b7b867af0467050ee1c"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Metal_ORM": {
+      "bytes": 154964,
+      "sha256": "7c4afd661ee1937be62cab3ecb1872332199fe31e69ccf32803474e76c5c5da1"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_PadMesh_BaseColor": {
+      "bytes": 546197,
+      "sha256": "123fadb8084a0e72d81c9da36989ed9230d1a4cfb3cd0f6e9ee12e96caab5081"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_PadMesh_NormalGL": {
+      "bytes": 2704330,
+      "sha256": "c1c36a4829d894e21e369f56576c304f0471253138118c50e2ee3c18022c100f"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_PadMesh_ORM": {
+      "bytes": 761580,
+      "sha256": "042a5dc33a655ed9adc0713b5f4fad5b17fc0956f2c5660e8c3eab9d3e29e115"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Polymer_BaseColor": {
+      "bytes": 691347,
+      "sha256": "1e00bc946369a87f128b4c15553350f819d6c1fcd657e52e279ef737819252d3"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Polymer_NormalGL": {
+      "bytes": 2056548,
+      "sha256": "cdaea2fc121bdaee93f2352ec145f2b40b665958919563b87a976e62001ba0b4"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Polymer_ORM": {
+      "bytes": 428995,
+      "sha256": "1215c84377ac89e1495874a0ae9ce5407e0b7b7d98498a25e40b8af57a2c6a9e"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Rubber_BaseColor": {
+      "bytes": 540883,
+      "sha256": "6b1d72342cb42cddde9f237ed79c6516dac96af42e3d4f615d1ca8bddefd1caf"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Rubber_NormalGL": {
+      "bytes": 2243584,
+      "sha256": "87c94be155c82b2f1928bf5a9377ef5f23f6cccabc124de83064c180511217d9"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Rubber_ORM": {
+      "bytes": 428723,
+      "sha256": "bd1d0dec351da84e33a24ba9274004a81d9c6bdbf07b8492479c8ca43ffe16e2"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Stitch_BaseColor": {
+      "bytes": 311713,
+      "sha256": "85f39f304196c067b70303d7daee5a8d8cacdfcabcff875954c6fff975f10daf"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Stitch_NormalGL": {
+      "bytes": 711769,
+      "sha256": "72cf2646d740b9c68a1f8801d92b0e3bf3ef6c360c062dc65ee6bfc861554d40"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Stitch_ORM": {
+      "bytes": 259978,
+      "sha256": "72a3c79f08c9509fbadbbf6d7e42c8151072f32edceef800b2f840dddf77f43c"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Webbing_BaseColor": {
+      "bytes": 961403,
+      "sha256": "5dcdbfa77fb02ac943b652712fd61eee5338aee11c8fa0782534368cbde35ceb"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Webbing_NormalGL": {
+      "bytes": 2740970,
+      "sha256": "a972473bdcf8a8117b8bf832f78262990d1a5637a2962644badc70ab0ea0a073"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Textures/H1_Webbing_ORM": {
+      "bytes": 721196,
+      "sha256": "0eec43b1270568a6926161569f1154905b1528185ad787827c6194321a522c50"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Wear/SM_TS01_Helmet_Jason_JawFit": {
+      "bytes": 2631364,
+      "sha256": "835ad15ecc5f27833c54cc0a9da0d1ed17fd47a2be59ed0af584b8257fccbcc5"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Wear/SM_TS01_Helmet_Kaitlin_JawFit": {
+      "bytes": 2615646,
+      "sha256": "53bb8ebce09f853e3be3c8f73de35a5d81b286e7336dc7f2c010ec299e7c1a9b"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Materials/M_FT_Hardware": {
+      "bytes": 8792,
+      "sha256": "09d97554d7d9008d008972e101663e916b1c9502aabbe86fb49851f780a6331b"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Materials/M_FT_Reinforcement": {
+      "bytes": 11356,
+      "sha256": "c42c62624d75348faf4ce89e71610cfb3508f156c88be18e9a5231b9f00c7a61"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Materials/M_FT_Ripstop": {
+      "bytes": 11290,
+      "sha256": "a36441bf34d4015d2abd43177f598eb66afa49e379943592134d1a298f942489"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Materials/M_FT_Stretch": {
+      "bytes": 11290,
+      "sha256": "6310f65b25cbed92f90622df60bda291f4a0f19aba2242dff8ac4065fa27fd43"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Materials/M_FT_Thread": {
+      "bytes": 11279,
+      "sha256": "2894d75c553e6d7d31a3dee3afbf4b23db939ee28563d372d4fe254f555f40d9"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Materials/M_FT_Webbing": {
+      "bytes": 11290,
+      "sha256": "3e28c4662e097d78e4b8ad504087aa38ea9401857909d8bbb043afe68bb14da3"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Hardware_BaseColor": {
+      "bytes": 227124,
+      "sha256": "0cd698d1eca4765179dff643f2b3ecac7197cd9a8affb25addc6ebd9668ebcfc"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Hardware_NormalGL": {
+      "bytes": 386039,
+      "sha256": "153da8d49ec3ca05c100de99fee5f8979c33afaef564896c890afc9d8d2d1697"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Hardware_ORM": {
+      "bytes": 219601,
+      "sha256": "806c4947e650c46281a17d6e4bb78a482169b2c9145d9bd498fc4d041563602f"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Reinforcement_BaseColor": {
+      "bytes": 4141275,
+      "sha256": "7eb48ca84fb40707c3e0f4e968898879f901e6381f371c988cf8fd386469ee45"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Reinforcement_NormalGL": {
+      "bytes": 9440829,
+      "sha256": "97bcb34993ce1bcebcc00d77aa67c9a5337f9d2a84b2a7821dafa0ba30d99b3e"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Reinforcement_ORM": {
+      "bytes": 2004458,
+      "sha256": "c75e4f58c801c3a800a7f685cc2ae890855ba98211e91e9394d3a25baa94f567"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Ripstop_BaseColor": {
+      "bytes": 4117338,
+      "sha256": "45163b3dccb2c3f8bbc74e88fb2fed3cc13d6271be7f5111a7be03d74307890a"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Ripstop_NormalGL": {
+      "bytes": 11692248,
+      "sha256": "69153b7de9ae1487f66648c9ae0126105e01d0e90b9d4e36dcab0b9802b590ee"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Ripstop_ORM": {
+      "bytes": 2238553,
+      "sha256": "935cfed0974ef63e536984640692d5b048669030edb716b33139f10dbeb9512c"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Stretch_BaseColor": {
+      "bytes": 3912884,
+      "sha256": "654b18003e76202d0d21cba0c2faa3d24fccb53f3f24f2efea8e56af967ceed6"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Stretch_NormalGL": {
+      "bytes": 11400442,
+      "sha256": "7d30c7ebaae4dc87b936284ddddf94fcbbbb54c67a430628815ec1893031e921"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Stretch_ORM": {
+      "bytes": 2220250,
+      "sha256": "3dd6afaee7a23cc30369b46723abea7f27adc6df2447db15c0a7bed71388481c"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Thread_BaseColor": {
+      "bytes": 283405,
+      "sha256": "20ef32f9b8331fc527f8f73edf2c4cc93ba2160c1342f6419169f66e4a7cc451"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Thread_NormalGL": {
+      "bytes": 521592,
+      "sha256": "de9dd2490805632895112fe29a5427f81427c61f38f0f50721a3834195d2c7ff"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Thread_ORM": {
+      "bytes": 196058,
+      "sha256": "9b2788bffb760a0efeb999632e58c7bee5d83386904386d24ae37230c6a81fe2"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Webbing_BaseColor": {
+      "bytes": 996150,
+      "sha256": "dbad4a45f209dd5002db57c0f48e85b61080d2bd8111a080aa0b94db6dc7ae45"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Webbing_NormalGL": {
+      "bytes": 2561754,
+      "sha256": "18b1349fa8ece32e10c547ab98717d5a7bc61108fc3ca7b1df4bd3f02c99ce9c"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Textures/FT_Webbing_ORM": {
+      "bytes": 585137,
+      "sha256": "a46cb91ffcbea671cee4e569563d1a8d9ce1b07e5dfbee8c274deba8254ca41f"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Wear/Jason/SK_TS01_FieldTrousers_tactical_Jason": {
+      "bytes": 58509317,
+      "sha256": "0e6c4d976537313a413357626edd2356c41139e2888a00f411b989355f0a549e"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Wear/Kaitlin/SK_TS01_FieldTrousers_tactical_Kaitlin": {
+      "bytes": 58128135,
+      "sha256": "50eaf20319adc5b8208bc76a16097cebfe210f839a790bf4953b7f5c77709bba"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/Materials/M_MattePolymer": {
+      "bytes": 11274,
+      "sha256": "d710e6fa8a0c046d4e720e138360b69e8256d99b4365de840ea3003ad20c2348"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Materials/M_PS_Binding": {
+      "bytes": 10078,
+      "sha256": "d93f4a755cf75972beae7f37f562e4a2fa77636f332796d0890d23600084cca8"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Materials/M_PS_Hardware": {
+      "bytes": 8778,
+      "sha256": "34d5ffc6ec66f5dc69ee9f64625bb284198e33e203afbbfb833049fe36994119"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Materials/M_PS_Jersey": {
+      "bytes": 10067,
+      "sha256": "b54ce0eb370b8e584ad07f4b7f41e8113064530cf3abf9f19be1483e0b242482"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Materials/M_PS_Loop": {
+      "bytes": 10045,
+      "sha256": "973e736645178b060358e03cccca186b8acfc814ec262ec1b95b306a66b45224"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Materials/M_PS_Reinforcement": {
+      "bytes": 11342,
+      "sha256": "6923c461a48ce4c3fad8bf68f8e3a4e233e81e1e71717244240c1ac8a1613667"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Materials/M_PS_Ripstop": {
+      "bytes": 11276,
+      "sha256": "ad87b61e4b2c91097f338b66eae23c705243e60e09ad3d835e16cd889e6a417e"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Materials/M_PS_Thread": {
+      "bytes": 10067,
+      "sha256": "98a97fd8199b12c383c3b8b33324f528c203b492ea3058568627af082f62202d"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Sleeves/Super90/SK_TS01_PatrolSleeves_Super90": {
+      "bytes": 15316181,
+      "sha256": "2b0348d8185fa6b250f2a75d860f3a849e8094d3a8c2e0f36884bd8926dfb542"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Binding_BaseColor": {
+      "bytes": 941887,
+      "sha256": "ce216c71df8d8457efe4f5cc602ff7b7df0ee6736e56c1d064331865e39581ea"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Binding_NormalGL": {
+      "bytes": 2541339,
+      "sha256": "ba9deb14d1e786af58746b78fe861da3ddb166ac06d48398aaf9c4b71314ecaa"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Binding_ORM": {
+      "bytes": 592042,
+      "sha256": "271506f0536dcc413894a82d7ce7e9cf62060310d4f0eae0afe1041f216675d0"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Hardware_BaseColor": {
+      "bytes": 213094,
+      "sha256": "1f98143251f9ad6d4b6791a92d8da9d1a8f714f62bab91b03fd8d885ca5d23a7"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Hardware_NormalGL": {
+      "bytes": 390328,
+      "sha256": "056520c813b2438c120301f0b60296a6b9f0160d559a86d21e0d2b5b829758a5"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Hardware_ORM": {
+      "bytes": 156873,
+      "sha256": "d7365381e0d41f2ab6f541e3b68970c7c9fd06138d10f87e5a68d80557e21f00"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Jersey_BaseColor": {
+      "bytes": 3682554,
+      "sha256": "c1e8b76fe6678ab08a076d72c55933e1fa12ce9420b6d64f8c7c0163a2ea302a"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Jersey_NormalGL": {
+      "bytes": 11100802,
+      "sha256": "e5247dca58c99a14b7def7a3a2819fae24cd03fde2dab95e401ca1b8049968b0"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Jersey_ORM": {
+      "bytes": 2229331,
+      "sha256": "1179517299d46cdc0cc8c52222ac8eb4b234fe141e230deefa336932a48bb3f3"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Loop_BaseColor": {
+      "bytes": 1146167,
+      "sha256": "f2760b2f9cb56e18d593f27918f10d540034e3b2dd46a70c7a9229588f3afacf"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Loop_NormalGL": {
+      "bytes": 3097821,
+      "sha256": "0f3aae52bd3a814a56b41acca190d8e5a7d14eea1c016811a1df88af5d31816b"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Loop_ORM": {
+      "bytes": 931196,
+      "sha256": "e1b7e8d76c6d7d0f6aae71736f323a3e2dce44f379246869cf2773daff05c271"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Reinforcement_BaseColor": {
+      "bytes": 3742256,
+      "sha256": "035dfb237de4bba3ee10b1e4d9e2b9227f088d6e7dafb1fead14466c3ef39039"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Reinforcement_NormalGL": {
+      "bytes": 11053409,
+      "sha256": "126710c717e08afd659bbcf9fcb6008c8e608bc36d66ed3a4c1be2869ac8f2d1"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Reinforcement_ORM": {
+      "bytes": 2163721,
+      "sha256": "e26ed5d79d7188aaefcde3582fbdaf09334261e2aeb4a0afc6fc5619bcd461ec"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Ripstop_BaseColor": {
+      "bytes": 3813561,
+      "sha256": "9e77d578b11bc707ae31207090e4eca939aad26af2cefc36c99599d5973def00"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Ripstop_NormalGL": {
+      "bytes": 11245598,
+      "sha256": "7139a52d8cd23d3c9076640dd1c75169faa4c2a73d53aef0daf218032749494d"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Ripstop_ORM": {
+      "bytes": 2172959,
+      "sha256": "82821c2c5cbcae6c8e5e1442748b3183258ce3aaf472f83b63beb803f4da0226"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Thread_BaseColor": {
+      "bytes": 270661,
+      "sha256": "2edba1e1f401cbc9e152b357c50d53a9d0c1580d1608a04832bd2a161c49004e"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Thread_NormalGL": {
+      "bytes": 515705,
+      "sha256": "dc349eb7df839a2bcf9afbd6ac81848d36a4ecd9a6490d4e263c0b4ef8e1ae37"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Textures/PS_Thread_ORM": {
+      "bytes": 200039,
+      "sha256": "22c8ad3ea5a5dee3d2fd3bacd416a9dd2a40782d1dd9de91f18bf4f5fb06a9bc"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Wear/Jason/CrouchFit/SK_TS01_Patrol_Jason_45c6459dd69d2653": {
+      "bytes": 47366752,
+      "sha256": "8e907554bb5a929c8062140b4fe179f03e40b4e7752794b5085d6bcee4548a2b"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Wear/Jason/CrouchFit/SK_TS01_Patrol_Jason_a8a32e0e2e1fff8f": {
+      "bytes": 55630796,
+      "sha256": "6002a2cc1e6a566371dca982860fde44e0d2da2061746088f33f5f554fe4ec29"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Wear/Kaitlin/CrouchFit/SK_TS01_Patrol_Kaitlin_238e1d0435cfb0bd": {
+      "bytes": 55922807,
+      "sha256": "2f77fef304f8bc8786b12c263247548dabfd9b299220c3a6c4045caa338be7e1"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Wear/Kaitlin/CrouchFit/SK_TS01_Patrol_Kaitlin_25042ce816e0484b": {
+      "bytes": 47927591,
+      "sha256": "a31ed7a5dd8e8d000a263b33b208050b857e3f10abaab0438c2081f409ffdbbf"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Frame": {
+      "bytes": 8736,
+      "sha256": "a0e7a0154b4c0c35fd162f5f242692bb1c066a8ab7a38e3c2e53b7212054620d"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Hardware": {
+      "bytes": 8769,
+      "sha256": "1d00d4daf6af3683eedfdb25f6df88f0e4808f77fd4c317813d5090eb79f007d"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Lace": {
+      "bytes": 10036,
+      "sha256": "fd39758672f3ec15f7bf78352a65fa0d906f20532adabd9f2b8817b845b76c38"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Lining": {
+      "bytes": 10058,
+      "sha256": "04fad07e3e1bd03abe59f26701b515a077b507172de6fce7b1d3189324e2563e"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Outsole": {
+      "bytes": 8758,
+      "sha256": "f07c835cfe3485d3074102b8f956408261291f6f09e007f9aae7ea663961f400"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Suede": {
+      "bytes": 10047,
+      "sha256": "55f0f4e401847a82a998fc7dbca6b943b7c783c10cb3eca1ddaca90e3becf33a"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Textile": {
+      "bytes": 10069,
+      "sha256": "d44abc5c6ff81f32f1dc71d68023721683153ab1cfcd33be1f6eda2c6afb7bf3"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Thread": {
+      "bytes": 10058,
+      "sha256": "3e7b2451cf3ec7b870025c7dea4b58fa1cf6f333856e04eefb1b24556c655bba"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Frame_BaseColor": {
+      "bytes": 847653,
+      "sha256": "0a164eb7b40ace6fff99584bb4c5b19c4f0223429974771f8dcc34a2b4f3d97c"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Frame_NormalGL": {
+      "bytes": 2818383,
+      "sha256": "ebaf5d649dbee9ee683fafe1bad51be475702e0bcc0dccdd131eced1220ec3e9"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Frame_ORM": {
+      "bytes": 604767,
+      "sha256": "f0880fcce71e0e6a74a5010e456bc15e82528673dc1c4a9c0ee83c6dacea30b7"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Hardware_BaseColor": {
+      "bytes": 269098,
+      "sha256": "85d4d5e5bd2433d50f4e0ce9ac69b5c2c86c152d40a3399c9a5ff00c4f242fba"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Hardware_NormalGL": {
+      "bytes": 562715,
+      "sha256": "da42ac820fc0d01f8db1e13bb3c3ce9a2441e6d4636cb23c5333b06a08a69a93"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Hardware_ORM": {
+      "bytes": 192043,
+      "sha256": "0a028b04c14fd2bf8596494aa137765d3612a72485e65c3ea68208e71ebcfe0d"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Lace_BaseColor": {
+      "bytes": 854635,
+      "sha256": "6c254f8b5817988ab4406426e4d8c40b7920a13a6e88b448319bed54d435ec6e"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Lace_NormalGL": {
+      "bytes": 2780205,
+      "sha256": "5e800a3cf967870db189829aef8543d7fad23725a91c9160dcabc74085d7e155"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Lace_ORM": {
+      "bytes": 772500,
+      "sha256": "96f7c62a1714641228e86491066c06d7668ef62ddb543788d61d1d254a715892"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Lining_BaseColor": {
+      "bytes": 842554,
+      "sha256": "82e74ace0b22b8c5ef7de0dba5b34815a4e2a1c4bebb710115f1abd22b964a2f"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Lining_NormalGL": {
+      "bytes": 2833113,
+      "sha256": "3e0985e5bea2382fb8e47215c786787d6e5196eb807df7fa9cdc0fe602583014"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Lining_ORM": {
+      "bytes": 851880,
+      "sha256": "068b695d9277eae77948d4b7d079bee6268b61ea1fd4242719ae06219c353124"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Outsole_BaseColor": {
+      "bytes": 887720,
+      "sha256": "718806d0100f45a374867dc593984e4bc92ee1ece84eeda385b05005b0f8fbd7"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Outsole_NormalGL": {
+      "bytes": 3076508,
+      "sha256": "802e8e4e27a09d2f607b7f798c2bb0d98251853b92b05bdfb09225d4d93528b1"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Outsole_ORM": {
+      "bytes": 811919,
+      "sha256": "fc448a254e3717457f603f9f370b0ff8cc42306c37b5831c27501ee9710142d3"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Suede_BaseColor": {
+      "bytes": 2966980,
+      "sha256": "2e2a38a4c21903a2e0d9dc3afdf308520391192b2a10f2cb67a913888641a05b"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Suede_NormalGL": {
+      "bytes": 12584890,
+      "sha256": "f7ec345ee62d8fa2688b6b7066d120722e0f7377543d49349fbafc3d4031a6e8"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Suede_ORM": {
+      "bytes": 1580220,
+      "sha256": "a856e6ab72bccefba7fecb070d3baa9dce48273a50d97abc79d0def2509d4662"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Textile_BaseColor": {
+      "bytes": 2946249,
+      "sha256": "036ce47f50e8ff951adf37ae574550096683e53c9ec1f0202d96bfe8723b80c5"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Textile_NormalGL": {
+      "bytes": 12605379,
+      "sha256": "187c13c074828f24f86ca787feb5a19f160063a72cd0eada4b0d2d369e05c6bb"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Textile_ORM": {
+      "bytes": 2507229,
+      "sha256": "04a9f95534e0f2f013b579012f250be023fa2762dff1f82b1eccb4d1ac73a722"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Thread_BaseColor": {
+      "bytes": 281010,
+      "sha256": "eef0592d5a5b99b0709d8e21a0f3761077e8dc9bd298385ae8b1c5ee52f3ad65"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Thread_NormalGL": {
+      "bytes": 625814,
+      "sha256": "2c3b7186647a7fe6954ba40b868d91db9600071e19981ea3ecefaa3a7c3015b9"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Thread_ORM": {
+      "bytes": 264116,
+      "sha256": "ca2b60d5517eef412656cd1963301b299151b2d17db3359b73996e75b2dbd197"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/Jason/SK_TS01_RidgeBoots_Jason": {
+      "bytes": 46086966,
+      "sha256": "326d808806ef5d3e8389b221c36b58b97d0c7e098735ff16b6e8cfa3cdc7b536"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/Kaitlin/SK_TS01_RidgeBoots_Kaitlin": {
+      "bytes": 47990544,
+      "sha256": "ce46f227f2fbacf938b8620976a978b1235af050c17f3a1dd96177c1a0570a4b"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/Textures/MattePolymer_BaseColor": {
+      "bytes": 351657,
+      "sha256": "b6c493105d3fe9ccd7769748b2265494a81104deaed6517663c8d829ce9664a4"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/Textures/MattePolymer_NormalGL": {
+      "bytes": 745356,
+      "sha256": "dbf1035d27cccc7ebd84342af1b7e47e6f2ba39158b4a4ba4a89083f76764dc6"
+    },
+    "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/Textures/MattePolymer_ORM": {
+      "bytes": 479996,
+      "sha256": "fb95ab413ad30e3e60ebca9863e494a14f760a88faca4e095da4d06d9ed7c38c"
+    },
+    "/Game/Characters/ResidentInteraction/M_ResidentFocusOutline": {
+      "bytes": 11099,
+      "sha256": "ddfbba430a62bc27991c4750c6d2393c9d7135ddbae87623732d49d73df68c77"
+    },
+    "/Game/Characters/ResidentInteraction/M_ResidentShopHighlightResponse": {
+      "bytes": 11027,
+      "sha256": "a49842b2ddd57de70507d87b9baad56c8733c2eb3132d470cc8e6b4427756ab5"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_Baker_Apron": {
+      "bytes": 7804,
+      "sha256": "96952fedb233dcefbf3ff0486885a8c4b9eca6135f05be077e4404b200069140"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_Baker_Boot": {
+      "bytes": 7192,
+      "sha256": "7fe5d74f0e92d6add6586d271400fae64e520a21e1aaf06c7b2540402c324433"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_Baker_Button": {
+      "bytes": 7214,
+      "sha256": "240197775426b14c5f82df53d508bccdd7b63e6d28d4d278ff937715dea35cf8"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_Baker_Cuff": {
+      "bytes": 7793,
+      "sha256": "2a44e2a7c499e776bf98d8eeb1f0119a4e5e78d80b66a186c2a03bfb404e9347"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_Baker_NativeNeck": {
+      "bytes": 7258,
+      "sha256": "82445e5d07f517d2636e301825cc0af3db8c21c7f3513e3faa912fd7afee6830"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_Baker_Pants": {
+      "bytes": 7804,
+      "sha256": "bfe2e108bb6b71f50eb1860a7cc1531acb11be21e9020699a19edf612da828c0"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_Baker_Sash": {
+      "bytes": 7793,
+      "sha256": "7af24fad9b59b221dd278402f9e8d14e4695f4807834396b3f9042a1eb9a18ed"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_Baker_Shirt": {
+      "bytes": 7804,
+      "sha256": "2e21e8a5a307bcae28ac3aa8bb1b4771da96f88de53eab3dc0b20e317b84d5d1"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_Baker_Skin": {
+      "bytes": 7793,
+      "sha256": "623374e70793ceefb9e6645ee9f3adcf186fb7c9d739628dbb2cb6fd8ab4dd2b"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_Baker_Sole": {
+      "bytes": 7192,
+      "sha256": "8b619c5b4c45c089e2495279d7a665b13ddda26da326f32524919a4cf7d44de6"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_Baker_Thread": {
+      "bytes": 7815,
+      "sha256": "d195bec3987092d9bd04a483ddb740b2bb8435cd408fafbb619adccf1de8b77c"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_Baker_Towel": {
+      "bytes": 7804,
+      "sha256": "a953c9d574bf62a343b22527c2909c4f50ed60599f1d91f760d0e622fda0a834"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_VillageBaker_CapLinen": {
+      "bytes": 7890,
+      "sha256": "3cde5748e43ea39ab241a777ae50f42267680d110bc8516204b3aad56abe3b91"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_VillageBaker_FaceHair_0": {
+      "bytes": 8276,
+      "sha256": "0c995b563e132ec15bf2a8b50ad2ec5ca9ef7c624a1778f5f752c170354e79fb"
+    },
+    "/Game/Characters/VillageBaker/Materials/M_VillageBaker_Neck": {
+      "bytes": 7852,
+      "sha256": "3c6eec3396421dcb07042d46eee799d2742539ea6dec47d9522dd02f0b6ffb53"
+    },
+    "/Game/Characters/VillageBaker/SK_VillageBaker_R1": {
+      "bytes": 98043088,
+      "sha256": "97bfba0c3ca1126fa23b3bf17de230d41660182f9fecf9742b46ae79274a1232"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/Animations/A_Smith_StandingBreath": {
+      "bytes": 748151,
+      "sha256": "50dba4beccec3db85710869a1ac82193e17b2ffe44fd7a9c0631ad66177969df"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/BodyOutfit/Materials/MI_Smith_BodySkin": {
+      "bytes": 12249,
+      "sha256": "76e979ad6f8e0fe108bf3f69db79b1e2609fa38c03361c9014864c7ba37b00a3"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/BodyOutfit/Materials/MI_Smith_HeadSkin": {
+      "bytes": 17599,
+      "sha256": "27984bfb3b53b9d4190e6bff148eddbb4af44e689cc0ca25655f2bd08b99bce1"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/BodyOutfit/Materials/M_Smith_Apron": {
+      "bytes": 22886,
+      "sha256": "ef2ed7c29fff6bde3068c141458ec8149e1ca96428517ffbfa3873976928b6d7"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/BodyOutfit/Materials/M_Smith_Boot": {
+      "bytes": 7934,
+      "sha256": "10cce25b4a7893d498a9c184b2b34c0fb2cdc6fa9184f86fecca966538372105"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/BodyOutfit/Materials/M_Smith_Brass": {
+      "bytes": 6714,
+      "sha256": "9e601e4cd298545cc826c131f0f7b05a10771065e6cfe2e20796694430980e18"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/BodyOutfit/Materials/M_Smith_Covered": {
+      "bytes": 4820,
+      "sha256": "0dc1f6a4c766642d5bc7e28ac9e30face41442727bdb3cee4b465c34ef97c18f"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/BodyOutfit/Materials/M_Smith_Linen": {
+      "bytes": 12050,
+      "sha256": "81db5d7c6ad8974da5f0c247a104a92edb8e81d1aba5149ee871d168b0031157"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/BodyOutfit/Materials/M_Smith_Saddle": {
+      "bytes": 8000,
+      "sha256": "56fe660bc515858c6b7927f916504776882cd8ed51adb4cba6e285d30b0c2ce6"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/BodyOutfit/Materials/M_Smith_Sole": {
+      "bytes": 6703,
+      "sha256": "1ad9d245cb738973ffa9e4a64b2208f012f4b2fadaccaaa1d47c73fd182baa27"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/BodyOutfit/Materials/M_Smith_Thread": {
+      "bytes": 6767,
+      "sha256": "78d35315f981fb4109b582f6bae4eec26b0bf7d10a0a19b5199972bb10c8411c"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/BodyOutfit/Materials/M_Smith_Twill": {
+      "bytes": 12050,
+      "sha256": "5e91d5abaaa7eaa5c0a3e910a6bdfd6acdb36715c012e56aec6d4f18720a1d0b"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/HeadFinishR2/M_Smith_MeshyFace_R2": {
+      "bytes": 10618,
+      "sha256": "735722dee735299f9532c59962a6214e32a8fba8a7ab89eefdbb33a36c113d2c"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/HeadParts/M_Smith_NativeNeck": {
+      "bytes": 12618,
+      "sha256": "6ebd6c9dc32e635b8b99fe60fdffad4ca8fb5c16d51e98d02207c38c94bfceb3"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/SK_Smith_Body": {
+      "bytes": 12831906,
+      "sha256": "e2eeae3e28f1379d3af033e8f679ce272edcf119e6befa41b655c491ad10f5ac"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/SK_Smith_Head": {
+      "bytes": 49956864,
+      "sha256": "cb2bd493288b278ff8fdf46c5053753c29580ca162498f9d3ff1a00cc2c13e8f"
+    },
+    "/Game/Characters/VillageBlacksmithNPC20261118/SK_Smith_Outfit": {
+      "bytes": 24808653,
+      "sha256": "0373cefe0d592b864bd818e01bf347cc845afe25d9c7c066cf089b78ea7ad5fb"
+    },
+    "/Game/Characters/VillageCarpenterNPC/Head/M_Carpenter_FaceHair": {
+      "bytes": 9458,
+      "sha256": "06189eaca64ae67a0af4d5e344186d188b8962b8c014f188c3e1d6ea08526829"
+    },
+    "/Game/Characters/VillageCarpenterNPC/Head/M_Carpenter_Neck": {
+      "bytes": 11332,
+      "sha256": "00a2fa8ff0052b0f7b422d8948df3bcb2d687098e042ce5709553099f3970001"
+    },
+    "/Game/Characters/VillageCarpenterNPC/Head/SK_Carpenter_Head": {
+      "bytes": 71274433,
+      "sha256": "dfd0c77f01ca833ec46ebd9071bde414dc01e18af2b9d3618b5951122da8c86d"
+    },
+    "/Game/Characters/VillageCarpenterNPC/Outfit/Materials/M_Carpenter_Boot": {
+      "bytes": 14563,
+      "sha256": "3aae40b32e40fca6ec3fecb11c610d5b172b23d9a64b66a23628cda9604a93ea"
+    },
+    "/Game/Characters/VillageCarpenterNPC/Outfit/Materials/M_Carpenter_Brass": {
+      "bytes": 11335,
+      "sha256": "52eceede0325bdcd0445ff7f45bdce763a67c6cc9f84d90d4be68b61016bf7de"
+    },
+    "/Game/Characters/VillageCarpenterNPC/Outfit/Materials/M_Carpenter_Canvas": {
+      "bytes": 18225,
+      "sha256": "f2fdb0ff8c6afac3b36445bb9eb330f4521649d6e0e61c6e825225589d908834"
+    },
+    "/Game/Characters/VillageCarpenterNPC/Outfit/Materials/M_Carpenter_Linen": {
+      "bytes": 18214,
+      "sha256": "a70410046cc9919484401dbf34330b419a38a6f3b21ca62765d15ddb6cf1da85"
+    },
+    "/Game/Characters/VillageCarpenterNPC/Outfit/Materials/M_Carpenter_Saddle": {
+      "bytes": 14585,
+      "sha256": "ece2c2d9f4d6226a1c843cb413bec475c581cd995823dd777d312356bb8f5be0"
+    },
+    "/Game/Characters/VillageCarpenterNPC/Outfit/Materials/M_Carpenter_Sole": {
+      "bytes": 14563,
+      "sha256": "affeacab2c319e4c27e512f9aad4826b70084b322177c76a0b48ab3714758a6e"
+    },
+    "/Game/Characters/VillageCarpenterNPC/Outfit/Materials/M_Carpenter_Thread": {
+      "bytes": 13428,
+      "sha256": "bc7826c799a8833fa8a7645ad9014826aee453ed6771c9c783d55256cdc1e50c"
+    },
+    "/Game/Characters/VillageCarpenterNPC/Outfit/Materials/M_Carpenter_Tools": {
+      "bytes": 7059,
+      "sha256": "cc8d8f8979576380125ce9d6c4bcae2bd8c780249ef64ef89d7a01b58abc223e"
+    },
+    "/Game/Characters/VillageCarpenterNPC/Outfit/Materials/M_Carpenter_Twill": {
+      "bytes": 18214,
+      "sha256": "0a8b4cc0171b040a171c71eab035733fd45a942f7b2f84de1520606e2b9caaa3"
+    },
+    "/Game/Characters/VillageCarpenterNPC/Outfit/SK_Carpenter_Workwear": {
+      "bytes": 25095595,
+      "sha256": "7b48ad58434a3ee099dbb6526e8e2cb2458e8b643fcb4620b77e743387e6ad13"
+    },
+    "/Game/Characters/VillageHerbalist/A_VillageHerbalist_Idle": {
+      "bytes": 540808,
+      "sha256": "5990612c2631bf4fd15c03dc51222c3dd07c74da640f2a1684773cfbbfcfcbe6"
+    },
+    "/Game/Characters/VillageHerbalist/A_VillageHerbalist_Walk": {
+      "bytes": 224613,
+      "sha256": "eeec3516e4b6fc8b3d2022b1bec79d7129007d956241e872b3c652cededce3e5"
+    },
+    "/Game/Characters/VillageHerbalist/HeadR3/Materials/M_LinZhiFrames": {
+      "bytes": 6468,
+      "sha256": "0d59dc25309e24fae1d438f2f31933a049cf596898079107fcce75cd72527ffd"
+    },
+    "/Game/Characters/VillageHerbalist/HeadR3/Materials/M_LinZhiHead": {
+      "bytes": 7159,
+      "sha256": "8fb8d04f1f0e3891b20d76b3bff443990e082087d83fe5b92c659c89aa84c8fb"
+    },
+    "/Game/Characters/VillageHerbalist/HeadR3/SK_VillageHerbalist_HeadR3": {
+      "bytes": 40393962,
+      "sha256": "deebaedda9a1ea1afdae844075caea7899c709a835b828a6e0695c9f24ea5ed0"
+    },
+    "/Game/Characters/VillageHerbalist/Materials/M_VillageHerbalist": {
+      "bytes": 7219,
+      "sha256": "21d766b5e0bf41c522c7997d22725f7b1b4faa6def2964c0482e9c37410e9397"
+    },
+    "/Game/Characters/VillageHerbalist/SK_VillageHerbalist_Skeleton": {
+      "bytes": 15021,
+      "sha256": "3a4ebf5150606b1a5723aceedcc64f5b1fd211eac0a4f03f29fcc8384f120694"
+    },
+    "/Game/Characters/VillageTavernKeeper/A_TavernKeeper_Idle": {
+      "bytes": 552330,
+      "sha256": "364349007031c24718a918788136a2c1f95509ae8cccbd37574755f9be2329ec"
+    },
+    "/Game/Characters/VillageTavernKeeper/Materials/M_TavernKeeper": {
+      "bytes": 7190,
+      "sha256": "25725dc0ed744f40259d90ae6ac379f88d33290e4553c8793721de550350d3b4"
+    },
+    "/Game/Characters/VillageTavernKeeper/SK_TavernKeeper": {
+      "bytes": 23559283,
+      "sha256": "61a0af3b5d6649e367514456b4fd9fde35206d4b877bd25392f31bb0889d1b30"
+    },
+    "/Game/Characters/VillageTavernKeeper/SK_TavernKeeper_Skeleton": {
+      "bytes": 15011,
+      "sha256": "5e59f5412e74cb98e59ef2fecfd86f284d2e2ab0bb9b97a428010a631dcaba4d"
+    },
+    "/Game/UnrealNormandy/MaterialInstances/MI_BrickWall_Chunks_00A": {
+      "bytes": 17851,
+      "sha256": "c5f4eabfaab8d9d0eeeb3b6049cb60f96e2eb4a6f88da6827213be5e867abe9b"
+    },
+    "/Game/UnrealNormandy/MaterialInstances/MI_Main_Mortar_00A": {
+      "bytes": 28523,
+      "sha256": "5ae71af2a10241aa9a2e4088b19beafa842a44c73857258bab9d8ca42b46e47f"
+    },
+    "/Game/UnrealNormandy/MaterialInstances/MI_Main_Mortar_00B": {
+      "bytes": 28836,
+      "sha256": "e9d2faa92f2bf135ce3381c6d5c7217ea9ef37fa5b001ba94b0d58bbccb134cc"
+    },
+    "/Game/UnrealNormandy/MaterialInstances/MI_Main_StoneWall_00A": {
+      "bytes": 34055,
+      "sha256": "47ddc87c5b86ffae478a60d38d82b55de8ced642c51bdaf977aecf2b4958b758"
+    },
+    "/Game/UnrealNormandy/MaterialInstances/MI_Main_StoneWall_00B_Gray": {
+      "bytes": 33168,
+      "sha256": "5e206a4c66c3b4ea0373ab628e72479df2129aba69d064c79611e59de9c71ea8"
+    },
+    "/Game/UnrealNormandy/MaterialInstances/MI_StoneWall_Pieces_00A": {
+      "bytes": 11796,
+      "sha256": "4ffcc69edfa95cffa64671b585eb27f8efb1bae4b162359b1a60af0142dbc1ca"
+    },
+    "/Game/UnrealNormandy/MaterialInstances/MI_StoneWall_Pieces_00B_Gray": {
+      "bytes": 34110,
+      "sha256": "316f2ee487e1c397311790e832e8706a5593e755223d4597888af2f5a01e4ab6"
+    },
+    "/Game/Weapons/DarkBow20260925/ArmsV2/Materials/M_BowString": {
+      "bytes": 8961,
+      "sha256": "732871f5250e5416997598cfe7c38a67dab44402fc8d46d8df2353e7761ae9d3"
+    },
+    "/Game/Weapons/DarkBow20260925/ArmsV2/SM_Bow_WoodArrow": {
+      "bytes": 22907,
+      "sha256": "11a4f3ef8a66bb47b85683038d6433bcf86e74bf1b8af226e9dffb39721b6734"
+    },
+    "/Game/Weapons/DarkBow20260925/ElasticV15/SK_Bow_Flex_Original": {
+      "bytes": 3054188,
+      "sha256": "bcdc6d1a55a38927c108e605aa5012d68388835ce0c127eb39788c402e94503d"
+    },
+    "/Game/Weapons/DarkBow20260925/GripContactV22/SM_Bow_GripWrap_Fitted": {
+      "bytes": 6149295,
+      "sha256": "ae92d3934628072c8915cd2c77fad8eb6e03ee9b8d3770876f6e4a32e0a5a831"
+    },
+    "/Game/Weapons/DarkBow20260925/ModularV13/SM_Bow_ArrowRestWood": {
+      "bytes": 665409,
+      "sha256": "95da8d290ecc1a73353bba589d50d51fa8f366f0bb22d8f639082b3cdf71789c"
+    },
+    "/Game/Weapons/DarkBow20260925/WoodBracketV19/SM_Bow_WoodBracketSight": {
+      "bytes": 1139611,
+      "sha256": "d7440357b6bbbb9c1fd25a67a135022a0cbcb203ccacaaa110004f9b9fa83dee"
+    },
+    "/Game/Weapons/M870/Arms20261016/SK_M870_BareArmsV7": {
+      "bytes": 8040432,
+      "sha256": "a1f055f7c8cf48e09f96690fe741274082687a7ac42fc8ca4b10af39ca037deb"
+    },
+    "/Game/Weapons/SteelWarhammer20261014/NormalSwingAudioV1/S_Warhammer_NormalSwing": {
+      "bytes": 37322,
+      "sha256": "c148ab0f3f9aa77f2dd6e288315bb476012072c1e84802cab60a9eba85fd3382"
+    },
+    "/Game/Weapons/SteelWarhammer20261014/SM_SteelWarhammer": {
+      "bytes": 7607059,
+      "sha256": "c96d7ac308dd6abcd0387c40ca994652f0d787b0f8ccd8c19cd38c48795acf88"
+    }
+  },
+  "resident_models": {
+    "herbalist": "/Game/Characters/VillageHerbalist/HeadR3/SK_VillageHerbalist_HeadR3",
+    "artisan_body": "/Game/Characters/VillageBlacksmithNPC20261118/SK_Smith_Body",
+    "keeper": "/Game/Characters/VillageTavernKeeper/SK_TavernKeeper",
+    "carpenter_outfit": "/Game/Characters/VillageCarpenterNPC/Outfit/SK_Carpenter_Workwear",
+    "smith_head": "/Game/Characters/VillageBlacksmithNPC20261118/SK_Smith_Head",
+    "baker": "/Game/Characters/VillageBaker/SK_VillageBaker_R1",
+    "carpenter_head": "/Game/Characters/VillageCarpenterNPC/Head/SK_Carpenter_Head",
+    "smith_outfit": "/Game/Characters/VillageBlacksmithNPC20261118/SK_Smith_Outfit"
+  },
+  "outfit_meshes": {
+    "Jason.helmet": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Wear/SM_TS01_Helmet_Jason_JawFit",
+    "Jason.shirt": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Wear/Jason/CrouchFit/SK_TS01_Patrol_Jason_a8a32e0e2e1fff8f",
+    "Jason.shirt_owner_lower_view": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Wear/Jason/CrouchFit/SK_TS01_Patrol_Jason_45c6459dd69d2653",
+    "Jason.trousers_with_boots": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Wear/Jason/SK_TS01_FieldTrousers_tactical_Jason",
+    "Jason.boots": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/Jason/SK_TS01_RidgeBoots_Jason",
+    "Jason.gloves": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Wear/Jason/SK_TS01_CoyoteGloves_Jason",
+    "Jason.M870_sleeves": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Sleeves/Super90/SK_TS01_PatrolSleeves_Super90",
+    "Jason.M870_gloves": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Wear/Super90/SK_TS01_CoyoteGloves_Super90",
+    "Kaitlin.helmet": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Wear/SM_TS01_Helmet_Kaitlin_JawFit",
+    "Kaitlin.shirt": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Wear/Kaitlin/CrouchFit/SK_TS01_Patrol_Kaitlin_238e1d0435cfb0bd",
+    "Kaitlin.shirt_owner_lower_view": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Wear/Kaitlin/CrouchFit/SK_TS01_Patrol_Kaitlin_25042ce816e0484b",
+    "Kaitlin.trousers_with_boots": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Wear/Kaitlin/SK_TS01_FieldTrousers_tactical_Kaitlin",
+    "Kaitlin.boots": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/Kaitlin/SK_TS01_RidgeBoots_Kaitlin",
+    "Kaitlin.gloves": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Wear/Kaitlin/SK_TS01_CoyoteGloves_Kaitlin",
+    "Kaitlin.M870_sleeves": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Sleeves/Super90/SK_TS01_PatrolSleeves_Super90",
+    "Kaitlin.M870_gloves": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Wear/Super90/SK_TS01_CoyoteGloves_Super90",
+    "Jason.M870_bare_wrist": "/Game/Weapons/M870/Arms20261016/SK_M870_BareArmsV7",
+    "Kaitlin.M870_bare_wrist": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/ViewSkin/SK_KaitlinView_Super90_1ccb27296f"
+  },
+  "resident_cook_roots": {
+    "/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick": "/Game/Audio/WeaponHit20260916",
+    "/Game/Characters/JasonPlayer20261003/Animations/J_MF_Unarmed_Walk_Fwd": "/Game/Characters/JasonPlayer20261003/Animations",
+    "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Carry": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3",
+    "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Draw": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3",
+    "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3/J_SparrowBowV3_Release": "/Game/Characters/JasonPlayer20261003/BowSparrow20261018/AnimationsV3",
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash1": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations",
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations/J_Hammer_Natural_Slash2": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/NaturalComboV17/Animations",
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Gait_Fwd": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations",
+    "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations/J_Hammer_Idle": "/Game/Characters/JasonPlayer20261003/WarhammerSevarog20261016/SourceGripV16/Animations",
+    "/Game/Characters/ResidentInteraction/M_ResidentFocusOutline": "/Game/Characters/ResidentInteraction",
+    "/Game/Characters/ResidentInteraction/M_ResidentShopHighlightResponse": "/Game/Characters/ResidentInteraction",
+    "/Game/Characters/VillageBaker/SK_VillageBaker_R1": "/Game/Characters/VillageBaker",
+    "/Game/Characters/VillageBlacksmithNPC20261118/Animations/A_Smith_StandingBreath": "/Game/Characters/VillageBlacksmithNPC20261118",
+    "/Game/Characters/VillageBlacksmithNPC20261118/SK_Smith_Body": "/Game/Characters/VillageBlacksmithNPC20261118",
+    "/Game/Characters/VillageBlacksmithNPC20261118/SK_Smith_Head": "/Game/Characters/VillageBlacksmithNPC20261118",
+    "/Game/Characters/VillageBlacksmithNPC20261118/SK_Smith_Outfit": "/Game/Characters/VillageBlacksmithNPC20261118",
+    "/Game/Characters/VillageCarpenterNPC/Head/SK_Carpenter_Head": "/Game/Characters/VillageCarpenterNPC",
+    "/Game/Characters/VillageCarpenterNPC/Outfit/SK_Carpenter_Workwear": "/Game/Characters/VillageCarpenterNPC",
+    "/Game/Characters/VillageHerbalist/A_VillageHerbalist_Idle": "/Game/Characters/VillageHerbalist",
+    "/Game/Characters/VillageHerbalist/A_VillageHerbalist_Walk": "/Game/Characters/VillageHerbalist",
+    "/Game/Characters/VillageHerbalist/HeadR3/SK_VillageHerbalist_HeadR3": "/Game/Characters/VillageHerbalist",
+    "/Game/Characters/VillageTavernKeeper/A_TavernKeeper_Idle": "/Game/Characters/VillageTavernKeeper",
+    "/Game/Characters/VillageTavernKeeper/SK_TavernKeeper": "/Game/Characters/VillageTavernKeeper",
+    "/Game/Weapons/DarkBow20260925/ArmsV2/Materials/M_BowString": "/Game/Weapons/DarkBow20260925/ArmsV2",
+    "/Game/Weapons/DarkBow20260925/ArmsV2/SM_Bow_WoodArrow": "/Game/Weapons/DarkBow20260925/ArmsV2",
+    "/Game/Weapons/DarkBow20260925/ElasticV15/SK_Bow_Flex_Original": "/Game/Weapons/DarkBow20260925/ElasticV15",
+    "/Game/Weapons/DarkBow20260925/GripContactV22/SM_Bow_GripWrap_Fitted": "/Game/Weapons/DarkBow20260925/GripContactV22",
+    "/Game/Weapons/DarkBow20260925/ModularV13/SM_Bow_ArrowRestWood": "/Game/Weapons/DarkBow20260925/ModularV13",
+    "/Game/Weapons/DarkBow20260925/WoodBracketV19/SM_Bow_WoodBracketSight": "/Game/Weapons/DarkBow20260925/WoodBracketV19",
+    "/Game/Weapons/SteelWarhammer20261014/NormalSwingAudioV1/S_Warhammer_NormalSwing": "/Game/Weapons/SteelWarhammer20261014",
+    "/Game/Weapons/SteelWarhammer20261014/SM_SteelWarhammer": "/Game/Weapons/SteelWarhammer20261014"
+  }
+}

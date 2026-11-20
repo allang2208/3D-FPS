@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Monsters/MonsterAIController.h
++++ b/Source/FPSGAME/Monsters/MonsterAIController.h
+@@ -55,6 +55,7 @@
+ private:
+  UPROPERTY() TObjectPtr<UAIPerceptionComponent> Senses;
+  UFUNCTION() void Perceived(AActor* Actor,FAIStimulus Stimulus);
++ bool CanHuntArtisans() const;
+  bool IsCombatOpponent(const APawn* Candidate) const;
+  TWeakObjectPtr<APawn> KnownTarget;
+  TWeakObjectPtr<AChapelShrine> NightRaidObjective;

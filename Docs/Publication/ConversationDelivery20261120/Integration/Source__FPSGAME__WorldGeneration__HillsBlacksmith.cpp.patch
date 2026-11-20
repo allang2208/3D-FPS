@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp
+@@ -1,6 +1,7 @@
+ #include "HillsBlacksmith.h"
+ #include "HillsCarpenterWorkshop.h"
+ #include "VillageShopFacing.h"
++#include "VillageShopTorches.h"
+ #include "TemperateHillsWorld.h"
+ #include "../NPC/VillageBlacksmithResident.h"
+ #include "../Building/VoxelBuildWorld.h"
+@@ -34,7 +35,7 @@
+     const FMount Mounts[]={
+         {TEXT("Smith_WorkshopTorch"),FVector(-40,350,170),700.f,520.f,true},
+         {TEXT("Smith_LoftTorch"),FVector(-150,350,540),550.f,500.f,true},
+-        {TEXT("Smith_EntryTorch"),FVector(365,-402,170),450.f,450.f,false}};
++        {TEXT("Smith_EntryTorch"),FVector(365,-402,170),850.f,650.f,false}};
+     const FVector Outward(0,-1,0);
+     for(const auto& Mount:Mounts)
+     {
+@@ -126,6 +127,7 @@
+         ForceNetUpdate();
+     }
+     UpdateSmithTorches(this,Repaired);
++    VillageShopTorches::Apply(*this,VillageShopTorches::EShop::Blacksmith,Repaired);
+     RegisterStation();
+ }
+ 
