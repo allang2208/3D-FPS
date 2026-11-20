@@ -63,36 +63,11 @@ for i in range(7):
 box('cut stone load',(0,2.65,.22),(1.2,.9,.44),'Stone')
 export('SM_QuarryTimberHoist')
 
-# Nine by six metre shed. Masonry courses have a real 1.6 m door and missing wall sections.
-for side in (-1,1):
-    for j in range(12):
-        for row in range(5):
-            if side==1 and j>7 and row>1:continue
-            if side==-1 and 4<=j<=6 and row in (2,3):continue
-            x=side*4.5;y=-2.75+j*.5
-            box('side fieldstone',(x,y,.28+row*.48),(.5,.48,.46),'Stone',rng.uniform(-.035,.035))
-for j in range(18):
-    x=-4.25+j*.5
-    for row in range(6 if j<10 else 3):
-        box('rear fieldstone',(x,3.,.28+row*.48),(.48,.5,.46),'Stone',rng.uniform(-.03,.03))
-    if abs(x)>.85:
-        for row in range(4 if j<5 else 3):
-            box('door wall',(x,-3.,.28+row*.48),(.48,.5,.46),'Stone',rng.uniform(-.03,.03))
-beam('door lintel',(-1.05,-3.,2.25),(1.05,-3.,2.25),.22)
-for y in (-2.7,0.,2.7):
-    beam('left rafter',(-4.6,y,2.85),(0,y,4.1),.18)
-    if y>0:beam('right broken rafter',(0,y,4.1),(3.4,y,3.16),.18)
-beam('ridge',(0,-3.2,4.1),(0,3.3,4.1),.22)
-for i in range(15):
-    y=-3.+i*.42
-    if i in (2,3,9,12):continue
-    beam('surviving roof plank',(-4.7,y,2.90),(-.1,y,4.18),.23)
-for i in range(14):
-    x=rng.uniform(-3.8,3.8);y=rng.uniform(-2.,2.4)
-    box('fallen timber',(x,y,.13),(rng.uniform(1.4,3.1),.17,.14),'Oak',rng.uniform(-2.,2.))
-box('stone cutting bench',(-2.,1.5,.65),(2.1,.85,.35),'Stone')
-for x in (-2.7,-1.3):box('bench support',(x,1.5,.28),(.32,.6,.55),'Stone')
-export('SM_QuarryRuinedShed')
+# Both the kit and the targeted shelter rebuild share the same source.
+from runpy import run_path
+shed = run_path(str(Path(__file__).with_name('author_quarry_shed.py')))['assemble']()
+records.append(dict(name=shed.name,slots=[m.name for m in shed.data.materials],vertices=len(shed.data.vertices)))
+shed.location.x=len(records)*14
 bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'QuarryKit.blend'))
 (OUT/'manifest.json').write_text(json.dumps(records,indent=2),encoding='utf8')
 print('QUARRY_KIT_SAVED',len(records))

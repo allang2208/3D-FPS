@@ -1,0 +1,33 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillageSite.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillageSite.h
+@@ -3,6 +3,7 @@
+ #include "CoreMinimal.h"
+ #include "TemperateVillageLayout.inl"
+ #include "TemperateChapelSite.h"
++#include "TemperateVillageApron.h"
+ #include "TemperateHillsSurface.h"
+ 
+ struct FTemperateVillageSite
+@@ -97,16 +98,19 @@
+         return X>=FMath::Min(Gate.X,Junction.X)-550.-Margin && X<=FMath::Max(Gate.X,Junction.X)+550.+Margin
+             && Y>=FMath::Min(Gate.Y,Junction.Y)-550.-Margin && Y<=FMath::Max(Gate.Y,Junction.Y)+550.+Margin;
+     }
+-    double Grade(double X,double Y,double Height) const
++    double Grade(double X,double Y,double Height,int32 Seed=0) const
+     {
+         if(!bHilltop)return GradeForSiteSurvey(X,Y,Height);
+         if(!bPlaced)return Height;
+         // Only the village's broad apron joins the crown to the existing hill.
+         // The approach keeps its route/vegetation clearance, not an elevated embankment.
+-        const double Distance=EdgeDistance(Local(X,Y));
++        const FVector2D P=Local(X,Y);
++        const double Distance=EdgeDistance(P);
+         if(Distance>=Shoulder)return Height;
+-        return FMath::Lerp(Ground.Z,Height,TemperateHillsSurface::Quintic(
++        const double Crown=FMath::Lerp(Ground.Z,Height,TemperateHillsSurface::Quintic(
+             FMath::Clamp(Distance/Shoulder,0.,1.)));
++        if(Seed!=TemperateHillsMap::Seed || Distance<=0.)return Crown;
++        return Crown+TemperateVillageApron::Sample(P,PadHalfX,PadHalfY,Shoulder).Height;
+     }
+     // Freeze the original survey metric so this terrain-only change cannot move
+     // an existing seed's village, gate, datum, or chosen shoulder width.

@@ -2,7 +2,13 @@
 import json
 import shutil
 from pathlib import Path
+import sys
 import unreal as u
+
+tool_dir = str(Path(__file__).resolve().parent)
+if tool_dir not in sys.path:
+    sys.path.insert(0, tool_dir)
+from quarry_spoil_surface import WEATHER_COLOR, apply_weathered_finish
 
 ROOT = Path('D:/FPS3D/FPSGAME')
 OUT = ROOT / 'SourceAssets/HillsLandscapeRepair20261117/MaterialsR7'
@@ -25,21 +31,33 @@ for name in ('CliffA', 'CliffB', 'LimestoneSpoil'):
     if not isinstance(mat, u.Material):
         raise RuntimeError('Missing owned material ' + package)
     nodes = list(L.get_material_expressions(mat))
-    def one(cls):
+    def one(cls, upstream=None):
         found = [n for n in nodes if isinstance(n, cls)]
+        if upstream is not None and len(found) > 1:
+            found = [n for n in found if upstream in L.get_inputs_for_material_expression(mat, n)]
         if len(found) != 1:
             raise RuntimeError(f'{package}: expected one {cls.__name__}, got {len(found)}')
         return found[0]
     texture = next(n for n in nodes if isinstance(n, u.MaterialExpressionTextureSample)
                    and n.texture.get_name().endswith('_BaseColor'))
-    mono = one(u.MaterialExpressionDesaturation)
-    power = one(u.MaterialExpressionPower)
-    multiply = one(u.MaterialExpressionMultiply)
-    tint = one(u.MaterialExpressionConstant3Vector)
-    clamp = one(u.MaterialExpressionClamp)
+    mono = one(u.MaterialExpressionDesaturation, texture)
+    power = one(u.MaterialExpressionPower, mono)
+    multiply = one(u.MaterialExpressionMultiply, power)
+    # The finish can add its own vectors. The limestone tint feeds this multiply.
+    inputs = list(L.get_inputs_for_material_expression(mat, multiply))
+    tint = next((n for n in inputs if isinstance(n, u.MaterialExpressionConstant3Vector)), None)
+    if tint is None:
+        tint = one(u.MaterialExpressionConstant3Vector)
+    clamp = one(u.MaterialExpressionClamp, multiply)
     constants = [n for n in nodes if isinstance(n, u.MaterialExpressionConstant)]
-    fraction = next(n for n in constants if abs(n.r - 1.) < .001)
-    exponent = next(n for n in constants if n != fraction)
+    fraction = next((n for n in L.get_inputs_for_material_expression(mat, mono)
+                     if isinstance(n, u.MaterialExpressionConstant)), None)
+    if fraction is None:
+        fraction = next(n for n in constants if abs(n.r - 1.) < .001)
+    exponent = next((n for n in L.get_inputs_for_material_expression(mat, power)
+                     if isinstance(n, u.MaterialExpressionConstant)), None)
+    if exponent is None:
+        exponent = next(n for n in constants if abs(n.r - .65) < .001)
     exponent.r = .65
     tint.constant = u.LinearColor(1.05, 1.035, .98, 1.)
     clamp.set_editor_property('min_default', 0.)
@@ -52,7 +70,11 @@ for name in ('CliffA', 'CliffB', 'LimestoneSpoil'):
     connect(power, '', multiply, 'A')
     connect(tint, '', multiply, 'B')
     connect(multiply, '', clamp)
-    if not L.connect_material_property(clamp, '', u.MaterialProperty.MP_BASE_COLOR):
+    weather_color = next((n for n in nodes if isinstance(n, u.MaterialExpressionCustom)
+                         and str(n.get_editor_property("desc")) == WEATHER_COLOR), None)
+    if weather_color:
+        connect(clamp, '', weather_color, 'Base')
+    elif not L.connect_material_property(clamp, '', u.MaterialProperty.MP_BASE_COLOR):
         raise RuntimeError('Cannot connect limestone base color')
     mat.set_editor_property('used_with_instanced_static_meshes', True)
     # Original scans are open faces; the closed R8 replacements use proper
@@ -60,9 +82,10 @@ for name in ('CliffA', 'CliffB', 'LimestoneSpoil'):
     two_sided = not E.does_asset_exist(
         '/Game/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_White' + name + '_Solid')
     mat.set_editor_property('two_sided', two_sided)
-    L.recompile_material(mat)
-    if not E.save_loaded_asset(mat, False):
-        raise RuntimeError('Cannot save ' + package)
+    apply_weathered_finish(mat)
+    errors = L.recompile_material(mat)
+    if errors or not E.save_loaded_asset(mat, False):
+        raise RuntimeError(f"Cannot save {package}: {errors}")
     report['materials'].append({'path': package,
         'texture': texture.texture.get_path_name(),
         'texture_srgb': texture.texture.srgb,

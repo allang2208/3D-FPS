@@ -1,0 +1,152 @@
+{
+  "palette": "/Game/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming",
+  "role_counts": {
+    "river_pebbles": {
+      "before": 3,
+      "after": 4
+    },
+    "quarry_shore_chips": {
+      "before": 0,
+      "after": 2
+    },
+    "rainforest_twigs": {
+      "before": 2,
+      "after": 4
+    },
+    "rainforest_herbs": {
+      "before": 2,
+      "after": 5
+    },
+    "river_ground_cover": {
+      "before": 6,
+      "after": 7
+    },
+    "backdrop_trees": {
+      "before": 2,
+      "after": 4
+    },
+    "wet_bank_saplings": {
+      "before": 0,
+      "after": 2
+    }
+  },
+  "ground": {
+    "river_pebbles": [
+      "/Game/NiagaraExamples/StaticMesh/S_Rock_shopk.S_Rock_shopk"
+    ],
+    "quarry_shore_chips": [
+      "/Game/WorldGeneration/TemperateHills/GroundPalette/SM_ShoreLimestoneFlat.SM_ShoreLimestoneFlat",
+      "/Game/WorldGeneration/TemperateHills/GroundPalette/SM_ShoreLimestoneLong.SM_ShoreLimestoneLong"
+    ],
+    "rainforest_twigs": [
+      "/Game/NiagaraExamples/StaticMesh/S_Tree_Debris_wjtuagls.S_Tree_Debris_wjtuagls",
+      "/Game/NiagaraExamples/StaticMesh/S_Wood_Debris_vb2mfeliw.S_Wood_Debris_vb2mfeliw"
+    ],
+    "rainforest_herbs": [
+      "/Game/WorldGeneration/TemperateHills/GroundPalette/SM_ground_05_01.SM_ground_05_01",
+      "/Game/WorldGeneration/TemperateHills/GroundPalette/SM_ground_10_01.SM_ground_10_01",
+      "/Game/WorldGeneration/TemperateHills/GroundPalette/SM_ground_13_01.SM_ground_13_01"
+    ],
+    "river_ground_cover": [
+      "/Game/WorldGeneration/TemperateHills/GroundPalette/SM_ground_09_01.SM_ground_09_01"
+    ]
+  },
+  "ground_lod_triangles": {
+    "/Game/NiagaraExamples/StaticMesh/S_Rock_shopk.S_Rock_shopk": [
+      150,
+      74,
+      64,
+      64
+    ],
+    "/Game/WorldGeneration/TemperateHills/GroundPalette/SM_ShoreLimestoneFlat.SM_ShoreLimestoneFlat": [
+      240,
+      108,
+      64
+    ],
+    "/Game/WorldGeneration/TemperateHills/GroundPalette/SM_ShoreLimestoneLong.SM_ShoreLimestoneLong": [
+      280,
+      126,
+      64
+    ],
+    "/Game/NiagaraExamples/StaticMesh/S_Tree_Debris_wjtuagls.S_Tree_Debris_wjtuagls": [
+      150,
+      74,
+      64,
+      64
+    ],
+    "/Game/NiagaraExamples/StaticMesh/S_Wood_Debris_vb2mfeliw.S_Wood_Debris_vb2mfeliw": [
+      150,
+      74,
+      64,
+      64
+    ],
+    "/Game/WorldGeneration/TemperateHills/GroundPalette/SM_ground_05_01.SM_ground_05_01": [
+      208,
+      104,
+      63,
+      63
+    ],
+    "/Game/WorldGeneration/TemperateHills/GroundPalette/SM_ground_10_01.SM_ground_10_01": [
+      238,
+      119,
+      64,
+      64
+    ],
+    "/Game/WorldGeneration/TemperateHills/GroundPalette/SM_ground_13_01.SM_ground_13_01": [
+      301,
+      150,
+      76,
+      64
+    ],
+    "/Game/WorldGeneration/TemperateHills/GroundPalette/SM_ground_09_01.SM_ground_09_01": [
+      246,
+      123,
+      63,
+      63
+    ]
+  },
+  "crowns": [
+    {
+      "source": "/CitySamplePCG/BlackAlder/Geometry/PivotPainter/SM_BlackAlder_Field_01_PP.SM_BlackAlder_Field_01_PP",
+      "lod": 6,
+      "crown": "/Game/WorldGeneration/TemperateHills/Canopy/SM_HillsAlderCrown_01.SM_HillsAlderCrown_01",
+      "material": "/CitySamplePCG/BlackAlder/Materials/Impostor/MI_Impostor_Field_01.MI_Impostor_Field_01",
+      "triangles": 8
+    },
+    {
+      "source": "/CitySamplePCG/BlackAlder/Geometry/PivotPainter/SM_BlackAlder_Field_04_PP.SM_BlackAlder_Field_04_PP",
+      "lod": 6,
+      "crown": "/Game/WorldGeneration/TemperateHills/Canopy/SM_HillsAlderCrown_04.SM_HillsAlderCrown_04",
+      "material": "/CitySamplePCG/BlackAlder/Materials/Impostor/MI_Impostor_Field_04.MI_Impostor_Field_04",
+      "triangles": 8
+    }
+  ],
+  "wet_saplings": [
+    {
+      "source": "/Game/BlackAlder/Geometry/SimpleWind/SM_BlackAlder_Sapling_01.SM_BlackAlder_Sapling_01",
+      "mesh": "/Game/WorldGeneration/TemperateHills/WetBank/SM_ShoreAlderSapling_01.SM_ShoreAlderSapling_01",
+      "lod_triangles": [
+        3692,
+        1476,
+        628,
+        240
+      ],
+      "materials": [
+        "/Game/WorldGeneration/TemperateHills/WetBank/MI_SaplingSimpleWind.MI_SaplingSimpleWind"
+      ]
+    },
+    {
+      "source": "/Game/BlackAlder/Geometry/SimpleWind/SM_BlackAlder_Sapling_03.SM_BlackAlder_Sapling_03",
+      "mesh": "/Game/WorldGeneration/TemperateHills/WetBank/SM_ShoreAlderSapling_03.SM_ShoreAlderSapling_03",
+      "lod_triangles": [
+        2878,
+        1152,
+        490,
+        188
+      ],
+      "materials": [
+        "/Game/WorldGeneration/TemperateHills/WetBank/MI_SaplingSimpleWind.MI_SaplingSimpleWind"
+      ]
+    }
+  ]
+}

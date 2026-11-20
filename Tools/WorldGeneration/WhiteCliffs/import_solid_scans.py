@@ -1,7 +1,13 @@
 """Import new closed scan packages, then change only the two quarry mesh references."""
 import json, shutil
 from pathlib import Path
+import sys
 import unreal as u
+
+tool_dir = str(Path(__file__).resolve().parent)
+if tool_dir not in sys.path:
+    sys.path.insert(0, tool_dir)
+from quarry_spoil_surface import apply_weathered_finish
 
 ROOT=Path('D:/FPS3D/FPSGAME')
 OUT=ROOT/'SourceAssets/HillsLandscapeRepair20261117/SolidScansR9'
@@ -11,7 +17,8 @@ records=json.loads((OUT/'manifest.json').read_text(encoding='utf-8'))
 meshes=[];report={'meshes':[]}
 cut_path=DEST+'/Materials/M_LimestoneCut'
 cut=u.load_asset(cut_path) if E.does_asset_exist(cut_path) else A.create_asset('M_LimestoneCut',DEST+'/Materials',u.Material,u.MaterialFactoryNew())
-L.delete_all_material_expressions(cut)
+for expression in list(L.get_material_expressions(cut)):
+    L.delete_material_expression(cut, expression)
 cut.set_editor_property('used_with_instanced_static_meshes',True)
 def node(cls):return L.create_material_expression(cut,cls)
 def connect(a,output,b,pin=''):
@@ -31,8 +38,10 @@ flat=node(u.MaterialExpressionConstant3Vector);flat.constant=u.LinearColor(0.,0.
 blend=node(u.MaterialExpressionLinearInterpolate);blend.set_editor_property('const_alpha',.45)
 connect(flat,'',blend,'A');connect(normal,'RGB',blend,'B');L.connect_material_property(blend,'',u.MaterialProperty.MP_NORMAL)
 rough=node(u.MaterialExpressionConstant);rough.r=.85;L.connect_material_property(rough,'',u.MaterialProperty.MP_ROUGHNESS)
-L.recompile_material(cut)
-if not E.save_loaded_asset(cut,False):raise RuntimeError('Cut material save failed')
+apply_weathered_finish(cut)
+errors = L.recompile_material(cut)
+if errors or not E.save_loaded_asset(cut, False):
+    raise RuntimeError(f"Cut material save failed: {errors}")
 report['cut_material']=cut_path
 for row,label in zip(records,('CliffA','CliffB')):
     path=DEST+'/Meshes/'+row['name']

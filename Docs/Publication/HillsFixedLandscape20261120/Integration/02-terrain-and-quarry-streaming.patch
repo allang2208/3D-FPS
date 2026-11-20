@@ -1,0 +1,359 @@
+diff --git a/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp b/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
+index f6520c7b680f2e401061522aeecf294f6c71ac8a..a666adcddb2920596cdc3ccb588e984d17263ad1 100644
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
+@@ -1,4 +1,6 @@
+ #include "TemperateHillsWorld.h"
++#include "HillsFixedTerrainCells.h"
++#include "TemperateHillsMap.h"
+ #include "TemperateHillsQuarryTravel.h"
+ #include "HillsNightRaidSubsystem.h"
+ #include "VT/RuntimeVirtualTexture.h"
+@@ -119,13 +121,21 @@
+     const FVector Start=GetGenerationAnchor();
+     {
+         const bool HasRiver=!Assets->RiverMaterial.IsNull();
++        const bool FixedLayout=HasRiver && GeneratorVersion==TemperateHillsMap::GeneratorVersion && Seed==TemperateHillsMap::Seed
++            && TemperateHillsChapel::IsChapelWorld(GetWorld());
+         S.RiverPending=true;
+-        S.RiverJob=Async(EAsyncExecution::ThreadPool,[WorldSeed=Seed,Half,Spawn=FVector2D(Start),Relief=Assets->RiverBankReliefCm,Version=GeneratorVersion,HasRiver,Ecology=EcologyProfile()]() -> TemperateRiver::FPlanPtr
+-        {
+-            if(HasRiver)return TemperateRiver::Generate(WorldSeed,Half,Spawn,Relief,Version,Ecology);
++        S.RiverJob=Async(EAsyncExecution::ThreadPool,[WorldSeed=Seed,Half,Spawn=FVector2D(Start),Relief=Assets->RiverBankReliefCm,Version=GeneratorVersion,HasRiver,FixedLayout,Ecology=EcologyProfile()]() -> TemperateHillsFixedLayout::FLayout
++        {
++            if(FixedLayout)
++            {
++                auto Layout=TemperateHillsFixedLayout::Load(WorldSeed,Version,Half,Spawn,Ecology);
++                if(Layout.River)return Layout;
++                UE_LOG(LogTemp,Warning,TEXT("HILLS_LAYOUT fixed data unavailable for seed=%d size_m=%.0f anchor=%s; reconstructing this layout"),WorldSeed,Half/50.,*Spawn.ToString());
++            }
++            if(HasRiver)return {TemperateRiver::Generate(WorldSeed,Half,Spawn,Relief,Version,Ecology),{},{}};
+             auto Plan=MakeShared<TemperateRiver::FPlan,ESPMode::ThreadSafe>();
+             Plan->Ecology=Ecology;
+-            Plan->GenerationVersion=Version;Plan->BuildRainforest(WorldSeed,Half);return Plan;
++            Plan->GenerationVersion=Version;Plan->BuildRainforest(WorldSeed,Half);return {Plan,{},{}};
+         });
+     }
+     // Entry cells are selected after the village/chapel plan exists.
+@@ -241,6 +251,7 @@
+         for(const auto& Weak:S.GroundTextures)
+             if(auto* Texture=Weak.Get())Texture->SetForceMipLevelsToBeResident(5.f);
+     }
++    TemperateForestWater::FPlanPtr BakedWater;
+     if(S.RiverPending)
+     {
+         if(!S.RiverJob.IsReady())
+@@ -249,7 +260,21 @@
+                 Loading->UpdatePreparation(FText::FromString(TEXT("正在计算河道与河滩…")),.01f);
+             return;
+         }
+-        RiverPlan=S.RiverJob.Get();S.RiverPending=false;
++        auto Layout=S.RiverJob.Get();S.RiverPending=false;
++        RiverPlan=MoveTemp(Layout.River);
++        S.FixedLayoutChecksum=Layout.Checksum;
++        if(Layout.Water)
++        {
++            VillageSite=Layout.Village;
++            // Persisted terrain edits still recalculate ponds on the immutable
++            // river/village plan. A clean landscape can use the baked ponds directly.
++            if(TerrainEdits.IsEmpty())
++            {
++                BakedWater=MoveTemp(Layout.Water);
++                S.ForestWaterRevision=TerrainEditRevision;
++            }
++            UE_LOG(LogTemp,Display,TEXT("HILLS_LAYOUT loaded fixed village, river, lake and quarry; seed=%d edited=%d"),Seed,TerrainEdits.Num());
++        }
+         if(auto* RiverFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())
+             RiverFX->BindRiver(this,RiverPlan,RiverPilotMaterial.Get(),RiverPilotSplash.Get());
+         UE_LOG(LogTemp,Display,TEXT("HILLS_RIVER seed=%d samples=%d length_m=%.1f"),Seed,RiverPlan->Points.Num(),RiverPlan->Points.IsEmpty()?0:RiverPlan->Points.Last().Distance/100);
+@@ -268,10 +293,10 @@
+         if(auto* RiverFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())
+             RiverFX->BindRiver(this,RiverPlan,RiverPilotMaterial.Get(),RiverPilotSplash.Get());
+     }
+-    if(!S.ForestWaterPending&&(!ForestWaterPlan||S.ForestWaterRevision!=TerrainEditRevision))
++    if(!BakedWater&&!S.ForestWaterPending&&(!ForestWaterPlan||S.ForestWaterRevision!=TerrainEditRevision))
+     {
+         S.ForestWaterRevision=TerrainEditRevision;S.ForestWaterPending=true;
+-        S.ForestWaterJob=Async(EAsyncExecution::ThreadPool,[WorldSeed=Seed,Half=double(SizeMeters*50),River=RiverPlan,Edits=TerrainEdits,Version=GeneratorVersion,PlanVillage=!bSettlementPlanned]()
++        S.ForestWaterJob=Async(EAsyncExecution::ThreadPool,[WorldSeed=Seed,Half=double(SizeMeters*50),River=RiverPlan,Edits=TerrainEdits,Version=GeneratorVersion,PlanVillage=!bSettlementPlanned&&!VillageSite.bPlaced]()
+         {
+             auto Active=TemperateForestWater::Generate(WorldSeed,Half,River,Edits,Version);
+             // Keep village selection independent of whether the save already has excavations.
+@@ -279,15 +304,15 @@
+             return MakeTuple(Active,Original);
+         });
+     }
+-    if(S.ForestWaterPending)
+-    {
+-        if(!S.ForestWaterJob.IsReady())
++    if(BakedWater||S.ForestWaterPending)
++    {
++        if(!BakedWater&&!S.ForestWaterJob.IsReady())
+         {
+             if(!bReady)if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
+                 Loading->UpdatePreparation(FText::FromString(TEXT("正在计算林下洼地与水岸…")),.02f);
+             return;
+         }
+-        auto Plans=S.ForestWaterJob.Get();S.ForestWaterPending=false;
++        auto Plans=BakedWater?MakeTuple(BakedWater,BakedWater):S.ForestWaterJob.Get();S.ForestWaterPending=false;
+         const auto& Plan=Plans.Get<0>();
+         if(S.ForestWaterRevision!=TerrainEditRevision)return;
+         // Only cells containing old/new water need refreshing after an edit.
+@@ -299,7 +324,12 @@
+         ForestWaterPlan=Plan;
+         if(!bSettlementPlanned)
+         {
+-            PlanAbandonedVillage(Plans.Get<1>());
++            if(VillageSite.bPlaced)
++            {
++                bSettlementPlanned=true;
++                ChapelSite=VillageSite.ChapelLot();
++            }
++            else PlanAbandonedVillage(Plans.Get<1>());
+             if(VillageSite.bPlaced)
+             {
+                 bool bQueued=false;
+@@ -356,7 +386,6 @@
+         UE_LOG(LogTemp,Display,TEXT("HILLS_FOREST_WATER seed=%d pools=%d edits=%d"),Seed,Plan->Pools.Num(),TerrainEdits.Num());
+     }
+     PrepareVillageGroundCache();
+-    if(!S.WhiteCliffsBuilt)S.WhiteCliffsBuilt=AssembleWhiteCliffs();
+     constexpr double Size=HillsStreaming::CellSize;
+     const int32 Count=FMath::RoundToInt(SizeMeters*100/Size);
+     const double Half=SizeMeters*50;
+@@ -387,6 +416,7 @@
+             It.RemoveCurrent();
+         }
+     }
++    StreamQuarry(ViewCenters);
+     auto CellOrigin=[&](FIntPoint K){return FVector(-Half+K.X*Size,-Half+K.Y*Size,0);};
+     auto RaidNeedsGround=[&](FIntPoint K)
+     {
+@@ -531,7 +561,10 @@
+         }
+         if(Best.X<0)break;
+         HillsStreaming::FJob Job;Job.Key=Best;Job.EditRevision=TerrainEditRevision;
+-        Job.Future=Async(EAsyncExecution::ThreadPool,[Best,BestDetailed,Half,WorldSeed=Seed,River=RiverPlan,Edits=TerrainEdits,Version=GeneratorVersion,Ponds=ForestWaterPlan,Chapel=ChapelSite,Village=VillageSite](){return HillsStreaming::MakeMesh(Best,BestDetailed,Half,WorldSeed,River,Edits,Version,Ponds,Chapel,Village);});
++        Job.Future=Async(EAsyncExecution::ThreadPool,[Best,BestDetailed,Half,WorldSeed=Seed,River=RiverPlan,Edits=TerrainEdits,Version=GeneratorVersion,Ponds=ForestWaterPlan,Chapel=ChapelSite,Village=VillageSite,LayoutChecksum=S.FixedLayoutChecksum]()
++        {
++            return HillsFixedTerrainCells::LoadOrGenerate(Best,BestDetailed,Half,WorldSeed,River,Edits,Version,Ponds,Chapel,Village,LayoutChecksum);
++        });
+         S.Jobs.Add(MoveTemp(Job));
+     }
+     // The worker starts before the first cell can finish; mask uploads follow all
+@@ -602,7 +635,12 @@
+     if(auto* Visitor=S.Visitor.Get())
+     {
+         const auto* Cell=S.Cells.Find(S.VisitCell);
+-        if(Cell&&Cell->Detailed&&Cell->Mesh.IsValid()&&!Cell->Dirty&&!Cell->Pending.IsValid())
++        if(S.bWhiteCliffsVisit&&S.Quarry.Stage==FTemperateHillsStreamingState::EQuarryStage::Failed)
++        {
++            if(auto* PC=Cast<APlayerController>(Visitor->GetController()))PC->ClientMessage(TEXT("白崖采石场地标资源载入失败。"));
++            S.Visitor.Reset();S.bWhiteCliffsVisit=false;
++        }
++        else if((!S.bWhiteCliffsVisit||S.Quarry.Stage==FTemperateHillsStreamingState::EQuarryStage::Complete)&&Cell&&Cell->Detailed&&Cell->Mesh.IsValid()&&!Cell->Dirty&&!Cell->Pending.IsValid())
+         {
+             LandAtVisitTarget(*this,S,Cell->Mesh.Get(),*Visitor);
+             S.Visitor.Reset();
+@@ -631,7 +669,9 @@
+         // otherwise the next tick would release on the already-cooked current cell.
+         if(Held&&Held->PawnCell!=PawnCell){Held->WaitCell=K;Held->PawnCell=PawnCell;}
+         const auto* Cell=S.Cells.Find(Held?Held->WaitCell:K);
+-        const bool Ready=bReady&&Cell&&Cell->Detailed&&Cell->Mesh.IsValid();
++        const bool WaitingForQuarry=!S.Quarry.HasCollision()&&S.Quarry.Stage!=FTemperateHillsStreamingState::EQuarryStage::Failed&&
++            RiverPlan&&RiverPlan->WhiteCliffs.Valid&&RiverPlan->WhiteCliffs.Weight(Probe.X,Probe.Y)>.01;
++        const bool Ready=bReady&&Cell&&Cell->Detailed&&Cell->Mesh.IsValid()&&!WaitingForQuarry;
+         if(Held)
+         {
+             if(Ready)
+@@ -796,6 +836,7 @@
+     // Completed handles transferred to the GameInstance keep the curated biome cached.
+     for(int32 I=S.RetainedHandleCount;I<S.Handles.Num();++I)
+         if(auto& Handle=S.Handles[I]){Handle->CancelHandle();Handle->ReleaseHandle();}
++    if(S.Quarry.Handle){S.Quarry.Handle->CancelHandle();S.Quarry.Handle->ReleaseHandle();}
+     HillsStreaming::ReleaseStreamingBudget(S.PreparingBudget);
+     // Pending numerical jobs contain no actor references and may finish after unload.
+     Streaming.Reset();RiverPlan.Reset();
+diff --git a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h
+index 56ce1d4098ed659445c2957b425ec769c20ea09a..23d9fb32b9c1a352a6d9fde99e7d50457da78792 100644
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h
+@@ -1,5 +1,7 @@
+ #pragma once
+ #include "TemperateHillsWorld.h"
++#include "TemperateHillsFixedLayout.h"
++#include "TemperateQuarryFixedDressing.h"
+ #include "Async/Future.h"
+ #include "DynamicMesh/DynamicMesh3.h"
+ #include "GameFramework/Character.h"
+@@ -14,6 +16,7 @@
+ namespace HillsStreaming
+ {
+ constexpr double CellSize=6400.0;
++constexpr int32 SurfaceDetailQuads=64;
+ // Entry only waits for this playable neighborhood. The normal view ring starts
+ // streaming after release, with the existing two terrain jobs / one mesh per frame.
+ constexpr double EntryRadius=3200.0;
+@@ -58,9 +61,28 @@
+     TWeakObjectPtr<ULevelStreamingDynamic> VillageLevel;
+     TMap<FIntPoint,HillsStreaming::FCell> Cells;
+     TArray<HillsStreaming::FJob> Jobs;
+-    TFuture<TemperateRiver::FPlanPtr> RiverJob;
++    TFuture<TemperateHillsFixedLayout::FLayout> RiverJob;
++    uint32 FixedLayoutChecksum=0;
+     bool RiverPending=false;
+-    bool WhiteCliffsBuilt=false;
++    enum class EQuarryStage : uint8 { Idle, Loading, RockLayout, Collision, Dressing, Details, Complete, Failed };
++    struct FQuarryAssembly
++    {
++        EQuarryStage Stage=EQuarryStage::Idle;
++        bool Requested=false;
++        bool UsingFixedDressing=false;
++        TFuture<TemperateQuarryFixedDressing::FLayoutPtr> FixedDressingJob;
++        int32 NextSection=0;
++        TSharedPtr<FStreamableHandle> Handle;
++        TArray<FSoftObjectPath> Paths;
++        TMap<FSoftObjectPath,TArray<FTransform>> Groups;
++        TMap<FIntPoint,double> GroundVertices;
++        FSoftObjectPath ActiveMesh;
++        TWeakObjectPtr<UInstancedStaticMeshComponent> ActiveComponent;
++        int32 NextInstance=0;
++        int32 InstanceCount=0;
++        bool HasBlockers() const {return Stage>=EQuarryStage::Collision&&Stage!=EQuarryStage::Failed;}
++        bool HasCollision() const {return Stage>=EQuarryStage::Dressing&&Stage!=EQuarryStage::Failed;}
++    } Quarry;
+     TFuture<TemperateRiver::FPlanPtr> VillageBiomeJob;
+     bool VillageBiomePending=false;
+     using FWaterPlans=TTuple<TemperateForestWater::FPlanPtr,TemperateForestWater::FPlanPtr>;
+@@ -113,6 +135,9 @@
+         bool Requested=false,Loaded=false,Ready=false;
+         TArray<FSoftObjectPath> Paths;
+         TSharedPtr<FStreamableHandle> Handle;
++#if WITH_EDITOR
++        int32 NextCompilationPath=0;
++#endif
+         double NextWaitLog=0;
+     };
+     FAssetBatch Batches[HillsStreaming::BatchCount];
+@@ -156,6 +181,10 @@
+     };
+     TArray<FRockFit> RockFits;
+     TArray<FRockWindow> VegetationRockWindows;
++    // The quarry is assembled once; adjacent vegetation windows can reuse its
++    // exact solid placements until a terrain edit changes their support.
++    TArray<TemperateQuarryFixedDressing::FBlocker> QuarryBlockers;
++    uint32 QuarryBlockerRevision=0;
+     uint32 RockWindowRevision=0;
+     int32 ReadySpawnCellCount() const
+     {
+diff --git a/Source/FPSGAME/UI/ColdSteelHillsMap.cpp b/Source/FPSGAME/UI/ColdSteelHillsMap.cpp
+index 156fb6d920b20d2016d15e77d1be66c8e96d0967..a20dc5b6e260155c68114dc2b0d865e59bc0e970 100644
+--- a/Source/FPSGAME/UI/ColdSteelHillsMap.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHillsMap.cpp
+@@ -62,7 +62,11 @@
+         auto& Mesh = Image->Mesh;
+         Mesh.EnableAttributes();
+         auto& Attr = *Mesh.Attributes();
+-        Attr.SetNumUVLayers(3);
++        const bool HasSlope=Source.River&&Source.River->QuarryLakeSlope.IntersectsCell(
++            Source.Bounds.Min.X,Source.Bounds.Min.Y,Source.Bounds.GetSize().X);
++        const int32 NumGroundUVs=HasSlope?4:3;
++        Attr.SetNumUVLayers(NumGroundUVs);
++        auto* SlopeDrainage=HasSlope?Attr.GetUVLayer(3):nullptr;
+         Attr.EnablePrimaryColors();
+         const double Step = Source.Bounds.GetSize().X/Cells;
+         for (int32 Row=0; Row<Stride; ++Row)
+@@ -81,7 +85,7 @@
+             const UE::Geometry::FIndex3i Indices(A,B,C);
+             Attr.PrimaryNormals()->SetTriangle(Id,Indices);
+             Attr.PrimaryColors()->SetTriangle(Id,Indices);
+-            for (int32 UV=0; UV<3; ++UV) Attr.GetUVLayer(UV)->SetTriangle(Id,Indices);
++            for (int32 UV=0; UV<NumGroundUVs; ++UV) Attr.GetUVLayer(UV)->SetTriangle(Id,Indices);
+         };
+         for (int32 Row=0; Row<Stride; ++Row)
+         {
+@@ -99,7 +103,7 @@
+                 auto Layers = TemperateHillsGround::Layers(P.X,P.Y,P.Z,Normal,Source.Seed,Bank,
+                     Source.River?Source.River->RainforestWeight(P.X,P.Y):0.,
+                     Source.River ? Source.River->Ecology : TemperateEcology::FProfile{},
+-                    Source.River&&Source.River->bVillageRainforest,Source.Village);
++                    Source.River&&Source.River->bVillageRainforest,Source.Village,Source.River.Get());
+                 Layers.Habitat.Y = TemperateHillsGround::SurfaceMoisture((N+S+E+W)*.25,
+                     P.Z,Step,Layers.Habitat.X,Source.Water,P.X,P.Y);
+                 Attr.PrimaryNormals()->AppendElement(FVector3f(Normal));
+@@ -107,6 +111,7 @@
+                 Attr.GetUVLayer(0)->AppendElement(Layers.UV);
+                 Attr.GetUVLayer(1)->AppendElement(Layers.Habitat);
+                 Attr.GetUVLayer(2)->AppendElement(Layers.Upland);
++                if(SlopeDrainage)SlopeDrainage->AppendElement(Layers.SlopeDrainage);
+                 if (Row && Col)
+                 {
+                     Tri(I-Stride-1,I-1,I-Stride);
+diff --git a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingVisit.cpp b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingVisit.cpp
+index d287a61012959c5bd9b4cd3cd5c2876794682f6b..d7063a5dbe7f66492caf3a777dcb3cdb382fb102 100644
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingVisit.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingVisit.cpp
+@@ -162,8 +162,10 @@
+         Move->StopMovementImmediately();
+         Move->SetMovementMode(MOVE_Walking);
+         Player.ClientCheatWalk();  // restores capsule collision and clears bCheatFlying
+-        PC->SetControlRotation(FRotator(-6,Facing.Yaw,0));
+-        if(!PC->IsLocalController())PC->ClientSetRotation(FRotator(-6,Facing.Yaw,0));
++        // At the lower quarry entrance the road climbs towards the exposed cut.
++        const FRotator View(S.bWhiteCliffsVisit?TemperateQuarry::EntryPitch:-6.,Facing.Yaw,0);
++        PC->SetControlRotation(View);
++        if(!PC->IsLocalController())PC->ClientSetRotation(View);
+         Player.ForceNetUpdate();
+         UE_LOG(LogTemp,Display,TEXT("%s seed=%d location=%s support=%s"),
+             S.bVillageVisit?TEXT("HILLS_VILLAGE_LANDED"):S.bWhiteCliffsVisit?TEXT("HILLS_QUARRY_LANDED"):TEXT("HILLS_FOREST_LANDED"),Hills.Seed,*Landing.ToString(),*Ground->GetName());
+diff --git a/Source/FPSGAME/WorldGeneration/TemperateHillsQuarryTravel.cpp b/Source/FPSGAME/WorldGeneration/TemperateHillsQuarryTravel.cpp
+index 8b15798319cf3016c0beb0be11b7cb2f2f5c52db..c0e1f03371a0efc65219d10429773fabb359ae6f 100644
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsQuarryTravel.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsQuarryTravel.cpp
+@@ -1,4 +1,5 @@
+ #include "TemperateHillsQuarryTravel.h"
++#include "TemperateQuarryYard.h"
+ #include "TemperateHillsPCG.h"
+ #include "TemperateHillsStreamingPrivate.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+@@ -14,12 +15,13 @@
+     if(!RiverPlan||!RiverPlan->WhiteCliffs.Valid)
+     {Reason=TEXT("当前丘陵尚未生成白崖采石场。");return false;}
+     auto& State=*Streaming;
+-    if(!State.WhiteCliffsBuilt){Reason=TEXT("白崖采石场地标资源仍在准备。");return false;}
++    if(State.Quarry.Stage==FTemperateHillsStreamingState::EQuarryStage::Failed)
++    {Reason=TEXT("白崖采石场地标资源载入失败。");return false;}
+     if(State.Visitor.IsValid()){Reason=TEXT("另一位玩家正在传送，请稍后重试。");return false;}
+     const auto& Quarry=RiverPlan->WhiteCliffs;
+-    constexpr double RoadY=-3600.;const double RoadX=2200.*FMath::Sin(RoadY/2600.);
++    constexpr double RoadY=TemperateQuarry::EntryY;const double RoadX=TemperateQuarry::RoadX(RoadY);
+     State.bVillageVisit=false;State.bWhiteCliffsVisit=true;
+-    State.StageVisit(Player,Quarry.World(RoadX,RoadY),Quarry.World(0.,2500.),SizeMeters*50.);
++    State.StageVisit(Player,Quarry.World(RoadX,RoadY),Quarry.World(TemperateQuarry::EntryLook.X,TemperateQuarry::EntryLook.Y),SizeMeters*50.);
+     Reason=TEXT("正在准备白崖采石场入口的地面碰撞…");return true;
+ #else
+     return false;
+@@ -35,11 +37,22 @@
+     PC->ClientMessage(TEXT("请先进入丘陵场景。"));
+ #endif
+ }
++void ATemperateHillsWorld::PrefetchQuarryVisit()
++{
++#if !UE_BUILD_SHIPPING
++    if(bReady&&Streaming&&RiverPlan&&RiverPlan->WhiteCliffs.Valid)Streaming->Quarry.Requested=true;
++#endif
++}
+ void TemperateHillsQuarryTravel::Request(UWorld* World)
+ {
+ #if !UE_BUILD_SHIPPING
+     if(!World||!World->IsGameWorld())return;
+     auto* PC=World->GetFirstPlayerController();if(!PC||!PC->IsLocalController())return;
+-    if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ServerVisitHillsQuarry();
++    if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())
++    {
++        if(World->GetNetMode()==NM_Client)
++            for(TActorIterator<ATemperateHillsWorld> It(World);It;++It){It->PrefetchQuarryVisit();break;}
++        PS->ServerVisitHillsQuarry();
++    }
+ #endif
+ }

@@ -1,0 +1,79 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillagePlanting.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillagePlanting.cpp
+@@ -153,6 +153,68 @@
+         }
+     }
+ }
++
++void GatherApronDeposits(const ATemperateHillsWorld& Hills,const FBox& Bounds,TArray<FTemperatePlacement>& Out)
++{
++    using namespace TemperateHillsSurface;
++    using namespace TemperateVillageApron;
++    if(Hills.Seed!=TemperateHillsMap::Seed)return;
++    const auto& V=Hills.GetVillageSite();
++    const auto& Assets=*Hills.Assets;
++    const auto& Ecology=Hills.EcologyProfile();
++    const FBox NearBounds=Bounds.ExpandBy(FVector(120.,120.,0.));
++    for(int32 Index=0;Index<UE_ARRAY_COUNT(Folds);++Index)
++    {
++        const FFold& Fold=Folds[Index];
++        // Three small catches on each fan, separated by exposed ground. Grass
++        // goes on their fringes; the coarsest fragments stay near the head.
++        const FVector2D Fan=LocalPoint(Fold,.74*V.Shoulder,Fold.Station(.74),V.PadHalfX,V.PadHalfY);
++        const FVector2D FanWorld=V.World(Fan.X,Fan.Y);
++        if(!Bounds.ExpandBy(2200.).IsInsideOrOnXY(FVector(FanWorld,0.)))continue;
++        for(int32 Pocket=0;Pocket<3;++Pocket)
++        {
++            const uint32 Parent=Key(Index,Pocket,Hills.Seed,6421);
++            const double Station=.57+.12*Pocket+.05*Unit(Parent);
++            const double Side=(Unit(Parent+1)-.5)*.85;
++            const auto Center=LocalPoint(Fold,V.Shoulder*Station,Fold.Station(Station)+Fold.Width*Side,V.PadHalfX,V.PadHalfY);
++            if(!Bounds.ExpandBy(820.).IsInsideOrOnXY(FVector(V.World(Center.X,Center.Y),0.)))continue;
++            for(int32 Piece=0;Piece<17;++Piece)
++            {
++                const uint32 K=Mix(Parent^uint32(Piece+1)*0x9e3779b9U);
++                const bool Plant=Piece>=11;
++                const double Density=Plant?Ecology.Grass.Density:Assets.GroundDebrisCoverage;
++                if(Density<=0. || (Piece!=0 && Unit(K+9)>=Density))continue;
++                const double T=Station+(Unit(K+2)-.5)*.086;
++                const double Offset=Fold.Width*Side+(Unit(K+3)-.5)*(Plant?380.:240.)
++                    +(Plant?(Side<0.?-165.:165.):0.);
++                const auto P=LocalPoint(Fold,V.Shoulder*T,Fold.Station(T)+Offset,V.PadHalfX,V.PadHalfY);
++                const auto At=V.World(P.X,P.Y);
++                if(!NearBounds.IsInsideOrOnXY(FVector(At,0.)))continue;
++                if(Sample(P,V.PadHalfX,V.PadHalfY,V.Shoulder).Gravel<.15)continue;
++                const auto& Family=Plant?Assets.Grass:Assets.Rocks;
++                if(Family.IsEmpty())continue;
++                const auto& Ref=Family[(Unit(K+4)<.65?Parent:K)%Family.Num()];
++                const FBox Box=HillsVegetation::BoundsOf(Ref.Get());
++                if(!Box.IsValid)continue;
++                const FVector Size=Box.GetSize(), Normal=Hills.SurfaceNormal(At.X,At.Y);
++                const double Span=Piece==0?56.-12.*Pocket:10.+19.*Unit(K+5);
++                const double Scale=Plant?FMath::Min(1.3,(18.+12.*Unit(K+6))/FMath::Max(1.,Size.Z)):
++                    Span/FMath::Max(1.,FMath::Max(Size.X,Size.Y));
++                const FVector Up=Plant?FMath::Lerp(FVector::UpVector,Normal,.38).GetSafeNormal():Normal;
++                const double Heading=FMath::Atan2(Normal.Y,Normal.X)+(Size.Y>Size.X?.5*PI:0.)+(Unit(K+7)-.5)*1.8;
++                const FQuat Rotation=FQuat(Up,Heading)*FQuat::FindBetweenNormals(FVector::UpVector,Up);
++                const FVector Foot=Rotation.RotateVector(FVector(Box.GetCenter().X,Box.GetCenter().Y,Box.Min.Z)*Scale);
++                if(Foot.SizeSquared2D()>120.*120.)continue;
++                const FVector Pivot=FVector(At,Hills.Height(At.X,At.Y)-(Plant?1.5:Size.Z*Scale*.32))-Foot;
++                if(Pivot.X<Bounds.Min.X||Pivot.X>=Bounds.Max.X||Pivot.Y<Bounds.Min.Y||Pivot.Y>=Bounds.Max.Y)continue;
++                auto& PileItem=Out.Emplace_GetRef();
++                PileItem.Transform=FTransform(Rotation,Pivot,FVector(Scale));
++                PileItem.Mesh=Ref.ToSoftObjectPath();PileItem.Key=K;
++                PileItem.CandidateId=0x6100000000000000ULL|(uint64(Index)<<16)|(uint64(Pocket)<<8)|uint64(Piece);
++            }
++        }
++    }
++}
+ }
+ 
+ bool Near(const ATemperateHillsWorld& Hills,const FBox& Bounds)
+@@ -173,6 +235,7 @@
+     const auto& Ecology=Hills.EcologyProfile();
+     const double VillageYaw=FMath::Atan2(Village.Axis.Y,Village.Axis.X);
+     GatherWallFoot(Hills,Layer,Bounds,Out);
++    if(Layer==3)GatherApronDeposits(Hills,Bounds,Out);
+     for(int32 PatchIndex=0;PatchIndex<UE_ARRAY_COUNT(Patches);++PatchIndex)
+     {
+         const FPatch& Patch=Patches[PatchIndex];

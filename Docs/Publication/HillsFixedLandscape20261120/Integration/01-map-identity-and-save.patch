@@ -1,0 +1,263 @@
+diff --git a/Source/FPSGAME/FPSGAME.Build.cs b/Source/FPSGAME/FPSGAME.Build.cs
+index 285b6e3f1c5983f4ef250a937dd60bf78878252b..4186c52ce574e031b7bfbe7b5fb29055313f9aac 100644
+--- a/Source/FPSGAME/FPSGAME.Build.cs
++++ b/Source/FPSGAME/FPSGAME.Build.cs
+@@ -82,10 +82,12 @@
+         string root = Path.GetFullPath(Path.Combine(ModuleDirectory, "../.."));
+         string generation = Path.Combine(ModuleDirectory, "WorldGeneration");
+         string assets = Path.Combine(root, "Content/WorldGeneration/TemperateHills");
++        string[] bakedHills = { "FixedLayout/Hills.layout", "FixedLayout/Quarry.dressing", "FixedTerrain/Hills.terrain" };
+         var inputs = Directory.GetFiles(generation, "Temperate*", SearchOption.TopDirectoryOnly)
+             .Where(p => (p.EndsWith(".h") || p.EndsWith(".cpp") || p.EndsWith(".inl")) &&
+                 !Path.GetFileName(p).Contains("Capture") && !Path.GetFileName(p).Contains("Compatibility"))
+             .Concat(Directory.Exists(assets) ? Directory.GetFiles(assets, "*.uasset", SearchOption.AllDirectories) : Array.Empty<string>())
++            .Concat(bakedHills.Select(file => Path.Combine(assets, file)))
+             .OrderBy(p => Path.GetRelativePath(root, p).Replace('\\', '/'), StringComparer.Ordinal).ToArray();
+         var manifest = new StringBuilder("HillsContent-v1\n");
+         using (var sha = SHA256.Create())
+@@ -93,6 +95,9 @@
+             foreach (string path in inputs)
+             {
+                 ExternalDependencies.Add(path);
++                // The editor target can be built once to produce the initial bake.
++                // Keep these paths as dependencies so its next build picks it up.
++                if (!File.Exists(path)) continue;
+                 using (var stream = File.OpenRead(path))
+                     manifest.Append(Path.GetRelativePath(root, path).Replace('\\', '/')).Append('\0')
+                         .Append(Convert.ToHexString(sha.ComputeHash(stream))).Append('\n');
+diff --git a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
+index e46275b84a6d000c135dc5f814f95ed8aae98e30..0a2841980bbe278599822331b2228c2a2aff044d 100644
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
+@@ -77,6 +77,7 @@
+     UPROPERTY(EditAnywhere, Category="River") TSoftObjectPtr<UMaterialInterface> RiverMaterial;
+     UPROPERTY(EditAnywhere, Category="River") TArray<TSoftObjectPtr<UStaticMesh>> RiverRocks;
+     UPROPERTY(EditAnywhere, Category="River|Pebble Shore") TArray<TSoftObjectPtr<UStaticMesh>> RiverPebbles;
++    UPROPERTY(EditAnywhere, Category="Quarry|Lake Slope") TArray<TSoftObjectPtr<UStaticMesh>> QuarryShoreChips;
+     UPROPERTY(EditAnywhere, Category="River|Pebble Shore", meta=(ClampMin="0",ClampMax="40",Units="cm")) float RiverBankReliefCm=22.f;
+     UPROPERTY(EditAnywhere, Category="River|Pebble Shore", meta=(ClampMin="45",ClampMax="180",Units="cm")) float RiverPebbleSpacingCm=85.f;
+     UPROPERTY(EditAnywhere, Category="River|Pebble Shore", meta=(ClampMin="0",ClampMax="1")) float RiverPebbleCoverage=.78f;
+@@ -143,6 +144,7 @@
+     UPROPERTY(EditAnywhere, Category="Rainforest|Floor") TArray<TSoftObjectPtr<UStaticMesh>> RainforestCarpetGrass;
+     UPROPERTY(EditAnywhere, Category="WhiteCliffs") TArray<TSoftObjectPtr<UStaticMesh>> WhiteCliffMeshes;
+     UPROPERTY(EditAnywhere, Category="WhiteCliffs") TArray<TSoftObjectPtr<UStaticMesh>> QuarryProps;
++    UPROPERTY(EditAnywhere, Category="River|Ecology") TArray<TSoftObjectPtr<UStaticMesh>> WetBankSaplings;
+ };
+ 
+ USTRUCT(BlueprintType)
+@@ -183,6 +185,8 @@
+     /** 1 = original, 2 = ridged, 3 = rolling hills with a reserved hilltop village. Missing -> 1. */
+     UPROPERTY(EditAnywhere, BlueprintReadWrite) int32 GeneratorVersion = 1;
+     UPROPERTY(EditAnywhere, BlueprintReadWrite) FGuid WorldId;
++    // Absent in older saves, which keep their original weather and raid schedules.
++    UPROPERTY() int32 PlaythroughSeed = 0;
+     // Kept so V2 saves still load; new saves write Edits only.
+     UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FHillsCraterRecord> Craters;
+     UPROPERTY(EditAnywhere, BlueprintReadWrite) TArray<FHillsTerrainEditRecord> Edits;
+@@ -216,6 +220,7 @@
+     uint32 Key = 0;
+     uint64 CandidateId = 0;
+     bool bVillagePlanting = false;
++    bool bHasTriangleSupport = false;
+ };
+ 
+ UCLASS()
+@@ -244,6 +249,9 @@
+     // Allows the loading camera/pawn and PCG to prepare before gameplay is released.
+     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Hills") bool bSurfaceReady = false;
+     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category="Hills") FGuid WorldId;
++    // Zero identifies legacy sessions. A new playthrough varies events while
++    // keeping its survey anchor independent of subsequent player earthworks.
++    UPROPERTY(Replicated) int32 PlaythroughSeed = 0;
+     /** M4 联机：服务端广播的地形编辑（与存档同构的传输形）+ 版本号；客户端转成 TerrainEdits 做确定性重建。 */
+     UPROPERTY(ReplicatedUsing=OnRep_NetEdits)
+     TArray<FHillsTerrainEditRecord> NetEdits;
+@@ -254,8 +262,14 @@
+     UFUNCTION(BlueprintPure, Category="Hills") FVector GetStartLocation() const;
+     /** Stable pre-settlement anchor used by river/village planning, never the player entry. */
+     FVector GetGenerationAnchor() const;
++#if WITH_EDITOR
++    bool BakeFixedLayout();
++    bool BakeFixedQuarryDressing(uint32 LayoutChecksum);
++#endif
+     bool PrepareSpawnGround(AController* Controller);
+     bool RequestQuarryVisit(class ACharacter* Player,FString& Reason);
++    void PrefetchQuarryVisit();
++    bool PrepareQuarryForVegetation(const FBox& CellBounds);
+     FRotator GetStartRotation() const;
+     const FTemperateVillageSite& GetVillageSite() const { return VillageSite; }
+     UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsVillageWallRepaired() const { return bVillageWallRepaired; }
+@@ -401,6 +415,7 @@
+     /** Small embedded surface stones that match the ground material's dry/gravel patches. */
+     void GetGroundDebrisPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+     void GetUplandGroundPatches(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const;
++    bool GetQuarryLakeSlopeCover(const FBox& Bounds,TArray<FTemperatePlacement>& Out,bool bShrubs,int32* CompletedRows=nullptr) const;
+     void GetRiverPlantPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+     void GetRiverShrubPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+     void GetRiverPebblePlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+@@ -410,8 +425,11 @@
+     void GetForestFloorPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+     /** Big rock modules embedded into steep hillsides. Same rock layer, never mineable. */
+     void GetCliffPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+-    void GetWhiteCliffPlacements(const FBox& Bounds, TArray<FTemperatePlacement>& Out) const;
+-    bool AssembleWhiteCliffs();
++    void AddQuarryRockLoadPaths(TArray<FSoftObjectPath>& Paths) const;
++    static const FSoftObjectPath& QuarrySlopeStoneMesh(uint32 Variant,bool bLedge);
++    void GetWhiteCliffPlacements(const FBox& Bounds,TArray<FTemperatePlacement>& Out,bool bIncludeChips=false,int32 Section=INDEX_NONE) const;
++    bool WithinQuarryReach(const FVector& Position,double Reach) const;
++    void StreamQuarry(TConstArrayView<FVector> ViewCenters);
+     void GetNurseLogPlacements(const FBox& Bounds,const TArray<FTemperatePlacement>& Supports,TArray<FTemperatePlacement>& Ferns,TArray<FTemperatePlacement>* Floor) const;
+     void GetHabitatCompanions(const FBox& Bounds,const TArray<FTemperatePlacement>& Supports,bool Trees,
+         TArray<FTemperatePlacement>& Plants,TArray<FTemperatePlacement>* Floor) const;
+diff --git a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp
+index fffca64212add2ea23ece63ee0b9585af8199c58..1625e5004282a7846ad774e71ed3e19adb0eb01a 100644
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp
+@@ -1,4 +1,5 @@
+ #include "TemperateHillsWorld.h"
++#include "TemperateHillsMap.h"
+ #include "Algo/Compare.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+ #include "Net/UnrealNetwork.h" // M4: DOREPLIFETIME
+@@ -101,15 +102,23 @@
+     if(FParse::Param(FCommandLine::Get(),TEXT("GrassPortalAudit")))Slot=TEXT("TemperateHills_GrassPortalAudit");
+     if(FParse::Param(FCommandLine::Get(),TEXT("ChapelReview")))Slot=TEXT("TemperateHills_ChapelReview");
+ #endif
+-    int32 Requested=Seed;
+-    int32 RequestedGen=3;
++    int32 Requested=TemperateHillsMap::Seed;
++    int32 RequestedGen=TemperateHillsMap::GeneratorVersion;
++    const bool ContinueWorld=GetWorld()->URL.HasOption(TEXT("HillsContinue"));
++    bool Explicit=false;
++#if !UE_BUILD_SHIPPING
++    // Existing authoring and regression fixtures can still request a particular
++    // historical map. Normal play and portal re-entry use the authored map or save.
++    Explicit=!ContinueWorld&&FParse::Value(FCommandLine::Get(),TEXT("HillsSeed="),Requested);
+     FParse::Value(FCommandLine::Get(),TEXT("HillsGen="),RequestedGen);
+-    // Portal re-entry continues the existing world even when this process was
+-    // originally launched with a new-world or explicit-seed command-line flag.
+-    const bool ContinueWorld=GetWorld()->URL.HasOption(TEXT("HillsContinue"));
+-    const bool Explicit=!ContinueWorld&&FParse::Value(FCommandLine::Get(),TEXT("HillsSeed="),Requested);
++#endif
+     const bool NewWorld=!ContinueWorld&&FParse::Param(FCommandLine::Get(),TEXT("HillsNewWorld"));
+     UTemperateHillsSave* Saved=Cast<UTemperateHillsSave>(UGameplayStatics::LoadGameFromSlot(Slot,0));
++    if(!Saved&&!NewWorld&&!Explicit&&UGameplayStatics::DoesSaveGameExist(Slot,0))
++    {
++        UE_LOG(LogTemp,Error,TEXT("HILLS_SESSION could not read existing world %s"),*Slot);
++        Slot.Reset();return;
++    }
+     if(Saved&&!NewWorld&&!Explicit&&(Saved->Version>6||Saved->GeneratorVersion>3||Saved->VillagePlanVersion>UTemperateHillsSave::CurrentVillagePlanVersion))
+     {
+         UE_LOG(LogTemp,Error,TEXT("HILLS_SESSION incompatible version=%d; original save retained"),Saved->Version);
+@@ -134,6 +143,7 @@
+             }
+         }
+         Seed=Saved->Seed;WorldId=Saved->WorldId;
++        PlaythroughSeed=Saved->PlaythroughSeed;
+         VillageDefenseGeneration=Saved->VillageDefenseGeneration;
+         bVillageWallRepaired=Saved->bVillageWallRepaired;
+         bVillageBlacksmithRepaired=Saved->bVillageBlacksmithRepaired;
+@@ -164,11 +174,13 @@
+     }
+     else
+     {
+-        Seed=Explicit?Requested:int32(TemperateHills::Mix(FGuid::NewGuid().A));
++        Seed=Requested;
+         WorldId=FGuid::NewGuid();
++        if(!Explicit) PlaythroughSeed=int32(GetTypeHash(WorldId) | 1u);
+         GeneratorVersion=FMath::Clamp(RequestedGen,1,3);
+         auto* Save=Cast<UTemperateHillsSave>(UGameplayStatics::CreateSaveGameObject(UTemperateHillsSave::StaticClass()));
+         Save->Version=6;Save->Seed=Seed;Save->WorldId=WorldId;Save->GeneratorVersion=GeneratorVersion;
++        Save->PlaythroughSeed=PlaythroughSeed;
+         Save->VillagePlanVersion=2;
+         if(!UGameplayStatics::SaveGameToSlot(Save,Slot,0)){UE_LOG(LogTemp,Error,TEXT("HILLS_SESSION save failed"));Slot.Reset();}
+     }
+@@ -181,6 +193,7 @@
+     DOREPLIFETIME(ATemperateHillsWorld,Seed);
+     DOREPLIFETIME(ATemperateHillsWorld,GeneratorVersion);
+     DOREPLIFETIME(ATemperateHillsWorld,WorldId);
++    DOREPLIFETIME_CONDITION(ATemperateHillsWorld,PlaythroughSeed,COND_InitialOnly);
+     DOREPLIFETIME(ATemperateHillsWorld,bVillageWallRepaired);
+     DOREPLIFETIME(ATemperateHillsWorld,bVillageBlacksmithRepaired);
+     DOREPLIFETIME(ATemperateHillsWorld,VillagePlansUnlocked);
+@@ -299,13 +312,14 @@
+     // valley in 2 m steps and keep the first walkable (<=8 deg) spot; fall back
+     // to the flattest sample if the whole search strip is steep.
+     if(bStartLocationCached)return CachedStartLocation;
++    const bool FixedSurvey=PlaythroughSeed!=0 && Seed==TemperateHillsMap::Seed && GeneratorVersion==TemperateHillsMap::GeneratorVersion;
+     double BestX=X0,BestY=TemperateHills::ValleyY(X0,Seed),BestZ=0,BestSlope=DBL_MAX;
+     for(int32 I=0;I<65;++I)
+     {
+         const double X=X0+I*200.0;
+         const double Y=TemperateHills::ValleyY(X,Seed);
+-        const double Z=Height(X,Y);
+-        const FVector N=SurfaceNormal(X,Y);
++        const double Z=FixedSurvey?TemperateHillsSurface::Height(X,Y,Seed,GeneratorVersion):Height(X,Y);
++        const FVector N=FixedSurvey?TemperateHillsSurface::Normal(X,Y,Seed,GeneratorVersion):SurfaceNormal(X,Y);
+         const double Slope=FMath::RadiansToDegrees(FMath::Acos(FMath::Clamp(N.Z,-1.0,1.0)));
+         if(Slope<BestSlope){BestSlope=Slope;BestX=X;BestY=Y;BestZ=Z;}
+         if(Slope<=8.0)break;
+diff --git a/Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp b/Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp
+index 528a72a31e9539672ec1ef4187add0f2d434e725..03aed37a4c01b2afd23419a6613a836b3c2c668f 100644
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp
+@@ -1,4 +1,5 @@
+ #include "TemperateHillsWorld.h"
++#include "TemperateQuarryYard.h"
+ #include "Algo/Compare.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+ #include "Net/UnrealNetwork.h" // M4: DOREPLIFETIME
+@@ -69,15 +70,16 @@
+ double ATemperateHillsWorld::PathDistance(double X,double Y) const
+ {
+     const double Original=FMath::Abs(Y-TemperateHills::ValleyY(X,Seed));
+-    return RiverPlan&&RiverPlan->WhiteCliffs.Weight(X,Y)>.05?
+-        FMath::Min(Original,RiverPlan->WhiteCliffs.TrailDistance(X,Y)):Original;
++    if(!RiverPlan || RiverPlan->WhiteCliffs.Weight(X,Y)<=.05)return Original;
++    const auto P=RiverPlan->WhiteCliffs.Local(X,Y);
++    return FMath::Min3(Original,FMath::Abs(P.X-TemperateQuarry::RoadX(P.Y)),TemperateQuarry::ServiceDistance(P));
+ }
+ double ATemperateHillsWorld::Height(double X,double Y) const
+ {return BaseHeight(X,Y)+TerrainOffsetAt(X,Y);}
+ double ATemperateHillsWorld::BaseHeight(double X,double Y) const
+ {
+     const double Z=RiverPlan?RiverPlan->Height(X,Y,Seed):TemperateHillsSurface::Height(X,Y,Seed,GeneratorVersion);
+-    return ChapelSite.Grade(X,Y,VillageSite.Grade(X,Y,ForestWaterPlan?ForestWaterPlan->ShapeGround(X,Y,Z):Z));
++    return ChapelSite.Grade(X,Y,VillageSite.Grade(X,Y,ForestWaterPlan?ForestWaterPlan->ShapeGround(X,Y,Z):Z,Seed));
+ }
+ double ATemperateHillsWorld::TerrainOffsetAt(double X,double Y) const
+ {
+@@ -136,6 +138,7 @@
+     if(!Save)Save=Cast<UTemperateHillsSave>(UGameplayStatics::CreateSaveGameObject(UTemperateHillsSave::StaticClass()));
+     if(!Save)return;
+     Save->Version=6;Save->Seed=Seed;Save->WorldId=WorldId;Save->GeneratorVersion=GeneratorVersion;
++    Save->PlaythroughSeed=PlaythroughSeed;
+     Save->bVillageWallRepaired=bVillageWallRepaired;
+     Save->bVillageBlacksmithRepaired=bVillageBlacksmithRepaired;
+     Save->VillagePlansUnlocked=VillagePlansUnlocked;
+diff --git a/Source/FPSGAME/WorldGeneration/HillsNightPersistence.cpp b/Source/FPSGAME/WorldGeneration/HillsNightPersistence.cpp
+index bbe55523a97def7995d542c68d0a7ba06bdcfc83..57ceb71425db0c35d10b5082f209030b6bea877c 100644
+--- a/Source/FPSGAME/WorldGeneration/HillsNightPersistence.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsNightPersistence.cpp
+@@ -28,6 +28,7 @@
+         else if(!PendingSave&&UGameplayStatics::DoesSaveGameExist(SaveSlot,0))
+         {bSaveWritable=false;UE_LOG(LogTemp,Error,TEXT("HILLS_RAID unreadable sidecar retained: %s"),*SaveSlot);}
+         if(PendingSave)Weather->RestorePersistentState(PendingSave->Weather);
++        else if(bSaveWritable && Hills->PlaythroughSeed) Weather->WeatherSeed=Hills->PlaythroughSeed;
+         bClockRestored=true;
+     }
+     if(!Hills->bReady)return false;
+diff --git a/Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.cpp b/Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.cpp
+index 64fb014acb68e83bd91ddbc95580e9628c85766e..95ca1fccb2cdb34580e7b509e07d038384bc70f7 100644
+--- a/Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.cpp
+@@ -247,7 +247,8 @@
+     {
+         if(Portal.IsValid())Portal->ClosePortal();Portal.Reset();bSiteChosen=false;SpawnFailures=0;
+         if(PendingSave)PendingSave->PortalActive=false;
+-        NightSerial=Serial;Random.Initialize(int32(uint32(Hills->Seed)^(uint32(Serial)*196613u)^0x4e495447u));
++        const int32 EventSeed=Hills->PlaythroughSeed ? Hills->PlaythroughSeed : Hills->Seed;
++        NightSerial=Serial;Random.Initialize(int32(uint32(EventSeed)^(uint32(Serial)*196613u)^0x4e495447u));
+         SpawnedThisNight=WaveRemaining=0;NextPortalAttempt=Now;NextWave=Now;
+         NextPlacementLog=NextSpawnLog=Now;
+         // Advancing directly to a later night may skip every daytime tick.

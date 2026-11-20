@@ -1,0 +1,93 @@
+diff --git a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp
+index 551b26f762b86248bf8a17b8b1f4f22153c87c93..218a029a8dff0bb528102573cb47c4efdc545c21 100644
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp
+@@ -165,13 +165,13 @@
+                 AddPaths(Paths,Assets->Trees);
+                 AddPaths(Paths,Assets->Rocks);AddPaths(Paths,Assets->RiverRocks);
+                 AddPaths(Paths,Assets->FallenLogs);AddPaths(Paths,Assets->ForestRoots);AddPaths(Paths,Assets->Cliffs);
+-                AddPaths(Paths,Assets->WhiteCliffMeshes);AddPaths(Paths,Assets->QuarryProps);
+                 Paths.Add(Assets->RainforestBankBoulder.ToSoftObjectPath());
+                 Paths.Append(ProductionOreRocks::AllMeshes());
+                 break;
+             case Understory:
+                 Paths.Add(Assets->Graphs[2].ToSoftObjectPath());
+                 AddPaths(Paths,Assets->Shrubs);AddPaths(Paths,Assets->ForestSaplings);
++                AddPaths(Paths,Assets->WetBankSaplings);
+                 AddPaths(Paths,Assets->ForestShrubs);AddPaths(Paths,Assets->ForestFerns);
+                 break;
+             case GroundCover:
+@@ -253,8 +253,11 @@
+         bool Compiling=false;
+ #if WITH_EDITOR
+         const auto Platform=GetFeatureLevelShaderPlatform_Checked(GetWorld()->GetFeatureLevel());
+-        for(const auto& Path:Batch.Paths)
+-        {
++        // A retained package that has finished compiling need not be polled again
++        // while the next tree mesh or shared foliage material is still pending.
++        for(;Batch.NextCompilationPath<Batch.Paths.Num();++Batch.NextCompilationPath)
++        {
++            const FSoftObjectPath& Path=Batch.Paths[Batch.NextCompilationPath];
+             UObject* Asset=Path.ResolveObject();
+             if(auto* Mesh=Cast<UStaticMesh>(Asset))
+             {
+diff --git a/Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp b/Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp
+index 527cc628c92f7c8edfd59d294a63229d8e6d5529..5589ea45f2473a7b8df0c8cc1e17d41a54708fe4 100644
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp
+@@ -104,9 +104,6 @@
+     if(Layer==1)
+     {
+         GetRockPlacements(Bounds,Out);
+-        // The small landmark kit is persistent so its silhouette remains visible
+-        // across the lake; its footprints still participate in vegetation masks.
+-        Out.RemoveAll([](const FTemperatePlacement& P){return (P.CandidateId>>60)==5;});
+         return;
+     }
+     if(Layer==0){GetBasePlacements(Layer,Bounds,Out,IncludeRegrowth);return;}
+@@ -193,7 +190,6 @@
+             (Priorities[J]==Priorities[I]&&Supported[J].CandidateId<P.CandidateId));});
+         if(!Conflict&&(IncludeDepleted||!IsProductionDepleted(1,P.CandidateId)))Out.Add(P);
+     }
+-    GetWhiteCliffPlacements(Bounds,Out);
+ }
+ 
+ bool ATemperateHillsWorld::FitRockPlacement(const UStaticMesh& Mesh,FTransform& Placement,bool Ore) const
+@@ -243,8 +239,13 @@
+         TArray<FTemperatePlacement> Rocks;
+         // Keep depleted candidates in the mask so mining does not cause nearby
+         // plants to reappear. Wait for the solid assets before retaining results.
++        const auto GatherMaskRocks=[this](const FBox& Area,TArray<FTemperatePlacement>& Result)
++        {
++            GetRockPlacements(Area,Result,true);
++            GetWhiteCliffPlacements(Area,Result);
++        };
+         if(!bReady||!Streaming||!Streaming->Batches[HillsStreaming::Solids].Ready||!IsInGameThread())
+-            GetRockPlacements(Mask->Coverage,Rocks,true);
++            GatherMaskRocks(Mask->Coverage,Rocks);
+         else
+         {
+             auto& Windows=Streaming->VegetationRockWindows;
+@@ -274,7 +275,7 @@
+                 // selection still includes the generator's full conflict halo.
+                 Window->Area=Lookup.ExpandBy(FVector(3200.,3200.,0.));
+                 Window->Rocks.Reset();
+-                GetRockPlacements(Window->Area,Window->Rocks,true);
++                GatherMaskRocks(Window->Area,Window->Rocks);
+             }
+             Window->LastUse=FPlatformTime::Cycles64();
+             for(const auto& P:Window->Rocks)
+diff --git a/Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp b/Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp
+index 3545ff518431679f94e672b9940e1922f53ec1c6..e74190c779b119759d508a953bc19808f0a13f3c 100644
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp
+@@ -70,7 +70,8 @@
+         {Reason=TEXT("长满苔藓的岩石");return false;}
+         const auto IsWoodDressing=[&](const TArray<TSoftObjectPtr<UStaticMesh>>& List)
+         { return List.ContainsByPredicate([&](const auto& Mesh){return Mesh.Get()==MeshComponent->GetStaticMesh();}); };
+-        if(IsWoodDressing(Assets->WhiteCliffMeshes)||IsWoodDressing(Assets->QuarryProps))
++        if(MeshComponent->ComponentHasTag(TEXT("HillsWhiteCliffs"))||
++            IsWoodDressing(Assets->WhiteCliffMeshes)||IsWoodDressing(Assets->QuarryProps))
+         {Reason=TEXT("采石场遗迹");return false;}
+         if(IsWoodDressing(Assets->FallenLogs)||IsWoodDressing(Assets->ForestRoots))
+         {Reason=TEXT("林地枯木，请寻找可砍伐的树木");return false;}

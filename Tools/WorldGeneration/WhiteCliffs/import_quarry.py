@@ -1,7 +1,14 @@
 """Import licensed Quixel scans and the authored quarry kit, then save owned assets."""
 import json, shutil
 from pathlib import Path
+import sys
 import unreal as u
+
+tool_dir = str(Path(__file__).resolve().parent)
+if tool_dir not in sys.path:
+    sys.path.insert(0, tool_dir)
+from quarry_spoil_surface import apply_weathered_finish
+
 ROOT=Path('D:/FPS3D/FPSGAME')
 TASK=ROOT/'SourceAssets/HillsRiverLake20261117'
 DEST='/Game/WorldGeneration/TemperateHills/WhiteCliffs'
@@ -28,7 +35,15 @@ def texture(file,name,kind):
     save(tex);return tex
 def scan_material(folder,name):
     path=DEST+'/Materials/M_'+name
-    if E.does_asset_exist(path):return get(path)
+    limestone = name in ('CliffA', 'CliffB', 'LimestoneSpoil')
+    if E.does_asset_exist(path):
+        mat = get(path)
+        if limestone and apply_weathered_finish(mat):
+            errors = L.recompile_material(mat)
+            if errors:
+                raise RuntimeError(f"{path}: {errors}")
+            save(mat)
+        return mat
     mat=A.create_asset('M_'+name,DEST+'/Materials',u.Material,u.MaterialFactoryNew())
     mat.set_editor_property('used_with_instanced_static_meshes',True)
     for kind,prop,output in [('BaseColor','MP_BASE_COLOR','RGB'),('Normal','MP_NORMAL','RGB'),('Roughness','MP_ROUGHNESS','R'),('AO','MP_AMBIENT_OCCLUSION','R'),('Metalness','MP_METALLIC','R')]:
@@ -40,7 +55,7 @@ def scan_material(folder,name):
         n=L.create_material_expression(mat,u.MaterialExpressionTextureSample);n.texture=tex
         n.sampler_type=u.MaterialSamplerType.SAMPLERTYPE_NORMAL if kind=='Normal' else (
             u.MaterialSamplerType.SAMPLERTYPE_COLOR if kind=='BaseColor' else u.MaterialSamplerType.SAMPLERTYPE_MASKS)
-        if kind=='BaseColor' and name in ('CliffA','CliffB','LimestoneSpoil'):
+        if kind=='BaseColor' and limestone:
             mat.set_editor_property('two_sided',True)
             # The quarry scans carry iron-brown staining. Regrade their albedo
             # to pale limestone while retaining scan grain, AO and normal relief.
@@ -64,7 +79,13 @@ def scan_material(folder,name):
             L.connect_material_property(limit,'',u.MaterialProperty.MP_BASE_COLOR)
         else:
             L.connect_material_property(n,output,getattr(u.MaterialProperty,prop))
-    L.recompile_material(mat);save(mat);return mat
+    if limestone:
+        apply_weathered_finish(mat)
+    errors = L.recompile_material(mat)
+    if errors:
+        raise RuntimeError(f"{path}: {errors}")
+    save(mat)
+    return mat
 def import_mesh(file,name,materials):
     path=DEST+'/Meshes/'+name
     if E.does_asset_exist(path):return get(path)

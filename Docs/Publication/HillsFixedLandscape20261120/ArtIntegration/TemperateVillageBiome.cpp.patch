@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillageBiome.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillageBiome.cpp
+@@ -1,4 +1,5 @@
+ #include "TemperateHillsRiver.h"
++#include "TemperateHillsMap.h"
+ #include "TemperateVillageSite.h"
+ 
+ namespace TemperateRiver
+@@ -90,8 +91,16 @@
+             const auto Local=Village.Local(P.X,P.Y);
+             const double West=1.-FMath::SmoothStep(2500.,9500.,Local.X);
+             const double Near=1.-FMath::SmoothStep(9000.,15000.,FVector2D::Distance(P,Junction));
+-            const double Focus=FMath::Max(West*(1.-FMath::SmoothStep(23000.,32000.,D.Size())),Near)*
+-                (1.-FMath::SmoothStep(.12,.68,Bank.Bank));
++            double Focus=FMath::Max(West*(1.-FMath::SmoothStep(23000.,32000.,D.Size())),Near);
++            if(Seed==TemperateHillsMap::Seed && Half==51200.)
++            {
++                // The opposite side used the survey radius alone, leaving a
++                // constant-width treeline. Let shallow draws carry green into
++                // the margin and exposed spurs carry dry grass out between them.
++                const double East=FMath::SmoothStep(3500.,12200.,Local.X);
++                Focus=FMath::Max(Focus,.83*East*(1.-FMath::SmoothStep(25500.,35000.,D.Size())));
++            }
++            Focus*=1.-FMath::SmoothStep(.12,.68,Bank.Bank);
+             if(Focus>0.)
+             {
+                 using TemperateHillsSurface::Noise5;

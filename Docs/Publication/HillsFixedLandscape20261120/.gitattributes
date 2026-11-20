@@ -1,0 +1,3 @@
+ArtIntegration/*.patch whitespace=-blank-at-eol
+Integration/**/*.patch whitespace=-blank-at-eol
+Integration/*.patch whitespace=-blank-at-eol

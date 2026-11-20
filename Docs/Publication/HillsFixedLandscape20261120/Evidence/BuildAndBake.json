@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-20",
+  "bake": [
+    "HILLS_LAYOUT_BAKED seed=1518277816 size_m=1024 river_samples=540 shore_sections=29 pools=6 bytes=1245528",
+    "HILLS_QUARRY_BAKED instances=4701 mesh_groups=25 blockers=49",
+    "HILLS_FIXED_TERRAIN_BAKED seed=1518277816 cells=256 bytes=67090517",
+    "Success - 0 error(s), 7 warning(s)"
+  ],
+  "outputs": {
+    "Content/WorldGeneration/TemperateHills/FixedLayout/Hills.layout": {
+      "bytes": 1245528,
+      "sha256": "f753ff5cbd26bb6cb25feb5d9daa619c1332f16b2fbae86dfaf0045b2b555ed5"
+    },
+    "Content/WorldGeneration/TemperateHills/FixedLayout/Quarry.dressing": {
+      "bytes": 391708,
+      "sha256": "6e032174af71091008f5baaa70f81d13f3b9f9bb41ca2d097d5fd3221f289893"
+    },
+    "Content/WorldGeneration/TemperateHills/FixedTerrain/Hills.terrain": {
+      "bytes": 67090517,
+      "sha256": "518e0d89606d3f718f4c3055cb1b76a8e7759938774d37ff80b7b9c8b00515f4"
+    },
+    "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset": {
+      "bytes": 24260,
+      "sha256": "76717c1838a8569510e4bd40346227f711b66f41f0368b803e8f37ebca6c95c2"
+    }
+  },
+  "builds": {
+    "FPSGAME": {
+      "platform": "Win64",
+      "configuration": "Development",
+      "result": "Succeeded",
+      "log": "HillsLandscapePass-LandscapeRelease-FPSGAME.console",
+      "log_sha256": "2d1fc2bc9f64082d9ea82f73fdcd76e022c17dc45f8439b10f1414d8b56f620b"
+    },
+    "FPSGAMEEditor": {
+      "platform": "Win64",
+      "configuration": "Development",
+      "result": "Succeeded",
+      "log": "HillsLandscapePass-LandscapeRelease-FPSGAMEEditor.console",
+      "log_sha256": "68f2bf2753a69d05efb8ac5c45b6d2a08b12849dc5e36bac680b6a63e60ea182"
+    }
+  },
+  "player_walk_and_frametime_measured_on_this_build": false
+}

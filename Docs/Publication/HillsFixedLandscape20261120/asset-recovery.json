@@ -1,0 +1,187 @@
+{
+  "purpose": "Identify the local binary revision for this landscape pass. Restore the full licensed packs and the base project for transitive dependencies.",
+  "fixed_seed": 1518277816,
+  "generator_version": 3,
+  "records": {
+    "layout_and_terrain": [
+      {
+        "path": "Content/WorldGeneration/TemperateHills/FixedLayout/Hills.layout",
+        "bytes": 1245528,
+        "sha256": "f753ff5cbd26bb6cb25feb5d9daa619c1332f16b2fbae86dfaf0045b2b555ed5"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/FixedLayout/Quarry.dressing",
+        "bytes": 391708,
+        "sha256": "6e032174af71091008f5baaa70f81d13f3b9f9bb41ca2d097d5fd3221f289893"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/FixedTerrain/Hills.terrain",
+        "bytes": 67090517,
+        "sha256": "518e0d89606d3f718f4c3055cb1b76a8e7759938774d37ff80b7b9c8b00515f4"
+      }
+    ],
+    "active_palette": [
+      {
+        "path": "Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset",
+        "bytes": 24260,
+        "sha256": "76717c1838a8569510e4bd40346227f711b66f41f0368b803e8f37ebca6c95c2"
+      }
+    ],
+    "hills_meshes_and_materials": [
+      {
+        "path": "Content/WorldGeneration/TemperateHills/WetBank/MI_SaplingSimpleWind.uasset",
+        "bytes": 20910,
+        "sha256": "e80367fe360fd165fa2a87ef9c2b9948d1b475509ab48ad073ca072389fcc549"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/WetBank/SM_ShoreAlderSapling_01.uasset",
+        "bytes": 156710,
+        "sha256": "7a77c971ac4faefcd0618b6ea3f03629cbba48027768d1b7d526fe6e254c395f"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/WetBank/SM_ShoreAlderSapling_03.uasset",
+        "bytes": 146564,
+        "sha256": "5b658165b9a635d5b091b869b1a6aead79333871243aedada4bd1bb65d81b6b6"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/Canopy/SM_HillsAlderCrown_01.uasset",
+        "bytes": 11328,
+        "sha256": "ab1eab541451502b9807aee89d5c6e94616388029539e83b6b54769c7fac8e89"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/Canopy/SM_HillsAlderCrown_04.uasset",
+        "bytes": 11357,
+        "sha256": "07ba257c179d18db59c2401a62ff194321539e535cd5cb554d1e640615cf2027"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/GroundPalette/MI_ground_05_01_Mat.uasset",
+        "bytes": 11008,
+        "sha256": "d399b3f643bcdae32430ec0bdad0b10c90382af582b31516b37954ef64094b75"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/GroundPalette/MI_ground_09_01_Mat.uasset",
+        "bytes": 11008,
+        "sha256": "b7733e44f1ac02bf3af0da102b9f2162f0c7a65e5b1c195abfe446fedd471a8b"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/GroundPalette/MI_ground_10_01_Mat.uasset",
+        "bytes": 11008,
+        "sha256": "85a9e80071529becd6949cc5d4ef4ab38df268f72efac1cc9dd4cf9e8fcf6f51"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/GroundPalette/MI_ground_13_01_Mat.uasset",
+        "bytes": 11006,
+        "sha256": "3654dc958ebc11602526e59eb690e1ff98dfea77332ec23abc46274d0acf0e05"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/GroundPalette/SM_ground_05_01.uasset",
+        "bytes": 30575,
+        "sha256": "93931b2f87df764efc069fbfff0697e184ddbcc51f7c16056bd1d523c18f092e"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/GroundPalette/SM_ground_09_01.uasset",
+        "bytes": 32904,
+        "sha256": "47d14f03f983a77437e8e7a5351e36b070d733d6ff3bb13319595975aa2a3389"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/GroundPalette/SM_ground_10_01.uasset",
+        "bytes": 32865,
+        "sha256": "68a5d5dff02cfb3ef8dcfd29f6c04ae9f1d163f1d53ed5b6117c55842358e7b4"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/GroundPalette/SM_ground_13_01.uasset",
+        "bytes": 34571,
+        "sha256": "52f9d28c329943ac19b101dc7cb530989c2e6cf8b8f9914d8f83ff5de4f3ad76"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/GroundPalette/SM_ShoreLimestoneFlat.uasset",
+        "bytes": 86752,
+        "sha256": "9ab953b1b31c4bbf53a7478d77b56cfc610a252ea9b569d3a43f65ba1ae74e22"
+      },
+      {
+        "path": "Content/WorldGeneration/TemperateHills/GroundPalette/SM_ShoreLimestoneLong.uasset",
+        "bytes": 89117,
+        "sha256": "545bbecf01b2c26d6028efec05baf4c00db23937ca4d37a3f3649d8a95e982b2"
+      }
+    ],
+    "pebble_authoring_inputs": [
+      {
+        "path": "SourceAssets/HillsQuarryRockLayout20261119/SM_QuarryChip01.fbx",
+        "bytes": 726332,
+        "sha256": "a4370d6f2556be6cce7251aa436e065bc837ea609d0b0eb29e09299ad0316f17"
+      },
+      {
+        "path": "SourceAssets/HillsQuarryRockLayout20261119/SM_QuarryChip05.fbx",
+        "bytes": 675276,
+        "sha256": "29b1de87171bd3b781808eda5de452c0c8c36ba57274d323f6f91bd1dca9ca9e"
+      },
+      {
+        "path": "SourceAssets/HillsGroundPalette/SM_ShoreLimestoneFlat.fbx",
+        "bytes": 33628,
+        "sha256": "c73887640ddc136bd0bb01a5d443c86d4a7feda2d9aaf4db5c20a4491643d3bd"
+      },
+      {
+        "path": "SourceAssets/HillsGroundPalette/SM_ShoreLimestoneLong.fbx",
+        "bytes": 36908,
+        "sha256": "0700032bbb099244cf76ab9605fb43ccdef72bcd8addbc795882f829ad59a99e"
+      }
+    ],
+    "selected_donor_meshes": [
+      {
+        "path": "Content/BlackAlder/Geometry/SimpleWind/SM_BlackAlder_Sapling_01.uasset",
+        "bytes": 436616,
+        "sha256": "5198624613638bcb6763753b716124ecee61122455f677bbbfc4ff651a7374d0"
+      },
+      {
+        "path": "Content/BlackAlder/Geometry/SimpleWind/SM_BlackAlder_Sapling_03.uasset",
+        "bytes": 1361362,
+        "sha256": "27fe7c6079dab611985cdde0ab54d838b717d6a8c2442affe97a8bd3a6a194d9"
+      },
+      {
+        "path": "Plugins/CitySamplePCG/Content/BlackAlder/Geometry/PivotPainter/SM_BlackAlder_Field_01_PP.uasset",
+        "bytes": 29446530,
+        "sha256": "7652f65ada2d3deca5c0a23f26419bf9820c1d04d103b75ac396da97e410c475"
+      },
+      {
+        "path": "Plugins/CitySamplePCG/Content/BlackAlder/Geometry/PivotPainter/SM_BlackAlder_Field_04_PP.uasset",
+        "bytes": 13942715,
+        "sha256": "9e1cf438e9d32b7d17518512c1e9680770a00979ba583c355ec8c0a82d5b9f62"
+      },
+      {
+        "path": "Content/NiagaraExamples/StaticMesh/S_Rock_shopk.uasset",
+        "bytes": 31254,
+        "sha256": "b1fdfc81081e53ffbbfddff3064e013092614b39fe2f66393a644cfc9627c7b2"
+      },
+      {
+        "path": "Content/NiagaraExamples/StaticMesh/S_Tree_Debris_wjtuagls.uasset",
+        "bytes": 31048,
+        "sha256": "cc6677939503a944e20b19ec4544685ada71390fc10959e22d9bb8f3b70af35b"
+      },
+      {
+        "path": "Content/NiagaraExamples/StaticMesh/S_Wood_Debris_vb2mfeliw.uasset",
+        "bytes": 30486,
+        "sha256": "24979ff9048c00ba958449f1fb40416eaa579b02bd78e036772b1c3db439637d"
+      },
+      {
+        "path": "Content/PN_FoliageCollection/Meshes/groundPlantMesh/ground_05_01.uasset",
+        "bytes": 127498,
+        "sha256": "0fcfb7d3a66a54de0b5263db5e752bef7b87f35cfdbc3413c9cf09873868aa6a"
+      },
+      {
+        "path": "Content/PN_FoliageCollection/Meshes/groundPlantMesh/ground_10_01.uasset",
+        "bytes": 133034,
+        "sha256": "c9f88e0dc849bb6e52aa52c865088ef80c2d9711810b4109a51f67d003e70f97"
+      },
+      {
+        "path": "Content/PN_FoliageCollection/Meshes/groundPlantMesh/ground_13_01.uasset",
+        "bytes": 133628,
+        "sha256": "a981b705f6e5c955b5bd9ad2bd39737a84e97554faca45fcda2fcb109a039b67"
+      },
+      {
+        "path": "Content/PN_FoliageCollection/Meshes/groundPlantMesh/ground_09_01.uasset",
+        "bytes": 137935,
+        "sha256": "8c0d8da085baab5cd65dde945178875bdf64c1a5a5fdd92ea992f610ac28c807"
+      }
+    ]
+  }
+}

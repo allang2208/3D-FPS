@@ -151,6 +151,7 @@ return a*(1.0+Macro)*lerp(1.0,.78+.44*grain,saturate(DS*Fade));
     habitat.set_editor_property('coordinate_index',1)
     vertex=node(mat,u.MaterialExpressionVertexColor,'GroundVertex')
     normal=node(mat,u.MaterialExpressionVertexNormalWS,'GroundSlope')
+    base=upland_floor(mat,base,p,weather)
     base,moss_mask,moss_packed=rainforest_floor(mat,base,p,weather,habitat,vertex,normal)
     height=next((n for n in L.get_material_expressions(mat) if str(n.get_editor_property('desc'))=='GroundMaskedSample_T_ForestFloor_ARH'),None)
     if not height:raise RuntimeError('Forest floor height input missing')
@@ -213,6 +214,94 @@ return normalize(lerp(Base,wetTangent,Mask));
     if outputs:
         return {**outputs,**new}
     for name,value in new.items():connect(mat,name,value)
+
+def upland_floor(mat,base,p,weather):
+    site=node(mat,u.MaterialExpressionTextureCoordinate,'UplandHabitat')
+    site.set_editor_property('coordinate_index',2)
+    controls=custom(mat,'UplandScanWeights','''
+float2 habitat=saturate(Site-2);
+float total=habitat.x+habitat.y;
+float fade=1-smoothstep(6500,12500,length(Camera-P));
+return float3(saturate(total)*fade,habitat.y/max(.0001,total),habitat.x);
+''',{'Site':site,'P':p,'Camera':node(mat,u.MaterialExpressionCameraPositionWS,'Camera')},3)
+    folder='/Game/WorldGeneration/TemperateHills/Upland/Textures/T_'
+    def sample(kind,sampler):
+        inputs={'P':p,'W':controls}
+        for family in ('LitteredGrass','RockySteppe'):
+            path=folder+family+'_'+kind
+            asset=u.load_asset(path)
+            if not asset:raise RuntimeError('Missing upland scan '+path)
+            tex=node(mat,u.MaterialExpressionTextureObject,family+kind)
+            tex.set_editor_property('texture',asset)
+            tex.set_editor_property('sampler_type',sampler)
+            inputs[family]=tex
+        living=node(mat,u.MaterialExpressionTextureObject,'CarpetTexture'+kind)
+        living.set_editor_property('texture',u.load_asset(CARPET+kind))
+        living.set_editor_property('sampler_type',sampler)
+        inputs['LivingGrass']=living
+        # Neighbouring triangles use the same offsets at shared corners.
+        # Both scans keep their capture scale and tangent axes. Most corners
+        # fetch one family; the narrow crossfade follows the continuous site.
+        code='''
+float2 uv=P.xy*.01;
+float2 dx=ddx(uv),dy=ddy(uv);
+[branch] if(W.x<=.001)return float4(0,0,1,1);
+float2 q=float2(uv.x-.57735027*uv.y,1.15470054*uv.y)*.36;
+float2 cell=floor(q),f=frac(q);
+bool lower=f.x+f.y<=1.;
+float2 a=lower?cell:cell+1;
+float2 b=cell+float2(1,0),c=cell+float2(0,1);
+float3 w=lower?float3(1.-f.x-f.y,f.x,f.y):float3(f.x+f.y-1.,1.-f.y,1.-f.x);
+w*=w; w/=max(.0001,dot(w,float3(1,1,1)));
+float4 sum=0;
+[unroll] for(int i=0;i<3;++i)
+{
+    float2 cellId=i==0?a:(i==1?b:c);
+    float2 offset=frac(sin(float2(dot(cellId,float2(127.1,311.7)),
+        dot(cellId,float2(269.5,183.3))))*43758.5453);
+    float threshold=.13+.74*offset.y;
+    float rock=smoothstep(threshold-.12,threshold+.12,W.y);
+    float4 grass=0,stone=0;
+    [branch] if(rock<1.)
+    {
+        float boundary=.18+.64*offset.x;
+        float green=smoothstep(boundary-.09,boundary+.09,W.z);
+        float4 litter=0,living=0;
+        [branch] if(green<1.)litter=Texture2DSampleGrad(LitteredGrass,
+            GetMaterialSharedSampler(LitteredGrassSampler,Material.Wrap_WorldGroupSettings),
+            uv*.5+offset,dx*.5,dy*.5);
+        [branch] if(green>0.)living=Texture2DSampleGrad(LivingGrass,
+            GetMaterialSharedSampler(LivingGrassSampler,Material.Wrap_WorldGroupSettings),
+            uv*.5+offset,dx*.5,dy*.5);
+        grass=lerp(litter,living,green);
+    }
+    [branch] if(rock>0.)stone=Texture2DSampleGrad(RockySteppe,
+        GetMaterialSharedSampler(RockySteppeSampler,Material.Wrap_WorldGroupSettings),
+        uv+offset,dx,dy);
+    float4 value=lerp(grass,stone,rock);
+'''
+        code+=('    sum+=UnpackNormalMap(value)*w[i];' if kind=='Normal' else '    sum+=value*w[i];')
+        return custom(mat,'UplandSample'+kind,code+'\n}\nreturn sum;',inputs,4)
+    color=sample('BaseColor',u.MaterialSamplerType.SAMPLERTYPE_COLOR)
+    normal=sample('Normal',u.MaterialSamplerType.SAMPLERTYPE_NORMAL)
+    packed=sample('ARH',u.MaterialSamplerType.SAMPLERTYPE_MASKS)
+    mask=custom(mat,'UplandCover','return saturate(W.x*(1.+(1.-W.x)*(Packed.b-.5)*1.45));',
+                {'W':controls,'Packed':packed})
+    return {
+        'BASE_COLOR':custom(mat,'UplandColor','''
+float2 land=saturate(Site-2);
+float3 meadow=lerp(float3(.116,.067,.023),float3(.096,.12,.047),land.x);
+float3 tone=lerp(meadow,float3(.106,.077,.042),W.y);
+float wet=lerp(1.,.77,saturate(Weather.x));
+float3 distant=lerp(Base,tone*wet,.65*saturate(land.x+land.y));
+return lerp(distant,Scan.rgb*wet,Mask);
+''',{'Base':base['BASE_COLOR'],'Scan':color,'Weather':weather,'Mask':mask,'Site':site,'W':controls},3),
+        'NORMAL':custom(mat,'UplandNormal','return normalize(lerp(Base,normalize(Scan.xyz),Mask));',
+            {'Base':base['NORMAL'],'Scan':normal,'Mask':mask},3),
+        'ROUGHNESS':custom(mat,'UplandRoughness','return lerp(Base,lerp(Packed.g,max(.23,Packed.g*.64),saturate(Weather.x)),Mask);',
+            {'Base':base['ROUGHNESS'],'Packed':packed,'Weather':weather,'Mask':mask}),
+        'AMBIENT_OCCLUSION':custom(mat,'UplandAO','return lerp(Base,lerp(1.,Packed.r,.82),Mask);',
+            {'Base':base['AMBIENT_OCCLUSION'],'Packed':packed,'Mask':mask})}
 
 def rainforest_floor(mat,base,p,weather,habitat,vertex,normal):
     """Living grass and moss on land. Wet hollows expose the jungle litter scan.

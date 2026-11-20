@@ -1,0 +1,26 @@
+{
+  "batch": "HillsFixedLandscape20261120",
+  "files": 8814,
+  "bytes": 38321865344,
+  "files_by_group": {
+    "cache": 6643,
+    "temp": 673,
+    "saved": 971,
+    "source": 492,
+    "logs": 35
+  },
+  "links_as_descriptors": 499,
+  "gifs": 0,
+  "source_absence_and_archive_sha256_verified": true,
+  "file_count_by_archive_volume": {
+    "E": 6643,
+    "D": 2171
+  },
+  "bytes_by_archive_volume": {
+    "E": 24987301458,
+    "D": 13334563886
+  },
+  "manifest_sha256": "5d756d4094e5b973c34c784ab1989da1c0ba0b94a79aa0fa5af87181e0ff9549",
+  "local_restore_manifest": "trash/HillsFixedLandscape20261120/archive-manifest.jsonl",
+  "debug_images_and_external_packages_published": false
+}

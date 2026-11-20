@@ -271,6 +271,8 @@ def build_base(mat):
     # ---- family weights: slope plus two patch fields, all in world space ----
     patch, patch_v = noise('a', 0.0000405)
     patch2, patch2_v = noise('b', 0.000183, 17.3, -9.1)
+    upland = node(mat, u.MaterialExpressionTextureCoordinate)
+    upland.set_editor_property('coordinate_index',2)
     weights = custom(mat, patch + patch2 + '''
 float damp=saturate(max(Wet,M.g));
 float slope=saturate(1.0-N.z);
@@ -283,9 +285,12 @@ float soil=saturate(1.0-grass-dry-gravel)+0.10;
 float forest=saturate(1.0-Alpha)*(1.0-smoothstep(.12,.35,slope));
 soil+=forest*(grass*.55+dry*.75);
 grass*=1.0-forest*.55;dry*=1.0-forest*.75;
+float wear=saturate(2.0-U.x)*step(1.0,U.x);
+soil+=wear*(grass+dry);
+grass*=1.0-wear;dry*=1.0-wear;
 return float4(grass,soil,gravel,dry)/max(grass+soil+gravel+dry,0.0001);
 ''' % (patch2_v, patch_v, patch_v),
-                  {'P': world, 'N': normal_ws, 'M': vcol, 'Alpha': alpha, 'Wet': wetness}, 4, desc='GroundFamilyWeights')
+                  {'P': world, 'N': normal_ws, 'M': vcol, 'Alpha': alpha, 'Wet': wetness, 'U': upland}, 4, desc='GroundFamilyWeights')
 
     # ---- projection: parallax the shared base UV, then rescale per family ----
     base_tiling = scalar(mat, 'GroundBaseTilingM', 3.4,
@@ -650,6 +655,9 @@ def rebuild(path, with_bank):
     outputs = wet.apply_ground(mat, outputs)
     for name in ('BASE_COLOR', 'NORMAL', 'ROUGHNESS', 'AMBIENT_OCCLUSION'):
         prop(outputs[name], name)
+    if with_bank:
+        import runpy
+        runpy.run_path(str(ROOT/'Tools/WorldGeneration/WhiteCliffs/quarry_slope_finish.py'))['install'](mat)
     compile_errors = LIB.recompile_material(mat)
     if compile_errors:
         raise RuntimeError('Ground material compile failed: ' + path + '\n' + '\n'.join(str(e) for e in compile_errors))
