@@ -55,5 +55,67 @@
       "inert_link_descriptors": 7
     }
   ],
-  "prior_archive_note": "The previous November 19 receipt remains separate. Its historic 04-bar.png was already unavailable before this cleanup; no copy with its recorded hash was found among the current files moved. The retained comparison.json contains the historic path and digest."
+  "prior_archive_note": "The previous November 19 receipt remains separate. Its historic 04-bar.png was already unavailable before this cleanup; no copy with its recorded hash was found among the current files moved. The retained comparison.json contains the historic path and digest.",
+  "one_shot_followup": {
+    "verified_files": 1668,
+    "verified_bytes": 11866861855,
+    "images_video": 144,
+    "gifs": 0,
+    "retired_links": 4,
+    "pruned_empty_directories": 458,
+    "groups": {
+      "CuffRollback": {
+        "files": 156,
+        "bytes": 5456940802
+      },
+      "HerbalistReview": {
+        "files": 43,
+        "bytes": 341455178
+      },
+      "RunControls": {
+        "files": 31,
+        "bytes": 356119
+      },
+      "SmithMotion": {
+        "files": 8,
+        "bytes": 17803
+      },
+      "TacticalReview": {
+        "files": 524,
+        "bytes": 1509900379
+      },
+      "TavernReview": {
+        "files": 32,
+        "bytes": 1110835
+      },
+      "TavernStage": {
+        "files": 381,
+        "bytes": 1429336658
+      },
+      "ToolCaches": {
+        "files": 212,
+        "bytes": 2665350324
+      },
+      "WindowsTemp": {
+        "files": 254,
+        "bytes": 461684560
+      },
+      "MealWire": {
+        "files": 27,
+        "bytes": 709197
+      }
+    },
+    "components": [
+      {
+        "manifest": "OneShot/manifest.jsonl",
+        "sha256": "1eae53c9cafe9606416326929ec37f6cd10393a69ce7a4549f9396ac5878460d",
+        "receipt": "OneShot/receipt.json"
+      },
+      {
+        "manifest": "OneShot/MealWire/manifest.jsonl",
+        "sha256": "60621f7701ed0a3a921612602082c109b5aef8e3171bcf02a43478ca6979d60e",
+        "receipt": "OneShot/MealWire/receipt.json"
+      }
+    ]
+  }
 }
