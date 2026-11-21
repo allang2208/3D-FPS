@@ -4,6 +4,37 @@ import math
 import unreal as u
 from LoftR3.design import *
 
+def move_ruined_timber(house):
+    """Move the single stair-side HISM instance in the loaded village. Caller saves the map."""
+    from author_shop import standing
+    actors = u.get_editor_subsystem(u.EditorActorSubsystem) or u.new_object(u.EditorActorSubsystem)
+    path = FURNITURE + 'AbandonedTimber'
+    previous = standing(house, path, -270, -80, 0, 18, 1)
+    target = standing(house, path, *RUINED_TIMBER)
+    found = []
+    for actor in actors.get_all_level_actors():
+        if actor.get_actor_label() != 'Village_Blacksmith_Ruined':
+            continue
+        for comp in actor.get_components_by_class(u.HierarchicalInstancedStaticMeshComponent):
+            if 'VillageShop.Ruined' not in map(str, comp.component_tags):
+                continue
+            if not comp.static_mesh or comp.static_mesh.get_path_name().split('.')[0] != path:
+                continue
+            for index in range(comp.get_instance_count()):
+                pos = comp.get_instance_transform(index, True).translation
+                already_moved = (pos - target.translation).length() < 0.5
+                if already_moved or (pos - previous.translation).length() < 0.5:
+                    found.append((actor, comp, index, already_moved))
+    if len(found) != 1:
+        raise RuntimeError('Expected one blacksmith ruin timber at the stair or crate bay; found ' + str(len(found)))
+    actor, comp, index, already_moved = found[0]
+    if not already_moved:
+        actor.modify()
+        comp.modify()
+        if not comp.update_instance_transform(index, target, True, True, True):
+            raise RuntimeError('Could not move blacksmith ruined timber to the crate bay')
+    return {'instance': index, 'center_cm': RUINED_TIMBER[:3], 'moved': not already_moved}
+
 def build_shop(house,pieces,base,geometry):
     from author_shop import pose,standing,require
     actors=u.get_editor_subsystem(u.EditorActorSubsystem) or u.new_object(u.EditorActorSubsystem)
@@ -116,7 +147,7 @@ def build_shop(house,pieces,base,geometry):
         ('Repaired','OakShelf',315,180,0,90,1),
         ('Repaired','OakTable',-15,-270,0,0,1),
         ('Repaired','OakStool',10,-190,0,0,1),
-        ('Ruined','AbandonedTimber',-270,-80,0,18,1),
+        ('Ruined','AbandonedTimber',*RUINED_TIMBER),
         ('Ruined','IronStock',270,265,0,35,1),
         ('Repaired','IronStock',315,180,65.5,0,1),
         ('Repaired','IronStock',315,180,117.5,0,.78),

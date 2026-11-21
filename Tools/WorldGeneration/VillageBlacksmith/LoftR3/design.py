@@ -10,6 +10,8 @@ STATION=(120.,40.,6.)
 HEARTH=(200.,300.,0.)
 CHIMNEY=(200.,500.,0.)
 BED=(245.,50.,360.)
+# The crate bay is empty in the ruined state. Lay the timbers along its front edge.
+RUINED_TIMBER=(300.,-337.,0.,0.,1.)
 STAIR={'width':110.,'first_x':-285.,'second_x':-157.,'start_y':-100.,'turn_y':180.,'landing_end_y':300.,'rise':18.,'tread':28.,'steps_per_flight':10}
 ASSET_ROOT='/Game/WorldGeneration/TemperateHills/VillageBlacksmith/LoftR3'
 FURNITURE='/Game/WorldGeneration/TemperateHills/VillageBlacksmith/ArtPassR2/Meshes/SM_Village'

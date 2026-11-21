@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Development/VillageNetworkAuditHost.cpp
++++ b/Source/FPSGAME/Development/VillageNetworkAuditHost.cpp
+@@ -22,2 +22,3 @@
+ #include "Containers/Ticker.h"
++#include "Misc/CommandLine.h"
+ 
+@@ -39,3 +40,5 @@
+     J->SetNumberField(TEXT("final_stage"),Stage);J->SetBoolField(TEXT("real_udp"),true);J->SetBoolField(TEXT("rendered"),false);
+-    J->SetStringField(TEXT("scope"),TEXT("production hills, host and remote player, production RPC/profile/disk paths, same-profile reconnect, opt-in setup and asset-load fault injection"));
++    J->SetStringField(TEXT("scope"),FParse::Param(FCommandLine::Get(),TEXT("VillageConstructionAudit"))
++        ?TEXT("production hill village, real guest construction requests and repair input, replicated state, guest wallet, reconnect and host reset")
++        :TEXT("production hills, host and remote player, production RPC/profile/disk paths, same-profile reconnect, opt-in setup and asset-load fault injection"));
+     Save(TEXT("result"),J);if(Peer.IsValid())Peer->ClientFinish();
+@@ -125,2 +128,5 @@
+         Record(TEXT("two_concurrent_dialogue_sessions"),Peer->bPeerPassed&&HostD->IsOpen()&&GuestD->AuthorityNun.IsValid(),Peer->PeerDetail);
++        Record(TEXT("each_nun_session_bound_to_its_own_pawn_and_chapel"),
++            HostD->AuthorityConversationPawn.Get()==Host->GetPawn() && GuestD->AuthorityConversationPawn.Get()==Guest->GetPawn()
++            && HostD->AuthorityNun==Nun && GuestD->AuthorityNun==Nun && Nun->GetParentActor()==H);
+         Record(TEXT("host_faces_own_player"),Facing(Nun.Get(),Host.Get(),Detail),Detail);

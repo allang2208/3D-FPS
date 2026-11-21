@@ -1,0 +1,418 @@
+{
+  "scope": "Dispositions and digests in the original 2026-11-21 recovery receipts.",
+  "project": "D:/FPS3D/FPSGAME",
+  "production_content": "F:/FPSGAMEData/Content",
+  "receipt_directory": "Saved/Recovery/HillsVillage20261121",
+  "defense_inputs": [
+    {
+      "batch": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039",
+      "receipt": "published.json",
+      "old_tree": "Previous"
+    },
+    {
+      "batch": "F:/FPSGAMEData/ArtProduction/VillageGrilleRepair/Run-20261120-A",
+      "receipt": "published.json",
+      "old_tree": "Before"
+    }
+  ],
+  "defense": [
+    {
+      "target": "Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_00.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "a50fbc51e50db67d964fb398233937de40ef1e1f1182ee169660da6e8b16cbeb",
+      "before_sha256": "fde36db4293ae1086fbac1938663849caf53397b847f0e6a6e49e2fdc8460c5f",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_00.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_00.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_00.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_01.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "7d072d128d99431c32aeb16134ed9d1dea12f42d4446c4fb56be7591c9fdfdb3",
+      "before_sha256": "f2f65e759ab0a3b74c12b99209e1e539192ac1d32444af3101f7173dde086971",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_01.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_01.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_01.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_02.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "40b41fdf6876d40ede282c20355489fa7af0f280a7aa20c78c5f8ceee3b04c6c",
+      "before_sha256": "378f03a8e415556b2df19f9998c0ea1a27b3edc59cc669e3fdf966c89c34679f",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_02.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_02.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_02.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_03.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "4fcc4e615dfe43339b9b464f5489e1d4bbe588062b5d8dfff5c9decd7cc439e5",
+      "before_sha256": "c5b149df0f4ce979dd5f8e4dbea6ff645abbb46e19f04b3d86afcaab5814917b",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_03.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_03.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_03.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_04.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "c819089caf61ff7b4cce24713477205ffc6c71d958d51ccd1214f67fa678239e",
+      "before_sha256": "c33312feab7254df9be572e086db1d25e228e380be2050a3fbe9e98ccf612dd3",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_04.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_04.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_04.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_05.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "9c03d236395b14daa4ed728f01c4f39caee39033e49acae7c649efba5d1f01df",
+      "before_sha256": "d2f96ae7bb97ed0a346818309a0eb0fb967036b30cf850a90ce9069c11d7baf9",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_05.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_05.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_05.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_06.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "ccae084fe660069d83af103d780bee9f27985d9445d8b2d37a8e90afebdb5e7b",
+      "before_sha256": "fac40dad1b3b654b89894974d5433ba267911b1bdeba2a665420d73d0e33b2c7",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_06.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_06.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_06.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_07.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "f8feb510b1fbc8f2f13f239edeb5441af006ac8e2b91fbe66755bf33939113f1",
+      "before_sha256": "0cedcea92ec819406ebb43c0bca18956a1168c0b83a45612e15c843529ee0889",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_07.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_07.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_07.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_08.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "54c80938b1fadc70f89c4d40c75581bdb8f5577653b63487658b29639c0c85fc",
+      "before_sha256": "873fa6353ee4befe9e9cc3ec0295c3433d42e26babb80f2949acbeed3d027043",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_08.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_08.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_08.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/HighVillageDefense/SM_HighWall.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "2350e4f63461c032325871353c015a1f0b209b55defb50346abe26f3016ecb72",
+      "before_sha256": "a8e8462f73d18e86d0fe6b0d60ba47a4743984bfa9b9a0c71bbe130a2e5f4795",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/HighVillageDefense/SM_HighWall.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/HighVillageDefense/SM_HighWall.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/HighVillageDefense/SM_HighWall.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWall.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "5df3011d5000a27d0f0d3571d4a47cb046f5afa13a3835ced2318fa7788643f6",
+      "before_sha256": "0d5e8dcf40687d5f8adc4a04c66995ea236d3eb564a61505d3754e1c38eb1d81",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWall.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWall.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWall.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_00.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "03f0d3700e7759a6e4b234265d567d1bc893936d9a53433da932d9fbbf44b7da",
+      "before_sha256": "02ec68eba263cb99724610b5332d9da9ab52072b8ec28ab5bb7362facd5b2210",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_00.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_00.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_00.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_01.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "1038dbe1347af0cd0c6a485faed5ba5afa7142828542622c39db3916770907c6",
+      "before_sha256": "0e2ba3ca99b8b12ace60db7f59a723e820a53a49a17aaf9a066107ff025a58ca",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_01.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_01.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_01.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_02.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "9c98946d0a15db3158dd637f40a14096fb9567b168d72cece0258ed2affe4dae",
+      "before_sha256": "ef59a2f65306287b294eb34cdda0fb3daff305c83b3eecdec554df7a669612c1",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_02.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_02.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_02.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_03.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "685faf7789b0f6dbfd17100eae61fe3247d8f3193ce676a5348dedfd09438607",
+      "before_sha256": "5d8273ae48b6fec6bb01de891f82d02576361d302f2676953c04c9f61323e176",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_03.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_03.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_03.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_04.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "5e6b65aa6def2bea58fe1679f3779e20cb80898833d57a4a401ae8338a5e88a9",
+      "before_sha256": "162e08c56adfdf793899c8bd69b597b805e64e6e3408caff4984ea4908d6598d",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_04.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_04.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_04.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_05.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "58e9343f38812330e6fba2227a7743cbcd0dd837642f3f63aa44f7b41c316bae",
+      "before_sha256": "01ff5141ccc80db22944948f5e450282958ccc3397d67f7ef11907a8375c4b81",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_05.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_05.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_05.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_06.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "e14fd4c618ac5f9aa58106742fdea7d61798c9fad1617cb46ff9da0159d78fc5",
+      "before_sha256": "6d9d449354d17cae2f15e340dfa89f2fd315497c2b3e4bc4247b1633e4d15e09",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_06.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_06.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_06.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_07.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "c92e04bd984f641433e718adfd4261921f46cb78d8b7a2eccbc7eb2dcd69c27e",
+      "before_sha256": "361cdec96fbeed25c0a847bd7fa40f74c698a6978c823fc0cf06003dd253b4a7",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_07.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_07.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_07.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_08.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "001abc11a1581ccc8fd74fff6017554e962d49b4b1008318dd14f60489f50750",
+      "before_sha256": "e691771d62acede283f1255e5170e71cadda8ac53b96cff43c2cf2b3d063e4e4",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_08.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_08.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/SM_HighWallShard_08.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWall.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "281beecadd3905a1634712b92c0e25406fe91076af8c8e3add85f01c36c03fe7",
+      "before_sha256": "079499c5615c4b25a9bbb1579104e412aaadf46f21644e0542f16c8a5442b5af",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWall.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWall.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWall.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_00.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "91d19dd6c2eb01566b0a3dd064f2d446fbe64bb6a9eb1ce32c3df84311125d3f",
+      "before_sha256": "5946281cb50b5a922764d2aae1c9da90358148aacb48bf2eb1fea0294ce9388c",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_00.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_00.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_00.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_01.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "ca8bd5d2d368c39d9c417bf8d1e0d4f9702c76888597fa0a0ef264b615b80c27",
+      "before_sha256": "311a5a8312d07796b92e21055c1bde90a3675b4e5b38cf14e782a21ffddec1a7",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_01.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_01.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_01.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_02.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "51cd0fc6faa771add983af5db68b1ace7ec99448aa8941773cda5165eabc24a0",
+      "before_sha256": "c9331830b87d8690ea27963e3202a9c6dbe892aa8416d926871991c042aea012",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_02.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_02.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_02.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_03.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "377c784710e68384805f26cdea244ce7f9095ab5da5873228eebde8dffd4409d",
+      "before_sha256": "197376167874d2f755ea7c61dc804e9b75d23ecaaca4a3af9f88ef275cb9e87b",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_03.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_03.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_03.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_04.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "b6654900bb000c4052803ae5fedbd817db7696e5d1d267779178acdad4e08560",
+      "before_sha256": "661cc490080c2a724026e164a90ef13a2a1e21203c5ff33916ebc88382865cff",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_04.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_04.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_04.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_05.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "83c8b57293455c6b2c25d4101a739f2ac3301ea9babc08e1ddddac57bf70de91",
+      "before_sha256": "77486e4b7d50246a08545bf15cf185fe52635586a373996a8c302bcff374b1aa",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_05.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_05.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_05.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_06.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "cb0cd7475137278c599e65e7b76380a6e0ea3731f03f4c3edaf1018caf4a71ec",
+      "before_sha256": "5b96bb719e511dfdbaceefbcf0ab50a311e65d39303973e90660cfa724093a75",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_06.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_06.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_06.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_07.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "101e72225a7add4ff667a52789ff5029442052d154c229df7db5449a217cbf69",
+      "before_sha256": "042a5aa8093edcca2213dc60e323c5c2d2a56f2ba0bf6dffeb87a750e6b7f4f3",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_07.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_07.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_07.uasset"
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_08.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "969ee0880cfdd9de6212bbd896606e81d31859701f120941506aadca05a0aaa7",
+      "before_sha256": "9d6f301e1bcb42b45967d9755e4309d19e6e1a9c68639f9d7007d2a0986f1aa4",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_08.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_08.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/VillageMasonry/SM_HighWallShard_08.uasset"
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Design01/Authored/fracture-saved.json",
+      "disposition": "already-published",
+      "published_sha256": "95c259a7533d6397fdc51f7f61fe7433f8f6196554916757efb865af2a29a07c",
+      "before_sha256": "ad9582c48b39131cf8d6a3fc65dc968b01a30759a576039a57d1afaf96e1642d",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Authored/fracture-saved.json",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/SourceAssets/HillsVillageHighWall20261120/Design01/Authored/fracture-saved.json",
+      "displaced_file": null
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Design01/Authored/imported.json",
+      "disposition": "already-published",
+      "published_sha256": "2d75c862f8a829ef70f53741988a086691ca9f826402aceb7b87653783dea245",
+      "before_sha256": "0ebe3e4a0ceb887b8dcb57ed285c76244488d165461fe2c9a5e089e44a38216e",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Authored/imported.json",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/SourceAssets/HillsVillageHighWall20261120/Design01/Authored/imported.json",
+      "displaced_file": null
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Design01/Authored/SM_HighWall.meshzip",
+      "disposition": "already-published",
+      "published_sha256": "4354408107dd9d351c2cf46a17ecd1749cecf458e70e53536d6ab8bb34e249c1",
+      "before_sha256": "d2f86d4bb9e82982baa9bc650f987b87d61d95b03a80d4d80a9acc176fb16cf0",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Authored/SM_HighWall.meshzip",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageBattlementFit/20261120-231611-039/Previous/SourceAssets/HillsVillageHighWall20261120/Design01/Authored/SM_HighWall.meshzip",
+      "displaced_file": null
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/HighVillageDefense/SM_IronGrilleWest.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "92a8d08fa190fe34cee0f97307c4997b4454302e117c325c90cbc1a3819c1ed1",
+      "before_sha256": "a256fae4770eba7359491aa15bb722c42625c7e065c2c2c51c838eeb7a82a650",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageGrilleRepair/Run-20261120-A/Host/Content/WorldGeneration/TemperateHills/HighVillageDefense/SM_IronGrilleWest.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageGrilleRepair/Run-20261120-A/Before/SM_IronGrilleWest.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/HighVillageDefense/SM_IronGrilleWest.uasset"
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Design01/Authored/SM_IronGrilleWest.meshzip",
+      "disposition": "already-published",
+      "published_sha256": "b0627f5feb13ccaef0176741643c5941739b9f00cd87dd231991f1351223e0c7",
+      "before_sha256": "f949e77fc67014f517b46a4540b670d5e47abe141ddfa8bf388225cd94df0705",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageGrilleRepair/Run-20261120-A/Authored/SM_IronGrilleWest.meshzip",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageGrilleRepair/Run-20261120-A/Before/SM_IronGrilleWest.meshzip",
+      "displaced_file": null
+    },
+    {
+      "target": "Content/WorldGeneration/TemperateHills/HighVillageDefense/SM_IronGrilleEast.uasset",
+      "disposition": "restored-published",
+      "published_sha256": "5ddc29f2eb062c931a1e8c3a7928807270c4a530bbd9b187421ee555617341e4",
+      "before_sha256": "6cdfc60f2cf8a27ba31e8186270ef299a3b0e6d8c16c9f9c22df542e9ee1c655",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageGrilleRepair/Run-20261120-A/Host/Content/WorldGeneration/TemperateHills/HighVillageDefense/SM_IronGrilleEast.uasset",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageGrilleRepair/Run-20261120-A/Before/SM_IronGrilleEast.uasset",
+      "displaced_file": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/WorldGeneration/TemperateHills/HighVillageDefense/SM_IronGrilleEast.uasset"
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Design01/Authored/SM_IronGrilleEast.meshzip",
+      "disposition": "already-published",
+      "published_sha256": "4466df90500b2b50cc9a6d9d18af37b782b131d7e83647942c796c222a2f2182",
+      "before_sha256": "009ace43e1152736f5526c46449c8385eef660e93d7ab571c051b82034821884",
+      "published_source": "F:/FPSGAMEData/ArtProduction/VillageGrilleRepair/Run-20261120-A/Authored/SM_IronGrilleEast.meshzip",
+      "previous_source": "F:/FPSGAMEData/ArtProduction/VillageGrilleRepair/Run-20261120-A/Before/SM_IronGrilleEast.meshzip",
+      "displaced_file": null
+    }
+  ],
+  "icon_targets": [
+    {
+      "target": "Content/UI/VillageConstruction/blacksmith.png",
+      "sha256": "c4ce46b35430a49a18b77d39956fb5bb3f7bc3de4e4a327baadde205191e1fd6",
+      "disposition": "upgraded-from-documented-reconstruction",
+      "source_evidence": "Original PNG bytes from pre-deletion asset readback, matched by exact path and read order."
+    },
+    {
+      "target": "Content/UI/VillageConstruction/carpenter.png",
+      "sha256": "1eff38c61ddd60d108f86f7deaf5329767cf6a80b60798f4f821979188730381",
+      "disposition": "upgraded-from-documented-reconstruction",
+      "source_evidence": "Original PNG bytes from pre-deletion asset readback, matched by exact path and read order."
+    },
+    {
+      "target": "Content/UI/VillageConstruction/wall.png",
+      "sha256": "d39dc4dc5fc10f4c3497c66bc17a71136c97469bc27618e2af0b26dffa5ce9b2",
+      "disposition": "upgraded-from-documented-reconstruction",
+      "source_evidence": "Original PNG bytes from pre-deletion asset readback, matched by exact path and read order."
+    },
+    {
+      "target": "Content/UI/VillageConstruction/high_wall.png",
+      "sha256": "d6e73dd6bfc9212fa6e285c5015f8110b2e5636091dd389df7f6bd5b76f4266b",
+      "disposition": "already-correct",
+      "source_evidence": null
+    },
+    {
+      "target": "Content/UI/VillageConstruction/village.png",
+      "sha256": "edf1d6e0a734d3968802a71d01eec05d56df5fd4a0099bde89f74e9d666d3b2e",
+      "disposition": "upgraded-from-documented-reconstruction",
+      "source_evidence": "Original image source and original WPF Fant/Pbgra32/244px recipe, resulting byte length equals pre-deletion record."
+    },
+    {
+      "target": "Content/UI/VillageConstruction/herbalist.png",
+      "sha256": "aeb52e33e1a5a514c26eb8d6aaac4101fa3c3b6f5de6e02ffc9617e0b2523b34",
+      "disposition": "upgraded-from-documented-reconstruction",
+      "source_evidence": "Original image source and original saved recipe. Herbalist MD5 equals UE import metadata."
+    },
+    {
+      "target": "Content/UI/VillageConstruction/tavern.png",
+      "sha256": "7ef3bb5478d6619764aaec8a20b19c041482a2ba2e508faf493aaf19aaec95a0",
+      "disposition": "restored-missing-from-source",
+      "source_evidence": "original retained ImageGen source with original 240px GDI+ high-quality bicubic, centered at 256px; tavern original byte-length independently matched"
+    },
+    {
+      "target": "Content/UI/VillageConstruction/village_construction.png",
+      "sha256": "d1ff96d3fce0ec99cf0cd974b35439e926e5728e9731cda88c7e443e209202f2",
+      "disposition": "restored-missing-from-source",
+      "source_evidence": "original retained ImageGen source with original 240px GDI+ high-quality bicubic, centered at 256px; tavern original byte-length independently matched"
+    }
+  ],
+  "navigation": {
+    "package": "Content/GameMaps/L_TemperateHills_Initial.umap",
+    "recipe": "Tools/WorldGeneration/author_hills_night_raid.py",
+    "disposition": "reconstructed from the preserved pre-navigation map and original authoring entry point",
+    "before_sha256": "c40d2b82e139344895f8512ea4839011434286bb949f986d80e23399a7fdebde",
+    "reconstructed_sha256": "6dd2bb9dc60baa1370f6d2fa699376426e0c5c9ca95a696dc29669b55e6a9197",
+    "missing_original_release_sha256": "fc0d6aa99031fec8fc47b746c3afdeccd9afb10b85de4932aa111578dbb3928a",
+    "preserved_package": "D:/FPS3D/FPSGAME/Saved/Recovery/HillsVillage20261121/Before/Content/GameMaps/L_TemperateHills_Initial.umap",
+    "carried_game_references": 22,
+    "new_navigation_bounds": 1
+  },
+  "archives": [
+    "Saved/Recovery/HillsVillage20261121/HillsDefense-published-20261120.zip",
+    "Saved/Recovery/HillsVillage20261121/VillageConstruction-cards.zip"
+  ]
+}

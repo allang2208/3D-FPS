@@ -36,7 +36,10 @@ def shell_transform(part,base):
 def build_shop(house,pieces,base,geometry):
     if house[2]=='SL_Blacksmith_LoftR3':
         from LoftR3.assemble import build_shop as build_loft
-        return build_loft(house,pieces,base,geometry)
+        from forge_weapon_display import install_forge_display
+        report=build_loft(house,pieces,base,geometry)
+        report["weapon_display"]=install_forge_display(house)
+        return report
     return _build_shop_legacy(house,pieces,base,geometry)
 
 

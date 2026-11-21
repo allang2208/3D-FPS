@@ -1,0 +1,43 @@
+{
+  "packaging_section": "[/Script/UnrealEd.ProjectPackagingSettings]",
+  "target": "Config/DefaultGame.ini",
+  "already_published": [
+    "+DirectoriesToAlwaysStageAsUFS=(Path=\"UI/VillageConstruction\")"
+  ],
+  "missing_on_base": [
+    "+DirectoriesToAlwaysCook=(Path=\"/Game/WorldGeneration/TemperateHills/VillagePerimeter\")",
+    "+DirectoriesToAlwaysCook=(Path=\"/Game/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes\")",
+    "+DirectoriesToAlwaysCook=(Path=\"/Game/WorldGeneration/TemperateHills/VillageDefenses\")",
+    "+DirectoriesToAlwaysCook=(Path=\"/Game/WorldGeneration/TemperateHills/HighVillageDefense\")"
+  ],
+  "input_implementation": "Source/FPSGAME/FPSGAMEPlayerController.cpp, Building/VoxelBuildInput.cpp, Building/VoxelBuildTarget.cpp. Both game and build mode call RequestVillageRepair. Keyboard events are native dispatch.",
+  "controls": {
+    "E": "Aim at the reachable breach and request a server-side soul purchase. Intact doors use the normal door interaction.",
+    "B": "Open the build drawer. Village category requires the per-world village_construction plan.",
+    "MouseScrollUp / MouseScrollDown": "Ground placement increases or decreases yaw by one degree. On a valid socket the wheel changes orientation / connection.",
+    "R": "Rotate ground placement 90 degrees.",
+    "F": "Toggle snapping.",
+    "LeftMouseButton / RightMouseButton": "Place or dismantle.",
+    "MiddleMouseButton": "Select the aimed player-built village prefab and reuse its orientation when available.",
+    "Ctrl+Z": "Undo the player's latest recorded placement.",
+    "F6": "Open the development panel; the local authority can use its village-upgrade reset button."
+  },
+  "plans": [
+    "wall",
+    "village_construction",
+    "high_wall"
+  ],
+  "prefab_ids": [
+    "village_stone_wall",
+    "village_wood_gate",
+    "village_high_wall",
+    "village_stone_gate",
+    "village_wall_stairs"
+  ],
+  "repair_defaults": {
+    "reach_cm": 250,
+    "enemy_exclusion_cm_from_geometry": 1500,
+    "souls_wall_or_stair": 100,
+    "souls_timber_or_iron_gate": 150
+  }
+}

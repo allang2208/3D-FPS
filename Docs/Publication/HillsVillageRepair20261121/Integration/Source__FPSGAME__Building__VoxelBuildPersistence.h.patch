@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPersistence.h
++++ b/Source/FPSGAME/Building/VoxelBuildPersistence.h
+@@ -8,3 +8,3 @@
+  *  结果新档读回一律被误判“版本不兼容”。升版本必须只改这里＋序列化分支。 */
+-inline constexpr int32 GVoxelBuildSaveVersion=14;
++inline constexpr int32 GVoxelBuildSaveVersion=17;
+ 

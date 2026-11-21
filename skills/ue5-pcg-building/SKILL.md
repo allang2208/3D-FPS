@@ -38,3 +38,5 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 丘陵道路保护、河湖高度连续、树簇与林床关联、扫描岩壁补面，读取 [丘陵道路保护、河湖高度连续、树簇与林床关联、扫描岩壁补面](references/hills-scenery-continuity.md)。
 
 可修复酒馆的房壳、通行碰撞和桌面摆放见[酒馆两态与室内承托](references/reusable-interior-assemblies.md#丘陵酒馆的残破与修复)。
+
+丘陵铁匠铺的铁砧侧光与炉膛火光见[铁匠铺照明](references/fixture-lighting-standard.md#铁匠铺的铁砧与炉膛)。木工驱动水晶、草药铺瓶身与药液、店铺同机位对照见[店铺工作台近景](references/reusable-interior-assemblies.md#村庄店铺的工作台近景)。

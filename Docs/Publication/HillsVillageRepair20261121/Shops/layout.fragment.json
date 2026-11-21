@@ -1,0 +1,197 @@
+{
+  "house_scale": 1.2,
+  "houses": [
+    [
+      "01",
+      "村口铁匠铺（待修复）",
+      "SL_Blacksmith_LoftR3",
+      -32,
+      -9,
+      178
+    ],
+    [
+      "03",
+      "广场草药铺",
+      "SL_Packed_House_TypeA_00B",
+      -15,
+      -24,
+      166
+    ],
+    [
+      "04",
+      "木工工坊",
+      "SL_Carpenter_Workshop",
+      -34,
+      14,
+      7
+    ]
+  ],
+  "blacksmith": {
+    "house": "01",
+    "default_state": "ruined",
+    "station_id": "casting_station",
+    "restoration_entry": "CompleteVillageBlacksmithRepair",
+    "reserved_quest_id": "hills.village.restore_blacksmith",
+    "circulation_m": 1.4,
+    "station_front_clearance_m": 1.6,
+    "interior": "Half-open ground forge; upper bedroom with native windows; west return stair; rear external chimney.",
+    "revision": 3,
+    "footprint_area_multiplier": 1.25,
+    "horizontal_dimension_multiplier": 1.118033988749895,
+    "original_nominal_floor_cm": [
+      720,
+      720
+    ],
+    "nominal_floor_cm": [
+      804.9844718999243,
+      804.9844718999243
+    ],
+    "ground_floor": "front and west-front open workshop, structural posts and beams, existing anvil/quench station, rear hearth",
+    "upper_floor": "stair opening, guarded landing, blacksmith bed, storage and reused Normandy window assemblies",
+    "floor_height_cm": 360.0,
+    "stair": {
+      "width": 110.0,
+      "first_x": -285.0,
+      "second_x": -157.0,
+      "start_y": -100.0,
+      "turn_y": 180.0,
+      "landing_end_y": 300.0,
+      "rise": 18.0,
+      "tread": 28.0,
+      "steps_per_flight": 10
+    },
+    "opening_cm": [
+      -352.0,
+      -90.0,
+      -101.0,
+      312.0
+    ],
+    "station_cm": [
+      120.0,
+      40.0,
+      6.0
+    ],
+    "hearth_cm": [
+      200.0,
+      300.0,
+      0.0
+    ],
+    "chimney_cm": [
+      200,
+      500,
+      0
+    ],
+    "bed_cm": [
+      245.0,
+      50.0,
+      360.0
+    ],
+    "chimney": "outside rear eave, lined hollow shaft; side duct uses an infilled reused lower window opening",
+    "runtime_cloth": false,
+    "new_active_fire_or_smoke_system": false,
+    "chimney_shaft_width_cm": 146,
+    "chimney_style": "bonded original house fieldstone and mortar",
+    "front_wall_clearance_local_m": [
+      -5.4,
+      5.4,
+      -6.2,
+      -4.4
+    ],
+    "repair_torches": [
+      "workshop",
+      "loft",
+      "entry"
+    ]
+  },
+  "carpenter": {
+    "house": "04",
+    "default_state": "ruined",
+    "station_id": "woodworking_bench",
+    "original_model": "SL_Packed_HouseTypeC_00A",
+    "original_yaw": 97,
+    "loft_floor_cm": 360
+  },
+  "herbalist": {
+    "house": "03",
+    "plan": "herbalist",
+    "station_id": "potion_workbench",
+    "loft_floor_cm": 360,
+    "default_state": "ruined"
+  },
+  "house_approaches": {
+    "04": [
+      [
+        -31.65,
+        6.8
+      ],
+      [
+        -30.15,
+        4.6
+      ],
+      [
+        -28.35,
+        4.05
+      ],
+      [
+        -27.0,
+        3.5
+      ],
+      [
+        -26.85,
+        1.65
+      ]
+    ]
+  },
+  "service_clearings": [
+    {
+      "owner": "BlacksmithLoftR3",
+      "center": [
+        -34.17327913755069,
+        -13.927155141690477
+      ],
+      "half": [
+        1.1,
+        1.08
+      ],
+      "yaw": 178
+    },
+    {
+      "owner": "BlacksmithLoftR3",
+      "center": [
+        -31.85097914908032,
+        -4.732601168628461
+      ],
+      "half": [
+        3.9,
+        0.65
+      ],
+      "yaw": 178
+    },
+    {
+      "owner": "Carpenter04",
+      "center": [
+        -33.23953529715188,
+        7.806512013758151
+      ],
+      "half": [
+        4.06,
+        2.31
+      ],
+      "yaw": 7,
+      "soil_weight": 0.82
+    },
+    {
+      "owner": "Carpenter04",
+      "center": [
+        -28.610160683121492,
+        13.100148824398925
+      ],
+      "half": [
+        0.95,
+        2.46
+      ],
+      "yaw": 7,
+      "soil_weight": 0.76
+    }
+  ]
+}

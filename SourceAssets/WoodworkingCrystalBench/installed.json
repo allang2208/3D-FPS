@@ -1,0 +1,49 @@
+{
+  "backups": "D:\\FPS3D\\FPSGAME\\Saved\\WoodworkingCrystalBench\\20261118-211336-670\\Before",
+  "render": false,
+  "meshes": [
+    {
+      "package": "/Game/Building/WoodworkingBenchV6Controls20261013/SM_WoodworkingBench",
+      "triangles": [
+        157444,
+        86457,
+        37555
+      ],
+      "collision_hulls": 27,
+      "slots": {
+        "WSBench_BenchWood": "/Game/Building/WoodworkingCrystalBench/Surfaces/M_WorkshopOiledOak.M_WorkshopOiledOak",
+        "WSBench_EndGrain": "/Game/WorldGeneration/TemperateHills/VillageCarpenter/Props/Surfaces/M_CarpenterCut.M_CarpenterCut",
+        "WSDetail_RackPaint": "/Game/WorldGeneration/TemperateHills/VillageCarpenter/Props/Surfaces/M_CarpenterIron.M_CarpenterIron",
+        "WSSculpt_Machined": "/Game/WorldGeneration/TemperateHills/VillageCarpenter/Props/Surfaces/M_CarpenterSteel.M_CarpenterSteel",
+        "WSSculpt_RubberGrip": "/Game/Building/ArcaneWorkbenchV6_20261107/Materials/M_EW_Leather_dark_worn_binding.M_EW_Leather_dark_worn_binding",
+        "WW_ClearSawHood": "/Game/Building/WoodworkingBenchV4/Materials/M_WW_ClearSawHood.M_WW_ClearSawHood",
+        "WW_PropsAtlas": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_WoodworkingProps.M_WBU_WoodworkingProps",
+        "WW_SawEdgePaint": "/Game/Building/WoodworkingBenchV6Controls20261013/Materials/MI_SawEdgeMerged.MI_SawEdgeMerged",
+        "CrystalCore": "/Game/Building/WoodworkingCrystalBench/Surfaces/M_WorkshopDriveCrystal.M_WorkshopDriveCrystal",
+        "CrystalBrass": "/Game/WorldGeneration/TemperateHills/VillageCarpenter/Props/Surfaces/M_CarpenterBrass.M_CarpenterBrass"
+      }
+    },
+    {
+      "package": "/Game/Building/WoodworkingBenchV6Controls20261013/SM_WoodworkingBenchBody",
+      "triangles": [
+        156164,
+        85753,
+        37248
+      ],
+      "collision_hulls": 27,
+      "slots": {
+        "WSBench_BenchWood": "/Game/Building/WoodworkingCrystalBench/Surfaces/M_WorkshopOiledOak.M_WorkshopOiledOak",
+        "WSBench_EndGrain": "/Game/WorldGeneration/TemperateHills/VillageCarpenter/Props/Surfaces/M_CarpenterCut.M_CarpenterCut",
+        "WSDetail_RackPaint": "/Game/WorldGeneration/TemperateHills/VillageCarpenter/Props/Surfaces/M_CarpenterIron.M_CarpenterIron",
+        "WSSculpt_Machined": "/Game/WorldGeneration/TemperateHills/VillageCarpenter/Props/Surfaces/M_CarpenterSteel.M_CarpenterSteel",
+        "WSSculpt_RubberGrip": "/Game/Building/ArcaneWorkbenchV6_20261107/Materials/M_EW_Leather_dark_worn_binding.M_EW_Leather_dark_worn_binding",
+        "WW_ClearSawHood": "/Game/Building/WoodworkingBenchV4/Materials/M_WW_ClearSawHood.M_WW_ClearSawHood",
+        "WW_PropsAtlas": "/Game/Building/WorkbenchSurfaces20261108/M_WBU_WoodworkingProps.M_WBU_WoodworkingProps",
+        "WW_SawEdgePaint": "/Game/Building/WoodworkingBenchV6Controls20261013/Materials/MI_SawEdgeMerged.MI_SawEdgeMerged",
+        "CrystalCore": "/Game/Building/WoodworkingCrystalBench/Surfaces/M_WorkshopDriveCrystal.M_WorkshopDriveCrystal",
+        "CrystalBrass": "/Game/WorldGeneration/TemperateHills/VillageCarpenter/Props/Surfaces/M_CarpenterBrass.M_CarpenterBrass"
+      }
+    }
+  ],
+  "gameplay_tested": false
+}

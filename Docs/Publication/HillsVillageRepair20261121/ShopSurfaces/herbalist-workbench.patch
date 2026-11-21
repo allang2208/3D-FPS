@@ -1,0 +1,34 @@
+diff --git a/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp b/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp
+index ca8ce79d99eec3550ea5b2f7d2f1f0380151b93f..03cb1fc53f4f30c3a129c1a7227bbc0d88fda86e 100644
+--- a/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp
++++ b/Source/FPSGAME/Building/PotionWorkbenchVisualComponent.cpp
+@@ -8,0 +9 @@
++#include "../WorldGeneration/HillsHerbalistWorkshop.h"
+@@ -30,0 +32,19 @@ const FSoftObjectPath TemperatureTextPath(TEXT("/Game/Building/PotionWorkbench20
++const FName VillageVesselSlots[] = {
++    TEXT("PW_glass"), TEXT("PW_amberglass"), TEXT("PW_clearliquid"),
++    TEXT("PW_redliquid"), TEXT("PW_greenliquid"), TEXT("PW_blueliquid")
++};
++FSoftObjectPath VillageVesselMaterial(FName Slot)
++{
++    const FString Name = TEXT("MI_") + Slot.ToString();
++    return FSoftObjectPath(FString::Printf(TEXT("/Game/Building/PotionWorkbench20261015/V1/HerbalistVessels/%s.%s"), *Name, *Name));
++}
++void ApplyVillageVesselMaterials(UStaticMeshComponent* Bench)
++{
++    for (const FName Slot : VillageVesselSlots)
++    {
++        const int32 Index = Bench->GetMaterialIndex(Slot);
++        if (Index != INDEX_NONE)
++            if (auto* Material = Cast<UMaterialInterface>(VillageVesselMaterial(Slot).ResolveObject()))
++                Bench->SetMaterial(Index, Material);
++    }
++}
+@@ -56,0 +77,2 @@ void UPotionWorkbenchVisualComponent::Configure(UStaticMeshComponent* Body)
++    if (GetOwner()->IsA<AHillsHerbalistWorkshop>())
++        for (const FName Slot : VillageVesselSlots) Assets.Add(VillageVesselMaterial(Slot));
+@@ -84,0 +107,2 @@ void UPotionWorkbenchVisualComponent::Loaded()
++    const bool bHerbalistShop = GetOwner()->IsA<AHillsHerbalistWorkshop>();
++    if (bHerbalistShop) ApplyVillageVesselMaterials(Original);
+@@ -97,0 +122 @@ void UPotionWorkbenchVisualComponent::Loaded()
++    if (bHerbalistShop) ApplyVillageVesselMaterials(Part(TEXT("Body")));

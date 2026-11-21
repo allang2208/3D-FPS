@@ -1,0 +1,55 @@
+{
+  "date": "2026-11-21",
+  "scope": "丘陵村庄三家店铺、相关制作和城防开发。本机各盘的 trash 均可按原路径回移。目录联接单独计数，其目标和目标中的字节从未计入。",
+  "total": {
+    "ordinary_files": 38337,
+    "bytes": 37448191785,
+    "directory_links": 1806
+  },
+  "batches": [
+    {
+      "manifest": "D:/FPS3D/FPSGAME/trash/HillsVillageShops-20261121/EarlierVillage/summary.json",
+      "manifest_sha256": "e6761207809cecb91b2b1cc8a3124a533413330a9ec1d9a13f8da122f8a2c106",
+      "ordinary_files": 37383,
+      "bytes": 32784586163,
+      "directory_links": 1771
+    },
+    {
+      "manifest": "D:/FPS3D/FPSGAME/trash/HillsVillageShops-20261121/manifest.json",
+      "manifest_sha256": "f9ab352b84afcb0233ef4ba9b4aaa45964461468eae9fbe35881d35e2675e0c5",
+      "ordinary_files": 851,
+      "bytes": 4174793992,
+      "directory_links": 27
+    },
+    {
+      "manifest": "D:/FPS3D/FPSGAME/trash/HillsVillageAuthoring-20261121/manifest.json",
+      "manifest_sha256": "f263fe3b37ec252a5cbc067c92339d8dfe387ac0c4d34aacad90f06ea25dca2f",
+      "ordinary_files": 98,
+      "bytes": 488792960,
+      "directory_links": 8
+    },
+    {
+      "manifest": "D:/FPS3D/FPSGAME/trash/HillsVillageAuthoring-20261121/retired-r7-tools.json",
+      "manifest_sha256": "61ec97389aea46d1333a95cb03fb421a83b2ee8229bb14b661ffcfee11e86231",
+      "ordinary_files": 5,
+      "bytes": 18670,
+      "directory_links": 0
+    }
+  ],
+  "earlier_move_receipts": [
+    "D:\\FPS3D\\FPSGAME\\trash\\HillsVillageShops-20261121\\EarlierVillage\\receipt.json",
+    "D:\\FPS3D\\FPSGAME\\trash\\HillsVillageShops-20261121\\EarlierVillage\\Supplement\\receipt.json",
+    "E:\\FPS3D-Cache\\trash\\HillsVillageShops-20261121\\EarlierVillage\\receipt.json",
+    "F:\\FPSGAMEData\\trash\\HillsVillageShops-20261121\\EarlierVillage\\receipt.json",
+    "D:\\FPS3D\\FPSGAME\\trash\\HillsVillageShops-20261121\\EarlierVillage\\RecoveryLinks\\receipt.json"
+  ],
+  "before_after_cameras": "ShopSurfaces/released.json",
+  "archived_comparisons": "F:/FPSGAMEData/trash/HillsVillageShops-20261121/ArtReviews/HillsVillageShops/20261121-Materials",
+  "retained": [
+    "正式关卡、UE 模型及材质、卡片图标",
+    "美术作者源、多视图输入、最终模型与纹理",
+    "旧生产包、发布散列和恢复回执",
+    "可重用的构建、截图和联机验证源码"
+  ],
+  "counting": "不含整理和发布本身生成的临时脚本、发布工作区或 Git 元数据。R7 烟囱工具单独计数，原有窗体导入入口现指向 R8。"
+}

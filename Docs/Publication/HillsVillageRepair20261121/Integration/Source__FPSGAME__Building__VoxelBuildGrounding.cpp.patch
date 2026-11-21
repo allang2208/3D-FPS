@@ -1,0 +1,47 @@
+--- a/Source/FPSGAME/Building/VoxelBuildGrounding.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildGrounding.cpp
+@@ -3,2 +3,3 @@
+ #include "VoxelCollapseFragment.h"
++#include "../WorldGeneration/VillageDefenseSection.h"
+ #include "Components/CapsuleComponent.h"
+@@ -17,4 +18,13 @@
+     FCollisionQueryParams Params(SCENE_QUERY_STAT(VoxelGrounding),true,Ignore);
+-    for(TActorIterator<APawn> It(World);It;++It)Params.AddIgnoredActor(*It);
++    for(TActorIterator<APawn> It(World);It;++It)
++        if(!It->IsA<AVillageDefenseSection>())Params.AddIgnoredActor(*It);
+     return Params;
++}
++
++bool VoxelGrounding::IsFixedBuildingSurface(const FHitResult& Hit)
++{
++    const auto* Component=Hit.GetComponent();
++    if(!Component||Component->IsSimulatingPhysics())return false;
++    if(!Cast<APawn>(Hit.GetActor()))return true;
++    return Cast<AVillageDefenseSection>(Hit.GetActor())&&Component->ComponentHasTag(TEXT("Traversal.FixedStructure"));
+ }
+@@ -23,6 +33,22 @@
+ {
+-    const auto* Component=Hit.GetComponent();
+-    return Hit.bBlockingHit&&Component&&Hit.ImpactNormal.Z>=MinimumNormalZ
+-        &&!Component->IsSimulatingPhysics()&&!Cast<APawn>(Hit.GetActor())
++    return Hit.bBlockingHit&&Hit.ImpactNormal.Z>=MinimumNormalZ&&IsFixedBuildingSurface(Hit)
+         &&!Cast<AVoxelBuildWorld>(Hit.GetActor())&&!Cast<AVoxelCollapseFragment>(Hit.GetActor());
++}
++
++bool VoxelGrounding::ResolveMountingSurface(FHitResult& Hit)
++{
++    if(!IsFixedBuildingSurface(Hit))return false;
++    if(Cast<AVillageDefenseSection>(Hit.GetActor()))
++    {
++        // A chipped ashlar can give the reticle a steep triangle normal on a vertical wall.
++        // Use the structural face on that same piece, keeping actors behind it occluded.
++        FHitResult Structural;
++        if(Hit.GetComponent()->LineTraceComponent(Structural,Hit.TraceStart,Hit.TraceEnd,
++            FCollisionQueryParams(SCENE_QUERY_STAT(VillageMountPlane),false)))
++        {
++            if(FVector::DistSquared(Structural.ImpactPoint,Hit.ImpactPoint)>FMath::Square(40.))return false;
++            Hit=Structural;
++        }
++    }
++    return FMath::Abs(Hit.ImpactNormal.Z)<=.5;
+ }

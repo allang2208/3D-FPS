@@ -1,0 +1,172 @@
+{
+  "packages": [
+    {
+      "package": "/Game/Building/WoodworkingCrystalBench/Surfaces/M_WorkshopDriveCrystal",
+      "bytes": 16195,
+      "sha256": "AB41D07A754CF34E00E44542D077F971292342E2EC8E316439B91229FFEA1963"
+    },
+    {
+      "package": "/Game/Building/PotionWorkbench20261015/V1/HerbalistVessels/M_HerbalistGlass",
+      "bytes": 9444,
+      "sha256": "F9B64FDEFCBDD41A13F66841B6E4B7089E7DEAE8BC91209473F4DF564A13931E"
+    },
+    {
+      "package": "/Game/Building/PotionWorkbench20261015/V1/HerbalistVessels/M_HerbalistExtract",
+      "bytes": 9324,
+      "sha256": "D616FB478C65859BA34A41706582B7F9310816D47F6B0938DFC29C781449047F"
+    },
+    {
+      "package": "/Game/Building/PotionWorkbench20261015/V1/HerbalistVessels/MI_PW_glass",
+      "bytes": 4851,
+      "sha256": "C4375031171867B9FB90F7C622279B64CF27DB71C13F1505BC999BD105D2C8CD"
+    },
+    {
+      "package": "/Game/Building/PotionWorkbench20261015/V1/HerbalistVessels/MI_PW_amberglass",
+      "bytes": 4876,
+      "sha256": "D52C6DF8566CBDA63336E63A61620B61D2A40E73EA00934F26990C841D1B050A"
+    },
+    {
+      "package": "/Game/Building/PotionWorkbench20261015/V1/HerbalistVessels/MI_PW_clearliquid",
+      "bytes": 4881,
+      "sha256": "15FCFB0EF9C8E7EA8EAEE95A8EA73936244E6BE1BD2FE95FD9B60FE7BE19082A"
+    },
+    {
+      "package": "/Game/Building/PotionWorkbench20261015/V1/HerbalistVessels/MI_PW_redliquid",
+      "bytes": 5017,
+      "sha256": "AC2C7EE2E936C8BD65008338FF924F46273976C7664615835BCCBC6E17B5EBD7"
+    },
+    {
+      "package": "/Game/Building/PotionWorkbench20261015/V1/HerbalistVessels/MI_PW_greenliquid",
+      "bytes": 5027,
+      "sha256": "715298572395218E2674213962AB95A4FE57A40CBC62F38BE73E892ADCD0A2A1"
+    },
+    {
+      "package": "/Game/Building/PotionWorkbench20261015/V1/HerbalistVessels/MI_PW_blueliquid",
+      "bytes": 5022,
+      "sha256": "CF810098058E7BD30312219407A6C427E3FD5DB8025EA47AB0D0C93B616BA4C4"
+    }
+  ],
+  "builds": [
+    {
+      "target": "FPSGAMEEditor",
+      "result": "build",
+      "exit_code": 0
+    },
+    {
+      "target": "FPSGAME",
+      "result": "build",
+      "exit_code": 0
+    }
+  ],
+  "repaired_shop_camera_pairs": [
+    {
+      "view": "smith-shop",
+      "hour": "09:30",
+      "seed": 1518277816,
+      "before_sha256": "2e20b45ce627501e1bcd2bb419b1e27b5a5f909addfeb2bb3ee0d1c6270e2003",
+      "after_sha256": "7e4c7089f37e1ccbe77ab2a423e2a978fc9a1c816d532b1645cf08cd5e90696d",
+      "smith_house_local_eye_cm": [
+        -70,
+        -330,
+        165
+      ],
+      "smith_house_local_target_cm": [
+        130,
+        150,
+        145
+      ],
+      "horizontal_fov_deg": 85
+    },
+    {
+      "view": "smith-anvil",
+      "hour": "16:30",
+      "seed": 1518277816,
+      "before_sha256": "0fa47837b94f899e750865299eb429cf05142e6a0a433b4bafa3e3983dc91b6a",
+      "after_sha256": "03ea25c3c64bf31294eba3190ff62e152e507388ecb4a861eaf27c890769d126",
+      "smith_house_local_eye_cm": [
+        48,
+        -52,
+        126
+      ],
+      "smith_house_local_target_cm": [
+        143,
+        59,
+        91
+      ],
+      "horizontal_fov_deg": 53
+    },
+    {
+      "view": "carpenter-bench",
+      "hour": "09:30",
+      "seed": 1518277816,
+      "before_sha256": "589262c66ca6af0ee80f60f4ba15229629ac2c41ece14cc276ab33a93085fc20",
+      "after_sha256": "13337962c74524cd0b8984e0743a0624e20c869e20e9df4dfc368ee7dce6a261",
+      "smith_house_local_eye_cm": [
+        319.2834,
+        -2270.2334,
+        147
+      ],
+      "smith_house_local_target_cm": [
+        91.618,
+        -2571.5579,
+        83
+      ],
+      "horizontal_fov_deg": 55
+    },
+    {
+      "view": "carpenter-crystal",
+      "hour": "16:30",
+      "seed": 1518277816,
+      "before_sha256": "ffc9ef3f08e83681c89d29c042dff65087a8b55c29adf5220b8f24a377c7a644",
+      "after_sha256": "6cbec1472f5b301eec3252fee12d69afe106cafd1a22482c8dfd69fba98dc572",
+      "smith_house_local_eye_cm": [
+        186.1355,
+        -2471.5408,
+        54
+      ],
+      "smith_house_local_target_cm": [
+        77.6554,
+        -2508.9716,
+        63
+      ],
+      "horizontal_fov_deg": 51
+    },
+    {
+      "view": "herbalist-bench",
+      "hour": "09:30",
+      "seed": 1518277816,
+      "before_sha256": "2a9f84d4574b8f95ad1901f5de6a6ec04c118ffd3236b8230455e1083080cb7a",
+      "after_sha256": "1bced6116c345457efec9f00be7ca69c12c57621e4c495ce3e887e55aee9a526",
+      "smith_house_local_eye_cm": [
+        -1817.733,
+        1396.6239,
+        170
+      ],
+      "smith_house_local_target_cm": [
+        -1539.3731,
+        1628.8237,
+        108
+      ],
+      "horizontal_fov_deg": 74
+    },
+    {
+      "view": "herbalist-vessels",
+      "hour": "09:30",
+      "seed": 1518277816,
+      "before_sha256": "5067c4bf3f88bfa6aba7056ad468762df9d0b7144ad591a4633c34d250c2798f",
+      "after_sha256": "4a81724221e9df36c660d1de953a36b7152902275f7378d25690bccdc34587ab",
+      "smith_house_local_eye_cm": [
+        -1743.5077,
+        1534.1979,
+        158
+      ],
+      "smith_house_local_target_cm": [
+        -1573.9486,
+        1672.9772,
+        109
+      ],
+      "horizontal_fov_deg": 55
+    }
+  ],
+  "crystal_previous_sha256": "884034C3999A6B9C8AFCA030686C5EAC76D03594660ADF8EF852EAE66D9606D0"
+}

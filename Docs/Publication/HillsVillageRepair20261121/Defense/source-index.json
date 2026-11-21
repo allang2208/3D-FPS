@@ -1,0 +1,387 @@
+{
+  "base": "e8b7284d9b086f1ba10841cf368d0f4273bd3ad7",
+  "format": "Source files in Defense mirror project-relative target paths. SHA-256 and git blob hash use LF. Entries in existing have matching published bytes after newline normalization.",
+  "copied": [
+    {
+      "target": "Source/FPSGAME/Building/VillageBuildDefense.cpp",
+      "git_blob_lf": "e5ee87da5bcb41d504c5d9a03268fed21778cce0",
+      "sha256_lf": "59f567fb12f486a7749ae7455e07e310ee0499728933aed6d5a1e49885a6ded4"
+    },
+    {
+      "target": "Source/FPSGAME/Building/VillageBuildDefense.h",
+      "git_blob_lf": "2bb77f9fc0014198639ad7d791f593f3101c05c4",
+      "sha256_lf": "4874d2fd2d1bbf1655c9e7e0a272ce10440fc9e8c885dbf0bf1101b91184ddd4"
+    },
+    {
+      "target": "Source/FPSGAME/Building/VillageDefenseFootprint.cpp",
+      "git_blob_lf": "86ad5ccb146bffe1cdd32abc5a547b3a3593b2be",
+      "sha256_lf": "52bba55efd2323adba633c91b632143d7af62a589a4c3487da0d4f788aac46f4"
+    },
+    {
+      "target": "Source/FPSGAME/Building/VillageDefenseFootprint.h",
+      "git_blob_lf": "d1ccd1ddd370014ecb3a918c47712386f51239a8",
+      "sha256_lf": "5e2d4253d285df5638202805926f6ecb0e2d5bf9a990158cb9a9eb6a7e1723f6"
+    },
+    {
+      "target": "Source/FPSGAME/Building/VillageWallStairs.cpp",
+      "git_blob_lf": "b263710f09e98e3e9470f65dea7836f19b23e150",
+      "sha256_lf": "8c7e0770ddf274b2a50c29195310ab605d019d690f910ffa210e22c4a946b9e9"
+    },
+    {
+      "target": "Source/FPSGAME/Building/VillageWallStairs.h",
+      "git_blob_lf": "a6ac624f22c2a83dbf08787ee72559b2452334a1",
+      "sha256_lf": "6c3a5895345b7f062fd7f86616ef429a7b56b5576e8034bab955d3a8e7c85da4"
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildDefenseSupport.cpp",
+      "git_blob_lf": "1a4806aa41feafdfa0200d52a735119fab2d8ab8",
+      "sha256_lf": "f28f634054c6ff88b86d7cc421236cea99952d3d772272cdef58aa0c92220305"
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildUndo.cpp",
+      "git_blob_lf": "53b0e97dccc1b0e55f5e5e50c1268c5d3b282929",
+      "sha256_lf": "d99dc24eae29cfef8b566d527fcea19b65d9309e9f5365184cd59e8e695415c5"
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildUndoHistory.h",
+      "git_blob_lf": "91781ca91f85c772df06dc682df232c2fdade0db",
+      "sha256_lf": "44451768a14c7d484d9a73f21f4f647e149899c79ade69ee363ed126d4dd5fd9"
+    },
+    {
+      "target": "Source/FPSGAME/Development/VillageConstructionNetworkAudit.cpp",
+      "git_blob_lf": "9097c4a1f31019b1240b3238ccfaf482bde6e347",
+      "sha256_lf": "dea041df8816bd6050ba1f5cc38fd8fd48c309f99c18ced27f749578c0f45439"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/HighVillageCollapse.cpp",
+      "git_blob_lf": "638e9d002c45f87855be138942c1d107276232e4",
+      "sha256_lf": "7200aff19e39bfe4e765548f72625e9485f441fd9ed415ebaa924817a8da551d"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/HighVillageCollapse.h",
+      "git_blob_lf": "0367ef440aa4cd34e9ac1f5f34ec1302da629ff0",
+      "sha256_lf": "a7b07550072ab19e6a41718686842a9b6b0b76e90eb9c4fc93d58febada7b399"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/HighVillageDefense.cpp",
+      "git_blob_lf": "34922e65bc0727dbb3f6c174c2bf3bbcc8e0bc32",
+      "sha256_lf": "2439dff2e026a3f00ac15e57f06048d3db7ccbe5eb1a486f4cfbdb6d2b2b8660"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/HighVillageDefense.h",
+      "git_blob_lf": "179886bd5f63c20a9bd1435586d4bf74e46323fa",
+      "sha256_lf": "5110a77b63da273d7bd5a796c89f50d26b5a42d9557da60a703c5614076ad0c5"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/TemperateVillageDefenseBlockCheck.cpp",
+      "git_blob_lf": "694bd259fa7e9c5eca643104e226673a5f87ddd6",
+      "sha256_lf": "2569ac4c4b6501ecad79f8cfe374d0c3d4cb107d7d4f814c47523c7195bb0dc1"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/TemperateVillagePerimeter.cpp",
+      "git_blob_lf": "0c8e0263d79e06e0ae5c04d25d34cbba917d6c0e",
+      "sha256_lf": "39f12f4e249c3282a48479bd9efd8a52dbcf8c197921ff461f6f7686e9becdaa"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/TemperateVillagePerimeter.h",
+      "git_blob_lf": "b7f991c20268177d10355106fd46e75ca47f992b",
+      "sha256_lf": "5fd03df951505127c2b543397ce21bc91fb0746872c9e2fe4eb6d13549dae74c"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseCombat.cpp",
+      "git_blob_lf": "6bc07051221fdb47b285fc1559334b5b86b29232",
+      "sha256_lf": "6ea76a9b009907e8988422ef15efcb39ea3622705a46db9ae6a1bdbf89ca94d6"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseCombat.h",
+      "git_blob_lf": "0c9a86123e7636d111291eb37c8b15c614438149",
+      "sha256_lf": "0b828058bf3c12e313259230482aaf0455c9a4edcfe1399c7924a880061f0acd"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseDebris.cpp",
+      "git_blob_lf": "83dec4f13b92c16c05cc0acd40ca4ad6c4f5b33c",
+      "sha256_lf": "ec7aa48987006fdb3c5c61d315916371b14df2354a12e751ae3d797ec79b46aa"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseDebris.h",
+      "git_blob_lf": "394dc82ddfe0ae88009d14f615106db95745e44e",
+      "sha256_lf": "906f6ec14f51188903af4d5d58198ec9536ea14969e41bcbf37ab04eab8779b0"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseFocusVisual.cpp",
+      "git_blob_lf": "bd2ec01cd04e3520dc2c8b9274408562965ec9cf",
+      "sha256_lf": "8e31a6c1670e6141efbef0af7016137f2fc3b7254c9a5d8759689e7042e734c9"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseFocusVisual.h",
+      "git_blob_lf": "693e1e45c003d0c694c81e0427415d746a7e0dda",
+      "sha256_lf": "c016281c69650edc521568e431ae1bc34f8a10293092cd31bb25b738e3e19856"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseGate.cpp",
+      "git_blob_lf": "82f64b7190e38ad609361800599d7f7b06ad2c6b",
+      "sha256_lf": "412716e4bc7bf43875c4a8cd1d97a9e8052123bc6ff3af096ffa9ae094713083"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefensePlacementCheck.cpp",
+      "git_blob_lf": "ed2b3198276ef5819f3db67eda30718b898438b0",
+      "sha256_lf": "391f199c4adacc62f7cad162740f85bebfe7c000c62fcb7f66b38cce5d0efe6b"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseRepairTargets.cpp",
+      "git_blob_lf": "4c759ff4ad1d3b7693785646e94f92907c199046",
+      "sha256_lf": "b56fbfb238fd5444e52d6a98e39b51ac78db3a2f44c823d36280a99492dfa3be"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseRepairTargets.h",
+      "git_blob_lf": "1455c6034f579c7f0ee63f3c93990b9aae85c9e3",
+      "sha256_lf": "fed16821ca7832b8b36ce14d550a2589457df6790f5b66334bb75f8d8cec63ec"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp",
+      "git_blob_lf": "33276a577e986d15d03f6f8a31b3648df622cac7",
+      "sha256_lf": "1f9e13867719cff6df82f73d7b837e101de28ac0a7886afd3ab122b37b4af4e2"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.h",
+      "git_blob_lf": "ddb68b5f96c9eba5c28d7e0636e6690645a7c170",
+      "sha256_lf": "731bb3879e53cc401823451b4cc04b743ff7374e6eeb25b608cd5e54e5fbb97c"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseStairs.cpp",
+      "git_blob_lf": "7dca081ac6356ee9b854cb018a24d860da2b48f6",
+      "sha256_lf": "8f85ae6d42e23fc594f0d45f14add195677a659cb6968db7dddbedf0868e964d"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseStairs.h",
+      "git_blob_lf": "a19bb906aa94fb9afc4651959a76cddc3d7863b6",
+      "sha256_lf": "fb548972adb062e4cd04c71a98d75e57f44077768be1a39aac6ecd542b0e15dd"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseState.cpp",
+      "git_blob_lf": "dfc0816563d24b82e4cf8159645cfbeac4f3ff40",
+      "sha256_lf": "87899811f32c7aec28dcb53a8541607be2ab975dc937ab0553281a5200de6b71"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseState.h",
+      "git_blob_lf": "06211d60bd5daa2aeef3a39ab5afbeb446f9485e",
+      "sha256_lf": "e0f540ed9dca62ce33f919124b35288a8a572ee6ef4f0b30f8f7de6f90c9ce16"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseSupportCheck.cpp",
+      "git_blob_lf": "c29bfcd30552a93d1bd22be0385bf2cab7800953",
+      "sha256_lf": "bd8dc70267c6700f6b39e9a8b5bf3b0adc1d27d047993897c084a51f0b617063"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageDefenseUndoCheck.cpp",
+      "git_blob_lf": "d58143219776d18677c2b14449600e6e9ccd05bd",
+      "sha256_lf": "2e55ee277feee69766cb666921173eb186195ac0a8e0b3cbfa3cac033561af39"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageGateMotionAudio.cpp",
+      "git_blob_lf": "ed462fc282214b11dcdae7d7256134162bae34d6",
+      "sha256_lf": "4a961787691caedec22f6a950d6a6afe8e7a9c53e8a8034ae80f4eb3e12e1a62"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageGateMotionAudio.h",
+      "git_blob_lf": "17ec299f77beeaea63b219e9cf00c1b03a8cf2c8",
+      "sha256_lf": "6245b689c47a5338f7a75bfa155d6699974308f755cb3de0e17d49dfe8a4825e"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillageMasonry.h",
+      "git_blob_lf": "fcebcb78c52738886a98108a8d767cb29c177970",
+      "sha256_lf": "b23a8d80908d6fede2b474f44dfd48906610d0a0f4918139245725d83615de7f"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillagePortcullisHoist.cpp",
+      "git_blob_lf": "287d50d269619b95115e0824725db7db50732bdc",
+      "sha256_lf": "bd427db5d2f918977cfc4c3e95c7471040fb54ce557507399203d45c92adbf3e"
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/VillagePortcullisHoist.h",
+      "git_blob_lf": "e21bc7219a2561ad5278627a38ccd9365d603d45",
+      "sha256_lf": "f36d6dbf2a7894af1e945e13c6a2693de72f6470c3831640c38bb61ff40350af"
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Design01/author_wall_fracture.py",
+      "git_blob_lf": "72efffadc90c4d9c8058003ce6cb771c4e6613fd",
+      "sha256_lf": "a6b1701507070de6cfdab813b29327b67b3c325ab007ad7450ee46c902ec2ab9"
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Design01/Components/A_HighWall/prompt.txt",
+      "git_blob_lf": "369883fac61b6f22f1f1c626d6e1800dac3b5ff3",
+      "sha256_lf": "343c306daf3e84835672d0b839e15884824a6fccdb2655be0be15360d1a61bf3"
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Design01/Components/B_WestArch/prompt.txt",
+      "git_blob_lf": "13f74a10ecc5cd12638a21dcbfc5284b33aa58fb",
+      "sha256_lf": "c086d952abdab2d60e81385f1f00aac657614021d6c1d749dae4b36dde3021d3"
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Design01/Components/C_WestGrille/prompt.txt",
+      "git_blob_lf": "36afeb02cbb41dfc7722f1941e2bb3d4729985fa",
+      "sha256_lf": "0dbc4c9c11acf6f3853f0369e7872038713b125a9fb4e23e02f09998deff53f5"
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Design01/image-prompts.txt",
+      "git_blob_lf": "ee3f9b3408cb1fe92766e06849f727dd7da9d764",
+      "sha256_lf": "688c9299ea97349cbb00599da50c07f24527f050f899e8ac18e4189ca47239b0"
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Design01/meshy_build.py",
+      "git_blob_lf": "eb0af8217e304313d44516a4327b284676f9404c",
+      "sha256_lf": "45b42972c54f3c69c78e082543dc0daa379a128012c8404f7fd5379fdf259755"
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Design01/wall_shard_geometry.py",
+      "git_blob_lf": "4e08938641a448d281286b961ab795fa2be42bb6",
+      "sha256_lf": "6764b4f57b3bdcba38e14bc566033e52efa8ec182defc1871facc0a7be4d6806"
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Design01/设计与资产清单.md",
+      "git_blob_lf": "e5e9fb295b0280de5c2612291bcc17b9eb5d9891",
+      "sha256_lf": "693794b9dde0390078f110e24b2fa04c56062f02d88bbd343590288e41cc3963"
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Stairs/access_stairs.py",
+      "git_blob_lf": "7eb43f15fc04b36b62af24802714e729b3b1576e",
+      "sha256_lf": "9abe1311106f2dab9ae1c07190fdd0f39640c8a00c107348590761fa8558690f"
+    },
+    {
+      "target": "SourceAssets/HillsVillageHighWall20261120/Stairs/fracture_stairs.py",
+      "git_blob_lf": "1f52184830bd52dce48757732699116423c4a1ec",
+      "sha256_lf": "df0964c49c509292676ccf220663b70e59b33e8933434e8e1d1d8c0dc7bf4403"
+    },
+    {
+      "target": "SourceAssets/VillageGateAudio/import_gate_audio.py",
+      "git_blob_lf": "79cd60d44f81a66c80646800f53a2e098bccee11",
+      "sha256_lf": "9b3d05c51e6e557eae55e370b505402c079123a7b24df73eda86f66ef56e1de1"
+    },
+    {
+      "target": "Tools/WorldGeneration/HighVillageDefense/author_kit.py",
+      "git_blob_lf": "f1c8bf958fce459f3f509e27d0d91b8a84b02bd4",
+      "sha256_lf": "77dc5f2f27d6443a5fb23af8e1a91cf97519c0180a5b386d4907688a3a090da0"
+    },
+    {
+      "target": "Tools/WorldGeneration/HighVillageDefense/bake_wall_normal.py",
+      "git_blob_lf": "6702f2c7d9ba68ef6b02fe70c3449a4f8d9c3123",
+      "sha256_lf": "75c5413ae20bcc58721de1cd47064bae7b58c2aad6a8ee403a186894fec0ecce"
+    },
+    {
+      "target": "Tools/WorldGeneration/HighVillageDefense/battlement_profile.py",
+      "git_blob_lf": "ba368d6ba03ddfa8ddf3b06c0e8f67526bbde56a",
+      "sha256_lf": "e418f659ec019dd3a4720da1fb1206e3f683b7d7ecbcc4a0cf69a253275a981f"
+    },
+    {
+      "target": "Tools/WorldGeneration/HighVillageDefense/build_battlement_assets.py",
+      "git_blob_lf": "d9758a7a94796d0d060d6a75c46e077d9856a045",
+      "sha256_lf": "65f79a24414241f36ff9b947c00690c3ad503170c383c56ebe64ca020e940a03"
+    },
+    {
+      "target": "Tools/WorldGeneration/HighVillageDefense/gate_gallery.py",
+      "git_blob_lf": "18ddcb00b0902fece1613653a461bf9b1d7f8d08",
+      "sha256_lf": "fac4927b1b8667858f312bf26727d495792e181b76743e1f9e05d32626eee7e6"
+    },
+    {
+      "target": "Tools/WorldGeneration/HighVillageDefense/grille_repair.py",
+      "git_blob_lf": "b5896d88c88aed605e9cae0797de2a1b20dd0e2c",
+      "sha256_lf": "d9506c87c6dcc908c3150053dcd18e7274dda2a81998c5686474609ebb5b93bb"
+    },
+    {
+      "target": "Tools/WorldGeneration/HighVillageDefense/Import-HighVillageDefense.ps1",
+      "git_blob_lf": "a93071c6abd9c6d1866e8a62b67296420d701887",
+      "sha256_lf": "3ca32206d5313c9762a967eac0ecfc5180eb2fa1d00f336ea2ba1f96dd5c378e"
+    },
+    {
+      "target": "Tools/WorldGeneration/HighVillageDefense/Import-WallAccessStairs.ps1",
+      "git_blob_lf": "27f7253d2236b945b1728c92517a2db24937449a",
+      "sha256_lf": "4c33227f48ac1b951c631f20247a9b5bc517cb47301cc9b01fa00d6613d3c917"
+    },
+    {
+      "target": "Tools/WorldGeneration/HighVillageDefense/import_hoist.py",
+      "git_blob_lf": "393b0b7517790897edaa421a98f2b2d5193727f4",
+      "sha256_lf": "e70d1877d03de3e6a2fecafa6db40b394a7ab6a21dbd7931add21d179e21b69f"
+    },
+    {
+      "target": "Tools/WorldGeneration/HighVillageDefense/import_kit.py",
+      "git_blob_lf": "c7eb0612983fd989fd907662b5e47815f58805d9",
+      "sha256_lf": "aae4eb27b2cedc5dffbe8489ff52f1772af23379a2f95cb641e7d9de74c95ad3"
+    },
+    {
+      "target": "Tools/WorldGeneration/HighVillageDefense/import_stairs.py",
+      "git_blob_lf": "32678338dab82aeb4880ab5864833c03e741cd26",
+      "sha256_lf": "906a84eea99990297ac55efcde726a54c678e1015713ef3e1929ce4dd0646a03"
+    },
+    {
+      "target": "Tools/WorldGeneration/HighVillageDefense/prepare_sources.py",
+      "git_blob_lf": "34e41b5100654665b46f6eb51c0427447b0a37cd",
+      "sha256_lf": "89c31bed1004a2a4605a5985f581a2321d8f766bf5ac6cab7e49c451d37246f3"
+    },
+    {
+      "target": "Tools/WorldGeneration/HighVillageDefense/Publish-Battlements.ps1",
+      "git_blob_lf": "e602e94058324db409b146da54527405cf5c1077",
+      "sha256_lf": "326a4e1b236f896b693654423a5ca95b5d34f50e27dd0eeae54928cf8dc5c9cc"
+    },
+    {
+      "target": "Tools/WorldGeneration/HighVillageDefense/source_mesh.py",
+      "git_blob_lf": "8fb149ce61a91e3b8b187bf1f96721205aa4405b",
+      "sha256_lf": "43553015124f349bfa1e3e3ef7ea03cdcc690275712360624cf935728f24e6a4"
+    }
+  ],
+  "existing": [
+    {
+      "target": "Tools/WorldGeneration/Build-VillageDefenses.ps1",
+      "git_blob_lf": "dafd6e2c1efaeb055f1967bfeb1348ce0cff6762",
+      "sha256_lf": "cc0faba15ac221f6acda2273d6d5c30cd29978c76fe9ed8de3cbd82ca846735d",
+      "remote_path": "Tools/WorldGeneration/Build-VillageDefenses.ps1"
+    },
+    {
+      "target": "Tools/WorldGeneration/VillagePerimeter/defense_geometry.py",
+      "git_blob_lf": "183256e963c158869d0df9593f8d381f7855a2cd",
+      "sha256_lf": "0f8d11a640f578f60e0e9e8a6c6c11a9c286cf4332e1a285295afd6eff81b881",
+      "remote_path": "Tools/WorldGeneration/VillagePerimeter/defense_geometry.py"
+    },
+    {
+      "target": "Tools/WorldGeneration/VillagePerimeter/ground_transition.py",
+      "git_blob_lf": "43d8d8d6526aa396ffb834dfc97fdc8111952274",
+      "sha256_lf": "56bd17e1d8c1854c961d7ea852dc151c511c7c1e680d968da589ea6f97c34046",
+      "remote_path": "Tools/WorldGeneration/VillagePerimeter/ground_transition.py"
+    },
+    {
+      "target": "Tools/WorldGeneration/VillagePerimeter/Import-Defenses.ps1",
+      "git_blob_lf": "7ce2d12c8e2b8d561513f217f8996a163909b48f",
+      "sha256_lf": "2d1da0dcd3f3f596e427912ed963c7691e920de6787990b14db6ac0b12e76902",
+      "remote_path": "Tools/WorldGeneration/VillagePerimeter/Import-Defenses.ps1"
+    },
+    {
+      "target": "Tools/WorldGeneration/VillagePerimeter/Import-Walls.ps1",
+      "git_blob_lf": "242f673b641e31fdda4fea55e3880dde4dbfd870",
+      "sha256_lf": "560d8feff371cb635a48d83f4a9d6e4cb6f0e21058518390ddf8ec6477fae345",
+      "remote_path": "Tools/WorldGeneration/VillagePerimeter/Import-Walls.ps1"
+    },
+    {
+      "target": "Tools/WorldGeneration/VillagePerimeter/import_defenses.py",
+      "git_blob_lf": "3b9cc3392d124d429cc4f43af1475ccdeadd5b23",
+      "sha256_lf": "3fb0c49d1ef81f3b6640f5e5e4dbc8c4a0da9f4e2758b0ca76b6891e7031bf7b",
+      "remote_path": "Tools/WorldGeneration/VillagePerimeter/import_defenses.py"
+    },
+    {
+      "target": "Tools/WorldGeneration/VillagePerimeter/import_walls.py",
+      "git_blob_lf": "9079bdf7d327ac7f83fe41cb7a228057067bbc58",
+      "sha256_lf": "af0d4897505a0fb0e666559b09a1f79890e3dcd4d193ba69ee2985d9f2cc2668",
+      "remote_path": "Tools/WorldGeneration/VillagePerimeter/import_walls.py"
+    },
+    {
+      "target": "Tools/WorldGeneration/VillagePerimeter/remove_duplicate_chapel_wall.py",
+      "git_blob_lf": "9824b50525b9ae9b1c02b7cd7b3b1e2bfc4cdb98",
+      "sha256_lf": "7e2819737e7e2f4ba9edcdfa03a6868244a3fdc392f72b82b08eb51d1aaa923c",
+      "remote_path": "Tools/WorldGeneration/VillagePerimeter/remove_duplicate_chapel_wall.py"
+    },
+    {
+      "target": "Tools/WorldGeneration/VillagePerimeter/wall_geometry.py",
+      "git_blob_lf": "e751c1f0ef7736e1f912c153a640d968d9222511",
+      "sha256_lf": "f30ffcb52cfbb4ae14ca55f42074fd905d94ee38a8430e7fc4484f9119b25576",
+      "remote_path": "Tools/WorldGeneration/VillagePerimeter/wall_geometry.py"
+    }
+  ]
+}

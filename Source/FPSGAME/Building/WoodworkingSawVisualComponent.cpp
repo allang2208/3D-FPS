@@ -6,9 +6,12 @@
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
 #include "Materials/MaterialInterface.h"
+#include "Materials/MaterialInstanceDynamic.h"
 
 namespace
 {
+const FName CrystalSlot(TEXT("CrystalCore"));
+const FName DriveStrengthParameter(TEXT("DriveStrength"));
 const FSoftObjectPath WoodworkingEdgePaintPath(TEXT("/Game/Building/WoodworkingBenchV6Controls20261013/Materials/M_SawEdgePaint.M_SawEdgePaint"));
 }
 
@@ -69,7 +72,18 @@ void UWoodworkingSawVisualComponent::SetPowered(bool bInPowered,bool Adjusting)
     }
     const bool bNext=bInPowered&&!bAdjusting&&Station&&!Station->IsSimulatingPhysics();
     if(bPowered==bNext)return;
-    bPowered=bNext;SetComponentTickEnabled(bPowered&&IsValid(Blade));
+    bPowered=bNext;
+    if(Station)
+    {
+        const int32 Slot=Station->GetMaterialIndex(CrystalSlot);
+        if(Slot!=INDEX_NONE)
+        {
+            auto* Crystal=Cast<UMaterialInstanceDynamic>(Station->GetMaterial(Slot));
+            if(!Crystal&&bPowered)Crystal=Station->CreateDynamicMaterialInstance(Slot);
+            if(Crystal)Crystal->SetScalarParameterValue(DriveStrengthParameter,bPowered?1.8f:1.f);
+        }
+    }
+    SetComponentTickEnabled(bPowered&&IsValid(Blade));
 }
 
 void UWoodworkingSawVisualComponent::TickComponent(float Delta,ELevelTick TickType,FActorComponentTickFunction* ThisTick)

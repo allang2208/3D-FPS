@@ -1,0 +1,51 @@
+{
+  "SM_WoodworkingBench": {
+    "files": [
+      "GameReady/SM_WoodworkingBench_LOD0.fbx",
+      "GameReady/SM_WoodworkingBench_LOD1.fbx",
+      "GameReady/SM_WoodworkingBench_LOD2.fbx"
+    ],
+    "material_slots": [
+      "WSBench_BenchWood",
+      "WSBench_EndGrain",
+      "WSDetail_RackPaint",
+      "WSSculpt_Machined",
+      "WSSculpt_RubberGrip",
+      "WW_ClearSawHood",
+      "WW_PropsAtlas",
+      "WW_SawEdgePaint",
+      "CrystalCore",
+      "CrystalBrass"
+    ]
+  },
+  "SM_WoodworkingBenchBody": {
+    "files": [
+      "GameReady/SM_WoodworkingBenchBody_LOD0.fbx",
+      "GameReady/SM_WoodworkingBenchBody_LOD1.fbx",
+      "GameReady/SM_WoodworkingBenchBody_LOD2.fbx"
+    ],
+    "material_slots": [
+      "WSBench_BenchWood",
+      "WSBench_EndGrain",
+      "WSDetail_RackPaint",
+      "WSSculpt_Machined",
+      "WSSculpt_RubberGrip",
+      "WW_ClearSawHood",
+      "WW_PropsAtlas",
+      "WW_SawEdgePaint",
+      "CrystalCore",
+      "CrystalBrass"
+    ]
+  },
+  "SM_WoodworkingSawBlade": {
+    "files": [
+      "GameReady/SM_WoodworkingSawBlade_LOD0.fbx",
+      "GameReady/SM_WoodworkingSawBlade_LOD1.fbx",
+      "GameReady/SM_WoodworkingSawBlade_LOD2.fbx"
+    ],
+    "material_slots": [
+      "WW_PropsAtlas",
+      "WW_SawEdgePaint"
+    ]
+  }
+}

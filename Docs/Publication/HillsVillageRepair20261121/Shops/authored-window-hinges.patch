@@ -1,0 +1,152 @@
+--- a/Source/FPSGAME/Building/ColdSteelWindow.h
++++ b/Source/FPSGAME/Building/ColdSteelWindow.h
+@@ -41,6 +41,14 @@
+     void Configure(UMaterialInterface* Surface);
+     /** Also inherited by double doors; uses the same assembly as BeginPlay. */
+     void PrepareBuildPreview() {AlignGeometry();}
++
++    /** Asset-authored hinges: preserve physical pivots and independent material slots. */
++    UPROPERTY(EditAnywhere, Category="Window|Authored") bool bUseAuthoredHinges=false;
++    UPROPERTY(EditAnywhere, Category="Window|Authored") FVector AuthoredLeftHinge=FVector::ZeroVector;
++    UPROPERTY(EditAnywhere, Category="Window|Authored") FVector AuthoredRightHinge=FVector::ZeroVector;
++    /** 0 retains the building-kit bidirectional policy; +/-1 fixes the opening side. */
++    UPROPERTY(EditAnywhere, Category="Window|Authored", meta=(ClampMin="-1",ClampMax="1")) int32 FixedSwingDirection=0;
++    UFUNCTION(CallInEditor, Category="Window") void RefreshAuthoredGeometry() {AlignGeometry();}
+ 
+ protected:
+     virtual void BeginPlay() override;
+--- a/Source/FPSGAME/Building/ColdSteelWindow.cpp
++++ b/Source/FPSGAME/Building/ColdSteelWindow.cpp
+@@ -89,6 +89,7 @@
+     AlignGeometry();
+     if(!HasAuthority())OnRep_Swing();
+     LogGeometryOnce();
++    if(bUseAuthoredHinges&&!bOpen)SetActorTickEnabled(false);
+ }
+ 
+ void AColdSteelWindow::Configure(UMaterialInterface* Surface)
+@@ -104,6 +105,18 @@
+ 
+ void AColdSteelWindow::AlignGeometry()
+ {
++    if(bUseAuthoredHinges)
++    {
++        Frame->SetRelativeTransform(FTransform::Identity);
++        LeafLeft->SetRelativeTransform(FTransform::Identity);
++        LeafRight->SetRelativeTransform(FTransform::Identity);
++        if(const UStaticMesh* Mesh=Frame->GetStaticMesh())FrameExtentCm=Mesh->GetBounds().BoxExtent;
++        HingeLeft->SetRelativeLocation(AuthoredLeftHinge);
++        HingeRight->SetRelativeLocation(AuthoredRightHinge);
++        CacheLeafBounds();
++        ApplyAngle(0.f);
++        return;
++    }
+     // 与门同一口径：一律以**包围盒**为准，网格 pivot 在底面／角上都不会让窗悬空或偏位。
+     //   窗框：包围盒在 X／Y 居中、底面落在 z=0；
+     //   窗扇：包围盒中心落在窗框竖直中心，铰链装在洞口两侧的框沿上（Y=洞口半宽）。
+@@ -136,6 +149,7 @@
+ 
+ void AColdSteelWindow::ApplyHingeDepth()
+ {
++    if(bUseAuthoredHinges)return;
+     if(LeafExtentCm.IsNearlyZero()||FrameExtentCm.IsNearlyZero())return;
+     // 铰链贴在窗扇的外侧面（SwingSign>0，向外开）或内侧面（SwingSign<0，向内开），窗扇整体落在
+     // 铰链内侧。铰链若固定放在窗框中间，窗扇转到 88° 时靠铰链的那半个厚度会切进窗框边梃。
+@@ -173,6 +187,36 @@
+     FCollisionQueryParams Params(SCENE_QUERY_STAT(ColdSteelWindowSwing),false,this);
+     Params.AddIgnoredActor(this);
+     if(const AActor* Parent=GetAttachParentActor())Params.AddIgnoredActor(Parent);
++    if(bUseAuthoredHinges)
++    {
++        // Authored pivots are exact interfaces, never inferred from decorative bounds.
++        // Test each leaf's own bounds and scale, including its mirrored closed geometry.
++        const UStaticMeshComponent* Leaves[]={LeafLeft,LeafRight};
++        for(int32 Index=0;Index<2;++Index)
++        {
++            const auto* Leaf=Leaves[Index];
++            if(!Leaf||!Leaf->GetStaticMesh())continue;
++            const auto Bounds=Leaf->GetStaticMesh()->GetBounds();
++            const FVector Extent=(Bounds.BoxExtent-FVector(.5f,1.f,1.f)).ComponentMax(FVector(1.f))*GetActorScale3D().GetAbs();
++            const FVector Hinge=Index?AuthoredRightHinge:AuthoredLeftHinge;
++            for(int32 Sample=1;Sample<=12;++Sample)
++            {
++                const float Angle=OpenAngleDegrees*DirectionSign*Sample/12.f*(Index?1.f:-1.f);
++                const FTransform Turn(FRotator(0,Angle,0),Hinge);
++                const FTransform Pose=Turn*GetActorTransform();
++                TArray<FOverlapResult> Hits;
++                World->OverlapMultiByObjectType(Hits,Pose.TransformPosition(Bounds.Origin),Pose.GetRotation(),ObjectParams,FCollisionShape::MakeBox(Extent),Params);
++                for(const auto& Hit:Hits)
++                {
++                    const auto* Comp=Hit.Component.Get();
++                    if(!Comp||Comp->GetCollisionResponseToChannel(ECC_WorldDynamic)!=ECR_Block)continue;
++                    UE_LOG(LogTemp,Display,TEXT("Authored window %s obstructed by %s at %.1f degrees"),*GetName(),*GetNameSafe(Comp),Angle);
++                    return true;
++                }
++            }
++        }
++        return false;
++    }
+     // 「窗套」豁免：窗扇容身处周围一圈构件（窗套、侧梃、过梁、窗台，以及嵌着窗扇的墙壳分段）
+     // 不算阻挡；只有扫掠途中才首次碰到的实体才算障碍（与门同一口径）。窗口只比窗扇宽几厘米，
+     // 窗扇旋转时铰链侧角尖会擦进紧贴的边梃凸包——所以豁免盒在扇面方向放宽，
+@@ -252,8 +296,10 @@
+     {
+         if(!Leaf)continue;
+         const FTransform LeafNow=Leaf->GetComponentTransform();
+-        if(World->OverlapAnyTestByObjectType(LeafNow.TransformPosition(LeafOriginCm),LeafNow.GetRotation(),
+-            ObjectParams,Shape,Params))
++        const auto Bounds=Leaf->GetStaticMesh()->GetBounds();
++        const auto PawnShape=bUseAuthoredHinges?FCollisionShape::MakeBox(Bounds.BoxExtent*LeafNow.GetScale3D().GetAbs()):Shape;
++        if(World->OverlapAnyTestByObjectType(LeafNow.TransformPosition(bUseAuthoredHinges?Bounds.Origin:LeafOriginCm),LeafNow.GetRotation(),
++            ObjectParams,PawnShape,Params))
+             return true;
+     }
+     return false;
+@@ -280,6 +326,7 @@
+ 
+ void AColdSteelWindow::LogGeometryOnce()
+ {
++    if(bUseAuthoredHinges)return;
+     // 刚设置过相对位置，先刷新组件变换再读包围盒，避免读到上一帧的旧值。
+     if(Frame)Frame->UpdateComponentToWorld();
+     if(LeafLeft)LeafLeft->UpdateComponentToWorld();
+@@ -334,11 +381,13 @@
+     float PlayerSide=0.f;
+     const bool bHasPlayer=TryGetPlayerSideSign(PlayerSide,InstigatorPawn);
+     if(bHasPlayer)Preferred=-PlayerSide;
++    if(FixedSwingDirection)Preferred=FixedSwingDirection>0?1.f:-1.f;
+     // 首选那一侧被实体挡住就改从另一侧开（与门同一口径）。
+     SwingSign=Preferred;
+     bOpenFlipped=false;
+     if(IsSwingBlocked(Preferred))
+     {
++        if(FixedSwingDirection)return false;
+         const float Other=-Preferred;
+         // 两侧摆动空间都被实体挡住：拒绝开窗，不穿墙（与门同一口径，2026-10-04 用户拍板）。
+         if(IsSwingBlocked(Other))
+@@ -390,6 +439,9 @@
+         AutoCloseRemaining-=DeltaSeconds;
+         if(AutoCloseRemaining<=0.f)CloseWindow();
+     }
++    // Scene shutters only tick while moving or waiting for a safe closing collision.
++    if(bUseAuthoredHinges&&FMath::IsNearlyEqual(CurrentAngle,TargetAngle,.05f)&&AutoCloseSeconds<=0.f&&
++        (bOpen||LeafLeft->GetCollisionResponseToChannel(ECC_Pawn)==ECR_Block))SetActorTickEnabled(false);
+ }
+ 
+ void AColdSteelWindow::ApplyAngle(float DeltaSeconds)
+@@ -417,6 +469,7 @@
+ 
+ void AColdSteelWindow::PublishSwing()
+ {
++    SetActorTickEnabled(true);
+     NetSwing.bOpen=bOpen;NetSwing.From=CurrentAngle;NetSwing.To=TargetAngle;
+     NetSwing.Direction=SwingSign;NetSwing.StartedAt=FColdSteelDoorNetState::Now(GetWorld());
+     NetSwing.Speed=FMath::Max(1.f,OpenSeconds>KINDA_SMALL_NUMBER?FMath::Abs(OpenAngleDegrees)/OpenSeconds:180.f);
+@@ -425,6 +478,7 @@
+ 
+ void AColdSteelWindow::OnRep_Swing()
+ {
++    SetActorTickEnabled(true);
+     bOpen=NetSwing.bOpen;TargetAngle=NetSwing.To;SwingSign=NetSwing.Direction;
+     CurrentAngle=NetSwing.Angle(GetWorld());
+     ApplyHingeDepth();

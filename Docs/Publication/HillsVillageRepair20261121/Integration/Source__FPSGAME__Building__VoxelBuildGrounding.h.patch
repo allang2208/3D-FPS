@@ -1,0 +1,7 @@
+--- a/Source/FPSGAME/Building/VoxelBuildGrounding.h
++++ b/Source/FPSGAME/Building/VoxelBuildGrounding.h
+@@ -30,2 +30,4 @@
+     FCollisionQueryParams Query(UWorld* World,const AActor* Ignore);
++    bool IsFixedBuildingSurface(const FHitResult& Hit);
++    bool ResolveMountingSurface(FHitResult& Hit);
+     bool IsSurface(const FHitResult& Hit);

@@ -21,3 +21,8 @@
 ## 当前工程定位
 
 详见[维护源](../../_shared/ue5-pcg-building/references/fixture-lighting-standard.md)中的同名章节。
+
+## 铁匠铺的铁砧与炉膛
+
+- 铁砧靠侧光显出砧面和边沿。在 `HillsBlacksmith.cpp` 的 `UpdateSmithTorches` 中，将工作火把挂在前拱柱内侧，让光从操作侧掠过砧面，后墙落在直接照明半径外。宽光源配合较低的镜面强度可收住亮斑。工作火把单独调参，门口和阁楼各沿用自己的灯位。
+- 炉膛需要贴近燃料的火光。`UpdateForgeLight` 从带 `VillageShop.HearthFire` 标签的火焰取得炉箅坐标，将小半径暖光放在煤层与铁罩之间，使罩和炉壁参与遮光。用同名组件随店铺修复状态切换可见性，避免重复刷新时叠灯。

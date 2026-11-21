@@ -1,0 +1,30 @@
+--- a/Source/FPSGAME/UI/ColdSteelAreaPickup.cpp
++++ b/Source/FPSGAME/UI/ColdSteelAreaPickup.cpp
+@@ -49,3 +49,26 @@
+     Notice.Duration=FMath::Max(.8f,Duration);
+-    ProgressNotices.Add(MoveTemp(Notice));
++    // A hidden HUD or a map load must not replay old interaction failures afterwards.
++    const auto OnOneLine=[](FString& Line)
++    {
++        Line.ReplaceInline(TEXT("\r\n"),TEXT(" · "));
++        Line.ReplaceInline(TEXT("\n"),TEXT(" · "));
++        Line.ReplaceInline(TEXT("\r"),TEXT(" · "));
++    };
++    OnOneLine(Notice.Title);
++    OnOneLine(Notice.Detail);
++    InteractionNoticeExpiresAt=FPlatformTime::Seconds()+Notice.Duration;
++    PendingInteractionNotice=MoveTemp(Notice);
++}
++
++bool UColdSteelStatusModel::TakeInteractionNotice(FColdSteelProgressNotice& Out)
++{
++    if(!PendingInteractionNotice.IsSet())return false;
++    const double Remaining=InteractionNoticeExpiresAt-FPlatformTime::Seconds();
++    if(Remaining>0.)
++    {
++        Out=MoveTemp(PendingInteractionNotice.GetValue());
++        Out.Duration=static_cast<float>(Remaining);
++    }
++    PendingInteractionNotice.Reset();
++    return Remaining>0.;
+ }

@@ -1,0 +1,74 @@
+{
+  "source": "Saved/Review/VillageAudit20261121/delivery.json",
+  "sha256": "1cc430a70cc3a1fbff8aa8f0571f43c9ae9e8f9b5fd94d5b0503a44558eac38e",
+  "date": "2026-11-21",
+  "scope": "既有联机和建造实测记录。此清单保留原运行的回执路径，已归档的诊断文件从 retirement.json 寻址。本次仓库整理没有重新运行这些用例。",
+  "runs": {
+    "local_defense_and_build_parity": {
+      "passed": true,
+      "receipt": "Saved/Review/VillageAudit20261121/station-local-verified/result.json",
+      "cases": 216
+    },
+    "weak_network_construction_fixed": {
+      "passed": true,
+      "receipt": "Saved/Review/VillageAudit20261121/VillageNetworkAudit/station-construction-verified/summary.json"
+    },
+    "weak_network_construction_fixed_repeat": {
+      "passed": true,
+      "receipt": "Saved/Review/VillageAudit20261121/VillageNetworkAudit/station-construction-confirm/summary.json"
+    },
+    "weak_network_construction_project_build": {
+      "passed": true,
+      "receipt": "Saved/VillageNetworkAudit20261118/delivery-20261121/summary.json"
+    },
+    "weak_network_timber_gate_and_village": {
+      "passed": true,
+      "receipt": "Saved/Review/VillageAudit20261121/VillageNetworkAudit/woodgate-a/summary.json"
+    },
+    "simultaneous_repair_three_clients": {
+      "passed": true,
+      "receipt": "Saved/Review/VillageAudit20261121/VillageNetworkAudit/race-a/summary.json"
+    },
+    "repair_during_profile_admission": {
+      "passed": true,
+      "receipt": "Saved/Review/VillageAudit20261121/EarlyRepair/receipt-a/summary.json"
+    },
+    "portcullis_rapid_rebuild": {
+      "baseline": {
+        "passed": false,
+        "receipt": "Saved/Review/IronGrilleNet20261121/LiveBaselineC/summary.json"
+      },
+      "fixed": {
+        "passed": true,
+        "receipt": "Saved/Review/IronGrilleNet20261121/LiveFixedC/summary.json"
+      }
+    },
+    "timber_gate_rapid_rebuild": {
+      "baseline": {
+        "passed": false,
+        "receipt": "Saved/Review/VillageAudit20261121/WoodRapid/baseline-five/summary.json"
+      },
+      "fixed": {
+        "passed": true,
+        "receipt": "Saved/Review/VillageAudit20261121/WoodRapid/fixed-five/summary.json"
+      }
+    },
+    "host_reset_idle_workshop": {
+      "baseline_failure": "Saved/Review/VillageCraftReset20261121/VillageNetworkAudit/idle-baseline/Evidence/failed.txt",
+      "fixed": {
+        "passed": true,
+        "receipt": "Saved/Review/VillageCraftReset20261121/VillageNetworkAudit/idle03/summary.json"
+      }
+    },
+    "host_reset_paid_work": {
+      "passed": true,
+      "receipt": "Saved/Review/VillageCraftReset20261121/VillageNetworkAudit/paid04/summary.json"
+    },
+    "local_defense_and_build_parity_project_build": {
+      "passed": true,
+      "receipt": "Saved/Review/VillageAudit20261121/project-local/result.json",
+      "cases": 216,
+      "run": "Saved/Review/VillageAudit20261121/project-local/run.json"
+    }
+  }
+}

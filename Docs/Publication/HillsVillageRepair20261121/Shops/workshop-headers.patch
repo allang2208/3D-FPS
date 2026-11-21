@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/WorldGeneration/HillsCarpenterWorkshop.h
++++ b/Source/FPSGAME/WorldGeneration/HillsCarpenterWorkshop.h
+@@ -22,6 +22,7 @@
+ 
+     void ApplyVillageState();
+     bool RepairAreaOccupied() const;
++    virtual bool IsSceneStation() const override { return true; }
+     virtual bool IsSceneStationAvailable() const override;
+ protected:
+     virtual void BeginPlay() override;
+--- a/Source/FPSGAME/WorldGeneration/HillsHerbalistWorkshop.h
++++ b/Source/FPSGAME/WorldGeneration/HillsHerbalistWorkshop.h
+@@ -22,6 +22,7 @@
+ 
+     bool CanRepair(FText& FailureReason) const;
+     void ApplyVillageState();
++    virtual bool IsSceneStation() const override { return true; }
+     virtual bool IsSceneStationAvailable() const override;
+ 
+ protected:

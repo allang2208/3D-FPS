@@ -1,0 +1,142 @@
+{
+  "level": "/Game/WorldGeneration/TemperateHills/AbandonedVillage/L_AbandonedVillage",
+  "source_receipts": [
+    "SourceAssets/HillsVillageBlacksmith20261117/WindowR7/delivery.json",
+    "SourceAssets/HillsVillageCarpenter/workshop-displays-saved.json",
+    "SourceAssets/HillsVillageCarpenter/village-saved.json",
+    "SourceAssets/HillsVillageHerbalist/village-saved.json"
+  ],
+  "01": {
+    "window_and_chimney": {
+      "window_revision": "WindowR7b",
+      "chimney_revision": "ChimneyR8",
+      "window_count": 3
+    },
+    "display": {
+      "meshes": [
+        "/Game/Weapons/Zhanmadao20261018/V1/Meshes/SM_Zhanmadao_Complete_V1",
+        "/Game/Weapons/TangDao20261002/SurfaceV2/Meshes/SM_TangDao",
+        "/Game/Weapons/SteelWarhammer20261014/SM_SteelWarhammer",
+        "/Game/Weapons/Kukri20261020/SM_Kukri",
+        "/Game/Props/CastingStation20260926/SM_RackFile"
+      ],
+      "rack_weapons": [
+        "/Game/Weapons/Zhanmadao20261018/V1/Meshes/SM_Zhanmadao_Complete_V1",
+        "/Game/Weapons/TangDao20261002/SurfaceV2/Meshes/SM_TangDao",
+        "/Game/Weapons/SteelWarhammer20261014/SM_SteelWarhammer"
+      ],
+      "counter_props": [
+        "/Game/Weapons/Kukri20261020/SM_Kukri",
+        "/Game/Props/CastingStation20260926/SM_RackFile"
+      ],
+      "placements": {
+        "Common": 17,
+        "Ruined": 3,
+        "Repaired": 29
+      }
+    }
+  },
+  "04": {
+    "station_mesh": "/Game/Building/WoodworkingBenchV6Controls20261013/SM_WoodworkingBench.SM_WoodworkingBench",
+    "assemblies": [
+      "Common",
+      "Ruined",
+      "Repaired"
+    ],
+    "station_pose_house_cm_yaw": [
+      238.0,
+      248.0,
+      -1.47,
+      -90.0
+    ],
+    "instances": {
+      "Common": 85,
+      "Ruined": 30,
+      "Repaired": 177
+    },
+    "loft_floor_cm": 360.0,
+    "authored_windows": 3,
+    "ground_floor_lantern": {
+      "joist_house_cm": [
+        300.0,
+        -260.0,
+        338.0
+      ],
+      "lantern_base_cm": 282.0,
+      "task_light_lumens": 820,
+      "replaced_table_lanterns": 1,
+      "replaced_table_lights": 1
+    },
+    "display": {
+      "bay": "west street bay",
+      "placements": {
+        "Common": 27,
+        "Ruined": 5,
+        "Repaired": 62
+      },
+      "weapon_parts": [
+        "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_Base.SM_Staff_Base",
+        "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_Body.SM_Staff_Body",
+        "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_crown_wreath_crown.SM_Staff_crown_wreath_crown",
+        "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_grip_lining_pine_grip.SM_Staff_grip_lining_pine_grip",
+        "/Game/Weapons/ApprenticeStaff20260927/Meshes/SM_Staff_head_crystal_jade_spirit_crystal.SM_Staff_head_crystal_jade_spirit_crystal",
+        "/Game/Weapons/DarkBow20260925/ArmsV2/SM_Bow_WoodArrow.SM_Bow_WoodArrow",
+        "/Game/Weapons/DarkBow20260925/BodyVariantsV14/SM_Bow_Body_Heavy",
+        "/Game/Weapons/DarkBow20260925/BodyVariantsV14/SM_Bow_Body_Swift",
+        "/Game/Weapons/DarkBow20260925/GripContactV22/SM_Bow_GripWrap_Fitted.SM_Bow_GripWrap_Fitted",
+        "/Game/Weapons/DarkBow20260925/ModularV13/SM_Bow_ArrowRestWood.SM_Bow_ArrowRestWood"
+      ]
+    }
+  },
+  "03": {
+    "station": "/Game/Building/PotionWorkbench20261015/V1/Meshes/SM_PotionWorkbench.SM_PotionWorkbench",
+    "station_pose_house_cm_yaw": [
+      37.0,
+      302.0,
+      -1.0,
+      0.0
+    ],
+    "state_instances": {
+      "Ruined": 76,
+      "Common": 14,
+      "Repaired": 92
+    },
+    "restored_side_wall_bays": 7,
+    "restored_shop_window": true,
+    "restored_west_window": true,
+    "restored_loft_window": true,
+    "torch_lights": 2,
+    "spliced_entry_plank": true,
+    "floor_count": 2,
+    "loft": {
+      "floor_top_cm": 360.0,
+      "deck_size_cm": [
+        702.0,
+        702.0
+      ],
+      "stairwell_xyxy_cm": [
+        -315.04,
+        -90.9,
+        -79.24,
+        280.8
+      ],
+      "stair_entry_cm": [
+        -254.74,
+        -90.0,
+        0
+      ],
+      "stair_exit_cm": [
+        -139.54000000000002,
+        -90.0,
+        360.0
+      ],
+      "flight_width_cm": 99.0,
+      "rise_cm": 18.0,
+      "going_cm": 25.2,
+      "risers_per_flight": 10,
+      "floor_stair_and_guard_state": "Common"
+    },
+    "living_lights": 1,
+    "default_state": "Ruined"
+  }
+}

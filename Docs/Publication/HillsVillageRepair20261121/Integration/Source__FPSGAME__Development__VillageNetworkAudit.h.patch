@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Development/VillageNetworkAudit.h
++++ b/Source/FPSGAME/Development/VillageNetworkAudit.h
+@@ -25,2 +25,3 @@
+     UPROPERTY(Replicated) FVector Aim=FVector::ZeroVector;
++    UPROPERTY(Replicated) FVector SocketPosition=FVector::ZeroVector;
+     UPROPERTY(Replicated) float ExpectedHealth=0.f;
+@@ -32,2 +33,4 @@
+     void RunHost();
++    void RunConstructionHost();
++    void RunConstructionClient();
+     void Record(const FString& Name,bool Passed,const FString& Detail=FString());
+@@ -56,2 +59,6 @@
+     float BeforeHealth=0.f;
++    int64 GuestFundsBeforeRepair=0,HostFundsBeforeRepair=0,GuestDebitsBeforeRepair=0;
++    FIntVector ConstructionCell=FIntVector::ZeroValue;
++    FTransform ConstructionTransform=FTransform::Identity;
++    TWeakObjectPtr<APawn> RepairThreat;
+     FVector RaidStart=FVector::ZeroVector;

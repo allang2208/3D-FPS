@@ -1,0 +1,68 @@
+[
+  {
+    "target": "Source/FPSGAME/Building/VoxelBuildWorldCasting.cpp",
+    "method": "AVoxelBuildWorld::RegisterSceneStation",
+    "scope": "whole method",
+    "sha256_lf": "246fd035b05ebc409196853ca7b622b478e47e3c99482bed9de2ca50fa701d11"
+  },
+  {
+    "target": "Source/FPSGAME/Building/VoxelBuildWorldCasting.cpp",
+    "method": "AVoxelBuildWorld::UnregisterSceneStation",
+    "scope": "whole method",
+    "sha256_lf": "11ee8418c7db73b978db86d45b8747158c86d9c8fa5479d11e878e8814f98602"
+  },
+  {
+    "target": "Source/FPSGAME/Building/VoxelBuildWorldCasting.cpp",
+    "method": "AVoxelBuildWorld::PrefabActorAt",
+    "scope": "whole method",
+    "sha256_lf": "17d29070534f402094e22819fe278a43f34cfd85023b764215df847596e8af17"
+  },
+  {
+    "target": "Source/FPSGAME/Building/WoodworkingSystem.cpp",
+    "method": "UWoodworkingSystem::Tick",
+    "scope": "whole method",
+    "sha256_lf": "539c7c06d094db1fc1ff25151621dcf6ef9ed2a75b740d20bfb52696a5fea818"
+  },
+  {
+    "target": "Source/FPSGAME/Building/WoodworkingSystem.cpp",
+    "method": "UWoodworkingSystem::NetworkUnavailable",
+    "scope": "whole method",
+    "sha256_lf": "28e9ed8343915572c8906206328c46fb032c53ab6f8f43803b4486cf5a99bff3"
+  },
+  {
+    "target": "Source/FPSGAME/Building/AlchemySystem.cpp",
+    "method": "UColdSteelAlchemySystem::Reachable",
+    "scope": "whole method",
+    "sha256_lf": "78f311a344e425267657f808eb49e7bf56a3b33fe0863016869b05a7a93fbc66"
+  },
+  {
+    "target": "Source/FPSGAME/Building/FPSForgeWorkComponent.cpp",
+    "method": "UFPSForgeWorkComponent::StationValid",
+    "scope": "whole method",
+    "sha256_lf": "75fbe6d361aa9bc8ab3ee161c402ab63b7be9d4065330d3d588660886a7fdd2c"
+  },
+  {
+    "target": "Source/FPSGAME/Building/FPSForgeWorkComponent.cpp",
+    "method": "UFPSForgeWorkComponent::CanEnter",
+    "scope": "whole method",
+    "sha256_lf": "70d804b3cb1906b72a68375575a6c12b320f412f8ecbe31fd9416d1cf1b671ef"
+  },
+  {
+    "target": "Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+    "method": "AColdSteelPlayerState::StationReach",
+    "scope": "whole method",
+    "sha256_lf": "3e8b1e26fc7f6772712bbed6fb88391bb04de386ce290598a3268cc02debbb88"
+  },
+  {
+    "target": "Source/FPSGAME/Multiplayer/ColdSteelStationNetwork.cpp",
+    "method": "AColdSteelPlayerState::TickStations",
+    "scope": "method prefix before GuestAlchemy state update",
+    "sha256_lf": "9581291af3d43f4f0f18599af7689083ce67d565ead39337f3efee1341b07df0"
+  },
+  {
+    "target": "Source/FPSGAME/Multiplayer/ColdSteelWoodworkingNetwork.cpp",
+    "method": "AColdSteelPlayerState::TickWoodNetwork",
+    "scope": "whole method",
+    "sha256_lf": "5b8bb21e16fd5f857f139a309701b42ba0d59dc4fa374cdd3730422c13fe0110"
+  }
+]

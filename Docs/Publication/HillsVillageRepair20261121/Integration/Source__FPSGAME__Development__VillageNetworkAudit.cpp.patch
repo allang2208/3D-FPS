@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/Development/VillageNetworkAudit.cpp
++++ b/Source/FPSGAME/Development/VillageNetworkAudit.cpp
+@@ -19,2 +19,3 @@
+ #include "InputCoreTypes.h"
++#include "Misc/CommandLine.h"
+ 
+@@ -27,2 +28,3 @@
+     DOREPLIFETIME(AVillageNetworkAudit,Position);DOREPLIFETIME(AVillageNetworkAudit,Aim);DOREPLIFETIME(AVillageNetworkAudit,ExpectedHealth);
++    DOREPLIFETIME(AVillageNetworkAudit,SocketPosition);
+ }
+@@ -35,2 +37,8 @@
+     Super::Tick(Dt);if(!VillageNetAudit::Enabled())return;
++    static const bool bConstruction=FParse::Param(FCommandLine::Get(),TEXT("VillageConstructionAudit"));
++    if(bConstruction)
++    {
++        if(bDirector&&HasAuthority())RunConstructionHost();else if(!HasAuthority())RunConstructionClient();
++        return;
++    }
+     if(bDirector&&HasAuthority())RunHost();else if(!HasAuthority())RunClient();
+@@ -125,3 +133,3 @@
+             D->LocalSession=ConversationSession+100;D->LocalNun=N;D->bPending=true;D->Message.Reset();
+-            D->ServerOpen(D->LocalSession);bRequested=true;
++            D->ServerOpen(D->LocalSession,H,C);bRequested=true;
+         }

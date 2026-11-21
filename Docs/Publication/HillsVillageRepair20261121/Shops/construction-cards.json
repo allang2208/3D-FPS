@@ -1,0 +1,57 @@
+{
+  "source_directory": "C:/Users/allan/.codex/generated_images/01a1ed8d-8f81-7731-b90c-6d83a84acbe5",
+  "recovered_directory": "F:/FPSGAME-Recovery-Work-20261120/VillageShopThread20261121/OriginalIcons",
+  "cards": {
+    "blacksmith": {
+      "image_source": "exec-300e0ed9-b03c-498f-873c-859c1d6ae3d2.png",
+      "source_sha256": "c9a843db41adb8a0edaa810ce71aac6d6241bacf6ac5f8ba2a68529df99fc2a8",
+      "content_path": "Content/UI/VillageConstruction/blacksmith.png",
+      "published_sha256": "c4ce46b35430a49a18b77d39956fb5bb3f7bc3de4e4a327baadde205191e1fd6",
+      "published_bytes": 115393,
+      "source_size_px": [
+        1254,
+        1254
+      ],
+      "texture_size_px": [
+        256,
+        256
+      ],
+      "authoring_recipe": "artisan-cards.ps1",
+      "recovery": "original PNG bytes from pre-deletion readback"
+    },
+    "carpenter": {
+      "image_source": "exec-a98456c6-384c-4afa-981b-1e93d8453318.png",
+      "source_sha256": "3523488b5656b09ed97bbc084206a8d116a68edb660162310ae56878dc186bae",
+      "content_path": "Content/UI/VillageConstruction/carpenter.png",
+      "published_sha256": "1eff38c61ddd60d108f86f7deaf5329767cf6a80b60798f4f821979188730381",
+      "published_bytes": 115877,
+      "source_size_px": [
+        1254,
+        1254
+      ],
+      "texture_size_px": [
+        256,
+        256
+      ],
+      "authoring_recipe": "artisan-cards.ps1",
+      "recovery": "original PNG bytes from pre-deletion readback"
+    },
+    "herbalist": {
+      "image_source": "exec-c35b70e6-1628-4938-b8bd-a4c9daa3bcea.png",
+      "source_sha256": "728ddff0f94a016bca64141c41583b24cbef91871d00a8e3d528868bd2b025e9",
+      "content_path": "Content/UI/VillageConstruction/herbalist.png",
+      "published_sha256": "aeb52e33e1a5a514c26eb8d6aaac4101fa3c3b6f5de6e02ffc9617e0b2523b34",
+      "published_bytes": 121307,
+      "source_size_px": [
+        1254,
+        1254
+      ],
+      "texture_size_px": [
+        256,
+        256
+      ],
+      "authoring_recipe": "herbalist-card.py",
+      "recovery": "from original art and recorded resize; MD5 matches UE import"
+    }
+  }
+}

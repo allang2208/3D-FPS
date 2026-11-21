@@ -1,0 +1,1750 @@
+{
+  "base": "e8b7284d9b086f1ba10841cf368d0f4273bd3ad7",
+  "normalization": "UTF-8, LF. sha256_lf identifies the local full host when captured. Fragments are manually mergeable after-images; each block lists final host coordinates. A .patch has a specific published base_file, projected to the listed target.",
+  "hosts": [
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildComponent.cpp",
+      "sha256_lf": "fb6875d1baf56541b7252b1050d8eca1fa2eb7fbb1c10074491383acc7cec1a7",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildComponent.cpp.inc",
+      "spans": [
+        [
+          289,
+          289
+        ],
+        [
+          535,
+          535
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildComponent.h",
+      "sha256_lf": "38c5f7144cde8972edc430899860a9dbd0eef90833dbbeebe8f345754eef9190",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildComponent.h.inc",
+      "spans": [
+        [
+          56,
+          56
+        ],
+        [
+          64,
+          65
+        ],
+        [
+          68,
+          69
+        ],
+        [
+          112,
+          116
+        ],
+        [
+          143,
+          144
+        ],
+        [
+          185,
+          185
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildGrounding.cpp",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildGrounding.cpp.patch",
+      "base_file": "Source/FPSGAME/Building/VoxelBuildGrounding.cpp",
+      "base_sha256_lf": "807473bbccafe332f12c736c20d9eaf9b2405875a39051f9231bd250ebf4690b",
+      "sha256_lf": "dfeb43ab5f4037606322fc91b7e1389c6399205c260ae12fa5be82e4fcaae3ad"
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildGrounding.h",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildGrounding.h.patch",
+      "base_file": "Source/FPSGAME/Building/VoxelBuildGrounding.h",
+      "base_sha256_lf": "81312089cc51927ceb6f842af6ab3d14816dde28b09e2013a6d3fb8139af33d2",
+      "sha256_lf": "a3b1f0927a2a3cbad0c2a42e184c812d445e953298ecc0f95adde898a2fca767"
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildIcons.cpp",
+      "sha256_lf": "8e5b9da77e27d93e1b4e4c9ef98e0dad1af85943d9804f36f1858e9bb7db196d",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildIcons.cpp.inc",
+      "spans": [
+        [
+          2,
+          4
+        ],
+        [
+          207,
+          239
+        ],
+        [
+          273,
+          276
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildInput.cpp",
+      "sha256_lf": "38c175a1b2401f45501a9da2d37d0741c1377a663d38178160f151b675889b39",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildInput.cpp.inc",
+      "spans": [
+        [
+          13,
+          13
+        ],
+        [
+          17,
+          17
+        ],
+        [
+          22,
+          22
+        ],
+        [
+          37,
+          44
+        ],
+        [
+          113,
+          114
+        ],
+        [
+          118,
+          130
+        ],
+        [
+          134,
+          134
+        ],
+        [
+          152,
+          168
+        ],
+        [
+          173,
+          181
+        ],
+        [
+          188,
+          199
+        ],
+        [
+          206,
+          206
+        ],
+        [
+          250,
+          251
+        ],
+        [
+          283,
+          291
+        ],
+        [
+          355,
+          358
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildNetwork.cpp",
+      "sha256_lf": "0705dd588000571c8b56b8b32644b80c555e50e25bf18e3fa3ffffe4a1ed4079",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildNetwork.cpp.inc",
+      "spans": [
+        [
+          7,
+          7
+        ],
+        [
+          48,
+          51
+        ],
+        [
+          69,
+          79
+        ],
+        [
+          107,
+          125
+        ],
+        [
+          127,
+          129
+        ],
+        [
+          147,
+          148
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildPalette.cpp",
+      "sha256_lf": "f1f074b06e8f1ee9b666970f37ee798405a4527468bd29fcdf1d2698e0588997",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildPalette.cpp.inc",
+      "spans": [
+        [
+          2,
+          3
+        ],
+        [
+          5,
+          7
+        ],
+        [
+          30,
+          54
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildPalette.h",
+      "sha256_lf": "e7b20dd988fbda8fe0bc2278115e2008b1988c863e8b306bdefb16645aba9f26",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildPalette.h.inc",
+      "spans": [
+        [
+          74,
+          74
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildPanel.cpp",
+      "sha256_lf": "fe13f0bc49c9328071f2b631998b351cba31aaea6ad96eddac8f6bd73b9a72f5",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildPanel.cpp.inc",
+      "spans": [
+        [
+          67,
+          67
+        ],
+        [
+          152,
+          159
+        ],
+        [
+          164,
+          164
+        ],
+        [
+          170,
+          187
+        ],
+        [
+          291,
+          299
+        ],
+        [
+          303,
+          331
+        ],
+        [
+          364,
+          367
+        ],
+        [
+          372,
+          372
+        ],
+        [
+          385,
+          387
+        ],
+        [
+          392,
+          392
+        ],
+        [
+          413,
+          413
+        ],
+        [
+          415,
+          416
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildPersistence.cpp",
+      "sha256_lf": "c049de19e46f4026b28e6c30e4119f2009f1dc43aa36771feca22bdd1e5419f9",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildPersistence.cpp.inc",
+      "spans": [
+        [
+          128,
+          173
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildPersistence.h",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildPersistence.h.patch",
+      "base_file": "Source/FPSGAME/Building/VoxelBuildPersistence.h",
+      "base_sha256_lf": "56449a5a57d18474babc24e9e6fa6dce0fa986b93fd3bf287a0c81c145b7f8ca",
+      "sha256_lf": "bc6de929d0f459d1fe0a4a535b741a5ee2f02aa17a4a222448da0274580704b3"
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildPrefabActor.cpp",
+      "sha256_lf": "b561b9d82e83ab0e9c422200f8912cba82c892584e94b92359145dddfc524cf0",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildPrefabActor.cpp.inc",
+      "spans": [
+        [
+          2,
+          3
+        ],
+        [
+          18,
+          20
+        ],
+        [
+          53,
+          67
+        ],
+        [
+          155,
+          155
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildPrefabActor.h",
+      "sha256_lf": "5c05f332c92899012ff1b046e61b2aa23cc7a9add19e5850e47ae76f28ddc100",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildPrefabActor.h.inc",
+      "spans": [
+        [
+          21,
+          21
+        ],
+        [
+          32,
+          32
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildPreview.cpp",
+      "sha256_lf": "1928e533d294825ee66587ea09ec8f54c1477a26d4871d90fa00eba3bbf309af",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildPreview.cpp.inc",
+      "spans": [
+        [
+          14,
+          14
+        ],
+        [
+          60,
+          104
+        ],
+        [
+          108,
+          109
+        ],
+        [
+          122,
+          122
+        ],
+        [
+          126,
+          126
+        ],
+        [
+          138,
+          138
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildTarget.cpp",
+      "sha256_lf": "6b5e1b26d79c62a0deee597d8e099a6a2936b63df2aa02805bd2ce3fce9e879f",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildTarget.cpp.inc",
+      "spans": [
+        [
+          13,
+          13
+        ],
+        [
+          50,
+          51
+        ],
+        [
+          66,
+          78
+        ],
+        [
+          113,
+          118
+        ],
+        [
+          121,
+          121
+        ],
+        [
+          126,
+          126
+        ],
+        [
+          144,
+          152
+        ],
+        [
+          473,
+          478
+        ],
+        [
+          481,
+          482
+        ],
+        [
+          487,
+          487
+        ],
+        [
+          497,
+          546
+        ],
+        [
+          551,
+          552
+        ],
+        [
+          557,
+          562
+        ],
+        [
+          564,
+          570
+        ],
+        [
+          581,
+          582
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildTypes.h",
+      "sha256_lf": "824d01de1ca1c834fcc5b9b5d8aaef5532ad36e71b0c0610b5fe15497d9828fd",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildTypes.h.inc",
+      "spans": [
+        [
+          156,
+          157
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildWidget.cpp",
+      "sha256_lf": "988a0655d794e67119d262036a5fc6e57d80326dc96f035dfec75a5b75744207",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildWidget.cpp.inc",
+      "spans": [
+        [
+          4,
+          4
+        ],
+        [
+          255,
+          260
+        ],
+        [
+          313,
+          313
+        ],
+        [
+          408,
+          408
+        ],
+        [
+          415,
+          415
+        ],
+        [
+          456,
+          456
+        ],
+        [
+          532,
+          534
+        ],
+        [
+          536,
+          536
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildWidget.h",
+      "sha256_lf": "e6829e181b8c072042ac59ec3b39da0540b0cbd4ceabc10ef9608cbd411be142",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildWidget.h.inc",
+      "spans": [
+        [
+          80,
+          80
+        ],
+        [
+          123,
+          123
+        ],
+        [
+          133,
+          133
+        ],
+        [
+          151,
+          151
+        ],
+        [
+          164,
+          164
+        ],
+        [
+          166,
+          166
+        ],
+        [
+          197,
+          197
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildWidgetLayout.cpp",
+      "sha256_lf": "fc1f18fdfe3f410c0ca2d620515ce3078af9d6c21465afdbd35ab85ad4319294",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildWidgetLayout.cpp.inc",
+      "spans": [
+        [
+          5,
+          5
+        ],
+        [
+          78,
+          80
+        ],
+        [
+          82,
+          84
+        ],
+        [
+          90,
+          90
+        ],
+        [
+          100,
+          101
+        ],
+        [
+          115,
+          115
+        ],
+        [
+          117,
+          117
+        ],
+        [
+          122,
+          123
+        ],
+        [
+          178,
+          178
+        ],
+        [
+          392,
+          395
+        ],
+        [
+          402,
+          402
+        ],
+        [
+          406,
+          406
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildWorld.cpp",
+      "sha256_lf": "75c39b993b6d2177e33243525ad5c9c4d5e83f48a8ef83c441b4349e65d43715",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildWorld.cpp.inc",
+      "spans": [
+        [
+          318,
+          318
+        ],
+        [
+          326,
+          326
+        ],
+        [
+          604,
+          606
+        ],
+        [
+          662,
+          663
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+      "sha256_lf": "0920bc2fa7f7f139b7cce2c9432e279a30d1508f2f4f873fac4b2eaec6cd93b8",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildWorld.h.inc",
+      "spans": [
+        [
+          7,
+          7
+        ],
+        [
+          139,
+          140
+        ],
+        [
+          169,
+          169
+        ],
+        [
+          218,
+          219
+        ],
+        [
+          239,
+          240
+        ],
+        [
+          277,
+          278
+        ],
+        [
+          297,
+          300
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildWorldCasting.cpp",
+      "sha256_lf": "cb773bc494b414415d06416b29913a10100845f9048e043f7a10cdeabf4ddee4",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildWorldCasting.cpp.inc",
+      "spans": [
+        [
+          26,
+          26
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildWorldCollapse.cpp",
+      "sha256_lf": "c13badfb45aa302a3c81ff8aa0eab35b44e78109a2c75b4800b102a6361ec03b",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildWorldCollapse.cpp.inc",
+      "spans": [
+        [
+          40,
+          40
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildWorldDamage.cpp",
+      "sha256_lf": "a813ba1c2131d05d68c023694c453b2663a1f2491fc3c0ef4d29a3174c6c5526",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildWorldDamage.cpp.inc",
+      "spans": [
+        [
+          133,
+          133
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp",
+      "sha256_lf": "add8f61f2bc536525017a80d55cfad5a4df61e377b32bd3b10ac09c4a138d00e",
+      "previously_published": [
+        {
+          "source_lines": [
+            746,
+            747
+          ],
+          "remote_path": "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp"
+        }
+      ],
+      "artifact": "Source__FPSGAME__Building__VoxelBuildWorldPrefab.cpp.inc",
+      "spans": [
+        [
+          4,
+          4
+        ],
+        [
+          33,
+          52
+        ],
+        [
+          112,
+          112
+        ],
+        [
+          144,
+          149
+        ],
+        [
+          157,
+          158
+        ],
+        [
+          247,
+          288
+        ],
+        [
+          301,
+          318
+        ],
+        [
+          326,
+          329
+        ],
+        [
+          357,
+          357
+        ],
+        [
+          447,
+          452
+        ],
+        [
+          489,
+          498
+        ],
+        [
+          505,
+          528
+        ],
+        [
+          532,
+          536
+        ],
+        [
+          586,
+          586
+        ],
+        [
+          599,
+          617
+        ],
+        [
+          623,
+          645
+        ],
+        [
+          734,
+          734
+        ],
+        [
+          786,
+          787
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildWorldSave.cpp",
+      "sha256_lf": "efa177bdbd7f3d232663a43ba031981462d951533b462a6d7fc013ca86230e2b",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildWorldSave.cpp.inc",
+      "spans": [
+        [
+          100,
+          100
+        ],
+        [
+          105,
+          109
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Building/VoxelBuildWorldStructure.cpp",
+      "sha256_lf": "7098a66062a969844ee3f203e863a9029347f9f53b577013780153c728e2fd7a",
+      "artifact": "Source__FPSGAME__Building__VoxelBuildWorldStructure.cpp.inc",
+      "spans": [
+        [
+          55,
+          55
+        ],
+        [
+          129,
+          129
+        ],
+        [
+          147,
+          147
+        ],
+        [
+          172,
+          174
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Development/VillageNetworkAudit.cpp",
+      "artifact": "Source__FPSGAME__Development__VillageNetworkAudit.cpp.patch",
+      "base_file": "Docs/Publication/VillageNetwork20261118/Implementation/Source/FPSGAME/Development/VillageNetworkAudit.cpp",
+      "base_sha256_lf": "c7888f823722fd703a334ab77df3b0c2bc89656db346ef87dfcaac0d7181f49f",
+      "sha256_lf": "4426f31199c3bbb09f5ac4e929a3739f5af2086c39fdf26a1329c8b2dc0c2b7c"
+    },
+    {
+      "target": "Source/FPSGAME/Development/VillageNetworkAudit.h",
+      "artifact": "Source__FPSGAME__Development__VillageNetworkAudit.h.patch",
+      "base_file": "Docs/Publication/VillageNetwork20261118/Implementation/Source/FPSGAME/Development/VillageNetworkAudit.h",
+      "base_sha256_lf": "d25748515dd09884d8ea085c79edb85224e807adad4a84b5d02398e98cfc1848",
+      "sha256_lf": "9e740274c5e0a420b3cf63e514279a71d3b781d7e3f8b4a68ca56e2a87421925"
+    },
+    {
+      "target": "Source/FPSGAME/Development/VillageNetworkAuditHost.cpp",
+      "artifact": "Source__FPSGAME__Development__VillageNetworkAuditHost.cpp.patch",
+      "base_file": "Docs/Publication/VillageNetwork20261118/Implementation/Source/FPSGAME/Development/VillageNetworkAuditHost.cpp",
+      "base_sha256_lf": "8dc70f0e045280f7043cfebfe924cbf8eda1dc42a64bf281446609c0310e78fb",
+      "sha256_lf": "5ba786237f4fdab4066fafeee27a8e1ca3b1ed29354276c923ed15674bba98d7"
+    },
+    {
+      "target": "Source/FPSGAME/Development/VillageNetworkAuditScenarios.cpp",
+      "sha256_lf": "5efb6dd21653e84e691de93404337e078e550bc0e41627b0474ebae4329d38c3",
+      "published_full": "Docs/Publication/VillageNetwork20261118/Implementation/Source/FPSGAME/Development/VillageNetworkAuditScenarios.cpp"
+    },
+    {
+      "target": "Source/FPSGAME/Development/VillageNetworkAuditSupport.cpp",
+      "sha256_lf": "2cd046b2149c7c5874c7c7f477c8208ce1962d0bdaba94075203b3adefdc779e",
+      "published_full": "Docs/Publication/VillageNetwork20261118/Implementation/Source/FPSGAME/Development/VillageNetworkAuditSupport.cpp"
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "sha256_lf": "afd9bec224be05161b48b8a6dc7b06f693d6ce336b7a77599f7f1ec24094024b",
+      "artifact": "Source__FPSGAME__FPSGAMECharacter.cpp.inc",
+      "spans": [
+        [
+          63,
+          63
+        ],
+        [
+          274,
+          274
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "sha256_lf": "57f2333b84be5810995447f383cd5957d1a029c22f2ed91e26905edce01717ee",
+      "previously_published": [
+        {
+          "source_lines": [
+            621,
+            622
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__FPSGAMEPlayerController.cpp.patch"
+        }
+      ],
+      "artifact": "Source__FPSGAME__FPSGAMEPlayerController.cpp.inc",
+      "spans": [
+        [
+          29,
+          30
+        ],
+        [
+          561,
+          567
+        ],
+        [
+          782,
+          856
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/FPSGAMEPlayerController.h",
+      "sha256_lf": "b026dceb9c0729da7af15fb77729d58b682fe059f589864f1da2f7ff22a5412f",
+      "artifact": "Source__FPSGAME__FPSGAMEPlayerController.h.inc",
+      "spans": [
+        [
+          29,
+          32
+        ],
+        [
+          88,
+          92
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Movement/FPSDoorPushComponent.cpp",
+      "sha256_lf": "b422cb7c119b33d8eb7519c72f56e5578b2616174c26db0c085eea9ed9c9387c",
+      "artifact": "Source__FPSGAME__Movement__FPSDoorPushComponent.cpp.inc",
+      "spans": [
+        [
+          2,
+          3
+        ],
+        [
+          449,
+          450
+        ],
+        [
+          479,
+          480
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelHarvestAuthority.cpp",
+      "sha256_lf": "a10655634ce1759f0cc74f558211e70c4f1cdde2236695ebf68b5dd67241a174",
+      "artifact": "Source__FPSGAME__Multiplayer__ColdSteelHarvestAuthority.cpp.inc",
+      "spans": [
+        [
+          97,
+          97
+        ],
+        [
+          101,
+          102
+        ],
+        [
+          111,
+          111
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+      "sha256_lf": "2ed2122cca8eb4406f58c8b5c7152ae5531534d1a82bfcd609e8b2f784b0ff5f",
+      "artifact": "Source__FPSGAME__Multiplayer__ColdSteelInventoryRequestTypes.h.inc",
+      "spans": [
+        [
+          58,
+          60
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+      "sha256_lf": "5ffeca224b535163f187c4ea431c9ca007b2546f2d98fd2d63e5329edb22aa6f",
+      "artifact": "Source__FPSGAME__Multiplayer__ColdSteelInventoryRequests.cpp.inc",
+      "spans": [
+        [
+          408,
+          409
+        ],
+        [
+          504,
+          505
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp",
+      "sha256_lf": "f3796dd2c35f3fdbd142d3921eaa4ef46b1c4a4d0542290ef528aed5fa6043ed",
+      "artifact": "Source__FPSGAME__Multiplayer__ColdSteelPlayerProfileAdmission.cpp.inc",
+      "spans": [
+        [
+          246,
+          255
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.cpp",
+      "sha256_lf": "008a632bb9b9be364228a5f38f5ba7baac2e35a818496dbe0fad1148fc760f49",
+      "artifact": "Source__FPSGAME__Multiplayer__FPSStatusReplicationComponent.cpp.inc",
+      "spans": [
+        [
+          8,
+          8
+        ],
+        [
+          34,
+          51
+        ],
+        [
+          153,
+          153
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/Multiplayer/FPSStatusReplicationComponent.h",
+      "sha256_lf": "fae9d1a64be9fd29eb6134103720b54032e9e83408df5ad50b5f1aa63e31c96a",
+      "artifact": "Source__FPSGAME__Multiplayer__FPSStatusReplicationComponent.h.inc",
+      "spans": [
+        [
+          120,
+          120
+        ],
+        [
+          130,
+          130
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp",
+      "sha256_lf": "69e6978a6de0ced4624784c2b5784683aa541f1a0c6c0eed997e024bfe088a91",
+      "previously_published": [
+        {
+          "source_lines": [
+            228,
+            228
+          ],
+          "remote_path": "Docs/Publication/ArtisanVillage20261119/Implementation/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp"
+        },
+        {
+          "source_lines": [
+            298,
+            298
+          ],
+          "remote_path": "Docs/Publication/ArtisanVillage20261119/Implementation/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp"
+        },
+        {
+          "source_lines": [
+            364,
+            364
+          ],
+          "remote_path": "Docs/Publication/ArtisanVillage20261119/Implementation/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp"
+        },
+        {
+          "source_lines": [
+            421,
+            421
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__NPC__ChapelDialogueComponent.cpp.patch"
+        }
+      ],
+      "artifact": "Source__FPSGAME__NPC__ChapelDialogueComponent.cpp.inc",
+      "spans": [
+        [
+          302,
+          303
+        ],
+        [
+          369,
+          380
+        ],
+        [
+          390,
+          390
+        ],
+        [
+          396,
+          397
+        ],
+        [
+          404,
+          404
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/NPC/ChapelDialogueComponent.h",
+      "sha256_lf": "25cd3242d2b2a8b5688b16058a970149d7aa8e9e611f5ba3abce0ddccbd282c7",
+      "previously_published": [
+        {
+          "source_lines": [
+            61,
+            61
+          ],
+          "remote_path": "Docs/Publication/ArtisanVillage20261119/Implementation/Source/FPSGAME/NPC/ChapelDialogueComponent.h"
+        },
+        {
+          "source_lines": [
+            78,
+            79
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Implementation/Source/FPSGAME/NPC/ChapelDialogueComponent.h"
+        }
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelAreaPickup.cpp",
+      "artifact": "Source__FPSGAME__UI__ColdSteelAreaPickup.cpp.patch",
+      "base_file": "Source/FPSGAME/UI/ColdSteelAreaPickup.cpp",
+      "base_sha256_lf": "6122b144c34eda4faf8c3ce98e8066795476c71ce18b516941cb8f8a3d5d172e",
+      "sha256_lf": "e7aa89065a633519af64d8f133ebc7748e73ec3622ed4f1964e1ebde06b9d9bc"
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+      "sha256_lf": "1103c508776680db5a353a6f2b3b6111e3a3dec35bbdc2eb9625746a0b22e03e",
+      "artifact": "Source__FPSGAME__UI__ColdSteelCrosshair.cpp.inc",
+      "spans": [
+        [
+          45,
+          45
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+      "sha256_lf": "bc1c1ba3b72af01932907393746f4d315e1c4788c203c327c037234b55908cfc",
+      "previously_published": [
+        {
+          "source_lines": [
+            11,
+            12
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch"
+        },
+        {
+          "source_lines": [
+            147,
+            147
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch"
+        },
+        {
+          "source_lines": [
+            159,
+            159
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch"
+        },
+        {
+          "source_lines": [
+            163,
+            163
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch"
+        },
+        {
+          "source_lines": [
+            165,
+            168
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch"
+        },
+        {
+          "source_lines": [
+            175,
+            175
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch"
+        },
+        {
+          "source_lines": [
+            186,
+            186
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch"
+        },
+        {
+          "source_lines": [
+            189,
+            189
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch"
+        },
+        {
+          "source_lines": [
+            193,
+            193
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch"
+        },
+        {
+          "source_lines": [
+            197,
+            197
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch"
+        },
+        {
+          "source_lines": [
+            206,
+            208
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch"
+        }
+      ],
+      "artifact": "Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.inc",
+      "spans": [
+        [
+          103,
+          119
+        ],
+        [
+          149,
+          157
+        ],
+        [
+          216,
+          225
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelHUDMeters.cpp",
+      "sha256_lf": "41880f935ac30ccb1a445eda59e57d4a47613ff0cbdd99ac41d047aa7605d14a",
+      "artifact": "Source__FPSGAME__UI__ColdSteelHUDMeters.cpp.inc",
+      "spans": [
+        [
+          45,
+          45
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelHUDNavigation.cpp",
+      "sha256_lf": "bff40792cc7886ad4a64c0c60b59b7d3e233733bcd74cf16f0b9428d15230360",
+      "artifact": "Source__FPSGAME__UI__ColdSteelHUDNavigation.cpp.inc",
+      "spans": [
+        [
+          11,
+          13
+        ],
+        [
+          23,
+          40
+        ],
+        [
+          62,
+          63
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "sha256_lf": "b2ca7b8e82ee22dc563e97cee83d2f36cd9dc4782c459c30c0fc3fecda13b025",
+      "previously_published": [
+        {
+          "source_lines": [
+            195,
+            195
+          ],
+          "remote_path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp"
+        }
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "sha256_lf": "5069b17580f314c40c256aaa7dc0253cb8528d34ff1001fca8b62d77a1a2715a",
+      "previously_published": [
+        {
+          "source_lines": [
+            436,
+            436
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelHUDWidget.h.patch"
+        },
+        {
+          "source_lines": [
+            441,
+            441
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelHUDWidget.h.patch"
+        }
+      ],
+      "artifact": "Source__FPSGAME__UI__ColdSteelHUDWidget.h.inc",
+      "spans": [
+        [
+          335,
+          336
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelProgressNotification.cpp",
+      "sha256_lf": "45b0298208b73f32ad202254abf8a38c99ec2a051cf1f8cf768f743fc846a5a9",
+      "artifact": "Source__FPSGAME__UI__ColdSteelProgressNotification.cpp.inc",
+      "spans": [
+        [
+          19,
+          19
+        ],
+        [
+          57,
+          57
+        ],
+        [
+          70,
+          90
+        ],
+        [
+          94,
+          97
+        ],
+        [
+          99,
+          99
+        ],
+        [
+          109,
+          111
+        ],
+        [
+          123,
+          182
+        ],
+        [
+          191,
+          191
+        ],
+        [
+          219,
+          233
+        ],
+        [
+          235,
+          242
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelProgressNotification.h",
+      "sha256_lf": "b9510fa63ded3b4d50fedf0acbfb95f5e37412c57c6c8913f8b414b5d0ef0d7e",
+      "artifact": "Source__FPSGAME__UI__ColdSteelProgressNotification.h.inc",
+      "spans": [
+        [
+          12,
+          12
+        ],
+        [
+          27,
+          27
+        ],
+        [
+          30,
+          32
+        ],
+        [
+          38,
+          41
+        ],
+        [
+          44,
+          45
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256_lf": "953d712a948034773a76558bc1368a9cf32065578b52cdc1c60e2cf53772f5d7",
+      "artifact": "Source__FPSGAME__UI__ColdSteelStatusModel.h.inc",
+      "spans": [
+        [
+          296,
+          296
+        ],
+        [
+          444,
+          444
+        ],
+        [
+          681,
+          682
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelVillageTree.cpp",
+      "sha256_lf": "b1ca5f76ca5b1867bdc983bb16ad0072569736b540a30caaa7c4749f2488c09e",
+      "artifact": "Source__FPSGAME__UI__ColdSteelVillageTree.cpp.inc",
+      "spans": [
+        [
+          36,
+          36
+        ],
+        [
+          49,
+          57
+        ],
+        [
+          218,
+          218
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+      "sha256_lf": "41a7d6faf021adb220836c24135fb777289e1527d153b26d9c0d2400b8b5e799",
+      "previously_published": [
+        {
+          "source_lines": [
+            87,
+            88
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelWorldInteraction.cpp.patch"
+        },
+        {
+          "source_lines": [
+            91,
+            91
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelWorldInteraction.cpp.patch"
+        },
+        {
+          "source_lines": [
+            116,
+            116
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelWorldInteraction.cpp.patch"
+        }
+      ],
+      "artifact": "Source__FPSGAME__UI__ColdSteelWorldInteraction.cpp.inc",
+      "spans": [
+        [
+          2,
+          5
+        ],
+        [
+          77,
+          77
+        ],
+        [
+          101,
+          103
+        ],
+        [
+          107,
+          109
+        ],
+        [
+          121,
+          125
+        ],
+        [
+          417,
+          417
+        ],
+        [
+          423,
+          438
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/ColdSteelWorldInteraction.h",
+      "sha256_lf": "fa91c9bc3001fe58046b5cfb2e50fd3a5169d8a96d515ee293c945f7b8b05874",
+      "previously_published": [
+        {
+          "source_lines": [
+            17,
+            17
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__UI__ColdSteelWorldInteraction.h.patch"
+        }
+      ],
+      "artifact": "Source__FPSGAME__UI__ColdSteelWorldInteraction.h.inc",
+      "spans": [
+        [
+          7,
+          7
+        ],
+        [
+          20,
+          20
+        ],
+        [
+          58,
+          60
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/DevelopmentPanelTools.cpp",
+      "sha256_lf": "bc82ad2a4c8418656a8a9029f3071ad7c1da2bde7eaa97e57b50ba1687050803",
+      "artifact": "Source__FPSGAME__UI__DevelopmentPanelTools.cpp.inc",
+      "spans": [
+        [
+          149,
+          155
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/DevelopmentPanelWidget.cpp",
+      "sha256_lf": "7545721d020c8c9faf472b861501c1e0fb5edbcef1ceb0524b9aebafc1ce7830",
+      "artifact": "Source__FPSGAME__UI__DevelopmentPanelWidget.cpp.inc",
+      "spans": [
+        [
+          497,
+          497
+        ],
+        [
+          501,
+          522
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/DevelopmentPanelWidget.h",
+      "sha256_lf": "ebce6e7b336d59fe9f050d483f68e29c46c18c3d5a0b8cad7ba4b8494350420f",
+      "artifact": "Source__FPSGAME__UI__DevelopmentPanelWidget.h.inc",
+      "spans": [
+        [
+          117,
+          117
+        ],
+        [
+          145,
+          145
+        ],
+        [
+          192,
+          192
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/UI/StatusEffectsComponent.cpp",
+      "sha256_lf": "baa7558bee8d1372bee30555975ab120eb1e2968738b960617d8b9a17fe8aa7e",
+      "artifact": "Source__FPSGAME__UI__StatusEffectsComponent.cpp.inc",
+      "spans": [
+        [
+          67,
+          67
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/TemperateHillsChapel.cpp",
+      "sha256_lf": "084731bb1dc614829ee12237836f367aa8c670a838d02604e79d3aa80f5928a4",
+      "artifact": "Source__FPSGAME__WorldGeneration__TemperateHillsChapel.cpp.inc",
+      "spans": [
+        [
+          5,
+          5
+        ],
+        [
+          61,
+          61
+        ],
+        [
+          67,
+          67
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp",
+      "sha256_lf": "7884105a152f432e3c8d78570971f7df2dba8db32c48dbdf971c67fabd3e297b",
+      "previously_published": [
+        {
+          "source_lines": [
+            147,
+            147
+          ],
+          "remote_path": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsTerrain.cpp.patch"
+        }
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+      "sha256_lf": "91b6b1e7fb9443057f71efb386345fc459502e7140377a8661585209c0e77ae1",
+      "previously_published": [
+        {
+          "source_lines": [
+            147,
+            148
+          ],
+          "remote_path": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.cpp.patch"
+        },
+        {
+          "source_lines": [
+            199,
+            199
+          ],
+          "remote_path": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.cpp.patch"
+        }
+      ],
+      "artifact": "Source__FPSGAME__WorldGeneration__TemperateHillsWorld.cpp.inc",
+      "spans": [
+        [
+          502,
+          502
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+      "sha256_lf": "83641c8f34927ac8917600afae50fc3be1241c0061ab086b48892e398dd989d1",
+      "previously_published": [
+        {
+          "source_lines": [
+            194,
+            194
+          ],
+          "remote_path": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.patch"
+        },
+        {
+          "source_lines": [
+            203,
+            204
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.patch"
+        },
+        {
+          "source_lines": [
+            218,
+            219
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.patch"
+        },
+        {
+          "source_lines": [
+            504,
+            504
+          ],
+          "remote_path": "Docs/Publication/ArtisanVillage20261119/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.patch"
+        },
+        {
+          "source_lines": [
+            511,
+            511
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.patch"
+        },
+        {
+          "source_lines": [
+            515,
+            516
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.patch"
+        }
+      ],
+      "artifact": "Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.inc",
+      "spans": [
+        [
+          224,
+          224
+        ],
+        [
+          286,
+          287
+        ],
+        [
+          291,
+          292
+        ],
+        [
+          518,
+          523
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/TemperateVillageCheckCommandlet.cpp",
+      "sha256_lf": "7879d0ea466cd397b585d6a810dff14ff2ccbf030b3ead7c81a519f6b16e29a1",
+      "artifact": "Source__FPSGAME__WorldGeneration__TemperateVillageCheckCommandlet.cpp.inc",
+      "spans": [
+        [
+          12,
+          12
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/TemperateVillageCheckCommandlet.h",
+      "sha256_lf": "c21b6d259843d00d98f0cab24e316db311c7e66f52b6d3d4e47f7c2c7b13e36f",
+      "artifact": "Source__FPSGAME__WorldGeneration__TemperateVillageCheckCommandlet.h.inc",
+      "spans": [
+        [
+          11,
+          16
+        ]
+      ]
+    },
+    {
+      "target": "Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp",
+      "sha256_lf": "8ce3c6f59f824eda8ed002494fde3cca7bdf5d1c5a06fdd959c4fe6a8a14ab56",
+      "previously_published": [
+        {
+          "source_lines": [
+            24,
+            25
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__WorldGeneration__TemperateVillagePlans.cpp.patch"
+        },
+        {
+          "source_lines": [
+            230,
+            230
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__WorldGeneration__TemperateVillagePlans.cpp.patch"
+        },
+        {
+          "source_lines": [
+            234,
+            236
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__WorldGeneration__TemperateVillagePlans.cpp.patch"
+        },
+        {
+          "source_lines": [
+            245,
+            245
+          ],
+          "remote_path": "Docs/Publication/ConversationDelivery20261120/Integration/Source__FPSGAME__WorldGeneration__TemperateVillagePlans.cpp.patch"
+        }
+      ],
+      "artifact": "Source__FPSGAME__WorldGeneration__TemperateVillagePlans.cpp.inc",
+      "spans": [
+        [
+          40,
+          45
+        ],
+        [
+          48,
+          49
+        ],
+        [
+          201,
+          204
+        ],
+        [
+          257,
+          261
+        ]
+      ]
+    },
+    {
+      "target": "Tools/WorldGeneration/Run-VillageNetworkAudit.ps1",
+      "sha256_lf": "0ae2addc74245149a141e7c9997758628c07c2f17169d91ff49610b9d350d5a4",
+      "artifact": "Tools__WorldGeneration__Run-VillageNetworkAudit.ps1.inc",
+      "spans": [
+        [
+          3,
+          5
+        ],
+        [
+          11,
+          11
+        ],
+        [
+          19,
+          19
+        ],
+        [
+          30,
+          30
+        ],
+        [
+          38,
+          38
+        ],
+        [
+          44,
+          44
+        ],
+        [
+          59,
+          68
+        ],
+        [
+          76,
+          87
+        ],
+        [
+          92,
+          97
+        ],
+        [
+          104,
+          106
+        ],
+        [
+          108,
+          108
+        ],
+        [
+          125,
+          126
+        ],
+        [
+          129,
+          131
+        ]
+      ]
+    }
+  ]
+}

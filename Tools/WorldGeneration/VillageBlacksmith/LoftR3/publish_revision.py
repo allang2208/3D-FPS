@@ -18,7 +18,7 @@ for relative in ['Content/WorldGeneration/TemperateHills/AbandonedVillage/L_Aban
 sys.path.insert(0,str(ROOT/'Tools/WorldGeneration/AbandonedVillage'))
 sys.path.insert(0,str(ROOT/'Tools/WorldGeneration/VillageBlacksmith'))
 from layout_geometry import house_geometry
-from LoftR3.assemble import build_shop
+from author_shop import build_shop
 plan=json.loads((SRC/'layout.json').read_text(encoding='utf-8'))
 kit=json.loads((SRC/'house-pieces.json').read_text(encoding='utf-8'))
 house=next(h for h in plan['houses'] if h[0]=='01')
