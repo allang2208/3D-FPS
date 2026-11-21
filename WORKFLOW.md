@@ -36,19 +36,34 @@ MCP 调用遵循 [效率与 token 约定](skills/ue5-auto-assistant/references/e
 
 正式 C++ 放 `Source/`，工具放 `Tools/`，作者脚本/参数放 `SourceAssets/`，说明和结果放 `Docs/`。确认退役的文件移到 `trash/<task>/`，记录原路径、目标、大小、SHA-256、原因和保留替代物。移动前验证所有绝对路径属于本次授权范围，移动后读回校验。不要凭旧日期或候选名判断废案。 为什么：退役判断需要替代物和恢复记录，文件日期或名字不足以证明可删除。
 
-### 4.1 存储分配与文件操作边界（用户要求，2026-10-25）
+### 4.1 存储分配与文件操作边界
 
-F 盘本项目的数据统一在 `F:/FPSGAMEData/`。本次整理由用户明确要求，已保留切换前完整 Content 副本及配置原件；不授权随后清理资产或恢复资料。后续先确认真实路径、目录联接及用途，再操作文件。 为什么：目录联接可能指向活动资产或独有源文件，路径用途决定保留边界。
+**第一条　先定落盘位置和引用路径。** 接手 FPSGAME 时，以当前工作副本的 `FPSGAME.uproject` 所在目录为工程根。创建、下载、生成或导入文件前，先在[制作目录与功能索引](Docs/Production/README.md)找到所属功能、已有制作源和正式使用位置。已有功能沿用原目录；新增功能按索引中的分类选定位置。D、F 是日常开发盘，E 保留引擎、外部工具和历史原件，Y 保存版本备份。
 
-- **唯一工程入口**：继续使用 `D:/FPS3D/FPSGAME/FPSGAME.uproject`。`Source/`、`Config/`、`Tools/`、`Docs/`、项目 `Plugins/`、`Intermediate/`、`Binaries/`、`Saved/` 仍使用 D 盘现有位置；本次没有把整个工程迁移到 F 盘。 为什么：源码真源必须唯一，避免把归档或发布副本覆盖到正在开发的工程。
+- **工程入口**　从 `D:/FPS3D/FPSGAME/FPSGAME.uproject` 开发。`Source/`、`Config/`、`Tools/`、`Docs/`、项目 `Plugins/`、主工程 `Intermediate/`、`Binaries/` 与存档沿用现有入口。
 - **正式游戏资产**：通过工程 `Content/` 或 UE `/Game/` 路径接入。`D:/FPS3D/FPSGAME/Content` 联接到 `F:/FPSGAMEData/Content`，在 D 盘入口保存会实际写入 F 盘。玩法加载继续使用 `/Game/...`，不要写入物理磁盘路径。F 盘 Content 是活动生产数据，不能按缓存或恢复副本清理。 为什么：目录联接可能指向活动资产或独有源文件，路径用途决定保留边界。
-- **DDC**：`D:/FPS3D/DerivedDataCache` 联接到 `F:/FPSGAMEData/Caches/DerivedDataCache`。文件缓存、Zen、虚拟纹理块缓存在其下生成；需隔离的制作缓存使用其 `Authoring/<task>/` 子目录。家具动作四个后台脚本使用稳定的 D 盘缓存入口；不要再新增旧 F 盘位置或 C 盘临时 DDC 覆盖。独立 UE 工程仍需核对自身配置。保持 F 盘盘符及联接；入口失效先排查，不以普通空目录替代。 为什么：目录联接可能指向活动资产或独有源文件，路径用途决定保留边界。
-- **美术制作源文件**：新模型、贴图、动画的可编辑源文件、导出文件、制作参数及许可记录放 `D:/FPS3D/FPSGAME/SourceAssets/<task>/`。这不表示每个子目录都实际在 D 盘：已知 `SourceAssets/BackpackFit20261024` 联接到 `E:/CodexAssetCache/FPSGAME/BackpackFit20261024`，本次未迁移。下载目录也可能留有原件，不能用 Content 备份代替源素材备份。 为什么：目录联接可能指向活动资产或独有源文件，路径用途决定保留边界。
+- **共享缓存**　`D:/FPS3D/DerivedDataCache` 联接到 `F:/FPSGAMEData/Caches/DerivedDataCache`。本机用户注册表 `HKCU\Software\Epic Games\GlobalDataCachePath` 的 `UE-LocalDataCachePath` 使用该 D 盘入口。独立制作宿主显式传入 `-LocalDataCachePath=F:/FPSGAMEData/Caches/DerivedDataCache`、`-ZenDataPath=F:/FPSGAMEData/Caches/DerivedDataCache/Zen` 和 `-ini:Engine:[VirtualTextureChunkDDCCache]:Path=F:/FPSGAMEData/Caches/DerivedDataCache/VT`。第三项单独控制虚拟纹理块。确有隔离需要时，将私有缓存放入 `Caches/DerivedDataCache/Authoring/<功能>/`。
+- **宿主资产副本**　新建宿主按工序登记并取用所需依赖，独立写入计划修改或发布的包。只有确认只读的依赖目录才可联接到正式库。退役宿主需要减容时，逐个核对宿主包、正式包和 NAS 版本的 SHA-256，将宿主原路径和可恢复的 NAS 文件写入清单后再移除副本。带差异的版本、独有的制作源和回退包继续保留。已清理宿主的补回入口见[制作索引](Docs/Production/README.md#存储资料)。
+- **制作源和批次**　可编辑模型、原始贴图、作者工程、导出与许可从 `D:/FPS3D/FPSGAME/SourceAssets/<功能>/` 查找。需要跨盘放置的大型源文件使用 `F:/FPSGAMEData/ArtProduction/SourceAssets/<类别>/<功能>/`；按需保留 D 盘逻辑入口并登记物理目标。制作宿主和发布回执放入 `F:/FPSGAMEData/ArtProduction/<功能>/<批次>/`，审查文件放入 `F:/FPSGAMEData/ArtReviews/<功能>/<批次>/`。同一功能已有的目录和引用继续使用。
 - **打包输出**：今后将需要保留的打包成品显式输出到 `F:/FPSGAMEData/Builds/<version>/`。当前只建立输出目录，未修改既有打包脚本的默认参数，也未执行打包。 为什么：显式指定成品目录可区分需要保留的发布包和可重建中间文件。
-- **保留资料**：用户明确要求避免 Recovery 名称歧义并使用英文路径，统一使用 `F:/FPSGAMEData/Preserved_NoAutoDelete/`。其中 `MigrationIncident_20261025` 保存原 `F:/UEBuild` 中除活动 DDC 外的数据；`RestoreRecords_20261025` 保存原 `F:/FPSGAMERecovery20261025` 中除活动 Content 外的存档、证据与旧记录；`BeforeReorg_20261025/ContentBefore` 是本次切换前的独立 Content 副本。这些目录不作为新制作的保存位置，不自动删除。旧证据中的原路径作为历史记录保留，当前映射见 `F:/FPSGAMEData/storage-layout.json`。 为什么：目录联接可能指向活动资产或独有源文件，路径用途决定保留边界。
-- **存档和制作宿主**：游戏进度仍在 D 盘 `Saved/SaveGames`。`Saved/` 还含自动保存和指向正式资产的制作宿主联接，不能整目录按缓存清理或迁移。项目插件资源及 E 盘现有制作资料也未随 Content 移动。 为什么：目录联接可能指向活动资产或独有源文件，路径用途决定保留边界。
-- **NAS 备份**：用户安排定期备份。正式资产明确备份 `F:/FPSGAMEData/Content` 的真实文件；另备份 D 盘源文件、`.uproject`、版本历史 `.git`、项目插件、`Saved/SaveGames`、`Saved/Autosaves`（如存在）、E 盘制作资料及尚未归档的独有原件。保存可回溯版本，不只保存联接对象。DDC 可重建，不替代原始资产备份；F 盘本地恢复副本也不替代 NAS。 为什么：退役判断需要替代物和恢复记录，文件日期或名字不足以证明可删除。
+- **历史留存**　10 月的 `MigrationIncident_20261025`、`RestoreRecords_20261025` 和 `BeforeReorg_20261025` 当前可从 [Y 盘历史保留目录](Y:/备份/Preserved_NoAutoDelete) 查找。旧回执里记录的 `F:/FPSGAMEData/Preserved_NoAutoDelete/` 是当时的物理路径。当前迁移的源、目标及核对依据见[本次存储回执](F:/FPSGAMEData/ArtProduction/StorageLayout/20261121-DualDrive)。
+- **存档和旧宿主**　游戏进度在 `D:/FPS3D/FPSGAME/Saved/SaveGames`，自动保存可从 `Saved/Autosaves` 查找。`Saved/` 也可能含已发布版本的记录和指向正式资产的宿主联接，逐项判定用途。
+- **NAS 版本**　归档 D 盘工程源码、配置、项目插件、制作源、版本历史、必要存档，以及 F 盘正式资产、外置原件和发布回执的实际内容。索引记录已有快照名及其内部相对路径。11 月 21 日早先快照中的背包和弹挂仍按当时的 `External/E/...` 路径查找；本次新增的 F 盘文件按后续实际备份批次登记。
 - **迁移与清理边界**：先确认源、目标、联接和硬链接关系及使用者，列出精确范围并保留可恢复副本。迁移先复制并核对清单／散列，保留原数据后再切换入口；不要对包含未知联接的树执行 `robocopy /MOVE`、`/MIR`、`/PURGE` 或递归删除。用途、归属或链接目标不明时保留现场，只向当前用户说明，不凭目录名、旧日期或磁盘占用决定删除。 为什么：退役判断需要替代物和恢复记录，文件日期或名字不足以证明可删除。
+
+#### 引用路径
+
+| 使用场合 | 写法 |
+|---|---|
+| UE 关卡、蓝图、材质和游戏代码引用正式资产 | 使用真实挂载点下的包名或对象引用，如 `/Game/Weather/Audio/S_Rain_Soft_Loop`；引擎和插件资产沿用各自挂载点。材质实例引用父材质和纹理的已导入资产。 |
+| 游戏读取普通文件 | JSON、PNG 等由文件接口读取时，沿用子系统的资源根和打包约定。例如物品表的 `Icons/ammo_556.png` 相对 `Content/ColdSteelData/` 解析。 |
+| 制作、导入、导出和打包脚本 | 用明确的工程根或已配置的源根拼接相对路径。区分**制作源根**和**输出工程根**：独立宿主从登记的制作源读取，输出写入本批宿主，发布时才写正式工程。命令行可显式传入根目录；工作目录、用户名、个人下载目录和旧盘符均不作为默认定位依据。 |
+| Blender、贴图工程及其他作者文件 | 遇到同一制作源内的模型、贴图或声音依赖，按作者文件或资源库的相对路径保存，例如 Blender 的 `//Textures/...`。需要跨功能复用时，引用索引已登记的原件。Fab 下载、临时导出或旧宿主中的独有输入，先归入对应制作源并记录出处，再用于长期重导入。 |
+| 工程文档、交接与还原 | 工程内的文档链接相对当前文档。索引和还原清单同时写明跨盘联接的工程入口与实盘目标。机器绝对路径用于本机配置、出处、批次和恢复定位。NAS 恢复位置写“快照名 + 快照内相对路径”；尚未收录的版本标记“待备份”。 |
+
+例如雨声脚本从工程相对路径 `SourceAssets/LegacyGodotFPS/assets/sfx/weather/rain_soft_v2.wav` 取源，`SourceAssets/LegacyGodotFPS` 联接到 F 盘制作库，导入目标为 `/Game/Weather/Audio/S_Rain_Soft_Loop`。这样换机时只需接回制作源入口。[来源与版本](Docs/Production/README.md#已登记的功能)
+
+交付时在同一功能条目更新本次变更的源文件、正式包及其使用者、发布批次和对应备份。共享素材登记一次，其他功能引用该条目。原件缺失时注明缺项及现有可编辑版本，分别记录两者的来源。
 
 ## 5. 内容依赖
 

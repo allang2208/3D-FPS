@@ -1,11 +1,14 @@
+from pathlib import Path
+
 import unreal
 
 
 DESTINATION = "/Game/Weather/Audio"
+RAIN_SOURCE = Path(__file__).resolve().parents[1] / "SourceAssets/LegacyGodotFPS/assets/sfx/weather"
 SOURCES = {
-    "S_Rain_Light_Loop": r"E:\3d\3-dfps\assets\sfx\weather\rain_leaves_ground_ccby_v4.wav",
-    "S_Rain_Soft_Loop": r"E:\3d\3-dfps\assets\sfx\weather\rain_soft_v2.wav",
-    "S_Rain_Patter_Loop": r"E:\3d\3-dfps\assets\sfx\weather\rain_patter_v2.wav",
+    "S_Rain_Light_Loop": RAIN_SOURCE / "rain_leaves_ground_ccby_v4.wav",
+    "S_Rain_Soft_Loop": RAIN_SOURCE / "rain_soft_v2.wav",
+    "S_Rain_Patter_Loop": RAIN_SOURCE / "rain_patter_v2.wav",
 }
 
 
@@ -18,7 +21,7 @@ for asset_name, source_file in SOURCES.items():
     sound_wave = unreal.load_asset(package_path)
     if sound_wave is None:
         task = unreal.AssetImportTask()
-        task.filename = source_file
+        task.filename = str(source_file)
         task.destination_path = DESTINATION
         task.destination_name = asset_name
         task.automated = True

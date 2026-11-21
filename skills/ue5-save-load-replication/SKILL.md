@@ -5,6 +5,8 @@ description: UE5 save/load and replication workflow for persistent state, server
 
 # 联机存档与恢复
 
+**第一条（FPSGAME）　文件位置与引用路径。** 从当前工程的[制作目录与功能索引](../../Docs/Production/README.md)和[存储规则第 4.1 节](../../WORKFLOW.md#41-存储分配与文件操作边界)查找对应功能。先确定制作源、正式资产和输出目录，再创建或引入文件。工程 Content 资产用 `/Game/...` 包名引用，制作脚本从工程根或已配置的制作源根解析相对路径。交付时在同一功能条目登记实际位置、引用及备份状态。
+
 地牢与主神空间并存、房主单独返程、个人奖励确认及实例库存隔离，读取 [同房间地牢与个人返程](references/individual-dungeon-return.md)。 为什么：「同房间地牢与个人返程」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
 焚化炉、弹药暂存、永久销毁确认及晚到回执／重连绑定清理，读取 [永久销毁与暂存恢复](references/destructive-inventory-and-escrow.md)。 为什么：工作区及索引包含其他任务成果，精确发布才能保留各自修改与提交边界。

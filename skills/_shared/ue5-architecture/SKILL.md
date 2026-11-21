@@ -5,6 +5,8 @@ description: UE5.6-UE5.8 architecture planning and module boundary design for Un
 
 # UE 模块边界
 
+**第一条（FPSGAME）　文件位置与引用路径。** 以含 `FPSGAME.uproject` 的当前工程根为准，先读 `Docs/Production/README.md` 和 `WORKFLOW.md` 第 4.1 节。先确定制作源、正式资产和输出目录，再创建或引入文件。工程 Content 资产用 `/Game/...` 包名引用，制作脚本从工程根或已配置的制作源根解析相对路径。交付时在同一功能条目登记实际位置、引用及备份状态。
+
 仅在模块划分、Build.cs 依赖或跨模块 API 确有变化时使用；普通类修改直接用 C++ 技能。 原因：模块架构工作涉及依赖边界，普通类修改不需要重走完整模块设计。
 
 - 读取实际依赖与资产引用，再确定 Runtime、Editor、UI 等边界；不要因类归属不明默认塞入 Runtime 后留 TODO。 原因：模块边界决定依赖方向和打包可用性，随意归入 Runtime 会把不适用的依赖带入运行目标。

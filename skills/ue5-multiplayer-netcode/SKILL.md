@@ -5,6 +5,8 @@ description: FPSGAME 联机源码入口、服务器权威、档案传输、动�
 
 # 联机开发规则
 
+**第一条（FPSGAME）　文件位置与引用路径。** 从当前工程的[制作目录与功能索引](../../Docs/Production/README.md)和[存储规则第 4.1 节](../../WORKFLOW.md#41-存储分配与文件操作边界)查找对应功能。先确定制作源、正式资产和输出目录，再创建或引入文件。工程 Content 资产用 `/Game/...` 包名引用，制作脚本从工程根或已配置的制作源根解析相对路径。交付时在同一功能条目登记实际位置、引用及备份状态。
+
 1. 遵守工程 `AGENTS.md` 与 `WORKFLOW.md` 的后台开发、用户授权测试和禁止跨对话协调规则。为什么：联机历史取证命令不是每次开发都要执行的操作。
 2. 联机入口使用 `Plugins/ColdSteelNet/Source/ColdSteelNet/Public/FPSNetGameMode.h` 的 `AFPSNetGameMode`，继承 `AFPSGAMEGameMode`；World 层接入见 `Source/FPSGAME/Multiplayer/ColdSteelNetWorldSubsystem.*`。为什么：当前插件没有旧笔记所写的 `AOnlineGameMode`、`AMultiplayerStart` 或占位玩家类。
 3. `UColdSteelNetConnectSubsystem` 是 `-MPConnect`/`-MPConnectDelay` 的延迟连接辅助，按 `Initialize`/`TryConnect` 实现使用；不把它当常驻 GPU 预热服务。为什么：当前代码通过 GameInstance 定时器发一次 `open`，没有旧文的 `OnMapLoad` 预热协议。

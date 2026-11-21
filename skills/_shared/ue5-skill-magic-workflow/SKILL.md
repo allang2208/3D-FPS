@@ -12,6 +12,8 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 
 ## 执行约定
 
+**第一条（FPSGAME）　文件位置与引用路径。** 以含 `FPSGAME.uproject` 的当前工程根为准，先读 `Docs/Production/README.md` 和 `WORKFLOW.md` 第 4.1 节。先确定制作源、正式资产和输出目录，再创建或引入文件。工程 Content 资产用 `/Game/...` 包名引用，制作脚本从工程根或已配置的制作源根解析相对路径。交付时在同一功能条目登记实际位置、引用及备份状态。
+
 
 
 弓专属技能的搭箭、持续费用、元素 CD、标记及队友表现，读取 [弓系准备技能](references/bow-prepared-skills.md)。

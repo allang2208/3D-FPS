@@ -5,6 +5,8 @@ description: 制作和修复 FPSGAME 玩家服装的上衣裤装衔接、扎腰�
 
 # 玩家服装与搭配
 
+**第一条（FPSGAME）　文件位置与引用路径。** 以含 `FPSGAME.uproject` 的当前工程根为准，先读 `Docs/Production/README.md` 和 `WORKFLOW.md` 第 4.1 节。先确定制作源、正式资产和输出目录，再创建或引入文件。工程 Content 资产用 `/Game/...` 包名引用，制作脚本从工程根或已配置的制作源根解析相对路径。交付时在同一功能条目登记实际位置、引用及备份状态。
+
 遵守用户规则：默认后台制作、必要构建和保存；不主动运行游戏、截图、测试或跨对话协调。用户明确要求排查时，仅执行相关范围的检查。 原因：制作授权不包含额外运行或验收，交付应保留未测试的实际状态。
 
 工程为 `D:/FPS3D/FPSGAME`。先读当前 `AGENTS.md` 与 [服装腰部工作流](../../../Docs/Characters/garment-waist-workflow.md)，以实际 `Content/ColdSteelData/modular_outfits.json` 和 `FPSModularOutfitComponent` 消费分支为准。资产操作沿 [后台接入规则](../ue5-auto-assistant/references/editor-open-development.md)。

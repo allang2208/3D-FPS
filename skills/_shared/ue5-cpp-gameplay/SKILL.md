@@ -5,6 +5,8 @@ description: UE5.6-UE5.8 gameplay C++ implementation for Actors, Components, Dat
 
 # UE C++ 玩法开发
 
+**第一条（FPSGAME）　文件位置与引用路径。** 以含 `FPSGAME.uproject` 的当前工程根为准，先读 `Docs/Production/README.md` 和 `WORKFLOW.md` 第 4.1 节。先确定制作源、正式资产和输出目录，再创建或引入文件。工程 Content 资产用 `/Game/...` 包名引用，制作脚本从工程根或已配置的制作源根解析相对路径。交付时在同一功能条目登记实际位置、引用及备份状态。
+
 遵守用户全局规则：后台开发与必要构建，不主动测试或跨对话协调。涉及资产、反射布局或编辑器占用时读取[执行规则](../ue5-auto-assistant/references/editor-open-development.md)。 原因：后台制作与必要构建已能完成任务，运行检查和跨对话沟通需要当前明确要求。
 
 - 沿现有 Actor、Component、Subsystem 和存档边界实现；只修改必要的头文件和源文件，不为小改动强制创建成对新文件或设计表。 原因：现有宿主已定义生命周期和保存职责，小改动不需要另建抽象或额外文件结构。

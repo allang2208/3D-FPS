@@ -9,6 +9,7 @@ import unreal
 
 DESTINATION = "/Game/Weapons/AKM/Audio"
 PROJECT_ROOT = Path(unreal.Paths.project_dir())
+SOUND_SOURCE = Path(__file__).resolve().parents[2] / "SourceAssets/LegacyGodotFPS/assets/sfx"
 CLICK_SOURCE = PROJECT_ROOT / "SourceAssets" / "AKM" / "S_AKM_DryClick.wav"
 
 
@@ -45,14 +46,14 @@ def import_sound(source, destination_name):
 
 make_godot_dry_click()
 sources = [
-    (r"E:\3d\3-dfps\assets\sfx\akm_burst.mp3", "S_AKM_Fire"),
-    (r"E:\3d\3-dfps\assets\sfx\akm\equip.mp3", "S_AKM_Equip"),
-    (r"E:\3d\3-dfps\assets\sfx\akm_classic\mechanics\mag_out.wav", "S_AKM_MagOut"),
-    (r"E:\3d\3-dfps\assets\sfx\akm_classic\mechanics\mag_insert.wav", "S_AKM_MagInsert"),
-    (r"E:\3d\3-dfps\assets\sfx\akm_classic\mechanics\mag_seat.wav", "S_AKM_MagSeat"),
-    (r"E:\3d\3-dfps\assets\sfx\m16\mechanics\charge_pull.wav", "S_AKM_ChargePull"),
-    (r"E:\3d\3-dfps\assets\sfx\m16\mechanics\charge_release.wav", "S_AKM_ChargeRelease"),
-    (r"E:\3d\3-dfps\assets\sfx\criticalhit.mp3", "S_AKM_CriticalHit"),
+    (SOUND_SOURCE / "akm_burst.mp3", "S_AKM_Fire"),
+    (SOUND_SOURCE / "akm/equip.mp3", "S_AKM_Equip"),
+    (SOUND_SOURCE / "akm_classic/mechanics/mag_out.wav", "S_AKM_MagOut"),
+    (SOUND_SOURCE / "akm_classic/mechanics/mag_insert.wav", "S_AKM_MagInsert"),
+    (SOUND_SOURCE / "akm_classic/mechanics/mag_seat.wav", "S_AKM_MagSeat"),
+    (SOUND_SOURCE / "m16/mechanics/charge_pull.wav", "S_AKM_ChargePull"),
+    (SOUND_SOURCE / "m16/mechanics/charge_release.wav", "S_AKM_ChargeRelease"),
+    (SOUND_SOURCE / "criticalhit.mp3", "S_AKM_CriticalHit"),
     (CLICK_SOURCE, "S_AKM_DryClick"),
 ]
 for filename, asset_name in sources:

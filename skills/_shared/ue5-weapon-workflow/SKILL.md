@@ -6,6 +6,8 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 ---
 
+**第一条（FPSGAME）　文件位置与引用路径。** 以含 `FPSGAME.uproject` 的当前工程根为准，先读 `Docs/Production/README.md` 和 `WORKFLOW.md` 第 4.1 节。先确定制作源、正式资产和输出目录，再创建或引入文件。工程 Content 资产用 `/Game/...` 包名引用，制作脚本从工程根或已配置的制作源根解析相对路径。交付时在同一功能条目登记实际位置、引用及备份状态。
+
 弓的节拍/穿心箭、元素箭与箭雨准备、照明箭以及队友搭箭特效，读取 [弓系准备技能](../ue5-skill-magic-workflow/references/bow-prepared-skills.md)。
 
 - **2026-10-27 优先规则**：浮窗、改造栏与数值交付统一写 `暴击率+10%`、`暴击伤害+10%`，不用中文百分比单位；按[百分比显示规则](../ue5-ui-umg-slate/references/percentage-display.md)执行，覆盖旧显示写法，保留实际公式。 原因：派生值需要从同一基础和乘区计算，复用已经缩放的结果会重复应用加成。

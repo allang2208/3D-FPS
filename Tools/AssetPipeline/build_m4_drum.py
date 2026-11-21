@@ -2,10 +2,15 @@
 import bpy,bmesh,json,math,numpy as np
 from pathlib import Path
 from mathutils import Vector,Matrix
-OUT=Path('D:/FPS3D/FPSGAME/SourceAssets/M4Drum20260909');OUT.mkdir(parents=True,exist_ok=True)
-bpy.ops.wm.open_mainfile(filepath='D:/FPS3D/FPSGAME/SourceAssets/M4Replacement/m4_source_imported.blend')
+assets = Path(__file__).resolve().parents[2] / 'SourceAssets'
+drum_source = assets / 'LegacyGodotFPS/tools/ai-gen/drum-v2-20260907/large-drum-v2.blend'
+if not drum_source.is_file():
+    raise FileNotFoundError(f'Godot authoring scene required: {drum_source}. The fitted UE scene is in SourceAssets/M4Drum20260909.')
+OUT = assets / 'M4Drum20260909'
+OUT.mkdir(parents=True, exist_ok=True)
+bpy.ops.wm.open_mainfile(filepath=str(assets / 'M4Replacement/m4_source_imported.blend'))
 original=bpy.data.objects['Magazine Light.003'];src=np.array([list(original.matrix_world@v.co) for v in original.data.vertices])
-bpy.ops.wm.open_mainfile(filepath='D:/FPS3D/FPSGAME/SourceAssets/M4FoldingSights20260909/M4_FoldingSights_Editable.blend')
+bpy.ops.wm.open_mainfile(filepath=str(assets / 'M4FoldingSights20260909/M4_FoldingSights_Editable.blend'))
 rig=bpy.data.objects['SK_M4_Infima'];rig.animation_data_clear()
 for b in rig.pose.bones:b.matrix_basis=Matrix.Identity(4)
 bpy.context.view_layer.update()
@@ -38,7 +43,7 @@ for step in range(1,9):
 bmesh.ops.holes_fill(bm,edges=[e for e in ring if e.is_boundary],sides=0)
 bmesh.ops.recalc_face_normals(bm,faces=list(bm.faces));bm.to_mesh(neck.data);bm.free();neck.data.update()
 neck.data.transform(Matrix.Translation(-center));neck.data.materials.clear()
-with bpy.data.libraries.load('E:/3d/3-dfps/tools/ai-gen/drum-v2-20260907/large-drum-v2.blend',link=False) as (a,b):b.objects=[n for n in a.objects if not n.startswith(('CalibratedFeedTower','ContinuousTowerShoulder','TowerRelief'))]
+with bpy.data.libraries.load(str(drum_source),link=False) as (a,b):b.objects=[n for n in a.objects if not n.startswith(('CalibratedFeedTower','ContinuousTowerShoulder','TowerRelief'))]
 parts=[neck]
 for o in b.objects:
  if o.type!='MESH':continue

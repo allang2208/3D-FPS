@@ -5,6 +5,8 @@ description: UE5.6-UE5.8 Blueprint graph workflow for feature implementation, in
 
 # 蓝图编辑工作流
 
+**第一条（FPSGAME）　文件位置与引用路径。** 以含 `FPSGAME.uproject` 的当前工程根为准，先读 `Docs/Production/README.md` 和 `WORKFLOW.md` 第 4.1 节。先确定制作源、正式资产和输出目录，再创建或引入文件。工程 Content 资产用 `/Game/...` 包名引用，制作脚本从工程根或已配置的制作源根解析相对路径。交付时在同一功能条目登记实际位置、引用及备份状态。
+
 - 只在用户要求蓝图实现、修改或排障时使用本流程；后台制作和必要编译遵守[开发规则](../ue5-auto-assistant/references/editor-open-development.md)，不自动运行检查、PIE 或验收。原因：图编辑授权不包含运行游戏或额外测试。
 - 先确定目标资产、图和已有输入方式，再用“事件 → 条件/调用 → 状态与输出”说明本次改动。原因：目标图与输入上下文决定节点应该接在哪条执行链上。
 - 沿用项目已有的按键或 Enhanced Input 入口；需要新输入系统时使用项目实际支持的 `UInputAction`、`UInputMappingContext`。原因：重复入口或两套绑定同时生效会让同一次输入触发多次。

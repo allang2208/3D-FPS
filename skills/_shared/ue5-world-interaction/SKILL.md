@@ -5,6 +5,8 @@ description: UE5.6-UE5.8 world interaction systems for pickups, spawners, overla
 
 # 世界交互
 
+**第一条（FPSGAME）　文件位置与引用路径。** 以含 `FPSGAME.uproject` 的当前工程根为准，先读 `Docs/Production/README.md` 和 `WORKFLOW.md` 第 4.1 节。先确定制作源、正式资产和输出目录，再创建或引入文件。工程 Content 资产用 `/Game/...` 包名引用，制作脚本从工程根或已配置的制作源根解析相对路径。交付时在同一功能条目登记实际位置、引用及备份状态。
+
 遵守[后台开发与接入规则](../ue5-auto-assistant/references/editor-open-development.md)，不主动测试或跨对话协调。 原因：制作授权不包含额外运行或验收，交付应保留未测试的实际状态。
 
 - 沿实际 overlap、瞄准 trace 或使用键入口修改；拾取资格、库存提交和 Actor 消耗构成一次成功事务，失败不得丢物品。 原因：物品转移涉及来源与目标两侧状态，部分成功不能造成物品丢失或重复生成。

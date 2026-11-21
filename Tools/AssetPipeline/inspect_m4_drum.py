@@ -1,15 +1,20 @@
 import bpy,json
 from pathlib import Path
 from mathutils import Vector,Matrix
-out=Path('D:/FPS3D/FPSGAME/SourceAssets/M4Drum20260909');out.mkdir(parents=True,exist_ok=True)
-bpy.ops.wm.open_mainfile(filepath='E:/3d/3-dfps/tools/ai-gen/drum-v2-20260907/large-drum-v2.blend')
+assets = Path(__file__).resolve().parents[2] / 'SourceAssets'
+drum_source = assets / 'LegacyGodotFPS/tools/ai-gen/drum-v2-20260907/large-drum-v2.blend'
+if not drum_source.is_file():
+    raise FileNotFoundError(f'Godot authoring scene required: {drum_source}. The earlier inspection is in SourceAssets/M4Drum20260909/source-drum.json.')
+out = assets / 'M4Drum20260909'
+out.mkdir(parents=True, exist_ok=True)
+bpy.ops.wm.open_mainfile(filepath=str(drum_source))
 rows=[]
 for o in bpy.context.scene.objects:
  if o.type!='MESH':continue
  p=[o.matrix_world@v.co for v in o.data.vertices]
  rows.append(dict(name=o.name,tris=sum(len(f.vertices)-2 for f in o.data.polygons),bounds=[[min(v[i] for v in p) for i in range(3)],[max(v[i] for v in p) for i in range(3)]],materials=[m.name for m in o.data.materials]))
 (out/'source-drum.json').write_text(json.dumps(rows,indent=2));print('SOURCE_DRUM',json.dumps(rows))
-bpy.ops.wm.open_mainfile(filepath='D:/FPS3D/FPSGAME/SourceAssets/M4FoldingSights20260909/M4_FoldingSights_Editable.blend')
+bpy.ops.wm.open_mainfile(filepath=str(assets / 'M4FoldingSights20260909/M4_FoldingSights_Editable.blend'))
 r=bpy.data.objects['SK_M4_Infima'];r.animation_data_clear()
 for b in r.pose.bones:b.matrix_basis=Matrix.Identity(4)
 bpy.context.view_layer.update()
