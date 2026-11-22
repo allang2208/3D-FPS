@@ -4,6 +4,7 @@ import math
 import unreal as u
 
 from author_shop import pose, require
+from shop_staff_light import TORCH_CARD, configure
 
 
 BODY = '/Game/Props/RomanColumn20260915/SM_BronzeTorch'
@@ -13,14 +14,8 @@ ATLAS = '/Game/TorchFire/Texture/T_TorchFire'
 DEST = '/Game/WorldGeneration/TemperateHills/VillageHerbalist/Lighting'
 MATERIAL = 'M_HerbalistTorchFlame'
 SCALE = .9
-# The west-side light mounts on the surviving solid pier beside the door.
-# The east torch mounts on masonry replaced by the repair. Its wide cone
-# crosses the counter and workstation from the side, clear of the tabletop.
-# Entries are the mesh pivot, its inward yaw, lighting target, lumens and radius.
-TORCHES = (
-    ((-279.,-344.,176.), 90., (-206.,-172.,68.), 48., 355.),
-    ((346.,10.,184.), 180., (153.,42.,100.), 64., 382.),
-)
+# Bracket pivots and inward yaw in the shop frame.
+TORCHES = (((-279.,-344.,176.),90.), ((346.,10.,184.),180.))
 
 
 def offset(anchor,yaw,forward,rise):
@@ -29,7 +24,7 @@ def offset(anchor,yaw,forward,rise):
 
 
 def add_fixtures(house,add):
-    for index,(anchor,yaw,_,_,_) in enumerate(TORCHES):
+    for index,(anchor,yaw) in enumerate(TORCHES):
         # Donor arm extends +X from local x=16 to its cup at x=50.
         # A forged socket seats the straight shank in the rough masonry.
         state = 'Common' if index == 0 else 'Repaired'
@@ -107,12 +102,11 @@ def flame_material():
 
 
 def add_lighting(house,repaired_actor,component):
-    mat = flame_material()
-    for anchor,yaw,target,lumens,radius in TORCHES:
+    mat = require(TORCH_CARD)
+    for anchor,yaw in TORCHES:
         # The donor's cup lip is at (50,0,42.6). Put the card's base inside
         # the lip and the light at the flame's centre, above the opaque bowl.
         flame_pos = pose(house,*offset(anchor,yaw,50*SCALE,62*SCALE)).translation
-        aim = pose(house,*target).translation
         card = component(repaired_actor,u.MaterialBillboardComponent)
         card.set_mobility(u.ComponentMobility.STATIC)
         card.set_world_location(flame_pos,False,True)
@@ -122,21 +116,10 @@ def add_lighting(house,repaired_actor,component):
         card.set_collision_profile_name('NoCollision')
         card.set_editor_property('ld_max_draw_distance',2600.)
 
-        light = component(repaired_actor,u.SpotLightComponent)
+        light = component(repaired_actor,u.PointLightComponent)
         light.set_mobility(u.ComponentMobility.MOVABLE)
-        light.set_world_location_and_rotation(flame_pos,u.MathLibrary.find_look_at_rotation(flame_pos,aim),False,True)
-        light.set_intensity_units(u.LightUnits.LUMENS)
-        light.set_intensity(lumens)
-        light.set_editor_property('use_temperature',True)
-        light.set_temperature(3000.)
-        light.set_inner_cone_angle(29.)
-        light.set_outer_cone_angle(68.)
-        light.set_attenuation_radius(radius)
-        light.set_source_radius(6.)
-        light.set_soft_source_radius(10.)
-        light.set_specular_scale(.43)
-        light.set_volumetric_scattering_intensity(.09)
-        light.set_cast_shadows(True)
+        light.set_world_location(flame_pos,False,True)
+        configure(light)
         light.set_max_draw_distance(2600.)
         light.set_max_distance_fade_range(500.)
         for part in (card,light):

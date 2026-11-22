@@ -17,13 +17,15 @@ if (abs(ResidentDepth.r - VisibleDepth.r) > tolerance)
 // Only the decision about the knee needs exposure-relative units. Keep the RGB
 // in its original representation throughout, including for split-screen cameras.
 float frameExposure = EyeExposure > 0.0 ? EyeExposure * View.OneOverPreExposure : 1.0;
-float luminance = dot(max(scene, 0.0), float3(0.2126, 0.7152, 0.0722)) * frameExposure;
-const float knee = 0.70;
-if (luminance <= knee)
+float3 light = max(scene, 0.0) * frameExposure;
+float luma = dot(light, float3(0.2126, 0.7152, 0.0722));
+// Warm practical lights can wash out the red channel before luminance peaks.
+float level = lerp(luma, max(light.r, max(light.g, light.b)), 0.40);
+const float knee = 0.45;
+if (level <= knee)
     return scene;
 
-// Unit slope at the knee, positive slope everywhere. Even the brightest
-// values retain at least 57.5% of their original radiance (about -0.80 EV).
-float over = luminance - knee;
-float reduction = 0.425 * (over / luminance) * (over / (over + 0.55));
-return scene * (1.0 - reduction);
+// Unit slope at the knee, with no hard clip on bright cheek and cloth detail.
+const float shoulder = 0.42;
+float mapped = knee + shoulder * log(1.0 + (level - knee) / shoulder);
+return scene * (mapped / level);

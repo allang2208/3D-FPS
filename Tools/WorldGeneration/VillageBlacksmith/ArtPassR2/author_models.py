@@ -252,7 +252,9 @@ for x in (-15,15):
     for y in (-13,13):plank('Stool leg',(x,y,21),(5,5,42))
 for y in (-13,13):plank('Stool pegged side rail',(0,y,32),(35,4,7));plank('Low stretcher',(0,y,12),(35,3,4))
 for x in (-15,15):plank('Cross brace',(x,0,12),(3,30,4))
-for y in (-10,10):plank('Worn stool seat',(0,y,44),(46,19.6,4),wear=.19)
+for y in (-10,10):plank('Worn stool seat',(0,y,44),(46,19.6,4),wear=.19,collision=False)
+# The narrow visual seam between the two boards is part of the sitting surface.
+colliders.append(((0,0,44),(46,39.6,4),0))
 for x in (-15,15):
     for y in (-13,13):peg((x,y-2.8,32));nail((x,y,46))
 finish('OakStool')

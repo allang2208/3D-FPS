@@ -16,7 +16,12 @@ parser.add_argument('--module',type=Path,default=root/'Binaries/Win64/UnrealEdit
 parser.add_argument('--run',default=time.strftime('%Y%m%d-%H%M%S'))
 parser.add_argument('--port',type=int,default=0)
 parser.add_argument('--guards-only', action='store_true')
+parser.add_argument('--shop-scene', action='store_true')
+parser.add_argument('--pew', action='store_true')
+parser.add_argument('--render-server', action='store_true', help='render the shop-distance host offscreen with D3D12 at 1920x1080')
 args = parser.parse_args()
+if args.render_server and not args.shop_scene:
+    parser.error('--render-server requires --shop-scene')
 run = root/'Saved/ArtisanVillageNetwork'/args.run
 host = run/'Host'
 evidence = run/'Evidence'
@@ -24,10 +29,34 @@ evidence.mkdir(parents=True,exist_ok=False)
 (host/'Binaries/Win64').mkdir(parents=True)
 shutil.copy2(root/'FPSGAME.uproject',host/'FPSGAME.uproject')
 shutil.copytree(root/'Config',host/'Config')
-for name in ('Content','Plugins','Shaders'):
-    subprocess.run(['cmd','/d','/c','mklink','/J',str(host/name),str(root/name)],check=True,stdout=subprocess.DEVNULL)
-shutil.copy2(args.module,host/'Binaries/Win64/UnrealEditor-FPSGAME.dll')
-shutil.copy2(root/'Binaries/Win64/UnrealEditor.modules',host/'Binaries/Win64/UnrealEditor.modules')
+def junction(destination, source):
+    subprocess.run(['cmd','/d','/c','mklink','/J',str(destination),str(source)],check=True,stdout=subprocess.DEVNULL)
+
+for name in ('Content','Shaders'):
+    junction(host/name,root/name)
+(host/'Plugins').mkdir()
+for plugin in (root/'Plugins').iterdir():
+    if not plugin.is_dir():
+        continue
+    dest=host/'Plugins'/plugin.name
+    if not (plugin/'Binaries/Win64/UnrealEditor.modules').is_file():
+        junction(dest,plugin)
+        continue
+    dest.mkdir()
+    for item in plugin.iterdir():
+        if item.name in ('Intermediate','Saved','Source'):
+            continue
+        if item.name=='Binaries':
+            shutil.copytree(item,dest/item.name,ignore=shutil.ignore_patterns('*.pdb','*.exp','*.lib'))
+        elif item.is_dir():
+            junction(dest/item.name,item)
+        else:
+            shutil.copy2(item,dest/item.name)
+manifest = root/'Binaries/Win64/UnrealEditor.modules'
+for name, filename in json.loads(manifest.read_text(encoding='utf-8-sig'))['Modules'].items():
+    source = args.module if name == 'FPSGAME' else manifest.parent/filename
+    shutil.copy2(source, host/'Binaries/Win64'/filename)
+shutil.copy2(manifest, host/'Binaries/Win64'/manifest.name)
 exe = args.engine/'Engine/Binaries/Win64/UnrealEditor-Cmd.exe'
 with socket.socket(socket.AF_INET,socket.SOCK_DGRAM) as probe:
     probe.bind(('127.0.0.1',args.port))
@@ -58,6 +87,16 @@ def launch(role):
         cmd.extend(['-HillsNewWorld','-HillsSeed=1518277816'])
     if args.guards_only:
         cmd.append('-ArtisanGuardOnly')
+    if args.shop_scene:
+        cmd.append('-ArtisanShopScene')
+        if authority and args.render_server:
+            cmd.remove('-nullrhi')
+            cmd=[arg.replace('fps.body.WorldBodySuppress 1,','') for arg in cmd]
+            cmd.extend(['-d3d12','-RenderOffScreen','-ResX=1920','-ResY=1080','-ForceRes'])
+        else:
+            cmd.append('-NoShaderCompile')
+    if args.pew:
+        cmd.extend(['-ArtisanPew','-NoShaderCompile'])
     peers[role] = subprocess.Popen(cmd,creationflags=subprocess.CREATE_NO_WINDOW)
     print(role,peers[role].pid,port,flush=True)
 
@@ -96,20 +135,35 @@ def stop(role):
     peer.wait(timeout=30)
 
 
-result = dict(passed=False, port=port, mode='listen', rendered=False,
+result = dict(passed=False, port=port, mode='listen', rendered=args.render_server,
               module_sha256=hashlib.sha256((host/'Binaries/Win64/UnrealEditor-FPSGAME.dll').read_bytes()).hexdigest())
+village_map = host/'Content/WorldGeneration/TemperateHills/AbandonedVillage/L_AbandonedVillage.umap'
+result['village_map_sha256_at_start'] = hashlib.sha256(village_map.read_bytes()).hexdigest()
 try:
     launch('server')
-    deadline=time.monotonic()+850
+    deadline=time.monotonic()+(2100 if args.render_server else 850)
     while True:
         log = run/'server.log'
-        if log.exists() and f'IpNetDriver listening on port {port}' in log.read_text(errors='replace'):
+        status = log.read_text(errors='replace') if log.exists() else ''
+        if f'IpNetDriver listening on port {port}' in status and (not args.render_server or 'HILLS_READY seed=' in status):
             break
         if peers['server'].poll() is not None or time.monotonic()>deadline:
-            raise RuntimeError('listen server did not bind its UDP port')
+            raise RuntimeError('listen server did not reach its launch checkpoint')
         time.sleep(2)
     launch('owner')
-    if args.guards_only:
+    if args.pew:
+        result['scope']='two players on the installed outdoor chapel pew; authority interaction and replicated slots'
+        wait_for('owner','both-standing')
+        result['passed']=wait_for('server','done')['passed']
+    elif args.shop_scene:
+        result['scope'] = 'shop repair, shared chest and near/far/return on real streamed village'
+        wait_for('owner','returned')
+        stop('owner')
+        wait_for('server','disconnected')
+        launch('rejoin')
+        wait_for('rejoin','late-layout')
+        result['passed']=wait_for('server','done')['passed']
+    elif args.guards_only:
         result['scope'] = 'guard combat'
         result['passed'] = wait_for('server','done')['passed']
     else:
@@ -130,7 +184,11 @@ except Exception as exc:
     result['error']=str(exc)
 finally:
     for role in reversed(peers):
-        stop(role)
+        try:
+            stop(role)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            result.setdefault('shutdown_errors', {})[role]=str(exc)
+            result['passed']=False
     result['checks']=[json.loads(p.read_bytes()) for p in sorted(evidence.glob('*.json'))]
     (run/'result.json').write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf8')
     print('RESULT',result['passed'],run,flush=True)

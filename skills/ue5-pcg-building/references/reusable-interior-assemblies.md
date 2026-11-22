@@ -67,3 +67,7 @@
 - 木工台的驱动水晶用不透明矿体表现厚度。`SourceAssets/WoodworkingCrystalBench/Surfaces/author.py` 的 `crystal()` 按局部法线区分切面亮暗，再沿局部视线在浅、深两处取样生长带与裂理，让晶体内部纹路随视角错动。保留 `DriveStrength` 驱动发光，用 `max(EyeAdaptation, 1)` 作发光值的除数，使暗处仍能看清切面。
 - 草药架的透明瓶、琥珀瓶和清液共用单面薄层彩色透射材质。红、绿、蓝药液先以不透明材质写入深度，再用朝上法线提亮模型已有的弯月面，隔着玻璃也能辨出液位。配方见 `Tools/WorldGeneration/VillageHerbalist/vessel_finishes.py`。在 `PotionWorkbenchVisualComponent.cpp` 中，仅对草药铺宿主异步加载这六种外观，按槽名同时覆盖原始台体和交互时使用的 `Body`。
 - 用户要求前后对照时，每家店配一张能交代光源与工作台关系的全景，再配一张能看清目标表面的近景。各视图分别沿用原图的种子、修复状态、游戏时刻、相机位置、目标点和视场角。将每对原图和相机参数一起归档。早晨的全景和下午的近景各自与同时刻的原图配对。
+
+## 村庄店内陈设与离场开销
+
+实例化材质、店内陈设的视距和招牌摆动的休眠，见[店内陈设与离场开销](../../_shared/ue5-pcg-building/references/reusable-interior-assemblies.md#村庄店内陈设与离场开销)。

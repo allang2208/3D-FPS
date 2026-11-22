@@ -7,8 +7,10 @@ from author_shop import pose, require, shell_transform
 from dressing import STATION, furnish
 from herbalist_lights import add_fixtures, add_lighting
 from herbalist_living import add_living_light, furnish_living
+from shop_staff_light import WICK
 from herbalist_loft import add_loft
-from sign import add_sign
+from room_daylight import SHOP_DAYLIGHT, apply_daylight
+from trade_sign_layout import crossroads, hang_trade
 
 
 SITE_TAG = 'VillageHerbalist.Site03'
@@ -121,10 +123,7 @@ def add_shell_repairs(house, pieces, base, add):
 def set_herbalist_daylight(room):
     # Meter the shelves sooner after crossing the threshold. The room's
     # existing weather-aware blend tapers off outdoors and after sundown.
-    room.set_editor_property('entrance_transition_cm',90.)
-    room.set_editor_property('additional_dark_adaptation_stops',2.8)
-    room.set_editor_property('exposure_compensation',.75)
-    room.set_editor_property('shadow_contrast',.56)
+    apply_daylight(room, SHOP_DAYLIGHT['03'])
     room.set_editor_property('highlight_contrast',.65)
 
 
@@ -141,7 +140,6 @@ def build_herbalist(house, pieces, base):
     loft = add_loft(house,add)
     furnish(house,add)
     furnish_living(house,add)
-    add_sign(house,add)
     add_fixtures(house,add)
 
     def component(actor,cls):
@@ -173,6 +171,8 @@ def build_herbalist(house, pieces, base):
             comp = component(actor,cls)
             comp.set_mobility(u.ComponentMobility.STATIC)
             comp.set_static_mesh(mesh)
+            if WICK in mats:
+                comp.set_cast_shadow(False)
             for i,mat in enumerate(mats):
                 if mat:
                     comp.set_material(i,require(mat))
@@ -193,6 +193,8 @@ def build_herbalist(house, pieces, base):
         counts[state] += len(transforms)
 
     torch_lights = add_lighting(house,assemblies['Repaired'],component)
+    hang_trade(assemblies['Common'],pose(house,0,0),'Herbalist')
+    crossroads(actors,'Herbalist')
     living_lights = add_living_light(house,assemblies['Repaired'],component)
     station = actors.spawn_actor_from_class(u.HillsHerbalistWorkshop,u.Vector())
     station.tags = list(station.tags)+[SITE_TAG]

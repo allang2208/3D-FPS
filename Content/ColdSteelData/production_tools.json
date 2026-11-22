@@ -12,7 +12,8 @@
     "tool_swing_sound": "/Game/Items/ProductionTools/GripMotion20260913/S_Harvest_Swing.S_Harvest_Swing",
     "tool_sound": "/Game/EasyBuildingSystem/Audio/Sounds/Interactions/Chopping/SC_Hatchet_Hit.SC_Hatchet_Hit",
     "swing_seconds": 1.10, "contact_seconds": 0.48, "tool_scale": 1.0,
-    "mount_pitch": -18, "mount_yaw": 0, "mount_roll": -18
+    "mount_pitch": -18, "mount_yaw": 0, "mount_roll": -18,
+    "price": 30
   },
   "tool_pickaxe": {
     "name": "矿镐", "category": "tool", "tool_kind": "pickaxe", "stack_max": 1,
@@ -27,7 +28,8 @@
     "tool_swing_sound": "/Game/Items/ProductionTools/GripMotion20260913/S_Harvest_Swing.S_Harvest_Swing",
     "tool_sound": "/Game/EasyBuildingSystem/Audio/Sounds/Interactions/Mining/SC_Pickaxe_Hit.SC_Pickaxe_Hit",
     "swing_seconds": 1.16, "contact_seconds": 0.6, "tool_scale": 1.0,
-    "mount_pitch": -18, "mount_yaw": 0, "mount_roll": -18
+    "mount_pitch": -18, "mount_yaw": 0, "mount_roll": -18,
+    "price": 30
   },
   "tool_shovel": {
     "name": "铁铲", "category": "tool", "tool_kind": "shovel", "stack_max": 1,

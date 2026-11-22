@@ -158,9 +158,11 @@ def build_shop(house,pieces,base,geometry):
         add(state,path,standing(house,path,x,y,z,yaw,scale),profile='NoCollision' if name=='IronStock' else 'BlockAll')
     crate='/Game/UndergroundTunnel/Meshes/Props/SM_WoodCrate01a'
     barrel='/Game/Props/CastingStation20260926/SM_CoolingBarrel'
-    for state,path,x,y,z,scale in [('Repaired',crate,300,-300,0,.58),('Repaired',barrel,300,-210,0,1),('Repaired',crate,240,-300,LOFT_Z,.65)]:
+    for state,path,x,y,z,scale in [('Repaired',barrel,300,-210,0,1),('Repaired',crate,240,-300,LOFT_Z,.65)]:
         add(state,path,standing(house,path,x,y,z,0,scale))
-    add('Common',detail+'/Meshes/SM_SmithLoft_BlacksmithSign_R6',pose(house,0,-427,291),profile='NoCollision')
+    from TradeSign.layout import placements as trade_fittings
+    for state,path,transform,profile in trade_fittings(house):
+        add(state,path,transform,profile=profile)
     add('Ruined',detail+'/Meshes/SM_SmithLoft_RuinDebris_R6',pose(house,0,0,0),profile='NoCollision')
     add('Ruined',FURNITURE+'ClosedPlaque',pose(house,-365,-410,145),profile='NoCollision')
     state_actors={}
@@ -190,5 +192,9 @@ def build_shop(house,pieces,base,geometry):
     station.set_editor_property('shop_assemblies',list(state_actors.values()))
     station.set_editor_property('repair_area_center',u.Vector(-STATION[0],50-STATION[1],540-STATION[2]))
     station.set_editor_property('repair_area_half_extent',u.Vector(460,565,590))
-    return {'actor_label':station.get_actor_label(),'revision':7,'window_revision':'7b','chimney_revision':8,'interactive_windows':len(windows),'default':'ruined','state_groups':len(groups),'floor_z_cm':LOFT_Z,
+    from Workfloor.dressing import apply as dress_workfloor
+    from ForgeR2.refit import apply_to as fit_forge
+    from BenchWork.layout import fit as fit_shoeing_work
+    fit_shoeing_work(house,state_actors['Repaired'])
+    return {'actor_label':station.get_actor_label(),'revision':7,'window_revision':'7b','chimney_revision':8,'workfloor':dress_workfloor(house,station),'side_blast':fit_forge(house,station),'interactive_windows':len(windows),'default':'ruined','state_groups':len(groups),'floor_z_cm':LOFT_Z,
             'nominal_footprint_cm':[720*XY_FACTOR]*2,'station_mesh':station_mesh.get_path_name(),'chimney_top_cm':1150,'gameplay_tested':False}

@@ -1,0 +1,116 @@
+{
+  "methods": {
+    "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp": {
+      "file": "Integration/WorldGeneration/TemperateHillsStreamingPreparation.cpp.inc",
+      "methods": [
+        "RequestResidentAppearance",
+        "TickResidentAppearanceLoads",
+        "LoadNextEnvironmentStage"
+      ]
+    },
+    "Source/FPSGAME/UI/ColdSteelContainerSearchSubsystem.cpp": {
+      "file": "Integration/UI/ColdSteelContainerSearchSubsystem.cpp.inc",
+      "methods": [
+        "CanAccess",
+        "HasViewers",
+        "Close"
+      ]
+    },
+    "Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp": {
+      "file": "Integration/UI/ColdSteelWarehouseHUD.cpp.inc",
+      "methods": [
+        "TickWarehouse"
+      ],
+      "fragment": "scene-container branch only"
+    },
+    "Source/FPSGAME/UI/ColdSteelSceneContainer.cpp": {
+      "file": "Integration/UI/ColdSteelSceneContainer.cpp.inc",
+      "methods": [
+        "IsAvailableForSearch",
+        "IsWithinPanelReach",
+        "CloseLootVisual"
+      ]
+    },
+    "Source/FPSGAME/UI/ColdSteelProductionTools.cpp": {
+      "file": "Integration/UI/ColdSteelProductionTools.cpp.inc",
+      "methods": [
+        "NormalizeProductionState"
+      ],
+      "fragment": "catalog price synchronization after SyncCatalogField is available"
+    },
+    "Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.cpp": {
+      "file": "Integration/WorldGeneration/RiverPilotFXSubsystem.cpp.inc",
+      "methods": [
+        "OnWorldBeginPlay",
+        "RegisterLevelWater",
+        "UnregisterLevelWater",
+        "Deinitialize"
+      ]
+    },
+    "Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp": {
+      "file": "Integration/WorldGeneration/FluidPresentationSubsystem.cpp.inc",
+      "methods": [
+        "WindWithGustAt"
+      ]
+    },
+    "Source/FPSGAME/Weapons/Staff/StaffIllumination.cpp": {
+      "file": "Integration/Weapons/Staff/StaffIllumination.cpp.inc",
+      "methods": [
+        "ConfigureIllumination"
+      ]
+    },
+    "Source/FPSGAME/WorldGeneration/VillagePresentationView.cpp": {
+      "file": "Integration/WorldGeneration/VillagePresentationView.cpp.inc",
+      "methods": [
+        "Distance"
+      ],
+      "fragment": "shared local view inputs and optic-aware distance"
+    }
+  },
+  "host_lines": {
+    "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp": [
+      "    S.StaggerVillageEntry=bHasVillage;",
+      "    LoadNextEnvironmentStage();",
+      "    if(bReady || !S.StaggerVillageEntry)TickResidentAppearanceLoads();",
+      "    for (const auto& Handle : PendingResidentAppearances) Handle->CancelHandle();",
+      "    PendingResidentAppearances.Reset();"
+    ],
+    "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp": [
+      "            if(Handle)It->PendingResidentAppearances.Add(Handle);",
+      "void ATemperateHillsWorld::TickResidentAppearanceLoads()",
+      "    if(S.StaggerVillageEntry)",
+      "    if(PendingResidentAppearances.IsEmpty())return;",
+      "    const auto Handle=PendingResidentAppearances[0];",
+      "            UE_LOG(LogTemp,Display,TEXT(\"HILLS_PREP resident=%s queued=%d\"),*Handle->GetDebugName(),PendingResidentAppearances.Num());",
+      "    PendingResidentAppearances.RemoveAt(0);",
+      "        if(S.StaggerVillageEntry && Stage>0 && !S.Batches[Stage-1].Ready)break;",
+      "                (S.StaggerVillageEntry&&!PendingResidentAppearances.IsEmpty())))continue;",
+      "            const int32 Count=S.StaggerVillageEntry?FMath::Min(VillagePathsPerRequest,Remaining):Remaining;",
+      "        if(S.StaggerVillageEntry)break;",
+      "    if(S.StaggerVillageEntry)TickResidentAppearanceLoads();",
+      "    if(!PendingResidentAppearances.IsEmpty())"
+    ],
+    "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h": [
+      "    bool StaggerVillageEntry=false;"
+    ],
+    "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h": [
+      "    static TSharedPtr<FStreamableHandle> RequestResidentAppearance(UWorld* World, TArray<FSoftObjectPath> Paths, FSimpleDelegate OnLoaded = {});",
+      "    TArray<TSharedPtr<FStreamableHandle>> PendingResidentAppearances;",
+      "    void RefreshVillageStreetLighting();",
+      "    void LoadNextEnvironmentStage();",
+      "    void TickResidentAppearanceLoads();"
+    ],
+    "Source/FPSGAME/UI/ColdSteelSceneContainer.h": [
+      "    bool IsAvailableForSearch() const;"
+    ],
+    "Source/FPSGAME/UI/ColdSteelContainerSearchSubsystem.h": [
+      "    bool HasViewers(const AActor* Target) const;"
+    ],
+    "Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.h": [
+      "    void UnregisterLevelWater(ULevel* Level,UWorld* World);"
+    ],
+    "Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h": [
+      "    FVector WindWithGustAt(const FVector& Position);"
+    ]
+  }
+}

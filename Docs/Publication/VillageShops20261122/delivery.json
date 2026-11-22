@@ -1,0 +1,116 @@
+{
+  "scene": {
+    "map": "/Game/WorldGeneration/TemperateHills/AbandonedVillage/L_AbandonedVillage",
+    "static_map_sha256": "c9a46ed81f6d1d774460e1a1b7db5339ab46edcfbc0c20b7e0e7cb61d21444ac",
+    "stored_actors": 181,
+    "inspected_store_mesh_components": 622,
+    "baked_store_lights": 13,
+    "declared_published_packages": 48,
+    "missing_packages": []
+  },
+  "network": {
+    "network-distance": {
+      "passed": true,
+      "checks": 27,
+      "scope": "shop repair, shared chest and near/far/return on real streamed village",
+      "error": null,
+      "map_sha256": "7d322a57e2f851337b885ea4046be771bca06c7f0ff6ae790e1da359eaccb56d",
+      "module_sha256": "43ddccaf69d2c1ff36f8c7e71497884cf0fb0b6ad4cfabe811f02d27c96d4de5"
+    },
+    "network-trade": {
+      "passed": true,
+      "checks": 58,
+      "scope": "merchant actions and personal progress",
+      "error": null,
+      "map_sha256": "7d322a57e2f851337b885ea4046be771bca06c7f0ff6ae790e1da359eaccb56d",
+      "module_sha256": "43ddccaf69d2c1ff36f8c7e71497884cf0fb0b6ad4cfabe811f02d27c96d4de5"
+    },
+    "network-pew": {
+      "passed": true,
+      "checks": 7,
+      "scope": "two players on the installed outdoor chapel pew; authority interaction and replicated slots",
+      "error": null,
+      "map_sha256": "7d322a57e2f851337b885ea4046be771bca06c7f0ff6ae790e1da359eaccb56d",
+      "module_sha256": "92459ec2a45310b0294ef38b9e5d4b2490e8d364fc0f2630c4cdd7f7e4118239"
+    }
+  },
+  "furniture_checks": 183,
+  "furniture_authority": {
+    "models": 5,
+    "slots_entered": 8,
+    "failures": 0
+  },
+  "distance_policy": {
+    "shop_small_max_m": 35,
+    "shop_medium_max_m": 55,
+    "idle_merchant_optically_adjusted_limit_m": 125,
+    "merchant_release_grace_s": 12,
+    "sign_near_hz": 30,
+    "sign_mid_hz": 12,
+    "sign_tick_off_m": 36,
+    "village_sublevel_release": "EndStreaming on departure from Hills; whole-village distance unloading is not implemented"
+  },
+  "gpu": {
+    "source": "Windows WDDM GPU Process Memory / Dedicated Usage, rendered listen host only",
+    "gpu": "RTX 3080 Ti 12 GiB",
+    "resolution": "1920x1080",
+    "near_far_complete": false,
+    "near_far_delta_mib": null,
+    "cases": {
+      "A": {
+        "samples": 204,
+        "max_dedicated_mib": 8533.9,
+        "file": "gpu-dedicated.csv",
+        "outcome": "Client timed out during host asset preparation"
+      },
+      "B": {
+        "samples": 375,
+        "max_dedicated_mib": 9214.1,
+        "file": "gpu-B-dedicated.csv",
+        "outcome": "Host reached Hills readiness; guest failed to reach the first test checkpoint"
+      },
+      "C": {
+        "samples": 207,
+        "max_dedicated_mib": 6949.4,
+        "file": "gpu-C-dedicated.csv",
+        "outcome": "Capture interrupted by the system reboot before distance checkpoints"
+      }
+    },
+    "max_dedicated_mib": 9214.1
+  },
+  "editor_build_at_audit": {
+    "FPSGAMEEditor.json": {
+      "exit_code": 6,
+      "finished": "2026-11-22T18:34:46.6874824+08:00",
+      "target": "FPSGAMEEditor"
+    }
+  },
+  "build_blocker_at_audit": [
+    "ColdSteelInventory::IsWoodenTorch",
+    "UKukriArmsMeshComponent::bRightHandOnly",
+    "UVoxelBuildComponent::IsBuildMode"
+  ],
+  "asset_hashes_at_audit": {
+    "Content/WorldGeneration/TemperateHills/VillageBlacksmith/ArtPassR2/Meshes/SM_VillageOakStool.uasset": "969a5b00fc5e634cfdcf274d41966844fb08558027b05ba7ba2bf0d16925dc13",
+    "Content/Props/BlastFurnace20260923/Materials/M_BlastFurnace_WroughtIron.uasset": "6d4c0cc25403d6b449f3f71600b9ef7e1e40981f89a49b1dbbac0209e97d49a9",
+    "Content/UnrealNormandy/Materials/M_Master_Base.uasset": "bf75645fc07864bdcd48ecf6dce3648b7644f9caf395728b3e08ec10b95e6b6b",
+    "Content/Weapons/DarkBow20260925/ModularV13/M_Bow_GripLinen.uasset": "ea947a19b5a0bb51fe611c2c89780154d11761a02edf46ca0c38c9e7ef77dab9",
+    "Content/WorldGeneration/TemperateHills/WetForest/ScannedGrass/M_SoftWildGrass.uasset": "70ea3ffae7c54638c42946814e15bfb49cbf718cf89549f766c71b49653dc970",
+    "Content/WorldGeneration/TemperateHills/VillageBlacksmith/ArtPassR2/Materials/M_VillageR2_HearthStone.uasset": "809b873b18e9e4b87d4c8955cdaaf4514f2016081fb9d56901bcdf23fa0dab78",
+    "Content/WorldGeneration/TemperateHills/VillageBlacksmith/ChimneyR8/Materials/M_ChimneyFlueSoot.uasset": "e0e84c821773f0fb56b338857fcc87ee5e764552a0191aa99d97e669479e2efe",
+    "Content/WorldGeneration/TemperateHills/VillageCarpenter/InteriorR1/M_CarpenterWashWater.uasset": "97e24736d6835f808911e9262ca570738c6e483345f4cfdc46ed5ccd4744746f",
+    "Content/WorldGeneration/TemperateHills/VillageCarpenter/Props/Surfaces/M_CarpenterCut.uasset": "1020416b75bac5da9bd0a84c8d931e94c54a80a5601d401d3b831675b7ac52c3",
+    "Content/WorldGeneration/TemperateHills/VillageCarpenter/Props/Surfaces/M_CarpenterRot.uasset": "0fcfbd1a249ef31cf130e00c63823bb9873b531b42d45b741eb21e21492faf7d",
+    "Content/WorldGeneration/TemperateHills/VillageCarpenter/Props/Surfaces/M_CarpenterSawn.uasset": "8c1c826d8255d2f5c65cc9dd2aad7ad7140446a97cc23414f4631f6ffa9fc047"
+  },
+  "trash": {
+    "completed": "2026-11-22T19:39:16.274501+08:00",
+    "operations": 335,
+    "files": 11229,
+    "logical_bytes": 8262086007,
+    "detached_host_links": 1623,
+    "manifest_sha256": "ee2cfa5688405a8b67dbe65aaa92989e0765eb4c393401f28c67f2008e9c4c8a"
+  },
+  "local_receipts": "F:\\FPSGAMEData\\ArtProduction\\HillsVillageShops\\Closeout-20261122",
+  "dependency": "Original UE packages, licensed donor art, authoring inputs and rollback copies remain on the production host."
+}

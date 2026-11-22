@@ -67,5 +67,29 @@ const FWaterImpactFootprint* FindComplementaryWaterFootprint(const UStaticMesh* 
     {
         return BuildPlanarFootprint(Mesh);
     }
+    if (Path == TEXT("/Game/WorldGeneration/TemperateHills/VillageCarpenter/InteriorR1/SM_CarpenterWashWater.SM_CarpenterWashWater"))
+    {
+        // Same local origin and cut disk as the barrel's water mesh. The shared water
+        // subsystem already skips hidden repair-state components and budgets impacts.
+        static const FWaterImpactFootprint Bucket=[Mesh]()
+        {
+            FWaterImpactFootprint Shape;
+            Shape.MeshPath=Mesh->GetPathName();
+            Shape.StrengthScale=.28f;
+            FWaterImpactPatch Patch;
+            const FBox Bounds=Mesh->GetBoundingBox();
+            Patch.Z=Bounds.GetCenter().Z;
+            for(int32 I=0;I<48;++I)
+            {
+                const double A=2.*UE_PI*I/48.;
+                const FVector2D P(Bounds.GetExtent().X*FMath::Cos(A),Bounds.GetExtent().Y*FMath::Sin(A));
+                Patch.Polygon.Add(P);
+                Patch.Bounds+=P;
+            }
+            Shape.Patches.Add(MoveTemp(Patch));
+            return Shape;
+        }();
+        return &Bucket;
+    }
     return nullptr;
 }

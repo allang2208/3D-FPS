@@ -3,6 +3,7 @@ import unreal as u
 
 from author_shop import KIT, pose, require, standing
 from herbalist_loft import LOFT_Z
+from shop_staff_light import WICK, configure
 
 
 SCANS = '/Game/Dungeons/TunnelStyleLiving20261112/Quixel/'
@@ -14,9 +15,6 @@ POTTERY = TAVERN+'StonewareDetail/SM_Tavern'
 SIEVE = '/Game/WorldGeneration/TemperateHills/VillageHerbalist/Props/SM_HerbalistGatheringSieve'
 CHEST = '/Game/Props/GamedevTreasureChestV3_20261004/Meshes/SM_TreasureChest_Closed'
 LANTERN = '/Game/UnrealNormandy/StaticMeshes/SM_Props_Lantern_02A'
-LIGHTING = '/Game/WorldGeneration/TemperateHills/VillageHerbalist/Lighting'
-DESK_WICK = LIGHTING+'/MI_HerbalistDeskWick'
-
 BED_X, BED_Y = 164., 151.
 DESK_X, DESK_Y = 103., -273.
 # Finished height of the village oak tabletop used by both workshops.
@@ -26,17 +24,6 @@ LAMP_HEIGHT = 29.
 
 
 def furnish_living(house, add):
-    if not u.EditorAssetLibrary.does_asset_exist(DESK_WICK):
-        wick = u.AssetToolsHelpers.get_asset_tools().create_asset(
-            DESK_WICK.rsplit('/',1)[1],LIGHTING,u.MaterialInstanceConstant,u.MaterialInstanceConstantFactoryNew())
-        if not wick:
-            raise RuntimeError('Could not create the desk lantern wick')
-        edit = u.MaterialEditingLibrary
-        edit.set_material_instance_parent(wick,require(LANTERN).get_material(0))
-        edit.set_material_instance_scalar_parameter_value(wick,'TS00_Emissive_Multiplier',.8)
-        if not u.EditorAssetLibrary.save_loaded_asset(wick,False):
-            raise RuntimeError('Could not save the desk lantern wick')
-
     def furniture(state, path, x, y, yaw=0., scale=1.):
         add(state,path,standing(house,path,x,y,LOFT_Z,yaw,scale))
 
@@ -82,7 +69,7 @@ def furnish_living(house, add):
     prop('Repaired',CASEBOOK,DESK_X-20.,DESK_Y+4.,DESK_TOP,25.,-11.,90.)
     prop('Repaired',POTTERY+'Dish',DESK_X+28.,DESK_Y+12.,DESK_TOP,19.,7.)
     prop('Repaired',POTTERY+'Tankard',DESK_X+49.,DESK_Y+12.,DESK_TOP,13.,-31.)
-    prop('Repaired',LANTERN,LAMP_X,LAMP_Y,DESK_TOP,LAMP_HEIGHT,21.,materials=(DESK_WICK,))
+    prop('Repaired',LANTERN,LAMP_X,LAMP_Y,DESK_TOP,LAMP_HEIGHT,21.,materials=(WICK,))
 
     # Remnants stay in their former furniture bays, away from the stair opening.
     furniture('Ruined',TAVERN+'Furniture/SM_TavernBrokenTable',DESK_X,DESK_Y,-4.,.72)
@@ -93,22 +80,12 @@ def furnish_living(house, add):
 
 
 def add_living_light(house, repaired_actor, component):
-    lamp = component(repaired_actor,u.SpotLightComponent)
+    lamp = component(repaired_actor,u.PointLightComponent)
     lamp.set_mobility(u.ComponentMobility.MOVABLE)
     # Just outside the glass on its desk-facing side, below the metal cap.
     position = pose(house,LAMP_X+9.,LAMP_Y+4.,DESK_TOP+LAMP_HEIGHT*.47).translation
-    book = pose(house,DESK_X-17.,DESK_Y+5.,DESK_TOP).translation
-    lamp.set_world_location_and_rotation(position,u.MathLibrary.find_look_at_rotation(position,book),False,True)
-    lamp.set_intensity_units(u.LightUnits.LUMENS)
-    lamp.set_editor_property('use_temperature',True)
-    lamp.set_temperature(2920.)
-    lamp.set_intensity(2.5)
-    lamp.set_inner_cone_angle(28.)
-    lamp.set_outer_cone_angle(73.)
-    lamp.set_attenuation_radius(124.)
-    lamp.set_source_radius(2.5)
-    lamp.set_specular_scale(.4)
-    lamp.set_cast_shadows(True)
+    lamp.set_world_location(position,False,True)
+    configure(lamp)
     lamp.set_editor_property('max_draw_distance',2100.)
     lamp.set_editor_property('max_distance_fade_range',400.)
     lamp.component_tags=['VillageHerbalist.Repaired']

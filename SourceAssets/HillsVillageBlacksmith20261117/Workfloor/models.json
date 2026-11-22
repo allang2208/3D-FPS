@@ -1,0 +1,58 @@
+[
+  {
+    "name": "SM_SmithBellows",
+    "file": "SM_SmithBellows.fbx",
+    "triangles": [
+      2420,
+      1700,
+      1140
+    ],
+    "boxes": [
+      [
+        [
+          -2,
+          0,
+          32
+        ],
+        [
+          85,
+          41,
+          60
+        ]
+      ]
+    ]
+  },
+  {
+    "name": "SM_SmithCoalBunker",
+    "file": "SM_SmithCoalBunker.fbx",
+    "triangles": [
+      4060,
+      2680,
+      1990
+    ],
+    "boxes": [
+      [
+        [
+          0,
+          0,
+          20
+        ],
+        [
+          69,
+          47,
+          40
+        ]
+      ]
+    ]
+  },
+  {
+    "name": "SM_SmithHearthDressing",
+    "file": "SM_SmithHearthDressing.fbx",
+    "triangles": [
+      3884,
+      3332,
+      3056
+    ],
+    "boxes": []
+  }
+]

@@ -1,0 +1,89 @@
+[
+  {
+    "name": "SM_SmithSignBracketR2",
+    "file": "SM_SmithSignBracketR2.fbx",
+    "triangles": [
+      1788,
+      1076,
+      668
+    ],
+    "boxes": []
+  },
+  {
+    "name": "SM_SmithSignLinksR2",
+    "file": "SM_SmithSignLinksR2.fbx",
+    "triangles": [
+      1120,
+      576,
+      288
+    ],
+    "boxes": []
+  },
+  {
+    "name": "SM_SmithSignBoardR2",
+    "file": "SM_SmithSignBoardR2.fbx",
+    "triangles": [
+      2036,
+      1364,
+      948
+    ],
+    "boxes": []
+  },
+  {
+    "name": "SM_SmithSideBlastHearth",
+    "file": "SM_SmithSideBlastHearth.fbx",
+    "triangles": [
+      8066,
+      7690,
+      7470
+    ],
+    "boxes": [
+      [
+        [
+          10,
+          1,
+          38
+        ],
+        [
+          122,
+          102,
+          76
+        ]
+      ],
+      [
+        [
+          9,
+          0,
+          77
+        ],
+        [
+          138,
+          108,
+          11
+        ]
+      ],
+      [
+        [
+          4,
+          43,
+          119
+        ],
+        [
+          120,
+          15,
+          76
+        ]
+      ]
+    ]
+  },
+  {
+    "name": "SM_SmithSideBlastFuel",
+    "file": "SM_SmithSideBlastFuel.fbx",
+    "triangles": [
+      2596,
+      1888,
+      1534
+    ],
+    "boxes": []
+  }
+]

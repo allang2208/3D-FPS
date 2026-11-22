@@ -7,6 +7,8 @@ import sys
 import unreal as u
 
 from author_shop import require
+from shop_pendants import TAVERN, hang
+from room_daylight import TAVERN_DAYLIGHT, apply_daylight
 from tavern_flue import flue_roof
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / 'VillageTavern'))
@@ -31,11 +33,7 @@ def set_tavern_vision(room, house, shape, plan):
     horizontal = plan['house_scale']*plan['tavern']['footprint_scale']
     room.set_editor_property('room_minimum', u.Vector(-450*horizontal+38, -300*horizontal+38, 0))
     room.set_editor_property('room_maximum', u.Vector(450*horizontal-38, 300*horizontal-38, 320))
-    # The entrance opens straight into a deep stone hall. Let the eye adapt over the
-    # first few steps while the village's daylight system retains the exterior exposure.
-    room.set_editor_property('entrance_transition_cm', 78.)
-    room.set_editor_property('additional_dark_adaptation_stops', 3.1)
-    room.set_editor_property('exposure_compensation', .92)
+    apply_daylight(room, TAVERN_DAYLIGHT)
 
 
 def build_tavern(house, pieces, plan, shape):
@@ -217,7 +215,10 @@ def build_tavern(house, pieces, plan, shape):
             comp.set_visibility(False)
             comp.set_hidden_in_game(True)
             comp.set_collision_enabled(u.CollisionEnabled.NO_COLLISION)
+    pendant = hang(anchor,frame,TAVERN)
+    from trade_sign_layout import hang_trade
+    hang_trade(anchor,frame,'Tavern')
     chimney = attach_chimney(anchor)
-    return dict(house=house[0], states=['Ruined','Repaired'], anchor=SITE_TAG, chimney=chimney,
+    return dict(house=house[0], states=['Ruined','Repaired'], anchor=SITE_TAG, chimney=chimney,counter_pendant=pendant,
                 footprint_cm=[900*xy_scale,600*xy_scale], centre_m=shape['center'],
                 heading=house[5]-90., shell_instances=sum(map(len,batches.values())))

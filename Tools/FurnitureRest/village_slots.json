@@ -1,0 +1,29 @@
+[
+  {
+    "mesh": "/Game/WorldGeneration/TemperateHills/VillageBlacksmith/ArtPassR2/Meshes/SM_VillageOakStool.SM_VillageOakStool",
+    "caption": "橡木凳", "backless": true,
+    "fitted_component_tags": ["VillageShop.Repaired","VillageCarpenter.Repaired","VillageCarpenter.Ruined","VillageHerbalist.Repaired","VillageBakery.Restored","VillageGunshop.Restored"],
+    "slots": [{"kind":"Chair","seat":[0,0,46],"yaw":0}]
+  },
+  {
+    "mesh": "/Game/WorldGeneration/VillageTavern/Furniture/SM_TavernStool.SM_TavernStool",
+    "caption": "餐凳", "backless": true,
+    "fitted_component_tags": ["VillageBakery.Restored","VillageTavern.RestStool"],
+    "slots": [{"kind":"Chair","seat":[0,0,46],"yaw":0}]
+  },
+  {
+    "mesh": "/Game/WorldGeneration/TemperateHills/VillageBlacksmith/ArtPassR2/Meshes/SM_VillageTimberBed.SM_VillageTimberBed",
+    "caption": "木床", "either_bed_side": true,
+    "fitted_component_tags": ["VillageShop.Repaired","VillageCarpenter.Repaired","VillageHerbalist.Repaired","VillageBakery.Restored","VillageGunshop.Restored","VillageBakery.Ruin","VillageGunshop.Ruin"],
+    "slots": [{"kind":"Hospital","seat":[0,8,52],"yaw":-90}]
+  },
+  {
+    "mesh": "/Game/MilitaryTrench/Assets/3D/Mil_Trench_Bench_Wood_01/StaticMeshes/SM_Mil_Trench_Bench_Wood_01.SM_Mil_Trench_Bench_Wood_01",
+    "caption": "等候长凳", "auto_select_free_slot": true,
+    "fitted_component_tags": ["VillageGunshop.Restored"],
+    "slots": [
+      {"kind":"Bench","seat":[-66,37,60],"focus":[-66,28,60],"yaw":90,"label":"左座"},
+      {"kind":"Bench","seat":[43,37,58.5],"focus":[43,28,58.5],"yaw":90,"label":"右座"}
+    ]
+  }
+]

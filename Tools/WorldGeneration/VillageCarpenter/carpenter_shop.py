@@ -6,9 +6,13 @@ from pathlib import Path
 import unreal as u
 
 from author_shop import CRATE, KIT, pose, require, standing
-from carpenter_pendant import LANTERN, component, install_pendant
+from carpenter_pendant import install_pendant
+from shop_pendants import LOFT as LOFT_PENDANT, component, hang
 from carpenter_shell import assemble_shell
 from carpenter_weapon_display import STATIC_DISPLAY, add_weapon_display
+from room_daylight import SHOP_DAYLIGHT, apply_daylight
+from YardDetail.layout import TAG as YARD_DETAIL, place_detail
+from Interior.layout import TAG as INTERIOR_DETAIL, furnish as furnish_interior, install_chest
 
 ROOT = Path(__file__).resolve().parents[3]
 PROPS = '/Game/WorldGeneration/TemperateHills/VillageCarpenter/Props/SM_Carpenter'
@@ -50,8 +54,8 @@ def furnish(house, add):
     # Stock is received in the forecourt, seasoned on the east side, cut at the
     # powered bench in the rear corner and finished at the street-side hand table.
     prop('Common','Block',-246,-529,SOIL,18)
-    prop('Repaired','LogStack',-234,-703,SOIL,9)
-    prop('Repaired','DryingRack',520,-150,SOIL,87)
+    place_detail(house,add)
+    furnish_interior(house,add)
     prop('Ruined','SpoiledStock',-226,-700,SOIL,-12)
     prop('Ruined','SpoiledStock',512,-167,SOIL,72,.86)
     place('Ruined',KIT+'AbandonedTimber',-156,-260,0,-21,.85)
@@ -63,10 +67,6 @@ def furnish(house, add):
     prop('Repaired','Tools',328,-199,HAND_TABLE_TOP,-95,profile='NoCollision')
     place('Repaired',KIT+'OakShelf',345,-50,RACK_BASE,90)
     place('Repaired',CRATE,346,-50,RACK_BASE+13.5,0,.28)
-    for x,y,z,yaw,scale in [(-216,-574,SOIL+.04,-27,.80),(-276,-552,SOIL+.04,73,.48),
-                             (125,130,-.73,-72,.85),(116,170,-2.61,-129,.40),
-                             (281,-191,-1.07,-77,.68),(278,-253,-.83,-146,.42)]:
-        prop('Repaired','Shavings',x,y,z,yaw,scale,profile='NoCollision')
 
     # Register the current production tool by its real blade tip, then rotate
     # the handle away from the chopping face. It is an authored scenic axe.
@@ -85,7 +85,6 @@ def furnish(house, add):
     place('Repaired',CRATE,79,136,LOFT,-6,.53)
     place('Repaired',KIT+'OakTable',200,-265,LOFT,0)
     place('Repaired',KIT+'OakStool',182,-172,LOFT,-13)
-    small(LANTERN,237,-274,LOFT+76.5,18,30)
     book=QUX+'Book_43a26a5c/Meshes/SM_Book_43a26a5c'
     ledger=QUX+'Book_634f4e59/Meshes/SM_Book_634f4e59'
     linen=QUX+'FoldedTowel_72036b54/Meshes/SM_FoldedTowel_72036b54'
@@ -95,8 +94,6 @@ def furnish(house, add):
     small(book,39,315,LOFT+117.5*.87+h,6,20,90)
     place('Ruined',KIT+'AbandonedTimber',239,230,LOFT,8,.89)
     place('Ruined',KIT+'OakStool',245,-252,LOFT,-38)
-    # Bolt the sign under the front lintel, above the right-hand working bay.
-    add('Common',PROPS+'Sign',pose(house,155,-405,282),profile='NoCollision')
     add('Ruined',KIT+'ClosedPlaque',pose(house,-365,-405,146),profile='NoCollision')
 
 
@@ -105,9 +102,7 @@ def vision_room(room,house):
     room.set_actor_transform(pose(house,0,0),False,False)
     room.set_editor_property('room_minimum',u.Vector(*ROOM_MIN))
     room.set_editor_property('room_maximum',u.Vector(*ROOM_MAX))
-    room.set_editor_property('additional_dark_adaptation_stops',2.25)
-    room.set_editor_property('exposure_compensation',.65)
-    room.set_editor_property('entrance_transition_cm',100.)
+    apply_daylight(room, SHOP_DAYLIGHT['04'])
 
 
 def build_workshop(house):
@@ -150,25 +145,22 @@ def build_workshop(house):
             if path.endswith('Shavings') or path.startswith(QUX):
                 comp.set_cast_shadow(False)
                 comp.set_cull_distance(2800.)
+            if YARD_DETAIL in extra and profile=='NoCollision':
+                comp.set_cull_distance(2200.)
+            if INTERIOR_DETAIL in extra:
+                comp.set_editor_property('generate_overlap_events',False)
+                if profile=='NoCollision':
+                    comp.set_cast_shadow(False)
+                    comp.set_cull_distance(2200.)
             if state=='Repaired':
                 comp.set_visibility(False)
                 comp.set_hidden_in_game(True)
                 comp.set_collision_enabled(u.CollisionEnabled.NO_COLLISION)
 
     ground_floor_lantern = install_pendant(house,assemblies['Repaired'])
-    # The upstairs reading light stays on the bedroom table.
-    lamp=component(assemblies['Repaired'],u.PointLightComponent)
-    lamp.set_mobility(u.ComponentMobility.MOVABLE)
-    lamp.set_world_location(pose(house,237,-274,LOFT+98).translation,False,True)
-    lamp.set_editor_property('intensity_units',u.LightUnits.LUMENS)
-    lamp.set_intensity(270.)
-    lamp.set_attenuation_radius(300.)
-    lamp.set_light_color(u.LinearColor(1.,.69,.40,1.))
-    lamp.set_cast_shadows(False)
-    lamp.set_editor_property('max_draw_distance',2400.)
-    lamp.set_editor_property('max_distance_fade_range',400.)
-    lamp.component_tags=['VillageCarpenter.Repaired']
-    lamp.set_visibility(False)
+    from trade_sign_layout import hang_trade
+    hang_trade(assemblies['Common'],pose(house,0,0),'Carpenter')
+    loft_lantern = hang(assemblies['Repaired'],pose(house,0,0),LOFT_PENDANT)
 
     station=actors.spawn_actor_from_class(u.HillsCarpenterWorkshop,u.Vector())
     station.set_actor_label('Village_04_Carpenter_Workbench')
@@ -182,6 +174,7 @@ def build_workshop(house):
     body.set_static_mesh(mesh)
     body.set_editor_property('receives_decals',False)
     station.set_editor_property('shop_assemblies',list(assemblies.values()))
+    install_chest(house,station,actors)
     # Both anchors belong to the house. Express them in the rotated station frame.
     resident = pose(house,245,-175,.12,-29)
     station.set_editor_property('resident_pose',u.MathLibrary.make_relative_transform(resident,station_pose))
@@ -191,4 +184,5 @@ def build_workshop(house):
     return dict(house=house[0],station_mesh=mesh.get_path_name(),assemblies=list(assemblies),
                 station_pose_house_cm_yaw=STATION,resident_feet_house_cm=[245,-175,.12],
                 instances={s:sum(len(v) for k,v in groups.items() if k[0]==s) for s in assemblies},
-                loft_floor_cm=LOFT,authored_windows=3,weapon_display=display,ground_floor_lantern=ground_floor_lantern)
+                loft_floor_cm=LOFT,authored_windows=3,weapon_display=display,ground_floor_lantern=ground_floor_lantern,
+                loft_lantern=loft_lantern)

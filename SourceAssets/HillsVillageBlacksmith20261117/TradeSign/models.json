@@ -1,0 +1,82 @@
+[
+  {
+    "name": "SM_SmithTradeSign",
+    "file": "SM_SmithTradeSign.fbx",
+    "triangles": [
+      4832,
+      2904,
+      1792
+    ],
+    "boxes": []
+  },
+  {
+    "name": "SM_SmithTongStand",
+    "file": "SM_SmithTongStand.fbx",
+    "triangles": [
+      1920,
+      1440,
+      1024
+    ],
+    "boxes": [
+      [
+        [
+          0,
+          0,
+          38
+        ],
+        [
+          66,
+          10,
+          76
+        ]
+      ]
+    ]
+  },
+  {
+    "name": "SM_SmithWheelAndCases",
+    "file": "SM_SmithWheelAndCases.fbx",
+    "triangles": [
+      14092,
+      9518,
+      5858
+    ],
+    "boxes": [
+      [
+        [
+          0,
+          0,
+          22
+        ],
+        [
+          91,
+          55,
+          44
+        ]
+      ],
+      [
+        [
+          11,
+          3.5,
+          62.5
+        ],
+        [
+          62,
+          43,
+          37
+        ]
+      ],
+      [
+        [
+          17,
+          42,
+          35
+        ],
+        [
+          74,
+          12,
+          69
+        ]
+      ]
+    ]
+  }
+]
