@@ -281,7 +281,8 @@
         "ue_steel_warhammer",
         "ue_zhanmadao",
         "ue_runebound_warhammer",
-        "ue_thunder_god_hammer"
+        "ue_thunder_god_hammer",
+        "ue_forged_steel_greatsword"
       ],
       "options": [
         {
@@ -297,7 +298,8 @@
             "ue_steel_warhammer",
             "ue_zhanmadao",
             "ue_runebound_warhammer",
-            "ue_thunder_god_hammer"
+            "ue_thunder_god_hammer",
+            "ue_forged_steel_greatsword"
           ],
           "effects": [
             {
@@ -328,7 +330,8 @@
             "ue_steel_warhammer",
             "ue_zhanmadao",
             "ue_runebound_warhammer",
-            "ue_thunder_god_hammer"
+            "ue_thunder_god_hammer",
+            "ue_forged_steel_greatsword"
           ],
           "effects": [
             {
@@ -359,7 +362,8 @@
             "ue_steel_warhammer",
             "ue_zhanmadao",
             "ue_runebound_warhammer",
-            "ue_thunder_god_hammer"
+            "ue_thunder_god_hammer",
+            "ue_forged_steel_greatsword"
           ],
           "effects": [
             {
@@ -395,7 +399,8 @@
             "ue_steel_warhammer",
             "ue_zhanmadao",
             "ue_runebound_warhammer",
-            "ue_thunder_god_hammer"
+            "ue_thunder_god_hammer",
+            "ue_forged_steel_greatsword"
           ],
           "stats": {
             "melee_critical_chance_add": 10.0,
@@ -431,7 +436,8 @@
             "ue_steel_warhammer",
             "ue_zhanmadao",
             "ue_runebound_warhammer",
-            "ue_thunder_god_hammer"
+            "ue_thunder_god_hammer",
+            "ue_forged_steel_greatsword"
           ],
           "stats": {
             "physical_damage_mult": 1.15,
@@ -1839,6 +1845,13 @@
           "text": "攻击距离 +25%"
         }
       ]
+    },
+    {
+      "id": "ue_forged_steel_greatsword",
+      "traits": [],
+      "factory_icon_sources": {
+        "blade_material": "ue_forged_steel_greatsword_blade_material_false"
+      }
     }
   ]
 }

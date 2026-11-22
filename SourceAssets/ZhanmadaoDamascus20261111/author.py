@@ -20,7 +20,7 @@ profiles = {}
 for choice, family in families.items():
     source = old['zhanmadao/' + choice]['source']
     bpy.ops.wm.read_factory_settings(use_empty=True)
-    bpy.ops.import_scene.fbx(filepath=source)
+    bpy.ops.import_scene.fbx(filepath=str(P.parents[1] / source))
     objects = [o for o in bpy.context.scene.objects if o.type == 'MESH']
     objects = [o for o in objects if 'LOD0' in o.name] or objects
     triangles = []

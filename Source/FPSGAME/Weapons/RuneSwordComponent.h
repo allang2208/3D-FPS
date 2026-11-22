@@ -24,6 +24,7 @@ class USoundBase;
 class UColdSteelStatusModel;
 class UStaticMesh;
 class UStaticMeshComponent;
+class UMeshComponent;
 class USceneComponent;
 class UMaterialInstanceDynamic;
 class UMaterialInterface;
@@ -100,6 +101,7 @@ public:
     FString UppercutStatusText() const;
     bool BeginWhirlwind();
     bool IsWhirlwindActive() const { return bWhirlwind; }
+    UMaterialInterface* EquipmentSurface(UMeshComponent* Mesh,int32 Slot,bool bOverlay) const;
     bool TryBeginDashAttack();
     bool IsDashAttackActive() const { return bDashAttack; }
     float DashReadyFraction() const;
@@ -217,6 +219,8 @@ private:
     };
     TArray<FWhirlwindDepthState> WhirlwindDepthStates;
     void BeginWhirlwindFocus();
+    void ApplyWhirlwindForeground();
+    void RestoreWhirlwindForeground();
     void SetWhirlwindFocus(float Strength);
     void EndWhirlwindFocus();
     void TickWhirlwind(float Delta);

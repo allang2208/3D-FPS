@@ -86,15 +86,14 @@ def remove_old_damascus(code):
     return code if bypass in code else bypass+code
 
 
-def apply(material, choice):
-    profile = PROFILES[choice]
-    texture_path = D+'/Textures/T_Damascus_'+profile['family']+'_Field'
+def load_field_texture(family):
+    texture_path = D+'/Textures/T_Damascus_'+family+'_Field'
     texture = u.load_asset(texture_path)
     if not texture:
         # The older blade makers run in isolated asset hosts. Stage the new
         # dependency there as part of rebuilding, instead of losing V2 on export.
         task = u.AssetImportTask()
-        task.filename = str(P/'Textures'/('Damascus_'+profile['family']+'_Field.png'))
+        task.filename = str(P/'Textures'/('Damascus_'+family+'_Field.png'))
         task.destination_path, task.destination_name = texture_path.rsplit('/', 1)
         task.automated = True; task.save = False; task.factory = u.TextureFactory()
         u.AssetToolsHelpers.get_asset_tools().import_asset_tasks([task])
@@ -106,6 +105,12 @@ def apply(material, choice):
             mip_gen_settings=u.TextureMipGenSettings.TMGS_SIMPLE_AVERAGE))
         E.set_metadata_tag(texture, 'ZhanmadaoDamascusRevision', ART_REV)
         if not E.save_loaded_asset(texture, False): raise RuntimeError('Cannot save Damascus dependency')
+    return texture
+
+
+def apply(material, choice):
+    profile = PROFILES[choice]
+    texture = load_field_texture(profile['family'])
     # Keep the old finishes, but remove their superseded mode-4 branch rather
     # than computing two Damascus surfaces and mixing their roughness/normals.
     for value in nodes(material):

@@ -25,3 +25,7 @@
 ## 专属材质、独立剑身与充能剑火
 
 详见[维护源](../../_shared/ue5-weapon-workflow/references/modular-sword-materials.md)中的同名章节。
+
+## 大马士革钢 V3、专属钢材与旋风换装
+
+本节见[钢纹铺设、专属材质恢复与旋风换装](../../_shared/ue5-weapon-workflow/references/modular-sword-materials.md#大马士革钢-v3专属钢材与旋风换装)。

@@ -265,7 +265,13 @@ void URuneSwordComponent::RefreshModularSword(const FColdSteelItem* Item)
         ModularSword->SetVisibility(Viewmodel->IsVisible());ModularSword->RegisterComponent();
     }
     ModularSword->SetRelativeTransform(ColdSteelModularSword::BoneMount(*Item));
+    // Refit the ordinary surfaces first. Otherwise the end of the skill would
+    // restore the previous loadout over a newly equipped blade, finish or rune.
+    const bool RefitDuringWhirlwind=!WhirlwindDepthStates.IsEmpty()&&
+        !ModularSword->ComponentHasTag(FName(*(TEXT("FrostSwordVisual=")+ColdSteelModularSword::Key(*Item))));
+    if(RefitDuringWhirlwind)RestoreWhirlwindForeground();
     ColdSteelModularSword::Apply(ModularSword,*Item);
+    if(RefitDuringWhirlwind)ApplyWhirlwindForeground();
     ModularBladeBase=ColdSteelModularSword::BladePoint(*Item,false);ModularBladeTip=ColdSteelModularSword::BladePoint(*Item,true);
 }
 

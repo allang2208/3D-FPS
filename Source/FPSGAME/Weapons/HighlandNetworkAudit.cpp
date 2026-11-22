@@ -5,6 +5,9 @@
 #include "Components/StaticMeshComponent.h"
 #include "HighlandRidgeThrust.h"
 #include "ModularSwordVisual.h"
+#include "../Characters/FPSBodyRuneVisual.h"
+#include "../Characters/FPSPlayerBodyTypes.h"
+#include "Materials/MaterialInterface.h"
 #include "../Development/KukriCombatWireAudit.h"
 #include "../Monsters/NurseZombie.h"
 #include "Camera/CameraComponent.h"
@@ -277,6 +280,34 @@ int32 URuneSwordAuditCommandlet::AuditHighlandNetwork(const FString& Params)
         Check(Started && LocalDamage.bKilled && LocalSword->SwingSkills.GalePaymentKey &&
             FMath::IsNearlyEqual(LocalStart,Host->Stamina(),.002f) && LocalSword->GaleMoveScale()==1.25f,
             TEXT("standalone swing stamps its payment and an actual lethal contact activates the guard"));
+        // Exercise the material lifecycle directly, including an equipment update
+        // on the same instance while its foreground shader is installed.
+        LocalSword->CancelAction();
+        auto Refit=Item;
+        TSharedPtr<FJsonObject> RefitData;
+        FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Refit.Data),RefitData);
+        const auto RefitParts=RefitData->GetObjectField(TEXT("gunsmith_parts"));
+        RefitParts->SetStringField(TEXT("blade_material"),TEXT("mithril"));
+        RefitParts->SetStringField(TEXT("blade_2"),TEXT("haste_rune"));
+        Refit.Data.Reset();FJsonSerializer::Serialize(RefitData,TJsonWriterFactory<>::Create(&Refit.Data));
+        auto* Blade=LocalSword->ModularSword.Get();
+        if(Blade)
+        {
+            const auto* EquippedSteel=Blade->GetMaterial(0);
+            LocalSword->BeginWhirlwindFocus();
+            Check(EquippedSteel&&LocalSword->EquipmentSurface(Blade,0,false)==EquippedSteel&&Blade->GetMaterial(0)!=EquippedSteel,
+                TEXT("world capture retains the equipped blade while the first-person temporal shader is active"));
+            LocalSword->RefreshModularSword(&Refit);
+            FFPSBodyAttachment RefitView;FPSBodyRuneVisual::Capture(Blade,&Refit,RefitView,LocalSword);
+            auto* NewSteel=LocalSword->EquipmentSurface(Blade,0,false);
+            float Mode=-1.f;
+            Check(RefitView.RuneId==TEXT("haste_rune")&&RefitView.BladeFinishMode==3&&NewSteel&&NewSteel!=Blade->GetMaterial(0)
+                &&NewSteel->GetScalarParameterValue(FMaterialParameterInfo(TEXT("BladeFinishMode")),Mode)&&Mode==3.f,
+                TEXT("a refit during whirlwind updates the world finish and rune"));
+            LocalSword->EndWhirlwindFocus();
+            Check(Blade->GetMaterial(0)==NewSteel,TEXT("whirlwind exit restores the new finish after a refit"));
+        }
+        else Check(false,TEXT("whirlwind material audit has an equipped blade"));
         Configure(true);Model->AdoptNetMirror(Seed);
         const uint64 Other=GaleWing::Key(GaleWing::EAttack::Chain,83);
         Sword->RecordGalePayment(Other,Item.InstanceId,0.f);

@@ -2,6 +2,7 @@
 #include "FPSPlayerBodyTypes.h"
 #include "../Weapons/MeleeRuneVisual.h"
 #include "../Weapons/ModularSwordVisual.h"
+#include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/FrostSwordRunes.h"
 #include "../UI/ColdSteelInventoryTypes.h"
 #include "Components/StaticMeshComponent.h"
@@ -21,7 +22,7 @@ UMaterialInstanceDynamic* RuneMaterial(UMaterialInterface* Material)
 }
 }
 
-void FPSBodyRuneVisual::Capture(UStaticMeshComponent* Source,const FColdSteelItem* Item,FFPSBodyAttachment& Out)
+void FPSBodyRuneVisual::Capture(UStaticMeshComponent* Source,const FColdSteelItem* Item,FFPSBodyAttachment& Out,const URuneSwordComponent* Whirlwind)
 {
     if(!Source||!Item||(!ColdSteelInventory::IsTwoHandedSword(*Item)&&!ColdSteelInventory::IsTwoHandedBlunt(*Item)))return;
     const bool Blade=Source->ComponentHasTag(TEXT("SwordSlot=blade_1"));
@@ -46,8 +47,8 @@ void FPSBodyRuneVisual::Capture(UStaticMeshComponent* Source,const FColdSteelIte
     }
     for(int32 Slot=0;Slot<Source->GetNumMaterials();++Slot)
     {
-        auto* MID=RuneMaterial(Source->GetOverlayMaterial(true,Slot));
-        if(!MID)MID=RuneMaterial(Source->GetMaterial(Slot));
+        auto* MID=RuneMaterial(Whirlwind?Whirlwind->EquipmentSurface(Source,Slot,true):Source->GetOverlayMaterial(true,Slot));
+        if(!MID)MID=RuneMaterial(Whirlwind?Whirlwind->EquipmentSurface(Source,Slot,false):Source->GetMaterial(Slot));
         if(!MID)continue;
         const bool NativeGold=MID->GetBaseMaterial()->GetName()==TEXT("M_AzureRunesword_NativeGold");
         if(!NativeGold&&MID->K2_GetScalarParameterValue(TEXT("RuneMode"))<0.f)continue;
@@ -92,6 +93,6 @@ FString FPSBodyRuneVisual::Key(const FFPSBodyAttachment& Description)
     if(Description.BladeFinishMode!=0||Description.bBladeFinishGuardRoot)
         Result+=FString::Printf(TEXT("|bladeFinishRootV1:%u:%d"),Description.BladeFinishMode,Description.bBladeFinishGuardRoot);
     if(Description.BladeFinishMode==4)
-        Result+=FString::Printf(TEXT("|damascusV2:%u"),Description.BladeFinishSeed);
+        Result+=FString::Printf(TEXT("|damascus:%u"),Description.BladeFinishSeed);
     return Result;
 }

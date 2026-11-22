@@ -78,6 +78,8 @@ for path, choice in targets.items():
     material = u.load_asset(path)
     if not material: raise RuntimeError('Missing current blade surface '+path)
     recipe['apply'](material, choice)
+    if path.split('.')[0].endswith('_Whirlwind'):
+        runpy.run_path(str(P/'temporal_finishes.py'))['restore'](material)
     save(material, choice)
     print('DAMASCUS_V2_SAVED', choice, len(receipt['assets']), flush=True)
 receipt['complete'] = True; record()

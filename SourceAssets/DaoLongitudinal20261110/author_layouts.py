@@ -56,7 +56,7 @@ for key, path in sources.items():
     z_start, z_end, z_center = [low + f * (high - low) for f in [start, end, center]]
     span_z = np.linspace(z_start, z_end, 25)
     reference_width = float(np.interp(span_z, stations, widths).min())
-    result[key] = {'source': str(path), 'z_cm': stations.tolist(), 'center_x_cm': centers,
+    result[key] = {'source': path.relative_to(ROOT).as_posix(), 'z_cm': stations.tolist(), 'center_x_cm': centers,
                    'width_cm': widths, 'arc_cm': arc.tolist(), 'blade_z_cm': [low, high],
                    'lane_u_center': fraction, 'lane_width_fraction': width_fraction,
                    'display_arc_cm': np.interp([z_start, z_end, z_center], stations, arc).tolist(),

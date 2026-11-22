@@ -50,6 +50,16 @@ void URuneSwordComponent::BeginWhirlwindFocus()
     // blur would smear the already masked foreground before this pass runs.
     Camera->PostProcessSettings.bOverride_MotionBlurAmount=true;
     Camera->PostProcessSettings.MotionBlurAmount=0.f;
+    ApplyWhirlwindForeground();
+    if(WhirlwindFocusMaterial)
+    {
+        WhirlwindFocusMaterial->SetScalarParameterValue(TEXT("Strength"),0.f);
+        Camera->PostProcessSettings.RemoveBlendable(WhirlwindFocusMaterial);
+    }
+}
+
+void URuneSwordComponent::ApplyWhirlwindForeground()
+{
     const auto Materials=ForegroundMaterials();
     TArray<USceneComponent*> Parts;Viewmodel->GetChildrenComponents(true,Parts);
     Parts.Add(Viewmodel);
@@ -75,11 +85,16 @@ void URuneSwordComponent::BeginWhirlwindFocus()
         Primitive->SetCustomDepthStencilValue(231);
         Primitive->SetRenderCustomDepth(true);
     }
-    if(WhirlwindFocusMaterial)
-    {
-        WhirlwindFocusMaterial->SetScalarParameterValue(TEXT("Strength"),0.f);
-        Camera->PostProcessSettings.RemoveBlendable(WhirlwindFocusMaterial);
-    }
+}
+
+UMaterialInterface* URuneSwordComponent::EquipmentSurface(UMeshComponent* Mesh,int32 Slot,bool bOverlay) const
+{
+    // A world attachment always carries its equipped surface, including a rune's
+    // MID overrides. The temporal replacement belongs to the first-person pass.
+    for(const auto& Saved:WhirlwindDepthStates)
+        if(Saved.Primitive.Get()==Mesh&&Saved.Materials.IsValidIndex(Slot))
+            return bOverlay?Saved.OverlayMaterials[Slot].Get():Saved.Materials[Slot].Get();
+    return bOverlay?Mesh->GetOverlayMaterial(true,Slot):Mesh->GetMaterial(Slot);
 }
 
 void URuneSwordComponent::SetWhirlwindFocus(float Strength)
@@ -103,6 +118,11 @@ void URuneSwordComponent::SetWhirlwindFocus(float Strength)
 void URuneSwordComponent::EndWhirlwindFocus()
 {
     if(Camera&&WhirlwindFocusMaterial)Camera->PostProcessSettings.RemoveBlendable(WhirlwindFocusMaterial);
+    RestoreWhirlwindForeground();
+}
+
+void URuneSwordComponent::RestoreWhirlwindForeground()
+{
     for(const auto& Saved:WhirlwindDepthStates)
         if(auto* Primitive=Saved.Primitive.Get())
         {

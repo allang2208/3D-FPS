@@ -112,6 +112,16 @@ TSharedPtr<FJsonObject> Part(const FColdSteelItem& Item,const TCHAR* Slot,const 
     if(!(*Choices)->TryGetObjectField(Selected,Spec)&&!(*Choices)->TryGetObjectField(TEXT("factory"),Spec))return nullptr;
     return *Spec;
 }
+// A guard can keep its selected wings and finish while using a blade-specific socket.
+FString PartMeshPath(const TSharedPtr<FJsonObject>& Spec,const FGunsmithParts& Parts)
+{
+    FString Path;
+    const TSharedPtr<FJsonObject>* Fitted=nullptr;
+    if(Spec->TryGetObjectField(TEXT("mesh_by_blade"),Fitted)&&(*Fitted)->TryGetStringField(Parts.FindRef(TEXT("blade_1")),Path))
+        return Path;
+    Spec->TryGetStringField(TEXT("mesh"),Path);
+    return Path;
+}
 TArray<FString> ModuleSlots(const FColdSteelItem& Item)
 {
     const auto Root=Catalog(Item);const TArray<TSharedPtr<FJsonValue>>* Slots=nullptr;
@@ -173,7 +183,8 @@ TArray<ColdSteelModularSword::FModuleGeometry> ColdSteelModularSword::DescribeGe
     for(const FString& Slot:ModuleSlots(Item))if(const auto Spec=Part(Item,*Slot,Parts))
     {
         bool Hidden=false;Spec->TryGetBoolField(TEXT("hidden"),Hidden);
-        FString Mesh;if(Hidden||!Spec->TryGetStringField(TEXT("mesh"),Mesh)||Mesh.IsEmpty())continue;
+        if(Hidden)continue;
+        const FString Mesh=PartMeshPath(Spec,Parts);if(Mesh.IsEmpty())continue;
         FModuleGeometry Entry;Entry.Slot=Slot;Entry.Mesh=Mesh;Entry.bRoot=Slot==Primary;
         Entry.RelativeTransform=Entry.bRoot?FTransform::Identity:ModuleTransform(Item,Slot,Spec,Parts);
         // Explicit slot order lets remote equipment carry the same persistent
@@ -256,9 +267,9 @@ void ColdSteelModularSword::GatherVisualResources(const FColdSteelItem& Item,TAr
         Add(ColdSteelFrostRunes::JingangMask);
     if(Item.Definition==ColdSteelFrostRunes::Zhanmadao&&Parts.FindRef(TEXT("blade_2"))==ColdSteelFrostRunes::Beiwei)
         Add(ColdSteelFrostRunes::BeiweiMask);
-    const auto Gather=[&Add](const TSharedPtr<FJsonObject>& Spec)
+    const auto Gather=[&Add,&Parts](const TSharedPtr<FJsonObject>& Spec)
     {
-        FString Mesh; if(Spec->TryGetStringField(TEXT("mesh"),Mesh))Add(Mesh);
+        const FString Mesh=PartMeshPath(Spec,Parts);if(!Mesh.IsEmpty())Add(Mesh);
         const TSharedPtr<FJsonObject>* Materials=nullptr;
         for(const TCHAR* Field:{TEXT("materials"),TEXT("surface_materials")})
             if(Spec->TryGetObjectField(Field,Materials))
@@ -340,8 +351,10 @@ FString ColdSteelModularSword::Key(const FColdSteelItem& Item,const FGunsmithPar
     if(IncludeRune)Result+=TEXT("|rune=")+Parts.FindRef(ColdSteelFrostRunes::Slot(Item.Definition));
     if(ColdSteelInventory::IsTwoHandedSword(Item)||ColdSteelInventory::IsTwoHandedBlunt(Item))
         Result+=TEXT("|blade_material=")+Parts.FindRef(TEXT("blade_material"))+TEXT("|bladeFinishScope=shared20261101");
-    if(Item.Definition==TEXT("ue_zhanmadao")&&Parts.FindRef(TEXT("blade_material"))==TEXT("damascus_steel"))
-        Result+=FString::Printf(TEXT("|damascusV2:%u"),BladeFinishSeed(Item,Draft));
+    if(Item.Definition==TEXT("ue_highland_claymore")&&Parts.FindRef(TEXT("blade_1"))==TEXT("highland_broadblade"))
+        Result+=TEXT("|broadbladeGuardFinish=20261106-r1");
+    if(Parts.FindRef(TEXT("blade_material"))==TEXT("damascus_steel"))
+        Result+=FString::Printf(TEXT("|damascus:%u"),BladeFinishSeed(Item,Draft));
     if(Item.Definition==TEXT("ue_frost_crystal_sword")&&Parts.FindRef(TEXT("blade_material"))==TEXT("high_energy_magic_crystal"))
         Result+=TEXT("|crystalGlass=20261102-v2");
     if(ColdSteelFrostRunes::IsWarhammer(Item.Definition))Result+=TEXT("|runePlacement=shaft-wrap-v2");
@@ -386,19 +399,24 @@ uint8 ColdSteelModularSword::BladeFinishMode(const FColdSteelItem& Item,const FG
 
 uint32 ColdSteelModularSword::BladeFinishSeed(const FColdSteelItem& Item,const FGunsmithParts* Draft)
 {
-    if(Item.Definition!=TEXT("ue_zhanmadao")||BladeFinishMode(Item,Draft)!=4)return 0;
+    if(BladeFinishMode(Item,Draft)!=4)return 0;
     // The existing saved item ID owns the appearance. No reroll on assembly,
     // workbench drafts, drop/pickup or remote reconstruction. Keep float-exact bits.
+    // Retain the original salt so existing Zhanmadao blades keep their pattern.
     const FString Identity=TEXT("ZhanDamascusV2|")+(Item.InstanceId.IsEmpty()?Item.Definition:Item.InstanceId);
     return 1u+FCrc::StrCrc32(*Identity)%16777215u;
 }
 
-bool ColdSteelModularSword::IsBladeFinishCarrier(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item)
+bool ColdSteelModularSword::IsBladeFinishCarrier(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item,const FGunsmithParts* Draft)
 {
     if(!Mesh)return false;
     if(ColdSteelInventory::IsTwoHandedBlunt(Item))return Mesh->ComponentHasTag(TEXT("SwordSlot=hammer_heads"));
-    return ColdSteelInventory::IsTwoHandedSword(Item)&&(Mesh->ComponentHasTag(TEXT("SwordSlot=blade_1"))||
-        (Item.Definition==TEXT("ue_rune_sword")&&Mesh->ComponentHasTag(TEXT("SwordSlot=guard"))));
+    if(!ColdSteelInventory::IsTwoHandedSword(Item))return false;
+    if(Mesh->ComponentHasTag(TEXT("SwordSlot=blade_1")))return true;
+    if(!Mesh->ComponentHasTag(TEXT("SwordSlot=guard")))return false;
+    return Item.Definition==TEXT("ue_rune_sword")||
+        (Item.Definition==TEXT("ue_highland_claymore")&&
+         Installed(Item,Draft).FindRef(TEXT("blade_1"))==TEXT("highland_broadblade"));
 }
 
 void ColdSteelModularSword::ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot,uint32 FinishSeed)
@@ -470,7 +488,7 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
         const auto Spec=Part(Item,*Slot,Parts);if(!Spec)return false;
         bool Hidden=false;Spec->TryGetBoolField(TEXT("hidden"),Hidden);
         if(Hidden&&Slot!=PrimarySlot)continue;
-        auto* Asset=LoadObject<UStaticMesh>(nullptr,*Spec->GetStringField(TEXT("mesh")));if(!Asset)return false;
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,*PartMeshPath(Spec,Parts));if(!Asset)return false;
         Plan.Add({Slot,Spec,Asset,{}});
         const TSharedPtr<FJsonObject>* Adapter=nullptr;
         if(Slot==TEXT("pommel")&&Spec->TryGetObjectField(TEXT("adapter"),Adapter))
@@ -567,11 +585,10 @@ bool ColdSteelModularSword::Apply(UStaticMeshComponent* Blade,const FColdSteelIt
             ColdSteelMeleeRune::Apply(Module,IncludeRune&&(Parts.FindRef(TEXT("blade_2"))==TEXT("golden_glow_rune")||Parts.FindRef(TEXT("blade_2"))==TEXT("silver_glow_rune"))?
                 Parts.FindRef(TEXT("blade_2")):FString(),Item.Definition);
     }
-    // Rune selection happens first. Only authored blade/head carriers receive
-    // the finish; the rune sword additionally retains its UV-isolated root.
+    // The fitted broadblade guard shares the finish with the blade. Its material protects the inlay.
     const uint8 FinishMode=BladeFinishMode(Item,Draft);
     const uint32 FinishSeed=BladeFinishSeed(Item,Draft);
-    for(auto* Module:Components(Blade))if(IsBladeFinishCarrier(Module,Item))
+    for(auto* Module:Components(Blade))if(IsBladeFinishCarrier(Module,Item,Draft))
         ApplyBladeFinish(Module,FinishMode,Item.Definition==TEXT("ue_rune_sword")&&Module->ComponentHasTag(TEXT("SwordSlot=guard")),FinishSeed);
     bool TraceFromAnimation=false;Catalog(Item)->TryGetBoolField(TEXT("trace_from_animation"),TraceFromAnimation);
     const FName TraceTag(TEXT("SwordTraceFromAnimation"));

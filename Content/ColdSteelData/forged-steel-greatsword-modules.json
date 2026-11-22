@@ -1,0 +1,667 @@
+{
+  "version": 1,
+  "drive_bone": "WPN_root",
+  "arms_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+  "bone_mount": {
+    "location_cm": [
+      2.2488592227634334e-08,
+      4.251949004085439e-08,
+      -4.767004840075173e-08
+    ],
+    "scale": [
+      0.009999999098201857,
+      0.010000002674481073,
+      0.010000000290294644
+    ],
+    "rotation_xyzw": [
+      9.694049930993584e-08,
+      -1.471765408433967e-07,
+      -2.965553125000755e-08,
+      -0.999999999999984
+    ]
+  },
+  "hand_fit": {
+    "right_offset_cm": [
+      0,
+      0,
+      -2.65
+    ],
+    "left_offset_cm": [
+      1,
+      1,
+      -1.95
+    ],
+    "digits": {
+      "thumb_01_r": [
+        1.0958568927660143e-06,
+        -0.03139815945339378,
+        -0.36818883475337666,
+        0.9292207151934835
+      ],
+      "thumb_02_r": [
+        4.533656994589984e-06,
+        -0.21368300379227453,
+        0.4021602431431643,
+        0.8902846245469971
+      ],
+      "thumb_01_l": [
+        3.046317463822602e-07,
+        0.058557894120004395,
+        -0.26753106482019595,
+        0.9617682165637986
+      ]
+    }
+  },
+  "trace_from_animation": false,
+  "weapon": "ue_forged_steel_greatsword",
+  "interface": "forged_steel_greatsword_hilt_v1",
+  "slots": {
+    "blade_1": {
+      "factory": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Meshes/SM_ForgedSteelGreatsword_Blade_V1.SM_ForgedSteelGreatsword_Blade_V1",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "trace_base_cm": [
+          -0.0015616416931152344,
+          0.310270581394434,
+          3.6968857049942017
+        ],
+        "trace_tip_cm": [
+          0.015127680671866983,
+          -0.02180346054956317,
+          86.69518232345581
+        ],
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1"
+        },
+        "rune_dimensions_cm": [
+          4.016,
+          14.487,
+          58.929
+        ]
+      },
+      "extended_edge": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Blade_extended_edge_V2.SM_ForgedSteelGreatsword_Blade_extended_edge_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "trace_base_cm": [
+          -0.0015616416931152344,
+          0.310270581394434,
+          3.6968857049942017
+        ],
+        "trace_tip_cm": [
+          0.015127680671866983,
+          -0.02180346054956317,
+          86.69518232345581
+        ],
+        "appearance": "延展剑身，双刃在更远处收成细长剑尖",
+        "visual_tip_cm": [
+          0.015127680671866983,
+          -0.02180346054956317,
+          99.14492680000187
+        ],
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1"
+        },
+        "rune_dimensions_cm": [
+          4.016,
+          16.105,
+          67.768
+        ]
+      },
+      "heavy_spine": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Blade_heavy_spine_V2.SM_ForgedSteelGreatsword_Blade_heavy_spine_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "trace_base_cm": [
+          -0.0015616416931152344,
+          0.310270581394434,
+          3.6968857049942017
+        ],
+        "trace_tip_cm": [
+          0.015127680671866983,
+          -0.02180346054956317,
+          86.69518232345581
+        ],
+        "appearance": "剑肩加宽，中央剑脊加厚",
+        "visual_tip_cm": [
+          0.01785066319280304,
+          -0.032705190824344754,
+          86.69518232345581
+        ],
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1"
+        },
+        "rune_dimensions_cm": [
+          4.739,
+          14.487,
+          58.929
+        ]
+      },
+      "feather_edge": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Blade_feather_edge_V2.SM_ForgedSteelGreatsword_Blade_feather_edge_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "trace_base_cm": [
+          -0.0015616416931152344,
+          0.310270581394434,
+          3.6968857049942017
+        ],
+        "trace_tip_cm": [
+          0.015127680671866983,
+          -0.02180346054956317,
+          86.69518232345581
+        ],
+        "appearance": "收窄刃面，保留双刃与中脊",
+        "visual_tip_cm": [
+          0.012102144537493587,
+          -0.017006699228659272,
+          86.69518232345581
+        ],
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1"
+        },
+        "rune_dimensions_cm": [
+          3.213,
+          14.487,
+          58.929
+        ]
+      },
+      "hollow_blade": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/HollowBlade/SM_ForgedSteelGreatsword_HollowBlade.SM_ForgedSteelGreatsword_HollowBlade",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "trace_base_cm": [
+          -0.0015616416931152344,
+          0.310270581394434,
+          3.6968857049942017
+        ],
+        "trace_tip_cm": [
+          0.015127680671866983,
+          -0.02180346054956317,
+          86.69518232345581
+        ],
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1"
+        },
+        "rune_dimensions_cm": [
+          4.016,
+          14.487,
+          58.929
+        ],
+        "appearance": "沿原厂锻钢剑脊开出一道圆端细长透孔，剑肩和剑尖保留完整钢面。"
+      },
+      "executioner_blade": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/SM_ForgedSteelGreatsword_ExecutionerBlade.SM_ForgedSteelGreatsword_ExecutionerBlade",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "trace_base_cm": [
+          -0.0015616416931152344,
+          0.310270581394434,
+          3.6968857049942017
+        ],
+        "trace_tip_cm": [
+          0.015127680671866983,
+          -0.02180346054956317,
+          86.69518232345581
+        ],
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1"
+        },
+        "rune_dimensions_cm": [
+          7.35,
+          16.86,
+          71.893
+        ],
+        "appearance": "宽刃根贴合护手，两侧自下而上渐窄，中央长槽在尖锋下方收圆。",
+        "visual_tip_cm": [
+          0.00316,
+          -0.00128,
+          104.9548
+        ]
+      }
+    },
+    "guard": {
+      "factory": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Meshes/SM_ForgedSteelGreatsword_Guard_V1.SM_ForgedSteelGreatsword_Guard_V1",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "mesh_by_blade": {
+          "executioner_blade": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_factory_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_factory_ExecutionerSeat"
+        }
+      },
+      "bastion_guard": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Guard_bastion_guard_V2.SM_ForgedSteelGreatsword_Guard_bastion_guard_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "appearance": "加宽加厚两翼，保留原厂剑座及柄口",
+        "mesh_by_blade": {
+          "executioner_blade": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_bastion_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_bastion_guard_ExecutionerSeat"
+        }
+      },
+      "riposte_guard": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Guard_riposte_guard_V2.SM_ForgedSteelGreatsword_Guard_riposte_guard_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "appearance": "上挑护翼，保留原厂剑座及柄口",
+        "mesh_by_blade": {
+          "executioner_blade": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_riposte_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_riposte_guard_ExecutionerSeat"
+        }
+      },
+      "light_guard": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Guard_light_guard_V2.SM_ForgedSteelGreatsword_Guard_light_guard_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "appearance": "收束轻薄护翼，保留原厂剑座及柄口",
+        "mesh_by_blade": {
+          "executioner_blade": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_light_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_light_guard_ExecutionerSeat"
+        }
+      }
+    },
+    "grip": {
+      "factory": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Meshes/SM_ForgedSteelGreatsword_Grip_V1.SM_ForgedSteelGreatsword_Grip_V1",
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1"
+      },
+      "shock_wrap": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Grip_shock_wrap_V2.SM_ForgedSteelGreatsword_Grip_shock_wrap_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "appearance": "交错的吸震皮带包覆握区。",
+        "pommel_offset_cm": [
+          0,
+          0,
+          -0.0
+        ]
+      },
+      "swift_grip": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Grip_swift_grip_V2.SM_ForgedSteelGreatsword_Grip_swift_grip_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "appearance": "握区收细，浅钢脊沿柄身延伸。",
+        "pommel_offset_cm": [
+          0,
+          0,
+          -0.0
+        ]
+      },
+      "long_twohand": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Grip_long_twohand_V2.SM_ForgedSteelGreatsword_Grip_long_twohand_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "appearance": "延长皮革握区，剑首随柄尾后移。",
+        "pommel_offset_cm": [
+          0,
+          0,
+          -2.8000000000000003
+        ],
+        "animation_folder": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations",
+        "hand_fit": {
+          "left_offset_cm": [
+            0,
+            0,
+            -1.6
+          ]
+        }
+      },
+      "iron_spine_power_grip": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Grip_iron_spine_power_grip_V2.SM_ForgedSteelGreatsword_Grip_iron_spine_power_grip_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "appearance": "钢脊与箍环分隔三段皮革握区。",
+        "pommel_offset_cm": [
+          0,
+          0,
+          -0.0
+        ]
+      },
+      "lockweave_guard_grip": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Grip_lockweave_guard_grip_V2.SM_ForgedSteelGreatsword_Grip_lockweave_guard_grip_V2",
+        "location_cm": [
+          0.0,
+          0.0,
+          -5.000000074505806
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "appearance": "织带交叠成细密的菱纹。",
+        "pommel_offset_cm": [
+          0,
+          0,
+          -0.0
+        ]
+      }
+    },
+    "pommel": {
+      "factory": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Meshes/SM_ForgedSteelGreatsword_Pommel_V1.SM_ForgedSteelGreatsword_Pommel_V1",
+        "location_cm": [
+          0.0,
+          0.0,
+          -22.699999809265137
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1"
+      },
+      "ring_chain_pommel": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/RingChainPommel/SM_ForgedSteelGreatsword_RingChainPommel.SM_ForgedSteelGreatsword_RingChainPommel",
+        "location_cm": [
+          0.0,
+          0.0,
+          -22.699999809265137
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "appearance": "锻钢椭圆环首下的七节铁链交错垂落。",
+        "material_slot_names": [
+          "M_RingChain_Socket",
+          "M_RingChain_Links"
+        ],
+        "materials": {
+          "M_RingChain_Socket": "/Game/Weapons/ForgedSteelGreatsword20261120/RingChainPommel/M_RingChain_Socket.M_RingChain_Socket",
+          "M_RingChain_Links": "/Game/Weapons/ForgedSteelGreatsword20261120/RingChainPommel/M_RingChain_Links.M_RingChain_Links"
+        },
+        "guides_cm": [
+          [
+            0.35406,
+            0.00122,
+            -5.45
+          ],
+          [
+            0.59528,
+            0.00122,
+            -6.65611
+          ],
+          [
+            0.89914,
+            -0.02485,
+            -7.84771
+          ],
+          [
+            1.26324,
+            -0.05262,
+            -9.02225
+          ],
+          [
+            1.68498,
+            -0.05686,
+            -10.17768
+          ],
+          [
+            2.1612,
+            -0.03455,
+            -11.31153
+          ],
+          [
+            2.6888,
+            -0.00685,
+            -12.42228
+          ],
+          [
+            3.26479,
+            0.00104,
+            -13.50906
+          ]
+        ],
+        "skin_uv_channel": 1,
+        "particle_radius_cm": 0.22,
+        "inverse_masses": [
+          0,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          0.88
+        ],
+        "damping_per_second": 5.5,
+        "heavy_damping_per_second": 5.5,
+        "collision_capsules_cm": [
+          [
+            0.004057500000000047,
+            0.0012210000000000276,
+            -0.5,
+            0.004057500000000047,
+            0.0012210000000000276,
+            14.0,
+            1.47
+          ],
+          [
+            0.004057500000000047,
+            0.0012210000000000276,
+            -1.65,
+            0.004057500000000047,
+            0.0012210000000000276,
+            -0.5,
+            1.35
+          ],
+          [
+            1.90406,
+            0.00122,
+            -3.48,
+            1.64951,
+            0.00122,
+            -2.48,
+            0.27
+          ],
+          [
+            1.64951,
+            0.00122,
+            -2.48,
+            0.95406,
+            0.00122,
+            -1.74795,
+            0.27
+          ],
+          [
+            0.95406,
+            0.00122,
+            -1.74795,
+            0.00406,
+            0.00122,
+            -1.48,
+            0.27
+          ],
+          [
+            0.00406,
+            0.00122,
+            -1.48,
+            -0.94594,
+            0.00122,
+            -1.74795,
+            0.27
+          ],
+          [
+            -0.94594,
+            0.00122,
+            -1.74795,
+            -1.64139,
+            0.00122,
+            -2.48,
+            0.27
+          ],
+          [
+            -1.64139,
+            0.00122,
+            -2.48,
+            -1.89594,
+            0.00122,
+            -3.48,
+            0.27
+          ],
+          [
+            -1.89594,
+            0.00122,
+            -3.48,
+            -1.64139,
+            0.00122,
+            -4.48,
+            0.27
+          ],
+          [
+            -1.64139,
+            0.00122,
+            -4.48,
+            -0.94594,
+            0.00122,
+            -5.21205,
+            0.27
+          ],
+          [
+            0.95406,
+            0.00122,
+            -5.21205,
+            1.64951,
+            0.00122,
+            -4.48,
+            0.27
+          ],
+          [
+            1.64951,
+            0.00122,
+            -4.48,
+            1.90406,
+            0.00122,
+            -3.48,
+            0.27
+          ]
+        ]
+      },
+      "fishtail_pommel": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/FishtailPommel/SM_ForgedSteelGreatsword_FishtailPommel.SM_ForgedSteelGreatsword_FishtailPommel",
+        "location_cm": [
+          0.0,
+          0.0,
+          -22.699999809265137
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "appearance": "原厂钢箍下接扁平鱼尾，两侧斜面在尾端连成浅弧。"
+      }
+    }
+  },
+  "pommel_profile": {
+    "library": "shared-sword-pommels.json",
+    "finish": "silver",
+    "interfaces": {
+      "shared_sword_pommel_v1": {
+        "location_cm": [
+          0,
+          0,
+          -23.5
+        ],
+        "scale": [
+          0.9,
+          0.9,
+          0.9
+        ],
+        "adapter": {
+          "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Adapter_shared_sword_pommel_v1_V2.SM_ForgedSteelGreatsword_Adapter_shared_sword_pommel_v1_V2",
+          "location_cm": [
+            0,
+            0,
+            -22.7
+          ],
+          "interface": "forged_steel_greatsword_hilt_v1_to_shared_sword_pommel_v1"
+        }
+      },
+      "frost_hilt_v1": {
+        "location_cm": [
+          0,
+          0,
+          -23.5
+        ],
+        "scale": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "adapter": {
+          "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Adapter_frost_hilt_v1_V2.SM_ForgedSteelGreatsword_Adapter_frost_hilt_v1_V2",
+          "location_cm": [
+            0,
+            0,
+            -22.7
+          ],
+          "interface": "forged_steel_greatsword_hilt_v1_to_frost_hilt_v1"
+        }
+      }
+    }
+  }
+}

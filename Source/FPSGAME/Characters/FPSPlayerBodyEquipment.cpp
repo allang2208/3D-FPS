@@ -149,9 +149,15 @@ FFPSBodyWeapon UFPSPlayerBodyComponent::CaptureWeapon(USkeletalMeshComponent* So
         Result.HoldClip=Gun->bGripIdle&&Gun->GripIdleFamily?Gun->GripIdleFamily.Get():(Gun->IdleClip?Gun->IdleClip.Get():Idle);
     }
     const bool bSuper90=Asset->GetPathName()==Super90WeaponAssets::MeshPath;
+    const auto* Whirlwind=Character.IsValid()?Character->FindComponentByClass<URuneSwordComponent>():nullptr;
+    if(Whirlwind&&!Whirlwind->IsWhirlwindActive())Whirlwind=nullptr;
+    const auto EquippedMaterial=[Whirlwind](UMeshComponent* Mesh,int32 Slot)
+    {
+        return FPSBodyEquipment::PersistentMaterial(Whirlwind?Whirlwind->EquipmentSurface(Mesh,Slot,false):Mesh->GetMaterial(Slot));
+    };
     for(int32 I=0;I<Asset->GetMaterials().Num();++I)
     {
-        Result.Materials.Add(FPSBodyEquipment::PersistentMaterial(Source->GetMaterial(I)));
+        Result.Materials.Add(EquippedMaterial(Source,I));
         const auto& NativeMaterial=Asset->GetMaterials()[I];
         const FName Slot=NativeMaterial.MaterialSlotName;
         // Reload cartridge visibility is carried by the motion section mask.
@@ -210,8 +216,8 @@ FFPSBodyWeapon UFPSPlayerBodyComponent::CaptureWeapon(USkeletalMeshComponent* So
         while(Branch->GetAttachParent()&&Branch->GetAttachParent()!=Source)
         {Branch=Branch->GetAttachParent();Entry.RelativeTransform=Entry.RelativeTransform*Branch->GetRelativeTransform();}
         Entry.Socket=Branch->GetAttachSocketName();
-        for(int32 I=0;I<Part->GetNumMaterials();++I)Entry.Materials.Add(FPSBodyEquipment::PersistentMaterial(Part->GetMaterial(I)));
-        FPSBodyRuneVisual::Capture(Part,RuneItem,Entry);
+        for(int32 I=0;I<Part->GetNumMaterials();++I)Entry.Materials.Add(EquippedMaterial(Part,I));
+        FPSBodyRuneVisual::Capture(Part,RuneItem,Entry,Whirlwind);
         if(Character.IsValid()&&Source==Character->AKMViewmodel&&Part==Character->MuzzleAttachment
             &&!Character->MuzzleVariant.IsEmpty())
         {

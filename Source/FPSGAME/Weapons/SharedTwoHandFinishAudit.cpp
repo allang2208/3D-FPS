@@ -37,7 +37,7 @@ int32 RunSharedTwoHandFinishAudit(const FString& Params)
         UE_LOG(LogTemp,Error,TEXT("SHARED_FINISH_FAIL %s"),*Label);
     };
     const TArray<FString> Definitions={TEXT("ue_rune_sword"),TEXT("ue_frost_crystal_sword"),TEXT("ue_highland_claymore"),
-        TEXT("ue_tang_dao"),TEXT("ue_xuanchi_zhenyue"),TEXT("ue_zhanmadao"),TEXT("ue_steel_warhammer"),TEXT("ue_runebound_warhammer"),TEXT("ue_thunder_god_hammer")};
+        TEXT("ue_tang_dao"),TEXT("ue_xuanchi_zhenyue"),TEXT("ue_zhanmadao"),TEXT("ue_forged_steel_greatsword"),TEXT("ue_steel_warhammer"),TEXT("ue_runebound_warhammer"),TEXT("ue_thunder_god_hammer")};
     const TArray<FString> Common={TEXT("false"),TEXT("folded_steel"),TEXT("dark_iron"),TEXT("mithril"),TEXT("damascus_steel"),TEXT("meteoric_iron")};
     const auto Scalar=[](UMaterialInterface* M,const TCHAR* Name,float& V){return M&&M->GetScalarParameterValue(FMaterialParameterInfo(Name),V);};
     const auto CheckRune=[&](UStaticMeshComponent* Mesh,const FString& Label,const FString& ExpectedMask)
@@ -76,6 +76,13 @@ int32 RunSharedTwoHandFinishAudit(const FString& Params)
         Check(Parts&&Runes&&Materials,Definition+TEXT(" material and rune categories"));if(!Parts||!Runes||!Materials)continue;
         Check(Catalog->Allowed.Contains(RuneSlot)&&Catalog->Allowed.Contains(TEXT("blade_material")),Definition+TEXT(" visible workbench categories"));
         const bool Crystal=Definition==TEXT("ue_frost_crystal_sword"),Highland=Definition==TEXT("ue_highland_claymore");
+        if(!Crystal)
+        {
+            FGunsmithParts Damascus;Damascus.Add(TEXT("blade_material"),TEXT("damascus_steel"));
+            auto Another=Item;Another.InstanceId=Item.InstanceId+TEXT("-second");
+            Check(ColdSteelModularSword::Key(Item,&Damascus)!=ColdSteelModularSword::Key(Another,&Damascus),
+                Definition+TEXT(" different saved instances rebuild their Damascus pattern"));
+        }
         TArray<FString> Finishes=Crystal?TArray<FString>{TEXT("false"),TEXT("red_magic_crystal"),TEXT("high_energy_magic_crystal")}:Common;
         if(RuneSword)Finishes.Append({TEXT("frost_crystal"),TEXT("time_sand_gold")});
         if(Highland)Finishes.Append({TEXT("blackthorn_steel"),TEXT("whitehart_mithril")});
@@ -180,11 +187,20 @@ int32 RunSharedTwoHandFinishAudit(const FString& Params)
                     {
                         float Local=0.f,Observer=0.f;if(!Scalar(Source->GetMaterial(Index),TEXT("BladeFinishMode"),Local))continue;
                         Check(Scalar(Remote->GetMaterial(Index),TEXT("BladeFinishMode"),Observer)&&FMath::IsNearlyEqual(Local,Observer),SurfaceLabel+TEXT(" observer finish"));
+                        if(Carrier&&Mode==4)
+                        {
+                            const uint32 Seed=ColdSteelModularSword::BladeFinishSeed(Item);
+                            float OwnerSeed=0.f,RemoteSeed=0.f;
+                            Check(Seed!=0&&Read.BladeFinishSeed==Seed&&Scalar(Source->GetMaterial(Index),TEXT("DamascusSeed"),OwnerSeed)&&
+                                Scalar(Remote->GetMaterial(Index),TEXT("DamascusSeed"),RemoteSeed)&&OwnerSeed==float(Seed)&&RemoteSeed==OwnerSeed,
+                                SurfaceLabel+TEXT(" same saved instance pattern on owner and observer"));
+                        }
                     }
                     Actor->RemoveInstanceComponent(Remote);Remote->DestroyComponent();
                 }
                 const bool HasRune=Rune.Id!=TEXT("false")||Definition==TEXT("ue_frost_crystal_sword");
-                Check(Carriers==(RuneSword?2:1),Label+TEXT(" carrier count"));
+                const bool GuardUsesFinish=RuneSword||(Highland&&Part.Id==TEXT("highland_broadblade"));
+                Check(Carriers==(GuardUsesFinish?2:1),Label+TEXT(" carrier count"));
                 Check((LocalRunes>0)==HasRune,Label+TEXT(" selected rune mounted"));
                 Check(LocalRunes==ObserverRunes,Label+TEXT(" observer rune parity"));
             }

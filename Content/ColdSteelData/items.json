@@ -6671,5 +6671,35 @@
         "value": "单次使用"
       }
     ]
+  },
+  "ue_forged_steel_greatsword": {
+    "id": "ue_forged_steel_greatsword",
+    "name": "锻钢双手剑",
+    "category": "weapon_melee",
+    "type": "双手剑",
+    "weaponType": "sword",
+    "weaponTypeTag": "双手剑",
+    "equipSlot": "weapon",
+    "isTwoHanded": true,
+    "stack_max": 1,
+    "grid_w": 2,
+    "grid_h": 4,
+    "price": 3200,
+    "level": 1,
+    "enhanceLevel": 0,
+    "desc": "朴素的锻钢长剑。修长的双刃从护手向剑尖收束，皮革包覆的长柄可容双手分握，柄尾配有钢制圆首。",
+    "ue_icon": "Icons/ue_forged_steel_greatsword.png",
+    "melee_damage": 55,
+    "melee_reach_cm": 180,
+    "attack_seconds": 1.775,
+    "contact_start": 0.85,
+    "contact_end": 0.965,
+    "viewmodel_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+    "world_mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Meshes/SM_ForgedSteelGreatsword_Complete_V1.SM_ForgedSteelGreatsword_Complete_V1",
+    "animation_folder": "/Game/Weapons/AzureRunesword20260913",
+    "swing_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Swing.Sword_Swing",
+    "hit_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Hit.Sword_Hit",
+    "icon_fallback": "锻钢",
+    "modular_sword_catalog": "forged-steel-greatsword-modules.json"
   }
 }

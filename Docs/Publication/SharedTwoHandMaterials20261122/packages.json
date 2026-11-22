@@ -1,0 +1,280 @@
+{
+  "revision": "20261122",
+  "asset_roots": [
+    "/Game/Weapons",
+    "/Game/Skills"
+  ],
+  "weapon_ids": [
+    "ue_rune_sword",
+    "ue_highland_claymore",
+    "ue_tang_dao",
+    "ue_xuanchi_zhenyue",
+    "ue_steel_warhammer",
+    "ue_runebound_warhammer",
+    "ue_thunder_god_hammer",
+    "ue_forged_steel_greatsword",
+    "ue_zhanmadao"
+  ],
+  "assets": [
+    {
+      "package": "/Game/Skills/Whirlwind20260920/ForegroundV3/M_AzureRunesword_c744c7ca_WhirlwindV3",
+      "before_sha256": "316c71af4bd0a9320d5d4ad54e21857587201c940a25b95c518742c73e61ea98",
+      "after_sha256": "d8855c1da82722cac0d3a9ee6516c44f9f6e44d9594a337c008d42493e92493b"
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/M_AzureRunesword",
+      "before_sha256": "c54bbb1dbd958e595ef9edf43987d86cfa731c5df9c03970c69dbfb2711dbe29",
+      "after_sha256": "71347b43e9bc6cba60b808711b9bfc85d8bbfc02e54340cda9e5ddabca9a4c6c"
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/M_AzureRunesword_NativeGold",
+      "before_sha256": "75b5049b469caf06bed4b479be336cf938abf87606efbb839b1d3d84c3e0c917",
+      "after_sha256": "9e543fedca92ea86d7c7ab4ef5868dfeb8fd096504cadc83cdbf451a82fd4a9f"
+    },
+    {
+      "package": "/Game/Weapons/CommonHammerHeads20261014/Materials/M_CommonHammerHeadSteel",
+      "before_sha256": "24f7fd3db64c0585954fc6fe6829a0bd581a0b89a1ca326c06af40c2d9022fa9",
+      "after_sha256": "86d3c54e95d1788220ec8ee0f0051d3da105047037b18fba910984c84fad562d"
+    },
+    {
+      "package": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1",
+      "before_sha256": "7881e3378b0684d8658f890c8cff47e12491866b81fc1f2bfa0b7d97a006d45e",
+      "after_sha256": "4f99963d6036bd0b24254e51ceb3c5a092690562636bf036b4c4e399d5fb4084"
+    },
+    {
+      "package": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1_Whirlwind",
+      "before_sha256": "610d3aa5ff6c91f3b154a7d3b05a6836cffe93e3fa6954f39f29c95725357935",
+      "after_sha256": "9b6c0c145dfa46828caddecb8b379e47748ba951155f0e6e16edecb2d47ab40f"
+    },
+    {
+      "package": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_Cloven_Recess",
+      "before_sha256": "138855ef8161a64433cfb42aa9f25cdc904841bc476f7d2a14abe0e6ec264c2b",
+      "after_sha256": "18e4f7271fec675542c6a05ff80940f65b561f1728bb81372f3f62f7ac0d89ba"
+    },
+    {
+      "package": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_HighlandBladeMetal_Cloven20261002",
+      "before_sha256": "3a820791a069f0a7c3ba0eb67c9643297aafa69d5d24dc3c1e58f1560dfff86e",
+      "after_sha256": "276970ef570a614692efe861cab1f18554baf80fe59468c10872e6ba90e8c5a5"
+    },
+    {
+      "package": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_HighlandClaymoreSurface",
+      "before_sha256": "ea9fbca548a3579e8c58fe18b69b2711d98c56acf9256aef91eca252f5929f26",
+      "after_sha256": "f69a42a1e02dcd10477bffcf36e7c2e62ed8ea5d640bba493830a55ac4965355"
+    },
+    {
+      "package": "/Game/Weapons/HighlandClaymore20260922/GaleFeather20261107/Materials/M_GaleFeather_BladeSeat",
+      "before_sha256": "f2e9a9d16f5fc2975a9f4cd8b6b62c2c2fe33e210c12c3ae463032f889c8e77b",
+      "after_sha256": "2509818fc8e56c49034e60006682884f2e5f204f53d40e20049fb4498cce2e2f"
+    },
+    {
+      "package": "/Game/Weapons/HighlandClaymore20260922/Materials/M_HighlandClaymoreSurface",
+      "before_sha256": "265408a8f5a9d38dcdbfc5cf318d22ab0892e5662cf48e058e96eedd76a9258a",
+      "after_sha256": "f8def60c5296d713946e90d4a4ade29dfd5a773e8b688573ecefb66cceb59b03"
+    },
+    {
+      "package": "/Game/Weapons/HighlandClaymore20260922/Materials/M_HighlandClaymoreSurface_Whirlwind_HighlandExclusive20261103",
+      "before_sha256": "ab151429ab585eb26b2ee196a31e014a137acca635276d67520232a14d9cedfd",
+      "after_sha256": "4de121bd533aac23680d58e7555a0f1d5d0b1cf3fa44ff004b4ae0942b68bbe4"
+    },
+    {
+      "package": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/WedgeSpine/M_RidgeWedgeSteel",
+      "before_sha256": "32550b18c286a506f9bc6dcb90edcbd83f503fee1b392b4763b23e7faf5a1890",
+      "after_sha256": "3813ff3097f9d30f9d6570ae510cd8050c1540b6af222e3efbabdd0a9f79ddea"
+    },
+    {
+      "package": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/WedgeSpine/M_RidgeWedgeSteel_Whirlwind",
+      "before_sha256": "9052fce619ef6c6d6e724ece763992139ef84c93c34f0e4ef40c4ceb71f46197",
+      "after_sha256": "210ffc5ef4948e0ac38133cc3a35fd72b6a39e9286eab740dac156f9a17ca921"
+    },
+    {
+      "package": "/Game/Weapons/RuneboundWarhammer20261022/DestructionRedImpactV2/M_RuneboundDestructionRuneSurface",
+      "before_sha256": "afb6fead8488b2bc934db9e89f37d8beb8c6e1208f53ddb25d4ac0c72ba39205",
+      "after_sha256": "0b2e5437ec66e8d38c5ff7c1847fcb13373b55928260b0f95df534c458689c9e"
+    },
+    {
+      "package": "/Game/Weapons/RuneboundWarhammer20261022/HeadRunePBRV3/M_RuneboundHeadSurface_FinalToll",
+      "before_sha256": "af9a6b00207ccb8b6b75354b393149419881fc26fa955cc6fe32d9282ab779b0",
+      "after_sha256": "3cc6183db618d58b98bd03a665ed0168ad8ff2f2b95b7227848c62d8348eb335"
+    },
+    {
+      "package": "/Game/Weapons/RuneboundWarhammer20261022/HeadRunePBRV3/M_RuneboundHeadSurface_StarOath",
+      "before_sha256": "1c3d472a0535bc260b0b5390569b1ae150a6b4c477d9208174a93ec1198c46cf",
+      "after_sha256": "bb77d12815abc0317d9eed966bec0f7ec165ab7d2ad82e2e7c54c0602062a694"
+    },
+    {
+      "package": "/Game/Weapons/RuneboundWarhammer20261022/HeadRunePBRV3/M_RuneboundHeadSurface_flanged_breaker_M_CommonHammerHeadSteel",
+      "before_sha256": "bff3461e15a5fd4e6cd35abd6e0f98fa14767e1274e6830b6436a80c0437f1ff",
+      "after_sha256": "e2b3818c07a415f7e983c8de57ead8a4d5311d5ec43a1f2de88de497e80fd662"
+    },
+    {
+      "package": "/Game/Weapons/RuneboundWarhammer20261022/HeadRunePBRV3/M_RuneboundHeadSurface_flanged_breaker_M_RuneboundWarhammerSurface",
+      "before_sha256": "b1d34ccba2b9a3c6b964d75b6b3f9c2e38d4eb5ce6afb1bc68fe9d32776f9242",
+      "after_sha256": "aca2b66876997f8419836d3dc7a529fa3852d7466e626bdf886cb81ffd2b60cb"
+    },
+    {
+      "package": "/Game/Weapons/RuneboundWarhammer20261022/HeadRunePBRV3/M_RuneboundHeadSurface_heavy_forged_M_CommonHammerHeadSteel",
+      "before_sha256": "7f742d75057b722d3563144bd9bb66a884851fe17cff37e4c3c777c76c760d57",
+      "after_sha256": "88b12d9543b2f93ee17b3870144cac3c2e2dceeac77ab3b0090b9847fa3ab068"
+    },
+    {
+      "package": "/Game/Weapons/RuneboundWarhammer20261022/HeadRunePBRV3/M_RuneboundHeadSurface_heavy_forged_M_RuneboundWarhammerSurface",
+      "before_sha256": "843a6dc4708721933fdb7161b2a1c1d039032f52b0909521bf6bdf7ade3a926c",
+      "after_sha256": "8b90ec4c90db51ea2add545f4ea1158e4a2f19fb13a57d007f49ba2a6cd95dc4"
+    },
+    {
+      "package": "/Game/Weapons/RuneboundWarhammer20261022/HeadRunePBRV3/M_RuneboundHeadSurface_light_drum_M_CommonHammerHeadSteel",
+      "before_sha256": "23472ebb4223a5a8c16df8abe22e350fef48ad88c758948beaadaa088d4bb3ab",
+      "after_sha256": "494539342747b3f9be1908fd0644a950e2c671d94b4c76ebc1f1c136203e762c"
+    },
+    {
+      "package": "/Game/Weapons/RuneboundWarhammer20261022/HeadRunePBRV3/M_RuneboundHeadSurface_light_drum_M_RuneboundWarhammerSurface",
+      "before_sha256": "56d8fe804f11f101f5795b15e59ae335006f3fdca29f5674fa77861515a7c684",
+      "after_sha256": "95e813fd0e1f5b125d20055a82766213b647f1bfe17acc2235bebe7a8ffac2b8"
+    },
+    {
+      "package": "/Game/Weapons/RuneboundWarhammer20261022/HeadRunePBRV3/M_RuneboundHeadSurface_pointed_hammer_M_CommonHammerHeadSteel",
+      "before_sha256": "c3e4a2f3c709563078bb52bfbb5a85cb453d73c239896808f32159ca68a800cc",
+      "after_sha256": "67acbb7a07088428981e74c18ae3809d92682fb5eeeffc9ff80ab93094a03258"
+    },
+    {
+      "package": "/Game/Weapons/RuneboundWarhammer20261022/HeadRunePBRV3/M_RuneboundHeadSurface_pointed_hammer_M_RuneboundWarhammerSurface",
+      "before_sha256": "00a3ab6690482042410d7d6b86e45b5157bb20625ec070fa1245c0022cec57a5",
+      "after_sha256": "ff6bd238b6a04a077bbd307f5630e5783ee0fe818c07438d8402b8fd5af5c98c"
+    },
+    {
+      "package": "/Game/Weapons/RuneboundWarhammer20261022/PassiveV1/M_RuneboundAwakeSurface",
+      "before_sha256": "5554064d984fe8ab7537736bc81c5c5be62f988ecdda856970074d0f1f4b78a5",
+      "after_sha256": "40ca5cfceaf8757c88e071f94f644ba8141405acff4621ecb078ce5d326f8b67"
+    },
+    {
+      "package": "/Game/Weapons/RuneboundWarhammer20261022/SwiftManaRuneV1/M_RuneboundSwiftRuneSurface",
+      "before_sha256": "4d102649d4cb18a09969ffe5aa1971bdfffa610e4d7d7d0d62777cb0fdf40d56",
+      "after_sha256": "09851665e9c086814caee791f57a6fc4f516713da8081733dfbbb9f8a407ee46"
+    },
+    {
+      "package": "/Game/Weapons/SteelWarhammer20261014/Materials/M_SteelWarhammerSurface",
+      "before_sha256": "ef1d26c9aaaaf19877f369363d567fc7557f3cc8a82f8336e2d450100cd17be5",
+      "after_sha256": "a379b5bc8492e97c29bf486391c068d99ac0f4b50186fa1065970d8cce2f991b"
+    },
+    {
+      "package": "/Game/Weapons/TangDao20261002/Longitudinal20261110/M_TangDaoBladeRuneSurface_Longitudinal_extended_edge_0_V2",
+      "before_sha256": "e4fe62d7e0fbf343668fc6825f8d381ad1c2a3e2cdb96e6dc5d5dd3a02b82d25",
+      "after_sha256": "be7cb8702c4c13656893795893d7a5c65ea1cf056b66e86c14a5bee073198677"
+    },
+    {
+      "package": "/Game/Weapons/TangDao20261002/Longitudinal20261110/M_TangDaoBladeRuneSurface_Longitudinal_extended_edge_0_V2_Whirlwind",
+      "before_sha256": "168ba72dcb1a9448579a553599ccc47c43fc66ba24f7d18699642e56a6731af1",
+      "after_sha256": "980d14cf3d6029997bbb71d49ff067a24fc7e18b3cf345403dee9161bbe33897"
+    },
+    {
+      "package": "/Game/Weapons/TangDao20261002/Longitudinal20261110/M_TangDaoBladeRuneSurface_Longitudinal_factory_0_V2",
+      "before_sha256": "1ae9418729410ed1661f45e0771aa729a5dd884ad848308af80001488aaec7bf",
+      "after_sha256": "6db8f235dd1eb458133271b09651aaec75d51343316c66d709f380dcc877dc42"
+    },
+    {
+      "package": "/Game/Weapons/TangDao20261002/Longitudinal20261110/M_TangDaoBladeRuneSurface_Longitudinal_factory_0_V2_Whirlwind",
+      "before_sha256": "2b75b97b6153baaa531466610a127363a9d2f9051744cadfe6a8b53a4583157a",
+      "after_sha256": "a4f8a99ce73c68e97e1e0aa38c5ba96a348043a67302b96764068780170d6b74"
+    },
+    {
+      "package": "/Game/Weapons/TangDao20261002/Longitudinal20261110/M_TangDaoBladeRuneSurface_Longitudinal_feather_edge_0_V2",
+      "before_sha256": "aa3fa34cb114bafb6dacda9ce61fdedb364b6ab94c908bf49fa4e47f086d7cd0",
+      "after_sha256": "ad3cb5e21a86ae68b5606071d42cfa9c1bed4e49ab75c0f906500336ffde7558"
+    },
+    {
+      "package": "/Game/Weapons/TangDao20261002/Longitudinal20261110/M_TangDaoBladeRuneSurface_Longitudinal_feather_edge_0_V2_Whirlwind",
+      "before_sha256": "b4952c5bda9efecd8aa62b9c3c0d735b0bf626a3aea9abe1655ba787384a8ffd",
+      "after_sha256": "b57f31390e7ab5ca57f34c68915a0d931b35962ea25dfc31a526e3b89c406533"
+    },
+    {
+      "package": "/Game/Weapons/TangDao20261002/Longitudinal20261110/M_TangDaoBladeRuneSurface_Longitudinal_heavy_spine_0_V2",
+      "before_sha256": "c4425028e5f236d3e90ff224d2d471fa016e91819e76ded4fe716c1f19b6dbb4",
+      "after_sha256": "7db2190f4fc5747b39218c4988ba3a8bf5c4b67006067cee9a965b616aa9ed80"
+    },
+    {
+      "package": "/Game/Weapons/TangDao20261002/Longitudinal20261110/M_TangDaoBladeRuneSurface_Longitudinal_heavy_spine_0_V2_Whirlwind",
+      "before_sha256": "7bf007a06fd96957dde581ec46398c030a2a593fe05c741023b70fcf41fa8847",
+      "after_sha256": "4d6c1b15878ffaaaf16a699945271d73c226eed2934aff066b562c70739ad20e"
+    },
+    {
+      "package": "/Game/Weapons/TangDao20261002/Longitudinal20261110/M_TangDaoBladeRuneSurface_Longitudinal_tengyun_dragon_0_V2",
+      "before_sha256": "b83f4ae98051c70f5a36e8bf6fc3e03aefdef081a24e3ac8b036032688131588",
+      "after_sha256": "a0c330357442c36efb0c07316c8d36aca43ac91c9429685e9bbf8a440fa2a1e9"
+    },
+    {
+      "package": "/Game/Weapons/TangDao20261002/Longitudinal20261110/M_TangDaoBladeRuneSurface_Longitudinal_tengyun_dragon_0_V2_Whirlwind",
+      "before_sha256": "238b8b4a02b3e52854419a320f1d0ab537b4acea68c01743f47b901c76cc6666",
+      "after_sha256": "8b685bf53cdb5813121514be7b902046c69292c0bc6d4e1416c800f1206a5ec8"
+    },
+    {
+      "package": "/Game/Weapons/TangDao20261002/Longitudinal20261110/M_TangDaoBladeRuneSurface_Longitudinal_yanling_edge_0_V2",
+      "before_sha256": "6a7d87949c39129d4ad2c463cbd06144d1616dbf5c225d20a81524bfd8bcc2b7",
+      "after_sha256": "2a49e367d1522af7b5abb6afbd3f6031007770b9d2879436da8793035e080e35"
+    },
+    {
+      "package": "/Game/Weapons/TangDao20261002/Longitudinal20261110/M_TangDaoBladeRuneSurface_Longitudinal_yanling_edge_0_V2_Whirlwind",
+      "before_sha256": "4bffd94b81c76ceed627e922ebba3e179b0414569d5fa4077f5782300660f879",
+      "after_sha256": "b0d388f965ce861d2e574ddbdebed66d11139154576372674b75f132630eafdf"
+    },
+    {
+      "package": "/Game/Weapons/TangDao20261002/Longitudinal20261110/M_TangDaoBladeRuneSurface_Longitudinal_yanling_edge_1_V2",
+      "before_sha256": "b7604907b7af503286b8f6a4a5b203164b30aaddb0f154cff2e32f674b78e696",
+      "after_sha256": "f9a2c600ea6e5ba0fc1c5a28486b880cafaf139cb582dc356efa3dfe9de06a75"
+    },
+    {
+      "package": "/Game/Weapons/TangDao20261002/Longitudinal20261110/M_TangDaoBladeRuneSurface_Longitudinal_yanling_edge_1_V2_Whirlwind",
+      "before_sha256": "492c3a2705070074e0e89a5d9129c6e7ce4b76d2d3190c22ed9a73b3f584c7ec",
+      "after_sha256": "9dbc23cb571133e8f82754a8d5c8826603d693a8ed209640c58a538de688ff89"
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/Materials/M_ThunderGodHammerSurface",
+      "before_sha256": "eabc108d1722f6573bcf652693b277a784b8a1b509467e48becadb2cc4c13617",
+      "after_sha256": "4d33c059b6cf3b60d3da9d6ab9b82bdc577688a570992638dee399897798510a"
+    },
+    {
+      "package": "/Game/Weapons/XuanChiZhenYue20261004/JingangRune20261006/Materials/M_XuanChiBladeRuneSurface_Zhenmo_Jingang",
+      "before_sha256": "ff5047c3ed850be01747f8f87090716a7919c672c2f43bea79d7cc3bc44aed4f",
+      "after_sha256": "2b45d9b6a1fc58755dcbe1c15b47baadaf18577430247f194de7ff6bfb423a43"
+    },
+    {
+      "package": "/Game/Weapons/XuanChiZhenYue20261004/JingangRune20261006/Materials/M_XuanChiBladeRuneSurface_Zhenmo_Jingang_Whirlwind",
+      "before_sha256": "10cf3c508d30384a93cfd7f9c45208788115351e39f242fb12150942030fda22",
+      "after_sha256": "37dc205f8df96ca03a6858fe52ea8ba21acbece64b1c8a72935fff565ee4aa68"
+    },
+    {
+      "package": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_extended_edge_0_BeiweiV1_Whirlwind",
+      "before_sha256": "1d071f324f79d941214fb7dad8130db16b13d70dd2ca16fa6a06af033944a29d",
+      "after_sha256": "0bbb7653bf056e0621657d5ce90d4b54f4dfce51661d2d501f9f9ee3b1196a28"
+    },
+    {
+      "package": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_factory_0_BeiweiV1_Whirlwind",
+      "before_sha256": "72b51ac76a5e88149048a7850202023fa411a66b017f320db20ce94ae2d1723b",
+      "after_sha256": "f451bd87fd5ba5f0cf262b6b001f2cedcec8be41bc5f4b658d038c9ee4d65d33"
+    },
+    {
+      "package": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_feather_edge_0_BeiweiV1_Whirlwind",
+      "before_sha256": "103d3087ae91ccc70df6c3aa3b325f2e7fd900bc44f7740191ae2dded29372f2",
+      "after_sha256": "a1f2590e60f39d177254dc72ca7a63d3b1dc5a10dc0ae601f87edd21fce517c5"
+    },
+    {
+      "package": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_heavy_spine_0_BeiweiV1_Whirlwind",
+      "before_sha256": "70c6cb49be73d25d26e57a13ce47ec9a6e89247d09f6d22f2a52e181aa38ba6c",
+      "after_sha256": "e762ac9a63dff0e24b919f6e003c211bd557c80ade45b88d9fbf9f59d03ad3c6"
+    },
+    {
+      "package": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_tengyun_dragon_0_BeiweiV1_Whirlwind",
+      "before_sha256": "7dfcd5fc7a384a1c407258b38bfd92d47280ba1d50b89c5b682794ee57b42895",
+      "after_sha256": "2c2b07219b19894a6913f9703184dd590cdcdcb85f7c5cc1238f66ecc1b14c3c"
+    },
+    {
+      "package": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_yanling_edge_0_BeiweiV1_Whirlwind",
+      "before_sha256": "e938e86c4a8a49bb043f15892c7ab09221d4f2281b1a113906c26ceab200b007",
+      "after_sha256": "7756e685115f6dda80d5afab9980438354e29f7a75514acc2fa10d5504c1b412"
+    },
+    {
+      "package": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_yanling_edge_1_BeiweiV1_Whirlwind",
+      "before_sha256": "2420c58435a5c8009a960c647af196c426d5bc6be484f44f5288ae665d1a3cd0",
+      "after_sha256": "38a7a36aa00659b0033adaa6692ce04574e0caecfa20461169454214528830d5"
+    }
+  ]
+}

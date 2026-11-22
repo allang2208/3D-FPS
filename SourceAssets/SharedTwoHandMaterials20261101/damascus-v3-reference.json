@@ -1,0 +1,17 @@
+{
+  "material": "/Game/Weapons/Zhanmadao20261018/BeiweiRuneV1/Materials/M_TangDaoBladeRuneSurface_Zhanmadao_factory_0_BeiweiV1",
+  "reference_revision": "ZhanmadaoDamascusReference20261111V3",
+  "package_sha256": "c2ac95e4f75517ccfe716aec4c41f8f31c2416de28f84af3ca5f354aaed2266d",
+  "shaders": {
+    "field coordinates": "uint s=(uint)Seed;\nuint h=s*1664525u+1013904223u;float a=float(h&65535u)/65535.;\nh=h*1664525u+1013904223u;float b=float(h&65535u)/65535.;\nh=h*1664525u+1013904223u;float c=float(h&65535u)/65535.;\nfloat scale=lerp(.92,1.08,c);\nfloat cross=G.x*scale+.10*sin(G.y*.065+a*6.283185);\nfloat offset=a;\nfloat along=G.y*lerp(.94,1.06,a)+.90*sin(G.y*.047+b*6.283185);\nreturn float2(.5+cross/12.+offset,along/88.+b);\n",
+    "steel response": "\nfloat face=smoothstep(.30,.85,abs(normalize(N).y));\nfloat edge=smoothstep(.91,.995,abs(G.z*2.-1.))*face;\nfloat ink=1.-.22*saturate(Ink.a);\nfloat layers=(Field.r-.5)*face*ink*(1.-edge*.35);\nuint h=(uint)Seed*22695477u+1u;float variation=float(h&65535u)/65535.-.5;\nfloat tone=.340+layers*.460+(Field.a-.5)*.008+variation*.008;\ntone=lerp(tone,.46,edge*.45);\nfloat rough=.270-layers*.135+(Field.a-.5)*.014+variation*.010;\nrough=lerp(.325,rough,face);rough=lerp(rough,.155,edge);\nfloat aniso=lerp(.05,.13+(Field.a-.5)*.025,face)*(1.-edge*.30);\nreturn float4(tone,rough,aniso,1.-saturate(Mask*3.));\n",
+    "etch gradient": "\nfloat3 along=normalize(float3(G.w,0,1)), across=normalize(float3(1,0,-G.w));\nfloat2 slope=(Field.gb-.5)*.05;\nfloat face=smoothstep(.30,.85,abs(normalize(N).y));\nfloat edge=smoothstep(.91,.995,abs(G.z*2.-1.));\nfloat3 d=-(across*slope.x+along*slope.y)*face*(1.-edge*.60);\nreturn d-N*dot(d,N);\n",
+    "polish direction": "\nfloat3 v=float3(G.w,0,1);return normalize(v-N*dot(v,N)+float3(.00001,0,0));\n",
+    "BASE_COLOR": "if(Mode<3.5||Mode>4.5)return Base;\nreturn lerp(Base,float3(.985,1.,1.018)*Steel.x,Steel.w);",
+    "ROUGHNESS": "if(Mode<3.5||Mode>4.5)return Base;\nreturn lerp(Base,Steel.y,Steel.w);",
+    "NORMAL": "if(Mode<3.5||Mode>4.5)return Base;\nreturn normalize(lerp(Base,normalize(Base+Detail),Steel.w));",
+    "METALLIC": "if(Mode<3.5||Mode>4.5)return Base;\nreturn lerp(Base,1.,Steel.w);",
+    "ANISOTROPY": "if(Mode<3.5||Mode>4.5)return Base;\nreturn lerp(Base,Steel.z,Steel.w);",
+    "TANGENT": "if(Mode<3.5||Mode>4.5)return Base;\nreturn normalize(lerp(Base,Brush,Steel.w));"
+  }
+}
