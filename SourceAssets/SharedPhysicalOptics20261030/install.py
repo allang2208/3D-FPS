@@ -43,14 +43,16 @@ def prop(n,name):
 screen=node(u.MaterialExpressionScreenPosition)
 scale=vector('ScreenToLens',(4,2.25,0,0));fov=scalar('CaptureTanHalfFOV',.025);style=scalar('ReticleStyle',0)
 blend=scalar('LensBlend',0)
+bow_draw=vector('BowDrawState',(0,0,0,0));bow_release=scalar('BowRelease',0)
 scene=node(u.MaterialExpressionTextureObjectParameter,parameter_name='ScopeScene',texture=u.load_asset('/Engine/EngineResources/Black'))
 glyph=node(u.MaterialExpressionTextureObjectParameter,parameter_name='Glyphs',texture=glyphs)
 picture=custom((O/'lens.hlsl').read_text(),{'ScreenUV':(screen,'ViewportUV'),'ScreenToLens':(scale,'RGB'),
- 'CaptureTanHalfFOV':(fov,''),'ReticleStyle':(style,''),'Scene':(scene,''),'Glyphs':(glyph,'')},u.CustomMaterialOutputType.CMOT_FLOAT3)
+ 'CaptureTanHalfFOV':(fov,''),'ReticleStyle':(style,''),'Scene':(scene,''),'Glyphs':(glyph,''),
+ 'BowDrawState':(bow_draw,'RGBA'),'BowRelease':(bow_release,'')},u.CustomMaterialOutputType.CMOT_FLOAT3)
 position=node(u.MaterialExpressionWorldPosition)
 center=vector('LensCenter',(0,0,0,0));forward=vector('LensForward',(1,0,0,0));depth=scalar('RearDepth',1)
-alpha=custom('return saturate(Blend)*step(dot(Position-Center,Forward),Depth);',
- {'Blend':(blend,''),'Position':(position,''),'Center':(center,'RGB'),'Forward':(forward,'RGB'),'Depth':(depth,'')})
+alpha=custom((O/'lens_coverage.hlsl').read_text(encoding='utf-8'),
+ {'Blend':(blend,''),'Position':(position,''),'Center':(center,'RGB'),'Forward':(forward,'RGB'),'Depth':(depth,''),'ReticleStyle':(style,'')})
 fresnel=node(u.MaterialExpressionFresnel,exponent=4.0,base_reflect_fraction=0.0)
 opacity=custom('return lerp(lerp(.018,.16,Fresnel),1,Alpha);',{'Fresnel':(fresnel,''),'Alpha':(alpha,'')})
 emissive=custom('return Picture*Alpha/max(Opacity,.001);',{'Picture':(picture,''),'Alpha':(alpha,''),'Opacity':(opacity,'')},u.CustomMaterialOutputType.CMOT_FLOAT3)

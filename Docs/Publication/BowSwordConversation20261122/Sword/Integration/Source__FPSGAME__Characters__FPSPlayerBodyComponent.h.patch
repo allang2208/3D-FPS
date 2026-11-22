@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -206,6 +206,13 @@
+     /** Other players' Azure Dragon claws on this machine, from the replicated presentation. */
+     void PresentRemoteAzureDragon();
+     void PresentBeiweiTrail();
++    void PresentSwordSweepRift();
++    UPROPERTY(Transient) TObjectPtr<class UBeiweiSwordTrailComponent> WorldSweepTrail;
++    TWeakObjectPtr<class UStaticMeshComponent> PreviousSweepBlade;
++    FTransform PreviousSweepPose=FTransform::Identity;
++    FName PreviousSweepVariant;
++    float PreviousSweepProgress=0.f;
++    double PreviousSweepTime=-1.;
+     void PresentRidgeGather();
+     void PresentOathRune();
+     UPROPERTY(Transient) TObjectPtr<class UOathJudgmentVisualComponent> WorldOathVisual;

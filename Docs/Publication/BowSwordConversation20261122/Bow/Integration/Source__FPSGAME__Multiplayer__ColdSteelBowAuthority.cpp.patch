@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelBowAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelBowAuthority.cpp
+@@ -196,7 +196,7 @@
+         *(bPiercing?Piercing.DamageMultiplier:1.f);
+     Arrow->Configure(Damage,float(Stats.Speed)*100.f*FMath::Lerp(FMath::Clamp(N(TEXT("min_speed_ratio"),.35f),0.f,1.f),1.f,Request.Charge)
+         *(bPiercing?Piercing.SpeedMultiplier:1.f),
+-        N(TEXT("arrow_gravity_cm"),520),float(Stats.Range)*100.f,Shot,Shaft,Head,
++        N(TEXT("arrow_gravity_cm"),980),float(Stats.Range)*100.f,Shot,Shaft,Head,
+         N(TEXT("arrow_radius_cm"),.3f),N(TEXT("arrow_length_cm"),76),Ammo,Owned,N(TEXT("arrow_recovery_seconds"),120));
+     Arrow->SetElementalCast(ElementCast);
+     if(Request.bIlluminationArrow){Arrow->SetIlluminationCast(LightCast);Light->ShotCommitted();}

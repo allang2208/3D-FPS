@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
+@@ -247,6 +247,7 @@
+ {
+     if(ObserverKukriRifts){ObserverKukriRifts->Clear(GetOwner());ObserverKukriRifts.Reset();}
+     if(BeiweiWorldTrail){GetOwner()->RemoveInstanceComponent(BeiweiWorldTrail);BeiweiWorldTrail->DestroyComponent();BeiweiWorldTrail=nullptr;}
++    if(WorldSweepTrail){GetOwner()->RemoveInstanceComponent(WorldSweepTrail);WorldSweepTrail->DestroyComponent();WorldSweepTrail=nullptr;}
+     if(WorldRidgeGather){WorldRidgeGather->DestroyComponent();WorldRidgeGather=nullptr;}
+     ReleaseDeathCamera();
+     ClearGunPresentation();

@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
++++ b/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
+@@ -3,6 +3,7 @@
+ #include "UnknownSpellCombat.h"
+ #include "../Skills/EnemyAttackDamage.h"
+ #include "../Weapons/StarMarrowComponent.h"
++#include "../Weapons/RuneSwordComponent.h"
+ #include "../Skills/FPSIceArmorComponent.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../Weapons/Spellbook/SpellbookComponent.h"
+@@ -71,6 +72,7 @@
+     auto* Character=Cast<ACharacter>(GetOwner());
+     if(!Character||bDeathApplied)return;
+     bDeathApplied=true;
++    if(auto* Sword=Character->FindComponentByClass<URuneSwordComponent>())Sword->ClearRingChainProgress();
+     // Use the existing priority cancellation path without reapplying a profile
+     // snapshot: a stale health snapshot must not revive a confirmed death.
+     if(auto* FPS=Cast<AFPSGAMECharacter>(Character))FPS->InterruptActionsForPriority(true);

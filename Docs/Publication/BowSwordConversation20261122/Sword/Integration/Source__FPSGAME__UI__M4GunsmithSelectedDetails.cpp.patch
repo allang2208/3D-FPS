@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+@@ -374,6 +374,8 @@
+             if(RisingDragon)AddEffect(TEXT("连段变化｜连段收尾变为升龙，准备时间缩短50%；攻速仍按挥砍节奏计算。"));
+             else if(OverheadFinisher)AddEffect(TEXT("连段变化｜连段收尾变为冲刺竖劈，使用前方矩形判定。"));
+         }
++        if(!FMath::IsNearlyEqual(M.PhysicalAttackMultiplier,1.f))
++            AddValue(TEXT("物理攻击力"),Was.PhysicalAttack,Now.PhysicalAttack,2,TEXT(""),false,Percent(M.PhysicalAttackMultiplier));
+         if(!FMath::IsNearlyEqual(M.PhysicalDamage,1.))
+             AddValue(TEXT("物理伤害"),Was.DamageParts.BasePhysical+Was.DamageParts.AddedPhysical,Now.DamageParts.BasePhysical+Now.DamageParts.AddedPhysical,2,TEXT(""),false,Percent(M.PhysicalDamage));
+         if(!FMath::IsNearlyEqual(M.Damage,1.))AddValue(ColdSteelWeaponText::BasePhysical,Was.DamageParts.BasePhysical,Now.DamageParts.BasePhysical,2,TEXT(""),false,Percent(M.Damage*M.AllAttackDamage));

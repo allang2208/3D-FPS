@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/Weapons/MeleeRuneVisual.cpp
++++ b/Source/FPSGAME/Weapons/MeleeRuneVisual.cpp
+@@ -250,6 +250,18 @@
+     bool Active=false;
+     for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
+     {
++        if(PreviewTime>=0.)
++        {
++            auto* Surface=Mesh->GetMaterial(Slot);
++            if(Surface&&Surface->GetBaseMaterial()->GetName().StartsWith(TEXT("M_KukriMark_")))
++            {
++                auto* Mark=Cast<UMaterialInstanceDynamic>(Surface);
++                if(!Mark)Mark=Mesh->CreateDynamicMaterialInstance(Slot,Surface);
++                if(Mark)Mark->SetScalarParameterValue(TEXT("PreviewTime"),PreviewTime);
++                Active=true;
++                continue;
++            }
++        }
+         if(auto* Surface=Mesh->GetMaterial(Slot);Surface&&
+             (Surface->GetBaseMaterial()->GetName()==TEXT("M_RuneboundSwiftRuneSurface")||
+              Surface->GetBaseMaterial()->GetName()==TEXT("M_RuneboundDestructionRuneSurface")))

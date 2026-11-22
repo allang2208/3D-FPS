@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.h
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.h
+@@ -15,6 +15,7 @@
+     double ToughnessDamage=1, PhysicalArmorPenetration=0;
+     // Guaranteed contact stacks, captured from the attacking weapon only.
+     int32 MeleeHitBleedStacks=0;
++    float PhysicalAttackMultiplier=1.f;
+     double ComboSecond=1, ComboThird=1, NormalAttackStamina=1;
+     // Ability cooldowns only; attack cycles and recovery keep their own action clocks.
+     double SkillCooldown=1;
+@@ -199,6 +200,7 @@
+     FString CategoryLabel(const FString& Definition,const FString& Slot) const;
+     // Weapon remains the firearm contract used by ammunition and combat callers.
+     const FGunsmithWeapon* ModifiableWeapon(const FString& Definition) const;
++    static bool UsesFreePartReceipts(const FString& Definition);
+     bool IsMelee(const FString& Definition) const {return MeleeWeapons.Contains(Definition);}
+     /** 采集工具（伐木斧、矿镐）：走工具四栏目录，不套用剑类连击／格挡口径。 */
+     bool IsTool(const FString& Definition) const {return ToolWeapons.Contains(Definition);}

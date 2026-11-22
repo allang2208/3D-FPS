@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowMountainEchoArrow.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowMountainEchoArrow.cpp
+@@ -24,7 +24,7 @@
+     const double PanelTotal=Shot.DamagePanel.Total();
+     Clean.DamagePanel=PanelTotal>0?Shot.DamagePanel.Scaled(Damage/PanelTotal):FWeaponDamageParts{Damage,0,0,0};
+     Clean.DamagePanel.BaseMagic=Clean.DamagePanel.AddedMagic=0;
+-    Echo->Configure(Clean.DamagePanel.Total(),Speed,GravityCM,MaxDistanceCM,Clean,Presentation.Shaft,
++    Echo->Configure(Clean.DamagePanel.Total(),Speed,GravityCM,EffectiveRangeCM,Clean,Presentation.Shaft,
+         Presentation.Head,Presentation.Radius,Presentation.Length,FString(),false,8.f);
+     Echo->Presentation.bMountainEcho=true;Echo->Presentation.bFlameArmor=false;
+     Echo->Presentation.EchoMaterial=Source->EchoMaterial();Echo->MountainImpact=MountainImpact;
+@@ -43,7 +43,7 @@
+     SetActorTickEnabled(!bEchoPending&&!MountainContact.bHit&&HasAuthority());
+     ApplyEchoPresentation();
+ }
+-float ABowArrow::ApplyEchoHit(const FHitResult& Hit,FWeaponDamageResult& Result)
++float ABowArrow::ApplyEchoHit(const FHitResult& Hit,float RangeScale,FWeaponDamageResult& Result)
+ {
+     auto* Victim=Hit.GetActor();auto* Pawn=GetInstigator();
+     auto* Combat=Victim?Victim->FindComponentByClass<UMonsterCombatComponent>():nullptr;
+@@ -55,7 +55,7 @@
+     {Physical=MountainImpact->Physical;Critical=MountainImpact->bCritical;}
+     // A missed original has no critical result to inherit. The echo never
+     // evaluates critical chance/resistance or weakpoints on its own contact.
+-    Physical.BaseMagic=Physical.AddedMagic=0;Physical=Physical.Scaled(MountainEchoString::DamageScale);
++    Physical.BaseMagic=Physical.AddedMagic=0;Physical=Physical.Scaled(MountainEchoString::DamageScale*RangeScale);
+     CombatFormulaRuntime::WeaponHit Contact;Contact.Target=Victim;Contact.Incoming=Physical;
+     Contact.PhysicalPenetration=Shot.ArmorPenetration;
+     TGuardValue<CombatFormulaRuntime::WeaponHit*> Scope(CombatFormulaRuntime::ActiveWeaponHit,&Contact);

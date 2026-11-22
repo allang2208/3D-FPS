@@ -1,0 +1,181 @@
+{
+  "project_paths": "relative to FPSGAME; packages use /Game/",
+  "stock_icon_current_files_sha256": {
+    "SourceAssets/ForgedSteelGreatsword20261120/CommonMods/IconMasters/blade_1_factory.png": "c1687d049a6d3ba6e11d8f803507b6f36ea9f525e50cf1f5703ee1c409890e9a",
+    "SourceAssets/ForgedSteelGreatsword20261120/CommonMods/Icons/blade_1_factory.png": "3709d6cd8e062a158db13364ab5cb7759895c4392f774f883ae13d138b92a72a",
+    "SourceAssets/ForgedSteelGreatsword20261120/CommonMods/IconMasters/guard_factory.png": "be0c6d29ffff3e84774d33eebdb1c45104b25ba54609bd735821cc0bd295fdd2",
+    "SourceAssets/ForgedSteelGreatsword20261120/CommonMods/Icons/guard_factory.png": "f815a03093cf2c914a7af233a9f769fecea07a2eb196adec85a67b8b482b8c4f",
+    "SourceAssets/ForgedSteelGreatsword20261120/CommonMods/IconMasters/grip_factory.png": "2ff09e6f55793b0f3c8116d2a776cb0cf401fb2a7111f2a74991e2cbf7e3dd89",
+    "SourceAssets/ForgedSteelGreatsword20261120/CommonMods/Icons/grip_factory.png": "03102c7014368e2fa81050672165eedcd3b8c14a843fcddb7517f5aca4ddb798",
+    "SourceAssets/ForgedSteelGreatsword20261120/CommonMods/IconMasters/pommel_factory.png": "2d4cc5912708809efad8553151fdfbef12b21c0b13f55cc5d6609ce409919d47",
+    "SourceAssets/ForgedSteelGreatsword20261120/CommonMods/Icons/pommel_factory.png": "7d7cf7bd8cb5b84a4a89543c00079eddc8e2638519e571782c69e89dd094ac10",
+    "SourceAssets/ForgedSteelGreatsword20261120/CommonMods/IconMasters/blade_material_factory.png": "c44b3cad578ae2f16da3f070f7daf4fac81ef5f8a10cce8d9c96f32a81ecafa3",
+    "SourceAssets/ForgedSteelGreatsword20261120/CommonMods/Icons/blade_material_factory.png": "85336d71c9f2fc05ad411c6620243ae90ccd8fa463de67c3d6f15e5f01cadb03",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_category_blade_1.png": "3709d6cd8e062a158db13364ab5cb7759895c4392f774f883ae13d138b92a72a",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_category_blade_1.uasset": "31d7df33e48e0c18c62d092b9e216329b6a0f134ec003272e59d415d0351d867",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_blade_1_false.png": "3709d6cd8e062a158db13364ab5cb7759895c4392f774f883ae13d138b92a72a",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_blade_1_false.uasset": "87698c784abdd12ec1ced48543687e26610524e115ae6fa503aba32fe208cfab",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_category_guard.png": "f815a03093cf2c914a7af233a9f769fecea07a2eb196adec85a67b8b482b8c4f",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_category_guard.uasset": "0cbc7595ff0b4cd27a3731d7a3fcada43a475fd7a880792a50537912c95c7693",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_guard_false.png": "f815a03093cf2c914a7af233a9f769fecea07a2eb196adec85a67b8b482b8c4f",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_guard_false.uasset": "92b2a78db0f0f29a3258d4e772de2fdac06a1599eaee86e6e62475661a7e65d3",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_category_grip.png": "03102c7014368e2fa81050672165eedcd3b8c14a843fcddb7517f5aca4ddb798",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_category_grip.uasset": "60a9fa35d890c804f1d901b4ed290c681e10b9d418ac7bc45f6a9009fd291a53",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_grip_false.png": "03102c7014368e2fa81050672165eedcd3b8c14a843fcddb7517f5aca4ddb798",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_grip_false.uasset": "5023981efc92f4c969c2fd8eabc07ded868ef69876955896722c1ca523a16d59",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_category_pommel.png": "7d7cf7bd8cb5b84a4a89543c00079eddc8e2638519e571782c69e89dd094ac10",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_category_pommel.uasset": "bd2e77de66ea18f788231946078bf178f6dbc3ede611e36c19ce82e6c6d461ff",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_pommel_false.png": "7d7cf7bd8cb5b84a4a89543c00079eddc8e2638519e571782c69e89dd094ac10",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_pommel_false.uasset": "33fd7022eea428435df038afdec7483ef143ee4c71fe1367730be0949ab3a651",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_category_blade_material.png": "85336d71c9f2fc05ad411c6620243ae90ccd8fa463de67c3d6f15e5f01cadb03",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_category_blade_material.uasset": "4a4126931bee3c76d7fe04db46decb7d30302cf2c03d1b5ec51ccad84a841bf3",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_blade_material_false.png": "85336d71c9f2fc05ad411c6620243ae90ccd8fa463de67c3d6f15e5f01cadb03",
+    "Content/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_blade_material_false.uasset": "ebbb05667d720bbcb2c1a232ea61be3ddaa00ca8fc2ebf406680bb915ae44789"
+  },
+  "stock_icon_slots": {
+    "blade_1": [
+      "ue_forged_steel_greatsword_category_blade_1",
+      "ue_forged_steel_greatsword_blade_1_false"
+    ],
+    "guard": [
+      "ue_forged_steel_greatsword_category_guard",
+      "ue_forged_steel_greatsword_guard_false"
+    ],
+    "grip": [
+      "ue_forged_steel_greatsword_category_grip",
+      "ue_forged_steel_greatsword_grip_false"
+    ],
+    "pommel": [
+      "ue_forged_steel_greatsword_category_pommel",
+      "ue_forged_steel_greatsword_pommel_false"
+    ],
+    "blade_material": [
+      "ue_forged_steel_greatsword_category_blade_material",
+      "ue_forged_steel_greatsword_blade_material_false"
+    ]
+  },
+  "original_shared_grip_surfaces": {
+    "Leather": {
+      "live": "16514f6b16f982b4d9e4fa588d25cd381fa72e66aec9a05db8b757c01c70f40c",
+      "nas": "16514f6b16f982b4d9e4fa588d25cd381fa72e66aec9a05db8b757c01c70f40c",
+      "same_graph_inputs_as_oct31": true,
+      "same_basecolor_pixels_as_oct31": true
+    },
+    "Steel": {
+      "live": "9e9973dae7241ff2046caecdd709a7cd6690633837925dc0ad21b34a01cad766",
+      "nas": "9e9973dae7241ff2046caecdd709a7cd6690633837925dc0ad21b34a01cad766",
+      "same_graph_inputs_as_oct31": true,
+      "same_basecolor_pixels_as_oct31": true
+    },
+    "Textile": {
+      "live": "a435a6a82b6cd26389c10850dde090476ae0af08335a6f1e0c51f8b5f2be9574",
+      "nas": "a435a6a82b6cd26389c10850dde090476ae0af08335a6f1e0c51f8b5f2be9574",
+      "same_graph_inputs_as_oct31": true,
+      "same_basecolor_pixels_as_oct31": true
+    }
+  },
+  "grip_preview_slots": [
+    [
+      "forged-steel-greatsword-modules.json",
+      "shock_wrap"
+    ],
+    [
+      "forged-steel-greatsword-modules.json",
+      "swift_grip"
+    ],
+    [
+      "forged-steel-greatsword-modules.json",
+      "long_twohand"
+    ],
+    [
+      "zhanmadao-modules.json",
+      "shock_wrap"
+    ],
+    [
+      "zhanmadao-modules.json",
+      "swift_grip"
+    ],
+    [
+      "zhanmadao-modules.json",
+      "long_twohand"
+    ]
+  ],
+  "guard_packages": [
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/StarfallGuard20261030/MeshyV2/M_StarfallMeshy_Join",
+      "sha256": "dbf7babd92ffbd26995760c908859daf3698d84015c5754e6df0b849b098d5db",
+      "revision": "StarfallMeshyV2-20261031"
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/StarfallGuard20261030/MeshyV2/M_StarfallMeshy_Join_Whirlwind",
+      "sha256": "832767f5c14e7c009231c1ff6a8e3c18bb021c8594824e0a5ef828a578ceaffe",
+      "revision": "StarfallMeshyV2-20261031"
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/StarfallGuard20261030/MeshyV2/M_StarfallMeshy_Body",
+      "sha256": "fd53358bcf45e9a76fcf7e5069a065f48830baee7399fea4f32761c43abd3d9a",
+      "revision": "StarfallMeshyV2-20261031"
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/StarfallGuard20261030/MeshyV2/M_StarfallMeshy_Body_Whirlwind",
+      "sha256": "b10c1c1345fa385ef65bb804b38c8dc037e045b840ba5a566b759b1d01c64113",
+      "revision": "StarfallMeshyV2-20261031"
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/StarfallGuard20261030/MeshyV2/M_StarfallMeshy_Sapphire",
+      "sha256": "7f44ae550f249221f60912e0d37dae8d78e517094c2eb06d3f5db92c2dc0047c",
+      "revision": "StarfallMeshyV2-20261031"
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/StarfallGuard20261030/MeshyV2/M_StarfallMeshy_Sapphire_Whirlwind",
+      "sha256": "2869fe5d76860f27f06362b812e10c501a689effb76a6679f397e9ff80c45aff",
+      "revision": "StarfallMeshyV2-20261031"
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/MeshyV3/M_TwinStarMeshy_Join",
+      "sha256": "69ca82b2b8102e272bce5b2d5076320b3cf4a4a51e2835912188cf522d6b88f5",
+      "revision": "TwinStarMeshyV3-20261030"
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/MeshyV3/M_TwinStarMeshy_Join_Whirlwind",
+      "sha256": "155915db9843c58a0f3678ea917fbfbdffe05f1d9ba2e89a64840e949742526e",
+      "revision": "TwinStarMeshyV3-20261030"
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/MeshyV3/M_TwinStarMeshy_Body",
+      "sha256": "f08cbed65c3aa909a75d90181dcecd50860d2d3e3926fc122803445977c75717",
+      "revision": "TwinStarMeshyV3-20261030"
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/MeshyV3/M_TwinStarMeshy_Body_Whirlwind",
+      "sha256": "d8e728ff35243a0687ac9e89469e7c372b4a29e6ffd1adf9905aec43a4424abc",
+      "revision": "TwinStarMeshyV3-20261030"
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/MeshyV3/M_TwinStarMeshy_Sapphire",
+      "sha256": "537db1e7fb9e08361d30f9dda7b1cf12e65f9ff4899b5e322d592f918fdc956f",
+      "revision": "TwinStarMeshyV3-20261030"
+    },
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/MeshyV3/M_TwinStarMeshy_Sapphire_Whirlwind",
+      "sha256": "83a3450ce260c11b16117fcce0f9a74ff69630f4f482673e9f27027e94a06bcb",
+      "revision": "TwinStarMeshyV3-20261030"
+    }
+  ],
+  "rune_readback_20261121": {
+    "published_graphs": 110,
+    "current_matching_package_digests": 110,
+    "registered_historical_bindings": 247,
+    "missing_binding_packages": []
+  },
+  "source_recovery_archives": {
+    "Bows-recovered.zip": {
+      "bytes": 37330136,
+      "sha256": "c1210fba015c036cb05b7cfe9032fbf772e5bd25e5b853835df673cbab4aac39"
+    },
+    "ForgedSteelGreatsword-recovered.zip": {
+      "bytes": 67587309,
+      "sha256": "22ce30dec3c26e5be0ca3db59c1d6f32178dd4252dc78ddd12574acb165c2506"
+    }
+  }
+}

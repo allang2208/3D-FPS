@@ -1,0 +1,70 @@
+--- a/Source/FPSGAME/UI/ColdSteelAcquisitionAuditCommandlet.cpp
++++ b/Source/FPSGAME/UI/ColdSteelAcquisitionAuditCommandlet.cpp
+@@ -6,6 +6,7 @@
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../Multiplayer/ColdSteelProfileTransfer.h"
+ #include "../Weapons/GunsmithSystem.h"
++#include "../Building/ForgingSystem.h"
+ #include "Serialization/JsonSerializer.h"
+ #include "../FPSGAMECharacter.h"
+ #include "Engine/Engine.h"
+@@ -247,6 +248,59 @@
+     Check(HasBlade(Axe.InstanceId,TEXT("hatchet_ghost_scythe"),TEXT("knife_pommel_yangu"))&&
+         !HasBlade(Knife.InstanceId,TEXT("canine_blade"),TEXT("knife_pommel_chenheng"))&&Client->FindItem(Knife.InstanceId)&&
+         Receiver->PendingGunsmithInstances.IsEmpty(),TEXT("authoritative mirror accepts the axe, restores the rejected kukri and clears both pending instances"));
++    const FString ForgedId=TEXT("ue_forged_steel_greatsword");
++    Client->AdoptNetMirror(Blank);
++    Check(Client->ItemCatalog().ContainsByPredicate([&](const auto& E){return E.Definition==ForgedId&&E.Group==TEXT("武器")&&E.Subgroup==TEXT("双手剑");})
++        &&Client->AddItem(ForgedId,1),TEXT("F6 forged greatsword catalog entry generates a backpack item"));
++    auto ForgedStock=Client->Snapshot();
++    const auto* ForgedItem=ForgedStock.Items.FindByPredicate([&](const auto& Item){return Item.Definition==ForgedId;});
++    const FString ForgedInstance=ForgedItem?ForgedItem->InstanceId:FString();
++    auto* Smith=GI->GetSubsystem<UGunsmithSystem>();
++    const auto* Forge=GI->GetSubsystem<UColdSteelForgingSystem>();
++    const auto* Recipe=Forge?Forge->Find(TEXT("forge_forged_steel_greatsword")):nullptr;
++    Check(Recipe&&Recipe->Output==ForgedId&&Recipe->MetalCount==8,TEXT("forge resolves forged greatsword recipe and metal cost"));
++    Check(Smith->Begin(ForgedInstance)&&Smith->Select(TEXT("blade_1"),TEXT("hollow_blade"))&&
++        Smith->Select(TEXT("pommel"),TEXT("ring_chain_pommel"))&&Smith->Apply()&&
++        HasBlade(ForgedInstance,TEXT("hollow_blade"),TEXT("ring_chain_pommel")),TEXT("workbench applies hollow blade and chain to generated instance"));
++    auto ForgedApplied=Client->Snapshot();
++    // The fixture invokes the actual mirror receiver without a socket. Stage the
++    // client Apply sequence that a networked player state records at the workbench.
++    Receiver->LocalGunsmithSequence=6;Receiver->PendingGunsmithInstances.Add(ForgedInstance);
++    ++ForgedStock.CampfireInventoryRevision;ForgedStock.Items.Add(Bread);
++    Mirror(ForgedStock,5);
++    Check(HasBlade(ForgedInstance,TEXT("hollow_blade"),TEXT("ring_chain_pommel"))&&Client->FindItem(Bread.InstanceId),
++        TEXT("older server reply preserves pending forged parts while admitting new pickup"));
++    ForgedApplied.CampfireInventoryRevision=ForgedStock.CampfireInventoryRevision;
++    ForgedApplied.Items.Add(Bread);Mirror(ForgedApplied,6);
++    Check(HasBlade(ForgedInstance,TEXT("hollow_blade"),TEXT("ring_chain_pommel"))&&Receiver->PendingGunsmithInstances.IsEmpty(),
++        TEXT("matching server reply confirms the forged part selection"));
++    Check(Smith->Begin(ForgedInstance)&&Smith->Select(TEXT("blade_1"),TEXT("executioner_blade"))&&Smith->Apply()&&
++        HasBlade(ForgedInstance,TEXT("executioner_blade"),TEXT("ring_chain_pommel")),TEXT("workbench replaces hollow with executioner while retaining chain"));
++    Receiver->LocalGunsmithSequence=7;Receiver->PendingGunsmithInstances.Add(ForgedInstance);Receiver->bHasLastSent=false;
++    Mirror(ForgedApplied,7);
++    Check(HasBlade(ForgedInstance,TEXT("hollow_blade"),TEXT("ring_chain_pommel"))&&Receiver->PendingGunsmithInstances.IsEmpty(),
++        TEXT("authority rejection restores only the previous forged selection"));
++    Client->AdoptNetMirror(Blank);
++    auto Bow=Client->CreateItem(TEXT("bow_woodsteel"));Bow.Place=0;Bow.Cell=0;
++    auto BowStock=Blank;BowStock.Items={Bow};Client->AdoptNetMirror(BowStock);
++    const auto BowParts=[&](){const auto* Found=Client->FindItem(Bow.InstanceId);return Found?Smith->Installed(*Found):FGunsmithParts();};
++    Check(Smith->Begin(Bow.InstanceId)&&Smith->Select(TEXT("riser"),TEXT("highland_far_peak"))&&Smith->Apply(),
++        TEXT("highland bow stock with authority-selected riser"));
++    auto AuthorityBow=Client->Snapshot();
++    Client->AdoptNetMirror(BowStock);
++    Check(Smith->Begin(Bow.InstanceId)&&Smith->Select(TEXT("sight"),TEXT("highland_peakwatch_3_6x"))&&
++        Smith->Select(TEXT("string"),TEXT("highland_mountain_echo"))&&Smith->Apply(),TEXT("workbench equips Peakwatch sight and Mountain Echo string"));
++    Receiver->LocalGunsmithSequence=8;Receiver->PendingGunsmithInstances.Add(Bow.InstanceId);
++    ++AuthorityBow.CampfireInventoryRevision;Mirror(AuthorityBow,7);
++    const auto PendingBow=BowParts();
++    Check(PendingBow.FindRef(TEXT("sight"))==TEXT("highland_peakwatch_3_6x")&&PendingBow.FindRef(TEXT("string"))==TEXT("highland_mountain_echo")&&
++        PendingBow.FindRef(TEXT("riser"))==TEXT("highland_far_peak"),TEXT("pending sight and string survive pickup while adopting server riser"));
++    Receiver->bHasLastSent=false;Mirror(AuthorityBow,8);
++    const auto RejectedBow=BowParts();
++    Check(RejectedBow.FindRef(TEXT("sight"))!=TEXT("highland_peakwatch_3_6x")&&RejectedBow.FindRef(TEXT("string"))!=TEXT("highland_mountain_echo")&&
++        RejectedBow.FindRef(TEXT("riser"))==TEXT("highland_far_peak")&&Receiver->PendingGunsmithInstances.IsEmpty(),
++        TEXT("matching rejection restores factory sight and string while keeping server riser"));
++    Smith->Close();
+     Host->SetAcquisitionFeedEnabled(false);Client->SetAcquisitionFeedEnabled(false);Server->SetAcquisitionFeedEnabled(false);
+     Report+=FString::Printf(TEXT("COMPLETE checks=%d failures=%d\n"),Checks,Failures);
+     FFileHelper::SaveStringToFile(Report,*(Root/TEXT("report.txt")));UE_LOG(LogTemp,Display,TEXT("ACQUISITION_AUDIT COMPLETE checks=%d failures=%d"),Checks,Failures);

@@ -264,6 +264,75 @@
             "破势升空｜剑气命中无韧性保护的普通怪物或已破韧怪物时将其击飞；本次剑气打破韧性时同样可以击飞。",
             "晶体共鸣｜剑气保留魔晶附伤及已安装材质的吸血、回蓝效果，按各目标实际造成的伤害分别结算。剑气不积蓄晶能，不递归产生追加攻击。"
           ]
+        },
+        {
+          "id": "hollow_blade",
+          "name": "镂空剑身",
+          "tier": "legendary",
+          "weapons": [
+            "ue_forged_steel_greatsword"
+          ],
+          "description": "锻钢双手剑专属。原厂修长刃形的剑脊中央有一道贯穿孔，两侧保留银灰色的锻钢刃面。",
+          "stats": {
+            "attack_speed_mult": 1.2,
+            "stamina_mult": 0.85,
+            "physical_attack_mult": 1.05,
+            "melee_hit_bleed_stacks": 2
+          },
+          "effects": [
+            {
+              "text": "攻击速度+20%",
+              "benefit": 1
+            },
+            {
+              "text": "体力消耗−15%",
+              "benefit": 1
+            },
+            {
+              "text": "物理攻击+5%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "双痕｜剑刃每次有效命中附加2层流血。同一段攻击对每个目标触发一次。"
+          ]
+        },
+        {
+          "id": "executioner_blade",
+          "name": "处刑剑身",
+          "tier": "legendary",
+          "weapons": [
+            "ue_forged_steel_greatsword"
+          ],
+          "description": "宽大的锻钢刃根贴合护手，深色长槽在前段收拢，两侧刃面汇成尖锋。",
+          "stats": {
+            "attack_speed_mult": 0.5,
+            "stamina_mult": 1.3,
+            "physical_attack_mult": 2.0,
+            "toughness_damage_mult": 1.5
+          },
+          "effects": [
+            {
+              "text": "攻击速度−50%",
+              "benefit": -1
+            },
+            {
+              "text": "体力消耗+30%",
+              "benefit": -1
+            },
+            {
+              "text": "物理攻击+100%",
+              "benefit": 1
+            },
+            {
+              "text": "韧性伤害+50%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "钝击｜剑身命中以钝伤结算韧性伤害。",
+            "震慑｜每段剑身攻击命中时，有50%概率使目标眩晕1秒。目标已破韧或被本击打破韧性时，触发概率为100%。"
+          ]
         }
       ]
     },
@@ -673,7 +742,8 @@
             "ue_highland_claymore",
             "ue_tang_dao",
             "ue_xuanchi_zhenyue",
-            "ue_zhanmadao"
+            "ue_zhanmadao",
+            "ue_forged_steel_greatsword"
           ],
           "description": "紫色裂纹状符印沿金属表面延伸，刻纹间泛出微光。",
           "effects": [
@@ -1059,7 +1129,8 @@
             "ue_highland_claymore",
             "ue_tang_dao",
             "ue_xuanchi_zhenyue",
-            "ue_zhanmadao"
+            "ue_zhanmadao",
+            "ue_forged_steel_greatsword"
           ],
           "description": "宽厚护翼向两侧展开，外缘厚实，中央连接握柄。",
           "effects": [
@@ -1092,7 +1163,8 @@
             "ue_highland_claymore",
             "ue_tang_dao",
             "ue_xuanchi_zhenyue",
-            "ue_zhanmadao"
+            "ue_zhanmadao",
+            "ue_forged_steel_greatsword"
           ],
           "description": "上挑护翼围住握柄前端，内缘形成承刃的弧面。",
           "effects": [
@@ -1128,7 +1200,8 @@
             "ue_highland_claymore",
             "ue_tang_dao",
             "ue_xuanchi_zhenyue",
-            "ue_zhanmadao"
+            "ue_zhanmadao",
+            "ue_forged_steel_greatsword"
           ],
           "description": "收窄的护翼保留简洁轮廓，两端轻巧上扬。",
           "effects": [
@@ -1422,7 +1495,8 @@
             "ue_frost_crystal_sword",
             "ue_highland_claymore",
             "ue_xuanchi_zhenyue",
-            "ue_zhanmadao"
+            "ue_zhanmadao",
+            "ue_forged_steel_greatsword"
           ],
           "description": "贴平钢脊支撑三段皮革握区，金属边缘收进缠革下方。",
           "effects": [
@@ -1454,7 +1528,8 @@
             "ue_frost_crystal_sword",
             "ue_highland_claymore",
             "ue_xuanchi_zhenyue",
-            "ue_zhanmadao"
+            "ue_zhanmadao",
+            "ue_forged_steel_greatsword"
           ],
           "description": "交错锁纹织带紧密贴合握区，两端以窄环收口。",
           "effects": [
@@ -1770,6 +1845,57 @@
           },
           "special_effects": [
             "虎啸｜快速近战命中后，目标受到的韧性伤害+25%，冲击、利器、钝器的韧性抵抗归零，持续6秒；重复命中刷新，不叠加。"
+          ]
+        },
+        {
+          "id": "ring_chain_pommel",
+          "name": "环链配重",
+          "tier": "special",
+          "weapons": [
+            "ue_forged_steel_greatsword"
+          ],
+          "description": "深钢环首嵌在柄尾套筒下，七节铁链交错套接，随挥剑与收势回荡。",
+          "stats": {
+            "attack_speed_mult": 1.1,
+            "stamina_mult": 0.9
+          },
+          "effects": [
+            {
+              "text": "攻击速度+10%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击体力消耗−10%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "重击替换为横扫。点按左键普通攻击，长按蓄满后松开左键发动横扫。",
+            "普通重击｜沿剑刃挥过的轨迹命中身前目标，基础最远3.6米。",
+            "环链横扫｜从右向左扫过身前180°扇形，基础半径3.6米。两种重击的距离均受攻击范围加成影响。",
+            "回摆｜3秒内用两段普通攻击命中敌人，获得一次回摆。每段普通攻击命中多个目标只计一次。",
+            "蓄势横扫｜回摆就绪后的3秒内开始重击蓄力，蓄力时间缩短50%，本次重击体力消耗增加15%。开始蓄力时消耗回摆。"
+          ]
+        },
+        {
+          "id": "fishtail_pommel",
+          "name": "鱼尾配重",
+          "tier": "special",
+          "weapons": [
+            "ue_forged_steel_greatsword"
+          ],
+          "description": "扇形锻钢配重从柄尾向两侧展开，中央浅棱与剑脊呼应。",
+          "stats": {
+            "physical_attack_mult": 1.08
+          },
+          "effects": [
+            {
+              "text": "物理攻击+8%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "乘隙｜普攻或重击的剑身直接命中已破韧的敌人时，本击物理伤害+25%。"
           ]
         }
       ]

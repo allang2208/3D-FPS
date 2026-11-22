@@ -1,0 +1,136 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordPresentation.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordPresentation.cpp
+@@ -1,5 +1,6 @@
+ #include "RuneSwordComponent.h"
+ #include "HighlandBreakSweep.h"
++#include "RingChainSweepMotion.h"
+ #include "../Characters/FPSPlayerBodyComponent.h"
+ #include "HighlandRidgeThrust.h"
+ #include "HighlandRidgeGatherComponent.h"
+@@ -110,11 +111,15 @@
+ void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
+ {
+     if(!Profile || !Character.IsValid() || (!Character->HasAuthority()&&!Character->IsLocallyControlled()))return;
++    RefreshRingChain(Profile->ActiveProductionTool()?nullptr:Profile->Equipped());
+     if(!Viewmodel)InitializePresentation();
+     if(!Viewmodel)return;
+     RefreshToolGuardEquipment(Profile);
+     const auto* Item=Profile->Equipped();
+     const FString NewId=Item && !Profile->ActiveProductionTool() && ColdSteelInventory::IsTwoHandedSword(*Item) ? Item->InstanceId : FString();
++    const bool RingInstalled=!RingChainWeapon.IsEmpty();
++    if(bRingInputInstalled&&!RingInstalled&&(RingPrimaryDownAt>=0.||bCharging))CancelAction();
++    bRingInputInstalled=RingInstalled;
+     RefreshAzureDragon(NewId.IsEmpty()?nullptr:Item,Profile);
+     RefreshBeiwei(NewId.IsEmpty()?nullptr:Item);
+     RefreshChixiao(NewId.IsEmpty()?nullptr:Item);
+@@ -218,6 +223,7 @@
+ void URuneSwordComponent::RefreshModularSword(const FColdSteelItem* Item)
+ {
+     RefreshRidgeThrust(Item);
++    RefreshRingChainSweep();
+     RefreshOath(Item);
+     if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetGripClearance(Item);
+     if(!Item||!ColdSteelModularSword::Supports(*Item))
+@@ -250,14 +256,14 @@
+ 
+ void URuneSwordComponent::SetClip(FName Name,bool bLoop)
+ {
+-    if(CurrentClip==HighlandBreakSweep::Clip && Name!=CurrentClip && bRiftActive)StopRift();
++    if(HighlandBreakSweep::UsesRibbon(CurrentClip) && Name!=CurrentClip && bRiftActive)StopRift();
+     // Keep the displayed supported grip across cancellation as well as normal
+     // endings. Idle/walk can be at any breathing/stride phase when an action starts.
+     const bool bLocomotionTarget=Name==TEXT("Idle")||Name==TEXT("Walk");
+     const bool bReadySource=CurrentClip==TEXT("Idle")||CurrentClip==TEXT("Walk")||CurrentClip==TEXT("Inspect");
+     const bool bWindupTarget=Name==TEXT("Slash1")||Name==TEXT("Slash2")||Name==TEXT("Thrust")||
+         Name==TEXT("PommelStrike")||Name==TEXT("Overhead")||Name==TEXT("Uppercut")||Name==TEXT("ChainSlash")||Name==TEXT("HeavyCharge")||Name==TEXT("Guard")||Name==TEXT("StarMarrowCharge");
+-    const bool bChargeWindup=(CurrentClip==TEXT("HeavyCharge")||CurrentClip==HighlandRidgeThrust::Charge)&&
++    const bool bChargeWindup=(CurrentClip==TEXT("HeavyCharge")||CurrentClip==HighlandRidgeThrust::Charge||CurrentClip==RingChainSweepMotion::Charge)&&
+         (Name==TEXT("Slash1")||Name==TEXT("Slash2")||Name==TEXT("Thrust"));
+     // Whirlwind owns its entry clock. Heavy release starts dealing damage at
+     // time zero, so it must retain its immediate authored contact pose.
+@@ -267,7 +273,7 @@
+         if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->ClearWhirlwindEntry();
+     }
+     else if(!CurrentClip.IsNone() && Name!=TEXT("Whirlwind") && Name!=CurrentClip &&
+-        (Name==HighlandBreakSweep::Clip||Name==HighlandRidgeThrust::Charge||HighlandRidgeThrust::IsRelease(Name)||
++        (Name==HighlandBreakSweep::Clip||Name==RingChainSweepMotion::Charge||Name==HighlandRidgeThrust::Charge||HighlandRidgeThrust::IsRelease(Name)||
+          IsTacticalSprintClip(CurrentClip)||IsTacticalSprintClip(Name)||bLocomotionTarget||bGuardReaction||
+          (bReadySource&&(bWindupTarget||Name==TEXT("Inspect")))||bChargeWindup))
+     {
+@@ -287,9 +293,10 @@
+             if(bGuardReaction)Arms->LimitLocomotionEntry(.06f);
+         }
+     }
+-    CurrentClip=Name;CurrentAnimation=Animations.FindRef(Name);Elapsed=0;SweepHitPause=0.f;
++    CurrentClip=Name;CurrentAnimation=Animations.FindRef(Name);
++    Elapsed=Name==RingChainSweepMotion::Release?RingChainSweepMotion::Chamber:0.f;SweepHitPause=0.f;
+     if(!CurrentAnimation || !Viewmodel)return;
+-    Viewmodel->PlayAnimation(CurrentAnimation,bLoop);Viewmodel->SetPlayRate(0.f);SamplePose(0.f);
++    Viewmodel->PlayAnimation(CurrentAnimation,bLoop);Viewmodel->SetPlayRate(0.f);SamplePose(Elapsed);
+     if(Character.IsValid())PreviousAimFrame=Character->GetMeleeAimTransform();
+ }
+ 
+@@ -340,7 +347,7 @@
+ 
+ void URuneSwordComponent::TickWalkInspect(float Delta)
+ {
+-    if(!IsEquipped() || !CanUse() || !Character.IsValid())return;
++    if(RingPrimaryDownAt>=0. || !IsEquipped() || !CanUse() || !Character.IsValid())return;
+     if(bInspecting)
+     {
+         if(ShouldBreakWalkInspect())CancelAction();
+@@ -389,6 +396,12 @@
+     else if(bUppercut||IsRisingDragonFinisher())
+     {
+         RuneSwordUppercutMotion::Camera(Elapsed,bLungeStarted,Location,Rotation,bUppercut);
++    }
++    else if((bCharging||bReturningCharge)&&CurrentClip==RingChainSweepMotion::Charge)
++    {
++        const float Load=FMath::SmoothStep(0.f,HighlandBreakSweep::Contact,Elapsed);
++        Location=FVector(-1.5f,2.f,0.f)*Load;
++        Rotation=FRotator(.6f,2.f,1.f)*Load;
+     }
+     else if(bCharging || bReturningCharge)
+     {
+@@ -510,7 +523,7 @@
+     {
+         ChixiaoCameraMotion(Location,Rotation);
+     }
+-    else if(bAttacking && CurrentClip==HighlandBreakSweep::Clip)
++    else if(bAttacking && (CurrentClip==HighlandBreakSweep::Clip||CurrentClip==RingChainSweepMotion::Release))
+     {
+         // Camera-local travel follows the same source clock as the blade and its hit sector.
+         const float Load=FMath::SmoothStep(0.f,HighlandBreakSweep::Contact,Elapsed);
+@@ -606,7 +619,7 @@
+     const bool Judgment=bHeavyAttack && OathRiftMaterial && OathState.Phase==2 &&
+         OathState.Weapon==InstanceId && OathAttackSerial!=0 && OathAttackSerial==NetworkBladeSerial;
+     auto* Material=Judgment?OathRiftMaterial.Get():RiftMaterial.Get();
+-    if(CurrentClip==HighlandBreakSweep::Clip)
++    if(HighlandBreakSweep::UsesRibbon(CurrentClip))
+     {
+         const bool bLongGrip=EquippedAnimationFolder.EndsWith(TEXT("/LongGripAnimations"));
+         auto* Ribbon=Cast<UStaticMesh>(HighlandBreakSweep::RiftPath(bLongGrip).ResolveObject());
+@@ -621,7 +634,7 @@
+         Material->SetScalarParameterValue(TEXT("RiftStrength"),.105f);
+         Material->SetScalarParameterValue(TEXT("RiftFade"),1.f);
+         RiftAge=0.f;bRiftActive=true;
+-        TickRift(0.f);RiftVisual->SetVisibility(bRiftActive);
++        TickRift(0.f);
+         return;
+     }
+     const int32 Index=(bOverheadAttack||bUppercut||IsRisingDragonFinisher())?5:(bThrustAttack?3:(bPommelAttack?4:(bHeavyAttack?2:(CurrentClip==TEXT("Slash2")?1:0))));
+@@ -669,12 +682,12 @@
+     auto* Material=Cast<UMaterialInstanceDynamic>(RiftVisual->GetMaterial(0));
+     if(!Material)return;
+     const bool Judgment=Material==OathRiftMaterial;
+-    if(Judgment)
++    const bool bSweep=HighlandBreakSweep::UsesRibbon(CurrentClip);
++    if(Judgment||bSweep)
+     {
+         const auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();
+         RiftVisual->SetVisibility(!Body||!Body->IsThirdPersonViewEnabled());
+     }
+-    const bool bSweep=CurrentClip==HighlandBreakSweep::Clip;
+     if(bSweep && RiftVisual->GetAttachParent()==Viewmodel)
+     {
+         const float Progress=(Elapsed-ContactStart)/(ContactEnd-ContactStart);

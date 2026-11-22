@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
+@@ -90,7 +90,7 @@
+     if(Character.IsValid()&&Character->IsLocallyControlled())
+     {
+         // The firearm rig retains its last model when the owner switches to a bow.
+-        const bool bPistol=Character->IsPistolWeapon();
++        const bool bPistol=Character->HasInventoryWeapon()&&Character->IsPistolWeapon();
+         const bool bWarhammer=UsesWarhammerFirstPersonPass();
+         const auto ViewmodelType=bPistol||bWarhammer?EFirstPersonPrimitiveType::FirstPerson:EFirstPersonPrimitiveType::None;
+         // Apply a weapon-family transition before this frame is rendered;

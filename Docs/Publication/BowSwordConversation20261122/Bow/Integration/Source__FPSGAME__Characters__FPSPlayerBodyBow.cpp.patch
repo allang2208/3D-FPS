@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
+@@ -41,8 +41,17 @@
+     {
+         const auto* Part=Source.Part(Slot);if(!Part)return;
+         FFPSBodyAttachment Spec;Spec.Slot=Slot;Spec.Mesh=Part->PartMesh;
+-        const UMeshComponent* Visual=Part->FlexVisual?static_cast<const UMeshComponent*>(Part->FlexVisual.Get()):Part->Visual.Get();
+-        if(Part->FlexVisual)Spec.SkeletalMesh=Cast<USkeletalMesh>(Part->FlexVisual->GetSkinnedAsset());
++        const UMeshComponent* Visual=Part->Visual.Get();
++        if(Part->FlexVisual&&Part->FlexVisual->GetSkinnedAsset())
++        {
++            Spec.SkeletalMesh=Cast<USkeletalMesh>(Part->FlexVisual->GetSkinnedAsset());
++            Visual=Part->FlexVisual;
++        }
++        else if(!Part->PartMesh&&Part->RodCount()>0)
++        {
++            // A procedural string carries its material on the two live rods.
++            Visual=Part->RodVisual(0);
++        }
+         Spec.RelativeTransform=Slot==TEXT("riser")?FTransform(FQuat::Identity,Source.GripTrimCM,FVector(Source.BowScale)):Part->GetRelativeTransform();
+         // Zoom is a cosmetic pose, not a new equipment description on every
+         // wheel step. Keep the stable mount and carry its roll in body state.

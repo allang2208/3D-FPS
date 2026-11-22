@@ -1,0 +1,225 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowSparrowWireAudit.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowSparrowWireAudit.cpp
+@@ -1,6 +1,7 @@
+ #include "../ShotgunWireAudit.h"
+ #include "BowWeaponComponent.h"
+ #include "BowArmsMeshComponent.h"
++#include "BowFlexMeshComponent.h"
+ #include "BowPartComponent.h"
+ #include "../../FPSGAMECharacter.h"
+ #include "../../UI/ColdSteelStatusModel.h"
+@@ -11,6 +12,9 @@
+ #include "../../Movement/FPSCharacterMovementComponent.h"
+ #include "../../Items/FPSPotionUseComponent.h"
+ #include "Components/StaticMeshComponent.h"
++#include "Components/SceneCaptureComponent2D.h"
++#include "Engine/StaticMesh.h"
++#include "Materials/MaterialInterface.h"
+ #include "Components/CapsuleComponent.h"
+ #include "Camera/CameraComponent.h"
+ #include "Engine/GameInstance.h"
+@@ -21,18 +25,35 @@
+ #include "Misc/Parse.h"
+ #include "Serialization/JsonSerializer.h"
+ 
++#include "BowFlightWire.inl"
++
+ namespace ShotgunWire { void Save(const TArray<TSharedPtr<FJsonValue>>& Rows,bool Pass,const TCHAR* Role); }
+ namespace SparrowWire
+ {
+ bool Enabled(){return FParse::Param(FCommandLine::Get(),TEXT("BowSparrowWire"));}
+ bool Handoff(){return FParse::Param(FCommandLine::Get(),TEXT("BowHandoffWire"));}
+-int32 Cases(){return Handoff()?14:9;}
++bool Peakwatch(){return FParse::Param(FCommandLine::Get(),TEXT("PeakwatchWire"));}
++int32 Cases(){return (Peakwatch()||BowFlightWire::Enabled())?2:Handoff()?14:9;}
++float Zoom(bool Host,int32 Phase){return Host==(Phase==0)?3.f:6.f;}
+ float Pitch(int32 P){return P==1?35.f:P==2?-35.f:P==4?50.f:0.f;}
+ FName Clip(int32 P){return P==0||P>=9?TEXT("Idle"):P==1||P==4?TEXT("Draw"):P==3?TEXT("Release"):P==5?TEXT("LoadedIdle"):TEXT("Hold");}
+-FColdSteelProfile Seed(UColdSteelStatusModel* Model,const FString& Id)
++FColdSteelProfile Seed(UColdSteelStatusModel* Model,const FString& Id,int32 Phase)
+ {
+     auto S=Model->Snapshot();S.Items.Reset();S.ActiveWeaponSlot=6;S.ActiveProductionTool.Reset();S.DungeonRun={};
+-    auto Item=Model->CreateItem(TEXT("bow_dark"));Item.InstanceId=Id;Item.Place=1;Item.Cell=6;S.Items={Item};
++    const bool Mountain=BowFlightWire::Enabled()&&Phase==1;
++    auto Item=Model->CreateItem((Peakwatch()||Mountain)?TEXT("bow_woodsteel"):TEXT("bow_dark"));
++    if(Peakwatch()||Mountain)
++    {
++        TSharedPtr<FJsonObject> Data;
++        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data)return S;
++        auto Parts=MakeShared<FJsonObject>();
++        if(Mountain||(Peakwatch()&&Phase==0))Parts->SetStringField(TEXT("string"),MountainEchoString::Option);
++        if(Peakwatch())Parts->SetStringField(TEXT("sight"),TEXT("highland_peakwatch_3_6x"));
++        Data->SetObjectField(TEXT("gunsmith_parts"),Parts);Item.Data.Reset();
++        FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));
++    }
++    if(BowFlightWire::Enabled()){S.AmmoPouch.Add(Model->AmmoDefinitionFor(Item),10);S.Stamina=100;S.CampfireInventoryRevision=0;}
++    Item.InstanceId=Id;Item.Place=1;Item.Cell=6;S.Items={Item};
+     if(Handoff())for(const TCHAR* Def:{TEXT("mineral_water"),TEXT("roasted_large_lamb")})
+     {
+         auto Food=Model->CreateItem(Def);Food.InstanceId=Def;Food.Place=0;
+@@ -74,6 +95,14 @@
+     auto* Bow=Subject->FindComponentByClass<UBowWeaponComponent>();if(!Bow)return;
+     Bow->SetComponentTickEnabled(false);
+     if(!Subject->IsLocallyControlled()||!Bow->bPresentationReady)return;
++    if(SparrowWire::Peakwatch())
++    {
++        Bow->bSteadyHeld=true;Bow->AimProgress=1.f;
++        const float TargetZoom=SparrowWire::Zoom(Subject->HasAuthority(),Phase);
++        Bow->AdjustScopeMagnification(TargetZoom-Bow->ScopeMagnification());
++        Bow->DisplayedOpticalMagnification=Bow->ScopeMagnification();
++        Bow->UpdateScopeRing();
++    }
+     if(SparrowWire::Handoff()&&Phase>=9)
+     {
+         auto* Use=Subject->FindComponentByClass<UFPSPotionUseComponent>();if(!Use||!Use->Bottle)return;
+@@ -126,10 +155,11 @@
+     auto* Subject=Cast<AFPSGAMECharacter>(GetPawn());auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     if(!Subject||!Model||!Model->IsAudit())return;
+     if(Current<0)SparrowWire::Network(GetWorld());
+-    Model->Current=SparrowWire::Seed(Model,Id);Model->CurrentPawn=Subject;Subject->ApplyColdSteelProfile(Model);
++    Model->Current=SparrowWire::Seed(Model,Id,Phase);Model->CurrentPawn=Subject;Subject->ApplyColdSteelProfile(Model);
+     Subject->SetActorLocationAndRotation(FVector(0,0,500),FRotator::ZeroRotator);
+     ObserverSubject=Host;Current=Phase;Weapon=Id;Started=GetWorld()->GetRealTimeSeconds();SentAt=-1;bReported=false;
+-    PoseSparrowPresentation(Subject,Phase,Phase==7);
++    if(BowFlightWire::Enabled())BowFlightWire::Reset(Subject,Phase);
++    else PoseSparrowPresentation(Subject,Phase,Phase==7);
+     UE_LOG(LogTemp,Display,TEXT("SPARROW_PRESENTATION_CLIENT_SETUP phase=%d"),Phase);
+ }
+ 
+@@ -140,6 +170,50 @@
+     const bool Aim=FMath::IsNearlyEqual(State.AimPitch,SparrowWire::Pitch(Phase),1.f);
+     const bool Pose=Expired?State.BowClip.IsNone():State.BowClip==SparrowWire::Clip(Phase);
+     const bool Identity=Body->BowItemInstance==State.WeaponInstance&&!State.WeaponInstance.IsEmpty();
++    if(SparrowWire::Peakwatch())
++    {
++        bool AuthoredGlass=false,RingFollows=false,StringMaterial=false;
++        const float Expected=(SparrowWire::Zoom(Subject->GetNetMode()==NM_Client,Phase)-3.f)*-37.f;
++        for(const auto& Part:Body->WorldBowParts)if(Part)
++        {
++            if(Part->SlotName==TEXT("string"))
++            {
++                if(Phase==0)
++                {
++                    TArray<USceneComponent*> Children;Part->GetChildrenComponents(false,Children);
++                    for(auto* Child:Children)if(auto* Beam=Cast<UBowFlexMeshComponent>(Child);Beam&&Beam->GetSkinnedAsset())
++                    {
++                        const int32 Slot=Beam->GetMaterialIndex(TEXT("M_Highland_BeamString_Light"));
++                        StringMaterial=Slot!=INDEX_NONE&&Beam->GetMaterial(Slot)&&
++                            Beam->GetMaterial(Slot)->GetFName()==TEXT("M_Highland_BeamString_Light");
++                        break;
++                    }
++                }
++                else
++                {
++                    StringMaterial=Part->RodCount()==2;
++                    for(int32 Index=0;Index<Part->RodCount();++Index)
++                    {
++                        const auto* Rod=Part->RodVisual(Index);
++                        StringMaterial&=Rod&&Rod->GetMaterial(0)&&Rod->GetMaterial(0)->GetFName()==TEXT("M_BowString");
++                    }
++                }
++            }
++            if(Part->SlotName==TEXT("sight_zoom"))
++                RingFollows=FMath::Abs(FMath::FindDeltaAngleDegrees(Part->GetRelativeRotation().Roll,Expected))<.5f;
++            if(Part->SlotName!=TEXT("sight"))continue;
++            auto* Mesh=Part->GetVisual();UStaticMesh* Asset=Mesh?Mesh->GetStaticMesh().Get():nullptr;
++            const int32 Slot=Asset?Asset->GetMaterialIndex(TEXT("M_Peakwatch_Glass")):INDEX_NONE;
++            AuthoredGlass=Slot!=INDEX_NONE&&Asset->GetMaterial(Slot)&&Mesh->GetMaterial(Slot)==Asset->GetMaterial(Slot);
++        }
++        const bool NoRemoteCapture=!Subject->FindComponentByClass<USceneCaptureComponent2D>();
++        Row->SetNumberField(TEXT("ring_degrees"),State.BowScopeRingRoll);
++        Row->SetBoolField(TEXT("authored_world_glass"),AuthoredGlass);Row->SetBoolField(TEXT("ring_follows_zoom"),RingFollows);
++        Row->SetBoolField(TEXT("no_remote_capture"),NoRemoteCapture);
++        Row->SetBoolField(TEXT("world_string_material"),StringMaterial);
++        return Identity&&AuthoredGlass&&RingFollows&&NoRemoteCapture&&StringMaterial&&
++            FMath::Abs(FMath::FindDeltaAngleDegrees(State.BowScopeRingRoll,Expected))<.5f;
++    }
+     const float Weight=Body->BodyAnimation->GetCurveValue(FPSBodyBowMotion::WeightCurve);
+     if(SparrowWire::Handoff()&&Phase>=9)
+     {
+@@ -205,7 +279,32 @@
+     const double Now=GetWorld()->GetRealTimeSeconds();
+     if(ExitAt>=0){if(Now>=ExitAt)FPlatformMisc::RequestExit(false);return true;}
+     if(Current<0||bReported)return true;
+-    auto* Own=Cast<AFPSGAMECharacter>(GetPawn());PoseSparrowPresentation(Own,Current,Current==7);
++    auto* Own=Cast<AFPSGAMECharacter>(GetPawn());
++    if(BowFlightWire::Enabled())
++    {
++        auto* PS=GetPlayerState<AColdSteelPlayerState>();
++        if(!Own||!PS)return true;
++        auto& T=BowFlightWire::Track;
++        BowFlightWire::Sample(Own,Current);
++        if(!T.Draw.IsValid()&&Now-Started>1.)
++        {
++            T.Draw=FGuid::NewGuid();T.Started=GetWorld()->GetTimeSeconds();
++            PS->ServerSetBowDraw(Own,Weapon,true,0.f,T.Draw);
++        }
++        if(!T.Released&&T.Draw.IsValid()&&GetWorld()->GetTimeSeconds()-T.Started>2.4)
++        {
++            FColdSteelInventoryRequest R;R.Action=EColdSteelInventoryAction::BowShot;R.Item=Weapon;
++            R.Sequence=Current+1;R.Pawn=Own;R.Eye=Own->GetPawnViewLocation();R.Origin=T.Origin;R.Direction=FVector::ForwardVector;
++            R.BowDrawId=T.Draw;R.Charge=1.f;R.BowChargeElapsed=2.4f;
++            PS->ServerInventoryAction(R);T.Released=true;
++        }
++        if(Now-Started<12.)return true;
++        auto Row=MakeShared<FJsonObject>();Row->SetNumberField(TEXT("phase"),Current);
++        bool Passed=BowFlightWire::Check(Current,Row);
++        bReported=true;bAllPassed&=Passed;Results.Add(MakeShared<FJsonValueObject>(Row));
++        ServerSparrowResult(Current,Passed);ShotgunWire::Save(Results,bAllPassed,TEXT("client"));return true;
++    }
++    PoseSparrowPresentation(Own,Current,Current==7);
+     auto* OwnBow=Own?Own->FindComponentByClass<UBowWeaponComponent>():nullptr;
+     auto* Seen=ObserverSubject?ObserverSubject->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
+     // Cold processes load the bow asynchronously. Start the observation window
+@@ -224,7 +323,19 @@
+ {
+     if(!SparrowWire::Enabled()||Phase!=Expected||Finished!=Phase)return;
+     auto Row=MakeShared<FJsonObject>();Row->SetNumberField(TEXT("phase"),Phase);Row->SetBoolField(TEXT("client_observer"),ObserverOK);
+-    const bool Passed=CheckSparrowPresentation(Cast<AFPSGAMECharacter>(GetPawn()),Phase,Phase==7,Row);
++    bool Passed=false;
++    if(BowFlightWire::Enabled())
++    {
++        Passed=BowFlightWire::Check(Phase,Row);
++        auto* PS=GetPlayerState<AColdSteelPlayerState>();
++        auto* M=PS?PS->ShadowModel.Get():nullptr;
++        const auto* Item=M?M->ActiveBow():nullptr;
++        const float Damage=BowFlightWire::Track.Target.IsValid()?BowFlightWire::Track.Target->Received:0.f;
++        const int32 Ammo=Item?M->PouchCount(M->AmmoDefinitionFor(*Item)):-1;
++        Row->SetNumberField(TEXT("authority_target_damage"),Damage);Row->SetNumberField(TEXT("guest_arrows_remaining"),Ammo);
++        Passed&=Damage>0.f&&Ammo==9;
++    }
++    else Passed=CheckSparrowPresentation(Cast<AFPSGAMECharacter>(GetPawn()),Phase,Phase==7,Row);
+     Results.Add(MakeShared<FJsonValueObject>(Row));bAllPassed&=Passed&&ObserverOK;++Finished;
+     UE_LOG(LogTemp,Display,TEXT("SPARROW_PRESENTATION_WIRE_CASE phase=%d observer=%d authority=%d"),Phase,ObserverOK,Passed);
+     if(!Passed){FString Detail;FJsonSerializer::Serialize(Row,TJsonWriterFactory<>::Create(&Detail));UE_LOG(LogTemp,Display,TEXT("SPARROW_PRESENTATION_DETAIL %s"),*Detail);}
+@@ -252,7 +363,7 @@
+     {
+         if(Prepared==INDEX_NONE)SparrowWire::Network(GetWorld());
+         Prepared=Guest->Finished;if(Prepared==0||Prepared==6)Weapon=FGuid::NewGuid().ToString();Guest->Expected=Prepared;
+-        const auto Seed=SparrowWire::Seed(Model,Weapon);
++        const auto Seed=SparrowWire::Seed(Model,Weapon,Prepared);
+         if(!PS->ShadowModel)PS->ShadowModel=Model->CreateShadowModel(Seed);else PS->ShadowModel->Current=Seed;
+         if(!PS->ShadowModel)
+         {
+@@ -260,9 +371,20 @@
+             Guest->bAllPassed=false;Guest->Finished=SparrowWire::Cases();return true;
+         }
+         PS->ShadowModel->CurrentPawn=Subject;Subject->NetShadowProfile=PS->ShadowModel;Subject->ApplyColdSteelProfile(PS->ShadowModel);
+-        Model->Current=SparrowWire::Seed(Model,TEXT("SparrowHost_")+Weapon);Model->CurrentPawn=HostPawn;HostPawn->ApplyColdSteelProfile(Model);
++        Model->Current=SparrowWire::Seed(Model,TEXT("SparrowHost_")+Weapon,Prepared);Model->CurrentPawn=HostPawn;HostPawn->ApplyColdSteelProfile(Model);
+         Subject->SetActorLocationAndRotation(FVector(0,0,500),FRotator::ZeroRotator);HostPawn->SetActorLocationAndRotation(FVector(0,1000,500),FRotator::ZeroRotator);
++        if(BowFlightWire::Enabled())
++        {
++            BowFlightWire::Reset(Subject,Prepared);
++            if(Prepared==1)if(auto* Echo=Subject->FindComponentByClass<UBowMountainEchoComponent>())
++                for(int32 I=0;I<3;++I)Echo->ConfirmHit(Echo->Epoch);
++        }
+         LastSetup=-10;
++    }
++    if(BowFlightWire::Enabled())
++    {
++        BowFlightWire::Sample(Subject,Prepared);
++        if(Now-LastSetup>2.){LastSetup=Now;Guest->ClientSetup(Prepared,Weapon,HostPawn);}return true;
+     }
+     AShotgunWireAuditController::PoseSparrowPresentation(Subject,Prepared,false);
+     AShotgunWireAuditController::PoseSparrowPresentation(HostPawn,Prepared,false);

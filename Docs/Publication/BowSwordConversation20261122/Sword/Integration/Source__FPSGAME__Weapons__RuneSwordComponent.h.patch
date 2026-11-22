@@ -1,0 +1,117 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.h
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.h
+@@ -16,6 +16,7 @@
+ #include "UObject/StrongObjectPtr.h"
+ #include "HighlandOathRune.h"
+ #include "GaleWingGuard.h"
++#include "RingChainRebound.h"
+ #include "RuneSwordComponent.generated.h"
+ 
+ class AFPSGAMECharacter;
+@@ -109,8 +110,12 @@
+     UFUNCTION(BlueprintCallable, Category="Rune Sword") void ReleasePrimaryAttack();
+     UFUNCTION(BlueprintCallable, Category="Rune Sword") void BeginHeavyCharge();
+     bool IsHeavyCharging() const { return bCharging; }
++    float TakeRingChainChargeDrain(double BaseRate);
++    bool IsBillingRingChainCharge() const { return bCharging && RingChargeBilledAt>=0.; }
+     /** Server-only receipt opened by a completed heavy-charge release. */
+     bool IsNetworkHeavyReleaseWindowOpen(const FString& Weapon=FString()) const;
++    const FColdSteelItem* ForgedHeavyContactItem(const FString& Weapon,uint32 Serial,AActor* Target) const;
++    void RecordForgedHeavyTarget(AActor* Target) { ForgedHeavyTargets.Add(Target); }
+     /** Converts a completed server charge into the release receipt when the
+      *  reliable release RPC and the hit/rift channel arrive out of order. */
+     bool ConsumeNetworkHeavyChargeForRelease(const FString& Weapon,double ReleasedAt=0.,uint32 Serial=0);
+@@ -175,6 +180,12 @@
+     bool UsesRidgeSprintCarry() const;
+     bool AcceptBroadbladeContact(const FString& Weapon,uint32 Serial,AActor* Target);
+     UFUNCTION(Client,Reliable) void ClientBroadbladeImpact(const FString& Weapon,uint32 Serial);
++    void ConfirmRingChainHit(const FString& Weapon,uint32 Swing);
++    void ClearRingChainProgress();
++    bool HasRingChain(const FString& Weapon) const {return !Weapon.IsEmpty()&&Weapon==RingChainWeapon;}
++    bool AcceptRingChainSweepContact(const FString& Weapon,uint32 Serial,AActor* Target,bool bAzureClaw);
++    bool RingChainHeldSince(const FString& Weapon,double StartedAt) const
++        {return RingChainWeapon==Weapon && StartedAt>=RingChainEquippedAt;}
+     /** Online: the owner's cosmetic Azure Dragon state for the body presentation (flags: bit0 active,
+      *  bit1 claw strike, bit2 right claw, bits3-4 stroke 0 horizontal/1 heavy/2 overhead/3 rising, bit5 heavy windup,
+      *  bit6 dissolve, bit7 faster death dissolve). */
+@@ -182,8 +193,19 @@
+     /** Online: another player's claws on this machine, from their replicated body state (source seconds). */
+     void PresentAzureDragonRemote(uint8 Flags,float Source,float StrikeContactStart,float StrikeContactEnd,float Entry,float Held);
+ private:
++    friend bool RingChainRebound::IsReady(APawn*,const FColdSteelItem&,double);
++    friend bool RingChainRebound::Consume(APawn*,const FColdSteelItem&,double);
++    void RefreshRingChain(const FColdSteelItem* Item);
++    bool RingChainReadyAt(const FColdSteelItem& Item,double StartedAt) const;
++    void PlayRingChainReady() const;
++    UFUNCTION(Client,Reliable) void ClientRingChainWindow(const FString& Weapon,uint32 Swing,double Until);
++    UFUNCTION(Server,Reliable) void ServerAcknowledgeRingChain(const FString& Weapon,uint32 Swing);
++    RingChainRebound::FProgress RingChainProgress;
++    FString RingChainWeapon;
++    double RingChainEquippedAt=0.;
++    uint32 RingChainGrant=0,RingChainAcknowledged=0;
+     void RefreshOath(const struct FColdSteelItem* Item);
+-    void BeginOathCharge(double Start,float Duration);
++    void BeginOathCharge(double Start,double Duration);
+     void ClearOath();
+     void TickOath();
+     struct FGalePayment
+@@ -227,6 +249,7 @@
+     FString TimeSandTrailInstance;
+     UPROPERTY(Transient) TObjectPtr<class UBeiweiSwordTrailComponent> BeiweiTrail;
+     friend class URuneSwordAuditCommandlet;
++    friend struct FRingChainWireProbe;
+     friend class USkillNetworkAuditCommandlet;
+     friend class UWarhammerNetworkAuditCommandlet;
+     friend class UFPSConsumableAuditCommandlet;
+@@ -305,6 +328,18 @@
+     FTransform RiftOrigin;
+     FVector RiftDirection=FVector::ForwardVector;
+     float RequiredChargeSeconds=2.f,ChargedMultiplier=2.5f;
++    bool bRingInputInstalled=false,bRingInputBuffered=false,bRingHoldAttempted=false;
++    bool bReboundHeavyCharge=false;
++    double RingPrimaryDownAt=-1.,RingChargeBilledAt=-1.,RingChargeFullAt=0.;
++    float RingChargeStaminaScale=1.f;
++    void AdvanceRingPrimaryHold();
++    void StartHeavyCharge(double InputStart);
++    bool PrepareHeavyCharge(const FColdSteelItem& Item,UColdSteelStatusModel* Model,double Start,double& Duration);
++    void SettleRingChainCharge(UColdSteelStatusModel* Model);
++    void SettleNetworkRingHold(UColdSteelStatusModel* Model,double Held);
++    double HeavyInputReleaseStamp() const;
++    float BillRingChargeUntil(double End,double BaseRate);
++    double HeavyReleaseCost(const FColdSteelItem* Item,const UColdSteelStatusModel* Model) const;
+     bool bAutoHeavyRelease=false,bHeavyTrainingPending=false;
+     int32 HeavyTrainingHits=0,HeavyTrainingKills=0;
+     void FinishHeavyTraining();
+@@ -396,6 +431,9 @@
+     // Heavy release receipt consumed by ServerReportHit/ServerReleaseRiftSlash.
+     double NetworkHeavyReleaseUntil=-1.,ServerHeavyChargeStartedAt=-1.,ServerHeavyRequiredSeconds=2.;
+     double ServerHeavyChargeReceivedAt=-1.,ServerHeavyChargeLastStartedAt=-1.;
++    TSharedPtr<FColdSteelItem> ForgedHeavyItem;
++    uint32 ForgedHeavySerial=0;
++    TSet<TWeakObjectPtr<AActor>> ForgedHeavyTargets;
+     // A single parry-earned normal-input replacement, owned by this equipped sword.
+     double ClovenReadyUntil=0.,ClovenGrantedAt=-100.;
+     float ClovenGlow=0.f;
+@@ -418,6 +456,7 @@
+     void ClearClovenCounter();
+     UFUNCTION(Server,Reliable) void ServerStartBroadbladeSweep(const FString& Weapon,uint32 Serial);
+     void RefreshBroadblade(const FColdSteelItem* Item);
++    void RefreshRingChainSweep();
+     void RefreshRidgeThrust(const FColdSteelItem* Item);
+     void PresentRidgeGather();
+     UPROPERTY(Transient) TObjectPtr<class UHighlandRidgeGatherComponent> RidgeGather;
+@@ -429,6 +468,7 @@
+     uint32 SweepServerSerial=0,SweepReceivedSerial=0;
+     TSet<TWeakObjectPtr<AActor>> SweepServerTargets;
+     TSharedPtr<FStreamableHandle> BroadbladeLoad;
++    TSharedPtr<FStreamableHandle> RingSweepLoad;
+     TSet<TWeakObjectPtr<AActor>> HitActors;
+     void TickWalkInspect(float Delta);
+     void ScheduleWalkInspect(bool bAfterInspect);
+@@ -616,4 +656,6 @@
+     void UpdateAzureDragonDust(const FAzureDragonFrame& Frame,const FVector& Wind,const FVector* Center,const FVector* Axis);
+     bool bPanChiUppercut=false;
+     float PanChiUppercutDamage=0.f;
++    uint32 RingSweepReleaseSerial=0;
++    TSet<TWeakObjectPtr<AActor>> RingSweepTargets;
+ };

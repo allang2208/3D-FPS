@@ -1,0 +1,83 @@
+{
+  "reference_date": "2026-11-21",
+  "weak_network": {
+    "lag_ms": 60,
+    "loss_percent": 5,
+    "topology": "loopback listen server, guest, fresh reconnect (NullRHI)",
+    "cases": [
+      {
+        "suite": "Flight",
+        "samples": 4,
+        "passed": true
+      },
+      {
+        "suite": "Peakwatch",
+        "samples": 4,
+        "passed": true
+      }
+    ],
+    "post_factory_switch_fix": {
+      "suite": "Peakwatch",
+      "passed": true,
+      "peer_exit_codes": [
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "native": [
+    {
+      "suite": "BowNetworkReview",
+      "checks": 95,
+      "failed": 0
+    },
+    {
+      "suite": "BowResonanceReview",
+      "checks": 44,
+      "failed": 0
+    }
+  ],
+  "render": {
+    "view": [
+      1600,
+      900
+    ],
+    "physical_glass_projected_bounds": [
+      [
+        645.6041805783236,
+        647.959887347452
+      ],
+      [
+        645.6041805783236,
+        647.9594125980025
+      ]
+    ],
+    "observed_6x_over_3x_scene_scale": 2.00211,
+    "white_reticle_horizontal_bar_extent_px_at_3x_and_6x": [
+      86,
+      86
+    ]
+  },
+  "sensitivity": {
+    "native_state_combinations": 236,
+    "human_mouse_feel_recorded": false
+  },
+  "runtime_executed_for_publication": false,
+  "private_assets_sha256": {
+    "Content/Items/LootFX/M_LootCenter.uasset": "7315b1f4e8e73e38c360d05c2dd2d8354b0466f7ca0b60d81d3419c7244bef97",
+    "Content/Weapons/SharedPhysicalOptics20261030/M_PeakwatchClearLens.uasset": "80f32aa5fffca3f84c38641a26bf4de06763a4bfb9d13d3c3f4cf628c48979d6",
+    "Content/Weapons/SharedPhysicalOptics20261030/M_PeakwatchVariableLens.uasset": "07ae3750ce3f5f4d140e36c98ac84a7ec53705422ac000522c1262d3a9b0311a",
+    "Content/Weapons/SharedPhysicalOptics20261030/T_OpticNumerals.uasset": "0b8c5b62c93c133c10431b5898611b8e1831b89fdec99fd86fcb90356308ee0e",
+    "Content/Weapons/WoodSteelLongbow20261026/BeamString20261121/M_Highland_BeamString_Light.uasset": "12abe24767d281a201a01f60d8252ba402705e850f3fa5208593217b139101f7",
+    "Content/Weapons/WoodSteelLongbow20261026/BeamString20261121/SK_Highland_BeamString.uasset": "59c0b6b68186d7e6a59dcf432346c817ddfeb4eefd61f881a5ee66bed35aecdf",
+    "Content/Weapons/WoodSteelLongbow20261026/MountainEchoAlpineV23/M_MountainEcho_AlpineHUD.uasset": "022719911ef2c10393c1ec7d40d1519ef2bdf8c3c32a1a1d9865d180bd0fe744",
+    "Content/Weapons/WoodSteelLongbow20261026/MountainEchoAlpineV23/T_MountainEcho_Alpine.uasset": "3dc01d9692b9d2bd1a780baf36fa63f01a17ad43a7d6d87a95584d39e8f7a9d5",
+    "Content/Weapons/WoodSteelLongbow20261026/MountainEchoAudioB4/S_MountainEcho_EnergyImpact.uasset": "a2f032d82801f712dd5b75301f8ff6ce222a0e8b11c89063139dc7e3f6018577",
+    "Content/Weapons/WoodSteelLongbow20261026/MountainEchoFXV14/M_MountainEcho_GoldenArrow.uasset": "637b444e2530965660a1c61753c4f53873b52aa31926297d124e8d68c195bb32",
+    "Content/Weapons/WoodSteelLongbow20261026/MountainEchoFXV14/NS_MountainEcho_GoldenFlight.uasset": "43be61ae3cc2ea35131b97bd680c3c9632b5803f90767cac70cf57a74329b7b8",
+    "Content/Weapons/WoodSteelLongbow20261026/MountainEchoFXV14/NS_MountainEcho_GoldenImpact.uasset": "e018e8ee1a3f66bf778520b525dfe2fb75b323b4528adcd55b2c3cb980f373d4",
+    "Content/Weapons/WoodSteelLongbow20261026/Scope3to6V11/SM_Highland_PeakwatchZoomRing.uasset": "1918e9aea433e03e9cb0c6ce8dd3ba0c0c05180fd2ec6763ada59980c117ee6a",
+    "Content/Weapons/WoodSteelLongbow20261026/Scope3to6V12/SM_Highland_Peakwatch3to6.uasset": "c939dc9d5a0ad1f6e92c9f0623bfb2f5c929b61524691aaf7b345fd54964554c"
+  }
+}

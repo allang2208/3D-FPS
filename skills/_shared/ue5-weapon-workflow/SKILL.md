@@ -100,6 +100,7 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 
 
 - 近战武器拆分、可替换护手/握把/配重锤、剑身符文与长柄联动：[近战模块化与改造接口](references/modular-melee.md)。
+- 锻钢双手剑的剑身与护手衔接、配重、点按与长按分流、横扫折射和主客机结算，读取[锻钢双手剑的剑身、配重与横扫](references/forged-greatsword-blades-and-pommels.md)。
 
 - 原生符文漏色、明灭渐隐、语义色彩、限定改造与旧配置迁移：[剑身符文](references/rune-surfaces.md)。
 

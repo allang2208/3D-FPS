@@ -1,4 +1,21 @@
 {
+  "ue_forged_steel_greatsword": {
+    "source": "FORGED_STEEL_GREATSWORD_STR_DEX",
+    "base": 43.5,
+    "enhanceFlat": 5.4,
+    "attrs": [
+      {
+        "key": "str",
+        "base": 4.95,
+        "perEnhance": 0.98
+      },
+      {
+        "key": "dex",
+        "base": 3.9,
+        "perEnhance": 0.67
+      }
+    ]
+  },
   "tool_axe": {
     "source": "HARVEST_AXE_EMERGENCY_MELEE",
     "base": 12,

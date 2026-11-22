@@ -9,11 +9,11 @@ effects=list(proposal['special_effects_proposed'])
 effects[0]+='切换武器、拆下弓弦或死亡时清空。'
 effects[1]+='触发回响的射击不积攒弦鸣。'
 effects[2]+='弦影不可回收，不额外获得技能修炼进度。'
-mesh='/Game/Weapons/WoodSteelLongbow20261026/MountainEchoV13/SK_Highland_MountainEchoString.SK_Highland_MountainEchoString'
+mesh='/Game/Weapons/WoodSteelLongbow20261026/BeamString20261121/SK_Highland_BeamString.SK_Highland_BeamString'
 row={
- 'id':'highland_mountain_echo','name':'山鸣弓弦','weapons':['bow_woodsteel'],
- 'description':'高地长弓专属弓弦，银灰纤维与石墨色绳股交编，细金丝穿过弦身。',
- 'appearance':'柔性弦环配短银套，炭黑护弦上方缀有三道山纹。',
+ 'id':'highland_mountain_echo','name':'光束弓弦','weapons':['bow_woodsteel'],
+ 'description':'高地长弓专属弓弦。金白色光束连接两端弦扣，满弓命中积攒弦鸣，满层后的下一次满弓射击引出弦影箭。',
+ 'appearance':'细亮的弦身随开弓拉紧，两端保留银套，中央炭黑护弦旁的三道山纹随弦鸣逐层点亮。',
  'stats':proposal['stats_proposed'],'special_effects':effects,
  'visual':{'bow_part_string_mesh':mesh,'bow_part_string_rods':0,'bow_part_string_material':'',
            'bow_part_string_scale':1.0,'bow_part_string_location_cm':'0,0,0','bow_part_string_rotation_deg':'0,0,0','bow_part_string_hide_slot':''}

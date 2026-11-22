@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowStats.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowStats.cpp
+@@ -34,11 +34,11 @@
+     S.Draw=FMath::Max(.3,ColdSteelWeaponStats::Interval(&I,Profile,N(TEXT("draw_seconds"),1.4)));
+     S.DrawSpeedBonus=ColdSteelWeaponStats::BowDrawSpeedBonus(&I,Profile);
+     S.RhythmWindow=PerfectReleaseWindow*FMath::Max(0.,1.+M.RhythmWindowBonus);
+-    S.Range=N(TEXT("range_cm"),3200)*M.Range/100.;
++    S.Range=N(TEXT("range_cm"),28000)*M.Range/100.;
+     S.CriticalDamageBonus=N(TEXT("critDamageBonus"),0)+M.CriticalDamageBonus;
+     S.Nock=FMath::Max(.12,N(TEXT("nock_seconds"),.68))*M.Nock/NockSpeedMultiplier(Profile);
+     S.ChargeStamina=(Profile?Profile->HeavyChargeStaminaPerSecond():0.)*M.ChargeStamina;
+-    S.Speed=N(TEXT("full_speed_cm"),9800)*M.Speed/100;S.Stamina=N(TEXT("stamina_cost"),3)*M.Stamina*(Profile?Profile->ActionStaminaMultiplier():1.f);
++    S.Speed=N(TEXT("full_speed_cm"),10000)*M.Speed/100;S.Stamina=N(TEXT("stamina_cost"),3)*M.Stamina*(Profile?Profile->ActionStaminaMultiplier():1.f);
+     S.Sway=N(TEXT("sway_amplitude_cm"),.9)*M.Sway;S.Spread=FMath::Max(0.,N(TEXT("bow_hip_spread"),.035))*M.Spread;
+     if(const auto* Cadence=UBowCadenceComponent::ForItem(Profile,I))S.Spread*=Cadence->SpreadMultiplier();
+     S.ADS=FMath::Max(.01,N(TEXT("bow_ads_in_seconds"),.24))*M.ADS;return S;

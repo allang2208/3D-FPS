@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp
+@@ -359,7 +359,10 @@
+         {
+             const auto& DefinitionPart=Definition.Parts[PartIndex];
+             auto* AssetPart=DefinitionPart.Mesh.LoadSynchronous();if(!AssetPart)continue;
+-            auto* Part=NewObject<UStaticMeshComponent>(GetOwner(),NAME_None,RF_Transient);
++            const auto Chain=Definition.PoseFamily==TEXT("Sword")&&DefinitionPart.Slot==TEXT("pommel")
++                ?ColdSteelModularSword::HangingDynamics(AssetPart):nullptr;
++            UStaticMeshComponent* Part=Chain?NewObject<USwordTasselMeshComponent>(GetOwner(),NAME_None,RF_Transient)
++                :NewObject<UStaticMeshComponent>(GetOwner(),NAME_None,RF_Transient);
+             GetOwner()->AddInstanceComponent(Part);Part->SetStaticMesh(AssetPart);
+             const bool RigidGrip=DefinitionPart.Socket==TEXT("WPN_root")&&LMG
+                 &&DefinitionPart.Mesh.ToSoftObjectPath().GetLongPackageName()==LMGStabilityGrip::MeshPath(GunId);
+@@ -376,6 +379,12 @@
+             for(int32 I=0;I<DefinitionPart.Materials.Num();++I)if(auto* Material=DefinitionPart.Materials[I].LoadSynchronous())Part->SetMaterial(I,Material);
+             FPSBodyRuneVisual::Apply(Part,DefinitionPart);
+             Part->RegisterComponent();WorldParts.Add(Part);
++            if(auto* Tail=Cast<USwordTasselMeshComponent>(Part))
++            {
++                Tail->Configure(Chain);
++                Tail->AddTickPrerequisiteComponent(this);
++                Tail->AddTickPrerequisiteComponent(Body);
++            }
+             Motion.Parts.Add(Part);
+             if(!DefinitionPart.Slot.IsNone())Part->ComponentTags.AddUnique(FName(*(TEXT("SwordSlot=")+DefinitionPart.Slot.ToString())));
+             MotionEquipmentIndices.Add(Part,Index);

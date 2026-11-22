@@ -1,0 +1,40 @@
+--- a/Source/FPSGAME/UI/M4GunsmithPreviewResources.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithPreviewResources.cpp
+@@ -53,12 +53,21 @@
+     UpdatePreviewStreaming(0.f);
+     // Gun framing excludes hidden arms and includes every fitted attachment.
+     // Static workbench assemblies and ADS instead use their visible components.
++    bool bSharedSwordGrip=false;
+     FBox LightBounds=(!StandaloneMelee&&!bAimPreview)?PreviewFramingBounds:FBox(ForceInit);
+     if(!LightBounds.IsValid)
+     {
+         const FTransform ToView=Capture->GetComponentTransform().Inverse();
+         for(const auto& Weak:Capture->ShowOnlyComponents)
+-            if(auto* Part=Weak.Get();Part&&Part->IsVisible())LightBounds+=Part->Bounds.GetBox().TransformBy(ToView);
++            if(auto* Part=Weak.Get();Part&&Part->IsVisible())
++            {
++                LightBounds+=Part->Bounds.GetBox().TransformBy(ToView);
++                // Stock and modified grips share option IDs across different meshes.
++                // Use the actual fitted leather surface for the calibrated studio fill.
++                if(StandaloneMelee&&Part->ComponentHasTag(TEXT("SwordSlot=grip")))
++                    if(const auto* Grip=Cast<UStaticMeshComponent>(Part))
++                        bSharedSwordGrip|=Grip->GetMaterialIndex(TEXT("M_SharedGrip_Leather"))!=INDEX_NONE;
++            }
+     }
+     bool bGraphite201=false,bPitViper2011=false,bSaiga12K=false;
+     for(const auto& Pair:StudioCopies)
+@@ -78,13 +87,8 @@
+     if(!FMath::IsNearlyEqual(Studio->DirectionalLight->Intensity,KeyLevel))Studio->SetLightBrightness(KeyLevel);
+     if(StudioFill&&!FMath::IsNearlyEqual(StudioFill->Intensity,FillLevel))StudioFill->SetIntensity(FillLevel);
+     if(!FMath::IsNearlyEqual(Studio->SkyLight->Intensity,SkyLevel))Studio->SetSkyBrightness(SkyLevel);
+-    // The XuanChi blade and shared leather/weave grips wash out under the default
+-    // softboxes. Follow the actual assembly key, including unapplied grip drafts,
+-    // so every compatible sword gets the correction and stock grips restore it.
++    // The XuanChi blade also uses this softbox calibration with its stock grip.
+     const bool bXuanChi=StandaloneMelee&&StandaloneKey.Contains(TEXT("|ue_xuanchi_zhenyue|"));
+-    const bool bSharedSwordGrip=StandaloneMelee&&
+-        (StandaloneKey.Contains(TEXT("|grip=iron_spine_power_grip:"))||
+-         StandaloneKey.Contains(TEXT("|grip=lockweave_guard_grip:")));
+     const float SoftboxIntensityScale=(bXuanChi||bSharedSwordGrip)?.025f:bSaiga12K?.55f:1.f;
+     GunsmithPreviewLighting::Update(*Capture,LightBounds,bGraphite201||bPitViper2011||bSaiga12K,SoftboxIntensityScale);
+     PreviewCoverageCapture->ShowOnlyComponents=Capture->ShowOnlyComponents;

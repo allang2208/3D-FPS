@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
++++ b/Source/FPSGAME/Weapons/MeleeWeaponStats.cpp
+@@ -47,7 +47,17 @@
+     if(Profile)R.QuickCombat=Profile->QuickCombatStats(-1,&R.Modifiers,&Item,Preview);
+     const auto Temporary=TemporaryModifiers(Profile);
+     R.ParrySeconds=RuneSwordGuardTuning::ParrySeconds*R.Modifiers.ParryWindow;
+-    const double Base=ColdSteelInventory::Number(Item,TEXT("melee_damage"),55),Attack=Profile?Profile->Derived(TEXT("atk")):0;
++    R.PhysicalAttack=Profile?Profile->Derived(TEXT("atk")):0.;
++    // Derived attack contains the currently equipped parts. A previously
++    // committed swing can refer to older parts on the very same sword.
++    const auto* Equipped=Profile&&Item.Definition==TEXT("ue_forged_steel_greatsword")?Profile->Equipped():nullptr;
++    const bool bEarlierParts=Equipped&&Equipped!=&Item&&Equipped->InstanceId==Item.InstanceId&&Equipped->Data!=Item.Data;
++    if(Profile&&(Preview||bEarlierParts))
++    {
++        const auto Held=EquippedModifiers(Profile);
++        R.PhysicalAttack=R.PhysicalAttack/Held.PhysicalAttackMultiplier*R.Modifiers.PhysicalAttackMultiplier;
++    }
++    const double Base=ColdSteelInventory::Number(Item,TEXT("melee_damage"),55),Attack=R.PhysicalAttack;
+     const double BaseDamage=Enhance?Enhance->ProcessedDamage(Item,Base,Attack,R.Modifiers.Damage,Profile):Base*R.Modifiers.Damage+Attack;
+     R.DamageParts=ColdSteelWeaponDamage::Evaluate(Item,Profile,BaseDamage,&R.Modifiers);
+     R.Damage=R.DamageParts.Total();

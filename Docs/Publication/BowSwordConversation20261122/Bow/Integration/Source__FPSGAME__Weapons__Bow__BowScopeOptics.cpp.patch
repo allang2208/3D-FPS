@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp
+@@ -180,6 +180,7 @@
+     auto* Mesh=Sight?Sight->GetVisual():nullptr;
+     if(!Mesh||!Mesh->GetStaticMesh()||!Mesh->IsVisible()||Mesh->bHiddenInGame||Mesh->bOwnerNoSee)return false;
+     Out=FPhysicalScopeView();Out.Mesh=Mesh;Out.Style=EPhysicalScopeStyle::Peakwatch;
++    Out.MinimumMagnification=OpticalMinimum;
+     Out.Glass=Mesh->GetMaterialIndex(TEXT("M_Peakwatch_Glass"));
+     // Scope3to6V11/V12 authoring coordinates, centimetres. Its physical glass is
+     // centred at the same mount point used by the bow's authored ADS alignment.

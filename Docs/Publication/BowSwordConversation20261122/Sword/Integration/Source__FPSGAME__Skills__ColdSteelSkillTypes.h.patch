@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
++++ b/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+@@ -165,6 +165,7 @@
+     bool bGhostScytheContact=false;
+     bool bEmberWedge=false,bRavenWhistle=false;
+     bool bPairedDashOffGhostScythe=false;
++    bool bExecutionerBlade=false,bRingChainPommel=false,bFishtailPommel=false;
+     float CriticalChance = 0;
+     /** 开火时预掷的暴击样本 [0,1)：同一次射击的多弹丸/穿透目标共用一次判定，
+      *  面板暴击率即这一发的真实概率。负数 = 未预掷（近战/快捷进战按接触点各掷）。 */

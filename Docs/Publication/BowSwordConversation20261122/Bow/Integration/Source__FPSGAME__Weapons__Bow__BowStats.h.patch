@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowStats.h
++++ b/Source/FPSGAME/Weapons/Bow/BowStats.h
+@@ -26,10 +26,10 @@
+ {
+     // Full-draw panel; the shot snapshot remains the uncharged weapon baseline.
+     FWeaponDamageParts Damage;
+-    double Draw=1.4,Nock=.68,ChargeStamina=0,Speed=98,Stamina=3,Sway=.9,Spread=.035,ADS=.24;
++    double Draw=1.4,Nock=.68,ChargeStamina=0,Speed=100,Stamina=3,Sway=.9,Spread=.035,ADS=.24;
+     double DrawSpeedBonus=0;
+     double RhythmWindow=PerfectReleaseWindow;
+-    double Range=32,CriticalDamageBonus=0;
++    double Range=280,CriticalDamageBonus=0;
+ };
+ FStats Evaluate(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile,const FGunsmithParts* Override=nullptr);
+ }

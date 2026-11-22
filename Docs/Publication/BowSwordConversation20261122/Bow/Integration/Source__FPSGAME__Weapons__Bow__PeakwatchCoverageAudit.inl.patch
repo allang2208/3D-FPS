@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/Weapons/Bow/PeakwatchCoverageAudit.inl
++++ b/Source/FPSGAME/Weapons/Bow/PeakwatchCoverageAudit.inl
+@@ -186,7 +186,11 @@
+         case EAction::Exit:Key(PC,EKeys::RightMouseButton,IE_Released);break;
+         case EAction::Zoom:
+             for(int32 I=0;I<6&&!FMath::IsNearlyEqual(Bow->ScopeMagnification(),Step.Zoom,.01f);++I)
+-                C->AdjustOpticMagnification(FMath::Clamp(Step.Zoom-Bow->ScopeMagnification(),-.5f,.5f));
++            {
++                const FKey Wheel=Step.Zoom>Bow->ScopeMagnification()?EKeys::MouseScrollUp:EKeys::MouseScrollDown;
++                Key(PC,Wheel,IE_Pressed);Key(PC,Wheel,IE_Released);
++            }
++            if(!FMath::IsNearlyEqual(Bow->ScopeMagnification(),Step.Zoom,.01f)){Fail(TEXT("Mouse wheel did not reach requested zoom"));return;}
+             break;
+         case EAction::Mask:case EAction::Picture:
+         {

@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp
++++ b/Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp
+@@ -72,7 +72,7 @@
+ 
+ float AFPSGAMECharacter::GetDisplayedOpticMagnification() const
+ {
+-    if(Bow && Bow->IsEquipped())return Bow->ScopeMagnification();
++    if(Bow && Bow->IsEquipped())return Bow->DisplayedScopeMagnification();
+     if(HasM24FactoryScope())return FMath::Clamp(DisplayedLPVOMagnification,1.f,6.f);
+     return HasPSO1Scope()?4.f:(OpticVariant==TEXT("lpvo_1_6x")||OpticVariant==KVScopeAssets::Id||HasThermalScope())
+         ?FMath::Clamp(DisplayedLPVOMagnification,1.f,8.f):GetOpticMagnification();
+@@ -184,6 +184,10 @@
+ 
+ float AFPSGAMECharacter::GetPhysicalScopeMagnification() const
+ {
++    // The bow lens is opaque as soon as it appears. Its ADS transition frames
++    // the eyepiece; it is not a second zoom control.
++    if(Bow && Bow->IsEquipped())
++        return Bow->IsScopeOpticalPresentationEnabled()?Bow->DisplayedScopeMagnification():1.f;
+     return UsesPhysicalScope()?FMath::Lerp(1.f,GetDisplayedOpticMagnification(),GetScopePresentationAlpha()):1.f;
+ }
+ 

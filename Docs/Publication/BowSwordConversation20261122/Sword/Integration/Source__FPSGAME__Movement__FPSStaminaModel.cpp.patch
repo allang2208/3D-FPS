@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Movement/FPSStaminaModel.cpp
++++ b/Source/FPSGAME/Movement/FPSStaminaModel.cpp
+@@ -233,14 +233,16 @@
+         const auto* Rain=Pawn->FindComponentByClass<UFPSMagicArrowRainComponent>();
+         const float Drain=Bow&&!(Rain&&Rain->IsManaDraining())?float(ColdSteelBow::ChargeStaminaPerSecond(*Bow,this)):HeavyChargeStaminaPerSecond();
+         const float BeforeChargeDrain=Current.Stamina;
+-        Current.Stamina=FMath::Max(0.f,Current.Stamina-Drain*Delta);
+-        if(auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>())
++        auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();
++        const float Spent=Sword&&Sword->IsBillingRingChainCharge()?Sword->TakeRingChainChargeDrain(Drain):Drain*Delta;
++        Current.Stamina=FMath::Max(0.f,Current.Stamina-Spent);
++        if(Sword)
+             Sword->AccumulateGaleCharge(BeforeChargeDrain-Current.Stamina);
+         Current.StaminaRecoveryDelay=StaminaTuning.RecoveryDelay;
+         if(Current.Stamina<=0.f&&Drain>0.f)
+         {
+             Current.bSprintExhausted=true;
+-            if(auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>())Sword->CancelHeavyCharge();
++            if(Sword)Sword->CancelHeavyCharge();
+             if(auto* Tool=Pawn->FindComponentByClass<UProductionToolComponent>())Tool->CancelHeavyCharge();
+             if(auto* BowComponent=Pawn->FindComponentByClass<UBowWeaponComponent>())BowComponent->CancelDrawForExhaustion();
+             if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>();PS&&PS->IsBowDrawActive(Pawn))PS->CancelBowDraw(true);

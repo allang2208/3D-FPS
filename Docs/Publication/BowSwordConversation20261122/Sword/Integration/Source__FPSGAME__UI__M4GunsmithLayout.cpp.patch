@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/UI/M4GunsmithLayout.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithLayout.cpp
+@@ -369,12 +369,12 @@
+         if(const auto* Catalog=Model()->ModifiableWeapon(Model()->Definition());Catalog&&Catalog->Source)
+             Catalog->Source->TryGetStringField(TEXT("shared_icon_weapon"),IconWeapon);
+     FString WeaponIconKey=IconWeapon+TEXT("_")+IconSlot+TEXT("_")+IconId;
+-    if(IsBowWorkbench()&&Id==TEXT("false"))
++    if((IsBowWorkbench()||IsMeleeWorkbench())&&Id==TEXT("false"))
+         if(const auto* Catalog=Model()->ModifiableWeapon(Model()->Definition());Catalog&&Catalog->Source)
+         {
+             const TSharedPtr<FJsonObject>* Sources=nullptr;
+             if(Catalog->Source->TryGetObjectField(TEXT("factory_icon_sources"),Sources))
+-                (*Sources)->TryGetStringField(IconSlot,WeaponIconKey);
++                (*Sources)->TryGetStringField(IsMeleeWorkbench()?SlotKey:IconSlot,WeaponIconKey);
+         }
+     // Numeric trigger kits share the established lightweight-trigger pictogram.
+     const FString CommonIconKey=Weapon==TEXT("ue_m24")&&Id==TEXT("none")?(SlotKey==TEXT("optic")?TEXT("optic_m24_palma_iron"):TEXT("tactical_false"))

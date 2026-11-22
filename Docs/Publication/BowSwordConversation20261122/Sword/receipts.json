@@ -1,0 +1,61 @@
+{
+  "hashes": "SHA-256 on original local bytes; paths relative to the F volume",
+  "files": {
+    "FPSGAMEData/ArtProduction/ForgedSteelGreatsword/ExecutionerGuardSeat20261121/published.json": {
+      "sha256": "43172073695820fd77115bac06abd3f77da6eea8567f2684b4d1c1d548ff37fc",
+      "bytes": 4688
+    },
+    "FPSGAMEData/ArtProduction/ForgedSteelGreatsword/FishtailPommelInstall20261121/published.json": {
+      "sha256": "204ea1d1e58245377c45c12414242c27da98d70a57cde43e22b08b30a6f85518",
+      "bytes": 1309
+    },
+    "FPSGAMEData/ArtProduction/ForgedSteelGreatsword/FishtailOffense20261121/published.json": {
+      "sha256": "0c95c3a5ae7632c3625e3b54722fbf5221228891360e9948809ff3ab9b48820a",
+      "bytes": 2559
+    },
+    "FPSGAMEData/ArtProduction/ForgedSteelGreatsword/ModRepair20261121/published.json": {
+      "sha256": "24127d294bc76142852090404103e1f6f700fa3cea1478d5b76fbdf5a009f043",
+      "bytes": 4537
+    },
+    "FPSGAMEData/ArtProduction/ForgedSteelGreatsword/ModRepair20261121/NetworkAudit/BladeAndEquipment/published.json": {
+      "sha256": "0e178a49e79a2ac478950c097b9d1516b0d86c547a22ae6ca7335f5f623dc06f",
+      "bytes": 4917
+    },
+    "FPSGAMEData/ArtProduction/ForgedSteelGreatsword/ModRepair20261121/NetworkReview/Ring/review.json": {
+      "sha256": "64fda63a28a80eeb180a9f0bba018c6cef013390613b325ac1b4581d93dbdc23",
+      "bytes": 8765
+    },
+    "FPSGAMEData/ArtProduction/ForgedSteelGreatsword/ModRepair20261121/StockIcons/published.json": {
+      "sha256": "a20ca840ada5822ab474e4402f6daf746b7106fb4b7dc0385ba56b1420479e93",
+      "bytes": 6156
+    },
+    "FPSGAMEData/ArtProduction/ForgedSteelGreatsword/ModRepair20261121/GripSurfaces/published.json": {
+      "sha256": "a02099ff573dc3f430af8498424848baed2f8b17ee98ca97f7ff3b39ddc84898",
+      "bytes": 28990
+    },
+    "FPSGAMEData/ArtProduction/ForgedSteelGreatsword/ModRepair20261121/Sweep/asset-comparison.json": {
+      "sha256": "061a491dffb7bbbba4f13c2c3e7173a2cfe689f7cf054f170b57d7106ea127ca",
+      "bytes": 2358
+    },
+    "FPSGAMEData/ArtProduction/ForgedSteelGreatsword/ModRepair20261121/Sweep/shader.json": {
+      "sha256": "e86e201e15c29e3212c9a652e9d0f3c9ffda387d818dc196b4222ac8cd33f89a",
+      "bytes": 622
+    },
+    "FPSGAMEData/ArtProduction/ForgedSteelGreatsword/ModRepair20261121/BladeFinishes/published.json": {
+      "sha256": "476836c005d862164e81b3612e52b0d91aefddbe451c54402a93b81b0817cafd",
+      "bytes": 14121
+    },
+    "FPSGAMEData/ArtReviews/ForgedSteelGreatsword/ConversationNetwork20261121/summary.json": {
+      "sha256": "dbedc5987ad4ddbae494615ee8a862c333d64ab1ac10babd1dda02c04323cc56",
+      "bytes": 4186
+    },
+    "FPSGAME-Recovery-Work-20261120/ForgedSteelThread20261121/recovered-entries.json": {
+      "sha256": "aefe7bdcb5f6cf4bdb2103730d325ba457586438b73ace2b06e26ef928a0ebdf",
+      "bytes": 2662
+    },
+    "FPSGAME-Recovery-Work-20261120/ForgedSteelThread20261121/ForgedSteelGreatsword-recovered.zip": {
+      "sha256": "22ce30dec3c26e5be0ca3db59c1d6f32178dd4252dc78ddd12574acb165c2506",
+      "bytes": 67587309
+    }
+  }
+}

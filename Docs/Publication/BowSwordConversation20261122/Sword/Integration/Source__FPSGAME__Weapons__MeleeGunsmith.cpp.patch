@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/MeleeGunsmith.cpp
++++ b/Source/FPSGAME/Weapons/MeleeGunsmith.cpp
+@@ -56,6 +56,8 @@
+             const auto Stats=Data->GetObjectField(TEXT("stats"));
+             Stats->TryGetNumberField(TEXT("damage_mult"),Part.Melee.Damage);
+             Stats->TryGetNumberField(TEXT("physical_damage_mult"),Part.Melee.PhysicalDamage);
++            Stats->TryGetNumberField(TEXT("physical_attack_mult"),Part.Melee.PhysicalAttackMultiplier);
++            Stats->TryGetNumberField(TEXT("melee_hit_bleed_stacks"),Part.Melee.MeleeHitBleedStacks);
+             Stats->TryGetNumberField(TEXT("attack_speed_mult"),Part.Melee.AttackSpeed);
+             Stats->TryGetNumberField(TEXT("range_mult"),Part.Melee.Range);
+             Stats->TryGetNumberField(TEXT("stamina_mult"),Part.Melee.Stamina);

@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/M4MeleeGunsmith.cpp
++++ b/Source/FPSGAME/UI/M4MeleeGunsmith.cpp
+@@ -141,6 +141,8 @@
+         Row(TEXT("攻击吸血持续时间"),Before.Modifiers.JingangLeechSeconds,After.Modifiers.JingangLeechSeconds,0,TEXT(" s"));
+     }
+     Row(ColdSteelWeaponText::TotalDamage,Before.Damage,After.Damage,2,TEXT(""));
++    if(Before.Modifiers.PhysicalAttackMultiplier!=1.f||After.Modifiers.PhysicalAttackMultiplier!=1.f)
++        Row(TEXT("物理攻击力"),Before.PhysicalAttack,After.PhysicalAttack,2,TEXT(""));
+     if(ColdSteelInventory::Number(Item,TEXT("innate_erosion_intelligence"))>0||ColdSteelInventory::Number(Item,TEXT("innate_erosion_wisdom"))>0)
+         Row(TEXT("自带侵蚀伤害倍率"),Before.Modifiers.InnateErosionMultiplier,After.Modifiers.InnateErosionMultiplier,2,TEXT("×"));
+     Row(TEXT("重击伤害倍率"),Before.HeavyMultiplier,After.HeavyMultiplier,2,TEXT("×"));

@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.h
++++ b/Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.h
+@@ -9,6 +9,7 @@
+ public:
+     virtual int32 Main(const FString& Params) override;
+ private:
++    int32 AuditRingChainInput();
+     int32 AuditHighlandNetwork(const FString& Params);
+     int32 AuditStarMarrowMotion(const FString& Params);
+     int32 AuditStarMarrowSurface(const FString& Params);

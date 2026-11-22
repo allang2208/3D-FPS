@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -225,12 +225,20 @@
+         }
+         else if(Sword->bCharging||Sword->bReturningCharge)
+         {
+-            const float ChargeLength=State.ActionVariant==HighlandRidgeThrust::Charge?Length:RuneSwordHeavyRhythm::ChargeSeconds;
+-            Timed(EFPSBodyAction::Charge,Sword->Elapsed,ChargeLength);
++            const bool RingSweep=State.ActionVariant==RingChainSweepMotion::Charge;
++            const float ChargeLength=RingSweep?RingChainSweepMotion::Chamber:
++                State.ActionVariant==HighlandRidgeThrust::Charge?Length:RuneSwordHeavyRhythm::ChargeSeconds;
++            const float Rate=RingSweep?ChargeLength/FMath::Max(.01f,Sword->RequiredChargeSeconds):1.f;
++            Timed(EFPSBodyAction::Charge,Sword->Elapsed,ChargeLength,Rate);
+             if(Sword->bReturningCharge)
+             {
+                 State.ActionProgress=FMath::Clamp(Sword->CancelChargeFrom/ChargeLength,0.f,1.f);
+                 State.ActionWeight=1.f-FMath::SmoothStep(0.f,Sword->CancelChargeDuration,Sword->CancelChargeAge);
++                if(RingSweep)
++                {
++                    State.ActionProgress=FMath::Clamp(Sword->Elapsed/ChargeLength,0.f,1.f);
++                    State.ActionProgressRate=0.f;
++                }
+             }
+         }
+         else if(Sword->bAttacking)

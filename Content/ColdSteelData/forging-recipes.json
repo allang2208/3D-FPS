@@ -5,6 +5,22 @@
   },
   "recipes": [
     {
+      "id": "forge_forged_steel_greatsword",
+      "output": "ue_forged_steel_greatsword",
+      "inputs": [
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        },
+        {
+          "item": "wood",
+          "count": 2
+        }
+      ],
+      "mold": "Icons/ue_forged_steel_greatsword.png",
+      "metal_count": 8
+    },
+    {
       "id": "forge_highland_claymore",
       "output": "ue_highland_claymore",
       "inputs": [{"item": "ironIngot", "count": 8}, {"item": "wood", "count": 2}, {"item": "search_forging_alloy_blank", "count": 1}],

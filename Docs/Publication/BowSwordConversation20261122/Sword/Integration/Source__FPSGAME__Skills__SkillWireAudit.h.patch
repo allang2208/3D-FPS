@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Skills/SkillWireAudit.h
++++ b/Source/FPSGAME/Skills/SkillWireAudit.h
+@@ -35,6 +35,8 @@
+     UFUNCTION(Client,Reliable) void ClientSetupArmor(class AFPSGAMECharacter* ExistingArmor);
+     void TickFlameArmor();
+     void TickConversationCombat();
++    void TickForgedBlade();
++    void SetupForgedBlade(ANurseZombie* First,ANurseZombie* Second);
+     void TickLeapWire(float Delta);
+     void SetupLeapWire(int32 Case);
+     void SetupSessionChain(ANurseZombie* Target,const FString& Id);
+@@ -87,6 +89,7 @@
+     UFUNCTION() void CountContact(AActor* Actor,float Damage,const class UDamageType* Type,class AController* DamageController,AActor* Causer);
+     void TickFlameArmor();
+     void TickConversationCombat();
++    void TickForgedBlade();
+     void TickLeapWire(float Delta);
+     void TickSessionChain();
+     int32 ConversationCase=0,ConversationPhase=0;

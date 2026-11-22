@@ -1,0 +1,34 @@
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.cpp
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+@@ -348,6 +348,7 @@
+             R.Melee.OathHeavyPhysical*=M.OathHeavyPhysical;
+             R.Melee.OathChargeStamina*=M.OathChargeStamina;
+             R.Melee.PhysicalAttackAdd+=M.PhysicalAttackAdd;
++            R.Melee.PhysicalAttackMultiplier*=M.PhysicalAttackMultiplier;
+             R.Melee.HeavyReleaseStamina*=M.HeavyReleaseStamina;
+             R.Melee.HeavyToughness*=M.HeavyToughness;
+             R.Melee.CooldownReduceSecondsPerHit+=M.CooldownReduceSecondsPerHit;
+@@ -595,6 +596,12 @@
+     if(Pending()>0&&!CanApply(Reason))return Reason;
+     return Status;
+ }
++bool UGunsmithSystem::UsesFreePartReceipts(const FString& Definition)
++{
++    return Definition==TEXT("ue_forged_steel_greatsword")||Definition==TEXT("ue_thunder_god_hammer")
++        ||Definition==TEXT("ue_kukri")||Definition==TEXT("ue_tactical_hatchet")||LMGStabilityGrip::Supports(Definition);
++}
++
+ bool UGunsmithSystem::Apply()
+ {
+     if(!CanApply(Status))return false;
+@@ -624,7 +631,9 @@
+     if((bInventoryBlade||DefinitionId==TEXT("ue_m249"))&&!Original.OrderIndependentCompareEqual(Preview))
+         if(const auto* Committed=Profile->FindItem(InstanceId))
+             if(auto* Icons=GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>())Icons->Request(*Committed,true);
+-    if(bInventoryBlade||DefinitionId==TEXT("ue_thunder_god_hammer")||LMGStabilityGrip::Supports(DefinitionId))
++    const bool bHighlandOpticOrString=DefinitionId==TEXT("bow_woodsteel")&&
++        (Part(Original,TEXT("sight"))!=Part(Preview,TEXT("sight"))||Part(Original,TEXT("string"))!=Part(Preview,TEXT("string")));
++    if(bHighlandOpticOrString||UsesFreePartReceipts(DefinitionId))
+         if(auto* Pawn=Profile->RuntimePawn())
+             if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())PS->NotifyGunsmithApplied(InstanceId);
+     Original=Preview;DraftEnhanceLevelValue=0;Status=TEXT("已应用改造并保存");OnChanged.Broadcast();return true;

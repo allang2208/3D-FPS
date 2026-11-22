@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Skills/ConversationCombatWire20261108.cpp
++++ b/Source/FPSGAME/Skills/ConversationCombatWire20261108.cpp
+@@ -48,6 +48,7 @@
+ 
+ void ASkillWireAuditController::ClientSetupConversation_Implementation(int32 Case,ANurseZombie* First,ANurseZombie* Second,AFPSGAMECharacter* Observer)
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("ForgedBladeWire"))){SetupForgedBlade(First,Second);return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("LeapMovementWire"))){SetupLeapWire(Case);return;}
+     if(!FParse::Param(FCommandLine::Get(),TEXT("ConversationCombatWire"))||HasAuthority()||Case==ConversationCase||!First||!Second)return;
+     if(Case==8&&!Observer)return; // Retry after the late actor's NetGUID resolves.

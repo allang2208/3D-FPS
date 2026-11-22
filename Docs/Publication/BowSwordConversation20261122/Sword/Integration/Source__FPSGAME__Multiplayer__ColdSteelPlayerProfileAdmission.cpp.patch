@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp
+@@ -220,6 +220,18 @@
+         // Same-revision owner uploads can predate continuous bow upkeep. Keep
+         // authority resources while prepared, then rely on the end checkpoint.
+         const auto* UpkeepPawn=GetPawn();
++        const auto* HeldSword=ShadowModel->Equipped();
++        if(UpkeepPawn&&HeldSword&&HeldSword->Definition==TEXT("ue_forged_steel_greatsword"))
++        {
++            const auto* Sword=UpkeepPawn->FindComponentByClass<URuneSwordComponent>();
++            if(HasGenericMeleeBusy(UpkeepPawn)||(Sword&&(Sword->IsHeavyCharging()||Sword->IsNetworkHeavyReleaseWindowOpen(HeldSword->InstanceId))))
++            {
++                // A profile captured before a paid swing or during the windup can arrive later.
++                Adopted.Stamina=Prev.Stamina;
++                Adopted.StaminaRecoveryDelay=Prev.StaminaRecoveryDelay;
++                Adopted.bSprintExhausted=Prev.bSprintExhausted;
++            }
++        }
+         const auto* ElementHold=UpkeepPawn?UpkeepPawn->FindComponentByClass<UFPSElementalArrowComponent>():nullptr;
+         const auto* RainHold=UpkeepPawn?UpkeepPawn->FindComponentByClass<UFPSMagicArrowRainComponent>():nullptr;
+         const auto* ThunderHold=UpkeepPawn?UpkeepPawn->FindComponentByClass<UProductionToolComponent>():nullptr;

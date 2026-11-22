@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp
+@@ -114,6 +114,7 @@
+     UpdateKukriPresentation();
+     UpdateObserverKukriRifts();
+     PresentBeiweiTrail();
++    PresentSwordSweepRift();
+     PresentRidgeGather();
+     PresentOathRune();
+     // The owner-view whirlwind uses the actual world blade after this frame's

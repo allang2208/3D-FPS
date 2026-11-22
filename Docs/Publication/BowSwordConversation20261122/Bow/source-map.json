@@ -1,0 +1,268 @@
+{
+  "remote_base": "3068fe3fcb1e56b2fd73d0eb000c71f385ae0e96",
+  "actions": [
+    {
+      "path": "Content/ColdSteelData/bows.json",
+      "delivery": "direct",
+      "public_base_sha256": "52613a7134af628ccdb8e39232e2367f53e2ff69db07bfcd548c8d438ebdace8",
+      "after_sha256": "e8c09dde3b2e15841579c747cbe4e1e544d6b8d034c27b4bc4bfb790891c59ce"
+    },
+    {
+      "path": "Content/ColdSteelData/bow-gunsmith.json",
+      "delivery": "direct",
+      "public_base_sha256": "50b83dc9cbe6c3272f63cae806cc02cccd3edaf59579d51b8433204db271401a",
+      "after_sha256": "b4a7cccff930aaed4c4abb8e90dba69dd7040f6672dd6ba40e48088f609ac4dd"
+    },
+    {
+      "path": "Source/FPSGAME/UI/PhysicalScopeScene.inl",
+      "delivery": "direct",
+      "public_base_sha256": "a06194de8607d710857ef2724db0fd4c1289f9be6b405529ef54f5798b63ad17",
+      "after_sha256": "b82fa8f53fb740ac5519909be2359ce92d929b7125f98c3967ec7cfdad8f10a8"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PhysicalScopeView.h",
+      "delivery": "direct",
+      "public_base_sha256": "fae7df20c5b4fe62395f2ef65e5068b5be1bb8be8d07c1616ef405cfe3b03525",
+      "after_sha256": "8dfd3d4317ce813f1f49bb4d068158589b60b5cb0d7790b29c8e844782bbaddf"
+    },
+    {
+      "path": "SourceAssets/SharedPhysicalOptics20261030/peakwatch_clear_lens.py",
+      "delivery": "direct",
+      "public_base_sha256": "b62e4970f3cefacc63df3275820b25dd15357f220f7f0f7275971ef73fb72443",
+      "after_sha256": "2bfe303674feb283f884436aca966cea2c3bf66fb8472d881cb02dced26349d2"
+    },
+    {
+      "path": "SourceAssets/SharedPhysicalOptics20261030/lens.hlsl",
+      "delivery": "direct",
+      "public_base_sha256": "886c5b5af19546ea101889dc4a6bace45e44754381b1ef1ec74ae1072c8f9def",
+      "after_sha256": "dba5f534b035f9418cd6c5397d472f1f207ef2a0fa35928a533957a6e18afd40"
+    },
+    {
+      "path": "SourceAssets/SharedPhysicalOptics20261030/install.py",
+      "delivery": "direct",
+      "public_base_sha256": "608e12a42f7e9ffc4793b0dda1310515c04c92fbd4e7fbf24bc4e6373060c50f",
+      "after_sha256": "ba093b28a5fb91ff63244eec0e0735a12f26f3fcc678ec08a8657c17dc3bfdfd"
+    },
+    {
+      "path": "SourceAssets/WoodSteelLongbow20261026/MountainEchoV13/apply_catalog.py",
+      "delivery": "direct",
+      "public_base_sha256": "5b68d35969e8d7de6b33ad5a2691e101ed029c7af7328781439f06e96572862c",
+      "after_sha256": "8985e8844b1af69d71b12a10a946eaa39466f69fd7947ba8b880c52eff0781a3"
+    },
+    {
+      "path": "SourceAssets/WoodSteelLongbow20261026/MountainEchoV13/catalog-entry.json",
+      "delivery": "direct",
+      "public_base_sha256": null,
+      "after_sha256": "d9868741219816beb4a0078c2ea6f52b97ce55db17a72b22bdaa3c43731e8928"
+    },
+    {
+      "path": "SourceAssets/WoodSteelLongbow20261026/BeamString20261121/author_beam.py",
+      "delivery": "direct",
+      "public_base_sha256": null,
+      "after_sha256": "5de62e4a2d818e5704bd7ffa89a20be863e44a4151fb09076d374ba920bb8d01"
+    },
+    {
+      "path": "SourceAssets/WoodSteelLongbow20261026/BeamString20261121/import_beam.py",
+      "delivery": "direct",
+      "public_base_sha256": null,
+      "after_sha256": "e22d77d90b9d0174d857334c9fa6a1333b4a526ae972d002d17b8db337937a57"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowMountainEchoArrow.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Weapons__Bow__BowMountainEchoArrow.cpp.patch",
+      "public_base": "Docs/Publication/HighlandBow20261028/patches/017-BowMountainEchoArrow.cpp.patch",
+      "baseline_lf_sha256": "1982b7637cb1b8e7c2425bf12096f3b276ebb1917f3d5afa62b93bfddea8e476",
+      "after_lf_sha256": "00f7f51ed35747d2ab0de2b7fb8086731bb26731d4cb3b8d7c651686eddf3fdb"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowMountainEchoComponent.h",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Weapons__Bow__BowMountainEchoComponent.h.patch",
+      "public_base": "Docs/Publication/HighlandBow20261028/patches/019-BowMountainEchoComponent.h.patch",
+      "baseline_lf_sha256": "42e3ee1b6d56776b31988ee0e0eefd11f87a54537a0d4a3bfb09d7e54b00b393",
+      "after_lf_sha256": "3354982f4b005c8006cf4b0888204463f310af317dd5c62d159e21303f063d8b"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowMountainEchoVisual.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Weapons__Bow__BowMountainEchoVisual.cpp.patch",
+      "public_base": "Docs/Publication/HighlandBow20261028/patches/020-BowMountainEchoVisual.cpp.patch",
+      "baseline_lf_sha256": "5f85f201a110f6f517be067c0f6665234c0d5d2991bf5fc0065a70d087f3307a",
+      "after_lf_sha256": "1877563414b5bbf2bfc9cd2f3277a0ba27f3f25d9e6a01d002c82b1bdb3d8719"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Weapons__Bow__BowScopeOptics.cpp.patch",
+      "public_base": "Docs/Publication/PojunPeakwatch20261113/Runtime/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp",
+      "baseline_lf_sha256": "972cf75945fe6ebfbdc213729c734243a825541df2c679c839e8e11001421e76",
+      "after_lf_sha256": "b1b033b17aaa76b934a89e15d6b43b66de7fbd3c04c31b50fd470657a98845a9"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/PeakwatchCoverageAudit.inl",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Weapons__Bow__PeakwatchCoverageAudit.inl.patch",
+      "public_base": "Docs/Publication/PojunPeakwatch20261113/Runtime/Source/FPSGAME/Weapons/Bow/PeakwatchCoverageAudit.inl",
+      "baseline_lf_sha256": "dfb0f41893056e114e51b00263a85fc0108768032a3a14c8fc6e1195bffd9203",
+      "after_lf_sha256": "f14f6679c6c0024f101b0e6377c297b79775a7e735147c0be109ff83f2f1ffe6"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowFlightWire.inl",
+      "delivery": "runtime_source",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Runtime/Source/FPSGAME/Weapons/Bow/BowFlightWire.inl",
+      "after_lf_sha256": "2846230ae602e56caa58fbe562b2a07f9831d81eb1cc1412b8f42c866c8cfe1b"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowEquipment.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Weapons__Bow__BowEquipment.cpp.patch",
+      "public_base": "Docs/Publication/CodeSkillCleanup20261118/Integration/Source__FPSGAME__Weapons__Bow__BowEquipment.cpp.patch",
+      "baseline_lf_sha256": "caa44c180c0f532074ba803292504bff7bc6fb411f954b3be4050e9a2f9e7da6",
+      "after_lf_sha256": "5fdd52f14858c73e601ad1fd137b05ab4e9438d835d18013592c1f6ac2afe544"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowRelease.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Weapons__Bow__BowRelease.cpp.patch",
+      "public_base": "Docs/Publication/CodeSkillCleanup20261118/Integration/Source__FPSGAME__Weapons__Bow__BowRelease.cpp.patch",
+      "baseline_lf_sha256": "7af348c3b70add7460c9937f623e7be6cf1d7b9585a08fb9e1bf274edf7b2dac",
+      "after_lf_sha256": "7a5e5eb8139311c34f6ec9ae510bb17e8db4af0aaa0171616bb2774f0d19ff75"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterCamera.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__FPSGAMECharacterCamera.cpp.patch",
+      "public_base": "Docs/Publication/CodeSkillCleanup20261118/Integration/Source__FPSGAME__FPSGAMECharacterCamera.cpp.patch",
+      "baseline_lf_sha256": "ba7d664c3506fdf46208cb1e5b23a58be791dbb9b470208457bea71f3a1ba489",
+      "after_lf_sha256": "36b1a5c07397983f97a539b2cd24a68daa0f2ab9fbfc94b85ded5ccd00dcb7b6"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Weapons__M4GunsmithVisual.cpp.patch",
+      "public_base": "origin/main:Source/FPSGAME/Weapons/M4GunsmithVisual.cpp",
+      "baseline_lf_sha256": "5954b55d0c1471be1483d215993ab6b4f0100f4e0d289c22d2c6eab4db3ea7d4",
+      "after_lf_sha256": "acb171a9193684ea173af876dc2ff0e3067fc6f68c5671ea1beaf7a77d22b966"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Weapons__ScopeOpticalPresentation.cpp.patch",
+      "public_base": "11/21 split physical-scope host with only the two bow changes reverted; normalized reconstruction",
+      "baseline_lf_sha256": "5f09f27e3dff0177347055739289347dca7326d8c5fcfaf9aba33b3ee3041e43",
+      "after_lf_sha256": "ab6e41c437df181c6332d9d42cf19ac707b732d66de97fabe73e063b39a911af"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Characters__FPSPlayerBodyBow.cpp.patch",
+      "public_base": "split native-body host with pre-fix static/flex selection; normalized reconstruction",
+      "baseline_lf_sha256": "7c256ee3ba1c1e5e67114e7ddbf8c9dabc7a5795fa7a9eff1fbb31f6f9e13627",
+      "after_lf_sha256": "d3adcc8b653a31741130ab2dcbf40136146a3d91cea47dc4a3fbf57d99929ce9"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowStats.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Weapons__Bow__BowStats.cpp.patch",
+      "public_base": "split bow statistics host; pre-range defaults reconstructed from public bow settings",
+      "baseline_lf_sha256": "56273758bf0d56f001629a38c8e812d8e9ee9e00dc60d4593879d4a2a77ae283",
+      "after_lf_sha256": "c023902be6f83c12e40e1766d1788119de33837099f076477b3532f2405522fe"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowStats.h",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Weapons__Bow__BowStats.h.patch",
+      "public_base": "split item statistics host; pre-range defaults reconstructed",
+      "baseline_lf_sha256": "42b423da05c590894a3be5d377de648dc8d20f043a3468e84e9666404ef48ee5",
+      "after_lf_sha256": "bf9c247d8b4f3e3a4fc90c578b50d3632a14e71aafa2652aff5e50050fc0ce26"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowArrow.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Weapons__Bow__BowArrow.cpp.patch",
+      "public_base": "11/21 split arrow host; previous trajectory block from origin/main, legacy damage/owner presentation reconstructed in context",
+      "baseline_lf_sha256": "8f8e7c57d3c2d43f6709ad0ceeb83287d0205e42e2726b7dbedf918620681279",
+      "after_lf_sha256": "bf4d0cf75001a72052774ccd16424636369cc0664e8480da8e6713945e7eaa64"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowArrow.h",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Weapons__Bow__BowArrow.h.patch",
+      "public_base": "11/21 split arrow header; reconstructed legacy range members and method signatures",
+      "baseline_lf_sha256": "1b6647827f4994e9428a61de5c8aa1f05899446dec489cc023a8830a6a4119d2",
+      "after_lf_sha256": "855c8c174b1f027ec92c01af8e4ccadb687450f3d12963d0d2034d201e5aaf23"
+    },
+    {
+      "path": "SourceAssets/WoodSteelLongbow20261026/Scope3to6V11/install_catalog.py",
+      "delivery": "direct",
+      "public_base_sha256": "8ec27020b3f77ad8154ac1d777223ee90ab52f08b243ec027f3855e952c87d7b",
+      "after_sha256": "8ba74c3584d066975d5e6e267e4de5a95df114be750cec00f7cc4981f1b67f9d"
+    },
+    {
+      "path": "Tools/Bow/check_bow_consistency.py",
+      "delivery": "direct",
+      "public_base_sha256": "da2d9705ab4a09e16ca27472e69ae4b6ab1639498ce55df475f21f905ac5c695",
+      "after_sha256": "6578d86e74df4290749fe152e672b0d2a0203fc379ad2bc0d2764f510f5eeb20"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowSparrowWireAudit.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Weapons__Bow__BowSparrowWireAudit.cpp.patch",
+      "public_base": "Docs/Publication/BowFood20261018/Patches/Source__FPSGAME__Weapons__Bow__BowSparrowWireAudit.cpp.patch",
+      "baseline_lf_sha256": "acc2c916ede234c5c2fa53922649ca0dbf81dbc3f84d672fac325920057730b4",
+      "after_lf_sha256": "2ec5459a2ecd5eda5813ee3776bb8360c01fd2458897d4de8232ac6bbe3734fe"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Characters__FPSPlayerBodyCamera.cpp.patch",
+      "public_base": "split native-body host; stale pistol condition reconstructed, only inventory-ownership test changed",
+      "baseline_lf_sha256": "6d7058de1490a4ec173f5bbfee0aa31b0587146a3f67b0a60a77d0ac93448654",
+      "after_lf_sha256": "a84c907ae453d12e2abcb63a0c27dd02c657226b335249e7f130c5c93eeed51b"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelBowAuthority.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Multiplayer__ColdSteelBowAuthority.cpp.patch",
+      "public_base": "existing public Highland bow modifier path; pre-ballistic gravity constant reconstructed on the split server host",
+      "baseline_lf_sha256": "e8d067e0ddfd3a9d33e02009282864f00f80d4c378ee2788ebd656c37c121333",
+      "after_lf_sha256": "44a355fccc63674868bdafba5eb9583fb9914cfe117e5887821270af303b262b"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelBows.cpp",
+      "delivery": "direct",
+      "public_base_sha256": "31c0b18000ba4d89ae293e6ad6da0805f98331900106fa1e8e368d1bb192a8da",
+      "after_sha256": "e4f4a75bbb935a554734f622ec539378c0e62a0fb86ce2a6743d0f027ca78124"
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/UnknownHumanoidBow.cpp",
+      "delivery": "contextual_patch",
+      "file": "Docs/Publication/BowSwordConversation20261122/Bow/Integration/Source__FPSGAME__Monsters__UnknownHumanoidBow.cpp.patch",
+      "public_base": "Docs/Publication/UnknownHumanoid20261116/Sources/Source/FPSGAME/Monsters/UnknownHumanoidBow.cpp",
+      "baseline_lf_sha256": "331e33c8e6febfbb7ff5350cfa2e905cf4058edd5ee4857b45e22dbaedf32fe5",
+      "after_lf_sha256": "8b904f27e544793f894da7740e8d42c375fc0aedeb661a66fac80f56cb11c2e5"
+    },
+    {
+      "path": "skills/_shared/ue5-weapon-workflow/references/first-person-bow-parts.md",
+      "delivery": "direct",
+      "public_base_sha256": "6cf75c977bf49abf8b240eed4ad3e36f5557eafbec258b54840a19bd948016d0",
+      "after_sha256": "80de25b15f1b324f5fcb2e19410af39dba1196a55b1abc2968b65d245d65ef0a"
+    },
+    {
+      "path": "skills/ue5-weapon-workflow/references/first-person-bow-parts.md",
+      "delivery": "direct",
+      "public_base_sha256": "1a5adb2a402e7d61301f9aa57297bd55b3eb42bdc63a8bc9a2c4f0307897b421",
+      "after_sha256": "19f69b348ba55793f2776213e92d8edb55b9c65208fe842742c633923bf42a95"
+    }
+  ],
+  "other_public_prerequisites": [
+    "Docs/Publication/CodeSkillCleanup20261118/Integration",
+    "Docs/Publication/HighlandBow20261028/patches",
+    "Docs/Publication/Conversation20261112/Integration/Peakwatch",
+    "Docs/Publication/PojunPeakwatch20261113/Runtime/Source/FPSGAME/Weapons/Bow",
+    "SourceAssets/WoodSteelLongbow20261026/MountainEchoV13/author_model.py",
+    "SourceAssets/WoodSteelLongbow20261026/MountainEchoAlpineV23/import_hud.py"
+  ],
+  "private_assets_receipt": "historical-results.json"
+}

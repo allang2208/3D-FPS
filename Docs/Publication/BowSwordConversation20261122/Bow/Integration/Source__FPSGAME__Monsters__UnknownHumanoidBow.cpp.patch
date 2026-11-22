@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/Monsters/UnknownHumanoidBow.cpp
++++ b/Source/FPSGAME/Monsters/UnknownHumanoidBow.cpp
+@@ -76,7 +76,7 @@
+     B.Mana=B.MaxMana=BowSheet->Derived(TEXT("maxMp"));
+     B.ManaRegen=BowSheet->Derived(TEXT("mpRegen"));
+     B.ElementHoldMana=BowSheet->MasteryDefinition(TEXT("elementalArrow")).ElementalArrow.ManaPerSecond;
+-    B.Gravity=ColdSteelInventory::Number(Item,TEXT("arrow_gravity_cm"),520.f);
++    B.Gravity=ColdSteelInventory::Number(Item,TEXT("arrow_gravity_cm"),980.f);
+     B.Ammo=BowSheet->AmmoDefinitionFor(Item);
+     B.ArrowMesh=FSoftObjectPath(ColdSteelInventory::Text(Item,TEXT("bow_part_arrow_mesh")));
+     B.ArrowLength=ColdSteelInventory::Number(Item,TEXT("arrow_length_cm"),76.f);
+@@ -186,9 +186,9 @@
+     }
+     else
+     {
+-        // Shared hostile-projectile interception includes cover, range and gravity.
++        // These targets are inside effective range, where arrows fly straight.
+         const FVector Aim=Target->GetActorLocation()+FVector(0,0,14);
+-        const FVector Led=MonsterSpellAim::LaunchAim(this,Target,Start,Aim,B.LaunchSpeed,B.Stats.Range*100.f,B.Gravity);
++        const FVector Led=MonsterSpellAim::LaunchAim(this,Target,Start,Aim,B.LaunchSpeed,B.Stats.Range*100.f,0.f);
+         const FVector Direction=FMath::VRandCone((Led-Start).GetSafeNormal(),float(B.Stats.Spread*.35));
+         FActorSpawnParameters Spawn; Spawn.Owner=this; Spawn.Instigator=this;
+         Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;

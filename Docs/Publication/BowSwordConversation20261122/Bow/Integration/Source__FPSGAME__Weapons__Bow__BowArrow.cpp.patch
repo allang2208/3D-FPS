@@ -1,0 +1,214 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowArrow.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowArrow.cpp
+@@ -1,6 +1,10 @@
+ #include "BowArrow.h"
+ #include "../../Monsters/UnknownHumanoid.h"
+ #include "BowMountainEchoComponent.h"
++#include "../WeaponDamageFalloff.h"
++#include "Components/MaterialBillboardComponent.h"
++#include "Curves/CurveFloat.h"
++#include "Materials/MaterialInstanceDynamic.h"
+ #include "../FPSMeleeLightningComponent.h"
+ #include "../../Combat/RangedAttackQuery.h"
+ #include "../../Dungeons/WardBreakableGlass.h"
+@@ -36,6 +40,11 @@
+     Shaft->SetupAttachment(Root);
+     Head = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Head"));
+     Head->SetupAttachment(Root);
++    FlightGlow = CreateDefaultSubobject<UMaterialBillboardComponent>(TEXT("FlightGlow"));
++    FlightGlow->SetupAttachment(Root);
++    FlightGlow->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++    FlightGlow->SetCanEverAffectNavigation(false);
++    FlightGlow->SetCastShadow(false);
+     RecoveryShape = CreateDefaultSubobject<UCapsuleComponent>(TEXT("RecoveryShape"));
+     RecoveryShape->SetupAttachment(Root);
+     RecoveryShape->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+@@ -73,7 +82,8 @@
+     Damage = FMath::Max(1.f, InDamage);
+     Speed = FMath::Max(600.f, InSpeed);
+     GravityCM = FMath::Max(0.f, InGravityCM);
+-    MaxDistanceCM = FMath::Max(400.f, InRangeCM);
++    EffectiveRangeCM = FMath::Max(400.f, InRangeCM);
++    if (HasAuthority()) SetNetCullDistanceSquared(FMath::Square(EffectiveRangeCM * 3.f));
+     Shot = InShot;
+     RemainingPenetrations=Shot.bHeartPiercingArrow?FMath::Clamp(Shot.BowTargetPenetration,0,3):0;
+     HitTargets.Reset();
+@@ -96,6 +106,24 @@
+     RecoveryShape->SetCapsuleSize(FMath::Max(2.f, Radius), Length * .5f);
+     CollisionRadiusCM = FMath::Clamp(Radius * 1.2f, .25f, 2.f);
+     Velocity = GetActorForwardVector() * Speed;
++    if (GetNetMode() != NM_DedicatedServer && FlightGlow->Elements.IsEmpty())
++    {
++        if (auto* Base = LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Items/LootFX/M_LootCenter.M_LootCenter")))
++        {
++            auto* Glow = UMaterialInstanceDynamic::Create(Base,FlightGlow);
++            Glow->SetVectorParameterValue(TEXT("LootColor"),FLinearColor(1.f,.72f,.22f));
++            Glow->SetScalarParameterValue(TEXT("Intensity"),5.f);
++            // Keep the nock small up close and legible at bow ranges, including inside a scope.
++            auto* Size = NewObject<UCurveFloat>(FlightGlow);
++            Size->FloatCurve.AddKey(0.f,.025f);
++            Size->FloatCurve.AddKey(30000.f,.45f);
++            Size->FloatCurve.AddKey(70000.f,1.f);
++            FlightGlow->AddElement(Glow,nullptr,false,100.f,100.f,Size);
++        }
++    }
++    FlightGlow->SetRelativeLocation(FVector(-Length,0,0));
++    FlightGlow->SetVisibility(!bStuck && !MountainContact.bHit);
++
+     // 占位箭：引擎圆柱做箭杆、引擎圆锥做箭头；两者局部 +Z 沿箭身，转 90° 俯仰对到 Actor +X。
+     auto* ShaftMesh = InShaftMesh ? InShaftMesh : LoadObject<UStaticMesh>(nullptr,
+         TEXT("/Engine/BasicShapes/Cylinder.Cylinder"));
+@@ -136,42 +164,31 @@
+     if(bEchoPending||MountainContact.bHit)return;
+     if(!HasAuthority()){UpdateFlameVisual(Delta);UpdateElementVisual(Delta);UpdateIlluminationVisual(Delta);return;}
+     Delta = FMath::Max(0.f, Delta);
+-    Age += Delta;
+     if (bStuck) return;
+-    if (Delta <= 0.f || Velocity.IsNearlyZero()) return;
+-    float Remaining = FMath::Min(Delta, 8.f);
++    if (Delta <= 0.f || Speed <= 0.f) return;
++    float Remaining = Delta;
+     FVector Previous = GetActorLocation();
+-    FCollisionQueryParams Query(SCENE_QUERY_STAT(BowArrow), true, GetInstigator());
+-    Query.AddIgnoredActor(this);
+-    FHitResult Hit;
+     while (Remaining > KINDA_SMALL_NUMBER)
+     {
+-        const float Dt = FMath::Min3(Remaining, 1.f / 120.f, StepCM / FMath::Max(1.f, float(Velocity.Size())));
+-        const FVector Acceleration(0.f, 0.f, -GravityCM);
+-        FVector Displacement = Velocity * Dt + Acceleration * (.5f * Dt * Dt);
+-        const float Available = FMath::Max(0.f, MaxDistanceCM - TravelledCM);
+-        if (Displacement.Size() > Available) Displacement = Displacement.GetSafeNormal() * Available;
+-        const FVector Next = Previous + Displacement;
+-        Velocity += Acceleration * Dt;
++        const float TimeUntilDrop = FMath::Max(0.f, (EffectiveRangeCM - TravelledCM) / Speed);
++        // A single swept segment covers straight flight. Only curvature needs substeps.
++        const float Dt = FMath::Min(Remaining, FMath::Max(TimeUntilDrop, 1.f / 120.f));
++        // The crossing substep contains a straight interval followed by a falling interval.
++        const float FlatTime = FMath::Min(TimeUntilDrop, Dt);
++        const float FallTime = Dt - FlatTime;
++        const FVector Gravity(0., 0., -GravityCM);
++        const FVector Next = Previous + Velocity * Dt + Gravity * (.5f * FallTime * FallTime);
++        Velocity += Gravity * FallTime;
+         SetActorRotation(Velocity.Rotation());
+-        const bool Blocked = RangedAttackQuery::SweepSingle(GetWorld(), GetInstigator(), Hit, Previous, Next, FQuat::Identity,
+-            ECC_Visibility, FCollisionShape::MakeSphere(CollisionRadiusCM), Query);
+-        TravelledCM += Displacement.Size() * (Blocked ? Hit.Time : 1.f);
+-        if (Blocked)
+-        {
+-            ApplyHit(Hit);
+-            return;
+-        }
++        float Distance=0.f;
++        const bool bContinue=AdvanceSegment(Previous,Next,Distance);
++        TravelledCM+=Distance;
++        if(!bContinue)return;
+         Previous = Next;
+         Remaining -= Dt;
+-        if (TravelledCM >= MaxDistanceCM)
+-        {
+-            Destroy();
+-            return;
+-        }
+     }
+     SetActorLocation(Previous);
+-    if (TravelledCM >= MaxDistanceCM || Age > 8.f) Destroy();
++    if (!CheckStillInWorld()) return;
+     UpdateFlameVisual(Delta);
+     UpdateElementVisual(Delta);
+     UpdateIlluminationVisual(Delta);
+@@ -180,14 +197,35 @@
+ void ABowArrow::ResolveLaunchObstruction(const FVector& CameraOrigin)
+ {
+     if(Presentation.bIllumination)LastIlluminationScan=CameraOrigin;
++    float Distance=0.f;
++    AdvanceSegment(CameraOrigin,GetActorLocation(),Distance);
++}
++
++bool ABowArrow::AdvanceSegment(const FVector& Start,const FVector& End,float& Distance)
++{
+     FHitResult Hit;
+-    FCollisionQueryParams Query(SCENE_QUERY_STAT(BowLaunch), true, GetInstigator());
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(BowArrow),true,GetInstigator());
+     Query.AddIgnoredActor(this);
+-    if (RangedAttackQuery::SweepSingle(GetWorld(), GetInstigator(), Hit, CameraOrigin, GetActorLocation(), FQuat::Identity,
+-        ECC_Visibility, FCollisionShape::MakeSphere(CollisionRadiusCM), Query)) ApplyHit(Hit);
+-}
+-
+-bool ABowArrow::ApplyHit(const FHitResult& Hit)
++    for(const auto& Target:HitTargets)if(Target.IsValid())Query.AddIgnoredActor(Target.Get());
++    // Re-query the complete segment after each penetrated target. Moving the
++    // start beyond a body could skip a thin wall or an adjacent second target.
++    while(RangedAttackQuery::SweepSingle(GetWorld(),GetInstigator(),Hit,Start,End,FQuat::Identity,
++        ECC_Visibility,FCollisionShape::MakeSphere(CollisionRadiusCM),Query))
++    {
++        Distance=FVector::Distance(Start,Hit.Location);
++        auto* Target=Hit.GetActor();
++        auto* Component=Hit.GetComponent();
++        ScanIllumination(Hit.Location,true);
++        if(!ApplyHit(Hit,TravelledCM+Distance))return false;
++        if(Target&&HitTargets.Contains(Target))Query.AddIgnoredActor(Target);
++        else if(Component)Query.AddIgnoredComponent(Component); // Broken pane only; its wall still blocks.
++    }
++    Distance=FVector::Distance(Start,End);
++    ScanIllumination(End,false);
++    return true;
++}
++
++bool ABowArrow::ApplyHit(const FHitResult& Hit,float ContactDistanceCM)
+ {
+     if(bResolved||bStuck)return false;
+     // Continue flight through the removed pane instead of pinning an arrow in empty air.
+@@ -217,6 +255,8 @@
+         const FVector Direction = Velocity.GetSafeNormal();
+         if (Target)
+         {
++            const float RangeScale=WeaponDamageFalloff::Multiplier(ContactDistanceCM,EffectiveRangeCM);
++            const float ContactDamage=Damage*RangeScale;
+             FWeaponDamageResult Result;
+             float Applied = 0.f;
+             {
+@@ -225,14 +265,15 @@
+                 const MonsterDamageAlert::FScopedSilentShot SilentShot(Target);
+                 // Illumination uses this ordinary-arrow damage snapshot and shared
+                 // armour/critical/status calculation, with no extra skill damage.
+-                if (auto* Unknown=Cast<AUnknownHumanoid>(Pawn)) Applied=Unknown->HitWithArrow(Hit,Damage,Direction,Shot);
+-                else Applied = Presentation.bMountainEcho?ApplyEchoHit(Hit,Result):ColdSteelSkills::ApplyHit(Pawn, Hit, Damage, Direction, Shot, &Result);
++                if (auto* Unknown=Cast<AUnknownHumanoid>(Pawn)) Applied=Unknown->HitWithArrow(Hit,ContactDamage,Direction,Shot);
++                else Applied = Presentation.bMountainEcho?ApplyEchoHit(Hit,RangeScale,Result):ColdSteelSkills::ApplyHit(Pawn, Hit, ContactDamage, Direction, Shot, &Result);
+             }
+             if(!Presentation.bMountainEcho&&bEchoEligible)
+             {
+                 if(MountainImpact&&!MountainImpact->bRecorded)
+                 {
+-                    MountainImpact->Physical=Result.BeforeDefense;
++                    // Store the pre-falloff receipt so the echo uses its own impact distance once.
++                    MountainImpact->Physical=Result.BeforeDefense.Scaled(1.f/RangeScale);
+                     MountainImpact->Physical.BaseMagic=MountainImpact->Physical.AddedMagic=0;
+                     MountainImpact->bCritical=Result.bCritical;MountainImpact->bRecorded=true;
+                 }
+@@ -262,6 +303,7 @@
+ void ABowArrow::FinishStuck(const FHitResult& Hit)
+ {
+     bStuck = true;
++    FlightGlow->SetVisibility(false);
+     UpdateIlluminationVisual(0);
+     UpdateElementVisual(0);
+     StopFlameVisual();
+@@ -391,6 +433,7 @@
+     {
+         bRecoverable = true;
+         bStuck = true;
++    FlightGlow->SetVisibility(false);
+         Profile->PostNotice(TEXT("箭支未拾回"), Profile->ResultMessage());
+         return false;
+     }
+@@ -419,7 +462,7 @@
+     SetActorEnableCollision(bStuck);
+     RecoveryShape->SetCollisionEnabled(bStuck&&bRecoverable?ECollisionEnabled::QueryOnly:ECollisionEnabled::NoCollision);
+     AutoRecovery->SetCollisionEnabled(bStuck?ECollisionEnabled::QueryOnly:ECollisionEnabled::NoCollision);
+-    if(bStuck)StopFlameVisual();
++    if(bStuck){FlightGlow->SetVisibility(false);StopFlameVisual();}
+     if(bStuck){UpdateElementVisual(0);UpdateIlluminationVisual(0);}
+     SetActorTickEnabled(!bStuck&&(Presentation.bIllumination||Presentation.bFlameArmor||ElementalArrow::IsElement(Presentation.Element)));
+ }

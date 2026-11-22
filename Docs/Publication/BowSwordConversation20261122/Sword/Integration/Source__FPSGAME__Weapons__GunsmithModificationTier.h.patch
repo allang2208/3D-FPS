@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/Weapons/GunsmithModificationTier.h
++++ b/Source/FPSGAME/Weapons/GunsmithModificationTier.h
+@@ -22,6 +22,12 @@
+     if(Weapon==TEXT("ue_highland_claymore")&&SlotKey==TEXT("blade_1")&&
+         (Id==TEXT("highland_broadblade")||Id==TEXT("highland_ridge_piercer")))
+         return EGunsmithModificationTier::Legendary;
++    if(Weapon==TEXT("ue_forged_steel_greatsword")&&SlotKey==TEXT("blade_1")&&
++        (Id==TEXT("hollow_blade")||Id==TEXT("executioner_blade")))
++        return EGunsmithModificationTier::Legendary;
++    if(Weapon==TEXT("ue_forged_steel_greatsword")&&SlotKey==TEXT("pommel")&&
++        (Id==TEXT("ring_chain_pommel")||Id==TEXT("fishtail_pommel")))
++        return EGunsmithModificationTier::Special;
+     if(Weapon==TEXT("ue_tactical_hatchet")&&SlotKey==TEXT("blade_1")&&
+         (Id==TEXT("hatchet_ghost_scythe")||Id==TEXT("hatchet_falcon_edge")))
+         return EGunsmithModificationTier::Legendary;

@@ -1,0 +1,52 @@
+{
+  "blade_option": "executioner_blade",
+  "factory_option": "factory",
+  "destination": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats",
+  "cut_z_cm": 1.6199999999999999,
+  "material_slot": "M_ForgedSteelGreatsword_Surface_V1",
+  "material": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+  "mesh_by_guard": {
+    "factory": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_factory_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_factory_ExecutionerSeat",
+    "bastion_guard": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_bastion_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_bastion_guard_ExecutionerSeat",
+    "riposte_guard": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_riposte_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_riposte_guard_ExecutionerSeat",
+    "light_guard": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_light_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_light_guard_ExecutionerSeat"
+  },
+  "guards": {
+    "factory": {
+      "source_mesh": "SM_ForgedSteelGreatsword_Guard_V1",
+      "fbx": "SM_ForgedSteelGreatsword_Guard_factory_ExecutionerSeat.fbx",
+      "mesh": "SM_ForgedSteelGreatsword_Guard_factory_ExecutionerSeat",
+      "object_path": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_factory_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_factory_ExecutionerSeat",
+      "trimmed_source_triangles": 314,
+      "closed_section_edges": 108,
+      "cap_triangles": 106
+    },
+    "bastion_guard": {
+      "source_mesh": "SM_ForgedSteelGreatsword_Guard_bastion_guard_V2",
+      "fbx": "SM_ForgedSteelGreatsword_Guard_bastion_guard_ExecutionerSeat.fbx",
+      "mesh": "SM_ForgedSteelGreatsword_Guard_bastion_guard_ExecutionerSeat",
+      "object_path": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_bastion_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_bastion_guard_ExecutionerSeat",
+      "trimmed_source_triangles": 314,
+      "closed_section_edges": 108,
+      "cap_triangles": 106
+    },
+    "riposte_guard": {
+      "source_mesh": "SM_ForgedSteelGreatsword_Guard_riposte_guard_V2",
+      "fbx": "SM_ForgedSteelGreatsword_Guard_riposte_guard_ExecutionerSeat.fbx",
+      "mesh": "SM_ForgedSteelGreatsword_Guard_riposte_guard_ExecutionerSeat",
+      "object_path": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_riposte_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_riposte_guard_ExecutionerSeat",
+      "trimmed_source_triangles": 314,
+      "closed_section_edges": 108,
+      "cap_triangles": 106
+    },
+    "light_guard": {
+      "source_mesh": "SM_ForgedSteelGreatsword_Guard_light_guard_V2",
+      "fbx": "SM_ForgedSteelGreatsword_Guard_light_guard_ExecutionerSeat.fbx",
+      "mesh": "SM_ForgedSteelGreatsword_Guard_light_guard_ExecutionerSeat",
+      "object_path": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_light_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_light_guard_ExecutionerSeat",
+      "trimmed_source_triangles": 314,
+      "closed_section_edges": 108,
+      "cap_triangles": 106
+    }
+  }
+}

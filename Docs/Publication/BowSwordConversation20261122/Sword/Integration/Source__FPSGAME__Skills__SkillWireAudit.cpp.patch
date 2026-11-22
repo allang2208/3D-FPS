@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Skills/SkillWireAudit.cpp
++++ b/Source/FPSGAME/Skills/SkillWireAudit.cpp
+@@ -63,6 +63,7 @@
+ }
+ void ASkillWireAuditController::Tick(float Delta)
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("ForgedBladeWire"))){Super::Tick(Delta);TickForgedBlade();return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("LeapMovementWire"))){Super::Tick(Delta);TickLeapWire(Delta);return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("SessionChainWire"))){Super::Tick(Delta);TickSessionChain();return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("ConversationCombatWire"))){Super::Tick(Delta);TickConversationCombat();return;}
+@@ -143,6 +144,7 @@
+ {if(SkillWire::Enabled()&&Damage>0.f)++Contacts;}
+ void ASkillWireAuditGameMode::Tick(float Delta)
+ {
++    if(FParse::Param(FCommandLine::Get(),TEXT("ForgedBladeWire"))){Super::Tick(Delta);TickForgedBlade();return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("LeapMovementWire"))){Super::Tick(Delta);TickLeapWire(Delta);return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("SessionChainWire"))){Super::Tick(Delta);TickSessionChain();return;}
+     if(FParse::Param(FCommandLine::Get(),TEXT("ConversationCombatWire"))){Super::Tick(Delta);TickConversationCombat();return;}

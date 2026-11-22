@@ -1,0 +1,189 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordActions.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordActions.cpp
+@@ -1,5 +1,6 @@
+ #include "RuneSwordComponent.h"
+ #include "HighlandBreakSweep.h"
++#include "RingChainSweepMotion.h"
+ #include "../Characters/FPSPlayerBodyComponent.h"
+ #include "HighlandRidgeThrust.h"
+ #include "HighlandRidgeGatherComponent.h"
+@@ -114,14 +115,49 @@
+     if(TryClovenCounter())return;
+     if(bInspecting)CancelAction();
+     if(bGuardHeld || bGuarding || bReturningGuard || bGuardReacting || bGuardBreakPose)return;
++    if(bRingInputInstalled)
++    {
++        if(RingPrimaryDownAt>=0.||bCharging||!CanUse()||Character->IsCastBlockingLeftHandAction())return;
++        if((bAttacking&&Elapsed<ContactEnd)||(!bAttacking&&!bEquipping&&IsBusy()))return;
++        RingPrimaryDownAt=GetWorld()->GetTimeSeconds();
++        bRingInputBuffered=bAttacking||bEquipping;
++        bRingHoldAttempted=false;
++        return;
++    }
+     // Preserve the ordinary equip/recovery click buffer. This press belongs to
+     // that combo, so its release must not start a second attack or a charge.
+     if(bAttacking || bEquipping){BeginAttack();return;}
+     BeginHeavyCharge();
+ }
+ 
++void URuneSwordComponent::AdvanceRingPrimaryHold()
++{
++    if(RingPrimaryDownAt<0.||bRingHoldAttempted||bCharging)return;
++    if(bGuardHeld||bChainSlashPending||bChainSlash||bUppercut||bWhirlwind||bDashAttack||
++        Character->IsCastBlockingLeftHandAction()||!CanUse(true))
++    {RingPrimaryDownAt=-1.;return;}
++    const double Now=GetWorld()->GetTimeSeconds();
++    const double HoldAt=RingPrimaryDownAt+.20;
++    if(Now<=HoldAt||IsBusy())return;
++    bRingHoldAttempted=true;
++    // A press during recovery borrows no charge time from the preceding swing.
++    StartHeavyCharge(bRingInputBuffered?Now:HoldAt);
++}
++
+ void URuneSwordComponent::ReleasePrimaryAttack()
+ {
++    if(bRingInputInstalled)
++    {
++        if(RingPrimaryDownAt<0.)return;
++        if(!CanUse(true)||Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
++        // Input may arrive between ticks, including both edges during a hitch.
++        AdvanceRingPrimaryHold();
++        if(RingPrimaryDownAt<0.)return;
++        RingPrimaryDownAt=-1.;
++        if(bCharging)ReleaseHeavyCharge();
++        else BeginAttack(true);
++        return;
++    }
+     if(!bCharging)return;
+     if(!CanUse(true) || Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
+     if(const auto* Profile=ColdSteelAuthority::ForPawn(Character.Get());Profile&&Profile->Stamina()<=0.f)
+@@ -155,6 +191,8 @@
+     }
+     const bool OverheadFinisher=!Heavy&&ComboStage==3&&Item&&ColdSteelModularSword::UsesOverheadFinisher(*Item);
+     const bool Chixiao=Heavy&&bCharging&&bChixiaoEquipped;
++    if(Heavy&&bCharging&&CurrentClip==RingChainSweepMotion::Charge&&Clip==TEXT("HeavyRelease"))
++        Clip=RingChainSweepMotion::Release;
+     if(!Heavy&&ComboStage==3&&Animations.Contains(HighlandRidgeThrust::Charge))
+         Clip=HighlandRidgeThrust::Finisher;
+     if(Heavy&&Clip==TEXT("HeavyRelease")&&Animations.Contains(HighlandRidgeThrust::Charge))
+@@ -219,7 +257,8 @@
+                 SwingWaveSpeed=Flight.SpeedCM;
+             }
+         }
+-        const double StaminaCost=Heavy&&bCharging?ColdSteelMelee::HeavyReleaseStamina(Item,Profile):
++        if(bCharging)SettleRingChainCharge(Profile);
++        const double StaminaCost=Heavy&&bCharging?HeavyReleaseCost(Item,Profile):
+             StaminaOverride>=0.f?StaminaOverride:ColdSteelMelee::AttackStamina(Item,Profile);
+         const float BeforeStamina=Profile->Stamina();
+         if(RemoteGaleSwing)
+@@ -233,7 +272,7 @@
+             GalePaid=BeforeStamina-Profile->Stamina()+(bCharging?TakeGaleCharge():0.f);
+         OathPaidRelease=Heavy?FMath::Max(0.f,BeforeStamina-Profile->Stamina()):0.f;
+     }
+-    OathReleaseStamp=Heavy&&bCharging?OathClock():0.;
++    OathReleaseStamp=Heavy&&bCharging?HeavyInputReleaseStamp():0.;
+     if(Heavy&&bCharging)CommitOathRelease(OathReleaseStamp,NetworkBladeSerial);
+     SetHeavyCharging(false,Heavy,RemoteGaleSwing && bCharging ? NetworkBladeSerial : 0);
+     bAttacking=true;bQueuedAttack=bReturningCharge=false;bHeavyAttack=Heavy;
+@@ -255,7 +294,8 @@
+     // Martial skills keep their own action clock. Generic weapon/attribute
+     // attack speed applies only to ordinary attacks, including combo finishers.
+     SwingRate=!Heavy&&bUseWeaponAttackSpeed?AttackRate:LightningHaste::ActionSpeed(GetOwner());
+-    if(Clip==HighlandBreakSweep::Clip)SwingRate*=HighlandBreakSweep::PlaybackRate;
++    const bool HorizontalSweep=Clip==HighlandBreakSweep::Clip||Clip==RingChainSweepMotion::Release;
++    if(HorizontalSweep)SwingRate*=HighlandBreakSweep::PlaybackRate;
+     if(Clip==HighlandRidgeThrust::Finisher)SwingRate*=HighlandRidgeThrust::FinisherPlaybackRate;
+     SwingReach=RuneSwordCombatTuning::ScaledReach(Reach,ComboStage==3?RuneSwordThrustRhythm::ReachBonus:0.f)*MeleeModifiers.Range;
+     SwingRangeMultiplier=RuneSwordCombatTuning::RangeMultiplier*MeleeModifiers.Range;
+@@ -266,7 +306,7 @@
+     ContactStart=bOverheadAttack?RuneSwordOverheadRhythm::ContactStart:(Heavy?RuneSwordHeavyRhythm::ContactStart:(bThrustAttack?RuneSwordThrustRhythm::ContactStart:(bPommelAttack?RuneSwordPommelRhythm::ContactStart:RuneSwordRhythm::ContactStart)));
+     ContactEnd=bOverheadAttack?RuneSwordOverheadRhythm::ContactEnd:(Heavy?RuneSwordHeavyRhythm::ContactEnd:(bThrustAttack?RuneSwordThrustRhythm::ContactEnd:(bPommelAttack?RuneSwordPommelRhythm::ContactEnd:RuneSwordRhythm::ContactEnd)));
+     if(RisingDragon){ContactStart=RuneSwordUppercutMotion::ReleaseStart;ContactEnd=RuneSwordUppercutMotion::Finish;}
+-    if(Clip==HighlandBreakSweep::Clip){ContactStart=HighlandBreakSweep::Contact;ContactEnd=HighlandBreakSweep::Release;}
++    if(HorizontalSweep){ContactStart=HighlandBreakSweep::Contact;ContactEnd=HighlandBreakSweep::Release;}
+     if(HighlandRidgeThrust::IsRelease(Clip))
+     {
+         const float Lead=HighlandRidgeThrust::LeadFor(Clip);
+@@ -549,6 +589,12 @@
+ 
+ void URuneSwordComponent::BeginHeavyCharge()
+ {
++    if(RingPrimaryDownAt>=0.)return;
++    StartHeavyCharge(GetWorld()->GetTimeSeconds());
++}
++
++void URuneSwordComponent::StartHeavyCharge(double InputStart)
++{
+     if(UBoundCongregateCaptureComponent::IsCaptured(GetOwner()))return;
+     if(bWhirlwind||bDashAttack)return;
+     if(bInspecting)CancelAction();
+@@ -556,23 +602,22 @@
+     if(Character->IsCastBlockingLeftHandAction())return;
+     if(!Animations.FindRef(TEXT("HeavyCharge")) || !Animations.FindRef(TEXT("HeavyRelease")))return;
+     const bool Ridge=Animations.Contains(HighlandRidgeThrust::Charge);
++    const bool RingSweep=Animations.Contains(RingChainSweepMotion::Charge);
++    if(RingSweep&&!Animations.FindRef(RingChainSweepMotion::Release))return;
+     if(Ridge&&(!Animations.FindRef(HighlandRidgeThrust::Charge)||!Animations.FindRef(HighlandRidgeThrust::Release)))return;
+     if(bChixiaoEquipped&&!ChixiaoAnimation())return;
+-    if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+-    {
+-        const double Cost=ColdSteelMelee::HeavyReleaseStamina(Profile->Equipped(),Profile);
+-        if(!Profile->CanSpendStamina(Cost))return;
+-    }
+-    const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     if(!Profile||Profile->Stamina()<=0.f||Profile->MasteryProgress(TEXT("heavyStrike")).Level<1||Profile->ActiveProductionTool())return;
+     const auto* Item=Profile->Equipped();if(!Item)return;
+     const auto Skill=Profile->MasteryEffect(TEXT("heavyStrike"));
+-    RequiredChargeSeconds=ColdSteelMelee::Evaluate(*Item,Profile).HeavyChargeSeconds;ChargedMultiplier=Skill.HeavyMultiplier;
++    double Duration;
++    if(!PrepareHeavyCharge(*Item,Profile,InputStart,Duration))return;
++    RequiredChargeSeconds=Duration;ChargedMultiplier=Skill.HeavyMultiplier;
+     bAutoHeavyRelease=false;
++    ChargeStartedAt=InputStart;
+     SetHeavyCharging(true);bQueuedAttack=false;bHeavyAttack=false;HitActors.Reset();
+-    ChargeStartedAt=GetWorld()->GetTimeSeconds();
+     BeginOathCharge(OathClock(),RequiredChargeSeconds);
+-    SetClip(Ridge?HighlandRidgeThrust::Charge:FName(TEXT("HeavyCharge")),false);
++    SetClip(RingSweep?RingChainSweepMotion::Charge:Ridge?HighlandRidgeThrust::Charge:FName(TEXT("HeavyCharge")),false);
+ }
+ 
+ void URuneSwordComponent::ReleaseHeavyCharge()
+@@ -587,18 +632,26 @@
+     const bool Heavy=HeldSeconds>=RequiredChargeSeconds;
+     const float ChargePoseTime=Elapsed;
+     const bool Ridge=CurrentClip==HighlandRidgeThrust::Charge;
+-    if(Ridge&&Heavy&&CurrentAnimation)
++    const bool RingSweep=CurrentClip==RingChainSweepMotion::Charge;
++    if(RingSweep&&!Heavy)
++    {
++        SetHeavyCharging(false);
++        BeginAttack(true);
++        if(!bAttacking)ReturnFromCharge();
++        return;
++    }
++    if((Ridge||RingSweep)&&Heavy&&CurrentAnimation)
+     {
+         // Input can arrive between ticks. Seat both hands in the fully drawn
+         // pose before release frame zero, which shares this exact pose.
+-        Elapsed=CurrentAnimation->GetPlayLength();
++        Elapsed=RingSweep?RingChainSweepMotion::Chamber:CurrentAnimation->GetPlayLength();
+         SamplePose(Elapsed);
+     }
+     // Charging always loads the right shoulder. Continue with Slash1, then
+     // allow the existing left-click combo to mirror into Slash2.
+     if(StartSwing(Heavy?TEXT("HeavyRelease"):TEXT("Slash1"),Heavy))
+     {
+-        if(!Heavy&&!Ridge)
++        if(!Heavy&&!Ridge&&!RingSweep)
+         {
+             // HeavyCharge reaches V6's raised pose at .65 s and its ordinary
+             // load pose at 1.60 s. Resume the matching point in the V8 windup
+@@ -631,6 +684,7 @@
+ 
+ void URuneSwordComponent::CancelAction()
+ {
++    RingPrimaryDownAt=-1.;
+     if(bChainSlash||bChainSlashPending)
+     {
+         bChainSlash=bChainSlashPending=false;

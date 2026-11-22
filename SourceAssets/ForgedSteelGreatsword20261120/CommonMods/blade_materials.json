@@ -1,0 +1,18 @@
+{
+  "base": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1",
+  "whirlwind": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1_Whirlwind.M_TangDaoBladeRuneSurface_ForgedSteel_V1_Whirlwind",
+  "slots": {
+    "factory": [
+      "M_ForgedSteelGreatsword_Surface_V1"
+    ],
+    "extended_edge": [
+      "M_ForgedSteelGreatsword_Surface_V1"
+    ],
+    "heavy_spine": [
+      "M_ForgedSteelGreatsword_Surface_V1"
+    ],
+    "feather_edge": [
+      "M_ForgedSteelGreatsword_Surface_V1"
+    ]
+  }
+}

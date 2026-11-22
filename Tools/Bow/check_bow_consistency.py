@@ -15,8 +15,8 @@ DATA = ROOT / "Content" / "ColdSteelData"
 
 # UBowWeaponComponent::ApplyNumbers 实际读取的数值键。
 NUMBERS = [
-    "nock_seconds", "draw_seconds", "hold_seconds", "release_seconds", "recover_seconds",
-    "full_damage", "min_damage_ratio", "full_speed_cm", "min_speed_ratio",
+    "nock_seconds", "draw_seconds", "release_seconds", "recover_seconds",
+    "full_damage", "full_speed_cm", "min_speed_ratio",
     "arrow_gravity_cm", "range_cm", "stamina_cost", "critical_chance", "toughness_multiplier",
     "bow_length_cm", "bow_depth_cm", "arrow_length_cm", "sway_amplitude_cm", "steady_sway_scale",
 ]
@@ -111,16 +111,16 @@ for definition, row in sorted(bows.items()):
             rods = 0
         for suffix in PART_SUFFIXES_PATH:
             key = f"bow_part_{slot}_{suffix}"
-            if key not in row:
+            if key not in row and suffix != "material":
                 problems.append(f"{definition}: 缺 {key}（不用也要留空串）")
-            elif row[key]:
+            elif row.get(key):
                 check_asset(definition, key, str(row[key]))
         for suffix in PART_SUFFIXES_NUMBER:
             key = f"bow_part_{slot}_{suffix}"
             if key in row and not isinstance(row[key], (int, float)):
                 problems.append(f"{definition}: {key} 必须是数字")
-        # 纯程序化槽（有细杆、没网格）与实体槽（有网格）至少得有一个来源。
-        if not rods and not row.get(f"bow_part_{slot}_mesh"):
+        # 原厂可以不装瞄具，保留 sight 槽供改造台装配。
+        if slot != "sight" and not rods and not row.get(f"bow_part_{slot}_mesh"):
             problems.append(f"{definition}: 槽 {slot} 既无 _rods 也无 _mesh，画不出任何东西")
         # Empty hide_slot selects this part's material 0. A string hide_slot is
         # only needed for the legacy override of a separate baked-string slot.

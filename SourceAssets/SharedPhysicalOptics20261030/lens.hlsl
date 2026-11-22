@@ -1,5 +1,4 @@
-// Radian geometry, not arbitrary distances on a screen overlay. 1 mrad stays
-// 1 mrad throughout the zoom transition. Fine ticks/labels cull by pixel size.
+// Angular graduations use capture FOV. Peakwatch has a fixed pattern on the glass.
 struct Marks
 {
     float segment(float2 p,float2 a,float2 b)
@@ -20,15 +19,20 @@ struct Marks
 };
 Marks m;
 float2 uv=.5+(ScreenUV-.5)*ScreenToLens.xy;
-float3 scene=Texture2DSample(Scene,SceneSampler,saturate(uv)).rgb;
-float2 p=atan((uv-.5)*(2*CaptureTanHalfFOV))*1000;
+int style=(int)(ReticleStyle+.5);
+bool fixedEtch=style==7;
+float2 sceneUV=uv;
+if(fixedEtch && ScreenToLens.z>0.)
+    sceneUV=.5+(uv-.5)*ScreenToLens.z;
+float3 scene=Texture2DSample(Scene,SceneSampler,saturate(sceneUV)).rgb;
+// The bow pattern spans 200 layout units across the capture square at every power.
+float2 p=fixedEtch?(uv-.5)*200.:atan((uv-.5)*(2*CaptureTanHalfFOV))*1000;
 float px=max(max(fwidth(p.x),fwidth(p.y)),.001);
 float stroke=px*.42,d=1e4,lit=0;
 float2 labels=0;
-int style=(int)(ReticleStyle+.5);
 float ppm=1/px;
 float tickStep=ppm>=7?.5:ppm>=3?1:ppm>=1.5?2:5;
-float labelStep=ppm>=5?2:ppm>=2.5?4:10;
+float labelStep=fixedEtch?4:(ppm>=5?2:ppm>=2.5?4:10);
 float labelVisibility=smoothstep(1.7,2.5,ppm);
 
 if(style==0||style==3||style==5) // M24 precision / KV open centre / handgun duplex.
@@ -80,10 +84,9 @@ else if(style==2||style==4) // Prism / PSO: the primary chevron TIP is the aim r
         labels=max(labels,m.glyph(p,float2(-22+12*px,23+7*px),7,px,Glyphs,GlyphsSampler)*labelVisibility);
     }
 }
-else if(style==7) // Peakwatch: fine mountain-tip aim and angular hold references.
+else if(fixedEtch) // Peakwatch: fixed mountain tip, crossbars and lower scale.
 {
-    // Tip is the unchanged camera aim ray. These marks are mrad references,
-    // not distance labels or an assumed arrow-specific ballistic zero.
+    // The tip stays on the camera aim ray as the captured scene zooms beneath it.
     d=min(d,m.segment(p,float2(-1.4,1.6),float2(0,0)));
     d=min(d,m.segment(p,float2(0,0),float2(1.4,1.6)));
     d=min(d,m.segment(p,float2(-12,0),float2(-3,0)));
@@ -156,11 +159,14 @@ else // Thermal: open central cross, square acquisition corners and mil ladder.
             d=min(d,max(0,length(p-float2(s*col*2,a))-px*.45));
     }
 }
-// A small unit legend belongs to the image, never to the surrounding HUD.
-float2 legend=atan(CaptureTanHalfFOV*float2(.35,.62))*1000;
-float legendVisibility=smoothstep(42,70,1000*CaptureTanHalfFOV/px);
-[unroll]for(int j=0;j<4;++j)
-    labels=max(labels,m.glyph(p,legend+float2((j-1.5)*6.4*px,0),11+j,px,Glyphs,GlyphsSampler)*legendVisibility);
+// Only angular reticles have graduations calibrated in mrad throughout zoom.
+if(!fixedEtch)
+{
+    float2 legend=atan(CaptureTanHalfFOV*float2(.35,.62))*1000;
+    float legendVisibility=smoothstep(42,70,1000*CaptureTanHalfFOV/px);
+    [unroll]for(int j=0;j<4;++j)
+        labels=max(labels,m.glyph(p,legend+float2((j-1.5)*6.4*px,0),11+j,px,Glyphs,GlyphsSampler)*legendVisibility);
+}
 float ink=max(m.coverage(d,stroke,px),labels.r);
 float halo=max(m.coverage(d,stroke+px*.95,px),labels.g);
 scene*=float3(.985,.995,1.0);

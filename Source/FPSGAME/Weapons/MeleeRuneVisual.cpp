@@ -1,5 +1,7 @@
 #include "MeleeRuneVisual.h"
+#include "Misc/Paths.h"
 #include "FrostSwordRunes.h"
+#include "ZhanmadaoRuneInlay.h"
 #include "../UI/ColdSteelInventoryTypes.h"
 #include "Components/MeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -32,7 +34,7 @@ void ApplyCommonRunePalette(UMaterialInstanceDynamic* Material,const FString& Ru
     // Shared traveling ink has separate yellow and red palettes. Restore the
     // parent's colors when changing back to conduction on an existing MID.
     const bool bHaste=Rune==TEXT("haste_rune");
-    const bool bStrength=Rune==TEXT("strength_rune")||Rune==ColdSteelFrostRunes::DestructionMana;
+    const bool bStrength=Rune==TEXT("strength_rune")||Rune==ColdSteelFrostRunes::DestructionMana||Rune==ColdSteelFrostRunes::Chixiao;
     const auto SetColor=[Material,bHaste,bStrength](FName Name,const FLinearColor& Yellow,const FLinearColor& Red)
     {
         FLinearColor Color=bStrength?Red:Yellow;
@@ -41,6 +43,11 @@ void ApplyCommonRunePalette(UMaterialInstanceDynamic* Material,const FString& Ru
     };
     SetColor(TEXT("ConductionCoreColor"),FLinearColor(.90f,.68f,.008f,1.f),FLinearColor(.82f,.012f,.018f,1.f));
     SetColor(TEXT("ConductionGlowColor"),FLinearColor(1.f,.82f,.012f,1.f),FLinearColor(1.f,.025f,.032f,1.f));
+    if(Rune==ColdSteelFrostRunes::Zhufeng)
+    {
+        Material->SetVectorParameterValue(TEXT("ConductionCoreColor"),FLinearColor(.015f,.52f,.48f,1.f));
+        Material->SetVectorParameterValue(TEXT("ConductionGlowColor"),FLinearColor(.14f,.96f,.87f,1.f));
+    }
     if(ColdSteelFrostRunes::IsThunderExclusive(Rune))
     {
         const bool Echo=Rune==TEXT("hui_xiang_rune");
@@ -87,8 +94,10 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
     const bool bInnate=bFrost&&(EquippedRune.IsEmpty()||EquippedRune==TEXT("false"));
     const FString VisualRune=bInnate?TEXT("erosion_rune"):EquippedRune;
     const bool bGolden=VisualRune==TEXT("golden_glow_rune");
+    const bool bSilver=VisualRune==TEXT("silver_glow_rune");
     const bool bSpirit=bFrost&&VisualRune==ColdSteelFrostRunes::SpiritBurst;
     const bool bWild=Definition==TEXT("ue_highland_claymore")&&VisualRune==TEXT("wild_rune");
+    const bool bOath=Definition==TEXT("ue_highland_claymore")&&VisualRune==TEXT("highland_oath_rune");
     const bool bCloud=ColdSteelFrostRunes::SupportsEasternRunes(Definition)&&VisualRune==ColdSteelFrostRunes::AuspiciousCloud;
     const bool bMountain=ColdSteelFrostRunes::SupportsEasternRunes(Definition)&&VisualRune==ColdSteelFrostRunes::Mountain;
     const bool bZhenmo=Definition==ColdSteelFrostRunes::XuanChi&&VisualRune==ColdSteelFrostRunes::Zhenmo;
@@ -97,33 +106,40 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
     const bool bMana=Definition==ColdSteelFrostRunes::RuneboundWarhammer&&
         (VisualRune==ColdSteelFrostRunes::SwiftMana||VisualRune==ColdSteelFrostRunes::DestructionMana);
     const bool bThunderExclusive=Definition==ColdSteelFrostRunes::ThunderGodHammer&&ColdSteelFrostRunes::IsThunderExclusive(VisualRune);
-    const int32 Mode=bBeiwei?10:bJingang?9:bZhenmo?8:bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:(bThunderExclusive||bMana||VisualRune==TEXT("conduction_rune")||VisualRune==TEXT("haste_rune")||VisualRune==TEXT("strength_rune"))?2:-1;
+    const bool bLegendaryDao=ColdSteelFrostRunes::IsZhanmadaoLegendary(VisualRune);
+    const int32 Mode=bOath?11:bBeiwei?10:bJingang?9:bZhenmo?8:bMountain?7:bCloud?6:bWild?5:bSpirit?4:bGolden?3:VisualRune==TEXT("resonance_rune")?0:VisualRune==TEXT("erosion_rune")?1:(bThunderExclusive||bLegendaryDao||bMana||VisualRune==TEXT("conduction_rune")||VisualRune==TEXT("haste_rune")||VisualRune==TEXT("strength_rune"))?2:-1;
     auto IsOurs=[](UMaterialInterface* M){auto* Base=M?M->GetBaseMaterial():nullptr;return Base&&(Base->GetName().StartsWith(TEXT("M_SilverRuneSurface"))||Base->GetName()==TEXT("M_SilverRuneSurfaceV2"));};
     for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
     {
         auto* Current=Mesh->GetOverlayMaterial(true,Slot);
         auto* Base=Mesh->GetMaterial(Slot);
         const FString BaseName=Base&&Base->GetBaseMaterial()?Base->GetBaseMaterial()->GetName():FString();
-        if(BaseName==TEXT("M_HighlandClaymoreSurface"))
+        const bool HighlandSteel=BaseName==TEXT("M_HighlandClaymoreSurface")||BaseName==TEXT("M_RidgeWedgeSteel");
+        if(HighlandSteel)
         {
             // Recolor native ink on its original UVs alongside the selected rune.
             auto* HighlandMID=Cast<UMaterialInstanceDynamic>(Base);
             if(!HighlandMID){HighlandMID=UMaterialInstanceDynamic::Create(Base,Mesh);Mesh->SetMaterial(Slot,HighlandMID);}
             HighlandMID->SetScalarParameterValue(TEXT("NativeGold"),0.f);
+            HighlandMID->SetScalarParameterValue(TEXT("NativeOath"),bOath?1.f:0.f);
             HighlandMID->SetScalarParameterValue(TEXT("NativeWild"),bWild?1.f:0.f);
         }
         const bool NativeSword=Definition==TEXT("ue_rune_sword")||
             (Definition.IsEmpty()&&BaseName.Contains(TEXT("AzureRunesword")));
-        const bool UseNativeGold=bGolden&&NativeSword&&BaseName.Contains(TEXT("AzureRunesword"));
+        const bool UseNativeGold=(bGolden||bSilver)&&NativeSword&&BaseName.Contains(TEXT("AzureRunesword"));
         if(UseNativeGold)
         {
             // The cut guard contains the lowest native blade glyphs. It needs its
             // own UV0 mask so unrelated guard UV islands never inherit blade ink.
             if(IsOurs(Current))Mesh->SetOverlayMaterial(nullptr,true,Slot);
+            const TCHAR* NativePath=bSilver?
+                TEXT("/Game/Weapons/AzureRunesword20260913/SilverRune20261030/MI_AzureRunesword_NativeSilver"):
+                TEXT("/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/MI_AzureRunesword_NativeGold");
             auto* NativeMID=IsNativeGold(Base)?Cast<UMaterialInstanceDynamic>(Base):nullptr;
+            if(NativeMID&&NativeMID->Parent&&NativeMID->Parent->GetPathName()!=FString(NativePath)+TEXT(".")+FPaths::GetCleanFilename(NativePath))NativeMID=nullptr;
             if(!NativeMID)
             {
-                auto* Native=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Weapons/AzureRunesword20260913/NativeRuneGold20260922/MI_AzureRunesword_NativeGold"));
+                auto* Native=LoadObject<UMaterialInterface>(nullptr,NativePath);
                 if(!Native)continue;
                 NativeMID=UMaterialInstanceDynamic::Create(Native,Mesh);
                 Mesh->SetMaterial(Slot,NativeMID);
@@ -152,6 +168,16 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
             auto* SurfaceMID=Cast<UMaterialInstanceDynamic>(Base);
             if(!SurfaceMID){SurfaceMID=UMaterialInstanceDynamic::Create(Base,Mesh);Mesh->SetMaterial(Slot,SurfaceMID);}
             SurfaceMID->SetScalarParameterValue(TEXT("RuneMode"),Mode);
+            if(Definition==ColdSteelFrostRunes::Zhanmadao)
+            {
+                const auto* Art=ZhanmadaoRuneInlay::ForRune(VisualRune);
+                if(Art)
+                {
+                    SurfaceMID->SetTextureParameterValue(TEXT("DaoInlayColor"),LoadObject<UTexture>(nullptr,Art->Color));
+                    SurfaceMID->SetTextureParameterValue(TEXT("DaoInlayORM"),LoadObject<UTexture>(nullptr,Art->ORM));
+                }
+                SurfaceMID->SetScalarParameterValue(TEXT("DaoInlayStyle"),Art?Art->Style:0.f);
+            }
             SurfaceMID->SetScalarParameterValue(TEXT("GoldenTint"),0.f);
             ApplyCommonRunePalette(SurfaceMID,VisualRune);
             SurfaceMID->SetScalarParameterValue(TEXT("BaseBrightness"),bMountain?.72f:bCloud?.60f:.85f);
@@ -166,21 +192,21 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
             }
             continue;
         }
-        const bool Blade=Name.Contains(TEXT("FrostCrystalSword"))||Name.Contains(TEXT("AzureRunesword"))||Name==TEXT("M_HighlandClaymoreSurface")||Name==TEXT("M_TangDaoSurface")||
+        const bool Blade=Name.Contains(TEXT("FrostCrystalSword"))||Name.Contains(TEXT("AzureRunesword"))||HighlandSteel||Name==TEXT("M_TangDaoSurface")||
             (bWarhammer&&Mesh->ComponentHasTag(TEXT("SwordSlot=shaft"))&&
                 (Name==TEXT("M_SteelWarhammerSurface")||Name==TEXT("M_RuneboundWarhammerSurface")||Name==TEXT("M_ThunderGodHammerSurface")||
                  Name==TEXT("M_RuneboundAwakeSurface")||Name==TEXT("M_RuneboundSwiftRuneSurface")||
                  Name==TEXT("M_RuneboundDestructionRuneSurface")));
         if(Mode<0||!Blade){if(IsOurs(Current))Mesh->SetOverlayMaterial(nullptr,true,Slot);continue;}
         auto* MID=IsOurs(Current)?Cast<UMaterialInstanceDynamic>(Current):nullptr;
-        const FString DesiredBase=bThunderExclusive?(VisualRune==TEXT("lei_ming_rune")?
+        const FString DesiredBase=bOath?TEXT("M_SilverRuneSurface_HighlandOath"):bThunderExclusive?(VisualRune==TEXT("lei_ming_rune")?
             TEXT("M_SilverRuneSurface_LeiMingRefineV2"):TEXT("M_SilverRuneSurface_ThunderExclusiveV1")):bWarhammer?(Definition==ColdSteelFrostRunes::ThunderGodHammer?
             TEXT("M_SilverRuneSurface_ThunderGodHammerShaftV1"):Definition==ColdSteelFrostRunes::RuneboundWarhammer?
             TEXT("M_SilverRuneSurface_RuneboundWarhammerShaftV1"):TEXT("M_SilverRuneSurface_WarhammerShaftV2")):bWild?TEXT("M_SilverRuneSurface_HighlandWild"):bSpirit?TEXT("M_SilverRuneSurface_FrostSpirit"):TEXT("M_SilverRuneSurfaceV2");
         if(MID&&MID->GetBaseMaterial()->GetName()!=DesiredBase)MID=nullptr;
         if(!MID)
         {
-            auto* Material=LoadObject<UMaterialInterface>(nullptr,bWarhammer?
+            auto* Material=LoadObject<UMaterialInterface>(nullptr,bOath?TEXT("/Game/Weapons/HighlandClaymore20260922/OathRune20261106/M_SilverRuneSurface_HighlandOath"):bWarhammer?
                 ColdSteelFrostRunes::WarhammerRuneMaterial(Definition,VisualRune):bWild?
                 TEXT("/Game/Weapons/HighlandClaymore20260922/WildRune/M_SilverRuneSurface_HighlandWild"):bSpirit?
                 TEXT("/Game/Weapons/FrostSpiritBurst20260922/M_SilverRuneSurface_FrostSpirit"):
@@ -206,7 +232,7 @@ void ColdSteelMeleeRune::Apply(UMeshComponent* Mesh,const FString& Rune,const FS
             {
                 MaskName=TEXT("resonance_rune");
             }
-            const FString TexturePath=bWild?TEXT("/Game/Weapons/HighlandClaymore20260922/WildRune/T_Mask_wild_rune"):
+            const FString TexturePath=bOath?TEXT("/Game/Weapons/HighlandClaymore20260922/OathRune20261106/T_Mask_highland_oath_rune"):bWild?TEXT("/Game/Weapons/HighlandClaymore20260922/WildRune/T_Mask_wild_rune"):
                 TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_")+MaskName;
             auto* Texture=LoadObject<UTexture>(nullptr,*TexturePath);
             if(!Texture&&bGolden)Texture=LoadObject<UTexture>(nullptr,TEXT("/Game/Weapons/MeleeRunes20260915/SurfaceV2/T_Mask_resonance_rune"));
@@ -223,6 +249,18 @@ bool ColdSteelMeleeRune::UpdatePose(UMeshComponent* Mesh,double PreviewTime)
     bool Active=false;
     for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
     {
+        if(PreviewTime>=0.)
+        {
+            auto* Surface=Mesh->GetMaterial(Slot);
+            if(Surface&&Surface->GetBaseMaterial()->GetName().StartsWith(TEXT("M_KukriMark_")))
+            {
+                auto* Mark=Cast<UMaterialInstanceDynamic>(Surface);
+                if(!Mark)Mark=Mesh->CreateDynamicMaterialInstance(Slot,Surface);
+                if(Mark)Mark->SetScalarParameterValue(TEXT("PreviewTime"),PreviewTime);
+                Active=true;
+                continue;
+            }
+        }
         if(auto* Surface=Mesh->GetMaterial(Slot);Surface&&
             (Surface->GetBaseMaterial()->GetName()==TEXT("M_RuneboundSwiftRuneSurface")||
              Surface->GetBaseMaterial()->GetName()==TEXT("M_RuneboundDestructionRuneSurface")))

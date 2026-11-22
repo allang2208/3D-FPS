@@ -22,7 +22,7 @@ namespace PhysicalScopeScene
 static TAutoConsoleVariable<int32> Resolution(TEXT("fps.Scope.CaptureResolution"),1024,
     TEXT("Owner-local physical lens resolution, 512..1536; one capture during ADS only."));
 static const FSoftObjectPath LensPath(TEXT("/Game/Weapons/SharedPhysicalOptics20261030/M_PhysicalScopeLens.M_PhysicalScopeLens"));
-static const FSoftObjectPath PeakwatchLensPath(TEXT("/Game/Weapons/SharedPhysicalOptics20261030/M_PeakwatchClearLens.M_PeakwatchClearLens"));
+static const FSoftObjectPath PeakwatchLensPath(TEXT("/Game/Weapons/SharedPhysicalOptics20261030/M_PeakwatchVariableLens.M_PeakwatchVariableLens"));
 static const FSoftObjectPath HidePath(TEXT("/Game/Weapons/SharedPhysicalOptics20261030/M_PhysicalScopeHideReticle.M_PhysicalScopeHideReticle"));
 static UObject* MeshAsset(UMeshComponent* Mesh)
 {
@@ -132,7 +132,12 @@ struct FPhysicalScopeScene
             Radius=FMath::Max(Radius,FMath::Max(FMath::Abs(Offset.X),FMath::Abs(Offset.Y)));
         }
         Radius*=1.08;
-        const float TanHalfFOV=float(Radius)/(MainFocal*Pawn->GetPhysicalScopeMagnification());
+        const float DisplayPower=Pawn->GetPhysicalScopeMagnification();
+        // Capture the full field available on the bow. Its material samples a
+        // centred subregion at higher powers, independently of the etched glass.
+        const float CapturePower=Peakwatch?Optic.MinimumMagnification:DisplayPower;
+        const float TanHalfFOV=float(Radius)/(MainFocal*CapturePower);
+        const float SceneUVScale=CapturePower/DisplayPower;
         if(BoundOptic.Get()!=Optic.Mesh||BoundAsset.Get()!=PhysicalScopeScene::MeshAsset(Optic.Mesh)
             ||GlassSlot!=Optic.Glass||Optic.Mesh->GetMaterial(Optic.Glass)!=Lens)
         {
@@ -177,7 +182,7 @@ struct FPhysicalScopeScene
         Capture->PostProcessBlendWeight=Thermal?1.f:Camera->PostProcessBlendWeight;
         if(Thermal)Capture->PostProcessSettings.AddBlendable(ThermalMaterial,1.f);
         Capture->bCameraCutThisFrame=!bWasActive;Capture->CaptureSceneDeferred();
-        Lens->SetVectorParameterValue(TEXT("ScreenToLens"),FLinearColor(View.Width()/(2.f*Radius),View.Height()/(2.f*Radius),0,0));
+        Lens->SetVectorParameterValue(TEXT("ScreenToLens"),FLinearColor(View.Width()/(2.f*Radius),View.Height()/(2.f*Radius),SceneUVScale,0));
         Lens->SetVectorParameterValue(TEXT("LensCenter"),FLinearColor(Optic.Center.X,Optic.Center.Y,Optic.Center.Z));
         Lens->SetVectorParameterValue(TEXT("LensForward"),FLinearColor(Optic.Forward.X,Optic.Forward.Y,Optic.Forward.Z));
         Lens->SetScalarParameterValue(TEXT("RearDepth"),Optic.RearDepth);

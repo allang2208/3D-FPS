@@ -17,6 +17,7 @@ description: 开发和维护 UE5 枪械与近战武器，包括双手剑、轻�
 # 共用规则入口
 
 - 双手剑、锤的通用与专属材质，剑火随装备复制，以及握把轨迹检查，见 [模块剑接口与材质](references/modular-sword-materials.md)。 为什么：「模块剑接口与材质」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+- 锻钢双手剑的剑身与护手衔接、配重、点按与长按分流、横扫折射和主客机结算，读取[锻钢双手剑的剑身、配重与横扫](../_shared/ue5-weapon-workflow/references/forged-greatsword-blades-and-pommels.md)。
 
 共用流程读取仓库发布快照：[ue5-weapon-workflow](../_shared/ue5-weapon-workflow/SKILL.md)，不要叠加旧镜像流程。 为什么：共用流程只维护一个来源，避免工程镜像与个人版本给出相互冲突的步骤。
 

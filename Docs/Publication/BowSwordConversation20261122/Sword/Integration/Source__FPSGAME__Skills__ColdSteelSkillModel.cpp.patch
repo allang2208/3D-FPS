@@ -1,0 +1,43 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -348,6 +348,14 @@
+             WeaponHit.Incoming.BasePhysical*=Shot.OathPhysicalMultiplier;
+             WeaponHit.Incoming.AddedPhysical*=Shot.OathPhysicalMultiplier;
+         }
++        const bool bNormalOrHeavy=(Shot.AttackMeta>=1&&Shot.AttackMeta<=3)||Shot.AttackMeta==0x10;
++        if(Shot.bFishtailPommel&&bNormalOrHeavy&&Shot.bMelee&&!Shot.bRicochet&&Shot.AttackForm==EMonsterAttackForm::Blade
++            &&bAliveBefore&&Combat->IsToughnessBroken()&&Combat->ToughnessPhaseSecondsRemaining()>0.f
++            &&Shooter&&Shooter->HasAuthority()&&UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
++        {
++            WeaponHit.Incoming.BasePhysical*=1.25;
++            WeaponHit.Incoming.AddedPhysical*=1.25;
++        }
+         Amount=WeaponHit.Incoming.Total();
+         // Azure Dragon doubles physical channels only. Existing magic additions keep
+         // their own value; multiplying the scalar would incorrectly double them too.
+@@ -427,7 +435,9 @@
+     auto ApplyDamage=[&](){ return UGameplayStatics::ApplyPointDamage(Victim,Amount,Direction,Hit,
+         Pawn?Pawn->GetController():nullptr,Shooter,Animal && bFirearmContact ? UWildlifeGunDamage::StaticClass() : nullptr); };
+     // 命中形式的唯一收口：所有武器命中都在这里标注，受击端据此折算削韧。
+-    const MonsterToughness::FScopedForm FormScope(Shot.AttackForm);
++    const bool bExecutionerContact=Shot.bExecutionerBlade&&Shot.bMelee&&!Shot.bRicochet
++        &&Shot.AttackForm==EMonsterAttackForm::Blade&&(Shot.AttackMeta&(0x40|0x80))==0;
++    const MonsterToughness::FScopedForm FormScope(bExecutionerContact?EMonsterAttackForm::Blunt:Shot.AttackForm);
+     float FixedToughness=Shot.bMelee&&!Shot.bRicochet?MeleeToughness::FixedBaseFor(Shot.AttackMeta):-1.f;
+     // 目录未声明削韧的枪械整段关闭韧性通道（精英以上的韧性条同样按 0 倍率结算），
+     // 受击端不累积韧性、不刷新削韧时钟，也不会被枪弹打破韧；生命伤害照常。
+@@ -623,7 +633,13 @@
+             if(const auto* Main=Equipped();Main&&ColdSteelInventory::UsesKukriMoveset(*Main)&&Main->InstanceId==Shot.ItemInstance)
+                 if(const auto* Off=ColdSteelMelee::PairedOneHandedWeapon(Main,this))
+                     BleedStacks+=ColdSteelMelee::ItemModifiers(Off,this).MeleeHitBleedStacks;
+-        if(BleedStacks>0)UCombatStatusFormula::GetOrAdd(Victim)->AddBleedingHit(Shooter,BleedStacks,Hit);
++        // The forged sword's opening applies bleed through blade contact only.
++        const bool bForgedBladeContact=Shot.ItemDefinition!=TEXT("ue_forged_steel_greatsword")||
++            (Shot.AttackForm==EMonsterAttackForm::Blade&&(Shot.AttackMeta&(0x40|0x80))==0);
++        if(BleedStacks>0&&bForgedBladeContact)UCombatStatusFormula::GetOrAdd(Victim)->AddBleedingHit(Shooter,BleedStacks,Hit);
++        // Read the phase after this contact's toughness damage, including a break just caused by this swing.
++        if(bExecutionerContact&&(Combat->IsToughnessBroken()||FMath::FRand()<.5f))
++            UCombatStatusFormula::GetOrAdd(Victim)->AddStun(1.f);
+     }
+     // One contact, one captured ammo effect. Armor reducing the direct damage
+     // to zero does not cancel a hit; status immunity still rejects the effect.

@@ -1,0 +1,40 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp
+@@ -227,6 +227,15 @@
+         }
+     }
+     Shot.GuardAttackSerial=Report.GuardAttackSerial;
++    // A validated ordinary swing owns one serial across all reported victims.
++    Shot.GenericMeleeSerial=Report.GenericMeleeSerial;
++    if(Shot.bRingChainPommel && Shot.AttackMeta>=1 && Shot.AttackMeta<=3)
++    {
++        // A report in flight across an unequip/re-equip cannot start a fresh chain.
++        const auto* Start=GenericMeleeReceipts.Find(Report.GenericMeleeSerial);
++        const auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
++        Shot.bRingChainPommel=Start&&Sword&&Sword->RingChainHeldSince(Shot.ItemInstance,Start->StartedAt);
++    }
+     Shot.GuardSourceInstance=Declared?Declared->InstanceId:FString();
+     if(auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>())Sword->ApplyOathToShot(Shot);
+     // Reconstruct the attachment effect from the server's item, not a client flag.
+@@ -267,6 +276,12 @@
+                 * FMath::Max(0.f, static_cast<float>(Enhancement->Effect(*Declared, TEXT("azureDragonMagicAttackScale"), 1.)));
+         }
+ 
++    if(Shot.bRingChainPommel&&Report.AttackMeta==0x10)
++    {
++        auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
++        if(!Sword||!Shot.bMelee||Shot.bRicochet||!Sword->AcceptRingChainSweepContact(Shot.ItemInstance,
++            Shot.GuardAttackSerial,Report.Target.Get(),Shot.AzureDragonPhysicalMultiplier>1.f))return false;
++    }
+     if(Report.AttackMeta==0x15)
+     {
+         auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();
+@@ -473,6 +488,8 @@
+             Kukri->RecordNetworkHeavyTarget(Shot.ItemInstance,Report.Target.Get(),Shot.MeleeDamagePhase);
+         }
+     if(RidgeContact)RidgeStrike.Targets.Add(Report.Target.Get());
++    if(Declared&&Declared->Definition==TEXT("ue_forged_steel_greatsword")&&Report.AttackMeta==0x10&&!Shot.bRingChainPommel)
++        Shooter->FindComponentByClass<URuneSwordComponent>()->RecordForgedHeavyTarget(Report.Target.Get());
+     Prepared.Report=Report;Prepared.Shooter=Shooter;Prepared.Model=Model;Prepared.Hit=Hit;Prepared.Damage=Damage;Prepared.Shot=MoveTemp(Shot);
+     Prepared.bHasItem=Declared!=nullptr;if(Declared)Prepared.Item=MoveTemp(DeclaredSnapshot);
+     Prepared.bFiredRound=bFiredRound;Prepared.NewMasteryTarget=NewMasteryTarget;Prepared.MasteryEligible=MasteryEligible;

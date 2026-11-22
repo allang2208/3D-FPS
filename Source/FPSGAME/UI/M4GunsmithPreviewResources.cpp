@@ -52,12 +52,21 @@ void UM4GunsmithWidget::CapturePreview()
     UpdatePreviewStreaming(0.f);
     // Gun framing excludes hidden arms and includes every fitted attachment.
     // Static workbench assemblies and ADS instead use their visible components.
+    bool bSharedSwordGrip=false;
     FBox LightBounds=(!StandaloneMelee&&!bAimPreview)?PreviewFramingBounds:FBox(ForceInit);
     if(!LightBounds.IsValid)
     {
         const FTransform ToView=Capture->GetComponentTransform().Inverse();
         for(const auto& Weak:Capture->ShowOnlyComponents)
-            if(auto* Part=Weak.Get();Part&&Part->IsVisible())LightBounds+=Part->Bounds.GetBox().TransformBy(ToView);
+            if(auto* Part=Weak.Get();Part&&Part->IsVisible())
+            {
+                LightBounds+=Part->Bounds.GetBox().TransformBy(ToView);
+                // Stock and modified grips share option IDs across different meshes.
+                // Use the actual fitted leather surface for the calibrated studio fill.
+                if(StandaloneMelee&&Part->ComponentHasTag(TEXT("SwordSlot=grip")))
+                    if(const auto* Grip=Cast<UStaticMeshComponent>(Part))
+                        bSharedSwordGrip|=Grip->GetMaterialIndex(TEXT("M_SharedGrip_Leather"))!=INDEX_NONE;
+            }
     }
     bool bGraphite201=false,bPitViper2011=false;
     for(const auto& Pair:StudioCopies)
@@ -79,7 +88,7 @@ void UM4GunsmithWidget::CapturePreview()
     // The broad XuanChi blade and pale silk highlights clip under the default
     // studio softboxes. Preserve the authored PBR colors with a lower light flux.
     const bool bXuanChi=StandaloneMelee&&StandaloneKey.Contains(TEXT("|ue_xuanchi_zhenyue|"));
-    GunsmithPreviewLighting::Update(*Capture,LightBounds,bGraphite201||bPitViper2011,bXuanChi?.025f:1.f);
+    GunsmithPreviewLighting::Update(*Capture,LightBounds,bGraphite201||bPitViper2011,(bXuanChi||bSharedSwordGrip)?.025f:1.f);
     PreviewCoverageCapture->ShowOnlyComponents=Capture->ShowOnlyComponents;
     PreviewCoverageCapture->SetWorldTransform(Capture->GetComponentTransform());
     PreviewCoverageCapture->ProjectionType=Capture->ProjectionType;

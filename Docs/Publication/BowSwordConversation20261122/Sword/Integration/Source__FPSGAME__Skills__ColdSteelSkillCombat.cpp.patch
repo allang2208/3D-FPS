@@ -1,0 +1,46 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp
+@@ -2,6 +2,7 @@
+ #include "../Weapons/PojunGrip.h"
+ #include "../Weapons/Kukri/KukriWeaponComponent.h"
+ #include "../Weapons/Kukri/KukriRelentlessComponent.h"
++#include "../Weapons/RuneSwordComponent.h"
+ #include "../Weapons/Kukri/KukriPairedHeavyHit.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../Production/ThunderHammerRunes.h"
+@@ -146,6 +147,15 @@
+             {
+                 const auto Melee=ColdSteelMelee::Evaluate(*I,M);
+                 Shot.DamagePanel=Melee.DamageParts;
++                if(I->Definition==TEXT("ue_forged_steel_greatsword"))
++                    if(const auto* Gunsmith=Shooter->GetGameInstance()->GetSubsystem<UGunsmithSystem>())
++                    {
++                        const auto Parts=Gunsmith->Installed(*I);
++                        Shot.bExecutionerBlade=Parts.FindRef(TEXT("blade_1"))==TEXT("executioner_blade");
++                        const FString Pommel=Parts.FindRef(TEXT("pommel"));
++                        Shot.bRingChainPommel=Pommel==TEXT("ring_chain_pommel");
++                        Shot.bFishtailPommel=Pommel==TEXT("fishtail_pommel");
++                    }
+                 if(I->Definition==TEXT("ue_tactical_hatchet"))
+                     if(const auto* Gunsmith=Shooter->GetGameInstance()->GetSubsystem<UGunsmithSystem>())
+                     {
+@@ -302,6 +312,9 @@
+         const bool bShatter=Shooter->HasAuthority()&&!Shot.bRicochet&&Shot.ShatterRadiusCM>0.f
+             &&UFPSBallisticsComponent::IsShatterEnemy(Hit.GetActor(),Shooter);
+         FWeaponDamageResult Receipt;
++        const bool bRingChain=Shot.bRingChainPommel&&Shot.bMelee&&!Shot.bRicochet
++            &&Shot.AttackMeta>=1&&Shot.AttackMeta<=3&&Shot.AttackForm==EMonsterAttackForm::Blade
++            &&Shooter->HasAuthority()&&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
+         const bool bElectrified=Shot.bMelee&&Shot.ElectrifiedRadiusCM>0.f&&Shot.ElectrifiedMinLevel>0
+             &&Shooter->HasAuthority()&&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
+         const bool bBerserk=Shot.bMelee&&Shot.BerserkMaxStacks>0&&Damage>0.f
+@@ -321,6 +334,9 @@
+         float WolfHealth=0.f,WolfMaxHealth=0.f;FText WolfName;
+         if(bWolf)if(const auto* Combat=Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>())Combat->GetVitals(WolfHealth,WolfMaxHealth,WolfName);
+         const float Applied=M->ApplySkillWeaponHit(Shooter,Hit,Damage,Direction,Shot,Result?Result:&Receipt,PairedHeavy);
++        if(bRingChain&&Applied>0.f)
++            if(auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>())
++                Sword->ConfirmRingChainHit(Shot.ItemInstance,Shot.GenericMeleeSerial?Shot.GenericMeleeSerial:Shot.GuardAttackSerial);
+         if(Shot.bMeleeStrike&&Shooter->GetNetMode()==NM_ListenServer&&(Applied>0.f||(Result?Result->bKilled:Receipt.bKilled)))
+             if(const auto* Local=Cast<APawn>(Shooter);Local&&Local->IsLocallyControlled())
+                 UKukriWeaponComponent::PublishBladeHit(Shooter,Hit,Shot);

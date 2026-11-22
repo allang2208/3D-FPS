@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/FPSGAMECharacterCamera.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterCamera.cpp
+@@ -470,11 +470,11 @@
+     float Scale = FMath::Lerp(1.0f, Ratio * ADSMouseSensitivity, CameraADSFactor);
+     if (UsesPhysicalScope())
+     {
+-        // Relative/centre-screen matching: the main camera stays wide in PiP,
+-        // but its physical lens adds optical magnification. Include that gain
+-        // exactly once; equal cm/360 would feel six times faster inside 6x.
++        // Physical scopes slow look as the lens comes into view. Peakwatch's
++        // glass keeps its optical power even while lowered, so use ADS visibility here.
++        const float ScopeGain = FMath::Lerp(1.f, GetDisplayedOpticMagnification(), GetScopePresentationAlpha());
+         Scale = Ratio * FMath::Lerp(1.f, ADSMouseSensitivity, CameraADSFactor)
+-            / GetPhysicalScopeMagnification();
++            / ScopeGain;
+     }
+     // Voxel building snaps to 20 cm cells, so full FPS sensitivity overshoots the cell the player is
+     // aiming at. Scale the look down while build mode is active; tune live with the console variable.

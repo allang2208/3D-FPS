@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+@@ -2246,6 +2246,9 @@
+             else if(HasKukriAction&&FPSBodyKukriMotion::UsesAuthoredClock(KukriKey))Sample=P;
+             else if(HasHammerAction||(HasKukriAction&&(S.Action==EFPSBodyAction::Charge||S.Action==EFPSBodyAction::Equip)))Sample=P;
+             else if(S.ActionVariant==TEXT("ChixiaoHeavy"))Sample=P;
++            else if(RingChainSweepMotion::IsPhase(S.ActionVariant))
++                Sample=S.ActionVariant==RingChainSweepMotion::Charge?
++                    P*RingChainSweepMotion::Chamber/FMath::Max(.001f,SwordAsset->GetPlayLength()):P;
+             else if(FPSBodyHighlandMotion::IsRidge(S))
+                 Sample=FPSBodyHighlandMotion::RidgeSampleSeconds(S,P,SwordAsset->GetPlayLength())/FMath::Max(.001f,SwordAsset->GetPlayLength());
+             else if(FPSBodySwordMotion::IsUppercut(S))Sample=FPSBodySwordMotion::UppercutSample(S,P,SwordContact,SwordRelease);

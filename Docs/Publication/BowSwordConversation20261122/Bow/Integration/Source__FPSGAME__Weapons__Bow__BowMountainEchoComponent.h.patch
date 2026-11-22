@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowMountainEchoComponent.h
++++ b/Source/FPSGAME/Weapons/Bow/BowMountainEchoComponent.h
+@@ -32,6 +32,7 @@
+     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+ private:
+     friend class UBowSkillTrainingAuditCommandlet;
++    friend class AShotgunWireAuditGameMode;
+     UPROPERTY(ReplicatedUsing=OnRep_Resonance) FString EquippedInstance;
+     UPROPERTY(ReplicatedUsing=OnRep_Resonance) int32 Stacks=0;
+     UFUNCTION() void OnRep_Resonance();

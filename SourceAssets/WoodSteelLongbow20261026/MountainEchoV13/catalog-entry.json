@@ -1,0 +1,29 @@
+{
+  "id": "highland_mountain_echo",
+  "name": "光束弓弦",
+  "weapons": [
+    "bow_woodsteel"
+  ],
+  "description": "高地长弓专属弓弦。金白色光束连接两端弦扣，满弓命中积攒弦鸣，满层后的下一次满弓射击引出弦影箭。",
+  "appearance": "细亮的弦身随开弓拉紧，两端保留银套，中央炭黑护弦旁的三道山纹随弦鸣逐层点亮。",
+  "stats": {
+    "draw_speed_bonus": 0.15,
+    "speed_mult": 1.2,
+    "stamina_mult": 1.25,
+    "charge_stamina_mult": 1.25
+  },
+  "special_effects": [
+    "弦鸣｜满弓箭命中敌人或训练靶积攒1层弦鸣，最多3层，持续10秒；再次积攒刷新持续时间，每次射击最多获得1层。切换武器、拆下弓弦或死亡时清空。",
+    "山谷回响｜拥有3层弦鸣时，下一次满弓射击消耗全部层数，0.18秒后沿原发射方向补出一支弦影箭，造成原箭80%的物理伤害，不额外消耗箭矢或体力。触发回响的射击不积攒弦鸣。",
+    "弦影｜继承原箭的暴击结果，不再次判定暴击；不叠加弦鸣，不复制贯穿、元素、照明或其他技能附效。穿心箭仅带入物理伤害。弦影不可回收，不额外获得技能修炼进度。"
+  ],
+  "visual": {
+    "bow_part_string_mesh": "/Game/Weapons/WoodSteelLongbow20261026/BeamString20261121/SK_Highland_BeamString.SK_Highland_BeamString",
+    "bow_part_string_rods": 0,
+    "bow_part_string_material": "",
+    "bow_part_string_scale": 1.0,
+    "bow_part_string_location_cm": "0,0,0",
+    "bow_part_string_rotation_deg": "0,0,0",
+    "bow_part_string_hide_slot": ""
+  }
+}

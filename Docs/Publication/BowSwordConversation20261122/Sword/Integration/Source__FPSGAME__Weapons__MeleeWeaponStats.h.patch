@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Weapons/MeleeWeaponStats.h
++++ b/Source/FPSGAME/Weapons/MeleeWeaponStats.h
+@@ -10,6 +10,7 @@
+ {
+     FMeleeModifiers Modifiers;
+     double Damage=55, AttackRate=1, AttackSeconds=1.775, ThrustSeconds=1;
++    double PhysicalAttack=0.;
+     // Player-facing speed relative to this item's unmodified attack_seconds.
+     // AttackRate remains the shared animation clock, not a displayed multiplier.
+     double AttackSpeedMultiplier(const FColdSteelItem& Item) const;

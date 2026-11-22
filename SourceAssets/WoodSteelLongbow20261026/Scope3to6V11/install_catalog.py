@@ -1,17 +1,23 @@
 """Publish only the saved Peakwatch special optic to the bow catalog."""
+# Apply the shared workbench copy standard when publishing catalogs.
+from pathlib import Path as _WorkbenchCopyPath
+import runpy as _workbench_copy_runpy
+_workbench_copy_root = next(p for p in _WorkbenchCopyPath(__file__).resolve().parents if (p / 'FPSGAME.uproject').exists())
+_apply_workbench_copy = _workbench_copy_runpy.run_path(str(_workbench_copy_root / 'SourceAssets/WorkbenchCopy20261101/copy_rules.py'))['apply_for_target']
+
 from pathlib import Path
 from datetime import datetime
 import json, os
 
-P=Path(__file__).parent;ROOT=Path('D:/FPS3D/FPSGAME')
+P=Path(__file__).parent;ROOT=_workbench_copy_root
 receipt=json.loads((P/'import-receipt.json').read_text(encoding='utf-8'))
 if not receipt.get('complete'):raise RuntimeError('Save Peakwatch assets before publishing its recipe')
 author=json.loads((P/'authoring.json').read_text(encoding='utf-8'))
 location=','.join(f'{v:.5f}' for v in author['ring_mount_cm'])
 option={
  'id':'highland_peakwatch_3_6x','name':'观峰变倍镜','weapons':['bow_woodsteel'],
- 'description':'高地长弓专属变倍镜，圆形镜片搭配望远镜式刻度调节环，提供 3–6 倍放大。',
- 'appearance':'银钢薄框、旧黄铜滚花环与胡桃木饰片，细十字准星配下方参考刻线。',
+ 'description':'高地长弓专属。圆形镜片配银钢薄框，旧黄铜滚花环环绕镜缘。',
+ 'appearance':'银钢薄框、旧黄铜滚花环与胡桃木饰片。镜内的峰形准星和刻线在变倍时保持固定。',
  'special_effects':['变倍｜开镜时使用鼠标滚轮调节 3–6 倍放大，每格 0.5 倍。'],
  'visual':{
   'bow_part_slots':'riser,grip,string,arrow_rest,sight,sight_zoom,arrow',
@@ -42,5 +48,5 @@ if new!=raw:
 result={'weapon':'bow_woodsteel','slot':'sight','tier':'Special','option':option,
         'asset_import':str(P/'import-receipt.json'),'backup':str(backup),'gameplay_tested':False,
         'saved_at':datetime.now().isoformat()}
-(P/('catalog-receipt-'+stamp+'.json')).write_text(json.dumps(result,ensure_ascii=False,indent=2),encoding='utf-8')
+(P/('catalog-receipt-'+stamp+'.json')).write_text(json.dumps(_apply_workbench_copy(P/('catalog-receipt-'+stamp+'.json'), result),ensure_ascii=False,indent=2),encoding='utf-8')
 print('PEAKWATCH_CATALOG_INSTALLED',flush=True)

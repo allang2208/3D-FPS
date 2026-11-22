@@ -1,0 +1,42 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitValidation.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitValidation.cpp
+@@ -301,8 +301,15 @@
+ 
+     if(OutDeclaredItem&&ColdSteelInventory::IsBow(*OutDeclaredItem)&&!(Report.AttackMeta&0x80))
+     {OutReason=TEXT("bow projectile is server simulated");return false;}
+-    if(RequiresGenericMeleeReceipt(Report,OutDeclaredItem)&&!ValidateGenericMeleeReceipt(Report,Shooter,OutDeclaredItem))
+-    {OutReason=TEXT("generic melee start not accepted");return false;}
++    if(RequiresGenericMeleeReceipt(Report,OutDeclaredItem))
++    {
++        if(!ValidateGenericMeleeReceipt(Report,Shooter,OutDeclaredItem))
++        {OutReason=TEXT("generic melee start not accepted");return false;}
++        // A workbench mirror may update the same equipped instance between the
++        // swing and contact. Its blade, pommel and reach belong to the paid swing.
++        if(OutDeclaredItem&&OutDeclaredItem->Definition==TEXT("ue_forged_steel_greatsword"))
++            OutDeclaredItem=&GenericMeleeReceipts.FindChecked(Report.GenericMeleeSerial).Item;
++    }
+ 
+     // Attack semantic gates: the server owns whether a heavy/dash/third-stage
+     // contact was actually committed. Client AttackMeta alone cannot select the
+@@ -321,6 +328,11 @@
+         if(!Sword||(!Sword->IsNetworkHeavyReleaseWindowOpen(OutDeclaredItem->InstanceId)
+             &&!Sword->ConsumeNetworkHeavyChargeForRelease(OutDeclaredItem->InstanceId,Report.HeavyReleaseTime,Report.GuardAttackSerial)))
+         {OutReason=TEXT("heavy release not committed");return false;}
++        if(Report.AttackMeta==0x10&&OutDeclaredItem->Definition==TEXT("ue_forged_steel_greatsword"))
++        {
++            OutDeclaredItem=Sword->ForgedHeavyContactItem(OutDeclaredItem->InstanceId,Report.GuardAttackSerial,Report.Target.Get());
++            if(!OutDeclaredItem){OutReason=TEXT("forged heavy contact outside its release or already settled");return false;}
++        }
+         Sword->CommitOathRelease(Report.HeavyReleaseTime,Report.GuardAttackSerial);
+     }
+     // The one-handed kukri's heavy release has its own charge receipt (KukriHeavy.cpp).
+@@ -397,6 +409,9 @@
+     // cast sequence, cooldown and per-target set replace the firearm hit bucket.
+     if(Report.AttackMeta&0x20)HitTokenCost=0.f;
+     if(Report.AttackMeta==HighlandBreakSweep::AttackMeta)HitTokenCost=0.f; // one committed swing, one receipt per target
++    if(Report.AttackMeta==0x10&&OutDeclaredItem)
++        if(const auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>();Sword&&Sword->HasRingChain(OutDeclaredItem->InstanceId))
++            HitTokenCost=0.f; // the ring sweep admits each target once per paid release
+     // The second Falcon contact uses the already-paid release, validated above per phase, hand and target.
+     if(Report.AttackMeta==0x10&&Report.MeleeDamagePhase==1&&OutDeclaredItem&&ColdSteelInventory::UsesKukriMoveset(*OutDeclaredItem))HitTokenCost=0.f;
+     if(OutDeclaredItem&&Report.AttackMeta==0&&(Report.Flags&(1<<6)))

@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowRelease.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowRelease.cpp
+@@ -132,19 +132,8 @@
+     const FVector AimPoint = bHitAim ? AimHit.ImpactPoint : FarAim;
+     const FVector AimVector = AimPoint - Muzzle;
+     const bool bAimAhead = FVector::DotProduct(AimVector, Camera->GetForwardVector()) > 0.f;
+-    FVector LaunchDirection = bAimAhead ? AimVector.GetSafeNormal() : AimDirection;
+-    // Keep the physical arrow and its gravity, but zero its low arc on the
+-    // sampled aim point. Full ADS has no random offset; moving targets still
+-    // require leading and nearby obstacles still block the real projectile.
+-    if (bAimAhead && GravityCM > KINDA_SMALL_NUMBER)
+-    {
+-        UGameplayStatics::FSuggestProjectileVelocityParameters Arc(this, Muzzle, AimPoint, Speed);
+-        Arc.OverrideGravityZ = -GravityCM;
+-        Arc.TraceOption = ESuggestProjVelocityTraceOption::DoNotTrace;
+-        FVector LaunchVelocity;
+-        if (UGameplayStatics::SuggestProjectileVelocity(Arc, LaunchVelocity))
+-            LaunchDirection = LaunchVelocity.GetSafeNormal();
+-    }
++    // The sight ray is straight through effective range. Drop begins beyond that point.
++    const FVector LaunchDirection = bAimAhead ? AimVector.GetSafeNormal() : AimDirection;
+     const FRotator Direction = LaunchDirection.Rotation();
+     FActorSpawnParameters Spawn;
+     Spawn.Owner = Pawn;

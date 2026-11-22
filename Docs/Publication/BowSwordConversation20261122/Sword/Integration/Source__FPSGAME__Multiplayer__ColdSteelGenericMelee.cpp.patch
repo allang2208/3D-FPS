@@ -1,0 +1,31 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp
+@@ -12,6 +12,7 @@
+ #include "../Weapons/WeaponStatEvaluation.h"
+ #include "../Weapons/ModularSwordVisual.h"
+ #include "../Weapons/RuneSwordRhythm.h"
++#include "../Weapons/RuneSwordComponent.h"
+ #include "../Weapons/RuneSwordThrustRhythm.h"
+ #include "../Weapons/RuneSwordOverheadRhythm.h"
+ #include "../Weapons/RuneSwordRisingDragon.h"
+@@ -151,11 +152,18 @@
+     else return;
+     if(!FMath::IsFinite(Duration)||Duration<=0.||Duration>30.||!FMath::IsFinite(ContactStart)
+         ||!FMath::IsFinite(ContactEnd)||!Model->CanSpendStamina(float(Cost)))return;
+-    // Registration is an action receipt, not a second stamina/harvest payment.
+-    // Existing action/harvest ledgers retain ownership of resource accounting.
++    // Existing action/harvest ledgers retain ownership of their payments.
+     for(auto It=GenericMeleeReceipts.CreateIterator();It;++It)
+         if(It.Value().Pawn.Get()!=Pawn||Now>It.Value().Expires)It.RemoveCurrent();
+     if(GenericMeleeReceipts.Num()>=MaxReceipts)return;
++    // Forged sword owners predict ordinary swing costs in StartSwing. Commit the same
++    // cost once on the remote shadow, including misses. Gale pays through its own RPC.
++    if((Family==Sword||Family==SwordOverhead)&&!Pawn->IsLocallyControlled()&&Item
++        &&Item->Definition==TEXT("ue_forged_steel_greatsword"))
++    {
++        const auto* SwordComponent=Pawn->FindComponentByClass<URuneSwordComponent>();
++        if(!SwordComponent||(!SwordComponent->HasGaleGuard(Item)&&!Model->SpendStamina(float(Cost))))return;
++    }
+     auto& Receipt=GenericMeleeReceipts.Add(Serial);
+     Receipt.Pawn=Pawn;if(Item)Receipt.Item=*Item;
+     Receipt.Serial=Serial;Receipt.Family=Family;Receipt.Meta=Meta;Receipt.StartedAt=Now;

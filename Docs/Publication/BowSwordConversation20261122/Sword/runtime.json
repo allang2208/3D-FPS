@@ -1,0 +1,519 @@
+{
+  "hashes": "SHA-256 on LF-normalized UTF-8 file bytes; leave any BOM intact. Production host bases use only this conversation scope subtracted from the final production revision.",
+  "public_base": "3068fe3fcb1e56b2fd73d0eb000c71f385ae0e96",
+  "files": [
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyHighlandMotion.h",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Characters__FPSBodyHighlandMotion.h.patch",
+      "before": "665515645f7ce0fcc55c63c65d45cba601568c51fda17d93a84f495c5bdac0bb",
+      "after": "0f577f627e84f44b12f6b934b74cc6561368018ea57db3b66773ed577d33db94",
+      "origin_matches": 1,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodySwordMotion.h",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Characters__FPSBodySwordMotion.h.patch",
+      "before": "08e622432fdcc1f9fe6937625bfd9a2bb6df3d2442d8266f472fae0dd23950bd",
+      "after": "9390091062d65e090b94326132fc8934fe0b01e1a3cb3a8c2a834281aae013de",
+      "origin_matches": 1,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Characters__FPSPlayerBodyActions.cpp.patch",
+      "before": "76b8d1e64946faefde160a4a22c952bdcffa53b2fea848b1f4bbaa5293033615",
+      "after": "5ba0ac76eb322956c93ab1d5a842799d623ba495211b205efd401aaeb2983d20",
+      "origin_matches": 0,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Characters__FPSPlayerBodyAnimInstance.cpp.patch",
+      "before": "32e2d1f8286e03ea0abf8f2ebb159643590100f1813b815503b5edae045fd4cb",
+      "after": "96b528cfb6d021063dabf5ba22f17edf67420f0234d24f64f6de961ce7c0da12",
+      "origin_matches": 0,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Characters__FPSPlayerBodyComponent.cpp.patch",
+      "before": "c3856c65fa14788a8eb68513ad97a0e3d62b7f7f6e4bd460a78f489979ac1c06",
+      "after": "d5e8383add9a1ae320194d762059cbcfbba3f466e9298fb746349902df41f476",
+      "origin_matches": 0,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Characters__FPSPlayerBodyComponent.h.patch",
+      "before": "512e4f2ec3c6e1f4a014f548d023d821db5f440b0135739b391efce8bc46a89c",
+      "after": "050716dfad49f83d7613e9f1445ad49864a949b91e7e7d3ce4b8a12dc27c69cf",
+      "origin_matches": 0,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyConsumable.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Characters__FPSPlayerBodyConsumable.cpp.patch",
+      "before": "41bcf11ca87a98064e348b58b4b51df61283957d713298bf219bdbba1c8337d1",
+      "after": "d2da4e7fbae86a48d49b328e9d0af8395c8a12e9d61d45833af5d9ab05604caa",
+      "origin_matches": 1,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodySweepRift.cpp",
+      "delivery": "unit",
+      "source": "Docs/Publication/BowSwordConversation20261122/Sword/Runtime/Source/FPSGAME/Characters/FPSPlayerBodySweepRift.cpp",
+      "after": "0d98de5c37a27e4e255f9d26d21c8b067ad79d3a435cb67d17c00aeb2de17a41",
+      "before": null
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Characters__FPSPlayerBodyWeaponAssembly.cpp.patch",
+      "before": "9a79412a23694d2110a0f71befa16c3636f000a577a6a9faf7a0506b6e402212",
+      "after": "a704ae13b93e4e2530c1d874cb9ea449b0c4676fd311dd0c3c1617957fec1018",
+      "origin_matches": 0,
+      "origin_missing": 2
+    },
+    {
+      "path": "Source/FPSGAME/Development/ForgedSwordEquipmentWire.inl",
+      "delivery": "unit",
+      "source": "Docs/Publication/BowSwordConversation20261122/Sword/Runtime/Source/FPSGAME/Development/ForgedSwordEquipmentWire.inl",
+      "after": "145d522940fb70a2aa76a24dd24feaeeefff0875033e2a286625ede3b6cbc517",
+      "before": null
+    },
+    {
+      "path": "Source/FPSGAME/Development/ForgedWorkbenchWire.cpp",
+      "delivery": "unit",
+      "source": "Docs/Publication/BowSwordConversation20261122/Sword/Runtime/Source/FPSGAME/Development/ForgedWorkbenchWire.cpp",
+      "after": "337ebe6648e7db8fb605c821c52c06c69c170a206c593a99dd6c0fe326590deb",
+      "before": null
+    },
+    {
+      "path": "Source/FPSGAME/Development/SwordFinishWireAudit.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Development__SwordFinishWireAudit.cpp.patch",
+      "before": "2d1443f1b4a1163835253bf605d131a7843326e495842dfa4a488add8f9e2bca",
+      "after": "45e7723f547a880433e73620dc822f273c3dd3785dae048dc44d39db6cc8de2d",
+      "origin_matches": 4,
+      "origin_missing": 2
+    },
+    {
+      "path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Monsters__FPSCombatHealthComponent.cpp.patch",
+      "before": "7ec08b2fc0a42dbdbe537fcc8f60e98066e9248b0af77e2b4b9f3c0bc90fb870",
+      "after": "84061d31ddbe462a9fa414d69e938f25bfa6d47fc447034e0920c6a1407f80d5",
+      "origin_matches": 2,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Movement__FPSStaminaModel.cpp.patch",
+      "before": "f66f75d13a61c73a6a36a4f5c31a6962fab2e3bfc3afcc94097dee1bccaae023",
+      "after": "b9596285272789cdf1ae9b7ce844968b00888b99f4ed5aa29ff3dcbaf41dd1ba",
+      "origin_matches": 0,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Multiplayer__ColdSteelGenericMelee.cpp.patch",
+      "before": "0244014ecfcdd1c291f7f2850b4ee24ca0e4b6c940d850efad16624560b56a7d",
+      "after": "728625e742cefe8c0f612ea6996761d3f285e8e9ddd8708c66999351576bff9c",
+      "origin_matches": 0,
+      "origin_missing": 2
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerHitSettlement.cpp.patch",
+      "before": "f08973b584f1d14e3da6cd1a35805eebdceeaf8884743c6d4ead2d89282a0e6d",
+      "after": "0c82b0e069fc90679093d3f2c968be975eec2429ae9c430d22e117faebaf41a3",
+      "origin_matches": 0,
+      "origin_missing": 3
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerHitValidation.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerHitValidation.cpp.patch",
+      "before": "5d0703abaafdbcd50f6515e28b2eae8416467d0e138e612e4f6c862a7f6c8e83",
+      "after": "39283f0cfc5fcdd772db5cfbfc8d0780dfc28a9f3a5d73506fbd3d44def71fb9",
+      "origin_matches": 0,
+      "origin_missing": 3
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerProfileAdmission.cpp.patch",
+      "before": "70383c1138630072106a8d83b9e2725459e13f11ac862b4b2516543d4740f889",
+      "after": "f3796dd2c35f3fdbd142d3921eaa4ef46b1c4a4d0542290ef528aed5fa6043ed",
+      "origin_matches": 0,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerProfileSync.cpp.patch",
+      "before": "199981ddc37f2559c029c4923fe2a24be9d3df92e6ebd89f47555017e0519b29",
+      "after": "3c8641ce12db1a5e87fcc48e120523e8ddceda027d6d26c6904052cc63e70adb",
+      "origin_matches": 0,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Skills__ColdSteelSkillCombat.cpp.patch",
+      "before": "a7dd6c3af8c2141200ad20af660527e8a39dc799dd6fc2aee06fc0399607ddaf",
+      "after": "e883714da3a021c51a9a574be8f8d06682222ecb721da474b2fe0c33b7275c1b",
+      "origin_matches": 0,
+      "origin_missing": 4
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Skills__ColdSteelSkillModel.cpp.patch",
+      "before": "9254670a3e0b818492e40697cec25edfcb160f74a8df50a0970dcfff62bffd2c",
+      "after": "b360c4314c95040c9243fce8b52f9033395208f765cf0d308d78f725972d56bb",
+      "origin_matches": 2,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Skills__ColdSteelSkillTypes.h.patch",
+      "before": "9a00c2ee33c6c6de9c663df9bbb67c9f0b0888b3ea8bca46be6bdba25b7cbe78",
+      "after": "ee97e1a89c666ab92114ddc14eba44985829802c605b4788a207e7b5ab046fa7",
+      "origin_matches": 1,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ConversationCombatWire20261108.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Skills__ConversationCombatWire20261108.cpp.patch",
+      "before": "6d0cd849e51cc0a77a7dcefff7c0dd67f9619a6996090b020c577238578eb62a",
+      "after": "bd48ae28ec3f167493010d2ba2e7d64f1afa0713b1fc797771318915e0bed612",
+      "origin_matches": 0,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/Skills/ForgedBladeWire.cpp",
+      "delivery": "unit",
+      "source": "Docs/Publication/BowSwordConversation20261122/Sword/Runtime/Source/FPSGAME/Skills/ForgedBladeWire.cpp",
+      "after": "b648eb789c052f0af66455824aec550d51b2262880c11c0021cd7e1bcdbf645b",
+      "before": null
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillWireAudit.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Skills__SkillWireAudit.cpp.patch",
+      "before": "bdb5e103ef3355c94645e4241caf2266e2041722d226f7483cbaebd186bddd59",
+      "after": "c09b3817e0f0dfed99e11074d90431c9c67fa675b757cc7bdeb1bad096f11f71",
+      "origin_matches": 0,
+      "origin_missing": 2
+    },
+    {
+      "path": "Source/FPSGAME/Skills/SkillWireAudit.h",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Skills__SkillWireAudit.h.patch",
+      "before": "39d3fd68672c3bf6f991e775fda54ff1a581f6d70e57e81d3c229877b7c971c0",
+      "after": "0b7f602c225c4757070b3133086df3edccd600fafa6d4f6e8841f9ad98072ad6",
+      "origin_matches": 0,
+      "origin_missing": 2
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelAcquisitionAuditCommandlet.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__UI__ColdSteelAcquisitionAuditCommandlet.cpp.patch",
+      "before": "136217df8dd9978a6e411d2fe9bfd46c609b51038312c15ec40d960de23bfaa2",
+      "after": "888ab045a2e9b56d585dc3119d5630109438e3b67d8d088a2cccd101cf1dbba5",
+      "origin_matches": 0,
+      "origin_missing": 2
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__UI__ColdSteelStatusModel.cpp.patch",
+      "before": "3866f731bcbb2c5ed19e1fbf3fbf495e8d828821414e2cc94b79f8b07c74bec9",
+      "after": "a7d7cd1682c7e73d121291c71b668cbc92393f6bf0f3e581a70327e04596489c",
+      "origin_matches": 0,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__UI__ColdSteelWarehouseModel.cpp.patch",
+      "before": "e699b07b633c9df4ff7588ca5724ea69d5810e8214d7b16e100d8ab1c37dea28",
+      "after": "6de2530bdd3b2d287dd7168dd96d9d96163d73dd8223c7248b231b5e02a36e3d",
+      "origin_matches": 0,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWeaponIconCatalogCommandlet.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__UI__ColdSteelWeaponIconCatalogCommandlet.cpp.patch",
+      "before": "304f4ed00c444e534bf842f17f2106748cde656a35992f2fc097d4eae674f4e1",
+      "after": "bd29208ed22f28085e840c91956879ec0afe0052ee5a12fcec531e67a38c7775",
+      "origin_matches": 0,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithLayout.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__UI__M4GunsmithLayout.cpp.patch",
+      "before": "4eef4ca6ba6eaa85919c8248e663707a5319782d396bf639f7a68102fa036326",
+      "after": "5e0a89c45d72ccbba3fa3df6450e77fbe352b27cbd1d23c7ce308398a54cedd6",
+      "origin_matches": 0,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithPreviewResources.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__UI__M4GunsmithPreviewResources.cpp.patch",
+      "before": "81668b1152213d3fef7de98c51599befeb7aa24d91f9be90425346162671161c",
+      "after": "4551f9248ed48c320233818fd3f20f37c5be51301db6709121e287cea6385c9d",
+      "origin_matches": 1,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__UI__M4GunsmithSelectedDetails.cpp.patch",
+      "before": "fcca9f00c733af16c53024ad4eb3b3875246b43a3b7ad5798499170e9b5a786d",
+      "after": "965fbd375255bbff885e333ece771da8e3e4ce0071b79946677536e91c25491e",
+      "origin_matches": 1,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__UI__M4MeleeGunsmith.cpp.patch",
+      "before": "e96793fcd31e1c2a7dc50362705574cbc1242ce0ab0875c3e37f9e6f50ddd5d6",
+      "after": "a8fd75805d9e263fcca36ac15ccab22a873b3f893130de55cf178ad533c9bb80",
+      "origin_matches": 1,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithModificationTier.h",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__GunsmithModificationTier.h.patch",
+      "before": "89d12f279e1d0ff03588adbabc4871d9eb9045910aa421141e6fc1456491b570",
+      "after": "be74a3b039bc3b85ad14c7efb4bf72f26fc47c7e46dedccb151e112a62fba947",
+      "origin_matches": 0,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__GunsmithSystem.cpp.patch",
+      "before": "1eb228ebe875fafd9b529bae01d58d39c4974afcd9069e0cdd5d167088ac8896",
+      "after": "61f3c517361918f6a43cc47f2321bb815ef2ead723e88898e6af6e84e32e8b10",
+      "origin_matches": 2,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__GunsmithSystem.h.patch",
+      "before": "1d987e9daed139bd3ee9bb5432ca867a3852bea9639f3478be3a305b41d27cbe",
+      "after": "30719381070d888fa49842e3f16537c9f61382de2071a4d62eb29c52fc00020c",
+      "origin_matches": 1,
+      "origin_missing": 1
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/HighlandBreakSweep.h",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__HighlandBreakSweep.h.patch",
+      "before": "7f28dd8043136cb4565f24616d6cc96240a6eaaedd2551205eff2b0fdafc6bdf",
+      "after": "8900af36c715ade344c95d8eadf75b7602598c7898508fe38fa8e5ce0c013a99",
+      "origin_matches": 1,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/HighlandNetworkAudit.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__HighlandNetworkAudit.cpp.patch",
+      "before": "3ffd8988a54624eb095e861c142d9fd8ef9dcad4e80bd1fd8ef78bf3047e8824",
+      "after": "550d9e74c6cdbfeca47843bc9b83169f4db981e247bd0243f5ee1ee7dc822712",
+      "origin_matches": 2,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeGunsmith.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__MeleeGunsmith.cpp.patch",
+      "before": "a765cec467d14f1b09fec625ac4ac62c43cdaeabd1134ff853d15ee4fbe64f42",
+      "after": "308a4dad3050c4bd5b93bf070b1d93b09f3d89abc25d98189fb5848d61e68425",
+      "origin_matches": 1,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeRuneVisual.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__MeleeRuneVisual.cpp.patch",
+      "before": "028e9b06858e03f297a7a3b212c4805f7ded42806537a0968fa48714c218e3b0",
+      "after": "ad69ead0b6364c0a01f46a6c820c5a0bab87a8ce376352ebb98466af7e7d4998",
+      "origin_matches": 1,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__MeleeWeaponStats.cpp.patch",
+      "before": "e39596afd0e8df3cd474f58e66eb27dcf50235b34339e2415a890ffde518a6cf",
+      "after": "da3496b2bb2960fddfbd9593e126e23231da4d239f3ff2dd459ce58bdbb4a31f",
+      "origin_matches": 1,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.h",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__MeleeWeaponStats.h.patch",
+      "before": "f137ab2aebc3aab1028d5b5f6de3c4db3d8dd3d8d6c37774829471bd5fb57018",
+      "after": "701d08ec15d40b49a2edc60381eed7e793a650668e5bad4cd391c6ea15895230",
+      "origin_matches": 1,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__ModularSwordVisual.cpp.patch",
+      "before": "a6a75907c52f05e95c0dc82ba54403b2aca31b0f379acab6b307eb50d79f8165",
+      "after": "8c328bf7fd7b232a12b6bf04b6075cb98e858550184114e1faa379dd447d7198",
+      "origin_matches": 2,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RingChainInputAudit.cpp",
+      "delivery": "unit",
+      "source": "Docs/Publication/BowSwordConversation20261122/Sword/Runtime/Source/FPSGAME/Weapons/RingChainInputAudit.cpp",
+      "after": "ca47f699f50a453e7f67aa38f4cb34a78604b10509e538b2bf735e795230beef",
+      "before": null
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RingChainRebound.cpp",
+      "delivery": "unit",
+      "source": "Docs/Publication/BowSwordConversation20261122/Sword/Runtime/Source/FPSGAME/Weapons/RingChainRebound.cpp",
+      "after": "2cc355acd9d488056fb25daef36af341468739e50e1329464c994df51fea34c0",
+      "before": null
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RingChainRebound.h",
+      "delivery": "unit",
+      "source": "Docs/Publication/BowSwordConversation20261122/Sword/Runtime/Source/FPSGAME/Weapons/RingChainRebound.h",
+      "after": "fce37ce5edc7cf0a3acdb8d9dd11132a89bb87bd96e6277ed85b3d61c52b6be6",
+      "before": null
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RingChainSweepMotion.h",
+      "delivery": "unit",
+      "source": "Docs/Publication/BowSwordConversation20261122/Sword/Runtime/Source/FPSGAME/Weapons/RingChainSweepMotion.h",
+      "after": "f66a1443249c409f8bc34f713b1e3bec2c5c769a3c3864db19aa29defd1cdf60",
+      "before": null
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RingChainWireAudit.cpp",
+      "delivery": "unit",
+      "source": "Docs/Publication/BowSwordConversation20261122/Sword/Runtime/Source/FPSGAME/Weapons/RingChainWireAudit.cpp",
+      "after": "99bdfbf5ce78ac8c3b6b2ffe08d31f683c47aa0b2dfa031888cbf96d4f803d29",
+      "before": null
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordActions.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__RuneSwordActions.cpp.patch",
+      "before": "c46b294c45d40bca0ef90981d673047fb34157bae468b3708207bcc8f249f173",
+      "after": "58546c8df68a85533689e7dd8c4ce37d448da28c39301ca056fb035852e1d62b",
+      "origin_matches": 0,
+      "origin_missing": 11
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__RuneSwordAuditCommandlet.cpp.patch",
+      "before": "63a3a050f5a1761585a8ea09ba4594add13bf438ad463b7338584a7287ce743c",
+      "after": "327424a8b334cbb0f5c07245eafd971370373510a1a2c2b00e4d0dd5dffe2171",
+      "origin_matches": 1,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordAuditCommandlet.h",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__RuneSwordAuditCommandlet.h.patch",
+      "before": "bba3fa7e88b4d82e2600a0a1afa8da8ab0a1fb82a8d304593e3132b9b7ec35ae",
+      "after": "6eb5a8a7254aac219e429f93ea275379d2ec0773ae07e91cd2420e8e55df8e49",
+      "origin_matches": 1,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordBroadblade.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__RuneSwordBroadblade.cpp.patch",
+      "before": "c3a51d9b8b1d34cfd03c46ceac8d03103455f63abc0dfcf0cea7e5e6638d9b96",
+      "after": "7727956b27b973db5cf5d98d758a9a120c5c6d8b233fe16b1ef22368086c22b2",
+      "origin_matches": 4,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__RuneSwordComponent.cpp.patch",
+      "before": "4dc970d83f12b4196deddb4d11e3f6a117118f6290a64342058ca5ecb2d9265e",
+      "after": "b2d6371c602ea704f47d2919f9365102c9b7e95c23782e3c89a92e42cf223ddf",
+      "origin_matches": 1,
+      "origin_missing": 6
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__RuneSwordComponent.h.patch",
+      "before": "c1948deb229cf4dad3530dd24989b09f29f86df4b1f6dbe52ab66a6a89807c7f",
+      "after": "6db9e3980bed089db94ade564ca92e31754bd84b10cd1861dfad0c5426f1b6d1",
+      "origin_matches": 7,
+      "origin_missing": 3
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__RuneSwordGuard.cpp.patch",
+      "before": "d740f7ed2bc89199c5d77da5e8d462e02c11d4ab289a7b3f9c6c99bf23870470",
+      "after": "992a9fd87309bd253f1e9e5a6574ebbda5d1a63ffc66bd80762030280a724540",
+      "origin_matches": 2,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordHeavyCharge.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__RuneSwordHeavyCharge.cpp.patch",
+      "before": "8e8caa5ddc4dfa96960be52eefb00b513905107750f69d2e4a68b57ed9bc9908",
+      "after": "dcc0213722c4187705302db9886e7c1237457b0fbb25f5c07b349d1d2ba65210",
+      "origin_matches": 9,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordOath.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__RuneSwordOath.cpp.patch",
+      "before": "af9aefeefca2b3aa925c367a4b5274b37e23a20e0cb4b35b6ca5882057eb21d0",
+      "after": "cb644ef68d9afa918da6d14eeda9835fe8a359465620cb31994a625129f47998",
+      "origin_matches": 1,
+      "origin_missing": 0
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/RuneSwordPresentation.cpp",
+      "delivery": "patch",
+      "patch": "Docs/Publication/BowSwordConversation20261122/Sword/Integration/Source__FPSGAME__Weapons__RuneSwordPresentation.cpp.patch",
+      "before": "43002878466cff82f47ab809a2f93a752fecd2c8d1b94db9a2d4dfc94408719a",
+      "after": "12a0092a4c37175d4692a49904b68c81ad0259dd07ad02db350d29c9f814c171",
+      "origin_matches": 0,
+      "origin_missing": 12
+    }
+  ]
+}

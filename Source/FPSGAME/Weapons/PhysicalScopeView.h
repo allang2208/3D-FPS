@@ -15,4 +15,5 @@ struct FPhysicalScopeView
     float RearDepth=1.f;
     FLinearColor BowDrawState=FLinearColor::Transparent;
     float BowRelease=0.f;
+    float MinimumMagnification=1.f;
 };

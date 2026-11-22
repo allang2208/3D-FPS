@@ -1,0 +1,59 @@
+--- a/Source/FPSGAME/Development/SwordFinishWireAudit.cpp
++++ b/Source/FPSGAME/Development/SwordFinishWireAudit.cpp
+@@ -21,6 +21,8 @@
+ #include "Misc/Parse.h"
+ #include "Serialization/JsonSerializer.h"
+ #include "UObject/UnrealType.h"
++#include "../Weapons/SwordTasselMeshComponent.h"
++#include "ForgedSwordEquipmentWire.inl"
+ 
+ namespace SwordFinishWire
+ {
+@@ -49,6 +51,7 @@
+ FString Identity(bool Host){return Host?TEXT("SwordFinishAudit_HostSword"):TEXT("SwordFinishAudit_GuestSword");}
+ FColdSteelProfile Seed(UColdSteelStatusModel* Model,bool Host)
+ {
++    if(ForgedSwordEquipmentWire::Enabled())return ForgedSwordEquipmentWire::Seed(Model,Host);
+     if(HighlandEquipmentWire::Enabled())return HighlandEquipmentWire::Seed(Model,Host);
+     if(HatchetRuneWire::Enabled())return HatchetRuneWire::Seed(Model,Host);
+     auto State=Model->Snapshot();State.Items.Reset();State.ActiveWeaponSlot=6;State.ActiveProductionTool.Reset();State.DungeonRun={};
+@@ -63,7 +66,8 @@
+     Pawn->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);Pawn->SetActorTickEnabled(false);
+     auto State=Model->Snapshot();State.ActiveWeaponSlot=Phase==4?9:6;
+     const auto Desired=Selection(Phase,Host);
+-    if(HighlandEquipmentWire::Enabled())HighlandEquipmentWire::Select(State,Phase,Host);
++    if(ForgedSwordEquipmentWire::Enabled())ForgedSwordEquipmentWire::Select(State,Phase,Host);
++    else if(HighlandEquipmentWire::Enabled())HighlandEquipmentWire::Select(State,Phase,Host);
+     else if(HatchetRuneWire::Enabled())HatchetRuneWire::Select(State,Phase,Host);
+     else for(auto& Item:State.Items)if(Item.InstanceId==Identity(Host))
+     {
+@@ -78,6 +82,7 @@
+ }
+ bool Check(AFPSGAMECharacter* Pawn,int32 Phase,bool Host,FString& Details)
+ {
++    if(ForgedSwordEquipmentWire::Enabled())return ForgedSwordEquipmentWire::Check(Pawn,Phase,Host,Details);
+     if(HighlandEquipmentWire::Enabled())return HighlandEquipmentWire::Check(Pawn,Phase,Host,Details);
+     if(HatchetRuneWire::Enabled())return HatchetRuneWire::Check(Pawn,Phase,Host,Details);
+     auto* Body=Pawn?Pawn->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
+@@ -167,7 +172,8 @@
+     const bool OK=ClientPassed&&A&&B&&(Case!=6||Reconnected);
+     const TCHAR* HighlandNames[]={TEXT("late_join_ridge_gale"),TEXT("remove_gale"),TEXT("long_grip_ridge_guard_whirlwind_kill"),
+         TEXT("factory_and_broadblade_guard_swing_kill"),TEXT("unequip"),TEXT("reequip_and_heavy_rpc"),TEXT("reconnect_retained_equipment")};
+-    auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("case"),HighlandEquipmentWire::Enabled()?HighlandNames[Case]:SwordFinishWire::Names[Case]);Row->SetBoolField(TEXT("passed"),OK);
++    auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("case"),ForgedSwordEquipmentWire::Enabled()?ForgedSwordEquipmentWire::Cases[Case]:
++        HighlandEquipmentWire::Enabled()?HighlandNames[Case]:SwordFinishWire::Names[Case]);Row->SetBoolField(TEXT("passed"),OK);
+     Row->SetStringField(TEXT("client"),Details);Row->SetStringField(TEXT("server_host"),HostView);Row->SetStringField(TEXT("server_guest"),GuestView);
+     Rows.Add(MakeShared<FJsonValueObject>(Row));Passed&=OK;Sender->Reported=true;
+     UE_LOG(LogTemp,Display,TEXT("SWORD_FINISH_WIRE_CASE %d passed=%d %s | server: %s / %s"),Case,OK,*Details,*HostView,*GuestView);
+@@ -183,6 +189,11 @@
+     Result->SetBoolField(TEXT("actual_network_transport"),GetWorld()->GetNetDriver()!=nullptr);Result->SetBoolField(TEXT("rendered"),false);
+     Result->SetBoolField(TEXT("reconnected"),Reconnected);Result->SetStringField(TEXT("scope"),TEXT("production body equipment capture/replication/OnRep reconstruction over UDP; same retained server-side item instances after reconnect; fixture-seeded inventory, no attack RPC or inventory upload"));
+     if(HighlandEquipmentWire::Enabled())Result->SetStringField(TEXT("scope"),TEXT("Highland blade, pommel and fitted guard meshes, actual guest whirlwind and swing kills, owner/server stamina receipts and timed HUD speed buff, judged ridge strike and reconnect; fixture-seeded inventory, no rendered VFX"));
++    if(ForgedSwordEquipmentWire::Enabled())
++    {
++        Result->SetStringField(TEXT("weapon"),TEXT("ue_forged_steel_greatsword"));
++        Result->SetStringField(TEXT("scope"),TEXT("Retained forged sword instances, actual world meshes and chain simulation component on owner, authority and observer across swaps, late join and reconnect; fixture-seeded inventory."));
++    }
+ #if DO_ENABLE_NET_TEST
+     if(const auto* Driver=GetWorld()->GetNetDriver()){Result->SetNumberField(TEXT("lag_ms_per_peer"),Driver->PacketSimulationSettings.PktLag);Result->SetNumberField(TEXT("loss_percent_per_peer"),Driver->PacketSimulationSettings.PktLoss);}
+ #endif

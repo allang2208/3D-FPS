@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowEquipment.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowEquipment.cpp
+@@ -362,10 +362,10 @@
+     ColdSteelInventory::Text(*Item, TEXT("draw_curve")).ParseIntoArray(CurveText, TEXT(","), true);
+     for (const FString& Value : CurveText) DrawCurve.Add(FMath::Clamp(FCString::Atof(*Value), 0.f, 1.f));
+     FullDamage = Number(TEXT("full_damage"), 69.f);
+-    FullSpeedCM = Number(TEXT("full_speed_cm"), 9800.f);
++    FullSpeedCM = Number(TEXT("full_speed_cm"), 10000.f);
+     MinSpeedRatio = FMath::Clamp(Number(TEXT("min_speed_ratio"), .35f), 0.f, 1.f);
+-    GravityCM = Number(TEXT("arrow_gravity_cm"), 520.f);
+-    RangeCM = Number(TEXT("range_cm"), 3200.f);
++    GravityCM = Number(TEXT("arrow_gravity_cm"), 980.f);
++    RangeCM = Number(TEXT("range_cm"), 28000.f);
+     StaminaCost = Number(TEXT("stamina_cost"), 3.f);
+     CriticalChance = Number(TEXT("critical_chance"), -1.f);
+     ToughnessMultiplier = Number(TEXT("toughness_multiplier"), 0.f);
+@@ -499,7 +499,7 @@
+ 
+ bool UBowWeaponComponent::AdjustScopeMagnification(float Delta)
+ {
+-    if(!IsAimHeld()||!CanUse()||!bHasAimSight||OpticalMaximum<=OpticalMinimum)return false;
++    if(!IsAimHeld()||!CanUse(true,true)||!bHasAimSight||OpticalMaximum<=OpticalMinimum)return false;
+     OpticalMagnification=FMath::Clamp(OpticalMagnification+Delta,OpticalMinimum,OpticalMaximum);
+     // Consume scroll at either limit too, so it cannot also switch equipment.
+     return true;

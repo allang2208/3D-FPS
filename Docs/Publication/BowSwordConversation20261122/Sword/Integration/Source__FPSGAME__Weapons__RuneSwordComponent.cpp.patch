@@ -1,0 +1,76 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.cpp
+@@ -1,5 +1,6 @@
+ #include "RuneSwordComponent.h"
+ #include "HighlandBreakSweep.h"
++#include "RingChainSweepMotion.h"
+ #include "../Characters/FPSPlayerBodyComponent.h"
+ #include "HighlandRidgeThrust.h"
+ #include "HighlandRidgeGatherComponent.h"
+@@ -171,7 +172,7 @@
+     TickClovenCounter(Delta);
+     if(!Usable)
+     {
+-        if(IsBusy()||bInspecting)CancelAction();
++        if(IsBusy()||bInspecting||RingPrimaryDownAt>=0.)CancelAction();
+         ImpactAge=1.f;StopRift();
+         if(Present)
+         {
+@@ -189,8 +190,9 @@
+         return;
+     }
+     if((bUppercut || IsRisingDragonFinisher() || bCharging || bReturningCharge || bInspecting) && Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
++    if(RingPrimaryDownAt>=0.)AdvanceRingPrimaryHold();
+     ImpactAge=FMath::Min(1.f,ImpactAge+Delta);
+-    if(!bChainSlash&&CurrentClip!=HighlandBreakSweep::Clip)TickRift(Delta);
++    if(!bChainSlash&&!HighlandBreakSweep::UsesRibbon(CurrentClip))TickRift(Delta);
+     TickWalkInspect(Delta);
+     if(bWhirlwind){TickWhirlwind(Delta);return;}
+     if(!bChainSlash&&TickGuard(Delta))return;
+@@ -259,7 +261,7 @@
+                     UGameplayStatics::PlaySound2D(this,SwingSound,bSweep?.90f:(bOverheadAttack?.90f:(bHeavyAttack?.95f:.72f)),Pitch);
+                 }
+             }
+-            if(CurrentClip!=HighlandBreakSweep::Clip)StartRift(Next-ContactStart);
++            if(!HighlandBreakSweep::UsesRibbon(CurrentClip))StartRift(Next-ContactStart);
+             ReleaseSlashWave(AimNow);
+         }
+         const auto FrameAt=[&](float Time)
+@@ -298,15 +300,16 @@
+         {
+             if(HitEnd>HitStart)DashAttackContractHit();
+         }
+-        else if(CurrentClip==HighlandBreakSweep::Clip)
++        else if(CurrentClip==HighlandBreakSweep::Clip||CurrentClip==RingChainSweepMotion::Release)
+         {
+             if(HitEnd>HitStart)
+             {
+                 const float From=HighlandBreakSweep::Angle(HitStart),To=HighlandBreakSweep::Angle(HitEnd);
+                 const FVector Forward=AimNow.GetUnitAxis(EAxis::X).GetSafeNormal2D(UE_SMALL_NUMBER,Character->GetActorForwardVector().GetSafeNormal2D());
+                 const FVector Across=Forward.RotateAngleAxis((From+To)*.5f,FVector::UpVector);
++                const float ReachCM=CurrentClip==RingChainSweepMotion::Release?AzureDragonSwingRange(SwingReach):SwingReach;
+                 ApplySwingHits(RuneSwordCombat::QuerySector(GetWorld(),Character.Get(),Character->GetActorLocation(),
+-                    Across,SwingReach,FMath::Abs(To-From),HitActors),Across);
++                    Across,ReachCM,FMath::Abs(To-From),HitActors),Across);
+             }
+         }
+         else if(bOverheadFinisher)
+@@ -365,7 +368,7 @@
+         if(bHeavyTrainingPending&&Next>=ContactEnd)FinishHeavyTraining();
+         SamplePose(Next);PreviousAimFrame=AimNow;
+         Elapsed=Next;
+-        if(CurrentClip==HighlandBreakSweep::Clip)
++        if(HighlandBreakSweep::UsesRibbon(CurrentClip))
+         {
+             if(bEnteredContactThisFrame)StartRift(Next-ContactStart);
+             else TickRift(Delta);
+@@ -401,7 +404,8 @@
+     }
+     else if(bCharging)
+     {
+-        const float ChargePoseLength=CurrentClip==HighlandRidgeThrust::Charge?End:RuneSwordHeavyRhythm::ChargeSeconds;
++        const float ChargePoseLength=CurrentClip==RingChainSweepMotion::Charge?RingChainSweepMotion::Chamber:
++            CurrentClip==HighlandRidgeThrust::Charge?End:RuneSwordHeavyRhythm::ChargeSeconds;
+         Elapsed=HeavyChargeFraction()*ChargePoseLength;
+         SamplePose(Elapsed); // Retiming keeps the authored charge pose synchronized with the skill clock.
+         if(bAutoHeavyRelease&&GetWorld()->GetTimeSeconds()-ChargeStartedAt>=RequiredChargeSeconds)ReleaseHeavyCharge();

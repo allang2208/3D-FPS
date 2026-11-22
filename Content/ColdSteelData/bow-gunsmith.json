@@ -282,6 +282,35 @@
             "speed_mult": 0.95
           },
           "special_effects": []
+        },
+        {
+          "id": "highland_mountain_echo",
+          "name": "光束弓弦",
+          "weapons": [
+            "bow_woodsteel"
+          ],
+          "description": "高地长弓专属弓弦。金白色光束连接两端弦扣，满弓命中积攒弦鸣，满层后的下一次满弓射击引出弦影箭。",
+          "appearance": "细亮的弦身随开弓拉紧，两端保留银套，中央炭黑护弦旁的三道山纹随弦鸣逐层点亮。",
+          "stats": {
+            "draw_speed_bonus": 0.15,
+            "speed_mult": 1.2,
+            "stamina_mult": 1.25,
+            "charge_stamina_mult": 1.25
+          },
+          "special_effects": [
+            "弦鸣｜满弓箭命中敌人或训练靶积攒1层弦鸣，最多3层，持续10秒；再次积攒刷新持续时间，每次射击最多获得1层。切换武器、拆下弓弦或死亡时清空。",
+            "山谷回响｜拥有3层弦鸣时，下一次满弓射击消耗全部层数，0.18秒后沿原发射方向补出一支弦影箭，造成原箭80%的物理伤害，不额外消耗箭矢或体力。触发回响的射击不积攒弦鸣。",
+            "弦影｜继承原箭的暴击结果，不再次判定暴击；不叠加弦鸣，不复制贯穿、元素、照明或其他技能附效。穿心箭仅带入物理伤害。弦影不可回收，不额外获得技能修炼进度。"
+          ],
+          "visual": {
+            "bow_part_string_mesh": "/Game/Weapons/WoodSteelLongbow20261026/BeamString20261121/SK_Highland_BeamString.SK_Highland_BeamString",
+            "bow_part_string_rods": 0,
+            "bow_part_string_material": "",
+            "bow_part_string_scale": 1.0,
+            "bow_part_string_location_cm": "0,0,0",
+            "bow_part_string_rotation_deg": "0,0,0",
+            "bow_part_string_hide_slot": ""
+          }
         }
       ]
     },
@@ -430,7 +459,7 @@
             "bow_woodsteel"
           ],
           "description": "高地长弓专属。圆形镜片配银钢薄框，旧黄铜滚花环环绕镜缘。",
-          "appearance": "银钢薄框、旧黄铜滚花环与胡桃木饰片，镜内配峰脊细针和角度参考刻线。",
+          "appearance": "银钢薄框、旧黄铜滚花环与胡桃木饰片。镜内的峰形准星和刻线在变倍时保持固定。",
           "special_effects": [
             "变倍｜开镜时使用鼠标滚轮调节 3–6 倍放大，每格 0.5 倍。"
           ],
@@ -483,6 +512,210 @@
           "text": "一箭直接击杀不会触发周围怪物警报；未击杀仍会引起目标反应，已暴露的目标不会脱战"
         }
       ]
+    },
+    {
+      "id": "bow_woodsteel",
+      "traits": [
+        {
+          "icon": "special",
+          "text": "原厂有效射程 320 米"
+        },
+        {
+          "icon": "mechanic",
+          "text": "无声射击：拉弓、放箭与箭矢命中不会通过声音引起怪物警觉"
+        }
+      ],
+      "shared_icon_weapon": "bow_dark",
+      "part_overrides": {
+        "riser": {
+          "false": {
+            "visual": {
+              "bow_part_riser_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SK_WoodSteelLongbow_Original.SK_WoodSteelLongbow_Original",
+              "bow_part_riser_material": "",
+              "bow_part_riser_scale": 1
+            },
+            "name": "原装木钢弓体",
+            "description": "原弓的长木弓胎与金属护片组合，保留叶形弓梢。",
+            "appearance": "修长木纹弓臂、暗金属护片与叶形弓梢。"
+          },
+          "strong_draw": {
+            "visual": {
+              "bow_part_riser_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SK_WoodSteelLongbow_Original.SK_WoodSteelLongbow_Original",
+              "bow_part_riser_material": "",
+              "bow_part_riser_scale": 1
+            },
+            "appearance": "保留原装木钢弓体外形；本项调校拉力。"
+          },
+          "swift_limb": {
+            "visual": {
+              "bow_part_riser_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SK_WoodSteelLongbow_Swift.SK_WoodSteelLongbow_Swift",
+              "bow_part_riser_material": "",
+              "bow_part_riser_scale": 1
+            },
+            "appearance": "收薄木钢弓臂，保留原有金属护片轮廓。"
+          },
+          "heavy_limb": {
+            "visual": {
+              "bow_part_riser_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SK_WoodSteelLongbow_Heavy.SK_WoodSteelLongbow_Heavy",
+              "bow_part_riser_material": "",
+              "bow_part_riser_scale": 1
+            },
+            "appearance": "加厚木钢弓臂，保留叶形弓梢。"
+          },
+          "steady_limb": {
+            "visual": {
+              "bow_part_riser_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SK_WoodSteelLongbow_Steady.SK_WoodSteelLongbow_Steady",
+              "bow_part_riser_material": "",
+              "bow_part_riser_scale": 1
+            },
+            "appearance": "略增厚的木钢弓臂，保留原有长弓轮廓。",
+            "name": "细枝弓体"
+          }
+        },
+        "grip": {
+          "false": {
+            "visual": {
+              "bow_part_grip_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SM_WoodSteelLongbow_Grip.SM_WoodSteelLongbow_Grip",
+              "bow_part_grip_material": "",
+              "bow_part_grip_scale": 1,
+              "bow_part_grip_rods": 0
+            },
+            "name": "原装旧革缠带",
+            "description": "旧革缠带沿掌心接触位置紧密包覆弓根。",
+            "appearance": "深色旧革斜绕握面。"
+          },
+          "waxed_linen": {
+            "visual": {
+              "bow_part_grip_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SM_WoodSteelLongbow_Grip_Linen.SM_WoodSteelLongbow_Grip_Linen",
+              "bow_part_grip_material": "/Game/Weapons/WoodSteelLongbow20261026/M_WoodSteelLongbow_WaxedLinen_Static.M_WoodSteelLongbow_WaxedLinen_Static",
+              "bow_part_grip_scale": 1,
+              "bow_part_grip_rods": 0
+            },
+            "appearance": "深棕蜡麻包面，纤维细纹沿原有缠绕结构延伸。"
+          },
+          "woven_linen_grip": {
+            "visual": {
+              "bow_part_grip_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SM_WoodSteelLongbow_Grip_Linen.SM_WoodSteelLongbow_Grip_Linen",
+              "bow_part_grip_material": "/Game/Weapons/WoodSteelLongbow20261026/M_WoodSteelLongbow_Linen_Static.M_WoodSteelLongbow_Linen_Static",
+              "bow_part_grip_scale": 1,
+              "bow_part_grip_rods": 0
+            },
+            "appearance": "暖棕麻布包面，交错织纹覆盖原有缠绕结构。"
+          },
+          "slim_leather_grip": {
+            "visual": {
+              "bow_part_grip_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SM_WoodSteelLongbow_Grip_SlimLeather.SM_WoodSteelLongbow_Grip_SlimLeather",
+              "bow_part_grip_material": "",
+              "bow_part_grip_scale": 1,
+              "bow_part_grip_rods": 0
+            },
+            "appearance": "略薄的旧革斜绕握面。"
+          },
+          "padded_leather_grip": {
+            "visual": {
+              "bow_part_grip_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SM_WoodSteelLongbow_Grip_PaddedLeather.SM_WoodSteelLongbow_Grip_PaddedLeather",
+              "bow_part_grip_material": "",
+              "bow_part_grip_scale": 1,
+              "bow_part_grip_rods": 0
+            },
+            "appearance": "略厚的软革握面，沿用原有斜绕纹路。"
+          }
+        },
+        "arrow_rest": {
+          "false": {
+            "visual": {
+              "bow_part_arrow_rest_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SM_WoodSteelLongbow_Rest.SM_WoodSteelLongbow_Rest",
+              "bow_part_arrow_rest_material": "",
+              "bow_part_arrow_rest_scale": 1,
+              "bow_part_arrow_rest_rods": 0
+            },
+            "name": "原装金属箭台",
+            "description": "侧置金属箭台贴合弓身，托住箭杆。",
+            "appearance": "与握把上方护片贴合的侧置金属箭台。"
+          },
+          "lined_rest": {
+            "visual": {
+              "bow_part_arrow_rest_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SM_WoodSteelLongbow_Rest_Lined.SM_WoodSteelLongbow_Rest_Lined",
+              "bow_part_arrow_rest_material": "",
+              "bow_part_arrow_rest_scale": 1,
+              "bow_part_arrow_rest_rods": 0,
+              "arrow_rest_cm": "-0.4,-3.9,9.3328"
+            },
+            "appearance": "原装金属箭台增加深棕皮垫。"
+          },
+          "open_quick_rest": {
+            "visual": {
+              "bow_part_arrow_rest_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SM_WoodSteelLongbow_Rest_Quick.SM_WoodSteelLongbow_Rest_Quick",
+              "bow_part_arrow_rest_material": "",
+              "bow_part_arrow_rest_scale": 1,
+              "bow_part_arrow_rest_rods": 0,
+              "arrow_rest_cm": "-0.4,-3.9,9.3328"
+            },
+            "appearance": "金属箭台增加敞口磨光滑片。"
+          },
+          "fork_guide_rest": {
+            "visual": {
+              "bow_part_arrow_rest_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SM_WoodSteelLongbow_Rest_Fork.SM_WoodSteelLongbow_Rest_Fork",
+              "bow_part_arrow_rest_material": "",
+              "bow_part_arrow_rest_scale": 1,
+              "bow_part_arrow_rest_rods": 0,
+              "arrow_rest_cm": "-0.4,-3.9,9.3328"
+            },
+            "appearance": "金属箭台增加带皮衬的双侧导向托面。"
+          }
+        },
+        "sight": {
+          "false": {
+            "visual": {
+              "bow_part_sight_mesh": "",
+              "bow_part_sight_material": "",
+              "bow_part_sight_scale": 1,
+              "bow_part_sight_rods": 0,
+              "bow_ads_sight_cm": "",
+              "bow_ads_rest_cm": "63,10,-12",
+              "bow_scope_magnification": 1
+            },
+            "name": "不安装瞄具",
+            "description": "沿箭杆方向瞄准。",
+            "appearance": "保留弓身原貌，不附加瞄圈和底座。"
+          },
+          "bow_clearfield_2x": {
+            "visual": {
+              "bow_part_sight_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SM_WoodSteelLongbow_Optic2x.SM_WoodSteelLongbow_Optic2x",
+              "bow_part_sight_material": "",
+              "bow_part_sight_scale": 1,
+              "bow_part_sight_rods": 0,
+              "bow_ads_sight_cm": "-0.4,-10.223,24.3328",
+              "bow_scope_magnification": 2,
+              "bow_ads_sight_distance_cm": 63.1
+            },
+            "appearance": "贴合原弓金属护片的钢座与支臂，保留单片玻璃和原有刻线。"
+          },
+          "bow_farwatch_4x": {
+            "visual": {
+              "bow_part_sight_mesh": "/Game/Weapons/WoodSteelLongbow20261026/SM_WoodSteelLongbow_Optic4x.SM_WoodSteelLongbow_Optic4x",
+              "bow_part_sight_material": "",
+              "bow_part_sight_scale": 1,
+              "bow_part_sight_rods": 0,
+              "bow_ads_sight_cm": "-0.4,-10.223,24.3328",
+              "bow_scope_magnification": 4,
+              "bow_ads_sight_distance_cm": 63.1
+            },
+            "appearance": "贴合原弓金属护片的钢座与支臂，保留单片玻璃和原有刻线。"
+          }
+        }
+      },
+      "category_icon_sources": {
+        "riser": "bow_woodsteel_riser_false",
+        "grip": "bow_woodsteel_grip_false",
+        "arrow_rest": "bow_woodsteel_arrow_rest_false",
+        "string": "bow_dark_category_string",
+        "sight": "bow_dark_category_sight"
+      },
+      "factory_icon_sources": {
+        "string": "bow_dark_string_false",
+        "sight": "bow_dark_sight_no_sight"
+      }
     }
   ]
 }

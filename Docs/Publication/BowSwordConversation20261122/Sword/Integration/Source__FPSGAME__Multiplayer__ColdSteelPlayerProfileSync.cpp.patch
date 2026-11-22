@@ -1,0 +1,45 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp
+@@ -398,18 +398,34 @@
+ bool CopyFreeWeaponCustomization(FColdSteelItem& TargetItem,const FColdSteelItem& SourceItem)
+ {
+     if(TargetItem.InstanceId!=SourceItem.InstanceId||TargetItem.Definition!=SourceItem.Definition)return false;
+-    const bool LightMachineGun=LMGStabilityGrip::Supports(TargetItem.Definition);
+-    if(!LightMachineGun&&TargetItem.Definition!=TEXT("ue_thunder_god_hammer")&&TargetItem.Definition!=TEXT("ue_kukri")&&TargetItem.Definition!=TEXT("ue_tactical_hatchet"))return false;
++    const bool HighlandBow=TargetItem.Definition==TEXT("bow_woodsteel");
++    if(!HighlandBow&&!UGunsmithSystem::UsesFreePartReceipts(TargetItem.Definition))return false;
++    const bool PartsOnly=TargetItem.Definition==TEXT("ue_forged_steel_greatsword")||LMGStabilityGrip::Supports(TargetItem.Definition);
+     TSharedPtr<FJsonObject> Target,Source;
+     if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(TargetItem.Data),Target)||!Target||
+         !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(SourceItem.Data),Source)||!Source)return false;
++    const auto CopyField=[](FJsonObject& To,const FJsonObject& From,const TCHAR* Key)
++    {
++        const auto Before=To.TryGetField(Key),Value=From.TryGetField(Key);
++        if((!Before&&!Value)||(Before&&Value&&FJsonValue::CompareEqual(*Before,*Value)))return false;
++        if(Value)To.SetField(Key,Value);else To.RemoveField(Key);
++        return true;
++    };
+     bool Changed=false;
+-    for(const TCHAR* Key:{TEXT("gunsmith_parts"),TEXT("gunsmith_version"),TEXT("tool_enhance_level")})
+-    {
+-        if(LightMachineGun&&FCString::Strcmp(Key,TEXT("tool_enhance_level"))==0)continue;
+-        const auto Before=Target->TryGetField(Key),Value=Source->TryGetField(Key);
+-        if((!Before&&!Value)||(Before&&Value&&FJsonValue::CompareEqual(*Before,*Value)))continue;
+-        Changed=true;if(Value)Target->SetField(Key,Value);else Target->RemoveField(Key);
++    if(HighlandBow)
++    {
++        // A delayed pickup can arrive between selecting an optic/string and the
++        // Apply receipt. The authority still owns the material-bearing riser.
++        const TSharedPtr<FJsonObject>* Found=nullptr;
++        auto To=Target->TryGetObjectField(TEXT("gunsmith_parts"),Found)?*Found:MakeShared<FJsonObject>();
++        auto From=Source->TryGetObjectField(TEXT("gunsmith_parts"),Found)?*Found:MakeShared<FJsonObject>();
++        for(const TCHAR* Key:{TEXT("sight"),TEXT("string")})Changed|=CopyField(*To,*From,Key);
++        if(Changed){Target->SetObjectField(TEXT("gunsmith_parts"),To);Target->SetNumberField(TEXT("gunsmith_version"),1);}
++    }
++    else for(const TCHAR* Key:{TEXT("gunsmith_parts"),TEXT("gunsmith_version"),TEXT("tool_enhance_level")})
++    {
++        if(PartsOnly&&FCString::Strcmp(Key,TEXT("tool_enhance_level"))==0)continue;
++        Changed|=CopyField(*Target,*Source,Key);
+     }
+     if(Changed){TargetItem.Data.Reset();FJsonSerializer::Serialize(Target.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&TargetItem.Data));}
+     return Changed;

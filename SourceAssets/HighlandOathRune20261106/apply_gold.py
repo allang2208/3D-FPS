@@ -1,5 +1,6 @@
 """Author the gold blade surface and two presentation-only judgment trail materials."""
 from pathlib import Path
+import json
 import unreal as u
 
 ROOT = Path(__file__).resolve().parent
@@ -26,6 +27,48 @@ def trail_asset(name, parent):
     return u.load_asset(path) if LIB.does_asset_exist(path) else LIB.duplicate_asset(parent, path)
 
 
+def sync_native_variants():
+    root = '/Game/Weapons/HighlandClaymore20260922/'
+    base = root + 'Materials/M_HighlandClaymoreSurface'
+    ridge = root + 'RidgePiercer20260927/WedgeSpine/M_RidgeWedgeSteel'
+    mapping = json.loads((ROOT.parents[1]/'Content/ColdSteelData/whirlwind-temporal-materials.json').read_text(encoding='utf-8-sig'))
+    def temporal(path):
+        return mapping[path+'.'+path.rsplit('/',1)[1]].split('.')[0]
+    def ink_nodes(mat):
+        return {str(n.get_editor_property('description')):n for n in EDIT.get_material_expressions(mat)
+                if isinstance(n,u.MaterialExpressionCustom)
+                and n.get_editor_property('description') in ('Native UV ink tint','Native blue ink or golden breathing')}
+    accepted = ink_nodes(u.load_asset(base))
+    if len(accepted)!=2:raise RuntimeError('Missing authored Highland ink graph')
+    updated = []
+    for path in dict.fromkeys((temporal(base), ridge, temporal(ridge))):
+        if path==base:continue
+        mat=u.load_asset(path)
+        targets=ink_nodes(mat)
+        if targets.keys()!=accepted.keys():raise RuntimeError('Missing native glyph inputs: '+path)
+        if all('HIGHLAND_OATH_NATIVE' in n.get_editor_property('code') for n in targets.values()):continue
+        param=next((n for n in EDIT.get_material_expressions(mat) if isinstance(n,u.MaterialExpressionScalarParameter)
+                    and str(n.get_editor_property('parameter_name'))=='NativeOath'),None)
+        if not param:
+            param=EDIT.create_material_expression(mat,u.MaterialExpressionScalarParameter)
+            param.set_editor_properties(dict(parameter_name='NativeOath',default_value=0.))
+        for desc, dest in targets.items():
+            code=dest.get_editor_property('code')
+            if 'HIGHLAND_OATH_NATIVE' in code:continue
+            prefix=accepted[desc].get_editor_property('code').splitlines()[:2]
+            if 'HIGHLAND_OATH_NATIVE' not in prefix[0] or not prefix[1].endswith('}'):
+                raise RuntimeError('Unrecognized native oath branch')
+            pins=list(dest.get_editor_property('inputs'))
+            if not any(str(p.get_editor_property('input_name'))=='Oath' for p in pins):
+                pin=u.CustomInput();pin.set_editor_property('input_name','Oath');pins.append(pin)
+                dest.set_editor_property('inputs',pins)
+            dest.set_editor_property('code','\n'.join(prefix)+'\n'+code)
+            if not EDIT.connect_material_expressions(param,'',dest,'Oath'):raise RuntimeError('Oath input '+path)
+        compile_and_save(mat)
+        updated.append(path)
+    return updated
+
+
 def apply_gold():
     surface = u.load_asset(DEST + '/M_SilverRuneSurface_HighlandOath')
     rune = custom_with(surface, 'RuneTexture')
@@ -50,6 +93,7 @@ def apply_gold():
             node.set_editor_property('code', code[:body] + result + code[end:])
         compile_and_save(mat)
 
+    sync_native_variants()
     rift = trail_asset('M_OathJudgmentRift', '/Game/Weapons/AzureRunesword20260913/WristRiftV3/M_RuneRift')
     # Duplicate the actual optical graph, including its refraction, normal map,
     # longitudinal reveal and both UV tapers. Replace only colour and coverage.

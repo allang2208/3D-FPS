@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordGuard.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordGuard.cpp
+@@ -36,7 +36,7 @@
+     if(bChainSlash||bUppercut||bWhirlwind||bDashAttack)return;
+     if(!IsEquipped() || !CanUse() || !Animations.FindRef(TEXT("Guard")))return;
+     if(bInspecting)CancelAction();
+-    bGuardHeld=true;bQueuedAttack=false;
++    bGuardHeld=true;bQueuedAttack=false;RingPrimaryDownAt=-1.;
+     if(bCharging)ReturnFromCharge();
+     TryBeginGuard();
+ }
+@@ -191,8 +191,9 @@
+     }
+     if(Pawn->IsLocallyControlled())GuardFeedback(false);
+     const float BlockCost=static_cast<float>(ColdSteelMelee::BlockStamina(Mods,Profile));
+-    const bool Broken=Profile->Stamina()<BlockCost;
+-    const float Spent=Broken?Profile->Stamina():BlockCost;
++    const float Available=Profile->Stamina();
++    const float Spent=FMath::Min(Available,BlockCost);
++    const bool Broken=Available<BlockCost;
+     Profile->SpendStamina(Spent);
+     if(!Broken)if(auto* Guard=Pawn->FindComponentByClass<UPanChiGuardComponent>())Guard->ConfirmGuard(false);
+     if(Broken)
