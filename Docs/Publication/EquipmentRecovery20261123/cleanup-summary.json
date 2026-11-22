@@ -24,5 +24,42 @@
   },
   "manifest": "F:/FPSGAMEData/ArtProduction/StorageLayout/EquipmentRecovery-20261123/archive-manifest.jsonl",
   "manifest_sha256": "41bf240e5e407a985079014a67221b1e524c8011905c9faa0816ed9eef220152",
-  "trash": "F:/FPSGAMEData/trash/EquipmentRecovery-20261123"
+  "trash": "F:/FPSGAMEData/trash/EquipmentRecovery-20261123",
+  "fields": [
+    "root",
+    "relative_path",
+    "bytes",
+    "sha256",
+    "reason",
+    "retained_file_or_receipt"
+  ],
+  "roots": {
+    "data": "F:/FPSGAMEData",
+    "old-recovery": "F:/FPSGAME-Recovery-Work-20261120",
+    "project": "D:/FPS3D/FPSGAME"
+  },
+  "destination_prefix": {
+    "data": "",
+    "old-recovery": "RecoveryWork/",
+    "project": "Project/"
+  },
+  "reason_ids": [
+    "双端运行的独立临时目录",
+    "可重新生成的缓存或中间文件",
+    "工作簿导出检查副本",
+    "已交付斧刃的制作输出或检视图",
+    "已同步到正式核对表的排版暂存",
+    "已结束的单次清单更新、宿主查询或投产检查",
+    "已结束的排查或构建启动文件",
+    "已结束的编译、采样或单次接入产物",
+    "斧头棚拍回读图，图标输入和正式资产另存",
+    "枪托装配检测截图",
+    "第一轮重劈概念草案",
+    "镜型检测截图或专用检测运行副本",
+    "隔离宿主副本与保留的制作或回退文件一致",
+    "隔离宿主副本与现用文件逐字节一致",
+    "隔离宿主的运行产物"
+  ],
+  "portable_manifest": "archived-files.jsonl",
+  "portable_sha256": "c660ad03ac9bfc81577f81386ef20a1746899453b40221188a1dd95e7c9bbdd6"
 }

@@ -22,4 +22,4 @@
 
 ## 退役文件
 
-每个移入 trash 的文件都有原路径、目标、大小、SHA-256、原因和保留替代物。截图、录制检查副本、缓存及已交付的暂存件见[分类汇总](cleanup-summary.json)和[逐文件恢复清单](F:/FPSGAMEData/ArtProduction/StorageLayout/EquipmentRecovery-20261123/archive-manifest.jsonl)。正式资产、可编辑原件、发布回执及不同版本的回退文件继续保留在原功能目录。
+每个移入 trash 的文件都有原路径、目标、大小、SHA-256、原因和保留替代物。截图、录制检查副本、缓存及已交付的暂存件见[仓库内逐文件恢复清单](archived-files.jsonl)、[路径根目录与分类表](cleanup-summary.json)及[本机完整路径清单](F:/FPSGAMEData/ArtProduction/StorageLayout/EquipmentRecovery-20261123/archive-manifest.jsonl)。正式资产、可编辑原件、发布回执及不同版本的回退文件继续保留在原功能目录。
