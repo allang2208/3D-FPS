@@ -1,5 +1,7 @@
 # 格挡 V23：五指张开推掌抵剑
 
+> **已被格挡 V24 取代（2026-11-22，用户认可）**：见 [格挡 V24](../../Docs/Weapons/runesword-guard-v24-20261122.md)。V23 原包备份在 `F:/FPSGAMEData/ArtProduction/RuneSword20260913/GuardKuboldV24/Install-20261122/Before/`，本记录与作者源仅作恢复和对照。
+
 用户于 2026-09-26 要求将格挡左手替换为五指张开抵住剑身，参考释放、发射魔法时左手张开推出的动作。
 
 **正式接入已完成**：后台 commandlet 已保存普通柄、长柄共 6 段动画，完整 FBX 与原包备份均已落盘。具体保存结果见 `import_receipt.json`。

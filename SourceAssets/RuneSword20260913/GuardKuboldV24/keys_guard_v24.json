@@ -1,0 +1,222 @@
+{
+ "reference": "YouTube NTrzxPIXer4 (Kubold FPP Melee Animset - Two Handed Sword), 1080p60. Guard = file 110.94-111.40 s raise + hold (user window 1:49-1:52); GuardHit = 117.64-118.39 s; GuardBreak = 119.70-120.15 s",
+ "screen": "Full 1920x1080 reference pixels. B = blade base (blade centreline at the crossguard). angle = blade screen angle in degrees, 0 = pointing right, 90 = up. Read from Reference/blade_track.json (Hough), Reference/hold10/hook_track.json (moved from Work/hold10 2026-11-22) (template) and the grid sheets made by Reference/grid_sheet.py.",
+ "camera": "Matched in normalised screen coordinates with the game's 75 deg vertical FOV, 16:9; the reference camera does not move during any of these clips.",
+ "hold": {
+  "B": [
+   595,
+   998
+  ],
+  "angle": 42.1,
+  "guard_angle": 82.0,
+  "width_ratio_near_far": 1.25,
+  "breath": {
+   "period": 2.05,
+   "dy_px": 40.0,
+   "dx_px": 5.0,
+   "start_dy_px": 22.0,
+   "note": "hook y 690-770 px, minimum at 112.1 s, maximum at 113.1 s"
+  },
+  "roll": 82.0,
+  "roll_note": "crossguard upright on screen like the reference (flat towards the viewer). Edge-on (roll 'edge') reads as slim as the reference blade but turns the 36 cm crossguard into the lens during the raise and twists the left hand ~156 deg round the grip; rejected 2026-11-22 (Work/r5_guard.jpg)."
+ },
+ "raise": {
+  "duration": 0.46,
+  "note": "progress from OUR idle to the hold; angle progress from the reference blade angle (75.8 deg idle -> 42.1 hold), position progress from the crossguard hook (x leads, y lags)",
+  "t": [
+   0.0,
+   0.01,
+   0.043,
+   0.077,
+   0.11,
+   0.143,
+   0.16,
+   0.177,
+   0.21,
+   0.26,
+   0.31,
+   0.36,
+   0.46
+  ],
+  "rot": [
+   0.0,
+   0.04,
+   0.18,
+   0.47,
+   0.76,
+   0.91,
+   0.98,
+   0.99,
+   1.04,
+   1.09,
+   1.07,
+   1.0,
+   1.0
+  ],
+  "pos_x": [
+   0.0,
+   0.03,
+   0.11,
+   0.26,
+   0.43,
+   0.66,
+   0.73,
+   0.8,
+   0.88,
+   0.95,
+   1.1,
+   1.08,
+   1.06
+  ],
+  "pos_y": [
+   0.0,
+   0.0,
+   0.03,
+   0.05,
+   0.04,
+   0.12,
+   0.16,
+   0.21,
+   0.33,
+   0.5,
+   0.67,
+   0.85,
+   1.09
+  ]
+ },
+ "hit": {
+  "duration": 0.75,
+  "keys": [
+   {
+    "t": 0.0,
+    "hold": true
+   },
+   {
+    "t": 0.06,
+    "B": [
+     627,
+     857
+    ],
+    "angle": 28.0,
+    "depth": 0.88,
+    "note": "117.70 impact, hilt jumps up"
+   },
+   {
+    "t": 0.16,
+    "B": [
+     869,
+     610
+    ],
+    "angle": 0.0,
+    "depth": 0.74,
+    "note": "117.80 blade knocked flat towards the face"
+   },
+   {
+    "t": 0.227,
+    "B": [
+     833,
+     735
+    ],
+    "angle": 7.7,
+    "depth": 0.75,
+    "note": "117.867"
+   },
+   {
+    "t": 0.36,
+    "B": [
+     798,
+     720
+    ],
+    "angle": 10.6,
+    "depth": 0.78,
+    "note": "118.00"
+   },
+   {
+    "t": 0.46,
+    "B": [
+     713,
+     808
+    ],
+    "angle": 32.0,
+    "depth": 0.85,
+    "note": "118.10 recovering"
+   },
+   {
+    "t": 0.56,
+    "B": [
+     710,
+     879
+    ],
+    "angle": 40.0,
+    "depth": 0.92,
+    "note": "118.20"
+   },
+   {
+    "t": 0.69,
+    "B": [
+     676,
+     916
+    ],
+    "angle": 42.0,
+    "depth": 0.98,
+    "note": "118.333"
+   },
+   {
+    "t": 0.75,
+    "hold": true
+   }
+  ],
+  "depth_note": "depth = blade-base depth / hold depth, from the reference blade width next to the base (hold 84 px; 117.80 s about 115 px, 118.00 s about 105 px): Work/width_probe.png. r6 used 0.58-0.62 and pushed our 36 cm crossguard into the lens."
+ },
+ "break": {
+  "duration": 0.45,
+  "keys": [
+   {
+    "t": 0.0,
+    "hold": true
+   },
+   {
+    "t": 0.067,
+    "B": [
+     820,
+     1075
+    ],
+    "angle": 55.7,
+    "depth": 1.0,
+    "note": "119.767 blade beaten right",
+    "guard": "carry",
+    "guard_note": "crossguard carried from the hold instead of re-aimed to 82 deg on screen: re-aiming spun the blade in the hands and rolled the left forearm -88 then +90 deg within 0.15 s (r7/r8)"
+   },
+   {
+    "t": 0.167,
+    "B": [
+     970,
+     955
+    ],
+    "angle": 23.6,
+    "depth": 0.95,
+    "note": "119.867"
+   },
+   {
+    "t": 0.267,
+    "B": [
+     980,
+     940
+    ],
+    "angle": 15.0,
+    "depth": 0.9,
+    "note": "119.967 lowest"
+   },
+   {
+    "t": 0.45,
+    "B": [
+     965,
+     985
+    ],
+    "angle": 12.0,
+    "depth": 0.9,
+    "note": "stunned: sags a little and holds (the reference recovers instead)"
+   }
+  ]
+ }
+}

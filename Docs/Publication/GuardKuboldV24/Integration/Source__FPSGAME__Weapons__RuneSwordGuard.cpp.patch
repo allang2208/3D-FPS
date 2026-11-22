@@ -1,0 +1,120 @@
+--- a/Source/FPSGAME/Weapons/RuneSwordGuard.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordGuard.cpp
+@@ -20,6 +20,32 @@
+ #include "GameFramework/PlayerController.h"
+ #include "Kismet/GameplayStatics.h"
+ #include "Sound/SoundBase.h"
++#include "RuneSwordMeshComponent.h"
++#include "../Skills/LightningHasteSpeed.h"
++
++namespace
++{
++bool IsBreathingGuardClip(const UAnimSequenceBase* Clip)
++{
++    return Clip&&Clip->GetPlayLength()>=RuneSwordGuardTuning::ViewHoldStartSeconds+RuneSwordGuardTuning::ViewBreathSeconds-.02f;
++}
++// Clip time where the raise ends and the hold begins.
++float GuardHoldStart(const UAnimSequenceBase* Clip)
++{
++    if(IsBreathingGuardClip(Clip))return RuneSwordGuardTuning::ViewHoldStartSeconds;
++    return Clip?FMath::Min(Clip->GetPlayLength(),RuneSwordGuardTuning::RaiseSeconds):RuneSwordGuardTuning::RaiseSeconds;
++}
++// Haste speeds the raise only; the breathing loop keeps the reference rhythm and wraps one breath back.
++float AdvanceGuardView(const UAnimSequenceBase* Clip,float Time,float Delta,float Speed)
++{
++    const float Hold=GuardHoldStart(Clip);
++    if(!IsBreathingGuardClip(Clip))return FMath::Min(Hold,Time+Delta*Speed);
++    Time+=Time<Hold?Delta*Speed:Delta;
++    const float Length=Clip->GetPlayLength();
++    while(Time>=Length)Time-=RuneSwordGuardTuning::ViewBreathSeconds;
++    return Time;
++}
++}
+ 
+ void URuneSwordComponent::BeginGuard()
+ {
+@@ -39,9 +65,11 @@
+     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     if(!Profile || Profile->Stamina()<=0.f)return;
+     const float Entry=bReturningGuard?GuardPoseTime:0.f;
++    // Re-raising while lowering resumes the clip where the lowering has reached.
++    const float ViewEntry=bReturningGuard&&CurrentClip==TEXT("Guard")?FMath::Min(Elapsed,GuardHoldStart(CurrentAnimation)):0.f;
+     bGuarding=true;bReturningGuard=false;GuardStartedAt=GetWorld()->GetTimeSeconds();
+     SendGuardIntent(true);
+-    GuardPoseTime=Entry;StopRift();SetClip(TEXT("Guard"),false);Elapsed=Entry;SamplePose(Entry);
++    GuardPoseTime=Entry;StopRift();SetClip(TEXT("Guard"),false);Elapsed=ViewEntry;SamplePose(ViewEntry);
+     Viewmodel->SetRelativeLocation(FVector::ZeroVector);Viewmodel->SetRelativeRotation(FRotator(0,90,0));
+     Profile->DelayStaminaRecovery();
+ }
+@@ -51,6 +79,15 @@
+     bGuardHeld=false;
+     if(!bGuarding)return;
+     bGuarding=false;bReturningGuard=true;
++    // The lowering is the raise played back from the hold start. Released mid-breath, or during the 0.75 s V24
++    // hit reaction (which must not delay the counterattack), blend from the shown pose to that start.
++    const bool bMidReaction=bGuardReacting&&CurrentClip==TEXT("GuardHit");
++    if(bMidReaction||(!bGuardReacting&&CurrentClip==TEXT("Guard")&&Elapsed>GuardHoldStart(CurrentAnimation)))
++    {
++        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->CaptureLocomotionEntry(.12f);
++        if(bMidReaction){bGuardReacting=false;SetClip(TEXT("Guard"),false);GuardPoseTime=RuneSwordGuardTuning::RaiseSeconds;}
++        Elapsed=GuardHoldStart(CurrentAnimation);
++    }
+     if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->DelayStaminaRecovery();
+ }
+ void URuneSwordComponent::ClearGuard()
+@@ -70,20 +107,24 @@
+         if(Elapsed>=CurrentAnimation->GetPlayLength())
+         {
+             bGuardReacting=false;SetClip(TEXT("Guard"),false);
+-            GuardPoseTime=RuneSwordGuardTuning::RaiseSeconds;Elapsed=GuardPoseTime;SamplePose(Elapsed);
++            // GuardHit ends on the hold-start pose of the Guard clip.
++            GuardPoseTime=RuneSwordGuardTuning::RaiseSeconds;Elapsed=GuardHoldStart(CurrentAnimation);SamplePose(Elapsed);
+         }
+         return true;
+     }
+     if(bGuarding)
+     {
+-        GuardPoseTime=FMath::Min(RuneSwordGuardTuning::RaiseSeconds,GuardPoseTime+Delta);
+-        Elapsed=GuardPoseTime;SamplePose(Elapsed);return true;
++        const float Speed=LightningHaste::ActionSpeed(GetOwner());
++        GuardPoseTime=FMath::Min(RuneSwordGuardTuning::RaiseSeconds,GuardPoseTime+Delta*Speed);
++        Elapsed=AdvanceGuardView(CurrentAnimation,Elapsed,Delta,Speed);SamplePose(Elapsed);return true;
+     }
+     if(bReturningGuard)
+     {
+-        GuardPoseTime=FMath::Max(0.f,GuardPoseTime-Delta*RuneSwordGuardTuning::RaiseSeconds/RuneSwordGuardTuning::LowerSeconds);
+-        Elapsed=GuardPoseTime;SamplePose(Elapsed);
+-        if(GuardPoseTime<=0.f){bReturningGuard=false;SetClip(TEXT("Idle"),true);}
++        GuardPoseTime=FMath::Max(0.f,GuardPoseTime-Delta*LightningHaste::ActionSpeed(GetOwner())*RuneSwordGuardTuning::RaiseSeconds/RuneSwordGuardTuning::LowerSeconds);
++        // The raise played back from the hold start in LowerSeconds, like the earlier 0.20 s clips.
++        const float Hold=GuardHoldStart(CurrentAnimation);
++        Elapsed=FMath::Max(0.f,FMath::Min(Elapsed,Hold)-Delta*LightningHaste::ActionSpeed(GetOwner())*Hold/RuneSwordGuardTuning::LowerSeconds);SamplePose(Elapsed);
++        if(Elapsed<=0.f){bReturningGuard=false;GuardPoseTime=0.f;SetClip(TEXT("Idle"),true);}
+         return true;
+     }
+     return false;
+@@ -97,7 +138,12 @@
+     Viewmodel->SetVisibility(true,true);
+     if(CurrentAnimation){Elapsed=FMath::Min(CurrentAnimation->GetPlayLength(),Elapsed+Delta);SamplePose(Elapsed);}
+     const auto* Broken=Pawn->FindComponentByClass<UPlayerGuardBreakComponent>();
+-    if(!Broken || !Broken->IsActive()){bGuardBreakPose=false;SetClip(TEXT("Idle"),true);}
++    if(!Broken || !Broken->IsActive())
++    {
++        bGuardBreakPose=false;SetClip(TEXT("Idle"),true);
++        // V24 break holds the beaten-down pose for the stun; recover to idle over 0.32 s instead of the 0.10 s handoff.
++        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->CaptureLocomotionEntry(.32f);
++    }
+     return true;
+ }
+ void URuneSwordComponent::GuardFeedback(bool Parried)
+@@ -165,7 +211,9 @@
+ bool URuneSwordComponent::GetGuardCameraMotion(FVector& Location,FRotator& Rotation) const
+ {
+     if(!bGuarding && !bReturningGuard && !bGuardReacting && !bGuardBreakPose)return false;
+-    const float Held=bGuardBreakPose?0.f:FMath::SmoothStep(0.f,RuneSwordGuardTuning::RaiseSeconds,GuardPoseTime);
++    // The V24 sword clip is matched to a still reference camera, so the sword keeps no static hold offset;
++    // the impact pulse below is unchanged.
++    const float Held=bGuardBreakPose?FMath::SmoothStep(0.f,RuneSwordGuardTuning::RaiseSeconds,GuardPoseTime):0.f;
+     Location=FVector(-2.f,0.f,-1.2f)*Held;Rotation=FRotator(1.2f,0.f,0.f)*Held;
+     const float Age=float(GetWorld()->GetTimeSeconds()-GuardFeedbackAt);
+     if(Age>=0.f && Age<.25f)

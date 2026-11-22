@@ -1,0 +1,20 @@
+{
+ "hashes": "SHA-256 over LF-normalized UTF-8 bytes; leave any BOM intact. public_base = HEAD at publication (34c08285d0675e1038e94800464c68c06c149178).",
+ "public_base": "34c08285d0675e1038e94800464c68c06c149178",
+ "files": [
+  {
+   "path": "Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+   "delivery": "patch",
+   "patch": "Docs/Publication/GuardKuboldV24/Integration/Source__FPSGAME__Weapons__RuneSwordGuard.cpp.patch",
+   "before": "f8de368e6f01870b1b0201a34025059179c2d65805b5f4cd476e0e3723510f70",
+   "after": "dc45363125026dff9fe4349f197dccbd7c8460f350358ee02157718a779220d9"
+  },
+  {
+   "path": "Source/FPSGAME/Weapons/RuneSwordGuardTuning.h",
+   "delivery": "patch",
+   "patch": "Docs/Publication/GuardKuboldV24/Integration/Source__FPSGAME__Weapons__RuneSwordGuardTuning.h.patch",
+   "before": "91921f335d2761a1b37982bab6c018955bf10681fae60083966597acb0cde2bb",
+   "after": "a8a259c1429121be61f9901a492f421b728f875d88aadb557de4511e9af41670"
+  }
+ ]
+}
