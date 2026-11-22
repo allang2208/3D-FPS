@@ -1,0 +1,139 @@
+{
+  "weapon": "ue_thunder_god_hammer",
+  "done": "2026-11-21T21:02:27.889720",
+  "reference_remote_main": "a9eb19ebe72b3d792dba5a4e18078fa16ce413d7",
+  "current_local_working_project": "D:\\FPS3D\\FPSGAME",
+  "restored_packages": {
+    "/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/A_ThunderHammer_CallCharge": {
+      "receipt": "installed.json",
+      "sha256": "49396df86ad1c133c1b3891f178006f927ea79e761c12d1a7e27d236d6ee5d12"
+    },
+    "/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/A_ThunderHammer_CallRelease": {
+      "receipt": "installed.json",
+      "sha256": "473c990910dc0d933e721ad4875d85f37b4c9ef08a9a9be71deba47448df81b6"
+    },
+    "/Game/Weapons/ThunderGodHammer20261028/RecallCatchV2/A_ThunderHammer_Catch_V2": {
+      "receipt": "installed.json",
+      "sha256": "e546ff66267c5e3458218c3e27f4c8d9670245442285f99321ec21834b0bdd36"
+    },
+    "/Game/Weapons/ThunderGodHammer20261028/RecallCatchV2/A_ThunderHammer_RecallReady_V2": {
+      "receipt": "installed.json",
+      "sha256": "37b6cbd9459d794b098dfb18edd34d71c19ac8c99aac745baa2958023e585bbb"
+    },
+    "/Game/Weapons/ThunderGodHammer20261028/ThunderThrowV1/A_ThunderHammer_ThrowRelease": {
+      "receipt": "FinalThrow/installed.json",
+      "sha256": "9256b914c40b67535f1d5ff712a32316c1e1a5b080353d6a8f53a2d0d6d8737c"
+    },
+    "/Game/Weapons/ThunderGodHammer20261028/CommonSeatsStructuralV7/Meshes/SM_ThunderGodHammer_head_mount_reinforced_block_V7": {
+      "receipt": "SurfaceAudio/installed.json",
+      "sha256": "be79d18d0e8b1c80bafbd0c0a5386a4d87f12b21085a603285d93beabaf81b52"
+    },
+    "/Game/Weapons/ThunderGodHammer20261028/CommonSeatsStructuralV7/Meshes/SM_ThunderGodHammer_head_mount_laminated_damper_V7": {
+      "receipt": "SurfaceAudio/installed.json",
+      "sha256": "5116c7cf16f159415e8836aee7c86971e5f328e0bb53fbf8a427b76d976a067e"
+    },
+    "/Game/Weapons/ThunderGodHammer20261028/LightSeatWindowFixV8/Meshes/SM_ThunderGodHammer_head_mount_ribbed_light_V8": {
+      "receipt": "SurfaceAudio/installed.json",
+      "sha256": "bc469352e95d98a530f200eedd82efcb725d7186a761fbbf72a324f054d6f7fc"
+    },
+    "/Game/Weapons/ThunderGodHammer20261028/Materials/M_ThunderGodHammerSurface": {
+      "receipt": "SurfaceAudio/installed.json",
+      "sha256": "eabc108d1722f6573bcf652693b277a784b8a1b509467e48becadb2cc4c13617"
+    },
+    "/Game/Weapons/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/MS_JiLei_CurrentRandom": {
+      "receipt": "SurfaceAudio/installed.json",
+      "sha256": "41cfee7d1176ce4420c571190938eaa64c8fc4bd6eb2cb601fe99fd51120ae72"
+    },
+    "/Game/Weapons/CommonHammerHeads20261014/Materials/M_CommonHammerHeadSteel": {
+      "receipt": "HeadFinish/installed.json",
+      "sha256": "24f7fd3db64c0585954fc6fe6829a0bd581a0b89a1ca326c06af40c2d9022fa9"
+    }
+  },
+  "previously_restored_charge": {
+    "receipt": "F:\\FPSGAMEData\\ArtProduction\\ThunderGodHammer20261028\\GuanLeiChargeRestore20261121\\installed.json",
+    "sha256": "1b88bcb2eece10a27ae8d10a89849c81d388b2dbc57f83fca5440b23b26607f9"
+  },
+  "inspection": {
+    "roots": 152,
+    "readable_roots": 152,
+    "registered_packages_including_roots": 624,
+    "missing": [],
+    "unregistered": [],
+    "load_failures": [],
+    "inspected_thunder_source_hashes": 99,
+    "first_and_third_person": true,
+    "body_role_entries": 82,
+    "material_slots_checked": 26,
+    "material_option_switch_on_heads": {
+      "factory": [
+        "/Game/Weapons/ThunderGodHammer20261028/Materials/M_ThunderGodHammerSurface"
+      ],
+      "heavy_forged": [
+        "/Game/Weapons/CommonHammerHeads20261014/Materials/M_CommonHammerHeadSteel",
+        "/Game/Weapons/ThunderGodHammer20261028/Materials/M_ThunderGodHammerSurface"
+      ],
+      "flanged_breaker": [
+        "/Game/Weapons/CommonHammerHeads20261014/Materials/M_CommonHammerHeadSteel",
+        "/Game/Weapons/ThunderGodHammer20261028/Materials/M_ThunderGodHammerSurface"
+      ],
+      "light_drum": [
+        "/Game/Weapons/CommonHammerHeads20261014/Materials/M_CommonHammerHeadSteel",
+        "/Game/Weapons/ThunderGodHammer20261028/Materials/M_ThunderGodHammerSurface"
+      ],
+      "pointed_hammer": [
+        "/Game/Weapons/CommonHammerHeads20261014/Materials/M_CommonHammerHeadSteel",
+        "/Game/Weapons/ThunderGodHammer20261028/Materials/M_ThunderGodHammerSurface"
+      ]
+    },
+    "recorded_sound_waves": [
+      "/Game/Weapons/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/S_JiLei_Current_01",
+      "/Game/Weapons/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/S_JiLei_Current_02",
+      "/Game/Weapons/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/S_JiLei_Current_03",
+      "/Game/Weapons/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/S_JiLei_Current_04",
+      "/Game/Weapons/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/S_JiLei_Current_05",
+      "/Game/Weapons/ThunderGodHammer20261028/JiLeiRecordedCurrentV2/S_JiLei_Current_06"
+    ],
+    "icon_keys_found": 46,
+    "file": "package-readback.json"
+  },
+  "options_without_defaults": {
+    "hammer_heads": 4,
+    "blade_material": 5,
+    "head_mount": 6,
+    "rune": 7,
+    "grip": 5,
+    "pommel": 6
+  },
+  "factory_choices": 6,
+  "catalog_sha256": "1e9c92852fe27502684358773083ad0a62088fb7af98d97bee6eb7092e97c8ef",
+  "card_rules": "SourceAssets/WorkbenchCopy20261101/thunder-hammer-copy.json",
+  "builds": [
+    {
+      "log": "F:\\FPSGAMEData\\ArtProduction\\ThunderGodHammer20261028\\RecoveryAndCopy20261121\\FPSGAMEEditor.log",
+      "completed": "2026-11-21T20:56:23.7289300+08:00",
+      "target": "FPSGAMEEditor",
+      "exit_code": 0,
+      "configuration": "Win64 Development"
+    },
+    {
+      "log": "F:\\FPSGAMEData\\ArtProduction\\ThunderGodHammer20261028\\RecoveryAndCopy20261121\\FPSGAME.log",
+      "completed": "2026-11-21T20:57:07.4614183+08:00",
+      "target": "FPSGAME",
+      "exit_code": 0,
+      "configuration": "Win64 Development"
+    }
+  ],
+  "checklist": [
+    {
+      "sheet": "逐包清单",
+      "cell": "L116"
+    },
+    {
+      "sheet": "现役版本核对",
+      "cell": "E28"
+    }
+  ],
+  "retired": "N112 V12_UV1 remains deferred; V13 is active",
+  "gameplay_tested": false,
+  "packaged_build_created": false
+}

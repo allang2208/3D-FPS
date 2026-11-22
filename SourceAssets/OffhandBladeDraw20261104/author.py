@@ -1,6 +1,7 @@
 """Author left-only draws on the weapon and both body rigs from their native dual draw and carry."""
 from pathlib import Path
 import json
+import runpy
 import unreal as u
 
 project=Path(u.Paths.project_dir()).resolve()
@@ -85,4 +86,6 @@ for key,samples in wrist_curves.items():
     lines+=['    };']
 lines+=['}']
 (project/'Source/FPSGAME/Weapons/Kukri/OffhandDrawWrist.h').write_text('\n'.join(lines)+'\n','utf8')
+export_wrist=runpy.run_path(str(Path(__file__).with_name('pistol_kukri_wrist.py')))['export']
+export_wrist(project/'Source/FPSGAME/Weapons/Kukri/PistolKukriDrawWrist.h')
 (Path(__file__).parent/'saved.json').write_text(json.dumps(saved,indent=2),'utf8')

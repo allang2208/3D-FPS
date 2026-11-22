@@ -1,0 +1,141 @@
+{
+  "scope": "N005-N012",
+  "method": "Installed the UE material packages previously rebuilt by Wearable/legacy_boots.py at the historical object paths. The rebuild used the published boot graph recipe, matching source PNGs and hem shaders, with surviving base materials. Historical parent package bytes were unavailable.",
+  "author_commit": "78a9b2590137c3bb955a15e8c5c3b54a61145bcf",
+  "recipe": "Tools/ModernTacticalSet/ridge_boots_wear_save.py",
+  "shader_revision": "54c6984d9d116e5f85f0352d29cad95369aa6dd99589d4f1079e6555206266ad",
+  "active_robe_meshes": {
+    "Jason": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/Jason/SK_TS01_RidgeBoots_Jason_RobeHem.SK_TS01_RidgeBoots_Jason_RobeHem",
+    "Kaitlin": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/Kaitlin/SK_TS01_RidgeBoots_Kaitlin_RobeHem.SK_TS01_RidgeBoots_Kaitlin_RobeHem"
+  },
+  "packages": [
+    {
+      "id": "N005",
+      "package": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Frame_RobeHem_922612c0f5",
+      "bytes": 59759,
+      "sha256": "73a4a0a7d27a82936d5a9a443b86a4f4d3f5dca32340c5006c865ee782fb13bb",
+      "preloss_saved_hash": "1c920a085332842083c1d428bbf27dbb664830b1",
+      "rebuilt_saved_hash": "4e85400209a4ee60abac39c5ae306ed81c10eb46",
+      "source_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Frame",
+      "source_material_sha256": "2f111e7fcaa1c41ff73022d5079d7b4b43470114549bebee6e8f27d8acfed028",
+      "active_robe_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Frame_RobeHem_4495cc6b9a",
+      "textures": [
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Frame_BaseColor",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Frame_NormalGL",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Frame_ORM"
+      ]
+    },
+    {
+      "id": "N006",
+      "package": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Hardware_RobeHem_edc78e1ad6",
+      "bytes": 59798,
+      "sha256": "02997caaa62979716ef5aee6326008dee83b2724aa55d134dbe3744dfaff8db3",
+      "preloss_saved_hash": "67eaba81071ddb09bb7a29ffe3f890ce4b710332",
+      "rebuilt_saved_hash": "eabe3217a29c23237da5d281a389d5c9cef88ace",
+      "source_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Hardware",
+      "source_material_sha256": "2e2f20edde55d31c4adca5ab8012ab35a7b68fd8c05576c0a8dc4cfa490c43f5",
+      "active_robe_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Hardware_RobeHem_52a733de76",
+      "textures": [
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Hardware_BaseColor",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Hardware_NormalGL",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Hardware_ORM"
+      ]
+    },
+    {
+      "id": "N007",
+      "package": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Lace_RobeHem_8e33c2da7e",
+      "bytes": 61057,
+      "sha256": "aaf967fcae668118e53d5aac183087a845055ce2d43dda9d246acff856689e79",
+      "preloss_saved_hash": "53b20b0daa7f989f112623703359da34329223db",
+      "rebuilt_saved_hash": "89c670a046eafc3ac26d7519e53265d765521f80",
+      "source_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Lace",
+      "source_material_sha256": "7118bdcebda93db4e5556cd8135de1771724d014e374ff9362c730fe703c860f",
+      "active_robe_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Lace_RobeHem_cccf18a581",
+      "textures": [
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Lace_BaseColor",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Lace_NormalGL",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Lace_ORM"
+      ]
+    },
+    {
+      "id": "N008",
+      "package": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Lining_RobeHem_264867c631",
+      "bytes": 61083,
+      "sha256": "0c25dcd5ea745285218f499f6a3b4d2ded0f5cefdd7a7a1156ee143095136d28",
+      "preloss_saved_hash": "b1a832f91bf239f3be9ef00faf88d88ef05ac8c2",
+      "rebuilt_saved_hash": "6873034cb94cb1a622f9fab0db46db7e735ab19e",
+      "source_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Lining",
+      "source_material_sha256": "383629ab98438cfaa6e84867fc9fe0c24887bf89e5babb662e8f8a97a7515099",
+      "active_robe_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Lining_RobeHem_0378462a8f",
+      "textures": [
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Lining_BaseColor",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Lining_NormalGL",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Lining_ORM"
+      ]
+    },
+    {
+      "id": "N009",
+      "package": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Outsole_RobeHem_70a40ef328",
+      "bytes": 59785,
+      "sha256": "5a1f1117f386faeb5b4d5d6798360222c91a0e8344d4b02e1fc0d10b5ef97d7e",
+      "preloss_saved_hash": "cb20708dc6faa9a3fb517a8c8bf189c882791a7e",
+      "rebuilt_saved_hash": "402b320c9530d01f40be240c843164f14529bfff",
+      "source_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Outsole",
+      "source_material_sha256": "121d7a2a5e24eacb2ea15f38886d8b7caefa1dad25693910de0a9357ce4436c7",
+      "active_robe_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Outsole_RobeHem_942f3f9bb0",
+      "textures": [
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Outsole_BaseColor",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Outsole_NormalGL",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Outsole_ORM"
+      ]
+    },
+    {
+      "id": "N010",
+      "package": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Suede_RobeHem_3384360b19",
+      "bytes": 61070,
+      "sha256": "56ddd1cb0f16145a1c00ebf0090bf0127fba2ce1995df650a1a7b31b4711a3ca",
+      "preloss_saved_hash": "c2fd839cce55ac56fe1c48828a1f4a2479176694",
+      "rebuilt_saved_hash": "f9a5d38843f0ee0a0d0d91e9e366bf24164d1bdb",
+      "source_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Suede",
+      "source_material_sha256": "92ca39270da55c4df5c3bbd2bd5f382ff86d6ad1c4e06cabdd53b4aadd13f603",
+      "active_robe_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Suede_RobeHem_276f115a88",
+      "textures": [
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Suede_BaseColor",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Suede_NormalGL",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Suede_ORM"
+      ]
+    },
+    {
+      "id": "N011",
+      "package": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Textile_RobeHem_8c6e3b68b4",
+      "bytes": 61096,
+      "sha256": "8c13313acac4daf4e8a514fceaac6b29950aa39e61602266eefd54de552e22d7",
+      "preloss_saved_hash": "77f96ffffdb2a5003f7aff911a7ac657f1b5ac9a",
+      "rebuilt_saved_hash": "06be27bdd91d4e150e1d2d3094175462a5ca94c3",
+      "source_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Textile",
+      "source_material_sha256": "2525a91f0e039d40b9ffb8b0750a0662d1e4a65e89b579e2485174e56b1cd3e1",
+      "active_robe_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Textile_RobeHem_3a303d3564",
+      "textures": [
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Textile_BaseColor",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Textile_NormalGL",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Textile_ORM"
+      ]
+    },
+    {
+      "id": "N012",
+      "package": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Thread_RobeHem_f9fb77fdc8",
+      "bytes": 61083,
+      "sha256": "23198568d1af25794bc5d5febc599c02ae10520ace1708783121a3b8b609f1fb",
+      "preloss_saved_hash": "d7016f17c5a1b08bfdd8ac82347f970b2813133a",
+      "rebuilt_saved_hash": "4853e43970c4ad5a2acacc2b390edf5ee405cf20",
+      "source_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Materials/M_RB_Thread",
+      "source_material_sha256": "db2840b02e4718aa73d33deebb7e6dd6b538211db6c6030b11b502735d8d723b",
+      "active_robe_material": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Wear/RobeMaterials/M_RB_Thread_RobeHem_85fe78db65",
+      "textures": [
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Thread_BaseColor",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Thread_NormalGL",
+        "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Textures/RB_Thread_ORM"
+      ]
+    }
+  ]
+}

@@ -1,7 +1,10 @@
 """Import Zhen Ting production assets, then publish its exclusive modification option."""
 from pathlib import Path
+import runpy
+
 import unreal as u,json,shutil,os
 P=Path(__file__).resolve().parent;R=P.parents[2]
+apply_copy = runpy.run_path(str(R / 'SourceAssets/WorkbenchCopy20261101/copy_rules.py'))['apply_for_target']
 D='/Game/Weapons/ThunderGodHammer20261028/ZhenTingPommelV1'
 ICON='ue_thunder_god_hammer_pommel_zhen_ting_pommel'
 if Path(u.Paths.project_dir()).resolve()!=R:raise RuntimeError('Wrong project')
@@ -72,6 +75,7 @@ def publish(path,edit):
  backup=P/'BeforePublication'/path.name;backup.parent.mkdir(exist_ok=True)
  if not backup.exists():backup.write_text(original,encoding='utf-8')
  if path.read_text(encoding='utf-8-sig')!=original:raise RuntimeError('Concurrent edit: '+str(path))
+ apply_copy(path,data)
  temp=path.with_suffix('.zhen_ting.tmp');temp.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');os.replace(temp,path)
 def option(data):
  column=next(c for c in data['columns'] if c['key']=='pommel');column['options']=[o for o in column['options'] if o['id']!='zhen_ting_pommel']

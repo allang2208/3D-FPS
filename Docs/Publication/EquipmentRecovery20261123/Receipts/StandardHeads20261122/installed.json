@@ -1,0 +1,46 @@
+{
+  "release": "ec0f97385",
+  "updated": [
+    {
+      "file": "Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_R4_BaseColor.uasset",
+      "before": "75def54872e7ee16b7d319e4659cd3228b30b3f6e73ca23a693c5dc7e70a4b49",
+      "after": "40641339dd83ff6e65dabd7c4b06da6f33e8df0aa250158d21a8c4d0012bd398"
+    },
+    {
+      "file": "Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_R4_Normal.uasset",
+      "before": "25c5c0570b9438bb0bab4ebf669418bec9fe34946f9614fbb731a238cc884494",
+      "after": "c3de8a0fd5a3b52e96f78de9795149fc6f119889afb79d12345e367dbaea6796"
+    },
+    {
+      "file": "Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_R4_ORM.uasset",
+      "before": "06abdaca404ecede6b6fe629f7ada27413894c1992cc199bbc1dac6e388489dd",
+      "after": "53809c70ef169631e78f217fb607030d8590dd2bafaa7d2bd9cd92a6255274ca"
+    },
+    {
+      "file": "ColdSteelData/AttachmentIcons20260913/blade_1_axe_swift_crescent.uasset",
+      "before": "5a6f7f002482226aacc16195c31d1b5355bc3f2987b844395980b24189645e96",
+      "after": "a8361a1423905b65f46e7841f5a44e1d7a93294258b232b76f71801c75a1c3e2"
+    },
+    {
+      "file": "ColdSteelData/AttachmentIcons20260913/blade_1_axe_heavy_cleaver.uasset",
+      "before": "4660eefd8b78cb421f5f033cefe7daf3cc03fda21e916641bb486227cdaccef5",
+      "after": "feef9e4b4158d8a02fdcce9708bcc6a501fcd76cd3530e5fb154caf6a61244dd"
+    },
+    {
+      "file": "ColdSteelData/AttachmentIcons20260913/blade_1_axe_folded_arc.uasset",
+      "before": "460b79dab17a81144a1fe1e199abe656b620504813da7e724fc2b2985d12aa63",
+      "after": "8675715ce69a9fd90ddc83b6d6237827893a415444c0c8ccc856f33da83eeea3"
+    },
+    {
+      "file": "ColdSteelData/Icons/ue_tactical_hatchet_axe_swift_crescent.png",
+      "before": null,
+      "after": "572a4766d70f3953ce77dfd28c79a33259dc132d5ac0664b03539ef601b00b27"
+    },
+    {
+      "file": "ColdSteelData/shared-axe-blade-options.json",
+      "before": "055578e40c1fda5996053332c63c69f2019a2effc22d236f6c0bc90301ae032b",
+      "after": "b46c4cff7021945ae3f33dd338e236c380ff04279ce63996e9c1323880412fa0"
+    }
+  ],
+  "runtime_tested": false
+}

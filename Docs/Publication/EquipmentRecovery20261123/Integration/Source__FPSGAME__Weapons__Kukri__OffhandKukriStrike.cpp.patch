@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/Kukri/OffhandKukriStrike.cpp
++++ b/Source/FPSGAME/Weapons/Kukri/OffhandKukriStrike.cpp
+@@ -136,7 +136,7 @@
+     // after reload, consumable stow or draw recovery. Discard the interrupted
+     // stance-entry and native reload-arm transitions before sampling either rig.
+     EntryAge=-1.f;bWasPresenting=true;NativeReloadEnteredAt=-1.;
+-    if(Hatchet){DrawTime=-1.f;bAwaitingDraw=false;}
++    if(Hatchet){DrawTime=-1.f;PendingDraw=EDrawEntry::None;}
+     RightWeight=1.f;AimWeight=0.f;bHold=false;
+     if(!StaffPair&&Arms)
+         QuickNativePistolHand=OffhandKukriPose::HipFraming.InverseTransformPosition(Arms->RightHandInCamera);

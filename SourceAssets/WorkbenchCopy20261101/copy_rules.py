@@ -179,6 +179,19 @@ def options(catalog):
 
 
 def apply_catalog(filename, catalog, items=None):
+    if filename == 'thunder-god-hammer-gunsmith.json':
+        copy = json.loads(Path(__file__).with_name('thunder-hammer-copy.json').read_text(encoding='utf-8'))
+        for column in catalog.get('columns', []):
+            key = column['key']
+            if key in copy:
+                column['description'] = copy[key]
+            if key in copy['shared']:
+                column.setdefault('option_copy', {}).update(copy['shared'][key])
+            for part in column.get('options', []):
+                if part['id'] in copy['exclusive']:
+                    description, *effects = copy['exclusive'][part['id']]
+                    part['description'] = description
+                    part['special_effects'] = effects
     for slot, option, weapon in options(catalog):
         oid = option['id']
         stats = option.get('stats', {})
@@ -240,10 +253,6 @@ def apply_catalog(filename, catalog, items=None):
         elif filename == 'runebound-warhammer-gunsmith.json':
             if oid == 'star_tide_core':
                 option['special_effects'] = ['星潮续醒｜符文苏醒期间，每次对敌人造成有效攻击伤害，持续时间增加0.5秒，无上限；群攻命中的不同目标及连续有效命中分别延长。']
-        elif filename == 'thunder-god-hammer-gunsmith.json':
-            for old in ['；将蓄满重击化为可召回的旋转飞锤', '；单手举锤蓄力，指向地面召下疾雷',
-                        '，环状雷印将积蓄的电荷向周围释放', '，在重击释放后寻找附近的敌人']:
-                option['description'] = option['description'].replace(old, '')
         elif filename == 'gunsmith.json':
             # Keep model-specific mounting descriptions where they contain no numeric paraphrases.
             desc = option.get('description', '')

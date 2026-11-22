@@ -1,0 +1,39 @@
+--- a/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
++++ b/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp
+@@ -109,7 +109,10 @@
+     ModificationList->AddSlot().AutoHeight().Padding(0,5,0,12)
+         [Paragraph(Installed==Id?(Id==TEXT("false")?TEXT("当前原厂配置"):TEXT("已安装")):TEXT("已选 · 待应用"),12,
+             Id==TEXT("false")?GunsmithUI::Muted:ColdSteelUI::Success)];
+-    if(IsToolWorkbench()||IsBowWorkbench()||IsStaffWorkbench())
++    const bool bHammerDetail=Item&&ColdSteelInventory::IsTwoHandedBlunt(*Item);
++    if(bHammerDetail)
++        ModificationList->AddSlot().AutoHeight().Padding(0,0,0,10)[Paragraph(Option->Description,14,GunsmithUI::Secondary)];
++    else if(IsToolWorkbench()||IsBowWorkbench()||IsStaffWorkbench())
+     {
+         // 数值改造先行：外观归属如实写在目录的 appearance 字段里。
+         if(!Option->Appearance.IsEmpty()&&Option->Appearance!=Option->Description)ModificationList->AddSlot().AutoHeight().Padding(0,0,0,10)
+@@ -250,7 +253,7 @@
+         const auto Now=ColdSteelTool::Evaluate(*Item,Profile,&Gunsmith->Draft());
+         const auto& M=Option->Melee;
+         const bool StarOathPart=Item->Definition==RuneboundHammer::Definition&&SelectedCategory==TEXT("hammer_heads")&&Id==RuneboundHammer::StarOathHead;
+-        if(!StarOathPart&&FMath::IsNearlyZero(M.PhysicalAttackAdd))AddValue(TEXT("物理伤害"),Was.Damage.BasePhysical+Was.Damage.AddedPhysical,Now.Damage.BasePhysical+Now.Damage.AddedPhysical,2,TEXT(""),false,(M.PhysicalDamage-1.)*100.);
++        if(!StarOathPart&&!FMath::IsNearlyEqual(M.PhysicalDamage,1.))AddValue(TEXT("物理伤害"),Was.Damage.BasePhysical+Was.Damage.AddedPhysical,Now.Damage.BasePhysical+Now.Damage.AddedPhysical,2,TEXT(""),false,(M.PhysicalDamage-1.)*100.);
+         if(!FMath::IsNearlyZero(M.PhysicalAttackAdd))AddValue(TEXT("物理攻击力"),Was.PhysicalAttack,Now.PhysicalAttack,0,TEXT(""));
+         if(Item->Definition==RuneboundHammer::Definition&&Profile)
+         {
+@@ -470,9 +473,12 @@
+                 [Paragraph(Body,14,ColdSteelUI::Success)];
+         }
+     }
+-    ModificationList->AddSlot().AutoHeight().Padding(0,10,0,6)[Paragraph(TEXT("配件说明"),12,GunsmithUI::Muted)];
+-    ModificationList->AddSlot().AutoHeight()
+-        [Paragraph(Option->Description.IsEmpty()?TEXT("暂无额外说明。"):Option->Description,14,GunsmithUI::Secondary)];
++    if(!bHammerDetail)
++    {
++        ModificationList->AddSlot().AutoHeight().Padding(0,10,0,6)[Paragraph(TEXT("配件说明"),12,GunsmithUI::Muted)];
++        ModificationList->AddSlot().AutoHeight()
++            [Paragraph(Option->Description.IsEmpty()?TEXT("暂无额外说明。"):Option->Description,14,GunsmithUI::Secondary)];
++    }
+     if(IsStaffWorkbench())ModificationList->AddSlot().AutoHeight().Padding(0,10,0,0)
+         [Paragraph(TEXT("改造免费；应用并保存后写入当前法杖。杖冠只在匹配杖头专精时激活，不匹配时保留外观。法杖占用主手，可搭配副手手枪。"),12,GunsmithUI::Muted)];
+ }

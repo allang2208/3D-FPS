@@ -1,0 +1,65 @@
+--- a/Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.h
++++ b/Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.h
+@@ -31,7 +31,6 @@
+      *  pulled-back arc and the blade tips down, the shoulder stays and the elbow re-solves. */
+     float LowerWeight=0.f;
+     float DrawTime=-1.f;
+-    bool bDrawHatchet=false;
+     /** >= 0: the quick-melee flourish samples its key table instead of the stance lerp. */
+     float StrikeTime=-1.f;
+     /** >= 0: the mirrored uppercut samples its key table instead of the stance lerp. */
+@@ -45,7 +44,7 @@
+     void CacheRig();
+ };
+ 
+-/** Pistol cross-arm carry on the same native axe arm that plays the draw and chop. */
++/** Pistol cross-arm carry and below-frame raise on the native axe arm used by the chop. */
+ UCLASS()
+ class FPSGAME_API UPistolHatchetArmsMeshComponent : public UKukriArmsMeshComponent
+ {
+@@ -54,7 +53,7 @@
+     void ConfigureCarry();
+     bool bCrossedCarry=false;
+     float CarryWeight=1.f;
+-    FVector RightHandInCamera=FVector::ZeroVector;
++    FVector CarryAnchorInCamera=FVector::ZeroVector;
+     float AimWeight=0.f;
+     virtual void FinalizeBoneTransform() override;
+ private:
+@@ -83,12 +82,11 @@
+     static bool PresentsLeftHand(const AActor* Owner);
+     bool IsEquipped() const {return bEquipped;}
+     bool OwnsLeftHand() const;
++    void OnPistolEquipStarted();
+     USkeletalMeshComponent* ArmsMesh() const;
+     UStaticMeshComponent* WeaponMesh() const {return Blade;}
+     /** Hip framing / right-arm recomposition weight; ADS unwinding is applied by the viewmodel. */
+     float PistolFramingWeight() const {return RightWeight*RightWeight*(3.f-2.f*RightWeight);}
+-    /** Shared gun clearance for axe draw and quick-melee recovery. */
+-    FVector PistolDrawOffset() const;
+     void PrepareQuickRift();
+     void ApplyPistolRightArm(USkeletalMeshComponent& Gun,TArray<FTransform>& Pose);
+     void AdvanceActionBeforeCamera(float Delta);
+@@ -125,10 +123,9 @@
+     UPROPERTY(Transient) TObjectPtr<UPistolHatchetArmsMeshComponent> AxeArms;
+     UPROPERTY(Transient) TObjectPtr<UAnimSequence> AxeChop;
+     UPROPERTY(Transient) TObjectPtr<UAnimSequence> AxeIdle;
+-    UPROPERTY(Transient) TObjectPtr<UAnimSequence> AxeDraw;
+     bool UsesNativeAxe() const;
+     void InstallAxeArms();
+-    FTransform SampleAxeBlade(float Time, bool Striking);
++    FTransform SampleAxeBlade(float Time, bool Striking, float EntryLower=0.f);
+     float AxeIdleAge=0.f;
+     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> Blade;
+     TWeakObjectPtr<UCameraComponent> Camera;
+@@ -144,7 +141,9 @@
+     // equipped); the reload and consumables drive their own lower/raise.
+     float EntryAge=-1.f;
+     FString BladeInstance;
+-    bool bAwaitingDraw=false,bDrawHatchet=false;
++    enum class EDrawEntry : uint8 { None, Raise, KukriToss };
++    EDrawEntry PendingDraw=EDrawEntry::None;
++    bool bAssetsReady=false,bDrawHatchet=false;
+     float DrawTime=-1.f;
+     UPROPERTY(Transient) TObjectPtr<USoundBase> DrawTossSound;
+     UPROPERTY(Transient) TObjectPtr<USoundBase> DrawCatchSound;

@@ -1,0 +1,38 @@
+--- a/Source/FPSGAME/Production/ProductionToolEquipment.cpp
++++ b/Source/FPSGAME/Production/ProductionToolEquipment.cpp
+@@ -210,7 +210,14 @@
+         Viewmodel->GetSkeletalMeshAsset()->GetPathName()==ColdSteelInventory::Text(*MotionItem,TEXT("tool_viewmodel"));
+     const bool SameModules=!Item||!ColdSteelModularSword::Supports(*Item)||
+         ToolMesh->ComponentHasTag(FName(*(TEXT("FrostSwordVisual=")+ColdSteelModularSword::Key(*Item))));
+-    if (Id==EquippedId && Item && (!bUsesArms||SameArms)&&SameModules) { EquippedDataHash=DataHash; ApplyToolStats(Item,Profile); return; }
++    const bool Conical=ConicalHammerSeat::Installed(Item);
++    const FSoftObjectPath QuickCombatPath(Conical?WarhammerConicalThrust::Asset:WarhammerQuickCombat::Asset);
++    // A visual/attribute refresh can keep the same item and rig. Reuse the
++    // cached motion only when it matches the stroke selected by the new seat.
++    const UAnimSequence* LoadedQuick=Motions.FindRef(TEXT("QuickCombat"));
++    const bool SameQuickMotion=!Item||!PojunGrip::UsesHammerMotion(*Item)||
++        (LoadedQuick&&LoadedQuick==QuickCombatPath.ResolveObject());
++    if (Id==EquippedId && Item && (!bUsesArms||SameArms)&&SameModules&&SameQuickMotion) { EquippedDataHash=DataHash; ApplyToolStats(Item,Profile); return; }
+     CancelUse(); EquippedId=Id; EquippedDataHash=DataHash; Kind.Reset(); Feedback.Reset(); ScheduleWalkInspect(false);
+     PojunStrikeLocal.Reset();bPojunZhufengRune=false;
+     if(PojunRuneTrail)PojunRuneTrail->Clear();
+@@ -255,7 +262,6 @@
+     const FString BluntMotionPrefix=TEXT("/Game/Weapons/SteelWarhammer20261014/SprintDragV1/A_Warhammer_");
+     const FString ComboMotionPrefix=TEXT("/Game/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_");
+     const FString HeavyMotionPrefix=TEXT("/Game/Weapons/SteelWarhammer20261014/HeavySlamV4/A_Warhammer_");
+-    const FSoftObjectPath QuickCombatPath(bConicalSeat?WarhammerConicalThrust::Asset:WarhammerQuickCombat::Asset);
+     // These grips use native ordinary cuts with a baked left-palm contact fit.
+     // The profile retains the common clearance layers and the authored hand swap.
+     const bool ConductiveGrip=ThunderHammerStaticField::Installed(Item)||ThunderHammerCoil::Installed(Item);
+@@ -311,9 +317,9 @@
+         for(const TCHAR* Clip:{TEXT("HeavyCharge"),TEXT("HeavyRelease")})Paths.Add(HarvestMotionPath(HeavyMotionPrefix,Clip));
+     }
+     LoadHandle=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
+-        FStreamableDelegate::CreateWeakLambda(this,[this,Id,MeshPath,SoundPath,DustPath,ViewmodelPath,SwingPath,MotionPrefix,BluntMotionPrefix,ComboMotionPrefix,HeavyMotionPrefix,BluntGripPath,QuickCombatPath,OwnerProfile=TWeakObjectPtr<UColdSteelStatusModel>(Profile)]()
++        FStreamableDelegate::CreateWeakLambda(this,[this,Id,MeshPath,SoundPath,DustPath,ViewmodelPath,SwingPath,MotionPrefix,BluntMotionPrefix,ComboMotionPrefix,HeavyMotionPrefix,BluntGripPath,QuickCombatPath,Conical,OwnerProfile=TWeakObjectPtr<UColdSteelStatusModel>(Profile)]()
+         {
+-            if (EquippedId!=Id || !ToolMesh) return;
++            if (EquippedId!=Id || !ToolMesh || Conical!=bConicalSeat) return;
+             if(bUsesArms)
+             {
+                 Viewmodel->SetSkeletalMesh(Cast<USkeletalMesh>(ViewmodelPath.ResolveObject()));

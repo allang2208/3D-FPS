@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp
+@@ -15,7 +15,6 @@
+ #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+ #include "../Weapons/Unarmed/UnarmedPunchTuning.h"
+ #include "../Weapons/MeleeWeaponStats.h"
+-#include "../Weapons/PojunGrip.h"
+ #include "../Production/ProductionToolComponent.h"
+ #include "../Production/WarhammerConicalThrustMotion.h"
+ #include "Engine/World.h"
+@@ -65,11 +64,9 @@
+ {
+     auto* Profile=Model();if(!Profile)return false;
+     if(IsOccupyingLeftHand())return false;
++    // The Pojun pommel strike uses the hammer skill clock. Its ordinary swing
++    // penalty belongs to the dao's weapon attacks; haste applies to both skills.
+     ActionRate=LightningHaste::ActionSpeed(GetOwner());
+-    if(Style==EQuickCombatStyle::Warhammer)
+-        if(const auto* Grip=PojunGrip::Modifiers(Profile->ActiveProductionTool(),Profile))
+-            ActionRate*=float(Grip->AttackSpeed);
+-    // Start the bar with the real playback duration, including weapon-specific rates.
+     GenericMeleeSerial=0;
+     if(Style==EQuickCombatStyle::UnarmedPunch)
+     {

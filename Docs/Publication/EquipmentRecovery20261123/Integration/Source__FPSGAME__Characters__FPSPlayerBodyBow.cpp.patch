@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp
+@@ -3,6 +3,7 @@
+ #include "FPSBodyWeaponMeshComponent.h"
+ #include "FPSPlayerBodyPoses.h"
+ #include "FPSBodyBowMotion.h"
++#include "../Weapons/PhysicalScopeView.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Weapons/Bow/BowWeaponComponent.h"
+ #include "../Weapons/Bow/BowMountainEchoComponent.h"
+@@ -58,13 +59,7 @@
+         if(Slot==TEXT("sight_zoom"))Spec.RelativeTransform.SetRotation(Source.ScopeRingRotation.Quaternion());
+         if(Visual)for(int32 Index=0;Index<Visual->GetNumMaterials();++Index)
+         {
+-            auto* Material=Visual->GetMaterial(Index);
+-            // The HUD temporarily replaces this slot with an owner-only scene
+-            // capture. World equipment must always describe the authored glass,
+-            // including an equipment refresh that happens while ADS is active.
+-            if(Source.bPeakwatchScope&&Slot==TEXT("sight")&&Part->PartMesh&&
+-                Index==Part->PartMesh->GetMaterialIndex(TEXT("M_Peakwatch_Glass")))
+-                Material=Part->PartMesh->GetMaterial(Index);
++            auto* Material=PhysicalScopeMaterials::ForWorldEquipment(Visual,Index,Visual->GetMaterial(Index));
+             while(const auto* Dynamic=Cast<UMaterialInstanceDynamic>(Material))Material=Dynamic->Parent;
+             Spec.Materials.Add(Material);
+         }

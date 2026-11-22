@@ -1,0 +1,71 @@
+{
+  "target": "FPSGAMEEditor Win64 Development",
+  "project": "D:\\FPS3D\\FPSGAME",
+  "target_result": "Succeeded",
+  "completion_log": "F:\\FPSGAMEData\\ArtProduction\\SharedPhysicalOptics\\AuthoredReticlesADS20261122\\FPSGAMEEditor-ADS-final-20261122-211456.log",
+  "link_logs": [
+    "F:\\FPSGAMEData\\ArtProduction\\WoodenTorch\\FabHandheldR2-20261122\\FPSGAMEEditor.log"
+  ],
+  "module": "D:\\FPS3D\\FPSGAME\\Binaries\\Win64\\UnrealEditor-FPSGAME.dll",
+  "module_map": "D:\\FPS3D\\FPSGAME\\Binaries\\Win64\\UnrealEditor.modules",
+  "link_response": "D:\\FPS3D\\FPSGAME\\Intermediate\\Build\\Win64\\x64\\UnrealEditor\\Development\\FPSGAME\\UnrealEditor-FPSGAME.dll.rsp",
+  "modified_at": "2026-11-22T21:29:20+08:00",
+  "bytes": 52524544,
+  "sha256": "4e035904cc721a1f0b95a45b8498445b09f416c6d1f1e4a946d42d684f8cf721",
+  "objects": [
+    {
+      "object": "Intermediate\\Build\\Win64\\x64\\UnrealEditor\\Development\\FPSGAME\\FPSGAMECharacterViewmodel.cpp.obj",
+      "compiled_at": "2026-11-22T21:12:17+08:00",
+      "inputs": [
+        {
+          "path": "Source\\FPSGAME\\FPSGAMECharacterViewmodel.cpp",
+          "sha256": "c7a8b6fe71e4294a8f2bf67e2d49a910c8f2f739e5f657ad3be0579f67fa0f2a"
+        },
+        {
+          "path": "Source\\FPSGAME\\Weapons\\ScopeADSEyeRelief.h",
+          "sha256": "d4abdd50d26254434b2280ab08feb171bc6c3743dd25ac9e9c7e7b1b246a1231"
+        }
+      ]
+    },
+    {
+      "object": "Intermediate\\Build\\Win64\\x64\\UnrealEditor\\Development\\FPSGAME\\PistolDualWieldAim.cpp.obj",
+      "compiled_at": "2026-11-22T21:14:14+08:00",
+      "inputs": [
+        {
+          "path": "Source\\FPSGAME\\Weapons\\PistolDualWieldAim.cpp",
+          "sha256": "bfcbd153a99a26652d8a8edc3cfce305e32d20da5b7e23e30a22dcb2be5e2216"
+        },
+        {
+          "path": "Source\\FPSGAME\\Weapons\\ScopeADSEyeRelief.h",
+          "sha256": "d4abdd50d26254434b2280ab08feb171bc6c3743dd25ac9e9c7e7b1b246a1231"
+        }
+      ]
+    },
+    {
+      "object": "Intermediate\\Build\\Win64\\x64\\UnrealEditor\\Development\\FPSGAME\\BowScopeOptics.cpp.obj",
+      "compiled_at": "2026-11-22T20:11:31+08:00",
+      "inputs": [
+        {
+          "path": "Source\\FPSGAME\\Weapons\\Bow\\BowScopeOptics.cpp",
+          "sha256": "a7585a04cde697e45a5c92dc6eb4c19a7da460867e3de98205f5c142b23945fc"
+        }
+      ]
+    }
+  ],
+  "ads_settings": {
+    "firearm_eye_distance_cm": 7.0,
+    "clearfield_diameter_multiplier": 1.5,
+    "farwatch_diameter_multiplier": 1.32,
+    "peakwatch_viewport_short_side_fraction": 0.8
+  },
+  "visual_measurement_performed": false,
+  "prior_module": {
+    "time": "2026-11-22T18:56:23+08:00",
+    "bytes": 52489728,
+    "sha256": "7de9a75dda785584dada5c13a2fe7e36040e3be17c123bec9b1988c09a9445a7"
+  },
+  "archived_link_log": "F:\\FPSGAMEData\\ArtProduction\\SharedPhysicalOptics\\AuthoredReticlesADS20261122\\linked-editor-20261122-212920.log",
+  "archived_link_log_sha256": "948d81a2b75d1f88208aecbe42546f056fe15c9d0e2f7a45c19ad09e64879a23",
+  "link_action": "[97/98] Link [x64] UnrealEditor-FPSGAME.dll",
+  "final_target_exit_code": 0
+}

@@ -1,8 +1,11 @@
 """Import the two owned rune surfaces/icons and publish Thor-only options."""
 from pathlib import Path
+import runpy
+
 import json,shutil,os
 import unreal as u
 P=Path(__file__).resolve().parent;R=P.parents[2]
+apply_copy = runpy.run_path(str(R / 'SourceAssets/WorkbenchCopy20261101/copy_rules.py'))['apply_for_target']
 if Path(u.Paths.project_dir()).resolve()!=R:raise RuntimeError('Wrong project')
 A=u.AssetToolsHelpers.get_asset_tools();E=u.MaterialEditingLibrary
 ROOT='/Game/Weapons/ThunderGodHammer20261028/ExclusiveRunesV1'
@@ -123,6 +126,7 @@ column['options']=[o for o in column['options'] if o['id'] not in IDS]+options
 column['description']='保留原生雷纹，可在长柄上附加通用符文或雷神之锤专属符文。'
 if catalog.read_bytes()!=before:raise RuntimeError('Concurrent rune catalog edit; assets saved, publication deferred')
 temp=catalog.with_name(catalog.name+'.thor-runes-pending')
+apply_copy(catalog,data)
 temp.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');os.replace(temp,catalog)
 receipt['complete']=True;receipt['options']=list(IDS);receipt['catalog']=str(catalog)
 (P/'import_receipt.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf-8')

@@ -1,0 +1,38 @@
+{
+  "SVD": {
+    "before_degrees": 7.285644914773301,
+    "after_degrees": 0.0,
+    "body_vertex_match_fraction": 1.0,
+    "max_matched_residual": 1.6169248801331822e-05,
+    "lower_lods": {
+      "1": {
+        "median_vertex_distance_to_new": 5.32268063148235e-06,
+        "median_vertex_distance_to_old": 0.424111971714473,
+        "trim_triangles": 4256
+      },
+      "2": {
+        "median_vertex_distance_to_new": 5.917943759973988e-06,
+        "median_vertex_distance_to_old": 0.39330041129572896,
+        "trim_triangles": 4256
+      }
+    }
+  },
+  "SVCH": {
+    "before_degrees": 7.089511846166089,
+    "after_degrees": 0.0,
+    "body_vertex_match_fraction": 1.0,
+    "max_matched_residual": 1.50338978046702e-05,
+    "lower_lods": {
+      "1": {
+        "median_vertex_distance_to_new": 5.281661323960186e-06,
+        "median_vertex_distance_to_old": 0.23953115819825743,
+        "trim_triangles": 1032
+      },
+      "2": {
+        "median_vertex_distance_to_new": 5.822167523133146e-06,
+        "median_vertex_distance_to_old": 0.22645508837262548,
+        "trim_triangles": 759
+      }
+    }
+  }
+}

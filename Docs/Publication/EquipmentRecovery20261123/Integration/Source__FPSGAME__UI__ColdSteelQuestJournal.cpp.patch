@@ -1,0 +1,50 @@
+--- a/Source/FPSGAME/UI/ColdSteelQuestJournal.cpp
++++ b/Source/FPSGAME/UI/ColdSteelQuestJournal.cpp
+@@ -6,6 +6,7 @@
+ #include "Blueprint/WidgetLayoutLibrary.h"
+ #include "Engine/World.h"
+ #include "Framework/Application/SlateApplication.h"
++#include "Styling/CoreStyle.h"
+ #include "Widgets/Layout/SBorder.h"
+ #include "Widgets/Layout/SBox.h"
+ #include "Widgets/Layout/SDPIScaler.h"
+@@ -212,6 +213,7 @@
+             auto& Row = Rows.AddDefaulted_GetRef(); Row.Id = View.Id;
+             Row.Name = Label(View.Title,19,ColdSteelUI::HUDGoldLight,true,true);
+             Row.Tracking = Label(INVTEXT("追踪中"),13,ColdSteelUI::TextSecondary);
++            Row.StateLabel = Label(FText(),13,ColdSteelUI::TextSecondary,true);
+             List->AddSlot().AutoHeight().Padding(0,0,0,8)[
+                 SNew(SBox).MinDesiredHeight(60)[
+                     SAssignNew(Row.Button,SExpeditionButton).ButtonStyle(&CardStyle).ContentPadding(FMargin(18,12)).HAlign(HAlign_Fill)
+@@ -219,14 +221,28 @@
+                         SNew(SHorizontalBox)
+                         + SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)[Row.Name.ToSharedRef()]
+                         + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(8,0)[Row.Tracking.ToSharedRef()]
++                        + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(0,0,8,0)[Row.StateLabel.ToSharedRef()]
+                         + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[Label(INVTEXT("›"),22,ColdSteelUI::TextSecondary)]]]];
+         }
+     }
+     for (int32 I=0; I<Rows.Num(); ++I)
+     {
+-        UpdateText(Rows[I].Name,Views[I].Title);
+-        const auto Visibility = Rows[I].Id == Tracked ? EVisibility::HitTestInvisible : EVisibility::Collapsed;
+-        if (Rows[I].Tracking->GetVisibility()!=Visibility) Rows[I].Tracking->SetVisibility(Visibility);
++        auto& Row = Rows[I];
++        const auto& Task = Views[I];
++        UpdateText(Row.Name,Task.Title);
++        const auto TrackingVisibility = Row.Id == Tracked ? EVisibility::HitTestInvisible : EVisibility::Collapsed;
++        if (Row.Tracking->GetVisibility()!=TrackingVisibility) Row.Tracking->SetVisibility(TrackingVisibility);
++        if (Row.DisplayedState != Task.State)
++        {
++            Row.DisplayedState = Task.State;
++            const bool Completed = Task.State == ETrackedTaskState::Completed;
++            const FText Caption = Completed ? INVTEXT("已完成") :
++                Task.State == ETrackedTaskState::InProgress ? INVTEXT("进行中") : FText();
++            Row.StateLabel->SetText(Caption);
++            Row.StateLabel->SetColorAndOpacity(Completed ? ColdSteelUI::Success : ColdSteelUI::HUDGoldLight);
++            Row.Name->SetColorAndOpacity(Completed ? ColdSteelUI::TextSecondary : ColdSteelUI::HUDGoldLight);
++            Row.Name->SetStrikeBrush(Completed ? FCoreStyle::Get().GetBrush("DefaultTextUnderline") : FStyleDefaults::GetNoBrush());
++        }
+     }
+     if (OpenId.IsNone()) return;
+     const auto* View = Views.FindByPredicate([this](const auto& V){return V.Id==OpenId;});

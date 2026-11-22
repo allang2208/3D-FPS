@@ -1,0 +1,100 @@
+{
+  "bindings": {
+    "factory": {
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_Factory_RuneCarrier.SM_TacticalHatchet_Head_Factory_RuneCarrier",
+      "slot": "M_TacticalHatchet_Head_Factory_RuneCarrier",
+      "slot_materials": [
+        "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet"
+      ],
+      "material": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet",
+      "textures": {
+        "Normal": {
+          "asset": "/Game/Weapons/TacticalHatchet20261101/Textures/T_TacticalHatchet_Normal.T_TacticalHatchet_Normal",
+          "srgb": false,
+          "flip_green": true
+        },
+        "ORM": {
+          "asset": "/Game/Weapons/TacticalHatchet20261101/Textures/T_TacticalHatchet_MetalRough.T_TacticalHatchet_MetalRough",
+          "srgb": false,
+          "flip_green": false
+        },
+        "BaseColor": {
+          "asset": "/Game/Weapons/TacticalHatchet20261101/Textures/T_TacticalHatchet_BaseColor.T_TacticalHatchet_BaseColor",
+          "srgb": true,
+          "flip_green": false
+        }
+      }
+    },
+    "axe_swift_crescent": {
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentLeaf/SM_TacticalHatchet_Head_SwiftCrescent_Leaf.SM_TacticalHatchet_Head_SwiftCrescent_Leaf",
+      "slot": "M_TacticalHatchet_Head_SwiftCrescent_Leaf",
+      "slot_materials": [
+        "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentLeaf/Materials/M_TacticalHatchet_Head_SwiftCrescent_Leaf.M_TacticalHatchet_Head_SwiftCrescent_Leaf"
+      ],
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentLeaf/Materials/M_TacticalHatchet_Head_SwiftCrescent_Leaf.M_TacticalHatchet_Head_SwiftCrescent_Leaf",
+      "textures": {
+        "Normal": {
+          "asset": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentLeaf/Textures/T_SwiftCrescent_Leaf_Normal.T_SwiftCrescent_Leaf_Normal",
+          "srgb": false,
+          "flip_green": true
+        },
+        "ORM": {
+          "asset": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentLeaf/Textures/T_SwiftCrescent_Leaf_ORM.T_SwiftCrescent_Leaf_ORM",
+          "srgb": false,
+          "flip_green": false
+        },
+        "BaseColor": {
+          "asset": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentLeaf/Textures/T_SwiftCrescent_Leaf_BaseColor.T_SwiftCrescent_Leaf_BaseColor",
+          "srgb": true,
+          "flip_green": false
+        }
+      }
+    }
+  },
+  "regions": {
+    "body": {
+      "swatch_pixels": [
+        1120,
+        1148,
+        1406,
+        1434
+      ],
+      "swatch_physical_m": [
+        0.03534488650418724,
+        0.03535616612035504
+      ],
+      "base_linear_mean": [
+        0.04375756159424782,
+        0.04519468545913696,
+        0.047156475484371185
+      ],
+      "roughness_mean": 0.4150645136833191,
+      "metallic_mean": 0.45793774724006653
+    },
+    "edge": {
+      "swatch_pixels": [
+        1544,
+        1152,
+        1646,
+        1254
+      ],
+      "swatch_physical_m": [
+        0.013116828371981262,
+        0.012616810504718246
+      ],
+      "base_linear_mean": [
+        0.48674649000167847,
+        0.486745148897171,
+        0.4865563213825226
+      ],
+      "roughness_mean": 0.41955697536468506,
+      "metallic_mean": 0.7759836316108704
+    }
+  },
+  "atlas_size": 4096,
+  "normal_encoding": "OpenGL, single green-channel conversion at UE import",
+  "sampling": "shared stochastic offsets on all PBR channels, frequency-separated finish",
+  "shoulder_leaves": 1,
+  "rim_uv": "dedicated middle strip",
+  "runtime_tested": false
+}

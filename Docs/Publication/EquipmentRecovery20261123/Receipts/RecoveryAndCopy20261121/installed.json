@@ -1,0 +1,67 @@
+{
+  "when": "2026-11-21T20:49:00.246111",
+  "commit": "3ff1b8ac",
+  "revision": "JiLeiMotionV5 and RecallWeightV4",
+  "restoration": "Original retained four FBX and published import recipe",
+  "assets": [
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/A_ThunderHammer_CallCharge",
+      "old_sha256": "a91210abac217b7cd6cb80e4a621b0e86f72307047d32d7fcbd7f4794e0af771",
+      "new_sha256": "49396df86ad1c133c1b3891f178006f927ea79e761c12d1a7e27d236d6ee5d12",
+      "bytes": 2751497,
+      "source": {
+        "revision": "JiLeiMotionV5",
+        "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiMotionV5\\Export\\A_ThunderHammer_CallCharge.fbx",
+        "md5": "bd1bda1eaaaa6a3c8f88718c08d00e7f",
+        "frames": 480,
+        "seconds": 2.0,
+        "tag": "V5 full-charge progressive right-hand lift; supported elbow; arm-driven grip and continuous recovery"
+      }
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/A_ThunderHammer_CallRelease",
+      "old_sha256": "5d1260b206e848a8e27fb2e5f3307f5b10f5bdb39b9cb726af5753ec3bdfedd7",
+      "new_sha256": "473c990910dc0d933e721ad4875d85f37b4c9ef08a9a9be71deba47448df81b6",
+      "bytes": 1071461,
+      "source": {
+        "revision": "JiLeiMotionV5",
+        "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\JiLeiMotionV5\\Export\\A_ThunderHammer_CallRelease.fbx",
+        "md5": "fdc4909925b10cc665b9a62dc07f0512",
+        "frames": 173,
+        "seconds": 0.7208333611488342,
+        "tag": "V5 full-charge progressive right-hand lift; supported elbow; arm-driven grip and continuous recovery"
+      }
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/RecallCatchV2/A_ThunderHammer_Catch_V2",
+      "old_sha256": "1e66d473d8e8d61bb676853cc442c9e8037462950231f2e8d6a1edbbf3574a95",
+      "new_sha256": "e546ff66267c5e3458218c3e27f4c8d9670245442285f99321ec21834b0bdd36",
+      "bytes": 952540,
+      "source": {
+        "revision": "RecallWeightV4",
+        "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\RecallWeightV4\\Export\\A_ThunderHammer_Catch_V2.fbx",
+        "md5": "40ec853efeb658ddb9a1582d12201315",
+        "frames": 144,
+        "seconds": 0.6000000238418579,
+        "tag": "RecallWeightV4: relaxed left arm, 17.4cm loaded compression, quick grasp and braced recovery"
+      }
+    },
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/RecallCatchV2/A_ThunderHammer_RecallReady_V2",
+      "old_sha256": "a1f29180db11dff38e2121d56e02e87b065863db8ce79c7e12feb2212d24b38d",
+      "new_sha256": "37b6cbd9459d794b098dfb18edd34d71c19ac8c99aac745baa2958023e585bbb",
+      "bytes": 1106240,
+      "source": {
+        "revision": "RecallWeightV4",
+        "file": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\RecallWeightV4\\Export\\A_ThunderHammer_RecallReady_V2.fbx",
+        "md5": "537f8356eb13e6e3d095425da91fb626",
+        "frames": 317,
+        "seconds": 1.3208333253860474,
+        "tag": "RecallWeightV4: relaxed left arm, 17.4cm loaded compression, quick grasp and braced recovery"
+      }
+    }
+  ],
+  "backup": "F:\\FPSGAMEData\\ArtProduction\\ThunderGodHammer20261028\\RecoveryAndCopy20261121\\Before",
+  "applied_via": "offline installation under project mutex",
+  "runtime_tested": false
+}

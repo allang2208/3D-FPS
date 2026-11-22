@@ -1,0 +1,2230 @@
+{
+  "repository": "origin/main",
+  "release": "e1fd5d07d",
+  "base_release": "44fee726e",
+  "assets_installed": 286,
+  "by_stage": {
+    "Repair12": 60,
+    "Repair13": 75,
+    "Repair16": 114,
+    "Finish29": 9,
+    "ReloadAudit21": 2,
+    "ReturnReview24": 2,
+    "Repair08": 1,
+    "Repair11": 1,
+    "Wrist39": 1,
+    "Wrist34": 1,
+    "BipodPin41": 4,
+    "RearGrip44": 3,
+    "GripMount40": 12,
+    "LMGStabilityGrip": 1
+  },
+  "exact_installed": 11,
+  "new_original_art": {
+    "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_bipod_false.png": {
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M249Orpind20261107\\BipodIcon42\\M249_Bipod_Framed.png",
+      "sha256": "6f264f68d431873563a58734c75377a68358f253ae8526d670b5556e446e866e",
+      "previous": null
+    }
+  },
+  "configuration": {
+    "slots": [
+      "magazine",
+      "stock",
+      "reargrip",
+      "underbarrel",
+      "muzzle",
+      "optic",
+      "bipod"
+    ],
+    "ads_smooth": 7.8463,
+    "ads_percent": 0.1
+  },
+  "actions": {
+    "Content/Weapons/M249/Bipod/A_M249_Bipod.uasset": {
+      "sha256": "18fa22a4a63dbd28dec0266a85b3a1188f7dac51b13a8cafb9ce7e9560d53b1b",
+      "historical": "18fa22a4a63dbd28dec0266a85b3a1188f7dac51b13a8cafb9ce7e9560d53b1b",
+      "exact": true,
+      "input": "Repair11"
+    },
+    "Content/Weapons/M249/Animations/A_M249_idle.uasset": {
+      "sha256": "607d3b520f2625a7a776ba05949437e8e50e1e7c225c7945d2b43598e4475eb9",
+      "historical": "607d3b520f2625a7a776ba05949437e8e50e1e7c225c7945d2b43598e4475eb9",
+      "exact": true,
+      "input": "已有"
+    },
+    "Content/Weapons/M249/Animations/A_M249_fire.uasset": {
+      "sha256": "ab5dbe5f719865704944dcec1b062165d83b88a90d01c5f2d965c78e389a2269",
+      "historical": "ab5dbe5f719865704944dcec1b062165d83b88a90d01c5f2d965c78e389a2269",
+      "exact": true,
+      "input": "已有"
+    },
+    "Content/Weapons/M249/Animations/A_M249_equip.uasset": {
+      "sha256": "3f19d7bdb16d011d609de6bc9cf79b18f29de675938805f35d0e5c12ad2bcb78",
+      "historical": "3f19d7bdb16d011d609de6bc9cf79b18f29de675938805f35d0e5c12ad2bcb78",
+      "exact": true,
+      "input": "已有"
+    },
+    "Content/Weapons/M249/Animations/A_M249_inspect.uasset": {
+      "sha256": "f024a9d96fc75b178de3a926e5fc6c1092179695dfabf69890ae10024ff89d96",
+      "historical": "f024a9d96fc75b178de3a926e5fc6c1092179695dfabf69890ae10024ff89d96",
+      "exact": true,
+      "input": "已有"
+    },
+    "Content/Weapons/M249/Animations/A_M249_quick_melee.uasset": {
+      "sha256": "e9cd6b1a38d4e5dfe07042e1fccfa562b322f1339276281928a39a3ae12c7c9d",
+      "historical": "9c65e12085dae8b9eec77e437243fd6682930f2fa9e9247f6b6def037068983d",
+      "exact": false,
+      "input": "Repair08"
+    },
+    "Content/Weapons/M249/Animations/A_M249_reload.uasset": {
+      "sha256": "0e380e04b6e115256938011114a97a0e524261f0246f1d264583dbae6a5211d3",
+      "historical": "9a17df9cc09dd3d83fe87ff0e87a47d5c90deebbb1857f4b63f3ccd1873fb10d",
+      "exact": false,
+      "input": "ReloadAudit21"
+    },
+    "Content/Weapons/M249/Animations/A_M249_reload_empty.uasset": {
+      "sha256": "0cbcb750771483871ae73ad3fef3f3c4c9a15bac62f14754491f7ad9d4663982",
+      "historical": "0cbcb750771483871ae73ad3fef3f3c4c9a15bac62f14754491f7ad9d4663982",
+      "exact": true,
+      "input": "ReloadAudit21"
+    },
+    "Content/Weapons/M249/Animations/A_M249_sprint_enter.uasset": {
+      "sha256": "f1bc746ae04f4454905e9fce93214ba4d4dcbdf142e8861317f8ad29c31cb872",
+      "historical": "f1bc746ae04f4454905e9fce93214ba4d4dcbdf142e8861317f8ad29c31cb872",
+      "exact": true,
+      "input": "已有"
+    },
+    "Content/Weapons/M249/Animations/A_M249_sprint_loop.uasset": {
+      "sha256": "bfb2d97374090c615829f6815c4a3bc52026af964303aaa3fc22cca07b532bee",
+      "historical": "bfb2d97374090c615829f6815c4a3bc52026af964303aaa3fc22cca07b532bee",
+      "exact": true,
+      "input": "已有"
+    },
+    "Content/Weapons/M249/Animations/A_M249_sprint_exit.uasset": {
+      "sha256": "9f460e3bb027ba33a3fdcd4ec8e076f93bf955dcfa9ca9f11bc58dba365d90cb",
+      "historical": "9f460e3bb027ba33a3fdcd4ec8e076f93bf955dcfa9ca9f11bc58dba365d90cb",
+      "exact": true,
+      "input": "已有"
+    },
+    "Content/Weapons/M249/SideMagazine20261108/Animations/A_M249_side_reload.uasset": {
+      "sha256": "13733c2ee85b9be1fc7c4c43768868b26108087716e16d58e6226cc1b9dbce35",
+      "historical": "13733c2ee85b9be1fc7c4c43768868b26108087716e16d58e6226cc1b9dbce35",
+      "exact": true,
+      "input": "ReturnReview24"
+    },
+    "Content/Weapons/M249/SideMagazine20261108/Animations/A_M249_side_reload_empty.uasset": {
+      "sha256": "8dab2303a0e0af4c9a03e3bd75c3c6560c7b1fcbfed81eeaf6507a8011c96a22",
+      "historical": "8dab2303a0e0af4c9a03e3bd75c3c6560c7b1fcbfed81eeaf6507a8011c96a22",
+      "exact": true,
+      "input": "ReturnReview24"
+    }
+  },
+  "grips": {
+    "Content/Weapons/M249/Bipod/DA_M249_Bipod.uasset": {
+      "sha256": "1e8f4306edc0a5d7f31b5e2a871e24e46633143bd11cf4095b94c4ed1cb7f883",
+      "historical": "1e8f4306edc0a5d7f31b5e2a871e24e46633143bd11cf4095b94c4ed1cb7f883",
+      "exact": true,
+      "input": "Wrist34"
+    },
+    "Content/Weapons/M249/Bipod/DA_M249_SupportGrip.uasset": {
+      "sha256": "5fd3ff5e89ddc82b9d39958b1c7477f67fa3a5f4b4306b3c98f0b61244d934c4",
+      "historical": "5fd3ff5e89ddc82b9d39958b1c7477f67fa3a5f4b4306b3c98f0b61244d934c4",
+      "exact": true,
+      "input": "GripMount40"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Profiles/DA_M249_vertical.uasset": {
+      "sha256": "8055cb7af161762a06ed067bd3d2a761cb3e52d57afb2df858dc7e20e45b2f49",
+      "historical": "8055cb7af161762a06ed067bd3d2a761cb3e52d57afb2df858dc7e20e45b2f49",
+      "exact": true,
+      "input": "GripMount40"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Profiles/DA_M249_canted.uasset": {
+      "sha256": "c8300485c721406cc07b2ac9e4f35b8b57aeab152bf7e74f0977fecb87f355b6",
+      "historical": "c8300485c721406cc07b2ac9e4f35b8b57aeab152bf7e74f0977fecb87f355b6",
+      "exact": true,
+      "input": "GripMount40"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Profiles/DA_M249_prism.uasset": {
+      "sha256": "96293a5ce1c87f48d99350c1690c07d05aad51f7386b7b0909f199e606ef4739",
+      "historical": "96293a5ce1c87f48d99350c1690c07d05aad51f7386b7b0909f199e606ef4739",
+      "exact": true,
+      "input": "GripMount40"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Profiles/DA_M249_angled.uasset": {
+      "sha256": "ef3953915a07fee53fbee2e394541c666f7d4ab92b4cfc588fd80866b6c087f7",
+      "historical": "ef3953915a07fee53fbee2e394541c666f7d4ab92b4cfc588fd80866b6c087f7",
+      "exact": true,
+      "input": "GripMount40"
+    },
+    "Content/Weapons/LMGStabilityGrip20261111/DA_M249_Handguard.uasset": {
+      "sha256": "267146d4c41ca8950ce39eb2245b31d62609186b21fedd79a25a830e4983a2c1",
+      "historical": "267146d4c41ca8950ce39eb2245b31d62609186b21fedd79a25a830e4983a2c1",
+      "exact": true,
+      "input": "Wrist39"
+    }
+  },
+  "materials": {
+    "Repair12": {
+      "bindings": {
+        "equal": true,
+        "entries": 19
+      },
+      "optics": {
+        "equal": true,
+        "entries": 9
+      },
+      "material_recipes": {
+        "equal": true,
+        "entries": 28
+      }
+    },
+    "Repair13": {
+      "materials": {
+        "equal": true,
+        "entries": 41
+      }
+    },
+    "Repair16": {
+      "materials": {
+        "equal": true,
+        "entries": 47
+      },
+      "meshes": {
+        "equal": true,
+        "entries": 28
+      },
+      "stocks": {
+        "equal": true,
+        "entries": 5
+      },
+      "surface_revision": {
+        "equal": true,
+        "entries": null
+      }
+    },
+    "Finish29": {
+      "bindings": {
+        "equal": true,
+        "entries": 3
+      },
+      "materials": {
+        "equal": true,
+        "entries": 5
+      },
+      "uv_channels": {
+        "equal": true,
+        "entries": 3
+      },
+      "seams": {
+        "equal": true,
+        "entries": null
+      },
+      "weather": {
+        "equal": true,
+        "entries": null
+      }
+    }
+  },
+  "critical": {
+    "known_paths": 69,
+    "missing_paths": [],
+    "basic_materials": {
+      "Surface": true,
+      "OpticHousing": true,
+      "Glass": true,
+      "Reticle": true,
+      "Riser": true
+    },
+    "skeleton": {
+      "Content/Weapons/M249/SK_M249_Skeleton.uasset": {
+        "sha256": "c09bee0bc4c7a41d41648491208ba2d4d15689b33992f50e3d7fca93cb887962",
+        "historical": "c09bee0bc4c7a41d41648491208ba2d4d15689b33992f50e3d7fca93cb887962",
+        "exact": true,
+        "input": "已有"
+      }
+    },
+    "native_sources": {
+      "Source/FPSGAME/Weapons/M249Attachments.cpp": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249Attachments.h": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249BeltDynamics.cpp": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249BeltDynamics.h": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249BeltLayout.h": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249Bipod.h": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249BipodAnimation.h": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249OpticAssets.h": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249OpticCoordinates.h": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249OpticVisual.cpp": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249ReloadReview.cpp": {
+        "exists": true,
+        "exact": false
+      },
+      "Source/FPSGAME/Weapons/M249ReloadTiming.h": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249SideMagazine.cpp": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249SideMagazine.h": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249WeaponAssets.h": {
+        "exists": true,
+        "exact": false
+      },
+      "Source/FPSGAME/Weapons/ScopeADSEyeRelief.h": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Movement/MachineGunMovementAuditCommandlet.cpp": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Movement/MachineGunMovementAuditCommandlet.h": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/LMGGripReview.h": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249PartsWireAudit.cpp": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249WristAudit.cpp": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249WristVisualAudit.cpp": {
+        "exists": true,
+        "exact": true
+      },
+      "Source/FPSGAME/Weapons/M249WristWireAudit.cpp": {
+        "exists": true,
+        "exact": true
+      }
+    },
+    "icon_source_md5": {
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_barrel_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_barrel_false.png",
+        "source_md5": "f2f4312d87764585713ae6fd267d6597",
+        "package_md5": [
+          "f2f4312d87764585713ae6fd267d6597"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_bipod_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M249Orpind20261107\\BipodIcon42\\M249_Bipod_Framed.png",
+        "source_md5": "d61f751bd006a5c5bb25dcd61c7ae091",
+        "package_md5": [
+          "d61f751bd006a5c5bb25dcd61c7ae091"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_bipod_m249_no_bipod.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_bipod_m249_no_bipod.png",
+        "source_md5": "4b61149767292127567d4e90c302f296",
+        "package_md5": [
+          "4b61149767292127567d4e90c302f296"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_body_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_body_false.png",
+        "source_md5": "2100cc8a016a1a200f182a6c7a16eaa0",
+        "package_md5": [
+          "2100cc8a016a1a200f182a6c7a16eaa0"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_bolt_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_bolt_false.png",
+        "source_md5": "7da7e82a7fa9b1aa3f81d9269a7ca948",
+        "package_md5": [
+          "7da7e82a7fa9b1aa3f81d9269a7ca948"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_carry_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_carry_false.png",
+        "source_md5": "843e5ed23cf274811761269ac69efc7b",
+        "package_md5": [
+          "843e5ed23cf274811761269ac69efc7b"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_barrel.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_category_barrel.png",
+        "source_md5": "f2f4312d87764585713ae6fd267d6597",
+        "package_md5": [
+          "f2f4312d87764585713ae6fd267d6597"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_bipod.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M249Orpind20261107\\BipodIcon42\\M249_Bipod_Framed.png",
+        "source_md5": "d61f751bd006a5c5bb25dcd61c7ae091",
+        "package_md5": [
+          "d61f751bd006a5c5bb25dcd61c7ae091"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_body.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_category_body.png",
+        "source_md5": "2100cc8a016a1a200f182a6c7a16eaa0",
+        "package_md5": [
+          "2100cc8a016a1a200f182a6c7a16eaa0"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_bolt.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_category_bolt.png",
+        "source_md5": "7da7e82a7fa9b1aa3f81d9269a7ca948",
+        "package_md5": [
+          "7da7e82a7fa9b1aa3f81d9269a7ca948"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_carry.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_category_carry.png",
+        "source_md5": "843e5ed23cf274811761269ac69efc7b",
+        "package_md5": [
+          "843e5ed23cf274811761269ac69efc7b"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_cover.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_category_cover.png",
+        "source_md5": "1809e997c95d3ef1c36ddeb542cddb16",
+        "package_md5": [
+          "1809e997c95d3ef1c36ddeb542cddb16"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_feedtray.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_category_feedtray.png",
+        "source_md5": "5330c486caeac47d2cb369894a309452",
+        "package_md5": [
+          "5330c486caeac47d2cb369894a309452"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_handguard.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_category_handguard.png",
+        "source_md5": "815e0e07e19b0214ee784248e33914e4",
+        "package_md5": [
+          "815e0e07e19b0214ee784248e33914e4"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_magazine.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_category_magazine.png",
+        "source_md5": "67923284b2c70adbffa9657e7e1fb408",
+        "package_md5": [
+          "67923284b2c70adbffa9657e7e1fb408"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_muzzle.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_category_muzzle.png",
+        "source_md5": "4f7859f95210ca21979fd9f56b9c8d0d",
+        "package_md5": [
+          "4f7859f95210ca21979fd9f56b9c8d0d"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_optic.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_category_optic.png",
+        "source_md5": "b2ec10a63c54f877c9640ad9c965cb35",
+        "package_md5": [
+          "b2ec10a63c54f877c9640ad9c965cb35"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_reargrip.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_category_reargrip.png",
+        "source_md5": "4065a0d6ccb8747395dc4b5d4c27c8c0",
+        "package_md5": [
+          "4065a0d6ccb8747395dc4b5d4c27c8c0"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_stock.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_category_stock.png",
+        "source_md5": "b53d466d6f25da41578a07f2d58233ef",
+        "package_md5": [
+          "b53d466d6f25da41578a07f2d58233ef"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_trigger.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_category_trigger.png",
+        "source_md5": "11dda14108209a5f2e7fd520f1a8de9e",
+        "package_md5": [
+          "11dda14108209a5f2e7fd520f1a8de9e"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_underbarrel.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_category_underbarrel.png",
+        "source_md5": "cc98acfb02011d88091c5eb3c7472941",
+        "package_md5": [
+          "cc98acfb02011d88091c5eb3c7472941"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_cover_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_cover_false.png",
+        "source_md5": "1809e997c95d3ef1c36ddeb542cddb16",
+        "package_md5": [
+          "1809e997c95d3ef1c36ddeb542cddb16"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_feedtray_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_feedtray_false.png",
+        "source_md5": "5330c486caeac47d2cb369894a309452",
+        "package_md5": [
+          "5330c486caeac47d2cb369894a309452"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_handguard_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_handguard_false.png",
+        "source_md5": "815e0e07e19b0214ee784248e33914e4",
+        "package_md5": [
+          "815e0e07e19b0214ee784248e33914e4"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_magazine_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_magazine_false.png",
+        "source_md5": "67923284b2c70adbffa9657e7e1fb408",
+        "package_md5": [
+          "67923284b2c70adbffa9657e7e1fb408"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_magazine_m249_side_mag_30.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_magazine_m249_side_mag_30.png",
+        "source_md5": "0e07ef7a338c789418f0884c969c1536",
+        "package_md5": [
+          "0e07ef7a338c789418f0884c969c1536"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_magazine_m249_side_mag_45.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M249Orpind20261107\\Repair18\\Icons\\ue_m249_magazine_m249_side_mag_45.png",
+        "source_md5": "79af2e15d3281d6afc4802bdf22cc099",
+        "package_md5": [
+          "79af2e15d3281d6afc4802bdf22cc099"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_muzzle_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_muzzle_false.png",
+        "source_md5": "4f7859f95210ca21979fd9f56b9c8d0d",
+        "package_md5": [
+          "4f7859f95210ca21979fd9f56b9c8d0d"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_optic_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_optic_false.png",
+        "source_md5": "b2ec10a63c54f877c9640ad9c965cb35",
+        "package_md5": [
+          "b2ec10a63c54f877c9640ad9c965cb35"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_reargrip_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_reargrip_false.png",
+        "source_md5": "4065a0d6ccb8747395dc4b5d4c27c8c0",
+        "package_md5": [
+          "4065a0d6ccb8747395dc4b5d4c27c8c0"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_stock_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_stock_false.png",
+        "source_md5": "b53d466d6f25da41578a07f2d58233ef",
+        "package_md5": [
+          "b53d466d6f25da41578a07f2d58233ef"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_trigger_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_trigger_false.png",
+        "source_md5": "11dda14108209a5f2e7fd520f1a8de9e",
+        "package_md5": [
+          "11dda14108209a5f2e7fd520f1a8de9e"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_underbarrel_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\FramedFirearms\\ue_m249_underbarrel_false.png",
+        "source_md5": "4b61149767292127567d4e90c302f296",
+        "package_md5": [
+          "cc98acfb02011d88091c5eb3c7472941"
+        ],
+        "match": false,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/ue_m249_magazine_m249_side_mag_45.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M249Orpind20261107\\Repair18\\Icons\\ue_m249_magazine_m249_side_mag_45.png",
+        "source_md5": "79af2e15d3281d6afc4802bdf22cc099",
+        "package_md5": [
+          "79af2e15d3281d6afc4802bdf22cc099"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/AttachmentIcons20260913/ue_m249_underbarrel_false.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\AttachmentIcons20260913\\ue_m249_underbarrel_false.png",
+        "source_md5": "4b61149767292127567d4e90c302f296",
+        "package_md5": [
+          "4b61149767292127567d4e90c302f296"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/Icons/ue_m249.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\Icons\\ue_m249.png",
+        "source_md5": "935323ecc914a8095e349261490f6c3a",
+        "package_md5": [
+          "935323ecc914a8095e349261490f6c3a"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/ColdSteelData/Icons/ue_m249_no_bipod.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\Icons\\ue_m249_no_bipod.png",
+        "source_md5": "37205429881c43ea1fee9131f928f98a",
+        "package_md5": [
+          "37205429881c43ea1fee9131f928f98a"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/Weapons/M249/Textures/T_M249_Color.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M249Orpind20261107\\Textures\\T_M249_Color.png",
+        "source_md5": "6fd3c5b027cfc2d3ac54e9626f96d975",
+        "package_md5": [
+          "6fd3c5b027cfc2d3ac54e9626f96d975"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/Weapons/M249/Textures/T_M249_Emission.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M249Orpind20261107\\Textures\\T_M249_Emission.jpeg",
+        "source_md5": "2dc4ab1520849af82d1570bb053b249b",
+        "package_md5": [
+          "2dc4ab1520849af82d1570bb053b249b"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/Weapons/M249/Textures/T_M249_Normal.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M249Orpind20261107\\Textures\\T_M249_Normal.png",
+        "source_md5": "800dbd3b7be0878dafbe2e6e7f93ed86",
+        "package_md5": [
+          "800dbd3b7be0878dafbe2e6e7f93ed86"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/Weapons/M249/Textures/T_M249_ORM.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M249Orpind20261107\\Textures\\T_M249_ORM.png",
+        "source_md5": "320b7831a4c9553e8af3a9285e17e915",
+        "package_md5": [
+          "320b7831a4c9553e8af3a9285e17e915"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/Weapons/M249/Textures/T_M249_Transmission.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M249Orpind20261107\\Textures\\T_M249_Transmission.png",
+        "source_md5": "42deadc139399cda6d2f1b4e19776c77",
+        "package_md5": [
+          "42deadc139399cda6d2f1b4e19776c77"
+        ],
+        "match": true,
+        "published_matches_source_md5": true
+      },
+      "Content/Weapons/M249/Audio/S_M249_Fire_01.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M249Orpind20261107\\FireAudio\\S_M249_Fire_01.wav",
+        "source_md5": "1e10d4e0950c6ff030a9aefafcfb4778",
+        "package_md5": [
+          "1e10d4e0950c6ff030a9aefafcfb4778"
+        ],
+        "match": true,
+        "recording_tag": true,
+        "published_matches_source_md5": true
+      },
+      "Content/Weapons/M249/Audio/S_M249_Fire_02.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M249Orpind20261107\\FireAudio\\S_M249_Fire_02.wav",
+        "source_md5": "9f49ef7601e0f7c34c95cd1d7fd1b395",
+        "package_md5": [
+          "9f49ef7601e0f7c34c95cd1d7fd1b395"
+        ],
+        "match": true,
+        "recording_tag": true,
+        "published_matches_source_md5": true
+      },
+      "Content/Weapons/M249/Audio/S_M249_Fire_03.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M249Orpind20261107\\FireAudio\\S_M249_Fire_03.wav",
+        "source_md5": "7558f1db680105ecba364c287806c0df",
+        "package_md5": [
+          "7558f1db680105ecba364c287806c0df"
+        ],
+        "match": true,
+        "recording_tag": true,
+        "published_matches_source_md5": true
+      },
+      "Content/Weapons/M249/Audio/S_M249_Fire_04.uasset": {
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\M249Orpind20261107\\FireAudio\\S_M249_Fire_04.wav",
+        "source_md5": "d7c01f17d6f112b7f5b8af3d24957dc3",
+        "package_md5": [
+          "d7c01f17d6f112b7f5b8af3d24957dc3"
+        ],
+        "match": true,
+        "recording_tag": true,
+        "published_matches_source_md5": true
+      }
+    },
+    "recorded_fire_sound_origin_matches": true
+  },
+  "existing_equivalent_icons": {
+    "/Game/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_bipod_false": {
+      "reason": "Approved source-art MD5 and texture settings already match",
+      "settings": {
+        "srgb": true,
+        "ui": true,
+        "icon_compression": true,
+        "no_mips": true,
+        "never_stream": true
+      }
+    },
+    "/Game/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_category_bipod": {
+      "reason": "Approved source-art MD5 and texture settings already match",
+      "settings": {
+        "srgb": true,
+        "ui": true,
+        "icon_compression": true,
+        "no_mips": true,
+        "never_stream": true
+      }
+    },
+    "/Game/ColdSteelData/Icons/ue_m249_no_bipod": {
+      "reason": "Approved source-art MD5 and texture settings already match",
+      "settings": {
+        "srgb": true,
+        "ui": true,
+        "icon_compression": true,
+        "no_mips": true,
+        "never_stream": true,
+        "native_size": true
+      }
+    }
+  },
+  "restored_packages": {
+    "Content/Weapons/M249/Surface20261108/Master/M_M249RegionalSurface.uasset": {
+      "stage": "Repair12",
+      "before": "238f7a832c93fdd79d7a5327edc1a332f036673e14e6c3624550d57136534524",
+      "after": "d0b9dd4bff3288483a909694ddd68d51cfbf2912c3b2c73e08a3322eb0d216c0"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249RegionalSurface_Static.uasset": {
+      "stage": "Repair12",
+      "before": "9cb008b8f1646191962c4c374b905a4c72bbb20ffcc5e9ff14386d00242a0514",
+      "after": "8a2b1b6fc313a79ace218e16cd095744cc28315c9d64d1646ee4238c3d217602"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Barrel.uasset": {
+      "stage": "Repair12",
+      "before": "299656605d17a8bd4ba22ba8a818552015cc987b534e32f10cc6f4ae115a2fbd",
+      "after": "f01a45b2406e616a3a99ed12b313d13201fc053490305b286bc6c925e4c040bc"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Bipod.uasset": {
+      "stage": "Repair12",
+      "before": "7602ced1da86f3c249aa7832d9051e05456961b515813a5a6ee66264409321bd",
+      "after": "2fe337ce56926ba94a79c99ec403ef157f15eee4383d41418df9104ece28f796"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Carry.uasset": {
+      "stage": "Repair12",
+      "before": "3ff627f8e65052c83562e3d7651dffd857ee6d67622ad2f0f63b0c2f0e5045ef",
+      "after": "42aab144f7f3466963a5dc5c1942a84e9288c902eeffbf472841ae311d19ef41"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_OpticalHousing.uasset": {
+      "stage": "Repair12",
+      "before": "f102beb1af115dfe51a86770f4ca95b730e6b3dadd52c8b1b3feb6b88aef7ebc",
+      "after": "21c2e1b9bef1ed27babc59dd905089fe8472261e1bced2437c260d067ec9ae02"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Trigger.uasset": {
+      "stage": "Repair12",
+      "before": "b9b4c93ecc51d89bcaa786f15d461eb08578e9b85eeb3c1edde5ffb0e9d1dd26",
+      "after": "474f5d9c8645812252d48799af2311e150ae5724d65a23a3d4e006923977155f"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Receiver.uasset": {
+      "stage": "Repair12",
+      "before": "a2ebe50f312eb64b1a9fb2b26cdff2e23a347eda1b2bb72724efe13885901251",
+      "after": "f17d62bea0564e2d51c533c0a6b7371060815ffcafee338e5b134214169feff8"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Stock.uasset": {
+      "stage": "Repair12",
+      "before": "1fe900fe823a1711d073c0cf14d882b071a66c1c4871c718452362e7ec4c5e6c",
+      "after": "e17ed5ab1302034ea90fab0a7d5536114b930a0fe25397ac78b99449b2c0912b"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Tray.uasset": {
+      "stage": "Repair12",
+      "before": "4b8298701b03c5501abbcc26404b078bdb5a80d349d0482aa2784736b2b36f02",
+      "after": "b9a25233dcb08e43fe4da11203682efaff105fcf53882cf43ad8ec20b5ceee9c"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_RearGrip.uasset": {
+      "stage": "Repair12",
+      "before": "a91cd0e5049c87ef6268301c685e1cd95e067bc6dca77a70abd6e4b3b5f89514",
+      "after": "d0fc682dec467d88c4be0a8755fc995894398798043826e232637712c893007a"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Foregrip.uasset": {
+      "stage": "Repair12",
+      "before": "5ebc4f7e977b17b2e3646261f31c28e0b785b4cd16131066edc2e938040a2c2b",
+      "after": "5f11870ca275fe789bbb9c100a068fb3013839021e61fe1b4507a3a8320a3259"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Muzzle.uasset": {
+      "stage": "Repair12",
+      "before": "8f89c3f1bb41290d947f0ff7ad8ffffa6a34593add77348af358c144f4f3ccdf",
+      "after": "67840dbf848a127eafff067f7324a66f047d1d1b3fc2e8b12c17328ba5975392"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Handguard.uasset": {
+      "stage": "Repair12",
+      "before": "9a955080f2f6ad346836997f661f9ec0d4af93f3884759cae6b61a895c935ff4",
+      "after": "6745e72c5f83c8e4b3aaa0c8d954e44e3c6945bad06db8efd1ea89bd8bca7cbd"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Handle.uasset": {
+      "stage": "Repair12",
+      "before": "ded919b6d2f3c698d37dd8ca4729215c667a97642dc6f9e85567bda200227484",
+      "after": "0386abfba7de3e6959c1fa086f5e3844944d702aa0f4930cfbfb9034576aee9a"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Cover.uasset": {
+      "stage": "Repair12",
+      "before": "b4bb877a5a857a6e4df38c75f6cf77050a84600c4f39bf599c649b490d648858",
+      "after": "4da396371dfeaee78fcf6ebc78022785d85a5a3ace1e566cafbcba2ea7a63e71"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Surface_Static.uasset": {
+      "stage": "Repair12",
+      "before": "a636617a984658abfe6af8fc89afd9edaef6aad5419d338c877350af5da8a233",
+      "after": "dfe95144411086290eef2d32d389c84806912b2ae289f413b85a51c84ff07c6c"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_barrel.uasset": {
+      "stage": "Repair12",
+      "before": "bc6a9903eee11a33d78365409a0e1e015d836c33bb8282cbc991d945400cb674",
+      "after": "cac4845ef1f2f465d921c6695cfa55a82120d7b861e452ddbd7b3c1a561c2d27"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Bipod_Static.uasset": {
+      "stage": "Repair12",
+      "before": "cc31493e725ee1d1ca9fcc76563d0ea38d1193a5af46a36d3207dc3232502b2a",
+      "after": "051fa88a43d9b7d9e3d1bf759251f380eb6434da5b48a7e55d2eebacac453bb2"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Surface__OldBox_Static.uasset": {
+      "stage": "Repair12",
+      "before": "10ee7abe45119c7916c78b76c54e0b0551f490cd51c971d5b05f69af8274a78c",
+      "after": "a3fe0527aa92e83c145a89b122ffd10433b1bc68abdcc08e5c5811cff7570681"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_box.uasset": {
+      "stage": "Repair12",
+      "before": "a5f8aec96382a67c626dfaa97ad4b3dde473d941d1c462a7bdbd40b9691cd557",
+      "after": "569b2564e8464883281c58b8bedea9ccca1b5345b992f236dc3c3a1726479264"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Carry_Static.uasset": {
+      "stage": "Repair12",
+      "before": "17c53898c82c674dc7e550664499fc34830ae1c238f34ac3aa5902bc5618b15e",
+      "after": "499af80708b26a8b7f81050d3f9595c74a74eeedb9019d8dff39065e9a8aa318"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_carry.uasset": {
+      "stage": "Repair12",
+      "before": "79e085165ff6b3f8329c14189b54780f5d0d83c86da28ee2444d6b841e1f270b",
+      "after": "a11028020c5ee7e531f463fee2b25f1a27128b20fa70908fc3bdb017e7f3ea10"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_OpticalHousing_Static.uasset": {
+      "stage": "Repair12",
+      "before": "ab19a91363ecd12cf4b8177d8a05a063407a1440167376c732491a4fb63dd8ae",
+      "after": "f6271671aec84294aaded53d2e853c81577cb70f1d3ab21604f719ae5d908333"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_cover.uasset": {
+      "stage": "Repair12",
+      "before": "6a3a81573421829d14419c07ca3211cdd75cd853db43a3eda43b77d16864b9b7",
+      "after": "65afe46ee11c1b4a19a7ee61fb893d46f11174b58bab27d37a08040eb855a9ac"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Foregrip_Static.uasset": {
+      "stage": "Repair12",
+      "before": "3e66fa345743fdf51b8605bc173649c9bf9cfd682b313947aa811ad01b88da0e",
+      "after": "284c388e86ebc54b693c3785a765467f0184cd0796812497a80fb9c0e704f9a7"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_foregrip.uasset": {
+      "stage": "Repair12",
+      "before": "6508fd27eee025c1d015a56277854754c3781357e8a92938409747d83f28acfe",
+      "after": "f70fd5c50223cfd1e436e1779b99ea0244f6efeeeb6a5a25a5d5835b9538d68c"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Handguard_Static.uasset": {
+      "stage": "Repair12",
+      "before": "a76602b9a170b3e59998e366005d495478a5d5fb6609e0b87da03e52d5763993",
+      "after": "dab2df6435df663342bf0c34899047f8146d8e99fef3bc8f9ec155be37c49b83"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_handguard.uasset": {
+      "stage": "Repair12",
+      "before": "06d48adc87d29afa42bc82838287d2b4880d0f36bc8d18a5340953e82b330822",
+      "after": "85db794dcba1aee5ed1c608b5318ab58261628e65987e5705137fe68c360235c"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Handle_Static.uasset": {
+      "stage": "Repair12",
+      "before": "e72375b0b41bf73bf7928273f966f930e8a158ebc8341c1ade600f48cff253ff",
+      "after": "18c1c22734dd8bdc4410618f26b80a572e476ccfcb64307d5825bb02b5baea78"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_handle.uasset": {
+      "stage": "Repair12",
+      "before": "b531455b1ee85023a1fc66a6c3a9ef66dd6beedbf8a9191c70bb6d66d6f6de4e",
+      "after": "4a9d5fb2ce5f0e015d98f02e43e684cdf6acfdbd38d7dbc7a66436c3dd77d8c2"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_magnifier.uasset": {
+      "stage": "Repair12",
+      "before": "ff22597767c34bc1910a7ab1739816374233d5766c047978893322d1d9e439de",
+      "after": "8d93dda0c812560432fec9aded725f909fd1594f35c158e4e1b02c5c7b0c6ca7"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Muzzle_Static.uasset": {
+      "stage": "Repair12",
+      "before": "3617efcc40ea3bac6ae2f9baf5d610c378ae2e10d5b35346c5cf8b152a6ac541",
+      "after": "ab517ae55d91960b846e799dfcb8e4c7370bab70ee103a07c8884226e303db5d"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_muzzle.uasset": {
+      "stage": "Repair12",
+      "before": "a663f6a660a852cdb9aebebced71d97498437f8a05a3253d08f68edf28f24a50",
+      "after": "ba40e1d5c375a87e0dea2a63ce44f11f09f977794f5466821b2353184fc09d3b"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_RearGrip_Static.uasset": {
+      "stage": "Repair12",
+      "before": "63f8d54580ab4363813a08ea16c201627320427b0defc3d054133844a2002ff5",
+      "after": "f26920df219b8363efca9d8d8c924c5ab0e9ec9059d293a3ba41981bd97dac80"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_stock.uasset": {
+      "stage": "Repair12",
+      "before": "65860b092a7fe738585c331c4f4d06f5701c66114a6e41e3a9c6d3127b99b41d",
+      "after": "3aa7fa81273fb04d218c98509a33769e46d6d16937bf8a44331f10dde61374aa"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Tray_Static.uasset": {
+      "stage": "Repair12",
+      "before": "012ecfb18c7bef92602d0abf9fb348a0fc4fbfdd886f696f7a118e21a27ce56d",
+      "after": "b85aa490a19c5effbe8cc7d625a5b3278201cd546d18ff202866095d769570a3"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_tray.uasset": {
+      "stage": "Repair12",
+      "before": "bef1a3110667d5966598434a5445512014d5712d4635e67a00052e1510c7359f",
+      "after": "b09880383f509dfe47236b4f4bf27a258b15ae3ee9f8e541266921ec4b1f5a98"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Factory_Trigger_Static.uasset": {
+      "stage": "Repair12",
+      "before": "701ff5da8c6fef659721ff907bc5c79eeed7aa20df429355ebbc58b6a336cc92",
+      "after": "badf06982c5ead6760cb953dcf497673ec083ff98876286523f183b618daa43e"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_trigger.uasset": {
+      "stage": "Repair12",
+      "before": "ad931a820e8b849b1aa0e341a681d5eb1842075ed6761b4ca9b3c201631c093d",
+      "after": "8a2b8b72998edfb5504e9b1af442e0b0542e8011759e9978a25bb78c1e5469d5"
+    },
+    "Content/Weapons/M249/Bipod/SM_M249_Bipod_LegA.uasset": {
+      "stage": "Repair12",
+      "before": "ffa25fa3590640bf1caa53e716d87534fe0705faa3c709de619a81f43b2700f3",
+      "after": "b5dc275e25b87e77cc7b3ca194a9f1dd4d74f7e9c65a2d2ecca7d8595a280834"
+    },
+    "Content/Weapons/M249/Bipod/SM_M249_Bipod_LegB.uasset": {
+      "stage": "Repair12",
+      "before": "ebf7108c00f2d6a83dad327f65d774bff0323aff01b76f2f9f7f831cdc8d734b",
+      "after": "a7341db652e71adb1de432a704596b9872b3a5164e2f8c87cb8c4a88cd3b2249"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Optic_f98ac8bb6.uasset": {
+      "stage": "Repair12",
+      "before": "18d30388b3d5d15dc7c787b1f03084ac3b667adfd2af1b8a17848c70daf66dab",
+      "after": "be4383bd49396535ad3924acb3e6b29c7023339c8c1fdf1453b14a3bd1873fae"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249Optic_f98ac8bb6.uasset": {
+      "stage": "Repair12",
+      "before": "12aa6ca2c5786f480a75555f66d44659399aeb441698c64831ac7f63641c2706",
+      "after": "a3f2d33a5bb4e2eb97ba7b7c1ff496fa42aa28445afae7698789bafa32bb5d2f"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Optic_aa1fc0849.uasset": {
+      "stage": "Repair12",
+      "before": "f77437d52cdbfbe05894520281f7418bf5b172580a8840089c4cf07fb5c63242",
+      "after": "a839e8248e68b9d0fc280bbc25d50c0441b1bf03e0bf6a6c9ca1487cab10a7ac"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249Optic_aa1fc0849.uasset": {
+      "stage": "Repair12",
+      "before": "32713c129ae6373b3fa2ff16f8b201b94df98d4cab4b800da260e0bed9f45407",
+      "after": "321f5dd2d9e898ae9f573b356e1ba36a8ba1ae3f5d7fefd6d6b0d3e73623f881"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Optic_c4e28790e.uasset": {
+      "stage": "Repair12",
+      "before": "be16c5d614bb172340c27cacdb60eb090bda4b5e73bcae037a134f6e0a164ee9",
+      "after": "c5cb03ee7136e25992010612b471f0bcf1436497dc36221801633b1c979ab8bc"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249Optic_c4e28790e.uasset": {
+      "stage": "Repair12",
+      "before": "72d1059544681a3f69eaaa1dc3fd548ba4e66639aea670163c7814ebc629bfcf",
+      "after": "bbf025ee510bcaeb42b83ac4c4cdd00525815ce2672204cd21f4e378ca75cf8a"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Optic_e195fe698.uasset": {
+      "stage": "Repair12",
+      "before": "e230a1a40beaf9564954b64c1532321dfb2b81221d1268a7c21eefae609f52ac",
+      "after": "d05198c8e3c65c57e77c730cc231547c2075fc4947a95da32d7e6953dd91c8f3"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249Optic_e195fe698.uasset": {
+      "stage": "Repair12",
+      "before": "3283972a839a28f86cb1a9071c31b4c0aedd17ce0569a4eae68482ae258147ee",
+      "after": "8628ee5b695fa1afb9beb61a971929b6e5eb7e0906ba04b40dc7b64a6fa3a8de"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Optic_80218b36f.uasset": {
+      "stage": "Repair12",
+      "before": "64d9d56435073968aa02bb570d364ef7e52c11510dd52b2c106e11df49266231",
+      "after": "92705c1a517e2ff801626b1f75fd9b3cb5a2af516373887dfd11723f4143ef11"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249Optic_80218b36f.uasset": {
+      "stage": "Repair12",
+      "before": "2879037c5a1c45329f9e4a7a9c0c077a33ba18a3a6821fec0acc787d8ff971cf",
+      "after": "53cd8a0c75060939382bffde889cc0f3748fd416647171091488be06dc30a737"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Optic_efb846288.uasset": {
+      "stage": "Repair12",
+      "before": "e7d40ffab0df9c144bddf20fc529aefa6c7dc45e4bfb2e1e632d3c64b90d82ec",
+      "after": "a3debf314cd8ea90ec9a826321c21c586782ab7308610016b83d58931a2afb90"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249Optic_efb846288.uasset": {
+      "stage": "Repair12",
+      "before": "b86b3184295cf1707fd14d3d5d24e12cd61e7a021b44143605e36d31ba963c62",
+      "after": "7fac3317a2d0b627b9ded8d7e0f1b998f6c2f11384bbd65fde72b3d2cb7a5b61"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Optic_8fc2ed5bb.uasset": {
+      "stage": "Repair12",
+      "before": "3145f03c33542c7e9fa838ce4604fb2b3927762fde7a15a0f415e6f39cd006ee",
+      "after": "6343cc62ec53ef0cf447b491b68aa72b2120c2ed0962807041c467438ec84385"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249Optic_8fc2ed5bb.uasset": {
+      "stage": "Repair12",
+      "before": "e126669954c5edd0c680cd4225714ef17bf05fae7988961bcbf60b5e4d863c41",
+      "after": "4e8a76390fc6ea97c2c97994717d3aa557857f1ba4b9b8cc86e159ac521cb5da"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Optic_c2aa26218.uasset": {
+      "stage": "Repair12",
+      "before": "d7c73adef154259558e9f84c94bd221fbb0fb3d7ac309e7d3e087576f4b16a88",
+      "after": "0f89918663d91dfbbc55627f8b3c045e7a1d7d1ed414c79b587e6208abd9d53d"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249Optic_c2aa26218.uasset": {
+      "stage": "Repair12",
+      "before": "71e11e9f27fbd641c0d62ad0a09d0943b293a0caf25e9c74c77ef59b942ea657",
+      "after": "118176f728bf13fef8c01166da407d93bd2023d3f25f4db1ce39484fd4531a66"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249RailSurface.uasset": {
+      "stage": "Repair12",
+      "before": "f31b1773693c8e5fd3c9ad03097e71fc69ea60b1e189929ec39c6a24f2bbee1a",
+      "after": "174b06c1feea0ee82ff427f62ce777b97d6a53dc75a670f6d665c4106de7ee63"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_CommonRail.uasset": {
+      "stage": "Repair12",
+      "before": "80b9a99442f28ab6fd43022836a224a8c5ccc6ea60af190b4ddb2d91041f2503",
+      "after": "557f3f5c37b107452388537a430275ef048098910dcb91734f5eeae042bf1c3f"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_9911f7494f.uasset": {
+      "stage": "Repair13",
+      "before": "85df6a03c2ecc69e626a3137b7f6c2b9b19befc11696436607c0b088a99b7cb9",
+      "after": "61db1aed436daac88a0ab979d5a9c21af65c30579bb54c15ec08fc2d8dad1d6c"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_618442ff42.uasset": {
+      "stage": "Repair13",
+      "before": "dedfb8bbbe28d8f1deb54da5f1ca94d4039fb584f329558eb99972b17f71a228",
+      "after": "2bdcaa41bf0b53189cae93367e08e8078afc56fc9e8e2f2f66d3d2990c535cf1"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_cee4eea9b6.uasset": {
+      "stage": "Repair13",
+      "before": "da301b6a6ded8645faba97d70e71220dea84411e3404f21123905a086d0fd7e6",
+      "after": "5f3fd2f9ba71996ec3c0f8ce4161c63a1d721a3693b9cce0b18472e2ee40dce0"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_196531744a.uasset": {
+      "stage": "Repair13",
+      "before": "e0e1dbc7e6ea34d4467befc07066bc295e20f8d1ff584c95c7e732c32fe2f243",
+      "after": "2a7d71d5e16e1d55909660b1f8b503a8ef9a6d505a01ca15b6d68702c879cba6"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_88c2039be7.uasset": {
+      "stage": "Repair13",
+      "before": "341656fd2568416d8aacc44d26f8c373bf762d40f65a88708a573ffaf654c8a6",
+      "after": "94df5c93adda909877f79c80cde694a19f17847c65acd9f7cc0c46c895db1050"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_9926095dae.uasset": {
+      "stage": "Repair13",
+      "before": "97a90ac912787cbc4eac12bc19b76ec265f98ebe411ba8cd78fda370fe78ee2f",
+      "after": "117a6c53aa286609036b2ec8aecfc6c9b7b631742bab6bdf2211c44d05bdb554"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_22f9833f52.uasset": {
+      "stage": "Repair13",
+      "before": "783293fd2739141025fd32e156a03889d1dc6793dafad4db98db82f5ff596c9c",
+      "after": "bd67023ffd6cc49bc571ebc718f19db6593066fb3e5379e5af99d89f7df4fc6a"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_1f1faaf0e9.uasset": {
+      "stage": "Repair13",
+      "before": "88eeb5af9503dfe7fe6a79c92b353445253f7f4fc2e5283df63fd3afdbaf9b6a",
+      "after": "3a7bb3133912f470068a88dcb167252c682eff1c6f8d03c32ba7cef46cd25ed2"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_bc7df437ad.uasset": {
+      "stage": "Repair13",
+      "before": "361aec101e80435fa02909577265b301a51e7ef8ad98275fbe9b99dc6ee89e07",
+      "after": "f7bc94bf017645c5e123aab90e81f3c8a5ad959c8f7be87665a68b12a5054ff5"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_1ee90c9610.uasset": {
+      "stage": "Repair13",
+      "before": "ac14709c6e49572b93760f08d39550c771bf4390757b6378153ccd28d8aa3d3f",
+      "after": "62345255424377133647517386191bb017bb8a755f287846417333cd88ac558b"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_e5fda23b59.uasset": {
+      "stage": "Repair13",
+      "before": "9c17c9b0aa8d90c06395d2bde47b770b14d858c5dc759a3fd61f97e4ac4e66f9",
+      "after": "ae978de20f9aa101d2b0e9e8487a6f271b6199e352a8b5c3e9def95c5f6b5cdd"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_f5ae588987.uasset": {
+      "stage": "Repair13",
+      "before": "ee6f55eebc1bcaa667a12bbef93a61b5935c9116baa9d97de30c2874d277f6bd",
+      "after": "014a315ab0dd1f82333942e2b8597714fa3dd8bf7562a28f0bf8b28e4653ce95"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_c1534c404c.uasset": {
+      "stage": "Repair13",
+      "before": "b83111824d4594359848f715c324bc8e415ffe80349b509fd0a2a150cdfea6e8",
+      "after": "7091cc95e0c60662cd00728f4ac7fcac2e61ef77191602846eafc6d238f1015d"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_5fb33317b9.uasset": {
+      "stage": "Repair13",
+      "before": "0c173c9422722875eb139112df51e22f4bcfc01a3faa8d90a76f86268021d87a",
+      "after": "721cfe0434dcf172f6cb4425dd784f36e664cafa93b83de48e8d9ff89649ceb3"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_a8482d6457.uasset": {
+      "stage": "Repair13",
+      "before": "0551ffdf0f8c0ac8216e0b1267eb2683c75f0af5e0e839df53368fc7a9db0e9c",
+      "after": "ec78da8aba35a0630169dd9d064f45f840b1f8c9431f5667cc429d599ce3a990"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_fa48d4ee19.uasset": {
+      "stage": "Repair13",
+      "before": "13313a05f3d457009b6ab5bab09decfd4ecfb493ba237c1a8e47593a74d53a46",
+      "after": "99b0d1b61e335dd7ee3a7530de3e416e7abf6d460c4c89bd9ac7c29c7cdd3cbd"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_35e07e357a.uasset": {
+      "stage": "Repair13",
+      "before": "eb15838afa409abc3cf3b1f6dbcb49f1f6fd26e20e1ce554a12b70d80399ac4a",
+      "after": "fdb4cc1ab9e4be0b59a6a26b1523ed5264771c7c9de83be25d8692b2059e0b87"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_c8d85b0ecb.uasset": {
+      "stage": "Repair13",
+      "before": "191892ae593b54e03e7740d887b829aa84faf0db8ce81fe1ace7c8eebc007e93",
+      "after": "d480621045610c68e87aaf8e957574bf9082157fee0afa05bc3ed802f822cd66"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_5f505583e5.uasset": {
+      "stage": "Repair13",
+      "before": "91fc164732728d88fa4cd56f63ff38779dc85c3f5120e101f460e3b8169d7528",
+      "after": "4b5be29a09dce073859928fa8ac921b328d8e6c0c9611368799e1adfefa108c0"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_ad21213f48.uasset": {
+      "stage": "Repair13",
+      "before": "9809ccf59cf6337710a2a74fc80ddb84d49ba2c0b49a9ef38781a992a18b9bb6",
+      "after": "be465e1c80906474827f4f94572aea791efaefc639e0fbbd37e73e905060b811"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_6535ff0846.uasset": {
+      "stage": "Repair13",
+      "before": "961e6c14092db1fac46502d6e45709019019eb44b177eaf71df79040a9e9cc10",
+      "after": "0cb59d8bb06c4f751e5df46a85a3e87a2a11ff13cefb3b3aaa98e619cac22093"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_24013efa20.uasset": {
+      "stage": "Repair13",
+      "before": "3d52b35a6b65ce15beafccc07ce17bcca58afa5fe1c66ab8687dc92ac98773c8",
+      "after": "de3fa8b0997000928184a6e25d4b4e68a04dbe38024362e8bf0853d1bfd579bf"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_d1babb3f1c.uasset": {
+      "stage": "Repair13",
+      "before": "3472dac37d041e81f5e5a9eafdb8aaaea1e1374918ed5b574c0bd9493c554b8b",
+      "after": "aabd794cf2bea94c28fcc34eecdeb75bde4ec6dc9cdfa1fb90eec92de14558d6"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_467ab51789.uasset": {
+      "stage": "Repair13",
+      "before": "72444436f911825f75272c184262a2e103175603bea02ff25f42c7c7efa9b2a2",
+      "after": "90797a5b49e6a5104706123345621c61d4d68dc537ab670cceb7e7257fa864c3"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_23fb688929.uasset": {
+      "stage": "Repair13",
+      "before": "61a95827fd716328309db1a153bd1623a536f2731999d3f4e6fce9591bdacb12",
+      "after": "044a8018ea359f81e08b37982bc9ee96c5503c8e45356d16be23eba56f496040"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_e3152ceeeb.uasset": {
+      "stage": "Repair13",
+      "before": "1ab028112c4009bc89a23b4530488d780fcf26cc407341ba1b8bfac2a9211bc5",
+      "after": "43143eb40f541bb85f90a9ad5235b1269c248465fb71142b72724c2d01455185"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_b8aced65dc.uasset": {
+      "stage": "Repair13",
+      "before": "6cea662c2f5c0af04a058547337098bcb767d333e371ffdacc2beeb99963d3ae",
+      "after": "e9142c492b4078b069598c8b4dc0142f3bfcc6a72a573a8d8c147fe18c680095"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_b006b0d4e8.uasset": {
+      "stage": "Repair13",
+      "before": "81bd9de56dacad637239150136c7f2c43a8f8e9719fa4ec9ef1250fb3fab73bc",
+      "after": "74ef09e7e7060ac5624af5e704eddddcb71b7a4b5416928ff11b01540496b41d"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_de774a7cbf.uasset": {
+      "stage": "Repair13",
+      "before": "9702a2dc33f0546770bb046800d7e858c2b6fcc476fbf2467e8d057432e91c29",
+      "after": "8f1d9cc5375f6421bd331276951207f7ba034420cca1508134af3152465eb569"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_292bce3a3f.uasset": {
+      "stage": "Repair13",
+      "before": "1adba8842676e7786c08237c84575dcd2cf6640710198135d1c2de40238b0e75",
+      "after": "4ab194b2dde01358bb489ccfe4245296278f76becd83d664d07370fe68a308a2"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_4a0e4545fc.uasset": {
+      "stage": "Repair13",
+      "before": "e58e212104b4a5e51447b37cf8e4624e81b79c8913b5547ace80ac03f8a609fe",
+      "after": "194a4324d6b0c686b5b4c227f8e6f10f938860228cd9427958bf8402fd41ff70"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_1e2a8348de.uasset": {
+      "stage": "Repair13",
+      "before": "fd4169585826105f786f4a44cf40e3164387342b9b76c34d76adc704d8fbe88b",
+      "after": "064e8bb40a9424b3d678b01954756bc120a3c30e9e6d5f2c8277ef878cd2b1e2"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_65adbfe550.uasset": {
+      "stage": "Repair13",
+      "before": "4a22310d39187ede45fd6e61ed715f12a153932c4042778ecb46604351f3d4a9",
+      "after": "8cdcfc3ed81281da6be2f6ef76f035d8dbcbf7f48005de1f0da4451f6a14f1f1"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_4fac329ca3.uasset": {
+      "stage": "Repair13",
+      "before": "62dd5e7d1b56b7f9deb2863964e723f1dfc6079531f2d2ab7bbf035788f627d9",
+      "after": "1989f6f81bdd9b48102c210c8e1a08a5e7fda191ed919c9d9b2d0254d808b36d"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_395fa76009.uasset": {
+      "stage": "Repair13",
+      "before": "2a56854f2020f9646ed429695b538f09f3448d87e45900754553985c4edf49d5",
+      "after": "1280edc91ca9aae9c7dda80d3de6046de49b13bf1bb49aa02b4bdec081d657bb"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_e347b98960.uasset": {
+      "stage": "Repair13",
+      "before": "6370d8dd29527159d374dd44da498c94ae5c56be039d5cb88c2700be83d9f2a5",
+      "after": "a4b9157a784e6db154ffdce721d95bfc5a8f6f59d36741f9c8b653d6314f70f2"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_20b4902b9f.uasset": {
+      "stage": "Repair13",
+      "before": "44e86a6a09c2157a9ce96998e9c2b67f1c6781f8b3f18772968c855d6af449ac",
+      "after": "5b105ff4f72de979cac6c2306b4fa9c642c132dfa0cbad0e65c2f59cd3d2bf91"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_b8527fec5d.uasset": {
+      "stage": "Repair13",
+      "before": "9b8ebdc878b749ad10a4cd1c93db2ac8791d88d79a324c8c929160362a6aa30d",
+      "after": "8cdb46ab8b5ffabb5dae30d00e42c5979ee9144ddcf160687d330295aef579ad"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_2dfba442c3.uasset": {
+      "stage": "Repair13",
+      "before": "4414b683e7543c87074eb3e782ac1ffeca1b44d47dea5b6d37c711bfc5476429",
+      "after": "11a73303e64170a26a3d191ea33f23fae099367be78feb6d76317b8c6b4fd3c3"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_c8d08898d8.uasset": {
+      "stage": "Repair13",
+      "before": "bd3ede1402314a6aa03a32584911c718b079671a957c09e3c257edc8b44537fd",
+      "after": "a0c43909fed3f3e5c4d3f6248c2e17a1eafbe44ecf790e887f8ae153e970dd64"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_b3e2c5a05d.uasset": {
+      "stage": "Repair13",
+      "before": "e1b9cc677bfd2d7812dd023de02e25419d5b1f900ef0b8fe547e94932284f625",
+      "after": "26462f77617060a571a79a4b69035da0d8b764ab586886f33ff9cca4c54b1d6a"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_10683de370.uasset": {
+      "stage": "Repair13",
+      "before": "dd30b49d99466261bf598bc02d96b71c2e44ae95dfca1af875d3efebf6511267",
+      "after": "0d9c93644a3ca0b82e3e560f31ec506ecc6d9bfe7b96f900088a58ddb1f7be96"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_2412b66b0c.uasset": {
+      "stage": "Repair13",
+      "before": "fb6ac6d96c752ce432ebdc953982b9c6baa01ee89604b697bb5fd9964a606a0e",
+      "after": "4911b5d43baeb2d110665ae314bc7ce78726f63ef13429a4f7d7b792c666efe5"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_33bfb9aa59.uasset": {
+      "stage": "Repair13",
+      "before": "197a8c57695bc542bf21fc4239c486436c11aae72cdf0cb2a0f7c5b1f380127b",
+      "after": "6c8926b6b44c9fe61457ee59eb338b5cc5bbc814e6ba0c7340f7f2d10d8028bc"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_2ec380d5e6.uasset": {
+      "stage": "Repair13",
+      "before": "30e3d97d564d70819858c4dc96efc471b424b2dfd8e6eea39b0140d14d65b354",
+      "after": "b9400046559b5ab3ca8c139c5aed779adf51ecdfd0e71349b10ee81b987c2603"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_28604df71e.uasset": {
+      "stage": "Repair13",
+      "before": "2d5f801932c2b39fa6bde221142daf764d8b149b6fab624777ad68a537571c72",
+      "after": "a7ffb8374b3d1b824b194d689404101379eb4177a31ada635f1224430cba0c64"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_c86402fd0e.uasset": {
+      "stage": "Repair13",
+      "before": "6239faafec6af45252234328dda5aaccb0bb0a8bb334488af91a8488b9ff7325",
+      "after": "e0080797b6c444975e6ce5c18f04ed89747c3cb00101d12b5934e8e02e494a06"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_412ea2aa3c.uasset": {
+      "stage": "Repair13",
+      "before": "a62c3ebfa41872de48ecdb6c37f2a6d38c2a14ac792e345ab27a1ba18d974803",
+      "after": "be40e08eae0b1ddde801e974bc84cd28bce24a3025c013898ff52649b7e92e4b"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_27891363ff.uasset": {
+      "stage": "Repair13",
+      "before": "d74d4c499fbb46340103b7185d9c6e3b4d1b8c090a9d27ae54f547a697178945",
+      "after": "92c3c2a1cc5b7f40fff36c0372e800a13ea71766cb0ef37de90b9a85754c4028"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_99c70f4e8f.uasset": {
+      "stage": "Repair13",
+      "before": "53485e6448527018e4dd052bb557088cc080a482a6ed558c78b28813a6b1f104",
+      "after": "106d8dda3cab86e0cbee43c0b5479c3fbc2dc68479cd7da8630b18cb07365ecf"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_947272c83d.uasset": {
+      "stage": "Repair13",
+      "before": "cae8071b85d71043c5c57d2ba961e957b1592a81ca963a7799eb9ecdbf48b68d",
+      "after": "087340825ec8d4c6f65547db717d03bde2afa24f395d1b5164a63685a8a45f3a"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_456938ce9c.uasset": {
+      "stage": "Repair13",
+      "before": "212addecb8ab17ae833a5b510a5c520c53958c83e93d61a34556627672f7b083",
+      "after": "a6e7ad78534b374dbc979548c2573f6c983f21bdd6cc3eba40e0c9554d52a222"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_5dcb76bc0a.uasset": {
+      "stage": "Repair13",
+      "before": "e8e4787a64e509648f2b75fcef840fcba868ef30ae23eb1ba2c0a6fdb9459c30",
+      "after": "e7c80b428eae341ec922059233fcfe0958d3efbc714b52345964d4dff8f52cc2"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_5f57e4aa9a.uasset": {
+      "stage": "Repair13",
+      "before": "e085076f3a8add5722ff2c9a520a9a1c5f81b7c5894586e0f038d34d57ace44b",
+      "after": "9b95a1bfb68d3d8c5111943e2716cc309b4e96427d05846b2388062d257c3441"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_366a71f8da.uasset": {
+      "stage": "Repair13",
+      "before": "67173fc7bfd4787d7853c3e536ab0e19d0f691dee6ebe961cfb41b8ebd615606",
+      "after": "53bb0561c2423407f756b37677ee481745979c677fc203eeb0430fb86f1fe4cf"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_57b1213e72.uasset": {
+      "stage": "Repair13",
+      "before": "c24f22f96bed5f668443a72d43a5d54f76897d09946afd0d380b43a94b9d3e9f",
+      "after": "63e6e3b7daa3e69474924c5eb710ba7f619d448975fc07958a7cedc3b18d5f98"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_e2040d6e53.uasset": {
+      "stage": "Repair13",
+      "before": "54c6661edd0e74271fd6a9af0f686526f2f255cddbb117137fb03623ec126b1e",
+      "after": "4974b79c6f239eaf88bcbbdcb686abb772d9c03e54f16fef1c8ab9be36bd23d9"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_00774359d9.uasset": {
+      "stage": "Repair13",
+      "before": "8a14a1826b753635ae6cb0f063450ab4ea75cdfed112ba771ae5112901b0afd0",
+      "after": "9120dc14b17d081d616965861521f734f4ec3b3da7a3bf6e77ae985476acf3af"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_316df02baf.uasset": {
+      "stage": "Repair13",
+      "before": "ce35d12fb7017c913410223bc925050d0736ae3c381d147ea3f4918976f85f9a",
+      "after": "20a1c4e8b19a3f3d7d86fdc6689331a8a9838441c8f18f1d94c8ac9616b4e0d6"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_4aee76a2d0.uasset": {
+      "stage": "Repair13",
+      "before": "847a98384e3e29bf4d276302ce88b6570667271c536152031cc8e1e2d80fe3e5",
+      "after": "e6ef36d80a3206b8a96e9facbd99dc784ebb48b8f27fd3aa54d215b2ef73c49f"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_cdb28a79ff.uasset": {
+      "stage": "Repair13",
+      "before": "c3533be3d108dbcd40c125b41a357c036dcdd03f3945df7bfd918322b6604ddd",
+      "after": "f5425b7d75bac398cd67049971a911b7974beb0c3b5561d2c74155d48495743c"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_5a083def3f.uasset": {
+      "stage": "Repair13",
+      "before": "98076fa87119019316b01d4cca0a613d134895ef1dd1a8e9defc7fea1e67757a",
+      "after": "f51a06ce18517881aa78f3422d25383f32ca479e3cc2bedc926a90b30c953116"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_dd2f7d68d8.uasset": {
+      "stage": "Repair13",
+      "before": "d9ab197a6fff4d3446b1a1acb676ce589536fcfabeb4933ffe952a1b63befd1a",
+      "after": "9c9280f33cbe1239ac918da2989d47a1fabd2634b0910d260e02017db16181bb"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_1a994f0ac5.uasset": {
+      "stage": "Repair13",
+      "before": "646b8989aea32c9855927e839d52a620a2e102286a48a3ba8661dcf954e9e17d",
+      "after": "a02ed2a284598b05957dd79639415622c5c801293f06de014799f983c9d4be7e"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_1265c44c20.uasset": {
+      "stage": "Repair13",
+      "before": "b8f0c7340093f8b6277df564d060b2f9cf1cd1bf9f50ecc093c5fa118efa9d84",
+      "after": "36d7f153a3d421d31384ca3c36b6ce4dddc6cf0eeef0cfb2f82ac8e88ef4af45"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Materials/MI_M249Part_01614bf923.uasset": {
+      "stage": "Repair13",
+      "before": "640234bf9cac466ec756ca97eacbadef06df87abf15b69dc1c01a8703404266c",
+      "after": "85f8c8bf809097684064c795e4d24b4648b42310020129f1d9f53de4a10bda98"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_c182f59258.uasset": {
+      "stage": "Repair13",
+      "before": "96885866d616d4f2bc8d458a3ee3852e38781343b278573e22e2931f27ab5cf7",
+      "after": "ddc191f4b105423b9d86ba50ae498be5604ffd91f4c10c025a34f9a4ade65a0d"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_6760f69467.uasset": {
+      "stage": "Repair13",
+      "before": "4e3ed2783156a8c4b822f9a0ee711a86fce746c5eb6f7b586fba8b1a2a5cc2ee",
+      "after": "9904b301600e83fbcbee38f840c02bdcc4a1130dda799a747383b88c16a043e1"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_16b364bb3c.uasset": {
+      "stage": "Repair13",
+      "before": "2150e4ed7fd74a9e3ca3e711312dfffaa21a82679596cdb5ee924b33681aaeba",
+      "after": "1f5feaa53f85b0197457b9fdffe94d05ff6860b6c297dcb05c3487cb4281ab15"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_dcdb5ee60c.uasset": {
+      "stage": "Repair13",
+      "before": "0785aa53ee1f950fffd9e413d6f4488539eb8144217ef1e2cf216c6e9e9475b1",
+      "after": "8aeb917887ba9282fd1ab293cb981b0cf44d3f51116dbe9ae8833cd558e27a28"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_a63f5c57d2.uasset": {
+      "stage": "Repair13",
+      "before": "920b3e39c56811d8cd8eb6892ae67b56ee4719baab4e44ec7811f4b297565b0e",
+      "after": "da942ccf42f6be56cbb32ed6c32718282d8fe72708bfb41cb49687f916f6c910"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_1779c9014b.uasset": {
+      "stage": "Repair13",
+      "before": "49b2de040d8fcbb397bd7890093619d9435c2aa3a5932a60ffca5df2f8cc2e01",
+      "after": "0057b6ade1c2e5a4dad585399248ade2dd961ee99238aad77e25dbacf2f42192"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_b4cf0d7136.uasset": {
+      "stage": "Repair13",
+      "before": "7257b67eaffdf481b04e0f5a5e47626f1ffe0575955e775539ed2345552a2f21",
+      "after": "8b9d13a5c12a4fa80e43c48781229eb1d4aa7acc10dd5f5bd171107811eefd6a"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249Part_b92563fb82.uasset": {
+      "stage": "Repair13",
+      "before": "659528035b9b4a899e540720290532e665a7bef0d1b4882c9c0486f855cc6b75",
+      "after": "3abd1eb5eb833d2278fdd52c1562583a39b7e3abfaf0b1c9baa6de4a36579be3"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Audio/S_M249_Suppressed.uasset": {
+      "stage": "Repair13",
+      "before": "b31bc393e30c1c7070164a4d7f8e9d8a8a1aa06df807966774f8b89b4e6f7e8f",
+      "after": "02cabf47d152a4e1dacd54dea996c0d5064478fae9cd64b38708ac76acf234af"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_154af9fbaf96.uasset": {
+      "stage": "Repair16",
+      "before": "9566f87b57a9abb53cdb26362a29e0a1b0cb3483e74ecc99a6c9118b0e5f2ed1",
+      "after": "3a6e824decb643036de3fdac86399db4055f63eb077698916b2d73c3b88e6775"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_154af9fbaf96.uasset": {
+      "stage": "Repair16",
+      "before": "dfaae25c32b104f5a87c0a2972f1c98ba5131064ca3b298b8598bbc9b31750bc",
+      "after": "18180c7ad5bbeef200de89101afc28cf30e44d6730096a01f43d72e5ba49660b"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_40c90df977ec.uasset": {
+      "stage": "Repair16",
+      "before": "597081fbe37aa6419f31acea2af47b43766fd78d9197b2efc7e1d493638e70e7",
+      "after": "c68528d6f926f3c07b7747a612caee4abae1d6e9d8cd5f56c112911182eb9b57"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_40c90df977ec.uasset": {
+      "stage": "Repair16",
+      "before": "438bd96de68487fef0356bd79078ab765752ee711ba432baf27eebefa90924ea",
+      "after": "608785043bef4fae47005f8238e3d684e46c230f6fb0841781a06961eaea26d2"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_fb5ee8841178.uasset": {
+      "stage": "Repair16",
+      "before": "03cdb96951bba12c08df9fa81b35448fa958597a2a6f77dc4442598ec3c3a94c",
+      "after": "64de1a9e57a114002cc10f7e375fd72b76ba16289d1db370dbba0c11a0c598d8"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_fb5ee8841178.uasset": {
+      "stage": "Repair16",
+      "before": "2e3ec63183446bcd9c974bd37070c192fff05c49eaf15f63cf6a2c3d1e4c702f",
+      "after": "76a67d4b5f0a2e6ea4c678322eabfb04bd4609212a32b198c553b1936b58848d"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_953954a2ee86.uasset": {
+      "stage": "Repair16",
+      "before": "e6f9b3841806edd22b349fb218b9092a79c09ba154d18d7a760c754f4f436d14",
+      "after": "0158cad073a6c0b6468bb1994a032383bf40527d69c144706abfdc5a4cd6eb8f"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_953954a2ee86.uasset": {
+      "stage": "Repair16",
+      "before": "8fd990752132c6a8751f08b98da1e3afad4f72f1fac5ec4f03e96bb35d277a4d",
+      "after": "8b8cc5a851379fa77cf15a9a76d1f1c738ff7ba6dba348d36bc7367b4835418a"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_8aba9237a3fd.uasset": {
+      "stage": "Repair16",
+      "before": "2c1f57648b1d751c22cbb519708605daf982d5951b746061e27b1843bbf3797f",
+      "after": "67dfb3be5604da445f91992664e2b898490698eecc2798b6202a539e145a640d"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_8aba9237a3fd.uasset": {
+      "stage": "Repair16",
+      "before": "301b5fa49cf886545a833433e175c556a8bff44e1781ff853ec0076bef5088a4",
+      "after": "3a21038720fd39169b1f80cd49665499679ef642cbd02339ac30488ea3ca0115"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_640b65bed888.uasset": {
+      "stage": "Repair16",
+      "before": "632948cf99d5e85cc74aaeadfa2c80497b03db037f55c5c768f2b0afb8dbc99c",
+      "after": "082b2fcf72b95a265acb9f2f2bacf0040b9dc85d535132166b01bbb1610067d8"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_640b65bed888.uasset": {
+      "stage": "Repair16",
+      "before": "98cac63f240f2e09ccbf4e9dcf168ceaff2cf44f225f7d724c4c697d7a0c8112",
+      "after": "c37af627999e5304ced1ef4abcb20d1a769a4f82d01f8b708525d69652c6adf2"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_d77b9b15b87c.uasset": {
+      "stage": "Repair16",
+      "before": "f34ae6d682f75bc12794cebfc2ab97941bcc7f4ee5a344a1e724e1898827b314",
+      "after": "bc870e91870f04663617e57aa14a1c1328266ac26d183422bd5283f505ca1e98"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_d77b9b15b87c.uasset": {
+      "stage": "Repair16",
+      "before": "7a9164c3949285ba196f298c4f0bd31cdc1007830bd5b3e1c012574134d4ccfa",
+      "after": "e3890c8d2cf4de4770ef19f9125ec27a97fc56404eb3c94b6038938f55f4b5be"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_abf390ca68c2.uasset": {
+      "stage": "Repair16",
+      "before": "233edee09f85e588b5cac28eec740fef974ecfe6d528df25a68d1ee6e8bcc446",
+      "after": "55d7d6e30d58a2da740d8c34b8ed033a15140eb0ccd1c424c9ca97e04e3d7051"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_abf390ca68c2.uasset": {
+      "stage": "Repair16",
+      "before": "82f73cd772491a09331259a7655ea43f3d212c0edc3c556d2f9d61a246fbaa29",
+      "after": "16544a4d543cdecb1890e5bc8baf1c9d484806e39c86991ce81e2627813bb9a6"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_d1a7f93db6b6.uasset": {
+      "stage": "Repair16",
+      "before": "df7c0aeef9ad989b594883ac1f265f5fca70c874832af6eb81fdb9b1039f80ec",
+      "after": "e80561cdff75ecab55be4eca55cfb008ea8747c62b4f273f6fb0b57832336643"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_d1a7f93db6b6.uasset": {
+      "stage": "Repair16",
+      "before": "a71dfbf71abbc8a7ba6f73100426a30aeaaea91e9e68ab2ee214ec48cdf89864",
+      "after": "2fea8d570c587da1851c42613a1d39ee021b0db9cd29f5fd0af241a013ccd826"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_ec32fc30f66f.uasset": {
+      "stage": "Repair16",
+      "before": "100345893effc5567b41a7836bd92dc277048d2c6a4c832d6ac22d463a9df70a",
+      "after": "d308c006f296f28fd50c3717cc5fbac9ce973c83b58f935924f7c918612159d2"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_ec32fc30f66f.uasset": {
+      "stage": "Repair16",
+      "before": "b14ba9db6e877946374d57448e34e120ff7aa124557d519652a369b6f953d09a",
+      "after": "4cbc570bb3ce2d65a1826c953d371bc6ffe0b80a190fca7648cfd7e4b7bb4941"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_e5672fa7c1f8.uasset": {
+      "stage": "Repair16",
+      "before": "5624354e8a15698b73134f616130713a7c436091f9a7c5b4aaf4cea75682737a",
+      "after": "5d9f2b7aeea0638373a8cb71dc16516f528b34a9951fda69875cdf7fae84700e"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_e5672fa7c1f8.uasset": {
+      "stage": "Repair16",
+      "before": "00cc84b7a2b443bb0a6363ab35e4f25982e3961ba31a70524166269589ddf295",
+      "after": "2fe5a960327ea381f4c06460a22c05ce3d85e48535213092fbe67b4ebfb93f06"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_7ee679f6e035.uasset": {
+      "stage": "Repair16",
+      "before": "f683fb4b1e2bd6a0776da2db5555167672392fa66f6811f7cf20725f6fc84ffa",
+      "after": "21bfda3204e6435ed5ef464630bc9fc8ba886509bb7e2e0a8e82ee88029e422b"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_7ee679f6e035.uasset": {
+      "stage": "Repair16",
+      "before": "8eac513dbd60a95bdaf1b391302fc0caed6c534968dbbba53c27c1e44683387b",
+      "after": "b63dcc84cc082d1ede1012e6179aee75f6abcfa853da14ce43be16c2dd95997d"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_716c7d11be10.uasset": {
+      "stage": "Repair16",
+      "before": "813f5b3ea715de49a50d5b90be18472f60703d01be6bfe3b6629948d043030f2",
+      "after": "05268bc18d9252d31850cba0421501fa052cd23ac1a5c2fc3323ea660c1d2f0b"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_716c7d11be10.uasset": {
+      "stage": "Repair16",
+      "before": "e0b678b23175c44dc86afd76fe895014e2665bb1fb21b0837cc40f199d86af21",
+      "after": "355f92a26560f43fc2e681b4bf0a4bf0f54ae350202e5dd080c4c7b1db3cc13d"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_b1a4effe651a.uasset": {
+      "stage": "Repair16",
+      "before": "1d63475a8cee878074634f76abbcd3435df63e258b732da71dbc60f8af0efab4",
+      "after": "ac904302cf495ceef6371ad4b9ac1cf7d825752600dd8af214c6aa65726c997a"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_b1a4effe651a.uasset": {
+      "stage": "Repair16",
+      "before": "bcaab097b3e06a69913d1dc1d4e58c01048158fb9db99d1e2738198d809d419c",
+      "after": "a9400f598a87e39ce1ecbba61d2999562686b8e8d2eb9fa649051274696daf93"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_05f357112ad3.uasset": {
+      "stage": "Repair16",
+      "before": "d5da857532a5f6e280188b225c49afa9ab009f9d1a5dd4c3b5d8609a00e6b77d",
+      "after": "9ffea7a856cda7056953afd567cc6d7b8690077f70e4dfbf67ac6c9606f1e9cd"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_05f357112ad3.uasset": {
+      "stage": "Repair16",
+      "before": "31c99c1f62a5b4ff5f402bf68111670c232c5da90a3d6e47ae7fd57235605d28",
+      "after": "6a43785b266db96e1255edc0fe193a8a4995963ed198dfc86057744e44729133"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_e3dbb9dde5e8.uasset": {
+      "stage": "Repair16",
+      "before": "16b669e1970ff1b3123cd676a2a007d876b6e5211d6feccd500f46f081cf91c0",
+      "after": "edc77e6fc467c35a5d819a5c6dbbb0b7759136cc0a8431f9980d4b9515908919"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_e3dbb9dde5e8.uasset": {
+      "stage": "Repair16",
+      "before": "b79d69a1336361c343e5db90b95484a200a27227f917134393b4f6cc61455ce8",
+      "after": "d84fd4c7a55edc81ccc9debda8406be5e2e44626591331baf699204845fde446"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_f330ba5fe7eb.uasset": {
+      "stage": "Repair16",
+      "before": "dfe191a8dd5ff99dd405393a3b0ce69497778b84cd0e5d3386271ec72b55db6e",
+      "after": "bad951313d816adee78c423e7160e2bfb54a7b644ffb9fe404bc9a40466db2e8"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_f330ba5fe7eb.uasset": {
+      "stage": "Repair16",
+      "before": "1990def39e3e5a834409b78fc18c40129f727fa5f0555052add896e3f6287771",
+      "after": "0c0b9dfc9c8468982afaa7a52082eee47eee5888456ffc1dfa07e422d59785d3"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_ed87f39fe907.uasset": {
+      "stage": "Repair16",
+      "before": "38986ecab95314c22b297ef464acb71cdefc929202914905c2f906bfe5f51225",
+      "after": "902bcc19c9d6c0b320bdb5fc8da6fbd4729f30d07bc38e008ec0cccbdcc47a1a"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_ed87f39fe907.uasset": {
+      "stage": "Repair16",
+      "before": "634657ee298cc5039e81ccf2f9a997ecab4600b6bcc41b586899726aeb7ceb37",
+      "after": "ca5a0ef5b0d477d7888d8a94746332799f92fb3621ea579d1ec51477d265a343"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_f18a0c4be329.uasset": {
+      "stage": "Repair16",
+      "before": "869dd7c87b657969a9d17c09793071e1b6098a4124e8d4cf96efc6166149878c",
+      "after": "fa201445f8a20267adb677f3ec947a4790148c6453676baab8ccc9438bb50800"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_f18a0c4be329.uasset": {
+      "stage": "Repair16",
+      "before": "3d27667e1a56822c11cb662f321f5d96562d8cb2832f21d18bbc99d9d904eca8",
+      "after": "2bf4111ff281d9a380505acfb54f671c0482680b4a346a0f9becc4bd181522a9"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_313c3de835a8.uasset": {
+      "stage": "Repair16",
+      "before": "7d45451fea34eaa33f484aa93fa1a344672e4af530c5e9b78ece1fcdb91ba5ec",
+      "after": "0ac2b069ceb6bf877aa10255fc15b6c9a88e69a1a35149d9df4d56d3677185cb"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_313c3de835a8.uasset": {
+      "stage": "Repair16",
+      "before": "f0755ec2fc51a6dfb7544e9fa0e193b3c79a81037547c0b10d043df3631fd0b1",
+      "after": "697a35c68904fa4c609a85db2a1994401da2d93c0393c533825bcbabf3c9ebd8"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_1d19eb2d7d6f.uasset": {
+      "stage": "Repair16",
+      "before": "96709f7daf9aea6cab12dedef90dd6f43e2c874b7ae1365deca0fb9bf9e70dac",
+      "after": "a372685308bee4866710b14afb310872ba2e25815187c3a375066761bb1e8af2"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_1d19eb2d7d6f.uasset": {
+      "stage": "Repair16",
+      "before": "aa46aa025b18ca5a9b799325289f7b786e27645e1df12069997efdaab9c19471",
+      "after": "a447bf9941f22faa7ecec2b9fc4abab02bf4a44a536348b97556377760bc2a11"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_226bd73c2670.uasset": {
+      "stage": "Repair16",
+      "before": "d96fefccbd265440be98840cf3cf3896490492fad3c1a4485006f94b1d94e283",
+      "after": "40d152aec72fcbefb4314d66a23c842678ba962618bb2d932706fa1c9721681c"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_226bd73c2670.uasset": {
+      "stage": "Repair16",
+      "before": "0dc9a186e82b016ffb0e6d9ed84c55678ee628bbdc730ccd9125c9a19c49b562",
+      "after": "66db82234c6b00b4497c2b456ca9a90d73b20eec7e1317ddf89ef2e67da05dd7"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_7cb228756800.uasset": {
+      "stage": "Repair16",
+      "before": "8e798b28a4a8257a7ed0a2fc089f39b153652ca735030eb84b31890f2d6b1534",
+      "after": "d6eef11eee049f496a3f49d155aaf27dabde3e410e5b9dbef81410d76b882b4b"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_7cb228756800.uasset": {
+      "stage": "Repair16",
+      "before": "69725d72cf411bd9a60fefddc58fee3c47ef313f74eb8c63c7197a969010e6f5",
+      "after": "f461a972c90d31c7b1e4f8ef27ee43a23680721e0775233f214aa71043bf19da"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_ab8057dfbd57.uasset": {
+      "stage": "Repair16",
+      "before": "107520be44a836267f2da4c98a821f74d4c29bb6ea42ea1d389d0f088a0c20db",
+      "after": "11190eaf130b32c70b01b5f93defe7d111d83cb102736e7e935060f9a9d3b193"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_ab8057dfbd57.uasset": {
+      "stage": "Repair16",
+      "before": "ca980e3e3557133b2041d2066d68a8cbdec0d03a81fc6e161db0564b53f36fa7",
+      "after": "74375ccac69201c99e9f9b4632528b130a78e1a00b4add8d8481eba1247a4244"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_5c25dc3cbca3.uasset": {
+      "stage": "Repair16",
+      "before": "09bf2576f8c06c00b321deddd611a86864aafd5d85281ca30d7c173c8f5464bb",
+      "after": "710566076e28660e3d591347a5640eedc846f736bb82207b1bd9fdc61a92d3d3"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_5c25dc3cbca3.uasset": {
+      "stage": "Repair16",
+      "before": "c5c1b3a09d5b81bee8633e8a464bf14d0fcfdc3184a2473c0df83c11c963deaf",
+      "after": "dd8a2f0f3fc5317ece522860ff60b0cded34ae538d6d3284bdff2af621622786"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_a271ff4f1398.uasset": {
+      "stage": "Repair16",
+      "before": "064dd2d5b55e9d5415af222454cd342be0349bcd0c810d00bd1be6a893ce92d8",
+      "after": "d3e13b27d0b8ddee2b79be6816c5508990590ece891a602ea7ca69a808f15918"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_a271ff4f1398.uasset": {
+      "stage": "Repair16",
+      "before": "8304927705e8f40d781267c6a1819cbf20a6f6ea3c47d05a3fe601ecd9fcb77f",
+      "after": "68c27bf2db604079413c3870fe3ca8a34a8d1ead2367db443a42d75a5c8eec1d"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_6d1490adbda6.uasset": {
+      "stage": "Repair16",
+      "before": "f45a2e9de87467f609267d224df9f6b1b32dd2de15ea9890e12dea521422bc79",
+      "after": "eea445b6845851fa7e2f1a627d7c8d6f55902a519054f410e027066ed613613b"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_6d1490adbda6.uasset": {
+      "stage": "Repair16",
+      "before": "427ab0703eadf225d6c2fdbd52cf6f58b79bff4db118ac2c1b9cce1d13170e68",
+      "after": "e94d3c656d4546065db8d53eeb6ac46b4085cbbed42d72abdbfbd5f6ff010445"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_f0cf560145e7.uasset": {
+      "stage": "Repair16",
+      "before": "3abd3a3db16e825e13f500772f222d5b9be8a84f90e7209aca1e2cbc1c3c3c56",
+      "after": "5e6eae70b27115020482eefb149405a91061fe5c6f86b28125e97485cdd4d192"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_f0cf560145e7.uasset": {
+      "stage": "Repair16",
+      "before": "950ae75e99e3ffc596bfaf0cb068a29fba18f3590d4ca09ac4bb18ee29d5dbb8",
+      "after": "c2b84acfe9758cd34722f6d13095a89c22fadabf1dbd87d71f7f3d7a4d1897b9"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_8c92c180873a.uasset": {
+      "stage": "Repair16",
+      "before": "f8e2384bb045bb6c83f3cd235ab917b96f1a76f2d756c3ad0c17a916a7012b82",
+      "after": "af7459e6210349468bd45df3f1ce29619fbf46c57ead788847d85c103ec96fe6"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_8c92c180873a.uasset": {
+      "stage": "Repair16",
+      "before": "ab7d232633e225e02b0cfe96e0640f1015f1501ab7d01eef6a330a8f04987c9f",
+      "after": "ecc8e81f68131293a3fdd80222e3a34a6425278c72af272ebfadb11d7e5b24a1"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_a02c3c138909.uasset": {
+      "stage": "Repair16",
+      "before": "64b51d040112fce1887983733875b6df5f5655086f1d181b7cdc394ec26b4fbd",
+      "after": "655dd9cb62b2bf99cd554aa4b5629b1f43821be229f1f9b0319f780b50a1edcc"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_a02c3c138909.uasset": {
+      "stage": "Repair16",
+      "before": "5a5a5c0100b2375fa1eb21914cfbc1fddf875105a42d125abcf317b5f6d59383",
+      "after": "1d33e8e5c033e56499beee55155cd1c2faf0cb23ca5bc093bc300b345763307a"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_5b9306fe88a6.uasset": {
+      "stage": "Repair16",
+      "before": "8616c7103b7ecf17f2d510f09fdaff0543e0504340f32ed66467bde80f35afa0",
+      "after": "cb4429e6c3d6bf720f322c7c6c70a8127e52bf50610b38ccfed79eb40df794ca"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_5b9306fe88a6.uasset": {
+      "stage": "Repair16",
+      "before": "d71b0d72d5106933fafc049283acdf62be95b235ce1ef7a4d713bb470c225574",
+      "after": "af261a219bc2f2b522339fdb8f0158bf3adcce371aa0206bcc185286e32f030f"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_c3f694158f69.uasset": {
+      "stage": "Repair16",
+      "before": "dc1f1561053052cb976473e73ef060040288dbdd639b11187f964d62414d934d",
+      "after": "77caf872db4603e38be5e137926f7b64d227a17886ab5b10ebca8dfc46b132d4"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_c3f694158f69.uasset": {
+      "stage": "Repair16",
+      "before": "9f5d58d8071d3a5bcc5ea3bb83f933edd11e2b0183bac4a2d99fac1104752501",
+      "after": "82fd08f97da04b4291f0e758a69fb16b35a60448bd6f75eb79afa1328f926875"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_d63de778f1f5.uasset": {
+      "stage": "Repair16",
+      "before": "d53608da4cfa2dcc09b0f36511260f0293c5b364e523aa38f9bb8b8ef3b3e557",
+      "after": "15b472d37bf2dc1871eca26ffbf34250fe2bf8a916fad770e513a33fd6e3b5da"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_d63de778f1f5.uasset": {
+      "stage": "Repair16",
+      "before": "b13f491720f68c086129ffc38a5220693bcc26cae859f37886c5ff2b857eab54",
+      "after": "db64327658a2314405c424d414b9cd515514a05f715bb42648ca49e6705a3f58"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_03429b6032e8.uasset": {
+      "stage": "Repair16",
+      "before": "c95d6f59d92915528cc5c88ecaa2c9aa0a64dfbedbe0661bc9420a1cda8de7fc",
+      "after": "aecebc322f88efb210235e662b5bd4d37c67b061852beea7724ec6023d77034e"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_03429b6032e8.uasset": {
+      "stage": "Repair16",
+      "before": "bde78213d098378f65c3a564033613b03f53b23339e63e8bd65093ed899bc3d2",
+      "after": "cabd86c596b25247d49fddfce030eee24be524b8a89da17733bb69c24793b6de"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_9101da6a3b99.uasset": {
+      "stage": "Repair16",
+      "before": "fb760523b6ade94faa7a79f1b2e63e843a1724a8d0d3ba0b286ab58a48d4f9d9",
+      "after": "507c3e9cec47cf13d69f78b11c009e083f0b4351717d56a0295566462c86d77f"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_9101da6a3b99.uasset": {
+      "stage": "Repair16",
+      "before": "f9337e51eefdb8d3f7aeb143556e4028a46eab7205fafce693d589660528ed9b",
+      "after": "b5f6794e0a713aa596993778a2fbb086c5c14dfc6049f3d21256e8e3a62559cd"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_58a248a35d27.uasset": {
+      "stage": "Repair16",
+      "before": "8490da52099dc78b22af6f07012a9191ad48ca2e8d89715887d6a9477bbf3430",
+      "after": "87777d1518546eb149c0914ba289415eee7ddf6a3c3937e4c14d5b2d00407629"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_58a248a35d27.uasset": {
+      "stage": "Repair16",
+      "before": "7806e4499b6f4ed182f24c23366cbe3e2dd0a24f0f68d6c9afa27f16a1a30e99",
+      "after": "925484e2c6d7eabb2a07d696212b79a01b413763744667072219beee522ade92"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_c390f85ba934.uasset": {
+      "stage": "Repair16",
+      "before": "7a89c5441bc0eb2368d14d6e61370f8455834821e878b18f96195435c9a556d4",
+      "after": "7cddd428a20e0ecd45e272e83a67f7b6a91fbae739ff1287acd438cba22edb00"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_c390f85ba934.uasset": {
+      "stage": "Repair16",
+      "before": "2d3e63294aeff434c3e652b5ce6feb2d03216f7d5d3fc79e107ca45aa6aa6820",
+      "after": "1760a9c16c216f890c9ff4ace870357026b2bdee7d2eaf203c3c16379844cc6f"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_e881572d70dc.uasset": {
+      "stage": "Repair16",
+      "before": "56341df5303d48aa66df821e4f79b85c986b39688261d2fe42563753c4f7b3ea",
+      "after": "da0fba903422fcefbd500bcdef9e590ae541e9d30afc27a073df28f51dbc3f20"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_e881572d70dc.uasset": {
+      "stage": "Repair16",
+      "before": "be46cb6647fb31509652e211698703a758184b26d79c2a0f80840a7612f08b0e",
+      "after": "4d4e94381b46b3c33f34a4d1a6b59836fce2982cda13a41ced65d929319aff4c"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_f57b796fd090.uasset": {
+      "stage": "Repair16",
+      "before": "e23a1737ba90f06149c0962b05115649cb3f8f4b8b72bdcce0bbadfe0922e638",
+      "after": "af18245f5b3fd9ed5adf9440f32b9228d998ec70fc540143f3804dfb4ac8dac7"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_f57b796fd090.uasset": {
+      "stage": "Repair16",
+      "before": "fab4539bcdfb51161db1219a83e8e0d79b38cf0d75e8c0c3895a69910c99347d",
+      "after": "b4ffb4fe4472b01b2190c690ea27ded66d372d2ba30bd04efb4d125bc430b792"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_d444cad54c21.uasset": {
+      "stage": "Repair16",
+      "before": "523fbe9c4fef5f45d0c91a8a81666cacea895c177361d30bb694d483fcd662cb",
+      "after": "c78c6d7c7b98f5c91c51bd609e05d9e2370fdd3e4f8a45b163df4ccaabf88053"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_d444cad54c21.uasset": {
+      "stage": "Repair16",
+      "before": "0a853a94cb555c840914e28fb723b15f066196d161e83ae3f8d4c0ac9eaa1f74",
+      "after": "d6f1b057908560b848e5671ed2b44dd93a6baea7f9c0057f1ded8e44169f668a"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_52a07b08a893.uasset": {
+      "stage": "Repair16",
+      "before": "39817bfb42e4c31aadcb5e4bff092d10ea039407ef2ac5eb471f343c55569330",
+      "after": "692581cf9cb84116c60082355cf6f97836fbae17f4f98aa3e84d72fd10adcaab"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_52a07b08a893.uasset": {
+      "stage": "Repair16",
+      "before": "b3db8c5a80bd21784f9255d0cc1de2cad0651113dc11e291494eaf031e3dfee6",
+      "after": "387e5db9e827cce54798f5c566b29235ee350ad6706ad185886ade16420f7119"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_6fc6bebe0102.uasset": {
+      "stage": "Repair16",
+      "before": "26683aa70198df5c63451c81bfb9fd931b9cf3127362712f40551591edee1283",
+      "after": "b6a2577a48584e05c0d877d1a568855850d3615a9d4d6e72f3968cf51455516d"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_6fc6bebe0102.uasset": {
+      "stage": "Repair16",
+      "before": "b82ee9e458d1b16e9c73af28ef7a18aff19304a1179cb92186dbc2246b9cc5eb",
+      "after": "ced73c409d696cb404eabe875aac7ce1612c71679f2ad4c9fd04453f9b7e335d"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_513024d8e240.uasset": {
+      "stage": "Repair16",
+      "before": "f118ee61fd23c4c9b5b38bb3baf0de90660537c8d71229c272c620491a3940d6",
+      "after": "e42fe4cb2307b79725654f50ed2e6e1f40cc8f77e3356fab7489d65abc0f4d94"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_513024d8e240.uasset": {
+      "stage": "Repair16",
+      "before": "07b2e415560b2a973155605ca6e4e40fb55b4a1676d99f57826df8c63b30793e",
+      "after": "3edffe596bed7c02301bc35de856c9aa96193ecb7aff3ed4f77d79c724bf8e22"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_4a7a01bcb02c.uasset": {
+      "stage": "Repair16",
+      "before": "146a4cb80a83fce8409eaf313af311d4c61ca6df34dc91bb3ce1cdc76b9beefd",
+      "after": "6ac32489049813e3bd7b14e21b8e4b3a996b027d3b88bcd59c04fa344f6b0207"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_4a7a01bcb02c.uasset": {
+      "stage": "Repair16",
+      "before": "d7ab7319531c8ad4e1112c866345b7a8f4de7b22ed933d1612be07375d2151b8",
+      "after": "c98e6ef6f0ff844575f8a3e3a51c917240a886eb2098bf472bf414c44f8a82cf"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_c1c68c219df1.uasset": {
+      "stage": "Repair16",
+      "before": "f2e5ab6b0aedc72b22cfc3311a5647ac136bff45f72ae25fca845a566f6f31ea",
+      "after": "c21210a94e01c84fc61fcc72a1b2041d7185cb18f605e9a2e7624ce630a29b39"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_c1c68c219df1.uasset": {
+      "stage": "Repair16",
+      "before": "e9c89be7fe577be003cdb426d1c2aef839ca34576fd129baed41875085a7c035",
+      "after": "f57c62d1254065dec07f7cfc41b304ff5a9706c7231333d487c86654ee69af14"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_e6575657528f.uasset": {
+      "stage": "Repair16",
+      "before": "1db55e61bfee9e5935ad452b9e9a496c06b821d9e862ba211b918b0c9f8c2ed7",
+      "after": "b9ed5ac987a657640e6cd8f3ad5b60a720529827f3c28054873529034767c569"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_e6575657528f.uasset": {
+      "stage": "Repair16",
+      "before": "93aa2074e841cf62eb086c0decb8d302e45374989e765fe493217589d5efb15a",
+      "after": "354824b437f9498e4ea28e200ceb88a9f9eba42557567fd31c978d08b30ebeb6"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Master/M_M249_f9b54f852af2.uasset": {
+      "stage": "Repair16",
+      "before": "4d1dacfbfccd74396497663b88e57af7f6ea043011d9681b0204ce7b56fce7d0",
+      "after": "c739d5378704024ff7f116d3d63c80e125f4fe01e80a3012f611b2f2dc7350a1"
+    },
+    "Content/Weapons/M249/FinishUnified20261108/Materials/MI_M249_f9b54f852af2.uasset": {
+      "stage": "Repair16",
+      "before": "9dd0b72edcab00b6bb79bed54eddabeae9bb17a51d6ac9ff5058ae89a0064447",
+      "after": "47f8c325a169a3ab00a9e1cbd8f1a2e4dd0b0dea552e3664feeeb0d44d5372a4"
+    },
+    "Content/Weapons/M249/CommonOptics20261108/SM_M249_CommonRail.uasset": {
+      "stage": "Repair16",
+      "before": "71263b5b5bd19f31dc6cf3efee8b1359a3e75f02f0ddbf55d1a3a85417a94dcb",
+      "after": "6e22bed03850db784a5099a98f456e97a274cc3839c3d77364cb9c636cc0b24d"
+    },
+    "Content/Weapons/M249/CommonOptics20261108/SM_M249_eoth_holographic.uasset": {
+      "stage": "Repair16",
+      "before": "38ee1b7223d23558cd8491422bc55232e1ac43411c98c2920a2bb30bdf03a5d6",
+      "after": "666ae615d588e9ec149a7fe59fd4c145985437c29e4481d0a3d157fbf14dcb3a"
+    },
+    "Content/Weapons/M249/CommonOptics20261108/SM_M249_holographic.uasset": {
+      "stage": "Repair16",
+      "before": "4307b93bd1e86b749f7ad0866d911a935193d6954132f96201715c8399b7d514",
+      "after": "55b358b006e2230dc625122287e3b07d0b81bfba386e61c32c6dff9fb9bdb1b0"
+    },
+    "Content/Weapons/M249/CommonOptics20261108/SM_M249_kv_scope_4x.uasset": {
+      "stage": "Repair16",
+      "before": "f3f354c89c54c5df17c7e7dce14eecd83d21d0296b31dd73053aaba806e141fe",
+      "after": "9f0542e5b708880efd7a65c45b55bca82da3bd70c246b8a83339135345266508"
+    },
+    "Content/Weapons/M249/CommonOptics20261108/SM_M249_lpvo_1_6x.uasset": {
+      "stage": "Repair16",
+      "before": "52dc66936572f8c181a3a24f2112c97d64aec60dc4016de3e34eb71a8d80b9fb",
+      "after": "fb68b7575853cbd95f9755e05dd00c46d2cd661ffddc6d965ed533bd7b0e710f"
+    },
+    "Content/Weapons/M249/CommonOptics20261108/SM_M249_lpvo_ring.uasset": {
+      "stage": "Repair16",
+      "before": "b761bf1e2b707b37978a1ab34b3feab652741fc395c29aff401899772888c6ab",
+      "after": "2062938e10baaf5dbce314bf64042d48faaefb72ed8949873d67ff7e10723b48"
+    },
+    "Content/Weapons/M249/CommonOptics20261108/SM_M249_panoramic_red_dot.uasset": {
+      "stage": "Repair16",
+      "before": "43f158470a8de7efe3c25e1fda00e41c97eb75a2c402bf7b311e954c82af5374",
+      "after": "f9518fabe497ff5bbc7babd9bdf83818dfd3075cab3c9ca6fd04f3e8bdf7c8c2"
+    },
+    "Content/Weapons/M249/CommonOptics20261108/SM_M249_prism_scope_2x.uasset": {
+      "stage": "Repair16",
+      "before": "7af7df10c20120d9a353a3247ebc151d742879d826b0e5534c800b28a922acb4",
+      "after": "37cace4a3d0451b2b21ded7db63efd1aeca52623d9e188fcd938b0fcba70e9d5"
+    },
+    "Content/Weapons/M249/CommonOptics20261108/SM_M249_thermal_scope.uasset": {
+      "stage": "Repair16",
+      "before": "846b63c6fd8940241960960d331c7636df5df7b9a3bb411152295d0009cf23f8",
+      "after": "284cfacad2a5175989d05542031839c9589d6c2a7340a72dcaac59779f6e0893"
+    },
+    "Content/Weapons/M249/CommonOptics20261108/SM_M249_thermal_selector.uasset": {
+      "stage": "Repair16",
+      "before": "0f1400df792bcb3752ede5b513f86f8155723db29be5601a852a63040c2e9322",
+      "after": "4fa4b177383449e976a568aff60eb4d8ca1783c9dea787feb2dfd372a1e11857"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_brake.uasset": {
+      "stage": "Repair16",
+      "before": "aef06f84a45667139f9924370a5a690f8f3fae4756de345677b254e5d3da6240",
+      "after": "a5a53a378ed95711f9e48cceeaaab23d722b07ac8f1505f92fe07605bfd88e8b"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_core_stock.uasset": {
+      "stage": "Repair16",
+      "before": "18ca1938631e2fd95c8d58a9f0ae9e15a86198fcfa725a5fb029dbe1ab4baf0d",
+      "after": "a3575a9edb1097b54c2741afcac6d26cbe01ffc9a462067bf44efac242efefb9"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_legendary_adjustable_tactical_stock.uasset": {
+      "stage": "Repair16",
+      "before": "63174543863503eb43c1947eb3c4e0940cdf3b656178fb7083f7c76d6199285a",
+      "after": "8991cd3f64101fb99df6a287f5fe53765cea6e62cf861c42cadc8e244399ea1a"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_multi_caliber_suppressor.uasset": {
+      "stage": "Repair16",
+      "before": "b1b2ceb203f7ac350c0d088bd04cbb1e1c25f0492481d1bcfe9ad25132099924",
+      "after": "a5d0872241deffe72183209baab6735eb596d633a2a45464417de9840e061bcb"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_qr_performance.uasset": {
+      "stage": "Repair16",
+      "before": "358f8042dce2abe7a24a2b168cc7e5376d6b4fe53c5aadea125829b340fc13bb",
+      "after": "6861a07c8d2da9c7aac9cd549a7b97cdab3a336211195fd962a8a0a19e377e99"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_skeleton.uasset": {
+      "stage": "Repair16",
+      "before": "678c6468c4be5c8ea6e11443c47c62d99217d60535c1141574a626cc7377e0b3",
+      "after": "410bf3695865c21666ada84385f4175e4797cb66a2e714c2725c28950f29c47c"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_suppressor.uasset": {
+      "stage": "Repair16",
+      "before": "4a74e141baa39b890886bf683358005fadd82cfd212b73cf7bd9d3729512e0d1",
+      "after": "281e73da31a7ff70eec4cf3c4eb3cdd6ca2b67f1facc973439e71558f8505a1b"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_tactical_suppressor.uasset": {
+      "stage": "Repair16",
+      "before": "011d6d8f1136c07cf35aed9029088c4a93d2cad371e1fbad96f3510637e318de",
+      "after": "d20a0bc61a7a503df1418ff5ca3ebc2307535e58ee66c2e4248ec848a8ceb541"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_tactical_telescopic.uasset": {
+      "stage": "Repair16",
+      "before": "74afe1feb98c0d8bdc2a08057425030ac7cb4f9dcb236e387c603f5f4541ca34",
+      "after": "c69866346c34928bec6a70e71ac3723047c6e897197d00e9c11bcf99feab46f6"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_titanium_brake.uasset": {
+      "stage": "Repair16",
+      "before": "7a562f031c2af927eda87af09c6861d2d0c5bf98abc006d318dc3ffda4b6bf0f",
+      "after": "3c0c822c6572f43aea3c0354097cf9b8f2f211423d5caa59cc62f1fdf61ff111"
+    },
+    "Content/Weapons/M249/Surface20261108/Master/M_M249MagazineSurface29.uasset": {
+      "stage": "Finish29",
+      "before": "7f42e0ff91d371fee352994ba4c7c7448ad31efb703568ac6a69a8c409f67822",
+      "after": "139997f5240469a90b4c001d95aa8b7a4da342ad0ea93af836486e1164d6be5e"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_SideMagazine30_29.uasset": {
+      "stage": "Finish29",
+      "before": "aefe5dacb32c5929c983902f4bea11b5b019158004abe36c6ec84946ae2475d3",
+      "after": "926ffdd298245ae58540c0fa95d3bf57351754b96ad99c938a1f9048ea11134d"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_SideMagazine45_29.uasset": {
+      "stage": "Finish29",
+      "before": "08829964a6cec2b93206213610fdba42aab06f1311608bf3565ed319140add34",
+      "after": "31f37b7c954bd1af45accffcdf8c50e49d540fbe34f4ab28d3c6bf62ee247af1"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_SidePort29.uasset": {
+      "stage": "Finish29",
+      "before": "376655fd9eeb98cd55d8faf52a8685b7bc9c814351c5d62735aeffe1e9e2996a",
+      "after": "79008df14c7fe69320931f6c25a3246f358d472e0a6e428ca311a3027584e658"
+    },
+    "Content/Weapons/M249/SideMagazine20261108/Meshes/SM_m249_side_mag_30.uasset": {
+      "stage": "Finish29",
+      "before": "8df4f2a84b5e8e7ba177aca5118a431c65aa31d10d4bdd8fd278dcc4660f5b6f",
+      "after": "f5d30d107f9322584db48b6741d5d9a5095e39fc93c4d939f4801eb0d3ac0e78"
+    },
+    "Content/Weapons/M249/SideMagazine20261108/Meshes/SM_m249_side_mag_45.uasset": {
+      "stage": "Finish29",
+      "before": "23f9600377aec6f0d455caa092f4557588306e39ccbee6cad0237645d08d6c88",
+      "after": "bd0156d4db6ad8e991f12fb8c9d4fc7e7c88214a73b5d520f65e76179b488420"
+    },
+    "Content/Weapons/M249/SideMagazine20261108/Meshes/SM_M249_SidePort.uasset": {
+      "stage": "Finish29",
+      "before": "b528b6dde7594093af01ac3a709b896e319978272b1893cd63464e9c88508ead",
+      "after": "57613176dd409c1ab9baa1149854581737348ba47e00165ec4cd245f23f6e4ba"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Surface__OldBox.uasset": {
+      "stage": "Finish29",
+      "before": "e067b93deb25ff9382655b4ec44b4cfa87482d2ec015cacabc14f941be28b395",
+      "after": "e5789ab6f4d5c2b6293de93fd7c10c0941a18d1097b2670eb3bf89a68ad1f9f5"
+    },
+    "Content/Weapons/M249/Surface20261108/Materials/MI_M249_Surface__NewBox.uasset": {
+      "stage": "Finish29",
+      "before": "697975401f69f57cac24dbec58af24f7a7f41427889d37b71464e0f7720a0857",
+      "after": "120981f269d47bb85ca742c4e4d30bccd719c90b30c2ff30049dc6e9eb74bd0b"
+    },
+    "Content/Weapons/M249/Animations/A_M249_reload.uasset": {
+      "stage": "ReloadAudit21",
+      "before": "6bcfebbc710cfa4d92dd16b019a73c76b8bb81b9729ba9dccf5435feba9f966e",
+      "after": "0e380e04b6e115256938011114a97a0e524261f0246f1d264583dbae6a5211d3"
+    },
+    "Content/Weapons/M249/Animations/A_M249_reload_empty.uasset": {
+      "stage": "ReloadAudit21",
+      "before": "ab0ddf9fcc24ca84e215cbcdc38115b0359b325363a517f56fe54c9c9b311692",
+      "after": "0cbcb750771483871ae73ad3fef3f3c4c9a15bac62f14754491f7ad9d4663982"
+    },
+    "Content/Weapons/M249/SideMagazine20261108/Animations/A_M249_side_reload.uasset": {
+      "stage": "ReturnReview24",
+      "before": "77932eccf70084cdde8159f3c4c89520c73f70738c8fb963923f9df2af872828",
+      "after": "13733c2ee85b9be1fc7c4c43768868b26108087716e16d58e6226cc1b9dbce35"
+    },
+    "Content/Weapons/M249/SideMagazine20261108/Animations/A_M249_side_reload_empty.uasset": {
+      "stage": "ReturnReview24",
+      "before": "7f1995b96a08da42d1395158aeb626d5f840dab08ed6df0c15a563d624ff2563",
+      "after": "8dab2303a0e0af4c9a03e3bd75c3c6560c7b1fcbfed81eeaf6507a8011c96a22"
+    },
+    "Content/Weapons/M249/Animations/A_M249_quick_melee.uasset": {
+      "stage": "Repair08",
+      "before": "8f03b0d3ef30bbad942dc158497e16042f9406a82e9c736996597fcd299e5211",
+      "after": "e9cd6b1a38d4e5dfe07042e1fccfa562b322f1339276281928a39a3ae12c7c9d"
+    },
+    "Content/Weapons/M249/Bipod/A_M249_Bipod.uasset": {
+      "stage": "Repair11",
+      "before": "7efefc43d2170fd1a45df308f7a4b8c4ce83c10ae5fadeb197a69604bb339802",
+      "after": "18fa22a4a63dbd28dec0266a85b3a1188f7dac51b13a8cafb9ce7e9560d53b1b"
+    },
+    "Content/Weapons/LMGStabilityGrip20261111/DA_M249_Handguard.uasset": {
+      "stage": "Wrist39",
+      "before": "3c94702cda4b393759f17927e4663807ac35fad7c1f1a025db157d8dd9652165",
+      "after": "267146d4c41ca8950ce39eb2245b31d62609186b21fedd79a25a830e4983a2c1"
+    },
+    "Content/Weapons/M249/Bipod/DA_M249_Bipod.uasset": {
+      "stage": "Wrist34",
+      "before": "0690184fc2047002d6b07256e72e684f7c07d064a8164ee30c0cb7839594f60c",
+      "after": "1e8f4306edc0a5d7f31b5e2a871e24e46633143bd11cf4095b94c4ed1cb7f883"
+    },
+    "Content/Weapons/M249/SK_M249_V7.uasset": {
+      "stage": "BipodPin41",
+      "before": "7fa343909b68636af5d2f6e656e6a1175f071dcf976a5acb4eb3a8b9709619ef",
+      "after": "5ec38d52c7ecdcc876f9873484e025423280f15fa0f8989887e5e641d6250545"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_body.uasset": {
+      "stage": "BipodPin41",
+      "before": "c52681db512969d55a8cb0e0f4e4def3a85b5242b84889eea44e5f444ceacf85",
+      "after": "dfdc4d7c97184b9598242d0a1955d95a974051aaaa331c1eb335d8a24f7d16a2"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_phantom_reargrip.uasset": {
+      "stage": "RearGrip44",
+      "before": "94272a641b361ded32fd9e1036dee03b77733cb2c039416c2737dcb59ffc9013",
+      "after": "ce34050a735940facba729b30c411336a1239d28f43dca82df5c0dacd769ffa5"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_balanced_reargrip.uasset": {
+      "stage": "RearGrip44",
+      "before": "5dd13c91fb5602604eb1de9e9aee74c1d30cef32a9be8286b5d914ed9c2b2b40",
+      "after": "bae23b39ddea64ece0f233c89ed589ca4fefc8eb1e99bbd117feb8ef88a64ed2"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_stable_antislip_reargrip.uasset": {
+      "stage": "RearGrip44",
+      "before": "d527d8f87084638ec782c536288d4f94806b29f360dc17b3d8da5e4830403a1d",
+      "after": "984f450c8ce9cf0bbaee585ba81a88a8ec8a7bbfe94c4d2773d1e7e907002dcd"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_reargrip.uasset": {
+      "stage": "GripMount40",
+      "before": "432b937b22799fd420a2f10b460e50e5cab5f5fe3aeba02c70909cfae7f994f1",
+      "after": "aed3ce90e0249f2dfffa8488eea832a1daf060ddf4c2b72acfe9a6a77497a2b2"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_vertical.uasset": {
+      "stage": "GripMount40",
+      "before": "7254dedef351c161984c08eb10f7c0ccdadc859dcb176b5a362684ba60aa9d9d",
+      "after": "36cba47fc9fc9b3cec5c8346a6e51a4a6cd5e0164da517b4291f1c71d63f117a"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_tactical_vertical.uasset": {
+      "stage": "GripMount40",
+      "before": "905cba94d5053bfb17b11e2361703348c81407786b08eb0e5ec78149a0f80da8",
+      "after": "22162d73b07cd766cb5e987355c2bcb78944a53cfa20580842292a322fcbfa10"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_angled.uasset": {
+      "stage": "GripMount40",
+      "before": "01cf16447e7059d43f276cf13499805826a3646517b2efec2bf6d175273a134b",
+      "after": "036b18f1530cafbf7244e4ab2dd76d9ee3fe141bd863fa41a9bb97f66183a9f9"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_canted.uasset": {
+      "stage": "GripMount40",
+      "before": "ffb1d5c570a1cc2f0c8060b28a32e8f1e7eb1c3b70dc05c37b965ff54ab762fc",
+      "after": "8bb6a810b47426a9f610d67a2f4b424745c07a435c794c550690c76dbb41ff54"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Meshes/SM_M249_prism.uasset": {
+      "stage": "GripMount40",
+      "before": "f1447551e92b8aae6f74c8692b5c5289aa0c962b1da5e1ecb086e07ed1c4a3c6",
+      "after": "3640f0f55a010b31e1f979ff468480c2a71ccc1009f5a9a657bbe26ccc9d1597"
+    },
+    "Content/Weapons/LMGStabilityGrip20261111/SM_M249_StabilityGrip.uasset": {
+      "stage": "GripMount40",
+      "before": "67925a14dbc6fd0de1d121ab5525d03825a2e75227168a3186d9a867f198ee4c",
+      "after": "8f7882bfc55d9335c7a87799428831aaf1bf11e6327e60f043b54043f3e787dd"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Profiles/DA_M249_vertical.uasset": {
+      "stage": "GripMount40",
+      "before": "97fd74ef38d6e63a8957080caa2319ac7278bee6e969c9fc44c2415d48a380b4",
+      "after": "8055cb7af161762a06ed067bd3d2a761cb3e52d57afb2df858dc7e20e45b2f49"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Profiles/DA_M249_angled.uasset": {
+      "stage": "GripMount40",
+      "before": "f08680bfdaebcc614be3f96f81b2ce42902b39627f570b407ec1c7be548345e6",
+      "after": "ef3953915a07fee53fbee2e394541c666f7d4ab92b4cfc588fd80866b6c087f7"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Profiles/DA_M249_canted.uasset": {
+      "stage": "GripMount40",
+      "before": "8d95d775062c2f475377fba3bff0350d4f40f4aa71521d00ee13b30600d7bbda",
+      "after": "c8300485c721406cc07b2ac9e4f35b8b57aeab152bf7e74f0977fecb87f355b6"
+    },
+    "Content/Weapons/M249/CommonParts20261108/Profiles/DA_M249_prism.uasset": {
+      "stage": "GripMount40",
+      "before": "f6a8a865d40eeba7d039de80c23edebd2ee8dc9df5ff1d147d911b482ae684e2",
+      "after": "96293a5ce1c87f48d99350c1690c07d05aad51f7386b7b0909f199e606ef4739"
+    },
+    "Content/Weapons/M249/Bipod/DA_M249_SupportGrip.uasset": {
+      "stage": "GripMount40",
+      "before": "fcaf1b4cb53c990c09c97dd87c73816099f66528cbbdfa32eed254b1a0f84508",
+      "after": "5fd3ff5e89ddc82b9d39958b1c7477f67fa3a5f4b4306b3c98f0b61244d934c4"
+    },
+    "Content/Weapons/M249/Bipod/SM_M249_Bipod_Base.uasset": {
+      "stage": "BipodPin41",
+      "before": "2b4c7676e5509c44b8a0473b57235126215b86d558a4705011394ee8c7e95876",
+      "after": "d9b5955bc804c7653131e390a1b4f01136cb14fd302a53f55eb9e184b159b904"
+    },
+    "Content/Weapons/M249/Assembly/SM_M249_bipod.uasset": {
+      "stage": "BipodPin41",
+      "before": "1b905b1b803b702f73a444ecddef54ef973fbab8a4840f53d236167954b098c8",
+      "after": "218433bb4d4c11b03e45ceb07f90b36fd0dbf9a12702b1ea313677cf518560c4"
+    },
+    "Content/ColdSteelData/AttachmentIcons20260913/FramedFirearms/ue_m249_underbarrel_false.uasset": {
+      "stage": "LMGStabilityGrip",
+      "before": "a990c6b637c6fe8f30c0309f92aca8735efaec46bc961f85ae270e9da3438278",
+      "after": "897bea9f8bd24f8c82e5e3fc695a65e3a3bc4f0f92f59d1eda3c4ab36fb1bec0"
+    }
+  },
+  "build": "Package authoring in isolated Unreal 5.8 commandlets; no C++ changes.",
+  "runtime_tested": false
+}

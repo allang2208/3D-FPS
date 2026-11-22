@@ -1,0 +1,19 @@
+{
+  "content": "F:\\FPSGAMEData\\Content",
+  "materials": [
+    {
+      "package": "/Game/Weapons/SharedPhysicalOptics20261030/M_PhysicalThermalScene",
+      "pixel_instructions": 102,
+      "shader_sha256": "0586e316426a10e23488fd759a66acf427930245cceb7c6f225e75b066b36573",
+      "saved_sha256": "36d54b0eaf5f77d3fc58c29705c21a9d1909ce56a2814d12f510e0f33782559b"
+    },
+    {
+      "package": "/Game/Weapons/SharedPhysicalOptics20261030/M_PhysicalScopeLens",
+      "pixel_instructions": 2301,
+      "shader_sha256": "67f874cb296500c788ffe012e42b116dcb31cf98c44e10fdc20ce811739cb08a",
+      "saved_sha256": "1da3b4d9a3ddea9bad0a688dfffb5dfad1b1dc83233ac56da5814229feff87ec"
+    }
+  ],
+  "gameplay_tested": false,
+  "publication": "Installed the isolated build after editor shutdown"
+}

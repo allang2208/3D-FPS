@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Characters/FPSBodyWarhammerMotion.h
++++ b/Source/FPSGAME/Characters/FPSBodyWarhammerMotion.h
+@@ -5,6 +5,15 @@
+ /** Authored hammer body performances. ProductionTool still owns time and hits. */
+ namespace FPSBodyWarhammerMotion
+ {
++inline const FName PommelStrike(TEXT("WarhammerPommelStrike"));
++inline const FName SpikeThrust(TEXT("WarhammerSpikeThrust"));
++
++inline bool UsesQuickMeleeWrists(const FFPSBodyState& State)
++{
++    return State.Action==EFPSBodyAction::GunBash&&
++        (State.ActionVariant==PommelStrike||State.ActionVariant==SpikeThrust);
++}
++
+ inline bool IsNormalClip(FName Key)
+ {
+     return Key==TEXT("Warhammer.FullBody.Slash1")||Key==TEXT("Warhammer.FullBody.Slash2")||Key==TEXT("Warhammer.FullBody.Slash3");
+@@ -60,6 +69,7 @@
+     }
+     if(S.Action==EFPSBodyAction::GuardHit)return TEXT("Warhammer.FullBody.GuardHit");
+     if(S.Action==EFPSBodyAction::GuardBreak)return TEXT("Warhammer.FullBody.GuardBreak");
++    // Older body states have no sampled wrists for this variant.
+     if(S.Action==EFPSBodyAction::GunBash&&S.ActionVariant==TEXT("WarhammerHeadThrust"))return TEXT("Warhammer.FullBody.QuickMelee");
+     return NAME_None;
+ }

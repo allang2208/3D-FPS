@@ -1,0 +1,113 @@
+{
+  "remote_main": "a9eb19ebe72b3d792dba5a4e18078fa16ce413d7",
+  "recovered_clips": [
+    {
+      "id": "N050",
+      "rig": "Arms",
+      "weapon": "Hatchet",
+      "package": "/Game/Weapons/TacticalHatchet20261101/OffhandDraw/Arms/A_OffhandHatchetEquip",
+      "formal": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\TacticalHatchet20261101\\OffhandDraw\\Arms\\A_OffhandHatchetEquip.uasset",
+      "bytes": 274802,
+      "sha256": "5323b15f834e80b7a8db0e17b657aab3d5e1f5fdd5e1da6a42c99babd307fc74",
+      "status": "installed"
+    },
+    {
+      "id": "N051",
+      "rig": "Arms",
+      "weapon": "Kukri",
+      "package": "/Game/Weapons/TacticalHatchet20261101/OffhandDraw/Arms/A_OffhandKukriEquip",
+      "formal": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\TacticalHatchet20261101\\OffhandDraw\\Arms\\A_OffhandKukriEquip.uasset",
+      "bytes": 271434,
+      "sha256": "79f065a289d5e3052f4a1d355c83247ef41ba52ba3aeb49c96f1c142d3f50e8b",
+      "status": "installed"
+    },
+    {
+      "id": "N052",
+      "rig": "Jason",
+      "weapon": "Hatchet",
+      "package": "/Game/Weapons/TacticalHatchet20261101/OffhandDraw/Jason/A_OffhandHatchetEquip",
+      "formal": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\TacticalHatchet20261101\\OffhandDraw\\Jason\\A_OffhandHatchetEquip.uasset",
+      "bytes": 731410,
+      "sha256": "4e4f3681de15d25ddecbe2f8b71a59360e490a8975a704c284d16bae51473059",
+      "status": "installed"
+    },
+    {
+      "id": "N053",
+      "rig": "Jason",
+      "weapon": "Kukri",
+      "package": "/Game/Weapons/TacticalHatchet20261101/OffhandDraw/Jason/A_OffhandKukriEquip",
+      "formal": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\TacticalHatchet20261101\\OffhandDraw\\Jason\\A_OffhandKukriEquip.uasset",
+      "bytes": 703561,
+      "sha256": "198522067381bc9b66f3eb0b2a64f50822193953ce9714181d633d6f2fbb0f90",
+      "status": "installed"
+    },
+    {
+      "id": "N054",
+      "rig": "Kaitlin",
+      "weapon": "Hatchet",
+      "package": "/Game/Weapons/TacticalHatchet20261101/OffhandDraw/Kaitlin/A_OffhandHatchetEquip",
+      "formal": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\TacticalHatchet20261101\\OffhandDraw\\Kaitlin\\A_OffhandHatchetEquip.uasset",
+      "bytes": 719762,
+      "sha256": "ea50b3d8b2c78b8116526c00aff31c289812f587a596844fa0d16d1694949230",
+      "status": "installed"
+    },
+    {
+      "id": "N055",
+      "rig": "Kaitlin",
+      "weapon": "Kukri",
+      "package": "/Game/Weapons/TacticalHatchet20261101/OffhandDraw/Kaitlin/A_OffhandKukriEquip",
+      "formal": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\TacticalHatchet20261101\\OffhandDraw\\Kaitlin\\A_OffhandKukriEquip.uasset",
+      "bytes": 692874,
+      "sha256": "2ab0c5906136053afb3f6e4d8921881e3c87124b71a9c6d1b6b06e8141aad857",
+      "status": "installed"
+    }
+  ],
+  "prior_receipt": "F:\\FPSGAME-Recovery-Work-20261120\\HatchetOffhandDraw\\installed.json",
+  "done": "2026-11-21T22:20:48.134911",
+  "source_commits": [
+    "e0a86866",
+    "8095546c",
+    "3ecf7ad8"
+  ],
+  "wrist": {
+    "samples": 56,
+    "peak_degrees_from_carry": 153.92507230718343,
+    "seconds": 0.9166666865348816
+  },
+  "pistol_and_kukri": "Existing loadout: 0.06 s delay and 0.42 s rise with matching pistol framing. Newly fitted offhand: authored left wrist and blade toss together.",
+  "weapons": [
+    "ue_m1911",
+    "ue_g18",
+    "ue_pit_viper2011",
+    "ue_dan_wesson715",
+    "ue_rsh12"
+  ],
+  "includes_third_person_asset_map": true,
+  "first_person_motion_changed": true,
+  "live_game_checked": false,
+  "new_source_hashes": {
+    "Source\\FPSGAME\\Weapons\\Kukri\\OffhandKukriComponent.h": "de573e17b096176c247f65e16a84f45adc085b95d97c3e5761a55e9ad6b3f61a",
+    "Source\\FPSGAME\\Weapons\\Kukri\\OffhandKukriComponent.cpp": "9ef7cc463124212b3927626fee4e8d3196e034e92173d0d8fdaaf6a5b07c7d82",
+    "Source\\FPSGAME\\Weapons\\Kukri\\OffhandKukriStrike.cpp": "497cceabd9f6fcb7cb69ef0ea1d29b57a92eead5f7bcc7d3d4e5a8c6212e5748",
+    "Source\\FPSGAME\\FPSGAMECharacterWeaponState.cpp": "e0deabd9cb78157c686450152e275cc73bd4c3748d66e9a23de48b00602fe685",
+    "SourceAssets\\OffhandBladeDraw20261104\\author.py": "68261aac298baa998fb9f7bc4d06d09295786fba96673a83805171ca757d65d0",
+    "Source\\FPSGAME\\Weapons\\Kukri\\PistolKukriDrawWrist.h": "3ac8a3da737bf7b7ff7fc8df2ef0af3a7c653fef7f6e9f3325c4cf9f8286ea1c",
+    "SourceAssets/OffhandBladeDraw20261104/pistol_kukri_wrist.py": "c2f8dd28ff6b709edac7d8d67b681f7ffd28d06b9fc32b96f186a09aef89988c"
+  },
+  "builds": [
+    {
+      "target": "FPSGAMEEditor",
+      "log": "F:\\FPSGAMEData\\ArtProduction\\OffhandBladeDraw20261104\\PistolEquipRecovery20261121\\FPSGAMEEditor.log",
+      "completed": "2026-11-21T22:17:12.7282514+08:00",
+      "configuration": "Win64 Development",
+      "exit_code": 0
+    },
+    {
+      "target": "FPSGAME",
+      "log": "F:\\FPSGAMEData\\ArtProduction\\OffhandBladeDraw20261104\\PistolEquipRecovery20261121\\FPSGAME.log",
+      "completed": "2026-11-21T22:20:34.5099215+08:00",
+      "configuration": "Win64 Development",
+      "exit_code": 0
+    }
+  ]
+}

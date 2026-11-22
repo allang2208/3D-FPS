@@ -1,0 +1,87 @@
+--- a/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp
++++ b/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp
+@@ -20,7 +20,7 @@
+     TEXT("Peakwatch 3-6x physical-lens capture; 0 retains the legacy main-camera zoom."));
+ constexpr float LensRadiusCM=1.115f*1.75f;
+ // Settled glass diameter as a fraction of the owner's shorter viewport axis.
+-constexpr float ApertureFraction=.72f;
++constexpr float ApertureFraction=.80f;
+ }
+ 
+ bool UBowScopeOptics::Enabled() { return BowScopeOptics::OpticalPresentation.GetValueOnGameThread()!=0; }
+@@ -77,8 +77,11 @@
+     auto* Pawn=Bow.Character.Get();auto* Camera=Bow.Camera.Get();
+     const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
+     const auto* Body=Pawn?Pawn->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
++    const bool Peakwatch=Bow.IsScopeOpticalPresentationEnabled();
++    const bool FixedLens=Bow.IsEquipped() && Bow.bHasAimSight && Bow.OpticalMinimum>1.f
++        && FMath::IsNearlyEqual(Bow.OpticalMinimum,Bow.OpticalMaximum);
+     if(!Pawn||!Pawn->IsLocallyControlled()||!Camera||!PC||PC->GetViewTarget()!=Pawn||PC->bShowMouseCursor||Pawn->IsAmmoWheelOpen()||
+-        !Bow.IsScopeOpticalPresentationEnabled()||!Bow.CanPresent(true)||Bow.AimAlpha()<=.001f||
++        (!Peakwatch&&!FixedLens)||!Bow.CanPresent(true)||Bow.AimAlpha()<=.001f||
+         !Bow.Pivot||(Body&&Body->IsThirdPersonViewEnabled()))
+     {Release(Bow);return;}
+     if(!bSavedCamera)
+@@ -103,23 +106,30 @@
+     // the world camera, physical bow or drawing hand towards/behind the eye.
+     // Focal normalization respects the actual constrained viewport and axis
+     // policy; selected optical magnification never enters this framing solve.
+-    float FocalToShortSide=16.f/9.f;
+-    auto* Local=PC->GetLocalPlayer();FSceneViewProjectionData Projection;
+-    if(Local&&Local->ViewportClient&&Local->ViewportClient->Viewport&&
+-        Local->GetProjectionData(Local->ViewportClient->Viewport,Projection))
+-    {
+-        const FIntRect Rect=Projection.GetConstrainedViewRect();
+-        const float ViewFOV=PC->PlayerCameraManager?PC->PlayerCameraManager->GetFOVAngle():Camera->FieldOfView;
+-        if(Rect.Width()>0&&Rect.Height()>0)
+-            FocalToShortSide=float(Projection.ProjectionMatrix.M[0][0])*Rect.Width()
+-                /FMath::Min(Rect.Width(),Rect.Height())*FMath::Tan(FMath::DegreesToRadians(ViewFOV)*.5f);
+-    }
+-    const float TargetTan=BowScopeOptics::LensRadiusCM*Bow.BowScale*FocalToShortSide
+-        /(FMath::Max(30.f,Bow.AimSightDistanceCM)*BowScopeOptics::ApertureFraction);
+     const float RestFOV=bWasFirstPersonFOV?SavedFirstPersonFOV:Camera->FieldOfView;
+     const float RestTan=FMath::Tan(FMath::DegreesToRadians(RestFOV)*.5f);
+-    const float FramingPower=FMath::Lerp(1.f,RestTan/FMath::Max(.01f,TargetTan),
+-        FMath::SmoothStep(0.f,1.f,Bow.AimAlpha()));
++    // Fixed glass already uses the main-camera optical zoom; enlarge only the
++    // owner's bow projection. The smaller 2x glass needs a larger correction.
++    float SettledPower=Bow.OpticalMaximum<=2.f?1.50f:1.32f;
++    if(Peakwatch)
++    {
++        float FocalToShortSide=16.f/9.f;
++        auto* Local=PC->GetLocalPlayer();FSceneViewProjectionData Projection;
++        if(Local&&Local->ViewportClient&&Local->ViewportClient->Viewport&&
++            Local->GetProjectionData(Local->ViewportClient->Viewport,Projection))
++        {
++            const FIntRect Rect=Projection.GetConstrainedViewRect();
++            const float ViewFOV=PC->PlayerCameraManager?PC->PlayerCameraManager->GetFOVAngle():Camera->FieldOfView;
++            if(Rect.Width()>0&&Rect.Height()>0)
++                FocalToShortSide=float(Projection.ProjectionMatrix.M[0][0])*Rect.Width()
++                    /FMath::Min(Rect.Width(),Rect.Height())*FMath::Tan(FMath::DegreesToRadians(ViewFOV)*.5f);
++        }
++        const float TargetTan=BowScopeOptics::LensRadiusCM*Bow.BowScale*FocalToShortSide
++            /(FMath::Max(30.f,Bow.AimSightDistanceCM)*BowScopeOptics::ApertureFraction);
++        SettledPower=RestTan/FMath::Max(.01f,TargetTan);
++    }
++    const float FramingPower=FMath::Lerp(1.f,SettledPower,
++        FMath::SmoothStep(0.f,1.f,Bow.AimZoomAlpha()));
+     const float FramingFOV=FMath::RadiansToDegrees(2.f*FMath::Atan(RestTan/FramingPower));
+     if(!Camera->bEnableFirstPersonFieldOfView)Camera->SetEnableFirstPersonFieldOfView(true);
+     if(!FMath::IsNearlyEqual(Camera->FirstPersonFieldOfView,FramingFOV,.001f))Camera->SetFirstPersonFieldOfView(FramingFOV);
+@@ -129,7 +139,7 @@
+ {
+     if(!Present){Release(Bow);return;}
+     UpdateCamera(Bow);
+-    if(!bSavedCamera)return;
++    if(!bSavedCamera||!Bow.IsScopeOpticalPresentationEnabled()){Alpha=0.f;return;}
+     const auto* Sight=Bow.Part(TEXT("sight"));
+     if(!Sight||!Sight->HasMesh()){Release(Bow);return;}
+     Alpha=FMath::SmoothStep(.58f,.94f,Bow.AimAlpha());
+@@ -180,7 +190,6 @@
+     auto* Mesh=Sight?Sight->GetVisual():nullptr;
+     if(!Mesh||!Mesh->GetStaticMesh()||!Mesh->IsVisible()||Mesh->bHiddenInGame||Mesh->bOwnerNoSee)return false;
+     Out=FPhysicalScopeView();Out.Mesh=Mesh;Out.Style=EPhysicalScopeStyle::Peakwatch;
+-    Out.MinimumMagnification=OpticalMinimum;
+     Out.Glass=Mesh->GetMaterialIndex(TEXT("M_Peakwatch_Glass"));
+     // Scope3to6V11/V12 authoring coordinates, centimetres. Its physical glass is
+     // centred at the same mount point used by the bow's authored ADS alignment.

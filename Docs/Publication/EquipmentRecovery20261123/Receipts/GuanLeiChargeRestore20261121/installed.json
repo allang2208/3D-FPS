@@ -1,0 +1,25 @@
+{
+  "when": "2026-11-21T20:41:17.332423",
+  "commit": "3ff1b8ac",
+  "revision": "ChargeRestoreV6",
+  "restoration": "Original retained V6 FBX and published import recipe",
+  "assets": [
+    {
+      "package": "/Game/Weapons/ThunderGodHammer20261028/ThunderThrowV1/A_ThunderHammer_ThrowCharge",
+      "old_sha256": "465ab66e3cecf0f2615f8c6391c6e40122849d14b1a25f5ae7295fc2f5d1b034",
+      "new_sha256": "1b88bcb2eece10a27ae8d10a89849c81d388b2dbc57f83fca5440b23b26607f9",
+      "bytes": 2453784,
+      "source": {
+        "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\ThunderGodHammer20261028\\ChargeRestoreV6\\Export\\A_ThunderHammer_ThrowCharge.fbx",
+        "sha256": "941028fad760fda4b337a0ac7ec2c02f8f15ac07a850120d0da3ff531a46c85e",
+        "revision": "ChargeRestoreV6: original V3 continuous lift; throw entry joins V5 by .12 s; later throw unchanged",
+        "frames": 480,
+        "seconds": 2.0,
+        "rate_scale": 1.0
+      }
+    }
+  ],
+  "backup": "F:\\FPSGAMEData\\ArtProduction\\ThunderGodHammer20261028\\GuanLeiChargeRestore20261121\\Before",
+  "applied_via": "offline installation under project mutex",
+  "runtime_tested": false
+}

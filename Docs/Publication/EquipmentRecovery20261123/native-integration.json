@@ -1,0 +1,267 @@
+{
+  "git_base": "0c84262237c90526aa0b26414e2cdcbe0ab69998",
+  "patch_digest_basis": "UTF-8, LF",
+  "units": [
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterWeaponState.cpp",
+      "patch": "Integration/Source__FPSGAME__FPSGAMECharacterWeaponState.cpp.patch",
+      "before_lf_sha256": "9e4500d8f8f07bf02402e8f08ccce02ff0b2180f55047d9b179a3fd8aeee37a2",
+      "after_lf_sha256": "c8e3e0cbc2c1f27b753249a4fcfa5dacf68cdbf83923e9b896e53c09a1102a6b",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/OffhandBladeDraw20261104/PistolEquipRecovery20261121/Before/Source/FPSGAME/FPSGAMECharacterWeaponState.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.cpp",
+      "patch": "Integration/Source__FPSGAME__Weapons__Kukri__OffhandKukriComponent.cpp.patch",
+      "before_lf_sha256": "c8944b20f6c26d0e7b058565259ee249cc4cadaa32b70b7599f4d21179315f62",
+      "after_lf_sha256": "ac9bf772fcdbebec986ee8bac77002ffc59a356eff3916bc70ae596ea8db83ad",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/OffhandBladeDraw20261104/PistolEquipRecovery20261121/Before/Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.h",
+      "patch": "Integration/Source__FPSGAME__Weapons__Kukri__OffhandKukriComponent.h.patch",
+      "before_lf_sha256": "a81c7f39a8d77034917421ed2e53de2f1d12330c529acbb08bbc9b75a0cd7d6a",
+      "after_lf_sha256": "532509428631e69e5251a2104c93681f0ec87ddd7a52ee8650ba8ad16c01a10b",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/OffhandBladeDraw20261104/PistolEquipRecovery20261121/Before/Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.h"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/OffhandKukriStrike.cpp",
+      "patch": "Integration/Source__FPSGAME__Weapons__Kukri__OffhandKukriStrike.cpp.patch",
+      "before_lf_sha256": "9bd7deb38a8217c948252480ca826839aef696933ab75b08f9cd1872124af1a9",
+      "after_lf_sha256": "497cceabd9f6fcb7cb69ef0ea1d29b57a92eead5f7bcc7d3d4e5a8c6212e5748",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/OffhandBladeDraw20261104/PistolEquipRecovery20261121/Before/Source/FPSGAME/Weapons/Kukri/OffhandKukriStrike.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterViewmodel.cpp",
+      "patch": "Integration/Source__FPSGAME__FPSGAMECharacterViewmodel.cpp.patch",
+      "before_lf_sha256": "3cb3a7f09e96de84dc10e1c101a586c6f29ab5e6f1f8d87d4b2fb77b51b8a612",
+      "after_lf_sha256": "3c25182c7681e0aae648bd6c13ebf7016f32b200c11b8560ca04f084f9ff6b7d",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/OffhandBladeDraw20261104/PistolHatchetRaise20261121/Before/Source/FPSGAME/FPSGAMECharacterViewmodel.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Kukri/PistolHatchetDrawMotion.h",
+      "patch": "Integration/Source__FPSGAME__Weapons__Kukri__PistolHatchetDrawMotion.h.patch",
+      "before_lf_sha256": "c800cfc728f063b211aace57e9f6f97b866cdc2b346921032ba934796c9c2ca0",
+      "after_lf_sha256": "29e1b0bbbb159fa00f4370e4bc1e7120a9ad0447bdc5b600e6d0d411240f37f1",
+      "applies_to_git_base": true,
+      "integration": "published",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/OffhandBladeDraw20261104/PistolHatchetRaise20261121/Before/Source/FPSGAME/Weapons/Kukri/PistolHatchetDrawMotion.h"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "patch": "Integration/Source__FPSGAME__UI__ColdSteelItemTooltipData.cpp.patch",
+      "before_lf_sha256": "595d6f2fa9abd8ce87bb60fd421892157972620b9d7190e6e21efbbfae22308d",
+      "after_lf_sha256": "3cb50e8523fa59f821096e770901740b63c7e6737d04ae2edbc0ee16e22d43ed",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/ThunderGodHammer20261028/RecoveryAndCopy20261121/Before/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+      "patch": "Integration/Source__FPSGAME__UI__M4GunsmithSelectedDetails.cpp.patch",
+      "before_lf_sha256": "20306814f00a146c9d35ed1e264c2aa0e524fd4b8497812621317c57c9b1415e",
+      "after_lf_sha256": "965fbd375255bbff885e333ece771da8e3e4ce0071b79946677536e91c25491e",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/ThunderGodHammer20261028/RecoveryAndCopy20261121/Before/Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/WarhammerGunsmith.cpp",
+      "patch": "Integration/Source__FPSGAME__Weapons__WarhammerGunsmith.cpp.patch",
+      "before_lf_sha256": "b6997fb5ba144332ebddf7a032d7aa066a707a7a48666a8214266e1e4c42b2ff",
+      "after_lf_sha256": "c15780fb8bc5a69584c8741f692e1a80a110a6a195e3d307aa148140c8aebb9b",
+      "applies_to_git_base": true,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/ThunderGodHammer20261028/RecoveryAndCopy20261121/Before/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolEquipment.cpp",
+      "patch": "Integration/Source__FPSGAME__Production__ProductionToolEquipment.cpp.patch",
+      "before_lf_sha256": "d4c3bbf2ce42afaf75ada8d79e81477a11bd73718126af3c1e8bc2440f2ccc8f",
+      "after_lf_sha256": "4965fcfe033b50ab7106474dceb658a3833e5c6d600e1f971524f11813d97dc6",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/WarhammerQuickReference20261107/PojunAndConical20261121/Before/Source/FPSGAME/Production/ProductionToolEquipment.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "patch": "Integration/Source__FPSGAME__Skills__FPSQuickCombatComponent.cpp.patch",
+      "before_lf_sha256": "bef968c0af180799a3cb2ced4d99916ecf2c14b6518612f50ffd76deb2623946",
+      "after_lf_sha256": "cb1712df756b4a5912b3cd33bf61fa1c8c689a8945720d967f826830b71d4cbb",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/WarhammerQuickReference20261107/PojunAndConical20261121/Before/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/WarhammerQuickCombat.cpp",
+      "patch": "Integration/Source__FPSGAME__Skills__WarhammerQuickCombat.cpp.patch",
+      "before_lf_sha256": "ad77a24631ac519d74b2733ff5617dfb61d0e3d235d238142b22b505e4d60ce9",
+      "after_lf_sha256": "31477606c8441c011c1aee05c1a4107b10dd10bbf7fd1fa123f374f7c9255dfc",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/WarhammerQuickReference20261107/PojunAndConical20261121/Before/Source/FPSGAME/Skills/WarhammerQuickCombat.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/UI/PhysicalScopeScene.inl",
+      "patch": "Integration/Source__FPSGAME__UI__PhysicalScopeScene.inl.patch",
+      "before_lf_sha256": "b82fa8f53fb740ac5519909be2359ce92d929b7125f98c3967ec7cfdad8f10a8",
+      "after_lf_sha256": "a8c6922b2159ebb4148332c78044d9ee5f9b256f6bbd4cf93908566e4d8ead65",
+      "applies_to_git_base": true,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/SharedPhysicalOptics/MotionClarity20261122/Before/Source/FPSGAME/UI/PhysicalScopeScene.inl"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PhysicalScopeView.h",
+      "patch": "Integration/Source__FPSGAME__Weapons__PhysicalScopeView.h.patch",
+      "before_lf_sha256": "8dfd3d4317ce813f1f49bb4d068158589b60b5cb0d7790b29c8e844782bbaddf",
+      "after_lf_sha256": "491fa0d4a96f8e3065abcd769e2f3d97e262f4aa9e2d676f1c602291fcb90a79",
+      "applies_to_git_base": true,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/SharedPhysicalOptics/MotionClarity20261122/Before/Source/FPSGAME/Weapons/PhysicalScopeView.h"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp",
+      "patch": "Integration/Source__FPSGAME__Weapons__ScopeOpticalPresentation.cpp.patch",
+      "before_lf_sha256": "ab6e41c437df181c6332d9d42cf19ac707b732d66de97fabe73e063b39a911af",
+      "after_lf_sha256": "ce67dfc3339a817d11941080e077b79403b4c646a9d93bbb7e2c3266e736e0e9",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/SharedPhysicalOptics/MotionClarity20261122/Before/Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp",
+      "patch": "Integration/Source__FPSGAME__Weapons__Bow__BowScopeOptics.cpp.patch",
+      "before_lf_sha256": "b1b033b17aaa76b934a89e15d6b43b66de7fbd3c04c31b50fd470657a98845a9",
+      "after_lf_sha256": "ff56d3469f0163fba4942321d33767fcc385d52ade810344f26cf406864311ee",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/SharedPhysicalOptics/MotionClarity20261122/Before/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+      "patch": "Integration/Source__FPSGAME__UI__ColdSteelCrosshair.cpp.patch",
+      "before_lf_sha256": "1103c508776680db5a353a6f2b3b6111e3a3dec35bbdc2eb9625746a0b22e03e",
+      "after_lf_sha256": "d538b29c8f205950a34b1708ff29e30e23be1ee1243a220082753fe2685392ee",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/SharedPhysicalOptics/FixedGlassReticle20261122/Before/Source/FPSGAME/UI/ColdSteelCrosshair.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/Bow/PeakwatchCoverageAudit.inl",
+      "patch": "Integration/Source__FPSGAME__Weapons__Bow__PeakwatchCoverageAudit.inl.patch",
+      "before_lf_sha256": "f14f6679c6c0024f101b0e6377c297b79775a7e735147c0be109ff83f2f1ffe6",
+      "after_lf_sha256": "34ad28d9b7e9348c9a2d19fee9ecbb1cf37bd434eb4497720579f5b0e2df7bb4",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/SharedPhysicalOptics/FixedGlassReticle20261122/Before/Source/FPSGAME/Weapons/Bow/PeakwatchCoverageAudit.inl"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ScopeScreenshotAudit.cpp",
+      "patch": "Integration/Source__FPSGAME__Weapons__ScopeScreenshotAudit.cpp.patch",
+      "before_lf_sha256": "2c6444fb746c0826596213d434eb7f9bed2d930562600cdb16c5300f88aa6784",
+      "after_lf_sha256": "68596b13509dc021fe5c86ade264db1474f8f9a5830967e4d00860dce4f37dad",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/SharedPhysicalOptics/EtchedOpticFamilies20261122/Before/Source/FPSGAME/Weapons/ScopeScreenshotAudit.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMECharacterInitialization.cpp",
+      "patch": "Integration/Source__FPSGAME__FPSGAMECharacterInitialization.cpp.patch",
+      "before_lf_sha256": "1dbb80142bc443339e8f8e06ccc1408f160a3d7317c668418259e98089958521",
+      "after_lf_sha256": "98e97112adf4d3464091761dbd7043e96e8412bde58a9421548375e52e524ce6",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/SharedPhysicalOptics/AuthoredReticlesADS20261122/Before/Source/FPSGAME/FPSGAMECharacterInitialization.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ScopeADSEyeRelief.h",
+      "patch": "Integration/Source__FPSGAME__Weapons__ScopeADSEyeRelief.h.patch",
+      "before_lf_sha256": "9e713e103393c2435566079d655925285e70ffa6a6856b7c32d6dc5d421c9b9c",
+      "after_lf_sha256": "d4abdd50d26254434b2280ab08feb171bc6c3743dd25ac9e9c7e7b1b246a1231",
+      "applies_to_git_base": false,
+      "integration": "published",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/SharedPhysicalOptics/AuthoredReticlesADS20261122/Before/Source/FPSGAME/Weapons/ScopeADSEyeRelief.h"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyWarhammerMotion.h",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSBodyWarhammerMotion.h.patch",
+      "before_lf_sha256": "89d02eb22f9bc4a5d3d2150d5127859bcdf56cfaba546f7f5ac4ce1e24cdd908",
+      "after_lf_sha256": "aa2c5967a2461cab75e154193ac6bc332130273a46689540f33278496cbce29e",
+      "applies_to_git_base": true,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/ReleaseRecovery/OpticsHammerNetworkFix20261122/Before/Source/FPSGAME/Characters/FPSBodyWarhammerMotion.h"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyActions.cpp.patch",
+      "before_lf_sha256": "5ba0ac76eb322956c93ab1d5a842799d623ba495211b205efd401aaeb2983d20",
+      "after_lf_sha256": "4838e1169076d64fb4ad64e12714f917578125a4296a5e5f2b1d2e179492837d",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/ReleaseRecovery/OpticsHammerNetworkFix20261122/Before/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyAnimInstance.cpp.patch",
+      "before_lf_sha256": "96b528cfb6d021063dabf5ba22f17edf67420f0234d24f64f6de961ce7c0da12",
+      "after_lf_sha256": "a6d796a6f93741f152fe73ee77d81ed63401a3f036c89626a4098ef36632d04a",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/ReleaseRecovery/OpticsHammerNetworkFix20261122/Before/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyBow.cpp.patch",
+      "before_lf_sha256": "bfce40d56db08899dfcf94fe28b8b0ef8bb01cff8d4980e9e3c5fea1e8a99c8a",
+      "after_lf_sha256": "0f7643441bc4db7a39af504fc6f9865b2725c482587b472546442c143a269c52",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/ReleaseRecovery/OpticsHammerNetworkFix20261122/Before/Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyEquipment.cpp.patch",
+      "before_lf_sha256": "a98cd877463f5135326b235f4242388e55fd7d6a0b42f1d7b9986eb3cf846273",
+      "after_lf_sha256": "2a9a96c9a07ab7fe837c3c7c6b2ba234917b57f0840bbd7ba416dd56bdab664a",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/ReleaseRecovery/OpticsHammerNetworkFix20261122/Before/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "patch": "Integration/Source__FPSGAME__Characters__FPSPlayerBodyNetwork.cpp.patch",
+      "before_lf_sha256": "b9e808479cbf503eaed8333c65aa8e54429fbc17c0cfb3e415679253872f927b",
+      "after_lf_sha256": "90d6fccf122b85a46742681fe5e0044f038b5f95157370a58f0038b9d66e45ed",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/ReleaseRecovery/OpticsHammerNetworkFix20261122/Before/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ThermalTargetSubsystem.cpp",
+      "patch": "Integration/Source__FPSGAME__Weapons__ThermalTargetSubsystem.cpp.patch",
+      "before_lf_sha256": "cbc7b97d01c0edf46d4f7840c52b6dbd0725f28839fd5a26302cdc08b3509a8e",
+      "after_lf_sha256": "a0adf97e524b045d4cb20d10939ffc0e123a956b9516f5f0e03b1a10c3897bdf",
+      "applies_to_git_base": true,
+      "integration": "published",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/ReleaseRecovery/OpticsHammerNetworkFix20261122/Before/Source/FPSGAME/Weapons/ThermalTargetSubsystem.cpp"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelQuestJournal.cpp",
+      "patch": "Integration/Source__FPSGAME__UI__ColdSteelQuestJournal.cpp.patch",
+      "before_lf_sha256": "d8ac4fe778ccf732623674dcf0794e741e329f1f9130ef4146b79fde4e41501f",
+      "after_lf_sha256": "2945e36b7ed8cc469e8f2f99c62353fecda2cabf09693f1e3ca2f8a904a21241",
+      "applies_to_git_base": false,
+      "integration": "patch",
+      "local_preimage": "F:/FPSGAMEData/ArtProduction/ReleaseRecovery/OpticsHammerNetworkFix20261122/Before/ColdSteelQuestJournal.cpp"
+    }
+  ]
+}

@@ -134,7 +134,8 @@ void UThermalTargetSubsystem::Refresh()
     int32 Bodies=0,Fires=0;
     for(const auto& C:Candidates)
     {
-        auto& T=Targets[C.Index];bool Selected=T.Fire?Fires++<32:Bodies++<96;
+        auto& T=Targets[C.Index];
+        bool Selected=T.Fire?Fires<32:Bodies<96;
         if(Selected&&T.Fire)
         {
             // A broad heat envelope must not leak around a wall that separates
@@ -148,6 +149,8 @@ void UThermalTargetSubsystem::Refresh()
                 if(!GetWorld()->LineTraceSingleByChannel(Hit,Camera->GetComponentLocation(),Center,ECC_Visibility,Query)){Selected=true;break;}
             }
         }
-        if(!Selected)Release(T);else if(!T.Proxy.IsValid())CreateProxy(T);
+        if(!Selected){Release(T);continue;}
+        if(T.Fire)++Fires;else ++Bodies;
+        if(!T.Proxy.IsValid())CreateProxy(T);
     }
 }

@@ -1,0 +1,45 @@
+{
+  "materials": [
+    {
+      "path": "/Game/Weapons/SharedPhysicalOptics20261030/M_PhysicalScopeLens",
+      "pass_before": "<MaterialTranslucencyPass.MTP_AFTER_MOTION_BLUR: 2>",
+      "pass_after": "<MaterialTranslucencyPass.MTP_AFTER_MOTION_BLUR: 2>",
+      "pixel_instructions_before": 2311,
+      "pixel_instructions_after": 2357,
+      "sha256": "489b655adfdc8a18abe6ee1c20549bf64b22b1cf5c4642f06b30032e4ec68896",
+      "installed_file": "F:\\FPSGAMEData\\Content\\Weapons\\SharedPhysicalOptics20261030\\M_PhysicalScopeLens.uasset",
+      "before_sha256": "53bb23fb1b4149ea6bbb1f1de8dcb0d4dcd89e5724e5e328f8e92741ad3d92dc"
+    },
+    {
+      "path": "/Game/Weapons/SharedPhysicalOptics20261030/M_PeakwatchVariableLens",
+      "pass_before": "<MaterialTranslucencyPass.MTP_AFTER_MOTION_BLUR: 2>",
+      "pass_after": "<MaterialTranslucencyPass.MTP_AFTER_MOTION_BLUR: 2>",
+      "pixel_instructions_before": 1962,
+      "pixel_instructions_after": 1988,
+      "sha256": "e9fb20037c136377a0c730cf32a2cedc11e829141b7a4f86d4bcda2639545c16",
+      "installed_file": "F:\\FPSGAMEData\\Content\\Weapons\\SharedPhysicalOptics20261030\\M_PeakwatchVariableLens.uasset",
+      "before_sha256": "6c5797a684b7c7d9ef3f5dd08e42491cfab350662e1b86e7fbe63aed7c71b1d3"
+    },
+    {
+      "path": "/Game/Weapons/DarkBow20260925/SingleLensOptics20260927/M_BowOptic_Glass4x",
+      "pass_before": "<MaterialTranslucencyPass.MTP_AFTER_MOTION_BLUR: 2>",
+      "pass_after": "<MaterialTranslucencyPass.MTP_AFTER_MOTION_BLUR: 2>",
+      "pixel_instructions_before": 1899,
+      "pixel_instructions_after": 1901,
+      "sha256": "e36f2d23b7f78e48e7faaaab8e570cb54d784795d46f87c36fdf22e9dc99963c",
+      "installed_file": "F:\\FPSGAMEData\\Content\\Weapons\\DarkBow20260925\\SingleLensOptics20260927\\M_BowOptic_Glass4x.uasset",
+      "before_sha256": "dda2e055c8f178f293fa1ac30776df6842a8e1826d7d89dd16895ccfa3fca873"
+    },
+    {
+      "path": "/Game/Weapons/DarkBow20260925/SingleLensOptics20260927/M_BowOptic_Glass2x",
+      "pass_before": "<MaterialTranslucencyPass.MTP_AFTER_MOTION_BLUR: 2>",
+      "pass_after": "<MaterialTranslucencyPass.MTP_AFTER_MOTION_BLUR: 2>",
+      "pixel_instructions_before": 1873,
+      "pixel_instructions_after": 1873,
+      "sha256": "81971ae3681b1724f42a5feb2f5265773e639ad25122ca3b2bd7f4a8bc9e4da0",
+      "installed_file": "F:\\FPSGAMEData\\Content\\Weapons\\DarkBow20260925\\SingleLensOptics20260927\\M_BowOptic_Glass2x.uasset",
+      "before_sha256": "a3d58e6e4e45310afd61a025ac80237d329fb688bda8db701ca971f543acaf57"
+    }
+  ],
+  "in_game_frame_times_measured": false
+}

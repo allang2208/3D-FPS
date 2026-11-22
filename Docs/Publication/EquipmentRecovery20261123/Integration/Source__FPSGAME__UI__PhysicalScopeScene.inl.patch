@@ -1,0 +1,165 @@
+--- a/Source/FPSGAME/UI/PhysicalScopeScene.inl
++++ b/Source/FPSGAME/UI/PhysicalScopeScene.inl
+@@ -2,6 +2,7 @@
+ #include "../Characters/FPSPlayerBodyComponent.h"
+ #include "../Weapons/PhysicalScopeView.h"
+ #include "Camera/CameraComponent.h"
++#include "Camera/PlayerCameraManager.h"
+ #include "Components/SceneCaptureComponent2D.h"
+ #include "Components/StaticMeshComponent.h"
+ #include "Components/SkeletalMeshComponent.h"
+@@ -19,12 +20,15 @@
+ 
+ namespace PhysicalScopeScene
+ {
++// Registered only while the view actually replaces slots. Lookup follows the mesh
++// across unpossess/rejoin until its original surfaces have been restored.
++static TArray<const FPhysicalScopeScene*> BoundScenes;
+ static TAutoConsoleVariable<int32> Resolution(TEXT("fps.Scope.CaptureResolution"),1024,
+-    TEXT("Owner-local physical lens resolution, 512..1536; one capture during ADS only."));
++    TEXT("Owner-local ADS capture resolution ceiling, 512..1536. Peakwatch allows up to twice this for its larger aperture."));
+ static const FSoftObjectPath LensPath(TEXT("/Game/Weapons/SharedPhysicalOptics20261030/M_PhysicalScopeLens.M_PhysicalScopeLens"));
+ static const FSoftObjectPath PeakwatchLensPath(TEXT("/Game/Weapons/SharedPhysicalOptics20261030/M_PeakwatchVariableLens.M_PeakwatchVariableLens"));
+ static const FSoftObjectPath HidePath(TEXT("/Game/Weapons/SharedPhysicalOptics20261030/M_PhysicalScopeHideReticle.M_PhysicalScopeHideReticle"));
+-static UObject* MeshAsset(UMeshComponent* Mesh)
++static UObject* MeshAsset(const UMeshComponent* Mesh)
+ {
+     if(auto* Static=Cast<UStaticMeshComponent>(Mesh))return Static->GetStaticMesh();
+     if(auto* Skin=Cast<USkeletalMeshComponent>(Mesh))return Skin->GetSkeletalMeshAsset();
+@@ -66,6 +70,7 @@
+             if(GlassSlot!=INDEX_NONE&&Optic->GetMaterial(GlassSlot)==Lens)Optic->SetMaterial(GlassSlot,OriginalGlass.Get());
+             if(ReticleSlot!=INDEX_NONE&&Optic->GetMaterial(ReticleSlot)==HiddenReticle.Get())Optic->SetMaterial(ReticleSlot,OriginalReticle.Get());
+         }
++        if(GlassSlot!=INDEX_NONE)PhysicalScopeScene::BoundScenes.RemoveSingleSwap(this);
+         BoundOptic.Reset();BoundAsset.Reset();OriginalGlass.Reset();OriginalReticle.Reset();
+         GlassSlot=ReticleSlot=INDEX_NONE;bWasActive=false;
+     }
+@@ -120,35 +125,45 @@
+         const FVector2D ScreenCenter(View.Min.X+View.Width()*.5,View.Min.Y+View.Height()*.5);
+         // First-person geometry can use its own projection. Account for that
+         // without changing its pose, scale, near-plane or camera settings.
+-        const double FPCorrection=Optic.Mesh->FirstPersonPrimitiveType==EFirstPersonPrimitiveType::FirstPerson&&Camera->bEnableFirstPersonFieldOfView
+-            ?FMath::Tan(FMath::DegreesToRadians(Camera->FieldOfView)*.5)/FMath::Tan(FMath::DegreesToRadians(Camera->FirstPersonFieldOfView)*.5):1.;
++        const auto* CameraManager=PC->PlayerCameraManager.Get();
++        const FMinimalViewInfo* POV=CameraManager?&CameraManager->GetCameraCacheView():nullptr;
++        const double FPCorrection=POV&&POV->bUseFirstPersonParameters&&Optic.Mesh->FirstPersonPrimitiveType==EFirstPersonPrimitiveType::FirstPerson
++            ?POV->CalculateFirstPersonFOVCorrectionFactor():1.;
++        // Both PSO meshes retain a painted, opaque eyepiece 2.234 cm in front
++        // of the original glass. Seat the active disk just ahead of that face;
++        // the raised rubber cup still masks the edge by depth. Keep its etching
++        // in the authored local plane and project the capture at the visible disk.
++        const bool PaintedEyepiece=Optic.Style==EPhysicalScopeStyle::PSO||Optic.Style==EPhysicalScopeStyle::SVDFactory;
++        const FVector GlassOffset=PaintedEyepiece?-Optic.Forward*(2.4*Optic.Radius.X/1.56):FVector::ZeroVector;
+         double Radius=16.;
+         for(int X:{-1,1})for(int Y:{-1,1})
+         {
+             FVector2D Pixel;
+-            const FVector Edge=Optic.Center+Optic.Right*(X*Optic.Radius.X)+Optic.Up*(Y*Optic.Radius.Y);
++            const FVector Edge=Optic.Center+GlassOffset+(Optic.Right*(X*Optic.Radius.X)+Optic.Up*(Y*Optic.Radius.Y))*Optic.CaptureRadiusScale;
+             if(!FSceneView::ProjectWorldToScreen(Edge,View,VP,Pixel)){RestoreGlass();return;}
+             const FVector2D Offset=(Pixel-ScreenCenter)*FPCorrection;
+             Radius=FMath::Max(Radius,FMath::Max(FMath::Abs(Offset.X),FMath::Abs(Offset.Y)));
+         }
+         Radius*=1.08;
+         const float DisplayPower=Pawn->GetPhysicalScopeMagnification();
+-        // Capture the full field available on the bow. Its material samples a
+-        // centred subregion at higher powers, independently of the etched glass.
+-        const float CapturePower=Peakwatch?Optic.MinimumMagnification:DisplayPower;
+-        const float TanHalfFOV=float(Radius)/(MainFocal*CapturePower);
+-        const float SceneUVScale=CapturePower/DisplayPower;
++        // Magnification changes the captured scene. The etching is on the glass.
++        const float TanHalfFOV=float(Radius)/(MainFocal*DisplayPower);
+         if(BoundOptic.Get()!=Optic.Mesh||BoundAsset.Get()!=PhysicalScopeScene::MeshAsset(Optic.Mesh)
+-            ||GlassSlot!=Optic.Glass||Optic.Mesh->GetMaterial(Optic.Glass)!=Lens)
++            ||GlassSlot!=Optic.Glass||ReticleSlot!=Optic.OriginalReticle||Optic.Mesh->GetMaterial(Optic.Glass)!=Lens
++            ||(ReticleSlot!=INDEX_NONE&&Optic.Mesh->GetMaterial(ReticleSlot)!=HiddenReticle.Get()))
+         {
+             RestoreGlass();BoundOptic=Optic.Mesh;BoundAsset=PhysicalScopeScene::MeshAsset(Optic.Mesh);
+             GlassSlot=Optic.Glass;ReticleSlot=Optic.OriginalReticle;
++            PhysicalScopeScene::BoundScenes.Add(this);
+             OriginalGlass.Reset(Optic.Mesh->GetMaterial(GlassSlot));
+             if(ReticleSlot!=INDEX_NONE)OriginalReticle.Reset(Optic.Mesh->GetMaterial(ReticleSlot));
+         }
+         const int32 BaseSize=FMath::Clamp(PhysicalScopeScene::Resolution.GetValueOnGameThread(),512,1536);
+-        // Size the enlarged bow aperture once from the viewport, not every frame of the draw.
+-        const int32 Size=Peakwatch?FMath::Clamp(FMath::DivideAndRoundUp(FMath::Min(View.Width(),View.Height()),128)*128,BaseSize,2560):BaseSize;
++        // Budget for the glass in this player's viewport. Using a stable size
++        // avoids target reallocations during sway, ADS transitions and zoom.
++        const int32 ShortSide=FMath::Min(View.Width(),View.Height());
++        const int32 ViewBudget=64*FMath::DivideAndRoundUp(ShortSide*3,4*64);
++        const int32 Size=FMath::Clamp(ViewBudget,384,Peakwatch?FMath::Min(2560,2*BaseSize):BaseSize);
+         if(!Capture.IsValid())
+         {
+             Target.Reset(NewObject<UTextureRenderTarget2D>(GetTransientPackage(),NAME_None,RF_Transient));
+@@ -161,32 +176,45 @@
+             Capture->bMainViewCamera=false;Capture->bMainViewResolution=false;
+             Capture->ShowFlags.SetMotionBlur(false);Capture->ShowFlags.SetDepthOfField(false);
+             Capture->ShowFlags.SetScreenPercentage(false);
++            Capture->ShowFlags.SetScreenSpaceReflections(false);
++            Capture->ShowFlags.SetContactShadows(false);
+             Capture->HiddenActors.Add(Pawn);Capture->RegisterComponentWithWorld(World);CapturedPawn=Pawn;
+         }
+         if(Target->SizeX!=Size){Target->ResizeTarget(Size,Size);bWasActive=false;}
+         if(!bWasActive)Lens->SetTextureParameterValue(TEXT("ScopeScene"),Target.Get());
+-        Capture->ShowFlags.SetTemporalAA(!Peakwatch&&GetDefault<USceneCaptureComponent2D>()->ShowFlags.TemporalAA);
++        Capture->ShowFlags.SetTemporalAA(false);
+         // Ordinary optics stay scene-linear. The thermal pass runs only in this
+         // capture, whose final HDR output also remains linear for the mesh lens.
+         Capture->CaptureSource=Thermal?SCS_FinalColorHDR:SCS_SceneColorHDRNoAlpha;
+         Capture->FOVAngle=FMath::RadiansToDegrees(2.f*FMath::Atan(TanHalfFOV));
+-        if(Peakwatch)
+-        {
+-            const FMatrix ViewToWorld=Projection.ViewRotationMatrix.GetTransposed();
+-            const FRotator Rotation=FRotationMatrix::MakeFromXZ(ViewToWorld.TransformVector(FVector::UpVector),
+-                ViewToWorld.TransformVector(FVector::RightVector)).Rotator();
+-            Capture->SetWorldLocationAndRotation(Projection.ViewOrigin,Rotation);
+-        }
+-        else Capture->SetWorldLocationAndRotation(Camera->GetComponentLocation(),Camera->GetComponentRotation());
++        // Use the same view (including camera modifiers) as the glass projection.
++        const FMatrix ViewToWorld=Projection.ViewRotationMatrix.GetTransposed();
++        const FRotator Rotation=FRotationMatrix::MakeFromXZ(ViewToWorld.TransformVector(FVector::UpVector),
++            ViewToWorld.TransformVector(FVector::RightVector)).Rotator();
++        Capture->SetWorldLocationAndRotation(Projection.ViewOrigin,Rotation);
+         Capture->PostProcessSettings=Camera->PostProcessSettings;
+         Capture->PostProcessBlendWeight=Thermal?1.f:Camera->PostProcessBlendWeight;
+         if(Thermal)Capture->PostProcessSettings.AddBlendable(ThermalMaterial,1.f);
+         Capture->bCameraCutThisFrame=!bWasActive;Capture->CaptureSceneDeferred();
+-        Lens->SetVectorParameterValue(TEXT("ScreenToLens"),FLinearColor(View.Width()/(2.f*Radius),View.Height()/(2.f*Radius),SceneUVScale,0));
++        // Store the capture FOV alongside its screen scale for the coverage readback.
++        Lens->SetVectorParameterValue(TEXT("ScreenToLens"),FLinearColor(View.Width()/(2.f*Radius),View.Height()/(2.f*Radius),TanHalfFOV,0));
++        // The animated mesh supplies each fragment's local position, including during
++        // the M24 bolt cycle. These two planes express it in rear-glass radii.
++        const FTransform& Mount=Optic.Mesh->GetComponentTransform();
++        const FVector LocalCenter=Mount.InverseTransformPosition(Optic.Center);
++        const double GlassRadius=FMath::Max(UE_SMALL_NUMBER,FMath::Min(Optic.Radius.X,Optic.Radius.Y));
++        const auto EtchPlane=[&](const FVector& Axis)
++        {
++            const FVector Coeff=Mount.InverseTransformVectorNoScale(Axis)*Mount.GetScale3D()/GlassRadius;
++            return FLinearColor(Coeff.X,Coeff.Y,Coeff.Z,-FVector::DotProduct(LocalCenter,Coeff));
++        };
++        Lens->SetVectorParameterValue(TEXT("ReticlePlaneU"),EtchPlane(Optic.Right));
++        Lens->SetVectorParameterValue(TEXT("ReticlePlaneV"),EtchPlane(-Optic.Up));
+         Lens->SetVectorParameterValue(TEXT("LensCenter"),FLinearColor(Optic.Center.X,Optic.Center.Y,Optic.Center.Z));
+         Lens->SetVectorParameterValue(TEXT("LensForward"),FLinearColor(Optic.Forward.X,Optic.Forward.Y,Optic.Forward.Z));
++        if(!Peakwatch)
++            Lens->SetVectorParameterValue(TEXT("EyepieceOffset"),FLinearColor(GlassOffset.X,GlassOffset.Y,GlassOffset.Z));
+         Lens->SetScalarParameterValue(TEXT("RearDepth"),Optic.RearDepth);
+-        Lens->SetScalarParameterValue(TEXT("CaptureTanHalfFOV"),TanHalfFOV);
+         Lens->SetScalarParameterValue(TEXT("ReticleStyle"),static_cast<float>(Optic.Style));
+         Lens->SetVectorParameterValue(TEXT("BowDrawState"),Optic.BowDrawState);
+         Lens->SetScalarParameterValue(TEXT("BowRelease"),Optic.BowRelease);
+@@ -198,3 +226,14 @@
+         bWasActive=true;
+     }
+ };
++
++UMaterialInterface* PhysicalScopeMaterials::ForWorldEquipment(const UMeshComponent* Mesh,int32 Slot,UMaterialInterface* Current)
++{
++    for(const auto* Scene:PhysicalScopeScene::BoundScenes)
++    {
++        if(Scene->BoundOptic.Get()!=Mesh||PhysicalScopeScene::MeshAsset(Mesh)!=Scene->BoundAsset.Get())continue;
++        if(Slot==Scene->GlassSlot&&Current==Scene->Lens)return Scene->OriginalGlass.Get();
++        if(Slot==Scene->ReticleSlot&&Current==Scene->HiddenReticle.Get())return Scene->OriginalReticle.Get();
++    }
++    return Current;
++}

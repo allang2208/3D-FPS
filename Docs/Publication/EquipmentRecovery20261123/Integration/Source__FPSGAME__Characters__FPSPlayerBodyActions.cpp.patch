@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -1,5 +1,6 @@
+ #include "FPSPlayerBodyComponent.h"
+ #include "FPSBodyHighlandMotion.h"
++#include "FPSBodyWarhammerMotion.h"
+ #include "../Skills/LeapStrikeMotion.h"
+ #include "../Skills/ChainSlashMotion.h"
+ #include "../Production/ThunderHammerCallIntent.h"
+@@ -501,9 +502,10 @@
+         {
+             Timed(EFPSBodyAction::GunBash,Bash->GetActionAge(),Bash->GetSourceLength(),Bash->GetActionRate());
+             if(Bash->IsImpactPaused())State.ActionProgressRate=0.f;
+-            State.ActionVariant=TEXT("WarhammerHeadThrust");
+-            State.ActionEntryFraction=Bash->UsesWarhammerHeadThrust()?WarhammerConicalThrust::Prepare/WarhammerConicalThrust::Length:WarhammerQuickCombat::Prepare/WarhammerQuickCombat::Length;
+-            State.ReleaseFraction=Bash->UsesWarhammerHeadThrust()?WarhammerConicalThrust::Follow/WarhammerConicalThrust::Length:WarhammerQuickCombat::Follow/WarhammerQuickCombat::Length;
++            const bool Spike=Bash->UsesWarhammerHeadThrust();
++            State.ActionVariant=Spike?FPSBodyWarhammerMotion::SpikeThrust:FPSBodyWarhammerMotion::PommelStrike;
++            State.ActionEntryFraction=Spike?WarhammerConicalThrust::Prepare/WarhammerConicalThrust::Length:WarhammerQuickCombat::Prepare/WarhammerQuickCombat::Length;
++            State.ReleaseFraction=Spike?WarhammerConicalThrust::Follow/WarhammerConicalThrust::Length:WarhammerQuickCombat::Follow/WarhammerQuickCombat::Length;
+         }
+     }
+     if(const auto* Knife=Pawn->FindComponentByClass<UOffhandKukriComponent>();

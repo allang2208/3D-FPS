@@ -1,7 +1,10 @@
 """Register only the newly saved Thor-exclusive Ji Lei modification."""
 import datetime,hashlib,json,os,shutil
 from pathlib import Path
+import runpy
+
 P=Path(__file__).resolve().parent;R=P.parents[2]
+apply_copy = runpy.run_path(str(R / 'SourceAssets/WorkbenchCopy20261101/copy_rules.py'))['apply_for_target']
 models=json.loads((P/'import_receipt.json').read_text(encoding='utf-8'))
 motion=json.loads((P/'motion_ui_receipt.json').read_text(encoding='utf-8'))
 if not models['complete'] or not motion['complete']:raise RuntimeError('Save assets before registering modification')
@@ -31,6 +34,7 @@ for file in ('thunder-god-hammer-gunsmith.json','thunder-god-hammer-modules.json
     if path.read_bytes()!=before:raise RuntimeError('Concurrent configuration change: '+file)
     shutil.copy2(path,backup/file)
     pending=path.with_name(path.name+'.jilei-pending')
+    apply_copy(path,data)
     pending.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     os.replace(pending,path)
     receipt['changes'].append(dict(file=str(path),before_sha256=hashlib.sha256(before).hexdigest(),after_sha256=hashlib.sha256(path.read_bytes()).hexdigest(),owned_id='ji_lei_seat'))

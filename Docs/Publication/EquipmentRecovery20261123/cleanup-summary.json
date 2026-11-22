@@ -1,0 +1,28 @@
+{
+  "files": 9215,
+  "bytes": 8985854952,
+  "review_images": 75,
+  "gifs": 0,
+  "distinct_host_files_retained": 58,
+  "junctions": 1,
+  "categories": {
+    "已结束的编译、采样或单次接入产物": 281,
+    "隔离宿主副本与现用文件逐字节一致": 3534,
+    "可重新生成的缓存或中间文件": 1994,
+    "隔离宿主的运行产物": 334,
+    "镜型检测截图或专用检测运行副本": 143,
+    "斧头棚拍回读图，图标输入和正式资产另存": 6,
+    "已结束的排查或构建启动文件": 5,
+    "已同步到正式核对表的排版暂存": 5,
+    "工作簿导出检查副本": 1,
+    "双端运行的独立临时目录": 2575,
+    "枪托装配检测截图": 1,
+    "第一轮重劈概念草案": 2,
+    "已交付斧刃的制作输出或检视图": 4,
+    "隔离宿主副本与保留的制作或回退文件一致": 306,
+    "已结束的单次清单更新、宿主查询或投产检查": 24
+  },
+  "manifest": "F:/FPSGAMEData/ArtProduction/StorageLayout/EquipmentRecovery-20261123/archive-manifest.jsonl",
+  "manifest_sha256": "41bf240e5e407a985079014a67221b1e524c8011905c9faa0816ed9eef220152",
+  "trash": "F:/FPSGAMEData/trash/EquipmentRecovery-20261123"
+}

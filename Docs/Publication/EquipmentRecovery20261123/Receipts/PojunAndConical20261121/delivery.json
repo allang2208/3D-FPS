@@ -1,0 +1,104 @@
+{
+  "completed": "2026-11-21T23:18:31.6210718+08:00",
+  "repository": "origin/main",
+  "tip": "a9eb19ebe72b3d792dba5a4e18078fa16ce413d7",
+  "pojun_reference": "4d59fbf7",
+  "ordinary_hammer_reference": "a0f7e2cc",
+  "conical_seat_reference": "3ecf7ad8",
+  "conical_motion_blob": "a3a5d8d491b4f9f4f2562387bb4a1a1c9b49a307",
+  "pojun": {
+    "total_seconds": 1.3,
+    "clip": "V8",
+    "contact_seconds": 0.23333333333333334,
+    "normal_attack_speed": 0.75,
+    "rate_after": 1.0,
+    "rate_before": 0.75
+  },
+  "conical": {
+    "hosts": [
+      "ue_steel_warhammer",
+      "ue_runebound_warhammer",
+      "ue_thunder_god_hammer"
+    ],
+    "clip": "V7",
+    "rhythm": "Rhythm V2",
+    "hit_stop_seconds": 0.038,
+    "miss_seconds": 0.74,
+    "reimported": false,
+    "contact_seconds": 0.265,
+    "release_seconds": 0.205
+  },
+  "assets": [
+    {
+      "package": "Weapons/SteelWarhammer20261014/QuickReferenceV8/A_Warhammer_QuickReferenceV8.uasset",
+      "copies": [
+        {
+          "file": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\SteelWarhammer20261014\\QuickReferenceV8\\A_Warhammer_QuickReferenceV8.uasset",
+          "sha256": "2D45A2B7DC8195D5AA1A239124D9D96664F33FD1D5AAB7937E7CC57234321719"
+        },
+        {
+          "file": "Y:\\FPSGAME_完整工程_20261121-1412\\FPSGAME\\Content\\Weapons\\SteelWarhammer20261014\\QuickReferenceV8\\A_Warhammer_QuickReferenceV8.uasset",
+          "sha256": "2D45A2B7DC8195D5AA1A239124D9D96664F33FD1D5AAB7937E7CC57234321719"
+        },
+        {
+          "file": "Y:\\FPSGAME_恢复_20261120\\FPSGAME\\Content\\Weapons\\SteelWarhammer20261014\\QuickReferenceV8\\A_Warhammer_QuickReferenceV8.uasset",
+          "sha256": "2D45A2B7DC8195D5AA1A239124D9D96664F33FD1D5AAB7937E7CC57234321719"
+        }
+      ]
+    },
+    {
+      "package": "Weapons/SteelWarhammer20261014/QuickCombatLeftWristV7/A_Warhammer_QuickCombat.uasset",
+      "copies": [
+        {
+          "file": "D:\\FPS3D\\FPSGAME\\Content\\Weapons\\SteelWarhammer20261014\\QuickCombatLeftWristV7\\A_Warhammer_QuickCombat.uasset",
+          "sha256": "338A161D18CAB0083F060A9B02B1670075FD5839E7F790C0B507950059C4485F"
+        },
+        {
+          "file": "Y:\\FPSGAME_完整工程_20261121-1412\\FPSGAME\\Content\\Weapons\\SteelWarhammer20261014\\QuickCombatLeftWristV7\\A_Warhammer_QuickCombat.uasset",
+          "sha256": "338A161D18CAB0083F060A9B02B1670075FD5839E7F790C0B507950059C4485F"
+        },
+        {
+          "file": "Y:\\FPSGAME_恢复_20261120\\FPSGAME\\Content\\Weapons\\SteelWarhammer20261014\\QuickCombatLeftWristV7\\A_Warhammer_QuickCombat.uasset",
+          "sha256": "338A161D18CAB0083F060A9B02B1670075FD5839E7F790C0B507950059C4485F"
+        }
+      ]
+    }
+  ],
+  "changes": [
+    {
+      "path": "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "before": "4A49C9B17CA2A5A0BA3E34C1BC303B865B5E41A2474C283DBDF00FF778A1DDAB",
+      "after": "056C28FE09AC94D5969425688D7175F9B107416C217D6CB69457D38220ED4807"
+    },
+    {
+      "path": "Source/FPSGAME/Skills/WarhammerQuickCombat.cpp",
+      "before": "58EBEE6EB364C32B875A01A7D7A2300082EA8978BF57CF69E966971A021699FB",
+      "after": "1855101E5E3B550F259088B556AF6D4FF3C4D4A5D49CFF9E591B15C471404298"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionToolEquipment.cpp",
+      "before": "C77DD1B041188A90127473DB872F86B40BFE5573A887290B182742097FA0EAF3",
+      "after": "A0621EBDC710E089748966CB77EB192C58F88341F5DCC64944106C85F73EFACF"
+    },
+    {
+      "path": "Content/ColdSteelData/melee-gunsmith.json",
+      "before": "668AA760122A1D4FB4726FABC3B6EFA51DD2B5B67639D35A3FA0DE046F9D17AF",
+      "after": "D01A7E25ADCDD057E175AC54C47AB3B3CCE9C07B6EA5455FAE2C3B67BE02B082"
+    }
+  ],
+  "builds": [
+    {
+      "target": "FPSGAMEEditor",
+      "exit_code": 0,
+      "configuration": "Win64 Development",
+      "completed": "2026-11-21T23:18:11.5865635+08:00"
+    },
+    {
+      "target": "FPSGAME",
+      "exit_code": 0,
+      "configuration": "Win64 Development",
+      "completed": "2026-11-21T23:16:23.250669+08:00"
+    }
+  ],
+  "in_game_tested": false
+}

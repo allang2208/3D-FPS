@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/Bow/PeakwatchCoverageAudit.inl
++++ b/Source/FPSGAME/Weapons/Bow/PeakwatchCoverageAudit.inl
+@@ -105,7 +105,7 @@
+             Row->SetStringField(TEXT("material_parent"),GetPathNameSafe(Lens->Parent));
+             Row->SetNumberField(TEXT("lens_blend"),Lens->K2_GetScalarParameterValue(TEXT("LensBlend")));
+             Row->SetNumberField(TEXT("reticle_style"),Lens->K2_GetScalarParameterValue(TEXT("ReticleStyle")));
+-            Row->SetNumberField(TEXT("capture_tan_half_fov"),Lens->K2_GetScalarParameterValue(TEXT("CaptureTanHalfFOV")));
++            Row->SetNumberField(TEXT("capture_tan_half_fov"),Lens->K2_GetVectorParameterValue(TEXT("ScreenToLens")).B);
+             Row->SetBoolField(TEXT("coverage_mask"),Lens->K2_GetTextureParameterValue(TEXT("ScopeScene"))==Run.Mask.Get());
+         }
+         if(Local&&Local->ViewportClient&&Local->ViewportClient->Viewport&&Local->GetProjectionData(Local->ViewportClient->Viewport,Projection))

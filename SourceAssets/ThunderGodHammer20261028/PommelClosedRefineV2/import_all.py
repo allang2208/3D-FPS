@@ -1,6 +1,8 @@
 from pathlib import Path
+
 import json,runpy,os,shutil,unreal as u
 P=Path(__file__).resolve().parent;R=P.parents[2];backup=P/'BeforePublication';backup.mkdir(exist_ok=True)
+apply_copy = runpy.run_path(str(R / 'SourceAssets/WorkbenchCopy20261101/copy_rules.py'))['apply_for_target']
 if Path(u.Paths.project_dir()).resolve()!=R:raise RuntimeError('Wrong project')
 for key in ['lei_xi','zhen_ting']:
  source=R/'Content/ColdSteelData/AttachmentIcons20260913'/('ue_thunder_god_hammer_pommel_'+key+'_pommel.png')
@@ -10,6 +12,7 @@ def publish(path,edit):
  old=path.read_text(encoding='utf-8-sig');data=json.loads(old);edit(data)
  if not (backup/path.name).exists():(backup/path.name).write_text(old,encoding='utf-8')
  if path.read_text(encoding='utf-8-sig')!=old:raise RuntimeError('Concurrent edit: '+str(path))
+ apply_copy(path,data)
  temp=path.with_suffix('.pommel_closed_v2.tmp');temp.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8');os.replace(temp,path)
 def modules(data):
  for kind,key in [('LeiXi','lei_xi'),('ZhenTing','zhen_ting')]:

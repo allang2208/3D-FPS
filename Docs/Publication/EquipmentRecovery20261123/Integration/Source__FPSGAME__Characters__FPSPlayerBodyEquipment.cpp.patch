@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSBodyEquipmentPrivate.h"
++#include "../Weapons/PhysicalScopeView.h"
+ #include "FPSPlayerBodyComponent.h"
+ #include "../Weapons/WoodenTorchItem.h"
+ #include "../Weapons/WoodenTorchComponent.h"
+@@ -189,7 +190,8 @@
+     if(Whirlwind&&!Whirlwind->IsWhirlwindActive())Whirlwind=nullptr;
+     const auto EquippedMaterial=[Whirlwind](UMeshComponent* Mesh,int32 Slot)
+     {
+-        return FPSBodyEquipment::PersistentMaterial(Whirlwind?Whirlwind->EquipmentSurface(Mesh,Slot,false):Mesh->GetMaterial(Slot));
++        auto* Material=Whirlwind?Whirlwind->EquipmentSurface(Mesh,Slot,false):Mesh->GetMaterial(Slot);
++        return FPSBodyEquipment::PersistentMaterial(PhysicalScopeMaterials::ForWorldEquipment(Mesh,Slot,Material));
+     };
+     for(int32 I=0;I<Asset->GetMaterials().Num();++I)
+     {

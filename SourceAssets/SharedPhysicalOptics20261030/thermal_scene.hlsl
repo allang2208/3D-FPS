@@ -15,9 +15,24 @@ const float2 corners[4]={float2(0,0),float2(1,0),float2(0,1),float2(1,1)};
 float weights[4]={(1-fraction.x)*(1-fraction.y),fraction.x*(1-fraction.y),
     (1-fraction.x)*fraction.y,fraction.x*fraction.y};
 
-float luminance=dot(max(SceneColor.rgb,0.0),float3(0.2126,0.7152,0.0722));
-float cold=0.055+0.34*sqrt(saturate(luminance));
-float3 color=float3(cold*0.90,cold*0.96,cold);
+// Give shaded surfaces a signal of their own. The scene's brightness still
+// contributes detail, while albedo and surface direction separate a floor,
+// a wall and a slope even when all three are in the same shadow.
+const float3 luma=float3(.2126,.7152,.0722);
+float luminance=dot(max(SceneColor.rgb,0.0),luma);
+float incident=luminance/(luminance+.24);
+float surface=sqrt(saturate(dot(TerrainBase.rgb,luma)));
+float3 n=TerrainNormal.rgb;
+float n2=dot(n,n);
+float3 unitN=n*rsqrt(max(n2,.001));
+float relief=.5+.5*dot(unitN,float3(-.65,-.40,.646));
+// Side lighting alone gives some vertical faces the same signal as level ground.
+float upward=smoothstep(.10,.92,unitN.z);
+float tone=n2>.25 ? (.43*surface+.39*relief+.18*incident+.24*(upward-.4)) : incident;
+float signal=smoothstep(.16,.90,tone);
+float3 color=lerp(float3(.010,.017,.025),float3(.31,.35,.37),signal);
+if(WorldDepth.r>1.e6)
+    color=lerp(float3(.019,.029,.042),float3(.043,.060,.075),incident);
 
 // Interpolate classified coverage, never stencil IDs or foreground/background
 // depth values. This gives a subpixel contour without blurring the body image.
@@ -98,12 +113,18 @@ float visibility=0.0;
 float2 projection=abs(float2(View.ViewToClip[0][0],View.ViewToClip[1][1]));
 float2 pixelWorld=2.0*targetZ/max(projection*raster.xy,float2(0.01,0.01));
 float3 normal=normalize(float3(-depthSlope/max(pixelWorld,float2(0.001,0.001)),1.0));
-float bodyValue=0.73+0.18*normal.z+0.05*saturate(dot(normal,normalize(float3(-0.35,-0.25,1.0))));
-float fire=saturate(fireCoverage/max(coverage,0.0001));
-float3 core=lerp(float3(1.0,1.015,0.99)*bodyValue,float3(1.0,0.97,0.72),fire);
-float3 rim=lerp(float3(0.94,0.59,0.20),float3(0.98,0.38,0.07),fire);
-// Only the class boundary contributes a warm rim; visibility holes do not.
+// Keep the limbs silver and the broad body surfaces ivory. Give the existing
+// fire class its own amber hue so body contours stay neutral against the terrain.
+float form=smoothstep(-.12,.93,dot(normal,normalize(float3(-.52,-.38,.76))));
+// Use the opaque creature's surface detail only where both depths agree.
+// A cloaked creature keeps its own depth relief without inheriting the wall behind it.
+float sameSurface=(n2>.25)?1.-smoothstep(.6,2.5,abs(WorldDepth.r-targetZ)):0.;
+form=lerp(form,.70*form+.30*smoothstep(.08,.94,relief),sameSurface);
+float3 body=lerp(float3(.61,.67,.70),float3(1.68,1.61,1.48),form);
 float edge=saturate((1.0-borderCoverage)*0.45+(1.0-coverage)*0.40);
-float3 heat=lerp(core,rim,edge*lerp(0.65,1.0,fire));
+body=lerp(body,float3(.80,.85,.87),edge);
+float3 flame=lerp(float3(1.0,0.82,0.48),float3(0.98,0.38,0.07),edge);
+float fire=saturate(fireCoverage/max(coverage,0.0001));
+float3 heat=lerp(body,flame,fire);
 color=lerp(color,heat,saturate(coverage*visibility));
 return lerp(SceneColor.rgb,color,alpha);

@@ -1,7 +1,7 @@
 """Publish the Peakwatch icon and extend the existing physical-lens material."""
 from pathlib import Path
 from datetime import datetime
-import hashlib, json, os, shutil
+import hashlib, json, os, runpy, shutil
 import unreal as u
 
 P=Path('D:/FPS3D/FPSGAME/SourceAssets/PeakwatchPhysicalOptics20261109')
@@ -46,8 +46,8 @@ while todo:
     nodes[node.get_path_name()]=node
     todo.extend(L.get_inputs_for_material_expression(m,node))
 pictures=[n for n in nodes.values() if isinstance(n,u.MaterialExpressionCustom)
-          and 'CaptureTanHalfFOV' in n.get_editor_property('code')
-          and 'ReticleStyle' in n.get_editor_property('code')]
+          and {'ScreenUV','ScreenToLens','Scene','ReticleStyle'}.issubset(
+              str(pin.get_editor_property('input_name')) for pin in n.get_editor_property('inputs'))]
 if len(pictures)!=1:raise RuntimeError('Shared lens picture node is ambiguous')
 picture=pictures[0]
 inputs=list(picture.get_editor_property('inputs'))
@@ -65,8 +65,9 @@ for name,cls,value,output in (
     node.set_editor_property('default_value',value)
     if not L.connect_material_expressions(node,output,picture,name):
         raise RuntimeError('Cannot connect '+name)
-picture.set_editor_property('code',(ROOT/'SourceAssets/SharedPhysicalOptics20261030/lens.hlsl').read_text(encoding='utf-8'))
-picture.set_editor_property('desc','Shared physical optics, including Peakwatch angular reticle and bow draw cues')
+glass=ROOT/'SourceAssets/SharedPhysicalOptics20261030'
+runpy.run_path(str(glass/'late_glass.py'))['set_picture_shader'](m,(glass/'lens.hlsl').read_text(encoding='utf-8'))
+picture.set_editor_property('desc','Physical scene capture and fixed glass reticle with bow draw cues')
 errors=L.recompile_material(m)
 if errors:raise RuntimeError(str(errors))
 stats=L.get_statistics(m)

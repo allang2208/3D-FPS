@@ -1,0 +1,64 @@
+{
+  "status": "正式工程已保存",
+  "source": "SourceAssets/SharedPhysicalOptics20261030",
+  "receipt": "F:\\FPSGAMEData\\ArtProduction\\SharedPhysicalOptics\\ThermalSceneReadability20261122\\materials.json",
+  "previous": "F:\\FPSGAMEData\\ArtProduction\\SharedPhysicalOptics\\ThermalSceneReadability20261122\\Before",
+  "runtime_tested": true,
+  "verification": {
+    "same_camera_zoom": [
+      1.5,
+      3,
+      8
+    ],
+    "before": "Baseline/OfficialFrames",
+    "after": "Revised/FinalFrames",
+    "complete_held_scope_sequence": "Revised/HeldFrames/capture.json",
+    "scope_types": [
+      "thermal_scope"
+    ],
+    "subject": "Two AFatZombie actors using native registered thermal proxies; one behind a wall",
+    "display_values": "screen-values.json",
+    "images": [
+      "thermal-comparison.png",
+      "thermal-display-exposure.png",
+      "thermal-exposure.png"
+    ],
+    "repeated_reequip_review": "The independent process stopped during the additional exposure cases for both old and new materials. The three matched zoom images were captured. The separate fixed-rig five-image held-ADS run completed normally.",
+    "matched_held_scope_sequences": [
+      "Baseline/HeldSameHost/capture.json",
+      "Revised/HeldFrames/capture.json"
+    ],
+    "held_3x_exposure_bias": [
+      -2,
+      0,
+      2
+    ],
+    "red_marks_pixel_bounds_at_1600x900": {
+      "thermal_1p5x": [
+        38,
+        28
+      ],
+      "thermal_3x": [
+        37,
+        28
+      ],
+      "thermal_8x": [
+        38,
+        28
+      ]
+    },
+    "baseline_held_shared_host": "Baseline/HeldSameHost/capture.json"
+  },
+  "material_files": [
+    "F:\\FPSGAMEData\\Content\\Weapons\\SharedPhysicalOptics20261030\\M_PhysicalThermalScene.uasset",
+    "F:\\FPSGAMEData\\Content\\Weapons\\SharedPhysicalOptics20261030\\M_PhysicalScopeLens.uasset"
+  ],
+  "source_graph": "SourceAssets/SharedPhysicalOptics20261030/thermal_material.py",
+  "build": {
+    "compiled_saved_materials": 2,
+    "held_review_module": "18362F23BBA05CB189F6E0016D5FE62891216E9D8B4AA7F7266126F9B0D52226",
+    "game_review_translation_unit_compiled": true,
+    "full_project_rebuild_completed_in_this_batch": false,
+    "full_build_status": "Project-wide editor link encountered a locked ColdSteelNet DLL. The duplicate follow-up request was withdrawn while waiting on the shared Build.bat; it did not execute or terminate other builds."
+  }
+}

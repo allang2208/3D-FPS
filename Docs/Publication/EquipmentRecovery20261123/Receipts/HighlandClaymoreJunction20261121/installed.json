@@ -1,0 +1,52 @@
+{
+  "when": "2026-11-21T19:16:48.845970",
+  "commit": "b22184fe",
+  "assets": [
+    {
+      "package": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/SM_Highland_Blade_RidgePiercer_V1",
+      "old_sha256": "543a65f9d5caf84a780453f9c06c02fbd26be1da0bd716ac8a0925def325ba22",
+      "new_sha256": "26585fed1f38b795f96843006b8f23d43d74c23dd7ec4c60d0d76b43929ffa2e",
+      "bytes": 2720614,
+      "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HighlandClaymoreMeshy20260922\\WedgeSpineJunctionR4_20261106\\Export\\SM_Highland_Blade_RidgePiercer_V1.fbx"
+    },
+    {
+      "package": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Meshes/SM_BroadbladeGuard_highland_cloven_guard",
+      "old_sha256": "f9b11aa12952d76ee68a453e9a3f92f1ebbce6c13a338f3f6f61d3e663593e9a",
+      "new_sha256": "d2ca2dd1ba7b82b66ea8299225a1767d5ca1fc2d34e741df7fa09d7bb5ebce99",
+      "bytes": 2036393,
+      "source": {
+        "donor": "/Game/Weapons/HighlandClaymore20260922/SurfaceRepairV4_20260927/SM_Highland_Guard_Cloven_SurfaceV4.SM_Highland_Guard_Cloven_SurfaceV4",
+        "slots": {
+          "M_HighlandClaymoreSurface": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_HighlandClaymoreSurface",
+          "M_Cloven_Recess": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_Cloven_Recess",
+          "M_Cloven_Inlay": "/Game/Weapons/HighlandClaymore20260922/ClovenGuard/M_Cloven_Inlay",
+          "M_ClovenWingSurface20261002": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_HighlandBladeMetal_Cloven20261002"
+        }
+      }
+    },
+    {
+      "package": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_HighlandClaymoreSurface",
+      "old_sha256": "805442ccfcaa9a053e90f78d1cbe30f50279e27ad2f3d6335deead3866eb7d40",
+      "new_sha256": "ea9fbca548a3579e8c58fe18b69b2711d98c56acf9256aef91eca252f5929f26",
+      "bytes": 48325,
+      "source": "HighlandBroadbladeSeat20261107, native_protection"
+    },
+    {
+      "package": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_Cloven_Recess",
+      "old_sha256": "2604bbe13f31664b4ed52bd09ef89aa027bfdcd52c3f950fba9e76f8f8b03b76",
+      "new_sha256": "138855ef8161a64433cfb42aa9f25cdc904841bc476f7d2a14abe0e6ec264c2b",
+      "bytes": 40805,
+      "source": "HighlandBroadbladeSeat20261107, native_protection"
+    },
+    {
+      "package": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_HighlandBladeMetal_Cloven20261002",
+      "old_sha256": "46692c02533a3d1b3e76cee30dfaed815a251472557af70da0a364b7ee56ccf7",
+      "new_sha256": "3a820791a069f0a7c3ba0eb67c9643297aafa69d5d24dc3c1e58f1560dfff86e",
+      "bytes": 47353,
+      "source": "HighlandBroadbladeSeat20261107, native_protection"
+    }
+  ],
+  "backup": "F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\Before",
+  "applied_via": "existing editor bridge",
+  "runtime_tested": false
+}

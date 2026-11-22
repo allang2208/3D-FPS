@@ -1,0 +1,98 @@
+{
+  "revision": "SwiftCrescentFactoryFinish20261122",
+  "id": "axe_swift_crescent",
+  "files": [
+    {
+      "file": "Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentFactoryFinish/Textures/T_SwiftCrescent_Leaf_BaseColor.uasset",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Host\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\SwiftCrescentFactoryFinish\\Textures\\T_SwiftCrescent_Leaf_BaseColor.uasset",
+      "before": null,
+      "sha256": "55a82ecc3affb1bd45ce75d7de6dd5c240869cebdbbeb15a3e0bc7f1e10ccd01"
+    },
+    {
+      "file": "Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentFactoryFinish/Textures/T_SwiftCrescent_Leaf_Normal.uasset",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Host\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\SwiftCrescentFactoryFinish\\Textures\\T_SwiftCrescent_Leaf_Normal.uasset",
+      "before": null,
+      "sha256": "7c75ba808f36795edcd7b980fc71215756b7d75827b6d87b52795b06db408b1e"
+    },
+    {
+      "file": "Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentFactoryFinish/Textures/T_SwiftCrescent_Leaf_ORM.uasset",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Host\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\SwiftCrescentFactoryFinish\\Textures\\T_SwiftCrescent_Leaf_ORM.uasset",
+      "before": null,
+      "sha256": "15a33dc868ca39a8906df58398eea8164b0d6a33e95c4d0eca14ba22a75ee764"
+    },
+    {
+      "file": "Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentFactoryFinish/Materials/M_TacticalHatchet_Head_SwiftCrescent_Leaf.uasset",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Host\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\SwiftCrescentFactoryFinish\\Materials\\M_TacticalHatchet_Head_SwiftCrescent_Leaf.uasset",
+      "before": null,
+      "sha256": "98d0b6424c13422b6f81be7079a6bc5e943124c249bd671ec96c986f43133c3d"
+    },
+    {
+      "file": "Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentFactoryFinish/Materials/M_HatchetMark_SwiftCrescent_Leaf.uasset",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Host\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\SwiftCrescentFactoryFinish\\Materials\\M_HatchetMark_SwiftCrescent_Leaf.uasset",
+      "before": null,
+      "sha256": "e39a180865f2f30117d08ab3cb98d41617bff1e5c31e94d1c9d07826377afc2c"
+    },
+    {
+      "file": "Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentFactoryFinish/Materials/MI_HatchetMark_SwiftCrescent_Leaf_RuneWing.uasset",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Host\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\SwiftCrescentFactoryFinish\\Materials\\MI_HatchetMark_SwiftCrescent_Leaf_RuneWing.uasset",
+      "before": null,
+      "sha256": "e453feb4e89cc6f69a5abf8667d918fe1b83fdb01e5a7bf30b741eb9a77c4deb"
+    },
+    {
+      "file": "Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentFactoryFinish/Materials/MI_HatchetMark_SwiftCrescent_Leaf_RuneKnot.uasset",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Host\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\SwiftCrescentFactoryFinish\\Materials\\MI_HatchetMark_SwiftCrescent_Leaf_RuneKnot.uasset",
+      "before": null,
+      "sha256": "baf3f1bce1c042c7dc88b33f00ab35375c8b643debd84f24d4a315cb283d5adc"
+    },
+    {
+      "file": "Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentFactoryFinish/Materials/MI_HatchetMark_SwiftCrescent_Leaf_RunePeaks.uasset",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Host\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\SwiftCrescentFactoryFinish\\Materials\\MI_HatchetMark_SwiftCrescent_Leaf_RunePeaks.uasset",
+      "before": null,
+      "sha256": "7bb83694d29051cfe24b8e16e250a3b01e9e9576240dd7d2a40a1a663f8c728a"
+    },
+    {
+      "file": "Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentFactoryFinish/SM_TacticalHatchet_Head_SwiftCrescent_Leaf.uasset",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Host\\Content\\Weapons\\TacticalHatchet20261101\\ModulesV1\\SwiftCrescentFactoryFinish\\SM_TacticalHatchet_Head_SwiftCrescent_Leaf.uasset",
+      "before": null,
+      "sha256": "82d3b9896ab6b4254b1294868841d8686d738e0ea9793eb64ee4be303b43387e"
+    },
+    {
+      "file": "ColdSteelData/AttachmentIcons20260913/blade_1_axe_swift_crescent.uasset",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Host\\Content\\ColdSteelData\\AttachmentIcons20260913\\blade_1_axe_swift_crescent.uasset",
+      "before": "92051e95529ce035087e9d6f3fc6c40fa8fcdc079368c8b6a4822aa7d3fbe7c7",
+      "sha256": "0fd6f2f56a96550e447e24c02d593badcfd3cf31e015f1babe7b98bcaba1c10f"
+    },
+    {
+      "file": "ColdSteelData/Icons/ue_tactical_hatchet_axe_swift_crescent.uasset",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Host\\Content\\ColdSteelData\\Icons\\ue_tactical_hatchet_axe_swift_crescent.uasset",
+      "before": "397e5e73719d8653398086240f4adda280f52786155fb41f90a6d772dc9452ee",
+      "sha256": "a34e3f0f980ac1a4e0cb050e4500f174008356b1ea4bffd526ea5cfddafcf19d"
+    },
+    {
+      "file": "ColdSteelData/AttachmentIcons20260913/blade_1_axe_swift_crescent.png",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\SourceAssets\\Weapons\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Icons\\blade_1_axe_swift_crescent.png",
+      "before": "483ebc0a9839e051d6c067dccc0d3865db9853780083010e4d5867cdf8588055",
+      "sha256": "5aa3c82090d6f7339982a79b0fae9cdb1598ff7dfdf72d564856295e22aced36"
+    },
+    {
+      "file": "ColdSteelData/Icons/ue_tactical_hatchet_axe_swift_crescent.png",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\SourceAssets\\Weapons\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Icons\\ue_tactical_hatchet_axe_swift_crescent.png",
+      "before": "6fc501bc0ddb0117679d5ae1b299713ed485450e3743208275ea624efd7707a7",
+      "sha256": "073d114a7ef374289bfcb034b0a4d104b21b49ff93edb210bb9418760b1cc945"
+    },
+    {
+      "file": "ColdSteelData/shared-axe-blade-options.json",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Stage\\ColdSteelData\\shared-axe-blade-options.json",
+      "before": "650048cac0576aab7bc8be255cadaf8700ce69df568ec638b4d1904ddebc4598",
+      "sha256": "75a5a63ab7222d51704fb75aae02677eccc6ecd8448f25f80b481438f9004648"
+    },
+    {
+      "file": "ColdSteelData/tactical-hatchet-modules.json",
+      "source": "F:\\FPSGAMEData\\ArtProduction\\OneHandAxe20261101\\SwiftCrescentFactoryFinish20261122\\Stage\\ColdSteelData\\tactical-hatchet-modules.json",
+      "before": "e9b1885a039da969a2eaea09ba8afb3e28c59273b34a35df73d1543de8d71a7c",
+      "sha256": "9331bd95ab2e3b15505abbbde07e2b14a6e8569166b5505d0203d242850d73a7"
+    }
+  ],
+  "inventory_pipeline": "ColdSteelWeaponIconCatalog",
+  "gameplay_tested": false
+}

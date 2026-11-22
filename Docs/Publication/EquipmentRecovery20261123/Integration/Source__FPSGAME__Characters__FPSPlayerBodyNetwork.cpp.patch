@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp
+@@ -1,5 +1,6 @@
+ #include "FPSPlayerBodyComponent.h"
+ #include "FPSBodyHighlandMotion.h"
++#include "FPSBodyWarhammerMotion.h"
+ #include "FPSBodyKukriMotion.h"
+ #include "FPSBodyConsumeMotion.h"
+ #include "../Skills/ChainSlashMotion.h"
+@@ -49,8 +50,7 @@
+             &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
+         ||(LeapStrike::IsBodyVariant(A.ActionVariant)&&A.ActionVariant==B.ActionVariant
+             &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
+-        ||(A.Action==EFPSBodyAction::GunBash&&B.Action==A.Action
+-            &&A.ActionVariant==TEXT("WarhammerHeadThrust")&&B.ActionVariant==A.ActionVariant
++        ||(FPSBodyWarhammerMotion::UsesQuickMeleeWrists(A)&&B.Action==A.Action&&B.ActionVariant==A.ActionVariant
+             &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
+         ||A.bHasHandholds!=B.bHasHandholds||A.bDual!=B.bDual||A.bOffhandPistol!=B.bOffhandPistol
+         ||A.RightHand.bReloading!=B.RightHand.bReloading||A.LeftHand.bReloading!=B.LeftHand.bReloading
+@@ -97,7 +97,7 @@
+             // The knife executor supplies its exact haste / hit-stop rate.
+             // Finite differencing would advance a just-paused contact remotely.
+             if(!FPSBodyKukriMotion::HasExecutorClock(DisplayState)&&!FPSBodyHighlandMotion::IsSweep(DisplayState.ActionVariant)&&!ChainSlashMotion::IsVariant(DisplayState.ActionVariant)&&!LeapStrike::IsBodyVariant(DisplayState.ActionVariant)&&DisplayState.Action!=EFPSBodyAction::Consume
+-                &&!(DisplayState.Action==EFPSBodyAction::GunBash&&DisplayState.ActionVariant==TEXT("WarhammerHeadThrust")))
++                &&!FPSBodyWarhammerMotion::UsesQuickMeleeWrists(DisplayState))
+                 DisplayState.ActionProgressRate=Rate(DisplayState.ActionProgress,P.ActionProgress,Delta);
+             if(DisplayState.Action==EFPSBodyAction::Cast&&DisplayState.Contacts.Channel!=TEXT("StaffCast"))
+                 DisplayState.CastPalmProgressRate=Rate(DisplayState.ReleaseFraction,P.ReleaseFraction,Delta);

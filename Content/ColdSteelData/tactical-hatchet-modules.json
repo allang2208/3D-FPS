@@ -57,14 +57,14 @@
         "rune_surface_revision": "isometric-head-uv0-v1"
       },
       "axe_swift_crescent": {
-        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R4.SM_TacticalHatchet_Head_SwiftCrescent_R4",
+        "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentFactoryFinish/SM_TacticalHatchet_Head_SwiftCrescent_Leaf.SM_TacticalHatchet_Head_SwiftCrescent_Leaf",
         "location_cm": [
           0,
           0,
           0
         ],
         "material_slot_names": [
-          "M_TacticalHatchet_Head_SwiftCrescent_R4"
+          "M_TacticalHatchet_Head_SwiftCrescent_Leaf"
         ],
         "trace_base_cm": [
           8.998483831393335,
@@ -77,10 +77,10 @@
           30.976280969804336
         ],
         "materials": {
-          "M_TacticalHatchet_Head_SwiftCrescent_R4": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_SwiftCrescent_R4.M_TacticalHatchet_Head_SwiftCrescent_R4"
+          "M_TacticalHatchet_Head_SwiftCrescent_Leaf": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentFactoryFinish/Materials/M_TacticalHatchet_Head_SwiftCrescent_Leaf.M_TacticalHatchet_Head_SwiftCrescent_Leaf"
         },
-        "appearance": "宽月牙弧形刃面与短后钩；主体沿用原厂深灰石洗钢质感，刃口采用同源浅银磨刃，双凹刃根与柄颈连续衔接。",
-        "rune_surface_revision": "isometric-head-uv0-v1"
+        "appearance": "宽月牙沿外弧露出浅银磨刃，深灰石洗钢面在短后钩下收成一道浅叶脊。",
+        "rune_surface_revision": "swift-crescent-factory-finish-uv0-20261122"
       },
       "axe_heavy_cleaver": {
         "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_HeavyCleaver_R5.SM_TacticalHatchet_Head_HeavyCleaver_R5",
@@ -630,30 +630,30 @@
         "appearance": "暖金色折翼纹样沿斧面展开。",
         "surface_materials": {
           "M_TacticalHatchet_Head_Factory_RuneCarrier": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_Factory_RuneWing.MI_HatchetMark_Factory_RuneWing",
-          "M_TacticalHatchet_Head_SwiftCrescent_R4": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_SwiftCrescent_RuneWing.MI_HatchetMark_SwiftCrescent_RuneWing",
           "M_TacticalHatchet_Head_HeavyCleaver_R5": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_HeavyCleaver_RuneWing.MI_HatchetMark_HeavyCleaver_RuneWing",
           "M_TacticalHatchet_Head_FoldedArc_R5": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FoldedArc_RuneWing.MI_HatchetMark_FoldedArc_RuneWing",
-          "M_TacticalHatchet_Head_FalconEdge": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FalconEdge_RuneWing.MI_HatchetMark_FalconEdge_RuneWing"
+          "M_TacticalHatchet_Head_FalconEdge": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FalconEdge_RuneWing.MI_HatchetMark_FalconEdge_RuneWing",
+          "M_TacticalHatchet_Head_SwiftCrescent_Leaf": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentFactoryFinish/Materials/MI_HatchetMark_SwiftCrescent_Leaf_RuneWing.MI_HatchetMark_SwiftCrescent_Leaf_RuneWing"
         }
       },
       "knife_mark_knot": {
         "appearance": "银灰环结纹样交错排列，保留通透留白。",
         "surface_materials": {
           "M_TacticalHatchet_Head_Factory_RuneCarrier": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_Factory_RuneKnot.MI_HatchetMark_Factory_RuneKnot",
-          "M_TacticalHatchet_Head_SwiftCrescent_R4": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_SwiftCrescent_RuneKnot.MI_HatchetMark_SwiftCrescent_RuneKnot",
           "M_TacticalHatchet_Head_HeavyCleaver_R5": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_HeavyCleaver_RuneKnot.MI_HatchetMark_HeavyCleaver_RuneKnot",
           "M_TacticalHatchet_Head_FoldedArc_R5": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FoldedArc_RuneKnot.MI_HatchetMark_FoldedArc_RuneKnot",
-          "M_TacticalHatchet_Head_FalconEdge": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FalconEdge_RuneKnot.MI_HatchetMark_FalconEdge_RuneKnot"
+          "M_TacticalHatchet_Head_FalconEdge": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FalconEdge_RuneKnot.MI_HatchetMark_FalconEdge_RuneKnot",
+          "M_TacticalHatchet_Head_SwiftCrescent_Leaf": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentFactoryFinish/Materials/MI_HatchetMark_SwiftCrescent_Leaf_RuneKnot.MI_HatchetMark_SwiftCrescent_Leaf_RuneKnot"
         }
       },
       "knife_mark_peaks": {
         "appearance": "深灰三峰纹样与小菱形印记点缀斧面。",
         "surface_materials": {
           "M_TacticalHatchet_Head_Factory_RuneCarrier": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_Factory_RunePeaks.MI_HatchetMark_Factory_RunePeaks",
-          "M_TacticalHatchet_Head_SwiftCrescent_R4": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_SwiftCrescent_RunePeaks.MI_HatchetMark_SwiftCrescent_RunePeaks",
           "M_TacticalHatchet_Head_HeavyCleaver_R5": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_HeavyCleaver_RunePeaks.MI_HatchetMark_HeavyCleaver_RunePeaks",
           "M_TacticalHatchet_Head_FoldedArc_R5": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FoldedArc_RunePeaks.MI_HatchetMark_FoldedArc_RunePeaks",
-          "M_TacticalHatchet_Head_FalconEdge": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FalconEdge_RunePeaks.MI_HatchetMark_FalconEdge_RunePeaks"
+          "M_TacticalHatchet_Head_FalconEdge": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FalconEdge_RunePeaks.MI_HatchetMark_FalconEdge_RunePeaks",
+          "M_TacticalHatchet_Head_SwiftCrescent_Leaf": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SwiftCrescentFactoryFinish/Materials/MI_HatchetMark_SwiftCrescent_Leaf_RunePeaks.MI_HatchetMark_SwiftCrescent_Leaf_RunePeaks"
         }
       }
     }

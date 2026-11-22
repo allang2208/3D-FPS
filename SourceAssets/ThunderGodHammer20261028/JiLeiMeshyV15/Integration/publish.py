@@ -34,7 +34,7 @@ for file in ('thunder-god-hammer-modules.json','thunder-god-hammer-gunsmith.json
         raise RuntimeError('Concurrent edit: '+file)
     shutil.copy2(path,backup/file)
     pending = path.with_name(file+'.jilei-v15-pending')
-    pending.write_text(json.dumps(_apply_workbench_copy(pending, data),ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+    pending.write_text(json.dumps(_apply_workbench_copy(path, data),ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     os.replace(pending,path)
     changes.append(dict(file=str(path),before=before,after=item,backup=str(backup/file)))
 result = dict(complete=True,revision='JiLeiMeshyV15',scope='JiLei seat model, materials, icon and appearance text only',changes=changes,runtime_tested=False)

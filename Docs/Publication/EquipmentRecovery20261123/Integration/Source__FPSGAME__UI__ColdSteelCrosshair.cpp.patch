@@ -1,0 +1,51 @@
+--- a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+@@ -18,6 +18,9 @@
+ #include "../Weapons/Bow/BowStats.h"
+ #include "../Skills/FPSElectricMagicComponent.h"
+ #include "GameFramework/PlayerController.h"
++#include "Camera/PlayerCameraManager.h"
++#include "Components/StaticMeshComponent.h"
++#include "Blueprint/SlateBlueprintLibrary.h"
+ #include "Rendering/DrawElements.h"
+ #include "Styling/CoreStyle.h"
+ #include "Framework/Application/SlateApplication.h"
+@@ -263,16 +266,28 @@
+     const bool bM24Dual=Character->HasM24FactoryScope();
+     if(const float UpperAlpha=Character->GetM24UpperSightReticleAlpha();UpperAlpha>0.f)
+     {
+-        // Collimated upper-sight dot shares the camera ray with the 6x reticle.
+-        const float Dot=FMath::Max(4.f,5.f*Scale);
+-        const float Rim=FMath::Max(.8f,1.f*Scale);
+-        const float OuterDot=Dot+Rim*2.f;
+-        const auto OuterBrush=ColdSteelUI::RoundedBrush(FLinearColor::White,OuterDot*.5f,FLinearColor::Transparent,0.f);
+-        FSlateDrawElement::MakeBox(Elements,Result+2,Geometry.ToPaintGeometry(FVector2D(OuterDot),FSlateLayoutTransform(Center-FVector2D(OuterDot*.5f))),
+-            &OuterBrush,ESlateDrawEffect::None,FLinearColor(.008f,.003f,.002f,.85f*UpperAlpha));
+-        const auto Brush=ColdSteelUI::RoundedBrush(FLinearColor::White,Dot*.5f,FLinearColor::Transparent,0.f);
+-        FSlateDrawElement::MakeBox(Elements,Result+2,Geometry.ToPaintGeometry(FVector2D(Dot),FSlateLayoutTransform(Center-FVector2D(Dot*.5f))),
+-            &Brush,ESlateDrawEffect::None,FLinearColor(1.f,.22f,.12f,UpperAlpha));
++        const auto* Optic=Character->GetM24FactoryOptic();
++        if(Optic&&Optic->DoesSocketExist(TEXT("TopSightRear"))&&PC->PlayerCameraManager)
++        {
++            FVector WorldCenter=Optic->GetSocketLocation(TEXT("TopSightRear"));
++            const auto& View=PC->PlayerCameraManager->GetCameraCacheView();
++            if(Optic->FirstPersonPrimitiveType==EFirstPersonPrimitiveType::FirstPerson&&View.bUseFirstPersonParameters)
++                WorldCenter=View.TransformWorldToFirstPerson(WorldCenter,true);
++            FVector2D Pixel;
++            if(PC->ProjectWorldLocationToScreen(WorldCenter,Pixel,false))
++            {
++                FVector2D DotCenter;
++                USlateBlueprintLibrary::ScreenToWidgetLocal(PC,Geometry,Pixel,DotCenter);
++                const float Dot=FMath::Max(1.5f,2.f*Scale);
++                const float OuterDot=Dot+FMath::Max(.6f,.8f*Scale);
++                const auto OuterBrush=ColdSteelUI::RoundedBrush(FLinearColor::White,OuterDot*.5f,FLinearColor::Transparent,0.f);
++                FSlateDrawElement::MakeBox(Elements,Result+2,Geometry.ToPaintGeometry(FVector2D(OuterDot),FSlateLayoutTransform(DotCenter-FVector2D(OuterDot*.5f))),
++                    &OuterBrush,ESlateDrawEffect::None,FLinearColor(.008f,.003f,.002f,.72f*UpperAlpha));
++                const auto Brush=ColdSteelUI::RoundedBrush(FLinearColor::White,Dot*.5f,FLinearColor::Transparent,0.f);
++                FSlateDrawElement::MakeBox(Elements,Result+2,Geometry.ToPaintGeometry(FVector2D(Dot),FSlateLayoutTransform(DotCenter-FVector2D(Dot*.5f))),
++                    &Brush,ESlateDrawEffect::None,FLinearColor(1.f,.22f,.12f,UpperAlpha));
++            }
++        }
+     }
+     if(!bBow&&Character->HasInventoryWeapon()&&Character->IsAiming()&&(Character->GetGunsmithOpticVariant()==TEXT("lpvo_1_6x")||bKVScope||bM24Dual||bThermalScope)&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor){
+         const FVector2D Size=Geometry.GetLocalSize();

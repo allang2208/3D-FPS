@@ -1,0 +1,15 @@
+{
+  "targets": [
+    "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Inspect",
+    "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Inspect",
+    "/Game/Weapons/AnimationProfiles20261001/Melee/DA_Sword_LongGrip"
+  ],
+  "before": {
+    "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Inspect": "6a1162b3eb66480e0c50d99e2fb8aaf02c4d60530410e9bf36c50b5fc675a88f",
+    "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Inspect": "1ed5a17344788afd087b9408a217737b1d8f90cef7c4af89201d97a39c523add",
+    "/Game/Weapons/AnimationProfiles20261001/Melee/DA_Sword_LongGrip": "5e3e668acacafc505e04a912a01fc7d23cf015648bbdaa4b5256d874c242c0da"
+  },
+  "standard": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Inspect",
+  "long_grip": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Inspect",
+  "profile": "/Game/Weapons/AnimationProfiles20261001/Melee/DA_Sword_LongGrip"
+}

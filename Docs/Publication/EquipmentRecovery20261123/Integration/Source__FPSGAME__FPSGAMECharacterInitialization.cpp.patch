@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/FPSGAMECharacterInitialization.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterInitialization.cpp
+@@ -350,7 +350,7 @@
+         ViewmodelMesh=LoadObject<USkeletalMesh>(nullptr,M24WeaponAssets::MeshPath);
+         bUsingM4Infima=ViewmodelMesh!=nullptr;
+         bSingleShotTrigger=true;bPistolShotPending=false;
+-        HipViewmodelLocation=M4HipViewmodelLocation;ADSRearEyeDistance=ScopeADSEyeRelief::DistanceCM;
++        HipViewmodelLocation=M4HipViewmodelLocation;ADSRearEyeDistance=9.f;
+         if(!bPresentationOnly)QuickCombatAnimation=LoadObject<UAnimSequence>(nullptr,*M24WeaponAssets::AnimationPath(TEXT("quick_melee")));
+     }
+     bUsingReplacement = ViewmodelMesh != nullptr;

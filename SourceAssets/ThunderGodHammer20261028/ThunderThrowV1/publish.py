@@ -1,12 +1,15 @@
 """Register only Guan Lei seat after the owned mesh and animation save batch."""
 import json
 from pathlib import Path
+import runpy
+
 P=Path(__file__).resolve().parent;R=P.parents[2];D='/Game/Weapons/ThunderGodHammer20261028/ThunderThrowV1'
+apply_copy = runpy.run_path(str(R / 'SourceAssets/WorkbenchCopy20261101/copy_rules.py'))['apply_for_target']
 if not json.loads((P/'import_receipt.json').read_text(encoding='utf-8'))['complete']:raise RuntimeError('Finish asset import first')
 icon=R/'Content/ColdSteelData/AttachmentIcons20260913/ue_thunder_god_hammer_head_mount_guan_lei_seat.png'
 if not icon.is_file():raise RuntimeError('Finish production icon first')
 def load(path):return json.loads(path.read_text(encoding='utf-8-sig'))
-def save(path,data):path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+def save(path,data):path.write_text(json.dumps(apply_copy(path,data),ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 path=R/'Content/ColdSteelData/thunder-god-hammer-gunsmith.json';book=load(path)
 seat=next(c for c in book['columns'] if c['key']=='head_mount')
 option={'id':'guan_lei_seat','name':'贯雷锤座','tier':'legendary','weapons':['ue_thunder_god_hammer'],

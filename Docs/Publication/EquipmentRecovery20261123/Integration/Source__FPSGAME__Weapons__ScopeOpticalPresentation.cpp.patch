@@ -1,0 +1,107 @@
+--- a/Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp
++++ b/Source/FPSGAME/Weapons/ScopeOpticalPresentation.cpp
+@@ -27,6 +27,37 @@
+ static TAutoConsoleVariable<float> Refraction(TEXT("fps.Scope.EdgeRefraction"),.65f,
+     TEXT("Peripheral optic refraction strength, 0..1; 0 removes the post-process pass."));
+ static const FSoftObjectPath LensPath(TEXT("/Game/Weapons/ScopeOptics20260927/M_ScopePeripheralOptics.M_ScopePeripheralOptics"));
++
++struct FGlassAndEtchSlots
++{
++    FName Glass;
++    FName Etch;
++};
++
++static void ResolveFittedGlass(const UStaticMeshComponent& Mesh,FPhysicalScopeView& Out)
++{
++    // Matched against the actual glass and engraved sections of both fitted meshes.
++    // LMG201 retains A762's slot names. M16 has a mount at index zero.
++    static const FGlassAndEtchSlots LPVO[]={
++        {TEXT("LPVO_Glass"),TEXT("LPVO_Reticle")}, {TEXT("M_LPVO_Glass"),TEXT("M_LPVO_Reticle")},
++        {TEXT("A762_lpvo_1_6x_1"),TEXT("A762_lpvo_1_6x_0")}, {TEXT("SVD_lpvo_1_6x_1"),TEXT("SVD_lpvo_1_6x_0")},
++        {TEXT("PKM14_lpvo_1_6x_1"),TEXT("PKM14_lpvo_1_6x_0")}};
++    static const FGlassAndEtchSlots Prism[]={
++        {TEXT("Scope2X_Glass"),TEXT("Scope2X_Reticle")}, {TEXT("M_Scope2X_Glass"),TEXT("M_Scope2X_Reticle")},
++        {TEXT("A762_prism_scope_2x_1"),TEXT("A762_prism_scope_2x_0")}, {TEXT("SVD_prism_scope_2x_1"),TEXT("SVD_prism_scope_2x_0")},
++        {TEXT("PKM14_prism_scope_2x_1"),TEXT("PKM14_prism_scope_2x_0")}};
++    const TConstArrayView<FGlassAndEtchSlots> Slots=Out.Style==EPhysicalScopeStyle::LPVO?MakeArrayView(LPVO):MakeArrayView(Prism);
++    for(const auto& Pair:Slots)
++    {
++        const int32 Glass=Mesh.GetMaterialIndex(Pair.Glass);
++        if(Glass!=INDEX_NONE)
++        {
++            Out.Glass=Glass;
++            Out.OriginalReticle=Mesh.GetMaterialIndex(Pair.Etch);
++            return;
++        }
++    }
++}
+ }
+ 
+ void AFPSGAMECharacter::InitializeScopeOptics()
+@@ -203,21 +234,22 @@
+         OpticVariant==TEXT("prism_scope_2x")?EPhysicalScopeStyle::Prism:
+         OpticVariant==KVScopeAssets::Id?EPhysicalScopeStyle::KV:EPhysicalScopeStyle::LPVO;
+     const TCHAR* GlassName=Out.Style==EPhysicalScopeStyle::M24?TEXT("M24_ScopeGlass"):
+-        Out.Style==EPhysicalScopeStyle::LPVO?TEXT("LPVO_Glass"):
+-        Out.Style==EPhysicalScopeStyle::Prism?TEXT("Scope2X_Glass"):
+         Out.Style==EPhysicalScopeStyle::KV?TEXT("att_lens_scope"):
+         Out.Style==EPhysicalScopeStyle::PSO?TEXT("PSO1_OpticalGlass"):
+         Out.Style==EPhysicalScopeStyle::Handgun?TEXT("DW715_CoatedGlass"):TEXT("Thermal_Display");
+     if(HasSVDFactoryScope())
+     {
+         if(!AKMViewmodel||!AKMViewmodel->GetSkeletalMeshAsset())return false;
++        Out.Style=EPhysicalScopeStyle::SVDFactory;
+         Out.Mesh=AKMViewmodel;
+         Out.Center=AKMViewmodel->GetSocketLocation(TEXT("WPN_RearSight"));
+         Out.Forward=(AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight"))-Out.Center).GetSafeNormal();
+         const FVector RootUp=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).GetUnitAxis(EAxis::Z);
+         Out.Right=FVector::CrossProduct(RootUp,Out.Forward).GetSafeNormal();
+         Out.Up=FVector::CrossProduct(Out.Forward,Out.Right).GetSafeNormal();
+-        Out.Radius=FVector2D(1.56,1.56);Out.RearDepth=6.f;
++        // The rear marker is at the rubber mouth, 3.182 cm behind the display.
++        Out.Center+=Out.Forward*3.182;
++        Out.Radius=FVector2D(1.56,1.56);Out.RearDepth=1.f;
+         // Factory glass is part of the native skeletal assembly.
+         Out.Glass=AKMViewmodel->GetMaterialIndex(TEXT("SM_SVD_ScopeLens_001"));
+     }
+@@ -238,7 +270,7 @@
+         const FVector Top=FVector::CrossProduct(F,Side).GetSafeNormal();
+         const float NominalLength=Out.Style==EPhysicalScopeStyle::M24?41.28978f:
+             Out.Style==EPhysicalScopeStyle::LPVO?24.25f:Out.Style==EPhysicalScopeStyle::Prism?12.25f:
+-            Out.Style==EPhysicalScopeStyle::KV?22.65478f:9.9f;
++            Out.Style==EPhysicalScopeStyle::KV?22.65478f:Out.Style==EPhysicalScopeStyle::PSO?30.04649f:9.9f;
+         const float AuthoredScale=Rear&&Front?FVector::Distance(Rear->RelativeLocation,Front->RelativeLocation)/NominalLength:1.f;
+         const float Radius=Out.Style==EPhysicalScopeStyle::M24?2.472f:Out.Style==EPhysicalScopeStyle::LPVO?1.79f:
+             Out.Style==EPhysicalScopeStyle::Prism?1.585f:Out.Style==EPhysicalScopeStyle::KV?1.98f:
+@@ -252,9 +284,27 @@
+         Out.Right=X.GetSafeNormal();Out.Up=Y.GetSafeNormal();
+         Out.Radius=FVector2D(Radius*X.Size(),(Out.Style==EPhysicalScopeStyle::Thermal?1.4f:Radius)*Y.Size());
+         Out.RearDepth=FMath::Max(.2f,T.TransformVector(F*AuthoredScale).Size());
+-        Out.Glass=Mounted->GetMaterialIndex(GlassName);
+-        if(Out.Style==EPhysicalScopeStyle::LPVO)Out.OriginalReticle=Mounted->GetMaterialIndex(TEXT("LPVO_Reticle"));
+-        if(Out.Style==EPhysicalScopeStyle::Prism)Out.OriginalReticle=Mounted->GetMaterialIndex(TEXT("Scope2X_Reticle"));
+-    }
++        if(Out.Style==EPhysicalScopeStyle::LPVO||Out.Style==EPhysicalScopeStyle::Prism)
++            ScopeOpticalPresentation::ResolveFittedGlass(*Mounted,Out);
++        else Out.Glass=Mounted->GetMaterialIndex(GlassName);
++        if(Out.Style==EPhysicalScopeStyle::LPVO)
++        {
++            // Fitted copies can bake their scale into the mesh. Project the local
++            // housing bounds onto the rear plane so the capture covers the full disk,
++            // even on copies without a front socket. The mount can extend below it.
++            const FBox Bounds=OpticalStaticMesh->GetBoundingBox();
++            const FVector Extent=Bounds.GetExtent(), Offset=Bounds.GetCenter()-R;
++            const double SideSpan=FVector::DotProduct(Extent,Side.GetAbs())+FMath::Abs(FVector::DotProduct(Offset,Side));
++            const double TopSpan=FVector::DotProduct(Extent,Top.GetAbs())+FMath::Abs(FVector::DotProduct(Offset,Top));
++            // A circular disk fits within both spans. The shorter one excludes the rail.
++            const double Rim=FMath::Max(double(Radius*AuthoredScale),FMath::Min(SideSpan,TopSpan));
++            Out.CaptureRadiusScale=Rim/(Radius*AuthoredScale);
++            // Front and rear glass are separate planes in a single material section.
++            Out.RearDepth=FMath::Max(Out.RearDepth,float(T.TransformVector(F*FVector::DotProduct(Offset,F)).Size()));
++        }
++    }
++    // The SVCh fitting has its own lighter engraving on the shared KV glass.
++    if(Out.Style==EPhysicalScopeStyle::KV && ActiveInventoryWeaponDefinition==TEXT("ue_svch"))
++        Out.Style=EPhysicalScopeStyle::SVChKV;
+     return Out.Mesh&&Out.Glass!=INDEX_NONE&&Out.Mesh->IsVisible()&&!Out.Mesh->bHiddenInGame&&!Out.Forward.IsNearlyZero();
+ }

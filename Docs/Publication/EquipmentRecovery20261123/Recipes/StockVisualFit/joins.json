@@ -1,0 +1,22 @@
+{
+  "SVD": {
+    "before": {
+      "trim_touches_host": true,
+      "trim_touches_stock": true
+    },
+    "after": {
+      "trim_touches_host": true,
+      "trim_touches_stock": true
+    }
+  },
+  "SVCH": {
+    "before": {
+      "trim_touches_host": true,
+      "trim_touches_stock": true
+    },
+    "after": {
+      "trim_touches_host": true,
+      "trim_touches_stock": true
+    }
+  }
+}

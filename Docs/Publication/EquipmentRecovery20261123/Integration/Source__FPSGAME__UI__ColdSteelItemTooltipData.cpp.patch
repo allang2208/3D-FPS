@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -254,7 +254,7 @@
+                 }
+                 else if(P->Effects.IsEmpty())
+                 {
+-                    if(!ColdSteelInventory::IsTwoHandedSword(I)||P->SpecialEffects.IsEmpty())
++                    if(P->SpecialEffects.IsEmpty()||(!ColdSteelInventory::IsTwoHandedSword(I)&&!ColdSteelInventory::IsTwoHandedBlunt(I)))
+                         Row(C,TEXT(""),P->Description);
+                 }
+                 else for(const auto& E:P->Effects)Row(C,TEXT(""),E.Key,E.Value);

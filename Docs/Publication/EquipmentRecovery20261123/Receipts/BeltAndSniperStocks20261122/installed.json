@@ -1,0 +1,123 @@
+{
+  "project": "D:\\FPS3D\\FPSGAME",
+  "physical_content": "F:\\FPSGAMEData\\Content",
+  "method": "reconstructed from the published authoring recipes",
+  "assets": {
+    "SVCH": {
+      "package": "/Game/Weapons/SkeletonSniperStock20261031/Meshes/SM_SniperSkeleton_SVCH",
+      "source": "SourceAssets/SkeletonSniperStock20261031/Exports/SM_SniperSkeleton_SVCH.fbx",
+      "fbx_sha256": "687fde50ddb3f965233768d95e1b7f796c3569ba37233098db82d626e7de7c3b",
+      "materials": {
+        "SniperStock_MeshySurface": "/Game/Weapons/SkeletonSniperStock20261031/Materials/MI_SniperStock_MeshySurface.MI_SniperStock_MeshySurface",
+        "SniperStock_Interface": "/Game/Weapons/SkeletonSniperStock20261031/Materials/MI_SniperStock_Interface.MI_SniperStock_Interface"
+      },
+      "lods": 3,
+      "bake_stock_tangent_basis": false,
+      "historical_sha256": "9469d9e3dcb0abde783d9681743deca5b05307fdb59e90d2b8920632982cbf54",
+      "commit": "e85f03b82"
+    },
+    "SVD": {
+      "package": "/Game/Weapons/SkeletonSniperStock20261031/Meshes/SM_SniperSkeleton_SVD",
+      "source": "SourceAssets/SkeletonSniperStock20261031/Exports/SM_SniperSkeleton_SVD.fbx",
+      "fbx_sha256": "1617f09aff84b229eba72c37e317da02b94edec68c688d85537090330404dddb",
+      "materials": {
+        "SniperStock_MeshySurface": "/Game/Weapons/SkeletonSniperStock20261031/Materials/MI_SniperStock_MeshySurface.MI_SniperStock_MeshySurface",
+        "SniperStock_Interface": "/Game/Weapons/SkeletonSniperStock20261031/Materials/MI_SniperStock_Interface.MI_SniperStock_Interface"
+      },
+      "lods": 3,
+      "bake_stock_tangent_basis": true,
+      "historical_sha256": "5e1f73dbc4d1b2434a3d22d7f640d26c5d5e6ccab5dbaf1db3adc1cac4400883",
+      "commit": "e85f03b82"
+    },
+    "KeeperFixR2": {
+      "package": "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Pickups/SM_ArcaneConduitBelt",
+      "geometry": [
+        "SourceAssets/ArcaneConduitBelt20261025/KeeperFixR2/arcane/Geometry/Jason_LOD0.json",
+        "SourceAssets/ArcaneConduitBelt20261025/KeeperFixR2/arcane/Geometry/Jason_LOD1.json",
+        "SourceAssets/ArcaneConduitBelt20261025/KeeperFixR2/arcane/Geometry/Jason_LOD2.json"
+      ],
+      "materials": [
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_IndigoLeather.M_Arcane_IndigoLeather",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_BurnishedEdge.M_Arcane_BurnishedEdge",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_NavyLining.M_Arcane_NavyLining",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_SatinSilver.M_Arcane_SatinSilver",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_OxidizedSilver.M_Arcane_OxidizedSilver",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_ChampagneBrass.M_Arcane_ChampagneBrass",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_SilverGrey_Thread.M_Arcane_SilverGrey_Thread",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_SmokyVioletQuartz.M_Arcane_SmokyVioletQuartz",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_RecessedRuneEnamel.M_Arcane_RecessedRuneEnamel",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_DarkRecess.M_Arcane_DarkRecess"
+      ],
+      "lods": 3,
+      "source_hashes": [
+        "bb1485f2ab675e0b73109075100831fc74d9618c779e12fcb08ad9f5a4e360da",
+        "a21a6825058930e650f8e9cf4ee8b8c3c0e3ed7c05abd7e56de403f93513031c",
+        "ce2f541f167e656600daa24656395a3307546aabd3c3c1be076fbe4323319108"
+      ],
+      "commit": "10dcaa194"
+    },
+    "IntegrationR1": {
+      "package": "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/IntegrationR1/Pickups/SM_ArcaneConduitBelt",
+      "geometry": [
+        "SourceAssets/ArcaneConduitBelt20261025/KeeperFixR2/arcane/Geometry/Jason_LOD0.json",
+        "SourceAssets/ArcaneConduitBelt20261025/KeeperFixR2/arcane/Geometry/Jason_LOD1.json",
+        "SourceAssets/ArcaneConduitBelt20261025/KeeperFixR2/arcane/Geometry/Jason_LOD2.json"
+      ],
+      "materials": [
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_IndigoLeather.M_Arcane_IndigoLeather",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_BurnishedEdge.M_Arcane_BurnishedEdge",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_NavyLining.M_Arcane_NavyLining",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_SatinSilver.M_Arcane_SatinSilver",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_OxidizedSilver.M_Arcane_OxidizedSilver",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_ChampagneBrass.M_Arcane_ChampagneBrass",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_SilverGrey_Thread.M_Arcane_SilverGrey_Thread",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_SmokyVioletQuartz.M_Arcane_SmokyVioletQuartz",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_RecessedRuneEnamel.M_Arcane_RecessedRuneEnamel",
+        "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Materials/M_Arcane_DarkRecess.M_Arcane_DarkRecess"
+      ],
+      "lods": 3,
+      "source_hashes": [
+        "bb1485f2ab675e0b73109075100831fc74d9618c779e12fcb08ad9f5a4e360da",
+        "a21a6825058930e650f8e9cf4ee8b8c3c0e3ed7c05abd7e56de403f93513031c",
+        "ce2f541f167e656600daa24656395a3307546aabd3c3c1be076fbe4323319108"
+      ],
+      "commit": "10dcaa194"
+    }
+  },
+  "files": [
+    {
+      "file": "Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Pickups/SM_ArcaneConduitBelt.uasset",
+      "bytes": 10103804,
+      "before": null,
+      "after": "9940397fad45f1eb546052e698b3fde6efc2ec682a4733b08c36e02e38a1bbab",
+      "release": "10dcaa194"
+    },
+    {
+      "file": "Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/IntegrationR1/Pickups/SM_ArcaneConduitBelt.uasset",
+      "bytes": 10103977,
+      "before": "3cb21856a811e9fa64dbeffbfb3241350a9e744464cf252b86502f22511d4ebe",
+      "after": "a4aca1430685d69eeddd0d384784ed5e6c21b9adc080296f4389fa66ffeceedb",
+      "release": "10dcaa194"
+    },
+    {
+      "file": "Weapons/SkeletonSniperStock20261031/Meshes/SM_SniperSkeleton_SVD.uasset",
+      "bytes": 13493188,
+      "before": null,
+      "after": "0134326a8588d284c641638522d4aa34915844d0d1ff19fbce6d173f03bde135",
+      "release": "e85f03b82",
+      "matches_historical_sha256": false
+    },
+    {
+      "file": "Weapons/SkeletonSniperStock20261031/Meshes/SM_SniperSkeleton_SVCH.uasset",
+      "bytes": 9890574,
+      "before": null,
+      "after": "48bc23bb493ca0bfeeeb13405b6fdd2c0d462dc7b0f30cfda4976d6534b1e241",
+      "release": "e85f03b82",
+      "matches_historical_sha256": false
+    }
+  ],
+  "gameplay_tested": false,
+  "authoring_notes": [
+    "The static mesh builder reported degenerate/near-zero tangent bases on the belt pickup. The published geometry, UVs and build recipe were retained."
+  ]
+}

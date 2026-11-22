@@ -1,0 +1,94 @@
+{
+  "Source/FPSGAME/Weapons/M249Attachments.cpp": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249Attachments.h": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249BeltDynamics.cpp": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249BeltDynamics.h": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249BeltLayout.h": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249Bipod.h": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249BipodAnimation.h": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249OpticAssets.h": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249OpticCoordinates.h": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249OpticVisual.cpp": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249ReloadReview.cpp": {
+    "exists": true,
+    "exact": false
+  },
+  "Source/FPSGAME/Weapons/M249ReloadTiming.h": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249SideMagazine.cpp": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249SideMagazine.h": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249WeaponAssets.h": {
+    "exists": true,
+    "exact": false
+  },
+  "Source/FPSGAME/Weapons/ScopeADSEyeRelief.h": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Movement/MachineGunMovementAuditCommandlet.cpp": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Movement/MachineGunMovementAuditCommandlet.h": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/LMGGripReview.h": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249PartsWireAudit.cpp": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249WristAudit.cpp": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249WristVisualAudit.cpp": {
+    "exists": true,
+    "exact": true
+  },
+  "Source/FPSGAME/Weapons/M249WristWireAudit.cpp": {
+    "exists": true,
+    "exact": true
+  }
+}

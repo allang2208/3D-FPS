@@ -1,0 +1,24 @@
+{
+  "targets": [
+    "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/SM_Highland_Blade_RidgePiercer_V1",
+    "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Meshes/SM_BroadbladeGuard_highland_cloven_guard",
+    "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_HighlandClaymoreSurface",
+    "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_Cloven_Recess",
+    "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_HighlandBladeMetal_Cloven20261002"
+  ],
+  "blade": "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/SM_Highland_Blade_RidgePiercer_V1",
+  "cloven": "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Meshes/SM_BroadbladeGuard_highland_cloven_guard",
+  "mats": [
+    "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_HighlandClaymoreSurface",
+    "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_Cloven_Recess",
+    "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_HighlandBladeMetal_Cloven20261002"
+  ],
+  "before": {
+    "/Game/Weapons/HighlandClaymore20260922/RidgePiercer20260927/SM_Highland_Blade_RidgePiercer_V1": "543a65f9d5caf84a780453f9c06c02fbd26be1da0bd716ac8a0925def325ba22",
+    "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Meshes/SM_BroadbladeGuard_highland_cloven_guard": "f9b11aa12952d76ee68a453e9a3f92f1ebbce6c13a338f3f6f61d3e663593e9a",
+    "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_HighlandClaymoreSurface": "805442ccfcaa9a053e90f78d1cbe30f50279e27ad2f3d6335deead3866eb7d40",
+    "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_Cloven_Recess": "2604bbe13f31664b4ed52bd09ef89aa027bfdcd52c3f950fba9e76f8f8b03b76",
+    "/Game/Weapons/HighlandClaymore20260922/BroadbladeGuardFinish20261106/Materials/M_BroadbladeGuard_HighlandBladeMetal_Cloven20261002": "46692c02533a3d1b3e76cee30dfaed815a251472557af70da0a364b7ee56ccf7"
+  },
+  "r4fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\HighlandClaymoreMeshy20260922\\WedgeSpineJunctionR4_20261106\\Export\\SM_Highland_Blade_RidgePiercer_V1.fbx"
+}

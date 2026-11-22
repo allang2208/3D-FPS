@@ -1,7 +1,10 @@
 """Publish this new hammer only after its own new asset packages have been saved."""
 import copy,json,os
 from pathlib import Path
+import runpy
+
 P=Path(__file__).resolve().parent;ROOT=P.parents[1];DATA=ROOT/'Content/ColdSteelData'
+apply_copy = runpy.run_path(str(ROOT / 'SourceAssets/WorkbenchCopy20261101/copy_rules.py'))['apply_for_target']
 ID='ue_thunder_god_hammer';D='/Game/Weapons/ThunderGodHammer20261028'
 def read(path):return json.loads(path.read_text(encoding='utf-8-sig'))
 def write_new(path,value):
@@ -60,7 +63,7 @@ def main():
         col['options']=[];col['description']=desc[col['key']]
         if col['key']=='rune':col['default']='无附加符文'
     for filename,value in [('thunder-god-hammer-modules.json',catalog),('thunder-god-hammer-gunsmith.json',bench)]:
-        write_new(DATA/filename,value)
+        write_new(DATA/filename,apply_copy(DATA/filename,value))
     write_new(P/'ModulesV1/catalog_base.json',catalog);write_new(P/'ModulesV1/workbench.json',bench)
     append('items.json',item)
     formula=copy.deepcopy(read(DATA/'combat-weapon-formulas.json')['ue_steel_warhammer'])

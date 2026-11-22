@@ -1,0 +1,2870 @@
+{
+  "releases": [
+    [
+      "10-26",
+      "背包适配、战斗腰带与消耗公式",
+      "已处理",
+      "星律导能腰带穿戴件、材质与 KeeperFixR2 掉落模型均有正式回执。七款背包和两款战斗腰带分项见发布说明。",
+      183,
+      139,
+      33,
+      145,
+      140,
+      1,
+      "10dcaa194",
+      "Docs/Publication/BackpacksBelts20261025/README.md"
+    ],
+    [
+      "10-26",
+      "手枪主手与弯刀副手的持握、攻击和装备",
+      "已逐项比对，见差异与回执",
+      "副手斧两个装备入口均已改为从镜头下方举起；弯刀整组拔枪弧线举起，持枪加装继续抛接。",
+      78,
+      64,
+      9,
+      6,
+      6,
+      0,
+      "e0a86866a",
+      "Docs/Publication/DualPistolKukri20261025/README.md"
+    ],
+    [
+      "10-27",
+      "地牢性能收尾与失效基线归档",
+      "已逐项比对，见差异与回执",
+      "删除前保存签名一致 118、在盘，版本待证 10、发布指纹一致 1、旧 GUID 与长度一致 1。",
+      97,
+      83,
+      8,
+      130,
+      119,
+      0,
+      "530dbf600",
+      "Docs/Publication/DungeonPerformance20261027/README.md"
+    ],
+    [
+      "10-27",
+      "焚化炉展示与物品栏接入",
+      "已逐项比对，见差异与回执",
+      "删除前保存签名一致 2。",
+      28,
+      16,
+      7,
+      2,
+      2,
+      0,
+      "d6d11dbc2",
+      "Docs/Publication/Incinerator20261027/README.md"
+    ],
+    [
+      "10-27",
+      "篝火面板、食材托管及烹饪结算",
+      "已逐项比对，见差异与回执",
+      "发布指纹一致 30、删除前保存签名一致 12、旧 GUID 与长度一致 2。",
+      81,
+      45,
+      24,
+      44,
+      42,
+      0,
+      "90360e1d0",
+      "Docs/Publication/Campfire20261027/README.md"
+    ],
+    [
+      "10-27",
+      "弓技能、持续消耗与联机同步",
+      "已逐项比对，见差异与回执",
+      "删除前保存签名一致 12、按配方重建 9、发布指纹一致 4、在盘，版本待证 1。",
+      171,
+      163,
+      4,
+      26,
+      25,
+      0,
+      "531ad5057",
+      "Docs/Publication/BowSkills20261027/README.md"
+    ],
+    [
+      "10-28",
+      "弯刀改造、传奇符纹与寒意机制",
+      "已逐项比对，见差异与回执",
+      "删除前保存签名一致 82、按配方重建 30、写回回执一致 17、发布指纹一致 4、候选版本在盘 3、在盘，版本待证 2。",
+      235,
+      197,
+      19,
+      138,
+      133,
+      0,
+      "9bd3c0fbd",
+      "Docs/Publication/KukriMods20261028/README.md"
+    ],
+    [
+      "10-28",
+      "弯刀寒霜符纹外观与旁观者特效",
+      "已逐项比对，见差异与回执",
+      "按配方重建 11、写回回执一致 4、在盘，版本待证 2。",
+      53,
+      36,
+      13,
+      17,
+      15,
+      0,
+      "3c141d01d",
+      "Docs/Publication/KukriRefinements20261028/README.md"
+    ],
+    [
+      "10-28",
+      "双弯刀持握、连击、突刺、重击与镜像拔刀",
+      "已逐项比对，见差异与回执",
+      "写回回执一致 1。",
+      68,
+      54,
+      11,
+      1,
+      1,
+      0,
+      "859910f77",
+      "Docs/Publication/DualKukri20261028/README.md"
+    ],
+    [
+      "10-28",
+      "双弯刀发布回执",
+      "已逐项比对，见差异与回执",
+      "本地内容有差异 1、与本次发布一致 1。",
+      2,
+      1,
+      1,
+      0,
+      0,
+      0,
+      "465b34687",
+      "Docs/Publication/DualKukri20261028/README.md"
+    ],
+    [
+      "10-28",
+      "高地长弓接入、制作配方与界面",
+      "已逐项比对，见差异与回执",
+      "山鸣改造继续沿用 highland_mountain_echo ID，弦身后换为 BeamString；雪山 HUD 使用 V23。",
+      248,
+      237,
+      7,
+      77,
+      64,
+      0,
+      "610c3b6a0",
+      "Docs/Publication/HighlandBow20261028/README.md"
+    ],
+    [
+      "10-30",
+      "弯刀第三人称动作和联机修复",
+      "制作资料已处理",
+      "反向旋风 editor-schema.json 已恢复到原制作目录，发布 SHA-256 匹配。第三人称动作的现役版本见相应功能行。",
+      438,
+      422,
+      11,
+      87,
+      87,
+      0,
+      "d1b10f49c",
+      "Docs/Publication/KukriThirdPerson20261030/README.md"
+    ],
+    [
+      "10-31",
+      "赛博公寓街区制作与优化",
+      "已逐项比对，见差异与回执",
+      "早期公寓街角样板与正式街区分列，旧清单 N132 记录 SC09 正式地图复建。",
+      305,
+      296,
+      1,
+      33,
+      13,
+      0,
+      "cfb07caae",
+      "Docs/Publication/CyberpunkDistrict20261031/README.md"
+    ],
+    [
+      "11-01",
+      "M24 模块化步枪与枪匠接入",
+      "现役枪托已处理",
+      "M24 使用普通／先进枪身专用模型。SVD 和 SVCh 的独立骨架枪托已按各自枪身衔接，VisualFitR2 在原包名落盘。",
+      795,
+      759,
+      18,
+      149,
+      137,
+      3,
+      "e85f03b82",
+      "Docs/Publication/M24_20261101/README.md"
+    ],
+    [
+      "11-01",
+      "符文剑全刀身材质与联机同步",
+      "已逐项比对，见差异与回执",
+      "在盘，版本待证 3、删除前保存签名一致 2、按配方重建 1。",
+      61,
+      38,
+      18,
+      6,
+      3,
+      0,
+      "0efd7dcc3",
+      "Docs/Publication/SwordBladeFinish20261101/README.md"
+    ],
+    [
+      "11-01",
+      "雷神之锤基础玩法、制作与联机修复",
+      "有旧路径缺失，见缺项表",
+      "贯雷锤座现役 V13，疾雷座 V15，静电握把 V3Game；疾雷蓄力改用录音 V2。",
+      523,
+      458,
+      36,
+      67,
+      56,
+      3,
+      "3ff1b8ace",
+      "Docs/Publication/ThunderHammer20261101/README.md"
+    ],
+    [
+      "11-02",
+      "符文双手剑检视 V85/R6",
+      "已逐项比对，见差异与回执",
+      "V85/R6 是这一版发布时的检视。高地剑两种握柄在后续采用 V85/R6b，剑刃与护手的接头另有修复回执。",
+      42,
+      36,
+      4,
+      9,
+      6,
+      0,
+      "abe1a8236",
+      "Docs/Publication/RuneSwordInspectV85R6/README.md"
+    ],
+    [
+      "11-02",
+      "检视旧对照键退役及归档记录",
+      "已逐项比对，见差异与回执",
+      "已采用区间内后版 1。",
+      1,
+      0,
+      0,
+      0,
+      0,
+      0,
+      "cbfd1f1ec",
+      "Docs/Weapons/runesword-inspect-v85-20261031.md"
+    ],
+    [
+      "11-02",
+      "双手近战参考加入手臂技能索引",
+      "已逐项比对，见差异与回执",
+      "本地内容有差异 1。",
+      1,
+      0,
+      1,
+      0,
+      0,
+      0,
+      "801bdf2e2",
+      "skills/ue5-fps-arms-animation/SKILL.md"
+    ],
+    [
+      "11-02",
+      "V85/R6 发布提交登记",
+      "发布文件对应，未作实机判断",
+      "与本次发布一致 1。",
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      "75085fc8f",
+      "Docs/Weapons/runesword-inspect-v85-20261031.md"
+    ],
+    [
+      "11-03",
+      "M24 脚架动作与联机确认",
+      "已逐项比对，见差异与回执",
+      "写回回执一致 2、按配方重建 1。",
+      23,
+      9,
+      8,
+      3,
+      3,
+      0,
+      "19d733c33",
+      "Docs/Publication/M24Bipod20261103/README.md"
+    ],
+    [
+      "11-03",
+      "雷神之锤改造、录音与联机修订",
+      "已逐项比对，见差异与回执",
+      "贯雷重击使用持续双手蓄力 V6、随挥 V7；改造卡说明另有后续简化。",
+      177,
+      156,
+      10,
+      79,
+      70,
+      0,
+      "6c42739f5",
+      "Docs/Publication/ThunderHammer20261101/README.md"
+    ],
+    [
+      "11-04",
+      "战术斧抛接装备、连砍、双持及冲刺",
+      "已逐项比对，见差异与回执",
+      "此提交是战术斧动作。手枪副手装备已另行改版，单持及其他攻击不能据此判为退役。",
+      52,
+      35,
+      9,
+      9,
+      7,
+      0,
+      "d7bea9735",
+      "Docs/Publication/HatchetActions20261104/README.md"
+    ],
+    [
+      "11-04",
+      "战术斧配件与重击蓄力时序",
+      "有旧路径缺失，见缺项表",
+      "三款早期斧刃须分初版、R2 与现役 R4/R5。",
+      307,
+      282,
+      19,
+      172,
+      147,
+      15,
+      "ec0f97385",
+      "Docs/Publication/Hatchet20261104/README.md"
+    ],
+    [
+      "11-04",
+      "双手刀剑材质、星髓充能及联机表现",
+      "已逐项比对，见差异与回执",
+      "删除前保存签名一致 50、在盘，版本待证 33、按配方重建 13、写回回执一致 11、发布指纹一致 10。",
+      227,
+      138,
+      69,
+      117,
+      84,
+      0,
+      "68ba46ad7",
+      "Docs/Publication/TwoHandedMaterials20261104/README.md"
+    ],
+    [
+      "11-05",
+      "M24 动作、枪匠及联机修订",
+      "有旧路径缺失，见缺项表",
+      "原厂枪托旧接缝材质两份退役，现役 R2 与机匣涂层另有恢复回执。",
+      181,
+      159,
+      14,
+      29,
+      26,
+      2,
+      "e055fc4e0",
+      "Docs/Publication/M24_20261105/README.md"
+    ],
+    [
+      "11-06",
+      "角色交互、消耗品与工作台待机",
+      "已逐项比对，见差异与回执",
+      "删除前保存签名一致 231、发布指纹一致 58。",
+      174,
+      122,
+      44,
+      289,
+      289,
+      0,
+      "13e14a7ca",
+      "Docs/Publication/PlayerInteraction20261105/README.md"
+    ],
+    [
+      "11-06",
+      "高地双手剑横扫、棱脊突刺与风誓",
+      "已逐项比对，见差异与回执",
+      "风誓剑首以 SurfaceR2 接替 V1，棱脊刃根已按 R4 源模型恢复。",
+      126,
+      106,
+      11,
+      16,
+      14,
+      0,
+      "5a69db8a0",
+      "Docs/Publication/HighlandSword20261106/README.md"
+    ],
+    [
+      "11-06",
+      "战术斧第三人称动作与同步",
+      "已逐项比对，见差异与回执",
+      "在盘，版本待证 8、写回回执一致 4、删除前保存签名一致 2、发布指纹一致 1、按配方重建 1。",
+      64,
+      55,
+      7,
+      16,
+      8,
+      0,
+      "1aff725a5",
+      "Docs/Publication/HatchetThirdPerson20261106/README.md"
+    ],
+    [
+      "11-07",
+      "高地风誓剑首、羽翼护手及联机记录",
+      "已逐项比对，见差异与回执",
+      "初版剑首 5 个旧包、镂空羽翼护手 22 个旧包保留历史缺项；现役 R2 及三种实心羽翼接口在盘。",
+      131,
+      116,
+      10,
+      43,
+      43,
+      0,
+      "b22184fed",
+      "Docs/Publication/HighlandSword20261107/README.md"
+    ],
+    [
+      "11-07",
+      "M24 枪托接缝与止鸣狙击改造",
+      "已逐项比对，见差异与回执",
+      "写回回执一致 12、在盘，版本待证 9、删除前保存签名一致 7、按配方重建 1。",
+      175,
+      148,
+      18,
+      29,
+      20,
+      0,
+      "44ec6c29b",
+      "Docs/Publication/M24Zhiming20261107/README.md"
+    ],
+    [
+      "11-08",
+      "地牢个人返回与共享宿主接入",
+      "已逐项比对，见差异与回执",
+      "删除前保存签名一致 2、发布指纹一致 1、在盘，版本待证 1。",
+      54,
+      50,
+      0,
+      4,
+      3,
+      0,
+      "8464a48f8",
+      "Docs/Publication/DungeonReturn20261108/README.md"
+    ],
+    [
+      "11-09",
+      "混合副手、锥形锤座与附着魔法",
+      "已逐项比对，见差异与回执",
+      "斧与弯刀的现役副手入场已分开。锥形锤座保留独立前顶动作。",
+      155,
+      132,
+      15,
+      30,
+      21,
+      0,
+      "3ecf7ad8d",
+      "Docs/Publication/ConversationCombat20261109/README.md"
+    ],
+    [
+      "11-10",
+      "M249 基础开发、侧插换弹、握姿及制作源",
+      "已逐项比对，见差异与回执",
+      "基础 M249 已并入 11 月 12 日后版，动作和后期握姿逐条见 M249 页。",
+      451,
+      442,
+      6,
+      99,
+      98,
+      0,
+      "44fee726e",
+      "Docs/Publication/M24920261109/README.md"
+    ],
+    [
+      "11-10",
+      "技能动作、附着火焰与恢复资料",
+      "已逐项比对，见差异与回执",
+      "火焰护甲的早期 V6–V10 与现役 V12、锤 V16 分列，V11 仍作制作供体。",
+      135,
+      128,
+      3,
+      100,
+      91,
+      0,
+      "a0f7e2cce",
+      "Docs/Publication/SkillActions20261110/README.md"
+    ],
+    [
+      "11-10",
+      "强化台、种植床及工作台恢复配方",
+      "已逐项比对，见差异与回执",
+      "在盘，版本待证 24、删除前保存签名一致 19、按配方重建 10、发布指纹一致 1。",
+      87,
+      79,
+      2,
+      54,
+      30,
+      0,
+      "77df964bc",
+      "Docs/Publication/WorkbenchPlanting20261110/README.md"
+    ],
+    [
+      "11-11",
+      "弯刀与战术斧配对、单副手及双持冲刺攻击",
+      "已逐项比对，见差异与回执",
+      "按配方重建 23、写回回执一致 9、删除前保存签名一致 2、在盘，版本待证 2、发布指纹一致 1。",
+      52,
+      50,
+      0,
+      37,
+      35,
+      0,
+      "8095546c2",
+      "Docs/Publication/KukriPairs20261111/README.md"
+    ],
+    [
+      "11-11",
+      "单持副手镜像与发布补丁规范",
+      "已逐项比对，见差异与回执",
+      "已采用区间内后版 4、已采用区间后仓库版 1。",
+      5,
+      0,
+      0,
+      0,
+      0,
+      0,
+      "cbaea75ac",
+      "skills/ue5-auto-assistant/SKILL.md"
+    ],
+    [
+      "11-11",
+      "弯刀配对发布回执与检查记录",
+      "发布文件对应，未作实机判断",
+      "与本次发布一致 1。",
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      "74777fc32",
+      "Docs/Publication/KukriPairs20261111/publication-checks.json"
+    ],
+    [
+      "11-12",
+      "丘陵异步进图、森林恢复与归档",
+      "已逐项比对，见差异与回执",
+      "按配方重建 39、旧 GUID 与长度一致 34、发布指纹一致 30、删除前保存签名一致 22、在盘，版本待证 10。",
+      71,
+      48,
+      15,
+      135,
+      91,
+      0,
+      "a21bd9f6a",
+      "Docs/Publication/HillsAsyncEntry20261112/README.md"
+    ],
+    [
+      "11-12",
+      "M249 脚架与背包图、后期握姿及同批交付",
+      "M249 制作资料已处理",
+      "M249 正式包、握姿、独立脚架及图标均有回读。Wrist38 复核脚本已从本提交取回。同批还含双手锤、螳螂、ST6 领口等，螳螂飞扑已按要求回退为 V11。",
+      322,
+      307,
+      8,
+      140,
+      135,
+      0,
+      "e1fd5d07d",
+      "Docs/Publication/Conversation20261112/README.md"
+    ],
+    [
+      "11-13",
+      "斩马刀破军长柄、符纹涂装与观峰镜",
+      "已逐项比对，见差异与回执",
+      "破军长柄快速近战后续与普通双手锤统一，棱脊／锥形锤座分支见制作索引。观峰镜含独立的后续瞄准调整。",
+      117,
+      89,
+      22,
+      77,
+      50,
+      0,
+      "4d59fbf78",
+      "Docs/Publication/PojunPeakwatch20261113/README.md"
+    ],
+    [
+      "11-14",
+      "货运站墙地表面与退役版本归档",
+      "有旧路径缺失，见缺项表",
+      "货运站地图及 34 道制作步骤有回执；六份早期仓库墙地材质由正式场景的后期表面接替。",
+      162,
+      160,
+      0,
+      690,
+      628,
+      6,
+      "c9614787f",
+      "Docs/Publication/FreightStation20261114/README.md"
+    ],
+    [
+      "11-15",
+      "丘陵联机与集成修复",
+      "已逐项比对，见差异与回执",
+      "发布指纹一致 1、在盘，版本待证 1。",
+      75,
+      66,
+      1,
+      2,
+      1,
+      0,
+      "ec0048615",
+      "Docs/Publication/HillsMultiplayer20261115/README.md"
+    ],
+    [
+      "11-15",
+      "丘陵植被、野猪与雨林水坑",
+      "已逐项比对，见差异与回执",
+      "发布指纹一致 51、按配方重建 49、在盘，版本待证 27、删除前保存签名一致 9。",
+      88,
+      80,
+      1,
+      136,
+      109,
+      0,
+      "b90937360",
+      "Docs/Publication/HillsVegetation20261115/README.md"
+    ],
+    [
+      "11-16",
+      "未知人形战斗与联机生命周期",
+      "已逐项比对，见差异与回执",
+      "删除前保存签名一致 161、在盘，版本待证 16、写回回执一致 13、发布指纹一致 11、按配方重建 10、旧 GUID 与长度一致 1、近似重建 1。",
+      124,
+      118,
+      1,
+      213,
+      195,
+      0,
+      "07b45d69e",
+      "Docs/Publication/UnknownHumanoid20261116/README.md"
+    ],
+    [
+      "11-17",
+      "地图系统、标记与地图来源",
+      "已逐项比对，见差异与回执",
+      "两份网络追踪共引用 32 个已不在盘的旧编号 DLL。主神空间地图图像另有缓存原图回执。",
+      72,
+      65,
+      2,
+      5,
+      2,
+      0,
+      "34c08285d",
+      "Docs/Publication/MapSystem20261117/README.md"
+    ],
+    [
+      "11-17",
+      "陨石、暴风雪、弓影及丘陵突袭",
+      "已逐项比对，见差异与回执",
+      "删除前保存签名一致 41、发布指纹一致 25、按配方重建 18、在盘，版本待证 14。",
+      162,
+      150,
+      7,
+      98,
+      84,
+      0,
+      "20ed5d1f9",
+      "Docs/Publication/ConversationVFXHills20261117/README.md"
+    ],
+    [
+      "11-18",
+      "丘陵地貌、白崖、延期项目及归档",
+      "有旧路径缺失，见缺项表",
+      "旧白崖 Solid 已由两份 SolidR9 接替。",
+      98,
+      87,
+      3,
+      48,
+      44,
+      2,
+      "4ade762c7",
+      "Docs/Publication/HillsScenery20261118/README.md"
+    ],
+    [
+      "11-18",
+      "村庄联机生命周期修复",
+      "已逐项比对，见差异与回执",
+      "删除前保存签名一致 2、在盘，版本待证 1。",
+      38,
+      31,
+      1,
+      3,
+      2,
+      0,
+      "ce082e731",
+      "Docs/Publication/VillageNetwork20261118/README.md"
+    ],
+    [
+      "11-18",
+      "源码整理、共享宿主拆分及技能规则",
+      "已逐项比对，见差异与回执",
+      "删除前保存签名一致 127、旧 GUID 与长度一致 5、在盘，版本待证 5、发布指纹一致 4、按配方重建 4。",
+      1231,
+      1164,
+      12,
+      145,
+      135,
+      0,
+      "762d6491c",
+      "Docs/Publication/CodeSkillCleanup20261118/README.md"
+    ],
+    [
+      "11-18",
+      "村庄诊断归档及生命周期修订",
+      "已逐项比对，见差异与回执",
+      "按配方重建 26、删除前保存签名一致 19、在盘，版本待证 6、发布指纹一致 5、旧 GUID 与长度一致 1。",
+      239,
+      226,
+      1,
+      57,
+      50,
+      0,
+      "db189895a",
+      "Docs/Publication/HillsVillageLifecycle20261118/README.md"
+    ],
+    [
+      "11-19",
+      "技能树、子专精与快捷栏数字键",
+      "已逐项比对，见差异与回执",
+      "这一提交无标题。文件包含技能树 JSON、专精和快捷键；共享宿主增量在 Integration。",
+      57,
+      56,
+      0,
+      0,
+      0,
+      0,
+      "3f799b3ea",
+      "Docs/Publication/SkillTree20261117/README.md"
+    ],
+    [
+      "11-19",
+      "技能树与子专精工作流补记",
+      "发布文件对应，未作实机判断",
+      "这一提交无标题。实际只更新技能树与子专精的技能参考文档。",
+      1,
+      1,
+      0,
+      0,
+      0,
+      0,
+      "0565e92fc",
+      "skills/ue5-skill-magic-workflow/references/skill-tree-and-specializations.md"
+    ],
+    [
+      "11-19",
+      "丘陵村工匠、酒馆与共享交易",
+      "已逐项比对，见差异与回执",
+      "面包房站点的旧专用源码已整合到 HillsVillageShopSite；商铺又有 11 月 21 日后续更新。 Jason R4 母版和修正蓝图都在制作宿主。",
+      281,
+      257,
+      14,
+      74,
+      67,
+      0,
+      "c8d8c3b85",
+      "Docs/Publication/ArtisanVillage20261119/README.md"
+    ],
+    [
+      "11-20",
+      "村庄店员、现代战术套装与食物交互",
+      "已逐项比对，见差异与回执",
+      "居民、现代战术服装和食物交互按同批多个功能记录；面包房站点与后续村庄商铺布局一起核对。",
+      379,
+      342,
+      26,
+      460,
+      456,
+      0,
+      "78a9b2590",
+      "Docs/Publication/ConversationDelivery20261120/README.md"
+    ],
+    [
+      "11-20",
+      "丘陵固定地形、采石场与植被制作",
+      "已逐项比对，见差异与回执",
+      "固定地形、采石场与植被按正式入口核对；两份 Field 远冠源在 CitySamplePCG 插件挂载目录。",
+      102,
+      95,
+      7,
+      43,
+      40,
+      0,
+      "712eb8e48",
+      "Docs/Publication/HillsFixedLandscape20261120/README.md"
+    ],
+    [
+      "11-20",
+      "村庄与服装一次性文件归档",
+      "发布文件对应，未作实机判断",
+      "与本次发布一致 2。",
+      2,
+      2,
+      0,
+      0,
+      0,
+      0,
+      "e8b7284d9",
+      "Docs/Publication/ConversationDelivery20261120/README.md"
+    ]
+  ],
+  "m249": [
+    [
+      "正式包",
+      "上轮写回的 UE 包",
+      "286 / 286 仍与写回回执一致",
+      "多数由制作源重建。",
+      "F:\\FPSGAMEData\\ArtProduction\\M249Orpind20261107\\ApprovedRecovery20261121\\recovery.json"
+    ],
+    [
+      "基础动作",
+      "A_M249_Bipod",
+      "与历史发布哈希一致",
+      "Repair11；Content/Weapons/M249/Bipod/A_M249_Bipod.uasset",
+      "18fa22a4a63dbd28dec0266a85b3a1188f7dac51b13a8cafb9ce7e9560d53b1b"
+    ],
+    [
+      "基础动作",
+      "A_M249_idle",
+      "与历史发布哈希一致",
+      "已有；Content/Weapons/M249/Animations/A_M249_idle.uasset",
+      "607d3b520f2625a7a776ba05949437e8e50e1e7c225c7945d2b43598e4475eb9"
+    ],
+    [
+      "基础动作",
+      "A_M249_fire",
+      "与历史发布哈希一致",
+      "已有；Content/Weapons/M249/Animations/A_M249_fire.uasset",
+      "ab5dbe5f719865704944dcec1b062165d83b88a90d01c5f2d965c78e389a2269"
+    ],
+    [
+      "基础动作",
+      "A_M249_equip",
+      "与历史发布哈希一致",
+      "已有；Content/Weapons/M249/Animations/A_M249_equip.uasset",
+      "3f19d7bdb16d011d609de6bc9cf79b18f29de675938805f35d0e5c12ad2bcb78"
+    ],
+    [
+      "基础动作",
+      "A_M249_inspect",
+      "与历史发布哈希一致",
+      "已有；Content/Weapons/M249/Animations/A_M249_inspect.uasset",
+      "f024a9d96fc75b178de3a926e5fc6c1092179695dfabf69890ae10024ff89d96"
+    ],
+    [
+      "基础动作",
+      "A_M249_quick_melee",
+      "原配方重建，当前与恢复回执一致",
+      "Repair08；Content/Weapons/M249/Animations/A_M249_quick_melee.uasset",
+      "9c65e12085dae8b9eec77e437243fd6682930f2fa9e9247f6b6def037068983d"
+    ],
+    [
+      "基础动作",
+      "A_M249_reload",
+      "原配方重建，当前与恢复回执一致",
+      "ReloadAudit21；Content/Weapons/M249/Animations/A_M249_reload.uasset",
+      "9a17df9cc09dd3d83fe87ff0e87a47d5c90deebbb1857f4b63f3ccd1873fb10d"
+    ],
+    [
+      "基础动作",
+      "A_M249_reload_empty",
+      "与历史发布哈希一致",
+      "ReloadAudit21；Content/Weapons/M249/Animations/A_M249_reload_empty.uasset",
+      "0cbcb750771483871ae73ad3fef3f3c4c9a15bac62f14754491f7ad9d4663982"
+    ],
+    [
+      "基础动作",
+      "A_M249_sprint_enter",
+      "与历史发布哈希一致",
+      "已有；Content/Weapons/M249/Animations/A_M249_sprint_enter.uasset",
+      "f1bc746ae04f4454905e9fce93214ba4d4dcbdf142e8861317f8ad29c31cb872"
+    ],
+    [
+      "基础动作",
+      "A_M249_sprint_loop",
+      "与历史发布哈希一致",
+      "已有；Content/Weapons/M249/Animations/A_M249_sprint_loop.uasset",
+      "bfb2d97374090c615829f6815c4a3bc52026af964303aaa3fc22cca07b532bee"
+    ],
+    [
+      "基础动作",
+      "A_M249_sprint_exit",
+      "与历史发布哈希一致",
+      "已有；Content/Weapons/M249/Animations/A_M249_sprint_exit.uasset",
+      "9f460e3bb027ba33a3fdcd4ec8e076f93bf955dcfa9ca9f11bc58dba365d90cb"
+    ],
+    [
+      "基础动作",
+      "A_M249_side_reload",
+      "与历史发布哈希一致",
+      "ReturnReview24；Content/Weapons/M249/SideMagazine20261108/Animations/A_M249_side_reload.uasset",
+      "13733c2ee85b9be1fc7c4c43768868b26108087716e16d58e6226cc1b9dbce35"
+    ],
+    [
+      "基础动作",
+      "A_M249_side_reload_empty",
+      "与历史发布哈希一致",
+      "ReturnReview24；Content/Weapons/M249/SideMagazine20261108/Animations/A_M249_side_reload_empty.uasset",
+      "8dab2303a0e0af4c9a03e3bd75c3c6560c7b1fcbfed81eeaf6507a8011c96a22"
+    ],
+    [
+      "握姿",
+      "DA_M249_Bipod",
+      "与历史发布哈希一致",
+      "Wrist34；Content/Weapons/M249/Bipod/DA_M249_Bipod.uasset",
+      "1e8f4306edc0a5d7f31b5e2a871e24e46633143bd11cf4095b94c4ed1cb7f883"
+    ],
+    [
+      "握姿",
+      "DA_M249_SupportGrip",
+      "与历史发布哈希一致",
+      "GripMount40；Content/Weapons/M249/Bipod/DA_M249_SupportGrip.uasset",
+      "5fd3ff5e89ddc82b9d39958b1c7477f67fa3a5f4b4306b3c98f0b61244d934c4"
+    ],
+    [
+      "握姿",
+      "DA_M249_vertical",
+      "与历史发布哈希一致",
+      "GripMount40；Content/Weapons/M249/CommonParts20261108/Profiles/DA_M249_vertical.uasset",
+      "8055cb7af161762a06ed067bd3d2a761cb3e52d57afb2df858dc7e20e45b2f49"
+    ],
+    [
+      "握姿",
+      "DA_M249_canted",
+      "与历史发布哈希一致",
+      "GripMount40；Content/Weapons/M249/CommonParts20261108/Profiles/DA_M249_canted.uasset",
+      "c8300485c721406cc07b2ac9e4f35b8b57aeab152bf7e74f0977fecb87f355b6"
+    ],
+    [
+      "握姿",
+      "DA_M249_prism",
+      "与历史发布哈希一致",
+      "GripMount40；Content/Weapons/M249/CommonParts20261108/Profiles/DA_M249_prism.uasset",
+      "96293a5ce1c87f48d99350c1690c07d05aad51f7386b7b0909f199e606ef4739"
+    ],
+    [
+      "握姿",
+      "DA_M249_angled",
+      "与历史发布哈希一致",
+      "GripMount40；Content/Weapons/M249/CommonParts20261108/Profiles/DA_M249_angled.uasset",
+      "ef3953915a07fee53fbee2e394541c666f7d4ab92b4cfc588fd80866b6c087f7"
+    ],
+    [
+      "握姿",
+      "DA_M249_Handguard",
+      "与历史发布哈希一致",
+      "Wrist39；Content/Weapons/LMGStabilityGrip20261111/DA_M249_Handguard.uasset",
+      "267146d4c41ca8950ce39eb2245b31d62609186b21fedd79a25a830e4983a2c1"
+    ],
+    [
+      "枪匠",
+      "原厂装备与拆装脚架",
+      "七个槽，含独立 bipod 槽",
+      "原厂无前握把，后期补回拆脚架的背包图。",
+      "Content/ColdSteelData/gunsmith.json"
+    ],
+    [
+      "材质及模型",
+      "GripMount40、BipodPin41、RearGrip44",
+      "按末版制作配方写回",
+      "包括三种完整后握把、脚架连接销和装配台。",
+      "F:\\FPSGAMEData\\ArtProduction\\M249Orpind20261107\\ApprovedRecovery20261121\\recovery.json"
+    ],
+    [
+      "旧版替换",
+      "最初的原厂全息及衔接件",
+      "后期原厂后置倍镜接替",
+      "旧试验件不计作现役缺失。",
+      "Docs/Publication/M24920261109/README.md"
+    ],
+    [
+      "制作脚本",
+      "Wrist38/prepare_review.py",
+      "已处理，发布原文一致",
+      "已写回正式制作目录，可再次运行右腕复核准备流程。",
+      "e1fd5d07d · SHA-256 ad2d8d9576c67f655a4c7d6702b53947a27979e04d08921c5c1b2b44d442d7aa"
+    ]
+  ],
+  "features": [
+    [
+      "N001–N003",
+      "教堂修女 R2 头模与发束",
+      "R6 原脸头模、R9 低发髻及松散发束、R10 后颈短发、R7 衣领与站姿。",
+      "已修复（原复核）",
+      "原路径缺包 3",
+      "从真实 R6 网格重制 223406 三角形头模和 3 级 LOD，用 R9 原始曲线和根 UV 重做两束头发、两份头皮绑定及黑发材质。6 包已替换至正式 Content，旧包保存在本轮 Before。\n按现役替代完成 N001–N003。新增 93 束后颈短发。制作姿态的最低发梢高于后领 1.58 厘米。NPC 交互时，衣服、头部、原有发丝及新增短发均纳入同一绿色轮廓。旧 R2 头模和两份原始绑定仍作历史对照。",
+      "现役 Source/FPSGAME/NPC/ChapelNun.cpp 装配 11 个包。本地保留 FaceOriginalRestoreR6/Authored/head.json、HairNativeCombR9 原始 Core／Loose Alembic、retained_assets.json 和源码保存器；原正式头模实际等同 R6 施工前备份。\n现役装配见 Source/FPSGAME/NPC/ChapelNun.cpp，交互轮廓见 Source/FPSGAME/UI/ResidentHighlightSubsystem.cpp。NapeHairR10/saved.json 记录网格、材质和纹理。"
+    ],
+    [
+      "N004",
+      "Kaitlin 巡逻衬衣蹲姿适配",
+      "PatrolShirtR2 / native waist / CrouchFit，玩家及世界模型",
+      "已核对（原复核）",
+      "按配方重建 1",
+      "18 个活动包及追踪到的 80 个依赖包齐备。N004 当前 SHA-256 a9c074b791f1 与本日原料复建回执一致；三级三角形数 186466、89502、35427。",
+      "GitHub 78a9b259 的 Tools/ModernTacticalSet/patrol_shirt_world_publish.py；本地 world-published.json、world-saved.json、World/Fits/waists.json 及两套模型的 18 条现役路径。OriginalInputFour/Shirt/receipt.json 记录 N004 原腰形与三级三角形数。"
+    ],
+    [
+      "N005–N012",
+      "山脊靴与袍摆衔接材质",
+      "RidgeBootsR2 短筒／袍摆，Jason 与 Kaitlin",
+      "已修复（原复核）",
+      "候选版本在盘 8",
+      "修复正式 modular_outfits.json 丢失的两条袍摆衬层绑定；两体型服装现在分别指向各自的 RobeHem 网格。原配置独立备份。",
+      "GitHub 78a9b259 的 Tools/ModernTacticalSet/ridge_boots_wear_publish.py、RidgeBootsR2/wear-published.json、FPSModularOutfitComponent.cpp 的显式 underlayer_meshes 路由。两体型四个靴子网格使用原作指纹。"
+    ],
+    [
+      "N013–N042",
+      "战术斧三种早期斧刃",
+      "SwiftCrescent R4 FactoryFinish，HeavyCleaver / FoldedArc ContinuousBlades R5",
+      "已核对（原复核）",
+      "原路径缺包 15；写回回执一致 15",
+      "三款现役网格、材质和对应 PBR 在正式工程。斧部件表共 66 个包路径，计入包依赖后 164 个，均在盘。N013–N042 的初版和 R2 保持暂缓。",
+      "ec0f9738 · Docs/Publication/Hatchet20261104/README.md；本地 Content/ColdSteelData/tactical-hatchet-modules.json"
+    ],
+    [
+      "N043–N046",
+      "战术斧幽镰符纹",
+      "MeshyBladeJointR11 几何 + CommonRunes20261104/RuneSurfaces",
+      "已核对（原复核）",
+      "写回回执一致 4",
+      "现役装配表较 GitHub 的 11 月 4 日快照多出幽镰三种符纹实例，均沿用本地较新绑定。母材、结／山／翼实例及贴图均在盘。",
+      "本地 SourceAssets/OneHandAxe20261101/GhostScythe20261104/RuneSurfaces/import_assets.py；Content/ColdSteelData/tactical-hatchet-modules.json"
+    ],
+    [
+      "N047–N049",
+      "战术斧幽镰血雾",
+      "持握显示 HeldMistR13，MeshyBladeJointR11；旧 CompactV5 单独保留",
+      "已核对（原复核）",
+      "写回回执一致 3",
+      "现役持握使用 R13 的实例化面片材质和 T_MuzzleSmokeMantaflowV14，正式材质内的密度与偏移 HLSL 对应 R13 源文件。过往三项存档包仍在。",
+      "本地 Source/FPSGAME/Weapons/Kukri/GhostScytheMist.cpp；SourceAssets/OneHandAxe20261101/GhostScythe20261104/HeldMistR13/author.py"
+    ],
+    [
+      "N050–N055",
+      "副手斧与廓尔喀刀拔出动作",
+      "OffhandBladeDraw 6 条；快速近战复用原生 PairAttack3KH",
+      "已修复（原复核）",
+      "写回回执一致 6",
+      "本行记录原动画包；主手手枪的现役副手动作已另行修订，见本页同名组合。手臂、Jason、Kaitlin 的斧与弯刀拔出包共六个，前置骨架齐备。追踪实际装备的弯刀外观，补了四种刀刃的 12 个常规符纹实例、8 个狼血／霜鸦母材，将 4 个旧常规母材升级为正式发布的流光。",
+      "8095546c · SourceAssets/OffhandBladeDraw20261104/author.py；3ecf7ad8 · SourceAssets/OffhandHatchetQuick20261106/README.md；Content/ColdSteelData/player_body.json"
+    ],
+    [
+      "N056–N059",
+      "迅隼重击动作",
+      "蓄力 R2，释放及双持释放 R4 / 60 fps",
+      "已核对（原复核）",
+      "写回回执一致 4",
+      "逐包读取手臂、Jason、Kaitlin 共 12 条已保存动画的数据模型。蓄力 121 键、释放 97 键及砍击／拉回接触标记符合对应作者版本。",
+      "本地 SourceAssets/OneHandAxe20261101/FalconEdge20261103/SwiftFalconLegendary/HeavyPull/save_moves.py；Source/FPSGAME/Weapons/Kukri/SwiftFalconHeavy.h"
+    ],
+    [
+      "N060",
+      "迅隼钩索材质",
+      "SwiftFalconLegendary/Hook",
+      "已核对（原复核）",
+      "写回回执一致 1",
+      "当前构造函数加载的 M_FalconHookFilament、SW_FalconHookBite、SW_FalconHookSnap 及直接依赖均已落盘。",
+      "本地 Source/FPSGAME/Weapons/Kukri/SwiftFalconHookVisual.cpp；SourceAssets/OneHandAxe20261101/FalconEdge20261103/SwiftFalconLegendary/Hook/save_fx.py"
+    ],
+    [
+      "N061–N065",
+      "高地大剑 GaleOath 剑首 V1",
+      "GaleOath20261106/SurfaceR2",
+      "已核对（原复核）",
+      "原路径缺包 5",
+      "R2 剑首及其钢材、贴图在正式工程。修复关联的 M_HighlandClaymoreSurface，共享改色和高地专属两种金属恢复，誓纹原生 UV 金色按现行作者脚本接回。",
+      "b22184fe · Content/ColdSteelData/highland-claymore-modules.json；SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2/publish.py"
+    ],
+    [
+      "N066–N087",
+      "高地大剑 GaleWing 护手",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge",
+      "已修复（原复核）",
+      "原路径缺包 22",
+      "现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json"
+    ],
+    [
+      "N088",
+      "高地大剑专属旋风材质",
+      "HighlandExclusive20261103V1 及 HighlandOath20261106 金色原生 UV",
+      "已修复（原复核）",
+      "在盘，版本待证 1",
+      "专属输出 N088 在盘。补齐普通主材的共享／专属改色，并将 M_HighlandClaymoreSurface、M_HighlandClaymoreSurface_Whirlwind 两张现役母材的誓纹接回金色原生 UV。两个替换前包已备份。",
+      "68ba46ad · SourceAssets/SharedTwoHandMaterials20261101/install_materials.py；b22184fe · SourceAssets/HighlandOathRune20261106/apply_gold.py"
+    ],
+    [
+      "N089–N090",
+      "高地大剑楔脊钢材质",
+      "WedgeSpineJunctionR4",
+      "已修复（原复核）",
+      "在盘，版本待证 2",
+      "先前核对只确认包路径及纹理存在。正式剑身实际为 9 月旧刃根，已按 R4 原始 FBX 重导并接回 M_RidgeWedgeSteel。五款棱脊护手和实心羽翼棱脊接口的 FBX 指纹相符。未实机测试。",
+      "5a69db8a、b22184fe · WedgeSpineJunctionR4_20261106/import_receipt.json；现役排查 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\scope.json"
+    ],
+    [
+      "N091",
+      "高地大剑突刺聚能",
+      "RidgeThrust20261105",
+      "已核对（原复核）",
+      "在盘，版本待证 1",
+      "聚能带材质 M_RidgeGather 及现役突刺组件引用均在盘。",
+      "仓库 SourceAssets/HighlandRidgeThrust20261105/publish_gather.py；本地 Source/FPSGAME/Weapons/HighlandRidgeGatherComponent.cpp"
+    ],
+    [
+      "N092–N093",
+      "霜晶剑高能玻璃",
+      "DenseCrystalV4 游戏／预览材质，星髓长锋与裂隙剑身",
+      "已修复（原复核）",
+      "写回回执一致 2",
+      "DenseCrystalV4 两份高能玻璃及贴图在盘。星髓长锋和裂隙剑身已接回无缝剑身材质与旋风变体，两款剑身均保留三级 LOD。魔晶双手剑 26 项改造件说明已按规范简化。",
+      "Source/FPSGAME/Weapons/ModularSwordVisual.cpp；SourceAssets/MagicCrystalSword20261101/DenseCrystalV4/install_materials.py\nF:/FPSGAME-Recovery-Work-20261120/MagicCrystalSword20261121/installed.json\nF:/FPSGAMEData/ArtProduction/MagicCrystalSword/AttachmentCopy20261121/published.json"
+    ],
+    [
+      "N094–N099",
+      "霜晶剑星髓充能火焰",
+      "G 充能动作 V7，蓝焰 Niagara V5，L 检视 V85/R6b",
+      "已修复（原复核）",
+      "写回回执一致 4；原路径缺包 2",
+      "星髓长锋的蓝焰特效沿用 V5。标准、长握柄的 G 充能动作均已恢复到 V7（2.2 秒，120 帧/秒）。两套 L 检视和长握柄姿势配置均为 V85/R6b，5 个动作与配置包已对照正式工程。",
+      "Source/FPSGAME/Weapons/StarMarrowFlames.cpp；Docs/Publication/ConversationCombat20261109；SourceAssets/StarMarrowCharge20261103\nF:/FPSGAME-Recovery-Work-20261120/MagicCrystalSwordMotion20261121/installed.json"
+    ],
+    [
+      "N100–N103",
+      "M24 统一涂装",
+      "FinishUnified20261103 与原厂镜 StockContinuity",
+      "已修复（原复核）",
+      "写回回执一致 4",
+      "补回原厂六倍镜、镜体区域母材质和实例。模型源 FBX 与历史 MD5 一致，保存 17961 三角面、三个材质槽和六个瞄准插槽。\n先进枪身与整枪恢复批次共写入 60 包，其中 12 包补建。9 个改造槽位齐全，历史 356 包中 354 包在盘，退役两包见 N104、N106。",
+      "SourceAssets/M24FinishUnified20261103/saved_material_check.json；Source/FPSGAME/Weapons/M24Attachments.cpp\nF:/FPSGAMEData/ArtProduction/M24/AdvancedActionRecovery20261121/installed.json"
+    ],
+    [
+      "N104–N106",
+      "M24 枪托接缝与机匣涂层",
+      "先进机匣 R2 四槽分区，骨架枪托按原配方恢复三区",
+      "已修复（原复核）",
+      "原路径缺包 2；写回回执一致 1",
+      "先进机匣已恢复 R2 四槽几何和原厂枪托延续面，共 72,980 个三角面。骨架枪托另按原配方恢复金属框、贴腮垫和橡胶肩垫分区，两种枪身共用的正式母材质已落盘。N104、N106 的旧接缝遮罩维持暂缓。",
+      "SourceAssets/M24StockJunctionR2_20261105/publish.py 和 saved.json\nF:/FPSGAMEData/ArtProduction/M24/AdvancedActionRecovery20261121/installed.json\nF:/FPSGAMEData/ArtProduction/M24/ComponentFinish20261121/installed.json"
+    ],
+    [
+      "N107",
+      "M24 装备就绪动作",
+      "装备就绪动作及关联的普通换弹、空仓换弹与检视",
+      "已修复（原复核）",
+      "写回回执一致 1",
+      "独立装备就绪动作在盘。普通换弹、空仓换弹和检视已接回 BC_M4Viewmodel。修正左肩截口入镜与腕部细抖，3 秒检视复用 AKM 原生动作节奏。3 条动画、10 套握持配置已写入，30 个动作分支已后台读回，实机待测。",
+      "Source/FPSGAME/Weapons/M24WeaponAssets.h；Source/FPSGAME/FPSGAMECharacterAssetsAudio.cpp\nF:/FPSGAMEData/ArtProduction/M24/ReloadInspect20261121/installed.json"
+    ],
+    [
+      "N108",
+      "M24 Meshy 版本材质",
+      "Meshy1105135808-SewnJoint20261106（Native、Advanced）",
+      "已修复（原复核）",
+      "写回回执一致 1",
+      "旧网格的 SHA-256 与终版脚本登记的输入吻合。已用两份原始 FBX 重建原厂和先进枪托，均保存三级 LOD，各自保留正确机匣材质，共用 N108 枪托材质。初版、RigidNatural 和 HorizontalTrim 三个旧入口已增加前置版本识别。\n两种枪身上的玄脊碳托经三张贴图逐像素比对、三档 UV 和同机位留图核对，斜纹与 11 月一致。本轮检查 38 个模型、101 个材质槽，无空槽或默认材质。骨架枪托分区修复见 N104–N106。",
+      "GitHub main · 44ec6c29。Docs/Publication/M24Zhiming20261107/README.md 第 7 行。SourceAssets/M24JointClean20261106/{current.json,publish.py,Exports/}。\nF:/FPSGAMEData/ArtProduction/M24/ComponentFinish20261121/result.json"
+    ],
+    [
+      "N109",
+      "狙击配件石墨涂层",
+      "止鸣 v06，M24／SVD／SVCh",
+      "已核对（原复核）",
+      "原路径缺包 1",
+      "止鸣模型与原厂槽 0 的区域涂装材质已在盘，现役配置无需旧石墨实例。\n止鸣模型的 MountFace、Muzzle 和 AimGuide 三个插槽已恢复，旧石墨实例保持暂缓。",
+      "Source/FPSGAME/Weapons/SniperSuppressorAssets.h；SourceAssets/M24ZhimingPublication20261107\nF:/FPSGAMEData/ArtProduction/M24/AdvancedActionRecovery20261121/installed.json"
+    ],
+    [
+      "N110",
+      "双持廓尔喀刀冲刺攻击",
+      "DualSprintAttack20261104，双持连击第二段 Free3D SecondAttackV2",
+      "已修复（原复核）",
+      "写回回执一致 1",
+      "双持冲刺攻击与共享动作在盘。核对身体动画表发现 Jason、Kaitlin 的双持第二击缺包，两个原始动作 JSON 的 SHA-256 均与发布回执吻合，已按原脚本重建并写回。",
+      "8095546c · SourceAssets/DualSprintAttack20261104；d1b10f49 · SourceAssets/KukriDualFree3D20261029/SecondAttackV2/save_assets.py；Content/ColdSteelData/player_body.json"
+    ],
+    [
+      "N111",
+      "钢战锤跃击动作",
+      "LeapStrikeV2；落地冲击环与第三人称三段",
+      "已核对（原复核）",
+      "写回回执一致 1",
+      "跃击动作、地面冲击和角色动作表对应的蓄力、空中与落地条目在盘。",
+      "Source/FPSGAME/Skills/LeapStrikeMotion.h；Docs/Publication/Conversation20261112/Integration/Source/Source/FPSGAME/Skills/LeapStrikeMotion.h；Content/ColdSteelData/player_body.json，WarhammerShockwave.cpp"
+    ],
+    [
+      "N112",
+      "雷神锤贯雷锤头底座",
+      "贯雷座 MeshyV13；静场握把 V3Game／线圈握把 V1",
+      "已修复（原复核）",
+      "原路径缺包 1",
+      "2026-11-21 复核完成。现役贯雷锤座 V13：双手蓄力 V6、最终随挥 V7、召回 V4 已落盘。疾雷为 V15 锤座和 V5 动作。三种通用锤座表面、五种锤面材质切换、疾雷录音来源和改造详情均已恢复或更新。Editor、Game 后台构建成功，实机待测。N112 的旧 V12_UV1 仍暂缓。\n2026-11-21：现役贯雷锤座 V13 的第一人称重击蓄力已从 V5 换握恢复为 V6 双手持续举锤。出手沿用 V7。旧底座 V12_UV1 仍暂缓。\n部件表中的贯雷座 V13 齐全。另找回五件原厂模块，并按发布配方重建线圈和静场两只握把及九个材质，合计补回 16 包。静场握把沿用 V2 的四个金属／镶嵌材质。",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json；SourceAssets/ThunderGodHammer20261028/GuanLeiMeshyV13；SourceAssets/ThunderGodHammer20261028/{ModulesV1,StaticFieldGripV2,StaticFieldGripV3Game,CoilGripV1}/import_assets.py"
+    ],
+    [
+      "N113–N114",
+      "火焰护甲 V6",
+      "CampfireV6 制作源，两份系统保留；现役 TorchV2 / AllWeaponsV12",
+      "已核对（原复核）",
+      "在盘，版本待证 2",
+      "V6 武器和箭焰仍为早期制作输入，武器、剑和箭的现役路径指向 V12，身体用 TorchV2。",
+      "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/FlameArmorAssets.h；SourceAssets/FlameArmorCampfire20261107"
+    ],
+    [
+      "N115",
+      "火焰护甲战锤 V7",
+      "HammerSurfaceVisibleFireV16（包目录 HammerSurfaceV13）",
+      "已修复（原复核）",
+      "在盘，版本待证 1",
+      "正式同名系统只有 V14 元数据。按发布配方用 SwordRestoreV11 重建 V16 战锤 Niagara 和专用材质，保留三个贴面火焰层。五个恢复的原厂锤件含焰甲采样的锤头。V7 保留。",
+      "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/FlameArmorAssets.h；SourceAssets/FlameArmorHammer20261108；Docs/Publication/SkillActions20261110/Authors/SourceAssets/FlameArmorHammer20261109/install_surface_fire.py"
+    ],
+    [
+      "N116–N117、N123",
+      "火焰护甲局部跟随 V10",
+      "LocalFollowV10；当前 AllWeaponsV12 / 锤 VisibleFireV16",
+      "已核对（原复核）",
+      "在盘，版本待证 3",
+      "V10 三套跟随系统保留。当前通用带焰物体使用 V12，锤专用系统已补至 V16。",
+      "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/FlameArmorAssets.h；SourceAssets/FlameArmorSword20261108"
+    ],
+    [
+      "N118–N122、N124–N125",
+      "火焰护甲剑身 V8 / V9",
+      "SwordChargeV8 / V9 修订；当前 V11 供体、V12 装配",
+      "已核对（原复核）",
+      "在盘，版本待证 7",
+      "V8 及随机火舌修订的材质包仍在，当前 V12 武器系统采用 V11 暖焰供体。",
+      "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/FlameArmorAssets.h；SourceAssets/FlameArmorSword20261108"
+    ],
+    [
+      "N126–N129",
+      "火焰护甲剑身 V11",
+      "OriginalChargeWarmFollowV11；V12 和锤 V16 的供体",
+      "已核对（原复核）",
+      "在盘，版本待证 4",
+      "SwordRestoreV11 系统内存有对应修订，暖色材质及实例已在正式工程。两份现役制作脚本仍读取这套供体。",
+      "Docs/Publication/SkillActions20261110/Source/Source/FPSGAME/Skills/FlameArmorAssets.h；SourceAssets/FlameArmorSword20261108"
+    ],
+    [
+      "N130",
+      "元素箭暖色火焰",
+      "WarmFireV2 / ColdMistV2 / Lightning",
+      "已核对（原复核）",
+      "在盘，版本待证 1",
+      "暖火、冷雾和雷电入口及其引用包在盘。",
+      "Source/FPSGAME/Skills/ElementalArrowTypes.h；Docs/Publication/SkillActions20261110"
+    ],
+    [
+      "N131",
+      "破军连斩动作",
+      "ChainSlash20261107 破军、标准、长柄",
+      "已核对（原复核）",
+      "写回回执一致 1",
+      "破军独立动作、标准及长柄动作、四段斩痕和冲击波均在盘。破军部件选择由 RuneSwordChainSlash.cpp 决定。",
+      "Source/FPSGAME/Skills/ChainSlashAssets.h；Docs/Publication/SkillActions20261110"
+    ],
+    [
+      "N132",
+      "公寓街角样板图",
+      "SC09 / 11月10日正式公寓街角",
+      "已修复（原复核）",
+      "原路径缺包 1",
+      "正式公寓地图已落盘。按原清单装入 117 个街角对象，退役 28 个旧对象；675 个保留标签的类型、位置、姿态和网格／材质绑定一致。33 个关联资源包从真实制作输入恢复，包括两张 2048 城市反射立方贴图。新版 671 个直接包引用逐项吻合误删前登记。",
+      "SourceAssets/ApartmentStreetCorner20261110Formal/install_formal.py、placement_manifest.json 与正式发布前备份。当前入口原先逐字节等同施工前地图，100 个街角引用的活动资产齐备。"
+    ],
+    [
+      "N133–N135",
+      "货运站瓷砖终修网格",
+      "FreightStationFinal20261113 / SM_StationTiles_WestRepair",
+      "已修复（原复核）",
+      "按配方重建 3",
+      "货运站正式地图已落盘，34 个制作步骤均已重放。WestRepair 已绑定 StationLine_AbandonedTransitStation_6，460253 个三角形。地图 471 个直接引用与误删前登记逐项一致。三份旧试作网格已恢复留档，现役采用 WestRepair。",
+      "GitHub c9614787 的 FreightStationFinal20261113/install_patina.py 将 StationLine_AbandonedTransitStation_6 绑定至 WestRepair。cleanup-summary.json 记录另 3 个试作网格归档；local-assets.json 的出图校验值与当前正式地图不符。"
+    ],
+    [
+      "N136–N141",
+      "货运仓库早期墙地表面",
+      "FreightWarehouseWeathering20261111 ＋ Derelict、FreightStationFinal20261113",
+      "已修复（原复核）",
+      "原路径缺包 6",
+      "正式地图已恢复仓库结构、入口、Derelict 污损与后续设计层，保留现役 MI_WallConcrete。另按发布配方修复剥落混凝土 M_SpalledConcrete 实际缺失的底色和环境遮蔽节点。6 个历史墙地母材质及实例继续暂缓。",
+      "GitHub c9614787 的仓库、车站整理脚本和 Docs/Publication/FreightStation20261114/local-assets.json。渲染器用实际墙、地、铺装、码头、阶梯网格及 MI_WallConcrete，6 个旧 MI/T 已在归档记录中淘汰。"
+    ],
+    [
+      "N142",
+      "设施接待处黑门材质",
+      "ReceptionDoorVeil20261012 的原始无光黑门；FacilitySurfaceUpgrade20261108 最终收尾",
+      "已核对（原复核）",
+      "原路径缺包 1",
+      "3 个现役入口、5 个包的依赖链齐备。旧微表面材质无现役用途，继续暂缓。",
+      "GitHub a006d9ac 的接待处原配方；本地 SourceAssets/FacilitySurfaceUpgrade20261108/finish_legacy_parameters.py、Receipts/install.json 明确恢复黑门；实际黑色衬板和雾帘引用 M_ReceptionDoor_Black。"
+    ],
+    [
+      "N143–N144",
+      "丘陵白崖实体网格",
+      "白崖 A/B 闭合网格 SolidR9。采石场使用 11 月 20 日发布的固定地形 V3 和近景石材浮雕。",
+      "已修复（原复核）",
+      "原路径缺包 2",
+      "白崖 A/B 继续使用 SolidR9。九个石材的浮雕材质已补回，R9 导入器沿用已保存的 M_LimestoneCut。\n丘陵流送配置已恢复发布原版（76717c18…），Hills.layout 和 Hills.terrain 与发布指纹一致。\n采石场摆放已恢复发布原版（2026-11-21）。根据 22:21 终烘记录与隔离重建，对 SM_SoftWildGrassLow 的 1,411 个实例采用渲染包围盒，其他 24 组网格和 49 个阻挡体与原版一致。391,708 字节，SHA-256 为 6e032174…，已写回正式工程。",
+      "origin/main · 4ade762c、712eb8e4。Tools/WorldGeneration/WhiteCliffs/{import_solid_scans,quarry_stone_relief}.py。Docs/Publication/HillsFixedLandscape20261120/Evidence/BuildAndBake.json。实际读回见 LatestAuditSceneMap20261121/readback.json。\n原件比对与烘焙明细见 Originals20261121/DA_TemperateHillsStreaming.json、QuarryReleaseBake/outputs.json。\n终烘日志、隔离重烘结果及网格比对见 QuarryReleaseClock20261121/results.json。"
+    ],
+    [
+      "N145",
+      "主神空间地图俯视贴图",
+      "MapSystem20261117。DayNight_Lighting 关卡正交底图，2048 × 2048；中心（−2400，−1300）厘米，宽 10477 厘米。",
+      "已核对（原复核）",
+      "在盘，版本待证 1",
+      "源关卡与发布 SHA-256 一致，现役包已读回图幅和配准。\n原始画面已找回（2026-11-21）。11 月 13 日缓存记录的纹理源内容指纹 5b1a47f3… 与现役包一致。已无损导出 2048 × 2048 PNG，回读像素逐字节一致。正式工程沿用 fc910c4a；旧 .uasset 的整包 SHA-256 为 50cb0698…，仍缺匹配副本。",
+      "origin/main · 34c08285。Source/FPSGAME/UI/ColdSteelHubMap{BakeCommandlet.cpp,Registration.h}。Docs/Publication/MapSystem20261117/asset-dependencies.json。\n11 月 13 日 UE 缓存记录、像素与整包指纹见 HubPhotoSourceTrace20261121/source-proof.json；PNG 路径见「素材位置」。"
+    ],
+    [
+      "N146–N149",
+      "星落护手命中特效材质",
+      "StarfallImpactRefinementV2-20261031。StarfallBladeImpactComponent 使用晶片、层次、外壳和剑身接触四份材质。",
+      "已修复（原复核）",
+      "写回回执一致 4",
+      "四份材质已写入正式工程。其中找回原件 0 份，按现役版本重建 4 份。",
+      "GitHub 0efd7dcc 说明完整星陨天枢资产保留在本机。现役入口为 Source/FPSGAME/Weapons/StarfallBladeImpactComponent.cpp。逐包来源与版本依据见「素材位置」，完整安装指纹见 StarfallImpact20261121/installed.json。"
+    ],
+    [
+      "N150–N161",
+      "破阵近战腰带",
+      "IntegrationR1。Content/ColdSteelData/modular_outfits.json · ue_melee_combat_belt",
+      "已修复（原复核）",
+      "在盘，版本待证 12",
+      "按原配方恢复 9 份材质、Jason 和 Kaitlin 两份穿戴网格，以及掉落展示网格。两份穿戴网格各有三档 LOD，六份几何输入均与原制作指纹一致。",
+      "Tools/CombatBeltsIntegration/save_assets.py\nF:\\FPSGAME-Recovery-Work-20261120\\PlayerAppearanceBelt20261121\\installed.json"
+    ],
+    [
+      "N162–N173",
+      "星律导能腰带",
+      "KeeperFixR2。Content/ColdSteelData/modular_outfits.json · ue_arcane_conduit_belt",
+      "已修复（原复核）",
+      "写回回执一致 12",
+      "穿戴网格、10 份材质与三档 LOD 已按原配方恢复，腰带环沿用修正版。KeeperFixR2 掉落模型也已补回原路径。",
+      "Tools/CombatBeltsIntegration/save_arcane_keeper_fix.py\nF:\\FPSGAME-Recovery-Work-20261120\\BodyFallbackArcane20261121\\installed.json\nF:/FPSGAMEData/ArtProduction/ReleaseRecovery/BeltAndSniperStocks20261122/installed.json"
+    ],
+    [
+      "N174–N175",
+      "弯刀突进副手动作",
+      "DashFreeArmV4。Content/ColdSteelData/player_body.json · Kukri.FullBody.Dash",
+      "已修复（原复核）",
+      "写回回执一致 2",
+      "按原始动作轨道分别恢复 Jason 和 Kaitlin 的单持弯刀突进动画。两份轨道指纹与原发布记录一致。同名动画按各自骨架和包路径登记。",
+      "SourceAssets/KukriDashFreeArm20261028/save_all.py\nF:\\FPSGAME-Recovery-Work-20261120\\PlayerBodyDashFreeArm20261121\\installed.json"
+    ],
+    [
+      "N176–N177",
+      "背包物品栏展示网格",
+      "InventoryFront20261025R1。Content/ColdSteelData/player_body.json · inventory_static_mesh",
+      "已修复（原复核）",
+      "写回回执一致 2",
+      "按原配方恢复行军背包与登山包的物品栏展示网格。行军背包俯仰 180°，登山包偏航 180°，沿用各自源网格的 UV 和材质。",
+      "SourceAssets/BackpackIcons20261025/FrontR1/plan.json\nF:\\FPSGAME-Recovery-Work-20261120\\PlayerInventoryFront20261121\\installed.json"
+    ],
+    [
+      "11 月后续",
+      "主手手枪／副手斧与弯刀",
+      "副手斧直接举起；弯刀区分整组拔枪与持枪加装",
+      "现役做法有更新",
+      "PistolHatchetDrawMotion.h 与 OffhandKukriComponent.cpp 在盘。",
+      "只有副手斧取消抛接。",
+      "Docs/Production/README.md；Source/FPSGAME/Weapons/Kukri/PistolHatchetDrawMotion.h"
+    ],
+    [
+      "11 月后续",
+      "破军快速近战与双手锤",
+      "普通双手锤／破军使用 QuickReferenceV8；锥形锤座使用 QuickCombatLeftWristV7",
+      "有制作与构建回执",
+      "旧动作与现役分支分开",
+      "普通分支基础接触 0.233 秒，锥形分支 0.265 秒。",
+      "Docs/Production/README.md；F:/FPSGAMEData/ArtProduction/WarhammerQuickReference20261107/PojunAndConical20261121/delivery.json"
+    ],
+    [
+      "11 月后续",
+      "高地长弓山鸣弦",
+      "BeamString20261121；雪山 HUD 使用 AlpineV23",
+      "已换新弦身",
+      "原装配 ID 仍在",
+      "现用光束弦身与原山鸣 HUD 的恢复凭据不同。",
+      "Content/ColdSteelData/bow-gunsmith.json；Docs/Production/README.md"
+    ],
+    [
+      "10/30 起",
+      "符文剑双星护手",
+      "MeshyV3 的 V3B 网格",
+      "已换新版",
+      "旧材质映射仍列出 19 个缺失包路径",
+      "V3 网格与旋风材质在盘，旧映射尚存。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json"
+    ],
+    [
+      "11 月后续",
+      "面包房站点实现",
+      "HillsVillageShopSite.h / .cpp",
+      "共用实现接替旧路径",
+      "旧 HillsBakerySite.h / .cpp 在两处补丁中缺同名目标",
+      "共用站点含 Bakery 定义，正式面包房另有保存回执。",
+      "Source/FPSGAME/WorldGeneration/HillsVillageShopSite.cpp；Docs/Production/丘陵村庄面包房-资产与恢复索引-20261121.md"
+    ],
+    [
+      "11 月后续",
+      "高地双手剑剑刃与护手的接头、检视",
+      "棱脊刃根 R4；普通／长柄检视 V85/R6b",
+      "剑座／护手 5 包、检视／长柄姿势 3 包有写回回执",
+      "两种握柄分别接入；按正式制作索引和两份回执核对。",
+      "V85/R6 之后，以 R6b 作为两种握柄的后续版本。",
+      "Docs/Production/README.md；HighlandClaymoreJunction20261121/installed.json；HighlandInspectR6b20261121/installed.json"
+    ],
+    [
+      "11 月 12 日发布",
+      "螳螂飞扑三段动作",
+      "PounceV11",
+      "V12 经用户否决后回退",
+      "起势、空中、落地三份 V11 成品在盘。",
+      "V13、V14、ArmChainV15 等存在对比版本。",
+      "Docs/Monsters/MantisM27PounceV12EightPhases20261108.md"
+    ],
+    [
+      "11 月 19 日发布",
+      "Jason 强壮版母版与修正蓝图",
+      "R4 的原包和 Blender 源文件在独立制作工程",
+      "制作宿主原路径保留",
+      "R3、R4 两个身体和 R4 修正蓝图在 AuthoringHost/Content。",
+      "工匠使用 VillageBlacksmithNPC 下的独立身体与修正蓝图。",
+      "Docs/Publication/ArtisanVillage20261119/assets.md；SourceAssets/JasonStrong20261117"
+    ]
+  ],
+  "missing": [
+    [
+      "已处理",
+      "SVCH 骨架狙击枪托",
+      "/Game/Weapons/SkeletonSniperStock20261031/Meshes/SM_SniperSkeleton_SVCH",
+      "SVCh 骨架枪托已在原包名恢复并采用 VisualFitR2，与枪身水平衔接。",
+      "F:/FPSGAMEData/ArtProduction/SkeletonSniperStock20261031/VisualFitR2_20261122/installed.json",
+      "e85f03b82",
+      ""
+    ],
+    [
+      "已处理",
+      "SVD 骨架狙击枪托",
+      "/Game/Weapons/SkeletonSniperStock20261031/Meshes/SM_SniperSkeleton_SVD",
+      "SVD 骨架枪托已在原包名恢复并采用 VisualFitR2，与枪身水平衔接。",
+      "F:/FPSGAMEData/ArtProduction/SkeletonSniperStock20261031/VisualFitR2_20261122/installed.json",
+      "e85f03b82",
+      ""
+    ],
+    [
+      "已处理",
+      "星律导能腰带的掉落／世界模型",
+      "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Pickups/SM_ArcaneConduitBelt",
+      "KeeperFixR2 掉落模型已恢复到 items.json 引用的原路径，保留三档 LOD。",
+      "F:/FPSGAMEData/ArtProduction/ReleaseRecovery/BeltAndSniperStocks20261122/installed.json",
+      "10dcaa194",
+      ""
+    ],
+    [
+      "已处理",
+      "M249 右腕复核准备脚本",
+      "SourceAssets/M249Orpind20261107/Wrist38/prepare_review.py",
+      "已从发布提交 e1fd5d07d 取回 859 字节原文件，写入正式制作目录。",
+      "F:/FPSGAMEData/ArtProduction/ReleaseRecovery/OpticsHammerNetworkFix20261122/installed.json",
+      "e1fd5d07d",
+      ""
+    ],
+    [
+      "已处理",
+      "弯刀反向旋风制作现场",
+      "SourceAssets/KukriWindmillReverse20261026/editor-schema.json",
+      "已从留存副本找回 20,128 字节原文件，SHA-256 与发布清单完全一致。",
+      "Docs/Publication/KukriThirdPerson20261030/local-authoring-dependencies.json；F:/FPSGAMEData/ArtProduction/ReleaseRecovery/OpticsHammerNetworkFix20261122/installed.json",
+      "d1b10f49c",
+      ""
+    ],
+    [
+      "已存网格缺少材质，现役待证",
+      "霜刺剑身 132",
+      "/Game/Weapons/RuneSpectralBlade20260927/FrostspireMeshy20261031V1/M_FrostspireMagic",
+      "在盘的 132 版霜刺剑刃仍引用这个缺失的材质。 当前游戏装配入口尚待确认。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "CyberpunkUrbanLandscape20261025",
+      "/Game/Props/CyberpunkUrbanLandscape20261025/Materials/MI_UL_BayWater",
+      "删除前登记或发布材料确认该包名；本轮没有足够证据把其他版本认作这个包的完整替代。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "Kukri20261020",
+      "/Game/Weapons/Kukri20261020/Berserker20261028/RuneRelief/Textures/T_BerserkerRuneRelief",
+      "删除前登记或发布材料确认该包名；本轮没有足够证据把其他版本认作这个包的完整替代。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "Kukri20261020",
+      "/Game/Weapons/Kukri20261020/Berserker20261028/VolumeRefine/Textures/T_BerserkerVessel_Empty",
+      "删除前登记或发布材料确认该包名；本轮没有足够证据把其他版本认作这个包的完整替代。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "Kukri20261020",
+      "/Game/Weapons/Kukri20261020/Berserker20261028/VolumeRefine/Textures/T_BerserkerVessel_Full",
+      "删除前登记或发布材料确认该包名；本轮没有足够证据把其他版本认作这个包的完整替代。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "Kukri20261020",
+      "/Game/Weapons/Kukri20261020/Berserker20261028/VolumeRefine/Textures/T_BerserkerVessel_Mask",
+      "删除前登记或发布材料确认该包名；本轮没有足够证据把其他版本认作这个包的完整替代。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "RuneSpectralBlade20260927",
+      "/Game/Weapons/RuneSpectralBlade20260927/FrostspireMeshy20261031V1/SM_FrostspireBlade60",
+      "删除前登记或发布材料确认该包名；本轮没有足够证据把其他版本认作这个包的完整替代。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "WoodSteelLongbow20261026",
+      "/Game/Weapons/WoodSteelLongbow20261026/M_WoodSteelLongbow_Linen",
+      "删除前登记或发布材料确认该包名；本轮没有足够证据把其他版本认作这个包的完整替代。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "地牢接待区休息区细节网格",
+      "/Game/Dungeons/ReceptionArrivalLayout20261030/Meshes/SM_ReceptionArrival_LoungeDetails",
+      "删除前登记或发布材料确认该包名；本轮没有足够证据把其他版本认作这个包的完整替代。 随机地牢关卡的外部 Actor 留有该软引用。是否在当前布局实际加载仍待确认。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "山鸣弦早期飞行／命中材质",
+      "/Game/Weapons/WoodSteelLongbow20261026/MountainEchoFXV14/M_MountainEcho_GoldCore",
+      "旧材质原包缺失。当前黄金飞行和命中特效在盘，两者的直接依赖均未指向此包；旧材质与现役效果的逐项替代关系待证。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "山鸣弦早期飞行／命中材质",
+      "/Game/Weapons/WoodSteelLongbow20261026/MountainEchoFXV14/M_MountainEcho_GoldRing",
+      "旧材质原包缺失。当前黄金飞行和命中特效在盘，两者的直接依赖均未指向此包；旧材质与现役效果的逐项替代关系待证。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "山鸣弦早期飞行／命中材质",
+      "/Game/Weapons/WoodSteelLongbow20261026/MountainEchoFXV14/M_MountainEcho_GoldSpark",
+      "旧材质原包缺失。当前黄金飞行和命中特效在盘，两者的直接依赖均未指向此包；旧材质与现役效果的逐项替代关系待证。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "山鸣弦早期飞行／命中材质",
+      "/Game/Weapons/WoodSteelLongbow20261026/MountainEchoImpactV17/M_MountainEcho_ContactDust",
+      "旧材质原包缺失。当前黄金飞行和命中特效在盘，两者的直接依赖均未指向此包；旧材质与现役效果的逐项替代关系待证。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "山鸣弦早期飞行／命中材质",
+      "/Game/Weapons/WoodSteelLongbow20261026/MountainEchoImpactV17/M_MountainEcho_ContactFlash",
+      "旧材质原包缺失。当前黄金飞行和命中特效在盘，两者的直接依赖均未指向此包；旧材质与现役效果的逐项替代关系待证。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "山鸣弦早期飞行／命中材质",
+      "/Game/Weapons/WoodSteelLongbow20261026/MountainEchoImpactV17/M_MountainEcho_HotChip",
+      "旧材质原包缺失。当前黄金飞行和命中特效在盘，两者的直接依赖均未指向此包；旧材质与现役效果的逐项替代关系待证。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "旧路径缺失，替代待证",
+      "山鸣弦早期飞行／命中材质",
+      "/Game/Weapons/WoodSteelLongbow20261026/MountainEchoImpactV17/M_MountainEcho_HotNeedle",
+      "旧材质原包缺失。当前黄金飞行和命中特效在盘，两者的直接依赖均未指向此包；旧材质与现役效果的逐项替代关系待证。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_FoldedArc",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N031",
+      "ec0f97385",
+      "N031"
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_HeavyCleaver",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N033",
+      "ec0f97385",
+      "N033"
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_SwiftCrescent",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N035",
+      "ec0f97385",
+      "N035"
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FoldedArc",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N037",
+      "ec0f97385",
+      "N037"
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_HeavyCleaver",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N039",
+      "ec0f97385",
+      "N039"
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N041",
+      "ec0f97385",
+      "N041"
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_BaseColor",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N013",
+      "ec0f97385",
+      "N013"
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_Normal",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N014",
+      "ec0f97385",
+      "N014"
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_FoldedArc_ORM",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N015",
+      "ec0f97385",
+      "N015"
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_BaseColor",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N019",
+      "ec0f97385",
+      "N019"
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_Normal",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N020",
+      "ec0f97385",
+      "N020"
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_HeavyCleaver_ORM",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N021",
+      "ec0f97385",
+      "N021"
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_BaseColor",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N025",
+      "ec0f97385",
+      "N025"
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_Normal",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N026",
+      "ec0f97385",
+      "N026"
+    ],
+    [
+      "初版缺项，现役已有替代",
+      "战术斧三种早期斧刃",
+      "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Textures/T_TacticalHatchet_Head_SwiftCrescent_ORM",
+      "初版依用户决定保留缺项。迅捷新月使用 R4，重劈与折弧使用 R5；R2 恢复情况另见同组逐包备注。",
+      "Content/ColdSteelData/tactical-hatchet-modules.json；旧清单 N027",
+      "ec0f97385",
+      "N027"
+    ],
+    [
+      "历史对照缺档",
+      "弯刀旧发光材质",
+      "/Game/Weapons/Kukri20261020/DecisiveGlow20261031/Before/M_Kukri_DecisiveCrystal",
+      "位于 Before，旧对照留档；本项缺失只直接说明对照片段不在。",
+      "Source/FPSGAME/Weapons/KukriDecisiveGlowCheck.cpp",
+      "",
+      ""
+    ],
+    [
+      "历史对照缺档",
+      "弯刀旧发光材质",
+      "/Game/Weapons/Kukri20261020/DecisiveGlow20261031/Before/M_Kukri_DecisiveFlash",
+      "位于 Before，旧对照留档；本项缺失只直接说明对照片段不在。",
+      "Source/FPSGAME/Weapons/KukriDecisiveGlowCheck.cpp",
+      "",
+      ""
+    ],
+    [
+      "历史对照缺档",
+      "弯刀旧发光材质",
+      "/Game/Weapons/Kukri20261020/DecisiveGlow20261031/Before/M_Kukri_DecisivePendant",
+      "位于 Before，旧对照留档；本项缺失只直接说明对照片段不在。",
+      "Source/FPSGAME/Weapons/KukriDecisiveGlowCheck.cpp",
+      "",
+      ""
+    ],
+    [
+      "历史对照缺档",
+      "霜刺剑身改造前对照",
+      "/Game/Weapons/RuneSpectralBlade20260927/FrostspireMeshy20261031V1/Before/SM_SpectralRuneBlade_BeforeFrostspire",
+      "此前留在 Before 下的旧网格；仅按历史对照登记。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "历史对照缺档",
+      "霜刺剑身改造前对照",
+      "/Game/Weapons/RuneSpectralBlade20260927/FrostspireMeshy20261031V1/Before/SM_StarfallRuneBlade_BeforeFrostspire",
+      "此前留在 Before 下的旧网格；仅按历史对照登记。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "历史构建缺档",
+      "AutoFootstep 带编号 DLL",
+      "32 个不同路径，详见发布散件 CSV",
+      "两次网络采样记录引用这些旧二进制。当前插件的编辑器模块及 UnrealEditor.modules 在盘。",
+      "Plugins/AutoFootstep/Binaries/Win64；MapSystem20261117/Evidence",
+      "34c08285d",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/Materials/M_TwinStar_Gold",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。 旧双星网格仍有硬引用；双星现役部件采用 MeshyV3 的 V3B。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/Materials/M_TwinStar_Gold_Whirlwind",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/Materials/M_TwinStar_Light",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。 旧双星网格仍有硬引用；双星现役部件采用 MeshyV3 的 V3B。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/Materials/M_TwinStar_Light_Whirlwind",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/Materials/M_TwinStar_Sapphire",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。 旧双星网格仍有硬引用；双星现役部件采用 MeshyV3 的 V3B。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/Materials/M_TwinStar_Sapphire_Whirlwind",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/Materials/M_TwinStar_Silver",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。 旧双星网格仍有硬引用；双星现役部件采用 MeshyV3 的 V3B。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/Materials/M_TwinStar_Silver_Whirlwind",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/Materials/M_TwinStar_Steel_Whirlwind",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/PolishV2/Materials/M_TwinStar_Gold_V2",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。 旧双星网格仍有硬引用；双星现役部件采用 MeshyV3 的 V3B。另有星落早期网格指向这个材质。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/PolishV2/Materials/M_TwinStar_Gold_V2_Whirlwind",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/PolishV2/Materials/M_TwinStar_Light_V2",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。 旧双星网格仍有硬引用；双星现役部件采用 MeshyV3 的 V3B。另有星落早期网格指向这个材质。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/PolishV2/Materials/M_TwinStar_Light_V2_Whirlwind",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/PolishV2/Materials/M_TwinStar_Sapphire_V2",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。 旧双星网格仍有硬引用；双星现役部件采用 MeshyV3 的 V3B。另有星落早期网格指向这个材质。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/PolishV2/Materials/M_TwinStar_Sapphire_V2_Whirlwind",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/PolishV2/Materials/M_TwinStar_Silver_V2",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。 旧双星网格仍有硬引用；双星现役部件采用 MeshyV3 的 V3B。另有星落早期网格指向这个材质。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/PolishV2/Materials/M_TwinStar_Silver_V2_Whirlwind",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/PolishV2/Materials/M_TwinStar_Steel_V2",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。 旧双星网格仍有硬引用；双星现役部件采用 MeshyV3 的 V3B。另有星落早期网格指向这个材质。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "已换新版，旧表仍有引用",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/PolishV2/Materials/M_TwinStar_Steel_V2_Whirlwind",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。旧路径仍列入旋风材质映射，代码按当前实际材质查表。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "旧版退役或被替换",
+      "M24 枪托接缝与机匣涂层",
+      "/Game/Weapons/M24/FactoryStockSeam20261105/MI_M24_FactoryStockTransition",
+      "先进机匣 R2 四槽分区，骨架枪托按原配方恢复三区。先进机匣已恢复 R2 四槽几何和原厂枪托延续面，共 72,980 个三角面。骨架枪托另按原配方恢复金属框、贴腮垫和橡胶肩垫分区，两种枪身共用的正式母材质已落盘。N104、N106 的旧接缝遮罩维持暂缓。",
+      "SourceAssets/M24StockJunctionR2_20261105/publish.py 和 saved.json\nF:/FPSGAMEData/ArtProduction/M24/AdvancedActionRecovery20261121/installed.json\nF:/FPSGAMEData/ArtProduction/M24/ComponentFinish20261121/installed.json；旧清单 N106",
+      "e055fc4e0",
+      "N106"
+    ],
+    [
+      "旧版退役或被替换",
+      "M24 枪托接缝与机匣涂层",
+      "/Game/Weapons/M24/FactoryStockSeam20261105/M_M24_FactoryStockTransition",
+      "先进机匣 R2 四槽分区，骨架枪托按原配方恢复三区。先进机匣已恢复 R2 四槽几何和原厂枪托延续面，共 72,980 个三角面。骨架枪托另按原配方恢复金属框、贴腮垫和橡胶肩垫分区，两种枪身共用的正式母材质已落盘。N104、N106 的旧接缝遮罩维持暂缓。",
+      "SourceAssets/M24StockJunctionR2_20261105/publish.py 和 saved.json\nF:/FPSGAMEData/ArtProduction/M24/AdvancedActionRecovery20261121/installed.json\nF:/FPSGAMEData/ArtProduction/M24/ComponentFinish20261121/installed.json；旧清单 N104",
+      "e055fc4e0",
+      "N104"
+    ],
+    [
+      "旧版退役或被替换",
+      "丘陵白崖实体网格",
+      "/Game/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_WhiteCliffA_Solid",
+      "白崖 A/B 闭合网格 SolidR9。采石场使用 11 月 20 日发布的固定地形 V3 和近景石材浮雕。。白崖 A/B 继续使用 SolidR9。九个石材的浮雕材质已补回，R9 导入器沿用已保存的 M_LimestoneCut。",
+      "origin/main · 4ade762c、712eb8e4。Tools/WorldGeneration/WhiteCliffs/{import_solid_scans,quarry_stone_relief}.py。Docs/Publication/HillsFixedLandscape20261120/Evidence/BuildAndBake.json。实际读回见 LatestAuditSceneMap20261121/readback.json。\n原件比对与烘焙明细见 Originals20261121/DA_TemperateHillsStreaming.json、QuarryReleaseBake/outputs.json。\n终烘日志、隔离重烘结果及网格比对见 QuarryReleaseClock20261121/results.json。；旧清单 N143",
+      "4ade762c7",
+      "N143"
+    ],
+    [
+      "旧版退役或被替换",
+      "丘陵白崖实体网格",
+      "/Game/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_WhiteCliffB_Solid",
+      "白崖 A/B 闭合网格 SolidR9。采石场使用 11 月 20 日发布的固定地形 V3 和近景石材浮雕。。白崖 A/B 继续使用 SolidR9。九个石材的浮雕材质已补回，R9 导入器沿用已保存的 M_LimestoneCut。",
+      "origin/main · 4ade762c、712eb8e4。Tools/WorldGeneration/WhiteCliffs/{import_solid_scans,quarry_stone_relief}.py。Docs/Publication/HillsFixedLandscape20261120/Evidence/BuildAndBake.json。实际读回见 LatestAuditSceneMap20261121/readback.json。\n原件比对与烘焙明细见 Originals20261121/DA_TemperateHillsStreaming.json、QuarryReleaseBake/outputs.json。\n终烘日志、隔离重烘结果及网格比对见 QuarryReleaseClock20261121/results.json。；旧清单 N144",
+      "4ade762c7",
+      "N144"
+    ],
+    [
+      "旧版退役或被替换",
+      "公寓街角样板图",
+      "/Game/GameMaps/Design/L_ApartmentStreetCorner_Subject",
+      "SC09 / 11月10日正式公寓街角。正式公寓地图已落盘。按原清单装入 117 个街角对象，退役 28 个旧对象；675 个保留标签的类型、位置、姿态和网格／材质绑定一致。33 个关联资源包从真实制作输入恢复，包括两张 2048 城市反射立方贴图。新版 671 个直接包引用逐项吻合误删前登记。",
+      "SourceAssets/ApartmentStreetCorner20261110Formal/install_formal.py、placement_manifest.json 与正式发布前备份。当前入口原先逐字节等同施工前地图，100 个街角引用的活动资产齐备。；旧清单 N132",
+      "",
+      "N132"
+    ],
+    [
+      "旧版退役或被替换",
+      "教堂修女 R2 头模与发束",
+      "/Game/Characters/ChapelNun20261115/HeadQualityR2/Grooms/Nun_LowBun_Core_R2_Binding",
+      "R6 原脸头模、R9 低发髻及松散发束、R10 后颈短发、R7 衣领与站姿。。从真实 R6 网格重制 223406 三角形头模和 3 级 LOD，用 R9 原始曲线和根 UV 重做两束头发、两份头皮绑定及黑发材质。6 包已替换至正式 Content，旧包保存在本轮 Before。",
+      "现役 Source/FPSGAME/NPC/ChapelNun.cpp 装配 11 个包。本地保留 FaceOriginalRestoreR6/Authored/head.json、HairNativeCombR9 原始 Core／Loose Alembic、retained_assets.json 和源码保存器；原正式头模实际等同 R6 施工前备份。\n现役装配见 Source/FPSGAME/NPC/ChapelNun.cpp，交互轮廓见 Source/FPSGAME/UI/ResidentHighlightSubsystem.cpp。NapeHairR10/saved.json 记录网格、材质和纹理。；旧清单 N002",
+      "",
+      "N002"
+    ],
+    [
+      "旧版退役或被替换",
+      "教堂修女 R2 头模与发束",
+      "/Game/Characters/ChapelNun20261115/HeadQualityR2/Grooms/Nun_LowBun_Loose_R2_Binding",
+      "R6 原脸头模、R9 低发髻及松散发束、R10 后颈短发、R7 衣领与站姿。。从真实 R6 网格重制 223406 三角形头模和 3 级 LOD，用 R9 原始曲线和根 UV 重做两束头发、两份头皮绑定及黑发材质。6 包已替换至正式 Content，旧包保存在本轮 Before。",
+      "现役 Source/FPSGAME/NPC/ChapelNun.cpp 装配 11 个包。本地保留 FaceOriginalRestoreR6/Authored/head.json、HairNativeCombR9 原始 Core／Loose Alembic、retained_assets.json 和源码保存器；原正式头模实际等同 R6 施工前备份。\n现役装配见 Source/FPSGAME/NPC/ChapelNun.cpp，交互轮廓见 Source/FPSGAME/UI/ResidentHighlightSubsystem.cpp。NapeHairR10/saved.json 记录网格、材质和纹理。；旧清单 N003",
+      "",
+      "N003"
+    ],
+    [
+      "旧版退役或被替换",
+      "教堂修女 R2 头模与发束",
+      "/Game/Characters/ChapelNun20261115/HeadQualityR2/Meshes/SK_Nun_Head_R2",
+      "R6 原脸头模、R9 低发髻及松散发束、R10 后颈短发、R7 衣领与站姿。。从真实 R6 网格重制 223406 三角形头模和 3 级 LOD，用 R9 原始曲线和根 UV 重做两束头发、两份头皮绑定及黑发材质。6 包已替换至正式 Content，旧包保存在本轮 Before。",
+      "现役 Source/FPSGAME/NPC/ChapelNun.cpp 装配 11 个包。本地保留 FaceOriginalRestoreR6/Authored/head.json、HairNativeCombR9 原始 Core／Loose Alembic、retained_assets.json 和源码保存器；原正式头模实际等同 R6 施工前备份。\n现役装配见 Source/FPSGAME/NPC/ChapelNun.cpp，交互轮廓见 Source/FPSGAME/UI/ResidentHighlightSubsystem.cpp。NapeHairR10/saved.json 记录网格、材质和纹理。；旧清单 N001",
+      "",
+      "N001"
+    ],
+    [
+      "旧版退役或被替换",
+      "狙击配件石墨涂层",
+      "/Game/Weapons/SniperZhiming/MI_Zhiming_Graphite",
+      "止鸣 v06，M24／SVD／SVCh。止鸣模型与原厂槽 0 的区域涂装材质已在盘，现役配置无需旧石墨实例。",
+      "Source/FPSGAME/Weapons/SniperSuppressorAssets.h；SourceAssets/M24ZhimingPublication20261107\nF:/FPSGAMEData/ArtProduction/M24/AdvancedActionRecovery20261121/installed.json；旧清单 N109",
+      "",
+      "N109"
+    ],
+    [
+      "旧版退役或被替换",
+      "设施接待处黑门材质",
+      "/Game/Dungeons/FacilitySurfaceUpgrade20261108/Materials/MI_M_ReceptionDoor_Black_8481e90",
+      "ReceptionDoorVeil20261012 的原始无光黑门；FacilitySurfaceUpgrade20261108 最终收尾。3 个现役入口、5 个包的依赖链齐备。旧微表面材质无现役用途，继续暂缓。 随机地牢关卡的外部 Actor 留有该软引用。旧清单记有现役设施门材质。",
+      "GitHub a006d9ac 的接待处原配方；本地 SourceAssets/FacilitySurfaceUpgrade20261108/finish_legacy_parameters.py、Receipts/install.json 明确恢复黑门；实际黑色衬板和雾帘引用 M_ReceptionDoor_Black。；旧清单 N142",
+      "",
+      "N142"
+    ],
+    [
+      "旧版退役或被替换",
+      "货运仓库早期墙地表面",
+      "/Game/SceneTests/FreightWarehouseWeathering20261110/Materials/MI_FloorAged",
+      "FreightWarehouseWeathering20261111 ＋ Derelict、FreightStationFinal20261113。正式地图已恢复仓库结构、入口、Derelict 污损与后续设计层，保留现役 MI_WallConcrete。另按发布配方修复剥落混凝土 M_SpalledConcrete 实际缺失的底色和环境遮蔽节点。6 个历史墙地母材质及实例继续暂缓。",
+      "GitHub c9614787 的仓库、车站整理脚本和 Docs/Publication/FreightStation20261114/local-assets.json。渲染器用实际墙、地、铺装、码头、阶梯网格及 MI_WallConcrete，6 个旧 MI/T 已在归档记录中淘汰。；旧清单 N139",
+      "c9614787f",
+      "N139"
+    ],
+    [
+      "旧版退役或被替换",
+      "货运仓库早期墙地表面",
+      "/Game/SceneTests/FreightWarehouseWeathering20261110/Materials/MI_FloorReliefV2",
+      "FreightWarehouseWeathering20261111 ＋ Derelict、FreightStationFinal20261113。正式地图已恢复仓库结构、入口、Derelict 污损与后续设计层，保留现役 MI_WallConcrete。另按发布配方修复剥落混凝土 M_SpalledConcrete 实际缺失的底色和环境遮蔽节点。6 个历史墙地母材质及实例继续暂缓。",
+      "GitHub c9614787 的仓库、车站整理脚本和 Docs/Publication/FreightStation20261114/local-assets.json。渲染器用实际墙、地、铺装、码头、阶梯网格及 MI_WallConcrete，6 个旧 MI/T 已在归档记录中淘汰。；旧清单 N140",
+      "c9614787f",
+      "N140"
+    ],
+    [
+      "旧版退役或被替换",
+      "货运仓库早期墙地表面",
+      "/Game/SceneTests/FreightWarehouseWeathering20261110/Materials/MI_WallAged",
+      "FreightWarehouseWeathering20261111 ＋ Derelict、FreightStationFinal20261113。正式地图已恢复仓库结构、入口、Derelict 污损与后续设计层，保留现役 MI_WallConcrete。另按发布配方修复剥落混凝土 M_SpalledConcrete 实际缺失的底色和环境遮蔽节点。6 个历史墙地母材质及实例继续暂缓。",
+      "GitHub c9614787 的仓库、车站整理脚本和 Docs/Publication/FreightStation20261114/local-assets.json。渲染器用实际墙、地、铺装、码头、阶梯网格及 MI_WallConcrete，6 个旧 MI/T 已在归档记录中淘汰。；旧清单 N141",
+      "c9614787f",
+      "N141"
+    ],
+    [
+      "旧版退役或被替换",
+      "货运仓库早期墙地表面",
+      "/Game/SceneTests/FreightWarehouseWeathering20261110/Materials/M_FloorReliefV2",
+      "FreightWarehouseWeathering20261111 ＋ Derelict、FreightStationFinal20261113。正式地图已恢复仓库结构、入口、Derelict 污损与后续设计层，保留现役 MI_WallConcrete。另按发布配方修复剥落混凝土 M_SpalledConcrete 实际缺失的底色和环境遮蔽节点。6 个历史墙地母材质及实例继续暂缓。",
+      "GitHub c9614787 的仓库、车站整理脚本和 Docs/Publication/FreightStation20261114/local-assets.json。渲染器用实际墙、地、铺装、码头、阶梯网格及 MI_WallConcrete，6 个旧 MI/T 已在归档记录中淘汰。；旧清单 N136",
+      "c9614787f",
+      "N136"
+    ],
+    [
+      "旧版退役或被替换",
+      "货运仓库早期墙地表面",
+      "/Game/SceneTests/FreightWarehouseWeathering20261110/Materials/M_FloorWeathered",
+      "FreightWarehouseWeathering20261111 ＋ Derelict、FreightStationFinal20261113。正式地图已恢复仓库结构、入口、Derelict 污损与后续设计层，保留现役 MI_WallConcrete。另按发布配方修复剥落混凝土 M_SpalledConcrete 实际缺失的底色和环境遮蔽节点。6 个历史墙地母材质及实例继续暂缓。",
+      "GitHub c9614787 的仓库、车站整理脚本和 Docs/Publication/FreightStation20261114/local-assets.json。渲染器用实际墙、地、铺装、码头、阶梯网格及 MI_WallConcrete，6 个旧 MI/T 已在归档记录中淘汰。；旧清单 N137",
+      "c9614787f",
+      "N137"
+    ],
+    [
+      "旧版退役或被替换",
+      "货运仓库早期墙地表面",
+      "/Game/SceneTests/FreightWarehouseWeathering20261110/Materials/M_WallWeathered",
+      "FreightWarehouseWeathering20261111 ＋ Derelict、FreightStationFinal20261113。正式地图已恢复仓库结构、入口、Derelict 污损与后续设计层，保留现役 MI_WallConcrete。另按发布配方修复剥落混凝土 M_SpalledConcrete 实际缺失的底色和环境遮蔽节点。6 个历史墙地母材质及实例继续暂缓。",
+      "GitHub c9614787 的仓库、车站整理脚本和 Docs/Publication/FreightStation20261114/local-assets.json。渲染器用实际墙、地、铺装、码头、阶梯网格及 MI_WallConcrete，6 个旧 MI/T 已在归档记录中淘汰。；旧清单 N138",
+      "c9614787f",
+      "N138"
+    ],
+    [
+      "旧版退役或被替换",
+      "雷神之锤排除的两款通用锤座",
+      "/Game/Weapons/ThunderGodHammer20261028/SeatPrecisionV4/SM_ThunderGodHammer_head_mount_ancient_breaking_seal_seat",
+      "雷神之锤枪匠的 excluded_options 明确排除此座；其他锤型有各自的模型配置。",
+      "Content/ColdSteelData/thunder-god-hammer-gunsmith.json；Content/ColdSteelData/runebound-warhammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "旧版退役或被替换",
+      "雷神之锤排除的两款通用锤座",
+      "/Game/Weapons/ThunderGodHammer20261028/SeatPrecisionV4/SM_ThunderGodHammer_head_mount_storm_drive_seat",
+      "雷神之锤枪匠的 excluded_options 明确排除此座；其他锤型有各自的模型配置。",
+      "Content/ColdSteelData/thunder-god-hammer-gunsmith.json；Content/ColdSteelData/runebound-warhammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "旧版退役或被替换",
+      "雷神之锤排除的两款通用锤座",
+      "/Game/Weapons/ThunderGodHammer20261028/SeatRefineV3/SM_ThunderGodHammer_head_mount_ancient_breaking_seal_seat",
+      "雷神之锤枪匠的 excluded_options 明确排除此座；其他锤型有各自的模型配置。",
+      "Content/ColdSteelData/thunder-god-hammer-gunsmith.json；Content/ColdSteelData/runebound-warhammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "旧版退役或被替换",
+      "雷神之锤排除的两款通用锤座",
+      "/Game/Weapons/ThunderGodHammer20261028/SeatRefineV3/SM_ThunderGodHammer_head_mount_storm_drive_seat",
+      "雷神之锤枪匠的 excluded_options 明确排除此座；其他锤型有各自的模型配置。",
+      "Content/ColdSteelData/thunder-god-hammer-gunsmith.json；Content/ColdSteelData/runebound-warhammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "旧版退役或被替换",
+      "雷神锤贯雷锤头底座",
+      "/Game/Weapons/ThunderGodHammer20261028/GuanLeiClosedCrownV12/Meshes/SM_ThunderGodHammer_head_mount_guan_lei_seat_V12_UV1",
+      "贯雷座 MeshyV13；静场握把 V3Game／线圈握把 V1。2026-11-21 复核完成。现役贯雷锤座 V13：双手蓄力 V6、最终随挥 V7、召回 V4 已落盘。疾雷为 V15 锤座和 V5 动作。三种通用锤座表面、五种锤面材质切换、疾雷录音来源和改造详情均已恢复或更新。Editor、Game 后台构建成功，实机待测。N112 的旧 V12_UV1 仍暂缓。",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json；SourceAssets/ThunderGodHammer20261028/GuanLeiMeshyV13；SourceAssets/ThunderGodHammer20261028/{ModulesV1,StaticFieldGripV2,StaticFieldGripV3Game,CoilGripV1}/import_assets.py；旧清单 N112",
+      "",
+      "N112"
+    ],
+    [
+      "旧版退役或被替换",
+      "霜晶剑星髓充能火焰",
+      "/Game/Weapons/FrostCrystalSword20260915/StarMarrowCharge20261103/FlameArmorTonguesV4/MI_StarMarrowArmorTongueBlue",
+      "G 充能动作 V7，蓝焰 Niagara V5，L 检视 V85/R6b。星髓长锋的蓝焰特效沿用 V5。标准、长握柄的 G 充能动作均已恢复到 V7（2.2 秒，120 帧/秒）。两套 L 检视和长握柄姿势配置均为 V85/R6b，5 个动作与配置包已对照正式工程。",
+      "Source/FPSGAME/Weapons/StarMarrowFlames.cpp；Docs/Publication/ConversationCombat20261109；SourceAssets/StarMarrowCharge20261103\nF:/FPSGAME-Recovery-Work-20261120/MagicCrystalSwordMotion20261121/installed.json；旧清单 N098",
+      "",
+      "N098"
+    ],
+    [
+      "旧版退役或被替换",
+      "霜晶剑星髓充能火焰",
+      "/Game/Weapons/FrostCrystalSword20260915/StarMarrowCharge20261103/FlameArmorTonguesV4/M_StarMarrowArmorTongueBlue",
+      "G 充能动作 V7，蓝焰 Niagara V5，L 检视 V85/R6b。星髓长锋的蓝焰特效沿用 V5。标准、长握柄的 G 充能动作均已恢复到 V7（2.2 秒，120 帧/秒）。两套 L 检视和长握柄姿势配置均为 V85/R6b，5 个动作与配置包已对照正式工程。",
+      "Source/FPSGAME/Weapons/StarMarrowFlames.cpp；Docs/Publication/ConversationCombat20261109；SourceAssets/StarMarrowCharge20261103\nF:/FPSGAME-Recovery-Work-20261120/MagicCrystalSwordMotion20261121/installed.json；旧清单 N095",
+      "",
+      "N095"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleOath 剑首 V1",
+      "/Game/Weapons/HighlandClaymore20260922/GaleOath20261106/Materials/M_GaleOath_PBR",
+      "GaleOath20261106/SurfaceR2。R2 剑首及其钢材、贴图在正式工程。修复关联的 M_HighlandClaymoreSurface，共享改色和高地专属两种金属恢复，誓纹原生 UV 金色按现行作者脚本接回。",
+      "b22184fe · Content/ColdSteelData/highland-claymore-modules.json；SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2/publish.py；旧清单 N064",
+      "",
+      "N064"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleOath 剑首 V1",
+      "/Game/Weapons/HighlandClaymore20260922/GaleOath20261106/Meshes/SM_Highland_Pommel_GaleOath_V1",
+      "GaleOath20261106/SurfaceR2。R2 剑首及其钢材、贴图在正式工程。修复关联的 M_HighlandClaymoreSurface，共享改色和高地专属两种金属恢复，誓纹原生 UV 金色按现行作者脚本接回。",
+      "b22184fe · Content/ColdSteelData/highland-claymore-modules.json；SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2/publish.py；旧清单 N065",
+      "",
+      "N065"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleOath 剑首 V1",
+      "/Game/Weapons/HighlandClaymore20260922/GaleOath20261106/Textures/T_GaleOath_BaseColor",
+      "GaleOath20261106/SurfaceR2。R2 剑首及其钢材、贴图在正式工程。修复关联的 M_HighlandClaymoreSurface，共享改色和高地专属两种金属恢复，誓纹原生 UV 金色按现行作者脚本接回。",
+      "b22184fe · Content/ColdSteelData/highland-claymore-modules.json；SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2/publish.py；旧清单 N061",
+      "",
+      "N061"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleOath 剑首 V1",
+      "/Game/Weapons/HighlandClaymore20260922/GaleOath20261106/Textures/T_GaleOath_NormalGL",
+      "GaleOath20261106/SurfaceR2。R2 剑首及其钢材、贴图在正式工程。修复关联的 M_HighlandClaymoreSurface，共享改色和高地专属两种金属恢复，誓纹原生 UV 金色按现行作者脚本接回。",
+      "b22184fe · Content/ColdSteelData/highland-claymore-modules.json；SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2/publish.py；旧清单 N062",
+      "",
+      "N062"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleOath 剑首 V1",
+      "/Game/Weapons/HighlandClaymore20260922/GaleOath20261106/Textures/T_GaleOath_ORM",
+      "GaleOath20261106/SurfaceR2。R2 剑首及其钢材、贴图在正式工程。修复关联的 M_HighlandClaymoreSurface，共享改色和高地专属两种金属恢复，誓纹原生 UV 金色按现行作者脚本接回。",
+      "b22184fe · Content/ColdSteelData/highland-claymore-modules.json；SourceAssets/HighlandGaleOathPommel20261106/SurfaceR2/publish.py；旧清单 N063",
+      "",
+      "N063"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Materials/M_GaleWing_Broadblade_Champagne",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N075",
+      "",
+      "N075"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Materials/M_GaleWing_Broadblade_WindStar",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N076",
+      "",
+      "N076"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Materials/M_GaleWing_Native_Champagne",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N077",
+      "",
+      "N077"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Materials/M_GaleWing_Native_Polish",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N078",
+      "",
+      "N078"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Materials/M_GaleWing_Native_Steel",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N079",
+      "",
+      "N079"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Materials/M_GaleWing_Native_WindStar",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N080",
+      "",
+      "N080"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Materials/M_GaleWing_Ridge_Champagne",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N081",
+      "",
+      "N081"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Materials/M_GaleWing_Ridge_Polish",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N082",
+      "",
+      "N082"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Materials/M_GaleWing_Ridge_Steel",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N083",
+      "",
+      "N083"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Materials/M_GaleWing_Ridge_WindStar",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N084",
+      "",
+      "N084"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Meshes/SM_Highland_Guard_GaleWing_Broadblade",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N085",
+      "",
+      "N085"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Meshes/SM_Highland_Guard_GaleWing_Native",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N086",
+      "",
+      "N086"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Meshes/SM_Highland_Guard_GaleWing_Ridge",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N087",
+      "",
+      "N087"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Textures/T_GaleWing_Broadblade_BaseColor",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。 旧镂空羽翼护手材质仍引用这张贴图。现役 Native、Broadblade、Ridge 使用 GaleFeather 实心羽翼。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N066",
+      "",
+      "N066"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Textures/T_GaleWing_Broadblade_NormalGL",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。 旧镂空羽翼护手材质仍引用这张贴图。现役 Native、Broadblade、Ridge 使用 GaleFeather 实心羽翼。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N067",
+      "",
+      "N067"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Textures/T_GaleWing_Broadblade_ORM",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。 旧镂空羽翼护手材质仍引用这张贴图。现役 Native、Broadblade、Ridge 使用 GaleFeather 实心羽翼。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N068",
+      "",
+      "N068"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Textures/T_GaleWing_Native_BaseColor",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N069",
+      "",
+      "N069"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Textures/T_GaleWing_Native_NormalGL",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N070",
+      "",
+      "N070"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Textures/T_GaleWing_Native_ORM",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N071",
+      "",
+      "N071"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Textures/T_GaleWing_Ridge_BaseColor",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N072",
+      "",
+      "N072"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Textures/T_GaleWing_Ridge_NormalGL",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N073",
+      "",
+      "N073"
+    ],
+    [
+      "旧版退役或被替换",
+      "高地大剑 GaleWing 护手",
+      "/Game/Weapons/HighlandClaymore20260922/GaleWing20261107/Textures/T_GaleWing_Ridge_ORM",
+      "实心羽翼 GaleFeather20261107，Native、Broadblade、Ridge。现役实心羽翼三种接口的 FBX 指纹吻合，阔锋羽翼的 BladeSeat 材质槽在盘。另修复五款阔锋护手的三份剑座边界材质，从裂角母版恢复阔锋裂角护手与四个材质槽。旧镂空版 22 项仍缺。",
+      "b22184fe · HighlandBroadbladeGuardFinish20261106/inputs.json、seat_finish.py 和 saved-seat-boundary.json；正式工程写回记录 F:\\FPSGAME-Recovery-Work-20261120\\HighlandClaymoreJunction20261121\\installed.json；旧清单 N074",
+      "",
+      "N074"
+    ],
+    [
+      "现役已换新版",
+      "M24 骨架狙击枪托",
+      "/Game/Weapons/SkeletonSniperStock20261031/Meshes/SM_SniperSkeleton_M24",
+      "普通、先进枪身由 ReceiverGripRebuild20261031 的 SM_M24_ReceiverStock_Native／Advanced 分别提供，两包均在盘。",
+      "Source/FPSGAME/Weapons/SniperSkeletonStock.h",
+      "e85f03b82",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/MeshyV3/SM_RuneSword_Guard_TwinStar_MeshyV3",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。此旧包不在现役部件表的直接引用内。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/PolishV2/SM_RuneSword_Guard_TwinStar_V2",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。此旧包不在现役部件表的直接引用内。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "双星护手早期网格或材质",
+      "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/PolishV2/SM_RuneSword_Guard_TwinStar_V2A",
+      "现役部件表绑定 MeshyV3 的 V3B 网格，V3 的本体、接口、宝石及旋风材质在盘。此旧包不在现役部件表的直接引用内。",
+      "Content/ColdSteelData/rune-sword-modules.json；Content/ColdSteelData/whirlwind-temporal-materials.json；Source/FPSGAME/Weapons/RuneSwordWhirlwindFocus.cpp",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "弯刀刀身符纹",
+      "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/MI_KukriMark_Factory_RuneKnot",
+      "当前部件表已把同一种刀身与符纹组合改绑到 /Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_Factory_RuneKnot",
+      "Content/ColdSteelData/kukri-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "弯刀刀身符纹",
+      "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/MI_KukriMark_Factory_RunePeaks",
+      "当前部件表已把同一种刀身与符纹组合改绑到 /Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_Factory_RunePeaks",
+      "Content/ColdSteelData/kukri-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "弯刀刀身符纹",
+      "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/MI_KukriMark_Factory_RuneWing",
+      "当前部件表已把同一种刀身与符纹组合改绑到 /Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_Factory_RuneWing",
+      "Content/ColdSteelData/kukri-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "弯刀刀身符纹",
+      "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/MI_KukriMark_FoldedBalanced_RuneKnot",
+      "当前部件表已把同一种刀身与符纹组合改绑到 /Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_FoldedBalanced_RuneKnot",
+      "Content/ColdSteelData/kukri-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "弯刀刀身符纹",
+      "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/MI_KukriMark_FoldedBalanced_RunePeaks",
+      "当前部件表已把同一种刀身与符纹组合改绑到 /Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_FoldedBalanced_RunePeaks",
+      "Content/ColdSteelData/kukri-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "弯刀刀身符纹",
+      "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/MI_KukriMark_FoldedBalanced_RuneWing",
+      "当前部件表已把同一种刀身与符纹组合改绑到 /Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_FoldedBalanced_RuneWing",
+      "Content/ColdSteelData/kukri-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "弯刀刀身符纹",
+      "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/MI_KukriMark_HeavyBack_RuneKnot",
+      "当前部件表已把同一种刀身与符纹组合改绑到 /Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_HeavyBack_RuneKnot",
+      "Content/ColdSteelData/kukri-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "弯刀刀身符纹",
+      "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/MI_KukriMark_HeavyBack_RunePeaks",
+      "当前部件表已把同一种刀身与符纹组合改绑到 /Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_HeavyBack_RunePeaks",
+      "Content/ColdSteelData/kukri-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "弯刀刀身符纹",
+      "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/MI_KukriMark_HeavyBack_RuneWing",
+      "当前部件表已把同一种刀身与符纹组合改绑到 /Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_HeavyBack_RuneWing",
+      "Content/ColdSteelData/kukri-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "弯刀刀身符纹",
+      "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/MI_KukriMark_Swift_RuneKnot",
+      "当前部件表已把同一种刀身与符纹组合改绑到 /Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_Swift_RuneKnot",
+      "Content/ColdSteelData/kukri-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "弯刀刀身符纹",
+      "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/MI_KukriMark_Swift_RunePeaks",
+      "当前部件表已把同一种刀身与符纹组合改绑到 /Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_Swift_RunePeaks",
+      "Content/ColdSteelData/kukri-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "弯刀刀身符纹",
+      "/Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Materials/MI_KukriMark_Swift_RuneWing",
+      "当前部件表已把同一种刀身与符纹组合改绑到 /Game/Weapons/Kukri20261020/ComponentVariants20261026/Runes/Natural20261027/Materials/MI_KukriMark_Swift_RuneWing",
+      "Content/ColdSteelData/kukri-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "疾雷蓄力录音",
+      "/Game/Weapons/ThunderGodHammer20261028/JiLeiChargeAudioV1/S_JiLei_ChargeElectromagnetic",
+      "现役 ChargeSound 指向 JiLeiRecordedCurrentV2/MS_JiLei_CurrentRandom。",
+      "Source/FPSGAME/Production/ThunderHammerCall.h",
+      "3ff1b8ace",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "疾雷锤座 V14 材质",
+      "/Game/Weapons/ThunderGodHammer20261028/JiLeiInlaidLightningV14/Materials/M_JiLei14_Recess",
+      "V14 疾雷座仍硬引用此材质。现役 V15 锤座在盘，已读其包依赖。",
+      "删除前 UE 资产登记",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "贯雷锤座",
+      "/Game/Weapons/ThunderGodHammer20261028/GuanLeiRebuildV2/SM_ThunderHammer_GuanLeiSeatV2",
+      "现役 MeshyV13 锤座，蓄力 V6，随挥 V7。",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json；Docs/Production/README.md",
+      "3ff1b8ace",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "雷神之锤召回接锤",
+      "/Game/Weapons/ThunderGodHammer20261028/ThunderThrowV1/A_ThunderHammer_Catch",
+      "现用 Catch 常量指向 RecallCatchV2/A_ThunderHammer_Catch_V2，成品在盘。",
+      "Source/FPSGAME/Production/ThunderHammerThrow.h",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "雷神之锤通用锤座",
+      "/Game/Weapons/ThunderGodHammer20261028/SeatPrecisionV4/SM_ThunderGodHammer_head_mount_laminated_damper",
+      "laminated_damper 的现用网格为 /Game/Weapons/ThunderGodHammer20261028/CommonSeatsStructuralV7/Meshes/SM_ThunderGodHammer_head_mount_laminated_damper_V7",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "雷神之锤通用锤座",
+      "/Game/Weapons/ThunderGodHammer20261028/SeatPrecisionV4/SM_ThunderGodHammer_head_mount_reinforced_block",
+      "reinforced_block 的现用网格为 /Game/Weapons/ThunderGodHammer20261028/CommonSeatsStructuralV7/Meshes/SM_ThunderGodHammer_head_mount_reinforced_block_V7",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "雷神之锤通用锤座",
+      "/Game/Weapons/ThunderGodHammer20261028/SeatPrecisionV4/SM_ThunderGodHammer_head_mount_ribbed_light",
+      "ribbed_light 的现用网格为 /Game/Weapons/ThunderGodHammer20261028/LightSeatWindowFixV8/Meshes/SM_ThunderGodHammer_head_mount_ribbed_light_V8",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "雷神之锤通用锤座",
+      "/Game/Weapons/ThunderGodHammer20261028/SeatRefineV3/SM_ThunderGodHammer_head_mount_laminated_damper",
+      "laminated_damper 的现用网格为 /Game/Weapons/ThunderGodHammer20261028/CommonSeatsStructuralV7/Meshes/SM_ThunderGodHammer_head_mount_laminated_damper_V7",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "雷神之锤通用锤座",
+      "/Game/Weapons/ThunderGodHammer20261028/SeatRefineV3/SM_ThunderGodHammer_head_mount_reinforced_block",
+      "reinforced_block 的现用网格为 /Game/Weapons/ThunderGodHammer20261028/CommonSeatsStructuralV7/Meshes/SM_ThunderGodHammer_head_mount_reinforced_block_V7",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "雷神之锤通用锤座",
+      "/Game/Weapons/ThunderGodHammer20261028/SeatRefineV3/SM_ThunderGodHammer_head_mount_ribbed_light",
+      "ribbed_light 的现用网格为 /Game/Weapons/ThunderGodHammer20261028/LightSeatWindowFixV8/Meshes/SM_ThunderGodHammer_head_mount_ribbed_light_V8",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "静电力场握把",
+      "/Game/Weapons/ThunderGodHammer20261028/StaticFieldGripV1/Materials/M_StaticField_IonInlay",
+      "原 V1／V2，现役部件表绑定 StaticFieldGripV3Game 网格。",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "静电力场握把",
+      "/Game/Weapons/ThunderGodHammer20261028/StaticFieldGripV1/Materials/M_StaticField_Leather",
+      "原 V1／V2，现役部件表绑定 StaticFieldGripV3Game 网格。",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "静电力场握把",
+      "/Game/Weapons/ThunderGodHammer20261028/StaticFieldGripV1/Materials/M_StaticField_Recess",
+      "原 V1／V2，现役部件表绑定 StaticFieldGripV3Game 网格。",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "静电力场握把",
+      "/Game/Weapons/ThunderGodHammer20261028/StaticFieldGripV1/Materials/M_StaticField_Silver",
+      "原 V1／V2，现役部件表绑定 StaticFieldGripV3Game 网格。",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "静电力场握把",
+      "/Game/Weapons/ThunderGodHammer20261028/StaticFieldGripV1/Materials/M_StaticField_Steel",
+      "原 V1／V2，现役部件表绑定 StaticFieldGripV3Game 网格。",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "静电力场握把",
+      "/Game/Weapons/ThunderGodHammer20261028/StaticFieldGripV1/Materials/M_StaticField_WaxedThread",
+      "原 V1／V2，现役部件表绑定 StaticFieldGripV3Game 网格。",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "静电力场握把",
+      "/Game/Weapons/ThunderGodHammer20261028/StaticFieldGripV1/Meshes/SM_ThunderGodHammer_grip_static_field",
+      "原 V1／V2，现役部件表绑定 StaticFieldGripV3Game 网格。",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "3ff1b8ace",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "静电力场握把",
+      "/Game/Weapons/ThunderGodHammer20261028/StaticFieldGripV2/Materials/M_StaticField_Leather",
+      "原 V1／V2，现役部件表绑定 StaticFieldGripV3Game 网格。",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "静电力场握把",
+      "/Game/Weapons/ThunderGodHammer20261028/StaticFieldGripV2/Materials/M_StaticField_WaxedThread",
+      "原 V1／V2，现役部件表绑定 StaticFieldGripV3Game 网格。",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ],
+    [
+      "现役已换新版",
+      "静电力场握把",
+      "/Game/Weapons/ThunderGodHammer20261028/StaticFieldGripV2/Meshes/SM_ThunderGodHammer_grip_static_field_V2",
+      "原 V1／V2，现役部件表绑定 StaticFieldGripV3Game 网格。",
+      "Content/ColdSteelData/thunder-god-hammer-modules.json",
+      "",
+      ""
+    ]
+  ],
+  "summary": [
+    [
+      "发布范围",
+      58,
+      "次发布",
+      "2026-10-26 至 2026-11-20，按上海日期含首尾。两次无标题的提交按实际文件归类。",
+      "逐次发布"
+    ],
+    [
+      "发布文件",
+      9039,
+      "个不同 Git 路径",
+      "9,609 条提交／文件变更，逐条对应正式工作树、区间末版、区间后仓库版本。",
+      "逐文件证据 ZIP"
+    ],
+    [
+      "发布明确关联的资产",
+      3681,
+      "个不同 UE 包",
+      "来自发布文件的具体包名或发布指纹；包括文档中的历史对照及依赖。",
+      "逐次发布、ZIP 中的发布与资产"
+    ],
+    [
+      "初查发布记录对应的缺包",
+      32,
+      "个原路径",
+      "首轮记录 32 个发布原路径缺包，含退役件。合并旧登记后首轮共列 144 个包，后续恢复见“缺项与替换”。",
+      "缺项与替换"
+    ],
+    [
+      "已有恢复证据",
+      1693,
+      "个按配方重建",
+      "以正式成品的散列对恢复回执。另有 298 个与发布 SHA-256 一致，1193 个与删除前 UE 保存签名及长度一致，126 个与写回回执一致。每个包只按一类计数。",
+      "包证据统计"
+    ],
+    [
+      "初查确认的现役缺包余项",
+      0,
+      "个模型",
+      "初查列出的 3 个模型均已在原包名恢复。腰带采用 KeeperFixR2，SVD 和 SVCh 枪托采用 VisualFitR2。",
+      "缺项与替换"
+    ],
+    [
+      "M249 成品",
+      286,
+      "个正式包",
+      "286 份均与恢复回执一致；13 个基础动作中 11 个与历史发布哈希一致，另外 2 个按配方重建。7 个握姿均与历史哈希一致。",
+      "M249"
+    ],
+    [
+      "初查制作资料缺口余项",
+      0,
+      "个文件",
+      "M249 右腕脚本已从 Git 取回，弯刀反向旋风制作文件与原发布 SHA-256 一致。两次网络采样的旧编号 DLL 单列。",
+      "缺项与替换"
+    ],
+    [
+      "在盘包的依赖",
+      11400,
+      "个已读取 UE 包",
+      "读取项目和 CitySamplePCG 的在盘硬／软引用，共发现 29 个目标原路径无包，其中 13 个属于依赖扩查新增。",
+      "在盘资产的缺依赖"
+    ],
+    [
+      "现场仍有差异",
+      591,
+      "条提交／文件记录",
+      "内容不能直接与当次发布等同。源码整合、后续修改、历史退役的细节见发布文件及集成补丁明细。",
+      "逐文件证据 ZIP"
+    ],
+    [
+      "原清单",
+      177,
+      "个编号",
+      "沿用上轮 119 个“已完成”、58 个“暂缓”的记录；并排列出本次对原包、现役方案的核对。",
+      "原清单177项"
+    ],
+    [
+      "备份同名件比对",
+      61,
+      "条候选对应关系",
+      "核对本地恢复文件索引及 11 月 21 日 NAS 全量目录。出现同名候选的 40 个旧包，均未找到同时匹配删除前保存签名和长度的副本。",
+      "ZIP 中的同名件"
+    ],
+    [
+      "源码补丁追踪",
+      361,
+      "条集成记录",
+      "原目标中新增行只部分存在或均未定位的补丁，继续跨正式源码及配置检索。45 条能在其他文件找齐剩余文本；其余保留待证。逐字相同也不能证明执行路径相同。",
+      "ZIP 中的跨文件补丁"
+    ],
+    [
+      "判断边界",
+      "",
+      "",
+      "逐文件证据 ZIP 与包证据统计保留首次审计结果。现役恢复及制作原件补回已更新到本表。M249 主客机配件互见的三阶段复测见制作回执。",
+      "核对同名包时可查看 ZIP 明细"
+    ]
+  ]
+}

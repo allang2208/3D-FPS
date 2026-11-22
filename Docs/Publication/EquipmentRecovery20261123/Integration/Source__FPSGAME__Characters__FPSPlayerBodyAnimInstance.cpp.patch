@@ -1,0 +1,30 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+@@ -1001,7 +1001,8 @@
+         {
+             FTransform Targets[2]={Pose.GetComponentSpaceTransform(Hands[0].GetCompactPoseIndex(Bones)),Pose.GetComponentSpaceTransform(Hands[1].GetCompactPoseIndex(Bones))};
+             const bool Melee=State.Family==TEXT("Melee")||State.Family==TEXT("Tool");
+-            const bool PojunChainPair=Warhammer&&ChainSlashMotion::IsVariant(State.ActionVariant)&&
++            const bool PojunChain=ChainSlashMotion::IsVariant(State.ActionVariant);
++            const bool HammerPair=Warhammer&&(PojunChain||FPSBodyWarhammerMotion::UsesQuickMeleeWrists(State))&&
+                 bCoupledActionWrists&&ActionWristMask==3&&!Traversing;
+             const bool Gun=State.Family==TEXT("Rifle")||State.Family==TEXT("Pistol");
+             const bool SwordPair=State.Family==TEXT("Melee")&&bLeftGrip&&!Traversing&&
+@@ -1191,7 +1192,7 @@
+             // delays the arms relative to the sampled weapon and body.
+             const bool ContinuousSwordTravel=SwordPair&&bHadSwordPair&&bCoupledActionWrists&&
+                 ActionWristMask==3&&LastActionWristMask==3&&State.Action==EFPSBodyAction::None&&LastAction==EFPSBodyAction::None;
+-            const bool ContinuousPojunCut=PojunChainPair&&LastActionWristMask==3&&ChainSlashMotion::IsVariant(LastVariant);
++            const bool ContinuousPojunCut=HammerPair&&PojunChain&&LastActionWristMask==3&&ChainSlashMotion::IsVariant(LastVariant);
+             if(!State.bDual&&bHasHandHistory&&!ContinuousSwordTravel&&!ContinuousPojunCut&&(LastAction!=State.Action||LastVariant!=State.ActionVariant||LastActionWristMask!=ActionWristMask))
+             {
+                 EntryHands[0]=LastHands[0];EntryHands[1]=LastHands[1];HandBlendAge=0.f;
+@@ -1207,7 +1208,7 @@
+                 if(State.bDual)HandBlend[I]=bDualPistolReference?1.f:BlendDualPistolHand(Pose,I,Targets[I],RecoveringCast);
+                 else if(!BowActive&&bHasHandHistory&&Blend<1.f&&!(I==1&&RecoveringCast))
+                 {FTransform Mixed;Mixed.Blend(EntryHands[I],Targets[I],Blend);Targets[I]=Mixed;}
+-            if(SwordPair||RiflePair||PojunChainPair)
++            if(SwordPair||RiflePair||HammerPair)
+             {
+                 Targets[1]=(ActionWristMask==3?DynamicLeftFromRight:LeftGrip)*Targets[0];
+                 if(RiflePair&&RifleHold.bValid&&ActionWristMask==0)

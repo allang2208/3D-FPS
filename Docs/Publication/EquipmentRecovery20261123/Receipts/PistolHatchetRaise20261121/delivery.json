@@ -1,0 +1,47 @@
+{
+  "updated": "2026-11-21T23:05:47.4975149+08:00",
+  "project": "D:/FPS3D/FPSGAME",
+  "scope": "First-person pistol and offhand hatchet",
+  "entries": [
+    "draw pistol with hatchet",
+    "equip hatchet beside drawn pistol"
+  ],
+  "start_delay_seconds": 0.06,
+  "raise_seconds": 0.42,
+  "grip": "native left-hand crossed carry throughout",
+  "toss": false,
+  "runtime_tested": false,
+  "checklist": "N050",
+  "source": [
+    {
+      "source": "Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.cpp",
+      "sha256": "AC9BF772FCDBEBEC986EE8BAC77002FFC59A356EFF3916BC70AE596EA8DB83AD"
+    },
+    {
+      "source": "Source/FPSGAME/Weapons/Kukri/OffhandKukriComponent.h",
+      "sha256": "532509428631E69E5251A2104C93681F0EC87DDD7A52EE8650BA8AD16C01A10B"
+    },
+    {
+      "source": "Source/FPSGAME/Weapons/Kukri/PistolHatchetDrawMotion.h",
+      "sha256": "29E1B0BBBB159FA00F4370E4BC1E7120A9AD0447BDC5B600E6D0D411240F37F1"
+    },
+    {
+      "source": "Source/FPSGAME/FPSGAMECharacterViewmodel.cpp",
+      "sha256": "C7A8B6FE71E4294A8F2BF67E2D49A910C8F2F739E5F657AD3BE0579F67FA0F2A"
+    }
+  ],
+  "builds": [
+    {
+      "configuration": "Win64 Development",
+      "completed": "2026-11-21T23:02:35.5758642+08:00",
+      "target": "FPSGAME",
+      "exit_code": 0
+    },
+    {
+      "exit_code": 0,
+      "completed": "2026-11-21T23:05:35.6858041+08:00",
+      "target": "FPSGAMEEditor",
+      "configuration": "Win64 Development"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/FPSGAMECharacterWeaponState.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterWeaponState.cpp
+@@ -543,6 +543,8 @@
+         GunplayAnimation->SprintAlpha = 0.0f;
+     }
+     WeaponState = EAKMWeaponState::Equipping;
++    if(IsPistolWeapon()&&IsLocallyControlled())
++        if(auto* Blade=FindComponentByClass<UOffhandKukriComponent>())Blade->OnPistolEquipStarted();
+     WeaponActionStartedAt = GetWorld()->GetTimeSeconds();
+     if (IsPistolWeapon()) NextAllowedShotTime = WeaponActionStartedAt;
+     WeaponStateElapsed = 0.0f;

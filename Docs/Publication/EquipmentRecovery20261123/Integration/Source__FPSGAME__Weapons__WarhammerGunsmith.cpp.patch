@@ -1,0 +1,23 @@
+--- a/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp
++++ b/Source/FPSGAME/Weapons/WarhammerGunsmith.cpp
+@@ -83,9 +83,19 @@
+                 else if(Library->TryGetArrayField(TEXT("options"),Options))AllOptions.Append(*Options);
+             }
+         }
++        const TSharedPtr<FJsonObject>* CopyOverrides=nullptr;
++        Column->TryGetObjectField(TEXT("option_copy"),CopyOverrides);
+         for(const auto& OptionValue:AllOptions)
+         {
+-            const auto Data=OptionValue->AsObject();if(!Data)continue;
++            auto Data=OptionValue->AsObject();if(!Data)continue;
++            const TSharedPtr<FJsonObject>* Copy=nullptr;
++            if(CopyOverrides&&(*CopyOverrides)->TryGetObjectField(Data->GetStringField(TEXT("id")),Copy))
++            {
++                // A host can localize shared prose while keeping the source stats and compatibility.
++                Data=MakeShared<FJsonObject>(*Data);
++                for(const TCHAR* KeyName:{TEXT("description"),TEXT("effects"),TEXT("special_effects")})
++                    if(const auto* Field=(*Copy)->Values.Find(KeyName))Data->SetField(KeyName,*Field);
++            }
+             if(Excluded.Contains(Data->GetStringField(TEXT("id"))))continue;
+             const TArray<TSharedPtr<FJsonValue>>* Compatible=nullptr;
+             if(Key==TEXT("blade_material")&&Data->TryGetArrayField(TEXT("weapons"),Compatible)&&!Compatible->IsEmpty()&&

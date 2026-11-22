@@ -5,5 +5,6 @@
 if (abs(ReticleStyle - 7.0) < 0.25)
     return saturate(Blend);
 
-// Keep the existing rear-element selection for the other optic families.
+// The position input excludes the first-person vertex transform. Both camera
+// poses and scaled fitted meshes therefore classify a complete rear surface.
 return saturate(Blend) * step(dot(Position - Center, Forward), Depth);

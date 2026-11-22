@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/FPSGAMECharacterViewmodel.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterViewmodel.cpp
+@@ -509,7 +509,6 @@
+             TargetLocation=Cant.RotateVector(TargetLocation)+FramingPose.GetLocation()*Framing;
+             TargetRotation=Cant*TargetRotation;
+         }
+-        TargetLocation+=OffhandKukri->PistolDrawOffset();
+     }
+     // 左手单持的握持微调：负缩放镜像把右手握持整体翻过来，虎口/拇指与枪柄还差一点，
+     // 这里在相机空间补正（只在镜像模式生效，右手主枪不受影响）。

@@ -1,5 +1,6 @@
 """Save shared lens/reticle materials. Original model assets are untouched."""
 import json
+import runpy
 from pathlib import Path
 import unreal as u
 O=Path(__file__).resolve().parent
@@ -12,13 +13,6 @@ def save(asset):
  (O/'install_receipt.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
 dirty={str(p.get_name()) for p in u.EditorLoadingAndSavingUtils.get_dirty_content_packages()}
 if any(p.startswith(D) for p in dirty):raise RuntimeError('Unsaved shared optics edits retained')
-t=u.AssetImportTask();t.filename=str(O/'T_OpticNumerals.png');t.destination_path=D;t.destination_name='T_OpticNumerals'
-t.automated=True;t.replace_existing=True;t.save=False;A.import_asset_tasks([t])
-glyphs=u.load_asset(D+'/T_OpticNumerals');glyphs.srgb=False
-glyphs.compression_settings=u.TextureCompressionSettings.TC_MASKS
-glyphs.lod_group=u.TextureGroup.TEXTUREGROUP_WEAPON
-glyphs.address_x=glyphs.address_y=u.TextureAddress.TA_CLAMP
-save(glyphs)
 def material(name):
  m=u.load_asset(D+'/'+name) if E.does_asset_exist(D+'/'+name) else A.create_asset(name,D,u.Material,u.MaterialFactoryNew())
  L.delete_all_material_expressions(m);return m
@@ -41,15 +35,15 @@ def vector(name,value):return node(u.MaterialExpressionVectorParameter,parameter
 def prop(n,name):
  if not L.connect_material_property(n,'',getattr(u.MaterialProperty,'MP_'+name)):raise RuntimeError(name)
 screen=node(u.MaterialExpressionScreenPosition)
-scale=vector('ScreenToLens',(4,2.25,0,0));fov=scalar('CaptureTanHalfFOV',.025);style=scalar('ReticleStyle',0)
+scale=vector('ScreenToLens',(4,2.25,0,0));style=scalar('ReticleStyle',0)
 blend=scalar('LensBlend',0)
 bow_draw=vector('BowDrawState',(0,0,0,0));bow_release=scalar('BowRelease',0)
 scene=node(u.MaterialExpressionTextureObjectParameter,parameter_name='ScopeScene',texture=u.load_asset('/Engine/EngineResources/Black'))
-glyph=node(u.MaterialExpressionTextureObjectParameter,parameter_name='Glyphs',texture=glyphs)
 picture=custom((O/'lens.hlsl').read_text(),{'ScreenUV':(screen,'ViewportUV'),'ScreenToLens':(scale,'RGB'),
- 'CaptureTanHalfFOV':(fov,''),'ReticleStyle':(style,''),'Scene':(scene,''),'Glyphs':(glyph,''),
+ 'ReticleStyle':(style,''),'Scene':(scene,''),
  'BowDrawState':(bow_draw,'RGBA'),'BowRelease':(bow_release,'')},u.CustomMaterialOutputType.CMOT_FLOAT3)
-position=node(u.MaterialExpressionWorldPosition)
+position=node(u.MaterialExpressionWorldPosition,
+              world_position_shader_offset=u.WorldPositionIncludedOffsets.WPT_EXCLUDE_ALL_SHADER_OFFSETS)
 center=vector('LensCenter',(0,0,0,0));forward=vector('LensForward',(1,0,0,0));depth=scalar('RearDepth',1)
 alpha=custom((O/'lens_coverage.hlsl').read_text(encoding='utf-8'),
  {'Blend':(blend,''),'Position':(position,''),'Center':(center,'RGB'),'Forward':(forward,'RGB'),'Depth':(depth,''),'ReticleStyle':(style,'')})
@@ -63,7 +57,9 @@ for n,name in [(emissive,'EMISSIVE_COLOR'),(base,'BASE_COLOR'),(opacity,'OPACITY
 m.set_editor_property('blend_mode',u.BlendMode.BLEND_TRANSLUCENT)
 m.set_editor_property('two_sided',True)
 m.set_editor_property('translucency_lighting_mode',u.TranslucencyLightingMode.TLM_SURFACE_PER_PIXEL_LIGHTING)
-m.set_editor_property('translucency_pass',u.MaterialTranslucencyPass.MTP_BEFORE_DOF)
+glass=runpy.run_path(str(O/'late_glass.py'))
+glass['set_picture_shader'](m,(O/'lens.hlsl').read_text(encoding='utf8'))
+glass['configure_late_glass'](m)
 m.set_editor_property('automatically_set_usage_in_editor',False)
 L.set_base_material_usage(m,u.MaterialUsage.MATUSAGE_SKELETAL_MESH,True)
 L.set_base_material_usage(m,u.MaterialUsage.MATUSAGE_MORPH_TARGETS,True)
@@ -73,11 +69,10 @@ save(m)
 m_path=D+'/M_PhysicalThermalScene'
 thermal=u.load_asset(m_path) if E.does_asset_exist(m_path) else E.duplicate_asset('/Game/Weapons/ThermalScope20261006/Runtime/M_ThermalScene',m_path)
 if not thermal:raise RuntimeError('Cannot create lens thermal material')
-effect=L.get_material_property_input_node(thermal,u.MaterialProperty.MP_EMISSIVE_COLOR)
-if not isinstance(effect,u.MaterialExpressionCustom):raise RuntimeError('Unexpected source thermal graph')
-effect.set_editor_property('code',(O/'thermal_scene.hlsl').read_text(encoding='utf-8'))
-effect.set_editor_property('desc','Lens-only thermal with lifted cold-scene detail; original heat/depth occlusion preserved')
-L.recompile_material(thermal);save(thermal)
+runpy.run_path(str(O/'thermal_material.py'))['configure'](thermal)
+errors=L.recompile_material(thermal)
+if errors:raise RuntimeError(str(errors))
+save(thermal)
 m=material('M_PhysicalScopeHideReticle')
 m.set_editor_property('blend_mode',u.BlendMode.BLEND_MASKED)
 m.set_editor_property('shading_model',u.MaterialShadingModel.MSM_UNLIT)

@@ -1,5 +1,6 @@
 """Reusable physical-glass reticle shader for the two bow optics."""
 from pathlib import Path
+import runpy
 import unreal as u
 L=u.MaterialEditingLibrary
 P=Path(__file__).parent
@@ -47,30 +48,40 @@ def build_lens(m,power):
     m.set_editor_property('two_sided',False)
     m.set_editor_property('translucency_lighting_mode',u.TranslucencyLightingMode.TLM_SURFACE_PER_PIXEL_LIGHTING)
     uv=node(m,u.MaterialExpressionTextureCoordinate,coordinate_index=0)
-    shape=node(m,u.MaterialExpressionCustom,code=(P/'Reticle.hlsl').read_text(encoding='utf8'),
-               description='Fine etched reticle: restrained green centre, dim outer guides, narrow AA edge',
-               output_type=u.CustomMaterialOutputType.CMOT_FLOAT2)
-    pins=[]
-    for name in ['UV','FourPower']:
-        pin=u.CustomInput();pin.set_editor_property('input_name',name);pins.append(pin)
-    shape.set_editor_property('inputs',pins)
-    wire(uv,shape,'UV');wire(scalar(m,1 if power==4 else 0),shape,'FourPower')
-    core=node(m,u.MaterialExpressionComponentMask,r=True,g=False,b=False,a=False);wire(shape,core,'')
+    # The two fixed bow engravings use their own glass UVs and original green finish.
+    family={2:10,4:11}[power]
+    etching=f"const int family = {family};\n"+(P/'Reticle.hlsl').read_text(encoding='utf8')
+    shape=node(m,u.MaterialExpressionCustom,code=etching,
+               description='Fixed bow engraving on glass UVs',
+               output_type=u.CustomMaterialOutputType.CMOT_FLOAT4)
+    uv_pin=u.CustomInput();uv_pin.set_editor_property('input_name','UV')
+    shape.set_editor_property('inputs',[uv_pin])
+    wire(uv,shape,'UV')
     outline=node(m,u.MaterialExpressionComponentMask,r=False,g=True,b=False,a=False);wire(shape,outline,'')
-    configure_temporal_response(m,outline)
     zero,one=scalar(m,0),scalar(m,1)
-    glass=color(m,(.80,.92,.95) if power==2 else (.88,.84,.96))
-    output(mix(m,glass,color(m,(.003,.004,.005)),outline),u.MaterialProperty.MP_BASE_COLOR)
+    glass=color(m,(.73,.92,.77) if power==2 else (.69,.87,.76))
     output(zero,u.MaterialProperty.MP_METALLIC)
-    output(mix(m,scalar(m,.045),scalar(m,1.),outline),u.MaterialProperty.MP_ROUGHNESS)
-    output(mix(m,scalar(m,.5),zero,outline),u.MaterialProperty.MP_SPECULAR)
     fresnel=node(m,u.MaterialExpressionFresnel,exponent=5.,base_reflect_fraction=.015)
     mul=node(m,u.MaterialExpressionMultiply,const_b=.20);wire(fresnel,mul,'A')
     add=node(m,u.MaterialExpressionAdd,const_b=.035);wire(mul,add,'A')
-    output(mix(m,add,one,outline),u.MaterialProperty.MP_OPACITY)
+    opacity=mix(m,add,one,outline)
+    output(opacity,u.MaterialProperty.MP_OPACITY)
+    solid=node(m,u.MaterialExpressionDivide);wire(outline,solid,'A');wire(opacity,solid,'B')
+    output(mix(m,glass,color(m,(0.,0.,0.)),solid),u.MaterialProperty.MP_BASE_COLOR)
+    output(mix(m,scalar(m,.045),one,solid),u.MaterialProperty.MP_ROUGHNESS)
+    output(mix(m,scalar(m,.5),zero,solid),u.MaterialProperty.MP_SPECULAR)
     output(one,u.MaterialProperty.MP_REFRACTION)
-    emission=node(m,u.MaterialExpressionMultiply);wire(color(m,(.035,.36,.055)),emission,'A');wire(core,emission,'B')
+    # UE applies glass opacity during blending. Divide once to preserve subpixel ink.
+    palette=(P/'ReticleInk.hlsl').read_text(encoding='utf8')
+    emission=node(m,u.MaterialExpressionCustom,output_type=u.CustomMaterialOutputType.CMOT_FLOAT3,
+        code=palette+f'\nreturn glassInk.Shade(Etch,{family}.,float4(0.,0.,0.,0.),0.)/max(Opacity,.001);')
+    pins=[]
+    for name in ('Etch','Opacity'):
+        pin=u.CustomInput();pin.set_editor_property('input_name',name);pins.append(pin)
+    emission.set_editor_property('inputs',pins)
+    wire(shape,emission,'Etch');wire(opacity,emission,'Opacity')
     inverse=node(m,u.MaterialExpressionEyeAdaptationInverse)
     names=[str(n) for n in L.get_material_expression_input_names(inverse)]
     wire(emission,inverse,names[0]);wire(one,inverse,names[1])
     output(inverse,u.MaterialProperty.MP_EMISSIVE_COLOR)
+    runpy.run_path(str(P.parents[1]/'SharedPhysicalOptics20261030/late_glass.py'))['configure_late_glass'](m)

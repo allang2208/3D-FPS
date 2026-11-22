@@ -1,0 +1,184 @@
+{
+  "project": "D:/FPS3D/FPSGAME",
+  "source_files": [
+    {
+      "path": "Source/FPSGAME/UI/PhysicalScopeScene.inl",
+      "sha256": "a8c6922b2159ebb4148332c78044d9ee5f9b256f6bbd4cf93908566e4d8ead65"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "sha256": "2a9a96c9a07ab7fe837c3c7c6b2ba234917b57f0840bbd7ba416dd56bdab664a"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyBow.cpp",
+      "sha256": "0f7643441bc4db7a39af504fc6f9865b2725c482587b472546442c143a269c52"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSBodyWarhammerMotion.h",
+      "sha256": "aa2c5967a2461cab75e154193ac6bc332130273a46689540f33278496cbce29e"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "sha256": "4838e1169076d64fb4ad64e12714f917578125a4296a5e5f2b1d2e179492837d"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+      "sha256": "b1f149cfa7e0ccde17a8a9d0c390189931064b85309a53e0b842df61051183ac"
+    },
+    {
+      "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+      "sha256": "a6d796a6f93741f152fe73ee77d81ed63401a3f036c89626a4098ef36632d04a"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/ThermalTargetSubsystem.cpp",
+      "sha256": "a0adf97e524b045d4cb20d10939ffc0e123a956b9516f5f0e03b1a10c3897bdf"
+    },
+    {
+      "path": "Source/FPSGAME/Weapons/PhysicalScopeView.h",
+      "sha256": "491fa0d4a96f8e3065abcd769e2f3d97e262f4aa9e2d676f1c602291fcb90a79"
+    }
+  ],
+  "restored": [
+    {
+      "path": "SourceAssets/M249Orpind20261107/Wrist38/prepare_review.py",
+      "source": "git e1fd5d07d:SourceAssets/M249Orpind20261107/Wrist38/prepare_review.py",
+      "sha256": "ad2d8d9576c67f655a4c7d6702b53947a27979e04d08921c5c1b2b44d442d7aa",
+      "bytes": 859
+    },
+    {
+      "path": "SourceAssets/KukriWindmillReverse20261026/editor-schema.json",
+      "source": "D:/FPS3D/FPSGAME/SourceAssets/GodSpaceLayout20260927/editor-tools.txt",
+      "publication": "Docs/Publication/KukriThirdPerson20261030/local-authoring-dependencies.json",
+      "sha256": "4742457e4164b516542a9c79e5c45b9caf75cf77e7218b22fc5143c408a26173",
+      "bytes": 20128
+    }
+  ],
+  "workbook": {
+    "path": "F:/FPSGAMEData/ArtReviews/ReleaseRecovery/20261026-20261120_Audit_20261122/FPSGAME发布恢复核对_20261026-20261120.xlsx",
+    "sha256": "a83a430d2f80d052c89ec0f36ef56ae019840a2ac9d8926260d4eb618ac9ae7c",
+    "status_cells": 37,
+    "sheets": 9,
+    "backup": "F:/FPSGAMEData/ArtProduction/ReleaseRecovery/OpticsHammerNetworkFix20261122/Before/Workbook/FPSGAME发布恢复核对_20261026-20261120.xlsx"
+  },
+  "runtime_tested": false,
+  "build": {
+    "target": "FPSGAMEEditor Win64 Development",
+    "status": "Succeeded",
+    "exit_code": 0,
+    "log": "F:/FPSGAMEData/ArtProduction/ReleaseRecovery/OpticsHammerNetworkFix20261122/FPSGAMEEditor-final.log",
+    "formal_module": "D:/FPS3D/FPSGAME/Binaries/Win64/UnrealEditor-FPSGAME.dll",
+    "module_manifest": "D:/FPS3D/FPSGAME/Binaries/Win64/UnrealEditor.modules",
+    "module_sha256": "f570bb86c103dadc5f77e8d63f64899a70214476302e43383a7e34eeb5c006f5",
+    "module_bytes": 52626944,
+    "module_mtime_ns": 1795362251985541800,
+    "linked_objects": [
+      {
+        "object": "FPSPlayerBodyActions.cpp.obj",
+        "source_inputs": [
+          "Characters/FPSPlayerBodyActions.cpp",
+          "Characters/FPSBodyWarhammerMotion.h"
+        ],
+        "mtime_ns": 1795361888507437500
+      },
+      {
+        "object": "FPSPlayerBodyNetwork.cpp.obj",
+        "source_inputs": [
+          "Characters/FPSPlayerBodyNetwork.cpp",
+          "Characters/FPSBodyWarhammerMotion.h"
+        ],
+        "mtime_ns": 1795362133008839100
+      },
+      {
+        "object": "FPSPlayerBodyAnimInstance.cpp.obj",
+        "source_inputs": [
+          "Characters/FPSPlayerBodyAnimInstance.cpp",
+          "Characters/FPSBodyWarhammerMotion.h"
+        ],
+        "mtime_ns": 1795362153975682100
+      },
+      {
+        "object": "FPSPlayerBodyBow.cpp.obj",
+        "source_inputs": [
+          "Characters/FPSPlayerBodyBow.cpp",
+          "Weapons/PhysicalScopeView.h"
+        ],
+        "mtime_ns": 1795362129206419500
+      },
+      {
+        "object": "FPSPlayerBodyEquipment.cpp.obj",
+        "source_inputs": [
+          "Characters/FPSPlayerBodyEquipment.cpp",
+          "Weapons/PhysicalScopeView.h"
+        ],
+        "mtime_ns": 1795362143232965500
+      },
+      {
+        "object": "LPVOScopeWidget.cpp.obj",
+        "source_inputs": [
+          "UI/PhysicalScopeScene.inl",
+          "Weapons/PhysicalScopeView.h"
+        ],
+        "mtime_ns": 1795362163798083300
+      },
+      {
+        "object": "ThermalTargetSubsystem.cpp.obj",
+        "source_inputs": [
+          "Weapons/ThermalTargetSubsystem.cpp"
+        ],
+        "mtime_ns": 1795362222446647200
+      }
+    ],
+    "previous_run": "Interrupted by Windows restart before compilation",
+    "compile_repair": {
+      "path": "Source/FPSGAME/UI/ColdSteelQuestJournal.cpp",
+      "change": "Renamed the row tracking visibility local variable to avoid C4458 without changing UI behavior"
+    },
+    "intermediate_log": "F:/FPSGAMEData/ArtProduction/ReleaseRecovery/OpticsHammerNetworkFix20261122/FPSGAMEEditor-retry.log"
+  },
+  "prior_M249_network_receipt": "F:/FPSGAMEData/ArtReviews/ReleaseRecovery/ConversationWire-20261122-223350/receipt.json",
+  "ads_framing": {
+    "previous_build_receipt": "F:/FPSGAMEData/ArtProduction/SharedPhysicalOptics/AuthoredReticlesADS20261122/installed-editor-module.json",
+    "linked_in_current_module": [
+      {
+        "object": "FPSGAMECharacterViewmodel.cpp.obj",
+        "inputs": [
+          {
+            "path": "Source\\FPSGAME\\FPSGAMECharacterViewmodel.cpp",
+            "matches_ads_receipt": true,
+            "current_sha256": "c7a8b6fe71e4294a8f2bf67e2d49a910c8f2f739e5f657ad3be0579f67fa0f2a"
+          },
+          {
+            "path": "Source\\FPSGAME\\Weapons\\ScopeADSEyeRelief.h",
+            "matches_ads_receipt": true,
+            "current_sha256": "d4abdd50d26254434b2280ab08feb171bc6c3743dd25ac9e9c7e7b1b246a1231"
+          }
+        ]
+      },
+      {
+        "object": "PistolDualWieldAim.cpp.obj",
+        "inputs": [
+          {
+            "path": "Source\\FPSGAME\\Weapons\\PistolDualWieldAim.cpp",
+            "matches_ads_receipt": true,
+            "current_sha256": "bfcbd153a99a26652d8a8edc3cfce305e32d20da5b7e23e30a22dcb2be5e2216"
+          },
+          {
+            "path": "Source\\FPSGAME\\Weapons\\ScopeADSEyeRelief.h",
+            "matches_ads_receipt": true,
+            "current_sha256": "d4abdd50d26254434b2280ab08feb171bc6c3743dd25ac9e9c7e7b1b246a1231"
+          }
+        ]
+      },
+      {
+        "object": "BowScopeOptics.cpp.obj",
+        "inputs": [
+          {
+            "path": "Source\\FPSGAME\\Weapons\\Bow\\BowScopeOptics.cpp",
+            "matches_ads_receipt": true,
+            "current_sha256": "a7585a04cde697e45a5c92dc6eb4c19a7da460867e3de98205f5c142b23945fc"
+          }
+        ]
+      }
+    ]
+  }
+}

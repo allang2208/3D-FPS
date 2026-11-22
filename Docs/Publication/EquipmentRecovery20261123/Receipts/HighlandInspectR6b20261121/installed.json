@@ -1,0 +1,67 @@
+{
+  "when": "2026-11-21T19:25:26.638897",
+  "commit": "abe1a823",
+  "revision": "V85/R6b",
+  "restoration": "Rebuilt from original author FBX and saved R6b handoff keys",
+  "assets": [
+    {
+      "package": "/Game/Weapons/AzureRunesword20260913/A_RuneSword_Inspect",
+      "old_sha256": "6a1162b3eb66480e0c50d99e2fb8aaf02c4d60530410e9bf36c50b5fc675a88f",
+      "new_sha256": "12e7b62c2e790a5276dfacf8c66b60cac7e506d5fb5186d7cb021ece4cba1397",
+      "bytes": 982356,
+      "source": {
+        "variant": "Standard",
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\InspectReverseV85\\ExportV85\\A_RuneSword_Inspect.fbx",
+        "source_sha256": "68b1f30c8859d774a32fd77f170159522e2d7a4e3727926ea45b44f4be20095d",
+        "final_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\InspectReverseV85\\Final\\Standard\\A_RuneSword_Inspect.fbx",
+        "handoff": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\InspectReverseV85\\Final\\Standard\\Inspect_idle_handoff_keys.json",
+        "handoff_sha256": "0e406bada7acfe7941fdfccced08668eaa6cb0d3d5f547372a7f80ce05aa7398",
+        "frames": 139,
+        "seconds": 1.1583333015441895,
+        "baseline_sha256": "34dede2d328148fd622d2b57928248a9ac9716b53b58ee3472e908f46a63530e"
+      }
+    },
+    {
+      "package": "/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations/A_RuneSword_Inspect",
+      "old_sha256": "1ed5a17344788afd087b9408a217737b1d8f90cef7c4af89201d97a39c523add",
+      "new_sha256": "4a4b7f30f5e607f6260baf10aac3a51e9276246e5b9e44a6e615e767ffb3bc9c",
+      "bytes": 978460,
+      "source": {
+        "variant": "LongGrip",
+        "source": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\InspectReverseV85\\ExportV85\\LongGrip\\A_RuneSword_Inspect.fbx",
+        "source_sha256": "66a27086684094c96cfcac7e44b84333a661a18ddcbef913e908f9edd5835804",
+        "final_fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\InspectReverseV85\\Final\\LongGrip\\A_RuneSword_Inspect.fbx",
+        "handoff": "D:\\FPS3D\\FPSGAME\\SourceAssets\\RuneSword20260913\\InspectReverseV85\\Final\\LongGrip\\Inspect_idle_handoff_keys.json",
+        "handoff_sha256": "7835d01594d916f3cd1fa9df3b444da7ccb10f9fac04162b54451e562ffbeca7",
+        "frames": 139,
+        "seconds": 1.1583333015441895,
+        "baseline_sha256": "cb9f8932f47af30ab2965132d04951dd859e2c72742a5c7a583d06ec4b48bf35"
+      }
+    },
+    {
+      "package": "/Game/Weapons/AnimationProfiles20261001/Melee/DA_Sword_LongGrip",
+      "old_sha256": "5e3e668acacafc505e04a912a01fc7d23cf015648bbdaa4b5256d874c242c0da",
+      "new_sha256": "ac702f2c362798a99c245fc54565e5e6de64107c051880447a390f48ee859ac6",
+      "bytes": 365445,
+      "source": {
+        "role": "Inspect",
+        "bones": [
+          "upperarm_l",
+          "lowerarm_l",
+          "lowerarm_twist_02_l",
+          "lowerarm_twist_01_l",
+          "hand_l",
+          "upperarm_r",
+          "lowerarm_r",
+          "hand_r",
+          "WPN_root"
+        ],
+        "seconds": 1.1583333015441895,
+        "remaining_clips_preserved": 18
+      }
+    }
+  ],
+  "backup": "F:\\FPSGAME-Recovery-Work-20261120\\HighlandInspectR6b20261121\\Before",
+  "applied_via": "offline installation under project mutex",
+  "runtime_tested": false
+}

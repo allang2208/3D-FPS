@@ -1,0 +1,37 @@
+--- a/Source/FPSGAME/Skills/WarhammerQuickCombat.cpp
++++ b/Source/FPSGAME/Skills/WarhammerQuickCombat.cpp
+@@ -57,7 +57,7 @@
+         FHitResult Hit;
+         if(MeleeSmallTargets::QueryQuickContact(GetWorld(),Player,Aim,Origin,Stats.RangeCM,WarhammerQuickCombat::QueryRadiusCM,Hit))Hits.Add(Hit);
+     }
+-    ImpactAge=0.f;Player->RefreshQuickCombatCamera();
++    ImpactAge=0.f;
+     TSet<TWeakObjectPtr<AActor>> Seen;int32 MasteryHits=0;
+     for(const auto& Hit:Hits)
+     {
+@@ -69,7 +69,7 @@
+         if(!Combat||Combat->IsDead())continue;
+         // Owner-side resistance follows valid physical contact. A client's
+         // ApplyHit forwards damage and returns zero while authority resolves it.
+-        if(bWarhammerHeadThrust)ImpactStrength=1.f;
++        ImpactStrength=1.f;
+         FWeaponDamageResult Result;
+         const bool Eligible=ColdSteelSkills::IsMasteryTrainingTarget(Player,Target);
+         auto HitShot=Shot;HitShot.ExtraMasteryExperience=Eligible&&MasteryHits==1?Profile->MasteryDefinition(Shot.MasteryId).MultiHitExperience:0;
+@@ -77,13 +77,13 @@
+         if(Eligible&&(Applied>0.f||Result.bKilled))++MasteryHits;
+         const bool Killed=Combat->IsDead();
+         if(Applied<=0.f&&!Killed)continue;
+-        ImpactStrength=1.f;
+         Player->NotifyConfirmedWeaponHit(Target,Applied,&Result,false);
+         Combat->ReceiveMeleeKnockback(Player,Stats.KnockbackCM);
+         if(Player->HasAuthority()&&!Killed&&Stats.BleedChance>0.f&&FMath::FRand()<Stats.BleedChance)
+             if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddBleeding(Player,1);
+         if(Killed&&!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))bKillPending=true;
+     }
+-    // The sword's quick-strike cue is emitted once at release by AdvanceAction.
+-    // Keep the ordinary confirmed-hit feedback, without stacking this cue again.
++    // Sample the contact frame with the actual hit strength, including for
++    // client-owned pommel strikes whose damage is settled on the server.
++    Player->RefreshQuickCombatCamera();
+ }

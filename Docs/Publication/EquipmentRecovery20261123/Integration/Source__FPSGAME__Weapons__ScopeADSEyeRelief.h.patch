@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Weapons/ScopeADSEyeRelief.h
++++ b/Source/FPSGAME/Weapons/ScopeADSEyeRelief.h
+@@ -2,8 +2,7 @@
+ 
+ namespace ScopeADSEyeRelief
+ {
+-// Camera to the scope's rear sight datum, in centimetres. Match the M24's
+-// factory 6x eye relief for every magnifying firearm optic, including its 1x
+-// setting. Zoom changes the captured image, not this physical eye position.
+-inline constexpr float DistanceCM=9.f;
++// Settled ADS distance to the fitted eyepiece datum, shared by both gun rigs.
++// Bringing the glass forward in the frame leaves capture magnification independent.
++inline constexpr float DistanceCM=7.f;
+ }

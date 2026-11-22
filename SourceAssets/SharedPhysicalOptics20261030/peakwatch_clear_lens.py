@@ -1,5 +1,6 @@
 """Create the bow-only post-motion-blur lens using the shared reticle graph."""
 from pathlib import Path
+import runpy
 import unreal as u
 
 def save_peakwatch_lens():
@@ -13,13 +14,10 @@ def save_peakwatch_lens():
     else:
         source = folder + 'M_PeakwatchClearLens'
         lens = lib.duplicate_asset(source if lib.does_asset_exist(source) else folder + 'M_PhysicalScopeLens', path)
-    picture, = (node for node in u.MaterialEditingLibrary.get_material_expressions(lens)
-                if isinstance(node, u.MaterialExpressionCustom)
-                and 'CaptureTanHalfFOV' in node.get_editor_property('code')
-                and 'BowDrawState' in node.get_editor_property('code'))
     shader = Path(__file__).with_name('lens.hlsl')
-    picture.set_editor_property('code', shader.read_text(encoding='utf-8'))
-    lens.set_editor_property('translucency_pass', u.MaterialTranslucencyPass.MTP_AFTER_MOTION_BLUR)
+    glass = runpy.run_path(str(shader.with_name('late_glass.py')))
+    glass['set_picture_shader'](lens, shader.read_text(encoding='utf-8'))
+    glass['configure_late_glass'](lens)
     errors = u.MaterialEditingLibrary.recompile_material(lens)
     if errors:
         raise RuntimeError(str(errors))

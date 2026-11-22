@@ -36,7 +36,7 @@ for file in ('thunder-god-hammer-modules.json','thunder-god-hammer-gunsmith.json
         item=option
     if path.read_bytes()!=raw:raise RuntimeError('Concurrent catalog edit; preserved: '+file)
     shutil.copy2(path,backup/file)
-    pending=path.with_name(file+'.static-field-pending');pending.write_text(json.dumps(_apply_workbench_copy(pending, data),ensure_ascii=False,indent=2)+'\n',encoding='utf-8');os.replace(pending,path)
+    pending=path.with_name(file+'.static-field-pending');pending.write_text(json.dumps(_apply_workbench_copy(path, data),ensure_ascii=False,indent=2)+'\n',encoding='utf-8');os.replace(pending,path)
     changes.append(dict(file=str(path),before=before,after=item,backup=str(backup/file)))
 (P/'publication_receipt.json').write_text(json.dumps(_apply_workbench_copy(P/'publication_receipt.json', dict(complete=True,revision='StaticFieldGripV1',changes=changes,runtime_tested=False)),ensure_ascii=False,indent=2),encoding='utf-8')
 print('STATIC_FIELD_CATALOG_PUBLISHED')
