@@ -7,6 +7,8 @@ namespace FPSBodyHandAttackMotion
 inline FName Clip(const FFPSBodyState& S)
 {
     if(S.Motion==EFPSBodyMotion::Vault||S.Motion==EFPSBodyMotion::Mantle)return NAME_None;
+    // Torch strikes publish the actual holding wrist, including mirrored left-hand motion.
+    if(S.ActionVariant==TEXT("TorchStrike"))return NAME_None;
     if(S.Family==TEXT("Staff"))
     {
         if(S.Action==EFPSBodyAction::Strike)return TEXT("Staff.FullBody.Strike");

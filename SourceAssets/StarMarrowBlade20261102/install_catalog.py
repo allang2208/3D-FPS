@@ -3,8 +3,9 @@ from pathlib import Path
 import json,shutil,runpy
 P=Path(__file__).resolve().parent;ROOT=P.parents[1];DATA=ROOT/'Content/ColdSteelData'
 WEAPON='ue_frost_crystal_sword';ID='star_marrow'
-DESCRIPTION='魔晶双手剑限定。长款晶体双刃内嵌三枚星髓晶核，保留原有护手与握柄接口；兼容红魔晶与高能魔晶。'
-SPECIAL=['充能 [G]｜消耗最大魔法值的20%，进入30秒充能状态；当前魔法值不足时无法释放。', '充能增幅｜持续期间造成的攻击伤害+30%，全部转化为魔法伤害，按目标魔法防御结算；覆盖普攻、重击、突刺、快速近战、武技与攻击魔法。', '蓝焰附刃｜充能期间剑身持续燃烧蓝色火焰。持续期间不可重复开启，无额外冷却；到期、切换武器、卸下星髓长锋或死亡时解除。']
+copy_rules = runpy.run_path(str(ROOT / 'SourceAssets/WorkbenchCopy20261101/copy_rules.py'))
+DESCRIPTION = copy_rules['MELEE_DESCRIPTIONS'][ID]
+SPECIAL = copy_rules['MELEE_SPECIAL'][ID]
 OPTION=dict(id=ID,name='星髓长锋',tier='legendary',weapons=[WEAPON],description=DESCRIPTION,
     stats={'range_mult':1.25,'magic_attack_mult':1.1},effects=[{'text':'攻击距离+25%','benefit':1},{'text':'魔法攻击+10%','benefit':1}],special_effects=SPECIAL)
 def publish(name,transform):
@@ -22,7 +23,7 @@ def option(data):
 def model(data):
     exports=json.loads((P/'exports.json').read_text(encoding='utf8'))
     data['slots']['blade_1'][ID]=dict(mesh='/Game/Weapons/FrostCrystalSword20260915/StarMarrow20261102/SM_FrostSword_Blade_star_marrow',
-        location_cm=[0,0,0],interface='frost_hilt_v1',**{k:exports[k] for k in ['trace_base_cm','trace_tip_cm','rune_dimensions_cm']})
+        location_cm=[0,0,0],interface='frost_hilt_v1',appearance=DESCRIPTION,**{k:exports[k] for k in ['trace_base_cm','trace_tip_cm','rune_dimensions_cm']})
     return data
 if __name__=='__main__':
     receipt=json.loads((P/'import-receipt.json').read_text(encoding='utf8'))

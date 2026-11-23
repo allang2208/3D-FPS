@@ -1,0 +1,97 @@
+{
+  "passed": true,
+  "failures": 0,
+  "scope": "isolated production authority methods; no NetDriver or visual acceptance",
+  "cases": [
+    {
+      "case": "dual F main and RMB offhand",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "equipped dual torch starts learned quick combat",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "dual F rejects offhand instance",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "mixed quick and combo torch action rejected",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "dual main F authorized",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "accepted torch F applies damage",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "replayed torch contact rejected",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "guest clocks both held torches and preserves spare",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "offhand ordinary swing pays once without a target",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "duplicate ordinary intent cannot pay twice",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "ordinary swing blocks overlapping torch F",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "pistol RMB aims and F selects offhand",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "pistol RMB cannot authorize an ordinary torch swing",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "pistol F uses torch and no ammunition",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "torch F blocks pistol reload",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "pistol reload starts after torch F finishes",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "active pistol reload blocks torch F",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "case": "reserved consumable blocks torch F",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}

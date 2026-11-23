@@ -1,0 +1,34 @@
+--- a/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
+@@ -112,7 +112,7 @@
+         else CutVillageWalls.Add(Cut.Section,Cut.Remaining);
+     }
+     if(HasAuthority() && (HadCuts||!CutPlacedWalls.IsEmpty()||!CutVillageWalls.IsEmpty()))
+-        for(TActorIterator<AVillageDefenseSection> It(GetWorld());It;++It)ApplyGateCutToWall(*It);
++        for(TActorIterator<AVillageDefenseSection> It(GetWorld());It;++It)ApplyGateCutToWall(**It);
+     CachedGridRecipe=NAME_None;
+     PrefabCellOwners.Reset();
+     TArray<FIntVector> Occupied;
+@@ -292,7 +292,7 @@
+         {
+             const auto* Hills=FindVillageConstructionWorld();
+             for(TActorIterator<AVillageDefenseSection> It(GetWorld());It;++It)
+-                if(It->GetOwner()==Hills && VillageGateReplacement::CutFor(*It,Instance.GateCuts))
++                if(It->GetOwner()==Hills && VillageGateReplacement::CutFor(**It,Instance.GateCuts))
+                 {
+                     Params.AddIgnoredActor(*It);
+                     Params.AddIgnoredActor(It->GetAttachParentActor());
+@@ -818,11 +818,11 @@
+     for(TActorIterator<AVillageDefenseSection> It(GetWorld());It;++It)
+     {
+         if(It->GetOwner()!=Hills || (!It->IsA<AHighVillageWall>() && !It->IsRepairedCurtain()))continue;
+-        const auto* Cut=VillageGateReplacement::CutFor(*It,Gate.GateCuts);
++        const auto* Cut=VillageGateReplacement::CutFor(**It,Gate.GateCuts);
+         if(!Cut)continue;
+         Walls.Add(*It);
+         const auto* Body=It->GetMasonry();
+-        auto* Mesh=Body?Body->GetStaticMesh():nullptr;
++        UStaticMesh* Mesh=Body?Body->GetStaticMesh():nullptr;
+         if(!Mesh || It->GetHealth()<=0.f)continue;
+         const double Min=Cut->Remaining.X<=-149.999?Cut->Remaining.Y:-150.;
+         const double Max=Cut->Remaining.Y>=149.999?Cut->Remaining.X:150.;

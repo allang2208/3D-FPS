@@ -1,0 +1,468 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -497,6 +497,13 @@
+             const auto* Hands=Pawn->FindComponentByClass<UFPSUnarmedIdleComponent>();
+             State.ActionVariant=Hands&&Hands->GetPunchSide()==0?TEXT("PunchLeft"):TEXT("PunchRight");
+         }
++        if(Bash->GetStyle()==EQuickCombatStyle::TorchStrike)
++        {
++            Timed(EFPSBodyAction::Strike,Bash->GetActionAge(),Bash->GetSourceLength(),Bash->GetActionRate());
++            State.ContactFraction=Bash->GetContactFraction();
++            State.ReleaseFraction=StaffPrimaryAttackMotion::StrikeEnd;
++            State.ActionVariant=TEXT("TorchStrike");
++        }
+         if(Bash->GetStyle()==EQuickCombatStyle::SpellbookPush)State.ActionVariant=TEXT("SpellbookPush");
+         if(Bash->GetStyle()==EQuickCombatStyle::Warhammer)
+         {
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
+@@ -179,7 +179,8 @@
+     {
+         Sample.Light=StaffCastMotion::Ease(Staff->IlluminationBlend);
+         if(Staff->IlluminationGestureAge>=0.f){Sample.Channel=TEXT("StaffLight");State.Action=EFPSBodyAction::StaffLight;}
+-        if(Bash){Sample.Channel=Pawn->HasOffhandPistol()?TEXT("StaffOffhandBash"):TEXT("StaffPunch");State.ActionVariant=Sample.Channel;}
++        if(Bash&&Quick->GetStyle()!=EQuickCombatStyle::TorchStrike)
++        {Sample.Channel=Pawn->HasOffhandPistol()?TEXT("StaffOffhandBash"):TEXT("StaffPunch");State.ActionVariant=Sample.Channel;}
+         // Channel identifies the casting hand; ActionVariant retains the real
+         // Gather/Ready/Release/Recover phase published by the spell executor.
+         if(Cast&&Magic->IsStaffCasting())Sample.Channel=TEXT("StaffCast");
+@@ -187,6 +188,7 @@
+     else if(Cast)Sample.Channel=TEXT("Cast");
+     else if(Bash&&Pawn->IsLoneLeftHandRig())Sample.Channel=TEXT("PistolBashLeft");
+     else if(Bash&&State.Family==TEXT("Unarmed"))Sample.Channel=TEXT("Fist");
++    if(Bash&&Quick->GetStyle()==EQuickCombatStyle::TorchStrike)Sample.Channel=TEXT("TorchStrike");
+     if(Bash&&Quick->GetStyle()==EQuickCombatStyle::StaffPunch)
+     {State.Action=EFPSBodyAction::GunBash;Sample.Channel=TEXT("StaffPunch");State.ActionVariant=Sample.Channel;}
+     if(Bash&&Quick->GetStyle()==EQuickCombatStyle::SpellbookPush)
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitValidation.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitValidation.cpp
+@@ -239,6 +239,14 @@
+     }
+     const int32 Active=ShadowModel->Snapshot().ActiveWeaponSlot;
+     const int32 Paired=Active==6?8:11;
++    if(Report.AttackMeta==0x80)
++    {
++        const auto* Expected=ShadowModel->ActiveProductionTool()?nullptr:
++            ColdSteelInventory::QuickTorch(ShadowModel->Equipped(Active),ShadowModel->Equipped(Paired));
++        if(Expected?(Report.ItemDefinition!=Expected->Definition||Report.ItemInstance!=Expected->InstanceId):
++            Report.ItemDefinition==ColdSteelInventory::WoodenTorchDefinition)
++        {OutReason=TEXT("torch strike does not match equipped hand");return false;}
++    }
+     const auto Matches=[&](const FColdSteelItem* Item)
+     {return Item&&Item->Definition==Report.ItemDefinition&&
+         (Report.ItemInstance.IsEmpty()||Item->InstanceId==Report.ItemInstance);};
+--- a/Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp
+@@ -321,7 +321,7 @@
+             (Shot.AttackMeta==0||Shot.AttackMeta==0x80)&&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
+         if(bTorchContact&&Shot.AttackMeta==0x80)
+         {
+-            const auto* Off=M->Equipped(M->Snapshot().ActiveWeaponSlot==6?8:11);
++            const auto* Off=M->Equipped(M->ActiveOffhandSlot());
+             const auto* StrikingTorch=ColdSteelInventory::QuickTorch(M->Equipped(),Off);
+             bTorchContact=StrikingTorch&&StrikingTorch->InstanceId==Shot.ItemInstance;
+         }
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -227,7 +227,7 @@
+     if(!Player)return false;
+     if(UBoundCongregateCaptureComponent::IsCaptured(Player))
+         if(auto* Hands=Player->FindComponentByClass<UFPSUnarmedIdleComponent>();Hands&&Hands->IsEquipped())return Hands->BeginPunch();
+-    if(!ActiveProductionTool()&&ColdSteelInventory::QuickTorch(Equipped(),Equipped(Current.ActiveWeaponSlot==6?8:11)))
++    if(!ActiveProductionTool()&&ColdSteelInventory::QuickTorch(Equipped(),Equipped(ActiveOffhandSlot())))
+     {
+         auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();
+         return Staff&&Staff->BeginQuickCombat();
+--- a/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp
+@@ -153,7 +153,7 @@
+     if(Style==EQuickCombatStyle::SpellbookPush&&Player)return;
+     if(Style==EQuickCombatStyle::Warhammer&&Player&&IsOccupyingLeftHand())return;
+     if(Player&&Player->HasOffhandPistol()&&(Style==EQuickCombatStyle::DualPistol||Style==EQuickCombatStyle::StaffOffhandPistol))return;
+-    if(Style==EQuickCombatStyle::StaffPunch&&Player)return; // staff component owns this clock for all loadouts
++    if((Style==EQuickCombatStyle::StaffPunch||Style==EQuickCombatStyle::TorchStrike)&&Player)return; // advanced before camera sampling
+     if(Style==EQuickCombatStyle::Bow&&IsOccupyingLeftHand())return;
+     if(Player&&(Player->IsM24Weapon()||Player->bUseASH12||SVCHWeaponAssets::Matches(Player->AKMViewmodel))&&IsRifleStyle()&&IsOccupyingLeftHand())return;
+     AdvanceAction(Delta);
+@@ -174,7 +174,8 @@
+     const auto* Hands=Player?Player->FindComponentByClass<UFPSUnarmedIdleComponent>():nullptr;
+     const auto* Book=Player?Player->FindComponentByClass<USpellbookComponent>():nullptr;
+     const bool bStaff=Style==EQuickCombatStyle::StaffPunch||Style==EQuickCombatStyle::StaffOffhandPistol;
+-    const auto* Torch=Style==EQuickCombatStyle::StaffPunch&&Player?Player->FindComponentByClass<UWoodenTorchComponent>():nullptr;
++    const bool bTorch=Style==EQuickCombatStyle::TorchStrike;
++    const auto* Torch=bTorch&&Player?Player->FindComponentByClass<UWoodenTorchComponent>():nullptr;
+     const bool bUnarmed=Style==EQuickCombatStyle::UnarmedPunch;
+     const bool bBook=Style==EQuickCombatStyle::SpellbookPush;
+     const bool bWarhammer=Style==EQuickCombatStyle::Warhammer;
+@@ -188,9 +189,10 @@
+         :bUnarmed
+         ?(Hands&&Hands->IsEquipped()&&!Player->IsTraversing()
+             &&!AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Player->GetController())))
+-        :bStaff
+-        ?(((Staff&&Staff->HasMeleeMoveset()&&(Style==EQuickCombatStyle::StaffPunch?!Player->HasOffhandPistol():Dual&&Dual->IsOffhandOnly()))
+-            ||(Torch&&Torch->UsesQuickAttack())||(Style==EQuickCombatStyle::StaffOffhandPistol&&Player->IsLoneLeftHandRig()))
++        :bStaff||bTorch
++        ?(((bTorch&&Torch&&Torch->UsesQuickAttack()&&Staff&&Staff->IsTorchQuickStrike()&&!Player->IsReloading())
++            ||(bStaff&&Staff&&Staff->HasMeleeMoveset()&&(Style==EQuickCombatStyle::StaffPunch?!Player->HasOffhandPistol():Dual&&Dual->IsOffhandOnly()))
++            ||(Style==EQuickCombatStyle::StaffOffhandPistol&&Player->IsLoneLeftHandRig()))
+             &&!Player->IsTraversing()&&!AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Player->GetController())))
+         :Style==EQuickCombatStyle::Bow
+         ?(Bow&&Bow->IsEquipped())
+@@ -294,7 +296,7 @@
+         ActionAge+=Remaining;
+         Phase=PhaseForAge(ActionAge);
+     }
+-    else if(bStaff||bUnarmed||bBook||bWarhammer)
++    else if(bStaff||bTorch||bUnarmed||bBook||bWarhammer)
+     {
+         const float NextAge=ActionAge+Delta;
+         // Match the sword pommel quick strike: one shared blunt cue on release,
+@@ -322,6 +324,8 @@
+ 
+ void UFPSQuickCombatComponent::FinishAction()
+ {
++    if(Style==EQuickCombatStyle::TorchStrike)
++        if(auto* Staff=GetOwner()->FindComponentByClass<UStaffWeaponComponent>())Staff->EndTorchQuickStrike();
+     if(Style!=EQuickCombatStyle::UnarmedPunch)if(auto* Profile=Model())
+     {
+         // Complete recovery unlocks the next strike immediately.
+--- a/Source/FPSGAME/Skills/FPSQuickCombatComponent.h
++++ b/Source/FPSGAME/Skills/FPSQuickCombatComponent.h
+@@ -17,7 +17,7 @@
+ // 单一绝对时钟 ActionAge 驱动阶段/镜头/接触点，全部由 clip 长度换算，不逐段累计。
+ // 两种武器的动作本体都在作者源 clip 里（手枪 DW715、步枪 M4 六个握把配置），
+ // 本组件不参与姿态——只给出命中探针来源、结算时机与镜头语言。
+-enum class EQuickCombatStyle : uint8 { Pistol, Rifle, M4ReferenceRifle, DualPistol, Bow, StaffPunch, StaffOffhandPistol, UnarmedPunch, SpellbookPush, Warhammer };
++enum class EQuickCombatStyle : uint8 { Pistol, Rifle, M4ReferenceRifle, DualPistol, Bow, StaffPunch, StaffOffhandPistol, UnarmedPunch, SpellbookPush, Warhammer, TorchStrike };
+ 
+ UCLASS(ClassGroup=(Skills),meta=(BlueprintSpawnableComponent))
+ class FPSGAME_API UFPSQuickCombatComponent : public UActorComponent
+@@ -47,6 +47,7 @@
+     void ConfigureForRifle(float Length,bool bM4Reference=false);
+     void ConfigureForBow(float Length);
+     void ConfigureForStaffPunch();
++    void ConfigureForTorchStrike();
+     void ConfigureForSpellbookPush();
+     void ConfigureForWarhammer(bool bHeadThrust=false);
+     bool UsesWarhammerHeadThrust() const { return Style==EQuickCombatStyle::Warhammer&&bWarhammerHeadThrust; }
+--- a/Source/FPSGAME/Skills/QuickCombatContact.cpp
++++ b/Source/FPSGAME/Skills/QuickCombatContact.cpp
+@@ -71,6 +71,10 @@
+     const bool bBow=Style==EQuickCombatStyle::Bow;
+     const bool bBook=Style==EQuickCombatStyle::SpellbookPush;
+     const bool bPunch=Style==EQuickCombatStyle::StaffPunch||bUnarmed;
++    const bool bTorch=Style==EQuickCombatStyle::TorchStrike;
++    const auto* TorchItem=bTorch?ColdSteelInventory::QuickTorch(Profile->Equipped(),Profile->Equipped(Profile->ActiveOffhandSlot())):nullptr;
++    if(bTorch&&!TorchItem)return;
++    FVector TorchGrip=FVector::ZeroVector;
+     const bool bOffhand=Style==EQuickCombatStyle::StaffOffhandPistol;
+     const bool bRifle=IsRifleStyle();
+     auto* Dual=Player->FindComponentByClass<UPistolDualWieldComponent>();
+@@ -78,7 +82,7 @@
+     auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();
+     auto* Hands=Player->FindComponentByClass<UFPSUnarmedIdleComponent>();
+     auto* Book=Player->FindComponentByClass<USpellbookComponent>();
+-    const bool bProbe=bBook
++    const bool bProbe=bTorch?(Staff&&Staff->GetTorchQuickContact(TorchGrip,ProbeOrigin)):bBook
+         ?(Book&&Book->GetQuickCombatStrikeProbe(ProbeOrigin))
+         :bUnarmed
+         ?(Hands&&Hands->GetStrikeProbe(ProbeOrigin))
+@@ -91,11 +95,11 @@
+         :(bRifle
+             ?(Viewmodel&&Viewmodel->GetRifleStockMeleeProbe(ProbeOrigin,Style==EQuickCombatStyle::M4ReferenceRifle))
+             :(Viewmodel&&Viewmodel->GetQuickCombatStrikeProbe(ProbeOrigin)));
+-    if(bBook&&!bProbe)return;
++    if((bBook||bTorch)&&!bProbe)return;
+     if(bProbe)Start=ProbeOrigin;
+     FHitResult Hit;
+     // 单目标：实际接触优先；小手低位范围补充共用同一次伤害结算。
+-    const float Radius=bBook?SpellbookAuthoredStrike::QueryRadiusCM:bPunch?StaffQuickCombatMotion::QueryRadiusCM:bBow?BowQuickCombatMotion::QueryRadiusCM
++    const float Radius=bBook?SpellbookAuthoredStrike::QueryRadiusCM:(bPunch||bTorch)?StaffQuickCombatMotion::QueryRadiusCM:bBow?BowQuickCombatMotion::QueryRadiusCM
+         :bRifle?QuickCombatRifleMotion::QueryRadiusCM:QuickCombatPistolMotion::QueryRadiusCM;
+     const bool bHit=MeleeSmallTargets::QueryQuickContact(GetWorld(),Player,Aim,Start,Stats.RangeCM,Radius,Hit);
+     // Other quick-melee styles retain their query-frame impulse. Bow collision
+@@ -106,11 +110,9 @@
+     const FString TargetName=Target?Target->GetName():FString(TEXT("无"));
+     // R0 诊断：一次动作只打一行，标出射线来源、起点与命中对象，方便对实机反馈。
+     UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 接触 武器=%s 射线=%s 起点=%s 方向=%s 距离=%.0f 目标=%s"),
+-        bBook?TEXT("魔法书前击"):bUnarmed?TEXT("空手拳击"):bPunch?TEXT("法杖左拳"):bOffhand?TEXT("法杖副手枪"):bBow?TEXT("弓"):bRifle?TEXT("步枪"):TEXT("手枪"),
+-        bProbe?(bBook?TEXT("书页外沿"):bUnarmed?(Hands->GetPunchSide()==1?TEXT("右拳指节"):TEXT("左拳指节")):bPunch?TEXT("左拳指节"):bOffhand?TEXT("左手持枪拳"):bBow?TEXT("弓身下段"):bRifle?(Style==EQuickCombatStyle::M4ReferenceRifle?TEXT("M4枪托"):TEXT("枪身前段")):TEXT("握把底")):TEXT("眼位回退"),
++        bTorch?TEXT("火把敲击"):bBook?TEXT("魔法书前击"):bUnarmed?TEXT("空手拳击"):bPunch?TEXT("法杖左拳"):bOffhand?TEXT("法杖副手枪"):bBow?TEXT("弓"):bRifle?TEXT("步枪"):TEXT("手枪"),
++        bProbe?(bTorch?TEXT("火把头"):bBook?TEXT("书页外沿"):bUnarmed?(Hands->GetPunchSide()==1?TEXT("右拳指节"):TEXT("左拳指节")):bPunch?TEXT("左拳指节"):bOffhand?TEXT("左手持枪拳"):bBow?TEXT("弓身下段"):bRifle?(Style==EQuickCombatStyle::M4ReferenceRifle?TEXT("M4枪托"):TEXT("枪身前段")):TEXT("握把底")):TEXT("眼位回退"),
+         *Start.ToCompactString(),*Direction.ToCompactString(),Stats.RangeCM,*TargetName);
+-    const auto* TorchItem=Style==EQuickCombatStyle::StaffPunch
+-        ?ColdSteelInventory::QuickTorch(Profile->Equipped(),Profile->Equipped(Profile->Snapshot().ActiveWeaponSlot==6?8:11)):nullptr;
+     if(TorchItem)
+     {
+         auto* Torch=Player->FindComponentByClass<UWoodenTorchComponent>();
+@@ -120,9 +122,8 @@
+         {
+             // Thin scenery can block visibility while ignoring the punch's Pawn channel.
+             // Sample only the held shaft at contact and keep this query cosmetic.
+-            auto* Prop=Torch->ReadyPairedOffhand();
+             FHitResult Surface;
+-            if(Prop&&MeleeSmallTargets::BladeScenery(GetWorld(),Player,Prop->GetSocketLocation(TEXT("Grip")),Prop->GetSocketLocation(TEXT("Flame")),Surface))
++            if(MeleeSmallTargets::BladeScenery(GetWorld(),Player,TorchGrip,ProbeOrigin,Surface))
+                 Torch->SurfaceContact(Surface);
+         }
+     }
+@@ -150,7 +151,7 @@
+     if(bBow){ImpactAge=0.f;ImpactStrength=1.f;Player->RefreshQuickCombatCamera();}
+     const bool Eligible=!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining"));
+     FColdSteelSkillShot Shot;
+-    if(bPunch)
++    if(bPunch||bTorch)
+     {
+         // A bare fist must not inherit the held staff's rune/ammo/mastery effects.
+         Shot.CriticalChance=Profile->Derived(TEXT("crit"));
+--- a/Source/FPSGAME/Skills/QuickCombatPresentation.cpp
++++ b/Source/FPSGAME/Skills/QuickCombatPresentation.cpp
+@@ -6,6 +6,7 @@
+ #include "../Weapons/DualPistolQuickCombatMotion.h"
+ #include "../Weapons/Bow/BowQuickCombatMotion.h"
+ #include "../Weapons/Staff/StaffQuickCombatMotion.h"
++#include "../Weapons/Staff/StaffPrimaryAttackMotion.h"
+ #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+ #include "../Production/WarhammerQuickCombatMotion.h"
+ #include "../Production/WarhammerConicalThrustMotion.h"
+@@ -86,6 +87,16 @@
+     FollowEnd=StaffQuickCombatMotion::Follow;
+ }
+ 
++void UFPSQuickCombatComponent::ConfigureForTorchStrike()
++{
++    Style=EQuickCombatStyle::TorchStrike;
++    ClipLength=AttackEnd=StaffQuickCombatMotion::Length;
++    ReleaseEnd=ClipLength*StaffPrimaryKeys::Times[0];
++    CockEnd=ClipLength*StaffPrimaryAttackMotion::StrikeStart;
++    ContactTime=ClipLength*StaffPrimaryAttackMotion::ContactTime;
++    FollowEnd=ClipLength*StaffPrimaryAttackMotion::StrikeEnd;
++}
++
+ void UFPSQuickCombatComponent::ConfigureForStaffOffhandPistol(float Length)
+ {
+     const auto* Dual=GetOwner()?GetOwner()->FindComponentByClass<UPistolDualWieldComponent>():nullptr;
+@@ -188,6 +199,11 @@
+     {
+         M24QuickMeleeMotion::Camera(ActionAge,ClipLength,Location,Rotation);
+         AddImpact();return;
++    }
++    if(Style==EQuickCombatStyle::TorchStrike)
++    {
++        StaffPrimaryAttackMotion::Camera(ActionAge/ClipLength,ImpactAge,ImpactStrength,Location,Rotation);
++        return;
+     }
+     if(Style==EQuickCombatStyle::StaffPunch||Style==EQuickCombatStyle::UnarmedPunch||Style==EQuickCombatStyle::SpellbookPush)
+     {
+--- a/Source/FPSGAME/Weapons/Staff/StaffArmsMeshComponent.cpp
++++ b/Source/FPSGAME/Weapons/Staff/StaffArmsMeshComponent.cpp
+@@ -75,7 +75,7 @@
+             const auto Motion=Weapon->ActionPoseInCamera();
+             const auto* Pair=GetOwner()->FindComponentByClass<UStaffOffhandMeleeComponent>();
+             const bool bCharge=Pair&&Pair->IsActionPresentationActive()?Pair->ActionUsesChargePose():
+-                !Weapon->IsPrimaryAttacking()&&StaffChargeFlow::UsesKeys(Motion);
++                !Weapon->IsPrimaryAttacking()&&!Weapon->IsTorchQuickStrike()&&StaffChargeFlow::UsesKeys(Motion);
+             const auto& Authored=StaffGripPose::Get(Mesh,RefComponent,Weapon->GripVariant(),bCharge);
+             const auto& Carry=Weapon->CarryPose();
+             const auto* Magic=GetOwner()->FindComponentByClass<UFPSFireballComponent>();
+@@ -165,7 +165,7 @@
+             }
+             if(Weapon->PrimaryTorchHand()==1)
+             {
+-                // Swap native chains after the shared staff pose, so a lone left torch has a free right jab.
++                // A lone left torch mirrors the authored holding arm and its complete strike.
+                 for(const FMirrorBone& Bone:MirrorBones)
+                 {
+                     const FTransform Left=UWoodenTorchArmsComponent::MirrorContact(Pose[Bone.Right]);
+--- a/Source/FPSGAME/Weapons/Staff/StaffQuickCombat.cpp
++++ b/Source/FPSGAME/Weapons/Staff/StaffQuickCombat.cpp
+@@ -2,6 +2,8 @@
+ #include "StaffOffhandMeleeComponent.h"
+ #include "StaffArmsMeshComponent.h"
+ #include "StaffQuickCombatPose.h"
++#include "StaffGripPose.h"
++#include "../WoodenTorchArmsComponent.h"
+ #include "../WoodenTorchComponent.h"
+ #include "../../FPSGAMECharacter.h"
+ #include "../../Skills/FPSQuickCombatComponent.h"
+@@ -15,7 +17,8 @@
+         Pair&&Pair->IsActionPresentationActive())return true;
+     const auto* Quick=GetOwner()?GetOwner()->FindComponentByClass<UFPSQuickCombatComponent>():nullptr;
+     return Quick&&Quick->IsOccupyingLeftHand()
+-        &&(Quick->GetStyle()==EQuickCombatStyle::StaffPunch||Quick->GetStyle()==EQuickCombatStyle::StaffOffhandPistol);
++        &&(Quick->GetStyle()==EQuickCombatStyle::StaffPunch||Quick->GetStyle()==EQuickCombatStyle::StaffOffhandPistol||
++            Quick->GetStyle()==EQuickCombatStyle::TorchStrike);
+ }
+ 
+ bool UStaffWeaponComponent::BeginQuickCombat()
+@@ -25,7 +28,18 @@
+     auto* Torch=Pawn->FindComponentByClass<UWoodenTorchComponent>();
+     if(Torch&&Torch->UsesQuickAttack())
+     {
+-        if(!Torch->ReadyPairedOffhand()||Pawn->IsReloading()||Pawn->IsTraversing()||IsEquipping())return false;
++        const int32 Side=Torch->HoldsLeft()?1:0;
++        auto* Mesh=Side==TorchHand?Staff.Get():Torch->ReadyPairedOffhand();
++        auto* Quick=Pawn->FindComponentByClass<UFPSQuickCombatComponent>();
++        if(!Mesh||!Torch->HandForMotion(Side)||!Quick||Pawn->IsReloading()||Pawn->IsTraversing()||IsEquipping())return false;
++        Pawn->InterruptActionsForPriority(false);
++        Pawn->ExitSprintForWeapon();
++        Quick->ConfigureForTorchStrike();
++        if(!Quick->BeginAction())return false;
++        QuickTorchMesh=Mesh;
++        AttackEntry=Side==TorchHand?CarryPoseInCamera():FStaffCastPose();
++        if(Side!=TorchHand)AttackEntry.Contact=StaffGripPose::RestContactInCamera();
++        return true;
+     }
+     else if(!HasMeleeMoveset()||IsEquipping()||!Staff||!Staff->IsVisible()||!Arms||!Arms->IsVisible())return false;
+     if(UStaffOffhandMeleeComponent::IsEquippedOn(Pawn))
+@@ -38,13 +52,11 @@
+         auto* Dual=Pawn->FindComponentByClass<UPistolDualWieldComponent>();
+         return Dual&&Dual->IsOffhandOnly()&&Dual->BeginQuickCombat();
+     }
++    if(TorchHand!=INDEX_NONE||(Torch&&Torch->HoldsLeft()))return false;
+     auto* Quick=Pawn->FindComponentByClass<UFPSQuickCombatComponent>();
+     if(!Quick)return false;
+-    // Capture the live free arm before priority interruption changes its gait.
+-    auto* StrikeHand=Torch&&Torch->HoldsLeft()&&TorchHand!=1?Torch->HandForMotion(1):Arms.Get();
+-    if(!StrikeHand)return false;
+-    // The lone left torch mirrors the completed pose. Its jab starts from the unmirrored carry keys.
+-    if(TorchHand!=1)StaffQuickCombatPose::CaptureEntry(*StrikeHand,Quick->GetActionSerial()+1u);
++    // Capture the staff's empty hand before priority interruption changes its gait.
++    StaffQuickCombatPose::CaptureEntry(*Arms,Quick->GetActionSerial()+1u);
+     Pawn->InterruptActionsForPriority(false);
+     Pawn->ExitSprintForWeapon();
+     Quick->ConfigureForStaffPunch();
+@@ -54,10 +66,9 @@
+ bool UStaffWeaponComponent::GetQuickCombatStrikeProbe(FVector& Origin,float /*ContactTime*/)
+ {
+     const auto* Quick=GetOwner()?GetOwner()->FindComponentByClass<UFPSQuickCombatComponent>():nullptr;
+-    const auto* Torch=GetOwner()->FindComponentByClass<UWoodenTorchComponent>();
+-    if((!HasMeleeMoveset()&&!(Torch&&Torch->UsesQuickAttack()))||!IsQuickCombatActive()||!Quick||Quick->GetStyle()!=EQuickCombatStyle::StaffPunch)return false;
+-    auto* StrikeHand=Torch&&Torch->HoldsLeft()&&TorchHand!=1?Torch->HandForMotion(1):Arms.Get();
+-    const FName Contact=TorchHand==1?TEXT("middle_01_r"):TEXT("middle_01_l");
++    if(!HasMeleeMoveset()||!IsQuickCombatActive()||!Quick||Quick->GetStyle()!=EQuickCombatStyle::StaffPunch)return false;
++    auto* StrikeHand=Arms.Get();
++    const FName Contact=TEXT("middle_01_l");
+     if(!StrikeHand||StrikeHand->GetBoneIndex(Contact)==INDEX_NONE)return false;
+     // The shared action clock is already held at the exact contact before this call.
+     StrikeHand->TickAnimation(0.f,false);
+@@ -65,3 +76,24 @@
+     Origin=StrikeHand->GetSocketLocation(Contact);
+     return true;
+ }
++
++bool UStaffWeaponComponent::IsPairedTorchSwing() const
++{
++    return (Age>=0.f&&PairedTorchMesh.IsValid())||(QuickTorchMesh.IsValid()&&QuickTorchMesh.Get()!=Staff.Get());
++}
++
++bool UStaffWeaponComponent::GetTorchQuickContact(FVector& Grip,FVector& Head) const
++{
++    const auto* Mesh=QuickTorchMesh.Get();
++    const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
++    if(!Mesh||!Pawn)return false;
++    auto Contact=SamplePrimaryPose().Contact;
++    if(TorchHand==1||IsPairedTorchSwing())Contact=UWoodenTorchArmsComponent::MirrorContact(Contact);
++    // Reconstruct both sockets at the exact skill contact frame, before the render tick updates the prop.
++    const FTransform WorldGrip=Contact*Pawn->GetMeleeAimTransform();
++    const auto FlameInGrip=Mesh->GetSocketTransform(TEXT("Flame"),RTS_Component)
++        .GetRelativeTransform(Mesh->GetSocketTransform(TEXT("Grip"),RTS_Component));
++    Grip=WorldGrip.GetLocation();
++    Head=WorldGrip.TransformPosition(FlameInGrip.GetLocation());
++    return true;
++}
+--- a/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
+@@ -211,11 +211,13 @@
+     FStaffCastPose Carry;
+     if(IsPairedTorchSwing())Carry.Contact=StaffGripPose::RestContactInCamera();
+     else Carry=CarryPoseInCamera();
+-    const float Recovery=bBlocked?StaffCastMotion::Ease((Age-BlockedAge)/FMath::Max(.01f,Duration-BlockedAge)):0.f;
+-    auto Pose=bBlocked
+-        ?StaffCastMotion::Blend(BlockedPose,Carry,Recovery)
+-        :StaffPrimaryAttackMotion::Sample(AttackEntry,Carry,Age/Duration);
+-    const auto* Offhand=IsPairedTorchSwing()?Cast<UWoodenTorchArmsComponent>(PairedTorchMesh->GetAttachParent()):nullptr;
++    const auto* Quick=IsTorchQuickStrike()?GetOwner()->FindComponentByClass<UFPSQuickCombatComponent>():nullptr;
++    const float T=Quick?Quick->GetActionAge()/Quick->GetSourceLength():Age/Duration;
++    const bool Blocked=!Quick&&bBlocked;
++    const float Recovery=Blocked?StaffCastMotion::Ease((Age-BlockedAge)/FMath::Max(.01f,Duration-BlockedAge)):0.f;
++    auto Pose=Blocked?StaffCastMotion::Blend(BlockedPose,Carry,Recovery):StaffPrimaryAttackMotion::Sample(AttackEntry,Carry,T);
++    const auto* Mesh=Quick?QuickTorchMesh.Get():PairedTorchMesh.Get();
++    const auto* Offhand=IsPairedTorchSwing()&&Mesh?Cast<UWoodenTorchArmsComponent>(Mesh->GetAttachParent()):nullptr;
+     if(Offhand||Arms)
+     {
+         // Shoulder and elbow FK determine the hand and shaft, including between
+@@ -225,15 +227,15 @@
+             return Offhand?Offhand->AuthoredSwingContact(Key):Arms->AuthoredContactInCamera(Key,AuthoredGripVariant);
+         };
+         Pose.Contact=Contact(Pose);
+-        const auto& From=bBlocked?BlockedPose:Age<Duration*.4f?AttackEntry:Carry;
++        const auto& From=Blocked?BlockedPose:T<StaffPrimaryAttackMotion::StrikeStart?AttackEntry:Carry;
+         const FTransform Base=Contact(From);
+         const FTransform Delta=Base.Inverse()*From.Contact;
+         float Weight=0.f;
+         for(int32 I=0;I<6;++I)Weight+=Pose.ArmWeights[I];
+         FTransform Correction;
+-        Correction.Blend(FTransform::Identity,Delta,bBlocked?1.f-Recovery:Weight);
++        Correction.Blend(FTransform::Identity,Delta,Blocked?1.f-Recovery:Weight);
+         Pose.Contact=Pose.Contact*Correction;
+-        if(bBlocked)
++        if(Blocked)
+         {
+             const FTransform CarryBase=Contact(Carry);
+             Correction.Blend(FTransform::Identity,CarryBase.Inverse()*Carry.Contact,Recovery);
+@@ -247,6 +249,7 @@
+     if(IsPairedTorchSwing())return CarryPoseInCamera(); // The other hand owns this strike.
+     if(const auto* Pair=GetOwner()->FindComponentByClass<UStaffOffhandMeleeComponent>();Pair&&Pair->IsActionPresentationActive())
+         return Pair->ActionStaffPose(CarryPoseInCamera());
++    if(IsTorchQuickStrike())return SamplePrimaryPose();
+     if(Age<0.f)return CastingPoseInCamera();
+     return StaffPrimaryAttackMotion::Recoil(SamplePrimaryPose(),ImpactAge,ImpactStrength);
+ }
+@@ -287,6 +290,7 @@
+ }
+ FStaffCastPose UStaffWeaponComponent::OffhandSwingPose() const
+ {
++    if(IsTorchQuickStrike())return SamplePrimaryPose();
+     return StaffPrimaryAttackMotion::Recoil(SamplePrimaryPose(),ImpactAge,ImpactStrength);
+ }
+ void UStaffWeaponComponent::BeginPrimaryAttack(bool bOffhandTorch)
+@@ -417,7 +421,7 @@
+     if(Delta<=0.f)return;
+     if(!HasMeleeMoveset()&&!IsPairedTorchSwing())
+     {
+-        if(auto* Quick=GetOwner()->FindComponentByClass<UFPSQuickCombatComponent>();Quick&&Quick->GetStyle()==EQuickCombatStyle::StaffPunch)
++        if(auto* Quick=GetOwner()->FindComponentByClass<UFPSQuickCombatComponent>();Quick&&(Quick->GetStyle()==EQuickCombatStyle::StaffPunch||Quick->GetStyle()==EQuickCombatStyle::TorchStrike))
+             Quick->AdvanceAction(Delta);
+         return;
+     }
+@@ -429,7 +433,7 @@
+     if(Health&&Health->IsDead()){bIlluminationOn=false;IlluminationBlend=0.f;}
+     UpdateIllumination(Delta);
+     if(AFPSGAMEPlayerController::BlocksActionContinuation(PC)||(Health&&Health->IsDead())){CancelAction();return;}
+-    if(auto* Quick=Pawn->FindComponentByClass<UFPSQuickCombatComponent>();Quick&&Quick->GetStyle()==EQuickCombatStyle::StaffPunch)
++    if(auto* Quick=Pawn->FindComponentByClass<UFPSQuickCombatComponent>();Quick&&(Quick->GetStyle()==EQuickCombatStyle::StaffPunch||Quick->GetStyle()==EQuickCombatStyle::TorchStrike))
+         Quick->AdvanceAction(Delta);
+     float Remaining=Delta;
+     const FTransform Aim=Pawn->GetMeleeAimTransform();
+--- a/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h
++++ b/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h
+@@ -42,7 +42,10 @@
+     bool IsPrimaryAttacking()const{return Age>=0.f;}
+     bool CanBeginCast()const;
+     void BeginPrimaryAttack(bool bOffhandTorch=false);
+-    bool IsPairedTorchSwing() const { return Age>=0.f && PairedTorchMesh.IsValid(); }
++    bool IsPairedTorchSwing() const;
++    bool IsTorchQuickStrike() const { return QuickTorchMesh.IsValid(); }
++    void EndTorchQuickStrike() { QuickTorchMesh.Reset(); }
++    bool GetTorchQuickContact(FVector& Grip,FVector& Head) const;
+     FStaffCastPose OffhandSwingPose() const;
+     static const TCHAR* SwingSoundPath();
+     static const TCHAR* ImpactSoundPath();
+@@ -98,5 +101,6 @@
+     FStaffCastPose SampleIlluminationGesture(const FStaffCastPose& Carry)const;
+     void PublishIllumination();
+     UPROPERTY(Transient, DuplicateTransient) TWeakObjectPtr<UStaticMeshComponent> PairedTorchMesh;
++    TWeakObjectPtr<UStaticMeshComponent> QuickTorchMesh;
+     FString SwingMainInstance;
+ };

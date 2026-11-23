@@ -1,0 +1,107 @@
+{
+  "package": "/Game/WorldGeneration/TemperateHills/AbandonedVillage/L_AbandonedVillage",
+  "map_hash_at_daylight_revision": "a91f4368049d9b4d4e5d028f02f3fdb193a4762b4fee41994bc43d695f63eded",
+  "shops": {
+    "01": {
+      "label": "Village_InteriorVision_01_村口铁匠铺（待修复）",
+      "settings": {
+        "exposure_compensation": 2.0,
+        "additional_dark_adaptation_stops": 4.0,
+        "entrance_transition_cm": 60.0,
+        "shadow_contrast": 0.5
+      }
+    },
+    "03": {
+      "label": "Village_InteriorVision_03_广场草药铺",
+      "settings": {
+        "exposure_compensation": 1.7,
+        "additional_dark_adaptation_stops": 3.4,
+        "entrance_transition_cm": 75.0,
+        "shadow_contrast": 0.5
+      }
+    },
+    "04": {
+      "label": "Village_InteriorVision_04_木工工坊楼上",
+      "settings": {
+        "exposure_compensation": 1.7,
+        "additional_dark_adaptation_stops": 3.4,
+        "entrance_transition_cm": 75.0,
+        "shadow_contrast": 0.5
+      }
+    },
+    "05": {
+      "label": "Village_InteriorVision_05_南侧残屋",
+      "settings": {
+        "exposure_compensation": 2.0,
+        "additional_dark_adaptation_stops": 4.0,
+        "entrance_transition_cm": 60.0,
+        "shadow_contrast": 0.5
+      }
+    },
+    "06": {
+      "label": "Village_InteriorVision_06_面包屋",
+      "settings": {
+        "exposure_compensation": 1.7,
+        "additional_dark_adaptation_stops": 3.4,
+        "entrance_transition_cm": 75.0,
+        "shadow_contrast": 0.5
+      }
+    },
+    "09": {
+      "label": "Village_InteriorVision_09_枪店",
+      "settings": {
+        "exposure_compensation": 1.7,
+        "additional_dark_adaptation_stops": 3.4,
+        "entrance_transition_cm": 75.0,
+        "shadow_contrast": 0.5
+      }
+    }
+  },
+  "tavern_and_houses": {
+    "02": {
+      "label": "Village_InteriorVision_02_西侧酒馆",
+      "before": {
+        "exposure_compensation": 0.92,
+        "additional_dark_adaptation_stops": 3.1,
+        "entrance_transition_cm": 78.0,
+        "shadow_contrast": 0.6
+      },
+      "after": {
+        "exposure_compensation": 2.0,
+        "additional_dark_adaptation_stops": 4.0,
+        "entrance_transition_cm": 60.0,
+        "shadow_contrast": 0.5
+      }
+    },
+    "07": {
+      "label": "Village_InteriorVision_07_南侧民居",
+      "before": {
+        "exposure_compensation": 0.6,
+        "additional_dark_adaptation_stops": 2.25,
+        "entrance_transition_cm": 120.0,
+        "shadow_contrast": 0.6
+      },
+      "after": {
+        "exposure_compensation": 1.7,
+        "additional_dark_adaptation_stops": 3.4,
+        "entrance_transition_cm": 75.0,
+        "shadow_contrast": 0.5
+      }
+    },
+    "08": {
+      "label": "Village_InteriorVision_08_北侧残破民居",
+      "before": {
+        "exposure_compensation": 0.6,
+        "additional_dark_adaptation_stops": 2.25,
+        "entrance_transition_cm": 120.0,
+        "shadow_contrast": 0.6
+      },
+      "after": {
+        "exposure_compensation": 1.7,
+        "additional_dark_adaptation_stops": 3.4,
+        "entrance_transition_cm": 75.0,
+        "shadow_contrast": 0.5
+      }
+    }
+  }
+}

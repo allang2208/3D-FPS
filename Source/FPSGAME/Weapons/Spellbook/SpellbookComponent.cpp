@@ -47,6 +47,10 @@ void USpellbookArmsMeshComponent::CachePose()
     CachedMesh=Mesh;FocusKeys.Reset();FocusEntry.Reset();
     const auto& Ref=Mesh->GetRefSkeleton();Reference=Ref.GetRefBonePose();
     for(int32 I=0;I<Reference.Num();++I)if(Ref.GetParentIndex(I)>=0)Reference[I]=Reference[I]*Reference[Ref.GetParentIndex(I)];
+    MirrorBones=SpellbookHandMirror::Build(Ref,Reference);
+    const int32 Wrist=Ref.FindBoneIndex(TEXT("hand_r"));
+    for(const auto& Pair:MirrorBones)if(Pair.Right==Wrist)
+        MainBookGrip=SpellbookHandMirror::RightGrip(SpellbookBookOrientation::InHand(),Pair);
     namespace Grip=SpellbookAuthoredGrip;
     LeftBones.Reset();RightBones.Reset();
     for(const auto* Name:Grip::ArmNames)LeftBones.Add(Ref.FindBoneIndex(Name));
@@ -185,7 +189,14 @@ void USpellbookArmsMeshComponent::FinalizeBoneTransform()
             Pose[I].SetRotation((ToMesh.GetRotation()*Sway.GetRotation()*Pose[I].GetRotation()).GetNormalized());
         }
         const FTransform Hidden(FQuat::Identity,FVector::ZeroVector,FVector::ZeroVector);
-        for(const int32 I:RightBones)Pose[I]=Hidden;
+        if(Spellbook&&Spellbook->IsMainHandEquipped())
+        {
+            const FTransform FromMesh=ToMesh.Inverse();
+            for(const auto& Pair:MirrorBones)
+                Pose[Pair.Right]=SpellbookHandMirror::CameraBone(Pose[Pair.Left]*FromMesh,Pair)*ToMesh;
+            for(const auto& Pair:MirrorBones)Pose[Pair.Left]=Hidden;
+        }
+        else for(const int32 I:RightBones)Pose[I]=Hidden;
     }
     // This rig also owns the existing lower/use/raise consumable transition.
     Super::FinalizeBoneTransform();
@@ -229,7 +240,8 @@ void USpellbookComponent::BeginPlay()
 void USpellbookComponent::RefreshEquipment()
 {
     if(UsesNetFocusAuthority())return;
-    bool Active=false;bEquipmentResolved=false;bFocusPair=false;
+    const bool WasMain=bMainHand;
+    bool Active=false;bEquipmentResolved=false;bFocusPair=false;bMainHand=false;
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
     if(Model.IsValid()&&Pawn&&Pawn->IsLocallyControlled())
     {
@@ -237,11 +249,13 @@ void USpellbookComponent::RefreshEquipment()
         Active=Item&&Item->Definition==TEXT("ue_alchemy_spellbook")&&!Model->ActiveProductionTool();
         const auto* Primary=Model->Equipped(State.ActiveWeaponSlot);
         bFocusPair=Active&&Primary&&ColdSteelStaff::IsStaff(*Primary);
+        bMainHand=!Active&&Primary&&ColdSteelInventory::IsAlchemySpellbook(*Primary)&&!Model->ActiveProductionTool();
+        Active|=bMainHand;
         bEquipmentResolved=true;
     }
     if(!bFocusPair)CancelFocus();
     FocusMoveMultiplier=bFocusPair&&Model.IsValid()?Model->SpellbookFocusMovementMultiplier():1.f;
-    if(Active==bEquipped)return;
+    if(Active==bEquipped&&WasMain==bMainHand)return;
     bEquipped=Active;Locomotion.Reset();
     if(!Arms||!Book)return;
     if(!Active)
@@ -282,14 +296,23 @@ void USpellbookComponent::ApplyAssets()
                 N.Contains(TEXT("bare"))||N.Contains(TEXT("glove"))||N.Contains(TEXT("sleeve"))||N==TEXT("hand")||N==TEXT("hands")||N.EndsWith(TEXT("_hands")));
             Arms->ShowMaterialSection(M,S,Hand,L);
         }
-    Arms->HideBoneByName(TEXT("clavicle_r"),EPhysBodyOp::PBO_None);
+    Arms->UnHideBoneByName(bMainHand?TEXT("clavicle_r"):TEXT("clavicle_l"));
+    Arms->HideBoneByName(bMainHand?TEXT("clavicle_l"):TEXT("clavicle_r"),EPhysBodyOp::PBO_None);
     Arms->TickAnimation(0.f,false);Arms->RefreshBoneTransforms();
-    FTransform Hand=Arms->GetSocketTransform(TEXT("hand_l"));Hand.SetScale3D(FVector::OneVector);
-    Book->SetWorldTransform(SpellbookBookOrientation::InHand()*Hand);
+    PlaceClosedBook();
     UpdateVisibility();
 }
 
-bool USpellbookComponent::OwnsLeftHand() const
+void USpellbookComponent::PlaceClosedBook()
+{
+    FTransform Hand=Arms->GetSocketTransform(bMainHand?TEXT("hand_r"):TEXT("hand_l"));
+    Hand.SetScale3D(FVector::OneVector);
+    Book->SetWorldTransform((bMainHand?Arms->MainBookGrip:SpellbookBookOrientation::InHand())*Hand);
+}
+
+bool USpellbookComponent::OwnsLeftHand() const {return !bMainHand&&CanPresentBook();}
+
+bool USpellbookComponent::CanPresentBook() const
 {
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
     if(!bEquipped||!Pawn||!Pawn->IsLocallyControlled()||!Arms||!Arms->GetSkeletalMeshAsset()||!Book||!Book->GetStaticMesh())return false;
@@ -308,9 +331,11 @@ bool USpellbookComponent::OwnsLeftHand() const
 
 void USpellbookComponent::UpdateVisibility()
 {
-    if(!Arms||!Book)return;const bool Show=OwnsLeftHand();
+    if(!Arms||!Book)return;
     const auto* Potion=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();
-    const bool ShowBook=Show&&(!Potion||!Potion->IsOffhandWeaponHidden())&&!Cast<AFPSGAMECharacter>(GetOwner())->IsDoorPushActive();
+    const bool Stowed=Potion&&Potion->IsOffhandWeaponHidden();
+    const bool Show=CanPresentBook()&&!(bMainHand&&Stowed&&Potion->IsTwoHanded());
+    const bool ShowBook=Show&&(bMainHand||(!Stowed&&!Cast<AFPSGAMECharacter>(GetOwner())->IsDoorPushActive()));
     if(Arms->IsVisible()!=Show)Arms->SetVisibility(Show);
     const bool Floating=ShowBook&&IsFocusActive()&&bFocusDetached;
     if(Book->IsVisible()!=(ShowBook&&!Floating))Book->SetVisibility(ShowBook&&!Floating);
@@ -330,7 +355,7 @@ void USpellbookComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     if(!bEquipmentResolved)RefreshEquipment();
     if(!bEquipped){if(Arms)Arms->UpdatePistolSupport(Delta,false);return;}
     AdvanceFocus(Delta);
-    if(Arms)Arms->UpdatePistolSupport(Delta,true);
+    if(Arms)Arms->UpdatePistolSupport(Delta,!bMainHand);
     UpdateVisibility();if(!Arms||!Arms->IsVisible())return;
     const auto* Potion=Pawn->FindComponentByClass<UFPSPotionUseComponent>();
     const auto* Staff=Pawn->FindComponentByClass<UStaffWeaponComponent>();
@@ -341,11 +366,10 @@ void USpellbookComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
     Arms->StridePhase=Locomotion.StridePhase();Arms->MoveWeight=Locomotion.MoveWeight()*(Pawn->bIsCrouched?.6f:1.f);
     Arms->RunWeight=Locomotion.RunWeight();Arms->MotionTime=Locomotion.MotionTime();
     const float Lower=FMath::Max(Pawn->GetOffhandReloadLowerWeight(),Potion&&Potion->IsStowingOffhand()?Potion->OffhandLowerWeight():0.f);
-    Arms->CarryOffset=FVector(-7,-3,-42)*Lower;
+    Arms->CarryOffset=bMainHand?FVector::ZeroVector:FVector(-7,-3,-42)*Lower;
     Arms->TickAnimation(0.f,false);Arms->RefreshBoneTransforms();
     // Same-frame rigid contact, including the native hand's scale-100 import.
-    FTransform Hand=Arms->GetSocketTransform(TEXT("hand_l"));Hand.SetScale3D(FVector::OneVector);
-    Book->SetWorldTransform(SpellbookBookOrientation::InHand()*Hand);
+    PlaceClosedBook();
     PresentFocusBook();UpdateVisibility();
 }
 
@@ -369,7 +393,7 @@ bool USpellbookComponent::BeginQuickCombat()
 
 void USpellbookComponent::AdvanceActionBeforeCamera(float Delta)
 {
-    if(Arms)Arms->AdvancePistolSupport(Delta,bEquipped);
+    if(Arms)Arms->AdvancePistolSupport(Delta,IsEquipped());
     // Advance the shared clock once, including its impact tail after recovery.
     if(auto* Quick=GetOwner()->FindComponentByClass<UFPSQuickCombatComponent>();Quick&&Quick->GetStyle()==EQuickCombatStyle::SpellbookPush)
         Quick->AdvanceAction(Delta);

@@ -1,0 +1,41 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyKukri.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyKukri.cpp
+@@ -1,6 +1,7 @@
+ #include "FPSPlayerBodyComponent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Weapons/Kukri/KukriWeaponComponent.h"
++#include "../Weapons/WoodenTorchComponent.h"
+ #include "../Weapons/Kukri/KukriRhythm.h"
+ #include "../Weapons/Kukri/KukriDashRhythm.h"
+ #include "../Weapons/Kukri/KukriQuickRhythm.h"
+@@ -108,6 +109,8 @@
+             PistolHatchetCarry::FitFingers(Ref,Pose);
+             BodyAnimation->PistolHatchetPalmInView=PistolHatchetCarry::PalmInView(Mount.GetRotation());
+         }
++        if(Definition.StaticMesh.ToSoftObjectPath()==FSoftObjectPath(UWoodenTorchComponent::MeshPath))
++            UWoodenTorchComponent::FitBodyFingers(Ref,TEXT("hand_l"),Pose);
+         Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);BodyAnimation->EquipmentGripHands|=2;
+         BodyAnimation->bOffhandKukriEquipment=true;
+         BodyAnimation->OffhandKukriEquipmentInstance=Definition.ItemInstance;
+@@ -121,6 +124,8 @@
+     FFPSBodyGripRig Grip;Grip.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_r"),TEXT("hand_r"));
+     const int32 Weapon=Ref.FindBoneIndex(TEXT("WPN_root"));
+     if(!Grip.IsValid()||Weapon==INDEX_NONE)return;
++    if(Definition.StaticMesh.ToSoftObjectPath()==FSoftObjectPath(UWoodenTorchComponent::MeshPath))
++        UWoodenTorchComponent::FitBodyFingers(Ref,TEXT("hand_r"),Pose);
+     Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);BodyAnimation->EquipmentGripHands|=1;
+     FTransform Hand=Pose[Grip.SourceHand];Hand.SetScale3D(FVector::OneVector);
+     const FTransform BladeFrame=FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f))*Pose[Weapon];
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp
+@@ -208,7 +208,10 @@
+             for(int32 I=0;I<Definition.Materials.Num();++I)if(auto* Material=Definition.Materials[I].LoadSynchronous())Part->SetMaterial(I,Material);
+             Part->RegisterComponent();WorldParts.Add(Part);
+             if(Definition.StaticMesh.ToSoftObjectPath()==FSoftObjectPath(UWoodenTorchComponent::MeshPath))
++            {
++                UWoodenTorchComponent::AlignToGrip(*Part,Side);
+                 if(auto* Torch=GetOwner()->FindComponentByClass<UWoodenTorchComponent>())Torch->SetWorldProp(Side,Part);
++            }
+             GhostScytheMist::Refresh(Part);
+             Motion.Static=Part;
+             MotionEquipmentIndices.Add(Part,Index);

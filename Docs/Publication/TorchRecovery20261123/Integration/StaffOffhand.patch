@@ -1,0 +1,102 @@
+--- a/Source/FPSGAME/FPSGAMECharacterProfile.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+@@ -22,6 +22,7 @@
+ #include "Weapons/Kukri/KukriDecisiveComponent.h"
+ #include "Weapons/Bow/BowWeaponComponent.h"
+ #include "Weapons/Staff/StaffWeaponComponent.h"
++#include "Weapons/Staff/StaffOffhandMeleeComponent.h"
+ #include "Weapons/Kukri/KukriWeaponComponent.h"
+ #include "UI/ColdSteelStatusModel.h"
+ #include "UI/ColdSteelEnhancementSystem.h"
+@@ -346,5 +347,7 @@
+     // 一律跳过，否则会把主机（或本机）的档案抢走并整包重放（ApplyToPawn 武器风暴）。
+     if(!IsLocallyControlled())return;
+     bLocalProfileAttached=true;
++    // A client may receive its controller after the offhand component's BeginPlay.
++    if(auto* Pair=FindComponentByClass<UStaffOffhandMeleeComponent>())Pair->InitializeLocalPresentation();
+     if(GetGameInstance())if(auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->AttachPawn(this);
+ }
+--- a/Source/FPSGAME/Weapons/Staff/StaffOffhandMeleeComponent.h
++++ b/Source/FPSGAME/Weapons/Staff/StaffOffhandMeleeComponent.h
+@@ -22,6 +22,7 @@
+     GENERATED_BODY()
+ public:
+     UStaffOffhandMeleeComponent();
++    void InitializeLocalPresentation();
+     virtual void BeginPlay() override;
+     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
+--- a/Source/FPSGAME/Weapons/Staff/StaffOffhandMeleeComponent.cpp
++++ b/Source/FPSGAME/Weapons/Staff/StaffOffhandMeleeComponent.cpp
+@@ -44,7 +44,11 @@
+ }
+ 
+ UStaffOffhandMeleeComponent::UStaffOffhandMeleeComponent()
+-{PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostPhysics;}
++{
++    PrimaryComponentTick.bCanEverTick=true;
++    PrimaryComponentTick.bStartWithTickEnabled=false;
++    PrimaryComponentTick.TickGroup=TG_PostPhysics;
++}
+ 
+ bool UStaffOffhandMeleeComponent::IsEquippedOn(const AActor* Owner)
+ {
+@@ -61,10 +65,15 @@
+ void UStaffOffhandMeleeComponent::BeginPlay()
+ {
+     Super::BeginPlay();
++    InitializeLocalPresentation();
++}
++
++void UStaffOffhandMeleeComponent::InitializeLocalPresentation()
++{
+     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
+-    if(!Pawn||!Pawn->IsLocallyControlled()){SetComponentTickEnabled(false);return;}
++    if(Arms||!Pawn||!Pawn->IsLocallyControlled())return;
+     Camera=Pawn->FindComponentByClass<UCameraComponent>();
+-    if(!Camera.IsValid()){SetComponentTickEnabled(false);return;}
++    if(!Camera.IsValid())return;
+     AddTickPrerequisiteActor(Pawn);
+     if(auto* Staff=Pawn->FindComponentByClass<UStaffWeaponComponent>())
+     {
+@@ -96,6 +105,7 @@
+     if(auto* Potion=Pawn->FindComponentByClass<UFPSPotionUseComponent>())Potion->AddTickPrerequisiteComponent(this);
+     if(Pawn->GetGameInstance())Model=Pawn->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     if(Model.IsValid())EquipmentChanged=Model->OnChanged.AddUObject(this,&UStaffOffhandMeleeComponent::RefreshEquipment);
++    SetComponentTickEnabled(true);
+     RefreshEquipment();
+ }
+ 
+@@ -158,7 +168,11 @@
+     }
+     const auto Ready=FStreamableDelegate::CreateWeakLambda(this,[this,Key,Snapshot=*Item,BladePath,NewInstance]()
+         {ApplyAssets(Key,Snapshot,BladePath,NewInstance);});
+-    if(Paths.ContainsByPredicate([](const FSoftObjectPath& Path){return !Path.ResolveObject();}))
++    if(Paths.ContainsByPredicate([](const FSoftObjectPath& Path)
++    {
++        const auto* Object=Path.ResolveObject();
++        return !Object||Object->HasAnyFlags(RF_NeedLoad|RF_NeedPostLoad);
++    }))
+         Load=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,Ready);
+     else Ready.Execute();
+ }
+@@ -176,7 +190,7 @@
+     {
+         // A failed new draw must not leave the main staff permanently busy.
+         // A failed same-item part replacement keeps the already installed presentation.
+-        if(!bReady){Instance.Reset();Arms->ComponentTags.Remove(TEXT("PreloadModularOutfit"));UpdateVisibility();}
++        if(!bReady){Instance.Reset();Recipe.Reset();Arms->ComponentTags.Remove(TEXT("PreloadModularOutfit"));UpdateVisibility();}
+         UE_LOG(LogTemp,Warning,TEXT("Staff offhand blade assets are incomplete for %s."),*Item.Definition);return;
+     }
+     Idle=IdleClip;Equip=EquipClip;bDrawHatchet=Axe;
+--- a/SourceAssets/ApprenticeStaff20260927/create_catalog.py
++++ b/SourceAssets/ApprenticeStaff20260927/create_catalog.py
+@@ -41,7 +41,7 @@
+         if key=='crown':part['requires_specialty']={'spike_crown':'ice','current_crown':'electric','wreath_crown':'light','heat_crown':'fire'}[o['id']]
+         col['options'].append(part)
+     columns.append(col)
+-catalog={'version':1,'weapons':[{'id':'ue_apprentice_staff','traits':[{'icon':'special','text':'晶辉照明：按 G 开关杖头光源，播放一次抬杖蓄光与收势动作后恢复待机；照明无冷却、无消耗、持续时间不限，收起长杖后熄灭。'},{'icon':'magic','text':'当前主手增加魔法攻击；六槽改造随武器实例保存。'},{'icon':'mechanic','text':'主手限定的单手武器，副手可装备手枪或魔法书；右键发射副手手枪，无副手时不触发交互。杖冠须匹配杖头专精才能激活。'}]}],
++catalog={'version':1,'weapons':[{'id':'ue_apprentice_staff','traits':[{'icon':'special','text':'晶辉照明：按 G 开关杖头光源，播放一次抬杖蓄光与收势动作后恢复待机；照明无冷却、无消耗、持续时间不限，收起长杖后熄灭。'},{'icon':'magic','text':'当前主手增加魔法攻击；六槽改造随武器实例保存。'},{'icon':'mechanic','text':'法杖仅限主手。副手可搭配弯刀、战术斧、手枪或魔法书。右键发射副手手枪。杖冠须匹配杖头专精才能激活。'}]}],
+          'columns':columns}  # UE staff customization is free, matching firearm workbenches.
+ apply_copy(catalog)
+ for filename,value in [('staffs.json',{'ue_apprentice_staff':item}),('staff-gunsmith.json',catalog)]:

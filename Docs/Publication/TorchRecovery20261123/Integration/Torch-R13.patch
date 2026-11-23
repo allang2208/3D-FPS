@@ -1,0 +1,581 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -473,24 +473,28 @@
+     }
+     const auto* Spellbook=Pawn->FindComponentByClass<USpellbookComponent>();
+     const auto* RemoteProfile=Pawn->GetNetShadowProfile();
+-    if(RemoteProfile&&RemoteProfile->ActiveSpellbook()&&!RemoteProfile->ActiveProductionTool())
++    const bool MainBook=WeatherHeld&&ColdSteelInventory::IsAlchemySpellbook(*WeatherHeld)&&
++        !(WeatherOff&&ColdSteelInventory::IsAlchemySpellbook(*WeatherOff));
++    if(RemoteProfile&&!RemoteProfile->ActiveProductionTool()&&(MainBook||RemoteProfile->ActiveSpellbook()))
+     {
+         // A remote/dedicated pawn does not load or equip the owner-only hand rig.
+         // Publish the same asset identity/schema from authoritative equipment.
+         FFPSBodyWeapon Entry;
+         Entry.StaticMesh=TSoftObjectPtr<UStaticMesh>(FSoftObjectPath(TEXT("/Game/Weapons/SpellbookEvildeer20261009/Meshes/SM_Spellbook_Alchemy_Closed.SM_Spellbook_Alchemy_Closed")));
+         Entry.Mesh=TSoftObjectPtr<USkeletalMesh>(FSoftObjectPath(TEXT("/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7")));
+-        Entry.GripBone=TEXT("hand_l");Entry.AttachHand=1;Entry.PoseFamily=TEXT("Spellbook");Entry.StaticGrip=SpellbookAuthoredGrip::BookInHand;
++        Entry.GripBone=MainBook?TEXT("hand_r"):TEXT("hand_l");Entry.AttachHand=MainBook?0:1;
++        Entry.PoseFamily=TEXT("Spellbook");Entry.StaticGrip=SpellbookAuthoredGrip::BookInHand;
+         Weapons.Add(MoveTemp(Entry));
+     }
+-    else if(Spellbook&&Spellbook->IsEquipped())
++    else if(Spellbook&&(Spellbook->IsEquipped()||Spellbook->IsMainHandEquipped()))
+     {
+         const auto* Book=Spellbook->BookMesh();auto* Arms=Spellbook->ArmsMesh();
+         if(Book&&Book->GetStaticMesh()&&Arms&&Arms->GetSkeletalMeshAsset())
+         {
+             FFPSBodyWeapon Entry;Entry.StaticMesh=Book->GetStaticMesh();Entry.Mesh=Arms->GetSkeletalMeshAsset();
+-            Entry.StaticSource=Spellbook->BookMesh();Entry.Source=Arms;Entry.GripBone=TEXT("hand_l");
+-            Entry.AttachHand=1;Entry.PoseFamily=TEXT("Spellbook");Entry.StaticGrip=SpellbookAuthoredGrip::BookInHand;
++            Entry.StaticSource=Spellbook->BookMesh();Entry.Source=Arms;
++            Entry.GripBone=Spellbook->IsMainHandEquipped()?TEXT("hand_r"):TEXT("hand_l");
++            Entry.AttachHand=Spellbook->IsMainHandEquipped()?0:1;Entry.PoseFamily=TEXT("Spellbook");Entry.StaticGrip=SpellbookAuthoredGrip::BookInHand;
+             for(int32 M=0;M<Book->GetNumMaterials();++M)Entry.Materials.Add(FPSBodyEquipment::PersistentMaterial(Book->GetMaterial(M)));
+             Weapons.Add(MoveTemp(Entry));
+         }
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
+@@ -187,6 +187,8 @@
+     else if(Cast)Sample.Channel=TEXT("Cast");
+     else if(Bash&&Pawn->IsLoneLeftHandRig())Sample.Channel=TEXT("PistolBashLeft");
+     else if(Bash&&State.Family==TEXT("Unarmed"))Sample.Channel=TEXT("Fist");
++    if(Bash&&Quick->GetStyle()==EQuickCombatStyle::StaffPunch)
++    {State.Action=EFPSBodyAction::GunBash;Sample.Channel=TEXT("StaffPunch");State.ActionVariant=Sample.Channel;}
+     if(Bash&&Quick->GetStyle()==EQuickCombatStyle::SpellbookPush)
+     {Sample.Channel=TEXT("SpellbookPush");State.ActionVariant=Sample.Channel;}
+     Sample.Rigs.SetNum(FMath::Min(LocalWeapons.Num(),2));
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp
+@@ -1,4 +1,6 @@
+ #include "FPSPlayerBodyComponent.h"
++#include "../Weapons/Spellbook/SpellbookHandMirror.h"
++#include "../Weapons/Spellbook/SpellbookBookOrientation.h"
+ #include "../Weapons/WoodenTorchComponent.h"
+ #include "../Weapons/WoodenTorchArmsComponent.h"
+ #include "FPSBodyHighlandMotion.h"
+@@ -164,15 +166,28 @@
+             if(Definition.PoseFamily==TEXT("Spellbook"))if(auto* Native=Definition.Mesh.LoadSynchronous();Native&&BodyAnimation)
+             {
+                 const auto& Ref=Native->GetRefSkeleton();auto Pose=Ref.GetRefBonePose();
++                auto Bind=Pose;
++                for(int32 I=0;I<Bind.Num();++I)if(Ref.GetParentIndex(I)>=0)Bind[I]*=Bind[Ref.GetParentIndex(I)];
+                 for(const auto& Finger:SpellbookAuthoredGrip::Fingers)
+                     if(const int32 I=Ref.FindBoneIndex(Finger.Name);I>=0)Pose[I].SetRotation(Finger.Rotation.GetNormalized());
+                 for(int32 I=0;I<Pose.Num();++I)if(Ref.GetParentIndex(I)>=0)Pose[I]=Pose[I]*Pose[Ref.GetParentIndex(I)];
+-                FFPSBodyGripRig Grip;Grip.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_l"),BodyHand);
++                FTransform Mount=SpellbookAuthoredGrip::BookInHand;
++                if(Side==0)
++                {
++                    const int32 Wrist=Ref.FindBoneIndex(TEXT("hand_r"));
++                    for(const auto& Pair:SpellbookHandMirror::Build(Ref,Bind))
++                    {
++                        const auto& L=Pose[Pair.Left];const FVector P=L.GetLocation();
++                        Pose[Pair.Right]=FTransform((SpellbookHandMirror::ReflectX(L.GetRotation())*Pair.BindCorrection).GetNormalized(),FVector(-P.X,P.Y,P.Z),L.GetScale3D());
++                        if(Pair.Right==Wrist)Mount=SpellbookHandMirror::RightGrip(SpellbookBookOrientation::InHand(),Pair);
++                    }
++                }
++                FFPSBodyGripRig Grip;Grip.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),Definition.GripBone,BodyHand);
+                 if(Grip.IsValid())
+                 {
+                     Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);BodyAnimation->EquipmentGripHands|=1<<Side;
+-                    Part->SetRelativeTransform(SpellbookAuthoredGrip::BookInHand*Grip.Mount);
+-                    BodyAnimation->SpellbookEquipmentIndex=Index;
++                    Part->SetRelativeTransform(Mount*Grip.Mount);
++                    if(Side==1)BodyAnimation->SpellbookEquipmentIndex=Index;
+                 }
+             }
+             WorldEquipmentHands.Add(Part,static_cast<uint8>(Side));
+--- a/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
+@@ -75,7 +75,8 @@
+     if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();
+         OffhandKukri&&(OffhandKukri->IsQuickCombatActive()||OffhandKukri->IsUppercutActive()))return false;
+     const auto* Tool=FindComponentByClass<UProductionToolComponent>();
+-    return bInventoryWeaponReady || HasOffhandSpellbook() || (RuneSword && RuneSword->IsEquipped()) || (Bow && Bow->IsEquipped()) || (Staff && Staff->HasMeleeMoveset())
++    const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();
++    return (Torch&&Torch->UsesQuickAttack()) || bInventoryWeaponReady || HasOffhandSpellbook() || (RuneSword && RuneSword->IsEquipped()) || (Bow && Bow->IsEquipped()) || (Staff && Staff->HasMeleeMoveset())
+         || (Tool && Tool->IsWarhammerEquipped()) || (Kukri && Kukri->IsEquipped());
+ }
+ 
+--- a/Source/FPSGAME/FPSGAMECharacterInput.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterInput.cpp
+@@ -185,7 +185,7 @@
+     AimDown.ActionDelegate.GetDelegateForManualSet().BindWeakLambda(this,[this]()
+     {
+         const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();
+-        if(!Torch||!Torch->HoldsLeft()){AimPressed();return;}
++        if(!Torch||!Torch->UsesRightClickAttack()){AimPressed();return;}
+         if(const auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Transferring())return;
+         if(Staff&&!IsAmmoWheelOpen()&&!IsSwitchingWeapon()&&!UFPSPotionUseComponent::BlocksWeaponAttack(this))
+             Staff->BeginPrimaryAttack(true);
+@@ -500,7 +500,8 @@
+     // 双持/法杖副手：右键盘手 1 只让机瞄节点指向目标。左手单持不同，
+     // 它要真正的开镜（WeaponADSFactor）来驱动左手网格的瞄具标定。
+     if(HasOffhandPistol()&&!IsLoneLeftHandRig()){DualPistols->Trigger(1,true);return;}
+-    if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&Torch->HoldsLeft())return;
++    if(Spellbook&&Spellbook->IsMainHandEquipped())return;
++    if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&Torch->UsesRightClickAttack())return;
+     if(Staff&&Staff->IsEquipped()){if(Spellbook)Spellbook->ToggleFocus();return;}
+     if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&(Torch->HoldsRight()||(Torch->HoldsLeft()&&!HasInventoryWeapon())))return;
+     // 单手弯刀没有机瞄与格挡：右键不进入枪械开镜状态机。
+@@ -524,7 +525,7 @@
+ 
+ void AFPSGAMECharacter::AimReleased()
+ {
+-    if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&Torch->HoldsLeft()){bAimHeld=false;return;}
++    if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&Torch->UsesRightClickAttack()){bAimHeld=false;return;}
+     if(HasOffhandPistol()&&!IsLoneLeftHandRig()){DualPistols->Trigger(1,false);bAimHeld=false;return;}
+     if(Staff&&Staff->HasMeleeMoveset()){bAimHeld=false;return;}
+     if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped()){bAimHeld=false;return;}
+--- a/Source/FPSGAME/FPSGAMEConsumableUse.cpp
++++ b/Source/FPSGAME/FPSGAMEConsumableUse.cpp
+@@ -17,6 +17,8 @@
+ bool AFPSGAMECharacter::CanBeginConsumableUse() const
+ {
+     if(Staff&&Staff->IsPairedTorchSwing())return false;
++    if(Staff&&Staff->IsQuickCombatActive())
++        if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&Torch->UsesQuickAttack())return false;
+     if(IsOffhandReloadActive())
+         if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&Torch->HoldsLeft())return false;
+     if(IsDodging() || IsSliding() || IsChoosingAmmo())return false;
+--- a/Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp
+@@ -83,7 +83,7 @@
+     {
+         const auto* Off=Model->Equipped(Model->Snapshot().ActiveWeaponSlot==6?8:11);
+         if(!Off||Off->InstanceId!=Instance||!ColdSteelInventory::IsWoodenTorch(*Off)||Model->ActiveProductionTool())return;
+-        if(Pawn->IsOffhandReloadActive()||Pawn->IsReloading()||!CanAuthorityBeginConsumable(Pawn))return;
++        if((Item&&ColdSteelInventory::IsDualPistol(*Item))||Pawn->IsOffhandReloadActive()||Pawn->IsReloading()||!CanAuthorityBeginConsumable(Pawn))return;
+         Item=Off;
+     }
+     if(Family==Unarmed)
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -44,6 +44,7 @@
+ #include "../Weapons/Bow/BowWeaponComponent.h"
+ #include "../Weapons/Staff/StaffWeaponComponent.h"
+ #include "../Weapons/WoodenTorchItem.h"
++#include "../Weapons/WoodenTorchItem.h"
+ #include "../Weapons/Staff/StaffCatalog.h"
+ #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+ #include "../Weapons/PistolDualWieldComponent.h"
+@@ -223,6 +224,11 @@
+     if(!Player)return false;
+     if(UBoundCongregateCaptureComponent::IsCaptured(Player))
+         if(auto* Hands=Player->FindComponentByClass<UFPSUnarmedIdleComponent>();Hands&&Hands->IsEquipped())return Hands->BeginPunch();
++    if(!ActiveProductionTool()&&ColdSteelInventory::QuickTorch(Equipped(),Equipped(Current.ActiveWeaponSlot==6?8:11)))
++    {
++        auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();
++        return Staff&&Staff->BeginQuickCombat();
++    }
+     if(auto* Book=Player->FindComponentByClass<USpellbookComponent>();Book&&Book->IsEquipped())return Book->BeginQuickCombat();
+     if(auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->HasMeleeMoveset())return Staff->BeginQuickCombat();
+     if(auto* Bow=Player->FindComponentByClass<UBowWeaponComponent>();Bow && Bow->IsEquipped())return Bow->BeginQuickCombat();
+--- a/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp
+@@ -11,6 +11,7 @@
+ #include "../Weapons/Bow/BowWeaponComponent.h"
+ #include "../Weapons/Bow/BowQuickCombatMotion.h"
+ #include "../Weapons/Staff/StaffWeaponComponent.h"
++#include "../Weapons/WoodenTorchComponent.h"
+ #include "../Weapons/Spellbook/SpellbookComponent.h"
+ #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+ #include "../Weapons/Unarmed/UnarmedPunchTuning.h"
+@@ -152,8 +153,7 @@
+     if(Style==EQuickCombatStyle::SpellbookPush&&Player)return;
+     if(Style==EQuickCombatStyle::Warhammer&&Player&&IsOccupyingLeftHand())return;
+     if(Player&&Player->HasOffhandPistol()&&(Style==EQuickCombatStyle::DualPistol||Style==EQuickCombatStyle::StaffOffhandPistol))return;
+-    if(Style==EQuickCombatStyle::StaffPunch&&Player)
+-        if(const auto* Staff=Player->FindComponentByClass<UStaffWeaponComponent>();Staff&&Staff->HasMeleeMoveset())return;
++    if(Style==EQuickCombatStyle::StaffPunch&&Player)return; // staff component owns this clock for all loadouts
+     if(Style==EQuickCombatStyle::Bow&&IsOccupyingLeftHand())return;
+     if(Player&&(Player->IsM24Weapon()||Player->bUseASH12||SVCHWeaponAssets::Matches(Player->AKMViewmodel))&&IsRifleStyle()&&IsOccupyingLeftHand())return;
+     AdvanceAction(Delta);
+@@ -174,6 +174,7 @@
+     const auto* Hands=Player?Player->FindComponentByClass<UFPSUnarmedIdleComponent>():nullptr;
+     const auto* Book=Player?Player->FindComponentByClass<USpellbookComponent>():nullptr;
+     const bool bStaff=Style==EQuickCombatStyle::StaffPunch||Style==EQuickCombatStyle::StaffOffhandPistol;
++    const auto* Torch=Style==EQuickCombatStyle::StaffPunch&&Player?Player->FindComponentByClass<UWoodenTorchComponent>():nullptr;
+     const bool bUnarmed=Style==EQuickCombatStyle::UnarmedPunch;
+     const bool bBook=Style==EQuickCombatStyle::SpellbookPush;
+     const bool bWarhammer=Style==EQuickCombatStyle::Warhammer;
+@@ -189,7 +190,7 @@
+             &&!AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Player->GetController())))
+         :bStaff
+         ?(((Staff&&Staff->HasMeleeMoveset()&&(Style==EQuickCombatStyle::StaffPunch?!Player->HasOffhandPistol():Dual&&Dual->IsOffhandOnly()))
+-            ||(Style==EQuickCombatStyle::StaffOffhandPistol&&Player->IsLoneLeftHandRig()))
++            ||(Torch&&Torch->UsesQuickAttack())||(Style==EQuickCombatStyle::StaffOffhandPistol&&Player->IsLoneLeftHandRig()))
+             &&!Player->IsTraversing()&&!AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Player->GetController())))
+         :Style==EQuickCombatStyle::Bow
+         ?(Bow&&Bow->IsEquipped())
+--- a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+@@ -109,7 +109,7 @@
+     if(Type==TEXT("staff"))return Slot==6||Slot==9;
+     const bool Support=Type==TEXT("shield")||Type==TEXT("spellbook")||Type==TEXT("magic_book")||Off==TEXT("shield")||Off==TEXT("spellbook")||Off==TEXT("magic_book")||Category==TEXT("magic_book");
+     const bool Weapon=!Type.IsEmpty()||Category.Contains(TEXT("weapon"))||!Text(I,TEXT("rangedType")).IsEmpty();
+-    if(Slot==6||Slot==9) return Weapon&&!Support;
++    if(Slot==6||Slot==9) return (Weapon&&!Support)||IsAlchemySpellbook(I);
+     // One-handed blades may accompany a staff; each presentation family owns its actual mesh/grip support.
+     if(Slot==8||Slot==11) return (Support||IsDualPistol(I)||IsOneHandedBlade(I)||IsWoodenTorch(I))&&!Flag(I,TEXT("isTwoHanded"));
+     static const TCHAR* Keys[]={TEXT("earring"),TEXT("helmet"),TEXT("ring1"),TEXT("gloves"),TEXT("necklace"),TEXT("cloak"),TEXT("weapon"),TEXT("armor"),TEXT("offhand"),TEXT("weapon2"),TEXT("belt"),TEXT("ring2"),TEXT("extra"),TEXT("boots"),TEXT("backpack"),TEXT("pants")};
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+@@ -432,6 +432,7 @@
+ 
+ namespace ColdSteelInventory
+ {
++    inline bool IsAlchemySpellbook(const FColdSteelItem& I) { return I.Definition==TEXT("ue_alchemy_spellbook"); }
+     inline bool IsDualPistol(const FColdSteelItem& I) { return (I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011")) || (I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")); }
+     FPSGAME_API int32 Owner(const TArray<FColdSteelItem>& Items, int32 Place, int32 Cell);
+     /**
+--- a/Source/FPSGAME/UI/ColdSteelProfileItems.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileItems.cpp
+@@ -414,11 +414,21 @@
+     }
+     // Quick equip keeps the kukri a main-hand weapon unless that set already holds a dual-capable pistol or a
+     // kukri (dual kukri).
++    const int32 Active=Current.ActiveWeaponSlot,Off=Active==6?8:11;
++    const auto* Main=Equipped(Active);
++    const auto* Left=Equipped(Off);
++    if(IsWoodenTorch(I)&&Main&&IsAlchemySpellbook(*Main)&&!Left)return MoveItem(Id,1,Off);
++    if(IsAlchemySpellbook(I))
++    {
++        if(!Main&&Left&&IsWoodenTorch(*Left))return MoveItem(Id,1,Active);
++        if(!Left&&!Locked(Current.Items,Off))return MoveItem(Id,1,Off);
++    }
+     const auto AutoSlot=[&](int32 S)
+     {
+         if(!CanEquip(I,S)||Locked(Current.Items,S))return false;
+         if((!UsesKukriMoveset(I)&&!IsWoodenTorch(I))||(S!=8&&S!=11))return true;
+-        const auto* Main=Equipped(S==8?6:9);return Main&&(IsDualPistol(*Main)||UsesKukriMoveset(*Main)||UsesStaffMelee(*Main));
++        const auto* Paired=Equipped(S==8?6:9);
++        return Paired&&(IsDualPistol(*Paired)||UsesKukriMoveset(*Paired)||UsesStaffMelee(*Paired)||(IsWoodenTorch(I)&&IsAlchemySpellbook(*Paired)));
+     };
+     for(int32 S=0;S<SlotNames().Num();++S)if(AutoSlot(S)&&!Equipped(S))return MoveItem(Id,1,S);
+     for(int32 S=0;S<SlotNames().Num();++S)if(AutoSlot(S))return MoveItem(Id,1,S);
+--- a/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp
++++ b/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp
+@@ -26,8 +26,9 @@
+     static TAutoConsoleVariable<float> MaxDistance(TEXT("fps.Impact.MaxDistance"), 12000.f, TEXT("Impact FX cull distance in cm, adjusted for optics."));
+     static TAutoConsoleVariable<float> DetailDistance(TEXT("fps.Impact.DetailDistance"), 2500.f, TEXT("Full impact detail distance in cm."));
+     static TAutoConsoleVariable<float> BurstsPerSecond(TEXT("fps.Impact.BurstsPerSecond"), 40.f, TEXT("World-wide cosmetic impact rate; no effect on damage."));
+-    constexpr int32 Starts[] = {0,48,72,104,128,224,228,232,264};
+-    constexpr int32 Counts[] = {48,24,32,24,96,4,4,32,160};
++    constexpr int32 TorchGroup=9;
++    constexpr int32 Starts[] = {0,48,72,104,128,224,228,232,264,424};
++    constexpr int32 Counts[] = {48,24,32,24,96,4,4,32,160,192};
+     constexpr const TCHAR* Names[] = {TEXT("Metal"),TEXT("Wood"),TEXT("Stone"),TEXT("Dirt"),TEXT("Glass"),TEXT("Flesh")};
+     EFPSImpactSurface FromName(const FString& Name)
+     {
+@@ -75,6 +76,8 @@
+     ConstructorHelpers::FObjectFinder<UMaterialInterface> BleedMist(TEXT("/Game/Combat/Bleeding20261027/M_BleedBurstMist.M_BleedBurstMist"));
+     ConstructorHelpers::FObjectFinder<UMaterialInterface> BleedDrop(TEXT("/Game/Combat/Bleeding20261027/M_BleedBurstDrop.M_BleedBurstDrop"));
+     ParticleMaterials.Add(BleedMist.Object);ParticleMaterials.Add(BleedDrop.Object);
++    ParticleMaterials.Add(ParticleMaterials[0].Get()); // torch showers share the spark material, with their own slots
++    static_assert(FPSImpact::Counts[FPSImpact::TorchGroup]==TorchSparkSlots);
+     ConstructorHelpers::FObjectFinder<USoundBase> Flight(TEXT("/Game/Monsters/BellowSacLobber/V04/Audio/S_BellowFlight.S_BellowFlight"));
+     ConstructorHelpers::FObjectFinder<USoundBase> Fuse(TEXT("/Game/Monsters/BellowSacLobber/V04/Audio/S_BellowFuse.S_BellowFuse"));
+     ConstructorHelpers::FObjectFinder<USoundBase> Rupture(TEXT("/Game/Monsters/BellowSacLobber/V04/Audio/S_BellowRupture.S_BellowRupture"));
+@@ -331,9 +334,15 @@
+     {
+         const FVector Normal=Hit.ImpactNormal.GetSafeNormal(SMALL_NUMBER,FVector::UpVector);
+         const bool Near=ApparentDistance<FMath::Min(1600.f,FPSImpact::DetailDistance.GetValueOnGameThread());
+-        const int32 Count=Near?8:ApparentDistance<3600.f?4:2;
++        const int32 Count=Near?FMath::RandRange(72,90):ApparentDistance<3600.f?32:10;
++        const FVector Fan=FMath::VRandCone(Normal,.46f);
++        const FVector Drift=FVector::VectorPlaneProject(Fan,Normal)*28.f+FVector::UpVector*16.f;
+         for(int32 I=0;I<Count;++I)
+-            AddParticle(0,Hit.ImpactPoint+Normal*1.5f,Normal,EFPSImpactSurface::Unknown,1.f,true);
++        {
++            const auto Type=I%11==0?ETorchDebris::Char:I%4==0?ETorchDebris::Streak:ETorchDebris::Spark;
++            const FVector Offset=FVector::VectorPlaneProject(FMath::VRand(),Normal)*FMath::FRandRange(0.f,3.5f);
++            AddTorchDebris(Type,Hit.ImpactPoint+Normal*2.f+Offset,Fan,Drift,Normal);
++        }
+         return;
+     }
+     const auto Surface=ResolveSurface(Hit,Kind==EContactKind::BladeBody);
+@@ -401,7 +410,54 @@
+     if (bPlaySound) PlayImpactSound(Hit.ImpactPoint,Surface,Distance,Now);
+ }
+ 
+-void UFPSImpactFXSubsystem::AddParticle(int32 Group,const FVector& Position,const FVector& Normal,EFPSImpactSurface Surface,float DetailScale,bool bEmber)
++void UFPSImpactFXSubsystem::ShedTorchEmbers(const FVector& Point,const FVector& Airflow,UCameraComponent* ViewCamera)
++{
++    if(!bReady||!IsValid(ViewCamera)||ActiveParticles>=MaxActiveParticles-32)return;
++    const FVector To=Point-ViewCamera->GetComponentLocation();
++    if(To.SizeSquared()>FMath::Square(1500.)||FVector::DotProduct(To,ViewCamera->GetForwardVector())<0.)return;
++    Camera=ViewCamera;
++    const FVector Drift=Airflow.GetClampedToMaxSize(95.);
++    const FVector Axis=(FVector::UpVector*85.+Drift*.55).GetSafeNormal();
++    const int32 Count=FMath::FRand()<.28f?2:1;
++    for(int32 I=0;I<Count;++I)
++        AddTorchDebris(FMath::FRand()<.24f?ETorchDebris::Char:ETorchDebris::Spark,Point+FMath::VRand()*2.2f,Axis,Drift,FVector::ZeroVector);
++}
++
++void UFPSImpactFXSubsystem::AddTorchDebris(ETorchDebris Type,const FVector& Point,const FVector& Axis,const FVector& Drift,const FVector& SurfaceNormal)
++{
++    if(ActiveParticles>=MaxActiveParticles)return;
++    const bool Char=Type==ETorchDebris::Char,Streak=Type==ETorchDebris::Streak,Impact=!SurfaceNormal.IsZero();
++    const int32 Group=Char?2:FPSImpact::TorchGroup;
++    const int32 Count=FPSImpact::Counts[Group],Start=FPSImpact::Starts[Group];
++    for(int32 I=0;I<Count;++I)
++    {
++        const int32 Index=Char?I:(TorchSparkCursor+I)%Count;
++        auto& P=Particles[Start+Index];
++        if(P.Life>0.f)continue;
++        if(!Char)TorchSparkCursor=(Index+1)%Count;
++        P=FParticle();
++        P.Born=GetWorld()->GetTimeSeconds();P.Position=Point;
++        const FVector Direction=FMath::VRandCone(Axis,Impact?(Streak?.65f:1.25f):.47f);
++        const float Speed=Impact?(Streak?FMath::FRandRange(245.f,395.f):FMath::FRandRange(72.f,220.f)):FMath::FRandRange(32.f,69.f);
++        P.Velocity=Direction*Speed+FVector::UpVector*(Impact?27.f:17.f);
++        P.EmberDrag=Streak?2.3f:FMath::FRandRange(1.6f,3.0f);
++        P.EmberDrift=Drift;
++        P.Gravity=Streak?-215.f:Char?FMath::FRandRange(-88.f,-34.f):FMath::FRandRange(-30.f,22.f);
++        if(!Impact)P.EmberDrift.Z+=Char?18.f:31.f;
++        P.Life=Streak?FMath::FRandRange(.30f,.55f):Char?FMath::FRandRange(.8f,1.55f):FMath::FRandRange(.54f,1.32f);
++        const float Width=(Impact?1.f:.63f)*FMath::FRandRange(.8f,1.55f);
++        P.Size=FVector(Width,Width*(Char?1.65f:Streak?6.f:FMath::FRandRange(1.3f,2.4f)),Char?Width*.17f:1.f);
++        P.Color=Char?FLinearColor(.23f,.071f,.023f):FLinearColor(1.f,FMath::FRandRange(.42f,.87f),Streak?.16f:.055f);
++        P.Opacity=1.f;P.Variation=FMath::FRand();
++        P.Rotation=FRotator(P.Variation*160.f,0,0);
++        P.Spin=FRotator(170.f+220.f*P.Variation,105.f,220.f-400.f*P.Variation);
++        P.bHasLandingPlane=Impact;P.LandingPoint=Point-SurfaceNormal*2.f;P.LandingNormal=SurfaceNormal;
++        ++ActiveParticles;
++        return;
++    }
++}
++
++void UFPSImpactFXSubsystem::AddParticle(int32 Group,const FVector& Position,const FVector& Normal,EFPSImpactSurface Surface,float DetailScale)
+ {
+     if(ActiveParticles>=MaxActiveParticles)return;
+     const double Now=GetWorld()->GetTimeSeconds();
+@@ -412,21 +468,7 @@
+     auto& P=Particles[Slot];P=FParticle();
+     P.Position=Position;P.Born=Now;
+     FVector Side=FMath::VRand();Side=FVector::VectorPlaneProject(Side,Normal);
+-    if(bEmber)
+-    {
+-        const bool Fleck=FMath::FRand()<.65f;
+-        const float Speed=Fleck?FMath::FRandRange(45.f,95.f):FMath::FRandRange(110.f,195.f);
+-        P.Velocity=(Normal*.65f+Side+FVector::UpVector*.4f).GetSafeNormal(SMALL_NUMBER,Normal)*Speed;
+-        P.Life=Fleck?FMath::FRandRange(.38f,.63f):FMath::FRandRange(.17f,.30f);
+-        P.EmberDrag=Fleck?3.3f:2.1f;
+-        P.Gravity=Fleck?22.f:-155.f;
+-        P.Size=FVector(FMath::FRandRange(.35f,.68f),Fleck?FMath::FRandRange(.7f,1.4f):FMath::FRandRange(2.1f,3.8f),1.f);
+-        P.Color=FLinearColor(1.f,FMath::FRandRange(.32f,.7f),Fleck?.04f:.13f);
+-        P.Opacity=.94f;
+-        P.LandingPoint=Position-Normal;P.LandingNormal=Normal;P.bHasLandingPlane=true;
+-        ++ActiveParticles;
+-        return;
+-    }
++
+     P.Color=FPSImpact::DustColors[static_cast<uint8>(Surface)];
+     P.Velocity=Normal*FMath::FRandRange(Group==0?180.f:35.f,Group==0?420.f:100.f)+Side*(Group==0?115.f:45.f);
+     P.Rotation=FRotator(FMath::FRandRange(-180.f,180.f),FMath::FRandRange(-180.f,180.f),FMath::FRandRange(-180.f,180.f));
+@@ -684,7 +726,13 @@
+             const float Drag=bMist?6.f:bDrop?1.6f:Group==1?5.f:P.EmberDrag;
+             const float Damping=Drag>0.f?FMath::Exp(-Drag*Age):1.f;
+             const float Travel=Drag>0.f?(1.f-Damping)/Drag:Age;
+-            const FVector Position=P.Position+P.Velocity*Travel+FVector(0,0,P.Gravity*.5f*Age*Age);
++            FVector Position=P.Position+P.Velocity*Travel+FVector(0,0,P.Gravity*.5f*Age*Age);
++            if(P.EmberDrag>0.f)
++            {
++                // Drag transfers the fragment from its launch velocity to the moving air.
++                const float Phase=P.Variation*2.f*PI;
++                Position+=P.EmberDrift*(Age-Travel)+FVector(FMath::Sin(Phase+5.f*Age),FMath::Cos(Phase+3.7f*Age),0.)*(3.f*Age);
++            }
+             if(P.bHasLandingPlane && FVector::DotProduct(Position-P.LandingPoint,P.LandingNormal)<.3f)
+             {
+                 P.Life=0.f;--ActiveParticles;Transforms[Group][Local].SetScale3D(FVector::ZeroVector);
+@@ -695,11 +743,16 @@
+             if(Group!=2 && Group!=5 && Group!=6)
+             {
+                 const FVector Facing=(Eye-Position).GetSafeNormal();
+-                Rotation=(Group==0 || bDrop)?FRotationMatrix::MakeFromZY(Facing,Velocity).ToQuat()
++                Rotation=(Group==0 || Group==FPSImpact::TorchGroup || bDrop)?FRotationMatrix::MakeFromZY(Facing,Velocity+P.EmberDrift*(1.f-Damping)).ToQuat()
+                     :FRotationMatrix::MakeFromZ(Facing).ToQuat()*FQuat(FVector::UpVector,FMath::DegreesToRadians(P.Rotation.Roll));
+             }
+             const float SizeScale=Group==1?.65f+Life*1.5f:bMist?.70f+Life*1.25f:1.f;
+             FVector Size=P.Size*SizeScale;
++            if(P.EmberDrag>0.f)
++            {
++                Size*=1.f-.78f*FMath::SmoothStep(.42f,1.f,Life);
++                if(Group==FPSImpact::TorchGroup)Size.Y*=FMath::Lerp(1.f,.62f,Life);
++            }
+             if(bDrop)
+             {
+                 const float Stretch=FMath::Clamp(float(Velocity.Size())/240.f,.55f,1.6f);
+@@ -709,7 +762,8 @@
+             Transforms[Group][Local]=FTransform(Rotation,Position,Size/100.f);
+             float Fade=bDrop?1.f-FMath::SmoothStep(.78f,1.f,Life):Group==2?1.f-FMath::SmoothStep(.5f,1.f,Life):FMath::Square(1.f-Life);
+             if(bMist)Fade=FMath::SmoothStep(0.f,.035f,Life)*(1.f-FMath::SmoothStep(.20f,1.f,Life));
+-            const float NearFade=Group>=3?FMath::SmoothStep(12.f,45.f,static_cast<float>(FVector::Dist(Eye,Position))):1.f;
++            if(P.EmberDrag>0.f)Fade=1.f-FMath::SmoothStep(.26f,1.f,Life);
++            const float NearFade=Group>=3&&Group!=FPSImpact::TorchGroup?FMath::SmoothStep(12.f,45.f,static_cast<float>(FVector::Dist(Eye,Position))):1.f;
+             const float Cooling=P.EmberDrag>0.f?1.f-.80f*Life:1.f;
+             const float Data[]={P.Color.R,P.Color.G*Cooling,P.Color.B*Cooling*Cooling,P.Opacity*Fade*NearFade,Life,P.Variation};
+             Renderers[Group]->SetCustomData(Local,MakeArrayView(Data,Group>=3?6:4),false);
+--- a/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h
++++ b/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h
+@@ -27,6 +27,7 @@
+     void SpawnImpact(const FHitResult& Hit, UCameraComponent* ViewCamera, bool bPlaySound = true, bool bDecal = true);
+     void SpawnBladeContact(const FHitResult& Hit,UCameraComponent* ViewCamera,bool bWorld);
+     void SpawnTorchEmbers(const FVector& Point,const FVector& Normal,UCameraComponent* ViewCamera);
++    void ShedTorchEmbers(const FVector& Point,const FVector& Airflow,UCameraComponent* ViewCamera);
+     void SpawnBleedingBurst(const FVector& Position,const FVector& Normal,int32 Stacks,AActor* BleedingActor);
+     void ClearImpactDecalsForComponent(const UPrimitiveComponent* Component);
+     void SpawnPounceLanding(const FHitResult& Ground, const FVector& Forward, float Radius, float Angle, UCameraComponent* ViewCamera, const AActor* Source, bool bPlaySound = true);
+@@ -57,8 +58,9 @@
+     static constexpr int32 BleedMistSlots = 32;
+     static constexpr int32 BleedDropSlots = 160;
+     static constexpr int32 MaxActiveParticles = 384;
+-    static constexpr int32 ParticleSlots = SparkSlots + DustSlots + ChipSlots + BloodMistSlots + BloodDropSlots + GroundWaveSlots + PressureWaveSlots + BleedMistSlots + BleedDropSlots;
+-    static constexpr int32 ParticleGroups = 9;
++    static constexpr int32 TorchSparkSlots=192;
++    static constexpr int32 ParticleSlots = SparkSlots + DustSlots + ChipSlots + BloodMistSlots + BloodDropSlots + GroundWaveSlots + PressureWaveSlots + BleedMistSlots + BleedDropSlots + TorchSparkSlots;
++    static constexpr int32 ParticleGroups = 10;
+     static constexpr int32 DecalSlots = 24;
+     static constexpr int32 BloodDecalSlots = 48;
+     static constexpr int32 VoiceSlots = 6;
+@@ -71,6 +73,7 @@
+         double Born = 0.;
+         float Life = 0.f, Gravity = 0.f, Opacity = 0.f, Variation = 0.f;
+         float EmberDrag = 0.f;
++        FVector EmberDrift=FVector::ZeroVector;
+         FVector LandingPoint = FVector::ZeroVector, LandingNormal = FVector::UpVector;
+         bool bHasLandingPlane = false;
+     };
+@@ -85,7 +88,10 @@
+     EFPSImpactSurface ResolveSurface(const FHitResult& Hit,bool bBodyContact);
+     EFPSImpactSurface SurfaceForObject(const UObject* Object);
+     void AddParticle(int32 Group, const FVector& Position, const FVector& Normal,
+-        EFPSImpactSurface Surface, float DetailScale, bool bEmber=false);
++        EFPSImpactSurface Surface, float DetailScale);
++    enum class ETorchDebris : uint8 { Spark, Streak, Char };
++    void AddTorchDebris(ETorchDebris Type,const FVector& Point,const FVector& Axis,const FVector& Drift,const FVector& SurfaceNormal);
++    int32 TorchSparkCursor=0;
+     void AddFleshBurst(const FHitResult& Hit,const FVector& Normal,const FVector& Axis,bool bCut,bool Full,bool Far,const FHitResult* Ground);
+     bool FindBloodLanding(const FHitResult& Hit, UCameraComponent* ViewCamera, double Now, FHitResult& Ground);
+     void AddBloodWall(const FHitResult& Hit,const FVector& Axis,UCameraComponent* View,double Now);
+--- a/Source/FPSGAME/Weapons/Spellbook/SpellbookComponent.h
++++ b/Source/FPSGAME/Weapons/Spellbook/SpellbookComponent.h
+@@ -3,6 +3,7 @@
+ #include "Components/ActorComponent.h"
+ #include "../../Skills/FPSCastingMeshComponent.h"
+ #include "../Staff/StaffLocomotion.h"
++#include "SpellbookHandMirror.h"
+ #include "SpellbookComponent.generated.h"
+ 
+ class UCameraComponent;
+@@ -22,6 +23,7 @@
+     GENERATED_BODY()
+ public:
+     float StridePhase=0.f,MoveWeight=0.f,RunWeight=0.f,MotionTime=0.f;
++    FTransform MainBookGrip=FTransform::Identity;
+     FVector CarryOffset=FVector::ZeroVector;
+     virtual void FinalizeBoneTransform() override;
+     void AdvancePistolSupport(float Delta,bool Equipped);
+@@ -40,6 +42,7 @@
+     TArray<FTransform> Reference;
+     TArray<FTransform> CarryKeys[65];
+     TArray<int32> LeftBones,RightBones;
++    TArray<SpellbookHandMirror::FBone> MirrorBones;
+     void CachePose();
+     // First-person contact layer; authored actions consume this as their carry
+     // destination. The world body keeps its own anatomical arm presentation.
+@@ -77,7 +80,8 @@
+     GENERATED_BODY()
+ public:
+     USpellbookComponent();
+-    bool IsEquipped() const {return bEquipped;}
++    bool IsEquipped() const {return bEquipped&&!bMainHand;}
++    bool IsMainHandEquipped() const {return bEquipped&&bMainHand;}
+     float PistolSupportFramingWeight() const {return Arms?Arms->PistolRightBlend():0.f;}
+     void ApplyPistolRightArm(USkeletalMeshComponent& Gun,TArray<FTransform>& Pose) {if(Arms)Arms->ApplyPistolRightArm(Gun,Pose);}
+     bool OwnsLeftHand() const;
+@@ -115,7 +119,9 @@
+     TSharedPtr<FStreamableHandle> Load;
+     FDelegateHandle EquipmentChanged;
+     FStaffLocomotion Locomotion;
+-    bool bEquipped=false,bEquipmentResolved=false;
++    bool bEquipped=false,bEquipmentResolved=false,bMainHand=false;
++    bool CanPresentBook() const;
++    void PlaceClosedBook();
+     void RefreshEquipment();
+     void ApplyAssets();
+     void UpdateVisibility();
+--- a/Source/FPSGAME/Weapons/Staff/StaffQuickCombat.cpp
++++ b/Source/FPSGAME/Weapons/Staff/StaffQuickCombat.cpp
+@@ -21,9 +21,13 @@
+ bool UStaffWeaponComponent::BeginQuickCombat()
+ {
+     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
+-    if(!HasMeleeMoveset()||IsEquipping()||!Pawn||!Pawn->CanStartQuickCombatPriority()
+-        ||Pawn->HasOffhandSpellbook()
+-        ||!Staff||!Staff->IsVisible()||!Arms||!Arms->IsVisible())return false;
++    if(!Pawn||!Pawn->CanStartQuickCombatPriority()||Pawn->HasOffhandSpellbook())return false;
++    auto* Torch=Pawn->FindComponentByClass<UWoodenTorchComponent>();
++    if(Torch&&Torch->UsesQuickAttack())
++    {
++        if(!Torch->ReadyPairedOffhand()||Pawn->IsReloading()||Pawn->IsTraversing()||IsEquipping())return false;
++    }
++    else if(!HasMeleeMoveset()||IsEquipping()||!Staff||!Staff->IsVisible()||!Arms||!Arms->IsVisible())return false;
+     if(UStaffOffhandMeleeComponent::IsEquippedOn(Pawn))
+     {
+         auto* Knife=Pawn->FindComponentByClass<UOffhandKukriComponent>();
+@@ -37,7 +41,6 @@
+     auto* Quick=Pawn->FindComponentByClass<UFPSQuickCombatComponent>();
+     if(!Quick)return false;
+     // Capture the live free arm before priority interruption changes its gait.
+-    auto* Torch=Pawn->FindComponentByClass<UWoodenTorchComponent>();
+     auto* StrikeHand=Torch&&Torch->HoldsLeft()&&TorchHand!=1?Torch->HandForMotion(1):Arms.Get();
+     if(!StrikeHand)return false;
+     // The lone left torch mirrors the completed pose. Its jab starts from the unmirrored carry keys.
+@@ -51,8 +54,8 @@
+ bool UStaffWeaponComponent::GetQuickCombatStrikeProbe(FVector& Origin,float /*ContactTime*/)
+ {
+     const auto* Quick=GetOwner()?GetOwner()->FindComponentByClass<UFPSQuickCombatComponent>():nullptr;
+-    if(!HasMeleeMoveset()||!IsQuickCombatActive()||!Quick||Quick->GetStyle()!=EQuickCombatStyle::StaffPunch)return false;
+     const auto* Torch=GetOwner()->FindComponentByClass<UWoodenTorchComponent>();
++    if((!HasMeleeMoveset()&&!(Torch&&Torch->UsesQuickAttack()))||!IsQuickCombatActive()||!Quick||Quick->GetStyle()!=EQuickCombatStyle::StaffPunch)return false;
+     auto* StrikeHand=Torch&&Torch->HoldsLeft()&&TorchHand!=1?Torch->HandForMotion(1):Arms.Get();
+     const FName Contact=TorchHand==1?TEXT("middle_01_r"):TEXT("middle_01_l");
+     if(!StrikeHand||StrikeHand->GetBoneIndex(Contact)==INDEX_NONE)return false;
+--- a/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
+@@ -88,6 +88,8 @@
+     const bool Active=I&&!P->ActiveProductionTool();
+     if(!Active)
+     {
++        // A resource or training update can republish the same book/pistol loadout during its torch jab.
++        if(Instance.IsEmpty())return;
+         Instance.Reset();Recipe.Reset();TorchHand=INDEX_NONE;CancelAction();ResetIllumination();Locomotion.Reset();
+         if(Load){Load->CancelHandle();Load.Reset();}
+         Staff->SetVisibility(false,true);Arms->SetVisibility(false);Arms->SetComponentTickEnabled(false);
+@@ -295,7 +297,7 @@
+     const bool Paired=bOffhandTorch&&TorchHand!=1;
+     auto* LeftMesh=Paired&&Torch?Torch->ReadyPairedOffhand():nullptr;
+     if(Paired?!LeftMesh:(!HasMeleeMoveset()||!Staff||!Staff->IsVisible()||(TorchHand==1&&!bOffhandTorch)))return;
+-    if(bOffhandTorch&&(!Torch||!Torch->HoldsLeft()||Pawn->IsOffhandReloadActive()||Pawn->IsReloading()
++    if(bOffhandTorch&&(!Torch||!Torch->UsesRightClickAttack()||Pawn->IsOffhandReloadActive()||Pawn->IsReloading()
+         ||Pawn->IsTraversing()||Pawn->IsSwitchingWeapon()||!Pawn->CanBeginConsumableUse()))return;
+     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
+     auto* P=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+@@ -412,7 +414,13 @@
+ }
+ void UStaffWeaponComponent::AdvanceActionBeforeCamera(float Delta)
+ {
+-    if((!HasMeleeMoveset()&&!IsPairedTorchSwing())||Delta<=0.f)return;
++    if(Delta<=0.f)return;
++    if(!HasMeleeMoveset()&&!IsPairedTorchSwing())
++    {
++        if(auto* Quick=GetOwner()->FindComponentByClass<UFPSQuickCombatComponent>();Quick&&Quick->GetStyle()==EQuickCombatStyle::StaffPunch)
++            Quick->AdvanceAction(Delta);
++        return;
++    }
+     // Equip and the paired draw use the same pre-camera frame; streaming never consumes the entry.
+     if(Arms&&Arms->IsVisible()&&Staff&&Staff->IsVisible())EquipAge+=Delta*LightningHaste::ActionSpeed(GetOwner());
+     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());if(!Pawn)return;

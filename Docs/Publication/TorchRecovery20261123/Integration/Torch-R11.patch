@@ -1,0 +1,460 @@
+--- a/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h
++++ b/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h
+@@ -64,10 +64,11 @@
+     TWeakObjectPtr<UFPSFootstepAudioComponent> Footsteps;
+     FStaffLocomotion Locomotion;
+     FString Instance,Recipe;
+-    int32 TorchHand=INDEX_NONE;
+     int32 AuthoredGripVariant=0;
+     float Age=-1,EquipAge=0,Damage=0,Duration=.5f;
+     bool bBlocked=false;
++    // Resolved per pawn on equip: INDEX_NONE for the staff, 0/1 for a held torch.
++    UPROPERTY(Transient, DuplicateTransient) int8 TorchHand=INDEX_NONE;
+     FColdSteelSkillShot Shot;
+     TSet<TWeakObjectPtr<AActor>> HitActors;
+     FTransform Previous=FTransform::Identity;
+--- a/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
+@@ -89,7 +89,7 @@
+     // Keep the equipped staff's sleeves/gloves resident through traversal's
+     // temporary render gate. Unequipping releases this retention above.
+     Arms->ComponentTags.AddUnique(TEXT("PreloadModularOutfit"));
+-    const int32 Side=ColdSteelInventory::IsWoodenTorch(*I)?(Main?0:1):INDEX_NONE;
++    const int8 Side=ColdSteelInventory::IsWoodenTorch(*I)?(Main?0:1):INDEX_NONE;
+     const auto Resolved=Side==INDEX_NONE?ColdSteelStaff::Resolve(*I):*I;
+     TArray<FSoftObjectPath> Paths;
+     if(Side==INDEX_NONE)ColdSteelStaffAssembly::Gather(Resolved,Paths);
+--- a/Source/FPSGAME/FPSGAMECharacterActionAvailability.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterActionAvailability.cpp
+@@ -175,6 +175,7 @@
+ }
+ bool AFPSGAMECharacter::IsLeftHandBusyForCast(bool bIgnoreDoorPush) const
+ {
++    if(Staff&&Staff->IsPairedTorchSwing())return true;
+     if(IsOffhandReloadTransition())return true;
+     if(UBoundCongregateCaptureComponent::IsCaptured(this))return true;
+     if(!bIgnoreDoorPush&&IsDoorPushActive())return true;
+@@ -266,6 +267,7 @@
+ }
+ bool AFPSGAMECharacter::IsCastBlockingLeftHandAction(bool bIgnoreDoorPush) const
+ {
++    if(Staff&&Staff->IsPairedTorchSwing())return true;
+     if(const auto* PS=GetPlayerState<AColdSteelPlayerState>();PS&&PS->HasAuthorityConsumableReservation(this))return true;
+     if(IsOffhandReloadTransition())return true;
+     if(!bIgnoreDoorPush&&IsDoorPushActive())return true;
+@@ -346,7 +348,7 @@
+         (WeaponState!=EAKMWeaponState::Idle && !(bAllowInspection && WeaponState==EAKMWeaponState::Inspecting));
+     const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();
+     return IsDoorPushActive() || IsTraversing() || Traversal->IsWeaponRecovering() || (RuneSword && RuneSword->IsBusy()) ||
+-        (Staff && Staff->HasMeleeMoveset() && Staff->IsBusy()) || bGunBusy ||
++        (Staff && (Staff->IsPairedTorchSwing() || (Staff->HasMeleeMoveset() && Staff->IsBusy()))) || bGunBusy ||
+         (QuickCombatPistol && QuickCombatPistol->IsOccupyingLeftHand()) ||
+         (OffhandKukri && (OffhandKukri->IsQuickCombatActive()||OffhandKukri->IsUppercutActive()));
+ }
+--- a/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterActionPriority.cpp
+@@ -10,6 +10,7 @@
+ #include "Weapons/RuneSwordComponent.h"
+ #include "Weapons/Bow/BowWeaponComponent.h"
+ #include "Weapons/Staff/StaffWeaponComponent.h"
++#include "Weapons/WoodenTorchComponent.h"
+ #include "Weapons/Kukri/KukriWeaponComponent.h"
+ #include "Weapons/Kukri/OffhandKukriComponent.h"
+ #include "Weapons/Spellbook/SpellbookComponent.h"
+@@ -59,6 +60,8 @@
+ bool AFPSGAMECharacter::CanStartQuickCombatPriority() const
+ {
+     if(UFPSPotionUseComponent::BlocksWeaponAttack(this))return false;
++    if(Staff&&Staff->IsPrimaryAttacking()&&(Staff->PrimaryTorchHand()!=INDEX_NONE||Staff->IsPairedTorchSwing()))return false;
++    if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&Torch->HoldsLeft()&&IsOffhandReloadActive())return false;
+     if(IsOffhandReloadTransition())return false;
+     if(const auto* Tool=FindComponentByClass<UProductionToolComponent>();Tool&&Tool->IsThunderRecallLocked())return false;
+     if(Spellbook&&Spellbook->IsFocusActive())return false;
+--- a/Source/FPSGAME/FPSGAMECharacterInput.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterInput.cpp
+@@ -179,7 +179,18 @@
+     Input->BindAction(TEXT("Fire"), IE_Released, this, &AFPSGAMECharacter::FireInputReleased);
+     Input->BindAction(TEXT("MainFireMode"), IE_Pressed, this, &AFPSGAMECharacter::MainFireModePressed);
+     Input->BindAction(TEXT("OffhandFireMode"), IE_Pressed, this, &AFPSGAMECharacter::OffhandFireModePressed);
+-    Input->BindAction(TEXT("Aim"), IE_Pressed, this, &AFPSGAMECharacter::AimPressed);
++    // Profile refresh and gunsmith preview can restore ADS programmatically.
++    // Only a fresh bound input press starts a left torch swing.
++    FInputActionBinding AimDown(TEXT("Aim"), IE_Pressed);
++    AimDown.ActionDelegate.GetDelegateForManualSet().BindWeakLambda(this,[this]()
++    {
++        const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();
++        if(!Torch||!Torch->HoldsLeft()){AimPressed();return;}
++        if(const auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Transferring())return;
++        if(Staff&&!IsAmmoWheelOpen()&&!IsSwitchingWeapon()&&!UFPSPotionUseComponent::BlocksWeaponAttack(this))
++            Staff->BeginPrimaryAttack(true);
++    });
++    Input->AddActionBinding(MoveTemp(AimDown));
+     Input->BindAction(TEXT("Aim"), IE_Released, this, &AFPSGAMECharacter::AimReleased);
+     Input->BindAction(TEXT("Reload"), IE_Pressed, this, &AFPSGAMECharacter::ReloadInputPressed);
+     Input->BindAction(TEXT("Reload"), IE_Released, this, &AFPSGAMECharacter::ReloadInputReleased);
+@@ -338,6 +349,8 @@
+ {
+     if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Transferring()){return;}
+     if(auto* Use=FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->HandlePrimaryPress())return;
++    if(Staff&&Staff->IsPairedTorchSwing())return;
++    if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&Torch->HoldsLeft()&&IsOffhandReloadActive())return;
+     InterruptWeaponInspection();
+     if(IsAmmoWheelOpen() || IsSwitchingWeapon())return;
+     if(IsDualWieldingPistols()){DualPistols->Trigger(0,true);return;}
+@@ -398,6 +411,7 @@
+     // 弓：左键一次按下＝弦上空先搭箭、已搭箭开始拉开；只有真实松手才结算发射。
+     if(Staff&&Staff->HasMeleeMoveset())
+     {
++        if(Staff->PrimaryTorchHand()==1)return; // An offhand torch takes its ordinary attack from RMB.
+         ExitSprintForWeapon();
+         auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+         if(Staff->IsEquipped()&&Model&&!Model->SelectedMagicSkill().IsNone())Model->PressStaffMagic();
+@@ -436,6 +450,7 @@
+ void AFPSGAMECharacter::FireInputReleased()
+ {
+     if(auto* Use=FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->HandlePrimaryRelease())return;
++    if(Staff&&Staff->IsPairedTorchSwing())return; // RMB required an idle main hand.
+     // Releasing a tap completes its punch; only priority interruption cancels it.
+     if(UnarmedIdle&&UnarmedIdle->IsEquipped()){UnarmedIdle->SetTriggerHeld(false);return;}
+     if(Staff&&Staff->HasMeleeMoveset())
+@@ -485,6 +500,7 @@
+     // 双持/法杖副手：右键盘手 1 只让机瞄节点指向目标。左手单持不同，
+     // 它要真正的开镜（WeaponADSFactor）来驱动左手网格的瞄具标定。
+     if(HasOffhandPistol()&&!IsLoneLeftHandRig()){DualPistols->Trigger(1,true);return;}
++    if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&Torch->HoldsLeft())return;
+     if(Staff&&Staff->IsEquipped()){if(Spellbook)Spellbook->ToggleFocus();return;}
+     if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&(Torch->HoldsRight()||(Torch->HoldsLeft()&&!HasInventoryWeapon())))return;
+     // 单手弯刀没有机瞄与格挡：右键不进入枪械开镜状态机。
+@@ -508,6 +524,7 @@
+ 
+ void AFPSGAMECharacter::AimReleased()
+ {
++    if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&Torch->HoldsLeft()){bAimHeld=false;return;}
+     if(HasOffhandPistol()&&!IsLoneLeftHandRig()){DualPistols->Trigger(1,false);bAimHeld=false;return;}
+     if(Staff&&Staff->HasMeleeMoveset()){bAimHeld=false;return;}
+     if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped()){bAimHeld=false;return;}
+--- a/Source/FPSGAME/FPSGAMECharacterOffhandReload.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterOffhandReload.cpp
+@@ -2,6 +2,7 @@
+ #include "FPSGAMEPlayerController.h"
+ #include "UI/ColdSteelStatusModel.h"
+ #include "Weapons/Spellbook/SpellbookComponent.h"
++#include "Weapons/WoodenTorchItem.h"
+ #include "Monsters/FPSCombatHealthComponent.h"
+ #include "Multiplayer/ColdSteelAuthorityContext.h"
+ #include "Engine/GameInstance.h"
+@@ -47,6 +48,7 @@
+     if(!Off||ColdSteelInventory::IsDualPistol(*Off))return false;
+     if(Spellbook)Spellbook->CancelFocus();
+     OffhandReload.Phase=EOffhandReloadPhase::Lower;
++    OffhandReload.bWaitForReloadEnd=ColdSteelInventory::IsWoodenTorch(*Off);
+     OffhandReload.Weapon=Main->InstanceId;OffhandReload.Offhand=Off->InstanceId;OffhandReload.Slot=Slot;
+     OffhandReload.StartedAt=GetWorld()->GetTimeSeconds();
+     OffhandReload.LowerDuration=FOffhandReloadHandoff::LowerSecondsFor(*Off);
+@@ -78,7 +80,7 @@
+ void AFPSGAMECharacter::BeginOffhandReloadReturnIfReady(float SourceTime)
+ {
+     // AdvanceReloadStages calls this only after any required cycle is completed.
+-    if(OffhandReload.Phase!=EOffhandReloadPhase::Reload||OffhandReload.bEarlyReturn||!bReloadAmmoCommitted)return;
++    if(OffhandReload.Phase!=EOffhandReloadPhase::Reload||OffhandReload.bWaitForReloadEnd||OffhandReload.bEarlyReturn||!bReloadAmmoCommitted)return;
+     // M1911/G18/Pit Viper share the native 120 fps magazine contacts. Normal
+     // loading must also finish the seat at 128; empty loading keeps slide release.
+     const float Release=bUseM1911&&!bPendingEmptyReload?FMath::Max(ReloadStages.Ready,128.f/120.f):ReloadStages.Ready;
+--- a/Source/FPSGAME/FPSGAMECharacterReloadInput.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterReloadInput.cpp
+@@ -167,6 +167,7 @@
+     // remote copy's empty-magazine tick must never consume the host's pouch.
+     if(IsM24Weapon()&&!IsLocallyControlled())return;
+     if(UFPSPotionUseComponent::BlocksWeaponAttack(this))return;
++    if(Staff&&Staff->IsPairedTorchSwing())return;
+     if(IsOffhandReloadTransition())return;
+     InterruptWeaponInspection();
+     if(IsChoosingAmmo())return;
+--- a/Source/FPSGAME/FPSGAMEConsumableUse.cpp
++++ b/Source/FPSGAME/FPSGAMEConsumableUse.cpp
+@@ -16,6 +16,9 @@
+ 
+ bool AFPSGAMECharacter::CanBeginConsumableUse() const
+ {
++    if(Staff&&Staff->IsPairedTorchSwing())return false;
++    if(IsOffhandReloadActive())
++        if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&Torch->HoldsLeft())return false;
+     if(IsDodging() || IsSliding() || IsChoosingAmmo())return false;
+     if(IsResolvingActionInterrupt() || IsTraversing() || IsCastBlockingLeftHandAction() || IsSpellGestureBlocking())return false;
+     if(const auto* Use=FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->IsReturningBow())return false;
+--- a/Source/FPSGAME/Items/FPSPotionUseComponent.cpp
++++ b/Source/FPSGAME/Items/FPSPotionUseComponent.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSPotionUseComponent.h"
++#include "../Weapons/WoodenTorchComponent.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+ #include "CampfireFoodCatalog.h"
+@@ -144,6 +145,7 @@
+     bOwnsPrimaryRelease = bActive || IsReturningBow();
+     if (!bOwnsPrimaryRelease) return false;
+     if (!bActive || bReturningFromMeal || !(bFood || bWater || bSoda)) return true;
++    if (const auto* Torch=GetOwner()->FindComponentByClass<UWoodenTorchComponent>(); Torch && (Torch->HoldsLeft() || Torch->HoldsRight())) return true;
+ 
+     if (!bStowOffhand || bWaitingForBow)
+     {
+--- a/Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp
+@@ -79,8 +79,13 @@
+         ||Now+.08<GenericMeleeReadyAt)return;
+     const auto* Smith=GetGameInstance()?GetGameInstance()->GetSubsystem<UGunsmithSystem>():nullptr;
+     const FColdSteelItem* Item=Family==Tool?Model->ActiveProductionTool():Model->Equipped();
+-    if(Family==Staff&&!Item)
+-        Item=ColdSteelInventory::StaffMeleeItem(nullptr,Model->Equipped(Model->Snapshot().ActiveWeaponSlot==6?8:11));
++    if(Family==Staff&&(!Item||Item->InstanceId!=Instance))
++    {
++        const auto* Off=Model->Equipped(Model->Snapshot().ActiveWeaponSlot==6?8:11);
++        if(!Off||Off->InstanceId!=Instance||!ColdSteelInventory::IsWoodenTorch(*Off)||Model->ActiveProductionTool())return;
++        if(Pawn->IsOffhandReloadActive()||Pawn->IsReloading()||!CanAuthorityBeginConsumable(Pawn))return;
++        Item=Off;
++    }
+     if(Family==Unarmed)
+     {
+         const int32 Active=Model->Snapshot().ActiveWeaponSlot,Offhand=Active==6?8:11;
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPistolAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPistolAuthority.cpp
+@@ -36,6 +36,7 @@
+         ||Pawn->IsTraversing()||ShadowModel->ActiveProductionTool()){Reject();return;}
+     const int32 OffSlot=ActiveSlot==6?8:11;
+     const auto* Main=ShadowModel->Equipped(ActiveSlot);const auto* Off=ShadowModel->Equipped(OffSlot);
++    if(Off&&ColdSteelInventory::IsWoodenTorch(*Off)&&(HasGenericMeleeBusy(Pawn)||HasAuthorityConsumableReservation(Pawn))){Reject();return;}
+     R.Side=Gun->Cell==OffSlot?1:0;
+     if(R.Side&&Main&&!ColdSteelInventory::IsDualPistol(*Main)&&!ColdSteelInventory::UsesStaffMelee(*Main)&&!G->IsStaff(Main->Definition)
+         &&!UKukriWeaponComponent::IsKukri(*Main)){Reject();return;}
+--- a/Source/FPSGAME/Skills/FPSCastingMeshComponent.cpp
++++ b/Source/FPSGAME/Skills/FPSCastingMeshComponent.cpp
+@@ -89,7 +89,8 @@
+ void UFPSCastingMeshComponent::ApplyOffhandReloadExit()
+ {
+     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
+-    if(!Pawn||Pawn->AKMViewmodel.Get()!=this||!(Pawn->HasOffhandSpellbook()||UOffhandKukriComponent::IsEquippedOn(Pawn))||!Pawn->IsOffhandReloadActive())
++    const auto* Torch=Pawn&&Pawn->IsOffhandReloadActive()?Pawn->FindComponentByClass<UWoodenTorchComponent>():nullptr;
++    if(!Pawn||Pawn->AKMViewmodel.Get()!=this||!(Pawn->HasOffhandSpellbook()||UOffhandKukriComponent::IsEquippedOn(Pawn)||(Torch&&Torch->HoldsLeft()))||!Pawn->IsOffhandReloadActive())
+     {OffhandReloadExitCameraPose.Reset();return;}
+     const auto* Camera=Pawn->FirstPersonCamera.Get();if(!Camera)return;
+     if(PoseMesh.Get()!=GetSkeletalMeshAsset())CacheCastSkeleton();
+--- a/Source/FPSGAME/Weapons/OffhandReloadHandoff.h
++++ b/Source/FPSGAME/Weapons/OffhandReloadHandoff.h
+@@ -22,6 +22,7 @@
+     float LowerDuration=LowerSeconds;
+     float ReturnWeight=1.f;
+     bool bReturnFromReload=false;
++    bool bWaitForReloadEnd=false;
+     bool bEarlyReturn=false,bReloadArmExit=false;
+     double ReturnStartedAt=0.0;
+     float RaiseDuration=RaiseSeconds;
+--- a/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
+@@ -49,6 +49,8 @@
+     const TCHAR* StaffImpactPath=TEXT("/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick.S_MeleeHit_Quick");
+ }
+ UStaffWeaponComponent::UStaffWeaponComponent(){PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostPhysics;}
++const TCHAR* UStaffWeaponComponent::SwingSoundPath(){return StaffSwingPath;}
++const TCHAR* UStaffWeaponComponent::ImpactSoundPath(){return StaffImpactPath;}
+ void UStaffWeaponComponent::BeginPlay()
+ {
+     Super::BeginPlay();auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());if(!Pawn){SetComponentTickEnabled(false);return;}
+@@ -76,6 +78,12 @@
+     if(!Staff||!Arms||!P)return;
+     const auto* Main=P->Equipped();
+     const auto* Off=P->Equipped(P->Snapshot().ActiveWeaponSlot==6?8:11);
++    if(PairedTorchMesh.IsValid())
++    {
++        if(P->ActiveProductionTool()||!Off||Off->InstanceId!=Shot.ItemInstance||!Main||Main->InstanceId!=SwingMainInstance)
++            CancelAction();
++        else if(Instance.IsEmpty())return; // A pistol profile refresh can arrive during the left swing.
++    }
+     const auto* I=ColdSteelInventory::StaffMeleeItem(Main,Off);
+     const bool Active=I&&!P->ActiveProductionTool();
+     if(!Active)
+@@ -175,6 +183,9 @@
+     // Lean the head forward and slightly inward to frame the upper shaft/head.
+     const FTransform Rest = StaffGripPose::RestContactInCamera();
+     FVector Pos=Rest.GetLocation()+Locomotion.Offset;
++    if(TorchHand==1)
++        if(const auto* Use=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->IsStowingOffhand()&&!Use->IsTwoHanded()&&!Use->IsOffhandWeaponHidden())
++            Pos+=FVector(-10.,3.,-58.)*Use->OffhandLowerWeight();
+     if(const auto* Pair=GetOwner()->FindComponentByClass<UStaffOffhandMeleeComponent>())Pos+=Pair->StaffOffset();
+     const float Equip=FMath::Clamp(EquipAge/.35f,0.f,1.f);Pos.Z-=35*(1-Equip)*(1-Equip);
+     FStaffCastPose Pose;Pose.Contact=FTransform(Locomotion.Rotation*Rest.GetRotation(),Pos);
+@@ -195,18 +206,25 @@
+ }
+ FStaffCastPose UStaffWeaponComponent::SamplePrimaryPose()const
+ {
+-    const auto Carry=CarryPoseInCamera();
++    FStaffCastPose Carry;
++    if(IsPairedTorchSwing())Carry.Contact=StaffGripPose::RestContactInCamera();
++    else Carry=CarryPoseInCamera();
+     const float Recovery=bBlocked?StaffCastMotion::Ease((Age-BlockedAge)/FMath::Max(.01f,Duration-BlockedAge)):0.f;
+     auto Pose=bBlocked
+         ?StaffCastMotion::Blend(BlockedPose,Carry,Recovery)
+         :StaffPrimaryAttackMotion::Sample(AttackEntry,Carry,Age/Duration);
+-    if(Arms)
++    const auto* Offhand=IsPairedTorchSwing()?Cast<UWoodenTorchArmsComponent>(PairedTorchMesh->GetAttachParent()):nullptr;
++    if(Offhand||Arms)
+     {
+         // Shoulder and elbow FK determine the hand and shaft, including between
+         // keys. Do not independently lerp a hand pivot and rotate the arm to it.
+-        Pose.Contact=Arms->AuthoredContactInCamera(Pose,AuthoredGripVariant);
++        const auto Contact=[&](const FStaffCastPose& Key)
++        {
++            return Offhand?Offhand->AuthoredSwingContact(Key):Arms->AuthoredContactInCamera(Key,AuthoredGripVariant);
++        };
++        Pose.Contact=Contact(Pose);
+         const auto& From=bBlocked?BlockedPose:Age<Duration*.4f?AttackEntry:Carry;
+-        const FTransform Base=Arms->AuthoredContactInCamera(From,AuthoredGripVariant);
++        const FTransform Base=Contact(From);
+         const FTransform Delta=Base.Inverse()*From.Contact;
+         float Weight=0.f;
+         for(int32 I=0;I<6;++I)Weight+=Pose.ArmWeights[I];
+@@ -215,7 +233,7 @@
+         Pose.Contact=Pose.Contact*Correction;
+         if(bBlocked)
+         {
+-            const FTransform CarryBase=Arms->AuthoredContactInCamera(Carry,AuthoredGripVariant);
++            const FTransform CarryBase=Contact(Carry);
+             Correction.Blend(FTransform::Identity,CarryBase.Inverse()*Carry.Contact,Recovery);
+             Pose.Contact=Pose.Contact*Correction;
+         }
+@@ -224,6 +242,7 @@
+ }
+ FStaffCastPose UStaffWeaponComponent::ActionPoseInCamera() const
+ {
++    if(IsPairedTorchSwing())return CarryPoseInCamera(); // The other hand owns this strike.
+     if(const auto* Pair=GetOwner()->FindComponentByClass<UStaffOffhandMeleeComponent>();Pair&&Pair->IsActionPresentationActive())
+         return Pair->ActionStaffPose(CarryPoseInCamera());
+     if(Age<0.f)return CastingPoseInCamera();
+@@ -232,7 +251,8 @@
+ FTransform UStaffWeaponComponent::AttackRootInCamera(bool bFeedback)const
+ {
+     const auto Pose=bFeedback?ActionPoseInCamera():SamplePrimaryPose();
+-    const FTransform Contact=TorchHand==1?UWoodenTorchArmsComponent::MirrorContact(Pose.Contact):Pose.Contact;
++    const bool Left=TorchHand==1||(!bFeedback&&IsPairedTorchSwing());
++    const FTransform Contact=Left?UWoodenTorchArmsComponent::MirrorContact(Pose.Contact):Pose.Contact;
+     const FQuat Rotation=Contact.GetRotation();
+     return FTransform(Rotation,Contact.GetLocation()-Rotation.RotateVector(StaffGripPose::HoldPoint()));
+ }
+@@ -263,28 +283,54 @@
+     StaffPrimaryAttackMotion::Camera(-1.f,ImpactAge,ImpactStrength,Kick,Turn);
+     Location+=Kick;Rotation+=Turn;
+ }
+-void UStaffWeaponComponent::BeginPrimaryAttack()
+-{
+-    auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());if(!HasMeleeMoveset()||IsBusy()||!Pawn||!Staff||!Staff->IsVisible()||Pawn->IsSpellGestureBlocking()||Pawn->IsCastBlockingLeftHandAction())return;
++FStaffCastPose UStaffWeaponComponent::OffhandSwingPose() const
++{
++    return StaffPrimaryAttackMotion::Recoil(SamplePrimaryPose(),ImpactAge,ImpactStrength);
++}
++void UStaffWeaponComponent::BeginPrimaryAttack(bool bOffhandTorch)
++{
++    auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
++    if(!Pawn||IsBusy()||Pawn->IsSpellGestureBlocking()||Pawn->IsCastBlockingLeftHandAction())return;
++    const auto* Torch=Pawn->FindComponentByClass<UWoodenTorchComponent>();
++    const bool Paired=bOffhandTorch&&TorchHand!=1;
++    auto* LeftMesh=Paired&&Torch?Torch->ReadyPairedOffhand():nullptr;
++    if(Paired?!LeftMesh:(!HasMeleeMoveset()||!Staff||!Staff->IsVisible()||(TorchHand==1&&!bOffhandTorch)))return;
++    if(bOffhandTorch&&(!Torch||!Torch->HoldsLeft()||Pawn->IsOffhandReloadActive()||Pawn->IsReloading()
++        ||Pawn->IsTraversing()||Pawn->IsSwitchingWeapon()||!Pawn->CanBeginConsumableUse()))return;
+     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
+     auto* P=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+-    const auto* I=ColdSteelInventory::StaffMeleeItem(P->Equipped(),P->Equipped(P->Snapshot().ActiveWeaponSlot==6?8:11));
+-    if(!I||I->InstanceId!=Instance)return;
++    const auto* Main=P->Equipped();
++    const auto* Off=P->Equipped(P->Snapshot().ActiveWeaponSlot==6?8:11);
++    const auto* I=bOffhandTorch?Off:ColdSteelInventory::StaffMeleeItem(Main,Off);
++    if(!I||P->ActiveProductionTool()||(bOffhandTorch&&!ColdSteelInventory::IsWoodenTorch(*I))
++        ||(Paired?(!Main||I->InstanceId!=Torch->LeftInstance()):I->InstanceId!=Instance))return;
+     uint32 GenericReceipt=0;
+     if(GetNetMode()!=NM_Standalone)
+     {
+         auto* Net=Pawn->GetPlayerState<AColdSteelPlayerState>();
+         if(!Net)return;
+-        GenericReceipt=Net->RequestGenericMeleeStart(Pawn,Instance,ColdSteelGenericMelee::Staff,0);
++        GenericReceipt=Net->RequestGenericMeleeStart(Pawn,I->InstanceId,ColdSteelGenericMelee::Staff,0);
+         if(!GenericReceipt)return;
+     }
+     // Match ordinary punches: debit once on entry, including misses; failed
+     // payment leaves the carry/action state untouched and cancellation refunds nothing.
+     if(!P->SpendStamina(ColdSteelMelee::UnarmedAttackStamina(P)))return;
++    if(bOffhandTorch)Pawn->ExitSprintForWeapon();
+     Damage=ColdSteelWeaponStats::Damage(*I,P,3);Duration=FMath::Max(.1,double(ColdSteelWeaponStats::Interval(I,P,.5)))/LightningHaste::ActionSpeed(GetOwner());
+     Shot=ColdSteelSkills::Snapshot(Pawn,I);Shot.bRifle=false;Shot.bPistol=false;Shot.WeakpointPercent=0;Shot.AttackForm=EMonsterAttackForm::Blunt;Shot.bMeleeStrike=true;
+     Shot.GenericMeleeSerial=GenericReceipt;
+-    const auto Entry=CarryPoseInCamera();CancelAction();AttackEntry=Entry;Age=0;
++    CancelAction();
++    PairedTorchMesh=LeftMesh;
++    if(Paired)
++    {
++        SwingMainInstance=Main->InstanceId;
++        AttackEntry=FStaffCastPose();
++        AttackEntry.Contact=StaffGripPose::RestContactInCamera();
++        SwingSound=Cast<USoundBase>(FSoftObjectPath(StaffSwingPath).ResolveObject());
++        ImpactSound=Cast<USoundBase>(FSoftObjectPath(StaffImpactPath).ResolveObject());
++    }
++    else AttackEntry=CarryPoseInCamera();
++    Age=0;
+     Previous=AttackRootInCamera(false)*Pawn->GetMeleeAimTransform();
+ }
+ void UStaffWeaponComponent::CancelAction()
+@@ -292,6 +338,7 @@
+     if(IsQuickCombatActive())
+         if(auto* Quick=GetOwner()->FindComponentByClass<UFPSQuickCombatComponent>())Quick->Cancel();
+     IlluminationGestureAge=-1.f;
++    PairedTorchMesh.Reset();SwingMainInstance.Reset();
+     Age=-1;HitActors.Reset();bBlocked=false;HitStopRemaining=0;ImpactAge=-1;ImpactStrength=0;
+     bSwingSoundPlayed=false;bAirImpulse=false;bImpactConfirmed=false;
+ }
+@@ -329,7 +376,8 @@
+         Contacts.Append(MeleeSmallTargets::QueryQuickAreaContacts(GetWorld(),Pawn,Aim,Start,Reach,Radius));
+     // Keep actual shaft/tip contact with scenery and its blocked recovery.
+     // Monster damage now comes exclusively from the shared range query above.
+-    const float Length=TorchHand==INDEX_NONE?48.f:Staff->GetStaticMesh()->GetBoundingBox().Max.Z;
++    const auto* TorchMesh=IsPairedTorchSwing()?PairedTorchMesh.Get():TorchHand!=INDEX_NONE?Staff.Get():nullptr;
++    const float Length=TorchMesh&&TorchMesh->GetStaticMesh()?TorchMesh->GetStaticMesh()->GetBoundingBox().Max.Z:48.f;
+     for(int32 Segment=0;Segment<=6;++Segment)
+     {
+         const FVector Local=StaffGripPose::HoldPoint()+FVector::UpVector*(Segment*Length/6.f);
+@@ -362,7 +410,7 @@
+ }
+ void UStaffWeaponComponent::AdvanceActionBeforeCamera(float Delta)
+ {
+-    if(!HasMeleeMoveset()||Delta<=0.f)return;
++    if((!HasMeleeMoveset()&&!IsPairedTorchSwing())||Delta<=0.f)return;
+     // Equip and the paired draw use the same pre-camera frame; streaming never consumes the entry.
+     if(Arms&&Arms->IsVisible()&&Staff&&Staff->IsVisible())EquipAge+=Delta*LightningHaste::ActionSpeed(GetOwner());
+     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());if(!Pawn)return;
+@@ -409,6 +457,7 @@
+         if(Age>=Duration)
+         {
+             Age=-1;HitActors.Reset();bBlocked=false;HitStopRemaining=0;
++            PairedTorchMesh.Reset();SwingMainInstance.Reset();
+         }
+     }
+     if(ImpactAge>=0.f)
+--- a/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h
++++ b/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h
+@@ -41,7 +41,11 @@
+     bool GetQuickCombatStrikeProbe(FVector& Origin,float ContactTime);
+     bool IsPrimaryAttacking()const{return Age>=0.f;}
+     bool CanBeginCast()const;
+-    void BeginPrimaryAttack();
++    void BeginPrimaryAttack(bool bOffhandTorch=false);
++    bool IsPairedTorchSwing() const { return Age>=0.f && PairedTorchMesh.IsValid(); }
++    FStaffCastPose OffhandSwingPose() const;
++    static const TCHAR* SwingSoundPath();
++    static const TCHAR* ImpactSoundPath();
+     void ToggleIllumination();
+     bool HasIlluminationSpecial()const{return IsEquipped()&&bCanIlluminate;}
+     bool IsIlluminationOn()const{return HasIlluminationSpecial()&&bIlluminationOn;}
+@@ -93,4 +97,6 @@
+     float IlluminationGestureAge=-1.f;
+     FStaffCastPose SampleIlluminationGesture(const FStaffCastPose& Carry)const;
+     void PublishIllumination();
++    UPROPERTY(Transient, DuplicateTransient) TWeakObjectPtr<UStaticMeshComponent> PairedTorchMesh;
++    FString SwingMainInstance;
+ };

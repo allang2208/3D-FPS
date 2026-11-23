@@ -1,0 +1,16 @@
+[
+  {
+    "view": "inward",
+    "median_frame_ms": 29.5,
+    "median_GPU_ms": 26.94,
+    "trace_covers_window": true,
+    "capture": "performance-20261122-071647-280B8FC9417422D687105184CED2528D.json"
+  },
+  {
+    "view": "outward",
+    "median_frame_ms": 23.34,
+    "median_GPU_ms": 18.91,
+    "trace_covers_window": false,
+    "capture": "performance-20261122-071716-04F96A3E4DB483570A9B87BB86326A91.json"
+  }
+]

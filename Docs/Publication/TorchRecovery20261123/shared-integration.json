@@ -1,0 +1,247 @@
+[
+  {
+    "stage": "MagicCrystalCopy",
+    "file": "Integration/MagicCrystalCopy.patch",
+    "paths": [
+      "SourceAssets/WorkbenchCopy20261101/copy_rules.py",
+      "SourceAssets/StarMarrowCharge20261103/update_source.py",
+      "SourceAssets/MagicCrystalSword20261101/DenseCrystalV4/finalize.py",
+      "Content/ColdSteelData/melee-gunsmith.json",
+      "SourceAssets/SharedSwordGrips20260927/import_grips.py",
+      "Content/ColdSteelData/shared-sword-pommels.json",
+      "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "Source/FPSGAME/Weapons/MeleeGunsmith.cpp",
+      "Content/ColdSteelData/items.json"
+    ]
+  },
+  {
+    "stage": "StaffOffhand",
+    "file": "Integration/StaffOffhand.patch",
+    "paths": [
+      "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffOffhandMeleeComponent.h",
+      "Source/FPSGAME/Weapons/Staff/StaffOffhandMeleeComponent.cpp",
+      "SourceAssets/ApprenticeStaff20260927/create_catalog.py"
+    ]
+  },
+  {
+    "stage": "Workstations",
+    "file": "Integration/Workstations.patch",
+    "paths": [
+      "Source/FPSGAME/UI/ColdSteelIncineratorStorage.cpp",
+      "Source/FPSGAME/UI/ColdSteelIncineratorStorage.h",
+      "Source/FPSGAME/UI/ColdSteelIncineratorWidget.cpp",
+      "Source/FPSGAME/UI/ColdSteelWorkbenchHUD.cpp",
+      "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+      "Source/FPSGAME/UI/ColdSteelWorldInteraction.h"
+    ]
+  },
+  {
+    "stage": "Torch-R01",
+    "file": "Integration/Torch-R01.patch",
+    "paths": [
+      "Config/DefaultGame.ini",
+      "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp",
+      "Source/FPSGAME/FPSGAMECharacter.cpp",
+      "Source/FPSGAME/FPSGAMECharacterActionAvailability.cpp",
+      "Source/FPSGAME/FPSGAMECharacterInput.cpp",
+      "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+      "Source/FPSGAME/FPSGAMEConsumableUse.cpp",
+      "Source/FPSGAME/Movement/FPSDoorPushComponent.cpp",
+      "Source/FPSGAME/Movement/FPSDoorPushComponent.h",
+      "Source/FPSGAME/Skills/FPSCastingMeshComponent.cpp",
+      "Source/FPSGAME/Skills/SwordUppercutWeapon.h",
+      "Source/FPSGAME/UI/ColdSteelAmmoReadout.cpp",
+      "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "Source/FPSGAME/UI/ColdSteelItemTooltipSummary.cpp",
+      "Source/FPSGAME/UI/ColdSteelProfileItems.cpp",
+      "Source/FPSGAME/UI/ColdSteelWarehouseModel.cpp",
+      "Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.cpp",
+      "Source/FPSGAME/Weapons/Kukri/KukriArmsMeshComponent.h",
+      "Source/FPSGAME/Weapons/Kukri/OffhandKukriThrust.h",
+      "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "Source/FPSGAME/Weapons/PistolDualEquipment.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffOffhandMeleeComponent.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffOffhandMeleeQuickCombat.cpp"
+    ]
+  },
+  {
+    "stage": "Torch-R02",
+    "file": "Integration/Torch-R02.patch",
+    "paths": [
+      "Source/FPSGAME/Characters/FPSPlayerBodyKukri.cpp",
+      "Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp"
+    ]
+  },
+  {
+    "stage": "Torch-R06",
+    "file": "Integration/Torch-R06.patch",
+    "paths": [
+      "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp",
+      "Source/FPSGAME/Characters/FPSPlayerBodyKukri.cpp",
+      "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp"
+    ]
+  },
+  {
+    "stage": "Torch-R09",
+    "file": "Integration/Torch-R09.patch",
+    "paths": [
+      "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "Source/FPSGAME/FPSGAMECharacterActionAvailability.cpp",
+      "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+      "Source/FPSGAME/FPSGAMECharacterInput.cpp",
+      "Source/FPSGAME/FPSGAMECharacterReloadInput.cpp",
+      "Source/FPSGAME/FPSGAMECharacterWeaponState.cpp",
+      "Source/FPSGAME/FPSGAMEConsumableUse.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelPistolAuthority.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelPlayerHitValidation.cpp",
+      "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "Source/FPSGAME/Skills/SwordUppercutWeapon.h",
+      "Source/FPSGAME/Skills/WhirlwindWeapon.h",
+      "Source/FPSGAME/UI/ColdSteelEnhancementSystem.cpp",
+      "Source/FPSGAME/UI/ColdSteelProfileItems.cpp",
+      "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+      "Source/FPSGAME/Weapons/Kukri/OffhandKukriThrust.h",
+      "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+      "Source/FPSGAME/Weapons/PistolDualEquipment.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffArmsMeshComponent.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffArmsMeshComponent.h",
+      "Source/FPSGAME/Weapons/Staff/StaffOffhandMeleeComponent.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffOffhandMeleeQuickCombat.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffQuickCombat.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h"
+    ]
+  },
+  {
+    "stage": "Torch-R11",
+    "file": "Integration/Torch-R11.patch",
+    "paths": [
+      "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h",
+      "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp",
+      "Source/FPSGAME/FPSGAMECharacterActionAvailability.cpp",
+      "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+      "Source/FPSGAME/FPSGAMECharacterInput.cpp",
+      "Source/FPSGAME/FPSGAMECharacterOffhandReload.cpp",
+      "Source/FPSGAME/FPSGAMECharacterReloadInput.cpp",
+      "Source/FPSGAME/FPSGAMEConsumableUse.cpp",
+      "Source/FPSGAME/Items/FPSPotionUseComponent.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelPistolAuthority.cpp",
+      "Source/FPSGAME/Skills/FPSCastingMeshComponent.cpp",
+      "Source/FPSGAME/Weapons/OffhandReloadHandoff.h"
+    ]
+  },
+  {
+    "stage": "Torch-R12",
+    "file": "Integration/Torch-R12.patch",
+    "paths": [
+      "Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp",
+      "Source/FPSGAME/Skills/QuickCombatContact.cpp",
+      "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp",
+      "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h",
+      "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp"
+    ]
+  },
+  {
+    "stage": "Torch-R13",
+    "file": "Integration/Torch-R13.patch",
+    "paths": [
+      "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+      "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp",
+      "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+      "Source/FPSGAME/FPSGAMECharacterInput.cpp",
+      "Source/FPSGAME/FPSGAMEConsumableUse.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp",
+      "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "Source/FPSGAME/UI/ColdSteelProfileItems.cpp",
+      "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp",
+      "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h",
+      "Source/FPSGAME/Weapons/Spellbook/SpellbookComponent.h",
+      "Source/FPSGAME/Weapons/Staff/StaffQuickCombat.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp"
+    ]
+  },
+  {
+    "stage": "Torch-R14",
+    "file": "Integration/Torch-R14.patch",
+    "paths": [
+      "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp",
+      "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+      "Source/FPSGAME/UI/ColdSteelItemTooltip.cpp",
+      "Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp",
+      "Source/FPSGAME/UI/ColdSteelItemTooltipData.h",
+      "Source/FPSGAME/UI/ColdSteelItemTooltipLayout.cpp",
+      "Source/FPSGAME/UI/ColdSteelProfileItems.cpp",
+      "Source/FPSGAME/UI/ColdSteelProfilePawn.cpp",
+      "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "Source/FPSGAME/WeaponWeatherStateComponent.cpp",
+      "Source/FPSGAME/WeaponWeatherStateComponent.h"
+    ]
+  },
+  {
+    "stage": "Torch-R15",
+    "file": "Integration/Torch-R15.patch",
+    "paths": [
+      "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+      "Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelPlayerHitValidation.cpp",
+      "Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp",
+      "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+      "Source/FPSGAME/Skills/FPSQuickCombatComponent.cpp",
+      "Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+      "Source/FPSGAME/Skills/QuickCombatContact.cpp",
+      "Source/FPSGAME/Skills/QuickCombatPresentation.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffArmsMeshComponent.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffQuickCombat.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h"
+    ]
+  },
+  {
+    "stage": "Torch-R16",
+    "file": "Integration/Torch-R16.patch",
+    "paths": [
+      "Source/FPSGAME/Weapons/Staff/StaffQuickCombat.cpp"
+    ]
+  },
+  {
+    "stage": "Torch-R17",
+    "file": "Integration/Torch-R17.patch",
+    "paths": [
+      "Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelPistolAuthority.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelPlayerHitValidation.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp",
+      "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+      "Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp",
+      "Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp",
+      "Source/FPSGAME/Skills/ColdSteelSkillRules.h",
+      "Source/FPSGAME/Skills/ConversationCombatAudit20261108.cpp",
+      "Source/FPSGAME/Skills/FPSQuickCombatComponent.h",
+      "Source/FPSGAME/Skills/QuickCombatContact.cpp",
+      "Source/FPSGAME/UI/ColdSteelProfilePawn.cpp",
+      "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp",
+      "Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h",
+      "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp",
+      "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h"
+    ]
+  }
+]

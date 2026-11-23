@@ -1,0 +1,417 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp
+@@ -71,6 +71,7 @@
+ #include "../Skills/FireMagicTypes.h"
+ #include "../Skills/ElectricMagicTypes.h"
+ #include "../UI/ColdSteelStatusModel.h"
++#include "../Weapons/WoodenTorchItem.h"
+ #include "../UI/ColdSteelCurrency.h"
+ #include "../UI/ColdSteelInventoryTypes.h"
+ #include "../UI/ColdSteelEnhancementSystem.h"
+@@ -293,6 +294,11 @@
+         for(auto& Item:Adopted.Items)
+         {
+             const auto* Previous=Prev.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Item.InstanceId;});
++            if(Previous&&ColdSteelInventory::IsWoodenTorch(*Previous))
++            {
++                if(Item.Definition!=Previous->Definition){Item=*Previous;continue;}
++                Item.TorchBurnedSeconds=Previous->TorchBurnedSeconds;
++            }
+             if(!Previous||ColdSteelFood::LifetimeDays(*Previous)<=0.)continue;
+             if(Item.Definition!=Previous->Definition){Item=*Previous;continue;}
+             // Food definitions have no client-authored processing fields. Keep
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp
+@@ -69,6 +69,7 @@
+ #include "../Skills/FireMagicTypes.h"
+ #include "../Skills/ElectricMagicTypes.h"
+ #include "../UI/ColdSteelStatusModel.h"
++#include "../Weapons/WoodenTorchItem.h"
+ #include "../UI/ColdSteelCurrency.h"
+ #include "../UI/ColdSteelInventoryTypes.h"
+ #include "../UI/ColdSteelEnhancementSystem.h"
+@@ -169,9 +170,16 @@
+         Save->Profile = ShadowModel->Snapshot();
+         const double FoodDay=Save->Profile.FoodClockDay;
+         Save->Profile.FoodClockDay=0.;
++        // Prediction drives the owner's clock between mirrors. Only a minute boundary
++        // or another profile change needs to carry a new exact fuel checkpoint.
++        for(auto& Item:Save->Profile.Items)if(Item.TorchBurnedSeconds>0.)
++            Item.TorchBurnedSeconds=60.*FMath::FloorToInt(Item.TorchBurnedSeconds/60.);
+         TArray<uint8> WithoutFoodTime;
+         if(!SaveToBlob(Save,WithoutFoodTime)||(!bGunsmithReplyPending&&WithoutFoodTime==LastMirrorWithoutFoodTime))return;
+         Save->Profile.FoodClockDay=FoodDay;
++        const auto& LiveItems=ShadowModel->Items();
++        for(int32 I=0;I<LiveItems.Num();++I)
++            Save->Profile.Items[I].TorchBurnedSeconds=LiveItems[I].TorchBurnedSeconds;
+         TArray<uint8> Blob;
+         if (!SaveToBlob(Save, Blob) || (!bGunsmithReplyPending&&(Blob == LastAppliedBlob || Blob == LastMirrorBlob))) return;
+         LastMirrorWithoutFoodTime=MoveTemp(WithoutFoodTime);
+@@ -274,6 +282,7 @@
+     P.IceWallReservedMana = 0.f;
+     P.TreeGrowthDay = 0.0;
+     P.FoodClockDay = 0.0;
++    for(auto& Item:P.Items)Item.TorchBurnedSeconds=0.;
+     P.ForgeJob={};P.GunAssemblyJob={};P.WoodworkingJob={};P.AlchemyJob={};P.EnhancementItem={};
+     P.BlacksmithApprenticeshipStage=0;
+     P.CarpenterApprenticeshipStage=0;
+@@ -605,6 +614,10 @@
+     else
+     {
+         FColdSteelProfile Merged = Model->Snapshot();
++        if(!bCampfireInventoryChanged)
++            for(auto& I:Merged.Items)if(ColdSteelInventory::IsWoodenTorch(I))
++                if(const auto* Server=Save->Profile.Items.FindByPredicate([&](const auto& S){return S.InstanceId==I.InstanceId;}))
++                    I.TorchBurnedSeconds=Server->TorchBurnedSeconds;
+         // Resolve accepted/rejected customization even while unrelated local
+         // health or training changes make the full-profile comparison dirty.
+         for(auto& Item:Merged.Items)if(ResolvedGunsmithInstances.Contains(Item.InstanceId))
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -192,6 +192,7 @@
+ public:
+     /** 服务端：影子档案落盘到主机磁盘（玩家离开时由 NetWorldSubsystem 调用）。 */
+     bool SaveShadowToHostDisk();
++    void MarkGuestProfileDirty() { bServerDirty=true; }
+     void PrepareForDisconnect();
+     const FString& CampfireGuestSlot() const { return SlotName; }
+     /** UI sends intents on the owned PlayerState channel, never on a world-owned campfire. */
+--- a/Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp
+@@ -6,6 +6,7 @@
+ #include "ColdSteelStatusModel.h"
+ #include "ColdSteelUIStyle.h"
+ #include "ColdSteelFoodPresentation.h"
++#include "../Weapons/WoodenTorchItem.h"
+ #include "ColdSteelItemRarity.h"
+ #include "../Items/FoodSpoilage.h"
+ #include "GunsmithUIStyle.h"
+@@ -85,7 +86,9 @@
+         auto& P=Presentation.Add(I.InstanceId);Data->TryGetStringField(TEXT("name"),P.Name);
+         P.SpoilDays=ColdSteelFood::LifetimeDays(I);
+         const bool FoodInView=bWarehouse?(Model->InOpenStorage(I)&&I.Cell>=StorageStart()&&I.Cell<StorageStart()+StorageRows()*18):(I.Place==0||I.Place==ColdSteelCompartment::Place);
+-        bFoodVisible|=FoodInView&&P.SpoilDays>0;
++        if(IsWoodenTorch(I))
++            P.SpoilProgress=ColdSteelFoodUI::Progress(TorchFuelRemaining(I),TorchFuelSeconds);
++        bFoodVisible|=(FoodInView&&P.SpoilDays>0)||(!bWarehouse&&I.Place==1&&IsWoodenTorch(I));
+         // 口径与 ColdSteelInventory::IsMeleeWeapon 一致（符文剑、斧／镐、weapon_melee 类别），
+         // 但 category 直接从这份已解析的 Data 取，不在每帧绘制里重读 Item.Data。
+         FString Category;Data->TryGetStringField(TEXT("category"),Category);
+@@ -124,10 +127,12 @@
+     for(const auto& I:Model->Items())
+     {
+         const bool InView=bWarehouse?(Model->InOpenStorage(I)&&I.Cell>=StorageStart()&&I.Cell<StorageStart()+StorageRows()*18):(I.Place==0||I.Place==ColdSteelCompartment::Place);
+-        if(!InView)continue;
+-        auto* P=Presentation.Find(I.InstanceId);if(!P||P->SpoilDays<=0)continue;
+-        const double Remaining=Model->FoodRemainingDays(I);
+-        const float Progress=ColdSteelFoodUI::Progress(Remaining,P->SpoilDays);
++        const bool EquippedTorch=!bWarehouse&&I.Place==1&&IsWoodenTorch(I);
++        if(!InView&&!EquippedTorch)continue;
++        auto* P=Presentation.Find(I.InstanceId);
++        if(!P||(!EquippedTorch&&P->SpoilDays<=0))continue;
++        const float Progress=EquippedTorch?ColdSteelFoodUI::Progress(TorchFuelRemaining(I),TorchFuelSeconds):
++            ColdSteelFoodUI::Progress(Model->FoodRemainingDays(I),P->SpoilDays);
+         Changed|=!FMath::IsNearlyEqual(Progress,P->SpoilProgress);
+         P->SpoilProgress=Progress;
+     }
+@@ -187,8 +192,8 @@
+         if(SelectedItem)Box(X+2,Y+9,2,H-18,GunsmithUI::Silver,FLinearColor::Transparent,0,0,3);
+         if(Name){for(int32 N=1;N<I.Width;++N)Box(X+N*L.Cell,Y+2,1,H-4,GunsmithUI::Gray(220,10),FLinearColor::Transparent,0);for(int32 N=1;N<I.Height;++N)Box(X+2,Y+N*L.Cell,W-4,1,GunsmithUI::Gray(220,10),FLinearColor::Transparent,0);}
+         const float Left=4,Right=4;
+-        const bool Perishable=Name&&!Hotbar&&P&&P->SpoilDays>0;
+-        const float FoodFooter=Perishable?7.f:0.f;
++        const bool HasLifetimeBar=P&&!Hotbar&&((Name&&P->SpoilDays>0)||IsWoodenTorch(I));
++        const float FoodFooter=HasLifetimeBar?7.f:0.f;
+         const float CornerInset=Stroke-ColdSteelUI::ProcessingCornerUnderlap;
+         const float CornerRadius=FMath::Max(0.f,CardRadius-CornerInset);
+         const float CornerSize=FMath::Max(CornerRadius,FMath::Min(FMath::Clamp(H*.28f,7.f,18.f),(W-6)/3));
+@@ -248,7 +253,7 @@
+                 Label(LevelText,X+4,Y+H-FontSize-4,FontSize,GunsmithUI::Text,Width-2,true);
+             }
+         }
+-        if(Perishable)
++        if(HasLifetimeBar)
+         {
+             const float Progress=P->SpoilProgress;
+             const float Remaining=ColdSteelFoodUI::Remaining(Progress);
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+@@ -49,6 +49,8 @@
+     UPROPERTY() double FoodAgeDays=0.;
+     UPROPERTY() double FoodSampleDay=0.;
+     UPROPERTY() FGuid FoodClockId;
++    // Spent fuel travels with this instance. Old and newly crafted torches start full.
++    UPROPERTY() double TorchBurnedSeconds=0.;
+ };
+ 
+ /** Catalog row for the F6 development panel: definition id, display name and grouped class. */
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltip.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltip.cpp
+@@ -53,7 +53,7 @@
+ {
+     FString Result=bPinned?TEXT("detail"):TEXT("summary");
+     Result+=Presentation.bWideIcon?TEXT("|wide"):TEXT("|square");
+-    Result+=Presentation.FoodLifetimeDays>0?TEXT("|food-bar"):TEXT("|no-food-bar");
++    Result+=Presentation.HasLifetimeBar()?TEXT("|lifetime-bar"):TEXT("|no-lifetime-bar");
+     auto Rows=[&](const TArray<FColdSteelTooltipRow>& Values)
+     {for(const auto& R:Values)Result+=FString::Printf(TEXT("|%d:%d:%d:%d:%d:%d:%s"),R.bSection,R.bContinuation,R.bStacked,R.bDashedAfter,R.bPreview,R.Tone,*R.Label);};
+     Rows(Presentation.Summary);
+@@ -191,7 +191,7 @@
+ void UColdSteelItemTooltip::NativeTick(const FGeometry& Geometry,float Delta)
+ {
+     Super::NativeTick(Geometry,Delta);if(!IsVisible())return;
+-    if(Presentation.FoodLifetimeDays>0)
++    if(Presentation.HasLifetimeBar())
+     {
+         FoodRefreshSeconds+=Delta;
+         if(FoodRefreshSeconds>=1.f)
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -69,6 +69,20 @@
+ 
+ void RefreshColdSteelFoodTooltip(const FColdSteelItem& I,UColdSteelStatusModel* Model,FColdSteelTooltipContent& Out)
+ {
++    if(Out.bTorchFuel)
++    {
++        const double Remaining=ColdSteelInventory::TorchFuelRemaining(I);
++        const int32 Rate=Model?Model->TorchBurnRate(I):1;
++        const int32 Seconds=FMath::CeilToInt(Remaining/Rate);
++        Out.FoodProgress=ColdSteelFoodUI::Progress(Remaining,ColdSteelInventory::TorchFuelSeconds);
++        for(auto& R:Out.Summary)if(R.Label==TEXT("剩余燃时"))
++        {
++            R.Value=FString::Printf(TEXT("%02d:%02d"),Seconds/60,Seconds%60);
++            if(Rate>1)R.Value+=FString::Printf(TEXT("  ×%d"),Rate);
++            break;
++        }
++        return;
++    }
+     if(Out.FoodLifetimeDays<=0)return;
+     const double Remaining=Model?Model->FoodRemainingDays(I):Out.FoodLifetimeDays;
+     Out.FoodProgress=ColdSteelFoodUI::Progress(Remaining,Out.FoodLifetimeDays);
+@@ -771,6 +785,12 @@
+     }
+     Out.Location=Location;
+     CompleteColdSteelTooltipSummary(I,Model,G,Out);
++    if(ColdSteelInventory::IsWoodenTorch(I))
++    {
++        Out.bTorchFuel=true;
++        Out.Summary.Add({TEXT("剩余燃时"),FString()});
++        RefreshColdSteelFoodTooltip(I,Model,Out);
++    }
+     if(!ForgeSummary.IsEmpty())
+     {
+         Out.Summary.Append(MoveTemp(ForgeSummary));
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.h
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.h
+@@ -57,6 +57,8 @@
+     int32 Level=0;
+     double FoodLifetimeDays=0;
+     float FoodProgress=0;
++    bool bTorchFuel=false;
++    bool HasLifetimeBar() const { return bTorchFuel || FoodLifetimeDays>0.; }
+     bool bWideIcon=false;
+     TArray<FColdSteelTooltipRow> Summary,Comparison;
+     TArray<FColdSteelTooltipCard> Cards; // enchant, craft, main
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipLayout.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipLayout.cpp
+@@ -377,7 +377,7 @@
+         for(int32 Index=0;Index<Main.Rows.Num();++Index)
+             if(Main.Rows[Index].bPreview)AddRow(Body,Main.Rows[Index],CardIndex,Index);
+     }
+-    if(Presentation.FoodLifetimeDays>0)
++    if(Presentation.HasLifetimeBar())
+     {
+         FoodProgressBar=WidgetTree->ConstructWidget<UProgressBar>();
+         FProgressBarStyle Style;
+--- a/Source/FPSGAME/UI/ColdSteelProfileItems.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileItems.cpp
+@@ -94,6 +94,9 @@
+ }
+ bool UColdSteelStatusModel::SanitizeNetworkItem(FColdSteelItem& Item) const
+ {
++    if(!FMath::IsFinite(Item.TorchBurnedSeconds))return false;
++    Item.TorchBurnedSeconds=ColdSteelInventory::IsWoodenTorch(Item)
++        ? FMath::Clamp(Item.TorchBurnedSeconds,0.,ColdSteelInventory::TorchFuelSeconds) : 0.;
+     if(Item.bIncineratorAmmo)return ColdSteelIncineratorStorage::NormalizeAmmoInput(*this,Item);
+     // Guest uploads are not a trusted item factory. Every instance must be
+     // representable by this host's catalog, and catalogue-owned numeric fields
+--- a/Source/FPSGAME/UI/ColdSteelProfilePawn.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfilePawn.cpp
+@@ -21,6 +21,9 @@
+ #include "../Weapons/RuneOrbBladesComponent.h"
+ #include "../Skills/ColdSteelSkillRules.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
++#include "../WeaponWeatherStateComponent.h"
++#include "../Weapons/WoodenTorchComponent.h"
++#include "../Weapons/WoodenTorchItem.h"
+ #include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
+ #include "ColdSteelPickup.h"
+ #include "../FPSGAMECharacter.h"
+@@ -173,9 +176,72 @@
+         if(auto* Blades=CurrentPawn->FindComponentByClass<URuneOrbBladesComponent>())Blades->ReduceCooldown(Seconds);
+ }
+ 
++int32 UColdSteelStatusModel::TorchBurnRate(const FColdSteelItem& Item) const
++{
++    if(Item.Place!=1||(Item.Cell!=Current.ActiveWeaponSlot&&Item.Cell!=ActiveOffhandSlot()))return 1;
++    const auto* Pawn=RuntimePawn();
++    const auto* Weather=Pawn?Pawn->FindComponentByClass<UWeaponWeatherStateComponent>():nullptr;
++    return Weather?Weather->TorchBurnRate(Item.InstanceId):1;
++}
++
++void UColdSteelStatusModel::SettleBurnedTorches()
++{
++    if(bCampfireInventoryPending||bTransactionSaveUnconfirmed||bStagingNetworkContainer||
++        Current.CampfireInventoryRevision==MAX_int64)return;
++    SyncRuntime();
++    auto P=Snapshot();
++    for(int32 N=P.Items.Num()-1;N>=0;--N)
++    {
++        const auto& I=P.Items[N];
++        if(!ColdSteelInventory::IsWoodenTorch(I)||ColdSteelInventory::TorchFuelRemaining(I)>0.||
++            I.Container.StartsWith(TEXT("NetView.")))continue;
++        P.Items.RemoveAt(N);
++    }
++    const auto* PS=RuntimePawn()->GetPlayerState<AColdSteelPlayerState>();
++    const FString GuestSlot=bNetShadowProfile&&PS?PS->CampfireGuestSlot():FString();
++    if(bNetShadowProfile&&GuestSlot.IsEmpty())return;
++    ++P.CampfireInventoryRevision;
++    TGuardValue<FString> SlotGuard(CampfireGuestSaveSlot,GuestSlot);
++    TGuardValue<bool> SaveGuard(bSavingTransaction,true);
++    PersistState(MoveTemp(P),true);
++}
++
+ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
+ {
+-    if(Pawn!=CurrentPawn.Get())return;for(auto& I:Current.Items)I.Cooldown=FMath::Max(0.f,I.Cooldown-Delta);
++    if(!Pawn||Pawn!=CurrentPawn.Get())return;
++    bool SpentTorch=false,ConsumedFuel=false;
++    const int32 Offhand=ActiveOffhandSlot();
++    for(auto& I:Current.Items)
++    {
++        I.Cooldown=FMath::Max(0.f,I.Cooldown-Delta);
++        if(!ColdSteelInventory::IsWoodenTorch(I))continue;
++        if(I.Place==1&&Delta>0.f&&(I.Cell==Current.ActiveWeaponSlot||I.Cell==Offhand))
++        {
++            // A two-handed tool can suppress the offhand while its item stays in the slot.
++            const auto* Torch=I.Cell==Offhand?Pawn->FindComponentByClass<UWoodenTorchComponent>():nullptr;
++            if(I.Cell!=Offhand||(Torch&&Torch->LeftInstance()==I.InstanceId))
++            {
++                I.TorchBurnedSeconds=FMath::Min(ColdSteelInventory::TorchFuelSeconds,I.TorchBurnedSeconds+double(Delta)*TorchBurnRate(I));
++                ConsumedFuel=true;
++            }
++        }
++        SpentTorch|=I.TorchBurnedSeconds>=ColdSteelInventory::TorchFuelSeconds&&!I.Container.StartsWith(TEXT("NetView."));
++    }
++    if(Pawn->HasAuthority())
++    {
++        if(ConsumedFuel)
++        {
++            bTrainingDirty=true;
++            if(bNetShadowProfile)
++                if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())PS->MarkGuestProfileDirty();
++        }
++        NextTorchSettlement=FMath::Max(0.,NextTorchSettlement-Delta);
++        if(SpentTorch&&NextTorchSettlement<=0.)
++        {
++            NextTorchSettlement=1.;
++            SettleBurnedTorches();
++        }
++    }
+     for(auto& Pair:Current.ElectricCooldowns)Pair.Value=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Pair.Value-Delta);
+     if(HasNoAbilityCooldown())Current.FireballCooldown=0.f;
+     else if(!Current.bFireballReserved)Current.FireballCooldown=FMath::Max(0.f,Current.FireballCooldown-Delta);
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -352,6 +352,8 @@
+     const TArray<FColdSteelItem>& Items() const { return Current.Items; }
+     const FColdSteelItem* FindItem(const FString& Id) const;
+     const FColdSteelItem* Equipped(int32 Slot=-1) const;
++    int32 ActiveOffhandSlot() const { return Current.ActiveWeaponSlot==6 ? 8 : 11; }
++    int32 TorchBurnRate(const FColdSteelItem& Item) const;
+     /** 当前驱动单枪状态机的枪械：主手装备；主手空置时是顶替它的副手手枪（见 LoneOffhandPistol）。 */
+     const FColdSteelItem* ActiveFirearm() const;
+     /** 弯刀族招式（UKukriWeaponComponent 与其服务端回执）出手的武器：主手装备；主手空置时是独自出手的副手弯刀/斧头
+@@ -718,6 +720,8 @@
+     // 进度型事务（命中修炼、击杀奖励、闪避与技能修炼）走这里：实时档案立即更新，
+     // 带校验的 A/B 存档交给定时自动存档（fps.Save.AutosaveSeconds）统一写盘。
+     bool StageTraining(FColdSteelProfile&& State);
++    void SettleBurnedTorches();
++    double NextTorchSettlement=0.;
+     bool bTrainingDirty = false;
+     bool bSettlingFood=false;
+     double NextFoodSettlement=0.;
+--- a/Source/FPSGAME/WeaponWeatherStateComponent.cpp
++++ b/Source/FPSGAME/WeaponWeatherStateComponent.cpp
+@@ -1,6 +1,8 @@
+ #include "WeaponWeatherStateComponent.h"
+ #include "FPSGAMECharacter.h"
+ #include "FPSWeatherManager.h"
++#include "Dungeons/DungeonRoomSubsystem.h"
++#include "Weapons/WoodenTorchItem.h"
+ #include "Multiplayer/ColdSteelAuthorityContext.h"
+ #include "UI/ColdSteelStatusModel.h"
+ #include "Engine/World.h"
+@@ -50,7 +52,8 @@
+     const auto* Tool=Profile?Profile->ActiveProductionTool():nullptr;
+     const auto* Held=Profile?Profile->Equipped():nullptr;
+     const auto* Main=Tool?Tool:Held;
+-    const auto* Off=Held&&!Tool?Profile->Equipped(Held->Cell==6?8:11):nullptr;
++    const auto* Off=Profile&&!Tool?Profile->Equipped(Profile->ActiveOffhandSlot()):nullptr;
++    const bool HasTorch=(Main&&ColdSteelInventory::IsWoodenTorch(*Main))||(Off&&ColdSteelInventory::IsWoodenTorch(*Off));
+     if(Main)Next.MainInstance=Main->InstanceId;
+     else if(Pawn->HasInventoryWeapon())Next.MainInstance=Pawn->bUseM4Infima?TEXT("PreviewM4"):TEXT("PreviewAKM");
+     if(Off)Next.OffhandInstance=Off->InstanceId;
+@@ -58,7 +61,8 @@
+     if(Weather.IsValid()&&(!Next.MainInstance.IsEmpty()||!Next.OffhandInstance.IsEmpty()))
+     {
+         ShelterCheckLeft-=Delta;
+-        if(ShelterCheckLeft<=0.f)
++        if(HasTorch)Next.TorchBurnRate=Snapshot.TorchBurnRate;
++        if(ShelterCheckLeft<=0.f || (HasTorch&&(Next.MainInstance!=Snapshot.MainInstance||Next.OffhandInstance!=Snapshot.OffhandInstance)))
+         {
+             ShelterCheckLeft=.25f;
+             // Native UDW query includes this actor's local weather and shelter;
+@@ -78,6 +82,20 @@
+                     for(const auto& Offset:Offsets)
+                         Open+=!GetWorld()->LineTraceTestByChannel(Eye+Offset,Eye+Offset+Upwind,ECC_Visibility,Params);
+                     ExposedRainTarget=Rain*Open/UE_ARRAY_COUNT(Offsets);
++                }
++            }
++            Next.TorchBurnRate=1;
++            if(HasTorch&&ExposedRainTarget>0.f)
++            {
++                const auto State=Weather->CurrentState;
++                const int32 Rate=State==EFPSWeatherState::Storm?3:
++                    ((State==EFPSWeatherState::Rain||State==EFPSWeatherState::LightRain)?2:1);
++                if(Rate>1&&!UDungeonRoomSubsystem::IsDungeonPawn(Pawn))
++                {
++                    const FVector Eye=Pawn->GetPawnViewLocation();
++                    const FCollisionQueryParams Params(SCENE_QUERY_STAT(TorchRoof),false,Pawn);
++                    if(!GetWorld()->LineTraceTestByChannel(Eye,Eye+FVector(0,0,3000),ECC_Visibility,Params))
++                        Next.TorchBurnRate=Rate;
+                 }
+             }
+         }
+--- a/Source/FPSGAME/WeaponWeatherStateComponent.h
++++ b/Source/FPSGAME/WeaponWeatherStateComponent.h
+@@ -13,6 +13,7 @@
+     UPROPERTY() FString OffhandInstance;
+     UPROPERTY() uint8 MainWetness=0;
+     UPROPERTY() uint8 OffhandWetness=0;
++    UPROPERTY() uint8 TorchBurnRate=1;
+ };
+ 
+ /** Server integrates each player's held items; clients only present the snapshot.
+@@ -27,6 +28,11 @@
+     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
+     float GetWetness(uint8 Hand,const FString& Instance) const;
++    int32 TorchBurnRate(const FString& Instance) const
++    {
++        return !Instance.IsEmpty() && (Instance==Snapshot.MainInstance || Instance==Snapshot.OffhandInstance)
++            ? Snapshot.TorchBurnRate : 1;
++    }
+ private:
+     UPROPERTY(Replicated) FWeaponWeatherSnapshot Snapshot;
+     TWeakObjectPtr<class AFPSWeatherManager> Weather;

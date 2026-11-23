@@ -1,0 +1,140 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -450,8 +450,8 @@
+         FFPSBodyWeapon Entry;
+         Entry.AttachHand=Side;
+         Entry.GripBone=Side?TEXT("hand_l"):TEXT("hand_r");
+-        Entry.PoseFamily=Side?TEXT("KukriDual"):TEXT("Kukri");
+-        Entry.Mesh=FSoftObjectPath(KukriRhythm::ArmsMesh);
++        Entry.PoseFamily=TEXT("WoodenTorch");
++        Entry.Mesh=FSoftObjectPath(StaffGripPose::ArmsMeshPath);
+         Entry.StaticMesh=FSoftObjectPath(UWoodenTorchComponent::MeshPath);
+         Weapons.Add(MoveTemp(Entry));
+     }
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp
+@@ -1,5 +1,6 @@
+ #include "FPSPlayerBodyComponent.h"
+ #include "../Weapons/WoodenTorchComponent.h"
++#include "../Weapons/WoodenTorchArmsComponent.h"
+ #include "FPSBodyHighlandMotion.h"
+ #include "FPSBodyOutfitResources.h"
+ #include "../Weapons/Kukri/GhostScytheMist.h"
+@@ -207,9 +208,24 @@
+             FPSBodyEquipment::WorldVisibility(Part);
+             for(int32 I=0;I<Definition.Materials.Num();++I)if(auto* Material=Definition.Materials[I].LoadSynchronous())Part->SetMaterial(I,Material);
+             Part->RegisterComponent();WorldParts.Add(Part);
+-            if(Definition.StaticMesh.ToSoftObjectPath()==FSoftObjectPath(UWoodenTorchComponent::MeshPath))
+-            {
+-                UWoodenTorchComponent::AlignToGrip(*Part,Side);
++            if(Definition.PoseFamily==TEXT("WoodenTorch"))
++            {
++                if(auto* Native=Definition.Mesh.LoadSynchronous();Native&&BodyAnimation&&Body->GetSkeletalMeshAsset())
++                {
++                    const auto& Ref=Native->GetRefSkeleton();
++                    FFPSBodyGripRig Grip;
++                    Grip.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),BodyHand,BodyHand);
++                    if(Grip.IsValid())
++                    {
++                        TArray<FTransform> Pose;
++                        const FTransform GripInWrist=UWoodenTorchArmsComponent::BuildStaffCarry(*Native,Side,Pose);
++                        if(Side==0)FPSBodyStaffGrip::AdaptMount(Grip,0);
++                        FPSBodyStaffGrip::Transfer(Grip,Ref,Pose,BodyAnimation->EquipmentFingers);
++                        BodyAnimation->EquipmentGripHands|=1<<Side;
++                        const FTransform MeshInGrip=Part->GetSocketTransform(TEXT("Grip"),RTS_Component).Inverse();
++                        Part->SetRelativeTransform(MeshInGrip*GripInWrist*Grip.Mount);
++                    }
++                }
+                 if(auto* Torch=GetOwner()->FindComponentByClass<UWoodenTorchComponent>())Torch->SetWorldProp(Side,Part);
+             }
+             GhostScytheMist::Refresh(Part);
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyKukri.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyKukri.cpp
+@@ -1,7 +1,6 @@
+ #include "FPSPlayerBodyComponent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Weapons/Kukri/KukriWeaponComponent.h"
+-#include "../Weapons/WoodenTorchComponent.h"
+ #include "../Weapons/Kukri/KukriRhythm.h"
+ #include "../Weapons/Kukri/KukriDashRhythm.h"
+ #include "../Weapons/Kukri/KukriQuickRhythm.h"
+@@ -109,8 +108,6 @@
+             PistolHatchetCarry::FitFingers(Ref,Pose);
+             BodyAnimation->PistolHatchetPalmInView=PistolHatchetCarry::PalmInView(Mount.GetRotation());
+         }
+-        if(Definition.StaticMesh.ToSoftObjectPath()==FSoftObjectPath(UWoodenTorchComponent::MeshPath))
+-            UWoodenTorchComponent::FitBodyFingers(Ref,TEXT("hand_l"),Pose);
+         Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);BodyAnimation->EquipmentGripHands|=2;
+         BodyAnimation->bOffhandKukriEquipment=true;
+         BodyAnimation->OffhandKukriEquipmentInstance=Definition.ItemInstance;
+@@ -124,8 +121,6 @@
+     FFPSBodyGripRig Grip;Grip.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_r"),TEXT("hand_r"));
+     const int32 Weapon=Ref.FindBoneIndex(TEXT("WPN_root"));
+     if(!Grip.IsValid()||Weapon==INDEX_NONE)return;
+-    if(Definition.StaticMesh.ToSoftObjectPath()==FSoftObjectPath(UWoodenTorchComponent::MeshPath))
+-        UWoodenTorchComponent::FitBodyFingers(Ref,TEXT("hand_r"),Pose);
+     Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);BodyAnimation->EquipmentGripHands|=1;
+     FTransform Hand=Pose[Grip.SourceHand];Hand.SetScale3D(FVector::OneVector);
+     const FTransform BladeFrame=FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f))*Pose[Weapon];
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyMotion.cpp
+@@ -21,6 +21,7 @@
+ #include "../Weapons/Staff/StaffArmsMeshComponent.h"
+ #include "../Weapons/Staff/StaffOffhandMeleeComponent.h"
+ #include "../Weapons/WoodenTorchComponent.h"
++#include "../Weapons/WoodenTorchArmsComponent.h"
+ #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+ #include "../Weapons/Spellbook/SpellbookComponent.h"
+ #include "../Weapons/Kukri/OffhandKukriComponent.h"
+@@ -134,6 +135,8 @@
+         const auto* Staff=Source->GetOwner()->FindComponentByClass<UStaffWeaponComponent>();
+         FPSBodyStaffGrip::Transfer(*Map,Source->GetSkeletalMeshAsset()->GetRefSkeleton(),Pose,Native,Staff?Staff->GripVariant():0);
+     }
++    if(Cast<UWoodenTorchArmsComponent>(Source))
++        FPSBodyStaffGrip::Transfer(*Map,Source->GetSkeletalMeshAsset()->GetRefSkeleton(),Pose,Native);
+     if(Native.IsEmpty())Map->Transfer(Pose,Native);
+     if(Native.IsEmpty())return;
+     Sample.Fingers|=1<<Side;
+--- a/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
+@@ -40,7 +40,6 @@
+ 
+ namespace
+ {
+-    const TCHAR* StaffArmsPath=TEXT("/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7");
+     const TCHAR* StaffSwingPath=TEXT("/Game/Items/ProductionTools/GripMotion20260913/S_Harvest_Swing.S_Harvest_Swing");
+     const TCHAR* StaffImpactPath=TEXT("/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick.S_MeleeHit_Quick");
+ }
+@@ -82,7 +81,7 @@
+     // temporary render gate. Unequipping releases this retention above.
+     Arms->ComponentTags.AddUnique(TEXT("PreloadModularOutfit"));
+     const auto Resolved=ColdSteelStaff::Resolve(*I);
+-    TArray<FSoftObjectPath> Paths;ColdSteelStaffAssembly::Gather(Resolved,Paths);Paths.AddUnique(FSoftObjectPath(StaffArmsPath));
++    TArray<FSoftObjectPath> Paths;ColdSteelStaffAssembly::Gather(Resolved,Paths);Paths.AddUnique(FSoftObjectPath(StaffGripPose::ArmsMeshPath));
+     // Presentation depends on the installed meshes, not every inventory field.
+     // Offhand/stat refreshes must not hide and reload an unchanged main hand.
+     FString Key=I->InstanceId+TEXT("|")+I->Definition;
+@@ -103,7 +102,7 @@
+     auto Ready=FStreamableDelegate::CreateWeakLambda(this,[this,Key,Resolved,NewInstance]()
+     {
+         if(Recipe!=Key||!Staff||!Arms)return;
+-        auto* Skin=Cast<USkeletalMesh>(FSoftObjectPath(StaffArmsPath).ResolveObject());if(!Skin)return;
++        auto* Skin=Cast<USkeletalMesh>(FSoftObjectPath(StaffGripPose::ArmsMeshPath).ResolveObject());if(!Skin)return;
+         if(!ColdSteelStaffAssembly::Apply(Staff,Resolved))return;
+         AuthoredGripVariant=StaffGripPose::VariantForMesh(ColdSteelInventory::Text(Resolved,TEXT("staff_part_grip_lining_mesh")));
+         SwingSound=Cast<USoundBase>(FSoftObjectPath(StaffSwingPath).ResolveObject());
+@@ -150,11 +149,11 @@
+ {
+     // Pos is the hand's contact point, not the centre of the 160 cm mesh.
+     // Lean the head forward and slightly inward to frame the upper shaft/head.
+-    FVector Pos=FVector(44,19,-21)+StaffCastMotion::PresentationOffset()+Locomotion.Offset;
++    const FTransform Rest = StaffGripPose::RestContactInCamera();
++    FVector Pos=Rest.GetLocation()+Locomotion.Offset;
+     if(const auto* Pair=GetOwner()->FindComponentByClass<UStaffOffhandMeleeComponent>())Pos+=Pair->StaffOffset();
+-    const FQuat RestRotation=FRotationMatrix::MakeFromZX(FVector(.22,-.12,.968).GetSafeNormal(),FVector::ForwardVector).ToQuat();
+     const float Equip=FMath::Clamp(EquipAge/.35f,0.f,1.f);Pos.Z-=35*(1-Equip)*(1-Equip);
+-    FStaffCastPose Pose;Pose.Contact=FTransform(Locomotion.Rotation*RestRotation,Pos);
++    FStaffCastPose Pose;Pose.Contact=FTransform(Locomotion.Rotation*Rest.GetRotation(),Pos);
+     // Carry/run weights feed the complete authored local arm poses. The contact
+     // trajectory and these weights enter the same casting/recovery snapshots.
+     Pose.ArmWeights[5]=Locomotion.RunWeight();Pose.ArmWeights[0]=1.f-Pose.ArmWeights[5];

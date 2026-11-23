@@ -1,0 +1,62 @@
+{
+  "files": 12784,
+  "bytes": 2563015694,
+  "by_reason": {
+    "制作、检测或链接时的工作输出": {
+      "files": 280,
+      "bytes": 120540247
+    },
+    "编译器结构化逐行日志": {
+      "files": 50,
+      "bytes": 11807487
+    },
+    "可由原始 F6 或材质图重新导出的检测数据": {
+      "files": 48,
+      "bytes": 144836855
+    },
+    "已完成的一次性读回脚本": {
+      "files": 19,
+      "bytes": 38183
+    },
+    "任务专用宿主的可再生缓存或日志": {
+      "files": 12251,
+      "bytes": 737707562
+    },
+    "M24 材质检测截图": {
+      "files": 10,
+      "bytes": 3570568
+    },
+    "已由定稿法杖动作接替的初始弯刀方案": {
+      "files": 1,
+      "bytes": 1064
+    },
+    "已完成的火焰审查与旧候选": {
+      "files": 5,
+      "bytes": 13998
+    },
+    "已由正式模块取代的隔离链接产物": {
+      "files": 8,
+      "bytes": 1478262447
+    },
+    "已由修正配置后的 18 项检查取代": {
+      "files": 1,
+      "bytes": 1556
+    },
+    "火把校光、火焰与动作检测图或逐帧预览": {
+      "files": 111,
+      "bytes": 66235727
+    }
+  },
+  "local_trash": "trash/torch-and-recovery-20261123/",
+  "receipts": [
+    {
+      "path": "WoodenTorch/ConversationCleanup-20261123/cleanup-manifest.jsonl",
+      "sha256": "5adfe06eb9870c40775f06be63d4dc247818c6153744d465a278e0c8836d9399"
+    },
+    {
+      "path": "WoodenTorch/ConversationCleanup-20261123/cleanup-sword.jsonl",
+      "sha256": "d6513d8384455e8765d27f39761aca489b4df8bb43a11d1a090976913d1ddc61"
+    }
+  ],
+  "range": "本次制作与恢复批次。正式运行资产、可编辑原件、历史回退文件与原始 F6 采样继续保留。"
+}

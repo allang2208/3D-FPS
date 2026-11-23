@@ -1,5 +1,5 @@
 """Merge six distinct common options while preserving current unrelated catalog edits."""
-import json, shutil
+import json, shutil, runpy
 from pathlib import Path
 P=Path(__file__).parent;SRC=P.parent;ROOT=P.parents[1];DATA=ROOT/'Content/ColdSteelData'
 receipt=json.loads((P/'import_receipt.json').read_text(encoding='utf-8'))
@@ -9,12 +9,16 @@ def read(path):return json.loads(path.read_text(encoding='utf-8-sig'))
 def preserve(path):
     if path.exists() and not (backup/path.name).exists():shutil.copy2(path,backup/path.name)
 def write(path,data):path.write_text(json.dumps(data,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+copy_rules = runpy.run_path(str(ROOT / 'SourceAssets/WorkbenchCopy20261101/copy_rules.py'))
 restored=read(P/'restored-options.json')
 path=DATA/'shared-sword-pommels.json';preserve(path);library=read(path)
 library['version']=2;library['interfaces']=['shared_sword_pommel_v1','frost_hilt_v1']
 for row in restored:
-    library['options'][row['id']]={'mesh':receipt['meshes'][row['id']],'interface':'frost_hilt_v1','appearance':row['name']+' · 剑类通用配重'}
+    library['options'][row['id']]={'mesh':receipt['meshes'][row['id']],'interface':'frost_hilt_v1','appearance':copy_rules['MELEE_DESCRIPTIONS'][row['id']]}
 library['finishes'].setdefault('silver',{}).update(receipt['finishes']['silver'])
+for part_id, spec in library['options'].items():
+    if part_id in copy_rules['MELEE_DESCRIPTIONS']:
+        spec['appearance'] = copy_rules['MELEE_DESCRIPTIONS'][part_id]
 write(path,library)
 profiles={}
 for weapon,file in [('ue_rune_sword','rune-sword-modules.json'),('ue_frost_crystal_sword','frost-sword-modules.json')]:
@@ -39,6 +43,7 @@ for row in column['options']:
     else:other.append(row)
 column['options']=restored+stars+other
 column['description']='剑类通用配重锤。六款不同造型和属性可供当前各剑共用，按剑型匹配安装位置、尺寸和材质；原装配重单独保留。'
+copy_rules['apply_catalog']('melee-gunsmith.json', {'columns':[column]})
 write(path,catalog)
 write(P/'integration_receipt.json',{'shared_options':[{'id':o['id'],'name':o['name']} for o in restored+stars],
     'current_swords':catalog['weapons'],'selection_count_including_factory':7,'profiles':profiles,

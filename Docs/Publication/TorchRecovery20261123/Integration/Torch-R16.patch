@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Weapons/Staff/StaffQuickCombat.cpp
++++ b/Source/FPSGAME/Weapons/Staff/StaffQuickCombat.cpp
+@@ -28,7 +28,7 @@
+     auto* Torch=Pawn->FindComponentByClass<UWoodenTorchComponent>();
+     if(Torch&&Torch->UsesQuickAttack())
+     {
+-        const int32 Side=Torch->HoldsLeft()?1:0;
++        const int32 Side=Torch->QuickAttackHand();
+         auto* Mesh=Side==TorchHand?Staff.Get():Torch->ReadyPairedOffhand();
+         auto* Quick=Pawn->FindComponentByClass<UFPSQuickCombatComponent>();
+         if(!Mesh||!Torch->HandForMotion(Side)||!Quick||Pawn->IsReloading()||Pawn->IsTraversing()||IsEquipping())return false;

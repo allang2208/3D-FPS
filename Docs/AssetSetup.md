@@ -1,5 +1,7 @@
 # 恢复完整 UE5 内容
 
+手持火把 R17、魔晶剑、M24、Pit Viper、工作台及村庄补光的资产指纹、制作源和 NAS 版本见[火把与 11 月恢复记录](Publication/TorchRecovery20261123/README.md)。
+
 丘陵六店、修女、工匠外观、街灯与多人家具的源码、制作依赖和本地恢复位置见[村庄店铺交接](Publication/VillageShops20261122/README.md)。
 
 ## 固定丘陵、湖岸与采石场（2026-11-20）

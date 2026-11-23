@@ -1,0 +1,128 @@
+--- a/Source/FPSGAME/UI/ColdSteelIncineratorStorage.cpp
++++ b/Source/FPSGAME/UI/ColdSteelIncineratorStorage.cpp
+@@ -2,6 +2,8 @@
+ #include "ColdSteelStatusModel.h"
+ #include "ColdSteelWarehouseRules.h"
+ #include "ColdSteelIncineration.h"
++#include "ColdSteelWorldInteraction.h"
++#include "Components/StaticMeshComponent.h"
+ #include "Dom/JsonObject.h"
+ #include "Serialization/JsonSerializer.h"
+ #include "Misc/FileHelper.h"
+@@ -183,20 +185,29 @@
+     FTCHARToUTF8 Bytes(*Text);FSHAHash Hash;
+     FSHA1::HashBuffer(Bytes.Get(),Bytes.Length(),Hash.Hash);return Hash.ToString();
+ }
++bool CanReachStation(const APawn* Pawn,const AVoxelBuildPrefabActor* Piece,bool bCheckObstruction)
++{
++    if(!IsValid(Pawn)||!IsValid(Piece)||Pawn->GetWorld()!=Piece->GetWorld()||!Piece->Body())return false;
++    const auto* Character=Cast<AFPSGAMECharacter>(Pawn);
++    const FVector Eye=Character?Character->GetMeleeAimTransform().GetLocation():Pawn->GetPawnViewLocation();
++    const FVector Near=Piece->Body()->Bounds.GetBox().GetClosestPointTo(Eye);
++    if(FVector::DistSquared(Eye,Near)>FMath::Square(ColdSteelWorldInteraction::DefaultUseReach))return false;
++    if(!bCheckObstruction)return true;
++    FHitResult Hit;
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(IncineratorReach),false,Pawn);
++    return !Pawn->GetWorld()->LineTraceSingleByChannel(Hit,Eye,Near,ECC_Visibility,Query)||Hit.GetActor()==Piece;
++}
++
+ bool ExecuteAuthority(UColdSteelStatusModel& Model,AActor* Station,const FString& ExpectedInputs,const FString& ExpectedRules,const FString& GuestSlot,FString& Reason)
+ {
+     auto* Piece=Cast<AVoxelBuildPrefabActor>(Station);
+     auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
+     auto* Pawn=Model.RuntimePawn();const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+     if(!Piece||!World||!Pawn||!Health||Health->IsDead()||!Piece->HasAuthority()||Piece->GetWorld()!=Pawn->GetWorld()
+-        ||Piece->IsFalling()||Piece->PrefabId()!=VoxelIncineratorId||World->PrefabActorAt(Piece->AnchorCell())!=Piece
+-        ||FVector::DistSquared(Pawn->GetActorLocation(),Piece->GetActorLocation()+FVector(0,0,70))>FMath::Square(240.f))
++        ||Piece->IsFalling()||Piece->PrefabId()!=VoxelIncineratorId||World->PrefabActorAt(Piece->AnchorCell())!=Piece)
+     {Reason=TEXT("焚化炉不可用或距离过远，请重新靠近并打开");return false;}
+-    const FVector Eye=Pawn->GetPawnViewLocation();
+-    const FVector Near=Piece->GetComponentsBoundingBox(true).GetClosestPointTo(Eye);
+-    FHitResult Hit;FCollisionQueryParams Trace(SCENE_QUERY_STAT(IncineratorReach),false,Pawn);
+-    if(Pawn->GetWorld()->LineTraceSingleByChannel(Hit,Eye,Near,ECC_Visibility,Trace)&&Hit.GetActor()!=Piece)
+-    {Reason=TEXT("焚化炉被遮挡，请靠近操作面");return false;}
++    if(!CanReachStation(Pawn,Piece,true))
++    {Reason=TEXT("请靠近焚化炉未被遮挡的操作面");return false;}
+     Model.SyncRuntime();const auto Rules=LoadRules();
+     const auto Q=Quote(Model.Snapshot(),World->IncineratorContainerAt(Piece->AnchorCell()),Rules);
+     if(!Q.bValid){Reason=Q.Reason;return false;}
+--- a/Source/FPSGAME/UI/ColdSteelIncineratorStorage.h
++++ b/Source/FPSGAME/UI/ColdSteelIncineratorStorage.h
+@@ -3,6 +3,8 @@
+ #include "ColdSteelInventoryTypes.h"
+ class UColdSteelStatusModel;
+ class AActor;
++class APawn;
++class AVoxelBuildPrefabActor;
+ 
+ namespace ColdSteelIncineratorStorage
+ {
+@@ -27,6 +29,7 @@
+     FPSGAME_API FRules ParseRules(const FString& Json);
+     FPSGAME_API FRules LoadRules();
+     FPSGAME_API bool HasInputs(const FColdSteelProfile& State,const FString& Container=FString());
++    bool CanReachStation(const APawn* Pawn,const AVoxelBuildPrefabActor* Piece,bool bCheckObstruction);
+     FPSGAME_API FQuote Quote(const FColdSteelProfile& State,const FString& Container,const FRules& Rules);
+     FPSGAME_API bool Prepare(UColdSteelStatusModel& Model,const FQuote& Quote,const FRules& Rules,FColdSteelProfile& Next,FString& Reason);
+     /** Stable confirmation identity across owner/server profile generations. */
+--- a/Source/FPSGAME/UI/ColdSteelIncineratorWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelIncineratorWidget.cpp
+@@ -190,7 +190,7 @@
+     const auto* Piece=Cast<AVoxelBuildPrefabActor>(Station.Get());const auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;const auto* Pawn=GetOwningPlayerPawn();
+     return bStationOpen&&Model&&HUD&&HUD->IsWorkbenchOpen()&&Piece&&!Piece->IsFalling()&&Piece->PrefabId()==VoxelIncineratorId&&World
+         &&World->IncineratorContainerAt(Piece->AnchorCell())==Container&&Model->bIncineratorOpen&&Model->ActiveContainer==Container
+-        &&Pawn&&FVector::Dist(Pawn->GetActorLocation(),Piece->GetActorLocation()+FVector(0,0,70))<=240.f;
++        &&ColdSteelIncineratorStorage::CanReachStation(Pawn,Piece,false);
+ }
+ void UColdSteelIncineratorWidget::NativeTick(const FGeometry& G,float Delta)
+ {Super::NativeTick(G,Delta);const float S=ColdSteelUI::PixelScale(this);if(Panel&&!FMath::IsNearlyEqual(LastScale,S,.001f)){LastScale=S;Panel->Build();}if(Panel)Panel->PollReceipt();if(bStationOpen&&!StationReady())RequestClose();}
+--- a/Source/FPSGAME/UI/ColdSteelWorkbenchHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorkbenchHUD.cpp
+@@ -1,6 +1,7 @@
+ #include "ColdSteelHUDWidget.h"
+ #include "ColdSteelWorkbenchWidget.h"
+ #include "ColdSteelIncineratorWidget.h"
++#include "ColdSteelIncineratorStorage.h"
+ #include "ColdSteelGunAssemblyWidget.h"
+ #include "../Building/GunAssemblySystem.h"
+ #include "Engine/GameInstance.h"
+@@ -44,6 +45,9 @@
+     auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
+     if(!Piece||(Piece->PrefabId()!=VoxelWorkbenchId&&Piece->PrefabId()!=VoxelGunWorkbenchId&&Piece->PrefabId()!=VoxelIncineratorId&&Piece->PrefabId()!=FName(TEXT("planting_bed")))
+         ||Piece->IsFalling()||!World||!World->HasPrefabAt(Piece->AnchorCell()))return;
++    if(Piece->PrefabId()==VoxelIncineratorId
++        &&(World->IncineratorContainerAt(Piece->AnchorCell()).IsEmpty()
++           ||!ColdSteelIncineratorStorage::CanReachStation(GetOwningPlayerPawn(),Piece,false)))return;
+     CloseShop();
+     if(GunAssemblyInteraction){auto* Previous=GunAssemblyInteraction.Get();GunAssemblyInteraction=nullptr;if(Previous->IsRunning())Previous->Stop(false);Previous->Destroy();}
+     GunWorkbenchStation.Reset();
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -481,7 +481,6 @@
+     if(IsWorkbench(Target))
+     {
+         Hint.Text=WorkbenchPrompt(Target);
+-        if(const auto* Bed=Cast<AVoxelBuildPrefabActor>(Target);Bed&&Bed->PrefabId()==FName(TEXT("planting_bed"))&&Bed->GetNetMode()!=NM_Standalone)Hint.bAction=false;
+         return Hint;
+     }
+     if(UColdSteelDoorInteraction::IsDoor(Target))
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.h
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.h
+@@ -17,13 +17,14 @@
+         AVillageDefenseSection* NearbyBreach = nullptr;
+     };
+     /** A visible counter service point is a fallback after the existing E interactions. */
+-    FUseTargets TraceUseTargets(const APlayerController* Controller,float Reach=250.f,bool bFindNearbyBreach=false);
+-    AActor* TraceTarget(const APlayerController* Controller,float Reach=250.f);
++    inline constexpr float DefaultUseReach = 250.f;
++    FUseTargets TraceUseTargets(const APlayerController* Controller,float Reach=DefaultUseReach,bool bFindNearbyBreach=false);
++    AActor* TraceTarget(const APlayerController* Controller,float Reach=DefaultUseReach);
+     AColdSteelSceneContainer* FocusedSceneContainer(const APlayerController* Controller);
+     AColdSteelSceneContainer* UpdateSceneContainerHighlight(const APlayerController* Controller,bool bAllowed);
+     /** Display the resident selected by this local player's active E prompt, or clear with nullptr. */
+     void UpdateResidentHighlight(const APlayerController* PC, AActor* Target);
+-    bool IsFocused(const APawn* Pawn,const AActor* Target,float Reach=250.f);
++    bool IsFocused(const APawn* Pawn,const AActor* Target,float Reach=DefaultUseReach);
+     bool CanReachPickup(const UWorld* World,const APawn* Pawn,const AActor* Target,const FVector& Position);
+     /** Authored hub altar; the same target predicate drives its prompt and E action. */
+     bool IsExpeditionAltar(const AActor* Target);

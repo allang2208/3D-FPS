@@ -113,7 +113,7 @@
           0
         ],
         "interface": "frost_hilt_v1",
-        "appearance": "裂穹长锋 · 细长晶脊",
+        "appearance": "细长的晶脊贯通剑身。",
         "trace_base_cm": [
           0,
           0,
@@ -152,7 +152,8 @@
           12,
           10,
           78.75
-        ]
+        ],
+        "appearance": "剑身嵌有三枚星髓晶核。"
       }
     },
     "guard": {
@@ -281,7 +282,7 @@
           0,
           0
         ],
-        "appearance": "交错锁纹织带 · 柔韧稳握"
+        "appearance": "锁纹织带交错缠柄。"
       }
     },
     "pommel": {

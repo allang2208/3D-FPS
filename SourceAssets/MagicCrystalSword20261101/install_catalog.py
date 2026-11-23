@@ -8,14 +8,15 @@ P = Path(__file__).resolve().parent
 ROOT = P.parents[1]
 DATA = ROOT / 'Content/ColdSteelData'
 WEAPON = 'ue_frost_crystal_sword'
+copy_rules = runpy.run_path(str(ROOT / 'SourceAssets/WorkbenchCopy20261101/copy_rules.py'))
 PARTS = [
     {'id': 'red_magic_crystal', 'name': '红魔晶', 'tier': 'special', 'weapons': [WEAPON],
-     'description': '魔晶双手剑专属。原有晶体纹理染为深红，保留晶面与裂纹的细节。',
+     'description': copy_rules['MELEE_DESCRIPTIONS']['red_magic_crystal'],
      'stats': {'physical_damage_mult': 1.1, 'hit_health_return_ratio': .05},
      'effects': [{'text': '物理伤害+10%', 'benefit': 1}],
      'special_effects': []},
     {'id': 'high_energy_magic_crystal', 'name': '高能魔晶', 'tier': 'special', 'weapons': [WEAPON],
-     'description': '魔晶双手剑专属。致密青蓝晶面经过精细抛光，晶纹与内光交错，剑脊饱满，薄刃微透，反光清亮。',
+     'description': copy_rules['MELEE_DESCRIPTIONS']['high_energy_magic_crystal'],
      'stats': {'magic_damage_mult': 1.1, 'hit_mana_return_ratio': .1},
      'effects': [{'text': '魔法伤害+10%', 'benefit': 1}],
      'special_effects': []},
@@ -43,13 +44,10 @@ def items_update(data):
     data[WEAPON] = rename(data[WEAPON])
     data[WEAPON]['name'] = '魔晶双手剑'
     data[WEAPON]['icon_fallback'] = '魔晶'
-    data[WEAPON]['desc'] = ('魔力凝结而成的晶体双手剑。近战攻击附加智力×50%＋精神×50%的魔法伤害，'
-        '随本次攻击倍率结算，并受目标魔法防御影响。精神迸发可将这段附伤提升为智力×100%＋精神×100%。'
-        '刃部可改造为红魔晶或高能魔晶。')
+    data[WEAPON]['desc'] = '魔力凝结而成的晶体双手剑，剑刃可换装红魔晶或高能魔晶。'
     return data
 
 items = publish('items.json', items_update)
-copy_rules = runpy.run_path(str(ROOT / 'SourceAssets/WorkbenchCopy20261101/copy_rules.py'))
 
 def melee_update(data):
     data = rename(data)

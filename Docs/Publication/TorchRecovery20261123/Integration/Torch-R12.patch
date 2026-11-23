@@ -1,0 +1,223 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp
+@@ -28,6 +28,8 @@
+ #include "../Weapons/GunsmithSystem.h"
+ #include "../Weapons/FPSBallisticsComponent.h"
+ #include "../Weapons/FPSMeleeLightningComponent.h"
++#include "../Weapons/WoodenTorchComponent.h"
++#include "../Weapons/WoodenTorchItem.h"
+ #include "../Weapons/ColdSteelEnchantmentCombat.h"
+ #include "../Weapons/SniperSuppressorAssets.h"
+ #include "../Monsters/MonsterDamageAlert.h"
+@@ -312,6 +314,15 @@
+         const bool bShatter=Shooter->HasAuthority()&&!Shot.bRicochet&&Shot.ShatterRadiusCM>0.f
+             &&UFPSBallisticsComponent::IsShatterEnemy(Hit.GetActor(),Shooter);
+         FWeaponDamageResult Receipt;
++        bool bTorchContact=Shooter->HasAuthority()&&Shot.bMeleeStrike&&!Shot.bRicochet&&
++            Shot.ItemDefinition==ColdSteelInventory::WoodenTorchDefinition&&
++            (Shot.AttackMeta==0||Shot.AttackMeta==0x80)&&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
++        if(bTorchContact&&Shot.AttackMeta==0x80)
++        {
++            const auto* Off=M->Equipped(M->Snapshot().ActiveWeaponSlot==6?8:11);
++            const auto* StrikingTorch=ColdSteelInventory::QuickTorch(M->Equipped(),Off);
++            bTorchContact=StrikingTorch&&StrikingTorch->InstanceId==Shot.ItemInstance;
++        }
+         const bool bRingChain=Shot.bRingChainPommel&&Shot.bMelee&&!Shot.bRicochet
+             &&Shot.AttackMeta>=1&&Shot.AttackMeta<=3&&Shot.AttackForm==EMonsterAttackForm::Blade
+             &&Shooter->HasAuthority()&&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
+@@ -334,6 +345,13 @@
+         float WolfHealth=0.f,WolfMaxHealth=0.f;FText WolfName;
+         if(bWolf)if(const auto* Combat=Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>())Combat->GetVitals(WolfHealth,WolfMaxHealth,WolfName);
+         const float Applied=M->ApplySkillWeaponHit(Shooter,Hit,Damage,Direction,Shot,Result?Result:&Receipt,PairedHeavy);
++        if(bTorchContact)
++        {
++            if(auto* Torch=Shooter->FindComponentByClass<UWoodenTorchComponent>())Torch->EnemyContact(Hit);
++            if(Applied>0.f&&!(Result?Result->bKilled:Receipt.bKilled)&&FMath::FRand()<.25f)
++                if(auto* Status=UCombatStatusFormula::GetOrAdd(Hit.GetActor()))
++                    Status->AddBurn(Shooter,M->Derived(TEXT("matk")),1,5.f);
++        }
+         if(bRingChain&&Applied>0.f)
+             if(auto* Sword=Shooter->FindComponentByClass<URuneSwordComponent>())
+                 Sword->ConfirmRingChainHit(Shot.ItemInstance,Shot.GenericMeleeSerial?Shot.GenericMeleeSerial:Shot.GuardAttackSerial);
+--- a/Source/FPSGAME/Skills/QuickCombatContact.cpp
++++ b/Source/FPSGAME/Skills/QuickCombatContact.cpp
+@@ -12,6 +12,8 @@
+ #include "../Weapons/Bow/BowWeaponComponent.h"
+ #include "../Weapons/Bow/BowQuickCombatMotion.h"
+ #include "../Weapons/FPSImpactFXSubsystem.h"
++#include "../Weapons/WoodenTorchItem.h"
++#include "../Weapons/WoodenTorchComponent.h"
+ #include "../Weapons/Staff/StaffWeaponComponent.h"
+ #include "../Weapons/Staff/StaffQuickCombatMotion.h"
+ #include "../Weapons/Spellbook/SpellbookComponent.h"
+@@ -19,6 +21,7 @@
+ #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+ #include "../Weapons/Unarmed/UnarmedPunchTuning.h"
+ #include "Engine/World.h"
++#include "Components/StaticMeshComponent.h"
+ #include "GameFramework/Pawn.h"
+ #include "Kismet/GameplayStatics.h"
+ #include "Sound/SoundBase.h"
+@@ -106,6 +109,23 @@
+         bBook?TEXT("魔法书前击"):bUnarmed?TEXT("空手拳击"):bPunch?TEXT("法杖左拳"):bOffhand?TEXT("法杖副手枪"):bBow?TEXT("弓"):bRifle?TEXT("步枪"):TEXT("手枪"),
+         bProbe?(bBook?TEXT("书页外沿"):bUnarmed?(Hands->GetPunchSide()==1?TEXT("右拳指节"):TEXT("左拳指节")):bPunch?TEXT("左拳指节"):bOffhand?TEXT("左手持枪拳"):bBow?TEXT("弓身下段"):bRifle?(Style==EQuickCombatStyle::M4ReferenceRifle?TEXT("M4枪托"):TEXT("枪身前段")):TEXT("握把底")):TEXT("眼位回退"),
+         *Start.ToCompactString(),*Direction.ToCompactString(),Stats.RangeCM,*TargetName);
++    const auto* TorchItem=Style==EQuickCombatStyle::StaffPunch
++        ?ColdSteelInventory::QuickTorch(Profile->Equipped(),Profile->Equipped(Profile->Snapshot().ActiveWeaponSlot==6?8:11)):nullptr;
++    if(TorchItem)
++    {
++        auto* Torch=Player->FindComponentByClass<UWoodenTorchComponent>();
++        if(Torch&&bHit&&Hit.bBlockingHit&&Target&&!Cast<APawn>(Target)&&!Target->FindComponentByClass<UMonsterCombatComponent>())
++            Torch->SurfaceContact(Hit);
++        else if(Torch&&!bHit&&bProbe)
++        {
++            // Thin scenery can block visibility while ignoring the punch's Pawn channel.
++            // Sample only the held shaft at contact and keep this query cosmetic.
++            auto* Prop=Torch->ReadyPairedOffhand();
++            FHitResult Surface;
++            if(Prop&&MeleeSmallTargets::BladeScenery(GetWorld(),Player,Prop->GetSocketLocation(TEXT("Grip")),Prop->GetSocketLocation(TEXT("Flame")),Surface))
++                Torch->SurfaceContact(Surface);
++        }
++    }
+     if(bHit && UWardBreakableGlass::BreakHit(Hit,Direction))
+     {ImpactAge=0.f;ImpactStrength=1.f;Player->RefreshQuickCombatCamera();return;}
+     auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
+@@ -135,6 +155,7 @@
+         // A bare fist must not inherit the held staff's rune/ammo/mastery effects.
+         Shot.CriticalChance=Profile->Derived(TEXT("crit"));
+         Shot.CriticalDamageBonus=Profile->CriticalStrikeEffect().CriticalDamageBonus;
++        if(TorchItem){Shot.ItemDefinition=TorchItem->Definition;Shot.ItemInstance=TorchItem->InstanceId;}
+     }
+     else Shot=ColdSteelSkills::Snapshot(Player,bBook?Profile->Equipped(Profile->Snapshot().ActiveWeaponSlot==6?8:11)
+         :bOffhand&&Dual?&Dual->Hand(1).Item:bBow?Profile->ActiveBow():Profile->Equipped(),false);
+--- a/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp
++++ b/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp
+@@ -290,6 +290,15 @@
+     if(Contact.ImpactNormal.IsNearlyZero())
+         Contact.ImpactNormal=(ViewCamera->GetComponentLocation()-Contact.ImpactPoint).GetSafeNormal(SMALL_NUMBER,FVector::UpVector);
+     RenderContact(Contact,ViewCamera,false,false,bWorld?EContactKind::BladeScenery:EContactKind::BladeBody);
++}
++
++void UFPSImpactFXSubsystem::SpawnTorchEmbers(const FVector& Point,const FVector& Normal,UCameraComponent* ViewCamera)
++{
++    FHitResult Contact;
++    Contact.bBlockingHit=true;
++    Contact.ImpactPoint=Point;
++    Contact.ImpactNormal=Normal;
++    RenderContact(Contact,ViewCamera,false,false,EContactKind::Torch);
+ }
+ 
+ void UFPSImpactFXSubsystem::RenderContact(const FHitResult& Hit,UCameraComponent* ViewCamera,bool bPlaySound,bool bDecal,EContactKind Kind)
+@@ -318,6 +327,15 @@
+     RecentHits[RecentCursor]={Hit.Component,Hit.ImpactPoint,Now};
+     RecentCursor=(RecentCursor+1)%UE_ARRAY_COUNT(RecentHits);
+     ++FrameBursts; BurstTokens-=1.f; Camera=ViewCamera;
++    if(Kind==EContactKind::Torch)
++    {
++        const FVector Normal=Hit.ImpactNormal.GetSafeNormal(SMALL_NUMBER,FVector::UpVector);
++        const bool Near=ApparentDistance<FMath::Min(1600.f,FPSImpact::DetailDistance.GetValueOnGameThread());
++        const int32 Count=Near?8:ApparentDistance<3600.f?4:2;
++        for(int32 I=0;I<Count;++I)
++            AddParticle(0,Hit.ImpactPoint+Normal*1.5f,Normal,EFPSImpactSurface::Unknown,1.f,true);
++        return;
++    }
+     const auto Surface=ResolveSurface(Hit,Kind==EContactKind::BladeBody);
+     static const bool TraceLegend=FParse::Param(FCommandLine::Get(),TEXT("KukriCombatWireAudit"));
+     if(TraceLegend&&Kind!=EContactKind::Standard)
+@@ -383,7 +401,7 @@
+     if (bPlaySound) PlayImpactSound(Hit.ImpactPoint,Surface,Distance,Now);
+ }
+ 
+-void UFPSImpactFXSubsystem::AddParticle(int32 Group,const FVector& Position,const FVector& Normal,EFPSImpactSurface Surface,float DetailScale)
++void UFPSImpactFXSubsystem::AddParticle(int32 Group,const FVector& Position,const FVector& Normal,EFPSImpactSurface Surface,float DetailScale,bool bEmber)
+ {
+     if(ActiveParticles>=MaxActiveParticles)return;
+     const double Now=GetWorld()->GetTimeSeconds();
+@@ -393,8 +411,23 @@
+     if(Slot==INDEX_NONE)return; // Full pool drops cosmetic detail; never allocates.
+     auto& P=Particles[Slot];P=FParticle();
+     P.Position=Position;P.Born=Now;
++    FVector Side=FMath::VRand();Side=FVector::VectorPlaneProject(Side,Normal);
++    if(bEmber)
++    {
++        const bool Fleck=FMath::FRand()<.65f;
++        const float Speed=Fleck?FMath::FRandRange(45.f,95.f):FMath::FRandRange(110.f,195.f);
++        P.Velocity=(Normal*.65f+Side+FVector::UpVector*.4f).GetSafeNormal(SMALL_NUMBER,Normal)*Speed;
++        P.Life=Fleck?FMath::FRandRange(.38f,.63f):FMath::FRandRange(.17f,.30f);
++        P.EmberDrag=Fleck?3.3f:2.1f;
++        P.Gravity=Fleck?22.f:-155.f;
++        P.Size=FVector(FMath::FRandRange(.35f,.68f),Fleck?FMath::FRandRange(.7f,1.4f):FMath::FRandRange(2.1f,3.8f),1.f);
++        P.Color=FLinearColor(1.f,FMath::FRandRange(.32f,.7f),Fleck?.04f:.13f);
++        P.Opacity=.94f;
++        P.LandingPoint=Position-Normal;P.LandingNormal=Normal;P.bHasLandingPlane=true;
++        ++ActiveParticles;
++        return;
++    }
+     P.Color=FPSImpact::DustColors[static_cast<uint8>(Surface)];
+-    FVector Side=FMath::VRand();Side=FVector::VectorPlaneProject(Side,Normal);
+     P.Velocity=Normal*FMath::FRandRange(Group==0?180.f:35.f,Group==0?420.f:100.f)+Side*(Group==0?115.f:45.f);
+     P.Rotation=FRotator(FMath::FRandRange(-180.f,180.f),FMath::FRandRange(-180.f,180.f),FMath::FRandRange(-180.f,180.f));
+     if(Group==0){P.Life=FMath::FRandRange(.12f,.24f);P.Gravity=-450.f;P.Size=FVector(.65f,FMath::FRandRange(3.f,6.f),1.f);P.Color=FLinearColor(1.f,.56f,.12f);P.Opacity=.95f;}
+@@ -648,7 +681,7 @@
+             const float Life=Age/P.Life;
+             // Analytic non-colliding motion: no raycasts/Chaos bodies per fragment.
+             const bool bMist=Group==3||Group==7,bDrop=Group==4||Group==8;
+-            const float Drag=bMist?6.f:bDrop?1.6f:Group==1?5.f:0.f;
++            const float Drag=bMist?6.f:bDrop?1.6f:Group==1?5.f:P.EmberDrag;
+             const float Damping=Drag>0.f?FMath::Exp(-Drag*Age):1.f;
+             const float Travel=Drag>0.f?(1.f-Damping)/Drag:Age;
+             const FVector Position=P.Position+P.Velocity*Travel+FVector(0,0,P.Gravity*.5f*Age*Age);
+@@ -677,7 +710,8 @@
+             float Fade=bDrop?1.f-FMath::SmoothStep(.78f,1.f,Life):Group==2?1.f-FMath::SmoothStep(.5f,1.f,Life):FMath::Square(1.f-Life);
+             if(bMist)Fade=FMath::SmoothStep(0.f,.035f,Life)*(1.f-FMath::SmoothStep(.20f,1.f,Life));
+             const float NearFade=Group>=3?FMath::SmoothStep(12.f,45.f,static_cast<float>(FVector::Dist(Eye,Position))):1.f;
+-            const float Data[]={P.Color.R,P.Color.G,P.Color.B,P.Opacity*Fade*NearFade,Life,P.Variation};
++            const float Cooling=P.EmberDrag>0.f?1.f-.80f*Life:1.f;
++            const float Data[]={P.Color.R,P.Color.G*Cooling,P.Color.B*Cooling*Cooling,P.Opacity*Fade*NearFade,Life,P.Variation};
+             Renderers[Group]->SetCustomData(Local,MakeArrayView(Data,Group>=3?6:4),false);
+         }
+         if(Dirty)Renderers[Group]->BatchUpdateInstancesTransforms(0,Transforms[Group],false,true,true);
+--- a/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h
++++ b/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h
+@@ -26,6 +26,7 @@
+     /** bPlaySound/bDecal: melee contacts (kukri stab) bring their own hit cue and leave no bullet-hole decal. */
+     void SpawnImpact(const FHitResult& Hit, UCameraComponent* ViewCamera, bool bPlaySound = true, bool bDecal = true);
+     void SpawnBladeContact(const FHitResult& Hit,UCameraComponent* ViewCamera,bool bWorld);
++    void SpawnTorchEmbers(const FVector& Point,const FVector& Normal,UCameraComponent* ViewCamera);
+     void SpawnBleedingBurst(const FVector& Position,const FVector& Normal,int32 Stacks,AActor* BleedingActor);
+     void ClearImpactDecalsForComponent(const UPrimitiveComponent* Component);
+     void SpawnPounceLanding(const FHitResult& Ground, const FVector& Forward, float Radius, float Angle, UCameraComponent* ViewCamera, const AActor* Source, bool bPlaySound = true);
+@@ -69,6 +70,7 @@
+         FLinearColor Color = FLinearColor::White;
+         double Born = 0.;
+         float Life = 0.f, Gravity = 0.f, Opacity = 0.f, Variation = 0.f;
++        float EmberDrag = 0.f;
+         FVector LandingPoint = FVector::ZeroVector, LandingNormal = FVector::UpVector;
+         bool bHasLandingPlane = false;
+     };
+@@ -78,12 +80,12 @@
+         FVector Position = FVector::ZeroVector;
+         double Time = -10.;
+     };
+-    enum class EContactKind : uint8 { Standard, BladeBody, BladeScenery };
++    enum class EContactKind : uint8 { Standard, BladeBody, BladeScenery, Torch };
+     void RenderContact(const FHitResult& Hit,UCameraComponent* ViewCamera,bool bPlaySound,bool bDecal,EContactKind Kind);
+     EFPSImpactSurface ResolveSurface(const FHitResult& Hit,bool bBodyContact);
+     EFPSImpactSurface SurfaceForObject(const UObject* Object);
+     void AddParticle(int32 Group, const FVector& Position, const FVector& Normal,
+-        EFPSImpactSurface Surface, float DetailScale);
++        EFPSImpactSurface Surface, float DetailScale, bool bEmber=false);
+     void AddFleshBurst(const FHitResult& Hit,const FVector& Normal,const FVector& Axis,bool bCut,bool Full,bool Far,const FHitResult* Ground);
+     bool FindBloodLanding(const FHitResult& Hit, UCameraComponent* ViewCamera, double Now, FHitResult& Ground);
+     void AddBloodWall(const FHitResult& Hit,const FVector& Axis,UCameraComponent* View,double Now);
+--- a/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
+@@ -394,6 +394,8 @@
+         auto* Combat=Actor->FindComponentByClass<UMonsterCombatComponent>();
+         if(!Combat)
+         {
++            if(Shot.ItemDefinition==ColdSteelInventory::WoodenTorchDefinition&&!Cast<APawn>(Actor))
++                if(auto* Torch=Pawn->FindComponentByClass<UWoodenTorchComponent>())Torch->SurfaceContact(Hit);
+             UWardBreakableGlass::BreakHit(Hit,(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal());
+             ConfirmImpact(Hit,true);return;
+         }

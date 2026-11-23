@@ -1,4 +1,22 @@
 {
+  "ue_wooden_torch": {
+    "id": "ue_wooden_torch",
+    "name": "火把",
+    "category": "weapon_melee",
+    "type": "火把",
+    "weaponType": "torch",
+    "weaponTypeTag": "单手近战武器",
+    "equipSlot": "weapon",
+    "isTwoHanded": false,
+    "stack_max": 1,
+    "grid_w": 1,
+    "grid_h": 3,
+    "level": 1,
+    "desc": "可装备在主手或副手照明。火把击中敌人有25%概率施加1层灼烧，持续5秒。",
+    "ue_icon": "Icons/ue_wooden_torch_r3.png",
+    "viewmodel_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+    "world_mesh": "/Game/Weapons/WoodenTorch20261122/HearthWrapR7/SM_WrappedHearthTorch.SM_WrappedHearthTorch"
+  },
   "ue_leather_quiver_belt": {
     "id": "ue_leather_quiver_belt",
     "name": "皮革箭袋腰带",

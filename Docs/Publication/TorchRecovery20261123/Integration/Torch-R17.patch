@@ -1,0 +1,594 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp
+@@ -1,5 +1,6 @@
+ #include "ColdSteelGenericMelee.h"
+ #include "../Weapons/WoodenTorchItem.h"
++#include "../Weapons/WoodenTorchComponent.h"
+ #include "../Weapons/EagleTalonGuardComponent.h"
+ #include "ColdSteelPlayerState.h"
+ #include "ColdSteelAuthorityContext.h"
+@@ -81,7 +82,7 @@
+     const FColdSteelItem* Item=Family==Tool?Model->ActiveProductionTool():Model->Equipped();
+     if(Family==Staff&&(!Item||Item->InstanceId!=Instance))
+     {
+-        const auto* Off=Model->Equipped(Model->Snapshot().ActiveWeaponSlot==6?8:11);
++        const auto* Off=Model->Equipped(Model->ActiveOffhandSlot());
+         if(!Off||Off->InstanceId!=Instance||!ColdSteelInventory::IsWoodenTorch(*Off)||Model->ActiveProductionTool())return;
+         if((Item&&ColdSteelInventory::IsDualPistol(*Item))||Pawn->IsOffhandReloadActive()||Pawn->IsReloading()||!CanAuthorityBeginConsumable(Pawn))return;
+         Item=Off;
+@@ -182,6 +183,9 @@
+         if(!SwordComponent||(!SwordComponent->HasGaleGuard(Item)&&!Model->SpendStamina(float(Cost))))return;
+         UEagleTalonGuardComponent::Commit(Pawn,Instance,EEagleStrike::Ordinary,Serial);
+     }
++    // The remote owner predicts the torch cost on entry. Commit it once on the shadow, including a miss.
++    if(Family==Staff&&Item&&ColdSteelInventory::IsWoodenTorch(*Item)&&!Pawn->IsLocallyControlled()&&
++        !Model->SpendStamina(float(Cost)))return;
+     auto& Receipt=GenericMeleeReceipts.Add(Serial);
+     Receipt.Pawn=Pawn;if(Item)Receipt.Item=*Item;
+     Receipt.Serial=Serial;Receipt.Family=Family;Receipt.Meta=Meta;Receipt.StartedAt=Now;
+@@ -253,6 +257,41 @@
+         GenericMeleeReceipts.FindChecked(Report.GenericMeleeSerial).Targets.Add(Report.Target.Get());
+ }
+ 
++void AColdSteelPlayerState::RequestTorchEmbers(APawn* Pawn,uint32 OrdinarySwingSerial,const FVector& Point,const FVector& Normal)
++{
++    const bool bQuick=OrdinarySwingSerial==0;
++    ServerTorchEmbers(Pawn,bQuick?QuickCombatSequence:OrdinarySwingSerial,bQuick,Point,Normal);
++}
++
++void AColdSteelPlayerState::ServerTorchEmbers_Implementation(APawn* Pawn,uint32 Serial,bool bQuick,FVector_NetQuantize10 Point,FVector_NetQuantizeNormal Normal)
++{
++    if(!Serial||!Pawn||Pawn!=GetPawn()||!ShadowModel||ShadowModel->ActiveProductionTool())return;
++    const auto* Main=ShadowModel->Equipped();
++    const auto* Off=ShadowModel->Equipped(ShadowModel->ActiveOffhandSlot());
++    const double Now=GetWorld()->GetTimeSeconds();
++    FGenericMeleeReceipt* Receipt=nullptr;
++    if(bQuick)
++    {
++        if(Serial!=QuickCombatServerSequence||QuickCombatPawn.Get()!=Pawn||Now>QuickCombatUntil||Serial==LastTorchQuickSurface||
++            !ColdSteelInventory::QuickTorch(Main,Off)||QuickCombatEquipment!=QuickCombatEquipmentKey())return;
++    }
++    else
++    {
++        Receipt=GenericMeleeReceipts.Find(Serial);
++        if(!Receipt||Receipt->Pawn.Get()!=Pawn||Receipt->Family!=ColdSteelGenericMelee::Staff||
++            Receipt->bTorchSurfaceSent||Now>Receipt->Expires||!ColdSteelInventory::IsWoodenTorch(Receipt->Item))return;
++        const auto& Id=Receipt->Item.InstanceId;
++        if((!Main||Main->InstanceId!=Id)&&(!Off||Off->InstanceId!=Id))return;
++    }
++    auto* Torch=Pawn->FindComponentByClass<UWoodenTorchComponent>();
++    const float Reach=FMath::Max(175.f,ShadowModel->QuickCombatDefinition().QuickCombat.RangeCM+65.f);
++    if(Torch&&Torch->PublishSurfaceContact(Point,Normal,Reach))
++    {
++        if(bQuick)LastTorchQuickSurface=Serial;
++        else Receipt->bTorchSurfaceSent=true;
++    }
++}
++
+ bool AColdSteelPlayerState::HasGenericMeleeBusy(const APawn* Pawn) const
+ {
+     if(!HasAuthority()||!Pawn||Pawn!=GetPawn()||GenericMeleePawn.Get()!=Pawn||!GetWorld())return false;
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPistolAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPistolAuthority.cpp
+@@ -36,7 +36,8 @@
+         ||Pawn->IsTraversing()||ShadowModel->ActiveProductionTool()){Reject();return;}
+     const int32 OffSlot=ActiveSlot==6?8:11;
+     const auto* Main=ShadowModel->Equipped(ActiveSlot);const auto* Off=ShadowModel->Equipped(OffSlot);
+-    if(Off&&ColdSteelInventory::IsWoodenTorch(*Off)&&(HasGenericMeleeBusy(Pawn)||HasAuthorityConsumableReservation(Pawn))){Reject();return;}
++    if(Off&&ColdSteelInventory::IsWoodenTorch(*Off)&&
++        (HasGenericMeleeBusy(Pawn)||IsQuickCombatExecuting(Pawn)||HasAuthorityConsumableReservation(Pawn))){Reject();return;}
+     R.Side=Gun->Cell==OffSlot?1:0;
+     if(R.Side&&Main&&!ColdSteelInventory::IsDualPistol(*Main)&&!ColdSteelInventory::UsesStaffMelee(*Main)&&!G->IsStaff(Main->Definition)
+         &&!UKukriWeaponComponent::IsKukri(*Main)){Reject();return;}
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp
+@@ -88,6 +88,8 @@
+ #include "../Weapons/Unarmed/UnarmedPunchTuning.h"
+ #include "../Weapons/Staff/StaffQuickCombatMotion.h"
+ #include "../Weapons/WoodenTorchItem.h"
++#include "../Weapons/Staff/StaffWeaponComponent.h"
++#include "../Skills/FPSQuickCombatComponent.h"
+ #include "../Weapons/Spellbook/SpellbookComponent.h"
+ #include "../Weapons/Spellbook/SpellbookFocusMana.h"
+ #include "../Weapons/MagicCrystalMana.h"
+@@ -156,7 +158,9 @@
+         &&!ColdSteelInventory::UsesStaffMelee(*PreItem)&&!(PreGunsmith&&PreGunsmith->IsTool(PreItem->Definition))
+         &&!(Report.AttackMeta&(0x20|0x80));
+     // 用客户端声明（且已校验属于持握集合）的那件武器建 Shot——双持副手命中拿到副手面板。
+-    FColdSteelSkillShot Shot = ColdSteelSkills::Snapshot(Shooter,PreItem,bFiredRound);
++    const bool bTorchQuick=Declared&&ColdSteelInventory::IsWoodenTorch(*Declared)&&Report.AttackMeta==0x80;
++    FColdSteelSkillShot Shot=bTorchQuick?ColdSteelSkills::StaffQuickStrike(*ShadowModel,Declared):
++        ColdSteelSkills::Snapshot(Shooter,PreItem,bFiredRound);
+     if((Report.AttackMeta&0x80)&&ConicalHammerSeat::Installed(PreItem))
+         ConicalHammerSeat::PrepareQuickDamage(Shot.DamagePanel);
+     if(Report.AttackMeta==0x10 && Declared && Declared->Definition==TEXT("ue_tactical_hatchet"))
+@@ -165,7 +169,7 @@
+         if(Kukri && Kukri->IsNetworkFalconHeavyRelease(Declared->InstanceId))
+             SwiftFalconHeavy::ScalePhysicalDamage(Shot.DamagePanel);
+     }
+-    Shot.bMeleeStrike = (Report.Flags & (1 << 0)) != 0;
++    Shot.bMeleeStrike = bTorchQuick || (Report.Flags & (1 << 0)) != 0;
+     Shot.bRifle = (Report.Flags & (1 << 1)) != 0;
+     Shot.bPistol = (Report.Flags & (1 << 2)) != 0;
+     // Melee semantics are equipment-derived: a firearm cannot claim a melee flag
+@@ -174,7 +178,7 @@
+     const bool bServerMelee = ((Report.AttackMeta==UnarmedPunch::AttackMeta)&&!Declared)
+         ||((Report.AttackMeta&0x80)!=0)
+         ||(Declared&&(ColdSteelInventory::IsMeleeWeapon(*Declared)||ColdSteelInventory::IsTwoHandedBlunt(*Declared)));
+-    Shot.bMelee = ((Report.Flags & (1 << 3)) != 0) && bServerMelee;
++    Shot.bMelee = !bTorchQuick && ((Report.Flags & (1 << 3)) != 0) && bServerMelee;
+     Shot.bRicochet = (Report.Flags & (1 << 4)) != 0;
+     Shot.bInheritedCritical = (Report.Flags & (1 << 5)) != 0;
+     // 枪型类别位按服务端影子里的真实武器重算：申报位只用于训练/附魔分支的补充判断，
+@@ -550,7 +554,8 @@
+         {
+             Combat->ReceiveMeleeKnockback(Shooter,QuickStats.KnockbackCM);
+             // The hammer and the kukri pommel strike roll their quick-combat bleed here (authority only, as offline).
+-            if(Declared&&(ColdSteelInventory::IsTwoHandedBlunt(*Declared)||ColdSteelInventory::IsOneHandedMelee(*Declared))&&!Combat->IsDead()
++            if(Declared&&!ColdSteelInventory::IsWoodenTorch(*Declared)&&
++                (ColdSteelInventory::IsTwoHandedBlunt(*Declared)||ColdSteelInventory::IsOneHandedMelee(*Declared))&&!Combat->IsDead()
+                 &&QuickStats.BleedChance>0.f&&FMath::FRand()<QuickStats.BleedChance)
+                 if(auto* Status=UCombatStatusFormula::GetOrAdd(Report.Target))Status->AddBleeding(Shooter,1);
+         }
+@@ -570,8 +575,26 @@
+     Out.Applied = Applied;
+     Out.bCritical = Receipt.bCritical;
+     Out.bKilled = Receipt.bKilled;Out.bFirearm=bFiredRound;
+-    if(BladeFeedback)ClientConfirmBladeHit(Out,Shooter,Hit,Report.MasteryAttackSerial,Shot.MeleeDamagePhase);
++    if(Shot.ItemDefinition==ColdSteelInventory::WoodenTorchDefinition&&Shot.bMeleeStrike&&(Applied>0.f||Receipt.bKilled))
++    {
++        const bool bQuick=Shot.AttackMeta==0x80;
++        ClientConfirmTorchHit(Out,Shooter,Hit.ImpactPoint,bQuick?Report.QuickCombatSerial:Report.GenericMeleeSerial,bQuick);
++    }
++    else if(BladeFeedback)ClientConfirmBladeHit(Out,Shooter,Hit,Report.MasteryAttackSerial,Shot.MeleeDamagePhase);
+     else ClientConfirmHit(Out);
++}
++
++void AColdSteelPlayerState::ClientConfirmTorchHit_Implementation(const FColdSteelNetHitReceipt& Receipt,APawn* Attacker,FVector_NetQuantize10 Point,uint32 StrikeSerial,bool bQuick)
++{
++    if(!IsValid(Attacker)||Attacker!=GetPawn())return;
++    ClientConfirmHit_Implementation(Receipt);
++    if(bQuick)
++    {
++        if(StrikeSerial==QuickCombatSequence)
++            if(auto* Quick=Attacker->FindComponentByClass<UFPSQuickCombatComponent>())Quick->ConfirmTorchContact(Point);
++    }
++    else if(auto* Staff=Attacker->FindComponentByClass<UStaffWeaponComponent>())
++        Staff->ConfirmOwnerTorchSwing(StrikeSerial,Point);
+ }
+ 
+ void AColdSteelPlayerState::ClientConfirmBladeHit_Implementation(const FColdSteelNetHitReceipt& Receipt,APawn* Attacker,const FHitResult& Hit,uint32 OwnerSwing,uint8 Phase)
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitValidation.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitValidation.cpp
+@@ -232,18 +232,18 @@
+     }
+     if(bUnarmed)
+     {
+-        const int32 Primary=ShadowModel->Snapshot().ActiveWeaponSlot;
++        const int32 Primary=ShadowModel->Current.ActiveWeaponSlot;
+         const int32 Offhand=Primary==6?8:11;
+         if(ShadowModel->Equipped(Primary)||ShadowModel->Equipped(Offhand)||ShadowModel->ActiveProductionTool())
+         {OutReason=TEXT("unarmed equipment mismatch");return false;}
+     }
+-    const int32 Active=ShadowModel->Snapshot().ActiveWeaponSlot;
++    const int32 Active=ShadowModel->Current.ActiveWeaponSlot;
+     const int32 Paired=Active==6?8:11;
+-    if(Report.AttackMeta==0x80)
++    if(Report.AttackMeta&0x80)
+     {
+         const auto* Expected=ShadowModel->ActiveProductionTool()?nullptr:
+             ColdSteelInventory::QuickTorch(ShadowModel->Equipped(Active),ShadowModel->Equipped(Paired));
+-        if(Expected?(Report.ItemDefinition!=Expected->Definition||Report.ItemInstance!=Expected->InstanceId):
++        if(Expected?(Report.AttackMeta!=0x80||Report.ItemDefinition!=Expected->Definition||Report.ItemInstance!=Expected->InstanceId):
+             Report.ItemDefinition==ColdSteelInventory::WoodenTorchDefinition)
+         {OutReason=TEXT("torch strike does not match equipped hand");return false;}
+     }
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp
+@@ -222,6 +222,15 @@
+         // authority resources while prepared, then rely on the end checkpoint.
+         const auto* UpkeepPawn=GetPawn();
+         const auto* HeldSword=ShadowModel->Equipped();
++        const auto* Offhand=ShadowModel->Equipped(ShadowModel->ActiveOffhandSlot());
++        const bool HoldingTorch=(HeldSword&&ColdSteelInventory::IsWoodenTorch(*HeldSword))||
++            (Offhand&&ColdSteelInventory::IsWoodenTorch(*Offhand));
++        if(HoldingTorch&&(HasGenericMeleeBusy(UpkeepPawn)||IsQuickCombatExecuting(UpkeepPawn)))
++        {
++            Adopted.Stamina=Prev.Stamina;
++            Adopted.StaminaRecoveryDelay=Prev.StaminaRecoveryDelay;
++            Adopted.bSprintExhausted=Prev.bSprintExhausted;
++        }
+         if(UpkeepPawn&&HeldSword&&HeldSword->Definition==TEXT("ue_forged_steel_greatsword"))
+         {
+             const auto* Sword=UpkeepPawn->FindComponentByClass<URuneSwordComponent>();
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h
+@@ -140,6 +140,7 @@
+     UFUNCTION(Client, Reliable)
+     void ClientConfirmHit(const FColdSteelNetHitReceipt& Receipt);
+     UFUNCTION(Client,Reliable) void ClientConfirmBladeHit(const FColdSteelNetHitReceipt& Receipt,APawn* Attacker,const FHitResult& Hit,uint32 OwnerSwing,uint8 Phase);
++    UFUNCTION(Client,Reliable) void ClientConfirmTorchHit(const FColdSteelNetHitReceipt& Receipt,APawn* Attacker,FVector_NetQuantize10 Point,uint32 StrikeSerial,bool bQuick);
+ 
+     /** 远端身体表现：客户端上报离散动作开始（换弹/检视/施法等），服务端写进身体复制态。 */
+     UFUNCTION(Server, Reliable)
+@@ -221,12 +222,15 @@
+     bool ValidateGenericMeleeReceipt(const FColdSteelNetHitReport& Report,const APawn* Pawn,const FColdSteelItem* Item) const;
+     void CommitGenericMeleeReceipt(const FColdSteelNetHitReport& Report,const APawn* Pawn,const FColdSteelItem* Item);
+     bool HasGenericMeleeBusy(const APawn* Pawn) const;
++    void RequestTorchEmbers(APawn* Pawn,uint32 OrdinarySwingSerial,const FVector& Point,const FVector& Normal);
++    UFUNCTION(Server,Unreliable) void ServerTorchEmbers(APawn* Pawn,uint32 Serial,bool bQuick,FVector_NetQuantize10 Point,FVector_NetQuantizeNormal Normal);
+     struct FGenericMeleeReceipt
+     {
+         TWeakObjectPtr<APawn> Pawn;
+         FColdSteelItem Item;
+         uint32 Serial=0;
+         uint8 Family=0,Meta=0;
++        bool bTorchSurfaceSent=false;
+         double StartedAt=0.,ContactFrom=0.,ContactUntil=0.,BusyUntil=0.,Expires=0.;
+         TSet<TWeakObjectPtr<AActor>> Targets;
+     };
+@@ -438,6 +442,7 @@
+     FString QuickCombatEquipment;
+     FString QuickCombatEquipmentKey() const;
+     TSet<TWeakObjectPtr<AActor>> QuickCombatTargets;
++    uint32 LastTorchQuickSurface=0;
+     uint32 LastRuneCooldownAttackSerial=0;
+     TWeakObjectPtr<APawn> RuneCooldownPawn;
+     uint32 LastMasteryAttackSerial=0;
+--- a/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelPlayerState.h"
++#include "../Weapons/WoodenTorchItem.h"
+ #include "../Weapons/EagleTalonGuardComponent.h"
+ #include "../Weapons/PojunGrip.h"
+ #include "../Weapons/Kukri/KukriRelentlessComponent.h"
+@@ -21,7 +22,7 @@
+ {
+     const auto* Profile=HasAuthority()?ShadowModel.Get():GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     if(!Profile)return FString();
+-    const int32 Active=Profile->Snapshot().ActiveWeaponSlot;
++    const int32 Active=Profile->Current.ActiveWeaponSlot;
+     FString Key=FString::FromInt(Active);
+     for(const int32 Cell:{Active,Active==6?8:11})
+     {
+@@ -77,6 +78,15 @@
+     const auto* Book=Pawn?Pawn->FindComponentByClass<USpellbookComponent>():nullptr;
+     const auto* Broken=Pawn?Pawn->FindComponentByClass<UPlayerGuardBreakComponent>():nullptr;
+     const auto* Hammer=Pawn?Pawn->FindComponentByClass<UProductionToolComponent>():nullptr;
++    const auto* Main=ShadowModel?ShadowModel->Equipped():nullptr;
++    const auto* Off=ShadowModel?ShadowModel->Equipped(ShadowModel->ActiveOffhandSlot()):nullptr;
++    if(ColdSteelInventory::QuickTorch(Main,Off)&&!ShadowModel->ActiveProductionTool())
++    {
++        const auto* Reload=Main?PistolReloads.Find(Main->InstanceId):nullptr;
++        if(HasAuthorityConsumableReservation(Pawn)||HasGenericMeleeBusy(Pawn)||
++            (Reload&&Reload->Active&&Reload->Pawn.Get()==Pawn))
++        {ClientQuickCombatRejected(Sequence);return;}
++    }
+     const float Before=ShadowModel?ShadowModel->Stamina():0.f;
+     if(Busy||(Hammer&&Hammer->IsPojunChainOccupied())||IsSwordWhirlwindExecuting(Pawn)||!Pawn||ActionPawn!=Pawn||!Health||Health->IsDead()||!ShadowModel
+         ||Equipment.IsEmpty()||Equipment!=QuickCombatEquipmentKey()
+--- a/Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp
+@@ -82,6 +82,15 @@
+     bool bFittedHead = false;
+     if (UHumanoidHitVolumeData::ResolveCriticalHit(Hit, bFittedHead)) return bFittedHead;
+     const FString Bone=Hit.BoneName.ToString();return Bone.Contains(TEXT("head"),ESearchCase::IgnoreCase)||Bone.Equals(TEXT("cranium"),ESearchCase::IgnoreCase);
++}
++
++FColdSteelSkillShot ColdSteelSkills::StaffQuickStrike(const UColdSteelStatusModel& Profile,const FColdSteelItem* Torch)
++{
++    FColdSteelSkillShot Shot;
++    Shot.CriticalChance=Profile.Derived(TEXT("crit"));
++    Shot.CriticalDamageBonus=Profile.CriticalStrikeEffect().CriticalDamageBonus;
++    if(Torch){Shot.ItemDefinition=Torch->Definition;Shot.ItemInstance=Torch->InstanceId;}
++    return Shot;
+ }
+ 
+ FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelItem* Item,bool bFiredRound)
+--- a/Source/FPSGAME/Skills/ColdSteelSkillRules.h
++++ b/Source/FPSGAME/Skills/ColdSteelSkillRules.h
+@@ -20,6 +20,7 @@
+     FPSGAME_API FString EffectSummary(const FColdSteelSkillEffect& Effect);
+     // Ammo effects apply only to fired rounds, never to a rifle-stock/pistol melee strike.
+     FPSGAME_API FColdSteelSkillShot Snapshot(AActor* Shooter,const FColdSteelItem* Item=nullptr,bool bFiredRound=false);
++    FPSGAME_API FColdSteelSkillShot StaffQuickStrike(const UColdSteelStatusModel& Profile,const FColdSteelItem* Torch);
+     FPSGAME_API void CapturePairedDash(FColdSteelSkillShot& Shot,AActor* Shooter,const UColdSteelStatusModel* Profile);
+     FPSGAME_API float ApplyHit(AActor* Shooter, const FHitResult& Hit, float Damage, const FVector& Direction, const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result=nullptr,FKukriPairedHeavyHit* PairedHeavy=nullptr);
+     // Called once after a confirmed enemy contact, including weapon-specific magic attacks.
+--- a/Source/FPSGAME/Skills/ConversationCombatAudit20261108.cpp
++++ b/Source/FPSGAME/Skills/ConversationCombatAudit20261108.cpp
+@@ -10,6 +10,9 @@
+ #include "../Production/ProductionToolStats.h"
+ #include "../Production/WarhammerConicalThrustMotion.h"
+ #include "../Weapons/MeleeWeaponStats.h"
++#include "../Weapons/WoodenTorchItem.h"
++#include "../Weapons/WoodenTorchComponent.h"
++#include "../Multiplayer/ColdSteelGenericMelee.h"
+ #include "../Weapons/Kukri/OffhandKukriThrust.h"
+ #include "../Weapons/Kukri/OffhandKukriComponent.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+@@ -65,9 +68,79 @@
+     {
+         FColdSteelNetHitReport H;H.Target=Target;H.ItemDefinition=Item.Definition;H.ItemInstance=Item.InstanceId;
+         H.AttackMeta=0x80;H.QuickCombatSerial=Seq;H.Flags=(1<<0)|(1<<3);H.AimOrigin=Pawn->GetPawnViewLocation();
++        if(ColdSteelInventory::IsWoodenTorch(Item))H.Flags=1<<0;
+         H.ImpactPoint=Target->GetActorLocation();H.Direction=FVector::ForwardVector;H.HitNormal=-FVector::ForwardVector;
+         H.ClientFireTime=World->GetTimeSeconds();return H;
+     };
++    const auto Finish=[&]()
++    {
++        auto Root=MakeShared<FJsonObject>();Root->SetBoolField(TEXT("passed"),Failures==0);Root->SetNumberField(TEXT("failures"),Failures);
++        Root->SetStringField(TEXT("scope"),TEXT("isolated production authority methods; no NetDriver or visual acceptance"));Root->SetArrayField(TEXT("cases"),Rows);
++        FString Json;FJsonSerializer::Serialize(Root,TJsonWriterFactory<>::Create(&Json));FString Out;
++        if(!FParse::Value(*Params,TEXT("Output="),Out))Out=FPaths::ProjectSavedDir()/TEXT("ConversationCombatReview20261108/native.json");
++        IFileManager::Get().MakeDirectory(*FPaths::GetPath(Out),true);FFileHelper::SaveStringToFile(Json,*Out);
++        Shadow->CurrentPawn.Reset();Pawn->NetShadowProfile=nullptr;PS->ShadowModel=nullptr;
++        GI->Shutdown();GEngine->DestroyWorldContext(World);World->DestroyWorld(false);GI->RemoveFromRoot();FCommandLine::Set(*Original);return Failures?1:0;
++    };
++    if(FParse::Param(*Params,TEXT("TorchOnly")))
++    {
++        auto Main=Host->CreateItem(ColdSteelInventory::WoodenTorchDefinition);
++        auto Off=Host->CreateItem(ColdSteelInventory::WoodenTorchDefinition);
++        auto Spare=Host->CreateItem(ColdSteelInventory::WoodenTorchDefinition);
++        auto Gun=Host->CreateItem(TEXT("ue_pit_viper2011"));
++        Shadow->Current.LearnedSkills.AddUnique(TEXT("quickCombat"));
++        Shadow->Current.Skills.FindOrAdd(TEXT("quickCombat")).Level=1;
++        Gun.Magazine=0;
++        Shadow->Current.AmmoPouch.Add(Shadow->AmmoDefinitionFor(Gun),40);
++        Main.Place=Off.Place=Gun.Place=1;Main.Cell=Gun.Cell=6;Off.Cell=8;Spare.Place=0;
++        auto* Torch=Pawn->FindComponentByClass<UWoodenTorchComponent>();
++        const auto Equip=[&](const FColdSteelItem& Primary)
++        {
++            Shadow->Current.Items={Primary,Off,Spare};Torch->RefreshEquipment(*Shadow,6);
++        };
++        Equip(Main);
++        Check(Torch->QuickAttackHand()==0&&Torch->UsesRightClickAttack(),TEXT("dual F main and RMB offhand"));
++        Begin();FColdSteelPreparedHit Hit;
++        Check(PS->QuickCombatServerSequence==Seq,TEXT("equipped dual torch starts learned quick combat"));
++        Check(!PS->PrepareHitReport(Report(Off,A),Hit),TEXT("dual F rejects offhand instance"));
++        auto Mixed=Report(Main,A);Mixed.AttackMeta|=1;
++        Check(!PS->PrepareHitReport(Mixed,Hit),TEXT("mixed quick and combo torch action rejected"));
++        const bool Accepted=PS->PrepareHitReport(Report(Main,A),Hit);
++        Check(Accepted&&Hit.Shot.ItemInstance==Main.InstanceId&&Hit.Shot.AttackForm==EMonsterAttackForm::Blunt,TEXT("dual main F authorized"));
++        if(Accepted){const float Health=A->Health;PS->SettleHitReport(Hit);Check(A->Health<Health,TEXT("accepted torch F applies damage"));}
++        Check(!PS->PrepareHitReport(Report(Main,A),Hit),TEXT("replayed torch contact rejected"));
++        PS->ServerQuickCombat_Implementation(Seq,Pawn,0,true,FString());
++        Shadow->TickRuntime(.25f,Pawn);
++        Check(Shadow->FindItem(Main.InstanceId)->TorchBurnedSeconds==.25&&Shadow->FindItem(Off.InstanceId)->TorchBurnedSeconds==.25&&
++            Shadow->FindItem(Spare.InstanceId)->TorchBurnedSeconds==0.,TEXT("guest clocks both held torches and preserves spare"));
++        const float Before=Shadow->Stamina(),Cost=ColdSteelMelee::UnarmedAttackStamina(Shadow);
++        PS->ServerRememberGenericMeleeStart_Implementation(Pawn,Off.InstanceId,ColdSteelGenericMelee::Staff,0,1);
++        const float Paid=Shadow->Stamina();
++        Check(PS->GenericMeleeReceipts.Contains(1)&&Cost>0.f&&FMath::IsNearlyEqual(Paid,Before-Cost,.001f),TEXT("offhand ordinary swing pays once without a target"));
++        PS->ServerRememberGenericMeleeStart_Implementation(Pawn,Off.InstanceId,ColdSteelGenericMelee::Staff,0,1);
++        Check(Shadow->Stamina()==Paid,TEXT("duplicate ordinary intent cannot pay twice"));
++        PS->ServerQuickCombat_Implementation(++Seq,Pawn,.9f,false,PS->QuickCombatEquipmentKey());
++        Check(!PS->QuickCombatServerSequence,TEXT("ordinary swing blocks overlapping torch F"));
++        World->TimeSeconds+=2.f;
++        Equip(Gun);
++        Check(Torch->QuickAttackHand()==1&&!Torch->UsesRightClickAttack(),TEXT("pistol RMB aims and F selects offhand"));
++        PS->ServerRememberGenericMeleeStart_Implementation(Pawn,Off.InstanceId,ColdSteelGenericMelee::Staff,0,2);
++        Check(!PS->GenericMeleeReceipts.Contains(2),TEXT("pistol RMB cannot authorize an ordinary torch swing"));
++        Begin();
++        Check(PS->PrepareHitReport(Report(Off,B),Hit)&&Hit.Shot.ItemInstance==Off.InstanceId&&!Hit.bFiredRound,TEXT("pistol F uses torch and no ammunition"));
++        PS->ServerPistolReload_Implementation(1,Gun.InstanceId,FString(),6,Pawn);
++        const auto* Rejected=PS->PistolReloads.Find(Gun.InstanceId);
++        Check(Rejected&&Rejected->Rejected&&!Rejected->Active,TEXT("torch F blocks pistol reload"));
++        PS->ServerQuickCombat_Implementation(Seq,Pawn,0,true,FString());
++        PS->ServerPistolReload_Implementation(2,Gun.InstanceId,FString(),6,Pawn);
++        const auto* Reload=PS->PistolReloads.Find(Gun.InstanceId);
++        Check(Reload&&Reload->Active&&!Reload->Rejected,TEXT("pistol reload starts after torch F finishes"));
++        Begin();Check(!PS->QuickCombatServerSequence,TEXT("active pistol reload blocks torch F"));
++        PS->PistolReloads.Reset();
++        PS->ConsumablePawn=Pawn;PS->ConsumableUseId=FGuid::NewGuid();PS->ConsumableExpiresAt=World->GetTimeSeconds()+10.;
++        Begin();Check(!PS->QuickCombatServerSequence,TEXT("reserved consumable blocks torch F"));
++        return Finish();
++    }
+     for(const TCHAR* Definition:{TEXT("ue_steel_warhammer"),TEXT("ue_runebound_warhammer"),TEXT("ue_thunder_god_hammer")})
+     {
+         Shadow->Current=Seed;auto Item=Host->CreateItem(Definition);Item.Place=1;Item.Cell=6;
+@@ -129,11 +202,5 @@
+             FString::Printf(TEXT("offhand committed action rate survives haste expiry at %.0f FPS"),FPS));
+         Offhand->bQuickCombat=false;
+     }
+-    auto Root=MakeShared<FJsonObject>();Root->SetBoolField(TEXT("passed"),Failures==0);Root->SetNumberField(TEXT("failures"),Failures);
+-    Root->SetStringField(TEXT("scope"),TEXT("isolated production authority methods; no NetDriver or visual acceptance"));Root->SetArrayField(TEXT("cases"),Rows);
+-    FString Json;FJsonSerializer::Serialize(Root,TJsonWriterFactory<>::Create(&Json));FString Out;
+-    if(!FParse::Value(*Params,TEXT("Output="),Out))Out=FPaths::ProjectSavedDir()/TEXT("ConversationCombatReview20261108/native.json");
+-    IFileManager::Get().MakeDirectory(*FPaths::GetPath(Out),true);FFileHelper::SaveStringToFile(Json,*Out);
+-    Shadow->CurrentPawn.Reset();Pawn->NetShadowProfile=nullptr;PS->ShadowModel=nullptr;
+-    GI->Shutdown();GEngine->DestroyWorldContext(World);World->DestroyWorld(false);GI->RemoveFromRoot();FCommandLine::Set(*Original);return Failures?1:0;
++    return Finish();
+ }
+--- a/Source/FPSGAME/Skills/FPSQuickCombatComponent.h
++++ b/Source/FPSGAME/Skills/FPSQuickCombatComponent.h
+@@ -48,6 +48,7 @@
+     void ConfigureForBow(float Length);
+     void ConfigureForStaffPunch();
+     void ConfigureForTorchStrike();
++    void ConfirmTorchContact(const FVector& Point);
+     void ConfigureForSpellbookPush();
+     void ConfigureForWarhammer(bool bHeadThrust=false);
+     bool UsesWarhammerHeadThrust() const { return Style==EQuickCombatStyle::Warhammer&&bWarhammerHeadThrust; }
+--- a/Source/FPSGAME/Skills/QuickCombatContact.cpp
++++ b/Source/FPSGAME/Skills/QuickCombatContact.cpp
+@@ -25,6 +25,15 @@
+ #include "GameFramework/Pawn.h"
+ #include "Kismet/GameplayStatics.h"
+ #include "Sound/SoundBase.h"
++
++void UFPSQuickCombatComponent::ConfirmTorchContact(const FVector& Point)
++{
++    if(Style!=EQuickCombatStyle::TorchStrike||!IsOccupyingLeftHand())return;
++    ImpactAge=0.f;ImpactStrength=1.f;
++    if(auto* Player=Cast<AFPSGAMECharacter>(GetOwner()))Player->RefreshQuickCombatCamera();
++    if(ImpactSound)UGameplayStatics::PlaySoundAtLocation(this,ImpactSound,Point,.9f,.9f);
++    if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,.8f,1.f);
++}
+ 
+ void UFPSQuickCombatComponent::ContactHit()
+ {
+@@ -154,9 +163,8 @@
+     if(bPunch||bTorch)
+     {
+         // A bare fist must not inherit the held staff's rune/ammo/mastery effects.
+-        Shot.CriticalChance=Profile->Derived(TEXT("crit"));
+-        Shot.CriticalDamageBonus=Profile->CriticalStrikeEffect().CriticalDamageBonus;
+-        if(TorchItem){Shot.ItemDefinition=TorchItem->Definition;Shot.ItemInstance=TorchItem->InstanceId;}
++        Shot=ColdSteelSkills::StaffQuickStrike(*Profile,TorchItem);
++        if(bTorch)Shot.ToughnessDamageMultiplier=Stats.ToughnessMultiplier;
+     }
+     else Shot=ColdSteelSkills::Snapshot(Player,bBook?Profile->Equipped(Profile->Snapshot().ActiveWeaponSlot==6?8:11)
+         :bOffhand&&Dual?&Dual->Hand(1).Item:bBow?Profile->ActiveBow():Profile->Equipped(),false);
+@@ -175,6 +183,12 @@
+     if(Applied>0.f||bKilled)Player->NotifyConfirmedWeaponHit(Target,Applied,&DamageResult,false);
+     // Pure push: ReceiveStun would still interrupt attacks even with zero seconds.
+     if(Applied>0.f||bKilled)Combat->ReceiveMeleeKnockback(Player,Stats.KnockbackCM);
++    if(bTorch)
++    {
++        if(Player->HasAuthority()&&(Applied>0.f||bKilled))ConfirmTorchContact(Hit.ImpactPoint);
++        if(Eligible&&bKilled)bKillPending=true;
++        return;
++    }
+     // ASH uses confirmed damage; bow resistance was already predicted from contact.
+     if(Applied>0.f||bKilled){ImpactAge=0.f;ImpactStrength=1.f;Player->RefreshQuickCombatCamera();}
+     if(!bUnarmed&&Eligible&&bKilled)bKillPending=true;
+--- a/Source/FPSGAME/UI/ColdSteelProfilePawn.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfilePawn.cpp
+@@ -231,9 +231,11 @@
+     {
+         if(ConsumedFuel)
+         {
+-            bTrainingDirty=true;
+             if(bNetShadowProfile)
++            {
+                 if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())PS->MarkGuestProfileDirty();
++            }
++            else bTrainingDirty=true;
+         }
+         NextTorchSettlement=FMath::Max(0.,NextTorchSettlement-Delta);
+         if(SpentTorch&&NextTorchSettlement<=0.)
+--- a/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp
++++ b/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.cpp
+@@ -337,11 +337,15 @@
+         const int32 Count=Near?FMath::RandRange(72,90):ApparentDistance<3600.f?32:10;
+         const FVector Fan=FMath::VRandCone(Normal,.46f);
+         const FVector Drift=FVector::VectorPlaneProject(Fan,Normal)*28.f+FVector::UpVector*16.f;
+-        for(int32 I=0;I<Count;++I)
++        bool ChipsAvailable=true, SparksAvailable=true;
++        for(int32 I=0;I<Count && ActiveParticles<MaxActiveParticles && (ChipsAvailable||SparksAvailable);++I)
+         {
+             const auto Type=I%11==0?ETorchDebris::Char:I%4==0?ETorchDebris::Streak:ETorchDebris::Spark;
++            // Both spark shapes share slots. A full group cannot free a slot during this burst.
++            bool& Available=Type==ETorchDebris::Char?ChipsAvailable:SparksAvailable;
++            if(!Available)continue;
+             const FVector Offset=FVector::VectorPlaneProject(FMath::VRand(),Normal)*FMath::FRandRange(0.f,3.5f);
+-            AddTorchDebris(Type,Hit.ImpactPoint+Normal*2.f+Offset,Fan,Drift,Normal);
++            Available=AddTorchDebris(Type,Hit.ImpactPoint+Normal*2.f+Offset,Fan,Drift,Normal);
+         }
+         return;
+     }
+@@ -423,9 +427,9 @@
+         AddTorchDebris(FMath::FRand()<.24f?ETorchDebris::Char:ETorchDebris::Spark,Point+FMath::VRand()*2.2f,Axis,Drift,FVector::ZeroVector);
+ }
+ 
+-void UFPSImpactFXSubsystem::AddTorchDebris(ETorchDebris Type,const FVector& Point,const FVector& Axis,const FVector& Drift,const FVector& SurfaceNormal)
+-{
+-    if(ActiveParticles>=MaxActiveParticles)return;
++bool UFPSImpactFXSubsystem::AddTorchDebris(ETorchDebris Type,const FVector& Point,const FVector& Axis,const FVector& Drift,const FVector& SurfaceNormal)
++{
++    if(ActiveParticles>=MaxActiveParticles)return false;
+     const bool Char=Type==ETorchDebris::Char,Streak=Type==ETorchDebris::Streak,Impact=!SurfaceNormal.IsZero();
+     const int32 Group=Char?2:FPSImpact::TorchGroup;
+     const int32 Count=FPSImpact::Counts[Group],Start=FPSImpact::Starts[Group];
+@@ -453,8 +457,9 @@
+         P.Spin=FRotator(170.f+220.f*P.Variation,105.f,220.f-400.f*P.Variation);
+         P.bHasLandingPlane=Impact;P.LandingPoint=Point-SurfaceNormal*2.f;P.LandingNormal=SurfaceNormal;
+         ++ActiveParticles;
+-        return;
+-    }
++        return true;
++    }
++    return false;
+ }
+ 
+ void UFPSImpactFXSubsystem::AddParticle(int32 Group,const FVector& Position,const FVector& Normal,EFPSImpactSurface Surface,float DetailScale)
+--- a/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h
++++ b/Source/FPSGAME/Weapons/FPSImpactFXSubsystem.h
+@@ -90,7 +90,7 @@
+     void AddParticle(int32 Group, const FVector& Position, const FVector& Normal,
+         EFPSImpactSurface Surface, float DetailScale);
+     enum class ETorchDebris : uint8 { Spark, Streak, Char };
+-    void AddTorchDebris(ETorchDebris Type,const FVector& Point,const FVector& Axis,const FVector& Drift,const FVector& SurfaceNormal);
++    bool AddTorchDebris(ETorchDebris Type,const FVector& Point,const FVector& Axis,const FVector& Drift,const FVector& SurfaceNormal);
+     int32 TorchSparkCursor=0;
+     void AddFleshBurst(const FHitResult& Hit,const FVector& Normal,const FVector& Axis,bool bCut,bool Full,bool Far,const FHitResult* Ground);
+     bool FindBloodLanding(const FHitResult& Hit, UCameraComponent* ViewCamera, double Now, FHitResult& Ground);
+--- a/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
++++ b/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp
+@@ -77,7 +77,7 @@
+     if(!Pawn||(!Pawn->HasAuthority()&&!Pawn->IsLocallyControlled()))return;
+     if(!Staff||!Arms||!P)return;
+     const auto* Main=P->Equipped();
+-    const auto* Off=P->Equipped(P->Snapshot().ActiveWeaponSlot==6?8:11);
++    const auto* Off=P->Equipped(P->ActiveOffhandSlot());
+     if(PairedTorchMesh.IsValid())
+     {
+         if(P->ActiveProductionTool()||!Off||Off->InstanceId!=Shot.ItemInstance||!Main||Main->InstanceId!=SwingMainInstance)
+@@ -306,7 +306,7 @@
+     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
+     auto* P=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     const auto* Main=P->Equipped();
+-    const auto* Off=P->Equipped(P->Snapshot().ActiveWeaponSlot==6?8:11);
++    const auto* Off=P->Equipped(P->ActiveOffhandSlot());
+     const auto* I=bOffhandTorch?Off:ColdSteelInventory::StaffMeleeItem(Main,Off);
+     if(!I||P->ActiveProductionTool()||(bOffhandTorch&&!ColdSteelInventory::IsWoodenTorch(*I))
+         ||(Paired?(!Main||I->InstanceId!=Torch->LeftInstance()):I->InstanceId!=Instance))return;
+@@ -348,6 +348,15 @@
+     Age=-1;HitActors.Reset();bBlocked=false;HitStopRemaining=0;ImpactAge=-1;ImpactStrength=0;
+     bSwingSoundPlayed=false;bAirImpulse=false;bImpactConfirmed=false;
+ }
++void UStaffWeaponComponent::ConfirmOwnerTorchSwing(uint32 StrikeSerial,const FVector& Point)
++{
++    if(!IsPrimaryAttacking()||Shot.ItemDefinition!=ColdSteelInventory::WoodenTorchDefinition||
++        !StrikeSerial||Shot.GenericMeleeSerial!=StrikeSerial)return;
++    FHitResult Hit;
++    Hit.ImpactPoint=Point;
++    ConfirmImpact(Hit,false);
++}
++
+ void UStaffWeaponComponent::ConfirmImpact(const FHitResult& Hit,bool bWorld)
+ {
+     if(bWorld)
+@@ -401,7 +410,7 @@
+         if(!Combat)
+         {
+             if(Shot.ItemDefinition==ColdSteelInventory::WoodenTorchDefinition&&!Cast<APawn>(Actor))
+-                if(auto* Torch=Pawn->FindComponentByClass<UWoodenTorchComponent>())Torch->SurfaceContact(Hit);
++                if(auto* Torch=Pawn->FindComponentByClass<UWoodenTorchComponent>())Torch->SurfaceContact(Hit,Shot.GenericMeleeSerial);
+             UWardBreakableGlass::BreakHit(Hit,(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal());
+             ConfirmImpact(Hit,true);return;
+         }
+@@ -483,7 +492,10 @@
+ void UStaffWeaponComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
+ {
+     Super::TickComponent(Delta,Type,Tick);if(!HasMeleeMoveset()||!Staff||!Camera)return;
+-    const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
++    const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
++    // Observers animate the replicated body. This camera rig belongs to the owning player.
++    if(TorchHand!=INDEX_NONE&&Pawn&&!Pawn->IsLocallyControlled())return;
++    const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
+     const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
+     if(AFPSGAMEPlayerController::BlocksActionContinuation(PC)||(Health&&Health->IsDead()))CancelAction();
+     const auto* Magic=GetOwner()->FindComponentByClass<UFPSFireballComponent>();
+--- a/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h
++++ b/Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.h
+@@ -46,6 +46,7 @@
+     bool IsTorchQuickStrike() const { return QuickTorchMesh.IsValid(); }
+     void EndTorchQuickStrike() { QuickTorchMesh.Reset(); }
+     bool GetTorchQuickContact(FVector& Grip,FVector& Head) const;
++    void ConfirmOwnerTorchSwing(uint32 StrikeSerial,const FVector& Point);
+     FStaffCastPose OffhandSwingPose() const;
+     static const TCHAR* SwingSoundPath();
+     static const TCHAR* ImpactSoundPath();

@@ -1,0 +1,726 @@
+--- a/SourceAssets/WorkbenchCopy20261101/copy_rules.py
++++ b/SourceAssets/WorkbenchCopy20261101/copy_rules.py
+@@ -22,49 +22,53 @@
+ 
+ 
+ MELEE_DESCRIPTIONS = {
+-    'star_marrow': '魔晶双手剑限定。长款晶体双刃内嵌三枚星髓晶核，保留原有护手与握柄接口；兼容红魔晶与高能魔晶。',
+-    'resonance_rune': '银白环纹彼此相连，共鸣微光沿刻纹缓缓明灭。',
++    'star_marrow': '剑身嵌有三枚星髓晶核。',
++    'resonance_rune': '银白环纹交叠，微光明灭。',
+     'erosion_rune': '紫色裂纹状符印沿金属表面延伸，刻纹间泛出微光。',
+-    'spirit_burst_rune': '魔晶双手剑专属。冰蓝晶光在刃内聚拢，双重柔光波纹依次扩散。',
+-    'conduction_rune': '银白导魔回路沿金属表面相连，微光循刻纹流动。',
++    'spirit_burst_rune': '两道冰蓝光纹沿刃面扩散。',
++    'conduction_rune': '银白符纹沿剑身相连。',
+     'wild_rune': '高地双手剑专属。兽颚主印与破甲爪痕相连，赤红裂隙沿剑脊明灭。',
+     'auspicious_cloud_rune': '唐刀与玄螭镇岳限定。卷云主印向刃尖收束，淡金云纹间流转玉青微光。',
+     'mountain_rune': '唐刀与玄螭镇岳限定。三峰主印与层叠岩脉沿刃身展开，土黄刻纹间浮起琥珀微光。',
+     'jingang_rune': '玄螭镇岳专属。金刚经行草鎏入剑脊，随生命状态显现三种光纹。',
+-    'bastion_guard': '宽厚护翼向两侧展开，外缘厚实，中央连接握柄。',
+-    'riposte_guard': '上挑护翼围住握柄前端，内缘形成承刃的弧面。',
+-    'light_guard': '收窄的护翼保留简洁轮廓，两端轻巧上扬。',
++    'bastion_guard': '厚实的护翼向两侧展开。',
++    'riposte_guard': '护翼上挑，内侧呈弧形。',
++    'light_guard': '窄小的护翼微微上扬。',
+     'highland_cloven_guard': '高地双手剑专属。双角护翼向外分叉，根部与握柄牢固衔接。',
+     'xuan_cloud_dragon': '唐刀专属。鎏金龙云浮雕嵌入暗铜底面，层叠边框沿护翼收束。',
+     'phoenix_feather': '唐刀专属。层叠凤羽围住红石嵌饰，卷云镂空穿过双侧护翼。',
+     'panchi_zhanyue': '玄螭镇岳专属。双螭环抱青玉，宽展铜翼间贯通卷云纹孔。',
+-    'shock_wrap': '防滑织带层叠包覆握区，搭接边平整收束。',
+-    'swift_grip': '轻巧握柄收窄外轮廓，保留双手贴合的握区。',
+-    'long_twohand': '加长握柄拉开双手握持间距，尾端与配重连续衔接。',
+-    'iron_spine_power_grip': '贴平钢脊支撑三段皮革握区，金属边缘收进缠革下方。',
+-    'lockweave_guard_grip': '交错锁纹织带紧密贴合握区，两端以窄环收口。',
+-    'pommel_hardened': '加厚硬化钢质剑首，以宽阔棱面收束柄尾。',
+-    'pommel_runic': '苍蓝符文嵌入金属剑首，微光环绕柄尾流转。',
+-    'pommel_mana_orb': '魔晶双手剑与符文长剑限定。银色支架包覆蓝色魔力晶球。',
+-    'ballast_hardened': '厚重陨铁锤首收束柄尾，击打端保留宽阔棱面。',
++    'shock_wrap': '防滑织带层层缠绕握柄。',
++    'swift_grip': '握柄纤细，中段收窄。',
++    'long_twohand': '加长的握柄拉开了双手间距。',
++    'iron_spine_power_grip': '贴平钢脊 · 三段人字纹皮革',
++    'lockweave_guard_grip': '锁纹织带交错缠柄。',
++    'pommel_hardened': '硬钢剑首棱面宽阔。',
++    'pommel_runic': '钢制剑首刻有苍蓝符文。',
++    'pommel_mana_orb': '银架包住一枚蓝色晶球。',
++    'ballast_hardened': '陨铁锤首厚重，端面宽平。',
+     'highland_thorn_crown': '高地双手剑专属。银钢尖刺与编结纹包覆球体，两侧嵌有蓝宝石。',
+-    'ballast_rune': '魔晶双手剑与符文长剑限定。银色护架环抱凝碧晶核，星点在晶体内流转。',
+-    'ballast_magic_orb': '流线金属护架环绕柄尾，镂空窗口贯通配重。',
++    'ballast_rune': '银架环抱碧色晶核。',
++    'ballast_magic_orb': '流线形金属配重，两侧镂空。',
+     'yanling_breaker': '唐刀专属。八面锥形柄尾配鎏金甲框，龙云浮雕与锻钢水波纹交错。',
+     'tiger_mountain': '唐刀专属。虎首环抱穹顶红石，鬃纹向后收束，云环连接柄尾。',
+     'chixiao_rune': '斩马刀专属传说符文。朱红的赤霄二字纵铭于刀身中段，重击时挥出两道赤色剑气。',
+     'starfall_nexus_guard': '符文长剑专属。冷银护翼承托修长星晶，细金星轨汇入中央晶核。',
++    'extended_edge': '延展剑尖 · 修长刃形',
++    'heavy_spine': '加厚剑脊 · 宽阔刃面',
++    'feather_edge': '收窄削薄 · 轻巧刃形',
++    'rift_piercer': '细长的晶脊贯通剑身。',
++    'red_magic_crystal': '深红晶面间可见细裂纹。',
++    'high_energy_magic_crystal': '青蓝晶刃微透，晶纹从内部发亮。',
++    'strength_rune': '中轴重印 · 赤红微光',
++    'haste_rune': '疾风折纹 · 黄色流光',
+ }
+ 
+ MELEE_SPECIAL = {
+-    'star_marrow': [
+-        '晶能蓄积｜每次实际攻击出手获得1层晶能，上限3层；挥空也计层。普攻、重击、突刺、快速近战、武技和攻击魔法均可积蓄。',
+-        '晶髓过载｜出手前已有3层时，消耗3层，使本次攻击的附加魔法伤害×2，再获得新一轮1层。群攻、多段及本次后续伤害共用强化；不重复计层。',
+-        '法术导晶｜攻击魔法携带本剑的魔晶附伤；过载只翻倍附加魔法伤害，法术自身基础伤害不翻倍。',
+-        '晶能保留｜晶能不随时间衰减。切换武器、卸下星髓长锋或死亡时清除；满层攻击挥空同样消耗强化。'],
+-    'resonance_rune': ['冷却结算｜持握本武器时，使用技能按当前冷却缩减计算；不会直接扣减已经开始的剩余冷却。'],
++    'star_marrow': ['充能 [G]｜消耗最大魔法值的20%。接下来30秒，攻击伤害+30%，全部转为魔法伤害。换武器、卸下剑身或死亡时结束。'],
++    'resonance_rune': ['冷却结算｜仅影响持剑期间新释放的技能。'],
+     'auspicious_cloud_rune': ['击杀恢复｜装备本武器期间，你每击杀一个目标，恢复最大体力的15%；双持时两把武器分别结算。'],
+-    'riposte_guard': ['反击激励｜成功弹反后，攻击速度+20%、攻击体力消耗-20%，持续6秒；再次弹反刷新持续时间。'],
++    'riposte_guard': ['反击激励｜弹反成功后，攻击速度+20%、攻击体力消耗-20%，持续6秒。再次弹反刷新。'],
+     'highland_cloven_guard': [
+         '弹反重击｜成功弹反后4秒内，下一次普攻直接释放免蓄力重击；该击物理伤害+25%、韧性伤害+40%。',
+         '消耗规则｜按重击消耗体力，出手即消耗强化，挥空也消耗；最多保留一次，再次弹反刷新。突刺与技能不消耗强化。'],
+@@ -74,9 +78,9 @@
+     'phoenix_feather': [
+         '凤舞｜闪避中实际躲过敌方攻击后，获得6秒凤舞，攻击速度+50%，触发冷却10秒；空闪避不触发。',
+         '回复规则｜凤舞期间前3次刀刃攻击命中，各恢复最大生命的2%；每次出手最多回复一次。快速近战、裂空斩与持续伤害不触发；切换武器或卸下护手清除凤舞，冷却不重置。'],
+-    'ballast_hardened': ['范围攻击｜快速近战可命中原判定范围内的多个目标，每个目标每次出手结算一次；判定距离与宽度不变。'],
++    'ballast_hardened': ['范围攻击｜快速近战可同时击中范围内的多个目标。'],
+     'highland_thorn_crown': ['出血｜快速近战命中有25%概率施加1层出血。'],
+-    'ballast_rune': ['魔法易伤｜快速近战命中后，目标受到的魔法伤害+15%，持续15秒；重复命中刷新，不叠加。'],
++    'ballast_rune': ['魔法易伤｜快速近战命中后，目标受到的魔法伤害+15%，持续15秒。再次命中只刷新时长。'],
+     'yanling_breaker': ['物理易伤｜快速近战命中后，目标受到的物理伤害+20%，持续15秒；重复命中刷新，不叠加。'],
+     'tiger_mountain': ['虎啸｜快速近战命中后，目标受到的韧性伤害+25%，冲击、利器、钝器的韧性抵抗归零，持续6秒；重复命中刷新，不叠加。'],
+     'beiwei_rune': ['武技剑气｜释放武技时，金色剑气沿刀刃轨迹展开并渐隐。',
+@@ -85,6 +89,9 @@
+                         '飞剑强化｜G键飞剑的基础伤害倍率提升至1.5×。'],
+     'starfall_nexus_guard': ['天枢聚剑｜G键只召唤1把大型飞剑，覆盖锻造增加的飞剑数量；召唤与发射操作不变。',
+                             '星陨爆破｜飞剑伤害倍率为8×，命中后产生半径3米的魔法爆炸，每个目标只结算一次伤害。'],
++    'rift_piercer': ['裂穹突刺｜普攻第三击放出剑气，贯穿前方4倍突刺距离内的目标，遇障碍停止。前两击挥空也能触发。',
++        '破势升空｜剑气击飞无韧性或已破韧的怪物，本击破韧也能击飞。'],
++    'conduction_rune': ['剑刃易伤｜剑刃命中后，目标受到的魔法伤害+10%，持续10秒。再次命中只刷新时长。'],
+ }
+ 
+ BOW_DESCRIPTIONS = {
+@@ -193,9 +200,9 @@
+                 health = oid == 'red_magic_crystal'
+                 ratio = stats['hit_health_return_ratio' if health else 'hit_mana_return_ratio']
+                 resource = '生命值' if health else '魔法值'
++                title = '生命汲取' if health else '魔能回流'
+                 option['special_effects'] = [
+-                    f'{"生命汲取" if health else "魔能回流"}｜使用本武器攻击命中怪物时，按本次实际造成伤害的{number(ratio*100)}%恢复{resource}。',
+-                    f'多目标结算｜每个命中目标分别计算并累加恢复量；物理与魔法伤害均计入，溢出目标剩余生命的伤害不计入，恢复不超过自身{resource}上限。']
++                    f'{title}｜用本剑击中怪物时，按每个目标实际损失生命的{number(ratio*100)}%恢复自身{resource}。']
+             if oid in ('frost_crystal', 'erosion_rune'):
+                 label = '魔晶侵蚀' if oid == 'frost_crystal' else '侵蚀附伤'
+                 effect = (f'{label}｜本武器近战攻击附加智力×{number(stats["rune_intelligence"]*100)}%'
+@@ -205,14 +212,30 @@
+                     option['special_effects'].append('符文兼容｜仅限符文长剑，不占用符文栏，可与符文效果叠加。')
+                 option['effects'] = [{'text': effect.replace('｜', '：'), 'benefit': 1}]
+             if oid == 'spirit_burst_rune':
+-                donor = (items or {})['ue_frost_crystal_sword']
+-                mult = stats['innate_erosion_mult']
+-                option['special_effects'] = [
+-                    f'精神迸发｜魔晶双手剑自带的侵蚀附伤×{number(mult)}：由智力×{number(donor["innate_erosion_intelligence"]*100)}%'
+-                    f'＋精神×{number(donor["innate_erosion_wisdom"]*100)}%，提升为智力×{number(donor["innate_erosion_intelligence"]*mult*100)}%'
+-                    f'＋精神×{number(donor["innate_erosion_wisdom"]*mult*100)}%的魔法伤害。',
+-                    '生效范围｜仅强化魔晶双手剑自带的侵蚀，不使其他来源的附加魔法伤害翻倍。']
+-                option['effects'] = [{'text': option['special_effects'][0].replace('｜', '：'), 'benefit': 1}]
++                mult = number(stats['innate_erosion_mult'])
++                option['special_effects'] = [f'精神迸发｜本剑固有的侵蚀伤害变为{mult}倍。']
++                option['effects'] = []
++            if oid == 'ballast_rune':
++                option['effects'] = []
++            if oid in ('conduction_rune', 'riposte_guard', 'ballast_hardened'):
++                # The tooltip draws conditions from special_effects below the direct attributes.
++                direct = {'conduction_rune': ('魔法伤害',), 'riposte_guard': ('弹反判定时间',),
++                          'ballast_hardened': ('快速近战伤害倍率', '快速近战击退距离')}
++                option['effects'] = [e for e in option['effects'] if e['text'].startswith(direct[oid])]
++            if oid == 'pommel_hardened':
++                for effect in option['effects']:
++                    if '击退' in effect['text']:
++                        effect['text'] = f"全部攻击击退距离{(stats['all_attack_knockback_mult']-1)*100:+g}%"
++            if oid == 'long_twohand':
++                for effect in option['effects']:
++                    if effect['text'].startswith('攻击范围'):
++                        effect['text'] = effect['text'].replace('攻击范围', '攻击距离', 1)
++                    elif effect['text'].startswith('伤害'):
++                        effect['text'] = '基础物理' + effect['text']
++            if oid == 'lockweave_guard_grip':
++                for effect in option['effects']:
++                    if effect['text'].startswith('格挡减伤'):
++                        effect['text'] = f"格挡减伤{(stats['block_reduction_mult']-1)*100:+g}%"
+             if oid == 'time_sand_gold':
+                 option['special_effects'] = [
+                     f'时砂回响｜剑刃命中后延迟{number(stats["time_sand_echo_delay"])}秒，追加本次实际伤害的{number(stats["time_sand_echo_ratio"]*100)}%；保留原命中的物理与魔法伤害比例，不重复判定暴击。',
+--- a/SourceAssets/StarMarrowCharge20261103/update_source.py
++++ b/SourceAssets/StarMarrowCharge20261103/update_source.py
+@@ -1,6 +1,6 @@
+ """Replace Star Marrow's overload hooks with its exclusive G charge ability."""
+ from pathlib import Path
+-import json,re
++import json,re,runpy
+ ROOT=Path('D:/FPS3D/FPSGAME'); OUT=Path(__file__).resolve().parent
+ def edit(rel,fn):
+     path=ROOT/rel; before=path.read_bytes(); text=before.decode('utf-8-sig')
+@@ -46,13 +46,9 @@
+ replace('Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp','#include "FPSCombatHealthComponent.h"','#include "FPSCombatHealthComponent.h"\n#include "../Weapons/StarMarrowComponent.h"')
+ replace('Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp','    if(Type&&Type->IsA<UCombatDirectDamage>())return Damage*(AttackerStatus?AttackerStatus->WeaknessDamageMultiplier():1.f);\n    const bool bMagic=CombatFormulaRuntime::IsMagic(Type);','    const bool Charged=Attacker!=GetOwner()&&UStarMarrowComponent::ChargesDamage(Attacker);\n    if(Type&&Type->IsA<UCombatDirectDamage>()&&!Charged)return Damage*(AttackerStatus?AttackerStatus->WeaknessDamageMultiplier():1.f);\n    const bool bMagic=CombatFormulaRuntime::IsMagic(Type)||Charged;\n    if(Charged)Damage*=UStarMarrowComponent::DamageMultiplier;')
+ 
+-special=[
+- '充能 [G]｜消耗最大魔法值的20%，进入30秒充能状态；当前魔法值不足时无法释放。',
+- '充能增幅｜持续期间造成的攻击伤害+30%，全部转化为魔法伤害，按目标魔法防御结算；覆盖普攻、重击、突刺、快速近战、武技与攻击魔法。',
+- '蓝焰附刃｜充能期间剑身持续燃烧蓝色火焰。持续期间不可重复开启，无额外冷却；到期、切换武器、卸下星髓长锋或死亡时解除。']
++special = runpy.run_path(str(ROOT / 'SourceAssets/WorkbenchCopy20261101/copy_rules.py'))['MELEE_SPECIAL']['star_marrow']
+ def catalog(s):
+     d=json.loads(s);o=next(o for c in d['columns'] if c['key']=='blade_1' for o in c['options'] if o['id']=='star_marrow');o['special_effects']=special
+     return json.dumps(d,ensure_ascii=False,indent=2)+'\n'
+ edit('Content/ColdSteelData/melee-gunsmith.json',catalog)
+-edit('SourceAssets/StarMarrowBlade20261102/install_catalog.py',lambda s:re.sub(r'SPECIAL=\[.*?\]\nOPTION=', 'SPECIAL='+repr(special)+'\nOPTION=',s,flags=re.S))
+ print('STAR_MARROW_CHARGE_SOURCE_WRITTEN')
+--- a/SourceAssets/MagicCrystalSword20261101/DenseCrystalV4/finalize.py
++++ b/SourceAssets/MagicCrystalSword20261101/DenseCrystalV4/finalize.py
+@@ -1,13 +1,13 @@
+ """Publish the current crystal appearance and production receipts only."""
+ from pathlib import Path
+ import json
++import runpy
+ import shutil
+ 
+ P=Path(__file__).resolve().parent
+ ROOT=P.parents[2]
+ receipt=json.loads((P/'material-receipt.json').read_text(encoding='utf8'))
+-description='魔晶双手剑专属。致密青蓝晶面经过精细抛光，晶纹与内光交错，剑脊饱满，薄刃微透，反光清亮。'
+-old_description='魔晶双手剑专属。原色晶面经过精细抛光，表面光滑，反光清亮。'
++description=runpy.run_path(str(ROOT / 'SourceAssets/WorkbenchCopy20261101/copy_rules.py'))['MELEE_DESCRIPTIONS']['high_energy_magic_crystal']
+ 
+ def backup(path):
+     dest=P/'BeforeData'/path.relative_to(ROOT)
+@@ -21,10 +21,6 @@
+ option=next(o for o in options if o['id']=='high_energy_magic_crystal')
+ option['description']=description
+ catalog_path.write_text(json.dumps(catalog,ensure_ascii=False,indent=2)+'\n',encoding='utf8')
+-
+-author=P.parent/'install_catalog.py'
+-backup(author)
+-author.write_text(author.read_text(encoding='utf8').replace(old_description,description),encoding='utf8')
+ 
+ # Keep the historical command usable without restoring the retired V3 volume.
+ legacy=P.parent/'GlassV2/reduce_transparency.py'
+--- a/Content/ColdSteelData/melee-gunsmith.json
++++ b/Content/ColdSteelData/melee-gunsmith.json
+@@ -10,7 +10,7 @@
+         {
+           "id": "extended_edge",
+           "name": "延锋刃",
+-          "description": "修长刃形与延展剑尖，保持流畅的切削轮廓。",
++          "description": "延展剑尖 · 修长刃形",
+           "effects": [
+             {
+               "text": "物理伤害+5%",
+@@ -35,7 +35,7 @@
+         {
+           "id": "heavy_spine",
+           "name": "重脊刃",
+-          "description": "加厚剑脊与宽阔刃面，呈现厚重的钢刃轮廓。",
++          "description": "加厚剑脊 · 宽阔刃面",
+           "effects": [
+             {
+               "text": "基础物理伤害+20%",
+@@ -60,7 +60,7 @@
+         {
+           "id": "feather_edge",
+           "name": "轻羽刃",
+-          "description": "收窄削薄的轻巧刃形，刃线简洁利落。",
++          "description": "收窄削薄 · 轻巧刃形",
+           "effects": [
+             {
+               "text": "攻击速度+15%",
+@@ -214,7 +214,7 @@
+           "weapons": [
+             "ue_frost_crystal_sword"
+           ],
+-          "description": "魔晶双手剑限定。长款晶体双刃内嵌三枚星髓晶核，保留原有护手与握柄接口；兼容红魔晶与高能魔晶。",
++          "description": "剑身嵌有三枚星髓晶核。",
+           "stats": {
+             "range_mult": 1.25,
+             "magic_attack_mult": 1.1
+@@ -230,9 +230,7 @@
+             }
+           ],
+           "special_effects": [
+-            "充能 [G]｜消耗最大魔法值的20%，进入30秒充能状态；当前魔法值不足时无法释放。",
+-            "充能增幅｜持续期间造成的攻击伤害+30%，全部转化为魔法伤害，按目标魔法防御结算；覆盖普攻、重击、突刺、快速近战、武技与攻击魔法。",
+-            "蓝焰附刃｜充能期间剑身持续燃烧蓝色火焰。持续期间不可重复开启，无额外冷却；到期、切换武器、卸下星髓长锋或死亡时解除。"
++            "充能 [G]｜消耗最大魔法值的20%。接下来30秒，攻击伤害+30%，全部转为魔法伤害。换武器、卸下剑身或死亡时结束。"
+           ]
+         },
+         {
+@@ -242,7 +240,7 @@
+           "weapons": [
+             "ue_frost_crystal_sword"
+           ],
+-          "description": "魔晶双手剑限定。细长晶刃与连续晶脊，保留原有护手、握柄及配重接口；兼容红魔晶与高能魔晶。",
++          "description": "细长的晶脊贯通剑身。",
+           "stats": {
+             "range_mult": 1.1,
+             "attack_speed_mult": 1.2
+@@ -258,10 +256,8 @@
+             }
+           ],
+           "special_effects": [
+-            "裂穹突刺｜普通攻击连段第3下突刺出手时，从剑柄连接处至最大攻击距离瞬间形成完整巨剑，同时贯穿沿途目标；前两下挥空也可触发。重击、快速近战与武技不单独触发。",
+-            "贯穿长锋｜巨剑长度为当前普通突刺距离的4倍（+300%）；对每个命中目标造成普通第3段突刺200%的伤害和200%的韧性伤害。保留原突刺伤害，每个目标仅结算1次；场景遮挡会截断巨剑。剑形原地残留0.3秒后，用0.22秒消散，残影不重复造成伤害。",
+-            "破势升空｜剑气命中无韧性保护的普通怪物或已破韧怪物时将其击飞；本次剑气打破韧性时同样可以击飞。",
+-            "晶体共鸣｜剑气保留魔晶附伤及已安装材质的吸血、回蓝效果，按各目标实际造成的伤害分别结算。剑气不积蓄晶能，不递归产生追加攻击。"
++            "裂穹突刺｜普攻第三击放出剑气，贯穿前方4倍突刺距离内的目标，遇障碍停止。前两击挥空也能触发。",
++            "破势升空｜剑气击飞无韧性或已破韧的怪物，本击破韧也能击飞。"
+           ]
+         },
+         {
+@@ -591,7 +587,7 @@
+           "weapons": [
+             "ue_frost_crystal_sword"
+           ],
+-          "description": "魔晶双手剑专属。原有晶体纹理染为深红，保留晶面与裂纹的细节。",
++          "description": "深红晶面间可见细裂纹。",
+           "stats": {
+             "physical_damage_mult": 1.1,
+             "hit_health_return_ratio": 0.05
+@@ -603,8 +599,7 @@
+             }
+           ],
+           "special_effects": [
+-            "生命汲取｜使用本武器攻击命中怪物时，按本次实际造成伤害的5%恢复生命值。",
+-            "多目标结算｜每个命中目标分别计算并累加恢复量；物理与魔法伤害均计入，溢出目标剩余生命的伤害不计入，恢复不超过自身生命值上限。"
++            "生命汲取｜用本剑击中怪物时，按每个目标实际损失生命的5%恢复自身生命值。"
+           ]
+         },
+         {
+@@ -614,7 +609,7 @@
+           "weapons": [
+             "ue_frost_crystal_sword"
+           ],
+-          "description": "魔晶双手剑专属。致密青蓝晶面经过精细抛光，晶纹与内光交错，剑脊饱满，薄刃微透，反光清亮。",
++          "description": "青蓝晶刃微透，晶纹从内部发亮。",
+           "stats": {
+             "magic_damage_mult": 1.1,
+             "hit_mana_return_ratio": 0.1
+@@ -626,8 +621,7 @@
+             }
+           ],
+           "special_effects": [
+-            "魔能回流｜使用本武器攻击命中怪物时，按本次实际造成伤害的10%恢复魔法值。",
+-            "多目标结算｜每个命中目标分别计算并累加恢复量；物理与魔法伤害均计入，溢出目标剩余生命的伤害不计入，恢复不超过自身魔法值上限。"
++            "魔能回流｜用本剑击中怪物时，按每个目标实际损失生命的10%恢复自身魔法值。"
+           ]
+         },
+         {
+@@ -686,7 +680,7 @@
+           "id": "strength_rune",
+           "name": "力量符文",
+           "tier": "common",
+-          "description": "粗壮中轴连接双肩折纹，赤红微光沿短刻纹汇入主印。",
++          "description": "中轴重印 · 赤红微光",
+           "appearance": "中轴重印 · 赤红微光",
+           "stats": {
+             "physical_damage_mult": 1.1
+@@ -703,7 +697,7 @@
+           "id": "haste_rune",
+           "name": "急速符文",
+           "tier": "common",
+-          "description": "疾风折纹沿剑脊收束，黄色流光向剑尖掠过。",
++          "description": "疾风折纹 · 黄色流光",
+           "appearance": "疾风折纹 · 黄色流光",
+           "effects": [
+             {
+@@ -719,7 +713,7 @@
+         {
+           "id": "resonance_rune",
+           "name": "共鸣符文",
+-          "description": "银白环纹彼此相连，共鸣微光沿刻纹缓缓明灭。",
++          "description": "银白环纹交叠，微光明灭。",
+           "effects": [
+             {
+               "text": "所有技能冷却-15%",
+@@ -730,7 +724,7 @@
+             "skill_cooldown_mult": 0.85
+           },
+           "special_effects": [
+-            "冷却结算｜持握本武器时，使用技能按当前冷却缩减计算；不会直接扣减已经开始的剩余冷却。"
++            "冷却结算｜仅影响持剑期间新释放的技能。"
+           ]
+         },
+         {
+@@ -765,32 +759,22 @@
+           "weapons": [
+             "ue_frost_crystal_sword"
+           ],
+-          "description": "魔晶双手剑专属。冰蓝晶光在刃内聚拢，双重柔光波纹依次扩散。",
+-          "effects": [
+-            {
+-              "text": "精神迸发：魔晶双手剑自带的侵蚀附伤×2：由智力×50%＋精神×50%，提升为智力×100%＋精神×100%的魔法伤害。",
+-              "benefit": 1
+-            }
+-          ],
++          "description": "两道冰蓝光纹沿刃面扩散。",
++          "effects": [],
+           "stats": {
+             "innate_erosion_mult": 2.0
+           },
+           "special_effects": [
+-            "精神迸发｜魔晶双手剑自带的侵蚀附伤×2：由智力×50%＋精神×50%，提升为智力×100%＋精神×100%的魔法伤害。",
+-            "生效范围｜仅强化魔晶双手剑自带的侵蚀，不使其他来源的附加魔法伤害翻倍。"
++            "精神迸发｜本剑固有的侵蚀伤害变为2倍。"
+           ]
+         },
+         {
+           "id": "conduction_rune",
+           "name": "导魔符文",
+-          "description": "银白导魔回路沿金属表面相连，微光循刻纹流动。",
++          "description": "银白符纹沿剑身相连。",
+           "effects": [
+             {
+               "text": "魔法伤害+15%",
+-              "benefit": 1
+-            },
+-            {
+-              "text": "剑刃攻击命中施加魔法易伤+10% · 持续10秒",
+               "benefit": 1
+             }
+           ],
+@@ -799,7 +783,9 @@
+             "rune_vulnerability": 0.1,
+             "rune_vulnerability_seconds": 10
+           },
+-          "special_effects": []
++          "special_effects": [
++            "剑刃易伤｜剑刃命中后，目标受到的魔法伤害+10%，持续10秒。再次命中只刷新时长。"
++          ]
+         },
+         {
+           "id": "golden_glow_rune",
+@@ -1164,7 +1150,7 @@
+             "ue_zhanmadao",
+             "ue_forged_steel_greatsword"
+           ],
+-          "description": "宽厚护翼向两侧展开，外缘厚实，中央连接握柄。",
++          "description": "厚实的护翼向两侧展开。",
+           "effects": [
+             {
+               "text": "格挡减伤+30%",
+@@ -1198,18 +1184,10 @@
+             "ue_zhanmadao",
+             "ue_forged_steel_greatsword"
+           ],
+-          "description": "上挑护翼围住握柄前端，内缘形成承刃的弧面。",
++          "description": "护翼上挑，内侧呈弧形。",
+           "effects": [
+             {
+               "text": "弹反判定时间+25%",
+-              "benefit": 1
+-            },
+-            {
+-              "text": "激励期间攻击速度+20%",
+-              "benefit": 1
+-            },
+-            {
+-              "text": "激励期间体力消耗-20%",
+               "benefit": 1
+             }
+           ],
+@@ -1220,7 +1198,7 @@
+             "riposte_seconds": 6
+           },
+           "special_effects": [
+-            "反击激励｜成功弹反后，攻击速度+20%、攻击体力消耗-20%，持续6秒；再次弹反刷新持续时间。"
++            "反击激励｜弹反成功后，攻击速度+20%、攻击体力消耗-20%，持续6秒。再次弹反刷新。"
+           ]
+         },
+         {
+@@ -1235,7 +1213,7 @@
+             "ue_zhanmadao",
+             "ue_forged_steel_greatsword"
+           ],
+-          "description": "收窄的护翼保留简洁轮廓，两端轻巧上扬。",
++          "description": "窄小的护翼微微上扬。",
+           "effects": [
+             {
+               "text": "攻击速度+5%",
+@@ -1504,7 +1482,7 @@
+         {
+           "id": "shock_wrap",
+           "name": "吸震缠柄",
+-          "description": "防滑织带层叠包覆握区，搭接边平整收束。",
++          "description": "防滑织带层层缠绕握柄。",
+           "effects": [
+             {
+               "text": "体力消耗-15%",
+@@ -1524,7 +1502,7 @@
+         {
+           "id": "swift_grip",
+           "name": "速握轻柄",
+-          "description": "轻巧握柄收窄外轮廓，保留双手贴合的握区。",
++          "description": "握柄纤细，中段收窄。",
+           "effects": [
+             {
+               "text": "攻击速度+15%",
+@@ -1546,14 +1524,14 @@
+         {
+           "id": "long_twohand",
+           "name": "长柄双手",
+-          "description": "加长握柄拉开双手握持间距，尾端与配重连续衔接。",
+-          "effects": [
+-            {
+-              "text": "攻击范围+10%",
+-              "benefit": 1
+-            },
+-            {
+-              "text": "伤害+5%",
++          "description": "加长的握柄拉开了双手间距。",
++          "effects": [
++            {
++              "text": "攻击距离+10%",
++              "benefit": 1
++            },
++            {
++              "text": "基础物理伤害+5%",
+               "benefit": 1
+             },
+             {
+@@ -1579,7 +1557,7 @@
+             "ue_zhanmadao",
+             "ue_forged_steel_greatsword"
+           ],
+-          "description": "贴平钢脊支撑三段皮革握区，金属边缘收进缠革下方。",
++          "description": "贴平钢脊 · 三段人字纹皮革",
+           "effects": [
+             {
+               "text": "重击伤害+20%",
+@@ -1612,14 +1590,14 @@
+             "ue_zhanmadao",
+             "ue_forged_steel_greatsword"
+           ],
+-          "description": "交错锁纹织带紧密贴合握区，两端以窄环收口。",
++          "description": "锁纹织带交错缠柄。",
+           "effects": [
+             {
+               "text": "格挡受击体力消耗-25%",
+               "benefit": 1
+             },
+             {
+-              "text": "格挡减伤倍率 ×1.10",
++              "text": "格挡减伤+10%",
+               "benefit": 1
+             }
+           ],
+@@ -1680,14 +1658,14 @@
+         {
+           "id": "pommel_hardened",
+           "name": "硬化配重",
+-          "description": "加厚硬化钢质剑首，以宽阔棱面收束柄尾。",
++          "description": "硬钢剑首棱面宽阔。",
+           "effects": [
+             {
+               "text": "重击伤害倍率 +0.25",
+               "benefit": 1
+             },
+             {
+-              "text": "所有近战攻击击退距离+10%（含快速近战、旋风及冲刺斩）",
++              "text": "全部攻击击退距离+10%",
+               "benefit": 1
+             },
+             {
+@@ -1710,7 +1688,7 @@
+         {
+           "id": "pommel_runic",
+           "name": "符文配重",
+-          "description": "苍蓝符文嵌入金属剑首，微光环绕柄尾流转。",
++          "description": "钢制剑首刻有苍蓝符文。",
+           "effects": [
+             {
+               "text": "魔法技能冷却时间-15%",
+@@ -1734,7 +1712,7 @@
+             "ue_frost_crystal_sword",
+             "ue_rune_sword"
+           ],
+-          "description": "魔晶双手剑与符文长剑限定。银色支架包覆蓝色魔力晶球。",
++          "description": "银架包住一枚蓝色晶球。",
+           "effects": [
+             {
+               "text": "魔法伤害+10%",
+@@ -1754,7 +1732,7 @@
+         {
+           "id": "ballast_hardened",
+           "name": "陨星锤首",
+-          "description": "厚重陨铁锤首收束柄尾，击打端保留宽阔棱面。",
++          "description": "陨铁锤首厚重，端面宽平。",
+           "effects": [
+             {
+               "text": "快速近战伤害倍率 +0.25",
+@@ -1762,10 +1740,6 @@
+             },
+             {
+               "text": "快速近战击退距离+50%",
+-              "benefit": 1
+-            },
+-            {
+-              "text": "快速近战变为范围攻击，判定范围不变",
+               "benefit": 1
+             }
+           ],
+@@ -1775,7 +1749,7 @@
+             "quick_combat_aoe": true
+           },
+           "special_effects": [
+-            "范围攻击｜快速近战可命中原判定范围内的多个目标，每个目标每次出手结算一次；判定距离与宽度不变。"
++            "范围攻击｜快速近战可同时击中范围内的多个目标。"
+           ]
+         },
+         {
+@@ -1820,25 +1794,20 @@
+             "ue_frost_crystal_sword",
+             "ue_rune_sword"
+           ],
+-          "description": "魔晶双手剑与符文长剑限定。银色护架环抱凝碧晶核，星点在晶体内流转。",
+-          "effects": [
+-            {
+-              "text": "快速近战命中施加魔法易伤+15% · 持续15秒",
+-              "benefit": 1
+-            }
+-          ],
++          "description": "银架环抱碧色晶核。",
++          "effects": [],
+           "stats": {
+             "quick_combat_rune_vulnerability": 0.15,
+             "quick_combat_rune_vulnerability_seconds": 15
+           },
+           "special_effects": [
+-            "魔法易伤｜快速近战命中后，目标受到的魔法伤害+15%，持续15秒；重复命中刷新，不叠加。"
++            "魔法易伤｜快速近战命中后，目标受到的魔法伤害+15%，持续15秒。再次命中只刷新时长。"
+           ]
+         },
+         {
+           "id": "ballast_magic_orb",
+           "name": "疾星配重",
+-          "description": "流线金属护架环绕柄尾，镂空窗口贯通配重。",
++          "description": "流线形金属配重，两侧镂空。",
+           "effects": [
+             {
+               "text": "攻击速度+15%",
+--- a/SourceAssets/SharedSwordGrips20260927/import_grips.py
++++ b/SourceAssets/SharedSwordGrips20260927/import_grips.py
+@@ -83,9 +83,14 @@
+  deployed=ROOT/'Content/ColdSteelData/AttachmentIcons20260913'/png.name
+  shutil.copy2(png,deployed)
+  texture(deployed,key,'Icon',I)
++ appearance = '交错锁纹织带 · 柔韧稳握'
++ if row['id']=='iron_spine_power_grip':
++  appearance = '贴平钢脊 · 三段人字纹皮革'
++ elif row['weapon']=='ue_frost_crystal_sword':
++  appearance = '锁纹织带交错缠柄。'
+  entries.setdefault(row['catalog'],{})[row['id']]={'mesh':mesh.get_path_name(),
+   'location_cm':row['location_cm'],'interface':row['interface'],'pommel_offset_cm':[0,0,0],
+-  'appearance':'贴平钢脊 · 三段人字纹皮革' if row['id']=='iron_spine_power_grip' else '交错锁纹织带 · 柔韧稳握'}
++  'appearance':appearance}
+  u.log('SHARED_GRIP_SAVED '+name)
+ # All packages are saved before exposing options to runtime and saved equipment.
+ before=P/'Before';before.mkdir(exist_ok=True)
+--- a/Content/ColdSteelData/shared-sword-pommels.json
++++ b/Content/ColdSteelData/shared-sword-pommels.json
+@@ -5,7 +5,7 @@
+     "ballast_hardened": {
+       "mesh": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_Meteor.SM_RunePommel_Meteor",
+       "interface": "shared_sword_pommel_v1",
+-      "appearance": "陨星锤首 · 剑类通用配重"
++      "appearance": "陨铁锤首厚重，端面宽平。"
+     },
+     "ballast_rune": {
+       "weapons": [
+@@ -14,22 +14,22 @@
+       ],
+       "mesh": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_JadeStar.SM_RunePommel_JadeStar",
+       "interface": "shared_sword_pommel_v1",
+-      "appearance": "凝碧星核 · 魔晶双手剑与符文长剑专属特殊改造"
++      "appearance": "银架环抱碧色晶核。"
+     },
+     "ballast_magic_orb": {
+       "mesh": "/Game/Weapons/AzureRunesword20260913/Pommels20260920/Models/SM_RunePommel_Swiftstar.SM_RunePommel_Swiftstar",
+       "interface": "shared_sword_pommel_v1",
+-      "appearance": "疾星配重 · 剑类通用配重"
++      "appearance": "流线形金属配重，两侧镂空。"
+     },
+     "pommel_hardened": {
+       "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_hardened/SM_FrostPommel_ballast_hardened.SM_FrostPommel_ballast_hardened",
+       "interface": "frost_hilt_v1",
+-      "appearance": "硬化配重 · 剑类通用配重"
++      "appearance": "硬钢剑首棱面宽阔。"
+     },
+     "pommel_runic": {
+       "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_rune/SM_FrostPommel_ballast_rune.SM_FrostPommel_ballast_rune",
+       "interface": "frost_hilt_v1",
+-      "appearance": "符文配重 · 剑类通用配重"
++      "appearance": "钢制剑首刻有苍蓝符文。"
+     },
+     "pommel_mana_orb": {
+       "weapons": [
+@@ -38,7 +38,7 @@
+       ],
+       "mesh": "/Game/Weapons/FrostCrystalSword20260915/PommelsRepair20260915/ballast_magic_orb/SM_FrostPommel_ballast_magic_orb.SM_FrostPommel_ballast_magic_orb",
+       "interface": "frost_hilt_v1",
+-      "appearance": "魔力球配重 · 魔晶双手剑与符文长剑专属特殊改造"
++      "appearance": "银架包住一枚蓝色晶球。"
+     }
+   },
+   "finishes": {
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipData.cpp
+@@ -104,11 +104,8 @@
+     const double InnateInt=Number(O,TEXT("innate_erosion_intelligence")),InnateWis=Number(O,TEXT("innate_erosion_wisdom"));
+     if(InnateInt>0||InnateWis>0)
+     {
+-        const double Multiplier=G?G->Calculate(I.Definition,G->Installed(I)).Melee.InnateErosionMultiplier:1.;
+         auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("武器自带效果 · 侵蚀");C.MinimumWidth=460;
+-        Note(C,TEXT("附加魔伤"),TEXT("智力×")+N(InnateInt*100)+TEXT("% + 精神×")+N(InnateWis*100)+TEXT("%"),1);
+-        if(Multiplier!=1)Note(C,TEXT("迸发后"),TEXT("智力×")+N(InnateInt*Multiplier*100)+TEXT("% + 精神×")+N(InnateWis*Multiplier*100)+TEXT("%"),1);
+-        Note(C,TEXT("结算"),TEXT("随连击·重击倍率放大，按魔防减免；换其他符文仍保留"));
++        Note(C,TEXT(""),TEXT("近战命中附加魔法伤害，受智力和精神影响。"));
+     }
+ 
+     ForgeSummary=ColdSteelTooltipPrivate::AppendCraftQuality(I,Model,O,Out);
+@@ -255,7 +252,11 @@
+                         else Note(C,TEXT(""),Effect);
+                     }
+                 }
+-                else if(P->Effects.IsEmpty())Row(C,TEXT(""),P->Description);
++                else if(P->Effects.IsEmpty())
++                {
++                    if(!ColdSteelInventory::IsTwoHandedSword(I)||P->SpecialEffects.IsEmpty())
++                        Row(C,TEXT(""),P->Description);
++                }
+                 else for(const auto& E:P->Effects)Row(C,TEXT(""),E.Key,E.Value);
+                 if(!G->IsStaff(I.Definition))for(const auto& Effect:P->SpecialEffects)
+                 {
+--- a/Source/FPSGAME/Weapons/MeleeGunsmith.cpp
++++ b/Source/FPSGAME/Weapons/MeleeGunsmith.cpp
+@@ -176,9 +176,7 @@
+         for(auto& Column:Weapon.Options)Column.Value.RemoveAll([&](const FGunsmithOption& Part){return !Part.CompatibleWeapons.IsEmpty()&&!Part.CompatibleWeapons.Contains(Id);});
+         if(Id==ColdSteelFrostRunes::Definition)
+             if(auto* Runes=Weapon.Options.Find(TEXT("blade_2"));Runes&&!Runes->IsEmpty())
+-                (*Runes)[0].Description=FString::Printf(TEXT("魔晶双手剑自带侵蚀：近战攻击附加智力×%g%%＋精神×%g%%的魔法伤害；其他符文改造仍保留此效果。"),
+-                    100.*ColdSteelInventory::Number(Item,TEXT("innate_erosion_intelligence")),
+-                    100.*ColdSteelInventory::Number(Item,TEXT("innate_erosion_wisdom")));
++                (*Runes)[0].Description=TEXT("更换符文仍保留剑身自带的侵蚀效果。");
+         Weapon.Base.Damage=ColdSteelInventory::Number(Item,TEXT("melee_damage"),55);
+         Weapon.Base.Interval=ColdSteelInventory::Number(Item,TEXT("attack_seconds"),RuneSwordRhythm::AttackEnd);
+         Weapon.Base.Range=ColdSteelInventory::Number(Item,TEXT("melee_reach_cm"),180)/100.;
+--- a/Content/ColdSteelData/items.json
++++ b/Content/ColdSteelData/items.json
+@@ -4093,7 +4093,7 @@
+     "level": 1,
+     "enhanceLevel": 0,
+     "icon_fallback": "魔晶",
+-    "desc": "魔力凝结而成的晶体双手剑。近战攻击附加智力×50%＋精神×50%的魔法伤害，随本次攻击倍率结算，并受目标魔法防御影响。精神迸发可将这段附伤提升为智力×100%＋精神×100%。刃部可改造为红魔晶或高能魔晶。",
++    "desc": "魔力凝结而成的晶体双手剑，剑刃可换装红魔晶或高能魔晶。",
+     "innate_erosion_intelligence": 0.5,
+     "innate_erosion_wisdom": 0.5,
+     "melee_damage": 55,
