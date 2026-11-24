@@ -2,6 +2,7 @@
 import copy
 import json
 from pathlib import Path
+import sys
 
 here = Path(__file__).resolve().parent
 data = here.parents[2] / 'Content/ColdSteelData'
@@ -155,8 +156,98 @@ def fit_executioner_blade(catalog):
 
 def fit_executioner_guard_seats(catalog):
     seats = read(here.parent / 'ExecutionerBlade/GuardSeats/exports.json')
+    blade_surface = read(here / 'blade_materials.json')['base']
     for guard, path in seats['mesh_by_guard'].items():
-        catalog['slots']['guard'][guard].setdefault('mesh_by_blade', {})['executioner_blade'] = path
+        part = catalog['slots']['guard'][guard]
+        part.setdefault('mesh_by_blade', {})['executioner_blade'] = path
+        part['material_slot_names'] = [seats['material_slot']]
+        part.setdefault('materials', {})[seats['material_slot']] = blade_surface
+
+def register_raven_quill_guard(gunsmith, update_effects=False):
+    options = next(col['options'] for col in gunsmith['columns'] if col['key'] == 'guard')
+    row = next((o for o in options if o['id'] == 'raven_quill_guard'), None)
+    if row is not None and not update_effects:
+        return
+    if row is None:
+        row = {'id':'raven_quill_guard','name':'暮鸦折羽','tier':'special','weapons':[weapon],
+               'description':'三层蓝黑钢羽从中央羽脊向两侧舒展，锤纹之间露出细窄的银边。'}
+        options.append(row)
+    row.setdefault('stats', {}).update(melee_critical_chance_add=10, sprint_stamina_mult=0.9)
+    row['effects'] = [{'text':'暴击率+10%', 'benefit':1}, {'text':'奔跑体力消耗-10%', 'benefit':1}]
+    row['special_effects'] = ['折羽蓄能｜累计奔跑3秒蓄满，停跑保留未满进度。青光从握把一侧向上蔓延，蓄满时整副护手发光。',
+                              '蓄满一击｜蓄满后5秒内，下一次命中目标的攻击额外获得暴击率+25%。挥空保留强化，超时消散。']
+
+def raven_charge_surfaces():
+    return read(here.parent/'RavenQuillGuard/Art/SprintCharge/import_receipt.json')
+
+def fit_raven_quill_guard(catalog):
+    guards = catalog['slots']['guard']
+    part = copy.deepcopy(guards.get('raven_quill_guard', guards['factory']))
+    saved = read(here.parent/'RavenQuillGuard/Art/NestedV4/import_receipt.json')
+    paths = {path.rsplit('.', 1)[1]: path for path in saved['assets']}
+    mesh_name = 'SM_ForgedSteelGreatsword_RavenQuillGuard'
+    part['mesh'] = paths[mesh_name]
+    part.setdefault('mesh_by_blade', {})['executioner_blade'] = paths[mesh_name + '_ExecutionerSeat']
+    part['materials'] = raven_charge_surfaces()['materials']
+    part['material_slot_names'] = list(saved['meshes'][mesh_name])
+    guards['raven_quill_guard'] = part
+
+def register_raven_temporal(mapping):
+    mapping.update(raven_charge_surfaces()['temporal'])
+
+def eagle_assets():
+    return read(here.parent/'EagleTalonGuard/Art/gameplay_assets.json')
+
+def register_eagle_guard(gunsmith):
+    register_option(gunsmith, 'guard', {
+        'id':'eagle_talon_guard', 'name':'鹰爪之握', 'tier':'special', 'weapons':[weapon],
+        'description':'鹰喙下方的钢羽向两侧叠开，末端内收成一对弯爪。',
+        'stats':{'physical_defense_mult':1.10, 'block_stamina_mult':.75},
+        'effects':[{'text':'防御力+10%', 'benefit':1},{'text':'格挡体力消耗-25%', 'benefit':1}],
+        'special_effects':['鹰爪蓄能｜成功格挡敌方攻击积1次，弹反积2次。累计6次时，护手亮起冰蓝光。',
+                           '满充反击｜下一次普通攻击或战技暴击率+30%，体力消耗为0。成功出招即消耗充能，同一招的所有段数均受益。']
+    })
+
+def fit_eagle_guard(catalog):
+    saved=read(here.parent/'EagleTalonGuard/Art/import_receipt.json')
+    names={path.rsplit('.',1)[1]:path for path in saved['assets']}
+    name='SM_ForgedSteelGreatsword_EagleTalonGuard'
+    guard=catalog['slots']['guard']
+    materials=dict(saved['meshes'][name])
+    materials['M_EagleTalon_ForgedSteel']=eagle_assets()['materials'][0]
+    guard['eagle_talon_guard']={
+        'mesh':names[name], 'location_cm':guard['factory']['location_cm'], 'interface':guard['factory']['interface'],
+        'mesh_by_blade':{'executioner_blade':names[name+'_ExecutionerSeat']},
+        'material_slot_names':list(materials), 'materials':materials
+    }
+
+def register_eagle_temporal(mapping):
+    ordinary,whirlwind=eagle_assets()['materials']
+    mapping[ordinary]=whirlwind
+
+def require_saved(receipt):
+    content = data.parent
+    for path in receipt['assets']:
+        filename = path.split('.')[0].removeprefix('/Game/') + '.uasset'
+        if not (content/filename).is_file():
+            raise RuntimeError('Missing saved package: '+path)
+
+def fit_forged_grip_surfaces(catalog):
+    saved = read(here.parent/'GripFinish/Art/ReferenceLeather/import_receipt.json')
+    require_saved(saved)
+    for option, binding in saved['grips'].items():
+        catalog['slots']['grip'][option].update(binding)
+
+def fit_refined_appearance(catalog):
+    fit_raven_quill_guard(catalog)
+    fit_forged_grip_surfaces(catalog)
+
+def publish_raven_quill(update_effects=False):
+    require_saved(raven_charge_surfaces())
+    require_saved(read(here.parent/'RavenQuillGuard/Art/NestedV4/import_receipt.json'))
+    update('forged-steel-greatsword-modules.json', fit_raven_quill_guard)
+    update('whirlwind-temporal-materials.json', register_raven_temporal)
+    update('melee-gunsmith.json', lambda data: register_raven_quill_guard(data, update_effects))
 
 def register(gunsmith):
     for column in gunsmith['columns']:
@@ -176,6 +267,8 @@ def register(gunsmith):
     register_executioner_blade(gunsmith)
     register_ring_chain(gunsmith)
     register_fishtail_pommel(gunsmith)
+    register_raven_quill_guard(gunsmith)
+    register_eagle_guard(gunsmith)
 
 def fit(catalog):
     variants = read(here / 'variant_exports.json')
@@ -204,6 +297,8 @@ def fit(catalog):
                                       round(.71*(tip-base),3)]
     fit_hollow_blade(catalog)
     fit_executioner_blade(catalog)
+    fit_eagle_guard(catalog)
+    fit_raven_quill_guard(catalog)
     fit_ring_chain(catalog)
     fit_fishtail_pommel(catalog)
     for row in grips['options']:
@@ -215,6 +310,7 @@ def fit(catalog):
             # Same fitted mounting rings and 2.8 cm extension as the shared long grip.
             part['hand_fit'] = {'left_offset_cm':[0,0,-1.6]}
         slots['grip'][row['option']] = part
+    fit_forged_grip_surfaces(catalog)
     interfaces = {}
     for row in variants['adapters']:
         loc = row['mount_cm'].copy()
@@ -230,8 +326,26 @@ def publish():
     surface = read(here/'blade_materials.json')
     update('forged-steel-greatsword-modules.json', fit)
     update('whirlwind-temporal-materials.json',lambda mapping: mapping.update({surface['base']:surface['whirlwind']}))
+    update('whirlwind-temporal-materials.json', register_raven_temporal)
     update('melee-gunsmith.json', register)
+    update('whirlwind-temporal-materials.json', register_eagle_temporal)
     print('Registered',weapon, 'with',sum(map(len,common.values())),'common modifications.')
 
 if __name__ == '__main__':
-    publish()
+    if '--eagle-talon-guard' in sys.argv:
+        assets=eagle_assets()
+        require_saved({'assets':assets['materials']+assets['icons']})
+        require_saved(read(here.parent/'EagleTalonGuard/Art/import_receipt.json'))
+        update('forged-steel-greatsword-modules.json', fit_eagle_guard)
+        update('whirlwind-temporal-materials.json', register_eagle_temporal)
+        update('melee-gunsmith.json', register_eagle_guard)
+    elif '--raven-sprint-charge' in sys.argv:
+        publish_raven_quill(update_effects=True)
+    elif '--raven-quill-guard' in sys.argv:
+        publish_raven_quill()
+    elif '--refined-appearance' in sys.argv:
+        require_saved(read(here.parent/'RavenQuillGuard/Art/NestedV4/import_receipt.json'))
+        update('whirlwind-temporal-materials.json', register_raven_temporal)
+        update('forged-steel-greatsword-modules.json', fit_refined_appearance)
+    else:
+        publish()

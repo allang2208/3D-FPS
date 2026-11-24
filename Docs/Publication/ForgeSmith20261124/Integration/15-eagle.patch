@@ -1,0 +1,162 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp
+@@ -35,6 +35,7 @@
+ #include "../Weapons/Bow/BowWeaponComponent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Weapons/RuneSwordComponent.h"
++#include "../Weapons/EagleTalonGuardComponent.h"
+ #include "../Weapons/RavenQuillChargeComponent.h"
+ #include "../Weapons/RuneSwordMeshComponent.h"
+ #include "../Weapons/Staff/StaffWeaponComponent.h"
+@@ -215,7 +216,11 @@
+                 GetOwner()->AddInstanceComponent(Child);
+                 Child->SetStaticMesh(ChildMesh);Child->SetupAttachment(Part);Child->SetRelativeTransform(Attachment.RelativeTransform);
+                 if(!Attachment.Slot.IsNone())Child->ComponentTags.AddUnique(FName(*(TEXT("SwordSlot=")+Attachment.Slot.ToString())));
+-                if(Attachment.Slot==TEXT("guard"))URavenQuillChargeComponent::BindGuard(Child);
++                if(Attachment.Slot==TEXT("guard"))
++                {
++                    UEagleTalonGuardComponent::BindGuard(Child);
++                    URavenQuillChargeComponent::BindGuard(Child);
++                }
+                 WorldEquipmentHands.Add(Child,static_cast<uint8>(Side));FPSBodyEquipment::WorldVisibility(Child);
+                 for(int32 I=0;I<Attachment.Materials.Num();++I)if(auto* M=Attachment.Materials[I].LoadSynchronous())Child->SetMaterial(I,M);
+                 Child->RegisterComponent();WorldParts.Add(Child);
+@@ -389,7 +394,11 @@
+             }
+             Motion.Parts.Add(Part);
+             if(!DefinitionPart.Slot.IsNone())Part->ComponentTags.AddUnique(FName(*(TEXT("SwordSlot=")+DefinitionPart.Slot.ToString())));
+-            if(DefinitionPart.Slot==TEXT("guard"))URavenQuillChargeComponent::BindGuard(Part);
++            if(DefinitionPart.Slot==TEXT("guard"))
++            {
++                UEagleTalonGuardComponent::BindGuard(Part);
++                URavenQuillChargeComponent::BindGuard(Part);
++            }
+             MotionEquipmentIndices.Add(Part,Index);
+             if(!Character->IsLocallyControlled()&&(TacticalDeviceVariants::IsLaser(DefinitionPart.TacticalKind.ToString())
+                 ||DefinitionPart.TacticalKind==TEXT("flashlight")))
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -12,6 +12,7 @@
+ #include "Weapons/Super90SpeedloaderAssets.h"
+ #include "Weapons/JingangRuneComponent.h"
+ #include "Weapons/TangDaoGuardComponent.h"
++#include "Weapons/EagleTalonGuardComponent.h"
+ #include "Weapons/RavenQuillChargeComponent.h"
+ #include "Weapons/PanChiGuardComponent.h"
+ #include "Weapons/ZhenmoRuneComponent.h"
+@@ -249,6 +250,7 @@
+     RuneSword=CreateDefaultSubobject<URuneSwordComponent>(TEXT("RuneSword"));
+     CreateDefaultSubobject<UStarMarrowComponent>(TEXT("StarMarrow"));
+     CreateDefaultSubobject<UTangDaoGuardComponent>(TEXT("TangDaoGuardEffects"));
++    CreateDefaultSubobject<UEagleTalonGuardComponent>(TEXT("EagleTalonGuard"));
+     CreateDefaultSubobject<URavenQuillChargeComponent>(TEXT("RavenQuillCharge"));
+     CreateDefaultSubobject<UPanChiGuardComponent>(TEXT("PanChiGuardEffects"));
+     CreateDefaultSubobject<UZhenmoRuneComponent>(TEXT("ZhenmoRuneEffects"));
+--- a/Source/FPSGAME/Movement/FPSStaminaModel.cpp
++++ b/Source/FPSGAME/Movement/FPSStaminaModel.cpp
+@@ -2,6 +2,7 @@
+ #include "../FPSGAMECharacter.h"
+ #include "../FPSGAMEPlayerController.h"
+ #include "../Weapons/RuneSwordComponent.h"
++#include "../Weapons/EagleTalonGuardComponent.h"
+ #include "../Weapons/RavenQuillChargeComponent.h"
+ #include "../Weapons/Kukri/KukriWeaponComponent.h"
+ #include "../Weapons/Bow/BowWeaponComponent.h"
+@@ -95,6 +96,7 @@
+ { return float(SetEffect(TEXT("actionStaminaCost"))); }
+ float UColdSteelStatusModel::HeavyChargeStaminaPerSecond() const
+ {
++    if(UEagleTalonGuardComponent::Ready(this))return 0.f;
+     if(const auto* Tool=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UProductionToolComponent>():nullptr;Tool&&Tool->IsThunderCalling())
+         return ThunderHammerCall::StaminaPerSecond*ActionStaminaMultiplier();
+     const auto* Item=ActiveKukriWeapon();
+--- a/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp
+@@ -35,6 +35,7 @@
+ #include "../Production/ThunderHammerPommel.h"
+ #include "../Production/ProductionToolStats.h"
+ #include "../Weapons/RuneSwordComponent.h"
++#include "../Weapons/EagleTalonGuardComponent.h"
+ #include "../Weapons/RavenQuillChargeComponent.h"
+ #include "../Props/FPSPracticeTarget.h"
+ #include "../Weapons/TangDaoGuardComponent.h"
+@@ -164,6 +165,7 @@
+ }
+ float UColdSteelStatusModel::QuickCombatStaminaCost(int32 AtLevel,const FMeleeModifiers* PreviewModifiers) const
+ {
++    if(UEagleTalonGuardComponent::Ready(this))return 0.f;
+     const auto& T=QuickCombatSkill.QuickCombat;
+     const int32 L=FMath::Clamp(AtLevel<0?QuickCombatProgress().Level:AtLevel,1,QuickCombatSkill.MaxLevel);
+     const auto Mods=PreviewModifiers?*PreviewModifiers:ColdSteelMelee::QuickCombatModifiers(this);
+@@ -297,23 +299,27 @@
+         // 枪械在开火时预掷一次（霰弹多弹丸、穿透多目标共用），近战/快捷进战仍按接触点各掷。
+         const float CriticalRoll=Shot.CriticalRoll>=0.f?Shot.CriticalRoll:FMath::FRand();
+         const auto* TargetStatus=Victim?Victim->FindComponentByClass<UCombatStatusFormula>():nullptr;
+-        float CriticalChance=Shot.CriticalChance+(TargetStatus?TargetStatus->CriticalVulnerabilityBonusPercent():0.f);
+-        bool RavenOtherTarget=false;
++        float CriticalChance=Shot.CriticalChance+(Shot.bEagleTalonStrike?30.f:0.f)+(TargetStatus?TargetStatus->CriticalVulnerabilityBonusPercent():0.f);
++        bool GuardOtherTarget=false;
+         if(Damage>0.f&&Shot.bMelee&&!Shot.bRicochet&&Shot.ItemDefinition==TEXT("ue_forged_steel_greatsword")
+             &&Shooter&&Shooter->HasAuthority())
+-            if(auto* Raven=Shooter->FindComponentByClass<URavenQuillChargeComponent>();Raven&&Raven->Matches(Shot))
++        {
++            auto* Raven=Shooter->FindComponentByClass<URavenQuillChargeComponent>();
++            const bool RavenActive=Raven&&Raven->Matches(Shot);
++            if(RavenActive||Shot.bEagleTalonStrike)
+             {
+                 if(IsValid(Victim)&&Victim->CanBeDamaged())
+                 {
+                     const auto* Animal=Cast<AColdSteelAnimal>(Victim);
+-                    RavenOtherTarget=Victim->IsA<AFPSPracticeTarget>()||(Animal&&!Animal->IsDead()
++                    GuardOtherTarget=Victim->IsA<AFPSPracticeTarget>()||(Animal&&!Animal->IsDead()
+                         &&!Victim->ActorHasTag(TEXT("Friendly"))&&!Victim->ActorHasTag(TEXT("Companion")));
+                 }
+-                if(RavenOtherTarget||UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter))
++                if(RavenActive&&(GuardOtherTarget||UFPSMeleeLightningComponent::IsEnemy(Victim,Shooter)))
+                     CriticalChance+=Raven->ContactBonus(Shot);
+             }
++        }
+         Prepared.Critical=Shot.bRicochet?Shot.bInheritedCritical:
+-            (Weakpoint||((Combat||RavenOtherTarget)&&CriticalRoll*100.f<CoreCombatFormula::CriticalChance(CriticalChance,CombatFormulaRuntime::MonsterCriticalResistance(Victim))));
++            (Weakpoint||((Combat||GuardOtherTarget)&&CriticalRoll*100.f<CoreCombatFormula::CriticalChance(CriticalChance,CombatFormulaRuntime::MonsterCriticalResistance(Victim))));
+         // 要害加成按数值生效：步枪精通与枪械自带（M1911「要害特化」）共用同一乘区，
+         // 未声明要害加成的武器 WeakpointPercent 为 0，行为与旧版按 bRifle 判定完全一致。
+         float Amount=Damage*(Weakpoint&&Shot.WeakpointPercent>0?1+Shot.WeakpointPercent:1);
+--- a/Source/FPSGAME/Weapons/ModularSwordVisual.cpp
++++ b/Source/FPSGAME/Weapons/ModularSwordVisual.cpp
+@@ -1,4 +1,5 @@
+ #include "ModularSwordVisual.h"
++#include "EagleTalonGuardComponent.h"
+ #include "RavenQuillChargeComponent.h"
+ #include "../Weapons/PojunGrip.h"
+ #include "SwordTasselMeshComponent.h"
+@@ -645,7 +646,11 @@
+             Mesh->SetVisibility(Blade->IsVisible());Mesh->SetHiddenInGame(Blade->bHiddenInGame);
+         }
+         if(Mesh->GetStaticMesh()!=Entry.Asset){Mesh->EmptyOverrideMaterials();Mesh->SetStaticMesh(Entry.Asset);}
+-        if(Entry.Slot==TEXT("guard"))URavenQuillChargeComponent::BindGuard(Mesh);
++        if(Entry.Slot==TEXT("guard"))
++        {
++            UEagleTalonGuardComponent::BindGuard(Mesh);
++            URavenQuillChargeComponent::BindGuard(Mesh);
++        }
+         if(Entry.Slot==TEXT("pommel")||!Entry.Materials.IsEmpty())Mesh->EmptyOverrideMaterials();
+         for(const auto& Pair:Entry.Materials)
+         {
+--- a/Source/FPSGAME/Weapons/RuneSwordPresentation.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordPresentation.cpp
+@@ -1,4 +1,5 @@
+ #include "RuneSwordComponent.h"
++#include "EagleTalonGuardComponent.h"
+ #include "RavenQuillChargeComponent.h"
+ #include "HighlandBreakSweep.h"
+ #include "RingChainSweepMotion.h"
+@@ -113,6 +114,8 @@
+ {
+     if(!Profile || !Character.IsValid() || (!Character->HasAuthority()&&!Character->IsLocallyControlled()))return;
+     RefreshRingChain(Profile->ActiveProductionTool()?nullptr:Profile->Equipped());
++    if(auto* Eagle=GetOwner()->FindComponentByClass<UEagleTalonGuardComponent>())
++        Eagle->Equip(Profile);
+     if(auto* Raven=GetOwner()->FindComponentByClass<URavenQuillChargeComponent>())
+         Raven->Equip(Profile->ActiveProductionTool()?nullptr:Profile->Equipped());
+     if(!Viewmodel)InitializePresentation();

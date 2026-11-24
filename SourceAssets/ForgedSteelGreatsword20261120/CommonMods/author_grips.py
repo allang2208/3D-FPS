@@ -1,11 +1,14 @@
 """Five continuous grip bodies fitted to the forged sword mounting rims."""
-import bpy,json,math
+import bpy,json,math,sys
 import numpy as np
 from pathlib import Path
 from mathutils import Vector
 from mathutils.bvhtree import BVHTree
 
-P=Path(__file__).resolve().parent;OUT=P/'Export';OUT.mkdir(exist_ok=True)
+P=Path(__file__).resolve().parent
+refined='--forged-finish' in sys.argv
+art=P.parent/'GripFinish/Art' if refined else P
+OUT=art/'Export';OUT.mkdir(exist_ok=True)
 SHARED=P.parents[1]/'SharedSwordGrips20260927'
 TAU=math.tau;N=96;ROWS=160;TOP=-.013;BOTTOM=-.164;FACTORY_LENGTH=.177
 OPTIONS=['shock_wrap','swift_grip','long_twohand','iron_spine_power_grip','lockweave_guard_grip']
@@ -70,7 +73,8 @@ def pbr(key):
     bs.inputs['Metallic'].default_value=.97 if key=='Copper' else 0.
     for suffix,pin in [('BaseColor','Base Color'),('Normal','Normal'),('Roughness','Roughness')]:
         sample=nodes.new('ShaderNodeTexImage')
-        sample.image=bpy.data.images.load(str(SHARED/'Textures'/((('Steel' if key=='Copper' else key)+'_'+suffix)+'.png')),check_existing=True)
+        textures=art if refined else SHARED/'Textures'
+        sample.image=bpy.data.images.load(str(textures/((('Steel' if key=='Copper' else key)+'_'+suffix)+'.png')),check_existing=True)
         sample.image.colorspace_settings.name='sRGB' if suffix=='BaseColor' else 'Non-Color'
         output=sample.outputs['Color']
         if suffix=='Normal':
@@ -175,8 +179,8 @@ for option in OPTIONS:
         'animation_folder':'/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations' if extension else None})
     print('FORGED_STEEL_GREATSWORD_GRIP_EXPORTED '+option,flush=True)
 factory.hide_render=False;factory.hide_set(False)
-bpy.ops.file.pack_all();bpy.ops.wm.save_as_mainfile(filepath=str(P/'ForgedSteelGreatsword_CommonGrips_Editable.blend'),compress=True)
-(P/'grip_exports.json').write_text(json.dumps({'weapon':'ue_forged_steel_greatsword','options':records,
+bpy.ops.file.pack_all();bpy.ops.wm.save_as_mainfile(filepath=str(art/'ForgedSteelGreatsword_CommonGrips_Editable.blend'),compress=True)
+(art/'grip_exports.json').write_text(json.dumps({'weapon':'ue_forged_steel_greatsword','options':records,
     'source':'../Integration/ForgedSteelGreatsword_Modular_Editable.blend','factory_length_cm':FACTORY_LENGTH*100,
     'long_grip_extension_cm':2.8,'geometry':'Retained exact upper/lower rims and native UV/normals; continuous inset wraps inside the source hand envelope',
     'current_bone_mount':'unchanged; retain the live ForgedSteelGreatsword bone_mount',

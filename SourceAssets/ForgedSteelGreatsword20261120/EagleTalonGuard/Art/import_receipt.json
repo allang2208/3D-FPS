@@ -1,0 +1,23 @@
+{
+  "assets": [
+    "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/T_EagleTalon_BaseColor.T_EagleTalon_BaseColor",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/T_EagleTalon_ORM.T_EagleTalon_ORM",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/T_EagleTalon_Normal.T_EagleTalon_Normal",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/T_EagleTalon_IceMask.T_EagleTalon_IceMask",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/M_EagleTalon_ForgedSteel.M_EagleTalon_ForgedSteel",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/MI_EagleTalon_Ice.MI_EagleTalon_Ice",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/SM_ForgedSteelGreatsword_EagleTalonGuard.SM_ForgedSteelGreatsword_EagleTalonGuard",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/SM_ForgedSteelGreatsword_EagleTalonGuard_ExecutionerSeat.SM_ForgedSteelGreatsword_EagleTalonGuard_ExecutionerSeat"
+  ],
+  "meshes": {
+    "SM_ForgedSteelGreatsword_EagleTalonGuard": {
+      "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1",
+      "M_EagleTalon_ForgedSteel": "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/M_EagleTalon_ForgedSteel.M_EagleTalon_ForgedSteel"
+    },
+    "SM_ForgedSteelGreatsword_EagleTalonGuard_ExecutionerSeat": {
+      "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1",
+      "M_EagleTalon_ForgedSteel": "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/M_EagleTalon_ForgedSteel.M_EagleTalon_ForgedSteel"
+    }
+  },
+  "ice_material": "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/MI_EagleTalon_Ice.MI_EagleTalon_Ice"
+}

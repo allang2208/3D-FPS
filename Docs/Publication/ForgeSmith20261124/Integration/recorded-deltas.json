@@ -1,0 +1,458 @@
+[
+  {
+    "stage": "04-QuestJournalDetails",
+    "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+    "before_lf": "cdebb7e34803ce6a3d207eb4535f6535c9a06ce3da6965c5e67e1b155dafebb8",
+    "after_lf": "23182c348be257f663700dda77c4dba183ed5ae940b1e1fd7c9cee924aaa13d2"
+  },
+  {
+    "stage": "04-QuestJournalDetails",
+    "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+    "before_lf": "5b69917bcca4ed3984d95fafe91a245f2a9b0483e3d1080bda20ce8b21c25489",
+    "after_lf": "2629f5e6cf954a9c0369ff74c0df9d733b3f5df4f93dfe5116db31d0766d5a99"
+  },
+  {
+    "stage": "04-QuestJournalDetails",
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.h",
+    "before_lf": "fe7ad6053238fa77b5462ff018877d2270ccd023408454124b1174a8dd05e33d",
+    "after_lf": "68e6b01cd3247cad502523f0e04dbcd75413ad091b240b847568e98edee15655"
+  },
+  {
+    "stage": "04-QuestJournalDetails",
+    "path": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+    "before_lf": "1d6c35a47a6e2b9dd4afa32c44db5c1ee5546165e399fef6bec335ad164ff2d3",
+    "after_lf": "f83e488c8c0616cce5d777f2e2e2a0d76e97ca6e86881acfae51c055042ac512"
+  },
+  {
+    "stage": "04-QuestJournalDetails",
+    "path": "Source/FPSGAME/UI/ColdSteelHUDReadouts.cpp",
+    "before_lf": "6cded915007c299e6e4b7a41474389f46e5977efd29f781f6303e780d0524ffd",
+    "after_lf": "5f73532fbdb85156362d3a18366c3f7c45b5447196f3c34e00260d49556163b0"
+  },
+  {
+    "stage": "04-QuestJournalDetails",
+    "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+    "before_lf": "755ded08264fcf45ef1423d3eb3040ebde2d27b9f2e6116ec88404fa1de87a98",
+    "after_lf": "8cf89d17487e7fd1cf71c6f3c76db8f97a7f5b07fe6bfca4312d9f3993c96186"
+  },
+  {
+    "stage": "04-QuestJournalDetails",
+    "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "before_lf": "eea568fdf820266dd64b7d27117b82b2588a352107c0950608c5447e1e643e15",
+    "after_lf": "cc119bbd3dc67dad9c5dc8984201adcf26bf826fe3c40528ea54371e7773b3b3"
+  },
+  {
+    "stage": "05-QuestJournalStatus",
+    "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+    "before_lf": "23182c348be257f663700dda77c4dba183ed5ae940b1e1fd7c9cee924aaa13d2",
+    "after_lf": "c3fa76c98b1c6c7290e86e62c57952d9624d0ceef6bb787927e949d1b92a8ebf"
+  },
+  {
+    "stage": "07-smelting-yard",
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp",
+    "before_lf": "511476a51d63ff29b9d0c5b5bc6a57f17c7e1cb5e00f13b7d888bcbe6171445d",
+    "after_lf": "365fa53a55e683a1a6322493c023ab24e262b9281fc6d8b2072b3e8005cb1f0c"
+  },
+  {
+    "stage": "07-smelting-yard",
+    "path": "Source/FPSGAME/UI/DevelopmentPanelTools.cpp",
+    "before_lf": "2d8140bd687588f50eb464c7762ec1409ec55002e4c16b4c2c3529982eaf3307",
+    "after_lf": "156c19ba3b9c0423606aeaf97791abc50a2bb923269e7a72b95f2bb469ca4d73"
+  },
+  {
+    "stage": "08-canopy",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageGroundData.inl",
+    "before_lf": "8a0735131e1371368e73246b3c0e926e4cef859c52e2a1827bfc96d94d09b536",
+    "after_lf": "4c52b50052f12b03d4582d45d0959baee449e19eec42da493f69ef0800e86d16"
+  },
+  {
+    "stage": "08-canopy",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageLayout.inl",
+    "before_lf": "d2432d1a0f6135ace872811ead878d711fe5555f68b5988941bd75fe01c5d09b",
+    "after_lf": "4fc9fb0c3a4a6bdb614de8c684b357de26a009f5bddd6bd7e0d6efc206126dad"
+  },
+  {
+    "stage": "08-canopy",
+    "path": "Tools/WorldGeneration/AbandonedVillage/draw_plan.py",
+    "before_lf": "1cdf0b374fc37143ed9481ff6a10399ef9d1e3d7fdfbe3e516f65ce703624e29",
+    "after_lf": "4fb8f16d3aea8f3d5bbb0f76879c06469dff8ee20aad23d790a93d4004613f36"
+  },
+  {
+    "stage": "08-canopy",
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py",
+    "before_lf": "54613044e5ae7b1e2bf501d726b6a780a8088b021a62af1d11c23115cde6c566",
+    "after_lf": "18852c7e48532ce75d848fc8bfa146da1802682ccf2549cb2e0314cbbdd508c3"
+  },
+  {
+    "stage": "08-canopy",
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_yard_dressing.py",
+    "before_lf": "1046fd98c7e8a5b35964d0de64fbaf41f561d6892a40d0fe43e20d49be6a817e",
+    "after_lf": "7f8664e8428d02a0602cb25b2044347d984d0f015d21c166943a4652b805832f"
+  },
+  {
+    "stage": "08-canopy",
+    "path": "Tools/WorldGeneration/AbandonedVillage/wall_support.py",
+    "before_lf": "021535a79c88cd61bac5a7d74d7180c5cd95ec10a0ddbc12024ed5aa3038a03d",
+    "after_lf": "0a8684c8609fb43b9907b6b88129ef9e0ac19529d379bed065ef1b1de006fe0d"
+  },
+  {
+    "stage": "09-repair",
+    "path": "Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp",
+    "before_lf": "fab6772e6993f3f51be85551e0c20b4af033809d42a4415a7df7ef051733d817",
+    "after_lf": "7449c12549e99460414b13c0cd68541d9e41ba239921b1c447348cd739f2869c"
+  },
+  {
+    "stage": "09-repair",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsGroundCache.cpp",
+    "before_lf": "aca62fa11b2e677d064149dc721f3b6106801836febd4a1d1852b8137391a26b",
+    "after_lf": "ed4dfb2c0d0016770f460729d56152df81e11f8db861baa0b806285766f08b3c"
+  },
+  {
+    "stage": "09-repair",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "before_lf": "e411ceddc360aedf0d3bef6d660ff24200caa905bc49d114609d91dcc713ab42",
+    "after_lf": "8de15f08062b54fc2c0a3e72e9382d7f9197170e4d3a810a82ba24486e804337"
+  },
+  {
+    "stage": "09-repair",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "before_lf": "0d2a84d01e9b736330fc42a1d74bea4c037be9adf5a70555e3550d2615146bc0",
+    "after_lf": "6a35c4ecb1bc29de5232ab691378e66ec8fe989e1a39515fc899a395e95e172a"
+  },
+  {
+    "stage": "09-repair",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageGround.cpp",
+    "before_lf": "452392c2de95dcf3268b406221cd2f6d476b13a35580e8c26813cdefa3188204",
+    "after_lf": "7b825da454bca5d152444c266cd435c587f2fdf806d4eb01464f82bc010725ad"
+  },
+  {
+    "stage": "09-repair",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageGroundData.inl",
+    "before_lf": "d83daaaa0a82e6d69ecc1eec72c00f6a6d496d6c1b65b568247465e05b2bb135",
+    "after_lf": "1eafae7960ed161f3e91e19cd33dc3de746e4c01ddd111f628f7ba94c7045783"
+  },
+  {
+    "stage": "09-repair",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageSite.h",
+    "before_lf": "faccd97ef44dfd0117ccb37b3c45f3beba4fe065d9c45572eb7e46666b834df3",
+    "after_lf": "baabe5f70d55885f40e74e97ec5a8bc0fb2ca1b51625ac2d4d01fdaee8f9b485"
+  },
+  {
+    "stage": "09-repair",
+    "path": "Tools/WorldGeneration/AbandonedVillage/terrain_road_layer.py",
+    "before_lf": "8345d71ec23c6c7ca820efabf9da20936e205ed032773ca7317b65304968c86a",
+    "after_lf": "54d539c00593a6655c25ea7828ea616e146301e076b37e57da1aec71afbd4ef1"
+  },
+  {
+    "stage": "09-repair",
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_yard_dressing.py",
+    "before_lf": "7f8664e8428d02a0602cb25b2044347d984d0f015d21c166943a4652b805832f",
+    "after_lf": "4f3bab73c2ce0fe916076d726ffe5e5ebb8913ee3d8f1c1643308070d25ca34d"
+  },
+  {
+    "stage": "09-repair",
+    "path": "Tools/WorldGeneration/temperate_ground_cache.py",
+    "before_lf": "323dbcf974ab07059784f7dc1d50788e9bcaa5b07faba6840a1fd6f9b9c9dd25",
+    "after_lf": "a6b98d659e234c58f91bd193503099f80d965ca6f39de37e2a1dde1177c45539"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp",
+    "before_lf": "bba73f965ca21a95c38156d064ada1407cc110d2fd156997d19a6b97bc122a9d",
+    "after_lf": "881786a9ed5b63002a5a31575244600ad605ab59c20f060b0725549652b88f47"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/UI/ColdSteelAreaPickup.cpp",
+    "before_lf": "e7aa89065a633519af64d8f133ebc7748e73ec3622ed4f1964e1ebde06b9d9bc",
+    "after_lf": "3f0883f5c78809e8eebfc4991f3895b3675e9bac9da3e34dc7bacd0a64ed99e6"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+    "before_lf": "55b984c61506904ee762792d9596bdb052f437bd68aedcd99794cc5e64a5e626",
+    "after_lf": "8900f344187e918dcac8c2853aa0a80e86c5f1cde105bba40725b1f5445ff5b2"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp",
+    "before_lf": "365fa53a55e683a1a6322493c023ab24e262b9281fc6d8b2072b3e8005cb1f0c",
+    "after_lf": "3d3cdecd72b55263b2d6c95a6c8e8d03bd71ff32fa911cf7c377959a1ba43b37"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/UI/ColdSteelProductionDrops.cpp",
+    "before_lf": "89fa82a8ca842666d76981b3bc94e44459321e346c6fda21edbb2ea39a1acb49",
+    "after_lf": "7f3d2b371fd1d6ac09e7d9098593b320a6324efe6d6ca5f2b4143409f33fd172"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/UI/ColdSteelProfilePawn.cpp",
+    "before_lf": "bc0c4b50187b3df86fcac7e669e5580874771ddee40908507f07e1a68ec659e9",
+    "after_lf": "715f0f085ee219716c7486e89bd6054e98c4b06ecf8e24a49d6c84011f201b01"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldMapData.cpp",
+    "before_lf": "e7a702d3e2bbfada3a33831346535a60e8354d5441eb454310b621808fde4e62",
+    "after_lf": "702b93fb98c156a810fb2ba8df12cae647e16b994f04f3646c437ff229a9a3a5"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldMapData.h",
+    "before_lf": "907eecdda3e07fd8ce0dcfca5109da5ee6d9ad2c6a16ecc2d3c62c4063eb2da7",
+    "after_lf": "5c9d387010b708a0e84905d182bb9ca64dc76c262c68d6d4e701715506eec3f2"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/UI/DevelopmentPanelTools.cpp",
+    "before_lf": "156c19ba3b9c0423606aeaf97791abc50a2bb923269e7a72b95f2bb469ca4d73",
+    "after_lf": "4e28d7093cda9d1ab0a146eac677a04d9ec1a6ee9d60b9e97dafe1b138c5a67e"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/UI/SColdSteelWorldMap.cpp",
+    "before_lf": "f298bfe9c6df321c15fd8d7dc054d2fb3d4219517dd8c2eaa89ad641672da8b5",
+    "after_lf": "950669e463534a59fc788838b015862906c5c3077eafe817eb0914de6c5a41e8"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp",
+    "before_lf": "7449c12549e99460414b13c0cd68541d9e41ba239921b1c447348cd739f2869c",
+    "after_lf": "b7cd5a2ce69d86f7383d4a5811c09a56da5ac6e1cf25973d216301e39de6c476"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp",
+    "before_lf": "1bd6de6374deea34f339204e10c903e3250a2d66ed238c077a590629cae95588",
+    "after_lf": "1debc6c017beac4482378288267043b299656902460139f75394cd0e780c1c87"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp",
+    "before_lf": "a0c0ff85880104f94ad57115bf5355f43ab0edbeb6dc376c35fb28573673c479",
+    "after_lf": "a36898320cc83bb026b5c6488f974561d7dc95a8aea0a01e9d594333b66ca51d"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsVegetation.cpp",
+    "before_lf": "59edf0e49561d7665cdc61c1ea8e37083bba17dc23c97059e8187eb7e4dc17fe",
+    "after_lf": "3f8071699a53d72f409f4887aea05e23c5d30ea06516680b7fb0b3a67d9f6d51"
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "before_lf": "6a35c4ecb1bc29de5232ab691378e66ec8fe989e1a39515fc899a395e95e172a",
+    "after_lf": "80b7cf6e215d394c1bf19c495ede6ffa4752e0a6a47606cd870fe1cd92713cc1"
+  },
+  {
+    "stage": "12-lamps",
+    "path": "Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp",
+    "before_lf": "b7cd5a2ce69d86f7383d4a5811c09a56da5ac6e1cf25973d216301e39de6c476",
+    "after_lf": "2d74c9dfdc1fcf61a96dca2e07d6fa3e778fc36e2e308755ac601634a96e4f87"
+  },
+  {
+    "stage": "12-lamps",
+    "path": "Source/FPSGAME/WorldGeneration/HillsHerbalistWorkshop.cpp",
+    "before_lf": "56514fe989e29829a5aa25bf407a7ae1347a0cfd5312575e0825989c61a9270a",
+    "after_lf": "5c4256ebf34ba074141e493af5acc403cbfbffe5ac65fb32df9f3a31eb871707"
+  },
+  {
+    "stage": "12-lamps",
+    "path": "Source/FPSGAME/WorldGeneration/HillsTavernInterior.cpp",
+    "before_lf": "d0b8a0ac3cbbb7e6119ceb84da21531019aaccf79a5e082e92e97a30c3689c10",
+    "after_lf": "a0401d976ec2af3fd720ceece93ae3155ec0b5e2ab8ccac9e56ecddd73b254e0"
+  },
+  {
+    "stage": "12-lamps",
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_chimney.py",
+    "before_lf": "59b194f5c4459b63b61197a0052d9a3bed1c76062dfb537882e5832a10792506",
+    "after_lf": "3f9ea118b160fac5ea6fdea064dce0ca14ffeec37f752bcc2e40c739fd9c28ef"
+  },
+  {
+    "stage": "12-lamps",
+    "path": "Tools/WorldGeneration/VillageBlacksmith/MasonryR5/finish.py",
+    "before_lf": "b086cc5e3b1bc5502cd619a1efdb3f9d74e9dcd3ef50a994552f78ac25712664",
+    "after_lf": "7e334dbe8fcf4790d965678474bbecae2047500a933ed8f5bbae38605274d3b2"
+  },
+  {
+    "stage": "12-lamps",
+    "path": "Tools/WorldGeneration/VillageBlacksmith/MasonryR5/prepare_layout.py",
+    "before_lf": "ac5d61287e992301caf92cdd1ad9d7ba2f8db76729f2308def36562f40b04a26",
+    "after_lf": "9da35559db4d1ff3cc9a42341c92dca98466350de89f59d2455593f78fec7dcb"
+  },
+  {
+    "stage": "12-lamps",
+    "path": "Tools/WorldGeneration/VillageHerbalist/author_shop03.py",
+    "before_lf": "c9d92e8499f91b5017c6ffda7a5b35aa4832bd5ed353c6fb1919b1495195e87c",
+    "after_lf": "94b5c12ededff8d18fa5638afea1c3fb20fbc7afe479e4c323d04b23a9e320e0"
+  },
+  {
+    "stage": "14-raven",
+    "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "before_lf": "afd9bec224be05161b48b8a6dc7b06f693d6ce336b7a77599f7f1ec24094024b",
+    "after_lf": "ec20ab3ab989011e3709200dfea4cfac1340d34121088e80a945fd92d6f0b9d0"
+  },
+  {
+    "stage": "14-raven",
+    "path": "Source/FPSGAME/Weapons/RuneSwordPresentation.cpp",
+    "before_lf": "12a0092a4c37175d4692a49904b68c81ad0259dd07ad02db350d29c9f814c171",
+    "after_lf": "ae2ad9fec89e85475cbbef0736450156f3f8b37e82b5ffde64e96922eaf4ef89"
+  },
+  {
+    "stage": "14-raven",
+    "path": "Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+    "before_lf": "c6017b7530379d09d0ac1de2141cb6b11f00432163b57848574d2c0e3cf755f1",
+    "after_lf": "866f462b23220b5d571d228ef5f685e709bb1eec26896455e1b8abbaa0395ece"
+  },
+  {
+    "stage": "14-raven",
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp",
+    "before_lf": "a704ae13b93e4e2530c1d874cb9ea449b0c4676fd311dd0c3c1617957fec1018",
+    "after_lf": "11fd8b3e2e6e5a756c90efbca434a933e7059d10e376b77f564004f1ccdceee8"
+  },
+  {
+    "stage": "14-raven",
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+    "before_lf": "b360c4314c95040c9243fce8b52f9033395208f765cf0d308d78f725972d56bb",
+    "after_lf": "872aa258dbb91f172d6ee0dadb577b6485677b90f554a232428b06d37578a93d"
+  },
+  {
+    "stage": "14-raven",
+    "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+    "before_lf": "b9596285272789cdf1ae9b7ce844968b00888b99f4ed5aa29ff3dcbaf41dd1ba",
+    "after_lf": "9d48061228510798408188f07624a59c99c3c1005898382483b6a7fdf3dc2f08"
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp",
+    "before_lf": "11fd8b3e2e6e5a756c90efbca434a933e7059d10e376b77f564004f1ccdceee8",
+    "after_lf": "3c8ebe8182aa87c147d4e7d17804f3e72786278132e573a09db4760d01721d9b"
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "before_lf": "ec20ab3ab989011e3709200dfea4cfac1340d34121088e80a945fd92d6f0b9d0",
+    "after_lf": "a2a70364c806dee005854a53b39f2f7b6700a6be5d066f1cf95948fe7e6427f3"
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+    "before_lf": "9d48061228510798408188f07624a59c99c3c1005898382483b6a7fdf3dc2f08",
+    "after_lf": "056a7423f710207eb7631c90bb7f087f7d526470b0fb682a09151004d2f8d5e2"
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+    "before_lf": "872aa258dbb91f172d6ee0dadb577b6485677b90f554a232428b06d37578a93d",
+    "after_lf": "4d8c3b3c766f9fa57e389d2534e57ba96cd1ecfff74535a492db72ba9832f654"
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+    "before_lf": "866f462b23220b5d571d228ef5f685e709bb1eec26896455e1b8abbaa0395ece",
+    "after_lf": "8b5abe0f75bb13e61c87f1d45bd375ab5d3b7af1b4a68b34638166505e0a97fd"
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Weapons/RuneSwordPresentation.cpp",
+    "before_lf": "ae2ad9fec89e85475cbbef0736450156f3f8b37e82b5ffde64e96922eaf4ef89",
+    "after_lf": "3e8c2c15fd3f8eebb053dd044beafdebefcd3083e90c0a1e5e6fad8caa602532"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/Building/BronzeTorch.cpp",
+    "before_lf": "e58a653354002dc0baa5599fa757bd6153273a805db755b1bf35b353cf317833",
+    "after_lf": "6aa8a7412563ad490c60291c23325140f2abd9bd77cdecf5cdb3bc0f3eb5d63f"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/Development/ArtisanVillageNetworkProbe.cpp",
+    "before_lf": "dc1a768f78240c06d16425eca0bfc8606c4bb19750c292483905fb7946958705",
+    "after_lf": "7b33f50b6e2843bef1b1a594f9f7075f098184cb4fb4ebfe38f2816878ae210e"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp",
+    "before_lf": "acac35174658c8985d3fb5323f4232b2899bd356d28c75a8e96557917b875f8d",
+    "after_lf": "64f5e309a6342c9cdd364775e35dbeabc6313510754bcefa80aa5e7adc85019e"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp",
+    "before_lf": "613f250d1f920ebf855081a653fd8eeeda13da754e40172182958721f293fcd2",
+    "after_lf": "622b7b5555eb1c67597d7a64cefc93a95d0315f3e19904796166c982cda7bccb"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelHarvestAuthority.cpp",
+    "before_lf": "a10655634ce1759f0cc74f558211e70c4f1cdde2236695ebf68b5dd67241a174",
+    "after_lf": "e744bee7d9793e344b87dccfda33d6f791e049d11c16dbf8316779b515470af2"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp",
+    "before_lf": "00fbc8767b68301ae1e07d64b128eb8ebf1d35a71c4be017a8c1bd938ffa59c7",
+    "after_lf": "acd68a68a275a06be52daf27369ffe010f86ce13276dec7d9b297e18282f5956"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelRiftSlashNetwork.cpp",
+    "before_lf": "8fff2b4577f3c1388dd7d3f9a8897fe0f4e82792e590b10bb299780aab714353",
+    "after_lf": "4827d8911ea75257e682084ae00a486870b1e028b384af2c4aada4586a14a43d"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelWorldNetwork.cpp",
+    "before_lf": "e04442465c1eb44b72a1d1b95a383331bb8aca69e3ecb558e7b84542ce2db7f6",
+    "after_lf": "273e72fdabf2cc57fffad158f750e5f4aade92960d76c7b8ef84fac51ee4ce04"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+    "before_lf": "8628d69ce5613c3f805ad18d02bc8bb81f82ea7a1daf40b441f437c28b21a4b5",
+    "after_lf": "5ffa5b0551969a671a7e477cf7b9d18db989ae63a0eacf4e1a65208e200b4200"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldMapData.cpp",
+    "before_lf": "647a6a27041bb55fdfb47a39e67397aa7d87261b2ccae98e989e175a70143ec2",
+    "after_lf": "378d4cfe527af0cdf9a85a05674e0c0cbf974b6320ca1821eeaf089a238a9a54"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldMapData.h",
+    "before_lf": "eded6d2b1d5a8392b4b88659766cb66e465e07a94f98cc26a9897a12938b6cca",
+    "after_lf": "af6cc801d23f8d349092a63caad9e774e401dde3998c04cdd5677f954faf6db7"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/Weapons/RuneSwordActions.cpp",
+    "before_lf": "36e2383c8d88d230f7a897a39749cb56b68c66ed1b6004a88f197d2acedf3afa",
+    "after_lf": "a10c68d7dbbbba74355eba80a94c67eac7f90ac977e2358dc99b878dabddb3b4"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/Weapons/RuneSwordComponent.h",
+    "before_lf": "6db9e3980bed089db94ade564ca92e31754bd84b10cd1861dfad0c5426f1b6d1",
+    "after_lf": "f805f7d5e9e675aa2da7c4479d1d333ae0e4885b04b427348831bdfe8a95de19"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "before_lf": "4e137621a9e772c8b2841230faf618f2893478cb91b1028db0634622eb91e068",
+    "after_lf": "7ffd9ebc8110cbfdb6bb4a4c80c1c58ee3268adf458cf4b4271aa0f4aaf047c4"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Source/FPSGAME/WorldGeneration/VillageMechanicalWorkshop.cpp",
+    "before_lf": "d51da1ddd7d799a9efe5a7bdf976316f72ff1b0588be851fe6961c3798692e67",
+    "after_lf": "f5ac5ca759411385c01569ba0d02baa557387f1c9cfa95dc1914fb0bf1fc11c9"
+  },
+  {
+    "stage": "16-multiplayer-audit",
+    "path": "Tools/WorldGeneration/run_artisan_village_net.py",
+    "before_lf": "b7d9fe80db1cfcf48aa97c63d046a594947a9846b4a807ef7f6372ed7af67835",
+    "after_lf": "0b8d21f4b0d5c0f297a284c8620f71781d9344c33dfd0b7d72bbbfde90be8862"
+  }
+]

@@ -43,8 +43,8 @@ report=dict(level=level,map_saved=True,assets=[a['name'] for a in manifest['asse
     shaft_width_cm=146,previous_shaft_width_cm=92,chimney_position_cm=[200,500,0],
     stone_source='/Game/UnrealNormandy/StaticMeshes/SM_H_OldWall_00A',
     removed_front_wall_instances=removed,default_state='ruined',
-    torch_class='/Script/FPSGAME.BronzeTorch',torch_count=3,torches_require_repair=True,
-    interior_torches_always_lit=True,entry_torch_uses_weather_clock=True,
+    fixture_class='/Script/FPSGAME.VillageShopChainLamp',chain_lamp_count=4,lamps_require_repair=True,
+    interior_and_yard_lamps_always_lit=True,entry_lamp_uses_weather_clock=True,
     gameplay_tested=False,engine_preview_rendered=False)
 (OUT/'saved.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
 if previous_path and previous_path!=level and E.does_asset_exist(previous_path):u.EditorLoadingAndSavingUtils.load_map(previous_path)

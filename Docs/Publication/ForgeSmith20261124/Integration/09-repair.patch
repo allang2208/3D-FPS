@@ -1,0 +1,197 @@
+--- a/Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp
+@@ -258,6 +258,7 @@
+ 
+ void ATemperateHillsWorld::OnRep_VillageBlacksmith()
+ {
++    ApplySmithYardGround();
+     for(TActorIterator<AHillsBlacksmith> It(GetWorld());It;++It)It->ApplyVillageState();
+ }
+ 
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsGroundCache.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsGroundCache.cpp
+@@ -4,6 +4,20 @@
+ #include "VT/RuntimeVirtualTexture.h"
+ #include "Engine/World.h"
+ #include "Materials/MaterialInstanceDynamic.h"
++
++void ATemperateHillsWorld::ApplySmithYardGround()
++{
++    if (!VillageSite.bPlaced) return;
++    if (GroundMID)
++        GroundMID->SetScalarParameterValue(TEXT("SmithYardRepaired"), bVillageBlacksmithRepaired ? 1.f : 0.f);
++    if (VillageSite.bSmithYardRepaired==bVillageBlacksmithRepaired) return;
++    VillageSite.bSmithYardRepaired=bVillageBlacksmithRepaired;
++    const FVector2D Center=VillageSite.World(-4080.,-900.);
++    constexpr double Radius=760.;
++    InvalidateTerrainCells(Center,Radius);
++    const FBoxSphereBounds Bounds(FBox::BuildAABB(FVector(Center,VillageSite.Ground.Z),FVector(Radius)));
++    for (URuntimeVirtualTextureComponent* Cache : VillageGroundCache) if (Cache) Cache->Invalidate(Bounds);
++}
+ 
+ void ATemperateHillsWorld::PrepareVillageGroundCache()
+ {
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp
+@@ -350,6 +350,7 @@
+             if(VillageSite.bPlaced)
+             {
+                 bool bQueued=false;
++                ApplySmithYardGround();
+                 const double Yaw=FMath::RadiansToDegrees(FMath::Atan2(VillageSite.Axis.Y,VillageSite.Axis.X));
+                 S.VillageLevel=ULevelStreamingDynamic::LoadLevelInstance(this,
+                     TEXT("/Game/WorldGeneration/TemperateHills/AbandonedVillage/L_AbandonedVillage"),
+@@ -764,6 +765,10 @@
+     const int32 MinY=FMath::Clamp(FMath::FloorToInt((Center.Y-Radius+Half)/Size),0,Count-1);
+     const int32 MaxY=FMath::Clamp(FMath::FloorToInt((Center.Y+Radius+Half)/Size),0,Count-1);
+     int32 Invalidated=0;
++    // Reject old geometry that is still on a worker, including a shop repair with no terrain edit.
++    for (auto& Job:S.Jobs)
++        if (Job.Key.X>=MinX && Job.Key.X<=MaxX && Job.Key.Y>=MinY && Job.Key.Y<=MaxY)
++            Job.EditRevision=TerrainEditRevision-1;
+     for(int32 Y=MinY;Y<=MaxY;++Y)for(int32 X=MinX;X<=MaxX;++X)
+     {
+         auto* Cell=S.Cells.Find(FIntPoint(X,Y));
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
+@@ -382,6 +382,7 @@
+     UPROPERTY() TObjectPtr<UMaterialInstanceDynamic> GroundMID;
+     UPROPERTY(Transient) TArray<TObjectPtr<class URuntimeVirtualTextureComponent>> VillageGroundCache;
+     void PrepareVillageGroundCache();
++    void ApplySmithYardGround();
+     void ReleaseVillageGroundCache();
+     void BindVillageGroundCache(UDynamicMeshComponent* Mesh);
+     void InvalidateVillageGroundCache(const UDynamicMeshComponent* Mesh);
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillageGround.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillageGround.cpp
+@@ -22,14 +22,26 @@
+     FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/Fractures/SM_QuarryChip04.SM_QuarryChip04"))
+ };
+ 
+-double LocalHeight(FVector2D P)
++int8 VertexHeight(int32 X,int32 Y,bool bRepaired)
++{
++    // Original village elevations in the smith's yard, starting at (-45,-12) metres.
++    static constexpr int8 Ruined[][8]={
++        {3,2,3,2,1,0,0,1},{1,2,2,3,2,1,1,1},{0,0,0,3,4,1,2,1},
++        {0,0,0,0,2,1,2,3},{0,0,0,0,2,1,0,0},{0,0,0,0,3,1,0,0},{1,0,0,2,2,1,0,0}};
++    const int32 U=X-(HalfX/100-45), V=Y-(HalfY/100-12);
++    if (!bRepaired && U>=0 && U<UE_ARRAY_COUNT(Ruined[0]) && V>=0 && V<UE_ARRAY_COUNT(Ruined))
++        return Ruined[V][U];
++    return Relief[Y][X];
++}
++
++double LocalHeight(FVector2D P,bool bRepaired)
+ {
+     if (FMath::Abs(P.X)>=HalfX || FMath::Abs(P.Y)>=HalfY) return 0.;
+     const double X=(P.X+HalfX)*.01, Y=(P.Y+HalfY)*.01;
+     const int32 I=FMath::Min(int32(X),Columns-2), J=FMath::Min(int32(Y),Rows-2);
+     const double U=X-I, V=Y-J;
+-    return FMath::Lerp(FMath::Lerp(double(Relief[J][I]),double(Relief[J][I+1]),U),
+-                       FMath::Lerp(double(Relief[J+1][I]),double(Relief[J+1][I+1]),U),V);
++    return FMath::Lerp(FMath::Lerp(double(VertexHeight(I,J,bRepaired)),double(VertexHeight(I+1,J,bRepaired)),U),
++                       FMath::Lerp(double(VertexHeight(I,J+1,bRepaired)),double(VertexHeight(I+1,J+1,bRepaired)),U),V);
+ }
+ 
+ bool Near(const FTemperateVillageSite& Village, double X, double Y, double MarginX=0., double MarginY=0.)
+@@ -43,7 +55,7 @@
+ 
+ double Offset(const FTemperateVillageSite& Village, double X, double Y)
+ {
+-    return Near(Village,X,Y) ? LocalHeight(Village.Local(X,Y)) : 0.;
++    return Near(Village,X,Y) ? LocalHeight(Village.Local(X,Y),Village.bSmithYardRepaired) : 0.;
+ }
+ 
+ void ShapeCell(const FTemperateVillageSite& Village, FVector2D Origin, double CellSize, UE::Geometry::FDynamicMesh3& Mesh)
+@@ -60,13 +72,13 @@
+         FVector3d Vertex=Mesh.GetVertex(I);
+         const FVector2D P=Village.Local(Origin.X+Vertex.X, Origin.Y+Vertex.Y);
+         if (FMath::Abs(P.X)>HalfX || FMath::Abs(P.Y)>HalfY) continue;
+-        Vertex.Z+=LocalHeight(P);
++        Vertex.Z+=LocalHeight(P,Village.bSmithYardRepaired);
+         Mesh.SetVertex(I,Vertex);
+         // Central differences in the same world directions on both sides of each cell seam.
+         const FVector2D DX(Village.Axis.X*50.,-Village.Axis.Y*50.);
+         const FVector2D DY(Village.Axis.Y*50., Village.Axis.X*50.);
+-        const double GX=(LocalHeight(P+DX)-LocalHeight(P-DX))*.01;
+-        const double GY=(LocalHeight(P+DY)-LocalHeight(P-DY))*.01;
++        const double GX=(LocalHeight(P+DX,Village.bSmithYardRepaired)-LocalHeight(P-DX,Village.bSmithYardRepaired))*.01;
++        const double GY=(LocalHeight(P+DY,Village.bSmithYardRepaired)-LocalHeight(P-DY,Village.bSmithYardRepaired))*.01;
+         const FVector3f N=Normals->GetElement(I);
+         Normals->SetElement(I,FVector3f(N.X-N.Z*GX,N.Y-N.Z*GY,N.Z).GetSafeNormal());
+     }
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillageGroundData.inl
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillageGroundData.inl
+@@ -171,11 +171,10 @@
+     {-4015,-1573,10,23,1},{4524,-1572,5,12,0},{4720,-1557,5,165,2},{4554,-1555,20,38,0},{-1538,-1549,9,157,1},{-4591,-1527,7,12,1},{4513,-1524,12,199,0},{-4082,-1519,19,226,1},
+     {4529,-1515,9,82,0},{4653,-1513,12,226,0},{4861,-1475,21,1,1},{5180,-1467,9,72,0},{4512,-1462,8,190,0},{3810,-1458,10,235,1},{4595,-1448,7,223,0},{4907,-1447,5,233,1},
+     {4580,-1443,4,213,0},{3810,-1430,12,97,0},{5123,-1408,12,153,2},{4539,-1386,21,188,0},{4582,-1365,5,25,1},{4556,-1358,13,126,0},{-1450,-1353,6,89,1},{3829,-1350,12,46,0},
+-    {4494,-1348,15,123,0},{4545,-1345,6,155,2},{-1551,-1329,5,211,1},{-1519,-1276,10,145,1},{-1558,-1269,9,42,0},{-4369,-1256,6,97,0},{-1471,-1256,8,169,1},{-1530,-1253,6,135,1},
+-    {-4231,-1249,4,154,1},{4425,-1223,17,111,0},{-2476,-1205,8,50,0},{-4581,-1184,7,11,0},{-2460,-1181,6,77,2},{-5050,-1173,10,14,0},{-4591,-1171,5,68,1},{-5050,-1072,14,192,1},
+-    {5188,-1068,10,136,1},{-5074,-1067,5,255,2},{5533,-1043,9,8,2},{5159,-1022,17,117,1},{5215,-994,11,163,0},{5140,-985,12,207,1},{3729,-967,10,0,1},{3900,-938,20,210,2},
+-    {-4585,-927,6,125,2},{5511,-913,18,7,1},{5424,-907,9,27,2},{-4574,-904,4,182,0},{5205,-903,10,147,0},{3821,-886,12,92,0},{5498,-877,4,214,2},{3768,-873,10,79,0},
+-    {5366,-870,14,5,2},{-5506,-864,6,97,1},{-1168,-862,9,51,1},{3792,-839,13,224,0},{5458,-830,5,16,2},{-4589,-731,8,239,1},{-4594,-720,5,40,2},{-2062,-715,11,207,0},
++    {4494,-1348,15,123,0},{4545,-1345,6,155,2},{-1551,-1329,5,211,1},{-1519,-1276,10,145,1},{-1558,-1269,9,42,0},{-1471,-1256,8,169,1},{-1530,-1253,6,135,1},{4425,-1223,17,111,0},
++    {-2476,-1205,8,50,0},{-2460,-1181,6,77,2},{-5050,-1173,10,14,0},{-5050,-1072,14,192,1},{5188,-1068,10,136,1},{-5074,-1067,5,255,2},{5533,-1043,9,8,2},{5159,-1022,17,117,1},
++    {5215,-994,11,163,0},{5140,-985,12,207,1},{3729,-967,10,0,1},{3900,-938,20,210,2},{5511,-913,18,7,1},{5424,-907,9,27,2},{5205,-903,10,147,0},{3821,-886,12,92,0},
++    {5498,-877,4,214,2},{3768,-873,10,79,0},{5366,-870,14,5,2},{-5506,-864,6,97,1},{-1168,-862,9,51,1},{3792,-839,13,224,0},{5458,-830,5,16,2},{-2062,-715,11,207,0},
+     {-2043,-700,12,125,0},{-2068,-690,12,52,0},{3703,-666,13,74,0},{5532,-646,7,169,1},{5955,-573,5,227,0},{5966,-525,10,234,0},{3309,-489,13,214,0},{3261,-461,4,115,2},
+     {3328,-455,14,14,0},{2459,-427,10,174,2},{2481,-410,10,15,2},{5826,-372,8,136,2},{6128,-372,22,193,0},{2329,-362,12,233,2},{6088,-350,6,94,0},{3259,-326,8,134,2},
+     {4877,-321,5,132,1},{6135,-302,11,9,0},{4921,-300,20,55,1},{-5683,-297,6,142,1},{-5663,-291,17,107,1},{1084,-283,6,77,1},{6108,-278,22,213,0},{-5748,-276,12,121,1},
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillageSite.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillageSite.h
+@@ -16,6 +16,7 @@
+     double PadHalfX=TemperateVillageLayout::HalfX,PadHalfY=TemperateVillageLayout::HalfY;
+     bool bHilltop=false;
+     bool bPlaced=false;
++    bool bSmithYardRepaired=false;
+     bool bSideLane=false;
+     // Optional short lane from a dry valley junction to a setback western gate.
+     double FeederLength=0.,JunctionZ=0.;
+--- a/Tools/WorldGeneration/AbandonedVillage/terrain_road_layer.py
++++ b/Tools/WorldGeneration/AbandonedVillage/terrain_road_layer.py
+@@ -14,6 +14,7 @@
+ 
+ def add_to_ground(mat, plan):
+     lib = u.MaterialEditingLibrary
++    fit_yard = runpy.run_path(str(Path(__file__).with_name('smith_yard_material.py')))['bind']
+     turf = runpy.run_path(str(Path(__file__).with_name('village_turf_material.py')))['add_turf']
+     scan = runpy.run_path(str(Path(__file__).with_name('village_ground_uv.py')))
+ 
+@@ -29,7 +30,8 @@
+     expressions = lib.get_material_expressions(mat)
+     if any(expr.get_editor_property('desc') == TAG for expr in expressions):
+         updated = scan['update_saved_nodes'](mat,plan)
+-        return turf(mat,plan) or updated
++        turf_updated=turf(mat,plan)
++        return fit_yard(mat) or turf_updated or updated
+     mat.modify()
+     def parameter(cls, name, value):
+         expr = next((item for item in expressions if isinstance(item, cls)
+@@ -141,4 +143,5 @@
+             raise RuntimeError('Cannot connect village road to ' + name)
+     scan['update_saved_nodes'](mat,plan)
+     turf(mat,plan)
++    fit_yard(mat)
+     return True
+--- a/Tools/WorldGeneration/AbandonedVillage/village_yard_dressing.py
++++ b/Tools/WorldGeneration/AbandonedVillage/village_yard_dressing.py
+@@ -386,5 +386,7 @@
+     # Cull after placement so the random sequence in all other yards remains stable.
+     from smith_yard_clearance import clear_yard
+     smith_cleared=clear_yard(world)
++    from smith_yard_states import build as build_yard_states
++    build_yard_states(world)
+     return dict(mesh_groups=len(batches),instances=sum(counts.values()),areas=dict(counts),smith_cleared=smith_cleared,
+                 boundary_sources=relations,old_verge_removed=dict(removed))
+--- a/Tools/WorldGeneration/temperate_ground_cache.py
++++ b/Tools/WorldGeneration/temperate_ground_cache.py
+@@ -84,6 +84,8 @@
+     h=sample(soil+'H',soil_uv)
+     edge=runpy.run_path(str(Path(__file__).with_name('AbandonedVillage')/'village_road_blend.py'))
+     weights=edge['build_weights'](mat,mask,uv,h,span)
++    yard=runpy.run_path(str(Path(__file__).with_name('AbandonedVillage')/'smith_yard_material.py'))
++    yard['bind'](mat)
+     coverage=scalar_code('return max(W.x,W.y);',{'W':weights},1)
+     roadway=scalar_code('return saturate(W.x/max(.0001,A));',{'W':weights,'A':coverage},1)
+     result=dict(outputs)

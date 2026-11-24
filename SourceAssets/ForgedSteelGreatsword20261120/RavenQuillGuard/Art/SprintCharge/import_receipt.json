@@ -1,0 +1,16 @@
+{
+  "assets": [
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_RavenQuill_ForgedMetal.M_RavenQuill_ForgedMetal",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_RavenQuill_ForgedMetal_Whirlwind.M_RavenQuill_ForgedMetal_Whirlwind",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_TangDaoBladeRuneSurface_ForgedSteel_V1_Whirlwind.M_TangDaoBladeRuneSurface_ForgedSteel_V1_Whirlwind"
+  ],
+  "materials": {
+    "M_RavenQuill_ForgedMetal": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_RavenQuill_ForgedMetal.M_RavenQuill_ForgedMetal",
+    "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1"
+  },
+  "temporal": {
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_RavenQuill_ForgedMetal.M_RavenQuill_ForgedMetal": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_RavenQuill_ForgedMetal_Whirlwind.M_RavenQuill_ForgedMetal_Whirlwind",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_TangDaoBladeRuneSurface_ForgedSteel_V1_Whirlwind.M_TangDaoBladeRuneSurface_ForgedSteel_V1_Whirlwind"
+  }
+}

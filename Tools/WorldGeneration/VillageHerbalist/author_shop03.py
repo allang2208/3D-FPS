@@ -5,7 +5,6 @@ import unreal as u
 
 from author_shop import pose, require, shell_transform
 from dressing import STATION, furnish
-from herbalist_lights import add_fixtures, add_lighting
 from herbalist_living import add_living_light, furnish_living
 from shop_staff_light import WICK
 from herbalist_loft import add_loft
@@ -140,7 +139,6 @@ def build_herbalist(house, pieces, base):
     loft = add_loft(house,add)
     furnish(house,add)
     furnish_living(house,add)
-    add_fixtures(house,add)
 
     def component(actor,cls):
         parent = subs.k2_gather_subobject_data_for_instance(actor)[0]
@@ -192,7 +190,6 @@ def build_herbalist(house, pieces, base):
                 comp.set_collision_enabled(u.CollisionEnabled.NO_COLLISION)
         counts[state] += len(transforms)
 
-    torch_lights = add_lighting(house,assemblies['Repaired'],component)
     hang_trade(assemblies['Common'],pose(house,0,0),'Herbalist')
     crossroads(actors,'Herbalist')
     living_lights = add_living_light(house,assemblies['Repaired'],component)
@@ -222,6 +219,6 @@ def build_herbalist(house, pieces, base):
     return dict(house=house[0],station=mesh.get_path_name(),state_instances=dict(counts),
                 station_pose_house_cm_yaw=list(STATION),restored_side_wall_bays=7,
                 restored_shop_window=True,restored_west_window=True,restored_loft_window=True,
-                torch_lights=torch_lights,
+                runtime_inner_chain_lamps=2,
                 spliced_entry_plank=True,floor_count=2,loft=loft,
                 living_lights=living_lights,default_state='Ruined')

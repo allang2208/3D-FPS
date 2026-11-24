@@ -150,6 +150,9 @@ if apply_damascus(temporal):
     errors=L.recompile_material(temporal)
     if errors:raise RuntimeError('Temporal Damascus blade surface: '+str(errors))
 if not E.save_loaded_asset(temporal,False):raise RuntimeError('Temporal blade material save failed')
+apply_seat = runpy.run_path(str(P.parent/'GuardSeatFinish/guard_surface.py'))['apply']
+for fitted_surface in (m, temporal):
+    apply_seat(fitted_surface)
 factory=json.loads((P.parent/'Integration/exports.json').read_text(encoding='utf8'))
 blade=next(row for row in factory['parts'] if row['slot']=='blade_1')
 paths={'factory':factory['ue_root']+'/Meshes/'+blade['mesh']}

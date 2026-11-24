@@ -1,0 +1,140 @@
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+@@ -466,6 +466,46 @@
+     Task.Hint = INVTEXT("进入地牢后查看本局的区域、目标和队伍进度。");
+ }
+ 
++bool UDungeonRunSubsystem::ReadJournalDetails(const APawn* Viewer, const FTrackedTaskView& Task, FTaskJournalDetails& Out) const
++{
++    if (!Viewer || Task.Id != TEXT("dungeon.exploration")) return false;
++    Out.Introduction = INVTEXT("从分流大厅进入废弃设施，沿开启的闸门探索各区，最终抵达终末泵机大厅。队伍共享本局的首领和通路进度。");
++    Out.Reward = INVTEXT("终点奖励室宝箱。击败最终首领后可在撤离前搜刮，具体物品以宝箱内容为准。");
++    const bool InRun = bActive && Task.InstanceId == CurrentRunId;
++    const bool Finished = InRun && IsRunCompleted();
++    const bool BossDown = InRun && IsFinalBossDefeated();
++    auto Add = [&](FName Id, const FText& Text, bool Done, bool Active)
++    {
++        auto& Row = Out.Steps.AddDefaulted_GetRef();
++        Row.Id = Id; Row.Text = Text;
++        Row.State = Done ? ETrackedObjectiveState::Completed : Active ? ETrackedObjectiveState::Active : ETrackedObjectiveState::Pending;
++        if (const auto* Live = Task.Objectives.FindByPredicate([&](const auto& Goal) { return Goal.Id == Id; }))
++            Row = *Live;
++    };
++    Add(TEXT("enter"), INVTEXT("进入地牢"), InRun, !InRun);
++    Add(TEXT("welcome.elite"), INVTEXT("击败分流大厅精英，开启三处闸门"), InRun && IsWelcomeEliteDefeated(), false);
++    bool HasRegionGoal = false;
++    for (const auto& Goal : Task.Objectives)
++    {
++        if (Goal.Id == TEXT("welcome.elite") || Goal.Id == TEXT("run.completed") ||
++            Goal.Id.ToString().StartsWith(TEXT("final."))) continue;
++        Out.Steps.Add(Goal);
++        HasRegionGoal = true;
++    }
++    if (!HasRegionGoal)
++    {
++        const bool AtFinal = BossDown || (InRun && Task.Objectives.ContainsByPredicate([](const auto& Goal) { return Goal.Id == TEXT("final.heque"); }));
++        Add(TEXT("regions"), INVTEXT("沿已开启的通路探索各区，前往终末泵机大厅"),
++            AtFinal, InRun && IsWelcomeEliteDefeated() && !AtFinal);
++    }
++    Add(TEXT("final.heque"), INVTEXT("击败最终首领：合阙 M-36"), BossDown, false);
++    const bool Looted = InRun && IsFinalTreasureLooted();
++    Add(TEXT("final.treasure"), INVTEXT("搜刮终点奖励室的宝箱（可选）"), Looted, BossDown && !Finished);
++    if (Finished && !Looted) Out.Steps.Last().State = ETrackedObjectiveState::Skipped;
++    Add(TEXT("final.return"), INVTEXT("通过返程传送门撤离"), Finished, BossDown && !Finished);
++    return true;
++}
++
+ FString UDungeonRunSubsystem::MapAreaName(const FDungeonRunNode& Node) const
+ {
+     if (AFacilityHallEncounter::IsHall(Node.Module) || Node.Module==TEXT("FacilityEntrancePassage")) return TEXT("迎宾大厅");
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.h
+@@ -130,6 +130,7 @@
+     void MarkFinalReturnUsed(AActor* Portal);
+     void CancelFinalReturn(AActor* Portal);
+     virtual void AppendTrackedTasks(const APawn* Viewer, TArray<FTrackedTaskView>& Out) override;
++    virtual bool ReadJournalDetails(const APawn* Viewer, const FTrackedTaskView& Task, FTaskJournalDetails& Out) const override;
+     virtual void AppendJournalTasks(const APawn* Viewer, TArray<FTrackedTaskView>& Out) override;
+     bool GetTrackingView(const FVector& PlayerPosition, int32& InOutLastRoom, FTrackedTaskView& Out) const;
+     const FVector& EntryPosition() const { return StartPosition; }
+--- a/Source/FPSGAME/NPC/ChapelDialogueComponent.h
++++ b/Source/FPSGAME/NPC/ChapelDialogueComponent.h
+@@ -44,6 +44,7 @@
+     void FinishArtisanInventoryRequest(uint32 Session,bool Success,const FString& Reason);
+     virtual void BeginPlay() override;
+     virtual void AppendTrackedTasks(const APawn* Viewer,TArray<FTrackedTaskView>& Out) override;
++    virtual bool ReadJournalDetails(const APawn* Viewer, const FTrackedTaskView& Task, FTaskJournalDetails& Out) const override;
+     virtual void AppendJournalTasks(const APawn* Viewer,TArray<FTrackedTaskView>& Out) override;
+     bool IsBlacksmith() const;
+     bool IsCarpenter() const;
+--- a/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
+@@ -25,6 +25,7 @@
+ #include "ColdSteelProgressNotification.h"
+ #include "ColdSteelSkillTreeScreen.h"
+ #include "ColdSteelDungeonTracker.h"
++#include "ColdSteelQuestJournal.h"
+ #include "ColdSteelAcquisitionFeed.h"
+ #include "ColdSteelExperienceFeed.h"
+ #include "ColdSteelDamageNumbers.h"
+@@ -382,8 +383,7 @@
+     CodexPage->SetHUD(this);
+     auto* CodexSlot=Body->AddChildToVerticalBox(CodexPage);
+     CodexSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));CodexSlot->SetHorizontalAlignment(HAlign_Fill);
+-    QuestPage = CreateWidget<UColdSteelDungeonTracker>(GetOwningPlayer());
+-    QuestPage->ConfigureJournal();
++    QuestPage = CreateWidget<UColdSteelQuestJournal>(GetOwningPlayer());
+     Body->AddChildToVerticalBox(QuestPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+     BuildStatusTooltip(Root);
+     BuildEquipmentTooltip(Root);
+--- a/Source/FPSGAME/UI/ColdSteelHUDReadouts.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDReadouts.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelHUDWidget.h"
++#include "ColdSteelQuestJournal.h"
+ #include "StatusEffectsHUD.h"
+ #include "../Dungeons/DungeonRoomSubsystem.h"
+ #include "../FPSGAMEPlayerController.h"
+@@ -400,5 +401,6 @@
+ 
+ void UColdSteelHUDWidget::HandleCloseClicked()
+ {
++    if (bQuestTabActive && QuestPage && QuestPage->GoBack()) return;
+     SetInventoryOpen(false);
+ }
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelHUDWidget.h"
++#include "ColdSteelQuestJournal.h"
+ #include "StatusEffectsHUD.h"
+ #include "../Dungeons/DungeonRoomSubsystem.h"
+ #include "../FPSGAMEPlayerController.h"
+@@ -378,6 +379,7 @@
+         const FKey Key = InKeyEvent.GetKey();
+         if (Key == EKeys::Escape)
+         {
++            if(bQuestTabActive && QuestPage && QuestPage->GoBack())return FReply::Handled();
+             if(bSkillsTabActive && SkillPage && SkillPage->GoBack())return FReply::Handled();
+             SetInventoryOpen(false);
+             return FReply::Handled();
+@@ -599,7 +601,7 @@
+     if (QuestPage)
+     {
+         QuestPage->SetVisibility(bQuestTabActive ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
+-        if (bQuestTabActive) QuestPage->RefreshTracking();
++        if (bQuestTabActive) QuestPage->OpenList();
+     }
+     if (InventoryTitleText) InventoryTitleText->SetText(FText::FromString(Page==0?TEXT("角色状态"):(Page==1||Page==3)?TEXT("装备与背包"):Page==4?TEXT("图鉴"):Page==5?TEXT("任务"):TEXT("技能")));
+     UBorder* Surfaces[]={StatusTabSurface,EquipmentTabSurface,SkillTabSurface};
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -481,7 +481,7 @@
+     UPROPERTY(Transient) TObjectPtr<class UColdSteelSkillTreeScreen> SkillTreeScreen;
+     bool bSkillTreeReturnCursor=false;
+     UPROPERTY(Transient) TObjectPtr<class UColdSteelCodexPage> CodexPage;
+-    UPROPERTY(Transient) TObjectPtr<class UColdSteelDungeonTracker> QuestPage;
++    UPROPERTY(Transient) TObjectPtr<class UColdSteelQuestJournal> QuestPage;
+     UPROPERTY(Transient) TObjectPtr<class UColdSteelProgressNotification> ProgressNotification;
+     /** 击杀／经验到账：屏幕中心准星下方的金色飘字，只读且不接管输入。 */
+     UPROPERTY(Transient) TObjectPtr<class UColdSteelExperienceFeed> ExperienceFeed;

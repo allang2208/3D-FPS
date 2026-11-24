@@ -1,0 +1,269 @@
+{
+  "mesh_bindings": {
+    "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Meshes/SM_ForgedSteelGreatsword_Blade_V1.SM_ForgedSteelGreatsword_Blade_V1": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Blade_extended_edge_V2.SM_ForgedSteelGreatsword_Blade_extended_edge_V2": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Blade_heavy_spine_V2.SM_ForgedSteelGreatsword_Blade_heavy_spine_V2": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Blade_feather_edge_V2.SM_ForgedSteelGreatsword_Blade_feather_edge_V2": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/HollowBlade/SM_ForgedSteelGreatsword_HollowBlade.SM_ForgedSteelGreatsword_HollowBlade": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/SM_ForgedSteelGreatsword_ExecutionerBlade.SM_ForgedSteelGreatsword_ExecutionerBlade": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_factory_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_factory_ExecutionerSeat": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Meshes/SM_ForgedSteelGreatsword_Guard_V1.SM_ForgedSteelGreatsword_Guard_V1": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_bastion_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_bastion_guard_ExecutionerSeat": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Guard_bastion_guard_V2.SM_ForgedSteelGreatsword_Guard_bastion_guard_V2": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Guard_riposte_guard_V2.SM_ForgedSteelGreatsword_Guard_riposte_guard_V2": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_riposte_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_riposte_guard_ExecutionerSeat": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_light_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_light_guard_ExecutionerSeat": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Guard_light_guard_V2.SM_ForgedSteelGreatsword_Guard_light_guard_V2": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/NestedV4/SM_ForgedSteelGreatsword_RavenQuillGuard.SM_ForgedSteelGreatsword_RavenQuillGuard": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1",
+        "M_RavenQuill_ForgedMetal": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_RavenQuill_ForgedMetal.M_RavenQuill_ForgedMetal"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/NestedV4/SM_ForgedSteelGreatsword_RavenQuillGuard_ExecutionerSeat.SM_ForgedSteelGreatsword_RavenQuillGuard_ExecutionerSeat": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1",
+        "M_RavenQuill_ForgedMetal": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_RavenQuill_ForgedMetal.M_RavenQuill_ForgedMetal"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/SM_ForgedSteelGreatsword_EagleTalonGuard_ExecutionerSeat.SM_ForgedSteelGreatsword_EagleTalonGuard_ExecutionerSeat": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1",
+        "M_EagleTalon_ForgedSteel": "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/GuardCharge/M_EagleTalon_GuardCharge.M_EagleTalon_GuardCharge"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/SM_ForgedSteelGreatsword_EagleTalonGuard.SM_ForgedSteelGreatsword_EagleTalonGuard": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1",
+        "M_EagleTalon_ForgedSteel": "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/GuardCharge/M_EagleTalon_GuardCharge.M_EagleTalon_GuardCharge"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/SM_ForgedSteelGreatsword_Grip_FactoryLeather.SM_ForgedSteelGreatsword_Grip_FactoryLeather": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/M_ForgedGrip_Leather.M_ForgedGrip_Leather"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/SM_ForgedSteelGreatsword_Grip_shock_wrap_V2.SM_ForgedSteelGreatsword_Grip_shock_wrap_V2": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+        "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/SM_ForgedSteelGreatsword_Grip_swift_grip_V2.SM_ForgedSteelGreatsword_Grip_swift_grip_V2": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+        "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/SM_ForgedSteelGreatsword_Grip_long_twohand_V2.SM_ForgedSteelGreatsword_Grip_long_twohand_V2": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+        "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/SM_ForgedSteelGreatsword_Grip_iron_spine_power_grip_V2.SM_ForgedSteelGreatsword_Grip_iron_spine_power_grip_V2": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+        "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/SM_ForgedSteelGreatsword_Grip_lockweave_guard_grip_V2.SM_ForgedSteelGreatsword_Grip_lockweave_guard_grip_V2": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+        "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel",
+        "M_SharedGrip_Textile": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Textile.M_ForgedGrip_Textile"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Meshes/SM_ForgedSteelGreatsword_Pommel_V1.SM_ForgedSteelGreatsword_Pommel_V1": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RingChainPommel/SM_ForgedSteelGreatsword_RingChainPommel.SM_ForgedSteelGreatsword_RingChainPommel": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_RingChain_Socket": "/Game/Weapons/ForgedSteelGreatsword20261120/RingChainPommel/M_RingChain_Socket.M_RingChain_Socket",
+        "M_RingChain_Links": "/Game/Weapons/ForgedSteelGreatsword20261120/RingChainPommel/M_RingChain_Links.M_RingChain_Links"
+      },
+      "nanite": false,
+      "lods": 1
+    },
+    "/Game/Weapons/ForgedSteelGreatsword20261120/FishtailPommel/SM_ForgedSteelGreatsword_FishtailPommel.SM_ForgedSteelGreatsword_FishtailPommel": {
+      "missing_materials": [],
+      "unmatched_overrides": [],
+      "mesh_slots": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1"
+      },
+      "nanite": true,
+      "lods": 1
+    }
+  },
+  "legacy_apothecary_components": {
+    "Village_Herbalist_Ruined": 0,
+    "Village_Herbalist_Common": 0,
+    "Village_Herbalist_Repaired": 0
+  }
+}

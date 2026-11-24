@@ -1,0 +1,307 @@
+--- a/Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp
+@@ -1,6 +1,5 @@
+ #include "HillsBlacksmith.h"
+ #include "SmithSignMotion.h"
+-#include "SmithYardLamp.h"
+ #include "VillageInteriorLighting.h"
+ #include "VillageChimneySmoke.h"
+ #include "HillsCarpenterWorkshop.h"
+@@ -9,8 +8,6 @@
+ #include "TemperateHillsWorld.h"
+ #include "../NPC/VillageBlacksmithResident.h"
+ #include "../Building/VoxelBuildWorld.h"
+-#include "../Building/BronzeTorch.h"
+-#include "Components/ChildActorComponent.h"
+ #include "Components/PointLightComponent.h"
+ #include "Components/PrimitiveComponent.h"
+ #include "Components/StaticMeshComponent.h"
+@@ -19,66 +16,12 @@
+ #include "TimerManager.h"
+ #include "Kismet/GameplayStatics.h"
+ #include "NiagaraComponent.h"
+-#include "NiagaraSystem.h"
+ 
+ namespace
+ {
+ // Ground-floor coordinates from the authored loft assembly, in centimetres.
+ const FVector StationInHouse(120., 40., 6.);
+ const FVector ReceptionTableInHouse(-15., -270., 0.);
+-
+-void UpdateSmithTorches(AHillsBlacksmith* Shop,bool Repaired)
+-{
+-    TInlineComponentArray<UChildActorComponent*> Existing(Shop);
+-    if(!Repaired)
+-    {
+-        for(auto* Socket:Existing)if(Socket->ComponentHasTag(TEXT("VillageShop.Torch")))Socket->DestroyComponent();
+-        return;
+-    }
+-    if(Shop->GetNetMode()==NM_DedicatedServer)return;
+-    struct FMount { FName Name; FVector Wall; float Yaw; bool Interior; };
+-    const FName WorkLight(TEXT("Smith_WorkshopTorch"));
+-    const FMount Mounts[]={
+-        // The first bracket sits on the interior face of the centre arcade pier.
+-        {WorkLight,FVector(0,-376.5,190),90.f,true},
+-        {TEXT("Smith_LoftTorch"),FVector(-150,350,540),-90.f,true},
+-        {TEXT("Smith_EntryTorch"),FVector(365,-402,170),-90.f,false}};
+-    for(const auto& Mount:Mounts)
+-    {
+-        if(Existing.ContainsByPredicate([&](const UChildActorComponent* C){return C->GetFName()==Mount.Name;}))continue;
+-        auto* Socket=NewObject<UChildActorComponent>(Shop,Mount.Name,RF_Transient);
+-        Socket->ComponentTags.Add(TEXT("VillageShop.Torch"));
+-        Socket->SetupAttachment(Shop->GetRootComponent());
+-        // Same 5 cm bracket embed and 29 cm bowl clearance as the chapel.
+-        const FRotator Facing(0.,Mount.Yaw,0.);
+-        Socket->SetRelativeTransform(FTransform(Facing,Mount.Wall-Facing.Vector()*21.-StationInHouse));
+-        Socket->SetChildActorClass(ABronzeTorch::StaticClass());
+-        Shop->AddInstanceComponent(Socket);Socket->RegisterComponent();
+-        if(auto* Torch=Cast<ABronzeTorch>(Socket->GetChildActor()))
+-        {
+-            if (Mount.Interior)
+-                Torch->ConfigureShopInterior(Shop->InteriorTorchFlame);
+-            else
+-            {
+-                Torch->ConfigureSceneLight(850.f,650.f,true);
+-                Torch->SetSceneSpecularScale(VillageShopTorches::FixtureSpecular);
+-            }
+-            if(auto* Light=Torch->FindComponentByClass<UPointLightComponent>())
+-            {
+-                Light->SetMaxDrawDistance(2400.f);
+-                Light->SetMaxDistanceFadeRange(400.f);
+-            }
+-            if(auto* Body=Torch->FindComponentByClass<UStaticMeshComponent>())
+-            {
+-                Body->SetCullDistance(4200.f);Body->SetReceivesDecals(false);
+-                if (Mount.Name == WorkLight) Body->SetCastShadow(false);
+-            }
+-            if(auto* Flame=Torch->FindComponentByClass<UNiagaraComponent>())Flame->SetCullDistance(2600.f);
+-            Torch->SetActorTickInterval(.1f);
+-            if(Mount.Interior)Torch->SetLit(true);
+-        }
+-    }
+-}
+ 
+ void UpdateForgeLight(AHillsBlacksmith& Shop, bool bRepaired)
+ {
+@@ -203,8 +146,6 @@
+         ForceNetUpdate();
+     }
+     UpdateSmeltingYard(Repaired);
+-    UpdateSmithTorches(this,Repaired);
+-    SmithYardLamp::Apply(*this,Repaired);
+     VillageChimneySmoke::Apply(*this,Repaired);
+     UpdateForgeLight(*this, Repaired);
+     VillageShopTorches::Apply(*this,VillageShopTorches::EShop::Blacksmith,Repaired);
+--- a/Source/FPSGAME/WorldGeneration/HillsHerbalistWorkshop.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsHerbalistWorkshop.cpp
+@@ -111,7 +111,13 @@
+         UpdateResident(bRepaired);
+     }
+     RefreshStation();
+-    VillageShopTorches::Apply(*this,VillageShopTorches::EShop::Herbalist,bRepaired);
++    // The bench is hidden in the ruin. Mount the surviving unlit lantern on a permanent scenery actor.
++    for (const auto& Assembly : ShopAssemblies)
++    {
++        if (!IsValid(Assembly.Get()) || !Assembly->GetRootComponent()) continue;
++        VillageShopTorches::Apply(*this,VillageShopTorches::EShop::Herbalist,bRepaired,Assembly.Get());
++        break;
++    }
+ }
+ 
+ void AHillsHerbalistWorkshop::UpdateResident(bool bRepaired)
+--- a/Source/FPSGAME/WorldGeneration/HillsTavernInterior.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsTavernInterior.cpp
+@@ -1,9 +1,7 @@
+ #include "HillsTavernInterior.h"
+ #include "VillageInteriorLighting.h"
+-#include "VillageShopTorches.h"
+ 
+ #include "Components/InstancedStaticMeshComponent.h"
+-#include "Components/MaterialBillboardComponent.h"
+ #include "Components/PointLightComponent.h"
+ #include "Engine/AssetManager.h"
+ #include "Engine/StaticMesh.h"
+@@ -314,80 +312,6 @@
+ 
+ const FSoftObjectPath WickPath(TEXT("/Game/WorldGeneration/TemperateHills/ShopLighting/MI_StaffLampWick.MI_StaffLampWick"));
+ const FSoftObjectPath EmberPath(TEXT("/Game/WorldGeneration/TemperateHills/ShopLighting/M_StaffHearthEmber.M_StaffHearthEmber"));
+-const FSoftObjectPath TorchBodyPath(TEXT("/Game/Props/RomanColumn20260915/SM_BronzeTorch.SM_BronzeTorch"));
+-const FSoftObjectPath TorchSocketPath(TEXT("/Engine/BasicShapes/Cylinder.Cylinder"));
+-const FSoftObjectPath ForgedIronPath(TEXT("/Game/Props/CastingStation20260926/RealismV5/MI_DarkForgedIron.MI_DarkForgedIron"));
+-const FSoftObjectPath TorchFlamePath(TEXT("/Game/WorldGeneration/TemperateHills/ShopLighting/M_StaffTorchCard.M_StaffTorchCard"));
+-
+-void InstallEntryTorches(AActor& Host, USceneComponent& Root, bool bRepaired)
+-{
+-    UStaticMesh* Body = Cast<UStaticMesh>(TorchBodyPath.ResolveObject());
+-    UStaticMesh* Socket = Cast<UStaticMesh>(TorchSocketPath.ResolveObject());
+-    UMaterialInterface* Iron = Cast<UMaterialInterface>(ForgedIronPath.ResolveObject());
+-    UMaterialInterface* FlameMaterial = bRepaired ? Cast<UMaterialInterface>(TorchFlamePath.ResolveObject()) : nullptr;
+-    if (!Body || !Socket || !Iron) return;
+-
+-    const auto Mount = [&](UStaticMesh* Mesh, const FTransform& Placement, UMaterialInterface* Finish)
+-    {
+-        auto* Part = NewObject<UStaticMeshComponent>(&Host);
+-        Host.AddInstanceComponent(Part);
+-        Part->SetupAttachment(&Root);
+-        Part->SetMobility(Root.Mobility);
+-        Part->SetStaticMesh(Mesh);
+-        if (Finish) Part->SetMaterial(0,Finish);
+-        Part->SetRelativeTransform(Placement);
+-        Part->SetCollisionProfileName(TEXT("NoCollision"));
+-        Part->SetCanEverAffectNavigation(false);
+-        Part->LDMaxDrawDistance = 3000.f;
+-        Part->RegisterComponent();
+-    };
+-
+-    struct FWallTorch { FVector Wall; double InwardYaw; };
+-    // Enter facing +Y: the left turn leads toward +X, between the door and the east dining table.
+-    // The front pier survives in the ruin. The adjoining gable bay is rebuilt with the tavern.
+-    const FWallTorch Torches[] = {
+-        {{197.,-408.,179.},90.},
+-        {{629.,-235.,179.},180.}
+-    };
+-    const int32 NumTorches = bRepaired ? int32(UE_ARRAY_COUNT(Torches)) : 1;
+-    for (int32 Index=0; Index<NumTorches; ++Index)
+-    {
+-        const FWallTorch& Torch = Torches[Index];
+-        const FRotator Facing(0.,Torch.InwardYaw,0.);
+-        const FTransform BodyPose(Facing,Torch.Wall,FVector(.9));
+-        // The bronze shank starts 14.4 cm in front of the pivot. Seat it in an
+-        // iron socket that extends back through the uneven inner face of the stone.
+-        const FVector Inward = Facing.Vector();
+-        Mount(Socket,FTransform(FQuat::FindBetweenNormals(FVector::UpVector,Inward),
+-            Torch.Wall+2.*Inward,FVector(.14,.14,.38)),Iron);
+-        Mount(Body,BodyPose,bRepaired ? nullptr : Iron);
+-        if (!FlameMaterial) continue;
+-
+-        const FVector FlameCentre = BodyPose.TransformPosition(FVector(50.,0.,62.));
+-        auto* Flame = NewObject<UMaterialBillboardComponent>(&Host);
+-        Host.AddInstanceComponent(Flame);
+-        Flame->SetupAttachment(&Root);
+-        Flame->SetMobility(Root.Mobility);
+-        Flame->SetRelativeLocation(FlameCentre);
+-        Flame->AddElement(FlameMaterial,nullptr,false,25.f,22.f,nullptr);
+-        Flame->SetCollisionProfileName(TEXT("NoCollision"));
+-        Flame->SetCanEverAffectNavigation(false);
+-        Flame->SetCastShadow(false);
+-        Flame->LDMaxDrawDistance = 2600.f;
+-        Flame->RegisterComponent();
+-
+-        auto* Light = NewObject<UPointLightComponent>(&Host);
+-        Host.AddInstanceComponent(Light);
+-        Light->SetupAttachment(&Root);
+-        Light->SetMobility(EComponentMobility::Movable);
+-        Light->SetRelativeLocation(FlameCentre);
+-        UVillageInteriorLighting::Configure(Light);
+-        Light->MaxDrawDistance = 2600.f;
+-        Light->MaxDistanceFadeRange = 500.f;
+-        Light->RegisterComponent();
+-    }
+-}
+-
+ void Install(AActor& Host, USceneComponent& Root, const TArray<FPlacement>& Layout)
+ {
+     const bool bDedicated = Host.GetNetMode()==NM_DedicatedServer;
+@@ -498,15 +422,13 @@
+     // current state's walkable surfaces in the same update as the shell.
+     Install(Host,RoomRoot,Blocking);
+     if (bDedicated) return;
+-    Paths.Append({TorchBodyPath,TorchSocketPath,ForgedIronPath});
+-    if (bRepaired) Paths.Append({TorchFlamePath,WickPath});
++    if (bRepaired) Paths.AddUnique(WickPath);
+     // A repair or streamed-level unload can retire this actor while a load is in flight.
+     UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,FStreamableDelegate::CreateWeakLambda(&Host,
+-        [WeakRoot=TWeakObjectPtr<USceneComponent>(&RoomRoot),Dressing=MoveTemp(Dressing),bRepaired]()
++        [WeakRoot=TWeakObjectPtr<USceneComponent>(&RoomRoot),Dressing=MoveTemp(Dressing)]()
+         {
+             USceneComponent* Root = WeakRoot.Get();
+             if (!Root || !IsValid(Root->GetOwner()) || Root->GetOwner()->IsActorBeingDestroyed()) return;
+             Install(*Root->GetOwner(),*Root,Dressing);
+-            InstallEntryTorches(*Root->GetOwner(),*Root,bRepaired);
+         }));
+ }
+--- a/Tools/WorldGeneration/AbandonedVillage/village_chimney.py
++++ b/Tools/WorldGeneration/AbandonedVillage/village_chimney.py
+@@ -1,6 +1,6 @@
+ """Place dormant furnace smoke and a separate wood/charcoal fire at their own openings."""
+ import unreal as ue
+-from shop_staff_light import HEARTH_FIRE, TORCH_FIRE
++from shop_staff_light import HEARTH_FIRE
+ 
+ FLUE_TAG = 'VillageShop.FlueSmoke'
+ FUEL_TAG = 'VillageShop.HearthFire'
+@@ -62,7 +62,6 @@
+ 
+ 
+ def install_smith_hearth(station):
+-    station.set_editor_property('interior_torch_flame',ue.EditorAssetLibrary.load_asset(TORCH_FIRE))
+     hearth(station, (80.,460.,1145.), (1.16,1.16,.72), 11., .81, SMITH_FIRE_AT_STATION, .71)
+ 
+ 
+--- a/Tools/WorldGeneration/VillageBlacksmith/MasonryR5/finish.py
++++ b/Tools/WorldGeneration/VillageBlacksmith/MasonryR5/finish.py
+@@ -43,8 +43,8 @@
+     shaft_width_cm=146,previous_shaft_width_cm=92,chimney_position_cm=[200,500,0],
+     stone_source='/Game/UnrealNormandy/StaticMeshes/SM_H_OldWall_00A',
+     removed_front_wall_instances=removed,default_state='ruined',
+-    torch_class='/Script/FPSGAME.BronzeTorch',torch_count=3,torches_require_repair=True,
+-    interior_torches_always_lit=True,entry_torch_uses_weather_clock=True,
++    fixture_class='/Script/FPSGAME.VillageShopChainLamp',chain_lamp_count=4,lamps_require_repair=True,
++    interior_and_yard_lamps_always_lit=True,entry_lamp_uses_weather_clock=True,
+     gameplay_tested=False,engine_preview_rendered=False)
+ (OUT/'saved.json').write_text(json.dumps(report,indent=2),encoding='utf-8')
+ if previous_path and previous_path!=level and E.does_asset_exist(previous_path):u.EditorLoadingAndSavingUtils.load_map(previous_path)
+--- a/Tools/WorldGeneration/VillageBlacksmith/MasonryR5/prepare_layout.py
++++ b/Tools/WorldGeneration/VillageBlacksmith/MasonryR5/prepare_layout.py
+@@ -8,7 +8,7 @@
+  if not (backup/name).exists():shutil.copy2(SRC/name,backup/name)
+ plan=json.loads((SRC/'layout.json').read_text(encoding='utf-8'))
+ plan['blacksmith'].update(chimney_cm=[200,500,0],chimney_shaft_width_cm=146,chimney_style='bonded original house fieldstone and mortar',
+-    front_wall_clearance_local_m=[-5.4,5.4,-6.2,-4.4],repair_torches=['workshop','loft','entry'])
++    front_wall_clearance_local_m=[-5.4,5.4,-6.2,-4.4],repair_chain_lamps=['workshop','loft','entry','furnace_yard'])
+ sys.path.insert(0,str(ROOT/'Tools/WorldGeneration/AbandonedVillage'))
+ from wall_support import remove_blacksmith_front_walls
+ removed=remove_blacksmith_front_walls(plan)
+@@ -19,7 +19,7 @@
+ for x,y,hx,hy in ((200,500,110,108),(0,-427,390,65)):
+  reserved.append(dict(owner='BlacksmithLoftR3',center=[house[3]+(x*math.cos(a)-y*math.sin(a))/100,house[4]+(x*math.sin(a)+y*math.cos(a))/100],half=[hx/100,hy/100],yaw=house[5]))
+ plan['service_clearings']=reserved
+-plan['layout_revision']='20261117 MasonryR5: broad bonded stone chimney, open blacksmith forecourt, restoration-only bronze torches.'
++plan['layout_revision']='20261117 MasonryR5: broad bonded stone chimney, open blacksmith forecourt, restoration-only chain lanterns.'
+ (SRC/'layout.json').write_text(json.dumps(plan,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+ sys.argv=['draw_plan.py','--data-only']
+ try:runpy.run_path(str(ROOT/'Tools/WorldGeneration/AbandonedVillage/draw_plan.py'),run_name='__main__')
+--- a/Tools/WorldGeneration/VillageHerbalist/author_shop03.py
++++ b/Tools/WorldGeneration/VillageHerbalist/author_shop03.py
+@@ -5,7 +5,6 @@
+ 
+ from author_shop import pose, require, shell_transform
+ from dressing import STATION, furnish
+-from herbalist_lights import add_fixtures, add_lighting
+ from herbalist_living import add_living_light, furnish_living
+ from shop_staff_light import WICK
+ from herbalist_loft import add_loft
+@@ -140,7 +139,6 @@
+     loft = add_loft(house,add)
+     furnish(house,add)
+     furnish_living(house,add)
+-    add_fixtures(house,add)
+ 
+     def component(actor,cls):
+         parent = subs.k2_gather_subobject_data_for_instance(actor)[0]
+@@ -192,7 +190,6 @@
+                 comp.set_collision_enabled(u.CollisionEnabled.NO_COLLISION)
+         counts[state] += len(transforms)
+ 
+-    torch_lights = add_lighting(house,assemblies['Repaired'],component)
+     hang_trade(assemblies['Common'],pose(house,0,0),'Herbalist')
+     crossroads(actors,'Herbalist')
+     living_lights = add_living_light(house,assemblies['Repaired'],component)
+@@ -222,6 +219,6 @@
+     return dict(house=house[0],station=mesh.get_path_name(),state_instances=dict(counts),
+                 station_pose_house_cm_yaw=list(STATION),restored_side_wall_bays=7,
+                 restored_shop_window=True,restored_west_window=True,restored_loft_window=True,
+-                torch_lights=torch_lights,
++                runtime_inner_chain_lamps=2,
+                 spliced_entry_plank=True,floor_count=2,loft=loft,
+                 living_lights=living_lights,default_state='Ruined')

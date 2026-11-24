@@ -35,9 +35,11 @@ def sha(file):
         return hashlib.file_digest(stream, "sha256").hexdigest()
 objects = {}
 manifest = {}
-# Freeze current source for the focused lessons and the two workstation implementations.
-names = ["WoodworkingAuditCommandlet", "BlacksmithApprenticeship", "CarpenterApprenticeship",
-         "ApprenticeMaterials", "ForgingSystem", "WoodworkingSystem", "WoodworkingJob", "ColdSteelProfileRuntime"]
+# Replace only the commandlet object. All gameplay objects come from the current editor build.
+names = ["WoodworkingAuditCommandlet"]
+for module, filename in json.loads((bin_dir / "UnrealEditor.modules").read_text(encoding="utf-8-sig"))["Modules"].items():
+    if module != "FPSGAME":
+        shutil.copy2(project / "Binaries/Win64" / filename, bin_dir / filename)
 for name in names:
     orig = (intermediate / (name + ".cpp.obj.rsp")).read_text(encoding="utf-8-sig").splitlines()
     src = base / "LessonFixture.cpp" if name == names[0] else Path(orig[0].strip('"'))
@@ -52,6 +54,8 @@ lines = []
 for line in (intermediate / "UnrealEditor-FPSGAME.dll.rsp").read_text(encoding="utf-8-sig").splitlines():
     if line.startswith(("/DEBUG", "/PDB", "/NATVIS")):
         continue
+    if line.startswith("/IMPLIB:"):
+        line = '/IMPLIB:"' + (run / "fixture.lib").as_posix() + '"'
     if line.startswith("/OUT:"):
         line = '/OUT:"' + (bin_dir / "UnrealEditor-FPSGAME.dll").as_posix() + '"'
     for name, obj in objects.items():

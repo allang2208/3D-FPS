@@ -1,0 +1,162 @@
+{
+  "factory_frames": {
+    "category_blade_1": {
+      "hash_matches_frame_approved_package": true,
+      "approved_border_pixel_mismatches": 0
+    },
+    "blade_1_false": {
+      "hash_matches_frame_approved_package": true,
+      "approved_border_pixel_mismatches": 0
+    },
+    "category_guard": {
+      "hash_matches_frame_approved_package": true,
+      "approved_border_pixel_mismatches": 0
+    },
+    "guard_false": {
+      "hash_matches_frame_approved_package": true,
+      "approved_border_pixel_mismatches": 0
+    },
+    "category_grip": {
+      "hash_matches_frame_approved_package": true,
+      "approved_border_pixel_mismatches": 0
+    },
+    "grip_false": {
+      "hash_matches_frame_approved_package": true,
+      "approved_border_pixel_mismatches": 0
+    },
+    "category_pommel": {
+      "hash_matches_frame_approved_package": true,
+      "approved_border_pixel_mismatches": 0
+    },
+    "pommel_false": {
+      "hash_matches_frame_approved_package": true,
+      "approved_border_pixel_mismatches": 0
+    },
+    "category_blade_material": {
+      "hash_matches_frame_approved_package": true,
+      "approved_border_pixel_mismatches": 0
+    },
+    "blade_material_false": {
+      "hash_matches_frame_approved_package": true,
+      "approved_border_pixel_mismatches": 0
+    }
+  },
+  "guard_release": {
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/ReliefV3/T_RavenQuill_BaseColor.T_RavenQuill_BaseColor": true,
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/ReliefV3/T_RavenQuill_ORM.T_RavenQuill_ORM": true,
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/NestedV4/SM_ForgedSteelGreatsword_RavenQuillGuard.SM_ForgedSteelGreatsword_RavenQuillGuard": true,
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/NestedV4/SM_ForgedSteelGreatsword_RavenQuillGuard_ExecutionerSeat.SM_ForgedSteelGreatsword_RavenQuillGuard_ExecutionerSeat": true,
+    "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/T_EagleTalon_BaseColor.T_EagleTalon_BaseColor": true,
+    "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/T_EagleTalon_ORM.T_EagleTalon_ORM": true,
+    "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/SM_ForgedSteelGreatsword_EagleTalonGuard.SM_ForgedSteelGreatsword_EagleTalonGuard": true,
+    "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/SM_ForgedSteelGreatsword_EagleTalonGuard_ExecutionerSeat.SM_ForgedSteelGreatsword_EagleTalonGuard_ExecutionerSeat": true
+  },
+  "module_packages": {
+    "blade_1": {
+      "factory": true,
+      "extended_edge": true,
+      "heavy_spine": true,
+      "feather_edge": true,
+      "hollow_blade": true,
+      "executioner_blade": true
+    },
+    "guard": {
+      "factory": true,
+      "bastion_guard": true,
+      "riposte_guard": true,
+      "light_guard": true,
+      "raven_quill_guard": true,
+      "eagle_talon_guard": true
+    },
+    "grip": {
+      "factory": true,
+      "shock_wrap": true,
+      "swift_grip": true,
+      "long_twohand": true,
+      "iron_spine_power_grip": true,
+      "lockweave_guard_grip": true
+    },
+    "pommel": {
+      "factory": true,
+      "ring_chain_pommel": true,
+      "fishtail_pommel": true
+    }
+  },
+  "growth": {
+    "ue_forged_steel_greatsword": {
+      "source": "FORGED_STEEL_GREATSWORD_STR_DEX",
+      "base": 43.5,
+      "enhanceFlat": 5.4,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 4.95,
+          "perEnhance": 1.176
+        },
+        {
+          "key": "dex",
+          "base": 3.9,
+          "perEnhance": 0.5695
+        }
+      ]
+    },
+    "ue_highland_claymore": {
+      "source": "HIGHLAND_CLAYMORE_STR_DEX_TIER2",
+      "base": 43.5,
+      "enhanceFlat": 5.4,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 4.95,
+          "perEnhance": 0.98
+        },
+        {
+          "key": "dex",
+          "base": 3.9,
+          "perEnhance": 0.67
+        }
+      ]
+    }
+  },
+  "growth_ratios": {
+    "str": 1.2,
+    "dex": 0.85
+  },
+  "recipe": {
+    "id": "forge_forged_steel_greatsword",
+    "output": "ue_forged_steel_greatsword",
+    "inputs": [
+      {
+        "item": "search_forging_alloy_blank",
+        "count": 1
+      }
+    ],
+    "mold": "Icons/ue_forged_steel_greatsword.png",
+    "metal_count": 3
+  },
+  "metals": [
+    "ironIngot",
+    "copperIngot",
+    "steelIngot",
+    "silverIngot",
+    "platinumIngot",
+    "goldIngot"
+  ],
+  "wear_release": {
+    "WorldGeneration/TemperateHills/VillageBlacksmith/SmeltingYard/SM_SmithSmeltingCanopy.uasset": true,
+    "WorldGeneration/TemperateHills/VillageBlacksmith/SmeltingYard/T_SmithYardBefore.uasset": true,
+    "WorldGeneration/TemperateHills/AbandonedVillage/T_VillageRoadMask.uasset": false,
+    "WorldGeneration/TemperateHills/VillageBlacksmith/SmeltingYard/Wear/M_SmithApronWear.uasset": true,
+    "WorldGeneration/TemperateHills/VillageBlacksmith/SmeltingYard/Wear/M_SmithFurnaceBrick.uasset": true,
+    "WorldGeneration/TemperateHills/VillageBlacksmith/SmeltingYard/Wear/M_SmithFurnaceStone.uasset": true,
+    "WorldGeneration/TemperateHills/VillageBlacksmith/SmeltingYard/Wear/M_SmithSmokeCanvas.uasset": true,
+    "WorldGeneration/TemperateHills/VillageBlacksmith/SmeltingYard/Wear/M_SmithSpentCharcoal.uasset": true,
+    "WorldGeneration/TemperateHills/VillageBlacksmith/SmeltingYard/Wear/M_SmithWallBloom.uasset": true,
+    "WorldGeneration/TemperateHills/VillageBlacksmith/SmeltingYard/Wear/M_SmithWorkedOak.uasset": true,
+    "WorldGeneration/TemperateHills/VillageBlacksmith/SmeltingYard/Wear/M_SmithWornIron.uasset": true,
+    "WorldGeneration/TemperateHills/VillageBlacksmith/SmeltingYard/Wear/T_SmithApron.uasset": true,
+    "WorldGeneration/TemperateHills/VillageBlacksmith/SmeltingYard/Wear/T_SmithRoof.uasset": true,
+    "WorldGeneration/TemperateHills/VillageBlacksmith/SmeltingYard/Wear/T_SmithWall.uasset": true
+  },
+  "lamp_map_current_hash": "29e56814ce9d380b08c261c6dd600a27077ffdd9d508dce237021d1fd136111f"
+}

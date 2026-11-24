@@ -1,0 +1,213 @@
+{
+  "project": "FPSGAME",
+  "editor_target": "FPSGAMEEditor",
+  "batch": "ForgeSmithCloseout20261124",
+  "local_release_root": "F:\\FPSGAMEData\\ArtProduction\\ForgedSteelGreatsword\\ConversationFix20261124",
+  "latest_revision": {
+    "changes.zip": "be764dcf39b5c44409618772565671fcf7337c2f73bb65d1941c35d4c5de510d",
+    "published.json": "ca39b226d0bc84a293f13a84defe182086fb78fab2e1ed93d266af59ad29a4fd"
+  },
+  "earlier_releases": [
+    {
+      "folder": "ColdSteelUI/QuestJournal-20261122",
+      "receipts": []
+    },
+    {
+      "folder": "ColdSteelUI/QuestJournalDetails-20261122",
+      "receipts": []
+    },
+    {
+      "folder": "ColdSteelUI/QuestJournalStatus-20261123",
+      "receipts": []
+    },
+    {
+      "folder": "ColdSteelUI/QuestJournalStepStatus-20261123",
+      "receipts": []
+    },
+    {
+      "folder": "ColdSteelUI/QuestTrackingChoice-20261122",
+      "receipts": []
+    },
+    {
+      "folder": "HillsVillageBlacksmith/OpenIronLesson-20261123",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "5bc048e92d78904935ebb23232c70230ab97af4612b41086d7cebd4277492174"
+        }
+      ]
+    },
+    {
+      "folder": "HillsVillageBlacksmith/SmeltingYard-20261123",
+      "receipts": []
+    },
+    {
+      "folder": "HillsVillageBlacksmith/SmeltingYard-LinkR2-20261123",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "b2b410d7cc3bd2e0f6898acd6c56b036531f68797bf14fdaf82b3f243807a5de"
+        }
+      ]
+    },
+    {
+      "folder": "HillsVillageBlacksmith/SmeltingYard-StateR3-20261123",
+      "receipts": []
+    },
+    {
+      "folder": "HillsVillageBlacksmith/SmeltingYard-WearR4-20261123",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "f232cc5bc84c6886e425f118f86242b84048db1ab85fe081b1eaa5c87154afe4"
+        }
+      ]
+    },
+    {
+      "folder": "HillsVillageShops/ChainLamps-20261123",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "414ec436721e64ca48dd5265e27b41a223be324b548fc30e19889870cdfc117b"
+        }
+      ]
+    },
+    {
+      "folder": "HillsVillageShops/ArtisanLessonReset-20261122",
+      "receipts": []
+    },
+    {
+      "folder": "ForgedSteelGreatsword/GuardSeatFinish20261122",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "2d3e47c5d8e491e90d5669974d2df6d9b1329242edcb9db31aab37423f9c59b8"
+        }
+      ]
+    },
+    {
+      "folder": "ForgedSteelGreatsword/WorkbenchAppearance20261122",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "43ff854262618be236dc31f50dd0269b79eb21599252251b768dd7420554913c"
+        }
+      ]
+    },
+    {
+      "folder": "ForgedSteelGreatsword/FactoryFrame20261122",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "eeb24a0d5c4e4ee68fe2ed3685f777b6f1da21710b61c6a3b81fb96a1ae0c42b"
+        }
+      ]
+    },
+    {
+      "folder": "ForgedSteelGreatsword/EagleTalonGuard20261122",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "681b76f3b5c4e4499254288ee36ba7dd7075cc48c0c3450bd4a278f82fdf2324"
+        }
+      ]
+    },
+    {
+      "folder": "ForgedSteelGreatsword/EagleGuardGameplay20261122",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "04c60370c8ceaed20f4c4f094fde623b256a5a4a1143aa9e37a448f3b11e7bd5"
+        },
+        {
+          "name": "registered-entries.json",
+          "sha256": "85a7233064a31e81a47955f80e03ab8e7fcf4b90a89d1afdeba30aa4a91bdb25"
+        }
+      ]
+    },
+    {
+      "folder": "ForgedSteelGreatsword/RavenQuillGuard20261122",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "1b819838847a0d642853e0791df0fe518a04b8d329ce857c841d4ab593e6c934"
+        },
+        {
+          "name": "registered-entries.json",
+          "sha256": "a889d7c118e993951264626f133a081fa7c47f6fbbfee55bb2da4052dd8c81ad"
+        }
+      ]
+    },
+    {
+      "folder": "ForgedSteelGreatsword/RavenGripRefinement20261122",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "fac0525697051e93ad98b3fa72701e19b2c1b09ec202893fd7396e59e93bad82"
+        },
+        {
+          "name": "registered-entries.json",
+          "sha256": "f73534ed22c9189ca00394f24965f88e5d0dcd08aeb3a60f8d3ea62a920acc17"
+        }
+      ]
+    },
+    {
+      "folder": "ForgedSteelGreatsword/RavenReferenceRelief20261122",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "a25eded4baa8ec1abe6872c24dfabec937235e1bf367e1e3b92392ceb5d3a804"
+        },
+        {
+          "name": "registered-entries.json",
+          "sha256": "da45ee0c191ed748ea851a52b9d40c75a491403f2da140aa7d435e81294b3b1f"
+        }
+      ]
+    },
+    {
+      "folder": "ForgedSteelGreatsword/RavenNestedFeathers20261122",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "f785b2045624c02528a4f445f15f32cce615368ee4c941bee6d520048874e540"
+        }
+      ]
+    },
+    {
+      "folder": "ForgedSteelGreatsword/RavenSprintCharge20261122",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "9e6507c474defc224afa732c8d1e05393107634980be66dbfb48978a76e22de7"
+        },
+        {
+          "name": "registered-entries.json",
+          "sha256": "847591dcfc216c0f41f8dc7e159d2e54845d1ac3daeeac0d7290e48fce5d45eb"
+        }
+      ]
+    },
+    {
+      "folder": "ForgedSteelGreatsword/GuardMaterialRepair20261122",
+      "receipts": [
+        {
+          "name": "published.json",
+          "sha256": "3adf7390e8540660fed960a1c4114352825b6cd8ed269ea64244048c0563f094"
+        }
+      ]
+    },
+    {
+      "folder": "ForgedSteelGreatsword/AttackGrowth20261122",
+      "receipts": [
+        {
+          "name": "formula.json",
+          "sha256": "2bdb848ec3ed0fe556000827fa7ec588060a68a0ec394e70798d4f107eb5e8c9"
+        }
+      ]
+    }
+  ],
+  "asset_root": "F:/FPSGAMEData/Content",
+  "production_index": "Docs/Production/README.md",
+  "native_sources": "Implementation/Source/FPSGAME",
+  "shared_hosts": "Integration",
+  "new_nas_snapshot": null
+}

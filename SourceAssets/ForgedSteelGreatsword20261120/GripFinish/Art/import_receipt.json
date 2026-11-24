@@ -1,0 +1,119 @@
+{
+  "assets": [
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Leather_BaseColor.T_ForgedGrip_Leather_BaseColor",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Leather_Normal.T_ForgedGrip_Leather_Normal",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Leather_Roughness.T_ForgedGrip_Leather_Roughness",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Steel_BaseColor.T_ForgedGrip_Steel_BaseColor",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Steel_Normal.T_ForgedGrip_Steel_Normal",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Steel_Roughness.T_ForgedGrip_Steel_Roughness",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Textile_BaseColor.T_ForgedGrip_Textile_BaseColor",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Textile_Normal.T_ForgedGrip_Textile_Normal",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Textile_Roughness.T_ForgedGrip_Textile_Roughness",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Textile.M_ForgedGrip_Textile",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/SM_ForgedSteelGreatsword_Grip_shock_wrap_V2.SM_ForgedSteelGreatsword_Grip_shock_wrap_V2",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/SM_ForgedSteelGreatsword_Grip_swift_grip_V2.SM_ForgedSteelGreatsword_Grip_swift_grip_V2",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/SM_ForgedSteelGreatsword_Grip_long_twohand_V2.SM_ForgedSteelGreatsword_Grip_long_twohand_V2",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/SM_ForgedSteelGreatsword_Grip_iron_spine_power_grip_V2.SM_ForgedSteelGreatsword_Grip_iron_spine_power_grip_V2",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/SM_ForgedSteelGreatsword_Grip_lockweave_guard_grip_V2.SM_ForgedSteelGreatsword_Grip_lockweave_guard_grip_V2"
+  ],
+  "surfaces": {
+    "M_SharedGrip_Leather": {
+      "name": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+      "maps": {
+        "BaseColor": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Leather_BaseColor.T_ForgedGrip_Leather_BaseColor",
+        "Normal": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Leather_Normal.T_ForgedGrip_Leather_Normal",
+        "Roughness": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Leather_Roughness.T_ForgedGrip_Leather_Roughness"
+      },
+      "nanite": true
+    },
+    "M_SharedGrip_Steel": {
+      "name": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel",
+      "maps": {
+        "BaseColor": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Steel_BaseColor.T_ForgedGrip_Steel_BaseColor",
+        "Normal": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Steel_Normal.T_ForgedGrip_Steel_Normal",
+        "Roughness": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Steel_Roughness.T_ForgedGrip_Steel_Roughness"
+      },
+      "nanite": true
+    },
+    "M_SharedGrip_Textile": {
+      "name": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Textile.M_ForgedGrip_Textile",
+      "maps": {
+        "BaseColor": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Textile_BaseColor.T_ForgedGrip_Textile_BaseColor",
+        "Normal": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Textile_Normal.T_ForgedGrip_Textile_Normal",
+        "Roughness": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/T_ForgedGrip_Textile_Roughness.T_ForgedGrip_Textile_Roughness"
+      },
+      "nanite": true
+    }
+  },
+  "grips": {
+    "shock_wrap": {
+      "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/SM_ForgedSteelGreatsword_Grip_shock_wrap_V2.SM_ForgedSteelGreatsword_Grip_shock_wrap_V2",
+      "material_slot_names": [
+        "M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather",
+        "M_SharedGrip_Steel"
+      ],
+      "materials": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+        "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel"
+      }
+    },
+    "swift_grip": {
+      "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/SM_ForgedSteelGreatsword_Grip_swift_grip_V2.SM_ForgedSteelGreatsword_Grip_swift_grip_V2",
+      "material_slot_names": [
+        "M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather",
+        "M_SharedGrip_Steel"
+      ],
+      "materials": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+        "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel"
+      }
+    },
+    "long_twohand": {
+      "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/SM_ForgedSteelGreatsword_Grip_long_twohand_V2.SM_ForgedSteelGreatsword_Grip_long_twohand_V2",
+      "material_slot_names": [
+        "M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather",
+        "M_SharedGrip_Steel"
+      ],
+      "materials": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+        "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel"
+      }
+    },
+    "iron_spine_power_grip": {
+      "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/SM_ForgedSteelGreatsword_Grip_iron_spine_power_grip_V2.SM_ForgedSteelGreatsword_Grip_iron_spine_power_grip_V2",
+      "material_slot_names": [
+        "M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather",
+        "M_SharedGrip_Steel"
+      ],
+      "materials": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+        "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel"
+      }
+    },
+    "lockweave_guard_grip": {
+      "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/SM_ForgedSteelGreatsword_Grip_lockweave_guard_grip_V2.SM_ForgedSteelGreatsword_Grip_lockweave_guard_grip_V2",
+      "material_slot_names": [
+        "M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather",
+        "M_SharedGrip_Steel",
+        "M_SharedGrip_Textile"
+      ],
+      "materials": {
+        "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+        "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+        "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel",
+        "M_SharedGrip_Textile": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Textile.M_ForgedGrip_Textile"
+      }
+    }
+  }
+}

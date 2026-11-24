@@ -1,4 +1,4 @@
-"""Render the four physical modules as shape references for the stock cards."""
+"""Render physical modules to IconReferences for the workbench card illustrator."""
 import math
 import runpy
 import sys
@@ -20,22 +20,23 @@ elif '--ring-chain-pommel' in sys.argv:
     variant = ('RingChainPommel', 'RingChainPommel', 'ring_chain_pommel')
 elif '--fishtail-pommel' in sys.argv:
     variant = ('FishtailPommel', 'FishtailPommel', 'fishtail_pommel')
+elif '--raven-quill-guard' in sys.argv:
+    variant = ('RavenQuillGuard/Art/NestedV4', 'RavenQuillGuard', 'raven_quill_guard')
 if variant:
-    out = project / 'Content/ColdSteelData/AttachmentIcons20260913'
     model_file = here.parent / variant[0] / (variant[1]+'.blend')
 else:
     model_file = here.parent / 'Integration/ForgedSteelGreatsword_Modular_Editable.blend'
 bpy.ops.wm.open_mainfile(filepath=str(model_file))
 scene = bpy.context.scene
 if variant:
-    slot = 'pommel' if variant[1].endswith('Pommel') else 'blade_1'
+    slot = 'guard' if variant[1].endswith('Guard') else 'pommel' if variant[1].endswith('Pommel') else 'blade_1'
     models = {slot: bpy.data.objects['SM_ForgedSteelGreatsword_'+variant[1]]}
 else:
     models = {key: bpy.data.objects[f'SM_ForgedSteelGreatsword_{label}_V1']
               for key, label in [('blade_1','Blade'), ('guard','Guard'), ('grip','Grip'), ('pommel','Pommel')]}
 for obj in scene.objects:
     obj.hide_render = True
-helpers = runpy.run_path(str(project/'skills/_shared/ue5-weapon-workflow/scripts/apply_modification_icon_grayscale.py'))
+helpers = runpy.run_path(str(Path.home()/'.codex/skills/ue5-weapon-workflow/scripts/apply_modification_icon_grayscale.py'))
 helpers['apply_grayscale'](list(models.values()))
 helpers['neutral_output'](scene)
 scene.render.engine = 'CYCLES'
@@ -115,7 +116,7 @@ for key, obj in models.items():
     scale = (1.15 if key=='pommel' and not variant else 1.40) / max(hi.x-lo.x,hi.z-lo.z)
     obj.matrix_world = Matrix.Translation(-(hi+lo)*(.5*scale)) @ Matrix.Scale(scale,4) @ rot
     obj.hide_render=False
-    filename = 'ue_forged_steel_greatsword_'+key+'_'+variant[2]+'.png' if variant else key+'_factory.png'
+    filename = key+'_'+variant[2]+'.png' if variant else key+'_factory.png'
     scene.render.filepath=str(out/filename)
     bpy.ops.render.render(write_still=True)
     obj.hide_render=True

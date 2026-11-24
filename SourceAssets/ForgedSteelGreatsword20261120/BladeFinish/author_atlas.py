@@ -1,6 +1,7 @@
 """Bake the factory steel in the selected Meshy sword's original UV atlas."""
 import json
 import struct
+import sys
 from pathlib import Path
 
 import cv2
@@ -10,6 +11,9 @@ from PIL import Image
 
 HERE = Path(__file__).resolve().parent
 SOURCE = HERE.parent / 'Integration'
+sys.path.insert(0, str(HERE.parent / 'GuardSeatFinish'))
+from seat_profile import contains
+inside_seat = njit(contains)
 raw = next((SOURCE / 'Original').glob('*.glb')).read_bytes()
 json_size, = struct.unpack_from('<I', raw, 12)
 gltf = json.loads(raw[20:20 + json_size])
@@ -30,6 +34,7 @@ triangles = accessor(prim['indices']).reshape(-1, 3)
 xyz = accessor(prim['attributes']['POSITION'])
 uv = accessor(prim['attributes']['TEXCOORD_0'])
 fit = json.loads((SOURCE / 'fit_manifest.json').read_text(encoding='utf-8'))
+FIT_CM = 100. * fit['uniform_scale']
 # Invert prepare_model.py's source-Y to fitted-Z transform at the actual guard seam.
 shoulder = (fit['cuts_z_cm']['blade_guard'] / 100 + .05) / fit['uniform_scale'] - .548
 tip = float(xyz[:, 1].max())
@@ -67,13 +72,13 @@ def bake_pixels(src, coords, points, faces, bounds, cut, top, packed):
                 if min(a,b,c) < -1e-6:
                     continue
                 y = a*points[ids[0],1] + b*points[ids[1],1] + c*points[ids[2],1]
-                if y < cut:
+                x = a*points[ids[0],0] + b*points[ids[1],0] + c*points[ids[2],0]
+                if y < cut and not inside_seat((x + .00045) * FIT_CM, (y + .548) * FIT_CM - 5.):
                     ownership[row,col] = 1
                     result[row,col] = src[row,col]
                     continue
                 ownership[row,col] = 2
-                x = a*points[ids[0],0] + b*points[ids[1],0] + c*points[ids[2],0]
-                section = min(len(bounds)-1, int((y-cut)/(top-cut)*len(bounds)))
+                section = max(0, min(len(bounds)-1, int((y-cut)/(top-cut)*len(bounds))))
                 center, radius = bounds[section]
                 across = min(1., abs(x-center) / max(.0001,radius))
                 bevel = min(1., max(0., (across-.79)/.15))

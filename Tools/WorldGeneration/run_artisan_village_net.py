@@ -17,11 +17,12 @@ parser.add_argument('--run',default=time.strftime('%Y%m%d-%H%M%S'))
 parser.add_argument('--port',type=int,default=0)
 parser.add_argument('--guards-only', action='store_true')
 parser.add_argument('--shop-scene', action='store_true')
+parser.add_argument('--smith-lesson', action='store_true')
 parser.add_argument('--pew', action='store_true')
 parser.add_argument('--render-server', action='store_true', help='render the shop-distance host offscreen with D3D12 at 1920x1080')
 args = parser.parse_args()
-if args.render_server and not args.shop_scene:
-    parser.error('--render-server requires --shop-scene')
+if args.render_server and not (args.shop_scene or args.smith_lesson):
+    parser.error('--render-server requires --shop-scene or --smith-lesson')
 run = root/'Saved/ArtisanVillageNetwork'/args.run
 host = run/'Host'
 evidence = run/'Evidence'
@@ -89,12 +90,15 @@ def launch(role):
         cmd.append('-ArtisanGuardOnly')
     if args.shop_scene:
         cmd.append('-ArtisanShopScene')
+    if args.shop_scene or args.smith_lesson:
         if authority and args.render_server:
             cmd.remove('-nullrhi')
             cmd=[arg.replace('fps.body.WorldBodySuppress 1,','') for arg in cmd]
             cmd.extend(['-d3d12','-RenderOffScreen','-ResX=1920','-ResY=1080','-ForceRes'])
         else:
             cmd.append('-NoShaderCompile')
+    if args.smith_lesson:
+        cmd.append('-SmithLessonScene')
     if args.pew:
         cmd.extend(['-ArtisanPew','-NoShaderCompile'])
     peers[role] = subprocess.Popen(cmd,creationflags=subprocess.CREATE_NO_WINDOW)
@@ -151,7 +155,15 @@ try:
             raise RuntimeError('listen server did not reach its launch checkpoint')
         time.sleep(2)
     launch('owner')
-    if args.pew:
+    if args.smith_lesson:
+        result['scope']='shop lamps, two furnaces, owner-only mining lesson, pickup, delivery and reconnect'
+        wait_for('owner','delivered')
+        stop('owner')
+        wait_for('server','disconnected')
+        launch('rejoin')
+        wait_for('rejoin','restored')
+        result['passed']=wait_for('server','done')['passed']
+    elif args.pew:
         result['scope']='two players on the installed outdoor chapel pew; authority interaction and replicated slots'
         wait_for('owner','both-standing')
         result['passed']=wait_for('server','done')['passed']

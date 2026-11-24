@@ -1,0 +1,2102 @@
+[
+  {
+    "stage": "01-apprentice-reset",
+    "path": "Source/FPSGAME/Building/ForgingSystem.cpp",
+    "snapshot": "e2e9c9141183976a679bab50e10e25998a690cecbcaa3bd84da5fc5b1465f6e5",
+    "anchors": [
+      {
+        "first_line": 6,
+        "lines": [
+          "#include \"../FPSGAMECharacter.h\"",
+          "#include \"../Tasks/BlacksmithApprenticeship.h\"",
+          "#include \"../UI/ColdSteelStatusModel.h\"",
+          "#include \"Engine/GameInstance.h\""
+        ]
+      },
+      {
+        "first_line": 192,
+        "lines": [
+          "    if(!Free)for(const auto& In:Inputs)P.ForgeJob.PaidMaterials.Add(In.Item,In.Count);",
+          "    BlacksmithApprenticeship::WorkpieceUpdated(P);",
+          "    if(!M->CommitState(MoveTemp(P))){Reason=M->ResultMessage();return false;}",
+          "    Sequence.Reset();FRandomStream Random(FMath::Rand());int32 Last=INDEX_NONE;"
+        ]
+      },
+      {
+        "first_line": 282,
+        "lines": [
+          "    J.bFinished=true;",
+          "    BlacksmithApprenticeship::WorkpieceUpdated(P);",
+          "    const auto* Pawn=NetworkModel?M->RuntimePawn():nullptr;",
+          "    const auto* Owner=Pawn?Pawn->GetPlayerState<AColdSteelPlayerState>():nullptr;"
+        ]
+      },
+      {
+        "first_line": 295,
+        "lines": [
+          "    if(!ColdSteelInventory::Insert(P.Items,P.ForgeJob.Item)){Reason=TEXT(\"背包空间不足，成品保留待领\");return false;}",
+          "    const auto LessonStage = BlacksmithApprenticeship::Stage(P);",
+          "    const bool UnworkedLessonBlade = P.ForgeJob.Recipe == BlacksmithApprenticeship::TargetRecipe",
+          "        && LessonStage != BlacksmithApprenticeship::EStage::NotStarted",
+          "        && LessonStage != BlacksmithApprenticeship::EStage::Complete",
+          "        && !P.ForgeJob.bHammeredBlank && P.ForgeJob.Hits == 0;",
+          "    BlacksmithApprenticeship::WorkpieceRemoved(P,true);",
+          "    P.ForgeJob={};if(!M->CommitState(MoveTemp(P))){Reason=M->ResultMessage();return false;}",
+          "    LastError.Reset();",
+          "    Reason=UnworkedLessonBlade ? TEXT(\"锻钢双手剑已放入背包。这炉没有敲到剑坯，打铁修炼仍在进行。\") : TEXT(\"成品已放入背包\");",
+          "    return true;",
+          "}"
+        ]
+      },
+      {
+        "first_line": 355,
+        "lines": [
+          "    const bool Free=P.ForgeJob.bMaterialsWaived;",
+          "    BlacksmithApprenticeship::WorkpieceRemoved(P,false);",
+          "    P.ForgeJob={};",
+          "    if(!M->CommitState(MoveTemp(P))){Reason=M->ResultMessage();return false;}"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "01-apprentice-reset",
+    "path": "Source/FPSGAME/Tasks/ApprenticeMaterials.h",
+    "snapshot": "0c3ad965280353f9631c550f0c1e442f3d07959b3f2dfcd2391ef4ed0e3260b7",
+    "anchors": [
+      {
+        "first_line": 8,
+        "lines": [
+          "",
+          "namespace ApprenticeMaterials",
+          "{",
+          "    // A workpiece already on the bench at reset stays collectible outside the new lesson.",
+          "    inline FString PriorWorkpieceKey(const FString& JobId) { return TEXT(\"village.lesson.prior-workpiece.\") + JobId; }",
+          "",
+          "    // The materials, lesson stage and one-time receipt share the inventory save."
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "01-apprentice-reset",
+    "path": "Source/FPSGAME/Tasks/CarpenterApprenticeship.cpp",
+    "snapshot": "01d7a676b622935326f607494bc59cc412c9dcd250ba5bab679078cb36f9d1cb",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"CarpenterApprenticeship.h\"",
+          "#include \"ApprenticeMaterials.h\"",
+          "#include \"../Building/WoodworkingSystem.h\"",
+          "#include \"../FPSGAMECharacter.h\""
+        ]
+      },
+      {
+        "first_line": 10,
+        "lines": [
+          "",
+          "namespace CarpenterApprenticeship",
+          "{",
+          "static const FString SuppliesReceipt = TEXT(\"village.carpenter.lesson.materials.v1\");"
+        ]
+      },
+      {
+        "first_line": 22,
+        "lines": [
+          "    const auto& Job = Profile.WoodworkingJob;",
+          "    if (!IsLessonWeapon(Job) || Profile.CampfireWorldReceipts.Contains(ApprenticeMaterials::PriorWorkpieceKey(Job.Id))) return EStage::Materials;",
+          "    if (!Job.bFinished) return EStage::Working;",
+          "    return Job.bPassed ? EStage::Finish : EStage::Materials;"
+        ]
+      },
+      {
+        "first_line": 29,
+        "lines": [
+          "{",
+          "    const uint8 Value = Profile.CarpenterApprenticeshipStage;",
+          "    const EStage Saved = Value <= uint8(EStage::Complete) ? EStage(Value) : EStage::NotStarted;",
+          "    const bool bReceivedSupplies = Profile.CampfireWorldReceipts.Contains(SuppliesReceipt);"
+        ]
+      },
+      {
+        "first_line": 45,
+        "lines": [
+          "    if (IsLessonWeapon(Job))",
+          "        Profile.CampfireWorldReceipts.Add(ApprenticeMaterials::PriorWorkpieceKey(Job.Id), Profile.CampfireInventoryRevision);",
+          "    Profile.CarpenterApprenticeshipStage = uint8(EStage::NotStarted);",
+          "    Profile.CampfireWorldReceipts.Remove(SuppliesReceipt);",
+          "    return true;"
+        ]
+      },
+      {
+        "first_line": 60,
+        "lines": [
+          "    if (Current != EStage::NotStarted && Current != EStage::Complete)",
+          "        Profile.CarpenterApprenticeshipStage = uint8(WorkpieceStage(Profile));",
+          "}",
+          ""
+        ]
+      },
+      {
+        "first_line": 67,
+        "lines": [
+          "    const bool Earned = bClaimed && WorkpieceStage(Profile) == EStage::Finish;",
+          "    Profile.CampfireWorldReceipts.Remove(ApprenticeMaterials::PriorWorkpieceKey(Profile.WoodworkingJob.Id));",
+          "    if (Current == EStage::NotStarted || Current == EStage::Complete) return;",
+          "    Profile.CarpenterApprenticeshipStage = uint8(Earned ? EStage::Complete : EStage::Materials);",
+          "}",
+          ""
+        ]
+      },
+      {
+        "first_line": 74,
+        "lines": [
+          "{",
+          "    Profile.CarpenterApprenticeshipStage = uint8(Stage(Profile));",
+          "    WorkpieceUpdated(Profile);",
+          "}"
+        ]
+      },
+      {
+        "first_line": 101,
+        "lines": [
+          "    auto Next = Model->Snapshot();",
+          "    Next.CarpenterApprenticeshipStage = uint8(WorkpieceStage(Next));",
+          "    if (!ApprenticeMaterials::Grant(*Model, MoveTemp(Next), HostSlot, SuppliesReceipt, Inputs, Message)) return false;",
+          "    Message += TEXT(\"请锯出一把学徒长杖，达到图样要求后领取成品。\");",
+          "    return true;"
+        ]
+      },
+      {
+        "first_line": 114,
+        "lines": [
+          "    if (!Model || Model->GetWorld() != GetWorld() || !ProfileId.IsValid() || Model->Current.NetworkProfileId != ProfileId",
+          "        || StageValue > uint8(CarpenterApprenticeship::EStage::Complete) || Model->Current.CarpenterApprenticeshipStage == StageValue) return;",
+          "    Model->Current.CarpenterApprenticeshipStage = StageValue;",
+          "    Model->bTrainingDirty = true;",
+          "    Model->NotifyChanged();"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "01-apprentice-reset",
+    "path": "Source/FPSGAME/Tasks/CarpenterApprenticeship.h",
+    "snapshot": "4b89da6e7b19e6e5da3b5fa6527a485671781fa600eac0382a9345b6d8fe4ec2",
+    "anchors": [
+      {
+        "first_line": 7,
+        "lines": [
+          "",
+          "namespace CarpenterApprenticeship",
+          "{",
+          "    enum class EStage : uint8 { NotStarted, Materials, Working, Finish, Complete };"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "01-apprentice-reset",
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp",
+    "snapshot": "0ed1f47e567d2de08237c91988225def4b9071ade7ef7c02a0e5525f95cc2c7c",
+    "anchors": [
+      {
+        "first_line": 491,
+        "lines": [
+          "    static const TCHAR* const SmithStatus[] = {",
+          "        TEXT(\"支线任务 · 打造并领取一把锻钢双手剑\"), TEXT(\"第一步 · 到铸造台为锻钢双手剑备料\"), TEXT(\"第二步 · 在铁砧上锤炼锻钢双手剑\"),",
+          "        TEXT(\"第三步 · 领取亲手打造的锻钢双手剑\"), TEXT(\"已完成打铁修炼\")",
+          "    };",
+          "    static const TCHAR* const CarpenterStatus[] = {"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "01-apprentice-reset",
+    "path": "Source/FPSGAME/UI/DevelopmentPanelTools.cpp",
+    "snapshot": "eaae7bfa81a71c5aabda461be25309f1b7ac56ef199e3675a02c6ac6c2c46db1",
+    "anchors": [
+      {
+        "first_line": 4,
+        "lines": [
+          "#include \"DevelopmentItemPicker.h\"",
+          "#include \"../Tasks/BlacksmithApprenticeship.h\"",
+          "#include \"../Tasks/CarpenterApprenticeship.h\"",
+          "#include \"../FPSGAMECharacter.h\"",
+          "#include \"GameFramework/PlayerController.h\""
+        ]
+      },
+      {
+        "first_line": 26,
+        "lines": [
+          "{",
+          "struct FDevelopmentQuestLine",
+          "{",
+          "    const TCHAR* Id;"
+        ]
+      },
+      {
+        "first_line": 34,
+        "lines": [
+          "",
+          "constexpr FDevelopmentQuestLine ResettableQuests[] = {",
+          "    {BlacksmithApprenticeship::TaskId, TEXT(\"铁匠\"), TEXT(\"打铁修炼\"), BlacksmithApprenticeship::Reset},",
+          "    {CarpenterApprenticeship::TaskId, TEXT(\"木匠\"), TEXT(\"木工修炼\"), CarpenterApprenticeship::Reset}",
+          "};",
+          "}"
+        ]
+      },
+      {
+        "first_line": 114,
+        "lines": [
+          "    {",
+          "        TArray<FColdSteelCatalogEntry> Options;",
+          "        TArray<FString> Names;",
+          "        for (const auto& Quest : ResettableQuests)",
+          "        {",
+          "            auto& Entry = Options.AddDefaulted_GetRef();",
+          "            Entry.Definition = Quest.Id;",
+          "            Entry.Group = Quest.Teacher;",
+          "            Entry.Name = Quest.Name;",
+          "            Names.Add(Entry.Name);",
+          "        }",
+          "        const FString Help = FString::Printf(TEXT(\"共 %d 条任务线，可重置 %d 条：%s。%s\\n地牢探险（全队共享） · 进度随本局地牢单独记录。\"),",
+          "            Options.Num() + 1, Options.Num(), *FString::Join(Names, TEXT(\"、\")), GetWorld() && GetWorld()->GetNetMode() == NM_Client",
+          "                ? TEXT(\"重置仅对房主自己的角色开放。\") : TEXT(\"重置后可找对应 NPC 重新领取。\"));",
+          "        FCardParts Parts = NewCard(TEXT(\"重置任务线\"), *Help);",
+          "        QuestChoice = WidgetTree->ConstructWidget<UDevelopmentItemPicker>();",
+          "        SelectedQuestId = Options[0].Definition;",
+          "        QuestChoice->SetOptions(Options, SelectedQuestId);",
+          "        QuestChoice->OnSelectionChanged.AddDynamic(this, &ThisClass::QuestSelected);",
+          "        AddFlex(Parts, QuestChoice, 200.f);",
+          "        ResetQuestButton = MakeButton(TEXT(\"重置\"), TEXT(\"DevelopmentResetQuestLine\"));",
+          "        ResetQuestButton->OnClicked.AddDynamic(this, &ThisClass::ResetQuestClicked);",
+          "        AddFixed(Parts, ResetQuestButton, 96.f);",
+          "        FeatureRows.Add(Parts.Row);",
+          "    }"
+        ]
+      },
+      {
+        "first_line": 204,
+        "lines": [
+          "",
+          "void UDevelopmentPanelWidget::QuestSelected(const FString& Definition)",
+          "{",
+          "    SelectedQuestId = Definition;",
+          "}",
+          "",
+          "void UDevelopmentPanelWidget::ResetQuestClicked()",
+          "{",
+          "    auto* Model = ResolveModel();",
+          "    const auto* Player = GetOwningPlayer();",
+          "    if (!Model || !Player || !Player->HasAuthority() || !Player->IsLocalController() ||",
+          "        !Model->RuntimePawn() || Model->RuntimePawn() != Player->GetPawn() || Model->IsStagingNetworkContainer())",
+          "    {",
+          "        SetFeatureMessage(TEXT(\"请在单机或房主角色档案就绪后重置任务。\"), ColdSteelUI::Warning);",
+          "        return;",
+          "    }",
+          "",
+          "    for (const auto& Quest : ResettableQuests)",
+          "    {",
+          "        if (SelectedQuestId != Quest.Id) continue;",
+          "        Model->SyncRuntime();",
+          "        auto Next = Model->Snapshot();",
+          "        if (!Quest.Reset(Next))",
+          "        {",
+          "            SetFeatureMessage(FString::Printf(TEXT(\"「%s」尚未领取，可直接找%s接取。\"), Quest.Name, Quest.Teacher), ColdSteelUI::TextSecondary);",
+          "            return;",
+          "        }",
+          "        if (Model->CommitCampfireState(MoveTemp(Next), SelectedQuestId + TEXT(\".reset\")))",
+          "            SetFeatureMessage(FString::Printf(TEXT(\"已重置「%s」，可找%s重新领取。\"), Quest.Name, Quest.Teacher), ColdSteelUI::Success);",
+          "        else",
+          "            SetFeatureMessage(FString::Printf(TEXT(\"任务重置保存失败：%s\"), *Model->ResultMessage()), ColdSteelUI::Warning);",
+          "        return;",
+          "    }",
+          "}"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "01-apprentice-reset",
+    "path": "Source/FPSGAME/UI/DevelopmentPanelWidget.cpp",
+    "snapshot": "9950651094277f209f4a7fa3bc7554f4dcd667bcfcda776a17ff5d9295b0a54b",
+    "anchors": [
+      {
+        "first_line": 320,
+        "lines": [
+          "    if (!bOpen && ItemChoice) ItemChoice->CloseMenu();",
+          "    if (!bOpen && QuestChoice) QuestChoice->CloseMenu();",
+          "    Super::SetPanelOpen(bOpen);",
+          "    // 基础实现直接折叠面板；抽屉收回顾动画由 TickDrawer 驱动，动画期间保持可见。"
+        ]
+      },
+      {
+        "first_line": 340,
+        "lines": [
+          "    if (ActivePage != Index && ItemChoice) ItemChoice->CloseMenu();",
+          "    if (ActivePage != Index && QuestChoice) QuestChoice->CloseMenu();",
+          "    if (ActivePage != Index && Index == 3) PerformanceNextUpdate = 0.0;",
+          "    ActivePage = Index;"
+        ]
+      },
+      {
+        "first_line": 491,
+        "lines": [
+          "    if (GenerateItemButton) GenerateItemButton->SetIsEnabled(bUsable && !SelectedItemDefinition.IsEmpty() && !ItemOptions.IsEmpty());",
+          "    if (ResetQuestButton) ResetQuestButton->SetIsEnabled(bUsable && Model->RuntimePawn() == Player->GetPawn() && !Model->IsStagingNetworkContainer());",
+          "    if (GrantLevelButton) GrantLevelButton->SetIsEnabled(bUsable);",
+          "    const bool bSkillReady = bUsable && !SelectedSkill.IsNone() && Model &&"
+        ]
+      },
+      {
+        "first_line": 659,
+        "lines": [
+          "    if (ItemChoice) ItemChoice->SetPixelScale(Scale);",
+          "    if (QuestChoice) QuestChoice->SetPixelScale(Scale);",
+          "    StyleChoice(SkillChoice, Scale);",
+          "    UpdatePerformanceLayout(Scale);"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "01-apprentice-reset",
+    "path": "Source/FPSGAME/UI/DevelopmentPanelWidget.h",
+    "snapshot": "fb686a9cb923f0b9964e948feb2ad43821f42227c657769e23081ffdc59614a0",
+    "anchors": [
+      {
+        "first_line": 110,
+        "lines": [
+          "    UFUNCTION() void DisableTuningClicked();",
+          "    UFUNCTION() void QuestSelected(const FString& Definition);",
+          "    UFUNCTION() void ResetQuestClicked();",
+          "    UFUNCTION() void GenerateItemClicked();",
+          "    UFUNCTION() void GrantLevelClicked();"
+        ]
+      },
+      {
+        "first_line": 214,
+        "lines": [
+          "    FString SelectedItemDefinition;",
+          "    FString SelectedQuestId;",
+          "    UPROPERTY(Transient) TObjectPtr<UDevelopmentItemPicker> QuestChoice;",
+          "    UPROPERTY(Transient) TObjectPtr<UButton> ResetQuestButton;",
+          "    TArray<FName> SkillIds;",
+          "    FName SelectedSkill = NAME_None;"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "01-apprentice-reset",
+    "path": "Source/FPSGAME/UI/DevelopmentTuningPanel.cpp",
+    "snapshot": "9a097f044fb6def507d3b2598aca7493b5c2b17be46c506b8b1deac5178246f1",
+    "anchors": [
+      {
+        "first_line": 30,
+        "lines": [
+          "    if (ItemChoice) ItemChoice->CloseMenu();",
+          "    if (QuestChoice) QuestChoice->CloseMenu();",
+          "    ++PerformanceExportGeneration;",
+          "    bPerformanceExporting = false;"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "02-QuestJournal",
+    "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp",
+    "snapshot": "0c18890b29693f92d701f72ea21e203c14db0926d575b533d3270ff5bf5501ac",
+    "anchors": [
+      {
+        "first_line": 24,
+        "lines": [
+          "{",
+          "    Collection.InitializeDependency<UTaskTrackingSubsystem>();",
+          "    Super::Initialize(Collection);",
+          "    GetWorld()->GetSubsystem<UTaskTrackingSubsystem>()->RegisterSource(this);",
+          "}",
+          ""
+        ]
+      },
+      {
+        "first_line": 53,
+        "lines": [
+          "{",
+          "    if (auto* Tracking = GetWorld()->GetSubsystem<UTaskTrackingSubsystem>()) Tracking->UnregisterSource(this);",
+          "    UnbindDungeon();",
+          "    Super::Deinitialize();"
+        ]
+      },
+      {
+        "first_line": 437,
+        "lines": [
+          "",
+          "void UDungeonRunSubsystem::AppendTrackedTasks(const APawn* Viewer, TArray<FTrackedTaskView>& Out)",
+          "{",
+          "    for (auto It = TrackingRooms.CreateIterator(); It; ++It) if (!It.Key().IsValid()) It.RemoveCurrent();"
+        ]
+      },
+      {
+        "first_line": 443,
+        "lines": [
+          "    if (!TrackingRooms.Contains(Key)) TrackingRooms.Add(Key, INDEX_NONE);",
+          "    FTrackedTaskView View;",
+          "    if (GetTrackingView(Viewer->GetActorLocation(), TrackingRooms[Key], View)) Out.Add(MoveTemp(View));",
+          "}",
+          "",
+          "void UDungeonRunSubsystem::AppendJournalTasks(const APawn* Viewer, TArray<FTrackedTaskView>& Out)",
+          "{",
+          "    const int32 Before = Out.Num();",
+          "    AppendTrackedTasks(Viewer, Out);",
+          "    if (Out.Num() > Before)",
+          "    {"
+        ]
+      },
+      {
+        "first_line": 477,
+        "lines": [
+          "",
+          "bool UDungeonRunSubsystem::GetTrackingView(const FVector& PlayerPosition, int32& InOutLastRoom, FTrackedTaskView& Out) const",
+          "{",
+          "    Out = {};"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "02-QuestJournal",
+    "path": "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h",
+    "snapshot": "e7f8b68b541180af4240289e6d16a60eccfa7c62af700623853444a1e581be35",
+    "anchors": [
+      {
+        "first_line": 6,
+        "lines": [
+          "#include \"Dom/JsonObject.h\"",
+          "#include \"../Tasks/TaskTrackingSubsystem.h\"",
+          "#include \"DungeonRunSubsystem.generated.h\"",
+          ""
+        ]
+      },
+      {
+        "first_line": 90,
+        "lines": [
+          "UCLASS()",
+          "class FPSGAME_API UDungeonRunSubsystem : public UWorldSubsystem, public ITaskTrackingSource",
+          "{",
+          "    GENERATED_BODY()"
+        ]
+      },
+      {
+        "first_line": 131,
+        "lines": [
+          "    void CancelFinalReturn(AActor* Portal);",
+          "    virtual void AppendTrackedTasks(const APawn* Viewer, TArray<FTrackedTaskView>& Out) override;",
+          "    virtual void AppendJournalTasks(const APawn* Viewer, TArray<FTrackedTaskView>& Out) override;",
+          "    bool GetTrackingView(const FVector& PlayerPosition, int32& InOutLastRoom, FTrackedTaskView& Out) const;",
+          "    const FVector& EntryPosition() const { return StartPosition; }",
+          "    const FBox& StartRoomBounds() const { return ReservedStartRoom; }"
+        ]
+      },
+      {
+        "first_line": 226,
+        "lines": [
+          "    void BindFinalBossTheme(AAuthoredDungeonGenerator* InGenerator);",
+          "    void AppendFinalBossObjectives(FTrackedTaskView& Out) const;",
+          "    TArray<FDungeonRunNode> Nodes;",
+          "    TArray<FString> RoomIds;"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "02-QuestJournal",
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.h",
+    "snapshot": "fe7ad6053238fa77b5462ff018877d2270ccd023408454124b1174a8dd05e33d",
+    "anchors": [
+      {
+        "first_line": 3,
+        "lines": [
+          "#include \"Components/ActorComponent.h\"",
+          "#include \"../Tasks/TaskTrackingSubsystem.h\"",
+          "#include \"ChapelDialogueComponent.generated.h\"",
+          ""
+        ]
+      },
+      {
+        "first_line": 19,
+        "lines": [
+          "UCLASS()",
+          "class FPSGAME_API UChapelDialogueComponent : public UActorComponent, public ITaskTrackingSource",
+          "{",
+          "    GENERATED_BODY()"
+        ]
+      },
+      {
+        "first_line": 45,
+        "lines": [
+          "    virtual void BeginPlay() override;",
+          "    virtual void AppendTrackedTasks(const APawn* Viewer,TArray<FTrackedTaskView>& Out) override;",
+          "    virtual void AppendJournalTasks(const APawn* Viewer,TArray<FTrackedTaskView>& Out) override;",
+          "    bool IsBlacksmith() const;",
+          "    bool IsCarpenter() const;"
+        ]
+      },
+      {
+        "first_line": 95,
+        "lines": [
+          "    UFUNCTION(Client,Reliable) void ClientEndFirstAid(uint32 Serial);",
+          "    void AppendLessons(const APawn* Viewer, TArray<FTrackedTaskView>& Out, ETaskViewPurpose Purpose);",
+          "    struct FLessonTrackerState",
+          "    {"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "02-QuestJournal",
+    "path": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+    "snapshot": "b7e326f334c855419ed5362c49ab1f9f932422a581669937b35d3c2c5955fe85",
+    "anchors": [
+      {
+        "first_line": 26,
+        "lines": [
+          "#include \"ColdSteelSkillTreeScreen.h\"",
+          "#include \"ColdSteelDungeonTracker.h\"",
+          "#include \"ColdSteelAcquisitionFeed.h\"",
+          "#include \"ColdSteelExperienceFeed.h\""
+        ]
+      },
+      {
+        "first_line": 248,
+        "lines": [
+          "    BuildInteractHint(Root); // 统一 E 交互小浮窗（在面板 Z 之下：面板打开时本就不显示）",
+          "    TaskTracker = CreateWidget<UColdSteelDungeonTracker>(GetOwningPlayer());",
+          "    FillSlot(Root->AddChildToCanvas(TaskTracker),FAnchors(0,0,1,1),FMargin(0),12);",
+          "    ProgressNotification=CreateWidget<UColdSteelProgressNotification>(GetOwningPlayer());"
+        ]
+      },
+      {
+        "first_line": 384,
+        "lines": [
+          "    CodexSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));CodexSlot->SetHorizontalAlignment(HAlign_Fill);",
+          "    QuestPage = CreateWidget<UColdSteelDungeonTracker>(GetOwningPlayer());",
+          "    QuestPage->ConfigureJournal();",
+          "    Body->AddChildToVerticalBox(QuestPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "02-QuestJournal",
+    "path": "Source/FPSGAME/UI/ColdSteelHUDReadouts.cpp",
+    "snapshot": "12aef825e4ba267672bb39fa2c2045a04e95f69d98990a62ca2729982e0dcb5d",
+    "anchors": [
+      {
+        "first_line": 18,
+        "lines": [
+          "#include \"ColdSteelSkillTreeScreen.h\"",
+          "#include \"ColdSteelDungeonTracker.h\"",
+          "#include \"ColdSteelAcquisitionFeed.h\"",
+          "#include \"ColdSteelExperienceFeed.h\""
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "02-QuestJournal",
+    "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+    "snapshot": "eec3410a7f5a362c7c4f65a010a296f010d520d24a9d09b3e12e330fca2953d5",
+    "anchors": [
+      {
+        "first_line": 18,
+        "lines": [
+          "#include \"ColdSteelSkillTreeScreen.h\"",
+          "#include \"ColdSteelDungeonTracker.h\"",
+          "#include \"ColdSteelAcquisitionFeed.h\"",
+          "#include \"ColdSteelExperienceFeed.h\""
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "02-QuestJournal",
+    "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "snapshot": "b0baad3ab15337dd55395c7540e80abef238abb8a4e8b6272d9f96ee9d65f3e8",
+    "anchors": [
+      {
+        "first_line": 171,
+        "lines": [
+          "    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> AcquisitionFeedSlot;",
+          "    UPROPERTY(Transient) TObjectPtr<class UColdSteelDungeonTracker> TaskTracker;",
+          "    UPROPERTY(Transient) TObjectPtr<class UColdSteelSoulCounter> SoulWallet;",
+          "    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> SoulHUDSlot;"
+        ]
+      },
+      {
+        "first_line": 185,
+        "lines": [
+          "    UFUNCTION() void HandleNavigationCodex();",
+          "    UFUNCTION() void HandleNavigationTasks();",
+          "    UPROPERTY(Transient) TObjectPtr<UVerticalBox> PanelNavigation;",
+          "    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> PanelNavigationSlot;"
+        ]
+      },
+      {
+        "first_line": 483,
+        "lines": [
+          "    UPROPERTY(Transient) TObjectPtr<class UColdSteelCodexPage> CodexPage;",
+          "    UPROPERTY(Transient) TObjectPtr<class UColdSteelDungeonTracker> QuestPage;",
+          "    UPROPERTY(Transient) TObjectPtr<class UColdSteelProgressNotification> ProgressNotification;",
+          "    /** 击杀／经验到账：屏幕中心准星下方的金色飘字，只读且不接管输入。 */"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "04-QuestJournalDetails",
+    "path": "Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp",
+    "snapshot": "003dca03661ce58a96f5974de9d6f721209384b9635b17be53ac267a6b6b5ff6",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"ColdSteelHUDWidget.h\"",
+          "#include \"ColdSteelQuestJournal.h\"",
+          "#include \"ColdSteelSkillTreeScreen.h\"",
+          "#include \"ColdSteelSkillPage.h\""
+        ]
+      },
+      {
+        "first_line": 353,
+        "lines": [
+          "        if(bWarehouseOpen&&Event.GetKey()==EKeys::Escape){CloseWarehouse();return FReply::Handled();}",
+          "        if(bQuestTabActive && QuestPage && QuestPage->GoBack())return FReply::Handled();",
+          "        if(bSkillsTabActive && SkillPage && SkillPage->GoBack())return FReply::Handled();",
+          "        SetInventoryOpen(false);"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "07-smelting-yard",
+    "path": "Source/FPSGAME/Building/SmeltingSystem.cpp",
+    "snapshot": "ca1a9c99f0cf407e6a4eda6b1acca2cd2a1f7897f7b9653894f43909b37a602c",
+    "anchors": [
+      {
+        "first_line": 2,
+        "lines": [
+          "#include \"ForgingSystem.h\"",
+          "#include \"../Tasks/BlacksmithApprenticeship.h\"",
+          "#include \"../Multiplayer/ColdSteelAuthorityContext.h\"",
+          "#include \"../Multiplayer/ColdSteelStationNetwork.h\""
+        ]
+      },
+      {
+        "first_line": 451,
+        "lines": [
+          "                Intent.Item=Product.Item;Intent.Count=Taken;Intent.Level=++Serial;",
+          "                if (Forge && Forge->FindMetal(FName(*Product.Item))) BlacksmithApprenticeship::CollectIngots(P, Taken);",
+          "                Intents.Add(Intent);P.SmeltIntents.Add(Intent);Total+=Taken;",
+          "            }"
+        ]
+      },
+      {
+        "first_line": 476,
+        "lines": [
+          "    const auto* Forge = GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>();",
+          "    if (!R->bCampfire && Forge && Forge->FindMetal(FName(*R->Output))) BlacksmithApprenticeship::CollectIngots(P, OutCount);",
+          "    FColdSteelSmeltIntent Intent=MakeIntent(World,Cell,SmeltCollect);",
+          "    Intent.Item=R->Output;Intent.Count=OutCount;Intent.Recipe=Job->Recipe.ToString();Intent.Batch=Job->BatchCount;"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "07-smelting-yard",
+    "path": "Source/FPSGAME/Building/VoxelBuildWorld.cpp",
+    "snapshot": "2ec2038a7b74206b089346e04c6048906877e17c95aa2f374571093b019c3332",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"VoxelBuildWorld.h\"",
+          "#include \"VillageFurnaceKeys.h\"",
+          "#include \"ColdSteelPlantingSystem.h\"",
+          "#include \"../Multiplayer/ColdSteelSharedInventorySubsystem.h\""
+        ]
+      },
+      {
+        "first_line": 246,
+        "lines": [
+          "        {",
+          "            if (VillageFurnaceKeys::Contains(Cell)) return true;",
+          "            const FVoxelBuildPrefabInstance* Piece=Prefabs.FindByPredicate(",
+          "                [Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell;});"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "07-smelting-yard",
+    "path": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+    "snapshot": "552785d6533dcb41650a35eb28a6f535e5d5442b4fd8d58cdf125be72654ebf6",
+    "anchors": [
+      {
+        "first_line": 173,
+        "lines": [
+          "    bool HasPrefabAt(FIntVector Cell) const",
+          "    {return SceneStations.FindRef(Cell).IsValid()||Prefabs.ContainsByPredicate([Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell;});}",
+          "    /** Fixed scene stations are owned by their scene save, never serialized as player construction. */",
+          "    void RegisterSceneStation(AVoxelBuildPrefabActor* Station);",
+          "    void UnregisterSceneStation(AVoxelBuildPrefabActor* Station);",
+          "    /**",
+          "     * 炉内冶炼（VBX v6，随构件记录同生共死）：任务与燃料都按高炉锚格存。"
+        ]
+      },
+      {
+        "first_line": 251,
+        "lines": [
+          "    UPROPERTY() TMap<FIntVector,TWeakObjectPtr<AActor>> PrefabActors;",
+          "    UPROPERTY(Transient) TMap<FIntVector,TWeakObjectPtr<AVoxelBuildPrefabActor>> SceneStations;",
+          "    TMap<FIntVector,FName> Cells;",
+          "    /** 楔形格切割（VoxelCut 编码，仅世界格子；自由体积暂不切割）。与 Cells 同增删。 */"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "07-smelting-yard",
+    "path": "Source/FPSGAME/Building/VoxelBuildWorldCasting.cpp",
+    "snapshot": "8cfb43ff11e5f4b32a262e1ed0350b97fa0d2c989847937baf9da2c031ee05b7",
+    "anchors": [
+      {
+        "first_line": 2,
+        "lines": [
+          "#include \"VoxelBuildPrefabActor.h\"",
+          "#include \"VillageFurnaceKeys.h\"",
+          "#include \"EngineUtils.h\"",
+          ""
+        ]
+      },
+      {
+        "first_line": 7,
+        "lines": [
+          "{",
+          "    if (VillageFurnaceKeys::Contains(Cell))",
+          "    {",
+          "        const auto* Station = SceneStations.FindRef(Cell).Get();",
+          "        return Station && Station->PrefabId() == VoxelSmeltingFurnaceId && Station->IsSceneStationAvailable();",
+          "    }",
+          "    return Prefabs.ContainsByPredicate([Cell](const FVoxelBuildPrefabInstance& E) { return E.Cell == Cell && E.Id == VoxelSmeltingFurnaceId; });"
+        ]
+      },
+      {
+        "first_line": 15,
+        "lines": [
+          "",
+          "void AVoxelBuildWorld::RegisterSceneStation(AVoxelBuildPrefabActor* Station)",
+          "{",
+          "    if(!IsValid(Station)||Station->GetOwner()!=this||!Station->IsSceneStationAvailable()||Station->PrefabId().IsNone())return;",
+          "    UnregisterSceneStation(Station);",
+          "    const FIntVector Cell=Station->AnchorCell();",
+          "    if(Prefabs.ContainsByPredicate([Cell](const auto& P){return P.Cell==Cell;}))",
+          "    {UE_LOG(LogTemp,Warning,TEXT(\"Village station %s overlaps existing construction at %s\"),*Station->GetName(),*Cell.ToString());return;}",
+          "    SceneStations.Add(Cell,Station);",
+          "}",
+          "",
+          "void AVoxelBuildWorld::UnregisterSceneStation(AVoxelBuildPrefabActor* Station)",
+          "{",
+          "    for(auto It=SceneStations.CreateIterator();It;++It)",
+          "        if(!It.Value().IsValid()||It.Value().Get()==Station)It.RemoveCurrent();",
+          "}"
+        ]
+      },
+      {
+        "first_line": 33,
+        "lines": [
+          "{",
+          "    if(auto* Scene=SceneStations.FindRef(Cell).Get())return Scene;",
+          "    if(auto* Found=Cast<AVoxelBuildPrefabActor>(PrefabActors.FindRef(Cell).Get()))return Found;",
+          "    if(!HasAuthority())for(TActorIterator<AVoxelBuildPrefabActor> It(GetWorld());It;++It)",
+          "        if(It->GetOwner()==this&&It->AnchorCell()==Cell&&!It->IsSceneStation()&&!It->PrefabId().IsNone()&&!It->IsFalling())",
+          "        {const_cast<AVoxelBuildWorld*>(this)->PrefabActors.Add(Cell,*It);return *It;}",
+          "    return nullptr;"
+        ]
+      },
+      {
+        "first_line": 53,
+        "lines": [
+          "    if(!Source)return false;",
+          "    const int32 FurnaceZ = VillageFurnaceKeys::Contains(Furnace) ? FMath::FloorToInt(Source->GetActorLocation().Z / 20.) : Furnace.Z;",
+          "    double Best=350.*350.;bool Found=false;",
+          "    for(const auto& Entry:Prefabs)"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "07-smelting-yard",
+    "path": "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp",
+    "snapshot": "95fee17cc69382bb929160ba50cf4c063ff0b4116e6e56c993cf6685e6878f76",
+    "anchors": [
+      {
+        "first_line": 735,
+        "lines": [
+          "        if(auto* Found=Cast<AVoxelBuildPrefabActor>(Parent)){Target=Found;break;}",
+          "    if(!bReady||GetNetMode()==NM_Client||!IsValid(Target)||Target->GetOwner()!=this||Target->IsSceneStation())",
+          "    {Message=TEXT(\"只能拆除自己放置的构件\");return false;}",
+          "    // 正在下落的构件（失去支撑后脱落）已经不在 Prefabs 记录里，但 Actor 还要飞一段时间。"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "07-smelting-yard",
+    "path": "Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp",
+    "snapshot": "fab6772e6993f3f51be85551e0c20b4af033809d42a4415a7df7ef051733d817",
+    "anchors": [
+      {
+        "first_line": 165,
+        "lines": [
+          "",
+          "bool AHillsBlacksmith::IsSceneStationAvailable() const",
+          "{return Hills.IsValid()&&Hills->IsVillageBlacksmithRepaired()&&PrefabId()==VoxelCastingStationId&&!IsFalling();}",
+          ""
+        ]
+      },
+      {
+        "first_line": 172,
+        "lines": [
+          "    {",
+          "        if(IsSceneStationAvailable())Building->RegisterSceneStation(this);",
+          "        else Building->UnregisterSceneStation(this);",
+          "    }",
+          "}"
+        ]
+      },
+      {
+        "first_line": 203,
+        "lines": [
+          "    }",
+          "    UpdateSmeltingYard(Repaired);",
+          "    UpdateSmithTorches(this,Repaired);",
+          "    VillageChimneySmoke::Apply(*this,Repaired);"
+        ]
+      },
+      {
+        "first_line": 251,
+        "lines": [
+          "{",
+          "    UpdateSmeltingYard(false);",
+          "    if (HasAuthority()) UpdateResident(false);",
+          "    GetWorldTimerManager().ClearTimer(BindTimer);",
+          "    if(auto* Building=Cast<AVoxelBuildWorld>(GetOwner()))Building->UnregisterSceneStation(this);",
+          "    Super::EndPlay(Reason);",
+          "}"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "07-smelting-yard",
+    "path": "Source/FPSGAME/WorldGeneration/HillsBlacksmith.h",
+    "snapshot": "f4d07490377d2e30b6a7b92ce09b9f7d2895e364ed9b4fdf8de5cc7bd6f9eb21",
+    "anchors": [
+      {
+        "first_line": 7,
+        "lines": [
+          "class AVillageBlacksmithResident;",
+          "class ASmithYardFurnace;",
+          "class AStaticMeshActor;",
+          "class UStaticMesh;"
+        ]
+      },
+      {
+        "first_line": 27,
+        "lines": [
+          "    bool RepairAreaOccupied() const;",
+          "    virtual bool IsSceneStation() const override { return true; }",
+          "    virtual bool IsSceneStationAvailable() const override;",
+          "protected:",
+          "    virtual void BeginPlay() override;"
+        ]
+      },
+      {
+        "first_line": 38,
+        "lines": [
+          "    void UpdateResident(bool bRepaired);",
+          "    void UpdateSmeltingYard(bool bRepaired);",
+          "    TWeakObjectPtr<ASmithYardFurnace> YardFurnaces[2];",
+          "    TWeakObjectPtr<AStaticMeshActor> YardShelter;",
+          "    TWeakObjectPtr<AVillageBlacksmithResident> Resident;"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "11-mining",
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogue.h",
+    "snapshot": "5bcf263bd32e34be6ae5baae87bec484b9cfdd3d7ad1c4486461aa27623bb4d5",
+    "anchors": [
+      {
+        "first_line": 38,
+        "lines": [
+          "    TSharedPtr<SButton> DefaultChoice, LessonButton, ReturnButton, TrainingRetry;",
+          "    int32 PresentedSmithStep = INDEX_NONE;",
+          "    TSharedPtr<STextBlock> FeedbackText, LessonReason, LessonLabel, TrainingProgress;",
+          "    int32 Page=0;"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "13-seat",
+    "path": "Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+    "snapshot": "42632163fff0852d41a0016318aa8147c848b18057250002822e346963b8b7c4",
+    "anchors": [
+      {
+        "first_line": 133,
+        "lines": [
+          "    const TSharedPtr<FJsonObject>* Fitted=nullptr;",
+          "    if(Spec->TryGetObjectField(TEXT(\"mesh_by_blade\"),Fitted)&&(*Fitted)->TryGetStringField(Parts.FindRef(TEXT(\"blade_1\")),Path))",
+          "        return Path;",
+          "    Spec->TryGetStringField(TEXT(\"mesh\"),Path);"
+        ]
+      },
+      {
+        "first_line": 423,
+        "lines": [
+          "    if(Item.Definition==TEXT(\"ue_highland_claymore\")&&Parts.FindRef(TEXT(\"blade_1\"))==TEXT(\"highland_broadblade\"))",
+          "        Result+=TEXT(\"|broadbladeGuardFinish=20261106-r1\");",
+          "    if(Item.Definition==TEXT(\"ue_frost_crystal_sword\")&&Parts.FindRef(TEXT(\"blade_material\"))==TEXT(\"high_energy_magic_crystal\"))",
+          "        Result+=TEXT(\"|crystalGlass=20261102-v2\");"
+        ]
+      },
+      {
+        "first_line": 498,
+        "lines": [
+          "",
+          "void ColdSteelModularSword::ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot,uint32 FinishSeed)",
+          "{",
+          "    if(!Mesh)return;"
+        ]
+      },
+      {
+        "first_line": 527,
+        "lines": [
+          "        Dynamic->SetScalarParameterValue(TEXT(\"BladeFinishMode\"),float(Mode));",
+          "        Dynamic->SetScalarParameterValue(TEXT(\"BladeFinishGuardRoot\"),GuardRoot?1.f:0.f);",
+          "        Dynamic->SetScalarParameterValue(TEXT(\"DamascusSeed\"),float(FinishSeed));",
+          "    }"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "13-seat",
+    "path": "Source/FPSGAME/Characters/FPSBodyRuneVisual.cpp",
+    "snapshot": "35ea216b33062d96e73c50eee303bcf9a2a9c024fcf74fcf637b72bcb0a6338c",
+    "anchors": [
+      {
+        "first_line": 32,
+        "lines": [
+          "        Out.BladeFinishSeed=ColdSteelModularSword::BladeFinishSeed(*Item);",
+          "        Out.bBladeFinishGuardRoot=ColdSteelModularSword::UsesBladeSeatMask(Source,*Item);",
+          "    }",
+          "    if(Blade&&Item->Definition==ColdSteelFrostRunes::Zhanmadao)"
+        ]
+      },
+      {
+        "first_line": 74,
+        "lines": [
+          "    // Native rune selection may replace the material, so finish settings come last.",
+          "    ColdSteelModularSword::ApplyBladeFinish(Mesh,Description.BladeFinishMode,Description.bBladeFinishGuardRoot,Description.BladeFinishSeed);",
+          "    const auto& D=Description.RuneDimensions;",
+          "    for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)"
+        ]
+      },
+      {
+        "first_line": 91,
+        "lines": [
+          "        (Description.bChixiaoBlade?TEXT(\":chixiao\"):TEXT(\"\"))+(Description.bZhufengBlade?TEXT(\":zhufeng\"):TEXT(\"\"));",
+          "    if(Description.BladeFinishMode!=0||Description.bBladeFinishGuardRoot)",
+          "        Result+=FString::Printf(TEXT(\"|bladeFinishRootV1:%u:%d\"),Description.BladeFinishMode,Description.bBladeFinishGuardRoot);",
+          "    if(Description.BladeFinishMode==4)",
+          "        Result+=FString::Printf(TEXT(\"|damascus:%u\"),Description.BladeFinishSeed);"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "13-seat",
+    "path": "Source/FPSGAME/Weapons/SharedTwoHandFinishAudit.cpp",
+    "snapshot": "0e0fa2fe901a4698b7dba69f42b288f9766142721982ccbc05d09434c98d8f88",
+    "anchors": [
+      {
+        "first_line": 169,
+        "lines": [
+          "                    const bool Carrier=ColdSteelModularSword::IsBladeFinishCarrier(Source,Item);",
+          "                    const bool GuardRoot=(RuneSword||Forged)&&Source->ComponentHasTag(TEXT(\"SwordSlot=guard\"));",
+          "                    FName Slot;for(const auto& Tag:Source->ComponentTags)if(Tag.ToString().StartsWith(TEXT(\"SwordSlot=\"))){Slot=Tag;break;}",
+          "                    const FString SurfaceLabel=Label+TEXT(\"/\")+Slot.ToString();"
+        ]
+      },
+      {
+        "first_line": 174,
+        "lines": [
+          "                    FFPSBodyAttachment Description;FPSBodyRuneVisual::Capture(Source,&Item,Description);",
+          "                    Check(Description.BladeFinishMode==(Carrier?Mode:0)&&Description.bBladeFinishGuardRoot==GuardRoot,SurfaceLabel+TEXT(\" capture\"));",
+          "                    int32 Surfaces=0;",
+          "                    for(int32 Index=0;Index<Source->GetNumMaterials();++Index)"
+        ]
+      },
+      {
+        "first_line": 183,
+        "lines": [
+          "                            float RootMask=-1.f;",
+          "                            Check(Scalar(Source->GetMaterial(Index),TEXT(\"BladeFinishGuardRoot\"),RootMask)&&RootMask==float(GuardRoot),SurfaceLabel+TEXT(\" blade and seat scope\"));",
+          "                            if(GuardRoot)Check(Source->GetStaticMesh()->GetName().EndsWith(TEXT(\"_ExecutionerSeat\"))==(Part.Id==TEXT(\"executioner_blade\")),SurfaceLabel+TEXT(\" fitted seat\"));",
+          "                        }",
+          "                    }"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp",
+    "snapshot": "91154feaf75537e3b61af527c70418c03ba2332f882e1c09fde2dc1c99bf2c2b",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"FPSCombatHealthComponent.h\"",
+          "#include \"../Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"UnknownHumanoid.h\"",
+          "#include \"UnknownSpellCombat.h\""
+        ]
+      },
+      {
+        "first_line": 75,
+        "lines": [
+          "    bDeathApplied=true;",
+          "    if(auto* Eagle=Character->FindComponentByClass<UEagleTalonGuardComponent>())Eagle->ClearCharge();",
+          "    if(auto* Sword=Character->FindComponentByClass<URuneSwordComponent>())Sword->ClearRingChainProgress();",
+          "    // Use the existing priority cancellation path without reapplying a profile"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp",
+    "snapshot": "dc29829b69b097b3c7a031f7593e3d5ab2aeb3d06d61e32b4f232a6e85bef235",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"ColdSteelGenericMelee.h\"",
+          "#include \"../Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"ColdSteelPlayerState.h\"",
+          "#include \"ColdSteelAuthorityContext.h\""
+        ]
+      },
+      {
+        "first_line": 128,
+        "lines": [
+          "    {",
+          "        if(Meta!=0x16||!UEagleTalonGuardComponent::Installed(Item,Model)||Model->MasteryProgress(TEXT(\"dashAttack\")).Level<1)return;",
+          "        Duration=RuneSwordOverheadRhythm::FinisherSeconds/Haste;",
+          "        ContactStart=RuneSwordOverheadRhythm::DashWindupSeconds/Haste;"
+        ]
+      },
+      {
+        "first_line": 174,
+        "lines": [
+          "        if(!SwordComponent||(!SwordComponent->HasGaleGuard(Item)&&!Model->SpendStamina(float(Cost))))return;",
+          "        UEagleTalonGuardComponent::Commit(Pawn,Instance,EEagleStrike::Ordinary,Serial);",
+          "    }",
+          "    auto& Receipt=GenericMeleeReceipts.Add(Serial);"
+        ]
+      },
+      {
+        "first_line": 204,
+        "lines": [
+          "        return (Receipt&&Receipt->Family==ColdSteelGenericMelee::SwordDash)",
+          "            ||UEagleTalonGuardComponent::Installed(Item,ColdSteelAuthority::ForPawn(GetPawn()));",
+          "    }",
+          "    // Existing special gates remain authoritative. Unknown sword semantics"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp",
+    "snapshot": "62049f20aff32a238c57183f8249f862563f64b8cc5880989e0189933d5534bd",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"ColdSteelPlayerState.h\"",
+          "#include \"../Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"ColdSteelMapMarkerSharing.h\"",
+          "#include \"../Skills/ColdSteelSkillTree.h\""
+        ]
+      },
+      {
+        "first_line": 493,
+        "lines": [
+          "        Shooter->FindComponentByClass<URuneSwordComponent>()->RecordForgedHeavyTarget(Report.Target.Get());",
+          "    Shot.bEagleTalonStrike=Shot.bMelee&&!Shot.bRicochet&&UEagleTalonGuardComponent::ReportEmpowered(Shooter,Report);",
+          "    Prepared.Report=Report;Prepared.Shooter=Shooter;Prepared.Model=Model;Prepared.Hit=Hit;Prepared.Damage=Damage;Prepared.Shot=MoveTemp(Shot);",
+          "    Prepared.bHasItem=Declared!=nullptr;if(Declared)Prepared.Item=MoveTemp(DeclaredSnapshot);"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp",
+    "snapshot": "9fc1bad33ca30533994d50489d34b5b2d8b0130f214aaa3d2aaf1f5b3d6cc767",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"ColdSteelPlayerState.h\"",
+          "#include \"../Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"../Weapons/PojunGrip.h\"",
+          "#include \"../Weapons/Kukri/KukriRelentlessComponent.h\""
+        ]
+      },
+      {
+        "first_line": 94,
+        "lines": [
+          "    if(const auto* Held=ShadowModel->Equipped())",
+          "        UEagleTalonGuardComponent::Commit(Pawn,Held->InstanceId,EEagleStrike::Quick,Sequence);",
+          "    QuickCombatServerSequence=Sequence;QuickCombatTargets.Reset();",
+          "    QuickCombatEquipment=Equipment;"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelRiftSlashNetwork.cpp",
+    "snapshot": "8fff2b4577f3c1388dd7d3f9a8897fe0f4e82792e590b10bb299780aab714353",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"ColdSteelPlayerState.h\"",
+          "#include \"../Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"../Weapons/StarMarrowComponent.h\"",
+          "#include \"../FPSGAMECharacter.h\""
+        ]
+      },
+      {
+        "first_line": 38,
+        "lines": [
+          "        Shot.GalePaymentKey=GaleWing::Key(GaleWing::EAttack::Heavy,GuardSerial);",
+          "    Shot.bEagleTalonStrike=UEagleTalonGuardComponent::WasEmpowered(Pawn,Weapon,EEagleStrike::Heavy,GuardSerial);",
+          "    Shot.GuardAttackSerial=GuardSerial;Shot.GuardSourceInstance=Item->InstanceId;",
+          "    Shot.ToughnessDamageMultiplier*=ColdSteelMelee::Evaluate(*Item,ShadowModel).Modifiers.HeavyToughness;"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp",
+    "snapshot": "b2f1aadec5326b5b3489eb6467df274f3ba614d9a44417314c0eba5d023e2c0c",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"ColdSteelPlayerState.h\"",
+          "#include \"../Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"../Weapons/Kukri/KukriRelentlessComponent.h\"",
+          "#include \"../Weapons/Kukri/KukriDecisiveComponent.h\""
+        ]
+      },
+      {
+        "first_line": 65,
+        "lines": [
+          "    ShadowModel->Current.UppercutStaminaSpent+=FMath::Max(0.f,Before-ShadowModel->Stamina());",
+          "    UEagleTalonGuardComponent::Commit(Pawn,Weapon,EEagleStrike::Uppercut,Sequence);",
+          "    UppercutActiveSequence=Sequence;UppercutPawn=Pawn;UppercutWeapon=Weapon;UppercutRewardModel=ShadowModel;",
+          "    if(auto* Pendant=Pawn->FindComponentByClass<UKukriRelentlessComponent>())Pendant->PrepareServerAttack(2);"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelWhirlwindAuthority.cpp",
+    "snapshot": "d6e4a53c89f95b50cd80e49c983c4a33edb4dc69eeb2837bcad57ff65d3d7b86",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"ColdSteelPlayerState.h\"",
+          "#include \"../Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"../Weapons/Kukri/KukriRelentlessComponent.h\"",
+          "#include \"../Weapons/Kukri/KukriDecisiveComponent.h\""
+        ]
+      },
+      {
+        "first_line": 97,
+        "lines": [
+          "    ShadowModel->Current.UppercutStaminaSpent+=FMath::Max(0.f,Before-ShadowModel->Stamina());",
+          "    UEagleTalonGuardComponent::Commit(Pawn,Weapon,EEagleStrike::Whirlwind,Sequence);",
+          "    ServerWhirlwindCast=CastStats;WhirlwindActiveSequence=Sequence;WhirlwindMoveSequence=MoveSequence;",
+          "    if(auto* Pendant=Pawn->FindComponentByClass<UKukriRelentlessComponent>())Pendant->PrepareServerAttack(3);"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Skills/ColdSteelChainSlashModel.cpp",
+    "snapshot": "4e0f5d8add577e1e55ea89f4e4f9dbdc8543f6841e1d19cfa5491c55f975c1cc",
+    "anchors": [
+      {
+        "first_line": 4,
+        "lines": [
+          "#include \"NetCastUtils.h\"",
+          "#include \"../Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"../Weapons/MeleeWeaponStats.h\"",
+          "#include \"../Weapons/PojunGrip.h\""
+        ]
+      },
+      {
+        "first_line": 19,
+        "lines": [
+          "    C.CooldownSeconds*=float(M.MartialCooldownMultiplier());",
+          "    C.StaminaCost=UEagleTalonGuardComponent::Ready(this)?0.f:float(ColdSteelMelee::ModifiedAttackStamina(C.StaminaCost,M.Stamina,",
+          "        ColdSteelMelee::TemporaryModifiers(this).Stamina,this));",
+          "    return C;"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp",
+    "snapshot": "f91bb228c09e4fe96af4812b1c26f5978b216e3ce562b463bacb9fdff3508a5d",
+    "anchors": [
+      {
+        "first_line": 4,
+        "lines": [
+          "#include \"ColdSteelSpellRewards.h\"",
+          "#include \"../Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"../Weapons/MeleeWeaponStats.h\"",
+          "#include \"../Weapons/HighlandRidgeThrust.h\""
+        ]
+      },
+      {
+        "first_line": 90,
+        "lines": [
+          "    }",
+          "    C.StaminaCost=UEagleTalonGuardComponent::Ready(this)?0.f:C.StaminaCost*ActionStaminaMultiplier();",
+          "    return C;",
+          "}"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp",
+    "snapshot": "67a1783a061a32e267af0a3fbdc4aa91e0e3b3a64ccf919b060333225ce8ca86",
+    "anchors": [
+      {
+        "first_line": 4,
+        "lines": [
+          "#include \"SwordUppercutWeapon.h\"",
+          "#include \"../Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"../Weapons/MeleeWeaponStats.h\"",
+          "#include \"Engine/GameInstance.h\""
+        ]
+      },
+      {
+        "first_line": 27,
+        "lines": [
+          "{",
+          "    if(UEagleTalonGuardComponent::Ready(this))return 0.f;",
+          "    return MasteryDefinition(TEXT(\"swordUppercut\")).UppercutStaminaCost*",
+          "        UppercutModifiers(this).Stamina*ColdSteelMelee::TemporaryModifiers(this).Stamina*ActionStaminaMultiplier();"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillTypes.h",
+    "snapshot": "8763b4606fbc092059a48f344e03e28d2d697bb46e44d9927f063a6a99084ed2",
+    "anchors": [
+      {
+        "first_line": 134,
+        "lines": [
+          "    uint32 GenericMeleeSerial=0;",
+          "    bool bEagleTalonStrike=false; // Captured only at an accepted attack start on authority.",
+          "    // Authored damage phase; only phase zero can consume a prepared first-strike bonus.",
+          "    uint8 MeleeDamagePhase=0;"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp",
+    "snapshot": "cd584e2b110717560ee60c1a34a737a12913359eae5d23a6c953c04e359c190f",
+    "anchors": [
+      {
+        "first_line": 5,
+        "lines": [
+          "#include \"WhirlwindWeapon.h\"",
+          "#include \"../Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"../Weapons/MeleeWeaponStats.h\"",
+          "#include \"../Weapons/ModularSwordVisual.h\""
+        ]
+      },
+      {
+        "first_line": 31,
+        "lines": [
+          "    }",
+          "    C.StaminaCost=UEagleTalonGuardComponent::Ready(this,Item)?0.f:C.StaminaCost*ActionStaminaMultiplier();",
+          "    return C;",
+          "}"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp",
+    "snapshot": "061ee62b615b440a2ffc18d4d8ca7d91e7ba07981e73164efa37bd40893b501e",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"MeleeWeaponStats.h\"",
+          "#include \"EagleTalonGuardComponent.h\"",
+          "#include \"../Weapons/PojunGrip.h\"",
+          "#include \"Kukri/KukriBerserkerComponent.h\""
+        ]
+      },
+      {
+        "first_line": 101,
+        "lines": [
+          "    R.AttackStamina=AttackStamina(&Item,Profile,&R.Modifiers);",
+          "    R.BlockStamina=BlockStamina(R.Modifiers,Profile);",
+          "    R.BlockReduction=FMath::Clamp((1.-RuneSwordGuardTuning::DamageTakenRatio)*R.Modifiers.BlockReduction,0.,1.);",
+          "    return R;"
+        ]
+      },
+      {
+        "first_line": 130,
+        "lines": [
+          "",
+          "double ColdSteelMelee::BlockStamina(const FMeleeModifiers& Modifiers,const UColdSteelStatusModel* Profile)",
+          "{",
+          "    return RuneSwordGuardTuning::BlockStamina*Modifiers.BlockStamina*(Profile?Profile->ActionStaminaMultiplier():1.f);",
+          "}",
+          ""
+        ]
+      },
+      {
+        "first_line": 191,
+        "lines": [
+          "    // An explicitly free attack bypasses the ordinary stamina reduction floor.",
+          "    if(UKukriBerserkerComponent::Active(Item,Profile)||UEagleTalonGuardComponent::Ready(Profile,Item))return 0.;",
+          "    // The HUD attack count and the staff executor share ordinary punch cost.",
+          "    if(Item&&ColdSteelStaff::IsStaff(*Item))return UnarmedAttackStamina(Profile);"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Weapons/RuneSwordActions.cpp",
+    "snapshot": "a25377dc53e85252366a39333356ec08dc9197e69953cdcbfbea2a363ec7d667",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"RuneSwordComponent.h\"",
+          "#include \"EagleTalonGuardComponent.h\"",
+          "#include \"HighlandBreakSweep.h\"",
+          "#include \"RingChainSweepMotion.h\""
+        ]
+      },
+      {
+        "first_line": 163,
+        "lines": [
+          "    if(!CanUse(true) || Character->IsCastBlockingLeftHandAction()){CancelAction();return;}",
+          "    if(const auto* Profile=ColdSteelAuthority::ForPawn(Character.Get());Profile&&Profile->Stamina()<=0.f&&!UEagleTalonGuardComponent::Ready(Profile))",
+          "    {CancelHeavyCharge();return;}",
+          "    const double HeldSeconds=GetWorld()->GetTimeSeconds()-ChargeStartedAt;"
+        ]
+      },
+      {
+        "first_line": 220,
+        "lines": [
+          "    // on the same PlayerState channel as food use, before any contact exists.",
+          "    const bool EagleDash=bDash&&UEagleTalonGuardComponent::Installed(Item,Profile);",
+          "    if(!Heavy&&(!bDash||EagleDash)&&Clip!=TEXT(\"PommelStrike\")&&Clip!=HighlandBreakSweep::Clip&&",
+          "        GetNetMode()!=NM_Standalone)"
+        ]
+      },
+      {
+        "first_line": 324,
+        "lines": [
+          "    if(Clip!=TEXT(\"PommelStrike\"))",
+          "        SwingSkills.bEagleTalonStrike=UEagleTalonGuardComponent::Commit(GetOwner(),InstanceId,",
+          "            Heavy?EEagleStrike::Heavy:EEagleStrike::Ordinary,Heavy?NetworkBladeSerial:GenericReceipt);",
+          "    CaptureAzureDragonAttack(Profile);",
+          "    SwingSkills.bRifle=false;SwingSkills.bPistol=false;SwingSkills.WeakpointPercent=0;"
+        ]
+      },
+      {
+        "first_line": 413,
+        "lines": [
+          "    if(!Profile->CommitQuickCombatCast(Duration)){CancelAction();return false;}",
+          "    SwingSkills.bEagleTalonStrike=UEagleTalonGuardComponent::Commit(GetOwner(),InstanceId);",
+          "    if(Character->HasAuthority() && HasGaleGuard(Profile->Equipped()))",
+          "    {"
+        ]
+      },
+      {
+        "first_line": 615,
+        "lines": [
+          "    auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();",
+          "    if(!Profile||(Profile->Stamina()<=0.f&&!UEagleTalonGuardComponent::Ready(Profile))||Profile->MasteryProgress(TEXT(\"heavyStrike\")).Level<1||Profile->ActiveProductionTool())return;",
+          "    const auto* Item=Profile->Equipped();if(!Item)return;",
+          "    const auto Skill=Profile->MasteryEffect(TEXT(\"heavyStrike\"));"
+        ]
+      },
+      {
+        "first_line": 632,
+        "lines": [
+          "    if(!CanUse(true) || Character->IsCastBlockingLeftHandAction()){CancelAction();return;}",
+          "    if(const auto* Profile=ColdSteelAuthority::ForPawn(Character.Get());Profile&&Profile->Stamina()<=0.f&&!UEagleTalonGuardComponent::Ready(Profile))",
+          "    {CancelHeavyCharge();return;}",
+          "    // Input is dispatched before the component tick: decide from the input's"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Weapons/RuneSwordChainSlash.cpp",
+    "snapshot": "91798cb64fef7f3afde79f18d4c41201023dcbbd48c70b0caa7b795588c77fcd",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"RuneSwordComponent.h\"",
+          "#include \"EagleTalonGuardComponent.h\"",
+          "#include \"PojunGrip.h\"",
+          "#include \"../Production/ProductionToolComponent.h\""
+        ]
+      },
+      {
+        "first_line": 127,
+        "lines": [
+          "    SwingSkills=ColdSteelSkills::Snapshot(Pawn,Item);",
+          "    SwingSkills.bEagleTalonStrike=UEagleTalonGuardComponent::Commit(Pawn,Item->InstanceId);",
+          "    const auto Hammer=ChainTool.IsValid()?ColdSteelTool::Evaluate(*Item,Model):FProductionToolStats{};",
+          "    const double DamageBase=ChainTool.IsValid()?Hammer.Damage.Total():Stats.Damage;"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Weapons/RuneSwordGuard.cpp",
+    "snapshot": "c51a80fd16ce32f40128d7896447293df76e2d7a8091ed2dd8fa0a19a9490214",
+    "anchors": [
+      {
+        "first_line": 8,
+        "lines": [
+          "#include \"TangDaoGuardComponent.h\"",
+          "#include \"EagleTalonGuardComponent.h\"",
+          "#include \"PanChiGuardComponent.h\"",
+          "#include \"../Combat/CombatStatusFormula.h\""
+        ]
+      },
+      {
+        "first_line": 179,
+        "lines": [
+          "            bNetworkGuardParried=true;",
+          "            if(auto* Eagle=Pawn->FindComponentByClass<UEagleTalonGuardComponent>())Eagle->Defended(Item->InstanceId,Source,true);",
+          "            if(Pawn->IsLocallyControlled())GuardFeedback(true);",
+          "            if(auto* Guard=Pawn->FindComponentByClass<UTangDaoGuardComponent>())Guard->GrantDragon();"
+        ]
+      },
+      {
+        "first_line": 194,
+        "lines": [
+          "    if(Pawn->IsLocallyControlled())GuardFeedback(false);",
+          "    const float BlockCost=static_cast<float>(ColdSteelMelee::BlockStamina(Mods,Profile));",
+          "    const float Available=Profile->Stamina();",
+          "    const float Spent=FMath::Min(Available,BlockCost);"
+        ]
+      },
+      {
+        "first_line": 201,
+        "lines": [
+          "    {",
+          "        if(auto* Eagle=Pawn->FindComponentByClass<UEagleTalonGuardComponent>())Eagle->Defended(GuardWeaponInstance(),Source,false);",
+          "        if(auto* Guard=Pawn->FindComponentByClass<UPanChiGuardComponent>())Guard->ConfirmGuard(false);",
+          "    }"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Weapons/RuneSwordHeavyCharge.cpp",
+    "snapshot": "af1d86fca3def5d78cf01bbfe9021b9c4005bdb9146caf43869fb3b3887a3964",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"RuneSwordComponent.h\"",
+          "#include \"EagleTalonGuardComponent.h\"",
+          "#include \"RingChainRebound.h\"",
+          "#include \"../FPSGAMECharacter.h\""
+        ]
+      },
+      {
+        "first_line": 26,
+        "lines": [
+          "    // Keep a free hold free when the attack and release edges arrive on different network channels.",
+          "    RingChargeStaminaScale=UEagleTalonGuardComponent::Ready(Model,&Item)?0.f:Stats.Modifiers.Stamina;",
+          "    return true;",
+          "}"
+        ]
+      },
+      {
+        "first_line": 180,
+        "lines": [
+          "    Model->SpendStamina(Cost);",
+          "    UEagleTalonGuardComponent::Commit(GetOwner(),Weapon,EEagleStrike::Heavy,Serial);",
+          "    RecordGalePayment(GaleWing::Key(GaleWing::EAttack::Heavy,Serial),Weapon,TakeGaleCharge()+Before-Model->Stamina());",
+          "    OathPaidRelease=FMath::Min(float(Release),FMath::Max(0.f,Before-Model->Stamina()));"
+        ]
+      },
+      {
+        "first_line": 244,
+        "lines": [
+          "    const double Start=FMath::Min(ClientStartedAt,Now);",
+          "    if(!CanMaintainHeavyCharge()||!Model||(Model->Stamina()<=0.f&&!UEagleTalonGuardComponent::Ready(Model))||",
+          "        !PrepareHeavyCharge(*Model->Equipped(),Model,Start,ServerHeavyRequiredSeconds))",
+          "    {"
+        ]
+      },
+      {
+        "first_line": 267,
+        "lines": [
+          "    const auto* Model=ColdSteelAuthority::ForPawn(Character.Get());",
+          "    if(GetOwner()->HasAuthority()&&bCharging&&(!CanMaintainHeavyCharge()||!Model||(Model->Stamina()<=0.f&&!UEagleTalonGuardComponent::Ready(Model))))",
+          "    {",
+          "        CancelHeavyCharge();"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Weapons/RuneSwordUppercut.cpp",
+    "snapshot": "12ad42559430b922c0275d10746750a0e0d2b3a49aa901e82a14ab082d49e6aa",
+    "anchors": [
+      {
+        "first_line": 2,
+        "lines": [
+          "#include \"../Skills/LightningHasteSpeed.h\"",
+          "#include \"EagleTalonGuardComponent.h\"",
+          "#include \"RuneSwordComponent.h\"",
+          "#include \"../Skills/ChainSlashAssets.h\""
+        ]
+      },
+      {
+        "first_line": 142,
+        "lines": [
+          "        if(!Profile||!Profile->CommitSwordUppercutRelease()){CancelAction();return;}",
+          "        SwingSkills.bEagleTalonStrike=UEagleTalonGuardComponent::Commit(GetOwner(),InstanceId);",
+          "        if(Character->HasAuthority() && HasGaleGuard(Profile->Equipped()))",
+          "        {"
+        ]
+      }
+    ]
+  },
+  {
+    "stage": "15-eagle",
+    "path": "Source/FPSGAME/Weapons/RuneSwordWhirlwind.cpp",
+    "snapshot": "4c367e59bec9ffc2a60315171741b21deffcf74b364f418e35121f5cf84dba4b",
+    "anchors": [
+      {
+        "first_line": 2,
+        "lines": [
+          "#include \"../Skills/LightningHasteSpeed.h\"",
+          "#include \"EagleTalonGuardComponent.h\"",
+          "#include \"RuneSwordComponent.h\"",
+          "#include \"TangDaoGuardComponent.h\""
+        ]
+      },
+      {
+        "first_line": 101,
+        "lines": [
+          "    HitActors.Reset();SwingSkills=ColdSteelSkills::Snapshot(Character.Get());",
+          "    SwingSkills.bEagleTalonStrike=UEagleTalonGuardComponent::Commit(GetOwner(),InstanceId);",
+          "    if(!Remote && HasGaleGuard(Profile->Equipped()))",
+          "    {"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp",
+    "stage": "02-QuestJournal",
+    "snapshot": "a66f605e8ddf032bcae53f6d29bf2e8b0492f20a1d6b1c45f9a9b943aabdb78b",
+    "anchors": [
+      {
+        "first_line": 53,
+        "lines": [
+          "        {TEXT(\"图鉴\"), TEXT(\"N\"), TEXT(\"Navigation/codex_subject.png\")},",
+          "        {TEXT(\"任务\"), TEXT(\"U\"), TEXT(\"Navigation/tasks_subject.png\")}",
+          "    };",
+          "    for(const FEntry& Entry : Entries)"
+        ]
+      },
+      {
+        "first_line": 104,
+        "lines": [
+          "    PanelNavigationButtons[3]->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::HandleNavigationCodex);",
+          "    PanelNavigationButtons[4]->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::HandleNavigationTasks);",
+          "    PanelNavigationStates.Init(255,PanelNavigationButtons.Num());",
+          "    PanelNavigationHover.SetNum(PanelNavigationButtons.Num());"
+        ]
+      },
+      {
+        "first_line": 210,
+        "lines": [
+          "",
+          "void UColdSteelHUDWidget::HandleNavigationTasks(){ActivatePanelNavigation(4);}",
+          "void UColdSteelHUDWidget::HandleNavigationStatus(){ActivatePanelNavigation(0);}",
+          "void UColdSteelHUDWidget::HandleNavigationBackpack(){ActivatePanelNavigation(1);}"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/ModularSwordVisual.h",
+    "stage": "13-seat",
+    "snapshot": "e62a4f603f3ec32d1d0d0319e00e3f7b67ec03c6a1d70bce096b4b2bec514155",
+    "anchors": [
+      {
+        "first_line": 40,
+        "lines": [
+          "    bool IsBladeFinishCarrier(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);",
+          "    void ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot,uint32 FinishSeed=0);",
+          "    // Colored glass transmission needs an alpha-coverage adapter in UI captures.",
+          "    bool ApplyGlassPreview(UStaticMeshComponent* Blade);"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp",
+    "stage": "15-eagle",
+    "snapshot": "3c8ebe8182aa87c147d4e7d17804f3e72786278132e573a09db4760d01721d9b",
+    "anchors": [
+      {
+        "first_line": 37,
+        "lines": [
+          "#include \"../Weapons/RuneSwordComponent.h\"",
+          "#include \"../Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"../Weapons/RavenQuillChargeComponent.h\"",
+          "#include \"../Weapons/RuneSwordMeshComponent.h\""
+        ]
+      },
+      {
+        "first_line": 220,
+        "lines": [
+          "                {",
+          "                    UEagleTalonGuardComponent::BindGuard(Child);",
+          "                    URavenQuillChargeComponent::BindGuard(Child);",
+          "                }"
+        ]
+      },
+      {
+        "first_line": 398,
+        "lines": [
+          "            {",
+          "                UEagleTalonGuardComponent::BindGuard(Part);",
+          "                URavenQuillChargeComponent::BindGuard(Part);",
+          "            }"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "stage": "15-eagle",
+    "snapshot": "e2566a6f019dfec4614100260077622740fc2a9af478025496bdc49812374e58",
+    "anchors": [
+      {
+        "first_line": 14,
+        "lines": [
+          "#include \"Weapons/TangDaoGuardComponent.h\"",
+          "#include \"Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"Weapons/RavenQuillChargeComponent.h\"",
+          "#include \"Weapons/PanChiGuardComponent.h\""
+        ]
+      },
+      {
+        "first_line": 252,
+        "lines": [
+          "    CreateDefaultSubobject<UTangDaoGuardComponent>(TEXT(\"TangDaoGuardEffects\"));",
+          "    CreateDefaultSubobject<UEagleTalonGuardComponent>(TEXT(\"EagleTalonGuard\"));",
+          "    CreateDefaultSubobject<URavenQuillChargeComponent>(TEXT(\"RavenQuillCharge\"));",
+          "    CreateDefaultSubobject<UPanChiGuardComponent>(TEXT(\"PanChiGuardEffects\"));"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSStaminaModel.cpp",
+    "stage": "15-eagle",
+    "snapshot": "789cfeb2a857304a0cb55025ef7daaf3c4741a478045010371c9dceb8737fed0",
+    "anchors": [
+      {
+        "first_line": 4,
+        "lines": [
+          "#include \"../Weapons/RuneSwordComponent.h\"",
+          "#include \"../Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"../Weapons/RavenQuillChargeComponent.h\"",
+          "#include \"../Weapons/Kukri/KukriWeaponComponent.h\""
+        ]
+      },
+      {
+        "first_line": 98,
+        "lines": [
+          "{",
+          "    if(UEagleTalonGuardComponent::Ready(this))return 0.f;",
+          "    if(const auto* Tool=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UProductionToolComponent>():nullptr;Tool&&Tool->IsThunderCalling())",
+          "        return ThunderHammerCall::StaminaPerSecond*ActionStaminaMultiplier();"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+    "stage": "15-eagle",
+    "snapshot": "e0e9c60f99f6f9b9fbcb2409be45fef1afb0d9af7963a6d935a58941857ecfad",
+    "anchors": [
+      {
+        "first_line": 37,
+        "lines": [
+          "#include \"../Weapons/RuneSwordComponent.h\"",
+          "#include \"../Weapons/EagleTalonGuardComponent.h\"",
+          "#include \"../Weapons/RavenQuillChargeComponent.h\"",
+          "#include \"../Props/FPSPracticeTarget.h\""
+        ]
+      },
+      {
+        "first_line": 167,
+        "lines": [
+          "{",
+          "    if(UEagleTalonGuardComponent::Ready(this))return 0.f;",
+          "    const auto& T=QuickCombatSkill.QuickCombat;",
+          "    const int32 L=FMath::Clamp(AtLevel<0?QuickCombatProgress().Level:AtLevel,1,QuickCombatSkill.MaxLevel);"
+        ]
+      },
+      {
+        "first_line": 301,
+        "lines": [
+          "        const auto* TargetStatus=Victim?Victim->FindComponentByClass<UCombatStatusFormula>():nullptr;",
+          "        float CriticalChance=Shot.CriticalChance+(Shot.bEagleTalonStrike?30.f:0.f)+(TargetStatus?TargetStatus->CriticalVulnerabilityBonusPercent():0.f);",
+          "        bool GuardOtherTarget=false;",
+          "        if(Damage>0.f&&Shot.bMelee&&!Shot.bRicochet&&Shot.ItemDefinition==TEXT(\"ue_forged_steel_greatsword\")"
+        ]
+      },
+      {
+        "first_line": 308,
+        "lines": [
+          "            const bool RavenActive=Raven&&Raven->Matches(Shot);",
+          "            if(RavenActive||Shot.bEagleTalonStrike)",
+          "            {",
+          "                if(IsValid(Victim)&&Victim->CanBeDamaged())"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelStatusModel.cpp",
+    "stage": "15-eagle",
+    "snapshot": "129ad26455e9ee2bfd1eb2bfccacf1dccfe6465bf26195c4c82975178b6b4a1f",
+    "anchors": [
+      {
+        "first_line": 136,
+        "lines": [
+          "    }",
+          "    if (Key == TEXT(\"def\")) {float Equipment=0;if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())for(const auto& Item:Current.Items)if(Item.Place==1&&(ColdSteelInventory::Text(Item,TEXT(\"weaponType\"))!=TEXT(\"shield\")||Item.Cell==(Current.ActiveWeaponSlot==6?8:11)))Equipment+=E->Defense(Item);double Value=S.Def+Equipment;if(const auto* I=Equipped())if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())Value=std::floor(Value*(1+E->CraftEffect(*I,TEXT(\"defensePercent\"))));return (AdjustCombatStat(Key,Value)*JingangDefense+IceDefense)*ColdSteelMelee::EquippedModifiers(this).PhysicalDefenseMultiplier;}",
+          "    if (Key == TEXT(\"matk\")) return AdjustCombatStat(Key,S.Matk+CoreCombatFormula::Round(EquipmentBonus(Key))+EquipmentMagicAttack())*RuneboundHammer::AttackMultiplier(Current);",
+          "    if (Key == TEXT(\"mdef\")) {float Equipment=0;if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())for(const auto& Item:Current.Items)if(Item.Place==1&&(ColdSteelInventory::Text(Item,TEXT(\"weaponType\"))!=TEXT(\"shield\")||Item.Cell==(Current.ActiveWeaponSlot==6?8:11)))Equipment+=E->MagicDefense(Item);return AdjustCombatStat(Key,S.Mdef+Equipment)*JingangDefense+IceDefense;}"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp",
+    "stage": "15-eagle",
+    "snapshot": "2d3e952feb6403733442dd3af71705d47a1451a5e9c72c67f7879715a02770e0",
+    "anchors": [
+      {
+        "first_line": 137,
+        "lines": [
+          "    int32 RowCount = 0;",
+          "    TArray<FString> SpecialEffects=Option->SpecialEffects;",
+          "    auto AddEffect=[&](const FString& Text)",
+          "    {"
+        ]
+      },
+      {
+        "first_line": 143,
+        "lines": [
+          "        // not repeat it merely because punctuation or wording differs.",
+          "        if(Text.Split(TEXT(\"｜\"),&Title,&Body)&&SpecialEffects.ContainsByPredicate([&](const FString& Existing)",
+          "            {return Existing.StartsWith(Title+TEXT(\"｜\"));}))return;",
+          "        SpecialEffects.AddUnique(Text);",
+          "    };",
+          "    if(TacticalDeviceVariants::IsSlot(SelectedCategory)&&TacticalDeviceVariants::SupportsSecondary(Gunsmith->Definition()))"
+        ]
+      },
+      {
+        "first_line": 282,
+        "lines": [
+          "        AddValue(TEXT(\"暴击伤害\"),Before.Melee.MeleeCriticalDamageBonus*100.,After.Melee.MeleeCriticalDamageBonus*100.,0,TEXT(\"%\"),false,M.MeleeCriticalDamageBonus*100.);",
+          "        if(!FMath::IsNearlyEqual(M.BlockStamina,1.))",
+          "            AddValue(ColdSteelWeaponText::BlockStaminaCost,ColdSteelMelee::BlockStamina(Before.Melee,Profile),ColdSteelMelee::BlockStamina(After.Melee,Profile),2,TEXT(\"\"),true,(M.BlockStamina-1.)*100.);",
+          "        AddValue(ColdSteelWeaponText::StaminaCost,Was.StaminaCost,Now.StaminaCost,2,TEXT(\"\"),true,(M.Stamina-1.)*100.);",
+          "        if(!FMath::IsNearlyEqual(M.HeavyReleaseStamina,1.))"
+        ]
+      },
+      {
+        "first_line": 371,
+        "lines": [
+          "        auto Ratio=[](double W,double N){return W>.00001?(N/W-1.)*100.:0.;};",
+          "        if(CompactBlade&&Id!=TEXT(\"false\")&&Option->SpecialEffects.IsEmpty())",
+          "        {",
+          "            if(RisingDragon)AddEffect(TEXT(\"连段变化｜连段收尾变为升龙，准备时间缩短50%；攻速仍按挥砍节奏计算。\"));"
+        ]
+      },
+      {
+        "first_line": 396,
+        "lines": [
+          "            0,TEXT(\"%\"),false,M.MeleeCriticalDamageBonus*100.);",
+          "        if(Profile&&!FMath::IsNearlyEqual(M.PhysicalDefenseMultiplier,1.))",
+          "        {",
+          "            const double BaseDefense=Profile->Derived(TEXT(\"def\"))/ColdSteelMelee::EquippedModifiers(Profile).PhysicalDefenseMultiplier;",
+          "            AddValue(TEXT(\"防御力\"),BaseDefense*Was.Modifiers.PhysicalDefenseMultiplier,",
+          "                BaseDefense*Now.Modifiers.PhysicalDefenseMultiplier,2,TEXT(\"\"),false,Percent(M.PhysicalDefenseMultiplier));",
+          "        }",
+          "        AddValue(ColdSteelWeaponText::BlockStaminaCost,Was.BlockStamina,Now.BlockStamina,2,TEXT(\"\"),true,Percent(M.BlockStamina));",
+          "        AddValue(TEXT(\"格挡伤害减免\"),Was.BlockReduction*100,Now.BlockReduction*100,1,TEXT(\"%\"),false,Percent(M.BlockReduction));",
+          "        AddValue(TEXT(\"所受伤害倍率（乘法叠加）\"),Was.Modifiers.DamageTaken,Now.Modifiers.DamageTaken,2,TEXT(\"×\"),true,Percent(M.DamageTaken));"
+        ]
+      },
+      {
+        "first_line": 462,
+        "lines": [
+          "            [Paragraph(TEXT(\"无常驻属性增减\"),14,GunsmithUI::Muted)];",
+          "    // Mechanics are explicitly authored in special_effects for every catalog.",
+          "    // Legacy attribute summaries must not become a second set of numeric cards.",
+          "    if(!SpecialEffects.IsEmpty())",
+          "    {",
+          "        ModificationList->AddSlot().AutoHeight().Padding(0,12,0,6)",
+          "            [Paragraph(TEXT(\"特效说明\"),14,ColdSteelUI::Success,true)];",
+          "        for(const FString& Effect:SpecialEffects)",
+          "        {",
+          "            FString Label,Body;"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/M4MeleeGunsmith.cpp",
+    "stage": "15-eagle",
+    "snapshot": "48c1839d0948870990cb3c943ac611b5a08c43ed68413a579528b29957ec6fd5",
+    "anchors": [
+      {
+        "first_line": 101,
+        "lines": [
+          "        const auto AfterRunes=Model()->Calculate(Item.Definition,Model()->Draft()).Melee;",
+          "        if(!FMath::IsNearlyEqual(BeforeRunes.BlockStamina,1.)||!FMath::IsNearlyEqual(AfterRunes.BlockStamina,1.))",
+          "            Row(ColdSteelWeaponText::BlockStaminaCost,ColdSteelMelee::BlockStamina(BeforeRunes,Profile),ColdSteelMelee::BlockStamina(AfterRunes,Profile),2,TEXT(\"\"),true);",
+          "        if(BeforeRunes.MeleeCriticalChanceAdd!=0.||AfterRunes.MeleeCriticalChanceAdd!=0.)",
+          "            Row(ColdSteelWeaponText::CriticalChance,BeforeRunes.MeleeCriticalChanceAdd,AfterRunes.MeleeCriticalChanceAdd,0,TEXT(\"%\"));"
+        ]
+      },
+      {
+        "first_line": 217,
+        "lines": [
+          "    Row(TEXT(\"反击激励耐力倍率\"),Before.Modifiers.RiposteStamina,After.Modifiers.RiposteStamina,2,TEXT(\"×\"),true);",
+          "    if(!FMath::IsNearlyEqual(Before.Modifiers.PhysicalDefenseMultiplier,1.)||!FMath::IsNearlyEqual(After.Modifiers.PhysicalDefenseMultiplier,1.))",
+          "        Row(TEXT(\"防御力加成\"),(Before.Modifiers.PhysicalDefenseMultiplier-1.)*100.,(After.Modifiers.PhysicalDefenseMultiplier-1.)*100.,0,TEXT(\"%\"));",
+          "    Row(ColdSteelWeaponText::BlockStaminaCost,Before.BlockStamina,After.BlockStamina,2,TEXT(\"\"),true);",
+          "    Overview.Add({TEXT(\"握持\"),TEXT(\"双手 · 占用副手\"),TEXT(\"双手 · 占用副手\"),TEXT(\"—\"),0});",
+          "}"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+    "stage": "15-eagle",
+    "snapshot": "d76a8cd1f937712e37690beeb61a8963a55f59cb3edcef1cbc561e741b78b7bc",
+    "anchors": [
+      {
+        "first_line": 169,
+        "lines": [
+          "                for(const auto& E:P->GetArrayField(TEXT(\"effects\")))A.Effects.Emplace(E->AsObject()->GetStringField(TEXT(\"text\")),Num(E->AsObject(),TEXT(\"benefit\")));",
+          "                A.ReadSpecialEffects(P);",
+          "                const auto T=P->GetObjectField(TEXT(\"stats\"));A.ADS=Num(T,TEXT(\"ads_percent\"));A.Recoil=Num(T,TEXT(\"recoil_mult\"),1);A.Shake=Num(T,TEXT(\"shake_mult\"),1);A.Stability=Num(T,TEXT(\"stability_mult\"),1);",
+          "                A.EquipSpeedBonus=Num(T,TEXT(\"equip_speed_bonus\"));"
+        ]
+      },
+      {
+        "first_line": 304,
+        "lines": [
+          "            R.Melee.NormalAttackStamina*=M.NormalAttackStamina;",
+          "            R.Melee.PhysicalDefenseMultiplier*=M.PhysicalDefenseMultiplier;",
+          "            R.Melee.Stamina*=M.Stamina;R.Melee.BlockStamina*=M.BlockStamina;R.Melee.HitReaction*=M.HitReaction;R.Melee.BlockReduction*=M.BlockReduction;",
+          "            R.Melee.KillStaminaMaxRatio=FMath::Clamp(R.Melee.KillStaminaMaxRatio+M.KillStaminaMaxRatio,0.,1.);",
+          "            R.Melee.ToughnessDamage*=M.ToughnessDamage;"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/GunsmithSystem.h",
+    "stage": "15-eagle",
+    "snapshot": "f3783e5cb2898c67a32cd07d9b5c52ad72be6e4024ae13665807501a91981c4f",
+    "anchors": [
+      {
+        "first_line": 12,
+        "lines": [
+          "{",
+          "    double Damage=1, AttackSpeed=1, Range=1, Stamina=1, BlockStamina=1, HitReaction=1, BlockReduction=1;",
+          "    // Poise damage is separate from the duration of a successful poise break.",
+          "    double ToughnessDamage=1, PhysicalArmorPenetration=0;"
+        ]
+      },
+      {
+        "first_line": 69,
+        "lines": [
+          "    double DamageTaken=1, DodgeStamina=1, SprintStamina=1;",
+          "    double PhysicalDefenseMultiplier=1.;",
+          "    double DragonSeconds=0, DragonCooldown=0, DragonDamage=1, DragonToughness=0;",
+          "    double PhoenixSeconds=0, PhoenixCooldown=0, PhoenixSpeed=1, PhoenixHealRatio=0, PhoenixHealHits=0;"
+        ]
+      },
+      {
+        "first_line": 151,
+        "lines": [
+          "    // Conditional mechanics are independent of the permanent numeric cards.",
+          "    TArray<FString> SpecialEffects;",
+          "    void ReadSpecialEffects(const TSharedPtr<FJsonObject>& Data)",
+          "    {",
+          "        const TArray<TSharedPtr<FJsonValue>>* Lines=nullptr;",
+          "        if(Data->TryGetArrayField(TEXT(\"special_effects\"),Lines))",
+          "            for(const auto& Line:*Lines)SpecialEffects.Add(Line->AsString());",
+          "    }",
+          "    // EmptyReload defaults to Reload, so an option only needs the extra catalog"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/MeleeGunsmith.cpp",
+    "stage": "15-eagle",
+    "snapshot": "6b19384870f1b0030cdf29fa4e63db43453f00b12fbbc054a068a5997fdc39ff",
+    "anchors": [
+      {
+        "first_line": 50,
+        "lines": [
+          "            if(Key==TEXT(\"blade_material\"))Part.Appearance=Part.Description;",
+          "            Part.ReadSpecialEffects(Data);",
+          "            const TArray<TSharedPtr<FJsonValue>>* Compatible=nullptr;",
+          "            if(Data->TryGetArrayField(TEXT(\"weapons\"),Compatible))for(const auto& Id:*Compatible)Part.CompatibleWeapons.Add(Id->AsString());"
+        ]
+      },
+      {
+        "first_line": 69,
+        "lines": [
+          "            Stats->TryGetNumberField(TEXT(\"block_reduction_mult\"),Part.Melee.BlockReduction);",
+          "            Stats->TryGetNumberField(TEXT(\"block_stamina_mult\"),Part.Melee.BlockStamina);",
+          "            Stats->TryGetNumberField(TEXT(\"physical_defense_mult\"),Part.Melee.PhysicalDefenseMultiplier);",
+          "            Stats->TryGetNumberField(TEXT(\"damage_taken_mult\"),Part.Melee.DamageTaken);",
+          "            Stats->TryGetNumberField(TEXT(\"dodge_stamina_mult\"),Part.Melee.DodgeStamina);"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/ModularSwordVisual.cpp",
+    "stage": "15-eagle",
+    "snapshot": "ce4c3406d888cf338ec9a334a8699375c8b0f3fae8cc5082e94115f7b01abb5a",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"ModularSwordVisual.h\"",
+          "#include \"EagleTalonGuardComponent.h\"",
+          "#include \"RavenQuillChargeComponent.h\"",
+          "#include \"../Weapons/PojunGrip.h\""
+        ]
+      },
+      {
+        "first_line": 650,
+        "lines": [
+          "        {",
+          "            UEagleTalonGuardComponent::BindGuard(Mesh);",
+          "            URavenQuillChargeComponent::BindGuard(Mesh);",
+          "        }"
+        ]
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/RuneSwordPresentation.cpp",
+    "stage": "15-eagle",
+    "snapshot": "37a42f23c915eef69ea65b3d38c96aaf9a5b8ef5c14c4ced6cfba656a68166d9",
+    "anchors": [
+      {
+        "first_line": 1,
+        "lines": [
+          "#include \"RuneSwordComponent.h\"",
+          "#include \"EagleTalonGuardComponent.h\"",
+          "#include \"RavenQuillChargeComponent.h\"",
+          "#include \"HighlandBreakSweep.h\""
+        ]
+      },
+      {
+        "first_line": 116,
+        "lines": [
+          "    RefreshRingChain(Profile->ActiveProductionTool()?nullptr:Profile->Equipped());",
+          "    if(auto* Eagle=GetOwner()->FindComponentByClass<UEagleTalonGuardComponent>())",
+          "        Eagle->Equip(Profile);",
+          "    if(auto* Raven=GetOwner()->FindComponentByClass<URavenQuillChargeComponent>())"
+        ]
+      }
+    ]
+  }
+]

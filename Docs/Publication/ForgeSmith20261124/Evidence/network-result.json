@@ -1,0 +1,143 @@
+{
+  "passed": true,
+  "port": 62762,
+  "mode": "listen",
+  "rendered": false,
+  "module_sha256": "b3ec4de3f9f17b5d11bc1fb053f6cd0527e65a75cd842312f12ad6440648079d",
+  "village_map_sha256_at_start": "29e56814ce9d380b08c261c6dd600a27077ffdd9d508dce237021d1fd136111f",
+  "scope": "shop lamps, two furnaces, owner-only mining lesson, pickup, delivery and reconnect",
+  "checks": [
+    {
+      "peer": "owner",
+      "case": "accepted",
+      "passed": true,
+      "detail": "stage=8 lamps=18 bays=2 shelters=1 pickaxes=2 ore=0"
+    },
+    {
+      "peer": "owner",
+      "case": "delivered",
+      "passed": true,
+      "detail": "pickaxes=2 ore=3"
+    },
+    {
+      "peer": "owner",
+      "case": "eagle-ready",
+      "passed": true,
+      "detail": "replicated six blocks"
+    },
+    {
+      "peer": "owner",
+      "case": "eagle-spent",
+      "passed": true,
+      "detail": "replicated consumption"
+    },
+    {
+      "peer": "owner",
+      "case": "repaired-yard",
+      "passed": true,
+      "detail": "stage=0 lamps=18 bays=2 shelters=1 pickaxes=1 ore=0"
+    },
+    {
+      "peer": "owner",
+      "case": "ruins",
+      "passed": true,
+      "detail": "stage=0 lamps=2 bays=0 shelters=0 pickaxes=1 ore=0"
+    },
+    {
+      "peer": "owner",
+      "case": "ten-ore",
+      "passed": true,
+      "detail": "stage=18 lamps=18 bays=2 shelters=1 pickaxes=2 ore=10"
+    },
+    {
+      "peer": "rejoin",
+      "case": "restored",
+      "passed": true,
+      "detail": "stage=5 lamps=18 bays=2 shelters=1 pickaxes=2 ore=3"
+    },
+    {
+      "peer": "server",
+      "case": "at-smith",
+      "passed": true,
+      "detail": "stage=0 lamps=18 bays=2 shelters=1 pickaxes=0 ore=0"
+    },
+    {
+      "peer": "server",
+      "case": "disconnected",
+      "passed": true,
+      "detail": "stage=0 lamps=18 bays=2 shelters=1 pickaxes=0 ore=0"
+    },
+    {
+      "peer": "server",
+      "case": "done",
+      "passed": true,
+      "detail": "stage=0 lamps=18 bays=2 shelters=1 pickaxes=0 ore=0"
+    },
+    {
+      "peer": "server",
+      "case": "eagle-six",
+      "passed": true,
+      "detail": "two parries plus two blocks; ready basic and dash stamina costs"
+    },
+    {
+      "peer": "server",
+      "case": "eagle-spent",
+      "passed": true,
+      "detail": "one authorized skill receipt"
+    },
+    {
+      "peer": "server",
+      "case": "ore-drop",
+      "passed": true,
+      "detail": "stage=0 lamps=18 bays=2 shelters=1 pickaxes=0 ore=0"
+    },
+    {
+      "peer": "server",
+      "case": "repair-bakery",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "peer": "server",
+      "case": "repair-blacksmith",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "peer": "server",
+      "case": "repair-carpenter",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "peer": "server",
+      "case": "repair-gunshop",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "peer": "server",
+      "case": "repair-herbalist",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "peer": "server",
+      "case": "repair-tavern",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "peer": "server",
+      "case": "repair-windmill",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "peer": "server",
+      "case": "transport",
+      "passed": true,
+      "detail": "lag=60 loss=2"
+    }
+  ]
+}

@@ -1,0 +1,461 @@
+--- a/Source/FPSGAME/Building/BronzeTorch.cpp
++++ b/Source/FPSGAME/Building/BronzeTorch.cpp
+@@ -98,7 +98,7 @@
+     WokeAt = -1.;
+     NextFlameViewAt = -1.;
+     ClockRefreshCountdown = 0.f;
+-    UThermalTargetSubsystem::RegisterFire(TorchFlame,FVector(12,12,32),FVector(0,0,20));
++    if (bEnableFlame && FlameSystem) UThermalTargetSubsystem::RegisterFire(TorchFlame,FVector(12,12,32),FVector(0,0,20));
+     // Migrate the old authored defaults on already placed/saved torches too.
+     // Keep deliberately customized values; do not rewrite the user's world save.
+     if (FMath::IsNearlyEqual(LightLumens, 600.0f)) LightLumens = 350.0f;
+--- a/Source/FPSGAME/Development/ArtisanVillageNetworkProbe.cpp
++++ b/Source/FPSGAME/Development/ArtisanVillageNetworkProbe.cpp
+@@ -1,6 +1,16 @@
+ // Opt-in, multi-process regression for the village actors, their stock and personal lessons.
+ #if !UE_BUILD_SHIPPING && !UE_BUILD_TEST
+ #include "VillageNetworkAudit.h"
++#include "../WorldGeneration/SmithYardLamp.h"
++#include "Camera/CameraActor.h"
++#include "Camera/CameraComponent.h"
++#include "Components/PointLightComponent.h"
++#include "DynamicRHI.h"
++#include "RenderTimer.h"
++#include "../Weapons/EagleTalonGuardComponent.h"
++#include "../Weapons/MeleeWeaponStats.h"
++#include "../WorldGeneration/SmithYardFurnace.h"
++#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
+ #include "../WorldGeneration/TemperateHillsWorld.h"
+ #include "../NPC/ChapelDialogueComponent.h"
+ #include "../WorldGeneration/HillsBlacksmith.h"
+@@ -112,7 +122,7 @@
+                 const int32 N = Batch ? Batch->GetInstanceCount() : 1;
+                 if (Name == TEXT("SM_TavernKitchenScreenRuined"))
+                     bRuin = Part->GetCollisionResponseToChannel(ECC_Pawn) == ECR_Block;
+-                if (Name == TEXT("SM_TavernKitchenScreen"))
++                if (Name == TEXT("SM_TavernCookHearth"))
+                     bKitchen = Part->GetCollisionResponseToChannel(ECC_Pawn) == ECR_Block;
+                 if (Name == TEXT("SM_TavernStool"))
+                     Stools += N;
+@@ -161,6 +171,7 @@
+     TWeakObjectPtr<APlayerController> FirstCustomer;
+     int64 Balance = 0, Price = 0;
+     int32 Pickaxes = 0;
++    int64 SmithStartingOre = 0;
+     bool Has(const FString &Name) const
+     {
+         return IFileManager::Get().FileExists(*(Folder / (Name + TEXT(".json"))));
+@@ -689,6 +700,8 @@
+                                              D->SmithTrainingStage(), D->CarpenterTrainingStage(), *D->Message);
+         return !bFailed || Finish();
+     }
++    #include "SmithLessonSceneProbe.inl"
++
+     bool ShopScene(UWorld* W, ATemperateHillsWorld& H, const FSite& Site)
+     {
+         AColdSteelSceneContainer* Chest=nullptr;
+@@ -769,7 +782,10 @@
+             }
+             FText Reason;
+             for(const FName Plan:{FName(TEXT("blacksmith")),FName(TEXT("carpenter")),FName(TEXT("tavern")),FName(TEXT("herbalist")),FName(TEXT("windmill")),FName(TEXT("bakery")),FName(TEXT("gunshop"))})
+-                Record(TEXT("repair-")+Plan.ToString(),H.UnlockVillagePlan(Plan,Reason),Reason.ToString());
++            {
++                const bool Repaired=H.UnlockVillagePlan(Plan,Reason);
++                Record(TEXT("repair-")+Plan.ToString(),Repaired,Reason.ToString());
++            }
+             Advance();
+         }
+         else if(Step==1&&Restored&&H.bReady&&MoveNear(Guest))
+@@ -910,6 +926,7 @@
+             UE_LOG(LogTemp, Display, TEXT("ARTISAN_WAIT %s step=%d %s %s"), *Role, Step, *Site.Details(), *Last);
+             NextStatus = FPlatformTime::Seconds() + 20.;
+         }
++        if(FParse::Param(FCommandLine::Get(),TEXT("SmithLessonScene")))return SmithLessonScene(W,*H,Site);
+         if(FParse::Param(FCommandLine::Get(),TEXT("ArtisanShopScene")))return ShopScene(W,*H,Site);
+         if(FParse::Param(FCommandLine::Get(),TEXT("ArtisanPew")))return Pew(W,*H);
+         return Role == TEXT("server") ? Server(W, *H, Site) : Client(W, *H, Site);
+--- a/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
++++ b/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
+@@ -64,8 +64,7 @@
+ }
+ void UFPSCombatHealthComponent::OnRep_Health()
+ {
+-    // M3：客户端侧观察到的权威血量变化（怪物掉血/玩家 HP）。测试期留一条可见日志。
+-    UE_LOG(LogTemp, Warning, TEXT("MPTEST Health replicated: %s -> %.1f (dead=%d)"), *GetNameSafe(GetOwner()), Health, IsDead() ? 1 : 0);
++    UE_LOG(LogTemp, Verbose, TEXT("MPTEST Health replicated: %s -> %.1f (dead=%d)"), *GetNameSafe(GetOwner()), Health, IsDead() ? 1 : 0);
+     // 联机：服务端判死的本地 pawn 停止本地移动预测——否则死亡窗口内客户端继续走动，
+     // 与服务端副本位置硬发散，直到 Respawn 换 pawn 才收束。重生销毁本 pawn，无需恢复。
+     if(IsDead())ApplyPlayerDeath();
+--- a/Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp
+@@ -135,7 +135,7 @@
+     }
+     else if(Family==SwordDash)
+     {
+-        if(Meta!=0x16||!UEagleTalonGuardComponent::Installed(Item,Model)||Model->MasteryProgress(TEXT("dashAttack")).Level<1)return;
++        if(Meta!=0x16||Item->Definition!=TEXT("ue_forged_steel_greatsword")||Model->ActiveProductionTool()||Model->MasteryProgress(TEXT("dashAttack")).Level<1)return;
+         Duration=RuneSwordOverheadRhythm::FinisherSeconds/Haste;
+         ContactStart=RuneSwordOverheadRhythm::DashWindupSeconds/Haste;
+         ContactEnd=ContactStart+(RuneSwordOverheadRhythm::ContactEnd-RuneSwordOverheadRhythm::ContactStart)/Haste;
+@@ -214,7 +214,7 @@
+     {
+         const auto* Receipt=GenericMeleeReceipts.Find(Report.GenericMeleeSerial);
+         return (Receipt&&Receipt->Family==ColdSteelGenericMelee::SwordDash)
+-            ||UEagleTalonGuardComponent::Installed(Item,ColdSteelAuthority::ForPawn(GetPawn()));
++            ||Item->Definition==TEXT("ue_forged_steel_greatsword");
+     }
+     // Existing special gates remain authoritative. Unknown sword semantics
+     // cannot escape the ordinary receipt check by merely setting a flag.
+--- a/Source/FPSGAME/Multiplayer/ColdSteelHarvestAuthority.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelHarvestAuthority.cpp
+@@ -15,6 +15,32 @@
+ #include "EngineUtils.h"
+ #include "UObject/UObjectIterator.h"
+ 
++namespace
++{
++// The same two-centimetre tolerance as the authority instance match. Index XY because
++// the standing trunk proxy and its tree can have different pivot heights.
++struct FRemovalPoints
++{
++    TMultiMap<FIntPoint,FVector> Cells;
++    static FIntPoint Cell(double X,double Y)
++    {
++        return {FMath::FloorToInt32(X/256.),FMath::FloorToInt32(Y/256.)};
++    }
++    void Add(const FVector& P)
++    {
++        const auto Min=Cell(P.X-2.,P.Y-2.),Max=Cell(P.X+2.,P.Y+2.);
++        for(int32 X=Min.X;X<=Max.X;++X)
++            for(int32 Y=Min.Y;Y<=Max.Y;++Y)Cells.Add({X,Y},P);
++    }
++    bool Matches(const FVector& P,bool bCheckHeight) const
++    {
++        for(auto It=Cells.CreateConstKeyIterator(Cell(P.X,P.Y));It;++It)
++            if((bCheckHeight?FVector::DistSquared(P,It.Value()):FVector::DistSquared2D(P,It.Value()))<4.)return true;
++        return false;
++    }
++};
++}
++
+ void UColdSteelSharedInventorySubsystem::CopyHarvest(const FColdSteelProfile& From,FColdSteelProfile& To)
+ {
+     To.HarvestProgress=From.HarvestProgress;To.TreeHealth=From.TreeHealth;To.RockHealth=From.RockHealth;
+@@ -49,7 +75,7 @@
+ {
+     if(GetWorld()->GetNetMode()==NM_Client)return;
+     HarvestClockAccum+=Delta;if(HarvestClockAccum<1.f)return;
+-    if(auto* M=HarvestModel(this)){M->TickTreeGrowthClock(HarvestClockAccum);CopyHarvest(M->Snapshot(),Current.Harvest);RefreshDropActors();}
++    if(auto* M=HarvestModel(this)){M->TickTreeGrowthClock(HarvestClockAccum);CopyHarvest(M->ProfileView(),Current.Harvest);RefreshDropActors();}
+     HarvestClockAccum=0.f;
+ }
+ void UColdSteelSharedInventorySubsystem::ApplyHarvestMirror(const FColdSteelProfile& State,const TArray<FColdSteelHarvestRemoval>& Removals)
+@@ -61,27 +87,54 @@
+     TSet<FString> Seen;
+     Seen.Reserve(Current.HarvestRemovals.Num());
+     for(const auto& Old:Current.HarvestRemovals)Seen.Add(Old.Id);
++    TMap<FSoftObjectPath,FRemovalPoints> Rocks,Trees;
++    FRemovalPoints Trunks;
+     for(const auto& R:Removals)
+     {
+         bool AlreadySeen=false;
+         Seen.Add(R.Id,&AlreadySeen);
+         if(AlreadySeen)continue;
++        if(R.Layer==1)Rocks.FindOrAdd(R.Mesh).Add(R.Location);
++        else if(R.Layer==0)
++        {
++            Trunks.Add(R.Location);
++            Trees.FindOrAdd(R.Mesh).Add(R.Location);
++        }
++    }
++    if(!Rocks.IsEmpty()||!Trunks.Cells.IsEmpty())
+         for(TObjectIterator<UInstancedStaticMeshComponent> It;It;++It)
+         {
+-            auto* C=*It;if(C->GetWorld()!=GetWorld()||!C->GetStaticMesh())continue;
+-            const bool Rock=R.Layer==1&&C->GetStaticMesh()->GetPathName()==R.Mesh.ToString();
+-            const bool Trunk=R.Layer==0&&C->ComponentHasTag(TEXT("HillsStandingTrunk"));
+-            if(!Rock&&!Trunk)continue;
++            auto* C=*It;
++            if(C->GetWorld()!=GetWorld()||!C->GetStaticMesh())continue;
++            const auto* Points=Rocks.Find(FSoftObjectPath(C->GetStaticMesh()));
++            const bool CheckTrunk=!Trunks.Cells.IsEmpty()&&C->ComponentHasTag(TEXT("HillsStandingTrunk"));
++            if(!Points&&!CheckTrunk)continue;
++            TArray<int32> Erased;
+             for(int32 I=C->GetInstanceCount()-1;I>=0;--I)
+-            {FTransform T;if(C->GetInstanceTransform(I,T,true)&&FVector::DistSquared2D(T.GetLocation(),R.Location)<4.)C->RemoveInstance(I);}
+-        }
++            {
++                FTransform Pose;
++                if(!C->GetInstanceTransform(I,Pose,true))continue;
++                const auto P=Pose.GetLocation();
++                if((Points&&Points->Matches(P,false))||(CheckTrunk&&Trunks.Matches(P,false)))Erased.Add(I);
++            }
++            if(!Erased.IsEmpty())C->RemoveInstances(Erased,true);
++        }
++    if(!Trees.IsEmpty())
+         for(TObjectIterator<UInstancedSkinnedMeshComponent> It;It;++It)
+         {
+-            auto* C=*It;if(R.Layer!=0||C->GetWorld()!=GetWorld()||C->ComponentHasTag(TEXT("HarvestRegrowth"))||!C->GetSkinnedAsset()||C->GetSkinnedAsset()->GetPathName()!=R.Mesh.ToString())continue;
+-            for(int32 I=C->GetInstanceCount()-1;I>=0;--I)
+-            {const auto Id=C->GetInstanceId(I);FTransform T;if(C->GetInstanceTransform(Id,T,true)&&FVector::DistSquared(T.GetLocation(),R.Location)<4.)C->RemoveInstance(Id);}
+-        }
+-    }
++            auto* C=*It;
++            if(C->GetWorld()!=GetWorld()||C->ComponentHasTag(TEXT("HarvestRegrowth"))||!C->GetSkinnedAsset())continue;
++            const auto* Points=Trees.Find(FSoftObjectPath(C->GetSkinnedAsset()));
++            if(!Points)continue;
++            TArray<FPrimitiveInstanceId> Erased;
++            for(int32 I=0;I<C->GetInstanceCount();++I)
++            {
++                const auto Id=C->GetInstanceId(I);
++                FTransform Pose;
++                if(C->GetInstanceTransform(Id,Pose,true)&&Points->Matches(Pose.GetLocation(),true))Erased.Add(Id);
++            }
++            if(!Erased.IsEmpty())C->RemoveInstances(Erased);
++        }
+     Current.HarvestRemovals=Removals;
+ }
+ 
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp
+@@ -496,6 +496,8 @@
+     if(RidgeContact)RidgeStrike.Targets.Add(Report.Target.Get());
+     if(Declared&&Declared->Definition==TEXT("ue_forged_steel_greatsword")&&Report.AttackMeta==0x10&&!Shot.bRingChainPommel)
+         Shooter->FindComponentByClass<URuneSwordComponent>()->RecordForgedHeavyTarget(Report.Target.Get());
++    if(Shot.bMelee && Declared && Declared->Definition==TEXT("ue_forged_steel_greatsword"))
++        Shot.ForgedGuardAttackKey=UEagleTalonGuardComponent::ReportAttackKey(Report);
+     Shot.bEagleTalonStrike=Shot.bMelee&&!Shot.bRicochet&&UEagleTalonGuardComponent::ReportEmpowered(Shooter,Report);
+     Prepared.Report=Report;Prepared.Shooter=Shooter;Prepared.Model=Model;Prepared.Hit=Hit;Prepared.Damage=Damage;Prepared.Shot=MoveTemp(Shot);
+     Prepared.bHasItem=Declared!=nullptr;if(Declared)Prepared.Item=MoveTemp(DeclaredSnapshot);
+--- a/Source/FPSGAME/Multiplayer/ColdSteelRiftSlashNetwork.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelRiftSlashNetwork.cpp
+@@ -30,12 +30,14 @@
+     // receipt the RPC is a free ranged attack with only a 0.75 s cooldown.
+     if(!Sword->IsNetworkHeavyReleaseWindowOpen(Weapon)
+         &&!Sword->ConsumeNetworkHeavyChargeForRelease(Weapon,0.,GuardSerial))return;
++    if(Item->Definition==TEXT("ue_forged_steel_greatsword")&&GuardSerial!=Sword->ForgedHeavyReleaseSerial())return;
+     const auto Flight=SwordWaveTuning::RiftFlight(Enchant,Item);
+     if(Flight.RangeCM<=0.f||Flight.SpeedCM<=0.f)return;
+     auto Shot=ColdSteelSkills::Snapshot(Pawn,Item,false);
+     Shot.AttackMeta=0x50;Shot.bMelee=true;Shot.bRifle=false;Shot.bPistol=false;
+     if(Sword->HasGaleGuard(Item))
+         Shot.GalePaymentKey=GaleWing::Key(GaleWing::EAttack::Heavy,GuardSerial);
++    Shot.ForgedGuardAttackKey=UEagleTalonGuardComponent::AttackKey(EEagleStrike::Heavy,GuardSerial);
+     Shot.bEagleTalonStrike=UEagleTalonGuardComponent::WasEmpowered(Pawn,Weapon,EEagleStrike::Heavy,GuardSerial);
+     Shot.GuardAttackSerial=GuardSerial;Shot.GuardSourceInstance=Item->InstanceId;
+     Shot.ToughnessDamageMultiplier*=ColdSteelMelee::Evaluate(*Item,ShadowModel).Modifiers.HeavyToughness;
+--- a/Source/FPSGAME/Multiplayer/ColdSteelWorldNetwork.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelWorldNetwork.cpp
+@@ -119,6 +119,9 @@
+     if(Now<WorldApplyAt)return false;
+     WorldApplyAt=Now+.2;
+     if(PendingWorldState->Map!=UGameplayStatics::GetCurrentLevelName(this,true)){PendingWorldState=nullptr;return true;}
++    if(!bWorldHarvestApplied)
++        if(auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>())
++        {Shared->ApplyHarvestMirror(PendingWorldState->Harvest,PendingWorldState->HarvestRemovals);bWorldHarvestApplied=true;}
+     // The layout must be consumed BEFORE waiting for local assembly. Waiting
+     // first would deadlock clients which are correctly waiting for this stream.
+     if(!PendingWorldState->DungeonLayoutParts.IsEmpty())
+@@ -144,9 +147,6 @@
+     auto* Run=UDungeonRunSubsystem::Get(GetWorld());
+     if(!PendingWorldState->RunId.IsEmpty()&&(!Run||Run->RunId()!=PendingWorldState->RunId))return false;
+     const bool SceneApplied=Run&&Run->ApplyNetworkState(PendingWorldState);
+-    if(!bWorldHarvestApplied)
+-        if(auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>())
+-        {Shared->ApplyHarvestMirror(PendingWorldState->Harvest,PendingWorldState->HarvestRemovals);bWorldHarvestApplied=true;}
+     if(!SceneApplied)return false;
+     PendingWorldState=nullptr;return true;
+ }
+--- a/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
++++ b/Source/FPSGAME/Skills/ColdSteelSkillTypes.h
+@@ -132,6 +132,7 @@
+     FName MasteryId;
+     uint32 MasteryAttackSerial=0;
+     uint32 GenericMeleeSerial=0;
++    uint64 ForgedGuardAttackKey=0; // Server-accepted action shared by all contacts. Local swings use their snapshot serial.
+     bool bEagleTalonStrike=false; // Captured only at an accepted attack start on authority.
+     // Authored damage phase; only phase zero can consume a prepared first-strike bonus.
+     uint8 MeleeDamagePhase=0;
+--- a/Source/FPSGAME/UI/ColdSteelWorldMapData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldMapData.cpp
+@@ -179,7 +179,7 @@
+     if (!Return && (Terrain->IsForestVillage() || !BlacksmithApprenticeship::IsMining(Stage)))
+     {
+         SmithRock=0;
+-        NextIronSite=0;
++        IronSearch.Next=0;
+         RetrySmithLocationAt=0.;
+         return Landmarks.RemoveAll([](const auto& Mark){return Mark.bSmithLesson;})>0;
+     }
+@@ -194,10 +194,10 @@
+     const FVector2D Smith=Village.World(-3200.,-900.);
+     FVector Target(Smith,Terrain->Height(Smith.X,Smith.Y));
+     for (TActorIterator<AHillsBlacksmith> It(Terrain->GetWorld());It;++It){Target=It->GetActorLocation();break;}
+-    if (!Return && !Terrain->FindNearestIronOutcrop(FVector2D(Target),NextIronSite,Target,SmithRock))
+-    {
+-        RetrySmithLocationAt=Now+(NextIronSite==INDEX_NONE ? 30. : .2);
+-        if (NextIronSite==INDEX_NONE) NextIronSite=0;
++    if (!Return && !Terrain->FindNearestIronOutcrop(FVector2D(Target),IronSearch,Target,SmithRock))
++    {
++        RetrySmithLocationAt=Now+(IronSearch.Next==INDEX_NONE ? 30. : .2);
++        if (IronSearch.Next==INDEX_NONE) IronSearch.Next=0;
+         return Landmarks.RemoveAll([](const auto& Mark){return Mark.bSmithLesson;})>0;
+     }
+     // The task caption gets the first free label position among nearby landmarks.
+--- a/Source/FPSGAME/UI/ColdSteelWorldMapData.h
++++ b/Source/FPSGAME/UI/ColdSteelWorldMapData.h
+@@ -1,6 +1,7 @@
+ #pragma once
+ 
+ #include "CoreMinimal.h"
++#include "../WorldGeneration/TemperateIronOutcrops.h"
+ #include "UObject/StrongObjectPtr.h"
+ #include "Engine/Texture2D.h"
+ 
+@@ -81,7 +82,7 @@
+     int32 NextSample = 0;
+     bool RefreshSmithDestination();
+     uint64 SmithRock = 0;
+-    int32 NextIronSite = 0;
++    TemperateIronOutcrops::FSearch IronSearch;
+     double RetrySmithLocationAt = 0.;
+     bool bSmithReturn = false;
+     void FinishSurface();
+--- a/Source/FPSGAME/Weapons/RuneSwordActions.cpp
++++ b/Source/FPSGAME/Weapons/RuneSwordActions.cpp
+@@ -218,15 +218,15 @@
+     uint32 GenericReceipt=0;
+     // Special attacks keep their existing authority. Ordinary swings register
+     // on the same PlayerState channel as food use, before any contact exists.
+-    const bool EagleDash=bDash&&UEagleTalonGuardComponent::Installed(Item,Profile);
+-    if(!Heavy&&(!bDash||EagleDash)&&Clip!=TEXT("PommelStrike")&&Clip!=HighlandBreakSweep::Clip&&
++    const bool ForgedDash=bDash&&Item&&Item->Definition==TEXT("ue_forged_steel_greatsword");
++    if(!Heavy&&(!bDash||ForgedDash)&&Clip!=TEXT("PommelStrike")&&Clip!=HighlandBreakSweep::Clip&&
+         GetNetMode()!=NM_Standalone)
+     {
+         auto* Net=Character->GetPlayerState<AColdSteelPlayerState>();
+         if(!Net)return false;
+-        const uint8 Family=EagleDash?ColdSteelGenericMelee::SwordDash:Clip==TEXT("Overhead")&&ComboStage!=3?
++        const uint8 Family=ForgedDash?ColdSteelGenericMelee::SwordDash:Clip==TEXT("Overhead")&&ComboStage!=3?
+             ColdSteelGenericMelee::SwordOverhead:ColdSteelGenericMelee::Sword;
+-        GenericReceipt=Net->RequestGenericMeleeStart(Character.Get(),InstanceId,Family,EagleDash?0x16:uint8(ComboStage));
++        GenericReceipt=Net->RequestGenericMeleeStart(Character.Get(),InstanceId,Family,ForgedDash?0x16:uint8(ComboStage));
+         if(!GenericReceipt)return false;
+     }
+     if(++NetworkBladeSerial==0)++NetworkBladeSerial;
+--- a/Source/FPSGAME/Weapons/RuneSwordComponent.h
++++ b/Source/FPSGAME/Weapons/RuneSwordComponent.h
+@@ -113,6 +113,7 @@
+     float TakeRingChainChargeDrain(double BaseRate);
+     bool IsBillingRingChainCharge() const { return bCharging && RingChargeBilledAt>=0.; }
+     /** Server-only receipt opened by a completed heavy-charge release. */
++    uint32 ForgedHeavyReleaseSerial() const { return ForgedHeavySerial; }
+     bool IsNetworkHeavyReleaseWindowOpen(const FString& Weapon=FString()) const;
+     const FColdSteelItem* ForgedHeavyContactItem(const FString& Weapon,uint32 Serial,AActor* Target) const;
+     void RecordForgedHeavyTarget(AActor* Target) { ForgedHeavyTargets.Add(Target); }
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
+@@ -15,6 +15,7 @@
+ 
+ class UPCGComponent;
+ namespace HillsVegetation { struct FNeighborhood; }
++namespace TemperateIronOutcrops { struct FSearch; }
+ namespace HillsPlacement { struct FVegetationRockMask; }
+ struct FTemperateForestWindState;
+ class UPCGGraph;
+@@ -366,7 +367,7 @@
+     FSoftObjectPath OreRockVariantMesh(uint32 Key, const FVector2D& At) const;
+     FString ProductionResourceId(int32 Layer,uint64 Candidate) const;
+     bool IsProductionDepleted(int32 Layer,uint64 Candidate) const;
+-    bool FindNearestIronOutcrop(const FVector2D& From,int32& NextSite,FVector& OutPoint,uint64& OutRock) const;
++    bool FindNearestIronOutcrop(const FVector2D& From,TemperateIronOutcrops::FSearch& Search,FVector& OutPoint,uint64& OutRock) const;
+     void GetHarvestedStumps(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const;
+     void GetRegrowingTrees(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const;
+     bool ResolveProductionResource(const FHitResult& Hit,FProductionResource& Resource,FString& Reason) const;
+--- a/Source/FPSGAME/WorldGeneration/VillageMechanicalWorkshop.cpp
++++ b/Source/FPSGAME/WorldGeneration/VillageMechanicalWorkshop.cpp
+@@ -1,8 +1,7 @@
+ #include "VillageMechanicalWorkshop.h"
+ #include "TemperateHillsWorld.h"
+-#include "VillageShopTorches.h"
++#include "SmithYardLamp.h"
+ #include "../Building/BuildingDaylight.h"
+-#include "../Building/BronzeTorch.h"
+ #include "../Building/VoxelBuildPrefabActor.h"
+ #include "../Building/VoxelBuildWorld.h"
+ #include "Components/ChildActorComponent.h"
+@@ -94,12 +93,13 @@
+         const FVector Bottom(Box.GetCenter().X,Box.GetCenter().Y,Box.Min.Z);
+         Batch->AddInstance(FTransform(Facing,Item.Foot-Facing.RotateVector(Bottom*Scale),FVector(Scale)));
+     }
+-    auto Child=[this](FName Name,UClass* Class,FVector At,FRotator Facing)
++    auto Child=[this](FName Name,UClass* Class,FVector At,FRotator Facing,FName LightTag=NAME_None)
+     {
+         auto* Mount=NewObject<UChildActorComponent>(this,Name);
+         AddInstanceComponent(Mount);
+         Mount->SetupAttachment(Shell);
+         Mount->SetRelativeLocationAndRotation(At,Facing);
++        if(!LightTag.IsNone())Mount->ComponentTags.Add(LightTag);
+         Mount->SetChildActorClass(Class);
+         Mount->RegisterComponent();
+         return Mount->GetChildActor();
+@@ -112,8 +112,7 @@
+         Vision->ExposureCompensation=1.f;
+         Vision->OnConstruction(Vision->GetActorTransform());
+     }
+-    if(auto* Lamp=Cast<ABronzeTorch>(Child(TEXT("BenchLight"),ABronzeTorch::StaticClass(),{-293,269,154},FRotator::ZeroRotator)))
+-        VillageShopTorches::ConfigureWallTorch(*Lamp,430.f,370.f);
++    Child(TEXT("BenchLight"),AVillageShopChainLamp::StaticClass(),{-293,269,219},FRotator::ZeroRotator,AVillageShopChainLamp::AlwaysLit);
+ 
+     if(auto* Wear=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/M_DefenseGroundWear.M_DefenseGroundWear")))
+     {
+--- a/Tools/WorldGeneration/run_artisan_village_net.py
++++ b/Tools/WorldGeneration/run_artisan_village_net.py
+@@ -17,11 +17,12 @@
+ parser.add_argument('--port',type=int,default=0)
+ parser.add_argument('--guards-only', action='store_true')
+ parser.add_argument('--shop-scene', action='store_true')
++parser.add_argument('--smith-lesson', action='store_true')
+ parser.add_argument('--pew', action='store_true')
+ parser.add_argument('--render-server', action='store_true', help='render the shop-distance host offscreen with D3D12 at 1920x1080')
+ args = parser.parse_args()
+-if args.render_server and not args.shop_scene:
+-    parser.error('--render-server requires --shop-scene')
++if args.render_server and not (args.shop_scene or args.smith_lesson):
++    parser.error('--render-server requires --shop-scene or --smith-lesson')
+ run = root/'Saved/ArtisanVillageNetwork'/args.run
+ host = run/'Host'
+ evidence = run/'Evidence'
+@@ -89,12 +90,15 @@
+         cmd.append('-ArtisanGuardOnly')
+     if args.shop_scene:
+         cmd.append('-ArtisanShopScene')
++    if args.shop_scene or args.smith_lesson:
+         if authority and args.render_server:
+             cmd.remove('-nullrhi')
+             cmd=[arg.replace('fps.body.WorldBodySuppress 1,','') for arg in cmd]
+             cmd.extend(['-d3d12','-RenderOffScreen','-ResX=1920','-ResY=1080','-ForceRes'])
+         else:
+             cmd.append('-NoShaderCompile')
++    if args.smith_lesson:
++        cmd.append('-SmithLessonScene')
+     if args.pew:
+         cmd.extend(['-ArtisanPew','-NoShaderCompile'])
+     peers[role] = subprocess.Popen(cmd,creationflags=subprocess.CREATE_NO_WINDOW)
+@@ -151,7 +155,15 @@
+             raise RuntimeError('listen server did not reach its launch checkpoint')
+         time.sleep(2)
+     launch('owner')
+-    if args.pew:
++    if args.smith_lesson:
++        result['scope']='shop lamps, two furnaces, owner-only mining lesson, pickup, delivery and reconnect'
++        wait_for('owner','delivered')
++        stop('owner')
++        wait_for('server','disconnected')
++        launch('rejoin')
++        wait_for('rejoin','restored')
++        result['passed']=wait_for('server','done')['passed']
++    elif args.pew:
+         result['scope']='two players on the installed outdoor chapel pew; authority interaction and replicated slots'
+         wait_for('owner','both-standing')
+         result['passed']=wait_for('server','done')['passed']

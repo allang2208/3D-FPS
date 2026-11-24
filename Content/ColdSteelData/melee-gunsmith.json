@@ -1411,6 +1411,60 @@
             "触发条件｜格挡+1层，完美弹反+2层，上限3层、持续8秒。至少1层且冷却就绪时，主动上挑消耗全部蓄势，免准备释放强化升龙，冷却8秒。",
             "伤害与削韧｜金龙造成100%重击魔法伤害，每目标一次；本次上挑每层额外削韧+20%，最高+60%。释放时无需命中，将阵心半径10米内的普通或已破韧怪物向阵心拉近最多5米。"
           ]
+        },
+        {
+          "id": "raven_quill_guard",
+          "name": "暮鸦折羽",
+          "tier": "special",
+          "weapons": [
+            "ue_forged_steel_greatsword"
+          ],
+          "description": "三层蓝黑钢羽从中央羽脊向两侧舒展，锤纹之间露出细窄的银边。",
+          "stats": {
+            "melee_critical_chance_add": 10,
+            "sprint_stamina_mult": 0.9
+          },
+          "effects": [
+            {
+              "text": "暴击率+10%",
+              "benefit": 1
+            },
+            {
+              "text": "奔跑体力消耗-10%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "折羽蓄能｜累计奔跑3秒蓄满，停跑保留未满进度。青光从握把一侧向上蔓延，蓄满时整副护手发光。",
+            "蓄满一击｜蓄满后5秒内，下一次命中目标的攻击额外获得暴击率+25%。挥空保留强化，超时消散。"
+          ]
+        },
+        {
+          "id": "eagle_talon_guard",
+          "name": "鹰爪之握",
+          "tier": "special",
+          "weapons": [
+            "ue_forged_steel_greatsword"
+          ],
+          "description": "鹰喙下方的钢羽向两侧叠开，末端内收成一对弯爪。",
+          "stats": {
+            "physical_defense_mult": 1.1,
+            "block_stamina_mult": 0.75
+          },
+          "effects": [
+            {
+              "text": "防御力+10%",
+              "benefit": 1
+            },
+            {
+              "text": "格挡体力消耗-25%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "鹰爪蓄能｜成功格挡敌方攻击积1次，弹反积2次。累计6次时，护手亮起冰蓝光。",
+            "满充反击｜下一次普通攻击或战技暴击率+30%，体力消耗为0。成功出招即消耗充能，同一招的所有段数均受益。"
+          ]
         }
       ]
     },

@@ -1,0 +1,29 @@
+{
+  "frame": "../../FirearmFramedIcons20260930/muzzle_brake_framed_v2.png",
+  "shape_references": "IconReferences/<key>.png",
+  "masters": "IconMasters/<key>.png",
+  "prepared": "Icons/<key>.png",
+  "style": "Neutral grayscale finished metal, four-rivet bevelled frame, silver inset ring, opaque charcoal plate and a narrow transparent exterior. Keep the complete part inside the ring with visible clearance.",
+  "parts": {
+    "blade_1_hollow_blade": {
+      "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/HollowBlade/SM_ForgedSteelGreatsword_HollowBlade",
+      "subject": "Slim tapered blade with a single long round-ended through-slot. The backplate shows through the slot."
+    },
+    "blade_1_executioner_blade": {
+      "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/SM_ForgedSteelGreatsword_ExecutionerBlade",
+      "subject": "Wide-rooted blade with a shallow solid fuller and an angular pointed tip."
+    },
+    "pommel_ring_chain_pommel": {
+      "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/RingChainPommel/SM_ForgedSteelGreatsword_RingChainPommel",
+      "subject": "Stepped metal cap, large steel ring and seven alternating interlocking links, including the terminal link."
+    },
+    "pommel_fishtail_pommel": {
+      "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/FishtailPommel/SM_ForgedSteelGreatsword_FishtailPommel",
+      "subject": "Compact flared steel fan with a narrow collar, shallow central ridge and gently convex lower edge."
+    },
+    "guard_raven_quill_guard": {
+      "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/NestedV4/SM_ForgedSteelGreatsword_RavenQuillGuard",
+      "subject": "Three swept, separately tipped steel vanes on each wing, with a chased feather on the central shield and a short collar."
+    }
+  }
+}

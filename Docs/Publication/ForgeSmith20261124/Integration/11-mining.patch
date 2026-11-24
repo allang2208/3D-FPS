@@ -1,0 +1,356 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelSharedInventorySubsystem.h"
++#include "../Tasks/BlacksmithApprenticeship.h"
+ #include "../Monsters/WildlifeSubsystem.h"
+ #include "ColdSteelPlayerState.h"
+ #include "../UI/ColdSteelStatusModel.h"
+@@ -383,7 +384,7 @@
+     auto Item=After.Drops[Index];bool FootprintChanged=false;
+     if(UsesChangedSharedFootprint(Item)&&!MigrateAuthoredItemFootprint(Item,FootprintChanged,Reason))return false;
+     const bool Added=Model->AmmoType(Item.Definition)?Model->AddAmmoToState(Profile,Item.Definition,Item.Count)
+-        :ColdSteelInventory::Insert(Profile.Items,Item);
++        :BlacksmithApprenticeship::InsertPickup(Profile,Item);
+     if(!Added){Reason=TEXT("背包已满，物品留在地面");return false;}
+     After.Drops.RemoveAt(Index);Reason=TEXT("已拾取物品");
+     return Commit(Model,Guest,MoveTemp(Profile),MoveTemp(After),Reason);
+@@ -407,7 +408,7 @@
+         if(UsesChangedSharedFootprint(Item)&&!MigrateAuthoredItemFootprint(Item,FootprintChanged,MigrationReason))continue;
+         auto Trial=Profile;
+         const bool Added=Model->AmmoType(Item.Definition)?Model->AddAmmoToState(Trial,Item.Definition,Item.Count)
+-            :ColdSteelInventory::Insert(Trial.Items,Item);
++            :BlacksmithApprenticeship::InsertPickup(Trial,Item);
+         if(!Added)continue;
+         Profile=MoveTemp(Trial);After.Drops.RemoveAt(Index);++Taken;
+     }
+--- a/Source/FPSGAME/UI/ColdSteelAreaPickup.cpp
++++ b/Source/FPSGAME/UI/ColdSteelAreaPickup.cpp
+@@ -1,5 +1,6 @@
+ // 2026-09-16: Z 键范围拾取、残骸转体素块、以及屏幕上方的通用提示栏。
+ #include "ColdSteelStatusModel.h"
++#include "../Tasks/BlacksmithApprenticeship.h"
+ #include "ColdSteelCurrency.h"
+ #include "ColdSteelInventoryTypes.h"
+ #include "../FPSGAMECharacter.h"
+@@ -156,10 +157,18 @@
+         if(FVector::DistSquared(Origin,Entry.Position)>RadiusSq)continue;
+         // 隔墙/隔层不吸：只有"玩家能走过去"的物品才算在范围内（<=40 cm 的障碍可迈过）。
+         if(!ReachableOnFoot(GetWorld(),CurrentPawn.Get(),Entry.Position))continue;
+-        P.Items.RemoveAt(Index);--Index;
+-        if(AmmoType(Entry.Definition)?AddAmmoToState(P,Entry.Definition,Entry.Count):Insert(P.Items,Entry)){++Moved;continue;}
+-        // No room for this one: it stays on the ground exactly where it was.
+-        P.Items.Insert(Entry,Index+1);++Left;
++        P.Items.RemoveAt(Index);
++        const bool PickedUp = AmmoType(Entry.Definition) ? AddAmmoToState(P,Entry.Definition,Entry.Count)
++            : BlacksmithApprenticeship::InsertPickup(P,Entry);
++        if (PickedUp)
++        {
++            ++Moved;
++            --Index;
++            continue;
++        }
++        // Restore the failed stack and continue with the next ground item.
++        P.Items.Insert(Entry,Index);
++        ++Left;
+     }
+     if(Moved>0)
+     {
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+@@ -35,6 +35,7 @@
+     UPROPERTY() FString Map;
+     UPROPERTY() FVector Position = FVector::ZeroVector;
+     UPROPERTY() FRotator WorldRotation = FRotator::ZeroRotator;
++    UPROPERTY() bool bFreshMinedIron = false; // Cleared on first successful pickup, before stacking.
+     UPROPERTY() FGuid HarvestWorldId; // Ground resources belong to one generated world.
+     UPROPERTY() float Cooldown = 0;
+     UPROPERTY() int32 Magazine = 30;
+--- a/Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp
++++ b/Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp
+@@ -267,7 +267,11 @@
+         else FrameHost->SetContent(Village());
+         return;
+     }
++    const bool AdvanceSmithLesson = Content && Page == ArtisanLessonPage && Conversation.IsValid()
++        && !Conversation->IsCarpenter() && PresentedSmithStep != Conversation->SmithTrainingStage();
++    if (AdvanceSmithLesson) ResetPageWidgets();
+     if (!Content) FrameHost->SetContent(DialogueFrame());
++    if (AdvanceSmithLesson) FocusPage();
+ 
+     if (FeedbackText)
+     {
+@@ -385,7 +389,7 @@
+ 
+     if (bMain || bTopics)
+     {
+-        const TCHAR* const MainChoices[] = {Speaker.ChatLabel, Speaker.TradeLabel, TEXT("学习技能")};
++        const TCHAR* const MainChoices[] = {Speaker.ChatLabel, Speaker.TradeLabel, Conversation->IsBlacksmith()?TEXT("修炼技能"):TEXT("学习技能")};
+         auto Choices = bMain ? Actions : SNew(SWrapBox).UseAllottedSize(true).InnerSlotPadding(FVector2D(ActionGap, ActionGap));
+         const int32 Count = bMain ? Speaker.MainChoiceCount() : MerchantTopicCount;
+         for (int32 Index = 0; Index < Count; ++Index)
+@@ -435,7 +439,8 @@
+     const bool bCarpenter = Conversation.IsValid() && Conversation->IsCarpenter();
+     const int32 Stage = Conversation.IsValid()
+         ? (bCarpenter ? Conversation->CarpenterTrainingStage() : Conversation->SmithTrainingStage()) : 0;
+-    const int32 CompleteStep = bCarpenter ? 4 : 5;
++    if (!bCarpenter) PresentedSmithStep = Stage;
++    const int32 CompleteStep = bCarpenter ? 4 : 7;
+     if (Stage == CompleteStep)
+     {
+         Passages.Add({bCarpenter ? TEXT("长杖是你亲手锯出来的。往后每做一件，记住上回哪一锯最顺。")
+@@ -457,6 +462,8 @@
+             + SWrapBox::Slot()[ForgeAimExample(true)];
+         Passages = {
+             {BlacksmithLessonText::Quality(), TEXT("成品品质")},
++            {BlacksmithLessonText::Mining(), TEXT("采矿教程　寻找露天铁矿脉")},
++            {BlacksmithLessonText::Delivery(), TEXT("采矿教程　回店交矿")},
+             {BlacksmithLessonText::Smelting(), TEXT("冶炼教程　添柴、炼矿、取锭")},
+             {BlacksmithLessonText::Materials(), TEXT("打铁教程　选料开炉")},
+             {BlacksmithLessonText::Hammering(), TEXT("打铁教程　锤炼"), AimGuide},
+@@ -470,7 +477,7 @@
+         [SAssignNew(FeedbackText, STextBlock).Font(TextFont(14 * .75f)).AutoWrapText(true).ColorAndOpacity(HUDGoldLight)];
+ 
+     ReturnButton = DialogueButton(TreeStyle.Quiet, Label(TEXT("返回交谈"), 14, TextSecondary), TEXT("Esc"), [this] { ReturnToParentPage(); });
+-    TrainingRetry = DialogueButton(TreeStyle.Muted, Label(Stage==0?TEXT("接取任务并领料"):TEXT("领取教学材料"), 14, TextPrimary, true), FString(),
++    TrainingRetry = DialogueButton(TreeStyle.Muted, Label(!bCarpenter && Stage==0 ? TEXT("接取任务并领取十字镐") : !bCarpenter && Stage==2 ? TEXT("交付十块铁矿石") : Stage==0 ? TEXT("接取任务并领料") : TEXT("领取教学材料"), 14, TextPrimary, true), FString(),
+         [this] { RequestArtisanTraining(); });
+     DefaultChoice = Conversation.IsValid()&&Conversation->CanCollectTrainingSupplies()?TrainingRetry:ReturnButton;
+     auto Actions = SNew(SWrapBox).UseAllottedSize(true).InnerSlotPadding(FVector2D(ActionGap, ActionGap))
+@@ -491,9 +498,9 @@
+     const int32 Stage = bCarpenter ? Conversation->CarpenterTrainingStage() : Conversation->SmithTrainingStage();
+     const bool bPending = Conversation->IsPending();
+     static const TCHAR* const SmithStatus[] = {
+-        TEXT("冶炼与打铁 · 从铁矿到锻钢双手剑"), TEXT("冶炼 · 在高炉炼矿并领取三块金属锭"),
++        TEXT("铁匠修炼 · 从采矿到成剑"), TEXT("采矿 · 采集并拾取十块铁矿石"), TEXT("采矿 · 回铁匠处交付十块铁矿石"), TEXT("冶炼 · 在高炉炼矿并领取三块金属锭"),
+         TEXT("打铁 · 合金胚 ×1、任选同种金属锭 ×3"), TEXT("打铁 · 在铁砧上锤炼锻钢双手剑"),
+-        TEXT("打铁 · 领取亲手打造的锻钢双手剑"), TEXT("已完成冶炼与打铁修炼")
++        TEXT("打铁 · 领取亲手打造的锻钢双手剑"), TEXT("已完成铁匠修炼")
+     };
+     static const TCHAR* const CarpenterStatus[] = {
+         TEXT("支线任务 · 制作并领取一把学徒长杖"), TEXT("第一步 · 到木工台为学徒长杖备料"), TEXT("第二步 · 上锯加工学徒长杖"),
+--- a/Source/FPSGAME/UI/ColdSteelProductionDrops.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProductionDrops.cpp
+@@ -35,6 +35,7 @@
+             {
+                 auto Item=CreateItem(Definition,Definition==TEXT("wood")?1:Amount);
+                 if(Item.Data.IsEmpty()){Message=TEXT("材料目录缺失，原资源保留");return false;}
++                Item.bFreshMinedIron = World && !DevelopmentObject && Target.Layer==1 && Definition==TEXT("iron_ore");
+                 FVector Position=Target.Transform.GetLocation();
+                 if(bTreeFall)Position=Fall.Pivot+FallenAxis*(90+Index*95)+Side*Random.FRandRange(-22,22);
+                 else Position+=FVector(Random.FRandRange(-65,65),Random.FRandRange(-65,65),0);
+--- a/Source/FPSGAME/UI/ColdSteelProfilePawn.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfilePawn.cpp
+@@ -1,4 +1,5 @@
+ #include "../Weapons/MagicCrystalMana.h"
++#include "../Tasks/BlacksmithApprenticeship.h"
+ #include "../Skills/ColdSteelSkillTree.h"
+ #include "../Dungeon/DungeonLayout.h"
+ #include "../Weapons/JingangRuneComponent.h"
+@@ -350,7 +351,7 @@
+     }
+     SyncRuntime();auto P=Snapshot();int32 N=P.Items.IndexOfByPredicate([&](const auto&I){return I.InstanceId==Id&&I.Place==2;});
+     if(N<0||P.Items[N].Map!=UGameplayStatics::GetCurrentLevelName(this,true)||FVector::Dist(CurrentPawn->GetActorLocation(),P.Items[N].Position)>250)return false;
+-    auto I=P.Items[N];P.Items.RemoveAt(N);if(AmmoType(I.Definition)){if(!AddAmmoToState(P,I.Definition,I.Count))return false;}else if(!Insert(P.Items,I)){Message=TEXT("背包已满，物品留在地面");return false;}if(!CommitState(P))return false;RefreshDrops();return true;
++    auto I=P.Items[N];P.Items.RemoveAt(N);if(AmmoType(I.Definition)){if(!AddAmmoToState(P,I.Definition,I.Count))return false;}else if(!BlacksmithApprenticeship::InsertPickup(P,I)){Message=TEXT("背包已满，物品留在地面");return false;}if(!CommitState(P))return false;RefreshDrops();return true;
+ }
+ void UColdSteelStatusModel::RefreshDrops()
+ {
+--- a/Source/FPSGAME/UI/ColdSteelWorldMapData.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldMapData.cpp
+@@ -1,4 +1,8 @@
+ #include "ColdSteelWorldMapData.h"
++#include "ColdSteelStatusModel.h"
++#include "../Tasks/BlacksmithApprenticeship.h"
++#include "../WorldGeneration/HillsBlacksmith.h"
++#include "Engine/GameInstance.h"
+ #include "ColdSteelDungeonMap.h"
+ #include "ColdSteelHillsMap.h"
+ #include "Engine/TextureRenderTarget2D.h"
+@@ -75,6 +79,7 @@
+             Bounds=FBox2D(FVector2D(-Half,-Half),FVector2D(Half,Half));
+             RegionKey+=FString::Printf(TEXT("/%d/%s"),It->Seed,*It->WorldId.ToString());
+             Landmarks.Add({FVector2D(It->GetStartLocation()),TEXT("出发点"),0});
++            RefreshSmithDestination();
+             break;
+         }
+     }
+@@ -144,9 +149,56 @@
+     return true;
+ }
+ 
++bool FColdSteelWorldMapData::RefreshSmithDestination()
++{
++    auto* Terrain=Hills.Get();
++    if (!Terrain || !Terrain->GetGameInstance()) return false;
++    auto* Model=Terrain->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    if (!Model) return false;
++    const auto Stage=BlacksmithApprenticeship::Stage(Model->ProfileView());
++    const bool Return=Stage==BlacksmithApprenticeship::EStage::ReturnOre;
++    if (!Return && !BlacksmithApprenticeship::IsMining(Stage))
++    {
++        SmithRock=0;
++        NextIronSite=0;
++        RetrySmithLocationAt=0.;
++        return Landmarks.RemoveAll([](const auto& Mark){return Mark.bSmithLesson;})>0;
++    }
++    auto* Pin=Landmarks.FindByPredicate([](const auto& Mark){return Mark.bSmithLesson;});
++    if (Pin && Return==bSmithReturn && (Return || !Terrain->IsProductionDepleted(1,SmithRock))) return false;
++    const double Now=Terrain->GetWorld()->GetRealTimeSeconds();
++    if (Return==bSmithReturn && Now<RetrySmithLocationAt) return false;
++    bSmithReturn=Return;
++    const auto& Village=Terrain->GetVillageSite();
++    if (!Village.bPlaced) return false;
++    // Resolve the place of issue even when its streamed shop actor has unloaded.
++    const FVector2D Smith=Village.World(-3200.,-900.);
++    FVector Target(Smith,Terrain->Height(Smith.X,Smith.Y));
++    for (TActorIterator<AHillsBlacksmith> It(Terrain->GetWorld());It;++It){Target=It->GetActorLocation();break;}
++    if (!Return && !Terrain->FindNearestIronOutcrop(FVector2D(Target),NextIronSite,Target,SmithRock))
++    {
++        RetrySmithLocationAt=Now+(NextIronSite==INDEX_NONE ? 30. : .2);
++        if (NextIronSite==INDEX_NONE) NextIronSite=0;
++        return Landmarks.RemoveAll([](const auto& Mark){return Mark.bSmithLesson;})>0;
++    }
++    // The task caption gets the first free label position among nearby landmarks.
++    if (!Pin)
++    {
++        Landmarks.InsertDefaulted(0);
++        Pin=&Landmarks[0];
++    }
++    Pin->Point=FVector2D(Target);
++    Pin->ActorZ=Target.Z;
++    Pin->Floor=0;
++    Pin->Label=Return?TEXT("铁匠 · 交付铁矿石"):TEXT("露天铁矿脉 · 铁匠修炼");
++    Pin->bSmithLesson=true;
++    RetrySmithLocationAt=0.;
++    return true;
++}
++
+ bool FColdSteelWorldMapData::RefreshLandmarks()
+ {
+-    bool bChanged=false;
++    bool bChanged=RefreshSmithDestination();
+     for (int32 I=Landmarks.Num()-1; I>=0; --I)
+     {
+         auto& Mark=Landmarks[I];
+--- a/Source/FPSGAME/UI/ColdSteelWorldMapData.h
++++ b/Source/FPSGAME/UI/ColdSteelWorldMapData.h
+@@ -31,6 +31,7 @@
+     TWeakObjectPtr<AActor> Actor;
+     FString PortalDestination;
+     double ActorZ = 0.;
++    bool bSmithLesson = false;
+ };
+ 
+ /** One local viewing session. All coordinates are world-space centimetres (+X north). */
+@@ -68,6 +69,11 @@
+     uint32 SampledTerrainRevision = 0;
+     double TraceTop = 0, TraceBottom = 0;
+     int32 NextSample = 0;
++    bool RefreshSmithDestination();
++    uint64 SmithRock = 0;
++    int32 NextIronSite = 0;
++    double RetrySmithLocationAt = 0.;
++    bool bSmithReturn = false;
+     void FinishSurface();
+     bool UseHubPhoto(UTexture2D* Photo, const UWorld* World);
+     void BeginSampledSurface(APawn* Viewer, FColdSteelMapSurfaceCache& Cache);
+--- a/Source/FPSGAME/UI/DevelopmentPanelTools.cpp
++++ b/Source/FPSGAME/UI/DevelopmentPanelTools.cpp
+@@ -33,7 +33,7 @@
+ };
+ 
+ constexpr FDevelopmentQuestLine ResettableQuests[] = {
+-    {BlacksmithApprenticeship::TaskId, TEXT("铁匠"), TEXT("冶炼与打铁"), BlacksmithApprenticeship::Reset},
++    {BlacksmithApprenticeship::TaskId, TEXT("铁匠"), TEXT("采矿、冶炼与打铁"), BlacksmithApprenticeship::Reset},
+     {CarpenterApprenticeship::TaskId, TEXT("木匠"), TEXT("木工修炼"), CarpenterApprenticeship::Reset}
+ };
+ }
+--- a/Source/FPSGAME/UI/SColdSteelWorldMap.cpp
++++ b/Source/FPSGAME/UI/SColdSteelWorldMap.cpp
+@@ -485,7 +485,7 @@
+             for (const auto& Poi : Data.Landmarks)
+                 if (Poi.Floor==Floor && !Poi.Label.IsEmpty() &&
+                     (!Data.bDungeon || (Layer && DungeonMap.IsLandmarkKnown(FVector(Poi.Point,Poi.ActorZ),Floor))))
+-                    Mark(Project(Poi.Point,Size),Poi.Label,ColdSteelUI::TextPrimary);
++                    Mark(Project(Poi.Point,Size),Poi.Label,Poi.bSmithLesson?ColdSteelUI::HUDGoldLight:ColdSteelUI::TextPrimary);
+             if (Layer) for (const auto& Label : Layer->Labels)
+             {
+                 FString Caption=Label.Text;
+--- a/Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp
+@@ -1,5 +1,6 @@
+ #include "HillsBlacksmith.h"
+ #include "SmithSignMotion.h"
++#include "SmithYardLamp.h"
+ #include "VillageInteriorLighting.h"
+ #include "VillageChimneySmoke.h"
+ #include "HillsCarpenterWorkshop.h"
+@@ -203,6 +204,7 @@
+     }
+     UpdateSmeltingYard(Repaired);
+     UpdateSmithTorches(this,Repaired);
++    SmithYardLamp::Apply(*this,Repaired);
+     VillageChimneySmoke::Apply(*this,Repaired);
+     UpdateForgeLight(*this, Repaired);
+     VillageShopTorches::Apply(*this,VillageShopTorches::EShop::Blacksmith,Repaired);
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp
+@@ -1,4 +1,5 @@
+ #include "TemperateHillsWorld.h"
++#include "TemperateIronOutcrops.h"
+ #include "TemperateHillsStreamingPrivate.h"
+ #include "TemperateVegetationPlacement.h"
+ #include "TemperateHillsSurface.h"
+@@ -174,7 +175,7 @@
+         if(TrunkOverlap)continue;
+         Index.Add(Box.ExpandBy(Clearance));
+         // Keep scenery precedence explicit; seed breaks ties inside a family.
+-        Priorities.Add((Cliff?0U:Wood?0x40000000U:0x80000000U)|
++        Priorities.Add((Cliff?0U:Wood?0x40000000U:TemperateIronOutcrops::IsVeinRock(P.CandidateId)?0x80000000U:0xc0000000U)|
+             (TemperateHillsSurface::Mix(P.Key^0x7f4a7c15U)&0x3fffffffU));
+         Supported.Add(MoveTemp(P));
+     }
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp
+@@ -1,4 +1,5 @@
+ #include "TemperateHillsWorld.h"
++#include "TemperateIronOutcrops.h"
+ #include "TemperateVegetationPlacement.h"
+ #include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+@@ -122,7 +123,7 @@
+         if (Tree) { Resource.Name=TEXT("树木"); Resource.Rewards.Add(TEXT("wood"),4); Resource.MaxHealth=ProductionTreeHealth::MaxHealth(Resource); }
+         else
+         {
+-            const FString Ore=RockOreDefinition(Candidate.Key,
++            const FString Ore=TemperateIronOutcrops::IsVeinRock(Candidate.CandidateId)?FString(TEXT("iron_ore")):RockOreDefinition(Candidate.Key,
+                 FVector2D(Candidate.Transform.GetLocation()));
+             Resource.Name=Ore==TEXT("iron_ore")?TEXT("含铁岩块"):Ore==TEXT("copper_ore")?TEXT("含铜岩块"):
+                 Ore==TEXT("silver_ore")?TEXT("含银岩块"):Ore==TEXT("gold_ore")?TEXT("含金岩块"):TEXT("石块");
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsVegetation.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsVegetation.cpp
+@@ -1,4 +1,5 @@
+ #include "TemperateHillsWorld.h"
++#include "TemperateIronOutcrops.h"
+ #include "TemperateQuarryYard.h"
+ #include "Algo/Compare.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+@@ -193,6 +194,7 @@
+ {
+     const int32 First=Out.Num();
+     GatherBasePlacements(Layer,Bounds,Out,IncludeRegrowth);
++    if (Layer==1) TemperateIronOutcrops::Gather(*this,Bounds,Out);
+     const double Margin=Layer==1?600.:(Layer==2||Layer==4?115.:25.);
+     const FVector Extent=Bounds.GetExtent();
+     const double Reach=FMath::Max(Extent.X,Extent.Y)+Margin;
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
+@@ -360,6 +360,7 @@
+     FSoftObjectPath OreRockVariantMesh(uint32 Key, const FVector2D& At) const;
+     FString ProductionResourceId(int32 Layer,uint64 Candidate) const;
+     bool IsProductionDepleted(int32 Layer,uint64 Candidate) const;
++    bool FindNearestIronOutcrop(const FVector2D& From,int32& NextSite,FVector& OutPoint,uint64& OutRock) const;
+     void GetHarvestedStumps(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const;
+     void GetRegrowingTrees(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const;
+     bool ResolveProductionResource(const FHitResult& Hit,FProductionResource& Resource,FString& Reason) const;

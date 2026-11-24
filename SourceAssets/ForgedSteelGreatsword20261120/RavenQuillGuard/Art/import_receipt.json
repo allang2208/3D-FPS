@@ -1,0 +1,25 @@
+{
+  "assets": [
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/T_RavenQuill_BaseColor.T_RavenQuill_BaseColor",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/T_RavenQuill_Normal.T_RavenQuill_Normal",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/T_RavenQuill_ORM.T_RavenQuill_ORM",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/M_RavenQuill_ForgedMetal.M_RavenQuill_ForgedMetal",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/M_RavenQuill_ForgedMetal_Whirlwind.M_RavenQuill_ForgedMetal_Whirlwind",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SM_ForgedSteelGreatsword_RavenQuillGuard.SM_ForgedSteelGreatsword_RavenQuillGuard",
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SM_ForgedSteelGreatsword_RavenQuillGuard_ExecutionerSeat.SM_ForgedSteelGreatsword_RavenQuillGuard_ExecutionerSeat",
+    "/Game/ColdSteelData/AttachmentIcons20260913/ue_forged_steel_greatsword_guard_raven_quill_guard.ue_forged_steel_greatsword_guard_raven_quill_guard"
+  ],
+  "meshes": {
+    "SM_ForgedSteelGreatsword_RavenQuillGuard": {
+      "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1",
+      "M_RavenQuill_ForgedMetal": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/M_RavenQuill_ForgedMetal.M_RavenQuill_ForgedMetal"
+    },
+    "SM_ForgedSteelGreatsword_RavenQuillGuard_ExecutionerSeat": {
+      "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1",
+      "M_RavenQuill_ForgedMetal": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/M_RavenQuill_ForgedMetal.M_RavenQuill_ForgedMetal"
+    }
+  },
+  "temporal": {
+    "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/M_RavenQuill_ForgedMetal.M_RavenQuill_ForgedMetal": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/M_RavenQuill_ForgedMetal_Whirlwind.M_RavenQuill_ForgedMetal_Whirlwind"
+  }
+}

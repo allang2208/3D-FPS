@@ -274,6 +274,12 @@
         "interface": "forged_steel_greatsword_hilt_v1",
         "mesh_by_blade": {
           "executioner_blade": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_factory_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_factory_ExecutionerSeat"
+        },
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1"
         }
       },
       "bastion_guard": {
@@ -287,6 +293,12 @@
         "appearance": "加宽加厚两翼，保留原厂剑座及柄口",
         "mesh_by_blade": {
           "executioner_blade": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_bastion_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_bastion_guard_ExecutionerSeat"
+        },
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1"
         }
       },
       "riposte_guard": {
@@ -300,6 +312,12 @@
         "appearance": "上挑护翼，保留原厂剑座及柄口",
         "mesh_by_blade": {
           "executioner_blade": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_riposte_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_riposte_guard_ExecutionerSeat"
+        },
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1"
         }
       },
       "light_guard": {
@@ -313,21 +331,75 @@
         "appearance": "收束轻薄护翼，保留原厂剑座及柄口",
         "mesh_by_blade": {
           "executioner_blade": "/Game/Weapons/ForgedSteelGreatsword20261120/ExecutionerBlade/GuardSeats/SM_ForgedSteelGreatsword_Guard_light_guard_ExecutionerSeat.SM_ForgedSteelGreatsword_Guard_light_guard_ExecutionerSeat"
+        },
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1"
+        }
+      },
+      "raven_quill_guard": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/NestedV4/SM_ForgedSteelGreatsword_RavenQuillGuard.SM_ForgedSteelGreatsword_RavenQuillGuard",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "mesh_by_blade": {
+          "executioner_blade": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/NestedV4/SM_ForgedSteelGreatsword_RavenQuillGuard_ExecutionerSeat.SM_ForgedSteelGreatsword_RavenQuillGuard_ExecutionerSeat"
+        },
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1",
+          "M_RavenQuill_ForgedMetal"
+        ],
+        "materials": {
+          "M_RavenQuill_ForgedMetal": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_RavenQuill_ForgedMetal.M_RavenQuill_ForgedMetal",
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/RavenQuillGuard/SprintCharge/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1"
+        }
+      },
+      "eagle_talon_guard": {
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/SM_ForgedSteelGreatsword_EagleTalonGuard.SM_ForgedSteelGreatsword_EagleTalonGuard",
+        "location_cm": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "mesh_by_blade": {
+          "executioner_blade": "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/V1/SM_ForgedSteelGreatsword_EagleTalonGuard_ExecutionerSeat.SM_ForgedSteelGreatsword_EagleTalonGuard_ExecutionerSeat"
+        },
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1",
+          "M_EagleTalon_ForgedSteel"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Materials/M_TangDaoBladeRuneSurface_ForgedSteel_V1.M_TangDaoBladeRuneSurface_ForgedSteel_V1",
+          "M_EagleTalon_ForgedSteel": "/Game/Weapons/ForgedSteelGreatsword20261120/EagleTalonGuard/GuardCharge/M_EagleTalon_GuardCharge.M_EagleTalon_GuardCharge"
         }
       }
     },
     "grip": {
       "factory": {
-        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Meshes/SM_ForgedSteelGreatsword_Grip_V1.SM_ForgedSteelGreatsword_Grip_V1",
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/SM_ForgedSteelGreatsword_Grip_FactoryLeather.SM_ForgedSteelGreatsword_Grip_FactoryLeather",
         "location_cm": [
           0.0,
           0.0,
           -5.000000074505806
         ],
-        "interface": "forged_steel_greatsword_hilt_v1"
+        "interface": "forged_steel_greatsword_hilt_v1",
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1",
+          "M_SharedGrip_Leather"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+          "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/M_ForgedGrip_Leather.M_ForgedGrip_Leather"
+        }
       },
       "shock_wrap": {
-        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Grip_shock_wrap_V2.SM_ForgedSteelGreatsword_Grip_shock_wrap_V2",
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/SM_ForgedSteelGreatsword_Grip_shock_wrap_V2.SM_ForgedSteelGreatsword_Grip_shock_wrap_V2",
         "location_cm": [
           0.0,
           0.0,
@@ -339,10 +411,20 @@
           0,
           0,
           -0.0
-        ]
+        ],
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1",
+          "M_SharedGrip_Leather",
+          "M_SharedGrip_Steel"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+          "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+          "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel"
+        }
       },
       "swift_grip": {
-        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Grip_swift_grip_V2.SM_ForgedSteelGreatsword_Grip_swift_grip_V2",
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/SM_ForgedSteelGreatsword_Grip_swift_grip_V2.SM_ForgedSteelGreatsword_Grip_swift_grip_V2",
         "location_cm": [
           0.0,
           0.0,
@@ -354,10 +436,20 @@
           0,
           0,
           -0.0
-        ]
+        ],
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1",
+          "M_SharedGrip_Leather",
+          "M_SharedGrip_Steel"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+          "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+          "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel"
+        }
       },
       "long_twohand": {
-        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Grip_long_twohand_V2.SM_ForgedSteelGreatsword_Grip_long_twohand_V2",
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/SM_ForgedSteelGreatsword_Grip_long_twohand_V2.SM_ForgedSteelGreatsword_Grip_long_twohand_V2",
         "location_cm": [
           0.0,
           0.0,
@@ -377,10 +469,20 @@
             0,
             -1.6
           ]
+        },
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1",
+          "M_SharedGrip_Leather",
+          "M_SharedGrip_Steel"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+          "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+          "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel"
         }
       },
       "iron_spine_power_grip": {
-        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Grip_iron_spine_power_grip_V2.SM_ForgedSteelGreatsword_Grip_iron_spine_power_grip_V2",
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/SM_ForgedSteelGreatsword_Grip_iron_spine_power_grip_V2.SM_ForgedSteelGreatsword_Grip_iron_spine_power_grip_V2",
         "location_cm": [
           0.0,
           0.0,
@@ -392,10 +494,20 @@
           0,
           0,
           -0.0
-        ]
+        ],
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1",
+          "M_SharedGrip_Leather",
+          "M_SharedGrip_Steel"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+          "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+          "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel"
+        }
       },
       "lockweave_guard_grip": {
-        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/CommonMods/Meshes/SM_ForgedSteelGreatsword_Grip_lockweave_guard_grip_V2.SM_ForgedSteelGreatsword_Grip_lockweave_guard_grip_V2",
+        "mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/SM_ForgedSteelGreatsword_Grip_lockweave_guard_grip_V2.SM_ForgedSteelGreatsword_Grip_lockweave_guard_grip_V2",
         "location_cm": [
           0.0,
           0.0,
@@ -407,7 +519,19 @@
           0,
           0,
           -0.0
-        ]
+        ],
+        "material_slot_names": [
+          "M_ForgedSteelGreatsword_Surface_V1",
+          "M_SharedGrip_Leather",
+          "M_SharedGrip_Steel",
+          "M_SharedGrip_Textile"
+        ],
+        "materials": {
+          "M_ForgedSteelGreatsword_Surface_V1": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Materials/M_ForgedSteelGreatsword_Surface_V1.M_ForgedSteelGreatsword_Surface_V1",
+          "M_SharedGrip_Leather": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/ReferenceLeather/M_ForgedGrip_Leather.M_ForgedGrip_Leather",
+          "M_SharedGrip_Steel": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Steel.M_ForgedGrip_Steel",
+          "M_SharedGrip_Textile": "/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish/M_ForgedGrip_Textile.M_ForgedGrip_Textile"
+        }
       }
     },
     "pommel": {

@@ -1,0 +1,473 @@
+{
+  "Source/FPSGAME/Building/ForgingSystem.cpp": [
+    "01-apprentice-reset"
+  ],
+  "Source/FPSGAME/NPC/ChapelDialogueSmithTraining.cpp": [
+    "01-apprentice-reset",
+    "02-QuestJournal",
+    "03-QuestTrackingChoice",
+    "04-QuestJournalDetails",
+    "05-QuestJournalStatus",
+    "07-smelting-yard",
+    "11-mining"
+  ],
+  "Source/FPSGAME/Tasks/ApprenticeMaterials.h": [
+    "01-apprentice-reset"
+  ],
+  "Source/FPSGAME/Tasks/BlacksmithApprenticeship.cpp": [
+    "01-apprentice-reset",
+    "07-smelting-yard",
+    "11-mining",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Tasks/BlacksmithApprenticeship.h": [
+    "01-apprentice-reset",
+    "07-smelting-yard",
+    "11-mining"
+  ],
+  "Source/FPSGAME/Tasks/BlacksmithLessonText.h": [
+    "01-apprentice-reset",
+    "07-smelting-yard",
+    "11-mining"
+  ],
+  "Source/FPSGAME/Tasks/CarpenterApprenticeship.cpp": [
+    "01-apprentice-reset"
+  ],
+  "Source/FPSGAME/Tasks/CarpenterApprenticeship.h": [
+    "01-apprentice-reset"
+  ],
+  "Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp": [
+    "01-apprentice-reset",
+    "07-smelting-yard",
+    "11-mining"
+  ],
+  "Source/FPSGAME/UI/DevelopmentPanelTools.cpp": [
+    "01-apprentice-reset",
+    "07-smelting-yard",
+    "11-mining"
+  ],
+  "Source/FPSGAME/UI/DevelopmentPanelWidget.cpp": [
+    "01-apprentice-reset"
+  ],
+  "Source/FPSGAME/UI/DevelopmentPanelWidget.h": [
+    "01-apprentice-reset"
+  ],
+  "Source/FPSGAME/UI/DevelopmentTuningPanel.cpp": [
+    "01-apprentice-reset"
+  ],
+  "Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp": [
+    "02-QuestJournal",
+    "04-QuestJournalDetails",
+    "05-QuestJournalStatus"
+  ],
+  "Source/FPSGAME/Dungeons/DungeonRunSubsystem.h": [
+    "02-QuestJournal",
+    "04-QuestJournalDetails"
+  ],
+  "Source/FPSGAME/NPC/ChapelDialogueComponent.h": [
+    "02-QuestJournal",
+    "04-QuestJournalDetails"
+  ],
+  "Source/FPSGAME/Tasks/TaskTrackingSubsystem.cpp": [
+    "02-QuestJournal",
+    "03-QuestTrackingChoice",
+    "04-QuestJournalDetails"
+  ],
+  "Source/FPSGAME/Tasks/TaskTrackingSubsystem.h": [
+    "02-QuestJournal",
+    "03-QuestTrackingChoice",
+    "04-QuestJournalDetails",
+    "05-QuestJournalStatus"
+  ],
+  "Source/FPSGAME/UI/ColdSteelDungeonTracker.cpp": [
+    "02-QuestJournal",
+    "03-QuestTrackingChoice",
+    "04-QuestJournalDetails"
+  ],
+  "Source/FPSGAME/UI/ColdSteelDungeonTracker.h": [
+    "02-QuestJournal",
+    "03-QuestTrackingChoice",
+    "04-QuestJournalDetails"
+  ],
+  "Source/FPSGAME/UI/ColdSteelHotbarDrag.cpp": [
+    "02-QuestJournal"
+  ],
+  "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp": [
+    "02-QuestJournal",
+    "04-QuestJournalDetails"
+  ],
+  "Source/FPSGAME/UI/ColdSteelHUDReadouts.cpp": [
+    "02-QuestJournal",
+    "04-QuestJournalDetails"
+  ],
+  "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp": [
+    "02-QuestJournal",
+    "04-QuestJournalDetails"
+  ],
+  "Source/FPSGAME/UI/ColdSteelHUDWidget.h": [
+    "02-QuestJournal",
+    "04-QuestJournalDetails"
+  ],
+  "Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp": [
+    "02-QuestJournal"
+  ],
+  "Source/FPSGAME/UI/ColdSteelItemTooltipHUD.cpp": [
+    "02-QuestJournal"
+  ],
+  "Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp": [
+    "02-QuestJournal"
+  ],
+  "Source/FPSGAME/UI/ColdSteelCharacterSheet.cpp": [
+    "04-QuestJournalDetails"
+  ],
+  "Source/FPSGAME/UI/ColdSteelQuestJournal.cpp": [
+    "04-QuestJournalDetails",
+    "05-QuestJournalStatus",
+    "06-QuestJournalStepStatus"
+  ],
+  "Source/FPSGAME/UI/ColdSteelQuestJournal.h": [
+    "04-QuestJournalDetails",
+    "05-QuestJournalStatus"
+  ],
+  "Source/FPSGAME/Building/SmeltingSystem.cpp": [
+    "07-smelting-yard"
+  ],
+  "Source/FPSGAME/Building/VillageFurnaceKeys.h": [
+    "07-smelting-yard"
+  ],
+  "Source/FPSGAME/Building/VoxelBuildWorld.cpp": [
+    "07-smelting-yard"
+  ],
+  "Source/FPSGAME/Building/VoxelBuildWorld.h": [
+    "07-smelting-yard"
+  ],
+  "Source/FPSGAME/Building/VoxelBuildWorldCasting.cpp": [
+    "07-smelting-yard"
+  ],
+  "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp": [
+    "07-smelting-yard"
+  ],
+  "Source/FPSGAME/UI/ColdSteelNpcDialogueArtisans.h": [
+    "07-smelting-yard"
+  ],
+  "Source/FPSGAME/WorldGeneration/HillsBlacksmith.cpp": [
+    "07-smelting-yard",
+    "09-repair",
+    "11-mining",
+    "12-lamps"
+  ],
+  "Source/FPSGAME/WorldGeneration/HillsBlacksmith.h": [
+    "07-smelting-yard"
+  ],
+  "Source/FPSGAME/WorldGeneration/HillsBlacksmithYard.cpp": [
+    "07-smelting-yard",
+    "10-wear"
+  ],
+  "Source/FPSGAME/WorldGeneration/SmithYardFurnace.h": [
+    "07-smelting-yard"
+  ],
+  "Source/FPSGAME/WorldGeneration/TemperateVillageGroundData.inl": [
+    "08-canopy",
+    "09-repair"
+  ],
+  "Source/FPSGAME/WorldGeneration/TemperateVillageLayout.inl": [
+    "08-canopy"
+  ],
+  "Tools/WorldGeneration/AbandonedVillage/draw_plan.py": [
+    "08-canopy"
+  ],
+  "Tools/WorldGeneration/AbandonedVillage/smith_apron.py": [
+    "08-canopy",
+    "09-repair",
+    "10-wear"
+  ],
+  "Tools/WorldGeneration/AbandonedVillage/smith_yard_clearance.py": [
+    "08-canopy",
+    "09-repair"
+  ],
+  "Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py": [
+    "08-canopy"
+  ],
+  "Tools/WorldGeneration/AbandonedVillage/village_yard_dressing.py": [
+    "08-canopy",
+    "09-repair"
+  ],
+  "Tools/WorldGeneration/AbandonedVillage/wall_support.py": [
+    "08-canopy"
+  ],
+  "Source/FPSGAME/WorldGeneration/TemperateHillsGroundCache.cpp": [
+    "09-repair"
+  ],
+  "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp": [
+    "09-repair"
+  ],
+  "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h": [
+    "09-repair",
+    "11-mining",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/WorldGeneration/TemperateVillageGround.cpp": [
+    "09-repair"
+  ],
+  "Source/FPSGAME/WorldGeneration/TemperateVillageSite.h": [
+    "09-repair"
+  ],
+  "Tools/WorldGeneration/AbandonedVillage/smith_yard_material.py": [
+    "09-repair"
+  ],
+  "Tools/WorldGeneration/AbandonedVillage/smith_yard_states.py": [
+    "09-repair"
+  ],
+  "Tools/WorldGeneration/AbandonedVillage/terrain_road_layer.py": [
+    "09-repair"
+  ],
+  "Tools/WorldGeneration/temperate_ground_cache.py": [
+    "09-repair"
+  ],
+  "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp": [
+    "11-mining"
+  ],
+  "Source/FPSGAME/UI/ColdSteelAreaPickup.cpp": [
+    "11-mining"
+  ],
+  "Source/FPSGAME/UI/ColdSteelInventoryTypes.h": [
+    "11-mining"
+  ],
+  "Source/FPSGAME/UI/ColdSteelNpcDialogue.h": [
+    "11-mining"
+  ],
+  "Source/FPSGAME/UI/ColdSteelProductionDrops.cpp": [
+    "11-mining"
+  ],
+  "Source/FPSGAME/UI/ColdSteelProfilePawn.cpp": [
+    "11-mining"
+  ],
+  "Source/FPSGAME/UI/ColdSteelWorldMapData.cpp": [
+    "11-mining",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/UI/ColdSteelWorldMapData.h": [
+    "11-mining",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/UI/SColdSteelWorldMap.cpp": [
+    "11-mining"
+  ],
+  "Source/FPSGAME/WorldGeneration/SmithYardLamp.cpp": [
+    "11-mining",
+    "12-lamps"
+  ],
+  "Source/FPSGAME/WorldGeneration/SmithYardLamp.h": [
+    "11-mining",
+    "12-lamps"
+  ],
+  "Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp": [
+    "11-mining"
+  ],
+  "Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp": [
+    "11-mining"
+  ],
+  "Source/FPSGAME/WorldGeneration/TemperateHillsVegetation.cpp": [
+    "11-mining"
+  ],
+  "Source/FPSGAME/WorldGeneration/TemperateIronOutcrops.cpp": [
+    "11-mining",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/WorldGeneration/TemperateIronOutcrops.h": [
+    "11-mining",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/WorldGeneration/VillageShopTorches.cpp": [
+    "11-mining",
+    "12-lamps"
+  ],
+  "Source/FPSGAME/WorldGeneration/HillsHerbalistWorkshop.cpp": [
+    "12-lamps"
+  ],
+  "Source/FPSGAME/WorldGeneration/HillsTavernInterior.cpp": [
+    "12-lamps"
+  ],
+  "Source/FPSGAME/WorldGeneration/VillageShopTorches.h": [
+    "12-lamps"
+  ],
+  "Tools/WorldGeneration/AbandonedVillage/village_chimney.py": [
+    "12-lamps"
+  ],
+  "Tools/WorldGeneration/VillageBlacksmith/MasonryR5/finish.py": [
+    "12-lamps"
+  ],
+  "Tools/WorldGeneration/VillageBlacksmith/MasonryR5/prepare_layout.py": [
+    "12-lamps"
+  ],
+  "Tools/WorldGeneration/VillageHerbalist/author_shop03.py": [
+    "12-lamps"
+  ],
+  "Tools/WorldGeneration/VillageHerbalist/retire_shop_torches.py": [
+    "12-lamps"
+  ],
+  "Source/FPSGAME/Weapons/ModularSwordVisual.h": [
+    "13-seat"
+  ],
+  "Source/FPSGAME/Weapons/ModularSwordVisual.cpp": [
+    "13-seat",
+    "14-raven",
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Characters/FPSBodyRuneVisual.cpp": [
+    "13-seat"
+  ],
+  "Source/FPSGAME/Weapons/SharedTwoHandFinishAudit.cpp": [
+    "13-seat"
+  ],
+  "Source/FPSGAME/FPSGAMECharacter.cpp": [
+    "14-raven",
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Weapons/RavenQuillChargeComponent.cpp": [
+    "14-raven",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Weapons/RavenQuillChargeComponent.h": [
+    "14-raven",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Weapons/RuneSwordPresentation.cpp": [
+    "14-raven",
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Characters/FPSPlayerBodyWeaponAssembly.cpp": [
+    "14-raven",
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp": [
+    "14-raven",
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Movement/FPSStaminaModel.cpp": [
+    "14-raven",
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp": [
+    "15-eagle",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.cpp": [
+    "15-eagle",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Multiplayer/ColdSteelGenericMelee.h": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Multiplayer/ColdSteelPlayerHitSettlement.cpp": [
+    "15-eagle",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Multiplayer/ColdSteelQuickCombatAuthority.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Multiplayer/ColdSteelRiftSlashNetwork.cpp": [
+    "15-eagle",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Multiplayer/ColdSteelUppercutAuthority.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Multiplayer/ColdSteelWhirlwindAuthority.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Skills/ColdSteelChainSlashModel.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Skills/ColdSteelDashAttackModel.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Skills/ColdSteelHeavyStrikeModel.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Skills/ColdSteelSkillTypes.h": [
+    "15-eagle",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Skills/ColdSteelWhirlwindModel.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/UI/ColdSteelStatusModel.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/UI/M4GunsmithSelectedDetails.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/UI/M4MeleeGunsmith.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Weapons/EagleTalonGuardComponent.cpp": [
+    "15-eagle",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Weapons/EagleTalonGuardComponent.h": [
+    "15-eagle",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Weapons/GunsmithSystem.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Weapons/GunsmithSystem.h": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Weapons/MeleeGunsmith.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Weapons/MeleeWeaponStats.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Weapons/RuneSwordActions.cpp": [
+    "15-eagle",
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Weapons/RuneSwordChainSlash.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Weapons/RuneSwordGuard.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Weapons/RuneSwordHeavyCharge.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Weapons/RuneSwordUppercut.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Weapons/RuneSwordWhirlwind.cpp": [
+    "15-eagle"
+  ],
+  "Source/FPSGAME/Building/BronzeTorch.cpp": [
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Development/ArtisanVillageNetworkProbe.cpp": [
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Development/SmithLessonSceneProbe.inl": [
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Multiplayer/ColdSteelHarvestAuthority.cpp": [
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Multiplayer/ColdSteelWorldNetwork.cpp": [
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/Weapons/RuneSwordComponent.h": [
+    "16-multiplayer-audit"
+  ],
+  "Source/FPSGAME/WorldGeneration/VillageMechanicalWorkshop.cpp": [
+    "16-multiplayer-audit"
+  ],
+  "Tools/WorldGeneration/ArtisanLessonBranches/LessonFixture.cpp": [
+    "16-multiplayer-audit"
+  ],
+  "Tools/WorldGeneration/ArtisanLessonBranches/run.py": [
+    "16-multiplayer-audit"
+  ],
+  "Tools/WorldGeneration/run_artisan_village_net.py": [
+    "16-multiplayer-audit"
+  ]
+}

@@ -1,0 +1,61 @@
+--- a/Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp
++++ b/Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp
+@@ -435,7 +435,8 @@
+     const bool bCarpenter = Conversation.IsValid() && Conversation->IsCarpenter();
+     const int32 Stage = Conversation.IsValid()
+         ? (bCarpenter ? Conversation->CarpenterTrainingStage() : Conversation->SmithTrainingStage()) : 0;
+-    if (Stage == 4)
++    const int32 CompleteStep = bCarpenter ? 4 : 5;
++    if (Stage == CompleteStep)
+     {
+         Passages.Add({bCarpenter ? TEXT("长杖是你亲手锯出来的。往后每做一件，记住上回哪一锯最顺。")
+                                 : TEXT("好剑，收好！往后听见这铺子里有锤声，就进来坐坐。")});
+@@ -456,12 +457,13 @@
+             + SWrapBox::Slot()[ForgeAimExample(true)];
+         Passages = {
+             {BlacksmithLessonText::Quality(), TEXT("成品品质")},
+-            {BlacksmithLessonText::Materials(), TEXT("第一步　备料")},
+-            {BlacksmithLessonText::Hammering(), TEXT("第二步　锤炼"), AimGuide},
+-            {BlacksmithLessonText::Finish(), TEXT("第三步　收尾")}
++            {BlacksmithLessonText::Smelting(), TEXT("冶炼教程　添柴、炼矿、取锭")},
++            {BlacksmithLessonText::Materials(), TEXT("打铁教程　选料开炉")},
++            {BlacksmithLessonText::Hammering(), TEXT("打铁教程　锤炼"), AimGuide},
++            {BlacksmithLessonText::Finish(), TEXT("打铁教程　领取成品")}
+         };
+     }
+-    if (Stage > 0 && Stage < 4) Passages.RemoveAt(0, Stage);
++    if (Stage > 0 && Stage < CompleteStep) Passages.RemoveAt(0, Stage);
+     auto LessonBody = SNew(SVerticalBox)
+         + SVerticalBox::Slot().AutoHeight()[SAssignNew(Speech, SColdSteelNpcSpeech).Passages(MoveTemp(Passages))]
+         + SVerticalBox::Slot().AutoHeight().Padding(0, 4, 0, 0)
+@@ -489,15 +491,16 @@
+     const int32 Stage = bCarpenter ? Conversation->CarpenterTrainingStage() : Conversation->SmithTrainingStage();
+     const bool bPending = Conversation->IsPending();
+     static const TCHAR* const SmithStatus[] = {
+-        TEXT("支线任务 · 打造并领取一把锻钢双手剑"), TEXT("第一步 · 到铸造台为锻钢双手剑备料"), TEXT("第二步 · 在铁砧上锤炼锻钢双手剑"),
+-        TEXT("第三步 · 领取亲手打造的锻钢双手剑"), TEXT("已完成打铁修炼")
++        TEXT("冶炼与打铁 · 从铁矿到锻钢双手剑"), TEXT("冶炼 · 在高炉炼矿并领取三块金属锭"),
++        TEXT("打铁 · 合金胚 ×1、任选同种金属锭 ×3"), TEXT("打铁 · 在铁砧上锤炼锻钢双手剑"),
++        TEXT("打铁 · 领取亲手打造的锻钢双手剑"), TEXT("已完成冶炼与打铁修炼")
+     };
+     static const TCHAR* const CarpenterStatus[] = {
+         TEXT("支线任务 · 制作并领取一把学徒长杖"), TEXT("第一步 · 到木工台为学徒长杖备料"), TEXT("第二步 · 上锯加工学徒长杖"),
+         TEXT("第三步 · 领取合格的学徒长杖"), TEXT("已完成木工修炼")
+     };
+     const auto& Status = bCarpenter ? CarpenterStatus : SmithStatus;
+-    constexpr int32 StageCount = UE_ARRAY_COUNT(CarpenterStatus);
++    const int32 StageCount = bCarpenter ? UE_ARRAY_COUNT(CarpenterStatus) : UE_ARRAY_COUNT(SmithStatus);
+     const TCHAR* Current = (Stage >= 0 && Stage < StageCount) ? Status[Stage] : TEXT("正在同步修炼进度");
+     TrainingProgress->SetText(FText::FromString(Stage == 0 && bPending ? TEXT("正在确认修炼进度…") : Current));
+     const bool bRetry = Conversation->CanCollectTrainingSupplies() && !bPending;
+--- a/Source/FPSGAME/UI/DevelopmentPanelTools.cpp
++++ b/Source/FPSGAME/UI/DevelopmentPanelTools.cpp
+@@ -33,7 +33,7 @@
+ };
+ 
+ constexpr FDevelopmentQuestLine ResettableQuests[] = {
+-    {BlacksmithApprenticeship::TaskId, TEXT("铁匠"), TEXT("打铁修炼"), BlacksmithApprenticeship::Reset},
++    {BlacksmithApprenticeship::TaskId, TEXT("铁匠"), TEXT("冶炼与打铁"), BlacksmithApprenticeship::Reset},
+     {CarpenterApprenticeship::TaskId, TEXT("木匠"), TEXT("木工修炼"), CarpenterApprenticeship::Reset}
+ };
+ }

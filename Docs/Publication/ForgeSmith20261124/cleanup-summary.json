@@ -1,0 +1,30 @@
+{
+  "batch": "ForgeSmithCloseout20261124",
+  "drives": {
+    "D": {
+      "file_count": 16891,
+      "bytes": 2455662821,
+      "detached_links": 33
+    },
+    "F": {
+      "file_count": 943,
+      "bytes": 1403340367,
+      "detached_links": 146
+    }
+  },
+  "trash": [
+    "D:/FPS3D/FPSGAME/trash/ForgeSmithCloseout20261124",
+    "F:/FPSGAMEData/trash/ForgeSmithCloseout20261124"
+  ],
+  "local_receipts": {
+    "cleanup.jsonl": "e42dabc13fb84c5ca7e52975f892682d6509c8f97abc822c327e8b33d01c458b",
+    "retired-links.json": "3dbe74998db92ae61f7cb3bfea105a1aad1bc65eab7871c60cfd5ea1d366f195"
+  },
+  "local_receipt_root": "F:\\FPSGAMEData\\ArtProduction\\ForgedSteelGreatsword\\ConversationFix20261124",
+  "retained": [
+    "accepted modeling references and editable originals",
+    "production UE packages",
+    "release archives and before-images",
+    "network runner, native regression fixture and consolidated evidence"
+  ]
+}

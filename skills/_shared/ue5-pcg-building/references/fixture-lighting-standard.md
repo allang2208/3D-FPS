@@ -36,3 +36,8 @@
 - 正式地图：`/Game/GameMaps/L_Dungeon_Randomized`；增量重建入口：`SourceAssets/DungeonFacilityFlow20261007/extend_catalog.py`。
 - 运行时方向的失败与后续修复记录：工程 `Docs/Gameplay/dungeon-light-direction-root-fix-20261009.md`、`dungeon-light-mobility-order-fix-20261009.md`。首次修复已被用户截图证伪；以移动性顺序修复和最新用户反馈为准。
 - 检修门黑色遮蔽的通用制作规则见 [流体可见性中的遮蔽分支](../../ue5-fluid-vfx-workflow/references/transparency-and-visibility.md#出怪门内的黑色遮蔽与廉价雾幕)。
+
+## 铁匠铺的铁砧与炉膛
+
+- 六家商店的灯位、朝向与修复状态由 `VillageShopTorches.cpp` 的挂点表维护，室内、外墙和破败保留位分别使用常亮、昼夜时钟和熄灯状态。灯体、链节和点光源复用 `AVillageShopChainLamp`。烘在关卡里的旧灯碗、火焰卡和点光源需随挂点迁移一起处理。炉膛火焰仍由炉膛系统负责。
+- 复核性能时，可在同一机位交替采样点光源正常、隐藏两种状态，固定分辨率与限帧并留出预热帧。分别记录 GPU 帧时间与游戏线程高分位，注明修复、流送及联机负载。

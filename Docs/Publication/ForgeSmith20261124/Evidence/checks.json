@@ -1,0 +1,48 @@
+{
+  "task_tracking": "[TaskTrackingContract] checks=41 failures=0",
+  "lesson_and_guards": "checks=62 passed=62 failed=0",
+  "final_network_run": {
+    "passed": true,
+    "error": null,
+    "checks": 22
+  },
+  "performance": {
+    "normal": {
+      "game_ms": {
+        "median": 15.46,
+        "p95": 40.643
+      },
+      "render_ms": {
+        "median": 6.668,
+        "p95": 13.427
+      },
+      "gpu_ms": {
+        "median": 12.764,
+        "p95": 13.838
+      },
+      "n": 180
+    },
+    "point_lights_hidden": {
+      "game_ms": {
+        "median": 12.408,
+        "p95": 27.478
+      },
+      "render_ms": {
+        "median": 5.86,
+        "p95": 7.008
+      },
+      "gpu_ms": {
+        "median": 11.542,
+        "p95": 12.693
+      },
+      "n": 180
+    }
+  },
+  "method": "D3D12, 1920x1080, 30 FPS limit, NVIDIA GeForce RTX 3080 Ti (12 GiB). One fixed camera looking towards the smelting yard. Two phases per light state with 90 warm-up frames followed by 90 measured frames. Measures the entire frame and varying runtime activity.",
+  "coverage": {
+    "network": "Separate UE listen server and remote player over UDP with emulated 60 ms lag and 2 percent packet loss. Ruined and repaired layout, actual guest dialogue, ore pickup and delivery, unchanged host profile, restored guest profile, replicated Eagle charge and spend.",
+    "fixtures": "Ore drop spawned with the real freshly mined flag; enemy block and parry outcomes sent into the authority combat component; ingot counts credited via the normal quest hook in the standalone fixture. A complete remote playthrough physically swinging the pickaxe, operating the furnace, and fighting a monster was not recorded.",
+    "asset_check": "27 loaded sword meshes with no missing material slots or unmatched overrides, 10 matching factory icon packages; actual UE offscreen captures of both guards and factory wrap.",
+    "performance": "Fixed camera, not an uncapped framerate benchmark. GPU median 12.764 ms with lamps and 11.542 ms with lamp point lights hidden. Game thread p95 was 40.643 ms. Streaming and peers were active during sampling."
+  }
+}

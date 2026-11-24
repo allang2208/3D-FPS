@@ -1,6 +1,6 @@
 """Place dormant furnace smoke and a separate wood/charcoal fire at their own openings."""
 import unreal as ue
-from shop_staff_light import HEARTH_FIRE, TORCH_FIRE
+from shop_staff_light import HEARTH_FIRE
 
 FLUE_TAG = 'VillageShop.FlueSmoke'
 FUEL_TAG = 'VillageShop.HearthFire'
@@ -62,7 +62,6 @@ def install_plume(site, outlet, *_legacy_preview_settings):
 
 
 def install_smith_hearth(station):
-    station.set_editor_property('interior_torch_flame',ue.EditorAssetLibrary.load_asset(TORCH_FIRE))
     hearth(station, (80.,460.,1145.), (1.16,1.16,.72), 11., .81, SMITH_FIRE_AT_STATION, .71)
 
 

@@ -1,0 +1,79 @@
+--- a/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
++++ b/Source/FPSGAME/Dungeons/DungeonRunSubsystem.cpp
+@@ -462,6 +462,21 @@
+     Task.InstanceId = TEXT("outside-run");
+     Task.Title = INVTEXT("地牢探险");
+     Task.Area = INVTEXT("全队共享");
++    if (Viewer && !UDungeonRoomSubsystem::IsDungeonPawn(Viewer))
++    {
++        if (const auto* Model = ColdSteelAuthority::ForPawn(Viewer))
++        {
++            const auto& LastRun = Model->ProfileView().DungeonRun;
++            if (LastRun.bCompleted && !LastRun.RunId.IsEmpty())
++            {
++                Task.InstanceId = LastRun.RunId;
++                Task.State = ETrackedTaskState::Completed;
++                Task.Stage = INVTEXT("探索完成");
++                return;
++            }
++        }
++    }
++    Task.State = ETrackedTaskState::NotStarted;
+     Task.Stage = INVTEXT("等待地牢目标");
+     Task.Hint = INVTEXT("进入地牢后查看本局的区域、目标和队伍进度。");
+ }
+@@ -471,9 +486,10 @@
+     if (!Viewer || Task.Id != TEXT("dungeon.exploration")) return false;
+     Out.Introduction = INVTEXT("从分流大厅进入废弃设施，沿开启的闸门探索各区，最终抵达终末泵机大厅。队伍共享本局的首领和通路进度。");
+     Out.Reward = INVTEXT("终点奖励室宝箱。击败最终首领后可在撤离前搜刮，具体物品以宝箱内容为准。");
+-    const bool InRun = bActive && Task.InstanceId == CurrentRunId;
+-    const bool Finished = InRun && IsRunCompleted();
+-    const bool BossDown = InRun && IsFinalBossDefeated();
++    const bool InRun = bActive && Task.InstanceId == CurrentRunId &&
++        (!UDungeonRoomSubsystem::Supports(GetWorld()) || UDungeonRoomSubsystem::IsDungeonPawn(Viewer));
++    const bool Finished = Task.State == ETrackedTaskState::Completed;
++    const bool BossDown = Finished || (InRun && IsFinalBossDefeated());
+     auto Add = [&](FName Id, const FText& Text, bool Done, bool Active)
+     {
+         auto& Row = Out.Steps.AddDefaulted_GetRef();
+@@ -482,8 +498,8 @@
+         if (const auto* Live = Task.Objectives.FindByPredicate([&](const auto& Goal) { return Goal.Id == Id; }))
+             Row = *Live;
+     };
+-    Add(TEXT("enter"), INVTEXT("进入地牢"), InRun, !InRun);
+-    Add(TEXT("welcome.elite"), INVTEXT("击败分流大厅精英，开启三处闸门"), InRun && IsWelcomeEliteDefeated(), false);
++    Add(TEXT("enter"), INVTEXT("进入地牢"), InRun || Finished, !InRun && !Finished);
++    Add(TEXT("welcome.elite"), INVTEXT("击败分流大厅精英，开启三处闸门"), Finished || (InRun && IsWelcomeEliteDefeated()), false);
+     bool HasRegionGoal = false;
+     for (const auto& Goal : Task.Objectives)
+     {
+@@ -499,9 +515,18 @@
+             AtFinal, InRun && IsWelcomeEliteDefeated() && !AtFinal);
+     }
+     Add(TEXT("final.heque"), INVTEXT("击败最终首领：合阙 M-36"), BossDown, false);
+-    const bool Looted = InRun && IsFinalTreasureLooted();
+-    Add(TEXT("final.treasure"), INVTEXT("搜刮终点奖励室的宝箱（可选）"), Looted, BossDown && !Finished);
+-    if (Finished && !Looted) Out.Steps.Last().State = ETrackedObjectiveState::Skipped;
++    bool Looted = InRun && IsFinalTreasureLooted();
++    if (Finished && !InRun)
++        if (const auto* Model = ColdSteelAuthority::ForPawn(Viewer))
++        {
++            const auto& LastRun = Model->ProfileView().DungeonRun;
++            Looted = LastRun.RunId == Task.InstanceId && LastRun.Claimed.Contains(TEXT("FinalTreasure.Taken"));
++        }
++    if (InRun || !Finished || Looted)
++    {
++        Add(TEXT("final.treasure"), INVTEXT("搜刮终点奖励室的宝箱（可选）"), Looted, BossDown && !Finished);
++        if (Finished && !Looted) Out.Steps.Last().State = ETrackedObjectiveState::Skipped;
++    }
+     Add(TEXT("final.return"), INVTEXT("通过返程传送门撤离"), Finished, BossDown && !Finished);
+     return true;
+ }
+@@ -528,6 +553,7 @@
+     if (!Room) return false;
+     Out.Id = TEXT("dungeon.exploration");
+     Out.InstanceId = CurrentRunId;
++    Out.State = IsRunCompleted() ? ETrackedTaskState::Completed : ETrackedTaskState::InProgress;
+     Out.Title = FText::FromString(TEXT("地牢探险"));
+     Out.Priority = 100;
+     const bool Welcome = AFacilityHallEncounter::IsHall(Room->Module) || Room->Module == TEXT("FacilityEntrancePassage");
