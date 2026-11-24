@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Skills/FPSMagicArrowRain.cpp
++++ b/Source/FPSGAME/Skills/FPSMagicArrowRain.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSMagicArrowRain.h"
++#include "../Weapons/Bow/EclipseBowMark.h"
+ #include "../Combat/FPSAttackQuery.h"
+ #include "MagicArrowRainGround.h"
+ #include "BlizzardEnvironment.h"
+@@ -56,6 +57,7 @@
+     const FVector& Start,const FVector& Ground,const FVector& Burst)
+ {
+     Model=InModel;Spell=InSpell;Flight.Start=Start;Flight.Ground=Ground;Flight.Burst=Burst;
++    Spell.EclipseShot = FEclipseBowShot::Capture(GetInstigator());
+     Flight.StartedAt=Clock();Flight.FlightSeconds=FMath::Max(.12f,float(FVector::Dist(Start,Burst))/Spell.SeedSpeed);
+     Flight.Radius=Spell.Radius;Flight.SurfaceNormal=Spell.SurfaceNormal;Flight.Count=Spell.ArrowCount;Flight.Seed=FMath::Rand();Flight.bLaunched=true;
+     SetActorLocation(Ground);ForceNetUpdate();SetLifeSpan(Flight.FlightSeconds+2.4f);

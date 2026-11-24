@@ -1,0 +1,39 @@
+--- a/Source/FPSGAME/Combat/CombatFormulaRuntime.cpp
++++ b/Source/FPSGAME/Combat/CombatFormulaRuntime.cpp
+@@ -1,4 +1,5 @@
+ #include "CombatFormulaRuntime.h"
++#include "../Weapons/Bow/EclipseBowMark.h"
+ #include "../Weapons/StarMarrowComponent.h"
+ #include "../Skills/IlluminationMarkComponent.h"
+ #include "../Skills/MagicArrowRainDamage.h"
+@@ -68,12 +69,13 @@
+         ActiveWeaponHit->bResolved=true;
+         return ActiveWeaponHit->Mitigated.Total();
+     }
++    const double EclipseMultiplier = UEclipseBowMark::DamageMultiplier(Target);
+     const bool Charged=Source!=Target&&UStarMarrowComponent::ChargesDamage(Source);
+     if(Type&&Type->IsA<UCombatDirectDamage>()&&!Charged)
+     {
+         const auto* Field=Target->FindComponentByClass<UCombatStatusFormula>();
+         const auto* SourceStatus=UCombatStatusFormula::ForDamageSource(Source);
+-        return Damage*(SourceStatus?SourceStatus->WeaknessDamageMultiplier():1.f)*(Field?Field->ZhenmoDamageMultiplier():1.f)*(1.f+UIlluminationMarkComponent::DamageBonus(Target));
++        return Damage*EclipseMultiplier*(SourceStatus?SourceStatus->WeaknessDamageMultiplier():1.f)*(Field?Field->ZhenmoDamageMultiplier():1.f)*(1.f+UIlluminationMarkComponent::DamageBonus(Target));
+     }
+     if(ActiveWeaponHit&&ActiveWeaponHit->Target==Target&&!ActiveWeaponHit->bResolved&&!IsMagic(Type))
+     {
+@@ -86,7 +88,7 @@
+         }
+         const auto* Status=Target->FindComponentByClass<UCombatStatusFormula>();
+         const auto* SourceStatus=UCombatStatusFormula::ForDamageSource(Source);
+-        double Common=UJingangRuneComponent::OutgoingMultiplier(Source);
++        double Common=UJingangRuneComponent::OutgoingMultiplier(Source)*EclipseMultiplier;
+         if(Status)Common*=Status->ZhenmoDamageMultiplier();
+         if(const auto* P=AttackerModel)
+             Common*=P->TributeEffect(TEXT("monsterDamageTakenPercent"));
+@@ -143,5 +145,5 @@
+     // 旧链尾段：来源侧减益（骆驼惊吓等）→ 标记 → 圣佑，逐段取整。
+     if(const auto* SourceStatus=UCombatStatusFormula::ForDamageSource(Source))Result=std::floor(Result*SourceStatus->OutgoingDamageMultiplier());
+     if(Status)Result=std::floor(Result*Status->MarkedMultiplier());
+-    return Status?std::floor(Result*Status->FinalMultiplier()*Status->ZhenmoDamageMultiplier()):Result;
++    return std::floor(Result*EclipseMultiplier*(Status?Status->FinalMultiplier()*Status->ZhenmoDamageMultiplier():1.));
+ }

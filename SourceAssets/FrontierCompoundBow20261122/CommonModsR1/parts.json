@@ -1,0 +1,96 @@
+{
+  "meshes": {
+    "SM_Frontier_WaxWrap": {
+      "triangles": 22276,
+      "materials": [
+        "M_FrontierMods_Surface",
+        "M_Frontier_Surface"
+      ]
+    },
+    "SM_Frontier_WovenWrap": {
+      "triangles": 26596,
+      "materials": [
+        "M_FrontierMods_Surface",
+        "M_Frontier_Surface"
+      ]
+    },
+    "SM_Frontier_SlimHide": {
+      "triangles": 13708,
+      "materials": [
+        "M_FrontierMods_Surface",
+        "M_Frontier_Surface"
+      ]
+    },
+    "SM_Frontier_PaddedHide": {
+      "triangles": 18292,
+      "materials": [
+        "M_FrontierMods_Surface",
+        "M_Frontier_Surface"
+      ]
+    },
+    "SM_Frontier_Clearfield2x": {
+      "triangles": 5736,
+      "materials": [
+        "M_FrontierMods_Surface",
+        "M_BowOptic_Glass2x"
+      ]
+    },
+    "SM_Frontier_Farwatch4x": {
+      "triangles": 6696,
+      "materials": [
+        "M_FrontierMods_Surface",
+        "M_BowOptic_Glass4x"
+      ]
+    },
+    "SK_Frontier_FastLine": {
+      "triangles": 10536,
+      "materials": [
+        "M_FrontierMods_Surface"
+      ]
+    },
+    "SK_Frontier_LockTwist": {
+      "triangles": 18526,
+      "materials": [
+        "M_FrontierMods_Surface"
+      ]
+    },
+    "SK_Frontier_Softcore": {
+      "triangles": 15176,
+      "materials": [
+        "M_FrontierMods_Surface"
+      ]
+    }
+  },
+  "aim_cm": [
+    -1.3250000476837158,
+    -4.185999870300293,
+    16.179000854492188
+  ],
+  "anchors": {
+    "upper": [
+      -23.81489,
+      -0.0,
+      46.90774
+    ],
+    "lower": [
+      -23.81693,
+      -0.0,
+      -36.15112
+    ],
+    "rest": [
+      -6.25,
+      -5.2,
+      9.45
+    ],
+    "brace": [
+      -23.62,
+      -0.0,
+      9.45
+    ],
+    "draw": [
+      -53.62,
+      -0.0,
+      9.45
+    ]
+  }
+}

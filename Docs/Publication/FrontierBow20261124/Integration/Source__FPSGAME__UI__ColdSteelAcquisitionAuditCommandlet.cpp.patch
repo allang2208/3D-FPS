@@ -1,0 +1,31 @@
+--- a/Source/FPSGAME/UI/ColdSteelAcquisitionAuditCommandlet.cpp
++++ b/Source/FPSGAME/UI/ColdSteelAcquisitionAuditCommandlet.cpp
+@@ -290,7 +290,7 @@
+     Client->AdoptNetMirror(BowStock);
+     Check(Smith->Begin(Bow.InstanceId)&&Smith->Select(TEXT("sight"),TEXT("highland_peakwatch_3_6x"))&&
+         Smith->Select(TEXT("string"),TEXT("highland_mountain_echo"))&&Smith->Apply(),TEXT("workbench equips Peakwatch sight and Mountain Echo string"));
+-    Receiver->LocalGunsmithSequence=8;Receiver->PendingGunsmithInstances.Add(Bow.InstanceId);
++    Receiver->LocalGunsmithSequence=8;Receiver->PendingGunsmithInstances.Add(Bow.InstanceId,{TEXT("sight"),TEXT("string")});
+     ++AuthorityBow.CampfireInventoryRevision;Mirror(AuthorityBow,7);
+     const auto PendingBow=BowParts();
+     Check(PendingBow.FindRef(TEXT("sight"))==TEXT("highland_peakwatch_3_6x")&&PendingBow.FindRef(TEXT("string"))==TEXT("highland_mountain_echo")&&
+@@ -301,6 +301,19 @@
+         RejectedBow.FindRef(TEXT("riser"))==TEXT("highland_far_peak")&&Receiver->PendingGunsmithInstances.IsEmpty(),
+         TEXT("matching rejection restores factory sight and string while keeping server riser"));
+     Smith->Close();
++    auto Frontier=Client->CreateItem(TEXT("bow_frontier_compound"));Frontier.Place=0;Frontier.Cell=0;
++    auto FrontierStock=Blank;FrontierStock.Items={Frontier};Client->AdoptNetMirror(FrontierStock);
++    Check(Smith->Begin(Frontier.InstanceId)&&Smith->Select(TEXT("riser"),TEXT("frontier_aurora"))&&
++        Smith->Select(TEXT("string"),TEXT("highland_mountain_echo"))&&Smith->Apply(),TEXT("compound bow workbench applies laser and light pillar"));
++    Receiver->LocalGunsmithSequence=9;Receiver->PendingGunsmithInstances.Add(Frontier.InstanceId,{TEXT("riser"),TEXT("string")});
++    ++FrontierStock.CampfireInventoryRevision;Mirror(FrontierStock,8);
++    auto FrontierOption=[&](const TCHAR* Slot){const auto* I=Client->FindItem(Frontier.InstanceId);return I?Smith->Installed(*I).FindRef(Slot):FString();};
++    Check(FrontierOption(TEXT("riser"))==TEXT("frontier_aurora")&&FrontierOption(TEXT("string"))==TEXT("highland_mountain_echo"),
++        TEXT("late inventory mirror retains both pending compound slots"));
++    Receiver->bHasLastSent=false;Mirror(FrontierStock,9);
++    Check(FrontierOption(TEXT("riser"))!=TEXT("frontier_aurora")&&FrontierOption(TEXT("string"))!=TEXT("highland_mountain_echo")
++        &&Receiver->PendingGunsmithInstances.IsEmpty(),TEXT("matching authority rejection retires both pending compound slots"));
++    Smith->Close();
+     Host->SetAcquisitionFeedEnabled(false);Client->SetAcquisitionFeedEnabled(false);Server->SetAcquisitionFeedEnabled(false);
+     Report+=FString::Printf(TEXT("COMPLETE checks=%d failures=%d\n"),Checks,Failures);
+     FFileHelper::SaveStringToFile(Report,*(Root/TEXT("report.txt")));UE_LOG(LogTemp,Display,TEXT("ACQUISITION_AUDIT COMPLETE checks=%d failures=%d"),Checks,Failures);

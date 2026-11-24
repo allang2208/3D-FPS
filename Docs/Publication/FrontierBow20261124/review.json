@@ -1,0 +1,80 @@
+{
+  "date": "2026-11-24",
+  "formal_module_sha256": "A3B44D1A6F9E4D864F834949AA635A2D5D544124ABEB967E2E2279976F7A91D7",
+  "source_map": "source-map.json",
+  "verification": {
+    "native_passed": {
+      "bow_authority": 95,
+      "string_and_effects": 69,
+      "optics_and_presentation": 28,
+      "elemental_hold": 209,
+      "bipod_collision_fixture": 87
+    },
+    "inventory": {
+      "passed": 151,
+      "total": 152,
+      "exception": "Forged greatsword metal count: 3 in local data and 8 in the published baseline and fixture."
+    },
+    "wire": "Local UDP listen host, client and reconnect, 60 ms delay and 5 percent loss per peer. Scoped flight and Peakwatch suites passed.",
+    "cpu_p95_ms": {
+      "single_beam_cpu": 0.002600252628326416,
+      "32_beam_rain_cpu": 0.0487007200717926
+    },
+    "gpu": {
+      "eclipse_flight": {
+        "log_frames": [
+          148,
+          293
+        ],
+        "captured_frames": 142,
+        "GPUTime": {
+          "p50_ms": 7.53725,
+          "p95_ms": 10.1323
+        },
+        "FrameTime": {
+          "p50_ms": 33.3338,
+          "p95_ms": 33.3444
+        },
+        "GameThreadTime": {
+          "p50_ms": 7.398300000000001,
+          "p95_ms": 10.5755
+        },
+        "RenderThreadTime": {
+          "p50_ms": 3.4815,
+          "p95_ms": 5.061
+        }
+      },
+      "aurora_and_echo_flight": {
+        "log_frames": [
+          509,
+          654
+        ],
+        "captured_frames": 142,
+        "GPUTime": {
+          "p50_ms": 7.7841000000000005,
+          "p95_ms": 12.3634
+        },
+        "FrameTime": {
+          "p50_ms": 33.33395,
+          "p95_ms": 33.7289
+        },
+        "GameThreadTime": {
+          "p50_ms": 7.7044999999999995,
+          "p95_ms": 13.9616
+        },
+        "RenderThreadTime": {
+          "p50_ms": 3.62675,
+          "p95_ms": 5.4705
+        }
+      }
+    }
+  },
+  "cleanup": {
+    "retired_files": 16038,
+    "logical_bytes": 5107527149,
+    "detached_host_links": 33,
+    "local_manifest_sha256": "de000850129aa3915495d94e2533cec259b8861d5488dbe93e2af5b2ee35fe69"
+  },
+  "local_restore": "ArtProduction/FrontierCompoundBow/NetworkReview20261124/FrontierBowNetworkReview_Source.zip",
+  "asset_location": "Content/Weapons/FrontierCompoundBow/ and Content/Weapons/WoodSteelLongbow20261026/LightPillarHUD/ on the licensed local project."
+}

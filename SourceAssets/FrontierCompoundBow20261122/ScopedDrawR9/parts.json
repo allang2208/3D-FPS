@@ -1,0 +1,22 @@
+{
+  "options": {
+    "bow_clearfield_2x": {
+      "mesh": "SM_Frontier_Clearfield2x",
+      "power": 2
+    },
+    "bow_farwatch_4x": {
+      "mesh": "SM_Frontier_Farwatch4x",
+      "power": 4
+    }
+  },
+  "sight_cm": [
+    -1.325,
+    -6.486,
+    16.179
+  ],
+  "ads_rotation_deg": [
+    0,
+    5.0,
+    0
+  ]
+}

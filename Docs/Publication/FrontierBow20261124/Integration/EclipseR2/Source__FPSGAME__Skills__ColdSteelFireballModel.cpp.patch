@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp
+@@ -1,4 +1,5 @@
+ #include "../Dungeon/DungeonLayout.h"
++#include "../Weapons/Bow/EclipseBowMark.h"
+ #include "ColdSteelSkillTree.h"
+ #include "../Monsters/UnknownHumanoid.h"
+ #include "../Combat/RangedAttackQuery.h"
+@@ -187,7 +188,7 @@
+     Current.bFireballReserved=false;SyncRuntime();CommitState(Snapshot());
+ }
+ 
+-void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit,bool bElementalArrow)
++void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit,bool bElementalArrow,FEclipseBowShot* EclipseShot)
+ {
+     if(auto* Unknown=::Cast<AUnknownHumanoid>(Shooter)){Unknown->FireballImpact(Center,Cast,DirectHit);return;}
+     if(!Shooter || !GetWorld() || !Shooter->IsPlayerControlled() || !Shooter->HasAuthority())return;
+@@ -229,7 +230,9 @@
+         // 火球是爆炸：按冲击折算削韧。
+         const MonsterToughness::FScopedForm FormScope(EMonsterAttackForm::Impact);
+         StarMarrow::FHitRecovery CrystalRecovery(Shooter,Target,Cast.StarMarrow);
++        FEclipseBowImpact EclipseImpact(EclipseShot, Target);
+         const float Applied=UGameplayStatics::ApplyDamage(Target,FMath::FloorToFloat(Cast.Damage*(1.f-.5f*Ratio)),Shooter->GetController(),Shooter,UFireballDamage::StaticClass());
++        EclipseImpact.Confirm(Applied);
+         CrystalRecovery.Finish(Applied);
+         Rewards.Victim=nullptr;
+         if(Applied<=0)continue;

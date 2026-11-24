@@ -1,0 +1,493 @@
+{
+  "Source/FPSGAME/Weapons/Bow/BowPartReceipt.h": {
+    "type": "source",
+    "file": "../../../Source/FPSGAME/Weapons/Bow/BowPartReceipt.h",
+    "sha256_lf": "518ae49933b896588caa224ca34295f534718fbbc66337d039fbfcd115894e9e"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowStats.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowStats.cpp",
+    "origin": "NetworkReview20261124",
+    "sha256_lf": "371d7d3be4658a99c02b7d242c8764a879d627673feb1c4ee18fdb9231c20909"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowMountainEchoComponent.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowMountainEchoComponent.h",
+    "origin": "NetworkReview20261124",
+    "sha256_lf": "b9ea66dcc8cc16c5651ff96d74a4c84835e7138e6a58a67fc30345a84cebfe76"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowMountainEchoComponent.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowMountainEchoComponent.cpp",
+    "origin": "NetworkReview20261124",
+    "sha256_lf": "34c2ac56bc9d3038a6e9700a37d7ad23114cb6fe8ba18b614e5efe31ab53ef6f"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowCadenceComponent.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowCadenceComponent.h",
+    "origin": "NetworkReview20261124",
+    "sha256_lf": "e5b4ee01929728b6a0e5e1c75d72636b9da3838f17eccfe90d71ce00ea1d7380"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowCadenceComponent.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowCadenceComponent.cpp",
+    "origin": "NetworkReview20261124",
+    "sha256_lf": "92ec1919abf23b9b925b19bb69a358d6da3c0b88896e657b39049b3e57494fa7"
+  },
+  "Source/FPSGAME/UI/ColdSteelBowResonance.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/UI/ColdSteelBowResonance.cpp",
+    "origin": "NetworkReview20261124",
+    "sha256_lf": "0a744fb622d992cc55e96570c08e8c7e94793bf148591755cbccd53dbb90e929"
+  },
+  "Source/FPSGAME/Weapons/Bow/AuroraBeamVisual.h": {
+    "type": "source",
+    "file": "../../../Source/FPSGAME/Weapons/Bow/AuroraBeamVisual.h",
+    "origin": "NetworkReview20261124",
+    "sha256_lf": "d763ad250778c22c0ef458e6ae794118acb81475822d174d4a3182ed84a39dc7"
+  },
+  "Source/FPSGAME/Weapons/Bow/AuroraBeamVisual.cpp": {
+    "type": "source",
+    "file": "../../../Source/FPSGAME/Weapons/Bow/AuroraBeamVisual.cpp",
+    "origin": "NetworkReview20261124",
+    "sha256_lf": "186b091f7df691a0acf3a41e5c640040312a6805dc740e2610cb0928e2c35549"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowSparrowWireAudit.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowSparrowWireAudit.cpp",
+    "origin": "NetworkReview20261124",
+    "sha256_lf": "1e1390eecb353d685524ea3c5e738c46f189e3bc61a5a77efd032d492e4548e8"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowFlightWire.inl": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowFlightWire.inl",
+    "origin": "NetworkReview20261124",
+    "sha256_lf": "a1fee2e772868b7c3bbde6ed093362b37c43e04c05957920835d37a66215b3cf"
+  },
+  "Source/FPSGAME/Skills/BowResonanceReview.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Skills/BowResonanceReview.cpp",
+    "origin": "NetworkReview20261124",
+    "sha256_lf": "ed6d12ce94fb09edf02ce7f737d3b7f4f99350d136991d04561afe0bb5c7f0aa"
+  },
+  "Source/FPSGAME/Skills/BowPresentationReview.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Skills/BowPresentationReview.cpp",
+    "origin": "NetworkReview20261124",
+    "sha256_lf": "41233ea2e936b7881ec7b9e7b518eb0ee2a989f05acfaa1ebdf93fc0d6a1e5ca"
+  },
+  "Source/FPSGAME/Skills/ElementalHoldReview.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Skills/ElementalHoldReview.cpp",
+    "origin": "NetworkReview20261124",
+    "sha256_lf": "202d949a3f8904c3344cb218be5b92f9fdc0f24b64fd90ea78ad5d3ef9e20606"
+  },
+  "Source/FPSGAME/Weapons/M24BipodValidation.inl": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/M24BipodValidation.inl",
+    "origin": "NetworkReview20261124",
+    "sha256_lf": "77b1168dc14100dab3e8eac4a384518b74f57224ff2bbb81f93de06f39ad1a68"
+  },
+  "Integration/Source/FPSGAME/Weapons/GunsmithSystem.cpp": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Weapons/GunsmithSystem.cpp",
+    "file": "Integration/Source__FPSGAME__Weapons__GunsmithSystem.cpp.patch",
+    "origin": "before and delivered files, NetworkReview20261124"
+  },
+  "Integration/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp",
+    "file": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerProfileSync.cpp.patch",
+    "origin": "before and delivered files, NetworkReview20261124"
+  },
+  "Integration/Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Multiplayer/ColdSteelPlayerState.h",
+    "file": "Integration/Source__FPSGAME__Multiplayer__ColdSteelPlayerState.h.patch",
+    "origin": "changed declarations, paired with profile sync implementation"
+  },
+  "Integration/Source/FPSGAME/UI/ColdSteelAcquisitionAuditCommandlet.cpp": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/UI/ColdSteelAcquisitionAuditCommandlet.cpp",
+    "file": "Integration/Source__FPSGAME__UI__ColdSteelAcquisitionAuditCommandlet.cpp.patch",
+    "origin": "bow-only test cases and pending-slot fixture, NetworkReview20261124"
+  },
+  "Source/FPSGAME/UI/ColdSteelDamageNumberTypes.h": {
+    "type": "source",
+    "file": "../../../Source/FPSGAME/UI/ColdSteelDamageNumberTypes.h",
+    "origin": "AuroraImpactDamageNumbersR5_20261123",
+    "sha256_lf": "b31daf0ec247395483e4c6c416413698db47419dd791d2ac87924d2658127159"
+  },
+  "Source/FPSGAME/UI/ColdSteelDamageNumberSubsystem.h": {
+    "type": "source",
+    "file": "../../../Source/FPSGAME/UI/ColdSteelDamageNumberSubsystem.h",
+    "origin": "AuroraImpactDamageNumbersR5_20261123",
+    "sha256_lf": "0fad3737ef5249b83a407aa59602b2b6cf19d5f2730a14d46495d8eb0b2a088a"
+  },
+  "Source/FPSGAME/UI/ColdSteelDamageNumberSubsystem.cpp": {
+    "type": "source",
+    "file": "../../../Source/FPSGAME/UI/ColdSteelDamageNumberSubsystem.cpp",
+    "origin": "AuroraImpactDamageNumbersR5_20261123",
+    "sha256_lf": "e9dcd496460d78ba454462c748eaba1e612ffb2881c203c66a82197b44ddb111"
+  },
+  "Source/FPSGAME/UI/ColdSteelDamageNumbers.h": {
+    "type": "source",
+    "file": "../../../Source/FPSGAME/UI/ColdSteelDamageNumbers.h",
+    "origin": "AuroraImpactDamageNumbersR5_20261123",
+    "sha256_lf": "f2d17e0672bdbea56314e2e8d3916d0c07786cd69a4626a5d2ece00dbe6a269e"
+  },
+  "Source/FPSGAME/UI/ColdSteelDamageNumbers.cpp": {
+    "type": "source",
+    "file": "../../../Source/FPSGAME/UI/ColdSteelDamageNumbers.cpp",
+    "origin": "AuroraImpactDamageNumbersR5_20261123",
+    "sha256_lf": "1741992c86e5cbf88c4e5a20f531e40e1a56ffcd6648f9a2210ffabc00402ad5"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowArrow.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowArrow.h",
+    "origin": "AuroraImpactDamageNumbersR5_20261123",
+    "sha256_lf": "e4e1ec84af174b026a150db7c068f6a8ecf021343735abf96a5973a1ace3d8fe"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowArrow.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowArrow.cpp",
+    "origin": "AuroraImpactDamageNumbersR5_20261123",
+    "sha256_lf": "6e9560981c08c9c7893bc5a5c2b5a986dfe5110231fe2948d61cd382e4e57532"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowMountainEchoArrow.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowMountainEchoArrow.cpp",
+    "origin": "AuroraImpactDamageNumbersR5_20261123",
+    "sha256_lf": "c7f62d30dc92b0f629c3d0034c5fecc7973668d7e73276deeeeb218af6f88040"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowStats.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowStats.h",
+    "origin": "AuroraGameplayR3_20261123",
+    "sha256_lf": "126bdb3e4a96ee153a31d0ab3bda72fbb005ff3f446de8dd3729b816292222b5"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowGunsmith.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowGunsmith.cpp",
+    "origin": "AuroraGameplayR3_20261123",
+    "sha256_lf": "10c57448b7bf5b8696899488f785e5458881e368163d62939752049edfb08e60"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowRelease.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowRelease.cpp",
+    "origin": "AuroraGameplayR3_20261123",
+    "sha256_lf": "05849afa68afac29b4368326dc66bc8d1a70abf5e8a4db7542860dd3c97a3d91"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowEquipment.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowEquipment.cpp",
+    "origin": "current formal module",
+    "sha256_lf": "1e2f878fca29ae0fad125927983e8eb1b92397db620e32c94ac373424f15bf51"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowElementalArrow.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowElementalArrow.cpp",
+    "origin": "AuroraGameplayR3_20261123",
+    "sha256_lf": "4086ed69296a3bb9c38c74ac9804d3bf6fa3e7958d5d4a19603f8005475b4f39"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowIlluminationArrow.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowIlluminationArrow.cpp",
+    "origin": "AuroraGameplayR3_20261123",
+    "sha256_lf": "f1ef81e7e599d1022a34d2875208aecda3f1555f9bfcea0371c6ee05bfe0aaa3"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowActions.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowActions.cpp",
+    "origin": "AuroraGameplayR3_20261123",
+    "sha256_lf": "45858a842b83dde08e13acc8963cfabd28a9181fecf063d00df42bfb4ba19bf0"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.h",
+    "origin": "AuroraGameplayR3_20261123",
+    "sha256_lf": "ffa5994f94e5a9c26059899e366507300f558bd66f37d6a3df8c4e840c62f19c"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowMountainEchoVisual.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowMountainEchoVisual.cpp",
+    "origin": "current formal module",
+    "sha256_lf": "69dd69c985037df5ebc49b2e76807792ccfbbd6728afc63f0c633c69ecea78d4"
+  },
+  "Source/FPSGAME/Skills/FPSMagicArrowRain.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Skills/FPSMagicArrowRain.h",
+    "origin": "current formal module",
+    "sha256_lf": "c20c3f2dc4042d3f2484ef9e121e335f3d102a94a731043603f5c3bda1c1b0ef"
+  },
+  "Source/FPSGAME/Skills/FPSMagicArrowRain.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Skills/FPSMagicArrowRain.cpp",
+    "origin": "current formal module",
+    "sha256_lf": "0308dbbf2171d653520716273a0ee5fb35993bcccf42f578e98a718301386e8c"
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelBowAuthority.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Multiplayer/ColdSteelBowAuthority.cpp",
+    "origin": "AuroraGameplayR3_20261123",
+    "sha256_lf": "08b76d2a02e05724c3bbfcfbce1c778d0f2cf471a449fa9ebc50953016191208"
+  },
+  "Source/FPSGAME/UI/ColdSteelBowResonance.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/UI/ColdSteelBowResonance.h",
+    "origin": "LightPillarGaugeLive20261124",
+    "sha256_lf": "dea27599c29639431ddba17c46155587bd468657f0e609f11c542691cdb2ad6f"
+  },
+  "Source/FPSGAME/Weapons/Bow/MountainEchoString.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/MountainEchoString.h",
+    "origin": "LightPillarGaugeLive20261124",
+    "sha256_lf": "750ccc2a992bf4158024bdbc9b9f3a2d79f8a0108eab71d415ddfe7e80d676ea"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowAssembly.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowAssembly.cpp",
+    "origin": "SharedSpecialStrings20261124",
+    "sha256_lf": "4af36dafd747c3e8a81afc1836d55c249c03cbc86c8e72a0d0c6073d33533c5c"
+  },
+  "Source/FPSGAME/Weapons/Bow/EclipseBowMark.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/EclipseBowMark.cpp",
+    "origin": "Eclipse gameplay and ground aura",
+    "sha256_lf": "1be62b2a2f19206e10f99902ee9df354259d51ddd1b3956499662687bfffd395"
+  },
+  "Source/FPSGAME/Weapons/Bow/EclipseBowMark.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/EclipseBowMark.h",
+    "origin": "Eclipse gameplay and ground aura",
+    "sha256_lf": "67112512ee1a0c0381e092aad6c21a442b7e88d93f37c6313c1e80943143cc97"
+  },
+  "Source/FPSGAME/Weapons/Bow/CadenceString.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/CadenceString.h",
+    "origin": "bow effect contract consumed by the reviewed modules",
+    "sha256_lf": "a3dde422d0061e92379806ff24f37f319e6691b7d5e341c5f946e4e9d184e34d"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowArmsMeshComponent.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowArmsMeshComponent.cpp",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "414a52277dbbdf86dec7588991ca2755c7ee4a5abea145ef13f9851d3a78b16e"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowArmsMeshComponent.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowArmsMeshComponent.h",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "776849443d186a99a422121d3074f876e61a68446d7c1c8604012f5a622cbd6d"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowArrowFlame.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowArrowFlame.cpp",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "d96f6d13754accc570e342a2ad927bd7563c22b451bd4b02f2611ffc3faf269f"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowAssembly.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowAssembly.h",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "37f80c19c5eedbfab19b9493eed82dc79e12f22cf523d8a71ea65d5219cb127d"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowCastHandPose.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowCastHandPose.h",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "bf49521354907a5ae92c74ede0f8e64a57ab34e734eec97572f88103cea18e55"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowDamageTuning.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowDamageTuning.h",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "9a2ecbb7451b1979526132515c0a82e3452b7a9faa0d363e6affdf8be31e9553"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowFlexMeshComponent.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowFlexMeshComponent.cpp",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "dc740aac7d9797b622132495359b484b195267aa1cdf6ad2498bc47685bc2db7"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowFlexMeshComponent.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowFlexMeshComponent.h",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "b19c16557ee51910287d0ae52ec2751e8e3c17224ce054e9114b30e262a34374"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowMagicArrowRain.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowMagicArrowRain.cpp",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "4a81d122afc88eb6dc59ebaff9dd696fc4b549a16fd90b389f18c62908788aa4"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowPartComponent.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowPartComponent.cpp",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "d591e2e43d2261222a580cc301f16be1489d0462fe5cfb4b89f16686ea93a948"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowPartComponent.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowPartComponent.h",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "9f873f71308c9a20158252b3e89303d76e676a1d4527d1f014fd05f33cd55887"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowPresentation.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowPresentation.cpp",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "1d9f109cff8936302af9b0b4a128dfb323018619c3d32c604ab933c63c3f2208"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowQuickCombatMotion.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowQuickCombatMotion.h",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "51a526d68f70a67cfcf47914c88c80caee20872f1a471d3eb9c6821863ebd3b6"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowScopeOptics.cpp",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "ff56d3469f0163fba4942321d33767fcc385d52ade810344f26cf406864311ee"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowScopeOptics.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowScopeOptics.h",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "615c5090d336260596bb6c182f88bf747695d5b8a3afb5529c32eeb858d9d69c"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowScopeReticle.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowScopeReticle.cpp",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "cf21ea17fd97e4b624e40d430aac74a4c6ff027f201a5887a95b32d697b4e35b"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowScopeReticle.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowScopeReticle.h",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "ee3382f59b6ab2294709da2766461035b5072206165c940ad9e3477b6aaffd34"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowSightCapture.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowSightCapture.cpp",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "f9428693ed9088d46ee6db764cd8b06b02ae156dda542289a84538ad58e86b81"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "5f43c78301a4ac0ddddb2be8494fc2ea6a63cfc37508e8d30f40733bcb6d649a"
+  },
+  "Source/FPSGAME/Weapons/Bow/BowWeaponPrivate.h": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/BowWeaponPrivate.h",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "873fbca41f7f115edba1c332aab04f6d799544c69ac2e778d80720ad81fe569c"
+  },
+  "Source/FPSGAME/Weapons/Bow/EclipseBowAura.cpp": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/EclipseBowAura.cpp",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "7f14c24121e00b76adea9049f187b75c8f037c95c7370562e16fc4a8164f257c"
+  },
+  "Source/FPSGAME/Weapons/Bow/PeakwatchCoverageAudit.inl": {
+    "type": "runtime snapshot",
+    "file": "Runtime/Source/FPSGAME/Weapons/Bow/PeakwatchCoverageAudit.inl",
+    "origin": "matching bow module for aim, draw, release, grip, wheel and sight",
+    "sha256_lf": "34ad28d9b7e9348c9a2d19fee9ecbb1cf37bd434eb4497720579f5b0e2df7bb4"
+  },
+  "Integration/EclipseR2/Source/FPSGAME/Combat/CombatFormulaRuntime.cpp": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Combat/CombatFormulaRuntime.cpp",
+    "file": "Integration/EclipseR2/Source__FPSGAME__Combat__CombatFormulaRuntime.cpp.patch",
+    "origin": "paired release EclipseGameplayR2_20261123"
+  },
+  "Integration/EclipseR2/Source/FPSGAME/Props/FPSPracticeTarget.cpp": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Props/FPSPracticeTarget.cpp",
+    "file": "Integration/EclipseR2/Source__FPSGAME__Props__FPSPracticeTarget.cpp.patch",
+    "origin": "paired release EclipseGameplayR2_20261123"
+  },
+  "Integration/EclipseR2/Source/FPSGAME/Props/FPSPracticeTarget.h": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Props/FPSPracticeTarget.h",
+    "file": "Integration/EclipseR2/Source__FPSGAME__Props__FPSPracticeTarget.h.patch",
+    "origin": "paired release EclipseGameplayR2_20261123"
+  },
+  "Integration/EclipseR2/Source/FPSGAME/Skills/ColdSteelFireballModel.cpp": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Skills/ColdSteelFireballModel.cpp",
+    "file": "Integration/EclipseR2/Source__FPSGAME__Skills__ColdSteelFireballModel.cpp.patch",
+    "origin": "paired release EclipseGameplayR2_20261123"
+  },
+  "Integration/EclipseR2/Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Skills/ColdSteelIceSpikeModel.cpp",
+    "file": "Integration/EclipseR2/Source__FPSGAME__Skills__ColdSteelIceSpikeModel.cpp.patch",
+    "origin": "paired release EclipseGameplayR2_20261123"
+  },
+  "Integration/EclipseR2/Source/FPSGAME/Skills/ColdSteelLightningModel.cpp": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Skills/ColdSteelLightningModel.cpp",
+    "file": "Integration/EclipseR2/Source__FPSGAME__Skills__ColdSteelLightningModel.cpp.patch",
+    "origin": "paired release EclipseGameplayR2_20261123"
+  },
+  "Integration/EclipseR2/Source/FPSGAME/Skills/ColdSteelMagicArrowRainModel.cpp": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Skills/ColdSteelMagicArrowRainModel.cpp",
+    "file": "Integration/EclipseR2/Source__FPSGAME__Skills__ColdSteelMagicArrowRainModel.cpp.patch",
+    "origin": "paired release EclipseGameplayR2_20261123"
+  },
+  "Integration/EclipseR2/Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp",
+    "file": "Integration/EclipseR2/Source__FPSGAME__Skills__ColdSteelSkillCombat.cpp.patch",
+    "origin": "paired release EclipseGameplayR2_20261123"
+  },
+  "Integration/EclipseR2/Source/FPSGAME/Skills/ColdSteelSkillModel.cpp": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Skills/ColdSteelSkillModel.cpp",
+    "file": "Integration/EclipseR2/Source__FPSGAME__Skills__ColdSteelSkillModel.cpp.patch",
+    "origin": "paired release EclipseGameplayR2_20261123"
+  },
+  "Integration/EclipseR2/Source/FPSGAME/Skills/ElementalArrowBurst.cpp": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Skills/ElementalArrowBurst.cpp",
+    "file": "Integration/EclipseR2/Source__FPSGAME__Skills__ElementalArrowBurst.cpp.patch",
+    "origin": "paired release EclipseGameplayR2_20261123"
+  },
+  "Integration/EclipseR2/Source/FPSGAME/Skills/ElementalArrowTypes.h": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Skills/ElementalArrowTypes.h",
+    "file": "Integration/EclipseR2/Source__FPSGAME__Skills__ElementalArrowTypes.h.patch",
+    "origin": "paired release EclipseGameplayR2_20261123"
+  },
+  "Integration/EclipseR2/Source/FPSGAME/Skills/FPSMagicArrowRain.cpp": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Skills/FPSMagicArrowRain.cpp",
+    "file": "Integration/EclipseR2/Source__FPSGAME__Skills__FPSMagicArrowRain.cpp.patch",
+    "origin": "paired release EclipseGameplayR2_20261123"
+  },
+  "Integration/EclipseR2/Source/FPSGAME/Skills/MagicArrowRainTypes.h": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Skills/MagicArrowRainTypes.h",
+    "file": "Integration/EclipseR2/Source__FPSGAME__Skills__MagicArrowRainTypes.h.patch",
+    "origin": "paired release EclipseGameplayR2_20261123"
+  },
+  "Integration/EclipseR2/Source/FPSGAME/UI/ColdSteelStatusModel.h": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "file": "Integration/EclipseR2/Source__FPSGAME__UI__ColdSteelStatusModel.h.patch",
+    "origin": "paired release EclipseGameplayR2_20261123"
+  },
+  "Integration/Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp": {
+    "type": "integration patch",
+    "original": "Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp",
+    "file": "Integration/Source__FPSGAME__Weapons__WeaponBipodDeploymentComponent.cpp.patch",
+    "origin": "VillageMerlons-20261123-A"
+  }
+}

@@ -1,0 +1,29 @@
+#pragma once
+#include "CoreMinimal.h"
+#include "HAL/IConsoleManager.h"
+struct FColdSteelItem;
+namespace BowWeaponPrivate
+{
+const FSoftObjectPath& PiercingReleaseSoundPath();
+extern const TCHAR* const NockRoles[3];
+extern const TCHAR* const NockKeys[3];
+extern const TCHAR* const GaitRoles[5];
+FSoftObjectPath BowAssetPath(const FString& Prefix, const TCHAR* Clip);
+bool ReadVector3Text(const FString& Text, FVector& Out);
+bool ReadVector3(const FColdSteelItem* Item, const TCHAR* Key, FVector& Out);
+TArray<FName> BowSlotNames(const FString& Text);
+extern TAutoConsoleVariable<FString> CVarBowLocation;
+extern TAutoConsoleVariable<FString> CVarBowRotation;
+extern TAutoConsoleVariable<float> CVarBowSway;
+    // Exact critically damped response for a target held over this frame.
+    // Unlike a fixed crossfade this retains velocity when movement reverses.
+    template<typename T>
+    void DampCarry(T& Value, T& Velocity, const T& Target, float Frequency, float Delta)
+    {
+        const T Error = Value - Target;
+        const T Change = Velocity + Error * Frequency;
+        const float Decay = FMath::Exp(-Frequency * Delta);
+        Value = Target + (Error + Change * Delta) * Decay;
+        Velocity = (Velocity - Change * (Frequency * Delta)) * Decay;
+    }
+}

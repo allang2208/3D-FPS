@@ -5,7 +5,7 @@ P=Path(__file__).parent
 read=lambda name:json.loads((P/name).read_text(encoding='utf-8-sig'))
 assets=read('import-receipt.json');hud=read('hud-import-receipt.json')
 game=read('build-FPSGAME.json');editor=read('build-FPSGAMEEditor.json');catalog=read('catalog-receipt.json')
-result={'name':'疾律弓弦','option':'highland_cadence','weapon':'bow_woodsteel','slot':'string','tier':'Legendary',
+result={'name':'疾律弓弦','option':'highland_cadence','scope':'bows','slot':'string','tier':'Special',
  'finished':datetime.now().isoformat(timespec='seconds'),
  'saved_assets':list(assets['saved'].values())+hud['saved_assets'],
  'assets_saved':assets['complete'] and hud['complete'],

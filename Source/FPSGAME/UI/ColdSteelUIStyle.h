@@ -22,6 +22,9 @@ namespace ColdSteelUI
     // HUD decoration and focus only; gameplay rarity/resource colours keep their meaning.
     inline const FLinearColor HUDGold = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("C7AA70FF")));
     inline const FLinearColor HUDGoldLight = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E8D39AFF")));
+    inline const FLinearColor DamageMagic = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("57B5FFFF")));
+    inline const FLinearColor DamageHeavy = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("FF9A46FF")));
+    inline const FLinearColor DamageCritical = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("FF4D3DFF")));
     inline const FLinearColor HUDGoldDim = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("756447FF")));
     // Legendary modification identity; installation remains a separate green status.
     inline const FLinearColor LegendaryCard = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("4A2029E8")));

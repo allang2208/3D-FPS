@@ -1,0 +1,40 @@
+--- a/Source/FPSGAME/Skills/ElementalArrowBurst.cpp
++++ b/Source/FPSGAME/Skills/ElementalArrowBurst.cpp
+@@ -55,7 +55,7 @@
+     Element=Snapshot.Element;Origin=Hit.ImpactPoint;Normal=Hit.ImpactNormal;Radius=Snapshot.Radius;
+     StartedAt=GetWorld()->GetTimeSeconds();SeedTarget=Hit.GetActor();SetActorLocation(Origin);
+     if(Element==EArrowElement::Fire)
+-    {Model->ApplyFireballExplosion(Shooter,FVector(Origin)+FVector(Normal)*4,Snapshot.Fire,&Hit,true);SetLifeSpan(1.5f);return;}
++    {Model->ApplyFireballExplosion(Shooter,FVector(Origin)+FVector(Normal)*4,Snapshot.Fire,&Hit,true,Snapshot.EclipseShot.Get());SetLifeSpan(1.5f);return;}
+     const FVector Start=FVector(Origin)+FVector(Normal)*4;
+     FCollisionQueryParams Q(SCENE_QUERY_STAT(ElementalArrowTargets),true,Shooter);Q.AddIgnoredActor(this);
+     TArray<FOverlapResult> Overlaps;GetWorld()->OverlapMultiByObjectType(Overlaps,Start,FQuat::Identity,FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeSphere(Radius),Q);
+@@ -65,8 +65,8 @@
+     if(Enemy(Hit.GetActor(),Shooter))
+     {
+         HitTargets.Add(Hit.GetActor());
+-        if(Element==EArrowElement::Ice)Model->ApplyIceSpikeHit(Shooter,Hit,Snapshot.Ice,Rewards);
+-        else Model->ApplyLightningHit(Shooter,Hit.GetActor(),Start,Snapshot.Lightning,Snapshot.Lightning.Damage,LightningRewards,true,&Hit);
++        if(Element==EArrowElement::Ice)Model->ApplyIceSpikeHit(Shooter,Hit,Snapshot.Ice,Rewards,Snapshot.EclipseShot.Get());
++        else Model->ApplyLightningHit(Shooter,Hit.GetActor(),Start,Snapshot.Lightning,Snapshot.Lightning.Damage,LightningRewards,true,&Hit,Snapshot.EclipseShot.Get());
+     }
+     Speed=FMath::Max(600.f,Snapshot.Ice.Speed);
+     for(AActor* Target:Targets)
+@@ -89,7 +89,7 @@
+             FActorSpawnParameters P;P.Owner=Shooter;P.Instigator=Shooter;
+             if(auto* Arc=GetWorld()->SpawnActor<AFPSLightningArc>(Start,FRotator::ZeroRotator,P))
+                 Arc->InitializeArc(Asset<UNiagaraSystem>(ElementalArrow::Chain),Start,End,Snapshot.Lightning,.4f,false);
+-            Model->ApplyLightningHit(Shooter,Target,Start,Snapshot.Lightning,Snapshot.Lightning.Damage,LightningRewards,true);
++            Model->ApplyLightningHit(Shooter,Target,Start,Snapshot.Lightning,Snapshot.Lightning.Damage,LightningRewards,true,nullptr,Snapshot.EclipseShot.Get());
+         }
+     }
+     if(Element==EArrowElement::Lightning){Model->FinishLightningCast(LightningRewards,true);bFinished=true;SetLifeSpan(1.5f);}
+@@ -184,7 +184,7 @@
+                 {
+                     R.End=Hit.ImpactPoint;R.Normal=Hit.ImpactNormal;R.EndTime=Age;R.bHit=true;
+                     if(auto* Target=Hit.GetActor();Target&&!HitTargets.Contains(Target))
+-                    {HitTargets.Add(Target);Q.AddIgnoredActor(Target);if(Model.IsValid())Model->ApplyIceSpikeHit(GetInstigator(),Hit,Cast.Ice,Rewards);}
++                    {HitTargets.Add(Target);Q.AddIgnoredActor(Target);if(Model.IsValid())Model->ApplyIceSpikeHit(GetInstigator(),Hit,Cast.Ice,Rewards,Cast.EclipseShot.Get());}
+                     ForceNetUpdate();break;
+                 }
+                 Distance=Next;

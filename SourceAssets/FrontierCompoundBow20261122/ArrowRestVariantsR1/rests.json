@@ -1,0 +1,20 @@
+{
+  "lined_rest": {
+    "mesh": "SM_Frontier_LinedRest",
+    "name": "皮垫箭台",
+    "appearance": "石墨灰宽托嵌着深棕皮衬，托口两侧露出浅钢色窄边。",
+    "description": "宽皮衬覆盖整个弧形托面，前后缘顺着托槽收薄。"
+  },
+  "open_quick_rest": {
+    "mesh": "SM_Frontier_OpenQuickRest",
+    "name": "开口速搭箭台",
+    "appearance": "短托向外侧敞开，低矮的钢灰滑片旁留有一条青色识别线。",
+    "description": "外侧托唇压低，内侧保留短挡边，搭箭侧的开口一眼可见。"
+  },
+  "fork_guide_rest": {
+    "mesh": "SM_Frontier_ForkGuideRest",
+    "name": "双叉导向箭台",
+    "appearance": "两片石墨色托翼分列在箭杆两侧，内面嵌有炭灰衬条，外缘带细窄的金属倒角。",
+    "description": "双叉从低位托座分开，中央留空，两翼分别承托箭杆。"
+  }
+}

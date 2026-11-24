@@ -17,46 +17,16 @@
       },
       "options": [
         {
-          "id": "woodcrafted_heavy",
-          "name": "手制磐木弓体",
-          "description": "由两件木制弓臂成对装配的磐木弓体。",
-          "appearance": "深栗木宽厚弓臂，饱满截面和自然嵌合的深色背衬。",
-          "visual": {
-            "bow_part_riser_mesh": "/Game/Weapons/DarkBow20260925/ElasticV15/SK_Bow_Flex_Heavy.SK_Bow_Flex_Heavy",
-            "bow_part_riser_material": "",
-            "bow_part_riser_scale": 1.0,
-            "bow_flex_distribution": 1.45,
-            "bow_release_return_seconds": 0.04,
-            "bow_release_ring_seconds": 0.2,
-            "bow_feedback_scale": 1.25
-          },
-          "stats": {
-            "damage_mult": 1.25,
-            "draw_mult": 1.25,
-            "speed_mult": 1.1,
-            "stamina_mult": 1.3,
-            "hold_mult": 0.8,
-            "sway_mult": 1.15,
-            "spread_mult": 1.05,
-            "ads_mult": 1.15
-          },
-          "required_item": "woodworked_bow_limb",
-          "required_count": 2,
-          "special_effects": [
-            "木工装配｜应用时使用 2 件木制弓臂，换下时返还至背包。沿用磐木弓体的外观与属性，工艺评分不另加伤害。"
-          ]
-        },
-        {
           "id": "strong_draw",
           "name": "强拉力弓胎",
-          "description": "以更长拉弓时间和更高耐力消耗，换取满弓伤害与子弹速度。",
+          "description": "紧束弓根与连续木纹承受绷紧的拉力，为持续蓄力的穿心箭调校。",
           "appearance": "沿用原装弓胎形状；本项为拉力调校。",
           "visual": {},
           "stats": {
-            "damage_mult": 1.12,
-            "draw_mult": 1.1,
-            "speed_mult": 1.06,
-            "stamina_mult": 1.15
+            "piercing_damage_mult": 1.3,
+            "stamina_mult": 1.5,
+            "charge_stamina_mult": 1.5,
+            "physical_damage_mult": 1.05
           },
           "special_effects": [
             "穿心蓄势｜学会穿心箭后，满拉并蓄力至穿心就绪，穿心箭伤害+30%。"
@@ -65,7 +35,7 @@
         {
           "id": "swift_limb",
           "name": "游隼弓体",
-          "description": "轻薄的木质弓臂回弹利落，便于快速拉放；较轻的拉力降低了单箭威力。",
+          "description": "削薄的轻弓臂与平滑反曲弓梢相接，保留轻巧的拉放手感。",
           "appearance": "蜜金色窄薄弓臂，红褐薄层和平滑反曲弓梢。",
           "visual": {
             "bow_part_riser_mesh": "/Game/Weapons/DarkBow20260925/ElasticV15/SK_Bow_Flex_Swift.SK_Bow_Flex_Swift",
@@ -77,19 +47,18 @@
             "bow_feedback_scale": 0.75
           },
           "stats": {
-            "damage_mult": 0.9,
-            "draw_mult": 0.8,
-            "speed_mult": 0.92,
-            "stamina_mult": 0.85,
-            "ads_mult": 0.85,
-            "spread_mult": 1.1
+            "draw_speed_bonus": 0.35,
+            "stamina_mult": 0.7,
+            "charge_stamina_mult": 0.7,
+            "shot_damage_mult": 0.8,
+            "range_mult": 0.75
           },
           "special_effects": []
         },
         {
           "id": "heavy_limb",
           "name": "磐木弓体",
-          "description": "厚实弓胎与深色背衬提供更强拉力，适合预先蓄力出箭；长时间保持会更快力竭。",
+          "description": "宽厚木芯压合深色背衬，弓梢收束成饱满的重箭轮廓。",
           "appearance": "深栗木宽厚弓臂，饱满截面和自然嵌合的深色背衬。",
           "visual": {
             "bow_part_riser_mesh": "/Game/Weapons/DarkBow20260925/ElasticV15/SK_Bow_Flex_Heavy.SK_Bow_Flex_Heavy",
@@ -101,21 +70,19 @@
             "bow_feedback_scale": 1.25
           },
           "stats": {
-            "damage_mult": 1.25,
-            "draw_mult": 1.25,
-            "speed_mult": 1.1,
-            "stamina_mult": 1.3,
-            "hold_mult": 0.8,
-            "sway_mult": 1.15,
-            "spread_mult": 1.05,
-            "ads_mult": 1.15
+            "range_mult": 1.2,
+            "shot_damage_mult": 1.15,
+            "speed_mult": 1.15,
+            "draw_speed_bonus": -0.3,
+            "stamina_mult": 1.5,
+            "charge_stamina_mult": 1.5
           },
           "special_effects": []
         },
         {
           "id": "steady_limb",
-          "name": "静枝弓体",
-          "description": "宽扁层压弓臂便于稳定控弓，适合保持瞄准等待时机；拉弓与举弓节奏略慢。",
+          "name": "细枝弓体",
+          "description": "层压弓臂与收束弓根相接，纵向木纹贯穿细长的弓身。",
           "appearance": "浅白蜡木宽扁弓臂，深胡桃夹芯与细长层压线。",
           "visual": {
             "bow_part_riser_mesh": "/Game/Weapons/DarkBow20260925/ElasticV15/SK_Bow_Flex_Steady.SK_Bow_Flex_Steady",
@@ -127,14 +94,111 @@
             "bow_feedback_scale": 0.8
           },
           "stats": {
-            "draw_mult": 1.1,
-            "stamina_mult": 1.05,
-            "hold_mult": 1.4,
-            "sway_mult": 0.7,
-            "spread_mult": 0.85,
-            "ads_mult": 1.1
+            "spread_mult": 0.6,
+            "draw_speed_bonus": 0.15,
+            "nock_mult": 0.75,
+            "shot_damage_mult": 0.85,
+            "range_mult": 0.75,
+            "stamina_mult": 1.2,
+            "charge_stamina_mult": 1.2
           },
           "special_effects": []
+        },
+        {
+          "id": "highland_far_peak",
+          "name": "远峰重弓体",
+          "weapons": [
+            "bow_woodsteel"
+          ],
+          "description": "高地长弓专属重型弓体，厚实的弓臂与加固钢背组成完整轮廓。",
+          "appearance": "加厚层压木芯贴合分段暗钢背，铜色束箍压住护片，弓根饰有三重山峰纹。",
+          "visual": {
+            "bow_part_riser_mesh": "/Game/Weapons/WoodSteelLongbow20261026/FarPeakV4/SK_HighlandLongbow_FarPeak.SK_HighlandLongbow_FarPeak",
+            "bow_part_riser_material": "",
+            "bow_part_riser_scale": 1.0,
+            "bow_flex_distribution": 1.45,
+            "bow_release_return_seconds": 0.04,
+            "bow_release_ring_seconds": 0.2,
+            "bow_feedback_scale": 1.25
+          },
+          "stats": {
+            "range_mult": 1.3,
+            "shot_damage_mult": 1.25,
+            "draw_speed_bonus": -0.25,
+            "stamina_mult": 1.4,
+            "charge_stamina_mult": 1.4
+          },
+          "special_effects": []
+        },
+        {
+          "id": "highland_cloudpiercer",
+          "name": "穿云弓体",
+          "weapons": [
+            "bow_woodsteel"
+          ],
+          "description": "高地长弓专属弓体，采用细长的反曲轮廓与一体式护脊。",
+          "appearance": "深烟褐层压木衬着浅色边线，连续银钢双脊收束于菱纹护片。",
+          "visual": {
+            "bow_part_riser_mesh": "/Game/Weapons/WoodSteelLongbow20261026/CloudpiercerV9/SK_HighlandLongbow_Cloudpiercer.SK_HighlandLongbow_Cloudpiercer",
+            "bow_part_riser_material": "",
+            "bow_part_riser_scale": 1.0,
+            "bow_flex_distribution": 1.35,
+            "bow_release_return_seconds": 0.038,
+            "bow_release_ring_seconds": 0.19,
+            "bow_feedback_scale": 1.2
+          },
+          "stats": {
+            "range_mult": 1.45,
+            "crit_damage_bonus": 0.75,
+            "physical_damage_mult": 1.1,
+            "draw_speed_bonus": -0.35,
+            "stamina_mult": 1.55,
+            "charge_stamina_mult": 1.55
+          },
+          "special_effects": []
+        },
+        {
+          "id": "frontier_eclipse",
+          "name": "蚀日弓体",
+          "weapons": [
+            "bow_frontier_compound"
+          ],
+          "description": "边境复合弓专属传说弓体。",
+          "appearance": "石墨色弓架从握把上方收腰展开。拉丝古铜月牙嵌入上部眼形镂空，下弓架以一段短弧呼应。",
+          "visual": {
+            "bow_part_riser_mesh": "/Game/Weapons/FrontierCompoundBow/LegendaryFrameFitR2/SK_Frontier_Eclipse.SK_Frontier_Eclipse",
+            "bow_part_riser_material": "",
+            "bow_part_riser_scale": 1
+          },
+          "stats": {
+            "draw_speed_bonus": 0.25,
+            "stamina_mult": 0.85,
+            "charge_stamina_mult": 0.85
+          },
+          "special_effects": [
+            "食相｜弓系攻击与技能命中叠加1层，每层使目标受到的伤害提高3%，最多10层。命中刷新10秒，到期整组消失。目标死亡时将现有层数扩散给10米内的目标，并刷新其持续时间。"
+          ]
+        },
+        {
+          "id": "frontier_aurora",
+          "name": "极光弓体",
+          "weapons": [
+            "bow_frontier_compound"
+          ],
+          "description": "边境复合弓专属传说弓体。",
+          "appearance": "镂空弓架从握把两端延伸到弓臂，拉丝银边沿外侧包住五块极光彩釉，釉下细纹由海绿过渡到冰蓝与淡紫。",
+          "visual": {
+            "bow_part_riser_mesh": "/Game/Weapons/FrontierCompoundBow/LegendaryFrameFitR2/SK_Frontier_Aurora.SK_Frontier_Aurora",
+            "bow_part_riser_material": "",
+            "bow_part_riser_scale": 1
+          },
+          "stats": {
+            "magic_damage_mult": 1.15,
+            "mana_cost_mult": 0.90
+          },
+          "special_effects": [
+            "极光束｜射出的箭化为蓝色光束，箭伤转为魔法伤害。射击、持续拉弓与弓系技能每消耗1点体力，额外产生1点基础魔耗，享受魔耗减免。技能原有魔耗照常结算。"
+          ]
         }
       ]
     },
@@ -153,21 +217,22 @@
         {
           "id": "waxed_linen",
           "name": "棕色蜡麻缠带",
-          "description": "更稳定的握持，降低满弓晃动并延长稳定保持时间。",
+          "description": "棕色蜡麻沿握持区紧密缠绕，纤维表面压出细密防滑纹。",
           "appearance": "原有绳圈换为棕色哑光蜡麻。",
           "visual": {
             "bow_part_grip_material": "/Game/Weapons/DarkBow20260925/ModularV13/M_Bow_GripLinen.M_Bow_GripLinen"
           },
           "stats": {
-            "sway_mult": 0.85,
-            "hold_mult": 1.1
+            "draw_speed_bonus": 0.10,
+            "ads_mult": 0.85,
+            "charge_stamina_mult": 0.9
           },
           "special_effects": []
         },
         {
           "id": "woven_linen_grip",
           "name": "编织蜡麻握把",
-          "description": "交错编织的蜡麻包面便于控弓，降低晃动和腰射扩散；举弓稍慢。",
+          "description": "交错编织的蜡麻包面贴合掌心，束线收住上下两端。",
           "appearance": "暖棕编织包面，收束编绳和低凸交错纹。",
           "visual": {
             "bow_part_grip_mesh": "/Game/Weapons/DarkBow20260925/GripSeriesV20/SM_Bow_Grip_WovenLinen.SM_Bow_Grip_WovenLinen",
@@ -176,9 +241,8 @@
             "bow_part_grip_scale": 1.0
           },
           "stats": {
-            "sway_mult": 0.82,
-            "spread_mult": 0.94,
-            "hold_mult": 1.08,
+            "draw_speed_bonus": 0.10,
+            "spread_mult": 0.85,
             "ads_mult": 1.05
           },
           "special_effects": []
@@ -186,7 +250,7 @@
         {
           "id": "slim_leather_grip",
           "name": "薄革速握",
-          "description": "薄革斜绕握面便于迅速举弓；满弓保持较短，稳持晃动稍大。",
+          "description": "薄革斜绕握面，压边与收尾贴伏在弓根。",
           "appearance": "深栗色薄革斜绕，细窄压边和贴伏的收尾。",
           "visual": {
             "bow_part_grip_mesh": "/Game/Weapons/DarkBow20260925/GripSeriesV20/SM_Bow_Grip_SlimLeather.SM_Bow_Grip_SlimLeather",
@@ -195,16 +259,16 @@
             "bow_part_grip_scale": 1.0
           },
           "stats": {
-            "ads_mult": 0.86,
-            "hold_mult": 0.92,
-            "sway_mult": 1.08
+            "draw_speed_bonus": 0.20,
+            "ads_mult": 1.05,
+            "charge_stamina_mult": 1.1
           },
           "special_effects": []
         },
         {
           "id": "padded_leather_grip",
           "name": "软革稳握",
-          "description": "贴合掌面的软革与内衬便于保持满弓，稳持更安定；举弓较慢。",
+          "description": "柔软皮革包裹内衬，掌心接触面圆润饱满。",
           "appearance": "红褐软革包面、细缝合线、内收的上下收口。",
           "visual": {
             "bow_part_grip_mesh": "/Game/Weapons/DarkBow20260925/GripSeriesV20/SM_Bow_Grip_PaddedLeather.SM_Bow_Grip_PaddedLeather",
@@ -213,9 +277,9 @@
             "bow_part_grip_scale": 1.0
           },
           "stats": {
-            "hold_mult": 1.22,
-            "sway_mult": 0.78,
-            "ads_mult": 1.12
+            "range_mult": 1.15,
+            "spread_mult": 1.10,
+            "ads_mult": 1.10
           },
           "special_effects": []
         }
@@ -237,7 +301,7 @@
         {
           "id": "fast_string",
           "name": "轻量快弦",
-          "description": "缩短拉弓时间并提高子弹速度，满弓保持时间略短。",
+          "description": "浅棕纤维捻成轻细弓弦，弓梢处以小圈固定。",
           "appearance": "更细的浅棕色弦。",
           "visual": {
             "bow_part_string_material": "/Game/Weapons/DarkBow20260925/ModularV13/M_Bow_FastString.M_Bow_FastString",
@@ -246,7 +310,7 @@
           "stats": {
             "draw_mult": 0.94,
             "speed_mult": 1.04,
-            "hold_mult": 0.92
+            "charge_stamina_mult": 1.1
           },
           "special_effects": []
         },
@@ -285,11 +349,8 @@
         },
         {
           "id": "highland_mountain_echo",
-          "name": "光束弓弦",
-          "weapons": [
-            "bow_woodsteel"
-          ],
-          "description": "高地长弓专属弓弦。金白色光束连接两端弦扣，满弓命中积攒弦鸣，满层后的下一次满弓射击引出弦影箭。",
+          "name": "光柱弓弦",
+          "description": "金白色光束连接两端弦扣，满弓命中积攒弦鸣，满层后的下一次满弓射击引出弦影箭。",
           "appearance": "细亮的弦身随开弓拉紧，两端保留银套，中央炭黑护弦旁的三道山纹随弦鸣逐层点亮。",
           "stats": {
             "draw_speed_bonus": 0.15,
@@ -299,11 +360,34 @@
           },
           "special_effects": [
             "弦鸣｜满弓箭命中敌人或训练靶积攒1层弦鸣，最多3层，持续10秒；再次积攒刷新持续时间，每次射击最多获得1层。切换武器、拆下弓弦或死亡时清空。",
-            "山谷回响｜拥有3层弦鸣时，下一次满弓射击消耗全部层数，0.18秒后沿原发射方向补出一支弦影箭，造成原箭80%的物理伤害，不额外消耗箭矢或体力。触发回响的射击不积攒弦鸣。",
-            "弦影｜继承原箭的暴击结果，不再次判定暴击；不叠加弦鸣，不复制贯穿、元素、照明或其他技能附效。穿心箭仅带入物理伤害。弦影不可回收，不额外获得技能修炼进度。"
+            "光柱回响｜3层弦鸣时，下一次满弓射击消耗全部层数。0.18秒后沿原方向补出一支弦影箭，造成原箭物理伤害的80%。装备极光弓体时，弦影化为蓝色光束，按原箭的魔法伤害结算。弦影不额外耗箭或体力。",
+            "弦影｜沿用原箭的暴击结果。触发回响的射击及弦影均不积攒弦鸣。弦影不复制贯穿、元素或照明效果，不可回收，也不额外获得技能修炼进度。"
           ],
           "visual": {
             "bow_part_string_mesh": "/Game/Weapons/WoodSteelLongbow20261026/BeamString20261121/SK_Highland_BeamString.SK_Highland_BeamString",
+            "bow_part_string_rods": 0,
+            "bow_part_string_material": "",
+            "bow_part_string_scale": 1.0,
+            "bow_part_string_location_cm": "0,0,0",
+            "bow_part_string_rotation_deg": "0,0,0",
+            "bow_part_string_hide_slot": ""
+          }
+        },
+        {
+          "id": "highland_cadence",
+          "name": "疾律弓弦",
+          "description": "深蓝与石墨纤维交编银丝，以细密缠线标记节律。",
+          "appearance": "柔性弦环、平整护弦和五组银金缠线，合拍时泛起白金辉光。",
+          "stats": {
+            "rhythm_window_bonus": 1.0
+          },
+          "special_effects": [
+            "律动｜节拍放箭获得1层律动，每层拉弓速度+20%，最多5层（满层+100%），持续6秒；再次触发刷新持续时间，无需命中目标。",
+            "合拍｜律动达到5层后，腰射扩散−50%、物理伤害+20%，从后续箭矢生效。满层期间成功射出任意手动箭均视为节拍成功，刷新6秒持续时间并获得原节拍加速，不消耗层数，无需命中目标。",
+            "失拍｜未满层时非节拍箭射出后，或持续时间结束时清空律动。取消收弓不刷新持续时间；切换武器、拆下弓弦或死亡时清空。"
+          ],
+          "visual": {
+            "bow_part_string_mesh": "/Game/Weapons/WoodSteelLongbow20261026/CadenceV1/SK_Highland_CadenceString.SK_Highland_CadenceString",
             "bow_part_string_rods": 0,
             "bow_part_string_material": "",
             "bow_part_string_scale": 1.0,
@@ -397,12 +481,15 @@
         {
           "id": "no_sight",
           "name": "拆除瞄具",
+          "weapons": [
+            "bow_dark"
+          ],
           "description": "移除瞄圈、准星及底座，保留原有弓身。",
           "appearance": "移除瞄圈、准星及其底座。",
           "visual": {
             "bow_part_sight_mesh": "",
             "bow_ads_sight_cm": "",
-            "bow_ads_rest_cm": "60,0,0",
+            "bow_ads_rest_cm": "63,10,-12",
             "bow_scope_magnification": 1
           },
           "stats": {},
@@ -459,7 +546,7 @@
             "bow_woodsteel"
           ],
           "description": "高地长弓专属。圆形镜片配银钢薄框，旧黄铜滚花环环绕镜缘。",
-          "appearance": "银钢薄框、旧黄铜滚花环与胡桃木饰片。镜内的峰形准星和刻线在变倍时保持固定。",
+          "appearance": "银钢薄框、旧黄铜滚花环与胡桃木饰片。镜片中央刻有细绿十字，交点微亮，变倍时刻线保持固定。",
           "special_effects": [
             "变倍｜开镜时使用鼠标滚轮调节 3–6 倍放大，每格 0.5 倍。"
           ],
@@ -489,6 +576,59 @@
           }
         }
       ]
+    },
+    {
+      "key": "stabilizer",
+      "name": "稳定杆",
+      "default": "原装稳定杆",
+      "description": "边境复合弓的原装前置稳定杆。",
+      "factory_visual": {},
+      "options": [
+        {
+          "id": "shade_compact",
+          "name": "掠影短稳杆",
+          "description": "短型稳定杆，外壳的三个长窗露出内层细脊。",
+          "appearance": "石墨灰短壳收成圆角端帽，尾缘的一圈青色与清野镜呼应。",
+          "weapons": [
+            "bow_frontier_compound"
+          ],
+          "visual": {
+            "bow_part_stabilizer_mesh": "/Game/Weapons/FrontierCompoundBow/StabilizersR1/SM_Frontier_ShadeCompact.SM_Frontier_ShadeCompact",
+            "bow_part_stabilizer_scale": 1,
+            "bow_part_stabilizer_material": "",
+            "bow_part_stabilizer_rods": 0
+          },
+          "stats": {
+            "ads_mult": 0.85,
+            "charge_stamina_mult": 0.85,
+            "spread_mult": 1.15
+          },
+          "special_effects": [
+            "弓技减耗｜弓类技能持续拉弓时也享受这项体力减免。"
+          ]
+        },
+        {
+          "id": "far_ridge",
+          "name": "远峙长稳杆",
+          "description": "长型稳定杆，细杆与分段端帽之间留有两道深色凹槽。",
+          "appearance": "深灰编织纹杆身接入三段金属端帽，前端以一道暗铜色细环收边。",
+          "weapons": [
+            "bow_frontier_compound"
+          ],
+          "visual": {
+            "bow_part_stabilizer_mesh": "/Game/Weapons/FrontierCompoundBow/StabilizersR1/SM_Frontier_FarRidge.SM_Frontier_FarRidge",
+            "bow_part_stabilizer_scale": 1,
+            "bow_part_stabilizer_material": "",
+            "bow_part_stabilizer_rods": 0
+          },
+          "stats": {
+            "sway_mult": 0.75,
+            "ads_mult": 1.1,
+            "range_mult": 1.15
+          },
+          "special_effects": []
+        }
+      ]
     }
   ],
   "weapons": [
@@ -496,26 +636,26 @@
       "id": "bow_dark",
       "traits": [
         {
-          "icon": "neutral",
-          "text": "腰射扩散 · ADS 精准"
+          "icon": "special",
+          "text": "暴击伤害+50%"
         },
         {
           "icon": "special",
-          "text": "暴击伤害加成 +50%，与暴击技能加成相加后单次结算"
+          "text": "腰射散布−25%"
         },
         {
           "icon": "mechanic",
           "text": "无声射击：拉弓、放箭与箭矢命中不会通过声音引起怪物警觉"
-        },
-        {
-          "icon": "special",
-          "text": "一箭直接击杀不会触发周围怪物警报；未击杀仍会引起目标反应，已暴露的目标不会脱战"
         }
       ]
     },
     {
       "id": "bow_woodsteel",
       "traits": [
+        {
+          "icon": "special",
+          "text": "暴击伤害+50%"
+        },
         {
           "icon": "special",
           "text": "原厂有效射程 320 米"
@@ -716,6 +856,311 @@
         "string": "bow_dark_string_false",
         "sight": "bow_dark_sight_no_sight"
       }
+    },
+    {
+      "id": "bow_frontier_compound",
+      "shared_icon_weapon": "bow_dark",
+      "category_icon_sources": {
+        "riser": "bow_frontier_compound_riser_false_r3",
+        "grip": "bow_frontier_compound_grip_false_r3",
+        "arrow_rest": "bow_frontier_compound_arrow_rest_false_r3",
+        "string": "bow_frontier_compound_string_false_r3",
+        "sight": "bow_frontier_compound_category_sight_r3",
+        "stabilizer": "bow_frontier_compound_stabilizer_false_r3"
+      },
+      "factory_icon_sources": {
+        "riser": "bow_frontier_compound_riser_false_r3",
+        "grip": "bow_frontier_compound_grip_false_r3",
+        "arrow_rest": "bow_frontier_compound_arrow_rest_false_r3",
+        "string": "bow_frontier_compound_string_false_r3",
+        "sight": "bow_dark_sight_no_sight",
+        "stabilizer": "bow_frontier_compound_stabilizer_false_r3"
+      },
+      "part_overrides": {
+        "riser": {
+          "false": {
+            "visual": {
+              "bow_part_riser_mesh": "/Game/Weapons/FrontierCompoundBow/RigContactR2/SK_Frontier_Assembly.SK_Frontier_Assembly",
+              "bow_part_riser_scale": 1,
+              "bow_part_riser_material": ""
+            },
+            "appearance": "上下弓臂、偏心轮与控制缆构成一套联动组件。",
+            "name": "原装双轮弓体",
+            "description": "上下弓臂、偏心轮与控制缆构成一套联动组件。"
+          },
+          "strong_draw": {
+            "visual": {
+              "bow_part_riser_mesh": "/Game/Weapons/FrontierCompoundBow/CamLinesR11/SK_Frontier_StrongFrame.SK_Frontier_StrongFrame",
+              "bow_part_riser_scale": 1,
+              "bow_part_riser_material": ""
+            },
+            "appearance": "沿用原厂镂空轮廓，上下弓根两侧贴合深色加强片，护片外缘露出一线抛光金属。",
+            "name": "强拉力弓架",
+            "description": "适合持续蓄力的穿心箭，提升物理伤害，并增加拉弓与维持蓄力的耐力消耗。"
+          },
+          "swift_limb": {
+            "visual": {
+              "bow_part_riser_mesh": "/Game/Weapons/FrontierCompoundBow/CamLinesR11/SK_Frontier_SwiftFrame.SK_Frontier_SwiftFrame",
+              "bow_part_riser_scale": 1,
+              "bow_part_riser_material": ""
+            },
+            "appearance": "细窄的石墨色弓架向外掠出，上下各留一条贯通长窗，弓臂根部贴着薄护片。",
+            "name": "游隼轻型弓架",
+            "description": "轻型配置拉弓更快，耐力消耗更低，代价是射程和射击伤害下降。"
+          },
+          "heavy_limb": {
+            "visual": {
+              "bow_part_riser_mesh": "/Game/Weapons/FrontierCompoundBow/CamLinesR11/SK_Frontier_HeavyFrame.SK_Frontier_HeavyFrame",
+              "bow_part_riser_scale": 1,
+              "bow_part_riser_material": ""
+            },
+            "appearance": "宽厚的箱形弓架内有斜向横撑，侧面叠着石墨色阶梯护板，转角露出暗铜色棱边。",
+            "name": "磐石重型弓架",
+            "description": "重型配置提高箭速、射程与射击伤害，拉弓较慢，也更耗耐力。"
+          },
+          "steady_limb": {
+            "visual": {
+              "bow_part_riser_mesh": "/Game/Weapons/FrontierCompoundBow/CamLinesR11/SK_Frontier_SteadyFrame.SK_Frontier_SteadyFrame",
+              "bow_part_riser_scale": 1,
+              "bow_part_riser_material": ""
+            },
+            "appearance": "收腰的双轨弓架在中段平行延伸，灰钢轨面嵌有深色纵槽，箭台上方保持开阔。",
+            "name": "巡猎稳持弓架",
+            "description": "适合连续搭箭和腰射。搭箭更快，腰射散布更小，射程和射击伤害相应降低。"
+          }
+        },
+        "grip": {
+          "false": {
+            "visual": {
+              "bow_part_grip_mesh": "/Game/Weapons/FrontierCompoundBow/SM_Frontier_Grip.SM_Frontier_Grip",
+              "bow_part_grip_scale": 1,
+              "bow_part_grip_material": ""
+            },
+            "appearance": "贴合边境弓身的独立握把。",
+            "name": "原装边境握把",
+            "description": "贴合边境弓身的独立握把。"
+          },
+          "waxed_linen": {
+            "visual": {
+              "bow_part_grip_mesh": "/Game/Weapons/FrontierCompoundBow/CommonModsR1/SM_Frontier_WaxWrap.SM_Frontier_WaxWrap",
+              "bow_part_grip_material": "",
+              "bow_part_grip_scale": 1,
+              "bow_part_grip_rods": 0,
+              "bow_part_grip_location_cm": "0,0,0",
+              "bow_part_grip_rotation_deg": "0,0,0"
+            },
+            "appearance": "琥珀棕蜡麻带沿原厂握把斜绕，细压边收进上下端套。",
+            "description": "琥珀棕蜡麻带沿原厂握把斜绕，细压边收进上下端套。"
+          },
+          "woven_linen_grip": {
+            "visual": {
+              "bow_part_grip_mesh": "/Game/Weapons/FrontierCompoundBow/CommonModsR1/SM_Frontier_WovenWrap.SM_Frontier_WovenWrap",
+              "bow_part_grip_material": "",
+              "bow_part_grip_scale": 1,
+              "bow_part_grip_rods": 0,
+              "bow_part_grip_location_cm": "0,0,0",
+              "bow_part_grip_rotation_deg": "0,0,0"
+            },
+            "appearance": "石墨色编织面上穿过蓝灰交叉纹，两端压入深色包边。",
+            "description": "石墨色编织面上穿过蓝灰交叉纹，两端压入深色包边。"
+          },
+          "slim_leather_grip": {
+            "visual": {
+              "bow_part_grip_mesh": "/Game/Weapons/FrontierCompoundBow/CommonModsR1/SM_Frontier_SlimHide.SM_Frontier_SlimHide",
+              "bow_part_grip_material": "",
+              "bow_part_grip_scale": 1,
+              "bow_part_grip_rods": 0,
+              "bow_part_grip_location_cm": "0,0,0",
+              "bow_part_grip_rotation_deg": "0,0,0"
+            },
+            "appearance": "赤褐薄革顺着掌面收紧，侧面留有双排浅色短针脚。",
+            "description": "赤褐薄革顺着掌面收紧，侧面留有双排浅色短针脚。"
+          },
+          "padded_leather_grip": {
+            "visual": {
+              "bow_part_grip_mesh": "/Game/Weapons/FrontierCompoundBow/CommonModsR1/SM_Frontier_PaddedHide.SM_Frontier_PaddedHide",
+              "bow_part_grip_material": "",
+              "bow_part_grip_scale": 1,
+              "bow_part_grip_rods": 0,
+              "bow_part_grip_location_cm": "0,0,0",
+              "bow_part_grip_rotation_deg": "0,0,0"
+            },
+            "appearance": "炭灰软革分成四道掌垫沟槽，侧边缝线接入端套。",
+            "description": "炭灰软革分成四道掌垫沟槽，侧边缝线接入端套。"
+          }
+        },
+        "string": {
+          "false": {
+            "name": "原装复合弓弦",
+            "description": "主弦连接两侧轮缘，搭箭点跟随拉弦手。",
+            "visual": {
+              "bow_part_string_material": "/Game/Weapons/FrontierCompoundBow/M_Frontier_Cord.M_Frontier_Cord",
+              "bow_part_string_rods": 2
+            }
+          },
+          "fast_string": {
+            "visual": {
+              "bow_part_string_mesh": "/Game/Weapons/FrontierCompoundBow/CommonModsR1/SK_Frontier_FastLine.SK_Frontier_FastLine",
+              "bow_part_string_rods": 0,
+              "bow_part_string_material": "/Game/Weapons/FrontierCompoundBow/CommonModsR1/M_FrontierMods_Surface.M_FrontierMods_Surface",
+              "bow_part_string_scale": 1,
+              "bow_part_string_location_cm": "0,0,0",
+              "bow_part_string_rotation_deg": "0,0,0",
+              "bow_part_string_hide_slot": ""
+            },
+            "appearance": "琥珀色示踪纱与深灰细股交缠，搭箭区两侧各留一道识别环。",
+            "description": "琥珀色示踪纱与深灰细股交缠，搭箭区两侧各留一道识别环。"
+          },
+          "steady_twist_string": {
+            "visual": {
+              "bow_part_string_mesh": "/Game/Weapons/FrontierCompoundBow/CommonModsR1/SK_Frontier_LockTwist.SK_Frontier_LockTwist",
+              "bow_part_string_rods": 0,
+              "bow_part_string_material": "/Game/Weapons/FrontierCompoundBow/CommonModsR1/M_FrontierMods_Surface.M_FrontierMods_Surface",
+              "bow_part_string_scale": 1,
+              "bow_part_string_location_cm": "0,0,0",
+              "bow_part_string_rotation_deg": "0,0,0",
+              "bow_part_string_hide_slot": ""
+            },
+            "appearance": "蓝灰三股紧捻，搭箭区用炭黑护线收束，配成对的蓝灰识别环。",
+            "description": "蓝灰三股紧捻，搭箭区用炭黑护线收束，配成对的蓝灰识别环。"
+          },
+          "softcore_hold_string": {
+            "visual": {
+              "bow_part_string_mesh": "/Game/Weapons/FrontierCompoundBow/CommonModsR1/SK_Frontier_Softcore.SK_Frontier_Softcore",
+              "bow_part_string_rods": 0,
+              "bow_part_string_material": "/Game/Weapons/FrontierCompoundBow/CommonModsR1/M_FrontierMods_Surface.M_FrontierMods_Surface",
+              "bow_part_string_scale": 1,
+              "bow_part_string_location_cm": "0,0,0",
+              "bow_part_string_rotation_deg": "0,0,0",
+              "bow_part_string_hide_slot": ""
+            },
+            "appearance": "橄榄灰和深灰四股交织，较长的中央护线与双道浅色标记相接。",
+            "description": "橄榄灰和深灰四股交织，较长的中央护线与双道浅色标记相接。"
+          }
+        },
+        "arrow_rest": {
+          "false": {
+            "visual": {
+              "bow_part_arrow_rest_mesh": "/Game/Weapons/FrontierCompoundBow/RigContactR2/SM_Frontier_Rest.SM_Frontier_Rest",
+              "bow_part_arrow_rest_scale": 1,
+              "bow_part_arrow_rest_material": "",
+              "arrow_rest_cm": "-6.25,-5.2,9.45"
+            },
+            "appearance": "与边境弓身侧面贴合的箭台。",
+            "name": "原装边境箭台",
+            "description": "侧装座向持弓手一侧伸出独立托槽，托住就位的箭杆。"
+          },
+          "lined_rest": {
+            "visual": {
+              "bow_part_arrow_rest_mesh": "/Game/Weapons/FrontierCompoundBow/ArrowRestVariantsR1/SM_Frontier_LinedRest.SM_Frontier_LinedRest",
+              "bow_part_arrow_rest_scale": 1,
+              "bow_part_arrow_rest_material": "",
+              "arrow_rest_cm": "-6.25,-5.2,9.45"
+            },
+            "appearance": "石墨灰宽托嵌着深棕皮衬，托口两侧露出浅钢色窄边。",
+            "name": "皮垫箭台",
+            "description": "宽皮衬覆盖整个弧形托面，前后缘顺着托槽收薄。"
+          },
+          "open_quick_rest": {
+            "visual": {
+              "bow_part_arrow_rest_mesh": "/Game/Weapons/FrontierCompoundBow/ArrowRestVariantsR1/SM_Frontier_OpenQuickRest.SM_Frontier_OpenQuickRest",
+              "bow_part_arrow_rest_scale": 1,
+              "bow_part_arrow_rest_material": "",
+              "arrow_rest_cm": "-6.25,-5.2,9.45"
+            },
+            "appearance": "短托向外侧敞开，低矮的钢灰滑片旁留有一条青色识别线。",
+            "name": "开口速搭箭台",
+            "description": "外侧托唇压低，内侧保留短挡边，搭箭侧的开口一眼可见。"
+          },
+          "fork_guide_rest": {
+            "visual": {
+              "bow_part_arrow_rest_mesh": "/Game/Weapons/FrontierCompoundBow/ArrowRestVariantsR1/SM_Frontier_ForkGuideRest.SM_Frontier_ForkGuideRest",
+              "bow_part_arrow_rest_scale": 1,
+              "bow_part_arrow_rest_material": "",
+              "arrow_rest_cm": "-6.25,-5.2,9.45"
+            },
+            "appearance": "两片石墨色托翼分列在箭杆两侧，内面嵌有炭灰衬条，外缘带细窄的金属倒角。",
+            "name": "双叉导向箭台",
+            "description": "双叉从低位托座分开，中央留空，两翼分别承托箭杆。"
+          }
+        },
+        "sight": {
+          "false": {
+            "name": "不安装瞄具",
+            "description": "通过箭台沿箭杆方向瞄准。",
+            "visual": {
+              "bow_part_sight_mesh": "",
+              "bow_ads_sight_cm": "",
+              "bow_part_sight_rods": 0,
+              "bow_scope_magnification": 1,
+              "bow_ads_rest_cm": "63,10,-12"
+            }
+          },
+          "bow_clearfield_2x": {
+            "visual": {
+              "bow_part_sight_mesh": "/Game/Weapons/FrontierCompoundBow/ScopedDrawR9/SM_Frontier_Clearfield2x.SM_Frontier_Clearfield2x",
+              "bow_part_sight_material": "",
+              "bow_part_sight_location_cm": "0,0,0",
+              "bow_part_sight_rotation_deg": "0,0,0",
+              "bow_part_sight_scale": 1,
+              "bow_part_sight_rods": 0,
+              "bow_ads_sight_cm": "-1.325,-6.486,16.179",
+              "bow_ads_sight_distance_cm": 60,
+              "bow_scope_magnification": 2,
+              "bow_ads_rotation_deg": "0,5,0"
+            },
+            "appearance": "短镜圈留出开阔视野，青色细环、浅刻度与双臂镂空侧座相接。",
+            "description": "短镜圈留出开阔视野，青色细环、浅刻度与双臂镂空侧座相接。"
+          },
+          "bow_farwatch_4x": {
+            "visual": {
+              "bow_part_sight_mesh": "/Game/Weapons/FrontierCompoundBow/ScopedDrawR9/SM_Frontier_Farwatch4x.SM_Frontier_Farwatch4x",
+              "bow_part_sight_material": "",
+              "bow_part_sight_location_cm": "0,0,0",
+              "bow_part_sight_rotation_deg": "0,0,0",
+              "bow_part_sight_scale": 1,
+              "bow_part_sight_rods": 0,
+              "bow_ads_sight_cm": "-1.325,-6.486,16.179",
+              "bow_ads_sight_distance_cm": 60,
+              "bow_scope_magnification": 4,
+              "bow_ads_rotation_deg": "0,5,0"
+            },
+            "appearance": "纵槽长遮光罩接入深灰镜座，铜色标环与带筋护圈区分前后缘。",
+            "description": "纵槽长遮光罩接入深灰镜座，铜色标环与带筋护圈区分前后缘。"
+          }
+        },
+        "stabilizer": {
+          "false": {
+            "name": "原装稳定杆",
+            "description": "边境复合弓出厂配备的前置杆件。",
+            "appearance": "深色直杆前端带有宽环形端帽。",
+            "visual": {
+              "bow_part_stabilizer_mesh": "/Game/Weapons/FrontierCompoundBow/SM_Frontier_Stabilizer.SM_Frontier_Stabilizer",
+              "bow_part_stabilizer_scale": 1,
+              "bow_part_stabilizer_material": "",
+              "bow_part_stabilizer_rods": 0
+            }
+          }
+        }
+      },
+      "traits": [
+        {
+          "icon": "special",
+          "text": "暴击伤害+50%"
+        },
+        {
+          "icon": "special",
+          "text": "拉弓速度+25%"
+        },
+        {
+          "icon": "special",
+          "text": "双轮联动：拉弓与缓收时，弓臂、轮组和弦缆同步运动。"
+        },
+        {
+          "icon": "mechanic",
+          "text": "无声射击：拉弓、放箭与箭矢命中不会通过声音引起怪物警觉。"
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,113 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp
+@@ -80,6 +80,7 @@
+ #include "../Weapons/Kukri/KukriRhythm.h"
+ #include "../Weapons/Kukri/OffhandKukriThrust.h"
+ #include "../Weapons/GunsmithSystem.h"
++#include "../Weapons/Bow/BowPartReceipt.h"
+ #include "../Weapons/LMGStabilityGrip.h"
+ #include "../Weapons/JingangRuneComponent.h"
+ #include "../Weapons/MeleeWeaponStats.h"
+@@ -407,11 +408,11 @@
+ 
+ namespace
+ {
+-bool CopyFreeWeaponCustomization(FColdSteelItem& TargetItem,const FColdSteelItem& SourceItem)
++bool CopyFreeWeaponCustomization(FColdSteelItem& TargetItem,const FColdSteelItem& SourceItem,const UGunsmithSystem* Gunsmith,const TSet<FString>& BowSlots)
+ {
+     if(TargetItem.InstanceId!=SourceItem.InstanceId||TargetItem.Definition!=SourceItem.Definition)return false;
+-    const bool HighlandBow=TargetItem.Definition==TEXT("bow_woodsteel");
+-    if(!HighlandBow&&!UGunsmithSystem::UsesFreePartReceipts(TargetItem.Definition))return false;
++    const bool Bow=Gunsmith&&Gunsmith->IsBow(TargetItem.Definition);
++    if(!Bow&&!UGunsmithSystem::UsesFreePartReceipts(TargetItem.Definition))return false;
+     const bool PartsOnly=TargetItem.Definition==TEXT("ue_forged_steel_greatsword")||LMGStabilityGrip::Supports(TargetItem.Definition);
+     TSharedPtr<FJsonObject> Target,Source;
+     if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(TargetItem.Data),Target)||!Target||
+@@ -424,14 +425,21 @@
+         return true;
+     };
+     bool Changed=false;
+-    if(HighlandBow)
+-    {
+-        // A delayed pickup can arrive between selecting an optic/string and the
+-        // Apply receipt. The authority still owns the material-bearing riser.
++    if(Bow)
++    {
++        // Rebase only valid, free transitions on the surviving item. Paid and
++        // retired parts must retain the inventory transaction that owns them.
+         const TSharedPtr<FJsonObject>* Found=nullptr;
+         auto To=Target->TryGetObjectField(TEXT("gunsmith_parts"),Found)?*Found:MakeShared<FJsonObject>();
+         auto From=Source->TryGetObjectField(TEXT("gunsmith_parts"),Found)?*Found:MakeShared<FJsonObject>();
+-        for(const TCHAR* Key:{TEXT("sight"),TEXT("string")})Changed|=CopyField(*To,*From,Key);
++        for(const FString& Slot:BowSlots)
++        {
++            FString Before=TEXT("false"),After=TEXT("false");
++            if((To->HasField(Slot)&&!To->TryGetStringField(Slot,Before))||
++               (From->HasField(Slot)&&!From->TryGetStringField(Slot,After)))continue;
++            if(BowPartReceipt::CanMerge(*Gunsmith,TargetItem.Definition,Slot,Before,After))
++                Changed|=CopyField(*To,*From,*Slot);
++        }
+         if(Changed){Target->SetObjectField(TEXT("gunsmith_parts"),To);Target->SetNumberField(TEXT("gunsmith_version"),1);}
+     }
+     else for(const TCHAR* Key:{TEXT("gunsmith_parts"),TEXT("gunsmith_version"),TEXT("tool_enhance_level")})
+@@ -443,11 +451,11 @@
+     return Changed;
+ }
+ }
+-void AColdSteelPlayerState::NotifyGunsmithApplied(const FString& InstanceId)
++void AColdSteelPlayerState::NotifyGunsmithApplied(const FString& InstanceId,const TSet<FString>& BowSlots)
+ {
+     if(GetNetMode()!=NM_Client||InstanceId.IsEmpty())return;
+     if(++LocalGunsmithSequence==0)++LocalGunsmithSequence;
+-    PendingGunsmithInstances.Add(InstanceId);HeartbeatTimer=0.f;
++    PendingGunsmithInstances.FindOrAdd(InstanceId).Append(BowSlots);HeartbeatTimer=0.f;
+ }
+ void AColdSteelPlayerState::ClientRetryProfileUpload_Implementation(int32 UploadId)
+ {
+@@ -511,21 +519,28 @@
+     // A local Apply can happen while an older, same-revision mirror is in
+     // flight. Protect only those customized fields until a server snapshot
+     // explicitly resolves that Apply; rejected edits then roll back normally.
+-    TSet<FString> ResolvedGunsmithInstances;
++    TMap<FString,TSet<FString>> ResolvedGunsmithInstances;
++    const auto* Gunsmith=GI->GetSubsystem<UGunsmithSystem>();
+     bool bGunsmithResolvedChanged=false;
+     if(ReceivingMirrorGunsmithSequence==LocalGunsmithSequence)
+     {
+         ResolvedGunsmithInstances=MoveTemp(PendingGunsmithInstances);
+-        for(auto Item:CurrentInventory.Items)if(ResolvedGunsmithInstances.Contains(Item.InstanceId))
+-            if(const auto* ServerItem=Save->Profile.Items.FindByPredicate([&](const auto& E){return E.InstanceId==Item.InstanceId;}))
+-                bGunsmithResolvedChanged|=CopyFreeWeaponCustomization(Item,*ServerItem);
++        for(const auto& Entry:ResolvedGunsmithInstances)
++        {
++            const auto Match=[&](const FColdSteelItem& I){return I.InstanceId==Entry.Key;};
++            const auto* Local=CurrentInventory.Items.FindByPredicate(Match);
++            const auto* ServerItem=Save->Profile.Items.FindByPredicate(Match);
++            if(!Local||!ServerItem)continue;
++            auto Compared=*Local;
++            bGunsmithResolvedChanged|=CopyFreeWeaponCustomization(Compared,*ServerItem,Gunsmith,Entry.Value);
++        }
+     }
+     else if(Save->Profile.CampfireInventoryRevision>=CurrentInventory.CampfireInventoryRevision)
+         for(auto& Item:Save->Profile.Items)
+         {
+-            if(!PendingGunsmithInstances.Contains(Item.InstanceId))continue;
++            const auto* Slots=PendingGunsmithInstances.Find(Item.InstanceId);if(!Slots)continue;
+             const auto* Local=CurrentInventory.Items.FindByPredicate([&](const auto& E){return E.InstanceId==Item.InstanceId&&E.Definition==Item.Definition;});
+-            if(Local)CopyFreeWeaponCustomization(Item,*Local);
++            if(Local)CopyFreeWeaponCustomization(Item,*Local,Gunsmith,*Slots);
+         }
+     for(auto& I:Save->Profile.Items)
+         if(const auto* Local=CurrentInventory.Items.FindByPredicate([&](const auto& E){return E.InstanceId==I.InstanceId;}))
+@@ -625,9 +640,9 @@
+                     I.TorchBurnedSeconds=Server->TorchBurnedSeconds;
+         // Resolve accepted/rejected customization even while unrelated local
+         // health or training changes make the full-profile comparison dirty.
+-        for(auto& Item:Merged.Items)if(ResolvedGunsmithInstances.Contains(Item.InstanceId))
++        for(auto& Item:Merged.Items)if(const auto* Slots=ResolvedGunsmithInstances.Find(Item.InstanceId))
+             if(const auto* ServerItem=Save->Profile.Items.FindByPredicate([&](const auto& E){return E.InstanceId==Item.InstanceId;}))
+-                CopyFreeWeaponCustomization(Item,*ServerItem);
++                CopyFreeWeaponCustomization(Item,*ServerItem,Gunsmith,*Slots);
+         if(bCampfireInventoryChanged)
+         {
+             auto ServerItems=Save->Profile.Items;

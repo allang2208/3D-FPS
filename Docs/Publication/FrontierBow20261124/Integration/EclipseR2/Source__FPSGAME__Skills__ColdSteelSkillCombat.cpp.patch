@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp
++++ b/Source/FPSGAME/Skills/ColdSteelSkillCombat.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelSkillRules.h"
++#include "../Weapons/Bow/EclipseBowMark.h"
+ #include "../Weapons/PojunGrip.h"
+ #include "../Weapons/Kukri/KukriWeaponComponent.h"
+ #include "../Weapons/Kukri/KukriRelentlessComponent.h"
+@@ -271,6 +272,7 @@
+ void ColdSteelSkills::NotifyKillByOwner(UGameInstance* GameInstance,AController* Instigator,AActor* Victim)
+ {
+     if(!GameInstance||!Victim||!Victim->HasAuthority())return;
++    FEclipseBowImpact::OnDeath(Victim);
+     const auto* Killer=Cast<AFPSGAMECharacter>(Instigator?Instigator->GetPawn():nullptr);
+     if(!Killer||Killer==Victim)return;
+     UColdSteelStatusModel* Model=ColdSteelAuthority::ForPawn(Killer);
+@@ -344,7 +346,12 @@
+             Combat->GetVitals(CrystalHealth,CrystalMaxHealth,CrystalName);
+         float WolfHealth=0.f,WolfMaxHealth=0.f;FText WolfName;
+         if(bWolf)if(const auto* Combat=Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>())Combat->GetVitals(WolfHealth,WolfMaxHealth,WolfName);
++        TSharedPtr<FEclipseBowShot> BowBash;
++        if (Shot.bMeleeStrike && (Shot.AttackMeta & 0x80) && Shot.ItemDefinition == TEXT("bow_frontier_compound"))
++            BowBash = FEclipseBowShot::Capture(Cast<APawn>(Shooter));
++        FEclipseBowImpact BashImpact(BowBash.Get(), Hit.GetActor());
+         const float Applied=M->ApplySkillWeaponHit(Shooter,Hit,Damage,Direction,Shot,Result?Result:&Receipt,PairedHeavy);
++        BashImpact.Confirm(Applied);
+         if(bTorchContact)
+         {
+             if(auto* Torch=Shooter->FindComponentByClass<UWoodenTorchComponent>())Torch->EnemyContact(Hit);

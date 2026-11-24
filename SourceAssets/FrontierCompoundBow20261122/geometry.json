@@ -1,0 +1,42 @@
+{
+  "parts": {
+    "Grip": 2980,
+    "LowerCam": 14951,
+    "LowerLimb": 15439,
+    "Rest": 7877,
+    "Riser": 31724,
+    "Stabilizer": 5332,
+    "UpperCam": 20308,
+    "UpperLimb": 21678,
+    "ControlCable1": 8,
+    "ControlCable2": 8
+  },
+  "removed_baked_faces": 10979,
+  "upper": [
+    -23.055,
+    -0.0,
+    47.435
+  ],
+  "lower": [
+    -23.055,
+    -0.0,
+    -37.047
+  ],
+  "brace": [
+    -22.207,
+    0.0,
+    2.279
+  ],
+  "draw": [
+    -52.207,
+    -0.0,
+    2.279
+  ],
+  "rest": [
+    -1.325,
+    2.014,
+    2.279
+  ],
+  "length": 100.82,
+  "depth": 58.84
+}

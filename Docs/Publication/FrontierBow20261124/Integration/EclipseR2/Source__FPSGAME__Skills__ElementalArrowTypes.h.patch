@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Skills/ElementalArrowTypes.h
++++ b/Source/FPSGAME/Skills/ElementalArrowTypes.h
+@@ -27,6 +27,7 @@
+     FIceSpikeCast Ice;
+     FLightningCast Lightning;
+     float Radius=0, ManaCost=0, Cooldown=0;
++    TSharedPtr<struct FEclipseBowShot> EclipseShot;
+ };
+ 
+ namespace ElementalArrow

@@ -1,0 +1,38 @@
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -169,7 +169,7 @@
+     // Preview overrides isolate a workbench item's parts from the equipped weapon.
+     FQuickCombatCast QuickCombatStats(int32 AtLevel=-1,const FMeleeModifiers* PreviewModifiers=nullptr,const FColdSteelItem* PreviewWeapon=nullptr,
+         const TMap<FString,FString>* PreviewParts=nullptr) const;
+-    float QuickCombatStaminaCost(int32 AtLevel=-1,const FMeleeModifiers* PreviewModifiers=nullptr) const;
++    float QuickCombatStaminaCost(int32 AtLevel=-1,const FMeleeModifiers* PreviewModifiers=nullptr,const FColdSteelItem* PreviewWeapon=nullptr,const TMap<FString,FString>* PreviewParts=nullptr) const;
+     /** 快捷栏沿用 CD 接口，数值仅表示当前武器动作周期，不是技能冷却。 */
+     float QuickCombatCooldown() const;
+     float QuickCombatCooldownDuration() const { return Current.QuickCombatCooldownDuration; }
+@@ -211,7 +211,7 @@
+     float LightningCooldown() const { return HasNoAbilityCooldown()?0.f:Current.LightningCooldown; }
+     float LightningCooldownDuration() const { return Current.LightningCooldownDuration; }
+     bool BeginLightningCast(const FLightningCast& Cast);
+-    bool ApplyLightningHit(APawn* Shooter,AActor* Target,const FVector& Origin,const FLightningCast& Cast,float Damage,FLightningRewards& Rewards,bool bTrain=true,const FHitResult* DirectHit=nullptr);
++    bool ApplyLightningHit(APawn* Shooter,AActor* Target,const FVector& Origin,const FLightningCast& Cast,float Damage,FLightningRewards& Rewards,bool bTrain=true,const FHitResult* DirectHit=nullptr,struct FEclipseBowShot* EclipseShot=nullptr);
+     void FinishLightningCast(const FLightningRewards& Rewards,bool bElementalArrow=false);
+     const FColdSteelSkillDefinition& HolyLightDefinition() const { return HolyLightSkill; }
+     FColdSteelSkillProgress HolyLightProgress() const;
+@@ -263,7 +263,7 @@
+     float IceSpikeCooldown() const { return HasNoAbilityCooldown()?0.f:Current.IceSpikeCooldown; }
+     float IceSpikeCooldownDuration() const { return Current.IceSpikeCooldownDuration; }
+     bool BeginIceSpikeCast(const FIceSpikeCast& Cast);
+-    void ApplyIceSpikeHit(APawn* Shooter,const FHitResult& Hit,const FIceSpikeCast& Cast,FIceSpikeRewards& Rewards);
++    void ApplyIceSpikeHit(APawn* Shooter,const FHitResult& Hit,const FIceSpikeCast& Cast,FIceSpikeRewards& Rewards,struct FEclipseBowShot* EclipseShot=nullptr);
+     void FinishIceSpikeCast(const FIceSpikeRewards& Rewards,bool bElementalArrow=false);
+     FColdSteelSkillProgress FireballProgress() const;
+     FFireballCast FireballStats(int32 AtLevel=-1,bool bApplySpecs=true) const;
+@@ -290,7 +290,7 @@
+     /** 手势已扣蓝并起冷却，但法术没有放出时退回。Skill 为空则只退蓝。 */
+     bool RefundUnreleasedCast(float PaidMana, FName Skill);
+     void FinishFireballCast();
+-    void ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit=nullptr,bool bElementalArrow=false);
++    void ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit=nullptr,bool bElementalArrow=false,struct FEclipseBowShot* EclipseShot=nullptr);
+     float ApplySkillWeaponHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result=nullptr,FKukriPairedHeavyHit* PairedHeavy=nullptr);
+     bool PopProgressNotice(FColdSteelProgressNotice& Out);
+     bool TakeInteractionNotice(FColdSteelProgressNotice& Out);

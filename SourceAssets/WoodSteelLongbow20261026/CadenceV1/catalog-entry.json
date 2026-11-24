@@ -1,0 +1,23 @@
+{
+  "id": "highland_cadence",
+  "name": "疾律弓弦",
+  "description": "深蓝与石墨纤维交编银丝，以细密缠线标记节律。",
+  "appearance": "柔性弦环、平整护弦和五组银金缠线，合拍时泛起白金辉光。",
+  "stats": {
+    "rhythm_window_bonus": 1.0
+  },
+  "special_effects": [
+    "律动｜节拍放箭获得1层律动，每层拉弓速度+20%，最多5层（满层+100%），持续6秒；再次触发刷新持续时间，无需命中目标。",
+    "合拍｜律动达到5层后，腰射扩散−50%、物理伤害+20%，从后续箭矢生效。满层期间成功射出任意手动箭均视为节拍成功，刷新6秒持续时间并获得原节拍加速，不消耗层数，无需命中目标。",
+    "失拍｜未满层时非节拍箭射出后，或持续时间结束时清空律动。取消收弓不刷新持续时间；切换武器、拆下弓弦或死亡时清空。"
+  ],
+  "visual": {
+    "bow_part_string_mesh": "/Game/Weapons/WoodSteelLongbow20261026/CadenceV1/SK_Highland_CadenceString.SK_Highland_CadenceString",
+    "bow_part_string_rods": 0,
+    "bow_part_string_material": "",
+    "bow_part_string_scale": 1.0,
+    "bow_part_string_location_cm": "0,0,0",
+    "bow_part_string_rotation_deg": "0,0,0",
+    "bow_part_string_hide_slot": ""
+  }
+}

@@ -77,3 +77,7 @@
 - [四盘目录盘点](./项目目录索引-20261121.md) 保留历史目录、外部依赖及 11 月备份覆盖表。
 - [D/F 迁移回执目录](F:/FPSGAMEData/ArtProduction/StorageLayout/20261121-DualDrive) 记录本次复制和入口切换；历史快照使用当时的联接记录。
 - [工程存储规则](../../WORKFLOW.md#41-存储分配与文件操作边界)维护目录和引用写法。[工程智能体入口](../../AGENTS.md)及[工程技能入口](../../skills/ue5-auto-assistant/SKILL.md)将其列为第一条；本机对应技能位于 `%USERPROFILE%/.codex/skills/`。本次首条规则、工程与本机技能及项目索引已归入 [11 月 21 日存储规范与技能增量](Y:/FPSGAME_存储规范与技能增量_20261121-225937/Metadata/完成报告.json)。
+
+## 弓类联机修复与恢复
+
+- [边境复合弓、通用弓弦和联机回写](../Publication/FrontierBow20261124/README.md)收录正式工程的模块映射、GPU 采样和清理回执。

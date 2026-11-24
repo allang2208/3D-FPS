@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Weapons/GunsmithSystem.cpp
++++ b/Source/FPSGAME/Weapons/GunsmithSystem.cpp
+@@ -1,4 +1,5 @@
+ #include "GunsmithSystem.h"
++#include "Bow/BowPartReceipt.h"
+ #include "WoodenTorchItem.h"
+ #include "LMGStabilityGrip.h"
+ #include "FullAutoTrigger.h"
+@@ -635,11 +636,12 @@
+     if((bInventoryBlade||DefinitionId==TEXT("ue_m249")||DefinitionId==TEXT("bow_frontier_compound"))&&!Original.OrderIndependentCompareEqual(Preview))
+         if(const auto* Committed=Profile->FindItem(InstanceId))
+             if(auto* Icons=GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>())Icons->Request(*Committed,true);
+-    const bool bHighlandOpticOrString=DefinitionId==TEXT("bow_woodsteel")&&
+-        (Part(Original,TEXT("sight"))!=Part(Preview,TEXT("sight"))||Part(Original,TEXT("string"))!=Part(Preview,TEXT("string")));
+-    if(bHighlandOpticOrString||UsesFreePartReceipts(DefinitionId))
++    TSet<FString> BowSlots;
++    if(IsBow(DefinitionId))for(const FString& Slot:Slots(DefinitionId))
++        if(BowPartReceipt::CanMerge(*this,DefinitionId,Slot,Part(Original,Slot),Part(Preview,Slot)))BowSlots.Add(Slot);
++    if(!BowSlots.IsEmpty()||UsesFreePartReceipts(DefinitionId))
+         if(auto* Pawn=Profile->RuntimePawn())
+-            if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())PS->NotifyGunsmithApplied(InstanceId);
++            if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())PS->NotifyGunsmithApplied(InstanceId,BowSlots);
+     Original=Preview;DraftEnhanceLevelValue=0;Status=TEXT("已应用改造并保存");OnChanged.Broadcast();return true;
+ }
+ void UGunsmithSystem::Undo(){Preview=Original;DraftEnhanceLevelValue=0;Status=TEXT("已撤销预览");OnChanged.Broadcast();}

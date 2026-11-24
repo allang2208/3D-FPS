@@ -1,0 +1,27 @@
+{
+  "shade_compact": {
+    "mesh": "SM_Frontier_ShadeCompact",
+    "name": "掠影短稳杆",
+    "description": "短型稳定杆，外壳的三个长窗露出内层细脊。",
+    "appearance": "石墨灰短壳收成圆角端帽，尾缘的一圈青色与清野镜呼应。",
+    "stats": {
+      "ads_mult": 0.85,
+      "charge_stamina_mult": 0.85,
+      "spread_mult": 1.15
+    },
+    "special_effects": [
+      "弓技减耗｜弓类技能持续拉弓时也享受这项体力减免。"
+    ]
+  },
+  "far_ridge": {
+    "mesh": "SM_Frontier_FarRidge",
+    "name": "远峙长稳杆",
+    "description": "长型稳定杆，细杆与分段端帽之间留有两道深色凹槽。",
+    "appearance": "深灰编织纹杆身接入三段金属端帽，前端以一道暗铜色细环收边。",
+    "stats": {
+      "sway_mult": 0.75,
+      "ads_mult": 1.1,
+      "range_mult": 1.15
+    }
+  }
+}

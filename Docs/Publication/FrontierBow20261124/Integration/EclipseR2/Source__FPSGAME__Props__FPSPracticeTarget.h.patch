@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Props/FPSPracticeTarget.h
++++ b/Source/FPSGAME/Props/FPSPracticeTarget.h
+@@ -31,6 +31,7 @@
+     GENERATED_BODY()
+ public:
+     AFPSPracticeTarget();
++    virtual float TakeDamage(float Damage, const FDamageEvent& Event, AController* InstigatorController, AActor* Causer) override;
+     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+     /** 清空累计/窗口统计与浮空数字。 */
+     void ResetSession();

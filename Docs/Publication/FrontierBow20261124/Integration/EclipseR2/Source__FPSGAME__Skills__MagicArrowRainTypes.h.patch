@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Skills/MagicArrowRainTypes.h
++++ b/Source/FPSGAME/Skills/MagicArrowRainTypes.h
+@@ -13,6 +13,7 @@
+ {
+     float Damage=0.f, CriticalChance=0.f, CriticalDamageBonus=.5f, MagicDamageBonus=0.f;
+     FVector SurfaceNormal=FVector::UpVector;
++    TSharedPtr<struct FEclipseBowShot> EclipseShot;
+ };
+ namespace MagicArrowRainTiming
+ {

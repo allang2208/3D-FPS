@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Props/FPSPracticeTarget.cpp
++++ b/Source/FPSGAME/Props/FPSPracticeTarget.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSPracticeTarget.h"
++#include "../Weapons/Bow/EclipseBowMark.h"
+ #include "Net/UnrealNetwork.h"
+ #include "../FPSGAMEPlayerController.h"
+ #include "Components/StaticMeshComponent.h"
+@@ -90,6 +91,11 @@
+ bool AFPSPracticeTarget::IsBullseyeHit(const FHitResult& Hit) const
+ { return IsBullseyeLocation(Hit.ImpactPoint); }
+ 
++float AFPSPracticeTarget::TakeDamage(float Damage, const FDamageEvent& Event, AController* InstigatorController, AActor* Causer)
++{
++    return Super::TakeDamage(Damage * UEclipseBowMark::DamageMultiplier(this), Event, InstigatorController, Causer);
++}
++
+ void AFPSPracticeTarget::RecordHit(float Damage,const FVector& Point,bool bBullseye,bool bRock,AController* HitInstigator)
+ {
+     if(GetNetMode()==NM_Client||!HasAuthority()||Damage<=0.f)return;

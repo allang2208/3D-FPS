@@ -525,5 +525,56 @@
         "perEnhance": 0.621
       }
     ]
+  },
+  "bow_frontier_compound": {
+    "source": "FRONTIER_COMPOUND_DEX_STR",
+    "base": 69.0,
+    "enhanceFlat": 2.4,
+    "attrs": [
+      {
+        "key": "dex",
+        "base": 1.2,
+        "perEnhance": 0.06
+      },
+      {
+        "key": "str",
+        "base": 0.6,
+        "perEnhance": 0.04
+      }
+    ]
+  },
+  "bow_dark": {
+    "source": "HUNTER_LONGBOW_DEX_STR",
+    "base": 58.65,
+    "enhanceFlat": 2.04,
+    "attrs": [
+      {
+        "key": "dex",
+        "base": 1.02,
+        "perEnhance": 0.051
+      },
+      {
+        "key": "str",
+        "base": 0.51,
+        "perEnhance": 0.034
+      }
+    ]
+  },
+  "bow_woodsteel": {
+    "source": "HIGHLAND_LONGBOW_DEX_STR",
+    "base": 62.1,
+    "enhanceFlat": 2.16,
+    "attrs": [
+      {
+        "key": "dex",
+        "base": 1.08,
+        "perEnhance": 0.054
+      },
+      {
+        "key": "str",
+        "base": 0.54,
+        "perEnhance": 0.036
+      }
+    ]
   }
 }

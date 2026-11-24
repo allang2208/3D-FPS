@@ -4,8 +4,8 @@ import json,hashlib
 P=Path(__file__).parent;ROOT=P.parents[2]
 proposal=json.loads((P.parent/'CadenceStringConcept20261028/design.json').read_text(encoding='utf-8'))
 mesh='/Game/Weapons/WoodSteelLongbow20261026/CadenceV1/SK_Highland_CadenceString.SK_Highland_CadenceString'
-row={'id':'highland_cadence','name':'疾律弓弦','weapons':['bow_woodsteel'],
- 'description':'高地长弓专属弓弦，深蓝与石墨纤维交编银丝，以细密缠线标记节律。',
+row={'id':'highland_cadence','name':'疾律弓弦',
+ 'description':'深蓝与石墨纤维交编银丝，以细密缠线标记节律。',
  'appearance':'柔性弦环、平整护弦和五组银金缠线，合拍时泛起白金辉光。',
  'stats':{'rhythm_window_bonus':1.0},
  'special_effects':[
