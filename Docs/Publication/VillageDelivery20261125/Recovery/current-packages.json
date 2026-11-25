@@ -1,0 +1,1032 @@
+[
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/M_InnTroughRunoff.uasset",
+    "sha256": "440bbe6645db459807376f1d9e07b77116479f613ea192e74cd466f7331ee7ea",
+    "bytes": 11401
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/M_InnWorkingLime_JoineryR4.uasset",
+    "sha256": "008de9a13213a9afa55d6f8ff916b14c6e7d658546494eb413fe1078a5cb81dc",
+    "bytes": 14984
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnCupboard_JoineryR4.uasset",
+    "sha256": "63ed181a2a7e039f548cf1b3b8b0aa337ac2b735b686101b2d9076c7db4d2ccc",
+    "bytes": 26373
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnFacade.uasset",
+    "sha256": "c4762892a46630f7bd0fe5ff1ae18f4b8906fbb6992bb7798e1ad9008950fe75",
+    "bytes": 22137
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnFacade_NativeDiningWallsR5.uasset",
+    "sha256": "4355ce7a3caeb650a90691293f4768d072192c1382871c5466e60ed0a034a6cf",
+    "bytes": 113676048
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnFacade_StoneCourt.uasset",
+    "sha256": "f141b68ecc6b7e2d5cd5b6c3f17406fb0d8af90f7ca9a9844544861256027ecf",
+    "bytes": 26693206
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnFloors.uasset",
+    "sha256": "14b1459af6b901c2876dbd70de007529575a0d52c1fcf2a47a69e4eab0283a21",
+    "bytes": 315610
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnFloors_StoneCourt.uasset",
+    "sha256": "cb7214a5249410ffe81b15e90cb7c4df95e7ae99e15bf219ffadd2f60304b57e",
+    "bytes": 409848
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnFlueShaft.uasset",
+    "sha256": "376357435b3c697b5ecedd9984283e40a54663f1028ed024a3e4136f60137517",
+    "bytes": 19849
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnFlueShaft_StoneCourt.uasset",
+    "sha256": "0e07dd90f9dc3a991525ea46541dc68b38b03194ac92334752db263d6d6ef65a",
+    "bytes": 19893
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnKitchenPass_HallRoadR3.uasset",
+    "sha256": "70e1a254eea45faba40b077a18681c8d11f4f62846f94676296237b851625c12",
+    "bytes": 22701
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnKitchenPass_JoineryR4.uasset",
+    "sha256": "c996733bdb45985e5bd06122838ec5011607233083863e3fcba0e2ced8e65c1d",
+    "bytes": 33206
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnMirror_JoineryR4.uasset",
+    "sha256": "99099f80336cf8cb9b41b4093f5e8e6d7b9b5db315a9faaa5bc6f37cbf4d73c8",
+    "bytes": 18107
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnPartitions.uasset",
+    "sha256": "1d77bde3cbbed68b4785eb6f89807ec84590a828d10efc83763d1fb759539abc",
+    "bytes": 15179
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnPartitions_HallRoadR3.uasset",
+    "sha256": "bfb495d103a6f823c8e3091caf4efded912d3a8e6ba227842037817835eb6539",
+    "bytes": 5398150
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnPartitions_JoineryR4.uasset",
+    "sha256": "27323531f4a0fff1fbb2e53dde28e8ba19de0e151362f624d6988c79dbabfe04",
+    "bytes": 416646
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnPartitions_NativeDiningWallsR5.uasset",
+    "sha256": "3e69a66d8b43d5b322cf0db9f8370ac05b436bad290c8657b735dd05c4515575",
+    "bytes": 13870840
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnPartitions_StoneCourt.uasset",
+    "sha256": "2d0df80ae4b9896a383a2b8f7bf788f496ed3aa849ce703abd35e1ba7720b6ba",
+    "bytes": 5388620
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnRails.uasset",
+    "sha256": "eb031114cfbb5f2dd3b2ac4b343a18490df0a331d8ba6812328ee17a7becbb1d",
+    "bytes": 36910
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnRails_StoneCourt.uasset",
+    "sha256": "afddff2811ffdb046667b7b946c1e4f761ee6eec612583f8e059b4710c48cf06",
+    "bytes": 27490
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnRoomDoor.uasset",
+    "sha256": "ec9f31dd471298735382cc87635be05419b04e49635fea8b7abe037da4fc8992",
+    "bytes": 20489
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnRoomDoor_StoneCourt.uasset",
+    "sha256": "6dde7e02ddbf3ce12d063c3b0dbdb338a0f3804e4c078ef8678583db4e7fa4b1",
+    "bytes": 20533
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnSettle_JoineryR4.uasset",
+    "sha256": "0eb32f68d5ea68427d8cb5ec57591db6752ff0238e90e6b0921852e86457968a",
+    "bytes": 23163
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnStairs.uasset",
+    "sha256": "cd0219004549f3c2bfc9ac119ffe5c975aa20c9b18deb5ae4239375ac78ef06e",
+    "bytes": 65900
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnStairs_StoneCourt.uasset",
+    "sha256": "27ad65a2f3e6db588e20a5d7fa212837df1ce6a8b187a8bec8ecdbe7a690f7b6",
+    "bytes": 71926
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnTimberFrame.uasset",
+    "sha256": "87944050dbe55a9dad85512116e768810b4ff1ce1b249d2ea4f45c97e3aa6aeb",
+    "bytes": 90930
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnTimberFrame_HallRoadR3.uasset",
+    "sha256": "9ad80f37c1b82a422cf1cf4958a3e919ffa543af3261eeaa4025be5ff7da6c65",
+    "bytes": 92514
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnTimberFrame_JoineryR4.uasset",
+    "sha256": "42103f6c4ca7d744ca85119f5748fc75ccbcc4e4c93e215129ddee07a70bf35c",
+    "bytes": 149297
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnTimberFrame_StoneCourt.uasset",
+    "sha256": "a6c4251b1b8eb07b8e71d1876b92cfd16fef5c4934c6db2f37df9faf827d7571",
+    "bytes": 91353
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnTroughRunoff.uasset",
+    "sha256": "997c89d4f9b92558d0905dd3b71395b53e4ea4517859048cc5f39f8c8ace831f",
+    "bytes": 11794
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnWalkRamp_StoneCourt.uasset",
+    "sha256": "e70c9a8255752cb8e6ec5d9bc75686a627bcfef488176bc4584d03b64abcbd7c",
+    "bytes": 11533
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/SM_InnWindowFrame_JoineryR4.uasset",
+    "sha256": "76fd6eb075948126632ca4f5ce97b2bf8d6a07bd5716b22d6d9cfc8a7a3f8080",
+    "bytes": 15041
+  },
+  {
+    "path": "Content/WorldGeneration/VillageTavern/Inn/T_InnTroughRunoff.uasset",
+    "sha256": "f7a52ca11be698dcc4fdc1c4240bfb9f603d8eee582831366ece349eb6466484",
+    "bytes": 108843
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/MI_Prop_Rope_All_Windmill.uasset",
+    "sha256": "e5732139377954bdc2eb3c64037d1ea7c75d83ec1fe03c7bdfb9f1dc965b3089",
+    "bytes": 4713
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/MI_Windmill_A01.uasset",
+    "sha256": "04555cb527a2981ffbaaaaef23aab1341cd398bafd061d36220a586f478b011f",
+    "bytes": 5060
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/MI_Windmill_B02.uasset",
+    "sha256": "bc9d63375d9cd0c6d7f8637c41d0dd505b00d1e4b0c1e71f42d1ecf841e60f28",
+    "bytes": 5060
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/MI_Windmill_C03.uasset",
+    "sha256": "edd5267dec2807b7ca51fe9f8b20172a3b57e4d4809223213368e92d4f081043",
+    "bytes": 5060
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/MI_Windmill_C04.uasset",
+    "sha256": "5e9501535e99915120941bde230d7244b70762d264d6b744bbb3adf8b12367d0",
+    "bytes": 5060
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/MI_Windmill_C06.uasset",
+    "sha256": "0a4e5dc4090ab6710808100835b39da6570317dff2735b3cd7ca79fae047ec04",
+    "bytes": 5060
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/MI_Windmill_C08.uasset",
+    "sha256": "48d4a83d9fc71242bef1536cb09a8fd28a9e9feb7154eca0a87d6533f9c55a4b",
+    "bytes": 5060
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/MI_Windmill_D04.uasset",
+    "sha256": "2e16ed1c82652ec5172320ac1d96fc175900dbe99b183ef794a74c89bdf2dbdc",
+    "bytes": 5060
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/M_CarpenterIron_Windmill.uasset",
+    "sha256": "188c2ae239f114d02584213f05eedd4082d98fecb701cf31ab8933659ada7779",
+    "bytes": 11992
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/M_CarpenterSawn_Windmill.uasset",
+    "sha256": "0beae62b776bd43e2be30e36f9e890eaec74d36d8dd032a6221ca8a16ca9bf9c",
+    "bytes": 9506
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/M_ChapelLimewash_Windmill.uasset",
+    "sha256": "9022ee64a3b1abed3507a4db40ca29a7a7395e18ac44a598684076d7b784ba2f",
+    "bytes": 27586
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/M_ChapelSlate_Windmill.uasset",
+    "sha256": "ac99594bfea582345231e3c02870d5d11e68de5290c6cbc3d69b3e780eb7436b",
+    "bytes": 15917
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/M_ChapelTimber_Windmill.uasset",
+    "sha256": "dd9dc2ea7235f886a6ca2013ecda9275f2f9516d1f77c5c93d01e2b23add12b1",
+    "bytes": 14244
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/M_ChapelWall_Windmill.uasset",
+    "sha256": "8331b62dc9bf30fcb3394d9a70495f4330550168f9b515b0e0cb51233fccee12",
+    "bytes": 20433
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/M_Prop_Rope_All_Windmill.uasset",
+    "sha256": "8f640646dd02e3bec7f83b07aa48edeb8b8c8522ac4d5ac2d601348c85d9b011",
+    "bytes": 7482
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/M_VillageR2_Endgrain_Windmill.uasset",
+    "sha256": "b5c5e0c68e78cb3d21699313aa8080a1b0034f361fde8f92731c2a9b56a9cea3",
+    "bytes": 7255
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Materials/M_VillageR2_Oak_Windmill.uasset",
+    "sha256": "d78f114458ffac8d0d31d8c992bd0b3db851fb52d636db52bfc47447b780120c",
+    "bytes": 8393
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_A01.uasset",
+    "sha256": "5086bbd024204ade18046e6bbe46d2397e5844d7e27c7b2afd2daf254a6ac61b",
+    "bytes": 3241426
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_A02.uasset",
+    "sha256": "ad35ab1e897517fa80df4c45d7c1ce238a8aa310b70dccac64112e167e571bf9",
+    "bytes": 36089
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_A03.uasset",
+    "sha256": "698d75766a6dad043c3131a48da0cb1d51c9a8278d5f245f41e527b59540805a",
+    "bytes": 133847
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_A04.uasset",
+    "sha256": "4212d429861be5001c54608458643e989949c018132aa78b4da0571dce5b3b9d",
+    "bytes": 1510476
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_A05.uasset",
+    "sha256": "d014641a5f135c18937a71debfafd991d6f9b6ce892eb79bc5fe924d8217522f",
+    "bytes": 322453
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_A06.uasset",
+    "sha256": "57acd283df641b29f53b21126dabbee6582d71c0e4a5f84fe6ae0af2c6ac3526",
+    "bytes": 375167
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_A07.uasset",
+    "sha256": "57034ce8ea40c6c3a99db6c5d95d23d2b5766b032a3a13de9979d32104511198",
+    "bytes": 133005
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_B01.uasset",
+    "sha256": "70806008486f37004df75a9d29dd9b28595eb9d4b085f55516d87d4a973dab1d",
+    "bytes": 162357
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_B02.uasset",
+    "sha256": "58cf9f710597ae284d08f0c5954f7ef88c966544901559983817623a4440bb26",
+    "bytes": 859213
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_B03.uasset",
+    "sha256": "e955dd9d15a444a9110514bfb52d3bcadab691e6256452bf3254f45982652d43",
+    "bytes": 934177
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_B04.uasset",
+    "sha256": "442f45b4dfdf9ada49280b1a389928805b74bbd612a0ca39b7172b46ee9ad942",
+    "bytes": 399175
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_B05.uasset",
+    "sha256": "925646b8ac0ef57bc1da4eb97a9da74cfbc926368208734621d3b8deaace7d42",
+    "bytes": 537391
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_B06.uasset",
+    "sha256": "fecf041036cc27ae7aade503f2c99bb63a9a2e40a4d4b59cf4dbf5b6d7105a56",
+    "bytes": 146992
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_B07.uasset",
+    "sha256": "5088b508bf4a3d90457fa20605de7a7afb928ed19d298e91704bca22f72e0fcb",
+    "bytes": 966777
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_B08.uasset",
+    "sha256": "91b050208915d0f6a1c6f37ec797c165244807c3cc48090aabd0203243ac7465",
+    "bytes": 320732
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_B09.uasset",
+    "sha256": "b72f803f971ac18b8d3df700bd35d0eac6086108f5d8f32e9b01c59610092f45",
+    "bytes": 90292
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_C01.uasset",
+    "sha256": "67b40fe964c5fe1ef53bd5b16526f7420c9c04f7cf3b4195c9897a8b69b330b2",
+    "bytes": 2932958
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_C02.uasset",
+    "sha256": "71441d0656bb2675bcb760ecd12995f03efc33027cda90cdd22e2b2a8f6d054f",
+    "bytes": 3464597
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_C03.uasset",
+    "sha256": "bb78c1f4d358bae6b806af077fd0cc220320392699c34769eaedd84c291d5085",
+    "bytes": 80003
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_C04.uasset",
+    "sha256": "4445416a1f60d8e50696fedf342d92f815f731b5cf29031c083a9e897016ab5f",
+    "bytes": 212462
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_C05.uasset",
+    "sha256": "9d8062a79b00a1a243b5a979539efe939d35b70332c7b8b3dc8574665ea1ab19",
+    "bytes": 294012
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_C06.uasset",
+    "sha256": "041692a36e931b8d480b74a23fe69adade308cfa8e359387ece11547371cdb06",
+    "bytes": 1598435
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_C07.uasset",
+    "sha256": "7daefc918b9ad3d8c618218ce6cb83c78307600a7a32687bed3bad09ccea9d5b",
+    "bytes": 719692
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_C08.uasset",
+    "sha256": "a8fff9d6802935cebfa2ff55d8ba15c24612841a3b0413eb04c9990adf487307",
+    "bytes": 1829674
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_C09.uasset",
+    "sha256": "6941363573a5dbe8fd5631c198b4ef279c5c01387b0bbf49cf0b960850ca306b",
+    "bytes": 100767
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_C10.uasset",
+    "sha256": "94f071e35f325217bec8d4ea8d8a7a904077c8f63fafae653091950825a03800",
+    "bytes": 57846
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_C11.uasset",
+    "sha256": "61da379e530dddafc341c20322675bb403f145c2452eb2935ca140a39272d87e",
+    "bytes": 130950
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_D01.uasset",
+    "sha256": "8f87b80a60292fbf8e71a3833dacf28232c777a8bd4489cf979fb74bcdddcaa4",
+    "bytes": 6416893
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_D02.uasset",
+    "sha256": "b18451e0464d4822097737d5e1505b497c32d837195789a36e611f3f8ab4b3a0",
+    "bytes": 509361
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_D03.uasset",
+    "sha256": "14df73e389e61e1d1c63137b9d8c5236dc2141e6a3c3295a53095ecb97b3a0fa",
+    "bytes": 616446
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_D04.uasset",
+    "sha256": "354095a44ddb937ff1ed843a7e0f8dc712bd18f765b4b12c5ed24e1e4ee05252",
+    "bytes": 1150339
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_D05.uasset",
+    "sha256": "4e29e5624889bcc4871940a8876e678454c59c4589723817d57d2c1f41187cd9",
+    "bytes": 222772
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_D06.uasset",
+    "sha256": "6afba23d3e1349ca6c7f8f7388b14d6437f5acd7bf749d136414a7423fc8192d",
+    "bytes": 209944
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Meshes/SM_Windmill_D07.uasset",
+    "sha256": "aeb6ab66422d8d6b19e1b5cc485a730df690f2f2703e61c663fe72ef9fadadbe",
+    "bytes": 398821
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_A01_base_color.uasset",
+    "sha256": "b9bcb9170dc97710eda82b5735e384b8e1ed8a1270bac2367c6f8fb70cd94410",
+    "bytes": 4405748
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_A01_metallic.uasset",
+    "sha256": "957bc0113580088ee3edd8bcb2bb9bdb8f234360fd5c4c66fd4551449c24274c",
+    "bytes": 254179
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_A01_normal.uasset",
+    "sha256": "94d2942c93ef8797b6a793fd756acc3db7d43d4acc5f7003b9abe27078269b3d",
+    "bytes": 3870704
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_A01_roughness.uasset",
+    "sha256": "ec7247f9a3edfbf208850a79ae46b8ebb2e9d62f76c818fdabe2a8e76aa9107b",
+    "bytes": 1494693
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_B02_base_color.uasset",
+    "sha256": "816910b0f75ba5bfe84c51f4ab6a46d3c8286e1df6f639a92ef07a11528932d5",
+    "bytes": 1306756
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_B02_metallic.uasset",
+    "sha256": "80860b15efb3d06ebef9f2cd01a75386c5ec15a574d88c4b5dff5aecd063224d",
+    "bytes": 184499
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_B02_normal.uasset",
+    "sha256": "8e4c68526ecc832b87bc425f61ee60768d859aa8ce4038dba1b16ff42b00f6c7",
+    "bytes": 971588
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_B02_roughness.uasset",
+    "sha256": "22fd4dba90560b37f936dc0e6c377fb39d8586f91292298ecd8386b379eb32f1",
+    "bytes": 456423
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C03_base_color.uasset",
+    "sha256": "0d2a923b1c4587889b5e98a169a2982ea5c4737fdba16f658acf594aa43b2a08",
+    "bytes": 1633474
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C03_metallic.uasset",
+    "sha256": "730232c9e33610b9413dee426731d0422818868b8af3c52b4ee0def53ff6b1a9",
+    "bytes": 390746
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C03_normal.uasset",
+    "sha256": "58d0c017e9b9b84adbfb60d0c28284eb8f07c234b97af035bbdb865c9eaabea6",
+    "bytes": 1295369
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C03_roughness.uasset",
+    "sha256": "7cbb38b831a6038315e423777ac996b8448e95244d1da2037ef8c747f4f448c0",
+    "bytes": 592559
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C04_base_color.uasset",
+    "sha256": "dd9d2c94d305b9722b61cd6c8fdd2437547a6afbab7437eb36cf44d803d79053",
+    "bytes": 1543099
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C04_metallic.uasset",
+    "sha256": "ff9d9fa2b4b9e98ba6b1282949d74828576dc7991435fb04dea3320fe6e6947a",
+    "bytes": 92529
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C04_normal.uasset",
+    "sha256": "1b7e8a40bbaf97a60d795d66c5526651cc3e682c9b060dbd5e849c1fe7e37a96",
+    "bytes": 1217295
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C04_roughness.uasset",
+    "sha256": "d90a6087f8351e80d50aaf40ea01f78e5a14b729cdea7e218bfb85bb5a08c872",
+    "bytes": 488461
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C06_base_color.uasset",
+    "sha256": "3c0ef843cbb5f500c744c2dc8fcfaf3e8433d730f41b2dd5c533620a55e9c0bd",
+    "bytes": 4084357
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C06_metallic.uasset",
+    "sha256": "003060654acd82df2346c5c97612c2526d04d1002f7e038195b853da80c20fbe",
+    "bytes": 102662
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C06_normal.uasset",
+    "sha256": "28f3828112587a11fd8f2ea736268bec257f5e22730d918a49ef8a47769ab6a2",
+    "bytes": 3570932
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C06_roughness.uasset",
+    "sha256": "e6f9d84e2805c8f4aae969ef253b388125b3fddc6f6fd93dd64a2e9c3fd1ee4f",
+    "bytes": 1405014
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C08_base_color.uasset",
+    "sha256": "0bf25dfd8c00d2ea7e7caed5a0649caff34bde4efb46d8a81f20cc90001d0eb5",
+    "bytes": 1550669
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C08_metallic.uasset",
+    "sha256": "a7a2786718c4b5ddf57b786edbc18cf35600742d22900068fd0cee3c15c64f1d",
+    "bytes": 386701
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C08_normal.uasset",
+    "sha256": "be6510dacd1464fd4c7232c11d85a0a21d88830c68a6c4d219da9a0d7c064c9d",
+    "bytes": 1289732
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_C08_roughness.uasset",
+    "sha256": "fe8ab9aa74fc50b233c3ec22efe020e03313e4d4dab25accc4180da079dbdda7",
+    "bytes": 613448
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_D04_base_color.uasset",
+    "sha256": "3defba16ae389b778a7120c57f40ccad51cffe1dc2d59fa850178c502bb89b44",
+    "bytes": 2972855
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_D04_metallic.uasset",
+    "sha256": "e7867dca4d66d966af35f0394c8e9c1c5872b7d9b6219f7c417a5a5637b8edf9",
+    "bytes": 507320
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_D04_normal.uasset",
+    "sha256": "8a5100340a8a935da9b0802af895979fb290e2e51e9d7e45201a0bb31a17a91b",
+    "bytes": 2421433
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Textures/T_Windmill_D04_roughness.uasset",
+    "sha256": "4704493b62bd3c97ae5b849968c22d959f3d11a61d81b2176f0f5872dc123956",
+    "bytes": 1388117
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Materials/MI_MillBarrow.uasset",
+    "sha256": "1a4110b2e712590be5ff91b7e9c27ff6d7c9659d26462825bdb90c688fd6b6c0",
+    "bytes": 4555
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Materials/MI_MillEarth.uasset",
+    "sha256": "4784ea3be0144ab4cc9db5a9884ce370e96e70fceb5b78477f8ab68421d1a66b",
+    "bytes": 4524
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Materials/MI_MillFork.uasset",
+    "sha256": "946785c03b2f27f32633cb110c5b96dce2578d836b2ba7253c0b7000d1db5d7b",
+    "bytes": 4533
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Materials/MI_MillHay.uasset",
+    "sha256": "318e471db53322506baaf41ae00a95a11c9603cf36e1a6e161e7996808aff0b3",
+    "bytes": 4522
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Materials/MI_MillStone.uasset",
+    "sha256": "1a6c91a146d93611be3e225c018425fa79182b7ff9bcc4b83bf4d95dbff4cab8",
+    "bytes": 4544
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Materials/M_MillCanvas.uasset",
+    "sha256": "8710d99077a0f475ae6890cd066bc614ddb591e4134097db4a72d243f806aa8e",
+    "bytes": 7951
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Materials/M_MillFlax.uasset",
+    "sha256": "2443f3957dcf06963681c743299fde304ba67cd574920e82879ae2ed23d816d0",
+    "bytes": 7899
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Materials/M_MillTraffic.uasset",
+    "sha256": "de12ab48f282d52b6e7579912e0f8bb501a9a879127f47846e87736ea52cc840",
+    "bytes": 8120
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Materials/M_MillVergeGround.uasset",
+    "sha256": "6006b22cd8bed9124383838b042d9db6ea122198caf38a4a3ce08c284f4f67ca",
+    "bytes": 12105
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Materials/M_MillVergeSurface.uasset",
+    "sha256": "eb5fa5b211477f1387fceb474a724d9ecb56aedd331195df99ec119c9c45c72c",
+    "bytes": 14507
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Materials/M_MillWheat.uasset",
+    "sha256": "97ec1cf18274dd759c6553594818e75646ec6569c483adb69162f08fec12305d",
+    "bytes": 6818
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Materials/M_MillYardScan.uasset",
+    "sha256": "54889be5e55cf4b7540790b6199d92849b83f7ea9a970ba0d1890d4665862a25",
+    "bytes": 7554
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillApronWear.uasset",
+    "sha256": "43792bd11aa9b956ee6e2d9ddb0c81fb5b30d04d42fe8102a69a1d27e7e44cf3",
+    "bytes": 11935
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillBarrow.uasset",
+    "sha256": "d4679f58871a985ed1b9225dda4fe9c65b9275bb173053c83414888b9077dfde",
+    "bytes": 2531627
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillChaff.uasset",
+    "sha256": "4f5431b9d49c7bbcf063f1cc8ffa691d19a27c23480810700a6fa3277f1959cb",
+    "bytes": 108774
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillEarthShoulder.uasset",
+    "sha256": "0447a4c5d86382bbf0f0c08f04ac465876b0010f398b8d86b4c284a9774802d3",
+    "bytes": 112434
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillFieldstoneA.uasset",
+    "sha256": "910569c91bb233c0bd016c0841cc22026d4294729511a5e932e5f8324f9f67fd",
+    "bytes": 141784
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillFieldstoneB.uasset",
+    "sha256": "364a40bf8b7fbd25b421bbeff690496e14e96dc8502cb84a2f3e1692963a9841",
+    "bytes": 142380
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillFieldstoneC.uasset",
+    "sha256": "7bddf693ef3dc350bf746dbb4180da239ed0fe35818a534d320e6ee7ec33c7c3",
+    "bytes": 1376500
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillFork.uasset",
+    "sha256": "89677fc2a79db92fbabd20827d8657b6092fd4947b9fe6a10d0e49acb30ee931",
+    "bytes": 519362
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillGrain.uasset",
+    "sha256": "2a9d6217ab636a54db53afc0e77e72cd82d0260cf7065f317a95eadd116720a0",
+    "bytes": 1276773
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillGroveFieldAlder.uasset",
+    "sha256": "63f5d910992a3857c66466bd624f9074001edf92632a1956da5ec147271c8bd3",
+    "bytes": 29439668
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillHayA.uasset",
+    "sha256": "b5b798132b36271077145cf56a659986457a46bfa7db92cb4f640a17f34dbe4c",
+    "bytes": 402138
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillHayB.uasset",
+    "sha256": "f09e102520785ff09133ee402ddb65ef01dd0b3c60bd5860364a891bbe083e6a",
+    "bytes": 391363
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillHook.uasset",
+    "sha256": "6e5a42a3610054941dcfc94d59bb80c81203e7a4bd1fda4355529ed6c0dc075a",
+    "bytes": 15295
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillMeasure.uasset",
+    "sha256": "24367400eea2b51bc8b21b3c1c96e02b44275218a5f3869c37a3c5e0e69b7034",
+    "bytes": 59608
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillOakSkid.uasset",
+    "sha256": "a6f0a8ff84b52b71306ef0363c7cfedbd008128ff7b4f296000a5f8c5a3bdc41",
+    "bytes": 14875
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillSmokeHood.uasset",
+    "sha256": "0cf257382311c69e91c2a31decdede5d3b9ba494f28e4b2e24ff9b15d939f76e",
+    "bytes": 50697
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillSortingShade.uasset",
+    "sha256": "6679cf051bc44d98fc660c194770ac11661eadd898e7d90a7a42fcc220182233",
+    "bytes": 145235
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillStone.uasset",
+    "sha256": "1df42685a29d083acf185fa61459318b0707e936452171a2537a9eabd3f066e9",
+    "bytes": 1058954
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillStoneTools.uasset",
+    "sha256": "54eda9f1e1959e094c5a6ed79e0c53093e254c1a432f0a03ca3c6603afc4f65c",
+    "bytes": 18023
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillTiedSack.uasset",
+    "sha256": "78c457af223097415ee19964932bd3c7befd6c36ba19773bacffab6ca77e11d8",
+    "bytes": 373234
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillVergeSurface.uasset",
+    "sha256": "699df6c8590acb4b2bd2a4523fdc0f45e609658a35684dcd9f8c8332532cb22c",
+    "bytes": 499756
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Meshes/SM_MillWheelRut.uasset",
+    "sha256": "8fe2047ec1ac738e096309e456bae99c01360f28edd7b93d7ad0e1d8f84f80bd",
+    "bytes": 112826
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Textures/T_MillApronTraffic.uasset",
+    "sha256": "09072ed5c4f9e713ab4767249abd50a11f9d024457c45c52e7c04e975d8f3562",
+    "bytes": 297927
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Textures/T_MillBarrow_BaseColor.uasset",
+    "sha256": "6723f5f8e482a3f6f1ea4f92ced5dd0a7bbb97904085300e3ac71b907f1e095a",
+    "bytes": 4301401
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Textures/T_MillBarrow_Normal.uasset",
+    "sha256": "64ef6d4f2c1cb5b05d3989ccc558172ca2916fc06a1b7017156fb45c0fe920a2",
+    "bytes": 7416235
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Textures/T_MillBarrow_ORM.uasset",
+    "sha256": "4ac97c47e8b458eaa93d842ec3ef9ca4820447d05fff4700eb0d203b4d03acfc",
+    "bytes": 4685040
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Textures/T_MillFork_BaseColor.uasset",
+    "sha256": "5bb795f03ff490c4123b408a74af7b9f9fd8e8d9f0b070c64731a91c5f9c90f5",
+    "bytes": 1396095
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Textures/T_MillFork_Normal.uasset",
+    "sha256": "949367c7a2b93ae0bbb7569da584dd279d0306b3ca72362e05412cc770e33027",
+    "bytes": 1514481
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Textures/T_MillFork_ORM.uasset",
+    "sha256": "e0c3c63ad10e1aa6b159bb34995260ce4b4e8a89fec146d41b55ca589d3cfa83",
+    "bytes": 673711
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Textures/T_MillHay_BaseColor.uasset",
+    "sha256": "fee361f76836657a9e9a5fe39859dd8ee32f335210d667dfd6928d998f0ab50d",
+    "bytes": 8308260
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Textures/T_MillHay_Normal.uasset",
+    "sha256": "f6bae433636cccca924e4c494e44a0351a66bcadea8a89e9986af57acd4d47b5",
+    "bytes": 13089413
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Textures/T_MillHay_ORM.uasset",
+    "sha256": "ca6cfe91b7bd4d54084bf67ef1344691471503d73532d323c5abcd2893b082bd",
+    "bytes": 7766804
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Textures/T_MillStone_BaseColor.uasset",
+    "sha256": "5d118bead60ad078aa74263fbd9bdae6e900a43c6439c5ee841dc75f19e8fcac",
+    "bytes": 1619197
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Textures/T_MillStone_Normal.uasset",
+    "sha256": "9e9ee1d066566a598af5538ada808667d21ef08688e8d923a1bde3d7209be1c4",
+    "bytes": 2728141
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Textures/T_MillStone_ORM.uasset",
+    "sha256": "af95f31168cada71f9ae27cf5c13c6d136b62040a64688b94dc21921a70bfb08",
+    "bytes": 1147057
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageWindmill/Yard/Textures/T_MillVergeMask.uasset",
+    "sha256": "425133eae362a698a73b5040e69365e715d5a1fc36a5b0e651064fe034bc6a49",
+    "bytes": 625796
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/A_MillKeeper_Idle.uasset",
+    "sha256": "3d16c65caf69070b11fb4aa69ec3c124a95e90a2305aa065509f58974823aef9",
+    "bytes": 493576
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/BP_MillKeeper.uasset",
+    "sha256": "0714b9bc89341b139c812650becb8f48f8b97cee72f2754a1266361fb5ce8212",
+    "bytes": 26598
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/M_KeeperFace0.uasset",
+    "sha256": "9d9af364dfe24f92bc667793e7a534d945c69aa93a227b37abc7380ac90be3ee",
+    "bytes": 8912
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/SK_MillKeeper.uasset",
+    "sha256": "1f2317ac3034b6d50d752ed513767c75bad0ebfd2721ec85b3b0d5f59485a03b",
+    "bytes": 70483584
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/SK_MillKeeper_Base.uasset",
+    "sha256": "8930139083751babaf168562b54ea2e99d17395372d4897b1f93b83ee1044164",
+    "bytes": 8143927
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/SK_MillKeeper_Skeleton.uasset",
+    "sha256": "b2672cbc75f3a7591e4d5354b7c6dd9f8c8d9ed8fdbff1162acf2d8dbbdb32b6",
+    "bytes": 74431
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/Textures/T_MillKeeper_Head_0_BC.uasset",
+    "sha256": "d74d7af1f2738cc13beaf7d2a7027e4f1d242e6dcb006988fa9db5bffe75992e",
+    "bytes": 22551246
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/Textures/T_MillKeeper_Head_0_M.uasset",
+    "sha256": "7560b1bfc751022b29ed81cc8f180fe3fa5ee3168aa8b7fba19c694db9e2dc79",
+    "bytes": 848754
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/Textures/T_MillKeeper_Head_0_N.uasset",
+    "sha256": "1fb1cb160b330c5abf1e19b4054d893e81ee35da0f81f27608cfafd2a551d4f1",
+    "bytes": 26236078
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/Textures/T_MillKeeper_Head_0_R.uasset",
+    "sha256": "d843fd38bc83fd5a53e58b396161b0cdc03c2a29a12855a8e84913c0c6cef7a8",
+    "bytes": 1390302
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/WardrobeR3/MI_Keeper_Apron.uasset",
+    "sha256": "235890d6ac8eb8546ec1608eb100a75e0167986c2255d0772d93fee4eefc4172",
+    "bytes": 6828
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/WardrobeR3/MI_Keeper_NeckLinen.uasset",
+    "sha256": "48883e8206d7bdf7b4874c950dae2b50d8e2d08d99eb3ceffa101fd9aa44223b",
+    "bytes": 6848
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/WardrobeR3/MI_Keeper_Skirt.uasset",
+    "sha256": "f2ba7d713093b7b91219d3d280d646a3d3dca1d0b8d7144513a63c9b81830291",
+    "bytes": 6828
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/WardrobeR3/MI_Keeper_WorkLinen.uasset",
+    "sha256": "617e363e42816b4a7defa9d66f72580b956cdb196f78734d912f707b88d4279b",
+    "bytes": 6848
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/WorkwearR4/MI_Keeper_Apron.uasset",
+    "sha256": "662e5fe78f43b28da9af94d7fa4961302fddfc5587aad3495ff8e8c1c735baee",
+    "bytes": 4892
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/WorkwearR4/MI_Keeper_SkirtPanels.uasset",
+    "sha256": "9ee5f04485f9fb3ba1d3f54e285a5c30258daaf571ddb9b5c138eba8feb98806",
+    "bytes": 4958
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/WorkwearR4/M_Keeper_Workcloth.uasset",
+    "sha256": "5133168571c72171245c5bf69659107933b2c23602222866ad0121395f527bed",
+    "bytes": 10181
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/WorkwearR4/Textures/T_Keeper_Apron_Color.uasset",
+    "sha256": "4ae49262855a8121624df7faaea20a05ef139fd833157c4a1948a21cf906cbdb",
+    "bytes": 2503375
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/WorkwearR4/Textures/T_Keeper_Apron_Normal.uasset",
+    "sha256": "b8cea1661f3a779f42d111f8ef2f58dad78b8c261d81003c29e8c9bbe352d564",
+    "bytes": 3663015
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/WorkwearR4/Textures/T_Keeper_Apron_Roughness.uasset",
+    "sha256": "72c831508ec0ef3fd88b251066df04e8b9b512c9bd32be6b391ee5580f1b396f",
+    "bytes": 663798
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/WorkwearR4/Textures/T_Keeper_SkirtPanels_Color.uasset",
+    "sha256": "a7b8fe380d967070c560aafab716ee8a13dfe6b4df172c43b41050e3e2e25eeb",
+    "bytes": 2313633
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/WorkwearR4/Textures/T_Keeper_SkirtPanels_Normal.uasset",
+    "sha256": "13187bf291f2953d20d0d1c20a560164f5a1cc37d70238dd2b5bd047d30454e8",
+    "bytes": 4018700
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/WorkwearR4/Textures/T_Keeper_SkirtPanels_Roughness.uasset",
+    "sha256": "24be4cae07d8157d97e479c8a004f19cbf824abf71f76cf5a452e7a44d9838c4",
+    "bytes": 799675
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/L_AbandonedVillage.umap",
+    "sha256": "b134e3a9d1b8d9f8124030e80c68ffb88d6d6a92c2c45363a9ea92ac488a40b2",
+    "bytes": 3197403
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/T_VillageRoadMask.uasset",
+    "sha256": "6c03ccc330fa50d991bd0e33909fa34c018396e95e65ab89f2ac3d6aee6a0382",
+    "bytes": 1888896
+  },
+  {
+    "path": "Content/ForestPathStudy/VillageRegion/Reference/VillageLoess/T_VillageForestFloorPatches.uasset",
+    "sha256": "19562b8a7242f528a42f8a74ec987eec04f5556bb37820900becaf050a342a4e",
+    "bytes": 262239
+  },
+  {
+    "path": "Content/ForestPathStudy/VillageRegion/Reference/M_ForestReferenceMesh.uasset",
+    "sha256": "987e54a36b2de70c15fcd036a53691c925eca80c478617b538836b2c7fc9969e",
+    "bytes": 390534
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_02.uasset",
+    "sha256": "c2a5db861dfae6ea5e26373de6d7ba51eef3dc973b1f3026ce8fe71a0c7939d4",
+    "bytes": 10031880
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_03.uasset",
+    "sha256": "e09ec8e75db0ef3a8e5aedfe8cd519035e08fdc9ef48d3ff2fca8d78371add57",
+    "bytes": 2801516
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_04.uasset",
+    "sha256": "1fd150ed585f279a6896eecc85d69e6dec7f0f03c7a263476ee712f47f1df80c",
+    "bytes": 2603205
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_HallRoadR3_02.uasset",
+    "sha256": "0c3b52e9ac685038c3d5e367cb504c7bc0efaeb0c499be2eec044c5967cf224e",
+    "bytes": 3525173
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_HallRoadR3_03.uasset",
+    "sha256": "f6e1b5920638aa696b24950ee6950a0a6ed376cee3478ebec92248a971327f7d",
+    "bytes": 11330388
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_HallRoadR3_04.uasset",
+    "sha256": "36959d8cd47a919cd1111b84bb415eb4eb645355c30d06cad66fd01790902035",
+    "bytes": 8628814
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_Inn_02.uasset",
+    "sha256": "8cb9afb74babaab838c77280866daf3e480f92e70fd80884e4dad7e18e217637",
+    "bytes": 5256223
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_Inn_03.uasset",
+    "sha256": "368dd93b5b22444752ebf8814c9d192202c5ce913fef7ca94b9301a246a561ce",
+    "bytes": 6753904
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_Inn_04.uasset",
+    "sha256": "69fa2b3eaa1dd0f188193671ac6a464ed8f876c9133bc0ab8ed57c23a228720f",
+    "bytes": 6639108
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_JoineryR4_02.uasset",
+    "sha256": "c27c25c052b738984e968e295427fddd0db05a144aafb6439350990b152dcc9c",
+    "bytes": 3525169
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_JoineryR4_03.uasset",
+    "sha256": "231bb4a4d9bd885450c3e14140343e58bd1f367d2ba052079b483679b30abb13",
+    "bytes": 11329682
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_JoineryR4_04.uasset",
+    "sha256": "ecf9698f73b4e18384d886817d7d2ae5e8040c28a8531376c7c4c65a0abf14e4",
+    "bytes": 8628808
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_NativeDiningWallsR5_02.uasset",
+    "sha256": "b2051f693a1b90b7b588c6b46d145fa13f44314af569936d61a7e5fb29c15104",
+    "bytes": 3525224
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_NativeDiningWallsR5_03.uasset",
+    "sha256": "9374399002193361e6a8966a00b274052e5906f7823f3e131a2e7be1c40f01ff",
+    "bytes": 14309848
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_NativeDiningWallsR5_04.uasset",
+    "sha256": "f69c6e0ab2c12c6df8b20dea6a42ccb8fa719ca39b070b1465f0d3f5b0b77422",
+    "bytes": 8628777
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_StoneCourt_02.uasset",
+    "sha256": "5f3aa504f022d92a3eab4781babeed51b60a494edf6385b03f11ba4af8a1ee91",
+    "bytes": 3525148
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_StoneCourt_03.uasset",
+    "sha256": "06b817d8dd92ec30d02e370a09f6cfb804a8d639b57f4b1e6921d650eecbc608",
+    "bytes": 11330481
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/AbandonedVillage/ExteriorLOD/SM_Exterior_Village_02_Tavern_StoneCourt_04.uasset",
+    "sha256": "1d14aa433de5e8d0df853697ca6b32baf5838e3a13d27357a2636bb513f33d51",
+    "bytes": 8628750
+  },
+  {
+    "path": "Content/Characters/ModularOutfit20260924/KaitlinPlayer20261023/World/BackRepair20261117/SK_Kaitlin_BlueMageRobe_BackR1.uasset",
+    "sha256": "f1fcd36bdbb279efc5ee7a457a806d4592e3564d934a62cd6e36dfe99fc876ae",
+    "bytes": 42607629
+  }
+]

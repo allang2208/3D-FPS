@@ -1,0 +1,487 @@
+[
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/bake_keeper_workcloth.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/bake_keeper_workcloth.py",
+    "sha256_lf": "7f32291424ca4817c96b84caabd3e3c09cb5581e93095b041a73b0511fc54228"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/connect_keeper_dialogue.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/connect_keeper_dialogue.py",
+    "sha256_lf": "42f2ffb35703d5278cc0eb9bb32b3222fc48d0ebc8939a6408cc5cd5bab30574"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/export_game_meshes.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/export_game_meshes.py",
+    "sha256_lf": "8461750976d893062c136edad1ef961f116707a9bee40b47f0b2e73b852c8b49"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/export_keeper.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/export_keeper.py",
+    "sha256_lf": "b2ae0e0995cfa622c375645f2cd41fd9ca422fbb5a9c93a91b9e29215554888f"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/generate_keeper_head.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/generate_keeper_head.py",
+    "sha256_lf": "180c26a94d9514ee7aaac9da035cb6881ed290a3db40f8de706d0e82d4b3fa94"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/hoist_fit.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/hoist_fit.py",
+    "sha256_lf": "5c716999694cc02e3bbf345cec3afdd7c82415bc3dc9effc10473c00eb3112da"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/Import-MillKeeper.ps1",
+    "public": "Tools/WorldGeneration/VillageWindmill/Import-MillKeeper.ps1",
+    "sha256_lf": "af49f2dc35a7d8420730bff4b49bf037bdc12873709c0a87a9ac68372eb83b9a"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/Import-WindmillAssets.ps1",
+    "public": "Tools/WorldGeneration/VillageWindmill/Import-WindmillAssets.ps1",
+    "sha256_lf": "f1063d217236ff07eeeb1bec6601c16760b5903d9da0af78033dd09dd08d6fee"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/import_keeper.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/import_keeper.py",
+    "sha256_lf": "042d6791b5186cd052df41afbf0a4d772caff540807f7a0b7ffca63c98b0fcb5"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/import_mill_yard.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/import_mill_yard.py",
+    "sha256_lf": "4fe6cebcc2ec452d660b14263538cdd77ce829da9bb2835a623bef5c2fbf5ca7"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/import_windmill_assets.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/import_windmill_assets.py",
+    "sha256_lf": "38a8f84763f2e07cdc0af3007ffff0a08e0a99630e62a028478d7bc0976b01ff"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/import_work_details.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/import_work_details.py",
+    "sha256_lf": "33933a7953b90e08207c1daaeded879176897d552e5f3f7f525a793b0a5f9370"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/install_windmill.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/install_windmill.py",
+    "sha256_lf": "ccf64c57a95693727024ca5a012349d1fc40cbd710672a3df03632fe0295f4a2"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/keeper_fabrics.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/keeper_fabrics.py",
+    "sha256_lf": "1f59b251667c9782dd1d130b0c195dbbf86fcbd79af5f2c75802b4fa23a49100"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/keeper_neckline.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/keeper_neckline.py",
+    "sha256_lf": "c35a1e42c5ec2c6e7018c945a68da0de123636dfaa85b1c48b672e3bdbe9f980"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/keeper_skirt.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/keeper_skirt.py",
+    "sha256_lf": "f05cf405333b58b1d48be8ebd0b30a42706c910c21ae2e0d87c9498bd18520b4"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/keeper_workcloth.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/keeper_workcloth.py",
+    "sha256_lf": "50aba73e64b2d41fde5db019be722e10d8519b5336c8448e7f7993b6c7dc206d"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/machine_fit.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/machine_fit.py",
+    "sha256_lf": "f7ab69c52184fbb82514b39245a03c54366e15b9c504326f3a683ebe0906f8fe"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/mill_yard.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/mill_yard.py",
+    "sha256_lf": "d795bd73e891ff2e84f7e16d7cbe3a9cd36147f1e705bad723e18547c059d538"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/prepare_keeper.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/prepare_keeper.py",
+    "sha256_lf": "85d9320efc178d5af52aa05541e7086efdc87e2c6c70b5d992beb6d279f8deb1"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/publish_mill_yard.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/publish_mill_yard.py",
+    "sha256_lf": "152b37b065c2ef5ca15b41af75956deb533336b9d91d63a2191b9bd235ea1ae0"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/repair_windmill_tangents.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/repair_windmill_tangents.py",
+    "sha256_lf": "e3c9e922a57e955743c502d933a1966d4162dfd0ee2e7b1dce99f302f6b6314c"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/review_keeper_workwear.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/review_keeper_workwear.py",
+    "sha256_lf": "3e16ba5c0fd3cabe04dc009db6f1fbf1521948d0068498dd0a0cae6a65fa19ad"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/Save-WindmillLevel.ps1",
+    "public": "Tools/WorldGeneration/VillageWindmill/Save-WindmillLevel.ps1",
+    "sha256_lf": "dcdbe0450dd726dca3221ead0c27b2881269cd23302f8efd731f2a6bc582f997"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/save_windmill_level.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/save_windmill_level.py",
+    "sha256_lf": "9c93d4d095f83f6d6b4ed4e1d1f6370d79d005833afa552ef37699bb17e9c878"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/update_keeper_outfit.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/update_keeper_outfit.py",
+    "sha256_lf": "1ba7dd42d2ec80ee3f680532060da666ffe0dc123c9b171671c8fa95e72ba7c5"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/walk_fit.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/walk_fit.py",
+    "sha256_lf": "4d64c820c167545a4f681681b0348db73db94feb121b3977bfce6625c009a292"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageWindmill/windmill_verge.py",
+    "public": "Tools/WorldGeneration/VillageWindmill/windmill_verge.py",
+    "sha256_lf": "0af1d28f97edb33f71f23a56a29a59a8a1e7a5bb9c1823ed5c1917c40613d734"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageTavern/Inn/author_dining_walls.py",
+    "public": "Tools/WorldGeneration/VillageTavern/Inn/author_dining_walls.py",
+    "sha256_lf": "ca55f03a2837c7b4d780409bcb3f22bc744eb71e8bce3234ef16f5e0eacf7cc0"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageTavern/Inn/author_inn.py",
+    "public": "Tools/WorldGeneration/VillageTavern/Inn/author_inn.py",
+    "sha256_lf": "4603e53424429ddfd07b73c1e5d6c637f12c852ba79ef954c18c1fe670497fb1"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageTavern/Inn/dining_walls.py",
+    "public": "Tools/WorldGeneration/VillageTavern/Inn/dining_walls.py",
+    "sha256_lf": "b56c5eac6e8833ad4aaac2d4fe5f6679991cec0d6dfc0ea961e418b72fcddae7"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageTavern/Inn/fit_inn.py",
+    "public": "Tools/WorldGeneration/VillageTavern/Inn/fit_inn.py",
+    "sha256_lf": "cb8a183e5654701a88419c57fd2986f4d49c2eee42e12bbee93c24d2511771fd"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageTavern/Inn/hall_refit.py",
+    "public": "Tools/WorldGeneration/VillageTavern/Inn/hall_refit.py",
+    "sha256_lf": "f6afd20e8b7d3cea3313e80882a01f89601185c4e64700b3333e109ac34c993d"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageTavern/Inn/inn_masonry.py",
+    "public": "Tools/WorldGeneration/VillageTavern/Inn/inn_masonry.py",
+    "sha256_lf": "28f06d9e6ab5b0f749e5479469a11ed54dbdfb73d3ce3a2d81ea609692e6ae70"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageTavern/Inn/save_hall_refit.py",
+    "public": "Tools/WorldGeneration/VillageTavern/Inn/save_hall_refit.py",
+    "sha256_lf": "45e2858d3c51bcf5044020634431a0920b5f6004c14464d2734fd1e2887de8fd"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageTavern/Inn/save_inn.py",
+    "public": "Tools/WorldGeneration/VillageTavern/Inn/save_inn.py",
+    "sha256_lf": "2510fbfdf927dab4926ec7e94cdf0d91b966cd946a87d176e1521a190c4dc11a"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageTavern/Inn/save_stone_court.py",
+    "public": "Tools/WorldGeneration/VillageTavern/Inn/save_stone_court.py",
+    "sha256_lf": "451addf1ddca210b271aaa6a5be35a9a53e2554d651e559179eb3c7911c20377"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageTavern/Inn/stone_court.py",
+    "public": "Tools/WorldGeneration/VillageTavern/Inn/stone_court.py",
+    "sha256_lf": "70aace0683f511c94f3a5bdf31447fee01d63ecf5bd69e0cff590c1491cfeba9"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageTavern/Inn/suite_install.py",
+    "public": "Tools/WorldGeneration/VillageTavern/Inn/suite_install.py",
+    "sha256_lf": "82ce65452b18b3a04f4adadbae0920bcdddecfc4cd1aaf13d2eea1551aa268fb"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageTavern/Inn/suite_surfaces.py",
+    "public": "Tools/WorldGeneration/VillageTavern/Inn/suite_surfaces.py",
+    "sha256_lf": "1cc18dedd300cd75a2de6032219e6e0b6d2d871106d38bb5c6322ec264d7e978"
+  },
+  {
+    "path": "Tools/WorldGeneration/VillageTavern/Inn/trough_runoff.py",
+    "public": "Tools/WorldGeneration/VillageTavern/Inn/trough_runoff.py",
+    "sha256_lf": "0d867a2ed9b791d665a0e9d4291f4b63747c617a2b78af821116276c8bd44d36"
+  },
+  {
+    "path": "SourceAssets/HillsVillageWindmill/Millyard/author_apron_wear.py",
+    "public": "SourceAssets/HillsVillageWindmill/Millyard/author_apron_wear.py",
+    "sha256_lf": "008dc92642998847c369c49997e0a7b3d88b947f06bd06b98cc22d3beb7d4bc0"
+  },
+  {
+    "path": "SourceAssets/HillsVillageWindmill/Millyard/author_east_grove.py",
+    "public": "SourceAssets/HillsVillageWindmill/Millyard/author_east_grove.py",
+    "sha256_lf": "fcc7f8f56cce6fd1cb8270ca195834a8988f920d7f338121c3a93247ed2ab56f"
+  },
+  {
+    "path": "SourceAssets/HillsVillageWindmill/Millyard/author_props.py",
+    "public": "SourceAssets/HillsVillageWindmill/Millyard/author_props.py",
+    "sha256_lf": "16df881a7de09405164eaa0e0c5ee6f3558b06a08beaf8434f034fed2a5d316a"
+  },
+  {
+    "path": "SourceAssets/HillsVillageWindmill/Millyard/author_shelter.py",
+    "public": "SourceAssets/HillsVillageWindmill/Millyard/author_shelter.py",
+    "sha256_lf": "1c77416b09f2b2890251f5c7ae4c2971929f32f01bc81cf8e29e579018416ba8"
+  },
+  {
+    "path": "SourceAssets/HillsVillageWindmill/Millyard/author_traffic_mask.py",
+    "public": "SourceAssets/HillsVillageWindmill/Millyard/author_traffic_mask.py",
+    "sha256_lf": "709c92b04acb209ef8b3a957f470a9a2e3269e86748c51e6b809ed58fa24f42b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageWindmill/Millyard/author_verge_surface.py",
+    "public": "SourceAssets/HillsVillageWindmill/Millyard/author_verge_surface.py",
+    "sha256_lf": "19b80ab15c2d02e9711feba0dca9f19fcbeb6c229d93efed64d9c892d5d73919"
+  },
+  {
+    "path": "SourceAssets/HillsVillageWindmill/Millyard/author_work_tools.py",
+    "public": "SourceAssets/HillsVillageWindmill/Millyard/author_work_tools.py",
+    "sha256_lf": "7e06a897bd0429b1a6db7e4d6efb60db63d0bf78fad57d61fca6339536051790"
+  },
+  {
+    "path": "SourceAssets/HillsVillageWindmill/Millyard/author_yard_margins.py",
+    "public": "SourceAssets/HillsVillageWindmill/Millyard/author_yard_margins.py",
+    "sha256_lf": "f38d85f1b0143476a2f81d9b79f8da3105efb210f74f66a279107e74996b6e21"
+  },
+  {
+    "path": "SourceAssets/HillsVillageWindmill/Millyard/earth_form.py",
+    "public": "SourceAssets/HillsVillageWindmill/Millyard/earth_form.py",
+    "sha256_lf": "cfe462122a8a2eb4936a50a98617b567a94fe10df3668e50eca48b0c1800ce12"
+  },
+  {
+    "path": "SourceAssets/HillsVillageWindmill/Millyard/prepare_scans.py",
+    "public": "SourceAssets/HillsVillageWindmill/Millyard/prepare_scans.py",
+    "sha256_lf": "57a4047cf7be8848fd10da55fcaf26444a94adbd519bc5cb1ab0a52aedb7fd8a"
+  },
+  {
+    "path": "SourceAssets/HillsVillageTavern/Inn/draw_plan.py",
+    "public": "SourceAssets/HillsVillageTavern/Inn/draw_plan.py",
+    "sha256_lf": "98aa3c194ac70888d4c8961266703172175adfc813316e48bc5680320eff8c85"
+  },
+  {
+    "path": "SourceAssets/HillsVillageTavern/Inn/hall_plan.py",
+    "public": "SourceAssets/HillsVillageTavern/Inn/hall_plan.py",
+    "sha256_lf": "b5c6dbda55db0060acb1bcef06ccdf42d9bdd7958b5861f9e7a65fe4f1e817ef"
+  },
+  {
+    "path": "SourceAssets/HillsVillageTavern/Inn/inn_geometry.py",
+    "public": "SourceAssets/HillsVillageTavern/Inn/inn_geometry.py",
+    "sha256_lf": "aeaaed3f8e0168ff9623dcab989c09b710c3299262134b68521d04eec2ab58fe"
+  },
+  {
+    "path": "SourceAssets/HillsVillageTavern/Inn/suite_geometry.py",
+    "public": "SourceAssets/HillsVillageTavern/Inn/suite_geometry.py",
+    "sha256_lf": "1064d805d88e184385c09908a4af65d8a172ffea1d91e730bc26b1254b3bc347"
+  },
+  {
+    "path": "SourceAssets/HillsVillageTavern/Inn/trough_profile.py",
+    "public": "SourceAssets/HillsVillageTavern/Inn/trough_profile.py",
+    "sha256_lf": "2a526fd29169d4ced528325cdb61d191c81f98d6bb20eda5d6e1c6eb5a014780"
+  },
+  {
+    "path": "Tools/WorldGeneration/ForestVillage/prepare_village_street_relief.py",
+    "public": "Tools/WorldGeneration/ForestVillage/prepare_village_street_relief.py",
+    "sha256_lf": "903df87afe0af0bf0b7f19cdb68d7798b260df2d54831e35b0f8ad7981c264c5"
+  },
+  {
+    "path": "Tools/WorldGeneration/ForestVillage/prepare_village_forest_floor.py",
+    "public": "Tools/WorldGeneration/ForestVillage/prepare_village_forest_floor.py",
+    "sha256_lf": "8e35b439e63f86c51d7bf2bb5e1498db263b579dd09d524011e2b6cf97dce9f4"
+  },
+  {
+    "path": "Tools/WorldGeneration/ForestVillage/author_village_forest_floor.py",
+    "public": "Tools/WorldGeneration/ForestVillage/author_village_forest_floor.py",
+    "sha256_lf": "9f036fc5cf6a7d842486142d306a3918451e2c03c36d7d02ef0344fca9dd3b30"
+  },
+  {
+    "path": "Tools/WorldGeneration/ForestVillage/village_forest_floor.ush",
+    "public": "Tools/WorldGeneration/ForestVillage/village_forest_floor.ush",
+    "sha256_lf": "6b72b44ac555cf285f8e395b6b14da03e456f231d948ab179f87327e0b22529e"
+  },
+  {
+    "path": "Tools/WorldGeneration/ForestVillage/export_village_relief.py",
+    "public": "Tools/WorldGeneration/ForestVillage/export_village_relief.py",
+    "sha256_lf": "afd370df6c17d922c3c4928ebb3ea08f41a7ea4342cdb11bfc03b777959c9b46"
+  },
+  {
+    "path": "Tools/WorldGeneration/ForestVillage/generate_village_relief.py",
+    "public": "Tools/WorldGeneration/ForestVillage/generate_village_relief.py",
+    "sha256_lf": "289fc42e9c1be08dd7f6cd8a74c1b540f8d48d4ade9c6a0b0b090e91aeb05524"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/layout_geometry.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/layout_geometry.py",
+    "sha256_lf": "8cde4a5ed3d91d446413b485855342d97b6bca22417a33c775ccf0b13a77c305"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/inn_frontage.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/inn_frontage.py",
+    "sha256_lf": "27935ed8203c28bed50dd60126360ca5be93d23cd97ae426567e8f2e73a75703"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/inn_forecourt.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/inn_forecourt.py",
+    "sha256_lf": "887affe962e85aee3a0b9f0d64e5b241643db1a5217d851533992a9384de97fc"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/inn_forecourt_wear.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/inn_forecourt_wear.py",
+    "sha256_lf": "7353a0425a7f828359ca57d70dcc2c48e2807bc35433373206eb8f354c3a2801"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/inn_road.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/inn_road.py",
+    "sha256_lf": "1b9289b4aa963f60929d783b0c330052b8913bb5c5338b9c8ef4b7f0858ad23c"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py",
+    "sha256_lf": "cc9f87d6e924c23b7629c46b4c5cfad7f90254e05b4cfca53940dae9999c6661"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_ground_uv.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/village_ground_uv.py",
+    "sha256_lf": "567f5ab2d0f81dbae8736fbd9eefe69af467195d3b39edc8601f33605c4baa71"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_tread.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/village_tread.py",
+    "sha256_lf": "aaf6260ef44b8fd15b4c1a51dbe0410a6cf994d55afc5d1cb46862cec85107f8"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/shop_frontages.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/shop_frontages.py",
+    "sha256_lf": "964d068ceeeb62b65a2efd0d6adbd21b423c41ff01b9f858e6576848f9a37ae3"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/save_village_wear.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/save_village_wear.py",
+    "sha256_lf": "c12c89578dc872942d73236a0beee93b9eb06d081ede00c68b7f62583402f686"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_yard_dressing.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/village_yard_dressing.py",
+    "sha256_lf": "67c77aeba37bcb326af344a91d6f5b6c404bfc5289f9c813b8cc2b5aa74345f2"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_boundary_dressing.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/village_boundary_dressing.py",
+    "sha256_lf": "ca4502c019e73826a604d6d4aa175c2ec95cb66b0510c914ea4bfa698f3a6988"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/windmill_footing.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/windmill_footing.py",
+    "sha256_lf": "871765406f479712623d2eae53dcbd236f5a6f96b28b56ba2410b04888a0015d"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HillsWindmill.cpp",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Source/FPSGAME/WorldGeneration/HillsWindmill.cpp",
+    "sha256_lf": "345dca24f24e0c2934330112b9149ccd7d97914176bcc1d7b2c9f676e9f842ce"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HillsWindmill.h",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Source/FPSGAME/WorldGeneration/HillsWindmill.h",
+    "sha256_lf": "e15b975cc1f65005e9bcdf28a2b7d9364d3e01cb8c53193b1b6354db127e8ad6"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp",
+    "sha256_lf": "d19a3d0080ca7497542e307fabc559773db77d7089b37a704945802dcfec4a41"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HillsTavernSite.h",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Source/FPSGAME/WorldGeneration/HillsTavernSite.h",
+    "sha256_lf": "7c924dad976b3c5f5754a29dd52bef72c13f85dd175bc5985b9286bf94343d3a"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HillsTavernInterior.cpp",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Source/FPSGAME/WorldGeneration/HillsTavernInterior.cpp",
+    "sha256_lf": "a0401d976ec2af3fd720ceece93ae3155ec0b5e2ab8ccac9e56ecddd73b254e0"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HillsTavernInterior.h",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Source/FPSGAME/WorldGeneration/HillsTavernInterior.h",
+    "sha256_lf": "a4073a8efee3155f9e580e94914b2ba784df8d298706c23b92b169b5ee7c127b"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageGround.cpp",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Source/FPSGAME/WorldGeneration/TemperateVillageGround.cpp",
+    "sha256_lf": "7b825da454bca5d152444c266cd435c587f2fdf806d4eb01464f82bc010725ad"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageGround.h",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Source/FPSGAME/WorldGeneration/TemperateVillageGround.h",
+    "sha256_lf": "6f48faad6f3f3d710974f8f6ee0af51bf7ecae165ebdd32ad03e5b1693d8cd9e"
+  },
+  {
+    "path": "Source/FPSGAME/NPC/VillageMillKeeper.cpp",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Source/FPSGAME/NPC/VillageMillKeeper.cpp",
+    "sha256_lf": "c55b1c577cd4b34cfc3fea1c8f9d5b77f412a87fb44d6fef344c6e4fcfe7654a"
+  },
+  {
+    "path": "Source/FPSGAME/NPC/VillageMillKeeper.h",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Source/FPSGAME/NPC/VillageMillKeeper.h",
+    "sha256_lf": "1215adac4523806e89bd0ad2a90f9970bb670e155952978f55f0a4de50a925aa"
+  },
+  {
+    "path": "Source/FPSGAME/Development/VillageDeliveryReview.cpp",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Source/FPSGAME/Development/VillageDeliveryReview.cpp",
+    "sha256_lf": "03c070ce336eb5dd6b2934d429bb014388a3a1877437b7dcffdad10391b886c3"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillageRelief.cpp",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Source/FPSGAME/WorldGeneration/ForestVillageRelief.cpp",
+    "sha256_lf": "b077024b0959b6bcd0355f94bddbb90c28407ff6ab8933d3eead66832f1cf942"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillageRelief.h",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Source/FPSGAME/WorldGeneration/ForestVillageRelief.h",
+    "sha256_lf": "7d3d9010e722d292e1c3f0c76e3ab09b3dbe431d8ab4889123023feb25cff087"
+  },
+  {
+    "path": "Tools/WorldGeneration/ForestVillage/landscape_themes.py",
+    "public": "Tools/WorldGeneration/ForestVillage/landscape_themes.py",
+    "sha256_lf": "ced99f0d15b7679fcd2295a334fa31fa2ecdb68c961bbea1b2a96fe9ee97afa8"
+  },
+  {
+    "path": "Tools/WorldGeneration/ForestVillage/author_trail_cover_materials.py",
+    "public": "Tools/WorldGeneration/ForestVillage/author_trail_cover_materials.py",
+    "sha256_lf": "5e0c22f8b58b4b82c9f0f83a9bba8fb3b1ffcd419454d83a4b49982f5cb7c3e9"
+  },
+  {
+    "path": "Tools/WorldGeneration/ForestVillage/village_loess.ush",
+    "public": "Tools/WorldGeneration/ForestVillage/village_loess.ush",
+    "sha256_lf": "1abc6230abbce0019340ec335e4a7a25aa16fd0a0b9b1ce2540907ed7d90a7ab"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/terrain_road_layer.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/terrain_road_layer.py",
+    "sha256_lf": "54d539c00593a6655c25ea7828ea616e146301e076b37e57da1aec71afbd4ef1"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_road_blend.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/village_road_blend.py",
+    "sha256_lf": "9f1d729a7e5b520f684e60b3c1dcdc2efa7721320f17ca3af5af727be3d0ad65"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_road_material.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/village_road_material.py",
+    "sha256_lf": "f094bb30e7a4fcd190f871dd937347349ce8431b01fb5c5841a1bcb5933ad4b8"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_turf_material.py",
+    "public": "Tools/WorldGeneration/AbandonedVillage/village_turf_material.py",
+    "sha256_lf": "d72d920c931ad3db59b5a8927ba10267daf6f65813243bdd1dc78482f789e164"
+  },
+  {
+    "path": "Tools/WorldGeneration/AbandonedVillage/draw_plan.py",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Tools/WorldGeneration/AbandonedVillage/draw_plan.py",
+    "sha256_lf": "5eaf906d93fbb8eca981d7bdf51f17ca8425f80587c5d3306cffdc50e5cbfe35"
+  },
+  {
+    "path": "Tools/WorldGeneration/temperate_ground_cache.py",
+    "public": "Docs/Publication/VillageDelivery20261125/Implementation/Tools/WorldGeneration/temperate_ground_cache.py",
+    "sha256_lf": "a6b98d659e234c58f91bd193503099f80d965ca6f39de37e2a1dde1177c45539"
+  }
+]

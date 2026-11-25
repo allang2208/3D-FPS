@@ -1,0 +1,12 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/author_village.py
++++ b/Tools/WorldGeneration/AbandonedVillage/author_village.py
+@@ -353,6 +353,9 @@
+     village_actors=actors.get_all_level_actors()
+     inn=next(a for a in village_actors if 'VillageTavern.Site' in map(str,a.tags))
+     clear_inn_scatter(village_actors,inn)
++    if plan['tavern']['inn'].get('hall_road'):
++        from save_hall_refit import clear_verge
++        clear_verge(village_actors,plan['tavern']['inn']['hall_road'])
+ if not u.EditorLoadingAndSavingUtils.save_map(world,level):
+     raise RuntimeError('Could not save '+level)
+ u.log('VILLAGE_SAVED %s wall_groups=%d wall_instances=%d' % (level,len(wall_bounds),len(wall_footprints)))

@@ -1,0 +1,10 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/inn_frontage.py
++++ b/Tools/WorldGeneration/AbandonedVillage/inn_frontage.py
+@@ -30,4 +30,7 @@
+     tile=a[ys[0]:ys[-1]+1,xs[0]:xs[-1]+1]
+     for idx,strength in [(1,.97),(2,.46)]:
+         tile[:,:,idx]=np.maximum(tile[:,:,idx],np.rint(wear*strength*255).astype('uint8'))
++    if shape and plan['tavern']['inn'].get('hall_road'):
++        from inn_road import patch as fit_road
++        return fit_road(Image.fromarray(a),height,stones,plan,shape)
+     return Image.fromarray(a),height,stones

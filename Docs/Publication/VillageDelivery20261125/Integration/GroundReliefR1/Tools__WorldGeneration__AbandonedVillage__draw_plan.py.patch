@@ -1,0 +1,19 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/draw_plan.py
++++ b/Tools/WorldGeneration/AbandonedVillage/draw_plan.py
+@@ -11,6 +11,7 @@
+ from kitchen_garden_geometry import KitchenGarden
+ from village_tread import street_wear, chapel_wear, protected_turf, ramp
+ from windmill_footing import dress_ground
++from village_ground_relief import apply_ground
+ 
+ out = Path(__file__).resolve().parents[3] / 'SourceAssets/TemperateHillsVillage'
+ plan_only = '--plan-only' in sys.argv
+@@ -264,7 +265,7 @@
+     packed=Image.merge('RGBA',tuple(c.resize((2048,1024),Image.Resampling.LANCZOS) for c in channels))
+     packed, verge = dress_ground(packed, cover.resize((460,320),Image.Resampling.BOX), plan, kit)
+     (out/'VergeTurf.raw').write_bytes(verge.tobytes())
+-    packed.save(out/'RoadMask.png')
++    apply_ground(packed, plan, kit).save(out/'RoadMask.png')
+     if mask_only:
+         sys.exit(0)
+     plant_image=Image.fromarray((plant_coverage*255).astype('uint8'))

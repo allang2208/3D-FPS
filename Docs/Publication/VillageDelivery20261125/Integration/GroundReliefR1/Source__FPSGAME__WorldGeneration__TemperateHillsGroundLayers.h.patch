@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsGroundLayers.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsGroundLayers.h
+@@ -4,6 +4,7 @@
+ #include "TemperateForestWater.h"
+ #include "TemperateChapelSite.h"
+ #include "TemperateVillageSite.h"
++#include "TemperateVillageGround.h"
+ #include "TemperateWoodlandFloor.h"
+ #include "TemperateShoreHabitat.h"
+ #include "TemperateQuarryYard.h"
+@@ -162,7 +163,8 @@
+     {
+         const double Base = River ? River->Height(X,Y,Seed) : TemperateHillsSurface::Height(X,Y,Seed,Version);
+         const double Floor = Water ? Water->ShapeGround(X,Y,Base) : Base;
+-        return Chapel.Grade(X,Y,Village.Grade(X,Y,Floor,Seed)) + TemperateHillsSurface::TerrainEditOffset(Edits,X,Y);
++        return Chapel.Grade(X,Y,Village.Grade(X,Y,Floor,Seed)) + TemperateVillageGround::Offset(Village,X,Y)
++            + TemperateHillsSurface::TerrainEditOffset(Edits,X,Y);
+     }
+ };
+ }

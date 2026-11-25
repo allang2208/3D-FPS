@@ -1,0 +1,173 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py
++++ b/Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py
+@@ -105,25 +105,50 @@
+     sqx, sqy, rx, ry = plan['square']
+     square = (np.hypot((x-sqx)/rx, (y-sqy)/ry)-1.) * min(rx, ry)
+     traffic = 1.-ramp((np.minimum(road_edge, square)+.45)/1.55)
+-    shoulder = np.exp(-((road_edge-.75)/1.5)**2)
+-    foot = np.exp(-((wall_gap-2.35)/1.55)**2)
+-    safe = ramp((clearance-.85)/1.65)
+-    broad = soil_variation(x, y, 4.3, 23011)
+-    mid = soil_variation(x, y, 1.65, 23017)
+-    grain = soil_variation(x, y, .52, 23023)
+-    lens = ramp((.55*broad+.45*mid+.15)/.71)
+-    rut = np.exp(-((cart_axis-.79-.12*mid)/.44)**2)
++    # Work in one continuous village frame. Large drift areas have stretched
++    # grains, finer deposits cross them at another angle. The warp never
++    # restarts at a road segment, building reservation or streaming boundary.
++    drift = soil_variation(x, y, 13.7, 23033)
++    cross = soil_variation(x, y, 8.3, 23039)
++    u = .83*x+.56*y + 2.8*cross
++    v = -.56*x+.83*y + 3.4*drift
++    broad = soil_variation(u*.65, v, 3.9, 23011)
++    mid = soil_variation(.45*u-.89*v, .89*u+.45*v, 1.58, 23017)
++    grain = soil_variation(v+.26*u, u*.72-.38*v, .49, 23023)
++    shoulder = np.exp(-((road_edge-(.85+.52*cross))/(1.35+.65*drift))**2)
++    foot = np.exp(-((wall_gap-(2.45+.63*broad))/(1.58+.59*cross))**2)
++    shelter = foot*(.45+.55*ramp(.50+.69*drift+.42*mid))
++    safe = ramp((clearance-.85)/(1.75+.55*cross))
++    lens = ramp((.48*broad+.31*mid+.33*drift+.16)/.72)
++    rut = np.exp(-((cart_axis-.79-.11*cross-.09*mid)/(.40+.08*broad))**2)
++    rut *= .41+.59*ramp(.57+.85*drift+.39*mid)
+     # Old planted tufts and loose masonry sit at the original datum. Retain
+     # that as a lower bound off the road; cut into the ground only in wheelways.
+     gate_gap = np.minimum(box(x,y,(-ex,0.),(5.5,5.8)), box(x,y,(ex,5.),(5.5,4.8)))
+     swing = ramp((gate_gap-.55)/1.6)
+-    rise = np.maximum(0.,(1.-.72*traffic)*(2.4+6.8*broad+3.7*mid)
+-                      + (3.1*foot+5.5*shoulder)*(.35+.65*lens))
++    rise = np.maximum(0.,(1.-.72*traffic)*(2.7+5.8*broad+2.9*mid+2.7*drift)
++                      + (4.8*shelter+5.5*shoulder)*(.32+.68*lens))
+     height = safe*swing*(rise-4.7*rut)
+-    soil = safe*ramp((.29+.34*lens+.18*shoulder+.12*foot+.12*mid+.10*grain)/.91)
+-    mineral = safe*ramp((.58*lens+.28*shoulder+.15*foot+.16*mid+.18*grain-.26)/.58)*(1.-.84*traffic)
+-    density = safe*swing*ramp((.27+.52*lens+.31*shoulder+.19*foot+.16*mid)/1.05)*(1.-.96*traffic)
+-    return height, soil, mineral, density
++    soil = safe*ramp((.24+.25*lens+.23*shoulder+.24*shelter+.14*mid+.14*grain-.10*drift)/.86)
++    mineral = safe*ramp((.55*lens+.37*shoulder+.29*shelter+.20*mid+.17*grain-.31)/.58)*(1.-.84*traffic)
++    # At 0.5 in the packed B channel the shader crosses into pale road stone.
++    # Isolated meadow deposits only dust the earth. Exposed shoulders and
++    # masonry can build up enough mineral to cross that threshold locally.
++    mineral *= .70+.16*shoulder+.075*shelter+.035*grain
++    # Small washed-out runs break up the bare commons. Use short portions
++    # of bent contours and taper their ends so they don't become parallel stripes.
++    deposit = soil_variation(.31*u+.95*v, .95*u-.31*v, 2.37, 23041)
++    thread = np.exp(-((.70*broad+.30*cross+.24*mid+.11*grain)/(.19+.045*deposit))**2)
++    ends = ramp((.57*deposit+.24*drift+.20*mid+.16)/.66)
++    silt = thread*ends*(1.-.78*traffic)
++    mineral = np.maximum(mineral, safe*silt*(.74+.15*grain+.06*mid))
++    soil = np.maximum(soil, safe*silt*(.59+.17*grain))
++    density = safe*swing*ramp((.22+.49*lens+.33*shoulder+.35*shelter+.15*mid+.11*drift)/1.02)*(1.-.96*traffic)
++    # Follow wear and masonry close to either edge. In open ground let
++    # the direction of the elongated deposits guide individual stone drifts.
++    edge = np.minimum(road_edge, wall_gap)
++    gy, gx = np.gradient(np.where(edge<4., edge, 4.), .25)
++    return height, soil, mineral, density, (gx, gy, shelter, shoulder, drift)
+ 
+ 
+ def mask_floor(packed, soil, mineral):
+@@ -140,30 +165,64 @@
+     return Image.fromarray(data)
+ 
+ 
+-def write_native(height, density, plan):
++def gravel_points(density, guides, plan):
+     ex, ey = plan['surface_extent_m']
+     rng = np.random.default_rng(plan['ground_dressing']['seed'])
+-    pockets = []
+-    def probability(px, py):
+-        return map_coordinates(density, [(py+ey)*4., (px+ex)*4.], order=1, mode='constant')
+-
+-    # Jittered parent pockets, with loose satellites along a common bearing.
+-    # Evaluate the constraint again for every stone, not just the centre.
+-    cell = 2.65
+-    iy, ix = np.mgrid[0:math.ceil(2*ey/cell), 0:math.ceil(2*ex/cell)]
+-    px = -ex+(ix.ravel()+rng.uniform(.12,.88,ix.size))*cell
+-    py = -ey+(iy.ravel()+rng.uniform(.12,.88,iy.size))*cell
+-    keep = rng.random(ix.size) < probability(px, py)*.88
+-    for x, y in zip(px[keep], py[keep]):
+-        a = rng.uniform(0., 2.*math.pi)
+-        for i in range(rng.integers(2, 6)):
+-            along, across = rng.normal(0., .58), rng.normal(0., .28)
+-            sx, sy = x+along*math.cos(a)-across*math.sin(a), y+along*math.sin(a)+across*math.cos(a)
+-            if probability(np.array([sx]), np.array([sy]))[0] < .08:
++    pockets, occupied = [], {}
++    def sample(field, px, py):
++        return map_coordinates(field, np.array([np.atleast_1d(py+ey),np.atleast_1d(px+ex)])*4.,
++                               order=1, mode='constant')
++    # Uniform proposals have no cell centres. The deposit map supplies broad
++    # empty spaces; sort only after the footprint and global budget decisions.
++    proposals = math.ceil(4*ex*ey*.23)
++    px, py = rng.uniform(-ex,ex,proposals), rng.uniform(-ey,ey,proposals)
++    keep = rng.random(proposals)<sample(density,px,py)
++    px, py = px[keep], py[keep]
++    guide = np.stack([sample(g,px,py) for g in guides],axis=1)
++    for x,y,(gx,gy,wall,road,drift) in zip(px,py,guide):
++        near_edge = math.hypot(gx,gy)>.35
++        angle = math.atan2(gx,-gy) if near_edge else .58+.98*drift
++        angle += rng.normal(0.,.27 if near_edge else .70)
++        if rng.random()<.5:
++            angle += math.pi
++        style = rng.random()
++        if style < .29:
++            count, length, width = 1, 0., 0.
++        elif style < .59+.15*wall:
++            count, length, width = rng.integers(2,7), rng.uniform(.24,.95), rng.uniform(.16,.46)
++        else:
++            count, length, width = rng.integers(4,11), rng.uniform(1.1,2.8), rng.uniform(.14,.43)
++        along = rng.uniform(-1.,1.,count)
++        side = rng.normal(0.,width,count)+rng.uniform(-.42,.42)*along**2*length
++        sx = x+length*along*math.cos(angle)-side*math.sin(angle)
++        sy = y+length*along*math.sin(angle)+side*math.cos(angle)
++        allowed = sample(density,sx,sy)
++        primary = 0 if wall>.22 else (1 if road>.3 else int(rng.integers(3)))
++        for j in range(count):
++            if allowed[j]<.08:
+                 continue
+-            size = rng.uniform(9, 22) if i==0 else rng.uniform(4, 12)
+-            pockets.append((round(sx*100),round(sy*100),round(size),int(rng.integers(256)),int(rng.integers(3))))
++            size = round(rng.uniform(9,23) if rng.random()<.18+.28*wall else rng.uniform(4,13))
++            cx, cy = round(100*sx[j]), round(100*sy[j])
++            # The diagonal of a diameter-wide mesh box is a conservative
++            # footprint. Check the final rounded coordinates across all groups.
++            radius = .71*size+1
++            key = cx//50, cy//50
++            if any((cx-ox)**2+(cy-oy)**2 < (radius+r)**2
++                   for dx in (-1,0,1) for dy in (-1,0,1)
++                   for ox,oy,r in occupied.get((key[0]+dx,key[1]+dy),())):
++                continue
++            occupied.setdefault(key,[]).append((cx,cy,radius))
++            variant = primary if rng.random()<.61 else int(rng.integers(3))
++            turn = angle+rng.normal(0.,.57) if count>=4 and rng.random()<.58 else rng.uniform(0.,2.*math.pi)
++            pockets.append((cx,cy,size,round(turn*128/math.pi)%256,variant))
++            if len(pockets)>=1157:
++                return sorted(pockets,key=lambda p:(p[1],p[0]))
+     pockets.sort(key=lambda p:(p[1],p[0]))
++    return pockets
++
++
++def write_native(height, pockets, plan):
++    ex, ey = plan['surface_extent_m']
+     grid = np.rint(height[::4,::4]).astype('int8')
+     lines = ['// Generated by village_ground_relief.py. Local XY and elevations are centimetres.',
+              f'constexpr int32 HalfX={ex*100}, HalfY={ey*100}, Columns={grid.shape[1]}, Rows={grid.shape[0]};',
+@@ -178,8 +237,8 @@
+ 
+ 
+ def apply_ground(packed, plan, kit):
+-    height, soil, mineral, density = fields(plan, kit)
+-    write_native(height, density, plan)
++    height, soil, mineral, density, guides = fields(plan, kit)
++    write_native(height, gravel_points(density, guides, plan), plan)
+     return mask_floor(packed, soil, mineral)
+ 
+ 
+@@ -187,6 +246,8 @@
+     def read(name):
+         return json.loads((SOURCE/name).read_text(encoding='utf-8'))
+     path = SOURCE/'RoadMask.png'
+-    with Image.open(path) as im:
++    # Keep the hand-placed streets, mill yard and verge separate from this
++    # replaceable procedural layer; earlier passes must not accumulate.
++    with Image.open(SOURCE/'RoadMaskBase.png') as im:
+         result = apply_ground(im, read('layout.json'), read('house-pieces.json'))
+     result.save(path)

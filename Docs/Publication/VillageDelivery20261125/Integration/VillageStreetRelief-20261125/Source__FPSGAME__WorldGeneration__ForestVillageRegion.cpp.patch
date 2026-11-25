@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/WorldGeneration/ForestVillageRegion.cpp
++++ b/Source/FPSGAME/WorldGeneration/ForestVillageRegion.cpp
+@@ -53,7 +53,8 @@
+ 
+ int32 AForestVillageRegion::SettlementOffsetCm(int32 I,int32 J) const
+ {
+-    return HasSitedHill()?SettlementOffsets[J*ForestVillageRelief::Columns+I]:ForestVillageRelief::VertexOffset(I,J);
++    return HasSitedHill() ? ForestVillageRelief::SitedVertexOffset(SettlementOffsets,I,J)
++                         : ForestVillageRelief::VertexOffset(I,J);
+ }
+ 
+ double AForestVillageRegion::DressingOffsetCm(double X,double Y) const

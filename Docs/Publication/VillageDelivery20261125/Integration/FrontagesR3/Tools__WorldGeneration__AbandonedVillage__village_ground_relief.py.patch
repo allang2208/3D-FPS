@@ -1,0 +1,100 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py
++++ b/Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py
+@@ -9,7 +9,8 @@
+ 
+ from kitchen_garden_geometry import KitchenGarden
+ from layout_geometry import house_paths, plot_geometry, wall_segments
+-from village_tread import ramp, soil_variation
++from shop_frontages import flag_walks, public_frame
++from village_tread import ramp, soil_variation, tread, window
+ 
+ ROOT = Path(__file__).resolve().parents[3]
+ SOURCE = ROOT / 'SourceAssets/TemperateHillsVillage'
+@@ -38,6 +39,13 @@
+     return result
+ 
+ 
++def mill_yard_gap(x,y,shape):
++    nx,ny = shape['normal']
++    center = shape['entry'][0]-3.765*nx, shape['entry'][1]-3.765*ny
++    u,v = frame(x,y,center,math.degrees(math.atan2(ny,nx))-90.)
++    return np.minimum(box(u,v,(.2,4.3),(11.2,12.3)),box(u,v,(13.5,7.8),(5.2,5.5)))
++
++
+ def fields(plan, kit):
+     ex, ey = plan['surface_extent_m']
+     x = np.arange(-ex, ex+.125, .25, dtype='f')[None, :]
+@@ -61,13 +69,9 @@
+         reserve(box(x, y, shape['center'], shape['half'], shape['angle']))
+         reserve(distance(x, y, [shape['entry'], shape['step']]) - .85)
+         if house[0] == '05':
+-            nx, ny = shape['normal']
+-            center = shape['entry'][0]-3.765*nx, shape['entry'][1]-3.765*ny
+-            u, v = frame(x, y, center, math.degrees(math.atan2(ny, nx))-90.)
+             # Both the repaired apron surface and the permanent eastern grove
+             # already have embedded props seated on the original mill datum.
+-            reserve(box(u, v, (.2, 4.3), (11.2, 12.3)))
+-            reserve(box(u, v, (13.5, 7.8), (5.2, 5.5)))
++            reserve(mill_yard_gap(x,y,shape))
+     for yard in plan.get('service_clearings', []):
+         reserve(box(x, y, yard['center'], yard['half'], yard['yaw']))
+     garden = KitchenGarden(plan)
+@@ -165,6 +169,49 @@
+     return Image.fromarray(data)
+ 
+ 
++def dress_shop_flags(packed,plan,kit):
++    # Old approaches remain visible where a shop is still in ruins. The new
++    # public approach follows the actual flags; the mesh and its repair state
++    # remain the responsibility of the shop. Only exposed earth is painted.
++    houses={h[0]:h for h in plan['houses']}
++    mill=plot_geometry(houses['05'],kit[houses['05'][2]],plan)
++    ex,ey=plan['surface_extent_m']
++    w,h=packed.size
++    px=((np.arange(w)[None,:]+.5)/w-.5)*(2*ex)
++    py=((np.arange(h)[:,None]+.5)/h-.5)*(2*ey)
++    for lot in ('06','09'):
++        house=houses[lot]
++        shape=plot_geometry(house,kit[house[2]],plan)
++        origin,yaw=public_frame(house,shape)
++        walks=flag_walks(house,shape,plan)
++        xs,ys=zip(*(p for line in walks for p in line))
++        (rows,cols),x,y=window(px,py,(min(xs)-2.,min(ys)-2.,max(xs)+2.,max(ys)+2.))
++        u,v=frame(x,y,origin,yaw)
++        noise=soil_variation(x,y,.85,7021+int(lot))
++        grit=soil_variation(x,y,.24,7031+int(lot))
++        # Local +Y is indoors. Past the bakery corner the path turns along
++        # the side wall; allow its outside shoulder to meet the main street.
++        half=3.92 if lot=='06' else 4.86
++        outside=ramp((np.maximum(-v,abs(u)-half)+.10)/.32)
++        outside*=ramp(mill_yard_gap(x,y,mill)/.35)
++        soil=np.zeros_like(outside)
++        mineral=np.zeros_like(outside)
++        for index,line in enumerate(walks):
++            width=.60 if lot=='06' and index==0 else .44
++            points=[(*p,width+(.15 if i==0 else 0.)) for i,p in enumerate(line)]
++            band=tread(x,y,points,.055*noise+.032*grit)
++            walked=ramp((band+.40+.13*noise+.065*grit)/.78)
++            strength=.82 if lot=='06' and index==0 else .70
++            soil=np.maximum(soil,walked*np.clip(strength+.12*noise+.11*grit,.42,.94))
++            mineral=np.maximum(mineral,walked*np.clip(.37+.11*noise+.08*grit,.18,.48))
++        area=(cols.start,rows.start,cols.stop,rows.stop)
++        data=np.array(packed.crop(area))
++        for channel,layer in ((1,soil),(2,mineral)):
++            data[:,:,channel]=np.maximum(data[:,:,channel],np.rint(255*layer*outside).astype('uint8'))
++        packed.paste(Image.fromarray(data),area)
++    return packed
++
++
+ def gravel_points(density, guides, plan):
+     ex, ey = plan['surface_extent_m']
+     rng = np.random.default_rng(plan['ground_dressing']['seed'])
+@@ -239,7 +286,7 @@
+ def apply_ground(packed, plan, kit):
+     height, soil, mineral, density, guides = fields(plan, kit)
+     write_native(height, gravel_points(density, guides, plan), plan)
+-    return mask_floor(packed, soil, mineral)
++    return dress_shop_flags(mask_floor(packed,soil,mineral),plan,kit)
+ 
+ 
+ if __name__ == '__main__':

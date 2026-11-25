@@ -1,0 +1,44 @@
+// All positions are in centimetres. UVs follow the settlement's local XY frame.
+OutNormal=float3(0,0,1);
+OutRough=1.;
+OutAO=1.;
+Coverage=0.;
+float2 axis=float2(Pose.z,SinYaw);
+float2 side=float2(-axis.y,axis.x);
+float2 local=float2(dot(P.xy-Pose.xy,axis),dot(P.xy-Pose.xy,side));
+float2 fieldUV=local/Span+.5;
+float2 dx=float2(1,0),dy=float2(0,1);
+#if (PIXELSHADER || COMPUTESHADER) && !RAYHITGROUPSHADER
+dx=ddx(local);
+dy=ddy(local);
+#endif
+[branch] if(dot(axis,axis)<.5 || any(fieldUV<=0) || any(fieldUV>=1)) return float3(0,0,0);
+float4 patch=Texture2DSampleGrad(Patch,GetMaterialSharedSampler(PatchSampler,Material.Clamp_WorldGroupSettings),
+                                 fieldUV,dx/Span,dy/Span);
+[branch] if(patch.r<.004) return float3(0,0,0);
+float s,c;
+sincos(patch.a*6.2831853,s,c);
+float2x2 turn=float2x2(c,-s,s,c);
+float tile=200.*lerp(.94,1.06,patch.b);
+float2 uv=mul(turn,local)/tile+patch.gb;
+float2 gx=mul(turn,dx)/tile,gy=mul(turn,dy)/tile;
+float3 pack=Texture2DSampleGrad(FloorARH,GetMaterialSharedSampler(FloorARHSampler,Material.Wrap_WorldGroupSettings),uv,gx,gy).rgb;
+float detail=(1.-smoothstep(280.,1050.,distance(P,Eye)))*smoothstep(.15,.46,V.z);
+[branch] if(detail>.012){
+    float2 sight=float2(dot(V.xy,axis),dot(V.xy,side))/max(.38,V.z);
+    uv+=mul(turn,sight)*((pack.b-.50)*1.25*detail/tile);
+    pack=Texture2DSampleGrad(FloorARH,GetMaterialSharedSampler(FloorARHSampler,Material.Wrap_WorldGroupSettings),uv,gx,gy).rgb;
+}
+Coverage=saturate(patch.r+1.65*(pack.b-.50)*patch.r*(1.-patch.r));
+float3 n=UnpackNormalMap(Texture2DSampleGrad(FloorN,GetMaterialSharedSampler(FloorNSampler,Material.Wrap_WorldGroupSettings),uv,gx,gy));
+float2 floorLocal=mul(transpose(turn),n.xy);
+float2 worldN=axis*floorLocal.x+side*floorLocal.y;
+#if PIXELSHADER
+worldN=TransformWorldVectorToTangent(Parameters.TangentToWorld,float3(worldN,0)).xy;
+#endif
+OutNormal=normalize(float3(.55*worldN,max(.25,n.z)));
+float wet=saturate(Wet)*lerp(.92,.66,pack.b);
+OutRough=lerp(clamp(pack.g,.38,.97),.43,wet);
+OutAO=pack.r;
+float3 forest=Texture2DSampleGrad(FloorC,GetMaterialSharedSampler(FloorCSampler,Material.Wrap_WorldGroupSettings),uv,gx,gy).rgb;
+return forest*lerp(1.,.71,wet);

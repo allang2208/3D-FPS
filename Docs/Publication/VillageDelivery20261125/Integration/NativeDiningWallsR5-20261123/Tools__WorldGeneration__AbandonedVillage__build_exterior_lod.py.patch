@@ -1,0 +1,19 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/build_exterior_lod.py
++++ b/Tools/WorldGeneration/AbandonedVillage/build_exterior_lod.py
+@@ -34,6 +34,8 @@
+         if instanced and comp.get_editor_property("num_custom_data_floats"):
+             continue
+         tags = sorted(str(t) for t in comp.component_tags)
++        if "VillageTavern.NativeRoomWall" in tags:
++            continue
+         poses = ([comp.get_instance_transform(i, world_space=True) for i in range(comp.get_instance_count())]
+                  if instanced else [comp.get_world_transform()])
+         materials = [comp.get_material(i) for i in range(comp.get_num_materials())]
+@@ -107,6 +109,7 @@
+             if "VillageTavern.StoneCourt" in map(str,actor.tags):suffix="_StoneCourt"
+             if "VillageTavern.HallRoadR3" in map(str,actor.tags):suffix="_HallRoadR3"
+             if "VillageTavern.JoineryR4" in map(str,actor.tags):suffix="_JoineryR4"
++            if "VillageTavern.NativeDiningWallsR5" in map(str,actor.tags):suffix="_NativeDiningWallsR5"
+             groups.append(bake(actor, parts, f"SM_Exterior_{label}{suffix}_{index:02d}"))
+     if not groups:
+         raise RuntimeError("No village exteriors authored")

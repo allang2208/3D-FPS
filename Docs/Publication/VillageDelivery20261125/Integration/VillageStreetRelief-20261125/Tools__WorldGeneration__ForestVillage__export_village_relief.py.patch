@@ -1,0 +1,18 @@
+--- a/Tools/WorldGeneration/ForestVillage/export_village_relief.py
++++ b/Tools/WorldGeneration/ForestVillage/export_village_relief.py
+@@ -14,10 +14,11 @@
+ 
+ out = Path(os.environ["FPS_VILLAGE_RELIEF_SOURCE"])
+ out.mkdir(parents=True, exist_ok=True)
+-forest = load("/Game/ForestPathStudy/Maps/L_ForestPathForest")
+-land = next(a for a in forest if isinstance(a, u.Landscape))
+-if not u.ForestVillageRegion.export_forest_surface(land, str(out / "reference.f32")):
+-    raise RuntimeError("Could not export slope and village reference elevations")
++if os.environ.get("FPS_VILLAGE_CONTACTS_ONLY") != "1":
++    forest = load("/Game/ForestPathStudy/Maps/L_ForestPathForest")
++    land = next(a for a in forest if isinstance(a, u.Landscape))
++    if not u.ForestVillageRegion.export_forest_surface(land, str(out / "reference.f32")):
++        raise RuntimeError("Could not export slope and village reference elevations")
+ 
+ # This sublevel is authored around its local floor at Z=0. Store contact boxes
+ # in village-local metres, independently of the level instance's runtime transform.

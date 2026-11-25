@@ -1,0 +1,34 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/tavern_shell.py
++++ b/Tools/WorldGeneration/AbandonedVillage/tavern_shell.py
+@@ -22,7 +22,8 @@
+ 
+ 
+ def room_frame(house, shape):
+-    return u.Transform(location=[shape['center'][0]*100., shape['center'][1]*100., 4.],
++    center=shape.get('shell_center',shape['center'])
++    return u.Transform(location=[center[0]*100., center[1]*100., 4.],
+                        rotation=u.Rotator(yaw=house[5]-90.))
+ 
+ 
+@@ -34,6 +35,10 @@
+     room.set_editor_property('room_minimum', u.Vector(-450*horizontal+38, -300*horizontal+38, 0))
+     room.set_editor_property('room_maximum', u.Vector(450*horizontal-38, 300*horizontal-38, 320))
+     apply_daylight(room, TAVERN_DAYLIGHT)
++    if 'inn' in plan['tavern']:
++        room.tags=list(room.tags) if 'VillageTavern.Vision' in map(str,room.tags) else [*room.tags,'VillageTavern.Vision']
++        room.set_editor_property('room_minimum',u.Vector(-704,-405,0))
++        room.set_editor_property('room_maximum',u.Vector(624,402,952))
+ 
+ 
+ def build_tavern(house, pieces, plan, shape):
+@@ -219,6 +224,10 @@
+     from trade_sign_layout import hang_trade
+     hang_trade(anchor,frame,'Tavern')
+     chimney = attach_chimney(anchor)
++    if 'inn' in plan['tavern']:
++        sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'VillageTavern'/'Inn'))
++        from fit_inn import upgrade
++        upgrade(anchor,plan)
+     return dict(house=house[0], states=['Ruined','Repaired'], anchor=SITE_TAG, chimney=chimney,counter_pendant=pendant,
+                 footprint_cm=[900*xy_scale,600*xy_scale], centre_m=shape['center'],
+                 heading=house[5]-90., shell_instances=sum(map(len,batches.values())))

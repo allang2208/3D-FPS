@@ -1,0 +1,32 @@
+{
+  "player_outfit_file": "Content/ColdSteelData/modular_outfits.json",
+  "Kaitlin": "/Game/Characters/ModularOutfit20260924/KaitlinPlayer20261023/World/BackRepair20261117/SK_Kaitlin_BlueMageRobe_BackR1.SK_Kaitlin_BlueMageRobe_BackR1",
+  "keeper": {
+    "replicates": true,
+    "skeleton": "/Game/WorldGeneration/TemperateHills/AbandonedVillage/MillKeeper/SK_MillKeeper.SK_MillKeeper",
+    "lods": 4,
+    "materials": [
+      "MI_Body_Baked",
+      "MI_Keeper_WorkLinen",
+      "M_Baker_Cuff",
+      "MI_Keeper_Skirt",
+      "M_Baker_Sash",
+      "MI_Keeper_Apron",
+      "M_Baker_Boot",
+      "M_Baker_Sole",
+      "M_Baker_Thread",
+      "M_KeeperFace0",
+      "MI_Keeper_NeckLinen",
+      "MI_Keeper_SkirtPanels"
+    ]
+  },
+  "generator": {
+    "model": "meshy-7.1",
+    "input_views": [
+      "01_front.png",
+      "02_three_quarter.png",
+      "03_profile.png"
+    ],
+    "endpoint": "https://api.meshy.ai/openapi/v1/multi-image-to-3d"
+  }
+}

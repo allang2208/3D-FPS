@@ -1,0 +1,87 @@
+--- a/Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp
+@@ -9,6 +9,8 @@
+ #include "TemperateHillsStreamingPrivate.h"
+ #include "AI/NavigationSystemBase.h"
+ #include "../NPC/VillageTavernKeeper.h"
++#include "../Building/ColdSteelDoor.h"
++#include "../Building/BuildingDaylight.h"
+ #include "Components/StaticMeshComponent.h"
+ #include "Components/PointLightComponent.h"
+ #include "Engine/Level.h"
+@@ -71,6 +73,9 @@
+             if (Hills->TavernAreaOccupied.IsBoundToObject(this)) Hills->TavernAreaOccupied.Unbind();
+         }
+         Hills = &WorldOwner;
++        for (AActor* Actor : GetOwner()->GetLevel()->Actors)
++            if (IsValid(Actor) && Actor->ActorHasTag(TEXT("VillageTavern.Vision")))
++                InteriorVision = Cast<ABuildingDaylight>(Actor);
+         WorldOwner.OnTavernRepairChanged.AddUObject(this,&UHillsTavernSite::Refresh);
+         if (WorldOwner.HasAuthority())
+             WorldOwner.TavernAreaOccupied.BindUObject(this,&UHillsTavernSite::RepairAreaOccupied);
+@@ -104,6 +109,9 @@
+     const bool bRepaired = Hills->IsTavernRepaired();
+     if (Hills->HasAuthority()) UpdateKeeper(bRepaired);
+     if (Furnishings.IsValid() && bShowingRepaired == bRepaired) return;
++    if (InteriorVision.IsValid())
++        InteriorVision->RoomMaximum.Z = bRepaired ? 952. : 320.;
++    if (Hills->HasAuthority()) UpdateRoomDoors(bRepaired);
+ 
+     AActor* Shell = GetOwner();
+     TInlineComponentArray<UStaticMeshComponent*> Parts(Shell);
+@@ -131,7 +139,8 @@
+         TInlineComponentArray<UPointLightComponent*> Lamps(Shell);
+         for (UPointLightComponent* Lamp : Lamps)
+         {
+-            if (Lamp->ComponentHasTag(TEXT("VillageTavern.CounterPendant")))
++            if (Lamp->ComponentHasTag(TEXT("VillageTavern.CounterPendant")) ||
++                Lamp->ComponentHasTag(TEXT("VillageTavern.InnLight")))
+             {
+                 if (bRepaired) UVillageInteriorLighting::ApplyAppearance(Lamp);
+                 Lamp->SetVisibility(bRepaired);
+@@ -161,6 +170,37 @@
+     FHillsTavernInterior::Populate(*Interior,*RoomRoot,bRepaired);
+ }
+ 
++void UHillsTavernSite::UpdateRoomDoors(bool bRepaired)
++{
++    if (!bRepaired)
++    {
++        for (const auto& Door : RoomDoors)
++            if (Door.IsValid()) Door->Destroy();
++        RoomDoors.Reset();
++        return;
++    }
++    if (!RoomDoors.IsEmpty()) return;
++    AActor* Shell = GetOwner();
++    TInlineComponentArray<UStaticMeshComponent*> Sockets(Shell);
++    FActorSpawnParameters Spawn;
++    Spawn.Owner = Hills.Get();
++    Spawn.OverrideLevel = Shell->GetLevel();
++    Spawn.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
++    for (UStaticMeshComponent* Socket : Sockets)
++    {
++        if (!Socket->ComponentHasTag(TEXT("VillageTavern.RoomDoor")) || !Socket->GetStaticMesh()) continue;
++        if (auto* Door = GetWorld()->SpawnActor<AColdSteelDoor>(AColdSteelDoor::StaticClass(), Socket->GetComponentTransform(), Spawn))
++        {
++            // Hang the leaves on the east jamb on both sides of the corridor.
++            // This keeps their sweep away from the beds in the western rooms.
++            const bool bPositiveHinge = Socket->GetRelativeRotation().Yaw < 0.f;
++            Door->ConfigureStandaloneLeaf(Socket->GetStaticMesh(), bPositiveHinge, .65f, 0.f);
++            Door->SetInwardOnly();
++            RoomDoors.Add(Door);
++        }
++    }
++}
++
+ void UHillsTavernSite::UpdateKeeper(bool bRepaired)
+ {
+     if (!bRepaired)
+@@ -190,6 +230,7 @@
+         if (Hills->TavernAreaOccupied.IsBoundToObject(this)) Hills->TavernAreaOccupied.Unbind();
+     }
+     UpdateKeeper(false);
++    UpdateRoomDoors(false);
+     if (Furnishings.IsValid()) Furnishings->Destroy();
+     Furnishings.Reset();
+     Hills.Reset();

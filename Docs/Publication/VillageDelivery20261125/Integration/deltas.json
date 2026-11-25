@@ -1,0 +1,345 @@
+[
+  {
+    "version": "ThreeStoreyInn-20261123",
+    "path": "Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp",
+    "patch": "Integration/ThreeStoreyInn-20261123/Source__FPSGAME__WorldGeneration__HillsTavernSite.cpp.patch",
+    "before_lf": "6cafd2e979dc5fe176c5f052aa4e2133ebac006ba093cd12ad497f37936a5c67",
+    "after_lf": "5960c2ea3474618809b22500076bc7a0c76b37077b627be7e96fefc893325d65"
+  },
+  {
+    "version": "ThreeStoreyInn-20261123",
+    "path": "Source/FPSGAME/WorldGeneration/HillsTavernSite.h",
+    "patch": "Integration/ThreeStoreyInn-20261123/Source__FPSGAME__WorldGeneration__HillsTavernSite.h.patch",
+    "before_lf": "963a095b41c9ab11f48d2504c4a57b703c9ecc95036a345affa931180bf13f83",
+    "after_lf": "7c924dad976b3c5f5754a29dd52bef72c13f85dd175bc5985b9286bf94343d3a"
+  },
+  {
+    "version": "ThreeStoreyInn-20261123",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageStreetLighting.cpp",
+    "patch": "Integration/ThreeStoreyInn-20261123/Source__FPSGAME__WorldGeneration__TemperateVillageStreetLighting.cpp.patch",
+    "before_lf": "319e69e3e08dff64d4c273f18642794528ef4b82a5093e7670af68204aa0a175",
+    "after_lf": "29a091f3625a182e3a2ed74d27efd74067110b5658b3cb730a1ea2c2e1271cb5"
+  },
+  {
+    "version": "ThreeStoreyInn-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/build_exterior_lod.py",
+    "patch": "Integration/ThreeStoreyInn-20261123/Tools__WorldGeneration__AbandonedVillage__build_exterior_lod.py.patch",
+    "before_lf": "feb905ed5511762f88263d22ed821c97a6741574a9fd041b17a24d4207954716",
+    "after_lf": "a94311a7561ee6c3b13fb61dca29df8d6f10e196849cc53a01050990b4df8765"
+  },
+  {
+    "version": "ThreeStoreyInn-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/layout_geometry.py",
+    "patch": "Integration/ThreeStoreyInn-20261123/Tools__WorldGeneration__AbandonedVillage__layout_geometry.py.patch",
+    "before_lf": "3a3f6031263bd02e8a570b2d537962bb74b306005d371e96285594402799b519",
+    "after_lf": "68bb8be0d0ca2dfa0e86b4de525765885f3dbf0661451464ba1bd6ca32a5ff3e"
+  },
+  {
+    "version": "ThreeStoreyInn-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/tavern_shell.py",
+    "patch": "Integration/ThreeStoreyInn-20261123/Tools__WorldGeneration__AbandonedVillage__tavern_shell.py.patch",
+    "before_lf": "508e2a61960ea7cec140a87b2aa81467fa22137f132c92b3a15bd93de8fbb42c",
+    "after_lf": "f5265805f2d3bc5b82a3515d2e57907d4f06939e9dcba99d67e5b4b9bebbcedf"
+  },
+  {
+    "version": "ThreeStoreyInn-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py",
+    "patch": "Integration/ThreeStoreyInn-20261123/Tools__WorldGeneration__AbandonedVillage__village_ground_relief.py.patch",
+    "before_lf": "1d3b40d627ecfbae2e02a775f447d73ee0df676f0620ee4d81676a4cb284cdca",
+    "after_lf": "54613044e5ae7b1e2bf501d726b6a780a8088b021a62af1d11c23115cde6c566"
+  },
+  {
+    "version": "StoneCourtR2-20261123",
+    "path": "Source/FPSGAME/WorldGeneration/HillsTavernInterior.cpp",
+    "patch": "Integration/StoneCourtR2-20261123/Source__FPSGAME__WorldGeneration__HillsTavernInterior.cpp.patch",
+    "before_lf": "274274f6af537529f2da7d53772710d2745ce0bccfd5c16c8e3fd75268bc808a",
+    "after_lf": "2ab4438ee0380f579dacba8872f3ce1e708f18201fe18509ab010d0f0c021e52"
+  },
+  {
+    "version": "StoneCourtR2-20261123",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageStreetLighting.cpp",
+    "patch": "Integration/StoneCourtR2-20261123/Source__FPSGAME__WorldGeneration__TemperateVillageStreetLighting.cpp.patch",
+    "before_lf": "29a091f3625a182e3a2ed74d27efd74067110b5658b3cb730a1ea2c2e1271cb5",
+    "after_lf": "0b46a4bb1b029440e4b219f08cad3bcd427f460bd89d76da40db140ce36872b2"
+  },
+  {
+    "version": "StoneCourtR2-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/build_exterior_lod.py",
+    "patch": "Integration/StoneCourtR2-20261123/Tools__WorldGeneration__AbandonedVillage__build_exterior_lod.py.patch",
+    "before_lf": "a94311a7561ee6c3b13fb61dca29df8d6f10e196849cc53a01050990b4df8765",
+    "after_lf": "d8872cb4d34aa8e710262907e84a7499d320632b34fd0088bcf689dcb3b2fb5b"
+  },
+  {
+    "version": "StoneCourtR2-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/inn_frontage.py",
+    "patch": "Integration/StoneCourtR2-20261123/Tools__WorldGeneration__AbandonedVillage__inn_frontage.py.patch",
+    "before_lf": "eb1594a40b5fb7a203a9b1ae1c562fe20deffc81bbaa05373c0d7f2b87905a7b",
+    "after_lf": "177cc82ec56d9d447a21558036b83d967c9b22eb8be4a9420cb22b64316fdbed"
+  },
+  {
+    "version": "StoneCourtR2-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/layout_geometry.py",
+    "patch": "Integration/StoneCourtR2-20261123/Tools__WorldGeneration__AbandonedVillage__layout_geometry.py.patch",
+    "before_lf": "68bb8be0d0ca2dfa0e86b4de525765885f3dbf0661451464ba1bd6ca32a5ff3e",
+    "after_lf": "8cde4a5ed3d91d446413b485855342d97b6bca22417a33c775ccf0b13a77c305"
+  },
+  {
+    "version": "StoneCourtR2-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/tavern_shell.py",
+    "patch": "Integration/StoneCourtR2-20261123/Tools__WorldGeneration__AbandonedVillage__tavern_shell.py.patch",
+    "before_lf": "f5265805f2d3bc5b82a3515d2e57907d4f06939e9dcba99d67e5b4b9bebbcedf",
+    "after_lf": "1ced86afa25faca804491b3c6386e2f03747003db11e371c16ab7b170ac32c4a"
+  },
+  {
+    "version": "HallRoadR3-20261123",
+    "path": "Source/FPSGAME/WorldGeneration/HillsTavernInterior.cpp",
+    "patch": "Integration/HallRoadR3-20261123/Source__FPSGAME__WorldGeneration__HillsTavernInterior.cpp.patch",
+    "before_lf": "2ab4438ee0380f579dacba8872f3ce1e708f18201fe18509ab010d0f0c021e52",
+    "after_lf": "d0b8a0ac3cbbb7e6119ceb84da21531019aaccf79a5e082e92e97a30c3689c10"
+  },
+  {
+    "version": "HallRoadR3-20261123",
+    "path": "Source/FPSGAME/WorldGeneration/HillsTavernInterior.h",
+    "patch": "Integration/HallRoadR3-20261123/Source__FPSGAME__WorldGeneration__HillsTavernInterior.h.patch",
+    "before_lf": "64b9b7b6ae550d5a8b5d65e69101edc4d15f47b7fded687cbb1217ee96c4ba98",
+    "after_lf": "a4073a8efee3155f9e580e94914b2ba784df8d298706c23b92b169b5ee7c127b"
+  },
+  {
+    "version": "HallRoadR3-20261123",
+    "path": "Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp",
+    "patch": "Integration/HallRoadR3-20261123/Source__FPSGAME__WorldGeneration__HillsTavernSite.cpp.patch",
+    "before_lf": "5960c2ea3474618809b22500076bc7a0c76b37077b627be7e96fefc893325d65",
+    "after_lf": "6c4adba82f795d8444dad411d17e582534a36c9be88a3a39bd795ea3df7805eb"
+  },
+  {
+    "version": "HallRoadR3-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/author_village.py",
+    "patch": "Integration/HallRoadR3-20261123/Tools__WorldGeneration__AbandonedVillage__author_village.py.patch",
+    "before_lf": "7322da8fe2ffa229d7a6e02cab9ecf941791f91cd5d9b1d43ace9399dbebc42e",
+    "after_lf": "342ff375305127b4e5af59854fccd8f2984e72b3228df2cc99ff1c4c9815584e"
+  },
+  {
+    "version": "HallRoadR3-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/build_exterior_lod.py",
+    "patch": "Integration/HallRoadR3-20261123/Tools__WorldGeneration__AbandonedVillage__build_exterior_lod.py.patch",
+    "before_lf": "d8872cb4d34aa8e710262907e84a7499d320632b34fd0088bcf689dcb3b2fb5b",
+    "after_lf": "6b0dfb6d6e9acb3c76b0b04718d7aaa6590033f498b475764a6f0ca58902b6b6"
+  },
+  {
+    "version": "HallRoadR3-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/draw_plan.py",
+    "patch": "Integration/HallRoadR3-20261123/Tools__WorldGeneration__AbandonedVillage__draw_plan.py.patch",
+    "before_lf": "4fb8f16d3aea8f3d5bbb0f76879c06469dff8ee20aad23d790a93d4004613f36",
+    "after_lf": "7c251602dde98b624fe964bbf20bf1760611da44f7cd87e5dbb8ecd9909bd009"
+  },
+  {
+    "version": "HallRoadR3-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/inn_frontage.py",
+    "patch": "Integration/HallRoadR3-20261123/Tools__WorldGeneration__AbandonedVillage__inn_frontage.py.patch",
+    "before_lf": "177cc82ec56d9d447a21558036b83d967c9b22eb8be4a9420cb22b64316fdbed",
+    "after_lf": "27935ed8203c28bed50dd60126360ca5be93d23cd97ae426567e8f2e73a75703"
+  },
+  {
+    "version": "HallRoadR3-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/tavern_shell.py",
+    "patch": "Integration/HallRoadR3-20261123/Tools__WorldGeneration__AbandonedVillage__tavern_shell.py.patch",
+    "before_lf": "1ced86afa25faca804491b3c6386e2f03747003db11e371c16ab7b170ac32c4a",
+    "after_lf": "2fbf41872305e228a265764c8d91fb3ee44ee5e54eb07fe4d1152fd9cb73fd4b"
+  },
+  {
+    "version": "HallRoadR3-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py",
+    "patch": "Integration/HallRoadR3-20261123/Tools__WorldGeneration__AbandonedVillage__village_ground_relief.py.patch",
+    "before_lf": "18852c7e48532ce75d848fc8bfa146da1802682ccf2549cb2e0314cbbdd508c3",
+    "after_lf": "760b3c94a0957871f488c8f2f2aaa47177fe82bfce39c879d895fee8b607877e"
+  },
+  {
+    "version": "JoineryR4-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/build_exterior_lod.py",
+    "patch": "Integration/JoineryR4-20261123/Tools__WorldGeneration__AbandonedVillage__build_exterior_lod.py.patch",
+    "before_lf": "6b0dfb6d6e9acb3c76b0b04718d7aaa6590033f498b475764a6f0ca58902b6b6",
+    "after_lf": "39faa82f7014a11e670914f7d91cb783d3d9fe8f8462a9f639a2ce61909d5d56"
+  },
+  {
+    "version": "JoineryR4-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/tavern_shell.py",
+    "patch": "Integration/JoineryR4-20261123/Tools__WorldGeneration__AbandonedVillage__tavern_shell.py.patch",
+    "before_lf": "2fbf41872305e228a265764c8d91fb3ee44ee5e54eb07fe4d1152fd9cb73fd4b",
+    "after_lf": "1deac3550dd5bbc9c7e03606cb4b3579111d9de6ff8ba9108c7028b5880f7ce6"
+  },
+  {
+    "version": "NativeDiningWallsR5-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/author_shop_house_modules.py",
+    "patch": "Integration/NativeDiningWallsR5-20261123/Tools__WorldGeneration__AbandonedVillage__author_shop_house_modules.py.patch",
+    "before_lf": "ecd14277ec07a13fe5ed05f05db9f9b26729183733cb291e8811d3a6fa1cf9ee",
+    "after_lf": "d4ce11929774e2a24747899a6406992b30be4f5f4e83d566a440d7d4e7411cf0"
+  },
+  {
+    "version": "NativeDiningWallsR5-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/build_exterior_lod.py",
+    "patch": "Integration/NativeDiningWallsR5-20261123/Tools__WorldGeneration__AbandonedVillage__build_exterior_lod.py.patch",
+    "before_lf": "39faa82f7014a11e670914f7d91cb783d3d9fe8f8462a9f639a2ce61909d5d56",
+    "after_lf": "c862cd9d20f99e1dd801ee03df53157908a7cbadd932fe8f4e8345009e07f6e7"
+  },
+  {
+    "version": "NativeDiningWallsR5-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/tavern_shell.py",
+    "patch": "Integration/NativeDiningWallsR5-20261123/Tools__WorldGeneration__AbandonedVillage__tavern_shell.py.patch",
+    "before_lf": "1deac3550dd5bbc9c7e03606cb4b3579111d9de6ff8ba9108c7028b5880f7ce6",
+    "after_lf": "187b45f8baedf3a9e6540b58b1e6bac329f0f7c5bb5806243bee6c76e321bb79"
+  },
+  {
+    "version": "ForecourtR6-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/draw_plan.py",
+    "patch": "Integration/ForecourtR6-20261123/Tools__WorldGeneration__AbandonedVillage__draw_plan.py.patch",
+    "before_lf": "7c251602dde98b624fe964bbf20bf1760611da44f7cd87e5dbb8ecd9909bd009",
+    "after_lf": "76880fa1e84e27e24f014798eee07f4a893df5136151fd169c6892b545cddadf"
+  },
+  {
+    "version": "ForecourtR6-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py",
+    "patch": "Integration/ForecourtR6-20261123/Tools__WorldGeneration__AbandonedVillage__village_ground_relief.py.patch",
+    "before_lf": "760b3c94a0957871f488c8f2f2aaa47177fe82bfce39c879d895fee8b607877e",
+    "after_lf": "f8930a192c121ba73505d841e4843ed9e27eea6c8396610b6802891f8fb444cd"
+  },
+  {
+    "version": "ForecourtR6-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_yard_dressing.py",
+    "patch": "Integration/ForecourtR6-20261123/Tools__WorldGeneration__AbandonedVillage__village_yard_dressing.py.patch",
+    "before_lf": "4f3bab73c2ce0fe916076d726ffe5e5ebb8913ee3d8f1c1643308070d25ca34d",
+    "after_lf": "67c77aeba37bcb326af344a91d6f5b6c404bfc5289f9c813b8cc2b5aa74345f2"
+  },
+  {
+    "version": "TroughRunoffR7-20261123",
+    "path": "Tools/WorldGeneration/AbandonedVillage/tavern_shell.py",
+    "patch": "Integration/TroughRunoffR7-20261123/Tools__WorldGeneration__AbandonedVillage__tavern_shell.py.patch",
+    "before_lf": "187b45f8baedf3a9e6540b58b1e6bac329f0f7c5bb5806243bee6c76e321bb79",
+    "after_lf": "a7730c0529fbbee144571cedd4ec25159d28449542f342d73beecc4681b089de"
+  },
+  {
+    "version": "GroundReliefR1",
+    "path": "Tools/WorldGeneration/AbandonedVillage/draw_plan.py",
+    "patch": "Integration/GroundReliefR1/Tools__WorldGeneration__AbandonedVillage__draw_plan.py.patch",
+    "before_lf": "d530d56c883f31a663b0a3a12110883d1c1bb59fd6cbb080ab426459d0942a22",
+    "after_lf": "00b6dc97fa78bdaafae4f32dac5d42c028ee8dbb6e4ecfe9f1471b7e32008e4f"
+  },
+  {
+    "version": "GroundReliefR1",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsGroundLayers.h",
+    "patch": "Integration/GroundReliefR1/Source__FPSGAME__WorldGeneration__TemperateHillsGroundLayers.h.patch",
+    "before_lf": "76786801ab32107f09956b1cdc86e7ad6e6109a90725a508e502ebdc22234c78",
+    "after_lf": "fcdf216b8f8d4f6d7aea6cafc596496a0a20b3957ccda3d5395db88279ebad51"
+  },
+  {
+    "version": "GroundReliefR2",
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py",
+    "patch": "Integration/GroundReliefR2/Tools__WorldGeneration__AbandonedVillage__village_ground_relief.py.patch",
+    "before_lf": "0e7aa88707a3baab8b1319e5cbb2924939c5b1749576fbb8fa308517633b3057",
+    "after_lf": "6f402f17e08052086fc2ab6978fab22f8faf4c05a4c8ab39f24075b20a9792a0"
+  },
+  {
+    "version": "FrontagesR3",
+    "path": "Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py",
+    "patch": "Integration/FrontagesR3/Tools__WorldGeneration__AbandonedVillage__village_ground_relief.py.patch",
+    "before_lf": "6f402f17e08052086fc2ab6978fab22f8faf4c05a4c8ab39f24075b20a9792a0",
+    "after_lf": "1d3b40d627ecfbae2e02a775f447d73ee0df676f0620ee4d81676a4cb284cdca"
+  },
+  {
+    "version": "FrontagesR3",
+    "path": "Tools/WorldGeneration/VillageGunshop/install_gunshop.py",
+    "patch": "Integration/FrontagesR3/Tools__WorldGeneration__VillageGunshop__install_gunshop.py.patch",
+    "before_lf": "e32838c62edb6ba82950f2ee091187cf6b938c46e2df3d916740e6bd68e9be07",
+    "after_lf": "498f924f6c2eb312ba85933b88c1f43860a71baea1786d0406c8e291a4894f28"
+  },
+  {
+    "version": "VillageStreetRelief-20261125",
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillageRegion.cpp",
+    "patch": "Integration/VillageStreetRelief-20261125/Source__FPSGAME__WorldGeneration__ForestVillageRegion.cpp.patch",
+    "before_lf": "39f79c24408e0230ca9636806458dbe3ff7fd1e77679cd317ac7aa669fe25e44",
+    "after_lf": "c553865ca81ea2a0465012cb644a69ffde2783faebac37fdb55b4ffbbe181e76"
+  },
+  {
+    "version": "VillageStreetRelief-20261125",
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillageRelief.cpp",
+    "patch": "Integration/VillageStreetRelief-20261125/Source__FPSGAME__WorldGeneration__ForestVillageRelief.cpp.patch",
+    "before_lf": "89ecbf88a313124a44f50a1d005fc36e838e85499126fea7c08929d8818a4d2e",
+    "after_lf": "b077024b0959b6bcd0355f94bddbb90c28407ff6ab8933d3eead66832f1cf942"
+  },
+  {
+    "version": "VillageStreetRelief-20261125",
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillageRelief.h",
+    "patch": "Integration/VillageStreetRelief-20261125/Source__FPSGAME__WorldGeneration__ForestVillageRelief.h.patch",
+    "before_lf": "47a117a0091c264544ad25fe3312a3a4e79ce64cd7e23ab0c2e3161820d25e8f",
+    "after_lf": "7d3d9010e722d292e1c3f0c76e3ab09b3dbe431d8ab4889123023feb25cff087"
+  },
+  {
+    "version": "VillageStreetRelief-20261125",
+    "path": "Tools/WorldGeneration/ForestVillage/export_village_relief.py",
+    "patch": "Integration/VillageStreetRelief-20261125/Tools__WorldGeneration__ForestVillage__export_village_relief.py.patch",
+    "before_lf": "47a28b5d090c329802bb8902de1912b787d070f5d7ad2357f6c9ef966d595bd5",
+    "after_lf": "afd370df6c17d922c3c4928ebb3ea08f41a7ea4342cdb11bfc03b777959c9b46"
+  },
+  {
+    "version": "VillageForestFloorPatches-20261125",
+    "path": "Tools/WorldGeneration/ForestVillage/author_village_loess_foothills.py",
+    "patch": "Integration/VillageForestFloorPatches-20261125/Tools__WorldGeneration__ForestVillage__author_village_loess_foothills.py.patch",
+    "before_lf": "a7cfbea0333dd00c71d19ffe1c9f6d654d45242bb64f7453d56f828233b33dd6",
+    "after_lf": "24d528111d8927af98c1633a45c360e696706d19085bcae244c942fbf10ab6e2"
+  },
+  {
+    "version": "VillageDeliveryAudit-20261125",
+    "path": "Source/FPSGAME/FPSGAME.Build.cs",
+    "patch": "Integration/VillageDeliveryAudit-20261125/Source__FPSGAME__FPSGAME.Build.cs.patch",
+    "before_lf": "3c38c476fb7d2edf958578f7d2d69563aa28d778cf08a54e54fca96180cb0e17",
+    "after_lf": "7c20842d85d0095c091b1d539d25edf1bef301883a1236e35117d911ba076cb5"
+  },
+  {
+    "version": "VillageDeliveryAudit-20261125",
+    "path": "Tools/WorldGeneration/ForestVillage/prepare_village_forest_floor.py",
+    "patch": "Integration/VillageDeliveryAudit-20261125/Tools__WorldGeneration__ForestVillage__prepare_village_forest_floor.py.patch",
+    "before_lf": "58966b8d3ecf55c3131399c6225c62c62f1d2d93225a61521a423a83a0a93702",
+    "after_lf": "8e35b439e63f86c51d7bf2bb5e1498db263b579dd09d524011e2b6cf97dce9f4"
+  },
+  {
+    "version": "VillageDeliveryAudit-20261125",
+    "path": "Tools/WorldGeneration/ForestVillage/prepare_village_street_relief.py",
+    "patch": "Integration/VillageDeliveryAudit-20261125/Tools__WorldGeneration__ForestVillage__prepare_village_street_relief.py.patch",
+    "before_lf": "9df6c5f26f99ed50f0f0d12775df1b062081ed13ab2745f5526ef046dea42188",
+    "after_lf": "903df87afe0af0bf0b7f19cdb68d7798b260df2d54831e35b0f8ad7981c264c5"
+  },
+  {
+    "version": "GroundReliefR1",
+    "path": "Source/FPSGAME/WorldGeneration/HillsFixedTerrainCells.cpp",
+    "patch": "Integration/GroundReliefR1/Source__FPSGAME__WorldGeneration__HillsFixedTerrainCells.cpp.patch",
+    "before_lf": "3ab63e515fcb5430cceb87893adad25ea21829719fc48a0cf86e5c14a848ed1e",
+    "after_lf": "d1e4198f926011656d0f8418612d24056ba5971266da4f6be6d318adfe3c6a55"
+  },
+  {
+    "version": "GroundReliefR1",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsPCG.cpp",
+    "patch": "Integration/GroundReliefR1/Source__FPSGAME__WorldGeneration__TemperateHillsPCG.cpp.patch",
+    "before_lf": "8ccc3e03afcd1bd2d3abcd6e5e4e82e0e537281c14581785cad98784e3da4a42",
+    "after_lf": "16900ccc0c2ffc0a3b3abfb3c93bda56b823176246eaa702580dd4ff9ff101c9"
+  },
+  {
+    "version": "GroundReliefR1",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp",
+    "patch": "Integration/GroundReliefR1/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingPreparation.cpp.patch",
+    "before_lf": "e3db5fb58ee7daa765be2ce2afc80ea514dbcb4136d523aee7ef80a1041f4883",
+    "after_lf": "8ca34cf0f16eca349e8bae137b769100aedb7105bd7f500e6caf3bb35d989ca8"
+  },
+  {
+    "version": "GroundReliefR2",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageGround.cpp",
+    "patch": "Integration/GroundReliefR2/Source__FPSGAME__WorldGeneration__TemperateVillageGround.cpp.patch",
+    "before_lf": "56a41b627351bb1063ee93d2a18114c5898ffc58e88ffcd925d0685878d8d3be",
+    "after_lf": "452392c2de95dcf3268b406221cd2f6d476b13a35580e8c26813cdefa3188204"
+  },
+  {
+    "version": "GroundReliefR1",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp",
+    "patch": "Integration/GroundReliefR1/Source__FPSGAME__WorldGeneration__TemperateHillsTerrain.cpp.patch",
+    "before_lf": "7884105a152f432e3c8d78570971f7df2dba8db32c48dbdf971c67fabd3e297b",
+    "after_lf": "d3abf3b7093a54bc4ab3352d0cfd5106d8f61f6d55f5eedf7560e4dc2d6461b7"
+  }
+]

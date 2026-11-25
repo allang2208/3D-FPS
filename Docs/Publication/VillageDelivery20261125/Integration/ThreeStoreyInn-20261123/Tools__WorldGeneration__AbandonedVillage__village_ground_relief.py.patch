@@ -1,0 +1,27 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py
++++ b/Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py
+@@ -284,9 +284,21 @@
+ 
+ 
+ def apply_ground(packed, plan, kit):
+-    height, soil, mineral, density, guides = fields(plan, kit)
+-    write_native(height, gravel_points(density, guides, plan), plan)
+-    return dress_shop_flags(mask_floor(packed,soil,mineral),plan,kit)
++    # Keep the seed sequence and the gravel budget of the published village.
++    # A local courtyard refit must not reshuffle rocks in unrelated streets.
++    baseline=plan
++    inn=plan.get('tavern',{}).get('inn')
++    if inn:
++        baseline={**plan,'tavern':{k:v for k,v in plan['tavern'].items() if k!='inn'}}
++    height, soil, mineral, density, guides = fields(baseline, kit)
++    stones=gravel_points(density,guides,baseline)
++    packed=dress_shop_flags(mask_floor(packed,soil,mineral),baseline,kit)
++    if inn:
++        from inn_frontage import patch
++        house=next(h for h in plan['houses'] if h[0]==plan['tavern']['house'])
++        packed,height,stones=patch(packed,height,stones,plan,plot_geometry(house,kit[house[2]],plan))
++    write_native(height,stones,plan)
++    return packed
+ 
+ 
+ if __name__ == '__main__':

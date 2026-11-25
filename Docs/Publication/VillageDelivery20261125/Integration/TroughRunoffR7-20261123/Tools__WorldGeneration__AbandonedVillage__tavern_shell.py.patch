@@ -1,0 +1,11 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/tavern_shell.py
++++ b/Tools/WorldGeneration/AbandonedVillage/tavern_shell.py
+@@ -238,6 +238,8 @@
+                 fit_suite(anchor)
+                 from dining_walls import install as use_dining_walls
+                 use_dining_walls(anchor)
++                from trough_runoff import install as dress_crib_end
++                dress_crib_end(anchor)
+     return dict(house=house[0], states=['Ruined','Repaired'], anchor=SITE_TAG, chimney=chimney,counter_pendant=pendant,
+                 footprint_cm=[900*xy_scale,600*xy_scale], centre_m=shape['center'],
+                 heading=house[5]-90., shell_instances=sum(map(len,batches.values())))

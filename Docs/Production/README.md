@@ -84,3 +84,5 @@
 ## 弓类联机修复与恢复
 
 - [边境复合弓、通用弓弦和联机回写](../Publication/FrontierBow20261124/README.md)收录正式工程的模块映射、GPU 采样和清理回执。
+
+丘陵村庄的风车、管理员、三层酒馆、城内地面和弱网复查已按本批范围归档。[源码发布与恢复](../Publication/VillageDelivery20261125/README.md)。

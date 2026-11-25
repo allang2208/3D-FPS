@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/FPSGAME.Build.cs
++++ b/Source/FPSGAME/FPSGAME.Build.cs
+@@ -53,6 +53,7 @@
+         PrivateDependencyModuleNames.Add("FPSBlast");
+         PrivateDependencyModuleNames.Add("AnimationCore");
+         PrivateDependencyModuleNames.Add("HairStrandsCore");
++        PrivateDependencyModuleNames.Add("Renderer"); // Per-instance continuous groom LOD on the render thread.
+         PrivateDependencyModuleNames.Add("ResidentHairStencil");
+         PrivateDependencyModuleNames.Add("AnimationWarpingRuntime");
+         PrivateDependencyModuleNames.Add("RHI");
+@@ -89,12 +90,15 @@
+         string[] bakedHills = { "FixedLayout/Hills.layout", "FixedLayout/Quarry.dressing", "FixedTerrain/Hills.terrain" };
+         string region = Path.Combine(root, "Content/ForestPathStudy/VillageRegion");
+         string[] forestPackages = { "Content/GameMaps/L_ForestPathVillage.umap",
++            "Content/ForestPathStudy/VillageRegion/Reference/M_ForestReferenceMesh.uasset",
++            "Content/ForestPathStudy/VillageRegion/Reference/MI_ForestVillageMudRoad.uasset",
++            "Content/ForestPathStudy/VillageRegion/Reference/VillageLoess/T_VillageForestFloorPatches.uasset",
+             "Content/ForestPathStudy/VillageRegion/Reference/TrailLandscape/L_ForestPathForest.umap",
+             "Content/ForestPathStudy/VillageRegion/PCG_ForestVillageSurroundings.uasset",
+             "Content/ForestPathStudy/VillageRegion/Quarry/L_ForestQuarry.umap",
+             "Content/EuropeanHornbeam/Geometry/SimpleWind/SM_EuropeanHornbeam_Forest_04.uasset",
+             "Content/EuropeanHornbeam/Geometry/SimpleWind/SM_EuropeanHornbeam_Forest_05.uasset" };
+-        string[] forestFolders = { "Reference/Terrain", "Themes", "Ecology" };
++        string[] forestFolders = { "Reference/Terrain", "ForestFloor", "Themes", "Ecology" };
+         var inputs = Directory.GetFiles(generation, "Temperate*", SearchOption.TopDirectoryOnly)
+             .Concat(Directory.GetFiles(generation, "Forest*", SearchOption.TopDirectoryOnly))
+             .Where(p => (p.EndsWith(".h") || p.EndsWith(".cpp") || p.EndsWith(".inl")) &&
+@@ -103,6 +107,7 @@
+             // Peers rebuild the streamed shell and its static furniture collision locally.
+             .Concat(Directory.GetFiles(generation, "HillsTavern*.cpp", SearchOption.TopDirectoryOnly))
+             .Concat(Directory.GetFiles(generation, "HillsTavern*.h", SearchOption.TopDirectoryOnly))
++            .Concat(new[] { "HillsWindmill.cpp", "HillsWindmill.h" }.Select(file => Path.Combine(generation,file)))
+             .Concat(Directory.Exists(tavernAssets) ? Directory.GetFiles(tavernAssets, "SM_*.uasset", SearchOption.AllDirectories) : Array.Empty<string>())
+             .Concat(File.Exists(villageMap) ? new[] { villageMap } : Array.Empty<string>())
+             .Concat(bakedHills.Select(file => Path.Combine(assets, file)))

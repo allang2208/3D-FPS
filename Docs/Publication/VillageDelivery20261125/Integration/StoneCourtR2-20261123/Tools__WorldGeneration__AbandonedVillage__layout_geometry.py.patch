@@ -1,0 +1,18 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/layout_geometry.py
++++ b/Tools/WorldGeneration/AbandonedVillage/layout_geometry.py
+@@ -62,11 +62,14 @@
+         if inn := tavern.get('inn'):
+             nx,ny=shape['normal']
+             back=(-nx*inn['setback_m'],-ny*inn['setback_m'])
++            side=rotate(inn.get('east_shift_m',0),0,house[5]-90.)
++            back=tuple(a+b for a,b in zip(back,side))
+             anchor=tuple(a+b for a,b in zip(shape['center'],back))
+-            shift=rotate(-inn['west_extension_m']*.5,0,house[5]-90.)
++            shift=rotate(-inn['west_extension_m']*.5,inn.get('rear_range_m',0)*.5,house[5]-90.)
+             shape['shell_center']=anchor
+             shape['center']=tuple(a+b for a,b in zip(anchor,shift))
+             shape['half'][1]+=inn['west_extension_m']*.5
++            shape['half'][0]+=inn.get('rear_range_m',0)*.5
+             for key in ('entry','step'):
+                 shape[key]=tuple(a+b for a,b in zip(shape[key],back))
+     return shape

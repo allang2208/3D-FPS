@@ -1,0 +1,159 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/village_yard_dressing.py
++++ b/Tools/WorldGeneration/AbandonedVillage/village_yard_dressing.py
+@@ -3,21 +3,17 @@
+ from collections import Counter, defaultdict
+ import math
+ import random
+-import json
+ 
+ import unreal as u
+ 
+ from village_boundary_dressing import MainStreet, dress_boundaries
+ from layout_geometry import house_paths, plot_geometry, rotate, wall_segments
+-from kitchen_garden_geometry import CROP_MESHES, KitchenGarden
+-import kitchen_garden_soil
++from inn_forecourt import dress_forecourt, reserved
+ 
+ TAG = 'VillageYardDressing'
+ NORMANDY = '/Game/UnrealNormandy/StaticMeshes/'
+ HILLS = '/Game/WorldGeneration/TemperateHills/'
+ MESH = {
+-    **CROP_MESHES,
+-    'picked_carrot': '/Game/Items/CropHarvest20261111/Meshes/SM_Harvest_Carrot',
+     'rough': NORMANDY+'SM_GrassTall_00A',
+     'seedhead': NORMANDY+'SM_GrassTall_01A', 'bent': NORMANDY+'SM_Grass_01A',
+     'stone': NORMANDY+'SM_Stone_01A', 'shard': NORMANDY+'SM_Stone_03A',
+@@ -35,7 +31,6 @@
+     'cask': '/Game/WorldGeneration/VillageTavern/Service/SM_TavernAleCask',
+     'tap_cask': '/Game/WorldGeneration/VillageTavern/Service/SM_TavernTapCask',
+     'pitcher': '/Game/WorldGeneration/VillageTavern/Service/SM_TavernPitcher',
+-    'seedbed': '/Game/Building/PlantingBed20261017/SM_PlantingBed_2m_V2',
+ }
+ PLANTS = {'tuft','grass','herb','leaf','rough','seedhead','bent'}
+ STONES = {'stone','shard'}
+@@ -72,7 +67,6 @@
+     ex,ey = plan.get('surface_extent_m',plan['extent_m'])
+     gx,gy = plan['extent_m']
+     mesh = {role:u.load_asset(path) for role,path in MESH.items()}
+-    mesh['ridges'] = kitchen_garden_soil.make_ridges(plan['kitchen_garden']['rows'])
+     for role,obj in mesh.items():
+         if not isinstance(obj,u.StaticMesh):
+             raise RuntimeError('Missing village mesh '+MESH[role])
+@@ -99,7 +93,6 @@
+     working_route = []
+     batches = defaultdict(list)
+     counts = Counter()
+-    garden = KitchenGarden(plan)
+ 
+     def clear(x,y,r,median=False,shoulder=False):
+         if abs(x)+r>gx-.35 or abs(y)+r>gy-.35:
+@@ -133,7 +126,7 @@
+             return all(segment_distance(x,y,a,b)>r+w for a,b,w in segments[main_segments:])
+         return all(segment_distance(x,y,a,b)>r+w for a,b,w in segments)
+ 
+-    def prepare(role,x,y,size,yaw, *, support=None,median=False,kitchen=False,shoulder=False):
++    def prepare(role,x,y,size,yaw, *, support=None,median=False,shoulder=False):
+         box = boxes[role]
+         span = box.max-box.min
+         # Dimensions refer to the long horizontal axis, including for log piles
+@@ -142,7 +135,7 @@
+         if span.y>span.x:
+             yaw -= 90.
+         radius = .005*math.hypot(span.x,span.y)*scale
+-        if not kitchen and garden.overlaps(x,y,radius):
++        if reserved(plan,x,y,radius):
+             return None
+         if not clear(x,y,radius,median,shoulder):
+             return None
+@@ -208,65 +201,6 @@
+     fall = math.atan2(ry-cy,rx-cx)+math.radians(-6.)
+     scatter('timber',rx+1.97*math.cos(fall),ry+1.97*math.sin(fall),
+             1.06,math.degrees(fall)+12.,'house_05')
+-
+-    # Walk in from the lane to harvest the long carrot row. The shorter
+-    # succession row and nursery occupy the wedge against the tavern wall.
+-    crop_rng = random.Random(2094)
+-    def carrot(role,x,y,soil_z):
+-        scale = crop_rng.uniform(.90,1.08)
+-        box = boxes[role]
+-        radius = .01*math.hypot(max(abs(box.min.x),abs(box.max.x)),
+-                                max(abs(box.min.y),abs(box.max.y)))*scale
+-        if clear(x,y,radius):
+-            # The V3 crops have an authored root origin right at soil level.
+-            tr = u.Transform(location=[100*x,100*y,soil_z],scale=[scale]*3,
+-                             rotation=u.Rotator(yaw=crop_rng.uniform(-180,180)))
+-            put((role,tr,(x,y,radius*.45)),'kitchen_garden')
+-
+-    bed_source = source.parent/'PlantingBed20261017/Source/PlantingBed_2m_V2/manifest.json'
+-    slots = json.loads(bed_source.read_text(encoding='utf-8'))['plant_slots']
+-    su,sv,size = garden.data['nursery']
+-    bed = prepare('seedbed',*garden.world(su,sv),size,garden.yaw,kitchen=True)
+-    if bed:
+-        put(bed,'kitchen_garden')
+-        for ordinal in garden.data['nursery_slots']:
+-            sx,sy,sz = slots[ordinal]['position_m']
+-            at = u.MathLibrary.transform_location(bed[1],u.Vector(100*sx,-100*sy,100*sz))
+-            carrot('carrot_sprout',at.x*.01,at.y*.01,at.z)
+-    soil_frame = u.Transform(location=[100*garden.origin[0],100*garden.origin[1],0.],
+-                             rotation=u.Rotator(yaw=garden.yaw))
+-    batches['ridges'].append(soil_frame)
+-    counts['kitchen_garden'] += 1
+-    for index,row in enumerate(garden.data['rows']):
+-        for side in (-1,1):
+-            along = row['start'] + (.21 if side<0 else .39)
+-            while along < row['end']-.14:
+-                # Three harvested stations at the sieve end, thinning to
+-                # smaller plants in the strip against the wall.
+-                if index or side>0 or along > row['start']+1.05:
+-                    across = row['across'] + side*.145 + crop_rng.uniform(-.035,.035)
+-                    role = 'carrot_young' if index or crop_rng.random()<.25 else 'carrot_leafy'
+-                    carrot(role,*garden.world(along,across),kitchen_garden_soil.height(row,along,across)-.6)
+-                along += crop_rng.uniform(.34,.43)
+-    x,y = garden.world(*garden.data['harvest_sieve'])
+-    sieve = prepare('sieve',x,y,.43,garden.yaw+24,kitchen=True)
+-    if sieve:
+-        put(sieve,'kitchen_garden')
+-        # The gathering sieve has a woven floor 1 cm above its source pivot.
+-        floor = u.MathLibrary.transform_location(sieve[1],u.Vector(0,0,1.25)).z
+-        box = boxes['picked_carrot']
+-        for sideways,turn,scale in [(-2.6,-9.,.78),(2.5,11.,.86)]:
+-            rot = u.Rotator(pitch=89.,yaw=garden.yaw+turn)
+-            oriented = u.Transform(rotation=rot,scale=[scale]*3)
+-            corners = [u.MathLibrary.transform_location(oriented,u.Vector(a,b,c))
+-                       for a in (box.min.x,box.max.x) for b in (box.min.y,box.max.y)
+-                       for c in (box.min.z,box.max.z)]
+-            ox = (max(p.x for p in corners)+min(p.x for p in corners))*.5
+-            oy = (max(p.y for p in corners)+min(p.y for p in corners))*.5
+-            dx,dy = rotate(0,sideways,garden.yaw)
+-            tr = u.Transform(rotation=rot,scale=[scale]*3,
+-                             location=[100*x+dx-ox,100*y+dy-oy,floor-min(p.z for p in corners)])
+-            put(('picked_carrot',tr,(x,y,.04)),'kitchen_garden')
+ 
+     relations = dress_boundaries(world,plan,scatter)
+     street.dress(plan,scatter,relations)
+@@ -325,7 +259,7 @@
+                         radius = .005*math.hypot(span.x*tr.scale3d.x,span.y*tr.scale3d.y)
+                         if pebble and radius > .27:
+                             continue
+-                        in_use = garden.overlaps(x,y,radius) or any(
++                        in_use = reserved(plan,x,y,radius) or any(
+                             math.hypot(x-a,y-b)<r+radius for a,b,r in working_route)
+                         loose = pebble and not any(segment_distance(x,y,a,b)<w+.58 for a,b,w in low_wall)
+                         # The original band pass also placed these specific
+@@ -372,7 +306,7 @@
+             if material:
+                 comp.set_material(slot,material)
+         comp.component_tags = ['VillageYard.'+role]
+-        if role in ('seedbed','cask','tap_cask','sorting_table'):
++        if role in ('cask','tap_cask','sorting_table'):
+             comp.set_collision_profile_name('BlockAll')
+         else:
+             comp.set_collision_profile_name('NoCollision')
+@@ -388,5 +322,6 @@
+     smith_cleared=clear_yard(world)
+     from smith_yard_states import build as build_yard_states
+     build_yard_states(world)
+-    return dict(mesh_groups=len(batches),instances=sum(counts.values()),areas=dict(counts),smith_cleared=smith_cleared,
++    court = dress_forecourt(world,plan,kit)
++    return dict(tavern_forecourt=court,mesh_groups=len(batches),instances=sum(counts.values()),areas=dict(counts),smith_cleared=smith_cleared,
+                 boundary_sources=relations,old_verge_removed=dict(removed))

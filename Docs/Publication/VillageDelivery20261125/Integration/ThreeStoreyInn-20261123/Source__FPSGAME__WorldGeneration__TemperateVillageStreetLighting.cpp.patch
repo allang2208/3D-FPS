@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillageStreetLighting.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillageStreetLighting.cpp
+@@ -58,7 +58,10 @@
+     // Preserve the original inn fixture when the tavern is repaired first.
+     // It uses the inn floor frame and is also a station in the municipal row.
+     if (bJunction && !Exists(InnTag))
+-        Install(InnTag, FTransform(FRotator(0.,149.,0.), FVector(586.,-1125.,-4.)));
++    {
++        const double Setback = Host->ActorHasTag(TEXT("VillageTavern.ThreeStoreyInn")) ? 65. : 0.;
++        Install(InnTag, FTransform(FRotator(0.,149.,0.), FVector(586.,-1125.-Setback,-4.)));
++    }
+     if (!bStreet) return;
+ 
+     int32 PostIndex = 0;

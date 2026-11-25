@@ -1,0 +1,30 @@
+[
+  {
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillage.cpp",
+    "sha256": "af04b1f7ffed21976d873d44105af3deaeb451183c69a0cb638e55e4ef62345e"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillageRegion.cpp",
+    "sha256": "b5ac407c6cbc78e018b0ea2e4ca793c05282b42f2b6d877562cf2d88618a23bc"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillageRegion.h",
+    "sha256": "8a8b019b12341de9a2f97dc34eb4ef182ce076fc559b56b6ca9078723879ab08"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillageReliefData.inl",
+    "sha256": "ba757c7b99a27a54c3a0bbe0d6fdafe17fa79bb1beb70d90c4611177889bc111"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillageStreetRelief.inl",
+    "sha256": "eccf4336cec3a072b1981edd521a2e85f4d4d81c64723d13e0dfc587aaa9380f"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageGroundData.inl",
+    "sha256": "3e4e7a46e9de983418ad52349663d7a730f50fedf7864e1e3db61ef6bf2902c9"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageLayout.inl",
+    "sha256": "7b4ba716f967f7662d84c64dc1aa8e7c544b47555aa2734608d07f22e46ed1c4"
+  }
+]

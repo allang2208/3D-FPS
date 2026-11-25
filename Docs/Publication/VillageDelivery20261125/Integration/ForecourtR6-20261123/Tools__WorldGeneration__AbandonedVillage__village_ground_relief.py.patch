@@ -1,0 +1,39 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py
++++ b/Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py
+@@ -7,7 +7,6 @@
+ from PIL import Image
+ from scipy.ndimage import map_coordinates
+ 
+-from kitchen_garden_geometry import KitchenGarden
+ from layout_geometry import house_paths, plot_geometry, wall_segments
+ from shop_frontages import flag_walks, public_frame
+ from village_tread import ramp, soil_variation, tread, window
+@@ -79,11 +78,13 @@
+             reserve(mill_yard_gap(x,y,shape))
+     for yard in plan.get('service_clearings', []):
+         reserve(box(x, y, yard['center'], yard['half'], yard['yaw']))
+-    garden = KitchenGarden(plan)
+-    for u, v, hx, hy in garden.beds:
+-        reserve(box(x, y, garden.world(u, v), (hx, hy), garden.yaw))
+-    reserve(distance(x, y, garden.trail)-garden.data['working_width']*.5)
+-    sx, sy = garden.world(*garden.data['harvest_sieve'])
++    # Retain the original exclusion only in the village-wide seeded pass. The
++    # inn's local authoring pass owns the soil and gravel inside this patch.
++    old = plan['tavern_forecourt']['baseline_scatter_reserve']
++    for center, half, angle in old['boxes']:
++        reserve(box(x, y, center, half, angle))
++    reserve(distance(x, y, old['path'])-old['half_width'])
++    sx, sy = old['point']
+     reserve(np.hypot(x-sx, y-sy)-.4)
+     # Existing stable wing, level turn court and individually modelled ruts.
+     reserve(box(x, y, (43., 38.), (15., 6.)))
+@@ -307,7 +308,8 @@
+     from smith_apron import patch as fit_smith_apron
+     packed,height,stones=fit_smith_apron(packed,height,stones,plan)
+     write_native(height,stones,plan)
+-    return packed
++    from inn_forecourt_wear import paint
++    return paint(packed, plan)
+ 
+ 
+ if __name__ == '__main__':

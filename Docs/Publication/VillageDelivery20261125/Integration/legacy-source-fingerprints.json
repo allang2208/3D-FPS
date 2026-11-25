@@ -1,0 +1,22 @@
+[
+  {
+    "version": "GroundReliefR2",
+    "path": "Tools/WorldGeneration/temperate_ground_cache.py",
+    "after_sha256": "323dbcf974ab07059784f7dc1d50788e9bcaa5b07faba6840a1fd6f9b9c9dd25"
+  },
+  {
+    "version": "GroundReliefR2",
+    "path": "Tools/WorldGeneration/AbandonedVillage/draw_plan.py",
+    "after_sha256": "cc56955c87d42f6390fcfe4ef0eb389daab5bfb8a85f137198fa39088dd79775"
+  },
+  {
+    "version": "GroundReliefR2",
+    "path": "Tools/WorldGeneration/AbandonedVillage/terrain_road_layer.py",
+    "after_sha256": "8345d71ec23c6c7ca820efabf9da20936e205ed032773ca7317b65304968c86a"
+  },
+  {
+    "version": "FrontagesR3",
+    "path": "Tools/WorldGeneration/VillageBakery/install_bakery.py",
+    "after_sha256": "9815e885bab779b74ffc3b6873fd2307baea98e22bc9c56362d44e04eb90839e"
+  }
+]

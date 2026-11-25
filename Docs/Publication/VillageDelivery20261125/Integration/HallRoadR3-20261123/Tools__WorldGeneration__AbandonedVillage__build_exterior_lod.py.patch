@@ -1,0 +1,10 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/build_exterior_lod.py
++++ b/Tools/WorldGeneration/AbandonedVillage/build_exterior_lod.py
+@@ -105,6 +105,7 @@
+                 continue
+             suffix = "_Inn" if label == "Village_02_Tavern" and "VillageTavern.ThreeStoreyInn" in map(str,actor.tags) else ""
+             if "VillageTavern.StoneCourt" in map(str,actor.tags):suffix="_StoneCourt"
++            if "VillageTavern.HallRoadR3" in map(str,actor.tags):suffix="_HallRoadR3"
+             groups.append(bake(actor, parts, f"SM_Exterior_{label}{suffix}_{index:02d}"))
+     if not groups:
+         raise RuntimeError("No village exteriors authored")

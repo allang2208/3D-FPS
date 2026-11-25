@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp
+@@ -212,8 +212,9 @@
+     if (Keeper.IsValid()) return;
+ 
+     AActor* Shell = GetOwner();
+-    // The repaired counter is at Y=182 and the backbar is at Y=354. Face the guests at -Y.
+-    const FTransform StandingPoint(FRotator(0., -90., 0.), FVector(-120., 267., -2.3));
++    FVector Standing(-120.,267.,-2.3);
++    if (Shell->ActorHasTag(TEXT("VillageTavern.HallRoadR3"))) Standing+=FHillsTavernInterior::RefitCounterOffset;
++    const FTransform StandingPoint(FRotator(0.,-90.,0.),Standing);
+     FActorSpawnParameters Spawn;
+     Spawn.Owner = Hills.Get();
+     Spawn.OverrideLevel = Shell->GetLevel();

@@ -1,0 +1,13 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/draw_plan.py
++++ b/Tools/WorldGeneration/AbandonedVillage/draw_plan.py
+@@ -48,7 +48,9 @@
+         f'inline constexpr double CourtFront={front*100:.1f}, CourtBack={back*100:.1f}, CourtSide={side*100:.1f}, CourtOpening={opening*100:.1f};',
+         'struct FRoad { double X,Y,DX,DY,HalfWidth; };','inline constexpr FRoad Roads[] = {']
+ def row(*values):return '    {'+', '.join(f'{v:.3f}' for v in values)+'},'
+-for pts,width in roads:
++inn_stations=plan.get('tavern',{}).get('inn',{}).get('hall_road',{}).get('stations',[])
++inn_links=[([a[:2],b[:2]],a[2]+b[2]) for a,b in zip(inn_stations,inn_stations[1:])]
++for pts,width in roads+inn_links:
+     for a,b in zip(pts,pts[1:]):
+         if math.dist(a,b)>.01:
+             header.append(row(a[0]*100,a[1]*100,(b[0]-a[0])*100,(b[1]-a[1])*100,width*50))

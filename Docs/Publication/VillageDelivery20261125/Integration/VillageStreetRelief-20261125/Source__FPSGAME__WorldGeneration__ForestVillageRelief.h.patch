@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/WorldGeneration/ForestVillageRelief.h
++++ b/Source/FPSGAME/WorldGeneration/ForestVillageRelief.h
+@@ -13,6 +13,7 @@
+     int32 VertexOffset(int32 Column, int32 Row);
+     double OffsetAt(double X, double Y);
+     double SurfaceAt(TConstArrayView<float> Surface, double X, double Y);
++    int32 SitedVertexOffset(TConstArrayView<int16> Offsets,int32 Column,int32 Row);
+     double SampleOffsets(TConstArrayView<int16> Offsets,double X,double Y);
+     void FitLevelDressing(ULevel& Level,const AForestVillageRegion& Region);
+ }

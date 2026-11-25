@@ -1,0 +1,4 @@
+interface:
+  display_name: "UE5 户外地编构建"
+  short_description: "以丘陵或道路景观为单位构建高度场、地表、森林生态与昼夜林雾"
+  default_prompt: "使用 $ue5-landscape-authoring 按道路景观主题调整林道路床和路肩，并同步受影响的高度、碰撞与生态落点。"

@@ -1,0 +1,110 @@
+{
+  "udp": {
+    "checks": {
+      "older_module_rejected": true,
+      "ruined_equal": true,
+      "ruined_gate": true,
+      "repaired_equal": true,
+      "repaired_parts": true,
+      "door_and_dialogue": true,
+      "late_join_repair_and_door": true,
+      "shared_height": true,
+      "clean_exit": true
+    },
+    "passed": true,
+    "points": 12,
+    "max_collision_error_cm": 0.0,
+    "max_peer_error_cm": 0.0,
+    "loss_percent": 2,
+    "lag_ms": 60
+  },
+  "walk": [
+    {
+      "name": "street-hall-guests-owner-suite",
+      "pass": true,
+      "walked_cm": 10060.36790645409,
+      "airborne": false,
+      "crouched": false
+    },
+    {
+      "name": "counter-staff-door-prep-and-pantry",
+      "pass": true,
+      "walked_cm": 1380.8895403995705,
+      "airborne": false,
+      "crouched": false
+    }
+  ],
+  "travel": {
+    "from_world": {
+      "world": "/Game/GameMaps/DayNight_Lighting.DayNight_Lighting",
+      "pawn": "FPSGAMECharacter",
+      "staff_components": 1
+    },
+    "to_world": {
+      "world": "/Game/GameMaps/L_TemperateHills_Initial.L_TemperateHills_Initial",
+      "ready": true,
+      "staff_components": 1
+    },
+    "exit": {
+      "code": 0
+    }
+  },
+  "supports": {
+    "gunshop": {
+      "knots": 120,
+      "old_settled_offset_cm": [
+        -60,
+        -9
+      ],
+      "current_settled_offset_cm": [
+        0,
+        0
+      ],
+      "ink_max": 0
+    },
+    "stablemaster_house": {
+      "knots": 42,
+      "old_settled_offset_cm": [
+        0,
+        2
+      ],
+      "current_settled_offset_cm": [
+        0,
+        0
+      ],
+      "ink_max": 0
+    },
+    "west_paddock": {
+      "knots": 700,
+      "old_settled_offset_cm": [
+        -12,
+        8
+      ],
+      "current_settled_offset_cm": [
+        0,
+        0
+      ],
+      "ink_max": 0
+    }
+  },
+  "area": {
+    "seed": 251143,
+    "grid_xy": [
+      2048,
+      1024
+    ],
+    "village_half_extent_m": [
+      65,
+      50
+    ],
+    "islands_with_visible_core": 226,
+    "equivalent_cover_m2": {
+      "chapel": 134.3,
+      "road": 90.2,
+      "wall": 163.9
+    },
+    "equivalent_cover_percent": 3.0
+  },
+  "source_module": "0f51025182b45500c9cb1f1e7126002539590f8fda747d0392b50e6802e58fdd",
+  "performance": "No isolated GPU measurement in this batch. Earlier PIE F6: town P50 39.70 ms, P95 52.05 ms."
+}

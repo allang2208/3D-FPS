@@ -1,0 +1,42 @@
+{
+  "Source/FPSGAME/FPSGAMEPlayerController.cpp": [
+    "#include \"NPC/VillageArtisanMerchant.h\"\n#include \"NPC/VillageHerbalist.h\"\n#include \"NPC/VillageMillKeeper.h\"\n#include \"WorldGeneration/VillageGunshopServices.h\"\n#include \"NPC/ResidentConversation.h\"",
+    "            }\n            if(auto* Master=Cast<AVillageMasterArtisan>(Target)){InterruptInspection();ChapelDialogue->OpenMerchant(Master);return true;}\n            if(auto* Miller=Cast<AVillageMillKeeper>(Target)){InterruptInspection();ChapelDialogue->OpenMerchant(Miller);return true;}\n            if(Rest&&Rest->Interact())return true;\n            if(auto* Nun=Cast<AChapelNun>(Target)){InterruptInspection();ChapelDialogue->Open(Nun);return true;}"
+  ],
+  "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp": [
+    "#include \"VillageArtisanMerchant.h\"\n#include \"VillageBaker.h\"\n#include \"VillageMillKeeper.h\"\n#include \"VillageHerbalist.h\"\n#include \"VillageTavernKeeper.h\"",
+    "    return IsValid(Speaker) && (Speaker->IsA<AVillageArtisanMerchant>() ||\n        Speaker->IsA<AVillageBaker>() || Speaker->IsA<AVillageTavernKeeper>() || Speaker->IsA<AVillageHerbalist>() ||\n        Speaker->IsA<AVillageMillKeeper>() || Speaker->IsA<AVillageMasterArtisan>());\n}\n}",
+    "    return Cast<AVillageBaker>(LocalMerchant.Get()) != nullptr;\n}\nbool UChapelDialogueComponent::IsMillKeeper() const\n{\n    return Cast<AVillageMillKeeper>(LocalMerchant.Get()) != nullptr;\n}\nvoid UChapelDialogueComponent::OpenTavernKeeper(AVillageTavernKeeper* Keeper)",
+    "    auto* PC=Cast<AFPSGAMEPlayerController>(GetOwner());\n    auto* Seller=LocalMerchant.Get();\n    if(!Screen||!Seller||!PC||!PC->IsLocalController()||IsMillKeeper())return;\n    if(PC->GetPawn()!=ConversationPawn.Get()||!InReach(Seller)){Close();return;}\n    auto* HUD=PC->GetColdSteelHUD();"
+  ],
+  "Source/FPSGAME/NPC/ChapelDialogueComponent.h": [
+    "    void BuySiegeUpgrade(int32 Index,int32 ExpectedRank);\n    bool IsBaker() const;\n    bool IsMillKeeper() const;\n    bool IsTavernKeeper() const;\n    void Close();"
+  ],
+  "Source/FPSGAME/NPC/ResidentConversation.cpp": [
+    "#include \"VillageHerbalist.h\"\n#include \"VillageMasterArtisan.h\"\n#include \"VillageMillKeeper.h\"\n#include \"../Movement/StableHorseMarket.h\"\n#include \"GameFramework/Character.h\"",
+    "    else if (auto* Baker=Cast<AVillageBaker>(Speaker)) Baker->SetLocalConversation(Viewer);\n    else if (auto* Master=Cast<AVillageMasterArtisan>(Speaker)) Master->SetLocalConversation(Viewer);\n    else if (auto* Miller=Cast<AVillageMillKeeper>(Speaker)) Miller->SetLocalConversation(Viewer);\n    else if (auto* Keeper=Cast<AVillageTavernKeeper>(Speaker)) Keeper->SetLocalConversation(Viewer);\n    else if (auto* Herbalist=Cast<AVillageHerbalist>(Speaker)) Herbalist->SetLocalConversation(Viewer);"
+  ],
+  "Source/FPSGAME/NPC/VillageResidentStatus.cpp": [
+    "#include \"VillageBaker.h\"\n#include \"VillageHerbalist.h\"\n#include \"VillageMillKeeper.h\"\n#include \"VillageTavernKeeper.h\"\n#include \"../WorldGeneration/VillageGunshopServices.h\"",
+    "    if(const auto* Artisan=Cast<AVillageArtisanMerchant>(Actor))return Artisan->MerchantName();\n    if(Actor->IsA<AVillageBaker>())return TEXT(\"面包师\");\n    if(Actor->IsA<AVillageMillKeeper>())return TEXT(\"磨坊管理员\");\n    if(Actor->IsA<AVillageHerbalist>())return TEXT(\"草药师林芷\");\n    if(Actor->IsA<AVillageTavernKeeper>())return TEXT(\"酒馆老板娘\");"
+  ],
+  "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp": [
+    "#include \"../NPC/VillageArtisanMerchant.h\"\n#include \"../NPC/VillageHerbalist.h\"\n#include \"../NPC/VillageMillKeeper.h\"\n#include \"../NPC/ResidentConversation.h\"\n#include \"../NPC/VillageResidentStatus.h\"",
+    "    FocusedDefense=bMechanism?nullptr:Defense;\n    const auto* Artisan=Cast<AVillageArtisanMerchant>(Focus.Target);\n    const bool bMillKeeper = Cast<AVillageMillKeeper>(Focus.Target) != nullptr;\n    const bool bStableSeller=StableHorseMarket::IsSeller(Focus.Target);\n    const bool bMaster=IsValid(Cast<AVillageMasterArtisan>(Focus.Target));\n    const bool bDirectResident=bMaster || bStableSeller || Artisan || Cast<AChapelNun>(Focus.Target) || Cast<AVillageHerbalist>(Focus.Target) || bMillKeeper;\n    const bool bResting=UFPSFurnitureRestComponent::IsResting(Character);\n    const bool bAidTarget=bOrdinaryUse && Artisan && !bResting && ResidentConversation::IsSpeakerDowned(Artisan);",
+    "    const bool bHorseUse=bOrdinaryUse&&Ride&&(Ride->Active()||Horse);\n    if(auto* Rest=Character?Character->FindComponentByClass<UFPSFurnitureRestComponent>():nullptr)\n        Text=Rest->UpdateFocus(bOrdinaryUse && !bOperatingTarget && !bHorseUse && !ContainerFocus && !bAidTarget && !bRepair && !bMillKeeper && !bStableSeller && !bMaster);\n    if(!bHorseUse&&bAidTarget)\n    {"
+  ],
+  "Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp": [
+    "    if (Conversation && Conversation->IsCarpenter()) return &ColdSteelMerchantDialogue::Carpenter;\n    if (Conversation && Conversation->IsBaker()) return &ColdSteelMerchantDialogue::Baker;\n    if (Conversation && Conversation->IsMillKeeper()) return &ColdSteelMerchantDialogue::MillKeeper;\n    if (Conversation && Conversation->IsTavernKeeper()) return &ColdSteelMerchantDialogue::TavernKeeper;\n    if (Conversation && Conversation->IsHerbalist()) return &ColdSteelMerchantDialogue::Herbalist;"
+  ],
+  "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp": [
+    "#include \"../NPC/VillageArtisanMerchant.h\"\n#include \"../NPC/VillageBaker.h\"\n#include \"../NPC/VillageMillKeeper.h\"\n#include \"../WorldGeneration/VillageGunshopServices.h\"\n#include \"../NPC/VillageTavernKeeper.h\"",
+    "                ||Cast<AColdSteelWarehouseChest>(Target)||Cast<AColdSteelSceneContainer>(Target)||IsTreasureChest(Target)||IsExpeditionAltar(Target)\n                ||Cast<AVoxelBuildPrefabActor>(Target)||Cast<AApartmentDeviceControl>(Target)||Cast<AHeQuePumpControl>(Target)||Cast<AVillageGunshopCounter>(Target)\n                ||Cast<AChapelNun>(Target)||Cast<AVillageArtisanMerchant>(Target)||Cast<AVillageHerbalist>(Target)||Cast<AVillageMasterArtisan>(Target)||Cast<AVillageMillKeeper>(Target)||Cast<AVillageDefenseSection>(Target)\n                ||(UDungeonRunSubsystem::Get(PC->GetWorld())&&UDungeonRunSubsystem::Get(PC->GetWorld())->IsShrine(Target))?Target:nullptr;\n            break;",
+    "    if(Cast<AVillageBaker>(Target)){Hint.Text=TEXT(\"面包师 · 交谈\");return Hint;}\n    if(Cast<AVillageMasterArtisan>(Target)){Hint.Title=TEXT(\"工匠大师\");Hint.Text=TEXT(\"交谈\");return Hint;}\n    if(Cast<AVillageMillKeeper>(Target)){Hint.Text=TEXT(\"磨坊管理员 · 交谈\");return Hint;}\n    if(Cast<AVillageHerbalist>(Target)){Hint.Text=TEXT(\"草药师林芷 · 交谈\");return Hint;}\n    if(Cast<AChapelNun>(Target)){Hint.Text=TEXT(\"修女 · 交谈\");return Hint;}"
+  ],
+  "Source/FPSGAME/UI/ResidentHighlightSubsystem.cpp": [
+    "#include \"../NPC/VillageArtisanMerchant.h\"\n#include \"../NPC/VillageBaker.h\"\n#include \"../NPC/VillageMillKeeper.h\"\n#include \"../NPC/VillageHerbalist.h\"\n#include \"../NPC/VillageTavernKeeper.h\""
+  ],
+  "Source/FPSGAME/UI/ColdSteelNpcDialogueArtisans.h": [
+    "};\n\ninline constexpr FSpeaker MillKeeper = {\n    TEXT(\"磨坊管理员\"), TEXT(\"风车磨坊\"),\n    TEXT(\"等一下，这袋还差一个结。……好了！你挑了个好时候来，我刚筛完这一斗麦子。\"),\n    TEXT(\"你想问哪件事？\"), nullptr,\n    {\n        {TEXT(\"你怎么看风？\"), TEXT(\"我筛完麦子，会留一小把麦壳。松开手，看它们往哪儿飘。你也试试？记得把手伸远点，我头一回弄了自己一脸。\"),\n         TEXT(\"没风的时候呢？\"), TEXT(\"正好补袋子。上回我补到一半，门口忽然扬起一层麦壳。我赶紧去收筛子，回来才发现，袋口叫我缝死了。\")},\n        {TEXT(\"为什么先筛麦子？\"), TEXT(\"上回我在筛底捡到一粒白石子，圆得跟麦粒似的。你摸摸看，隔着两层布都硌手。要是让它跟面粉一道进了炉子，怕是有人要拿着半颗牙来找我。\")},\n        {TEXT(\"这么多袋子怎么认？\"), TEXT(\"你看绳头。面包屋的打两个结，留种的系一截蓝布。同一家的几袋搁在一块儿，我再把数目划在木片上。手上全是面粉的时候，摸一下比眯着眼认字快。\")},\n        {TEXT(\"第一袋面送去了哪儿？\"), TEXT(\"面包屋。村子出事以前，我头一回独自看磨，怕磨得太粗，就拎了一小袋过去。面包师没说好坏，把手往围裙上一擦，让我第二天赶早。\"),\n         TEXT(\"第二天吃上了吗？\"), TEXT(\"吃上了。她把头一块面包翻过来，底下有个小手印，是昨天我帮她把面团搬上桌时按的。那块我舍不得切，从边上一点一点掰着吃。\")}\n    },\n    nullptr\n};"
+  ]
+}

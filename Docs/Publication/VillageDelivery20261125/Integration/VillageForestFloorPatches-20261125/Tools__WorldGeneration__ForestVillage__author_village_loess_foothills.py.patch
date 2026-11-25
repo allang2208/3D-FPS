@@ -1,0 +1,19 @@
+--- a/Tools/WorldGeneration/ForestVillage/author_village_loess_foothills.py
++++ b/Tools/WorldGeneration/ForestVillage/author_village_loess_foothills.py
+@@ -54,7 +54,15 @@
+     scans={'Albedo':(texture('B','DEFAULT'),'COLOR'),'Nrm':(texture('N','NORMALMAP'),'NORMAL'),'Data':(texture('ARH','MASKS'),'MASKS')}
+     master=u.load_asset(art.ref+'/M_ForestReferenceMesh')
+     node=next(n for n in ed.get_material_expressions(master) if n.get_editor_property('desc') in ('R20 Quixel pe1jvwp0 village turf','R32 village loess'))
+-    configure(master,node,scans);art.compile_mat(master)
++    configure(master,node,scans)
++    from author_village_forest_floor import bind, import_mask, NAME
++    mask_path=folder+'/'+NAME
++    mask_source=themes.preset('HillsLandscape')['resources'].get('village_forest_floor_source')
++    if lib.does_asset_exist(mask_path):
++        bind(master,art.asset(mask_path))
++    elif mask_source:
++        bind(master,import_mask(themes.source_root().resolve().parent/mask_source))
++    art.compile_mat(master)
+     detail=art.asset(folder+'/M_VillageLoessDetail') if lib.does_asset_exist(folder+'/M_VillageLoessDetail') else art.tools.create_asset('M_VillageLoessDetail',folder,u.Material,u.MaterialFactoryNew())
+     detail.set_editor_property('used_with_instanced_static_meshes',True);detail.set_editor_property('used_with_nanite',True)
+     node=next((n for n in ed.get_material_expressions(detail) if n.get_editor_property('desc')=='R32 village loess'),None) or art.node(detail,u.MaterialExpressionCustom)

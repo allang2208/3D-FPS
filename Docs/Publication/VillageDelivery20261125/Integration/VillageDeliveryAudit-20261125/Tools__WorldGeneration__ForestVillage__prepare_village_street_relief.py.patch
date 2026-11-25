@@ -1,0 +1,29 @@
+--- a/Tools/WorldGeneration/ForestVillage/prepare_village_street_relief.py
++++ b/Tools/WorldGeneration/ForestVillage/prepare_village_street_relief.py
+@@ -17,6 +17,14 @@
+ 
+ def read(path):
+     return json.loads(path.read_text(encoding='utf-8-sig'))
++
++
++def refitted_sites(x, y, plan):
++    # The expanded stable and the relocated store are level, authored on the
++    # village datum. The older serialized hill offset also predates these pads.
++    gunshop=next(h for h in plan['houses'] if h[0]=='09')
++    return np.minimum(box(x,y,(gunshop[3],gunshop[4]-.3),(6.2,6.2),gunshop[5]),
++                      box(x,y,(33.65,39.5),(24.85,7.30)))
+ 
+ 
+ def ground_clearance(x, y, plan, kit, contacts):
+@@ -180,6 +188,11 @@
+     yard=39.*long+16.*short+15.*old_form
+     delta=(road*lane+(1.-road)*yard)*footing*edge
+     delta=np.rint(limit_grade(delta,16.-6.*road)).astype('int8')
++    site_gap=refitted_sites(x,y,plan)
++    transition=ramp((site_gap-math.sqrt(2))/3.15)
++    delta=np.rint(transition*delta-(1.-transition)*old)
++    if np.max(abs(delta))>127:raise ValueError('Village adjustment exceeds int8 range')
++    delta=delta.astype('int8')
+     out.mkdir(parents=True,exist_ok=True)
+     Image.fromarray((32768+delta.astype('int32')).astype('uint16')).save(out/'H_StreetYardDeltaCm.png')
+     Image.fromarray((32768+total+delta).astype('uint16')).save(out/'H_StreetYardGroundCm.png')

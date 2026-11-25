@@ -1,0 +1,15 @@
+{
+  "map": "/Game/GameMaps/L_ForestPathVillage",
+  "id": "HillsLandscape",
+  "entrypoints": {
+    "village_surface": "author_village_loess_foothills.py/surfaces",
+    "village_forest_floor": "author_village_forest_floor.install",
+    "village_relief": "prepare_village_street_relief.py"
+  },
+  "resources": {
+    "terrain_source": "CliffExposure-R35/region.i16",
+    "village_finish_source": "VillageLoessReview-R33",
+    "village_forest_floor_source": "VillageDeliveryAudit-20261125/Floor",
+    "village_relief_source": "VillageDeliveryAudit-20261125/Street"
+  }
+}

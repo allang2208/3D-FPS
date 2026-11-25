@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/WorldGeneration/ForestVillageRelief.cpp
++++ b/Source/FPSGAME/WorldGeneration/ForestVillageRelief.cpp
+@@ -13,6 +13,7 @@
+ namespace
+ {
+ #include "ForestVillageReliefData.inl"
++#include "ForestVillageStreetRelief.inl"
+ 
+ // Matches the A-D-B and A-C-D faces used for rendering and physics.
+ template<typename ReadVertex>
+@@ -52,9 +53,14 @@
+     return SampleTriangles(X,Y,[Surface](int32 I, int32 J) { return Surface[J*Columns+I]; });
+ }
+ 
++int32 SitedVertexOffset(TConstArrayView<int16> Offsets,int32 I,int32 J)
++{
++    return Offsets[J*Columns+I] + StreetAndYardCm[J][I];
++}
++
+ double SampleOffsets(TConstArrayView<int16> Offsets,double X,double Y)
+ {
+-    return SampleTriangles(X,Y,[Offsets](int32 I,int32 J) { return Offsets[J*Columns+I]; });
++    return SampleTriangles(X,Y,[Offsets](int32 I,int32 J) { return SitedVertexOffset(Offsets,I,J); });
+ }
+ 
+ void FitLevelDressing(ULevel& Level,const AForestVillageRegion& Region)

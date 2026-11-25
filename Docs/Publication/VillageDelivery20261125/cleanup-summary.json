@@ -1,0 +1,21 @@
+{
+  "retired_files": 32129,
+  "retired_bytes": 27987545950,
+  "detached_links": 3346,
+  "original_work_files": 31798,
+  "redundant_version_files": 331,
+  "sha256_verified_files": 32129,
+  "manifests": {
+    "files.json": "ea12752ecb41dfee8e9d419ee5c840e3b4ceed191c757a8496ba86c7a0b22858",
+    "links.json": "15cbb977654708e487a97f7f8bc496c2c5f47acf70182f4c619441fb9b5ce22d",
+    "snapshot-moves.json": "f8c528e1e2da4d62582f45207fab3e6752bd291f713449d60e2a7c265951ab92"
+  },
+  "transfer_copy": {
+    "bytes": 955177515,
+    "sha256": "4f8ae9c097a00d1e25e4deb01846c4c62b49ce14fd47f0d7b86116439cbdb17e"
+  },
+  "media_by_suffix": {
+    ".png": 284,
+    ".jpg": 65
+  }
+}

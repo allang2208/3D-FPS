@@ -1,0 +1,34 @@
+// World centimetres. The village-only branch supplies these channels to the existing street and forest blends.
+float2 uv=float2(.947*P.x+.321*P.y,-.321*P.x+.947*P.y)/158.;
+float2 warp=.11*float2(sin(.0019*P.x+.0008*P.y)+.38*sin(.0033*P.y),cos(.0014*P.y-.0011*P.x));
+uv+=warp;
+float2 gx=float2(.005,0),gy=float2(0,.005);
+#if (PIXELSHADER || COMPUTESHADER) && !RAYHITGROUPSHADER
+gx=ddx(uv);gy=ddy(uv);
+#endif
+float detail=1.-smoothstep(220.,1100.,distance(P,Eye));
+[branch] if(detail>.001){
+    float2 v=clamp(V.xy/max(.4,abs(V.z)),-1.8,1.8);
+    float2 projected=float2(.947*v.x+.321*v.y,-.321*v.x+.947*v.y);
+    float h=Texture2DSampleGrad(Data,DataSampler,uv,gx,gy).b;
+    uv+=projected*(.70/158.)*(h-.5)*detail;
+}
+float3 d=Texture2DSampleGrad(Data,DataSampler,uv,gx,gy).rgb;
+float wet=saturate(Wet)*lerp(.93,.69,d.b);
+GrassAO=lerp(1.,d.r,.70);
+GrassRoughness=lerp(clamp(.26+.68*d.g,.64,.95),.43,wet);
+float3 n=UnpackNormalMap(Texture2DSampleGrad(Nrm,NrmSampler,uv,gx,gy));
+float2 oriented=float2(.947*n.x-.321*n.y,.321*n.x+.947*n.y);
+#if PIXELSHADER
+oriented=TransformWorldVectorToTangent(Parameters.TangentToWorld,float3(oriented,0)).xy;
+#endif
+GrassNormal=normalize(float3(oriented*.63,max(.40,n.z)));
+// A second scale from the same soil scan gives compacted silt and dust distinct
+// broad shapes from standing height. The derivative footprint keeps distant soil stable.
+float2 broadUV=float2(-.53*uv.x+.85*uv.y,-.85*uv.x-.53*uv.y)*.245+float2(.27,.41);
+float2 broadX=float2(-.53*gx.x+.85*gx.y,-.85*gx.x-.53*gx.y)*.245;
+float2 broadY=float2(-.53*gy.x+.85*gy.y,-.85*gy.x-.53*gy.y)*.245;
+float grain=Texture2DSampleGrad(Data,DataSampler,broadUV,broadX,broadY).b;
+float layer=smoothstep(.20,.78,grain);
+float3 tint=lerp(float3(.82,.86,.90),float3(1.08,1.07,1.02),layer);
+return Texture2DSampleGrad(Albedo,AlbedoSampler,uv,gx,gy).rgb*tint*lerp(1.,.69,wet);

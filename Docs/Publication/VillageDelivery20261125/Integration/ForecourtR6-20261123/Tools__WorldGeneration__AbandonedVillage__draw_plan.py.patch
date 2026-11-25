@@ -1,0 +1,27 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/draw_plan.py
++++ b/Tools/WorldGeneration/AbandonedVillage/draw_plan.py
+@@ -8,7 +8,6 @@
+ from PIL import Image, ImageDraw, ImageFont, ImageFilter
+ from scipy.ndimage import gaussian_filter, minimum_filter
+ from layout_geometry import approach_path, nearest, plot_geometry, wall_segments
+-from kitchen_garden_geometry import KitchenGarden
+ from village_tread import street_wear, chapel_wear, protected_turf, ramp
+ from windmill_footing import dress_ground
+ from village_ground_relief import apply_ground
+@@ -216,16 +215,6 @@
+ church_patch,church_soil,church_stone=chapel_wear(x,y,chapel,noise)
+ soil[church_patch]=np.maximum(soil[church_patch],church_soil)
+ rock_edge[church_patch]=np.minimum(rock_edge[church_patch],church_stone)
+-# The tavern's garden tapers between its back wall and the household lane.
+-# Keep turned soil in the crop strips, with a lighter sweep to the nursery.
+-garden=KitchenGarden(plan)
+-for u0,v0,hu,hv in garden.beds:
+-    rim=box_distance(*garden.world(u0,v0),hu,hv,garden.yaw)
+-    earth=np.clip((.19-rim+noise*.20)/.36,0,1)
+-    soil=np.maximum(soil,earth*(.87+.12*patch))
+-aisle=offset(garden.trail)
+-wear=np.clip((garden.data['working_width']*.5+.13-aisle+noise*.23)/.37,0,1)
+-soil=np.maximum(soil,wear*(.63+.16*patch))
+ # The door normal gives each worn threshold its actual position and direction.
+ # Wider public doors have a turning patch; private doors have a narrower tread.
+ public_doors={plan[key]['house'] for key in ('blacksmith','carpenter','tavern','herbalist') if key in plan}

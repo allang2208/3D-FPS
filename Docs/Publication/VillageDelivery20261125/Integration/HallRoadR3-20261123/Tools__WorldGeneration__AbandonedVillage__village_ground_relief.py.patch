@@ -1,0 +1,20 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py
++++ b/Tools/WorldGeneration/AbandonedVillage/village_ground_relief.py
+@@ -66,6 +66,8 @@
+         wall([piece[1:3], piece[3:5]], width)
+     # Retain the original mineral/gravel distribution outside the smith's local patch.
+     for a,b,width in plan.get('blacksmith',{}).get('smelting_yard',{}).get('prior_ground_segments',[]):
++        wall([a,b],width)
++    for a,b,width in plan.get('inn_old_wall_lines',[]):
+         wall([a,b],width)
+     for house in plan['houses']:
+         shape = plot_geometry(house, kit[house[2]], plan)
+@@ -293,6 +295,8 @@
+     inn=plan.get('tavern',{}).get('inn')
+     if inn:
+         baseline={**plan,'tavern':{k:v for k,v in plan['tavern'].items() if k!='inn'}}
++    if inn and inn.get('hall_road'):
++        baseline['inn_old_wall_lines']=[w['line'] for w in inn['hall_road']['retired_walls']]
+     height, soil, mineral, density, guides = fields(baseline, kit)
+     stones=gravel_points(density,guides,baseline)
+     packed=dress_shop_flags(mask_floor(packed,soil,mineral),baseline,kit)

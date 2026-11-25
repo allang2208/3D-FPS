@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/WorldGeneration/HillsFixedTerrainCells.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsFixedTerrainCells.cpp
+@@ -1,4 +1,5 @@
+ #include "HillsFixedTerrainCells.h"
++#include "TemperateVillageGround.h"
+ #include "TemperateHillsStreamingPrivate.h"
+ #include "HAL/FileManager.h"
+ #include "Misc/Compression.h"
+@@ -142,12 +143,15 @@
+     const TArray<TemperateHillsSurface::FTerrainEdit>& Edits, int32 Version, TemperateForestWater::FPlanPtr Water,
+     FTemperateChapelSite Chapel, FTemperateVillageSite Village, uint32 LayoutChecksum)
+ {
++    FCellPtr Cell;
+     if (LayoutChecksum && River && Water && !EditsMayAffect(Key, Half, Edits, *Water))
+-    {
+-        if (FCellPtr Cell = ReadCell(Key, Detailed, Half, Seed, Version, LayoutChecksum, EcologyKey(River->Ecology)))
+-            return Cell;
+-    }
+-    return HillsStreaming::MakeMesh(Key, Detailed, Half, Seed, River, Edits, Version, Water, Chapel, Village);
++        Cell=ReadCell(Key, Detailed, Half, Seed, Version, LayoutChecksum, EcologyKey(River->Ecology));
++    if (!Cell)
++        Cell=HillsStreaming::MakeMesh(Key, Detailed, Half, Seed, River, Edits, Version, Water, Chapel, Village);
++    if (Cell)
++        TemperateVillageGround::ShapeCell(Village,FVector2D(Key)*HillsStreaming::CellSize-FVector2D(Half),
++                                          HillsStreaming::CellSize,Cell->Mesh);
++    return Cell;
+ }
+ 
+ #if WITH_EDITOR

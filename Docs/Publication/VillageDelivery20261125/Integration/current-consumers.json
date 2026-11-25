@@ -1,0 +1,30 @@
+{
+  "Tools/WorldGeneration/temperate_ground_cache.py": [
+    {
+      "line": 79,
+      "source": "    import runpy\n    scan=runpy.run_path(str(Path(__file__).with_name('AbandonedVillage')/'village_ground_uv.py'))\n    coords=lambda size:scalar_code(scan['rvt_uv'](span,size),{'XY':local},2)"
+    }
+  ],
+  "Tools/WorldGeneration/AbandonedVillage/draw_plan.py": [
+    {
+      "line": 13,
+      "source": "from windmill_footing import dress_ground\nfrom village_ground_relief import apply_ground\n"
+    },
+    {
+      "line": 263,
+      "source": "    packed.save(out/'RoadMaskBase.png')\n    apply_ground(packed, plan, kit).save(out/'RoadMask.png')\n    if mask_only:"
+    }
+  ],
+  "Tools/WorldGeneration/AbandonedVillage/terrain_road_layer.py": [
+    {
+      "line": 19,
+      "source": "    turf = runpy.run_path(str(Path(__file__).with_name('village_turf_material.py')))['add_turf']\n    scan = runpy.run_path(str(Path(__file__).with_name('village_ground_uv.py')))\n"
+    }
+  ],
+  "Tools/WorldGeneration/VillageBakery/install_bakery.py": [
+    {
+      "line": 12,
+      "source": "from layout_geometry import plot_geometry\nfrom shop_frontages import BAKERY_FLAGS, public_frame\nfrom shop_staff_light import WICK, configure, apply_embers"
+    }
+  ]
+}

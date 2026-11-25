@@ -1,0 +1,18 @@
+--- a/Tools/WorldGeneration/ForestVillage/prepare_village_forest_floor.py
++++ b/Tools/WorldGeneration/ForestVillage/prepare_village_forest_floor.py
+@@ -8,6 +8,7 @@
+ from scipy.ndimage import distance_transform_edt, gaussian_filter, label, map_coordinates
+ 
+ from generate_village_relief import ROOT
++from prepare_village_street_relief import refitted_sites
+ from layout_geometry import house_paths, plot_geometry, wall_segments
+ from village_ground_relief import box, distance, mill_yard_gap
+ from village_tread import ramp
+@@ -43,6 +44,7 @@
+     hard=np.full(x.shape,1000.)
+     def reserve(gap):
+         np.minimum(hard,gap,out=hard)
++    reserve(refitted_sites(x,y,plan))
+     for h in plan['houses']:
+         shape=plot_geometry(h,kit[h[2]],plan)
+         reserve(box(x,y,shape['center'],shape['half'],shape['angle']))

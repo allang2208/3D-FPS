@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp
+@@ -1,4 +1,5 @@
+ #include "TemperateHillsWorld.h"
++#include "TemperateVillageGround.h"
+ #include "TemperateQuarryYard.h"
+ #include "Algo/Compare.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+@@ -78,8 +79,18 @@
+ {return BaseHeight(X,Y)+TerrainOffsetAt(X,Y);}
+ double ATemperateHillsWorld::BaseHeight(double X,double Y) const
+ {
++    // The hilltop pad completely replaces river/forest height here. Gravel
++    // support queries can use that same datum without evaluating either plan.
++    if (VillageSite.bPlaced && VillageSite.bHilltop &&
++        FMath::Abs(X-VillageSite.Ground.X)<8300. && FMath::Abs(Y-VillageSite.Ground.Y)<8300.)
++    {
++        const FVector2D Local=VillageSite.Local(X,Y);
++        if (FMath::Abs(Local.X)<=VillageSite.PadHalfX && FMath::Abs(Local.Y)<=VillageSite.PadHalfY)
++            return ChapelSite.Grade(X,Y,VillageSite.Ground.Z)+TemperateVillageGround::Offset(VillageSite,X,Y);
++    }
+     const double Z=RiverPlan?RiverPlan->Height(X,Y,Seed):TemperateHillsSurface::Height(X,Y,Seed,GeneratorVersion);
+-    return ChapelSite.Grade(X,Y,VillageSite.Grade(X,Y,ForestWaterPlan?ForestWaterPlan->ShapeGround(X,Y,Z):Z,Seed));
++    return ChapelSite.Grade(X,Y,VillageSite.Grade(X,Y,ForestWaterPlan?ForestWaterPlan->ShapeGround(X,Y,Z):Z,Seed))
++        +TemperateVillageGround::Offset(VillageSite,X,Y);
+ }
+ double ATemperateHillsWorld::TerrainOffsetAt(double X,double Y) const
+ {

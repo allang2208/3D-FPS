@@ -1,0 +1,155 @@
+--- a/Source/FPSGAME/WorldGeneration/HillsTavernInterior.cpp
++++ b/Source/FPSGAME/WorldGeneration/HillsTavernInterior.cpp
+@@ -12,6 +12,8 @@
+ #include "GameFramework/Actor.h"
+ #include "Materials/MaterialInterface.h"
+ #include "Misc/PackageName.h"
++
++const FVector FHillsTavernInterior::RefitCounterOffset(30.,276.,0.);
+ 
+ namespace
+ {
+@@ -138,28 +140,28 @@
+     }
+ }
+ 
+-void FurnishTaproom(TArray<FPlacement>& Out, bool bRearRange)
++void FurnishTaproom(TArray<FPlacement>& Out, bool bRearRange, bool bRefit)
+ {
+     // The east rear bay is the kitchen. Keep the entrance and the right end of the bar clear.
+     // Pull the aisle-side stool out of the diagonal from the doorway to the middle of the bar.
+-    SeatGroup(Out,{-222.,-121.,-2.7},12.,{{63.,80.,-3.3},{169.,82.,-1.2},{276.,79.,-2.1}},{
++    SeatGroup(Out,bRefit ? FVector(-302.,-202.,-2.7) : FVector(-222.,-121.,-2.7),12.,{{63.,80.,-3.3},{169.,82.,-1.2},{276.,79.,-2.1}},{
+         {EProp::Jug,{-3.,-1.,0.},114.}, {EProp::Cup,{-8.,37.,0.},-28.},
+         {EProp::Cup,{-38.,-14.,0.},145.}, {EProp::Cup,{27.,-24.,0.},215.},
+         {EProp::StewBowl,{15.,29.,0.},-14.}, {EProp::WoodSpoon,{30.,24.,0.},67.},
+         {EProp::Bowl,{-32.,7.,0.},73.}, {EProp::Chopsticks,{-29.,23.,0.},-9.},
+         {EProp::Bread,{3.,-31.,0.},-35.,16.}});
+     // Opposing seats face the two players' edges of the open board.
+-    SeatGroup(Out,{-408.,119.,-2.1},82.,{{67.,79.,-2.1},{238.,80.,-2.8}},{
++    SeatGroup(Out,bRefit ? FVector(-300.,131.,-2.1) : FVector(-408.,119.,-2.1),82.,{{67.,79.,-2.1},{238.,80.,-2.8}},{
+         {EProp::GameBoard,{-2.,0.,0.},-24.}, {EProp::Lantern,{34.,-13.,0.},28.,-26.},
+         {EProp::Cup,{-30.,-19.,0.},173.}, {EProp::Cup,{5.,32.,0.},38.}});
+-    SeatGroup(Out,{335.,-207.,-1.7},-13.,{{26.,85.,-1.6},{165.,80.,-2.3},{257.,83.,-1.3}},{
++    SeatGroup(Out,bRefit ? FVector(367.,-251.,-1.7) : FVector(335.,-207.,-1.7),-13.,{{26.,85.,-1.6},{165.,80.,-2.3},{257.,83.,-1.3}},{
+         {EProp::Jug,{0.,1.,0.},84.}, {EProp::Cup,{18.,35.,0.},18.},
+         {EProp::Cup,{16.,-33.,0.},195.}, {EProp::Chicken,{28.,13.,0.},25.,20.5},
+         {EProp::Chopsticks,{35.,-6.,0.},-151.}, {EProp::StewBowl,{-32.,9.,0.},-48.},
+         {EProp::WoodSpoon,{-29.,26.,0.},165.}, {EProp::Bread,{-7.,-28.,0.},-77.,15.},
+         {EProp::Chopsticks,{-26.,-24.,0.},77.}});
+     const FVector StaffTable = bRearRange ? FVector(-280.,543.,-1.2) : FVector(-457.,-213.,-1.2);
+-    SeatGroup(Out,StaffTable,36.,{{65.,84.,-1.0},{220.,82.,-1.4},{299.,86.,-1.3}},{
++    SeatGroup(Out,bRefit ? FVector(124.,102.,-1.2) : StaffTable,36.,{{65.,84.,-1.0},{220.,82.,-1.4},{299.,86.,-1.3}},{
+         {EProp::Lantern,{0.,3.,0.},-8.,-26.}, {EProp::Cup,{-9.,33.,0.},177.},
+         {EProp::Cup,{16.,-30.,0.},-55.}, {EProp::Ribs,{13.,27.,0.},18.,23.5},
+         {EProp::Chopsticks,{31.,18.,0.},-116.}, {EProp::Bowl,{-25.,-18.,0.},117.},
+@@ -182,6 +184,7 @@
+         {EProp::Chopsticks,{-211.,192.,CounterTop},81.}
+     });
+ 
++    const int32 RackContentsStart = Out.Num();
+     // The upper bay has only 24.3 cm of headroom. The taller pulled jug spouts go a shelf lower.
+     Out.Append({
+         {EProp::Jug,{-38.,353.,RackFloor+110.85},17.}, {EProp::Jug,{-148.,351.,RackFloor+110.85},-36.},
+@@ -195,7 +198,17 @@
+     if (bRearRange)
+     {
+         for (int32 Index=ServiceStart; Index<Out.Num(); ++Index)
+-            if (Out[Index].Contact.Y > 310.) Out[Index].Contact.Y += 398.;
++        {
++            FPlacement& Piece=Out[Index];
++            if (bRefit && (Piece.Prop == EProp::Rack || Index >= RackContentsStart))
++                Piece.Contact += FVector(-187.,428.,0.); // Blank rear-wall bay between the windows.
++            else if (bRefit && Piece.Prop == EProp::Cask)
++                Piece.Contact += FVector(-174.,421.,0.); // Low barrels fit below the west sill.
++            else if (Piece.Contact.Y > 310.)
++                Piece.Contact.Y += 398.;
++            else if (bRefit)
++                Piece.Contact += FHillsTavernInterior::RefitCounterOffset;
++        }
+     }
+ }
+ 
+@@ -216,18 +229,19 @@
+     });
+ }
+ 
+-void FurnishKitchen(TArray<FPlacement>& Out, bool bRepaired)
++void FurnishKitchen(TArray<FPlacement>& Out, bool bRepaired, bool bRefit)
+ {
+     // Room-space pivot on the L-shaped partition. The staff opening is in the west
+     // return behind the bar; its south opening has a sill 104 cm above the sole.
+     constexpr double ScreenBase = -3.;
+     constexpr double PassHeight = ScreenBase + 104.;
++    if (!bRefit) Out.Add({bRepaired ? EProp::Screen : EProp::DamagedScreen,{0.,0.,ScreenBase}});
++    const FVector PrepShift=bRefit ? FVector(20.,277.,0.) : FVector::ZeroVector;
+     Out.Append({
+-        {bRepaired ? EProp::Screen : EProp::DamagedScreen, {0.,0.,ScreenBase}},
+         {bRepaired ? EProp::Hearth : EProp::ColdHearth, {615.,79.,-2.1},180.},
+-        {bRepaired ? EProp::PrepBench : EProp::BrokenPrepBench, {337.,335.,-1.3},-90.},
+-        {bRepaired ? EProp::WashStand : EProp::BrokenWashStand, {579.,246.,-2.},180.},
+-        {bRepaired ? EProp::DryingRack : EProp::EmptyDryingRack, {390.,262.,305.}}
++        {bRepaired ? EProp::PrepBench : EProp::BrokenPrepBench, FVector(337.,335.,-1.3)+PrepShift,-90.},
++        {bRepaired ? EProp::WashStand : EProp::BrokenWashStand, FVector(579.,bRefit ? 624. : 246.,-2.),180.},
++        {bRepaired ? EProp::DryingRack : EProp::EmptyDryingRack, FVector(bRefit ? 432. : 390.,bRefit ? 478. : 262.,305.)}
+     });
+     if (!bRepaired)
+     {
+@@ -244,9 +258,9 @@
+     // Crockery and stores are reachable from the prep side. The centre of the room
+     // remains clear between the staff door, cutting board, hearth and serving ledge.
+     constexpr double PantryFloor = -3.4;
++    const int32 PantryStart=Out.Num();
+     Out.Append({
+         {EProp::Rack,{158.,74.,PantryFloor}},
+-        {EProp::Cask,{195.,362.,-1.2},38.},
+         {EProp::Dish,{161.,34.,PantryFloor+66.85},18.},
+         {EProp::Dish,{161.,34.,PantryFloor+68.60},-7.},
+         {EProp::Dish,{161.,34.,PantryFloor+70.35},42.},
+@@ -257,11 +271,29 @@
+         {EProp::Cup,{162.,134.,PantryFloor+110.85},61.},
+         {EProp::Bread,{160.,31.,PantryFloor+110.85},79.,27.},
+         {EProp::Baguette,{162.,75.,PantryFloor+110.85},91.,36.},
+-        {EProp::Carrots,{337.,335.,89.7},17.,23.},
++    });
++    if (bRefit)
++    {
++        // Turn the entire shelf, including the crockery, toward the prep aisle.
++        const FRotator Turn(0.,-90.,0.);
++        const FVector OldCenter(158.,74.,PantryFloor), NewCenter(499.,782.,PantryFloor);
++        for (int32 I=PantryStart; I<Out.Num(); ++I)
++        {
++            FPlacement& Item=Out[I];
++            Item.Contact=NewCenter+Turn.RotateVector(Item.Contact-OldCenter);
++            Item.Yaw+=Turn.Yaw;
++        }
++    }
++    Out.Add({EProp::Cask,FVector(bRefit ? 175. : 195.,bRefit ? 758. : 362.,-1.2),38.});
++    Out.Add({EProp::Carrots,FVector(337.,335.,89.7)+PrepShift,17.,23.});
++    const int32 PassStart=Out.Num();
++    Out.Append({
+         {EProp::Dish,{276.,-35.,PassHeight},12.}, {EProp::Sausage,{276.,-35.,PassHeight+1.25},34.,20.},
+         {EProp::StewBowl,{321.,-34.,PassHeight},34.}, {EProp::WoodSpoon,{345.,-38.,PassHeight},12.},
+         {EProp::Jug,{370.,-34.,PassHeight},-7.}
+     });
++    if (bRefit)
++        for (int32 I=PassStart; I<Out.Num(); ++I) Out[I].Contact+=FVector(-80.,373.,0.);
+ }
+ 
+ void LightFixture(AActor& Host, USceneComponent& Root, const FPlacement& Fixture)
+@@ -442,12 +474,13 @@
+ void FHillsTavernInterior::Populate(AActor& Host, USceneComponent& RoomRoot, bool bRepaired)
+ {
+     TArray<FPlacement> Layout;
++    const bool bRefit=bRepaired && Host.GetOwner() && Host.GetOwner()->ActorHasTag(TEXT("VillageTavern.HallRoadR3"));
+     if (bRepaired)
+     {
+-        FurnishTaproom(Layout,Host.GetOwner() && Host.GetOwner()->ActorHasTag(TEXT("VillageTavern.StoneCourt")));
++        FurnishTaproom(Layout,Host.GetOwner() && Host.GetOwner()->ActorHasTag(TEXT("VillageTavern.StoneCourt")),bRefit);
+     }
+     else FurnishRuin(Layout);
+-    FurnishKitchen(Layout,bRepaired);
++    FurnishKitchen(Layout,bRepaired,bRefit);
+     const bool bDedicated = Host.GetNetMode()==NM_DedicatedServer;
+     TArray<FPlacement> Blocking, Dressing;
+     TArray<FSoftObjectPath> Paths;

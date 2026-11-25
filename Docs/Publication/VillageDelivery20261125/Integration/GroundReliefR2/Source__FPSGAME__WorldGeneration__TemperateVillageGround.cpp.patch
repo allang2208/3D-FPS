@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillageGround.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillageGround.cpp
+@@ -107,9 +107,11 @@
+         }
+         const FBox& Box=Boxes[K];
+         const FVector Span=Box.GetSize();
++        const uint32 ShapeKey=TemperateHillsSurface::Key(G.X,G.Y,11817,581);
+         const double XY=G.Diameter/FMath::Max(1.,FMath::Max(Span.X,Span.Y));
+-        const double ZScale=G.Diameter*.39/FMath::Max(1.,Span.Z);
+-        const FVector Scale(XY,XY,ZScale);
++        const double Thickness=G.Diameter*FMath::Lerp(.27,.46,TemperateHillsSurface::Unit(ShapeKey+1));
++        const double Width=FMath::Lerp(.74,1.,TemperateHillsSurface::Unit(ShapeKey+2));
++        const FVector Scale(XY,XY*Width,Thickness/FMath::Max(1.,Span.Z));
+         const FQuat Rotation(FVector::UpVector,FMath::Atan2(Village.Axis.Y,Village.Axis.X)+G.Yaw*(2.*UE_PI/256.));
+         // Same SW-to-NE diagonal as the village's 1 m collision mesh. An
+         // embedded lower quarter hides the rounded underside of a loose chip.
+@@ -120,7 +122,7 @@
+         const double A=Hills.Height(X0,Y0), D=Hills.Height(X0+Step,Y0+Step);
+         const double Ground=U>V ? (1.-U)*A+(U-V)*Hills.Height(X0+Step,Y0)+V*D :
+                                    (1.-V)*A+(V-U)*Hills.Height(X0,Y0+Step)+U*D;
+-        const FVector Pivot=FVector(P,Ground-G.Diameter*.10)-
++        const FVector Pivot=FVector(P,Ground-Thickness*.25)-
+             Rotation.RotateVector(Scale*FVector(Box.GetCenter().X,Box.GetCenter().Y,Box.Min.Z));
+         auto& Point=Out.Emplace_GetRef();
+         Point.Transform=FTransform(Rotation,Pivot,Scale);

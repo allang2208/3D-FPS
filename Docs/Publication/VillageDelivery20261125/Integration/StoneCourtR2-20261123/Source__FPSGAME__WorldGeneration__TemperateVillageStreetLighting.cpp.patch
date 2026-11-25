@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillageStreetLighting.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillageStreetLighting.cpp
+@@ -60,7 +60,9 @@
+     if (bJunction && !Exists(InnTag))
+     {
+         const double Setback = Host->ActorHasTag(TEXT("VillageTavern.ThreeStoreyInn")) ? 65. : 0.;
+-        Install(InnTag, FTransform(FRotator(0.,149.,0.), FVector(586.,-1125.-Setback,-4.)));
++        FVector Station(586.,-1125.-Setback,-4.);
++        if (Host->ActorHasTag(TEXT("VillageTavern.StoneCourt"))) Station -= FVector(600.,2000.,0.);
++        Install(InnTag,FTransform(FRotator(0.,149.,0.),Station));
+     }
+     if (!bStreet) return;
+ 

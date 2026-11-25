@@ -1,0 +1,52 @@
+--- a/Tools/WorldGeneration/AbandonedVillage/build_exterior_lod.py
++++ b/Tools/WorldGeneration/AbandonedVillage/build_exterior_lod.py
+@@ -10,7 +10,7 @@
+ VILLAGE = "/Game/WorldGeneration/TemperateHills/AbandonedVillage"
+ OUTPUT = VILLAGE + "/ExteriorLOD"
+ SHOP = re.compile(r"Village_(02_Tavern|05_Windmill|06_Bakery|09_Gunshop|(Blacksmith|Carpenter|Herbalist)_(Common|Repaired|Ruined))$")
+-FIXED = re.compile(r"Roof|Chimney|OldWall|WallCorner|WindowWall|Wall4x4|ArcadeFrame|Gable|StonePier|StoneJamb", re.I)
++FIXED = re.compile(r"Roof|Chimney|OldWall|WallCorner|WindowWall|Wall4x4|ArcadeFrame|Gable|StonePier|StoneJamb|InnFacade|InnTimberFrame", re.I)
+ EXCLUDED = re.compile(r"Glass|Shutter|Rotor|Blade|DoorLeaf|Animated|Flame|GlassPane", re.I)
+ ED = u.EditorAssetLibrary
+ ASSET = u.GeometryScript_AssetUtils
+@@ -52,6 +52,9 @@
+         part, outcome = ASSET.copy_mesh_from_static_mesh_v2(mesh, u.DynamicMesh(),
+             u.GeometryScriptCopyMeshFromAssetOptions(), lod, use_section_materials=False)
+         if outcome != u.GeometryScriptOutcomePins.SUCCESS or part.get_triangle_count() == 0:
++            part,outcome=ASSET.copy_mesh_from_static_mesh_v2(mesh,u.DynamicMesh(),
++                u.GeometryScriptCopyMeshFromAssetOptions(),u.GeometryScriptMeshReadLOD(),use_section_materials=False)
++        if outcome != u.GeometryScriptOutcomePins.SUCCESS or part.get_triangle_count() == 0:
+             raise RuntimeError("Cannot read " + mesh.get_path_name())
+         source_tris += part.get_triangle_count() * len(poses)
+         if part.get_triangle_count() > 500:
+@@ -88,22 +91,26 @@
+ 
+ 
+ def main():
+-    level = u.get_editor_subsystem(u.LevelEditorSubsystem)
+-    if not level.load_level(VILLAGE + "/L_AbandonedVillage"):
++    if not u.EditorLoadingAndSavingUtils.load_map(VILLAGE + "/L_AbandonedVillage"):
+         raise RuntimeError("Village level unavailable")
+     groups = []
++    selected = os.environ.get("VILLAGE_EXTERIOR_LABEL")
+     actors = u.get_editor_subsystem(u.EditorActorSubsystem).get_all_level_actors()
+     for actor in sorted(actors, key=lambda item: item.get_name()):
+         label = actor.get_actor_label()
+-        if not SHOP.fullmatch(label):
++        if not SHOP.fullmatch(label) or (selected and label != selected):
+             continue
+         for index, (_, parts) in enumerate(sorted(source_parts(actor).items())):
+             if len(parts) < 2:
+                 continue
+-            groups.append(bake(actor, parts, f"SM_Exterior_{label}_{index:02d}"))
++            suffix = "_Inn" if label == "Village_02_Tavern" and "VillageTavern.ThreeStoreyInn" in map(str,actor.tags) else ""
++            groups.append(bake(actor, parts, f"SM_Exterior_{label}{suffix}_{index:02d}"))
+     if not groups:
+         raise RuntimeError("No village exteriors authored")
+     path = Path(u.Paths.convert_relative_path_to_full(u.Paths.project_content_dir())) / "WorldGeneration/TemperateHills/FixedLayout/village-exterior-lod.json"
++    if selected:
++        other=[group for group in json.loads(path.read_text(encoding='utf8')) if group['label']!=selected]
++        groups=other+groups
+     pending = path.with_suffix(".pending")
+     pending.write_text(json.dumps(groups, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+     os.replace(pending, path)

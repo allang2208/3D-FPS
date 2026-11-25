@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/WorldGeneration/HillsTavernSite.h
++++ b/Source/FPSGAME/WorldGeneration/HillsTavernSite.h
+@@ -5,8 +5,10 @@
+ 
+ class ATemperateHillsWorld;
+ class AVillageTavernKeeper;
++class AColdSteelDoor;
++class ABuildingDaylight;
+ 
+-/** Streamed House 02. The 1318 x 878 cm deck has its floor at local Z=0.
++/** Streamed House 02. The hall floor is at local Z=0.
+  * +X runs along the ridge. The street door is at (0,-426), the bar faces it
+  * from the +Y wall, and the oak tie beams cross the hall at Z=316. */
+ UCLASS()
+@@ -22,9 +24,12 @@
+ private:
+     void Refresh();
+     void UpdateKeeper(bool bRepaired);
++    void UpdateRoomDoors(bool bRepaired);
+     bool RepairAreaOccupied() const;
+     TWeakObjectPtr<ATemperateHillsWorld> Hills;
+     TWeakObjectPtr<AActor> Furnishings;
+     TWeakObjectPtr<AVillageTavernKeeper> Keeper;
++    TWeakObjectPtr<ABuildingDaylight> InteriorVision;
++    TArray<TWeakObjectPtr<AColdSteelDoor>> RoomDoors;
+     bool bShowingRepaired = false;
+ };

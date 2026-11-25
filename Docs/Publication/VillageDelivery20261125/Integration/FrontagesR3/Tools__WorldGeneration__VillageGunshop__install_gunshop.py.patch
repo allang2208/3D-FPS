@@ -1,0 +1,31 @@
+--- a/Tools/WorldGeneration/VillageGunshop/install_gunshop.py
++++ b/Tools/WorldGeneration/VillageGunshop/install_gunshop.py
+@@ -13,6 +13,7 @@
+ from room_daylight import SHOP_DAYLIGHT, apply_daylight
+ from repair_house_instances import transfer_ruin
+ from gunshop_shell import build_shell, install_windows
++from shop_frontages import GUNSHOP_FLAGS, public_frame
+ from gunshop_furnish import build_furnishings, counter_point
+ 
+ SITE = 'VillageGunshop.Site'
+@@ -30,8 +31,8 @@
+     shape = plot_geometry(house, pieces, plan)
+     # The old west-side threshold faced a dead end. Centre the wider house on
+     # its original footprint and put the new public gable towards the lane end.
+-    x, y = shape['center']
+-    pose = ue.Transform(location=(100*x, 100*y-450, 4))
++    (x,y),yaw = public_frame(house,shape)
++    pose = ue.Transform(location=(100*x,100*y,4),rotation=ue.Rotator(yaw=yaw))
+     site = next((a for a in current if SITE in map(str, a.tags)), None)
+     if site:
+         site.modify()
+@@ -141,8 +142,7 @@
+     build_furnishings(place)
+ 
+     # Flags follow the bend between the existing dirt track and the covered threshold.
+-    for x,y,w,d,angle in [(-8,-76,62,38,-8),(-61,-94,52,41,11),(-94,-126,45,35,-21),
+-                           (-141,-139,48,32,8),(-175,-152,35,23,-17)]:
++    for x,y,w,d,angle in GUNSHOP_FLAGS:
+         place('ApproachFlags', FLAG, (x,y,-6.5), (w,d,4), angle)
+ 
+     lamps = [('Entry',0,145,273,40), ('SampleWall',-300,505,273,40),
