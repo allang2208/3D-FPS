@@ -1,0 +1,33 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelShopHUD.cpp
+@@ -11,6 +11,7 @@
+ #include "Blueprint/WidgetTree.h"
+ #include "Blueprint/WidgetBlueprintLibrary.h"
+ #include "Components/CanvasPanel.h"
++#include "Components/Border.h"
+ #include "Components/CanvasPanelSlot.h"
+ #include "Engine/GameInstance.h"
+ #include "GameFramework/PlayerController.h"
+@@ -105,6 +106,8 @@
+ void UColdSteelHUDWidget::CloseShop()
+ {
+     if(!bShopOpen)return;
++    if(ShopWidget && ShopWidget->ShopModel()->IsStableShop() && bInventoryOpen)InventoryPanel->SetVisibility(ESlateVisibility::Visible);
++    if(bMountFromMarket)CloseMountDetails(false);
+     UWidgetBlueprintLibrary::CancelDragDrop();bShopOpen=false;HideItemTooltip(true);
+     ShopWidget->CancelConfirmation();ShopWidget->SetVisibility(ESlateVisibility::HitTestInvisible);
+     auto* ShopModel=ShopWidget->ShopModel();
+@@ -137,8 +140,11 @@
+     ShopMotion=FMath::FInterpConstantTo(ShopMotion,Target,Delta,4.f);
+     const float S=ColdSteelUI::PixelScale(this),Ease=ColdSteelUI::EaseSmooth(ShopMotion);
+     const float DrawerOffset=(1.f-ColdSteelUI::EaseSmooth(DrawerProgress))*(InventoryWidth+ColdSteelUI::NavigationDrawerInset);
+-    ShopWidget->SetRenderTranslation(FVector2D(((1-Ease)*InventoryWidth+DrawerOffset)/S,0));ShopWidget->SetRenderOpacity(Ease);
++    const bool MarketList=bShopOpen && !bMountFromMarket && ShopWidget->ShopModel()->IsStableShop();
++    if(MarketList)InventoryPanel->SetVisibility(ESlateVisibility::Collapsed);
++    const float ListOffset=MarketList?InventoryWidth:0.f;
++    ShopWidget->SetRenderTranslation(FVector2D(((1-Ease)*InventoryWidth+DrawerOffset+ListOffset)/S,0));ShopWidget->SetRenderOpacity(Ease);
+     const bool Ready=bShopOpen&&ShopMotion>1.f-KINDA_SMALL_NUMBER;
+     ShopSlot->SetZOrder(Ready?42:40);
+-    ShopWidget->SetVisibility(ShopMotion<=0?ESlateVisibility::Collapsed:Ready?ESlateVisibility::Visible:ESlateVisibility::HitTestInvisible);
++    ShopWidget->SetVisibility(bMountFromMarket || ShopMotion<=0?ESlateVisibility::Collapsed:Ready?ESlateVisibility::Visible:ESlateVisibility::HitTestInvisible);
+ }

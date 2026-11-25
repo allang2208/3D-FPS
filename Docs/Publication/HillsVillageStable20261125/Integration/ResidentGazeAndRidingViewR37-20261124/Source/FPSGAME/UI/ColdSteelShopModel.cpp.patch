@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelShopModel.cpp
+@@ -149,9 +149,10 @@
+ 
+ bool UColdSteelShopModel::BeginArtisanSession(AVillageArtisanMerchant* Seller)
+ {
+-    const auto* PC = GetGameInstance()->GetFirstLocalPlayerController();
++    auto* PC = GetGameInstance()->GetFirstLocalPlayerController();
+     if (!IsValid(Seller) || !Seller->CanTradeWith(PC ? PC->GetPawn() : nullptr) || !OpenProfile()) return false;
+     Merchant = Seller;
++    ResidentConversation::SetLocalFacing(Seller,PC);
+     BuyerPawn = PC->GetPawn();
+     StockHandle = Seller->OnStockChanged.AddUObject(this, &ThisClass::RefreshArtisanStock);
+     Message = Seller->IsCarpenterMerchant()
+@@ -208,10 +209,11 @@
+ bool UColdSteelShopModel::BeginMenuSession(AActor* Seller)
+ {
+     const auto* NewMenu = MenuForSeller(Seller);
+-    const auto* PC = GetGameInstance()->GetFirstLocalPlayerController();
++    auto* PC = GetGameInstance()->GetFirstLocalPlayerController();
+     if (!NewMenu || !PC || !ResidentConversation::CanReach(PC->GetPawn(), Seller) || !OpenProfile()) return false;
+     Menu = NewMenu;
+     MenuSeller = Seller;
++    ResidentConversation::SetLocalFacing(Seller,PC);
+     BuyerPawn = PC->GetPawn();
+     for (const auto& Offer : Menu->Offers)
+     {
+@@ -258,6 +260,7 @@
+ void UColdSteelShopModel::EndSession()
+ {
+     if (auto* World = GetWorld()) World->GetTimerManager().ClearTimer(ReachTimer);
++    ResidentConversation::SetLocalFacing(MenuSeller.IsValid()?MenuSeller.Get():Merchant.Get(),nullptr);
+     if (Merchant.IsValid()) Merchant->OnStockChanged.Remove(StockHandle);
+     StockHandle.Reset(); Merchant.Reset();
+     StableClock.Reset();StableOffers.Reset();StableDay=INDEX_NONE;StableProfile.Invalidate();

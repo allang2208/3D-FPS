@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
+@@ -407,6 +407,8 @@
+     CodexSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));CodexSlot->SetHorizontalAlignment(HAlign_Fill);
+     QuestPage = CreateWidget<UColdSteelQuestJournal>(GetOwningPlayer());
+     Body->AddChildToVerticalBox(QuestPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    MountPage=BuildMountPage();
++    Body->AddChildToVerticalBox(MountPage)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+     BuildStatusTooltip(Root);
+     BuildEquipmentTooltip(Root);
+     SetInventoryTab(false);

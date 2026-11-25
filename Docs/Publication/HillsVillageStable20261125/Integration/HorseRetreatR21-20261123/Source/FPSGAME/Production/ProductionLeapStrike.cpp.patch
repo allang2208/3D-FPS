@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Production/ProductionLeapStrike.cpp
++++ b/Source/FPSGAME/Production/ProductionLeapStrike.cpp
+@@ -38,6 +38,7 @@
+ {
+ bool LeapAvailable(AFPSGAMECharacter* Pawn,const UColdSteelStatusModel* Model,bool Continuing=false)
+ {
++    if(const auto* Mount=UHorseRiderComponent::MountOf(Pawn);Mount&&Mount->IsRetreating())return false;
+     const auto* Item=Model?Model->ActiveProductionTool():nullptr;
+     const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+     const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;

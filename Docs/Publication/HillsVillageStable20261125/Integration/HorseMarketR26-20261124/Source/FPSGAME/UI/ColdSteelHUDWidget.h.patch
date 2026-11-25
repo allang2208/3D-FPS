@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -111,6 +111,7 @@
+     void OpenBlacksmithShop(class AVillageBlacksmithResident* Blacksmith);
+     void OpenArtisanShop(class AVillageArtisanMerchant* Seller);
+     void OpenTavernShop(class AVillageTavernKeeper* Seller);
++    bool OpenStableShop(AActor* Seller);
+     void OpenBakerShop(class AVillageBaker* Seller);
+     void OpenGunshop(class AVillageGunshopCounter* Counter);
+     bool OpenHerbalistShop(class AVillageHerbalist* Seller);
+@@ -648,6 +649,9 @@
+     UPROPERTY(Transient) TObjectPtr<UVerticalBox> MountDetails;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountDetailName;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountDetailStatus;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountTraitDetails;
++    FGuid MountTraitsFor;
++    int64 MountLabelsRevision=-1;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountVitals;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountPotionHint;
+     UPROPERTY(Transient) TObjectPtr<UButton> MountDeploy;

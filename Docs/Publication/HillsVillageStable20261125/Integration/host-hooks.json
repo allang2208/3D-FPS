@@ -1,0 +1,2741 @@
+{
+  "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "adb5ee673d0ac36246414730f7d06f9f194c6e855c55ccdb35d788c296bc4298",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 91,
+        "text": "State.bAiming=Pawn->IsAiming();State.bSprinting=Pawn->IsSprinting()&&!UHorseRiderComponent::IsSeated(Pawn);"
+      },
+      {
+        "line": 626,
+        "text": "{State.bSprinting=Move->bWantsToSprint&&!UHorseRiderComponent::IsSeated(Pawn);State.bAiming=Move->bWantsToAim;}"
+      }
+    ],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp": {
+    "snapshot": "FixedTransferR18-20261123/FixedTransferR18.zip",
+    "sha256_lf": "675c4f717149f838f6afc09156d1a0343439f5310d6336e9ccc79bf56e6e55b6",
+    "hooks": [
+      {
+        "line": 6,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 7,
+        "text": "#include \"../Movement/FixedHorseTransferNode.h\""
+      },
+      {
+        "line": 1713,
+        "text": "FAnimNode_SequenceEvaluator_Standalone HorseTransfer,Furniture;"
+      },
+      {
+        "line": 1714,
+        "text": "FFixedHorseTransferNode HorseLayer;"
+      },
+      {
+        "line": 1805,
+        "text": "HorseLayer.Base.SetLinkNode(&FurnitureFloor);HorseLayer.Clip.SetLinkNode(&HorseTransfer);"
+      },
+      {
+        "line": 1806,
+        "text": "DeathBlend.A.SetLinkNode(&HorseLayer);DeathBlend.B.SetLinkNode(&Death);"
+      },
+      {
+        "line": 1810,
+        "text": "{Nodes.Append({&HorseTransfer,&HorseLayer,&Furniture,&FurnitureMirror,&FurnitureBlend,&FurnitureFloor,&Idle,&Neutral,&WalkA,&WalkB,&JogA,&JogB,&Walk,&Jog,&Pace,&Movement,"
+      },
+      {
+        "line": 1854,
+        "text": "auto* Ride=Actor?Actor->FindComponentByClass<UHorseRiderComponent>():nullptr;"
+      },
+      {
+        "line": 1857,
+        "text": "const float Clock=Transfer?(Ride->IsMounting()?Seat:1.f-Seat)*Transfer->GetPlayLength():0.f;"
+      },
+      {
+        "line": 1858,
+        "text": "Set(HorseTransfer,Transfer?Transfer:IdleClip,Clock,false);"
+      },
+      {
+        "line": 1859,
+        "text": "HorseLayer.BodyWeight=Transfer?FMath::SmoothStep(0.f,.08f,Seat):0.f;"
+      },
+      {
+        "line": 1860,
+        "text": "HorseLayer.ArmWeight=Transfer?FMath::SmoothStep(0.f,.21f,Seat)*(1.f-FMath::SmoothStep(.74f,1.f,Seat)):0.f;"
+      }
+    ],
+    "paired": [
+      "FixedTransferR18-20261123/FixedTransferR18.zip"
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp": {
+    "snapshot": "RidingR8-20261123/RidingR8.zip",
+    "sha256_lf": "59c2ceca8925a5d98a0d3bf89fb5c363ec248f2a01327b2808aff6c8dd8b4d24",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 397,
+        "text": "const bool HideHead=Body->bOwnerNoSee||((IsDeathViewActive()||UHorseRiderComponent::IsRiding(Character.Get()))&&!IsThirdPersonViewEnabled());"
+      }
+    ],
+    "paired": [
+      "RidingR8-20261123/RidingR8.zip"
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp": {
+    "snapshot": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "sha256_lf": "8b52df6509907a0fb440d27a424745e0df472410a051fe0aa43dadb9bb46d065",
+    "hooks": [
+      {
+        "line": 4,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 23,
+        "text": "if(const auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())"
+      },
+      {
+        "line": 25,
+        "text": "OutResult.Location+=Ride->SaddleViewCorrection();"
+      },
+      {
+        "line": 74,
+        "text": "bHideFromOwner||((IsDeathViewActive()||UHorseRiderComponent::IsRiding(Character.Get()))&&!IsThirdPersonViewEnabled()));"
+      },
+      {
+        "line": 104,
+        "text": "if(Character.IsValid()&&UHorseRiderComponent::IsRiding(Character.Get())&&!IsThirdPersonViewEnabled())"
+      },
+      {
+        "line": 122,
+        "text": "if((bPistol||bWarhammer)&&!UHorseRiderComponent::UsesSaddleHands(Character.Get())&&!IsThirdPersonViewEnabled()&&!UFPSFurnitureRestComponent::IsResting(Character.Get()))"
+      }
+    ],
+    "paired": [
+      "LeadingR9-20261123/LeadingR9.zip",
+      "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+      "RidingR12-20261123/RidingR12.zip",
+      "RidingR8-20261123/RidingR8.zip"
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp": {
+    "snapshot": "LeadingR9-20261123/LeadingR9.zip",
+    "sha256_lf": "1265632a1dfc36e636378192e21311a9b0ea724aa6c82ac793afeb2faefceec4",
+    "hooks": [
+      {
+        "line": 6,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 413,
+        "text": "const bool bSaddleHands=UHorseRiderComponent::UsesSaddleHands(Character.Get());"
+      },
+      {
+        "line": 414,
+        "text": "UpdateWorldOwnerVisibility(!bThirdPerson&&!IsDeathViewActive()&&(!bSaddleHands||bRideEyeOccluded));"
+      },
+      {
+        "line": 435,
+        "text": "const bool bHideFromOwner=bThirdPerson||bSaddleHands||IsDeathViewActive()||UFPSFurnitureRestComponent::IsResting(Character.Get())||IsWorkstationIdle()||Character->ScopeHiddenParts.Contains(Primitive)"
+      }
+    ],
+    "paired": [
+      "LeadingR9-20261123/LeadingR9.zip",
+      "RidingR8-20261123/RidingR8.zip"
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h": {
+    "snapshot": "LeadingR9-20261123/LeadingR9.zip",
+    "sha256_lf": "87e6967a1d758486307b6959ef012d0023e32b42430323b14325b5aec14cc167",
+    "hooks": [],
+    "paired": [
+      "LeadingR9-20261123/LeadingR9.zip"
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp": {
+    "snapshot": "LeadingR9-20261123/LeadingR9.zip",
+    "sha256_lf": "725aa5b9584222cb2cd9a4e88c30cd15f80bd1b3899fcb0c1c36a5e32906d0dd",
+    "hooks": [
+      {
+        "line": 18,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 584,
+        "text": "if(UFPSFurnitureRestComponent::IsResting(Character.Get())||UHorseRiderComponent::UsesSaddleHands(Character.Get()))return true;"
+      }
+    ],
+    "paired": [
+      "LeadingR9-20261123/LeadingR9.zip"
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.cpp": {
+    "snapshot": "RidingR8-20261123/RidingR8.zip",
+    "sha256_lf": "71e4274eacf45e84126f7b13d0743c6ec95a89db79e871b6636ed3c5749d6501",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 11,
+        "text": "if(auto* Ride=GetOwner()->FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())"
+      }
+    ],
+    "paired": [
+      "RidingR8-20261123/RidingR8.zip"
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp": {
+    "snapshot": "LeadingR9-20261123/LeadingR9.zip",
+    "sha256_lf": "ca17aa88b8c9acea04e4ccb10eddc12e2ca0eb428d2a7a67b4b5d2de538c81f4",
+    "hooks": [
+      {
+        "line": 5,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 6,
+        "text": "#include \"../Movement/StableRidingHorse.h\""
+      },
+      {
+        "line": 28,
+        "text": "&&!UHorseRiderComponent::UsesSaddleHands(Character.Get())&&DisplayState.Action!=EFPSBodyAction::Dead&&!Character->IsTraversing()&&!IsWorkstationIdle();"
+      },
+      {
+        "line": 88,
+        "text": "if((!FirstPersonLowerBody||!ShouldShowFirstPersonLowerBody())&&!UHorseRiderComponent::IsRiding(Character.Get()))return;"
+      },
+      {
+        "line": 118,
+        "text": "const auto* Ride=Character->FindComponentByClass<UHorseRiderComponent>();"
+      }
+    ],
+    "paired": [
+      "LeadingR9-20261123/LeadingR9.zip",
+      "RidingR8-20261123/RidingR8.zip"
+    ]
+  },
+  "Source/FPSGAME/Characters/FPSPlayerHeadAnimInstance.cpp": {
+    "snapshot": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "sha256_lf": "9fed0a1bf36d0575cef118fbbd3e58bebe55f44c77a449e0ee8b5c2d8b15a57c",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../NPC/ResidentGaze.h\""
+      },
+      {
+        "line": 3,
+        "text": "#include \"../NPC/ResidentTurnAnimInstance.h\""
+      },
+      {
+        "line": 14,
+        "text": "FResidentGaze EyeGaze;"
+      },
+      {
+        "line": 30,
+        "text": "const auto* Turn=Body?Cast<UResidentTurnAnimInstance>(Body->GetAnimInstance()):nullptr;"
+      },
+      {
+        "line": 32,
+        "text": "if (!Face || (!Viewer && !EyeGaze.IsActive())) return;"
+      },
+      {
+        "line": 37,
+        "text": "bFaceOwnsEyes=FResidentGaze::HasEyePair(*Face) && !FResidentGaze::HasEyePair(*Body);"
+      },
+      {
+        "line": 39,
+        "text": "EyeGaze.UpdateTarget(*Face,bFaceOwnsEyes?Viewer:nullptr,Delta);"
+      },
+      {
+        "line": 43,
+        "text": "if (!EyeGaze.IsActive()) return false; // Use the normal copy-pose root."
+      },
+      {
+        "line": 45,
+        "text": "EyeGaze.Apply(Output,true);"
+      }
+    ],
+    "paired": [
+      "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip"
+    ]
+  },
+  "Source/FPSGAME/Combat/RangedAttackQuery.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "66796e5588ea897a7c06e0a1c6b4162427c14289dc5e322f5438d09a560b2edb",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/StableRidingHorse.h\""
+      },
+      {
+        "line": 21,
+        "text": "if (const auto* Mount=Cast<AStableRidingHorse>(Part); Mount&&IsValid(Mount->GetRider())) return Mount->GetRider();"
+      },
+      {
+        "line": 52,
+        "text": "const auto* Mount=Cast<AStableRidingHorse>(Hit.GetActor());"
+      }
+    ],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/FPSGAMECharacter.cpp": {
+    "snapshot": "RidingR8-20261123/RidingR8.zip",
+    "sha256_lf": "ad696b0a8bd53a15dacc0b39a6288fea28a154cee71561d3c574ea9c89c964a9",
+    "hooks": [
+      {
+        "line": 41,
+        "text": "#include \"Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 242,
+        "text": "CreateDefaultSubobject<UHorseRiderComponent>(TEXT(\"HorseRider\"));"
+      }
+    ],
+    "paired": [
+      "RidingR8-20261123/RidingR8.zip"
+    ]
+  },
+  "Source/FPSGAME/FPSGAMECharacter.h": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "2c4936f07ca967e3ade130e00857d388a73750937cc87bd54a008c933fec3657",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/FPSGAMECharacterCamera.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "b10de4cfc1b18c2230476b24e0acb6ce362c2ff4a7b76c0acbafc90fd4685a36",
+    "hooks": [
+      {
+        "line": 1,
+        "text": "#include \"Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 329,
+        "text": "if(const auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())"
+      },
+      {
+        "line": 332,
+        "text": "CameraFeedback+=Ride->CanterCameraRotation()*(CameraMotionScale*(1.f-.8f*AimWeight));"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/FPSGAMECharacterFiring.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "d61f6f778caf82239374384b422af3d6d3694f04103c60ae31c8d9d7057ad1a0",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 385,
+        "text": "FFPSAttackQuery Params(SCENE_QUERY_STAT(AKMFire), true, this);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/FPSGAMECharacterInput.cpp": {
+    "snapshot": "HorseBackingR23-20261123/HorseBackingR23.zip",
+    "sha256_lf": "74cd58c316ba26385c2a0ec09630e562cf7ab27bc60f5d9c24c337babfc298f1",
+    "hooks": [
+      {
+        "line": 38,
+        "text": "#include \"Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 169,
+        "text": "if(auto* Ride=FindComponentByClass<UHorseRiderComponent>())"
+      },
+      {
+        "line": 170,
+        "text": "Input->BindKey(EKeys::X,IE_Pressed,Ride,&UHorseRiderComponent::ToggleOwnedHorse);"
+      },
+      {
+        "line": 191,
+        "text": "if(const auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Transferring())return;"
+      },
+      {
+        "line": 240,
+        "text": "if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())"
+      },
+      {
+        "line": 264,
+        "text": "if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())"
+      },
+      {
+        "line": 304,
+        "text": "if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active()){Ride->SetCanter(true);return;}"
+      },
+      {
+        "line": 317,
+        "text": "if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active()){Ride->SetCanter(false);return;}"
+      },
+      {
+        "line": 329,
+        "text": "if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active()){return;}"
+      },
+      {
+        "line": 341,
+        "text": "if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())"
+      },
+      {
+        "line": 343,
+        "text": "Ride->RequestHorseJump();"
+      },
+      {
+        "line": 362,
+        "text": "if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Transferring()){return;}"
+      },
+      {
+        "line": 508,
+        "text": "if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Transferring()){return;}"
+      }
+    ],
+    "paired": [
+      "HorseBackingR23-20261123/HorseBackingR23.zip",
+      "HorseRosterR22-20261123/HorseRosterR22.zip",
+      "JumpR13-20261123/JumpR13.zip",
+      "RidingR8-20261123/RidingR8.zip"
+    ]
+  },
+  "Source/FPSGAME/FPSGAMECharacterWeaponState.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "b05db7242800cd3c95cfafe6086fbc26e00ef355c936a439355e8dba7c0f5efa",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 455,
+        "text": "const float TargetAirSpread = (!GetCharacterMovement()->IsMovingOnGround() && !bIsAiming && !UHorseRiderComponent::IsSeated(this)) ? 0.025f : 0.0f;"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/FPSGAMEPlayerController.cpp": {
+    "snapshot": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "sha256_lf": "0327e8ef65411dafeecf0e9d1746349d54cdf8b0c946e53c40429cb33ebce8d4",
+    "hooks": [
+      {
+        "line": 6,
+        "text": "#include \"Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 7,
+        "text": "#include \"Movement/StableHorseMarket.h\""
+      },
+      {
+        "line": 8,
+        "text": "#include \"Movement/StableRidingHorse.h\""
+      },
+      {
+        "line": 433,
+        "text": "if(auto* Ride=GetPawn()->FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->ReleaseUse())return true;"
+      },
+      {
+        "line": 584,
+        "text": "if(StableHorseMarket::IsSeller(Target) && ColdSteelHUD)"
+      },
+      {
+        "line": 585,
+        "text": "{InterruptInspection();ColdSteelHUD->OpenStableShop(Target);return true;}"
+      },
+      {
+        "line": 586,
+        "text": "if(auto* Ride=GetPawn()->FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->PressUse(Cast<AStableRidingHorse>(Target)))return true;"
+      },
+      {
+        "line": 740,
+        "text": "if(UFPSFurnitureRestComponent::IsResting(Player->GetPawn())||UHorseRiderComponent::UsesSaddleHands(Player->GetPawn()))return true;"
+      }
+    ],
+    "paired": [
+      "HorseMarketR26-20261124/HorseMarketR26.zip",
+      "LeadingR9-20261123/LeadingR9.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/BellowSacProjectile.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "1ecfe515c0f2cf6dd01ae571d7a98e7d13b4abb9ded1dba46af7d106d506d250",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "106b2ab89e4842dff7c7b52855bb2fc84257c93170a9f789d5452f94fef39963",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/BoundCongregateMelee.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "a18f5488aa8fceed65ccd74c7691925dc2501b9f98b6a223fa860e685453b31b",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/BoundCongregateTentacle.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "a3857fba9ad690fdac90d1a09cc9f92ba76f27b889eb4c965e2a75aed414f882",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "acac35174658c8985d3fb5323f4232b2899bd356d28c75a8e96557917b875f8d",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 3,
+        "text": "#include \"../Movement/StableRidingHorse.h\""
+      },
+      {
+        "line": 230,
+        "text": "if(auto* Mount=UHorseRiderComponent::MountOf(Actor))Mount->ShareRiderHealthLoss(AcceptedDamage);"
+      }
+    ],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/FleshHandMonster.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "14f33a912c4fa5f0edce19da8f11cc0cd69bdc5952cdfc0cf383c93d28843bf7",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/HangingBellM09.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "7235704b1fc9014ee1c82f3c719591c9f027bd8a55d8b6a163ac21635eb88534",
+    "hooks": [
+      {
+        "line": 488,
+        "text": "if(auto* P=Cast<APawn>(MonsterTargeting::DamageRecipient(H.GetActor()));P&&MonsterTargeting::IsOpponentPawn(P)&&!HitVictims.Contains(P)&&HasAttackSight(P))"
+      }
+    ],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/HeQueRiftPressure.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "af140f8344fee9cd694f2255997c8feb517de81999b2b0bc78f3c0941e611b5e",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/HeQueSideCrush.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "029be9f3adaab4df177ef9e4493d6d71bb90164e3dba287a122d5ec70bda1dc1",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/M08AirCannonProjectile.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "ed797bd729a3e8ca45586682d8027119c617a57df0abdca12674d19e779120e3",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/M14MucusProjectile.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "590b2ff1f6857c68328ffb7e603cfee88513feb97275954160f7822b45e4df05",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/M25MagicComponent.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "c3a0b02643d9750958aee7563f6b0a791f56755cfcb7dd0fb95629d00d21af5d",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/M66ClawSweep.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "a8a1794062d0870f284799c2c1ff23e2513429dc7e875c83f2dfb84c2062f4d8",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/M66SlamWave.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "b8e68bffcda2903bb4fa716a92d6d2be8bca398dc3b14be6f84333db5c23a33f",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/MantisM27Monster.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "3c2573271de4d7ac2ea158d8d21ca754f8732084a44435244bda7e4054ec2652",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/MantisM27Pounce.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "0c2f7042c3f376f5e1fb4d134fa04957f9697c345037981cd7633ad020887d44",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/MonsterAIController.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "dcf15754a01d4b60567547ea1e7a61615dc51f3e86771765e652e08f0d6d5510",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/MonsterAwareness.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "4fac42b27828b1b4efef6afe823c158dd55d93c8b2e60440d9f63693f00dd313",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/MonsterTargeting.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "0fe572fa9521e46c892f43bc939c51fa1fccad7a3a788d54181984bc40387ff5",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 3,
+        "text": "#include \"../Movement/StableRidingHorse.h\""
+      },
+      {
+        "line": 24,
+        "text": "if(const auto* Horse=Cast<AStableRidingHorse>(HitActor);Horse&&IsValid(Horse->GetRider()))"
+      },
+      {
+        "line": 25,
+        "text": "return Horse->GetRider();"
+      },
+      {
+        "line": 31,
+        "text": "if(const auto* Mount=UHorseRiderComponent::MountOf(Target))return Mount;"
+      }
+    ],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/Mutant3Feral.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "dcdaec107ba9bf11b5f381f659f127f9b55ef4d3e1ca5c446c518eece3a7d410",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/NightWardenMelee.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "36350942ff2fb51ac45a1cb3ca7db18aa7daf83ef6ef98507a08487503d08143",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/NurseZombie.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "f2d1bac6f097212dfdcc559171678027e20bfbdf7dd2eec2b4054bb0700d5fb7",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "cb2f6ab0ac796137fbc019373c3efad347f31f6371cca2d4eca5a7861ee1c3f1",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/RootCrownNeedleProjectile.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "c090ff4401797d5469088055320488e12c02c76c244bffccfa679918e3530875",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/RootCrownSlash.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "ee35883258cdb017d5ad1799ca082be5d0f150a38c6995a5e9ca4d31ec98573a",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/SpiralPillarM14Slam.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "37a9d00ce44662c02e8f5e0b2a4f31ea8397719dfc65ea89e6b5e9818f0a3fa8",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/SpiralPillarM14Whirlwind.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "b2600426e464496c6a0890b2f30ffe932e773796b1843edba4a5d4e37e36a127",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/UnknownHumanoid.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "f9ec1ff8e8e1f9d8850345d3c07ed4c809597332d405f71a0806a6ceb1f03fb7",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/UnknownHumanoidBow.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "b539c47e8d44e845661d51118c3ff3dd0331fb9f241487dee23ab7ad8301c241",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/WitchProjectile.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "a20e5510c0e4b95a99d8122c10e9b93ab2761d7ef7148a705b1121abd798f3d1",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/WolfHunting.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "b982e324d0dff51825da6ce9500e4b0bc78124d24810bf89925aec836cbb300d",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Monsters/WolfMonster.cpp": {
+    "snapshot": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "2a2f05dc117133a145a3fe845a71bb49fef4b332e3327cf8e9c92f1cb43da681",
+    "hooks": [],
+    "paired": [
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h": {
+    "snapshot": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "0fcd54788968e67107f266e0cd7dad15e6341ea5914b365d3666cb4c2f82548d",
+    "hooks": [
+      {
+        "line": 37,
+        "text": "MountPotion,"
+      },
+      {
+        "line": 38,
+        "text": "MountGear"
+      },
+      {
+        "line": 119,
+        "text": "UPROPERTY() FStableMountRoster MountPotionRoster;"
+      }
+    ],
+    "paired": [
+      "HorseDeploymentR24-20261123/HorseDeploymentR24.zip",
+      "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip"
+    ]
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp": {
+    "snapshot": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "ef7af0577011040d917541a28c6b63a816fb73c2c0dc1835aa571f1601d7b621",
+    "hooks": [
+      {
+        "line": 234,
+        "text": "else if(Request.Action==EColdSteelInventoryAction::MountGear)"
+      },
+      {
+        "line": 237,
+        "text": "Success=Model->ChangeMountGear(Request.MountId,Request.Cell,Request.Item,Request.Mode==TEXT(\"equip\"),Reason);"
+      },
+      {
+        "line": 238,
+        "text": "else Reason=TEXT(\"马具操作无效\");"
+      },
+      {
+        "line": 240,
+        "text": "else if(Request.Action==EColdSteelInventoryAction::MountPotion)"
+      },
+      {
+        "line": 241,
+        "text": "Success=Model->GiveMountPotion(Request.MountId,Request.Item,Reason);"
+      },
+      {
+        "line": 392,
+        "text": "if(Request.Action==EColdSteelInventoryAction::MountGear || Request.Action==EColdSteelInventoryAction::MountPotion ||"
+      },
+      {
+        "line": 394,
+        "text": "Reply->MountPotionRoster=After.MountRoster;"
+      }
+    ],
+    "paired": [
+      "HorseDeploymentR24-20261123/HorseDeploymentR24.zip",
+      "HorseMarketR26-20261124/HorseMarketR26.zip",
+      "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip"
+    ]
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelKukriAuthority.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "c149e63f4220aa8171d96bd1843d0493f683595739c220977da5c59dfca5270f",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 198,
+        "text": "const bool Sprint=UHorseRiderComponent::IsCantering(Pawn) || (Move->bWantsToSprint&&Move->IsMovingOnGround()&&!Pawn->IsSliding()&&Pawn->GetVelocity().SizeSquared2D()>2500.f);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelPlayerHitValidation.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "9bbbf479739dc85000e44d8e4f399393145a971f8bfcbfaa339f7794885142cb",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 501,
+        "text": "FFPSAttackQuery LOSParams(SCENE_QUERY_STAT(NetHitLOS),true,Shooter);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp": {
+    "snapshot": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "sha256_lf": "c14be3af4061d7c0d4a022813e00c32058764412c820b8b64a12cc082e00070e",
+    "hooks": [
+      {
+        "line": 213,
+        "text": "Adopted.MountRoster=Prev.MountRoster;"
+      }
+    ],
+    "paired": [
+      "HorseRosterR22-20261123/HorseRosterR22.zip"
+    ]
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp": {
+    "snapshot": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "ca3e890235f201e4fa0752e773bad1e78549c73088275d4b5cd3d275165c348f",
+    "hooks": [
+      {
+        "line": 1,
+        "text": "#include \"../Movement/StableHorseGear.h\""
+      },
+      {
+        "line": 175,
+        "text": "Save->Profile.MountRoster.ClearVolatileCondition();"
+      },
+      {
+        "line": 183,
+        "text": "Save->Profile.MountRoster=ShadowModel->ProfileView().MountRoster;"
+      },
+      {
+        "line": 272,
+        "text": "P.MountRoster.ClearVolatileCondition();"
+      },
+      {
+        "line": 488,
+        "text": "if(CurrentInventory.MountRoster.Revision>Save->Profile.MountRoster.Revision)"
+      },
+      {
+        "line": 490,
+        "text": "auto NewerRoster=CurrentInventory.MountRoster;"
+      },
+      {
+        "line": 492,
+        "text": "StableHorseGear::CopyEquipment(NewerRoster,Save->Profile.MountRoster);"
+      },
+      {
+        "line": 493,
+        "text": "Save->Profile.MountRoster=MoveTemp(NewerRoster);"
+      },
+      {
+        "line": 496,
+        "text": "StableHorseGear::CopyEquipment(Save->Profile.MountRoster,CurrentInventory.MountRoster);"
+      },
+      {
+        "line": 645,
+        "text": "Merged.MountRoster=Save->Profile.MountRoster;"
+      }
+    ],
+    "paired": [
+      "HorseRosterR22-20261123/HorseRosterR22.zip",
+      "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip"
+    ]
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelSuper90Authority.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "a25cf57485966d76dedce83eeee6d02e66d6e0b65f010c4229b4e5fddce45e19",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 142,
+        "text": "FFPSAttackQuery Params(SCENE_QUERY_STAT(Super90Authority),true,Pawn);FHitResult Obstruction;"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Multiplayer/ColdSteelWhirlwindAuthority.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "a81e1d86714879b0a3010b260f5c5ac87de4e60da06eac0afc5af4d5f7b572c1",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 200,
+        "text": "const bool Sprint=UHorseRiderComponent::IsCantering(Pawn) || (Move->bWantsToSprint&&Move->IsMovingOnGround()&&!Pawn->IsSliding()&&Pawn->GetVelocity().SizeSquared2D()>2500.f);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp": {
+    "snapshot": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "sha256_lf": "d58ef65e04370f55177109a02a5ecfa404156c28313607fce27dbb85ce2fa43b",
+    "hooks": [
+      {
+        "line": 51,
+        "text": "void UChapelDialogueComponent::SetLocalFacing(APlayerController* Player)"
+      },
+      {
+        "line": 53,
+        "text": "ResidentConversation::SetLocalFacing(LocalSpeaker(),Player);"
+      },
+      {
+        "line": 224,
+        "text": "SetLocalFacing(PC);"
+      },
+      {
+        "line": 276,
+        "text": "if(bOwnsInput || bTradingWithHerbalist)SetLocalFacing(nullptr);"
+      },
+      {
+        "line": 468,
+        "text": "else if(Action==TEXT(\"garrison_mechanics\"))Result=TEXT(\"机械工坊已在东门马厩对面落成。按 B 打开「村庄建筑」，可建造弩炮与投石机。\");"
+      }
+    ],
+    "paired": [
+      "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip"
+    ]
+  },
+  "Source/FPSGAME/NPC/ResidentConversation.cpp": {
+    "snapshot": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "sha256_lf": "2057fedea442e479e83399b884c3c2c2cbd38ed5af5b5619f55caa41049f4c93",
+    "hooks": [
+      {
+        "line": 8,
+        "text": "#include \"../Movement/StableHorseMarket.h\""
+      },
+      {
+        "line": 12,
+        "text": "#include \"ResidentTurnAnimInstance.h\""
+      },
+      {
+        "line": 23,
+        "text": "void ResidentConversation::SetLocalFacing(AActor* Speaker, APlayerController* Viewer)"
+      },
+      {
+        "line": 35,
+        "text": "else if (StableHorseMarket::IsSeller(Speaker))"
+      },
+      {
+        "line": 41,
+        "text": "if (auto* Turn=Cast<UResidentTurnAnimInstance>(Body->GetAnimInstance()))"
+      },
+      {
+        "line": 49,
+        "text": "Body->SetAnimInstanceClass(UResidentTurnAnimInstance::StaticClass());"
+      },
+      {
+        "line": 50,
+        "text": "if (auto* NewInstance=Cast<UResidentTurnAnimInstance>(Body->GetAnimInstance()))"
+      },
+      {
+        "line": 109,
+        "text": "Body.SetAnimInstanceClass(UResidentTurnAnimInstance::StaticClass());"
+      },
+      {
+        "line": 110,
+        "text": "Animation=CastChecked<UResidentTurnAnimInstance>(Body.GetAnimInstance());"
+      }
+    ],
+    "paired": [
+      "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip"
+    ]
+  },
+  "Source/FPSGAME/NPC/ResidentConversation.h": {
+    "snapshot": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "sha256_lf": "5262abd3adb779102053ac76f50858491a82f7177f02458bde76c54896753c4c",
+    "hooks": [
+      {
+        "line": 10,
+        "text": "class UResidentTurnAnimInstance;"
+      },
+      {
+        "line": 14,
+        "text": "void SetLocalFacing(AActor* Speaker, APlayerController* Viewer);"
+      },
+      {
+        "line": 29,
+        "text": "TWeakObjectPtr<UResidentTurnAnimInstance> Animation;"
+      }
+    ],
+    "paired": [
+      "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip"
+    ]
+  },
+  "Source/FPSGAME/NPC/ResidentTurnAnimInstance.cpp": {
+    "snapshot": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "sha256_lf": "36dbd5725a3ce456ed7b95189f80fb86b83591a82ffef858c0981ec2fc06c363",
+    "hooks": [
+      {
+        "line": 1,
+        "text": "#include \"ResidentTurnAnimInstance.h\""
+      },
+      {
+        "line": 2,
+        "text": "#include \"ResidentGaze.h\""
+      },
+      {
+        "line": 10,
+        "text": "namespace ResidentTurn"
+      },
+      {
+        "line": 34,
+        "text": "FResidentGaze Gaze;"
+      },
+      {
+        "line": 40,
+        "text": "auto* Anim=CastChecked<UResidentTurnAnimInstance>(Instance);"
+      },
+      {
+        "line": 190,
+        "text": "FAnimInstanceProxy* UResidentTurnAnimInstance::CreateAnimInstanceProxy()"
+      },
+      {
+        "line": 192,
+        "text": "return new ResidentTurn::FTurnProxy(this);"
+      }
+    ],
+    "paired": [
+      "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip"
+    ]
+  },
+  "Source/FPSGAME/Production/ProductionBluntSprint.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "0dbaa33d221f4e3bf0cfe247be4c6a1e1e3e575064660aaa01a84f52e1373466",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 60,
+        "text": "const bool GroundSprint=UHorseRiderComponent::IsCantering(Pawn) || (SprintIntent&&!Pawn->IsSliding()&&"
+      },
+      {
+        "line": 74,
+        "text": "if(Kind!=TEXT(\"warhammer\")||!IsEquipped()||IsBusy()||!Pawn||(!Pawn->bSprintHeld&&!UHorseRiderComponent::IsCantering(Pawn))||!CanUse()||"
+      },
+      {
+        "line": 82,
+        "text": "if(!Carry&&!UHorseRiderComponent::IsCantering(Pawn)&&(!Pawn->IsSprinting()||!Move->IsMovingOnGround()||Pawn->GetVelocity().SizeSquared2D()<=2500.f))return 0.f;"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Production/ProductionLeapPreview.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "def1baf5c10f35bb026fd6f84c21d7d5a17f4a2d2b19bfc041bd6b18efa7f29e",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 3,
+        "text": "#include \"../Movement/StableRidingHorse.h\""
+      },
+      {
+        "line": 4,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 24,
+        "text": "!Pawn->bIsCrouched&&(Pawn->GetCharacterMovement()->IsMovingOnGround()||UHorseRiderComponent::IsSeated(Pawn))&&"
+      },
+      {
+        "line": 81,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(LeapPreviewArc),false,Pawn);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Production/ProductionLeapStrike.cpp": {
+    "snapshot": "HorseRetreatR21-20261123/HorseRetreatR21.zip",
+    "sha256_lf": "72bd8509cca47a3721ae0d9d9964cd5388a63fd7c8928d0fa8d636032b6f95db",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 3,
+        "text": "#include \"../Movement/StableRidingHorse.h\""
+      },
+      {
+        "line": 4,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 41,
+        "text": "if(const auto* Mount=UHorseRiderComponent::MountOf(Pawn);Mount&&Mount->IsRetreating())return false;"
+      },
+      {
+        "line": 90,
+        "text": "if(!Pawn->GetCharacterMovement()->IsMovingOnGround()&&!UHorseRiderComponent::IsSeated(Pawn))return TEXT(\"需站在地面\");"
+      },
+      {
+        "line": 103,
+        "text": "if(const auto* Ride=Pawn->FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->GetMount())"
+      },
+      {
+        "line": 125,
+        "text": "FFPSAttackQuery Q(SCENE_QUERY_STAT(LeapStrikeTarget),false,Pawn);"
+      },
+      {
+        "line": 181,
+        "text": "!Pawn->bIsCrouched&&(Pawn->GetCharacterMovement()->IsMovingOnGround()||UHorseRiderComponent::IsSeated(Pawn))&&ValidateLeapLanding(RequestedTarget,Target,Floor,Normal);"
+      },
+      {
+        "line": 239,
+        "text": "if(auto* Ride=Pawn->FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->GetMount())Ride->GetMount()->Halt();"
+      },
+      {
+        "line": 247,
+        "text": "if(!bLeapStrike||bLeapLaunched||!Move||(!Move->IsMovingOnGround()&&!UHorseRiderComponent::IsSeated(Pawn)))return false;"
+      },
+      {
+        "line": 252,
+        "text": "if(auto* Ride=Pawn->FindComponentByClass<UHorseRiderComponent>())Ride->LeaveSeatForLeap();"
+      }
+    ],
+    "paired": [
+      "HorseRetreatR21-20261123/HorseRetreatR21.zip"
+    ]
+  },
+  "Source/FPSGAME/Production/ThunderHammerRecall.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "6b56c88f1d86a6cc664804684036a9201bca20f668d4a36a21d02a30d1d02b20",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 118,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(ThunderHammerRecall),false,Pawn);Query.AddIgnoredActor(this);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Production/WarhammerShockwave.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "26d068b0d0b08908611c9090e6516bdbba8551cd4abd9d3a378568f99717135d",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 142,
+        "text": "FFPSAttackQuery Q(SCENE_QUERY_STAT(WarhammerWave),false,Pawn);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Skills/ElementalArrowBurst.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "512c9abc3d9315b97979657865045f85fd8f385994efbee716a750b265e04083",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 174,
+        "text": "FFPSAttackQuery Q(SCENE_QUERY_STAT(ElementalIceFlight),true,GetInstigator());Q.AddIgnoredActor(this);if(SeedTarget.IsValid())Q.AddIgnoredActor(SeedTarget.Get());"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Skills/FPSElectricMagicComponent.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "4a90e466fab1af1e6794a17c4e6091052919cd14975a2de40bb63514c21644f3",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 493,
+        "text": "FFPSAttackQuery Walls(SCENE_QUERY_STAT(ThunderLanceWalls),true,P);for(auto* T:Targets)Walls.AddIgnoredActor(T);"
+      },
+      {
+        "line": 531,
+        "text": "FFPSAttackQuery Direct(SCENE_QUERY_STAT(ThunderLanceWeakpoint),true,P);for(auto* Other:Targets)if(Other!=T)Direct.AddIgnoredActor(Other);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Skills/FPSFireballComponent.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "2eae5584ef02c2bdbe9a5cc1eface488ac580d99f29c85d518d42285222fb319",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 330,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(FireballPrepare),false,Player);FHitResult Wall;"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Skills/FPSFireballProjectile.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "dee8a8c31e5de8ea9cca051aa13fad0a70484a243964612511ebf8de1cb90fac",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 174,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(FireballMove),false,Shooter.Get());Query.AddIgnoredActor(this);"
+      },
+      {
+        "line": 247,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(FireballMove),false,Shooter.Get());Query.AddIgnoredActor(this);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Skills/FPSIceSpikeVolley.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "91299881b8d5f6e9d012948a4f10a04f8b9d23ed39ef4a895055ed1bee78c2c8",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 178,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(IceSpikeHover),false,Shooter.Get());Query.AddIgnoredActor(this);"
+      },
+      {
+        "line": 326,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(IceSpikeFlight),false,Shooter.Get());Query.AddIgnoredActor(this);FHitResult Hit;"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Skills/FPSIceWallComponent.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "1f505a3311ad57d43a33315705cc205d7256ca32b652347a1b616dcaaf718c2c",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 211,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(IceWallAim),false,GetOwner());Query.AddIgnoredActor(Seed.Get());Query.AddIgnoredActor(Preview.Get());"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Skills/FPSMagicArrowRain.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "b6f63eb59f484049cc3dd5e9cdaacc2b1c79c0bbd884269002891ee323d51512",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 257,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(ArrowRainFlight),true,Pawn);Query.AddIgnoredActor(this);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Skills/FPSMagicPreview.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "0c112bd7984bd7b5802696f006df5d85ecc42ffd91cc7d468d3f3781b363c61b",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 34,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(MagicAimPreview),true,Shooter);"
+      },
+      {
+        "line": 56,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(MagicAimPreviewTrace),false,Shooter);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp": {
+    "snapshot": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "sha256_lf": "faad6114d842658ec2e0735a46e8e7f9a8622d23dedcba3d5c7b73ed01d0927c",
+    "hooks": [
+      {
+        "line": 14,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 15,
+        "text": "#include \"../Movement/StableRidingHorse.h\""
+      },
+      {
+        "line": 52,
+        "text": "#include \"../Movement/StableHorseMarket.h\""
+      },
+      {
+        "line": 171,
+        "text": "const bool bStableSeller=StableHorseMarket::IsSeller(Focus.Target);"
+      },
+      {
+        "line": 172,
+        "text": "const bool bDirectResident=bStableSeller || Artisan || Cast<AChapelNun>(Focus.Target) || Cast<AVillageHerbalist>(Focus.Target) || bMillKeeper;"
+      },
+      {
+        "line": 177,
+        "text": "auto* Ride=Character?Character->FindComponentByClass<UHorseRiderComponent>():nullptr;"
+      },
+      {
+        "line": 178,
+        "text": "auto* Horse=Cast<AStableRidingHorse>(Focus.Target);"
+      },
+      {
+        "line": 179,
+        "text": "const bool bHorseUse=bOrdinaryUse&&Ride&&(Ride->Active()||Horse);"
+      },
+      {
+        "line": 181,
+        "text": "Text=Rest->UpdateFocus(bOrdinaryUse && !bOperatingTarget && !bHorseUse && !ContainerFocus && !bAidTarget && !bRepair && !bMillKeeper && !bStableSeller);"
+      },
+      {
+        "line": 182,
+        "text": "if(!bHorseUse&&bAidTarget)"
+      },
+      {
+        "line": 200,
+        "text": "else if(!bHorseUse && (bOrdinaryUse || bRepair) && !bResting && Text.IsEmpty() && (bDefenseFocus || !Cast<AVillageDefenseSection>(Focus.Target)))"
+      },
+      {
+        "line": 215,
+        "text": "if((bStableSeller && Candidate==Focus.Target && ResidentConversation::CanReach(PC->GetPawn(),Candidate)) ||"
+      },
+      {
+        "line": 237,
+        "text": "if(Ride && Ride->Active() && Cast<AStableRidingHorse>(Subject))Subject=nullptr;"
+      },
+      {
+        "line": 239,
+        "text": "if(auto* Mount=Cast<AStableRidingHorse>(Subject); Mount && !Mount->GetRider())ResidentFocus=Mount;"
+      }
+    ],
+    "paired": [
+      "HorseMarketR26-20261124/HorseMarketR26.zip",
+      "HorseRosterR22-20261123/HorseRosterR22.zip",
+      "LeadingR9-20261123/LeadingR9.zip",
+      "RidingR12-20261123/RidingR12.zip",
+      "RidingR8-20261123/RidingR8.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelHUDReadouts.cpp": {
+    "snapshot": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "sha256_lf": "668efa488590bfde31b4438fe83f4679c65f3238695678ffe880a7eecdc2a15f",
+    "hooks": [],
+    "paired": [
+      "HorseRosterR22-20261123/HorseRosterR22.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp": {
+    "snapshot": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "d5a1da0113eabc6cc440fbb10b8f737314ee7c585c121a3c6a802d5a5ae6beb4",
+    "hooks": [
+      {
+        "line": 35,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 235,
+        "text": "// 缓动统一在渲染输出处做（进度本身保持线性＝时长恒定）；骑乘收回的面板共用这个值＝同曲线刚体。"
+      },
+      {
+        "line": 239,
+        "text": "// 整体骑乘收回时抽屉行程加长面板宽（多出的行程本就在屏幕外不可见），"
+      },
+      {
+        "line": 255,
+        "text": "// 关闭＝冶炼栏＋背包视为一个整体：立即关抽屉并让面板与抽屉同一位移曲线刚体骑乘向右缩回（bSmeltRiding）；"
+      },
+      {
+        "line": 289,
+        "text": "// 工作台制作面板动画：与冶炼面板逐行同构（同贴位互斥，同一时刻至多一块在骑乘，"
+      },
+      {
+        "line": 354,
+        "text": "if(InKeyEvent.GetKey()==EKeys::Escape && ViewedMount.IsValid()){CloseMountDetails(true);return FReply::Handled();}"
+      },
+      {
+        "line": 472,
+        "text": "if(!bOpen)CloseMountDetails(false);"
+      },
+      {
+        "line": 597,
+        "text": "CloseMountDetails(false);"
+      },
+      {
+        "line": 605,
+        "text": "if(auto* Ride=Pawn->FindComponentByClass<UHorseRiderComponent>())Ride->ServerRequestHorseClock();"
+      },
+      {
+        "line": 620,
+        "text": "if (InventoryTitleText) InventoryTitleText->SetText(FText::FromString(Page==0?TEXT(\"角色状态\"):(Page==1||Page==3)?TEXT(\"装备与背包\"):Page==4?TEXT(\"图鉴\"):Page==5?TEXT(\"任务\"):Page==6?TEXT(\"马匹\"):TEXT(\"技能\")));"
+      }
+    ],
+    "paired": [
+      "HorseDeploymentR24-20261123/HorseDeploymentR24.zip",
+      "HorseRosterR22-20261123/HorseRosterR22.zip",
+      "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelHUDWidget.h": {
+    "snapshot": "MountDetailDesignR39-20261125/MountDetailDesignR39.zip",
+    "sha256_lf": "bdafe4869a15539c409bf8f71339d1f46a862facff81e9608bd42326e712eaa3",
+    "hooks": [
+      {
+        "line": 114,
+        "text": "bool OpenStableShop(AActor* Seller);"
+      },
+      {
+        "line": 115,
+        "text": "void OpenMarketMountDetails(FGuid Id);"
+      },
+      {
+        "line": 191,
+        "text": "friend class UColdSteelMountButton;"
+      },
+      {
+        "line": 198,
+        "text": "TSharedPtr<class SColdSteelHorseMarket> MountCards;"
+      },
+      {
+        "line": 201,
+        "text": "FGuid MountGearFor;"
+      },
+      {
+        "line": 202,
+        "text": "int64 MountGearRevision=-1,MountGearInventoryRevision=-1;"
+      },
+      {
+        "line": 203,
+        "text": "void OpenMountDetails(FGuid Id,bool FromMarket);"
+      },
+      {
+        "line": 204,
+        "text": "void CloseMountDetails(bool Back);"
+      },
+      {
+        "line": 206,
+        "text": "bool HandleMountDetailDrop(class UColdSteelItemDrag* Drag,FVector2D Position);"
+      },
+      {
+        "line": 254,
+        "text": "bool bSmeltRiding=false;   // 关闭相位：冶炼栏与背包刚体骑乘、同曲线整体向右缩回（2026-09-24 用户定稿）"
+      },
+      {
+        "line": 270,
+        "text": "bool bWorkbenchRiding=false;   // 关闭相位：与背包刚体骑乘向右缩回"
+      },
+      {
+        "line": 272,
+        "text": "/** 互斥瞬收：两面板共用同一贴位，开一个时另一个立即收起（不播骑乘动画）。 */"
+      },
+      {
+        "line": 304,
+        "text": "UPROPERTY(Transient) TObjectPtr<UTextBlock> MountStaminaText;"
+      },
+      {
+        "line": 305,
+        "text": "UPROPERTY(Transient) TObjectPtr<USizeBox> MountStaminaMeterSize;"
+      },
+      {
+        "line": 306,
+        "text": "UPROPERTY(Transient) TObjectPtr<class UColdSteelResourceMeter> MountStaminaMeter;"
+      },
+      {
+        "line": 307,
+        "text": "TWeakObjectPtr<class AStableRidingHorse> DisplayedStaminaMount;"
+      },
+      {
+        "line": 308,
+        "text": "FIntPoint DisplayedMountStamina=FIntPoint(-1,-1);"
+      },
+      {
+        "line": 659,
+        "text": "UPROPERTY(Transient) TObjectPtr<UBorder> MountDetailsDrawer;"
+      },
+      {
+        "line": 661,
+        "text": "UPROPERTY(Transient) TObjectPtr<class UColdSteelMountGearPanel> MountGear;"
+      },
+      {
+        "line": 663,
+        "text": "UPROPERTY(Transient) TObjectPtr<UScrollBox> MountDetailsScroll;"
+      },
+      {
+        "line": 665,
+        "text": "UPROPERTY(Transient) TObjectPtr<UTextBlock> MountPotionHint;"
+      },
+      {
+        "line": 668,
+        "text": "UPROPERTY(Transient) TArray<TObjectPtr<UButton>> MountPotions;"
+      }
+    ],
+    "paired": [
+      "HorseDeploymentR24-20261123/HorseDeploymentR24.zip",
+      "HorseMarketR26-20261124/HorseMarketR26.zip",
+      "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+      "HorseRosterR22-20261123/HorseRosterR22.zip",
+      "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+      "MountDetailDesignR39-20261125/MountDetailDesignR39.zip",
+      "MountStaminaHUDR20-20261123/MountStaminaHUDR20.zip",
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelHotbarDrag.cpp": {
+    "snapshot": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "be65ad3b441244e6a97909929244a17e16b12a67088965c5fa7e09a151312846",
+    "hooks": [
+      {
+        "line": 53,
+        "text": "const bool OverShop=(ViewedMount.IsValid() && MountDetailsDrawer && MountDetailsDrawer->GetCachedGeometry().IsUnderLocation(Position)) || (bShopOpen&&ShopWidget&&ShopWidget->GetCachedGeometry().IsUnderLocation(Position));"
+      },
+      {
+        "line": 112,
+        "text": "if(HandleMountDetailDrop(Drag,Event.GetScreenSpacePosition())){EndInventoryDrag();return true;}"
+      }
+    ],
+    "paired": [
+      "HorseRosterR22-20261123/HorseRosterR22.zip",
+      "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp": {
+    "snapshot": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "sha256_lf": "dda088e2e4f9c36621ab26176052069d46de5ec277202dd038112f6f9b1f96bc",
+    "hooks": [],
+    "paired": [
+      "HorseRosterR22-20261123/HorseRosterR22.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp": {
+    "snapshot": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "815935f948c0a89bb176596856d3690ece503b1c79295727e0974ebfe09d4107",
+    "hooks": [
+      {
+        "line": 3,
+        "text": "#include \"../Movement/StableHorseGear.h\""
+      },
+      {
+        "line": 518,
+        "text": "const auto& Roster=P.MountRoster;"
+      },
+      {
+        "line": 520,
+        "text": "{Reason=TEXT(\"出战马匹不存在\");return false;}"
+      },
+      {
+        "line": 523,
+        "text": "for(const auto& Horse:Roster.Horses)"
+      },
+      {
+        "line": 525,
+        "text": "if(Horse.BirthVersion>FStableHorseTraits::IndependentRolls || Horse.Level<1 || Horse.Level>FStableHorseTraits::MaxLevel ||"
+      },
+      {
+        "line": 526,
+        "text": "Horse.Experience<0 || Horse.Experience>=FStableMountRecord::ExperienceNeeded(Horse.Level) ||"
+      },
+      {
+        "line": 527,
+        "text": "(Horse.Level==FStableHorseTraits::MaxLevel && Horse.Experience!=0) ||"
+      },
+      {
+        "line": 528,
+        "text": "!Horse.HorseId.IsValid()||Seen.Contains(Horse.HorseId)||Horse.RecallAfterUtc<0||!FMath::IsFinite(Horse.Health)||!FMath::IsFinite(Horse.Stamina)||"
+      },
+      {
+        "line": 529,
+        "text": "!FMath::IsFinite(Horse.MaxHealth)||!FMath::IsFinite(Horse.MaxStamina)||"
+      },
+      {
+        "line": 530,
+        "text": "Horse.MaxHealth<=0||Horse.MaxStamina<=0||Horse.Health<0||Horse.Health>Horse.MaxHealth||Horse.Stamina<0||Horse.Stamina>Horse.MaxStamina)"
+      },
+      {
+        "line": 531,
+        "text": "{Reason=TEXT(\"马匹状态无效\");return false;}"
+      },
+      {
+        "line": 533,
+        "text": "for(const auto& Gear:Horse.Equipment)"
+      },
+      {
+        "line": 535,
+        "text": "const int32 Slot=StableHorseGear::SlotOf(Gear.Definition);"
+      },
+      {
+        "line": 541,
+        "text": "{Reason=TEXT(\"马具身份或装备位无效\");return false;}"
+      },
+      {
+        "line": 544,
+        "text": "Seen.Add(Horse.HorseId);"
+      },
+      {
+        "line": 547,
+        "text": "for(const auto& Item:P.Items)if(GearIds.Contains(Item.InstanceId)){Reason=TEXT(\"马具存在重复归属\");return false;}"
+      },
+      {
+        "line": 620,
+        "text": "// R22 saves identify horses by stall. Upgrade before this first full-profile validation."
+      },
+      {
+        "line": 621,
+        "text": "Changed|=Next.MountRoster.Upgrade(Next.NetworkProfileId);"
+      },
+      {
+        "line": 713,
+        "text": "Changed|=Next.MountRoster.Upgrade(Next.NetworkProfileId);"
+      }
+    ],
+    "paired": [
+      "HorseDeploymentR24-20261123/HorseDeploymentR24.zip",
+      "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+      "HorseRosterR22-20261123/HorseRosterR22.zip",
+      "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp": {
+    "snapshot": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "049a19b6f572d1e89e7b76563b7848d83bb20ea78c86a051b5643aeba68e9421",
+    "hooks": [],
+    "paired": [
+      "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelInventoryTypes.h": {
+    "snapshot": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "3d64ac3af7f18a430eb7d777f7074a0f73ba446018206df92baab7719e0194a4",
+    "hooks": [
+      {
+        "line": 7,
+        "text": "#include \"../Movement/HorseRosterTypes.h\""
+      },
+      {
+        "line": 225,
+        "text": "UPROPERTY() FStableMountRoster MountRoster;"
+      }
+    ],
+    "paired": [
+      "HorseRosterR22-20261123/HorseRosterR22.zip",
+      "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp": {
+    "snapshot": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "9459fba149dd0f9bdea9a56e5d52fb0395f7c7f33218468c5ba8fa9d0c1c023f",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/StableHorseGear.h\""
+      },
+      {
+        "line": 14,
+        "text": "if(Reply->MountPotionRoster.Revision>Next.MountRoster.Revision)Next.MountRoster=Reply->MountPotionRoster;"
+      },
+      {
+        "line": 15,
+        "text": "else if(!Reply->MountPotionRoster.Horses.IsEmpty())StableHorseGear::CopyEquipment(Next.MountRoster,Reply->MountPotionRoster);"
+      }
+    ],
+    "paired": [
+      "HorseDeploymentR24-20261123/HorseDeploymentR24.zip",
+      "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp": {
+    "snapshot": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "sha256_lf": "673cec518c5228c8b0d7d3f3855af4e8b25833851a1e66859f2c393ad565b003",
+    "hooks": [
+      {
+        "line": 55,
+        "text": "{TEXT(\"马匹\"), TEXT(\"I\"), TEXT(\"Navigation/horse_subject.png\")}"
+      }
+    ],
+    "paired": [
+      "HorseRosterR22-20261123/HorseRosterR22.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelProfilePawn.cpp": {
+    "snapshot": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "sha256_lf": "36b2979bd827efa2d158170057833b3c205bcce6cd1e0ac4e7c6410d1684eb40",
+    "hooks": [
+      {
+        "line": 8,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 9,
+        "text": "#include \"../Movement/StableRidingHorse.h\""
+      },
+      {
+        "line": 79,
+        "text": "if(const auto* Ride=CurrentPawn->FindComponentByClass<UHorseRiderComponent>())"
+      },
+      {
+        "line": 80,
+        "text": "if(auto* Horse=Ride->GetOwnedHorse();IsValid(Horse))Horse->CacheKeeperCondition();"
+      }
+    ],
+    "paired": [
+      "HorseRosterR22-20261123/HorseRosterR22.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelProfileRewards.cpp": {
+    "snapshot": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "sha256_lf": "bec16823fa8f1d398d1dfbd885621cf39e7e154c5e44d905932e1ab4fb20f634",
+    "hooks": [
+      {
+        "line": 56,
+        "text": "const FGuid LeveledHorse=CreditPresentMountExperience(P,Gained);"
+      },
+      {
+        "line": 60,
+        "text": "ApplyCommittedMountLevel(LeveledHorse);"
+      }
+    ],
+    "paired": [
+      "HorseProgressionR33-20261124/HorseProgressionR33.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp": {
+    "snapshot": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "b0b50c51ce737c1b84291ab0c2eea2674971571ac794c11d767b9b349b574edd",
+    "hooks": [
+      {
+        "line": 1,
+        "text": "#include \"../Movement/StableHorseGear.h\""
+      },
+      {
+        "line": 316,
+        "text": "Current.MountRoster.Revision>Migrated.MountRoster.Revision)"
+      },
+      {
+        "line": 318,
+        "text": "auto NewerRoster=Current.MountRoster;"
+      },
+      {
+        "line": 320,
+        "text": "StableHorseGear::CopyEquipment(NewerRoster,Migrated.MountRoster);"
+      },
+      {
+        "line": 321,
+        "text": "Migrated.MountRoster=MoveTemp(NewerRoster);"
+      },
+      {
+        "line": 497,
+        "text": "const FGuid LeveledHorse=CreditPresentMountExperience(State,GainedExperience);"
+      },
+      {
+        "line": 511,
+        "text": "if(PersistState(State,true)){ApplyCommittedMountLevel(LeveledHorse);QueueExperienceNotice(GainedExperience);return true;}"
+      },
+      {
+        "line": 521,
+        "text": "ApplyCommittedMountLevel(LeveledHorse);"
+      },
+      {
+        "line": 527,
+        "text": "ApplyCommittedMountLevel(LeveledHorse);"
+      }
+    ],
+    "paired": [
+      "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+      "HorseRosterR22-20261123/HorseRosterR22.zip",
+      "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelShopHUD.cpp": {
+    "snapshot": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "a04bb7dae5444948dadcba7353bf1d026bba0355d86024a8ad9d37293a46e47e",
+    "hooks": [
+      {
+        "line": 35,
+        "text": "bool UColdSteelHUDWidget::OpenStableShop(AActor* Seller)"
+      },
+      {
+        "line": 37,
+        "text": "return StableHorseMarket::IsSeller(Seller) && OpenShopFor(Seller);"
+      },
+      {
+        "line": 67,
+        "text": "else if(StableHorseMarket::IsSeller(Seller))"
+      },
+      {
+        "line": 109,
+        "text": "if(ShopWidget && ShopWidget->ShopModel()->IsStableShop() && bInventoryOpen)InventoryPanel->SetVisibility(ESlateVisibility::Visible);"
+      },
+      {
+        "line": 110,
+        "text": "if(bMountFromMarket)CloseMountDetails(false);"
+      },
+      {
+        "line": 143,
+        "text": "const bool MarketList=bShopOpen && !bMountFromMarket && ShopWidget->ShopModel()->IsStableShop();"
+      }
+    ],
+    "paired": [
+      "HorseMarketR26-20261124/HorseMarketR26.zip",
+      "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelShopModel.cpp": {
+    "snapshot": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "sha256_lf": "1b0876aaa691c8928429c557eb249238a94bedb1abf5f8397f6858c9775fe25d",
+    "hooks": [
+      {
+        "line": 99,
+        "text": "const FColdSteelResidentMenu StableMenu = {"
+      },
+      {
+        "line": 100,
+        "text": "{}, TEXT(\"stable.buy\"), TEXT(\"东门马市\"), TEXT(\"买下的马匹可在马匹栏选择出战。\"),"
+      },
+      {
+        "line": 101,
+        "text": "TEXT(\"请回到马厩管理员身边再购买\"), TEXT(\"今日马匹已更换，请重新选择\")"
+      },
+      {
+        "line": 113,
+        "text": "if (StableHorseMarket::IsSeller(Seller)) return &StableMenu;"
+      },
+      {
+        "line": 155,
+        "text": "ResidentConversation::SetLocalFacing(Seller,PC);"
+      },
+      {
+        "line": 193,
+        "text": "bool UColdSteelShopModel::IsStableShop() const { return Menu==&StableMenu; }"
+      },
+      {
+        "line": 196,
+        "text": "return StableHorseMarket::IsSeller(Seller) && BeginMenuSession(Seller);"
+      },
+      {
+        "line": 198,
+        "text": "bool UColdSteelShopModel::RefreshHorseOffers()"
+      },
+      {
+        "line": 200,
+        "text": "if(!IsStableShop()||!Model)return false;"
+      },
+      {
+        "line": 206,
+        "text": "StableOffers=StableHorseMarket::Stock(Profile,Day);"
+      },
+      {
+        "line": 216,
+        "text": "ResidentConversation::SetLocalFacing(Seller,PC);"
+      },
+      {
+        "line": 223,
+        "text": "RefreshHorseOffers();"
+      },
+      {
+        "line": 236,
+        "text": "else if (RefreshHorseOffers()) {Message=StableMenu.BuyPrompt;OnChanged.Broadcast();}"
+      },
+      {
+        "line": 263,
+        "text": "ResidentConversation::SetLocalFacing(MenuSeller.IsValid()?MenuSeller.Get():Merchant.Get(),nullptr);"
+      },
+      {
+        "line": 398,
+        "text": "bool UColdSteelShopModel::BuyHorse(FGuid Id)"
+      },
+      {
+        "line": 400,
+        "text": "if(!IsStableShop() || !CanTrade())return false;"
+      },
+      {
+        "line": 403,
+        "text": "R.Action=EColdSteelInventoryAction::Shop;R.Mode=StableMenu.BuyMode;"
+      },
+      {
+        "line": 414,
+        "text": "RefreshHorseOffers();Message=Reason;OnChanged.Broadcast();"
+      },
+      {
+        "line": 420,
+        "text": "if(bCommitting){Message=TEXT(\"正在登记马匹\");OnChanged.Broadcast();}"
+      },
+      {
+        "line": 549,
+        "text": "FString BoughtHorse;"
+      },
+      {
+        "line": 550,
+        "text": "if(MenuBuy && SellerMenu==&StableMenu)"
+      },
+      {
+        "line": 554,
+        "text": "const auto Offers=StableHorseMarket::Stock(Next.NetworkProfileId,Clock->GetScheduleDay());"
+      },
+      {
+        "line": 555,
+        "text": "const auto* Offer=Offers.FindByPredicate([&](const auto& Lot){return Lot.Horse.HorseId==R.MountId;});"
+      },
+      {
+        "line": 556,
+        "text": "if(!Offer || R.Count!=1){Reason=StableMenu.InvalidOffer;return false;}"
+      },
+      {
+        "line": 557,
+        "text": "auto& Roster=Next.MountRoster;"
+      },
+      {
+        "line": 561,
+        "text": "if(Roster.Horses.IsEmpty())Roster.Deployed=R.MountId;"
+      },
+      {
+        "line": 562,
+        "text": "Roster.Horses.Add(Offer->Horse);"
+      },
+      {
+        "line": 564,
+        "text": "BoughtHorse=Offer->Horse.DisplayName();"
+      },
+      {
+        "line": 626,
+        "text": "if(!BoughtHorse.IsEmpty()){Reason=FString::Printf(TEXT(\"%s 已收入马匹栏 · 花费 %lld 灵魂\"),*BoughtHorse,Debit);return true;}"
+      }
+    ],
+    "paired": [
+      "HorseMarketR26-20261124/HorseMarketR26.zip",
+      "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelShopModel.h": {
+    "snapshot": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "sha256_lf": "c5acc9e1b632a6d6d7d21761e5942e71c442ba6e5f89f713a280e9047d04c398",
+    "hooks": [
+      {
+        "line": 6,
+        "text": "#include \"../Movement/StableHorseMarket.h\""
+      },
+      {
+        "line": 40,
+        "text": "bool IsStableShop() const;"
+      },
+      {
+        "line": 41,
+        "text": "bool BuyHorse(FGuid Id);"
+      },
+      {
+        "line": 42,
+        "text": "const TArray<FStableHorseOffer>& HorseOffers() const { return StableOffers; }"
+      },
+      {
+        "line": 43,
+        "text": "int32 HorseMarketDay() const { return StableDay; }"
+      },
+      {
+        "line": 76,
+        "text": "bool RefreshHorseOffers();"
+      },
+      {
+        "line": 78,
+        "text": "TArray<FStableHorseOffer> StableOffers;"
+      }
+    ],
+    "paired": [
+      "HorseMarketR26-20261124/HorseMarketR26.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelShopWidget.cpp": {
+    "snapshot": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "cb4a805bd3b67b77d76ba15c8130f6e6ccb1b3e72d0d1947a2d26e8dbc321021",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"SColdSteelHorseMarket.h\""
+      },
+      {
+        "line": 66,
+        "text": "void UColdSteelShopWidget::BuildHorseMarket(UVerticalBox* Body)"
+      },
+      {
+        "line": 68,
+        "text": "HorseMarket=WidgetTree->ConstructWidget<UNativeWidgetHost>();"
+      },
+      {
+        "line": 69,
+        "text": "auto* MarketSlot=Body->AddChildToVerticalBox(HorseMarket);"
+      },
+      {
+        "line": 72,
+        "text": "HorseMarket->SetVisibility(ESlateVisibility::Collapsed);"
+      },
+      {
+        "line": 75,
+        "text": "void UColdSteelShopWidget::RefreshHorseMarket(const UColdSteelStatusModel& Status)"
+      },
+      {
+        "line": 77,
+        "text": "auto Panel=StaticCastSharedPtr<SColdSteelHorseMarket>(HorseMarket->GetContent());"
+      },
+      {
+        "line": 80,
+        "text": "SAssignNew(Panel,SColdSteelHorseMarket)"
+      },
+      {
+        "line": 82,
+        "text": ".OnDetails(SColdSteelHorseMarket::FOpenHorse::CreateWeakLambda(this,[this](FGuid Id)"
+      },
+      {
+        "line": 85,
+        "text": "if(HUD && Model && Model->IsStableShop())HUD->OpenMarketMountDetails(Id);"
+      },
+      {
+        "line": 87,
+        "text": "HorseMarket->SetContent(Panel.ToSharedRef());"
+      },
+      {
+        "line": 89,
+        "text": "Panel->SetStock(Model->HorseOffers(),Status.ProfileView().MountRoster,Model->HorseMarketDay(),"
+      },
+      {
+        "line": 123,
+        "text": "BuildHorseMarket(Body);"
+      },
+      {
+        "line": 215,
+        "text": "if(auto Panel=StaticCastSharedPtr<SColdSteelHorseMarket>(HorseMarket->GetContent()))Panel->ResetSelection();"
+      },
+      {
+        "line": 216,
+        "text": "const bool Stable=Model->IsStableShop();"
+      },
+      {
+        "line": 217,
+        "text": "HorseMarket->SetVisibility(Stable?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);"
+      },
+      {
+        "line": 231,
+        "text": "if(Model->IsStableShop())"
+      },
+      {
+        "line": 233,
+        "text": "RefreshHorseMarket(*Status);"
+      },
+      {
+        "line": 286,
+        "text": "if(Model && Model->IsStableShop())return Super::NativeOnMouseWheel(G,E);"
+      }
+    ],
+    "paired": [
+      "HorseAppearanceR30-20261124/HorseAppearanceR30.zip",
+      "HorseMarketCardsR32-20261124/HorseMarketCardsR32.zip",
+      "HorseMarketR26-20261124/HorseMarketR26.zip",
+      "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelShopWidget.h": {
+    "snapshot": "HorseMarketCardsR32-20261124/HorseMarketCardsR32.zip",
+    "sha256_lf": "f9ba785b17da07e12e9b329528fb5bf5359b6514d5e789adb3858d228010166b",
+    "hooks": [
+      {
+        "line": 112,
+        "text": "void BuildHorseMarket(class UVerticalBox* Body);"
+      },
+      {
+        "line": 113,
+        "text": "void RefreshHorseMarket(const UColdSteelStatusModel& Status);"
+      },
+      {
+        "line": 114,
+        "text": "UPROPERTY(Transient) TObjectPtr<class UNativeWidgetHost> HorseMarket;"
+      }
+    ],
+    "paired": [
+      "HorseAppearanceR30-20261124/HorseAppearanceR30.zip",
+      "HorseMarketCardsR32-20261124/HorseMarketCardsR32.zip",
+      "HorseMarketR26-20261124/HorseMarketR26.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp": {
+    "snapshot": "MountStaminaHUDR20-20261123/MountStaminaHUDR20.zip",
+    "sha256_lf": "ab56c8b2f2f175f419e3368907faeae6ad341ff15f7c06c2543da3b1194f2f15",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 3,
+        "text": "#include \"../Movement/StableRidingHorse.h\""
+      },
+      {
+        "line": 67,
+        "text": "AddTrack(0,MountStaminaMeterSize,MountStaminaMeter,MountStaminaText);"
+      },
+      {
+        "line": 69,
+        "text": "MountStaminaMeterSize->SetVisibility(ESlateVisibility::Collapsed);"
+      },
+      {
+        "line": 70,
+        "text": "MountStaminaText->SetVisibility(ESlateVisibility::Collapsed);"
+      },
+      {
+        "line": 90,
+        "text": "DisplayedMountStamina=FIntPoint(-1,-1);"
+      },
+      {
+        "line": 204,
+        "text": "auto* Mount=ShowCombatHints?UHorseRiderComponent::MountOf(HintPawn):nullptr;"
+      },
+      {
+        "line": 206,
+        "text": "if(ShowMount!=(MountStaminaMeterSize->GetVisibility()!=ESlateVisibility::Collapsed))"
+      },
+      {
+        "line": 209,
+        "text": "MountStaminaMeterSize->SetVisibility(MountRowVisibility);"
+      },
+      {
+        "line": 210,
+        "text": "MountStaminaText->SetVisibility(MountRowVisibility);"
+      },
+      {
+        "line": 211,
+        "text": "CastChecked<UGridPanel>(MountStaminaText->GetParent())->SetRowFill(0,ShowMount?1.f:0.f);"
+      },
+      {
+        "line": 212,
+        "text": "DisplayedMountStamina=FIntPoint(-1,-1);"
+      },
+      {
+        "line": 216,
+        "text": "if(DisplayedStaminaMount.Get()!=Mount || DisplayedMountStamina.X<0)"
+      },
+      {
+        "line": 218,
+        "text": "MountStaminaMeter->ResetAnimation();"
+      },
+      {
+        "line": 223,
+        "text": "MountStaminaMeter->SetSemanticValue(Ratio,ColdSteelUI::MountStamina,ColdSteelUI::MountStaminaDeep,false);"
+      },
+      {
+        "line": 225,
+        "text": "if(DisplayedMountStamina!=Numbers)"
+      },
+      {
+        "line": 227,
+        "text": "DisplayedMountStamina=Numbers;"
+      },
+      {
+        "line": 228,
+        "text": "MountStaminaText->SetText(FText::FromString(FormatStamina(Current,Maximum)));"
+      },
+      {
+        "line": 231,
+        "text": "if(MountStaminaText->GetColorAndOpacity().GetSpecifiedColor()!=NumberColor)"
+      },
+      {
+        "line": 232,
+        "text": "MountStaminaText->SetColorAndOpacity(NumberColor);"
+      },
+      {
+        "line": 255,
+        "text": "for(auto* Value:{StaminaValue.Get(),MountStaminaText.Get()})"
+      },
+      {
+        "line": 260,
+        "text": "for(auto* Track:{StaminaMeterSize.Get(),MountStaminaMeterSize.Get()})Track->SetHeightOverride(9/S);"
+      }
+    ],
+    "paired": [
+      "MountStaminaHUDR20-20261123/MountStaminaHUDR20.zip",
+      "MountedCombatR19-20261123/MountedCombatR19.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelStatusModel.h": {
+    "snapshot": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "051e9ffad5ba58c37aa2866af18e4b1edc9c6107e1b977665bf7f520979fc823",
+    "hooks": [
+      {
+        "line": 607,
+        "text": "bool CommitMountRoster(FStableMountRoster Roster);"
+      },
+      {
+        "line": 608,
+        "text": "bool ChangeMountGear(FGuid HorseId,int32 Slot,const FString& ItemId,bool Equip,FString& Reason);"
+      },
+      {
+        "line": 609,
+        "text": "bool GiveMountPotion(FGuid HorseId,const FString& ItemId,FString& Reason);"
+      },
+      {
+        "line": 610,
+        "text": "void StageMountCondition(const FStableMountRecord& Horse);"
+      },
+      {
+        "line": 611,
+        "text": "void ReceiveMountRoster(FGuid Profile,const FStableMountRoster& Roster);"
+      },
+      {
+        "line": 732,
+        "text": "void ApplyCommittedMountLevel(FGuid HorseId) const;"
+      }
+    ],
+    "paired": [
+      "HorseDeploymentR24-20261123/HorseDeploymentR24.zip",
+      "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+      "HorseRosterR22-20261123/HorseRosterR22.zip",
+      "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelUIStyle.h": {
+    "snapshot": "MountStaminaHUDR20-20261123/MountStaminaHUDR20.zip",
+    "sha256_lf": "45278896a9f2ad4d844826c3c98ce4244d5a7646812395d24e75d90fc713894e",
+    "hooks": [
+      {
+        "line": 55,
+        "text": "inline const FLinearColor MountStamina = FLinearColor::FromSRGBColor(FColor(99, 173, 233));"
+      },
+      {
+        "line": 56,
+        "text": "inline const FLinearColor MountStaminaDeep = FLinearColor::FromSRGBColor(FColor(46, 99, 152));"
+      },
+      {
+        "line": 141,
+        "text": "*  中段最快；抽屉、冶炼面板、升级弹层三层共用同一条曲线，骑乘收回仍保持同一取值＝刚体。 */"
+      }
+    ],
+    "paired": [
+      "MountStaminaHUDR20-20261123/MountStaminaHUDR20.zip"
+    ]
+  },
+  "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp": {
+    "snapshot": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "sha256_lf": "64c606c91beba9d6d6842c324614b848a7619534338dff332577d913842217b1",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 3,
+        "text": "#include \"../Movement/StableHorseMarket.h\""
+      },
+      {
+        "line": 4,
+        "text": "#include \"../Movement/StableRidingHorse.h\""
+      },
+      {
+        "line": 93,
+        "text": "if(!IsValid(PC)||!PC->GetPawn()||PC->bShowMouseCursor||UHorseRiderComponent::IsRiding(PC->GetPawn()))return Found;"
+      },
+      {
+        "line": 113,
+        "text": "if(StableHorseMarket::IsSeller(Target)){Found.Target=Target;return Found;}"
+      },
+      {
+        "line": 114,
+        "text": "if(auto* Horse=Cast<AStableRidingHorse>(Target))"
+      },
+      {
+        "line": 116,
+        "text": "if(!Horse->IsRetreating()&&Horse->Visit()==EStableHorseVisit::Present){Found.Target=Horse;return Found;}"
+      },
+      {
+        "line": 503,
+        "text": "if(StableHorseMarket::IsSeller(Target)){Hint.Title=TEXT(\"马厩管理员\");Hint.Text=TEXT(\"查看出售马匹\");return Hint;}"
+      }
+    ],
+    "paired": [
+      "HorseMarketR26-20261124/HorseMarketR26.zip",
+      "HorseRosterR22-20261123/HorseRosterR22.zip",
+      "RidingR8-20261123/RidingR8.zip"
+    ]
+  },
+  "Source/FPSGAME/Weapons/Bow/BowArrow.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "901d5100e3e8ec4e00384eaf63c0295eac91dd2052deb49c08e583e961e03bee",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 240,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(BowArrow),true,GetInstigator());"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/Bow/BowWeaponComponent.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "5f43c78301a4ac0ddddb2be8494fc2ea6a63cfc37508e8d30f40733bcb6d649a",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 232,
+        "text": "const float AirTarget = Movement && !Movement->IsMovingOnGround() && !UHorseRiderComponent::IsSeated(GetOwner()) ? AirSpreadMax : 0.f;"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/FPSBallisticsComponent.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "ca32aee108b71841b2b4e4443427a4ee81ef02fc3366ea1b41a6afa3ed8f05c4",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 97,
+        "text": "FFPSAttackQuery Params(SCENE_QUERY_STAT(FlyingRound),true,GetOwner());Params.bReturnPhysicalMaterial=true;Params.bReturnFaceIndex=true;"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/FPSMeleeLightningComponent.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "d09b1acb5d5e4cb04f8e2f06961e8cf252d2d1562bd7025ea55d63b6ac41fab5",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 110,
+        "text": "FFPSAttackQuery Sight(SCENE_QUERY_STAT(ElectrifiedMeleeSight),true,GetOwner());"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/FPSRiftSlashProjectile.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "ff56501875210ed111268c7f8977374150684602132a0476d32b60ada33ec13b",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 112,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(RiftSlashFlight),false,GetOwner());Query.AddIgnoredActor(this);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/Kukri/KukriDashAttack.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "7769ddf4a85dd48aa95b756dd3ce0983027c4448224e1bae63ac9c2e60e24137",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 59,
+        "text": "const bool bGroundSprint=UHorseRiderComponent::IsCantering(P) || (P->IsSprinting()&&!P->IsSliding()&&Movement->IsMovingOnGround()&&"
+      },
+      {
+        "line": 78,
+        "text": "if(!bRetainedReady&&!UHorseRiderComponent::IsCantering(P)&&(!P->IsSprinting()||!Movement->IsMovingOnGround()||P->GetVelocity().SizeSquared2D()<=2500.f))return 0.f;"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/Kukri/KukriStrike.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "fb78b5454a72929fa18a13c804703b99b25925b6cdfcc5d6ea368a90d2b7306c",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 174,
+        "text": "FHitResult Blocker;FFPSAttackQuery Q(SCENE_QUERY_STAT(BladeSceneryCover),false,P);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "44fe3da588987c8b40b20bb31df548783e7c62635f5751e02da972ecfa91a6bc",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 328,
+        "text": "FFPSAttackQuery Q(SCENE_QUERY_STAT(KukriSwing),false,GetOwner());"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/Kukri/OffhandKukriUppercut.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "ea49364d194f3741ca5e3aa0ce833f65b5be272a6686aa6fd72218753b46f681",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 272,
+        "text": "FFPSAttackQuery Q(SCENE_QUERY_STAT(OffhandKukriUppercut),false,GetOwner());"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/Kukri/SwiftFalconHooks.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "64f2719775d823229a4c182ce5bdc8646b443a69c78a24ac24a7682df1722470",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 98,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(FalconHookCover),false,P);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/M24BipodValidation.inl": {
+    "snapshot": "HorseNetworkReviewR29-20261124/HorseNetworkReviewR29.zip",
+    "sha256_lf": "77b1168dc14100dab3e8eac4a384518b74f57224ff2bbb81f93de06f39ad1a68",
+    "hooks": [
+      {
+        "line": 97,
+        "text": "auto* CameraBlock=Box(Eye+Correction*.5,FVector(8,8,2));"
+      },
+      {
+        "line": 99,
+        "text": "CameraBlock->SetCollisionEnabled(ECollisionEnabled::NoCollision);"
+      },
+      {
+        "line": 157,
+        "text": "auto* ReturnCameraBlock=Box(Eye,FVector(6));D->ApplyPresentation();D->ApplyPresentation(true);"
+      },
+      {
+        "line": 160,
+        "text": "ReturnCameraBlock->SetCollisionEnabled(ECollisionEnabled::NoCollision);"
+      }
+    ],
+    "paired": [
+      "HorseNetworkReviewR29-20261124/HorseNetworkReviewR29.zip"
+    ]
+  },
+  "Source/FPSGAME/Weapons/M870QuickMeleeAudit.inl": {
+    "snapshot": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "sha256_lf": "51f6383fe69fee972f33ab28bf289a4daebf086f90bf6207498e058ed2a07259",
+    "hooks": [],
+    "paired": [
+      "HorseRosterR22-20261123/HorseRosterR22.zip"
+    ]
+  },
+  "Source/FPSGAME/Weapons/MeleeSmallTargetQuery.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "9ffbf46b013d8c57e4da1d29113bd545caba40820be6d0b169521d1e0161b349",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 41,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(MeleeLowOverlap),false,Owner);"
+      },
+      {
+        "line": 47,
+        "text": "FFPSAttackQuery Cover(SCENE_QUERY_STAT(MeleeLowCover),false,Owner);"
+      },
+      {
+        "line": 90,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(BladeSceneryFX),false,Owner);"
+      },
+      {
+        "line": 104,
+        "text": "FFPSAttackQuery Params(SCENE_QUERY_STAT(QuickMeleeContact),false,Owner);"
+      },
+      {
+        "line": 164,
+        "text": "FFPSAttackQuery Params(SCENE_QUERY_STAT(QuickMeleeAreaContact),false,Owner);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/PistolDualWieldCombat.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "2badf16b82307e2db45183363fc2e3989b6185863d14c16eb0d908cbbe362e13",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 70,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(DualPistolShot),true,Player);Query.bReturnPhysicalMaterial=true;Query.bReturnFaceIndex=true;"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/RuneOrbBladeProjectile.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "3a425ff0dab2f11ed47a3d659591396e5d6d7c78d0bc0a052fa064fdbfbbfa74",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 140,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(RuneBladeNearRelease),false,Pawn);"
+      },
+      {
+        "line": 417,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(RuneBladeMove), false, Shooter.Get());"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/RuneOrbBladesComponent.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "fb6d23b5c32d9e73c60ba3b5a400a1310bcbabc68eaa2ce578035f335477b17e",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 293,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(RuneBladeAim),false,Character);"
+      },
+      {
+        "line": 439,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(RuneBladeHover), false, Character);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/RuneSwordDashAttack.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "754cf51d22ac8821fefa2dfcd09fe891b321e5731ecf9053af9ae9b64a651556",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Movement/HorseRiderComponent.h\""
+      },
+      {
+        "line": 32,
+        "text": "!Pawn->IsCastBlockingLeftHandAction()&&(Pawn->bSprintHeld||UHorseRiderComponent::IsCantering(Pawn))&&"
+      },
+      {
+        "line": 38,
+        "text": "const bool bGroundSprint=UHorseRiderComponent::IsCantering(Pawn) || (Pawn->IsSprinting()&&!Pawn->IsSliding()&&Movement->IsMovingOnGround()&&"
+      },
+      {
+        "line": 57,
+        "text": "if(DashSprintSeconds<=0.f||!Pawn||(!Pawn->bSprintHeld&&!UHorseRiderComponent::IsCantering(Pawn))||IsBusy())return 0.f;"
+      },
+      {
+        "line": 64,
+        "text": "if(!bRetainedReady&&!UHorseRiderComponent::IsCantering(Pawn)&&(!Pawn->IsSprinting()||!Movement->IsMovingOnGround()||"
+      },
+      {
+        "line": 77,
+        "text": "!Animations.FindRef(TEXT(\"Overhead\"))||(!Pawn->bSprintHeld&&!UHorseRiderComponent::IsCantering(Pawn))||Pawn->IsCastBlockingLeftHandAction()||"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/RuneSwordHitQuery.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "6266e5c4789d1fb79bfba8be788c76125cd71c9986e0e334e244ad8d3d49aac4",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 23,
+        "text": "const FFPSAttackQuery Initial(SCENE_QUERY_STAT(RuneSwordCover),false,Owner);"
+      },
+      {
+        "line": 66,
+        "text": "FFPSAttackQuery Q(SCENE_QUERY_STAT(DashAttackSector),false,Owner);"
+      },
+      {
+        "line": 76,
+        "text": "FFPSAttackQuery SectorCover(SCENE_QUERY_STAT(DashAttackCover),false,Owner);"
+      },
+      {
+        "line": 115,
+        "text": "FFPSAttackQuery Q(SCENE_QUERY_STAT(YanlingRectangle),false,Owner);"
+      },
+      {
+        "line": 123,
+        "text": "FFPSAttackQuery Cover(SCENE_QUERY_STAT(YanlingRectangleCover),false,Owner);"
+      },
+      {
+        "line": 147,
+        "text": "FFPSAttackQuery Query(SCENE_QUERY_STAT(SwordFrontSlash),false,Owner);"
+      },
+      {
+        "line": 179,
+        "text": "FFPSAttackQuery Initial(SCENE_QUERY_STAT(RuneSwordBlade),false,Owner);"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/Weapons/Staff/StaffWeaponComponent.cpp": {
+    "snapshot": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "2b5cd694e090097a0a24410da31c1b7b138bae3eec73488e1cbabecf7a8862a9",
+    "hooks": [
+      {
+        "line": 2,
+        "text": "#include \"../../Combat/FPSAttackQuery.h\""
+      },
+      {
+        "line": 290,
+        "text": "FFPSAttackQuery Q(SCENE_QUERY_STAT(StaffSwing),false,GetOwner());"
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/WorldGeneration/HillsWindmill.cpp": {
+    "snapshot": "AssemblyR1-20261122/StableVergeR2-20261122.zip",
+    "sha256_lf": "345dca24f24e0c2934330112b9149ccd7d97914176bcc1d7b2c9f676e9f842ce",
+    "hooks": [
+      {
+        "line": 53,
+        "text": "// Sweep the lead-horse path along the north eave and through the watering yard."
+      }
+    ],
+    "paired": []
+  },
+  "Source/FPSGAME/WorldGeneration/TemperateVillagePlanting.cpp": {
+    "snapshot": "AssemblyR1-20261122/StableVergeR2-20261122.zip",
+    "sha256_lf": "1bb9454fa03c4493546b9981af3545082eaa98cc1ca31c02bdda1640f29538f1",
+    "hooks": [
+      {
+        "line": 49,
+        "text": "static const FVector2D HorseLane[]={{5140.,505.},{4930.,630.},{4770.,820.},{4650.,1080.},"
+      },
+      {
+        "line": 60,
+        "text": "if(NearLane(CartLane,200.)||NearLane(HorseLane,110.))return false;"
+      }
+    ],
+    "paired": []
+  }
+}

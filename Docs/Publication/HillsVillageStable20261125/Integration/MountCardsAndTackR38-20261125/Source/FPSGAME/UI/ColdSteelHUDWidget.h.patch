@@ -1,0 +1,49 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -112,6 +112,7 @@
+     void OpenArtisanShop(class AVillageArtisanMerchant* Seller);
+     void OpenTavernShop(class AVillageTavernKeeper* Seller);
+     bool OpenStableShop(AActor* Seller);
++    void OpenMarketMountDetails(FGuid Id);
+     void OpenBakerShop(class AVillageBaker* Seller);
+     void OpenGunshop(class AVillageGunshopCounter* Counter);
+     bool OpenHerbalistShop(class AVillageHerbalist* Seller);
+@@ -193,7 +194,16 @@
+     void CallJournalMount();
+     void GiveJournalPotion(int32 Tier);
+     FGuid ViewedMount;
+-    TArray<FGuid> ListedMounts;
++    bool bMountFromMarket=false;
++    TSharedPtr<class SColdSteelHorseMarket> MountCards;
++    FGuid MountListProfile;
++    bool bGearWasOwned=false;
++    FGuid MountGearFor;
++    int64 MountGearRevision=-1,MountGearInventoryRevision=-1;
++    void OpenMountDetails(FGuid Id,bool FromMarket);
++    void CloseMountDetails(bool Back);
++    void BuyViewedMount();
++    bool HandleMountDetailDrop(class UColdSteelItemDrag* Drag,FVector2D Position);
+     int64 MountItemGeneration=-1;
+     UWidget* BuildMountPage();
+     void RefreshMountPage();
+@@ -645,7 +655,11 @@
+     bool bMountTabActive = false;
+     UPROPERTY(Transient) TObjectPtr<UWidget> MountPage;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountPageHint;
+-    UPROPERTY(Transient) TObjectPtr<UVerticalBox> MountList;
++    UPROPERTY(Transient) TObjectPtr<class UNativeWidgetHost> MountList;
++    UPROPERTY(Transient) TObjectPtr<UBorder> MountDetailsDrawer;
++    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> MountDrawerSlot;
++    UPROPERTY(Transient) TObjectPtr<class UColdSteelMountGearPanel> MountGear;
++    UPROPERTY(Transient) TObjectPtr<UButton> MountBuy;
+     UPROPERTY(Transient) TObjectPtr<UVerticalBox> MountDetails;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountDetailName;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountDetailStatus;
+@@ -657,7 +671,6 @@
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountPotionHint;
+     UPROPERTY(Transient) TObjectPtr<UButton> MountDeploy;
+     UPROPERTY(Transient) TObjectPtr<UButton> MountCall;
+-    UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> MountNames;
+     UPROPERTY(Transient) TArray<TObjectPtr<UButton>> MountPotions;
+     bool bEquipmentTooltipPinned = false;
+     float TimelineRefreshAccumulator = 0.0f;

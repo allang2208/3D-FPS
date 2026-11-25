@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSPlayerBodyComponent.h"
++#include "../Movement/HorseRiderComponent.h"
+ #include "FPSBodyHighlandMotion.h"
+ #include "FPSBodyWarhammerMotion.h"
+ #include "../Skills/LeapStrikeMotion.h"
+@@ -87,7 +88,7 @@
+     State.Weapon=FName(*Pawn->ActiveInventoryWeaponDefinition);
+     BodyEquipmentIdentity(*Pawn,State);
+     State.Family=Pawn->HasInventoryWeapon()?(Pawn->IsPistolWeapon()?TEXT("Pistol"):TEXT("Rifle")):TEXT("Unarmed");
+-    State.bAiming=Pawn->IsAiming();State.bSprinting=Pawn->IsSprinting();
++    State.bAiming=Pawn->IsAiming();State.bSprinting=Pawn->IsSprinting()&&!UHorseRiderComponent::IsSeated(Pawn);
+     State.bCrouched=Pawn->bIsCrouched;State.bSliding=Pawn->IsSliding();State.bDual=Pawn->IsDualWieldingPistols();
+     // 左手单持与双持/法杖副手共用"左手独立手枪"姿态；主手空置时这把手枪就是主武器。
+     State.bOffhandPistol=Pawn->HasOffhandPistol()||Pawn->IsLoneOffhandPistol();
+@@ -622,7 +623,7 @@
+     {State.Family=TEXT("Tool");State.Weapon=FName(*Tool->Kind);State.ActionVariant=State.Weapon;}
+     // CMC 意图位：随 SavedMove 压缩标志到达服务端（联机重构后不再走独立 RPC）。
+     if(const auto* Move=Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement()))
+-    {State.bSprinting=Move->bWantsToSprint;State.bAiming=Move->bWantsToAim;}
++    {State.bSprinting=Move->bWantsToSprint&&!UHorseRiderComponent::IsSeated(Pawn);State.bAiming=Move->bWantsToAim;}
+     State.bCrouched=Pawn->bIsCrouched;State.bSliding=Pawn->IsSliding(); // 服务端按 flag 走完整滑铲物理，IsSliding() 即权威值
+     State.bDual=Pawn->IsDualWieldingPistols();
+     if(State.bDual)State.Family=TEXT("Pistol");

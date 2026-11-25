@@ -1,0 +1,147 @@
+{
+  "version": "StableSystemAuditR40",
+  "build": "FPSGAMEEditor Win64 Development",
+  "build_sha256": "b150bdf96bf4e071aa86dfe5e655b12f1948a6f341f3d0c58d4dd3fcd2c2575c",
+  "network": {
+    "passed": true,
+    "events": {
+      "guest.gaze": "guest shop opens and releases the native local gaze target",
+      "guest.gear": "wrong slot, equip four, remove, re-equip; same instance IDs",
+      "guest.reverse": "-53.0",
+      "host.damage": "rider=19.00 horse=19.00",
+      "host.transport": "lag=45 loss=2",
+      "host.viewer": "host pose independent of guest",
+      "host.xp": "53",
+      "rejoin.inventory": "four original pieces, no backpack duplicates, retained XP",
+      "rejoin.potion": "health=75.00 remaining=50.98s"
+    },
+    "fall_impact": {
+      "hp_before": 92.5,
+      "damage": 18.5,
+      "hp_after": 74.0
+    },
+    "other_merchants_passed": true
+  },
+  "ground": {
+    "samples": 20736,
+    "minimum_cm": 0.6492,
+    "max_seat_residual_cm": 0.0,
+    "slope_min_cm": 0.6492,
+    "slope_end": {
+      "frame": "115",
+      "x": "1060.792",
+      "z": "1261.146",
+      "speed": "1160.000",
+      "grounded": "1",
+      "mesh_min_cm": "0.6503",
+      "surface_min_cm": "0.6503",
+      "seat_error": "0.00000",
+      "left_tread_error": "0.00000",
+      "right_tread_error": "0.00000"
+    }
+  },
+  "yard_ms": {
+    "1": {
+      "gpu_ms": {
+        "n": 360,
+        "median": 5.085,
+        "p95": 6.0422
+      },
+      "wall_ms": {
+        "n": 360,
+        "median": 6.0083,
+        "p95": 7.1593
+      },
+      "game_ms": {
+        "n": 360,
+        "median": 1.4543,
+        "p95": 2.0013
+      },
+      "render_ms": {
+        "n": 360,
+        "median": 6.0012,
+        "p95": 7.1725
+      }
+    },
+    "0": {
+      "gpu_ms": {
+        "n": 360,
+        "median": 4.8689,
+        "p95": 5.7335
+      },
+      "wall_ms": {
+        "n": 360,
+        "median": 5.7892,
+        "p95": 7.0897
+      },
+      "game_ms": {
+        "n": 360,
+        "median": 1.3083,
+        "p95": 1.8578
+      },
+      "render_ms": {
+        "n": 360,
+        "median": 5.7741,
+        "p95": 7.072
+      }
+    }
+  },
+  "herd_cpu_ms": {
+    "1 horses parked=0": {
+      "n": 240,
+      "median": 0.0314,
+      "p95": 0.0323
+    },
+    "1 horses parked=1": {
+      "n": 240,
+      "median": 0.0313,
+      "p95": 0.0332
+    },
+    "8 horses parked=0": {
+      "n": 240,
+      "median": 0.2587,
+      "p95": 0.2657
+    },
+    "8 horses parked=1": {
+      "n": 240,
+      "median": 0.2589,
+      "p95": 0.2641
+    }
+  },
+  "pose_checks": {
+    "left": {
+      "records": 8272,
+      "frames": 376,
+      "finite": true
+    },
+    "right": {
+      "records": 8272,
+      "frames": 376,
+      "finite": true
+    },
+    "seated": {
+      "samples": 930,
+      "motions": [
+        "Melee.FullBody.Slash1",
+        "Rifle.Idle",
+        "Rifle.Reload"
+      ],
+      "max_upper_deg": 3.42e-06
+    }
+  },
+  "scene": {
+    "actors": 61,
+    "meshes": 285,
+    "missing_slot_issues": [],
+    "admin": {
+      "CharacterMesh0": {
+        "mesh": "/Game/WorldGeneration/TemperateHills/VillageStable/StablemasterHeadR5/Meshes/SK_Stablemaster_Body_R5.SK_Stablemaster_Body_R5",
+        "idle": "/Game/WorldGeneration/TemperateHills/VillageStable/StablemasterBackIdleR7/Animations/A_Stablemaster_HandsBehindBack_R7.A_Stablemaster_HandsBehindBack_R7"
+      },
+      "StablemasterHead": {
+        "mesh": "/Game/WorldGeneration/TemperateHills/VillageStable/StablemasterLikenessR6/Meshes/SK_Stablemaster_FaceR6.SK_Stablemaster_FaceR6",
+        "idle": null
+      }
+    }
+  }
+}

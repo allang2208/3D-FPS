@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+@@ -231,6 +231,12 @@
+     else if(!Model)Reason=TEXT("角色档案正在同步，请稍后重试");
+     else if(Model->HasUnconfirmedTransactionSave())Reason=TEXT("交易保存结果待恢复，当前不能继续扣费或领取");
+     else if(Request.Revision!=Before.CampfireInventoryRevision)Reason=TEXT("库存正在更新，请稍后重试");
++    else if(Request.Action==EColdSteelInventoryAction::MountGear)
++    {
++        if(Request.Mode==TEXT("equip") || Request.Mode==TEXT("remove"))
++            Success=Model->ChangeMountGear(Request.MountId,Request.Cell,Request.Item,Request.Mode==TEXT("equip"),Reason);
++        else Reason=TEXT("马具操作无效");
++    }
+     else if(Request.Action==EColdSteelInventoryAction::MountPotion)
+         Success=Model->GiveMountPotion(Request.MountId,Request.Item,Reason);
+     else if(Request.Action==EColdSteelInventoryAction::Shrine)
+@@ -383,7 +389,7 @@
+         }
+         for(const auto& Pair:Before.AmmoPouch)
+             if(!After.AmmoPouch.Contains(Pair.Key)&&Pair.Value)Reply->PouchDelta.Add(Pair.Key,-Pair.Value);
+-        if(Request.Action==EColdSteelInventoryAction::MountPotion ||
++        if(Request.Action==EColdSteelInventoryAction::MountGear || Request.Action==EColdSteelInventoryAction::MountPotion ||
+             (Request.Action==EColdSteelInventoryAction::Shop && Request.Mode==TEXT("stable.buy")))
+             Reply->MountPotionRoster=After.MountRoster;
+         Reply->bResourcesChanged=Request.Action==EColdSteelInventoryAction::Consume;

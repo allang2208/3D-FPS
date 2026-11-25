@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/Monsters/M66SlamWave.cpp
++++ b/Source/FPSGAME/Monsters/M66SlamWave.cpp
+@@ -65,16 +65,17 @@
+     for(const auto& Overlap:Overlaps)
+     {
+         if(!IsValid(Source))return;
+-        auto* Target=Cast<APawn>(Overlap.GetActor());
++        auto* Target=Cast<APawn>(MonsterTargeting::DamageRecipient(Overlap.GetActor()));
+         if(!IsValid(Target)||Seen.Contains(Target)||HitActors.Contains(Target)||!Target->CanBeDamaged()
+             ||RangedAttackQuery::IsFriendlyUnit(Source,Target))continue;
+         Seen.Add(Target);
+         auto* Vitals=Target->FindComponentByClass<UFPSCombatHealthComponent>();
+         auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
+         if((!Vitals&&!Combat&&!MonsterTargeting::IsActiveArtisan(Target))||(Vitals&&Vitals->IsDead())||(Combat&&Combat->IsDead()))continue;
+-        auto* Shape=Cast<UPrimitiveComponent>(Target->GetRootComponent());if(!Shape)continue;
+-        float BodyRadius=0,Half=0;Target->GetSimpleCollisionCylinder(BodyRadius,Half);
+-        const FVector Feet=Target->GetActorLocation()-FVector(0,0,Half),Delta=Feet-Point;
++        const auto* Body=MonsterTargeting::ContactBody(Target);
++        auto* Shape=Cast<UPrimitiveComponent>(Body->GetRootComponent());if(!Shape)continue;
++        float BodyRadius=0,Half=0;Body->GetSimpleCollisionCylinder(BodyRadius,Half);
++        const FVector Feet=Body->GetActorLocation()-FVector(0,0,Half),Delta=Feet-Point;
+         const float Height=FVector::DotProduct(Delta,Normal);
+         if(FMath::Abs(Height)>75.f)continue;
+         const float Distance=(Delta-Normal*Height).Size();

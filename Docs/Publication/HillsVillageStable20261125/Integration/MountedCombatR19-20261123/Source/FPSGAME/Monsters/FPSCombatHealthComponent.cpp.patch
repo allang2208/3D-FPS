@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
++++ b/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp
+@@ -1,4 +1,6 @@
+ #include "FPSCombatHealthComponent.h"
++#include "../Movement/HorseRiderComponent.h"
++#include "../Movement/StableRidingHorse.h"
+ #include "../Weapons/EagleTalonGuardComponent.h"
+ #include "UnknownHumanoid.h"
+ #include "UnknownSpellCombat.h"
+@@ -224,6 +226,8 @@
+     const float AcceptedDamage=FMath::Min(Health,Damage);
+     if(AcceptedDamageReceipt)*AcceptedDamageReceipt=AcceptedDamage;
+     Health = FMath::Max(0.f, Health - Damage);
++    if(!bSurvivalLoss && AcceptedDamage>0.f)
++        if(auto* Mount=UHorseRiderComponent::MountOf(Actor))Mount->ShareRiderHealthLoss(AcceptedDamage);
+     if(!bSurvivalLoss)if(auto* Ice=Actor->FindComponentByClass<UFPSIceArmorComponent>())
+         Ice->ObserveAcceptedDamage(Instigator&&Instigator->GetPawn()?Instigator->GetPawn():Attacker,Type,AcceptedDamage);
+     // Only accepted damage interrupts focus; dodge, guard and immunity have

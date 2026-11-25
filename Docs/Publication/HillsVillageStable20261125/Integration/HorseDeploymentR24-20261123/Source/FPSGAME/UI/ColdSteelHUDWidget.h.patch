@@ -1,0 +1,41 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -186,9 +186,14 @@
+     UFUNCTION() void HandleNavigationCodex();
+     UFUNCTION() void HandleNavigationTasks();
+     UFUNCTION() void HandleNavigationMounts();
+-    UFUNCTION() void SelectSecondStall();
+-    UFUNCTION() void SelectFourthStall();
+-    void HandleMountCard(uint8 Stall);
++    friend class UColdSteelMountButton;
++    void BrowseMount(FGuid Id);
++    void ToggleMountDeployment();
++    void CallJournalMount();
++    void GiveJournalPotion(int32 Tier);
++    FGuid ViewedMount;
++    TArray<FGuid> ListedMounts;
++    int64 MountItemGeneration=-1;
+     UWidget* BuildMountPage();
+     void RefreshMountPage();
+     UPROPERTY(Transient) TObjectPtr<UVerticalBox> PanelNavigation;
+@@ -639,10 +644,16 @@
+     bool bMountTabActive = false;
+     UPROPERTY(Transient) TObjectPtr<UWidget> MountPage;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountPageHint;
+-    UPROPERTY(Transient) TArray<TObjectPtr<UBorder>> MountCards;
+-    UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> MountCardValues;
+-    UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> MountCardStates;
+-    UPROPERTY(Transient) TArray<TObjectPtr<UButton>> MountSelectButtons;
++    UPROPERTY(Transient) TObjectPtr<UVerticalBox> MountList;
++    UPROPERTY(Transient) TObjectPtr<UVerticalBox> MountDetails;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountDetailName;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountDetailStatus;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountVitals;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountPotionHint;
++    UPROPERTY(Transient) TObjectPtr<UButton> MountDeploy;
++    UPROPERTY(Transient) TObjectPtr<UButton> MountCall;
++    UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> MountNames;
++    UPROPERTY(Transient) TArray<TObjectPtr<UButton>> MountPotions;
+     bool bEquipmentTooltipPinned = false;
+     float TimelineRefreshAccumulator = 0.0f;
+     float TimelinePulse = 0.0f;

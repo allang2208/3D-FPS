@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp
++++ b/Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSFurnitureRestComponent.h"
++#include "HorseRiderComponent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../FPSGAMEPlayerController.h"
+ #include "../Characters/FPSPlayerBodyComponent.h"
+@@ -277,6 +278,7 @@
+ bool UFPSFurnitureRestComponent::Interact()
+ {
+     if(IsResting()){RequestLeave();return true;}
++    if(auto* Ride=GetOwner()->FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Interact())return true;
+     FHitResult Hit;FTransform T;int32 Slot;FName Kind;FVector Seat;float Yaw;bool bOccupied;
+     if(!ResolveFocus(Hit,T,Slot,Kind,Seat,Yaw,bOccupied))return false;
+     if(bOccupied)return true;

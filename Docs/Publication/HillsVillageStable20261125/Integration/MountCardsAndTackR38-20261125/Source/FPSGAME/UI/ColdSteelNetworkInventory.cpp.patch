@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp
++++ b/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelStatusModel.h"
++#include "../Movement/StableHorseGear.h"
+ #include "ColdSteelCurrency.h"
+ #include "GameFramework/GameStateBase.h"
+ #include "../Multiplayer/ColdSteelInventoryRequestTypes.h"
+@@ -11,6 +12,7 @@
+     if(!Reply||!Reply->bSuccess||Reply->Revision<Current.CampfireInventoryRevision)return false;
+     SyncRuntime();auto Next=Snapshot();
+     if(Reply->MountPotionRoster.Revision>Next.MountRoster.Revision)Next.MountRoster=Reply->MountPotionRoster;
++    else if(!Reply->MountPotionRoster.Horses.IsEmpty())StableHorseGear::CopyEquipment(Next.MountRoster,Reply->MountPotionRoster);
+     if(Reply->FoodClockId.IsValid()&&FMath::IsFinite(Reply->FoodClockDay)&&Reply->FoodClockDay>=0.)
+     {
+         Next.FoodClockDay=Next.FoodClockId==Reply->FoodClockId?FMath::Max(Next.FoodClockDay,Reply->FoodClockDay):Reply->FoodClockDay;

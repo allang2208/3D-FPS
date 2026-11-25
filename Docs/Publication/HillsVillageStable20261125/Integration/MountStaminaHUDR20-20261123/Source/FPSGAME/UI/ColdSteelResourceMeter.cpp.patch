@@ -1,0 +1,52 @@
+--- a/Source/FPSGAME/UI/ColdSteelResourceMeter.cpp
++++ b/Source/FPSGAME/UI/ColdSteelResourceMeter.cpp
+@@ -115,6 +115,7 @@
+     bool bMana = false;
+     bool bStamina = false;
+     bool bSemantic = false;
++    bool bWarnOnLowFill = true;
+     FLinearColor SemanticFill = FLinearColor::White, SemanticDeep = FLinearColor::White;
+     float PendingCostRatio = 0.f;
+     float ShieldRatio = 0.f;
+@@ -168,7 +169,7 @@
+         const double Now = FPlatformTime::Seconds();
+         const float Ratio = Transition.Target;
+         const auto Deep = bSemantic ? SemanticDeep : bStamina ? ColdSteelUI::StaminaDeep : bMana ? ColdSteelUI::ManaDeep : ColdSteelUI::HealthDeep;
+-        const auto Light = bSemantic ? (Ratio <= .25f ? ColdSteelUI::Warning : SemanticFill) :
++        const auto Light = bSemantic ? (bWarnOnLowFill && Ratio <= .25f ? ColdSteelUI::Warning : SemanticFill) :
+             bStamina ? (Ratio <= .25f ? ColdSteelUI::Warning : ColdSteelUI::Stamina) : bMana ? ColdSteelUI::Mana : ColdSteelUI::Health;
+ 
+         const float DisplayRatio = Transition.ValueAt(Now);
+@@ -203,6 +204,7 @@
+     Meter->bMana = bMana;
+     Meter->bStamina = bStamina;
+     Meter->bSemantic = bSemantic;
++    Meter->bWarnOnLowFill = bWarnOnLowFill;
+     Meter->SemanticFill = SemanticFill;
+     Meter->SemanticDeep = SemanticDeep;
+     Meter->PendingCostRatio = PendingCostRatio;
+@@ -235,13 +237,14 @@
+     if (Meter) Meter->SetPoints(MaxPoints);
+ }
+ 
+-void UColdSteelResourceMeter::SetSemanticValue(float InRatio, const FLinearColor& Fill, const FLinearColor& Deep)
++void UColdSteelResourceMeter::SetSemanticValue(float InRatio, const FLinearColor& Fill, const FLinearColor& Deep, bool bInWarnOnLowFill)
+ {
+     const float Next = FMath::IsFinite(InRatio) ? FMath::Clamp(InRatio, 0.f, 1.f) : 0.f;
+-    if (bHasValue && bSemantic && Value == Next && SemanticFill == Fill && SemanticDeep == Deep) return;
++    if (bHasValue && bSemantic && Value == Next && SemanticFill == Fill && SemanticDeep == Deep && bWarnOnLowFill == bInWarnOnLowFill) return;
+     const bool bSnap = !bHasValue;
+     bHasValue = true;
+     bSemantic = true;
++    bWarnOnLowFill = bInWarnOnLowFill;
+     bMana = bStamina = false;
+     Value = Next;
+     SemanticFill = Fill;
+@@ -250,6 +253,7 @@
+     {
+         Meter->bMana = Meter->bStamina = false;
+         Meter->bSemantic = true;
++        Meter->bWarnOnLowFill = bWarnOnLowFill;
+         Meter->SemanticFill = Fill;
+         Meter->SemanticDeep = Deep;
+         Meter->SetTarget(Value, bSnap);

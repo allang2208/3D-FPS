@@ -1,0 +1,37 @@
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -84,6 +84,7 @@
+     FColdSteelSpellbookReadout SpellbookReadout(const class AFPSGAMECharacter* Pawn) const;
+     void ApplySpellCastSpeed(float& CastSpeed) const;
+     /** Current spell cost only; shared with cast stats, without damage/attribute evaluation. */
++    float AdjustedManaCost(float BaseCost,bool bApplyFocus=false) const;
+     float SpellManaCost(FName Id,int32 AtLevel=-1,bool bApplyFocus=true) const;
+     float SpellbookFocusMovementMultiplier() const;
+     bool ApplySpellbookFocusBreak();
+@@ -169,6 +170,7 @@
+     // Preview overrides isolate a workbench item's parts from the equipped weapon.
+     FQuickCombatCast QuickCombatStats(int32 AtLevel=-1,const FMeleeModifiers* PreviewModifiers=nullptr,const FColdSteelItem* PreviewWeapon=nullptr,
+         const TMap<FString,FString>* PreviewParts=nullptr) const;
++    bool SpendQuickCombatResources(float StaminaCost,float& ManaPaid);
+     float QuickCombatStaminaCost(int32 AtLevel=-1,const FMeleeModifiers* PreviewModifiers=nullptr,const FColdSteelItem* PreviewWeapon=nullptr,const TMap<FString,FString>* PreviewParts=nullptr) const;
+     /** 快捷栏沿用 CD 接口，数值仅表示当前武器动作周期，不是技能冷却。 */
+     float QuickCombatCooldown() const;
+@@ -602,6 +604,9 @@
+     void StageForgeContact(const FString& JobId,bool bHit);
+     bool CommitWorkshopCheckpoint(FColdSteelProfile State,const FString& GuestSlot);
+     bool CommitState(FColdSteelProfile State);
++    bool CommitMountRoster(FStableMountRoster Roster);
++    void StageMountCondition(const FStableMountRecord& Horse);
++    void ReceiveMountRoster(FGuid Profile,const FStableMountRoster& Roster);
+     bool LearnHolyLightFromTrainer(class AActor* Trainer);
+     /** Narrow durable write used by campfire escrow; guest slots belong to PlayerState. */
+     bool CommitCampfireState(FColdSteelProfile State,const FString& WorldKey,const FString& GuestSlot=FString());
+@@ -665,7 +670,7 @@
+     FColdSteelSkillDefinition DexterousHandsSkill;
+     void LoadStaminaTuning();
+     bool NormalizeStamina(FColdSteelProfile& State) const;
+-    void TickStamina(float Delta, class AFPSGAMECharacter* Pawn);
++    bool TickStamina(float Delta, class AFPSGAMECharacter* Pawn,float BowSkillManaPerSecond=0.f);
+     FColdSteelSkillDefinition RifleSkill;
+     FColdSteelSkillDefinition PistolSkill;
+     FColdSteelSkillDefinition CriticalStrikeSkill;

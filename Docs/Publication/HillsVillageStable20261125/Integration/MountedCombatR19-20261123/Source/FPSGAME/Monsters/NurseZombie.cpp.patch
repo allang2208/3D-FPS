@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Monsters/NurseZombie.cpp
++++ b/Source/FPSGAME/Monsters/NurseZombie.cpp
+@@ -335,6 +335,7 @@
+     FHitResult Hit;
+     FCollisionQueryParams Params(SCENE_QUERY_STAT(NurseSight), false, this);
+     Params.AddIgnoredActor(Actor);
++    Params.AddIgnoredActor(MonsterTargeting::ContactBody(Cast<APawn>(Actor)));
+     const FVector Aim=VillageDefenseCombat::Aim(Actor,GetActorLocation());
+     return !GetWorld()->LineTraceSingleByChannel(Hit, GetActorLocation()+FVector(0,0,35), Aim, ECC_Visibility, Params);
+ }

@@ -1,0 +1,31 @@
+--- a/Source/FPSGAME/Monsters/WolfMonster.cpp
++++ b/Source/FPSGAME/Monsters/WolfMonster.cpp
+@@ -163,7 +163,9 @@
+     FHitResult Hit;
+     FCollisionQueryParams Query(SCENE_QUERY_STAT(WolfSight), false, this);
+     Query.AddIgnoredActor(Actor);
+-    return !GetWorld()->LineTraceSingleByChannel(Hit, Mouth(), Actor->GetActorLocation(), ECC_Visibility, Query);
++    const auto* Body=MonsterTargeting::ContactBody(Cast<APawn>(Actor));
++    Query.AddIgnoredActor(Body);
++    return !GetWorld()->LineTraceSingleByChannel(Hit, Mouth(), Body?Body->GetActorLocation():Actor->GetActorLocation(), ECC_Visibility, Query);
+ }
+ bool AWolfMonster::CanAttack(APawn* Victim) const
+ {
+@@ -175,7 +177,7 @@
+         const auto* Bite=AnimationSet?AnimationSet->FindAction(TEXT("AttackBite")):nullptr;
+         return BiteCooldownLeft<=0.f&&Bite&&Bite->ContactStartSeconds>=0.f&&Bite->ContactEndSeconds>Bite->ContactStartSeconds;
+     }
+-    const FVector Offset = Victim->GetActorLocation() - GetActorLocation();
++    const FVector Offset = MonsterTargeting::ContactBody(Victim)->GetActorLocation() - GetActorLocation();
+     if (bUsePredictiveHunting ? !HuntingSightFrom(Victim, GetActorLocation()) : (FMath::Abs(Offset.Z) > 120.f || !CanSee(Victim))) return false;
+     const float Distance = Offset.Size2D();
+     if (bHowlOnEncounter && !bHasAlerted && Distance > PounceMinRange && Distance <= AggroRadius && ClipLength(TEXT("Howl")) > 0.f) return true;
+@@ -321,7 +323,7 @@
+         if (!CanSee(Target.Get())) return;
+         const FVector Offset = Target->GetActorLocation() - GetActorLocation();
+         if (Offset.Size2D() > BiteTriggerRange + 35.f || FVector::DotProduct(AttackDirection, Offset.GetSafeNormal2D()) < .35f) return;
+-        auto* TargetBody = Cast<UPrimitiveComponent>(Target->GetRootComponent());
++        auto* TargetBody = Cast<UPrimitiveComponent>(MonsterTargeting::ContactBody(Target.Get())->GetRootComponent());
+         FVector Closest;
+         if (!TargetBody || TargetBody->GetClosestPointOnCollision(Mouth(), Closest) < 0.f || FVector::DistSquared(Mouth(), Closest) > FMath::Square(ContactRadius)) return;
+     }

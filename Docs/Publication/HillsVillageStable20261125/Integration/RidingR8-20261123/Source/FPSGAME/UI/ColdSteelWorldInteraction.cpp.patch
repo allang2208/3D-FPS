@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -1,4 +1,6 @@
+ #include "ColdSteelWorldInteraction.h"
++#include "../Movement/HorseRiderComponent.h"
++#include "../Movement/StableRidingHorse.h"
+ #include "../WorldGeneration/VillageDefenseSection.h"
+ #include "../WorldGeneration/VillageDefenseStairs.h"
+ #include "../WorldGeneration/HighVillageDefense.h"
+@@ -85,7 +87,7 @@
+ ColdSteelWorldInteraction::FUseTargets ColdSteelWorldInteraction::TraceUseTargets(const APlayerController* PC,float Reach,bool bFindNearbyBreach)
+ {
+     FUseTargets Found;
+-    if(!IsValid(PC)||!PC->GetPawn()||PC->bShowMouseCursor)return Found;
++    if(!IsValid(PC)||!PC->GetPawn()||PC->bShowMouseCursor||UHorseRiderComponent::IsRiding(PC->GetPawn()))return Found;
+     FVector Eye;FRotator View;GetReachViewPoint(PC,Eye,View);
+     FCollisionQueryParams Query(SCENE_QUERY_STAT(ColdSteelUse),false,PC->GetPawn());
+     TArray<FHitResult> Hits;
+@@ -97,6 +99,7 @@
+     {
+         AActor* Target=Hit.GetActor();
+         if (Hit.bBlockingHit) ClearReach = FMath::Min(ClearReach,Hit.Distance);
++        if(Cast<AStableRidingHorse>(Target)){Found.Target=Target;return Found;}
+         if (IsCounterResident(Target))
+         {
+             if (!Found.CounterResident && ResidentConversation::CanReach(PC->GetPawn(), Target))

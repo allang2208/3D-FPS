@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Monsters/MantisM27Monster.cpp
++++ b/Source/FPSGAME/Monsters/MantisM27Monster.cpp
+@@ -188,7 +188,7 @@
+             FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeCapsule(BladeHitRadius,Span.Size()*.5f+BladeHitRadius),Query);
+         for (const auto& Hit : Hits)
+         {
+-            if (TryScytheHit(Cast<APawn>(Hit.GetActor()))) return;
++            if (TryScytheHit(Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor())))) return;
+         }
+     }
+ }
+@@ -222,7 +222,7 @@
+     GetWorld()->OverlapMultiByObjectType(Hits,GetActorLocation(),FQuat::Identity,
+         FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeBox(FVector(Reach,Reach,110.f)),Query);
+     for (const auto& Hit : Hits)
+-        if (TryScytheHit(Cast<APawn>(Hit.GetActor()))) return;
++        if (TryScytheHit(Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor())))) return;
+ }
+ void AMantisM27Monster::ProcessAttackContact(float Previous, float Current)
+ {

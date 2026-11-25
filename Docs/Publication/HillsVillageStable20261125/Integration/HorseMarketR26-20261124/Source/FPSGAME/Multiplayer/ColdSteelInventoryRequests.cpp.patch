@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+@@ -383,7 +383,9 @@
+         }
+         for(const auto& Pair:Before.AmmoPouch)
+             if(!After.AmmoPouch.Contains(Pair.Key)&&Pair.Value)Reply->PouchDelta.Add(Pair.Key,-Pair.Value);
+-        if(Request.Action==EColdSteelInventoryAction::MountPotion)Reply->MountPotionRoster=After.MountRoster;
++        if(Request.Action==EColdSteelInventoryAction::MountPotion ||
++            (Request.Action==EColdSteelInventoryAction::Shop && Request.Mode==TEXT("stable.buy")))
++            Reply->MountPotionRoster=After.MountRoster;
+         Reply->bResourcesChanged=Request.Action==EColdSteelInventoryAction::Consume;
+         Reply->ManaRestored=FMath::Max(0.f,After.Mana-Before.Mana);
+         if(Request.Action==EColdSteelInventoryAction::BowShot)Reply->ElementManaSpent=FMath::Max(0.f,Before.Mana-After.Mana);

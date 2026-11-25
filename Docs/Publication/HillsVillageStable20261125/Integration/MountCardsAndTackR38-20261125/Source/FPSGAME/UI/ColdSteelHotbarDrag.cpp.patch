@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/UI/ColdSteelHotbarDrag.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHotbarDrag.cpp
+@@ -50,7 +50,7 @@
+ {
+     if(InventoryDrag.Get()!=Drag||!bInventoryOpen)return;
+     const bool OverWarehouse=bWarehouseOpen&&WarehouseWidget&&WarehouseWidget->GetCachedGeometry().IsUnderLocation(Position);
+-    const bool OverShop=bShopOpen&&ShopWidget&&ShopWidget->GetCachedGeometry().IsUnderLocation(Position);
++    const bool OverShop=(ViewedMount.IsValid() && MountDetailsDrawer && MountDetailsDrawer->GetCachedGeometry().IsUnderLocation(Position)) || (bShopOpen&&ShopWidget&&ShopWidget->GetCachedGeometry().IsUnderLocation(Position));
+     const bool OverIncinerator=bWorkbenchOpen&&bIncineratorPanel&&IncineratorWidget&&IncineratorWidget->GetCachedGeometry().IsUnderLocation(Position);
+     const bool Outside=!InventoryDragBounds.ContainsPoint(Position)&&!OverWarehouse&&!OverIncinerator&&!OverShop;
+     if(Outside!=bInventoryDragOutside){
+@@ -109,6 +109,7 @@
+         EndInventoryDrag();return true;
+     }
+     // Re-evaluate on release: stale instances or a failed save cannot bind a shortcut.
++    if(HandleMountDetailDrop(Drag,Event.GetScreenSpacePosition())){EndInventoryDrag();return true;}
+     if(bShopOpen&&ShopWidget&&ShopWidget->HandleItemDrop(Drag,Event.GetScreenSpacePosition())){EndInventoryDrag();return true;}
+     UpdateInventoryDrag(Drag,Event.GetScreenSpacePosition());
+     if(bEnhancementManagement&&bInventoryDragOutside)

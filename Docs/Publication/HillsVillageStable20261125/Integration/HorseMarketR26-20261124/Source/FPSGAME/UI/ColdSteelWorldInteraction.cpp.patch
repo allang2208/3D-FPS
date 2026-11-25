@@ -1,0 +1,56 @@
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -1,8 +1,10 @@
+ #include "ColdSteelWorldInteraction.h"
+ #include "../Movement/HorseRiderComponent.h"
++#include "../Movement/StableHorseMarket.h"
+ #include "../Movement/StableRidingHorse.h"
+ #include "../WorldGeneration/VillageDefenseSection.h"
+ #include "../WorldGeneration/VillageSiegeEngine.h"
++#include "../WorldGeneration/VillageSiegeUseTargets.h"
+ #include "../WorldGeneration/VillageDefenseStairs.h"
+ #include "../WorldGeneration/HighVillageDefense.h"
+ #include "../WorldGeneration/VillageDefenseRepairTargets.h"
+@@ -94,12 +96,21 @@
+     TArray<FHitResult> Hits;
+     // Overlaps are ordered up to the first blocking surface. Keep the counter
+     // as a fallback so an item on it can still be picked up.
+-    PC->GetWorld()->LineTraceMultiByChannel(Hits,Eye,Eye+View.Vector()*Reach,ECC_Visibility,Query);
++    const FVector Direction=View.Vector();
++    double SiegeDistance;
++    auto* Siege=PC->GetWorld()->GetSubsystem<UVillageSiegeUseTargets>()->Trace(
++        PC->GetPawn()->GetActorLocation(),Eye,Direction,Reach,SiegeDistance);
++    // Once the player can reach the machine, they can look up at its far end.
++    // Stop at that part so nearer obstructions and ordinary E targets still take priority.
++    PC->GetWorld()->LineTraceMultiByChannel(Hits,Eye,Eye+Direction*(Siege?SiegeDistance:Reach),ECC_Visibility,Query);
++    const bool bSiegeVisible=Siege && (Hits.IsEmpty() || !Hits.Last().bBlockingHit || Hits.Last().GetActor()==Siege);
+     float ClearReach = FMath::Min(Reach,UVillageDefenseRepairTargets::Reach);
+     for (const FHitResult& Hit : Hits)
+     {
++        if (Hit.Distance>Reach) break;
+         AActor* Target=Hit.GetActor();
+         if (Hit.bBlockingHit) ClearReach = FMath::Min(ClearReach,Hit.Distance);
++        if(StableHorseMarket::IsSeller(Target)){Found.Target=Target;return Found;}
+         if(auto* Horse=Cast<AStableRidingHorse>(Target))
+         {
+             if(!Horse->IsRetreating()&&Horse->Visit()==EStableHorseVisit::Present){Found.Target=Horse;return Found;}
+@@ -144,6 +155,11 @@
+             break;
+         }
+     }
++    if (bSiegeVisible && !Found.Target)
++    {
++        Found.Target=Siege;
++        ClearReach=FMath::Min(ClearReach,float(SiegeDistance));
++    }
+     if (auto* Repair = PC->GetWorld()->GetSubsystem<UVillageDefenseRepairTargets>())
+         if (auto* Breach = Repair->Trace(*PC->GetPawn(),Eye,Eye+View.Vector()*ClearReach,
+                 bFindNearbyBreach ? &Found.NearbyBreach : nullptr))
+@@ -484,6 +500,7 @@
+     if(Target->IsA<AHighVillageGate>()){Hint.Title=TEXT("升降铁闸");Hint.Text=TEXT("城门完好，无需修复");Hint.bAction=false;return Hint;}
+     if(Target->IsA<AVillageDefenseGate>()){Hint.Title=TEXT("村门");Hint.Text=TEXT("开／关");return Hint;}
+     if(Cast<AVillageTavernKeeper>(Target)){Hint.Text=TEXT("酒馆老板娘 · 交谈");return Hint;}
++    if(StableHorseMarket::IsSeller(Target)){Hint.Title=TEXT("马厩管理员");Hint.Text=TEXT("查看出售马匹");return Hint;}
+     if(Cast<AVillageBaker>(Target)){Hint.Text=TEXT("面包师 · 交谈");return Hint;}
+     if(Cast<AVillageMillKeeper>(Target)){Hint.Text=TEXT("磨坊管理员 · 交谈");return Hint;}
+     if(Cast<AVillageHerbalist>(Target)){Hint.Text=TEXT("草药师林芷 · 交谈");return Hint;}

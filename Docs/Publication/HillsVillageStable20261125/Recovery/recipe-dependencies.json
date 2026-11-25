@@ -1,0 +1,47 @@
+{
+  "logical_content": "/Game/WorldGeneration/TemperateHills/VillageStable",
+  "production_source": "SourceAssets/HillsVillageStable",
+  "extras": [
+    "from mathutils import Matrix",
+    "from mathutils import Matrix,Vector",
+    "from mathutils import Vector",
+    "from mathutils import Vector, Matrix",
+    "from mathutils.bvhtree import BVHTree",
+    "from mathutils.kdtree import KDTree",
+    "from numba import njit",
+    "from prepare_horse import Horse",
+    "from prepare_horse import Horse, OUT",
+    "from prepare_horse import Horse, SOURCE",
+    "from prepare_surface import glb_chunks",
+    "from retarget_idle import bake,forward_kinematics,DONOR",
+    "from retarget_idle import forward_kinematics as fk, rotation, unit, swing",
+    "from retarget_idle import forward_kinematics,rotation,unit,swing,body_frame",
+    "from scipy import signal",
+    "from scipy.interpolate import LinearNDInterpolator",
+    "from scipy.interpolate import RBFInterpolator",
+    "from scipy.ndimage import distance_transform_edt",
+    "from scipy.ndimage import gaussian_filter, map_coordinates",
+    "from scipy.spatial import cKDTree",
+    "from scipy.spatial.transform import Rotation",
+    "from scipy.spatial.transform import Rotation as Rot",
+    "from scipy.spatial.transform import Rotation as Rot, Slerp",
+    "import author_face_texture as raster",
+    "import bmesh,bpy",
+    "import bpy",
+    "import bpy, math, random, sys",
+    "import bpy,bmesh,json,math",
+    "import bpy,json,math",
+    "import bpy,numpy as np,json",
+    "import cv2",
+    "import cv2,numpy as np"
+  ],
+  "required_local_geometry": [
+    "Source/FPSGAME/Movement/StableHorseContactHull.inl",
+    "Source/FPSGAME/Movement/StableHorseShoeContact.inl"
+  ],
+  "external_sources": [
+    "Warhorse Lite v1.0 (Literock Studios). The original license allows end products and prohibits raw or modified asset redistribution.",
+    "Quaternius Ultimate Animated Animals (CC0), used as motion source.",
+    "Imported model packages, reference footage, avatar resources, audio source and original project data are restored from the local asset store."
+  ]
+}

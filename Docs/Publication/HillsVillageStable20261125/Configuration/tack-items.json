@@ -1,0 +1,58 @@
+{
+  "stable_barding": {
+    "id": "stable_barding",
+    "name": "钢制马面甲",
+    "category": "horse_equipment",
+    "type": "马具",
+    "desc": "覆盖马额与面部的钢制护甲。",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "grid_w": 2,
+    "grid_h": 2,
+    "price": 100,
+    "ue_icon": "Icons/HorseTack/stable_barding.png"
+  },
+  "stable_horseshoes": {
+    "id": "stable_horseshoes",
+    "name": "铁制马蹄铁",
+    "category": "horse_equipment",
+    "type": "马具",
+    "desc": "一组钉装在马蹄上的铁蹄铁。",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "price": 30,
+    "ue_icon": "Icons/HorseTack/stable_horseshoes.png"
+  },
+  "stable_saddle": {
+    "id": "stable_saddle",
+    "name": "皮革马鞍",
+    "category": "horse_equipment",
+    "type": "马具",
+    "desc": "配有镫带和铁脚镫的骑乘鞍。",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "grid_w": 2,
+    "grid_h": 2,
+    "price": 75,
+    "ue_icon": "Icons/HorseTack/stable_saddle.png"
+  },
+  "stable_saddlebags": {
+    "id": "stable_saddlebags",
+    "name": "双联马鞍行囊",
+    "category": "horse_equipment",
+    "type": "马具",
+    "desc": "搭在马鞍两侧的一对带扣皮囊。",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "grid_w": 2,
+    "grid_h": 2,
+    "price": 65,
+    "ue_icon": "Icons/HorseTack/stable_saddlebags.png"
+  }
+}

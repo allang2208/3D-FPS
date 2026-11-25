@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Monsters/M08AirCannonProjectile.cpp
++++ b/Source/FPSGAME/Monsters/M08AirCannonProjectile.cpp
+@@ -66,7 +66,7 @@
+ {
+     bSpent = true; ImpactAge = 0.f; SetActorLocation(Hit.Location);
+     SetLifeSpan(.24f); ForceNetUpdate();
+-    AActor* Actor = Hit.GetActor();
++    AActor* Actor = MonsterTargeting::DamageRecipient(Hit.GetActor());
+     if (const auto* Pawn = Cast<APawn>(Actor); Pawn && Pawn->IsPlayerControlled())
+     {
+         auto* Health = Actor->FindComponentByClass<UFPSCombatHealthComponent>();

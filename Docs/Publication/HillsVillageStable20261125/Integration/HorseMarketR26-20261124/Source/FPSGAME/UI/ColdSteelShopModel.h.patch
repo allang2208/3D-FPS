@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopModel.h
++++ b/Source/FPSGAME/UI/ColdSteelShopModel.h
+@@ -3,6 +3,7 @@
+ #include "Subsystems/GameInstanceSubsystem.h"
+ #include "ColdSteelInventoryTypes.h"
+ #include "Engine/TimerHandle.h"
++#include "../Movement/StableHorseMarket.h"
+ #include "ColdSteelShopModel.generated.h"
+ class UColdSteelStatusModel;
+ class AVillageArtisanMerchant;
+@@ -35,6 +36,12 @@
+     bool SellsSingleItems() const;
+     bool BeginTavernSession(AVillageTavernKeeper* Seller);
+     bool BeginHerbalistSession(AVillageHerbalist* Seller);
++    bool BeginStableSession(AActor* Seller);
++    bool IsStableShop() const;
++    bool BuyHorse(FGuid Id);
++    const TArray<FStableHorseOffer>& HorseOffers() const { return StableOffers; }
++    int32 HorseMarketDay() const { return StableDay; }
++    bool IsTradePending() const { return bCommitting; }
+     bool IsArtisanShop() const { return !Merchant.IsExplicitlyNull(); }
+     bool IsTavernShop() const;
+     bool IsHerbalistShop() const;
+@@ -66,6 +73,11 @@
+     bool BeginMenuSession(AActor* Seller);
+     bool SellerHasLeft() const;
+     void RefreshArtisanStock();
++    bool RefreshHorseOffers();
++    TWeakObjectPtr<class AFPSWeatherManager> StableClock;
++    TArray<FStableHorseOffer> StableOffers;
++    FGuid StableProfile;
++    int32 StableDay=INDEX_NONE;
+     void ProfileChanged();
+     bool Fail(const FString& Reason);
+     bool CanTrade();

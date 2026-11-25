@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/Monsters/M25MagicComponent.cpp
++++ b/Source/FPSGAME/Monsters/M25MagicComponent.cpp
+@@ -435,8 +435,8 @@
+     if (Lance) LanceReadyAt = Clock() + FMath::Max(0.f, LanceCooldown);
+     else { LightningReadyAt = Clock() + FMath::Max(0.f, LightningCooldown); bOpenedWithLightning = true; }
+     SetPhase(EM25Spell::Recovery, Lance ? .7f : .4f);
+-    if (Blocked && LivingEnemyPlayer(Cast<APawn>(Hit.GetActor())))
+-        UGameplayStatics::ApplyPointDamage(Hit.GetActor(), DamageSnapshot, Direction, Hit,
++    if (Blocked && LivingEnemyPlayer(Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor()))))
++        UGameplayStatics::ApplyPointDamage(MonsterTargeting::DamageRecipient(Hit.GetActor()), DamageSnapshot, Direction, Hit,
+             Monster->GetController(), Monster.Get(), ULightningDamage::StaticClass());
+ 
+     // The existing replicated spell VFX actor carries only presentation; damage is resolved above once.

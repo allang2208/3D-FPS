@@ -1,0 +1,1253 @@
+[
+  {
+    "file": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "patch": "Integration/RidingR8-20261123/Source/FPSGAME/FPSGAMECharacter.cpp.patch",
+    "revision": "RidingR8-20261123/RidingR8.zip",
+    "base_lf": "39b06b3e607219a59596b0006ab9b9153541bd2ea9d63dae7e2afe7f7363c32f",
+    "recorded_after_lf": "ad696b0a8bd53a15dacc0b39a6288fea28a154cee71561d3c574ea9c89c964a9",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/FPSGAMECharacterInput.cpp",
+    "patch": "Integration/RidingR8-20261123/Source/FPSGAME/FPSGAMECharacterInput.cpp.patch",
+    "revision": "RidingR8-20261123/RidingR8.zip",
+    "base_lf": "449505d5a0f40d97e79eafb2fc1a43bad92b5060a4f1aa54e5ace8b7a8ac07ee",
+    "recorded_after_lf": "94968748ad4ac63e2ad8951b10cb885df7fd621d337127ea56b506734321d043",
+    "all_hunks": 9,
+    "included": 9
+  },
+  {
+    "file": "Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp",
+    "patch": "Integration/RidingR8-20261123/Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp.patch",
+    "revision": "RidingR8-20261123/RidingR8.zip",
+    "base_lf": "74a61359467aea116513e660ecfb244057606ed769bfba2897c37803047c993a",
+    "recorded_after_lf": "898205e01017faa45d8197a1a266a3ff64d021fc7f22935fd25c33652e5069a0",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+    "patch": "Integration/RidingR8-20261123/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp.patch",
+    "revision": "RidingR8-20261123/RidingR8.zip",
+    "base_lf": "f9cf041d6c919cb26e7a97bdf8c85e952c96ba191bfc68fc22fec6ccf6033e44",
+    "recorded_after_lf": "d8bdabb16b6a46f9437245d7d87b97c7bde6c7c925034ecff40942538917536d",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+    "patch": "Integration/RidingR8-20261123/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp.patch",
+    "revision": "RidingR8-20261123/RidingR8.zip",
+    "base_lf": "f83e488c8c0616cce5d777f2e2e2a0d76e97ca6e86881acfae51c055042ac512",
+    "recorded_after_lf": "746e19836b8ad26fca6f1c4c0e47c60423d8adce5c1ce45c36d1b1e0cab86a38",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+    "patch": "Integration/RidingR8-20261123/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp.patch",
+    "revision": "RidingR8-20261123/RidingR8.zip",
+    "base_lf": "d5e8383add9a1ae320194d762059cbcfbba3f466e9298fb746349902df41f476",
+    "recorded_after_lf": "745e7c21e04b6b0645df60180eb05ea5cd1040cfa0f4a2a344184a2bd1ff2a5c",
+    "all_hunks": 4,
+    "included": 4
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp",
+    "patch": "Integration/RidingR8-20261123/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp.patch",
+    "revision": "RidingR8-20261123/RidingR8.zip",
+    "base_lf": "a84c907ae453d12e2abcb63a0c27dd02c657226b335249e7f130c5c93eeed51b",
+    "recorded_after_lf": "e4b6114a175e580f98063dfd789b75ed63b4c2172cd0dcf49b36fbcb0f08adc6",
+    "all_hunks": 4,
+    "included": 4
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp",
+    "patch": "Integration/RidingR8-20261123/Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp.patch",
+    "revision": "RidingR8-20261123/RidingR8.zip",
+    "base_lf": "56cce889cbb1e8c69efca938bd4ca220d10cd4f904170b359f57cbf8d02cb166",
+    "recorded_after_lf": "59c2ceca8925a5d98a0d3bf89fb5c363ec248f2a01327b2808aff6c8dd8b4d24",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp",
+    "patch": "Integration/RidingR8-20261123/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp.patch",
+    "revision": "RidingR8-20261123/RidingR8.zip",
+    "base_lf": "7385deb2b7a2e965d48e96bf1c460cd40bf0805efe68126d669327f611ce47a2",
+    "recorded_after_lf": "4240b9364233d2cdf2427f676c17821c813dcc974eac82189fccee22325fd6ca",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.h",
+    "patch": "Integration/RidingR8-20261123/Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.h.patch",
+    "revision": "RidingR8-20261123/RidingR8.zip",
+    "base_lf": "8ba10ee44e58d00ed1affd19512b989ec515009b6511c5c174a76a678adcc585",
+    "recorded_after_lf": "5c32d489e3d9f587516e9e1ef146161189015045a7f0bd81c4399056668dc863",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.cpp",
+    "patch": "Integration/RidingR8-20261123/Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.cpp.patch",
+    "revision": "RidingR8-20261123/RidingR8.zip",
+    "base_lf": "33c8e709c66c2e4df23a062402268093d7cbbf7ccd39c9c1459aa6372b397609",
+    "recorded_after_lf": "71e4274eacf45e84126f7b13d0743c6ec95a89db79e871b6636ed3c5749d6501",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+    "patch": "Integration/LeadingR9-20261123/Source/FPSGAME/FPSGAMEPlayerController.cpp.patch",
+    "revision": "LeadingR9-20261123/LeadingR9.zip",
+    "base_lf": "6f4423ce08884408dbe67110f44f8ce247585c61af403ca45f04a9a320bc6f21",
+    "recorded_after_lf": "fcc5e5c7c29b3e3391e2f5c68eca039f7a2cf4280d57527682db5bd9301575a7",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp",
+    "patch": "Integration/LeadingR9-20261123/Source/FPSGAME/Movement/FPSFurnitureRestComponent.cpp.patch",
+    "revision": "LeadingR9-20261123/LeadingR9.zip",
+    "base_lf": "898205e01017faa45d8197a1a266a3ff64d021fc7f22935fd25c33652e5069a0",
+    "recorded_after_lf": "74a61359467aea116513e660ecfb244057606ed769bfba2897c37803047c993a",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+    "patch": "Integration/LeadingR9-20261123/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp.patch",
+    "revision": "LeadingR9-20261123/LeadingR9.zip",
+    "base_lf": "746e19836b8ad26fca6f1c4c0e47c60423d8adce5c1ce45c36d1b1e0cab86a38",
+    "recorded_after_lf": "814d0ba553c3fed0ab03d8d01c1f97e00bc4bb67350f6ea744f7cdb7202af6f7",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp",
+    "patch": "Integration/LeadingR9-20261123/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp.patch",
+    "revision": "LeadingR9-20261123/LeadingR9.zip",
+    "base_lf": "e4b6114a175e580f98063dfd789b75ed63b4c2172cd0dcf49b36fbcb0f08adc6",
+    "recorded_after_lf": "da5c1196ccac1a3c9e75fa1d6b9cba144fcbbd2b9c49a4331314aad581c4339a",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+    "patch": "Integration/LeadingR9-20261123/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp.patch",
+    "revision": "LeadingR9-20261123/LeadingR9.zip",
+    "base_lf": "745e7c21e04b6b0645df60180eb05ea5cd1040cfa0f4a2a344184a2bd1ff2a5c",
+    "recorded_after_lf": "1265632a1dfc36e636378192e21311a9b0ea724aa6c82ac793afeb2faefceec4",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp",
+    "patch": "Integration/LeadingR9-20261123/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp.patch",
+    "revision": "LeadingR9-20261123/LeadingR9.zip",
+    "base_lf": "4240b9364233d2cdf2427f676c17821c813dcc974eac82189fccee22325fd6ca",
+    "recorded_after_lf": "ca17aa88b8c9acea04e4ccb10eddc12e2ca0eb428d2a7a67b4b5d2de538c81f4",
+    "all_hunks": 7,
+    "included": 7
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+    "patch": "Integration/LeadingR9-20261123/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h.patch",
+    "revision": "LeadingR9-20261123/LeadingR9.zip",
+    "base_lf": "050716dfad49f83d7613e9f1445ad49864a949b91e7e7d3ce4b8a12dc27c69cf",
+    "recorded_after_lf": "87e6967a1d758486307b6959ef012d0023e32b42430323b14325b5aec14cc167",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "patch": "Integration/LeadingR9-20261123/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp.patch",
+    "revision": "LeadingR9-20261123/LeadingR9.zip",
+    "base_lf": "2a9a96c9a07ab7fe837c3c7c6b2ba234917b57f0840bbd7ba416dd56bdab664a",
+    "recorded_after_lf": "725aa5b9584222cb2cd9a4e88c30cd15f80bd1b3899fcb0c1c36a5e32906d0dd",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Building/ColdSteelDoor.cpp",
+    "patch": "Integration/LeadingR9-20261123/Source/FPSGAME/Building/ColdSteelDoor.cpp.patch",
+    "revision": "LeadingR9-20261123/LeadingR9.zip",
+    "base_lf": "3ad68ee89a4ccd40bc2111384f6638d8d3f9955023e71afa514eff95e1efd562",
+    "recorded_after_lf": "9adeea80ca2e9f010d433317ab686964ba210c68d2795e4ee274dbac4ba2feaa",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp",
+    "patch": "Integration/RidingR12-20261123/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp.patch",
+    "revision": "RidingR12-20261123/RidingR12.zip",
+    "base_lf": "da5c1196ccac1a3c9e75fa1d6b9cba144fcbbd2b9c49a4331314aad581c4339a",
+    "recorded_after_lf": "c46dbe567bee91d9b5cf1ce9f001864ad9b5e3f40d83cebe1cc606894c0ae446",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+    "patch": "Integration/RidingR12-20261123/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp.patch",
+    "revision": "RidingR12-20261123/RidingR12.zip",
+    "base_lf": "814d0ba553c3fed0ab03d8d01c1f97e00bc4bb67350f6ea744f7cdb7202af6f7",
+    "recorded_after_lf": "bfdb949fbedff9616710ff12f52928720cb059ed864e58b9a7be338cf7f9e3c9",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/FPSGAMECharacterInput.cpp",
+    "patch": "Integration/JumpR13-20261123/Source/FPSGAME/FPSGAMECharacterInput.cpp.patch",
+    "revision": "JumpR13-20261123/JumpR13.zip",
+    "base_lf": "e3c8db263f4e17a8e92b4be4db03eae8fab0912440fe6b12b467e2241668c9bf",
+    "recorded_after_lf": "fdea99f8e3b24678dc8009f7a4eb391ec3aeeea1bd75b68a5d4953f51ae8e4f1",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+    "patch": "Integration/FixedTransferR18-20261123/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp.patch",
+    "revision": "FixedTransferR18-20261123/FixedTransferR18.zip",
+    "base_lf": "f2ab20e3555fa6c1b49dc13b99cc0af867d3c27f14d7d6d3f434982fab4f2cb1",
+    "recorded_after_lf": "675c4f717149f838f6afc09156d1a0343439f5310d6336e9ccc79bf56e6e55b6",
+    "all_hunks": 4,
+    "included": 4
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Characters/FPSPlayerBodyActions.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "931e24403b8db1c986801800dc423c67bba4811dc03ea2fdd69a9c89f52b5cfb",
+    "recorded_after_lf": "adb5ee673d0ac36246414730f7d06f9f194c6e855c55ccdb35d788c296bc4298",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/Combat/RangedAttackQuery.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Combat/RangedAttackQuery.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "8eace83afce4c4276879991b6f7f3689228aa5774becedba9683f946da05c753",
+    "recorded_after_lf": "66796e5588ea897a7c06e0a1c6b4162427c14289dc5e322f5438d09a560b2edb",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/FPSGAMECharacter.h",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/FPSGAMECharacter.h.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "2abddd955cf190790dbf8f16bc98c8e1a096c0b607be094ce03777cc5a1b2acf",
+    "recorded_after_lf": "2c4936f07ca967e3ade130e00857d388a73750937cc87bd54a008c933fec3657",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/BellowSacProjectile.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/BellowSacProjectile.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "9f8241a649fe0d0e08d0d3b832280f72e34b79a861c1a2583459a0bf903bd4a5",
+    "recorded_after_lf": "1ecfe515c0f2cf6dd01ae571d7a98e7d13b4abb9ded1dba46af7d106d506d250",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "cd86e1ced654f587b42bc29c62fe3b95449ac6223f0b6f876c5da69c5f2c9d16",
+    "recorded_after_lf": "106b2ab89e4842dff7c7b52855bb2fc84257c93170a9f789d5452f94fef39963",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/BoundCongregateMelee.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/BoundCongregateMelee.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "085643aaa59a3d4963b7e5b3173d1728827fcfb3ad47a25f57f54a068fc9147c",
+    "recorded_after_lf": "a18f5488aa8fceed65ccd74c7691925dc2501b9f98b6a223fa860e685453b31b",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/BoundCongregateTentacle.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/BoundCongregateTentacle.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "e7c8ff6b93c014f76f983e85caa36090247bd1329e8ee74d25d64ee7c47c5ce1",
+    "recorded_after_lf": "a3857fba9ad690fdac90d1a09cc9f92ba76f27b889eb4c965e2a75aed414f882",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/FatZombiePusPool.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/FatZombiePusPool.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "5411d5cbd179e5f08357ed2920efae6d1057f72ae2ae9e6b0d4abf5f5e421780",
+    "recorded_after_lf": "4f5c203c20aa71291ccdbe4b96b205d3ab895a41481cdefde8823d55f53e3119",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/FleshHandMonster.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/FleshHandMonster.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "02f2e97dbe059f1213eb9fa01cbb99e47265548978485087eb499434a23064e3",
+    "recorded_after_lf": "14f33a912c4fa5f0edce19da8f11cc0cd69bdc5952cdfc0cf383c93d28843bf7",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/FPSCombatHealthComponent.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "91154feaf75537e3b61af527c70418c03ba2332f882e1c09fde2dc1c99bf2c2b",
+    "recorded_after_lf": "acac35174658c8985d3fb5323f4232b2899bd356d28c75a8e96557917b875f8d",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/HangingBellM09.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/HangingBellM09.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "5d040020c0d2effd5e954d52af3ddcd5e6c275d3716f7572c32611d3926a96c4",
+    "recorded_after_lf": "7235704b1fc9014ee1c82f3c719591c9f027bd8a55d8b6a163ac21635eb88534",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/HeQueRiftPressure.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/HeQueRiftPressure.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "47ba14ef79b34ef45d2244c5f4a29dc13964f6ede41e455647437e43344b53a4",
+    "recorded_after_lf": "af140f8344fee9cd694f2255997c8feb517de81999b2b0bc78f3c0941e611b5e",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/HeQueSideCrush.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/HeQueSideCrush.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "9930743fea7b0339bf096cc9b1657010079857796ee309875525b2ab210a2a2a",
+    "recorded_after_lf": "029be9f3adaab4df177ef9e4493d6d71bb90164e3dba287a122d5ec70bda1dc1",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/M08AirCannonProjectile.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/M08AirCannonProjectile.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "c16a648462ead024ef69be47250f3c9e97f9e2cd6f39203f38d69dd36a37d2bd",
+    "recorded_after_lf": "ed797bd729a3e8ca45586682d8027119c617a57df0abdca12674d19e779120e3",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/M14MucusProjectile.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/M14MucusProjectile.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "597b40455010687fc3f986741b14a0bb34d230ecbedca6f4ab20955065495059",
+    "recorded_after_lf": "590b2ff1f6857c68328ffb7e603cfee88513feb97275954160f7822b45e4df05",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/M25MagicComponent.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/M25MagicComponent.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "b2f3b4396d5e1feb629a21acaa5ab5e5d2f1d115a794314f3edef95e2231f872",
+    "recorded_after_lf": "c3a0b02643d9750958aee7563f6b0a791f56755cfcb7dd0fb95629d00d21af5d",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/M66ClawSweep.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/M66ClawSweep.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "ab1b22c858805c0993ec0e18b711d3d78fd5f857b8e927c72ed349db0195689d",
+    "recorded_after_lf": "a8a1794062d0870f284799c2c1ff23e2513429dc7e875c83f2dfb84c2062f4d8",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/M66SlamWave.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/M66SlamWave.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "01176d86f8e48871a01f6df12bb5adcbefac11f186c988f73ddda0c07b5e7853",
+    "recorded_after_lf": "b8e68bffcda2903bb4fa716a92d6d2be8bca398dc3b14be6f84333db5c23a33f",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/MantisM27Monster.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/MantisM27Monster.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "75a45264d631b9d403a5edf6d2ce712ffb50c4e021c0d5dee099dc3e9d8c7c26",
+    "recorded_after_lf": "3c2573271de4d7ac2ea158d8d21ca754f8732084a44435244bda7e4054ec2652",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/MantisM27Pounce.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/MantisM27Pounce.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "3ffe75f783473fb7e37b44a3755118799071763aed719f16d37d2b2655d294a3",
+    "recorded_after_lf": "0c2f7042c3f376f5e1fb4d134fa04957f9697c345037981cd7633ad020887d44",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/MonsterAIController.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/MonsterAIController.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "340198dbf8fdb610edd8114017fd708371b0aa8579f59fd943000cb1b1e98465",
+    "recorded_after_lf": "dcf15754a01d4b60567547ea1e7a61615dc51f3e86771765e652e08f0d6d5510",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/MonsterAwareness.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/MonsterAwareness.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "5a8b78c8fc55588fbfd2553a07991b2ea5da2c992e4603b506d6f5ce8980f083",
+    "recorded_after_lf": "4fac42b27828b1b4efef6afe823c158dd55d93c8b2e60440d9f63693f00dd313",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/MonsterTargeting.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/MonsterTargeting.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "9026d14e3abe434df6b83cdc2ca4e6c22af90fcc03d2548ac8f80a24a18ce192",
+    "recorded_after_lf": "0fe572fa9521e46c892f43bc939c51fa1fccad7a3a788d54181984bc40387ff5",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/MonsterTargeting.h",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/MonsterTargeting.h.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "3e41fa5acf4ce0eefde0a1ff32a7c6458094e9ee13e69b0a82d057bdbf6d45ce",
+    "recorded_after_lf": "97ac1f80baf7487af5eea2485ed7a970bcbbfca5e142feff6a3c5fc794bc1686",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/Mutant3Feral.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/Mutant3Feral.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "2ac12a5bda737a2f5b73398c7567376bad6240afac7977fd18430b76153f6a02",
+    "recorded_after_lf": "dcdaec107ba9bf11b5f381f659f127f9b55ef4d3e1ca5c446c518eece3a7d410",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/NightWardenMelee.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/NightWardenMelee.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "14bac27d3009dc909b41d9ffdd40f26a0ebbaaa577da911f7137160cabadb917",
+    "recorded_after_lf": "36350942ff2fb51ac45a1cb3ca7db18aa7daf83ef6ef98507a08487503d08143",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/NurseZombie.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/NurseZombie.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "8982fad95f4966681a3be3ae1ad2c3fdd82b6cb9f14bb62c9560a9dc3dfcf610",
+    "recorded_after_lf": "f2d1bac6f097212dfdcc559171678027e20bfbdf7dd2eec2b4054bb0700d5fb7",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/PoisonMaggotProjectile.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "e769818ec13a9f2469f2e19c0793b5e4186caaf549c25ea942356c3b7a989de1",
+    "recorded_after_lf": "cb2f6ab0ac796137fbc019373c3efad347f31f6371cca2d4eca5a7861ee1c3f1",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/RootCrownNeedleProjectile.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/RootCrownNeedleProjectile.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "894470c00a729e34c37ec6cba5fbb2eb76fe9b00a85d4589dcf17c8714d196e6",
+    "recorded_after_lf": "c090ff4401797d5469088055320488e12c02c76c244bffccfa679918e3530875",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/RootCrownSlash.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/RootCrownSlash.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "ed748fa52030563aaed73e45920b0dcd7b22e614cfa48d91a9cf72d4a0a91e36",
+    "recorded_after_lf": "ee35883258cdb017d5ad1799ca082be5d0f150a38c6995a5e9ca4d31ec98573a",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/SpiralPillarM14Slam.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/SpiralPillarM14Slam.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "0ebe2dc143413439d6a1dcfcc600759b406e7048756791e125c334e15e3d55d7",
+    "recorded_after_lf": "37a9d00ce44662c02e8f5e0b2a4f31ea8397719dfc65ea89e6b5e9818f0a3fa8",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/SpiralPillarM14Whirlwind.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/SpiralPillarM14Whirlwind.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "db168644730f0d1fcd0abe33343929596f947e58e783e0076d0f24c72d12a054",
+    "recorded_after_lf": "b2600426e464496c6a0890b2f30ffe932e773796b1843edba4a5d4e37e36a127",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/UnknownHumanoid.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/UnknownHumanoid.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "6991dfa52c424a72766154f4f379f5f1c68b8c695fc80d661fa51cb1c259727f",
+    "recorded_after_lf": "f9ec1ff8e8e1f9d8850345d3c07ed4c809597332d405f71a0806a6ceb1f03fb7",
+    "all_hunks": 4,
+    "included": 4
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/UnknownHumanoidBow.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/UnknownHumanoidBow.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "8b904f27e544793f894da7740e8d42c375fc0aedeb661a66fac80f56cb11c2e5",
+    "recorded_after_lf": "b539c47e8d44e845661d51118c3ff3dd0331fb9f241487dee23ab7ad8301c241",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/WitchProjectile.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/WitchProjectile.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "d5e2a6b543a0c078fa547dc46d9f268dc7b67db7e8e210dd62f550b0311f4a6c",
+    "recorded_after_lf": "a20e5510c0e4b95a99d8122c10e9b93ab2761d7ef7148a705b1121abd798f3d1",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/WolfHunting.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/WolfHunting.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "202349f85187be1bc4a04ef5c547c5454a35f96e0d037a50c4e02ae660da0bf2",
+    "recorded_after_lf": "b982e324d0dff51825da6ce9500e4b0bc78124d24810bf89925aec836cbb300d",
+    "all_hunks": 6,
+    "included": 6
+  },
+  {
+    "file": "Source/FPSGAME/Monsters/WolfMonster.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/Monsters/WolfMonster.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "9f7d8f1eec8f75512d546070db215f4ea5f142eea123017ce52941f46abfda9b",
+    "recorded_after_lf": "2a2f05dc117133a145a3fe845a71bb49fef4b332e3327cf8e9c92f1cb43da681",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/UI/ColdSteelHUDWidget.h.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "359c591890018282b80576ff67f899082766a6657de65fed5f7089474eb5ebbe",
+    "recorded_after_lf": "88a6af4f258d371952852b8ef7381b77acd3d556e16f0d65306c23da1d9c316f",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "429d7279290f7ba1d03ec09c4550aeea8a1a38e2852bb7db28ac597252cf6c51",
+    "recorded_after_lf": "5186356c05777daccea40505b39cd4aa739fea822ec861b4fef04a422642bcd3",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/WorldGeneration/VillageDefenseCombat.cpp",
+    "patch": "Integration/MountedCombatR19-20261123/Source/FPSGAME/WorldGeneration/VillageDefenseCombat.cpp.patch",
+    "revision": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "base_lf": "6ea76a9b009907e8988422ef15efcb39ea3622705a46db9ae6a1bdbf89ca94d6",
+    "recorded_after_lf": "4c9d78e8ff1970a234bdc9c2c786063f3089afd7e452b788fffbe15e6fd5f65d",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp",
+    "patch": "Integration/MountStaminaHUDR20-20261123/Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp.patch",
+    "revision": "MountStaminaHUDR20-20261123/MountStaminaHUDR20.zip",
+    "base_lf": "5186356c05777daccea40505b39cd4aa739fea822ec861b4fef04a422642bcd3",
+    "recorded_after_lf": "ab56c8b2f2f175f419e3368907faeae6ad341ff15f7c06c2543da3b1194f2f15",
+    "all_hunks": 6,
+    "included": 6
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "patch": "Integration/MountStaminaHUDR20-20261123/Source/FPSGAME/UI/ColdSteelHUDWidget.h.patch",
+    "revision": "MountStaminaHUDR20-20261123/MountStaminaHUDR20.zip",
+    "base_lf": "88a6af4f258d371952852b8ef7381b77acd3d556e16f0d65306c23da1d9c316f",
+    "recorded_after_lf": "ff4b18290c316fc36af6a3f76e08ca74f439bc4b194651dbf70e05be2643bc86",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelResourceMeter.cpp",
+    "patch": "Integration/MountStaminaHUDR20-20261123/Source/FPSGAME/UI/ColdSteelResourceMeter.cpp.patch",
+    "revision": "MountStaminaHUDR20-20261123/MountStaminaHUDR20.zip",
+    "base_lf": "f6c7ba7fc5710dfe0f65ad8ac93a862e49985ced1bc4aa3b45b4aa4ffc5ee8c9",
+    "recorded_after_lf": "48a88550accdcae4c4daced0969a1b0582d2f31915d3bffc6ddf75652b3f27d0",
+    "all_hunks": 5,
+    "included": 5
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelResourceMeter.h",
+    "patch": "Integration/MountStaminaHUDR20-20261123/Source/FPSGAME/UI/ColdSteelResourceMeter.h.patch",
+    "revision": "MountStaminaHUDR20-20261123/MountStaminaHUDR20.zip",
+    "base_lf": "16f54854ef70b3af8c34ebc8b46cab44dec646012c5ae89a721afc9f68643811",
+    "recorded_after_lf": "b1aab38876c461682986a81076ceb6859019f36d65e7f6fa5b4063c477e72133",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelUIStyle.h",
+    "patch": "Integration/MountStaminaHUDR20-20261123/Source/FPSGAME/UI/ColdSteelUIStyle.h.patch",
+    "revision": "MountStaminaHUDR20-20261123/MountStaminaHUDR20.zip",
+    "base_lf": "b325eee12e269d4ac5b55a920a5d92faa4b0a3f9a99981d053d32919844de898",
+    "recorded_after_lf": "45278896a9f2ad4d844826c3c98ce4244d5a7646812395d24e75d90fc713894e",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Production/ProductionLeapStrike.cpp",
+    "patch": "Integration/HorseRetreatR21-20261123/Source/FPSGAME/Production/ProductionLeapStrike.cpp.patch",
+    "revision": "HorseRetreatR21-20261123/HorseRetreatR21.zip",
+    "base_lf": "999d6c7ade2e38ea0d6fcc22ee01eceae91304a2dffe1704ca23d6cf83dab29e",
+    "recorded_after_lf": "72bd8509cca47a3721ae0d9d9964cd5388a63fd7c8928d0fa8d636032b6f95db",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/FPSGAMECharacterInput.cpp",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/FPSGAMECharacterInput.cpp.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "5a9103af292d289fdd409a28a1ea35ed111604ed15a4051a202211a7934429e0",
+    "recorded_after_lf": "27d85b6b7d86d870e0814c3cc0b820657496ce9752bb99f11d362a0da39b638c",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "90e319cb269e0d7f2eac554aeebc61436910fd079fe66336f27c271dc68fd74c",
+    "recorded_after_lf": "c14be3af4061d7c0d4a022813e00c32058764412c820b8b64a12cc082e00070e",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "b8b46614283cdd7bc48aca123acc2218190b75fea81083c06e6390b3bb91927b",
+    "recorded_after_lf": "22e7ae39064c2760904e22d7b183529726d12adeed3e00016a522086ba1dcda1",
+    "all_hunks": 5,
+    "included": 5
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHotbarDrag.cpp",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/UI/ColdSteelHotbarDrag.cpp.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "060b6c1e9923fda92a93007ac13ca1db67931cea026cdec82064e81967cbcb86",
+    "recorded_after_lf": "705263f9e8150fb60b778bf8d58d295cac4c6e49197b778b1b196fe5f9aa92c1",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "ab945847144c9e127e492f97cd943828be54d3c32a0d24ccd93f43d0b737bee3",
+    "recorded_after_lf": "7f9f3630248cb6f91fa970fafb9781deaee3347b36b9989e2ac57b489a4a631f",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDReadouts.cpp",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/UI/ColdSteelHUDReadouts.cpp.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "5f73532fbdb85156362d3a18366c3f7c45b5447196f3c34e00260d49556163b0",
+    "recorded_after_lf": "668efa488590bfde31b4438fe83f4679c65f3238695678ffe880a7eecdc2a15f",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "8cf89d17487e7fd1cf71c6f3c76db8f97a7f5b07fe6bfca4312d9f3993c96186",
+    "recorded_after_lf": "bb8b203a3365670d8f91331f52180d73a4cbe56a616cfad554ba50ac561243cd",
+    "all_hunks": 6,
+    "included": 6
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/UI/ColdSteelHUDWidget.h.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "ff4b18290c316fc36af6a3f76e08ca74f439bc4b194651dbf70e05be2643bc86",
+    "recorded_after_lf": "faf93e27ce3bbc2cf001fcf3936468ddaa04dcce1cea74418cc31f9bbb6e1200",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "85d64cafafd1c59760ba3202cb75c5dca4a6b91efb6bb0b854f98d214c2d479e",
+    "recorded_after_lf": "dda088e2e4f9c36621ab26176052069d46de5ec277202dd038112f6f9b1f96bc",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "cea95c67441a121ff8a48d678e02bffadeebeda27b460a3a575503e3694704e2",
+    "recorded_after_lf": "d91d49003151050719434aff564e2f16987da51d30606f7983d18bee75db941b",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/UI/ColdSteelInventoryTypes.h.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "a29666894570190b83c60ee3ea23462cb73e03001a2aa1a26971789d76696bbf",
+    "recorded_after_lf": "4783f7e8ced74387f04da4f644efc915dbc019be27060ff5f31fe4d549725352",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelItemTooltipHUD.cpp",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/UI/ColdSteelItemTooltipHUD.cpp.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "9fc3172baec90b93f00fea45ddeb44fda3a5961b2ff463d3da5460bc769d41e5",
+    "recorded_after_lf": "c5affbc0acc67171b4d5083f5db06744e5b1bf056eb233f39b7c13816eb6e3f6",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "825ee0e9e96308fc4ad9a6da9cd904724988fbc0e49d9e0fd4850d4e16f32ceb",
+    "recorded_after_lf": "673cec518c5228c8b0d7d3f3855af4e8b25833851a1e66859f2c393ad565b003",
+    "all_hunks": 5,
+    "included": 5
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelProfilePawn.cpp",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/UI/ColdSteelProfilePawn.cpp.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "0536fa3593168e6b34230afd4b977f3f2ef4815085fb58cdb8e8b1b60f28fe86",
+    "recorded_after_lf": "36b2979bd827efa2d158170057833b3c205bcce6cd1e0ac4e7c6410d1684eb40",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "e81124b3cfc3fe7e2dd8e999a4f452679fb9d8c3a0b75fa02da64b8aba643119",
+    "recorded_after_lf": "16467a0ca95e88b501e8cac795b7148d370a22e0338a3bb39b116301112a972b",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/UI/ColdSteelStatusModel.h.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "6d18035b2678cc9071d47f2285d516553e723bb239dd9a48ef88a74f0309fd5f",
+    "recorded_after_lf": "07bd0838213b276224477533dab11df98b3be66ccb6056c3f0e4c568f421ea9f",
+    "all_hunks": 4,
+    "included": 4
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "a741df3e2168963737817d353600f2b32b3c4a40d6e3da161eb71556509b049d",
+    "recorded_after_lf": "bd71f8175437772a6ec032e295cf79be2859a9e888d5d0b4b76d382a875c40f1",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Weapons/M870QuickMeleeAudit.inl",
+    "patch": "Integration/HorseRosterR22-20261123/Source/FPSGAME/Weapons/M870QuickMeleeAudit.inl.patch",
+    "revision": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "base_lf": "9d8b0a003290a921e896f23505cd673ac969c4fdb6ed7ff37b579bce88f8a385",
+    "recorded_after_lf": "51f6383fe69fee972f33ab28bf289a4daebf086f90bf6207498e058ed2a07259",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/FPSGAMECharacterInput.cpp",
+    "patch": "Integration/HorseBackingR23-20261123/Source/FPSGAME/FPSGAMECharacterInput.cpp.patch",
+    "revision": "HorseBackingR23-20261123/HorseBackingR23.zip",
+    "base_lf": "27d85b6b7d86d870e0814c3cc0b820657496ce9752bb99f11d362a0da39b638c",
+    "recorded_after_lf": "74cd58c316ba26385c2a0ec09630e562cf7ab27bc60f5d9c24c337babfc298f1",
+    "all_hunks": 4,
+    "included": 4
+  },
+  {
+    "file": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+    "patch": "Integration/HorseDeploymentR24-20261123/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp.patch",
+    "revision": "HorseDeploymentR24-20261123/HorseDeploymentR24.zip",
+    "base_lf": "1a49913695ae1992c954e4d097058a032c7adab284073c6cf911ea9165fe3b6f",
+    "recorded_after_lf": "d3974fb572a43ff346e34c4fc02ef46a351119f72ab856c7e5cc110e7671fb72",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+    "patch": "Integration/HorseDeploymentR24-20261123/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h.patch",
+    "revision": "HorseDeploymentR24-20261123/HorseDeploymentR24.zip",
+    "base_lf": "2ed2122cca8eb4406f58c8b5c7152ae5531534d1a82bfcd609e8b2f784b0ff5f",
+    "recorded_after_lf": "ca58ea22379ed44c0985295f082d0484ed9f4c1be7a45b3ed0ea5e8c9d32d243",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+    "patch": "Integration/HorseDeploymentR24-20261123/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp.patch",
+    "revision": "HorseDeploymentR24-20261123/HorseDeploymentR24.zip",
+    "base_lf": "bcbc644018f7016edc4dd60b247427ebf81c760c07c0f7dafe8baf9ec8283ef9",
+    "recorded_after_lf": "9c0b4447d263d5921e0b4b7572fa71a59e2b3889aff8c0d482417b95c78f83ee",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "patch": "Integration/HorseDeploymentR24-20261123/Source/FPSGAME/UI/ColdSteelHUDWidget.h.patch",
+    "revision": "HorseDeploymentR24-20261123/HorseDeploymentR24.zip",
+    "base_lf": "faf93e27ce3bbc2cf001fcf3936468ddaa04dcce1cea74418cc31f9bbb6e1200",
+    "recorded_after_lf": "a43cb80b6bf7eb4430f5a1ae262ea0492559c078d73164688effaf28ebb3a498",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+    "patch": "Integration/HorseDeploymentR24-20261123/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp.patch",
+    "revision": "HorseDeploymentR24-20261123/HorseDeploymentR24.zip",
+    "base_lf": "d91d49003151050719434aff564e2f16987da51d30606f7983d18bee75db941b",
+    "recorded_after_lf": "7099649087b4f0aa402a25d25f7a963d0ca4d781b55d47c145187e50bcf251a7",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+    "patch": "Integration/HorseDeploymentR24-20261123/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp.patch",
+    "revision": "HorseDeploymentR24-20261123/HorseDeploymentR24.zip",
+    "base_lf": "75736d1ad8ed9b293932e9248ab86ac1d8f8d19c4a6c26eb194785ad459e6712",
+    "recorded_after_lf": "cb8a8675034b38908c4e878cfd3c36896bd03195600eb8cbf94277c49ce600df",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "patch": "Integration/HorseDeploymentR24-20261123/Source/FPSGAME/UI/ColdSteelStatusModel.h.patch",
+    "revision": "HorseDeploymentR24-20261123/HorseDeploymentR24.zip",
+    "base_lf": "07bd0838213b276224477533dab11df98b3be66ccb6056c3f0e4c568f421ea9f",
+    "recorded_after_lf": "0c091bdbf049023f029751e65c572474833e67b02b9a418d807d985951a3ea03",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+    "patch": "Integration/HorseMarketR26-20261124/Source/FPSGAME/FPSGAMEPlayerController.cpp.patch",
+    "revision": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "base_lf": "55bc424926129186504e6fa8cdd19a5501dbe832a0203e18c5498167f02cc4a6",
+    "recorded_after_lf": "0327e8ef65411dafeecf0e9d1746349d54cdf8b0c946e53c40429cb33ebce8d4",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+    "patch": "Integration/HorseMarketR26-20261124/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp.patch",
+    "revision": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "base_lf": "d3974fb572a43ff346e34c4fc02ef46a351119f72ab856c7e5cc110e7671fb72",
+    "recorded_after_lf": "c79009f79fc2c01d84cb33fd8d064296a8e27e42ff0ccd96d63ffd89e15c0b43",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+    "patch": "Integration/HorseMarketR26-20261124/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp.patch",
+    "revision": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "base_lf": "7f9f3630248cb6f91fa970fafb9781deaee3347b36b9989e2ac57b489a4a631f",
+    "recorded_after_lf": "faad6114d842658ec2e0735a46e8e7f9a8622d23dedcba3d5c7b73ed01d0927c",
+    "all_hunks": 4,
+    "included": 4
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "patch": "Integration/HorseMarketR26-20261124/Source/FPSGAME/UI/ColdSteelHUDWidget.h.patch",
+    "revision": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "base_lf": "a43cb80b6bf7eb4430f5a1ae262ea0492559c078d73164688effaf28ebb3a498",
+    "recorded_after_lf": "5f1625f24c5d67e1667df9405d4dcd9003117aec00f0a31d0d10eaeb044dd7e8",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelShopHUD.cpp",
+    "patch": "Integration/HorseMarketR26-20261124/Source/FPSGAME/UI/ColdSteelShopHUD.cpp.patch",
+    "revision": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "base_lf": "e024bfa90a8d984512aa07ef7ff0e16d896a67f2f4b529c964dc3c95fcc8cc8a",
+    "recorded_after_lf": "96b4d1092d001b61563d15d20986b717dc24b4b180ef6631c55e2ae65f402ff9",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelShopModel.cpp",
+    "patch": "Integration/HorseMarketR26-20261124/Source/FPSGAME/UI/ColdSteelShopModel.cpp.patch",
+    "revision": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "base_lf": "2dd3c47e2721db6ad38b6402593b41c85b55ad4a8f4edb0adbca8a752ba7fe02",
+    "recorded_after_lf": "8373ed96fc68b5da3c05234256cf83342910baa82a24a0e5693db3cc58fc4c4d",
+    "all_hunks": 9,
+    "included": 9
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelShopModel.h",
+    "patch": "Integration/HorseMarketR26-20261124/Source/FPSGAME/UI/ColdSteelShopModel.h.patch",
+    "revision": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "base_lf": "432c3ff7536b6869bc778f2abf13a127bcb0f240f37eed7598b5dbea4ac6a358",
+    "recorded_after_lf": "c5acc9e1b632a6d6d7d21761e5942e71c442ba6e5f89f713a280e9047d04c398",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelShopWidget.cpp",
+    "patch": "Integration/HorseMarketR26-20261124/Source/FPSGAME/UI/ColdSteelShopWidget.cpp.patch",
+    "revision": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "base_lf": "963e74a88196e35575062a7c19d74f555e60115ebd59ade07aa52a85f1b10c93",
+    "recorded_after_lf": "14881278d14045a2be2bf08df5f882dac385b57d0e071b5556319146f429e3c0",
+    "all_hunks": 5,
+    "included": 5
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelShopWidget.h",
+    "patch": "Integration/HorseMarketR26-20261124/Source/FPSGAME/UI/ColdSteelShopWidget.h.patch",
+    "revision": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "base_lf": "e97c4844e190e7bcaa73e2a13e5dcc6a9a5c2bad07ea0153e051a4eefac35192",
+    "recorded_after_lf": "51a2fdcf0f11bff7213f0b598c3c7c77cbe5c24cd6c24ec54995a4dde69906f4",
+    "all_hunks": 4,
+    "included": 4
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+    "patch": "Integration/HorseMarketR26-20261124/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp.patch",
+    "revision": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "base_lf": "bd71f8175437772a6ec032e295cf79be2859a9e888d5d0b4b76d382a875c40f1",
+    "recorded_after_lf": "64c606c91beba9d6d6842c324614b848a7619534338dff332577d913842217b1",
+    "all_hunks": 4,
+    "included": 4
+  },
+  {
+    "file": "Source/FPSGAME/Weapons/M24BipodValidation.inl",
+    "patch": "Integration/HorseNetworkReviewR29-20261124/Source/FPSGAME/Weapons/M24BipodValidation.inl.patch",
+    "revision": "HorseNetworkReviewR29-20261124/HorseNetworkReviewR29.zip",
+    "base_lf": "2af852d83a5b0c2b27c880349dc7aba59e9f38fbdee557f71f234dfb780391f4",
+    "recorded_after_lf": "77b1168dc14100dab3e8eac4a384518b74f57224ff2bbb81f93de06f39ad1a68",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelShopWidget.cpp",
+    "patch": "Integration/HorseAppearanceR30-20261124/Source/FPSGAME/UI/ColdSteelShopWidget.cpp.patch",
+    "revision": "HorseAppearanceR30-20261124/HorseAppearanceR30.zip",
+    "base_lf": "14881278d14045a2be2bf08df5f882dac385b57d0e071b5556319146f429e3c0",
+    "recorded_after_lf": "03cb77623fa4bfcdc18c6f800c4a33d1bfc224d0ce8ec915dadf962d1c5b5a9a",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelShopWidget.h",
+    "patch": "Integration/HorseAppearanceR30-20261124/Source/FPSGAME/UI/ColdSteelShopWidget.h.patch",
+    "revision": "HorseAppearanceR30-20261124/HorseAppearanceR30.zip",
+    "base_lf": "51a2fdcf0f11bff7213f0b598c3c7c77cbe5c24cd6c24ec54995a4dde69906f4",
+    "recorded_after_lf": "f4651527cb2c33e05f7335437c6ecf27a27d924afa6297adbc6f4cc9bf00f21d",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelShopWidget.cpp",
+    "patch": "Integration/HorseMarketCardsR32-20261124/Source/FPSGAME/UI/ColdSteelShopWidget.cpp.patch",
+    "revision": "HorseMarketCardsR32-20261124/HorseMarketCardsR32.zip",
+    "base_lf": "03cb77623fa4bfcdc18c6f800c4a33d1bfc224d0ce8ec915dadf962d1c5b5a9a",
+    "recorded_after_lf": "19eeeeb6312930a8b5733efff6f77fac3f78e1e267550a04a7bb5ae97a5ee48a",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelShopWidget.h",
+    "patch": "Integration/HorseMarketCardsR32-20261124/Source/FPSGAME/UI/ColdSteelShopWidget.h.patch",
+    "revision": "HorseMarketCardsR32-20261124/HorseMarketCardsR32.zip",
+    "base_lf": "f4651527cb2c33e05f7335437c6ecf27a27d924afa6297adbc6f4cc9bf00f21d",
+    "recorded_after_lf": "f9ba785b17da07e12e9b329528fb5bf5359b6514d5e789adb3858d228010166b",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "patch": "Integration/HorseProgressionR33-20261124/Source/FPSGAME/UI/ColdSteelHUDWidget.h.patch",
+    "revision": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "base_lf": "5f1625f24c5d67e1667df9405d4dcd9003117aec00f0a31d0d10eaeb044dd7e8",
+    "recorded_after_lf": "22a6b73fa354547654baa91c14ac860646b8f8e5b2e061ce2693e668f22af2cc",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+    "patch": "Integration/HorseProgressionR33-20261124/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp.patch",
+    "revision": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "base_lf": "9c1b0a402411fe7fa95cc4a72116d9493a06f4bd7178a2c56f4560ddf0781dd4",
+    "recorded_after_lf": "9c0482970cf593caf2b40360e5265e0a9f59132adfd92e05be21f3669ce84a90",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelProfileRewards.cpp",
+    "patch": "Integration/HorseProgressionR33-20261124/Source/FPSGAME/UI/ColdSteelProfileRewards.cpp.patch",
+    "revision": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "base_lf": "031421c4598fa394532e48d6b35cd1cae4bb84b45c304ac010c093ec6afeac9f",
+    "recorded_after_lf": "bec16823fa8f1d398d1dfbd885621cf39e7e154c5e44d905932e1ab4fb20f634",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "patch": "Integration/HorseProgressionR33-20261124/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp.patch",
+    "revision": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "base_lf": "16467a0ca95e88b501e8cac795b7148d370a22e0338a3bb39b116301112a972b",
+    "recorded_after_lf": "3901b1cdc867d947eec30afda5abe9de2028f8c314bcbb84f80f7dc3e238e50c",
+    "all_hunks": 5,
+    "included": 5
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "patch": "Integration/HorseProgressionR33-20261124/Source/FPSGAME/UI/ColdSteelStatusModel.h.patch",
+    "revision": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "base_lf": "0c091bdbf049023f029751e65c572474833e67b02b9a418d807d985951a3ea03",
+    "recorded_after_lf": "018fd60c74a8dfa1a209cd59cdf7515c426dea237d3aa57a92fa675788546216",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/NPC/ResidentConversation.h",
+    "patch": "Integration/ResidentGazeAndRidingViewR37-20261124/Source/FPSGAME/NPC/ResidentConversation.h.patch",
+    "revision": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "base_lf": "cd10e4e1ad877b47118280665a51b386c8db9e6eb9f9200ba8123e43a8190d28",
+    "recorded_after_lf": "5262abd3adb779102053ac76f50858491a82f7177f02458bde76c54896753c4c",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/NPC/ResidentConversation.cpp",
+    "patch": "Integration/ResidentGazeAndRidingViewR37-20261124/Source/FPSGAME/NPC/ResidentConversation.cpp.patch",
+    "revision": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "base_lf": "648935cb518fccac07b501b2f671b1f0e0c52430d55f8b2a7cd40147d4ee5f77",
+    "recorded_after_lf": "2057fedea442e479e83399b884c3c2c2cbd38ed5af5b5619f55caa41049f4c93",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/NPC/ResidentTurnAnimInstance.cpp",
+    "patch": "Integration/ResidentGazeAndRidingViewR37-20261124/Source/FPSGAME/NPC/ResidentTurnAnimInstance.cpp.patch",
+    "revision": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "base_lf": "c486795e89dddbd0d0448569ee2e881e527f6717cc2d66e33f6c62af53a72e66",
+    "recorded_after_lf": "36dbd5725a3ce456ed7b95189f80fb86b83591a82ffef858c0981ec2fc06c363",
+    "all_hunks": 7,
+    "included": 7
+  },
+  {
+    "file": "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp",
+    "patch": "Integration/ResidentGazeAndRidingViewR37-20261124/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp.patch",
+    "revision": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "base_lf": "71170319d4a084d9e6431c0b2ab629f0d599b3f68d8aae8d14445231dddfa8c2",
+    "recorded_after_lf": "d58ef65e04370f55177109a02a5ecfa404156c28313607fce27dbb85ce2fa43b",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/WorldGeneration/VillageGunshopServices.h",
+    "patch": "Integration/ResidentGazeAndRidingViewR37-20261124/Source/FPSGAME/WorldGeneration/VillageGunshopServices.h.patch",
+    "revision": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "base_lf": "7f7d89b82702f2739adb48fd51e89f8f576c33847875f4cc1c692d6d9fe72b16",
+    "recorded_after_lf": "5562b4d7e02e0582e55810154ff429a00d7745c4256cd5d4e49b04faa7cf842b",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelShopModel.cpp",
+    "patch": "Integration/ResidentGazeAndRidingViewR37-20261124/Source/FPSGAME/UI/ColdSteelShopModel.cpp.patch",
+    "revision": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "base_lf": "8373ed96fc68b5da3c05234256cf83342910baa82a24a0e5693db3cc58fc4c4d",
+    "recorded_after_lf": "1b0876aaa691c8928429c557eb249238a94bedb1abf5f8397f6858c9775fe25d",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp",
+    "patch": "Integration/ResidentGazeAndRidingViewR37-20261124/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp.patch",
+    "revision": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "base_lf": "c46dbe567bee91d9b5cf1ce9f001864ad9b5e3f40d83cebe1cc606894c0ae446",
+    "recorded_after_lf": "8b52df6509907a0fb440d27a424745e0df472410a051fe0aa43dadb9bb46d065",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Characters/FPSPlayerHeadAnimInstance.cpp",
+    "patch": "Integration/ResidentGazeAndRidingViewR37-20261124/Source/FPSGAME/Characters/FPSPlayerHeadAnimInstance.cpp.patch",
+    "revision": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "base_lf": "d99eede6cc225ff51dbdbc66eb045863552f6fde5b067e16e7f3afcd928a41da",
+    "recorded_after_lf": "9fed0a1bf36d0575cef118fbbd3e58bebe55f44c77a449e0ee8b5c2d8b15a57c",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp",
+    "patch": "Integration/MountCardsAndTackR38-20261125/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp.patch",
+    "revision": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "base_lf": "c79009f79fc2c01d84cb33fd8d064296a8e27e42ff0ccd96d63ffd89e15c0b43",
+    "recorded_after_lf": "ef7af0577011040d917541a28c6b63a816fb73c2c0dc1835aa571f1601d7b621",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h",
+    "patch": "Integration/MountCardsAndTackR38-20261125/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequestTypes.h.patch",
+    "revision": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "base_lf": "ca58ea22379ed44c0985295f082d0484ed9f4c1be7a45b3ed0ea5e8c9d32d243",
+    "recorded_after_lf": "0fcd54788968e67107f266e0cd7dad15e6341ea5914b365d3666cb4c2f82548d",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp",
+    "patch": "Integration/MountCardsAndTackR38-20261125/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp.patch",
+    "revision": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "base_lf": "6c0f09fec493f4b79370c2a0d08c3e1845fa31b444c4b0e588e2c08bae0a4ab4",
+    "recorded_after_lf": "ca3e890235f201e4fa0752e773bad1e78549c73088275d4b5cd3d275165c348f",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHotbarDrag.cpp",
+    "patch": "Integration/MountCardsAndTackR38-20261125/Source/FPSGAME/UI/ColdSteelHotbarDrag.cpp.patch",
+    "revision": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "base_lf": "705263f9e8150fb60b778bf8d58d295cac4c6e49197b778b1b196fe5f9aa92c1",
+    "recorded_after_lf": "be65ad3b441244e6a97909929244a17e16b12a67088965c5fa7e09a151312846",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+    "patch": "Integration/MountCardsAndTackR38-20261125/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp.patch",
+    "revision": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "base_lf": "9c0b4447d263d5921e0b4b7572fa71a59e2b3889aff8c0d482417b95c78f83ee",
+    "recorded_after_lf": "d5a1da0113eabc6cc440fbb10b8f737314ee7c585c121a3c6a802d5a5ae6beb4",
+    "all_hunks": 4,
+    "included": 4
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "patch": "Integration/MountCardsAndTackR38-20261125/Source/FPSGAME/UI/ColdSteelHUDWidget.h.patch",
+    "revision": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "base_lf": "22a6b73fa354547654baa91c14ac860646b8f8e5b2e061ce2693e668f22af2cc",
+    "recorded_after_lf": "e59d3853173a13325bdd1d8ebd306ff717094f5d646a46581d01b5cac84098b7",
+    "all_hunks": 4,
+    "included": 4
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+    "patch": "Integration/MountCardsAndTackR38-20261125/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp.patch",
+    "revision": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "base_lf": "9c0482970cf593caf2b40360e5265e0a9f59132adfd92e05be21f3669ce84a90",
+    "recorded_after_lf": "815935f948c0a89bb176596856d3690ece503b1c79295727e0974ebfe09d4107",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp",
+    "patch": "Integration/MountCardsAndTackR38-20261125/Source/FPSGAME/UI/ColdSteelInventoryTheme.cpp.patch",
+    "revision": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "base_lf": "1c157abdb304cfbedbf6bc7cf4225a5e0477d37892951015ec2f8c99681363a8",
+    "recorded_after_lf": "049a19b6f572d1e89e7b76563b7848d83bb20ea78c86a051b5643aeba68e9421",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelInventoryTypes.h",
+    "patch": "Integration/MountCardsAndTackR38-20261125/Source/FPSGAME/UI/ColdSteelInventoryTypes.h.patch",
+    "revision": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "base_lf": "4783f7e8ced74387f04da4f644efc915dbc019be27060ff5f31fe4d549725352",
+    "recorded_after_lf": "3d64ac3af7f18a430eb7d777f7074a0f73ba446018206df92baab7719e0194a4",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp",
+    "patch": "Integration/MountCardsAndTackR38-20261125/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp.patch",
+    "revision": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "base_lf": "cb8a8675034b38908c4e878cfd3c36896bd03195600eb8cbf94277c49ce600df",
+    "recorded_after_lf": "9459fba149dd0f9bdea9a56e5d52fb0395f7c7f33218468c5ba8fa9d0c1c023f",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp",
+    "patch": "Integration/MountCardsAndTackR38-20261125/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp.patch",
+    "revision": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "base_lf": "3901b1cdc867d947eec30afda5abe9de2028f8c314bcbb84f80f7dc3e238e50c",
+    "recorded_after_lf": "b0b50c51ce737c1b84291ab0c2eea2674971571ac794c11d767b9b349b574edd",
+    "all_hunks": 2,
+    "included": 2
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelShopHUD.cpp",
+    "patch": "Integration/MountCardsAndTackR38-20261125/Source/FPSGAME/UI/ColdSteelShopHUD.cpp.patch",
+    "revision": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "base_lf": "96b4d1092d001b61563d15d20986b717dc24b4b180ef6631c55e2ae65f402ff9",
+    "recorded_after_lf": "a04bb7dae5444948dadcba7353bf1d026bba0355d86024a8ad9d37293a46e47e",
+    "all_hunks": 3,
+    "included": 3
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelShopWidget.cpp",
+    "patch": "Integration/MountCardsAndTackR38-20261125/Source/FPSGAME/UI/ColdSteelShopWidget.cpp.patch",
+    "revision": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "base_lf": "19eeeeb6312930a8b5733efff6f77fac3f78e1e267550a04a7bb5ae97a5ee48a",
+    "recorded_after_lf": "cb4a805bd3b67b77d76ba15c8130f6e6ccb1b3e72d0d1947a2d26e8dbc321021",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "patch": "Integration/MountCardsAndTackR38-20261125/Source/FPSGAME/UI/ColdSteelStatusModel.h.patch",
+    "revision": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "base_lf": "018fd60c74a8dfa1a209cd59cdf7515c426dea237d3aa57a92fa675788546216",
+    "recorded_after_lf": "051e9ffad5ba58c37aa2866af18e4b1edc9c6107e1b977665bf7f520979fc823",
+    "all_hunks": 1,
+    "included": 1
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+    "patch": "Integration/MountDetailDesignR39-20261125/Source/FPSGAME/UI/ColdSteelHUDWidget.h.patch",
+    "revision": "MountDetailDesignR39-20261125/MountDetailDesignR39.zip",
+    "base_lf": "e59d3853173a13325bdd1d8ebd306ff717094f5d646a46581d01b5cac84098b7",
+    "recorded_after_lf": "bdafe4869a15539c409bf8f71339d1f46a862facff81e9608bd42326e712eaa3",
+    "all_hunks": 1,
+    "included": 1
+  }
+]

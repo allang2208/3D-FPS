@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDReadouts.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDReadouts.cpp
+@@ -198,7 +198,7 @@
+ 
+ void UColdSteelHUDWidget::ShowEquipmentTooltip()
+ {
+-    if (!EquipmentTooltip || !bInventoryOpen || bStatusTabActive || bSkillsTabActive || bCodexTabActive || bQuestTabActive) return;
++    if (!EquipmentTooltip || !bInventoryOpen || bStatusTabActive || bSkillsTabActive || bCodexTabActive || bQuestTabActive||bMountTabActive) return;
+     RefreshStatus();
+     EquipmentTooltip->SetVisibility(ESlateVisibility::Visible);
+     EquipmentTooltipScroll->ScrollToEnd();

@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Monsters/MonsterTargeting.h
++++ b/Source/FPSGAME/Monsters/MonsterTargeting.h
+@@ -6,6 +6,9 @@
+ 
+ namespace MonsterTargeting
+ {
++    // Geometry and combat identity differ for a rider. Preserve non-pawn blockers.
++    AActor* DamageRecipient(AActor* HitActor);
++    const APawn* ContactBody(const APawn* Target);
+     bool IsActiveArtisan(const APawn* Pawn);
+     bool IsDownedArtisan(const APawn* Pawn);
+     bool IsOpponentPawn(const APawn* Pawn);

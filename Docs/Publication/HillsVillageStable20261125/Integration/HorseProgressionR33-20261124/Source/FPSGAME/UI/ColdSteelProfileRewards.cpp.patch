@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRewards.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRewards.cpp
+@@ -52,8 +52,14 @@
+ {
+     if(Amount<=0||Amount>1000000000000ll)return false;SyncRuntime();auto P=Snapshot();const int64 Granted=FMath::FloorToInt64(Amount*TributeEffect(TEXT("expPercent")));P.Experience+=Granted;
+     ColdSteelSpellRewards::ApplyExperienceLevels(P);
++    const int64 Gained=GainedCharacterExperience(P);
++    const FGuid LeveledHorse=CreditPresentMountExperience(P,Gained);
+     const bool bCommitted=CommitState(P);
+-    if(bCommitted)QueueExperienceNotice(Granted);
++    if(bCommitted)
++    {
++        ApplyCommittedMountLevel(LeveledHorse);
++        QueueExperienceNotice(Gained);
++    }
+     return bCommitted;
+ }
+ bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)

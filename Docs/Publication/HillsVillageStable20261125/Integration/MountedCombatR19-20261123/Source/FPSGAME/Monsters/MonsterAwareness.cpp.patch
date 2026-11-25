@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/MonsterAwareness.cpp
++++ b/Source/FPSGAME/Monsters/MonsterAwareness.cpp
+@@ -1,4 +1,5 @@
+ #include "MonsterAIController.h"
++#include "MonsterTargeting.h"
+ #include "WolfMonster.h"
+ #include "../Combat/RangedAttackQuery.h"
+ #include "ProfilingDebugging/CpuProfilerTrace.h"
+@@ -82,7 +83,7 @@
+ void AMonsterAIController::Perceived(AActor* Actor, FAIStimulus Stimulus)
+ {
+     TRACE_CPUPROFILER_EVENT_SCOPE(MonsterAI_PerceptionCallback);
+-    auto* Player = Cast<APawn>(Actor);
++    auto* Player = Cast<APawn>(MonsterTargeting::DamageRecipient(Actor));
+     const auto* C = Combat();
+     if (!HasAuthority() || !bDecisionEnabled || !GetPawn() || !GetPawn()->IsActorTickEnabled()
+         || !IsCombatOpponent(Player) || !C || C->IsDead() || C->AggroRange() <= 0.f || !Stimulus.WasSuccessfullySensed()) return;

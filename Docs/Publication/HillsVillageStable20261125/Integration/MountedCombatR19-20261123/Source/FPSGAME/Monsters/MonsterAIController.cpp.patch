@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/Monsters/MonsterAIController.cpp
++++ b/Source/FPSGAME/Monsters/MonsterAIController.cpp
+@@ -232,7 +232,7 @@
+   TArray<AActor*> Seen;Senses->GetCurrentlyPerceivedActors(UAISense_Sight::StaticClass(),Seen);
+   float Best=FMath::Square(C->AggroRange());
+   APawn* BestPlayer=nullptr;
+-  for(auto* Actor:Seen)if(auto* P=Cast<APawn>(Actor);IsCombatOpponent(P))
++  for(auto* Actor:Seen)if(auto* P=Cast<APawn>(MonsterTargeting::DamageRecipient(Actor));IsCombatOpponent(P))
+   {
+    const float D=FVector::DistSquared(P->GetActorLocation(),GetPawn()->GetActorLocation());
+    if(D<Best&&CanSeePlayer(P,true)){Best=D;BestPlayer=P;}
+@@ -247,14 +247,14 @@
+    ||GetPawn()->IsA<ASpiralPillarM14>()||GetPawn()->IsA<AM10Mawcrawler>()||GetPawn()->IsA<ARootCrownRigPreview>()
+    ||GetPawn()->IsA<AHundredEyedSlagMonster>()||GetPawn()->IsA<AHandBrainMonster>()
+    ||GetPawn()->IsA<ABoundCongregate>()||GetPawn()->IsA<AM66IncineratorMonster>()||GetPawn()->IsA<AHeQueMonster>());
+-  if(RangedSight&&!BestPlayer)
++  if(!BestPlayer)
+   {
+    const auto* Sight=Senses->GetSenseConfig<UAISenseConfig_Sight>();
+    const float ConeCos=(M08||M25)?-1.f:FMath::Cos(FMath::DegreesToRadians(Sight?Sight->PeripheralVisionAngleDegrees:100.f));
+    for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+    {
+     const auto* PC=It->Get();APawn* P=PC?PC->GetPawn().Get():nullptr;
+-    if(!IsValid(P)||!P->IsPlayerControlled())continue;
++    if(!IsValid(P)||!P->IsPlayerControlled()||(!RangedSight&&MonsterTargeting::ContactBody(P)==P))continue;
+     const auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();
+     const FVector Delta=P->GetActorLocation()-GetPawn()->GetActorLocation();
+     const float D=Delta.SizeSquared();

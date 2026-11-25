@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -726,6 +726,9 @@
+     // 进度型事务（命中修炼、击杀奖励、闪避与技能修炼）走这里：实时档案立即更新，
+     // 带校验的 A/B 存档交给定时自动存档（fps.Save.AutosaveSeconds）统一写盘。
+     bool StageTraining(FColdSteelProfile&& State);
++    int64 GainedCharacterExperience(const FColdSteelProfile& After) const;
++    FGuid CreditPresentMountExperience(FColdSteelProfile& State,int64 Amount) const;
++    void ApplyCommittedMountLevel(FGuid HorseId) const;
+     void SettleBurnedTorches();
+     double NextTorchSettlement=0.;
+     bool bTrainingDirty = false;

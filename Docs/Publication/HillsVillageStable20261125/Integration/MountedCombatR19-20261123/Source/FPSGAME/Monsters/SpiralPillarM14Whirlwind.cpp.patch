@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/Monsters/SpiralPillarM14Whirlwind.cpp
++++ b/Source/FPSGAME/Monsters/SpiralPillarM14Whirlwind.cpp
+@@ -52,8 +52,8 @@
+     for(const FHitResult& Hit:Candidates)
+     {
+         if(State!=EM14State::Whirlwind||Dead())return;
+-        AActor* Victim=Hit.GetActor();APawn* Pawn=Cast<APawn>(Victim);
+-        const bool PlayerBody=Pawn&&MonsterTargeting::IsOpponentPawn(Pawn)&&Hit.GetComponent()==Pawn->GetRootComponent();
++        AActor* Victim=MonsterTargeting::DamageRecipient(Hit.GetActor());APawn* Pawn=Cast<APawn>(Victim);
++        const bool PlayerBody=Pawn&&MonsterTargeting::IsOpponentPawn(Pawn)&&Hit.GetComponent()==Hit.GetActor()->GetRootComponent();
+         if(!IsValid(Victim)||(!PlayerBody&&!Victim->IsA<AFPSIceWall>())||WhirlwindVictims.Contains(Victim))continue;
+         auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
+         if(Vitals&&(Vitals->IsDead()||Vitals->IsInvulnerable()))continue;
+@@ -61,7 +61,7 @@
+         // not damage a player behind scenery or behind a surviving ice wall.
+         FVector Contact=Victim->GetActorLocation();Contact.Z=Origin.Z;
+         FHitResult Block;
+-        if(GetWorld()->LineTraceSingleByChannel(Block,Origin,Contact,ECC_Visibility,Query)&&Block.GetActor()!=Victim)continue;
++        if(GetWorld()->LineTraceSingleByChannel(Block,Origin,Contact,ECC_Visibility,Query)&&MonsterTargeting::DamageRecipient(Block.GetActor())!=Victim)continue;
+         WhirlwindVictims.Add(Victim);
+         FVector Direction=(Victim->GetActorLocation()-GetActorLocation()).GetSafeNormal2D();
+         if(Direction.IsNearlyZero())Direction=GetActorForwardVector();

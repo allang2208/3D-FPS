@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Monsters/RootCrownNeedleProjectile.cpp
++++ b/Source/FPSGAME/Monsters/RootCrownNeedleProjectile.cpp
+@@ -71,7 +71,7 @@
+     {
+         SetActorLocation(End);Remaining-=Step;if(Remaining<=0.f)Destroy();return;
+     }
+-    AActor* Victim=First->GetActor();const auto* Pawn=Cast<APawn>(Victim);
++    AActor* Victim=MonsterTargeting::DamageRecipient(First->GetActor());const auto* Pawn=Cast<APawn>(Victim);
+     const bool Player=Pawn&&MonsterTargeting::IsOpponentPawn(Pawn);
+     bStopped=true;SetActorLocation(First->ImpactPoint-Direction*10.f);PlayImpact(First->ImpactPoint);
+     if(Player)

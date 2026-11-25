@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
++++ b/Source/FPSGAME/UI/ColdSteelInventoryTypes.h
+@@ -3,6 +3,7 @@
+ #include "GameFramework/SaveGame.h"
+ #include "../Skills/ColdSteelSkillTypes.h"
+ #include "ColdSteelQuickBarTypes.h"
++#include "../Movement/HorseRosterTypes.h"
+ #include "../Dungeon/DungeonTypes.h"
+ #include "../Combat/ProgressiveInfectionComponent.h"
+ #include "../Survival/FPSSurvivalTypes.h"
+@@ -262,6 +263,7 @@
+     UPROPERTY() int32 Points = 0;
+     UPROPERTY() int32 Kills = 0;
+     UPROPERTY() int32 ActiveWeaponSlot = 6;
++    UPROPERTY() FStableMountRoster MountRoster;
+     UPROPERTY() TMap<FName, int32> Attributes;
+     UPROPERTY() TArray<FColdSteelItem> Items;
+     /** 储物容器键->容量页数（一页 18x12=216 格）。首次打开对应箱子时按档位登记，

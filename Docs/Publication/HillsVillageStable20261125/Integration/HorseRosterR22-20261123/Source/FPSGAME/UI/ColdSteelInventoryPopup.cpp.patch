@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryPopup.cpp
+@@ -104,6 +104,6 @@
+ FReply UColdSteelInventoryPopup::NativeOnPreviewKeyDown(const FGeometry& G,const FKeyEvent& E)
+ {
+     if(E.GetKey()==EKeys::Escape){Close();return FReply::Handled();}
+-    if((E.GetKey()==EKeys::Tab||E.GetKey()==EKeys::CapsLock||E.GetKey()==EKeys::P||E.GetKey()==EKeys::U||E.GetKey()==EKeys::O)&&OwnerBoard.IsValid())if(auto* HUD=OwnerBoard->TooltipHUD()){HUD->HandlePanelShortcut(E.GetKey(),E.IsRepeat());return FReply::Handled();}
++    if((E.GetKey()==EKeys::Tab||E.GetKey()==EKeys::CapsLock||E.GetKey()==EKeys::P||E.GetKey()==EKeys::U||E.GetKey()==EKeys::O||E.GetKey()==EKeys::I)&&OwnerBoard.IsValid())if(auto* HUD=OwnerBoard->TooltipHUD()){HUD->HandlePanelShortcut(E.GetKey(),E.IsRepeat());return FReply::Handled();}
+     return Super::NativeOnPreviewKeyDown(G,E);
+ }

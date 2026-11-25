@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/Weapons/M24BipodValidation.inl
++++ b/Source/FPSGAME/Weapons/M24BipodValidation.inl
+@@ -154,10 +154,10 @@
+         }
+         D->RestoreCameraOffset();PC->SetControlRotation(FRotator::ZeroRotator);
+         C->FirstPersonCamera->SetWorldLocationAndRotation(Eye,FRotator::ZeroRotator);P->SetWorldTransform(RestFrame);
+-        auto* CameraBlock=Box(Eye,FVector(6));D->ApplyPresentation();D->ApplyPresentation(true);
++        auto* ReturnCameraBlock=Box(Eye,FVector(6));D->ApplyPresentation();D->ApplyPresentation(true);
+         Check(TEXT("blocked camera correction preserves mount and bonus"),D->IsDeployed()
+             &&FMath::IsNearlyEqual(D->RecoilMultiplier(),.34f,1.e-5f)&&D->AppliedCameraOffset.IsNearlyZero());
+-        CameraBlock->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++        ReturnCameraBlock->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+         Report->SetNumberField(TEXT("mounted_recoil"),D->RecoilMultiplier());Report->SetNumberField(TEXT("mounted_weight"),D->HandlingBlend());
+         Report->SetNumberField(TEXT("world_time"),World->GetTimeSeconds());Report->SetBoolField(TEXT("is_local"),C->IsLocallyControlled());
+         D->bRequested=false;D->NetDeployment.bActive=false;

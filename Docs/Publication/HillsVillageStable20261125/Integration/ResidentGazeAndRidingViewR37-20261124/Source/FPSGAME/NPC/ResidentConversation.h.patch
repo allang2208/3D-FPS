@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/NPC/ResidentConversation.h
++++ b/Source/FPSGAME/NPC/ResidentConversation.h
+@@ -11,6 +11,7 @@
+ 
+ namespace ResidentConversation
+ {
++    void SetLocalFacing(AActor* Speaker, APlayerController* Viewer);
+     bool IsSpeakerDowned(const AActor* Speaker);
+     bool CanReach(const APawn* Pawn, const AActor* Speaker);
+ }

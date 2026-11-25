@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Monsters/WitchProjectile.cpp
++++ b/Source/FPSGAME/Monsters/WitchProjectile.cpp
+@@ -356,7 +356,7 @@
+         {
+             UpdateLiquidVisual(Delta * First->Time, Start, First->Location);
+             MulticastImpact(*First,Velocity,false);
+-            if (auto* Pawn = Cast<APawn>(First->GetActor())) if (MonsterTargeting::IsOpponentPawn(Pawn))
++            if (auto* Pawn = Cast<APawn>(MonsterTargeting::DamageRecipient(First->GetActor()))) if (MonsterTargeting::IsOpponentPawn(Pawn))
+                 UGameplayStatics::ApplyDamage(Pawn, HitDamage, Shooter->GetController(), Shooter.Get(), UWitchMagicDamage::StaticClass());
+             Destroy();
+         }

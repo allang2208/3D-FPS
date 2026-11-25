@@ -114,3 +114,5 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 丘陵生成地面、客机直达和内容版本兼容，读取 [丘陵生成地面、客机直达和内容版本兼容](references/hills-generated-ground-network.md)。
 
 丘陵监听服的种子归属、工匠货架竞争和个人修炼进度见[房主存档、共享货架与学徒任务](references/artisan-village-session-and-stock.md)。
+
+伙伴名册与装备归属参见[伙伴名册与装备归属](references/owned-equipment-and-roster.md)。

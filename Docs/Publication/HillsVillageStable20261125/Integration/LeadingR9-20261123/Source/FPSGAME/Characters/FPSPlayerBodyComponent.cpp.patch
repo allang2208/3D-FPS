@@ -1,0 +1,31 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp
+@@ -410,8 +410,8 @@
+     // A network pawn can become locally controlled after BeginPlay.
+     InitializeFirstPersonLowerBody();
+     const bool bThirdPerson=IsThirdPersonViewEnabled();
+-    const bool bRiding=UHorseRiderComponent::IsRiding(Character.Get());
+-    UpdateWorldOwnerVisibility(!bThirdPerson&&!IsDeathViewActive()&&!bRiding);
++    const bool bSaddleHands=UHorseRiderComponent::UsesSaddleHands(Character.Get());
++    UpdateWorldOwnerVisibility(!bThirdPerson&&!IsDeathViewActive()&&(!bSaddleHands||bRideEyeOccluded));
+     // Compress only the owning pistol viewmodel's rendered depth. Sleeves,
+     // bare skin, gloves, optics and dual-wield parts must use the same space;
+     // scaling a sleeve alone would reverse its depth order against the hand.
+@@ -432,7 +432,7 @@
+         // changed: this runs again on every camera update and every 0.2 s.
+         // The scope owns its recorded hide request until it releases it. Clearing
+         // it here every 0.2 s exposes the rifle/arms for a frame during scoped ADS.
+-        const bool bHideFromOwner=bThirdPerson||bRiding||IsDeathViewActive()||UFPSFurnitureRestComponent::IsResting(Character.Get())||IsWorkstationIdle()||Character->ScopeHiddenParts.Contains(Primitive)
++        const bool bHideFromOwner=bThirdPerson||bSaddleHands||IsDeathViewActive()||UFPSFurnitureRestComponent::IsResting(Character.Get())||IsWorkstationIdle()||Character->ScopeHiddenParts.Contains(Primitive)
+             ||(BowOptics&&BowOptics->HidesPrimitive(Primitive));
+         FPSBodyEquipment::ApplyOwnerVisibilityFlags(Primitive,/*bOnlyOwnerSee=*/true,/*bOwnerNoSee=*/bHideFromOwner);
+         FPSBodyEquipment::ApplyShadowFlags(Primitive,false);
+@@ -513,7 +513,7 @@
+     }
+     // Keep weapons stowed through the short return from an interrupted hand pose.
+     const float Now=ServerClock();
+-    if(FPSBodyPoses::Traversing(DisplayState.Motion)||UHorseRiderComponent::IsRiding(Character.Get()))
++    if(FPSBodyPoses::Traversing(DisplayState.Motion))
+     {WorldWeaponsHiddenUntil=Now+.1f;OffhandWeaponHiddenUntil=Now+.1f;}
+     const bool StowableLeft=DisplayState.bDual||DisplayState.bOffhandPistol||
+         (BodyAnimation&&FPSBodyKukriMotion::MatchesOffhand(DisplayState,

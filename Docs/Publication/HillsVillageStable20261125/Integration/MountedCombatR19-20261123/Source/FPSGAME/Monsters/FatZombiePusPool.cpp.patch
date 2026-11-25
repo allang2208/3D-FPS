@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/Monsters/FatZombiePusPool.cpp
++++ b/Source/FPSGAME/Monsters/FatZombiePusPool.cpp
+@@ -153,10 +153,10 @@
+     TSet<APawn*> Visited;
+     for (const auto& Contact : Contacts)
+     {
+-        auto* Target = Cast<APawn>(Contact.GetActor());
++        auto* Target = Cast<APawn>(MonsterTargeting::DamageRecipient(Contact.GetActor()));
+         if (!Target || Visited.Contains(Target)) continue;
+         Visited.Add(Target); // Multiple limbs and multiple splashes still mean one hit per pool/pulse.
+-        if (!IsHostile(Target) || !TouchesGround(Target, Spread)) continue;
++        if (!IsHostile(Target) || !TouchesGround(MonsterTargeting::ContactBody(Target), Spread)) continue;
+         if (UGameplayStatics::ApplyDamage(Target, Tuning.Damage, DamageInstigator.Get(), this, UCorrosivePusDamage::StaticClass()) > 0.f) ++SuccessfulHits;
+     }
+     if ((DamagePulses+1)*Tuning.Interval > Tuning.Duration+KINDA_SMALL_NUMBER) GetWorldTimerManager().ClearTimer(DamageTimer);

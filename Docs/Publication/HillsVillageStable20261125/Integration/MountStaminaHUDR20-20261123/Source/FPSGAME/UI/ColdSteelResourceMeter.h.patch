@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/UI/ColdSteelResourceMeter.h
++++ b/Source/FPSGAME/UI/ColdSteelResourceMeter.h
+@@ -11,7 +11,7 @@
+ public:
+     void SetValue(float InRatio, bool bInMana);
+     void SetStaminaValue(float InRatio);
+-    void SetSemanticValue(float InRatio,const FLinearColor& Fill,const FLinearColor& Deep);
++    void SetSemanticValue(float InRatio,const FLinearColor& Fill,const FLinearColor& Deep, bool bWarnOnLowFill=true);
+     void SetPendingCostRatio(float InRatio);
+     void SetShieldRatio(float InRatio);
+     void SetMaxPoints(float InMaxPoints);
+@@ -27,6 +27,7 @@
+     bool bStamina=false;
+     TSharedPtr<class SColdSteelResourceMeter> Meter;
+     bool bSemantic=false;
++    bool bWarnOnLowFill=true;
+     FLinearColor SemanticFill=FLinearColor::White,SemanticDeep=FLinearColor::White;
+     float PendingCostRatio=0.f;
+     float ShieldRatio=0.f;

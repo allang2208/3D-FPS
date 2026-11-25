@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyComponent.h
+@@ -382,6 +382,7 @@
+ 
+     UPROPERTY(Transient) TObjectPtr<class USkeletalMeshComponent> FirstPersonLowerBody;
+     bool bLowerBodyRequested=false;
++    bool bRideEyeOccluded=false;
+     void InitializeFirstPersonLowerBody();
+     void UpdateFirstPersonLowerBodyVisibility();
+     bool ShouldShowFirstPersonLowerBody() const;

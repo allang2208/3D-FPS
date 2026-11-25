@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelInventoryRequests.cpp
+@@ -231,6 +231,8 @@
+     else if(!Model)Reason=TEXT("角色档案正在同步，请稍后重试");
+     else if(Model->HasUnconfirmedTransactionSave())Reason=TEXT("交易保存结果待恢复，当前不能继续扣费或领取");
+     else if(Request.Revision!=Before.CampfireInventoryRevision)Reason=TEXT("库存正在更新，请稍后重试");
++    else if(Request.Action==EColdSteelInventoryAction::MountPotion)
++        Success=Model->GiveMountPotion(Request.MountId,Request.Item,Reason);
+     else if(Request.Action==EColdSteelInventoryAction::Shrine)
+     {if(auto* Run=UDungeonRunSubsystem::Get(GetWorld()))Success=Run->ClaimShrine(PC,Request.Target);Reason=Success?TEXT("已获得神像赐福"):TEXT("神龛不可达或已领取");}
+     else if(Request.Action==EColdSteelInventoryAction::Shop)
+@@ -381,6 +383,7 @@
+         }
+         for(const auto& Pair:Before.AmmoPouch)
+             if(!After.AmmoPouch.Contains(Pair.Key)&&Pair.Value)Reply->PouchDelta.Add(Pair.Key,-Pair.Value);
++        if(Request.Action==EColdSteelInventoryAction::MountPotion)Reply->MountPotionRoster=After.MountRoster;
+         Reply->bResourcesChanged=Request.Action==EColdSteelInventoryAction::Consume;
+         Reply->ManaRestored=FMath::Max(0.f,After.Mana-Before.Mana);
+         if(Request.Action==EColdSteelInventoryAction::BowShot)Reply->ElementManaSpent=FMath::Max(0.f,Before.Mana-After.Mana);

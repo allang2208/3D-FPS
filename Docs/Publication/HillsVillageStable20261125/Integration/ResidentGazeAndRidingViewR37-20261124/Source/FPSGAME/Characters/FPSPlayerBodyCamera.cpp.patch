@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
+@@ -19,14 +19,16 @@
+     if (auto* Rest=FindComponentByClass<UFPSFurnitureRestComponent>())Rest->ApplyCamera(OutResult);
+     if (auto* Body = FindComponentByClass<UFPSPlayerBodyComponent>())
+     {
+-        if(IsLocallyControlled()&&!Body->IsThirdPersonViewEnabled())
++        if(IsLocallyControlled())
+             if(const auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())
+             {
+-                const float Aim=Bow&&Bow->IsEquipped()?Bow->AimZoomAlpha():CameraADSFactor;
+-                // Eye and equipment share a camera parent. Move only the rendered eye,
+-                // leaving the weapon sockets and controller aim on the original transform.
+-                OutResult.Location+=Ride->SeatedViewOffset()*FMath::Clamp(CameraMotionScale/.45f,0.f,1.5f)
+-                    *(1.f-FMath::SmoothStep(0.f,1.f,Aim));
++                OutResult.Location+=Ride->SaddleViewCorrection();
++                if(!Body->IsThirdPersonViewEnabled())
++                {
++                    const float Aim=Bow&&Bow->IsEquipped()?Bow->AimZoomAlpha():CameraADSFactor;
++                    OutResult.Location+=Ride->SeatedViewOffset()*FMath::Clamp(CameraMotionScale/.45f,0.f,1.5f)
++                        *(1.f-FMath::SmoothStep(0.f,1.f,Aim));
++                }
+             }
+         Body->ApplyCameraView(OutResult);Body->ApplyReactionCamera(DeltaTime,OutResult);
+         // Additive camera layers are applied after the component transform.

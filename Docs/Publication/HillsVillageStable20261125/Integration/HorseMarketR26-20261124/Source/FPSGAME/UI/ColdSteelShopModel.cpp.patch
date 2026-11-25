@@ -1,0 +1,144 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopModel.cpp
++++ b/Source/FPSGAME/UI/ColdSteelShopModel.cpp
+@@ -1,4 +1,6 @@
+ #include "ColdSteelShopModel.h"
++#include "../FPSWeatherManager.h"
++#include "EngineUtils.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../NPC/VillageArtisanMerchant.h"
+ #include "../NPC/VillageBaker.h"
+@@ -94,10 +96,21 @@
+     TEXT("请回到林芷身边再购买"), TEXT("请选择货架上的药水，购买数量为 1～99")
+ };
+ 
++const FColdSteelResidentMenu StableMenu = {
++    {}, TEXT("stable.buy"), TEXT("东门马市"), TEXT("买下的马匹可在马匹栏选择出战。"),
++    TEXT("请回到马厩管理员身边再购买"), TEXT("今日马匹已更换，请重新选择")
++};
++AFPSWeatherManager* MarketClock(UWorld* World)
++{
++    if(World)for(TActorIterator<AFPSWeatherManager> It(World);It;++It)return *It;
++    return nullptr;
++}
++
+ const FColdSteelResidentMenu* MenuForSeller(const AActor* Seller)
+ {
+     if (!IsValid(Seller)) return nullptr;
+     if (const auto* Counter = Cast<AVillageGunshopCounter>(Seller)) return Counter->IsOpen() ? &GunshopMenu : nullptr;
++    if (StableHorseMarket::IsSeller(Seller)) return &StableMenu;
+     if (Seller->IsA<AVillageBaker>()) return &BakeryShopMenu;
+     if (Seller->IsA<AVillageTavernKeeper>()) return &TavernShopMenu;
+     if (Seller->IsA<AVillageHerbalist>()) return &HerbalistShopMenu;
+@@ -176,6 +189,22 @@
+ bool UColdSteelShopModel::IsTavernShop() const { return Menu == &TavernShopMenu; }
+ bool UColdSteelShopModel::IsHerbalistShop() const { return Menu == &HerbalistShopMenu; }
+ 
++bool UColdSteelShopModel::IsStableShop() const { return Menu==&StableMenu; }
++bool UColdSteelShopModel::BeginStableSession(AActor* Seller)
++{
++    return StableHorseMarket::IsSeller(Seller) && BeginMenuSession(Seller);
++}
++bool UColdSteelShopModel::RefreshHorseOffers()
++{
++    if(!IsStableShop()||!Model)return false;
++    if(!StableClock.IsValid())StableClock=MarketClock(GetWorld());
++    const int32 Day=StableClock.IsValid()?StableClock->GetScheduleDay():INDEX_NONE;
++    const FGuid Profile=Model->ProfileView().NetworkProfileId;
++    if(Day==StableDay && Profile==StableProfile)return false;
++    StableDay=Day;StableProfile=Profile;
++    StableOffers=StableHorseMarket::Stock(Profile,Day);
++    return true;
++}
+ bool UColdSteelShopModel::BeginMenuSession(AActor* Seller)
+ {
+     const auto* NewMenu = MenuForSeller(Seller);
+@@ -189,6 +218,7 @@
+         auto Item = Model->CreateItem(Offer.Definition);
+         if (Offer.Price(Item) > 0) Shelf.Add(MoveTemp(Item));
+     }
++    RefreshHorseOffers();
+     Message = Menu->BuyPrompt;
+     OnChanged.Broadcast();
+     return true;
+@@ -201,6 +231,7 @@
+     {
+         if (!OnLeft.IsBound()) EndSession();
+         else if (SellerHasLeft()) OnLeft.Execute();
++        else if (RefreshHorseOffers()) {Message=StableMenu.BuyPrompt;OnChanged.Broadcast();}
+     }), .25f, true);
+ }
+ 
+@@ -229,6 +260,7 @@
+     if (auto* World = GetWorld()) World->GetTimerManager().ClearTimer(ReachTimer);
+     if (Merchant.IsValid()) Merchant->OnStockChanged.Remove(StockHandle);
+     StockHandle.Reset(); Merchant.Reset();
++    StableClock.Reset();StableOffers.Reset();StableDay=INDEX_NONE;StableProfile.Invalidate();
+     MenuSeller.Reset();
+     BuyerPawn.Reset();
+     Menu = nullptr;
+@@ -360,6 +392,31 @@
+     return Out.Total > 0;
+ }
+ 
++bool UColdSteelShopModel::BuyHorse(FGuid Id)
++{
++    if(!IsStableShop() || !CanTrade())return false;
++    auto* PC=GetGameInstance()->GetFirstLocalPlayerController();
++    FColdSteelInventoryRequest R;
++    R.Action=EColdSteelInventoryAction::Shop;R.Mode=StableMenu.BuyMode;
++    R.MountId=Id;R.Target=MenuSeller.Get();R.Pawn=PC->GetPawn();R.Count=1;
++    if(GetWorld()->GetNetMode()==NM_Standalone)
++    {
++        FString Reason;
++        bool Saved;
++        {
++            TGuardValue<bool> Guard(bCommitting,true);
++            Model->SyncRuntime();
++            Saved=ExecuteNetworkTrade(Model,R,FString(),Reason);
++        }
++        RefreshHorseOffers();Message=Reason;OnChanged.Broadcast();
++        return Saved;
++    }
++    auto* PS=PC->GetPlayerState<AColdSteelPlayerState>();
++    bPendingSale=false;bCommitting=true;
++    if(!PS || !PS->RequestInventoryAction(R)){bCommitting=false;return Fail(TEXT("交易正在等待角色同步"));}
++    if(bCommitting){Message=TEXT("正在登记马匹");OnChanged.Broadcast();}
++    return true;
++}
+ bool UColdSteelShopModel::Buy(const FString& StockItemId, int32 Count)
+ {
+     if (!CanTrade()) return false;
+@@ -486,7 +543,24 @@
+             ||!ResidentConversation::CanReach(R.Pawn.Get(),Vendor))
+         {Reason=SellerMenu->ReachPrompt;return false;}
+     }
+-    if(ArtisanBuy||MenuBuy||GeneralBuy)
++    FString BoughtHorse;
++    if(MenuBuy && SellerMenu==&StableMenu)
++    {
++        const auto* Clock=MarketClock(Profile->GetWorld());
++        if(!Clock){Reason=TEXT("村庄时钟尚未就绪");return false;}
++        const auto Offers=StableHorseMarket::Stock(Next.NetworkProfileId,Clock->GetScheduleDay());
++        const auto* Offer=Offers.FindByPredicate([&](const auto& Lot){return Lot.Horse.HorseId==R.MountId;});
++        if(!Offer || R.Count!=1){Reason=StableMenu.InvalidOffer;return false;}
++        auto& Roster=Next.MountRoster;
++        if(Roster.Find(R.MountId)){Reason=TEXT("这匹马已经购入");return false;}
++        Debit=Offer->Price;
++        if(!ColdSteelCurrency::Debit(Next,Debit)){Reason=TEXT("灵魂不足");return false;}
++        if(Roster.Horses.IsEmpty())Roster.Deployed=R.MountId;
++        Roster.Horses.Add(Offer->Horse);
++        ++Roster.Revision;
++        BoughtHorse=Offer->Horse.DisplayName();
++    }
++    else if(ArtisanBuy||MenuBuy||GeneralBuy)
+     {
+         const FString Id=R.Definition.ToString();
+         FColdSteelItem Item;
+@@ -546,6 +620,7 @@
+         ?Profile->CommitState(MoveTemp(Next)):Profile->CommitCampfireState(MoveTemp(Next),TEXT("Inventory"),HostSlot);
+     if(!Saved){Reason=Profile->ResultMessage();return false;}
+     if(ArtisanBuy)Seller->RestockSoldLot(SoldLot);
++    if(!BoughtHorse.IsEmpty()){Reason=FString::Printf(TEXT("%s 已收入马匹栏 · 花费 %lld 灵魂"),*BoughtHorse,Debit);return true;}
+     Reason=Credit>0?FString::Printf(TEXT("出售成功 · 获得 %lld 灵魂"),Credit):FString::Printf(TEXT("购买成功 · 花费 %lld 灵魂"),Debit);
+     return true;
+ }

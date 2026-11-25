@@ -39,3 +39,5 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 地图系统的实景底图、输入焦点和冷钢标记表现，读取 [实景底图、地图输入与标记表现](references/world-map-navigation.md)。
 
 新增村民对话、货架详情或排查无 RHI 的目录图标时，读[村民对话与商店预览](references/resident-dialogue-and-shop-previews.md)。
+
+名册卡片与并排装备详情参见[名册卡片与并排装备详情](references/roster-cards-and-equipment-detail.md)。

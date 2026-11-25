@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/WorldGeneration/VillageGunshopServices.h
++++ b/Source/FPSGAME/WorldGeneration/VillageGunshopServices.h
+@@ -33,6 +33,7 @@
+     GENERATED_BODY()
+ public:
+     AVillageGunshopCounter();
++    void SetLocalConversation(APlayerController* Player) { Facing.SetLocalPlayer(Player); }
+     bool IsOpen() const { return !IsHidden() && GetActorEnableCollision(); }
+     virtual void SetActorHiddenInGame(bool bNewHidden) override;
+ 

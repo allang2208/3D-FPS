@@ -1,0 +1,51 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelShopWidget.h
+@@ -14,18 +14,6 @@
+ class UBorder;
+ class USizeBox;
+ class UHorizontalBox;
+-
+-UCLASS()
+-class UColdSteelHorseOfferButton : public UButton
+-{
+-    GENERATED_BODY()
+-public:
+-    void Bind(UColdSteelShopWidget* Shop);
+-    FGuid Horse;
+-private:
+-    UFUNCTION() void SelectHorse();
+-    TWeakObjectPtr<UColdSteelShopWidget> OwnerShop;
+-};
+ 
+ /** A view of shop stock / the sale selection using the backpack's spatial grid. */
+ UCLASS()
+@@ -98,7 +86,6 @@
+     UColdSteelHUDWidget* TooltipHUD() const { return HUD; }
+     void Refresh();
+     void ResetSession();
+-    void SelectHorse(FGuid Id);
+     bool AddToSale(const FString& Id);
+     bool HandleItemDrop(class UColdSteelItemDrag* Drag, FVector2D Position);
+     bool IsConfirming() const;
+@@ -122,20 +109,9 @@
+     UFUNCTION() void ConfirmSell();
+     UFUNCTION() void CancelSell();
+     UFUNCTION() void BuySelected();
+-    UFUNCTION() void BuySelectedHorse();
+     void BuildHorseMarket(class UVerticalBox* Body);
+     void RefreshHorseMarket(const UColdSteelStatusModel& Status);
+-    UPROPERTY(Transient) TObjectPtr<class UVerticalBox> HorseMarket;
+-    UPROPERTY(Transient) TArray<TObjectPtr<UColdSteelHorseOfferButton>> HorseRows;
+-    UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> HorseLabels;
+-    UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> HorsePrices;
+-    UPROPERTY(Transient) TObjectPtr<UTextBlock> MarketDate;
+-    UPROPERTY(Transient) TObjectPtr<UTextBlock> HorseName;
+-    UPROPERTY(Transient) TObjectPtr<UTextBlock> HorseRatings;
+-    UPROPERTY(Transient) TObjectPtr<UTextBlock> HorseFigures;
+-    UPROPERTY(Transient) TObjectPtr<UButton> HorsePurchase;
+-    FGuid ViewedHorse;
+-    FGuid DisplayedHorseDetails;
++    UPROPERTY(Transient) TObjectPtr<class UNativeWidgetHost> HorseMarket;
+     UFUNCTION() void RemoveSelected();
+     UFUNCTION() void SaleQuantityCommitted(const FText& Text, ETextCommit::Type CommitMethod);
+     UFUNCTION() void PreviousBuyPage();

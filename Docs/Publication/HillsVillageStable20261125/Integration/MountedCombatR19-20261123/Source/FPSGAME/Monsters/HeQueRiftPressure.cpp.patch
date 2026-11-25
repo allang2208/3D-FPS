@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Monsters/HeQueRiftPressure.cpp
++++ b/Source/FPSGAME/Monsters/HeQueRiftPressure.cpp
+@@ -115,7 +115,7 @@
+         Stop=FMath::Lerp(PressureTravel[Index],EndDistance,First.Time);
+         Packet.ImpactPoint=First.ImpactPoint;Packet.ImpactNormal=First.ImpactNormal.GetSafeNormal();
+         Packet.HitWorld=!Cast<APawn>(First.GetActor());ForceNetUpdate();
+-        AActor* Victim=First.GetActor();const auto* Player=Cast<APawn>(Victim);
++        AActor* Victim=MonsterTargeting::DamageRecipient(First.GetActor());const auto* Player=Cast<APawn>(Victim);
+         const auto* Vitals=IsValid(Victim)?Victim->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+         if(IsValid(Victim)&&((Player&&MonsterTargeting::IsOpponentPawn(Player))||Victim->IsA<AFPSIceWall>())&&(!Vitals||(!Vitals->IsDead()&&!Vitals->IsInvulnerable())))
+             UGameplayStatics::ApplyPointDamage(Victim,RiftDamage,Rift.Direction,First,GetController(),this,UEnemyRangedDamage::StaticClass());

@@ -1,0 +1,33 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+@@ -515,17 +515,16 @@
+ bool Validate(const FColdSteelProfile& P,FString& Reason)
+ {
+     const auto& Roster=P.MountRoster;
+-    if(Roster.Horses.Num()>2 || (Roster.Horses.IsEmpty()?Roster.Selected!=0:!Roster.Find(Roster.Selected)))
+-    {Reason=TEXT("马匹栏记录无效");return false;}
+-    uint8 SeenStalls=0;
++    if(Roster.Deployed.IsValid()&&!Roster.Find(Roster.Deployed))
++    {Reason=TEXT("出战马匹不存在");return false;}
++    TSet<FGuid> Seen;
+     for(const auto& Horse:Roster.Horses)
+     {
+-        const uint8 Bit=Horse.Stall==2?1:Horse.Stall==4?2:0;
+-        if(!Bit||(SeenStalls&Bit)||!FMath::IsFinite(Horse.Health)||!FMath::IsFinite(Horse.Stamina)||
++        if(!Horse.HorseId.IsValid()||Seen.Contains(Horse.HorseId)||Horse.RecallAfterUtc<0||!FMath::IsFinite(Horse.Health)||!FMath::IsFinite(Horse.Stamina)||
+             !FMath::IsFinite(Horse.MaxHealth)||!FMath::IsFinite(Horse.MaxStamina)||
+             Horse.MaxHealth<=0||Horse.MaxStamina<=0||Horse.Health<0||Horse.Health>Horse.MaxHealth||Horse.Stamina<0||Horse.Stamina>Horse.MaxStamina)
+         {Reason=TEXT("马匹状态无效");return false;}
+-        SeenStalls|=Bit;
++        Seen.Add(Horse.HorseId);
+     }
+     return ValidateProfile(P,Reason,false);
+ }
+@@ -690,6 +689,7 @@
+     Changed=false;
+     auto Next=Profile;
+     if(!MigrateBackpackLayout(Next,Changed,Reason,false))return false;
++    Changed|=Next.MountRoster.Upgrade(Next.NetworkProfileId);
+     if(!Next.EnhancementItem.InstanceId.IsEmpty())
+     {
+         bool ItemChanged=false;

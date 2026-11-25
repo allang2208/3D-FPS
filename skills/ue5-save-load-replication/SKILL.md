@@ -99,3 +99,5 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 丘陵夜袭软依赖、拥有者就绪确认及主机重启进度，读 [夜袭资源就绪与持久化](references/hills-night-readiness-and-progress.md)。
 
 丘陵监听服的种子归属、工匠货架竞争和个人修炼进度见[房主存档、共享货架与学徒任务](references/artisan-village-session-and-stock.md)。
+
+伙伴名册与装备归属参见[伙伴名册与装备归属](references/owned-equipment-and-roster.md)。

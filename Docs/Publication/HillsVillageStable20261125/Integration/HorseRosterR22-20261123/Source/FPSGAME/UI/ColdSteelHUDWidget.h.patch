@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -185,6 +185,12 @@
+     UFUNCTION() void HandleNavigationSkills();
+     UFUNCTION() void HandleNavigationCodex();
+     UFUNCTION() void HandleNavigationTasks();
++    UFUNCTION() void HandleNavigationMounts();
++    UFUNCTION() void SelectSecondStall();
++    UFUNCTION() void SelectFourthStall();
++    void HandleMountCard(uint8 Stall);
++    UWidget* BuildMountPage();
++    void RefreshMountPage();
+     UPROPERTY(Transient) TObjectPtr<UVerticalBox> PanelNavigation;
+     UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> PanelNavigationSlot;
+     UPROPERTY(Transient) TArray<TObjectPtr<UButton>> PanelNavigationButtons;
+@@ -630,6 +636,13 @@
+     bool bSkillsTabActive = false;
+     bool bCodexTabActive = false;
+     bool bQuestTabActive = false;
++    bool bMountTabActive = false;
++    UPROPERTY(Transient) TObjectPtr<UWidget> MountPage;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountPageHint;
++    UPROPERTY(Transient) TArray<TObjectPtr<UBorder>> MountCards;
++    UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> MountCardValues;
++    UPROPERTY(Transient) TArray<TObjectPtr<UTextBlock>> MountCardStates;
++    UPROPERTY(Transient) TArray<TObjectPtr<UButton>> MountSelectButtons;
+     bool bEquipmentTooltipPinned = false;
+     float TimelineRefreshAccumulator = 0.0f;
+     float TimelinePulse = 0.0f;

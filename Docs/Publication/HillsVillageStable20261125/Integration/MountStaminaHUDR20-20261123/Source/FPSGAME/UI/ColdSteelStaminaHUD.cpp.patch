@@ -1,0 +1,168 @@
+--- a/Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp
+@@ -8,8 +8,8 @@
+ #include "Blueprint/WidgetLayoutLibrary.h"
+ #include "Components/CanvasPanel.h"
+ #include "Components/CanvasPanelSlot.h"
+-#include "Components/HorizontalBox.h"
+-#include "Components/HorizontalBoxSlot.h"
++#include "Components/GridPanel.h"
++#include "Components/GridSlot.h"
+ #include "Components/SizeBox.h"
+ #include "Components/ScaleBox.h"
+ #include "Components/VerticalBox.h"
+@@ -28,16 +28,49 @@
+ #include "../Monsters/BoundCongregateCaptureComponent.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+ 
++namespace
++{
++FString FormatStamina(float Current,float Maximum)
++{
++    return FString::Printf(TEXT("%.1f / %.0f"),Current,Maximum);
++}
++}
++
+ void UColdSteelHUDWidget::BuildStamina(UCanvasPanel* Root)
+ {
+-    auto* Row=WidgetTree->ConstructWidget<UHorizontalBox>();Row->SetVisibility(ESlateVisibility::HitTestInvisible);
+-    StaminaSlot=Root->AddChildToCanvas(Row);StaminaSlot->SetAnchors(FAnchors(.5f,1));StaminaSlot->SetAlignment(FVector2D(.5f,1));StaminaSlot->SetZOrder(29);
+-    StaminaMeterSize=WidgetTree->ConstructWidget<USizeBox>();
+-    auto* MeterSlot=Row->AddChildToHorizontalBox(StaminaMeterSize);MeterSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));MeterSlot->SetVerticalAlignment(VAlign_Center);
+-    StaminaMeter=WidgetTree->ConstructWidget<UColdSteelResourceMeter>();StaminaMeterSize->SetContent(StaminaMeter);
+-    StaminaValue=WidgetTree->ConstructWidget<UTextBlock>();StaminaValue->SetJustification(ETextJustify::Right);StaminaValue->SetAutoWrapText(false);
+-    StaminaValue->SetShadowOffset(FVector2D(1,1));StaminaValue->SetShadowColorAndOpacity(FLinearColor(0,0,0,.8f));
+-    Row->AddChildToHorizontalBox(StaminaValue)->SetVerticalAlignment(VAlign_Center);
++    auto* Tracks=WidgetTree->ConstructWidget<UGridPanel>();
++    Tracks->SetVisibility(ESlateVisibility::HitTestInvisible);
++    Tracks->SetColumnFill(0,1.f);
++    Tracks->SetRowFill(1,1.f);
++    StaminaSlot=Root->AddChildToCanvas(Tracks);
++    StaminaSlot->SetAnchors(FAnchors(.5f,1));StaminaSlot->SetAlignment(FVector2D(.5f,1));StaminaSlot->SetZOrder(29);
++
++    // Both tracks share a flexible meter column and the width of the widest number.
++    const auto AddTrack=[&](int32 Row,TObjectPtr<USizeBox>& TrackSize,TObjectPtr<UColdSteelResourceMeter>& Meter,TObjectPtr<UTextBlock>& Value)
++    {
++        TrackSize=WidgetTree->ConstructWidget<USizeBox>();
++        auto* TrackSlot=Tracks->AddChildToGrid(TrackSize,Row,0);
++        TrackSlot->SetHorizontalAlignment(HAlign_Fill);
++        TrackSlot->SetVerticalAlignment(VAlign_Center);
++        Meter=WidgetTree->ConstructWidget<UColdSteelResourceMeter>();
++        TrackSize->SetContent(Meter);
++
++        Value=WidgetTree->ConstructWidget<UTextBlock>();
++        Value->SetJustification(ETextJustify::Right);
++        Value->SetAutoWrapText(false);
++        Value->SetShadowOffset(FVector2D(1,1));
++        Value->SetShadowColorAndOpacity(FLinearColor(0,0,0,.8f));
++        auto* NumberSlot=Tracks->AddChildToGrid(Value,Row,1);
++        NumberSlot->SetHorizontalAlignment(HAlign_Right);
++        NumberSlot->SetVerticalAlignment(VAlign_Center);
++    };
++    AddTrack(0,MountStaminaMeterSize,MountStaminaMeter,MountStaminaText);
++    AddTrack(1,StaminaMeterSize,StaminaMeter,StaminaValue);
++    MountStaminaMeterSize->SetVisibility(ESlateVisibility::Collapsed);
++    MountStaminaText->SetVisibility(ESlateVisibility::Collapsed);
++    DisplayedStaminaMount.Reset();
++    StaminaLayoutScale=0.f;
++
+     auto* Hints=WidgetTree->ConstructWidget<UVerticalBox>();Hints->SetVisibility(ESlateVisibility::HitTestInvisible);
+     BottomHintsSlot=Root->AddChildToCanvas(Hints);
+     BottomHintsSlot->SetAnchors(FAnchors(.5f,1));BottomHintsSlot->SetAlignment(FVector2D(.5f,1));BottomHintsSlot->SetZOrder(29);
+@@ -53,7 +86,7 @@
+         Text->SetVisibility(ESlateVisibility::Collapsed);Height->SetVisibility(ESlateVisibility::Collapsed);return Text;
+     };
+     // Fixed top-to-bottom order. Collapsed rows relinquish their space; the container grows upward.
+-    CaptureEscapeHint=AddHint();DecisiveMainHint=AddHint();DecisiveOffhandHint=AddHint();DashAttackReadyText=AddHint();MountStaminaText=AddHint();
++    CaptureEscapeHint=AddHint();DecisiveMainHint=AddHint();DecisiveOffhandHint=AddHint();DashAttackReadyText=AddHint();
+     DisplayedMountStamina=FIntPoint(-1,-1);
+     CaptureEscapeHint->SetColorAndOpacity(ColdSteelUI::Warning);
+     DisplayedCaptureEscapeHits=INDEX_NONE;
+@@ -168,19 +201,37 @@
+         }
+         else DisplayedCaptureEscapeHits=INDEX_NONE;
+     }
+-    if(MountStaminaText)
+-    {
+-        const auto* Mount=ShowCombatHints?UHorseRiderComponent::MountOf(HintPawn):nullptr;
+-        const FIntPoint Values=Mount?FIntPoint(FMath::CeilToInt(Mount->GetStamina()),FMath::RoundToInt(Mount->GetMaximumStamina())):FIntPoint(-1,-1);
+-        if(Values!=DisplayedMountStamina)
+-        {
+-            DisplayedMountStamina=Values;
+-            MountStaminaText->SetVisibility(Mount?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+-            if(Mount)MountStaminaText->SetText(FText::Format(NSLOCTEXT("ColdSteelHUD","MountStamina","坐骑体力  {0} / {1}"),
+-                FText::AsNumber(Values.X),FText::AsNumber(Values.Y)));
+-        }
+-    }
+-    const UTextBlock* HintTexts[]={CaptureEscapeHint.Get(),DecisiveMainHint.Get(),DecisiveOffhandHint.Get(),DashAttackReadyText.Get(),MountStaminaText.Get()};
++    auto* Mount=ShowCombatHints?UHorseRiderComponent::MountOf(HintPawn):nullptr;
++    const bool ShowMount=Mount!=nullptr;
++    if(ShowMount!=(MountStaminaMeterSize->GetVisibility()!=ESlateVisibility::Collapsed))
++    {
++        const auto MountRowVisibility=ShowMount?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed;
++        MountStaminaMeterSize->SetVisibility(MountRowVisibility);
++        MountStaminaText->SetVisibility(MountRowVisibility);
++        CastChecked<UGridPanel>(MountStaminaText->GetParent())->SetRowFill(0,ShowMount?1.f:0.f);
++        DisplayedMountStamina=FIntPoint(-1,-1);
++    }
++    if(Mount)
++    {
++        if(DisplayedStaminaMount.Get()!=Mount || DisplayedMountStamina.X<0)
++        {
++            MountStaminaMeter->ResetAnimation();
++            DisplayedStaminaMount=Mount;
++        }
++        const float Current=Mount->GetStamina(),Maximum=Mount->GetMaximumStamina();
++        const float Ratio=Current/FMath::Max(1.f,Maximum);
++        MountStaminaMeter->SetSemanticValue(Ratio,ColdSteelUI::MountStamina,ColdSteelUI::MountStaminaDeep,false);
++        const FIntPoint Numbers(FMath::RoundToInt(Current*10.f),FMath::RoundToInt(Maximum));
++        if(DisplayedMountStamina!=Numbers)
++        {
++            DisplayedMountStamina=Numbers;
++            MountStaminaText->SetText(FText::FromString(FormatStamina(Current,Maximum)));
++        }
++        const FLinearColor& NumberColor=Ratio<=.25f?ColdSteelUI::Warning:ColdSteelUI::TextPrimary;
++        if(MountStaminaText->GetColorAndOpacity().GetSpecifiedColor()!=NumberColor)
++            MountStaminaText->SetColorAndOpacity(NumberColor);
++    }
++    const UTextBlock* HintTexts[]={CaptureEscapeHint.Get(),DecisiveMainHint.Get(),DecisiveOffhandHint.Get(),DashAttackReadyText.Get()};
+     int32 VisibleRows=0;
+     for(int32 I=0;I<BottomHintRows.Num();++I)
+     {
+@@ -190,16 +241,23 @@
+         Row->SetHeightOverride(22/S);Cast<UVerticalBoxSlot>(Row->Slot)->SetPadding(FMargin(0,0,0,6/S));
+         VisibleRows+=Visible?1:0;
+     }
++    const float TrackHeight=22.f/S;
++    const FVector2D TracksSize(FMath::Min(360.f/S,FMath::Max(1.f,View.X-24/S)),TrackHeight*(ShowMount?2.f:1.f));
++    if(StaminaSlot->GetSize()!=TracksSize)StaminaSlot->SetSize(TracksSize);
+     if(BottomHintsSlot)
+     {
+-        BottomHintsSlot->SetPosition(StaminaSlot->GetPosition()+FVector2D(0,-25/S));
++        BottomHintsSlot->SetPosition(StaminaSlot->GetPosition()-FVector2D(0,TracksSize.Y+3.f/S));
+         BottomHintsSlot->SetSize(FVector2D(FMath::Min(600.f/S,FMath::Max(1.f,View.X-24/S)),VisibleRows*28/S));
+     }
+     if(StaminaLayoutView.Equals(View,.1f)&&FMath::IsNearlyEqual(S,StaminaLayoutScale,.0001f))return;
+     StaminaLayoutView=View;StaminaLayoutScale=S;
+-    StaminaSlot->SetSize(FVector2D(FMath::Min(360.f/S,FMath::Max(1.f,View.X-24/S)),22/S));
+-    StaminaValue->SetFont(ColdSteelUI::NumberFont(16*.75f/S));
+-    StaminaMeterSize->SetHeightOverride(9/S);Cast<UHorizontalBoxSlot>(StaminaValue->Slot)->SetPadding(FMargin(10/S,0,0,0));
++    const auto NumberFont=ColdSteelUI::NumberFont(16*.75f/S);
++    for(auto* Value:{StaminaValue.Get(),MountStaminaText.Get()})
++    {
++        Value->SetFont(NumberFont);
++        CastChecked<UGridSlot>(Value->Slot)->SetPadding(FMargin(10/S,0,0,0));
++    }
++    for(auto* Track:{StaminaMeterSize.Get(),MountStaminaMeterSize.Get()})Track->SetHeightOverride(9/S);
+ }
+ void UColdSteelHUDWidget::RefreshStamina()
+ {
+@@ -207,7 +265,7 @@
+     if(!StaminaMeter||!StatusModel)return;
+     const float Current=StatusModel->Stamina(),Max=StatusModel->MaxStamina(),Ratio=Current/FMath::Max(1.f,Max);
+     StaminaMeter->SetStaminaValue(Ratio);
+-    const FString Value=FString::Printf(TEXT("%.1f / %.0f"),Current,Max);
++    const FString Value=FormatStamina(Current,Max);
+     const FText Text=FText::FromString(Value);if(!StaminaValue->GetText().EqualTo(Text))StaminaValue->SetText(Text);
+     StaminaValue->SetColorAndOpacity(Ratio<=.25f?ColdSteelUI::Warning:ColdSteelUI::TextPrimary);
+     SetCharacterValue(TEXT("stamina"),Value);SetAnimatedBarValue(StaminaSheetBar,Ratio);

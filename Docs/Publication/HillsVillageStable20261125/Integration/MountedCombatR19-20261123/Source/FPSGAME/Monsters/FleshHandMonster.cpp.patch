@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Monsters/FleshHandMonster.cpp
++++ b/Source/FPSGAME/Monsters/FleshHandMonster.cpp
+@@ -388,7 +388,7 @@
+  if(!HasAuthority()||State!=EFleshHandState::ChargeRush||bConsumed||Dead()||GetCharacterMovement()->IsWalkable(Hit))return;
+  bConsumed=true; // The swept capsule's first blocking contact consumes this rush.
+  bool DamageLanded=false;
+- APawn* Victim=Cast<APawn>(Hit.GetActor());
++ APawn* Victim=Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor()));
+  if(Alive(Victim)&&Victim->IsPlayerControlled()&&!Status->BlocksMovement())
+  {
+   const float Applied=UGameplayStatics::ApplyDamage(Victim,MonsterDamageBalance::Limit(PhysicalAttack*ChargeDamageMultiplier,100.f),GetController(),this,UEnemyMeleeDamage::StaticClass());

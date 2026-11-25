@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -660,14 +660,8 @@
+     UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> MountDrawerSlot;
+     UPROPERTY(Transient) TObjectPtr<class UColdSteelMountGearPanel> MountGear;
+     UPROPERTY(Transient) TObjectPtr<UButton> MountBuy;
+-    UPROPERTY(Transient) TObjectPtr<UVerticalBox> MountDetails;
+-    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountDetailName;
+-    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountDetailStatus;
+-    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountTraitDetails;
+-    FGuid MountTraitsFor;
+-    int32 MountTraitsLevel=0;
++    UPROPERTY(Transient) TObjectPtr<UScrollBox> MountDetailsScroll;
+     int64 MountLabelsRevision=-1;
+-    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountVitals;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountPotionHint;
+     UPROPERTY(Transient) TObjectPtr<UButton> MountDeploy;
+     UPROPERTY(Transient) TObjectPtr<UButton> MountCall;

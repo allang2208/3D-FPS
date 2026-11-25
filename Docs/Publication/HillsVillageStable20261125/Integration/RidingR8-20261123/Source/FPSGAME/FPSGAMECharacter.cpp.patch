@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.cpp
++++ b/Source/FPSGAME/FPSGAMECharacter.cpp
+@@ -38,6 +38,7 @@
+ #include "Characters/FPSPlayerBodyComponent.h"
+ #include "Characters/FPSPlayerBodyMeshComponent.h"
+ #include "Movement/FPSFurnitureRestComponent.h"
++#include "Movement/HorseRiderComponent.h"
+ #include "Movement/PlayerKnockdownComponent.h"
+ #include "Building/FPSForgeWorkComponent.h"
+ #include "WeaponWeatherStateComponent.h"
+@@ -238,6 +239,7 @@
+ {
+     PrimaryActorTick.bCanEverTick = true;
+     CreateDefaultSubobject<UFPSPlayerBodyComponent>(TEXT("PlayerBody"));
++    CreateDefaultSubobject<UHorseRiderComponent>(TEXT("HorseRider"));
+     CreateDefaultSubobject<UFPSFurnitureRestComponent>(TEXT("FurnitureRest"));
+     CreateDefaultSubobject<UFPSForgeWorkComponent>(TEXT("ForgeWork"));
+     CreateDefaultSubobject<UWeaponWeatherStateComponent>(TEXT("WeaponWeatherState"));

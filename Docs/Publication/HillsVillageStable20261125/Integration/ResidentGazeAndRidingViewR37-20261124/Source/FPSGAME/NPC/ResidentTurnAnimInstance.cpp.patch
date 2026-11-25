@@ -1,0 +1,102 @@
+--- a/Source/FPSGAME/NPC/ResidentTurnAnimInstance.cpp
++++ b/Source/FPSGAME/NPC/ResidentTurnAnimInstance.cpp
+@@ -1,5 +1,5 @@
+ #include "ResidentTurnAnimInstance.h"
+-#include "ResidentConversation.h"
++#include "ResidentGaze.h"
+ #include "Animation/AnimSingleNodeInstanceProxy.h"
+ #include "BonePose.h"
+ #include "Components/SkeletalMeshComponent.h"
+@@ -31,6 +31,7 @@
+     float StartYaw=0.f, Angle=0.f, Elapsed=0.f, Duration=0.f;
+     float BodyTravel=0.f;
+     FFootstep Step[2];
++    FResidentGaze Gaze;
+ 
+     virtual void PreUpdate(UAnimInstance* Instance,float DeltaSeconds) override
+     {
+@@ -38,7 +39,12 @@
+         // skeletal calculations read a value snapshot, including when evaluation runs in parallel.
+         auto* Anim=CastChecked<UResidentTurnAnimInstance>(Instance);
+         USkeletalMeshComponent* Body=Anim->GetSkelMeshComponent();
+-        if (Body) AdvanceFrame(*Body,Anim->ConversationPlayer.Get(),DeltaSeconds);
++        if (Body)
++        {
++            const auto* Viewer=Anim->ConversationPlayer.Get();
++            AdvanceFrame(*Body,Viewer,DeltaSeconds);
++            Gaze.UpdateTarget(*Body,Viewer,DeltaSeconds);
++        }
+         FAnimSingleNodeInstanceProxy::PreUpdate(Instance,DeltaSeconds);
+     }
+ 
+@@ -51,10 +57,12 @@
+             if (!Pawn || !Body.GetOwner()) return;
+             const FVector Towards=Pawn->GetActorLocation()-Body.GetComponentLocation();
+             if (Towards.SizeSquared2D()<=UE_KINDA_SMALL_NUMBER) return;
+-            const float Goal=FResidentConversationFacing::RestYaw+Towards.Rotation().Yaw-Body.GetOwner()->GetActorRotation().Yaw;
++            const FVector ParentDirection=Body.GetAttachParent() ?
++                Body.GetAttachParent()->GetSocketTransform(Body.GetAttachSocketName()).InverseTransformVectorNoScale(Towards) : Towards;
++            const float Goal=ParentDirection.Rotation().Yaw-90.f;
+             StartYaw=Body.GetRelativeRotation().Yaw;
+             Angle=FMath::FindDeltaAngleDegrees(StartYaw,Goal);
+-            if (FMath::Abs(Angle)<1.f) return;
++            if (FMath::Abs(Angle)<3.f) return;
+             Duration=FMath::GetMappedRangeValueClamped(FVector2D(0.,180.),FVector2D(.17,.46),FMath::Abs(Angle));
+             Elapsed=0.f;
+         }
+@@ -88,17 +96,29 @@
+     virtual bool Evaluate(FPoseContext& Output) override
+     {
+         FAnimSingleNodeInstanceProxy::Evaluate(Output);
+-        if (Duration<=0.f) return true;
++        if (Duration>0.f) ApplyFootsteps(Output);
++        Gaze.Apply(Output);
++        return true;
++    }
++
++    void ApplyFootsteps(FPoseContext& Output)
++    {
+         const FBoneContainer& Bones=Output.Pose.GetBoneContainer();
+         const auto Compact=[&Bones](FName Name)
+         {
+             const int32 Index=Bones.GetPoseBoneIndexForBoneName(Name);
+             return Index==INDEX_NONE?FCompactPoseBoneIndex(INDEX_NONE):Bones.MakeCompactPoseIndex(FMeshPoseBoneIndex(Index));
+         };
+-        static const FName PelvisName(TEXT("pelvis")), RightFoot(TEXT("foot_r")), LeftFoot(TEXT("foot_l"));
+-        const auto Pelvis=Compact(PelvisName);
+-        const FCompactPoseBoneIndex Feet[]={Compact(RightFoot),Compact(LeftFoot)};
+-        if (Pelvis==INDEX_NONE || Feet[0]==INDEX_NONE || Feet[1]==INDEX_NONE) return true;
++        auto Find=[&Compact](FName Standard,FName Meshy)
++        {
++            const auto Index=Compact(Standard);
++            return Index!=INDEX_NONE?Index:Compact(Meshy);
++        };
++        static const FName PelvisName(TEXT("pelvis")), HipsName(TEXT("Hips")),
++            RightFoot(TEXT("foot_r")), LeftFoot(TEXT("foot_l")), MeshyR(TEXT("RightFoot")), MeshyL(TEXT("LeftFoot"));
++        const auto Pelvis=Find(PelvisName,HipsName);
++        const FCompactPoseBoneIndex Feet[]={Find(RightFoot,MeshyR),Find(LeftFoot,MeshyL)};
++        if (Pelvis==INDEX_NONE || Feet[0]==INDEX_NONE || Feet[1]==INDEX_NONE) return;
+ 
+         FCSPose<FCompactPose> Pose;
+         Pose.InitPose(Output.Pose);
+@@ -108,9 +128,9 @@
+         for (int32 I=0;I<2;++I)
+         {
+             Calf[I]=Bones.GetParentBoneIndex(Feet[I]);
+-            if (Calf[I]==INDEX_NONE) return true;
++            if (Calf[I]==INDEX_NONE) return;
+             Thigh[I]=Bones.GetParentBoneIndex(Calf[I]);
+-            if (Thigh[I]==INDEX_NONE) return true;
++            if (Thigh[I]==INDEX_NONE) return;
+             const FTransform& Ankle=Pose.GetComponentSpaceTransform(Feet[I]);
+             const FVector Hip=Pose.GetComponentSpaceTransform(Thigh[I]).GetLocation();
+             const FVector Knee=Pose.GetComponentSpaceTransform(Calf[I]).GetLocation();
+@@ -162,7 +182,7 @@
+             Pose.LocalBlendCSBoneTransforms(Leg,1.f);
+         }
+         FCSPose<FCompactPose>::ConvertComponentPosesToLocalPosesSafe(Pose,Output.Pose);
+-        return true;
++        return;
+     }
+ };
+ }

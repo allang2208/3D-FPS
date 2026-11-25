@@ -1,0 +1,43 @@
+--- a/Source/FPSGAME/FPSGAMECharacterInput.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterInput.cpp
+@@ -315,7 +315,11 @@
+ 
+ void AFPSGAMECharacter::JumpPressed()
+ {
+-    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active()){return;}
++    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())
++    {
++        Ride->RequestHorseJump();
++        return;
++    }
+     if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：跳跃/翻越键无效
+     if (IsMeleeSkillMovementLocked() || IsDodging()) return;
+     Traversal->SetJumpHeld(true);
+@@ -392,11 +396,11 @@
+         return;
+     }
+     // 弓：左键一次按下＝弦上空先搭箭、已搭箭开始拉开；只有真实松手才结算发射。
+-    if(Staff&&Staff->IsEquipped())
++    if(Staff&&Staff->HasMeleeMoveset())
+     {
+         ExitSprintForWeapon();
+         auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+-        if(Model&&!Model->SelectedMagicSkill().IsNone())Model->PressStaffMagic();
++        if(Staff->IsEquipped()&&Model&&!Model->SelectedMagicSkill().IsNone())Model->PressStaffMagic();
+         else Staff->BeginPrimaryAttack();
+         return;
+     }
+@@ -434,9 +438,10 @@
+     if(auto* Use=FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->HandlePrimaryRelease())return;
+     // Releasing a tap completes its punch; only priority interruption cancels it.
+     if(UnarmedIdle&&UnarmedIdle->IsEquipped()){UnarmedIdle->SetTriggerHeld(false);return;}
+-    if(Staff&&Staff->IsEquipped())
+-    {
+-        if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Model->ReleaseStaffMagic();
++    if(Staff&&Staff->HasMeleeMoveset())
++    {
++        if(Staff->IsEquipped())
++            if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Model->ReleaseStaffMagic();
+         return;
+     }
+     // 弯刀挥砍不受松键影响：真实松手不能落到 FireReleased 的取消路径；只有重击蓄力由真实松手决定（轻点／未蓄满 = 普通连击）。

@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Building/ColdSteelDoor.cpp
++++ b/Source/FPSGAME/Building/ColdSteelDoor.cpp
+@@ -87,6 +87,8 @@
+     if(HasAuthority())NetScale=GetActorScale3D();
+     else OnRep_Setup();
+     AlignGeometry();
++    if(HasAuthority()&&ActorHasTag(TEXT("VillageStable.Assembly")))
++        Leaf->SetCanEverAffectNavigation(!bOpen);
+     if(!HasAuthority())OnRep_Swing();
+     LogGeometryOnce();
+     if (HasAuthority() && bMonsterAccess)
+@@ -270,6 +272,8 @@
+     if(bBlock&&!bBlockingNow&&LeafOverlapsPawn())bBlock=false;
+     if(bBlock!=bBlockingNow)
+         Leaf->SetCollisionResponseToChannel(ECC_Pawn,bBlock?ECR_Block:ECR_Ignore);
++    if(HasAuthority()&&ActorHasTag(TEXT("VillageStable.Assembly"))&&Leaf->CanEverAffectNavigation()!=bBlock)
++        Leaf->SetCanEverAffectNavigation(bBlock);
+ }
+ 
+ void AColdSteelDoor::LogGeometryOnce()

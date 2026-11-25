@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
+@@ -1,6 +1,7 @@
+ #include "FPSPlayerBodyComponent.h"
+ #include "../UI/FPSPerformanceMetrics.h"
+ #include "../Movement/FPSFurnitureRestComponent.h"
++#include "../Movement/HorseRiderComponent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Production/ProductionToolComponent.h"
+ #include "../Development/DevelopmentTuningSubsystem.h"
+@@ -15,6 +16,7 @@
+ {
+     Super::CalcCamera(DeltaTime, OutResult);
+     if (auto* Rest=FindComponentByClass<UFPSFurnitureRestComponent>())Rest->ApplyCamera(OutResult);
++    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())Ride->ApplyCamera(OutResult);
+     if (auto* Body = FindComponentByClass<UFPSPlayerBodyComponent>())
+     {
+         Body->ApplyCameraView(OutResult);Body->ApplyReactionCamera(DeltaTime,OutResult);
+@@ -58,7 +60,7 @@
+     // The fallback includes its head in the same mesh; keep it out of the
+     // first-person death camera just as the separate real head would be.
+     FPSBodyEquipment::ApplyOwnerVisibilityFlags(InitialAppearanceFallback,false,
+-        bHideFromOwner||(IsDeathViewActive()&&!IsThirdPersonViewEnabled()));
++        bHideFromOwner||((IsDeathViewActive()||UHorseRiderComponent::IsRiding(Character.Get()))&&!IsThirdPersonViewEnabled()));
+     // 这条路径由 CalcCamera 每帧驱动，是「每帧重注册」的主要嫌疑位置。
+     UFPSPerformanceMetricsSubsystem::CountWorldVisibilityUpdate(this);
+     FFPSPerformanceScope PerformanceScope(this,TEXT("PlayerBody.WorldVisibility"));
+@@ -97,7 +99,7 @@
+         // ordinary updates and newly attached parts use the existing refresh.
+         if(Character->AKMViewmodel&&Character->AKMViewmodel->FirstPersonPrimitiveType!=ViewmodelType)
+             UpdateOwnerVisibility();
+-        if((bPistol||bWarhammer)&&!IsThirdPersonViewEnabled()&&!UFPSFurnitureRestComponent::IsResting(Character.Get()))
++        if((bPistol||bWarhammer)&&!UHorseRiderComponent::IsRiding(Character.Get())&&!IsThirdPersonViewEnabled()&&!UFPSFurnitureRestComponent::IsResting(Character.Get()))
+         {
+             // Uniform render-space scaling about the eye preserves screen size,
+             // ADS and finger/gun contact while putting the viewmodel ahead of

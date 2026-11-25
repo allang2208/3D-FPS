@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
+@@ -9,6 +9,8 @@
+ #include "../NPC/VillageMillKeeper.h"
+ #include "../NPC/ResidentConversation.h"
+ #include "../Movement/FPSFurnitureRestComponent.h"
++#include "../Movement/HorseRiderComponent.h"
++#include "../Movement/StableRidingHorse.h"
+ #include "../WorldGeneration/HighVillageDefense.h"
+ #include "../WorldGeneration/VillageDefenseFocusVisual.h"
+ #include "../Building/ColdSteelCampfire.h"
+@@ -167,8 +169,12 @@
+     const bool bAidTarget=bOrdinaryUse && Artisan && !bResting && ResidentConversation::IsSpeakerDowned(Artisan);
+     AActor* ResidentFocus=nullptr;
+     AActor* ContainerFocus=ColdSteelWorldInteraction::UpdateSceneContainerHighlight(PC,bOrdinaryUse && !bResting && !bDirectResident && !bRepair);
++    auto* Ride=Character?Character->FindComponentByClass<UHorseRiderComponent>():nullptr;
++    auto* Horse=Cast<AStableRidingHorse>(Focus.Target);
++    const bool bHorseUse=bOrdinaryUse&&Ride&&(Ride->Active()||Horse);
+     if(auto* Rest=Character?Character->FindComponentByClass<UFPSFurnitureRestComponent>():nullptr)
+-        Text=Rest->UpdateFocus(bOrdinaryUse && !ContainerFocus && !bAidTarget && !bRepair && !bMillKeeper);
++        Text=Rest->UpdateFocus(bOrdinaryUse && !bHorseUse && !ContainerFocus && !bAidTarget && !bRepair && !bMillKeeper);
++    if(bHorseUse){Text=Ride->Prompt(Horse);bAction=Text==TEXT("上马")||Text==TEXT("下马");}
+     if(bAidTarget)
+     {
+         if(Conversation && Conversation->CanAidFocusedArtisan(Artisan))

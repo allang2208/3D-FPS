@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h
++++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h
+@@ -605,6 +605,7 @@
+     bool CommitWorkshopCheckpoint(FColdSteelProfile State,const FString& GuestSlot);
+     bool CommitState(FColdSteelProfile State);
+     bool CommitMountRoster(FStableMountRoster Roster);
++    bool ChangeMountGear(FGuid HorseId,int32 Slot,const FString& ItemId,bool Equip,FString& Reason);
+     bool GiveMountPotion(FGuid HorseId,const FString& ItemId,FString& Reason);
+     void StageMountCondition(const FStableMountRecord& Horse);
+     void ReceiveMountRoster(FGuid Profile,const FStableMountRoster& Roster);

@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
+@@ -16,7 +16,6 @@
+ {
+     Super::CalcCamera(DeltaTime, OutResult);
+     if (auto* Rest=FindComponentByClass<UFPSFurnitureRestComponent>())Rest->ApplyCamera(OutResult);
+-    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())Ride->ApplyCamera(OutResult);
+     if (auto* Body = FindComponentByClass<UFPSPlayerBodyComponent>())
+     {
+         Body->ApplyCameraView(OutResult);Body->ApplyReactionCamera(DeltaTime,OutResult);
+@@ -89,6 +88,15 @@
+ void UFPSPlayerBodyComponent::ApplyCameraView(FMinimalViewInfo& View)
+ {
+     if(ApplyDeathCameraView(View))return;
++    bool bClose=false;
++    if(Character.IsValid()&&UHorseRiderComponent::IsRiding(Character.Get())&&!IsThirdPersonViewEnabled())
++        if(const auto* Body=GetBodyMesh();Body&&Body->GetBoneIndex(TEXT("neck_01"))!=INDEX_NONE)
++        {
++            const FVector Torso=FMath::ClosestPointOnSegment(View.Location,
++                Body->GetSocketLocation(TEXT("spine_03")),Body->GetSocketLocation(TEXT("head")));
++            bClose=FVector::DistSquared(View.Location,Torso)<FMath::Square(bRideEyeOccluded?28.f:23.f);
++        }
++    if(bRideEyeOccluded!=bClose){bRideEyeOccluded=bClose;UpdateOwnerVisibility();}
+     if(Character.IsValid()&&Character->IsLocallyControlled())
+     {
+         // The firearm rig retains its last model when the owner switches to a bow.
+@@ -99,7 +107,7 @@
+         // ordinary updates and newly attached parts use the existing refresh.
+         if(Character->AKMViewmodel&&Character->AKMViewmodel->FirstPersonPrimitiveType!=ViewmodelType)
+             UpdateOwnerVisibility();
+-        if((bPistol||bWarhammer)&&!UHorseRiderComponent::IsRiding(Character.Get())&&!IsThirdPersonViewEnabled()&&!UFPSFurnitureRestComponent::IsResting(Character.Get()))
++        if((bPistol||bWarhammer)&&!UHorseRiderComponent::UsesSaddleHands(Character.Get())&&!IsThirdPersonViewEnabled()&&!UFPSFurnitureRestComponent::IsResting(Character.Get()))
+         {
+             // Uniform render-space scaling about the eye preserves screen size,
+             // ADS and finger/gun contact while putting the viewmodel ahead of

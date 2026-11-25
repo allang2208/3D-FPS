@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
+@@ -194,7 +194,7 @@
+         // RefreshAmmo already refreshes the quick bar for all of its callers.
+         { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshAmmo); RefreshAmmo(); }
+         { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshTopVitals); RefreshTopVitals(); }
+-        if(bInventoryOpen&&bMountTabActive)RefreshMountPage();
++        if(bInventoryOpen&&(bMountTabActive||ViewedMount.IsValid()))RefreshMountPage();
+         RefreshSoulBalance();
+         RefreshHUDTargetDisplay();
+         { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshWorldClock); RefreshWorldClock(); }
+@@ -351,6 +351,7 @@
+ 
+ FReply UColdSteelHUDWidget::NativeOnKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
+ {
++    if(InKeyEvent.GetKey()==EKeys::Escape && ViewedMount.IsValid()){CloseMountDetails(true);return FReply::Handled();}
+     if(InKeyEvent.GetKey()==EKeys::Escape&&!InKeyEvent.IsRepeat()&&bForgingOpen){CloseForging();return FReply::Handled();}
+     if (HandlePanelShortcut(InKeyEvent.GetKey(), InKeyEvent.IsRepeat())) return FReply::Handled();
+     // A drag in flight keeps its own keys: the drawer is hidden while the pointer is outside the panel,
+@@ -468,6 +469,7 @@
+     {
+         if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer());PC&&PC->IsWoodworkingOpen()){PC->CloseWoodworking();return;}
+     }
++    if(!bOpen)CloseMountDetails(false);
+     if(!bOpen)CancelQuickDrag();
+     if(!bOpen)HideItemTooltip(true);
+     if(!bOpen)CloseWarehouse();
+@@ -592,6 +594,7 @@
+ 
+ void UColdSteelHUDWidget::SetInventoryPage(int32 Page)
+ {
++    CloseMountDetails(false);
+     if(Page!=2)CloseMagicConfiguration();
+     HideItemTooltip(true);
+     bStatusTabActive=Page==0; bSkillsTabActive=Page==2; bCodexTabActive=Page==4; bQuestTabActive=Page==5; bMountTabActive=Page==6;

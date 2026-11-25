@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyCamera.cpp
+@@ -5,6 +5,7 @@
+ #include "../FPSGAMECharacter.h"
+ #include "../Production/ProductionToolComponent.h"
+ #include "../Development/DevelopmentTuningSubsystem.h"
++#include "../Weapons/Bow/BowWeaponComponent.h"
+ #include "Camera/CameraTypes.h"
+ #include "Camera/CameraComponent.h"
+ #include "Components/SkeletalMeshComponent.h"
+@@ -18,6 +19,15 @@
+     if (auto* Rest=FindComponentByClass<UFPSFurnitureRestComponent>())Rest->ApplyCamera(OutResult);
+     if (auto* Body = FindComponentByClass<UFPSPlayerBodyComponent>())
+     {
++        if(IsLocallyControlled()&&!Body->IsThirdPersonViewEnabled())
++            if(const auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())
++            {
++                const float Aim=Bow&&Bow->IsEquipped()?Bow->AimZoomAlpha():CameraADSFactor;
++                // Eye and equipment share a camera parent. Move only the rendered eye,
++                // leaving the weapon sockets and controller aim on the original transform.
++                OutResult.Location+=Ride->SeatedViewOffset()*FMath::Clamp(CameraMotionScale/.45f,0.f,1.5f)
++                    *(1.f-FMath::SmoothStep(0.f,1.f,Aim));
++            }
+         Body->ApplyCameraView(OutResult);Body->ApplyReactionCamera(DeltaTime,OutResult);
+         // Additive camera layers are applied after the component transform.
+         // Keep the rendered owner eye inside the same leap collision boundary;

@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.h
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.h
+@@ -15,6 +15,7 @@
+     /** Restore before source sections or the source outfit are released. */
+     void RestoreSourceRendering();
+     bool IsModularPoseOnly() const;
++    virtual void FinalizeBoneTransform() override;
+     virtual void CreateRenderState_Concurrent(FRegisterComponentContext* Context) override;
+     virtual FPrimitiveSceneProxy* CreateSceneProxy() override;
+ private:

@@ -1,0 +1,66 @@
+[
+  {
+    "id": "craft_stable_horseshoes",
+    "inputs": [
+      {
+        "item": "ironIngot",
+        "count": 2
+      }
+    ],
+    "output": {
+      "item": "stable_horseshoes",
+      "count": 1
+    }
+  },
+  {
+    "id": "craft_stable_saddle",
+    "inputs": [
+      {
+        "item": "deer_hide",
+        "count": 2
+      },
+      {
+        "item": "ironIngot",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "stable_saddle",
+      "count": 1
+    }
+  },
+  {
+    "id": "craft_stable_barding",
+    "inputs": [
+      {
+        "item": "steelIngot",
+        "count": 2
+      },
+      {
+        "item": "boar_hide",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "stable_barding",
+      "count": 1
+    }
+  },
+  {
+    "id": "craft_stable_saddlebags",
+    "inputs": [
+      {
+        "item": "deer_hide",
+        "count": 2
+      },
+      {
+        "item": "wood",
+        "count": 1
+      }
+    ],
+    "output": {
+      "item": "stable_saddlebags",
+      "count": 1
+    }
+  }
+]

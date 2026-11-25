@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+@@ -514,6 +514,19 @@
+ }
+ bool Validate(const FColdSteelProfile& P,FString& Reason)
+ {
++    const auto& Roster=P.MountRoster;
++    if(Roster.Horses.Num()>2 || (Roster.Horses.IsEmpty()?Roster.Selected!=0:!Roster.Find(Roster.Selected)))
++    {Reason=TEXT("马匹栏记录无效");return false;}
++    uint8 SeenStalls=0;
++    for(const auto& Horse:Roster.Horses)
++    {
++        const uint8 Bit=Horse.Stall==2?1:Horse.Stall==4?2:0;
++        if(!Bit||(SeenStalls&Bit)||!FMath::IsFinite(Horse.Health)||!FMath::IsFinite(Horse.Stamina)||
++            !FMath::IsFinite(Horse.MaxHealth)||!FMath::IsFinite(Horse.MaxStamina)||
++            Horse.MaxHealth<=0||Horse.MaxStamina<=0||Horse.Health<0||Horse.Health>Horse.MaxHealth||Horse.Stamina<0||Horse.Stamina>Horse.MaxStamina)
++        {Reason=TEXT("马匹状态无效");return false;}
++        SeenStalls|=Bit;
++    }
+     return ValidateProfile(P,Reason,false);
+ }
+ static bool MigrateBackpackLayout(FColdSteelProfile& Profile,bool& Changed,FString& Reason,bool AllowLegacyWood)

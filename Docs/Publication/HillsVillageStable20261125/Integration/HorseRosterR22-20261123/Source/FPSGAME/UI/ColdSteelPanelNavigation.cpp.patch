@@ -1,0 +1,45 @@
+--- a/Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp
++++ b/Source/FPSGAME/UI/ColdSteelPanelNavigation.cpp
+@@ -51,7 +51,8 @@
+         {TEXT("背包"), TEXT("Tab"), TEXT("Navigation/backpack_subject.png")},
+         {TEXT("技能"), TEXT("P"), TEXT("Navigation/skills_subject.png")},
+         {TEXT("图鉴"), TEXT("N"), TEXT("Navigation/codex_subject.png")},
+-        {TEXT("任务"), TEXT("U"), TEXT("Navigation/tasks_subject.png")}
++        {TEXT("任务"), TEXT("U"), TEXT("Navigation/tasks_subject.png")},
++        {TEXT("马匹"), TEXT("I"), TEXT("Navigation/horse_subject.png")}
+     };
+     for(const FEntry& Entry : Entries)
+     {
+@@ -103,6 +104,7 @@
+     PanelNavigationButtons[2]->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::HandleNavigationSkills);
+     PanelNavigationButtons[3]->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::HandleNavigationCodex);
+     PanelNavigationButtons[4]->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::HandleNavigationTasks);
++    PanelNavigationButtons[5]->OnClicked.AddDynamic(this,&UColdSteelHUDWidget::HandleNavigationMounts);
+     PanelNavigationStates.Init(255,PanelNavigationButtons.Num());
+     PanelNavigationHover.SetNum(PanelNavigationButtons.Num());
+ }
+@@ -142,7 +144,7 @@
+     PanelNavigation->SetVisibility(bDrawerOut?ESlateVisibility::Collapsed:(Interactive?ESlateVisibility::Visible:ESlateVisibility::HitTestInvisible));
+     PanelNavigationElapsed=FMath::Fmod(PanelNavigationElapsed+Delta,ColdSteelQuickSlotFX::KeyPeriod);
+     const float KeyAlpha=ColdSteelQuickSlotFX::KeyOpacity(PanelNavigationElapsed);
+-    const int32 Active=bInventoryOpen?(bStatusTabActive?0:bSkillsTabActive?2:bCodexTabActive?3:bQuestTabActive?4:1):INDEX_NONE;
++    const int32 Active=bInventoryOpen?(bStatusTabActive?0:bSkillsTabActive?2:bCodexTabActive?3:bQuestTabActive?4:bMountTabActive?5:1):INDEX_NONE;
+     for(int32 Index=0;Index<Count;++Index)
+     {
+         auto* Button=PanelNavigationButtons[Index].Get();
+@@ -196,6 +198,7 @@
+ {
+     PlayButtonClick();
+     if(IsQuickDragging()){CancelQuickDrag();return;}
++    if (Entry == 5) { HandlePanelShortcut(EKeys::I); return; }
+     if (Entry == 4) { HandlePanelShortcut(EKeys::U); return; }
+     // 入口序（0 状态／1 背包／2 技能／3 图鉴）与抽屉页面号不同：图鉴是第 4 页。
+     const int32 Page=Entry==3?4:Entry;
+@@ -208,6 +211,7 @@
+     if(CloseButton)CloseButton->SetKeyboardFocus();
+ }
+ 
++void UColdSteelHUDWidget::HandleNavigationMounts(){ActivatePanelNavigation(5);}
+ void UColdSteelHUDWidget::HandleNavigationTasks(){ActivatePanelNavigation(4);}
+ void UColdSteelHUDWidget::HandleNavigationStatus(){ActivatePanelNavigation(0);}
+ void UColdSteelHUDWidget::HandleNavigationBackpack(){ActivatePanelNavigation(1);}

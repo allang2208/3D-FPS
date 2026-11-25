@@ -1,0 +1,368 @@
+[
+  {
+    "file": "Source/FPSGAME/Combat/FPSAttackQuery.cpp",
+    "source": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "27d8949a0b9ba99939aa1df8fbd5efb07976493c4534ad78f281bc304a460214",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Combat/FPSAttackQuery.h",
+    "source": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "479de51c73e4eb0efe1673f4ade144d4be91e16813497eb544a2a302000a5a06",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Development/HorseGroundContactReviewCommandlet.cpp",
+    "source": "HorseNetworkReviewR29-20261124/HorseNetworkReviewR29.zip",
+    "sha256_lf": "c546d3eaa23f8497de38b46d5513d634f64ca7ead10089db30f3634cb04870ab",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Development/HorseGroundContactReviewCommandlet.h",
+    "source": "HorseGroundContactR28-20261124/HorseGroundContactR28.zip",
+    "sha256_lf": "5dd118497d58dade6ce5479beefdd63772b2c3013cc01bf4b66f3aba81ed37b2",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Development/HorseMarketCardsReviewCommandlet.cpp",
+    "source": "StableSystemAuditR40-20261125/StableSystemAuditR40.zip",
+    "sha256_lf": "72b79d5e1963e63b885ee2bf88ff94e76a2e7db0481430a00f6c5929deaa74fb",
+    "matches_current": false
+  },
+  {
+    "file": "Source/FPSGAME/Development/HorseMarketCardsReviewCommandlet.h",
+    "source": "HorseMarketCardsR32-20261124/HorseMarketCardsR32.zip",
+    "sha256_lf": "41d24a3eb9d19ba1344beddb3d5ad497aedc5c9030fa4fcbbeadd55526769330",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Development/HorseNetworkReview.cpp",
+    "source": "StableSystemAuditR40-20261125/StableSystemAuditR40.zip",
+    "sha256_lf": "9256178bf4e5dc212c43fc4dc9e6898e60fa35075fe32f413de6aeb957e1bb90",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Development/HorseSceneCost.cpp",
+    "source": "HorseNetworkReviewR29-20261124/HorseNetworkReviewR29.zip",
+    "sha256_lf": "cba2608fc8901bd2780f2bc0718063e15a35521f097367871a506472c5739b17",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/FixedHorseTransferNode.h",
+    "source": "FixedTransferR18-20261123/FixedTransferR18.zip",
+    "sha256_lf": "33ae31beda230331d5e8eaaa3a9111be38ecfae4cda203711e5a7796e2105cb9",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/HorseRecallGround.cpp",
+    "source": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "sha256_lf": "ea025355cc97fbc2fab3c8c144ff2969276fc2625cce9c9d1b3c27fc7f9af16b",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/HorseRiderComponent.cpp",
+    "source": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "sha256_lf": "c36f1f3b7a3963719464c9818a6b9a21a70faae3ebb2f6a06500a006cf928286",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/HorseRiderComponent.h",
+    "source": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "sha256_lf": "5a7df6da5295b61b80c6207fdb7783de636d2ff439b49bfa5c11586c53129453",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/HorseRiderPose.cpp",
+    "source": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "sha256_lf": "55dccf53d01e14dfda058e53bc083debca5a1edd985c1c3b60cf902dd6076510",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/HorseRosterCommands.cpp",
+    "source": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "sha256_lf": "098b5516c5a55e0c02bc18772c36b758057cc7055403e311ecfe3daa1f35cc18",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/HorseRosterTypes.h",
+    "source": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "5f6178e1d5a766f7b26f81be8df7f85dd44a3ca4d2f6449e3b1c3b7233034f67",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/HorseTransferFramesCommandlet.cpp",
+    "source": "MountedCombatR19-20261123/MountedCombatR19.zip",
+    "sha256_lf": "80198a486a91b05817f592700bc7e5b705aca220fe3bd696dfbe1b11b307143a",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/HorseTransferFramesCommandlet.h",
+    "source": "RidingR10-20261123/RidingR10.zip",
+    "sha256_lf": "b36b67b0df28ad827241f6ddd49b0ac40f65057a862bc716709300dea69e88e2",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHoofstepNotify.cpp",
+    "source": "ManeTurnR16-20261123/ManeTurnR16.zip",
+    "sha256_lf": "05766e8db6fecf78461ce3ac26d3e63d8c40a2f9c2985be5e25b331fca6d3e95",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHoofstepNotify.h",
+    "source": "HoofAudioR11-20261123/HoofAudioR11.zip",
+    "sha256_lf": "a4a8f835c5352661566ef72c4069e45c46da217dbcc0bbaee9d9c527e9991497",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseAnimInstance.cpp",
+    "source": "ManeTurnR16-20261123/ManeTurnR16.zip",
+    "sha256_lf": "2f215fb9f6d91ca8e7e1d1be370b26539a9d50c1261c184bdffbc92fa3af189b",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseAnimInstance.h",
+    "source": "ManeTurnR16-20261123/ManeTurnR16.zip",
+    "sha256_lf": "c0099f2cf39bdd8c6c63b5e3e0daeff9fdb5598f9a1b52448cc9c8b8ee81dec8",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseAppearance.cpp",
+    "source": "HorseMarketCardsR32-20261124/HorseMarketCardsR32.zip",
+    "sha256_lf": "cd600382f6c3daead382584d8763147f0f55b48c0f8220187699cd479070a559",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseAppearance.h",
+    "source": "HorseMarketCardsR32-20261124/HorseMarketCardsR32.zip",
+    "sha256_lf": "38bbc4704c9abf84bf172feac19183d3816d8f512eecb613df94578fe04e337f",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseClaimSave.h",
+    "source": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "sha256_lf": "b7397ba874b1bd7a5f38b3559e4e2798b2d545ba58ca6acd9a59d468c1b9a318",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseCondition.cpp",
+    "source": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "sha256_lf": "20602d4a2020116b23f29b1e9a099d3bf78156baccdd284798977a1f342ff255",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseFollowing.cpp",
+    "source": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "sha256_lf": "5ca6bb93e9c2e8edb07ae984cb5a06d887d4eb6ee228b0918c3842f53a902619",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseGear.h",
+    "source": "StableSystemAuditR40-20261125/StableSystemAuditR40.zip",
+    "sha256_lf": "441d292cb57101d0a619687a3e0df92a718c16f0f165da0b7af8d87318f1556a",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseGroundMesh.cpp",
+    "source": "HorseAppearanceR30-20261124/HorseAppearanceR30.zip",
+    "sha256_lf": "63b93b4fbb4dd5025bcb5b85ccc63bf2ff588d7e609ef61c39a16d2093710fbd",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseGroundMesh.h",
+    "source": "HorseAppearanceR30-20261124/HorseAppearanceR30.zip",
+    "sha256_lf": "c53836dd7b15d686e10681237660c73521c13331efc3f1309982fa8483287063",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseGroundTravel.cpp",
+    "source": "HorseCanterSlopeR27-20261124/HorseCanterSlopeR27.zip",
+    "sha256_lf": "ead8d8de0f0d81e813cd186427bed0750c5c1fa44ccca1a5646a3680e1e7f1f9",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseIdentity.cpp",
+    "source": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "sha256_lf": "06988aed54ab3410356add565519ef630e1021c25213ef2d657a7fc59dd65bad",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseMarket.cpp",
+    "source": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "sha256_lf": "3f02833841a8937e2585fd5c0aade05dd50a508ee2b620ead54482cace7f3744",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseMarket.h",
+    "source": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "sha256_lf": "ac6bf84fe8853736f5f2630667716c267612c2fc190918fe6472a73aac480002",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseProximity.cpp",
+    "source": "HorseRosterR22-20261123/HorseRosterR22.zip",
+    "sha256_lf": "e1e90900bbfa0d9bb4dea052b5b5507a7193981ffb1a30b8a8446bea8f231854",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseRetreat.cpp",
+    "source": "HorseMarketR26-20261124/HorseMarketR26.zip",
+    "sha256_lf": "c958cdf97aacf177a2477cadb0ec1bf11dae7dd98fea1af456366f26c5bae81d",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseTraits.cpp",
+    "source": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "sha256_lf": "2456864d11af4ed2d05dbc3175d3cb70a8ce41d16e04bd96e1031cf3932bf9c0",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseTraits.h",
+    "source": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "sha256_lf": "4bb2f69fe9a6dcdd536915d092cc009208d974aa642ce017fe4c9ae59b91d680",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableHorseVisit.cpp",
+    "source": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "sha256_lf": "7ba939abf9a9e35238faa0eb5aef61f769fd5a4cc7a15679c636dbf576cf25de",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableManeComponent.cpp",
+    "source": "HorseAppearanceR30-20261124/HorseAppearanceR30.zip",
+    "sha256_lf": "d0d4f552c51d382e74ba35dff88b935283144f2f3f2afca9493769c1688bfb3b",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableManeComponent.h",
+    "source": "HorseAppearanceR30-20261124/HorseAppearanceR30.zip",
+    "sha256_lf": "55aa05329dda14c9c4f7f3204f79ac48ba23ef462d49036583448579fbe48b80",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableRidingHorse.cpp",
+    "source": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "sha256_lf": "4fcf3e7fc1942ee4b926c3c0037159ff9d0346ee866609d4ec7b7b026b9e24a3",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/Movement/StableRidingHorse.h",
+    "source": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "sha256_lf": "a2eb86e1325c08b3f37e850caa3e85c959ec7ec9438ab81b675668327854fd7e",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/NPC/ResidentGaze.cpp",
+    "source": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "sha256_lf": "d5461d54a84dccd063fdf184899c731a5a23a0b7bbaba476e0f6dbcd1d5e45a2",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/NPC/ResidentGaze.h",
+    "source": "ResidentGazeAndRidingViewR37-20261124/ResidentGazeAndRidingViewR37.zip",
+    "sha256_lf": "9f04f75d6255b6fec79f12add71429cf8eeb2cab8284995d148ca8950e45219d",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/NPC/StablemasterFaceCommandlet.cpp",
+    "source": "StablemasterR2-20261124/StablemasterR2.zip",
+    "sha256_lf": "1cba13276fa41b3bf3d5a015a23287150a5bd467094c228a7eda9bb9ea9b69c4",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/NPC/StablemasterFaceCommandlet.h",
+    "source": "StablemasterR2-20261124/StablemasterR2.zip",
+    "sha256_lf": "0d017b8bdd00fca498eaaf4262fcd8fc11690398cd3743ed50c3fe62844097e8",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/NPC/VillageResidentStatus.cpp",
+    "source": "HorseProgressionR33-20261124/HorseProgressionR33.zip",
+    "sha256_lf": "aaff925ed57832c1627c1c400eb8e4a04a22d841b07c31e07080fe6da078c4ee",
+    "matches_current": false
+  },
+  {
+    "file": "Source/FPSGAME/NPC/VillageResidentStatus.h",
+    "source": "ManeTurnR16-20261123/ManeTurnR16.zip",
+    "sha256_lf": "1b4a8d7a53b58a458995316006649c99e757e948723af99b5ce541e231d44589",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelHorsePortrait.h",
+    "source": "MountDetailDesignR39-20261125/MountDetailDesignR39.zip",
+    "sha256_lf": "0c1fb63a8fff8e01ef0bfdaff1a14ec187e3e50724ccbb3c167766930a941dab",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelItemInstance.h",
+    "source": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "f3ecb4790c74842b84795fa88e53c9f65ca17ed31525718c2f4a0d65850adc48",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelMountButton.h",
+    "source": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "9bb5d9d8c1d1e2c4788585619b1cb5b2980990ade4ebe1f927222bd213c72eea",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelMountDetailLayout.cpp",
+    "source": "StableSystemAuditR40-20261125/StableSystemAuditR40.zip",
+    "sha256_lf": "7c595f926931ec4aa4e77838be1beee1a6c1a8eab7065701859a6b5a14d06711",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelMountGear.cpp",
+    "source": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "9d1482cbeda65e778edb7db831c307611493228c5b4ee1d1229655023137f741",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelMountGearPanel.cpp",
+    "source": "StableSystemAuditR40-20261125/StableSystemAuditR40.zip",
+    "sha256_lf": "386b688ffa9af083196bb443583c2b4cfb9e1ecbb27ccac30a04f457467f2710",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelMountGearPanel.h",
+    "source": "MountDetailDesignR39-20261125/MountDetailDesignR39.zip",
+    "sha256_lf": "89a822efe7e754fa4b466e34ada42ae4fc63908fd78719f0b4d470bc67fca3bd",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelMountPage.cpp",
+    "source": "StableSystemAuditR40-20261125/StableSystemAuditR40.zip",
+    "sha256_lf": "229e5961ca125582fd5db62e7df25862b20236ff07db559747a20910ba06b86d",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/UI/ColdSteelMountRoster.cpp",
+    "source": "StableSystemAuditR40-20261125/StableSystemAuditR40.zip",
+    "sha256_lf": "5de42e212718e01e1ab6cc3f4fab78439fad8181e83c1984e3ea9838fcbed8e6",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/UI/SColdSteelHorseMarket.cpp",
+    "source": "StableSystemAuditR40-20261125/StableSystemAuditR40.zip",
+    "sha256_lf": "2e7a3e82ca290ed3fca75415d1f44288cf5ffa1e8cbaeae0a1e780f397c0983d",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/UI/SColdSteelHorseMarket.h",
+    "source": "MountCardsAndTackR38-20261125/MountCardsAndTackR38.zip",
+    "sha256_lf": "e9af00a48b641ea8ca37bbba541203cd1bd841b183066f42aeae1a4486bfe67d",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/UI/SHorseMarketPlate.cpp",
+    "source": "HorseMarketInlinePurchaseR35-20261124/HorseMarketInlinePurchaseR35.zip",
+    "sha256_lf": "8abcc75ef7fc3c64f4d343122cfe28a0ba581e7deb6d3a9a8e951fc47e927fa1",
+    "matches_current": true
+  },
+  {
+    "file": "Source/FPSGAME/UI/SHorseMarketPlate.h",
+    "source": "MarketCardsAndStablemasterR34-20261124/MarketCardsAndStablemasterR34.zip",
+    "sha256_lf": "062b067b81d856ca2aa89e25017c7672a96074eb30d46117771467288d61e3ea",
+    "matches_current": false
+  }
+]

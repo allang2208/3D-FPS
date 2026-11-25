@@ -1,0 +1,39 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelShopWidget.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelShopWidget.h"
++#include "../Movement/StableHorseAppearance.h"
+ #include "ColdSteelHUDWidget.h"
+ #include "ColdSteelInventoryWidget.h"
+ #include "ColdSteelStatusModel.h"
+@@ -73,6 +74,7 @@
+ 
+ void UColdSteelShopWidget::BuildHorseMarket(UVerticalBox* Body)
+ {
++    DisplayedHorseDetails.Invalidate();
+     HorseMarket=WidgetTree->ConstructWidget<UVerticalBox>();
+     auto* MarketSlot=Body->AddChildToVerticalBox(HorseMarket);
+     MarketSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+@@ -154,13 +156,18 @@
+     auto* Caption=CastChecked<UTextBlock>(HorsePurchase->GetContent());
+     if(!Current)
+     {
++        DisplayedHorseDetails.Invalidate();
+         for(auto* Label:{HorseName.Get(),HorseRatings.Get(),HorseFigures.Get()})ShopSet(Label,TEXT(""));
+         ShopSet(Caption,TEXT("等候名册"));HorsePurchase->SetIsEnabled(false);return;
+     }
+-    const auto Traits=FStableHorseTraits::FromId(ViewedHorse);
+-    ShopSet(HorseName,Current->Horse.DisplayName());
+-    ShopSet(HorseRatings,Traits.RatingsText());
+-    ShopSet(HorseFigures,FString::Printf(TEXT("生命  %.0f      体力  %.0f\n%s"),Traits.HealthLimit(),Traits.StaminaLimit(),*Traits.PerformanceText()));
++    if(DisplayedHorseDetails!=ViewedHorse)
++    {
++        DisplayedHorseDetails=ViewedHorse;
++        const auto Traits=FStableHorseTraits::FromId(ViewedHorse);
++        ShopSet(HorseName,Current->Horse.DisplayName());
++        ShopSet(HorseRatings,FStableHorseAppearance::FromId(ViewedHorse).Describe()+TEXT("\n")+Traits.RatingsText());
++        ShopSet(HorseFigures,FString::Printf(TEXT("生命  %.0f      体力  %.0f\n%s"),Traits.HealthLimit(),Traits.StaminaLimit(),*Traits.PerformanceText()));
++    }
+     const bool Sold=Roster.Find(ViewedHorse)!=nullptr;
+     const bool Affordable=Status.SoulBalance()>=Current->Price;
+     const FString Action=Sold?TEXT("已收入马匹栏"):Model->IsTradePending()?TEXT("正在登记"):

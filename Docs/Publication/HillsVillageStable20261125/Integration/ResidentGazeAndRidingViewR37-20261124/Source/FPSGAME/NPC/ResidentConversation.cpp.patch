@@ -1,0 +1,55 @@
+--- a/Source/FPSGAME/NPC/ResidentConversation.cpp
++++ b/Source/FPSGAME/NPC/ResidentConversation.cpp
+@@ -1,6 +1,12 @@
+ #include "ResidentConversation.h"
+ #include "VillageArtisanMerchant.h"
+ #include "VillageBaker.h"
++#include "ChapelNun.h"
++#include "VillageHerbalist.h"
++#include "VillageMasterArtisan.h"
++#include "VillageMillKeeper.h"
++#include "../Movement/StableHorseMarket.h"
++#include "GameFramework/Character.h"
+ #include "../WorldGeneration/VillageGunshopServices.h"
+ #include "VillageTavernKeeper.h"
+ #include "ResidentTurnAnimInstance.h"
+@@ -13,6 +19,39 @@
+ #include "Engine/World.h"
+ #include "GameFramework/Pawn.h"
+ #include "GameFramework/PlayerController.h"
++
++void ResidentConversation::SetLocalFacing(AActor* Speaker, APlayerController* Viewer)
++{
++    if (!IsValid(Speaker) || Speaker->GetNetMode()==NM_DedicatedServer ||
++        (Viewer && (!Viewer->IsLocalController() || Viewer->GetWorld()!=Speaker->GetWorld()))) return;
++    if (auto* Artisan=Cast<AVillageArtisanMerchant>(Speaker)) Artisan->SetLocalConversation(Viewer);
++    else if (auto* Nun=Cast<AChapelNun>(Speaker)) Nun->SetLocalConversation(Viewer);
++    else if (auto* Baker=Cast<AVillageBaker>(Speaker)) Baker->SetLocalConversation(Viewer);
++    else if (auto* Master=Cast<AVillageMasterArtisan>(Speaker)) Master->SetLocalConversation(Viewer);
++    else if (auto* Miller=Cast<AVillageMillKeeper>(Speaker)) Miller->SetLocalConversation(Viewer);
++    else if (auto* Keeper=Cast<AVillageTavernKeeper>(Speaker)) Keeper->SetLocalConversation(Viewer);
++    else if (auto* Herbalist=Cast<AVillageHerbalist>(Speaker)) Herbalist->SetLocalConversation(Viewer);
++    else if (auto* Gunshop=Cast<AVillageGunshopCounter>(Speaker)) Gunshop->SetLocalConversation(Viewer);
++    else if (StableHorseMarket::IsSeller(Speaker))
++    {
++        // The placed resident is an authored Character blueprint with a looping single-node idle.
++        auto* Resident=Cast<ACharacter>(Speaker);
++        auto* Body=Resident ? Resident->GetMesh() : nullptr;
++        if (!Body) return;
++        if (auto* Turn=Cast<UResidentTurnAnimInstance>(Body->GetAnimInstance()))
++            Turn->ConversationPlayer=Viewer;
++        else if (Viewer)
++        {
++            auto* Single=Body->GetSingleNodeInstance();
++            auto* Idle=Single ? Cast<UAnimSequence>(Single->GetCurrentAsset()) : nullptr;
++            if (!Idle) return;
++            Body->AnimationData.PopulateFrom(Single);
++            Body->SetAnimInstanceClass(UResidentTurnAnimInstance::StaticClass());
++            if (auto* NewInstance=Cast<UResidentTurnAnimInstance>(Body->GetAnimInstance()))
++                NewInstance->ConversationPlayer=Viewer;
++        }
++    }
++}
+ 
+ bool ResidentConversation::IsSpeakerDowned(const AActor* Speaker)
+ {

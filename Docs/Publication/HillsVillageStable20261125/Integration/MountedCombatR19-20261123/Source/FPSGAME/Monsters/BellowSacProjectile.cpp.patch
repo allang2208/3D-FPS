@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Monsters/BellowSacProjectile.cpp
++++ b/Source/FPSGAME/Monsters/BellowSacProjectile.cpp
+@@ -72,8 +72,9 @@
+ bool ABellowSacProjectile::ExposureTo(APawn* Player,float& Distance) const
+ {
+     if (!Player) { Distance=BIG_NUMBER; return false; }
+-    FVector Closest=Player->GetActorLocation();
+-    if (auto* Shape=Cast<UPrimitiveComponent>(Player->GetRootComponent()))
++    const auto* ContactPawn=MonsterTargeting::ContactBody(Player);
++    FVector Closest=ContactPawn->GetActorLocation();
++    if (auto* Shape=Cast<UPrimitiveComponent>(ContactPawn->GetRootComponent()))
+         Shape->GetClosestPointOnCollision(GetActorLocation(),Closest);
+     Distance=FVector::Dist(GetActorLocation(),Closest);
+     FCollisionQueryParams Query(SCENE_QUERY_STAT(BellowSacExposure),false,this);

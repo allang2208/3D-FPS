@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Monsters/M66ClawSweep.cpp
++++ b/Source/FPSGAME/Monsters/M66ClawSweep.cpp
+@@ -174,14 +174,14 @@
+         for(const auto& Hit:Hits)
+         {
+             if(!IsSweeping()||IsActorBeingDestroyed())return;
+-            AActor* Victim=Hit.GetActor();APawn* Player=Cast<APawn>(Victim);
++            AActor* Victim=MonsterTargeting::DamageRecipient(Hit.GetActor());APawn* Player=Cast<APawn>(Victim);
+             if(!IsValid(Victim)||SweepVictims.Contains(Victim)||
+-                (!(Player&&MonsterTargeting::IsOpponentPawn(Player)&&Hit.GetComponent()==Player->GetRootComponent())&&!Victim->IsA<AFPSIceWall>()))continue;
++                (!(Player&&MonsterTargeting::IsOpponentPawn(Player)&&Hit.GetComponent()==Hit.GetActor()->GetRootComponent())&&!Victim->IsA<AFPSIceWall>()))continue;
+             const auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
+             if(Vitals&&(Vitals->IsDead()||Vitals->IsInvulnerable()))continue;
+             FHitResult Block;
+             const FVector Sight=GetNavAgentLocation()+FVector(0,0,110);
+-            if(GetWorld()->LineTraceSingleByChannel(Block,Sight,Hit.ImpactPoint,ECC_Visibility,Query)&&Block.GetActor()!=Victim)continue;
++            if(GetWorld()->LineTraceSingleByChannel(Block,Sight,Hit.ImpactPoint,ECC_Visibility,Query)&&MonsterTargeting::DamageRecipient(Block.GetActor())!=Victim)continue;
+             SweepVictims.Add(Victim);
+             const FVector Direction=(To-From).GetSafeNormal();
+             const float Applied=UGameplayStatics::ApplyPointDamage(Victim,Damage,Direction.IsNearlyZero()?GetActorForwardVector():Direction,

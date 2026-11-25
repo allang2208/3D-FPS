@@ -1,0 +1,76 @@
+--- a/Source/FPSGAME/FPSGAMECharacterInput.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterInput.cpp
+@@ -35,6 +35,7 @@
+ #include "Characters/FPSPlayerBodyComponent.h"
+ #include "Characters/FPSPlayerBodyMeshComponent.h"
+ #include "Movement/FPSFurnitureRestComponent.h"
++#include "Movement/HorseRiderComponent.h"
+ #include "Movement/PlayerKnockdownComponent.h"
+ #include "Building/FPSForgeWorkComponent.h"
+ #include "WeaponWeatherStateComponent.h"
+@@ -233,6 +234,8 @@
+         const bool bPhysDown = Value > 0.f ? (PhysKey(0x57)||PhysKey(VK_UP)) : (PhysKey(0x53)||PhysKey(VK_DOWN));
+         if (!bPhysDown) Value = 0.f;
+     }
++    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())
++    { Ride->SetForward(Value); MoveInput.Y=0.f; return; }
+     MoveInput.Y = Value;
+     if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
+         AddMovementInput(FRotationMatrix(FRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f)).GetUnitAxis(EAxis::X), Value);
+@@ -248,6 +251,8 @@
+         const bool bPhysDown = Value > 0.f ? (PhysKey(0x44)||PhysKey(VK_RIGHT)) : (PhysKey(0x41)||PhysKey(VK_LEFT));
+         if (!bPhysDown) Value = 0.f;
+     }
++    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())
++    { Ride->SetTurn(Value); MoveInput.X=0.f; return; }
+     MoveInput.X = Value;
+     if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
+         AddMovementInput(FRotationMatrix(FRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f)).GetUnitAxis(EAxis::Y), Value);
+@@ -273,6 +278,7 @@
+ }
+ void AFPSGAMECharacter::SprintPressed()
+ {
++    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active()){Ride->SetCanter(true);return;}
+     if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：冲刺/疾避键无效
+     if (IsMeleeSkillMovementLocked()) return;
+     if (bSprintHeld) return;
+@@ -285,6 +291,7 @@
+ }
+ void AFPSGAMECharacter::SprintReleased()
+ {
++    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active()){Ride->SetCanter(false);return;}
+     const bool bTap=bSprintHeld && SprintPressedAt>=0.0 &&
+         GetWorld()->GetTimeSeconds()-SprintPressedAt<=DodgeTapMaximumHold;
+     bSprintHeld=false;
+@@ -296,6 +303,7 @@
+ 
+ void AFPSGAMECharacter::SlidePressed()
+ {
++    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active()){return;}
+     if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：蹲/滑铲键无效
+     if (IsMeleeSkillMovementLocked() || IsTraversing() || IsDodging()) return;
+     if (bIsSliding) { StopSlide(false); return; }
+@@ -307,6 +315,7 @@
+ 
+ void AFPSGAMECharacter::JumpPressed()
+ {
++    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active()){return;}
+     if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：跳跃/翻越键无效
+     if (IsMeleeSkillMovementLocked() || IsDodging()) return;
+     Traversal->SetJumpHeld(true);
+@@ -323,6 +332,7 @@
+ 
+ void AFPSGAMECharacter::FirePressed()
+ {
++    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active()){return;}
+     if(auto* Use=FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->HandlePrimaryPress())return;
+     InterruptWeaponInspection();
+     if(IsAmmoWheelOpen() || IsSwitchingWeapon())return;
+@@ -463,6 +473,7 @@
+ 
+ void AFPSGAMECharacter::AimPressed()
+ {
++    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active()){return;}
+     if(UFPSPotionUseComponent::BlocksWeaponAttack(this))return;
+     InterruptWeaponInspection();
+     if(IsAmmoWheelOpen() || IsSwitchingWeapon())return;

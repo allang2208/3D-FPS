@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -309,6 +309,9 @@
+ void UColdSteelStatusModel::AdoptNetMirror(const FColdSteelProfile& External,bool AnnounceGains)
+ {
+     auto Migrated=External;bool CurrencyChanged=false;FString CurrencyReason;
++    if(GetWorld() && GetWorld()->GetNetMode()==NM_Client && Migrated.NetworkProfileId==Current.NetworkProfileId &&
++        Current.MountRoster.Revision>Migrated.MountRoster.Revision)
++        Migrated.MountRoster=Current.MountRoster;
+     RefreshWeaponTuning(Migrated,Definitions);
+     RefreshBeltTuning(Migrated,Definitions);
+     NormalizeStaffState(Migrated);

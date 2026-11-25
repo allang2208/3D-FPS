@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
+@@ -174,13 +174,7 @@
+     const bool bHorseUse=bOrdinaryUse&&Ride&&(Ride->Active()||Horse);
+     if(auto* Rest=Character?Character->FindComponentByClass<UFPSFurnitureRestComponent>():nullptr)
+         Text=Rest->UpdateFocus(bOrdinaryUse && !bHorseUse && !ContainerFocus && !bAidTarget && !bRepair && !bMillKeeper);
+-    if(bHorseUse)
+-    {
+-        Text=Ride->Prompt(Horse);
+-        bAction=!Ride->Transferring()&&(Ride->Active()||(Horse&&!Horse->GetRider()&&
+-            (!Horse->GetLeader()||Horse->GetLeader()==Character)));
+-    }
+-    if(bAidTarget)
++    if(!bHorseUse&&bAidTarget)
+     {
+         if(Conversation && Conversation->CanAidFocusedArtisan(Artisan))
+         {
+@@ -198,7 +192,7 @@
+             }
+         }
+     }
+-    else if((bOrdinaryUse || bRepair) && !bResting && Text.IsEmpty() && (bDefenseFocus || !Cast<AVillageDefenseSection>(Focus.Target)))
++    else if(!bHorseUse && (bOrdinaryUse || bRepair) && !bResting && Text.IsEmpty() && (bDefenseFocus || !Cast<AVillageDefenseSection>(Focus.Target)))
+     {
+         AActor* Candidate=ContainerFocus ? ContainerFocus : Focus.Target;
+         auto Hint=ColdSteelWorldInteraction::ResolveInteractionHint(Candidate,PC->GetPawn(),Candidate==Focus.Target ? Focus.GateUse : EHighGateUse{});

@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Monsters/UnknownHumanoidBow.cpp
++++ b/Source/FPSGAME/Monsters/UnknownHumanoidBow.cpp
+@@ -1,4 +1,5 @@
+ #include "UnknownHumanoidBow.h"
++#include "MonsterTargeting.h"
+ #include "UnknownHumanoid.h"
+ #include "MonsterDamageBalance.h"
+ #include "UnknownSpellCombat.h"
+@@ -219,7 +220,7 @@
+ 
+ float AUnknownHumanoid::HitWithArrow(const FHitResult& Hit,float Damage,FVector Direction,const FColdSteelSkillShot& Shot)
+ {
+-    auto* Victim=Cast<APawn>(Hit.GetActor());
++    auto* Victim=Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor()));
+     if (!HasAuthority() || !UnknownSpell::IsTarget(this,Victim)) return 0.f;
+     const bool Weak=ColdSteelSkills::IsCriticalHit(Hit);
+     const auto* Model=Victim->FindComponentByClass<UFPSCombatHealthComponent>();

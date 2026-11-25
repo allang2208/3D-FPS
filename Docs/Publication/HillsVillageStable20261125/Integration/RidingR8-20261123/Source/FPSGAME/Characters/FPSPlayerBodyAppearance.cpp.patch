@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAppearance.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSPlayerBodyComponent.h"
++#include "../Movement/HorseRiderComponent.h"
+ #include "FPSBodyOutfitResources.h"
+ #include "FPSPlayerHeadAnimInstance.h"
+ #include "FPSBodyHeadGrooms.h"
+@@ -393,7 +394,7 @@
+     for(auto Groom:HeadGrooms)if(Groom)Parts.Add(Groom);
+     for(auto* Part:Parts)
+     {
+-        const bool HideHead=Body->bOwnerNoSee||(IsDeathViewActive()&&!IsThirdPersonViewEnabled());
++        const bool HideHead=Body->bOwnerNoSee||((IsDeathViewActive()||UHorseRiderComponent::IsRiding(Character.Get()))&&!IsThirdPersonViewEnabled());
+         FPSBodyEquipment::ApplyOwnerVisibilityFlags(Part,false,HideHead);
+         FPSBodyEquipment::ApplyShadowFlags(Part,ShouldWorldBodyCastShadow()&&!bInitialAppearancePending);
+         const bool PartVisible=Visible&&!(bHeadEquipmentCoversHair&&Part->ComponentHasTag(TEXT("HeadScalpHair")));

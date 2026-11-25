@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp
++++ b/Source/FPSGAME/Monsters/BlindSupplicantCombatMagic.cpp
+@@ -60,6 +60,7 @@
+     FHitResult Hit;
+     FCollisionQueryParams Query(SCENE_QUERY_STAT(M07AttackSight), false, this);
+     Query.AddIgnoredActor(Victim);
++    Query.AddIgnoredActor(MonsterTargeting::ContactBody(Victim));
+     return !GetWorld()->LineTraceSingleByChannel(Hit, GetActorLocation() + FVector(0, 0, 60),
+         Victim->GetActorLocation(), ECC_Visibility, Query);
+ }
+@@ -328,7 +329,7 @@
+         FCollisionObjectQueryParams(ECC_Pawn), FCollisionShape::MakeCapsule(Radius, Radius + HandToClaw.Size() * .5f), Query);
+     for (const FHitResult& Hit : Hits)
+     {
+-        auto* Victim = Cast<APawn>(Hit.GetActor());
++        auto* Victim = Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor()));
+         if (!IsLivingPlayer(Victim)) continue;
+         const FVector Delta = Victim->GetActorLocation() - GetActorLocation();
+         if (Delta.Size2D() > MonsterCombatTuning::AttackDistance(AttackRange) + Victim->GetSimpleCollisionRadius() ||

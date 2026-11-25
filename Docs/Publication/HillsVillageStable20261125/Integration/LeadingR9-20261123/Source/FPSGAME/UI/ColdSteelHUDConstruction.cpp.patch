@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
+@@ -174,7 +174,12 @@
+     const bool bHorseUse=bOrdinaryUse&&Ride&&(Ride->Active()||Horse);
+     if(auto* Rest=Character?Character->FindComponentByClass<UFPSFurnitureRestComponent>():nullptr)
+         Text=Rest->UpdateFocus(bOrdinaryUse && !bHorseUse && !ContainerFocus && !bAidTarget && !bRepair && !bMillKeeper);
+-    if(bHorseUse){Text=Ride->Prompt(Horse);bAction=Text==TEXT("上马")||Text==TEXT("下马");}
++    if(bHorseUse)
++    {
++        Text=Ride->Prompt(Horse);
++        bAction=!Ride->Transferring()&&(Ride->Active()||(Horse&&!Horse->GetRider()&&
++            (!Horse->GetLeader()||Horse->GetLeader()==Character)));
++    }
+     if(bAidTarget)
+     {
+         if(Conversation && Conversation->CanAidFocusedArtisan(Artisan))

@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Weapons/M870QuickMeleeAudit.inl
++++ b/Source/FPSGAME/Weapons/M870QuickMeleeAudit.inl
+@@ -96,14 +96,14 @@
+ Pawn->WeaponActionStartedAt=World->GetTimeSeconds();Pawn->ActiveActionAnimation=QuickClip;
+ Pawn->NextAllowedShotTime=0.;
+ auto* OwnerPS=PC->GetPlayerState<AColdSteelPlayerState>();OwnerPS->QuickCombatSequence=500;
+-OwnerPS->QuickCombatPawn=Pawn;OwnerPS->QuickCombatPredictedCosts.Add(500,Cost);
++OwnerPS->QuickCombatPawn=Pawn;OwnerPS->QuickCombatPredictedCosts.Add(500,FVector2f(Cost,0.f));
+ OwnerPS->ClientQuickCombatRejected_Implementation(500);Pawn->UpdateWeaponState(.001f);
+ Check(Began&&!Quick->IsOccupyingLeftHand()&&Pawn->WeaponState==EAKMWeaponState::Idle&&!Pawn->ActiveActionAnimation
+     &&Pawn->NextAllowedShotTime<=World->GetTimeSeconds()+.001,
+     TEXT("client melee rejection releases both action ownership and firearm playback"));
+ Quick->ConfigureForUnarmedPunch();Model->Current.Stamina=100.f;
+ const bool PunchBegan=Quick->BeginAction();
+-OwnerPS->QuickCombatPredictedCosts.Add(500,Cost);
++OwnerPS->QuickCombatPredictedCosts.Add(500,FVector2f(Cost,0.f));
+ OwnerPS->ClientQuickCombatRejected_Implementation(500);
+ Check(PunchBegan&&Quick->IsOccupyingLeftHand()&&Quick->GetStyle()==EQuickCombatStyle::UnarmedPunch,
+     TEXT("late gun-melee rejection does not cancel a subsequent ordinary punch"));

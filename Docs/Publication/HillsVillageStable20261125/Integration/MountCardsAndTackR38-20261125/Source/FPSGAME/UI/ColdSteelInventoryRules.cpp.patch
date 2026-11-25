@@ -1,0 +1,40 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+@@ -1,5 +1,6 @@
+ #include "../Weapons/WoodenTorchItem.h"
+ #include "ColdSteelInventoryTypes.h"
++#include "../Movement/StableHorseGear.h"
+ #include "../Skills/ColdSteelSkillTree.h"
+ #include "../Building/GunAssemblyCalibration.h"
+ #include "ColdSteelItemReadCache.h"
+@@ -518,6 +519,7 @@
+     if(Roster.Deployed.IsValid()&&!Roster.Find(Roster.Deployed))
+     {Reason=TEXT("出战马匹不存在");return false;}
+     TSet<FGuid> Seen;
++    TSet<FString> GearIds;
+     for(const auto& Horse:Roster.Horses)
+     {
+         if(Horse.BirthVersion>FStableHorseTraits::IndependentRolls || Horse.Level<1 || Horse.Level>FStableHorseTraits::MaxLevel ||
+@@ -527,8 +529,22 @@
+             !FMath::IsFinite(Horse.MaxHealth)||!FMath::IsFinite(Horse.MaxStamina)||
+             Horse.MaxHealth<=0||Horse.MaxStamina<=0||Horse.Health<0||Horse.Health>Horse.MaxHealth||Horse.Stamina<0||Horse.Stamina>Horse.MaxStamina)
+         {Reason=TEXT("马匹状态无效");return false;}
++        uint8 Used=0;
++        for(const auto& Gear:Horse.Equipment)
++        {
++            const int32 Slot=StableHorseGear::SlotOf(Gear.Definition);
++            if(Slot==INDEX_NONE || (Used&(1<<Slot)) || Gear.Count!=1 || Gear.StackMax!=1 ||
++                Gear.InstanceId.IsEmpty() || Gear.InstanceId.Len()>128 || GearIds.Contains(Gear.InstanceId) ||
++                Gear.Place!=0 || Gear.Cell!=INDEX_NONE || !Gear.Container.IsEmpty() || !Gear.Map.IsEmpty() ||
++                Gear.bIncineratorAmmo || Gear.Width<1 || Gear.Width>18 || Gear.Height<1 ||
++                Gear.Height>ColdSteelWarehouse::Rows || Gear.Data.Len()>1048576 || !Object(Gear))
++            {Reason=TEXT("马具身份或装备位无效");return false;}
++            Used|=1<<Slot;GearIds.Add(Gear.InstanceId);
++        }
+         Seen.Add(Horse.HorseId);
+     }
++    if(!GearIds.IsEmpty())
++        for(const auto& Item:P.Items)if(GearIds.Contains(Item.InstanceId)){Reason=TEXT("马具存在重复归属");return false;}
+     return ValidateProfile(P,Reason,false);
+ }
+ static bool MigrateBackpackLayout(FColdSteelProfile& Profile,bool& Changed,FString& Reason,bool AllowLegacyWood)

@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelUIStyle.h
++++ b/Source/FPSGAME/UI/ColdSteelUIStyle.h
+@@ -52,6 +52,8 @@
+     inline const FLinearColor Mana = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("7194ACFF")));
+     inline const FLinearColor ManaDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("36566EFF")));
+     inline const FLinearColor Stamina = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("A1A44FFF")));
++    inline const FLinearColor MountStamina = FLinearColor::FromSRGBColor(FColor(99, 173, 233));
++    inline const FLinearColor MountStaminaDeep = FLinearColor::FromSRGBColor(FColor(46, 99, 152));
+     inline const FLinearColor StaminaDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("666B35FF")));
+     // Survival identities stay on the data tracks; the glass and borders remain neutral.
+     inline const FLinearColor Hunger = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("BEA06EFF")));

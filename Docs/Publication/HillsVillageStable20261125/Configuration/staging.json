@@ -1,0 +1,6 @@
+{
+  "Config/DefaultGame.ini": [
+    "+DirectoriesToAlwaysStageAsUFS=(Path=\"ColdSteelUI/Icons/Navigation\")",
+    "+DirectoriesToAlwaysStageAsUFS=(Path=\"ColdSteelUI/HorseMarket\")"
+  ]
+}

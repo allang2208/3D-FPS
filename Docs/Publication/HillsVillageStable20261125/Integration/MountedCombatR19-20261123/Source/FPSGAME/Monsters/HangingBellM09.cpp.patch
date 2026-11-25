@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Monsters/HangingBellM09.cpp
++++ b/Source/FPSGAME/Monsters/HangingBellM09.cpp
+@@ -485,7 +485,7 @@
+  TArray<FHitResult> Hits;FCollisionQueryParams Q(SCENE_QUERY_STAT(M09OrganStrike),false,this);
+  GetWorld()->SweepMultiByChannel(Hits,From,To,FQuat::Identity,ECC_Pawn,FCollisionShape::MakeSphere(Radius),Q);
+  for(const auto& H:Hits)
+-  if(auto* P=Cast<APawn>(H.GetActor());P&&MonsterTargeting::IsOpponentPawn(P)&&!HitVictims.Contains(P)&&HasAttackSight(P))
++  if(auto* P=Cast<APawn>(MonsterTargeting::DamageRecipient(H.GetActor()));P&&MonsterTargeting::IsOpponentPawn(P)&&!HitVictims.Contains(P)&&HasAttackSight(P))
+   {HitVictims.Add(P);Deal(P,Damage,false,H.ImpactPoint);if(Dead()||State==EM09State::Stagger)return;}
+ }
+ void AHangingBellM09::ResonancePulse()

@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -651,6 +651,7 @@
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountDetailStatus;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountTraitDetails;
+     FGuid MountTraitsFor;
++    int32 MountTraitsLevel=0;
+     int64 MountLabelsRevision=-1;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountVitals;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountPotionHint;

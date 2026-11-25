@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -4,6 +4,7 @@
+ #include "Skills/FPSElementalArrowComponent.h"
+ #include "Movement/FPSFurnitureRestComponent.h"
+ #include "Movement/HorseRiderComponent.h"
++#include "Movement/StableHorseMarket.h"
+ #include "Movement/StableRidingHorse.h"
+ #include "Production/ProductionToolComponent.h"
+ #include "UI/ColdSteelAlchemyWidget.h"
+@@ -580,6 +581,8 @@
+             if(Rest && UFPSFurnitureRestComponent::IsResting(GetPawn()) && Rest->Interact()) return true;
+             const auto Focus=ColdSteelWorldInteraction::TraceUseTargets(this);
+             auto* Target=Focus.Target;
++            if(StableHorseMarket::IsSeller(Target) && ColdSteelHUD)
++            {InterruptInspection();ColdSteelHUD->OpenStableShop(Target);return true;}
+             if(auto* Ride=GetPawn()->FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->PressUse(Cast<AStableRidingHorse>(Target)))return true;
+             if(auto* Section=Focus.RepairTarget())
+             {

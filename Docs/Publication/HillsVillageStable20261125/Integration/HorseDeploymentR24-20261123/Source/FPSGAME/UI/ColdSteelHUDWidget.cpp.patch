@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
+@@ -32,6 +32,7 @@
+ #include "Engine/GameInstance.h"
+ 
+ #include "../FPSGAMECharacter.h"
++#include "../Movement/HorseRiderComponent.h"
+ #include "../FPSWeatherManager.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+ #include "ColdSteelUIStyle.h"
+@@ -595,7 +596,12 @@
+     HideItemTooltip(true);
+     bStatusTabActive=Page==0; bSkillsTabActive=Page==2; bCodexTabActive=Page==4; bQuestTabActive=Page==5; bMountTabActive=Page==6;
+     if(MountPage)MountPage->SetVisibility(bMountTabActive?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+-    if(bMountTabActive)RefreshMountPage();
++    if(bMountTabActive)
++    {
++        if(auto* Pawn=GetOwningPlayerPawn();Pawn&&Pawn->GetNetMode()==NM_Client)
++            if(auto* Ride=Pawn->FindComponentByClass<UHorseRiderComponent>())Ride->ServerRequestHorseClock();
++        BrowseMount({});
++    }
+     if (StatusPage) StatusPage->SetVisibility(Page==0?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+     if (EquipmentPage) EquipmentPage->SetVisibility(Page==1?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+     if (SoulWalletSize) SoulWalletSize->SetVisibility(Page==1||Page==3?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);

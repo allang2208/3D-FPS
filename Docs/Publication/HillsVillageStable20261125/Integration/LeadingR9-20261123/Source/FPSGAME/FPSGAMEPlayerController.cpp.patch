@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -3,6 +3,8 @@
+ #include "UI/ColdSteelWoodworkingWidget.h"
+ #include "Skills/FPSElementalArrowComponent.h"
+ #include "Movement/FPSFurnitureRestComponent.h"
++#include "Movement/HorseRiderComponent.h"
++#include "Movement/StableRidingHorse.h"
+ #include "Production/ProductionToolComponent.h"
+ #include "UI/ColdSteelAlchemyWidget.h"
+ #include "UI/ColdSteelQuickBarTypes.h"
+@@ -417,6 +419,8 @@
+ 
+ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
+ {
++    if(Params.Key==EKeys::E && Params.Event==IE_Released && GetPawn())
++        if(auto* Ride=GetPawn()->FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->ReleaseUse())return true;
+     if(Params.Key==EKeys::E && Params.Event==IE_Released && ChapelDialogue && ChapelDialogue->ReleaseFirstAid())
+         return true;
+     if(ChapelDialogue&&ChapelDialogue->IsOpen())
+@@ -567,6 +571,7 @@
+             if(Rest && UFPSFurnitureRestComponent::IsResting(GetPawn()) && Rest->Interact()) return true;
+             const auto Focus=ColdSteelWorldInteraction::TraceUseTargets(this);
+             auto* Target=Focus.Target;
++            if(auto* Ride=GetPawn()->FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->PressUse(Cast<AStableRidingHorse>(Target)))return true;
+             if(auto* Section=Focus.RepairTarget())
+             {
+                 RequestVillageRepair(Section);

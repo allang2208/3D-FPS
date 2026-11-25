@@ -6647,3 +6647,10 @@ __pycache__/
 !/SourceAssets/VillageTavernKeeper/**/
 !/SourceAssets/VillageTavernKeeper/FullBody/MeshyR1/generate.py
 !/SourceAssets/VillageTavernKeeper/FullBody/RigR1/rig.py
+
+# East-gate stable: original models, animations, reference media and diagnostics stay local.
+/SourceAssets/HillsVillageStable/**
+!/SourceAssets/HillsVillageStable/Design01/
+!/SourceAssets/HillsVillageStable/Design01/draw_plans.py
+!/SourceAssets/HillsVillageStable/Design01/prepare_views.py
+!/SourceAssets/HillsVillageStable/Design01/image-directions.json

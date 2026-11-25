@@ -1,0 +1,40 @@
+--- a/Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp
+@@ -1,4 +1,6 @@
+ #include "ColdSteelHUDWidget.h"
++#include "../Movement/HorseRiderComponent.h"
++#include "../Movement/StableRidingHorse.h"
+ #include "ColdSteelStatusModel.h"
+ #include "ColdSteelResourceMeter.h"
+ #include "ColdSteelUIStyle.h"
+@@ -51,7 +53,8 @@
+         Text->SetVisibility(ESlateVisibility::Collapsed);Height->SetVisibility(ESlateVisibility::Collapsed);return Text;
+     };
+     // Fixed top-to-bottom order. Collapsed rows relinquish their space; the container grows upward.
+-    CaptureEscapeHint=AddHint();DecisiveMainHint=AddHint();DecisiveOffhandHint=AddHint();DashAttackReadyText=AddHint();
++    CaptureEscapeHint=AddHint();DecisiveMainHint=AddHint();DecisiveOffhandHint=AddHint();DashAttackReadyText=AddHint();MountStaminaText=AddHint();
++    DisplayedMountStamina=FIntPoint(-1,-1);
+     CaptureEscapeHint->SetColorAndOpacity(ColdSteelUI::Warning);
+     DisplayedCaptureEscapeHits=INDEX_NONE;
+     UpdateStaminaLayout(GetCachedGeometry());RefreshStamina();
+@@ -165,7 +168,19 @@
+         }
+         else DisplayedCaptureEscapeHits=INDEX_NONE;
+     }
+-    const UTextBlock* HintTexts[]={CaptureEscapeHint.Get(),DecisiveMainHint.Get(),DecisiveOffhandHint.Get(),DashAttackReadyText.Get()};
++    if(MountStaminaText)
++    {
++        const auto* Mount=ShowCombatHints?UHorseRiderComponent::MountOf(HintPawn):nullptr;
++        const FIntPoint Values=Mount?FIntPoint(FMath::CeilToInt(Mount->GetStamina()),FMath::RoundToInt(Mount->GetMaximumStamina())):FIntPoint(-1,-1);
++        if(Values!=DisplayedMountStamina)
++        {
++            DisplayedMountStamina=Values;
++            MountStaminaText->SetVisibility(Mount?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
++            if(Mount)MountStaminaText->SetText(FText::Format(NSLOCTEXT("ColdSteelHUD","MountStamina","坐骑体力  {0} / {1}"),
++                FText::AsNumber(Values.X),FText::AsNumber(Values.Y)));
++        }
++    }
++    const UTextBlock* HintTexts[]={CaptureEscapeHint.Get(),DecisiveMainHint.Get(),DecisiveOffhandHint.Get(),DashAttackReadyText.Get(),MountStaminaText.Get()};
+     int32 VisibleRows=0;
+     for(int32 I=0;I<BottomHintRows.Num();++I)
+     {

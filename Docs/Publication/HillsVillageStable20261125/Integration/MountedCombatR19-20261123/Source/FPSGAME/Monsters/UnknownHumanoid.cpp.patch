@@ -1,0 +1,38 @@
+--- a/Source/FPSGAME/Monsters/UnknownHumanoid.cpp
++++ b/Source/FPSGAME/Monsters/UnknownHumanoid.cpp
+@@ -202,7 +202,7 @@
+     FHitResult Hit;
+     const bool Blocked = RangedAttackQuery::LineTraceSingle(GetWorld(),this,Hit,AimOrigin(),Target->GetActorLocation(),ECC_Visibility,
+         FCollisionQueryParams(SCENE_QUERY_STAT(UnknownSight),false,this));
+-    return !Blocked || Hit.GetActor()==Target;
++    return !Blocked || MonsterTargeting::DamageRecipient(Hit.GetActor())==Target;
+ }
+ 
+ void AUnknownHumanoid::Pursue(AMonsterAIController& AI, APawn* Visible, FVector LastKnown)
+@@ -333,7 +333,7 @@
+ 
+ float AUnknownHumanoid::HitWithRound(const FHitResult& Hit, float Damage, FVector Direction, float Roll)
+ {
+-    auto* Victim = Cast<APawn>(Hit.GetActor());
++    auto* Victim = Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor()));
+     if (!HasAuthority() || !UnknownSpell::IsTarget(this,Victim)) return 0;
+     return UGameplayStatics::ApplyPointDamage(Victim,RollDamage(Victim,Damage,Roll,ColdSteelSkills::IsCriticalHit(Hit),CriticalBonus),
+         Direction,Hit,GetController(),this,UEnemyRangedDamage::StaticClass());
+@@ -366,7 +366,7 @@
+         FHitResult Hit;
+         if(!RangedAttackQuery::TraceToPlayer(GetWorld(),this,Hit,Start,Tip,MeleeSweepRadius,
+             FCollisionQueryParams(SCENE_QUERY_STAT(UnknownSwing),false,this)))return;
+-        if(auto* Victim=Cast<APawn>(Hit.GetActor()); UnknownSpell::IsTarget(this,Victim))
++        if(auto* Victim=Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor())); UnknownSpell::IsTarget(this,Victim))
+         {
+             MulticastMeleeSound(true,Hit.ImpactPoint);
+             const float Damage = RollDamage(Victim,WeaponDamage.Total(),FMath::FRand()*100.f,ColdSteelSkills::IsCriticalHit(Hit),CriticalBonus);
+@@ -421,7 +421,7 @@
+     for (APawn* Pawn : Victims) Query.AddIgnoredActor(Pawn);
+     for (APawn* Victim : Victims)
+     {
+-        const bool DirectHit = Direct && Direct->GetActor()==Victim;
++        const bool DirectHit = Direct && MonsterTargeting::DamageRecipient(Direct->GetActor())==Victim;
+         float Distance = 0.f;
+         if (!DirectHit && !MagicOcclusion::BlastExposure(GetWorld(),this,Victim,Center,CastData.Radius,Query,Distance)) continue;
+         const bool Weak = DirectHit && ColdSteelSkills::IsCriticalHit(*Direct);

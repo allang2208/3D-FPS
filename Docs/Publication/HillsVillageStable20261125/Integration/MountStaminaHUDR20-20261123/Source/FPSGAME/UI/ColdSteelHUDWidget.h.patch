@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -280,6 +280,9 @@
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> StaminaValue;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> DashAttackReadyText;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> MountStaminaText;
++    UPROPERTY(Transient) TObjectPtr<USizeBox> MountStaminaMeterSize;
++    UPROPERTY(Transient) TObjectPtr<class UColdSteelResourceMeter> MountStaminaMeter;
++    TWeakObjectPtr<class AStableRidingHorse> DisplayedStaminaMount;
+     FIntPoint DisplayedMountStamina=FIntPoint(-1,-1);
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> CaptureEscapeHint;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> DecisiveMainHint;

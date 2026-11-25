@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/FPSGAMECharacterInput.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterInput.cpp
+@@ -166,6 +166,8 @@
+ void AFPSGAMECharacter::SetupPlayerInputComponent(UInputComponent* Input)
+ {
+     Super::SetupPlayerInputComponent(Input);
++    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>())
++        Input->BindKey(EKeys::X,IE_Pressed,Ride,&UHorseRiderComponent::ToggleOwnedHorse);
+     Input->BindAxis(TEXT("MoveForward"), this, &AFPSGAMECharacter::MoveForward);
+     Input->BindAxis(TEXT("MoveRight"), this, &AFPSGAMECharacter::MoveRight);
+     Input->BindAxis(TEXT("Turn"), this, &AFPSGAMECharacter::Turn);

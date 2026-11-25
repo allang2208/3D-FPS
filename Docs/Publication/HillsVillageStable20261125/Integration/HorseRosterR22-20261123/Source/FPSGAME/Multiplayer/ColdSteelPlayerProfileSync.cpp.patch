@@ -1,0 +1,42 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileSync.cpp
+@@ -170,6 +170,7 @@
+         Save->Profile = ShadowModel->Snapshot();
+         const double FoodDay=Save->Profile.FoodClockDay;
+         Save->Profile.FoodClockDay=0.;
++        Save->Profile.MountRoster.ClearVolatileCondition();
+         // Prediction drives the owner's clock between mirrors. Only a minute boundary
+         // or another profile change needs to carry a new exact fuel checkpoint.
+         for(auto& Item:Save->Profile.Items)if(Item.TorchBurnedSeconds>0.)
+@@ -177,6 +178,7 @@
+         TArray<uint8> WithoutFoodTime;
+         if(!SaveToBlob(Save,WithoutFoodTime)||(!bGunsmithReplyPending&&WithoutFoodTime==LastMirrorWithoutFoodTime))return;
+         Save->Profile.FoodClockDay=FoodDay;
++        Save->Profile.MountRoster=ShadowModel->ProfileView().MountRoster;
+         const auto& LiveItems=ShadowModel->Items();
+         for(int32 I=0;I<LiveItems.Num();++I)
+             Save->Profile.Items[I].TorchBurnedSeconds=LiveItems[I].TorchBurnedSeconds;
+@@ -265,6 +267,7 @@
+ {
+     P.Health = P.Mana = P.Stamina = P.StaminaRecoveryDelay = 0.f;
+     P.bSprintExhausted = false;
++    P.MountRoster.ClearVolatileCondition();
+     P.FireballCooldown = P.FireballCooldownDuration = 0.f;
+     P.IceSpikeCooldown = P.IceSpikeCooldownDuration = 0.f;
+     P.LightningCooldown = P.LightningCooldownDuration = 0.f;
+@@ -473,6 +476,7 @@
+     // Never let it restore consumed items or undo a completed transaction.
+     Model->SyncRuntime();
+     const auto CurrentInventory=Model->Snapshot();
++    if(CurrentInventory.MountRoster.Revision>Save->Profile.MountRoster.Revision)Save->Profile.MountRoster=CurrentInventory.MountRoster;
+     // This personal stage has its own ordered owner receipts. A slow mirror can
+     // have been captured before an acceptance or even before the final claim.
+     Save->Profile.BlacksmithApprenticeshipStage=CurrentInventory.BlacksmithApprenticeshipStage;
+@@ -614,6 +618,7 @@
+     else
+     {
+         FColdSteelProfile Merged = Model->Snapshot();
++        Merged.MountRoster=Save->Profile.MountRoster;
+         if(!bCampfireInventoryChanged)
+             for(auto& I:Merged.Items)if(ColdSteelInventory::IsWoodenTorch(I))
+                 if(const auto* Server=Save->Profile.Items.FindByPredicate([&](const auto& S){return S.InstanceId==I.InstanceId;}))

@@ -1,0 +1,51 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp
+@@ -3,6 +3,8 @@
+ #include "../Items/CampfireFoodCatalog.h"
+ #include "../Items/PotionUseMotion.h"
+ #include "../Movement/FPSFurnitureRestComponent.h"
++#include "../Movement/HorseRiderComponent.h"
++#include "../Movement/FixedHorseTransferNode.h"
+ #include "../Movement/PlayerKnockdownComponent.h"
+ #include "FPSPlayerReactionCamera.h"
+ #include "FPSPlayerBodyPoses.h"
+@@ -1708,7 +1710,8 @@
+ 
+ struct FProxy : FAnimInstanceProxy
+ {
+-    FAnimNode_SequenceEvaluator_Standalone Furniture;
++    FAnimNode_SequenceEvaluator_Standalone HorseTransfer,Furniture;
++    FFixedHorseTransferNode HorseLayer;
+     FAnimNode_TwoWayBlend FurnitureBlend;
+     FFurnitureMirrorLayer FurnitureMirror;
+     FFurnitureFloorLayer FurnitureFloor;
+@@ -1799,11 +1802,12 @@
+         FurnitureMirror.Source.SetLinkNode(&Furniture);
+         FurnitureBlend.A.SetLinkNode(&TraversalLayer);FurnitureBlend.B.SetLinkNode(&FurnitureMirror);
+         FurnitureFloor.Source.SetLinkNode(&FurnitureBlend);
+-        DeathBlend.A.SetLinkNode(&FurnitureFloor);DeathBlend.B.SetLinkNode(&Death);
++        HorseLayer.Base.SetLinkNode(&FurnitureFloor);HorseLayer.Clip.SetLinkNode(&HorseTransfer);
++        DeathBlend.A.SetLinkNode(&HorseLayer);DeathBlend.B.SetLinkNode(&Death);
+     }
+     virtual FAnimNode_Base* GetCustomRootNode() override {return &DeathBlend;}
+     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
+-    {Nodes.Append({&Furniture,&FurnitureMirror,&FurnitureBlend,&FurnitureFloor,&Idle,&Neutral,&WalkA,&WalkB,&JogA,&JogB,&Walk,&Jog,&Pace,&Movement,
++    {Nodes.Append({&HorseTransfer,&HorseLayer,&Furniture,&FurnitureMirror,&FurnitureBlend,&FurnitureFloor,&Idle,&Neutral,&WalkA,&WalkB,&JogA,&JogB,&Walk,&Jog,&Pace,&Movement,
+         &CrouchIdle,&CrouchWalkA,&CrouchWalkB,&CrouchWalk,&CrouchMovement,&CrouchBlend,&CrouchHold,
+         &DualReady,&DualWalk,&DualJog,&DualSprint,&DualPace,&DualTravel,&DualStance,&DualUpper,
+         &DualShot[0],&DualShot[1],&DualShotBase[0],&DualShotBase[1],&KukriCarryHip,&KukriCarryAim,
+@@ -1846,6 +1850,14 @@
+             Node.SetExplicitTime(Loop&&Length>0.f?FMath::Fmod(FMath::Max(Time,0.f),Length):FMath::Clamp(Time,0.f,Length));
+         };
+         UAnimSequence* IdleClip=Clip(Family+TEXT(".Idle"));Set(Idle,IdleClip,D->Clock,true);
++        auto* Actor=Instance->GetOwningActor();
++        auto* Ride=Actor?Actor->FindComponentByClass<UHorseRiderComponent>():nullptr;
++        auto* Transfer=Ride&&Ride->Transferring()?Ride->FixedTransferFor(Instance->GetSkelMeshComponent()->GetSkeletalMeshAsset()):nullptr;
++        const float Seat=Transfer?Ride->SeatProgress():0.f;
++        const float Clock=Transfer?(Ride->IsMounting()?Seat:1.f-Seat)*Transfer->GetPlayLength():0.f;
++        Set(HorseTransfer,Transfer?Transfer:IdleClip,Clock,false);
++        HorseLayer.BodyWeight=Transfer?FMath::SmoothStep(0.f,.08f,Seat):0.f;
++        HorseLayer.ArmWeight=Transfer?FMath::SmoothStep(0.f,.21f,Seat)*(1.f-FMath::SmoothStep(.74f,1.f,Seat)):0.f;
+         auto* RestClip=D->Clips.FindRef(D->FurnitureClip).Get();
+         Set(Furniture,RestClip?RestClip:IdleClip,D->FurnitureSeconds,false);
+         FurnitureBlend.Alpha=RestClip?D->FurnitureWeight:0.f;

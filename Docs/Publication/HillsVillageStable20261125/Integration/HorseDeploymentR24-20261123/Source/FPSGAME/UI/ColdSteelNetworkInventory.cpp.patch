@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp
++++ b/Source/FPSGAME/UI/ColdSteelNetworkInventory.cpp
+@@ -10,6 +10,7 @@
+ {
+     if(!Reply||!Reply->bSuccess||Reply->Revision<Current.CampfireInventoryRevision)return false;
+     SyncRuntime();auto Next=Snapshot();
++    if(Reply->MountPotionRoster.Revision>Next.MountRoster.Revision)Next.MountRoster=Reply->MountPotionRoster;
+     if(Reply->FoodClockId.IsValid()&&FMath::IsFinite(Reply->FoodClockDay)&&Reply->FoodClockDay>=0.)
+     {
+         Next.FoodClockDay=Next.FoodClockId==Reply->FoodClockId?FMath::Max(Next.FoodClockDay,Reply->FoodClockDay):Reply->FoodClockDay;

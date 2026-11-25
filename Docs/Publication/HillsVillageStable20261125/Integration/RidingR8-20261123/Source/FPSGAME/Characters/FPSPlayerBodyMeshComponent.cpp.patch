@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.cpp
+@@ -1,8 +1,17 @@
+ #include "FPSPlayerBodyMeshComponent.h"
++#include "../Movement/HorseRiderComponent.h"
+ #include "Engine/SkeletalMesh.h"
+ #include "Rendering/SkeletalMeshRenderData.h"
+ #include "RenderingThread.h"
+ #include "SkeletalRenderPublic.h"
++
++void UFPSPlayerBodyMeshComponent::FinalizeBoneTransform()
++{
++    if(bNeedToFlipSpaceBaseBuffers&&GetOwner())
++        if(auto* Ride=GetOwner()->FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())
++            Ride->ApplyPose(*this,GetEditableComponentSpaceTransforms());
++    Super::FinalizeBoneTransform();
++}
+ 
+ bool UFPSPlayerBodyMeshComponent::IsModularPoseOnly() const
+ {

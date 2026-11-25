@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp
++++ b/Source/FPSGAME/Multiplayer/ColdSteelPlayerProfileAdmission.cpp
+@@ -210,6 +210,7 @@
+         // pairs and cumulative attribute entitlement. Repeated uploads are idempotent.
+         const FColdSteelProfile Prev = ShadowModel->Snapshot();
+         FColdSteelProfile Adopted = Guest;
++        Adopted.MountRoster=Prev.MountRoster;
+         const auto FoodClock=ColdSteelFood::Clock(this);
+         ColdSteelFood::RebaseProfile(Adopted,FoodClock);
+         Adopted.Health=Prev.Health;

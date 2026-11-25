@@ -1,0 +1,48 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfilePawn.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfilePawn.cpp
+@@ -5,6 +5,8 @@
+ #include "../Weapons/JingangRuneComponent.h"
+ #include "../Production/ProductionToolComponent.h"
+ #include "ColdSteelStatusModel.h"
++#include "../Movement/HorseRiderComponent.h"
++#include "../Movement/StableRidingHorse.h"
+ #include "ColdSteelIncineratorStorage.h"
+ #include "../Skills/FPSMagicArrowRainComponent.h"
+ #include "../Skills/FPSElementalArrowComponent.h"
+@@ -73,6 +75,9 @@
+ {
+     SettleFoodSpoilage();
+     if(!CurrentPawn.IsValid() || CurrentPawn->IsResolvingActionInterrupt())return;
++    if(CurrentPawn->HasAuthority())
++        if(const auto* Ride=CurrentPawn->FindComponentByClass<UHorseRiderComponent>())
++            if(auto* Horse=Ride->GetOwnedHorse();IsValid(Horse))Horse->CacheKeeperCondition();
+     const auto* Dual=CurrentPawn->FindComponentByClass<UPistolDualWieldComponent>();
+     const bool DualActive=Dual && Dual->IsActive();
+     if(DualActive)Dual->SyncInventory(Current.Items);
+@@ -279,16 +284,18 @@
+     const auto* ThunderTool=Pawn->FindComponentByClass<UProductionToolComponent>();
+     const bool ThunderDrawing=ThunderTool&&ThunderTool->IsThunderCalling();
+     if(ThunderDrawing&&Pawn->HasAuthority())Pawn->FindComponentByClass<UProductionToolComponent>()->NoteThunderCallResourcesSpent();
+-    TickStamina(Delta,Pawn);
++    const auto* Rain=Pawn->FindComponentByClass<UFPSMagicArrowRainComponent>();
++    const auto* Element=Pawn->FindComponentByClass<UFPSElementalArrowComponent>();
++    const bool RainDrawing=Rain&&Rain->IsManaDraining();
++    const bool ElementDrawing=Element&&Element->IsManaDraining();
++    const float BowSkillMana=RainDrawing?MasteryDefinition(TEXT("magicArrowRain")).MagicArrowRain.ManaPerSecond
++        :ElementDrawing?MasteryDefinition(TEXT("elementalArrow")).ElementalArrow.ManaPerSecond*FMath::Max(0.f,1.f+SpecStat(TEXT("elementalArrow"),TEXT("drawManaPercent"))/100.f):0.f;
++    const bool AuroraDrawing=TickStamina(Delta,Pawn,BowSkillMana);
+     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>())Current.Health=Health->Health;
+     if(Delta>0)if(auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&!Health->IsDead()){
+-        const auto* Rain=Pawn->FindComponentByClass<UFPSMagicArrowRainComponent>();
+-        const bool RainDrawing=Rain&&Rain->IsManaDraining();
+-        const auto* Element=Pawn->FindComponentByClass<UFPSElementalArrowComponent>();
+-        const bool ElementDrawing=Element&&Element->IsManaDraining();
+-        const float HoldCost=ThunderDrawing?ThunderHammerCall::ManaPerSecond:RainDrawing?MasteryDefinition(TEXT("magicArrowRain")).MagicArrowRain.ManaPerSecond
+-            :ElementDrawing?MasteryDefinition(TEXT("elementalArrow")).ElementalArrow.ManaPerSecond*FMath::Max(0.f,1.f+SpecStat(TEXT("elementalArrow"),TEXT("drawManaPercent"))/100.f):0.f;
+-        const float ManaDelta=(ThunderDrawing||RainDrawing||ElementDrawing)?(HasInfiniteMana()?0.f:-HoldCost):float(Derived(TEXT("mpRegen")));
++        const float HoldCost=ThunderDrawing?ThunderHammerCall::ManaPerSecond:BowSkillMana;
++        const float ManaDelta=AuroraDrawing?0.f:(ThunderDrawing||RainDrawing||ElementDrawing)
++            ?(HasInfiniteMana()?0.f:-HoldCost):float(Derived(TEXT("mpRegen")));
+         Current.Mana=FMath::Clamp(Current.Mana+ManaDelta*Delta,0.f,float(Derived(TEXT("maxMp"))));
+         // Stamina exhaustion can end the hold inside TickStamina. Include this
+         // final frame's mana debit in the next authority resource checkpoint.

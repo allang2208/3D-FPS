@@ -1,0 +1,71 @@
+--- a/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
++++ b/Source/FPSGAME/UI/ColdSteelProfileRuntime.cpp
+@@ -116,16 +116,6 @@
+         if(Changed){Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));}
+     }
+ }
+-// The save keeps only level plus the remainder inside that level. Add each
+-// crossed threshold back so the HUD reports the experience actually awarded,
+-// not the remainder left after a level-up.
+-int64 GainedCharacterExperience(const FColdSteelProfile& Before,const FColdSteelProfile& After)
+-{
+-    int64 Gained=After.Experience-Before.Experience;
+-    for(int32 Level=Before.Level;Level<After.Level;++Level)
+-        Gained+=(20ll+Level*20ll+int64(Level)*Level*12)*8;
+-    return FMath::Max<int64>(0,Gained);
+-}
+ bool IsRetiredItem(const FString& Id)
+ {
+     static const TSet<FString> Retired = {TEXT("fps_akm"),TEXT("fps_hk416"),TEXT("fps_m16"),TEXT("fps_akm_classic"),TEXT("fps_qbz191"),TEXT("fps_p9"),TEXT("ue_pkm"),TEXT("ue_pkm_a"),TEXT("ammo_762x54r"),TEXT("quartz")};
+@@ -171,6 +161,18 @@
+ }
+ }
+ using namespace ColdSteelProfilePersistence;
++
++// The save keeps only level plus the remainder inside that level. Add each
++// crossed threshold back so the HUD reports the experience actually awarded,
++// not the remainder left after a level-up.
++int64 UColdSteelStatusModel::GainedCharacterExperience(const FColdSteelProfile& After) const
++{
++    int64 Gained=After.Experience-Current.Experience;
++    for(int32 L=Current.Level;L<After.Level;++L)
++        Gained+=(20ll+L*20ll+int64(L)*L*12)*8;
++    return FMath::Max<int64>(0,Gained);
++}
++
+ 
+ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
+ {
+@@ -485,7 +487,8 @@
+ // transaction - that is the stutter this staging removed.
+ bool UColdSteelStatusModel::StageTraining(FColdSteelProfile&& State)
+ {
+-    const int64 GainedExperience=GainedCharacterExperience(Current,State);
++    const int64 GainedExperience=GainedCharacterExperience(State);
++    const FGuid LeveledHorse=CreditPresentMountExperience(State,GainedExperience);
+     bool bLeveled=false;
+     for(const auto& Pair:State.Skills)
+     {
+@@ -499,7 +502,7 @@
+     // and AttributePoints until Publish(), and would discard the earned level.
+     if(bLeveled)
+     {
+-        if(PersistState(State,true)){QueueExperienceNotice(GainedExperience);return true;}
++        if(PersistState(State,true)){ApplyCommittedMountLevel(LeveledHorse);QueueExperienceNotice(GainedExperience);return true;}
+         // The reward is still accepted in memory when disk persistence fails.
+         // Publish the public mirrors as well, so a later snapshot cannot roll it
+         // back; callers must also mark these kills rewarded to prevent duplicates.
+@@ -509,11 +512,13 @@
+         QueueProgressNotices(Current,State);
+         QueueAcquisitionNotices(Current,State);
+         Publish(State);
++        ApplyCommittedMountLevel(LeveledHorse);
+         bTrainingDirty=true;TrainingFlushAccumulator=0.f;
+         QueueExperienceNotice(GainedExperience);
+         ApplyToPawn();OnChanged.Broadcast();return true;
+     }
+     Current=MoveTemp(State);
++    ApplyCommittedMountLevel(LeveledHorse);
+     QueueExperienceNotice(GainedExperience);
+     bTrainingDirty=true;TrainingFlushAccumulator=0.f;
+     // Coalesced panel refresh: readings already come from the live profile, so

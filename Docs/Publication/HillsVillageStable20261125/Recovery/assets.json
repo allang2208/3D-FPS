@@ -1,0 +1,2502 @@
+[
+  {
+    "path": "SourceAssets/HillsVillageStable/AppearanceR30/SK_Hair_Crop.fbx",
+    "size": 803356,
+    "sha256": "0367a7125075456f2523cd9436500f7bf06e938bf1748d4165ef5fc936b64c07"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AppearanceR30/SK_Hair_Parted.fbx",
+    "size": 804620,
+    "sha256": "0ae722f5ecccc1031f02bf305c2e55d0550efe508bc59707b6be3310254eeac8"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AppearanceR30/SK_Hair_Sweep.fbx",
+    "size": 802284,
+    "sha256": "fef5c91124c40e48d9e5e379baf017426f19e3cf8e2191f2249eda29feaa04b1"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AppearanceR30/T_Warhorse_Pigment.png",
+    "size": 51267,
+    "sha256": "7c0d0874441158e05dca77a58ec194a3d067219a3c2c33b400c2a9722b01efa8"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AppearanceR30/T_Warhorse_Regions.png",
+    "size": 1223993,
+    "sha256": "1b27ca0bf6da5656689aa2534995d5dff63f1a1f837198afe25b47852dd10aa7"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_A01_Bent.fbx",
+    "size": 3857420,
+    "sha256": "449991208c920241b9e9e8ecf513f78dcdee6aadf15088118e9f041bbf1cc078"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_A01_Roof.fbx",
+    "size": 8723132,
+    "sha256": "e88b081a4e4c25de68bcc394825afc1fedce88aeaf9d448eb27881bfda6ca807"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_A02.fbx",
+    "size": 5013452,
+    "sha256": "83ac9b269d1805c742856c7b19d9b4c7c206cfd80895868e880457349c94d375"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_A03.fbx",
+    "size": 4852044,
+    "sha256": "9aec12f8ace2492bfc5540730230774b79f8efa8655d2c8707662ca867aabc11"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_A04.fbx",
+    "size": 3274748,
+    "sha256": "e2efdd7d084255b04d639824f69ce54c81e9f36c467c287e59758ec1196f6df6"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_A05.fbx",
+    "size": 2667964,
+    "sha256": "3f5d2c0cdf15428b521faeebe4ae0a017fb1e31f78396a638dc5d7fa811e2c01"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_A06.fbx",
+    "size": 1918108,
+    "sha256": "85c16228e585a303382fd41cc6f69a134b26fd5e1e16bda11ec96435cb2c0d4d"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_A07.fbx",
+    "size": 3117948,
+    "sha256": "24884bc8770dc4446d11d3baa00740458328eb11c67155e43566cee84564b234"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_A08.fbx",
+    "size": 2880828,
+    "sha256": "55a346a4496997b3f7b1411aa6c9871813ca5e358ff29f5f7becbaf90488da52"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_A09.fbx",
+    "size": 4616508,
+    "sha256": "2785ffbf78ec7065a5bdf797a383678d3c8a934fd5a8f42c81f51ebdc9805d81"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_AisleFlags.fbx",
+    "size": 34444,
+    "sha256": "f7c2a16730f11d58e4a678108de7e94f355398a362b682b691281027cf0fdd90"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_BentJoint.fbx",
+    "size": 36108,
+    "sha256": "27bf7d80937c68d565a67a75c742092599ada6e8fd7ec71325fbfc2537df9eaa"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_FenceRails.fbx",
+    "size": 18044,
+    "sha256": "d1b619559da0515446a763ecc3449b6055377a67c68458d23fc572041bebd981"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_GatePier.fbx",
+    "size": 25100,
+    "sha256": "45c570443a17d7561ca2e49caed00ea08ba6bc7ee334878edaa9592eed0553c3"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_HayCrib.fbx",
+    "size": 46508,
+    "sha256": "2516fb1e2e0ee29c07f44e95ed6249a0da35f9b9e4941587a8abbaab22fca556"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_HingePintles.fbx",
+    "size": 24348,
+    "sha256": "ed0516fb6b8597e77e9d7913aece7e5b5ecc2239e86f5921f650b6e92260c24d"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_LongPlates.fbx",
+    "size": 19436,
+    "sha256": "bd6dfed01f513a378022015a52531642bf236aedcd6940416c068d0bfcb7885d"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_PackedFloor.fbx",
+    "size": 118140,
+    "sha256": "19ad4791514a46fda715ce4623cb7331dd40c7c16b41175d5820187b7f01087a"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_PierShoes.fbx",
+    "size": 29036,
+    "sha256": "8d30ab2609bd5e508d5a98466b1343ce792f3af689df938864300b05920cffc3"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_RearHalfDoorSides.fbx",
+    "size": 41132,
+    "sha256": "5c2d894c0138f6f5dd5fdf1961ebf9e7b2e7cba09045c0d155955582189dbd8a"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_RearVentWall.fbx",
+    "size": 72956,
+    "sha256": "7ac2345ad90664be37fc70e6f6f49b033867ba1d63efe5bd644154839b0075b3"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_SlateSeam.fbx",
+    "size": 81068,
+    "sha256": "53bb467a406dc80ac1bac30dfd6c848ae7972f55f4f1d10cd62b863ba0c11377"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/Exchange/SM_Stable_TroughWater.fbx",
+    "size": 31772,
+    "sha256": "964610f418d1fad4c3537efdb9eb302e4349eb7949b3a2658a4fb9354a3bd7d3"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/StableTraffic.png",
+    "size": 1209581,
+    "sha256": "570496aeca4691ccaf48921de304bf7ff6af464c2078ecbe9e8a94c5afba5abc"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/AssemblyR1/装配记录.md",
+    "size": 6590,
+    "sha256": "ef10f69f7a37c1802d6c923aae25ce64054b52e40c7eb2e460c2d043e8eb9686"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A01/back.png",
+    "size": 776139,
+    "sha256": "3a14936e62a109ab68d939ba87e2904a206c52bd47f61f11edfd933a1707c23b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A01/front.png",
+    "size": 567964,
+    "sha256": "7c2e7e4a8691d017a664d3dce913af5fbb2634eec5e1a3c4a5ac350d1dc79f6a"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A01/right.png",
+    "size": 416779,
+    "sha256": "1064a7dd5ec5c34d3e14757988ca75df83cc9e7305a96485b13b6dd15d865700"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A01/turnaround.png",
+    "size": 2228871,
+    "sha256": "113ed06e171d67bf57de58b594d3d426e98760107b6cb0425967df3ee548fc5e"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A02/back.png",
+    "size": 886749,
+    "sha256": "e8fed0c6076f208b6cb83a0e06f2d865020db26523456c5894fca267b65ce292"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A02/front.png",
+    "size": 913124,
+    "sha256": "abba8fba63e79abcd621e374a2cef93072187043594ca0863a1136fd9b2ef29e"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A02/right.png",
+    "size": 57309,
+    "sha256": "e74fbcb5d3664f0f01bb277556da28c86275ab4a41df3b162af17e60cb980706"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A02/turnaround.png",
+    "size": 2391746,
+    "sha256": "3d5b07fdc6cbf3da1b8c0415d7aae7048e98418126810d32bf54fb29f0d8f749"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A03/back.png",
+    "size": 741108,
+    "sha256": "57b6d435ff6cc777e46b7de83ab1fcbc9b9d43bb50ba4c1f3c78721423e9b52d"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A03/front.png",
+    "size": 758530,
+    "sha256": "3e7ef4681f6d752c2ad4285d7d075d9df9e6a9b4b38f3aa7ca7f311032b6893d"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A03/right.png",
+    "size": 56833,
+    "sha256": "99bea3684ab09c1cda051cbaa8f77a3bf7ae048ddca45d0df520d0285446fb4b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A03/turnaround.png",
+    "size": 2097646,
+    "sha256": "81fddc55c9c457a3a8b99479864fec089c8a3ac9723ac35b14197f3fe99566d6"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A04/back.png",
+    "size": 779697,
+    "sha256": "1611b29a193803a6b8e42eb5db2ff26596bd2f5c5d836ac8806e5b121f743560"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A04/front.png",
+    "size": 763574,
+    "sha256": "9a9e3b213bf368658a76da1050e6e9548089693d2b2efb79c6065f734a66b45b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A04/right.png",
+    "size": 91544,
+    "sha256": "0b6228f6e30e0855032d1b027f54dd630c0f1f27cdaeb72e9e4d5f646118f781"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A04/turnaround.png",
+    "size": 2221475,
+    "sha256": "e3d6cd6d2bc41118b3718f469635971a78a62c2c852d4b209588205b33113eb9"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A05/back.png",
+    "size": 507274,
+    "sha256": "3d87229b96680e2b52ab9a2ac140bc64d02f08d82081bff856780eb30e178daf"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A05/front.png",
+    "size": 510950,
+    "sha256": "0bd3adcb33765a9bd648666a0bbac06414c7fac79e5919cc51edfc715fb35508"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A05/right.png",
+    "size": 40935,
+    "sha256": "17349bd40521c156bfdc01c7b980fc76a9ad039c6773347807170db869ef0220"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A05/turnaround.png",
+    "size": 1676419,
+    "sha256": "d8f188d70ac8dbbf39b3ff78e47e6a40a64ce318a2bc5193498ea23fc50cd5b8"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A06/back.png",
+    "size": 493392,
+    "sha256": "0618391fb78625122beab9ac9972086c9f1dea6710cb5323e1077919d6d8f3b4"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A06/front.png",
+    "size": 489041,
+    "sha256": "dd01ee86d7452a7d2dd714bfd2f4dad250076afe39fae2fd57500a66322fa25c"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A06/right.png",
+    "size": 99569,
+    "sha256": "3f4a00a3e063ff93648998550d1c27950a78c6c4c241fe4148d3d94d83d3dee0"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A06/turnaround.png",
+    "size": 1638382,
+    "sha256": "534355b9cfbc8292d6d5dab8653ab46f2b494627ee3b5789eda5736b54867690"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A07/back.png",
+    "size": 677812,
+    "sha256": "a4b11d2c6c0b4e24202fbfc85f9f36f9c3f61f911d6367358ff971969e4702a5"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A07/front.png",
+    "size": 681404,
+    "sha256": "61cfadb8c62828806452cc2ef3f373e7d951b69f950c4242e0cceaa7b6ea82c3"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A07/right.png",
+    "size": 83394,
+    "sha256": "e901da65bc8d5b1f229101515b97c317e4b12bb95baaeefbf0bb2e72d7421cd2"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A07/turnaround.png",
+    "size": 1972791,
+    "sha256": "ed0322c6cbe5e8afae97a8ff9326923984f617ea2394b10f6cae1eb391650572"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A08/back.png",
+    "size": 440593,
+    "sha256": "72e705910143a2a92e47ecc9d353f67101af6264dcc5370c0fc377f069409e06"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A08/front.png",
+    "size": 461423,
+    "sha256": "eb0d14bf0cbb018ccadb98b848c54ffc7594c359b0e05e6d6fa6e70bd1b75bde"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A08/right.png",
+    "size": 125523,
+    "sha256": "2fdbc8fe397ae66ce2060b92f583031d27a9e0af2131cf79367352ad82990ee1"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A08/turnaround.png",
+    "size": 1589241,
+    "sha256": "2daa39883f9040c50a55f3b34130aa610e5078ad4e685c16a24d281920b084ab"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A09/front.png",
+    "size": 432792,
+    "sha256": "08551b24afe7e77571bcf912bb3a47c98abb9d399103efbfff16638fdcbbea55"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A09/right.png",
+    "size": 213500,
+    "sha256": "7be15bcf0217e3ab81dcdd95f8912e373d40601872db7f97b1ac371b8de7b203"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A09/top.png",
+    "size": 449057,
+    "sha256": "05ddcfce208f7147e9074ce451016facc28878270aa0033b1d61391bad6e7a17"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Components/A09/turnaround.png",
+    "size": 1777923,
+    "sha256": "b8ddcc83eb88d70ddd1d8f8d2b34b73fe3cf3e79d5c3cfe041e135fe79d9c5a7"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Concept/01-东门内院.png",
+    "size": 3462333,
+    "sha256": "2f505c0c3791b3c13659dffdba0aacacf8495414b3c7fb363ef2ef53da34c552"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Concept/02-马房内廊.png",
+    "size": 3420874,
+    "sha256": "15cbba0de5aeb7b0db2007a5eb35f5d3f8cd0f9cc1152c2408b4b2cdd0914fb3"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/draw_plans.py",
+    "size": 11192,
+    "sha256": "cd2f23effbf20379a56bad97505d61cee16a9007db157b38c8b6b5039f86ffbe"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/image-directions.json",
+    "size": 21003,
+    "sha256": "d85a9f2c417d667972959123e41cf146d77cb546a36028dec4dd25a1c37cdd02"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Plans/01-东门马厩总平面.png",
+    "size": 279266,
+    "sha256": "16f3cf8ee034daf7a8c8388fb38a23677b8f7738662e4368a29c91080871ec9e"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/Plans/02-马房平立面.png",
+    "size": 187102,
+    "sha256": "0008eacf6598e1087f20a874b1698e63f20ae860a84ae01a9da1b68327d07c78"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/prepare_views.py",
+    "size": 3010,
+    "sha256": "81f9c0d65b848f3f4afd175d3b240cf060e0747ae35dcfc5c08dac5aa161e249"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/组件三视图总览.jpg",
+    "size": 665303,
+    "sha256": "018c16331e163262cc33b00ab113e4f86a79684fae73fd578c933192a97a267a"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/Design01/设计与组件清单.md",
+    "size": 4668,
+    "sha256": "48772765dcde3cd62fa472a1369dd37014ed566dc915ff806e665a919ebb5058"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HoofAudioR11/Masters/SW_Hoof_Canter_01.wav",
+    "size": 16460,
+    "sha256": "85e8c183bbec45a0c62d01cba705ad51f6c7ebba1f3015684cb0cfdca48583ba"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HoofAudioR11/Masters/SW_Hoof_Canter_02.wav",
+    "size": 10992,
+    "sha256": "45db6317d4d8b49e9332648849b32119ebb58ae2440f9a36609d5ad230c82008"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HoofAudioR11/Masters/SW_Hoof_Canter_03.wav",
+    "size": 13292,
+    "sha256": "0c3c4976c0131a41a74908fd83ed151f4e9b628fd63ac7997592bd6faa3fdcef"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HoofAudioR11/Masters/SW_Hoof_Canter_04.wav",
+    "size": 17900,
+    "sha256": "32fb0db8e3e81044eace2f95cf2d6d4f63e2f50edc69a4cf999c3950c5c8d179"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HoofAudioR11/Masters/SW_Hoof_Walk_01.wav",
+    "size": 16316,
+    "sha256": "fb92604d8a668f9c1f2082b535dac77e2b92767e9a0802ae27213a00d4c3e1b5"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HoofAudioR11/Masters/SW_Hoof_Walk_02.wav",
+    "size": 20780,
+    "sha256": "76b66106c4036ef0b3d6a5b0ee71ea088ddab872a336f8a956411bbe6e368f56"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HoofAudioR11/Masters/SW_Hoof_Walk_03.wav",
+    "size": 20348,
+    "sha256": "2f9e1e9f96d37686e6dd8eaf4a8622ec5dd15d26f1179ad493b00aeeba3296ea"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HoofAudioR11/Masters/SW_Hoof_Walk_04.wav",
+    "size": 21644,
+    "sha256": "2ca8a8edcbff47b9cce8a9d8ef692487ae9b30bef082c57ddddfa58641b95762"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HoofAudioR11/Originals/Galopp564628.ogg",
+    "size": 353840,
+    "sha256": "a75b49477ed197f2830b9e261a9b3f053b897a2fd586cca83a008e1c54a0aceb"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HoofAudioR11/Originals/WalkPath1854.ogg",
+    "size": 3287885,
+    "sha256": "09ab499c214a194485f15e5ab6e01f1192bdcf4ede42c20702e78ed81bb74985"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HoofAudioR11/来源与制作.md",
+    "size": 2310,
+    "sha256": "85141f361926dcbfb6ad3e494a2cdc16b489376bc00c328592058525a54585bd"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/A_Warhorse_Canter.fbx",
+    "size": 311420,
+    "sha256": "3262b9b6ae6899db6e860633bbb656f4f6c4fdc900219574a5f56d34bc76b45d"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/A_Warhorse_Idle.fbx",
+    "size": 559468,
+    "sha256": "101dd428a6765f756b3593acff73271dbaaeda4ab1e632fd7ebde9c51eb3a389"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/A_Warhorse_Q_Feed.fbx",
+    "size": 705532,
+    "sha256": "b34bacf88de2f47290a5bb252f19b763af66a660fb8d5abcd60d697ad2558ed7"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/A_Warhorse_Q_HeadLow.fbx",
+    "size": 515932,
+    "sha256": "a19b2a9202c2413c6de29affaa7f89811a0d804c5b7fff5706108dd179a3b6f6"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/A_Warhorse_Q_Idle.fbx",
+    "size": 515084,
+    "sha256": "93126877676310a513c1b7475c7551ada6a30f907c953ffce4339bd0a74e0df7"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/A_Warhorse_Q_IdleLook.fbx",
+    "size": 515420,
+    "sha256": "560db3ed1efec931b63702427ac4b4e8463c1d8f0eed514b0e93f739a24637b7"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/A_Warhorse_Q_LeadWalk.fbx",
+    "size": 347100,
+    "sha256": "e51aa2ef7afef0bb2e3712511a0f97270a6dd487ec0a9ea75edb8462cb884010"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/A_Warhorse_Rear.fbx",
+    "size": 448044,
+    "sha256": "7d1bb168a8e931484908ac776070e5e47e0c9c12926bee07f9615d8b69327fd5"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/A_Warhorse_Walk.fbx",
+    "size": 349404,
+    "sha256": "6d4489dc3dc1fda3250a3945cc7bdc82a0cac3b4121e767975eacb35f5c64cc3"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/clips.json",
+    "size": 1027,
+    "sha256": "4270018b1101f3f4463e7e25dead0331fe27cbd392e6e28ae5c68d8c070aeda0"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/SK_StableWarhorse.fbx",
+    "size": 711180,
+    "sha256": "303a6ec86a50fd76e46e052c715d7915a4dc819b8cfc5ae30b80f50606639a9b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/Warhorse_BaseColor.png",
+    "size": 4991846,
+    "sha256": "7adb30cd3faf76d62820312c15976e42bc1f110f7b38726da231db3231e90329"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/Warhorse_MetalRough.jpg",
+    "size": 1582675,
+    "sha256": "2033ba661dcd1cb5018efaf9c1478dd68255d3e0383deb758f7c9b11620f41cc"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/Warhorse_Normal.png",
+    "size": 4959312,
+    "sha256": "30481a02427dd163631525ca5967cb3e6274c16c19b86afd0d820b86a3f39f08"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Exchange/Warhorse_Stable.glb",
+    "size": 13344144,
+    "sha256": "780364e9e8c1b29b8a619e673cfa6a68151a4410147b0d40cbd4f81dd6dc1600"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Originals/Quaternius-CC0.txt",
+    "size": 7048,
+    "sha256": "a2010f343487d3f7618affe54f789f5487602331c0a8d03f49e9a7c547cf0499"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Originals/QuaterniusHorse.glb",
+    "size": 682356,
+    "sha256": "fbddb2c97179eca896ec69c985cd9cc74540484510776c400df64e088e9f2414"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Originals/Warhorse-LICENSE.txt",
+    "size": 1055,
+    "sha256": "d712b245c62affbbe3acc7be55f0056799e8512d447136aa5a4ff91846ae0698"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Originals/WarhorseLite.glb",
+    "size": 12398496,
+    "sha256": "745ccfa9dc9fa390496e7147d258fc390a791c914653779194a26da7e1386fcc"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/Originals/WarhorseLite.zip",
+    "size": 24897900,
+    "sha256": "39cf8dcbe73290fc015bbdbb8ad34e8a8e55ba3f40b2f8410dc14f5d57122f08"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/HorsesR7/来源与装配.md",
+    "size": 31064,
+    "sha256": "d6d388265530f8135e77489cd11675c3e0747675ee0bdcf646988abd128b72f6"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/JumpR13/A_Warhorse_HurdleJump.fbx",
+    "size": 376764,
+    "sha256": "09aad4ab8be7489b4d7dde3ecf38333d3ec5fcc009f3eb5acc337ed0c37c0f5c"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/JumpR13/clips.json",
+    "size": 126,
+    "sha256": "2a0ae688701ed0af918031157379746a83244058966f2944bc12dc6713d93f03"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/JumpR13/Warhorse_Jump.glb",
+    "size": 12382324,
+    "sha256": "f4d6eacc93337bd70c3ff1255b8588590f04b8cea0a46a054d7bb27b4d2cfa07"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/JumpR13/来源与接入.md",
+    "size": 2081,
+    "sha256": "0a3315c32df3aa9a1e76eab70ef1a89dfca4bed3e5a7948faf62ef4caa57576b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A01/downloads/model_urls_fbx.fbx",
+    "size": 154225372,
+    "sha256": "8bd9a8f1bb0f04378894069979b5337b823784422ca4cca68112822729e69587"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A01/downloads/model_urls_glb.glb",
+    "size": 117496652,
+    "sha256": "d878d603d36e8b4322dc37993e122eeaf3027517976e6dab40443709c205e1d2"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A01/downloads/texture_urls_0_base_color.png",
+    "size": 6966682,
+    "sha256": "d25a7c5426cc3fa56846517d624558c0061217fe0adef1dcf68c0f0da99160ab"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A01/downloads/texture_urls_0_metallic.png",
+    "size": 227081,
+    "sha256": "ca30851bf0b18414423942aee34cb576801e55d12a5bbfc4cb725c4497b14018"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A01/downloads/texture_urls_0_normal.png",
+    "size": 6827463,
+    "sha256": "9dd03994385bc511b1478e6783ab3d7d7aa04070755dbf4b15bf8828cbb5b8b6"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A01/downloads/texture_urls_0_roughness.png",
+    "size": 1989379,
+    "sha256": "3ec385dc470e0c19972ff23c11590b48e38004c079e197e9c94caebee90a1762"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A01/downloads/thumbnail_url.png",
+    "size": 193472,
+    "sha256": "dc8550c69348cf753fc2991bd203e30b632d8f8ff0b9e05ce43ab0ec9d89b54b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A01/downloads.json",
+    "size": 2290,
+    "sha256": "db8c1e0e52c8c7eda4e9695f05afc65a36946ef4d6475f26f84dcaeafe896cc8"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A01/request.json",
+    "size": 1002,
+    "sha256": "57253797bc0540e84af5d4f4040e1c4f4121a02b6e543023cde9b62e207153ed"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A01/response.json",
+    "size": 1761,
+    "sha256": "f47800c1ee987835331d80bafcdfb6c97b09c125b63f262f7b9c6b4e0f316320"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A01/task.json",
+    "size": 116,
+    "sha256": "051254cb17185d20cba605fb2f430c1ff51c7d5b3a15c9814b13da59b671bf90"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A02/downloads/model_urls_fbx.fbx",
+    "size": 33910700,
+    "sha256": "fe4f0f3a68e1575380eb20fa2f38d3633707dbecfc093fc253e66bd9d34a6b64"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A02/downloads/model_urls_glb.glb",
+    "size": 23581156,
+    "sha256": "efbf9870c29ceeb521d36072ee3d1c6f995865491161a1d5ed8d6049c086deed"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A02/downloads/texture_urls_0_base_color.png",
+    "size": 6152354,
+    "sha256": "b03eb53530cddc69ae3f9e94c1eff89c32af3b6184bf675ee9982bb6be2a0179"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A02/downloads/texture_urls_0_metallic.png",
+    "size": 613841,
+    "sha256": "ca994efe700aa38aafbb901fc3d6ab18ccc77db27f0c0dc1697915f21074f0eb"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A02/downloads/texture_urls_0_normal.png",
+    "size": 6199178,
+    "sha256": "b669947cb138228a7266a1c6200ec373a9ceca8e921c399ab466552ec047c65c"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A02/downloads/texture_urls_0_roughness.png",
+    "size": 2036996,
+    "sha256": "a72441fedcb9c555ee90dd1dbc8c076d2d15c81838510b5f91d160f9c787fd37"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A02/downloads/thumbnail_url.png",
+    "size": 225343,
+    "sha256": "27e0cc5efb9419d97ba40052dbd860315f4584fcdb36e8fdb50f38e2c7567e6d"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A02/downloads.json",
+    "size": 2288,
+    "sha256": "3a2f1c9773c0fb8056c10e1b921485226e4f01cad1d5d08e1fb1230e9dba1fe9"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A02/request.json",
+    "size": 1002,
+    "sha256": "b5bcc8b94904b371dbcba6153fc3f684f6565f3e44f0d4850515bf63314838d6"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A02/response.json",
+    "size": 1761,
+    "sha256": "4035855ac56e78c56e0d32803a4d92a84b5535253f220f868bfacd4015879701"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A02/task.json",
+    "size": 116,
+    "sha256": "181d363487cffdedca39bb94f439eb90f69676bc430b0301fee9611c7cf5f875"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A03/downloads/model_urls_fbx.fbx",
+    "size": 23552908,
+    "sha256": "6b9e24ae3a05577308f4f4a10ad998e01c76f6c18d20d0a579bf80a543e5a554"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A03/downloads/model_urls_glb.glb",
+    "size": 16139696,
+    "sha256": "e52efcee1d49e187e2d4316a92735e97841f05d753daf4c10adbeeb28caaa98e"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A03/downloads/texture_urls_0_base_color.png",
+    "size": 5578978,
+    "sha256": "118acea8241971078f041b3a4cd553a65f512fd6b0f49e9f59f1999148346cc8"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A03/downloads/texture_urls_0_metallic.png",
+    "size": 307280,
+    "sha256": "e4fa6aa489c86dfee34bdbc37c9526af01cb7b72e2a711b81b0242cd2d3d45fa"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A03/downloads/texture_urls_0_normal.png",
+    "size": 5696170,
+    "sha256": "beaaa83339cd43c429cfc7e18327da0d55c1aa8bc54d30b5e1f53e1ccfb9e764"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A03/downloads/texture_urls_0_roughness.png",
+    "size": 1879540,
+    "sha256": "d68e17b8f9a8d9cd14ad0a46bd95e2ac2789accf7b23ce6757a7643c333e105f"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A03/downloads/thumbnail_url.png",
+    "size": 151930,
+    "sha256": "f7314f5206791b2ec003fd322f1f52b53c69592ac444d12171b620b9a7d19741"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A03/downloads.json",
+    "size": 2288,
+    "sha256": "3233c74ca2cab1dff1c81e76589b52609ddbab5470a140dce1e27970e2850c91"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A03/request.json",
+    "size": 1002,
+    "sha256": "dbe7895d80cafae21bba7d8c4050471736b32cc5281dc9677d08423318d45226"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A03/response.json",
+    "size": 1761,
+    "sha256": "7fd7c9ca7c101fb9473ddf5360be7386fc23acd1fe888caa4064f71ad92eeac7"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A03/task.json",
+    "size": 116,
+    "sha256": "60262927df63dae1838c97a1b5b59b638c5e0e65d262097097671f7fc55f2a4c"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A04/downloads/model_urls_fbx.fbx",
+    "size": 29028412,
+    "sha256": "a51485322e7ad7dca1d74334d8d4a1735fe46437a4d0809b6b25ec30fadbe95e"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A04/downloads/model_urls_glb.glb",
+    "size": 19914748,
+    "sha256": "2f03f27804d7e17b7315415d986c8b14e50d29856a98c61efb5ce40425d19963"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A04/downloads/texture_urls_0_base_color.png",
+    "size": 5807186,
+    "sha256": "1e8eff61a07e28f9274708d0285f033530d2070723751f0233f5006429e74ba0"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A04/downloads/texture_urls_0_metallic.png",
+    "size": 1145285,
+    "sha256": "36d76f83571ad10f1940c25b32dd194e4bedf61e2ef57232cff57253fe17c72b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A04/downloads/texture_urls_0_normal.png",
+    "size": 5789294,
+    "sha256": "644310fa1860fb9c3b1c15124ef207c2e8bcf4641c742363647e66176a691031"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A04/downloads/texture_urls_0_roughness.png",
+    "size": 2115122,
+    "sha256": "25db32308af251f19ec32d6e2f94ca9fc945f8e64a7c61299d7858cf06f03984"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A04/downloads/thumbnail_url.png",
+    "size": 247810,
+    "sha256": "9dfbdbd703337b22130f81a05b52ce50990ece00ce9be6f23363216ccca5dda5"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A04/downloads.json",
+    "size": 2289,
+    "sha256": "6dbd82336f7aa6687d7f5d4e1ef07cefa70b2c37ea63ff6a04f01fe73de431fb"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A04/request.json",
+    "size": 1002,
+    "sha256": "0a5dcba7bbbcd13952040ff544973a78f97ed63060d40a6a8f87f2b57b7d3c07"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A04/response.json",
+    "size": 1761,
+    "sha256": "2fe65e9ff6a8e0c63c37dbbde14f1091dd6c85c5570f070c7206148267b1386d"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A04/task.json",
+    "size": 116,
+    "sha256": "19c5e596207944a32bcf5e15609c7a64ce76a1ef6f0030486aa281f08fc8f3a9"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A05/downloads/model_urls_fbx.fbx",
+    "size": 17736140,
+    "sha256": "b0b39427da3269d5152b844c1418feebd785860328f60e9d4277793c8514237c"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A05/downloads/model_urls_glb.glb",
+    "size": 11822436,
+    "sha256": "5bad01845dbde1dfd53286d9dbc223a5129d0c7be88296100c109b80536820d1"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A05/downloads/texture_urls_0_base_color.png",
+    "size": 4923662,
+    "sha256": "f4317f57917e0594ee1f3d5aae6489e5f66e2249998678893c79245d7ef73161"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A05/downloads/texture_urls_0_metallic.png",
+    "size": 468097,
+    "sha256": "2a492f8ba17ab248a9f3b450fc059f4d4e8d729c1fa3739afc4270a3899cca0c"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A05/downloads/texture_urls_0_normal.png",
+    "size": 5097045,
+    "sha256": "4ecaa964ecc5df6076442cd321785b71873453a71f7238b52f3c9ec08cb0609c"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A05/downloads/texture_urls_0_roughness.png",
+    "size": 1686798,
+    "sha256": "9c46c564c5107a008503c27b07b3b331570d939087a66e9f5a23ddf02dd2db63"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A05/downloads/thumbnail_url.png",
+    "size": 98286,
+    "sha256": "0200ddf71dc1274ec5662b4e02d0ad3dabae93c8b89ff4d126e1d84bba62e315"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A05/downloads.json",
+    "size": 2287,
+    "sha256": "9c7fd006973608e7929700ac153ac9b0eb615ed825d366cc04c2988df7cbcae4"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A05/request.json",
+    "size": 1002,
+    "sha256": "1b19a1aa6633c34ab0e80e4558d76437759ff8d7c6f55a5434be91a2c2437cbf"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A05/response.json",
+    "size": 1761,
+    "sha256": "3d062526302f274912fe702afeaa1e4f7ba7e20ef2baecb7afe10c2b3283cbd7"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A05/task.json",
+    "size": 116,
+    "sha256": "1fd35e8923c093d63d7e2004144a28fedc5c230516bcfe35081569201635b48b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A06/downloads/model_urls_fbx.fbx",
+    "size": 20360332,
+    "sha256": "14068c10f191d1a4e7de208a0715b49643bba3618160a2d7af94365efaa8c54a"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A06/downloads/model_urls_glb.glb",
+    "size": 12408856,
+    "sha256": "5f3ae95c5eaf79f5880329b1051c483b03324e9183dc1408f2ed9aa995f9a307"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A06/downloads/texture_urls_0_base_color.png",
+    "size": 6023113,
+    "sha256": "1960d08f746aae79dae044c630f546e199084eeb63e3f06b64c95befd5143a61"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A06/downloads/texture_urls_0_metallic.png",
+    "size": 698003,
+    "sha256": "4474bc4cd1aad50775b3bca32eb3c34195727be988af291d847627353a0302e1"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A06/downloads/texture_urls_0_normal.png",
+    "size": 6054819,
+    "sha256": "0aab33999b0d49ec4db18e4fa6540a0ed20ce9b79bdf81cad8fa84b364a04a62"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A06/downloads/texture_urls_0_roughness.png",
+    "size": 1789908,
+    "sha256": "0bccba484d7b9c2260b243bdea50021f4bc4248b726c2ca4cf12afcd8b59fa45"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A06/downloads/thumbnail_url.png",
+    "size": 120680,
+    "sha256": "b6a38a04eeb85396079ebeb1e4b99ad5b5776f0d0953a146255f7dca13071989"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A06/downloads.json",
+    "size": 2288,
+    "sha256": "e8d1c8098071b3f62114ebb438a600c8b93f18f85e36bcc1f29b8efa6c47c96e"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A06/request.json",
+    "size": 1002,
+    "sha256": "067648669d1e4ca250fd14d36b8ea6e5fed32e53d32881f77cb66f385218419e"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A06/response.json",
+    "size": 1761,
+    "sha256": "c8ff326eafd3275ff08af6fe91f51e6cee1f5d385c6627d34bae944ccd1e53a0"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A06/task.json",
+    "size": 116,
+    "sha256": "fe1fb996bae91de8f461a6c7961ac4ab7aec0aa49d96f82cfbb1394d7bc05a15"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A07/downloads/model_urls_fbx.fbx",
+    "size": 25647756,
+    "sha256": "2566784c77d926fd6f1531fb4c3e817bced617c6f2b122bf479990502b87f45b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A07/downloads/model_urls_glb.glb",
+    "size": 17416832,
+    "sha256": "d686321feb9c5a854584ec4707dbf0dd4dd881415fbbec103fe97004dd1e59df"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A07/downloads/texture_urls_0_base_color.png",
+    "size": 5597200,
+    "sha256": "2b83c3bd1bcf3631d5c71171b0cfbc77052d30d6a907b2f83b036fe97f190f01"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A07/downloads/texture_urls_0_metallic.png",
+    "size": 1304689,
+    "sha256": "bd8b506d4637135ac273a94e95cc164faa2f0c9ee9fb8ba44fd5c7c273ffe8b1"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A07/downloads/texture_urls_0_normal.png",
+    "size": 5728093,
+    "sha256": "d99ba5c038c9731eed1eda161a95cade103ac182aa7b5058ec813f5dcbad9a3c"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A07/downloads/texture_urls_0_roughness.png",
+    "size": 2136540,
+    "sha256": "60fe690651bfdb6115e4cbe7a2a51409029e3e9e64bb14b69678f3261fef070b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A07/downloads/thumbnail_url.png",
+    "size": 138826,
+    "sha256": "bb59846914b62c3d12b7637267a0fe692079b63354ecea34d60c1746d55255c5"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A07/downloads.json",
+    "size": 2289,
+    "sha256": "9522c12fbaa40f7e33c527545f358d192912466e7bc5fa2905b09bb739ce0f59"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A07/request.json",
+    "size": 1002,
+    "sha256": "e0ac3a04d2b97f9c691eaf87f5dd137dc8fdddf4e5e2f88f754d59e41a4e52da"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A07/response.json",
+    "size": 1761,
+    "sha256": "41ed14bf594580d4b34d1d1307a96a8bef8c49d5319a78937a0b78d95b721f2c"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A07/task.json",
+    "size": 116,
+    "sha256": "7736f630ff337c69291b486cab0eb69fab4554362667c9e2b29d27f70ad7f652"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A08/downloads/model_urls_fbx.fbx",
+    "size": 21665052,
+    "sha256": "b9991ad6d7dc914706e86b936f8678a9487960516b2c7c1e1d0a50c20fbb2c5e"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A08/downloads/model_urls_glb.glb",
+    "size": 13821244,
+    "sha256": "b64329b7dd9761c3b6a9c482372e6293a233808286807717587c7d6bed980ae2"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A08/downloads/texture_urls_0_base_color.png",
+    "size": 6035496,
+    "sha256": "50409a7b98528884ba47657a9c306a18d01417c47918035aee87d2eb4702ff59"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A08/downloads/texture_urls_0_metallic.png",
+    "size": 633513,
+    "sha256": "cdea07eb359f12acb9775933f5b6fa0ee1b522e7e98c16e6b41fb151f202c2db"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A08/downloads/texture_urls_0_normal.png",
+    "size": 6093125,
+    "sha256": "213afc3dc319c6d52c9066b2aacfbf29588db46702fc3887aa9928243eb0cdc2"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A08/downloads/texture_urls_0_roughness.png",
+    "size": 1787060,
+    "sha256": "7f8dec4c55e95255d5ee5d36d9ce29dc6d665939e7d0cd8f0811f418de905774"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A08/downloads/thumbnail_url.png",
+    "size": 88897,
+    "sha256": "000f15a19a0caf5cdfe8c73507efdbbc62cb6092d0fbb0e926fb341d1502bce7"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A08/downloads.json",
+    "size": 2287,
+    "sha256": "5b500e93ab47f82d189a25e4ffb03ff41b992445bd7765d5fb56f452aff56bb1"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A08/request.json",
+    "size": 1002,
+    "sha256": "1d4ce841e5b7900fad301b90eb7001eeb608c54b014fa32f1f53f980791c3858"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A08/response.json",
+    "size": 1761,
+    "sha256": "e1102e2ced4bdfa0c58bec9871c5ac995b549c85ebdf74abccfd24673a6a5b90"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A08/task.json",
+    "size": 116,
+    "sha256": "846437dd274e430e0c79d35cf1375ebf24ebda73081d94e5484124913d632d3a"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A09/downloads/model_urls_fbx.fbx",
+    "size": 28503484,
+    "sha256": "8fc983c7c24b8f5a3f8c95c723febd63581298afd70883c4417cf869199e99cf"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A09/downloads/model_urls_glb.glb",
+    "size": 18294976,
+    "sha256": "ee30ab1e4ec98726f0c2a9ee723fef1aa47c0662f7ba44147607066b284b155b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A09/downloads/texture_urls_0_base_color.png",
+    "size": 6515071,
+    "sha256": "f1213984ad93f95d8444d6a8ffa4f39510455fdf97208016e5e1249994445073"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A09/downloads/texture_urls_0_metallic.png",
+    "size": 299965,
+    "sha256": "84d62cc805634a330b3288f8afd200ade024c5308077298ab6cc65a31853132e"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A09/downloads/texture_urls_0_normal.png",
+    "size": 6143489,
+    "sha256": "116151a322249550a59ebdaf8ae928cc8afd7fdadcab3ad30434d509b03ac56c"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A09/downloads/texture_urls_0_roughness.png",
+    "size": 1763858,
+    "sha256": "47dbbee1c7e634d6500c8a517f87f04c75a78344c015d42e1d04eddf18594c99"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A09/downloads/thumbnail_url.png",
+    "size": 134829,
+    "sha256": "03e5a3ed5b746c15b79198ff48e4a30f584883607f0468277176b186040f5b94"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A09/downloads.json",
+    "size": 2288,
+    "sha256": "160590cc4f01cbd42bb5ed3e5a67ffc6ef54e7e3e88d3a4c2ab0ea5a559220ec"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A09/request.json",
+    "size": 1001,
+    "sha256": "4d63927f3dcd257b160356949f57e19164f482e40c090e6ecc3e6d7029a9e1cb"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A09/response.json",
+    "size": 1761,
+    "sha256": "b66baebb378d0c4488e924dd904da57db5d61a07b3400e64c51b76875ca3b7e7"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/A09/task.json",
+    "size": 116,
+    "sha256": "588002a8a35ed4316deaf9000d24e3005a36d17304f051f4e5f2c06dc9a1f206"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/balance_before_A01.json",
+    "size": 117,
+    "sha256": "6dae5a76db39869c3b06b6b910f1b4339379e5423a707d0e8f13861e698087bc"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/balance_before_A02.json",
+    "size": 117,
+    "sha256": "485f5cc61ecd58f7bdd6f1c4835755ea2ed07491e90cfba7fc72af4d73ff7fca"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/balance_before_A03.json",
+    "size": 117,
+    "sha256": "5c53d9718475d18832627ddf62b2b21a8e72a652e972178977a2068e1df2c0e4"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/balance_before_A04.json",
+    "size": 117,
+    "sha256": "2bdfec76ad7fda47f9dbf7c3579c20460e290b1a4ea74d630330c0ff8ee19f69"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/balance_before_A05.json",
+    "size": 117,
+    "sha256": "a66ad542ecc002cdc81e47a9c0da007aff09cc1bc184d32a4a11962170bf0ed6"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/balance_before_A06.json",
+    "size": 117,
+    "sha256": "8a5f233daa58043228237f6ac786a364636b152dde9525c9bb577dca4d71a17c"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/balance_before_A07.json",
+    "size": 117,
+    "sha256": "25d6a99bf9e9c02d63ebf53a4e1faa7a1d9a2e6cef92fdd20c0d65c86a621374"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/balance_before_A08.json",
+    "size": 117,
+    "sha256": "1250c0b9f5e1ec11eeca17fd7ad14d2e40dd8902cf6f613ee7c79050f667f404"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/balance_before_A09.json",
+    "size": 117,
+    "sha256": "6b62070b0ef0c3842b25d76341b5d2544e012aef0a83c642e7d23b277157d5cf"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/balance_end.json",
+    "size": 115,
+    "sha256": "71b86293114635d6358fb10278079f77dd2c4b15c22903a9fadeed7c0dd84fcf"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/balance_start.json",
+    "size": 117,
+    "sha256": "6dae5a76db39869c3b06b6b910f1b4339379e5423a707d0e8f13861e698087bc"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/batch.lock",
+    "size": 1,
+    "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MeshyR1/模型目录.md",
+    "size": 3274,
+    "sha256": "8b7f40e47710807d587a4949c100006e0333b4e90e916d0a3dfa59a875ab5d9a"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MountTackR38/stable_barding.png",
+    "size": 1417394,
+    "sha256": "523d76d322d299556ad887ad872e1fa8981197da36b45575fa5c4c86fce1df94"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MountTackR38/stable_horseshoes.png",
+    "size": 1451831,
+    "sha256": "ca28a83cc3bc690d581e25f93dd9d6e325466d51b1ee6baf76d4bcf717be8225"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MountTackR38/stable_saddle.png",
+    "size": 1786675,
+    "sha256": "c80a6df4233e5214329e191ab64ba5a99ad6b87c68865b31735dd362bb2da7a0"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/MountTackR38/stable_saddlebags.png",
+    "size": 1793892,
+    "sha256": "db61fd65ce2c1e647af74e345885809684e8c09fcd19530948745f2e464d6918"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterBackIdleR7/authoring.json",
+    "size": 465,
+    "sha256": "ec773729611bcbb994890fadd3626ffe912bc64cc16990a5b20c232d81631ec1"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterBackIdleR7/published.json",
+    "size": 975,
+    "sha256": "1fa04932cbe7e44dcd183d684791f5cecf77f9745ea4cc9393efaa9e1a1c0cf2"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterBackIdleR7/standing.json",
+    "size": 1348386,
+    "sha256": "2b62799c1ab4a7f875228797de06c39e7c5629b1d1071bb59c8671cac34d504f"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterBackIdleR7/tailoring.npz",
+    "size": 48456,
+    "sha256": "c71522b200b136b08fcb1355068b2991e8f9bfcfc9f847e1dfcfccba4f56f0da"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterHeadR5/HeadSurface.npz",
+    "size": 892990,
+    "sha256": "3bf82ee6cc576a3f30b8e5618cae542b1738f2dcae46bae57a53ba12d6b87a8d"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterHeadR5/Portrait-reference.png",
+    "size": 244647,
+    "sha256": "c62099ff013c14f11c3006fad69894e2e0dd987b3acecf92a763e4ac2506e5a2"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterHeadR5/published.json",
+    "size": 1316,
+    "sha256": "c79749f2bf8b4c9a1337c3d9470531ac26e8edb23c50f5a22377c82024b9cc9b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterHeadR5/SK_Stablemaster_Body_R5.fbx",
+    "size": 4501340,
+    "sha256": "e3828ad50e572be4d1579b55ef08b4369a31c7ae617944788ce45b3fd0ef9250"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterHeadR5/SK_Stablemaster_Head_R5.fbx",
+    "size": 2482956,
+    "sha256": "bf18179d5091620b34d561f18bd9cb792315281274f5017ca92ba85680f8aa90"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterHeadR5/StablemasterNative.blend",
+    "size": 55550491,
+    "sha256": "1a9b8aca67c46107b6fde2ab1655277b723af48c1239355febdd35138b52edc8"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterHeadR5/T_Stablemaster_Head_R5_Color.png",
+    "size": 19467964,
+    "sha256": "fcb61ffccc645947f9dc7999a4c52eeb39494054b8fa686af8dbf767a59deea1"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterLikenessR6/facial_fit.npz",
+    "size": 1167639,
+    "sha256": "2f3864ba1c16c267dea3aedd51ee454aa41c48667f82bcce6bc47ad2684e6902"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterLikenessR6/fit.json",
+    "size": 326,
+    "sha256": "d4275556fa8296dd7694bbe83de37354edd516b7848731f346508760aede082a"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterLikenessR6/front.png",
+    "size": 244647,
+    "sha256": "c62099ff013c14f11c3006fad69894e2e0dd987b3acecf92a763e4ac2506e5a2"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterLikenessR6/published.json",
+    "size": 1034,
+    "sha256": "ec6f924ab06edc2ae5df4e4997c38c9e07ae9121edf118a3564ec9b933ca3192"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterLikenessR6/side.png",
+    "size": 298829,
+    "sha256": "13554c627338a866da284269f0bc82a5afb691c7c3166ecc27e54d4bef33544e"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterLikenessR6/SK_Stablemaster_FaceR6.fbx",
+    "size": 2571212,
+    "sha256": "4c019b0b5457088200a9bc7318c2fd684beede768c528b8ca90b843bd042006b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterLikenessR6/StablemasterFaceR6.blend",
+    "size": 94920236,
+    "sha256": "c16d3720378ca5a957e13b92b5d03fc898e0b3179d04b76e3aa6832694316865"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterLikenessR6/T_Stablemaster_FaceR6_Color.png",
+    "size": 20173722,
+    "sha256": "0e118d3d7ab3c9d6dece85a3cbd5aa836912982078eff47d2c01e0ea1bac01b6"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterLikenessR6/T_Stablemaster_FaceR6_Normal.png",
+    "size": 17090151,
+    "sha256": "51f866a2ba65252a6788b34727651837d99747b222027b3dda521e6d6a73f113"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterLikenessR6/T_Stablemaster_FaceR6_Surface.png",
+    "size": 2007363,
+    "sha256": "e02c696c0163ca98a22cde77770df8da8b168b75206d0ddee466d93d4639c71b"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Authoring/fitting.json",
+    "size": 639,
+    "sha256": "0cca139b2fca075e1fbe6ab64ae608a31722e725fbe6765516d976f80f10f2dc"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Authoring/idle_motion.json",
+    "size": 846781,
+    "sha256": "adc7d0f01ecf3e7b5c9d7d07c29afe7139f1ab7c0997eae2f9f22152e3a07ab3"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Authoring/idle_reference.json",
+    "size": 5157,
+    "sha256": "495ac3a3e1162ab40b684d15ff48d2e04c12094a4dbac16b3012327e2530f4ac"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Authoring/SK_Stablemaster_Body.fbx",
+    "size": 3691052,
+    "sha256": "d76805ac2ebb2b3dfbaf86cf94e1c5086d91ab9aff28e913aba8f3dbf4d1d77f"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Authoring/SK_Stablemaster_Head.fbx",
+    "size": 4715436,
+    "sha256": "0b1347af627f9fccdaa748359285c0023bd1d52e2cb3561915920524908adaf2"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Authoring/StablemasterMeshy.blend",
+    "size": 64745895,
+    "sha256": "a08dcf1790d6219618baebfaf69857247a030f992c03d86cdf1e5b569eca6a5e"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Authoring/surfaces.json",
+    "size": 911,
+    "sha256": "b637176381b6fd589961dd8c4a5ffa5005bebbc8bf3fc9e583ba9ecadcedafe2"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Authoring/T_Stablemaster_Body_0_Color.png",
+    "size": 19455711,
+    "sha256": "7a9ba632a23af8cdc07d42b750b50e3c097f76bb882c88215350662da5ddf3fc"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Authoring/T_Stablemaster_Body_0_Normal.png",
+    "size": 17869229,
+    "sha256": "5349e7fc95c0596914833ad094317d9e424e3d99e5b259f7e14ad04b6bec963d"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Authoring/T_Stablemaster_Body_0_ORM.png",
+    "size": 2148601,
+    "sha256": "34da9f234235cdf6e77a1f7134e57f731153f491e2b62816359ed0ba9977e6b5"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Authoring/T_Stablemaster_Head_0_Color.png",
+    "size": 16020931,
+    "sha256": "d22699c3371a1ddca1b054a6e27bdddf45e5d1defece900d1b3d4bcc1bfa4b93"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Authoring/T_Stablemaster_Head_0_Normal.png",
+    "size": 17912560,
+    "sha256": "ef5aba861713fcaae76ff23b78d595aceeb43ad73dcc7e8d412fcd83516b8345"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Authoring/T_Stablemaster_Head_0_ORM.png",
+    "size": 1875849,
+    "sha256": "8214f2f863233111bd28822bd2bfb6d1d5dd29a4e213c948f9bbc5186e95ee0d"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Body/Body.glb",
+    "size": 34330092,
+    "sha256": "1d54c0e822f8da2740f1dedf40ca050eefaba552f4e9c925317e8fa85b2537ce"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Body/status.json",
+    "size": 148,
+    "sha256": "6176043874a4114a10a7766e4e634e328c8a68583390a954093323fb84e38425"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Body/task.json",
+    "size": 921,
+    "sha256": "9af5484ec17f29d849b1ed97a16fb83c451ba7fc1079ea8c2d81ec16994e3cf9"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Head/Head.glb",
+    "size": 31343252,
+    "sha256": "d0056bdaa7cb8a8ecfd35b4054d8ec3eb19277d75a2125e510379b9893139618"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Head/status.json",
+    "size": 148,
+    "sha256": "140d3590d2968fdc680120ce9bbb43cd5f3cd91be2191f4476300aca0dd285f2"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Head/task.json",
+    "size": 892,
+    "sha256": "87268429e908e6645c159b23a2b480bb417f13f48f39d58d7106ac0818ec6cd9"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/imported.json",
+    "size": 1205,
+    "sha256": "7ce10df43cbfee155921c9987017fc74f3772f189e5e98d0286e4d37483632d8"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Inputs/Body_1.jpg",
+    "size": 145474,
+    "sha256": "485038df4a27e404e5dbd2351cbdc629656f9db4499c5b9a5dce245ddcfe236c"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Inputs/Body_2.jpg",
+    "size": 107982,
+    "sha256": "73f48f1dec82b19793f49dd33d51fbfccbab95a5856a79be4177b9c662842406"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Inputs/Body_3.jpg",
+    "size": 147247,
+    "sha256": "52db7d1f187960d7940b2220552c849670197a680c24cadd45b1349ea2991c99"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Inputs/Head_1.jpg",
+    "size": 119374,
+    "sha256": "3edd607a991d915208c3332b3c8af58a6d87a4551fabb4a855880bc6863a4af6"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Inputs/Head_2.jpg",
+    "size": 127359,
+    "sha256": "5f438b9bf59a85ae1fd80e27a194aea109ac82183083145eb03c87c3d9625f19"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Inputs/Head_3.jpg",
+    "size": 136769,
+    "sha256": "a91c5c97741d75a4cbf0f0e4fc7ef14dc8778f2aa645f4bd84dded355a4307c5"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/placement.json",
+    "size": 1009,
+    "sha256": "e850fc5aaa95778d73fc122a009623d38f6e6573d5a1afbcbf7c8cee49d7e5e0"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Rig/Rig.glb",
+    "size": 38891540,
+    "sha256": "58a74cc54f5aff1a12b1c1b5d85d3c7a4290174fd8dd9617fc0d42d9c8aae73c"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Rig/status.json",
+    "size": 147,
+    "sha256": "e16bf14befc874539db7f6ce53a94127b1f453995f05eade1d685c280992deb4"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/Rig/task.json",
+    "size": 189,
+    "sha256": "10b2951ea096df1f6b012121ebd481d5c480b9ecf1b1bd4f1a5df574d5cd340e"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR3/制作与接入.md",
+    "size": 3392,
+    "sha256": "4f01c6a3637b668cc29cd30e417a4002dd77a7b9a39ad5e5702241eba8e84198"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR4/face_projection.npz",
+    "size": 2021560,
+    "sha256": "70089ed53375836157abe0024fce76a0d45857b74763f60e1b92db8b88e1038e"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR4/fit.json",
+    "size": 231,
+    "sha256": "b0e1a39b05dbb4bece21472af17176b308d2f80bd39e844d1504c275db4f11cf"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR4/neck_projection.npz",
+    "size": 1830226,
+    "sha256": "8136b2943e37c26a9a7b9c87687ba871ff235c44426df4b8c007a26e7b3371dc"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR4/npc_standing.json",
+    "size": 1827517,
+    "sha256": "57c06637f6b21865c0a9fcb5cec34e372082770a2a34d4fa11723aa9fca0f233"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR4/palms.json",
+    "size": 199,
+    "sha256": "6fa2a2423b69b50fcf7de3873927ef762a83405f2b50a97966dcdc6db01a36c7"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR4/published.json",
+    "size": 1288,
+    "sha256": "bdb43b4be1c7519eaffa111121c198e9678bc3e0efc33b27bbe147690ef2fcc2"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR4/rim_samples.json",
+    "size": 129488,
+    "sha256": "bcc7fd06cdd3fa092e2c4c728617149f81518f05f99a6dc34a2cf143ea838170"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR4/SK_Stablemaster_Body.fbx",
+    "size": 4113404,
+    "sha256": "7f5b6d034c19f64e9070196d12a0e0d0a7ffa7d2b868106c5166b350766e6fea"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR4/SK_Stablemaster_Head.fbx",
+    "size": 4272876,
+    "sha256": "159e5617b9c6a2bffac2b6478f27ec26075054328134888b154ceaa28373bfa6"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR4/StablemasterR4.blend",
+    "size": 72519645,
+    "sha256": "04ad2a3ecc2de78f5b434b3768b7e6abc511eb656aacf55f917e9bd45e9dbc15"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR4/standing.json",
+    "size": 846937,
+    "sha256": "90d678df029e80b3f4660f1da93f92e4cd42ac18cf89bc876c60424557c2837a"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR4/standing_fit.json",
+    "size": 708,
+    "sha256": "e9a05bd67c5441aa26e6b818fe9c90e8130dc36e14b7a57f2e54bd692bafe782"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR4/T_Stablemaster_Head_R4_Color.png",
+    "size": 16230390,
+    "sha256": "96cc755c2b0e9abf7c3cebde35ed03166af7490f31c0da846f6bee135614d9e2"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterMeshyR4/制作与接入.md",
+    "size": 2603,
+    "sha256": "9a0fa15989a1b7c291f75f009b4aab930bfa5a114d9c574d1264d1f722d0f2c5"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR1/concepts.json",
+    "size": 3035,
+    "sha256": "c9b2877c880a8c15bddda345e6291d645eb622ace1fe7f7971845acec3c29d10"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR1/FaceTurnaround.png",
+    "size": 2709971,
+    "sha256": "ab0fef4ffd73186fa46a7f4beb2c6a1880b777f07f8cfed623327f900b00f2da"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR1/RidingHabit.png",
+    "size": 2046523,
+    "sha256": "e35122c838d0f7b340d37ed64368ffb54edb1bf55f19f235276e738c5a697be5"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/assembly.json",
+    "size": 1488,
+    "sha256": "1712951001fccfd0d9b31ed1be9d75414d5ebe7738945df7b1dba0f6f114e3ba"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/concepts.json",
+    "size": 1933,
+    "sha256": "c75eb2ec7a8d1f35e74f62b1763edb1cef0abef542ac3fefb37e3ccc661b895a"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/FaceTurnaround.png",
+    "size": 2554940,
+    "sha256": "85006616c2310c12ea20449dd039d6a529a2f16423a9e7663ef36d550545943f"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/Inputs/iris.json",
+    "size": 347,
+    "sha256": "baac18a05598847bd530dfdcb85dfddcbeb26b5acd4e3c899197efff294a73b9"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/Inputs/IrisL.png",
+    "size": 3010348,
+    "sha256": "a35fdb372f7fda8802ec0e665b75255710a0562faefb255374eb1e24e7ad6cb9"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/Inputs/IrisR.png",
+    "size": 3010348,
+    "sha256": "a35fdb372f7fda8802ec0e665b75255710a0562faefb255374eb1e24e7ad6cb9"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/Inputs/NativeBase.png",
+    "size": 4706958,
+    "sha256": "42653d6d5f969ab8b933f9639fa3e534c7fc94426ccc3e53e7b8133235860805"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/Inputs/skin.json",
+    "size": 621,
+    "sha256": "d1f783470c5f6cd960ef90879a36782070e743bd06ed7b565fc1c8a4992d4160"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/RidingHabit.png",
+    "size": 1972894,
+    "sha256": "f930583f3f6cf0d353cee6ce4541caade6614e781e0f7f09665f4c91d300d089"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/sculpt.json",
+    "size": 6416,
+    "sha256": "1d0c7eaefa9de4ad5474509739881d6b18ad656b12dc85b4c5e48be4fdb25158"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/Stablemaster.blend",
+    "size": 20533942,
+    "sha256": "a1ff3cd299977d68aff53b35dc2de2aa68330260e3d94cbbca428e5172fd4239"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/Stablemaster_LowBun.abc",
+    "size": 20122949,
+    "sha256": "5a9c54dddba9c36248bdf09875eb2fb7790acecaf6838da750f58e09dbd5d6da"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/T_Stablemaster_Face_BC.png",
+    "size": 4142380,
+    "sha256": "3fc903000e7e26ea393b63fe24cfbe731113b6e56a58bbce39d023a111295da1"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/T_Stablemaster_IrisL.png",
+    "size": 2299546,
+    "sha256": "0bc609fe01cf2c93a670cd1ef4a8b182d7b420ba2bc75c873b8ac57ac75ab690"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/T_Stablemaster_IrisR.png",
+    "size": 2299546,
+    "sha256": "0bc609fe01cf2c93a670cd1ef4a8b182d7b420ba2bc75c873b8ac57ac75ab690"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/StablemasterR2/制作与接入.md",
+    "size": 2149,
+    "sha256": "08ce446e6e6dc03097bd9a5a6e75f360476ae41899b2d6b283adb8daf481ca66"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/SurfaceR4/bake_ground.py",
+    "size": 4829,
+    "sha256": "bd52b557fd0b487ec4886e24882cd4f280d0dbb74dd8aad8d00a9e33bdc54a2f"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/SurfaceR4/StableGroundWeights.png",
+    "size": 2312304,
+    "sha256": "294e2c070ce3176b259435834002876b2f86640cbbd485415904d25d39e3518f"
+  },
+  {
+    "path": "SourceAssets/HillsVillageStable/SurfaceR4/StableImprintsDX.png",
+    "size": 147368,
+    "sha256": "572a55c9917c296ead0c37037583d9bf0e32373c0e527e1bb255047c627aff4b"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/GroundDetailR4/M_StableStallFloor.uasset",
+    "size": 28870,
+    "sha256": "38436e1f83a16c6048b3c8e7e43c77d791fb32d490a4a059acb554f9c6d0304a"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/GroundDetailR4/M_StableYardSoil.uasset",
+    "size": 23835,
+    "sha256": "c2c6c996fb3e41e504c71d2b22e11c14bdcd2baa027cac1eb091ecbf08057ffe"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/GroundDetailR4/T_StableGroundWeights.uasset",
+    "size": 2625412,
+    "sha256": "90a318b3f30043e7cb44ede82d8aba62533ce9a27cf17f62566f34f6f1adf747"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/GroundDetailR4/T_StableImprintsDX.uasset",
+    "size": 160325,
+    "sha256": "f8afaa24c839125c2ff5195fa90a4b4b04fc5754f53faabfaeb450d152248876"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Animations/A_Warhorse_Canter.uasset",
+    "size": 249471,
+    "sha256": "39dd1a0cfd118725229b858347affea2450863de181e5b6eadb30ae9584bf8ca"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Animations/A_Warhorse_HurdleJump.uasset",
+    "size": 169292,
+    "sha256": "9292aab31bb8237065055087beeea241581569ccc4db8f620674582e78499326"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Animations/A_Warhorse_Idle.uasset",
+    "size": 346541,
+    "sha256": "94bf3c04863d02a14dd40e84a35dd96c337a7c146a1ab869839be97496936000"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Animations/A_Warhorse_Q_Feed.uasset",
+    "size": 455790,
+    "sha256": "310320c8a3b7af940bd8aa2e2539c9e86da7cf5266a4243321956f2ca9e1bba1"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Animations/A_Warhorse_Q_HeadLow.uasset",
+    "size": 283744,
+    "sha256": "eba0b708e6163bb2a1826a68237c2e0e6a0c886b6d149aaae289d61e69592a74"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Animations/A_Warhorse_Q_Idle.uasset",
+    "size": 293422,
+    "sha256": "53b6c724ae2c0060835f13d0e774a60b5c5385186a3f542288c61688c0a0cce9"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Animations/A_Warhorse_Q_IdleLook.uasset",
+    "size": 293446,
+    "sha256": "85f45a779b8ea6c11cbf9f3d8c9eb3c5af9b3a0c539fe657fd96d4a558b915cf"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Animations/A_Warhorse_Q_LeadWalk.uasset",
+    "size": 128675,
+    "sha256": "5a67f825bb622f02e9aa1d839adae857c7c8751ac6e3efafd6f09900c6eaa871"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Animations/A_Warhorse_Rear.uasset",
+    "size": 246378,
+    "sha256": "ac80c354416da93166122ff3055a9ee6955021be1215589e5114e82842ef9bcf"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Animations/A_Warhorse_Walk.uasset",
+    "size": 147013,
+    "sha256": "d5b5e1796f795a1b1947a0c8ae902397acd6b566487fec7189cf477efe357ae6"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/AppearanceR30/M_Warhorse_Coat.uasset",
+    "size": 17704,
+    "sha256": "d340b42514ec461a816830c7cd8251fc8da4ec9667e8a2773936ae6ed98cca87"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/AppearanceR30/M_Warhorse_CoatFade.uasset",
+    "size": 21668,
+    "sha256": "2da366986186a46c462e52741cc4b8d7d8fad18c9f722266057f428c972bab96"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/AppearanceR30/M_Warhorse_Fibres.uasset",
+    "size": 19556,
+    "sha256": "244bf2b3c7915f9aa87d68b8672dd5ac86a6600788c3c4dab862aaf615f5a4ca"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/AppearanceR30/SK_Hair_Crop.uasset",
+    "size": 3051419,
+    "sha256": "1160791768b7042a7431e515c3371599631d6e822cc336a88c31fcac31ca0cb6"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/AppearanceR30/SK_Hair_Parted.uasset",
+    "size": 3046801,
+    "sha256": "c977e8fd16a232a7fed1830aa007e6514013f14b191cac1cfda4ec6cd46e7b91"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/AppearanceR30/SK_Hair_Sweep.uasset",
+    "size": 3040921,
+    "sha256": "2efeed65afc2f57851d09affd1aa6815e6cb232b3454a74e2a3dfd2b9aca8c49"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/AppearanceR30/T_Warhorse_Pigment.uasset",
+    "size": 60926,
+    "sha256": "1e6fcde7d39f0b4d5660a2fd4e12f620b563875e011c5c42fad3aa96aa3d8d25"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/AppearanceR30/T_Warhorse_Regions.uasset",
+    "size": 1390099,
+    "sha256": "3161b115fb50516ca90a34d5321956ef21cce360ef574855298582e160597ef7"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/ATT_StableHoof_Canter.uasset",
+    "size": 1412,
+    "sha256": "40cde4cb70751552106bb34111f8637e4e9d50b12b327239277a5964894534a5"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/ATT_StableHoof_Walk.uasset",
+    "size": 1479,
+    "sha256": "26cf95c857b5405cf66587f987a0d4f9dc8125d909cd31a1561570541b1dc717"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/CON_StableHooves.uasset",
+    "size": 1657,
+    "sha256": "f85fd5dfecbb551d0f06a49139f4e0bd5fe28ebe2454d46e415eda70b62ed7fa"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/SW_Hoof_Canter_01.uasset",
+    "size": 11290,
+    "sha256": "783fdbbfc55689ef2043d92fbb9091dec0534ab0869041f9806b34a29453398f"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/SW_Hoof_Canter_02.uasset",
+    "size": 9267,
+    "sha256": "d2c59bc2287027b9f3b50c126c6b8d8921607eb50ad1f190ee1395b467232b98"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/SW_Hoof_Canter_03.uasset",
+    "size": 10033,
+    "sha256": "2c4b020358fd1a9ac2a49a48eb20f3bd0cd5c2c0a267ae492ef25521f1b92bf0"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/SW_Hoof_Canter_04.uasset",
+    "size": 12623,
+    "sha256": "0587c9a5742ea474c7cb69045aaeb1d55ce94e8f39a5a14c2dfa633bf7bc5b10"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/SW_Hoof_Walk_01.uasset",
+    "size": 10088,
+    "sha256": "7e417b67e877d6c05703019b92a491d1ef21940ea7339ec6b7fa964e950edf7b"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/SW_Hoof_Walk_02.uasset",
+    "size": 11953,
+    "sha256": "26e92377aec19d0b398c83484ad5c2af2521f9883bc30a45146e6770cae144f6"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/SW_Hoof_Walk_03.uasset",
+    "size": 10442,
+    "sha256": "da5946fa40b8d9121c13bbaea64a3ff566f74949d86281308055f9dd61b1a321"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/SW_Hoof_Walk_04.uasset",
+    "size": 11280,
+    "sha256": "94289c146a28cebc66b557b09bd9ddd96f471b45c1ca823e1f16d4fc10b193ae"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/ManeR16/M_Warhorse_Mane.uasset",
+    "size": 10463,
+    "sha256": "852ef4aadc079d18fae1a227176349c2330f6e4c1b9dc1350aa496f049ba56d0"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/ManeR16/SK_Warhorse_Mane.uasset",
+    "size": 829498,
+    "sha256": "dd0f578d93ac1e107942e54950d6e6499eb2be2ee50a2ade2d2457975f0be994"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/ManeR16/T_Warhorse_Mane.uasset",
+    "size": 677571,
+    "sha256": "1d1718cb143b9baa0af6a71af32750ea86b9b26501656ab49a35bcca6fe5ffdd"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/ManeR17/M_Warhorse_Mane.uasset",
+    "size": 10489,
+    "sha256": "c8832509f564f0325afd1faf91217f36c077525858b459b13fe0894a1108da03"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/ManeR17/SK_Warhorse_Mane.uasset",
+    "size": 2525495,
+    "sha256": "350db9352e110d70889796f8572822ae61bf618981edc9a64d8d08e2da03a271"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/ManeR17/T_Warhorse_Mane.uasset",
+    "size": 2008523,
+    "sha256": "649a925987bd60f5ba9646840b13155079d096da0dc857b92fa4fc28ae190741"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/RetreatR21/M_Mane_Retreat.uasset",
+    "size": 14577,
+    "sha256": "0408e5f0a09759589da335bf0689ce06f9331f57acd63686f9b75928004359f9"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/RetreatR21/M_Warhorse_Retreat.uasset",
+    "size": 11112,
+    "sha256": "f8c22cbe37c1673c891401b06238022426a2b6df8a9fe3e623b5c7a28a930e15"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/RiderTransferR18/A_Jason_Dismount_L.uasset",
+    "size": 830543,
+    "sha256": "e266e9fb7698edcf440e9e742c0db8174e81efb5cb8e84383a4107e277e2cc7b"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/RiderTransferR18/A_Jason_Dismount_R.uasset",
+    "size": 830543,
+    "sha256": "3482b458d8cf147efbf6c70ca7cb00eeea052bd10666a86612dae7b288c8427b"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/RiderTransferR18/A_Jason_Mount_L.uasset",
+    "size": 972230,
+    "sha256": "4080b14cf37f0a86ca0edf33dc96df47fde3c619911db2c05794db6d6789e4cf"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/RiderTransferR18/A_Jason_Mount_R.uasset",
+    "size": 972230,
+    "sha256": "1f458328bbc725ebcf55a555ace4328d3108626b6be1d3da7a0b877f0893836b"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/RiderTransferR18/A_Kaitlin_Dismount_L.uasset",
+    "size": 826148,
+    "sha256": "25bc19dfd1731894798ee420573c8cf61685d0c8d46f5aa69c17b9d0bbcdb5f7"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/RiderTransferR18/A_Kaitlin_Dismount_R.uasset",
+    "size": 826148,
+    "sha256": "aa15233f136bcb368cc8c0642f9822b1c8092d70d547676f550c2b42c687474e"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/RiderTransferR18/A_Kaitlin_Mount_L.uasset",
+    "size": 967259,
+    "sha256": "f766e4fc179a059c5154fb940bea5da33699e0abff3dec5170735b2e9e683ba1"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/RiderTransferR18/A_Kaitlin_Mount_R.uasset",
+    "size": 967259,
+    "sha256": "01dfe1b5b50137f9da19626ad979797a5245fdfa2b7de2d9b93afedd58087048"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/SK_StableWarhorse.uasset",
+    "size": 2788732,
+    "sha256": "489706307619255f36c5f16d95a11ee78322f3399b0ee9585675c2eb82e08782"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/SK_StableWarhorse_PhysicsAsset.uasset",
+    "size": 15511,
+    "sha256": "07bd65de1c8175a19b3581d958cc9033241d2d64ff16a02395fc9a92e3a03498"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/SK_StableWarhorse_Skeleton.uasset",
+    "size": 9713,
+    "sha256": "4fc51f1b469fd2e785e1bebc2f288fda1da465f9a7d48bf8206486a7886ddf33"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Surfaces/M_StableWarhorse.uasset",
+    "size": 8174,
+    "sha256": "c00ec54b496503199bf5f624475dda8a1fccdd47982f951fba9b33eb5e309726"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Surfaces/T_Warhorse_BaseColor.uasset",
+    "size": 4847656,
+    "sha256": "6f61b269f866819ff3392a13561456a1e20cf72c305946c4e59e3a014847c3c2"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Surfaces/T_Warhorse_MetalRough.uasset",
+    "size": 1593986,
+    "sha256": "b5e1d158f7bf4845fb523b15b744b5706276f88f1bcde00138fdbc61afaa3ffe"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Horses/Surfaces/T_Warhorse_Normal.uasset",
+    "size": 4969186,
+    "sha256": "e4f739ca13852f665d46b4e92b53c6f3e9d011806300b97820cc18914dbe87e8"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Materials/MI_Stable_A01.uasset",
+    "size": 5022,
+    "sha256": "47ca08510b43d3d01f1baad2b33701e9778d5965bea71c010b357dce6c098b1e"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Materials/MI_Stable_A02.uasset",
+    "size": 5022,
+    "sha256": "6a3c07d84e08fa6d9416a9a848b476f2163ed271cb67e5b5ff0f0613250dd36c"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Materials/MI_Stable_A03.uasset",
+    "size": 5022,
+    "sha256": "2a5d97b7ad094d47396dc2833e0f48afba96d61d46ccb56eb3d06d2cf8c6dabb"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Materials/MI_Stable_A04.uasset",
+    "size": 5022,
+    "sha256": "213b0df8657cccf1450ebd1480660cb0ac59404fe529bd9561f5ac4b665c080b"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Materials/MI_Stable_A05.uasset",
+    "size": 5022,
+    "sha256": "fff802587aa89733034e584a554d420340dd63383a6cd193a63fab59e431b1da"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Materials/MI_Stable_A06.uasset",
+    "size": 5022,
+    "sha256": "043caf67edd892e51e9990828651a3222345e6d9a3ab8c8aa1b29d14e6598115"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Materials/MI_Stable_A07.uasset",
+    "size": 5022,
+    "sha256": "a6afee1c9ef09c8eb2135c83c09268d0f4b9e75aebfb4269ce790578330c6a12"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Materials/MI_Stable_A08.uasset",
+    "size": 5022,
+    "sha256": "d4ab3e53b08e8918a33217683da1cbc968492463a6870b3a8bc1d51b05442451"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Materials/MI_Stable_A09.uasset",
+    "size": 5022,
+    "sha256": "bd68f8a5ad1b88725267172fc804e2f1b55f25f592d37b907cacb93b207881dc"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Materials/M_StablePackedClay.uasset",
+    "size": 6523,
+    "sha256": "9ad88e2c13cee81798e1138310241dcf68b2c1876943b743087707ee9cb69b6a"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Materials/M_StableTraffic.uasset",
+    "size": 8103,
+    "sha256": "19e4ce34d2c52ec46abc71229d5b79ed5e66989007069baa3f8e6937320c3743"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_A01_Bent.uasset",
+    "size": 3025974,
+    "sha256": "038c7bf0772009be46f9d65be9b7b213bb70fc746166b76271677c16b3e92f6d"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_A01_Roof.uasset",
+    "size": 6613733,
+    "sha256": "f547d351ef763071df863e1ef79a330ac93fdaac141004920ed549e4b9b361b0"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_A02.uasset",
+    "size": 3766152,
+    "sha256": "b048ac7ee1de3237d90364aff27bc2cd5d3f3b96ae7a32609525657bec5fdf8b"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_A03.uasset",
+    "size": 3607884,
+    "sha256": "8d934afbf0082edac1aa49f923293125f7216dad127916880a822e545c8d214b"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_A04.uasset",
+    "size": 2551268,
+    "sha256": "ebdcff2e3a7be122e0231945c6add94f0142dd9d5734c5cc8763552d406e443a"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_A05.uasset",
+    "size": 2015571,
+    "sha256": "bf0658f49785a855fa957030e49b9b15a1856335e01527bdd18b3577ba6ae087"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_A06.uasset",
+    "size": 1493036,
+    "sha256": "9e95fb82274ec2d3dd9e4ba8fa0a3357ef064c4cd56db64a166db1cd33e06385"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_A07.uasset",
+    "size": 2380783,
+    "sha256": "d8f38c6ce7b0a942759a9d5cd7ab9846f5deb924e83e0112eadc42d835e49017"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_A08.uasset",
+    "size": 2161707,
+    "sha256": "3cd07ae3b0b19d4f3ab71c3b9fffc1c7b91615112eda002bc27df9f3a12d3ad0"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_A09.uasset",
+    "size": 3474229,
+    "sha256": "bcf5f06628711db61531a2d408879f2e0712b95c1fcb3bd02d1050afb7ce5712"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_AisleFlags.uasset",
+    "size": 25692,
+    "sha256": "948c886e1dc25c8e654fb9e2970a4ea60e13e47e59d25b031e29a46196bcd7a0"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_BentJoint.uasset",
+    "size": 27893,
+    "sha256": "1cdd047915199fe5c57b251eb5b3ec23b492d79d0edc574fe7bc76e64a8fbf91"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_FenceRails.uasset",
+    "size": 14881,
+    "sha256": "93137b291b385b408102ac624c315babc7d1f335a3886d940dd2e80a9fd12ebb"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_GatePier.uasset",
+    "size": 21197,
+    "sha256": "67267a172470cb1bb1ed7f51321a0a6fba34a06857649bf86f88a4a95d3e3fe7"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_HayCrib.uasset",
+    "size": 36027,
+    "sha256": "270d76cc190e256134cec365393e0807dcd16b41e350399531bc3cb470b188a8"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_HingePintles.uasset",
+    "size": 18235,
+    "sha256": "a98ff8978c78fc9ba16e65a0f3bff83679fb98bf00ef433cfef061839bb5971e"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_LongPlates.uasset",
+    "size": 15190,
+    "sha256": "40fe6182dedb731879d6e084eaa26dd866f9b9656b27d0219edf571fe5eb3f2a"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_PackedFloor.uasset",
+    "size": 71357,
+    "sha256": "03be0102b5e55c0a9eee19d1cb58a08d30920c31bae78d14e08ee7f3f8d387c0"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_PierShoes.uasset",
+    "size": 24047,
+    "sha256": "72a1f8f9a46a988f46d15fdb63ba9fe45ea79548ec9f7910838dcc956572dc9a"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_RearHalfDoorSides.uasset",
+    "size": 33543,
+    "sha256": "3b05cb5631b4a46a119104844d1d69ccc7473da0d164902f6fb25034d61c8a9b"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_RearVentWall.uasset",
+    "size": 56021,
+    "sha256": "b3acccec9f3a06d260c10f1424adaee2f2e2fd88622e7c26af0ac9782b280f92"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_SlateSeam.uasset",
+    "size": 56349,
+    "sha256": "11616855668d776b26d0c5219df13603aa035046063cd20cc643c06ee3560922"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Meshes/SM_Stable_TroughWater.uasset",
+    "size": 23324,
+    "sha256": "379b1f08fc798e697a1ede598225d6d69fd47287635d86b6cb157196b043fbfe"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterBackIdleR7/Animations/A_Stablemaster_HandsBehindBack_R7.uasset",
+    "size": 781492,
+    "sha256": "a757e57676a45a50a05b536eff09ef9c1bef36b66214e68edde1262317f42d78"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterHeadR5/Materials/M_Stablemaster_Head_R5.uasset",
+    "size": 7738,
+    "sha256": "5c93ce77828d564abb05f00c61e27ba87bcce69aeafe237e4c78efb196a2d30e"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterHeadR5/Meshes/SK_Stablemaster_Body_R5.uasset",
+    "size": 16061837,
+    "sha256": "d1ac2b43d8344a0f1e32b73790c1bb3ea9f372ba48bb0a803172f4fcb0ade5e6"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterHeadR5/Meshes/SK_Stablemaster_Head_R5.uasset",
+    "size": 12117263,
+    "sha256": "5143003a2db9a62ef0c0112dbb00d48f319c2f5b1b368fcd321956b87ecbf954"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterHeadR5/Textures/T_Stablemaster_Head_R5_Color.uasset",
+    "size": 19532635,
+    "sha256": "8e80ff51953c622746543d72bc31e59b341d4a9eff2507c123dfea43c17e34e1"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterLikenessR6/Materials/M_Stablemaster_FaceR6.uasset",
+    "size": 9620,
+    "sha256": "14b6d45b89290f00d8b858d03d11a9faa6aa768342df3b8811eec658563f86e1"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterLikenessR6/Meshes/SK_Stablemaster_FaceR6.uasset",
+    "size": 12266659,
+    "sha256": "bfc76af750c923d4c611bb2d085fc6a9738adb12a0cfe3028e9a03faab756ba8"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterLikenessR6/Textures/T_Stablemaster_FaceR6_Color.uasset",
+    "size": 20643876,
+    "sha256": "fe11f4f0858fe20703b97c3c848f8933102fb94bb9632fdbccd5bcbc18fae7ee"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterLikenessR6/Textures/T_Stablemaster_FaceR6_Normal.uasset",
+    "size": 20322943,
+    "sha256": "b562cb621e3956355588a0cbaf5b898f4c4acbe2b8b3c8bcbd7383ab35ff676d"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterLikenessR6/Textures/T_Stablemaster_FaceR6_Surface.uasset",
+    "size": 2248856,
+    "sha256": "030d1c986df577a500926c7e3b93e42931ea5184713b69bc563519eae11b270e"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR3/Animations/A_Stablemaster_Stand.uasset",
+    "size": 515776,
+    "sha256": "cacfe47f74a6cb827ada37a371301b2fc5873a088c75cd070377cce44634666f"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR3/BP_Stablemaster.uasset",
+    "size": 29125,
+    "sha256": "913b8b1242ccebb9849bcc5c3147e0a6c0ab7a6bb50a47cace2fc47c21f3a280"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR3/Materials/M_Stablemaster_Body_0.uasset",
+    "size": 7730,
+    "sha256": "ea74485a3a8d3503d9c54c030da7dd13753b88629781758a1a02d7af9c23f20a"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR3/Materials/M_Stablemaster_Head_0.uasset",
+    "size": 7730,
+    "sha256": "02eda4a880fcdedbb98fe4b545078623f7033be9c154bfa3840f6e23561d818d"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR3/Materials/M_Stablemaster_Neck.uasset",
+    "size": 13481,
+    "sha256": "63f1464dad0f7daba81556410f0d0a859c8b928d1bfef78ca3e2c282e2a1daaf"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR3/Meshes/SK_Stablemaster_Body.uasset",
+    "size": 13110905,
+    "sha256": "ef18ec8bb9afb5f52cc1e2eadd4f2b96b5f6c90692fb90bb29b73dfab2711331"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR3/Meshes/SK_Stablemaster_Body_Skeleton.uasset",
+    "size": 6551,
+    "sha256": "e7e862c85fad0cf6bdfe0c73d36ee3ab361644fde0c5f07e266cd134b965cd0e"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR3/Meshes/SK_Stablemaster_Head.uasset",
+    "size": 16503878,
+    "sha256": "e13f82a00be8249f518106528d18e457fa9489fe78b935c8e2c040f8e45038c2"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR3/Textures/T_Stablemaster_Body_0_Color.uasset",
+    "size": 19502196,
+    "sha256": "cd9f2a596da6c8b1a633eee3f351c16dac77786144ddaf9b601ff43ffe376202"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR3/Textures/T_Stablemaster_Body_0_Normal.uasset",
+    "size": 21412487,
+    "sha256": "16e91f86c54ff0ef20d3620b22ad8fc70e845a767f3b73bcc855135dab3fee2d"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR3/Textures/T_Stablemaster_Body_0_ORM.uasset",
+    "size": 2369664,
+    "sha256": "89d9c57fec4f30719b9ae0b0b316e7031ec3f3545261c46c7fb00c51b7852a14"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR3/Textures/T_Stablemaster_Head_0_Color.uasset",
+    "size": 15765209,
+    "sha256": "00498b85ce1457618b0392028a15f04b77d0f423966a65a4c4878b61f289736b"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR3/Textures/T_Stablemaster_Head_0_Normal.uasset",
+    "size": 21784666,
+    "sha256": "37d3c07657738e389fdab2a13315b6777381c101ac1cbf1fdd3d17aa4b105078"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR3/Textures/T_Stablemaster_Head_0_ORM.uasset",
+    "size": 2115462,
+    "sha256": "55e32b57d1bc1f25cd562386e105133b39f77db3bb08ef703828d6b279044065"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR4/Animations/A_Stablemaster_Stand_R4.uasset",
+    "size": 515788,
+    "sha256": "6a221aa9ac04b245bd2fb61e33d26696f5f57880de0d2873319775d462937953"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR4/Materials/M_Stablemaster_Head_R4.uasset",
+    "size": 7741,
+    "sha256": "1a784769a81e6f8ed9c40016cea7c9dae11acee69129aee73998439bb09ea189"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR4/Meshes/SK_Stablemaster_Body.uasset",
+    "size": 16564324,
+    "sha256": "7ac69d9f3bb4b04d52009c8f340804d5b35abd8f14ade3ce519f024ed08cb5e5"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR4/Meshes/SK_Stablemaster_Head.uasset",
+    "size": 22425889,
+    "sha256": "25ad3f26e625c0e3d2fada69479529056764504e0a8a1136a2f0f131455208ce"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterMeshyR4/Textures/T_Stablemaster_Head_R4_Color.uasset",
+    "size": 16201535,
+    "sha256": "03ffe7509c38b3a5a4896ff22b68f3cfce0f6046aea7a1f13b4896bb64c073f9"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterR2/BP_Stablemaster.uasset",
+    "size": 36147,
+    "sha256": "2abf6ff0789f5a314abba9bdb7a0f41016ceb22e2dfd38d8cd53bd5328027e4a"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterR2/Grooms/Eyebrows_Binding.uasset",
+    "size": 2368,
+    "sha256": "343e376aa32111f9af9717191ac6b36abdb43c29fc8afcdba21c7218ea13aa6a"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterR2/Grooms/Eyelashes_Binding.uasset",
+    "size": 2388,
+    "sha256": "9236f51193cc830c56a333a35265087b1d000c68cdb51f9709211dca2a7c3d18"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterR2/Grooms/RidingBun_Binding.uasset",
+    "size": 2404,
+    "sha256": "95af8b1229cf23bf8d17bf31a3e9f999c73230c3091e04e72e51e89c1bd8ae89"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterR2/Grooms/Stablemaster_LowBun.uasset",
+    "size": 12467461,
+    "sha256": "12b2826694f684aa2bcd3321f30c208e88e57af4207c3159bd11b9902697e25d"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterR2/Materials/MI_Stablemaster_EyeL.uasset",
+    "size": 3779,
+    "sha256": "c00413832739abd5f021ee73cd1d59f4673e54677c57ffa480478b326f3e06e7"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterR2/Materials/MI_Stablemaster_EyeR.uasset",
+    "size": 3779,
+    "sha256": "dbf5fef557b0ba809b5c1ad10151f84ab43a077ff62c09796bbdfd359a579ef3"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterR2/Materials/MI_Stablemaster_Skin_LOD1.uasset",
+    "size": 3843,
+    "sha256": "b516d4107ce795530c971f0be88143587b14438fc94039590540946ea4bf0b9f"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterR2/Materials/MI_Stablemaster_Skin_LOD3.uasset",
+    "size": 3843,
+    "sha256": "2ab0da2295c11950ba83cc545cedc4f13eb67d9827425016d03e93fd33036f32"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterR2/Materials/MI_Stablemaster_Skin_LOD5to7.uasset",
+    "size": 3870,
+    "sha256": "17242a6cb900507197aeed3a47e78390c2c8aa9ed2d271bde36adc7626f7f6e4"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterR2/Materials/T_Stablemaster_Face_BC.uasset",
+    "size": 4305516,
+    "sha256": "ff903ad244161693c077dce6c48b2da7610084e0575a93ced67b48fe99a15d9c"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterR2/Materials/T_Stablemaster_IrisL.uasset",
+    "size": 2326443,
+    "sha256": "383e1bc5fcddc3e2e85aa9fe163b07c3a4aaf5e5d2d801758b42d29c5b6129d3"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterR2/Materials/T_Stablemaster_IrisR.uasset",
+    "size": 2326443,
+    "sha256": "11e18e680bc378b3d6faf65a8498e543422c6bef3b3af3dea0469c303c3ef74e"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/StablemasterR2/SK_Stablemaster_Face.uasset",
+    "size": 18458798,
+    "sha256": "442575173014693e681022110d17bfc63af985cbd888d67a38bff6b44935aafa"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_StableTraffic.uasset",
+    "size": 1275657,
+    "sha256": "4a141844e4183cff994e071769b4f4512beb29035a9d1a26c87dd2ecb74e5a92"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A01_base_color.uasset",
+    "size": 6822443,
+    "sha256": "2d38ed0c3db5af4bf2a9316c792cb7d3c538303940aaeffb8dbfbf9258afc164"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A01_metallic.uasset",
+    "size": 187370,
+    "sha256": "3f88904da4fa0e0da1b5d3730493f1d1ff44f06a83edbcb9a6239d4a12c01ece"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A01_normal.uasset",
+    "size": 6678307,
+    "sha256": "786978507acd0453e2628bfefd78c72dadf2342ae55bcb94e35fceadaeb0de44"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A01_roughness.uasset",
+    "size": 1555641,
+    "sha256": "cadfc74be665a8f12f83987d86b3a2b73deb5d1e15f1ae59eb5e91f106df6aa4"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A02_base_color.uasset",
+    "size": 6005427,
+    "sha256": "60c832fb8d99e98deabf048d700b9b7c69f4b7dabb53579fc85d9084e000380a"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A02_metallic.uasset",
+    "size": 490931,
+    "sha256": "62f87aab2239f005d2077a1ac3fbf0bb033dce4807725c6525125cee252147bc"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A02_normal.uasset",
+    "size": 5858521,
+    "sha256": "f7b0dc3e85f99d6903c937f4c1f3db42eff1b838c6405fee00b2768c114bcfe1"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A02_roughness.uasset",
+    "size": 1594338,
+    "sha256": "6c68c81d3f1b6ed16df679f4a5481a3ef44fc89fc5a9016b0722845a55ab3ff4"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A03_base_color.uasset",
+    "size": 5529767,
+    "sha256": "a71c1abb71b4bb489ce2b31cfc55ec2d3b0c2f8ad8ed2ce2abe14f00cdc11eaf"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A03_metallic.uasset",
+    "size": 242387,
+    "sha256": "9c1f528598660fde7d3cf83ee06e9316b8e01deaad3ef3274c6d4561d86c6d7a"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A03_normal.uasset",
+    "size": 5331283,
+    "sha256": "23a1686ae6a8c01670d06ca6e27e4bb14594da2820eb774a4c5f7415b74652e7"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A03_roughness.uasset",
+    "size": 1479667,
+    "sha256": "6ce0c5f2194f9979fa21e310ae4ff3ad5a607d6b756f003f0c18daf3eb6acbbb"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A04_base_color.uasset",
+    "size": 5726265,
+    "sha256": "56c471a9e17df01de3a87e5ae7e0910b44c7a74e21c7934c9d96e6f646bd4052"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A04_metallic.uasset",
+    "size": 932372,
+    "sha256": "8841ead9d1060bdd4414ca516e7923ca885cce1736cf01df554249bac3bdb2b2"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A04_normal.uasset",
+    "size": 5396796,
+    "sha256": "a28d6251226e1ab1c801e32a6b6e1b039a1bcce643ad6faedbd12934ca070c2b"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A04_roughness.uasset",
+    "size": 1675397,
+    "sha256": "14e4789fd809987031902229d57f395c22a444f1de3dc5d7e2a75d62598577d2"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A05_base_color.uasset",
+    "size": 4938089,
+    "sha256": "b6a80a1e1533444dccdc5144e25fb0e71c47910753ac686042da365ba569864d"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A05_metallic.uasset",
+    "size": 370870,
+    "sha256": "e4ab528256000de81b25263be594a8cbaaf2ebc4a9f8598cdc4a7442cc185235"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A05_normal.uasset",
+    "size": 4722428,
+    "sha256": "ee1b846321f5639ed869857f5f4a4e8360e22b627bbfa09bfdff5411682b7d75"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A05_roughness.uasset",
+    "size": 1327129,
+    "sha256": "f7627fe6de18f3608193687eec60a5a605c7c72b3b21551332462050013e290e"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A06_base_color.uasset",
+    "size": 5933734,
+    "sha256": "0ab9b256d25873ac71a5b90972972db6bbfed1c5dc131aeafd1abb906db76bb8"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A06_metallic.uasset",
+    "size": 551554,
+    "sha256": "bc49733bdf8ae13c90a68e118750b4336bf3223bbba8687d0b5e52142f020eaf"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A06_normal.uasset",
+    "size": 5695508,
+    "sha256": "88b4e5aa55866c909d00d961b551d5c68c8e72c1dca07b8c2611f0c84ff86242"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A06_roughness.uasset",
+    "size": 1390977,
+    "sha256": "3bbce6fc8629bb7e2fe54d0eabac32538b569b1797bad2be0731f9b72f634b10"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A07_base_color.uasset",
+    "size": 5660450,
+    "sha256": "2ac831c486631065791938723742d45af3af9cdd64442b5f94e82a39914647e2"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A07_metallic.uasset",
+    "size": 1065542,
+    "sha256": "382b5b2dfc4d462fa86ce13068bbe3d5251f37834e6cf27aaef78c8793d9ac98"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A07_normal.uasset",
+    "size": 5374044,
+    "sha256": "28f8f85a2137b0be9ceb3153290b307df93218a24d6350acad587ed1d7c8d208"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A07_roughness.uasset",
+    "size": 1688506,
+    "sha256": "d94f2c31233e02986baf81a6f539260d9eaeca6648e46b29c8215b02b7b1b4f5"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A08_base_color.uasset",
+    "size": 6083532,
+    "sha256": "98c2c6e887165aa7eb09e6f74d109bdbcd511a8c3d262776bb29afc79803436b"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A08_metallic.uasset",
+    "size": 513280,
+    "sha256": "fcf8c066cb07aad7835e7c648f4b384f33f3eeb69f1f24b28e58f278e6473b38"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A08_normal.uasset",
+    "size": 5790498,
+    "sha256": "37dcd5d5468f02262bcb117f570d5d47dfba8fbed955a472d36c2ff61c665594"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A08_roughness.uasset",
+    "size": 1393147,
+    "sha256": "6bc2315bf116a11fa4fd30019ecc9641d001e50cff442c13cb94f44b5f27ff36"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A09_base_color.uasset",
+    "size": 6260881,
+    "sha256": "f598d0d3b7575b7a78bd6780d98a02eaf8fc9cca0d8d090972b92bd86af6bb47"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A09_metallic.uasset",
+    "size": 232249,
+    "sha256": "b08658e0c26bfdd25159a0f76800f6b59d19f0a7475f0211252df976e852e793"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A09_normal.uasset",
+    "size": 5799341,
+    "sha256": "6399ec396779e2bf9613b3ca90664e1d57cc1f9a39954a62f007a67ff0cddd00"
+  },
+  {
+    "path": "Content/WorldGeneration/TemperateHills/VillageStable/Textures/T_Stable_A09_roughness.uasset",
+    "size": 1361362,
+    "sha256": "9b74ec71af71191ff9d9db70e1a4d5d06f14ae71061a93737900e9747fa0bdea"
+  },
+  {
+    "path": "Content/ColdSteelUI/HorseMarket/CoatPlates.uasset",
+    "size": 434370,
+    "sha256": "4db50fa9307d39c359a3c66a5b0a17798dd85ace339ac60d9cfbb6134573dd83"
+  },
+  {
+    "path": "Content/ColdSteelUI/HorseMarket/FieldPlates.jpg",
+    "size": 748582,
+    "sha256": "ec3ca34e0b7203e4032b48ec0be9568fd65ad282ac8f1e3869bd4a109701f756"
+  },
+  {
+    "path": "Content/ColdSteelUI/HorseMarket/FieldPlates.uasset",
+    "size": 763869,
+    "sha256": "06a50876b3d33ca47c6f36c6b4b81ef93a84b1a2612e79f7f04138511ea8fc20"
+  },
+  {
+    "path": "Content/ColdSteelUI/HorseMarket/FieldPlatesSoft.jpg",
+    "size": 155574,
+    "sha256": "9a16217bef43a13f5e14000e0ff37ca945bfab57f2ee2972616e632585a9c0f1"
+  },
+  {
+    "path": "Content/ColdSteelUI/HorseMarket/FieldPlatesSoft.uasset",
+    "size": 170615,
+    "sha256": "8020f2f0718e35345c1c0655129c5d3648a2ce44e47866fb41bb368aeef0367b"
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/HorseTack/stable_barding.png",
+    "size": 63467,
+    "sha256": "00dc385729ab594e48892da7922025cd3ec36aa825c714b34b2b650c18afc26e"
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/HorseTack/stable_barding.uasset",
+    "size": 75588,
+    "sha256": "943071ec044caa2fa0a7cc38794272390a37a6634389304a3494b71d25df1815"
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/HorseTack/stable_horseshoes.png",
+    "size": 74706,
+    "sha256": "f9eb89f4b912c15b007e9c73b7829c9369d8461c86624466f34ed22369ed8d49"
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/HorseTack/stable_horseshoes.uasset",
+    "size": 88067,
+    "sha256": "4cd16f4885db0b4306e0ca24b2dfbdda95d3615d0a992bea4165ff1bb82baf0d"
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/HorseTack/stable_saddle.png",
+    "size": 79723,
+    "sha256": "c891a243cdcf695e395bcbf7e734d5c27823ade1f16c4aed748097dd9991920c"
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/HorseTack/stable_saddle.uasset",
+    "size": 94881,
+    "sha256": "fb31e86ab359b3e05bf3fda8bf82bab13b08fdc91012ff2c5bb44e335b3223b5"
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/HorseTack/stable_saddlebags.png",
+    "size": 81553,
+    "sha256": "5563a4659846ce90b0bf87ae0f183e16fa8870b67341154fbdffc64076b2d28e"
+  },
+  {
+    "path": "Content/ColdSteelData/Icons/HorseTack/stable_saddlebags.uasset",
+    "size": 96403,
+    "sha256": "26c961c4923b1ce53606ba9ee81a93edfaa7d5389dc940b8f3c29d88606d605c"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/StableHorseShoeContact.inl",
+    "size": 2812,
+    "sha256": "157b08c9e4de8e86ea143ef39cd9de06987e0afe5398882dc1ad96b65e132531"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/StableHorseContactHull.inl",
+    "size": 58589,
+    "sha256": "88ed3c6cf311415fbd5f51c916d9277828fb068151c61f62dc3c84b574ab22ae"
+  }
+]

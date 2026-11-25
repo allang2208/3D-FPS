@@ -1,0 +1,30 @@
+--- a/Source/FPSGAME/Monsters/MonsterTargeting.cpp
++++ b/Source/FPSGAME/Monsters/MonsterTargeting.cpp
+@@ -1,4 +1,7 @@
+ #include "MonsterTargeting.h"
++#include "../Movement/HorseRiderComponent.h"
++#include "../Movement/StableRidingHorse.h"
++#include "../FPSGAMECharacter.h"
+ #include "../Characters/VillageArtisanVitalsComponent.h"
+ #include "FPSCombatHealthComponent.h"
+ #include "Engine/OverlapResult.h"
+@@ -14,6 +17,19 @@
+     if (!IsValid(Pawn) || !Pawn->ActorHasTag(TEXT("NPC"))) return nullptr;
+     return Pawn->FindComponentByClass<UVillageArtisanVitalsComponent>();
+ }
++}
++
++AActor* MonsterTargeting::DamageRecipient(AActor* HitActor)
++{
++    if(const auto* Horse=Cast<AStableRidingHorse>(HitActor);Horse&&IsValid(Horse->GetRider()))
++        return Horse->GetRider();
++    return HitActor;
++}
++
++const APawn* MonsterTargeting::ContactBody(const APawn* Target)
++{
++    if(const auto* Mount=UHorseRiderComponent::MountOf(Target))return Mount;
++    return Target;
+ }
+ 
+ bool MonsterTargeting::IsActiveArtisan(const APawn* Pawn)

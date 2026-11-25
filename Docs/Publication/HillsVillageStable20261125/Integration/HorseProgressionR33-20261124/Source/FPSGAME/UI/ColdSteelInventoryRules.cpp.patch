@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
++++ b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp
+@@ -520,7 +520,10 @@
+     TSet<FGuid> Seen;
+     for(const auto& Horse:Roster.Horses)
+     {
+-        if(!Horse.HorseId.IsValid()||Seen.Contains(Horse.HorseId)||Horse.RecallAfterUtc<0||!FMath::IsFinite(Horse.Health)||!FMath::IsFinite(Horse.Stamina)||
++        if(Horse.BirthVersion>FStableHorseTraits::IndependentRolls || Horse.Level<1 || Horse.Level>FStableHorseTraits::MaxLevel ||
++            Horse.Experience<0 || Horse.Experience>=FStableMountRecord::ExperienceNeeded(Horse.Level) ||
++            (Horse.Level==FStableHorseTraits::MaxLevel && Horse.Experience!=0) ||
++            !Horse.HorseId.IsValid()||Seen.Contains(Horse.HorseId)||Horse.RecallAfterUtc<0||!FMath::IsFinite(Horse.Health)||!FMath::IsFinite(Horse.Stamina)||
+             !FMath::IsFinite(Horse.MaxHealth)||!FMath::IsFinite(Horse.MaxStamina)||
+             Horse.MaxHealth<=0||Horse.MaxStamina<=0||Horse.Health<0||Horse.Health>Horse.MaxHealth||Horse.Stamina<0||Horse.Stamina>Horse.MaxStamina)
+         {Reason=TEXT("马匹状态无效");return false;}

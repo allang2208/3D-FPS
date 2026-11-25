@@ -1,0 +1,53 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
+@@ -49,6 +49,7 @@
+ #include "ColdSteelUIStyle.h"
+ #include "GunsmithUIStyle.h"
+ #include "ColdSteelWorldInteraction.h"
++#include "../Movement/StableHorseMarket.h"
+ 
+ #include "Blueprint/WidgetTree.h"
+ #include "Blueprint/WidgetLayoutLibrary.h"
+@@ -156,9 +157,10 @@
+     const bool bOrdinaryUse=bWorldInteraction && !PC->IsInBuildMode();
+     const auto* PlayerHealth=Character?Character->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+     const bool bDefenseFocus=bWorldInteraction && (!PlayerHealth || !PlayerHealth->IsDead()) && !AFPSGAMEPlayerController::BlocksOngoingActions(PC);
+-    const auto Focus=bWorldInteraction ? ColdSteelWorldInteraction::TraceUseTargets(PC,250.f,bDefenseFocus) : ColdSteelWorldInteraction::FUseTargets{};
++    const auto Focus=bWorldInteraction ? ColdSteelWorldInteraction::TraceUseTargets(PC,ColdSteelWorldInteraction::DefaultUseReach,bDefenseFocus) : ColdSteelWorldInteraction::FUseTargets{};
+     auto* Defense=bDefenseFocus ? Cast<AVillageDefenseSection>(Focus.Target) : nullptr;
+     const bool bRepair=Defense && Focus.RepairTarget()==Defense;
++    const bool bOperatingTarget=bOrdinaryUse && Cast<AVillageSiegeEngine>(Defense) && !bRepair;
+     const bool bMechanism=Focus.GateUse==EHighGateUse::Release;
+     if(auto* Visual=Character?Character->FindComponentByClass<UVillageDefenseFocusVisual>():nullptr)
+         Visual->SetFocus(bMechanism?nullptr:Defense,bDefenseFocus && !bMechanism ? Focus.NearbyBreach : nullptr);
+@@ -166,16 +168,17 @@
+     FocusedDefense=bMechanism?nullptr:Defense;
+     const auto* Artisan=Cast<AVillageArtisanMerchant>(Focus.Target);
+     const bool bMillKeeper = Cast<AVillageMillKeeper>(Focus.Target) != nullptr;
+-    const bool bDirectResident=Artisan || Cast<AChapelNun>(Focus.Target) || Cast<AVillageHerbalist>(Focus.Target) || bMillKeeper;
++    const bool bStableSeller=StableHorseMarket::IsSeller(Focus.Target);
++    const bool bDirectResident=bStableSeller || Artisan || Cast<AChapelNun>(Focus.Target) || Cast<AVillageHerbalist>(Focus.Target) || bMillKeeper;
+     const bool bResting=UFPSFurnitureRestComponent::IsResting(Character);
+     const bool bAidTarget=bOrdinaryUse && Artisan && !bResting && ResidentConversation::IsSpeakerDowned(Artisan);
+     AActor* ResidentFocus=nullptr;
+-    AActor* ContainerFocus=ColdSteelWorldInteraction::UpdateSceneContainerHighlight(PC,bOrdinaryUse && !bResting && !bDirectResident && !bRepair);
++    AActor* ContainerFocus=ColdSteelWorldInteraction::UpdateSceneContainerHighlight(PC,bOrdinaryUse && !bResting && !bDirectResident && !bRepair && !bOperatingTarget);
+     auto* Ride=Character?Character->FindComponentByClass<UHorseRiderComponent>():nullptr;
+     auto* Horse=Cast<AStableRidingHorse>(Focus.Target);
+     const bool bHorseUse=bOrdinaryUse&&Ride&&(Ride->Active()||Horse);
+     if(auto* Rest=Character?Character->FindComponentByClass<UFPSFurnitureRestComponent>():nullptr)
+-        Text=Rest->UpdateFocus(bOrdinaryUse && !bHorseUse && !ContainerFocus && !bAidTarget && !bRepair && !bMillKeeper);
++        Text=Rest->UpdateFocus(bOrdinaryUse && !bOperatingTarget && !bHorseUse && !ContainerFocus && !bAidTarget && !bRepair && !bMillKeeper && !bStableSeller);
+     if(!bHorseUse&&bAidTarget)
+     {
+         if(Conversation && Conversation->CanAidFocusedArtisan(Artisan))
+@@ -209,7 +212,8 @@
+         {
+             if(bTalkTarget && Hint.bAction)
+             {
+-                if(Conversation && Conversation->CanStartConversation(Candidate))
++                if((bStableSeller && Candidate==Focus.Target && ResidentConversation::CanReach(PC->GetPawn(),Candidate)) ||
++                    (Conversation && Conversation->CanStartConversation(Candidate)))
+                     ResidentFocus=Candidate;
+                 else
+                     Hint.Text.Reset();

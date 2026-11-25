@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelItemTooltipHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelItemTooltipHUD.cpp
+@@ -5,7 +5,7 @@
+ #include "Components/CanvasPanelSlot.h"
+ void UColdSteelHUDWidget::ShowItemTooltip(const FString& Id,FVector2D ScreenAnchor,bool Pinned,UWidget* Source,const FColdSteelItemTooltipPreview* Preview)
+ {
+-    if(!bInventoryOpen||bStatusTabActive||bQuestTabActive||Id.IsEmpty())return;
++    if(!bInventoryOpen||bStatusTabActive||bQuestTabActive||bMountTabActive||Id.IsEmpty())return;
+     auto* Root=Cast<UCanvasPanel>(WidgetTree->RootWidget);if(!Root)return;
+     if(!ItemTooltip){ItemTooltip=CreateWidget<UColdSteelItemTooltip>(GetOwningPlayer());auto* S=Root->AddChildToCanvas(ItemTooltip);S->SetZOrder(200);}
+     ItemTooltip->ShowItem(Id,Root->GetCachedGeometry().AbsoluteToLocal(ScreenAnchor),Pinned,Source,Preview);

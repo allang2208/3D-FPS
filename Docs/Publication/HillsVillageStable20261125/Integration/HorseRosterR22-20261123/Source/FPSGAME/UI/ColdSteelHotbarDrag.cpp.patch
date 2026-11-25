@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelHotbarDrag.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHotbarDrag.cpp
+@@ -18,7 +18,7 @@
+ 
+ void UColdSteelHUDWidget::BeginInventoryDrag(UColdSteelItemDrag* Drag)
+ {
+-    if(!Drag||!bInventoryOpen||bStatusTabActive||bQuestTabActive||!InventoryPanel)return;
++    if(!Drag||!bInventoryOpen||bStatusTabActive||bQuestTabActive||bMountTabActive||!InventoryPanel)return;
+     InventoryDrag=Drag;
+     if(!InventoryDragActivationHandle.IsValid())InventoryDragActivationHandle=FSlateApplication::Get().OnApplicationActivationStateChanged().AddUObject(this,&ThisClass::HandleInventoryDragActivation);
+     const auto PanelGeometry=InventoryPanel->GetCachedGeometry();

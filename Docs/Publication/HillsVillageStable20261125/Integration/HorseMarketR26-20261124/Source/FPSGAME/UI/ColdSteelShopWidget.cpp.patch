@@ -1,0 +1,161 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelShopWidget.cpp
+@@ -59,6 +59,115 @@
+     int64 Count=0;const FString Input=Box->GetText().ToString().TrimStartAndEnd();
+     if(Input.IsNumeric()&&!Input.Contains(TEXT(".")))LexTryParseString(Count,*Input);return Count;
+ }
++}
++
++void UColdSteelHorseOfferButton::Bind(UColdSteelShopWidget* Shop)
++{
++    OwnerShop=Shop;
++    OnClicked.AddDynamic(this,&ThisClass::SelectHorse);
++}
++void UColdSteelHorseOfferButton::SelectHorse()
++{
++    if(auto* Shop=OwnerShop.Get())Shop->SelectHorse(Horse);
++}
++
++void UColdSteelShopWidget::BuildHorseMarket(UVerticalBox* Body)
++{
++    HorseMarket=WidgetTree->ConstructWidget<UVerticalBox>();
++    auto* MarketSlot=Body->AddChildToVerticalBox(HorseMarket);
++    MarketSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    MarketSlot->SetPadding(FMargin(12,8));
++    HorseMarket->SetVisibility(ESlateVisibility::Collapsed);
++
++    MarketDate=ShopText(WidgetTree,TEXT(""),14,true);
++    HorseMarket->AddChildToVerticalBox(MarketDate)->SetPadding(FMargin(0,0,0,8));
++    auto* Scroll=WidgetTree->ConstructWidget<UScrollBox>();
++    Scroll->SetAllowOverscroll(false);
++    HorseMarket->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++    auto* List=WidgetTree->ConstructWidget<UVerticalBox>();
++    Scroll->AddChild(List);
++    for(int32 Index=0;Index<StableHorseMarket::DailyCount;++Index)
++    {
++        auto* Button=WidgetTree->ConstructWidget<UColdSteelHorseOfferButton>();
++        Button->Bind(this);Button->SetStyle(ColdSteelUI::ButtonStyle());
++        auto* Row=WidgetTree->ConstructWidget<UHorizontalBox>();Button->SetContent(Row);
++        auto* ContentSlot=CastChecked<UButtonSlot>(Row->Slot);
++        ContentSlot->SetHorizontalAlignment(HAlign_Fill);ContentSlot->SetPadding(FMargin(12,8));
++        auto* Label=ShopText(WidgetTree,TEXT(""),16,true);
++        Row->AddChildToHorizontalBox(Label)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
++        auto* Price=ShopText(WidgetTree,TEXT(""),14);Row->AddChildToHorizontalBox(Price)->SetVerticalAlignment(VAlign_Center);
++        List->AddChildToVerticalBox(Button)->SetPadding(FMargin(0,0,0,4));
++        HorseRows.Add(Button);HorseLabels.Add(Label);HorsePrices.Add(Price);
++    }
++    auto* Surface=ShopSurface(WidgetTree);
++    List->AddChildToVerticalBox(Surface)->SetPadding(FMargin(0,8,0,4));
++    auto* Details=WidgetTree->ConstructWidget<UVerticalBox>();Surface->SetContent(Details);
++    HorseName=ShopText(WidgetTree,TEXT(""),18,true);HorseName->SetColorAndOpacity(ColdSteelUI::HUDGoldLight);
++    Details->AddChildToVerticalBox(HorseName);
++    HorseRatings=ShopText(WidgetTree,TEXT(""),16);
++    Details->AddChildToVerticalBox(HorseRatings)->SetPadding(FMargin(0,8));
++    HorseFigures=ShopText(WidgetTree,TEXT(""),14);
++    Details->AddChildToVerticalBox(HorseFigures);
++    HorsePurchase=ShopButton(WidgetTree,TEXT("购买"));
++    HorsePurchase->OnClicked.AddDynamic(this,&ThisClass::BuySelectedHorse);
++    HorseMarket->AddChildToVerticalBox(HorsePurchase)->SetPadding(FMargin(0,8,0,0));
++}
++
++void UColdSteelShopWidget::SelectHorse(FGuid Id)
++{
++    if(!Model || !Model->IsStableShop())return;
++    ViewedHorse=Id;
++    if(HUD)HUD->PlayButtonClick();
++    Refresh();
++}
++void UColdSteelShopWidget::BuySelectedHorse()
++{
++    if(HUD)HUD->PlayButtonClick();
++    if(Model && ViewedHorse.IsValid())Model->BuyHorse(ViewedHorse);
++}
++void UColdSteelShopWidget::RefreshHorseMarket(const UColdSteelStatusModel& Status)
++{
++    const auto& Offers=Model->HorseOffers();
++    const auto& Roster=Status.ProfileView().MountRoster;
++    const auto* Current=Offers.FindByPredicate([this](const auto& Lot){return Lot.Horse.HorseId==ViewedHorse;});
++    // A new day clears the previous selection. A purchase always targets the visible ID.
++    if(!Current && !Offers.IsEmpty())
++    {
++        Current=Offers.FindByPredicate([&Roster](const auto& Lot){return !Roster.Find(Lot.Horse.HorseId);});
++        if(!Current)Current=&Offers[0];
++    }
++    ViewedHorse=Current?Current->Horse.HorseId:FGuid();
++    ShopSet(MarketDate,Current?FString::Printf(TEXT("第 %d 天 · 在售名册     每日零时换马"),Model->HorseMarketDay()+1):TEXT("正在等候村庄马匹名册"));
++    for(int32 I=0;I<HorseRows.Num();++I)
++    {
++        auto* Row=HorseRows[I].Get();
++        Row->SetVisibility(Offers.IsValidIndex(I)?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
++        if(!Offers.IsValidIndex(I))continue;
++        const auto& Lot=Offers[I];Row->Horse=Lot.Horse.HorseId;
++        const bool Sold=Roster.Find(Row->Horse)!=nullptr;
++        const bool Selected=Row->Horse==ViewedHorse;
++        ShopSet(HorseLabels[I],Lot.Horse.DisplayName());
++        HorseLabels[I]->SetColorAndOpacity(Selected?ColdSteelUI::HUDGoldLight:ColdSteelUI::TextPrimary);
++        ShopSet(HorsePrices[I],Sold?TEXT("已购入"):FString::Printf(TEXT("%d 灵魂"),Lot.Price));
++        HorsePrices[I]->SetColorAndOpacity(Sold?ColdSteelUI::TextSecondary:ColdSteelUI::HUDGoldLight);
++    }
++    auto* Caption=CastChecked<UTextBlock>(HorsePurchase->GetContent());
++    if(!Current)
++    {
++        for(auto* Label:{HorseName.Get(),HorseRatings.Get(),HorseFigures.Get()})ShopSet(Label,TEXT(""));
++        ShopSet(Caption,TEXT("等候名册"));HorsePurchase->SetIsEnabled(false);return;
++    }
++    const auto Traits=FStableHorseTraits::FromId(ViewedHorse);
++    ShopSet(HorseName,Current->Horse.DisplayName());
++    ShopSet(HorseRatings,Traits.RatingsText());
++    ShopSet(HorseFigures,FString::Printf(TEXT("生命  %.0f      体力  %.0f\n%s"),Traits.HealthLimit(),Traits.StaminaLimit(),*Traits.PerformanceText()));
++    const bool Sold=Roster.Find(ViewedHorse)!=nullptr;
++    const bool Affordable=Status.SoulBalance()>=Current->Price;
++    const FString Action=Sold?TEXT("已收入马匹栏"):Model->IsTradePending()?TEXT("正在登记"):
++        Affordable?FString::Printf(TEXT("购买%s · %d 灵魂"),*Current->Horse.DisplayName(),Current->Price):
++        FString::Printf(TEXT("还差 %lld 灵魂"),int64(Current->Price)-Status.SoulBalance());
++    ShopSet(Caption,Action);
++    HorsePurchase->SetIsEnabled(!Sold && Affordable && !Model->IsTradePending());
+ }
+ 
+ void UColdSteelShopWidget::NativeOnInitialized()
+@@ -91,6 +200,7 @@
+     auto* BalanceSlot=Header->AddChildToHorizontalBox(Balance);BalanceSlot->SetVerticalAlignment(VAlign_Center);BalanceSlot->SetPadding(FMargin(0,0,12,0));
+     auto* CloseButton=ShopButton(WidgetTree,TEXT("关闭 · O"));CloseButton->OnClicked.AddDynamic(this,&ThisClass::Close);Header->AddChildToHorizontalBox(CloseButton);
+ 
++    BuildHorseMarket(Body);
+     auto AddSection=[&](bool Sale)
+     {
+         auto* Area=WidgetTree->ConstructWidget<UBorder>();Area->SetBrushColor(FLinearColor::Transparent);Area->SetPadding(FMargin(0));
+@@ -182,6 +292,10 @@
+     else if(Model->IsArtisanShop())Title=Model->MerchantName()+TEXT("商店");
+     ShopSet(ShopTitle,Title);
+     const bool bPurchaseOnly=Model->IsPurchaseOnly();
++    ViewedHorse.Invalidate();
++    const bool Stable=Model->IsStableShop();
++    HorseMarket->SetVisibility(Stable?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
++    BuyArea->SetVisibility(Stable?ESlateVisibility::Collapsed:ESlateVisibility::SelfHitTestInvisible);
+     SaleArea->SetVisibility(bPurchaseOnly?ESlateVisibility::Collapsed:ESlateVisibility::Visible);
+     SaleDivider->SetVisibility(bPurchaseOnly?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
+     SaleFooter->SetVisibility(bPurchaseOnly?ESlateVisibility::Collapsed:ESlateVisibility::SelfHitTestInvisible);
+@@ -194,6 +308,12 @@
+     if(!Model||!Model->IsOpen())return;
+     const auto* Status=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+     ShopSet(Balance,FString::Printf(TEXT("灵魂  %lld"),Status->SoulBalance()));
++    if(Model->IsStableShop())
++    {
++        RefreshHorseMarket(*Status);
++        ShopSet(Message,Model->ResultMessage());Message->SetToolTipText(FText::FromString(Model->ResultMessage()));
++        return;
++    }
+     TArray<FColdSteelShopSaleLine> Stock,Sale;
+     for(const auto& Item:Model->Stock())Stock.Add({Item,1,Model->BuyPrice(Item.Definition)});
+     for(const auto& Selection:Model->Selection())if(const auto* Item=Status->FindItem(Selection.Id))Sale.Add({*Item,Selection.Count,Model->SellPrice(*Item)});
+@@ -242,7 +362,9 @@
+ void UColdSteelShopWidget::NextSalePage(){SaleGrid->TurnPage(1);}
+ FReply UColdSteelShopWidget::NativeOnMouseWheel(const FGeometry& G,const FPointerEvent& E)
+ {
+-    if(IsConfirming())return FReply::Handled();const int32 Direction=E.GetWheelDelta()>0?-1:E.GetWheelDelta()<0?1:0;
++    if(IsConfirming())return FReply::Handled();
++    if(Model && Model->IsStableShop())return Super::NativeOnMouseWheel(G,E);
++    const int32 Direction=E.GetWheelDelta()>0?-1:E.GetWheelDelta()<0?1:0;
+     if(BuyArea->GetCachedGeometry().IsUnderLocation(E.GetScreenSpacePosition())){BuyGrid->TurnPage(Direction,true);return FReply::Handled();}
+     if(!Model->IsPurchaseOnly()&&SaleArea->GetCachedGeometry().IsUnderLocation(E.GetScreenSpacePosition())){SaleGrid->TurnPage(Direction,true);return FReply::Handled();}
+     return Super::NativeOnMouseWheel(G,E);

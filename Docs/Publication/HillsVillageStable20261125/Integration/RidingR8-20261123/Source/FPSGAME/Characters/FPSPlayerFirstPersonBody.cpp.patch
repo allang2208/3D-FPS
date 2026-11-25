@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp
+@@ -2,6 +2,7 @@
+ #include "FPSBodyPoseAnchorComponent.h"
+ #include "../FPSGAMECharacter.h"
+ #include "../Movement/FPSFurnitureRestComponent.h"
++#include "../Movement/HorseRiderComponent.h"
+ #include "../Movement/PlayerKnockdownComponent.h"
+ #include "../Building/FPSForgeWorkComponent.h"
+ #include "Camera/CameraComponent.h"
+@@ -23,7 +24,7 @@
+     return Character.IsValid()&&Character->IsLocallyControlled()&&!IsThirdPersonViewEnabled()
+         &&!FPSPlayerBodyWorldBodyHidden()&&!FPSPlayerBodyWorldBodySuppressed()
+         &&FPSFirstPersonBody::Enabled.GetValueOnGameThread()!=0
+-        &&DisplayState.Action!=EFPSBodyAction::Dead&&!Character->IsTraversing()&&!IsWorkstationIdle();
++        &&!UHorseRiderComponent::IsRiding(Character.Get())&&DisplayState.Action!=EFPSBodyAction::Dead&&!Character->IsTraversing()&&!IsWorkstationIdle();
+ }
+ 
+ void UFPSPlayerBodyComponent::InitializeFirstPersonLowerBody()

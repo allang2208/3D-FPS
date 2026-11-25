@@ -1,0 +1,71 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp
+@@ -192,6 +192,7 @@
+         // RefreshAmmo already refreshes the quick bar for all of its callers.
+         { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshAmmo); RefreshAmmo(); }
+         { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshTopVitals); RefreshTopVitals(); }
++        if(bInventoryOpen&&bMountTabActive)RefreshMountPage();
+         RefreshSoulBalance();
+         RefreshHUDTargetDisplay();
+         { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_RefreshWorldClock); RefreshWorldClock(); }
+@@ -400,7 +401,7 @@
+ 
+ bool UColdSteelHUDWidget::HandlePanelShortcut(const FKey& Key, bool bRepeat)
+ {
+-    if(IsExpeditionEquipmentOpen()&&(Key==EKeys::O||Key==EKeys::CapsLock||Key==EKeys::P||Key==EKeys::N||Key==EKeys::U))return true;
++    if(IsExpeditionEquipmentOpen()&&(Key==EKeys::O||Key==EKeys::CapsLock||Key==EKeys::P||Key==EKeys::N||Key==EKeys::U||Key==EKeys::I))return true;
+     if(HandleShopConfirmationKey(Key))return true;
+     // 文本输入焦点守卫（2026-09-29，图鉴状态栏搜索栏引入）：PlayerController 的输入层
+     // 调用本函数时不经过 Slate 焦点，在搜索框打字时按到 P/N/Tab/Caps 会误切抽屉。
+@@ -412,17 +413,18 @@
+     }
+     // 注意：K／J 属强化台与改造台（FPSGAMEPlayerController 先消费），C 是滑铲，图鉴用 N。
+     if(Key==EKeys::O){if(!bRepeat)ToggleShop();return true;}
+-    if (Key != EKeys::Tab && Key != EKeys::CapsLock && Key != EKeys::P && Key != EKeys::N && Key != EKeys::U) return false;
++    if (Key != EKeys::Tab && Key != EKeys::CapsLock && Key != EKeys::P && Key != EKeys::N && Key != EKeys::U && Key != EKeys::I) return false;
+     if (bRepeat) return true;
+     if(IsQuickDragging()){CancelQuickDrag();return true;}
+     const bool bStatus = Key == EKeys::CapsLock;
+     const bool bCodex = Key == EKeys::N;
+     const bool bQuest = Key == EKeys::U;
++    const bool bMounts = Key == EKeys::I;
+     const bool bSkills = Key == EKeys::P;
+     // P 打开／收起全屏技能树（2026-11-15）；Tab／Caps／N 仍按原抽屉规则。
+     if(bSkills){if(IsSkillTreeOpen())CloseSkillTree();else OpenSkillTree();return true;}
+     // 已打开且按下的就是当前页 → 收起；Tab 关闭任意抽屉。
+-    if (bInventoryOpen && (Key == EKeys::Tab || (bSkills&&bSkillsTabActive) || (bStatus&&bStatusTabActive) || (bCodex&&bCodexTabActive) || (bQuest&&bQuestTabActive)))
++    if (bInventoryOpen && (Key == EKeys::Tab || (bSkills&&bSkillsTabActive) || (bStatus&&bStatusTabActive) || (bCodex&&bCodexTabActive) || (bQuest&&bQuestTabActive) || (bMounts&&bMountTabActive)))
+     {
+         SetInventoryOpen(false);
+         return true;
+@@ -430,8 +432,8 @@
+     UWidgetBlueprintLibrary::CancelDragDrop();
+     if (auto* Scroll = Cast<UScrollBox>(EquipmentPage))
+         if (auto* Board = Cast<UColdSteelInventoryWidget>(Scroll->GetChildAt(0))) Board->CancelInteraction();
+-    if (bStatus || bSkills || bCodex || bQuest) {CloseWarehouse();CloseShop();}
+-    SetInventoryPage(bQuest?5:bCodex?4:(bSkills?2:(bStatus?0:1)));
++    if (bStatus || bSkills || bCodex || bQuest || bMounts) {CloseWarehouse();CloseShop();}
++    SetInventoryPage(bMounts?6:bQuest?5:bCodex?4:(bSkills?2:(bStatus?0:1)));
+     SetInventoryOpen(true);
+     if (CloseButton) CloseButton->SetKeyboardFocus();
+     return true;
+@@ -590,7 +592,9 @@
+ {
+     if(Page!=2)CloseMagicConfiguration();
+     HideItemTooltip(true);
+-    bStatusTabActive=Page==0; bSkillsTabActive=Page==2; bCodexTabActive=Page==4; bQuestTabActive=Page==5;
++    bStatusTabActive=Page==0; bSkillsTabActive=Page==2; bCodexTabActive=Page==4; bQuestTabActive=Page==5; bMountTabActive=Page==6;
++    if(MountPage)MountPage->SetVisibility(bMountTabActive?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
++    if(bMountTabActive)RefreshMountPage();
+     if (StatusPage) StatusPage->SetVisibility(Page==0?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+     if (EquipmentPage) EquipmentPage->SetVisibility(Page==1?ESlateVisibility::Visible:ESlateVisibility::Collapsed);
+     if (SoulWalletSize) SoulWalletSize->SetVisibility(Page==1||Page==3?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+@@ -603,7 +607,7 @@
+         QuestPage->SetVisibility(bQuestTabActive ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
+         if (bQuestTabActive) QuestPage->OpenList();
+     }
+-    if (InventoryTitleText) InventoryTitleText->SetText(FText::FromString(Page==0?TEXT("角色状态"):(Page==1||Page==3)?TEXT("装备与背包"):Page==4?TEXT("图鉴"):Page==5?TEXT("任务"):TEXT("技能")));
++    if (InventoryTitleText) InventoryTitleText->SetText(FText::FromString(Page==0?TEXT("角色状态"):(Page==1||Page==3)?TEXT("装备与背包"):Page==4?TEXT("图鉴"):Page==5?TEXT("任务"):Page==6?TEXT("马匹"):TEXT("技能")));
+     UBorder* Surfaces[]={StatusTabSurface,EquipmentTabSurface,SkillTabSurface};
+     UBorder* Underlines[]={StatusTabUnderline,EquipmentTabUnderline,SkillTabUnderline};
+     UTextBlock* Labels[]={StatusTabText,EquipmentTabText,SkillTabText};

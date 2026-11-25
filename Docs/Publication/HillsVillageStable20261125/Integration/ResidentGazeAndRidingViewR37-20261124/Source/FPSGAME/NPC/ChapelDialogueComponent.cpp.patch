@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp
++++ b/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp
+@@ -50,13 +50,7 @@
+ }
+ void UChapelDialogueComponent::SetLocalFacing(APlayerController* Player)
+ {
+-    if(auto* Artisan=Cast<AVillageArtisanMerchant>(LocalMerchant.Get()))Artisan->SetLocalConversation(Player);
+-    else if(auto* Baker=Cast<AVillageBaker>(LocalMerchant.Get()))Baker->SetLocalConversation(Player);
+-    else if(auto* Master=Cast<AVillageMasterArtisan>(LocalMerchant.Get()))Master->SetLocalConversation(Player);
+-    else if(auto* Miller=Cast<AVillageMillKeeper>(LocalMerchant.Get()))Miller->SetLocalConversation(Player);
+-    else if(auto* Keeper=Cast<AVillageTavernKeeper>(LocalMerchant.Get()))Keeper->SetLocalConversation(Player);
+-    else if(auto* Herbalist=Cast<AVillageHerbalist>(LocalMerchant.Get()))Herbalist->SetLocalConversation(Player);
+-    else if(auto* Nun=LocalNun.Get())Nun->SetLocalConversation(Player);
++    ResidentConversation::SetLocalFacing(LocalSpeaker(),Player);
+ }
+ bool UChapelDialogueComponent::CanStartConversation(const AActor* Speaker) const
+ {

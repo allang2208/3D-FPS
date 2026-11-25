@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Monsters/Mutant3Feral.cpp
++++ b/Source/FPSGAME/Monsters/Mutant3Feral.cpp
+@@ -234,7 +234,7 @@
+     TSet<APawn*> Contacted;
+     for (const FOverlapResult& Hit : Hits)
+     {
+-        APawn* Victim = Cast<APawn>(Hit.GetActor());
++        APawn* Victim = Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor()));
+         if (!IsValid(Victim) || !MonsterTargeting::IsOpponentPawn(Victim) || Contacted.Contains(Victim)) continue;
+         Contacted.Add(Victim);
+         float VictimRadius, VictimHalfHeight;

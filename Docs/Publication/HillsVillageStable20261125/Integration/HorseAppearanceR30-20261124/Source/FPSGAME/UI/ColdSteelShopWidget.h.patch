@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelShopWidget.h
+@@ -135,6 +135,7 @@
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> HorseFigures;
+     UPROPERTY(Transient) TObjectPtr<UButton> HorsePurchase;
+     FGuid ViewedHorse;
++    FGuid DisplayedHorseDetails;
+     UFUNCTION() void RemoveSelected();
+     UFUNCTION() void SaleQuantityCommitted(const FText& Text, ETextCommit::Type CommitMethod);
+     UFUNCTION() void PreviousBuyPage();

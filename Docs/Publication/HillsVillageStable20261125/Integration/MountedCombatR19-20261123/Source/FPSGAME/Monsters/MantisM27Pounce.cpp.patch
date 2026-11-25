@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Monsters/MantisM27Pounce.cpp
++++ b/Source/FPSGAME/Monsters/MantisM27Pounce.cpp
+@@ -27,6 +27,7 @@
+     FHitResult Hit;
+     FCollisionQueryParams Query(SCENE_QUERY_STAT(M27PounceSight), false, this);
+     Query.AddIgnoredActor(Victim);
++    Query.AddIgnoredActor(MonsterTargeting::ContactBody(Victim));
+     return !GetWorld()->LineTraceSingleByChannel(Hit, GetActorLocation()+FVector(0,0,25), Victim->GetActorLocation(), ECC_Visibility, Query);
+ }
+ 
+@@ -307,7 +308,7 @@
+     bool PlayedContact = false;
+     for (const auto& Hit : Hits)
+     {
+-        APawn* Victim = Cast<APawn>(Hit.GetActor());
++        APawn* Victim = Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor()));
+         if (!IsValid(Victim) || !MonsterTargeting::IsOpponentPawn(Victim) || Contacted.Contains(Victim)) continue;
+         Contacted.Add(Victim);
+         float VictimRadius, VictimHeight;

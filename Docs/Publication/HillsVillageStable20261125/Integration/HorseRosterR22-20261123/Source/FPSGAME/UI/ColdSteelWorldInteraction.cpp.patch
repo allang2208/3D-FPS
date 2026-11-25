@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -100,7 +100,11 @@
+     {
+         AActor* Target=Hit.GetActor();
+         if (Hit.bBlockingHit) ClearReach = FMath::Min(ClearReach,Hit.Distance);
+-        if(Cast<AStableRidingHorse>(Target)){Found.Target=Target;return Found;}
++        if(auto* Horse=Cast<AStableRidingHorse>(Target))
++        {
++            if(!Horse->IsRetreating()&&Horse->Visit()==EStableHorseVisit::Present){Found.Target=Horse;return Found;}
++            continue;
++        }
+         if (IsCounterResident(Target))
+         {
+             if (!Found.CounterResident && ResidentConversation::CanReach(PC->GetPawn(), Target))

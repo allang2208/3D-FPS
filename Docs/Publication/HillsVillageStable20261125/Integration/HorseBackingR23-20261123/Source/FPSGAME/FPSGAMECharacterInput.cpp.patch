@@ -1,0 +1,48 @@
+--- a/Source/FPSGAME/FPSGAMECharacterInput.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterInput.cpp
+@@ -237,6 +237,13 @@
+ 
+ void AFPSGAMECharacter::MoveForward(float Value)
+ {
++    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())
++    {
++        const bool bLocked=(BipodDeployment&&BipodDeployment->BlocksMovement())||IsMeleeSkillMovementLocked();
++        Ride->SetForward(bLocked?0.f:Value);
++        MoveInput.Y=0.f;
++        return;
++    }
+     if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：移动输入被忽略，退出后恢复
+     if (IsMeleeSkillMovementLocked()) { MoveInput.Y = 0.f; return; }
+     // 失焦窗口的轴绑定以最后键值逐帧重发（KeyUp 事件从未到达该窗口）——Tick 里清
+@@ -247,8 +254,6 @@
+         const bool bPhysDown = Value > 0.f ? (PhysKey(0x57)||PhysKey(VK_UP)) : (PhysKey(0x53)||PhysKey(VK_DOWN));
+         if (!bPhysDown) Value = 0.f;
+     }
+-    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())
+-    { Ride->SetForward(Value); MoveInput.Y=0.f; return; }
+     MoveInput.Y = Value;
+     if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
+         AddMovementInput(FRotationMatrix(FRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f)).GetUnitAxis(EAxis::X), Value);
+@@ -256,6 +261,13 @@
+ 
+ void AFPSGAMECharacter::MoveRight(float Value)
+ {
++    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())
++    {
++        const bool bLocked=(BipodDeployment&&BipodDeployment->BlocksMovement())||IsMeleeSkillMovementLocked();
++        Ride->SetTurn(bLocked?0.f:Value);
++        MoveInput.X=0.f;
++        return;
++    }
+     if(BipodDeployment&&BipodDeployment->BlocksMovement())return; // 架枪锁定：移动输入被忽略，退出后恢复
+     if (IsMeleeSkillMovementLocked()) { MoveInput.X = 0.f; return; }
+     if (IsLocallyControlled() && !bMPAutoInputActive && !FMath::IsNearlyZero(Value))
+@@ -264,8 +276,6 @@
+         const bool bPhysDown = Value > 0.f ? (PhysKey(0x44)||PhysKey(VK_RIGHT)) : (PhysKey(0x41)||PhysKey(VK_LEFT));
+         if (!bPhysDown) Value = 0.f;
+     }
+-    if(auto* Ride=FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->Active())
+-    { Ride->SetTurn(Value); MoveInput.X=0.f; return; }
+     MoveInput.X = Value;
+     if (!bIsSliding && !IsDodging() && !FMath::IsNearlyZero(Value) && Controller)
+         AddMovementInput(FRotationMatrix(FRotator(0.0f, Controller->GetControlRotation().Yaw, 0.0f)).GetUnitAxis(EAxis::Y), Value);

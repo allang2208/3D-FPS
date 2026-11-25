@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp
+@@ -15,6 +15,7 @@
+ #include "FPSPlayerBodyMeshComponent.h"
+ #include "FPSBackpackMotionComponent.h"
+ #include "../Movement/FPSFurnitureRestComponent.h"
++#include "../Movement/HorseRiderComponent.h"
+ #include "../Building/FPSForgeWorkComponent.h"
+ #include "FPSModularOutfitComponent.h"
+ #include "FPSPlayerBodyAnimInstance.h"
+@@ -580,7 +581,7 @@
+ bool UFPSPlayerBodyComponent::IsWorldWeaponStowed(UPrimitiveComponent* Mesh) const
+ {
+     const float Now=ServerClock();
+-    if(UFPSFurnitureRestComponent::IsResting(Character.Get()))return true;
++    if(UFPSFurnitureRestComponent::IsResting(Character.Get())||UHorseRiderComponent::UsesSaddleHands(Character.Get()))return true;
+     if(IsWorkstationIdle())return true;
+     if(IsDeathViewActive())return true;
+     if(FPSBodyPoses::Traversing(DisplayState.Motion)||Now<WorldWeaponsHiddenUntil)return true;

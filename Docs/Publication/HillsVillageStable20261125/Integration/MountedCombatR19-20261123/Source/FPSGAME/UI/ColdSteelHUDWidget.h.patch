@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.h
++++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.h
+@@ -279,6 +279,8 @@
+     UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> StaminaSlot;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> StaminaValue;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> DashAttackReadyText;
++    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountStaminaText;
++    FIntPoint DisplayedMountStamina=FIntPoint(-1,-1);
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> CaptureEscapeHint;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> DecisiveMainHint;
+     UPROPERTY(Transient) TObjectPtr<UTextBlock> DecisiveOffhandHint;

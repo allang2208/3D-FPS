@@ -1,0 +1,83 @@
+--- a/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerFirstPersonBody.cpp
+@@ -3,6 +3,7 @@
+ #include "../FPSGAMECharacter.h"
+ #include "../Movement/FPSFurnitureRestComponent.h"
+ #include "../Movement/HorseRiderComponent.h"
++#include "../Movement/StableRidingHorse.h"
+ #include "../Movement/PlayerKnockdownComponent.h"
+ #include "../Building/FPSForgeWorkComponent.h"
+ #include "Camera/CameraComponent.h"
+@@ -24,7 +25,7 @@
+     return Character.IsValid()&&Character->IsLocallyControlled()&&!IsThirdPersonViewEnabled()
+         &&!FPSPlayerBodyWorldBodyHidden()&&!FPSPlayerBodyWorldBodySuppressed()
+         &&FPSFirstPersonBody::Enabled.GetValueOnGameThread()!=0
+-        &&!UHorseRiderComponent::IsRiding(Character.Get())&&DisplayState.Action!=EFPSBodyAction::Dead&&!Character->IsTraversing()&&!IsWorkstationIdle();
++        &&!UHorseRiderComponent::UsesSaddleHands(Character.Get())&&DisplayState.Action!=EFPSBodyAction::Dead&&!Character->IsTraversing()&&!IsWorkstationIdle();
+ }
+ 
+ void UFPSPlayerBodyComponent::InitializeFirstPersonLowerBody()
+@@ -73,7 +74,7 @@
+     if(!FirstPersonLowerBody)return;
+     // Knockdown: the shared body plays the full-body fall, so the owner sees its legs. A body without that clip
+     // still stands while the camera falls; hide the owner copy (and its outfits) then.
+-    const bool bShow=ShouldShowFirstPersonLowerBody()&&!UPlayerKnockdownComponent::HidesOwnerLowerBody(GetOwner());
++    const bool bShow=!bRideEyeOccluded&&ShouldShowFirstPersonLowerBody()&&!UPlayerKnockdownComponent::HidesOwnerLowerBody(GetOwner());
+     if(FirstPersonLowerBody->IsVisible()!=bShow)FirstPersonLowerBody->SetVisibility(bShow);
+     if(FirstPersonLowerBody->bHiddenInGame==bShow)FirstPersonLowerBody->SetHiddenInGame(!bShow);
+ }
+@@ -83,7 +84,8 @@
+     OwnerCameraOffset=FVector::ZeroVector;
+     if(UFPSFurnitureRestComponent::IsResting(Character.Get()))return;
+     if(IsWorkstationIdle())return;
+-    if(!FirstPersonLowerBody||!ShouldShowFirstPersonLowerBody()||!Character->FirstPersonCamera)return;
++    if(!Character.IsValid()||!Character->FirstPersonCamera)return;
++    if((!FirstPersonLowerBody||!ShouldShowFirstPersonLowerBody())&&!UHorseRiderComponent::IsRiding(Character.Get()))return;
+     OwnerCameraOffset=CalculateAnatomicalCameraOffset(Eye);
+     Eye+=OwnerCameraOffset;
+ }
+@@ -109,10 +111,19 @@
+     const float LookDown=FMath::SmoothStep(20.f,80.f,Pitch);
+     FVector Offset(Character->bIsCrouched?Read(TEXT("camera_crouch_forward_cm"),OwnerCameraCrouchForward):Read(TEXT("camera_forward_cm"),OwnerCameraForward),
+         0.f,-Read(TEXT("look_down_drop_cm"),OwnerCameraLookDownDrop)*LookDown);
+-    Offset.X+=Read(TEXT("look_down_forward_cm"),OwnerCameraLookDownForward)*LookDown;
++    float Forward=Offset.X+Read(TEXT("look_down_forward_cm"),OwnerCameraLookDownForward)*LookDown;
+     const float Clearance=Read(TEXT("torso_front_clearance_cm"),OwnerCameraTorsoClearance);
+     const auto* Parent=Character->FirstPersonCamera->GetAttachParent();
+     const FTransform ParentWorld=Parent?Parent->GetComponentTransform():Character->GetActorTransform();
++    const auto* Ride=Character->FindComponentByClass<UHorseRiderComponent>();
++    const bool bRiding=Ride&&Ride->Active();
++    FVector Front=FVector::ForwardVector;
++    if(bRiding)
++    {
++        const FRotator Aim=Character->GetControlRotation();
++        Front=ParentWorld.InverseTransformVectorNoScale(FRotator(0,Aim.Yaw,0).Vector()).GetSafeNormal2D();
++        Offset.Z+=Ride->EyeHeightOffset();
++    }
+     // Idle breathing belongs to the body, not the eye. Use an input-pitched
+     // reference envelope while stationary; reading animated chest positions
+     // here makes the first-person view chase every breath/weight shift.
+@@ -120,7 +131,7 @@
+     // interpolation and collision sweep. Melee reuses this same eye offset.
+     if(const auto* Body=GetBodyMesh())
+     {
+-        const bool StableIdle=DisplayState.Action==EFPSBodyAction::None&&DisplayState.Motion==EFPSBodyMotion::Ground
++        const bool StableIdle=!bRiding&&DisplayState.Action==EFPSBodyAction::None&&DisplayState.Motion==EFPSBodyMotion::Ground
+             &&Character->GetVelocity().SizeSquared2D()<25.f&&Body->GetSkeletalMeshAsset();
+         const auto ReferencePosition=[&](int32 BoneIndex)
+         {
+@@ -142,11 +153,13 @@
+                 ?Body->GetComponentTransform().TransformPosition(ReferenceHip+IdleLean.RotateVector(ReferencePosition(BoneIndex)-ReferenceHip))
+                 :Body->GetBoneLocation(Bone);
+             const FVector PosedTorso=ParentWorld.InverseTransformPosition(TorsoWorld);
+-            Offset.X=FMath::Max(Offset.X,PosedTorso.X-Eye.X+Clearance);
++            Forward=FMath::Max(Forward,FVector::DotProduct(PosedTorso-Eye,Front)+Clearance);
+         }
+     }
++    Offset=Front*Forward+FVector(0,0,Offset.Z);
+     const FVector Start=ParentWorld.TransformPosition(Eye),Desired=ParentWorld.TransformPosition(Eye+Offset);
+     FHitResult Hit;FCollisionQueryParams Params(SCENE_QUERY_STAT(OwnerBodyCamera),false,Character.Get());
++    if(bRiding)Params.AddIgnoredActor(Ride->GetMount());
+     if(GetWorld()->SweepSingleByChannel(Hit,Start,Desired,FQuat::Identity,ECC_Camera,FCollisionShape::MakeSphere(6.f),Params))
+         Offset*=FMath::Max(0.f,Hit.Time-.02f);
+     return Offset;

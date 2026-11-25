@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/UI/ColdSteelShopWidget.cpp
++++ b/Source/FPSGAME/UI/ColdSteelShopWidget.cpp
+@@ -79,10 +79,10 @@
+     {
+         SAssignNew(Panel,SColdSteelHorseMarket)
+             .OnSelect(FSimpleDelegate::CreateWeakLambda(this,[this]{if(HUD)HUD->PlayButtonClick();}))
+-            .OnBuy(SColdSteelHorseMarket::FBuyHorse::CreateWeakLambda(this,[this](FGuid Id)
++            .OnDetails(SColdSteelHorseMarket::FOpenHorse::CreateWeakLambda(this,[this](FGuid Id)
+             {
+                 if(HUD)HUD->PlayButtonClick();
+-                if(Model && Model->IsStableShop())Model->BuyHorse(Id);
++                if(HUD && Model && Model->IsStableShop())HUD->OpenMarketMountDetails(Id);
+             }));
+         HorseMarket->SetContent(Panel.ToSharedRef());
+     }

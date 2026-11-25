@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Monsters/M14MucusProjectile.cpp
++++ b/Source/FPSGAME/Monsters/M14MucusProjectile.cpp
+@@ -136,9 +136,9 @@
+     if(First)
+     {
+         UpdateLiquidVisual(Dt*First->Time,Start,First->Location);
+-        const auto* HitPawn=Cast<APawn>(First->GetActor());
++        AActor* HitActor=MonsterTargeting::DamageRecipient(First->GetActor());
++        const auto* HitPawn=Cast<APawn>(HitActor);
+         ShowImpact(*First,Velocity);
+-        AActor* HitActor=First->GetActor();
+         if(HitPawn&&HitPawn->IsPlayerControlled())
+         {
+             auto* Vitals=HitActor->FindComponentByClass<UFPSCombatHealthComponent>();
