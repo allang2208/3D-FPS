@@ -1,0 +1,1257 @@
+[
+  {
+    "batch": "BallistaFeedback-20261123-A",
+    "path": "Source/FPSGAME/FPSGAMECharacter.h",
+    "patch": "Integration/BallistaFeedback-20261123-A/Source__FPSGAME__FPSGAMECharacter.h.patch",
+    "before_lf_sha256": "2c4936f07ca967e3ade130e00857d388a73750937cc87bd54a008c933fec3657",
+    "recorded_after_lf_sha256": "3e7453618d45a7cde00f7feda8d02ac27d34265f61528a5c60e97696bf5f8cea",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "BallistaFeedback-20261123-A",
+    "path": "Source/FPSGAME/FPSGAMECharacterCombatFeedback.cpp",
+    "patch": "Integration/BallistaFeedback-20261123-A/Source__FPSGAME__FPSGAMECharacterCombatFeedback.cpp.patch",
+    "before_lf_sha256": "08fb48fac6baa55db5862f7c3e3864b1a083fa8283a6c06f148f38e74bc173d7",
+    "recorded_after_lf_sha256": "2e843bcdc64f7b09bd264ab0f3b5b760a847e577782963e03887becf21adc3ef",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "BallistaFeedback-20261123-A",
+    "path": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+    "patch": "Integration/BallistaFeedback-20261123-A/Source__FPSGAME__UI__ColdSteelCrosshair.cpp.patch",
+    "before_lf_sha256": "9eb9ffba4d2be4d82ea8d7da07c31a8160e83bf3aa18f9d3e0443b5c87169fa5",
+    "recorded_after_lf_sha256": "8511a1ccc968d96897abca56aea04d877d3fd9b831270ebc9cc818873430636a",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "BallistaRoofPlacement-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildTarget.cpp",
+    "patch": "Integration/BallistaRoofPlacement-20261123-A/Source__FPSGAME__Building__VoxelBuildTarget.cpp.patch",
+    "before_lf_sha256": "99f613d6556da0f2252ceac59be6d3d249cc32e854601ca1353e210450274c40",
+    "recorded_after_lf_sha256": "3e7865ba40d311c17353f798c7a07f8a264483e5b713a1f844288ed4992ddb6b",
+    "retained_hunks": 4
+  },
+  {
+    "batch": "BallistaRoofPlacement-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp",
+    "patch": "Integration/BallistaRoofPlacement-20261123-A/Source__FPSGAME__Building__VoxelBuildWorldPrefab.cpp.patch",
+    "before_lf_sha256": "17c9274d2007fa9a7a04a4a31be1189f318cf49caf698dab1d0a856d2d8f3340",
+    "recorded_after_lf_sha256": "d5879c5b31d5f97cdbeadb1a28380c7f54c667c4331a227dff5bfa2ef5380b8d",
+    "retained_hunks": 6
+  },
+  {
+    "batch": "BallistaTraverse-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildPanel.cpp",
+    "patch": "Integration/BallistaTraverse-20261123-A/Source__FPSGAME__Building__VoxelBuildPanel.cpp.patch",
+    "before_lf_sha256": "e7061fd66a40fde2b04ee6f18d368aeb7c0f77ef74ad408d5d60869d97e4b982",
+    "recorded_after_lf_sha256": "d64303c04a38b8ea36d3d4af5035a815aa0bd4fd3827f0ce0b332bf509c24a51",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "BallistaTraverse-20261123-A",
+    "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+    "patch": "Integration/BallistaTraverse-20261123-A/Source__FPSGAME__FPSGAMEPlayerController.cpp.patch",
+    "before_lf_sha256": "d8f12a953bd75c2c4ddba1ee428ead44b8819a2dbe3e470d833a40b6c8e8ebe1",
+    "recorded_after_lf_sha256": "3e5573e8c534be8cbdc684b2341e6b665badd137844dc7e7c6a36b8b9480e783",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "CurtainWall-20261122-A",
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp",
+    "patch": "Integration/CurtainWall-20261122-A/Source__FPSGAME__WorldGeneration__VillageDefenseSection.cpp.patch",
+    "before_lf_sha256": "2fc8285c082faa06a846e8208f8349e4ccd1536147a06a4d85430900b20dacd1",
+    "recorded_after_lf_sha256": "f55b0ca480a1c8a48536c99c51de1a7360532be74b39995e6c282604a171d2a9",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "CurtainWall-20261122-A",
+    "path": "Source/FPSGAME/WorldGeneration/VillageMasonry.cpp",
+    "patch": "Integration/CurtainWall-20261122-A/Source__FPSGAME__WorldGeneration__VillageMasonry.cpp.patch",
+    "before_lf_sha256": "ab062834dfa01f062f5ed1c42c41f0a78bf6d2f06516a49bb4bc556752b96a5e",
+    "recorded_after_lf_sha256": "2251b26e8f7a91ba212654ec69108159527058d298fc12e6b3ded0bdd4ce3f35",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "EntrancePreview-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildComponent.h",
+    "patch": "Integration/EntrancePreview-20261123-A/Source__FPSGAME__Building__VoxelBuildComponent.h.patch",
+    "before_lf_sha256": "9e720d412422419c5cd204eacdf4706d10b1d4858824ede9253a79e28889ba93",
+    "recorded_after_lf_sha256": "f57574f91355827e803f1512fe1fc9a9eaf997304185acac7cc48cb41564734f",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "EntrancePreview-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildPreview.cpp",
+    "patch": "Integration/EntrancePreview-20261123-A/Source__FPSGAME__Building__VoxelBuildPreview.cpp.patch",
+    "before_lf_sha256": "94744a2ad66e36d8448d90fdc5116e4f34daa933134273ab05a9cbf16047ceb1",
+    "recorded_after_lf_sha256": "fb3679b720694aea534353653bfdae299dd852c6ea58170023695c448ad84ddd",
+    "retained_hunks": 6
+  },
+  {
+    "batch": "FixedGallery-20261122-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildIcons.cpp",
+    "patch": "Integration/FixedGallery-20261122-A/Source__FPSGAME__Building__VoxelBuildIcons.cpp.patch",
+    "before_lf_sha256": "9059de286921699cf7cc7d3f5c584d162bc903aad1dfeca9903e983646fed19f",
+    "recorded_after_lf_sha256": "08ad8899f2b6784f7eb7093a8deb3d91178fc3c89ee30cbb6b35ecf8c8fe3d72",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "FixedGallery-20261122-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildPreview.cpp",
+    "patch": "Integration/FixedGallery-20261122-A/Source__FPSGAME__Building__VoxelBuildPreview.cpp.patch",
+    "before_lf_sha256": "c5b294e21bcf8d94f79b63c979af7e3d2f82510e5639db891618882d2be6c61a",
+    "recorded_after_lf_sha256": "94744a2ad66e36d8448d90fdc5116e4f34daa933134273ab05a9cbf16047ceb1",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "FixedGallery-20261122-A",
+    "path": "Source/FPSGAME/Movement/FPSDoorPushComponent.cpp",
+    "patch": "Integration/FixedGallery-20261122-A/Source__FPSGAME__Movement__FPSDoorPushComponent.cpp.patch",
+    "before_lf_sha256": "7ff0c308dc577bb2d89440cb08ce06e56568a853bb3954c37e5c3daf69f73996",
+    "recorded_after_lf_sha256": "35347ac9f322c6f6a33568fef9d5574b11011a5b5581f94c7819eb3df3ad000d",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "FixedGallery-20261122-A",
+    "path": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+    "patch": "Integration/FixedGallery-20261122-A/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch",
+    "before_lf_sha256": "afb324e0889fe2fe8e8fe6044e6b0b2a55dfa38129f974eee38aa7a518f7282c",
+    "recorded_after_lf_sha256": "b3f6d9313bb863f156abb352b8dc7a5327f90dc305a08278301b31c0c25c3af5",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "FixedGallery-20261122-A",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+    "patch": "Integration/FixedGallery-20261122-A/Source__FPSGAME__UI__ColdSteelWorldInteraction.cpp.patch",
+    "before_lf_sha256": "3845090b038bf502128cf01f62e94162a4ca769950930a135b81fed2996eeaf5",
+    "recorded_after_lf_sha256": "e536c4cfc1ea05bcc6eb6a42bc0179bfd0ece6fa6dca1d85b8d5e38b836f6c93",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "FixedGallery-20261122-A",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePerimeter.cpp",
+    "patch": "Integration/FixedGallery-20261122-A/Source__FPSGAME__WorldGeneration__TemperateVillagePerimeter.cpp.patch",
+    "before_lf_sha256": "31d2ca316a3d26e0f936246d226cab66398cfe6a4bf01e2775a87f353f8af532",
+    "recorded_after_lf_sha256": "eb3ad65c34bfd7d3e2e7e0d290534f2160ce941d5f273fff8cfe78cf4f435d2f",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "GarrisonMechanics-20261124-A",
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp",
+    "patch": "Integration/GarrisonMechanics-20261124-A/Source__FPSGAME__NPC__ChapelDialogueComponent.cpp.patch",
+    "before_lf_sha256": "f36e91ff7541348f1ff4ee6886a5a608c7b580cc3fe2557ee29fcfb7532792e7",
+    "recorded_after_lf_sha256": "cef0a155e6798660dee2b7e1a50384b13de76a3da91aad848a265d93ce9fe032",
+    "retained_hunks": 4
+  },
+  {
+    "batch": "GarrisonMechanics-20261124-A",
+    "path": "Source/FPSGAME/UI/ColdSteelVillageTree.cpp",
+    "patch": "Integration/GarrisonMechanics-20261124-A/Source__FPSGAME__UI__ColdSteelVillageTree.cpp.patch",
+    "before_lf_sha256": "d4d998908e0c2f3761dfea7238f248d15ce8817d1bf063a147832481a835eaec",
+    "recorded_after_lf_sha256": "6ad1b40c3a41e70dbb92197021dfc59a4fe4aed09dde2bd7aa8acec8bc623068",
+    "retained_hunks": 7
+  },
+  {
+    "batch": "GarrisonMechanics-20261124-A",
+    "path": "Source/FPSGAME/WorldGeneration/ChapelCourtyardDressing.cpp",
+    "patch": "Integration/GarrisonMechanics-20261124-A/Source__FPSGAME__WorldGeneration__ChapelCourtyardDressing.cpp.patch",
+    "before_lf_sha256": "755196711da212666bac47f8df58656e28a2dc65ad2c817db5b9415e0f831f57",
+    "recorded_after_lf_sha256": "42283535b4d92b0a747682246578f8c489764f3e969265a2475ed8ef0e11beb0",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "GarrisonMechanics-20261124-A",
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillage.cpp",
+    "patch": "Integration/GarrisonMechanics-20261124-A/Source__FPSGAME__WorldGeneration__ForestVillage.cpp.patch",
+    "before_lf_sha256": "c2805b5108f1d22fd56398259352078f506d452ab99e005217b0b5df2d0f5275",
+    "recorded_after_lf_sha256": "6e8499d1b6cba2900ed527530d426996d10e85a55a5059147caa259149740543",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "GarrisonMechanics-20261124-A",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateChapelSite.h",
+    "patch": "Integration/GarrisonMechanics-20261124-A/Source__FPSGAME__WorldGeneration__TemperateChapelSite.h.patch",
+    "before_lf_sha256": "83eb677135d477d2687c803cc7ec85e4023789dc78426b583cd61dbaf9028632",
+    "recorded_after_lf_sha256": "22e436fdb339d31da6a5a5a07f2f9d85836cb53dc889e185c0b45b59d3538dfb",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "GarrisonMechanics-20261124-A",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsChapel.cpp",
+    "patch": "Integration/GarrisonMechanics-20261124-A/Source__FPSGAME__WorldGeneration__TemperateHillsChapel.cpp.patch",
+    "before_lf_sha256": "b6dee29aa79b9bf58c2c5583f44306e7df06b1f78a04866f78465ae141b1f108",
+    "recorded_after_lf_sha256": "02349615e1c336009fa5a66800e924774cc6692e70e9297e470fa1e4345948df",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "GarrisonMechanics-20261124-A",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp",
+    "patch": "Integration/GarrisonMechanics-20261124-A/Source__FPSGAME__WorldGeneration__TemperateHillsTerrain.cpp.patch",
+    "before_lf_sha256": "1b107bf6de8f6fd2a48fe011f8ad235b8250a906127d27b21bda36034fbd424b",
+    "recorded_after_lf_sha256": "cece175c5e742738d4ffac2ad08186ff6d18997db6e92790606da9fa3e69d196",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "GarrisonMechanics-20261124-A",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "patch": "Integration/GarrisonMechanics-20261124-A/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.cpp.patch",
+    "before_lf_sha256": "4d3fddf9fb32c3bff8ffb27ccb8ed78659863d25e5b7a9b0ce2f431dd28b5184",
+    "recorded_after_lf_sha256": "57d6000d32322acc8c19c845bcd7309e9e92b28e9ea4045e8bf779eead9d6b7a",
+    "retained_hunks": 4
+  },
+  {
+    "batch": "GarrisonMechanics-20261124-A",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "patch": "Integration/GarrisonMechanics-20261124-A/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.patch",
+    "before_lf_sha256": "22f5792d7825a079314c24b43066836195dec38a4ef8722eeaf43cf1e436b088",
+    "recorded_after_lf_sha256": "43ed89f6943604182927fe35558a7c7c359f7aed2ddbc698f107de3e562ae830",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "GarrisonMechanics-20261124-A",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp",
+    "patch": "Integration/GarrisonMechanics-20261124-A/Source__FPSGAME__WorldGeneration__TemperateVillagePlans.cpp.patch",
+    "before_lf_sha256": "6aacb3fb6a5fe31b52a5a61c35e6d8566198807cdd845f92fac4dca37005f986",
+    "recorded_after_lf_sha256": "f438c3a6dd6224ab97525cc4fa3e575b1ecf3ca3e3d82e9fbaac007658fa4630",
+    "retained_hunks": 8
+  },
+  {
+    "batch": "GarrisonWorkshop-StableRoad-R3-20261124",
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp",
+    "patch": "Integration/GarrisonWorkshop-StableRoad-R3-20261124/Source__FPSGAME__NPC__ChapelDialogueComponent.cpp.patch",
+    "before_lf_sha256": "cef0a155e6798660dee2b7e1a50384b13de76a3da91aad848a265d93ce9fe032",
+    "recorded_after_lf_sha256": "2b5cc0b991a0fbd90744e17413a04b14beb942d0c6515cb9b823a9317a376a57",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "GarrisonWorkshop-StableRoad-R3-20261124",
+    "path": "Source/FPSGAME/UI/ColdSteelVillageTree.cpp",
+    "patch": "Integration/GarrisonWorkshop-StableRoad-R3-20261124/Source__FPSGAME__UI__ColdSteelVillageTree.cpp.patch",
+    "before_lf_sha256": "6ad1b40c3a41e70dbb92197021dfc59a4fe4aed09dde2bd7aa8acec8bc623068",
+    "recorded_after_lf_sha256": "305d962856a7fd59b6a5325ac368247e35f2f9d8fcc630dfeebf5e44a570f6a6",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "GarrisonWorkshop-StableRoad-R3-20261124",
+    "path": "Source/FPSGAME/WorldGeneration/ChapelCourtyardDressing.cpp",
+    "patch": "Integration/GarrisonWorkshop-StableRoad-R3-20261124/Source__FPSGAME__WorldGeneration__ChapelCourtyardDressing.cpp.patch",
+    "before_lf_sha256": "42283535b4d92b0a747682246578f8c489764f3e969265a2475ed8ef0e11beb0",
+    "recorded_after_lf_sha256": "755196711da212666bac47f8df58656e28a2dc65ad2c817db5b9415e0f831f57",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "GarrisonWorkshop-StableRoad-R3-20261124",
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillage.cpp",
+    "patch": "Integration/GarrisonWorkshop-StableRoad-R3-20261124/Source__FPSGAME__WorldGeneration__ForestVillage.cpp.patch",
+    "before_lf_sha256": "02257749c1531c2da05bdb0fe7d49169e489056fe250a114d8e8f068cc4cbdf4",
+    "recorded_after_lf_sha256": "57613dfb6575e5b29396c36734d1d73729ab94480e1fbd8c5c0afbfbedbe0815",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "GarrisonWorkshop-StableRoad-R3-20261124",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateChapelSite.h",
+    "patch": "Integration/GarrisonWorkshop-StableRoad-R3-20261124/Source__FPSGAME__WorldGeneration__TemperateChapelSite.h.patch",
+    "before_lf_sha256": "22e436fdb339d31da6a5a5a07f2f9d85836cb53dc889e185c0b45b59d3538dfb",
+    "recorded_after_lf_sha256": "83eb677135d477d2687c803cc7ec85e4023789dc78426b583cd61dbaf9028632",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "GarrisonWorkshop-StableRoad-R3-20261124",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsChapel.cpp",
+    "patch": "Integration/GarrisonWorkshop-StableRoad-R3-20261124/Source__FPSGAME__WorldGeneration__TemperateHillsChapel.cpp.patch",
+    "before_lf_sha256": "02349615e1c336009fa5a66800e924774cc6692e70e9297e470fa1e4345948df",
+    "recorded_after_lf_sha256": "b6dee29aa79b9bf58c2c5583f44306e7df06b1f78a04866f78465ae141b1f108",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "GarrisonWorkshop-StableRoad-R3-20261124",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp",
+    "patch": "Integration/GarrisonWorkshop-StableRoad-R3-20261124/Source__FPSGAME__WorldGeneration__TemperateVillagePlans.cpp.patch",
+    "before_lf_sha256": "f438c3a6dd6224ab97525cc4fa3e575b1ecf3ca3e3d82e9fbaac007658fa4630",
+    "recorded_after_lf_sha256": "512e645738bc2d8d09165c0aa34e80b0ba563dff286b71d113ec2d44ae7962ed",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "GarrisonWorkshop-StableRoad-R3-20261124",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePlanting.cpp",
+    "patch": "Integration/GarrisonWorkshop-StableRoad-R3-20261124/Source__FPSGAME__WorldGeneration__TemperateVillagePlanting.cpp.patch",
+    "before_lf_sha256": "63162d17d626594679f1e44c98bd2ee6a8eca3bc6bf8a419a80ca0547c2246b6",
+    "recorded_after_lf_sha256": "52f0f2ff6b3af4ca3b70655cbcf9f7382739865655b48689d97a023946a81162",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "GarrisonWorkshop-StableRoad-R3-20261124",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageSite.h",
+    "patch": "Integration/GarrisonWorkshop-StableRoad-R3-20261124/Source__FPSGAME__WorldGeneration__TemperateVillageSite.h.patch",
+    "before_lf_sha256": "baabe5f70d55885f40e74e97ec5a8bc0fb2ca1b51625ac2d4d01fdaee8f9b485",
+    "recorded_after_lf_sha256": "4aa11c82579a859dd1f7d39e58838852dec61827fe25aa8d6ab19e730354600c",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "GroundContact-20261123-A",
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp",
+    "patch": "Integration/GroundContact-20261123-A/Source__FPSGAME__WorldGeneration__VillageDefenseSection.cpp.patch",
+    "before_lf_sha256": "f55b0ca480a1c8a48536c99c51de1a7360532be74b39995e6c282604a171d2a9",
+    "recorded_after_lf_sha256": "fee8f12dc4d1a7c843d54b21e653f1a627a58313e93f4f7f8eb60717d5d26f4a",
+    "retained_hunks": 4
+  },
+  {
+    "batch": "HotOilBurnBands-20261126",
+    "path": "Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp",
+    "patch": "Integration/HotOilBurnBands-20261126/Source__FPSGAME__WorldGeneration__FluidPresentationSubsystem.cpp.patch",
+    "before_lf_sha256": "d67b10d58d3f99758acb01cb778c6a6759af2cbcddd095c071a97bbf5a3904f9",
+    "recorded_after_lf_sha256": "4d6ad0a625d85c8ea088f6ac0f933a43ca4715672185b545ed75aeb4549f1f30",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "HotOilBurnBands-20261126",
+    "path": "Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h",
+    "patch": "Integration/HotOilBurnBands-20261126/Source__FPSGAME__WorldGeneration__FluidPresentationSubsystem.h.patch",
+    "before_lf_sha256": "1bb8a3f2c0601264e8f4d8aeff05ae4bbe7ea54cc9d200e3e48bf33be88af840",
+    "recorded_after_lf_sha256": "cd5b1bf005ab4de9779cfb6324b367767cc39fb814eef1921db1d5c18f8ccf3c",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "HotOilBurnBands-20261126",
+    "path": "Source/FPSGAME/WorldGeneration/VillagePresentationView.cpp",
+    "patch": "Integration/HotOilBurnBands-20261126/Source__FPSGAME__WorldGeneration__VillagePresentationView.cpp.patch",
+    "before_lf_sha256": "b0e746687b9378b5fcf825d8debff273cf4abd4ebc5bf1e2651bd462c7c68608",
+    "recorded_after_lf_sha256": "f399b679f127746a4ef2ba81cf1e9c0febb82af68aee7208a7b2c52975a493bc",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "HotOilBurnFront-20261125",
+    "path": "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+    "patch": "Integration/HotOilBurnFront-20261125/Source__FPSGAME__FPSGAMECharacterActionPriority.cpp.patch",
+    "before_lf_sha256": "40e3e9d63e6b1adfb6e111918394c2e396bd9de8851a8f621628bb648a44b2e6",
+    "recorded_after_lf_sha256": "c8a539980d11981dc5e90b29c8301da8dcbd1573c7e481dfef133084b5dc67a5",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "HotOilBurnFront-20261125",
+    "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+    "patch": "Integration/HotOilBurnFront-20261125/Source__FPSGAME__FPSGAMECharacterProfile.cpp.patch",
+    "before_lf_sha256": "661e31ed29528104b008c37f5a0a7d4a2117d7578e737802e51c12c70d9ad391",
+    "recorded_after_lf_sha256": "077a8f96825842dad367d2ae234bd46cfea1d14aff1aace9f120e57734a48cb7",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "ManualSiege-20261123-A",
+    "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+    "patch": "Integration/ManualSiege-20261123-A/Source__FPSGAME__FPSGAMEPlayerController.cpp.patch",
+    "before_lf_sha256": "064e23d45574e624eb00a39b47d0f5460a73e71a320e393a973f538e8682abd5",
+    "recorded_after_lf_sha256": "d8f12a953bd75c2c4ddba1ee428ead44b8819a2dbe3e470d833a40b6c8e8ebe1",
+    "retained_hunks": 5
+  },
+  {
+    "batch": "ManualSiege-20261123-A",
+    "path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+    "patch": "Integration/ManualSiege-20261123-A/Source__FPSGAME__FPSGAMEPlayerController.h.patch",
+    "before_lf_sha256": "b026dceb9c0729da7af15fb77729d58b682fe059f589864f1da2f7ff22a5412f",
+    "recorded_after_lf_sha256": "908c78fc58c5be32b84137f1f9db8d2d5a52e5116ca6ce5e59aeb44965fe60e8",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "ManualSiege-20261123-A",
+    "path": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+    "patch": "Integration/ManualSiege-20261123-A/Source__FPSGAME__UI__ColdSteelCrosshair.cpp.patch",
+    "before_lf_sha256": "eebbdff2d09bf259c38c3d04593800b70cffdfb2abced9e39a473962a7465e7a",
+    "recorded_after_lf_sha256": "9eb9ffba4d2be4d82ea8d7da07c31a8160e83bf3aa18f9d3e0443b5c87169fa5",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "ManualSiege-20261123-A",
+    "path": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+    "patch": "Integration/ManualSiege-20261123-A/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch",
+    "before_lf_sha256": "37dd324f745e21853f0f30298d7ff2faff26210f6ceb0a2dfb416886e2acb122",
+    "recorded_after_lf_sha256": "ab945847144c9e127e492f97cd943828be54d3c32a0d24ccd93f43d0b737bee3",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "ManualSiege-20261123-A",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+    "patch": "Integration/ManualSiege-20261123-A/Source__FPSGAME__UI__ColdSteelWorldInteraction.cpp.patch",
+    "before_lf_sha256": "6da67f0bd0c36fa02582e359218d606907090def1a1b994be04e9378fcada729",
+    "recorded_after_lf_sha256": "a741df3e2168963737817d353600f2b32b3c4a40d6e3da161eb71556509b049d",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "MasterArtisan-MarketPlateFix-20261125",
+    "path": "Source/FPSGAME/UI/SHorseMarketPlate.h",
+    "patch": "Integration/MasterArtisan-MarketPlateFix-20261125/Source__FPSGAME__UI__SHorseMarketPlate.h.patch",
+    "before_lf_sha256": "062b067b81d856ca2aa89e25017c7672a96074eb30d46117771467288d61e3ea",
+    "recorded_after_lf_sha256": "6dbbae66dd26c1757a54a7cb3c26116e3bf9a0e93f89c28ae9cab2896c5ca6aa",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Config/DefaultGame.ini",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Config__DefaultGame.ini.patch",
+    "before_lf_sha256": "b3637cd692d1641bd446dcb39c07b76a2a256081ed87b1cfff3bdeb263701eeb",
+    "recorded_after_lf_sha256": "ea5602f2bce1ad9ec420b6c1d475df409bd306655e0914fb277f73170ebccef3",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__FPSGAMEPlayerController.cpp.patch",
+    "before_lf_sha256": "0327e8ef65411dafeecf0e9d1746349d54cdf8b0c946e53c40429cb33ebce8d4",
+    "recorded_after_lf_sha256": "0a07b442955ffd741d7343b50856681decaa176d3b4661610a53b1a14c32a3c4",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__NPC__ChapelDialogueComponent.cpp.patch",
+    "before_lf_sha256": "2b5cc0b991a0fbd90744e17413a04b14beb942d0c6515cb9b823a9317a376a57",
+    "recorded_after_lf_sha256": "71170319d4a084d9e6431c0b2ab629f0d599b3f68d8aae8d14445231dddfa8c2",
+    "retained_hunks": 6
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.h",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__NPC__ChapelDialogueComponent.h.patch",
+    "before_lf_sha256": "68e6b01cd3247cad502523f0e04dbcd75413ad091b240b847568e98edee15655",
+    "recorded_after_lf_sha256": "30c4813177acebc6aaee804f12aea878b79d4fb82b306383518303ea5a86d13b",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/NPC/VillageResidentStatus.cpp",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__NPC__VillageResidentStatus.cpp.patch",
+    "before_lf_sha256": "56964da048c29fde06118e2df7a7c61d39f3fe05d9b3634f9fb8dd50ac6f4b73",
+    "recorded_after_lf_sha256": "5585fecf315b42850066a807e6a1cc690321fa7c259811dc4d58abe565ab094a",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch",
+    "before_lf_sha256": "faad6114d842658ec2e0735a46e8e7f9a8622d23dedcba3d5c7b73ed01d0927c",
+    "recorded_after_lf_sha256": "bcc51467c66d2b32367495bbd3e75a7f16553d279703e580fb9b73fed5ec932b",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__UI__ColdSteelNpcDialogue.cpp.patch",
+    "before_lf_sha256": "3d3cdecd72b55263b2d6c95a6c8e8d03bd71ff32fa911cf7c377959a1ba43b37",
+    "recorded_after_lf_sha256": "46e99b49252a3a7812324245e12fce19f87f05d6819ba6cee20abca9d0919de9",
+    "retained_hunks": 6
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogue.h",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__UI__ColdSteelNpcDialogue.h.patch",
+    "before_lf_sha256": "5bcf263bd32e34be6ae5baae87bec484b9cfdd3d7ad1c4486461aa27623bb4d5",
+    "recorded_after_lf_sha256": "45e591d0c590c1f103d32c8198e8aca73c76cc85ca9fd7ee1dec545c42a95d92",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogueArtisans.h",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__UI__ColdSteelNpcDialogueArtisans.h.patch",
+    "before_lf_sha256": "f75d20d4be1c477906216679bbc738f8fcbfe17fbae6336c52d94b23ebee98b4",
+    "recorded_after_lf_sha256": "f45e8d13fabf818e1515d9b728f5572b8162da22803d6394eb0044a4b0177630",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__UI__ColdSteelWorldInteraction.cpp.patch",
+    "before_lf_sha256": "64c606c91beba9d6d6842c324614b848a7619534338dff332577d913842217b1",
+    "recorded_after_lf_sha256": "adb1fea188fe43ff3bffccbe7d16b08de21b5ed57a0513e677db7bd6e6eb072e",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/UI/SColdSteelHorseMarket.cpp",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__UI__SColdSteelHorseMarket.cpp.patch",
+    "before_lf_sha256": "9ca88106760bf761d782cd9fc5c767e80c6ebf3be9236a9db021bb52b31f409e",
+    "recorded_after_lf_sha256": "3085573fe1194dddde0fe1d5443a7082d5fd9a6cb203e766fe02f8ede69dc5cd",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.cpp.patch",
+    "before_lf_sha256": "57d6000d32322acc8c19c845bcd7309e9e92b28e9ea4045e8bf779eead9d6b7a",
+    "recorded_after_lf_sha256": "a8f6ec6ad9c2ed33cd0b4164004e26596d34a4e08b4f78f655f98703d8311c46",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.patch",
+    "before_lf_sha256": "23da2f39e7cf3a6e90f90ca8fb37bda5a00f269a67601cfe5e5e8efaafca5803",
+    "recorded_after_lf_sha256": "20ae8a58392c8547c12ccafff071db5b952a20762b9f9585fc267bf5da63e9f4",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePerimeter.cpp",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__WorldGeneration__TemperateVillagePerimeter.cpp.patch",
+    "before_lf_sha256": "eb3ad65c34bfd7d3e2e7e0d290534f2160ce941d5f273fff8cfe78cf4f435d2f",
+    "recorded_after_lf_sha256": "d5578f6364f6994ff037435daab905a2f0b3e384d3c2fca77abc815c82b76d37",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__WorldGeneration__TemperateVillagePlans.cpp.patch",
+    "before_lf_sha256": "512e645738bc2d8d09165c0aa34e80b0ba563dff286b71d113ec2d44ae7962ed",
+    "recorded_after_lf_sha256": "d1823711b5cb6223f1f0f98e1d3f06f088eab3da5c0a1e92e1f7e540c7df4a7e",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseState.cpp",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__WorldGeneration__VillageDefenseState.cpp.patch",
+    "before_lf_sha256": "5b052abb7abf2b23cbce9029f5a0405a6b5da3e1076c49b46848da0994991737",
+    "recorded_after_lf_sha256": "599496f42abbc46958549badc18df0a93f8bb9a5271db0ea6115fc0dc6a3aa0f",
+    "retained_hunks": 5
+  },
+  {
+    "batch": "MasterArtisan-SiegeUpgrades-20261124",
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseState.h",
+    "patch": "Integration/MasterArtisan-SiegeUpgrades-20261124/Source__FPSGAME__WorldGeneration__VillageDefenseState.h.patch",
+    "before_lf_sha256": "137a24eb6e5d9c926c5ca806d29d085ee3c1341acd631ab9a243e95685910228",
+    "recorded_after_lf_sha256": "f4d923ea4b959f3d39abd1d5cf502a097c1455a07fc27ca8e48ce5841aecfebd",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "MasterArtisan-UpgradeDrawer-20261125",
+    "path": "Source/FPSGAME/Development/HorseMarketCardsReviewCommandlet.cpp",
+    "patch": "Integration/MasterArtisan-UpgradeDrawer-20261125/Source__FPSGAME__Development__HorseMarketCardsReviewCommandlet.cpp.patch",
+    "before_lf_sha256": "72b79d5e1963e63b885ee2bf88ff94e76a2e7db0481430a00f6c5929deaa74fb",
+    "recorded_after_lf_sha256": "4f7d3c318e35e7c2b504659409bba7c3ad2990bf86770c1931038c073432291e",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "MasterArtisan-UpgradeDrawer-20261125",
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.h",
+    "patch": "Integration/MasterArtisan-UpgradeDrawer-20261125/Source__FPSGAME__NPC__ChapelDialogueComponent.h.patch",
+    "before_lf_sha256": "30c4813177acebc6aaee804f12aea878b79d4fb82b306383518303ea5a86d13b",
+    "recorded_after_lf_sha256": "f80154c9c997e0d0839b2fed1b385f67bf8fe4c2411379fcbbfb249af963fe76",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "MasterArtisan-UpgradeDrawer-20261125",
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp",
+    "patch": "Integration/MasterArtisan-UpgradeDrawer-20261125/Source__FPSGAME__UI__ColdSteelNpcDialogue.cpp.patch",
+    "before_lf_sha256": "46e99b49252a3a7812324245e12fce19f87f05d6819ba6cee20abca9d0919de9",
+    "recorded_after_lf_sha256": "22a00570a61f97acb7fa76ffa6b3ec3de237790ccdcaabc4ac747ad25a8b1610",
+    "retained_hunks": 4
+  },
+  {
+    "batch": "MasterArtisan-UpgradeDrawer-20261125",
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogue.h",
+    "patch": "Integration/MasterArtisan-UpgradeDrawer-20261125/Source__FPSGAME__UI__ColdSteelNpcDialogue.h.patch",
+    "before_lf_sha256": "45e591d0c590c1f103d32c8198e8aca73c76cc85ca9fd7ee1dec545c42a95d92",
+    "recorded_after_lf_sha256": "32f948cdaa77fb619feb8b8c16dacbf47d7c78662a274ca3575b5d1a973767eb",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "NunDefenseTech-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildComponent.h",
+    "patch": "Integration/NunDefenseTech-20261123-A/Source__FPSGAME__Building__VoxelBuildComponent.h.patch",
+    "before_lf_sha256": "4d930961eb03254fab8509bbcdc1a84133ab1a5097ffe4bac5bee7be0f1f6e52",
+    "recorded_after_lf_sha256": "ffa617eaadae49cbe5f80f62d2302f1f45bfe3888b07f32e9a348b637acb063e",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "NunDefenseTech-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildInput.cpp",
+    "patch": "Integration/NunDefenseTech-20261123-A/Source__FPSGAME__Building__VoxelBuildInput.cpp.patch",
+    "before_lf_sha256": "158664abc0423d1b5fea724da602448754ea9aa1bc44684b1fd9ec667ceb1cfb",
+    "recorded_after_lf_sha256": "33fbf0f6d6fe29b2d831b99be8df03fcafbc92e649983619cd04e93eb2ff793c",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "NunDefenseTech-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildNetwork.cpp",
+    "patch": "Integration/NunDefenseTech-20261123-A/Source__FPSGAME__Building__VoxelBuildNetwork.cpp.patch",
+    "before_lf_sha256": "6e5a07b94fb924ddc53676ad3d65c928fea75380d00b3a2eb8c0464f45f83389",
+    "recorded_after_lf_sha256": "0d01b26c9515c8ac9286d1d8b0cbae205922f3f7f4dd89d320bfe16b89a232ab",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "NunDefenseTech-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildPanel.cpp",
+    "patch": "Integration/NunDefenseTech-20261123-A/Source__FPSGAME__Building__VoxelBuildPanel.cpp.patch",
+    "before_lf_sha256": "83ec932209e2090de7a5901f2cd07a6e01981478891797d298c3a64468ae8a41",
+    "recorded_after_lf_sha256": "3a7c84cd3ae89b10565ff66b5a8305354124826b7d9a03ad8cf0107033e01ca7",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "NunDefenseTech-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildWidget.cpp",
+    "patch": "Integration/NunDefenseTech-20261123-A/Source__FPSGAME__Building__VoxelBuildWidget.cpp.patch",
+    "before_lf_sha256": "988a0655d794e67119d262036a5fc6e57d80326dc96f035dfec75a5b75744207",
+    "recorded_after_lf_sha256": "64f8ce9f370f1f4e625907bc64d8c1b7b22c6fd2b99a49d3cd2c23d5765d9562",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "NunDefenseTech-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildWidget.h",
+    "patch": "Integration/NunDefenseTech-20261123-A/Source__FPSGAME__Building__VoxelBuildWidget.h.patch",
+    "before_lf_sha256": "e6829e181b8c072042ac59ec3b39da0540b0cbd4ceabc10ef9608cbd411be142",
+    "recorded_after_lf_sha256": "1a7976ce5cc8dc67d07602cbc5fa12b921256564f98508241780e8d9ff6f7e66",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "NunDefenseTech-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildWidgetLayout.cpp",
+    "patch": "Integration/NunDefenseTech-20261123-A/Source__FPSGAME__Building__VoxelBuildWidgetLayout.cpp.patch",
+    "before_lf_sha256": "fc1f18fdfe3f410c0ca2d620515ce3078af9d6c21465afdbd35ab85ad4319294",
+    "recorded_after_lf_sha256": "be53860acff818bf4ced4006ebbdc76b72f9d38c0d16b836750108556f8eb375",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "NunDefenseTech-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp",
+    "patch": "Integration/NunDefenseTech-20261123-A/Source__FPSGAME__Building__VoxelBuildWorldPrefab.cpp.patch",
+    "before_lf_sha256": "16baa8138d2ce14a3e8927f7766f9d2279ab4539b8962068db0fd55e0d17b74e",
+    "recorded_after_lf_sha256": "95797c08040a49c1ade6f8c001c7142edea54085c69abe74c589ec20f3679db6",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "NunDefenseTech-20261123-A",
+    "path": "Source/FPSGAME/Development/VillageConstructionNetworkAudit.cpp",
+    "patch": "Integration/NunDefenseTech-20261123-A/Source__FPSGAME__Development__VillageConstructionNetworkAudit.cpp.patch",
+    "before_lf_sha256": "dea041df8816bd6050ba1f5cc38fd8fd48c309f99c18ced27f749578c0f45439",
+    "recorded_after_lf_sha256": "54413ecab3a3ebd1e43da0565fc1f84fc47ba0d3928ffcbc2fc178fa46a8b44a",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "NunDefenseTech-20261123-A",
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp",
+    "patch": "Integration/NunDefenseTech-20261123-A/Source__FPSGAME__NPC__ChapelDialogueComponent.cpp.patch",
+    "before_lf_sha256": "4c4c36a00d08d8a405ee03789e79da3478cff5b1c801af8f09265485b6686e8e",
+    "recorded_after_lf_sha256": "4658c44da004624fb2e13c35703b4346652cbad2ab136a2634629697df527bd7",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "NunDefenseTech-20261123-A",
+    "path": "Source/FPSGAME/UI/ColdSteelVillageTree.cpp",
+    "patch": "Integration/NunDefenseTech-20261123-A/Source__FPSGAME__UI__ColdSteelVillageTree.cpp.patch",
+    "before_lf_sha256": "a2154c9a1c61999a5f19351b063c2a8d75d3b6a46aa93829286da13c5de3358b",
+    "recorded_after_lf_sha256": "829ed6f5b7a3248eeb49ec24519045534b3b5b1e9ba3983c1f344320415d617f",
+    "retained_hunks": 6
+  },
+  {
+    "batch": "NunDefenseTech-20261123-A",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageDefenseBlockCheck.cpp",
+    "patch": "Integration/NunDefenseTech-20261123-A/Source__FPSGAME__WorldGeneration__TemperateVillageDefenseBlockCheck.cpp.patch",
+    "before_lf_sha256": "2569ac4c4b6501ecad79f8cfe374d0c3d4cb107d7d4f814c47523c7195bb0dc1",
+    "recorded_after_lf_sha256": "32480321f23d16c82a06bb70f31efb8b990afd47b0c2c4abca2f34c929b8f917",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "NunDefenseTech-20261123-A",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp",
+    "patch": "Integration/NunDefenseTech-20261123-A/Source__FPSGAME__WorldGeneration__TemperateVillagePlans.cpp.patch",
+    "before_lf_sha256": "b7c70c30bde2a9e43003ec340614f34a48d2360e17d4363e5b4d25c1b07162bb",
+    "recorded_after_lf_sha256": "6aacb3fb6a5fe31b52a5a61c35e6d8566198807cdd845f92fac4dca37005f986",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "SiegeOperationReach-20261124-A",
+    "path": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+    "patch": "Integration/SiegeOperationReach-20261124-A/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch",
+    "before_lf_sha256": "7f9f3630248cb6f91fa970fafb9781deaee3347b36b9989e2ac57b489a4a631f",
+    "recorded_after_lf_sha256": "faad6114d842658ec2e0735a46e8e7f9a8622d23dedcba3d5c7b73ed01d0927c",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "SiegeOperationReach-20261124-A",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+    "patch": "Integration/SiegeOperationReach-20261124-A/Source__FPSGAME__UI__ColdSteelWorldInteraction.cpp.patch",
+    "before_lf_sha256": "c5dae3e1e6325fb3b07c302ca12e28d0fb897689f779cac574cbae1bff216ba0",
+    "recorded_after_lf_sha256": "64c606c91beba9d6d6842c324614b848a7619534338dff332577d913842217b1",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "SiegePreviewReload-20261124-A",
+    "path": "Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp",
+    "patch": "Integration/SiegePreviewReload-20261124-A/Source__FPSGAME__UI__ColdSteelStaminaHUD.cpp.patch",
+    "before_lf_sha256": "a117806bc4335042d2b05f88bd2dfaac45a53055e4e1a11bb4fa8087c6738faf",
+    "recorded_after_lf_sha256": "68868918fa42212d38a0a61934c5ba64ee77d90f4b65664482af65fa07c08cb4",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "TowerWallSnap-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildPanel.cpp",
+    "patch": "Integration/TowerWallSnap-20261123-A/Source__FPSGAME__Building__VoxelBuildPanel.cpp.patch",
+    "before_lf_sha256": "e3752b5ac171efc303d48b255b4d5a82f984384a14d695e9c69883178619241e",
+    "recorded_after_lf_sha256": "83ec932209e2090de7a5901f2cd07a6e01981478891797d298c3a64468ae8a41",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "TowerWallSnap-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildTarget.cpp",
+    "patch": "Integration/TowerWallSnap-20261123-A/Source__FPSGAME__Building__VoxelBuildTarget.cpp.patch",
+    "before_lf_sha256": "a56afeeb5338c5eecb393c253c7baff5a5bb60d85c5e462beb776ff6183de22b",
+    "recorded_after_lf_sha256": "7c782db2814eb61be8922633c8f1b7eaf3480851edec89e503a141aca246f66a",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "TrebuchetPlacement-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildPalette.cpp",
+    "patch": "Integration/TrebuchetPlacement-20261123-A/Source__FPSGAME__Building__VoxelBuildPalette.cpp.patch",
+    "before_lf_sha256": "36f88d05962283ca0b1adc9c118df8e378d5ce8eece83fa644cc65a3a8ffc698",
+    "recorded_after_lf_sha256": "0012d662a46e4dd2223b0f2170ca4db5a5fc5bed1264ba693d88e834689c4c47",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "TrebuchetPlacement-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildPanel.cpp",
+    "patch": "Integration/TrebuchetPlacement-20261123-A/Source__FPSGAME__Building__VoxelBuildPanel.cpp.patch",
+    "before_lf_sha256": "04cf78905b60bb940cad9a4f44596a07def395906ed7b41c0a97af768cbb8c31",
+    "recorded_after_lf_sha256": "e7061fd66a40fde2b04ee6f18d368aeb7c0f77ef74ad408d5d60869d97e4b982",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "TrebuchetPlacement-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildTarget.cpp",
+    "patch": "Integration/TrebuchetPlacement-20261123-A/Source__FPSGAME__Building__VoxelBuildTarget.cpp.patch",
+    "before_lf_sha256": "3e7865ba40d311c17353f798c7a07f8a264483e5b713a1f844288ed4992ddb6b",
+    "recorded_after_lf_sha256": "7c8fb4c552bc2489f031a6dec1709c63a0da2b2fe38798b31827fdcca18489ba",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "TrebuchetPlacement-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp",
+    "patch": "Integration/TrebuchetPlacement-20261123-A/Source__FPSGAME__Building__VoxelBuildWorldPrefab.cpp.patch",
+    "before_lf_sha256": "d5879c5b31d5f97cdbeadb1a28380c7f54c667c4331a227dff5bfa2ef5380b8d",
+    "recorded_after_lf_sha256": "d510ccb2e5f0bd78c14ab8f52785021f2ef6d5909c7121f38fdffcb4f8c4f8ab",
+    "retained_hunks": 4
+  },
+  {
+    "batch": "TrebuchetTraverseImpact-20261124-A",
+    "path": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+    "patch": "Integration/TrebuchetTraverseImpact-20261124-A/Source__FPSGAME__UI__ColdSteelCrosshair.cpp.patch",
+    "before_lf_sha256": "8511a1ccc968d96897abca56aea04d877d3fd9b831270ebc9cc818873430636a",
+    "recorded_after_lf_sha256": "069d5737389a5b23d49750143962d9bf5bd07398ef2ed959e75171c08fde78e3",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "VillageBuildCamera-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildComponent.cpp",
+    "patch": "Integration/VillageBuildCamera-20261123-A/Source__FPSGAME__Building__VoxelBuildComponent.cpp.patch",
+    "before_lf_sha256": "fb6875d1baf56541b7252b1050d8eca1fa2eb7fbb1c10074491383acc7cec1a7",
+    "recorded_after_lf_sha256": "fb829ee5aecacf1218ed797f19818cfbbb10c55316af8cc7d5a12cd0fac77c99",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "VillageBuildCamera-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildComponent.h",
+    "patch": "Integration/VillageBuildCamera-20261123-A/Source__FPSGAME__Building__VoxelBuildComponent.h.patch",
+    "before_lf_sha256": "38c5f7144cde8972edc430899860a9dbd0eef90833dbbeebe8f345754eef9190",
+    "recorded_after_lf_sha256": "9e720d412422419c5cd204eacdf4706d10b1d4858824ede9253a79e28889ba93",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "VillageBuildCamera-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildInput.cpp",
+    "patch": "Integration/VillageBuildCamera-20261123-A/Source__FPSGAME__Building__VoxelBuildInput.cpp.patch",
+    "before_lf_sha256": "36b61893cf3597ef78a9a53ae0a89adcee1e38cae9bb2b3bedddfece325af016",
+    "recorded_after_lf_sha256": "2b9e9d5485770dceb3f61b5c25c1a4b1aa00dc9b50cc0a6c63fa6dc717c7a139",
+    "retained_hunks": 6
+  },
+  {
+    "batch": "VillageBuildCamera-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildNetwork.cpp",
+    "patch": "Integration/VillageBuildCamera-20261123-A/Source__FPSGAME__Building__VoxelBuildNetwork.cpp.patch",
+    "before_lf_sha256": "0705dd588000571c8b56b8b32644b80c555e50e25bf18e3fa3ffffe4a1ed4079",
+    "recorded_after_lf_sha256": "5d7d5b24d08e7a929a356e0c9e67a585df57c2e2a8e26ab892619850f4fd0676",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "VillageBuildCamera-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildPanel.cpp",
+    "patch": "Integration/VillageBuildCamera-20261123-A/Source__FPSGAME__Building__VoxelBuildPanel.cpp.patch",
+    "before_lf_sha256": "cbf1f728807de1ef0fb5a1b2c0363ba2042f86ce118dc59e0e5f80aae3600345",
+    "recorded_after_lf_sha256": "e3752b5ac171efc303d48b255b4d5a82f984384a14d695e9c69883178619241e",
+    "retained_hunks": 6
+  },
+  {
+    "batch": "VillageBuildCamera-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildTarget.cpp",
+    "patch": "Integration/VillageBuildCamera-20261123-A/Source__FPSGAME__Building__VoxelBuildTarget.cpp.patch",
+    "before_lf_sha256": "6b5e1b26d79c62a0deee597d8e099a6a2936b63df2aa02805bd2ce3fce9e879f",
+    "recorded_after_lf_sha256": "a56afeeb5338c5eecb393c253c7baff5a5bb60d85c5e462beb776ff6183de22b",
+    "retained_hunks": 4
+  },
+  {
+    "batch": "VillageBuildCamera-20261123-A",
+    "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+    "patch": "Integration/VillageBuildCamera-20261123-A/Source__FPSGAME__FPSGAMEPlayerController.cpp.patch",
+    "before_lf_sha256": "f8ed32d7fb38700a458c7b684f87c2a2166ae0566fe842535066440b7fb6dfbf",
+    "recorded_after_lf_sha256": "6f4423ce08884408dbe67110f44f8ce247585c61af403ca45f04a9a320bc6f21",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "VillageBuildCamera-20261123-A",
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseRepairTargets.cpp",
+    "patch": "Integration/VillageBuildCamera-20261123-A/Source__FPSGAME__WorldGeneration__VillageDefenseRepairTargets.cpp.patch",
+    "before_lf_sha256": "b56fbfb238fd5444e52d6a98e39b51ac78db3a2f44c823d36280a99492dfa3be",
+    "recorded_after_lf_sha256": "2bcfcb33fd6a54fa78d37aa48cd23de08f69724835d995f06362b745d86447f4",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "VillageBuildCamera-20261123-A",
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseRepairTargets.h",
+    "patch": "Integration/VillageBuildCamera-20261123-A/Source__FPSGAME__WorldGeneration__VillageDefenseRepairTargets.h.patch",
+    "before_lf_sha256": "fed16821ca7832b8b36ce14d550a2589457df6790f5b66334bb75f8d8cec63ec",
+    "recorded_after_lf_sha256": "650db26bd86f6c52fbc9a54ef50e5b806d08c13c0b85f8277b27e9f4a81a33d2",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "WallGateReplacement-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildInput.cpp",
+    "patch": "Integration/WallGateReplacement-20261123-A/Source__FPSGAME__Building__VoxelBuildInput.cpp.patch",
+    "before_lf_sha256": "2b9e9d5485770dceb3f61b5c25c1a4b1aa00dc9b50cc0a6c63fa6dc717c7a139",
+    "recorded_after_lf_sha256": "158664abc0423d1b5fea724da602448754ea9aa1bc44684b1fd9ec667ceb1cfb",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "WallGateReplacement-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildNetwork.cpp",
+    "patch": "Integration/WallGateReplacement-20261123-A/Source__FPSGAME__Building__VoxelBuildNetwork.cpp.patch",
+    "before_lf_sha256": "5d7d5b24d08e7a929a356e0c9e67a585df57c2e2a8e26ab892619850f4fd0676",
+    "recorded_after_lf_sha256": "6e5a07b94fb924ddc53676ad3d65c928fea75380d00b3a2eb8c0464f45f83389",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "WallGateReplacement-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildPersistence.cpp",
+    "patch": "Integration/WallGateReplacement-20261123-A/Source__FPSGAME__Building__VoxelBuildPersistence.cpp.patch",
+    "before_lf_sha256": "8a492ddc6279e521fc0b7c4567645e70b19c6a61774cd733bff7ca41168369da",
+    "recorded_after_lf_sha256": "e3504cc0fee638edff22056a1f9c2ac1c6821d8d3980dc7f11ab301de52ca3eb",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "WallGateReplacement-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildPreview.cpp",
+    "patch": "Integration/WallGateReplacement-20261123-A/Source__FPSGAME__Building__VoxelBuildPreview.cpp.patch",
+    "before_lf_sha256": "fb3679b720694aea534353653bfdae299dd852c6ea58170023695c448ad84ddd",
+    "recorded_after_lf_sha256": "6a4984414b21fd1fe9d4168b4eb3236d0db7c3a8a2a3162e2b9486a037e35551",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "WallGateReplacement-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildTarget.cpp",
+    "patch": "Integration/WallGateReplacement-20261123-A/Source__FPSGAME__Building__VoxelBuildTarget.cpp.patch",
+    "before_lf_sha256": "7c782db2814eb61be8922633c8f1b7eaf3480851edec89e503a141aca246f66a",
+    "recorded_after_lf_sha256": "c721921b6febea6f080f512607fcd78db2d28c0333b82ad8770c3fdbe9df38f4",
+    "retained_hunks": 6
+  },
+  {
+    "batch": "WallGateReplacement-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildTypes.h",
+    "patch": "Integration/WallGateReplacement-20261123-A/Source__FPSGAME__Building__VoxelBuildTypes.h.patch",
+    "before_lf_sha256": "824d01de1ca1c834fcc5b9b5d8aaef5532ad36e71b0c0610b5fe15497d9828fd",
+    "recorded_after_lf_sha256": "07ebb12ac8fedbf7e6257f48eef4be329e0c01e086ca87b29bd745d058683f93",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "WallGateReplacement-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+    "patch": "Integration/WallGateReplacement-20261123-A/Source__FPSGAME__Building__VoxelBuildWorld.h.patch",
+    "before_lf_sha256": "552785d6533dcb41650a35eb28a6f535e5d5442b4fd8d58cdf125be72654ebf6",
+    "recorded_after_lf_sha256": "6b998a33f3019c664e8482710f8b7e25e7180f6109b1f9a9e5fb766be926efef",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "WallGateReplacement-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp",
+    "patch": "Integration/WallGateReplacement-20261123-A/Source__FPSGAME__Building__VoxelBuildWorldPrefab.cpp.patch",
+    "before_lf_sha256": "e6a2cba04997a4b75f25143a6fb479cb36387a9aee7e3732e12c54c95eb450fc",
+    "recorded_after_lf_sha256": "16baa8138d2ce14a3e8927f7766f9d2279ab4539b8962068db0fd55e0d17b74e",
+    "retained_hunks": 18
+  },
+  {
+    "batch": "WallGateReplacement-20261123-A",
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseRepairTargets.cpp",
+    "patch": "Integration/WallGateReplacement-20261123-A/Source__FPSGAME__WorldGeneration__VillageDefenseRepairTargets.cpp.patch",
+    "before_lf_sha256": "2bcfcb33fd6a54fa78d37aa48cd23de08f69724835d995f06362b745d86447f4",
+    "recorded_after_lf_sha256": "8d6f81c5890a92d196f42bc8aa1fd06720bd72584e818d6b6759e715ab7a5ca3",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "WallGateReplacement-20261123-A",
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp",
+    "patch": "Integration/WallGateReplacement-20261123-A/Source__FPSGAME__WorldGeneration__VillageDefenseSection.cpp.patch",
+    "before_lf_sha256": "fee8f12dc4d1a7c843d54b21e653f1a627a58313e93f4f7f8eb60717d5d26f4a",
+    "recorded_after_lf_sha256": "182ec7bf8033e398c40b763c8df0cfdc238b568f386a200f671dd12bb8f46d0c",
+    "retained_hunks": 7
+  },
+  {
+    "batch": "Watchtower-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildPalette.cpp",
+    "patch": "Integration/Watchtower-20261123-A/Source__FPSGAME__Building__VoxelBuildPalette.cpp.patch",
+    "before_lf_sha256": "bf7efcecf709fa0839930587d0e8eaf9ec915a4b05c22f3e2bb973c98fa78a3f",
+    "recorded_after_lf_sha256": "7e331a46ac75578ca7654d8757cfe038c78b36daeeb74a25cc53b31205f356ee",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "Watchtower-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildPanel.cpp",
+    "patch": "Integration/Watchtower-20261123-A/Source__FPSGAME__Building__VoxelBuildPanel.cpp.patch",
+    "before_lf_sha256": "fe13f0bc49c9328071f2b631998b351cba31aaea6ad96eddac8f6bd73b9a72f5",
+    "recorded_after_lf_sha256": "cbf1f728807de1ef0fb5a1b2c0363ba2042f86ce118dc59e0e5f80aae3600345",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "Watchtower-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildPersistence.cpp",
+    "patch": "Integration/Watchtower-20261123-A/Source__FPSGAME__Building__VoxelBuildPersistence.cpp.patch",
+    "before_lf_sha256": "c049de19e46f4026b28e6c30e4119f2009f1dc43aa36771feca22bdd1e5419f9",
+    "recorded_after_lf_sha256": "8a492ddc6279e521fc0b7c4567645e70b19c6a61774cd733bff7ca41168369da",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "Watchtower-20261123-A",
+    "path": "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp",
+    "patch": "Integration/Watchtower-20261123-A/Source__FPSGAME__Building__VoxelBuildWorldPrefab.cpp.patch",
+    "before_lf_sha256": "add8f61f2bc536525017a80d55cfad5a4df61e377b32bd3b10ac09c4a138d00e",
+    "recorded_after_lf_sha256": "efdebdf2a49525b296118cfcd90db7a9b31e2d76ae179a40b144b0228dfd6e61",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "Watchtower-20261123-A",
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp",
+    "patch": "Integration/Watchtower-20261123-A/Source__FPSGAME__NPC__ChapelDialogueComponent.cpp.patch",
+    "before_lf_sha256": "2df3c504cab8ba75be70fdc57832fe999c188e60fd63c9e33a35899b48cca675",
+    "recorded_after_lf_sha256": "4c4c36a00d08d8a405ee03789e79da3478cff5b1c801af8f09265485b6686e8e",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "Watchtower-20261123-A",
+    "path": "Source/FPSGAME/UI/ColdSteelVillageTree.cpp",
+    "patch": "Integration/Watchtower-20261123-A/Source__FPSGAME__UI__ColdSteelVillageTree.cpp.patch",
+    "before_lf_sha256": "0c0da396b29faa12fab17350699d5ecba5dab5c4dec67be05cf952d6ad4f9a45",
+    "recorded_after_lf_sha256": "a2154c9a1c61999a5f19351b063c2a8d75d3b6a46aa93829286da13c5de3358b",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "Watchtower-20261123-A",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+    "patch": "Integration/Watchtower-20261123-A/Source__FPSGAME__UI__ColdSteelWorldInteraction.cpp.patch",
+    "before_lf_sha256": "706e7e2295442ac2c509f9480b6b78c281558d687e29f6d80d80bd978e90e932",
+    "recorded_after_lf_sha256": "f9cf041d6c919cb26e7a97bdf8c85e952c96ba191bfc68fc22fec6ccf6033e44",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/FPSGAMECharacter.h",
+    "patch": "Integration/Current/Source__FPSGAME__FPSGAMECharacter.h.patch",
+    "before_lf_sha256": "2c4936f07ca967e3ade130e00857d388a73750937cc87bd54a008c933fec3657",
+    "recorded_after_lf_sha256": "5b5c767aa5f5ca5b26b4a07b25423d6626f54f70380c05516fe0ea6b243a1ca0",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__UI__ColdSteelCrosshair.cpp.patch",
+    "before_lf_sha256": "eebbdff2d09bf259c38c3d04593800b70cffdfb2abced9e39a473962a7465e7a",
+    "recorded_after_lf_sha256": "cd753cf9f4d32c29886f54bdaff814aa032d80025127809b4f16307871dbd4f7",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/Building/VoxelBuildTarget.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__Building__VoxelBuildTarget.cpp.patch",
+    "before_lf_sha256": "6b5e1b26d79c62a0deee597d8e099a6a2936b63df2aa02805bd2ce3fce9e879f",
+    "recorded_after_lf_sha256": "8dd161912a742b004c1fe4f1021650b8d614a8df1af9fa73f0a13c8487eddc2d",
+    "retained_hunks": 9
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__Building__VoxelBuildWorldPrefab.cpp.patch",
+    "before_lf_sha256": "add8f61f2bc536525017a80d55cfad5a4df61e377b32bd3b10ac09c4a138d00e",
+    "recorded_after_lf_sha256": "6930cab54449a4bec1b645de5e817d4bd77d4fbb847560b8fcfcf5a2f3961955",
+    "retained_hunks": 13
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/Building/VoxelBuildPanel.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__Building__VoxelBuildPanel.cpp.patch",
+    "before_lf_sha256": "fe13f0bc49c9328071f2b631998b351cba31aaea6ad96eddac8f6bd73b9a72f5",
+    "recorded_after_lf_sha256": "d3fbed108a5123f2e395948d64721e34ec51252cccf71e726fa9bf691e5b2fc2",
+    "retained_hunks": 6
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__FPSGAMEPlayerController.cpp.patch",
+    "before_lf_sha256": "b1b93c77f0927cda49331df98fc9c2ffcf104096757f70bd948830b01d122683",
+    "recorded_after_lf_sha256": "399ce079b8acce79751ae8a0f7e59be28b5f17a39e3216d842c4c5ebc5d3a2e2",
+    "retained_hunks": 5
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+    "patch": "Integration/Current/Source__FPSGAME__FPSGAMEPlayerController.h.patch",
+    "before_lf_sha256": "b026dceb9c0729da7af15fb77729d58b682fe059f589864f1da2f7ff22a5412f",
+    "recorded_after_lf_sha256": "a2dd1bd4dfdf3ac51ba9639653f5d0bdce7c6680c8fbdcc5f634afa4ef1c8376",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/Building/VoxelBuildComponent.h",
+    "patch": "Integration/Current/Source__FPSGAME__Building__VoxelBuildComponent.h.patch",
+    "before_lf_sha256": "38c5f7144cde8972edc430899860a9dbd0eef90833dbbeebe8f345754eef9190",
+    "recorded_after_lf_sha256": "77f9bb702a5ed9178ec93fa67653ec9aefd48aa498819becabe6543a9fb28f09",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/Building/VoxelBuildPreview.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__Building__VoxelBuildPreview.cpp.patch",
+    "before_lf_sha256": "354bbf90dc03971a6479e946cf1271db1926492e350aa5063e89710e5acfae4c",
+    "recorded_after_lf_sha256": "73502da89c3204311dee9cd10a53a96c0f4c9a59ea0a4ca1f4002f0f7fd4b003",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__UI__ColdSteelHUDConstruction.cpp.patch",
+    "before_lf_sha256": "1af6ef9a5cabd9946e1d2c6c043f838aed18b797f6c850fb026c206ddbd316ee",
+    "recorded_after_lf_sha256": "bcc51467c66d2b32367495bbd3e75a7f16553d279703e580fb9b73fed5ec932b",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__UI__ColdSteelWorldInteraction.cpp.patch",
+    "before_lf_sha256": "cb0cab9593fe1d99935b2b3b2b6848b5601188b88c62f532cd6448b1507e5daa",
+    "recorded_after_lf_sha256": "0fb8cecc11bcb3fb8c6bd2436b9bf4b3e8599a90b488294bcc8555b2dfc7c510",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/Building/VoxelBuildNetwork.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__Building__VoxelBuildNetwork.cpp.patch",
+    "before_lf_sha256": "0705dd588000571c8b56b8b32644b80c555e50e25bf18e3fa3ffffe4a1ed4079",
+    "recorded_after_lf_sha256": "d746700c5e45d795812671b8b9acc8bfd2f37e873d662db66bd4d6cfb980f5cb",
+    "retained_hunks": 4
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/Building/VoxelBuildPersistence.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__Building__VoxelBuildPersistence.cpp.patch",
+    "before_lf_sha256": "c049de19e46f4026b28e6c30e4119f2009f1dc43aa36771feca22bdd1e5419f9",
+    "recorded_after_lf_sha256": "f60bae483499313f6699271d4a499212cc74ed61aa2a23a270f6d83dc32f5e00",
+    "retained_hunks": 4
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/Building/VoxelBuildPersistence.h",
+    "patch": "Integration/Current/Source__FPSGAME__Building__VoxelBuildPersistence.h.patch",
+    "before_lf_sha256": "64de94af6f3ad9655e7cedfab0c253f3a91060a7652f9296e37cac2b28d0d8c8",
+    "recorded_after_lf_sha256": "bbb77197bb5d65089c85bd3849bd12ec0ae5e299cf7ed33e41214c619cd02729",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+    "patch": "Integration/Current/Source__FPSGAME__Building__VoxelBuildWorld.h.patch",
+    "before_lf_sha256": "0920bc2fa7f7f139b7cce2c9432e279a30d1508f2f4f873fac4b2eaec6cd93b8",
+    "recorded_after_lf_sha256": "b597662c01f4e3d4d6d9f017022114abb5887dac17abb48fa5cfc84243742bd4",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__NPC__ChapelDialogueComponent.cpp.patch",
+    "before_lf_sha256": "2b5cc0b991a0fbd90744e17413a04b14beb942d0c6515cb9b823a9317a376a57",
+    "recorded_after_lf_sha256": "d74cff0b438844627806fd8ad238c27ec1c83f10f547c8f3a74b6a13a9c2255b",
+    "retained_hunks": 4
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/UI/ColdSteelVillageTree.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__UI__ColdSteelVillageTree.cpp.patch",
+    "before_lf_sha256": "a2154c9a1c61999a5f19351b063c2a8d75d3b6a46aa93829286da13c5de3358b",
+    "recorded_after_lf_sha256": "14a9a5f3c32702536cdffa8417e7ab016a67df1c78983e2548c8786d74442b82",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__WorldGeneration__TemperateVillagePlans.cpp.patch",
+    "before_lf_sha256": "b7c70c30bde2a9e43003ec340614f34a48d2360e17d4363e5b4d25c1b07162bb",
+    "recorded_after_lf_sha256": "ebceea839c91d21d41820a8c25360b5bd706bf9d80686a41fbd52792400e87b2",
+    "retained_hunks": 9
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillage.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__WorldGeneration__ForestVillage.cpp.patch",
+    "before_lf_sha256": "c2805b5108f1d22fd56398259352078f506d452ab99e005217b0b5df2d0f5275",
+    "recorded_after_lf_sha256": "bd1bafdc010b44bcb86d188fca28b44d2dd0776294ab2c297d46849e33d67ab4",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__WorldGeneration__TemperateHillsTerrain.cpp.patch",
+    "before_lf_sha256": "1b107bf6de8f6fd2a48fe011f8ad235b8250a906127d27b21bda36034fbd424b",
+    "recorded_after_lf_sha256": "cece175c5e742738d4ffac2ad08186ff6d18997db6e92790606da9fa3e69d196",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.cpp.patch",
+    "before_lf_sha256": "4d3fddf9fb32c3bff8ffb27ccb8ed78659863d25e5b7a9b0ce2f431dd28b5184",
+    "recorded_after_lf_sha256": "e9babe8d3ebc1147a937e913626e7ce8b4456471c60019b4b07d44f87fff18ea",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "patch": "Integration/Current/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.patch",
+    "before_lf_sha256": "22f5792d7825a079314c24b43066836195dec38a4ef8722eeaf43cf1e436b088",
+    "recorded_after_lf_sha256": "58beab6d6bf898ddac54840787be6a14acd14c7b597d6b01186038b1e37ce9a5",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/Building/VoxelBuildInput.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__Building__VoxelBuildInput.cpp.patch",
+    "before_lf_sha256": "38c175a1b2401f45501a9da2d37d0741c1377a663d38178160f151b675889b39",
+    "recorded_after_lf_sha256": "33fbf0f6d6fe29b2d831b99be8df03fcafbc92e649983619cd04e93eb2ff793c",
+    "retained_hunks": 7
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseState.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__WorldGeneration__VillageDefenseState.cpp.patch",
+    "before_lf_sha256": "87899811f32c7aec28dcb53a8541607be2ab975dc937ab0553281a5200de6b71",
+    "recorded_after_lf_sha256": "599496f42abbc46958549badc18df0a93f8bb9a5271db0ea6115fc0dc6a3aa0f",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/Building/VoxelBuildPalette.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__Building__VoxelBuildPalette.cpp.patch",
+    "before_lf_sha256": "bf7efcecf709fa0839930587d0e8eaf9ec915a4b05c22f3e2bb973c98fa78a3f",
+    "recorded_after_lf_sha256": "56586d33eb6eb4ccb32881b9a5f208654e80eaeb9adc83e7813ee402acb24ced",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__FPSGAMECharacterActionPriority.cpp.patch",
+    "before_lf_sha256": "40e3e9d63e6b1adfb6e111918394c2e396bd9de8851a8f621628bb648a44b2e6",
+    "recorded_after_lf_sha256": "438d036e5024395790e3db9888f875bc3745198927c69585b010e34ba758578f",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__WorldGeneration__FluidPresentationSubsystem.cpp.patch",
+    "before_lf_sha256": "d67b10d58d3f99758acb01cb778c6a6759af2cbcddd095c071a97bbf5a3904f9",
+    "recorded_after_lf_sha256": "4d6ad0a625d85c8ea088f6ac0f933a43ca4715672185b545ed75aeb4549f1f30",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h",
+    "patch": "Integration/Current/Source__FPSGAME__WorldGeneration__FluidPresentationSubsystem.h.patch",
+    "before_lf_sha256": "1bb8a3f2c0601264e8f4d8aeff05ae4bbe7ea54cc9d200e3e48bf33be88af840",
+    "recorded_after_lf_sha256": "cd5b1bf005ab4de9779cfb6324b367767cc39fb814eef1921db1d5c18f8ccf3c",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__FPSGAMECharacterProfile.cpp.patch",
+    "before_lf_sha256": "661e31ed29528104b008c37f5a0a7d4a2117d7578e737802e51c12c70d9ad391",
+    "recorded_after_lf_sha256": "077a8f96825842dad367d2ae234bd46cfea1d14aff1aace9f120e57734a48cb7",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/NPC/VillageResidentStatus.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__NPC__VillageResidentStatus.cpp.patch",
+    "before_lf_sha256": "56964da048c29fde06118e2df7a7c61d39f3fe05d9b3634f9fb8dd50ac6f4b73",
+    "recorded_after_lf_sha256": "5585fecf315b42850066a807e6a1cc690321fa7c259811dc4d58abe565ab094a",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.h",
+    "patch": "Integration/Current/Source__FPSGAME__NPC__ChapelDialogueComponent.h.patch",
+    "before_lf_sha256": "68e6b01cd3247cad502523f0e04dbcd75413ad091b240b847568e98edee15655",
+    "recorded_after_lf_sha256": "f80154c9c997e0d0839b2fed1b385f67bf8fe4c2411379fcbbfb249af963fe76",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__UI__ColdSteelNpcDialogue.cpp.patch",
+    "before_lf_sha256": "3d3cdecd72b55263b2d6c95a6c8e8d03bd71ff32fa911cf7c377959a1ba43b37",
+    "recorded_after_lf_sha256": "647d9e785b9eff1e08f0fbaf5d55d579d89fd54a4319cd4eab133e7741656fe3",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogueArtisans.h",
+    "patch": "Integration/Current/Source__FPSGAME__UI__ColdSteelNpcDialogueArtisans.h.patch",
+    "before_lf_sha256": "f75d20d4be1c477906216679bbc738f8fcbfe17fbae6336c52d94b23ebee98b4",
+    "recorded_after_lf_sha256": "f45e8d13fabf818e1515d9b728f5572b8162da22803d6394eb0044a4b0177630",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/Building/VoxelBuildWidget.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__Building__VoxelBuildWidget.cpp.patch",
+    "before_lf_sha256": "988a0655d794e67119d262036a5fc6e57d80326dc96f035dfec75a5b75744207",
+    "recorded_after_lf_sha256": "91baaaca73bcaef93ac3edabf7d3c9ef4ae7fe937ed726074cea1850cb2ffc0c",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/Building/VoxelBuildWidget.h",
+    "patch": "Integration/Current/Source__FPSGAME__Building__VoxelBuildWidget.h.patch",
+    "before_lf_sha256": "e6829e181b8c072042ac59ec3b39da0540b0cbd4ceabc10ef9608cbd411be142",
+    "recorded_after_lf_sha256": "1a7976ce5cc8dc67d07602cbc5fa12b921256564f98508241780e8d9ff6f7e66",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/Building/VoxelBuildWidgetLayout.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__Building__VoxelBuildWidgetLayout.cpp.patch",
+    "before_lf_sha256": "fc1f18fdfe3f410c0ca2d620515ce3078af9d6c21465afdbd35ab85ad4319294",
+    "recorded_after_lf_sha256": "fda0b557c6ff9c5f1fc8f20b0a2207296495918c4c8b7b8c765a4785ab76a42f",
+    "retained_hunks": 3
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageDefenseBlockCheck.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__WorldGeneration__TemperateVillageDefenseBlockCheck.cpp.patch",
+    "before_lf_sha256": "2569ac4c4b6501ecad79f8cfe374d0c3d4cb107d7d4f814c47523c7195bb0dc1",
+    "recorded_after_lf_sha256": "32480321f23d16c82a06bb70f31efb8b990afd47b0c2c4abca2f34c929b8f917",
+    "retained_hunks": 2
+  },
+  {
+    "batch": "Current",
+    "path": "Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp",
+    "patch": "Integration/Current/Source__FPSGAME__UI__ColdSteelStaminaHUD.cpp.patch",
+    "before_lf_sha256": "a117806bc4335042d2b05f88bd2dfaac45a53055e4e1a11bb4fa8087c6738faf",
+    "recorded_after_lf_sha256": "68868918fa42212d38a0a61934c5ba64ee77d90f4b65664482af65fa07c08cb4",
+    "retained_hunks": 1
+  },
+  {
+    "batch": "VillageMerlons-20261123-A",
+    "path": "Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp",
+    "patch": "Integration/VillageMerlons-20261123-A/Source__FPSGAME__Weapons__WeaponBipodDeploymentComponent.cpp.patch",
+    "before_lf_sha256": "7690e4cac1f9269f206dd40894ae2cf97577b3d3f7a6996fa87837f697ab9cec",
+    "recorded_after_lf_sha256": "59fc5f3fd77be1331ce8cfa66b1fd993792bb76999ecf1f1a8254ece1c6294ed"
+  }
+]

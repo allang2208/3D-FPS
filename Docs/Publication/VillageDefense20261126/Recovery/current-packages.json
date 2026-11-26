@@ -1,0 +1,997 @@
+[
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/M_DefenseGroundWear.uasset",
+    "bytes": 12931,
+    "sha256": "95aab8ab8277fd3ed9c6ff191f2a8f2b7d58684684a829c19a6010d4428cb194"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/M_GatehouseChapelWall.uasset",
+    "bytes": 19482,
+    "sha256": "56e46ec88c460f70cbd66dbac31b685f88a6dc6489983f0c8e2316b9f0e00787"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_HighPortalGalleryEast.uasset",
+    "bytes": 233817,
+    "sha256": "57021887228061bdb6d21b75e90b336242b707e2b7f48d47609ae47c42b62c56"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_HighPortalGalleryWest.uasset",
+    "bytes": 218610,
+    "sha256": "927c7885dd30afb85d22283164eb04561617c78a03a48e5b6c42efc8bff57b0a"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_HighWall.uasset",
+    "bytes": 47988,
+    "sha256": "88c2939e0ba946149067b5628f7d29e547ba5a7b5225f42185e129f21edb0622"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_HighWallShard_00.uasset",
+    "bytes": 19263,
+    "sha256": "20d2bd453b725f9373d63592ddb74c6d5b12ba9d984424ae2790891beb424e0b"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_HighWallShard_01.uasset",
+    "bytes": 19276,
+    "sha256": "a25d885bd2ff72c1f085af7467a92e1d26ae75994000e1ebd43524b03139c888"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_HighWallShard_02.uasset",
+    "bytes": 19264,
+    "sha256": "01e90510d94cabb5abaeed1da1a2ce3f6864af1c279023bd8e112f0a17c3cd07"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_HighWallShard_03.uasset",
+    "bytes": 18375,
+    "sha256": "fd64223fd5eca1b2676f75797537c9ea0274527dc609be65ed6ffa910b4b539b"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_HighWallShard_04.uasset",
+    "bytes": 18295,
+    "sha256": "741dea4d5d0d4ffe0a085141359d27a6cadd0263fdf648c39eeaea1c41ae4612"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_HighWallShard_05.uasset",
+    "bytes": 17988,
+    "sha256": "e0037c9307f2e2bf98b8916eb84f0f9ab08d4898bd8a6fa0777b145b98331bb2"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_HighWallShard_06.uasset",
+    "bytes": 24428,
+    "sha256": "6e9922cda4d3632ea131c545a2b7157e73a398f37ed94fa39a9a3b595c883b8f"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_HighWallShard_07.uasset",
+    "bytes": 24463,
+    "sha256": "a73a819bb509327debd4392dd939999d3e63d7a533e2a96e009768048fa51c3e"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_HighWallShard_08.uasset",
+    "bytes": 24170,
+    "sha256": "2bc43ae7c41296c9aaa8e38c37bcb86d38d5afedcad0a1cd53af8cfcf19a72b7"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_VillageWallPierRepaired.uasset",
+    "bytes": 981906,
+    "sha256": "186034c36c110e76902a94c55aec5230c751e78887ff144a65e5dea5422fc645"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_VillageWallPierRuined.uasset",
+    "bytes": 921501,
+    "sha256": "ab20a48c1474038ba8047e475445578fa1bd592f075c294eecbc786779081ddb"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_VillageWallRepairedA.uasset",
+    "bytes": 3533687,
+    "sha256": "a60a463e7f9438bb7b001d29d99b0d889236511e26a8165c0834ef73908f2488"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_VillageWallRepairedB.uasset",
+    "bytes": 3478719,
+    "sha256": "fa3db91f02fc62b2ab04051c6ca2eac65359fad51faafc26131fabe02d385e74"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_VillageWallRuinedA.uasset",
+    "bytes": 3332143,
+    "sha256": "493b17696344b13b146d1d736f01ec36c422cfa103f502f3d7b8dde36822488e"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_VillageWallRuinedB.uasset",
+    "bytes": 3087026,
+    "sha256": "6fb000aa8cda5cd45f967449a91368a1812f524427cb18645206eaab2c8beb43"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_VillageWallRuinedC.uasset",
+    "bytes": 2389057,
+    "sha256": "ad18cb25d565995d32003fd2d4b67259b75db61efc5f46edcbe00b61960b77ca"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SM_VillageWallRuinedD.uasset",
+    "bytes": 2500662,
+    "sha256": "02df3ab1533a4136f54c59b652cd8881ce74c739c21c5fed2bbe02c29619b58b"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SquareKeep/SM_GateReleaseHandle.uasset",
+    "bytes": 35011,
+    "sha256": "04fe76fd83cf69a440e31e3c591295a3ab340d7e451330dafb61dcde0c3b36dd"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SquareKeep/SM_GateWroughtGrilleEast.uasset",
+    "bytes": 217712,
+    "sha256": "a89c7eb16f31feeec59e1f008044d740647c90e3534241e626bb0b8bdfbefe92"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SquareKeep/SM_GateWroughtGrilleWest.uasset",
+    "bytes": 313313,
+    "sha256": "7db2bcbd2044646636a31ff54794e215a0494c175e9503ca9e9e0666289794cb"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SquareKeep/SM_HighPortalGalleryEast.uasset",
+    "bytes": 811280,
+    "sha256": "a94e63b177bd2c434c4f83e60874e5fc146b612cd18cc632f2828431fb0b4569"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SquareKeep/SM_HighPortalGalleryWest.uasset",
+    "bytes": 954370,
+    "sha256": "808d1f6c930b56f76fc4bada379f19d116db5e5a96859ffab8009a80906496aa"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SquareKeep/SM_HighWatchtower.uasset",
+    "bytes": 1061158,
+    "sha256": "3ad153bf0b1e5336daeb8320bf83debd8c04165d93fb658dbafd8b4c5bcd7529"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_00.uasset",
+    "bytes": 329897,
+    "sha256": "a50fbc51e50db67d964fb398233937de40ef1e1f1182ee169660da6e8b16cbeb"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_01.uasset",
+    "bytes": 452223,
+    "sha256": "7d072d128d99431c32aeb16134ed9d1dea12f42d4446c4fb56be7591c9fdfdb3"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_02.uasset",
+    "bytes": 366131,
+    "sha256": "40b41fdf6876d40ede282c20355489fa7af0f280a7aa20c78c5f8ceee3b04c6c"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_03.uasset",
+    "bytes": 763088,
+    "sha256": "4fcc4e615dfe43339b9b464f5489e1d4bbe588062b5d8dfff5c9decd7cc439e5"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_04.uasset",
+    "bytes": 561445,
+    "sha256": "c819089caf61ff7b4cce24713477205ffc6c71d958d51ccd1214f67fa678239e"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_05.uasset",
+    "bytes": 608116,
+    "sha256": "9c03d236395b14daa4ed728f01c4f39caee39033e49acae7c649efba5d1f01df"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_06.uasset",
+    "bytes": 936326,
+    "sha256": "ccae084fe660069d83af103d780bee9f27985d9445d8b2d37a8e90afebdb5e7b"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_07.uasset",
+    "bytes": 985456,
+    "sha256": "f8feb510b1fbc8f2f13f239edeb5441af006ac8e2b91fbe66755bf33939113f1"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_HighWallShard_08.uasset",
+    "bytes": 984711,
+    "sha256": "54c80938b1fadc70f89c4d40c75581bdb8f5577653b63487658b29639c0c85fc"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_00.uasset",
+    "bytes": 40659,
+    "sha256": "f96c8b5156f769951ed961816c1aea97b101fd4f0b278f28c60ad6da0a8fc373"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_01.uasset",
+    "bytes": 85495,
+    "sha256": "be670ec7b827f6aaf2991f3e3d6760ee083e813244f49993e4b2f3aff68f693b"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_02.uasset",
+    "bytes": 30842,
+    "sha256": "ed588e7cf6db0ec04c0a7695743dd692e13f491a0470266f28a01fc432e5298b"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_03.uasset",
+    "bytes": 120038,
+    "sha256": "0e6bde395f7ecb552a4480c516a03fa11e619979fcc77b50aa2d2e9b0810d7f6"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_04.uasset",
+    "bytes": 57525,
+    "sha256": "c4dfaeed555cfeed757537725daf077adb21e3925b75ddb2c8aeca12b6793f10"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_05.uasset",
+    "bytes": 187342,
+    "sha256": "1767802e5f1f9151e4279509892b1c0e35f78055f4e59da71c919b01d0f96138"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_06.uasset",
+    "bytes": 119811,
+    "sha256": "368e064c5f3c7a862c8dd355da30f8fd6b8cd1a1f26d74b2bffe990b412119c8"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_07.uasset",
+    "bytes": 264497,
+    "sha256": "e5dc92ae2ebafce352ce123a020420c4130d81b1284b5cb7fae6dc3d31c96f9c"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_08.uasset",
+    "bytes": 80900,
+    "sha256": "1d014cbc77ffda4e05782785712b33bce555258d2ee25c5a5f811e1ca52d1a48"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_09.uasset",
+    "bytes": 228328,
+    "sha256": "b6cb24c9d3ab97199ce769654b5de13d09c00b88fda1acf2177341fd049bf45b"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_10.uasset",
+    "bytes": 84303,
+    "sha256": "2057bdfd8bdb00abb6ff309c280ece3a042de0643dfaed427c411e9a22d5d463"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_11.uasset",
+    "bytes": 258521,
+    "sha256": "8b5377f019b7851884c0f9ceaa53f1149d18c7513f9cb1809d49bee2321c69a8"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_12.uasset",
+    "bytes": 137742,
+    "sha256": "0d812385c4389a7d26019b53a900143031f92ab54c3334db13e88c2703a4229b"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_13.uasset",
+    "bytes": 150206,
+    "sha256": "83553259e7791bbd374a5ee9365a70afd77e4372aa9eca64f48d8cb0c2f9b579"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_14.uasset",
+    "bytes": 121879,
+    "sha256": "16237738281b28656b493325652683b7569190efc21b0e1b8bec19bed0fdaf7b"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_15.uasset",
+    "bytes": 158831,
+    "sha256": "356a8b9b24286290a73f461ec893ddd3ae926a92971f86fa3b64681a307c299e"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_16.uasset",
+    "bytes": 469697,
+    "sha256": "bb4fa2ff2ad64212e52e72a4ceb54fe654e943e33d1d3a9a0400ac98ccd8802e"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Fracture/SM_StairShard_17.uasset",
+    "bytes": 520610,
+    "sha256": "c9d612c86602583af87b5e416083450e4835d26dddc59d1041545c0574f5fd6e"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Hoist/SM_HoistBearing.uasset",
+    "bytes": 22843,
+    "sha256": "11c92bd89c7a06617a42526089b2b51fd1697ce28d28e54ef8faff468bca75b0"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Hoist/SM_HoistLink.uasset",
+    "bytes": 16285,
+    "sha256": "c4b7c673feb555b695a08c7838c5cd7d69360d747bb706516ea723c18f479bed"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Hoist/SM_HoistSheave.uasset",
+    "bytes": 29333,
+    "sha256": "2d4f6f31b3b5ab7657ad03cec79b2d6887514491282ebd6532d38bd366b2afdf"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Hoist/SM_HoistWeight.uasset",
+    "bytes": 18312,
+    "sha256": "eb9bb8d8cc3f31998278becf2696d026a2bb4909ecc7e704a2daee5c95d020f3"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Materials/MI_GrilleIron.uasset",
+    "bytes": 5162,
+    "sha256": "8e4a8a72f51b91db9f255d2018913180441c627b477769d2d7ecf1cc31b50a5e"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Materials/MI_HighWallStone.uasset",
+    "bytes": 5201,
+    "sha256": "25c52100861bda356d4b9d85d0ed7033484acdc421e23bd97d80c395cd5bc068"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Materials/MI_PortalStone.uasset",
+    "bytes": 5175,
+    "sha256": "99757d5c029d86d038b57377c0826234009642147c4c7997dd017d874e70353d"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/PlacementPreview/M_EntranceHighlight.uasset",
+    "bytes": 5908,
+    "sha256": "3920703e2f17bacf2bc8261e2891e21a8e0034139612941ab763d70122b591d5"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/PlacementPreview/SM_StairEntrances.uasset",
+    "bytes": 109996,
+    "sha256": "a853bad6bdddbd709264103bf214fec0567a4df3a050f9faf75280e5776a3b76"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/PlacementPreview/SM_StoneGateEntrances.uasset",
+    "bytes": 87224,
+    "sha256": "b2f8970ff3b447ab05d6f477c5cdceb096af8b649a85a0a7fe002abc033d3096"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/PlacementPreview/SM_TowerEntrances.uasset",
+    "bytes": 56034,
+    "sha256": "31249524a1e386a79b0dfc9159e4885aec55f5904f8b3c377bdc407bbc34ee25"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/PlacementPreview/SM_WoodGateExterior.uasset",
+    "bytes": 11766,
+    "sha256": "4c36cc61c1312cd489bd5370bba71d49ab031c688a2e65d8181c70bac2d1eeeb"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/Audio/SA_TrebuchetImpact.uasset",
+    "bytes": 1497,
+    "sha256": "8e6c5f84186fcce7c307349bb123429142db99496e68bbcc16cacab9cb556717"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/Audio/S_BallistaRelease.uasset",
+    "bytes": 30873,
+    "sha256": "d2921f38e9da21b467118800fbc3161b36ef84aff55a6678e19853fb45f8e00c"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/Audio/S_BallistaTension.uasset",
+    "bytes": 39140,
+    "sha256": "80e1ae9397afb226bdbfb09641fc912d3a23aecb0185e18b717d8d3be285106a"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/Audio/S_BallistaWindlass.uasset",
+    "bytes": 112073,
+    "sha256": "da8b9fb070acb2fe4e1da41ed1a2131a0a110397b306e86ebc55eb9b2ad8761a"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/Audio/S_TrebuchetImpact.uasset",
+    "bytes": 53553,
+    "sha256": "2da842625348e420a9c46936cc2f77dbbeb629627d16354405d65cff46d7f653"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/Audio/S_TrebuchetRelease.uasset",
+    "bytes": 49590,
+    "sha256": "1f6bdc47053a15841d4f93172a6cecef4673d54e84285beed0bd71ca2f06290d"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/Audio/S_TrebuchetReload.uasset",
+    "bytes": 187777,
+    "sha256": "4cadf4b14a572450352892223e90304718a1fd838d5c11623bede00e152c503c"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/Audio/S_TrebuchetWindup.uasset",
+    "bytes": 63563,
+    "sha256": "c26d19ddc8b4f188e1118c8e6cb100070862baa9796913ec4916b7ccde771a0e"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/FX/NS_TrebuchetStoneImpact.uasset",
+    "bytes": 2001934,
+    "sha256": "d91d517de561919fda98e8c4b4f25aa67a8c5d2c28c1ac40acc09eecd6d7f53d"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/M_Ballista.uasset",
+    "bytes": 6806,
+    "sha256": "fede65830bd67ad3903b5f2a8e7ba431c1449eb0be234c6fdcb7e3262e5a1177"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_BallistaBase.uasset",
+    "bytes": 91245,
+    "sha256": "280dce69ea4620e604596ed89fa4219444cb1c5c0a54f442280ff951cce47bc9"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_BallistaBolt.uasset",
+    "bytes": 124270,
+    "sha256": "5c9178af62c5177024c13fbac6a8040128da61e992404b3c61231e0ca1a926b2"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_BallistaLimbL.uasset",
+    "bytes": 121290,
+    "sha256": "11e9d2b84e678ad984b940600ef0f3c6645c152abdb207e92a71e01eac491026"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_BallistaLimbR.uasset",
+    "bytes": 120925,
+    "sha256": "f3717b7c7ecd8ba723f34715842bb902847e9f2c1e7255ac79434f9907769d97"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_BallistaPreview.uasset",
+    "bytes": 939402,
+    "sha256": "b63fa8a556457c076754b52fce0ceef6243198f52776c16a3e476b2938938277"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_BallistaStock.uasset",
+    "bytes": 429119,
+    "sha256": "c2814dd992796a7ab1874724d4efb04da387f26207c30a6601dcc7e14890096d"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_BallistaStringL.uasset",
+    "bytes": 16387,
+    "sha256": "00e4db523e375581193424d694e90026d923f02adc0938e7575a8374566c2208"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_BallistaStringR.uasset",
+    "bytes": 16343,
+    "sha256": "f4eba165aeb1e0a450b44632c4d9900058345390591a4dedc207825961256d10"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_BallistaWindlass.uasset",
+    "bytes": 157923,
+    "sha256": "f1ce29f41cd3c73c228f79473887f04b160f875329177cb7f43a91577f8db9b1"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_TrebuchetArm.uasset",
+    "bytes": 481291,
+    "sha256": "0c2b793973083a77676b320ef9084a91076ed235dba15f4a11f79add6d3fd174"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_TrebuchetBase.uasset",
+    "bytes": 4079023,
+    "sha256": "baadd76b0d56ff8e51c3a396c9737a53dcc2852c3b4b1290bc2bc18db794543e"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_TrebuchetPreview.uasset",
+    "bytes": 5888313,
+    "sha256": "d3231be08725d7f91434da710c7006af98fbfd5877c7a44d29218e6d06c77a64"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_TrebuchetSling.uasset",
+    "bytes": 20680,
+    "sha256": "e877fd054129d37418c05a81e51bea1944ecf78c409eb9c1d88c9dc30c08ed42"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_TrebuchetStone.uasset",
+    "bytes": 72297,
+    "sha256": "5267e30060cda5660d6f0c552614a96d9efdf01389bcbf0104e472ac3ef30430"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/SM_TrebuchetWeight.uasset",
+    "bytes": 1419653,
+    "sha256": "90951059a00ec80bb73c6b177e67a286362b716f971e4869232057c258bfdac2"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/T_BallistaBase.uasset",
+    "bytes": 4953281,
+    "sha256": "3ea319e4348193e807453e8edf2ded442aa91d32ebe138366b5e03bb06032f64"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/T_BallistaNormal.uasset",
+    "bytes": 5871590,
+    "sha256": "5b5d70f661bb6cb22079e8c77e9289bd8d5c4a07c6f4e123f638acbbef820420"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SiegeEngines/T_BallistaORM.uasset",
+    "bytes": 4903019,
+    "sha256": "786b47b9606acb4e428177755b5b06a1bc3f25e93b1b3b8eac22de725afe47ee"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SM_HighPortalEast.uasset",
+    "bytes": 8066263,
+    "sha256": "fd6ec167392c6f05581709f5b85e3911b64800dbd234444f2542a6d376db0873"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SM_HighPortalGalleryEast.uasset",
+    "bytes": 3846176,
+    "sha256": "f0ca2ca537f8378fa7f3492ec9f5dd970e65242a50b80fdd22024027463df50f"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SM_HighPortalGalleryWest.uasset",
+    "bytes": 4532766,
+    "sha256": "8291ee7baa2e31ac34ba57298373ea345efb9e28354799606bd5eb613a8abb50"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SM_HighPortalWest.uasset",
+    "bytes": 8684630,
+    "sha256": "d2131dcb7d6b7761d478c3d22c3f6be413819d2ce4d76313b2fa0c365527674e"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SM_HighWall.uasset",
+    "bytes": 4084876,
+    "sha256": "2350e4f63461c032325871353c015a1f0b209b55defb50346abe26f3016ecb72"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SM_IronGrilleEast.uasset",
+    "bytes": 4348301,
+    "sha256": "5ddc29f2eb062c931a1e8c3a7928807270c4a530bbd9b187421ee555617341e4"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SM_IronGrilleWest.uasset",
+    "bytes": 5365383,
+    "sha256": "92a8d08fa190fe34cee0f97307c4997b4454302e117c325c90cbc1a3819c1ed1"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/SM_WallAccessStairs.uasset",
+    "bytes": 2549146,
+    "sha256": "fde837b609c28c42b61f8aafb612e19e4676dd9122801d5fc67d65e145e87682"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Textures/T_GrilleIron_base_color.uasset",
+    "bytes": 4827523,
+    "sha256": "e8dae30fb601c82fe00878254efae7b4c7c044e15da54faae36f3d6506ec3606"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Textures/T_GrilleIron_metallic.uasset",
+    "bytes": 2525511,
+    "sha256": "d0a0a4fecb328430c36f410478f3b35d278ea8a8bd2dba37d9bc326631c3edb7"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Textures/T_GrilleIron_normal.uasset",
+    "bytes": 5509291,
+    "sha256": "6d23fd0f6ef1e1e58ba77078b9745a6c55d5e829de8111b6b0b4d244cdbfea31"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Textures/T_GrilleIron_roughness.uasset",
+    "bytes": 2294943,
+    "sha256": "bfdf45ae0ca2903a61a9b84d5aee2c9e2d75a6c73d0f43f23582faf735f36891"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Textures/T_HighWallStone_base_color.uasset",
+    "bytes": 5863906,
+    "sha256": "cada62e87330b6fcacf0d2f18ecbb975c501e3e29b1f9a3dea3ce1c9034ac87b"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Textures/T_HighWallStone_metallic.uasset",
+    "bytes": 1036430,
+    "sha256": "340a90ff39550a6aa418bbee1f1f1a809129e6839dca5a86572513c405d24271"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Textures/T_HighWallStone_normal.uasset",
+    "bytes": 7153927,
+    "sha256": "75a30f623264f451e558a7b34c00a17e8a2c4d39418d033fe30effbd2ce42537"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Textures/T_HighWallStone_roughness.uasset",
+    "bytes": 1392101,
+    "sha256": "8e7ed3a0e7494ea91078d9475383553ee59282cf52edb13f143832a514303fe2"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Textures/T_PortalStone_base_color.uasset",
+    "bytes": 5990330,
+    "sha256": "cb8082890f05090f1fc62041f4055a96886e7181d161f505b067e1c7de5a1bcb"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Textures/T_PortalStone_metallic.uasset",
+    "bytes": 743630,
+    "sha256": "31ddc9698f45d1ec7d9203723ba7dec5241a24951c4d7bf12103e73d9a1adf65"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Textures/T_PortalStone_normal.uasset",
+    "bytes": 6768381,
+    "sha256": "60393193be85e48a7144f4c59ae2e8f7fa87b05c3d90162a168ba39f5997700b"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HighVillageDefense/Textures/T_PortalStone_roughness.uasset",
+    "bytes": 1248445,
+    "sha256": "17f42c0bde01cc6c2f70bbd6fbd66f2daa2afc2359497b8e73ee42758421c751"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HotOil/FlowR2/M_OilBody.uasset",
+    "bytes": 13896,
+    "sha256": "8c937d87b5ff809c117a77540537657fd29bcbc918e99d0032e8d74cb0eef9e1"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HotOil/FlowR2/M_OilBubble.uasset",
+    "bytes": 10833,
+    "sha256": "156692a48168eded525d0cee2bf7a6e79bcd620e8e533dafe1ecb276285c4e12"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HotOil/FlowR2/M_OilFilm.uasset",
+    "bytes": 15186,
+    "sha256": "c31db7dac0180b386b62f6ff2574b03c0c2c9788958f9e4f3a85e44ae903eaa8"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HotOil/FlowR2/M_OilStream.uasset",
+    "bytes": 11910,
+    "sha256": "fc391ba1ec34abbfd4a55228edb8d9a666f1b7095799f38cb799c7f3e5c72282"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HotOil/M_OilBubbleFurnace.uasset",
+    "bytes": 16674,
+    "sha256": "87265912b9935dc7a0c36bdcd45c928b9056be473ac82cfc68981714ac640733"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HotOil/M_OilPourFurnace.uasset",
+    "bytes": 16756,
+    "sha256": "4a3f2a41d28e73d60723db41388307cc7f324f4494470e2913b8a537d09e3458"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HotOil/SM_OilHandPot.uasset",
+    "bytes": 113520,
+    "sha256": "ba55bd5b0085cc642c87891ed279adb820334909b9f1a0493969dc14a6db2dae"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HotOil/SM_OilHearth.uasset",
+    "bytes": 160930,
+    "sha256": "f7df91ddffdb4d1a1d98d8558fc950073e0bdcaa00cb0bd52fc1dbe6e8e5f750"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HotOil/SM_OilSurface.uasset",
+    "bytes": 13033,
+    "sha256": "73ac586390bcc4ff5aa86b6cce5c4e9258e56a882acae9220df9c67c8ee45be7"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HotOil/TorchField/NS_OilTorchField.uasset",
+    "bytes": 829654,
+    "sha256": "ad4ddfc850878ae7d091c70dc8c2008a60f65e30afa4a0dbc76a2fe9140e6a61"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/HotOil/TorchFieldR2/NS_OilTorchBands.uasset",
+    "bytes": 838472,
+    "sha256": "863fd801d03e3633ff24b6f60748b5a8075221f3a2d1e0a82d43c13496f5728a"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Materials/MI_ForgedStrap.uasset",
+    "bytes": 5271,
+    "sha256": "13ca1cac2c111fb1677b3f50a3aa3b3dffe6c05b400970be016f87e73ce0cc33"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Materials/MI_HempCord.uasset",
+    "bytes": 5232,
+    "sha256": "247b505c7ac3fa6e815649f152320afeb5c5a2bab2703fe05ce830b02546b5be"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Materials/MI_SignOak.uasset",
+    "bytes": 5219,
+    "sha256": "14c4022bfb68d25c6091121f32234538bc2a50408ccd86de32b0ec5d5b385554"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Materials/MI_WheelBrass.uasset",
+    "bytes": 5258,
+    "sha256": "2d973c0fa30ececf77473538d2479fecbf7056d6a9d3aa8e28cace8c8dc368cb"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_ForgedStrap_base_color.uasset",
+    "bytes": 229863,
+    "sha256": "3d9d8ed1ed15c63b7b8252b264891e3a8ad32f90c5bb9a90d58fe144f7059a6f"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_ForgedStrap_metallic.uasset",
+    "bytes": 107329,
+    "sha256": "18dd49f333d5143fcc8e852808f3676003bb1158b200e9b5f6bcfbd7dcb59489"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_ForgedStrap_normal.uasset",
+    "bytes": 448737,
+    "sha256": "b9b5a9b9dcb2acda6a7b82f8b8f981155226b1b949d75c53956cdc2d7c1d8aa0"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_ForgedStrap_roughness.uasset",
+    "bytes": 136568,
+    "sha256": "70081fe2745db0bea678b95076f0fc0cdd748c28adfccfe2038a057cfb74a4c7"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_HempCord_base_color.uasset",
+    "bytes": 294520,
+    "sha256": "a00b7951833c60430127a4443b4dcc553e2a76e88282970bacde89eecaf39f10"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_HempCord_metallic.uasset",
+    "bytes": 11695,
+    "sha256": "453286cbc4cffb83ad38776cea68d4ae17043325cb10ce49de45dd32d3c17bd6"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_HempCord_normal.uasset",
+    "bytes": 724353,
+    "sha256": "48870b9cdb47f8808d2739af504ebc93454710fa75ec30f570fb80341b2e3ab2"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_HempCord_roughness.uasset",
+    "bytes": 158338,
+    "sha256": "96c29f181a7f045823e576bf044948c7918e5f3f0c3e8a9620ed8b2f869ad215"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_SignOak_base_color.uasset",
+    "bytes": 208973,
+    "sha256": "3f7a08f1eda6dee83db2fc33b516747429b5d662199bc43beb65eaa98ca2068e"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_SignOak_metallic.uasset",
+    "bytes": 11668,
+    "sha256": "7271514bc0c72e785698b88e6913eee00e822485a1416d5f63d6912955af5ef5"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_SignOak_normal.uasset",
+    "bytes": 290120,
+    "sha256": "a70fefda6ec625c0d5ef985b5f9814fc84ae166c405ef36ff70677b2bfce0ad0"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_SignOak_roughness.uasset",
+    "bytes": 77696,
+    "sha256": "e346b558420e3b49e2a95a68660168643abd7c014eb46ce2505a3d670d857ce9"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_WheelBrass_base_color.uasset",
+    "bytes": 231058,
+    "sha256": "69f97cf1a8aa732106e410cc57dcf179af07871694c95b2cfaa71db94e76100e"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_WheelBrass_metallic.uasset",
+    "bytes": 87370,
+    "sha256": "c93d41b5751e74d579315cbf8c69afc9dcf1eb919a68e827d60f86906fe32f41"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_WheelBrass_normal.uasset",
+    "bytes": 441090,
+    "sha256": "a1fa715f9f43770216bee58c7906651807a441c47d623de5c156a23b42120cdd"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/Frontage/Textures/T_WheelBrass_roughness.uasset",
+    "bytes": 163136,
+    "sha256": "50981f28a5ec73260c4b795c89946082299032e5016d52ef37e453fe0fa7574f"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/SM_GarrisonAssemblyBay.uasset",
+    "bytes": 232596,
+    "sha256": "fbf3be4fbab17b7a8a3deb6fb7927a529cb0d1b3b97983bf3772e36e5d190ef8"
+  },
+  {
+    "path": "WorldGeneration/TemperateHills/VillageMechanicalWorkshop/SM_GarrisonWorkshop.uasset",
+    "bytes": 775399,
+    "sha256": "400f4375f5a21b5758be8bde1a163a09b92e74261d804a6210f62efb4f84ef74"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/HeadR4/Materials/M_ArtisanHead.uasset",
+    "bytes": 13580,
+    "sha256": "795080483ec071893a9f4816a7739ab1f2653d58d10b8939b8a4b4a374e48f2e"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/HeadR4/Materials/M_ArtisanNeck.uasset",
+    "bytes": 12037,
+    "sha256": "530d40ba4151069c2c6046d2f2918d9157988a69e6255201a6efdecfacc0dfd9"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/HeadR4/Textures/T_ArtisanHead.uasset",
+    "bytes": 20176066,
+    "sha256": "c09cff1de14e3a4fd90f29fcd8e6ae55f6bb66f6bd75cfff3aa8552e7861b7f9"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/HeadR4/Textures/T_ArtisanHeadDetail.uasset",
+    "bytes": 29486801,
+    "sha256": "ae829163c01594dbc9dc3bea929e760fb84957503fd1303547e0adc6f33ece3b"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/HeadR4/Textures/T_ArtisanHeadORM.uasset",
+    "bytes": 2623636,
+    "sha256": "e775bef4dc80733883f2d5ade18e2ba691815476fa5eb8db8c5c59810de925fa"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/HeadR4/Textures/T_ArtisanNeck.uasset",
+    "bytes": 5844064,
+    "sha256": "d02808f2e1551332761937c8f347b942fdf8f787021228b5208aa7d244d2654a"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/Materials/M_ArtisanFlax.uasset",
+    "bytes": 6585,
+    "sha256": "3af29320f1631d147422fa5b80f8fe91da689a715fb8e9b0e513ff591e7a424a"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/Materials/M_ArtisanFrame.uasset",
+    "bytes": 5601,
+    "sha256": "07913e403bb2715f7ef59600d565b6b215129e47bb3f579db04224cb2d7d4898"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/Materials/M_ArtisanHair.uasset",
+    "bytes": 5455,
+    "sha256": "29d1538e78a6107eb8d467da2cd77323b11efaafaf77f7608fd3f7def33eea68"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/Materials/M_ArtisanHead.uasset",
+    "bytes": 6179,
+    "sha256": "d0f1d43998bd34a939b9f0efe9749c23080c8e053c59b4ea5764b83d9ecf61dd"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/Materials/M_ArtisanIndigo.uasset",
+    "bytes": 6599,
+    "sha256": "fb97bdf18469d63f6842f5bb8286f984ea799c3580d5097d20ce201fbb1ecf5f"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/Materials/M_ArtisanIron.uasset",
+    "bytes": 5596,
+    "sha256": "0ffdd083b0a330fb60aeb0fbf125a7938e7e366b68b1ce7a10c1cb70d473d6f8"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/Materials/M_ArtisanLapel.uasset",
+    "bytes": 6592,
+    "sha256": "e4c1040f660ef2dd581b188cf01f7349b6368e93ed33bf3fc444cf83f445d624"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/Materials/M_ArtisanLens.uasset",
+    "bytes": 6287,
+    "sha256": "8f7117c46654d1a6bebc886786b2f22bf71ae53bddea410796fb2a56d9a42c15"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/Materials/M_ArtisanToolwood.uasset",
+    "bytes": 5587,
+    "sha256": "e7cc65ce8042ea748f47296da3913ecbefdaa4ec1624d7bddee2c9b4fbe99f7a"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/SK_MasterArtisan_Head.uasset",
+    "bytes": 44048413,
+    "sha256": "8ff45d1fc4da29cd8306939ded1dd112960b384ea24bac58e7a7b4e122dd19d2"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/SK_MasterArtisan_Workwear.uasset",
+    "bytes": 24352466,
+    "sha256": "9931d2d7b83b87d5a5a1f7308d0d030503a1e62d055db85aeec601d50ad6a60b"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/Textures/T_ArtisanFlax.uasset",
+    "bytes": 4452835,
+    "sha256": "a7b8b58f6129de66561c08139c9a37ed43ec8c2e476824869533f40286232769"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/Textures/T_ArtisanHair.uasset",
+    "bytes": 99691,
+    "sha256": "8887133207b2b76b06fce68999aff1b604365209f946a8f41e1e651de9a15064"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/Textures/T_ArtisanHead.uasset",
+    "bytes": 4970463,
+    "sha256": "2bd3cc7828073c1e4de52815a191020e5f749370d44198d766e8ae5314481d3d"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/Textures/T_ArtisanIndigo.uasset",
+    "bytes": 4258896,
+    "sha256": "dd82e90f3dc5ce24227959d959136e68e6ff0409caa9bb72b2f4da760fa87ee2"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/Textures/T_ArtisanLapel.uasset",
+    "bytes": 4116688,
+    "sha256": "85700371c38c8b0da8d902661755cfef6023f526c2758bf530a7d96396432db3"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/WorkwearR5/Materials/M_ArtisanFlax.uasset",
+    "bytes": 6618,
+    "sha256": "968ac57b0f7d4f0fdc6fb51072ccbb832ef85b74004b32d2009c147100023e67"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/WorkwearR5/Materials/M_ArtisanWaxThread.uasset",
+    "bytes": 5614,
+    "sha256": "e9e00ef68f03f6466ca718273ece744a93d68f0aa6b0f39814ad28b32578421b"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/WorkwearR5/Textures/T_ArtisanFlax.uasset",
+    "bytes": 4540866,
+    "sha256": "6626280e708de289494afb260fa8b190406e1404dfe60c8403128b944e41906b"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/WorkwearR6/Materials/M_ArtisanApron.uasset",
+    "bytes": 23649,
+    "sha256": "3c911803e95964bcde56d477262d1cc9f743722d7e6e0e758b9d1433e833e649"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/WorkwearR6/Materials/M_ArtisanSaddle.uasset",
+    "bytes": 8787,
+    "sha256": "3bfe9c486cc4bf0e79c7f3bc8530eca94409981583de6b2549255c118093afdf"
+  },
+  {
+    "path": "Characters/VillageMasterArtisan/WorkwearR6/Textures/T_ArtisanCollarSeam.uasset",
+    "bytes": 56138,
+    "sha256": "7f8ef8646dfb922b25b7026331f12d3a4a5bc276aece0e0e24375e8cb27584ac"
+  },
+  {
+    "path": "ColdSteelUI/SiegeWorkshop/Ballista.jpg",
+    "bytes": 20933,
+    "sha256": "6b95fa232778d17c0fd4fbee92d74b707ffd10ec53c7cae0319b776f68cb5480"
+  },
+  {
+    "path": "ColdSteelUI/SiegeWorkshop/Ballista.uasset",
+    "bytes": 34426,
+    "sha256": "fcc88ac3a5a746b6eeed2a04e71999824760fd33819cd745a1e6073541aea130"
+  },
+  {
+    "path": "ColdSteelUI/SiegeWorkshop/Trebuchet.jpg",
+    "bytes": 27219,
+    "sha256": "be1d9452eff4fac4fbddbff5ac47fd38c81847ef68ac373d19156a170309e142"
+  },
+  {
+    "path": "ColdSteelUI/SiegeWorkshop/Trebuchet.uasset",
+    "bytes": 41473,
+    "sha256": "dd344734a5f68e5ad2b1a72050fc412aecd88a6cdc7dcc309e9a2545e9c1b405"
+  },
+  {
+    "path": "UI/VillageConstruction/blacksmith.png",
+    "bytes": 115393,
+    "sha256": "c4ce46b35430a49a18b77d39956fb5bb3f7bc3de4e4a327baadde205191e1fd6"
+  },
+  {
+    "path": "UI/VillageConstruction/carpenter.png",
+    "bytes": 115877,
+    "sha256": "1eff38c61ddd60d108f86f7deaf5329767cf6a80b60798f4f821979188730381"
+  },
+  {
+    "path": "UI/VillageConstruction/garrison_mechanics.png",
+    "bytes": 113707,
+    "sha256": "b2e2c4973a7ddfa25fe4f375c43794c6a4cfb36e2115f98de6790422feb29e6b"
+  },
+  {
+    "path": "UI/VillageConstruction/garrison_mechanics.uasset",
+    "bytes": 134312,
+    "sha256": "95d735ca4c5ebd965496464ce0f9413eb03154960c3501001f30ee52fb83c791"
+  },
+  {
+    "path": "UI/VillageConstruction/herbalist.png",
+    "bytes": 121307,
+    "sha256": "aeb52e33e1a5a514c26eb8d6aaac4101fa3c3b6f5de6e02ffc9617e0b2523b34"
+  },
+  {
+    "path": "UI/VillageConstruction/herbalist.uasset",
+    "bytes": 135581,
+    "sha256": "1d315ca6f9ce2f975b4c4a22fba12301626f14358fd1e3dcb96dfca813b2c76e"
+  },
+  {
+    "path": "UI/VillageConstruction/high_wall.png",
+    "bytes": 111676,
+    "sha256": "d6e73dd6bfc9212fa6e285c5015f8110b2e5636091dd389df7f6bd5b76f4266b"
+  },
+  {
+    "path": "UI/VillageConstruction/high_wall.uasset",
+    "bytes": 121070,
+    "sha256": "efb610fe84a2c1d4bd38a4678434a85b8939c2c0d6a9b6adfd779e7255c81b35"
+  },
+  {
+    "path": "UI/VillageConstruction/tavern.png",
+    "bytes": 116555,
+    "sha256": "7ef3bb5478d6619764aaec8a20b19c041482a2ba2e508faf493aaf19aaec95a0"
+  },
+  {
+    "path": "UI/VillageConstruction/tavern.uasset",
+    "bytes": 116226,
+    "sha256": "073b35f1324a45fa5cbf61ef32bbbef78a0478bb2241945d9d5878f183b48796"
+  },
+  {
+    "path": "UI/VillageConstruction/village.png",
+    "bytes": 109615,
+    "sha256": "edf1d6e0a734d3968802a71d01eec05d56df5fd4a0099bde89f74e9d666d3b2e"
+  },
+  {
+    "path": "UI/VillageConstruction/village_construction.png",
+    "bytes": 118734,
+    "sha256": "d1ff96d3fce0ec99cf0cd974b35439e926e5728e9731cda88c7e443e209202f2"
+  },
+  {
+    "path": "UI/VillageConstruction/village_construction.uasset",
+    "bytes": 118961,
+    "sha256": "5d7cc7c0b796d388c2ff9421729982a2debeac264137bd9616e4db7d33bae6ac"
+  },
+  {
+    "path": "UI/VillageConstruction/wall.png",
+    "bytes": 85280,
+    "sha256": "d39dc4dc5fc10f4c3497c66bc17a71136c97469bc27618e2af0b26dffa5ce9b2"
+  },
+  {
+    "path": "WorldGeneration/HillsNightRaid/M_ChapelShrinePedestalStone.uasset",
+    "bytes": 11453,
+    "sha256": "155a0d9a4eb8b4770dedabfadf64d891680ab31d076b80ed201e7eb7c77f7ba5"
+  },
+  {
+    "path": "WorldGeneration/HillsNightRaid/M_NightPortalSkyBeam.uasset",
+    "bytes": 14219,
+    "sha256": "22207bc0a6b02c7e8d206a8661c2d8e8be1eb66928e0217c2913abef3b50a94e"
+  },
+  {
+    "path": "WorldGeneration/HillsNightRaid/M_NightPortalVeil.uasset",
+    "bytes": 8638,
+    "sha256": "bcc4e827e0d5cafda50714e90cc2344d51dd5495e9b495119c66ea3e63e4b071"
+  },
+  {
+    "path": "WorldGeneration/HillsNightRaid/SM_ChapelShrineRockPedestal.uasset",
+    "bytes": 162314,
+    "sha256": "055730eb242f24f5a9c84981f89d6ead7de123c4a1a7672913a6b15bd9a6b7ba"
+  },
+  {
+    "path": "WorldGeneration/HillsNightRaid/SM_NightPortalSkyBeam.uasset",
+    "bytes": 12731,
+    "sha256": "86da28bc4e9d3320d8c0053056e14ea45c13f9d1939f55fb5354038ec945cabe"
+  }
+]

@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPalette.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPalette.cpp
+@@ -1,5 +1,7 @@
+ #include "VoxelBuildPalette.h"
+ #include "VillageBuildDefense.h"
++#include "../WorldGeneration/VillageHotOil.h"
++#include "../WorldGeneration/VillageSiegeEngine.h"
+ #include "../WorldGeneration/VillageMasonry.h"
+ #include "Engine/StaticMesh.h"
+ #include "../WorldGeneration/VillageDefenseSection.h"
+@@ -49,6 +51,15 @@
+         AHighVillageWall::WallMeshPath(),FIntVector(15,10,24),AHighVillageWall::StaticClass());
+     RegisterVillagePiece(VillageBuildDefense::StoneGate,NSLOCTEXT("VoxelBuilding","VillageStoneGate","石城门 · 升降铁闸"),
+         AHighVillageGate::PlacedPortalMeshPath(),FIntVector(51,34,51),AHighVillageGate::StaticClass());
++    RegisterVillagePiece(VillageBuildDefense::HighTower,NSLOCTEXT("VoxelBuilding","VillageHighTower","石砌高塔楼"),
++        FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SquareKeep/SM_HighWatchtower.SM_HighWatchtower")),
++        FIntVector(50,50,98),AVillageDefenseSection::StaticClass());
++    RegisterVillagePiece(VillageBuildDefense::Ballista,NSLOCTEXT("VoxelBuilding","VillageBallista","固定式弩炮"),
++        AVillageSiegeEngine::MeshAsset(TEXT("BallistaPreview")),FIntVector(28,14,12),AVillageSiegeEngine::StaticClass());
++    RegisterVillagePiece(VillageBuildDefense::Trebuchet,NSLOCTEXT("VoxelBuilding","VillageTrebuchet","配重投石机"),
++        AVillageSiegeEngine::MeshAsset(TEXT("TrebuchetPreview")),FIntVector(37,19,38),AVillageSiegeEngine::StaticClass());
++    RegisterVillagePiece(VillageBuildDefense::OilPot,NSLOCTEXT("VoxelBuilding","VillageOilPot","热油锅"),
++        AVillageOilKettle::MeshPath(),FIntVector(8,9,5),AVillageOilKettle::StaticClass());
+     RegisterVillagePiece(VillageWallStairs::Id,NSLOCTEXT("VoxelBuilding","VillageWallStairs","城墙石阶"),
+         FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/HighVillageDefense/SM_WallAccessStairs.SM_WallAccessStairs")),
+         FIntVector(16,28,18),AVillageDefenseStairs::StaticClass());

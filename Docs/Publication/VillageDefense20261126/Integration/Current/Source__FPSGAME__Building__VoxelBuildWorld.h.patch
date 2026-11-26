@@ -1,0 +1,29 @@
+--- a/Source/FPSGAME/Building/VoxelBuildWorld.h
++++ b/Source/FPSGAME/Building/VoxelBuildWorld.h
+@@ -28,7 +28,8 @@
+     // count to jobs and furnace upgrade level to fuel records; version 8 adds the idle-fire clock;
+     // version 9 splits upgrades into three axes; version 10 adds casting queues and output racks.
+     // 该默认值是 UHT 字面量，升版本时必须与 VoxelBuildPersistence.h 的 GVoxelBuildSaveVersion 同步。
+-    UPROPERTY() int32 Version=17;
++    UPROPERTY() int32 Version=21;
++    UPROPERTY() bool bWorkshopTowerGranted=false;
+     UPROPERTY() int32 CellSizeCm=20;
+     UPROPERTY() FString WorldKey;
+     UPROPERTY() TArray<FVoxelSavedCell> Cells;
+@@ -74,6 +75,7 @@
+     static FVector CellCenter(FIntVector Cell);
+     static FIntVector ChunkFor(FIntVector Cell);
+     bool Initialize(const FString& InWorldKey,UVoxelBuildPalette* InPalette);
++    void TryGrantWorkshopTower();
+     bool MakeNetworkSnapshot(TArray<uint8>& Out) const;
+     bool ApplyNetworkSnapshot(const TArray<uint8>& Bytes);
+     uint64 NetworkRevision=1;
+@@ -281,6 +284,8 @@
+     FString WorldKey,SaveSlot,Message;
+     uint64 Revision=0;
+     bool bReady=false,bClosing=false;
++    bool bWorkshopTowerGranted=false;
++    FTimerHandle WorkshopTowerRetry;
+     bool Commit(const TArray<FVoxelEditCell>& Edit,bool bRemember);
+     bool CanPlaceAt(FVector Origin,const TArray<FIntVector>& Positions,FName Material,FString& Reason,const TArray<uint8>* Shapes=nullptr) const;
+     /** CachedParams 由调用方在格循环外构造一次（审计 P3）：本函数会被 CanPlaceAt 逐格调用，

@@ -1,0 +1,30 @@
+--- a/Source/FPSGAME/Building/VoxelBuildWorld.h
++++ b/Source/FPSGAME/Building/VoxelBuildWorld.h
+@@ -215,7 +215,9 @@
+     bool RefundSmeltingAt(FIntVector Cell,FString& Reason);
+     /** bSurfaceBacked：本次瞄准命中了竖直表面（壁挂构件用它代替地面/邻接支撑判定）。 */
+     bool CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString& Reason,bool bSurfaceBacked=false,bool bDocked=false,
+-        const AActor* DockTarget=nullptr,FTransform* OutPlacementPose=nullptr,int32 GroundYawDegrees=INDEX_NONE) const;
++        const AActor* DockTarget=nullptr,FTransform* OutPlacementPose=nullptr,int32 GroundYawDegrees=INDEX_NONE,bool bReplaceWall=false,
++        TArray<FVillageGateCut>* OutCuts=nullptr,TArray<FTransform>* PreviewBars=nullptr) const;
++    void ApplyGateCutToWall(class AVillageDefenseSection& Wall) const;
+     /** 构件底面下有没有地形（中心＋四角共 5 个探测点，与体素地面锚定同一口径）。 */
+     bool IsPrefabOnGround(FIntVector AnchorCell,FIntVector Footprint,TSet<FIntVector>* SupportingPieces=nullptr) const;
+     /**
+@@ -302,10 +304,16 @@
+     void AddNearbyPrefabOwners(FIntVector Cell,TSet<FIntVector>& Out) const;
+     void DropUnsupportedPrefabs(const TSet<FIntVector>& Candidates);
+     void RemovePrefabOccupancy(FIntVector Anchor,const TArray<FIntVector>& Occupied);
++    void GateWallCells(const FVoxelBuildPrefabInstance& Gate,TArray<FIntVector>& Changed,TArray<TPair<FBox,FTransform>>* RestoredBoxes=nullptr) const;
++    bool CanRestoreGateWalls(FIntVector GateCell,FString& Reason) const;
+     void FillPrefabCells(const FVoxelBuildPrefabInstance& Instance,TArray<FIntVector>& Out) const;
++    TMap<FGuid,FVector2D> CutPlacedWalls;
++    TMap<int32,FVector2D> CutVillageWalls;
+     mutable FName CachedGridRecipe;
+     mutable FTransform CachedGridPose;
+     mutable TOptional<FIntVector> CachedGridMate;
++    mutable TSet<FIntVector> CachedGridWallAnchors;
++    mutable bool bCachedWallReplacement=false;
+     mutable uint64 CachedGridRevision=0;
+     mutable FString CachedGridConflict;
+     mutable TOptional<bool> CachedGridSupport;

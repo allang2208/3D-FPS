@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/UI/ColdSteelNpcDialogueArtisans.h
++++ b/Source/FPSGAME/UI/ColdSteelNpcDialogueArtisans.h
+@@ -26,6 +26,19 @@
+     const TCHAR* UnavailableLessonHint = nullptr;
+ 
+     constexpr int32 MainChoiceCount() const { return (Lesson || UnavailableLessonHint) ? 3 : (TradeLabel ? 2 : 1); }
++};
++
++inline constexpr FSpeaker MasterArtisan = {
++    TEXT("工匠大师"), TEXT("机械工坊"),
++    TEXT("把图纸摊这儿。城头上的弩炮，还是院子里的投石机？你先说用起来哪里不顺手。"),
++    TEXT("这会儿有空。你想问什么？"), nullptr,
++    {
++        {TEXT("关于工坊"), TEXT("从这扇窗能看见马厩。早上听见第一声马嘶，我就知道该开门了。")},
++        {TEXT("关于升级"), TEXT("图纸改一次，全村用同一份。已经架好的也算，你不用再拆一回底座。")},
++        {TEXT("关于投石机"), TEXT("上次试投，石头落在泥里，脚印都被溅没了。看落点的时候，也留意那一圈波及多远。")},
++        {TEXT("关于弩炮"), TEXT("城头的守卫最清楚自己缺什么。有人催我快些装填，有人只想让那一下打得更重。")}
++    },
++    TEXT("升级守备机械")
+ };
+ 
+ inline constexpr FSpeaker Blacksmith = {

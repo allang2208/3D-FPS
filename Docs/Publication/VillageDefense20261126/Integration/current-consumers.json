@@ -1,0 +1,2326 @@
+[
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildComponent.cpp",
+    "host_sha256": "ddfb0c7655e04511c871a3194f82044a9d2ba182dd065dfc52bfa0663427a58e",
+    "bindings": [
+      {
+        "line": 17,
+        "source": "#include \"VillageBuildDefense.h\""
+      },
+      {
+        "line": 553,
+        "source": "if(bPanelOpen||VillageBuildDefense::IsVillageRecipe(SelectedComponent))RefreshVillageConstructionAccess();"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildComponent.h",
+    "host_sha256": "faaa682ad6e13d92f54000857fe6fde55e5f591bf2cb2576eed35ba19fd3ddf0",
+    "bindings": [
+      {
+        "line": 51,
+        "source": "bool IsVillageCameraPlacing() const { return VillageCamera != nullptr && !bPanelOpen; }"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildIcons.cpp",
+    "host_sha256": "08ad8899f2b6784f7eb7093a8deb3d91178fc3c89ee30cbb6b35ecf8c8fe3d72",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"VillageBuildDefense.h\""
+      },
+      {
+        "line": 4,
+        "source": "#include \"../WorldGeneration/HighVillageDefense.h\""
+      },
+      {
+        "line": 207,
+        "source": "if(Request.PieceId==VillageBuildDefense::WoodGate||Request.PieceId==VillageBuildDefense::StoneGate)"
+      },
+      {
+        "line": 216,
+        "source": "if(Request.PieceId==VillageBuildDefense::StoneGate)"
+      },
+      {
+        "line": 218,
+        "source": "auto* Grille=Cast<UStaticMesh>(AHighVillageGate::PlacedGrilleMeshPath().TryLoad());"
+      },
+      {
+        "line": 219,
+        "source": "auto* Handle=Cast<UStaticMesh>(AHighVillageGate::ReleaseMeshPath().TryLoad());"
+      },
+      {
+        "line": 221,
+        "source": "AddPart(Handle,AHighVillageGate::ReleasePose(false));"
+      },
+      {
+        "line": 241,
+        "source": "else if(Request.Cells.IsEmpty()&&!Request.ActorClass.IsNull()&&!VillageBuildDefense::IsVillageRecipe(Request.PieceId))"
+      },
+      {
+        "line": 275,
+        "source": "const FVector Scale=Request.PieceId==VillageBuildDefense::StoneWall"
+      },
+      {
+        "line": 276,
+        "source": "?VillageBuildDefense::Placement(Request.PieceId,FIntVector::ZeroValue,FIntVector::ZeroValue,0).GetScale3D()"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildInput.cpp",
+    "host_sha256": "7ab9ee8cf70a65936a7b16126598b7ceb1c7e74013e3898e31c8279ca8da926f",
+    "bindings": [
+      {
+        "line": 14,
+        "source": "#include \"VillageBuildDefense.h\""
+      },
+      {
+        "line": 15,
+        "source": "#include \"VillageGateReplacement.h\""
+      },
+      {
+        "line": 115,
+        "source": "if(IsVillageCameraPlacing() && Key==EKeys::SpaceBar)"
+      },
+      {
+        "line": 169,
+        "source": "if(Piece&&Piece->GetOwner()==BuildWorld&&!Piece->IsFalling()&&VillageBuildDefense::IsVillageRecipe(Piece->PrefabId()))"
+      },
+      {
+        "line": 173,
+        "source": "if(SelectedComponent==Id&&VillageBuildDefense::UnlockedTier(VillageWorld.Get())>=VillageBuildDefense::RequiredTier(Id))"
+      },
+      {
+        "line": 179,
+        "source": "else if(!IsVillageCameraPlacing()&&!Removal.IsEmpty())SelectMaterial(BuildWorld->VolumeMaterialAt(HitCell.Volume,HitCell.Cell));"
+      },
+      {
+        "line": 191,
+        "source": "if(IsVillageCameraPlacing())"
+      },
+      {
+        "line": 196,
+        "source": "const FVector End=Hit.bBlockingHit?Hit.ImpactPoint:Eye+Ray*VillageBuildDefense::SurveyTraceLength;"
+      },
+      {
+        "line": 205,
+        "source": "if(IsVillageCameraPlacing() && (!RemovalTarget || !VillageBuildDefense::IsVillageRecipe(RemovalTarget->PrefabId()) ||"
+      },
+      {
+        "line": 206,
+        "source": "!VillageBuildDefense::InSurveyRange(PC->GetPawn()->GetPawnViewLocation(),RemovalTarget->GetActorLocation())))"
+      },
+      {
+        "line": 222,
+        "source": "if(DefenseDockSocket==VillageGateReplacement::ReplacementSocket)"
+      },
+      {
+        "line": 318,
+        "source": "if(IsVillageCameraPlacing())return true;"
+      },
+      {
+        "line": 323,
+        "source": "if(auto* Breach=ColdSteelWorldInteraction::TraceUseTargets(Player).RepairTarget())"
+      },
+      {
+        "line": 394,
+        "source": "DefenseDockTarget.Get(),PlannedGroundYaw(),DefenseDockSocket==VillageGateReplacement::ReplacementSocket,WallCutSelection);"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildNetwork.cpp",
+    "host_sha256": "9bfa959879de8a2dde045e61c5a53d99a93c70c838320509b571be47097d3bfd",
+    "bindings": [
+      {
+        "line": 7,
+        "source": "#include \"VillageBuildDefense.h\""
+      },
+      {
+        "line": 8,
+        "source": "#include \"VillageGateReplacement.h\""
+      },
+      {
+        "line": 51,
+        "source": "(VillageBuildDefense::IsVillageRecipe(Desired->Id)&&PrefabInstanceIdentity(It.Key())!=Desired->InstanceId)||"
+      },
+      {
+        "line": 52,
+        "source": "(VillageBuildDefense::IsVillageRecipe(Desired->Id)&&!Piece->GetActorTransform().Equals(VillageWallStairs::Placement(*Desired))))"
+      },
+      {
+        "line": 56,
+        "source": "bWorkshopTowerGranted=Data->bWorkshopTowerGranted;"
+      },
+      {
+        "line": 114,
+        "source": "if(bWallDock&&(!IsValid(R.Target.Get())||R.Target->GetWorld()!=GetWorld()||!VillageWallStairs::CanDock(R.Definition)))"
+      },
+      {
+        "line": 122,
+        "source": "if(!Definition || R.Count<0 || R.Count>MAX_uint32 || R.Cell!=VillageGateReplacement::ReplacementSocket || !IsValid(R.Target.Get()) ||"
+      },
+      {
+        "line": 123,
+        "source": "R.Target->GetWorld()!=GetWorld() || !VillageGateReplacement::Layout(R.Definition,R.Target.Get(),Definition->Footprint,Pose,Anchor,Yaw))"
+      },
+      {
+        "line": 130,
+        "source": "VillageWallStairs::FDock Dock;"
+      },
+      {
+        "line": 131,
+        "source": "if(!Definition||!VillageWallStairs::MakeDockAtSocket(R.Definition,Definition->Footprint,R.Target.Get(),R.Cell,Dock))"
+      },
+      {
+        "line": 139,
+        "source": "const bool InRange=VillageBuildDefense::IsVillageRecipe(R.Definition)?VillageBuildDefense::InSurveyRange(Eye,Point):Reach(Point);"
+      },
+      {
+        "line": 146,
+        "source": "const bool IsVillagePiece=R.Mode==TEXT(\"removePrefab\")&&Piece&&Piece->GetOwner()==this&&VillageBuildDefense::IsVillageRecipe(Piece->PrefabId());"
+      },
+      {
+        "line": 151,
+        "source": "if(!Hills||!Hills->IsVillageWallRepaired()||!VillageBuildDefense::InSurveyRange(Eye,Point))"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildPalette.cpp",
+    "host_sha256": "c45d7f3ec00adcefd1b71835d3518498f07d9086a1a64a0d31f00e9331fa809c",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"VillageBuildDefense.h\""
+      },
+      {
+        "line": 3,
+        "source": "#include \"../WorldGeneration/VillageHotOil.h\""
+      },
+      {
+        "line": 4,
+        "source": "#include \"../WorldGeneration/VillageSiegeEngine.h\""
+      },
+      {
+        "line": 5,
+        "source": "#include \"../WorldGeneration/VillageMasonry.h\""
+      },
+      {
+        "line": 9,
+        "source": "#include \"../WorldGeneration/HighVillageDefense.h\""
+      },
+      {
+        "line": 43,
+        "source": "RegisterVillagePiece(VillageBuildDefense::StoneWall,NSLOCTEXT(\"VoxelBuilding\",\"VillageStoneWall\",\"石头围墙\"),"
+      },
+      {
+        "line": 44,
+        "source": "VillageMasonry::CastleMesh(TEXT(\"SM_VillageWallRepairedA\")),"
+      },
+      {
+        "line": 47,
+        "source": "RegisterVillagePiece(VillageBuildDefense::WoodGate,NSLOCTEXT(\"VoxelBuilding\",\"VillageWoodGate\",\"木质大门\"),"
+      },
+      {
+        "line": 50,
+        "source": "RegisterVillagePiece(VillageBuildDefense::HighWall,NSLOCTEXT(\"VoxelBuilding\",\"VillageHighWall\",\"石砌高墙\"),"
+      },
+      {
+        "line": 51,
+        "source": "AHighVillageWall::WallMeshPath(),FIntVector(15,10,24),AHighVillageWall::StaticClass());"
+      },
+      {
+        "line": 52,
+        "source": "RegisterVillagePiece(VillageBuildDefense::StoneGate,NSLOCTEXT(\"VoxelBuilding\",\"VillageStoneGate\",\"石城门 · 升降铁闸\"),"
+      },
+      {
+        "line": 53,
+        "source": "AHighVillageGate::PlacedPortalMeshPath(),FIntVector(51,34,51),AHighVillageGate::StaticClass());"
+      },
+      {
+        "line": 54,
+        "source": "RegisterVillagePiece(VillageBuildDefense::HighTower,NSLOCTEXT(\"VoxelBuilding\",\"VillageHighTower\",\"石砌高塔楼\"),"
+      },
+      {
+        "line": 55,
+        "source": "FSoftObjectPath(TEXT(\"/Game/WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SquareKeep/SM_HighWatchtower.SM_HighWatchtower\")),"
+      },
+      {
+        "line": 57,
+        "source": "RegisterVillagePiece(VillageBuildDefense::Ballista,NSLOCTEXT(\"VoxelBuilding\",\"VillageBallista\",\"固定式弩炮\"),"
+      },
+      {
+        "line": 58,
+        "source": "AVillageSiegeEngine::MeshAsset(TEXT(\"BallistaPreview\")),FIntVector(28,14,12),AVillageSiegeEngine::StaticClass());"
+      },
+      {
+        "line": 59,
+        "source": "RegisterVillagePiece(VillageBuildDefense::Trebuchet,NSLOCTEXT(\"VoxelBuilding\",\"VillageTrebuchet\",\"配重投石机\"),"
+      },
+      {
+        "line": 60,
+        "source": "AVillageSiegeEngine::MeshAsset(TEXT(\"TrebuchetPreview\")),FIntVector(37,19,38),AVillageSiegeEngine::StaticClass());"
+      },
+      {
+        "line": 61,
+        "source": "RegisterVillagePiece(VillageBuildDefense::OilPot,NSLOCTEXT(\"VoxelBuilding\",\"VillageOilPot\",\"热油锅\"),"
+      },
+      {
+        "line": 62,
+        "source": "AVillageOilKettle::MeshPath(),FIntVector(8,9,5),AVillageOilKettle::StaticClass());"
+      },
+      {
+        "line": 63,
+        "source": "RegisterVillagePiece(VillageWallStairs::Id,NSLOCTEXT(\"VoxelBuilding\",\"VillageWallStairs\",\"城墙石阶\"),"
+      },
+      {
+        "line": 64,
+        "source": "FSoftObjectPath(TEXT(\"/Game/WorldGeneration/TemperateHills/HighVillageDefense/SM_WallAccessStairs.SM_WallAccessStairs\")),"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildPanel.cpp",
+    "host_sha256": "0d0c221185178c3165b1624520b6dd670ecdd8bb3edb7a06298ad3908ce3fa76",
+    "bindings": [
+      {
+        "line": 14,
+        "source": "#include \"VillageBuildDefense.h\""
+      },
+      {
+        "line": 88,
+        "source": "if(!bActive || !VillageBuildDefense::IsVillageRecipe(SelectedComponent))"
+      },
+      {
+        "line": 161,
+        "source": "const auto Required=VillageBuildDefense::RequiredTier(Id);"
+      },
+      {
+        "line": 162,
+        "source": "if(Required!=VillageBuildDefense::ETier::None && VillageBuildDefense::UnlockedTier(VillageWorld.Get())<Required)"
+      },
+      {
+        "line": 164,
+        "source": "Feedback=VillageBuildDefense::LockReason(Required);"
+      },
+      {
+        "line": 182,
+        "source": "const auto Tier=VillageBuildDefense::UnlockedTier(VillageWorld.Get());"
+      },
+      {
+        "line": 184,
+        "source": "if(Tier>=VillageBuildDefense::RequiredTier(SelectedComponent))return;"
+      },
+      {
+        "line": 296,
+        "source": "const bool bVillage=VillageBuildDefense::IsVillageRecipe(Entry.Id);"
+      },
+      {
+        "line": 297,
+        "source": "const bool bWallStairs=Entry.Id==VillageWallStairs::Id;"
+      },
+      {
+        "line": 303,
+        "source": "VillageWallStairs::CanDock(Entry.Id)?TEXT(\"落地或吸附至城防接口\"):"
+      },
+      {
+        "line": 310,
+        "source": "Card.Rows.Add({TEXT(\"解锁条件\"),VillageBuildDefense::ProjectName(VillageBuildDefense::RequiredTier(Entry.Id))});"
+      },
+      {
+        "line": 317,
+        "source": "else if(Entry.Id==VillageBuildDefense::HighWall)"
+      },
+      {
+        "line": 322,
+        "source": "else if(Entry.Id==VillageBuildDefense::OilPot)"
+      },
+      {
+        "line": 327,
+        "source": "else if(Entry.Id==VillageBuildDefense::Ballista)"
+      },
+      {
+        "line": 332,
+        "source": "else if(Entry.Id==VillageBuildDefense::Trebuchet)"
+      },
+      {
+        "line": 337,
+        "source": "else if(Entry.Id==VillageBuildDefense::HighTower)"
+      },
+      {
+        "line": 342,
+        "source": "else if(Entry.Id==VillageBuildDefense::StoneGate)"
+      },
+      {
+        "line": 347,
+        "source": "else if(Entry.Id==VillageBuildDefense::WoodGate)"
+      },
+      {
+        "line": 419,
+        "source": "if(IsVillageCameraPlacing() && VillageCameraCaption)"
+      },
+      {
+        "line": 451,
+        "source": "bDocked?FString::Printf(TEXT(\"%s · %d° · 滚轮调向\"),SelectedComponent==VillageWallStairs::Id?TEXT(\"平台已对齐步道\"):TEXT(\"城防接口已对齐\"),ShownYaw):"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildPersistence.cpp",
+    "host_sha256": "0d08c9965bf2d446dd33f1659409e3eaac6c099fc96095e0705aa04bf18c45ad",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"VillageBuildDefense.h\""
+      },
+      {
+        "line": 133,
+        "source": "if(Prefab.Id!=VillageWallStairs::Id&& !(S.Version>=18&&Prefab.Id==VillageBuildDefense::HighTower)&&"
+      },
+      {
+        "line": 134,
+        "source": "!(S.Version>=20&&VillageBuildDefense::IsSiegeEngine(Prefab.Id))&&"
+      },
+      {
+        "line": 135,
+        "source": "!(S.Version>=16&&(Prefab.Id==VillageBuildDefense::HighWall||Prefab.Id==VillageBuildDefense::StoneGate)))continue;"
+      },
+      {
+        "line": 161,
+        "source": "if(!VillageBuildDefense::IsBasicWallOrGate(Prefab.Id))continue;"
+      },
+      {
+        "line": 169,
+        "source": "Prefab.WallDockPose=VillageBuildDefense::Placement(Prefab.Id,Prefab.Cell,Prefab.Footprint,Prefab.Yaw,Degrees);"
+      },
+      {
+        "line": 177,
+        "source": "if(Gate.Id!=VillageBuildDefense::StoneGate && Gate.Id!=VillageBuildDefense::WoodGate)continue;"
+      },
+      {
+        "line": 198,
+        "source": "if(S.Version>=21)Ar<<S.bWorkshopTowerGranted;"
+      },
+      {
+        "line": 253,
+        "source": "S->bWorkshopTowerGranted=Payload.bWorkshopTowerGranted;"
+      },
+      {
+        "line": 271,
+        "source": "D.bWorkshopTowerGranted=S->bWorkshopTowerGranted;"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildPersistence.h",
+    "host_sha256": "ee751c80d38e6560c68ba2a3b929a99a5e5036bcb94ce7bf81b8a9ecb6d9eaa3",
+    "bindings": [
+      {
+        "line": 16,
+        "source": "bool bWorkshopTowerGranted=false;"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildPreview.cpp",
+    "host_sha256": "3e809bd58543d577a2028a032f5d7a4d55e58d7eb5e00902692518179f3d3baa",
+    "bindings": [
+      {
+        "line": 13,
+        "source": "#include \"VillageBuildDefense.h\""
+      },
+      {
+        "line": 14,
+        "source": "#include \"../WorldGeneration/HighVillageDefense.h\""
+      },
+      {
+        "line": 45,
+        "source": "if(Recipe==VillageBuildDefense::HighTower)return TEXT(\"SM_TowerEntrances\");"
+      },
+      {
+        "line": 46,
+        "source": "if(Recipe==VillageBuildDefense::StoneGate)return TEXT(\"SM_StoneGateEntrances\");"
+      },
+      {
+        "line": 47,
+        "source": "if(Recipe==VillageBuildDefense::WoodGate)return TEXT(\"SM_WoodGateExterior\");"
+      },
+      {
+        "line": 48,
+        "source": "if(Recipe==VillageWallStairs::Id)return TEXT(\"SM_StairEntrances\");"
+      },
+      {
+        "line": 68,
+        "source": "const FString Path=FString::Printf(TEXT(\"/Game/WorldGeneration/TemperateHills/HighVillageDefense/PlacementPreview/%s.%s\"),Name,Name);"
+      },
+      {
+        "line": 88,
+        "source": "const double CenterX=Recipe==VillageBuildDefense::WoodGate?AVillageDefenseGate::NarrowHingeOffset:0.;"
+      },
+      {
+        "line": 147,
+        "source": "const bool bWoodGate=Prefab->Id==VillageBuildDefense::WoodGate;"
+      },
+      {
+        "line": 148,
+        "source": "const bool Gate=bWoodGate||Prefab->Id==VillageBuildDefense::StoneGate;"
+      },
+      {
+        "line": 155,
+        "source": "if(VillageBuildDefense::IsVillageRecipe(Prefab->Id))"
+      },
+      {
+        "line": 159,
+        "source": "VillageBuildDefense::Placement(Prefab->Id,PrefabCell,Size,PrefabPlanYaw,PlannedGroundYaw());"
+      },
+      {
+        "line": 160,
+        "source": "if(VillageBuildDefense::IsSiegeEngine(Prefab->Id) && SiegeFloorPreview.IsSet())Transform=SiegeFloorPreview.GetValue();"
+      },
+      {
+        "line": 200,
+        "source": "GatePreviewLeaf=AddPart(AHighVillageGate::PlacedGrilleMeshPath(),FTransform::Identity);"
+      },
+      {
+        "line": 201,
+        "source": "AddPart(AHighVillageGate::ReleaseMeshPath(),AHighVillageGate::ReleasePose(false));"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildTarget.cpp",
+    "host_sha256": "60bfb1ad01d34473d4135d1b01f9ad8d57537ca638190cb74e657ec9e217c80d",
+    "bindings": [
+      {
+        "line": 14,
+        "source": "#include \"VillageBuildDefense.h\""
+      },
+      {
+        "line": 16,
+        "source": "#include \"VillageGateReplacement.h\""
+      },
+      {
+        "line": 24,
+        "source": "#include \"../WorldGeneration/HighVillageDefense.h\""
+      },
+      {
+        "line": 54,
+        "source": "const bool Large=Id==VillageBuildDefense::Trebuchet;"
+      },
+      {
+        "line": 136,
+        "source": "VillageWallStairs::FDock Socket;"
+      },
+      {
+        "line": 137,
+        "source": "if(!Probe.bBlockingHit||!VillageWallStairs::MakeDock(Defense->Id,Defense->Footprint,"
+      },
+      {
+        "line": 163,
+        "source": "const bool Survey=IsVillageCameraPlacing();"
+      },
+      {
+        "line": 164,
+        "source": "if(Survey && bSnapEnabled && VillageBuildDefense::IsVillageRecipe(SelectedComponent))"
+      },
+      {
+        "line": 186,
+        "source": "const FVector End=Start+Direction*(Survey?VillageBuildDefense::SurveyTraceLength:600.);const FIntVector Size=BrushSize();const FVector Half=FVector(Size)*10;"
+      },
+      {
+        "line": 195,
+        "source": "if(Prefab && VillageBuildDefense::IsSiegeEngine(Prefab->Id))"
+      },
+      {
+        "line": 226,
+        "source": "const bool bDefense=Prefab&&VillageWallStairs::CanDock(Prefab->Id);"
+      },
+      {
+        "line": 231,
+        "source": "if((bDefense || (Prefab && VillageBuildDefense::IsSiegeEngine(Prefab->Id)) || (bSnapEnabled&&Prefab&&VillageGateReplacement::WallFor(Prefab->Id,AimScratch.Last().GetActor())))&&AimScratch.Last().bBlockingHit)AimIndex=AimScratch.Num()-1;"
+      },
+      {
+        "line": 253,
+        "source": "? (!HasHit || (!VillageWallStairs::ResolveTarget(Hit.GetActor()) && FMath::Abs(Hit.ImpactNormal.Z)<.5))"
+      },
+      {
+        "line": 256,
+        "source": "if(!Survey&&bSnapEnabled&&bTryAssist&&(!Prefab||!VillageGateReplacement::WallFor(Prefab->Id,Hit.GetActor()))&&TrySnapAssist(GetWorld(),BuildWorld,Start,Direction,Query,Hit,HitCell,"
+      },
+      {
+        "line": 271,
+        "source": "if(Survey && HasHit && !VillageBuildDefense::InSurveyRange(PC->GetPawn()->GetPawnViewLocation(),AVoxelBuildWorld::CellCenter(PrefabCell)))"
+      },
+      {
+        "line": 589,
+        "source": "return VillageBuildDefense::IsVillageRecipe(SelectedComponent)&&!DefenseDockPose.IsSet()?GroundYawDegrees:INDEX_NONE;"
+      },
+      {
+        "line": 601,
+        "source": "PrefabPlanYaw=VillageBuildDefense::IsVillageRecipe(SelectedComponent)?0:ComponentYaw;"
+      },
+      {
+        "line": 610,
+        "source": "PrefabMessage=IsVillageCameraPlacing()?TEXT(\"移动鼠标，指向地面或城防接口\"):TEXT(\"未命中可放置表面 · 瞄准 6 米内的地面或结构\");"
+      },
+      {
+        "line": 616,
+        "source": "if(auto* Wall=bSnapEnabled?VillageGateReplacement::WallFor(Prefab->Id,Hit.GetActor()):nullptr)"
+      },
+      {
+        "line": 619,
+        "source": "const bool EndFace=Prefab->Id==VillageBuildDefense::StoneGate &&"
+      },
+      {
+        "line": 623,
+        "source": "if(!EndFace && VillageGateReplacement::Layout(Prefab->Id,Wall,Prefab->Footprint,Pose,PrefabCell,PrefabPlanYaw))"
+      },
+      {
+        "line": 627,
+        "source": "DefenseDockSocket=VillageGateReplacement::ReplacementSocket;"
+      },
+      {
+        "line": 630,
+        "source": "if(bPrefabValid)WallCutSelection=VillageGateReplacement::WallSelection(Cuts);"
+      },
+      {
+        "line": 635,
+        "source": "const auto* Target=bSnapEnabled&&VillageWallStairs::CanDock(Prefab->Id)"
+      },
+      {
+        "line": 636,
+        "source": "? VillageWallStairs::ResolveTarget(Hit.GetActor()):nullptr;"
+      },
+      {
+        "line": 637,
+        "source": "VillageWallStairs::FDock Dock;"
+      },
+      {
+        "line": 638,
+        "source": "const bool NearbyJoin=bSnapEnabled && VillageWallStairs::PickNearbyWallDock(*BuildWorld,Prefab->Id,Prefab->Footprint,"
+      },
+      {
+        "line": 643,
+        "source": "const bool bStairs=Prefab->Id==VillageWallStairs::Id;"
+      },
+      {
+        "line": 645,
+        "source": "if(!VillageWallStairs::MakeDock(Prefab->Id,Prefab->Footprint,Target,Hit.ImpactPoint,FirstSocket,Dock))"
+      },
+      {
+        "line": 649,
+        "source": "else if(Prefab->Id==VillageWallStairs::Id&&Target->IsA<AHighVillageGate>())"
+      },
+      {
+        "line": 655,
+        "source": "auto CanUse=[&](const VillageWallStairs::FDock& Option,FString& Reason)"
+      },
+      {
+        "line": 663,
+        "source": "VillageWallStairs::FDock Other;"
+      },
+      {
+        "line": 664,
+        "source": "if(VillageWallStairs::MakeDock(Prefab->Id,Prefab->Footprint,Target,Hit.ImpactPoint,0,Other))"
+      },
+      {
+        "line": 718,
+        "source": "if(VillageBuildDefense::IsSiegeEngine(Prefab->Id))Cell.Z=FMath::CeilToInt((Hit.ImpactPoint.Z-.05)/20.);"
+      },
+      {
+        "line": 723,
+        "source": "const bool Siege=VillageBuildDefense::IsSiegeEngine(Prefab->Id);"
+      },
+      {
+        "line": 738,
+        "source": "PrefabMessage=Prefab->Id==VillageBuildDefense::Trebuchet?TEXT(\"投石机已贴合附近的平台 · 滚轮旋转 · 左键建造\"):"
+      },
+      {
+        "line": 739,
+        "source": "Prefab->Id==VillageBuildDefense::OilPot?TEXT(\"热油锅已贴合附近的平台 · 滚轮旋转 · 左键建造\"):TEXT(\"弩炮已贴合附近的平台 · 滚轮旋转 · 左键建造\");"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildWidget.cpp",
+    "host_sha256": "2e37e548a8b56ea0290df8400dd3ead3ba46d62e2a6894183242a1ab36b784da",
+    "bindings": [
+      {
+        "line": 4,
+        "source": "#include \"VillageBuildDefense.h\""
+      },
+      {
+        "line": 255,
+        "source": "void UVoxelBuildWidget::SetVillageConstructionTier(VillageBuildDefense::ETier Tier)"
+      },
+      {
+        "line": 532,
+        "source": "const TCHAR* Snap=VillageWallStairs::CanDock(SelectedComponent)"
+      },
+      {
+        "line": 534,
+        "source": ": (VillageBuildDefense::IsBasicWallOrGate(SelectedComponent)||VillageBuildDefense::IsSiegeEngine(SelectedComponent))"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildWidget.h",
+    "host_sha256": "1a7976ce5cc8dc67d07602cbc5fa12b921256564f98508241780e8d9ff6f7e66",
+    "bindings": [
+      {
+        "line": 7,
+        "source": "namespace VillageBuildDefense { enum class ETier : uint8; }"
+      },
+      {
+        "line": 81,
+        "source": "void SetVillageConstructionTier(VillageBuildDefense::ETier Tier);"
+      },
+      {
+        "line": 167,
+        "source": "VillageBuildDefense::ETier VillageTier{};"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildWidgetLayout.cpp",
+    "host_sha256": "27841b4522882f1ee922b3321e7f24a01d0cbdb288c8480a39c3b9972ecc10d1",
+    "bindings": [
+      {
+        "line": 6,
+        "source": "#include \"VillageBuildDefense.h\""
+      },
+      {
+        "line": 179,
+        "source": "const auto Required=VillageBuildDefense::RequiredTier(Entry.Id);"
+      },
+      {
+        "line": 249,
+        "source": "auto* Condition=Text(VillageBuildDefense::ProjectName(Required),12);"
+      },
+      {
+        "line": 403,
+        "source": "if(bVillage&&VillageTier==VillageBuildDefense::ETier::None)"
+      },
+      {
+        "line": 412,
+        "source": "if(bVillage==VillageBuildDefense::IsVillageRecipe(Entry.Id)&&(bVillage||Entry.MaterialId.IsNone()))"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildWorld.cpp",
+    "host_sha256": "9b99d2d1d6409a760d73818f9c0e02a3a7006fef9208abc8f27b78eb2709874b",
+    "bindings": [
+      {
+        "line": 14,
+        "source": "#include \"VillageBuildDefense.h\""
+      },
+      {
+        "line": 194,
+        "source": "bWorkshopTowerGranted=LoadedData->bWorkshopTowerGranted;"
+      },
+      {
+        "line": 321,
+        "source": "if(VillageBuildDefense::IsVillageRecipe(Piece.Id))SpawnPrefab(Piece);"
+      },
+      {
+        "line": 329,
+        "source": "if(!VillageBuildDefense::IsVillageRecipe(Piece.Id))SpawnPrefab(Piece);"
+      },
+      {
+        "line": 352,
+        "source": "TryGrantWorkshopTower();"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+    "host_sha256": "b597662c01f4e3d4d6d9f017022114abb5887dac17abb48fa5cfc84243742bd4",
+    "bindings": [
+      {
+        "line": 32,
+        "source": "UPROPERTY() bool bWorkshopTowerGranted=false;"
+      },
+      {
+        "line": 78,
+        "source": "void TryGrantWorkshopTower();"
+      },
+      {
+        "line": 287,
+        "source": "bool bWorkshopTowerGranted=false;"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp",
+    "host_sha256": "d6bff104fab1bb1b99de36ea6ba63f3d9f40318ac97cb728dd120e311ba41ee0",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"../WorldGeneration/VillageMechanicalWorkshop.h\""
+      },
+      {
+        "line": 4,
+        "source": "#include \"VillageBuildDefense.h\""
+      },
+      {
+        "line": 6,
+        "source": "#include \"VillageWallStairs.h\""
+      },
+      {
+        "line": 7,
+        "source": "#include \"VillageGateReplacement.h\""
+      },
+      {
+        "line": 8,
+        "source": "#include \"../WorldGeneration/HighVillageDefense.h\""
+      },
+      {
+        "line": 40,
+        "source": "if(Cut && Instance.Id==VillageBuildDefense::StoneWall)"
+      },
+      {
+        "line": 44,
+        "source": "FTransform Pose=VillageGateReplacement::Trim(VillageWallStairs::Placement(Instance),*Cut);"
+      },
+      {
+        "line": 52,
+        "source": "if(VillageBuildDefense::IsSiegeEngine(Instance.Id))"
+      },
+      {
+        "line": 54,
+        "source": "VillageDefenseFootprint::Rasterize(VillageDefenseFootprint::Siege(Instance.Id),VillageWallStairs::Placement(Instance),Out);"
+      },
+      {
+        "line": 57,
+        "source": "if(VillageBuildDefense::IsBasicWallOrGate(Instance.Id)&&Instance.WallDockPose.IsSet())"
+      },
+      {
+        "line": 64,
+        "source": "if(VillageWallStairs::CanDock(Instance.Id))"
+      },
+      {
+        "line": 72,
+        "source": "const FTransform Pose=VillageWallStairs::Placement(Instance);"
+      },
+      {
+        "line": 73,
+        "source": "VillageDefenseFootprint::Rasterize(Shape,Cut?VillageGateReplacement::Trim(Pose,*Cut):Pose,Out);"
+      },
+      {
+        "line": 110,
+        "source": "FCollisionQueryParams Params(SCENE_QUERY_STAT(VillageSiegeFooting),true);"
+      },
+      {
+        "line": 115,
+        "source": "const bool bTrebuchet=Id==VillageBuildDefense::Trebuchet;"
+      },
+      {
+        "line": 117,
+        "source": "const TConstArrayView<FVector2D> Pads=bTrebuchet?MakeArrayView(Chassis):"
+      },
+      {
+        "line": 118,
+        "source": "Id==VillageBuildDefense::OilPot?MakeArrayView(OilFeet):MakeArrayView(Pedestal);"
+      },
+      {
+        "line": 142,
+        "source": "if(bTrebuchet && OnRoof && SampledRoof!=Surface)"
+      },
+      {
+        "line": 144,
+        "source": "if(!VillageDefenseFootprint::TrebuchetFitsDeck(*Deck,Surface->GetComponentTransform(),Pose))return false;"
+      },
+      {
+        "line": 164,
+        "source": "if((!Wall.IsA<AHighVillageWall>()&&!Wall.IsRepairedCurtain())||Wall.GetOwner()!=FindVillageConstructionWorld())return;"
+      },
+      {
+        "line": 168,
+        "source": "else if(!CutVillageWalls.IsEmpty() && Wall.IsA<AHighVillageWall>() && !Wall.GetPlacedId().IsValid())"
+      },
+      {
+        "line": 170,
+        "source": "if(!Gate.GateCuts.IsEmpty() && VillageGateReplacement::IntervalFor(Wall,Gate,Interval))break;"
+      },
+      {
+        "line": 214,
+        "source": "if(VillageBuildDefense::IsVillageRecipe(Piece->PrefabId())&&!VoxelGrounding::IsFixedBuildingSurface(Hit))return false;"
+      },
+      {
+        "line": 340,
+        "source": "if(VillageBuildDefense::IsSiegeEngine(Instance.Id))"
+      },
+      {
+        "line": 343,
+        "source": "return SiegeFooting(*this,Instance.Id,VillageWallStairs::Placement(Instance),"
+      },
+      {
+        "line": 356,
+        "source": "if(VillageWallStairs::CanDock(Instance.Id)||"
+      },
+      {
+        "line": 357,
+        "source": "(VillageBuildDefense::IsBasicWallOrGate(Instance.Id)&&Instance.WallDockPose.IsSet()))"
+      },
+      {
+        "line": 371,
+        "source": "if(It->GetOwner()==Hills && VillageGateReplacement::IntervalFor(**It,Instance,Interval))"
+      },
+      {
+        "line": 377,
+        "source": "const FTransform Pose=VillageWallStairs::Placement(Instance);"
+      },
+      {
+        "line": 387,
+        "source": "const TConstArrayView<FVector> Samples=Instance.Id==VillageWallStairs::Id?MakeArrayView(StairFeet):"
+      },
+      {
+        "line": 388,
+        "source": "Instance.Id==VillageBuildDefense::HighTower?MakeArrayView(TowerFeet):"
+      },
+      {
+        "line": 389,
+        "source": "Instance.Id==VillageBuildDefense::StoneGate?MakeArrayView(GateFeet):"
+      },
+      {
+        "line": 390,
+        "source": "Instance.Id==VillageBuildDefense::WoodGate?MakeArrayView(TimberFeet):"
+      },
+      {
+        "line": 391,
+        "source": "Instance.Id==VillageBuildDefense::StoneWall?MakeArrayView(BasicWallFeet):MakeArrayView(WallFeet);"
+      },
+      {
+        "line": 402,
+        "source": "if(Instance.WallDockPose.IsSet()&&VillageWallStairs::CanDock(Instance.Id))"
+      },
+      {
+        "line": 405,
+        "source": "VillageWallStairs::FDock Join;"
+      },
+      {
+        "line": 406,
+        "source": "if(VillageWallStairs::FindDock(GetWorld(),Instance.Id,Definition->Footprint,Instance.Cell,Instance.Yaw,Join)"
+      },
+      {
+        "line": 417,
+        "source": "VillageWallStairs::Placement(Instance).Equals(CachedGridPose,.001);"
+      },
+      {
+        "line": 424,
+        "source": "if(Instance.Id==VillageBuildDefense::WoodGate&&Instance.WallDockPose.IsSet())"
+      },
+      {
+        "line": 440,
+        "source": "const int32 Stride=VillageBuildDefense::IsVillageRecipe(Instance.Id)?1:"
+      },
+      {
+        "line": 577,
+        "source": "const bool bVillageDefense=Instance&&VillageBuildDefense::IsVillageRecipe(Instance->Id);"
+      },
+      {
+        "line": 619,
+        "source": "const bool bFortification=VillageWallStairs::CanDock(Id);"
+      },
+      {
+        "line": 620,
+        "source": "const bool bVillage=VillageBuildDefense::IsVillageRecipe(Id);"
+      },
+      {
+        "line": 626,
+        "source": "const auto Required=VillageBuildDefense::RequiredTier(Id);"
+      },
+      {
+        "line": 627,
+        "source": "if(VillageBuildDefense::UnlockedTier(Hills)<Required)"
+      },
+      {
+        "line": 628,
+        "source": "{Reason=VillageBuildDefense::LockReason(Required);return false;}"
+      },
+      {
+        "line": 639,
+        "source": "VillageWallStairs::FDock Dock;"
+      },
+      {
+        "line": 640,
+        "source": "VillageGateReplacement::FOpening Opening;"
+      },
+      {
+        "line": 646,
+        "source": "if(!bDocked || !VillageGateReplacement::Layout(Id,DockTarget,Definition->Footprint,GatePose,Address,Facing)"
+      },
+      {
+        "line": 648,
+        "source": "|| !VillageGateReplacement::Collect(*this,*FindVillageConstructionWorld(),Id,DockTarget,GatePose,Opening,PreviewBars))"
+      },
+      {
+        "line": 655,
+        "source": "if(!VillageWallStairs::FindDock(GetWorld(),Id,Definition->Footprint,Cell,Yaw,Dock,DockTarget))"
+      },
+      {
+        "line": 660,
+        "source": "Probe.WallDockPose=VillageBuildDefense::Placement(Id,Cell,Footprint,Yaw,GroundYawDegrees);"
+      },
+      {
+        "line": 661,
+        "source": "FTransform Pose=bVillage?VillageWallStairs::Placement(Probe):FTransform::Identity;"
+      },
+      {
+        "line": 663,
+        "source": "if(VillageBuildDefense::IsSiegeEngine(Id))"
+      },
+      {
+        "line": 667,
+        "source": "{Reason=Id==VillageBuildDefense::Trebuchet?TEXT(\"投石机底架需要连续平面 · 避开楼梯口和平台边缘\"):"
+      },
+      {
+        "line": 674,
+        "source": "if(VillageBuildDefense::IsSiegeEngine(Id))"
+      },
+      {
+        "line": 678,
+        "source": "Reason=Id==VillageBuildDefense::Trebuchet?TEXT(\"机架或投臂摆动范围受阻 · 移动或旋转投石机\"):"
+      },
+      {
+        "line": 679,
+        "source": "Id==VillageBuildDefense::OilPot?TEXT(\"热油锅底座或锅柄被挡住，请避开垛口和楼梯口\"):TEXT(\"弩炮机架被挡住 · 请避开垛口、楼梯栏杆或其他物体\");"
+      },
+      {
+        "line": 688,
+        "source": "if(bDocked && Id==VillageWallStairs::Id && !VillageWallStairs::HasClearStairEntrance(*GetWorld(),Pose))"
+      },
+      {
+        "line": 764,
+        "source": "if(!Dock.Target&&!VillageBuildDefense::IsSiegeEngine(Id)&&!IsPrefabSupported(Probe))"
+      },
+      {
+        "line": 802,
+        "source": "if(VillageBuildDefense::IsVillageRecipe(Instance.Id))"
+      },
+      {
+        "line": 807,
+        "source": "const FTransform Transform=VillageWallStairs::Placement(Instance);"
+      },
+      {
+        "line": 816,
+        "source": "auto* Defense=VillageBuildDefense::SpawnPlaced(*Definition,*Hills,Instance.InstanceId,Transform);"
+      },
+      {
+        "line": 875,
+        "source": "void AVoxelBuildWorld::TryGrantWorkshopTower()"
+      },
+      {
+        "line": 877,
+        "source": "if(!HasAuthority() || !bReady || bClosing || bWorkshopTowerGranted)return;"
+      },
+      {
+        "line": 885,
+        "source": "if(Entry.Id==VillageBuildDefense::HighTower && Site.IsWorkshopTowerPosition(VillageWallStairs::Placement(Entry).GetLocation()))"
+      },
+      {
+        "line": 887,
+        "source": "bWorkshopTowerGranted=true;"
+      },
+      {
+        "line": 893,
+        "source": "const auto* Definition=Palette->FindComponent(VillageBuildDefense::HighTower);"
+      },
+      {
+        "line": 896,
+        "source": "Tower.Id=VillageBuildDefense::HighTower;"
+      },
+      {
+        "line": 906,
+        "source": "for(TActorIterator<AVillageMechanicalWorkshop> It(GetWorld());It;++It)"
+      },
+      {
+        "line": 916,
+        "source": "VillageWallStairs::FDock Join;"
+      },
+      {
+        "line": 918,
+        "source": "if(VillageWallStairs::FindDock(GetWorld(),Tower.Id,Definition->Footprint,Tower.Cell,Tower.Yaw,Join) &&"
+      },
+      {
+        "line": 931,
+        "source": "GetWorldTimerManager().SetTimer(WorkshopTowerRetry,this,&AVoxelBuildWorld::TryGrantWorkshopTower,5.f,false);"
+      },
+      {
+        "line": 937,
+        "source": "bWorkshopTowerGranted=true;"
+      },
+      {
+        "line": 951,
+        "source": "if(bReplaceWall && ExpectedWallSelection>=0 && ExpectedWallSelection!=VillageGateReplacement::WallSelection(Instance.GateCuts))"
+      },
+      {
+        "line": 956,
+        "source": "if(bDocked||GroundYawDegrees!=INDEX_NONE||VillageBuildDefense::IsSiegeEngine(Id))Instance.WallDockPose=PlacementPose;"
+      },
+      {
+        "line": 987,
+        "source": "if(It->GetOwner()!=Hills || (!It->IsA<AHighVillageWall>() && !It->IsRepairedCurtain()))continue;"
+      },
+      {
+        "line": 989,
+        "source": "if(!VillageGateReplacement::IntervalFor(**It,Gate,Remaining))continue;"
+      },
+      {
+        "line": 996,
+        "source": "const auto& Original=VillageDefenseFootprint::Get(It->IsA<AHighVillageWall>()?VillageBuildDefense::HighWall:VillageBuildDefense::StoneWall,Mesh);"
+      },
+      {
+        "line": 1122,
+        "source": "if(VillageBuildDefense::IsVillageRecipe(Entry->Id))RemovedVillageDefenses.Add(Entry->InstanceId);"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildWorldSave.cpp",
+    "host_sha256": "e9e15710fada3a8e4eb2d3e217cdd7c924905fadd99fbe38d15fffd805e55a30",
+    "bindings": [
+      {
+        "line": 74,
+        "source": "Data->bWorkshopTowerGranted=bWorkshopTowerGranted;"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+    "host_sha256": "aff8c1885f4bf23b3b202c9db14fe2ec2903f4985c0270cab250094b1c1271a5",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"../WorldGeneration/VillageOilCarry.h\""
+      },
+      {
+        "line": 517,
+        "source": "const auto* Oil=GetOwner()->FindComponentByClass<UVillageOilCarry>();"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.cpp",
+    "host_sha256": "17940b5b3958decd0abd8c477e98e3e0f55cc5e431257588e6ea93989f21d8e3",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"../WorldGeneration/VillageOilCarry.h\""
+      },
+      {
+        "line": 15,
+        "source": "if(const auto* Oil=GetOwner()->FindComponentByClass<UVillageOilCarry>();Oil && Oil->Occupied())"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Characters/VillageArtisanVitalsComponent.cpp",
+    "host_sha256": "fa063006269caf18fc847ddb8d9d510e9dc77161330a280a9413cb597f8b9b69",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"../WorldGeneration/VillageHotOil.h\""
+      },
+      {
+        "line": 81,
+        "source": "if (!(Type && Type->IsA<UVillageOilDamage>()) && !IsMonster(Instigator ? Instigator->GetPawn() : nullptr) && !IsMonster(Causer) &&"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+    "host_sha256": "faede2f04dc659e56e456d96c196542acdf98db0dced49d103db27610464b987",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"../WorldGeneration/VillageHotOil.h\""
+      },
+      {
+        "line": 216,
+        "source": "void UCombatStatusFormula::AddOilBurn(AActor* Source,float MagicAttack)"
+      },
+      {
+        "line": 220,
+        "source": "if(Burns.Num()>Before)Burns.Last().bOil=true;"
+      },
+      {
+        "line": 543,
+        "source": "TMap<TWeakObjectPtr<AActor>,float> OilDamage;"
+      },
+      {
+        "line": 546,
+        "source": "if(B.bOil){OilDamage.FindOrAdd(B.Source)+=B.Damage;continue;}"
+      },
+      {
+        "line": 550,
+        "source": "for(const auto& Entry:OilDamage)Apply(Entry.Value,Entry.Key.Get(),UVillageOilDamage::StaticClass());"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Combat/CombatStatusFormula.h",
+    "host_sha256": "416627af8560b5f1984a32708cb073b313d71db67bf52765d582937dc33c61b1",
+    "bindings": [
+      {
+        "line": 75,
+        "source": "void AddOilBurn(AActor* Source,float MagicAttack);"
+      },
+      {
+        "line": 210,
+        "source": "struct FBurn {TWeakObjectPtr<AActor> Source;float Damage=0,Remaining=0;bool bOil=false;};"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Development/VillageConstructionNetworkAudit.cpp",
+    "host_sha256": "54413ecab3a3ebd1e43da0565fc1f84fc47ba0d3928ffcbc2fc178fa46a8b44a",
+    "bindings": [
+      {
+        "line": 9,
+        "source": "#include \"../WorldGeneration/HighVillageDefense.h\""
+      },
+      {
+        "line": 13,
+        "source": "#include \"../Building/VillageWallStairs.h\""
+      },
+      {
+        "line": 14,
+        "source": "#include \"../Building/VillageBuildDefense.h\""
+      },
+      {
+        "line": 76,
+        "source": "return TActorIterator<AHighVillageGate>(World) && TActorIterator<AHighVillageWall>(World)"
+      },
+      {
+        "line": 95,
+        "source": "if(It->PrefabId()==VillageWallStairs::Id&&It->AnchorCell()==Cell)return *It;"
+      },
+      {
+        "line": 105,
+        "source": "const auto* Def=BuildingDefinition(VillageBuildDefense::HighWall);"
+      },
+      {
+        "line": 106,
+        "source": "VillageWallStairs::FDock Dock;"
+      },
+      {
+        "line": 107,
+        "source": "if(!Def||!VillageWallStairs::MakeDockAtSocket(Def->Id,Def->Footprint,Wall,0,Dock))return false;"
+      },
+      {
+        "line": 160,
+        "source": "const int32 RepairCost=GetDefault<AHighVillageWall>()->GetRepairSoulCost();"
+      },
+      {
+        "line": 189,
+        "source": "for(TActorIterator<AHighVillageWall> It(GetWorld());It;++It)"
+      },
+      {
+        "line": 246,
+        "source": "auto* Build=BuildWorld(GetWorld());const auto* Def=BuildingDefinition(VillageWallStairs::Id);"
+      },
+      {
+        "line": 248,
+        "source": "for(TActorIterator<AHighVillageWall> It(GetWorld());Build&&Def&&It&&!Found;++It)"
+      },
+      {
+        "line": 252,
+        "source": "VillageWallStairs::FDock Dock;FString Reason;"
+      },
+      {
+        "line": 253,
+        "source": "if(!VillageWallStairs::MakeDockAtSocket(Def->Id,Def->Footprint,*It,Socket,Dock)"
+      },
+      {
+        "line": 372,
+        "source": "VillageWallStairs::FDock Dock;"
+      },
+      {
+        "line": 373,
+        "source": "const auto* Def=BuildingDefinition(VillageWallStairs::Id);"
+      },
+      {
+        "line": 375,
+        "source": "const bool bSocket=bPlace&&Def&&VillageWallStairs::MakeDockAtSocket(Def->Id,Def->Footprint,Target.Get(),FMath::RoundToInt(ExpectedHealth),Dock);"
+      },
+      {
+        "line": 391,
+        "source": "Pass=AllPlans(H,false)&&!TActorIterator<AHighVillageGate>(GetWorld())&&!TActorIterator<AHighVillageWall>(GetWorld())"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "host_sha256": "751066b6a1f9629aee876e1d0cf2bf95a8439ce46b1f26824d546909712948ed",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"WorldGeneration/VillageOilCarry.h\""
+      },
+      {
+        "line": 243,
+        "source": "CreateDefaultSubobject<UVillageOilCarry>(TEXT(\"VillageOilCarry\"));"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacter.h",
+    "host_sha256": "d887331315bdf6b6f312d7aa468b6589a8ac442964295c2d09142b31960f58e6",
+    "bindings": [
+      {
+        "line": 205,
+        "source": "UFUNCTION(Client,Unreliable) void ClientBallistaHit(bool bKilled);"
+      },
+      {
+        "line": 214,
+        "source": "void ResetActionsForPriority(bool bWeaponSwitch);"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+    "host_sha256": "ee27a7c5d237c5de891010b282fb7270e54fa87fe9ac30945b017bca893768c1",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"WorldGeneration/VillageOilCarry.h\""
+      },
+      {
+        "line": 86,
+        "source": "if(auto* Carry=FindComponentByClass<UVillageOilCarry>())Carry->Cancel();"
+      },
+      {
+        "line": 87,
+        "source": "ResetActionsForPriority(bWeaponSwitch);"
+      },
+      {
+        "line": 90,
+        "source": "void AFPSGAMECharacter::ResetActionsForPriority(bool bWeaponSwitch)"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacterCombatFeedback.cpp",
+    "host_sha256": "21b795f6c525e6dce4669c51506b9680ed4265d6ac1db89613cb2603f50810ff",
+    "bindings": [
+      {
+        "line": 53,
+        "source": "void AFPSGAMECharacter::ClientBallistaHit_Implementation(bool bKilled)"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+    "host_sha256": "eb05e7ce0b9136042d6586f83d0753f027fcbe585f7791bbc63b8d50405f4486",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"WorldGeneration/VillageOilCarry.h\""
+      },
+      {
+        "line": 97,
+        "source": "if(auto* Carry=FindComponentByClass<UVillageOilCarry>();Carry && Carry->Occupied())Carry->RefreshEquipment(*Profile);"
+      },
+      {
+        "line": 126,
+        "source": "ResetActionsForPriority(true);"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+    "host_sha256": "84977312bd3d8fc5f8441b284d4dc22339d522e6084bf3b0733d6e15db570b56",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"NPC/VillageMasterArtisan.h\""
+      },
+      {
+        "line": 33,
+        "source": "#include \"WorldGeneration/HighVillageDefense.h\""
+      },
+      {
+        "line": 73,
+        "source": "#include \"WorldGeneration/VillageSiegeControl.h\""
+      },
+      {
+        "line": 74,
+        "source": "#include \"WorldGeneration/VillageHotOil.h\""
+      },
+      {
+        "line": 75,
+        "source": "#include \"WorldGeneration/VillageOilCarry.h\""
+      },
+      {
+        "line": 96,
+        "source": "if(const auto* Carry=Viewer->FindComponentByClass<UVillageOilCarry>())Carry->HideFirstPersonEquipment(GetViewTarget(),HiddenComponents);"
+      },
+      {
+        "line": 122,
+        "source": "SiegeControl=CreateDefaultSubobject<UVillageSiegeControl>(TEXT(\"SiegeControl\"));"
+      },
+      {
+        "line": 436,
+        "source": "if(GetPawn())if(auto* Oil=GetPawn()->FindComponentByClass<UVillageOilCarry>();Oil && Oil->HandleInput(Params))return true;"
+      },
+      {
+        "line": 513,
+        "source": "if(VoxelBuilder && VoxelBuilder->IsVillageCameraPlacing())"
+      },
+      {
+        "line": 593,
+        "source": "if(auto* Section=Focus.RepairTarget())"
+      },
+      {
+        "line": 598,
+        "source": "if(auto* Kettle=Cast<AVillageOilKettle>(Target))"
+      },
+      {
+        "line": 600,
+        "source": "if(!IsInBuildMode())if(auto* Carry=GetPawn()->FindComponentByClass<UVillageOilCarry>())Carry->Take(Kettle);"
+      },
+      {
+        "line": 603,
+        "source": "if(auto* Siege=Cast<AVillageSiegeEngine>(Target))"
+      },
+      {
+        "line": 613,
+        "source": "(Focus.GateUse==EHighGateUse::Release && CastChecked<AHighVillageGate>(Target)->GetHealth()<=0.f))"
+      },
+      {
+        "line": 621,
+        "source": "if(auto* Master=Cast<AVillageMasterArtisan>(Target)){InterruptInspection();ChapelDialogue->OpenMerchant(Master);return true;}"
+      },
+      {
+        "line": 879,
+        "source": "if (ColdSteelWorldInteraction::TraceUseTargets(this).RepairTarget()!=Section)"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+    "host_sha256": "4358ed2b58df5827c1681e470e60948a8ffdf5918b3d24aec78d4d8ae9cdd24c",
+    "bindings": [
+      {
+        "line": 33,
+        "source": "class UVillageSiegeControl* GetSiegeControl() const { return SiegeControl; }"
+      },
+      {
+        "line": 110,
+        "source": "UPROPERTY(VisibleAnywhere,Category=\"Building\") TObjectPtr<class UVillageSiegeControl> SiegeControl;"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSDoorPushComponent.cpp",
+    "host_sha256": "d0e3c7c64033108e771b02ccddc49b9f49c29ee74bf460f3ad996c43a5c519d3",
+    "bindings": [
+      {
+        "line": 3,
+        "source": "#include \"../WorldGeneration/HighVillageDefense.h\""
+      },
+      {
+        "line": 456,
+        "source": "||Cast<AHighVillageGate>(Target));"
+      },
+      {
+        "line": 465,
+        "source": "if(Target->IsA<AHighVillageGate>())"
+      },
+      {
+        "line": 494,
+        "source": "if(auto* Gate=Cast<AHighVillageGate>(Target))"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/Movement/StableHorseCondition.cpp",
+    "host_sha256": "45346e2c236499bfdd2257af599e44b6055cafb2f926a33802514da82016f5fe",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"../WorldGeneration/VillageHotOil.h\""
+      },
+      {
+        "line": 17,
+        "source": "const bool Oil=Event.DamageTypeClass && Event.DamageTypeClass->IsChildOf(UVillageOilDamage::StaticClass());"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp",
+    "host_sha256": "e11d06f7115cbe4185bf9ec2c684afeb59e41ab15db3e050280ae01526f5a5ab",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"VillageMasterArtisan.h\""
+      },
+      {
+        "line": 32,
+        "source": "Speaker->IsA<AVillageMillKeeper>() || Speaker->IsA<AVillageMasterArtisan>());"
+      },
+      {
+        "line": 97,
+        "source": "bool UChapelDialogueComponent::IsMasterArtisan() const"
+      },
+      {
+        "line": 99,
+        "source": "return Cast<AVillageMasterArtisan>(LocalMerchant.Get())!=nullptr;"
+      },
+      {
+        "line": 103,
+        "source": "const auto* Master=Cast<AVillageMasterArtisan>(LocalMerchant.Get());"
+      },
+      {
+        "line": 116,
+        "source": "void UChapelDialogueComponent::BuySiegeUpgrade(int32 Index,int32 ExpectedRank)"
+      },
+      {
+        "line": 118,
+        "source": "if(!Screen || !IsMasterArtisan() || bPending)return;"
+      },
+      {
+        "line": 122,
+        "source": "ServerBuySiegeUpgrade(LocalSession,Index,ExpectedRank);"
+      },
+      {
+        "line": 124,
+        "source": "void UChapelDialogueComponent::ServerBuySiegeUpgrade_Implementation(uint32 Session,int32 Index,int32 ExpectedRank)"
+      },
+      {
+        "line": 127,
+        "source": "const auto* Master=Cast<AVillageMasterArtisan>(AuthorityMerchant.Get());"
+      },
+      {
+        "line": 139,
+        "source": "if(Session!=LocalSession || !IsMasterArtisan())return;"
+      },
+      {
+        "line": 395,
+        "source": "if(IsMasterArtisan())"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.h",
+    "host_sha256": "f80154c9c997e0d0839b2fed1b385f67bf8fe4c2411379fcbbfb249af963fe76",
+    "bindings": [
+      {
+        "line": 52,
+        "source": "bool IsMasterArtisan() const;"
+      },
+      {
+        "line": 55,
+        "source": "void BuySiegeUpgrade(int32 Index,int32 ExpectedRank);"
+      },
+      {
+        "line": 130,
+        "source": "UFUNCTION(Server,Reliable) void ServerBuySiegeUpgrade(uint32 Session,int32 Index,int32 ExpectedRank);"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/NPC/VillageResidentStatus.cpp",
+    "host_sha256": "38d85a4525fcd74cff190d16b25feab7006cfc733bdb929e09c676728d5456c6",
+    "bindings": [
+      {
+        "line": 4,
+        "source": "#include \"VillageMasterArtisan.h\""
+      },
+      {
+        "line": 19,
+        "source": "if(Actor->IsA<AVillageMasterArtisan>())return TEXT(\"工匠大师\");"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+    "host_sha256": "cd753cf9f4d32c29886f54bdaff814aa032d80025127809b4f16307871dbd4f7",
+    "bindings": [
+      {
+        "line": 3,
+        "source": "#include \"../WorldGeneration/VillageSiegeControl.h\""
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+    "host_sha256": "1ed9a85081c91a04fe25c58e613034fcc2ecc2b0a1ecde9000c1f5dedd06dec1",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"../NPC/VillageMasterArtisan.h\""
+      },
+      {
+        "line": 3,
+        "source": "#include \"../WorldGeneration/VillageSiegeControl.h\""
+      },
+      {
+        "line": 17,
+        "source": "#include \"../WorldGeneration/HighVillageDefense.h\""
+      },
+      {
+        "line": 163,
+        "source": "const bool bRepair=Defense && Focus.RepairTarget()==Defense;"
+      },
+      {
+        "line": 164,
+        "source": "const bool bOperatingTarget=bOrdinaryUse && Cast<AVillageSiegeEngine>(Defense) && !bRepair;"
+      },
+      {
+        "line": 173,
+        "source": "const bool bMaster=IsValid(Cast<AVillageMasterArtisan>(Focus.Target));"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp",
+    "host_sha256": "647d9e785b9eff1e08f0fbaf5d55d579d89fd54a4319cd4eab133e7741656fe3",
+    "bindings": [
+      {
+        "line": 35,
+        "source": "if (Conversation && Conversation->IsMasterArtisan()) return &ColdSteelMerchantDialogue::MasterArtisan;"
+      },
+      {
+        "line": 374,
+        "source": "if(Conversation->IsMasterArtisan())ShowPage(WorkshopPage);"
+      },
+      {
+        "line": 418,
+        "source": "if(bMain && Conversation->IsMasterArtisan() && bResumeWorkshopGreeting)"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogueArtisans.h",
+    "host_sha256": "f45e8d13fabf818e1515d9b728f5572b8162da22803d6394eb0044a4b0177630",
+    "bindings": [
+      {
+        "line": 31,
+        "source": "inline constexpr FSpeaker MasterArtisan = {"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp",
+    "host_sha256": "faff7accd8152347ffe2c1647fa60eedf32d391ca1eec66748169d88e0141eaa",
+    "bindings": [
+      {
+        "line": 3,
+        "source": "#include \"../WorldGeneration/VillageSiegeControl.h\""
+      },
+      {
+        "line": 127,
+        "source": "const TCHAR* Name=Station->IsTrebuchet()?TEXT(\"投石机\"):TEXT(\"弩炮\");"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelVillageTree.cpp",
+    "host_sha256": "14a9a5f3c32702536cdffa8417e7ab016a67df1c78983e2548c8786d74442b82",
+    "bindings": [
+      {
+        "line": 4,
+        "source": "#include \"../Building/VillageBuildDefense.h\""
+      },
+      {
+        "line": 50,
+        "source": "using VillageBuildDefense::ETier;"
+      },
+      {
+        "line": 51,
+        "source": "using VillageBuildDefense::ProjectName;"
+      },
+      {
+        "line": 65,
+        "source": "{VillageBuildDefense::MechanicsPlan, TEXT(\"defense\"), ProjectName(ETier::Mechanics), TEXT(\"械\"), TEXT(\"村庄防御\"),"
+      },
+      {
+        "line": 252,
+        "source": "Selected==VillageBuildDefense::MechanicsPlan ? (Done ? TEXT(\"马厩对面的机械工坊已落成。\") : Available ? TEXT(\"工坊用地已规划，可研究守备机械。\") : TEXT(\"完成「防御工事」后可研究守备机械。\")) :"
+      },
+      {
+        "line": 256,
+        "source": "+SVerticalBox::Slot().AutoHeight()[ColdSteelTreePanel::DetailHead(TreeStyle,Icon,P.Branch+TEXT(\" · \")+(Root?TEXT(\"根基\"):Selected==VillageBuildDefense::MechanicsPlan?TEXT(\"城防 IV\"):P.bResearchOnly?TEXT(\"城防 III\"):Upgrade?TEXT(\"城防 II\"):Selected==TEXT(\"wall\")?TEXT(\"城防 I\"):!P.Prerequisite.IsNone()?TEXT(\"修复 II\"):TEXT(\"初级 I\")),P.Name,TEXT(\"永久建设\"))]"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+    "host_sha256": "cdea5226886159adc9551d107ed48ef845d58f7704ad4d767d363ec2f80e7313",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"../NPC/VillageMasterArtisan.h\""
+      },
+      {
+        "line": 7,
+        "source": "#include \"../WorldGeneration/VillageSiegeEngine.h\""
+      },
+      {
+        "line": 8,
+        "source": "#include \"../WorldGeneration/VillageHotOil.h\""
+      },
+      {
+        "line": 9,
+        "source": "#include \"../WorldGeneration/VillageOilCarry.h\""
+      },
+      {
+        "line": 10,
+        "source": "#include \"../WorldGeneration/VillageSiegeUseTargets.h\""
+      },
+      {
+        "line": 12,
+        "source": "#include \"../WorldGeneration/HighVillageDefense.h\""
+      },
+      {
+        "line": 30,
+        "source": "#include \"../Building/VillageBuildDefense.h\""
+      },
+      {
+        "line": 87,
+        "source": "AVillageDefenseSection* ColdSteelWorldInteraction::FUseTargets::RepairTarget() const"
+      },
+      {
+        "line": 91,
+        "source": "return Section->IsA<AHighVillageGate>() && GateUse!=EHighGateUse::Repair ? nullptr : Section;"
+      },
+      {
+        "line": 104,
+        "source": "auto* Siege=PC->GetWorld()->GetSubsystem<UVillageSiegeUseTargets>()->Trace("
+      },
+      {
+        "line": 139,
+        "source": "if(const auto* Gate=Cast<AHighVillageGate>(Target))"
+      },
+      {
+        "line": 156,
+        "source": "||Cast<AChapelNun>(Target)||Cast<AVillageArtisanMerchant>(Target)||Cast<AVillageHerbalist>(Target)||Cast<AVillageMasterArtisan>(Target)||Cast<AVillageMillKeeper>(Target)||Cast<AVillageDefenseSection>(Target)"
+      },
+      {
+        "line": 171,
+        "source": "if(Breach->IsA<AHighVillageGate>())Found.GateUse=EHighGateUse::Repair;"
+      },
+      {
+        "line": 471,
+        "source": "if(const auto* Gate=Cast<AHighVillageGate>(Target); Gate && GateUse==EHighGateUse::Release)"
+      },
+      {
+        "line": 481,
+        "source": "Hint.Title=Section->IsA<AVillageOilKettle>()?TEXT(\"热油锅\"):"
+      },
+      {
+        "line": 482,
+        "source": "Carrier && Carrier->PrefabId()==VillageBuildDefense::Ballista?TEXT(\"固定式弩炮\"):"
+      },
+      {
+        "line": 483,
+        "source": "Carrier && Carrier->PrefabId()==VillageBuildDefense::Trebuchet?TEXT(\"配重投石机\"):"
+      },
+      {
+        "line": 484,
+        "source": "Carrier && Carrier->PrefabId()==VillageBuildDefense::HighTower?TEXT(\"石砌高塔楼\"):"
+      },
+      {
+        "line": 485,
+        "source": "Section->IsA<AHighVillageGate>()?TEXT(\"升降铁闸\"):"
+      },
+      {
+        "line": 486,
+        "source": "Section->IsA<AHighVillageWall>()?TEXT(\"石砌高墙\"):Section->IsA<AVillageDefenseStairs>()?TEXT(\"城墙石阶\"):"
+      },
+      {
+        "line": 497,
+        "source": "if(Target->IsA<AVillageOilKettle>())"
+      },
+      {
+        "line": 499,
+        "source": "const auto* Carry=Viewer?Viewer->FindComponentByClass<UVillageOilCarry>():nullptr;"
+      },
+      {
+        "line": 505,
+        "source": "if(const auto* Siege=Cast<AVillageSiegeEngine>(Target))"
+      },
+      {
+        "line": 507,
+        "source": "Hint.Title=Siege->IsTrebuchet()?TEXT(\"配重投石机\"):TEXT(\"固定式弩炮\");"
+      },
+      {
+        "line": 512,
+        "source": "if(Target->IsA<AHighVillageGate>()){Hint.Title=TEXT(\"升降铁闸\");Hint.Text=TEXT(\"城门完好，无需修复\");Hint.bAction=false;return Hint;}"
+      },
+      {
+        "line": 517,
+        "source": "if(Cast<AVillageMasterArtisan>(Target)){Hint.Title=TEXT(\"工匠大师\");Hint.Text=TEXT(\"交谈\");return Hint;}"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.h",
+    "host_sha256": "d411fb79e3c25de9b2ad30a49093fd95eea95be9895c24bf20a3ee99b4959b58",
+    "bindings": [
+      {
+        "line": 19,
+        "source": "AVillageDefenseSection* RepairTarget() const;"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/ChapelCourtyardDressing.cpp",
+    "host_sha256": "bc51a4109d717e5bd4c6c2fd7a33ff09b82edfe8cbb11e9c2bb98f922821b4d3",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"VillageMasonry.h\""
+      },
+      {
+        "line": 23,
+        "source": "{TEXT(\"CourtyardChips\"), VillageMasonry::Mesh(TEXT(\"SM_VillageWallRubbleA\")).ToString()}"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp",
+    "host_sha256": "4d6ad0a625d85c8ea088f6ac0f933a43ca4715672185b545ed75aeb4549f1f30",
+    "bindings": [
+      {
+        "line": 194,
+        "source": "if(bOilBudgetDirty)FlushOilFireBudget();"
+      },
+      {
+        "line": 232,
+        "source": "OilFires.Reset();"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h",
+    "host_sha256": "cd5b1bf005ab4de9779cfb6324b367767cc39fb814eef1921db1d5c18f8ccf3c",
+    "bindings": [
+      {
+        "line": 45,
+        "source": "void SetOilFireDemand(UNiagaraComponent* Fire,float LowRate,float HighRate);"
+      },
+      {
+        "line": 51,
+        "source": "struct FOilFireAllocation"
+      },
+      {
+        "line": 56,
+        "source": "TMap<TWeakObjectPtr<UNiagaraComponent>,FOilFireAllocation> OilFires;"
+      },
+      {
+        "line": 57,
+        "source": "bool bOilBudgetDirty=false;"
+      },
+      {
+        "line": 58,
+        "source": "void FlushOilFireBudget();"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillage.cpp",
+    "host_sha256": "99f331abd91d5960b92f63333139d234b8de3619e819ed1fdfccc18956f30537",
+    "bindings": [
+      {
+        "line": 290,
+        "source": "(uint32(bVillageBakeryRepaired)<<2) | (uint32(bVillageGunshopRepaired)<<3) | (uint32(bGarrisonMechanics)<<4));"
+      },
+      {
+        "line": 320,
+        "source": "Building=bGarrisonMechanics && FMath::Abs(FromWorkshop.X)<=337. && FMath::Abs(FromWorkshop.Y)<=619.;"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsChapel.cpp",
+    "host_sha256": "c3e1f10dd578951303d641b83fd962588ded11ff7bc765e0ce3fbc086cb8c835",
+    "bindings": [
+      {
+        "line": 3,
+        "source": "#include \"VillageMasonry.h\""
+      },
+      {
+        "line": 46,
+        "source": "return VillageMasonry::Mesh(FString(TEXT(\"SM_Chapel\")) + Role);"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp",
+    "host_sha256": "0eb5c97a1b5e0a926ca459ec7d06c01a2ddaa3d23aa539da5574f0739bbb5b6c",
+    "bindings": [
+      {
+        "line": 163,
+        "source": "Save->bGarrisonMechanics=bGarrisonMechanics;"
+      },
+      {
+        "line": 165,
+        "source": "if(bGarrisonMechanics)Save->VillagePlanVersion=FMath::Max(11,Save->VillagePlanVersion);"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "host_sha256": "0ed03ff3467029b7e9be819466699c8dfec3988b6b77eda1a60022ca2197f0da",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"VillageMechanicalWorkshop.h\""
+      },
+      {
+        "line": 155,
+        "source": "bGarrisonMechanics=Saved->VillagePlanVersion>=11 && Saved->bGarrisonMechanics;"
+      },
+      {
+        "line": 208,
+        "source": "DOREPLIFETIME(ATemperateHillsWorld,bGarrisonMechanics);"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "host_sha256": "9566fc9d3e072e7166ac5745ac10077fbf68413a8f5be8240af1640ed4b596fd",
+    "bindings": [
+      {
+        "line": 211,
+        "source": "static constexpr uint16 GarrisonMechanicsPlan = 1024;"
+      },
+      {
+        "line": 212,
+        "source": "UPROPERTY() bool bGarrisonMechanics = false;"
+      },
+      {
+        "line": 543,
+        "source": "UPROPERTY(Replicated) bool bGarrisonMechanics=false;"
+      },
+      {
+        "line": 545,
+        "source": "UPROPERTY(Transient) TObjectPtr<class AVillageMechanicalWorkshop> MechanicalWorkshop;"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageDefenseBlockCheck.cpp",
+    "host_sha256": "32480321f23d16c82a06bb70f31efb8b990afd47b0c2c4abca2f34c929b8f917",
+    "bindings": [
+      {
+        "line": 4,
+        "source": "#include \"HighVillageDefense.h\""
+      },
+      {
+        "line": 5,
+        "source": "#include \"HighVillageCollapse.h\""
+      },
+      {
+        "line": 11,
+        "source": "#include \"../Building/VillageBuildDefense.h\""
+      },
+      {
+        "line": 121,
+        "source": "TArray<AHighVillageWall*> Walls;"
+      },
+      {
+        "line": 122,
+        "source": "TArray<AHighVillageGate*> Gates;"
+      },
+      {
+        "line": 128,
+        "source": "if(auto* Wall=Cast<AHighVillageWall>(Part))"
+      },
+      {
+        "line": 130,
+        "source": "if(auto* Gate=Cast<AHighVillageGate>(Part))Gates.Add(Gate);"
+      },
+      {
+        "line": 153,
+        "source": "Check(Foot.Y>400. && Foot.X>(bWest?430.:330.) && VillageWallStairs::HasClearStairEntrance(*World,Pose) &&"
+      },
+      {
+        "line": 169,
+        "source": "if(!Check(VillageWallStairs::MakeDock(*Bay,Dock,Anchor,Turns),TEXT(\"Rotated wall offers a stair dock\")))return;"
+      },
+      {
+        "line": 171,
+        "source": "Check(VillageWallStairs::FindDock(World,Anchor,Turns,FoundDock)==Bay&&FoundDock.Equals(Dock,.01),"
+      },
+      {
+        "line": 202,
+        "source": "Check(!Build->CanPlacePrefab(VillageBuildDefense::HighTower,Anchor,Turns,Reason),"
+      },
+      {
+        "line": 228,
+        "source": "Check(!Build->CanPlacePrefab(VillageWallStairs::Id,Anchor,Turns,LockedReason,false,false)"
+      },
+      {
+        "line": 235,
+        "source": "auto* Wall=World->SpawnActorDeferred<AHighVillageWall>(AHighVillageWall::StaticClass(),"
+      },
+      {
+        "line": 288,
+        "source": "if(!Check(Build->PlacePrefab(VillageWallStairs::Id,Anchor,Turns,true),"
+      },
+      {
+        "line": 330,
+        "source": "const bool bFree=Build->PlacePrefab(VillageWallStairs::Id,FreeCell,0,false);"
+      },
+      {
+        "line": 344,
+        "source": "auto EffectOf=[&](AActor* Target)->AHighVillageCollapse*"
+      },
+      {
+        "line": 346,
+        "source": "for(TActorIterator<AHighVillageCollapse> It(World);It;++It)if(It->GetOwner()==Target)return *It;"
+      },
+      {
+        "line": 372,
+        "source": "int32 Active=0;for(TActorIterator<AHighVillageCollapse> It(World);It;++It)Active+=It->GetOwner()==Section;"
+      },
+      {
+        "line": 387,
+        "source": "Check(!VillageWallStairs::MakeDock(*Bay,FoundDock,Anchor,Turns),TEXT(\"Destroyed high wall rejects docking\"));"
+      },
+      {
+        "line": 413,
+        "source": "if(Part->IsA<AHighVillageWall>()&&!Part->BlocksPassage()){++Broken;RestoredId=Part->GetSectionId();}"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePerimeter.cpp",
+    "host_sha256": "da16c39077d1a51914e0a217f5470035dd0917d8bf590cf1b3fb93b7cffdd608",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"VillageMasonry.h\""
+      },
+      {
+        "line": 6,
+        "source": "#include \"HighVillageDefense.h\""
+      },
+      {
+        "line": 9,
+        "source": "#include \"../Building/VillageWallStairs.h\""
+      },
+      {
+        "line": 25,
+        "source": "return FCString::Strncmp(Role,TEXT(\"Rubble\"),6)==0 ? VillageMasonry::Mesh(Name) : VillageMasonry::CastleMesh(Name);"
+      },
+      {
+        "line": 31,
+        "source": "AHighVillageWall::AddHighAssetPaths(Paths);"
+      },
+      {
+        "line": 125,
+        "source": "return VillageDefenseFootprint::Get(VillageWallStairs::Id,Cast<UStaticMesh>(AVillageDefenseStairs::StairMeshPath().ResolveObject()));"
+      },
+      {
+        "line": 135,
+        "source": "const FBox Entry=VillageWallStairs::EntranceBounds();"
+      },
+      {
+        "line": 164,
+        "source": "const FTransform Site=VillageWallStairs::GatehouseFlight(Gate,bWest,bRightPier);"
+      },
+      {
+        "line": 202,
+        "source": "if(Arriving && !OverlapsStair(Shape,VillageWallStairs::GatehouseFlight(Gate,bWest,true),Arriving->GetActorTransform()) &&"
+      },
+      {
+        "line": 203,
+        "source": "!OverlapsStair(Shape,VillageWallStairs::GatehouseFlight(Gate,bWest,false),Arriving->GetActorTransform()))continue;"
+      },
+      {
+        "line": 264,
+        "source": "UClass* Class=High?AHighVillageWall::StaticClass():AVillageDefenseSection::StaticClass();"
+      },
+      {
+        "line": 268,
+        "source": "if(High)CastChecked<AHighVillageWall>(Section)->InitializeHighWall(this,40000+Piece.WallStation);"
+      },
+      {
+        "line": 293,
+        "source": "auto* Gate=GetWorld()->SpawnActorDeferred<AHighVillageGate>(AHighVillageGate::StaticClass(),T,this,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);"
+      },
+      {
+        "line": 343,
+        "source": "if(Stair.IsSet() && (!VillageWallStairs::HasClearStairEntrance(*GetWorld(),Stair.GetValue()) ||"
+      },
+      {
+        "line": 349,
+        "source": "const auto* Portal=Cast<UStaticMesh>(AHighVillageGate::PlacedPortalMeshPath(Side<0).ResolveObject());"
+      },
+      {
+        "line": 350,
+        "source": "const auto* Grille=Cast<UStaticMesh>(AHighVillageGate::PlacedGrilleMeshPath(Side<0).ResolveObject());"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp",
+    "host_sha256": "ebceea839c91d21d41820a8c25360b5bd706bf9d80686a41fbd52792400e87b2",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"../Building/VillageBuildDefense.h\""
+      },
+      {
+        "line": 24,
+        "source": "if(Plan==VillageBuildDefense::MechanicsPlan)return UTemperateHillsSave::GarrisonMechanicsPlan;"
+      },
+      {
+        "line": 38,
+        "source": "if(Bit==UTemperateHillsSave::GarrisonMechanicsPlan)return bGarrisonMechanics && IsVillagePlanUnlocked(TEXT(\"village_construction\"));"
+      },
+      {
+        "line": 58,
+        "source": "if(Bit==UTemperateHillsSave::GarrisonMechanicsPlan)"
+      },
+      {
+        "line": 62,
+        "source": "if(bGarrisonMechanics)return true;"
+      },
+      {
+        "line": 171,
+        "source": "if(PlanBit==UTemperateHillsSave::GarrisonMechanicsPlan)Save->bGarrisonMechanics=true;"
+      },
+      {
+        "line": 186,
+        "source": "if(bGarrisonMechanics!=Save->bGarrisonMechanics)"
+      },
+      {
+        "line": 188,
+        "source": "bGarrisonMechanics=Save->bGarrisonMechanics;"
+      },
+      {
+        "line": 233,
+        "source": "for(TActorIterator<AVoxelBuildWorld> It(GetWorld());It;++It)It->TryGrantWorkshopTower();"
+      },
+      {
+        "line": 266,
+        "source": "Save->bGarrisonMechanics=false;"
+      },
+      {
+        "line": 290,
+        "source": "bGarrisonMechanics=false;"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseDebris.cpp",
+    "host_sha256": "70dc9d0deb16a59ebe390d7b1c9b829c58555711422b5d889a609bcd32897c7c",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"VillageMasonry.h\""
+      },
+      {
+        "line": 35,
+        "source": ": VillageMasonry::Mesh(R.RandRange(0,1)?TEXT(\"SM_StoneChunkA\"):TEXT(\"SM_StoneChunkB\"));"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseGate.cpp",
+    "host_sha256": "09ba9a997b1a5ff5fafc22dee57b0b982ad5f9105c07702e1f23f84c7a46cea4",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"VillageMasonry.h\""
+      },
+      {
+        "line": 42,
+        "source": "return VillageMasonry::CastleMesh(TEXT(\"SM_VillageWallPierRepaired\"));"
+      },
+      {
+        "line": 105,
+        "source": "VillageMasonry::ApplyWallPhase(*Post,Side ? SectionId^0x53D91 : SectionId);"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp",
+    "host_sha256": "63210a2a8a924b60c85d58cea5c793a508d55eabd406836788abd3a73349532f",
+    "bindings": [
+      {
+        "line": 4,
+        "source": "#include \"VillageMasonry.h\""
+      },
+      {
+        "line": 11,
+        "source": "#include \"HighVillageCollapse.h\""
+      },
+      {
+        "line": 12,
+        "source": "#include \"HighVillageDefense.h\""
+      },
+      {
+        "line": 33,
+        "source": "const FSoftObjectPath GroundWearMaterial = VillageMasonry::CastleMesh(TEXT(\"M_DefenseGroundWear\"));"
+      },
+      {
+        "line": 34,
+        "source": "const FSoftObjectPath HighTowerMesh(FString(VillageMasonry::CastleFolder) +"
+      },
+      {
+        "line": 57,
+        "source": "Paths.AddUnique(VillageMasonry::Mesh(TEXT(\"SM_StoneChunkA\")));"
+      },
+      {
+        "line": 58,
+        "source": "Paths.AddUnique(VillageMasonry::Mesh(TEXT(\"SM_StoneChunkB\")));"
+      },
+      {
+        "line": 69,
+        "source": "static const auto A=VillageMasonry::CastleMesh(TEXT(\"SM_VillageWallRepairedA\"));"
+      },
+      {
+        "line": 70,
+        "source": "static const auto B=VillageMasonry::CastleMesh(TEXT(\"SM_VillageWallRepairedB\"));"
+      },
+      {
+        "line": 99,
+        "source": "if(IsA<AHighVillageWall>() || IsRepairedCurtain())"
+      },
+      {
+        "line": 108,
+        "source": "if(MeshPath==AHighVillageWall::WallMeshPath())"
+      },
+      {
+        "line": 109,
+        "source": "VillageMasonry::ApplyCurtainPhase(*Masonry,GetActorTransform());"
+      },
+      {
+        "line": 131,
+        "source": "if(MeshPath==AHighVillageWall::WallMeshPath())"
+      },
+      {
+        "line": 132,
+        "source": "VillageMasonry::ApplyCurtainPhase(*Masonry,GetActorTransform());"
+      },
+      {
+        "line": 133,
+        "source": "else if(MeshPath.GetLongPackageName().StartsWith(VillageMasonry::CastleFolder))"
+      },
+      {
+        "line": 134,
+        "source": "VillageMasonry::ApplyWallPhase(*Masonry,SectionId);"
+      },
+      {
+        "line": 153,
+        "source": "if(MeshPath==AHighVillageWall::WallMeshPath())"
+      },
+      {
+        "line": 157,
+        "source": "else if(IsA<AHighVillageGate>())"
+      },
+      {
+        "line": 159,
+        "source": "HalfX=MeshPath==AHighVillageGate::PlacedGrilleMeshPath(true)?534.f:434.f;"
+      },
+      {
+        "line": 184,
+        "source": "const bool Curtain=MeshPath==AHighVillageWall::WallMeshPath();"
+      },
+      {
+        "line": 218,
+        "source": "if(GroundWear)GroundWear->SetVisibility(Standing || IsA<AHighVillageGate>());"
+      },
+      {
+        "line": 364,
+        "source": "for(TActorIterator<AHighVillageCollapse> It(GetWorld());It;++It)"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseStairs.cpp",
+    "host_sha256": "8f85ae6d42e23fc594f0d45f14add195677a659cb6968db7dddbedf0868e964d",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"HighVillageCollapse.h\""
+      },
+      {
+        "line": 11,
+        "source": "static const FSoftObjectPath Path(TEXT(\"/Game/WorldGeneration/TemperateHills/HighVillageDefense/SM_WallAccessStairs.SM_WallAccessStairs\"));"
+      },
+      {
+        "line": 67,
+        "source": "AHighVillageCollapse::Stairs(*this,Direction,Seed);"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseState.cpp",
+    "host_sha256": "599496f42abbc46958549badc18df0a93f8bb9a5271db0ea6115fc0dc6a3aa0f",
+    "bindings": [
+      {
+        "line": 2,
+        "source": "#include \"VillageSiegeUpgrades.h\""
+      },
+      {
+        "line": 81,
+        "source": "if(VillageSiegeUpgrades::Valid(Work.UpgradeIndex))"
+      },
+      {
+        "line": 83,
+        "source": "if(VillageSiegeUpgrades::Rank(Save.SiegeRanks,Work.UpgradeIndex)<VillageSiegeUpgrades::MaxRank)"
+      },
+      {
+        "line": 92,
+        "source": "if(!VillageSiegeUpgrades::Valid(Index) || !VillageSiegeUpgrades::Price(ExpectedRank))"
+      },
+      {
+        "line": 96,
+        "source": "return Purchase(Id,Payer,VillageSiegeUpgrades::Price(ExpectedRank),Work,ExpectedRank,Failure);"
+      },
+      {
+        "line": 128,
+        "source": "if(VillageSiegeUpgrades::Rank(Save->SiegeRanks,Work.UpgradeIndex)!=int32(Expected))"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageMasonry.cpp",
+    "host_sha256": "2251b26e8f7a91ba212654ec69108159527058d298fc12e6b3ded0bdd4ce3f35",
+    "bindings": [
+      {
+        "line": 1,
+        "source": "#include \"VillageMasonry.h\""
+      },
+      {
+        "line": 4,
+        "source": "void VillageMasonry::ApplyCurtainPhase(UPrimitiveComponent& Surface, const FTransform& IntactWallPose)"
+      },
+      {
+        "line": 17,
+        "source": "void VillageMasonry::ApplyWallPhase(UPrimitiveComponent& Surface, int32 SectionId)"
+      }
+    ]
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageMasonry.h",
+    "host_sha256": "1844c94463255a90ff4d881140b24a354b17fb82ea69f98e99a13435c4cc7600",
+    "bindings": [
+      {
+        "line": 8,
+        "source": "namespace VillageMasonry"
+      },
+      {
+        "line": 10,
+        "source": "inline constexpr TCHAR CastleFolder[] = TEXT(\"/Game/WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/\");"
+      },
+      {
+        "line": 22,
+        "source": "return FSoftObjectPath(TEXT(\"/Game/WorldGeneration/TemperateHills/VillageMasonry/ReliefMeshes/\") + Name + TEXT(\".\") + Name);"
+      }
+    ]
+  }
+]

@@ -1,0 +1,108 @@
+--- a/Source/FPSGAME/Building/VoxelBuildInput.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildInput.cpp
+@@ -11,6 +12,7 @@
+ #include "VoxelBuildPalette.h"
+ #include "VoxelBuildPrefabActor.h"
+ #include "VillageBuildDefense.h"
++#include "VillageGateReplacement.h"
+ #include "VoxelBuildWidget.h"
+ #include "VoxelJointStrength.h"
+ #include "../FPSGAMECharacter.h"
+@@ -110,6 +112,17 @@
+     }
+     // Placement commands belong to the aiming state; the drawer does not move or build.
+     if(bPanelOpen)return false;
++    if(IsVillageCameraPlacing() && Key==EKeys::SpaceBar)
++    {
++        if(Pressed)
++        {
++            bVillageVertical=!bVillageVertical;
++            PositionVillageCamera();
++            PC->PlayerCameraManager->UpdateCamera(0.f);
++            RefreshPlacementInput();
++        }
++        return true;
++    }
+     const bool bWheel=Key==EKeys::MouseScrollUp||Key==EKeys::MouseScrollDown;
+     if(bWheel||Key==EKeys::R)
+     {
+@@ -157,13 +170,13 @@
+         {
+             const FName Id=Piece->PrefabId();
+             SelectComponent(Id);
+-            if(SelectedComponent==Id&&CanBuildVillagePieces())
++            if(SelectedComponent==Id&&VillageBuildDefense::UnlockedTier(VillageWorld.Get())>=VillageBuildDefense::RequiredTier(Id))
+             {
+                 GroundYawDegrees=FMath::RoundToInt(FRotator::ClampAxis(Piece->GetActorRotation().Yaw))%360;
+                 RefreshPlacementInput();
+             }
+         }
+-        else if(!Removal.IsEmpty())SelectMaterial(BuildWorld->VolumeMaterialAt(HitCell.Volume,HitCell.Cell));
++        else if(!IsVillageCameraPlacing()&&!Removal.IsEmpty())SelectMaterial(BuildWorld->VolumeMaterialAt(HitCell.Volume,HitCell.Cell));
+         return true;
+     }
+     if(Key==EKeys::LeftMouseButton||Key==EKeys::RightMouseButton)
+@@ -174,10 +187,27 @@
+             if(Key==EKeys::RightMouseButton)
+             {
+                 // A collapsed player-built piece keeps its footprint but has no collision to aim at.
+-                const auto* Breach=Cast<AVillageDefenseSection>(ColdSteelWorldInteraction::TraceUseTargets(PC).Target);
++                const AVillageDefenseSection* Breach=nullptr;
++                if(IsVillageCameraPlacing())
++                {
++                    FVector Eye,Ray;
++                    if(VillageCursorRay(Eye,Ray))
++                    {
++                        const FVector End=Hit.bBlockingHit?Hit.ImpactPoint:Eye+Ray*VillageBuildDefense::SurveyTraceLength;
++                        if(auto* Ruins=GetWorld()->GetSubsystem<UVillageDefenseRepairTargets>())
++                            Breach=Ruins->Trace(*PC->GetPawn(),Eye,End,nullptr,FVector::Distance(Eye,End));
++                    }
++                }
++                else Breach=Cast<AVillageDefenseSection>(ColdSteelWorldInteraction::TraceUseTargets(PC).Target);
+                 if(Breach && Breach->GetHealth()<=0.f)
+                     if(auto* Placed=Cast<AVoxelBuildPrefabActor>(Breach->GetAttachParentActor()))
+                         RemovalTarget=Placed;
++                if(IsVillageCameraPlacing() && (!RemovalTarget || !VillageBuildDefense::IsVillageRecipe(RemovalTarget->PrefabId()) ||
++                    !VillageBuildDefense::InSurveyRange(PC->GetPawn()->GetPawnViewLocation(),RemovalTarget->GetActorLocation())))
++                {
++                    Feedback=TEXT("请指向施工范围内已建造的村庄建筑");bFeedbackValid=false;FeedbackTime=2;
++                    return true;
++                }
+             }
+             if(GetNetMode()!=NM_Standalone)
+             {
+@@ -189,6 +219,11 @@
+                     {
+                         if(!bPrefabValid)return true;
+                         R.Mode=DefenseDockPose.IsSet()?TEXT("wallDockPrefab"):TEXT("prefab");
++                        if(DefenseDockSocket==VillageGateReplacement::ReplacementSocket)
++                        {
++                            R.Mode=TEXT("replaceWallGate");
++                            R.Count=WallCutSelection;
++                        }
+                         R.Definition=P->Id;R.Anchor=PrefabCell;R.Orientation=PrefabPlanYaw;
+                         const int32 GroundYaw=PlannedGroundYaw();
+                         if(GroundYaw!=INDEX_NONE)
+@@ -280,11 +315,12 @@
+         }
+         return true;
+     }
++    if(IsVillageCameraPlacing())return true;
+     if(Key==EKeys::E)
+     {
+         if(Pressed && !bPanelOpen)
+             if(auto* Player=Cast<AFPSGAMEPlayerController>(PC))
+-                if(auto* Breach=Cast<AVillageDefenseSection>(ColdSteelWorldInteraction::TraceUseTargets(Player).Target))
++                if(auto* Breach=ColdSteelWorldInteraction::TraceUseTargets(Player).RepairTarget())
+                     Player->RequestVillageRepair(Breach);
+         return true;
+     }
+@@ -355,7 +391,7 @@
+     if(DefenseDockPose.IsSet()&&!DefenseDockTarget.IsValid())
+     {bFeedbackValid=false;Feedback=TEXT("吸附目标已消失");FeedbackTime=2;return;}
+     bFeedbackValid=BuildWorld->PlacePrefab(Prefab->Id,PrefabCell,PrefabPlanYaw,DefenseDockPose.IsSet(),
+-        DefenseDockTarget.Get(),PlannedGroundYaw());
++        DefenseDockTarget.Get(),PlannedGroundYaw(),DefenseDockSocket==VillageGateReplacement::ReplacementSocket,WallCutSelection);
+     Feedback=BuildWorld->ResultMessage();FeedbackTime=2;
+     PlacementCheckAt=0;TargetUpdateAt=0;
+ }

@@ -1,0 +1,20 @@
+--- a/Source/FPSGAME/UI/ColdSteelVillageTree.cpp
++++ b/Source/FPSGAME/UI/ColdSteelVillageTree.cpp
+@@ -63,7 +63,7 @@
+             TEXT("塔楼侧门连通墙顶步道，向上可抵达开阔的守望平台。"),
+             TEXT("解锁石砌高塔楼建造，并开放下一项研究「守备机械」。"),true,TEXT("high_wall")},
+         {VillageBuildDefense::MechanicsPlan, TEXT("defense"), ProjectName(ETier::Mechanics), TEXT("械"), TEXT("村庄防御"),
+-            TEXT("在教堂后院建起机械工坊，木匠与铁匠在同一座装配台上整备守城器械。"),
++            TEXT("在东门马厩对面的路边建起机械工坊，木匠与铁匠在同一座装配台上整备守城器械。"),
+             TEXT("解锁固定式弩炮和配重投石机建造。机械工坊向全村开放。"),true,TEXT("village_construction")},
+         {TEXT("blacksmith"), TEXT("production"), TEXT("重建铁匠铺"), TEXT("锻"), TEXT("村庄生产"),
+             TEXT("修复铁匠铺的破损墙体，清走废木和落砖，整理铁料与工具，让熄灭的炉火再次燃起。"),
+@@ -249,7 +249,7 @@
+         Upgrade ? (Done ? TEXT("本世界的石砌高墙已落成。") : Available ? TEXT("围墙已修复，可以提升城防。") : TEXT("完成上一级围墙修复后可升级城防。")) :
+         Selected==TEXT("bakery")&&!Done ? (Available ? TEXT("磨坊已恢复供粉，可以修复面包屋。") : TEXT("先在村庄建设树中修复风车磨坊。")) :
+         Selected==TEXT("gunshop")&&!Done ? (Available ? TEXT("铁匠铺已恢复营业，可以修复南侧的枪店。") : TEXT("先在村庄建设树中重建铁匠铺。")) :
+-        Selected==VillageBuildDefense::MechanicsPlan ? (Done ? TEXT("教堂后院的机械工坊已落成。") : Available ? TEXT("工坊用地已规划，可研究守备机械。") : TEXT("完成「防御工事」后可研究守备机械。")) :
++        Selected==VillageBuildDefense::MechanicsPlan ? (Done ? TEXT("马厩对面的机械工坊已落成。") : Available ? TEXT("工坊用地已规划，可研究守备机械。") : TEXT("完成「防御工事」后可研究守备机械。")) :
+         P.bResearchOnly ? (Done ? TEXT("所有玩家均可建造石砌高塔楼。") : Available ? TEXT("高墙已建成，可研究塔楼。") : TEXT("完成「升级高墙」后可研究塔楼。")) :
+         Done ? TEXT("建筑已恢复，再次进入这个世界时会保留建设成果。") : TEXT("解锁后立即替换场景中的建筑，不消耗资源。");
+     auto Body=SNew(SVerticalBox)

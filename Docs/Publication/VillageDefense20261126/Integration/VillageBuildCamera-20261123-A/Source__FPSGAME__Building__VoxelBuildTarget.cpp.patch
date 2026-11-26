@@ -1,0 +1,66 @@
+--- a/Source/FPSGAME/Building/VoxelBuildTarget.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildTarget.cpp
+@@ -94,10 +94,23 @@
+     if(auto* Edges=FindAimEdge(PreviewActor))Edges->SetVisibility(false);
+     auto* PC=Cast<APlayerController>(GetOwner());
+     if(!PC||!PC->PlayerCameraManager||!BuildWorld)return;
+-    FVector Start;FRotator AimRotation;
+-    ColdSteelWorldInteraction::GetReachViewPoint(PC,Start,AimRotation);
+-    const FVector Direction=AimRotation.Vector();
+-    const FVector End=Start+Direction*600;const FIntVector Size=BrushSize();const FVector Half=FVector(Size)*10;
++    FVector Start,Direction;
++    const bool Survey=IsVillageCameraPlacing();
++    if(Survey)
++    {
++        if(!VillageCursorRay(Start,Direction))
++        {
++            Hit=FHitResult();AimedPrefab.Reset();Removal.Reset();
++            UpdatePrefabTarget(false);UpdatePrefabPreview();return;
++        }
++    }
++    else
++    {
++        FRotator AimRotation;
++        ColdSteelWorldInteraction::GetReachViewPoint(PC,Start,AimRotation);
++        Direction=AimRotation.Vector();
++    }
++    const FVector End=Start+Direction*(Survey?VillageBuildDefense::SurveyTraceLength:600.);const FIntVector Size=BrushSize();const FVector Half=FVector(Size)*10;
+     FCollisionQueryParams Query(SCENE_QUERY_STAT(VoxelAim),true,PC->GetPawn());
+     // 2026-09-20：中心射线改多命中。摆开到占格之外的构件网格（开着的门扇、85° 开角的窗扇）解析不出
+     // 格子，却挡在射线最前面——单命中时代它后面的墙整条不可见，吸附方案被瞬间清空落入贴地分支，
+@@ -148,7 +161,7 @@
+         ? (!HasHit || (!VillageWallStairs::ResolveTarget(Hit.GetActor()) && FMath::Abs(Hit.ImpactNormal.Z)<.5))
+         : !BuildingHit&&!bAimedAtWallMount;
+     const double AssistReach=bDefense&&HasHit?FMath::Min(600.,FVector::Distance(Start,Hit.ImpactPoint)+1.):600.;
+-    if(bSnapEnabled&&bTryAssist&&TrySnapAssist(GetWorld(),BuildWorld,Start,Direction,Query,Hit,HitCell,
++    if(!Survey&&bSnapEnabled&&bTryAssist&&TrySnapAssist(GetWorld(),BuildWorld,Start,Direction,Query,Hit,HitCell,
+         bDefense?Prefab:nullptr,ComponentYaw,AssistReach))
+     {
+         HasHit=true;BuildingHit=true;LastAimWasAssisted=true;
+@@ -160,7 +173,16 @@
+     // keep the previous plan and its validity instead of dropping the click.
+     Removal.Reset();
+     if(bVoxelSurface)FillBrush(HitCell.Cell,Removal);
+-    if(Prefab){Placement.Reset();PlacementCuts.Reset();bCanPlace=false;UpdatePrefabTarget(HasHit);UpdatePrefabPreview();return;}
++    if(Prefab)
++    {
++        Placement.Reset();PlacementCuts.Reset();bCanPlace=false;UpdatePrefabTarget(HasHit);
++        if(Survey && HasHit && !VillageBuildDefense::InSurveyRange(PC->GetPawn()->GetPawnViewLocation(),AVoxelBuildWorld::CellCenter(PrefabCell)))
++        {
++            bCanPlace=bPrefabValid=false;
++            PrefabMessage=TargetMessage=TEXT("超出村庄施工范围 · 请在角色周围 120 米内选址");
++        }
++        UpdatePrefabPreview();return;
++    }
+     const double Now=GetWorld()->GetTimeSeconds();
+     if(!HasHit)
+     {
+@@ -490,7 +512,7 @@
+     if(!bHit)
+     {
+         PrefabCell=AVoxelBuildWorld::ToCell(Hit.ImpactPoint);
+-        PrefabMessage=TEXT("未命中可放置表面 · 瞄准 6 米内的地面或结构");
++        PrefabMessage=IsVillageCameraPlacing()?TEXT("移动鼠标，指向地面或城防接口"):TEXT("未命中可放置表面 · 瞄准 6 米内的地面或结构");
+         TargetMessage=PrefabMessage;
+         return;
+     }

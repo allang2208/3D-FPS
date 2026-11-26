@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Building/VoxelBuildNetwork.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildNetwork.cpp
+@@ -147,7 +147,7 @@
+         if(IsVillagePiece && !Reach(Point))
+         {
+             const auto* Hills=FindVillageConstructionWorld();
+-            if(!Hills||!Hills->IsVillagePlanUnlocked(TEXT("village_construction"))||!VillageBuildDefense::InSurveyRange(Eye,Point))
++            if(!Hills||!Hills->IsVillageWallRepaired()||!VillageBuildDefense::InSurveyRange(Eye,Point))
+             {Reason=TEXT("超出村庄施工范围");return false;}
+         }
+         else if(!Reach(Point))return false;

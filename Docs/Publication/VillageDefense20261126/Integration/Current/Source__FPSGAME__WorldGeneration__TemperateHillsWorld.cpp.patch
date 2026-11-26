@@ -1,0 +1,32 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp
+@@ -1,4 +1,5 @@
+ #include "TemperateHillsWorld.h"
++#include "VillageMechanicalWorkshop.h"
+ #include "TemperateHillsMap.h"
+ #include "Algo/Compare.h"
+ #include "../Multiplayer/ColdSteelAuthorityContext.h"
+@@ -151,6 +152,7 @@
+         VillagePlansUnlocked=Saved->SavedVillagePlans();
+         bVillageBakeryRepaired=Saved->VillagePlanVersion>=9 && Saved->bVillageBakeryRepaired;
+         bVillageGunshopRepaired=Saved->VillagePlanVersion>=10 && Saved->bVillageGunshopRepaired;
++        bGarrisonMechanics=Saved->VillagePlanVersion>=11 && Saved->bGarrisonMechanics;
+         // Old saves have no GeneratorVersion and must keep the frozen V1 field.
+         GeneratorVersion=FMath::Clamp(Saved->GeneratorVersion,1,3);
+         // V1 saves carry no edits and simply start with untouched ground. V2 stored
+@@ -196,12 +198,15 @@
+     DOREPLIFETIME(ATemperateHillsWorld,Seed);
+     DOREPLIFETIME(ATemperateHillsWorld,GeneratorVersion);
+     DOREPLIFETIME(ATemperateHillsWorld,WorldId);
++    DOREPLIFETIME(ATemperateHillsWorld,ForestGrowthDay);
+     DOREPLIFETIME_CONDITION(ATemperateHillsWorld,PlaythroughSeed,COND_InitialOnly);
+     DOREPLIFETIME(ATemperateHillsWorld,bVillageWallRepaired);
+     DOREPLIFETIME(ATemperateHillsWorld,bVillageBlacksmithRepaired);
+     DOREPLIFETIME(ATemperateHillsWorld,VillagePlansUnlocked);
+     DOREPLIFETIME(ATemperateHillsWorld,bVillageBakeryRepaired);
+     DOREPLIFETIME(ATemperateHillsWorld,bVillageGunshopRepaired);
++    DOREPLIFETIME(ATemperateHillsWorld,bGarrisonMechanics);
++    DOREPLIFETIME(ATemperateHillsWorld,SiegeRanks);
+     DOREPLIFETIME_CONDITION(ATemperateHillsWorld,SizeMeters,COND_InitialOnly);
+     DOREPLIFETIME_CONDITION(ATemperateHillsWorld,NetEcology,COND_InitialOnly);
+     DOREPLIFETIME_CONDITION(ATemperateHillsWorld,bTerrainDestructionEnabled,COND_InitialOnly);

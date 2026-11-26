@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Building/VoxelBuildInput.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildInput.cpp
+@@ -170,7 +170,7 @@
+         {
+             const FName Id=Piece->PrefabId();
+             SelectComponent(Id);
+-            if(SelectedComponent==Id&&CanBuildVillagePieces())
++            if(SelectedComponent==Id&&VillageBuildDefense::UnlockedTier(VillageWorld.Get())>=VillageBuildDefense::RequiredTier(Id))
+             {
+                 GroundYawDegrees=FMath::RoundToInt(FRotator::ClampAxis(Piece->GetActorRotation().Yaw))%360;
+                 RefreshPlacementInput();

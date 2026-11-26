@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/NPC/VillageResidentStatus.cpp
++++ b/Source/FPSGAME/NPC/VillageResidentStatus.cpp
+@@ -34,8 +34,7 @@
+     if(!Label)return;
+     Out.Target=&Actor;Out.Name=FText::FromString(Label);Out.Opacity=1.f;
+     const TCHAR* Activity=TEXT("可交谈");
+-    if(Actor.IsA<AVillageMasterArtisan>())Activity=TEXT("工作中");
+-    else if(const auto* Horse=Cast<AStableRidingHorse>(&Actor))
++    if(const auto* Horse=Cast<AStableRidingHorse>(&Actor))
+     {
+         Out.Health=Horse->GetHealth();Out.MaxHealth=Horse->GetMaximumHealth();
+         Activity=Horse->IsRetreating()?TEXT("受惊逃离"):Horse->GetRider()?TEXT("骑乘中"):

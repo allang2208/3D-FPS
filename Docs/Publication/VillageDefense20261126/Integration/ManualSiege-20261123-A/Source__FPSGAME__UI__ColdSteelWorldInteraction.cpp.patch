@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -2,6 +2,7 @@
+ #include "../Movement/HorseRiderComponent.h"
+ #include "../Movement/StableRidingHorse.h"
+ #include "../WorldGeneration/VillageDefenseSection.h"
++#include "../WorldGeneration/VillageSiegeEngine.h"
+ #include "../WorldGeneration/VillageDefenseStairs.h"
+ #include "../WorldGeneration/HighVillageDefense.h"
+ #include "../WorldGeneration/VillageDefenseRepairTargets.h"
+@@ -469,6 +470,13 @@
+         Hint.Text=FString::Printf(TEXT("修复 · %d 灵魂"),Section->GetRepairSoulCost());
+         return Hint;
+     }
++    if(const auto* Siege=Cast<AVillageSiegeEngine>(Target))
++    {
++        Hint.Title=Siege->IsTrebuchet()?TEXT("配重投石机"):TEXT("固定式弩炮");
++        Hint.bAction=Siege->CanOperate() && !Siege->IsOccupied();
++        Hint.Text=Siege->IsOccupied()?TEXT("其他玩家正在操作"):Hint.bAction?TEXT("操作 · 进入瞄准"):TEXT("器械暂不可用");
++        return Hint;
++    }
+     if(Target->IsA<AHighVillageGate>()){Hint.Title=TEXT("升降铁闸");Hint.Text=TEXT("城门完好，无需修复");Hint.bAction=false;return Hint;}
+     if(Target->IsA<AVillageDefenseGate>()){Hint.Title=TEXT("村门");Hint.Text=TEXT("开／关");return Hint;}
+     if(Cast<AVillageTavernKeeper>(Target)){Hint.Text=TEXT("酒馆老板娘 · 交谈");return Hint;}

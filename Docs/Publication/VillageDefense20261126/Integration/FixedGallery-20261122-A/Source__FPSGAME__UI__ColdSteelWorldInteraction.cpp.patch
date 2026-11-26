@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -439,12 +439,6 @@
+     // 分派顺序与 PlayerController 的 E 键处理一致：先特异后泛化；空文本＝不显示浮窗。
+     FInteractionHint Hint;
+     if(!IsValid(Target))return Hint;
+-    if(const auto* Gate=Cast<AHighVillageGate>(Target); GateUse==EHighGateUse::Stair && Gate)
+-    {
+-        Hint.Title=TEXT("门楼折叠梯");
+-        Hint.Text=Gate->IsStairFolded()?TEXT("放下楼梯"):TEXT("收起楼梯");
+-        return Hint;
+-    }
+     if(const auto* Gate=Cast<AHighVillageGate>(Target); Gate && GateUse==EHighGateUse::Release)
+     {
+         Hint.Title=TEXT("铁栅拉杆");

@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp
++++ b/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp
+@@ -408,7 +408,7 @@
+         else if(Action==TEXT("windmill"))Result=TEXT("风车已修复，村庄建设进度已保存。");
+         else if(Action==TEXT("bakery"))Result=TEXT("面包屋已修复，可以到柜台找面包师买面包了。");
+         else if(Action==TEXT("gunshop"))Result=TEXT("枪店已修复，南侧长屋的一楼枪械工作台已开放。");
+-        else if(Action==TEXT("village_construction"))Result=TEXT("村庄修建已解锁。按 B 打开「村庄建筑」，可放置围墙、大门、带城垛的高墙、石城门和登墙石阶。");
++        else if(Action==TEXT("village_construction"))Result=TEXT("村庄修建已解锁。按 B 打开「村庄建筑」，可放置围墙、大门、石砌高墙、石城门、登墙石阶和石砌高塔楼。");
+         else Result=TEXT("酒馆已修复，村庄建设进度已保存。");
+     }
+     else if(Action==TEXT("holyLight"))

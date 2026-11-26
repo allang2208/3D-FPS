@@ -1,0 +1,9 @@
+--- a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+@@ -1,4 +1,6 @@
+ #include "ColdSteelHUDWidget.h"
++#include "../FPSGAMEPlayerController.h"
++#include "../WorldGeneration/VillageSiegeControl.h"
+ #include "ColdSteelExplosiveWarnings.h"
+ #include "ColdSteelUIStyle.h"
+ #include "ColdSteelHUDLayout.h"

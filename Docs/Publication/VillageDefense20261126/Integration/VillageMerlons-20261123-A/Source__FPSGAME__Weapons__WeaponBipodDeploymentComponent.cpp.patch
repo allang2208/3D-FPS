@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp
++++ b/Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp
+@@ -13,6 +13,7 @@
+ #include "PKMLowpolyWeaponAssets.h"
+ #include "WeaponHandling.h"
+ #include "PKMBipodContacts.h"
++#include "../Building/VoxelBuildGrounding.h"
+ #include "../Movement/FPSCharacterMovementComponent.h"
+ #include "../Movement/FPSDoorPushComponent.h"
+ #include "../UI/ColdSteelStatusModel.h"
+@@ -77,10 +78,10 @@
+ 
+ bool IsBipodSupport(const FHitResult& Hit)
+ {
+-    const auto* Component=Hit.GetComponent();
+-    return Hit.bBlockingHit && !Hit.bStartPenetrating && Component
+-        && !Cast<APawn>(Hit.GetActor()) && !Component->IsSimulatingPhysics()
+-        && Component->GetComponentVelocity().SizeSquared()<=4.;
++    // Damageable village defenses are pawns. Their masonry and portal frame
++    // carry the fixed-structure tag; the portcullis and moving gate leaves do not.
++    return Hit.bBlockingHit && !Hit.bStartPenetrating && VoxelGrounding::IsFixedBuildingSurface(Hit)
++        && Hit.GetComponent()->GetComponentVelocity().SizeSquared()<=4.;
+ }
+ 
+ bool HasBipodFootArea(UWorld& World,const FVector& Contact,float MinNormal,

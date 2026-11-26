@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelHUDWidget.h"
++#include "../NPC/VillageMasterArtisan.h"
+ #include "../WorldGeneration/VillageSiegeControl.h"
+ #include "StatusEffectsHUD.h"
+ #include "../Dungeons/DungeonRoomSubsystem.h"
+@@ -169,7 +170,8 @@
+     const auto* Artisan=Cast<AVillageArtisanMerchant>(Focus.Target);
+     const bool bMillKeeper = Cast<AVillageMillKeeper>(Focus.Target) != nullptr;
+     const bool bStableSeller=StableHorseMarket::IsSeller(Focus.Target);
+-    const bool bDirectResident=bStableSeller || Artisan || Cast<AChapelNun>(Focus.Target) || Cast<AVillageHerbalist>(Focus.Target) || bMillKeeper;
++    const bool bMaster=IsValid(Cast<AVillageMasterArtisan>(Focus.Target));
++    const bool bDirectResident=bMaster || bStableSeller || Artisan || Cast<AChapelNun>(Focus.Target) || Cast<AVillageHerbalist>(Focus.Target) || bMillKeeper;
+     const bool bResting=UFPSFurnitureRestComponent::IsResting(Character);
+     const bool bAidTarget=bOrdinaryUse && Artisan && !bResting && ResidentConversation::IsSpeakerDowned(Artisan);
+     AActor* ResidentFocus=nullptr;

@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
+@@ -297,6 +297,8 @@
+     UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Hills|Village")
+     bool CompleteVillageWallRepair(FText& FailureReason);
+     bool CompleteVillageHighWallUpgrade(FText& FailureReason);
++    uint16 GetSiegeRanks() const { return SiegeRanks; }
++    bool PurchaseSiegeUpgrade(APawn* Payer,int32 Index,int32 ExpectedRank,FText& Failure);
+     UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsVillageBlacksmithRepaired() const { return bVillageBlacksmithRepaired; }
+     /** Quest completion entry; commits the restored shop before enabling its forge. */
+     UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Hills|Village")
+@@ -536,6 +538,7 @@
+     UPROPERTY(ReplicatedUsing=OnRep_VillageGunshop) bool bVillageGunshopRepaired=false;
+     UFUNCTION() void OnRep_VillageGunshop();
+     UPROPERTY(Replicated) bool bGarrisonMechanics=false;
++    UPROPERTY(Replicated) uint16 SiegeRanks=0;
+     UPROPERTY(Transient) TObjectPtr<class AVillageMechanicalWorkshop> MechanicalWorkshop;
+     void UpdateMechanicalWorkshop();
+     FTransform MechanicalWorkshopPose() const;

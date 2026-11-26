@@ -1,0 +1,44 @@
+--- a/Source/FPSGAME/Development/VillageConstructionNetworkAudit.cpp
++++ b/Source/FPSGAME/Development/VillageConstructionNetworkAudit.cpp
+@@ -32,9 +32,9 @@
+ namespace
+ {
+ enum EConstructionPhase { OpenNun=210, WallPlan, SmithPlan, WoodPlan, HerbsPlan, TavernPlan,
+-    BuildPlan, BattlementPlan, BreakWall, BlockRepair, PayForRepair, PlaceStair, Disconnect, Reconnect, RemoveStair, ResetPlans, InspectWall };
++    BattlementPlan, FortificationPlan, BreakWall, BlockRepair, PayForRepair, PlaceStair, Disconnect, Reconnect, RemoveStair, ResetPlans, InspectWall };
+ const FName Plans[]={TEXT("wall"),TEXT("blacksmith"),TEXT("carpenter"),TEXT("herbalist"),
+-    TEXT("tavern"),TEXT("village_construction"),TEXT("high_wall")};
++    TEXT("tavern"),TEXT("high_wall"),TEXT("village_construction")};
+ 
+ template<class T> bool ShopMatches(UWorld* World,bool Repaired,FName ActiveTag,FName InactiveTag)
+ {
+@@ -175,17 +175,17 @@
+         FActorSpawnParameters Spawn;Spawn.Owner=Guest.Get();Peer=GetWorld()->SpawnActor<AVillageNetworkAudit>(Spawn);
+         Peer->Aim=FVector(ConstructionCell);Send(Reconnect,Wall.Get());return;
+     }
+-    if(Stage>=OpenNun&&Stage<=BattlementPlan)
++    if(Stage>=OpenNun&&Stage<=FortificationPlan)
+         for(TActorIterator<APawn> It(GetWorld());It;++It)
+             if(It->ActorHasTag(TEXT("WildlifeSpawned")))It->Destroy();
+     if(!Peer.IsValid()||Peer->Observed!=Stage)return;
+-    if(Stage>=OpenNun&&Stage<=BattlementPlan)
++    if(Stage>=OpenNun&&Stage<=FortificationPlan)
+     {
+         const bool bOpen=Stage==OpenNun;
+         Record(bOpen?TEXT("guest_opened_nun"):TEXT("guest_plan_")+Plans[Stage-WallPlan].ToString(),
+             Peer->bPeerPassed&&(bOpen||H->IsVillagePlanUnlocked(Plans[Stage-WallPlan])),Peer->PeerDetail);
+         if(!bPassed)return;
+-        if(Stage<BattlementPlan){Send(++Stage);return;}
++        if(Stage<FortificationPlan){Send(++Stage);return;}
+         for(TActorIterator<AHighVillageWall> It(GetWorld());It;++It)
+         {
+             auto* Part=It->GetMasonry();
+@@ -313,7 +313,7 @@
+         if(!bRequested&&N){Place(PC,Position,Aim);D->Open(N);bRequested=D->IsPending()||D->IsOpen();}
+         Pass=D->IsOpen()&&!D->IsPending();
+     }
+-    else if(Phase>=WallPlan&&Phase<=BattlementPlan)
++    else if(Phase>=WallPlan&&Phase<=FortificationPlan)
+     {
+         const FName Plan=Plans[Phase-WallPlan];
+         if(!bRequested&&D->IsOpen()&&!D->IsPending()){D->RequestAction(Plan);bRequested=true;}

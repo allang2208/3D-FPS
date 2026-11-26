@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/Building/VoxelBuildWidget.h
++++ b/Source/FPSGAME/Building/VoxelBuildWidget.h
+@@ -4,6 +4,7 @@
+ #include "VoxelBuildIcons.h"
+ #include "VoxelBuildWidget.generated.h"
+ 
++namespace VillageBuildDefense { enum class ETier : uint8; }
+ class UBackgroundBlur;
+ class UBorder;
+ class UButton;
+@@ -77,7 +78,7 @@
+     void SetContent(const TArray<FVoxelBuildPanelCard>& Materials,const TArray<FVoxelBuildPanelCard>& Shapes,
+         const TArray<FVoxelBuildPanelCard>& Components);
+     void SetSelection(FName Material,FName Component,int32 ShapeMode);
+-    void SetVillageConstructionUnlocked(bool bUnlocked);
++    void SetVillageConstructionTier(VillageBuildDefense::ETier Tier);
+     void SetDrawerOpen(bool Open);
+     void Pick(FName Id,bool bComponent,int32 ShapeMode=INDEX_NONE);
+     /** Expands or collapses one material row's 其他构造 submenu. */
+@@ -163,7 +164,7 @@
+     float LastScale=0,DrawerProgress=0,DrawerWidth=0;
+     enum class ECategory : uint8 { Materials, Other, Village };
+     ECategory Category=ECategory::Materials;
+-    bool bVillageConstructionUnlocked=false;
++    VillageBuildDefense::ETier VillageTier{};
+     bool bDrawerOpen=false,bCardsDirty=true,bSelectionDirty=true;
+     /** 卡片重建后需要把新的缩略图键集合交给图标子系统（正在显示的键不参与回收）。 */
+     bool bIconPinsDirty=true;

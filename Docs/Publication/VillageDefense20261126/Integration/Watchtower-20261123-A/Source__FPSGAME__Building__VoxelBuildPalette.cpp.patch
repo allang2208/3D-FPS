@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPalette.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPalette.cpp
+@@ -49,6 +49,9 @@
+         AHighVillageWall::WallMeshPath(),FIntVector(15,10,24),AHighVillageWall::StaticClass());
+     RegisterVillagePiece(VillageBuildDefense::StoneGate,NSLOCTEXT("VoxelBuilding","VillageStoneGate","石城门 · 升降铁闸"),
+         AHighVillageGate::PlacedPortalMeshPath(),FIntVector(51,34,51),AHighVillageGate::StaticClass());
++    RegisterVillagePiece(VillageBuildDefense::HighTower,NSLOCTEXT("VoxelBuilding","VillageHighTower","石砌高塔楼"),
++        FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/SquareKeep/SM_HighWatchtower.SM_HighWatchtower")),
++        FIntVector(50,50,98),AVillageDefenseSection::StaticClass());
+     RegisterVillagePiece(VillageWallStairs::Id,NSLOCTEXT("VoxelBuilding","VillageWallStairs","城墙石阶"),
+         FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/HighVillageDefense/SM_WallAccessStairs.SM_WallAccessStairs")),
+         FIntVector(16,28,18),AVillageDefenseStairs::StaticClass());

@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/FPSGAMECharacter.h
++++ b/Source/FPSGAME/FPSGAMECharacter.h
+@@ -202,11 +202,14 @@
+     /** bFirearmHit selects the gun hit cue; melee and skills keep the shared one. */
+     UFUNCTION(Client,Unreliable) void ClientWeaponHitFeedback(AActor* Target,float AppliedDamage,bool Critical,bool Killed,bool Firearm);
+     void NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage,const FWeaponDamageResult* DamageResult=nullptr,bool bFirearmHit=false,bool bForwardToOwner=true);
++    UFUNCTION(Client,Unreliable) void ClientBallistaHit(bool bKilled);
++    bool WasLastHitLethal() const { return LastMonsterHit.bKilled; }
+     float GetHitMarkerOpacity() const;
+     bool GetMonsterHitFeedback(FMonsterHitFeedback& Out) const;
+     void NotifyCowboyReload();
+     float GetCowboyReloadHintOpacity() const;
+ private:
++    void PlayMeleeHitConfirmation() const;
+     double LastConfirmedWeaponHitTime = -1000.0;
+     bool bResolvingActionInterrupt = false;
+     FString ActiveProductionToolInstance;

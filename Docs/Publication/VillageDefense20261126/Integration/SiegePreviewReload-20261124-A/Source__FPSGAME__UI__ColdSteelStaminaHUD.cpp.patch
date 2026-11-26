@@ -1,0 +1,31 @@
+--- a/Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp
++++ b/Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp
+@@ -1,4 +1,6 @@
+ #include "ColdSteelHUDWidget.h"
++#include "../FPSGAMEPlayerController.h"
++#include "../WorldGeneration/VillageSiegeControl.h"
+ #include "../Movement/HorseRiderComponent.h"
+ #include "../Movement/StableRidingHorse.h"
+ #include "ColdSteelStatusModel.h"
+@@ -115,7 +117,20 @@
+         const float CowboyHintOpacity=Character?Character->GetCowboyReloadHintOpacity():0.f;
+         const auto* Electric=Pawn?Pawn->FindComponentByClass<UFPSElectricMagicComponent>():nullptr;
+         const bool bChargingLance=Electric&&Electric->IsCharging();
+-        if(bChargingLance)
++        const auto* PC=GetOwningPlayer<AFPSGAMEPlayerController>();
++        const auto* Siege=PC?PC->GetSiegeControl():nullptr;
++        const auto* Station=Siege?Siege->OperatedStation():nullptr;
++        if(Station)
++        {
++            if(Station->GetReloadProgress(PreparationProgress))
++            {
++                const TCHAR* Name=Station->IsTrebuchet()?TEXT("投石机"):TEXT("弩炮");
++                Complete=PreparationProgress>=1.f;
++                ActionHint=Complete?FString::Printf(TEXT("%s装填完成"),Name):
++                    FString::Printf(TEXT("%s装填  %d%%"),Name,FMath::FloorToInt(PreparationProgress*100.f));
++            }
++        }
++        else if(bChargingLance)
+         {
+             PreparationProgress=Electric->LanceChargeFraction();Complete=PreparationProgress>=1.f;
+             ActionHint=Complete?TEXT("已充能完毕"):FString::Printf(TEXT("雷枪充能  %d%%"),FMath::FloorToInt(PreparationProgress*100.f));

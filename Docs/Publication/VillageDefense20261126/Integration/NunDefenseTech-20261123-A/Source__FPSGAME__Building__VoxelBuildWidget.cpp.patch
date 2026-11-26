@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/Building/VoxelBuildWidget.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWidget.cpp
+@@ -252,11 +252,11 @@
+     SelectedMaterial=Material;SelectedComponent=Component;SelectedShape=ShapeMode;bSelectionDirty=true;
+ }
+ 
+-void UVoxelBuildWidget::SetVillageConstructionUnlocked(bool bUnlocked)
+-{
+-    if(bVillageConstructionUnlocked==bUnlocked)return;
+-    bVillageConstructionUnlocked=bUnlocked;
+-    if(Category==ECategory::Village)bCardsDirty=true;
++void UVoxelBuildWidget::SetVillageConstructionTier(VillageBuildDefense::ETier Tier)
++{
++    if(VillageTier==Tier)return;
++    VillageTier=Tier;
++    bCardsDirty=true;
+ }
+ 
+ void UVoxelBuildWidget::ToggleMaterial(FName MaterialId)

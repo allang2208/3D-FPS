@@ -1,0 +1,265 @@
+--- a/Source/FPSGAME/Building/VoxelBuildTarget.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildTarget.cpp
+@@ -12,6 +12,8 @@
+ #include "VoxelBuildPrefabActor.h"
+ #include "VoxelBuildGrounding.h"
+ #include "VillageBuildDefense.h"
++#include "VillageDefenseFootprint.h"
++#include "VillageGateReplacement.h"
+ #include "VoxelBuildWidget.h"
+ #include "VoxelJointStrength.h"
+ #include "../FPSGAMECharacter.h"
+@@ -40,6 +42,69 @@
+     // 瞄准／辅助射线的多命中暂存（文件级复用、每帧 Reset）：稳态不分配是本文件的硬要求。
+     TArray<FHitResult> AimScratch;
+     TArray<FHitResult> ProbeScratch;
++    using FRoofSites=TArray<FIntVector,TInlineAllocator<8>>;
++
++    FRoofSites SiegeRoofSites(FName Id,const VillageDefenseFootprint::FShape& Deck,const FTransform& Frame,
++        FVector Impact,int32 Yaw,FIntVector Footprint,FIntVector Original)
++    {
++        FRoofSites Sites;
++        const FVector Aim=Frame.InverseTransformPosition(Impact);
++        const double RoofZ=Deck.Bounds.Max.Z;
++        if(Aim.Z<RoofZ-28. || Aim.Z>RoofZ+150.)return Sites;
++        const bool Large=Id==VillageBuildDefense::Trebuchet;
++        const FBox2D Outer(FVector2D(Deck.Bounds.Min),FVector2D(Deck.Bounds.Max));
++        TArray<FBox2D,TInlineAllocator<4>> Regions;
++        FBox2D Opening;
++        if(Large && VillageDefenseFootprint::RoofOpening(Deck,Opening))
++        {
++            // A long chassis may stand on the joint between two slabs beside the stairwell.
++            Regions.Emplace(Outer.Min,FVector2D(Opening.Min.X,Outer.Max.Y));
++            Regions.Emplace(FVector2D(Opening.Max.X,Outer.Min.Y),Outer.Max);
++            Regions.Emplace(Outer.Min,FVector2D(Outer.Max.X,Opening.Min.Y));
++            Regions.Emplace(FVector2D(Outer.Min.X,Opening.Max.Y),Outer.Max);
++        }
++        else for(const FBox& Slab:Deck.Boxes)Regions.Emplace(FVector2D(Slab.Min),FVector2D(Slab.Max));
++
++        const FRotator Facing(0,Yaw,0);
++        auto Project=[&](FBox2D Local)
++        {
++            const FVector2D X(Frame.InverseTransformVector(Facing.Vector()));
++            const FVector2D Y(Frame.InverseTransformVector(Facing.RotateVector(FVector::RightVector)));
++            const FVector2D Centre=X*Local.GetCenter().X+Y*Local.GetCenter().Y;
++            const FVector2D Half=X.GetAbs()*Local.GetExtent().X+Y.GetAbs()*Local.GetExtent().Y;
++            return FBox2D(Centre-Half,Centre+Half);
++        };
++        const FBox2D Base=Project(VillageDefenseFootprint::SiegeBase(Id));
++        auto GridCentre=[&](FIntVector Site){return FVector(Site)*20.+FVector(Footprint.X*10.,Footprint.Y*10.,0.);};
++        auto Offer=[&](FVector2D Min,FVector2D Max)
++        {
++            if(Min.X>Max.X || Min.Y>Max.Y)return;
++            const FVector P=Frame.TransformPosition(FVector(FMath::Clamp(Aim.X,Min.X,Max.X),FMath::Clamp(Aim.Y,Min.Y,Max.Y),RoofZ));
++            const FIntVector Site(FMath::RoundToInt(P.X/20.-Footprint.X*.5),FMath::RoundToInt(P.Y/20.-Footprint.Y*.5),
++                FMath::CeilToInt((P.Z-.05)/20.));
++            if(Site!=Original && FVector::DistSquared2D(GridCentre(Site),Impact)<=FMath::Square(Large?360.:200.))
++                Sites.AddUnique(Site);
++        };
++        const FBox& Envelope=VillageDefenseFootprint::Siege(Id).Bounds;
++        const FBox2D Swing=Project(FBox2D(FVector2D(Envelope.Min),FVector2D(Envelope.Max)));
++        for(const FBox2D& Region:Regions)
++        {
++            // Keep the chassis inside the coping and off the stair lip. The server checks actual solids.
++            const FVector2D NearMargin(Large && Region.Min.X>Outer.Min.X+.1?20.:48.,Large && Region.Min.Y>Outer.Min.Y+.1?20.:48.);
++            const FVector2D FarMargin(Large && Region.Max.X<Outer.Max.X-.1?20.:48.,Large && Region.Max.Y<Outer.Max.Y-.1?20.:48.);
++            const FVector2D Min=Region.Min+NearMargin-Base.Min,Max=Region.Max-FarMargin-Base.Max;
++            Offer(Min,Max);
++            if(Large)
++            {
++                const FVector2D InnerMin=Outer.Min+FVector2D(48.)-Swing.Min,InnerMax=Outer.Max-FVector2D(48.)-Swing.Max;
++                Offer(FVector2D::Max(Min,InnerMin),FVector2D::Min(Max,InnerMax));
++            }
++        }
++        Sites.Sort([&](const FIntVector& A,const FIntVector& B)
++            {return FVector::DistSquared2D(GridCentre(A),Impact)<FVector::DistSquared2D(GridCentre(B),Impact);});
++        return Sites;
++    }
++
+     /**
+      * Cone aim assist for snap mode: the centre ray rarely lands exactly on a voxel face once the
+      * player drifts a little, which used to drop the ghost into the air. Probe a small cone
+@@ -94,10 +159,31 @@
+     if(auto* Edges=FindAimEdge(PreviewActor))Edges->SetVisibility(false);
+     auto* PC=Cast<APlayerController>(GetOwner());
+     if(!PC||!PC->PlayerCameraManager||!BuildWorld)return;
+-    FVector Start;FRotator AimRotation;
+-    ColdSteelWorldInteraction::GetReachViewPoint(PC,Start,AimRotation);
+-    const FVector Direction=AimRotation.Vector();
+-    const FVector End=Start+Direction*600;const FIntVector Size=BrushSize();const FVector Half=FVector(Size)*10;
++    FVector Start,Direction;
++    const bool Survey=IsVillageCameraPlacing();
++    if(Survey && bSnapEnabled && VillageBuildDefense::IsVillageRecipe(SelectedComponent))
++    {
++        // Bound the spatial search and compound clearance checks during edge scrolling.
++        // Rotation, a new selection and a click already invalidate this timer.
++        const double Now=GetWorld()->GetTimeSeconds();
++        if(Now<TargetUpdateAt)return;
++        TargetUpdateAt=Now+.04;
++    }
++    if(Survey)
++    {
++        if(!VillageCursorRay(Start,Direction))
++        {
++            Hit=FHitResult();AimedPrefab.Reset();Removal.Reset();
++            UpdatePrefabTarget(false);UpdatePrefabPreview();return;
++        }
++    }
++    else
++    {
++        FRotator AimRotation;
++        ColdSteelWorldInteraction::GetReachViewPoint(PC,Start,AimRotation);
++        Direction=AimRotation.Vector();
++    }
++    const FVector End=Start+Direction*(Survey?VillageBuildDefense::SurveyTraceLength:600.);const FIntVector Size=BrushSize();const FVector Half=FVector(Size)*10;
+     FCollisionQueryParams Query(SCENE_QUERY_STAT(VoxelAim),true,PC->GetPawn());
+     // 2026-09-20：中心射线改多命中。摆开到占格之外的构件网格（开着的门扇、85° 开角的窗扇）解析不出
+     // 格子，却挡在射线最前面——单命中时代它后面的墙整条不可见，吸附方案被瞬间清空落入贴地分支，
+@@ -105,6 +191,26 @@
+     // 第一个"非已放置构件"命中（门扇后面的地面，交给贴地分支）；再退回最前命中（拆除／贴地老口径）。
+     AimScratch.Reset();
+     GetWorld()->LineTraceMultiByChannel(AimScratch,Start,End,ECC_Visibility,Query);
++    const FVoxelBuildPrefab* Prefab=SelectedPrefab();
++    if(Prefab && VillageBuildDefense::IsSiegeEngine(Prefab->Id))
++    {
++        FCollisionQueryParams Structural=Query;
++        Structural.bTraceComplex=false;
++        FHitResult DeckHit;
++        if(GetWorld()->LineTraceSingleByChannel(DeckHit,Start,End,ECC_Visibility,Structural)
++            && VillageDefenseFootprint::SiegeRoof(DeckHit.GetComponent()))
++        {
++            // Use the walkable hull if the visible stone is its skin or the detailed trace missed it.
++            // Keep any nearer foreground blocker, including a different building.
++            const FHitResult* First=AimScratch.IsEmpty()?nullptr:&AimScratch.Last();
++            if(!First || !First->bBlockingHit || DeckHit.Distance<=First->Distance ||
++                (First->GetComponent()==DeckHit.GetComponent() && DeckHit.Distance<=First->Distance+24.))
++            {
++                AimScratch.Reset();
++                AimScratch.Add(DeckHit);
++            }
++        }
++    }
+     bool HasHit=!AimScratch.IsEmpty();
+     // 瞄准的构件引用必须**每帧**按当前命中重算（2026-09-19 排查顺带修复）：以前只在构件模式里刷新，
+     // 切回体素模式后 AimedPrefab 留着上一帧的门——右键拆除按 AimedPrefab 优先，会拆到根本没瞄准的构件。
+@@ -117,13 +223,12 @@
+         if(AimedPrefab.IsValid()||RayHit.bBlockingHit)break;
+     }
+     int32 AimIndex=INDEX_NONE;bool bVoxelSurface=false,bPrefabCellHit=false;
+-    const FVoxelBuildPrefab* Prefab=SelectedPrefab();
+     const bool bDefense=Prefab&&VillageWallStairs::CanDock(Prefab->Id);
+     if(HasHit)
+     {
+         // The surface under the crosshair chooses wall docking or ordinary floor placement.
+         // A touch hit or a neighbouring assisted voxel must not change that choice.
+-        if(bDefense&&AimScratch.Last().bBlockingHit)AimIndex=AimScratch.Num()-1;
++        if((bDefense || (Prefab && VillageBuildDefense::IsSiegeEngine(Prefab->Id)) || (bSnapEnabled&&Prefab&&VillageGateReplacement::WallFor(Prefab->Id,AimScratch.Last().GetActor())))&&AimScratch.Last().bBlockingHit)AimIndex=AimScratch.Num()-1;
+         for(int32 Index=0;AimIndex==INDEX_NONE&&Index<AimScratch.Num();++Index)
+         {
+             if(BuildWorld->ResolveHit(AimScratch[Index],HitCell)){AimIndex=Index;bVoxelSurface=true;break;}
+@@ -148,7 +253,7 @@
+         ? (!HasHit || (!VillageWallStairs::ResolveTarget(Hit.GetActor()) && FMath::Abs(Hit.ImpactNormal.Z)<.5))
+         : !BuildingHit&&!bAimedAtWallMount;
+     const double AssistReach=bDefense&&HasHit?FMath::Min(600.,FVector::Distance(Start,Hit.ImpactPoint)+1.):600.;
+-    if(bSnapEnabled&&bTryAssist&&TrySnapAssist(GetWorld(),BuildWorld,Start,Direction,Query,Hit,HitCell,
++    if(!Survey&&bSnapEnabled&&bTryAssist&&(!Prefab||!VillageGateReplacement::WallFor(Prefab->Id,Hit.GetActor()))&&TrySnapAssist(GetWorld(),BuildWorld,Start,Direction,Query,Hit,HitCell,
+         bDefense?Prefab:nullptr,ComponentYaw,AssistReach))
+     {
+         HasHit=true;BuildingHit=true;LastAimWasAssisted=true;
+@@ -160,7 +265,16 @@
+     // keep the previous plan and its validity instead of dropping the click.
+     Removal.Reset();
+     if(bVoxelSurface)FillBrush(HitCell.Cell,Removal);
+-    if(Prefab){Placement.Reset();PlacementCuts.Reset();bCanPlace=false;UpdatePrefabTarget(HasHit);UpdatePrefabPreview();return;}
++    if(Prefab)
++    {
++        Placement.Reset();PlacementCuts.Reset();bCanPlace=false;UpdatePrefabTarget(HasHit);
++        if(Survey && HasHit && !VillageBuildDefense::InSurveyRange(PC->GetPawn()->GetPawnViewLocation(),AVoxelBuildWorld::CellCenter(PrefabCell)))
++        {
++            bCanPlace=bPrefabValid=false;
++            PrefabMessage=TargetMessage=TEXT("超出村庄施工范围 · 请在角色周围 120 米内选址");
++        }
++        UpdatePrefabPreview();return;
++    }
+     const double Now=GetWorld()->GetTimeSeconds();
+     if(!HasHit)
+     {
+@@ -490,17 +607,38 @@
+     if(!bHit)
+     {
+         PrefabCell=AVoxelBuildWorld::ToCell(Hit.ImpactPoint);
+-        PrefabMessage=TEXT("未命中可放置表面 · 瞄准 6 米内的地面或结构");
++        PrefabMessage=IsVillageCameraPlacing()?TEXT("移动鼠标，指向地面或城防接口"):TEXT("未命中可放置表面 · 瞄准 6 米内的地面或结构");
+         TargetMessage=PrefabMessage;
+         return;
+     }
+     FIntVector Cell;
+     bool bSurfaceBacked=false;
++    if(auto* Wall=bSnapEnabled?VillageGateReplacement::WallFor(Prefab->Id,Hit.GetActor()):nullptr)
++    {
++        // Keep the end-face socket for extending an exposed run. Its top and broad faces select a replacement.
++        const bool EndFace=Prefab->Id==VillageBuildDefense::StoneGate &&
++            FMath::Abs(Hit.ImpactNormal.Dot(Wall->GetActorForwardVector()))>.85 &&
++            FMath::Abs(Wall->GetActorTransform().InverseTransformPosition(Hit.ImpactPoint).X)>140.;
++        FTransform Pose;
++        if(!EndFace && VillageGateReplacement::Layout(Prefab->Id,Wall,Prefab->Footprint,Pose,PrefabCell,PrefabPlanYaw))
++        {
++            DefenseDockPose=Pose;
++            DefenseDockTarget=Wall;
++            DefenseDockSocket=VillageGateReplacement::ReplacementSocket;
++            TArray<FVillageGateCut> Cuts;
++            bCanPlace=bPrefabValid=BuildWorld->CanPlacePrefab(Prefab->Id,PrefabCell,PrefabPlanYaw,PrefabMessage,false,true,Wall,nullptr,INDEX_NONE,true,&Cuts,&WallCutBars);
++            if(bPrefabValid)WallCutSelection=VillageGateReplacement::WallSelection(Cuts);
++            TargetMessage=PrefabMessage;
++            return;
++        }
++    }
+     const auto* Target=bSnapEnabled&&VillageWallStairs::CanDock(Prefab->Id)
+         ? VillageWallStairs::ResolveTarget(Hit.GetActor()):nullptr;
+-    if(Target)
+-    {
+-        VillageWallStairs::FDock Dock;
++    VillageWallStairs::FDock Dock;
++    const bool NearbyJoin=bSnapEnabled && VillageWallStairs::PickNearbyWallDock(*BuildWorld,Prefab->Id,Prefab->Footprint,
++        Hit,ComponentYaw,Dock,bPrefabValid,PrefabMessage);
++    if(Target && !NearbyJoin)
++    {
+         // The side joint opens the entrance along a wall or into the gate courtyard.
+         const bool bStairs=Prefab->Id==VillageWallStairs::Id;
+         const int32 FirstSocket=bStairs?1:ComponentYaw;
+@@ -575,11 +715,34 @@
+         // The 20 cm footprint is centred on the aimed column and always lands on lattice multiples.
+         const FVector Base=Hit.ImpactPoint+Hit.ImpactNormal*.5;
+         Cell=AVoxelBuildWorld::ToCell(Base);
++        if(VillageBuildDefense::IsSiegeEngine(Prefab->Id))Cell.Z=FMath::CeilToInt((Hit.ImpactPoint.Z-.05)/20.);
+         Cell.X-=Footprint.X/2;Cell.Y-=Footprint.Y/2;
+     }
+     PrefabCell=Cell;
++    FTransform FloorPose;
++    const bool Siege=VillageBuildDefense::IsSiegeEngine(Prefab->Id);
+     bPrefabValid=BuildWorld->CanPlacePrefab(Prefab->Id,Cell,PrefabPlanYaw,PrefabMessage,bSurfaceBacked,
+-        DefenseDockPose.IsSet(),DefenseDockTarget.Get(),nullptr,PlannedGroundYaw());
++        DefenseDockPose.IsSet(),DefenseDockTarget.Get(),Siege?&FloorPose:nullptr,PlannedGroundYaw());
++    if(!bPrefabValid && bSnapEnabled && Siege)
++    {
++        const auto* Surface=Hit.GetComponent();
++        if(const auto* Deck=VillageDefenseFootprint::SiegeRoof(Surface))
++        {
++            const FTransform& Frame=Surface->GetComponentTransform();
++            for(const FIntVector& Site:SiegeRoofSites(Prefab->Id,*Deck,Frame,Hit.ImpactPoint,GroundYawDegrees,Footprint,Cell))
++            {
++                FString SiteReason;
++                if(!BuildWorld->CanPlacePrefab(Prefab->Id,Site,PrefabPlanYaw,SiteReason,false,false,nullptr,&FloorPose,PlannedGroundYaw()))continue;
++                if(FMath::Abs(Frame.InverseTransformPosition(FloorPose.GetLocation()).Z-Deck->Bounds.Max.Z)>2.)continue;
++                PrefabCell=Site;
++                PrefabMessage=Prefab->Id==VillageBuildDefense::Trebuchet?TEXT("投石机已贴合附近的平台 · 滚轮旋转 · 左键建造"):
++                    Prefab->Id==VillageBuildDefense::OilPot?TEXT("热油锅已贴合附近的平台 · 滚轮旋转 · 左键建造"):TEXT("弩炮已贴合附近的平台 · 滚轮旋转 · 左键建造");
++                bPrefabValid=true;
++                break;
++            }
++        }
++    }
++    if(Siege && bPrefabValid)SiegeFloorPreview=FloorPose;
+     bCanPlace=bPrefabValid;TargetMessage=PrefabMessage;
+ }
+ 

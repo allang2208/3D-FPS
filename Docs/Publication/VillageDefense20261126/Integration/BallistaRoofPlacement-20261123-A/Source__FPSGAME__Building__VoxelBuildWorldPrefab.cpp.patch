@@ -1,0 +1,113 @@
+--- a/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
+@@ -47,6 +47,11 @@
+         VillageDefenseFootprint::Rasterize(Shape,Pose,Out);
+         return;
+     }
++    if(Instance.Id==VillageBuildDefense::Ballista)
++    {
++        VillageDefenseFootprint::Rasterize(VillageDefenseFootprint::Ballista(),VillageWallStairs::Placement(Instance),Out);
++        return;
++    }
+     if((VillageBuildDefense::IsBasicWallOrGate(Instance.Id)||VillageBuildDefense::IsSiegeEngine(Instance.Id))&&Instance.WallDockPose.IsSet())
+     {
+         // Free ground placement keeps the native footprint and uses an exact yaw about its centre.
+@@ -99,7 +104,8 @@
+         return false;
+     }
+     bool SiegeFooting(const AVoxelBuildWorld& World,FName Id,const FTransform& Pose,
+-        const AVoxelBuildPrefabActor* Self,double& FloorZ,TSet<FIntVector>* Parents=nullptr)
++        const AVoxelBuildPrefabActor* Self,double& FloorZ,TSet<FIntVector>* Parents=nullptr,
++        const UPrimitiveComponent** OutRoof=nullptr)
+     {
+         // Sample load-bearing feet in their rotated positions, including authored tower decks.
+         FCollisionQueryParams Params(SCENE_QUERY_STAT(VillageSiegeFooting),true);
+@@ -108,13 +114,33 @@
+         double Low=MAX_dbl,High=-MAX_dbl;
+         bool AllFixed=true;
+         TSet<FIntVector> Supports;
+-        for(int32 X:{-1,1})for(int32 Y:{-1,1})
+-        {
+-            const FVector P=Pose.TransformPosition(FVector(X*Feet.X,Y*Feet.Y,0.));
++        const bool bBallista=Id==VillageBuildDefense::Ballista;
++        const FVector2D Pads[]={{-1,-1},{-1,1},{1,-1},{1,1},{0,0}};
++        const UPrimitiveComponent* CommonRoof=nullptr;
++        const int32 PadCount=bBallista?5:4;
++        for(int32 Index=0;Index<PadCount;++Index)
++        {
++            const FVector P=Pose.TransformPosition(FVector(Pads[Index].X*Feet.X,Pads[Index].Y*Feet.Y,0.));
++            const FVector Top=P+FVector(0,0,19.),Bottom=P-FVector(0,0,29.);
+             FHitResult Hit;
+-            if(!World.GetWorld()->LineTraceSingleByChannel(Hit,P+FVector(0,0,19.),P-FVector(0,0,29.),ECC_Visibility,Params)
+-                || !VoxelGrounding::IsFixedBuildingSurface(Hit) || Hit.ImpactNormal.Z<.85
++            const VillageDefenseFootprint::FShape* Deck=nullptr;
++            if(bBallista)
++            {
++                Params.bTraceComplex=false;
++                if(World.GetWorld()->LineTraceSingleByChannel(Hit,Top,Bottom,ECC_Visibility,Params))
++                    Deck=VillageDefenseFootprint::BallistaRoof(Hit.GetComponent());
++            }
++            if(!Deck)
++            {
++                Params.bTraceComplex=true;
++                if(!World.GetWorld()->LineTraceSingleByChannel(Hit,Top,Bottom,ECC_Visibility,Params))return false;
++            }
++            if(!VoxelGrounding::IsFixedBuildingSurface(Hit) || Hit.ImpactNormal.Z<.85
+                 || Cast<AVoxelCollapseFragment>(Hit.GetActor()))return false;
++            const auto* Surface=Hit.GetComponent();
++            const bool OnRoof=Deck && FMath::Abs(Surface->GetComponentTransform().InverseTransformPosition(Hit.ImpactPoint).Z-Deck->Bounds.Max.Z)<1.;
++            if(Index==0 && OnRoof)CommonRoof=Surface;
++            else if(!OnRoof || CommonRoof!=Surface)CommonRoof=nullptr;
+             Low=FMath::Min(Low,Hit.ImpactPoint.Z);High=FMath::Max(High,Hit.ImpactPoint.Z);
+             VoxelGrounding::FFootprint Floor;
+             Floor.Surfaces.Add(Hit.GetComponent());
+@@ -627,17 +654,23 @@
+     else if(GroundYawDegrees!=INDEX_NONE)
+         Probe.WallDockPose=VillageBuildDefense::Placement(Id,Cell,Footprint,Yaw,GroundYawDegrees);
+     FTransform Pose=bVillage?VillageWallStairs::Placement(Probe):FTransform::Identity;
++    const UPrimitiveComponent* BearingRoof=nullptr;
+     if(VillageBuildDefense::IsSiegeEngine(Id))
+     {
+         double FloorZ=0.;
+-        if(!SiegeFooting(*this,Id,Pose,nullptr,FloorZ))
++        if(!SiegeFooting(*this,Id,Pose,nullptr,FloorZ,nullptr,&BearingRoof))
+         {Reason=TEXT("机架底座需要完整、平缓的平台或地面");return false;}
+         FVector Foot=Pose.GetLocation();Foot.Z=FloorZ;
+         Pose.SetLocation(Foot);
+         Probe.WallDockPose=Pose;
+     }
+     if(bVillage&&OutPlacementPose)*OutPlacementPose=Pose;
+-    if(bFortification)
++    if(Id==VillageBuildDefense::Ballista)
++    {
++        if(!VillageDefenseFootprint::IsClear(*GetWorld(),VillageDefenseFootprint::Ballista(),Pose,this,{},BearingRoof?2.:16.))
++        {Reason=TEXT("弩炮机架被挡住 · 请避开垛口、楼梯栏杆或其他物体");return false;}
++    }
++    else if(bFortification)
+     {
+         const auto& Shape=VillageDefenseFootprint::Get(Id,Definition->Mesh.LoadSynchronous());
+         if(!VillageDefenseFootprint::IsClear(*GetWorld(),Shape,Pose,this,Opening.Walls))
+@@ -666,9 +699,12 @@
+         {Reason=TEXT("请移开构件，避开建筑或凸起的地面");return false;}
+     }
+     TOptional<FIntVector> Mate;
+-    if(Dock.Target)
+-        if(const auto* Carrier=Cast<AVoxelBuildPrefabActor>(Dock.Target->GetAttachParentActor()))
++    const AActor* Support=Dock.Target?static_cast<const AActor*>(Dock.Target):BearingRoof?BearingRoof->GetOwner():nullptr;
++    if(Support)
++        if(const auto* Carrier=Cast<AVoxelBuildPrefabActor>(Support->GetAttachParentActor()))
+             Mate=Carrier->AnchorCell();
++    // On a proved roof, the floor and the pedestal may share a partially filled grid cell.
++    // Its parapets and rails were still checked against each individual part above.
+     // A gate spans thousands of cells. Moving actors and terrain are queried above
+     // every time; repeat the discrete occupancy scan only when the preview or grid changes.
+     if(!bVillage || bReplaceWall!=bCachedWallReplacement ||
+@@ -715,7 +751,7 @@
+     else
+     {
+         // 悬空的构件不能放（2026-09-18 用户口径：构件要挂在结构上，不然拆掉周围就剩它浮着）。
+-        if(!Dock.Target&&!IsPrefabSupported(Probe))
++        if(!Dock.Target&&!VillageBuildDefense::IsSiegeEngine(Id)&&!IsPrefabSupported(Probe))
+         {Reason=TEXT("该位置悬空 · 构件要与体素、别的构件或地面接触");return false;}
+     }
+     if(bReplaceWall)

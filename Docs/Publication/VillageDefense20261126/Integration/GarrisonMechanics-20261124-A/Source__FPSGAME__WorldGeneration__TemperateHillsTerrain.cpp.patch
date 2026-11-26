@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp
+@@ -160,8 +160,10 @@
+     Save->VillagePlansUnlocked=VillagePlansUnlocked;
+     Save->bVillageBakeryRepaired=bVillageBakeryRepaired;
+     Save->bVillageGunshopRepaired=bVillageGunshopRepaired;
++    Save->bGarrisonMechanics=bGarrisonMechanics;
+     Save->VillageDefenseGeneration=VillageDefenseGeneration;
+-    if(IsGunshopRepaired())Save->VillagePlanVersion=FMath::Max(10,Save->VillagePlanVersion);
++    if(bGarrisonMechanics)Save->VillagePlanVersion=FMath::Max(11,Save->VillagePlanVersion);
++    else if(IsGunshopRepaired())Save->VillagePlanVersion=FMath::Max(10,Save->VillagePlanVersion);
+     else if(IsBakeryRepaired())Save->VillagePlanVersion=FMath::Max(9,Save->VillagePlanVersion);
+     else if(IsWindmillRepaired())Save->VillagePlanVersion=FMath::Max(8,Save->VillagePlanVersion);
+     else if(HasVillageHighWall())Save->VillagePlanVersion=FMath::Max(7,Save->VillagePlanVersion);

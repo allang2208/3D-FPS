@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/FPSGAMECharacterCombatFeedback.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterCombatFeedback.cpp
+@@ -46,7 +46,22 @@
+     // Firearms report at the impact itself (the impact FX subsystem plays S_GunHit
+     // where the round lands), so the shared monster-hit tick is not stacked on a gun
+     // hit. Melee and Cold Steel skills keep that tick as their confirm cue.
+-    if (IsLocallyControlled() && !bFirearmHit && ConfirmedMonsterHitSound)
++    if(!bFirearmHit)PlayMeleeHitConfirmation();
++}
++
++void AFPSGAMECharacter::ClientBallistaHit_Implementation(bool bKilled)
++{
++    if(!IsLocallyControlled() || !GetWorld())return;
++    // The server already resolved the bolt. Give the shooter the cue even if the victim despawned.
++    LastConfirmedWeaponHitTime=GetWorld()->GetTimeSeconds();
++    LastMonsterHit=FMonsterHitFeedback{};
++    LastMonsterHit.bKilled=bKilled;
++    PlayMeleeHitConfirmation();
++}
++
++void AFPSGAMECharacter::PlayMeleeHitConfirmation() const
++{
++    if (IsLocallyControlled() && ConfirmedMonsterHitSound)
+         UGameplayStatics::PlaySound2D(this, ConfirmedMonsterHitSound, 1.f, 1.f);
+ }
+ 

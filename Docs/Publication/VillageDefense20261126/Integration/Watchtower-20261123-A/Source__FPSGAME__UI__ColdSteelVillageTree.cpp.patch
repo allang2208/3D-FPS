@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/UI/ColdSteelVillageTree.cpp
++++ b/Source/FPSGAME/UI/ColdSteelVillageTree.cpp
+@@ -53,8 +53,8 @@
+             TEXT("沿原有墙线加筑高墙与城垛。东西门楼下设升降铁闸，二层守望平台与墙顶步道相通。"),
+             TEXT("村庄围墙升级为带步道的高墙，两处入口装上升降铁闸。"),false,TEXT("wall")},
+         {TEXT("village_construction"), TEXT("defense"), TEXT("村庄修建"), TEXT("建"), TEXT("村庄建筑"),
+-            TEXT("学会砌筑围墙、城门和登墙石阶，为村庄增设防线与出入口。"),
+-            TEXT("按 B 打开「村庄建筑」，可自行放置石头围墙、木质大门、石砌高墙、升降铁闸门和城墙石阶。"),true},
++            TEXT("学会砌筑围墙、城门、石阶和塔楼，为村庄增设防线与出入口。"),
++            TEXT("按 B 打开「村庄建筑」，可自行放置石头围墙、木质大门、石砌高墙、升降铁闸门、城墙石阶和石砌高塔楼。"),true},
+         {TEXT("blacksmith"), TEXT("production"), TEXT("重建铁匠铺"), TEXT("锻"), TEXT("村庄生产"),
+             TEXT("修复铁匠铺的破损墙体，清走废木和落砖，整理铁料与工具，让熄灭的炉火再次燃起。"),
+             TEXT("隐藏残破构件，启用修复后的房屋构件与碰撞，恢复铁匠铺铸造工作站。")},

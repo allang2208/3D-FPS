@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+@@ -1,4 +1,6 @@
+ #include "ColdSteelHUDWidget.h"
++#include "../FPSGAMEPlayerController.h"
++#include "../WorldGeneration/VillageSiegeControl.h"
+ #include "ColdSteelExplosiveWarnings.h"
+ #include "ColdSteelUIStyle.h"
+ #include "ColdSteelHUDLayout.h"
+@@ -31,6 +33,9 @@
+ {
+     auto* PC=GetOwningPlayer();
+     const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
++    if(auto* Player=Cast<AFPSGAMEPlayerController>(PC))
++        if(const auto* Siege=Player->GetSiegeControl();Siege && Siege->Active())
++            return Siege->Paint(Geometry,Elements,Super::NativePaint(Args,Geometry,Clip,Elements,Layer,Style,Enabled));
+     // The optical mask belongs behind all HUD children, including the buff bar
+     // and XP feed. Only the owner-local scope paints here; menus suppress it.
+     int32 OpticLayer=Layer;

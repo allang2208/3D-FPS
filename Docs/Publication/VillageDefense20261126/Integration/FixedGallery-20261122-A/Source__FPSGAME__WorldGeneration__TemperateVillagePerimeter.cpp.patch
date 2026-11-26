@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillagePerimeter.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillagePerimeter.cpp
+@@ -357,9 +357,7 @@
+         // The new grille starts closed. Its opening and the gallery's actual collision
+         // occupy separate volumes, leaving the yard beneath the gallery available.
+         const FBox ClosedGrille=Grille->GetBoundingBox();
+-        const FBox Fold=AHighVillageGate::FlightSweep(Side<0);
+-        bool bOccupied=Occupied(Gate,ClosedGrille.GetCenter(),ClosedGrille.GetExtent()) ||
+-            Occupied(Gate,Fold.GetCenter(),Fold.GetExtent());
++        bool bOccupied=Occupied(Gate,ClosedGrille.GetCenter(),ClosedGrille.GetExtent());
+         const FBox Bounds=Portal->GetBoundingBox();
+         if(!bOccupied && Occupied(Gate,Bounds.GetCenter(),Bounds.GetExtent()))
+         {

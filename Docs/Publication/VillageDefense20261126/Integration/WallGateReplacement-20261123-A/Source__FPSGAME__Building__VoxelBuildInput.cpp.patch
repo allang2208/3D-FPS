@@ -1,0 +1,31 @@
+--- a/Source/FPSGAME/Building/VoxelBuildInput.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildInput.cpp
+@@ -12,6 +12,7 @@
+ #include "VoxelBuildPalette.h"
+ #include "VoxelBuildPrefabActor.h"
+ #include "VillageBuildDefense.h"
++#include "VillageGateReplacement.h"
+ #include "VoxelBuildWidget.h"
+ #include "VoxelJointStrength.h"
+ #include "../FPSGAMECharacter.h"
+@@ -218,6 +219,11 @@
+                     {
+                         if(!bPrefabValid)return true;
+                         R.Mode=DefenseDockPose.IsSet()?TEXT("wallDockPrefab"):TEXT("prefab");
++                        if(DefenseDockSocket==VillageGateReplacement::ReplacementSocket)
++                        {
++                            R.Mode=TEXT("replaceWallGate");
++                            R.Count=WallCutSelection;
++                        }
+                         R.Definition=P->Id;R.Anchor=PrefabCell;R.Orientation=PrefabPlanYaw;
+                         const int32 GroundYaw=PlannedGroundYaw();
+                         if(GroundYaw!=INDEX_NONE)
+@@ -385,7 +391,7 @@
+     if(DefenseDockPose.IsSet()&&!DefenseDockTarget.IsValid())
+     {bFeedbackValid=false;Feedback=TEXT("吸附目标已消失");FeedbackTime=2;return;}
+     bFeedbackValid=BuildWorld->PlacePrefab(Prefab->Id,PrefabCell,PrefabPlanYaw,DefenseDockPose.IsSet(),
+-        DefenseDockTarget.Get(),PlannedGroundYaw());
++        DefenseDockTarget.Get(),PlannedGroundYaw(),DefenseDockSocket==VillageGateReplacement::ReplacementSocket,WallCutSelection);
+     Feedback=BuildWorld->ResultMessage();FeedbackTime=2;
+     PlacementCheckAt=0;TargetUpdateAt=0;
+ }

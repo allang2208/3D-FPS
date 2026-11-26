@@ -1,0 +1,138 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPreview.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPreview.cpp
+@@ -39,6 +39,57 @@
+ {
+     // TEMPORARY diagnostics for the 2026-09-16 "cannot build above 2 m" report.
+     FString LastPreviewReject;
++
++    const TCHAR* EntranceMeshName(FName Recipe)
++    {
++        if(Recipe==VillageBuildDefense::HighTower)return TEXT("SM_TowerEntrances");
++        if(Recipe==VillageBuildDefense::StoneGate)return TEXT("SM_StoneGateEntrances");
++        if(Recipe==VillageBuildDefense::WoodGate)return TEXT("SM_WoodGateExterior");
++        if(Recipe==VillageWallStairs::Id)return TEXT("SM_StairEntrances");
++        return nullptr;
++    }
++
++    void TintPreviewMesh(UStaticMeshComponent& Part,UMaterialInterface* Material)
++    {
++        if(!Material||!Part.GetStaticMesh())return;
++        for(int32 Slot=0;Slot<Part.GetStaticMesh()->GetStaticMaterials().Num();++Slot)
++            Part.SetMaterial(Slot,Material);
++    }
++}
++
++void UVoxelBuildComponent::UpdateEntrancePreview(FName Recipe,bool bValid)
++{
++    if(Recipe!=EntrancePreviewRecipe)
++    {
++        EntrancePreviewRecipe=Recipe;
++        UStaticMesh* Mark=nullptr;
++        if(const TCHAR* Name=EntranceMeshName(Recipe))
++        {
++            const FString Path=FString::Printf(TEXT("/Game/WorldGeneration/TemperateHills/HighVillageDefense/PlacementPreview/%s.%s"),Name,Name);
++            Mark=LoadObject<UStaticMesh>(nullptr,*Path);
++        }
++        if(Mark && !EntrancePreview)
++        {
++            EntrancePreview=NewObject<UStaticMeshComponent>(PreviewActor.Get(),NAME_None,RF_Transient);
++            PreviewActor->AddInstanceComponent(EntrancePreview);
++            EntrancePreview->SetupAttachment(Preview);
++            EntrancePreview->SetMobility(EComponentMobility::Movable);
++            EntrancePreview->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++            EntrancePreview->SetGenerateOverlapEvents(false);
++            EntrancePreview->SetCanEverAffectNavigation(false);
++            EntrancePreview->SetCastShadow(false);
++            EntrancePreview->SetTranslucentSortPriority(2);
++            EntrancePreview->RegisterComponent();
++        }
++        if(EntrancePreview)
++        {
++            EntrancePreview->SetStaticMesh(Mark);
++            // The wooden gate's preview parent is the left leaf's hinge.
++            const double CenterX=Recipe==VillageBuildDefense::WoodGate?AVillageDefenseGate::NarrowHingeOffset:0.;
++            EntrancePreview->SetRelativeLocation(FVector(CenterX,0.,0.));
++        }
++    }
++    if(EntrancePreview)EntrancePreview->SetVisibility(bValid && EntrancePreview->GetStaticMesh());
+ }
+ 
+ void UVoxelBuildComponent::UpdatePrefabPreview()
+@@ -51,14 +102,18 @@
+     if(!Prefab||!Mesh||!bPrefabAimHit){Preview->SetVisibility(false,true);return;}
+     const bool NewMesh=Preview->GetStaticMesh()!=Mesh;
+     Preview->SetStaticMesh(Mesh);
+-    if(NewMesh&&PreviewMID)
+-        for(int32 Slot=0;Slot<Mesh->GetStaticMaterials().Num();++Slot)Preview->SetMaterial(Slot,PreviewMID);
+     // 逻辑构件（门）与普通构件的摆放口径不同：前者锚点在占格底面中心、构件自己往上搭，
+     // 后者网格包围盒居中于占格。预览必须与 AVoxelBuildWorld::SpawnPrefab 用同一口径，
+     // 否则落地的门会比预览高一个半身高（2026-09-17 用户反馈）。
+     FTransform Transform;
+     const bool bWoodGate=Prefab->Id==VillageBuildDefense::WoodGate;
+     const bool Gate=bWoodGate||Prefab->Id==VillageBuildDefense::StoneGate;
++    UpdateEntrancePreview(Prefab->Id,bPrefabValid);
++    UMaterialInterface* LeafMaterial=PreviewMID.Get();
++    if(Gate && bPrefabValid && EntrancePreview && EntrancePreview->GetStaticMesh())
++        LeafMaterial=EntrancePreview->GetMaterial(0);
++    UMaterialInterface* BodyMaterial=bWoodGate?LeafMaterial:PreviewMID.Get();
++    if(NewMesh || Preview->GetMaterial(0)!=BodyMaterial)TintPreviewMesh(*Preview,BodyMaterial);
+     if(VillageBuildDefense::IsVillageRecipe(Prefab->Id))
+     {
+         const auto Size=AVoxelBuildPrefabActor::RotatedFootprint(Prefab->Footprint,PrefabPlanYaw);
+@@ -72,6 +127,7 @@
+             {
+                 for(UStaticMeshComponent* Old:VillageGatePreviewParts)Old->DestroyComponent();
+                 VillageGatePreviewParts.Reset();
++                GatePreviewLeaf=nullptr;
+                 PreviewGateAssembly=Prefab->Id;
+                 const FSoftObjectPath RightLeaf(TEXT("/Game/WorldGeneration/TemperateHills/VillageDefenses/SM_GateNarrowRight.SM_GateNarrowRight"));
+                 const FSoftObjectPath LeftMount(TEXT("/Game/WorldGeneration/TemperateHills/VillageDefenses/SM_GateHingeMount.SM_GateHingeMount"));
+@@ -87,13 +143,14 @@
+                     if(auto* PartMesh=Cast<UStaticMesh>(Path.TryLoad()))
+                     {
+                         Part->SetStaticMesh(PartMesh);
+-                        if(PreviewMID)for(int32 Slot=0;Slot<PartMesh->GetStaticMaterials().Num();++Slot)Part->SetMaterial(Slot,PreviewMID);
++                        TintPreviewMesh(*Part,PreviewMID);
+                     }
+                     Part->RegisterComponent();VillageGatePreviewParts.Add(Part);
++                    return Part;
+                 };
+                 if(bWoodGate)
+                 {
+-                    AddPart(RightLeaf,FTransform(FVector(Offset,0.,0.)));
++                    GatePreviewLeaf=AddPart(RightLeaf,FTransform(FVector(Offset,0.,0.)));
+                     AddPart(LeftMount,FTransform(FVector(-Offset,0.,0.)));
+                     AddPart(RightMount,FTransform(FVector(Offset,0.,0.)));
+                     AddPart(AVillageDefenseGate::PlacedPostMeshPath(),AVillageDefenseGate::PlacedPostTransform(false));
+@@ -101,10 +158,13 @@
+                 }
+                 else
+                 {
+-                    AddPart(AHighVillageGate::PlacedGrilleMeshPath(),FTransform::Identity);
++                    GatePreviewLeaf=AddPart(AHighVillageGate::PlacedGrilleMeshPath(),FTransform::Identity);
+                     AddPart(AHighVillageGate::ReleaseMeshPath(),AHighVillageGate::ReleasePose(false));
+                 }
+-            }
++                GatePreviewLeaf->SetTranslucentSortPriority(1);
++            }
++            if(GatePreviewLeaf && GatePreviewLeaf->GetMaterial(0)!=LeafMaterial)
++                TintPreviewMesh(*GatePreviewLeaf,LeafMaterial);
+         }
+     }
+     else if(!Prefab->ActorClass.IsNull())
+@@ -139,9 +199,14 @@
+ 
+ void UVoxelBuildComponent::UpdatePreview(FIntVector Size)
+ {
++    if(EntrancePreview)EntrancePreview->SetVisibility(false);
+     for(UStaticMeshComponent* Part:VillageGatePreviewParts)Part->SetVisibility(false);
+     // Component previews switch the ghost mesh; the voxel brush always uses the 20 cm cube.
+-    if(Preview&&GhostMesh&&Preview->GetStaticMesh()!=GhostMesh)Preview->SetStaticMesh(GhostMesh);
++    if(Preview&&GhostMesh&&Preview->GetStaticMesh()!=GhostMesh)
++    {
++        Preview->SetStaticMesh(GhostMesh);
++        if(PreviewMID)Preview->SetMaterial(0,PreviewMID);
++    }
+     // 2026-10-14 修复：屋顶阶梯族（坡/山墙/金字塔）用逐格 ghost 表达真实排列——整体拉伸盒
+     // 在斜坡包围盒上就是一整面墙，玩家看到的"预览与设计不符"正是它。逐格实例复用同一个
+     // PreviewMID（红绿有效色/网格材质与整体盒一致）；FoundationPreview（贴地角标/地基柱）

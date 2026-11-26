@@ -1,0 +1,34 @@
+--- a/Source/FPSGAME/Movement/FPSDoorPushComponent.cpp
++++ b/Source/FPSGAME/Movement/FPSDoorPushComponent.cpp
+@@ -462,16 +462,14 @@
+     if(!IsValid(Target)||!IsNativeDoor(Target))
+     {UE_LOG(LogTemp,Warning,TEXT("[DoorPush] E键请求被拒：目标=%s 原生门族=%d"),
+         *GetNameSafe(Target),IsNativeDoor(Target)?1:0);return false;}
+-    bool bStairLever=false;
+     if(Target->IsA<AHighVillageGate>())
+     {
+         const auto* Pawn=Cast<APawn>(GetOwner());
+         const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
+         const auto Focus=ColdSteelWorldInteraction::TraceUseTargets(PC);
+-        if(Focus.Target!=Target || (Focus.GateUse!=EHighGateUse::Release && Focus.GateUse!=EHighGateUse::Stair))return false;
+-        bStairLever=Focus.GateUse==EHighGateUse::Stair;
+-    }
+-    Cancel();PressedDoor=Target;ServerToggleDoor(Target,bStairLever);return true;
++        if(Focus.Target!=Target || Focus.GateUse!=EHighGateUse::Release)return false;
++    }
++    Cancel();PressedDoor=Target;ServerToggleDoor(Target);return true;
+ }
+ 
+ void UFPSDoorPushComponent::ReleasePressedDoor()
+@@ -495,9 +493,8 @@
+     if(auto* Gate=Cast<AVillageDefenseGate>(Target)){Gate->ToggleDoor();return;}
+     if(auto* Gate=Cast<AHighVillageGate>(Target))
+     {
+-        if(Gate->ResolveUse(Hit)!=(bStairLever?EHighGateUse::Stair:EHighGateUse::Release))return;
+-        if(bStairLever)Gate->ToggleFoldingStair();
+-        else Gate->ToggleDoor();
++        if(Gate->ResolveUse(Hit)!=EHighGateUse::Release)return;
++        Gate->ToggleDoor();
+         return;
+     }
+     if(auto* Single=Cast<AColdSteelDoor>(Target))Single->ToggleDoorFrom(Cast<APawn>(GetOwner()));

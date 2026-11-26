@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp
++++ b/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp
+@@ -400,15 +400,15 @@
+         auto* Village=Cast<ATemperateHillsWorld>(Nun->GetParentActor());
+         FText Error;Success=IsValid(Village)&&Village->UnlockVillagePlan(Action,Error);
+         if(!Success)Result=Error.IsEmpty()?TEXT("村庄尚未准备好，请稍后重试。"):Error.ToString();
+-        else if(Action==TEXT("wall"))Result=TEXT("围墙已整体修复，村庄建设进度已保存。");
+-        else if(Action==TEXT("high_wall"))Result=TEXT("石砌高墙已落成，东西村门已换用升降铁闸。");
++        else if(Action==TEXT("wall"))Result=TEXT("城墙已修复。按 B 打开「村庄建筑」，可建造矮墙和木质大门。");
++        else if(Action==TEXT("high_wall"))Result=TEXT("高墙已升级，东西村门已换用升降铁闸。已解锁石砌高墙、石城门和登墙石阶建造。");
+         else if(Action==TEXT("blacksmith"))Result=TEXT("铁匠铺已修复并恢复使用，村庄建设进度已保存。");
+         else if(Action==TEXT("carpenter"))Result=TEXT("木工工坊已修复，可以使用一楼的木工工作台了。");
+         else if(Action==TEXT("herbalist"))Result=TEXT("草药铺已修复，可以使用店内的炼药工作台了。");
+         else if(Action==TEXT("windmill"))Result=TEXT("风车已修复，村庄建设进度已保存。");
+         else if(Action==TEXT("bakery"))Result=TEXT("面包屋已修复，可以到柜台找面包师买面包了。");
+         else if(Action==TEXT("gunshop"))Result=TEXT("枪店已修复，南侧长屋的一楼枪械工作台已开放。");
+-        else if(Action==TEXT("village_construction"))Result=TEXT("村庄修建已解锁。按 B 打开「村庄建筑」，可放置围墙、大门、石砌高墙、石城门、登墙石阶和石砌高塔楼。");
++        else if(Action==TEXT("village_construction"))Result=TEXT("防御工事已解锁。按 B 打开「村庄建筑」，可建造石砌高塔楼。");
+         else Result=TEXT("酒馆已修复，村庄建设进度已保存。");
+     }
+     else if(Action==TEXT("holyLight"))

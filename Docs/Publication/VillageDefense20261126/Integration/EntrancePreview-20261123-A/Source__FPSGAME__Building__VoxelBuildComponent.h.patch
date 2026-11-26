@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/Building/VoxelBuildComponent.h
++++ b/Source/FPSGAME/Building/VoxelBuildComponent.h
+@@ -83,6 +83,9 @@
+     UPROPERTY() TObjectPtr<UVoxelBuildWidget> Widget;
+     UPROPERTY() TObjectPtr<UStaticMeshComponent> Preview;
+     UPROPERTY() TArray<TObjectPtr<UStaticMeshComponent>> VillageGatePreviewParts;
++    UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> GatePreviewLeaf;
++    UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> EntrancePreview;
++    FName EntrancePreviewRecipe;
+     FName PreviewGateAssembly;
+     UPROPERTY() TObjectPtr<UStaticMesh> GhostMesh;
+     UPROPERTY() TObjectPtr<UInstancedStaticMeshComponent> FoundationPreview;

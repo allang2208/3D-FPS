@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/WorldGeneration/ForestVillage.cpp
++++ b/Source/FPSGAME/WorldGeneration/ForestVillage.cpp
+@@ -194,7 +213,7 @@
+     if(!IsForestVillage()) return TerrainEditRevision;
+     uint32 Layout=HashCombineFast(VillagePlansUnlocked,GetTypeHash(VillageSite.Ground));
+     Layout=HashCombineFast(Layout,uint32(bVillageWallRepaired) | (uint32(bVillageBlacksmithRepaired)<<1) |
+-        (uint32(bVillageBakeryRepaired)<<2) | (uint32(bVillageGunshopRepaired)<<3));
++        (uint32(bVillageBakeryRepaired)<<2) | (uint32(bVillageGunshopRepaired)<<3) | (uint32(bGarrisonMechanics)<<4));
+     return HashCombineFast(Layout,TerrainEditRevision);
+ }
+ 
+@@ -223,7 +242,9 @@
+         Road=FMath::Max(Road,SettlementRoadWeight(X,Y));
+         const auto* Level=Streaming->VillageLevel.Get();
+         FHitResult Hit;
+-        if(Level && Level->IsLevelVisible() && GetWorld()->LineTraceSingleByObjectType(Hit,
++        const FVector2D FromWorkshop=ChapelSite.Local({X,Y})-FTemperateChapelSite::WorkshopCenter;
++        Building=bGarrisonMechanics && FMath::Abs(FromWorkshop.X)<=337. && FMath::Abs(FromWorkshop.Y)<=619.;
++        if(!Building && Level && Level->IsLevelVisible() && GetWorld()->LineTraceSingleByObjectType(Hit,
+             FVector(X,Y,GroundZ+6000.),FVector(X,Y,GroundZ+140.),FCollisionObjectQueryParams(ECC_WorldStatic)) &&
+             Hit.GetActor() && Hit.GetActor()->GetLevel()==Level->GetLoadedLevel()) Building=true;
+     }

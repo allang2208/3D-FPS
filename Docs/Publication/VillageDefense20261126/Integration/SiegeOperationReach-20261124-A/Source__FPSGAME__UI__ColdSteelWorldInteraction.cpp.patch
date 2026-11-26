@@ -1,0 +1,42 @@
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -4,6 +4,7 @@
+ #include "../Movement/StableRidingHorse.h"
+ #include "../WorldGeneration/VillageDefenseSection.h"
+ #include "../WorldGeneration/VillageSiegeEngine.h"
++#include "../WorldGeneration/VillageSiegeUseTargets.h"
+ #include "../WorldGeneration/VillageDefenseStairs.h"
+ #include "../WorldGeneration/HighVillageDefense.h"
+ #include "../WorldGeneration/VillageDefenseRepairTargets.h"
+@@ -95,10 +96,18 @@
+     TArray<FHitResult> Hits;
+     // Overlaps are ordered up to the first blocking surface. Keep the counter
+     // as a fallback so an item on it can still be picked up.
+-    PC->GetWorld()->LineTraceMultiByChannel(Hits,Eye,Eye+View.Vector()*Reach,ECC_Visibility,Query);
++    const FVector Direction=View.Vector();
++    double SiegeDistance;
++    auto* Siege=PC->GetWorld()->GetSubsystem<UVillageSiegeUseTargets>()->Trace(
++        PC->GetPawn()->GetActorLocation(),Eye,Direction,Reach,SiegeDistance);
++    // Once the player can reach the machine, they can look up at its far end.
++    // Stop at that part so nearer obstructions and ordinary E targets still take priority.
++    PC->GetWorld()->LineTraceMultiByChannel(Hits,Eye,Eye+Direction*(Siege?SiegeDistance:Reach),ECC_Visibility,Query);
++    const bool bSiegeVisible=Siege && (Hits.IsEmpty() || !Hits.Last().bBlockingHit || Hits.Last().GetActor()==Siege);
+     float ClearReach = FMath::Min(Reach,UVillageDefenseRepairTargets::Reach);
+     for (const FHitResult& Hit : Hits)
+     {
++        if (Hit.Distance>Reach) break;
+         AActor* Target=Hit.GetActor();
+         if (Hit.bBlockingHit) ClearReach = FMath::Min(ClearReach,Hit.Distance);
+         if(StableHorseMarket::IsSeller(Target)){Found.Target=Target;return Found;}
+@@ -146,6 +155,11 @@
+             break;
+         }
+     }
++    if (bSiegeVisible && !Found.Target)
++    {
++        Found.Target=Siege;
++        ClearReach=FMath::Min(ClearReach,float(SiegeDistance));
++    }
+     if (auto* Repair = PC->GetWorld()->GetSubsystem<UVillageDefenseRepairTargets>())
+         if (auto* Breach = Repair->Trace(*PC->GetPawn(),Eye,Eye+View.Vector()*ClearReach,
+                 bFindNearbyBreach ? &Found.NearbyBreach : nullptr))

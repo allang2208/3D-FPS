@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
+@@ -156,9 +157,10 @@
+     const bool bOrdinaryUse=bWorldInteraction && !PC->IsInBuildMode();
+     const auto* PlayerHealth=Character?Character->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+     const bool bDefenseFocus=bWorldInteraction && (!PlayerHealth || !PlayerHealth->IsDead()) && !AFPSGAMEPlayerController::BlocksOngoingActions(PC);
+-    const auto Focus=bWorldInteraction ? ColdSteelWorldInteraction::TraceUseTargets(PC,250.f,bDefenseFocus) : ColdSteelWorldInteraction::FUseTargets{};
++    const auto Focus=bWorldInteraction ? ColdSteelWorldInteraction::TraceUseTargets(PC,ColdSteelWorldInteraction::DefaultUseReach,bDefenseFocus) : ColdSteelWorldInteraction::FUseTargets{};
+     auto* Defense=bDefenseFocus ? Cast<AVillageDefenseSection>(Focus.Target) : nullptr;
+     const bool bRepair=Defense && Focus.RepairTarget()==Defense;
++    const bool bOperatingTarget=bOrdinaryUse && Cast<AVillageSiegeEngine>(Defense) && !bRepair;
+     const bool bMechanism=Focus.GateUse==EHighGateUse::Release;
+     if(auto* Visual=Character?Character->FindComponentByClass<UVillageDefenseFocusVisual>():nullptr)
+         Visual->SetFocus(bMechanism?nullptr:Defense,bDefenseFocus && !bMechanism ? Focus.NearbyBreach : nullptr);

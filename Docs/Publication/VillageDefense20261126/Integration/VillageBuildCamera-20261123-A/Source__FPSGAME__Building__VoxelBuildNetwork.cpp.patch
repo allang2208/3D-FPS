@@ -1,0 +1,40 @@
+--- a/Source/FPSGAME/Building/VoxelBuildNetwork.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildNetwork.cpp
+@@ -5,6 +5,7 @@
+ #include "VoxelBuildPalette.h"
+ #include "VoxelBuildPrefabActor.h"
+ #include "VillageBuildDefense.h"
++#include "../WorldGeneration/TemperateHillsWorld.h"
+ #include "VoxelCollapseFragment.h"
+ #include "../Multiplayer/ColdSteelInventoryRequestTypes.h"
+ #include "../UI/ColdSteelStatusModel.h"
+@@ -121,9 +122,26 @@
+         Anchor=Dock.Anchor;
+         Yaw=Dock.Yaw;
+     }
+-    if(bPlacePrefab&&(Yaw<0||Yaw>(bGroundDefense?359:3)||!Reach(CellCenter(Anchor))))
+-    {Reason=TEXT("建造位置或方向超出范围");return false;}
+-    if((R.Mode==TEXT("removePrefab")||R.Mode==TEXT("debris"))&&(!IsValid(R.Target)||!Reach(R.Target->GetActorLocation())))return false;
++    if(bPlacePrefab)
++    {
++        const FVector Point=CellCenter(Anchor);
++        const bool InRange=VillageBuildDefense::IsVillageRecipe(R.Definition)?VillageBuildDefense::InSurveyRange(Eye,Point):Reach(Point);
++        if(Yaw<0||Yaw>(bGroundDefense?359:3)||!InRange){Reason=TEXT("建造位置或方向超出范围");return false;}
++    }
++    if(R.Mode==TEXT("removePrefab")||R.Mode==TEXT("debris"))
++    {
++        if(!IsValid(R.Target))return false;
++        const auto* Piece=Cast<AVoxelBuildPrefabActor>(R.Target.Get());
++        const bool IsVillagePiece=R.Mode==TEXT("removePrefab")&&Piece&&Piece->GetOwner()==this&&VillageBuildDefense::IsVillageRecipe(Piece->PrefabId());
++        const FVector Point=R.Target->GetActorLocation();
++        if(IsVillagePiece && !Reach(Point))
++        {
++            const auto* Hills=FindVillageConstructionWorld();
++            if(!Hills||!Hills->IsVillagePlanUnlocked(TEXT("village_construction"))||!VillageBuildDefense::InSurveyRange(Eye,Point))
++            {Reason=TEXT("超出村庄施工范围");return false;}
++        }
++        else if(!Reach(Point))return false;
++    }
+     auto* HistoryOwner=Pawn->GetPlayerState();if(!HistoryOwner)return false;
+     UndoHistory.ForgetDisconnected();
+     TGuardValue<APlayerState*> EditingPlayer(UndoPlayer,HistoryOwner);

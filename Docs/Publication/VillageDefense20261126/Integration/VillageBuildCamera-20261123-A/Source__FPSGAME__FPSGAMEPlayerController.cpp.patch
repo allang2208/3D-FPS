@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -488,6 +488,12 @@
+         if(Params.Event==IE_Pressed&&Params.Key==EKeys::Escape)ColdSteelHUD->CancelQuickDrag();
+         return Params.Event==IE_Released?Super::InputKey(Params):true;
+     }
++    // The survey cursor places into the world. Route it before the HUD's ordinary
++    // visible-cursor filter, and leave unrelated keys with the builder while surveying.
++    if(VoxelBuilder && VoxelBuilder->IsVillageCameraPlacing())
++    {
++        if(VoxelBuilder->HandleInput(Params,false))return true;
++    }
+     // UI has already received this event; do not forward unhandled cursor clicks to gameplay.
+     if (bShowMouseCursor && Params.Key.IsMouseButton() && Params.Event != IE_Released) return true;
+     if (Params.Event == IE_Pressed && Params.Key == EKeys::F6) { ToggleDevelopmentPanel(); return true; }

@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPanel.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPanel.cpp
+@@ -327,7 +327,7 @@
+             else if(Entry.Id==VillageBuildDefense::Trebuchet)
+             {
+                 Card.Subtitle=TEXT("村庄城防 · 配重投石机");
+-                Card.Note=TEXT("留出投臂上方的空间，用滚轮将机架对准来敌方向。投石机会自动向远处敌人抛石。");
++                Card.Note=TEXT("可部署在平地或足够宽的塔顶、城门平台。底架须避开楼梯口，后方和上方须留出投臂摆动空间。滚轮调整朝向。");
+             }
+             else if(Entry.Id==VillageBuildDefense::HighTower)
+             {

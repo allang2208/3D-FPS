@@ -1,0 +1,42 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillageSite.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillageSite.h
+@@ -22,6 +22,15 @@
+     double FeederLength=0.,JunctionZ=0.;
+     FVector2D WallHalfSize() const { return {PadHalfX-500.,PadHalfY-500.}; }
+     static constexpr double WallCornerCut=600.;
++    // The stable wagon gate is at (5250,1600), across the east street at Y=500.
++    inline static const FVector2D WorkshopCenter{5250.,-545.};
++    static double WorkshopEdge(FVector2D Local)
++    {
++        const FVector2D D=Local-WorkshopCenter;
++        const double House=FMath::Max(FMath::Abs(D.X)-340.,FMath::Abs(D.Y)-624.);
++        const double Apron=FMath::Max(FMath::Abs(D.X)-150.,FMath::Abs(D.Y-710.)-125.);
++        return FMath::Min(House,Apron);
++    }
+     bool ContainsVillage(const FVector& Location) const
+     {
+         if(!bPlaced)return false;
+@@ -101,7 +110,14 @@
+     }
+     double Grade(double X,double Y,double Height,int32 Seed=0) const
+     {
+-        if(!bHilltop)return GradeForSiteSurvey(X,Y,Height);
++        if(!bHilltop)
++        {
++            const double Survey=GradeForSiteSurvey(X,Y,Height);
++            if(!bPlaced || !Near(X,Y))return Survey;
++            // Older valley layouts have a smaller pad. Bed the roadside annex on the village datum.
++            const double Outside=WorkshopEdge(Local(X,Y));
++            return FMath::Lerp(Ground.Z,Survey,FMath::SmoothStep(0.,200.,Outside));
++        }
+         if(!bPlaced)return Height;
+         // Only the village's broad apron joins the crown to the existing hill.
+         // The approach keeps its route/vegetation clearance, not an elevated embankment.
+@@ -147,6 +163,7 @@
+     {
+         if(!Near(X,Y,Margin))return false;
+         const FVector2D P=Local(X,Y);
++        if(WorkshopEdge(P)<=Margin)return true;
+         if(bHilltop && FMath::Abs(P.X)<=PadHalfX+Margin && FMath::Abs(P.Y)<=PadHalfY+Margin)return true;
+         if(FeederLength>0. && P.X<=-TemperateVillageLayout::HalfX && P.X>=-TemperateVillageLayout::HalfX-FeederLength-Margin
+            && FMath::Abs(P.Y)<210.+Margin)return true;

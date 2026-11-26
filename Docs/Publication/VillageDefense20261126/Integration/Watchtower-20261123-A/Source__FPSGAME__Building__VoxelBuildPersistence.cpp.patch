@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPersistence.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPersistence.cpp
+@@ -130,7 +130,7 @@
+             for(auto& Prefab:S.Prefabs)
+             {
+                 // V15 serialized only stairs; v16 also records exact wall and portal sockets.
+-                if(Prefab.Id!=VillageWallStairs::Id&&
++                if(Prefab.Id!=VillageWallStairs::Id&& !(S.Version>=18&&Prefab.Id==VillageBuildDefense::HighTower)&&
+                     !(S.Version>=16&&(Prefab.Id==VillageBuildDefense::HighWall||Prefab.Id==VillageBuildDefense::StoneGate)))continue;
+                 bool bDocked=Prefab.WallDockPose.IsSet();
+                 Ar<<bDocked;

@@ -1,0 +1,36 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateChapelSite.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateChapelSite.h
+@@ -33,25 +33,6 @@
+     static constexpr double ShrineX=FrontX-900.;
+     static constexpr double ShrineClearingRadius=500.;
+     // Entry stays inside the yard; the monument stands on axis in the open forecourt.
+-    // Rear court, in site centimetres (the nave mesh itself uses AssemblyScale).
+-    inline static const FVector2D WorkshopCenter{1530.,-55.};
+-    inline static const FVector2D WorkshopLane[]={
+-        {-1575.,-240.},{-1490.,-585.},{-1160.,-837.},{-575.,-858.},
+-        {135.,-835.},{795.,-859.},{1240.,-920.},{1455.,-899.},{1530.,-753.}
+-    };
+-    static bool InWorkshopLot(FVector2D P,double Margin)
+-    {
+-        const FVector2D D=P-WorkshopCenter;
+-        if(FMath::Abs(D.X)<340.+Margin && FMath::Abs(D.Y)<630.+Margin)return true;
+-        if(FMath::Abs(D.X)<159.+Margin && D.Y>=-792.-Margin && D.Y<=-625.+Margin)return true;
+-        if(P.Y>Margin || P.Y< -1010.-Margin || P.X< -1670.-Margin || P.X>1650.+Margin)return false;
+-        for(int32 I=1;I<UE_ARRAY_COUNT(WorkshopLane);++I)
+-        {
+-            const FVector2D Closest=FMath::ClosestPointOnSegment2D(P,WorkshopLane[I-1],WorkshopLane[I]);
+-            if(FVector2D::DistSquared(P,Closest)<FMath::Square(82.+Margin))return true;
+-        }
+-        return false;
+-    }
+     FVector2D Entry() const { return World(-1700.,0.); }
+     FVector2D Shrine() const { return World(ShrineX,0.); }
+     FVector2D Landing() const { return World(-916.*AssemblyScale,0.); }
+@@ -146,7 +127,6 @@
+     {
+         if(!Near(X,Y,Margin))return false;
+         const auto P=Local({X,Y});
+-        if(InWorkshopLot(P,Margin))return true;
+         if(FVector2D::Distance(P,FVector2D(ShrineX,0.))<ShrineClearingRadius+Margin)return true;
+         if(FMath::Abs(P.X+1630.)<470.+Margin&&FMath::Abs(P.Y+285.)<665.+Margin)return true;
+         // Keep tree crowns and large rocks out of the enclosed graveyard. Small ground

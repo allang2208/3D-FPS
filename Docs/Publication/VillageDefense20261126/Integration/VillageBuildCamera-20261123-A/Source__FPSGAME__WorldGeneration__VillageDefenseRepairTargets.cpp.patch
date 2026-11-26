@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/WorldGeneration/VillageDefenseRepairTargets.cpp
++++ b/Source/FPSGAME/WorldGeneration/VillageDefenseRepairTargets.cpp
+@@ -46,7 +46,7 @@
+ }
+ 
+ AVillageDefenseSection* UVillageDefenseRepairTargets::Trace(const APawn& Pawn, const FVector& Eye,
+-    const FVector& RayEnd, AVillageDefenseSection** Nearby) const
++    const FVector& RayEnd, AVillageDefenseSection** Nearby,double RayReach) const
+ {
+     AVillageDefenseSection* Aimed = nullptr;
+     AVillageDefenseSection* Closest = nullptr;

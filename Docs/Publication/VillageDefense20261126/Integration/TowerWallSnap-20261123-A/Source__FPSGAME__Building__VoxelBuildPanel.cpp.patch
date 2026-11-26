@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPanel.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPanel.cpp
+@@ -327,7 +327,7 @@
+             else if(Entry.Id==VillageBuildDefense::HighTower)
+             {
+                 Card.Subtitle=TEXT("村庄城防 · 方形高塔楼");
+-                Card.Note=TEXT("两侧入口平接 3.6 米城墙步道。地面滚轮每格旋转 1°。吸附墙端时滚轮切换对接方向。内梯通往射击窗和塔顶。");
++                Card.Note=TEXT("把塔楼移近高墙端部，或靠近连续高墙的村内一侧，塔门会平接 3.6 米步道。滚轮可换向，F 可切换自由放置。");
+             }
+             else if(Entry.Id==VillageBuildDefense::StoneGate)
+             {

@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
+@@ -153,7 +153,7 @@
+     const auto Focus=bWorldInteraction ? ColdSteelWorldInteraction::TraceUseTargets(PC,250.f,bDefenseFocus) : ColdSteelWorldInteraction::FUseTargets{};
+     auto* Defense=bDefenseFocus ? Cast<AVillageDefenseSection>(Focus.Target) : nullptr;
+     const bool bRepair=Defense && Focus.RepairTarget()==Defense;
+-    const bool bMechanism=Focus.GateUse==EHighGateUse::Release || Focus.GateUse==EHighGateUse::Stair;
++    const bool bMechanism=Focus.GateUse==EHighGateUse::Release;
+     if(auto* Visual=Character?Character->FindComponentByClass<UVillageDefenseFocusVisual>():nullptr)
+         Visual->SetFocus(bMechanism?nullptr:Defense,bDefenseFocus && !bMechanism ? Focus.NearbyBreach : nullptr);
+     const auto* Conversation=PC ? PC->GetChapelDialogue() : nullptr;

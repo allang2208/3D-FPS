@@ -1,0 +1,125 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPreview.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPreview.cpp
+@@ -39,6 +39,95 @@
+ {
+     // TEMPORARY diagnostics for the 2026-09-16 "cannot build above 2 m" report.
+     FString LastPreviewReject;
++
++    const TCHAR* EntranceMeshName(FName Recipe)
++    {
++        if(Recipe==VillageBuildDefense::HighTower)return TEXT("SM_TowerEntrances");
++        if(Recipe==VillageBuildDefense::StoneGate)return TEXT("SM_StoneGateEntrances");
++        if(Recipe==VillageBuildDefense::WoodGate)return TEXT("SM_WoodGateExterior");
++        if(Recipe==VillageWallStairs::Id)return TEXT("SM_StairEntrances");
++        return nullptr;
++    }
++
++    void TintPreviewMesh(UStaticMeshComponent& Part,UMaterialInterface* Material)
++    {
++        if(!Material||!Part.GetStaticMesh())return;
++        for(int32 Slot=0;Slot<Part.GetStaticMesh()->GetStaticMaterials().Num();++Slot)
++            Part.SetMaterial(Slot,Material);
++    }
++}
++
++void UVoxelBuildComponent::UpdateEntrancePreview(FName Recipe,bool bValid)
++{
++    if(Recipe!=EntrancePreviewRecipe)
++    {
++        EntrancePreviewRecipe=Recipe;
++        UStaticMesh* Mark=nullptr;
++        if(const TCHAR* Name=EntranceMeshName(Recipe))
++        {
++            const FString Path=FString::Printf(TEXT("/Game/WorldGeneration/TemperateHills/HighVillageDefense/PlacementPreview/%s.%s"),Name,Name);
++            Mark=LoadObject<UStaticMesh>(nullptr,*Path);
++        }
++        if(Mark && !EntrancePreview)
++        {
++            EntrancePreview=NewObject<UStaticMeshComponent>(PreviewActor.Get(),NAME_None,RF_Transient);
++            PreviewActor->AddInstanceComponent(EntrancePreview);
++            EntrancePreview->SetupAttachment(Preview);
++            EntrancePreview->SetMobility(EComponentMobility::Movable);
++            EntrancePreview->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++            EntrancePreview->SetGenerateOverlapEvents(false);
++            EntrancePreview->SetCanEverAffectNavigation(false);
++            EntrancePreview->SetCastShadow(false);
++            EntrancePreview->SetTranslucentSortPriority(2);
++            EntrancePreview->RegisterComponent();
++        }
++        if(EntrancePreview)
++        {
++            EntrancePreview->SetStaticMesh(Mark);
++            // The wooden gate's preview parent is the left leaf's hinge.
++            const double CenterX=Recipe==VillageBuildDefense::WoodGate?AVillageDefenseGate::NarrowHingeOffset:0.;
++            EntrancePreview->SetRelativeLocation(FVector(CenterX,0.,0.));
++        }
++    }
++    if(EntrancePreview)EntrancePreview->SetVisibility(bValid && EntrancePreview->GetStaticMesh());
++}
++
++void UVoxelBuildComponent::UpdateWallCutPreview()
++{
++    if(WallCutBars.IsEmpty())
++    {
++        if(WallCutPreview)WallCutPreview->SetVisibility(false);
++        return;
++    }
++    if(!WallCutPreview)
++    {
++        auto* Surface=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Building/Voxels/Rounded/M_VoxelAimEdge.M_VoxelAimEdge"));
++        if(!GhostMesh || !Surface)return;
++        WallCutPreview=NewObject<UInstancedStaticMeshComponent>(PreviewActor.Get(),NAME_None,RF_Transient);
++        PreviewActor->AddInstanceComponent(WallCutPreview);
++        WallCutPreview->SetupAttachment(Preview);
++        WallCutPreview->SetAbsolute(true,true,true);
++        WallCutPreview->SetMobility(EComponentMobility::Movable);
++        WallCutPreview->SetStaticMesh(GhostMesh);
++        WallCutPreview->SetCollisionEnabled(ECollisionEnabled::NoCollision);
++        WallCutPreview->SetCanEverAffectNavigation(false);
++        WallCutPreview->SetCastShadow(false);
++        WallCutPreview->SetTranslucentSortPriority(3);
++        auto* Gold=UMaterialInstanceDynamic::Create(Surface,WallCutPreview);
++        Gold->SetVectorParameterValue(TEXT("Tint"),FLinearColor(2.5f,1.1f,.06f));
++        WallCutPreview->SetMaterial(0,Gold);
++        WallCutPreview->RegisterComponent();
++    }
++    bool Changed=WallCutBars.Num()!=DisplayedWallCutBars.Num();
++    for(int32 I=0;!Changed && I<WallCutBars.Num();++I)
++        Changed=!WallCutBars[I].Equals(DisplayedWallCutBars[I],.01);
++    if(Changed)
++    {
++        WallCutPreview->ClearInstances();
++        WallCutPreview->AddInstances(WallCutBars,false,true,false);
++        DisplayedWallCutBars=WallCutBars;
++    }
++    WallCutPreview->SetVisibility(true);
+ }
+ 
+ void UVoxelBuildComponent::UpdatePrefabPreview()
+@@ -51,19 +140,24 @@
+     if(!Prefab||!Mesh||!bPrefabAimHit){Preview->SetVisibility(false,true);return;}
+     const bool NewMesh=Preview->GetStaticMesh()!=Mesh;
+     Preview->SetStaticMesh(Mesh);
+-    if(NewMesh&&PreviewMID)
+-        for(int32 Slot=0;Slot<Mesh->GetStaticMaterials().Num();++Slot)Preview->SetMaterial(Slot,PreviewMID);
+     // 逻辑构件（门）与普通构件的摆放口径不同：前者锚点在占格底面中心、构件自己往上搭，
+     // 后者网格包围盒居中于占格。预览必须与 AVoxelBuildWorld::SpawnPrefab 用同一口径，
+     // 否则落地的门会比预览高一个半身高（2026-09-17 用户反馈）。
+     FTransform Transform;
+     const bool bWoodGate=Prefab->Id==VillageBuildDefense::WoodGate;
+     const bool Gate=bWoodGate||Prefab->Id==VillageBuildDefense::StoneGate;
++    UpdateEntrancePreview(Prefab->Id,bPrefabValid);
++    UMaterialInterface* LeafMaterial=PreviewMID.Get();
++    if(Gate && bPrefabValid && EntrancePreview && EntrancePreview->GetStaticMesh())
++        LeafMaterial=EntrancePreview->GetMaterial(0);
++    UMaterialInterface* BodyMaterial=bWoodGate?LeafMaterial:PreviewMID.Get();
++    if(NewMesh || Preview->GetMaterial(0)!=BodyMaterial)TintPreviewMesh(*Preview,BodyMaterial);
+     if(VillageBuildDefense::IsVillageRecipe(Prefab->Id))
+     {
+         const auto Size=AVoxelBuildPrefabActor::RotatedFootprint(Prefab->Footprint,PrefabPlanYaw);
+         Transform=DefenseDockPose.IsSet()?DefenseDockPose.GetValue():
+             VillageBuildDefense::Placement(Prefab->Id,PrefabCell,Size,PrefabPlanYaw,PlannedGroundYaw());
++        if(VillageBuildDefense::IsSiegeEngine(Prefab->Id) && SiegeFloorPreview.IsSet())Transform=SiegeFloorPreview.GetValue();
+         if(Gate)
+         {
+             const float Offset=bWoodGate?AVillageDefenseGate::NarrowHingeOffset:0.f;

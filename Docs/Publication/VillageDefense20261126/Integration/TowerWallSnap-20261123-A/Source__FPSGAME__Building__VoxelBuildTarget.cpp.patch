@@ -1,0 +1,32 @@
+--- a/Source/FPSGAME/Building/VoxelBuildTarget.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildTarget.cpp
+@@ -96,6 +96,14 @@
+     if(!PC||!PC->PlayerCameraManager||!BuildWorld)return;
+     FVector Start,Direction;
+     const bool Survey=IsVillageCameraPlacing();
++    if(Survey && bSnapEnabled && (SelectedComponent==VillageBuildDefense::HighTower || SelectedComponent==VillageBuildDefense::HighWall))
++    {
++        // Bound the spatial search and compound clearance checks during edge scrolling.
++        // Rotation, a new selection and a click already invalidate this timer.
++        const double Now=GetWorld()->GetTimeSeconds();
++        if(Now<TargetUpdateAt)return;
++        TargetUpdateAt=Now+.04;
++    }
+     if(Survey)
+     {
+         if(!VillageCursorRay(Start,Direction))
+@@ -520,9 +528,11 @@
+     bool bSurfaceBacked=false;
+     const auto* Target=bSnapEnabled&&VillageWallStairs::CanDock(Prefab->Id)
+         ? VillageWallStairs::ResolveTarget(Hit.GetActor()):nullptr;
+-    if(Target)
+-    {
+-        VillageWallStairs::FDock Dock;
++    VillageWallStairs::FDock Dock;
++    const bool TowerJoin=bSnapEnabled && VillageWallStairs::PickTowerWallDock(*BuildWorld,Prefab->Id,Prefab->Footprint,
++        Hit,ComponentYaw,Dock,bPrefabValid,PrefabMessage);
++    if(Target && !TowerJoin)
++    {
+         // The side joint opens the entrance along a wall or into the gate courtyard.
+         const bool bStairs=Prefab->Id==VillageWallStairs::Id;
+         const int32 FirstSocket=bStairs?1:ComponentYaw;

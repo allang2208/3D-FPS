@@ -1,0 +1,12 @@
+--- a/Source/FPSGAME/UI/SHorseMarketPlate.h
++++ b/Source/FPSGAME/UI/SHorseMarketPlate.h
+@@ -7,7 +7,8 @@
+ class SHorseMarketPlate final : public SLeafWidget
+ {
+ public:
+-    SLATE_BEGIN_ARGS(SHorseMarketPlate) {}
++    SLATE_BEGIN_ARGS(SHorseMarketPlate)
++        : _Sharp(nullptr), _Soft(nullptr) {}
+         SLATE_ARGUMENT(const FSlateBrush*, Sharp)
+         SLATE_ARGUMENT(const FSlateBrush*, Soft)
+     SLATE_END_ARGS()

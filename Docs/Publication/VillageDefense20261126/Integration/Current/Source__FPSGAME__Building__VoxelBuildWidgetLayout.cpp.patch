@@ -1,0 +1,42 @@
+--- a/Source/FPSGAME/Building/VoxelBuildWidgetLayout.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWidgetLayout.cpp
+@@ -175,7 +176,8 @@
+     const FVoxelBuildPanelCard* MaterialRow)
+ {
+     if(!Grid)return;
+-    const bool bLocked=VillageBuildDefense::IsVillageRecipe(Entry.Id)&&!bVillageConstructionUnlocked;
++    const auto Required=VillageBuildDefense::RequiredTier(Entry.Id);
++    const bool bLocked=Required>VillageTier;
+     const float Scale=ColdSteelUI::PixelScale(this);
+     // Shapes reuse the material row's block mesh and surface, so the thumbnail shows the same stone /
+     // wood / marble the player would place; pieces bring their own mesh.
+@@ -242,7 +244,15 @@
+     auto* PlaceholderSlot=Preview->AddChildToOverlay(Placeholder);
+     PlaceholderSlot->SetHorizontalAlignment(HAlign_Center);PlaceholderSlot->SetVerticalAlignment(VAlign_Center);
+     Picture->SetVisibility(ESlateVisibility::Hidden);
+-    if(!bLocked&&Proxy->CardIndex<9)
++    if(bLocked)
++    {
++        auto* Condition=Text(VillageBuildDefense::ProjectName(Required),12);
++        Condition->SetColorAndOpacity(ColdSteelUI::TextSecondary);
++        auto* ConditionSlot=Preview->AddChildToOverlay(Condition);
++        ConditionSlot->SetHorizontalAlignment(HAlign_Center);
++        ConditionSlot->SetVerticalAlignment(VAlign_Bottom);
++    }
++    else if(Proxy->CardIndex<9)
+     {
+         auto* Shortcut=Text(FString::FromInt(Proxy->CardIndex+1),12,true);
+         Shortcut->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+@@ -390,9 +400,9 @@
+     // 「其他」分类只列**未归类**的构件（调色板 Material 留空）；归到某栏材质的构件只在该材质的
+     // 「其他构造」里出现，同一个门不会在两处重复（2026-09-17 用户要求）。
+     const bool bVillage=Category==ECategory::Village;
+-    if(bVillage&&!bVillageConstructionUnlocked)
+-    {
+-        auto* Hint=Text(TEXT("前往丘陵村庄，在修女处解锁「村庄修建」后可建造。"),14);
++    if(bVillage&&VillageTier==VillageBuildDefense::ETier::None)
++    {
++        auto* Hint=Text(TEXT("在修女处完成「修复城墙」，即可建造矮墙和木质大门。"),14);
+         Hint->SetAutoWrapText(true);
+         Hint->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+         CardList->AddChildToVerticalBox(Hint)->SetPadding(FMargin(2/Scale,4/Scale,0,10/Scale));

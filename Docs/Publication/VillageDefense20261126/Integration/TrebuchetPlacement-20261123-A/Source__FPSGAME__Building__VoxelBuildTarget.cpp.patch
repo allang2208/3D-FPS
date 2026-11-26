@@ -1,0 +1,155 @@
+--- a/Source/FPSGAME/Building/VoxelBuildTarget.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildTarget.cpp
+@@ -42,6 +42,69 @@
+     // 瞄准／辅助射线的多命中暂存（文件级复用、每帧 Reset）：稳态不分配是本文件的硬要求。
+     TArray<FHitResult> AimScratch;
+     TArray<FHitResult> ProbeScratch;
++    using FRoofSites=TArray<FIntVector,TInlineAllocator<8>>;
++
++    FRoofSites SiegeRoofSites(FName Id,const VillageDefenseFootprint::FShape& Deck,const FTransform& Frame,
++        FVector Impact,int32 Yaw,FIntVector Footprint,FIntVector Original)
++    {
++        FRoofSites Sites;
++        const FVector Aim=Frame.InverseTransformPosition(Impact);
++        const double RoofZ=Deck.Bounds.Max.Z;
++        if(Aim.Z<RoofZ-28. || Aim.Z>RoofZ+150.)return Sites;
++        const bool Large=Id==VillageBuildDefense::Trebuchet;
++        const FBox2D Outer(FVector2D(Deck.Bounds.Min),FVector2D(Deck.Bounds.Max));
++        TArray<FBox2D,TInlineAllocator<4>> Regions;
++        FBox2D Opening;
++        if(Large && VillageDefenseFootprint::RoofOpening(Deck,Opening))
++        {
++            // A long chassis may stand on the joint between two slabs beside the stairwell.
++            Regions.Emplace(Outer.Min,FVector2D(Opening.Min.X,Outer.Max.Y));
++            Regions.Emplace(FVector2D(Opening.Max.X,Outer.Min.Y),Outer.Max);
++            Regions.Emplace(Outer.Min,FVector2D(Outer.Max.X,Opening.Min.Y));
++            Regions.Emplace(FVector2D(Outer.Min.X,Opening.Max.Y),Outer.Max);
++        }
++        else for(const FBox& Slab:Deck.Boxes)Regions.Emplace(FVector2D(Slab.Min),FVector2D(Slab.Max));
++
++        const FRotator Facing(0,Yaw,0);
++        auto Project=[&](FBox2D Local)
++        {
++            const FVector2D X(Frame.InverseTransformVector(Facing.Vector()));
++            const FVector2D Y(Frame.InverseTransformVector(Facing.RotateVector(FVector::RightVector)));
++            const FVector2D Centre=X*Local.GetCenter().X+Y*Local.GetCenter().Y;
++            const FVector2D Half=X.GetAbs()*Local.GetExtent().X+Y.GetAbs()*Local.GetExtent().Y;
++            return FBox2D(Centre-Half,Centre+Half);
++        };
++        const FBox2D Base=Project(VillageDefenseFootprint::SiegeBase(Id));
++        auto GridCentre=[&](FIntVector Site){return FVector(Site)*20.+FVector(Footprint.X*10.,Footprint.Y*10.,0.);};
++        auto Offer=[&](FVector2D Min,FVector2D Max)
++        {
++            if(Min.X>Max.X || Min.Y>Max.Y)return;
++            const FVector P=Frame.TransformPosition(FVector(FMath::Clamp(Aim.X,Min.X,Max.X),FMath::Clamp(Aim.Y,Min.Y,Max.Y),RoofZ));
++            const FIntVector Site(FMath::RoundToInt(P.X/20.-Footprint.X*.5),FMath::RoundToInt(P.Y/20.-Footprint.Y*.5),
++                FMath::CeilToInt((P.Z-.05)/20.));
++            if(Site!=Original && FVector::DistSquared2D(GridCentre(Site),Impact)<=FMath::Square(Large?360.:200.))
++                Sites.AddUnique(Site);
++        };
++        const FBox& Envelope=VillageDefenseFootprint::Siege(Id).Bounds;
++        const FBox2D Swing=Project(FBox2D(FVector2D(Envelope.Min),FVector2D(Envelope.Max)));
++        for(const FBox2D& Region:Regions)
++        {
++            // Keep the chassis inside the coping and off the stair lip. The server checks actual solids.
++            const FVector2D NearMargin(Large && Region.Min.X>Outer.Min.X+.1?20.:48.,Large && Region.Min.Y>Outer.Min.Y+.1?20.:48.);
++            const FVector2D FarMargin(Large && Region.Max.X<Outer.Max.X-.1?20.:48.,Large && Region.Max.Y<Outer.Max.Y-.1?20.:48.);
++            const FVector2D Min=Region.Min+NearMargin-Base.Min,Max=Region.Max-FarMargin-Base.Max;
++            Offer(Min,Max);
++            if(Large)
++            {
++                const FVector2D InnerMin=Outer.Min+FVector2D(48.)-Swing.Min,InnerMax=Outer.Max-FVector2D(48.)-Swing.Max;
++                Offer(FVector2D::Max(Min,InnerMin),FVector2D::Min(Max,InnerMax));
++            }
++        }
++        Sites.Sort([&](const FIntVector& A,const FIntVector& B)
++            {return FVector::DistSquared2D(GridCentre(A),Impact)<FVector::DistSquared2D(GridCentre(B),Impact);});
++        return Sites;
++    }
++
+     /**
+      * Cone aim assist for snap mode: the centre ray rarely lands exactly on a voxel face once the
+      * player drifts a little, which used to drop the ghost into the air. Probe a small cone
+@@ -129,13 +192,13 @@
+     AimScratch.Reset();
+     GetWorld()->LineTraceMultiByChannel(AimScratch,Start,End,ECC_Visibility,Query);
+     const FVoxelBuildPrefab* Prefab=SelectedPrefab();
+-    if(Prefab && Prefab->Id==VillageBuildDefense::Ballista)
++    if(Prefab && VillageBuildDefense::IsSiegeEngine(Prefab->Id))
+     {
+         FCollisionQueryParams Structural=Query;
+         Structural.bTraceComplex=false;
+         FHitResult DeckHit;
+         if(GetWorld()->LineTraceSingleByChannel(DeckHit,Start,End,ECC_Visibility,Structural)
+-            && VillageDefenseFootprint::BallistaRoof(DeckHit.GetComponent()))
++            && VillageDefenseFootprint::SiegeRoof(DeckHit.GetComponent()))
+         {
+             // Use the walkable hull if the visible stone is its skin or the detailed trace missed it.
+             // Keep any nearer foreground blocker, including a different building.
+@@ -660,53 +723,22 @@
+     const bool Siege=VillageBuildDefense::IsSiegeEngine(Prefab->Id);
+     bPrefabValid=BuildWorld->CanPlacePrefab(Prefab->Id,Cell,PrefabPlanYaw,PrefabMessage,bSurfaceBacked,
+         DefenseDockPose.IsSet(),DefenseDockTarget.Get(),Siege?&FloorPose:nullptr,PlannedGroundYaw());
+-    if(!bPrefabValid && bSnapEnabled && Prefab->Id==VillageBuildDefense::Ballista)
+-    {
+-        // Move only within the roof actually under the cursor. A gate roof and a tower
+-        // have different slab outlines; both preserve the opening cut for their stairs.
++    if(!bPrefabValid && bSnapEnabled && Siege)
++    {
+         const auto* Surface=Hit.GetComponent();
+-        const auto* Deck=VillageDefenseFootprint::BallistaRoof(Surface);
+-        if(Deck)
++        if(const auto* Deck=VillageDefenseFootprint::SiegeRoof(Surface))
+         {
+             const FTransform& Frame=Surface->GetComponentTransform();
+-            const FVector Aim=Frame.InverseTransformPosition(Hit.ImpactPoint);
+-            const double Top=Deck->Bounds.Max.Z;
+-            if(Aim.Z>=Top-28. && Aim.Z<=Top+150.)
+-            {
+-                const FRotator Heading(0,GroundYawDegrees,0);
+-                const FVector AxisX=Frame.InverseTransformVector(Heading.Vector()).GetAbs();
+-                const FVector AxisY=Frame.InverseTransformVector(Heading.RotateVector(FVector::RightVector)).GetAbs();
+-                // Allow for the pedestal, coping and rounding its centre onto the builder's lattice.
+-                const FVector Inset=AxisX*87.+AxisY*82.;
+-                TArray<FIntVector,TInlineAllocator<4>> Sites;
+-                auto Centre=[&](FIntVector Anchor){return FVector(Anchor)*20.+FVector(Footprint.X*10.,Footprint.Y*10.,0.);};
+-                for(const FBox& Slab:Deck->Boxes)
+-                {
+-                    const FVector2D Margin(Inset.X+48.,Inset.Y+48.);
+-                    const FVector2D Min(Slab.Min.X+Margin.X,Slab.Min.Y+Margin.Y);
+-                    const FVector2D Max(Slab.Max.X-Margin.X,Slab.Max.Y-Margin.Y);
+-                    if(Min.X>Max.X || Min.Y>Max.Y)continue;
+-                    const FVector P=Frame.TransformPosition(FVector(FMath::Clamp(Aim.X,Min.X,Max.X),
+-                        FMath::Clamp(Aim.Y,Min.Y,Max.Y),Top));
+-                    const FIntVector Site(FMath::RoundToInt(P.X/20.-Footprint.X*.5),FMath::RoundToInt(P.Y/20.-Footprint.Y*.5),
+-                        FMath::CeilToInt((P.Z-.05)/20.));
+-                    if(Site!=Cell && FVector::DistSquared2D(Centre(Site),Hit.ImpactPoint)<=FMath::Square(200.))
+-                        Sites.AddUnique(Site);
+-                }
+-                Sites.Sort([&](const FIntVector& A,const FIntVector& B)
+-                    {return FVector::DistSquared2D(Centre(A),Hit.ImpactPoint)<FVector::DistSquared2D(Centre(B),Hit.ImpactPoint);});
+-                for(const FIntVector& Site:Sites)
+-                {
+-                    FString SiteReason;
+-                    if(!BuildWorld->CanPlacePrefab(Prefab->Id,Site,PrefabPlanYaw,SiteReason,false,false,nullptr,&FloorPose,PlannedGroundYaw()))
+-                        continue;
+-                    // Prevent an adjacent floor at a different elevation from capturing an edge snap.
+-                    if(FMath::Abs(Frame.InverseTransformPosition(FloorPose.GetLocation()).Z-Top)>2.)continue;
+-                    PrefabCell=Site;
+-                    PrefabMessage=TEXT("弩炮已贴合附近的平台 · 滚轮旋转 · 左键建造");
+-                    bPrefabValid=true;
+-                    break;
+-                }
++            for(const FIntVector& Site:SiegeRoofSites(Prefab->Id,*Deck,Frame,Hit.ImpactPoint,GroundYawDegrees,Footprint,Cell))
++            {
++                FString SiteReason;
++                if(!BuildWorld->CanPlacePrefab(Prefab->Id,Site,PrefabPlanYaw,SiteReason,false,false,nullptr,&FloorPose,PlannedGroundYaw()))continue;
++                if(FMath::Abs(Frame.InverseTransformPosition(FloorPose.GetLocation()).Z-Deck->Bounds.Max.Z)>2.)continue;
++                PrefabCell=Site;
++                PrefabMessage=Prefab->Id==VillageBuildDefense::Trebuchet?TEXT("投石机已贴合附近的平台 · 滚轮旋转 · 左键建造"):
++                    TEXT("弩炮已贴合附近的平台 · 滚轮旋转 · 左键建造");
++                bPrefabValid=true;
++                break;
+             }
+         }
+     }

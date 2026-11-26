@@ -1,0 +1,61 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPersistence.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPersistence.cpp
+@@ -130,7 +130,8 @@
+             for(auto& Prefab:S.Prefabs)
+             {
+                 // V15 serialized only stairs; v16 also records exact wall and portal sockets.
+-                if(Prefab.Id!=VillageWallStairs::Id&&
++                if(Prefab.Id!=VillageWallStairs::Id&& !(S.Version>=18&&Prefab.Id==VillageBuildDefense::HighTower)&&
++                    !(S.Version>=20&&VillageBuildDefense::IsSiegeEngine(Prefab.Id))&&
+                     !(S.Version>=16&&(Prefab.Id==VillageBuildDefense::HighWall||Prefab.Id==VillageBuildDefense::StoneGate)))continue;
+                 bool bDocked=Prefab.WallDockPose.IsSet();
+                 Ar<<bDocked;
+@@ -169,6 +170,32 @@
+                 }
+             }
+         }
++        if(S.Version>=19)
++        {
++            for(auto& Gate:S.Prefabs)
++            {
++                if(Gate.Id!=VillageBuildDefense::StoneGate && Gate.Id!=VillageBuildDefense::WoodGate)continue;
++                int32 Count=Gate.GateCuts.Num();
++                Ar<<Count;
++                if(Count<0 || Count>32){Ar.SetError();return;}
++                if(Ar.IsLoading())Gate.GateCuts.SetNum(Count);
++                if(!Count)continue;
++                // The timber gate's v17 yaw field cannot encode a surveyed, off-grid wall centre.
++                FVector Location=Ar.IsSaving()?Gate.WallDockPose.GetValue().GetLocation():FVector::ZeroVector;
++                double Facing=Ar.IsSaving()?Gate.WallDockPose.GetValue().Rotator().Yaw:0.;
++                Ar<<Location<<Facing;
++                if(Location.ContainsNaN()||!FMath::IsFinite(Facing)){Ar.SetError();return;}
++                if(Ar.IsLoading())Gate.WallDockPose=FTransform(FRotator(0,Facing,0),Location);
++                for(auto& Cut:Gate.GateCuts)
++                {
++                    Ar<<Cut.PlacedId<<Cut.Section<<Cut.Remaining;
++                    if(Cut.Remaining.ContainsNaN()||Cut.Remaining.X < -150.001||Cut.Remaining.Y>150.001
++                        ||Cut.Remaining.X>Cut.Remaining.Y||(!Cut.PlacedId.IsValid()&&Cut.Section<0))
++                    {Ar.SetError();return;}
++                }
++            }
++        }
++        if(S.Version>=21)Ar<<S.bWorkshopTowerGranted;
+     }
+     FString Path(const FString& Slot){return FPaths::ProjectSavedDir()/TEXT("SaveGames")/(Slot+TEXT(".sav"));}
+     // 审计 C6：Write 在首次覆盖前保留的备份路径（原来只在 Write 内部拼一次字符串）。
+@@ -223,6 +250,7 @@
+         S->Cells=MoveTemp(Payload.Cells);S->FreeVolumes=MoveTemp(Payload.FreeVolumes);S->Damage=MoveTemp(Payload.Damage);
+         S->CellShapes=MoveTemp(Payload.CellShapes);
+         S->BrokenBonds=MoveTemp(Payload.BrokenBonds);S->Fragments=MoveTemp(Payload.Fragments);S->LegacyProtected=MoveTemp(Payload.LegacyProtected);
++        S->bWorkshopTowerGranted=Payload.bWorkshopTowerGranted;
+         S->Prefabs=MoveTemp(Payload.Prefabs);S->Smelting=MoveTemp(Payload.Smelting);S->Fuel=MoveTemp(Payload.Fuel);
+         S->LegacySmelting=MoveTemp(Payload.LegacySmelting);   // v5 读入，世界加载时迁移；v6 写侧恒空
+         OutResult=VoxelPersistence::ELoadResult::Ok;return S;
+@@ -240,6 +268,7 @@
+     D.Cells=MoveTemp(S->Cells);D.FreeVolumes=MoveTemp(S->FreeVolumes);D.Damage=MoveTemp(S->Damage);
+     D.CellShapes=MoveTemp(S->CellShapes);
+     D.BrokenBonds=MoveTemp(S->BrokenBonds);D.Fragments=MoveTemp(S->Fragments);D.LegacyProtected=MoveTemp(S->LegacyProtected);
++    D.bWorkshopTowerGranted=S->bWorkshopTowerGranted;
+     D.Prefabs=MoveTemp(S->Prefabs);D.Smelting=MoveTemp(S->Smelting);D.Fuel=MoveTemp(S->Fuel);return D;
+ }
+ 

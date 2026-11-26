@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillagePlanting.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillagePlanting.cpp
+@@ -38,6 +38,7 @@
+            const FVector2D& Local,const FVector2D& World,double Radius,bool Tall)
+ {
+     const double Margin=Radius+(Tall?100.:35.);
++    if(FTemperateVillageSite::WorkshopEdge(Local)<=Margin)return false;
+     // Stable footprint, turning court and split approach in the village's local frame (cm).
+     const FBox2D StableWing(FVector2D(2800.,3200.),FVector2D(5800.,4400.));
+     const FBox2D StableCourt(FVector2D(4500.,1600.),FVector2D(5800.,3200.));

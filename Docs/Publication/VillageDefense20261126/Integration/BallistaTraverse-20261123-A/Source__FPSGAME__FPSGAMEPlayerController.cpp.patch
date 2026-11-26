@@ -1,0 +1,15 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -85,6 +85,12 @@
+ void RunLootGlowAudit(AFPSGAMEPlayerController* PC);
+ void RunIncineratorUIAudit(AFPSGAMEPlayerController* PC);
+ 
++void AFPSGAMEPlayerController::UpdateHiddenComponents(const FVector& ViewLocation,TSet<FPrimitiveComponentId>& HiddenComponents)
++{
++    Super::UpdateHiddenComponents(ViewLocation,HiddenComponents);
++    if(SiegeControl)SiegeControl->AddHiddenOperatorComponents(GetViewTarget(),HiddenComponents);
++}
++
+ void AFPSGAMEPlayerController::UpdateRotation(float DeltaTime)
+ {
+     FRotator RestLook;

@@ -1,0 +1,124 @@
+--- a/Source/FPSGAME/UI/ColdSteelVillageTree.cpp
++++ b/Source/FPSGAME/UI/ColdSteelVillageTree.cpp
+@@ -1,6 +1,7 @@
+ #include "ColdSteelNpcDialogue.h"
+ #include "ColdSteelUIStyle.h"
+ #include "../NPC/ChapelDialogueComponent.h"
++#include "../Building/VillageBuildDefense.h"
+ #include "Engine/Texture2D.h"
+ #include "ImageUtils.h"
+ #include "Misc/Paths.h"
+@@ -29,32 +30,34 @@
+     }
+     bool IsComplete(const UChapelDialogueComponent* Conversation) const
+     {
+-        return Conversation && (bGrantsBuildRecipes ? Conversation->PlanUnlocked(Id) : Conversation->BuildingRepaired(Id));
++        return Conversation && (bResearchOnly ? Conversation->PlanUnlocked(Id) : Conversation->BuildingRepaired(Id));
+     }
+     const TCHAR* StateLabel(bool bComplete,bool bAvailable=true) const
+     {
+-        if(Id==TEXT("high_wall"))return bComplete ? TEXT("已升级") : bAvailable ? TEXT("可升级") : TEXT("需先修复围墙");
++        if(Id==TEXT("high_wall"))return bComplete ? TEXT("已升级") : bAvailable ? TEXT("可升级") : TEXT("需先修复城墙");
+         if(!bComplete&&!bAvailable&&Prerequisite==TEXT("windmill"))return TEXT("需先修复风车");
+         if(!bComplete&&!bAvailable&&Prerequisite==TEXT("blacksmith"))return TEXT("需先重建铁匠铺");
+-        if(bGrantsBuildRecipes)return bComplete ? TEXT("已解锁") : TEXT("可解锁");
++        if(bResearchOnly)return bComplete ? TEXT("已解锁") : bAvailable ? TEXT("可解锁") : TEXT("需先升级高墙");
+         return bComplete ? TEXT("已修复") : TEXT("可解锁并修复");
+     }
+ };
+ const TArray<FProject>& Projects()
+ {
++    using VillageBuildDefense::ETier;
++    using VillageBuildDefense::ProjectName;
+     static const TArray<FProject> Data = {
+         {TEXT("village"), NAME_None, TEXT("村庄复兴"), TEXT("村"), TEXT("共同起点"),
+             TEXT("补齐围墙，修复村里的风车、工坊和店铺，让村民再次在酒馆相聚。"),
+-            TEXT("重建铁匠铺后可开设枪店，风车磨坊恢复后可重开面包屋，围墙修复后可升级石砌高墙。当前世界的所有玩家共享建设成果。")},
+-        {TEXT("wall"), TEXT("defense"), TEXT("修复围墙"), TEXT("墙"), TEXT("村庄防御"),
++            TEXT("重建铁匠铺后可开设枪店，风车磨坊恢复后可重开面包屋，修复城墙后可升级高墙，继而研究防御工事。当前世界的所有玩家共享建设成果。")},
++        {TEXT("wall"), TEXT("defense"), ProjectName(ETier::RepairedWall), TEXT("墙"), TEXT("村庄防御"),
+             TEXT("补齐村庄外围的残墙与墙柱，清理坍塌缺口的碎石，为留下的居民恢复完整的防护边界。"),
+-            TEXT("恢复围墙与城门通道，沿主街到东西门外立起路灯。黄昏亮灯，清晨熄灭。")},
+-        {TEXT("high_wall"), TEXT("defense"), TEXT("升级石砌高墙"), TEXT("垛"), TEXT("村庄防御"),
++            TEXT("解锁矮墙和木质大门建造。修复后的城墙恢复东西门通道，沿街路灯在黄昏亮起。")},
++        {TEXT("high_wall"), TEXT("defense"), ProjectName(ETier::HighCurtain), TEXT("垛"), TEXT("村庄防御"),
+             TEXT("沿原有墙线加筑高墙与城垛。东西门楼下设升降铁闸，二层守望平台与墙顶步道相通。"),
+-            TEXT("村庄围墙升级为带步道的高墙，两处入口装上升降铁闸。"),false,TEXT("wall")},
+-        {TEXT("village_construction"), TEXT("defense"), TEXT("村庄修建"), TEXT("建"), TEXT("村庄建筑"),
+-            TEXT("学会砌筑围墙、城门、石阶和塔楼，为村庄增设防线与出入口。"),
+-            TEXT("按 B 打开「村庄建筑」，可自行放置石头围墙、木质大门、石砌高墙、升降铁闸门、城墙石阶和石砌高塔楼。"),true},
++            TEXT("解锁石砌高墙、石城门和登墙石阶建造。村庄围墙加筑步道，东西门改为升降铁闸。"),false,TEXT("wall")},
++        {TEXT("village_construction"), TEXT("defense"), ProjectName(ETier::Fortifications), TEXT("塔"), TEXT("村庄防御"),
++            TEXT("在高墙沿线增设塔楼。塔楼侧门与墙顶步道相通，可从塔内楼梯登上瞭望平台。"),
++            TEXT("解锁石砌高塔楼建造。按 B 打开「村庄建筑」，可选择塔楼并将它吸附到高墙。"),true,TEXT("high_wall")},
+         {TEXT("blacksmith"), TEXT("production"), TEXT("重建铁匠铺"), TEXT("锻"), TEXT("村庄生产"),
+             TEXT("修复铁匠铺的破损墙体，清走废木和落砖，整理铁料与工具，让熄灭的炉火再次燃起。"),
+             TEXT("隐藏残破构件，启用修复后的房屋构件与碰撞，恢复铁匠铺铸造工作站。")},
+@@ -114,7 +117,14 @@
+     }
+     Row.Lanes=FMath::Max(1,Lane);
+     Tree->SetLayout(Build({Row},Config));
+-    if(!Tree->GetLayout().Card(Selected))Selected=Row.Items.Last().Id;
++    if(!Tree->GetLayout().Card(Selected))
++    {
++        Selected=Row.Items.Last().Id;
++        if(Group==TEXT("defense"))
++            for(const auto& P:Projects())
++                if(P.Group==Group && P.IsAvailable(Conversation.Get()) && !P.IsComplete(Conversation.Get()))
++                {Selected=P.Id;break;}
++    }
+     if(Detail)Refresh();else Tree->SetSource(VillageSource());
+ }
+ 
+@@ -122,9 +132,12 @@
+ {
+     using EStatus=SColdSteelSkillTreeCanvas::EStatus;using EEdge=SColdSteelSkillTreeCanvas::EEdge;
+     SColdSteelSkillTreeCanvas::FSource Source;
+-    Source.Columns={TEXT("复兴起点"),TEXT("村庄建设"),TEXT("后续建设")};Source.Selected=Selected;
+-    Source.Path.Add(TEXT("village"));Source.Path.Add(Selected);
+-    if(!Project(Selected).Prerequisite.IsNone())Source.Path.Add(Project(Selected).Prerequisite);
++    Source.Columns={TEXT("复兴起点"),TEXT("一级建设"),TEXT("二级建设"),TEXT("三级建设")};
++    if(Tree)Source.Columns.SetNum(FMath::Min(Source.Columns.Num(),Tree->GetLayout().Config.Columns));
++    Source.Selected=Selected;
++    Source.Path.Add(TEXT("village"));
++    for(FName Ancestor=Selected;!Ancestor.IsNone();Ancestor=Project(Ancestor).Prerequisite)
++        Source.Path.Add(Ancestor);
+     Source.Card=[this](FName Id)
+     {
+         const auto& P=Project(Id);const bool Root=Id==TEXT("village");
+@@ -229,10 +242,10 @@
+         Upgrade ? (Done ? TEXT("本世界的石砌高墙已落成。") : Available ? TEXT("围墙已修复，可以提升城防。") : TEXT("完成上一级围墙修复后可升级城防。")) :
+         Selected==TEXT("bakery")&&!Done ? (Available ? TEXT("磨坊已恢复供粉，可以修复面包屋。") : TEXT("先在村庄建设树中修复风车磨坊。")) :
+         Selected==TEXT("gunshop")&&!Done ? (Available ? TEXT("铁匠铺已恢复营业，可以修复南侧的枪店。") : TEXT("先在村庄建设树中重建铁匠铺。")) :
+-        P.bGrantsBuildRecipes ? (Done ? TEXT("本世界的所有玩家均可在「村庄建筑」中放置已解锁的构件。") : TEXT("解锁这项建造权限无需消耗资源。")) :
++        P.bResearchOnly ? (Done ? TEXT("本世界的所有玩家均可建造石砌高塔楼。") : Available ? TEXT("高墙已建成，可免费解锁塔楼建造。") : TEXT("完成「升级高墙」后可解锁塔楼建造。")) :
+         Done ? TEXT("建筑已恢复，再次进入这个世界时会保留建设成果。") : TEXT("解锁后立即替换场景中的建筑，不消耗资源。");
+     auto Body=SNew(SVerticalBox)
+-        +SVerticalBox::Slot().AutoHeight()[ColdSteelTreePanel::DetailHead(TreeStyle,Icon,P.Branch+TEXT(" · ")+(Root?TEXT("根基"):Upgrade?TEXT("升级 II"):!P.Prerequisite.IsNone()?TEXT("修复 II"):TEXT("初级 I")),P.Name,TEXT("永久建设"))]
++        +SVerticalBox::Slot().AutoHeight()[ColdSteelTreePanel::DetailHead(TreeStyle,Icon,P.Branch+TEXT(" · ")+(Root?TEXT("根基"):P.bResearchOnly?TEXT("城防 III"):Upgrade?TEXT("城防 II"):Selected==TEXT("wall")?TEXT("城防 I"):!P.Prerequisite.IsNone()?TEXT("修复 II"):TEXT("初级 I")),P.Name,TEXT("永久建设"))]
+         +SVerticalBox::Slot().AutoHeight().Padding(0,18,0,0)[ColdSteelTreePanel::Label(P.Description,14,TextSecondary,false,true)]
+         +SVerticalBox::Slot().AutoHeight().Padding(0,22,0,0)[ColdSteelTreePanel::Progress(TreeStyle,
+             Root?TEXT("村庄复兴进度"):P.StateLabel(Done,Available),Root?FString::Printf(TEXT("%d / %d 项"),Completed,Total):Done?TEXT("1 / 1 项"):Available?TEXT("1 / 1 项条件"):TEXT("0 / 1 项条件"),
+@@ -273,18 +286,18 @@
+         ColdSteelTreePanel::Label(TEXT("建筑修复与村庄修建权限保存于当前世界，所有玩家共享。"),14,TextSecondary,false,true))];
+     const FName Id=Selected;
+     const TCHAR* ActionText = Root ? TEXT("请选择建设节点") :
+-        Upgrade ? (Done ? TEXT("已升级城防") : !Available ? TEXT("需要先修复围墙") : Pending ? TEXT("正在升级…") : TEXT("升级城防")) :
++        Upgrade ? (Done ? TEXT("已升级高墙") : !Available ? TEXT("需要先修复城墙") : Pending ? TEXT("正在升级…") : TEXT("升级高墙")) :
+         !Done&&!Available ? P.StateLabel(false,false) :
+-        P.bGrantsBuildRecipes ? (Done ? TEXT("已解锁村庄修建") : Pending ? TEXT("正在解锁…") : TEXT("解锁村庄修建")) :
++        P.bResearchOnly ? (Done ? TEXT("已解锁防御工事") : Pending ? TEXT("正在解锁…") : TEXT("解锁防御工事")) :
+         Done ? TEXT("已完成修复") : Pending ? TEXT("正在修复…") : LegacyPlan ? TEXT("立即修复") : TEXT("解锁并修复");
+     auto Actions=ColdSteelTreePanel::Action(ActionText,
+         &TreeStyle.Primary,!Root&&Available&&!Done&&!Pending&&Conversation.IsValid(),[this,Id]{if(Conversation.IsValid())Conversation->RequestAction(Id);},Gray(20),true);
+     auto Note=SNew(STextBlock).Font(TextFont(12*.75f)).AutoWrapText(true).LineHeightPercentage(1.3f)
+         .ColorAndOpacity_Lambda([this,Id]{return FSlateColor(Conversation.IsValid()&&!Conversation->NunActionMessage(Id).IsEmpty()?HUDGoldLight:TextTertiary);})
+-        .Text_Lambda([this,Id,Root,Done,Available,Upgrade,bGrantsBuildRecipes=P.bGrantsBuildRecipes]
++        .Text_Lambda([this,Id,Root,Done,Available,Upgrade,bResearchOnly=P.bResearchOnly]
+         {
+             if(Conversation.IsValid()&&!Conversation->NunActionMessage(Id).IsEmpty())return FText::FromString(Conversation->NunActionMessage(Id));
+-            if(bGrantsBuildRecipes)return FText::GetEmpty();
++            if(bResearchOnly)return FText::GetEmpty();
+             if(Upgrade)
+             {
+                 if(!Available||Done)return FText::GetEmpty();

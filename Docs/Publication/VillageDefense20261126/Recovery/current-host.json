@@ -1,0 +1,566 @@
+[
+  {
+    "path": "Config/DefaultGame.ini",
+    "sha256": "b0360778531bf2b4e55813682dc792a085eec2cee23d58f0b7a42c11ba27f48f"
+  },
+  {
+    "path": "Config/Packaging/RequiredRuntimePackages.txt",
+    "sha256": "18d6cd563b6e6d92662eea129adcc577921e816e06e7fa5118b0949655218a39"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VillageBuildCamera.cpp",
+    "sha256": "72dd2dc76dc4a3c5646e7c7230f7a6dfa0583ccbe8e00789df076771742b316f"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VillageBuildDefense.cpp",
+    "sha256": "e33c6efa8aab851d9634789e68af7d94e34d9f4ed09f91f0e78861720194fdc1"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VillageBuildDefense.h",
+    "sha256": "0318aec0a5a7b3d4fad89cea1e45d33da2b760ad3f5aaf05b54f2775c672c09b"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VillageDefenseFootprint.cpp",
+    "sha256": "1b0be2bfd2de1b01d470f8eeb8f8218190068a3d2f296c5e432b4c12bbb35c47"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VillageDefenseFootprint.h",
+    "sha256": "b7796198b17a209fbf4d08c5c578aa01d9708dc433a8232560be6f0dd201638e"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VillageGateReplacement.cpp",
+    "sha256": "629fe1f83bfa30c68d00fc308a4b45f1dedefb2248068b1e37edada82ab7ef8c"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VillageGateReplacement.h",
+    "sha256": "518b1c2e5b483e52c43ea564377d1ab7047b3929f153ba5ba4d8306e60a87934"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VillageWallStairs.cpp",
+    "sha256": "740894ff3140a273af2ad8f17431dec7d507e6ecfbc8f686757c2b2708d7233a"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VillageWallStairs.h",
+    "sha256": "d31fc228e97bfff66b6246429beb8553786dd4b75e43d5752d3b4488133d3d70"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildComponent.cpp",
+    "sha256": "ddfb0c7655e04511c871a3194f82044a9d2ba182dd065dfc52bfa0663427a58e"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildComponent.h",
+    "sha256": "faaa682ad6e13d92f54000857fe6fde55e5f591bf2cb2576eed35ba19fd3ddf0"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildIcons.cpp",
+    "sha256": "08ad8899f2b6784f7eb7093a8deb3d91178fc3c89ee30cbb6b35ecf8c8fe3d72"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildInput.cpp",
+    "sha256": "7ab9ee8cf70a65936a7b16126598b7ceb1c7e74013e3898e31c8279ca8da926f"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildNetwork.cpp",
+    "sha256": "9bfa959879de8a2dde045e61c5a53d99a93c70c838320509b571be47097d3bfd"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildPalette.cpp",
+    "sha256": "c45d7f3ec00adcefd1b71835d3518498f07d9086a1a64a0d31f00e9331fa809c"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildPanel.cpp",
+    "sha256": "0d0c221185178c3165b1624520b6dd670ecdd8bb3edb7a06298ad3908ce3fa76"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildPersistence.cpp",
+    "sha256": "0d08c9965bf2d446dd33f1659409e3eaac6c099fc96095e0705aa04bf18c45ad"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildPersistence.h",
+    "sha256": "ee751c80d38e6560c68ba2a3b929a99a5e5036bcb94ce7bf81b8a9ecb6d9eaa3"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildPreview.cpp",
+    "sha256": "3e809bd58543d577a2028a032f5d7a4d55e58d7eb5e00902692518179f3d3baa"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildTarget.cpp",
+    "sha256": "60bfb1ad01d34473d4135d1b01f9ad8d57537ca638190cb74e657ec9e217c80d"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildTypes.h",
+    "sha256": "22cb90c7280361b75422d51b990d470c51485c6be7499897f024a00ba74b295d"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildWidget.cpp",
+    "sha256": "2e37e548a8b56ea0290df8400dd3ead3ba46d62e2a6894183242a1ab36b784da"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildWidget.h",
+    "sha256": "1a7976ce5cc8dc67d07602cbc5fa12b921256564f98508241780e8d9ff6f7e66"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildWidgetLayout.cpp",
+    "sha256": "27841b4522882f1ee922b3321e7f24a01d0cbdb288c8480a39c3b9972ecc10d1"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildWorld.cpp",
+    "sha256": "9b99d2d1d6409a760d73818f9c0e02a3a7006fef9208abc8f27b78eb2709874b"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildWorld.h",
+    "sha256": "b597662c01f4e3d4d6d9f017022114abb5887dac17abb48fa5cfc84243742bd4"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp",
+    "sha256": "d6bff104fab1bb1b99de36ea6ba63f3d9f40318ac97cb728dd120e311ba41ee0"
+  },
+  {
+    "path": "Source/FPSGAME/Building/VoxelBuildWorldSave.cpp",
+    "sha256": "e9e15710fada3a8e4eb2d3e217cdd7c924905fadd99fbe38d15fffd805e55a30"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.cpp",
+    "sha256": "aff8c1885f4bf23b3b202c9db14fe2ec2903f4985c0270cab250094b1c1271a5"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+    "sha256": "cbb38055cae33bbd752e89517c04873d7c3b86eea5b7d2856539471cc7af6a49"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyMeshComponent.cpp",
+    "sha256": "17940b5b3958decd0abd8c477e98e3e0f55cc5e431257588e6ea93989f21d8e3"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/VillageArtisanVitalsComponent.cpp",
+    "sha256": "fa063006269caf18fc847ddb8d9d510e9dc77161330a280a9413cb597f8b9b69"
+  },
+  {
+    "path": "Source/FPSGAME/Combat/CombatStatusFormula.cpp",
+    "sha256": "faede2f04dc659e56e456d96c196542acdf98db0dced49d103db27610464b987"
+  },
+  {
+    "path": "Source/FPSGAME/Combat/CombatStatusFormula.h",
+    "sha256": "416627af8560b5f1984a32708cb073b313d71db67bf52765d582937dc33c61b1"
+  },
+  {
+    "path": "Source/FPSGAME/Development/HorseMarketCardsReviewCommandlet.cpp",
+    "sha256": "9b333c72d1d96d34a23776476c448f841057a64d9e312fdd31b74d4526bf3a23"
+  },
+  {
+    "path": "Source/FPSGAME/Development/SiegeDrawerReview.cpp",
+    "sha256": "1dd78498e5ba9cd163488640751df3ebbc3e4b17db08aa3c975a6100d86c8099"
+  },
+  {
+    "path": "Source/FPSGAME/Development/SiegeDrawerReview.h",
+    "sha256": "36139a4e53980faadaa69463abf55af733217481482e5294485eec7650131bae"
+  },
+  {
+    "path": "Source/FPSGAME/Development/VillageConstructionNetworkAudit.cpp",
+    "sha256": "54413ecab3a3ebd1e43da0565fc1f84fc47ba0d3928ffcbc2fc178fa46a8b44a"
+  },
+  {
+    "path": "Source/FPSGAME/Development/VillageGateWardReview.cpp",
+    "sha256": "ce67a825165e5f0280918851faa67d75b0248a15f864554bddf5c8a585f1680f"
+  },
+  {
+    "path": "Source/FPSGAME/Development/VillageOilMotionReviewCommandlet.cpp",
+    "sha256": "a1e8f411d132bc42868398eba009617189afe7122c0b7d7fc5b5235382ef2213"
+  },
+  {
+    "path": "Source/FPSGAME/Development/VillageOilMotionReviewCommandlet.h",
+    "sha256": "d48afe0255b4090af8d92c00bdf16ef47c31768662aab1f265e30929f7651f6c"
+  },
+  {
+    "path": "Source/FPSGAME/Development/VillageOilSpreadChecks.inl",
+    "sha256": "de7b1e672127dd0c6c652e2511d401ab4ba709feda34673fa1a519987fe55e8f"
+  },
+  {
+    "path": "Source/FPSGAME/Development/VillageOilSurfaceReview.inl",
+    "sha256": "4a7d876b1f379c0107a588c937124eff6f09a8c51c3aa0eb75c5a118a43bd2d3"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacter.cpp",
+    "sha256": "751066b6a1f9629aee876e1d0cf2bf95a8439ce46b1f26824d546909712948ed"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacter.h",
+    "sha256": "d887331315bdf6b6f312d7aa468b6589a8ac442964295c2d09142b31960f58e6"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacterActionPriority.cpp",
+    "sha256": "ee27a7c5d237c5de891010b282fb7270e54fa87fe9ac30945b017bca893768c1"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacterCombatFeedback.cpp",
+    "sha256": "21b795f6c525e6dce4669c51506b9680ed4265d6ac1db89613cb2603f50810ff"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMECharacterProfile.cpp",
+    "sha256": "eb05e7ce0b9136042d6586f83d0753f027fcbe585f7791bbc63b8d50405f4486"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+    "sha256": "84977312bd3d8fc5f8441b284d4dc22339d522e6084bf3b0733d6e15db570b56"
+  },
+  {
+    "path": "Source/FPSGAME/FPSGAMEPlayerController.h",
+    "sha256": "4358ed2b58df5827c1681e470e60948a8ffdf5918b3d24aec78d4d8ae9cdd24c"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSDoorPushComponent.cpp",
+    "sha256": "d0e3c7c64033108e771b02ccddc49b9f49c29ee74bf460f3ad996c43a5c519d3"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/FPSDoorPushComponent.h",
+    "sha256": "6ced61d941feebf8a0ccf24badc9479ebca8ea7d7f21cc86a90089d576ef97b3"
+  },
+  {
+    "path": "Source/FPSGAME/Movement/StableHorseCondition.cpp",
+    "sha256": "45346e2c236499bfdd2257af599e44b6055cafb2f926a33802514da82016f5fe"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelHarvestAuthority.cpp",
+    "sha256": "a99df990a93928e00ff3675894ce0b1fa8c597ec8a67cd7adce04a07416754ff"
+  },
+  {
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.cpp",
+    "sha256": "e11d06f7115cbe4185bf9ec2c684afeb59e41ab15db3e050280ae01526f5a5ab"
+  },
+  {
+    "path": "Source/FPSGAME/NPC/ChapelDialogueComponent.h",
+    "sha256": "f80154c9c997e0d0839b2fed1b385f67bf8fe4c2411379fcbbfb249af963fe76"
+  },
+  {
+    "path": "Source/FPSGAME/NPC/VillageMasterArtisan.cpp",
+    "sha256": "e555f10b348fcfe3e878e17160c9095f96aed78fd8575fc9524e91c3863f7267"
+  },
+  {
+    "path": "Source/FPSGAME/NPC/VillageMasterArtisan.h",
+    "sha256": "24c505b070f95d96525d6c4f7a8f53268bfef709085b80e965d82afb7602cfb6"
+  },
+  {
+    "path": "Source/FPSGAME/NPC/VillageResidentStatus.cpp",
+    "sha256": "38d85a4525fcd74cff190d16b25feab7006cfc733bdb929e09c676728d5456c6"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSMagicPreview.cpp",
+    "sha256": "e2eae62fa87397cb28a9a52f098f74515f42aae0efd6cb46d7e2c6ca5b420c54"
+  },
+  {
+    "path": "Source/FPSGAME/Skills/FPSMagicPreview.h",
+    "sha256": "79c2ee132b1f26efde9d19cae7f3277f014033fe6cee56d9e610236f73604d64"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelCrosshair.cpp",
+    "sha256": "cd753cf9f4d32c29886f54bdaff814aa032d80025127809b4f16307871dbd4f7"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp",
+    "sha256": "1ed9a85081c91a04fe25c58e613034fcc2ecc2b0a1ecde9000c1f5dedd06dec1"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelMarketCardStyle.h",
+    "sha256": "13be95714c04888ce80acf03390bb111de64583616c7b6e780cd847e63519b69"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp",
+    "sha256": "647d9e785b9eff1e08f0fbaf5d55d579d89fd54a4319cd4eab133e7741656fe3"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogue.h",
+    "sha256": "32f948cdaa77fb619feb8b8c16dacbf47d7c78662a274ca3575b5d1a973767eb"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelNpcDialogueArtisans.h",
+    "sha256": "f45e8d13fabf818e1515d9b728f5572b8162da22803d6394eb0044a4b0177630"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelStaminaHUD.cpp",
+    "sha256": "faff7accd8152347ffe2c1647fa60eedf32d391ca1eec66748169d88e0141eaa"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelVillageTree.cpp",
+    "sha256": "14a9a5f3c32702536cdffa8417e7ab016a67df1c78983e2548c8786d74442b82"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp",
+    "sha256": "cdea5226886159adc9551d107ed48ef845d58f7704ad4d767d363ec2f80e7313"
+  },
+  {
+    "path": "Source/FPSGAME/UI/ColdSteelWorldInteraction.h",
+    "sha256": "d411fb79e3c25de9b2ad30a49093fd95eea95be9895c24bf20a3ee99b4959b58"
+  },
+  {
+    "path": "Source/FPSGAME/UI/SColdSteelHorseMarket.cpp",
+    "sha256": "466aa622c56dcbee0ecd6a7aa09fb470c74f6fdccca200c0d9306c8a0c139ffa"
+  },
+  {
+    "path": "Source/FPSGAME/UI/SHorseMarketPlate.h",
+    "sha256": "34e1d7d603b85ffa1ff182aef59ec2e0886b938e8245efefea1629df4719335e"
+  },
+  {
+    "path": "Source/FPSGAME/UI/SSiegeWorkshopMarket.cpp",
+    "sha256": "f546f96b62237606ff283ed833988e5b9435b097cf083a93749e09023184ce7f"
+  },
+  {
+    "path": "Source/FPSGAME/UI/SSiegeWorkshopMarket.h",
+    "sha256": "cabef5bc63189530cad4f07f10e271fba391ae6a3b7982569812ce2a00a37b82"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/WeaponBipodDeploymentComponent.cpp",
+    "sha256": "e7d0c0895840e65c818b566d9810e48807252fe397a041955544c16974d5deda"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/ChapelCourtyardDressing.cpp",
+    "sha256": "bc51a4109d717e5bd4c6c2fd7a33ff09b82edfe8cbb11e9c2bb98f922821b4d3"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp",
+    "sha256": "4d6ad0a625d85c8ea088f6ac0f933a43ca4715672185b545ed75aeb4549f1f30"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.h",
+    "sha256": "cd5b1bf005ab4de9779cfb6324b367767cc39fb814eef1921db1d5c18f8ccf3c"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/ForestVillage.cpp",
+    "sha256": "99f331abd91d5960b92f63333139d234b8de3619e819ed1fdfccc18956f30537"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HighVillageCollapse.cpp",
+    "sha256": "cebb0c4ad161c58acbf8108fbed7e4b400cba473babb2f989876053194e1034b"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HighVillageCollapse.h",
+    "sha256": "a7b07550072ab19e6a41718686842a9b6b0b76e90eb9c4fc93d58febada7b399"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HighVillageDefense.cpp",
+    "sha256": "fa3d2f6c47012c6624f498240b78bfaac465e7470ae866cc4eeb69022a719998"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HighVillageDefense.h",
+    "sha256": "16f46da50367101ff1cbdc0a2ec773e204ef6d69e1c74428390d1c73d4f812eb"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HillsNightPortal.cpp",
+    "sha256": "f302771451f2c5ed8f2ad4f1207a71cf7943d6e253d4e21635c88ae7eecaed49"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HillsNightPortal.h",
+    "sha256": "ce53965ddc5fc8fac2cfefbe28e822f712eb3dcc407992db9f0bf6f4370d0ae6"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HillsNightRaidSave.h",
+    "sha256": "19be95930df6865b349e4656072ddf2f47668c5d1990eecb7befcc38f76f504d"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.cpp",
+    "sha256": "c1e343056d9f42fac44e8a2ad860506f30cf99746b235193b4a931ca293f6839"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.h",
+    "sha256": "973745826611f2cbf73660cdcd02be9824154195316eaca745f3c04911870c1b"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateChapelSite.h",
+    "sha256": "20d33bf82fce0c4ec8d56913980c77a273fedea4a19806b3305f1d1669bfc781"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsChapel.cpp",
+    "sha256": "c3e1f10dd578951303d641b83fd962588ded11ff7bc765e0ce3fbc086cb8c835"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp",
+    "sha256": "0eb5c97a1b5e0a926ca459ec7d06c01a2ddaa3d23aa539da5574f0739bbb5b6c"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "sha256": "0ed03ff3467029b7e9be819466699c8dfec3988b6b77eda1a60022ca2197f0da"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "sha256": "9566fc9d3e072e7166ac5745ac10077fbf68413a8f5be8240af1640ed4b596fd"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageDefenseBlockCheck.cpp",
+    "sha256": "32480321f23d16c82a06bb70f31efb8b990afd47b0c2c4abca2f34c929b8f917"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePerimeter.cpp",
+    "sha256": "da16c39077d1a51914e0a217f5470035dd0917d8bf590cf1b3fb93b7cffdd608"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp",
+    "sha256": "ebceea839c91d21d41820a8c25360b5bd706bf9d80686a41fbd52792400e87b2"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePlanting.cpp",
+    "sha256": "4fc12c4c2744af33e4ff3b8a0217729ab65e00703a460573222c7328df5d9ccc"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageSite.h",
+    "sha256": "4c77db88e15c9902fd77422d2f2a343992b7ed3697dade42a4ffa25228dd755a"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillageStreetLighting.cpp",
+    "sha256": "286fb17702165316d69fa1bf00cae5e0bdfac531b755e761ad53f13f1cf91dfe"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseDebris.cpp",
+    "sha256": "70dc9d0deb16a59ebe390d7b1c9b829c58555711422b5d889a609bcd32897c7c"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseGate.cpp",
+    "sha256": "09ba9a997b1a5ff5fafc22dee57b0b982ad5f9105c07702e1f23f84c7a46cea4"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseRepairTargets.cpp",
+    "sha256": "8d6f81c5890a92d196f42bc8aa1fd06720bd72584e818d6b6759e715ab7a5ca3"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseRepairTargets.h",
+    "sha256": "650db26bd86f6c52fbc9a54ef50e5b806d08c13c0b85f8277b27e9f4a81a33d2"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp",
+    "sha256": "63210a2a8a924b60c85d58cea5c793a508d55eabd406836788abd3a73349532f"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseSection.h",
+    "sha256": "3264569d381dd8f6f97e67578384b50dc7a90d7f8675d149c82f20e4eb0b3e37"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseStairs.cpp",
+    "sha256": "8f85ae6d42e23fc594f0d45f14add195677a659cb6968db7dddbedf0868e964d"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseStairs.h",
+    "sha256": "fb548972adb062e4cd04c71a98d75e57f44077768be1a39aac6ecd542b0e15dd"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseState.cpp",
+    "sha256": "599496f42abbc46958549badc18df0a93f8bb9a5271db0ea6115fc0dc6a3aa0f"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageDefenseState.h",
+    "sha256": "f4d923ea4b959f3d39abd1d5cf502a097c1455a07fc27ca8e48ce5841aecfebd"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageGateMotionAudio.cpp",
+    "sha256": "4a961787691caedec22f6a950d6a6afe8e7a9c53e8a8034ae80f4eb3e12e1a62"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageGateMotionAudio.h",
+    "sha256": "6245b689c47a5338f7a75bfa155d6699974308f755cb3de0e17d49dfe8a4825e"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageHotOil.cpp",
+    "sha256": "13dbc3f80eda9e8e41fbe9878ba0ba444efb137cb62b6e000adf62eea9fb4c90"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageHotOil.h",
+    "sha256": "f1b1ebc7df2dc04a8211b4baf37feeb41f7790ecd16c1030c408f314b57d6baf"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageMasonry.cpp",
+    "sha256": "2251b26e8f7a91ba212654ec69108159527058d298fc12e6b3ded0bdd4ce3f35"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageMasonry.h",
+    "sha256": "1844c94463255a90ff4d881140b24a354b17fb82ea69f98e99a13435c4cc7600"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageMechanicalWorkshop.cpp",
+    "sha256": "353e23dc83541b7f01df114ec97872dd94a672d460afe52a9b164312e22fc005"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageMechanicalWorkshop.h",
+    "sha256": "e5e9e4a19760d01ef06511825dc0903c4d59b5b43205d4072822e3559afc2708"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageOilCarry.cpp",
+    "sha256": "3acbcba2ca4caf339813df6efec59e57f5289897b7c18136a1c96a6284d29c5e"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageOilCarry.h",
+    "sha256": "73742c59667207786c9ec4853bcde5a8f09b0dd4e461658ff556373bcd004103"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageOilFireFront.cpp",
+    "sha256": "cd044ee600cc165b8561e44d85e8075a52273a61dc315532b5b9f64ddde2f857"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageOilMotion.h",
+    "sha256": "3fc4b595e2bf5378b17e5a8f71666e372a09e26591a3c74ab0dd0ca40392b6ad"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageOilSpread.cpp",
+    "sha256": "be9e449977e4f62a43d3236ff752b91e4c838f5d25d9f6d52dd442eddb1f3263"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageOilSpread.h",
+    "sha256": "9a72202021b90fb188e9be1b7461a7810884d147e598082cc8868281f16d3d6a"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageOilSurfacePacket.cpp",
+    "sha256": "27af3e1d5a7cb58c969df278616db58e5d57793355004d95e162f209d8ea971c"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageOilSurveySubsystem.cpp",
+    "sha256": "de3f551f8e25b9e400d4d5abb8ff36364ef2a589fa55a13a6adc9b01f3d866f8"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageOilSurveySubsystem.h",
+    "sha256": "9c46abcab1f3404926d1a29540dce0c34d94abee3842c5e0d448030543bfb9f3"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillagePresentationView.cpp",
+    "sha256": "10efb2520d8c9db22784863b255bb37af3bfece81c0187a1cfb6ab954b3c9bd2"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillagePresentationView.h",
+    "sha256": "2d00e39c94b1260568795ebb1314d255f727f8a4821519cde7d9d3b5b7d94c53"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageShopTorches.cpp",
+    "sha256": "2f0c0fcf7b9c8b8617370539655db8bb78e0a72ec87adc10a2984c3fafce4335"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageShopTorches.h",
+    "sha256": "8a055defe0a481a14182b10866154496f0493df584cd3d292b5f13aefd74fb1c"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageSiegeControl.cpp",
+    "sha256": "6803b24ec380394c2e45b140d591e7086ab06d4be922c1bf6aa5accdadfdb48b"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageSiegeControl.h",
+    "sha256": "9ec5d898978f630a981c2b46616c958c06e30f10c4578d800dce9bc17bdc9c01"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageSiegeEngine.cpp",
+    "sha256": "0381c7bfe51395cc2d1452295778b915263f538accf6ca9647a6b16b221ffa96"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageSiegeEngine.h",
+    "sha256": "ed95fc1ccfeccdccaea671c20ae8258f4ad8e4a25d01923c958c91116fe36c08"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageSiegePreviewTests.inl",
+    "sha256": "1285636efdd1138209933996d726e9d84349768ea296110bafa6e3e7b83136f5"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageSiegeUpgrades.h",
+    "sha256": "ea2bc57bd5a5f3cf15f358646c7713b363e7ec68b828713652332a7fde17b2ed"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageSiegeUseTargets.cpp",
+    "sha256": "45e7d4d646b3bdf231d2fc8a9449ecd58f0d47f1084fd9b978ffa832a69a4393"
+  },
+  {
+    "path": "Source/FPSGAME/WorldGeneration/VillageSiegeUseTargets.h",
+    "sha256": "8d27aa0940d99d8a12baf2b81078ed8c57c4973ea0b51822c1493868930604b0"
+  }
+]

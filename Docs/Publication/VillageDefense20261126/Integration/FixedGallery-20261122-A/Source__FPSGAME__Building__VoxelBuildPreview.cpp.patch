@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPreview.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPreview.cpp
+@@ -103,7 +103,6 @@
+                 {
+                     AddPart(AHighVillageGate::PlacedGrilleMeshPath(),FTransform::Identity);
+                     AddPart(AHighVillageGate::ReleaseMeshPath(),AHighVillageGate::ReleasePose(false));
+-                    for(bool bToe : {false,true})AddPart(AHighVillageGate::FoldingFlightMeshPath(),AHighVillageGate::FlightPose(false,bToe));
+                 }
+             }
+         }

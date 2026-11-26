@@ -1,0 +1,73 @@
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -18,6 +27,7 @@
+ #include "GameFramework/Pawn.h"
+ #include "../Characters/FPSPlayerBodyComponent.h"
+ #include "../Building/VoxelBuildPrefabActor.h"
++#include "../Building/VillageBuildDefense.h"
+ #include "../Building/VoxelBuildWorld.h"
+ #include "../Building/SmeltingSystem.h"
+ #include "../Building/ColdSteelDoorInteraction.h"
+@@ -119,15 +153,23 @@
+                 ||Cast<AColdSteelCampfire>(Target)||Cast<AColdSteelFountain>(Target)||Cast<AColdSteelPickup>(Target)
+                 ||Cast<AColdSteelWarehouseChest>(Target)||Cast<AColdSteelSceneContainer>(Target)||IsTreasureChest(Target)||IsExpeditionAltar(Target)
+                 ||Cast<AVoxelBuildPrefabActor>(Target)||Cast<AApartmentDeviceControl>(Target)||Cast<AHeQuePumpControl>(Target)||Cast<AVillageGunshopCounter>(Target)
+-                ||Cast<AChapelNun>(Target)||Cast<AVillageArtisanMerchant>(Target)||Cast<AVillageHerbalist>(Target)||Cast<AVillageDefenseSection>(Target)
++                ||Cast<AChapelNun>(Target)||Cast<AVillageArtisanMerchant>(Target)||Cast<AVillageHerbalist>(Target)||Cast<AVillageMasterArtisan>(Target)||Cast<AVillageMillKeeper>(Target)||Cast<AVillageDefenseSection>(Target)
+                 ||(UDungeonRunSubsystem::Get(PC->GetWorld())&&UDungeonRunSubsystem::Get(PC->GetWorld())->IsShrine(Target))?Target:nullptr;
+             break;
+         }
++    }
++    if (bSiegeVisible && !Found.Target)
++    {
++        Found.Target=Siege;
++        ClearReach=FMath::Min(ClearReach,float(SiegeDistance));
+     }
+     if (auto* Repair = PC->GetWorld()->GetSubsystem<UVillageDefenseRepairTargets>())
+         if (auto* Breach = Repair->Trace(*PC->GetPawn(),Eye,Eye+View.Vector()*ClearReach,
+                 bFindNearbyBreach ? &Found.NearbyBreach : nullptr))
++        {
+             Found.Target=Breach;
++            if(Breach->IsA<AHighVillageGate>())Found.GateUse=EHighGateUse::Repair;
++        }
+     return Found;
+ }
+ AActor* ColdSteelWorldInteraction::TraceTarget(const APlayerController* PC,float Reach)
+@@ -420,21 +462,27 @@
+     return true;
+ }
+ 
+-ColdSteelWorldInteraction::FInteractionHint ColdSteelWorldInteraction::ResolveInteractionHint(const AActor* Target,APawn* Viewer,bool bStairLever)
++ColdSteelWorldInteraction::FInteractionHint ColdSteelWorldInteraction::ResolveInteractionHint(const AActor* Target,APawn* Viewer,EHighGateUse GateUse)
+ {
+     // 准星统一小浮窗的唯一文案来源（2026-09-24 用户指令：一切 E 交互走小浮窗，模型上方不再挂名牌）。
+     // 分派顺序与 PlayerController 的 E 键处理一致：先特异后泛化；空文本＝不显示浮窗。
+     FInteractionHint Hint;
+     if(!IsValid(Target))return Hint;
+-    if(const auto* Gate=Cast<AHighVillageGate>(Target); bStairLever && Gate)
+-    {
+-        Hint.Title=TEXT("门楼折叠梯");
+-        Hint.Text=Gate->IsStairFolded()?TEXT("放下楼梯"):TEXT("收起楼梯");
+-        return Hint;
+-    }
+-    if(const auto* Section=Cast<AVillageDefenseSection>(Target); Section && Section->GetHealth()<=0.f)
+-    {
+-        Hint.Title=Section->IsA<AHighVillageGate>()?TEXT("升降铁闸"):
++    if(const auto* Gate=Cast<AHighVillageGate>(Target); Gate && GateUse==EHighGateUse::Release)
++    {
++        Hint.Title=TEXT("铁栅拉杆");
++        Hint.bAction=Gate->GetHealth()>0.f;
++        Hint.Text=Hint.bAction?(Gate->IsOpening()?TEXT("降下铁栅"):TEXT("升起铁栅")):TEXT("铁栅已毁，请先在门口修复");
++        return Hint;
++    }
++    if(const auto* Section=Cast<AVillageDefenseSection>(Target); Section && Section->NeedsRepair())
++    {
++        const auto* Carrier=Cast<AVoxelBuildPrefabActor>(Section->GetAttachParentActor());
++        Hint.Title=Section->IsA<AVillageOilKettle>()?TEXT("热油锅"):
++            Carrier && Carrier->PrefabId()==VillageBuildDefense::Ballista?TEXT("固定式弩炮"):
++            Carrier && Carrier->PrefabId()==VillageBuildDefense::Trebuchet?TEXT("配重投石机"):
++            Carrier && Carrier->PrefabId()==VillageBuildDefense::HighTower?TEXT("石砌高塔楼"):
++            Section->IsA<AHighVillageGate>()?TEXT("升降铁闸"):
+             Section->IsA<AHighVillageWall>()?TEXT("石砌高墙"):Section->IsA<AVillageDefenseStairs>()?TEXT("城墙石阶"):
+             Section->IsA<AVillageDefenseGate>()?TEXT("村门"):TEXT("围墙");
+         if(Section->HasNearbyRepairEnemy(Viewer))

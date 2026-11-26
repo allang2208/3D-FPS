@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/WorldGeneration/VillageDefenseRepairTargets.cpp
++++ b/Source/FPSGAME/WorldGeneration/VillageDefenseRepairTargets.cpp
+@@ -12,7 +12,7 @@
+ 
+ void UVillageDefenseRepairTargets::Update(AVillageDefenseSection& Section)
+ {
+-    if (Section.GetHealth() > 0.f)
++    if (Section.GetHealth() > 0.f || Section.IsGateCovered())
+     {
+         Remove(Section);
+         return;

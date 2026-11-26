@@ -1,0 +1,46 @@
+--- a/Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp
++++ b/Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp
+@@ -23,13 +25,14 @@
+ {
+ constexpr int32 MainPage = 0, VillagePage = 1, HolyLightPage = 2;
+ constexpr int32 MerchantTopicsPage = 3, MerchantStoryPage = 4, ArtisanLessonPage = 5;
+-constexpr int32 MerchantFollowUpPage = 6;
++constexpr int32 MerchantFollowUpPage = 6, WorkshopPage = 7;
+ 
+ using ColdSteelMerchantDialogue::FSpeaker;
+ constexpr int32 MerchantTopicCount = FSpeaker::TopicCount;
+ 
+ const FSpeaker* MerchantSpeaker(const UChapelDialogueComponent* Conversation)
+ {
++    if (Conversation && Conversation->IsMasterArtisan()) return &ColdSteelMerchantDialogue::MasterArtisan;
+     if (Conversation && Conversation->IsBlacksmith()) return &ColdSteelMerchantDialogue::Blacksmith;
+     if (Conversation && Conversation->IsCarpenter()) return &ColdSteelMerchantDialogue::Carpenter;
+     if (Conversation && Conversation->IsBaker()) return &ColdSteelMerchantDialogue::Baker;
+@@ -343,7 +370,10 @@
+     switch (Choice)
+     {
+     case 1: ShowPage(MerchantTopicsPage); break;
+-    case 2: Conversation->TradeWithMerchant(); break;
++    case 2:
++        if(Conversation->IsMasterArtisan())ShowPage(WorkshopPage);
++        else Conversation->TradeWithMerchant();
++        break;
+     case 3:
+         ShowPage(ArtisanLessonPage);
+         break;
+@@ -383,8 +414,13 @@
+     const auto& Topic = Speaker.Topics[MerchantTopicIndex];
+     const TCHAR* Reply = bMain ? Speaker.Greeting : bTopics ? Speaker.TopicPrompt :
+         Page == MerchantFollowUpPage ? Topic.FollowUpReply : Topic.Reply;
+-    auto DialogueBody = SNew(SVerticalBox)
+-        + SVerticalBox::Slot().AutoHeight()[SAssignNew(Speech, SColdSteelNpcSpeech).Passages(TArray<FColdSteelSpokenPassage>{{Reply}})];
++    auto DialogueBody = SNew(SVerticalBox);
++    if(bMain && Conversation->IsMasterArtisan() && bResumeWorkshopGreeting)
++    {
++        bResumeWorkshopGreeting=false;
++        DialogueBody->AddSlot().AutoHeight()[Label(TEXT("图纸收好了。还想看看哪一项？"),18,TextPrimary,false,true)];
++    }
++    else DialogueBody->AddSlot().AutoHeight()[SAssignNew(Speech,SColdSteelNpcSpeech).Passages(TArray<FColdSteelSpokenPassage>{{Reply}})];
+     auto Actions = SNew(SWrapBox).UseAllottedSize(true).InnerSlotPadding(FVector2D(ActionGap, ActionGap));
+ 
+     if (bMain || bTopics)

@@ -1,0 +1,32 @@
+--- a/Source/FPSGAME/Building/VoxelBuildComponent.h
++++ b/Source/FPSGAME/Building/VoxelBuildComponent.h
+@@ -48,12 +48,29 @@
+     UFUNCTION(BlueprintPure,Category="Building") FName GetSelectedComponent() const { return SelectedComponent; }
+     UFUNCTION(BlueprintPure,Category="Building") bool IsBuilding() const { return bActive; }
+     UFUNCTION(BlueprintPure,Category="Building") bool IsSnapEnabled() const { return bSnapEnabled; }
++    bool IsVillageCameraPlacing() const { return VillageCamera != nullptr && !bPanelOpen; }
+     bool HandleInput(const FInputKeyEventArgs& Event,bool bMenuOpen);
+ 
+ protected:
+     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+ private:
+     friend class UTemperateVillageCheckCommandlet;
++    void SyncVillageCamera();
++    void LeaveVillageCamera(bool RestoreGameInput);
++    void SetVillageCursorMode();
++    void UpdateVillageCamera(float DeltaSeconds);
++    void PositionVillageCamera();
++    bool VillageCursorRay(FVector& Origin,FVector& Direction) const;
++    UPROPERTY(Transient) TObjectPtr<class ACameraActor> VillageCamera;
++    TWeakObjectPtr<AActor> PreviousVillageView;
++    TWeakObjectPtr<APawn> VillageCameraPawn;
++    FVector VillageFocus=FVector::ZeroVector;
++    double VillageCameraYaw=0.;
++    bool bVillageVertical=false;
++    bool bVillageDisabledPawn=false;
++    TSharedPtr<class SWidget> VillageCameraOverlay;
++    TSharedPtr<class STextBlock> VillageCameraCaption;
++    TWeakObjectPtr<class UFPSCombatHealthComponent> VillageBuilderHealth;
+     bool PreparePreviewAssets();
+     TSharedPtr<struct FStreamableHandle> PreviewAssetHandle;
+     TSharedPtr<struct FStreamableHandle> SurfaceAssetHandle;

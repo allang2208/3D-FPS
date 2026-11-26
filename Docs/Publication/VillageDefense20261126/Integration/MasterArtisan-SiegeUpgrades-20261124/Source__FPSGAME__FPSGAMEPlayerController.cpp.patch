@@ -1,0 +1,16 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSGAMEPlayerController.h"
++#include "NPC/VillageMasterArtisan.h"
+ #include "Dungeons/DungeonRoomSubsystem.h"
+ #include "UI/ColdSteelWoodworkingWidget.h"
+ #include "Skills/FPSElementalArrowComponent.h"
+@@ -607,6 +608,7 @@
+                 ChapelDialogue->BeginFirstAid(Artisan);
+                 return true;
+             }
++            if(auto* Master=Cast<AVillageMasterArtisan>(Target)){InterruptInspection();ChapelDialogue->OpenMerchant(Master);return true;}
+             if(auto* Miller=Cast<AVillageMillKeeper>(Target)){InterruptInspection();ChapelDialogue->OpenMerchant(Miller);return true;}
+             if(Rest&&Rest->Interact())return true;
+             if(auto* Nun=Cast<AChapelNun>(Target)){InterruptInspection();ChapelDialogue->Open(Nun);return true;}

@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/UI/ColdSteelNpcDialogue.h
++++ b/Source/FPSGAME/UI/ColdSteelNpcDialogue.h
+@@ -35,6 +35,7 @@
+     TSharedPtr<SBox> FrameHost,Content,Detail;
+     TSharedPtr<SColdSteelSkillTreeCanvas> Tree;
+     TSharedPtr<SColdSteelNpcSpeech> Speech;
++    TSharedPtr<class SSiegeWorkshopMarket> WorkshopMarket;
+     TSharedPtr<SButton> DefaultChoice, LessonButton, ReturnButton, TrainingRetry;
+     int32 PresentedSmithStep = INDEX_NONE;
+     TSharedPtr<STextBlock> FeedbackText, LessonReason, LessonLabel, TrainingProgress;
+@@ -59,6 +60,7 @@
+     TSharedRef<SWidget> MerchantDialogue(const ColdSteelMerchantDialogue::FSpeaker& Speaker);
+     TSharedRef<SWidget> ArtisanLesson();
+     void RefreshArtisanLesson();
++    TSharedRef<SWidget> Workshop();
+     TSharedRef<SWidget> Village();
+     TSharedRef<SWidget> VillageHeader();
+     TSharedRef<SWidget> VillageDetail();

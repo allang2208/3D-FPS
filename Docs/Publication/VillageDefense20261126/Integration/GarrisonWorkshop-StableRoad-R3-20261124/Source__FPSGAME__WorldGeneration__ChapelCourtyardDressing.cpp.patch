@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/WorldGeneration/ChapelCourtyardDressing.cpp
++++ b/Source/FPSGAME/WorldGeneration/ChapelCourtyardDressing.cpp
+@@ -120,24 +120,6 @@
+     Plant(TEXT("CourtyardHazel"),RearCorner-FVector2D(124.,108.),153.,98.);
+     Plant(TEXT("CourtyardHazel"),RearCorner-FVector2D(179.,87.),83.,55.);
+ 
+-    // Low, soil-set flags mark the cart route around the nave, including the unbuilt rear plot.
+-    FRandomStream TrackRandom(Seed ^ 0x3491);
+-    const auto& Lane=FTemperateChapelSite::WorkshopLane;
+-    double Next=48.;
+-    for(int32 I=1;I<UE_ARRAY_COUNT(Lane);++I)
+-    {
+-        const auto Delta=Lane[I]-Lane[I-1];
+-        const auto Forward=Delta.GetSafeNormal();
+-        const FVector2D Across(-Forward.Y,Forward.X);
+-        const float Yaw=FMath::RadiansToDegrees(FMath::Atan2(Forward.Y,Forward.X));
+-        for(;Next<Delta.Size();Next+=TrackRandom.FRandRange(64.f,103.f))
+-        {
+-            const auto At=Lane[I-1]+Forward*Next+Across*TrackRandom.FRandRange(-48.f,48.f);
+-            PlaceOnSoil(TEXT("YardPathStone"),At/Size,TrackRandom.FRandRange(28.f,49.f),6.f,
+-                        Yaw+TrackRandom.FRandRange(-24.f,24.f),3.5f);
+-        }
+-        Next-=Delta.Size();
+-    }
+     // Fallen faces catch on the bearing plinth. A little gravel spills through
+     // either end of a deposit, getting smaller and more embedded as it runs out.
+     struct FFoot { double Pier, Side, Hand, Width; int32 Fragments; };

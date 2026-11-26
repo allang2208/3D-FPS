@@ -1,0 +1,122 @@
+--- a/Source/FPSGAME/WorldGeneration/VillageDefenseState.cpp
++++ b/Source/FPSGAME/WorldGeneration/VillageDefenseState.cpp
+@@ -1,4 +1,5 @@
+ #include "VillageDefenseState.h"
++#include "VillageSiegeUpgrades.h"
+ #include "Kismet/GameplayStatics.h"
+ #include "Engine/World.h"
+ #include "TimerManager.h"
+@@ -19,21 +20,23 @@
+     {Save=NewObject<UVillageDefenseSave>(this);Save->WorldId=Id;}
+     Saves.Add(Id,Save);return Save;
+ }
+-void UVillageDefenseState::SelectGeneration(const FGuid& Id,const FGuid& Generation)
++uint16 UVillageDefenseState::SelectGeneration(const FGuid& Id,const FGuid& Generation)
+ {
+     auto* Save=Load(Id);
+     if(Save->Generation==Generation)
+     {
+-        if(!bPurchasing && Save->PendingRepair.Section!=INDEX_NONE)RecoverRepair(*Save);
+-        return;
++        if(!bPurchasing && Save->PendingRepair.IsPending())RecoverRepair(*Save);
++        return Save->SiegeRanks;
+     }
+     // The hills slot has already committed this reset. Even after an interrupted
+     // sidecar write, that slot selects a fresh set of health values on reload.
+     Save->Generation=Generation;
+     Save->DamagedSections.Reset();
++    Save->SiegeRanks=0;
+     if(!Save->PendingRepair.PlacedId.IsValid())Save->PendingRepair={};
+     else if(!bPurchasing)RecoverRepair(*Save);
+     WriteNow(*Save);
++    return Save->SiegeRanks;
+ }
+ bool UVillageDefenseState::WriteNow(UVillageDefenseSave& Save)
+ {
+@@ -47,7 +50,7 @@
+ void UVillageDefenseState::RecoverRepair(UVillageDefenseSave& Save)
+ {
+     const FVillagePendingRepair& Pending=Save.PendingRepair;
+-    if(Pending.Section==INDEX_NONE)return;
++    if(!Pending.IsPending())return;
+     const FString Receipt=Slot(Save.WorldId);
+     int64 Committed=0;
+     if(Pending.bGuest)
+@@ -67,21 +70,47 @@
+     }
+     if(Pending.ProfileRevision<=0||Committed>Pending.ProfileRevision)return;
+     if(Committed==Pending.ProfileRevision)
+-    {
+-        if(Pending.PlacedId.IsValid())Save.DamagedPlacedSections.Remove(Pending.PlacedId);
+-        else Save.DamagedSections.Remove(Pending.Section);
+-    }
++        ApplyPaidWork(Save);
+     Save.PendingRepair={};
+     WriteNow(Save);
+ }
+ 
++void UVillageDefenseState::ApplyPaidWork(UVillageDefenseSave& Save)
++{
++    const auto& Work=Save.PendingRepair;
++    if(VillageSiegeUpgrades::Valid(Work.UpgradeIndex))
++    {
++        if(VillageSiegeUpgrades::Rank(Save.SiegeRanks,Work.UpgradeIndex)<VillageSiegeUpgrades::MaxRank)
++            Save.SiegeRanks+=uint16(1u << (2*Work.UpgradeIndex));
++    }
++    else if(Work.PlacedId.IsValid())Save.DamagedPlacedSections.Remove(Work.PlacedId);
++    else Save.DamagedSections.Remove(Work.Section);
++}
++
++bool UVillageDefenseState::PurchaseUpgrade(const FGuid& Id,int32 Index,int32 ExpectedRank,APawn* Payer,FText& Failure)
++{
++    if(!VillageSiegeUpgrades::Valid(Index) || !VillageSiegeUpgrades::Price(ExpectedRank))
++    { Failure=FText::FromString(TEXT("该项目无法继续升级。")); return false; }
++    FVillagePendingRepair Work;
++    Work.UpgradeIndex=Index;
++    return Purchase(Id,Payer,VillageSiegeUpgrades::Price(ExpectedRank),Work,ExpectedRank,Failure);
++}
++
+ bool UVillageDefenseState::PurchaseRepair(const FGuid& Id,int32 Section,APawn* Payer,int32 Cost,FText& Failure,const FGuid& PlacedId,float ExpectedHealth)
++{
++    FVillagePendingRepair Work;
++    Work.Section=Section;
++    Work.PlacedId=PlacedId;
++    return Purchase(Id,Payer,Cost,Work,ExpectedHealth,Failure);
++}
++
++bool UVillageDefenseState::Purchase(const FGuid& Id,APawn* Payer,int32 Cost,const FVillagePendingRepair& Work,float Expected,FText& Failure)
+ {
+     Failure=FText::GetEmpty();
+     auto* Controller=Payer?Cast<APlayerController>(Payer->GetController()):nullptr;
+     if(!Controller||Controller->GetPawn()!=Payer||!Payer->HasAuthority()||Payer->GetWorld()!=GetWorld()||
+-        !Id.IsValid()||Section==INDEX_NONE||Cost<=0||bPurchasing)
+-    {Failure=FText::FromString(TEXT("暂时无法结算修复。"));return false;}
++        !Id.IsValid()||!Work.IsPending()||Cost<=0||bPurchasing)
++    {Failure=FText::FromString(TEXT("暂时无法结算城防费用。"));return false;}
+     TGuardValue<bool> Guard(bPurchasing,true);
+     auto* Model=ColdSteelAuthority::ForPawn(Payer);
+     const bool bGuest=!Controller->IsLocalController();
+@@ -91,9 +120,20 @@
+     {Failure=FText::FromString(TEXT("灵魂档案尚未就绪。"));return false;}
+     const FString PlayerSlot=bGuest?PS->CampfireGuestSlot():Model->ProfileSlot();
+     auto* Save=Load(Id);
+-    const float* Damage=PlacedId.IsValid()?Save->DamagedPlacedSections.Find(PlacedId):Save->DamagedSections.Find(Section);
+-    if(!Damage||FMath::Max(0.f,*Damage)!=ExpectedHealth||PlayerSlot.IsEmpty()||Save->PendingRepair.Section!=INDEX_NONE)
+-    {Failure=FText::FromString(TEXT("城防存档尚未准备好修复。"));return false;}
++    if(Save->PendingRepair.IsPending())RecoverRepair(*Save);
++    if(PlayerSlot.IsEmpty() || Save->PendingRepair.IsPending())
++    {Failure=FText::FromString(TEXT("城防账本正在结算。"));return false;}
++    if(Work.UpgradeIndex!=INDEX_NONE)
++    {
++        if(VillageSiegeUpgrades::Rank(Save->SiegeRanks,Work.UpgradeIndex)!=int32(Expected))
++        {Failure=FText::FromString(TEXT("该项目等级已变更，请按最新报价升级。"));return false;}
++    }
++    else
++    {
++        const float* Damage=Work.PlacedId.IsValid()?Save->DamagedPlacedSections.Find(Work.PlacedId):Save->DamagedSections.Find(Work.Section);
++        if(!Damage || FMath::Max(0.f,*Damage)!=Expected)
++        {Failure=FText::FromString(TEXT("城防存档尚未准备好修复。"));return false;}
++    }
+     Model->SyncRuntime();
+     auto Profile=Model->Snapshot();
+     if(Profile.CampfireInventoryRevision==MAX_int64||(bGuest&&Profile.ServerSoulDebits>ColdSteelCurrency::MaxSouls-Cost))

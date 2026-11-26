@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Development/HorseMarketCardsReviewCommandlet.cpp
++++ b/Source/FPSGAME/Development/HorseMarketCardsReviewCommandlet.cpp
+@@ -1,6 +1,7 @@
+ #include "HorseMarketCardsReviewCommandlet.h"
+ #if WITH_EDITOR
+ #include "../UI/SColdSteelHorseMarket.h"
++#include "SiegeDrawerReview.h"
+ #include "../UI/ColdSteelMountGearPanel.h"
+ #include "../Movement/StableHorseGear.h"
+ #include "Editor.h"
+@@ -34,6 +35,7 @@
+         FSlateApplication::InitializeAsStandaloneApplication(Module.CreateSlateRHIRenderer());
+     }
+     IFileManager::Get().MakeDirectory(*Output,true);
++    if(FParse::Param(*Params,TEXT("SiegeWorkshop")))return FSiegeDrawerReview::Run(Output);
+     FGuid Bought;
+     int32 Requests=0;
+     auto Panel=SNew(SColdSteelHorseMarket).OnDetails(SColdSteelHorseMarket::FOpenHorse::CreateLambda(

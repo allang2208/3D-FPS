@@ -1,0 +1,19 @@
+--- a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+@@ -35,7 +73,15 @@
+     const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
+     if(auto* Player=Cast<AFPSGAMEPlayerController>(PC))
+         if(const auto* Siege=Player->GetSiegeControl();Siege && Siege->Active())
+-            return Siege->Paint(Geometry,Elements,Super::NativePaint(Args,Geometry,Clip,Elements,Layer,Style,Enabled));
++        {
++            const int32 Base=Super::NativePaint(Args,Geometry,Clip,Elements,Layer,Style,Enabled);
++            if(!Siege->IsAimingBallista())return Siege->Paint(Geometry,Elements,Base);
++            // The mounted bolt has no handheld hip spread. Keep the player's four bars at a fixed gap.
++            const float Scale=Geometry.GetLocalSize().Y/1080.f;
++            PaintPlayerCrosshair(Geometry,Elements,Base+1,FVector2D(4.f*Scale),1.f);
++            if(Character)PaintPlayerHitMarker(Geometry,Elements,Base+2,Character->GetHitMarkerOpacity(),Character->WasLastHitLethal());
++            return Base+2;
++        }
+     // The optical mask belongs behind all HUD children, including the buff bar
+     // and XP feed. Only the owner-local scope paints here; menus suppress it.
+     int32 OpticLayer=Layer;

@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/NPC/ChapelDialogueComponent.h
++++ b/Source/FPSGAME/NPC/ChapelDialogueComponent.h
+@@ -69,6 +69,7 @@
+     FSimpleMulticastDelegate OnChanged;
+     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+ private:
++    friend struct FSiegeDrawerReview;
+     friend class AVillageNetworkAudit;
+     friend struct ArtisanVillageProbe::FRun;
+     UPROPERTY(Transient) TObjectPtr<UColdSteelNpcDialogue> Screen;

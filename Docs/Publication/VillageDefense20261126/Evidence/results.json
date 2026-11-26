@@ -1,0 +1,15 @@
+{
+  "target": "FPSGAMEEditor Win64 Development",
+  "authoritative_surface": true,
+  "client_terrain_traces_per_spill": 0,
+  "terrain_traces_per_world_frame_cap": 384,
+  "trace_quantum": 32,
+  "contact_box_margin_cm": 17,
+  "play_tested": false,
+  "multiplayer_run": false,
+  "gpu_profiled": false,
+  "editor_module_sha256": "6b85a41b7748b717b09c421ce11c0fd312bf27bf1e53091a8bbc934601a8ba58",
+  "editor_build_succeeded": true,
+  "older_village_udp_cases": 21,
+  "older_udp_covers_current_oil": false
+}

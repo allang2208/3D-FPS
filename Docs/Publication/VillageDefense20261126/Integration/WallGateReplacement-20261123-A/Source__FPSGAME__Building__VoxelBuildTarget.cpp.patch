@@ -1,0 +1,80 @@
+--- a/Source/FPSGAME/Building/VoxelBuildTarget.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildTarget.cpp
+@@ -12,6 +12,7 @@
+ #include "VoxelBuildPrefabActor.h"
+ #include "VoxelBuildGrounding.h"
+ #include "VillageBuildDefense.h"
++#include "VillageGateReplacement.h"
+ #include "VoxelBuildWidget.h"
+ #include "VoxelJointStrength.h"
+ #include "../FPSGAMECharacter.h"
+@@ -96,7 +97,7 @@
+     if(!PC||!PC->PlayerCameraManager||!BuildWorld)return;
+     FVector Start,Direction;
+     const bool Survey=IsVillageCameraPlacing();
+-    if(Survey && bSnapEnabled && (SelectedComponent==VillageBuildDefense::HighTower || SelectedComponent==VillageBuildDefense::HighWall))
++    if(Survey && bSnapEnabled && VillageBuildDefense::IsVillageRecipe(SelectedComponent))
+     {
+         // Bound the spatial search and compound clearance checks during edge scrolling.
+         // Rotation, a new selection and a click already invalidate this timer.
+@@ -144,7 +145,7 @@
+     {
+         // The surface under the crosshair chooses wall docking or ordinary floor placement.
+         // A touch hit or a neighbouring assisted voxel must not change that choice.
+-        if(bDefense&&AimScratch.Last().bBlockingHit)AimIndex=AimScratch.Num()-1;
++        if((bDefense || (bSnapEnabled&&Prefab&&VillageGateReplacement::WallFor(Prefab->Id,AimScratch.Last().GetActor())))&&AimScratch.Last().bBlockingHit)AimIndex=AimScratch.Num()-1;
+         for(int32 Index=0;AimIndex==INDEX_NONE&&Index<AimScratch.Num();++Index)
+         {
+             if(BuildWorld->ResolveHit(AimScratch[Index],HitCell)){AimIndex=Index;bVoxelSurface=true;break;}
+@@ -169,7 +170,7 @@
+         ? (!HasHit || (!VillageWallStairs::ResolveTarget(Hit.GetActor()) && FMath::Abs(Hit.ImpactNormal.Z)<.5))
+         : !BuildingHit&&!bAimedAtWallMount;
+     const double AssistReach=bDefense&&HasHit?FMath::Min(600.,FVector::Distance(Start,Hit.ImpactPoint)+1.):600.;
+-    if(!Survey&&bSnapEnabled&&bTryAssist&&TrySnapAssist(GetWorld(),BuildWorld,Start,Direction,Query,Hit,HitCell,
++    if(!Survey&&bSnapEnabled&&bTryAssist&&(!Prefab||!VillageGateReplacement::WallFor(Prefab->Id,Hit.GetActor()))&&TrySnapAssist(GetWorld(),BuildWorld,Start,Direction,Query,Hit,HitCell,
+         bDefense?Prefab:nullptr,ComponentYaw,AssistReach))
+     {
+         HasHit=true;BuildingHit=true;LastAimWasAssisted=true;
+@@ -511,6 +512,8 @@
+     DefenseDockTarget.Reset();
+     DefenseDockPose.Reset();
+     DefenseDockSocket=INDEX_NONE;
++    WallCutBars.Reset();
++    WallCutSelection=-1;
+     PrefabPlanYaw=VillageBuildDefense::IsVillageRecipe(SelectedComponent)?0:ComponentYaw;
+     const FVoxelBuildPrefab* Prefab=SelectedPrefab();
+     if(!Prefab||!BuildWorld){TargetMessage=TEXT("构件定义已失效");PrefabMessage=TargetMessage;return;}
+@@ -526,12 +529,31 @@
+     }
+     FIntVector Cell;
+     bool bSurfaceBacked=false;
++    if(auto* Wall=bSnapEnabled?VillageGateReplacement::WallFor(Prefab->Id,Hit.GetActor()):nullptr)
++    {
++        // Keep the end-face socket for extending an exposed run. Its top and broad faces select a replacement.
++        const bool EndFace=Prefab->Id==VillageBuildDefense::StoneGate &&
++            FMath::Abs(Hit.ImpactNormal.Dot(Wall->GetActorForwardVector()))>.85 &&
++            FMath::Abs(Wall->GetActorTransform().InverseTransformPosition(Hit.ImpactPoint).X)>140.;
++        FTransform Pose;
++        if(!EndFace && VillageGateReplacement::Layout(Prefab->Id,Wall,Prefab->Footprint,Pose,PrefabCell,PrefabPlanYaw))
++        {
++            DefenseDockPose=Pose;
++            DefenseDockTarget=Wall;
++            DefenseDockSocket=VillageGateReplacement::ReplacementSocket;
++            TArray<FVillageGateCut> Cuts;
++            bCanPlace=bPrefabValid=BuildWorld->CanPlacePrefab(Prefab->Id,PrefabCell,PrefabPlanYaw,PrefabMessage,false,true,Wall,nullptr,INDEX_NONE,true,&Cuts,&WallCutBars);
++            if(bPrefabValid)WallCutSelection=VillageGateReplacement::WallSelection(Cuts);
++            TargetMessage=PrefabMessage;
++            return;
++        }
++    }
+     const auto* Target=bSnapEnabled&&VillageWallStairs::CanDock(Prefab->Id)
+         ? VillageWallStairs::ResolveTarget(Hit.GetActor()):nullptr;
+     VillageWallStairs::FDock Dock;
+-    const bool TowerJoin=bSnapEnabled && VillageWallStairs::PickTowerWallDock(*BuildWorld,Prefab->Id,Prefab->Footprint,
++    const bool NearbyJoin=bSnapEnabled && VillageWallStairs::PickNearbyWallDock(*BuildWorld,Prefab->Id,Prefab->Footprint,
+         Hit,ComponentYaw,Dock,bPrefabValid,PrefabMessage);
+-    if(Target && !TowerJoin)
++    if(Target && !NearbyJoin)
+     {
+         // The side joint opens the entrance along a wall or into the gate courtyard.
+         const bool bStairs=Prefab->Id==VillageWallStairs::Id;

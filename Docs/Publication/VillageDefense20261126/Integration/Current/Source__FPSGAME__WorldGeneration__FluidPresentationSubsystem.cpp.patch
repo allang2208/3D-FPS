@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp
++++ b/Source/FPSGAME/WorldGeneration/FluidPresentationSubsystem.cpp
+@@ -191,6 +191,7 @@
+ 
+ void UFluidPresentationSubsystem::Tick(float Delta)
+ {
++    if(bOilBudgetDirty)FlushOilFireBudget();
+     UpdateClock+=Delta;WindClock+=Delta;FurnaceClock+=Delta;
+     if(UpdateClock<.025f)return;UpdateClock=0;
+     bHasView=false;
+@@ -228,6 +229,7 @@
+ 
+ void UFluidPresentationSubsystem::Deinitialize()
+ {
++    OilFires.Reset();
+     bReady=false;
+     Campfires.Reset();
+     VillageHearths.Reset();

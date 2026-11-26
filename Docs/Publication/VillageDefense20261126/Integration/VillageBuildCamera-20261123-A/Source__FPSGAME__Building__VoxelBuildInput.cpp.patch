@@ -1,0 +1,83 @@
+--- a/Source/FPSGAME/Building/VoxelBuildInput.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildInput.cpp
+@@ -2,6 +2,7 @@
+ #include "../Dungeons/DungeonRoomSubsystem.h"
+ #include "../Multiplayer/ColdSteelPlayerState.h"
+ #include "VoxelBuildDebug.h"
++#include "../WorldGeneration/VillageDefenseRepairTargets.h"
+ #include "Camera/CameraTypes.h"
+ #include "Camera/PlayerCameraManager.h"
+ #include "Misc/FileHelper.h"
+@@ -56,7 +57,7 @@
+         if(bActive)SetBuildMode(false);
+         return false;
+     }
+-    if(!bPanelOpen&&(PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()))
++    if(!VillageCamera&&!bPanelOpen&&(PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()))
+     {
+         // 画面里没有别的菜单时，光标/输入锁只可能来自退出不干净的界面；先清干净再让建造继续，
+         // 否则 SetBuildMode(true) 的守卫会静默拒绝，表现为"按 B 打不开面板、数字键也换不了料"。
+@@ -110,6 +111,17 @@
+     }
+     // Placement commands belong to the aiming state; the drawer does not move or build.
+     if(bPanelOpen)return false;
++    if(IsVillageCameraPlacing() && Key==EKeys::SpaceBar)
++    {
++        if(Pressed)
++        {
++            bVillageVertical=!bVillageVertical;
++            PositionVillageCamera();
++            PC->PlayerCameraManager->UpdateCamera(0.f);
++            RefreshPlacementInput();
++        }
++        return true;
++    }
+     const bool bWheel=Key==EKeys::MouseScrollUp||Key==EKeys::MouseScrollDown;
+     if(bWheel||Key==EKeys::R)
+     {
+@@ -163,7 +175,7 @@
+                 RefreshPlacementInput();
+             }
+         }
+-        else if(!Removal.IsEmpty())SelectMaterial(BuildWorld->VolumeMaterialAt(HitCell.Volume,HitCell.Cell));
++        else if(!IsVillageCameraPlacing()&&!Removal.IsEmpty())SelectMaterial(BuildWorld->VolumeMaterialAt(HitCell.Volume,HitCell.Cell));
+         return true;
+     }
+     if(Key==EKeys::LeftMouseButton||Key==EKeys::RightMouseButton)
+@@ -174,10 +186,27 @@
+             if(Key==EKeys::RightMouseButton)
+             {
+                 // A collapsed player-built piece keeps its footprint but has no collision to aim at.
+-                const auto* Breach=Cast<AVillageDefenseSection>(ColdSteelWorldInteraction::TraceUseTargets(PC).Target);
++                const AVillageDefenseSection* Breach=nullptr;
++                if(IsVillageCameraPlacing())
++                {
++                    FVector Eye,Ray;
++                    if(VillageCursorRay(Eye,Ray))
++                    {
++                        const FVector End=Hit.bBlockingHit?Hit.ImpactPoint:Eye+Ray*VillageBuildDefense::SurveyTraceLength;
++                        if(auto* Ruins=GetWorld()->GetSubsystem<UVillageDefenseRepairTargets>())
++                            Breach=Ruins->Trace(*PC->GetPawn(),Eye,End,nullptr,FVector::Distance(Eye,End));
++                    }
++                }
++                else Breach=Cast<AVillageDefenseSection>(ColdSteelWorldInteraction::TraceUseTargets(PC).Target);
+                 if(Breach && Breach->GetHealth()<=0.f)
+                     if(auto* Placed=Cast<AVoxelBuildPrefabActor>(Breach->GetAttachParentActor()))
+                         RemovalTarget=Placed;
++                if(IsVillageCameraPlacing() && (!RemovalTarget || !VillageBuildDefense::IsVillageRecipe(RemovalTarget->PrefabId()) ||
++                    !VillageBuildDefense::InSurveyRange(PC->GetPawn()->GetPawnViewLocation(),RemovalTarget->GetActorLocation())))
++                {
++                    Feedback=TEXT("请指向施工范围内已建造的村庄建筑");bFeedbackValid=false;FeedbackTime=2;
++                    return true;
++                }
+             }
+             if(GetNetMode()!=NM_Standalone)
+             {
+@@ -280,6 +309,7 @@
+         }
+         return true;
+     }
++    if(IsVillageCameraPlacing())return true;
+     if(Key==EKeys::E)
+     {
+         if(Pressed && !bPanelOpen)

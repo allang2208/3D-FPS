@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/WorldGeneration/VillageDefenseRepairTargets.h
++++ b/Source/FPSGAME/WorldGeneration/VillageDefenseRepairTargets.h
+@@ -18,7 +18,7 @@
+     void Update(AVillageDefenseSection& Section);
+     void Remove(AVillageDefenseSection& Section);
+     AVillageDefenseSection* Trace(const APawn& Pawn, const FVector& Eye, const FVector& RayEnd,
+-        AVillageDefenseSection** Nearby) const;
++        AVillageDefenseSection** Nearby,double RayReach=Reach) const;
+ private:
+     struct FPiece
+     {

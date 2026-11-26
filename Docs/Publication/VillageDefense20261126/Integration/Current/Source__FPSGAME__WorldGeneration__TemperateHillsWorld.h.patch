@@ -1,0 +1,24 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
+@@ -207,6 +208,8 @@
+     // The original serialized byte is full. Keep its reflected type for V1–8 saves.
+     static constexpr uint16 BakeryPlan = 256;
+     static constexpr uint16 GunshopPlan = 512;
++    static constexpr uint16 GarrisonMechanicsPlan = 1024;
++    UPROPERTY() bool bGarrisonMechanics = false;
+     UPROPERTY() bool bVillageBakeryRepaired = false;
+     UPROPERTY() bool bVillageGunshopRepaired = false;
+     UPROPERTY() uint8 VillagePlansUnlocked = 0;
+@@ -525,6 +540,12 @@
+     UFUNCTION() void OnRep_VillageBakery();
+     UPROPERTY(ReplicatedUsing=OnRep_VillageGunshop) bool bVillageGunshopRepaired=false;
+     UFUNCTION() void OnRep_VillageGunshop();
++    UPROPERTY(Replicated) bool bGarrisonMechanics=false;
++    UPROPERTY(Replicated) uint16 SiegeRanks=0;
++    UPROPERTY(Transient) TObjectPtr<class AVillageMechanicalWorkshop> MechanicalWorkshop;
++    void UpdateMechanicalWorkshop();
++    FTransform MechanicalWorkshopPose() const;
++    bool MechanicalWorkshopLotOccupied() const;
+     FGuid VillageDefenseGeneration;
+     UFUNCTION() void OnRep_VillagePlansUnlocked(uint8 PreviousPlans);
+     bool CommitVillagePlanRepair(uint16 PlanBit, int32 RequiredVersion, const TCHAR* SaveError, FText& FailureReason);

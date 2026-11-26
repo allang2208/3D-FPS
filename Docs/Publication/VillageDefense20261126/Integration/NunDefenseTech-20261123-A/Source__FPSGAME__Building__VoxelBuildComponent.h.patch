@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/Building/VoxelBuildComponent.h
++++ b/Source/FPSGAME/Building/VoxelBuildComponent.h
+@@ -78,7 +78,6 @@
+     UPROPERTY() TObjectPtr<UVoxelBuildPalette> Palette;
+     UPROPERTY() TObjectPtr<AVoxelBuildWorld> BuildWorld;
+     TWeakObjectPtr<ATemperateHillsWorld> VillageWorld;
+-    bool CanBuildVillagePieces() const;
+     void RefreshVillageConstructionAccess();
+     UPROPERTY() TObjectPtr<UVoxelBuildWidget> Widget;
+     UPROPERTY() TObjectPtr<UStaticMeshComponent> Preview;

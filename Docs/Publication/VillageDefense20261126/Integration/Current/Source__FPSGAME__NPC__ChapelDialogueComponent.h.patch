@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/NPC/ChapelDialogueComponent.h
++++ b/Source/FPSGAME/NPC/ChapelDialogueComponent.h
+@@ -49,6 +49,10 @@
+     bool IsBlacksmith() const;
+     bool IsCarpenter() const;
+     bool IsHerbalist() const;
++    bool IsMasterArtisan() const;
++    uint16 WorkshopRanks() const;
++    int64 WorkshopBalance() const;
++    void BuySiegeUpgrade(int32 Index,int32 ExpectedRank);
+     bool IsBaker() const;
+     bool IsMillKeeper() const;
+     bool IsTavernKeeper() const;
+@@ -118,6 +126,8 @@
+     UFUNCTION(Server,Reliable) void ServerOpen(uint32 Session,ATemperateHillsWorld* Village,APawn* Initiator);
+     UFUNCTION(Server,Reliable) void ServerOpenMerchant(uint32 Session,AActor* Merchant,APawn* Initiator);
+     UFUNCTION(Server,Reliable) void ServerClose(uint32 Session);
++    UFUNCTION(Client,Reliable) void ClientWorkshopResult(uint32 Session,bool Success,uint16 Ranks,int64 Credits,int64 Debits,const FString& Result);
++    UFUNCTION(Server,Reliable) void ServerBuySiegeUpgrade(uint32 Session,int32 Index,int32 ExpectedRank);
+     UFUNCTION(Server,Reliable) void ServerAction(uint32 Session,FName Action);
+     UFUNCTION(Client,Reliable) void ClientOpened(uint32 Session,bool Accepted,const FString& Reason);
+     UFUNCTION(Client,Reliable) void ClientEndHerbalistConversation(uint32 Session);

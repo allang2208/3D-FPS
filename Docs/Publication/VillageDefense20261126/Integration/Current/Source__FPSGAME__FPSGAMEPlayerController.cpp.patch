@@ -1,0 +1,59 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -65,6 +70,9 @@
+         TEXT("Z 键一键拾取的作用半径（cm）。"));
+ }
+ #include "InputKeyEventArgs.h"
++#include "WorldGeneration/VillageSiegeControl.h"
++#include "WorldGeneration/VillageHotOil.h"
++#include "WorldGeneration/VillageOilCarry.h"
+ #include "InputCoreTypes.h"
+ #include "Misc/CommandLine.h"
+ #include "Misc/Paths.h"
+@@ -81,6 +89,14 @@
+ void RunLootGlowAudit(AFPSGAMEPlayerController* PC);
+ void RunIncineratorUIAudit(AFPSGAMEPlayerController* PC);
+ 
++void AFPSGAMEPlayerController::UpdateHiddenComponents(const FVector& ViewLocation,TSet<FPrimitiveComponentId>& HiddenComponents)
++{
++    Super::UpdateHiddenComponents(ViewLocation,HiddenComponents);
++    if(const APawn* Viewer=GetPawn())
++        if(const auto* Carry=Viewer->FindComponentByClass<UVillageOilCarry>())Carry->HideFirstPersonEquipment(GetViewTarget(),HiddenComponents);
++    if(SiegeControl)SiegeControl->AddHiddenOperatorComponents(GetViewTarget(),HiddenComponents);
++}
++
+ void AFPSGAMEPlayerController::UpdateRotation(float DeltaTime)
+ {
+     FRotator RestLook;
+@@ -103,6 +119,7 @@
+ 
+ AFPSGAMEPlayerController::AFPSGAMEPlayerController()
+ {
++    SiegeControl=CreateDefaultSubobject<UVillageSiegeControl>(TEXT("SiegeControl"));
+     ChapelDialogue=CreateDefaultSubobject<UChapelDialogueComponent>(TEXT("ChapelDialogue"));
+     VoxelBuilder=CreateDefaultSubobject<UVoxelBuildComponent>(TEXT("VoxelBuilder"));
+     DevelopmentSpawner=CreateDefaultSubobject<UDevelopmentSpawnComponent>(TEXT("DevelopmentSpawner"));
+@@ -416,6 +433,10 @@
+ 
+ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
+ {
++    if(GetPawn())if(auto* Oil=GetPawn()->FindComponentByClass<UVillageOilCarry>();Oil && Oil->HandleInput(Params))return true;
++    if(SiegeControl && SiegeControl->HandleInput(Params))return true;
++    if(Params.Key==EKeys::E && Params.Event==IE_Released && GetPawn())
++        if(auto* Ride=GetPawn()->FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->ReleaseUse())return true;
+     if(Params.Key==EKeys::E && Params.Event==IE_Released && ChapelDialogue && ChapelDialogue->ReleaseFirstAid())
+         return true;
+     if(ChapelDialogue&&ChapelDialogue->IsOpen())
+@@ -486,6 +507,12 @@
+     {
+         if(Params.Event==IE_Pressed&&Params.Key==EKeys::Escape)ColdSteelHUD->CancelQuickDrag();
+         return Params.Event==IE_Released?Super::InputKey(Params):true;
++    }
++    // The survey cursor places into the world. Route it before the HUD's ordinary
++    // visible-cursor filter, and leave unrelated keys with the builder while surveying.
++    if(VoxelBuilder && VoxelBuilder->IsVillageCameraPlacing())
++    {
++        if(VoxelBuilder->HandleInput(Params,false))return true;
+     }
+     // UI has already received this event; do not forward unhandled cursor clicks to gameplay.
+     if (bShowMouseCursor && Params.Key.IsMouseButton() && Params.Event != IE_Released) return true;

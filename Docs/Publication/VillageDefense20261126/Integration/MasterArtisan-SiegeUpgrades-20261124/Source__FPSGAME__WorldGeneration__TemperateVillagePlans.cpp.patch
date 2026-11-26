@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp
+@@ -288,7 +288,7 @@
+     UpdateMechanicalWorkshop();
+     VillagePlansUnlocked=0;
+     VillageDefenseGeneration=Save->VillageDefenseGeneration;
+-    GetWorld()->GetSubsystem<UVillageDefenseState>()->SelectGeneration(WorldId,VillageDefenseGeneration);
++    SiegeRanks=GetWorld()->GetSubsystem<UVillageDefenseState>()->SelectGeneration(WorldId,VillageDefenseGeneration);
+     // Even a ruined perimeter can have damaged or destroyed sections.
+     if(!(PreviousPlans&UTemperateHillsSave::HighWallPlan))BuildVillagePerimeter();
+     if(HadBlacksmith)OnRep_VillageBlacksmith();

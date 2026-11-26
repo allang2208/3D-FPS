@@ -1,0 +1,10 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp
+@@ -205,6 +205,7 @@
+     DOREPLIFETIME(ATemperateHillsWorld,bVillageBakeryRepaired);
+     DOREPLIFETIME(ATemperateHillsWorld,bVillageGunshopRepaired);
+     DOREPLIFETIME(ATemperateHillsWorld,bGarrisonMechanics);
++    DOREPLIFETIME(ATemperateHillsWorld,SiegeRanks);
+     DOREPLIFETIME_CONDITION(ATemperateHillsWorld,SizeMeters,COND_InitialOnly);
+     DOREPLIFETIME_CONDITION(ATemperateHillsWorld,NetEcology,COND_InitialOnly);
+     DOREPLIFETIME_CONDITION(ATemperateHillsWorld,bTerrainDestructionEnabled,COND_InitialOnly);

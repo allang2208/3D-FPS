@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp
+@@ -29,6 +29,9 @@
+ bool ATemperateHillsWorld::IsVillagePlanUnlocked(FName Plan) const
+ {
+     const uint16 Bit=VillagePlanBit(Plan);
++    // Older worlds may own the former all-recipes plan before rebuilding their perimeter.
++    // Keep that purchase on disk and activate it as soon as the high wall is complete.
++    if(Bit==UTemperateHillsSave::ConstructionPlan)return HasVillageHighWall()&&(VillagePlansUnlocked&Bit)!=0;
+     if(Bit==UTemperateHillsSave::BakeryPlan)return IsBakeryRepaired();
+     if(Bit==UTemperateHillsSave::GunshopPlan)return IsGunshopRepaired();
+     return (VillagePlansUnlocked&Bit)!=0||(Bit==1&&bVillageWallRepaired)||(Bit==2&&bVillageBlacksmithRepaired);
+@@ -40,8 +43,13 @@
+     {FailureReason=FText::FromString(TEXT("当前村庄尚未准备好。"));return false;}
+     if(Bit==UTemperateHillsSave::ConstructionPlan)
+     {
++        if(!HasVillageHighWall())
++        {
++            FailureReason=FText::FromString(TEXT("请先完成「升级高墙」，再解锁防御工事。"));
++            return false;
++        }
+         if(IsVillagePlanUnlocked(Plan))return true;
+-        return CommitVillagePlanRepair(Bit,6,TEXT("村庄修建未能保存，请重试。"),FailureReason);
++        return CommitVillagePlanRepair(Bit,6,TEXT("防御工事未能保存，请重试。"),FailureReason);
+     }
+     // Unlock and repair share one durable commit. A legacy plan-only unlock must
+     // still execute the replacement, rather than returning success early.

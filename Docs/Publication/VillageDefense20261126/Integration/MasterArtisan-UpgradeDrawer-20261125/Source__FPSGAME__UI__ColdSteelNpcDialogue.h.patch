@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/UI/ColdSteelNpcDialogue.h
++++ b/Source/FPSGAME/UI/ColdSteelNpcDialogue.h
+@@ -28,6 +28,7 @@
+     virtual FReply NativeOnMouseButtonDown(const FGeometry& Geometry, const FPointerEvent& Event) override;
+     virtual FReply NativeOnMouseButtonDoubleClick(const FGeometry& Geometry, const FPointerEvent& Event) override;
+ private:
++    friend struct FSiegeDrawerReview;
+     TWeakObjectPtr<UChapelDialogueComponent> Conversation;
+     FDelegateHandle Changed;
+     ColdSteelTreePanel::FStyle TreeStyle;
+@@ -41,6 +42,7 @@
+     TSharedPtr<STextBlock> FeedbackText, LessonReason, LessonLabel, TrainingProgress;
+     int32 Page=0;
+     bool bHeardNunIntro=false;
++    bool bResumeWorkshopGreeting=false;
+     int32 LastTopic=1;
+     int32 MerchantTopicIndex=0;
+     int32 LastMerchantChoice=1;

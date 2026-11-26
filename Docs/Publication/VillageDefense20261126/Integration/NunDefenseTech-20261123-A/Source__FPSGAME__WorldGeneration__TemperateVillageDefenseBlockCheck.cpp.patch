@@ -1,0 +1,22 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillageDefenseBlockCheck.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillageDefenseBlockCheck.cpp
+@@ -8,7 +8,7 @@
+ #include "VillageDefenseState.h"
+ #include "HillsCarpenterWorkshop.h"
+ #include "VillageGunshopServices.h"
+-#include "../Building/VillageWallStairs.h"
++#include "../Building/VillageBuildDefense.h"
+ #include "../Building/VoxelBuildPalette.h"
+ #include "../Building/VoxelBuildPersistence.h"
+ #include "../Building/VoxelBuildPrefabActor.h"
+@@ -199,8 +199,8 @@
+             RuinedShop->Destroy();
+         }
+         FString Reason;
+-        Check(!Build->CanPlacePrefab(VillageWallStairs::Id,Anchor,Turns,Reason,false,true),
+-            TEXT("Locked village construction denies placement"));
++        Check(!Build->CanPlacePrefab(VillageBuildDefense::HighTower,Anchor,Turns,Reason),
++            TEXT("High walls alone do not unlock the watchtower"));
+         Hills->Slot=TEXT("VillagePlanParity_")+Hills->WorldId.ToString(EGuidFormats::Digits);
+         auto* PlanSave=NewObject<UTemperateHillsSave>();
+         PlanSave->WorldId=Hills->WorldId;PlanSave->Seed=Hills->Seed;

@@ -1,0 +1,35 @@
+--- a/Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp
++++ b/Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp
+@@ -5,6 +5,7 @@
+ #include "../Building/VoxelBuildWorld.h"
+ #include "VillageDefenseDebris.h"
+ #include "HighVillageCollapse.h"
++#include "HighVillageDefense.h"
+ #include "EngineUtils.h"
+ #include "TemperateHillsWorld.h"
+ #include "../Monsters/FPSCombatHealthComponent.h"
+@@ -60,7 +61,12 @@
+         SetNetDormancy(DORM_DormantAll);
+     }
+ }
+-void AVillageDefenseSection::OnRep_FixedScale(){SetActorScale3D(FixedScale);}
++void AVillageDefenseSection::OnRep_FixedScale()
++{
++    SetActorScale3D(FixedScale);
++    if(MeshPath==AHighVillageWall::WallMeshPath())
++        VillageMasonry::ApplyCurtainPhase(*Masonry,GetActorTransform());
++}
+ void AVillageDefenseSection::EndPlay(const EEndPlayReason::Type Reason)
+ {
+     if (auto* Targets=GetWorld()->GetSubsystem<UVillageDefenseRepairTargets>()) Targets->Remove(*this);
+@@ -80,7 +86,9 @@
+ void AVillageDefenseSection::OnRep_Setup()
+ {
+     if(MeshPath.IsNull())return;
+-    if(MeshPath.GetLongPackageName().StartsWith(VillageMasonry::CastleFolder))
++    if(MeshPath==AHighVillageWall::WallMeshPath())
++        VillageMasonry::ApplyCurtainPhase(*Masonry,GetActorTransform());
++    else if(MeshPath.GetLongPackageName().StartsWith(VillageMasonry::CastleFolder))
+         VillageMasonry::ApplyWallPhase(*Masonry,SectionId);
+     if(auto* Mesh=Cast<UStaticMesh>(MeshPath.ResolveObject())){Masonry->SetStaticMesh(Mesh);ApplyHealth();return;}
+     MeshLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(MeshPath,

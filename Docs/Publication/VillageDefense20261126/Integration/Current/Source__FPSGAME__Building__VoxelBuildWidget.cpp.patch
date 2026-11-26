@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/Building/VoxelBuildWidget.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWidget.cpp
+@@ -252,11 +252,11 @@
+     SelectedMaterial=Material;SelectedComponent=Component;SelectedShape=ShapeMode;bSelectionDirty=true;
+ }
+ 
+-void UVoxelBuildWidget::SetVillageConstructionUnlocked(bool bUnlocked)
+-{
+-    if(bVillageConstructionUnlocked==bUnlocked)return;
+-    bVillageConstructionUnlocked=bUnlocked;
+-    if(Category==ECategory::Village)bCardsDirty=true;
++void UVoxelBuildWidget::SetVillageConstructionTier(VillageBuildDefense::ETier Tier)
++{
++    if(VillageTier==Tier)return;
++    VillageTier=Tier;
++    bCardsDirty=true;
+ }
+ 
+ void UVoxelBuildWidget::ToggleMaterial(FName MaterialId)
+@@ -531,7 +531,7 @@
+     Status->SetColorAndOpacity(bValid?FLinearColor::White:ColdSteelUI::Warning);
+     const TCHAR* Snap=VillageWallStairs::CanDock(SelectedComponent)
+         ? (bSnapEnabled?TEXT("地面每格 1° · 吸附时滚轮换接法 · F 关闭吸附"):TEXT("地面每格 1° · R 转 90° · F 开启吸附"))
+-        : VillageBuildDefense::IsBasicWallOrGate(SelectedComponent)
++        : (VillageBuildDefense::IsBasicWallOrGate(SelectedComponent)||VillageBuildDefense::IsSiegeEngine(SelectedComponent))
+         ? (bSnapEnabled?TEXT("地面每格 1° · R 转 90° · F 关闭吸附"):TEXT("地面每格 1° · R 转 90° · F 开启吸附"))
+         : (bSnapEnabled?TEXT("体素吸附已开启 · F 自由放置"):TEXT("自由位置 · F 开启体素吸附"));
+     Structure->SetText(FText::FromString(FString(Snap)+TEXT("\n")+Message));

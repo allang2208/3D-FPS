@@ -1,0 +1,14 @@
+--- a/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
+@@ -554,8 +554,9 @@
+     if(bVillage)
+     {
+         const auto* Hills=FindVillageConstructionWorld();
+-        if(!Hills||!Hills->IsVillagePlanUnlocked(TEXT("village_construction")))
+-        {Reason=TEXT("请先在修女处解锁村庄修建");return false;}
++        const auto Required=VillageBuildDefense::RequiredTier(Id);
++        if(VillageBuildDefense::UnlockedTier(Hills)<Required)
++        {Reason=VillageBuildDefense::LockReason(Required);return false;}
+     }
+     const bool bWallMount=Definition->Mount==EVoxelPrefabMount::Wall;
+     // 逻辑构件（门）只要求 Actor 类；普通构件仍然要求网格。

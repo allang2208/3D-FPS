@@ -1,0 +1,71 @@
+--- a/Source/FPSGAME/Building/VoxelBuildNetwork.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildNetwork.cpp
+@@ -5,6 +5,8 @@
+ #include "VoxelBuildPalette.h"
+ #include "VoxelBuildPrefabActor.h"
+ #include "VillageBuildDefense.h"
++#include "VillageGateReplacement.h"
++#include "../WorldGeneration/TemperateHillsWorld.h"
+ #include "VoxelCollapseFragment.h"
+ #include "../Multiplayer/ColdSteelInventoryRequestTypes.h"
+ #include "../UI/ColdSteelStatusModel.h"
+@@ -51,6 +53,7 @@
+          {if(Piece){if(auto* Logic=Piece->Logic())Logic->Destroy();Piece->Destroy();}It.RemoveCurrent();}}
+         for(const auto& P:Data->Prefabs)if(!PrefabActors.Contains(P.Cell))SpawnPrefab(P);
+     }
++    bWorkshopTowerGranted=Data->bWorkshopTowerGranted;
+     Prefabs=Data->Prefabs;SmeltingJobs=Data->Smelting;Fuels=Data->Fuel;
+     CellDamage=Data->Damage;LegacyProtected=Data->LegacyProtected;
+     // 自由体积整表替换后重建世界格反查表（2026-10-13 中危#3，与 Initialize 同口径）。
+@@ -106,11 +109,20 @@
+     for(const auto& C:UniqueCells)if(!Reach(Origin+CellCenter(C))){Reason=TEXT("建造位置超出范围");return false;}
+     const bool bWallDock=R.Mode==TEXT("wallDockPrefab");
+     const bool bGroundDefense=R.Mode==TEXT("groundDefensePrefab");
+-    const bool bPlacePrefab=bWallDock||bGroundDefense||R.Mode==TEXT("prefab");
++    const bool bReplaceWall=R.Mode==TEXT("replaceWallGate");
++    const bool bPlacePrefab=bReplaceWall||bWallDock||bGroundDefense||R.Mode==TEXT("prefab");
+     if(bWallDock&&(!IsValid(R.Target.Get())||R.Target->GetWorld()!=GetWorld()||!VillageWallStairs::CanDock(R.Definition)))
+     {Reason=TEXT("该城防接口已失效，请重新瞄准");return false;}
+     FIntVector Anchor=R.Anchor;
+     int32 Yaw=R.Orientation;
++    if(bReplaceWall)
++    {
++        const auto* Definition=Palette->FindComponent(R.Definition);
++        FTransform Pose;
++        if(!Definition || R.Count<0 || R.Count>MAX_uint32 || R.Cell!=VillageGateReplacement::ReplacementSocket || !IsValid(R.Target.Get()) ||
++            R.Target->GetWorld()!=GetWorld() || !VillageGateReplacement::Layout(R.Definition,R.Target.Get(),Definition->Footprint,Pose,Anchor,Yaw))
++        {Reason=TEXT("目标墙段已变化，请重新瞄准");return false;}
++    }
+     if(bWallDock&&R.Cell!=INDEX_NONE)
+     {
+         // A quantized replica can put the same socket on the other side of a 20 cm cell edge.
+@@ -121,9 +133,26 @@
+         Anchor=Dock.Anchor;
+         Yaw=Dock.Yaw;
+     }
+-    if(bPlacePrefab&&(Yaw<0||Yaw>(bGroundDefense?359:3)||!Reach(CellCenter(Anchor))))
+-    {Reason=TEXT("建造位置或方向超出范围");return false;}
+-    if((R.Mode==TEXT("removePrefab")||R.Mode==TEXT("debris"))&&(!IsValid(R.Target)||!Reach(R.Target->GetActorLocation())))return false;
++    if(bPlacePrefab)
++    {
++        const FVector Point=CellCenter(Anchor);
++        const bool InRange=VillageBuildDefense::IsVillageRecipe(R.Definition)?VillageBuildDefense::InSurveyRange(Eye,Point):Reach(Point);
++        if(Yaw<0||Yaw>(bGroundDefense?359:3)||!InRange){Reason=TEXT("建造位置或方向超出范围");return false;}
++    }
++    if(R.Mode==TEXT("removePrefab")||R.Mode==TEXT("debris"))
++    {
++        if(!IsValid(R.Target))return false;
++        const auto* Piece=Cast<AVoxelBuildPrefabActor>(R.Target.Get());
++        const bool IsVillagePiece=R.Mode==TEXT("removePrefab")&&Piece&&Piece->GetOwner()==this&&VillageBuildDefense::IsVillageRecipe(Piece->PrefabId());
++        const FVector Point=R.Target->GetActorLocation();
++        if(IsVillagePiece && !Reach(Point))
++        {
++            const auto* Hills=FindVillageConstructionWorld();
++            if(!Hills||!Hills->IsVillageWallRepaired()||!VillageBuildDefense::InSurveyRange(Eye,Point))
++            {Reason=TEXT("超出村庄施工范围");return false;}
++        }
++        else if(!Reach(Point))return false;
++    }
+     auto* HistoryOwner=Pawn->GetPlayerState();if(!HistoryOwner)return false;
+     UndoHistory.ForgetDisconnected();
+     TGuardValue<APlayerState*> EditingPlayer(UndoPlayer,HistoryOwner);

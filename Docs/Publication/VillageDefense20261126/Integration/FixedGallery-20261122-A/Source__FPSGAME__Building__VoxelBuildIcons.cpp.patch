@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/Building/VoxelBuildIcons.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildIcons.cpp
+@@ -216,13 +216,11 @@
+         if(Request.PieceId==VillageBuildDefense::StoneGate)
+         {
+             auto* Grille=Cast<UStaticMesh>(AHighVillageGate::PlacedGrilleMeshPath().TryLoad());
+-            auto* Flight=Cast<UStaticMesh>(AHighVillageGate::FoldingFlightMeshPath().TryLoad());
+             auto* Handle=Cast<UStaticMesh>(AHighVillageGate::ReleaseMeshPath().TryLoad());
+-            if(!Mesh||!Grille||!Flight||!Handle)return false;
++            if(!Mesh||!Grille||!Handle)return false;
+             AddPart(Handle,AHighVillageGate::ReleasePose(false));
+             AddPart(Mesh,FTransform::Identity);
+             AddPart(Grille,FTransform::Identity);
+-            for(bool bToe : {false,true})AddPart(Flight,AHighVillageGate::FlightPose(false,bToe));
+         }
+         else
+         {

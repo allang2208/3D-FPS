@@ -1,0 +1,68 @@
+--- a/Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp
++++ b/Source/FPSGAME/UI/ColdSteelNpcDialogue.cpp
+@@ -346,20 +346,18 @@
+ TSharedRef<SWidget> UColdSteelNpcDialogue::Workshop()
+ {
+     const TWeakObjectPtr<UColdSteelNpcDialogue> Owner(this);
+-    auto Extent=[Owner](bool Horizontal)
+-    {
+-        if(!Owner.IsValid())return FOptionalSize();
+-        const FVector2D Size=UWidgetLayoutLibrary::GetViewportSize(Owner.Get());
+-        const float Scale=FMath::Max(.1f,UWidgetLayoutLibrary::GetViewportScale(Owner.Get()));
+-        return FOptionalSize(FMath::Max(1.f,FMath::Min(Horizontal?860.f:600.f,
+-            float(Horizontal?Size.X:Size.Y)/Scale-24.f)));
+-    };
+-    return SNew(SOverlay)
+-        +SOverlay::Slot().HAlign(HAlign_Center).VAlign(VAlign_Center)
+-        [SNew(SBox).WidthOverride_Lambda([Extent]{return Extent(true);}).HeightOverride_Lambda([Extent]{return Extent(false);})
+-            [SNew(SBorder).BorderImage(&TreeStyle.GlassBrush).Padding(14)
+-                [SAssignNew(WorkshopMarket,SSiegeWorkshopMarket).Conversation(Conversation.Get())
+-                    .OnBack(FSimpleDelegate::CreateWeakLambda(this,[this]{ReturnToParentPage();}))]]];
++    return SNew(SDPIScaler).DPIScale_Lambda([Owner]
++        {
++            // Keep text readable on small screens, retaining native enlargement above 1080p.
++            return Owner.IsValid()?1.f/FMath::Clamp(PixelScale(Owner.Get()),.1f,1.f):1.f;
++        })
++        [SAssignNew(WorkshopMarket,SSiegeWorkshopMarket).Conversation(Conversation.Get())
++            .OnBack(FSimpleDelegate::CreateWeakLambda(this,[this]
++            {
++                if(Page!=WorkshopPage)return;
++                bResumeWorkshopGreeting=true;
++                ShowPage(MainPage);
++            }))];
+ }
+ 
+ void UColdSteelNpcDialogue::ChooseMerchantAction(int32 Choice)
+@@ -397,6 +395,7 @@
+ 
+ void UColdSteelNpcDialogue::ReturnToParentPage()
+ {
++    if(Page==WorkshopPage && WorkshopMarket){WorkshopMarket->RequestClose();return;}
+     if (Page == MainPage)
+     {
+         if (Conversation.IsValid()) Conversation->Close();
+@@ -414,8 +413,13 @@
+     const auto& Topic = Speaker.Topics[MerchantTopicIndex];
+     const TCHAR* Reply = bMain ? Speaker.Greeting : bTopics ? Speaker.TopicPrompt :
+         Page == MerchantFollowUpPage ? Topic.FollowUpReply : Topic.Reply;
+-    auto DialogueBody = SNew(SVerticalBox)
+-        + SVerticalBox::Slot().AutoHeight()[SAssignNew(Speech, SColdSteelNpcSpeech).Passages(TArray<FColdSteelSpokenPassage>{{Reply}})];
++    auto DialogueBody = SNew(SVerticalBox);
++    if(bMain && Conversation->IsMasterArtisan() && bResumeWorkshopGreeting)
++    {
++        bResumeWorkshopGreeting=false;
++        DialogueBody->AddSlot().AutoHeight()[Label(TEXT("图纸收好了。还想看看哪一项？"),18,TextPrimary,false,true)];
++    }
++    else DialogueBody->AddSlot().AutoHeight()[SAssignNew(Speech,SColdSteelNpcSpeech).Passages(TArray<FColdSteelSpokenPassage>{{Reply}})];
+     auto Actions = SNew(SWrapBox).UseAllottedSize(true).InnerSlotPadding(FVector2D(ActionGap, ActionGap));
+ 
+     if (bMain || bTopics)
+@@ -581,6 +585,8 @@
+ 
+ FReply UColdSteelNpcDialogue::NativeOnFocusReceived(const FGeometry& Geometry, const FFocusEvent& Event)
+ {
++    if(Page==WorkshopPage && WorkshopMarket)
++        if(auto Target=WorkshopMarket->FocusTarget())return FReply::Handled().SetUserFocus(Target.ToSharedRef(),Event.GetCause());
+     if (DefaultChoice && DefaultChoice->IsEnabled() && (Page != MainPage || bHeardNunIntro || MerchantSpeaker(Conversation.Get())))
+         return FReply::Handled().SetUserFocus(DefaultChoice.ToSharedRef(), Event.GetCause());
+     return Super::NativeOnFocusReceived(Geometry, Event);

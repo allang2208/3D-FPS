@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelWorldInteraction.h"
++#include "../NPC/VillageMasterArtisan.h"
+ #include "../Movement/HorseRiderComponent.h"
+ #include "../Movement/StableHorseMarket.h"
+ #include "../Movement/StableRidingHorse.h"
+@@ -150,7 +151,7 @@
+                 ||Cast<AColdSteelCampfire>(Target)||Cast<AColdSteelFountain>(Target)||Cast<AColdSteelPickup>(Target)
+                 ||Cast<AColdSteelWarehouseChest>(Target)||Cast<AColdSteelSceneContainer>(Target)||IsTreasureChest(Target)||IsExpeditionAltar(Target)
+                 ||Cast<AVoxelBuildPrefabActor>(Target)||Cast<AApartmentDeviceControl>(Target)||Cast<AHeQuePumpControl>(Target)||Cast<AVillageGunshopCounter>(Target)
+-                ||Cast<AChapelNun>(Target)||Cast<AVillageArtisanMerchant>(Target)||Cast<AVillageHerbalist>(Target)||Cast<AVillageMillKeeper>(Target)||Cast<AVillageDefenseSection>(Target)
++                ||Cast<AChapelNun>(Target)||Cast<AVillageArtisanMerchant>(Target)||Cast<AVillageHerbalist>(Target)||Cast<AVillageMasterArtisan>(Target)||Cast<AVillageMillKeeper>(Target)||Cast<AVillageDefenseSection>(Target)
+                 ||(UDungeonRunSubsystem::Get(PC->GetWorld())&&UDungeonRunSubsystem::Get(PC->GetWorld())->IsShrine(Target))?Target:nullptr;
+             break;
+         }
+@@ -502,6 +503,7 @@
+     if(Cast<AVillageTavernKeeper>(Target)){Hint.Text=TEXT("酒馆老板娘 · 交谈");return Hint;}
+     if(StableHorseMarket::IsSeller(Target)){Hint.Title=TEXT("马厩管理员");Hint.Text=TEXT("查看出售马匹");return Hint;}
+     if(Cast<AVillageBaker>(Target)){Hint.Text=TEXT("面包师 · 交谈");return Hint;}
++    if(Cast<AVillageMasterArtisan>(Target)){Hint.Title=TEXT("工匠大师");Hint.Text=TEXT("交谈");return Hint;}
+     if(Cast<AVillageMillKeeper>(Target)){Hint.Text=TEXT("磨坊管理员 · 交谈");return Hint;}
+     if(Cast<AVillageHerbalist>(Target)){Hint.Text=TEXT("草药师林芷 · 交谈");return Hint;}
+     if(Cast<AChapelNun>(Target)){Hint.Text=TEXT("修女 · 交谈");return Hint;}

@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPreview.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPreview.cpp
+@@ -187,6 +225,7 @@
+     }
+     Preview->SetWorldLocationAndRotation(Transform.GetLocation(),Transform.GetRotation());
+     Preview->SetWorldScale3D(Transform.GetScale3D());
++    UpdateWallCutPreview();
+     for(UStaticMeshComponent* Part:VillageGatePreviewParts)Part->SetVisibility(Gate);
+     if(PreviewMID)
+     {
+@@ -200,6 +239,7 @@
+ void UVoxelBuildComponent::UpdatePreview(FIntVector Size)
+ {
+     if(EntrancePreview)EntrancePreview->SetVisibility(false);
++    if(WallCutPreview)WallCutPreview->SetVisibility(false);
+     for(UStaticMeshComponent* Part:VillageGatePreviewParts)Part->SetVisibility(false);
+     // Component previews switch the ghost mesh; the voxel brush always uses the 20 cm cube.
+     if(Preview&&GhostMesh&&Preview->GetStaticMesh()!=GhostMesh)

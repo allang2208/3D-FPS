@@ -1,0 +1,41 @@
+--- a/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp
++++ b/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp
+@@ -357,7 +357,8 @@
+         |(BuildingRepaired(TEXT("carpenter"))?32:0)|(BuildingRepaired(TEXT("tavern"))?64:0)
+         |(BuildingRepaired(TEXT("herbalist"))?128:0)|(PlanUnlocked(TEXT("village_construction"))?256:0)
+         |(BuildingRepaired(TEXT("high_wall"))?512:0)|(BuildingRepaired(TEXT("windmill"))?1024:0)
+-        |(BuildingRepaired(TEXT("bakery"))?2048:0)|(BuildingRepaired(TEXT("gunshop"))?4096:0);
++        |(BuildingRepaired(TEXT("bakery"))?2048:0)|(BuildingRepaired(TEXT("gunshop"))?4096:0)
++        |(PlanUnlocked(TEXT("garrison_mechanics"))?8192:0);
+     const int32 PlayerLevel=M?M->ProfileView().Level:0;
+     if(State!=PreviousState || PlayerLevel!=PreviousPlayerLevel)
+     {
+@@ -380,7 +381,8 @@
+     if (!bPending && Action!=TEXT("holyLight"))
+     {
+         // The controller's reliable reply and the village's replicated state can arrive in either order.
+-        const bool bComplete=Action==TEXT("village_construction") ? PlanUnlocked(Action) : BuildingRepaired(Action);
++        const bool bResearch=Action==TEXT("village_construction") || Action==TEXT("garrison_mechanics");
++        const bool bComplete=bResearch ? PlanUnlocked(Action) : BuildingRepaired(Action);
+         if (bLastNunActionSucceeded!=bComplete) return Empty;
+     }
+     return Message;
+@@ -395,7 +397,7 @@
+     bool Success=false;FString Result;
+     if(Action==TEXT("wall")||Action==TEXT("blacksmith")||Action==TEXT("carpenter")||Action==TEXT("tavern")||
+         Action==TEXT("herbalist")||Action==TEXT("village_construction")||Action==TEXT("high_wall")||Action==TEXT("windmill")||
+-        Action==TEXT("bakery")||Action==TEXT("gunshop"))
++        Action==TEXT("bakery")||Action==TEXT("gunshop")||Action==TEXT("garrison_mechanics"))
+     {
+         auto* Village=Cast<ATemperateHillsWorld>(Nun->GetParentActor());
+         FText Error;Success=IsValid(Village)&&Village->UnlockVillagePlan(Action,Error);
+@@ -408,7 +410,8 @@
+         else if(Action==TEXT("windmill"))Result=TEXT("风车已修复，村庄建设进度已保存。");
+         else if(Action==TEXT("bakery"))Result=TEXT("面包屋已修复，可以到柜台找面包师买面包了。");
+         else if(Action==TEXT("gunshop"))Result=TEXT("枪店已修复，南侧长屋的一楼枪械工作台已开放。");
+-        else if(Action==TEXT("village_construction"))Result=TEXT("防御工事已解锁。按 B 打开「村庄建筑」，可建造石砌高塔楼、固定式弩炮和配重投石机。");
++        else if(Action==TEXT("village_construction"))Result=TEXT("防御工事已解锁，可建造石砌高塔楼。");
++        else if(Action==TEXT("garrison_mechanics"))Result=TEXT("机械工坊已在教堂后院落成。按 B 打开「村庄建筑」，可建造弩炮与投石机。");
+         else Result=TEXT("酒馆已修复，村庄建设进度已保存。");
+     }
+     else if(Action==TEXT("holyLight"))

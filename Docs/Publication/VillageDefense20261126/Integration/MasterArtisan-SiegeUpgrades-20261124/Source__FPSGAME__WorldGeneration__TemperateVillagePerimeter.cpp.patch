@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillagePerimeter.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillagePerimeter.cpp
+@@ -250,7 +250,7 @@
+         Meshes.Add(FName(Piece.Role),Mesh);
+     }
+     if(HasAuthority())
+-        GetWorld()->GetSubsystem<UVillageDefenseState>()->SelectGeneration(WorldId,VillageDefenseGeneration);
++        SiegeRanks=GetWorld()->GetSubsystem<UVillageDefenseState>()->SelectGeneration(WorldId,VillageDefenseGeneration);
+     ClearVillagePerimeter();
+     TMap<FName,UInstancedStaticMeshComponent*> Groups;
+     int32 SectionId=0;

@@ -1,0 +1,47 @@
+--- a/Source/FPSGAME/UI/SColdSteelHorseMarket.cpp
++++ b/Source/FPSGAME/UI/SColdSteelHorseMarket.cpp
+@@ -1,5 +1,6 @@
+ #include "SColdSteelHorseMarket.h"
+ #include "SHorseMarketPlate.h"
++#include "ColdSteelMarketCardStyle.h"
+ #include "../Movement/StableHorseAppearance.h"
+ #include "ColdSteelUIStyle.h"
+ #include "Engine/Texture2D.h"
+@@ -24,35 +25,8 @@
+     return SNew(STextBlock).Text(Txt(Value)).Font(ColdSteelUI::TextFont(Size,Bold)).ColorAndOpacity(Tint);
+ }
+ 
+-FButtonStyle CardStyle(bool Selected)
+-{
+-    using namespace ColdSteelUI;
+-    FButtonStyle Style=ButtonStyle();
+-    Style.SetNormal(RoundedBrush(Selected?Gray(43):Gray(34),23,Selected?HUDGold:Border,Selected?2:1));
+-    Style.SetHovered(RoundedBrush(Gray(43),23,Selected?HUDGoldLight:HUDGoldDim,2));
+-    Style.SetPressed(RoundedBrush(Gray(38),23,HUDGoldLight,2));
+-    return Style.SetNormalPadding(0).SetPressedPadding(0);
+-}
+-const FButtonStyle& CardFrame(bool Selected)
+-{
+-    static const FButtonStyle Active=CardStyle(true), Rest=CardStyle(false);
+-    return Selected?Active:Rest;
+-}
+-
+-const FButtonStyle& PurchaseStyle()
+-{
+-    using namespace ColdSteelUI;
+-    static const FButtonStyle Style=[]
+-    {
+-        FButtonStyle Result=ButtonStyle();
+-        Result.SetNormal(RoundedBrush(Gray(35),20,HUDGold,1.5f));
+-        Result.SetHovered(RoundedBrush(Gray(54),20,HUDGoldLight,2));
+-        Result.SetPressed(RoundedBrush(Gray(26),20,HUDGold,2));
+-        Result.SetDisabled(RoundedBrush(Gray(30),20,HUDGoldDim,1));
+-        return Result.SetNormalPadding(0).SetPressedPadding(0);
+-    }();
+-    return Style;
+-}
++using ColdSteelMarketCard::CardFrame;
++using ColdSteelMarketCard::PurchaseStyle;
+ }
+ 
+ void SColdSteelHorseMarket::Construct(const FArguments& Args)

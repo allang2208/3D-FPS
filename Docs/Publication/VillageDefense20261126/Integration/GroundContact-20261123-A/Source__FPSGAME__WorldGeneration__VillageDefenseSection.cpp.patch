@@ -1,0 +1,103 @@
+--- a/Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp
++++ b/Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp
+@@ -15,12 +15,21 @@
+ #include "../Monsters/WildlifeSubsystem.h"
+ #include "../Monsters/WolfMonster.h"
+ #include "Components/StaticMeshComponent.h"
++#include "Components/DecalComponent.h"
++#include "Materials/MaterialInterface.h"
+ #include "Engine/OverlapResult.h"
+ #include "Engine/AssetManager.h"
+ #include "Engine/StreamableManager.h"
+ #include "Engine/StaticMesh.h"
+ #include "Engine/World.h"
+ #include "Net/UnrealNetwork.h"
++
++namespace
++{
++    const FSoftObjectPath GroundWearMaterial = VillageMasonry::CastleMesh(TEXT("M_DefenseGroundWear"));
++    const FSoftObjectPath HighTowerMesh(FString(VillageMasonry::CastleFolder) +
++        TEXT("SquareKeep/SM_HighWatchtower.SM_HighWatchtower"));
++}
+ 
+ AVillageDefenseSection::AVillageDefenseSection()
+ {
+@@ -38,6 +47,7 @@
+ }
+ void AVillageDefenseSection::AddAssetPaths(TArray<FSoftObjectPath>& Paths)
+ {
++    if(!IsRunningDedicatedServer())Paths.AddUnique(GroundWearMaterial);
+     for(const TCHAR* MeshRole:{TEXT("GateWide"),TEXT("GateNarrow"),TEXT("GateWideRight"),TEXT("GateNarrowRight"),TEXT("GateHingeMount"),TEXT("GateHingeMountRight"),TEXT("WoodShard")})
+         Paths.AddUnique(FSoftObjectPath(FString::Printf(TEXT("/Game/WorldGeneration/TemperateHills/VillageDefenses/SM_%s.SM_%s"),MeshRole,MeshRole)));
+     Paths.AddUnique(VillageMasonry::Mesh(TEXT("SM_StoneChunkA")));
+@@ -64,6 +74,7 @@
+ void AVillageDefenseSection::OnRep_FixedScale()
+ {
+     SetActorScale3D(FixedScale);
++    if(GroundWear)SetupGroundWear();
+     if(MeshPath==AHighVillageWall::WallMeshPath())
+         VillageMasonry::ApplyCurtainPhase(*Masonry,GetActorTransform());
+ }
+@@ -90,12 +101,61 @@
+         VillageMasonry::ApplyCurtainPhase(*Masonry,GetActorTransform());
+     else if(MeshPath.GetLongPackageName().StartsWith(VillageMasonry::CastleFolder))
+         VillageMasonry::ApplyWallPhase(*Masonry,SectionId);
+-    if(auto* Mesh=Cast<UStaticMesh>(MeshPath.ResolveObject())){Masonry->SetStaticMesh(Mesh);ApplyHealth();return;}
++    if(auto* Mesh=Cast<UStaticMesh>(MeshPath.ResolveObject()))
++    {
++        Masonry->SetStaticMesh(Mesh);
++        SetupGroundWear();
++        ApplyHealth();
++        return;
++    }
+     MeshLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(MeshPath,
+         FStreamableDelegate::CreateUObject(this,&AVillageDefenseSection::OnRep_Setup));
+ }
++void AVillageDefenseSection::SetupGroundWear()
++{
++    if(GetNetMode()==NM_DedicatedServer)return;
++    if(!GroundWear)
++    {
++        // Building space uses X along the wall, +Y towards the courtyard.
++        // One shallow projection covers both wall feet or the entire gate/tower footprint.
++        float HalfX,HalfY,Margin,Kind,CenterY=0.f;
++        if(MeshPath==AHighVillageWall::WallMeshPath())
++        {
++            HalfX=150.f; HalfY=100.f; Margin=82.f; Kind=0.f;
++        }
++        else if(IsA<AHighVillageGate>())
++        {
++            HalfX=MeshPath==AHighVillageGate::PlacedGrilleMeshPath(true)?534.f:434.f;
++            HalfY=HalfX; CenterY=264.f-HalfY; Margin=150.f; Kind=1.f;
++        }
++        else if(MeshPath==HighTowerMesh)
++        {
++            HalfX=460.f; HalfY=460.f; Margin=138.f; Kind=.5f;
++        }
++        else return;
++
++        auto* Material=Cast<UMaterialInterface>(GroundWearMaterial.TryLoad());
++        if(!Material)return;
++        GroundWear=NewObject<UDecalComponent>(this,NAME_None,RF_Transient);
++        AddInstanceComponent(GroundWear);
++        GroundWear->SetupAttachment(RootComponent);
++        GroundWear->SetAbsolute(false,false,true);
++        GroundWear->SetRelativeLocationAndRotation(FVector(0.,CenterY,-12.),FRotator(-90.,0.,0.));
++        GroundWear->DecalSize=FVector(77.,HalfY+Margin,HalfX+(Kind==0.f?0.f:Margin));
++        GroundWear->SetDecalColor(FLinearColor(HalfX/1024.f,HalfY/1024.f,Margin/256.f,Kind));
++        GroundWear->SetDecalMaterial(Material);
++        GroundWear->SetSortOrder(-1);
++        GroundWear->RegisterComponent();
++    }
++    // An upright wall can be stretched along its X axis to fit the last bay.
++    // After the downward quarter-turn this is the decal's Z axis.
++    const FVector Scale=GetActorScale3D().GetAbs();
++    GroundWear->SetWorldScale3D(FVector(Scale.Z,Scale.Y,Scale.X));
++}
++
+ void AVillageDefenseSection::ApplyHealth()
+ {
++    if(GroundWear)GroundWear->SetVisibility(Health>0.f || IsA<AHighVillageGate>());
+     Masonry->SetVisibility(Health>0.f);
+     Masonry->SetCollisionEnabled(Health>0.f?ECollisionEnabled::QueryAndPhysics:ECollisionEnabled::NoCollision);
+     Masonry->SetCanEverAffectNavigation(Health>0.f);

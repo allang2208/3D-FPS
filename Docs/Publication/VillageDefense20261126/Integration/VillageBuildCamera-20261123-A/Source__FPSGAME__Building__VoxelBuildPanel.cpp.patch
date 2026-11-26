@@ -1,0 +1,75 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPanel.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPanel.cpp
+@@ -62,7 +64,7 @@
+ 
+ void UVoxelBuildComponent::SetPanelOpen(bool Open)
+ {
+-    if(bPanelOpen==Open)return;
++    if(bPanelOpen==Open){SyncVillageCamera();return;}
+     bPanelOpen=Open;
+     if(Open)RefreshVillageConstructionAccess();
+     UE_LOG(LogTemp,Display,TEXT("VOXEL_PANEL SetPanelOpen(%d) active=%d"),Open?1:0,bActive?1:0);
+@@ -82,10 +84,17 @@
+         }
+         else
+         {
+-            PC->SetIgnoreMoveInput(false);PC->SetIgnoreLookInput(false);PC->bShowMouseCursor=false;
+-            PC->SetInputMode(FInputModeGameOnly());
+-        }
+-    }
++            PC->SetIgnoreMoveInput(false);PC->SetIgnoreLookInput(false);
++            if(!bActive || !VillageBuildDefense::IsVillageRecipe(SelectedComponent))
++            {
++                PC->bShowMouseCursor=false;
++                PC->SetInputMode(FInputModeGameOnly());
++            }
++        }
++    }
++    const bool ResumeSurvey=!Open && VillageCamera!=nullptr;
++    SyncVillageCamera();
++    if(ResumeSurvey && VillageCamera)SetVillageCursorMode();
+     if(Preview)Preview->SetVisibility(false,true);
+     if(FoundationPreview)FoundationPreview->SetVisibility(false);
+     for(UInstancedStaticMeshComponent* G:{CellGhost,CellCutGhost45,CellCutGhost26L,CellCutGhost26U,CellCutGhostTent})if(G)G->SetVisibility(false);
+@@ -179,6 +188,7 @@
+     if(Widget)Widget->SetVillageConstructionUnlocked(bUnlocked);
+     if(bUnlocked||!VillageBuildDefense::IsVillageRecipe(SelectedComponent))return;
+     SelectedComponent=NAME_None;
++    SyncVillageCamera();
+     ComponentYaw=0;
+     AimedPrefab=nullptr;
+     bPrefabValid=false;
+@@ -303,6 +313,7 @@
+         if(bVillage)
+         {
+             Card.Rows.Add({TEXT("解锁条件"),TEXT("修女 · 村庄修建")});
++            Card.Rows.Add({TEXT("施工视角"),TEXT("选择后进入俯视。空格切换角度，鼠标靠边平移。")});
+             if(bWallStairs)
+             {
+                 Card.Subtitle=TEXT("村庄城防 · 折返石阶");
+@@ -376,7 +387,7 @@
+         |((uint64)(GetTypeHash(SelectedMaterial)&0xFFF))<<14
+         |(uint64)(PrefabPlanYaw&3)<<26|(uint64)(SelectedPrefab()?1:0)<<28
+         |(uint64)(GrowUpPlan?1:0)<<29|(uint64)(Placement.Num()&0x3FF)<<30|CellHash<<40
+-        |(uint64)bDocked<<56|(uint64)bPanelOpen<<57;
++        |(uint64)bDocked<<56|(uint64)bPanelOpen<<57|(uint64)bVillageVertical<<58;
+     const FString Signal=FeedbackTime>0?Feedback:LiveMessage;
+     // StructureStatus 的过渡态（正在保存/正在计算/倒塌处理中）不随 Revision 变化，必须入键，
+     // 否则状态行会在整个过渡期冻结。世界侧用 StatusFingerprint() 把这些内部标志折成 uint64；
+@@ -395,6 +406,16 @@
+         return;
+     }
+     LastWidgetCheapKey=LayoutKey;LastWidgetRevision=Revision;
++    if(IsVillageCameraPlacing() && VillageCameraCaption)
++    {
++        if(const auto* Piece=SelectedPrefab())
++        {
++            const FString Status=FString::Printf(TEXT("%s　·　%s　·　朝向 %d°　·　%s\n%s\n空格 切换视角　·　鼠标靠边 平移　·　滚轮 旋转　·　左键 放置　·　Esc 退出"),
++                *Piece->DisplayName.ToString(),bVillageVertical?TEXT("垂直俯视"):TEXT("45° 俯视"),ShownYaw,
++                bSnapEnabled?TEXT("吸附开"):TEXT("吸附关"),*Signal);
++            VillageCameraCaption->SetText(FText::FromString(Status));
++        }
++    }
+     Widget->SetSelection(SelectedMaterial,SelectedComponent,Brush);
+     UpdateStructureWarning(*BuildWorld);
+     if(bPanelOpen)

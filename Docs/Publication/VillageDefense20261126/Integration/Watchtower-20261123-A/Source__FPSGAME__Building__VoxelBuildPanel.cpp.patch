@@ -1,0 +1,25 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPanel.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPanel.cpp
+@@ -295,7 +295,7 @@
+         Card.Rows.Add({TEXT("占格尺寸"),Card.Detail});
+         Card.Rows.Add({TEXT("20 cm 占格"),FString::Printf(TEXT("%d × %d × %d"),Entry.Footprint.X,Entry.Footprint.Y,Entry.Footprint.Z)});
+         Card.Rows.Add({TEXT("放置方式"),bWallStairs?TEXT("地面放置或对接高墙步道"):
+-            (Entry.Id==VillageBuildDefense::HighWall||Entry.Id==VillageBuildDefense::StoneGate)?TEXT("落地或吸附至城防接口"):
++            VillageWallStairs::CanDock(Entry.Id)?TEXT("落地或吸附至城防接口"):
+             bWall?TEXT("壁挂 · 朝向跟随墙面"):TEXT("表面放置 · 可切换吸附")});
+         Card.NumericRows={TEXT("占格尺寸"),TEXT("20 cm 占格")};
+         Card.Note=bWall?TEXT("只能贴在墙、柱等竖直表面，右键拆除。壁挂件不参与失去地面支撑后的脱落计算。"):
+@@ -311,7 +311,12 @@
+             else if(Entry.Id==VillageBuildDefense::HighWall)
+             {
+                 Card.Subtitle=TEXT("村庄城防 · 带城垛的石墙");
+-                Card.Note=TEXT("地面滚轮每格旋转 1°。将墙端接到高墙或石城门侧面，滚轮切换接法。步道朝村内，可接城墙石阶。");
++                Card.Note=TEXT("地面滚轮每格旋转 1°。墙端可对接高墙、石城门或高塔楼。吸附时滚轮切换接法。步道朝村内，可接城墙石阶。");
++            }
++            else if(Entry.Id==VillageBuildDefense::HighTower)
++            {
++                Card.Subtitle=TEXT("村庄城防 · 方形高塔楼");
++                Card.Note=TEXT("两侧入口平接 3.6 米城墙步道。地面滚轮每格旋转 1°。吸附墙端时滚轮切换对接方向。内梯通往射击窗和塔顶。");
+             }
+             else if(Entry.Id==VillageBuildDefense::StoneGate)
+             {

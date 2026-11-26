@@ -1,0 +1,77 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp
+@@ -1,4 +1,5 @@
+ #include "TemperateHillsWorld.h"
++#include "../Building/VillageBuildDefense.h"
+ #include "VillageDefenseState.h"
+ #include "HillsCarpenterWorkshop.h"
+ #include "HillsHerbalistWorkshop.h"
+@@ -19,6 +20,7 @@
+     if(Plan==TEXT("tavern"))return UTemperateHillsSave::TavernPlan;
+     if(Plan==TEXT("herbalist"))return UTemperateHillsSave::HerbalistPlan;
+     if(Plan==TEXT("windmill"))return UTemperateHillsSave::WindmillPlan;
++    if(Plan==VillageBuildDefense::MechanicsPlan)return UTemperateHillsSave::GarrisonMechanicsPlan;
+     if(Plan==TEXT("bakery"))return UTemperateHillsSave::BakeryPlan;
+     if(Plan==TEXT("gunshop"))return UTemperateHillsSave::GunshopPlan;
+     if(Plan==TEXT("village_construction"))return UTemperateHillsSave::ConstructionPlan;
+@@ -32,6 +34,7 @@
+     // Older worlds may own the former all-recipes plan before rebuilding their perimeter.
+     // Keep that purchase on disk and activate it as soon as the high wall is complete.
+     if(Bit==UTemperateHillsSave::ConstructionPlan)return HasVillageHighWall()&&(VillagePlansUnlocked&Bit)!=0;
++    if(Bit==UTemperateHillsSave::GarrisonMechanicsPlan)return bGarrisonMechanics && IsVillagePlanUnlocked(TEXT("village_construction"));
+     if(Bit==UTemperateHillsSave::BakeryPlan)return IsBakeryRepaired();
+     if(Bit==UTemperateHillsSave::GunshopPlan)return IsGunshopRepaired();
+     return (VillagePlansUnlocked&Bit)!=0||(Bit==1&&bVillageWallRepaired)||(Bit==2&&bVillageBlacksmithRepaired);
+@@ -50,6 +53,15 @@
+         }
+         if(IsVillagePlanUnlocked(Plan))return true;
+         return CommitVillagePlanRepair(Bit,6,TEXT("防御工事未能保存，请重试。"),FailureReason);
++    }
++    if(Bit==UTemperateHillsSave::GarrisonMechanicsPlan)
++    {
++        if(!IsVillagePlanUnlocked(TEXT("village_construction")))
++        {FailureReason=FText::FromString(TEXT("请先完成「防御工事」。"));return false;}
++        if(bGarrisonMechanics)return true;
++        if(!ChapelSite.bPlaced || MechanicalWorkshopLotOccupied())
++        {FailureReason=FText::FromString(TEXT("请先清空教堂后院的机械工坊用地。"));return false;}
++        return CommitVillagePlanRepair(Bit,11,TEXT("守备机械未能保存，请重试。"),FailureReason);
+     }
+     // Unlock and repair share one durable commit. A legacy plan-only unlock must
+     // still execute the replacement, rather than returning success early.
+@@ -155,6 +167,7 @@
+     Save->VillagePlansUnlocked=Save->SavedVillagePlans()|static_cast<uint8>(PlanBit);
+     if(PlanBit==UTemperateHillsSave::BakeryPlan)Save->bVillageBakeryRepaired=true;
+     if(PlanBit==UTemperateHillsSave::GunshopPlan)Save->bVillageGunshopRepaired=true;
++    if(PlanBit==UTemperateHillsSave::GarrisonMechanicsPlan)Save->bGarrisonMechanics=true;
+     Save->VillagePlanVersion=FMath::Max(RequiredVersion,Save->VillagePlanVersion);
+     if(!UGameplayStatics::SaveGameToSlot(Save,Slot,0))
+     {
+@@ -168,6 +181,11 @@
+     {
+         bVillageBakeryRepaired=Save->bVillageBakeryRepaired;
+         OnRep_VillageBakery();
++    }
++    if(bGarrisonMechanics!=Save->bGarrisonMechanics)
++    {
++        bGarrisonMechanics=Save->bGarrisonMechanics;
++        UpdateMechanicalWorkshop();
+     }
+     if(bVillageGunshopRepaired!=Save->bVillageGunshopRepaired)
+     {
+@@ -242,6 +260,7 @@
+     Save->bVillageBlacksmithRepaired=false;
+     Save->bVillageBakeryRepaired=false;
+     Save->bVillageGunshopRepaired=false;
++    Save->bGarrisonMechanics=false;
+     Save->VillagePlansUnlocked=0;
+     Save->VillagePlanVersion=UTemperateHillsSave::CurrentVillagePlanVersion;
+     Save->VillageDefenseGeneration=FGuid::NewGuid();
+@@ -265,6 +284,8 @@
+         bVillageGunshopRepaired=false;
+         OnRep_VillageGunshop();
+     }
++    bGarrisonMechanics=false;
++    UpdateMechanicalWorkshop();
+     VillagePlansUnlocked=0;
+     VillageDefenseGeneration=Save->VillageDefenseGeneration;
+     GetWorld()->GetSubsystem<UVillageDefenseState>()->SelectGeneration(WorldId,VillageDefenseGeneration);

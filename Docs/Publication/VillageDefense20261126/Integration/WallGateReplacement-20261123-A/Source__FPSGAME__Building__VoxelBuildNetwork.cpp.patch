@@ -1,0 +1,41 @@
+--- a/Source/FPSGAME/Building/VoxelBuildNetwork.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildNetwork.cpp
+@@ -5,6 +5,7 @@
+ #include "VoxelBuildPalette.h"
+ #include "VoxelBuildPrefabActor.h"
+ #include "VillageBuildDefense.h"
++#include "VillageGateReplacement.h"
+ #include "../WorldGeneration/TemperateHillsWorld.h"
+ #include "VoxelCollapseFragment.h"
+ #include "../Multiplayer/ColdSteelInventoryRequestTypes.h"
+@@ -107,11 +108,20 @@
+     for(const auto& C:UniqueCells)if(!Reach(Origin+CellCenter(C))){Reason=TEXT("建造位置超出范围");return false;}
+     const bool bWallDock=R.Mode==TEXT("wallDockPrefab");
+     const bool bGroundDefense=R.Mode==TEXT("groundDefensePrefab");
+-    const bool bPlacePrefab=bWallDock||bGroundDefense||R.Mode==TEXT("prefab");
++    const bool bReplaceWall=R.Mode==TEXT("replaceWallGate");
++    const bool bPlacePrefab=bReplaceWall||bWallDock||bGroundDefense||R.Mode==TEXT("prefab");
+     if(bWallDock&&(!IsValid(R.Target.Get())||R.Target->GetWorld()!=GetWorld()||!VillageWallStairs::CanDock(R.Definition)))
+     {Reason=TEXT("该城防接口已失效，请重新瞄准");return false;}
+     FIntVector Anchor=R.Anchor;
+     int32 Yaw=R.Orientation;
++    if(bReplaceWall)
++    {
++        const auto* Definition=Palette->FindComponent(R.Definition);
++        FTransform Pose;
++        if(!Definition || R.Count<0 || R.Count>MAX_uint32 || R.Cell!=VillageGateReplacement::ReplacementSocket || !IsValid(R.Target.Get()) ||
++            R.Target->GetWorld()!=GetWorld() || !VillageGateReplacement::Layout(R.Definition,R.Target.Get(),Definition->Footprint,Pose,Anchor,Yaw))
++        {Reason=TEXT("目标墙段已变化，请重新瞄准");return false;}
++    }
+     if(bWallDock&&R.Cell!=INDEX_NONE)
+     {
+         // A quantized replica can put the same socket on the other side of a 20 cm cell edge.
+@@ -163,7 +173,7 @@
+     }
+     else if(R.Mode==TEXT("undo"))Success=Undo(&Removed);
+     else if(bGroundDefense)Success=PlacePrefab(R.Definition,R.Anchor,0,false,nullptr,R.Orientation);
+-    else if(bPlacePrefab)Success=PlacePrefab(R.Definition,Anchor,Yaw,bWallDock,bWallDock?R.Target.Get():nullptr);
++    else if(bPlacePrefab)Success=PlacePrefab(R.Definition,Anchor,Yaw,bWallDock||bReplaceWall,R.Target.Get(),INDEX_NONE,bReplaceWall,bReplaceWall?R.Count:-1);
+     else if(R.Mode==TEXT("removePrefab"))Success=RemovePrefab(R.Target);
+     else if(R.Mode==TEXT("debris"))
+     {

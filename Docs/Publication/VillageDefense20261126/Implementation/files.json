@@ -1,0 +1,704 @@
+[
+  {
+    "target": "Source/FPSGAME/Building/VillageBuildCamera.cpp",
+    "source": "Implementation/Source/FPSGAME/Building/VillageBuildCamera.cpp",
+    "sha256": "72dd2dc76dc4a3c5646e7c7230f7a6dfa0583ccbe8e00789df076771742b316f",
+    "host_lf_sha256": "72dd2dc76dc4a3c5646e7c7230f7a6dfa0583ccbe8e00789df076771742b316f"
+  },
+  {
+    "target": "Source/FPSGAME/Building/VillageBuildDefense.cpp",
+    "source": "Implementation/Source/FPSGAME/Building/VillageBuildDefense.cpp",
+    "sha256": "e33c6efa8aab851d9634789e68af7d94e34d9f4ed09f91f0e78861720194fdc1",
+    "host_lf_sha256": "e33c6efa8aab851d9634789e68af7d94e34d9f4ed09f91f0e78861720194fdc1"
+  },
+  {
+    "target": "Source/FPSGAME/Building/VillageBuildDefense.h",
+    "source": "Implementation/Source/FPSGAME/Building/VillageBuildDefense.h",
+    "sha256": "0318aec0a5a7b3d4fad89cea1e45d33da2b760ad3f5aaf05b54f2775c672c09b",
+    "host_lf_sha256": "0318aec0a5a7b3d4fad89cea1e45d33da2b760ad3f5aaf05b54f2775c672c09b"
+  },
+  {
+    "target": "Source/FPSGAME/Building/VillageDefenseFootprint.cpp",
+    "source": "Implementation/Source/FPSGAME/Building/VillageDefenseFootprint.cpp",
+    "sha256": "1b0be2bfd2de1b01d470f8eeb8f8218190068a3d2f296c5e432b4c12bbb35c47",
+    "host_lf_sha256": "1b0be2bfd2de1b01d470f8eeb8f8218190068a3d2f296c5e432b4c12bbb35c47"
+  },
+  {
+    "target": "Source/FPSGAME/Building/VillageDefenseFootprint.h",
+    "source": "Implementation/Source/FPSGAME/Building/VillageDefenseFootprint.h",
+    "sha256": "b7796198b17a209fbf4d08c5c578aa01d9708dc433a8232560be6f0dd201638e",
+    "host_lf_sha256": "b7796198b17a209fbf4d08c5c578aa01d9708dc433a8232560be6f0dd201638e"
+  },
+  {
+    "target": "Source/FPSGAME/Building/VillageGateReplacement.cpp",
+    "source": "Implementation/Source/FPSGAME/Building/VillageGateReplacement.cpp",
+    "sha256": "629fe1f83bfa30c68d00fc308a4b45f1dedefb2248068b1e37edada82ab7ef8c",
+    "host_lf_sha256": "629fe1f83bfa30c68d00fc308a4b45f1dedefb2248068b1e37edada82ab7ef8c"
+  },
+  {
+    "target": "Source/FPSGAME/Building/VillageGateReplacement.h",
+    "source": "Implementation/Source/FPSGAME/Building/VillageGateReplacement.h",
+    "sha256": "518b1c2e5b483e52c43ea564377d1ab7047b3929f153ba5ba4d8306e60a87934",
+    "host_lf_sha256": "518b1c2e5b483e52c43ea564377d1ab7047b3929f153ba5ba4d8306e60a87934"
+  },
+  {
+    "target": "Source/FPSGAME/Building/VillageWallStairs.cpp",
+    "source": "Implementation/Source/FPSGAME/Building/VillageWallStairs.cpp",
+    "sha256": "76a9f64aa3efddab24657fee977f35209a729c147b742ccc388fae0d0d2d2b93",
+    "host_lf_sha256": "76a9f64aa3efddab24657fee977f35209a729c147b742ccc388fae0d0d2d2b93"
+  },
+  {
+    "target": "Source/FPSGAME/Building/VillageWallStairs.h",
+    "source": "Implementation/Source/FPSGAME/Building/VillageWallStairs.h",
+    "sha256": "d31fc228e97bfff66b6246429beb8553786dd4b75e43d5752d3b4488133d3d70",
+    "host_lf_sha256": "d31fc228e97bfff66b6246429beb8553786dd4b75e43d5752d3b4488133d3d70"
+  },
+  {
+    "target": "Source/FPSGAME/Development/SiegeDrawerReview.cpp",
+    "source": "Implementation/Source/FPSGAME/Development/SiegeDrawerReview.cpp",
+    "sha256": "1dd78498e5ba9cd163488640751df3ebbc3e4b17db08aa3c975a6100d86c8099",
+    "host_lf_sha256": "1dd78498e5ba9cd163488640751df3ebbc3e4b17db08aa3c975a6100d86c8099"
+  },
+  {
+    "target": "Source/FPSGAME/Development/SiegeDrawerReview.h",
+    "source": "Implementation/Source/FPSGAME/Development/SiegeDrawerReview.h",
+    "sha256": "36139a4e53980faadaa69463abf55af733217481482e5294485eec7650131bae",
+    "host_lf_sha256": "36139a4e53980faadaa69463abf55af733217481482e5294485eec7650131bae"
+  },
+  {
+    "target": "Source/FPSGAME/Development/VillageGateWardReview.cpp",
+    "source": "Implementation/Source/FPSGAME/Development/VillageGateWardReview.cpp",
+    "sha256": "9153791fd64c64a883909dd4fe8cc321bd447616e9ce59cfe69a9f55a1550379",
+    "host_lf_sha256": "9153791fd64c64a883909dd4fe8cc321bd447616e9ce59cfe69a9f55a1550379"
+  },
+  {
+    "target": "Source/FPSGAME/Development/VillageOilMotionReviewCommandlet.cpp",
+    "source": "Implementation/Source/FPSGAME/Development/VillageOilMotionReviewCommandlet.cpp",
+    "sha256": "6619e6a1a5ebdfc34927977f96f48ed006458eed17b9e6e6f7c0354f20de5891",
+    "host_lf_sha256": "6619e6a1a5ebdfc34927977f96f48ed006458eed17b9e6e6f7c0354f20de5891"
+  },
+  {
+    "target": "Source/FPSGAME/Development/VillageOilMotionReviewCommandlet.h",
+    "source": "Implementation/Source/FPSGAME/Development/VillageOilMotionReviewCommandlet.h",
+    "sha256": "03b7733ea436b80c3fd7790f71bcc7c3be3253c3195f969540167ca8f6016e43",
+    "host_lf_sha256": "03b7733ea436b80c3fd7790f71bcc7c3be3253c3195f969540167ca8f6016e43"
+  },
+  {
+    "target": "Source/FPSGAME/Development/VillageOilSpreadChecks.inl",
+    "source": "Implementation/Source/FPSGAME/Development/VillageOilSpreadChecks.inl",
+    "sha256": "cdfd89138e28a58575b60bbf0b75d35b316407f8dc43d14ef0663c183f4f3562",
+    "host_lf_sha256": "de7b1e672127dd0c6c652e2511d401ab4ba709feda34673fa1a519987fe55e8f"
+  },
+  {
+    "target": "Source/FPSGAME/Development/VillageOilSurfaceReview.inl",
+    "source": "Implementation/Source/FPSGAME/Development/VillageOilSurfaceReview.inl",
+    "sha256": "4a7d876b1f379c0107a588c937124eff6f09a8c51c3aa0eb75c5a118a43bd2d3",
+    "host_lf_sha256": "4a7d876b1f379c0107a588c937124eff6f09a8c51c3aa0eb75c5a118a43bd2d3"
+  },
+  {
+    "target": "Source/FPSGAME/NPC/VillageMasterArtisan.cpp",
+    "source": "Implementation/Source/FPSGAME/NPC/VillageMasterArtisan.cpp",
+    "sha256": "e555f10b348fcfe3e878e17160c9095f96aed78fd8575fc9524e91c3863f7267",
+    "host_lf_sha256": "e555f10b348fcfe3e878e17160c9095f96aed78fd8575fc9524e91c3863f7267"
+  },
+  {
+    "target": "Source/FPSGAME/NPC/VillageMasterArtisan.h",
+    "source": "Implementation/Source/FPSGAME/NPC/VillageMasterArtisan.h",
+    "sha256": "24c505b070f95d96525d6c4f7a8f53268bfef709085b80e965d82afb7602cfb6",
+    "host_lf_sha256": "24c505b070f95d96525d6c4f7a8f53268bfef709085b80e965d82afb7602cfb6"
+  },
+  {
+    "target": "Source/FPSGAME/UI/SSiegeWorkshopMarket.cpp",
+    "source": "Implementation/Source/FPSGAME/UI/SSiegeWorkshopMarket.cpp",
+    "sha256": "f546f96b62237606ff283ed833988e5b9435b097cf083a93749e09023184ce7f",
+    "host_lf_sha256": "f546f96b62237606ff283ed833988e5b9435b097cf083a93749e09023184ce7f"
+  },
+  {
+    "target": "Source/FPSGAME/UI/SSiegeWorkshopMarket.h",
+    "source": "Implementation/Source/FPSGAME/UI/SSiegeWorkshopMarket.h",
+    "sha256": "cabef5bc63189530cad4f07f10e271fba391ae6a3b7982569812ce2a00a37b82",
+    "host_lf_sha256": "cabef5bc63189530cad4f07f10e271fba391ae6a3b7982569812ce2a00a37b82"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/HighVillageCollapse.cpp",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/HighVillageCollapse.cpp",
+    "sha256": "cebb0c4ad161c58acbf8108fbed7e4b400cba473babb2f989876053194e1034b",
+    "host_lf_sha256": "cebb0c4ad161c58acbf8108fbed7e4b400cba473babb2f989876053194e1034b"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/HighVillageCollapse.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/HighVillageCollapse.h",
+    "sha256": "a7b07550072ab19e6a41718686842a9b6b0b76e90eb9c4fc93d58febada7b399",
+    "host_lf_sha256": "a7b07550072ab19e6a41718686842a9b6b0b76e90eb9c4fc93d58febada7b399"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/HighVillageDefense.cpp",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/HighVillageDefense.cpp",
+    "sha256": "fa3d2f6c47012c6624f498240b78bfaac465e7470ae866cc4eeb69022a719998",
+    "host_lf_sha256": "fa3d2f6c47012c6624f498240b78bfaac465e7470ae866cc4eeb69022a719998"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/HighVillageDefense.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/HighVillageDefense.h",
+    "sha256": "16f46da50367101ff1cbdc0a2ec773e204ef6d69e1c74428390d1c73d4f812eb",
+    "host_lf_sha256": "16f46da50367101ff1cbdc0a2ec773e204ef6d69e1c74428390d1c73d4f812eb"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/HillsNightPortal.cpp",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/HillsNightPortal.cpp",
+    "sha256": "f302771451f2c5ed8f2ad4f1207a71cf7943d6e253d4e21635c88ae7eecaed49",
+    "host_lf_sha256": "f302771451f2c5ed8f2ad4f1207a71cf7943d6e253d4e21635c88ae7eecaed49"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/HillsNightPortal.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/HillsNightPortal.h",
+    "sha256": "ce53965ddc5fc8fac2cfefbe28e822f712eb3dcc407992db9f0bf6f4370d0ae6",
+    "host_lf_sha256": "ce53965ddc5fc8fac2cfefbe28e822f712eb3dcc407992db9f0bf6f4370d0ae6"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/HillsNightRaidSave.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/HillsNightRaidSave.h",
+    "sha256": "19be95930df6865b349e4656072ddf2f47668c5d1990eecb7befcc38f76f504d",
+    "host_lf_sha256": "19be95930df6865b349e4656072ddf2f47668c5d1990eecb7befcc38f76f504d"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.cpp",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.cpp",
+    "sha256": "e2a982320bf77cc72ba0ebf5118830548e15bdfdd594ad3a7358983315b084b3",
+    "host_lf_sha256": "e2a982320bf77cc72ba0ebf5118830548e15bdfdd594ad3a7358983315b084b3"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.h",
+    "sha256": "973745826611f2cbf73660cdcd02be9824154195316eaca745f3c04911870c1b",
+    "host_lf_sha256": "973745826611f2cbf73660cdcd02be9824154195316eaca745f3c04911870c1b"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageHotOil.cpp",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageHotOil.cpp",
+    "sha256": "13dbc3f80eda9e8e41fbe9878ba0ba444efb137cb62b6e000adf62eea9fb4c90",
+    "host_lf_sha256": "13dbc3f80eda9e8e41fbe9878ba0ba444efb137cb62b6e000adf62eea9fb4c90"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageHotOil.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageHotOil.h",
+    "sha256": "f1b1ebc7df2dc04a8211b4baf37feeb41f7790ecd16c1030c408f314b57d6baf",
+    "host_lf_sha256": "f1b1ebc7df2dc04a8211b4baf37feeb41f7790ecd16c1030c408f314b57d6baf"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageMechanicalWorkshop.cpp",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageMechanicalWorkshop.cpp",
+    "sha256": "174294e8422162460a13ff00b21a480671925347fdd111c4783cbbd28bdee483",
+    "host_lf_sha256": "174294e8422162460a13ff00b21a480671925347fdd111c4783cbbd28bdee483"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageMechanicalWorkshop.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageMechanicalWorkshop.h",
+    "sha256": "b964b5e52b52710a2ef82179a0bb2367f1f321d9348aefb14938055e1c2f1719",
+    "host_lf_sha256": "b964b5e52b52710a2ef82179a0bb2367f1f321d9348aefb14938055e1c2f1719"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageOilCarry.cpp",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageOilCarry.cpp",
+    "sha256": "3acbcba2ca4caf339813df6efec59e57f5289897b7c18136a1c96a6284d29c5e",
+    "host_lf_sha256": "3acbcba2ca4caf339813df6efec59e57f5289897b7c18136a1c96a6284d29c5e"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageOilCarry.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageOilCarry.h",
+    "sha256": "73742c59667207786c9ec4853bcde5a8f09b0dd4e461658ff556373bcd004103",
+    "host_lf_sha256": "73742c59667207786c9ec4853bcde5a8f09b0dd4e461658ff556373bcd004103"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageOilFireFront.cpp",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageOilFireFront.cpp",
+    "sha256": "7073682d3d1b35d89dec4052c0529f2351068dbb760b48ee7a265750a975fe70",
+    "host_lf_sha256": "7073682d3d1b35d89dec4052c0529f2351068dbb760b48ee7a265750a975fe70"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageOilMotion.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageOilMotion.h",
+    "sha256": "198f81f6c152f51b3f78d9baf328ba56619dd9a6edccfe61d59e3b10c4a414d2",
+    "host_lf_sha256": "198f81f6c152f51b3f78d9baf328ba56619dd9a6edccfe61d59e3b10c4a414d2"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageOilSpread.cpp",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageOilSpread.cpp",
+    "sha256": "a8bfca9fffab2987a813b667917d4996da6dc052ca0f0b25566ade26e9d556e2",
+    "host_lf_sha256": "a8bfca9fffab2987a813b667917d4996da6dc052ca0f0b25566ade26e9d556e2"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageOilSpread.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageOilSpread.h",
+    "sha256": "9a72202021b90fb188e9be1b7461a7810884d147e598082cc8868281f16d3d6a",
+    "host_lf_sha256": "9a72202021b90fb188e9be1b7461a7810884d147e598082cc8868281f16d3d6a"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageOilSurfacePacket.cpp",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageOilSurfacePacket.cpp",
+    "sha256": "978f3866cf2da740d2422466ea015ffea26770e0de11c1cd69815e903f28f1c5",
+    "host_lf_sha256": "978f3866cf2da740d2422466ea015ffea26770e0de11c1cd69815e903f28f1c5"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageOilSurveySubsystem.cpp",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageOilSurveySubsystem.cpp",
+    "sha256": "de3f551f8e25b9e400d4d5abb8ff36364ef2a589fa55a13a6adc9b01f3d866f8",
+    "host_lf_sha256": "de3f551f8e25b9e400d4d5abb8ff36364ef2a589fa55a13a6adc9b01f3d866f8"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageOilSurveySubsystem.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageOilSurveySubsystem.h",
+    "sha256": "9c46abcab1f3404926d1a29540dce0c34d94abee3842c5e0d448030543bfb9f3",
+    "host_lf_sha256": "9c46abcab1f3404926d1a29540dce0c34d94abee3842c5e0d448030543bfb9f3"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageSiegeControl.cpp",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageSiegeControl.cpp",
+    "sha256": "d603d3ebff76b3f48f7f291ed627e3fdc65712a1853ff7e91c6324126b9e58ed",
+    "host_lf_sha256": "d603d3ebff76b3f48f7f291ed627e3fdc65712a1853ff7e91c6324126b9e58ed"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageSiegeControl.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageSiegeControl.h",
+    "sha256": "2e329858a1c1abe531507747798f303fd0043493f1eaab1b6cff2a4590a93b1e",
+    "host_lf_sha256": "2e329858a1c1abe531507747798f303fd0043493f1eaab1b6cff2a4590a93b1e"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageSiegeEngine.cpp",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageSiegeEngine.cpp",
+    "sha256": "eeb43b0fb9e460fdd2c9fb158c71ac7e8caa1808473a043833f925b3fda08132",
+    "host_lf_sha256": "eeb43b0fb9e460fdd2c9fb158c71ac7e8caa1808473a043833f925b3fda08132"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageSiegeEngine.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageSiegeEngine.h",
+    "sha256": "8c6a70146e91787ff35b34b83d53a2c0e19aa9fa77313fd6ebedbd5932f8a6cb",
+    "host_lf_sha256": "8c6a70146e91787ff35b34b83d53a2c0e19aa9fa77313fd6ebedbd5932f8a6cb"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageSiegePreviewTests.inl",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageSiegePreviewTests.inl",
+    "sha256": "7d6b73d7814debbe4b2a0beb3c316bff479e7d8626f8d735e90e7898dac7d532",
+    "host_lf_sha256": "7d6b73d7814debbe4b2a0beb3c316bff479e7d8626f8d735e90e7898dac7d532"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageSiegeUpgrades.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageSiegeUpgrades.h",
+    "sha256": "ea2bc57bd5a5f3cf15f358646c7713b363e7ec68b828713652332a7fde17b2ed",
+    "host_lf_sha256": "ea2bc57bd5a5f3cf15f358646c7713b363e7ec68b828713652332a7fde17b2ed"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageSiegeUseTargets.cpp",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageSiegeUseTargets.cpp",
+    "sha256": "848436d728f50732a81f245f617574777e4eaa2e61fc08dd2ca273989bd98c09",
+    "host_lf_sha256": "848436d728f50732a81f245f617574777e4eaa2e61fc08dd2ca273989bd98c09"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/VillageSiegeUseTargets.h",
+    "source": "Implementation/Source/FPSGAME/WorldGeneration/VillageSiegeUseTargets.h",
+    "sha256": "8a00f74518f93b26430e22379f29db947721ed1ce69c1f4f8e9b8689f40dcd47",
+    "host_lf_sha256": "8a00f74518f93b26430e22379f29db947721ed1ce69c1f4f8e9b8689f40dcd47"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/Design01/author_wall_fracture.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/Design01/author_wall_fracture.py",
+    "sha256": "a6b1701507070de6cfdab813b29327b67b3c325ab007ad7450ee46c902ec2ab9",
+    "host_lf_sha256": "a6b1701507070de6cfdab813b29327b67b3c325ab007ad7450ee46c902ec2ab9"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/Design01/meshy_build.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/Design01/meshy_build.py",
+    "sha256": "45b42972c54f3c69c78e082543dc0daa379a128012c8404f7fd5379fdf259755",
+    "host_lf_sha256": "45b42972c54f3c69c78e082543dc0daa379a128012c8404f7fd5379fdf259755"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/Design01/wall_shard_geometry.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/Design01/wall_shard_geometry.py",
+    "sha256": "6764b4f57b3bdcba38e14bc566033e52efa8ec182defc1871facc0a7be4d6806",
+    "host_lf_sha256": "6764b4f57b3bdcba38e14bc566033e52efa8ec182defc1871facc0a7be4d6806"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/GarrisonWorkshop/Publish-Workshop.ps1",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/GarrisonWorkshop/Publish-Workshop.ps1",
+    "sha256": "96d1cc53619f9031b45de24d8038de643612d16d44ed8c42511800e16c5bbc34",
+    "host_lf_sha256": "96d1cc53619f9031b45de24d8038de643612d16d44ed8c42511800e16c5bbc34"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/GarrisonWorkshop/author_workshop.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/GarrisonWorkshop/author_workshop.py",
+    "sha256": "6d2bca722413739a58c89dec44eaa84b5ec21783d5679baff6fe6515b17a47cc",
+    "host_lf_sha256": "6d2bca722413739a58c89dec44eaa84b5ec21783d5679baff6fe6515b17a47cc"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/GarrisonWorkshop/draw_plan.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/GarrisonWorkshop/draw_plan.py",
+    "sha256": "ab3217d56931f8c0b049ca5824af276e725bc8584d7fa84110e65dc718b0d1ed",
+    "host_lf_sha256": "ab3217d56931f8c0b049ca5824af276e725bc8584d7fa84110e65dc718b0d1ed"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/GarrisonWorkshop/frontage_surfaces.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/GarrisonWorkshop/frontage_surfaces.py",
+    "sha256": "7f0e7f6f73f57aef71018dbe38ed0a1fd316ff98d1c7fa4eae6455422b68776c",
+    "host_lf_sha256": "7f0e7f6f73f57aef71018dbe38ed0a1fd316ff98d1c7fa4eae6455422b68776c"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/GarrisonWorkshop/import_workshop.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/GarrisonWorkshop/import_workshop.py",
+    "sha256": "54319c36b164c99de7d1c69523ba7b6797d64fcfbbc746681e7e837548692e7d",
+    "host_lf_sha256": "54319c36b164c99de7d1c69523ba7b6797d64fcfbbc746681e7e837548692e7d"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/GarrisonWorkshop/workshop_frontage.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/GarrisonWorkshop/workshop_frontage.py",
+    "sha256": "4c128bb3de919f29e13e9f5191c75e431127a040a45f09f1730b1f8a816e95e5",
+    "host_lf_sha256": "4c128bb3de919f29e13e9f5191c75e431127a040a45f09f1730b1f8a816e95e5"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/HotOil/Publish-Oil.ps1",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/HotOil/Publish-Oil.ps1",
+    "sha256": "1fc7ae83fd87686eccfaad0b4a8506cd30e635549fbe1ec176faf1d0aae99fe4",
+    "host_lf_sha256": "1fc7ae83fd87686eccfaad0b4a8506cd30e635549fbe1ec176faf1d0aae99fe4"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/HotOil/Publish-OilSurfaces.ps1",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/HotOil/Publish-OilSurfaces.ps1",
+    "sha256": "5f2e062a48a8e41566a7b2b7f36f87ab98be125b39c8180bcdf38e76946b8b63",
+    "host_lf_sha256": "5f2e062a48a8e41566a7b2b7f36f87ab98be125b39c8180bcdf38e76946b8b63"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/HotOil/author_oil.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/HotOil/author_oil.py",
+    "sha256": "0ab5e0e632587f0bc196218ce8bd5933b79f8aad4790c6b8d511b15d005f55d9",
+    "host_lf_sha256": "0ab5e0e632587f0bc196218ce8bd5933b79f8aad4790c6b8d511b15d005f55d9"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/HotOil/author_oil_materials.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/HotOil/author_oil_materials.py",
+    "sha256": "41bb0e0b9d8d29c86379866f088802257e14c655efc8e136f5a1018562ae8051",
+    "host_lf_sha256": "41bb0e0b9d8d29c86379866f088802257e14c655efc8e136f5a1018562ae8051"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/HotOil/author_torch_bands.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/HotOil/author_torch_bands.py",
+    "sha256": "40186884157bdbee33f1c973479c5ad2d5de082878bb8489afe9c12348ba92fe",
+    "host_lf_sha256": "40186884157bdbee33f1c973479c5ad2d5de082878bb8489afe9c12348ba92fe"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/HotOil/author_torch_field.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/HotOil/author_torch_field.py",
+    "sha256": "b495f08da949c5aafe6f1c90dcbc131a9cabf6e0876213a2ffb19a77d2f1d37e",
+    "host_lf_sha256": "b495f08da949c5aafe6f1c90dcbc131a9cabf6e0876213a2ffb19a77d2f1d37e"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/HotOil/import_oil.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/HotOil/import_oil.py",
+    "sha256": "dd2f7a033f139e400f4e6b4728a49e4c52976ae01d6a3eaf90b132b1050808b7",
+    "host_lf_sha256": "dd2f7a033f139e400f4e6b4728a49e4c52976ae01d6a3eaf90b132b1050808b7"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/Stairs/access_stairs.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/Stairs/access_stairs.py",
+    "sha256": "9abe1311106f2dab9ae1c07190fdd0f39640c8a00c107348590761fa8558690f",
+    "host_lf_sha256": "9abe1311106f2dab9ae1c07190fdd0f39640c8a00c107348590761fa8558690f"
+  },
+  {
+    "target": "SourceAssets/HillsVillageHighWall20261120/Stairs/fracture_stairs.py",
+    "source": "/SourceAssets/HillsVillageHighWall20261120/Stairs/fracture_stairs.py",
+    "sha256": "df0964c49c509292676ccf220663b70e59b33e8933434e8e1d1d8c0dc7bf4403",
+    "host_lf_sha256": "df0964c49c509292676ccf220663b70e59b33e8933434e8e1d1d8c0dc7bf4403"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/Import-HighVillageDefense.ps1",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/Import-HighVillageDefense.ps1",
+    "sha256": "3ca32206d5313c9762a967eac0ecfc5180eb2fa1d00f336ea2ba1f96dd5c378e",
+    "host_lf_sha256": "3ca32206d5313c9762a967eac0ecfc5180eb2fa1d00f336ea2ba1f96dd5c378e"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/Import-WallAccessStairs.ps1",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/Import-WallAccessStairs.ps1",
+    "sha256": "a92a764cd89a3addd2da4623766aa8b70fe66e0966d83857c7d62ef413a07821",
+    "host_lf_sha256": "4c33227f48ac1b951c631f20247a9b5bc517cb47301cc9b01fa00d6613d3c917"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/Publish-Battlements.ps1",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/Publish-Battlements.ps1",
+    "sha256": "1082b88f514ae4bf302842bef6a7cab2dadf4aa4894b123182ee95e3138fc048",
+    "host_lf_sha256": "326a4e1b236f896b693654423a5ca95b5d34f50e27dd0eeae54928cf8dc5c9cc"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/Publish-ChapelGatehouse.ps1",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/Publish-ChapelGatehouse.ps1",
+    "sha256": "3b5006008c7d155494f9c1007fc7e2680803988d0660608dd3619429682fc457",
+    "host_lf_sha256": "8227aac99f9cb8827e3849de042ebcd830f7557b4aecd9c7ac478bf89bbf6871"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/Publish-SiegeEngines.ps1",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/Publish-SiegeEngines.ps1",
+    "sha256": "cc6d1cf9fbdc3f0ead448d1b0dfd7f4131471cc922412e3d2c00d1f37c0e29a8",
+    "host_lf_sha256": "cc6d1cf9fbdc3f0ead448d1b0dfd7f4131471cc922412e3d2c00d1f37c0e29a8"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/author_ballista_audio.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/author_ballista_audio.py",
+    "sha256": "087b6e99267337992e5672dcd38f1d4d6d5b9da982770e1fc42a5dd50aeb1e92",
+    "host_lf_sha256": "087b6e99267337992e5672dcd38f1d4d6d5b9da982770e1fc42a5dd50aeb1e92"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/author_kit.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/author_kit.py",
+    "sha256": "77dc5f2f27d6443a5fb23af8e1a91cf97519c0180a5b386d4907688a3a090da0",
+    "host_lf_sha256": "77dc5f2f27d6443a5fb23af8e1a91cf97519c0180a5b386d4907688a3a090da0"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/author_siege_meshes.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/author_siege_meshes.py",
+    "sha256": "603c919621ea7ca2a29e70f1b5994cc6fa9ea661366cbd0f6fed4bf9753f466f",
+    "host_lf_sha256": "603c919621ea7ca2a29e70f1b5994cc6fa9ea661366cbd0f6fed4bf9753f466f"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/author_trebuchet_audio.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/author_trebuchet_audio.py",
+    "sha256": "3d1e8003ebaaee41a38c3c453e103afcbd6358e69d6e03e6c9dbf8f89184f875",
+    "host_lf_sha256": "3d1e8003ebaaee41a38c3c453e103afcbd6358e69d6e03e6c9dbf8f89184f875"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/author_trebuchet_impact.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/author_trebuchet_impact.py",
+    "sha256": "04c47eeaf79fa53cb0ca02ed2bfe801f5401aa8ed513fa5be8f5ea1fec023d7d",
+    "host_lf_sha256": "04c47eeaf79fa53cb0ca02ed2bfe801f5401aa8ed513fa5be8f5ea1fec023d7d"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/bake_wall_normal.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/bake_wall_normal.py",
+    "sha256": "75c5413ae20bcc58721de1cd47064bae7b58c2aad6a8ee403a186894fec0ecce",
+    "host_lf_sha256": "75c5413ae20bcc58721de1cd47064bae7b58c2aad6a8ee403a186894fec0ecce"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/battlement_profile.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/battlement_profile.py",
+    "sha256": "e418f659ec019dd3a4720da1fb1206e3f683b7d7ecbcc4a0cf69a253275a981f",
+    "host_lf_sha256": "e418f659ec019dd3a4720da1fb1206e3f683b7d7ecbcc4a0cf69a253275a981f"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/build_battlement_assets.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/build_battlement_assets.py",
+    "sha256": "65f79a24414241f36ff9b947c00690c3ad503170c383c56ebe64ca020e940a03",
+    "host_lf_sha256": "65f79a24414241f36ff9b947c00690c3ad503170c383c56ebe64ca020e940a03"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/chapel_gatehouse.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/chapel_gatehouse.py",
+    "sha256": "12a343e372f904241bdfea144643228a90e325d0717c75a5db4f6e235a03f1de",
+    "host_lf_sha256": "0a70c40b13bd1d067e943c54aef6d80bb6e99934f4c12bbc5fe1b7602cacda64"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/curtain_wall.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/curtain_wall.py",
+    "sha256": "8e4f25a6ab56bea64d585c129b9179ee43fe91903334c2e85d1f826939decb2a",
+    "host_lf_sha256": "8e4f25a6ab56bea64d585c129b9179ee43fe91903334c2e85d1f826939decb2a"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/gate_gallery.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/gate_gallery.py",
+    "sha256": "fac4927b1b8667858f312bf26727d495792e181b76743e1f9e05d32626eee7e6",
+    "host_lf_sha256": "fac4927b1b8667858f312bf26727d495792e181b76743e1f9e05d32626eee7e6"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/grille_repair.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/grille_repair.py",
+    "sha256": "d9506c87c6dcc908c3150053dcd18e7274dda2a81998c5686474609ebb5b93bb",
+    "host_lf_sha256": "d9506c87c6dcc908c3150053dcd18e7274dda2a81998c5686474609ebb5b93bb"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/ground_wear.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/ground_wear.py",
+    "sha256": "30d95f6b8345c3e5f958eeb661c4945b9fab2ff165c1709eb303b8f4d417cbd4",
+    "host_lf_sha256": "30d95f6b8345c3e5f958eeb661c4945b9fab2ff165c1709eb303b8f4d417cbd4"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/high_watchtower.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/high_watchtower.py",
+    "sha256": "00ea65b196ed9c032b110f302a883ef987450d6389387b0e5d29f6c16a857710",
+    "host_lf_sha256": "00ea65b196ed9c032b110f302a883ef987450d6389387b0e5d29f6c16a857710"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/import_ballista_audio.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/import_ballista_audio.py",
+    "sha256": "30fb45e40bb3c0d7b05d007c1093ccbd4468bb1382e0b70ea7c4a2bc6700c499",
+    "host_lf_sha256": "30fb45e40bb3c0d7b05d007c1093ccbd4468bb1382e0b70ea7c4a2bc6700c499"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/import_chapel_gatehouse.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/import_chapel_gatehouse.py",
+    "sha256": "d700d482b46f5eabcb62406163270d79254c1ce4ee9bed9ead366b6e606cccb0",
+    "host_lf_sha256": "d4bbea627caa92ea3d0b7bef84747a460d3d71292787f8b3cbe48a5dfd0b0c04"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/import_hoist.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/import_hoist.py",
+    "sha256": "c96f3e74df5a8f80dfc39e98ed6d4515b7e25e6e8bc0dd30d6f281673330feb3",
+    "host_lf_sha256": "e70d1877d03de3e6a2fecafa6db40b394a7ab6a21dbd7931add21d179e21b69f"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/import_kit.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/import_kit.py",
+    "sha256": "eaf9151465ba7c1933441eb23639a4bb6b1671986237981b90fdbbc2e9869486",
+    "host_lf_sha256": "eaf9151465ba7c1933441eb23639a4bb6b1671986237981b90fdbbc2e9869486"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/import_placement_entrances.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/import_placement_entrances.py",
+    "sha256": "f0cd62f0be8e2212980aed027a6a8b3a8f9667aa3a7485770de195dc9c0b32b5",
+    "host_lf_sha256": "f0cd62f0be8e2212980aed027a6a8b3a8f9667aa3a7485770de195dc9c0b32b5"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/import_siege_meshes.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/import_siege_meshes.py",
+    "sha256": "3d0ce3042cb8815411be4936863ba25e53edd1c7ce756abeff17a381be35a8be",
+    "host_lf_sha256": "3d0ce3042cb8815411be4936863ba25e53edd1c7ce756abeff17a381be35a8be"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/import_stairs.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/import_stairs.py",
+    "sha256": "906a84eea99990297ac55efcde726a54c678e1015713ef3e1929ce4dd0646a03",
+    "host_lf_sha256": "906a84eea99990297ac55efcde726a54c678e1015713ef3e1929ce4dd0646a03"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/placement_entrances.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/placement_entrances.py",
+    "sha256": "2343a297ab9eb973131229694075d3a1648eb448461dbe028a0bb36830ed0f70",
+    "host_lf_sha256": "2343a297ab9eb973131229694075d3a1648eb448461dbe028a0bb36830ed0f70"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/prepare_siege_textures.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/prepare_siege_textures.py",
+    "sha256": "e6c4fe38908be9a04610b9f0b052a10acf439b46b01a4ec65c92085c6b98404b",
+    "host_lf_sha256": "e6c4fe38908be9a04610b9f0b052a10acf439b46b01a4ec65c92085c6b98404b"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/prepare_sources.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/prepare_sources.py",
+    "sha256": "89c31bed1004a2a4605a5985f581a2321d8f766bf5ac6cab7e49c451d37246f3",
+    "host_lf_sha256": "89c31bed1004a2a4605a5985f581a2321d8f766bf5ac6cab7e49c451d37246f3"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/source_mesh.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/source_mesh.py",
+    "sha256": "43553015124f349bfa1e3e3ef7ea03cdcc690275712360624cf935728f24e6a4",
+    "host_lf_sha256": "43553015124f349bfa1e3e3ef7ea03cdcc690275712360624cf935728f24e6a4"
+  },
+  {
+    "target": "Tools/WorldGeneration/HighVillageDefense/trebuchet_impact_visibility.py",
+    "source": "/Tools/WorldGeneration/HighVillageDefense/trebuchet_impact_visibility.py",
+    "sha256": "be2c328f053c25de4d8afc73bc095a5b0dbaabd9ba6a467b9490cc860461ff72",
+    "host_lf_sha256": "be2c328f053c25de4d8afc73bc095a5b0dbaabd9ba6a467b9490cc860461ff72"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/collar_skin_strip.py",
+    "source": "/Tools/WorldGeneration/MasterArtisan/collar_skin_strip.py",
+    "sha256": "9dd276d145fce975ca072bb1d791832638791bbef4a506700dacec62a1fe9b10",
+    "host_lf_sha256": "9dd276d145fce975ca072bb1d791832638791bbef4a506700dacec62a1fe9b10"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/editable.py",
+    "source": "/Tools/WorldGeneration/MasterArtisan/editable.py",
+    "sha256": "ce98adbf4c0cc054c984fb325e34c1b39379909725e73bb3ddd83fa9caec6ae3",
+    "host_lf_sha256": "ce98adbf4c0cc054c984fb325e34c1b39379909725e73bb3ddd83fa9caec6ae3"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/finish_head.ps1",
+    "source": "/Tools/WorldGeneration/MasterArtisan/finish_head.ps1",
+    "sha256": "6055d257724db9bb4af3d1f74dfffa377f0cefc148737843972494faa07e2bf9",
+    "host_lf_sha256": "6055d257724db9bb4af3d1f74dfffa377f0cefc148737843972494faa07e2bf9"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/fit_meshy_head.py",
+    "source": "/Tools/WorldGeneration/MasterArtisan/fit_meshy_head.py",
+    "sha256": "57ba247e950fea0635e7c205ff1b333e44f81ad1c083baf9fcf1a5b63cf387b1",
+    "host_lf_sha256": "57ba247e950fea0635e7c205ff1b333e44f81ad1c083baf9fcf1a5b63cf387b1"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/head.py",
+    "source": "/Tools/WorldGeneration/MasterArtisan/head.py",
+    "sha256": "d7a1a53ebccca975de5bbd2d032ef41f62935dc805801c0aaaafe04dea9dce27",
+    "host_lf_sha256": "d7a1a53ebccca975de5bbd2d032ef41f62935dc805801c0aaaafe04dea9dce27"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/install_head.py",
+    "source": "/Tools/WorldGeneration/MasterArtisan/install_head.py",
+    "sha256": "1c5f934f96f194c49b17877367ad20f9aa041174695eb3f1afc3081827ab3f08",
+    "host_lf_sha256": "1c5f934f96f194c49b17877367ad20f9aa041174695eb3f1afc3081827ab3f08"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/meshy_head.py",
+    "source": "/Tools/WorldGeneration/MasterArtisan/meshy_head.py",
+    "sha256": "939e77a4c89c595a95b13912844abd939174409e9502d30b2edbde3e00d36aa2",
+    "host_lf_sha256": "939e77a4c89c595a95b13912844abd939174409e9502d30b2edbde3e00d36aa2"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/pattern.py",
+    "source": "/Tools/WorldGeneration/MasterArtisan/pattern.py",
+    "sha256": "dd4acbc8b68371460004cf13959b25ac9a4854aa8686733dbc9a8eab70034c8e",
+    "host_lf_sha256": "dd4acbc8b68371460004cf13959b25ac9a4854aa8686733dbc9a8eab70034c8e"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/publish.ps1",
+    "source": "/Tools/WorldGeneration/MasterArtisan/publish.ps1",
+    "sha256": "0da059c37950dec71effce4975d5c548b277ed6ab4408d4e772d370d3f2f8c7f",
+    "host_lf_sha256": "0da059c37950dec71effce4975d5c548b277ed6ab4408d4e772d370d3f2f8c7f"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/publish_collar_skin.py",
+    "source": "/Tools/WorldGeneration/MasterArtisan/publish_collar_skin.py",
+    "sha256": "204532c16aca771efcd357be0d939c2e2f71b9a0782539d9197cc72e93cb7b61",
+    "host_lf_sha256": "204532c16aca771efcd357be0d939c2e2f71b9a0782539d9197cc72e93cb7b61"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/save_assets.py",
+    "source": "/Tools/WorldGeneration/MasterArtisan/save_assets.py",
+    "sha256": "e4547a8b77956ba09c27d8985542ed415106bd18011ac4a2b0bd597c055b96b0",
+    "host_lf_sha256": "e4547a8b77956ba09c27d8985542ed415106bd18011ac4a2b0bd597c055b96b0"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/save_collar_skin.py",
+    "source": "/Tools/WorldGeneration/MasterArtisan/save_collar_skin.py",
+    "sha256": "bfe6baeb7cff4b0e794d2ef1039ee609509a1f715f2df68d3cfb2ee2090a73c3",
+    "host_lf_sha256": "bfe6baeb7cff4b0e794d2ef1039ee609509a1f715f2df68d3cfb2ee2090a73c3"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/workshop_plates.py",
+    "source": "/Tools/WorldGeneration/MasterArtisan/workshop_plates.py",
+    "sha256": "1ac2330f03af4385307f4321aab37a62cafd1c325da8ac95c3680d51fd7ad780",
+    "host_lf_sha256": "1ac2330f03af4385307f4321aab37a62cafd1c325da8ac95c3680d51fd7ad780"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/workwear.py",
+    "source": "/Tools/WorldGeneration/MasterArtisan/workwear.py",
+    "sha256": "0df4c6ee39308169539d6ed338ef72daf22981de33246e062784a8cc9486f3dd",
+    "host_lf_sha256": "0df4c6ee39308169539d6ed338ef72daf22981de33246e062784a8cc9486f3dd"
+  },
+  {
+    "target": "Tools/WorldGeneration/MasterArtisan/workwear_finish.py",
+    "source": "/Tools/WorldGeneration/MasterArtisan/workwear_finish.py",
+    "sha256": "b69ffcb9b05a5b1e99ea1a3ead4425f42fdc3dd823e1b7cc14dc76383ed99f15",
+    "host_lf_sha256": "b69ffcb9b05a5b1e99ea1a3ead4425f42fdc3dd823e1b7cc14dc76383ed99f15"
+  },
+  {
+    "target": "Docs/Fluids/village-hot-oil.md",
+    "source": "/Docs/Fluids/village-hot-oil.md",
+    "sha256": "f3593e9e2281bbb2b29e8f10644ea6279662b94ae3638cace3540053b089618a",
+    "host_lf_sha256": "9e38bde8cb61c58fb528f1b3b2681fd3479919f9490e0aac82423b082d9ed4a6"
+  },
+  {
+    "target": "Docs/UI/master-artisan-siege-upgrades.md",
+    "source": "/Docs/UI/master-artisan-siege-upgrades.md",
+    "sha256": "928f09a7003088b19ee7cdf4332bbea5b5d983c1d63490ae527ae24441f456d8",
+    "host_lf_sha256": "0e68e2a9bd3b04f1e78b81ba0832bd91e9df7b6e026769d3e5bbf739d4a2b5fc"
+  },
+  {
+    "target": "Content/ColdSteelData/Licenses/VillageSiegeEngines.txt",
+    "source": "/Content/ColdSteelData/Licenses/VillageSiegeEngines.txt",
+    "sha256": "3bdb5606e8e1ee6b55951f044a605613785c8a82e06a8be82f53125de5ef46ca",
+    "host_lf_sha256": "3bdb5606e8e1ee6b55951f044a605613785c8a82e06a8be82f53125de5ef46ca"
+  }
+]

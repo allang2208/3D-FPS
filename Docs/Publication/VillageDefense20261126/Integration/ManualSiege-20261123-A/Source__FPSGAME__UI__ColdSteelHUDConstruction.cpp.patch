@@ -1,0 +1,17 @@
+--- a/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelHUDConstruction.cpp
+@@ -1,4 +1,5 @@
+ #include "ColdSteelHUDWidget.h"
++#include "../WorldGeneration/VillageSiegeControl.h"
+ #include "StatusEffectsHUD.h"
+ #include "../Dungeons/DungeonRoomSubsystem.h"
+ #include "../FPSGAMEPlayerController.h"
+@@ -151,7 +152,7 @@
+     const auto* Character=PC?Cast<AFPSGAMECharacter>(PC->GetPawn()):nullptr;
+     FString Text,Title;bool bAction=true;
+     TOptional<float> AidProgress;
+-    const bool bWorldInteraction=Character&&!IsWorldForging()&&!IsGunAssembly()&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen();
++    const bool bWorldInteraction=Character&&!(PC->GetSiegeControl() && PC->GetSiegeControl()->Active())&&!IsWorldForging()&&!IsGunAssembly()&&!bInventoryOpen&&!bWarehouseOpen&&!PC->bShowMouseCursor&&!Character->IsAmmoWheelOpen();
+     const bool bOrdinaryUse=bWorldInteraction && !PC->IsInBuildMode();
+     const auto* PlayerHealth=Character?Character->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+     const bool bDefenseFocus=bWorldInteraction && (!PlayerHealth || !PlayerHealth->IsDead()) && !AFPSGAMEPlayerController::BlocksOngoingActions(PC);

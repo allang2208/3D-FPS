@@ -1,0 +1,125 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPanel.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPanel.cpp
+@@ -82,10 +84,17 @@
+         }
+         else
+         {
+-            PC->SetIgnoreMoveInput(false);PC->SetIgnoreLookInput(false);PC->bShowMouseCursor=false;
+-            PC->SetInputMode(FInputModeGameOnly());
+-        }
+-    }
++            PC->SetIgnoreMoveInput(false);PC->SetIgnoreLookInput(false);
++            if(!bActive || !VillageBuildDefense::IsVillageRecipe(SelectedComponent))
++            {
++                PC->bShowMouseCursor=false;
++                PC->SetInputMode(FInputModeGameOnly());
++            }
++        }
++    }
++    const bool ResumeSurvey=!Open && VillageCamera!=nullptr;
++    SyncVillageCamera();
++    if(ResumeSurvey && VillageCamera)SetVillageCursorMode();
+     if(Preview)Preview->SetVisibility(false,true);
+     if(FoundationPreview)FoundationPreview->SetVisibility(false);
+     for(UInstancedStaticMeshComponent* G:{CellGhost,CellCutGhost45,CellCutGhost26L,CellCutGhost26U,CellCutGhostTent})if(G)G->SetVisibility(false);
+@@ -149,9 +158,10 @@
+ 
+ void UVoxelBuildComponent::SelectComponent(FName Id)
+ {
+-    if(VillageBuildDefense::IsVillageRecipe(Id)&&!CanBuildVillagePieces())
+-    {
+-        Feedback=TEXT("请先在丘陵村庄的修女处解锁「村庄修建」");
++    const auto Required=VillageBuildDefense::RequiredTier(Id);
++    if(Required!=VillageBuildDefense::ETier::None && VillageBuildDefense::UnlockedTier(VillageWorld.Get())<Required)
++    {
++        Feedback=VillageBuildDefense::LockReason(Required);
+         FeedbackTime=2.5f;
+         bFeedbackValid=false;
+         RefreshVillageConstructionAccess();
+@@ -167,18 +177,13 @@
+     if(bActive)SetPanelOpen(false);
+ }
+ 
+-bool UVoxelBuildComponent::CanBuildVillagePieces() const
+-{
+-    const auto* Hills=VillageWorld.Get();
+-    return Hills&&Hills->IsVillagePlanUnlocked(TEXT("village_construction"));
+-}
+-
+ void UVoxelBuildComponent::RefreshVillageConstructionAccess()
+ {
+-    const bool bUnlocked=CanBuildVillagePieces();
+-    if(Widget)Widget->SetVillageConstructionUnlocked(bUnlocked);
+-    if(bUnlocked||!VillageBuildDefense::IsVillageRecipe(SelectedComponent))return;
++    const auto Tier=VillageBuildDefense::UnlockedTier(VillageWorld.Get());
++    if(Widget)Widget->SetVillageConstructionTier(Tier);
++    if(Tier>=VillageBuildDefense::RequiredTier(SelectedComponent))return;
+     SelectedComponent=NAME_None;
++    SyncVillageCamera();
+     ComponentYaw=0;
+     AimedPrefab=nullptr;
+     bPrefabValid=false;
+@@ -295,14 +300,15 @@
+         Card.Rows.Add({TEXT("占格尺寸"),Card.Detail});
+         Card.Rows.Add({TEXT("20 cm 占格"),FString::Printf(TEXT("%d × %d × %d"),Entry.Footprint.X,Entry.Footprint.Y,Entry.Footprint.Z)});
+         Card.Rows.Add({TEXT("放置方式"),bWallStairs?TEXT("地面放置或对接高墙步道"):
+-            (Entry.Id==VillageBuildDefense::HighWall||Entry.Id==VillageBuildDefense::StoneGate)?TEXT("落地或吸附至城防接口"):
++            VillageWallStairs::CanDock(Entry.Id)?TEXT("落地或吸附至城防接口"):
+             bWall?TEXT("壁挂 · 朝向跟随墙面"):TEXT("表面放置 · 可切换吸附")});
+         Card.NumericRows={TEXT("占格尺寸"),TEXT("20 cm 占格")};
+         Card.Note=bWall?TEXT("只能贴在墙、柱等竖直表面，右键拆除。壁挂件不参与失去地面支撑后的脱落计算。"):
+             TEXT("R 旋转 90°，右键拆除。构件不按体素接缝计算承重，可为相邻体素提供支撑；失去支撑后会脱落。占格尺寸表示放置范围，缩略图展示构件外观。");
+         if(bVillage)
+         {
+-            Card.Rows.Add({TEXT("解锁条件"),TEXT("修女 · 村庄修建")});
++            Card.Rows.Add({TEXT("解锁条件"),VillageBuildDefense::ProjectName(VillageBuildDefense::RequiredTier(Entry.Id))});
++            Card.Rows.Add({TEXT("施工视角"),TEXT("选择后进入俯视。空格切换角度，鼠标靠边平移。")});
+             if(bWallStairs)
+             {
+                 Card.Subtitle=TEXT("村庄城防 · 折返石阶");
+@@ -311,7 +317,27 @@
+             else if(Entry.Id==VillageBuildDefense::HighWall)
+             {
+                 Card.Subtitle=TEXT("村庄城防 · 带城垛的石墙");
+-                Card.Note=TEXT("地面滚轮每格旋转 1°。将墙端接到高墙或石城门侧面，滚轮切换接法。步道朝村内，可接城墙石阶。");
++                Card.Note=TEXT("地面滚轮每格旋转 1°。墙端可对接高墙、石城门或高塔楼。吸附时滚轮切换接法。步道朝村内，可接城墙石阶。");
++            }
++            else if(Entry.Id==VillageBuildDefense::OilPot)
++            {
++                Card.Subtitle=TEXT("村庄城防 · 热油锅");
++                Card.Note=TEXT("可在平地、塔顶或城门平台建造。按 E 取油，左键向前方 3 米泼洒。热油持续 10 秒，范围 5 米，友军和自己也会受伤。");
++            }
++            else if(Entry.Id==VillageBuildDefense::Ballista)
++            {
++                Card.Subtitle=TEXT("村庄城防 · 固定式弩炮");
++                Card.Note=TEXT("可在塔顶、城门平台或平地建造。弩炮可水平旋转 360° 自动索敌，靠近按 E 可手动瞄准。");
++            }
++            else if(Entry.Id==VillageBuildDefense::Trebuchet)
++            {
++                Card.Subtitle=TEXT("村庄城防 · 配重投石机");
++                Card.Note=TEXT("可部署在平地或足够宽的塔顶、城门平台。底架须避开楼梯口，后方和上方须留出投臂摆动空间。滚轮调整朝向。");
++            }
++            else if(Entry.Id==VillageBuildDefense::HighTower)
++            {
++                Card.Subtitle=TEXT("村庄城防 · 方形高塔楼");
++                Card.Note=TEXT("把塔楼移近高墙端部，或靠近连续高墙的村内一侧，塔门会平接 3.6 米步道。滚轮可换向，F 可切换自由放置。");
+             }
+             else if(Entry.Id==VillageBuildDefense::StoneGate)
+             {
+@@ -390,6 +416,16 @@
+         return;
+     }
+     LastWidgetCheapKey=LayoutKey;LastWidgetRevision=Revision;
++    if(IsVillageCameraPlacing() && VillageCameraCaption)
++    {
++        if(const auto* Piece=SelectedPrefab())
++        {
++            const FString Status=FString::Printf(TEXT("%s　·　%s　·　朝向 %d°　·　%s\n%s\n空格 切换视角　·　鼠标靠边 平移　·　滚轮 旋转　·　左键 放置　·　Esc 退出"),
++                *Piece->DisplayName.ToString(),bVillageVertical?TEXT("垂直俯视"):TEXT("45° 俯视"),ShownYaw,
++                bSnapEnabled?TEXT("吸附开"):TEXT("吸附关"),*Signal);
++            VillageCameraCaption->SetText(FText::FromString(Status));
++        }
++    }
+     Widget->SetSelection(SelectedMaterial,SelectedComponent,Brush);
+     UpdateStructureWarning(*BuildWorld);
+     if(bPanelOpen)

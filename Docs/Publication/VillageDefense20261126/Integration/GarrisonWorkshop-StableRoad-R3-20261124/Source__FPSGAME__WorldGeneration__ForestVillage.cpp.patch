@@ -1,0 +1,42 @@
+--- a/Source/FPSGAME/WorldGeneration/ForestVillage.cpp
++++ b/Source/FPSGAME/WorldGeneration/ForestVillage.cpp
+@@ -52,6 +52,7 @@
+     Level->OnLevelShown.AddDynamic(this,&ATemperateHillsWorld::BindStreamedVillageBuildings);
+     if(Level->IsLevelVisible()) BindStreamedVillageBuildings();
+     AssembleOldChapel();
++    UpdateMechanicalWorkshop();
+     return true;
+ }
+ 
+@@ -258,7 +259,7 @@
+         Road=FMath::Max(Road,SettlementRoadWeight(X,Y));
+         const auto* Level=Streaming->VillageLevel.Get();
+         FHitResult Hit;
+-        const FVector2D FromWorkshop=ChapelSite.Local({X,Y})-FTemperateChapelSite::WorkshopCenter;
++        const FVector2D FromWorkshop=Local-FTemperateVillageSite::WorkshopCenter;
+         Building=bGarrisonMechanics && FMath::Abs(FromWorkshop.X)<=337. && FMath::Abs(FromWorkshop.Y)<=619.;
+         if(!Building && Level && Level->IsLevelVisible() && GetWorld()->LineTraceSingleByObjectType(Hit,
+             FVector(X,Y,GroundZ+6000.),FVector(X,Y,GroundZ+140.),FCollisionObjectQueryParams(ECC_WorldStatic)) &&
+@@ -339,6 +340,22 @@
+                 if(Rim<3) Z=FMath::Lerp(Region->GroundHeight(X,Y),Z,FMath::SmoothStep(0.,3.,double(Rim)));
+             }
+             Heights[J*Columns+I]=float(Z);
++        }
++    }
++    // Grade the plot to its own road shoulder before building the visible and physical terrain.
++    const auto Center=FTemperateVillageSite::WorkshopCenter;
++    const FVector2D Roadside=VillageSite.World(Center.X,Center.Y+835.);
++    const float ShoulderZ=float(ForestVillageHeight(Roadside.X,Roadside.Y));
++    for(int32 J=0;J<Rows;++J)
++    {
++        for(int32 I=0;I<Columns;++I)
++        {
++            const FVector2D Local=VillageSite.Local(Origin.X+I*Step,Origin.Y+J*Step);
++            const double Edge=FTemperateVillageSite::WorkshopEdge(Local);
++            if(Edge>=180. || Local.Y>=320.)continue;
++            const double Weight=(1.-FMath::SmoothStep(0.,180.,Edge))*(1.-FMath::SmoothStep(260.,320.,Local.Y));
++            float& Z=Heights[J*Columns+I];
++            Z=FMath::Lerp(Z,ShoulderZ,float(Weight));
+         }
+     }
+     UMaterialInterface* Reference=Region->GetReferenceSurface();

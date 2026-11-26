@@ -1,0 +1,28 @@
+--- a/Source/FPSGAME/Building/VoxelBuildTypes.h
++++ b/Source/FPSGAME/Building/VoxelBuildTypes.h
+@@ -144,8 +144,15 @@
+     UPROPERTY() bool bSleeping=false;
+ };
+ 
+-// One placed prefab piece (roman column, balustrade, ...) on the 20 cm building lattice.
+-// Cell is the min corner of the occupied box; Footprint is already rotated by Yaw.
++/** Native wall interval left beside a replacement gate, in the wall's original X coordinates. */
++struct FVillageGateCut
++{
++    FGuid PlacedId;
++    int32 Section=INDEX_NONE;
++    FVector2D Remaining=FVector2D::ZeroVector;
++};
++
++// Cell is the minimum grid corner. Footprint already includes the quarter turn.
+ struct FVoxelBuildPrefabInstance
+ {
+     FName Id;
+@@ -155,6 +162,7 @@
+     FIntVector Footprint=FIntVector(1,1,1);
+     // Exact village pose for sockets and ground turns. Legacy quarter-turn records leave it unset.
+     TOptional<FTransform> WallDockPose;
++    TArray<FVillageGateCut> GateCuts;
+ };
+ 
+ /** 可冶炼构件的调色板稳定 ID（Docs/Gameplay/blast-furnace-model-20260923.md）。

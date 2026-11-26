@@ -1,0 +1,26 @@
+--- a/Source/FPSGAME/FPSGAMECharacterProfile.cpp
++++ b/Source/FPSGAME/FPSGAMECharacterProfile.cpp
+@@ -1,4 +1,5 @@
+ #include "FPSGAMECharacter.h"
++#include "WorldGeneration/VillageOilCarry.h"
+ #include "Movement/FPSCharacterMovementComponent.h"
+ #include "Weapons/Kukri/HatchetCharmComponent.h"
+ #include "Items/FPSPotionUseComponent.h"
+@@ -93,6 +94,7 @@
+     // Possession can publish a shadow profile before component initialization.
+     // BeginPlay consumes NetShadowProfile after creating the base viewmodel.
+     if(!HasActorBegunPlay() || !Profile || bResolvingActionInterrupt)return;
++    if(auto* Carry=FindComponentByClass<UVillageOilCarry>();Carry && Carry->Occupied())Carry->RefreshEquipment(*Profile);
+     if(auto* Core=FindComponentByClass<UStarMarrowComponent>())Core->Configure(Profile);
+     if(auto* Guard=FindComponentByClass<UTangDaoGuardComponent>())Guard->Configure(Profile);
+     if(auto* Guard=FindComponentByClass<UPanChiGuardComponent>())Guard->Configure(Profile);
+@@ -120,7 +122,8 @@
+     const auto* Consumable=FindComponentByClass<UFPSPotionUseComponent>();
+     if(ChangedWeapon || (Consumable && Consumable->EquippedHandsChanged(*Profile,P.ActiveWeaponSlot)))
+     {
+-        InterruptActionsForPriority(true);
++        // The same hand items can require new viewmodels. The carry component compares the actual slots above.
++        ResetActionsForPriority(true);
+         // Cancellation can publish a refund or finish a reserved cooldown.
+         // Item pointers into the previous profile publication are now stale.
+         I=Profile->ActiveFirearm();

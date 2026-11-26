@@ -1,0 +1,464 @@
+--- a/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
+@@ -1,7 +1,11 @@
+ #include "VoxelBuildWorld.h"
++#include "../WorldGeneration/VillageMechanicalWorkshop.h"
++#include "TimerManager.h"
+ #include "VillageBuildDefense.h"
+ #include "VillageDefenseFootprint.h"
+ #include "VillageWallStairs.h"
++#include "VillageGateReplacement.h"
++#include "../WorldGeneration/HighVillageDefense.h"
+ #include "../WorldGeneration/TemperateHillsWorld.h"
+ #include "../WorldGeneration/VillageDefenseSection.h"
+ #include "../WorldGeneration/VillageDefenseStairs.h"
+@@ -30,10 +35,30 @@
+ void AVoxelBuildWorld::FillPrefabCells(const FVoxelBuildPrefabInstance& Instance,TArray<FIntVector>& Out) const
+ {
+     Out.Reset();
++    const FVector2D* Cut=Instance.InstanceId.IsValid()?CutPlacedWalls.Find(Instance.InstanceId):nullptr;
++    if(Cut && Cut->Y-Cut->X<=.01)return;
++    if(Cut && Instance.Id==VillageBuildDefense::StoneWall)
++    {
++        const auto* Definition=Palette->FindComponent(Instance.Id);
++        if(!Definition)return;
++        FTransform Pose=VillageGateReplacement::Trim(VillageWallStairs::Placement(Instance),*Cut);
++        Pose.SetScale3D(FVector(Pose.GetScale3D().X,1.,1.));
++        const FVector Half=FVector(Definition->Footprint)*10.;
++        VillageDefenseFootprint::FShape Shape;
++        Shape.Boxes.Add(FBox(FVector(-Half.X,-Half.Y,0.),FVector(Half.X,Half.Y,Half.Z*2.)));
++        VillageDefenseFootprint::Rasterize(Shape,Pose,Out);
++        return;
++    }
++    if(VillageBuildDefense::IsSiegeEngine(Instance.Id))
++    {
++        VillageDefenseFootprint::Rasterize(VillageDefenseFootprint::Siege(Instance.Id),VillageWallStairs::Placement(Instance),Out);
++        return;
++    }
+     if(VillageBuildDefense::IsBasicWallOrGate(Instance.Id)&&Instance.WallDockPose.IsSet())
+     {
+         // Free ground placement keeps the native footprint and uses an exact yaw about its centre.
+-        VillageDefenseFootprint::RasterizeGridEnvelope(Instance.Footprint,Instance.WallDockPose.GetValue(),Out);
++        const FIntVector Native=AVoxelBuildPrefabActor::RotatedFootprint(Instance.Footprint,Instance.Yaw);
++        VillageDefenseFootprint::RasterizeGridEnvelope(Native,Instance.WallDockPose.GetValue(),Out);
+         return;
+     }
+     if(VillageWallStairs::CanDock(Instance.Id))
+@@ -44,7 +69,8 @@
+             const auto& Shape=VillageDefenseFootprint::Get(Instance.Id,Definition->Mesh.LoadSynchronous());
+             if(!Shape.Boxes.IsEmpty())
+             {
+-                VillageDefenseFootprint::Rasterize(Shape,VillageWallStairs::Placement(Instance),Out);
++                const FTransform Pose=VillageWallStairs::Placement(Instance);
++                VillageDefenseFootprint::Rasterize(Shape,Cut?VillageGateReplacement::Trim(Pose,*Cut):Pose,Out);
+                 return;
+             }
+         }
+@@ -76,10 +102,86 @@
+         }
+         return false;
+     }
++    bool SiegeFooting(const AVoxelBuildWorld& World,FName Id,const FTransform& Pose,
++        const AVoxelBuildPrefabActor* Self,double& FloorZ,TSet<FIntVector>* Parents=nullptr,
++        const UPrimitiveComponent** OutRoof=nullptr)
++    {
++        // Sample load-bearing feet in their rotated positions, including authored tower decks.
++        FCollisionQueryParams Params(SCENE_QUERY_STAT(VillageSiegeFooting),true);
++        if(Self){Params.AddIgnoredActor(Self);Params.AddIgnoredActor(Self->Logic());}
++        static const FVector2D Pedestal[]={{-62,-37},{-62,37},{62,-37},{62,37},{0,0}};
++        // Sample the ends and the middle of both longitudinal supports, in mesh space.
++        static const FVector2D Chassis[]={{-219,-128},{-219,128},{-10,-128},{-10,128},{199,-128},{199,128}};
++        const bool bTrebuchet=Id==VillageBuildDefense::Trebuchet;
++        static const FVector2D OilFeet[]={{-66,-65},{-66,65},{66,-65},{66,65},{0,0}};
++        const TConstArrayView<FVector2D> Pads=bTrebuchet?MakeArrayView(Chassis):
++            Id==VillageBuildDefense::OilPot?MakeArrayView(OilFeet):MakeArrayView(Pedestal);
++        double Low=MAX_dbl,High=-MAX_dbl;
++        bool AllFixed=true;
++        TSet<FIntVector> Supports;
++        const UPrimitiveComponent* CommonRoof=nullptr;
++        const UPrimitiveComponent* SampledRoof=nullptr;
++        for(int32 Index=0;Index<Pads.Num();++Index)
++        {
++            const FVector P=Pose.TransformPosition(FVector(Pads[Index],0.));
++            const FVector Top=P+FVector(0,0,19.),Bottom=P-FVector(0,0,29.);
++            FHitResult Hit;
++            const VillageDefenseFootprint::FShape* Deck=nullptr;
++            Params.bTraceComplex=false;
++            if(World.GetWorld()->LineTraceSingleByChannel(Hit,Top,Bottom,ECC_Visibility,Params))
++                Deck=VillageDefenseFootprint::SiegeRoof(Hit.GetComponent());
++            if(!Deck)
++            {
++                Params.bTraceComplex=true;
++                if(!World.GetWorld()->LineTraceSingleByChannel(Hit,Top,Bottom,ECC_Visibility,Params))return false;
++            }
++            if(!VoxelGrounding::IsFixedBuildingSurface(Hit) || Hit.ImpactNormal.Z<.85
++                || Cast<AVoxelCollapseFragment>(Hit.GetActor()))return false;
++            const auto* Surface=Hit.GetComponent();
++            const bool OnRoof=Deck && FMath::Abs(Surface->GetComponentTransform().InverseTransformPosition(Hit.ImpactPoint).Z-Deck->Bounds.Max.Z)<1.;
++            if(bTrebuchet && OnRoof && SampledRoof!=Surface)
++            {
++                if(!VillageDefenseFootprint::TrebuchetFitsDeck(*Deck,Surface->GetComponentTransform(),Pose))return false;
++                SampledRoof=Surface;
++            }
++            if(Index==0 && OnRoof)CommonRoof=Surface;
++            else if(!OnRoof || CommonRoof!=Surface)CommonRoof=nullptr;
++            Low=FMath::Min(Low,Hit.ImpactPoint.Z);High=FMath::Max(High,Hit.ImpactPoint.Z);
++            VoxelGrounding::FFootprint Floor;
++            Floor.Surfaces.Add(Hit.GetComponent());
++            if(Parents && !HasFixedFloor(Floor,&World,&Supports))AllFixed=false;
++        }
++        if(High-Low>16.)return false;
++        FloorZ=(Low+High)*.5;
++        if(OutRoof)*OutRoof=CommonRoof;
++        if(Parents)Parents->Append(Supports);
++        return AllFixed;
++    }
++}
++
++void AVoxelBuildWorld::ApplyGateCutToWall(AVillageDefenseSection& Wall) const
++{
++    if((!Wall.IsA<AHighVillageWall>()&&!Wall.IsRepairedCurtain())||Wall.GetOwner()!=FindVillageConstructionWorld())return;
++    const FVector2D* Cut=Wall.GetPlacedId().IsValid()?CutPlacedWalls.Find(Wall.GetPlacedId()):CutVillageWalls.Find(Wall.GetSectionId());
++    FVector2D Interval(-150.,150.);
++    if(Cut)Interval=*Cut;
++    else if(!CutVillageWalls.IsEmpty() && Wall.IsA<AHighVillageWall>() && !Wall.GetPlacedId().IsValid())
++        for(const auto& Gate:Prefabs)
++            if(!Gate.GateCuts.IsEmpty() && VillageGateReplacement::IntervalFor(Wall,Gate,Interval))break;
++    Wall.SetWallInterval(Interval);
+ }
+ 
+ void AVoxelBuildWorld::RefreshPrefabOccupancy()
+ {
++    const bool HadCuts=!CutPlacedWalls.IsEmpty()||!CutVillageWalls.IsEmpty();
++    CutPlacedWalls.Reset();CutVillageWalls.Reset();
++    for(const auto& Gate:Prefabs)for(const auto& Cut:Gate.GateCuts)
++    {
++        if(Cut.PlacedId.IsValid())CutPlacedWalls.Add(Cut.PlacedId,Cut.Remaining);
++        else CutVillageWalls.Add(Cut.Section,Cut.Remaining);
++    }
++    if(HasAuthority() && (HadCuts||!CutPlacedWalls.IsEmpty()||!CutVillageWalls.IsEmpty()))
++        for(TActorIterator<AVillageDefenseSection> It(GetWorld());It;++It)ApplyGateCutToWall(**It);
+     CachedGridRecipe=NAME_None;
+     PrefabCellOwners.Reset();
+     TArray<FIntVector> Occupied;
+@@ -232,8 +334,15 @@
+ bool AVoxelBuildWorld::IsPrefabSupported(const FVoxelBuildPrefabInstance& Instance,FIntVector* OutContact,
+     TSet<FIntVector>* SupportingPieces) const
+ {
++    if(CutPlacedWalls.Contains(Instance.InstanceId))return true;
+     const FVoxelBuildPrefab* Definition=Palette?Palette->FindComponent(Instance.Id):nullptr;
+     if(!Definition)return true;   // 定义缺失时不在这里判死，交给生成路径报错
++    if(VillageBuildDefense::IsSiegeEngine(Instance.Id))
++    {
++        double FloorZ;
++        return SiegeFooting(*this,Instance.Id,VillageWallStairs::Placement(Instance),
++            Cast<AVoxelBuildPrefabActor>(PrefabActors.FindRef(Instance.Cell).Get()),FloorZ,SupportingPieces);
++    }
+     if(Definition->Mount==EVoxelPrefabMount::Wall)
+     {
+         FHitResult Surface;
+@@ -254,9 +363,21 @@
+             Params.AddIgnoredActor(Self);
+             Params.AddIgnoredActor(Self->Logic());
+         }
++        if(!Instance.GateCuts.IsEmpty())
++        {
++            const auto* Hills=FindVillageConstructionWorld();
++            FVector2D Interval;
++            for(TActorIterator<AVillageDefenseSection> It(GetWorld());It;++It)
++                if(It->GetOwner()==Hills && VillageGateReplacement::IntervalFor(**It,Instance,Interval))
++                {
++                    Params.AddIgnoredActor(*It);
++                    Params.AddIgnoredActor(It->GetAttachParentActor());
++                }
++        }
+         const FTransform Pose=VillageWallStairs::Placement(Instance);
+         const FVector StairFeet[]={{-80.,-90.,0.},{80.,-245.,0.},{0.,220.,0.}};
+         const FVector WallFeet[]={{0.,0.,0.},{-133.,0.,0.},{133.,0.,0.}};
++        const FVector TowerFeet[]={{-425.,-425.,0.},{425.,-425.,0.},{-425.,425.,0.},{425.,425.,0.},{0.,0.,0.}};
+         const FVector GateFeet[]={{-382.,-70.,0.},{-382.,94.,0.},{382.,-70.,0.},{382.,94.,0.}};
+         const FVector TimberFeet[]={AVillageDefenseGate::PlacedPostTransform(false).GetLocation(),
+             AVillageDefenseGate::PlacedPostTransform(true).GetLocation()};
+@@ -264,6 +385,7 @@
+         const FVector BasicWallFeet[]={{0.,0.,0.},{-WallX,-WallY,0.},{WallX,-WallY,0.},
+             {-WallX,WallY,0.},{WallX,WallY,0.}};
+         const TConstArrayView<FVector> Samples=Instance.Id==VillageWallStairs::Id?MakeArrayView(StairFeet):
++            Instance.Id==VillageBuildDefense::HighTower?MakeArrayView(TowerFeet):
+             Instance.Id==VillageBuildDefense::StoneGate?MakeArrayView(GateFeet):
+             Instance.Id==VillageBuildDefense::WoodGate?MakeArrayView(TimberFeet):
+             Instance.Id==VillageBuildDefense::StoneWall?MakeArrayView(BasicWallFeet):MakeArrayView(WallFeet);
+@@ -493,8 +623,9 @@
+     if(bVillage)
+     {
+         const auto* Hills=FindVillageConstructionWorld();
+-        if(!Hills||!Hills->IsVillagePlanUnlocked(TEXT("village_construction")))
+-        {Reason=TEXT("请先在修女处解锁村庄修建");return false;}
++        const auto Required=VillageBuildDefense::RequiredTier(Id);
++        if(VillageBuildDefense::UnlockedTier(Hills)<Required)
++        {Reason=VillageBuildDefense::LockReason(Required);return false;}
+     }
+     const bool bWallMount=Definition->Mount==EVoxelPrefabMount::Wall;
+     // 逻辑构件（门）只要求 Actor 类；普通构件仍然要求网格。
+@@ -506,7 +637,20 @@
+     FVoxelBuildPrefabInstance Probe;
+     Probe.Id=Id;Probe.Cell=Cell;Probe.Yaw=Yaw;Probe.Footprint=Footprint;
+     VillageWallStairs::FDock Dock;
+-    if(bDocked)
++    VillageGateReplacement::FOpening Opening;
++    if(bReplaceWall)
++    {
++        FTransform GatePose;
++        FIntVector Address;
++        int32 Facing;
++        if(!bDocked || !VillageGateReplacement::Layout(Id,DockTarget,Definition->Footprint,GatePose,Address,Facing)
++            || Address!=Cell || Facing!=Yaw
++            || !VillageGateReplacement::Collect(*this,*FindVillageConstructionWorld(),Id,DockTarget,GatePose,Opening,PreviewBars))
++        {Reason=TEXT("替换位置已变化，请重新瞄准同一直线上的城墙");return false;}
++        Probe.WallDockPose=GatePose;
++        Probe.GateCuts=Opening.Cuts;
++    }
++    else if(bDocked)
+     {
+         if(!VillageWallStairs::FindDock(GetWorld(),Id,Definition->Footprint,Cell,Yaw,Dock,DockTarget))
+         {Reason=TEXT("未找到匹配的城防接口，请重新瞄准");return false;}
+@@ -514,12 +658,32 @@
+     }
+     else if(GroundYawDegrees!=INDEX_NONE)
+         Probe.WallDockPose=VillageBuildDefense::Placement(Id,Cell,Footprint,Yaw,GroundYawDegrees);
+-    const FTransform Pose=bVillage?VillageWallStairs::Placement(Probe):FTransform::Identity;
++    FTransform Pose=bVillage?VillageWallStairs::Placement(Probe):FTransform::Identity;
++    const UPrimitiveComponent* BearingRoof=nullptr;
++    if(VillageBuildDefense::IsSiegeEngine(Id))
++    {
++        double FloorZ=0.;
++        if(!SiegeFooting(*this,Id,Pose,nullptr,FloorZ,nullptr,&BearingRoof))
++        {Reason=Id==VillageBuildDefense::Trebuchet?TEXT("投石机底架需要连续平面 · 避开楼梯口和平台边缘"):
++            TEXT("器械底座需要完整、平缓的平台或地面");return false;}
++        FVector Foot=Pose.GetLocation();Foot.Z=FloorZ;
++        Pose.SetLocation(Foot);
++        Probe.WallDockPose=Pose;
++    }
+     if(bVillage&&OutPlacementPose)*OutPlacementPose=Pose;
+-    if(bFortification)
++    if(VillageBuildDefense::IsSiegeEngine(Id))
++    {
++        if(!VillageDefenseFootprint::IsClear(*GetWorld(),VillageDefenseFootprint::Siege(Id),Pose,this,{},BearingRoof?2.:16.))
++        {
++            Reason=Id==VillageBuildDefense::Trebuchet?TEXT("机架或投臂摆动范围受阻 · 移动或旋转投石机"):
++                Id==VillageBuildDefense::OilPot?TEXT("热油锅底座或锅柄被挡住，请避开垛口和楼梯口"):TEXT("弩炮机架被挡住 · 请避开垛口、楼梯栏杆或其他物体");
++            return false;
++        }
++    }
++    else if(bFortification)
+     {
+         const auto& Shape=VillageDefenseFootprint::Get(Id,Definition->Mesh.LoadSynchronous());
+-        if(!VillageDefenseFootprint::IsClear(*GetWorld(),Shape,Pose,this))
++        if(!VillageDefenseFootprint::IsClear(*GetWorld(),Shape,Pose,this,Opening.Walls))
+         {Reason=TEXT("城防构件与人物、建筑或地形重叠，请更换位置");return false;}
+         if(bDocked && Id==VillageWallStairs::Id && !VillageWallStairs::HasClearStairEntrance(*GetWorld(),Pose))
+         {Reason=TEXT("楼梯入口被挡住 · 用滚轮换向或选择另一段城墙");return false;}
+@@ -588,8 +761,14 @@
+     else
+     {
+         // 悬空的构件不能放（2026-09-18 用户口径：构件要挂在结构上，不然拆掉周围就剩它浮着）。
+-        if(!Dock.Target&&!IsPrefabSupported(Probe))
++        if(!Dock.Target&&!VillageBuildDefense::IsSiegeEngine(Id)&&!IsPrefabSupported(Probe))
+         {Reason=TEXT("该位置悬空 · 构件要与体素、别的构件或地面接触");return false;}
++    }
++    if(bReplaceWall)
++    {
++        if(OutCuts)*OutCuts=Opening.Cuts;
++        Reason=FString::Printf(TEXT("替换 %d 段城墙 · 保留门洞两端余墙 · 左键确认"),Opening.Cuts.Num());
++        return true;
+     }
+     Reason=FString::Printf(TEXT("可放置 %s · %d × %d × %d cm · 左键确认"),
+         *Definition->DisplayName.ToString(),Footprint.X*CellSizeCm,Footprint.Y*CellSizeCm,Footprint.Z*CellSizeCm);
+@@ -693,7 +872,73 @@
+     return Piece;
+ }
+ 
+-bool AVoxelBuildWorld::PlacePrefab(FName Id,FIntVector Cell,int32 Yaw,bool bDocked,AActor* DockTarget,int32 GroundYawDegrees)
++void AVoxelBuildWorld::TryGrantWorkshopTower()
++{
++    if(!HasAuthority() || !bReady || bClosing || bWorkshopTowerGranted)return;
++    auto* Hills=FindVillageConstructionWorld();
++    if(!Hills || !Hills->GetVillageSite().bPlaced ||
++        !WorldKey.EndsWith(TEXT("|")+Hills->WorldId.ToString(EGuidFormats::Digits)) ||
++        !Hills->IsVillagePlanUnlocked(TEXT("village_construction")))return;
++    const auto& Site=Hills->GetVillageSite();
++    for(const auto& Entry:Prefabs)
++    {
++        if(Entry.Id==VillageBuildDefense::HighTower && Site.IsWorkshopTowerPosition(VillageWallStairs::Placement(Entry).GetLocation()))
++        {
++            bWorkshopTowerGranted=true;
++            MarkSaveDirty();
++            return;
++        }
++    }
++
++    const auto* Definition=Palette->FindComponent(VillageBuildDefense::HighTower);
++    if(!Definition)return;
++    FVoxelBuildPrefabInstance Tower;
++    Tower.Id=VillageBuildDefense::HighTower;
++    const FTransform SitePose=Site.WorkshopTowerPose();
++    Tower.WallDockPose=SitePose;
++    Tower.Yaw=(FMath::RoundToInt(SitePose.Rotator().Yaw/90.)+4)%4;
++    Tower.Footprint=AVoxelBuildPrefabActor::RotatedFootprint(Definition->Footprint,Tower.Yaw);
++    Tower.Cell=ToCell(SitePose.GetLocation())-FIntVector(Tower.Footprint.X/2,Tower.Footprint.Y/2,0);
++    Tower.InstanceId=FGuid::NewGuid();
++
++    // The two surveyed buildings share an eave. Only this workshop is exempt from clearance.
++    TArray<AActor*> Neighbours;
++    for(TActorIterator<AVillageMechanicalWorkshop> It(GetWorld());It;++It)
++        if(It->GetOwner()==Hills)Neighbours.Add(*It);
++    const auto& Shape=VillageDefenseFootprint::Get(Tower.Id,Definition->Mesh.LoadSynchronous());
++    bool bClear=!bNetworkTransaction && !HasPrefabAt(Tower.Cell) &&
++        VillageDefenseFootprint::IsClear(*GetWorld(),Shape,SitePose,this,Neighbours) && IsPrefabSupported(Tower);
++    TArray<FIntVector> Occupied;
++    if(bClear)
++    {
++        FillPrefabCells(Tower,Occupied);
++        // A matching wall socket can share contact cells along the landing.
++        VillageWallStairs::FDock Join;
++        TOptional<FIntVector> WallAnchor;
++        if(VillageWallStairs::FindDock(GetWorld(),Tower.Id,Definition->Footprint,Tower.Cell,Tower.Yaw,Join) &&
++            Join.Pose.Equals(SitePose,.1) && Join.Target)
++            if(auto* Carrier=Cast<AVoxelBuildPrefabActor>(Join.Target->GetAttachParentActor()))WallAnchor=Carrier->AnchorCell();
++        for(const FIntVector& Cell:Occupied)
++        {
++            if(Cells.Contains(Cell) || FreeVolumeWorldCells.Contains(Cell)){bClear=false;break;}
++            for(auto It=PrefabCellOwners.CreateConstKeyIterator(Cell);It;++It)
++                if(!WallAnchor.IsSet() || It.Value()!=WallAnchor.GetValue()){bClear=false;break;}
++            if(!bClear)break;
++        }
++    }
++    if(!bClear || !SpawnPrefab(Tower))
++    {
++        GetWorldTimerManager().SetTimer(WorkshopTowerRetry,this,&AVoxelBuildWorld::TryGrantWorkshopTower,5.f,false);
++        return;
++    }
++    Prefabs.Add(Tower);
++    for(const FIntVector& Cell:Occupied)PrefabCellOwners.Add(Cell,Tower.Cell);
++    CachedGridRecipe=NAME_None;
++    bWorkshopTowerGranted=true;
++    MarkSaveDirty();
++}
++
++bool AVoxelBuildWorld::PlacePrefab(FName Id,FIntVector Cell,int32 Yaw,bool bDocked,AActor* DockTarget,int32 GroundYawDegrees,bool bReplaceWall,int64 ExpectedWallSelection)
+ {
+     if(!bReady||GetNetMode()==NM_Client)return false;
+     const FVoxelBuildPrefab* Looking=Palette?Palette->FindComponent(Id):nullptr;
+@@ -701,22 +946,109 @@
+     // 否则同一件会被自己的"必须贴墙"规则挡掉。
+     const bool bSurfaceBacked=Looking&&Looking->Mount==EVoxelPrefabMount::Wall;
+     FTransform PlacementPose;
+-    if(!CanPlacePrefab(Id,Cell,Yaw,Message,bSurfaceBacked,bDocked,DockTarget,&PlacementPose,GroundYawDegrees))return false;
++    FVoxelBuildPrefabInstance Instance;
++    if(!CanPlacePrefab(Id,Cell,Yaw,Message,bSurfaceBacked,bDocked,DockTarget,&PlacementPose,GroundYawDegrees,bReplaceWall,&Instance.GateCuts))return false;
++    if(bReplaceWall && ExpectedWallSelection>=0 && ExpectedWallSelection!=VillageGateReplacement::WallSelection(Instance.GateCuts))
++    {Message=TEXT("墙线已变化，请按更新后的预览重新放置");return false;}
+     const FVoxelBuildPrefab* Definition=Looking;
+-    FVoxelBuildPrefabInstance Instance;
+     Instance.Id=Id;Instance.Cell=Cell;Instance.Yaw=((Yaw%4)+4)%4;
+     Instance.Footprint=AVoxelBuildPrefabActor::RotatedFootprint(Definition->Footprint,Instance.Yaw);
+-    if(bDocked||GroundYawDegrees!=INDEX_NONE)Instance.WallDockPose=PlacementPose;
++    if(bDocked||GroundYawDegrees!=INDEX_NONE||VillageBuildDefense::IsSiegeEngine(Id))Instance.WallDockPose=PlacementPose;
+     Instance.InstanceId=FGuid::NewGuid();
+     if(!SpawnPrefab(Instance)){Message=TEXT("构件网格生成失败");return false;}
+     Prefabs.Add(Instance);
+     TArray<FIntVector> Occupied;
+-    AddPrefabOccupancy(Instance,Occupied);
++    if(bReplaceWall)
++    {
++        GateWallCells(Instance,Occupied);
++        RefreshPrefabOccupancy();
++        ReanchorVoxelsAround(Occupied,true);
++        TSet<FIntVector> Dependents;
++        for(const FIntVector& Changed:Occupied)AddNearbyPrefabOwners(Changed,Dependents);
++        Dependents.Remove(Cell);
++        DropUnsupportedPrefabs(Dependents);
++    }
++    else AddPrefabOccupancy(Instance,Occupied);
+     MarkSaveDirty();
+     UndoHistory.Remember(UndoPlayer,{nullptr,Instance.InstanceId,Instance.Cell});
+     if(Id==TEXT("campfire"))if(const auto* Piece=PrefabActorAt(Cell))
+         if(auto* Fire=Cast<AColdSteelCampfire>(Piece->Logic()))Fire->PublishSharedState(true);
+     Message=FString::Printf(TEXT("已放置构件 · 共 %d 件 · 正在保存"),Prefabs.Num());
++    return true;
++}
++
++// Use the original wall solids intersected with the gate opening. The new gate and its
++// surviving neighbours need no support update outside this region.
++void AVoxelBuildWorld::GateWallCells(const FVoxelBuildPrefabInstance& Gate,TArray<FIntVector>& Changed,TArray<TPair<FBox,FTransform>>* RestoredBoxes) const
++{
++    const auto* Hills=FindVillageConstructionWorld();
++    for(TActorIterator<AVillageDefenseSection> It(GetWorld());It;++It)
++    {
++        if(It->GetOwner()!=Hills || (!It->IsA<AHighVillageWall>() && !It->IsRepairedCurtain()))continue;
++        FVector2D Remaining;
++        if(!VillageGateReplacement::IntervalFor(**It,Gate,Remaining))continue;
++        const auto* Body=It->GetMasonry();
++        UStaticMesh* Mesh=Body?Body->GetStaticMesh():nullptr;
++        if(!Mesh || It->GetHealth()<=0.f)continue;
++        const double Min=Remaining.X<=-149.999?Remaining.Y:-150.;
++        const double Max=Remaining.Y>=149.999?Remaining.X:150.;
++        VillageDefenseFootprint::FShape Region;
++        const auto& Original=VillageDefenseFootprint::Get(It->IsA<AHighVillageWall>()?VillageBuildDefense::HighWall:VillageBuildDefense::StoneWall,Mesh);
++        auto Intersect=[&](FBox Box)
++        {
++            Box.Min.X=FMath::Max(Min,Box.Min.X);
++            Box.Max.X=FMath::Min(Max,Box.Max.X);
++            Box.Min.Z=FMath::Max(0.,Box.Min.Z);
++            if(Box.Max.X>Box.Min.X && Box.Max.Z>Box.Min.Z)
++            {
++                Region.Boxes.Add(Box);
++                if(RestoredBoxes)RestoredBoxes->Emplace(Box,It->GetActorTransform());
++            }
++        };
++        if(Original.Boxes.IsEmpty())Intersect(Mesh->GetBoundingBox());
++        else for(const FBox& Box:Original.Boxes)Intersect(Box);
++        TArray<FIntVector> Part;
++        VillageDefenseFootprint::Rasterize(Region,It->GetActorTransform(),Part);
++        Changed.Append(Part);
++    }
++}
++
++bool AVoxelBuildWorld::CanRestoreGateWalls(FIntVector GateCell,FString& Reason) const
++{
++    const auto* Gate=Prefabs.FindByPredicate([GateCell](const auto& P){return P.Cell==GateCell;});
++    if(!Gate || Gate->GateCuts.IsEmpty())return true;
++    TArray<FIntVector> Changed;
++    TArray<TPair<FBox,FTransform>> RestoredBoxes;
++    GateWallCells(*Gate,Changed,&RestoredBoxes);
++    TSet<FIntVector> Participants={GateCell};
++    FCollisionQueryParams Query(SCENE_QUERY_STAT(GateWallRestore),false,this);
++    if(const auto* Carrier=PrefabActorAt(GateCell))
++    {
++        Query.AddIgnoredActor(Carrier);
++        Query.AddIgnoredActor(Carrier->Logic());
++    }
++    for(const auto& Wall:Prefabs)
++        if(Wall.InstanceId.IsValid() && Gate->GateCuts.ContainsByPredicate([&Wall](const auto& Cut){return Cut.PlacedId==Wall.InstanceId;}))
++            Participants.Add(Wall.Cell);
++    // Original terrain and permanent scenery already coexisted with this wall.
++    // Refuse to close the passage on a pawn or on construction added while the gate was open.
++    for(const FIntVector& Cell:Changed)
++    {
++        if(Cells.Contains(Cell)||FreeVolumeWorldCells.Contains(Cell))
++        {Reason=TEXT("门洞内已有方块，请先清空再恢复墙段");return false;}
++        for(auto It=PrefabCellOwners.CreateConstKeyIterator(Cell);It;++It)
++            if(!Participants.Contains(It.Value()))
++            {Reason=TEXT("门洞内已有构件，请先移开再恢复墙段");return false;}
++    }
++    const FCollisionObjectQueryParams Pawns(ECC_Pawn);
++    for(const auto& Part:RestoredBoxes)
++    {
++        const FTransform& Pose=Part.Value;
++        const FVector Half=(Part.Key.GetExtent()*Pose.GetScale3D().GetAbs()-FVector(.01)).ComponentMax(FVector(.01));
++        if(GetWorld()->OverlapAnyTestByObjectType(Pose.TransformPosition(Part.Key.GetCenter()),Pose.GetRotation(),
++            Pawns,FCollisionShape::MakeBox(Half),Query))
++        {Reason=TEXT("门洞内有人或动物，暂时无法恢复墙段");return false;}
++    }
+     return true;
+ }
+ 

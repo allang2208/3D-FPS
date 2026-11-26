@@ -1,0 +1,32 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
++++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h
+@@ -197,7 +198,7 @@
+     UPROPERTY() int32 VillagePlanVersion = 1;
+     // V1 recorded unlocks only. V2 atomically restored the wall and smithy.
+     // From V3 onward each new plan bit records a committed restoration.
+-    static constexpr int32 CurrentVillagePlanVersion = 10;
++    static constexpr int32 CurrentVillagePlanVersion = 11;
+     static constexpr uint8 CarpenterPlan = 4;
+     static constexpr uint8 TavernPlan = 8;
+     static constexpr uint8 HerbalistPlan = 16;
+@@ -207,6 +208,8 @@
+     // The original serialized byte is full. Keep its reflected type for V1–8 saves.
+     static constexpr uint16 BakeryPlan = 256;
+     static constexpr uint16 GunshopPlan = 512;
++    static constexpr uint16 GarrisonMechanicsPlan = 1024;
++    UPROPERTY() bool bGarrisonMechanics = false;
+     UPROPERTY() bool bVillageBakeryRepaired = false;
+     UPROPERTY() bool bVillageGunshopRepaired = false;
+     UPROPERTY() uint8 VillagePlansUnlocked = 0;
+@@ -525,6 +529,11 @@
+     UFUNCTION() void OnRep_VillageBakery();
+     UPROPERTY(ReplicatedUsing=OnRep_VillageGunshop) bool bVillageGunshopRepaired=false;
+     UFUNCTION() void OnRep_VillageGunshop();
++    UPROPERTY(Replicated) bool bGarrisonMechanics=false;
++    UPROPERTY(Transient) TObjectPtr<class AVillageMechanicalWorkshop> MechanicalWorkshop;
++    void UpdateMechanicalWorkshop();
++    FTransform MechanicalWorkshopPose() const;
++    bool MechanicalWorkshopLotOccupied() const;
+     FGuid VillageDefenseGeneration;
+     UFUNCTION() void OnRep_VillagePlansUnlocked(uint8 PreviousPlans);
+     bool CommitVillagePlanRepair(uint16 PlanBit, int32 RequiredVersion, const TCHAR* SaveError, FText& FailureReason);

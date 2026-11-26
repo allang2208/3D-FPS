@@ -1,0 +1,105 @@
+--- a/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildWorldPrefab.cpp
+@@ -47,19 +47,16 @@
+         VillageDefenseFootprint::Rasterize(Shape,Pose,Out);
+         return;
+     }
+-    if(Instance.Id==VillageBuildDefense::Ballista)
+-    {
+-        VillageDefenseFootprint::Rasterize(VillageDefenseFootprint::Ballista(),VillageWallStairs::Placement(Instance),Out);
++    if(VillageBuildDefense::IsSiegeEngine(Instance.Id))
++    {
++        VillageDefenseFootprint::Rasterize(VillageDefenseFootprint::Siege(Instance.Id),VillageWallStairs::Placement(Instance),Out);
+         return;
+     }
+-    if((VillageBuildDefense::IsBasicWallOrGate(Instance.Id)||VillageBuildDefense::IsSiegeEngine(Instance.Id))&&Instance.WallDockPose.IsSet())
++    if(VillageBuildDefense::IsBasicWallOrGate(Instance.Id)&&Instance.WallDockPose.IsSet())
+     {
+         // Free ground placement keeps the native footprint and uses an exact yaw about its centre.
+         const FIntVector Native=AVoxelBuildPrefabActor::RotatedFootprint(Instance.Footprint,Instance.Yaw);
+-        FTransform GridPose=Instance.WallDockPose.GetValue();
+-        if(VillageBuildDefense::IsSiegeEngine(Instance.Id))
+-            GridPose.SetLocation(FVector(GridPose.GetLocation().X,GridPose.GetLocation().Y,Instance.Cell.Z*20.));
+-        VillageDefenseFootprint::RasterizeGridEnvelope(Native,GridPose,Out);
++        VillageDefenseFootprint::RasterizeGridEnvelope(Native,Instance.WallDockPose.GetValue(),Out);
+         return;
+     }
+     if(VillageWallStairs::CanDock(Instance.Id))
+@@ -110,26 +107,25 @@
+         // Sample load-bearing feet in their rotated positions, including authored tower decks.
+         FCollisionQueryParams Params(SCENE_QUERY_STAT(VillageSiegeFooting),true);
+         if(Self){Params.AddIgnoredActor(Self);Params.AddIgnoredActor(Self->Logic());}
+-        const FVector Feet=Id==VillageBuildDefense::Trebuchet?FVector(175.,125.,0.):FVector(62.,37.,0.);
++        static const FVector2D Pedestal[]={{-62,-37},{-62,37},{62,-37},{62,37},{0,0}};
++        // Sample the ends and the middle of both longitudinal supports, in mesh space.
++        static const FVector2D Chassis[]={{-219,-128},{-219,128},{-10,-128},{-10,128},{199,-128},{199,128}};
++        const bool bTrebuchet=Id==VillageBuildDefense::Trebuchet;
++        const TConstArrayView<FVector2D> Pads=bTrebuchet?MakeArrayView(Chassis):MakeArrayView(Pedestal);
+         double Low=MAX_dbl,High=-MAX_dbl;
+         bool AllFixed=true;
+         TSet<FIntVector> Supports;
+-        const bool bBallista=Id==VillageBuildDefense::Ballista;
+-        const FVector2D Pads[]={{-1,-1},{-1,1},{1,-1},{1,1},{0,0}};
+         const UPrimitiveComponent* CommonRoof=nullptr;
+-        const int32 PadCount=bBallista?5:4;
+-        for(int32 Index=0;Index<PadCount;++Index)
+-        {
+-            const FVector P=Pose.TransformPosition(FVector(Pads[Index].X*Feet.X,Pads[Index].Y*Feet.Y,0.));
++        const UPrimitiveComponent* SampledRoof=nullptr;
++        for(int32 Index=0;Index<Pads.Num();++Index)
++        {
++            const FVector P=Pose.TransformPosition(FVector(Pads[Index],0.));
+             const FVector Top=P+FVector(0,0,19.),Bottom=P-FVector(0,0,29.);
+             FHitResult Hit;
+             const VillageDefenseFootprint::FShape* Deck=nullptr;
+-            if(bBallista)
+-            {
+-                Params.bTraceComplex=false;
+-                if(World.GetWorld()->LineTraceSingleByChannel(Hit,Top,Bottom,ECC_Visibility,Params))
+-                    Deck=VillageDefenseFootprint::BallistaRoof(Hit.GetComponent());
+-            }
++            Params.bTraceComplex=false;
++            if(World.GetWorld()->LineTraceSingleByChannel(Hit,Top,Bottom,ECC_Visibility,Params))
++                Deck=VillageDefenseFootprint::SiegeRoof(Hit.GetComponent());
+             if(!Deck)
+             {
+                 Params.bTraceComplex=true;
+@@ -139,6 +135,11 @@
+                 || Cast<AVoxelCollapseFragment>(Hit.GetActor()))return false;
+             const auto* Surface=Hit.GetComponent();
+             const bool OnRoof=Deck && FMath::Abs(Surface->GetComponentTransform().InverseTransformPosition(Hit.ImpactPoint).Z-Deck->Bounds.Max.Z)<1.;
++            if(bTrebuchet && OnRoof && SampledRoof!=Surface)
++            {
++                if(!VillageDefenseFootprint::TrebuchetFitsDeck(*Deck,Surface->GetComponentTransform(),Pose))return false;
++                SampledRoof=Surface;
++            }
+             if(Index==0 && OnRoof)CommonRoof=Surface;
+             else if(!OnRoof || CommonRoof!=Surface)CommonRoof=nullptr;
+             Low=FMath::Min(Low,Hit.ImpactPoint.Z);High=FMath::Max(High,Hit.ImpactPoint.Z);
+@@ -659,16 +660,21 @@
+     {
+         double FloorZ=0.;
+         if(!SiegeFooting(*this,Id,Pose,nullptr,FloorZ,nullptr,&BearingRoof))
+-        {Reason=TEXT("机架底座需要完整、平缓的平台或地面");return false;}
++        {Reason=Id==VillageBuildDefense::Trebuchet?TEXT("投石机底架需要连续平面 · 避开楼梯口和平台边缘"):
++            TEXT("机架底座需要完整、平缓的平台或地面");return false;}
+         FVector Foot=Pose.GetLocation();Foot.Z=FloorZ;
+         Pose.SetLocation(Foot);
+         Probe.WallDockPose=Pose;
+     }
+     if(bVillage&&OutPlacementPose)*OutPlacementPose=Pose;
+-    if(Id==VillageBuildDefense::Ballista)
+-    {
+-        if(!VillageDefenseFootprint::IsClear(*GetWorld(),VillageDefenseFootprint::Ballista(),Pose,this,{},BearingRoof?2.:16.))
+-        {Reason=TEXT("弩炮机架被挡住 · 请避开垛口、楼梯栏杆或其他物体");return false;}
++    if(VillageBuildDefense::IsSiegeEngine(Id))
++    {
++        if(!VillageDefenseFootprint::IsClear(*GetWorld(),VillageDefenseFootprint::Siege(Id),Pose,this,{},BearingRoof?2.:16.))
++        {
++            Reason=Id==VillageBuildDefense::Trebuchet?TEXT("机架或投臂摆动范围受阻 · 移动或旋转投石机"):
++                TEXT("弩炮机架被挡住 · 请避开垛口、楼梯栏杆或其他物体");
++            return false;
++        }
+     }
+     else if(bFortification)
+     {

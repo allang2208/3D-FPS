@@ -1,0 +1,27 @@
+--- a/Source/FPSGAME/Building/VoxelBuildComponent.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildComponent.cpp
+@@ -528,8 +531,22 @@
+     }
+     auto* PC=Cast<APlayerController>(GetOwner());
+     if(!PC||!PC->GetPawn()){SetBuildMode(false);return;}
+-    // The drawer holds the cursor itself; only a foreign cursor/no-input state ends building.
+-    if(!bPanelOpen&&(PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()))
++    if(VillageCamera)
++    {
++        const auto* Player=Cast<AFPSGAMEPlayerController>(PC);
++        const bool ExternalMenu=Player&&(Player->IsGameMenuOpen()||Player->IsActionPreservingPanelOpen()
++            ||Player->IsAlchemyOpen()||Player->IsWoodworkingOpen());
++        if(ExternalMenu || PC->GetPawn()!=VillageCameraPawn.Get() || PC->GetViewTarget()!=VillageCamera ||
++            (VillageBuilderHealth.IsValid() && VillageBuilderHealth->IsDead()))
++        {
++            LeaveVillageCamera(!ExternalMenu);
++            SetBuildMode(false);
++            return;
++        }
++        if(!bPanelOpen)UpdateVillageCamera(Delta);
++    }
++    // In survey mode the builder owns both the cursor and the movement locks.
++    if(!VillageCamera&&!bPanelOpen&&(PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()))
+     {SetBuildMode(false);return;}
+     FeedbackTime=FMath::Max(0.f,FeedbackTime-Delta);
+     if(bPanelOpen||VillageBuildDefense::IsVillageRecipe(SelectedComponent))RefreshVillageConstructionAccess();

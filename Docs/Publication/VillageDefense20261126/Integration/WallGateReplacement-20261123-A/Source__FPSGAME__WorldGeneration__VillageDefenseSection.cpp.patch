@@ -1,0 +1,103 @@
+--- a/Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp
++++ b/Source/FPSGAME/WorldGeneration/VillageDefenseSection.cpp
+@@ -60,6 +60,30 @@
+     Health=GetWorld()->GetSubsystem<UVillageDefenseState>()->Restore(WorldId,SectionId,Maximum,PlacedId);
+     OnRep_Setup();
+ }
++bool AVillageDefenseSection::IsRepairedCurtain() const
++{
++    static const auto A=VillageMasonry::CastleMesh(TEXT("SM_VillageWallRepairedA"));
++    static const auto B=VillageMasonry::CastleMesh(TEXT("SM_VillageWallRepairedB"));
++    return MeshPath==A || MeshPath==B;
++}
++
++void AVillageDefenseSection::SetWallInterval(FVector2D Interval)
++{
++    if(WallInterval==Interval)return;
++    FlushNetDormancy();
++    WallInterval=Interval;
++    OnRep_WallInterval();
++    ForceNetUpdate();
++}
++
++void AVillageDefenseSection::OnRep_WallInterval()
++{
++    Masonry->SetRelativeLocation(FVector((WallInterval.X+WallInterval.Y)*.5,0,0));
++    Masonry->SetRelativeScale3D(FVector(IsGateCovered()?1.:(WallInterval.Y-WallInterval.X)/300.,1.,1.));
++    if(GroundWear)SetupGroundWear();
++    ApplyHealth();
++}
++
+ void AVillageDefenseSection::BeginPlay()
+ {
+     Super::BeginPlay();
+@@ -68,6 +92,8 @@
+     {
+         // Dynamic spawn rounds scale to tenths. Each generated bay has a site-specific length.
+         if(!PlacedId.IsValid())FixedScale=GetActorScale3D();
++        if(IsA<AHighVillageWall>() || IsRepairedCurtain())
++            for(TActorIterator<AVoxelBuildWorld> It(GetWorld());It;++It)It->ApplyGateCutToWall(*this);
+         SetNetDormancy(DORM_DormantAll);
+     }
+ }
+@@ -93,6 +119,7 @@
+     DOREPLIFETIME_CONDITION(AVillageDefenseSection,PlacedId,COND_InitialOnly);
+     DOREPLIFETIME_CONDITION(AVillageDefenseSection,MaximumHealth,COND_InitialOnly);
+     DOREPLIFETIME(AVillageDefenseSection,Health);
++    DOREPLIFETIME(AVillageDefenseSection,WallInterval);
+ }
+ void AVillageDefenseSection::OnRep_Setup()
+ {
+@@ -150,15 +177,18 @@
+     // An upright wall can be stretched along its X axis to fit the last bay.
+     // After the downward quarter-turn this is the decal's Z axis.
+     const FVector Scale=GetActorScale3D().GetAbs();
+-    GroundWear->SetWorldScale3D(FVector(Scale.Z,Scale.Y,Scale.X));
++    const bool Curtain=MeshPath==AHighVillageWall::WallMeshPath();
++    if(Curtain)GroundWear->SetRelativeLocation(FVector((WallInterval.X+WallInterval.Y)*.5,0.,-12.));
++    GroundWear->SetWorldScale3D(FVector(Scale.Z,Scale.Y,Scale.X*(Curtain && !IsGateCovered()?(WallInterval.Y-WallInterval.X)/300.:1.)));
+ }
+ 
+ void AVillageDefenseSection::ApplyHealth()
+ {
+-    if(GroundWear)GroundWear->SetVisibility(Health>0.f || IsA<AHighVillageGate>());
+-    Masonry->SetVisibility(Health>0.f);
+-    Masonry->SetCollisionEnabled(Health>0.f?ECollisionEnabled::QueryAndPhysics:ECollisionEnabled::NoCollision);
+-    Masonry->SetCanEverAffectNavigation(Health>0.f);
++    const bool Standing=Health>0.f && !IsGateCovered();
++    if(GroundWear)GroundWear->SetVisibility(Standing || IsA<AHighVillageGate>());
++    Masonry->SetVisibility(Standing);
++    Masonry->SetCollisionEnabled(Standing?ECollisionEnabled::QueryAndPhysics:ECollisionEnabled::NoCollision);
++    Masonry->SetCanEverAffectNavigation(Standing);
+     GetWorld()->GetSubsystem<UVillageDefenseRepairTargets>()->Update(*this);
+ }
+ void AVillageDefenseSection::OnRep_Health()
+@@ -263,7 +293,7 @@
+     ForceNetUpdate();
+     return true;
+ }
+-FVector AVillageDefenseSection::GetNavAgentLocation() const {return GetActorLocation();}
++FVector AVillageDefenseSection::GetNavAgentLocation() const {return IsGateCut()?Masonry->GetComponentLocation():GetActorLocation();}
+ FVector AVillageDefenseSection::TargetPoint(const FVector& From) const
+ {
+     FVector Result=GetActorLocation()+FVector(0,0,100);
+@@ -272,7 +302,7 @@
+ }
+ float AVillageDefenseSection::TakeDamage(float Amount,const FDamageEvent&,AController*,AActor* Causer)
+ {
+-    if(!HasAuthority()||Health<=0.f||!FMath::IsFinite(Amount)||Amount<=0.f)return 0.f;
++    if(!HasAuthority()||IsGateCovered()||Health<=0.f||!FMath::IsFinite(Amount)||Amount<=0.f)return 0.f;
+     const float Applied=FMath::Min(Health,Amount);FlushNetDormancy();Health-=Applied;
+     if(Health<=0.f)
+     {
+@@ -301,8 +331,8 @@
+ void AVillageDefenseSection::PresentCollapse(const FVector& Direction,int32 Seed,float)
+ {
+     if(!Masonry->GetStaticMesh())return;
+-    FVector Size=Masonry->GetStaticMesh()->GetBoundingBox().GetSize()*GetActorScale3D();
++    FVector Size=Masonry->GetStaticMesh()->GetBoundingBox().GetSize()*Masonry->GetComponentScale().GetAbs();
+     Size.Y=FMath::Min(Size.Y,60.);
+-    FTransform T(GetActorRotation(),GetActorLocation());
++    FTransform T(Masonry->GetComponentQuat(),Masonry->GetComponentLocation());
+     AVillageDefenseDebris::Spawn(*this,T,Size,Direction,Seed,false);
+ }

@@ -1,0 +1,13 @@
+--- a/Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp
++++ b/Source/FPSGAME/WorldGeneration/TemperateVillagePlans.cpp
+@@ -59,8 +59,8 @@
+         if(!IsVillagePlanUnlocked(TEXT("village_construction")))
+         {FailureReason=FText::FromString(TEXT("请先完成「防御工事」。"));return false;}
+         if(bGarrisonMechanics)return true;
+-        if(!ChapelSite.bPlaced || MechanicalWorkshopLotOccupied())
+-        {FailureReason=FText::FromString(TEXT("请先清空教堂后院的机械工坊用地。"));return false;}
++        if(!VillageSite.bPlaced || MechanicalWorkshopLotOccupied())
++        {FailureReason=FText::FromString(TEXT("请先清空东门马厩对面的机械工坊用地。"));return false;}
+         return CommitVillagePlanRepair(Bit,11,TEXT("守备机械未能保存，请重试。"),FailureReason);
+     }
+     // Unlock and repair share one durable commit. A legacy plan-only unlock must

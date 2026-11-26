@@ -1,0 +1,18 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.h
++++ b/Source/FPSGAME/FPSGAMEPlayerController.h
+@@ -30,6 +30,7 @@
+     UFUNCTION(Client,Reliable) void ClientVillageRepairResult(uint32 RequestId,bool bRepaired,const FText& Message);
+     void RequestVillageRepair(class AVillageDefenseSection* Section);
+     bool IsInBuildMode() const;
++    class UVillageSiegeControl* GetSiegeControl() const { return SiegeControl; }
+     void ToggleWeatherPanel();
+     void ToggleDevelopmentPanel();
+     UDevelopmentSpawnComponent* GetDevelopmentSpawner() const { return DevelopmentSpawner; }
+@@ -105,6 +107,7 @@
+     void SpawnHubTestChest();
+     /** 主神空间训练靶（2026-10-02）：出生点前方 5.5m 生成可命中木架靶（GodSpace.PracticeTarget），仅 Hub 调用。 */
+     void SpawnHubPracticeTarget();
++    UPROPERTY(VisibleAnywhere,Category="Building") TObjectPtr<class UVillageSiegeControl> SiegeControl;
+     UPROPERTY(VisibleAnywhere,Category="Building") TObjectPtr<class UVoxelBuildComponent> VoxelBuilder;
+     /** -VoxelBuildAudit 时创建的建筑系统验收运行器。 */
+     UPROPERTY(Transient) TObjectPtr<class UVoxelBuildAudit> VoxelBuildAudit;

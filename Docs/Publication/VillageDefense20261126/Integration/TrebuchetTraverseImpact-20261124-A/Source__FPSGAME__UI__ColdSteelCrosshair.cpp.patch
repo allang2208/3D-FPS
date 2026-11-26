@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
++++ b/Source/FPSGAME/UI/ColdSteelCrosshair.cpp
+@@ -75,7 +75,7 @@
+         if(const auto* Siege=Player->GetSiegeControl();Siege && Siege->Active())
+         {
+             const int32 Base=Super::NativePaint(Args,Geometry,Clip,Elements,Layer,Style,Enabled);
+-            if(!Siege->IsAimingBallista())return Siege->Paint(Geometry,Elements,Base);
++            if(!Siege->IsAimingBallista())return Base;
+             // The mounted bolt has no handheld hip spread. Keep the player's four bars at a fixed gap.
+             const float Scale=Geometry.GetLocalSize().Y/1080.f;
+             PaintPlayerCrosshair(Geometry,Elements,Base+1,FVector2D(4.f*Scale),1.f);

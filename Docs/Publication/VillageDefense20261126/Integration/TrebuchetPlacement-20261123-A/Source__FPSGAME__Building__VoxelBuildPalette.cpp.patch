@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPalette.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPalette.cpp
+@@ -56,7 +56,7 @@
+     RegisterVillagePiece(VillageBuildDefense::Ballista,NSLOCTEXT("VoxelBuilding","VillageBallista","固定式弩炮"),
+         AVillageSiegeEngine::MeshAsset(TEXT("BallistaPreview")),FIntVector(28,14,12),AVillageSiegeEngine::StaticClass());
+     RegisterVillagePiece(VillageBuildDefense::Trebuchet,NSLOCTEXT("VoxelBuilding","VillageTrebuchet","配重投石机"),
+-        AVillageSiegeEngine::MeshAsset(TEXT("TrebuchetPreview")),FIntVector(37,19,37),AVillageSiegeEngine::StaticClass());
++        AVillageSiegeEngine::MeshAsset(TEXT("TrebuchetPreview")),FIntVector(37,19,38),AVillageSiegeEngine::StaticClass());
+     RegisterVillagePiece(VillageWallStairs::Id,NSLOCTEXT("VoxelBuilding","VillageWallStairs","城墙石阶"),
+         FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/HighVillageDefense/SM_WallAccessStairs.SM_WallAccessStairs")),
+         FIntVector(16,28,18),AVillageDefenseStairs::StaticClass());

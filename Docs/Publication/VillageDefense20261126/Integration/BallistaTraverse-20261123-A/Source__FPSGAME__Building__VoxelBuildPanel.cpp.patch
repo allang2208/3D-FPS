@@ -1,0 +1,11 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPanel.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPanel.cpp
+@@ -322,7 +322,7 @@
+             else if(Entry.Id==VillageBuildDefense::Ballista)
+             {
+                 Card.Subtitle=TEXT("村庄城防 · 固定式弩炮");
+-                Card.Note=TEXT("可建于塔顶或平地。滚轮调整射界，弩炮自动瞄准前方敌人，发射后收弦装填。");
++                Card.Note=TEXT("可在塔顶、城门平台或平地建造。弩炮可水平旋转 360° 自动索敌，靠近按 E 可手动瞄准。");
+             }
+             else if(Entry.Id==VillageBuildDefense::Trebuchet)
+             {

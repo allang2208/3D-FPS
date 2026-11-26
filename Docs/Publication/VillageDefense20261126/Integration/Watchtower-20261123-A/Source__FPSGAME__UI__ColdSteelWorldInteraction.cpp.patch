@@ -1,0 +1,21 @@
+--- a/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
++++ b/Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp
+@@ -19,6 +19,7 @@
+ #include "GameFramework/Pawn.h"
+ #include "../Characters/FPSPlayerBodyComponent.h"
+ #include "../Building/VoxelBuildPrefabActor.h"
++#include "../Building/VillageBuildDefense.h"
+ #include "../Building/VoxelBuildWorld.h"
+ #include "../Building/SmeltingSystem.h"
+ #include "../Building/ColdSteelDoorInteraction.h"
+@@ -449,7 +450,9 @@
+     }
+     if(const auto* Section=Cast<AVillageDefenseSection>(Target); Section && Section->NeedsRepair())
+     {
+-        Hint.Title=Section->IsA<AHighVillageGate>()?TEXT("升降铁闸"):
++        const auto* Carrier=Cast<AVoxelBuildPrefabActor>(Section->GetAttachParentActor());
++        Hint.Title=Carrier && Carrier->PrefabId()==VillageBuildDefense::HighTower?TEXT("石砌高塔楼"):
++            Section->IsA<AHighVillageGate>()?TEXT("升降铁闸"):
+             Section->IsA<AHighVillageWall>()?TEXT("石砌高墙"):Section->IsA<AVillageDefenseStairs>()?TEXT("城墙石阶"):
+             Section->IsA<AVillageDefenseGate>()?TEXT("村门"):TEXT("围墙");
+         if(Section->HasNearbyRepairEnemy(Viewer))

@@ -1,0 +1,52 @@
+--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp
++++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp
+@@ -68,6 +68,7 @@
+         TEXT("Z 键一键拾取的作用半径（cm）。"));
+ }
+ #include "InputKeyEventArgs.h"
++#include "WorldGeneration/VillageSiegeControl.h"
+ #include "InputCoreTypes.h"
+ #include "Misc/CommandLine.h"
+ #include "Misc/Paths.h"
+@@ -106,6 +107,7 @@
+ 
+ AFPSGAMEPlayerController::AFPSGAMEPlayerController()
+ {
++    SiegeControl=CreateDefaultSubobject<UVillageSiegeControl>(TEXT("SiegeControl"));
+     ChapelDialogue=CreateDefaultSubobject<UChapelDialogueComponent>(TEXT("ChapelDialogue"));
+     VoxelBuilder=CreateDefaultSubobject<UVoxelBuildComponent>(TEXT("VoxelBuilder"));
+     DevelopmentSpawner=CreateDefaultSubobject<UDevelopmentSpawnComponent>(TEXT("DevelopmentSpawner"));
+@@ -419,6 +421,7 @@
+ 
+ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
+ {
++    if(SiegeControl && SiegeControl->HandleInput(Params))return true;
+     if(Params.Key==EKeys::E && Params.Event==IE_Released && GetPawn())
+         if(auto* Ride=GetPawn()->FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->ReleaseUse())return true;
+     if(Params.Key==EKeys::E && Params.Event==IE_Released && ChapelDialogue && ChapelDialogue->ReleaseFirstAid())
+@@ -575,6 +578,15 @@
+             if(auto* Section=Focus.RepairTarget())
+             {
+                 RequestVillageRepair(Section);
++                return true;
++            }
++            if(auto* Siege=Cast<AVillageSiegeEngine>(Target))
++            {
++                if(!IsInBuildMode() && Siege->CanOperate() && !Siege->IsOccupied())
++                {
++                    InterruptInspection();
++                    SiegeControl->ServerEnter(Siege,GetPawn());
++                }
+                 return true;
+             }
+             if(Focus.GateUse==EHighGateUse::Repair ||
+@@ -718,7 +730,8 @@
+     if(!Player || Player->IsMoveInputIgnored() || Player->IsLookInputIgnored())return true;
+     if(UFPSFurnitureRestComponent::IsResting(Player->GetPawn())||UHorseRiderComponent::UsesSaddleHands(Player->GetPawn()))return true;
+     const auto* FPSPlayer=Cast<AFPSGAMEPlayerController>(Player);
+-    return Player->bShowMouseCursor && (!FPSPlayer || !FPSPlayer->IsCursorOnlyInteraction());
++    return (FPSPlayer && FPSPlayer->SiegeControl && FPSPlayer->SiegeControl->Active()) ||
++        (Player->bShowMouseCursor && (!FPSPlayer || !FPSPlayer->IsCursorOnlyInteraction()));
+ }
+ 
+ bool AFPSGAMEPlayerController::IsActionPreservingPanelOpen() const

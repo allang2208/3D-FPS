@@ -1,0 +1,103 @@
+--- a/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp
++++ b/Source/FPSGAME/NPC/ChapelDialogueComponent.cpp
+@@ -1,4 +1,5 @@
+ #include "ChapelDialogueComponent.h"
++#include "VillageMasterArtisan.h"
+ #include "ChapelNun.h"
+ #include "ResidentConversation.h"
+ #include "VillageArtisanMerchant.h"
+@@ -27,7 +29,7 @@
+ {
+     return IsValid(Speaker) && (Speaker->IsA<AVillageArtisanMerchant>() ||
+         Speaker->IsA<AVillageBaker>() || Speaker->IsA<AVillageTavernKeeper>() || Speaker->IsA<AVillageHerbalist>() ||
+-        Speaker->IsA<AVillageMillKeeper>());
++        Speaker->IsA<AVillageMillKeeper>() || Speaker->IsA<AVillageMasterArtisan>());
+ }
+ }
+ 
+@@ -50,6 +52,7 @@
+ {
+     if(auto* Artisan=Cast<AVillageArtisanMerchant>(LocalMerchant.Get()))Artisan->SetLocalConversation(Player);
+     else if(auto* Baker=Cast<AVillageBaker>(LocalMerchant.Get()))Baker->SetLocalConversation(Player);
++    else if(auto* Master=Cast<AVillageMasterArtisan>(LocalMerchant.Get()))Master->SetLocalConversation(Player);
+     else if(auto* Miller=Cast<AVillageMillKeeper>(LocalMerchant.Get()))Miller->SetLocalConversation(Player);
+     else if(auto* Keeper=Cast<AVillageTavernKeeper>(LocalMerchant.Get()))Keeper->SetLocalConversation(Player);
+     else if(auto* Herbalist=Cast<AVillageHerbalist>(LocalMerchant.Get()))Herbalist->SetLocalConversation(Player);
+@@ -97,6 +100,54 @@
+ {
+     return Cast<AVillageTavernKeeper>(LocalMerchant.Get()) != nullptr;
+ }
++bool UChapelDialogueComponent::IsMasterArtisan() const
++{
++    return Cast<AVillageMasterArtisan>(LocalMerchant.Get())!=nullptr;
++}
++uint16 UChapelDialogueComponent::WorkshopRanks() const
++{
++    const auto* Master=Cast<AVillageMasterArtisan>(LocalMerchant.Get());
++    const auto* Village=Master?Master->Village():nullptr;
++    return FMath::Max(ConfirmedWorkshopRanks,Village?Village->GetSiegeRanks():uint16(0));
++}
++int64 UChapelDialogueComponent::WorkshopBalance() const
++{
++    const auto* Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
++    if(!Model)return 0;
++    const auto& Profile=Model->ProfileView();
++    // The owner receipt can arrive before the normal replicated wallet mirror.
++    return Model->SoulBalance()+FMath::Max<int64>(0,ConfirmedWorkshopCredits-Profile.ServerSoulCredits)
++        -FMath::Max<int64>(0,ConfirmedWorkshopDebits-Profile.ServerSoulDebits);
++}
++void UChapelDialogueComponent::BuySiegeUpgrade(int32 Index,int32 ExpectedRank)
++{
++    if(!Screen || !IsMasterArtisan() || bPending)return;
++    bPending=true;
++    Message.Reset();
++    OnChanged.Broadcast();
++    ServerBuySiegeUpgrade(LocalSession,Index,ExpectedRank);
++}
++void UChapelDialogueComponent::ServerBuySiegeUpgrade_Implementation(uint32 Session,int32 Index,int32 ExpectedRank)
++{
++    const auto* PC=Cast<APlayerController>(GetOwner());
++    const auto* Master=Cast<AVillageMasterArtisan>(AuthorityMerchant.Get());
++    auto* Village=Master?Master->Village():nullptr;
++    if(!Session || Session!=AuthoritySession || !PC || PC->GetPawn()!=AuthorityConversationPawn.Get() || !Village || !InReach(Master))
++    {ClientResult(Session,false,TEXT("请靠近工匠大师重新交谈。"));return;}
++    FText Reason;
++    const bool Bought=Village->PurchaseSiegeUpgrade(PC->GetPawn(),Index,ExpectedRank,Reason);
++    const auto* Wallet=ColdSteelAuthority::ForPawn(PC->GetPawn());
++    ClientWorkshopResult(Session,Bought,Village->GetSiegeRanks(),Wallet?Wallet->ProfileView().ServerSoulCredits:0,
++        Wallet?Wallet->ProfileView().ServerSoulDebits:0,Bought?TEXT("升级完成，村庄内的同类机械已生效。"):Reason.ToString());
++}
++void UChapelDialogueComponent::ClientWorkshopResult_Implementation(uint32 Session,bool Success,uint16 Ranks,int64 Credits,int64 Debits,const FString& Result)
++{
++    if(Session!=LocalSession || !IsMasterArtisan())return;
++    ConfirmedWorkshopRanks=Ranks;
++    ConfirmedWorkshopCredits=Credits;
++    ConfirmedWorkshopDebits=Debits;
++    ClientResult_Implementation(Session,Success,Result);
++}
+ bool UChapelDialogueComponent::IsBaker() const
+ {
+     return Cast<AVillageBaker>(LocalMerchant.Get()) != nullptr;
+@@ -113,6 +164,7 @@
+ {
+     if(!CanStartConversation(Merchant))return;
+     auto* PC=CastChecked<AFPSGAMEPlayerController>(GetOwner());
++    ConfirmedWorkshopRanks=0;ConfirmedWorkshopCredits=0;ConfirmedWorkshopDebits=0;
+     ConversationPawn=PC->GetPawn();LocalMerchant=Merchant;Message.Reset();bPending=true;
+     ServerOpenMerchant(++LocalSession,Merchant,ConversationPawn.Get());
+ }
+@@ -346,6 +398,14 @@
+     }
+     if(LocalMerchant.IsValid())
+     {
++        if(IsMasterArtisan())
++        {
++            const int32 Ranks=WorkshopRanks();
++            const int64 Balance=WorkshopBalance();
++            if(PreviousState!=Ranks || PreviousWorkshopBalance!=Balance)
++            {PreviousState=Ranks;PreviousWorkshopBalance=Balance;OnChanged.Broadcast();}
++            return;
++        }
+         if (!LocalMerchant->IsA<AVillageArtisanMerchant>()) return;
+         const uint8 Stage=static_cast<uint8>(IsCarpenter()?CarpenterTrainingStage():SmithTrainingStage());
+         const uint8 State=Stage|(CanCollectTrainingSupplies()?8:0);

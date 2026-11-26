@@ -1,0 +1,34 @@
+--- a/Source/FPSGAME/Building/VoxelBuildPersistence.cpp
++++ b/Source/FPSGAME/Building/VoxelBuildPersistence.cpp
+@@ -169,6 +169,31 @@
+                 }
+             }
+         }
++        if(S.Version>=19)
++        {
++            for(auto& Gate:S.Prefabs)
++            {
++                if(Gate.Id!=VillageBuildDefense::StoneGate && Gate.Id!=VillageBuildDefense::WoodGate)continue;
++                int32 Count=Gate.GateCuts.Num();
++                Ar<<Count;
++                if(Count<0 || Count>32){Ar.SetError();return;}
++                if(Ar.IsLoading())Gate.GateCuts.SetNum(Count);
++                if(!Count)continue;
++                // The timber gate's v17 yaw field cannot encode a surveyed, off-grid wall centre.
++                FVector Location=Ar.IsSaving()?Gate.WallDockPose.GetValue().GetLocation():FVector::ZeroVector;
++                double Facing=Ar.IsSaving()?Gate.WallDockPose.GetValue().Rotator().Yaw:0.;
++                Ar<<Location<<Facing;
++                if(Location.ContainsNaN()||!FMath::IsFinite(Facing)){Ar.SetError();return;}
++                if(Ar.IsLoading())Gate.WallDockPose=FTransform(FRotator(0,Facing,0),Location);
++                for(auto& Cut:Gate.GateCuts)
++                {
++                    Ar<<Cut.PlacedId<<Cut.Section<<Cut.Remaining;
++                    if(Cut.Remaining.ContainsNaN()||Cut.Remaining.X < -150.001||Cut.Remaining.Y>150.001
++                        ||Cut.Remaining.X>Cut.Remaining.Y||(!Cut.PlacedId.IsValid()&&Cut.Section<0))
++                    {Ar.SetError();return;}
++                }
++            }
++        }
+     }
+     FString Path(const FString& Slot){return FPaths::ProjectSavedDir()/TEXT("SaveGames")/(Slot+TEXT(".sav"));}
+     // 审计 C6：Write 在首次覆盖前保留的备份路径（原来只在 Write 内部拼一次字符串）。
