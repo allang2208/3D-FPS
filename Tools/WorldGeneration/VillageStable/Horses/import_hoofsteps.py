@@ -14,13 +14,14 @@ LIB = ue.EditorAssetLibrary
 ANIM = ue.AnimationLibrary
 TOOLS = ue.AssetToolsHelpers.get_asset_tools()
 
-# Frames in the source 30 Hz loop. On reverse playback contact occurs at forward lift-off.
+# Frames in the source loop (Walk R47: 54 frames @ 60 Hz lateral sequence; Canter R47: 72 frames @ 30 Hz).
+# On reverse playback contact occurs at forward lift-off (plant + 0.62 duty).
 GAITS = {
-    "Walk": (36, 2100, [
-        (0, "toe_L", .65, False), (9, "finger_R", .75, False),
-        (18, "toe_R", .67, False), (27, "finger_L", .73, False),
-        (1, "toe_R", .60, True), (7, "finger_L", .67, True),
-        (19, "toe_L", .60, True), (25, "finger_R", .67, True)]),
+    "Walk": (54, 2100, [
+        (0, "toe_L", .65, False), (13.5, "finger_L", .75, False),
+        (27, "toe_R", .67, False), (40.5, "finger_R", .73, False),
+        (33.48, "toe_L", .60, True), (46.98, "finger_L", .67, True),
+        (6.48, "toe_R", .60, True), (19.98, "finger_R", .67, True)]),
     "Canter": (20, 3600, [
         (1, "toe_R", .93, False), (6, "finger_R", .76, False),
         (7, "toe_L", .66, False), (11, "finger_L", 1.0, False)]),
@@ -40,13 +41,18 @@ def save(asset):
         raise RuntimeError("Cannot save " + asset.get_path_name())
 
 
-def bind_contacts(clip, waves, period, contacts, phases=None):
+def bind_contacts(clip, waves, period, contacts, phases=None, reverse_phases=None):
     if ANIM.is_valid_anim_notify_track_name(clip, TRACK):
         ANIM.remove_animation_notify_track(clip, TRACK)
     ANIM.add_animation_notify_track(clip, TRACK)
     for frame, bone, gain, reverse in contacts:
-        phase = phases[bone] if phases is not None else frame/period
-        notify = ANIM.add_animation_notify_event(clip, TRACK, clip.get_play_length()*phase,
+        if reverse and reverse_phases is not None and bone in reverse_phases:
+            phase = reverse_phases[bone]
+        elif (not reverse) and phases is not None and bone in phases:
+            phase = phases[bone]
+        else:
+            phase = frame / period
+        notify = ANIM.add_animation_notify_event(clip, TRACK, clip.get_play_length() * phase,
                                                  ue.StableHoofstepNotify)
         if not notify:
             raise RuntimeError(f"Cannot bind {clip.get_name()}/{bone} at phase {phase}")
@@ -102,7 +108,9 @@ def install():
             waves.append(sound)
         encoded = LIB.get_metadata_tag(clip, "StableHoofPhases")
         phases = json.loads(encoded) if encoded else None
-        bind_contacts(clip, waves, period, contacts, phases)
+        encoded_rev = LIB.get_metadata_tag(clip, "StableHoofReversePhases")
+        rev_phases = json.loads(encoded_rev) if encoded_rev else None
+        bind_contacts(clip, waves, period, contacts, phases, rev_phases)
         clips.append(clip)
         receipt[gait] = dict(clip=clip.get_path_name(), sounds=[w.get_path_name() for w in waves],
                              contacts=contacts, period_frames=period)

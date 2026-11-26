@@ -1,4 +1,5 @@
 #include "StableHorseTraits.h"
+#include "StableHorseAffixes.h"
 #include "Math/RandomStream.h"
 
 namespace
@@ -49,6 +50,13 @@ FStableHorseTraits FStableHorseTraits::Growth(const FGuid& Id)
     return {Roll(),Roll(),Roll(),Roll(),Roll(),Roll()};
 }
 
+FStableHorseTraits FStableHorseTraits::EffectiveGrowth(const FGuid& Id)
+{
+    const auto G=Growth(Id);
+    const float Mult=StableHorseAffixes::Bonuses(Id).StatAllMultiplier;
+    return {G.Strength*Mult,G.Agility*Mult,G.Intelligence*Mult,G.Constitution*Mult,G.Spirit*Mult,G.Luck*Mult};
+}
+
 FStableHorseTraits FStableHorseTraits::FromId(const FGuid& Id,uint8 BirthVersion,int32 Level)
 {
     if(!Id.IsValid())return {};
@@ -64,11 +72,26 @@ FStableHorseTraits FStableHorseTraits::FromId(const FGuid& Id,uint8 BirthVersion
         auto Roll=[](uint32 Word){return float(6+(Word&0xffffu)%9u);};
         Base={Roll(Id.A),Roll(Id.A>>16),Roll(Id.B),Roll(Id.B>>16),Roll(Id.C),Roll(Id.C>>16)};
     }
-    if(Level<=1)return Base;
-    const auto G=Growth(Id);
-    const int32 Steps=FMath::Min(Level,MaxLevel)-1;
-    return {Base.Strength+Steps*G.Strength,Base.Agility+Steps*G.Agility,Base.Intelligence+Steps*G.Intelligence,
-            Base.Constitution+Steps*G.Constitution,Base.Spirit+Steps*G.Spirit,Base.Luck+Steps*G.Luck};
+    FStableHorseTraits Result=Base;
+    if(Level>1)
+    {
+        const auto G=Growth(Id);
+        const int32 Steps=FMath::Min(Level,MaxLevel)-1;
+        Result={Base.Strength+Steps*G.Strength,Base.Agility+Steps*G.Agility,Base.Intelligence+Steps*G.Intelligence,
+                Base.Constitution+Steps*G.Constitution,Base.Spirit+Steps*G.Spirit,Base.Luck+Steps*G.Luck};
+    }
+    // 「多面手」: 所有六维属性 +10%，随等级成长同步乘算
+    const float Mult=StableHorseAffixes::Bonuses(Id).StatAllMultiplier;
+    if(!FMath::IsNearlyEqual(Mult,1.f))
+    {
+        Result.Strength*=Mult;
+        Result.Agility*=Mult;
+        Result.Intelligence*=Mult;
+        Result.Constitution*=Mult;
+        Result.Spirit*=Mult;
+        Result.Luck*=Mult;
+    }
+    return Result;
 }
 
 int32 FStableHorseTraits::MarketPrice(const FStableHorseTraits& G) const

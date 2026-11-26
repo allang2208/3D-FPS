@@ -3,7 +3,7 @@
 #include "ColdSteelMountButton.generated.h"
 
 class UColdSteelHUDWidget;
-enum class EMountPageAction : uint8 { Back, Deploy, Call, Potion, Buy };
+enum class EMountPageAction : uint8 { Back, Deploy, Call, Potion, Buy, Release, ReleaseConfirm, ReleaseCancel };
 
 UCLASS()
 class UColdSteelMountButton : public UButton

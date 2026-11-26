@@ -89,7 +89,7 @@ void AStableRidingHorse::RunFromDanger(float Delta)
         EscapeYaw=Yaw;
         Move->SetMovementMode(MOVE_Walking);
         Move->bCanWalkOffLedges=false;
-        Move->MaxWalkSpeed=Traits.CanterSpeed();
+        Move->MaxWalkSpeed=Traits.CanterSpeed()*AffixBonuses.BaseMoveMultiplier*AffixBonuses.CanterSpeedMultiplier;
     }
     // Accelerate along the current heading. In the enclosed stable, find a clear turn
     // before putting the shoulders through a gate or driving the capsule into a wall.
@@ -113,7 +113,8 @@ void AStableRidingHorse::RunFromDanger(float Delta)
     const FRotator Facing(0,Yaw+FMath::Clamp(Error,-150.f*Delta,150.f*Delta),0);
     if(!FMath::IsNearlyZero(Error) && ClearBody(FVector::ZeroVector,Facing))SetActorRotation(Facing);
     const FVector Forward=GetActorForwardVector();
-    if(FMath::Abs(Error)<65.f && ClearBody(Forward*FMath::Max(15.f,Traits.CanterSpeed()*Delta),GetActorRotation()))
+    const float EscapeSpeed=Traits.CanterSpeed()*AffixBonuses.BaseMoveMultiplier*AffixBonuses.CanterSpeedMultiplier;
+    if(FMath::Abs(Error)<65.f && ClearBody(Forward*FMath::Max(15.f,EscapeSpeed*Delta),GetActorRotation()))
         AddMovementInput(Forward,1.f,true);
     else Move->StopMovementImmediately();
 }

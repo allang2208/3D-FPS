@@ -17,7 +17,8 @@ from village_tread import ramp
 # ISM groups baked into the village sublevel that can ride the terrain as a unit per instance.
 FOLLOW = ('SM_Grass', 'SM_SoftWildGrass', 'SM_PlantType', 'flower_', 'SM_Stone_0',
           'SM_DebrisScatter', 'SM_ForestTwig', 'SM_MortarChunk', 'SM_H_RubblePile',
-          'SM_DeadTree_', 'SM_Meadow_lowGrass', 'SM_Hazel_', 'SM_QuarryChip', 'SM_MillFieldstone')
+          'SM_DeadTree_', 'SM_Meadow_lowGrass', 'SM_Hazel_', 'SM_QuarryChip', 'SM_MillFieldstone',
+          'wjvsbay_', 'SM_rbdoo_', 'SM_qmCkL_', 'SM_rbpof_', 'SM_uddmcgbia_', 'SM_vczndjqja_')
 
 
 def generate(out, *, site_weights=False, wall_flanks=False):

@@ -105,6 +105,7 @@ public:
     bool SettleFoodSpoilage(FString& Reason);
     bool ImportPlayerDrops(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest);
     bool AddWorldDrops(const TArray<FColdSteelItem>& Items);
+    bool CommitProfileWithDrops(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest,FColdSteelProfile Profile,const TArray<FColdSteelItem>& GroundDrops,FString& Reason);
     bool Drop(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest,const FString& Item,FString& Reason);
     bool Pickup(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest,AColdSteelPickup* Actor,bool Nearby,FString& Reason);
     bool PickupNearby(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest,FString& Reason);

@@ -1,15 +1,18 @@
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelWarehouseRules.h"
 #include "../Movement/StableHorseGear.h"
+#include "../Movement/HorseRiderComponent.h"
+#include "../Movement/StableRidingHorse.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../FPSGAMECharacter.h"
 
 namespace
 {
-bool ReturnToBag(TArray<FColdSteelItem>& Items,FColdSteelItem Gear,const TOptional<FColdSteelItem>& Replacement)
+bool ReturnToBag(TArray<FColdSteelItem>& Items,FColdSteelItem Gear,const TOptional<FColdSteelItem>& Replacement,int32 HorseBagCapacity=0)
 {
     using namespace ColdSteelInventory;
     Gear.Container.Reset();
-    // A full bag can still exchange two pieces using the compartment cell just vacated.
+    // A full bag can still exchange two pieces using the compartment or horse-bag cell just vacated.
     const FIntPoint Grid=CompartmentGrid(Items);
     if(Replacement.IsSet() && Replacement->Place==ColdSteelCompartment::Place &&
        ColdSteelCompartment::Fits(Items,Gear,Replacement->Cell,Grid))
@@ -31,6 +34,16 @@ bool ReturnToBag(TArray<FColdSteelItem>& Items,FColdSteelItem Gear,const TOption
             if(ColdSteelCompartment::Fits(Items,Gear,Cell,Grid))
             {Gear.Cell=Cell;Items.Add(MoveTemp(Gear));return true;}
     }
+    if(HorseBagCapacity>0 && Replacement.IsSet() && Replacement->Place==ColdSteelWarehouse::Place && !Replacement->Container.IsEmpty())
+    {
+        Gear.Place=ColdSteelWarehouse::Place;
+        Gear.Container=Replacement->Container;
+        for(int32 Orientation=0;Orientation<2;++Orientation)
+        {
+            ApplyOrientation(Gear,Orientation);
+            if(ColdSteelWarehouse::Insert(Items,Gear,HorseBagCapacity,Replacement->Cell))return true;
+        }
+    }
     return false;
 }
 }
@@ -51,8 +64,9 @@ bool UColdSteelStatusModel::ChangeMountGear(FGuid HorseId,int32 Slot,const FStri
         const int32 Index=Next.Items.IndexOfByPredicate([&](const auto& Item){return Item.InstanceId==ItemId;});
         if(Index==INDEX_NONE){Reason=TEXT("马具已移走");return false;}
         const auto& Item=Next.Items[Index];
-        if((Item.Place!=0 && Item.Place!=ColdSteelCompartment::Place) || Item.Count!=1 || StableHorseGear::SlotOf(Item.Definition)!=Slot)
-        {Reason=TEXT("请选择随身背包里与该部位匹配的马具");return false;}
+        const bool bInHorseBag=Item.Place==ColdSteelWarehouse::Place && Item.Container==Horse->BagContainerKey();
+        if((Item.Place!=0 && Item.Place!=ColdSteelCompartment::Place && !bInHorseBag) || Item.Count!=1 || StableHorseGear::SlotOf(Item.Definition)!=Slot)
+        {Reason=TEXT("请选择背包中与该部位匹配的马具");return false;}
         Incoming=Item;
         Next.Items.RemoveAt(Index);
         for(auto& Binding:Next.QuickBindings)if(Binding.ItemId==ItemId)Binding=FColdSteelQuickBinding();
@@ -67,7 +81,7 @@ bool UColdSteelStatusModel::ChangeMountGear(FGuid HorseId,int32 Slot,const FStri
     {Reason=TEXT("该装备位已变化");return false;}
     if(Worn!=INDEX_NONE)
     {
-        if(!ReturnToBag(Next.Items,Horse->Equipment[Worn],Incoming))
+        if(!ReturnToBag(Next.Items,Horse->Equipment[Worn],Incoming,Horse->BagRows()*ColdSteelWarehouse::Columns))
         {Reason=TEXT("背包空间不足，马具仍穿戴在马上");return false;}
         Horse->Equipment.RemoveAt(Worn);
     }
@@ -78,10 +92,15 @@ bool UColdSteelStatusModel::ChangeMountGear(FGuid HorseId,int32 Slot,const FStri
         Item.Container.Reset();Item.Cell=INDEX_NONE;Item.Place=0;
         Horse->Equipment.Add(MoveTemp(Item));
     }
+    Horse->ApplyBirthLimits();
+    const uint8 NewTackMask=StableHorseGear::TackMask(*Horse);
     ++Next.MountRoster.Revision;
     const auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>();
     if(bNetShadowProfile && (!PS || PS->CampfireGuestSlot().IsEmpty())){Reason=TEXT("角色档案尚未就绪");return false;}
     if(!CommitCampfireState(MoveTemp(Next),TEXT("MountGear"),bNetShadowProfile?PS->CampfireGuestSlot():FString()))
     {Reason=ResultMessage();return false;}
+    if(const auto* Ride=Pawn->FindComponentByClass<UHorseRiderComponent>())
+        if(auto* Live=Ride->GetOwnedHorse(); IsValid(Live) && Live->Identity()==HorseId && Live->Keeper()==Current.NetworkProfileId)
+            Live->SetEquippedTackMask(NewTackMask);
     Reason=Equip?TEXT("已装上马具"):TEXT("马具已放回背包");return true;
 }

@@ -141,6 +141,7 @@ void UColdSteelStatusModel::ReduceMagicCooldowns(float Seconds,bool bNotifyReduc
     if(!Current.bIceSpikeReserved)Reduce(Current.IceSpikeCooldown,TEXT("iceSpike"));
     if(!Current.bIceWallReserved)Reduce(Current.IceWallCooldown,TEXT("iceWall"));
     if(!Current.bBlizzardReserved)Reduce(Current.BlizzardCooldown,TEXT("blizzard"));
+    if(!Current.bAbsoluteZeroReserved)Reduce(Current.AbsoluteZeroCooldown,TEXT("absoluteZero"));
     Reduce(Current.LightningCooldown,TEXT("lightningStrike"));
     Reduce(Current.HolyLightCooldown,TEXT("holyLight"));
     Reduce(Current.IceArmorCooldown,TEXT("iceArmor"));
@@ -259,6 +260,8 @@ void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
     Current.MagicArrowRainCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.MagicArrowRainCooldown-Delta);
     if(HasNoAbilityCooldown())Current.BlizzardCooldown=0.f;
     else if(!Current.bBlizzardReserved)Current.BlizzardCooldown=FMath::Max(0.f,Current.BlizzardCooldown-Delta);
+    if(HasNoAbilityCooldown())Current.AbsoluteZeroCooldown=0.f;
+    else if(!Current.bAbsoluteZeroReserved)Current.AbsoluteZeroCooldown=FMath::Max(0.f,Current.AbsoluteZeroCooldown-Delta);
     if(HasNoAbilityCooldown())Current.IceWallCooldown=0.f;
     else if(!Current.bIceWallReserved)Current.IceWallCooldown=FMath::Max(0.f,Current.IceWallCooldown-Delta);
     Current.LightningCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.LightningCooldown-Delta);
@@ -387,7 +390,7 @@ bool UColdSteelStatusModel::Drop(const FString& Id)
         return Shared&&Shared->Drop(this,bNetShadowProfile?CurrentPawn->GetPlayerState<AColdSteelPlayerState>():nullptr,Id,Message);
     }
     if(!CurrentPawn.IsValid())return false;SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});
-    if(!I||(I->Place>2&&I->Place!=ColdSteelCompartment::Place&&!(I->Place==4&&bWarehouseOpen)))return false;
+    if(!I||(I->Place>2&&I->Place!=ColdSteelCompartment::Place&&!(I->Place==4&&(bWarehouseOpen||bMountBagOpen))))return false;
     // 仓库层物品只能动当前打开会话的容器：面板开着不代表关着的箱子/别的箱子能被倒出。
     if(I->Place==4&&I->Container!=ActiveContainer)return false;
     if(I->Place==1&&I->Cell==14)
@@ -405,7 +408,7 @@ bool UColdSteelStatusModel::Drop(const FString& Id)
     auto FindGround=[&](FVector At){return GetWorld()->LineTraceSingleByChannel(Ground,At+FVector(0,0,40),At-FVector(0,0,500),ECC_Visibility,Query)&&Ground.ImpactNormal.Z>=.5f&&FVector::Dist(Origin,Ground.ImpactPoint)<=230;};
     if(!FindGround(Candidate)&&!FindGround(Origin)){Message=TEXT("附近没有可放置物品的地面");return false;}
     // Release above the ground; the rigid body resolves the fall and landing.
-    I->Place=2;I->Map=UGameplayStatics::GetCurrentLevelName(this,true);I->Position=Ground.ImpactPoint;I->Position.Z=FMath::Max(Ground.ImpactPoint.Z+60,Origin.Z+15);
+    I->Place=2;I->Container.Reset();I->Map=UGameplayStatics::GetCurrentLevelName(this,true);I->Position=Ground.ImpactPoint;I->Position.Z=FMath::Max(Ground.ImpactPoint.Z+60,Origin.Z+15);
     I->WorldRotation=FRotator(5,CurrentPawn->GetActorRotation().Yaw,-65);
     StampProductionDrop(*I);
     const double Begin=FPlatformTime::Seconds();if(!CommitState(P))return false;const double Saved=FPlatformTime::Seconds();RefreshDrops();

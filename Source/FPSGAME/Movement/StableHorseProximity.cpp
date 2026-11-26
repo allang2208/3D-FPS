@@ -14,7 +14,7 @@ AStableRidingHorse* UHorseRiderComponent::NearbyForDisplay()
     if(Now<NextNearbyScan)
     {
         auto* Nearest=NearbyHorse.Get();
-        return Nearest&&!Nearest->GetRider()&&!Nearest->IsRetreating()&&Nearest->Visit()==EStableHorseVisit::Present?Nearest:nullptr;
+        return Nearest&&!Nearest->GetRider()&&!Nearest->IsRetreating()&&!Nearest->IsShowcaseFadingOut()&&Nearest->Visit()==EStableHorseVisit::Present?Nearest:nullptr;
     }
     NextNearbyScan=Now+.15;
     NearbyHorse.Reset();
@@ -32,7 +32,7 @@ AStableRidingHorse* UHorseRiderComponent::NearbyForDisplay()
     for(const auto& Hit:Hits)
     {
         auto* Horse=Cast<AStableRidingHorse>(Hit.GetActor());
-        if(!Horse||Horse->GetRider()||Horse->IsRetreating()||Horse->Visit()!=EStableHorseVisit::Present)continue;
+        if(!Horse||Horse->GetRider()||Horse->IsRetreating()||Horse->IsShowcaseFadingOut()||Horse->Visit()!=EStableHorseVisit::Present)continue;
         const FVector Point=Horse->GetActorLocation()+FVector(0,0,32);
         const double Distance=FVector::DistSquared(At,Horse->GetActorLocation());
         if(Distance>=Best || FVector::DotProduct(View.Vector(),(Point-Eye).GetSafeNormal())<-.1)continue;

@@ -243,6 +243,13 @@ void UColdSteelHUDWidget::RefreshCharacterSheet()
         SetCharacterValue(TEXT("crit"),FString::Printf(TEXT("%.0f%%"),StatusModel->Derived(TEXT("crit"))));
         SetCharacterValue(TEXT("hpRegen"),FString::Printf(TEXT("%.2f/秒"),StatusModel->Derived(TEXT("hpRegen"))));
         SetCharacterValue(TEXT("mpRegen"),FString::Printf(TEXT("%.2f/秒"),StatusModel->Derived(TEXT("mpRegen"))));
+        const auto MountAura=StatusModel->ActiveMountAura();
+        CharacterDetails.Add(TEXT("hpRegen"),MountAura.PlayerHealthRegenBonus>0.f
+            ? FString::Printf(TEXT("每秒恢复 (1 + 祭品固定加成) × 祭品恢复倍率 × 坐骑词条增益（战马 +%.0f%% 生命恢复已生效）。"),MountAura.PlayerHealthRegenBonus*100.f)
+            : TEXT("每秒恢复 (1 + 祭品固定加成) × 祭品恢复倍率。"));
+        CharacterDetails.Add(TEXT("mpRegen"),MountAura.PlayerManaRegenBonus>0.f
+            ? FString::Printf(TEXT("每秒恢复 (1 + 精神×0.08 + 智力×0.02) × 祭品/地牢倍率 × 坐骑词条增益（灵驹 +%.0f%% 魔法恢复已生效）；战斗中也恢复。"),MountAura.PlayerManaRegenBonus*100.f)
+            : TEXT("每秒恢复 1 + 精神×0.08 + 智力×0.02，四舍五入保留两位小数；战斗中也恢复。"));
         CharacterDetails.Add(TEXT("def"),TEXT("物防 = floor(体质×1.2 + 力量×0.3) + 装备防御。减伤 = floor(伤害×60/(防御+60))，不低于 floor(原伤害×10%)；格挡随后独立计算。"));
         CharacterDetails.Add(TEXT("mdef"),TEXT("魔防 = floor(精神×1.2 + 智力×0.3)。魔法减伤使用同一 60/(魔防+60) 公式与10%下限。"));
         SetCharacterValue(TEXT("staminaRegen"),FString::Printf(TEXT("%.1f/秒"),StatusModel->StaminaRecoveryRate()));

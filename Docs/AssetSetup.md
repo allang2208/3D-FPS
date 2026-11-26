@@ -1,6 +1,6 @@
 # 恢复完整 UE5 内容
 
-东门马厩的模型、材质、动作和联机复核版本见[东门马厩、骑乘、名册与马具的公开源码和恢复说明](Publication/HillsVillageStable20261125/README.md)。
+东门马厩 2026-11-26/27 综合迭代（地形防抖、UI 抽屉、陈列马、照明与道路 PCG、3A 蒙皮马具、20 词条与马匹背包、解散转移与防卡阻优化）的公开源码、SKILL 沉淀与清理回执见[2026-11-27 东门马厩收尾发布](Publication/HillsVillageStable20261127/README.md)；更早基础批次见[2026-11-25 东门马厩发布](Publication/HillsVillageStable20261125/README.md)。
 
 
 手持火把 R17、魔晶剑、M24、Pit Viper、工作台及村庄补光的资产指纹、制作源和 NAS 版本见[火把与 11 月恢复记录](Publication/TorchRecovery20261123/README.md)。

@@ -46,13 +46,13 @@ void UColdSteelInventoryPopup::Open(UColdSteelInventoryWidget* Board,UColdSteelS
     auto* Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetScrollbarThickness(FVector2D(5/Scale));Surface->SetContent(Scroll);
     Stack=WidgetTree->ConstructWidget<UVerticalBox>();Scroll->AddChild(Stack);
     Stack->AddChildToVerticalBox(Label(Text(*I,TEXT("name")),true));
-    if(!SplitOnly){const FString DepositLabel=FString::Printf(TEXT("存入%s"),Model->ActiveStorageCaption.IsEmpty()?TEXT("仓库"):*Model->ActiveStorageCaption);const bool Shop=Board->TooltipHUD()&&Board->TooltipHUD()->CanOfferShopSale();Button(Shop?FString(TEXT("加入待售栏")):I->Place==4?FString(TEXT("取出到背包")):(Model->bWarehouseOpen||Model->bIncineratorOpen)?DepositLabel:I->Place==1?FString(TEXT("卸下装备")):FString(TEXT("使用 / 穿戴")))->OnClicked.AddDynamic(this,&ThisClass::Use);
+    if(!SplitOnly){const FString DepositLabel=FString::Printf(TEXT("存入%s"),Model->ActiveStorageCaption.IsEmpty()?TEXT("仓库"):*Model->ActiveStorageCaption);const bool Shop=Board->TooltipHUD()&&Board->TooltipHUD()->CanOfferShopSale();const bool StorageOpen=Model->bWarehouseOpen||Model->bIncineratorOpen||(Model->bMountBagOpen&&Model->OpenStorageCapacity()>0);Button(Shop?FString(TEXT("加入待售栏")):I->Place==4?FString(TEXT("取出到背包")):StorageOpen?DepositLabel:I->Place==1?FString(TEXT("卸下装备")):FString(TEXT("使用 / 穿戴")))->OnClicked.AddDynamic(this,&ThisClass::Use);
         if((I->Place==0||I->Place==4||I->Place==ColdSteelCompartment::Place)&&I->Count>1&&Text(*I,TEXT("category"))!=TEXT("gold"))Button(TEXT("拆分数量…"))->OnClicked.AddDynamic(this,&ThisClass::Split);
         Button(TEXT("查看详情"))->OnClicked.AddDynamic(this,&ThisClass::Details);
         auto* D=Button(TEXT("丢下物品…"));DropCaption=Cast<UTextBlock>(D->GetContent());D->OnClicked.AddDynamic(this,&ThisClass::Drop);
         if(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ModifiableWeapon(I->Definition))Button(I->Place==4?TEXT("取出并改造"):TEXT("改造武器"))->OnClicked.AddDynamic(this,&ThisClass::OpenGunsmith);
         if(GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>()->Supports(*I))Button(Cast<AFPSGAMEPlayerController>(GetOwningPlayer())&&Cast<AFPSGAMEPlayerController>(GetOwningPlayer())->IsEnhancementOpen()?TEXT("放到魔法阵"):TEXT("强化 / 附魔"))->OnClicked.AddDynamic(this,&ThisClass::OpenEnhancement);
-        Button(Board->bWarehouse?TEXT("整理仓库"):TEXT("整理背包"))->OnClicked.AddDynamic(this,&ThisClass::SortBag);
+        Button(Board->bMountBag?TEXT("整理马匹背包"):Board->bWarehouse?TEXT("整理仓库"):TEXT("整理背包"))->OnClicked.AddDynamic(this,&ThisClass::SortBag);
         Button(TEXT("保存物品"))->OnClicked.AddDynamic(this,&ThisClass::SaveBag);
     }
     Message=Label(TEXT(""));Message->SetAutoWrapText(true);Stack->AddChildToVerticalBox(Message);
@@ -67,7 +67,7 @@ void UColdSteelInventoryPopup::Split()
     Quantity=WidgetTree->ConstructWidget<UEditableTextBox>();Quantity->SetText(FText::FromString(FString::Printf(TEXT("%lld"),FMath::Max<int64>(1,I->Count/2))));auto EditStyle=Quantity->GetWidgetStyle();EditStyle.TextStyle.SetFont(GunsmithUI::NumberFont(16/Scale));EditStyle.SetForegroundColor(GunsmithUI::Text);EditStyle.SetFocusedForegroundColor(GunsmithUI::Text);
     EditStyle.SetBackgroundImageNormal(ColdSteelUI::RoundedBrush(GunsmithUI::Gray(16),5/Scale,GunsmithUI::Edge));EditStyle.SetBackgroundImageHovered(ColdSteelUI::RoundedBrush(GunsmithUI::Gray(24),5/Scale,GunsmithUI::Silver));EditStyle.SetBackgroundImageFocused(ColdSteelUI::RoundedBrush(GunsmithUI::Gray(24),5/Scale,GunsmithUI::Silver));
     Quantity->SetWidgetStyle(EditStyle);Quantity->SetSelectAllTextWhenFocused(true);Quantity->OnTextCommitted.AddDynamic(this,&ThisClass::QuantityCommitted);Stack->AddChildToVerticalBox(Quantity)->SetPadding(FMargin(0,12/Scale));
-    Message=Label(I->Place==4?TEXT("确认后放入仓库空位"):I->Place==ColdSteelCompartment::Place?TEXT("确认后放入夹层空位"):TEXT("确认后放入背包空位"));Message->SetAutoWrapText(true);Stack->AddChildToVerticalBox(Message);Button(TEXT("确认拆分 · Enter"))->OnClicked.AddDynamic(this,&ThisClass::ConfirmSplit);Button(TEXT("取消 · Esc"))->OnClicked.AddDynamic(this,&ThisClass::Cancel);Quantity->SetKeyboardFocus();
+    Message=Label(I->Place==4?(Model->bMountBagOpen?TEXT("确认后放入马匹背包空位"):TEXT("确认后放入仓库空位")):I->Place==ColdSteelCompartment::Place?TEXT("确认后放入夹层空位"):TEXT("确认后放入背包空位"));Message->SetAutoWrapText(true);Stack->AddChildToVerticalBox(Message);Button(TEXT("确认拆分 · Enter"))->OnClicked.AddDynamic(this,&ThisClass::ConfirmSplit);Button(TEXT("取消 · Esc"))->OnClicked.AddDynamic(this,&ThisClass::Cancel);Quantity->SetKeyboardFocus();
 }
 void UColdSteelInventoryPopup::ConfirmSplit()
 {

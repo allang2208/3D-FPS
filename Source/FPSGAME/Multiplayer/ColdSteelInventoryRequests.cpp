@@ -239,6 +239,8 @@ void AColdSteelPlayerState::ProcessInventoryAction(const FColdSteelInventoryRequ
     }
     else if(Request.Action==EColdSteelInventoryAction::MountPotion)
         Success=Model->GiveMountPotion(Request.MountId,Request.Item,Reason);
+    else if(Request.Action==EColdSteelInventoryAction::MountRelease)
+        Success=Model->ReleaseMount(Request.MountId,Reason);
     else if(Request.Action==EColdSteelInventoryAction::Shrine)
     {if(auto* Run=UDungeonRunSubsystem::Get(GetWorld()))Success=Run->ClaimShrine(PC,Request.Target);Reason=Success?TEXT("已获得神像赐福"):TEXT("神龛不可达或已领取");}
     else if(Request.Action==EColdSteelInventoryAction::Shop)
@@ -390,6 +392,7 @@ void AColdSteelPlayerState::QueueInventoryReply(const FColdSteelInventoryRequest
         for(const auto& Pair:Before.AmmoPouch)
             if(!After.AmmoPouch.Contains(Pair.Key)&&Pair.Value)Reply->PouchDelta.Add(Pair.Key,-Pair.Value);
         if(Request.Action==EColdSteelInventoryAction::MountGear || Request.Action==EColdSteelInventoryAction::MountPotion ||
+            Request.Action==EColdSteelInventoryAction::MountRelease ||
             (Request.Action==EColdSteelInventoryAction::Shop && Request.Mode==TEXT("stable.buy")))
             Reply->MountPotionRoster=After.MountRoster;
         Reply->bResourcesChanged=Request.Action==EColdSteelInventoryAction::Consume;

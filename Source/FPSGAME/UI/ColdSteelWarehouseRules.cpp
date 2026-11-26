@@ -5,7 +5,8 @@ namespace ColdSteelWarehouse
 {
 bool Fits(const TArray<FColdSteelItem>& Items,const FColdSteelItem& I,int32 Cell,int32 Capacity)
 {
-    if(Cell<0||Cell>=Capacity||I.Width<1||I.Height<1||Cell%Columns+I.Width>Columns||(Cell%CellsPerPage)/Columns+I.Height>Rows)return false;
+    const int32 MaxRows=PageRows(Capacity);
+    if(MaxRows<1||Cell<0||Cell>=Capacity||I.Width<1||I.Height<1||Cell%Columns+I.Width>Columns||(Cell%CellsPerPage)/Columns+I.Height>MaxRows)return false;
     for(int32 Y=0;Y<I.Height;++Y)for(int32 X=0;X<I.Width;++X)if(Owner(Items,Place,Cell+Y*Columns+X,I.Container)>=0)return false; // 仓库格空间按储物容器分域
     return true;
 }
@@ -92,7 +93,8 @@ FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& I
             if(Flag(I,TEXT("isTwoHanded"))&&(Cell==6||Cell==9)){N=Owner(R.Items,1,Cell==6?8:11);if(N>=0)Blockers.Add(N);}
         }else{
             const int32 Row=Destination==Place?(Cell%CellsPerPage)/Columns:Cell/Columns;
-            if(Cell<0||Cell>=(Destination==Place?Capacity:BagRows(Items)*18)||Cell%Columns+I.Width>Columns||Row+I.Height>(Destination==Place?Rows:BagRows(Items))){R.Reason=TEXT("物品超出网格边界，请向内移动");return R;}
+            const int32 MaxDestRows=Destination==Place?PageRows(Capacity):BagRows(Items);
+            if(Cell<0||Cell>=(Destination==Place?Capacity:BagRows(Items)*18)||Cell%Columns+I.Width>Columns||Row+I.Height>MaxDestRows){R.Reason=TEXT("物品超出网格边界，请向内移动");return R;}
             for(int32 Y=0;Y<I.Height;++Y)for(int32 X=0;X<I.Width;++X){const int32 N=Owner(R.Items,Destination,Cell+Y*Columns+X,I.Container);if(N>=0)Blockers.Add(N);}
             if(Blockers.Num()==1){auto& T=R.Items[*Blockers.CreateConstIterator()];if(Compatible(T,I)){
                 const int64 Amount=FMath::Min(I.Count,T.StackMax-T.Count);if(Amount<=0){R.Reason=TEXT("目标堆叠已满");return R;}
@@ -130,7 +132,7 @@ FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& I
             auto Source=Items[From];const int32 ReturnPlace=OldPlace==Place?Place:OldPlace==ColdSteelCompartment::Place?ColdSteelCompartment::Place:0;
             if(OldPlace==1)Source.Cell=0;
             const int32 Start=ReturnPlace==Place?(OldCell/CellsPerPage)*CellsPerPage:0;
-            const FIntPoint ReturnGrid=ReturnPlace==ColdSteelCompartment::Place?CompartmentGrid(R.Items):FIntPoint(18,ReturnPlace==Place?Rows:BagRows(R.Items));
+            const FIntPoint ReturnGrid=ReturnPlace==ColdSteelCompartment::Place?CompartmentGrid(R.Items):FIntPoint(18,ReturnPlace==Place?PageRows(Capacity):BagRows(R.Items));
             bool Exhausted=false;
             if(!PlaceDisplaced(R.Items,MoveTemp(Displaced),Source,Cell,Exhausted,ReturnPlace,Start,ReturnGrid.Y,ReturnPlace==Place?WarehouseContainer:FString(),Destination==1||OldPlace==1,ReturnGrid.X)){
                 R.Items=Items;R.Reason=Exhausted?TEXT("自动摆放较复杂，请调整落点后重试"):TEXT("没有连续空间安置被交换物品");return R;

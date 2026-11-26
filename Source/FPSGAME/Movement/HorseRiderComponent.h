@@ -58,6 +58,7 @@ public:
     int64 HorseUtcNow() const;
     bool MayUseResident(AStableRidingHorse& Horse);
     AStableRidingHorse* GetOwnedHorse() const {return OwnedHorse.Get();}
+    void ClearReleasedHorse(FGuid HorseId);
     FVector SeatedViewOffset() const { return State.Phase==ERiderPhase::Seated?EyeInertia*GaitViewScale:FVector::ZeroVector; }
     void SetForward(float Value) { Axes.Y=Value; }
     void SetTurn(float Value) { Axes.X=Value; }

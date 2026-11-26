@@ -102,6 +102,12 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
             if(Magic&&Status)Final=std::floor(Final*Status->PetrifiedMagicMultiplier());
             if(Status)Final=std::floor(Final*Status->DroneDamageMultiplier(Source));
             if(SourceStatus)Final=std::floor(Final*SourceStatus->OutgoingDamageMultiplier());
+            if(const auto* P=AttackerModel)
+            {
+                const auto Aura=P->ActiveMountAura();
+                const float AuraBonus=Magic?Aura.PlayerMagicDamageBonus:Aura.PlayerPhysicalDamageBonus;
+                if(AuraBonus>0.f)Final=std::floor(Final*(1.+AuraBonus));
+            }
             if(Status)Final=std::floor(Final*Status->MarkedMultiplier());
             return FMath::Max(0.,std::floor(Final*Common*(Status?Status->FinalMultiplier():1)));
         };
@@ -126,6 +132,12 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
     double Result=CoreCombatFormula::Defense(Damage,MonsterDefense(Target,Magic),Magic,Penetration,Status?Status->MagicShred():0,Status?Status->CorrosionMultiplier():1);
     if(Magic&&ActiveMagicHit)Result=std::floor(Result*(1+ActiveMagicHit->DamageBonus));
     else if(Magic)if(const auto* P=AttackerModel)Result=std::floor(Result*(1+P->SetEffect(TEXT("magicDamage")))*ColdSteelMelee::EquippedModifiers(P).MagicDamage);
+    if(const auto* P=AttackerModel)
+    {
+        const auto Aura=P->ActiveMountAura();
+        const float AuraBonus=Magic?Aura.PlayerMagicDamageBonus:Aura.PlayerPhysicalDamageBonus;
+        if(AuraBonus>0.f)Result=std::floor(Result*(1.+AuraBonus));
+    }
     if(Magic&&Status)Result=std::floor(Result*Status->MagicVulnerabilityMultiplier());
     if(!Magic&&Status)Result=std::floor(Result*Status->PhysicalVulnerabilityMultiplier());
     if(Magic&&Status)Result=std::floor(Result*Status->PetrifiedMagicMultiplier());

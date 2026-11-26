@@ -1,0 +1,58 @@
+{
+  "feature": "HillsVillageStable",
+  "batch": "CloseoutR54-20261127",
+  "date": "2026-11-27",
+  "total_files_moved": 182,
+  "total_bytes_moved": 95659364,
+  "total_mb_moved": 91.23,
+  "local_manifest_path": "F:/FPSGAMEData/ArtProduction/HillsVillageStable/CloseoutR54-20261127/cleanup-manifest.json",
+  "local_manifest_sha256": "7c42efa265833e2b758b1416ccbaca3b241a86e6ccd6fc7c67dd0abb6f2d6bb7",
+  "f_trash_dir": "F:/FPSGAMEData/trash/HillsVillageStable-20261127",
+  "d_trash_dir": "D:/FPS3D/FPSGAME/trash/HillsVillageStable-20261127",
+  "buckets": {
+    "Transient R47 gait compare PNG / UE install log": {
+      "count": 6,
+      "bytes": 6463404
+    },
+    "Review screenshot/GIF/contact-sheet/build log from 2026-11-26/27 stable iteration (HorseAffixAndBagR53-20261126)": {
+      "count": 21,
+      "bytes": 7143029
+    },
+    "Review screenshot/GIF/contact-sheet/build log from 2026-11-26/27 stable iteration (HorseAntiStuckR54-20261126)": {
+      "count": 1,
+      "bytes": 99422
+    },
+    "Review screenshot/GIF/contact-sheet/build log from 2026-11-26/27 stable iteration (HorseGaitsR47-20261126)": {
+      "count": 17,
+      "bytes": 17314135
+    },
+    "Review screenshot/GIF/contact-sheet/build log from 2026-11-26/27 stable iteration (HorsePlayerTerrainR48-20261126)": {
+      "count": 15,
+      "bytes": 5173159
+    },
+    "Review screenshot/GIF/contact-sheet/build log from 2026-11-26/27 stable iteration (HorseTackR52-20261126)": {
+      "count": 51,
+      "bytes": 32464109
+    },
+    "Review screenshot/GIF/contact-sheet/build log from 2026-11-26/27 stable iteration (HorseUIRefineR46-20261126)": {
+      "count": 8,
+      "bytes": 1771733
+    },
+    "Review screenshot/GIF/contact-sheet/build log from 2026-11-26/27 stable iteration (StablePolishR49-20261126)": {
+      "count": 23,
+      "bytes": 6356235
+    },
+    "Review screenshot/GIF/contact-sheet/build log from 2026-11-26/27 stable iteration (StableRoadPCGR51-20261126)": {
+      "count": 12,
+      "bytes": 4382991
+    },
+    "Blender auto-backup (.blend1)": {
+      "count": 1,
+      "bytes": 4815191
+    },
+    "Retired R52 rigid-mounted tack FBX superseded by R52b skinned skeletal tack": {
+      "count": 27,
+      "bytes": 9675956
+    }
+  }
+}

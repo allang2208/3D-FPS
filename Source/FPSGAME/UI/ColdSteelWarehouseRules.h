@@ -7,6 +7,7 @@ namespace ColdSteelWarehouse
     constexpr int32 Rows = 12;
     constexpr int32 CellsPerPage = Columns * Rows;
     constexpr int32 MaxPages = 5000;
+    inline int32 PageRows(int32 InCapacity) { return InCapacity >= Columns ? FMath::Clamp(InCapacity / Columns, 1, Rows) : 0; }
     FPSGAME_API bool Fits(const TArray<FColdSteelItem>& Items,const FColdSteelItem& Item,int32 Cell,int32 Capacity);
     FPSGAME_API bool MigrateLayout(FColdSteelProfile& Profile);
     FPSGAME_API bool Insert(TArray<FColdSteelItem>& Items,FColdSteelItem Item,int32 Capacity,int32 Preferred=-1);

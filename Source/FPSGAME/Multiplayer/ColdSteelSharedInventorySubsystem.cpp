@@ -1,4 +1,5 @@
 #include "ColdSteelSharedInventorySubsystem.h"
+#include "../Movement/StableHorseAffixes.h"
 #include "../WorldGeneration/ForestVillageMap.h"
 #include "../Tasks/BlacksmithApprenticeship.h"
 #include "../Monsters/WildlifeSubsystem.h"
@@ -314,6 +315,23 @@ bool UColdSteelSharedInventorySubsystem::AddWorldDrops(const TArray<FColdSteelIt
     return true;
 }
 
+bool UColdSteelSharedInventorySubsystem::CommitProfileWithDrops(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest,
+    FColdSteelProfile Profile,const TArray<FColdSteelItem>& GroundDrops,FString& Reason)
+{
+    if(!InitializeAuthority()||bCommitting||!Model)return false;
+    CaptureDropTransforms();
+    auto After=Current;
+    for(auto DropItem:GroundDrops)
+    {
+        DropItem.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);
+        DropItem.Place=2;
+        DropItem.Container.Reset();
+        DropItem.HarvestWorldId.Invalidate();
+        After.Drops.Add(MoveTemp(DropItem));
+    }
+    return Commit(Model,Guest,MoveTemp(Profile),MoveTemp(After),Reason);
+}
+
 bool UColdSteelSharedInventorySubsystem::ImportPlayerDrops(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest)
 {
     if(!Model||bCommitting||!InitializeAuthority())return false;
@@ -341,7 +359,8 @@ bool UColdSteelSharedInventorySubsystem::Drop(UColdSteelStatusModel* Model,ACold
     const int32 Index=Profile.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id;});
     if(Index<0)return false;
     auto Item=Profile.Items[Index];
-    if(Item.Place!=0&&Item.Place!=1&&Item.Place!=ColdSteelCompartment::Place)
+    const bool bInMountBag=Item.Place==ColdSteelWarehouse::Place&&StableHorseAffixes::IsBagContainer(Item.Container);
+    if(Item.Place!=0&&Item.Place!=1&&Item.Place!=ColdSteelCompartment::Place&&!bInMountBag)
     {Reason=TEXT("请先将物品取入背包");return false;}
     if(Item.Place==1&&Item.Cell==14)
         for(const auto& Other:Profile.Items)

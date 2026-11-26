@@ -1,0 +1,1439 @@
+{
+  "origin_main": "fb64b1bed5f03d098e10b43708a5fb2eec753efb",
+  "hosts": [
+    {
+      "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.h",
+      "origin_main_blob": "11bc8c16e48840dbb9953c3294044c642de4fcb0",
+      "origin_main_sha256": "3e6dfc6991d04dc30142b8c1be55b1549be543f376a552a68439c1c426154962",
+      "summary": "R48 玩家网格台阶偏移成员 AppliedPlayerMeshStairOffset / ApplyPlayerMeshStairOffset",
+      "matched_hunks": [
+        {
+          "orig_range": [
+            183,
+            182
+          ],
+          "local_range": [
+            207,
+            208
+          ],
+          "lines": [
+            "    FVector AppliedPlayerMeshStairOffset = FVector::ZeroVector;",
+            "    void ApplyPlayerMeshStairOffset(float Offset);"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/Movement/FPSCharacterMovementComponent.cpp",
+      "origin_main_blob": "afce421977176c9ecfec29fbbebc404688191935",
+      "origin_main_sha256": "c674966665d4b14dea979ef8f2be6ae2b933e7b9e07dbf9afb20225085a73bc0",
+      "summary": "R48 将既有 StairVisualOffset 增量镜像至本机玩家 GetMesh()，非骑乘/蹲伏生效",
+      "matched_hunks": [
+        {
+          "orig_range": [
+            2,
+            1
+          ],
+          "local_range": [
+            2,
+            7
+          ],
+          "lines": [
+            "#include \"HorseRiderComponent.h\"",
+            "#include \"Components/SkeletalMeshComponent.h\"",
+            "#include \"FPSLeapRootMotionSource.h\"",
+            "#include \"../Skills/LeapStrikeMotion.h\"",
+            "#include \"../Production/ProductionToolComponent.h\""
+          ]
+        },
+        {
+          "orig_range": [
+            296,
+            295
+          ],
+          "local_range": [
+            355,
+            376
+          ],
+          "lines": [
+            "    // Mirror the same discrete-step smoothing onto the local player body mesh (3rd-person body &",
+            "    // attached 1st-person lower body), reusing MonsterCharacterMovementComponent's incremental pattern.",
+            "    const bool bApplyToMesh = MovementMode != MOVE_None && !UHorseRiderComponent::IsRiding(CharacterOwner);",
+            "    ApplyPlayerMeshStairOffset(bApplyToMesh ? StairVisualOffset : 0.f);",
+            "}",
+            "",
+            "void UFPSCharacterMovementComponent::ApplyPlayerMeshStairOffset(float Offset)",
+            "{",
+            "    auto* Mesh = CharacterOwner ? CharacterOwner->GetMesh() : nullptr;",
+            "    if (!Mesh || !UpdatedComponent || Mesh->GetAttachParent() != UpdatedComponent",
+            "        || Mesh->IsSimulatingPhysics() || CharacterOwner->GetLocalRole() == ROLE_SimulatedProxy)",
+            "    {",
+            "        AppliedPlayerMeshStairOffset = FVector::ZeroVector;",
+            "        return;",
+            "    }",
+            "    const FVector NewOffset = FMath::IsNearlyZero(Offset, .001f)",
+            "        ? FVector::ZeroVector",
+            "        : UpdatedComponent->GetComponentTransform().InverseTransformVector(FVector(0., 0., Offset));",
+            "    if (NewOffset.Equals(AppliedPlayerMeshStairOffset, .001f)) return;",
+            "    const FVector Base = Mesh->GetRelativeLocation() - AppliedPlayerMeshStairOffset;",
+            "    AppliedPlayerMeshStairOffset = NewOffset;",
+            "    Mesh->SetRelativeLocation(Base + AppliedPlayerMeshStairOffset);"
+          ]
+        },
+        {
+          "orig_range": [
+            306,
+            306
+          ],
+          "local_range": [
+            387,
+            388
+          ],
+          "lines": [
+            "    ApplyPlayerMeshStairOffset(0.f);",
+            "}"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.h",
+      "origin_main_blob": "f1b3d03684d847530393e217b149650db026eb6c",
+      "origin_main_sha256": "df6257a037b234598bd84f09a73baba760208826aebd1ed27bcd9d9d7ea1810c",
+      "summary": "R46/R49/R53 马匹详情抽屉动效、MountBagBoard、永久解散确认弹窗及回调声明",
+      "matched_hunks": [
+        {
+          "orig_range": [
+            96,
+            95
+          ],
+          "local_range": [
+            111,
+            121
+          ],
+          "lines": [
+            "    void OpenBlacksmithShop(class AVillageBlacksmithResident* Blacksmith);",
+            "    void OpenArtisanShop(class AVillageArtisanMerchant* Seller);",
+            "    void OpenTavernShop(class AVillageTavernKeeper* Seller);",
+            "    bool OpenStableShop(AActor* Seller);",
+            "    bool OpenStableTackShop(AActor* Seller);",
+            "    void OpenMarketMountDetails(FGuid Id);",
+            "    bool IsViewingMountDetails() const;",
+            "    bool QuickEquipMountTack(const FString& ItemId);",
+            "    void OpenBakerShop(class AVillageBaker* Seller);",
+            "    void OpenGunshop(class AVillageGunshopCounter* Counter);",
+            "    bool OpenHerbalistShop(class AVillageHerbalist* Seller);"
+          ]
+        },
+        {
+          "orig_range": [
+            154,
+            153
+          ],
+          "local_range": [
+            192,
+            219
+          ],
+          "lines": [
+            "    UFUNCTION() void HandleNavigationTasks();",
+            "    UFUNCTION() void HandleNavigationMounts();",
+            "    friend class UColdSteelMountButton;",
+            "    void BrowseMount(FGuid Id);",
+            "    void ToggleMountDeployment();",
+            "    void ToggleMountDeploymentFor(FGuid Id);",
+            "    void CallJournalMount();",
+            "    void CallDeployedMount();",
+            "    void GiveJournalPotion(int32 Tier);",
+            "    FGuid ViewedMount;",
+            "    bool bMountFromMarket=false;",
+            "    TSharedPtr<class SColdSteelHorseMarket> MountCards;",
+            "    FGuid MountListProfile;",
+            "    bool bGearWasOwned=false;",
+            "    FGuid MountGearFor;",
+            "    int64 MountGearRevision=-1,MountGearInventoryRevision=-1;",
+            "    void OpenMountDetails(FGuid Id,bool FromMarket);",
+            "    void CloseMountDetails(bool Back,bool RideWithDrawer=false);",
+            "    void TickMountDrawer(float Delta);",
+            "    void BuyViewedMount();",
+            "    void RequestReleaseMount();",
+            "    void ConfirmReleaseMount();",
+            "    void CancelReleaseMount();",
+            "    bool IsMountReleaseModalOpen() const;",
+            "    bool HandleMountDetailDrop(class UColdSteelItemDrag* Drag,FVector2D Position);",
+            "    int64 MountItemGeneration=-1;",
+            "    UWidget* BuildMountPage();",
+            "    void RefreshMountPage();"
+          ]
+        },
+        {
+          "orig_range": [
+            178,
+            177
+          ],
+          "local_range": [
+            246,
+            246
+          ],
+          "lines": [
+            "    bool OpenShopFor(AActor* Seller, bool bStableTack = false);"
+          ]
+        },
+        {
+          "orig_range": [
+            245,
+            244
+          ],
+          "local_range": [
+            314,
+            318
+          ],
+          "lines": [
+            "    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountStaminaText;",
+            "    UPROPERTY(Transient) TObjectPtr<USizeBox> MountStaminaMeterSize;",
+            "    UPROPERTY(Transient) TObjectPtr<class UColdSteelResourceMeter> MountStaminaMeter;",
+            "    TWeakObjectPtr<class AStableRidingHorse> DisplayedStaminaMount;",
+            "    FIntPoint DisplayedMountStamina=FIntPoint(-1,-1);"
+          ]
+        },
+        {
+          "orig_range": [
+            566,
+            565
+          ],
+          "local_range": [
+            664,
+            680
+          ],
+          "lines": [
+            "    bool bQuestTabActive = false;",
+            "    bool bMountTabActive = false;",
+            "    UPROPERTY(Transient) TObjectPtr<UWidget> MountPage;",
+            "    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountPageHint;",
+            "    UPROPERTY(Transient) TObjectPtr<class UNativeWidgetHost> MountList;",
+            "    UPROPERTY(Transient) TObjectPtr<UBorder> MountDetailsDrawer;",
+            "    UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> MountDrawerSlot;",
+            "    UPROPERTY(Transient) TObjectPtr<class UColdSteelMountGearPanel> MountGear;",
+            "    UPROPERTY(Transient) TObjectPtr<UButton> MountBuy;",
+            "    UPROPERTY(Transient) TObjectPtr<UScrollBox> MountDetailsScroll;",
+            "    int64 MountLabelsRevision=-1;",
+            "    UPROPERTY(Transient) TObjectPtr<UBorder> MountPotionPanel;",
+            "    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountPotionHint;",
+            "    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountBalanceDelta;",
+            "    UPROPERTY(Transient) TObjectPtr<UButton> MountDeploy;",
+            "    UPROPERTY(Transient) TObjectPtr<UButton> MountCall;",
+            "    UPROPERTY(Transient) TArray<TObjectPtr<UButton>> MountPotions;"
+          ]
+        },
+        {
+          "orig_range": [
+            649,
+            648
+          ],
+          "local_range": [
+            767,
+            789
+          ],
+          "lines": [
+            "    bool bMountDetailsOpen=false;",
+            "    bool bMountDrawerRiding=false;",
+            "    bool bMountReturnToRoster=false;",
+            "    float MountDrawerMotion=0.f;",
+            "    TWeakObjectPtr<const APawn> CachedVitalsPawn;",
+            "    int32 CachedVitalsPawnComponents=INDEX_NONE;",
+            "    TWeakObjectPtr<const class UFPSCombatHealthComponent> CachedVitalsHealth;",
+            "    TWeakObjectPtr<const class UFPSIceArmorComponent> CachedVitalsIceArmor;",
+            "    TWeakObjectPtr<const class UFPSSurvivalComponent> CachedVitalsSurvival;",
+            "    FLinearColor CachedTopHealthColor=FLinearColor::Transparent;",
+            "    FLinearColor CachedTopManaColor=FLinearColor::Transparent;",
+            "    FLinearColor CachedSurvivalColors[3]={FLinearColor::Transparent,FLinearColor::Transparent,FLinearColor::Transparent};",
+            "    FLinearColor CachedSurvivalWarningColor=FLinearColor::Transparent;",
+            "    bool bHasCachedTopColors=false;",
+            "    // Append reflected members for horse backpack & release confirmation modal",
+            "    UPROPERTY(Transient) TObjectPtr<class UColdSteelInventoryWidget> MountBagBoard;",
+            "    UPROPERTY(Transient) TObjectPtr<UBorder> MountBagEmptyHintBox;",
+            "    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountBagEmptyHintText;",
+            "    UPROPERTY(Transient) TObjectPtr<UButton> MountRelease;",
+            "    UPROPERTY(Transient) TObjectPtr<UBorder> MountReleaseModal;",
+            "    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountReleaseTitle;",
+            "    UPROPERTY(Transient) TObjectPtr<UTextBlock> MountReleaseBody;",
+            "    FGuid PendingReleaseMount;"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "origin_main_blob": "0c67454df84b8cad2d710b6aaaf617d2d7062065",
+      "origin_main_sha256": "3dc6ea5f4582a4ffdba4d180b01e58e28439de6f7c2d3452a54655dd309f3dca",
+      "summary": "R46/R49/R53 马匹抽屉动画更新、Esc 关闭解散弹窗与 RefreshMountPage 挂载",
+      "matched_hunks": [
+        {
+          "orig_range": [
+            2,
+            1
+          ],
+          "local_range": [
+            2,
+            6
+          ],
+          "lines": [
+            "#include \"ColdSteelMountGearPanel.h\"",
+            "#include \"ColdSteelQuestJournal.h\"",
+            "#include \"StatusEffectsHUD.h\"",
+            "#include \"../Dungeons/DungeonRoomSubsystem.h\"",
+            "#include \"../FPSGAMEPlayerController.h\""
+          ]
+        },
+        {
+          "orig_range": [
+            32,
+            31
+          ],
+          "local_range": [
+            36,
+            36
+          ],
+          "lines": [
+            "#include \"../Movement/HorseRiderComponent.h\""
+          ]
+        },
+        {
+          "orig_range": [
+            188,
+            187
+          ],
+          "local_range": [
+            198,
+            198
+          ],
+          "lines": [
+            "        if(bInventoryOpen&&(bMountTabActive||bMountDetailsOpen))RefreshMountPage();"
+          ]
+        },
+        {
+          "orig_range": [
+            231,
+            233
+          ],
+          "local_range": [
+            242,
+            248
+          ],
+          "lines": [
+            "        const float DrawerWidth = FMath::Max(1.0f, (InventoryWidth+ColdSteelUI::NavigationDrawerInset+(bSmeltRiding?SmeltSlidePx:0.f)+(bWorkbenchRiding?WorkbenchSlidePx:0.f)+(bForgeRiding?ForgeSlidePx:0.f)+(bMagicRiding?InventoryWidth:0.f)+(bMountDrawerRiding?InventoryWidth:0.f)+(bWoodworkingManagement&&!bInventoryOpen?InventoryWidth+24.f:0.f)) / ColdSteelUI::PixelScale(this));",
+            "        const FVector2D PanelTranslation((1.0f - DrawerEase) * DrawerWidth, 0.0f);",
+            "        if (!InventoryPanel->GetRenderTransform().Translation.Equals(PanelTranslation, 0.01f))",
+            "            InventoryPanel->SetRenderTranslation(PanelTranslation);",
+            "    }",
+            "    TickMagicConfiguration(InDeltaTime);",
+            "    TickMountDrawer(InDeltaTime);"
+          ]
+        },
+        {
+          "orig_range": [
+            236,
+            236
+          ],
+          "local_range": [
+            251,
+            253
+          ],
+          "lines": [
+            "        const float BackdropOpacity = bEnhancementManagement||bCloseAfterQuickDrag||(bInventoryDragOutside&&!bWarehouseOpen&&!bMountDetailsOpen)?0.f:DrawerEase;",
+            "        if (!FMath::IsNearlyEqual(InventoryBackdrop->GetRenderOpacity(), BackdropOpacity, 1e-4f))",
+            "            InventoryBackdrop->SetRenderOpacity(BackdropOpacity);"
+          ]
+        },
+        {
+          "orig_range": [
+            240,
+            240
+          ],
+          "local_range": [
+            257,
+            259
+          ],
+          "lines": [
+            "        const float BlurOpacity = bCloseAfterQuickDrag||(bInventoryDragOutside&&!bWarehouseOpen&&!bMountDetailsOpen&&!bEnhancementManagement)?0.f:DrawerEase;",
+            "        if (!FMath::IsNearlyEqual(InventoryBlur->GetRenderOpacity(), BlurOpacity, 1e-4f))",
+            "            InventoryBlur->SetRenderOpacity(BlurOpacity);"
+          ]
+        },
+        {
+          "orig_range": [
+            324,
+            325
+          ],
+          "local_range": [
+            349,
+            358
+          ],
+          "lines": [
+            "    if (WorldClock)",
+            "    {",
+            "        const ESlateVisibility ClockVis = bDrawerOut ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible;",
+            "        if (WorldClock->GetVisibility() != ClockVis) WorldClock->SetVisibility(ClockVis);",
+            "    }",
+            "    if (TopVitalsSurface)",
+            "    {",
+            "        const ESlateVisibility VitalsVis = bWarehouseOpen||WarehouseMotion>KINDA_SMALL_NUMBER||bShopOpen||ShopMotion>KINDA_SMALL_NUMBER||bMountDetailsOpen||bMountDrawerRiding||MountDrawerMotion>KINDA_SMALL_NUMBER ? ESlateVisibility::Collapsed : ESlateVisibility::HitTestInvisible;",
+            "        if (TopVitalsSurface->GetVisibility() != VitalsVis) TopVitalsSurface->SetVisibility(VitalsVis);",
+            "    }"
+          ]
+        },
+        {
+          "orig_range": [
+            327,
+            327
+          ],
+          "local_range": [
+            360,
+            361
+          ],
+          "lines": [
+            "        ||bShopOpen||ShopMotion>KINDA_SMALL_NUMBER||bMountDetailsOpen||bMountDrawerRiding||MountDrawerMotion>KINDA_SMALL_NUMBER",
+            "        ||bForgingOpen||bForgeRiding||ForgeMotion>KINDA_SMALL_NUMBER"
+          ]
+        },
+        {
+          "orig_range": [
+            329,
+            328
+          ],
+          "local_range": [
+            363,
+            373
+          ],
+          "lines": [
+            "    // 经验飘字与伤害跳字都位于准星附近：面板、鼠标模式与弹药／魔法轮盘都会占用中心视野，期间让位。",
+            "    APlayerController* FeedPlayer=GetOwningPlayer();",
+            "    const auto* FeedCharacter=FeedPlayer?Cast<AFPSGAMECharacter>(FeedPlayer->GetPawn()):nullptr;",
+            "    const bool bCombatOverlaySuppressed=bDrawerOut||bWarehouseOpen||WarehouseMotion>KINDA_SMALL_NUMBER",
+            "        ||bShopOpen||ShopMotion>KINDA_SMALL_NUMBER||bMountDetailsOpen||bMountDrawerRiding||MountDrawerMotion>KINDA_SMALL_NUMBER",
+            "        ||bForgingOpen||bForgeRiding||ForgeMotion>KINDA_SMALL_NUMBER",
+            "        ||bWorkbenchOpen||bWorkbenchRiding||WorkbenchMotion>KINDA_SMALL_NUMBER||bSmeltingOpen||bSmeltRiding||SmeltMotion>KINDA_SMALL_NUMBER",
+            "        ||bAlchemyManagement||bWoodworkingManagement",
+            "        ||(FeedPlayer&&FeedPlayer->bShowMouseCursor)||(FeedCharacter&&FeedCharacter->IsAmmoWheelOpen());",
+            "    if(ExperienceFeed)ExperienceFeed->SetPresentationSuppressed(bCombatOverlaySuppressed);",
+            "    if(DamageNumbers)DamageNumbers->SetPresentationSuppressed(bCombatOverlaySuppressed);"
+          ]
+        },
+        {
+          "orig_range": [
+            333,
+            332
+          ],
+          "local_range": [
+            378,
+            379
+          ],
+          "lines": [
+            "    if(InKeyEvent.GetKey()==EKeys::Escape && !InKeyEvent.IsRepeat() && IsMountReleaseModalOpen()){CancelReleaseMount();return FReply::Handled();}",
+            "    if(InKeyEvent.GetKey()==EKeys::Escape && !InKeyEvent.IsRepeat() && bMountDetailsOpen){CloseMountDetails(true);return FReply::Handled();}"
+          ]
+        },
+        {
+          "orig_range": [
+            400,
+            399
+          ],
+          "local_range": [
+            449,
+            450
+          ],
+          "lines": [
+            "    const bool bQuest = Key == EKeys::U;",
+            "    const bool bMounts = Key == EKeys::I;"
+          ]
+        },
+        {
+          "orig_range": [
+            402,
+            402
+          ],
+          "local_range": [
+            455,
+            455
+          ],
+          "lines": [
+            "    if (bInventoryOpen && (Key == EKeys::Tab || (bSkills&&bSkillsTabActive) || (bStatus&&bStatusTabActive) || (bCodex&&bCodexTabActive) || (bQuest&&bQuestTabActive) || (bMounts&&bMountTabActive)))"
+          ]
+        },
+        {
+          "orig_range": [
+            410,
+            411
+          ],
+          "local_range": [
+            463,
+            464
+          ],
+          "lines": [
+            "    if (bStatus || bSkills || bCodex || bQuest || bMounts) {CloseWarehouse();CloseShop();}",
+            "    SetInventoryPage(bMounts?6:bQuest?5:bCodex?4:(bSkills?2:(bStatus?0:1)));"
+          ]
+        },
+        {
+          "orig_range": [
+            1230,
+            1229
+          ],
+          "local_range": [
+            497,
+            497
+          ],
+          "lines": [
+            "    if(!bOpen)CloseMountDetails(false,true);"
+          ]
+        },
+        {
+          "orig_range": [
+            1238,
+            1237
+          ],
+          "local_range": [
+            507,
+            523
+          ],
+          "lines": [
+            "    if(bOpen&&bMagicRiding)",
+            "    {",
+            "        bMagicRiding=false;MagicConfigurationMotion=0.f;",
+            "        if(MagicConfigurationPanel)MagicConfigurationPanel->SetVisibility(ESlateVisibility::Collapsed);",
+            "        InventoryLayoutSize=FVector2D::ZeroVector;",
+            "    }",
+            "    if(bOpen&&bMountDrawerRiding)",
+            "    {",
+            "        CancelReleaseMount();",
+            "        if(MountBagBoard)MountBagBoard->CancelInteraction();",
+            "        if(StatusModel)StatusModel->EndMountBagSession();",
+            "        bMountDrawerRiding=false;bMountDetailsOpen=false;bMountFromMarket=false;bMountReturnToRoster=false;",
+            "        MountDrawerMotion=0.f;ViewedMount.Invalidate();MountGearFor.Invalidate();",
+            "        if(MountGear)MountGear->ClearHorse();",
+            "        if(MountDetailsDrawer)MountDetailsDrawer->SetVisibility(ESlateVisibility::Collapsed);",
+            "        InventoryLayoutSize=FVector2D::ZeroVector;",
+            "    }"
+          ]
+        },
+        {
+          "orig_range": [
+            1298,
+            1297
+          ],
+          "local_range": [
+            633,
+            634
+          ],
+          "lines": [
+            "    CloseMountDetails(false);",
+            "    if(Page!=2)CloseMagicConfiguration();"
+          ]
+        },
+        {
+          "orig_range": [
+            1299,
+            1299
+          ],
+          "local_range": [
+            636,
+            643
+          ],
+          "lines": [
+            "    bStatusTabActive=Page==0; bSkillsTabActive=Page==2; bCodexTabActive=Page==4; bQuestTabActive=Page==5; bMountTabActive=Page==6;",
+            "    if(MountPage)MountPage->SetVisibility(bMountTabActive?ESlateVisibility::Visible:ESlateVisibility::Collapsed);",
+            "    if(bMountTabActive)",
+            "    {",
+            "        if(auto* Pawn=GetOwningPlayerPawn();Pawn&&Pawn->GetNetMode()==NM_Client)",
+            "            if(auto* Ride=Pawn->FindComponentByClass<UHorseRiderComponent>())Ride->ServerRequestHorseClock();",
+            "        BrowseMount({});",
+            "    }"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "origin_main_blob": "b572053465086dff12addb4e1dc5470e582c0864",
+      "origin_main_sha256": "0510165f067d70b21e0bc690dadd93979d6b07e96091e508c287a434976ab5b6",
+      "summary": "R53 变行马匹背包 (Place=4, mount.<HorseId>) 校验与跨容器转移边界",
+      "matched_hunks": [
+        {
+          "orig_range": [
+            2,
+            1
+          ],
+          "local_range": [
+            3,
+            6
+          ],
+          "lines": [
+            "#include \"../Movement/StableHorseGear.h\"",
+            "#include \"../Movement/StableHorseAffixes.h\"",
+            "#include \"../Skills/ColdSteelSkillTree.h\"",
+            "#include \"../Building/GunAssemblyCalibration.h\""
+          ]
+        },
+        {
+          "orig_range": [
+            530,
+            532
+          ],
+          "local_range": [
+            530,
+            542
+          ],
+          "lines": [
+            "            // 主仓库行按档案页数；马匹背包按该马词条有效排数；储物箱行按 StoragePages 登记的自身页数（Fits 依 Container 分域查占用）。",
+            "            else {",
+            "                int32 Cap=0;",
+            "                FGuid MountId;",
+            "                if(StableHorseAffixes::TryParseBagContainer(I.Container,MountId))",
+            "                {",
+            "                    const auto* Horse=P.MountRoster.Find(MountId);",
+            "                    if(!Horse){Reason=TEXT(\"马匹背包归属无效，原存档保留\");return false;}",
+            "                    Cap=Horse->BagRows()*ColdSteelWarehouse::Columns;",
+            "                }",
+            "                else Cap=(I.Container.IsEmpty()?P.WarehousePages:FMath::Max(1,P.StoragePages.FindRef(I.Container)))*ColdSteelWarehouse::CellsPerPage;",
+            "                if(Cap<1||I.Cell<0||I.Cell>=Cap||!ColdSteelWarehouse::Fits(Placed,I,I.Cell,Cap))return false;",
+            "            }"
+          ]
+        },
+        {
+          "orig_range": [
+            541,
+            540
+          ],
+          "local_range": [
+            551,
+            580
+          ],
+          "lines": [
+            "    const auto& Roster=P.MountRoster;",
+            "    if(Roster.Deployed.IsValid()&&!Roster.Find(Roster.Deployed))",
+            "    {Reason=TEXT(\"出战马匹不存在\");return false;}",
+            "    TSet<FGuid> Seen;",
+            "    TSet<FString> GearIds;",
+            "    for(const auto& Horse:Roster.Horses)",
+            "    {",
+            "        if(Horse.BirthVersion>FStableHorseTraits::IndependentRolls || Horse.Level<1 || Horse.Level>FStableHorseTraits::MaxLevel ||",
+            "            Horse.Experience<0 || Horse.Experience>=FStableMountRecord::ExperienceNeeded(Horse.Level) ||",
+            "            (Horse.Level==FStableHorseTraits::MaxLevel && Horse.Experience!=0) ||",
+            "            !Horse.HorseId.IsValid()||Seen.Contains(Horse.HorseId)||Horse.RecallAfterUtc<0||!FMath::IsFinite(Horse.Health)||!FMath::IsFinite(Horse.Stamina)||",
+            "            !FMath::IsFinite(Horse.MaxHealth)||!FMath::IsFinite(Horse.MaxStamina)||",
+            "            Horse.MaxHealth<=0||Horse.MaxStamina<=0||Horse.Health<0||Horse.Health>Horse.MaxHealth||Horse.Stamina<0||Horse.Stamina>Horse.MaxStamina)",
+            "        {Reason=TEXT(\"马匹状态无效\");return false;}",
+            "        uint8 Used=0;",
+            "        for(const auto& Gear:Horse.Equipment)",
+            "        {",
+            "            const int32 Slot=StableHorseGear::SlotOf(Gear.Definition);",
+            "            if(Slot==INDEX_NONE || (Used&(1<<Slot)) || Gear.Count!=1 || Gear.StackMax!=1 ||",
+            "                Gear.InstanceId.IsEmpty() || Gear.InstanceId.Len()>128 || GearIds.Contains(Gear.InstanceId) ||",
+            "                Gear.Place!=0 || Gear.Cell!=INDEX_NONE || !Gear.Container.IsEmpty() || !Gear.Map.IsEmpty() ||",
+            "                Gear.Height>ColdSteelWarehouse::Rows || Gear.Data.Len()>1048576 || !Object(Gear))",
+            "            {Reason=TEXT(\"马具身份或装备位无效\");return false;}",
+            "            Used|=1<<Slot;GearIds.Add(Gear.InstanceId);",
+            "        }",
+            "        Seen.Add(Horse.HorseId);",
+            "    }",
+            "    if(!GearIds.IsEmpty())",
+            "        for(const auto& Item:P.Items)if(GearIds.Contains(Item.InstanceId)){Reason=TEXT(\"马具存在重复归属\");return false;}"
+          ]
+        },
+        {
+          "orig_range": [
+            613,
+            612
+          ],
+          "local_range": [
+            653,
+            654
+          ],
+          "lines": [
+            "    // R22 saves identify horses by stall. Upgrade before this first full-profile validation.",
+            "    Changed|=Next.MountRoster.Upgrade(Next.NetworkProfileId);"
+          ]
+        },
+        {
+          "orig_range": [
+            624,
+            623
+          ],
+          "local_range": [
+            666,
+            666
+          ],
+          "lines": [
+            "            FGuid MountId;"
+          ]
+        },
+        {
+          "orig_range": [
+            625,
+            624
+          ],
+          "local_range": [
+            668,
+            668
+          ],
+          "lines": [
+            "                StableHorseAffixes::TryParseBagContainer(Item.Container,MountId)?(Next.MountRoster.Find(MountId)?Next.MountRoster.Find(MountId)->BagRows()*ColdSteelWarehouse::Columns:0):"
+          ]
+        },
+        {
+          "orig_range": [
+            703,
+            702
+          ],
+          "local_range": [
+            748,
+            754
+          ],
+          "lines": [
+            "    Changed|=Next.MountRoster.Upgrade(Next.NetworkProfileId);",
+            "    if(!Next.EnhancementItem.InstanceId.IsEmpty())",
+            "    {",
+            "        bool ItemChanged=false;",
+            "        if(!MigrateAuthoredItemFootprint(Next.EnhancementItem,ItemChanged,Reason))return false;",
+            "        Changed|=ItemChanged;",
+            "    }"
+          ]
+        },
+        {
+          "orig_range": [
+            713,
+            712
+          ],
+          "local_range": [
+            765,
+            765
+          ],
+          "lines": [
+            "            FGuid MountId;"
+          ]
+        },
+        {
+          "orig_range": [
+            715,
+            714
+          ],
+          "local_range": [
+            768,
+            768
+          ],
+          "lines": [
+            "                StableHorseAffixes::TryParseBagContainer(Item.Container,MountId)?(Next.MountRoster.Find(MountId)?Next.MountRoster.Find(MountId)->BagRows()*ColdSteelWarehouse::Columns:0):"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryWidget.cpp",
+      "origin_main_blob": "a30d9ce5ea2b93553620ed89c71663f6516bd8d8",
+      "origin_main_sha256": "275890733a5c5f06d8492acf566b45fcc64ff856e1a128cc3f928b19865d7476",
+      "summary": "R46/R53 ConfigureMountBag 变行绘制、双击快装马具及马匹背包拖拽交互",
+      "matched_hunks": [
+        {
+          "orig_range": [
+            36,
+            38
+          ],
+          "local_range": [
+            49,
+            56
+          ],
+          "lines": [
+            "void UColdSteelInventoryWidget::ConfigureWarehouse(UColdSteelHUDWidget* Owner){bWarehouse=true;bMountBag=false;MountBagRows=0;StorageHUD=Owner;FocusPlace=4;FocusCell=StorageStart();LoadIcons();}",
+            "void UColdSteelInventoryWidget::ConfigureMountBag(UColdSteelHUDWidget* Owner,int32 Rows){bWarehouse=true;bMountBag=true;MountBagRows=FMath::Clamp(Rows,0,ColdSteelWarehouse::Rows);StorageHUD=Owner;FocusPlace=4;FocusCell=0;HoverPlace=-1;PointerCell=-1;LoadIcons();}",
+            "int32 UColdSteelInventoryWidget::StorageStart()const{return bMountBag?0:(bWarehouse&&Model?Model->WarehousePage*ColdSteelWarehouse::CellsPerPage:0);}",
+            "int32 UColdSteelInventoryWidget::StorageRows()const",
+            "{",
+            "    if(bMountBag)return Model&&Model->bMountBagOpen?ColdSteelWarehouse::PageRows(Model->OpenStorageCapacity()):MountBagRows;",
+            "    return bWarehouse?ColdSteelWarehouse::Rows:(Model?ColdSteelInventory::BagRows(Model->Items()):4);",
+            "}"
+          ]
+        },
+        {
+          "orig_range": [
+            194,
+            194
+          ],
+          "local_range": [
+            239,
+            239
+          ],
+          "lines": [
+            "    if(bWarehouse){L.GearY=L.GearWidth=L.GearHeight=L.GearPitch=0;L.BagY=bMountBag?38.f:40.f;L.HotY=L.BagY+StorageRows()*L.Cell;L.Height=L.HotY+(bMountBag?50.f:60.f);return L;}"
+          ]
+        },
+        {
+          "orig_range": [
+            245,
+            245
+          ],
+          "local_range": [
+            293,
+            294
+          ],
+          "lines": [
+            "                if(Item&&!bStorageOpen&&(Item->Place==0||Item->Place==ColdSteelCompartment::Place)&&Text(*Item,TEXT(\"category\"))==TEXT(\"consumable\"))"
+          ]
+        },
+        {
+          "orig_range": [
+            270,
+            270
+          ],
+          "local_range": [
+            319,
+            319
+          ],
+          "lines": [
+            "FReply UColdSteelInventoryWidget::NativeOnMouseButtonDoubleClick(const FGeometry& G,const FPointerEvent& E){bPendingClick=false;if(E.GetEffectingButton()!=EKeys::LeftMouseButton)return FReply::Unhandled();if(auto* HUD=TooltipHUD())HUD->HideItemTooltip(true);int32 P,C;if(Hit(G,E.GetScreenSpacePosition(),P,C)){Selected=IdAt(P,C);if(!Selected.IsEmpty()){if(auto* HUD=TooltipHUD();HUD&&HUD->QuickEquipMountTack(Selected))return FReply::Handled();if(auto* HUD=TooltipHUD();HUD&&HUD->CanOfferShopSale())HUD->AddShopSaleItem(Selected);else Model->DefaultAction(Selected);}InteractionMessage=Model->ResultMessage();}return FReply::Handled();}"
+          ]
+        },
+        {
+          "orig_range": [
+            377,
+            377
+          ],
+          "local_range": [
+            471,
+            471
+          ],
+          "lines": [
+            "            PreviewReason=FString::Printf(TEXT(\"这个方向需要 %d 行，%s只有 %d 行\"),PreviewCells.Y,TargetPlace==4?(bMountBag?TEXT(\"马匹背包\"):TEXT(\"仓库\")):TEXT(\"背包\"),Rows);"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryPresentation.cpp",
+      "origin_main_blob": "d45fc61d8a0afef349751673a01294818513e60a",
+      "origin_main_sha256": "0a224b66e05c526508b4690f400fc06eca279bd9db6128e8ed7f7383bfa310a9",
+      "summary": "R46/R53 详情开窗高亮可用马具与马匹背包表头/格数渲染",
+      "matched_hunks": [
+        {
+          "orig_range": [
+            3,
+            2
+          ],
+          "local_range": [
+            4,
+            5
+          ],
+          "lines": [
+            "#include \"../Movement/StableHorseGear.h\"",
+            "#include \"ColdSteelContainerSearchSubsystem.h\""
+          ]
+        },
+        {
+          "orig_range": [
+            116,
+            115
+          ],
+          "local_range": [
+            168,
+            169
+          ],
+          "lines": [
+            "    const UColdSteelHUDWidget* HostHUD=!bWarehouse?TooltipHUD():nullptr;",
+            "    const bool bHighlightMountTack=HostHUD && HostHUD->IsViewingMountDetails();"
+          ]
+        },
+        {
+          "orig_range": [
+            119,
+            118
+          ],
+          "local_range": [
+            173,
+            173
+          ],
+          "lines": [
+            "        const bool bMountTack=bHighlightMountTack && Name && StableHorseGear::SlotOf(I.Definition)!=INDEX_NONE;"
+          ]
+        },
+        {
+          "orig_range": [
+            120,
+            120
+          ],
+          "local_range": [
+            175,
+            175
+          ],
+          "lines": [
+            "        const float Stroke=SelectedItem?2.f:(bMountTack?1.5f:1.f);"
+          ]
+        },
+        {
+          "orig_range": [
+            130,
+            133
+          ],
+          "local_range": [
+            198,
+            200
+          ],
+          "lines": [
+            "        if((!bWarehouse||bMountBag)&&Name&&P){",
+            "            CardFill=P->BagColor;",
+            "            CardFill.A=Hovered?.54f:.42f;"
+          ]
+        },
+        {
+          "orig_range": [
+            175,
+            177
+          ],
+          "local_range": [
+            248,
+            263
+          ],
+          "lines": [
+            "            const float TackReserve=bMountTack && I.Width>=2?30.f:0.f;",
+            "            const float TitleSpace=W-Left-Right-(P&&P->Enhancement>0?CornerSize:0)-TackReserve;",
+            "            const FString Title=P?P->Name:I.Definition;const auto Font=LabelFont(12,ETextWeight::SemiBold);const float Width=FMath::Min(float(Measure->Measure(Title,Font).X*Scale)+8,TitleSpace);",
+            "            if(TitleSpace>10.f){Box(X+Left,Y+3,Width,16,GunsmithUI::Gray(20,190),FLinearColor::Transparent,3,0,3);Label(Title,X+Left+3,Y+3,12,GunsmithUI::Text,TitleSpace-6,ETextWeight::SemiBold);}",
+            "            if(bMountTack)",
+            "            {",
+            "                if(I.Width>=2)",
+            "                {",
+            "                    Box(X+W-31,Y+3,28,15,FLinearColor::FromSRGBColor(FColor(26,21,13,235)),ColdSteelUI::HUDGold,3,1,4);",
+            "                    Label(TEXT(\"马具\"),X+W-28,Y+3.5f,10,ColdSteelUI::HUDGoldLight,24,ETextWeight::SemiBold);",
+            "                }",
+            "                else",
+            "                {",
+            "                    Box(X+4,Y+H-10,6,6,ColdSteelUI::HUDGoldLight,FLinearColor::Transparent,1.5f,0,4);",
+            "                }",
+            "            }"
+          ]
+        },
+        {
+          "orig_range": [
+            199,
+            199
+          ],
+          "local_range": [
+            285,
+            296
+          ],
+          "lines": [
+            "        if(HasLifetimeBar)",
+            "        {",
+            "            const float Progress=P->SpoilProgress;",
+            "            const float Remaining=ColdSteelFoodUI::Remaining(Progress);",
+            "            const FLinearColor Tone=ColdSteelFoodUI::Color(Progress);",
+            "            Box(X+4,Y+H-7,W-8,4,GunsmithUI::Gray(12,235),GunsmithUI::Edge,1,1,4);",
+            "            // 2026-10-17：条表示剩余新鲜度，满格绿色随时间缩短；阶段色仍按已消耗寿命",
+            "            // 由绿转黄、红。2px 最小可见填充替代旧的起点标记。",
+            "            Box(X+4,Y+H-7,FMath::Max(2.f,(W-8)*Remaining),4,Tone,FLinearColor::Transparent,1,0,4);",
+            "        }",
+            "        const FLinearColor OutlineEdge=SelectedItem?GunsmithUI::Silver:(bMountTack?(Hovered?ColdSteelUI::HUDGoldLight:ColdSteelUI::HUDGold):GunsmithUI::Edge);",
+            "        DrawCard(FLinearColor::Transparent,OutlineEdge,5);"
+          ]
+        },
+        {
+          "orig_range": [
+            215,
+            217
+          ],
+          "local_range": [
+            312,
+            315
+          ],
+          "lines": [
+            "            Label(Lock?TEXT(\"—\"):TEXT(\"+\"),X+L.GearWidth-28,Y+(L.GearHeight-16)/2,16,GunsmithUI::Gray(Lock?100:145),18,ETextWeight::Bold);}",
+            "    }",
+            "    }",
+            "    if(bMountBag&&Rows<=0)return Layer+1;"
+          ]
+        },
+        {
+          "orig_range": [
+            221,
+            222
+          ],
+          "local_range": [
+            319,
+            341
+          ],
+          "lines": [
+            "    const FString HeaderTitle=bMountBag?FString::Printf(TEXT(\"马匹背包 · %d 排\"),Rows):bWarehouse?(Model->ActiveContainer.IsEmpty()?TEXT(\"仓储空间\"):*Model->ActiveStorageCaption):BagCaption;",
+            "    Label(HeaderTitle,12,L.BagY-28,16,GunsmithUI::Text,FMath::Max(150.f,L.Width-276),ETextWeight::SemiBold);",
+            "    if(bHighlightMountTack)",
+            "    {",
+            "        int32 TackCount=0;",
+            "        for(const auto& I:Model->Items())if((I.Place==0 || I.Place==ColdSteelCompartment::Place) && StableHorseGear::SlotOf(I.Definition)!=INDEX_NONE)++TackCount;",
+            "        if(TackCount>0)",
+            "        {",
+            "            const float TitleW=float(Measure->Measure(HeaderTitle,LabelFont(16,ETextWeight::SemiBold)).X*Scale);",
+            "            const FString BadgeTxt=FString::Printf(TEXT(\"✦ 高亮可用马具 %d 件\"),TackCount);",
+            "            const float BadgeW=float(Measure->Measure(BadgeTxt,LabelFont(11,ETextWeight::SemiBold)).X*Scale)+16.f;",
+            "            const float BadgeX=24.f+TitleW;",
+            "            if(BadgeX+BadgeW<L.Width-254.f)",
+            "            {",
+            "                Box(BadgeX,L.BagY-29,BadgeW,20,FLinearColor(ColdSteelUI::HUDGold.R,ColdSteelUI::HUDGold.G,ColdSteelUI::HUDGold.B,.15f),",
+            "                    FLinearColor(ColdSteelUI::HUDGold.R,ColdSteelUI::HUDGold.G,ColdSteelUI::HUDGold.B,.52f),4,1,3);",
+            "                Label(BadgeTxt,BadgeX+8.f,L.BagY-26.5f,11,ColdSteelUI::HUDGoldLight,BadgeW-12.f,ETextWeight::SemiBold);",
+            "            }",
+            "        }",
+            "    }",
+            "    const auto* Search=GetWorld()->GetSubsystem<UColdSteelContainerSearchSubsystem>();",
+            "    const FString SearchStatus=bWarehouse&&Search?Search->Status(GetOwningPlayer(),Model->ActiveContainer):FString();",
+            "    Label(SearchStatus.IsEmpty()?FString::Printf(TEXT(\"%d / %d 格 · %d 件\"),Cells,Rows*18,Count):SearchStatus,L.Width-246,L.BagY-25,12,SearchStatus.IsEmpty()?GunsmithUI::Secondary:ColdSteelUI::HUDGold,180);"
+          ]
+        },
+        {
+          "orig_range": [
+            269,
+            269
+          ],
+          "local_range": [
+            402,
+            402
+          ],
+          "lines": [
+            "    if(bWarehouse)Label(bMountBag?TEXT(\"拖动 / 右键互转 · F 旋转 · Shift+单击拆分与菜单\"):TEXT(\"单击查看 · 右键取出 · Shift+单击拆分\"),12,L.HotY+33,12,ColdSteelUI::TextTertiary,L.Width-24);"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelShopHUD.cpp",
+      "origin_main_blob": "4403ec55c4f47ee30b8ff703cb9e1a90be868e7d",
+      "origin_main_sha256": "70c400700e7bd8d66a95dcc2466a2e79dc6865dfff59eccd69114e4225507510",
+      "summary": "R49/R52 马市详情抽屉联动与马具商店入口 BeginStableTackSession",
+      "matched_hunks": [
+        {
+          "orig_range": [
+            13,
+            17
+          ],
+          "local_range": [
+            21,
+            88
+          ],
+          "lines": [
+            "    OpenShopFor(nullptr);",
+            "}",
+            "void UColdSteelHUDWidget::OpenBlacksmithShop(AVillageBlacksmithResident* Blacksmith)",
+            "{",
+            "    OpenArtisanShop(Blacksmith);",
+            "}",
+            "void UColdSteelHUDWidget::OpenArtisanShop(AVillageArtisanMerchant* Seller)",
+            "{",
+            "    if(IsValid(Seller))OpenShopFor(Seller);",
+            "}",
+            "void UColdSteelHUDWidget::OpenTavernShop(AVillageTavernKeeper* Seller)",
+            "{",
+            "    if(IsValid(Seller))OpenShopFor(Seller);",
+            "}",
+            "bool UColdSteelHUDWidget::OpenStableShop(AActor* Seller)",
+            "{",
+            "    return StableHorseMarket::IsSeller(Seller) && OpenShopFor(Seller,false);",
+            "}",
+            "bool UColdSteelHUDWidget::OpenStableTackShop(AActor* Seller)",
+            "{",
+            "    return StableHorseMarket::IsSeller(Seller) && OpenShopFor(Seller,true);",
+            "}",
+            "void UColdSteelHUDWidget::OpenBakerShop(AVillageBaker* Seller)",
+            "{",
+            "    if(IsValid(Seller))OpenShopFor(Seller);",
+            "}",
+            "bool UColdSteelHUDWidget::OpenHerbalistShop(AVillageHerbalist* Seller)",
+            "{",
+            "    return IsValid(Seller) && OpenShopFor(Seller);",
+            "}",
+            "void UColdSteelHUDWidget::OpenGunshop(AVillageGunshopCounter* Counter)",
+            "{",
+            "    if (IsValid(Counter) && Counter->IsOpen()) OpenShopFor(Counter);",
+            "}",
+            "bool UColdSteelHUDWidget::OpenShopFor(AActor* Seller, bool bStableTack)",
+            "{",
+            "    if(bShopOpen)return false;",
+            "    auto* Player=GetOwningPlayer();",
+            "    auto* Root=WidgetTree?Cast<UCanvasPanel>(WidgetTree->RootWidget):nullptr;",
+            "    auto* ShopModel=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelShopModel>():nullptr;"
+          ]
+        },
+        {
+          "orig_range": [
+            35,
+            35
+          ],
+          "local_range": [
+            113,
+            115
+          ],
+          "lines": [
+            "    if(ShopWidget && ShopWidget->ShopModel()->IsStableShop() && bInventoryOpen)InventoryPanel->SetVisibility(ESlateVisibility::Visible);",
+            "    if(bMountFromMarket)CloseMountDetails(false,bClosingInventory);",
+            "    UWidgetBlueprintLibrary::CancelDragDrop();bShopOpen=false;HideItemTooltip(true);"
+          ]
+        },
+        {
+          "orig_range": [
+            55,
+            55
+          ],
+          "local_range": [
+            147,
+            150
+          ],
+          "lines": [
+            "    const bool MarketList=bShopOpen && !bMountFromMarket && ShopWidget->ShopModel()->IsStableShop();",
+            "    if(MarketList)InventoryPanel->SetVisibility(ESlateVisibility::Collapsed);",
+            "    const float ListOffset=MarketList?InventoryWidth:0.f;",
+            "    ShopWidget->SetRenderTranslation(FVector2D(((1-Ease)*InventoryWidth+DrawerOffset+ListOffset)/S,0));ShopWidget->SetRenderOpacity(Ease);"
+          ]
+        },
+        {
+          "orig_range": [
+            58,
+            58
+          ],
+          "local_range": [
+            153,
+            153
+          ],
+          "lines": [
+            "    ShopWidget->SetVisibility(bMountFromMarket || ShopMotion<=0?ESlateVisibility::Collapsed:Ready?ESlateVisibility::Visible:ESlateVisibility::HitTestInvisible);"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelShopModel.cpp",
+      "origin_main_blob": "d4a35807ee85d685ccaed77f4fbe5087f4a0ac4f",
+      "origin_main_sha256": "964f4c5e1b299f2d0f125df1f098d9a9a22d5dc93e21f56c743e5f36d4fa6329",
+      "summary": "R52/R53b 东门马具铺 StableTackMenu、stable.tack.buy 交易与 NetworkTradeFinished 刷新货单",
+      "matched_hunks": [
+        {
+          "orig_range": [
+            11,
+            11
+          ],
+          "local_range": [
+            22,
+            135
+          ],
+          "lines": [
+            "namespace",
+            "{",
+            "int64 ShopUnitPrice(const FColdSteelItem& Item)",
+            "{",
+            "    const double Price = Number(Item, TEXT(\"price\"), 0.);",
+            "    return FMath::IsFinite(Price) && Price >= 1 && Price <= 1000000000. ? FMath::FloorToInt64(Price) : 0;",
+            "}",
+            "}",
+            "",
+            "struct FColdSteelMenuOffer",
+            "{",
+            "    const TCHAR* Definition;",
+            "    int64 PriceIfUnlisted = 0;",
+            "",
+            "    int64 Price(const FColdSteelItem& Item) const",
+            "    {",
+            "        if (Item.Data.IsEmpty()) return 0;",
+            "        const int64 CatalogPrice = ShopUnitPrice(Item);",
+            "        return CatalogPrice > 0 ? CatalogPrice : PriceIfUnlisted;",
+            "    }",
+            "};",
+            "",
+            "struct FColdSteelResidentMenu",
+            "{",
+            "    TConstArrayView<FColdSteelMenuOffer> Offers;",
+            "    const TCHAR* BuyMode;",
+            "    const TCHAR* Title;",
+            "    const TCHAR* BuyPrompt;",
+            "    const TCHAR* ReachPrompt;",
+            "    const TCHAR* InvalidOffer;",
+            "",
+            "    const FColdSteelMenuOffer* FindOffer(const FString& Definition) const",
+            "    {",
+            "        return Offers.FindByPredicate([&Definition](const auto& Offer) { return Definition == Offer.Definition; });",
+            "    }",
+            "};",
+            "",
+            "namespace",
+            "{",
+            "constexpr FColdSteelMenuOffer BakerMenu[] = {"
+          ]
+        },
+        {
+          "orig_range": [
+            27,
+            26
+          ],
+          "local_range": [
+            157,
+            279
+          ],
+          "lines": [
+            "FString UColdSteelShopModel::MerchantName() const",
+            "{",
+            "    if (Menu) return Menu->Title;",
+            "    const auto* Seller = Merchant.Get();",
+            "    return Seller ? Seller->MerchantName() : TEXT(\"商店\");",
+            "}",
+            "",
+            "bool UColdSteelShopModel::BeginArtisanSession(AVillageArtisanMerchant* Seller)",
+            "{",
+            "    auto* PC = GetGameInstance()->GetFirstLocalPlayerController();",
+            "    if (!IsValid(Seller) || !Seller->CanTradeWith(PC ? PC->GetPawn() : nullptr) || !OpenProfile()) return false;",
+            "    Merchant = Seller;",
+            "    ResidentConversation::SetLocalFacing(Seller,PC);",
+            "    BuyerPawn = PC->GetPawn();",
+            "    StockHandle = Seller->OnStockChanged.AddUObject(this, &ThisClass::RefreshArtisanStock);",
+            "    Message = Seller->IsCarpenterMerchant()",
+            "        ? TEXT(\"弓和法杖按基础品质出售，伐木斧可直接装备。买下一件后会补货。\")",
+            "        : TEXT(\"武器逐件定质，十字镐按工具出售。买下一件后会补货。\");",
+            "    RefreshArtisanStock();",
+            "    return true;",
+            "}",
+            "",
+            "bool UColdSteelShopModel::BeginTavernSession(AVillageTavernKeeper* Seller)",
+            "{",
+            "    return BeginMenuSession(Seller);",
+            "}",
+            "",
+            "bool UColdSteelShopModel::BeginBakerSession(AVillageBaker* Seller)",
+            "{",
+            "    return BeginMenuSession(Seller);",
+            "}",
+            "",
+            "bool UColdSteelShopModel::BeginGunshopSession(AVillageGunshopCounter* Counter)",
+            "{",
+            "    return BeginMenuSession(Counter);",
+            "}",
+            "",
+            "bool UColdSteelShopModel::SellsSingleItems() const",
+            "{",
+            "    return IsArtisanShop() || Menu == &GunshopMenu || Menu == &StableTackMenu;"
+          ]
+        },
+        {
+          "orig_range": [
+            29,
+            28
+          ],
+          "local_range": [
+            282,
+            289
+          ],
+          "lines": [
+            "    if (auto* World = GetWorld()) World->GetTimerManager().ClearTimer(ReachTimer);",
+            "    ResidentConversation::SetLocalFacing(MenuSeller.IsValid()?MenuSeller.Get():Merchant.Get(),nullptr);",
+            "    if (Merchant.IsValid()) Merchant->OnStockChanged.Remove(StockHandle);",
+            "    StockHandle.Reset(); Merchant.Reset();",
+            "    StableClock.Reset();StableOffers.Reset();StableDay=INDEX_NONE;StableProfile.Invalidate();",
+            "    MenuSeller.Reset();",
+            "    BuyerPawn.Reset();",
+            "    Menu = nullptr;"
+          ]
+        },
+        {
+          "orig_range": [
+            140,
+            140
+          ],
+          "local_range": [
+            418,
+            443
+          ],
+          "lines": [
+            "bool UColdSteelShopModel::BuyHorse(FGuid Id)",
+            "{",
+            "    if(!IsStableShop() || !CanTrade())return false;",
+            "    auto* PC=GetGameInstance()->GetFirstLocalPlayerController();",
+            "    FColdSteelInventoryRequest R;",
+            "    R.Action=EColdSteelInventoryAction::Shop;R.Mode=StableMenu.BuyMode;",
+            "    R.MountId=Id;R.Target=MenuSeller.Get();R.Pawn=PC->GetPawn();R.Count=1;",
+            "    if(GetWorld()->GetNetMode()==NM_Standalone)",
+            "    {",
+            "        FString Reason;",
+            "        bool Saved;",
+            "        {",
+            "            TGuardValue<bool> Guard(bCommitting,true);",
+            "            Model->SyncRuntime();",
+            "            Saved=ExecuteNetworkTrade(Model,R,FString(),Reason);",
+            "        }",
+            "        RefreshHorseOffers();Message=Reason;OnChanged.Broadcast();",
+            "        return Saved;",
+            "    }",
+            "    auto* PS=PC->GetPlayerState<AColdSteelPlayerState>();",
+            "    bPendingSale=false;bCommitting=true;",
+            "    if(!PS || !PS->RequestInventoryAction(R)){bCommitting=false;return Fail(TEXT(\"交易正在等待角色同步\"));}",
+            "    if(bCommitting){Message=TEXT(\"正在登记马匹\");OnChanged.Broadcast();}",
+            "    return true;",
+            "}",
+            "bool UColdSteelShopModel::Buy(const FString& StockItemId, int32 Count)"
+          ]
+        },
+        {
+          "orig_range": [
+            214,
+            214
+          ],
+          "local_range": [
+            544,
+            544
+          ],
+          "lines": [
+            "    RefreshHorseOffers();ProfileChanged();Message=Reason;OnChanged.Broadcast();"
+          ]
+        },
+        {
+          "orig_range": [
+            221,
+            221
+          ],
+          "local_range": [
+            551,
+            589
+          ],
+          "lines": [
+            "    auto* Seller=Cast<AVillageArtisanMerchant>(R.Target.Get());",
+            "    const bool ArtisanBuy=IsValid(Seller)&&R.Mode==Seller->TradeMode(false);",
+            "    const bool ArtisanSale=IsValid(Seller)&&R.Mode==Seller->TradeMode(true);",
+            "    const auto* Vendor=R.Target.Get();",
+            "    const auto* SellerMenu=(StableHorseMarket::IsSeller(Vendor) && R.Mode==StableTackMenu.BuyMode)",
+            "        ? &StableTackMenu : MenuForSeller(Vendor);",
+            "    const bool MenuBuy=SellerMenu && R.Mode==SellerMenu->BuyMode;",
+            "    const bool GeneralBuy=!R.Target && R.Mode==TEXT(\"shop.buy\");",
+            "    const bool GeneralSale=!R.Target && R.Mode==TEXT(\"shop.sell\");",
+            "    FGuid SoldLot;",
+            "    if(ArtisanBuy||ArtisanSale)",
+            "    {",
+            "        if(Seller->GetWorld()!=Profile->GetWorld()||Profile->RuntimePawn()!=R.Pawn.Get()||!Seller->CanTradeWith(R.Pawn.Get()))",
+            "        {Reason=TEXT(\"请回到工匠身边再交易\");return false;}",
+            "    }",
+            "    if(MenuBuy)",
+            "    {",
+            "        if(Vendor->GetWorld()!=Profile->GetWorld()||Profile->RuntimePawn()!=R.Pawn.Get()",
+            "            ||!ResidentConversation::CanReach(R.Pawn.Get(),Vendor))",
+            "        {Reason=SellerMenu->ReachPrompt;return false;}",
+            "    }",
+            "    FString BoughtHorse;",
+            "    if(MenuBuy && SellerMenu==&StableMenu)",
+            "    {",
+            "        const auto* Clock=MarketClock(Profile->GetWorld());",
+            "        if(!Clock){Reason=TEXT(\"村庄时钟尚未就绪\");return false;}",
+            "        const auto Offers=StableHorseMarket::Stock(Next.NetworkProfileId,Clock->GetScheduleDay());",
+            "        const auto* Offer=Offers.FindByPredicate([&](const auto& Lot){return Lot.Horse.HorseId==R.MountId;});",
+            "        if(!Offer || R.Count!=1){Reason=StableMenu.InvalidOffer;return false;}",
+            "        auto& Roster=Next.MountRoster;",
+            "        if(Roster.Find(R.MountId)){Reason=TEXT(\"这匹马已经购入\");return false;}",
+            "        Debit=Offer->Price;",
+            "        if(!ColdSteelCurrency::Debit(Next,Debit)){Reason=TEXT(\"灵魂不足\");return false;}",
+            "        if(Roster.Horses.IsEmpty())Roster.Deployed=R.MountId;",
+            "        Roster.Horses.Add(Offer->Horse);",
+            "        ++Roster.Revision;",
+            "        BoughtHorse=Offer->Horse.DisplayName();",
+            "    }",
+            "    else if(ArtisanBuy||MenuBuy||GeneralBuy)"
+          ]
+        },
+        {
+          "orig_range": [
+            224,
+            229
+          ],
+          "local_range": [
+            592,
+            621
+          ],
+          "lines": [
+            "        FColdSteelItem Item;",
+            "        int64 UnitPrice=0;",
+            "        if(ArtisanBuy)",
+            "        {",
+            "            if(R.Count!=1||!FGuid::ParseExact(R.Item,EGuidFormats::Digits,SoldLot))",
+            "            {Reason=TEXT(\"请选择货架上的一件商品\");return false;}",
+            "            const auto* Offer=Seller->Stock().FindByPredicate([&](const auto& Entry)",
+            "            {return Entry.Definition==R.Definition&&Entry.Lot==SoldLot;});",
+            "            if(!Offer||!Seller->MakeStockItem(*Profile,*Offer,Item))",
+            "            {Reason=TEXT(\"这件商品已售出，请重新选择\");return false;}",
+            "            UnitPrice=ShopUnitPrice(Item);",
+            "        }",
+            "        else if(MenuBuy)",
+            "        {",
+            "            const auto* Offer=SellerMenu->FindOffer(Id);",
+            "            const bool bSingleOnly=(SellerMenu==&GunshopMenu || SellerMenu==&StableTackMenu);",
+            "            if(!Offer||R.Count<1||R.Count>(bSingleOnly?1:99)||!R.TradeItems.IsEmpty())",
+            "            {Reason=SellerMenu->InvalidOffer;return false;}",
+            "            Item=Profile->CreateItem(Offer->Definition,R.Count);",
+            "            UnitPrice=Offer->Price(Item);",
+            "        }",
+            "        else",
+            "        {",
+            "            if(Id!=TEXT(\"bread\")&&Id!=TEXT(\"baguette_bread\")&&Id!=TEXT(\"mineral_water\")&&Id!=TEXT(\"soda_can\"))return false;",
+            "            if(R.Count<1||R.Count>99)return false;",
+            "            Item=Profile->CreateItem(Id,R.Count);",
+            "            UnitPrice=ShopUnitPrice(Item);",
+            "        }",
+            "        Debit=UnitPrice*R.Count;",
+            "        if(!Debit){Reason=TEXT(\"商品售价无效\");return false;}"
+          ]
+        },
+        {
+          "orig_range": [
+            254,
+            254
+          ],
+          "local_range": [
+            646,
+            650
+          ],
+          "lines": [
+            "    const bool Saved=(ArtisanBuy||MenuBuy)&&HostSlot.IsEmpty()&&Profile->GetWorld()->GetNetMode()==NM_Standalone",
+            "        ?Profile->CommitState(MoveTemp(Next)):Profile->CommitCampfireState(MoveTemp(Next),TEXT(\"Inventory\"),HostSlot);",
+            "    if(!Saved){Reason=Profile->ResultMessage();return false;}",
+            "    if(ArtisanBuy)Seller->RestockSoldLot(SoldLot);",
+            "    if(!BoughtHorse.IsEmpty()){Reason=FString::Printf(TEXT(\"%s 已收入马匹栏 · 花费 %lld 灵魂\"),*BoughtHorse,Debit);return true;}"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWarehouseHUD.cpp",
+      "origin_main_blob": "c13052aebe053b7ecb018b91a720c597e2f888f8",
+      "origin_main_sha256": "7e1783bddb5408de4a78eca7912e57849d21841ff48a1ad392674129c8504565",
+      "summary": "R53 解散确认弹窗期间屏蔽仓库快捷键",
+      "matched_hunks": [
+        {
+          "orig_range": [
+            109,
+            108
+          ],
+          "local_range": [
+            169,
+            171
+          ],
+          "lines": [
+            "    if(IsMountReleaseModalOpen())return false;",
+            "    if(bShopOpen&&ShopWidget&&ShopWidget->IsConfirming())return !ShopWidget->ConfirmationContains(Position);",
+            "    if(FSlateApplication::Get().AnyMenusVisible())return false;"
+          ]
+        },
+        {
+          "orig_range": [
+            112,
+            113
+          ],
+          "local_range": [
+            175,
+            178
+          ],
+          "lines": [
+            "        const bool InBag=InventoryPanel&&InventoryPanel->IsVisible()&&InventoryPanel->GetCachedGeometry().IsUnderLocation(Position);",
+            "        const bool InWarehouse=bWarehouseOpen&&WarehouseWidget&&WarehouseWidget->IsVisible()&&WarehouseWidget->GetCachedGeometry().IsUnderLocation(Position);",
+            "        const bool InShop=bShopOpen&&ShopWidget&&ShopWidget->IsVisible()&&ShopWidget->GetCachedGeometry().IsUnderLocation(Position);",
+            "        const bool InMountDetails=(bMountDetailsOpen||MountDrawerMotion>KINDA_SMALL_NUMBER)&&MountDetailsDrawer&&MountDetailsDrawer->IsVisible()&&MountDetailsDrawer->GetCachedGeometry().IsUnderLocation(Position);"
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -116,7 +116,7 @@ float UColdSteelStatusModel::Derived(FName Key) const
     if (Key == TEXT("maxStamina")) return MaxStamina();
     if (Key == TEXT("maxHp")) return ResourceMaximum(Current,false);
     if (Key == TEXT("maxMp")) return ResourceMaximum(Current,true);
-    if (Key == TEXT("hpRegen")) return (1+TributeEffect(TEXT("hpRegenFlat"))+DungeonEffect(TEXT("hpRegenFlat")))*TributeEffect(TEXT("hpRegenPercent"));
+    if (Key == TEXT("hpRegen")) return (1+TributeEffect(TEXT("hpRegenFlat"))+DungeonEffect(TEXT("hpRegenFlat")))*TributeEffect(TEXT("hpRegenPercent"))*(1.+ActiveMountAura().PlayerHealthRegenBonus);
     auto Total=[&](FName Key){return Attribute(Key);};
     const CoreCombatFormula::Attributes A{Total(TEXT("str")),Total(TEXT("dex")),Total(TEXT("intt")),
         Total(TEXT("con")),Total(TEXT("wis")),Total(TEXT("luck"))};
@@ -140,7 +140,7 @@ float UColdSteelStatusModel::Derived(FName Key) const
     if (Key == TEXT("critRes")) return S.CritRes+CoreCombatFormula::Round(EquipmentBonus(Key));
     if (Key == TEXT("crit")) return AdjustCombatStat(Key,S.Crit+CoreCombatFormula::Round(EquipmentBonus(Key)))+ColdSteelMelee::EquippedModifiers(this).CriticalChanceAdd;
     if (Key == TEXT("speed")) return std::floor(S.Speed*CombatMoveMultiplier());
-    if (Key == TEXT("mpRegen")) return Resources.MpRegen*TributeEffect(TEXT("mpRegenPercent"))*(1+DungeonEffect(TEXT("mpRegenPercent"))/100.);
+    if (Key == TEXT("mpRegen")) return Resources.MpRegen*TributeEffect(TEXT("mpRegenPercent"))*(1+DungeonEffect(TEXT("mpRegenPercent"))/100.)*(1.+ActiveMountAura().PlayerManaRegenBonus);
     if (Key == TEXT("aspd")) return S.AttackSpeed*(1.+EquipmentBonus(TEXT("meleeAttackSpeed")))*BerserkAttackSpeedMultiplier()*MagicInspirationAttackSpeedMultiplier()*(Jingang?Jingang->AttackSpeedMultiplier():1.f);
     if (Key == TEXT("staminaRegen")) return Resources.StaminaRegen*SetEffect(Key)*TributeEffect(TEXT("staminaRegenPercent"))*(1+DungeonEffect(TEXT("staminaRegenPercent"))/100.);
     return 0;

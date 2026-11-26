@@ -7,11 +7,19 @@
 using namespace ColdSteelInventory;
 int32 UColdSteelStatusModel::OpenStorageCapacity() const
 {
+    if(bMountBagOpen && !bWarehouseOpen)return CachedMountBagCapacity;
+    FGuid MountId;
+    if(StableHorseAffixes::TryParseBagContainer(ActiveContainer,MountId))
+    {
+        const auto* Horse=Current.MountRoster.Find(MountId);
+        return Horse?Horse->BagRows()*ColdSteelWarehouse::Columns:0;
+    }
     return ActiveContainer.IsEmpty()?WarehouseCapacity()
         :FMath::Max(1,Current.StoragePages.FindRef(ActiveContainer))*ColdSteelWarehouse::CellsPerPage;
 }
 void UColdSteelStatusModel::BeginStorageSession(const FString& ContainerKey,int32 Pages,const FString& Caption)
 {
+    bMountBagOpen=false;CachedMountBagCapacity=0;
     // 首次打开登记容量；之后只增不减（档位调整不会让箱内既有格位越界）。
     if(!ContainerKey.IsEmpty()&&Pages>0){auto P=Snapshot();int32& Stored=P.StoragePages.FindOrAdd(ContainerKey);if(Stored<Pages){Stored=Pages;CommitState(P);}}
     ActiveContainer=ContainerKey;ActiveStorageCaption=Caption;WarehousePage=0;
@@ -19,7 +27,29 @@ void UColdSteelStatusModel::BeginStorageSession(const FString& ContainerKey,int3
 void UColdSteelStatusModel::EndStorageSession()
 {
     if(HasNetworkContainerView()){auto State=Snapshot();StripNetworkContainerView(State);AdoptNetMirror(State);NetworkContainerAnchor.Reset();}
-    ActiveContainer.Empty();ActiveStorageCaption.Empty();WarehousePage=0;
+    ActiveContainer.Empty();ActiveStorageCaption.Empty();WarehousePage=0;bMountBagOpen=false;CachedMountBagCapacity=0;
+}
+void UColdSteelStatusModel::BeginMountBagSession(FGuid HorseId,const FString& HorseName)
+{
+    if(!HorseId.IsValid()||bWarehouseOpen)return;
+    ActiveContainer=StableHorseAffixes::BagContainerKey(HorseId);
+    ActiveStorageCaption=HorseName.IsEmpty()?TEXT("马匹背包"):(HorseName+TEXT("的背包"));
+    const auto* Horse=Current.MountRoster.Find(HorseId);
+    CachedMountBagCapacity=Horse?Horse->BagRows()*ColdSteelWarehouse::Columns:0;
+    WarehousePage=0;
+    bMountBagOpen=true;
+}
+void UColdSteelStatusModel::EndMountBagSession()
+{
+    if(!bMountBagOpen)return;
+    bMountBagOpen=false;
+    CachedMountBagCapacity=0;
+    if(!bWarehouseOpen)
+    {
+        ActiveContainer.Empty();
+        ActiveStorageCaption.Empty();
+        WarehousePage=0;
+    }
 }
 FColdSteelProposal UColdSteelStatusModel::ProposeWarehouse(const FString& Id,int32 Place,int32 Cell,int32 Orientation) const
 {
@@ -217,11 +247,14 @@ int64 UColdSteelStatusModel::WarehouseRemainingCapacity(const FColdSteelItem& It
     if(AmmoType(Item.Definition))return ColdSteelAmmo::MaxCount-PouchCount(Item.Definition);
     if(Item.Definition.IsEmpty()||Item.StackMax<1||Item.StackMax>9007199254740991ll)return 0;
     if(Item.Width<1||Item.Width>18||Item.Height<1||Item.Height>ColdSteelWarehouse::Rows)return 0;
-    int64 Total=0;const int32 Cap=OpenStorageCapacity();TArray<uint32> Occupied;Occupied.Init(0,Cap/18);
+    int64 Total=0;const int32 Cap=OpenStorageCapacity();
+    const int32 MaxPageRows=ColdSteelWarehouse::PageRows(Cap);
+    if(MaxPageRows<1)return 0;
+    TArray<uint32> Occupied;Occupied.Init(0,Cap/18);
     auto Add=[&](int64 N){Total+=FMath::Min(N,MAX_int64-Total);};
     for(const auto& I:Items())if(InOpenStorage(I)){if(Compatible(I,Item))Add(FMath::Max<int64>(0,I.StackMax-I.Count));for(int32 Y=0;Y<I.Height;++Y)Occupied[I.Cell/18+Y]|=((1u<<I.Width)-1)<<(I.Cell%18);}
     for(int32 C=0;C<Cap;++C){
-        if(C%18+Item.Width>18||(C%ColdSteelWarehouse::CellsPerPage)/18+Item.Height>ColdSteelWarehouse::Rows)continue;
+        if(C%18+Item.Width>18||(C%ColdSteelWarehouse::CellsPerPage)/18+Item.Height>MaxPageRows)continue;
         const uint32 Mask=((1u<<Item.Width)-1)<<(C%18);bool Free=true;
         for(int32 Y=0;Y<Item.Height;++Y)if(Occupied[C/18+Y]&Mask){Free=false;break;}
         if(Free){Add(Item.StackMax);for(int32 Y=0;Y<Item.Height;++Y)Occupied[C/18+Y]|=Mask;}

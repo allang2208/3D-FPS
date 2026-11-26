@@ -108,9 +108,12 @@ void FFPSBodyGrounding::Update(USkeletalMeshComponent& Mesh,const UFPSPlayerBody
                 if(ToeHit)RobeSupports.Add(Toe);
                 if(HeelHit)RobeSupports.Add(Heel);
             }
-            if(ToeHit&&HeelHit&&Toe.GetComponent()==Center.GetComponent()&&Heel.GetComponent()==Center.GetComponent()&&
-                FMath::Abs(Toe.ImpactPoint.Z-Heel.ImpactPoint.Z)<8.f)
+            const float SpanZ=(ToeHit&&HeelHit)?FMath::Abs(Toe.ImpactPoint.Z-Heel.ImpactPoint.Z):0.f;
+            if(ToeHit&&HeelHit&&Toe.GetComponent()==Center.GetComponent()&&Heel.GetComponent()==Center.GetComponent()&&SpanZ<8.f)
                 Normal=(Normal+Toe.ImpactNormal+Heel.ImpactNormal).GetSafeNormal();
+            else if(ToeHit&&HeelHit&&SpanZ>=8.f)
+                // Straddling a stair tread lip: keep sole level instead of adopting a beveled riser normal.
+                Normal=FVector::UpVector;
             auto* Surface=Center.GetComponent();
             if(C.Surface.Get()!=Surface)C.bPlanted=false;
             C.Surface=Surface;const FTransform SurfaceFrame=Surface->GetComponentTransform();
@@ -166,10 +169,34 @@ void FFPSBodyGrounding::Update(USkeletalMeshComponent& Mesh,const UFPSPlayerBody
         const float Z=Clamped.Z>Pose.FootOffset[I].Z?Clamped.Z:FMath::FInterpTo(float(Pose.FootOffset[I].Z),float(Clamped.Z),Delta,18.f);
         Pose.FootOffset[I]=FMath::VInterpTo(Pose.FootOffset[I],Clamped,Delta,22.f);Pose.FootOffset[I].Z=Z;
         Normal=Frame.InverseTransformVectorNoScale(Normal).GetSafeNormal();
-        FQuat Tilt=FQuat::FindBetweenNormals(FVector::UpVector,Normal);
-        const float Angle=Tilt.GetAngle();if(Angle>FMath::DegreesToRadians(35.f))Tilt=FQuat::Slerp(FQuat::Identity,Tilt,FMath::DegreesToRadians(35.f)/Angle);
+        // Suppress micro-bump normal jitter (< 5 deg), cap lateral ankle roll (<= 16 deg vs pitch <= 30 deg),
+        // and fade foot tilt out while the foot swings airborne so boots do not rock over terrain triangles.
+        const float TiltAlpha=1.f-FMath::SmoothStep(4.f,12.f,Lift);
+        FQuat Tilt=FQuat::Identity;
+        if(Normal.Z>.25f && TiltAlpha>.001f)
+        {
+            auto ShapeFootAngle=[](double Rad,double DeadDeg,double FullDeg,double MaxDeg)
+            {
+                const double Abs=FMath::Abs(Rad);
+                const double Dead=FMath::DegreesToRadians(DeadDeg), Full=FMath::DegreesToRadians(FullDeg);
+                if(Abs<=Dead)return 0.;
+                const double T=FMath::Clamp((Abs-Dead)/FMath::Max(Full-Dead,1e-4),0.,1.);
+                const double Shaped=Abs*(T*T*(3.-2.*T));
+                return FMath::Sign(Rad)*FMath::Min(Shaped,FMath::DegreesToRadians(MaxDeg));
+            };
+            // Mesh space faces +Y (forward) with +X to the right.
+            const double FootPitch=ShapeFootAngle(FMath::Atan2(Normal.Y,Normal.Z),5.,14.,30.);
+            const double FootRoll=ShapeFootAngle(FMath::Atan2(Normal.X,Normal.Z),5.,14.,16.);
+            const FVector ShapedN=FVector(FMath::Tan(FootRoll),FMath::Tan(FootPitch),1.).GetSafeNormal();
+            Tilt=FQuat::Slerp(FQuat::Identity,FQuat::FindBetweenNormals(FVector::UpVector,ShapedN),TiltAlpha).GetNormalized();
+        }
         Pose.FootTilt[I]=FQuat::Slerp(Pose.FootTilt[I],Tilt,FMath::Clamp(Delta*16.f,0.f,1.f)).GetNormalized();
-        Pelvis=FMath::Min(Pelvis,float(Pose.FootOffset[I].Z)*Pose.Weight[I]);
+        // Only feet near stance drive pelvis drop: an airborne swinging foot passing over a lower
+        // stair tread or ground dip must not yank the whole pelvis downward.
+        const float StanceWeight=Anim.Speed<15.f?(Pose.TurnLift[I]<.5f?1.f:0.f):(1.f-FMath::SmoothStep(5.f,14.f,Lift));
+        Pelvis=FMath::Min(Pelvis,float(Pose.FootOffset[I].Z)*Pose.Weight[I]*StanceWeight);
     }
+    if(Anim.Speed>=15.f)
+        Pelvis=Pelvis>-2.f?0.f:Pelvis+2.f;
     Pose.PelvisZ=FMath::FInterpTo(Pose.PelvisZ,FMath::Clamp(Pelvis,-Step*.85f,0.f),Delta,18.f);
 }

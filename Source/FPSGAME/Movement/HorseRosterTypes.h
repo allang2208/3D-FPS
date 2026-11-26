@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "StableHorseTraits.h"
+#include "StableHorseAffixes.h"
 #include "../UI/ColdSteelItemInstance.h"
 #include "HorseRosterTypes.generated.h"
 
@@ -24,13 +25,17 @@ struct FStableMountRecord
     UPROPERTY() int32 Level=1;
     UPROPERTY() int64 Experience=0;
     FStableHorseTraits Traits() const { return FStableHorseTraits::FromId(HorseId,BirthVersion,Level); }
+    FStableHorseAffixBonuses AffixBonuses() const { return StableHorseAffixes::Bonuses(HorseId); }
+    int32 BagRows() const { return StableHorseAffixes::BagRowsForHorse(HorseId); }
+    FString BagContainerKey() const { return StableHorseAffixes::BagContainerKey(HorseId); }
     int32 BirthPrice() const
     {
         const auto Base=FStableHorseTraits::FromId(HorseId,BirthVersion);
-        if(BirthVersion)return Base.MarketPrice(FStableHorseTraits::Growth(HorseId));
+        const auto Affix=StableHorseAffixes::Bonuses(HorseId);
+        if(BirthVersion)return FMath::Max(400,Base.MarketPrice(FStableHorseTraits::EffectiveGrowth(HorseId))+Affix.PriceDelta);
         // The old price is only shown on a lot already bought before the update.
-        return 1000+30*FMath::RoundToInt(Base.Strength+Base.Agility+Base.Intelligence+
-            Base.Constitution+Base.Spirit+Base.Luck-36.f);
+        return FMath::Max(400,1000+30*FMath::RoundToInt(Base.Strength+Base.Agility+Base.Intelligence+
+            Base.Constitution+Base.Spirit+Base.Luck-36.f)+Affix.PriceDelta);
     }
     static int64 ExperienceNeeded(int32 L) { return (20ll+20ll*L+12ll*L*L)*8; }
     bool GainExperience(int64 Amount)
@@ -51,13 +56,31 @@ struct FStableMountRecord
     {
         return FStableHorseTraits::Name(HorseId,BirthVersion);
     }
+    uint8 EquippedTackBitmask() const
+    {
+        uint8 Mask=0;
+        for(const auto& Item:Equipment)
+        {
+            if(Item.Definition==TEXT("stable_horseshoes"))Mask|=1u<<0;
+            else if(Item.Definition==TEXT("stable_saddle"))Mask|=1u<<1;
+            else if(Item.Definition==TEXT("stable_barding"))Mask|=1u<<2;
+            else if(Item.Definition==TEXT("stable_saddlebags"))Mask|=1u<<3;
+        }
+        return Mask;
+    }
     bool ApplyBirthLimits()
     {
         const auto Rated=Traits();
-        if(MaxHealth==Rated.HealthLimit() && MaxStamina==Rated.StaminaLimit())return false;
-        Health=Rated.HealthLimit()*FMath::Clamp(Health/FMath::Max(1.f,MaxHealth),0.f,1.f);
-        Stamina=Rated.StaminaLimit()*FMath::Clamp(Stamina/FMath::Max(1.f,MaxStamina),0.f,1.f);
-        MaxHealth=Rated.HealthLimit();MaxStamina=Rated.StaminaLimit();
+        const auto Affix=StableHorseAffixes::Bonuses(HorseId);
+        const uint8 Mask=EquippedTackBitmask();
+        const float TargetMaxHealth=Rated.HealthLimit()*Affix.HealthMultiplier+((Mask&(1u<<2))?150.f:0.f);
+        const float TargetMaxStamina=Rated.StaminaLimit()*Affix.StaminaMultiplier+((Mask&(1u<<1))?60.f:0.f)+((Mask&(1u<<3))?40.f:0.f);
+        if(FMath::IsNearlyEqual(MaxHealth,TargetMaxHealth) && FMath::IsNearlyEqual(MaxStamina,TargetMaxStamina))return false;
+        const float PrevHealth=Health;
+        Health=TargetMaxHealth*FMath::Clamp(Health/FMath::Max(1.f,MaxHealth),0.f,1.f);
+        if(PrevHealth>0.f && Health<1.f)Health=1.f;
+        Stamina=TargetMaxStamina*FMath::Clamp(Stamina/FMath::Max(1.f,MaxStamina),0.f,1.f);
+        MaxHealth=TargetMaxHealth;MaxStamina=TargetMaxStamina;
         return true;
     }
     bool Cooling(int64 Now) const {return RecallAfterUtc>Now;}

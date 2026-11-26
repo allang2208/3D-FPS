@@ -48,6 +48,7 @@ public:
     void OpenItemMenu(FVector2D Anchor,bool SplitOnly=false);
     FString Selection()const{return Selected;}
     void ConfigureWarehouse(class UColdSteelHUDWidget* Owner);
+    void ConfigureMountBag(class UColdSteelHUDWidget* Owner,int32 Rows);
     void ResetStoragePage();
     /** Re-evaluates this board's drop highlight after the drag orientation changed. */
     void RefreshDragPreview(class UColdSteelItemDrag& Drag);
@@ -82,6 +83,8 @@ private:
     friend class UColdSteelWarehouseWidget;
     friend class UColdSteelInventoryVisualAudit;
     bool bWarehouse=false;
+    bool bMountBag=false;
+    int32 MountBagRows=0;
     TWeakObjectPtr<class UColdSteelHUDWidget> StorageHUD;
     int32 StoragePlace()const{return bWarehouse?4:0;}
     int32 StorageStart()const;

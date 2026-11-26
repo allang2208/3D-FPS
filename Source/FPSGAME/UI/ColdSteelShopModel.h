@@ -37,7 +37,9 @@ public:
     bool BeginTavernSession(AVillageTavernKeeper* Seller);
     bool BeginHerbalistSession(AVillageHerbalist* Seller);
     bool BeginStableSession(AActor* Seller);
+    bool BeginStableTackSession(AActor* Seller);
     bool IsStableShop() const;
+    bool IsStableTackShop() const;
     bool BuyHorse(FGuid Id);
     const TArray<FStableHorseOffer>& HorseOffers() const { return StableOffers; }
     int32 HorseMarketDay() const { return StableDay; }
@@ -70,7 +72,7 @@ public:
     FColdSteelShopChanged OnChanged;
 private:
     bool OpenProfile();
-    bool BeginMenuSession(AActor* Seller);
+    bool BeginMenuSession(AActor* Seller, const FColdSteelResidentMenu* OverrideMenu = nullptr);
     bool SellerHasLeft() const;
     void RefreshArtisanStock();
     bool RefreshHorseOffers();

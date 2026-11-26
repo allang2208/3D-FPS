@@ -1,4 +1,6 @@
 #include "ColdSteelPlayerState.h"
+#include "../Movement/StableHorseAffixes.h"
+#include "../UI/ColdSteelWarehouseRules.h"
 #include "../Tasks/BlacksmithApprenticeship.h"
 #include "../Tasks/CarpenterApprenticeship.h"
 #include "ColdSteelMapMarkerSharing.h"
@@ -211,6 +213,26 @@ bool AColdSteelPlayerState::ApplyGuestProfile(const FColdSteelProfile& GuestProf
         const FColdSteelProfile Prev = ShadowModel->Snapshot();
         FColdSteelProfile Adopted = Guest;
         Adopted.MountRoster=Prev.MountRoster;
+        // If a guest upload carries items in a mount.<HorseId> bag whose horse is no longer present in the
+        // server-authoritative MountRoster (e.g., stale client snapshot after a host-side release/roster race),
+        // fall back to the authoritative inventory instead of rejecting the entire profile sync.
+        bool bStaleMountBagUpload=false;
+        if(Adopted.CampfireInventoryRevision==Prev.CampfireInventoryRevision)
+        {
+            for(const auto& Item:Adopted.Items)
+            {
+                FGuid BagMountId;
+                if(Item.Place==ColdSteelWarehouse::Place && StableHorseAffixes::TryParseBagContainer(Item.Container,BagMountId))
+                {
+                    const auto* Horse=Adopted.MountRoster.Find(BagMountId);
+                    if(!Horse || Horse->BagRows()<=0)
+                    {
+                        bStaleMountBagUpload=true;
+                        break;
+                    }
+                }
+            }
+        }
         const auto FoodClock=ColdSteelFood::Clock(this);
         ColdSteelFood::RebaseProfile(Adopted,FoodClock);
         Adopted.Health=Prev.Health;
@@ -252,7 +274,7 @@ bool AColdSteelPlayerState::ApplyGuestProfile(const FColdSteelProfile& GuestProf
             Adopted.SpellbookFocusManaLoss=Prev.SpellbookFocusManaLoss;Adopted.UppercutStaminaSpent=Prev.UppercutStaminaSpent;
             Adopted.OathStaminaRestored=Prev.OathStaminaRestored;
         }
-        if(Adopted.CampfireInventoryRevision!=Prev.CampfireInventoryRevision)
+        if(Adopted.CampfireInventoryRevision!=Prev.CampfireInventoryRevision || bStaleMountBagUpload)
         {
             // A profile sent before a host-committed wall repair still contains
             // the pre-purchase balance. Replaying it must not refund the fee.

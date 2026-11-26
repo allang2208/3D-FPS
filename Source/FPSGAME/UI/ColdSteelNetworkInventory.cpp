@@ -1,5 +1,6 @@
 #include "ColdSteelStatusModel.h"
 #include "../Movement/StableHorseGear.h"
+#include "../Movement/StableHorseAffixes.h"
 #include "ColdSteelCurrency.h"
 #include "GameFramework/GameStateBase.h"
 #include "../Multiplayer/ColdSteelInventoryRequestTypes.h"
@@ -83,6 +84,12 @@ bool UColdSteelStatusModel::ApplyNetworkInventoryReply(const UColdSteelInventory
         Message=Reason;return false;
     }
     AdoptNetMirror(Next,true);
+    if(bMountBagOpen)
+    {
+        FGuid OpenMountId;
+        if(!StableHorseAffixes::TryParseBagContainer(ActiveContainer,OpenMountId) || !Current.MountRoster.Find(OpenMountId))
+            EndMountBagSession();
+    }
     // Publish immediately; the normal local save policy persists the receipt.
     if(SameLivingPawn)ApplyToPawn();
     OnChanged.Broadcast();

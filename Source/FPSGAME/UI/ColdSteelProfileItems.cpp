@@ -401,9 +401,9 @@ bool UColdSteelStatusModel::DefaultAction(const FString& Id)
     const auto* Found=FindItem(Id);if(!Found)return false;
     if(Found->Place==4)return TransferWarehouse(Id,0);
     const auto I=*Found;
-    // 装备槽：储物/焚化会话打开时按面板文案“存入当前容器”处理；否则自动卸下
+    // 装备槽：储物/焚化/马匹背包会话打开时按面板文案“存入当前容器”处理；否则自动卸下
     // （背包优先，背包满时兜底到夹层）。
-    if((bWarehouseOpen||bIncineratorOpen)&&(I.Place==0||I.Place==1||I.Place==ColdSteelCompartment::Place))return TransferWarehouse(Id,4);
+    if((bWarehouseOpen||bIncineratorOpen||(bMountBagOpen&&OpenStorageCapacity()>0))&&(I.Place==0||I.Place==1||I.Place==ColdSteelCompartment::Place))return TransferWarehouse(Id,4);
     if(I.Place==1)return MoveItem(Id,0,-1);
     // 背包格与装备夹层（Place 5）同语义：右键/双击/Enter/物品菜单都走这里。
     // 夹层来源的穿戴由 ProposeMove 路由到 Compartment::Transfer（目的地 1），

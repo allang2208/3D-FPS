@@ -153,7 +153,11 @@ def author():
     for name,meta in clips.items():
         if name == 'A_Warhorse_Canter' and LIB.does_asset_exist(DEST+'/Animations/'+name):
             existing = LIB.load_asset(DEST+'/Animations/'+name)
-            if LIB.get_metadata_tag(existing, 'StableCanterFit') == 'CoastalGallopR14':
+            if LIB.get_metadata_tag(existing, 'StableCanterFit') in ('CoastalGallopR14', 'BV1bA411o7Kb-AnatomicalR47'):
+                continue
+        if name == 'A_Warhorse_Walk' and LIB.does_asset_exist(DEST+'/Animations/'+name):
+            existing = LIB.load_asset(DEST+'/Animations/'+name)
+            if LIB.get_metadata_tag(existing, 'StableWalkFit') == 'EquineLateralWalkR47':
                 continue
         clip=import_file(ART/(name+'.fbx'),name,DEST+'/Animations',fbx_options(skeleton))
         if not isinstance(clip,ue.AnimSequence) or clip.get_editor_property('skeleton')!=skeleton or clip.get_play_length()<=0:

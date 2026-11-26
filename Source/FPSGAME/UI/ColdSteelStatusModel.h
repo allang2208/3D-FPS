@@ -3,6 +3,7 @@ struct FKukriPairedHeavyHit;
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "ColdSteelInventoryTypes.h"
+#include "../Movement/StableHorseAffixes.h"
 #include "ColdSteelWarehouseRules.h"
 #include "ColdSteelAmmoTypes.h"
 #include "ColdSteelAcquisitionNotice.h"
@@ -520,9 +521,13 @@ public:
     int32 OpenStorageCapacity() const;
     void BeginStorageSession(const FString& ContainerKey,int32 Pages,const FString& Caption);
     void EndStorageSession();
+    void BeginMountBagSession(FGuid HorseId,const FString& HorseName);
+    void EndMountBagSession();
     bool InOpenStorage(const FColdSteelItem& Item) const { return Item.Place==ColdSteelWarehouse::Place&&Item.Container==ActiveContainer; }
     int32 WarehousePage = 0;
     bool bWarehouseOpen = false;
+    bool bMountBagOpen = false;
+    int32 CachedMountBagCapacity = 0;
     bool bIncineratorOpen = false;
     bool SaveNow();
     bool ReloadProfile();
@@ -614,6 +619,9 @@ public:
     bool CommitMountRoster(FStableMountRoster Roster);
     bool ChangeMountGear(FGuid HorseId,int32 Slot,const FString& ItemId,bool Equip,FString& Reason);
     bool GiveMountPotion(FGuid HorseId,const FString& ItemId,FString& Reason);
+    bool ReleaseMount(FGuid HorseId,FString& Reason);
+    int32 CountMountBagItems(FGuid HorseId) const;
+    FStableHorseAffixBonuses ActiveMountAura() const;
     void StageMountCondition(const FStableMountRecord& Horse);
     void ReceiveMountRoster(FGuid Profile,const FStableMountRoster& Roster);
     bool LearnHolyLightFromTrainer(class AActor* Trainer);

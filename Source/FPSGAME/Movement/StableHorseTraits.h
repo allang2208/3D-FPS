@@ -12,6 +12,7 @@ struct FStableHorseTraits
     static const TCHAR* Name(const FGuid& Id,uint8 BirthVersion);
     static FStableHorseTraits FromId(const FGuid& Id,uint8 BirthVersion,int32 Level=1);
     static FStableHorseTraits Growth(const FGuid& Id);
+    static FStableHorseTraits EffectiveGrowth(const FGuid& Id);
     int32 MarketPrice(const FStableHorseTraits& PerLevel) const;
     float HealthLimit() const { return 300.f+12.f*(Constitution-10); }
     float StaminaLimit() const { return 300.f+8.f*(Constitution-10)+4.f*(Spirit-10); }

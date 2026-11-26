@@ -68,6 +68,8 @@ def ground_clearance(x, y, plan, kit, contacts):
     rect((52.50,-5.45),(3.40,6.24))
     rect((52.50,1.65),(1.5,1.25))
     reserve(np.hypot(x-52.50,y-2.90)-.55)  # shared grading sample for the workshop
+    rect((48.50,-21.00),(4.20,4.20))
+    rect((48.50,-16.10),(2.40,1.30))
     rect((58.73,-6.05),(5.,5.))
     rect((43.,38.),(15.,6.))
     rect((51.5,24.),(6.5,8.))
@@ -246,28 +248,77 @@ def bake(base, donor, contacts_path, out):
         else:
             fc_clear_prop[near] = np.minimum(fc_clear_prop[near], gap_c)
 
-    # Rigid contacts lock full 1.414 m triangle collar; fence edges lock 1.05 m; silky 1.75 m ramp into yard
+    # Rigid contacts lock full 1.414 m triangle collar; fence edges lock 1.05 m; silky 1.45 m ramp into yard
     fc_footing = np.minimum(
-        ramp((fc_clear_prop - math.sqrt(2)) / 1.75),
-        ramp((fc_clear_edge - 1.05) / 1.65),
+        ramp((fc_clear_prop - math.sqrt(2)) / 1.45),
+        ramp((fc_clear_edge - 1.05) / 1.45),
     )
     # Multi-frequency organic earth relief from the same measured Forest DEM + natural court tread swells
     mid = band(1.8, 5.2)
     fc_rng = np.random.default_rng(261148)
-    fc_swell_a = gaussian_filter(fc_rng.standard_normal(old.shape), 2.1)
+    fc_swell_a = gaussian_filter(fc_rng.standard_normal(old.shape), 2.0)
     fc_swell_a = np.tanh(fc_swell_a / max(fc_swell_a.std(), 1e-5))
-    fc_swell_b = gaussian_filter(fc_rng.standard_normal(old.shape), 1.15)
+    fc_swell_b = gaussian_filter(fc_rng.standard_normal(old.shape), 1.05)
     fc_swell_b = np.tanh(fc_swell_b / max(fc_swell_b.std(), 1e-5))
     fc_open = fc_area & (fc_footing > 0.20)
-    fc_raw = 5.5 * mid + 4.8 * short + 6.2 * fc_swell_a + 3.2 * fc_swell_b
+    fc_raw = 5.6 * mid + 5.2 * short + 6.4 * fc_swell_a + 3.6 * fc_swell_b
     if np.any(fc_open):
         fc_raw = fc_raw - np.median(fc_raw[fc_open])
-        fc_scale = np.percentile(np.abs(fc_raw[fc_open]), 80)
-        fc_raw = 11.8 * np.tanh(fc_raw / max(fc_scale, 1.0))
+        fc_scale = np.percentile(np.abs(fc_raw[fc_open]), 78)
+        fc_raw = 12.6 * np.tanh(fc_raw / max(fc_scale, 1.0))
     fc_target = np.where(fc_area, fc_raw * fc_footing, 0.0)
-    fc_target = limit_grade(fc_target, np.full_like(delta, 6.0, dtype=float))
-    # Inside forecourt, drive final surface (old + delta) = fc_target (0 cm at all contacts, gentle undulation inside)
-    delta_final = np.where(fc_area, np.rint(fc_target - old), delta)
+    fc_target = limit_grade(fc_target, np.full_like(delta, 6.5, dtype=float))
+
+    # Stable West Riding Paddock relief (StableRoadPCGR51):
+    # Subtle, organic, riding-friendly micro-heightfield across the open west horse paddock
+    # (X: 9.5..32.8 m, Y: 33.2..46.2 m), locking Stablemaster Cabin, JumpRail, Watering Trough,
+    # WestPaddockGate swing, fences and every solid prop strictly at Z = 0 cm.
+    wp_area = (x >= 9.5) & (x <= 32.8) & (y >= 33.2) & (y <= 46.2)
+    wp_clear_prop = np.full_like(x, 1000., dtype=float)
+    wp_clear_edge = np.full_like(x, 1000., dtype=float)
+    for center, half in (
+        ((16.50, 41.00), (3.85, 3.85)),    # Stablemaster cabin + stone plinth + entrance steps
+        ((24.20, 39.80), (1.05, 2.25)),    # JumpRail hurdle
+        ((30.70, 42.20), (2.25, 2.40)),    # Watering trough & farrier corner
+        ((10.65, 37.95), (1.20, 1.35)),    # WestPaddockGate inward swing apron
+        ((24.60, 34.15), (2.30, 0.95)),    # North paddock HayCrib & hay stack
+    ):
+        np.minimum(wp_clear_prop, box(x, y, center, half), out=wp_clear_prop)
+    wp_fences = [
+        [(9.50, 33.20), (32.80, 33.20)],
+        [(9.50, 46.20), (32.80, 46.20)],
+        [(9.50, 33.20), (9.50, 46.20)],
+        [(32.80, 35.00), (32.80, 44.00)],
+    ]
+    for pts in wp_fences:
+        np.minimum(wp_clear_edge, distance(x, y, pts) - 0.25, out=wp_clear_edge)
+    for left, bottom, right, top, name, instanced in read(contacts_path):
+        if instanced and name.startswith(FC_SOFT):
+            continue
+        if right < 8.5 or left > 33.8 or top < 32.0 or bottom > 47.2:
+            continue
+        near = (x >= left - 6) & (x <= right + 6) & (y >= bottom - 6) & (y <= top + 6)
+        gap_c = np.hypot(np.maximum(np.maximum(left - x[near], x[near] - right), 0.),
+                         np.maximum(np.maximum(bottom - y[near], y[near] - top), 0.))
+        if 'FenceRails' in name or 'Stable_A06' in name or 'GatePier' in name:
+            wp_clear_edge[near] = np.minimum(wp_clear_edge[near], gap_c)
+        else:
+            wp_clear_prop[near] = np.minimum(wp_clear_prop[near], gap_c)
+    wp_footing = np.minimum(
+        ramp((wp_clear_prop - math.sqrt(2)) / 1.45),
+        ramp((wp_clear_edge - 1.05) / 1.45),
+    )
+    wp_open = wp_area & (wp_footing > 0.20)
+    wp_raw = 5.2 * mid + 4.8 * short + 5.8 * fc_swell_a + 3.4 * fc_swell_b
+    if np.any(wp_open):
+        wp_raw = wp_raw - np.median(wp_raw[wp_open])
+        wp_scale = np.percentile(np.abs(wp_raw[wp_open]), 78)
+        wp_raw = 11.2 * np.tanh(wp_raw / max(wp_scale, 1.0))
+    wp_target = np.where(wp_area, wp_raw * wp_footing, 0.0)
+    wp_target = limit_grade(wp_target, np.full_like(delta, 6.0, dtype=float))
+
+    # Inside forecourt & west paddock, drive final surface (old + delta) = subtle organic target (0 cm at all contacts)
+    delta_final = np.where(fc_area, np.rint(fc_target - old), np.where(wp_area, np.rint(wp_target - old), delta))
     if np.max(np.abs(delta_final)) > 127:
         raise ValueError('Village adjustment exceeds int8 range')
     delta = delta_final.astype('int8')
@@ -292,8 +343,11 @@ def bake(base, donor, contacts_path, out):
                 forecourt_knots=int(np.count_nonzero(fc_open)),
                 forecourt_final_cm=[int(fc_final[fc_area].min()), int(fc_final[fc_area].max())],
                 forecourt_p10_p90_cm=np.percentile(fc_final[fc_open], [10, 90]).round(1).tolist() if np.any(fc_open) else [0.0, 0.0],
+                west_paddock_knots=int(np.count_nonzero(wp_open)),
+                west_paddock_final_cm=[int(fc_final[wp_area].min()), int(fc_final[wp_area].max())],
+                west_paddock_p10_p90_cm=np.percentile(fc_final[wp_open], [10, 90]).round(1).tolist() if np.any(wp_open) else [0.0, 0.0],
                 foundation_lock_m=round(math.sqrt(2),3),
-                foundation_blend_m=3.15,forecourt_blend_m=1.75,forecourt_max_grade_cm_m=6.0,source=base.name)
+                foundation_blend_m=3.15,forecourt_blend_m=1.45,forecourt_max_grade_cm_m=6.5,west_paddock_max_grade_cm_m=6.0,source=base.name)
     (out/'generation.json').write_text(json.dumps(result,indent=2),encoding='utf8')
     print(json.dumps(result))
 

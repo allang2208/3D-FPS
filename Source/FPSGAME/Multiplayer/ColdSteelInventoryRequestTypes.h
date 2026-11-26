@@ -35,7 +35,8 @@ enum class EColdSteelInventoryAction : uint8
     Incinerate,
     ArtisanLesson,
     MountPotion,
-    MountGear
+    MountGear,
+    MountRelease
 };
 
 USTRUCT()

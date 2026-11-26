@@ -1,20 +1,116 @@
 #include "StableRidingHorse.h"
+#include "StableHorseGear.h"
 #include "StableHorseClaimSave.h"
 #include "StableHorseAppearance.h"
 #include "StableManeComponent.h"
 #include "StableHorseGroundMesh.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "Engine/SkeletalMesh.h"
 #include "TimerManager.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
 #include "Engine/LevelStreaming.h"
 #include "EngineUtils.h"
 #include "Kismet/GameplayStatics.h"
 
+FStableTackBonuses AStableRidingHorse::TackBonuses() const
+{
+    return StableHorseGear::BonusesFromMask(EquippedTackMask);
+}
+
+float AStableRidingHorse::MountedDamageReduction() const
+{
+    return TackBonuses().MountedDamageReduction;
+}
+
+void AStableRidingHorse::RefreshTackLimits(bool bScaleCurrentVitals)
+{
+    const auto B=TackBonuses();
+    const float OldMaxHealth=FMath::Max(1.f,MaxHealth);
+    const float OldMaxStamina=FMath::Max(1.f,MaxStamina);
+    const float NewMaxHealth=Traits.HealthLimit()*AffixBonuses.HealthMultiplier+B.MaxHealthAdd;
+    const float NewMaxStamina=Traits.StaminaLimit()*AffixBonuses.StaminaMultiplier+B.MaxStaminaAdd;
+    MaxHealth=NewMaxHealth;
+    MaxStamina=NewMaxStamina;
+    if(bScaleCurrentVitals && HasAuthority() && !IsRetreating())
+    {
+        const float PrevHealth=Health;
+        Health=FMath::Clamp(NewMaxHealth*(Health/OldMaxHealth),0.f,NewMaxHealth);
+        if(PrevHealth>0.f && Health<1.f)Health=1.f;
+        Stamina=FMath::Clamp(NewMaxStamina*(Stamina/OldMaxStamina),0.f,NewMaxStamina);
+    }
+}
+
+void AStableRidingHorse::SetEquippedTackMask(uint8 NewMask)
+{
+    if(!HasAuthority())return;
+    const uint8 CleanMask=NewMask&0x0Fu;
+    if(EquippedTackMask==CleanMask)
+    {
+        RefreshTackLimits(false);
+        RefreshTackVisuals();
+        return;
+    }
+    EquippedTackMask=CleanMask;
+    RefreshTackLimits(true);
+    RefreshTackVisuals();
+    ForceNetUpdate();
+}
+
+void AStableRidingHorse::OnRep_EquippedTack()
+{
+    RefreshTackLimits(false);
+    RefreshTackVisuals();
+}
+
+void AStableRidingHorse::RefreshTackVisuals()
+{
+    if(GetNetMode()==NM_DedicatedServer)return;
+    auto* Skin=GetMesh();
+    if(!Skin || !Skin->GetSkeletalMeshAsset())return;
+    const bool bVisibleByFade=LastHorseFade<0.995f;
+    if(TackVisuals.Num()<TackSlotCount)TackVisuals.SetNum(TackSlotCount);
+    for(int32 Slot=0;Slot<TackSlotCount;++Slot)
+    {
+        const bool bEquipped=(EquippedTackMask&(1u<<Slot))!=0;
+        const bool bShow=bEquipped && bVisibleByFade;
+        USkeletalMeshComponent* Comp=TackVisuals[Slot].Get();
+        if(!Comp && bEquipped)
+        {
+            USkeletalMesh* MeshAsset=TackMeshAssets[Slot].Get();
+            if(!MeshAsset)continue;
+            Comp=NewObject<USkeletalMeshComponent>(this,USkeletalMeshComponent::StaticClass(),
+                FName(*FString::Printf(TEXT("HorseTackSkin_%d"),Slot)));
+            Comp->SetSkeletalMeshAsset(MeshAsset);
+            Comp->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+            Comp->SetCollisionResponseToAllChannels(ECR_Ignore);
+            Comp->SetGenerateOverlapEvents(false);
+            Comp->SetCanEverAffectNavigation(false);
+            Comp->SetCastShadow(true);
+            Comp->BoundsScale=1.15f;
+            Comp->RegisterComponent();
+            Comp->AttachToComponent(Skin,FAttachmentTransformRules::SnapToTargetNotIncludingScale);
+            Comp->SetLeaderPoseComponent(Skin,true);
+            Comp->SetCustomPrimitiveDataFloat(0,LastHorseFade);
+            TackVisuals[Slot]=Comp;
+        }
+        if(Comp)
+        {
+            Comp->SetCustomPrimitiveDataFloat(0,LastHorseFade);
+            Comp->SetVisibility(bShow,true);
+            Comp->SetHiddenInGame(!bShow,true);
+        }
+    }
+    AppliedTackVisualMask=EquippedTackMask;
+    SyncCoatMaterialAndFade();
+}
+
 void AStableRidingHorse::OnRep_Individual()
 {
     Traits=FStableHorseTraits::FromId(IndividualId,BirthVersion,HorseLevel);
-    MaxHealth=Traits.HealthLimit();
-    MaxStamina=Traits.StaminaLimit();
+    AffixBonuses=StableHorseAffixes::Bonuses(IndividualId);
+    RefreshTackLimits(false);
     ApplyIndividualAppearance();
+    RefreshTackVisuals();
 }
 
 void AStableRidingHorse::ApplyIndividualAppearance()
@@ -30,7 +126,8 @@ void AStableRidingHorse::ApplyIndividualAppearance()
     {
         Mane->SetHairStyle(uint8(A.Mane));
         A.ApplyPigment(*GetMesh(),*Mane);
-        GetMesh()->SetMaterial(0,bFadeMaterialsApplied?FadedCoatMaterial:CoatMaterial);
+        bFadeMaterialsApplied=false;
+        SyncCoatMaterialAndFade();
     }
     AppliedAppearance=VisualId;
 }

@@ -1,4 +1,5 @@
 #include "ColdSteelPickup.h"
+#include "../Movement/StableHorseGear.h"
 #include "../Items/PotionVisuals.h"
 #include "../Items/CampfireFoodCatalog.h"
 #include "../Items/SpoiledFoodVisuals.h"
@@ -81,12 +82,15 @@ bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
     {
         return BuildStaff(Item);
     }
-    if(ColdSteelInventory::Text(Item,TEXT("category"))==TEXT("equipment")||ColdSteelInventory::Text(Item,TEXT("category"))==TEXT("magic_book"))
+    const FString Category=ColdSteelInventory::Text(Item,TEXT("category"));
+    if(Category==TEXT("equipment")||Category==TEXT("magic_book")||Category==TEXT("horse_equipment"))
     {
-        const FString Path=ColdSteelInventory::Text(Item,TEXT("world_mesh"));
+        FString Path=ColdSteelInventory::Text(Item,TEXT("world_mesh"));
+        if(Path.IsEmpty()&&Category==TEXT("horse_equipment"))Path=StableHorseGear::WorldMesh(Id);
         if(auto* Asset=Path.IsEmpty()?nullptr:LoadObject<UStaticMesh>(nullptr,*Path))
         {
             const auto Bounds=Asset->GetBounds();
+            Mesh->EmptyOverrideMaterials();
             Mesh->SetStaticMesh(Asset);Mesh->SetRelativeScale3D(FVector(1));Mesh->SetRelativeLocation(-Bounds.Origin);
             const FString MaterialPath=ColdSteelInventory::Text(Item,TEXT("world_material"));
             if(!MaterialPath.IsEmpty())if(auto* Material=LoadObject<UMaterialInterface>(nullptr,*MaterialPath))

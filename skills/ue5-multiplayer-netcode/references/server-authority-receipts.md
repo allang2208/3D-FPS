@@ -61,3 +61,10 @@
 ## 排查与交付口径
 
 先按“入口 → 服务端回执 → 服务端复算 → 客户端回执”四层列覆盖项，再分别记录源码阅读、编译和真实联机测试。服务端回执能拒伪报，不等于动作、音效、表现已同步；`未编译、未测试` 要明确写出。多个并行会话共用工作区时，精确暂存本次文件，避免把未验收模块一起发布。
+
+## 确定性坐骑词条、附属容器与解散转移联机契约（R51 / R53 / R53b）
+
+- **零同步载荷的确定性词条与 O(1) 光环缓存**：词条按独立哈希域从永久 `HorseId` 稳定抽取（使用 `TInlineAllocator<4>` 与栈数组实现零堆分配），服务端购马、定价与属性结算全权复算，客户端无需额外复制词条数组也无法伪造；热路径（如 `TickRuntime` 回复与战斗公式）直接读取挂在坐骑 Actor 上的缓存结构 `Horse->Affixes()`，避免每帧重算 PRNG。
+- **权威名册覆盖时的孤儿附属背包保护**：`ApplyGuestProfile` 用服务端 `Prev.MountRoster` 覆盖客机上行名册后，即使 `CampfireInventoryRevision` 相等，也需扫描 `Adopted.Items` 中指向已不存在或 0 排马匹的 `mount.<HorseId>` 物品并安全回退 `Prev.Items`，防止整档校验拒绝导致客机同步锁死。
+- **永久解散原子转移与双端清理**：解散走服务端单次权威事务（`MountRelease`），按「随身背包（含夹层）→ 主仓库 → 共享地面掉落」严格顺序转移背包物品与已装马具；销毁实景坐骑后立即清理 `OwnedHorse`/`LedHorse`/`DismissAfterDismount` 并 `ForceNetUpdate()`；客机收到回执自动结束已失效的 `MountBagSession`，商店回执同步刷新马市货单。
+- **纯本地陈列实体防隐形墙与防跨日闪现**：纯本地不复制的场景陈列马（`SetReplicates(false)`）根胶囊与前后躯辅助胶囊一律忽略 `ECC_Pawn`、在 `ServerUse` 显式拦截交互，且客机须等待 `AFPSWeatherManager::IsWeatherStateReady()` 就绪后再按日生成，配合远距休眠（`115m/95m`）控制渲染与逻辑开销。

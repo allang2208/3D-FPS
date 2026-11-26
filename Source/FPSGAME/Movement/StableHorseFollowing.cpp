@@ -159,6 +159,12 @@ void AStableRidingHorse::SetLeader(AFPSGAMECharacter* NewLeader,bool bParkAfterA
     bNeedsRecall=false;NextFollowFeedback=0.;NoProgressSince=GetWorld()->GetTimeSeconds();
     ProgressLocation=GetActorLocation();
     NextPlanTime=0.;BlockedSeconds=0.f;
+    NextFollowBlockCheck=0.;FollowResumeCheckAt=0.;
+    FollowBlockAnchorLoc=GetActorLocation();
+    FollowPausedPlayerLoc=FVector::ZeroVector;
+    FollowStalledSeconds=0.f;
+    bFollowYieldPaused=false;
+    bFollowBlockedByHorse=false;
     Halt();
     if(bFollowing)
     {
@@ -241,6 +247,41 @@ void AStableRidingHorse::Follow(float Delta,float MovementScale)
     const float StopDist=bParkTarget?HorseFollow::ParkReachRadius:PlayerStopDist;
     const float ResumeDist=bParkTarget?(HorseFollow::ParkReachRadius+24.f):EffectiveStopDistanceTo(PlayerFeet,HorseFollow::ResumeMargin);
     const double Now=GetWorld()->GetTimeSeconds();
+
+    // Yield-paused after a brief retry against a blocking horse (prevents endless walking-in-place).
+    // While paused, zero movement/sweeps/pathing occur; we re-check cheaply at 0.65s (~1.5 Hz).
+    if(bFollowYieldPaused)
+    {
+        Move->StopMovementImmediately();
+        if(Now<FollowResumeCheckAt)return;
+        FollowResumeCheckAt=Now+0.65;
+        const FVector ToGoalDir=(Goal-Feet).GetSafeNormal2D();
+        const bool bPlayerShifted=FVector::DistSquared2D(PlayerFeet,FollowPausedPlayerLoc)>FMath::Square(260.f);
+        const bool bStillBlockedByHorse=!ToGoalDir.IsNearlyZero() && IsBlockedByAnotherHorse(ToGoalDir,false);
+        if(Distance<=StopDist)
+        {
+            bFollowYieldPaused=false;
+            bFollowBlockedByHorse=false;
+            FollowStalledSeconds=0.f;
+            bAtHeel=true;
+            return;
+        }
+        if(!bStillBlockedByHorse || bPlayerShifted)
+        {
+            bFollowYieldPaused=false;
+            bFollowBlockedByHorse=false;
+            FollowStalledSeconds=0.f;
+            BlockedSeconds=0.f;
+            FollowBlockAnchorLoc=Feet;
+            NextFollowBlockCheck=Now+0.25;
+            NextPlanTime=0.;
+        }
+        else
+        {
+            return;
+        }
+    }
+
     const bool GoalMoved=FVector::DistSquared(PlannedGoal,Goal)>FMath::Square(48.f);
     const bool RouteValid=FollowPath.IsValid()&&FollowPath->IsValid();
     const bool Near=Distance<StopDist+36.f;
@@ -316,7 +357,7 @@ void AStableRidingHorse::Follow(float Delta,float MovementScale)
     // Back out of a tight stall when the next corner lies directly behind the horse.
     const bool Reverse=FMath::Abs(Error)>120.f&&FVector::Dist2D(Feet,Waypoint)<280.f;
     const float Aim=Reverse?FMath::UnwindDegrees(Error+180.f):Error;
-    const float TurnStep=105.f*Traits.TurnScale()*Delta*MovementScale;
+    const float TurnStep=105.f*Traits.TurnScale()*AffixBonuses.TurnMultiplier*Delta*MovementScale;
     const float Turn=FMath::Clamp(Aim,-TurnStep,TurnStep);
     const FRotator Facing(0,Heading+Turn,0);
     const bool CanTurn=FMath::Abs(Turn)<.05f||ClearBody(FVector::ZeroVector,Facing);
@@ -324,8 +365,48 @@ void AStableRidingHorse::Follow(float Delta,float MovementScale)
     const float CatchUp=FMath::Clamp(float(Leader->GetVelocity().Size2D())+100.f,520.f,860.f);
     const float Cruise=FMath::Lerp(225.f,CatchUp,FMath::SmoothStep(StopDist+90.f,StopDist+480.f,Distance));
     const float ApproachCap=FMath::Max(85.f,(Distance-StopDist+24.f)*1.6f);
-    Move->MaxWalkSpeed=(Reverse?125.f:FMath::Min(bExhausted?220.f:Cruise,ApproachCap))*Traits.SpeedScale()*MovementScale;
+    const float DesiredSpeed=Reverse?125.f:FMath::Min(bExhausted?220.f:Cruise,ApproachCap);
+    const float AffixSpeed=AffixBonuses.BaseMoveMultiplier*(DesiredSpeed>325.f?AffixBonuses.CanterSpeedMultiplier:1.f);
+    Move->MaxWalkSpeed=DesiredSpeed*Traits.SpeedScale()*AffixSpeed*MovementScale;
     const FVector Advance=GetActorForwardVector()*(Reverse?-1.f:1.f);
+
+    // Performance-friendly 0.25s (4 Hz) horse-block & real-displacement stall guard:
+    // allows a brief retry (~1.25s when blocked by another horse), then cleanly stops moving
+    // instead of pushing / stepping in place ("原地踏步").
+    if(Now>=NextFollowBlockCheck)
+    {
+        NextFollowBlockCheck=Now+0.25;
+        const bool bHorseAhead=IsBlockedByAnotherHorse(Advance,false);
+        const bool bMadeProgress=FVector::DistSquared2D(Feet,FollowBlockAnchorLoc)>=FMath::Square(14.f);
+        if(bMadeProgress && !bHorseAhead)
+        {
+            FollowBlockAnchorLoc=Feet;
+            FollowStalledSeconds=0.f;
+            bFollowBlockedByHorse=false;
+        }
+        else if(bHorseAhead || (!bMadeProgress && (BlockedSeconds>0.2f || FMath::Abs(Aim)<56.f)))
+        {
+            FollowStalledSeconds+=0.25f;
+            bFollowBlockedByHorse=bFollowBlockedByHorse || bHorseAhead;
+        }
+        const float GiveUpSeconds=bFollowBlockedByHorse ? 1.25f : 2.25f;
+        if(FollowStalledSeconds>=GiveUpSeconds && (bFollowBlockedByHorse || Distance<750.f))
+        {
+            Move->StopMovementImmediately();
+            if(bRecallParking && PlayerDistance<=650.f)
+            {
+                // Blocked by another horse near the player during summon arrival -> park cleanly right here.
+                SetLeader(nullptr);
+                return;
+            }
+            bFollowYieldPaused=true;
+            FollowPausedPlayerLoc=PlayerFeet;
+            FollowResumeCheckAt=Now+0.65;
+            BlockedSeconds=0.f;
+            return;
+        }
+    }
+
     // Never step deeper inside the player's directional safety envelope between replans.
     const FVector NextFeet=Feet+Advance*Move->MaxWalkSpeed*Delta;
     if(!Reverse && PlayerDistance<=PlayerStopDist && FVector::Dist2D(NextFeet,PlayerFeet)<PlayerDistance)
@@ -343,8 +424,8 @@ void AStableRidingHorse::Follow(float Delta,float MovementScale)
     {
         Move->StopMovementImmediately();
         if(!CanTurn||FMath::Abs(Aim)<56.f)BlockedSeconds+=Delta;
-        // Give the shoulders turning room when the nav corner hugs a jamb.
-        if(!CanTurn&&BlockedSeconds>.18f&&ClearBody(-Advance*FMath::Max(8.f,90.f*Delta),GetActorRotation()))
+        // Give the shoulders turning room when the nav corner hugs a jamb (skip reverse jitter when blocked by a horse).
+        if(!CanTurn&&!bFollowBlockedByHorse&&BlockedSeconds>.18f&&ClearBody(-Advance*FMath::Max(8.f,90.f*Delta),GetActorRotation()))
         {Move->MaxWalkSpeed=90.f*MovementScale;AddMovementInput(-Advance,1.f,true);}
     }
 }
