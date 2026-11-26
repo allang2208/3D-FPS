@@ -1,0 +1,67 @@
+// Exposed rock is graded in the metre DEM; only transition pixels can be broken by the scanned height.
+#if (PIXELSHADER || COMPUTESHADER) && !RAYHITGROUPSHADER
+float2 rockXY=P.xy*.01;
+float3 rockP=P*.01;
+float3 rockDx=ddx(rockP),rockDy=ddy(rockP);
+float2 rockOrigin=float2(-624.,-320.);
+[branch] if(exposure>.002)
+{
+    // Four shared anchors form a tetrahedron in world space. Vertical metres count as
+    // well as horizontal ones, so a tall cut cannot repeat the same strip up its face.
+    float pitchGrid=3.15;
+    float3 lattice=float3(.8660254*rockXY.x+.5*rockXY.y,-.5*rockXY.x+.8660254*rockXY.y,rockP.z)/pitchGrid;
+    lattice.z+=.21*lattice.x-.14*lattice.y;
+    float3 cell=floor(lattice),f=frac(lattice);
+    float3 first=f.x>=f.y && f.x>=f.z?float3(1,0,0):f.y>=f.z?float3(0,1,0):float3(0,0,1);
+    float3 last=f.z<=f.x && f.z<=f.y?float3(0,0,1):f.y<=f.x?float3(0,1,0):float3(1,0,0);
+    float3 second=1.-last,middle=second-first;
+    float hi=dot(first,f),mid=dot(middle,f),lo=dot(last,f);
+    float4 bary=float4(1.-hi,hi-mid,mid-lo,lo);
+    float wet=saturate(Wet);float fine=1.-smoothstep(2800.,7800.,distance(CliffEye,P));
+    float3 rgb=0.;float2 grad=0.;float hsum=0.,rsum=0.,mass=0.;
+    [unroll] for(int j=0;j<4;j++)
+    {
+        float w=bary[j]*bary[j];
+        [branch] if(w>.00012)
+        {
+            float3 key=cell+(j==0?float3(0,0,0):j==1?first:j==2?second:float3(1,1,1));
+            float3 h=frac(key*float3(.1031,.1073,.0973));
+            h+=dot(h,h.yzx+33.33);float3 seed=frac((h.xxy+h.yzz)*h.zyx);
+            float2 centre=float2(.8660254*key.x-.5*key.y,.5*key.x+.8660254*key.y)*pitchGrid;
+            float anchorZ=(key.z-.21*key.x+.14*key.y)*pitchGrid;
+            float2 nxy=Texture2DSampleLevel(CliffField,GetMaterialSharedSampler(CliffFieldSampler,Material.Clamp_WorldGroupSettings),(centre-rockOrigin)/1024.,1.).gb*2.-1.;
+            float3 n=normalize(float3(nxy,sqrt(max(.001,1.-dot(nxy,nxy)))));
+            float3 strike=dot(nxy,nxy)>.003?normalize(float3(-n.y,n.x,0.)):float3(1,0,0);
+            float3 dip=normalize(cross(n,strike));
+            // Limited variation in bedding angle keeps layers legible across an entire face.
+            float sn,cs;sincos((seed.x-.5)*.48,sn,cs);
+            float3 ax=(strike*cs+dip*sn)*(seed.z>.5?1.:-1.);
+            float3 ay=dip*cs-strike*sn;
+            float pitch=lerp(1.85,3.05,seed.y);
+            float3 rel=rockP-float3(centre,anchorZ);
+            float2 uv=float2(dot(rel,ax),dot(rel,ay))/pitch+seed.zx*5.7;
+            float2 dx=float2(dot(rockDx,ax),dot(rockDx,ay))/pitch;
+            float2 dy=float2(dot(rockDy,ax),dot(rockDy,ay))/pitch;
+            float3 data=Texture2DSampleGrad(CliffData,GetMaterialSharedSampler(CliffDataSampler,Material.Wrap_WorldGroupSettings),uv,dx,dy).rgb;
+            w*=lerp(.48,1.54,data.b);
+            float3 col=Texture2DSampleGrad(CliffColor,GetMaterialSharedSampler(CliffColorSampler,Material.Wrap_WorldGroupSettings),uv,dx,dy).rgb;
+            rgb+=w*col*lerp(.91,1.06,seed.y)*lerp(.83,1.,data.r);
+            [branch] if(fine>.005)
+            {
+                float3 micro=UnpackNormalMap(Texture2DSampleGrad(CliffNormal,GetMaterialSharedSampler(CliffNormalSampler,Material.Wrap_WorldGroupSettings),uv,dx,dy));
+#if PIXELSHADER
+                grad+=w*TransformWorldVectorToTangent(Parameters.TangentToWorld,ax*micro.x-ay*micro.y).xy;
+#endif
+            }
+            mass+=w;hsum+=w*data.b;rsum+=w*data.g;
+        }
+    }
+    float inv=rcp(max(.0001,mass));
+    float rock=smoothstep(.015,.985,exposure+(hsum*inv-.49)*1.8*exposure*(1.-exposure));
+    float3 rockN=normalize(float3(grad*inv*.88*fine,1.));
+    GroundColor=lerp(GroundColor,rgb*inv*lerp(1.,.76,wet),rock);
+    MeadowNormal=normalize(lerp(MeadowNormal,rockN,rock));
+    LitterRoughness=lerp(LitterRoughness,lerp(clamp(rsum*inv,.48,.95),.41,wet),rock);
+}
+#endif
+return GroundColor;

@@ -1,0 +1,7 @@
+{
+  "version": "HillsQuarryRoad-R16",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+  "before_sha256_lf": "7ffd9ebc8110cbfdb6bb4a4c80c1c58ee3268adf458cf4b4271aa0f4aaf047c4",
+  "after_sha256_lf": "43ed89f6943604182927fe35558a7c7c359f7aed2ddbc698f107de3e562ae830",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h\n@@ -281,6 +281,7 @@\n     FVector GetGenerationAnchor() const;\n #if WITH_EDITOR\n     bool BakeFixedLayout();\n+    bool ExportQuarrySurvey(const FString& Directory);\n     bool BakeFixedQuarryDressing(uint32 LayoutChecksum);\n #endif\n     bool PrepareSpawnGround(AController* Controller);\n"
+}

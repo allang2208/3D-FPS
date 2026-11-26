@@ -1,0 +1,7 @@
+{
+  "version": "ForestAudit-R37",
+  "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h",
+  "before_sha256_lf": "fedc82116fcdc14812ff7bae3e8d05d3d591bc7835d66619d7a6b88af5b9bf2d",
+  "after_sha256_lf": "58e5e54bcab970a0066f76e92c04850168f958f5e9a419d8e2608a03e6b57241",
+  "patch": "--- a/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h\n+++ b/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h\n@@ -116,6 +116,7 @@\n     static void CopyHarvest(const FColdSteelProfile& From,FColdSteelProfile& To);\n     void ApplyHarvestMirror(const FColdSteelProfile& State,const TArray<FColdSteelHarvestRemoval>& Removals);\n     void AdvanceHarvest(float Delta);\n+    void ApplyForestGrowthDay(double Day);\n     bool RestoreBuilding(class AVoxelBuildWorld* World);\n     bool CompleteBuildingCommit(class AVoxelBuildWorld* World);\n     // Independent campfire commits must not race an older full-building redo.\n"
+}

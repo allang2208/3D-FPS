@@ -1,0 +1,7 @@
+{
+  "version": "MeadowReach-R24",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+  "before_sha256_lf": "c11d047c77e2217672efce1f719424e0a1f1b7d1ca45cb02d083a4f17cd71204",
+  "after_sha256_lf": "23da2f39e7cf3a6e90f90ca8fb37bda5a00f269a67601cfe5e5e8efaafca5803",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h\n@@ -372,6 +372,8 @@\n     bool FindNearestIronOutcrop(const FVector2D& From,TemperateIronOutcrops::FSearch& Search,FVector& OutPoint,uint64& OutRock) const;\n     void GetHarvestedStumps(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const;\n     void GetRegrowingTrees(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const;\n+    // Fits legacy and new saved offsets against the actual forest-village surface.\n+    bool ForestSaplingPlacement(uint64 CandidateId,FVector2D& Offset,FVector2D Stump,FTemperatePlacement& Out) const;\n     bool ResolveProductionResource(const FHitResult& Hit,FProductionResource& Resource,FString& Reason) const;\n     void CompleteProductionHarvest(const FProductionResource& Resource,const FHitResult& Hit,const FVector& Direction);\n     UFUNCTION(NetMulticast,Unreliable) void MulticastHarvestImpact(bool Wood,bool Stump,FVector_NetQuantize Point,uint32 ImpactSeed);\n"
+}

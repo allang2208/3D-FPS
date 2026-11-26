@@ -1,0 +1,7 @@
+{
+  "version": "HillsWoodlandPools-R9",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateForestWater.h",
+  "before_sha256_lf": "520721bc05e5e2f223c1ecab30a6c5774b4faaf1c7e028c6d8a9abdff3505e27",
+  "after_sha256_lf": "bcef5e3ca5a3b31fd16881c2a68e9c8efcc01e2d1c0d66af83efac1e2f8977c2",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateForestWater.h\n+++ b/Source/FPSGAME/WorldGeneration/TemperateForestWater.h\n@@ -37,6 +37,8 @@\n     bool IntersectSegment(const FVector& Start,const FVector& End,FVector& Position) const;\n };\n using FPlanPtr=TSharedPtr<const FPlan,ESPMode::ThreadSafe>;\n+// Flood an existing metre grid without reshaping authored terrain.\n+void FindClosedPools(FPlan& Tile,const TArray<uint8>& Allowed);\n FPlanPtr Generate(int32 Seed,double Half,TemperateRiver::FPlanPtr River,\n     const TArray<TemperateHillsSurface::FTerrainEdit>& Edits,int32 Version);\n }\n"
+}

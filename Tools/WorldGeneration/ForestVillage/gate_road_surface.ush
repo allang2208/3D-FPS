@@ -1,0 +1,63 @@
+// Inputs and results are shared by the painted Landscape and its static-mesh continuation.
+// Field texel centres use the same metre grid as prepare_gate_road_surface.py.
+float roadMix=0.;
+float3 compactColor=0., compactNormal=float3(0,0,1);
+float3 compactData=float3(1,.8,.5);
+float2 roadFieldUV=(P.xy-float2(-48000.,22400.))/float2(64000.,16000.);
+bool nearBend=all(P.xy>=float2(5700.,30300.)) && all(P.xy<=float2(9800.,32600.));
+[branch] if (Look>=0. && (Look>=1.5 || nearBend) && all(roadFieldUV>=0.) && all(roadFieldUV<=1.))
+{
+    float4 field=Texture2DSampleLevel(Wear,WearSampler,roadFieldUV,0.);
+    roadMix=field.r*(Look>=1.5 ? 1. : field.b);
+    [branch] if (roadMix>.001)
+    {
+        bool village=fmod(round(Look),2.)>.5;
+        float2 terrain=P.xy*.01;
+        float2 warp=float2(sin(dot(terrain,float2(.19,.083))+.44*sin(terrain.y*.37)),
+                           cos(dot(terrain,float2(.11,-.17))+.37*cos(terrain.x*.29)))*.31;
+        float2 world=terrain+warp;
+        float2 dx=float2(.012,0),dy=float2(0,.012);
+#if (PIXELSHADER || COMPUTESHADER) && !RAYHITGROUPSHADER
+        dx=ddx(P.xy)*.01;
+        dy=ddy(P.xy)*.01;
+#endif
+        float2 view=(Eye.xy-P.xy)/max(max(abs(Eye.z-P.z),length(Eye.xy-P.xy)*.48),1.);
+        float relief=(1.-smoothstep(270.,1050.,distance(P,Eye)))*.007;
+        const float span=.96875;
+        float loose=smoothstep(.15,.90,field.g+.14*(field.a-.5));
+        // Occasional grit around the margins; the gate centre is predominantly compacted earth.
+        loose=saturate(loose+(1.-loose)*(.20*smoothstep(.58,.88,field.a)*(1.-field.r)));
+        float3 c=0.,n=0.,packed=0.;
+        [unroll] for(int layer=0;layer<2;++layer)
+        {
+            float w=layer==0 ? 1.-loose : loose;
+            [branch] if(w>.001)
+            {
+                float2 size=layer==0 ? float2(2,2) : (village ? float2(2,2) : float2(4,2));
+                float2 uv=world/size+float2(.19,.53)*layer;
+                float2 tile=float2(layer,village?1.:0.);
+                float2 atlas=(tile+.015625+frac(uv)*span)*.5;
+                // Wrapped gutters isolate each scan at mip boundaries.
+                float2 gx=clamp(dx/size,-.020,.020)*span*.5,gy=clamp(dy/size,-.020,.020)*span*.5;
+                [branch] if(relief>.00001)
+                {
+                    float h=Texture2DSampleGrad(PalData,PalDataSampler,atlas,gx,gy).b;
+                    uv+=view*relief*(h-.5)/size;
+                    atlas=(tile+.015625+frac(uv)*span)*.5;
+                }
+                c+=w*Texture2DSampleGrad(PalColor,PalColorSampler,atlas,gx,gy).rgb;
+                n+=w*UnpackNormalMap(Texture2DSampleGrad(PalNormal,PalNormalSampler,atlas,gx,gy));
+                packed+=w*Texture2DSampleGrad(PalData,PalDataSampler,atlas,gx,gy).rgb;
+            }
+        }
+        float wet=saturate(RainWetness)*lerp(.68,1.,1.-packed.b);
+        compactColor=c*lerp(.89,1.10,field.a)*lerp(1.,.66,wet);
+        compactNormal=normalize(n+float3(0,0,.00001));
+        compactData=float3(packed.r,lerp(clamp(packed.g,.38,.99),.35,wet),packed.b);
+        [branch] if(roadMix>.998)
+        {
+            RoadNormal=compactNormal;RoadRoughness=compactData.g;RoadAO=compactData.r;RoadHeight=compactData.b;
+            return compactColor;
+        }
+    }
+}

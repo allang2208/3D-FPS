@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R2",
+  "path": "Source/FPSGAME/UI/ColdSteelWorldMapData.cpp",
+  "before_sha256_lf": "71d7b0fdf92dd42feb773db192504658966841c14664e8c3db3ddb7c473c013d",
+  "after_sha256_lf": "7408824deed3d5ada86c921bb0cae3c741b0a06cca1503feb025e46c3afe2f95",
+  "patch": "--- a/Source/FPSGAME/UI/ColdSteelWorldMapData.cpp\n+++ b/Source/FPSGAME/UI/ColdSteelWorldMapData.cpp\n@@ -78,7 +78,7 @@\n         {\n             Hills=*It;\n             const double Half=It->SizeMeters*50.;\n-            Bounds=It->IsForestVillage()?FBox2D(FVector2D(-25200,-25200),FVector2D(25200,39700)):FBox2D(FVector2D(-Half,-Half),FVector2D(Half,Half));\n+            Bounds=It->IsForestVillage()?ForestVillageMap::Bounds():FBox2D(FVector2D(-Half,-Half),FVector2D(Half,Half));\n             RegionKey+=FString::Printf(TEXT(\"/%d/%s\"),It->Seed,*It->WorldId.ToString());\n             Landmarks.Add({FVector2D(It->GetStartLocation()),TEXT(\"出发点\"),0});\n             RefreshSmithDestination();\n"
+}

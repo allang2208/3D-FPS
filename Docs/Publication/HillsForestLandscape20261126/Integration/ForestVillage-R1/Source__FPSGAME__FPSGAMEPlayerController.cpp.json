@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+  "before_sha256_lf": "85dd6f3e1d3700c87f2f16b43f19d677f7037daac4b20c3f6153804a93ce9f07",
+  "after_sha256_lf": "55bc424926129186504e6fa8cdd19a5501dbe832a0203e18c5498167f02cc4a6",
+  "patch": "--- a/Source/FPSGAME/FPSGAMEPlayerController.cpp\n+++ b/Source/FPSGAME/FPSGAMEPlayerController.cpp\n@@ -905,7 +905,7 @@\n     FString Path;\n     if(UDungeonRoomSubsystem::IsDungeonPawn(GetPawn()) || Level==TEXT(\"L_Dungeon_Randomized\"))\n         Path=TEXT(\"/Game/Audio/DungeonBGM20261017/S_DungeonEcho.S_DungeonEcho\");\n-    else if(Level==TEXT(\"L_TemperateHills_Initial\"))\n+    else if(Level==TEXT(\"L_TemperateHills_Initial\") || Level==TEXT(\"L_ForestPathVillage\"))\n         Path=TEXT(\"/Game/Audio/HillsDesertBGM/S_HillsDesert.S_HillsDesert\");\n     else if(Level==TEXT(\"DayNight_Lighting\"))\n         Path=TEXT(\"/Game/Audio/GodSpaceBGM20261002/S_RomanCourtyard.S_RomanCourtyard\");\n"
+}

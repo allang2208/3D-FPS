@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateIronOutcrops.cpp",
+  "before_sha256_lf": "cefd7a7ae0cd6547cc6393cde51854ee0af833830eda106abcff0dfcc577b15c",
+  "after_sha256_lf": "fa045b967f727ef757d19ce27e7d6c5c05cf279e4c0eccfbd45776b702a7f23e",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateIronOutcrops.cpp\n+++ b/Source/FPSGAME/WorldGeneration/TemperateIronOutcrops.cpp\n@@ -69,7 +69,7 @@\n bool ATemperateHillsWorld::FindNearestIronOutcrop(const FVector2D& From,int32& NextSite,FVector& OutPoint,uint64& OutRock) const\n {\n     using namespace TemperateIronOutcrops;\n-    if (!bReady || !Assets || !ProductionOreRocks::Mesh(TEXT(\"iron_ore\"),0).ResolveObject()) return false;\n+    if (IsForestVillage() || !bReady || !Assets || !ProductionOreRocks::Mesh(TEXT(\"iron_ore\"),0).ResolveObject()) return false;\n     const double Edge=SizeMeters*50.;\n     const int32 Limit=FMath::CeilToInt(Edge/Spacing);\n     TArray<FVector2D> Sites;\n"
+}

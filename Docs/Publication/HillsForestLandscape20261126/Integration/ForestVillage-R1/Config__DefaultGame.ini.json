@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Config/DefaultGame.ini",
+  "before_sha256_lf": "12b43bb2e8adef26be2f690d0bcdc16800cad2e40b8ac1f74c8151ae8693f094",
+  "after_sha256_lf": "e7d12d11999decb6d18f9092b43ff97d5b8800dd4951ed00b651a856caaa41ee",
+  "patch": "--- a/Config/DefaultGame.ini\n+++ b/Config/DefaultGame.ini\n@@ -860,6 +860,7 @@\n +MapsToCook=(FilePath=\"/Game/GameMaps/L_TemperateHills_Initial\")\n \n +MapsToCook=(FilePath=\"/Game/ForestPathStudy/Maps/L_ForestPathForest\")\n++MapsToCook=(FilePath=\"/Game/GameMaps/L_ForestPathVillage\")\n \n +MapsToCook=(FilePath=\"/Game/GameMaps/L_Dungeon_Randomized\")\n \n"
+}

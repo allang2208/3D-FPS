@@ -1,0 +1,7 @@
+{
+  "version": "HillsWoodlandPools-R9",
+  "path": "Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.cpp",
+  "before_sha256_lf": "23fdd8c397b03b1f697fbf7ed7b132c3b53612d8e4437e736f154b0a6f4dd741",
+  "after_sha256_lf": "92c92230fba2a4b2bc49923f65f6bac525d59d70d08a20214d724119deadd185",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.cpp\n+++ b/Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.cpp\n@@ -141,7 +141,12 @@\n UMaterialInterface* URiverPilotFXSubsystem::GetRiverMaterial() const{return WaterMID.Get();}\n void URiverPilotFXSubsystem::BindForestWater(ATemperateHillsWorld* River,TemperateForestWater::FPlanPtr Plan,UMaterialInterface* Material)\n {\n-    if(!River||River!=OwnerRiver.Get())return;\n+    if(!River || (OwnerRiver.IsValid() && River!=OwnerRiver.Get()))return;\n+    if(!OwnerRiver.IsValid())\n+    {\n+        if(!River->IsForestVillage() || !Plan || !Material)return;\n+        OwnerRiver=River;\n+    }\n     ForestWaterPlan=Plan;\n     if(!ForestWaterMID&&Material)\n     {\n"
+}

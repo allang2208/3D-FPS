@@ -1,0 +1,802 @@
+{
+  "archive": "production-host-text.zip",
+  "entries": [
+    {
+      "path": "Config/DefaultGame.ini",
+      "sha256": "b0360778531bf2b4e55813682dc792a085eec2cee23d58f0b7a42c11ba27f48f"
+    },
+    {
+      "path": "Source/FPSGAME/Building/VoxelBuildComponent.cpp",
+      "sha256": "ddfb0c7655e04511c871a3194f82044a9d2ba182dd065dfc52bfa0663427a58e"
+    },
+    {
+      "path": "Source/FPSGAME/Development/HillsSceneryNetworkProbe.cpp",
+      "sha256": "ece89e6900abaf1e3f11aaeb701f00725efa9998700ad24b1a526dd01767263f"
+    },
+    {
+      "path": "Source/FPSGAME/Development/HillsSceneryNetworkProbe.h",
+      "sha256": "8dcf547e637b697095b7fa091b833b06f63d4484dbb0c38558d93f6507806edc"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAME.Build.cs",
+      "sha256": "15a68273ca56de745fed1ce89c70e267752a891ca17239d644a4e935bb80f69d"
+    },
+    {
+      "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+      "sha256": "84977312bd3d8fc5f8441b284d4dc22339d522e6084bf3b0733d6e15db570b56"
+    },
+    {
+      "path": "Source/FPSGAME/FPSUDSBridgeComponent.cpp",
+      "sha256": "7191da4257997fcc712d31de80db50d867a4734b06303b09bfd6a927a7e036f9"
+    },
+    {
+      "path": "Source/FPSGAME/FPSUDSBridgeComponent.h",
+      "sha256": "24c89483c84e07e7bd1dda7264e1ec0b7c0922afbf72c4030cb31b5f025c836c"
+    },
+    {
+      "path": "Source/FPSGAME/FPSUDSHillsAtmosphere.cpp",
+      "sha256": "04116442e61318a0fb4afb08c3d70a15ec961579a7df0456a37c7758114ce0df"
+    },
+    {
+      "path": "Source/FPSGAME/FPSWeatherManager.cpp",
+      "sha256": "30c6764b405644c251c99210d19b73f7e37258d4c43c02572880eb57ac8a71ca"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelHarvestAuthority.cpp",
+      "sha256": "a99df990a93928e00ff3675894ce0b1fa8c597ec8a67cd7adce04a07416754ff"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp",
+      "sha256": "8dee0e7f47017bf7df6f5eb11f5194472a5d3f51606e72d4cde353cc88394756"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h",
+      "sha256": "58e5e54bcab970a0066f76e92c04850168f958f5e9a419d8e2608a03e6b57241"
+    },
+    {
+      "path": "Source/FPSGAME/Multiplayer/ColdSteelWorldNetwork.cpp",
+      "sha256": "90608b1e7c12b160ce9974efd9eaee1b93c6ec5f6524dc0ef7c2a87a97d72292"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ChapelDialogueSmithTraining.cpp",
+      "sha256": "4b0a2cf6b3aaed888796bd067d6e24aa43c736fde8c91dca53a0901b34df8e2c"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ChapelNun.cpp",
+      "sha256": "2c7c03f4d22fd4256d466bd3f8226d025aab6b04cd057240e5a2b2d436046cbd"
+    },
+    {
+      "path": "Source/FPSGAME/NPC/ChapelNun.h",
+      "sha256": "cfb845b65d53215ca76450b30deab22a8506620c71e9a75a158a8056c858d4d4"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionFallingTree.cpp",
+      "sha256": "82eccd31908e98e940b2179461a266cb7826294fd08ba727d6146e577bc97e47"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionHarvestAssets.cpp",
+      "sha256": "4971486d7d8e99f1a540ede78b2d949b606c078f09923b876fbf20b0b41ea159"
+    },
+    {
+      "path": "Source/FPSGAME/Production/ProductionTreeGrowthPresentation.cpp",
+      "sha256": "5105a2cd59a6a3bd9634b979b996ae17c4abbbdef5a48a16fb5fb9cc4e79b12a"
+    },
+    {
+      "path": "Source/FPSGAME/SceneTestPortal.cpp",
+      "sha256": "471e82392619d432f456dd7a22c8bb5ec0187328ea2edb6f5aed70ae60c0a837"
+    },
+    {
+      "path": "Source/FPSGAME/Tasks/BlacksmithApprenticeship.cpp",
+      "sha256": "23361e4a0a340db469c3ab8b84eab286bd94cb43c1281e9a35d59595e171c477"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+      "sha256": "1f94d6f3d426d04495deaded5615efbbee00bb96b6aa7d34fb8c9538ac801c5d"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+      "sha256": "57a829f0c5914bf02465f432581af913c28f62cb6612b90d23a36ac06a4c472f"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelProductionTools.cpp",
+      "sha256": "c372efb5518e8cd028b4f2b691e76dfedf20c9d85cb7b043f4451fbf95e27a5a"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+      "sha256": "854b13bb58df9510484419271c0c2be0d9a5ba8804b4035f87d30c4acf139227"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelTreeGrowth.cpp",
+      "sha256": "8a8464d79b7a426c79dc8792e488631839a7f039c09d1066290d01516e044624"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldMapData.cpp",
+      "sha256": "50c5d5fe7d8af6255f6c5963a46282c7b764777c75e2d371485342f2c3de0387"
+    },
+    {
+      "path": "Source/FPSGAME/UI/ColdSteelWorldMapData.h",
+      "sha256": "af6cc801d23f8d349092a63caad9e774e401dde3998c04cdd5677f954faf6db7"
+    },
+    {
+      "path": "Source/FPSGAME/UI/GameResourcePreparation.cpp",
+      "sha256": "53001bcd08d09f852c176ad8b0cce3e464a6ee91ad553b63f205d43b141d4416"
+    },
+    {
+      "path": "Source/FPSGAME/UI/GameResourcePreparation.h",
+      "sha256": "eaeaffe55ca6c4115ba70a336c579b1414653691f250a1b7df617dcb345cc443"
+    },
+    {
+      "path": "Source/FPSGAME/UI/SColdSteelWorldMap.cpp",
+      "sha256": "5f23ebbf87aa3311e4f83a8088cd14540a91c26edb6a8522aa709f7c6aad11b1"
+    },
+    {
+      "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.cpp",
+      "sha256": "084eff218b617b9716524bb6c6e0ca46b0375a98b3f963d3631d59f067d1bb44"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/BakeTemperateHillsLayoutCommandlet.cpp",
+      "sha256": "075a7707f7ff48c1182bc577e982f63bdea148465ba44202368661a190b18c5e"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ChapelNavigationGeometry.cpp",
+      "sha256": "50d5088fe6674f56d52c04531b1781eb284a62f7e95d43db7fad39a80c2abfb5"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ChapelNavigationGeometry.h",
+      "sha256": "54492800803abd4a11a811a55528442d71be21d43d3632db5c49fbab399b3b80"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ChapelShrine.cpp",
+      "sha256": "02b1ff2c172563942ba1c60a49ca6741dd2ed95a254544c35e71bb60a065d5a4"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/EastRiverRoad.cpp",
+      "sha256": "8a9bc7094d01b02f92b55e982801031f13152bd5db636372bf5d050d96bdce73"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/EastRiverRoad.h",
+      "sha256": "4c9ce45679014fb3faba133c384e7fee4cd601e62c34a71c98af8b3335d1f182"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/EastRiverRoadDistantCanopy.h",
+      "sha256": "667bc47ad9803b35f7570fc27269c41f7e9473246c3e174807e572b41554361f"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/EastRiverRoadFloorPalette.inl",
+      "sha256": "adec38cb61d2374c9105fa73e54cd055dab70a0b1ba4033ded3d6111a33816c5"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/EastRiverRoadMask.inl",
+      "sha256": "e4bbfb39a0747d0d4a9f182349785b8540adb48a1f0c1b4ffa31539355ab7260"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/EastRiverRoadProfile.inl",
+      "sha256": "7e6bd1430f32e1d57e5ae10327e229ce9eb5b9ba6a69b1198d995dfa6e8a9279"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestCourtyardShrubs.cpp",
+      "sha256": "b503b0dbf3e994317650eadf15df274d4b2844664315c2d0422a6a0e34ddad9e"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestCourtyardShrubs.h",
+      "sha256": "25d4b2221c7b511fba40e52964a64c1b340e5c99158d35d28404fdffd27baaea"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestNaniteAuthoring.cpp",
+      "sha256": "00ee34c5d52ec3c603f3f111e198cdbcf100ff070bf5c3c4ea8d4c537cab9a73"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestNaniteAuthoring.h",
+      "sha256": "d0706a4d7c201f80b4f9d5e120412953fd85778cdcd9494ced9a211737b820df"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestReferenceBoulders.cpp",
+      "sha256": "a10d6a3ccc816c5e2a581fe50ba852c9af492b587a25a83ae43b55f6ef3f38d7"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestReferenceBoulders.h",
+      "sha256": "eedddb3b77e6113b78d36b70c27d741ab4c082588e066db0c6ca60fc73d117f7"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestRootFit.cpp",
+      "sha256": "a03e307de9a7e9b1615f2c1af2fe90374cc96e2cb376fb139ed9c1bc632ad8cf"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestRootFit.h",
+      "sha256": "bd5ce40e311005106748c6050e086bf0e41fdf45437a0a3079f0b1507433a168"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillage.cpp",
+      "sha256": "99f331abd91d5960b92f63333139d234b8de3619e819ed1fdfccc18956f30537"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageCliffs.cpp",
+      "sha256": "986d8ef0028d809dff99c04d73e5450c7f61c44e60a5468bee540c8057982e1f"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageGrassCover.cpp",
+      "sha256": "e1e87892df6cd5bd65f25e76b215e878c9430f55b0906d21f352b7b179a6b3f1"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageGrassCover.h",
+      "sha256": "0a4bfd1d9404cf5ec8fe3cca8b32d7ea20c9168fca36a0f8911b435d58977c0a"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageMap.h",
+      "sha256": "13f4a5e831a149ace1904299fa608cd0763abc6c863ffd3e4f093a633eff332f"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageMistComponent.cpp",
+      "sha256": "fa7b0b075e4208dff21f265cfbf94de1a969dba4ee6cb5fb970efccadb821921"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageMistComponent.h",
+      "sha256": "6c10c81211a656397d55720fa19b7935140fe14e7efa52ee7e922799abb4c195"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillagePools.cpp",
+      "sha256": "4f0192dc0f496b1b6015b571fc06309cd71b4d7de51aa3263e7d097af226394a"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageRegion.cpp",
+      "sha256": "7837c32bcad000c6825a662a747f3de91f32d3b585958971158556db685f92ae"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageRegion.h",
+      "sha256": "99c68e08c3376b24e86b6c1fca2ed47ea3e65d2bb1dfa584d3860a61cbff3a6d"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageRegionPCG.cpp",
+      "sha256": "92a860496d4d7906d6fd04d08f7b61d41ec4c9bb0474cc5b5560547434301a1c"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageRelief.cpp",
+      "sha256": "afe219295ec8b5a4998847891404289deede1af317061e5c32780bcfde122b35"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageRelief.h",
+      "sha256": "7d3d9010e722d292e1c3f0c76e3ab09b3dbe431d8ab4889123023feb25cff087"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageReliefData.inl",
+      "sha256": "ba757c7b99a27a54c3a0bbe0d6fdafe17fa79bb1beb70d90c4611177889bc111"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageRoadSurface.cpp",
+      "sha256": "b38c8ce29466212512814a516fba749a1a36000e316629dde29c40a483807a89"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageStreetRelief.inl",
+      "sha256": "4d9ce3f6e354d80e5cc73cfe5156e6b9e98aefba3212aca9a7fc83bdef06c214"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestVillageSurfaceFunction.cpp",
+      "sha256": "1ceccc7e88d62c11899fe657b189da63edfe072f9721b0b3630aa771dde16553"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestWoodDressing.cpp",
+      "sha256": "abc157d38123c8e5caf82a7b334e8ec07003d3ad74520c408acca112e7b526c6"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/ForestWoodDressing.h",
+      "sha256": "ffd45af614ffb2e27a14cceb45f7e0aca76c06f0b6eab0b8334f1f3b65a09439"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsFixedTerrainCells.cpp",
+      "sha256": "845733751a7dadd290739a813e418683d629b1c39e35694ccd437edb5861c428"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp",
+      "sha256": "da07875f8caf4bc3362238bfac409a69277659f8b6dfea091e131fbc16ae74d5"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.cpp",
+      "sha256": "c1e343056d9f42fac44e8a2ad860506f30cf99746b235193b4a931ca293f6839"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp",
+      "sha256": "9d93712bcb0e19ec32df9ebf8392db808015554203b15c2151272f53df0ddb94"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.cpp",
+      "sha256": "92c92230fba2a4b2bc49923f65f6bac525d59d70d08a20214d724119deadd185"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateForestWater.cpp",
+      "sha256": "da62199f3ac5ddcd011c1ec63890da5febbd5118eba016fe7cc1b124f5edb87b"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateForestWater.h",
+      "sha256": "af251e2d37d19d3ed5ea9d26382fec7541a67a559ec89d21996fa63cd02cf4d2"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsBackdrop.cpp",
+      "sha256": "7e4601b46f86424aeb05e7b1bb1abef28d2d7b3fb68cf0225eb32e36e714261e"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsChapel.cpp",
+      "sha256": "c3e1f10dd578951303d641b83fd962588ded11ff7bc765e0ce3fbc086cb8c835"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsGrass.cpp",
+      "sha256": "66ccbb8c29f879c21cd74cc27975e7aab201900de8a970e7893cd4b8861b989a"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsGroundCache.cpp",
+      "sha256": "8400dcdb8eaf05b9e7c4a5d559c138250797d03dbe8282ed56b88fe1f46fbd0f"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsPCG.cpp",
+      "sha256": "4d9d1d6f8419e5a3b84dcbd3b64afdafbea7c83dabcca5494527d4e3fddf987d"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp",
+      "sha256": "27f3c7c7fcf73a6922e0fd4d88fd8ad49bb8563867637c57d83b50dc524a6993"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp",
+      "sha256": "b29d8b70929b35f41d113625d43c110ed22a3bd53ecf73dedbcec85fd9a399e5"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsQuarryTravel.cpp",
+      "sha256": "9a93743bde1c1de4aced17764eb081e94ea1d755f39e94c4b8f736c86324b626"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+      "sha256": "ad79c07fa0b779c73fc46a161ac500d97d520f7a6a1534566a98309f5a7ef484"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingFog.cpp",
+      "sha256": "c364ee9231e7c2ab1f997af928b8723e47a59ee39e38ec294e7628dcc0771e92"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingMesh.cpp",
+      "sha256": "617376e9f7330f6069485c7f199ff2eda179178b1975ef99ac26daf866e34f52"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp",
+      "sha256": "44085383ac2c11cfb2d2060df872660a726f19459edfdc26ad84d313940cbe61"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h",
+      "sha256": "bbea6147dc34db12cf5792f182e13c68d3a988b801b57951ec09c39718d6fd88"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingVisit.cpp",
+      "sha256": "54ab0e717c0ae586923bcdbd3c96f7b89efc12061b928224e67286da91e57892"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp",
+      "sha256": "0eb5c97a1b5e0a926ca459ec7d06c01a2ddaa3d23aa539da5574f0739bbb5b6c"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsVegetation.cpp",
+      "sha256": "15e57ca718f48f0fd5829a04e3e8c0321c9fc6f9845ba265c910393ac4228045"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsVisitQuarry.inl",
+      "sha256": "b52cc00e3d59554445bbd3db83a5baecce32c2a85a281227235edaa4263ed0d4"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWhiteCliffs.cpp",
+      "sha256": "9ca88bce3d6bdd1dece03290d0d98aee0f13f7a7c7b5af708bda2b0b5d09d882"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+      "sha256": "0ed03ff3467029b7e9be819466699c8dfec3988b6b77eda1a60022ca2197f0da"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+      "sha256": "9566fc9d3e072e7166ac5745ac10077fbf68413a8f5be8240af1640ed4b596fd"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateIronOutcrops.cpp",
+      "sha256": "59c7a0164fa7c3616a84475a9ba967ab38712390e7c1beb8f4be3f001a041d39"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+      "sha256": "e0936303fa54f85d46d3c7f212c3c6600c8a0c0de89a1732d0e38b8f07e427e3"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePlanting.cpp",
+      "sha256": "4fc12c4c2744af33e4ff3b8a0217729ab65e00703a460573222c7328df5d9ccc"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageExteriorDetail.cpp",
+      "sha256": "4feb670cf38e202ba7dce989e3fbf3102e35a953252388c825cdd434b12b9985"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillagePlantingDisplay.cpp",
+      "sha256": "7d8dd1e30f2f30f5b59d4d6160fdbfadeb6d85a7b5179f5f79c307201137b9a3"
+    },
+    {
+      "path": "Source/FPSGAME/WorldGeneration/VillageThreatOutlines.cpp",
+      "sha256": "fd78c2010b0a29213e71ad89e0fc51be060cc53ccb0afd9cd0c17905b4c50071"
+    },
+    {
+      "path": "Tools/WorldGeneration/EastRiverRoad/CanopyAuthor/Source/CanopyAuthor/CanopyAuthor.Build.cs",
+      "sha256": "3fcd0d5a7b037d3ea77f85d9af37c6a23e0337ca04b29657dcd86f01cc3cf393"
+    },
+    {
+      "path": "Tools/WorldGeneration/EastRiverRoad/CanopyAuthor/Source/CanopyAuthor/RoadCanopyCommandlet.cpp",
+      "sha256": "333db887cf270e86b525a649fffd5fbc56410441f44517dc1810f78760d50fb7"
+    },
+    {
+      "path": "Tools/WorldGeneration/EastRiverRoad/CanopyAuthor/Source/CanopyAuthor/RoadCanopyCommandlet.h",
+      "sha256": "320c4095f73da2e63bed57c7999312fe443706ec3fd6b0fa425fffc82c868f90"
+    },
+    {
+      "path": "Tools/WorldGeneration/EastRiverRoad/CanopyAuthor/Source/CanopyAuthorEditor.Target.cs",
+      "sha256": "3fc9ebf4ac429e6ab292613ec636e36d9f55c19dc638aee094e4695b91748307"
+    },
+    {
+      "path": "Tools/WorldGeneration/EastRiverRoad/author_canopy_finish.py",
+      "sha256": "71d2060702361282fa6c1b9e756967c1412c1f67ad7f11df40fdf4609bc522cc"
+    },
+    {
+      "path": "Tools/WorldGeneration/EastRiverRoad/author_dressing.py",
+      "sha256": "f2e7cbaef8fb450e7eb2294492c20db1b046f9f09d8bccf5f5865d0d1bc39cb1"
+    },
+    {
+      "path": "Tools/WorldGeneration/EastRiverRoad/author_palette.py",
+      "sha256": "30b6f8280978f3c2953aa277c93d210b4aebfe7e5bc386462065d15e86eefecd"
+    },
+    {
+      "path": "Tools/WorldGeneration/EastRiverRoad/author_surface.py",
+      "sha256": "8f4572e6f330836436de4f83aba4f5563554d5f7d9fd504ee168ec1f34cd5906"
+    },
+    {
+      "path": "Tools/WorldGeneration/EastRiverRoad/bake_profile.py",
+      "sha256": "e7796eced202df129a121cfa53ec844544f465b520dd5dd74b00bdd4a2c3ccb8"
+    },
+    {
+      "path": "Tools/WorldGeneration/EastRiverRoad/publish_assets.py",
+      "sha256": "2e0e853d359d5a8e30c1577a117ec29dd1d1ef8226759d4a423e1b4012698694"
+    },
+    {
+      "path": "Tools/WorldGeneration/EastRiverRoad/publish_canopy.py",
+      "sha256": "44f97d2831c59ba1cde2fb8d82899ad0918ca683f876bf93e9b0d65db0563d92"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_cliff_exposure.py",
+      "sha256": "cd4c2f30ecdf515f5864ed6a11e909a51a88ef0a47924e6c9639544d16fea8e2"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_cliff_talus.py",
+      "sha256": "03a79b6db91dd437ce8f85eb8fbbc6ed5808199a6c60ca081cb2dd9480d0e289"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_continuous_meadow.py",
+      "sha256": "eb7a0a573a57ea92c861dee68e48d9cee91b86bcf58ae411e0f269eab48391be"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_forest_floor.py",
+      "sha256": "64c3814b72a1af574c9c5f8eebf120635c31d3d0ddf76e8a9e1897b955647871"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_forest_litter.py",
+      "sha256": "ac2e07177dd0cb98f01c15330e6a76851cca0474a1e15d59cac7ee30c91953d3"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_forest_palette.py",
+      "sha256": "16032cb8e8ad464a9dabdb986a09be63d1afaa5b58357dce84e986ac370530e2"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_forest_road_mix.py",
+      "sha256": "aa91ea6aea9d245649f9931d93172e8493a6629a21a22ce7060d89bc48efc0ec"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_gate_road_surface.py",
+      "sha256": "5fc803a3f5f2ce5fd31165569ea90d6b7a62b7d407edba18f3590e18ef7843ce"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_grass_distance.py",
+      "sha256": "fb771305a9133fafc283927c8eb73e86cdf2caf5ebe94301451961c1b5ff1fea"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_hill_relief_pools.py",
+      "sha256": "37c1c3824512d3201a8698aa3280bf808650163a172495d8b753a5d893aed795"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_map.py",
+      "sha256": "9b9c3dbd0d3ce2fe82cb9c64ce068da084f03f455437ce4dcdcb81449744154f"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_meadow_reach.py",
+      "sha256": "6b2958bcf835128e1672ac2327592230f927727d4079fd23999b9e41cdbd84fa"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_nordic_moss.py",
+      "sha256": "329e167a6dc0930e743170d54d0d8c46ce1f872eb34cb1dd6454e07d7f9d971b"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_quarry.py",
+      "sha256": "ccba0636f6eb5f6cd42aa6e407919b5a2ae2b2292466388c7655ca90d0e854d7"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_reference_hill.py",
+      "sha256": "406a3f45fa709ab3b2c56c14a3c3872e6f080e5919ab79465b701f9dfaf9906b"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_reference_surface.py",
+      "sha256": "d76f95aa956f2077c06e6f55dc2b3f6aab935ac76e0dcf2bfc928a0a2be2fe5c"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_reference_terrain.py",
+      "sha256": "ea15a98b5bc6b81dd08a183752662afb0b3bfd6487b07a42dc63ad92ef538e76"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_reference_woodland.py",
+      "sha256": "65b79e88374a5fdb6ff5a719b9c3d1112df6899f254022ee45a569f45f208da4"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_region.py",
+      "sha256": "0139b80df58d63709cfd68958d9c60b1d0ac11643952efad925e17193b97fb42"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_relief_woodland.py",
+      "sha256": "9f83386c67d0c6540a04db8fc1045e9dcc1c235cb46e98b35f029783f464d9dd"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_roadside_leaves.py",
+      "sha256": "bc77ccb07446ace4c2fdb0f489ff178e8254bf1320a5b4332972ec3b9eb09d07"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_roots_and_map.py",
+      "sha256": "b8060679b9e721aad6b77a2282c05a6af217e0738bac97ea2de599e9a007f68c"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_sample_materials.py",
+      "sha256": "3b62b42ba7232eae5dde9ecaa61992edc35887311ede3d214426faebcdbb12fe"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_shadow_geometry.py",
+      "sha256": "f1d17f055f3f234bfb18a26618717cd77a4d2ea5f5b211172c42c750ab4ae870"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_slope_grass.py",
+      "sha256": "128134458c2e6166662e1a34b0aba67507d40ac6fe81c90d8d02163722744540"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_spring_grass_mips.py",
+      "sha256": "b1da4b22b1b6e5c561d7484f99231e54603b35c6f0a4075bec63d3181f58d587"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_surface_sample.py",
+      "sha256": "de12e1603c02f0576e28eae003ca650ad028a448bb0e8ac5880fc645d80bdb1a"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_trail_cover_level.py",
+      "sha256": "e260e4dea2b83f083f89c907c4e9fda8f5fbb48b5940a37c014dc434d7162fd9"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_trail_cover_materials.py",
+      "sha256": "c6731eb9e2934d7f92a6e5591eda0d3261d97bfb91a2b9885960f825a3325a61"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_trail_distribution.py",
+      "sha256": "1a6c3330096546df4508d9c266e64cb6fbf04d6837a1c4e39bec0ab6875833f6"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_village_loess_foothills.py",
+      "sha256": "dce1c55dbe5984a0353446d36df85a68932f21ebac7ca8c139a3527d8ff0f3c2"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_village_mud_surface.py",
+      "sha256": "98cd68e3257e38d234afff240b0c74f4d8c347bfa55901f34ed8a11d9ab7744b"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_village_turf.py",
+      "sha256": "7b34e2b7e4e17ab12c698eff37d96fd8f1c40275baf7510aab07e45042f2dbf0"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/author_wild_grass.py",
+      "sha256": "851235efff5bd74712ee2afc7722de9a7664948981d4fc571d57b11bab1f4f9f"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/cliff_surface.ush",
+      "sha256": "215960dac0fb3aa34adad1036955e6aa27ce33c8016a20ce0c40ce0dfe079f80"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/compile_sample_materials.py",
+      "sha256": "058f7ad4235445a9426563c6a25686af83812bb7cdb390cdedda41323b98fe86"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/continuous_meadow.py",
+      "sha256": "9ce406433edbd3091d6c26380f6f8a962a0794e84093c7ab1bf20d18a03c2b26"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/continuous_meadow.ush",
+      "sha256": "ce79f0182f4b723bf873c1634e495f9db595b32bb4762c49839bf56a714df51f"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/export_forest_reference.py",
+      "sha256": "9bc468fe2151311a4bb6ae0719388e8e5aa10dd7f0e98130984f3dd719a04c7f"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/export_gate_road_sources.py",
+      "sha256": "00cd921d07c847110fdcbb9daacf9c46fa678058d8406cd193f0c7e2b6e84bd4"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/export_village_relief.py",
+      "sha256": "afd370df6c17d922c3c4928ebb3ea08f41a7ea4342cdb11bfc03b777959c9b46"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/forest_ecology.py",
+      "sha256": "969412d314c69e7fa650988709b57c9de8083d9a44f5022a1fcce53c2cc11631"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/forest_road_mix.ush",
+      "sha256": "60035e68e1e34106e1d8b7b20a9b25e0146d87be7bbd6c3c9650809fed8f31fc"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/forest_wood_retirement.py",
+      "sha256": "7c5b6f2ae07c59da9f0f385a843da25c28f3a4b004a3b0aa4152be2f92449813"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/gate_road_surface.ush",
+      "sha256": "9cacef361ab1ff80acd219247bc2ee6a256474705a1be45f72b80ac9d6f49637"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/generate_forest_reference.py",
+      "sha256": "3e14a8e95216164c9fcc4b4adcf7650e21696832e3f7dc6a4104c20f6472ea42"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/generate_reference_hill.py",
+      "sha256": "e33c34d6c6a2070df1c8b903a51639a692dfc4018a155b9646dafbc204cfde26"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/generate_region.py",
+      "sha256": "fe80e2f054fdf2d5fbf3840d54f81a65c464a2c1231e980cad0fe9f207a9f581"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/generate_slope_grass.py",
+      "sha256": "196365d8418edd8e483fa8978dba94568aa1da92a4d4abab082bf9775fa69d1a"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/generate_surface_sample.py",
+      "sha256": "460f38fbf6699bdc5ffcc551a922986eb120e7debfd9ccf736adcc17a7e7595e"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/generate_village_relief.py",
+      "sha256": "de24df796884f42a8d6ed930653f5e6b723cc04038c967a13505647d57c77fd5"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/import_granite.py",
+      "sha256": "6c071b16c63a51e02086209316bcfb0e9d5d22c0408b20b827ef0dbc61592abf"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/import_woodland_scans.py",
+      "sha256": "d56280a28a9fe6c4e0bbc61a76eb67ec3cc5347ca31eb5533cb76bfb4ab7535f"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/landscape_theme_points.py",
+      "sha256": "a1a82989d836359dbd9b99f3e0a9a087e99fe1b8fb131538ebbee97836449053"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/landscape_themes.json",
+      "sha256": "0291f38e8ac136c22d8a331528447cafed1ecce8c9221916fbc3adfdb15a5a09"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/landscape_themes.py",
+      "sha256": "d6070c21945ec5e3f85c148863658401789540bd1d66193ac650b4534a3957df"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/leaf_drift_edges.py",
+      "sha256": "13df18f8ab03c0821c79c246690c054254aed7b8b27589c9d446cab593058d33"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_cliff_exposure.py",
+      "sha256": "fd930b0458e819e00ba74e603c55f9afe969947c06d6610a3b203024db83eebe"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_cliff_talus.py",
+      "sha256": "55e14351b1724d365dc5b390226c640b2ba179056a6eec618f6c881904e6cf9b"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_forest_floor.py",
+      "sha256": "fe3d6978174066f51efc93abe759180abe2089d913c3f9722e313ddb5cdfaf36"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_forest_litter.py",
+      "sha256": "e3a41421b3ca767ab4f75bb4c615b02597b06c50cc149ef15e7fb4f959ee3d38"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_forest_palette.py",
+      "sha256": "23267cd4bb89edd7d68a01d4d48e28213c986325e91b2a379d020103de10803e"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_forest_reference.py",
+      "sha256": "2838766834aae7b24498602331bc0f66c57f9741720c23c471c44d3e7c7cd450"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_forest_road_mix.py",
+      "sha256": "0e3f0882d70f3443c60be65de59c77d2fef63b76fc0a5b3ad5e8d60900a28120"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_gate_road_surface.py",
+      "sha256": "20de036586474c58d2ff7e3908c6fe6b6a83005ae98dbfc2f04bcc88f76af484"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_grass_distance_atlas.py",
+      "sha256": "fb2a4fb31960dfad1827efbb62a275e4eff2524d786a698fee843e2297647e80"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_hill_relief_pools.py",
+      "sha256": "9dbf91e0696736b62211c5d781f82057ac73c06473aa975f30786fa722fb387e"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_hills_trails.py",
+      "sha256": "ad4c3191620befe3354e88bb349ffcb9cef78663dd8de3435c6b084e135cca69"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_quarry_road.py",
+      "sha256": "4673aec54e7d9fb73415679555bcfb1e7a8108cdd4dfca87f85df66ef2fd64f3"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_relief_woodland.py",
+      "sha256": "54822c480333694923f5e5a081e5b885f4224b105ac2756420393ee735d4775f"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_trail_art.py",
+      "sha256": "bd2f183771096e2f16033ef406fec136212f30b49b33fe07d6974ad0ea641752"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_trail_cover.py",
+      "sha256": "c251303b713e06b1d5da03da305ae096ec4244d64705d8fbc6697cde7454c54c"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_trail_distribution.py",
+      "sha256": "1506440b7bb5e32a43c494403721ea4e9e99f7d8c965a00e54f6da651264708d"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_village_loess_foothills.py",
+      "sha256": "0401a06795e86b5214876c57f2f47ed291fcf16da3b58f757555840b22947b12"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/prepare_village_turf.py",
+      "sha256": "8aa1b8e0b308c13b0082d4867670d183fd95027f679b48a4364a969377582256"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/refit_forest_floor_decals.py",
+      "sha256": "c36319d385b61c419b3a6f84c38ecae349fe16fe40b34aa6b38256d4f8dcf61a"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/roadside_leaves.ush",
+      "sha256": "12d3966863f532921af9094de7c1cabb8a86110539e2fc5bad82d7f6147a8054"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/shadow_geometry.json",
+      "sha256": "e5a0b6d72650fff55091f510353604c2c257ddeecf348d7a883ddf3e79c61390"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/trail_soil.ush",
+      "sha256": "acbfe22b60131d8c14dc52db8993bb608c6b02f9eafce00957fecf4e5a4c7a70"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/trail_variation.py",
+      "sha256": "fa6dc6cf091160c4bbf88e1ce3775abf28ceb308d57acce2953e6f9767bb296b"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/village_loess.ush",
+      "sha256": "f3f2809e0a729aa5af868d984bf827634f57746432265866692adf7b652a2a5f"
+    },
+    {
+      "path": "Tools/WorldGeneration/ForestVillage/village_wall_grass.py",
+      "sha256": "56c09f994c959b6ef7cfab544d88c21637448f12e74af111e1eed7da72f51004"
+    },
+    {
+      "path": "Tools/WorldGeneration/Run-HillsSceneryNetwork.ps1",
+      "sha256": "4a5d79b1541d707d811ff5069ba7474613fa2b19e44b7560786c2d1397786bdb"
+    },
+    {
+      "path": "Tools/WorldGeneration/VillageBakery/install_bakery.py",
+      "sha256": "c44e6efd6e8e6ef24e4ab0ae6b34f5c3fde037dd65e96dd9be237ee608a35347"
+    },
+    {
+      "path": "Tools/WorldGeneration/VillageStable/PropsR43/import_props.py",
+      "sha256": "509a4d21f2fc0df6247b7ed72b28008da992b8f4d614788a3153402ac4127975"
+    }
+  ],
+  "archive_sha256": "f95e2cbdbbf04c16ea006026b50bbb67174f2afc1c7872066d6244777d0e9766"
+}

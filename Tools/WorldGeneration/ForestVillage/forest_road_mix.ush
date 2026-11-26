@@ -1,0 +1,121 @@
+float exteriorMix=0.;
+[branch] if(Look>=2.5)
+{
+    exteriorMix=Texture2DSampleLevel(RoadMixField,GetMaterialSharedSampler(RoadMixFieldSampler,Material.Clamp_WorldGroupSettings),roadFieldUV,0.).r;
+}
+[branch] if(exteriorMix<.999)
+{
+// INSERT AFTER BASE PALETTE
+}
+[branch] if(exteriorMix>.001)
+{
+    struct FRoadCrop
+    {
+        float3 Hash(float2 key)
+        {
+            float3 v=frac(key.xyx*float3(.1031,.1030,.0973));
+            v+=dot(v,v.yxz+33.33);
+            return frac((v.xxy+v.yzz)*v.zyx);
+        }
+        float Noise(float2 p)
+        {
+            float2 i=floor(p),f=frac(p);
+            f=f*f*(3.-2.*f);
+            return lerp(lerp(Hash(i).x,Hash(i+float2(1,0)).x,f.x),
+                        lerp(Hash(i+float2(0,1)).x,Hash(i+1.).x,f.x),f.y);
+        }
+        float2 Project(float2 v,float2 ax,float2 ay)
+        {
+            return float2(dot(v,ax),dot(v,ay));
+        }
+    };
+    FRoadCrop crop;
+    const float pitch=1.04;
+    const float2 fieldOrigin=float2(-480.,224.),fieldSize=float2(640.,160.);
+    // Warp the boundaries only. Project every scan in isotropic metres.
+    float2 patchXY=terrain+.58*(float2(crop.Noise(terrain*.53),crop.Noise(terrain*.41+21.71))-.5);
+    float2 grid=float2(patchXY.x-.57735027*patchXY.y,1.15470054*patchXY.y)/pitch;
+    float2 cell=floor(grid),f=frac(grid);
+    bool upper=f.x+f.y>1.;
+    float3 bary=upper?float3(f.x+f.y-1.,1.-f.y,1.-f.x):float3(1.-f.x-f.y,f.x,f.y);
+    float3 weights=bary*bary*bary;
+    float3 tint=0.,tangent=0.,properties=0.;
+    float mass=0.;
+    [unroll] for(int corner=0;corner<3;++corner)
+    {
+        float w=weights[corner];
+        [branch] if(w>.00005)
+        {
+            float2 key=cell+(corner==0?(upper?float2(1,1):float2(0,0)):(corner==1?float2(1,0):float2(0,1)));
+            float2 centre=float2(key.x+.5*key.y,.8660254*key.y)*pitch;
+            float2 plan=Texture2DSampleLevel(RoadMixField,GetMaterialSharedSampler(RoadMixFieldSampler,Material.Clamp_WorldGroupSettings),(centre-fieldOrigin)/fieldSize,0.).gb;
+            float3 seed=crop.Hash(key+37.27),variant=crop.Hash(key-83.19);
+            bool stony=seed.x<plan.x;
+            // A stable choice per shared vertex keeps either side of an edge identical.
+            float index=variant.x<(stony?plan.y:plan.y*.52)?1.:0.;
+            float sn,cs;sincos(6.2831853*variant.y,sn,cs);
+            float2 ax=float2(cs,sn),ay=float2(-sn,cs);
+            float scale=lerp(.96,1.04,variant.z)/(stony?.39:2.);
+            float2 coord=crop.Project(terrain-centre,ax,ay)*scale+seed.yz;
+            float2 invAtlas=stony?float2(.5,1.):float2(.5,.5);
+            float2 tile=float2(index,stony?0.:1.);
+            float2 gx=crop.Project(dx,ax,ay)*scale*span*invAtlas;
+            float2 gy=crop.Project(dy,ax,ay)*scale*span*invAtlas;
+            float2 uv=(tile+.015625+frac(coord)*span)*invAtlas;
+            float3 a,rgb,micro;
+            [branch] if(stony)
+            {
+                a=Texture2DSampleGrad(StonyARH,GetMaterialSharedSampler(StonyARHSampler,Material.Clamp_WorldGroupSettings),uv,gx,gy).rgb;
+                uv=(tile+.015625+frac(coord+crop.Project(view,ax,ay)*scale*relief*(a.b-.5))*span)*invAtlas;
+                rgb=Texture2DSampleGrad(StonyColor,GetMaterialSharedSampler(StonyColorSampler,Material.Clamp_WorldGroupSettings),uv,gx,gy).rgb;
+                micro=UnpackNormalMap(Texture2DSampleGrad(StonyNormal,GetMaterialSharedSampler(StonyNormalSampler,Material.Clamp_WorldGroupSettings),uv,gx,gy));
+            }
+            else
+            {
+                a=Texture2DSampleGrad(PalData,GetMaterialSharedSampler(PalDataSampler,Material.Clamp_WorldGroupSettings),uv,gx,gy).rgb;
+                uv=(tile+.015625+frac(coord+crop.Project(view,ax,ay)*scale*relief*(a.b-.5))*span)*invAtlas;
+                rgb=Texture2DSampleGrad(PalColor,GetMaterialSharedSampler(PalColorSampler,Material.Clamp_WorldGroupSettings),uv,gx,gy).rgb;
+                micro=UnpackNormalMap(Texture2DSampleGrad(PalNormal,GetMaterialSharedSampler(PalNormalSampler,Material.Clamp_WorldGroupSettings),uv,gx,gy));
+            }
+            float2 normalXY=ax*micro.x+ay*micro.y;
+#if PIXELSHADER
+            normalXY=TransformWorldVectorToTangent(Parameters.TangentToWorld,float3(normalXY,0.)).xy;
+#endif
+            w*=lerp(.78,1.22,a.b);
+            tint+=w*rgb;tangent+=w*float3(normalXY,micro.z);properties+=w*a;mass+=w;
+        }
+    }
+    float invMass=rcp(max(mass,.00001));
+    tint*=invMass;tangent=normalize(tangent);properties*=invMass;
+    // The point ID selects a single road-aligned crop. Interpolating IDs would create false tracks.
+    int2 fieldPx=clamp((int2)floor(roadFieldUV*float2(2048,512)),int2(0,0),int2(2047,511));
+    int id=(int)round(RoadMixField.Load(int3(fieldPx,0)).a*255.);
+    [branch] if(id>0)
+    {
+        float4 bytes=round(TrackFrames.Load(int3(id,0,0))*255.);
+        float2 centre=fieldOrigin+float2(dot(bytes.rg,float2(256,1)),dot(bytes.ba,float2(256,1)))*(fieldSize/65535.);
+        float4 frame=TrackFrames.Load(int3(id,1,0)),shape=TrackFrames.Load(int3(id,2,0));
+        float2 ax=normalize(frame.rg*2.-1.),ay=float2(-ax.y,ax.x);
+        float2 local=crop.Project(terrain-centre,ax,ay);
+        float ellipse=length(local/float2(shape.r*2.,shape.g));
+        float edgeNoise=crop.Noise(local*4.7+shape.b*39.);
+        float holes=crop.Noise(local*3.15-shape.b*52.);
+        float opacity=(1.-smoothstep(.52,.96,ellipse+(edgeNoise-.5)*.31))*smoothstep(.10,.52,holes)*shape.a;
+        [branch] if(opacity>.002)
+        {
+            float2 uv=local/2.7+frame.ba;
+            float2 gx=crop.Project(dx,ax,ay)/2.7,gy=crop.Project(dy,ax,ay)/2.7;
+            float3 a=Texture2DSampleGrad(TireARH,GetMaterialSharedSampler(TireARHSampler,Material.Wrap_WorldGroupSettings),uv,gx,gy).rgb;
+            uv+=crop.Project(view,ax,ay)*(relief/2.7)*(a.b-.5);
+            float3 rgb=Texture2DSampleGrad(TireColor,GetMaterialSharedSampler(TireColorSampler,Material.Wrap_WorldGroupSettings),uv,gx,gy).rgb;
+            float3 micro=UnpackNormalMap(Texture2DSampleGrad(TireNormal,GetMaterialSharedSampler(TireNormalSampler,Material.Wrap_WorldGroupSettings),uv,gx,gy));
+            float2 normalXY=ax*micro.x+ay*micro.y;
+#if PIXELSHADER
+            normalXY=TransformWorldVectorToTangent(Parameters.TangentToWorld,float3(normalXY,0.)).xy;
+#endif
+            tint=lerp(tint,rgb,opacity);tangent=normalize(lerp(tangent,float3(normalXY,micro.z),opacity));
+            properties=lerp(properties,a,opacity);
+        }
+    }
+    c=lerp(c,tint,exteriorMix);n=lerp(n,tangent,exteriorMix);packed=lerp(packed,properties,exteriorMix);
+}

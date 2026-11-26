@@ -1,0 +1,7 @@
+{
+  "version": "HillsQuarryRoad-R16",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsVisitQuarry.inl",
+  "before_sha256_lf": "cca4844de19a79e6a884693018265abcb331107a7f725ef49a49ed9dc314e2a7",
+  "after_sha256_lf": "b52cc00e3d59554445bbd3db83a5baecce32c2a85a281227235edaa4263ed0d4",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsVisitQuarry.inl\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsVisitQuarry.inl\n@@ -1,4 +1,4 @@\n-// Registered in BeginStreaming's non-shipping block. Guest requests travel through\n+// Available on both hills entry maps. Guest requests travel through\n // the owning PlayerState; the authority chooses the current world's destination.\n static FAutoConsoleCommandWithWorld VisitQuarryCommand(TEXT(\"fps.Hills.VisitQuarry\"),\n     TEXT(\"Visit the current world's white-cliff quarry after its collision is ready.\"),\n"
+}

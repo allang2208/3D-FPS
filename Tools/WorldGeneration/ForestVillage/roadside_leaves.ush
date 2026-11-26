@@ -1,0 +1,75 @@
+// Road shoulder field is baked from both R28 centre lines. Evaluate fine leaf scans only in occupied drifts.
+LitterRoughness=GroundRoughness;
+#if (PIXELSHADER || COMPUTESHADER) && !RAYHITGROUPSHADER
+float2 leafAxis=float2(.854,.520);
+float2 leafCross=float2(-leafAxis.y,leafAxis.x);
+float2 meters=P.xy*.01;
+float2 along=float2(dot(meters,leafAxis),dot(meters,leafCross))/2.35;
+// Take the footprint before diverging across empty cells or shoulder edges.
+float2 du=ddx(along),dv=ddy(along);
+float2 fuv=(P.xy-float2(-48000.,22400.))/float2(64000.,16000.);
+[branch] if(all(fuv>=0.) && all(fuv<=1.))
+{
+    float amount=Texture2DSampleLevel(LeafField,LeafColorSampler,fuv,0.).r;
+    [branch] if(amount>.025)
+    {
+
+        float2 home=floor(along);
+        float2 fromCentre=frac(along)-.5;
+        float2 absLocal=abs(fromCentre);
+        // A drift may cross its own grid edge. At this radius only the neighbour across the
+        // closest edge can contribute. At corners the diagonal is beyond both transparent rings.
+        float2 stepCell=absLocal.x>absLocal.y?float2(sign(fromCentre.x),0.):float2(0.,sign(fromCentre.y));
+        int candidates=max(absLocal.x,absLocal.y)>.39?2:1;
+        // Preserve compositing order when crossing a shared edge.
+        float2 first=home;
+        if(candidates==2 && dot(stepCell,float2(1.,1.))<0.){first+=stepCell;stepCell=-stepCell;}
+        [loop] for(int k=0;k<candidates;k++)
+        {
+            float2 cell=first+float(k)*stepCell;
+            float3 p=frac(cell.xyx*float3(.1031,.1030,.0973));
+            p+=dot(p,p.yzx+33.33);
+            float3 random=frac((p.xxy+p.yzz)*p.zyx);
+            float sn,cs;sincos(6.283185*random.x,sn,cs);
+            float2x2 rot=float2x2(cs,sn,-sn,cs);
+            float2 local=along-cell-.5-(random.yz-.5)*.085;
+            float scale=lerp(.90,1.08,random.z);
+            float2 spun=mul(rot,local)*scale;
+            float radial2=dot(spun,spun);
+            [branch] if(radial2<.25)
+            {
+                int variant=min(3,(int)(4.*frac(random.y+random.x*.371)));
+                float2 tile=float2(variant%2,variant/2);
+                float2 uv=(tile+.015625+.96875*(spun+.5))*.5;
+
+                float2 dx=mul(rot,du)*scale*.484375;
+                float2 dy=mul(rot,dv)*scale*.484375;
+                float footprint=max(length(dx),length(dy));
+                float fine=1.-smoothstep(.012,.042,footprint);
+                [branch] if(fine>.002)
+                {
+                    float4 leaf=Texture2DSampleGrad(LeafColor,LeafColorSampler,uv,dx,dy);
+                    // Fade any coarse-mip halo before it can reach the atlas guard.
+                    float guard=1.-smoothstep(.2209,.25,radial2);
+                    float w=smoothstep(.025,.78,amount)*guard*leaf.a*fine;
+                    [branch] if(w>.002)
+                    {
+                        float3 surf=Texture2DSampleGrad(LeafSurface,LeafColorSampler,uv,dx,dy).rgb;
+                        float2 a=mul(transpose(rot),surf.rg*2.-1.);
+                        float2 worldXY=leafAxis*a.x+leafCross*a.y;
+#if PIXELSHADER
+                        float2 detail=TransformWorldVectorToTangent(Parameters.TangentToWorld,float3(worldXY,0)).xy;
+#else
+                        float2 detail=worldXY;
+#endif
+                        MeadowNormal=normalize(float3(MeadowNormal.xy+detail*(.58*w),max(.3,MeadowNormal.z)));
+                        GroundColor=lerp(GroundColor,leaf.rgb*(.87+.20*random.z)*lerp(1.,.68,saturate(Wet)),w);
+                        LitterRoughness=lerp(LitterRoughness,lerp(clamp(surf.b,.38,.98),.37,saturate(Wet)),w);
+                    }
+                }
+            }
+        }
+    }
+}
+#endif
+return GroundColor;

@@ -1,0 +1,7 @@
+{
+  "version": "VillageFlora-R20",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsVegetation.cpp",
+  "before_sha256_lf": "39f9b10f1cd2222b81a00b008c58c41e65289ba2f21c12a02baf761a50938c94",
+  "after_sha256_lf": "dd246fd79a645a09194946d5dc3c9df5ebd661bf19eeead1504f02863b1aa665",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsVegetation.cpp\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsVegetation.cpp\n@@ -68,6 +68,7 @@\n }\n bool ATemperateHillsWorld::TreeCandidate(int32 GX,int32 GY,FTemperatePlacement& Out) const\n {\n+    if(IsForestVillage())return ForestTreeCandidate(GX,GY,Out);\n     if(!Assets)return false;\n     const uint32 K=TemperateHills::Key(GX,GY,uint32(Seed),11);\n     const double X=(GX+.5+(TemperateHills::Unit(K+1)-.5)*.56)*1200;\n"
+}

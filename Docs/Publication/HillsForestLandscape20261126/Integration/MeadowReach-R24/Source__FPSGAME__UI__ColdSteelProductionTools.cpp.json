@@ -1,0 +1,7 @@
+{
+  "version": "MeadowReach-R24",
+  "path": "Source/FPSGAME/UI/ColdSteelProductionTools.cpp",
+  "before_sha256_lf": "f0a4fc3477936e92d099aaceddaa632500f4487e460b46904e088c262f5091af",
+  "after_sha256_lf": "daac1c9e9200858530c44718b0ccd949a6c40df71b172f65a862e36c080b1aeb",
+  "patch": "--- a/Source/FPSGAME/UI/ColdSteelProductionTools.cpp\n+++ b/Source/FPSGAME/UI/ColdSteelProductionTools.cpp\n@@ -246,7 +246,15 @@\n     const uint32 SeedB=uint32(Target.CandidateId>>32);\n     FRandomStream Stream(int32(SeedA^(SeedB*0x2545F491u)^(uint32(Growth.Generation)*747796405u)));\n     FVector2D Offset=FVector2D::ZeroVector;\n-    if(const auto* World=Target.World.Get())\n+    if(const auto* Forest=Target.World.Get();Forest && Forest->IsForestVillage())\n+    {\n+        FTemperatePlacement Fitted;\n+        if(Previous)Forest->ForestSaplingPlacement(Target.CandidateId,Growth.StumpOffset,Previous->StumpOffset,Fitted);\n+        const double Angle=Stream.FRandRange(0.f,float(2*PI));\n+        Offset=FVector2D(FMath::Cos(Angle),FMath::Sin(Angle))*Stream.FRandRange(280.f,650.f);\n+        Forest->ForestSaplingPlacement(Target.CandidateId,Offset,Growth.StumpOffset,Fitted);\n+    }\n+    else if(const auto* World=Target.World.Get())\n     {\n         const double Half=World->SizeMeters*50-1000;\n         for(int32 Attempt=0;Attempt<5;++Attempt)\n"
+}

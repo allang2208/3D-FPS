@@ -1,0 +1,7 @@
+{
+  "version": "ForestAudit-R37",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+  "before_sha256_lf": "a8f6ec6ad9c2ed33cd0b4164004e26596d34a4e08b4f78f655f98703d8311c46",
+  "after_sha256_lf": "e9babe8d3ebc1147a937e913626e7ce8b4456471c60019b4b07d44f87fff18ea",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp\n@@ -198,6 +198,7 @@\n     DOREPLIFETIME(ATemperateHillsWorld,Seed);\n     DOREPLIFETIME(ATemperateHillsWorld,GeneratorVersion);\n     DOREPLIFETIME(ATemperateHillsWorld,WorldId);\n+    DOREPLIFETIME(ATemperateHillsWorld,ForestGrowthDay);\n     DOREPLIFETIME_CONDITION(ATemperateHillsWorld,PlaythroughSeed,COND_InitialOnly);\n     DOREPLIFETIME(ATemperateHillsWorld,bVillageWallRepaired);\n     DOREPLIFETIME(ATemperateHillsWorld,bVillageBlacksmithRepaired);\n"
+}

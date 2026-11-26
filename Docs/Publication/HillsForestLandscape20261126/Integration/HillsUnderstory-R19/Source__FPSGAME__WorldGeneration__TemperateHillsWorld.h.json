@@ -1,0 +1,7 @@
+{
+  "version": "HillsUnderstory-R19",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+  "before_sha256_lf": "43ed89f6943604182927fe35558a7c7c359f7aed2ddbc698f107de3e562ae830",
+  "after_sha256_lf": "586bd5f90dac389ca4fde7cbac3d067a5accc026cc77a31ae4ac369088516485",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h\n@@ -380,6 +380,8 @@\n     virtual void EndPlay(const EEndPlayReason::Type Reason) override;\n private:\n     friend class UTemperateVillageCheckCommandlet;\n+    UPROPERTY(EditDefaultsOnly,Category=\"Forest|Village\") TSoftObjectPtr<UMaterialInterface> ForestVillageRoadMaterial =\n+        TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT(\"/Game/ForestPathStudy/VillageRegion/Reference/MI_ForestVillageMudRoad.MI_ForestVillageMudRoad\")));\n     UPROPERTY(EditDefaultsOnly,Category=\"Forest|Water\") TSoftObjectPtr<UMaterialInterface> ForestPondMaterial =\n         TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT(\"/Game/WorldGeneration/TemperateHills/WetForest/M_ForestPond.M_ForestPond\")));\n     TemperateForestWater::FPlanPtr ForestWaterPlan;\n"
+}

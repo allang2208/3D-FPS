@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.cpp",
+  "before_sha256_lf": "3eb8dce0ff66e76aa3892bc3867cba407fd706052353c0236a19850d6b4be636",
+  "after_sha256_lf": "084eff218b617b9716524bb6c6e0ca46b0375a98b3f963d3631d59f067d1bb44",
+  "patch": "--- a/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp\n+++ b/Source/FPSGAME/UI/TransitLoadingSubsystem.cpp\n@@ -1,4 +1,5 @@\n #include \"TransitLoadingSubsystem.h\"\n+#include \"../WorldGeneration/ForestVillageMap.h\"\n #include \"../FPSGAMEPlayerController.h\"\n #include \"../Monsters/WildlifeSubsystem.h\"\n #include \"ColdSteelStatusModel.h\"\n@@ -162,7 +163,7 @@\n     if(SkillPreparation)SkillPreparation->Cancel();\n     bSkillPreparationStarted=false;\n     bScenePrepared=false;bPreparationFailed=false;\n-    bHills=Map.Contains(TEXT(\"L_TemperateHills_Initial\"));\n+    bHills=(Map.Contains(TEXT(\"L_TemperateHills_Initial\")) || Map.Contains(ForestVillageMap::Name));\n     bDungeon=Map.Contains(TEXT(\"L_Dungeon_Randomized\"));\n     bDestinationLoaded=false;\n     StartedAt=FPlatformTime::Seconds();FinishedAt=0;\n@@ -384,7 +385,7 @@\n     if(!bRoomTransition)\n     {\n         const FString Map=World->GetMapName();\n-        const bool LoadedHills=Map.Contains(TEXT(\"L_TemperateHills_Initial\"));\n+        const bool LoadedHills=(Map.Contains(TEXT(\"L_TemperateHills_Initial\")) || Map.Contains(ForestVillageMap::Name));\n         if(bHills||LoadedHills)\n         {\n             bHills=LoadedHills;\n"
+}

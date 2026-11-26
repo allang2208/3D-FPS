@@ -1,0 +1,646 @@
+[
+  {
+    "version": "CliffExposure-R35",
+    "path": "Source/FPSGAME/FPSGAME.Build.cs",
+    "before_sha256_lf": "cfcd3de79bbd6553ec941dcde2212725794c7f5567f8640ea071f41abb867cb8",
+    "after_sha256_lf": "61a354726c17cb46a504e095d7660c440000bb2c8e4473acd2b791e3137cfc4a",
+    "file": "Integration/CliffExposure-R35/Source__FPSGAME__FPSGAME.Build.cs.json"
+  },
+  {
+    "version": "ForestAudit-R37",
+    "path": "Source/FPSGAME/FPSGAME.Build.cs",
+    "before_sha256_lf": "61a354726c17cb46a504e095d7660c440000bb2c8e4473acd2b791e3137cfc4a",
+    "after_sha256_lf": "3c38c476fb7d2edf958578f7d2d69563aa28d778cf08a54e54fca96180cb0e17",
+    "file": "Integration/ForestAudit-R37/Source__FPSGAME__FPSGAME.Build.cs.json"
+  },
+  {
+    "version": "ForestAudit-R37",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelHarvestAuthority.cpp",
+    "before_sha256_lf": "e744bee7d9793e344b87dccfda33d6f791e049d11c16dbf8316779b515470af2",
+    "after_sha256_lf": "3ecc791172ffd842cdc6fdc4f79beac3d32db31b2e01eb744592c65b3a2a4fb4",
+    "file": "Integration/ForestAudit-R37/Source__FPSGAME__Multiplayer__ColdSteelHarvestAuthority.cpp.json"
+  },
+  {
+    "version": "ForestAudit-R37",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.h",
+    "before_sha256_lf": "fedc82116fcdc14812ff7bae3e8d05d3d591bc7835d66619d7a6b88af5b9bf2d",
+    "after_sha256_lf": "58e5e54bcab970a0066f76e92c04850168f958f5e9a419d8e2608a03e6b57241",
+    "file": "Integration/ForestAudit-R37/Source__FPSGAME__Multiplayer__ColdSteelSharedInventorySubsystem.h.json"
+  },
+  {
+    "version": "ForestAudit-R37",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelWorldNetwork.cpp",
+    "before_sha256_lf": "273e72fdabf2cc57fffad158f750e5f4aade92960d76c7b8ef84fac51ee4ce04",
+    "after_sha256_lf": "6bf1df3cb7e99c972e653646aa9831f26af9529fdde013df6f1709eccdf5a245",
+    "file": "Integration/ForestAudit-R37/Source__FPSGAME__Multiplayer__ColdSteelWorldNetwork.cpp.json"
+  },
+  {
+    "version": "ForestAudit-R37",
+    "path": "Source/FPSGAME/Production/ProductionTreeGrowthPresentation.cpp",
+    "before_sha256_lf": "8d795a9902943d7cc8c5b0c45ab6c302c1e3e10beceeffe0ee2b95f45f1b94db",
+    "after_sha256_lf": "4653ed75c21a74e6a2b0cc7f500a1658f9f2c3123662836af1257f3616df1a85",
+    "file": "Integration/ForestAudit-R37/Source__FPSGAME__Production__ProductionTreeGrowthPresentation.cpp.json"
+  },
+  {
+    "version": "ForestAudit-R37",
+    "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+    "before_sha256_lf": "051e9ffad5ba58c37aa2866af18e4b1edc9c6107e1b977665bf7f520979fc823",
+    "after_sha256_lf": "050b10573863de9c22ac5ef8a4a37eac0f69173feaeec1fa01b523e48e408f22",
+    "file": "Integration/ForestAudit-R37/Source__FPSGAME__UI__ColdSteelStatusModel.h.json"
+  },
+  {
+    "version": "ForestAudit-R37",
+    "path": "Source/FPSGAME/UI/ColdSteelTreeGrowth.cpp",
+    "before_sha256_lf": "9cc79590c955d6da71b97198853169b808ebe73ccade9d48c9b1b30e065dead1",
+    "after_sha256_lf": "8a8464d79b7a426c79dc8792e488631839a7f039c09d1066290d01516e044624",
+    "file": "Integration/ForestAudit-R37/Source__FPSGAME__UI__ColdSteelTreeGrowth.cpp.json"
+  },
+  {
+    "version": "ForestAudit-R37",
+    "path": "Source/FPSGAME/WorldGeneration/ChapelShrine.cpp",
+    "before_sha256_lf": "01a2e9386b6c638a8576f9ce660f0b3bcda77da3eb0a0d22b3bf244f67170394",
+    "after_sha256_lf": "02b1ff2c172563942ba1c60a49ca6741dd2ed95a254544c35e71bb60a065d5a4",
+    "file": "Integration/ForestAudit-R37/Source__FPSGAME__WorldGeneration__ChapelShrine.cpp.json"
+  },
+  {
+    "version": "ForestAudit-R37",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsChapel.cpp",
+    "before_sha256_lf": "b6dee29aa79b9bf58c2c5583f44306e7df06b1f78a04866f78465ae141b1f108",
+    "after_sha256_lf": "42fa6f4d32cec0d1a0137a591a848c4f8c9d65cc3ee1099003199f88bd5b71f3",
+    "file": "Integration/ForestAudit-R37/Source__FPSGAME__WorldGeneration__TemperateHillsChapel.cpp.json"
+  },
+  {
+    "version": "ForestAudit-R37",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "before_sha256_lf": "a8f6ec6ad9c2ed33cd0b4164004e26596d34a4e08b4f78f655f98703d8311c46",
+    "after_sha256_lf": "e9babe8d3ebc1147a937e913626e7ce8b4456471c60019b4b07d44f87fff18ea",
+    "file": "Integration/ForestAudit-R37/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.cpp.json"
+  },
+  {
+    "version": "ForestAudit-R37",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "before_sha256_lf": "20ae8a58392c8547c12ccafff071db5b952a20762b9f9585fc267bf5da63e9f4",
+    "after_sha256_lf": "58beab6d6bf898ddac54840787be6a14acd14c7b597d6b01186038b1e37ce9a5",
+    "file": "Integration/ForestAudit-R37/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.json"
+  },
+  {
+    "version": "ForestDeliveryAudit-R47",
+    "path": "Source/FPSGAME/FPSGAME.Build.cs",
+    "before_sha256_lf": "7c20842d85d0095c091b1d539d25edf1bef301883a1236e35117d911ba076cb5",
+    "after_sha256_lf": "b7997ac7be4203e9453b0317ad064a36a2993f1d8b5fc22068def716f0861974",
+    "file": "Integration/ForestDeliveryAudit-R47/Source__FPSGAME__FPSGAME.Build.cs.json"
+  },
+  {
+    "version": "ForestDeliveryAudit-R47",
+    "path": "Source/FPSGAME/UI/GameResourcePreparation.cpp",
+    "before_sha256_lf": "b241879ef25fee57143754e67f6369593543ffe77ac68c0bad14b8dcca6b1b8e",
+    "after_sha256_lf": "53001bcd08d09f852c176ad8b0cce3e464a6ee91ad553b63f205d43b141d4416",
+    "file": "Integration/ForestDeliveryAudit-R47/Source__FPSGAME__UI__GameResourcePreparation.cpp.json"
+  },
+  {
+    "version": "ForestDeliveryAudit-R47",
+    "path": "Source/FPSGAME/UI/GameResourcePreparation.h",
+    "before_sha256_lf": "91d2e85984ec40ee1c71957b64e47258e27062493705d66c6294b2c81a6b2198",
+    "after_sha256_lf": "eaeaffe55ca6c4115ba70a336c579b1414653691f250a1b7df617dcb345cc443",
+    "file": "Integration/ForestDeliveryAudit-R47/Source__FPSGAME__UI__GameResourcePreparation.h.json"
+  },
+  {
+    "version": "ForestDeliveryAudit-R47",
+    "path": "Source/FPSGAME/WorldGeneration/VillagePlantingDisplay.cpp",
+    "before_sha256_lf": "201c13a6806cdf4e9a78be4f869fd4d0d463fb766f739b1e162c883682c2ee05",
+    "after_sha256_lf": "6b25db62ea542546b171f0a09397679661b3fac83cbd6ebf0b176e7c99d85655",
+    "file": "Integration/ForestDeliveryAudit-R47/Source__FPSGAME__WorldGeneration__VillagePlantingDisplay.cpp.json"
+  },
+  {
+    "version": "ForestNaniteStreaming-R46",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "before_sha256_lf": "34e72dc24536c207ca14cf009cfb5e6dfe6a37b7175fa4a80b6669f68bb2d365",
+    "after_sha256_lf": "2d1c57c1f5706c9e7e66c36628b19ba876ab082a6a2290da729ecb4e07e89549",
+    "file": "Integration/ForestNaniteStreaming-R46/Source__FPSGAME__WorldGeneration__TemperateHillsStreaming.cpp.json"
+  },
+  {
+    "version": "ForestNaniteStreaming-R46",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp",
+    "before_sha256_lf": "e9909c2966458a864e75e7acc06645777eca122b2f71350a777648427def7596",
+    "after_sha256_lf": "3c353f60cfcd3b218bbc9760a50d392145f5e7181c409cff5a244ffcd56dc174",
+    "file": "Integration/ForestNaniteStreaming-R46/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingPreparation.cpp.json"
+  },
+  {
+    "version": "ForestNaniteStreaming-R46",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h",
+    "before_sha256_lf": "cff3cf2af3eb8b9fdfdde56f58c08ae271e952e20bea3135eba8256775f51c7b",
+    "after_sha256_lf": "aca243a8c5a0b959a37728369a5290a496f85971ad63c55fc5f896b514398074",
+    "file": "Integration/ForestNaniteStreaming-R46/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingPrivate.h.json"
+  },
+  {
+    "version": "ForestNaniteStreaming-R46",
+    "path": "Source/FPSGAME/WorldGeneration/VillageExteriorDetail.cpp",
+    "before_sha256_lf": "2ca9d366c43eb0a38f80fc5b6b38d16b25a25361dc4e5a2d9161febc2e3627af",
+    "after_sha256_lf": "60aed008446bb40fe387986c2c8aa9a2cdb1c38f9a93f3330c1c9d400f2d1b7f",
+    "file": "Integration/ForestNaniteStreaming-R46/Source__FPSGAME__WorldGeneration__VillageExteriorDetail.cpp.json"
+  },
+  {
+    "version": "ForestReference-R14",
+    "path": "Source/FPSGAME/FPSUDSBridgeComponent.cpp",
+    "before_sha256_lf": "ab19cf22fae62d5143a92c5f504d898d28701623589c6121e4a1af2b73e47514",
+    "after_sha256_lf": "f74243b497081d320466f1aad53936369e1a29194eaf4f9a30bd2e5cf0d0c433",
+    "file": "Integration/ForestReference-R14/Source__FPSGAME__FPSUDSBridgeComponent.cpp.json"
+  },
+  {
+    "version": "ForestReference-R14",
+    "path": "Source/FPSGAME/FPSUDSBridgeComponent.h",
+    "before_sha256_lf": "816a6cabfd021b401daeaa3d913e703622227637dc3f1c1e325474d12ede6a88",
+    "after_sha256_lf": "71efc518b9cf678d420e189c280ee0acef2f9daf53da4d9431ba32ee46cdc1eb",
+    "file": "Integration/ForestReference-R14/Source__FPSGAME__FPSUDSBridgeComponent.h.json"
+  },
+  {
+    "version": "ForestReference-R14",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateForestWater.cpp",
+    "before_sha256_lf": "ac192d7892ff6bbab664d8dbd19aaa2b966fc08b3bc8769251be034c1908704c",
+    "after_sha256_lf": "da62199f3ac5ddcd011c1ec63890da5febbd5118eba016fe7cc1b124f5edb87b",
+    "file": "Integration/ForestReference-R14/Source__FPSGAME__WorldGeneration__TemperateForestWater.cpp.json"
+  },
+  {
+    "version": "ForestReference-R14",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateForestWater.h",
+    "before_sha256_lf": "bcef5e3ca5a3b31fd16881c2a68e9c8efcc01e2d1c0d66af83efac1e2f8977c2",
+    "after_sha256_lf": "af251e2d37d19d3ed5ea9d26382fec7541a67a559ec89d21996fa63cd02cf4d2",
+    "file": "Integration/ForestReference-R14/Source__FPSGAME__WorldGeneration__TemperateForestWater.h.json"
+  },
+  {
+    "version": "ForestReference-R14",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingFog.cpp",
+    "before_sha256_lf": "3718092007cc875589acddb764abe16bc71eec9acca314f3a10f3b3ae3cefad9",
+    "after_sha256_lf": "d2a10d83ef982ab3eb8a529687597bc3362b608dd06090bc26172bddfd0a9cdb",
+    "file": "Integration/ForestReference-R14/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingFog.cpp.json"
+  },
+  {
+    "version": "ForestReference-R14",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "before_sha256_lf": "3050ea4e845d03a29b0b8729af800c511515934c56ae471064588ffc0232f47b",
+    "after_sha256_lf": "4d3fddf9fb32c3bff8ffb27ccb8ed78659863d25e5b7a9b0ce2f431dd28b5184",
+    "file": "Integration/ForestReference-R14/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.cpp.json"
+  },
+  {
+    "version": "ForestReference-R14",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "before_sha256_lf": "94cc4d1381ce933498e6d12641ed7fbc560558beb5613cd3cc6c49f27c9714ad",
+    "after_sha256_lf": "22f5792d7825a079314c24b43066836195dec38a4ef8722eeaf43cf1e436b088",
+    "file": "Integration/ForestReference-R14/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.json"
+  },
+  {
+    "version": "ForestVillage-PlayerRestore-20261123",
+    "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+    "before_sha256_lf": "7099649087b4f0aa402a25d25f7a963d0ca4d781b55d47c145187e50bcf251a7",
+    "after_sha256_lf": "9c1b0a402411fe7fa95cc4a72116d9493a06f4bd7178a2c56f4560ddf0781dd4",
+    "file": "Integration/ForestVillage-PlayerRestore-20261123/Source__FPSGAME__UI__ColdSteelInventoryRules.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Config/DefaultGame.ini",
+    "before_sha256_lf": "12b43bb2e8adef26be2f690d0bcdc16800cad2e40b8ac1f74c8151ae8693f094",
+    "after_sha256_lf": "e7d12d11999decb6d18f9092b43ff97d5b8800dd4951ed00b651a856caaa41ee",
+    "file": "Integration/ForestVillage-R1/Config__DefaultGame.ini.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/Building/VoxelBuildComponent.cpp",
+    "before_sha256_lf": "fb829ee5aecacf1218ed797f19818cfbbb10c55316af8cc7d5a12cd0fac77c99",
+    "after_sha256_lf": "ae153a75de1bc7ebb8a6ff05ae3a3690ad5b9960a5c47a9b8b5872e03cdb8848",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__Building__VoxelBuildComponent.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/FPSGAME.Build.cs",
+    "before_sha256_lf": "69f5901353362349bde9a03ebaccba48beabd90d4367dc35e1f155a15bdc6a0f",
+    "after_sha256_lf": "cfcd3de79bbd6553ec941dcde2212725794c7f5567f8640ea071f41abb867cb8",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__FPSGAME.Build.cs.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/FPSGAMEPlayerController.cpp",
+    "before_sha256_lf": "85dd6f3e1d3700c87f2f16b43f19d677f7037daac4b20c3f6153804a93ce9f07",
+    "after_sha256_lf": "55bc424926129186504e6fa8cdd19a5501dbe832a0203e18c5498167f02cc4a6",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__FPSGAMEPlayerController.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/FPSWeatherManager.cpp",
+    "before_sha256_lf": "9f7807b6b2aacc0c8af98ceb92468218ec7c025178c754ac8d5fef0ac8f7d8f8",
+    "after_sha256_lf": "21786fdbe2a2d5c9d2626d84ac96bee7a0a3eeb2230c662fe3e1cdb60d684094",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__FPSWeatherManager.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp",
+    "before_sha256_lf": "881786a9ed5b63002a5a31575244600ad605ab59c20f060b0725549652b88f47",
+    "after_sha256_lf": "8dee0e7f47017bf7df6f5eb11f5194472a5d3f51606e72d4cde353cc88394756",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__Multiplayer__ColdSteelSharedInventorySubsystem.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/NPC/ChapelDialogueSmithTraining.cpp",
+    "before_sha256_lf": "ab4db12b0d4696accad83d032e7723f079680676f42b93792fa51c1204f413a1",
+    "after_sha256_lf": "4b0a2cf6b3aaed888796bd067d6e24aa43c736fde8c91dca53a0901b34df8e2c",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__NPC__ChapelDialogueSmithTraining.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/SceneTestPortal.cpp",
+    "before_sha256_lf": "13f85db56da6d149b8070f34112c206b59585beb6241920658bdf9c83e4f83de",
+    "after_sha256_lf": "7da8c4698aa47dd1d2a9c575c1ec85717060db3994ef8d70b26c72731f42f30a",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__SceneTestPortal.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/Tasks/BlacksmithApprenticeship.cpp",
+    "before_sha256_lf": "5c05729254be2ab7f99f9594d7a67c0106fa4ca2fe99748015c6b503b9ee57f0",
+    "after_sha256_lf": "25e828a04909a05a64e507d7d4fe198ded561e693d9fc784102c50267addf238",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__Tasks__BlacksmithApprenticeship.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+    "before_sha256_lf": "bb8b203a3365670d8f91331f52180d73a4cbe56a616cfad554ba50ac561243cd",
+    "after_sha256_lf": "bcbc644018f7016edc4dd60b247427ebf81c760c07c0f7dafe8baf9ec8283ef9",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__UI__ColdSteelHUDWidget.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldMapData.cpp",
+    "before_sha256_lf": "702b93fb98c156a810fb2ba8df12cae647e16b994f04f3646c437ff229a9a3a5",
+    "after_sha256_lf": "71d7b0fdf92dd42feb773db192504658966841c14664e8c3db3ddb7c473c013d",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__UI__ColdSteelWorldMapData.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/UI/TransitLoadingSubsystem.cpp",
+    "before_sha256_lf": "3eb8dce0ff66e76aa3892bc3867cba407fd706052353c0236a19850d6b4be636",
+    "after_sha256_lf": "084eff218b617b9716524bb6c6e0ca46b0375a98b3f963d3631d59f067d1bb44",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__UI__TransitLoadingSubsystem.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp",
+    "before_sha256_lf": "d39384466d32adaf51ca42b2b1259cc4c5ea0aea6934b4fac7b3b1ef108b9c61",
+    "after_sha256_lf": "1fa0066a81e30c6a1c978cc4006f501dd5653381874b1cebfa6b71a8e7d61313",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__WorldGeneration__HillsNavigationSystem.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.cpp",
+    "before_sha256_lf": "08f21a66f4c2bec6eecac9b818847fd64a695346bb5d1aa2e12fd61784b6d037",
+    "after_sha256_lf": "cc06a80bc87db535be597b9e0c45d3263a69a66d506434271ad9862bcdb9bc8d",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__WorldGeneration__HillsNightRaidSubsystem.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsGroundCache.cpp",
+    "before_sha256_lf": "ed4dfb2c0d0016770f460729d56152df81e11f8db861baa0b806285766f08b3c",
+    "after_sha256_lf": "8400dcdb8eaf05b9e7c4a5d559c138250797d03dbe8282ed56b88fe1f46fbd0f",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__WorldGeneration__TemperateHillsGroundCache.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp",
+    "before_sha256_lf": "b548cc738a75f5f4de7b305e23921c938aacfb59b1671958f88d816f530afc00",
+    "after_sha256_lf": "970452370b17b43d6851e3d343b1ef276388c469f8912910ecb3979ccd694867",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__WorldGeneration__TemperateHillsPlacement.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "before_sha256_lf": "52ce0392fc8ac7cf52318c28698fa89cccc5130fdbff2dabf4f14c034bcfd20e",
+    "after_sha256_lf": "78c921dd4fe96e66422dd330449594e9b14a18f9d54fad1a10c96538cc39f22b",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__WorldGeneration__TemperateHillsStreaming.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h",
+    "before_sha256_lf": "6a85510023c36108e59e93e72ac469c9b2e0ca77a384684fca1249489c8893d8",
+    "after_sha256_lf": "83b671db735862ca1ab5721fc2761ba3d39616660ad467d754a2b337aa00400e",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingPrivate.h.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingVisit.cpp",
+    "before_sha256_lf": "4784604bd959efe28cf40aa207ee9a6be1fae3a0fcbf89426071f5cf51d8dcd6",
+    "after_sha256_lf": "c24b1cde11e62d105a0c2bcca5977f3093c2297ef3b3a13cfe3f09153c61e30c",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingVisit.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsTerrain.cpp",
+    "before_sha256_lf": "ebba142efe3342b5e20984fa2f7d03ce72290c9c35e435fb5185c7aadd07daff",
+    "after_sha256_lf": "1b107bf6de8f6fd2a48fe011f8ad235b8250a906127d27b21bda36034fbd424b",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__WorldGeneration__TemperateHillsTerrain.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+    "before_sha256_lf": "91b6b1e7fb9443057f71efb386345fc459502e7140377a8661585209c0e77ae1",
+    "after_sha256_lf": "3050ea4e845d03a29b0b8729af800c511515934c56ae471064588ffc0232f47b",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "before_sha256_lf": "80b7cf6e215d394c1bf19c495ede6ffa4752e0a6a47606cd870fe1cd92713cc1",
+    "after_sha256_lf": "a398428df3d2dfe6df9455e029f56f820d1c2b4cd670c2bcf62ddec7fe275c1d",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateIronOutcrops.cpp",
+    "before_sha256_lf": "cefd7a7ae0cd6547cc6393cde51854ee0af833830eda106abcff0dfcc577b15c",
+    "after_sha256_lf": "fa045b967f727ef757d19ce27e7d6c5c05cf279e4c0eccfbd45776b702a7f23e",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__WorldGeneration__TemperateIronOutcrops.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+    "before_sha256_lf": "5903c0c55ec4f1d50fe0a70d9dde385dae99aecca9c2a6dd32b7adac6a2a4949",
+    "after_sha256_lf": "4a09335162e844fc2787e9519a55d319a144ac7edc5495b108f73202e70008fe",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__WorldGeneration__TemperateVegetationPlacement.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/WorldGeneration/VillagePlantingDisplay.cpp",
+    "before_sha256_lf": "42d9826e21f473588852aa057652ed49c88773b32bb100e10fb46c1f12677104",
+    "after_sha256_lf": "cba2dc0df52cdec913963e682c32d59ea0f339602a12a5651c2844e8ff179327",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__WorldGeneration__VillagePlantingDisplay.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R1",
+    "path": "Source/FPSGAME/WorldGeneration/VillageThreatOutlines.cpp",
+    "before_sha256_lf": "0d9f1ff9cc08d4bdb347a816556410897de21bdcf137d7d4df9475ed71876388",
+    "after_sha256_lf": "fd78c2010b0a29213e71ad89e0fc51be060cc53ccb0afd9cd0c17905b4c50071",
+    "file": "Integration/ForestVillage-R1/Source__FPSGAME__WorldGeneration__VillageThreatOutlines.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R2",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldMapData.cpp",
+    "before_sha256_lf": "71d7b0fdf92dd42feb773db192504658966841c14664e8c3db3ddb7c473c013d",
+    "after_sha256_lf": "7408824deed3d5ada86c921bb0cae3c741b0a06cca1503feb025e46c3afe2f95",
+    "file": "Integration/ForestVillage-R2/Source__FPSGAME__UI__ColdSteelWorldMapData.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R2",
+    "path": "Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp",
+    "before_sha256_lf": "1fa0066a81e30c6a1c978cc4006f501dd5653381874b1cebfa6b71a8e7d61313",
+    "after_sha256_lf": "40bde51cd33ec1ae0ca5f7aa196a49c41c90f4b1b203aad16a6f30f82f27af8d",
+    "file": "Integration/ForestVillage-R2/Source__FPSGAME__WorldGeneration__HillsNavigationSystem.cpp.json"
+  },
+  {
+    "version": "ForestVillage-R2",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h",
+    "before_sha256_lf": "83b671db735862ca1ab5721fc2761ba3d39616660ad467d754a2b337aa00400e",
+    "after_sha256_lf": "125019e665e750f00423f1cf905fd7cf3fb26b41736ac22715d924c0499eb3fd",
+    "file": "Integration/ForestVillage-R2/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingPrivate.h.json"
+  },
+  {
+    "version": "HillsF6Optimizations-R42",
+    "path": "Source/FPSGAME/FPSGAME.Build.cs",
+    "before_sha256_lf": "3c38c476fb7d2edf958578f7d2d69563aa28d778cf08a54e54fca96180cb0e17",
+    "after_sha256_lf": "7c20842d85d0095c091b1d539d25edf1bef301883a1236e35117d911ba076cb5",
+    "file": "Integration/HillsF6Optimizations-R42/Source__FPSGAME__FPSGAME.Build.cs.json"
+  },
+  {
+    "version": "HillsF6Optimizations-R42",
+    "path": "Source/FPSGAME/NPC/ChapelNun.cpp",
+    "before_sha256_lf": "ca356f96fd2b3e41bacee32499a8cb1a4795baf6fda51c165c8544ed2a72eaf5",
+    "after_sha256_lf": "2c7c03f4d22fd4256d466bd3f8226d025aab6b04cd057240e5a2b2d436046cbd",
+    "file": "Integration/HillsF6Optimizations-R42/Source__FPSGAME__NPC__ChapelNun.cpp.json"
+  },
+  {
+    "version": "HillsF6Optimizations-R42",
+    "path": "Source/FPSGAME/NPC/ChapelNun.h",
+    "before_sha256_lf": "c15b3f53e580fcaa1f7a10a9392986a2c37fc10a5d361ef6174cb45ab2934755",
+    "after_sha256_lf": "cfb845b65d53215ca76450b30deab22a8506620c71e9a75a158a8056c858d4d4",
+    "file": "Integration/HillsF6Optimizations-R42/Source__FPSGAME__NPC__ChapelNun.h.json"
+  },
+  {
+    "version": "HillsF6Optimizations-R42",
+    "path": "Tools/WorldGeneration/VillageBakery/install_bakery.py",
+    "before_sha256_lf": "9815e885bab779b74ffc3b6873fd2307baea98e22bc9c56362d44e04eb90839e",
+    "after_sha256_lf": "c44e6efd6e8e6ef24e4ab0ae6b34f5c3fde037dd65e96dd9be237ee608a35347",
+    "file": "Integration/HillsF6Optimizations-R42/Tools__WorldGeneration__VillageBakery__install_bakery.py.json"
+  },
+  {
+    "version": "HillsQuarryRoad-R16",
+    "path": "Source/FPSGAME/WorldGeneration/BakeTemperateHillsLayoutCommandlet.cpp",
+    "before_sha256_lf": "15c95564b49e912227fe6d10b819a7b74f35ccd26846daa1c0baa9a5b598e9f5",
+    "after_sha256_lf": "075a7707f7ff48c1182bc577e982f63bdea148465ba44202368661a190b18c5e",
+    "file": "Integration/HillsQuarryRoad-R16/Source__FPSGAME__WorldGeneration__BakeTemperateHillsLayoutCommandlet.cpp.json"
+  },
+  {
+    "version": "HillsQuarryRoad-R16",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsQuarryTravel.cpp",
+    "before_sha256_lf": "d138ffd846eac1c4e4d6f0c533677b56b066d18c75650379fc3a4154162070d5",
+    "after_sha256_lf": "b0e300328f3d46ea1f126c1128c3f3218b46510069bcf086ae7950949918871b",
+    "file": "Integration/HillsQuarryRoad-R16/Source__FPSGAME__WorldGeneration__TemperateHillsQuarryTravel.cpp.json"
+  },
+  {
+    "version": "HillsQuarryRoad-R16",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+    "before_sha256_lf": "78c921dd4fe96e66422dd330449594e9b14a18f9d54fad1a10c96538cc39f22b",
+    "after_sha256_lf": "34e72dc24536c207ca14cf009cfb5e6dfe6a37b7175fa4a80b6669f68bb2d365",
+    "file": "Integration/HillsQuarryRoad-R16/Source__FPSGAME__WorldGeneration__TemperateHillsStreaming.cpp.json"
+  },
+  {
+    "version": "HillsQuarryRoad-R16",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsVisitQuarry.inl",
+    "before_sha256_lf": "cca4844de19a79e6a884693018265abcb331107a7f725ef49a49ed9dc314e2a7",
+    "after_sha256_lf": "b52cc00e3d59554445bbd3db83a5baecce32c2a85a281227235edaa4263ed0d4",
+    "file": "Integration/HillsQuarryRoad-R16/Source__FPSGAME__WorldGeneration__TemperateHillsVisitQuarry.inl.json"
+  },
+  {
+    "version": "HillsQuarryRoad-R16",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWhiteCliffs.cpp",
+    "before_sha256_lf": "cf8bdd7c060bc43c408bee83989b98e8565ea4f6c5753b60a82b004a89c923d5",
+    "after_sha256_lf": "78dcd62146237081c07ea04780d5913d4074bcada2cbd22965791ea3ab24981d",
+    "file": "Integration/HillsQuarryRoad-R16/Source__FPSGAME__WorldGeneration__TemperateHillsWhiteCliffs.cpp.json"
+  },
+  {
+    "version": "HillsQuarryRoad-R16",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "before_sha256_lf": "7ffd9ebc8110cbfdb6bb4a4c80c1c58ee3268adf458cf4b4271aa0f4aaf047c4",
+    "after_sha256_lf": "43ed89f6943604182927fe35558a7c7c359f7aed2ddbc698f107de3e562ae830",
+    "file": "Integration/HillsQuarryRoad-R16/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.json"
+  },
+  {
+    "version": "HillsShadowGeometry-R44",
+    "path": "Tools/WorldGeneration/VillageStable/PropsR43/import_props.py",
+    "before_sha256_lf": "a56efaf231473fbcc52711075843289b7b7cb6adefae6232ebca01daea5394b8",
+    "after_sha256_lf": "509a4d21f2fc0df6247b7ed72b28008da992b8f4d614788a3153402ac4127975",
+    "file": "Integration/HillsShadowGeometry-R44/Tools__WorldGeneration__VillageStable__PropsR43__import_props.py.json"
+  },
+  {
+    "version": "HillsUnderstory-R19",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "before_sha256_lf": "43ed89f6943604182927fe35558a7c7c359f7aed2ddbc698f107de3e562ae830",
+    "after_sha256_lf": "586bd5f90dac389ca4fde7cbac3d067a5accc026cc77a31ae4ac369088516485",
+    "file": "Integration/HillsUnderstory-R19/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.json"
+  },
+  {
+    "version": "HillsWoodlandPools-R9",
+    "path": "Source/FPSGAME/WorldGeneration/RiverPilotFXSubsystem.cpp",
+    "before_sha256_lf": "23fdd8c397b03b1f697fbf7ed7b132c3b53612d8e4437e736f154b0a6f4dd741",
+    "after_sha256_lf": "92c92230fba2a4b2bc49923f65f6bac525d59d70d08a20214d724119deadd185",
+    "file": "Integration/HillsWoodlandPools-R9/Source__FPSGAME__WorldGeneration__RiverPilotFXSubsystem.cpp.json"
+  },
+  {
+    "version": "HillsWoodlandPools-R9",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateForestWater.cpp",
+    "before_sha256_lf": "f320ca8d98e1bbface63ca3243b365a6282e74da2f21e78100d1fa9f0dcd3292",
+    "after_sha256_lf": "ac192d7892ff6bbab664d8dbd19aaa2b966fc08b3bc8769251be034c1908704c",
+    "file": "Integration/HillsWoodlandPools-R9/Source__FPSGAME__WorldGeneration__TemperateForestWater.cpp.json"
+  },
+  {
+    "version": "HillsWoodlandPools-R9",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateForestWater.h",
+    "before_sha256_lf": "520721bc05e5e2f223c1ecab30a6c5774b4faaf1c7e028c6d8a9abdff3505e27",
+    "after_sha256_lf": "bcef5e3ca5a3b31fd16881c2a68e9c8efcc01e2d1c0d66af83efac1e2f8977c2",
+    "file": "Integration/HillsWoodlandPools-R9/Source__FPSGAME__WorldGeneration__TemperateForestWater.h.json"
+  },
+  {
+    "version": "MeadowReach-R24",
+    "path": "Source/FPSGAME/UI/ColdSteelProductionTools.cpp",
+    "before_sha256_lf": "f0a4fc3477936e92d099aaceddaa632500f4487e460b46904e088c262f5091af",
+    "after_sha256_lf": "daac1c9e9200858530c44718b0ccd949a6c40df71b172f65a862e36c080b1aeb",
+    "file": "Integration/MeadowReach-R24/Source__FPSGAME__UI__ColdSteelProductionTools.cpp.json"
+  },
+  {
+    "version": "MeadowReach-R24",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp",
+    "before_sha256_lf": "fdbf3fcebbf552d2e6958449233ffa073beeef539a1482121c7663e2ccaa6b56",
+    "after_sha256_lf": "baa3064b23583070cc9bf8bdfd35ab9cce56edf689cf97845523178ec0d73bb6",
+    "file": "Integration/MeadowReach-R24/Source__FPSGAME__WorldGeneration__TemperateHillsProduction.cpp.json"
+  },
+  {
+    "version": "MeadowReach-R24",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "before_sha256_lf": "c11d047c77e2217672efce1f719424e0a1f1b7d1ca45cb02d083a4f17cd71204",
+    "after_sha256_lf": "23da2f39e7cf3a6e90f90ca8fb37bda5a00f269a67601cfe5e5e8efaafca5803",
+    "file": "Integration/MeadowReach-R24/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.json"
+  },
+  {
+    "version": "MeadowReach-R24",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+    "before_sha256_lf": "65c33d5b5d420acbc4267851a03d530589945310b1ad721dbeb6694480bf08cd",
+    "after_sha256_lf": "b36097ecbbf46ba0a94fd7d1047a890cae502c57bc1acf9fba568a8a40fb1ff4",
+    "file": "Integration/MeadowReach-R24/Source__FPSGAME__WorldGeneration__TemperateVegetationPlacement.cpp.json"
+  },
+  {
+    "version": "MeadowReach-R24",
+    "path": "Source/FPSGAME/WorldGeneration/VillagePlantingDisplay.cpp",
+    "before_sha256_lf": "cba2dc0df52cdec913963e682c32d59ea0f339602a12a5651c2844e8ff179327",
+    "after_sha256_lf": "201c13a6806cdf4e9a78be4f869fd4d0d463fb766f739b1e162c883682c2ee05",
+    "file": "Integration/MeadowReach-R24/Source__FPSGAME__WorldGeneration__VillagePlantingDisplay.cpp.json"
+  },
+  {
+    "version": "ReferenceHill-R12",
+    "path": "Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp",
+    "before_sha256_lf": "f55db4ed53665b8847c618dede18aaed10b57883529f5b2e258a78d950c22aff",
+    "after_sha256_lf": "d19a3d0080ca7497542e307fabc559773db77d7089b37a704945802dcfec4a41",
+    "file": "Integration/ReferenceHill-R12/Source__FPSGAME__WorldGeneration__HillsTavernSite.cpp.json"
+  },
+  {
+    "version": "TreeRootsWorldMap-R13",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldMapData.cpp",
+    "before_sha256_lf": "7408824deed3d5ada86c921bb0cae3c741b0a06cca1503feb025e46c3afe2f95",
+    "after_sha256_lf": "647a6a27041bb55fdfb47a39e67397aa7d87261b2ccae98e989e175a70143ec2",
+    "file": "Integration/TreeRootsWorldMap-R13/Source__FPSGAME__UI__ColdSteelWorldMapData.cpp.json"
+  },
+  {
+    "version": "TreeRootsWorldMap-R13",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldMapData.h",
+    "before_sha256_lf": "5c9d387010b708a0e84905d182bb9ca64dc76c262c68d6d4e701715506eec3f2",
+    "after_sha256_lf": "eded6d2b1d5a8392b4b88659766cb66e465e07a94f98cc26a9897a12938b6cca",
+    "file": "Integration/TreeRootsWorldMap-R13/Source__FPSGAME__UI__ColdSteelWorldMapData.h.json"
+  },
+  {
+    "version": "TreeRootsWorldMap-R13",
+    "path": "Source/FPSGAME/UI/SColdSteelWorldMap.cpp",
+    "before_sha256_lf": "950669e463534a59fc788838b015862906c5c3077eafe817eb0914de6c5a41e8",
+    "after_sha256_lf": "0136ef80e0db4de3175abc15b79ba6497fd1325aeab609984b54b1e34fc5583c",
+    "file": "Integration/TreeRootsWorldMap-R13/Source__FPSGAME__UI__SColdSteelWorldMap.cpp.json"
+  },
+  {
+    "version": "TreeRootsWorldMap-R13",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "before_sha256_lf": "a398428df3d2dfe6df9455e029f56f820d1c2b4cd670c2bcf62ddec7fe275c1d",
+    "after_sha256_lf": "94cc4d1381ce933498e6d12641ed7fbc560558beb5613cd3cc6c49f27c9714ad",
+    "file": "Integration/TreeRootsWorldMap-R13/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.json"
+  },
+  {
+    "version": "TreeRootsWorldMap-R13",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVillagePlanting.cpp",
+    "before_sha256_lf": "1bb9454fa03c4493546b9981af3545082eaa98cc1ca31c02bdda1640f29538f1",
+    "after_sha256_lf": "63162d17d626594679f1e44c98bd2ee6a8eca3bc6bf8a419a80ca0547c2246b6",
+    "file": "Integration/TreeRootsWorldMap-R13/Source__FPSGAME__WorldGeneration__TemperateVillagePlanting.cpp.json"
+  },
+  {
+    "version": "VillageFlora-R20",
+    "path": "Source/FPSGAME/Production/ProductionTreeGrowthPresentation.cpp",
+    "before_sha256_lf": "51c81750d8473cc1caf6a65b3399871bf188ddcea0824ec8ed7c996e18559633",
+    "after_sha256_lf": "8d795a9902943d7cc8c5b0c45ab6c302c1e3e10beceeffe0ee2b95f45f1b94db",
+    "file": "Integration/VillageFlora-R20/Source__FPSGAME__Production__ProductionTreeGrowthPresentation.cpp.json"
+  },
+  {
+    "version": "VillageFlora-R20",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp",
+    "before_sha256_lf": "970452370b17b43d6851e3d343b1ef276388c469f8912910ecb3979ccd694867",
+    "after_sha256_lf": "57a066b67995376dc544db4d55e106f9a05a4afb4df492acd0bb2d462ee19578",
+    "file": "Integration/VillageFlora-R20/Source__FPSGAME__WorldGeneration__TemperateHillsPlacement.cpp.json"
+  },
+  {
+    "version": "VillageFlora-R20",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsProduction.cpp",
+    "before_sha256_lf": "36cf510189f8a8f5306d1a3ac4d73d202484eb6f259a3db1a248462915d801cf",
+    "after_sha256_lf": "fdbf3fcebbf552d2e6958449233ffa073beeef539a1482121c7663e2ccaa6b56",
+    "file": "Integration/VillageFlora-R20/Source__FPSGAME__WorldGeneration__TemperateHillsProduction.cpp.json"
+  },
+  {
+    "version": "VillageFlora-R20",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsVegetation.cpp",
+    "before_sha256_lf": "39f9b10f1cd2222b81a00b008c58c41e65289ba2f21c12a02baf761a50938c94",
+    "after_sha256_lf": "dd246fd79a645a09194946d5dc3c9df5ebd661bf19eeead1504f02863b1aa665",
+    "file": "Integration/VillageFlora-R20/Source__FPSGAME__WorldGeneration__TemperateHillsVegetation.cpp.json"
+  },
+  {
+    "version": "VillageFlora-R20",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+    "before_sha256_lf": "586bd5f90dac389ca4fde7cbac3d067a5accc026cc77a31ae4ac369088516485",
+    "after_sha256_lf": "c11d047c77e2217672efce1f719424e0a1f1b7d1ca45cb02d083a4f17cd71204",
+    "file": "Integration/VillageFlora-R20/Source__FPSGAME__WorldGeneration__TemperateHillsWorld.h.json"
+  },
+  {
+    "version": "VillageFlora-R20",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+    "before_sha256_lf": "4a09335162e844fc2787e9519a55d319a144ac7edc5495b108f73202e70008fe",
+    "after_sha256_lf": "65c33d5b5d420acbc4267851a03d530589945310b1ad721dbeb6694480bf08cd",
+    "file": "Integration/VillageFlora-R20/Source__FPSGAME__WorldGeneration__TemperateVegetationPlacement.cpp.json"
+  },
+  {
+    "version": "VillageGroundRelief-R11",
+    "path": "Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp",
+    "before_sha256_lf": "6c4adba82f795d8444dad411d17e582534a36c9be88a3a39bd795ea3df7805eb",
+    "after_sha256_lf": "f55db4ed53665b8847c618dede18aaed10b57883529f5b2e258a78d950c22aff",
+    "file": "Integration/VillageGroundRelief-R11/Source__FPSGAME__WorldGeneration__HillsTavernSite.cpp.json"
+  },
+  {
+    "version": "VillageGroundRelief-R11",
+    "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h",
+    "before_sha256_lf": "125019e665e750f00423f1cf905fd7cf3fb26b41736ac22715d924c0499eb3fd",
+    "after_sha256_lf": "cff3cf2af3eb8b9fdfdde56f58c08ae271e952e20bea3135eba8256775f51c7b",
+    "file": "Integration/VillageGroundRelief-R11/Source__FPSGAME__WorldGeneration__TemperateHillsStreamingPrivate.h.json"
+  },
+  {
+    "version": "VillageLoessFoothills-R32",
+    "path": "Source/FPSGAME/UI/ColdSteelWorldMapData.cpp",
+    "before_sha256_lf": "378d4cfe527af0cdf9a85a05674e0c0cbf974b6320ca1821eeaf089a238a9a54",
+    "after_sha256_lf": "55de87d30f4d5f90b30c44ad4bdf47ba345d14ab916630b10ac12697f48983ee",
+    "file": "Integration/VillageLoessFoothills-R32/Source__FPSGAME__UI__ColdSteelWorldMapData.cpp.json"
+  }
+]

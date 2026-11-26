@@ -1,0 +1,85 @@
+// Shared by the painted Landscape and the mesh continuation, coordinates in centimetres.
+struct FRoadNoise
+{
+    float3 Hash(float2 ij)
+    {
+        float3 p=frac(ij.xyx*float3(.1031,.1030,.0973));
+        p+=dot(p,p.yxz+33.33);
+        return frac((p.xxy+p.yzz)*p.zyx);
+    }
+};
+FRoadNoise noise;
+float2 uv=P.xy/200.;
+float2 gx=float2(.002,0),gy=float2(0,.002);
+#if (PIXELSHADER || COMPUTESHADER) && !RAYHITGROUPSHADER
+gx=ddx(uv);
+gy=ddy(uv);
+#endif
+// Interpolate randomly translated and mirrored scans on a triangular lattice.
+// Spatial derivatives are taken before hashing, so mip selection is stable at cell borders.
+float2 field=float2(uv.x*.31+uv.y*.14,uv.y*.29-uv.x*.10);
+float2 base=floor(field), f=frac(field);
+bool upper=f.x+f.y>1.;
+float2 key0=base+(upper?1.:0.);
+float3 weight=upper?float3(f.x+f.y-1.,1.-f.y,1.-f.x):float3(1.-f.x-f.y,f.x,f.y);
+weight*=weight;
+weight/=dot(weight,1.);
+float farMix=smoothstep(3800.,7200.,distance(P,Eye));
+float3 color=0,normal=0;
+float4 data=0;
+[branch] if(farMix<.999)
+{
+    [unroll] for(int i=0;i<3;i++)
+    {
+        float w=weight[i];
+        [branch] if(w>.0002)
+        {
+            float2 key=i==0?key0:(base+(i==1?float2(1,0):float2(0,1)));
+            float3 seed=noise.Hash(key+float2(419,725));
+            float2 mirror=step(.5,float2(seed.z,frac(seed.z*9.73)))*2.-1.;
+            float2 coord=uv*mirror+seed.xy;
+            color+=w*Texture2DSampleGrad(Soil,SoilSampler,coord,gx*mirror,gy*mirror).rgb;
+            float3 n=UnpackNormalMap(Texture2DSampleGrad(Nrm,NrmSampler,coord,gx*mirror,gy*mirror));
+            normal+=w*float3(n.xy*mirror,n.z);
+            data+=w*Texture2DSampleGrad(Packed,PackedSampler,coord,gx*mirror,gy*mirror);
+        }
+    }
+}
+[branch] if(farMix>.001)
+{
+    float2 coord=uv+float2(.28,.71);
+    color=lerp(color,Texture2DSampleGrad(Soil,SoilSampler,coord,gx,gy).rgb,farMix);
+    normal=lerp(normal,UnpackNormalMap(Texture2DSampleGrad(Nrm,NrmSampler,coord,gx,gy)),farMix);
+    data=lerp(data,Texture2DSampleGrad(Packed,PackedSampler,coord,gx,gy),farMix);
+}
+// Moss uses an independent physical grid. Empty cells, jitter, eight masks, rotation and scale
+// separate its spacing and silhouette from the roots in the soil scan.
+float2 axis=float2(.8944,.4472);
+float2 p=float2(dot(P.xy,axis),dot(P.xy,float2(-axis.y,axis.x)))/124.;
+float2 cell=floor(p);
+float3 rand=noise.Hash(cell+float2(214,33));
+float3 opts=noise.Hash(cell+float2(95,471));
+float2 radii=lerp(float2(.10,.075),float2(.245,.195),opts.xy);
+float2 local=frac(p)-lerp(.27,.73,rand.xy);
+float angle=6.283185*opts.z;
+float sc,cs;sincos(angle,sc,cs);
+float2 q=float2(dot(local,float2(cs,sc)),dot(local,float2(-sc,cs)))/radii;
+[branch] if(rand.z>.40 && dot(q,q)<1. && farMix<.999)
+{
+    int index=min(7,(int)(noise.Hash(cell+17.).x*8.));
+    float2 at=(float2(index%4,index/4)+.5+.48*q)/float2(4,2);
+    // Compute the footprint analytically; derivatives of cell IDs cause false coarse mips.
+    float2x2 A=float2x2(axis.x,axis.y,-axis.y,axis.x);
+    float2x2 B=float2x2(cs,sc,-sc,cs);
+    float2 mx=mul(B,mul(A,gx))*200./124./radii*.48/float2(4,2);
+    float2 my=mul(B,mul(A,gy))*200./124./radii*.48/float2(4,2);
+    float4 island=Texture2DSampleGrad(Moss,MossSampler,at,mx,my);
+    float blend=saturate(island.a*1.45)*(1.-farMix);
+    color=lerp(color,island.rgb,blend);
+    data.g=lerp(data.g,.87,blend*.6);
+}
+RoadNormal=normalize(normal+float3(0,0,.00001));
+RoadRoughness=data.g;
+RoadAO=data.r;
+RoadHeight=data.a;
+return color;

@@ -32,7 +32,9 @@ void ApplyShopPropDistance(UStaticMeshComponent& Part)
     static const TSet<FName> Medium = {
         TEXT("SM_BakeryGrainSack"), TEXT("SM_CarpenterJoinersChest"), TEXT("SM_CarpenterJoinersChestLid"),
         TEXT("SM_CarpenterStackedCases"), TEXT("SM_CarpenterWashBarrel"), TEXT("SM_SmithTongStand"),
-        TEXT("SM_SmithWheelAndCases"), TEXT("SM_TavernAleCask")
+        TEXT("SM_SmithWheelAndCases"), TEXT("SM_TavernAleCask"), TEXT("SM_TavernTapCask"),
+        TEXT("SM_VillageOakShelf"), TEXT("SM_VillageOakTable"), TEXT("SM_VillageTimberBed"),
+        TEXT("SM_Stable_SaddleStand"), TEXT("SM_Stable_TackWallRack")
     };
     const FName Name = Part.GetStaticMesh()->GetFName();
     const int32 End = Small.Contains(Name) ? 3500 : Medium.Contains(Name) ? 5500 : 0;

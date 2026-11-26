@@ -42,3 +42,5 @@ description: UE5 任务入口。用户未指定技能或涉及引擎模块时，
 - 涉及编辑器内脚本的写法与排障纪律（2026-09-23）时，读取[编辑器内脚本的写法与排障纪律（2026-09-23）](references/editor-script-discipline.md)。
 
 - FPSGAME 的 SSD、DDC、Content 联接与恢复留存整理，读取 [项目存储与目录联接](references/project-storage-junctions.md)。
+
+丘陵高度场、道路与森林 PCG、地表及林雾制作，见[户外地编](../ue5-landscape-authoring/SKILL.md)。

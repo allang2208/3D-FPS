@@ -1,0 +1,7 @@
+{
+  "version": "ForestAudit-R37",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+  "before_sha256_lf": "20ae8a58392c8547c12ccafff071db5b952a20762b9f9585fc267bf5da63e9f4",
+  "after_sha256_lf": "58beab6d6bf898ddac54840787be6a14acd14c7b597d6b01186038b1e37ce9a5",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h\n@@ -350,6 +350,9 @@\n     int32 GetTerrainEditCount() const { return TerrainEdits.Num(); }\n     uint32 GetTerrainEditRevision() const { return TerrainEditRevision; }\n     uint32 GetMapSurfaceRevision() const;\n+    // Small shared sample for this level's connected peers; the harvest ledger travels on changes.\n+    UPROPERTY(ReplicatedUsing=OnRep_ForestGrowthDay) double ForestGrowthDay=-1.;\n+    UFUNCTION() void OnRep_ForestGrowthDay();\n     FColor ForestMapLayers(double X,double Y,double GroundZ) const;\n     double SettlementRoadWeight(double X,double Y) const;\n     UMaterialInterface* GetMapGroundMaterial() const;\n"
+}

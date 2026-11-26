@@ -47,6 +47,7 @@ private:
     TSet<TWeakObjectPtr<UTexture2D>> SeenWarmTextures;
     TSet<TWeakObjectPtr<UTexture2D>> RequestedWarmTextures;
     TMap<TWeakObjectPtr<UMaterialInterface>, TArray<TWeakObjectPtr<UTexture>>> MaterialTextures;
+    int32 CachedTextureQuality=INDEX_NONE;
     int32 WarmActorCursor = 0, WarmTextureCursor = 0;
     int64 WarmRequestBytes = 0;
     bool bSceneAssembling = false;

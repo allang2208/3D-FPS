@@ -1,0 +1,7 @@
+{
+  "version": "ForestNaniteStreaming-R46",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp",
+  "before_sha256_lf": "e9909c2966458a864e75e7acc06645777eca122b2f71350a777648427def7596",
+  "after_sha256_lf": "3c353f60cfcd3b218bbc9760a50d392145f5e7181c409cff5a244ffcd56dc174",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPreparation.cpp\n@@ -1,4 +1,5 @@\n #include \"TemperateHillsWorld.h\"\n+#include \"ForestVillageMap.h\"\n #include \"EastRiverRoad.h\"\n #include \"TemperateVillageGround.h\"\n #include \"HillsNightRaidSubsystem.h\"\n@@ -137,7 +138,7 @@\n TSharedPtr<FStreamableHandle> ATemperateHillsWorld::RequestResidentAppearance(UWorld* World, TArray<FSoftObjectPath> Paths, FSimpleDelegate OnLoaded)\n {\n     auto& Manager=UAssetManager::GetStreamableManager();\n-    if(TemperateHillsChapel::IsChapelWorld(World))\n+    if(TemperateHillsChapel::IsChapelWorld(World) || ForestVillageMap::Is(World))\n     {\n         for(TActorIterator<ATemperateHillsWorld> It(World); It; ++It)\n         {\n"
+}

@@ -1,0 +1,7 @@
+{
+  "version": "CliffExposure-R35",
+  "path": "Source/FPSGAME/FPSGAME.Build.cs",
+  "before_sha256_lf": "cfcd3de79bbd6553ec941dcde2212725794c7f5567f8640ea071f41abb867cb8",
+  "after_sha256_lf": "61a354726c17cb46a504e095d7660c440000bb2c8e4473acd2b791e3137cfc4a",
+  "patch": "--- a/Source/FPSGAME/FPSGAME.Build.cs\n+++ b/Source/FPSGAME/FPSGAME.Build.cs\n@@ -63,6 +63,7 @@\n         }\n         PrivateDependencyModuleNames.AddRange(new[] { \"ClothingSystemRuntimeCommon\", \"ClothingSystemRuntimeInterface\" });\n         PrivateDependencyModuleNames.AddRange(new[] { \"PCG\", \"GeometryCore\", \"GeometryFramework\", \"Landscape\" });\n+        if (Target.bBuildEditor) PrivateDependencyModuleNames.Add(\"Foliage\");\n         PrivateDependencyModuleNames.Add(\"DynamicWind\"); // Hills PCG plants follow the authoritative weather wind.\n         if (Target.bBuildEditor) PrivateDependencyModuleNames.Add(\"NiagaraEditor\");\n         if (Target.bBuildEditor) PrivateDependencyModuleNames.Add(\"SlateRHIRenderer\"); // Offscreen ammo-wheel diagnosis.\n"
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "target": "Source/FPSGAME/WorldGeneration/ForestVillageReliefData.inl",
+    "sha256": "ba757c7b99a27a54c3a0bbe0d6fdafe17fa79bb1beb70d90c4611177889bc111"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/ForestVillageStreetRelief.inl",
+    "sha256": "4d9ce3f6e354d80e5cc73cfe5156e6b9e98aefba3212aca9a7fc83bdef06c214"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/EastRiverRoadFloorPalette.inl",
+    "sha256": "adec38cb61d2374c9105fa73e54cd055dab70a0b1ba4033ded3d6111a33816c5"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/EastRiverRoadMask.inl",
+    "sha256": "e4bbfb39a0747d0d4a9f182349785b8540adb48a1f0c1b4ffa31539355ab7260"
+  },
+  {
+    "target": "Source/FPSGAME/WorldGeneration/EastRiverRoadProfile.inl",
+    "sha256": "7e6bd1430f32e1d57e5ae10327e229ce9eb5b9ba6a69b1198d995dfa6e8a9279"
+  }
+]

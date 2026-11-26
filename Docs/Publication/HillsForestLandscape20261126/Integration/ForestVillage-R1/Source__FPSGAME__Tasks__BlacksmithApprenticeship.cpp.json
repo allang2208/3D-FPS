@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/Tasks/BlacksmithApprenticeship.cpp",
+  "before_sha256_lf": "5c05729254be2ab7f99f9594d7a67c0106fa4ca2fe99748015c6b503b9ee57f0",
+  "after_sha256_lf": "25e828a04909a05a64e507d7d4fe198ded561e693d9fc784102c50267addf238",
+  "patch": "--- a/Source/FPSGAME/Tasks/BlacksmithApprenticeship.cpp\n+++ b/Source/FPSGAME/Tasks/BlacksmithApprenticeship.cpp\n@@ -1,4 +1,5 @@\n #include \"BlacksmithApprenticeship.h\"\n+#include \"../WorldGeneration/ForestVillageMap.h\"\n #include \"ApprenticeMaterials.h\"\n #include \"../Building/ForgingSystem.h\"\n #include \"../FPSGAMECharacter.h\"\n@@ -145,6 +146,11 @@\n         return false;\n     }\n     const auto& Current = Model->ProfileView();\n+    if (ForestVillageMap::Is(Model->GetWorld()) && Stage(Current)==EStage::NotStarted)\n+    {\n+        Message=TEXT(\"这片林地的村外采矿教学暂缓开放。\");\n+        return false;\n+    }\n     if (!NeedsSupplies(Current))\n     {\n         Message = Stage(Current) == EStage::Complete ? TEXT(\"打铁修炼已完成。\") : TEXT(\"教学材料已领取。打开任务栏可查看当前步骤。\");\n"
+}

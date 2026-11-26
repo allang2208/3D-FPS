@@ -1,0 +1,7 @@
+{
+  "version": "ForestAudit-R37",
+  "path": "Source/FPSGAME/UI/ColdSteelTreeGrowth.cpp",
+  "before_sha256_lf": "9cc79590c955d6da71b97198853169b808ebe73ccade9d48c9b1b30e065dead1",
+  "after_sha256_lf": "8a8464d79b7a426c79dc8792e488631839a7f039c09d1066290d01516e044624",
+  "patch": "--- a/Source/FPSGAME/UI/ColdSteelTreeGrowth.cpp\n+++ b/Source/FPSGAME/UI/ColdSteelTreeGrowth.cpp\n@@ -50,6 +50,11 @@\n     return G?FMath::Clamp(G->StumpHealthRatio,0.f,1.f):1.f;\n }\n \n+void UColdSteelStatusModel::SetMirroredTreeGrowthDay(double Day)\n+{\n+    if (GetWorld() && GetWorld()->GetNetMode()==NM_Client && Day>=0.) Current.TreeGrowthDay=Day;\n+}\n+\n void UColdSteelStatusModel::TickTreeGrowthClock(float Delta)\n {\n     if(!GetWorld() || GetWorld()->GetNetMode()==NM_Client || Delta<=0)return;\n"
+}

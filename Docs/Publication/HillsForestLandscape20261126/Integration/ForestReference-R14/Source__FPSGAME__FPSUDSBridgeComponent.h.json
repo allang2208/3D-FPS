@@ -1,0 +1,7 @@
+{
+  "version": "ForestReference-R14",
+  "path": "Source/FPSGAME/FPSUDSBridgeComponent.h",
+  "before_sha256_lf": "816a6cabfd021b401daeaa3d913e703622227637dc3f1c1e325474d12ede6a88",
+  "after_sha256_lf": "71efc518b9cf678d420e189c280ee0acef2f9daf53da4d9431ba32ee46cdc1eb",
+  "patch": "--- a/Source/FPSGAME/FPSUDSBridgeComponent.h\n+++ b/Source/FPSGAME/FPSUDSBridgeComponent.h\n@@ -109,6 +109,7 @@\n     void RegisterLevel(ULevel* Level,UWorld* World);\n     void BindSkyReflection(AActor* Sky);\n     void ConfigureHillsAtmosphere();\n+    void ReleaseForestSampleLighting(ULevel* Level);\n     void BindWeatherReflection(AActor* WeatherUDS);\n     void CachePresets();\n     void ApplyClock();\n"
+}

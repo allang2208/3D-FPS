@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp",
+  "before_sha256_lf": "5903c0c55ec4f1d50fe0a70d9dde385dae99aecca9c2a6dd32b7adac6a2a4949",
+  "after_sha256_lf": "4a09335162e844fc2787e9519a55d319a144ac7edc5495b108f73202e70008fe",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp\n+++ b/Source/FPSGAME/WorldGeneration/TemperateVegetationPlacement.cpp\n@@ -1,5 +1,5 @@\n+#include \"TemperateVegetationPlacement.h\"\n #include \"EastRiverRoad.h\"\n-#include \"TemperateVegetationPlacement.h\"\n #include \"TemperateHillsWorld.h\"\n #include \"TemperateVillagePlanting.h\"\n #include \"Engine/StaticMesh.h\"\n"
+}

@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+  "before_sha256_lf": "80b7cf6e215d394c1bf19c495ede6ffa4752e0a6a47606cd870fe1cd92713cc1",
+  "after_sha256_lf": "a398428df3d2dfe6df9455e029f56f820d1c2b4cd670c2bcf62ddec7fe275c1d",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h\n@@ -241,6 +241,7 @@\n     GENERATED_BODY()\n public:\n     ATemperateHillsWorld();\n+    bool IsForestVillage() const { return ActorHasTag(TEXT(\"ForestPathVillage\")); }\n     static TSharedPtr<FStreamableHandle> RequestResidentAppearance(UWorld* World, TArray<FSoftObjectPath> Paths, FSimpleDelegate OnLoaded = {});\n     virtual void OnConstruction(const FTransform& Transform) override;\n     virtual void Tick(float DeltaSeconds) override;\n@@ -455,6 +456,11 @@\n     void GetHabitatCompanions(const FBox& Bounds,const TArray<FTemperatePlacement>& Supports,bool Trees,\n         TArray<FTemperatePlacement>& Plants,TArray<FTemperatePlacement>* Floor) const;\n     void GetVisualAnchorPlacements(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const;\n+    void BeginForestVillage();\n+    void TickForestVillage();\n+    void BuildForestVillageGround();\n+    double ForestVillageHeight(double X, double Y) const;\n+    bool LoadVillageSettlement();\n     void BeginStreaming();\n     void TickStreaming();\n     UFUNCTION() void BindStreamedVillageBuildings();\n"
+}

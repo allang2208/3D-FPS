@@ -1,0 +1,7 @@
+{
+  "version": "ForestNaniteStreaming-R46",
+  "path": "Source/FPSGAME/WorldGeneration/VillageExteriorDetail.cpp",
+  "before_sha256_lf": "2ca9d366c43eb0a38f80fc5b6b38d16b25a25361dc4e5a2d9161febc2e3627af",
+  "after_sha256_lf": "60aed008446bb40fe387986c2c8aa9a2cdb1c38f9a93f3330c1c9d400f2d1b7f",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/VillageExteriorDetail.cpp\n+++ b/Source/FPSGAME/WorldGeneration/VillageExteriorDetail.cpp\n@@ -32,7 +32,9 @@\n     static const TSet<FName> Medium = {\n         TEXT(\"SM_BakeryGrainSack\"), TEXT(\"SM_CarpenterJoinersChest\"), TEXT(\"SM_CarpenterJoinersChestLid\"),\n         TEXT(\"SM_CarpenterStackedCases\"), TEXT(\"SM_CarpenterWashBarrel\"), TEXT(\"SM_SmithTongStand\"),\n-        TEXT(\"SM_SmithWheelAndCases\"), TEXT(\"SM_TavernAleCask\")\n+        TEXT(\"SM_SmithWheelAndCases\"), TEXT(\"SM_TavernAleCask\"), TEXT(\"SM_TavernTapCask\"),\n+        TEXT(\"SM_VillageOakShelf\"), TEXT(\"SM_VillageOakTable\"), TEXT(\"SM_VillageTimberBed\"),\n+        TEXT(\"SM_Stable_SaddleStand\"), TEXT(\"SM_Stable_TackWallRack\")\n     };\n     const FName Name = Part.GetStaticMesh()->GetFName();\n     const int32 End = Small.Contains(Name) ? 3500 : Medium.Contains(Name) ? 5500 : 0;\n"
+}

@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R2",
+  "path": "Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp",
+  "before_sha256_lf": "1fa0066a81e30c6a1c978cc4006f501dd5653381874b1cebfa6b71a8e7d61313",
+  "after_sha256_lf": "40bde51cd33ec1ae0ca5f7aa196a49c41c90f4b1b203aad16a6f30f82f27af8d",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp\n+++ b/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp\n@@ -105,7 +105,7 @@\n     }\n     auto* Cube=NewObject<UCubeBuilder>(Bounds);Cube->X=102400.;Cube->Y=102400.;Cube->Z=60000.;\n     if(!Cube->Build(World,Bounds))return false;\n-    Bounds->GetBrushComponent()->BuildSimpleBrushCollision();Bounds->SetActorLocation(FVector::ZeroVector);\n+    Bounds->GetBrushComponent()->BuildSimpleBrushCollision();Bounds->SetActorLocation(ForestVillageMap::Is(World)?FVector(ForestVillageMap::Bounds().GetCenter(),0.):FVector::ZeroVector);\n     Bounds->ReregisterAllComponents();Bounds->MarkPackageDirty();\n     return true;\n #else\n"
+}

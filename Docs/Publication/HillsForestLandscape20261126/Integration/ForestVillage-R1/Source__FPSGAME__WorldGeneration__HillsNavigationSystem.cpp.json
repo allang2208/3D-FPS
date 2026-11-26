@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp",
+  "before_sha256_lf": "d39384466d32adaf51ca42b2b1259cc4c5ea0aea6934b4fac7b3b1ef108b9c61",
+  "after_sha256_lf": "1fa0066a81e30c6a1c978cc4006f501dd5653381874b1cebfa6b71a8e7d61313",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp\n+++ b/Source/FPSGAME/WorldGeneration/HillsNavigationSystem.cpp\n@@ -1,4 +1,5 @@\n #include \"HillsNavigationSystem.h\"\n+#include \"ForestVillageMap.h\"\n #include \"AI/NavigationSystemConfig.h\"\n #include \"GameFramework/WorldSettings.h\"\n #include \"Engine/Engine.h\"\n@@ -81,7 +82,7 @@\n {\n #if WITH_EDITOR\n     auto* World=GEngine->GetWorldFromContextObject(Context,EGetWorldErrorMode::ReturnNull);\n-    if(!World||World->GetPackage()->GetName()!=TEXT(\"/Game/GameMaps/L_TemperateHills_Initial\"))return false;\n+    if(!World||(!ForestVillageMap::Is(World)&&World->GetPackage()->GetName()!=TEXT(\"/Game/GameMaps/L_TemperateHills_Initial\")))return false;\n     auto* Settings=World->GetWorldSettings();\n     // The override is transient. Edit the map's serialized config, so the next game uses it too.\n     if(Settings->GetNavigationSystemConfigOverride())return false;\n"
+}

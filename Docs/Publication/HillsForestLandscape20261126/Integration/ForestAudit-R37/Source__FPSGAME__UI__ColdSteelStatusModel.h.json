@@ -1,0 +1,7 @@
+{
+  "version": "ForestAudit-R37",
+  "path": "Source/FPSGAME/UI/ColdSteelStatusModel.h",
+  "before_sha256_lf": "051e9ffad5ba58c37aa2866af18e4b1edc9c6107e1b977665bf7f520979fc823",
+  "after_sha256_lf": "050b10573863de9c22ac5ef8a4a37eac0f69173feaeec1fa01b523e48e408f22",
+  "patch": "--- a/Source/FPSGAME/UI/ColdSteelStatusModel.h\n+++ b/Source/FPSGAME/UI/ColdSteelStatusModel.h\n@@ -485,6 +485,7 @@\n     float StumpHealthRatio(const FString& Id) const;\n     bool IsTreeMature(const FString& Id) const;\n     void TickTreeGrowthClock(float Delta);\n+    void SetMirroredTreeGrowthDay(double Day);\n     bool CommitHarvestStrike(struct FProductionResource& Target,bool& Depleted);\n     /** 树木专用结算：一次挥砍按伐木伤害扣生命值，归零的那一挥才走倒树事务。 */\n     bool CommitTreeStrike(struct FProductionResource& Target,const struct FProductionToolStats& ToolStats,bool& Depleted);\n"
+}

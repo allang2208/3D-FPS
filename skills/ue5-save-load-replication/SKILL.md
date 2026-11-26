@@ -101,3 +101,5 @@ FPSGAME 持续魔法的施法身份、预测确认、权威奖励模型及断线
 丘陵监听服的种子归属、工匠货架竞争和个人修炼进度见[房主存档、共享货架与学徒任务](references/artisan-village-session-and-stock.md)。
 
 伙伴名册与装备归属参见[伙伴名册与装备归属](references/owned-equipment-and-roster.md)。
+
+丘陵林图的远端树干碰撞、采伐重连和原档隔离，见[林图联机预算](../_shared/ue5-landscape-authoring/references/ecology-and-atmosphere.md#迁移林图的渲染和联机预算)。

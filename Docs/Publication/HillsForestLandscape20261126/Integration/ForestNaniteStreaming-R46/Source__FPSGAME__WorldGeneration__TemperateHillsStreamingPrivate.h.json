@@ -1,0 +1,7 @@
+{
+  "version": "ForestNaniteStreaming-R46",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h",
+  "before_sha256_lf": "cff3cf2af3eb8b9fdfdde56f58c08ae271e952e20bea3135eba8256775f51c7b",
+  "after_sha256_lf": "aca243a8c5a0b959a37728369a5290a496f85971ad63c55fc5f896b514398074",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h\n@@ -13,8 +13,11 @@\n class UTemperateHillsGuestSource;\n class UTexture2D;\n struct FStreamableHandle;\n+class UTransitLoadingSubsystem;\n namespace HillsStreaming\n {\n+void AcquireStreamingBudget();\n+void FinishEntryBudgetIfReady(bool& Preparing,bool Ready,bool Failed,const UTransitLoadingSubsystem* Loading);\n constexpr double CellSize=6400.0;\n constexpr int32 SurfaceDetailQuads=64;\n // Entry only waits for this playable neighborhood. The normal view ring starts\n@@ -123,6 +126,8 @@\n     bool StaggerVillageEntry=false;\n     TWeakObjectPtr<class ALandscapeProxy> ForestLandscape;\n     TWeakObjectPtr<class AForestVillageRegion> ForestRegion;\n+    int32 ForestPSOActorIndex=0;\n+    TArray<TWeakObjectPtr<UPrimitiveComponent>> ForestPendingPSOs;\n     TArray<double> ForestBorderHeights;\n     TArray<float> ForestVillageGroundCm;\n     bool GroundReady=false;\n"
+}

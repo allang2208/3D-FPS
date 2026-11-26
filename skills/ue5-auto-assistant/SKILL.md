@@ -17,3 +17,5 @@ description: UE5.6-UE5.8 automatic assistant entry for beginners. Use when users
 
 - FPSGAME 的 SSD、DDC、Content 联接与恢复留存整理，读取 [项目存储与目录联接](references/project-storage-junctions.md)。 为什么：目录联接可能指向活动资产或独有源文件，路径用途决定保留边界。
 - 多会话共用脏工作区、只能按功能切片发布共享宿主时，读取 [并行脏工作区的 Integration 补丁切片](references/integration-patch-slicing.md)。 为什么：「并行脏工作区的 Integration 补丁切片」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+
+丘陵高度场、道路与森林 PCG、地表及林雾制作，见[户外地编](../ue5-landscape-authoring/SKILL.md)。

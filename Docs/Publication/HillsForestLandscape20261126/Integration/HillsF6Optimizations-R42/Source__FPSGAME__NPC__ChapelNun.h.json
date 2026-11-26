@@ -1,0 +1,7 @@
+{
+  "version": "HillsF6Optimizations-R42",
+  "path": "Source/FPSGAME/NPC/ChapelNun.h",
+  "before_sha256_lf": "c15b3f53e580fcaa1f7a10a9392986a2c37fc10a5d361ef6174cb45ab2934755",
+  "after_sha256_lf": "cfb845b65d53215ca76450b30deab22a8506620c71e9a75a158a8056c858d4d4",
+  "patch": "--- a/Source/FPSGAME/NPC/ChapelNun.h\n+++ b/Source/FPSGAME/NPC/ChapelNun.h\n@@ -27,6 +27,7 @@\n private:\n     void AssembleAppearance();\n     void CreateHairCollision();\n+    void UpdateCoreHairDetail(double EffectiveDistance);\n     UPROPERTY(VisibleAnywhere) TObjectPtr<UCapsuleComponent> Collision;\n     UPROPERTY(VisibleAnywhere) TObjectPtr<USkeletalMeshComponent> Body;\n     UPROPERTY(VisibleAnywhere) TObjectPtr<USkeletalMeshComponent> Head;\n@@ -43,5 +44,7 @@\n     FFPSRobeStairSections BodyInner, BootInner;\n     bool bAppearanceReady=false;\n     bool bLooseHairActive=true;\n+    TRefCountPtr<FRefCountedObject> BudgetedCoreGroup;\n+    int32 CoreHairTier=INDEX_NONE;\n     FResidentConversationFacing ConversationFacing;\n };\n"
+}

@@ -6,6 +6,7 @@
 #include "Engine/Texture2D.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
+#include "UnrealEngine.h"
 #include "Materials/MaterialInterface.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "MaterialShared.h"
@@ -30,6 +31,14 @@ int32 RequiredMips(const UTexture2D* Texture)
     // Never wait on optional payloads absent from the installed build or cinematic mips.
     return FMath::Min(int32(State.NumNonOptionalLODs),
         FMath::Max(1, int32(State.MaxNumLODs) - Texture->NumCinematicMipLevels));
+}
+
+int64 RequiredTextureSize(const UTexture2D& Texture)
+{
+    if(!Texture.GetStreamableResourceState().bSupportsStreaming)
+        return Texture.CalcTextureMemorySizeEnum(TMC_AllMipsBiased);
+    const UStreamableRenderAsset& Asset=Texture;
+    return Asset.CalcCumulativeLODSize(RequiredMips(&Texture));
 }
 }
 
@@ -87,12 +96,19 @@ void FGameResourcePreparation::FinishSceneAssembly()
 void FGameResourcePreparation::GetMaterialTextures(UMaterialInterface* Material,TArray<UTexture*>& Out)
 {
     // Dynamic parameters can change during scene finishing/late weapon setup.
-    const auto* Resource=Material->GetMaterialResource(GetFeatureLevelShaderPlatform_Checked(Scene->GetFeatureLevel()));
+    const auto Platform=GetFeatureLevelShaderPlatform_Checked(Scene->GetFeatureLevel());
+    const auto Quality=GetCachedScalabilityCVars().MaterialQualityLevel;
+    if(CachedTextureQuality!=int32(Quality))
+    {
+        MaterialTextures.Reset();
+        CachedTextureQuality=int32(Quality);
+    }
+    const auto* Resource=Material->GetMaterialResource(Platform,Quality);
     const auto* ShaderMap=Resource?Resource->GetGameThreadShaderMap():nullptr;
     const bool bCacheable=!Material->IsA<UMaterialInstanceDynamic>()&&ShaderMap&&ShaderMap->IsValidForRendering();
     if(bCacheable)if(const auto* Cached=MaterialTextures.Find(Material))
     {for(const auto& Texture:*Cached)if(auto* Value=Texture.Get())Out.Add(Value);return;}
-    Material->GetUsedTextures(Out,{},GetFeatureLevelShaderPlatform_Checked(Scene->GetFeatureLevel()));
+    Material->GetUsedTextures(Out,Quality,Platform);
     if(bCacheable)
     {
         auto& Cached=MaterialTextures.FindOrAdd(Material);
@@ -133,7 +149,7 @@ void FGameResourcePreparation::PumpAssemblyWarmup(double Deadline)
         if(!Texture||RequestedWarmTextures.Contains(Texture)||!Texture->RenderResourceSupportsStreaming())continue;
         const auto& State=Texture->GetStreamableResourceState();
         if(!State.IsValid()||Texture->HasPendingInitOrStreaming())continue;
-        const int64 Bytes=Texture->CalcTextureMemorySizeEnum(TMC_AllMipsBiased);
+        const int64 Bytes=GameEntryResources::RequiredTextureSize(*Texture);
         // Speculative work is bounded and evictable. Final preparation still
         // measures the visible set before registering residency protection.
         if(Pool<=0||WarmRequestBytes+Bytes>Pool*.85)continue;
@@ -293,8 +309,7 @@ void FGameResourcePreparation::Tick()
             if (!Texture || Texture->IsCurrentlyVirtualTextured()) continue;
             const auto& State = Texture->GetStreamableResourceState();
             if (!State.IsValid()) { ++Pending; PendingName = Texture->GetName(); continue; }
-            // Exported engine API; this conservative estimate includes all quality-allowed mips.
-            RequiredTextureBytes += Texture->CalcTextureMemorySizeEnum(TMC_AllMipsBiased);
+            RequiredTextureBytes += GameEntryResources::RequiredTextureSize(*Texture);
         }
         if (TextureCursor < Textures.Num()) return;
         if (Pending)

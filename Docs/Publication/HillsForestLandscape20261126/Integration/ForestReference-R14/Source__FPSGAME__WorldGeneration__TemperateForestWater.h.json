@@ -1,0 +1,7 @@
+{
+  "version": "ForestReference-R14",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateForestWater.h",
+  "before_sha256_lf": "bcef5e3ca5a3b31fd16881c2a68e9c8efcc01e2d1c0d66af83efac1e2f8977c2",
+  "after_sha256_lf": "af251e2d37d19d3ed5ea9d26382fec7541a67a559ec89d21996fa63cd02cf4d2",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateForestWater.h\n+++ b/Source/FPSGAME/WorldGeneration/TemperateForestWater.h\n@@ -31,6 +31,7 @@\n     bool HasBasin(double X,double Y) const;\n     double GroundAt(int32 X,int32 Y) const;\n     FSample Sample(double X,double Y) const;\n+    void RebuildShoreMoisture();\n     double ShoreMoistureAt(double X,double Y) const;\n     bool IntersectsCell(double X,double Y,double Size) const;\n     void BuildWaterMesh(double X,double Y,double Size,UE::Geometry::FDynamicMesh3& Mesh) const;\n"
+}

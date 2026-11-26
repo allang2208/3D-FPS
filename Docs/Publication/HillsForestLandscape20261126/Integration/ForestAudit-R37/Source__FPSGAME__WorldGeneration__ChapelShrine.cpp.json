@@ -1,0 +1,7 @@
+{
+  "version": "ForestAudit-R37",
+  "path": "Source/FPSGAME/WorldGeneration/ChapelShrine.cpp",
+  "before_sha256_lf": "01a2e9386b6c638a8576f9ce660f0b3bcda77da3eb0a0d22b3bf244f67170394",
+  "after_sha256_lf": "02b1ff2c172563942ba1c60a49ca6741dd2ed95a254544c35e71bb60a065d5a4",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/ChapelShrine.cpp\n+++ b/Source/FPSGAME/WorldGeneration/ChapelShrine.cpp\n@@ -1,4 +1,5 @@\n #include \"ChapelShrine.h\"\n+#include \"ChapelNavigationGeometry.h\"\n #include \"HillsNightRaidSubsystem.h\"\n #include \"../Dungeons/RandomShrine.h\"\n #include \"../Dungeons/DungeonRunSubsystem.h\"\n@@ -40,7 +41,7 @@\n     Body->SetCollisionProfileName(TEXT(\"Pawn\"));\n     Body->SetCollisionResponseToChannel(ECC_Visibility,ECR_Ignore);\n     Body->SetCanEverAffectNavigation(false);\n-    Statue=CreateDefaultSubobject<UStaticMeshComponent>(TEXT(\"Statue\"));\n+    Statue=CreateDefaultSubobject<UChapelStatueNavMesh>(TEXT(\"Statue\"));\n     Statue->SetupAttachment(Body);Statue->SetRelativeLocation(FVector(0,0,-100));\n     Statue->SetMobility(EComponentMobility::Movable);\n     Statue->SetCollisionProfileName(TEXT(\"BlockAll\"));\n"
+}

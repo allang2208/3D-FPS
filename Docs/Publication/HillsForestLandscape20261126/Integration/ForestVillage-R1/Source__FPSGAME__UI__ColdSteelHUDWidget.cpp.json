@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/UI/ColdSteelHUDWidget.cpp",
+  "before_sha256_lf": "bb8b203a3365670d8f91331f52180d73a4cbe56a616cfad554ba50ac561243cd",
+  "after_sha256_lf": "bcbc644018f7016edc4dd60b247427ebf81c760c07c0f7dafe8baf9ec8283ef9",
+  "patch": "--- a/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp\n+++ b/Source/FPSGAME/UI/ColdSteelHUDWidget.cpp\n@@ -127,6 +127,7 @@\n         if (Map.Contains(TEXT(\"DayNight_Lighting\"))) return TEXT(\"天空基地\");\n         if (Map.Contains(TEXT(\"L_Normandy_FPS_Test\"))) return TEXT(\"诺曼底村庄\");\n         if (Map.Contains(TEXT(\"L_MilitaryTrench_FPS_Test\"))) return TEXT(\"战壕\");\n+        if (Map.Contains(TEXT(\"L_ForestPathVillage\"))) return TEXT(\"林道村庄\");\n         if (Map.Contains(TEXT(\"L_TemperateHills_Initial\"))) return TEXT(\"温带丘陵\");\n         return TEXT(\"当前区域\");\n     }\n"
+}

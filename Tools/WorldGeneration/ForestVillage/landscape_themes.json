@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "map": "/Game/GameMaps/L_ForestPathVillage",
+  "source": "SourceAssets/HillsForestPathThemes",
+  "themes": [
+    {
+      "name": "丘陵景观",
+      "id": "HillsLandscape",
+      "aliases": [
+        "丘陵",
+        "丘陵林地"
+      ],
+      "component": "SurroundingForestPCG",
+      "graph": "/Game/ForestPathStudy/VillageRegion/Themes/PCG_HillsLandscape",
+      "owns": [
+        "山形、高度场与地形碰撞",
+        "林内树木、灌木、细草、岩石、枯木和林床",
+        "水坑、湿岸与岸草",
+        "林下雾的分布"
+      ],
+      "reads": [
+        "道路中心线与路肩退距",
+        "村庄和采石场保护区"
+      ],
+      "entrypoints": {
+        "pcg": "landscape_themes.build",
+        "terrain": "prepare_cliff_exposure.py",
+        "wetland": "author_hill_relief_pools.py",
+        "ground_cover": "author_continuous_meadow.py/update_surfaces",
+        "village_surface": "author_village_loess_foothills.py/surfaces",
+        "village_forest_floor": "author_village_forest_floor.install",
+        "village_relief": "prepare_village_street_relief.py",
+        "cliff_material": "author_cliff_exposure.py/rock_assets",
+        "talus": "author_cliff_talus.install"
+      },
+      "resources": {
+        "terrain_source": "CliffExposure-R35/region.i16",
+        "water_sites": "HillReliefPools-R28/Grass/ponds.csv",
+        "grass_graph": "/Game/ForestPathStudy/VillageRegion/GrassCover/PCG_ForestGrassNear",
+        "ground_cover": "/Game/ForestPathStudy/VillageRegion/Reference/ContinuousMeadow/T_ContinuousMeadowField",
+        "village_soil": "/Game/ForestPathStudy/VillageRegion/Reference/VillageLoess/M_VillageLoessDetail",
+        "village_finish_source": "VillageLoessReview-R33",
+        "village_forest_floor_source": "VillageDeliveryAudit-20261125/Floor",
+        "village_relief_source": "VillageDeliveryAudit-20261125/Street",
+        "cliff_exposure": "CliffExposure-R35",
+        "talus_source": "CliffTalus-R36",
+        "talus_rock_catalog": "VillageFlora-R20/rock-pool.json"
+      },
+      "layers": {
+        "terrain": {
+          "source": "CliffExposure-R35",
+          "owns": "丘陵高程、露岩权重与岩壁材质",
+          "shared": true,
+          "edit_layer": "Forest cliff relief",
+          "materials": [
+            "/Game/ForestPathStudy/VillageRegion/Reference/M_ForestReferenceMesh",
+            "/Game/ForestPathStudy/VillageRegion/Reference/TrailCover/M_ForestVillageLandscape"
+          ]
+        },
+        "Rocks": {
+          "graph": "/Game/ForestPathStudy/VillageRegion/Themes/Hills/PCG_Rocks",
+          "members": [
+            "既有花岗岩",
+            "NordicLedge",
+            "BareShelf",
+            "TalusFine",
+            "TalusFragment"
+          ],
+          "source_files": [
+            "CliffExposure-R35/ledge-sites.bin",
+            "CliffTalus-R36/HillsLandscape/Rocks/talus-sites.bin"
+          ]
+        },
+        "Grass": {
+          "graph": "/Game/ForestPathStudy/VillageRegion/Themes/Hills/PCG_Grass",
+          "uses": "露岩权重退草，保留根部土草斑",
+          "near_graph": "/Game/ForestPathStudy/VillageRegion/GrassCover/PCG_ForestGrassNear"
+        },
+        "Floor": {
+          "graph": "/Game/ForestPathStudy/VillageRegion/Themes/Hills/PCG_Floor",
+          "uses": "苔斑、泥斑；路肩落叶由地表材质绘制"
+        },
+        "Trees": {
+          "graph": "/Game/ForestPathStudy/VillageRegion/Themes/Hills/PCG_Trees",
+          "uses": "主题范围内的林冠；可采伐树继续用采伐系统"
+        },
+        "Shrubs": {
+          "graph": "/Game/ForestPathStudy/VillageRegion/Themes/Hills/PCG_Shrubs",
+          "uses": "原林下榛灌木，以及村庄女神像旁 A/B/C 三类九款灌木，按林冠和适生草地成簇布置",
+          "placement": "Source/FPSGAME/WorldGeneration/ForestCourtyardShrubs.cpp",
+          "target_per_existing_hills_hazel": 1
+        },
+        "Deadwood": {
+          "graph": "/Game/ForestPathStudy/VillageRegion/Themes/Hills/PCG_Deadwood",
+          "uses": "独立木体的倒木、木段和细枝；退役带土底座的扫描件"
+        },
+        "Wetland": {
+          "graph": "/Game/ForestPathStudy/VillageRegion/Themes/Hills/PCG_Wetland",
+          "uses": "水坑、水岸和莎草"
+        }
+      }
+    },
+    {
+      "name": "道路景观",
+      "id": "RoadLandscape",
+      "aliases": [
+        "道路",
+        "林道"
+      ],
+      "component": "RoadLandscapePCG",
+      "graph": "/Game/ForestPathStudy/VillageRegion/Themes/PCG_RoadLandscape",
+      "owns": [
+        "东门林道和采石场道路的路线、路床和路肩",
+        "B full 泥路、碎石过渡和路肩落叶",
+        "道路带内普通植被与装饰、沿路生成的倒木和松枝"
+      ],
+      "reads": [
+        "丘陵最终高度和地形法线",
+        "树干与岩石足迹",
+        "水坑、水岸、村庄和采石场保护区"
+      ],
+      "entrypoints": {
+        "pcg": "landscape_themes.build",
+        "surface": "author_gate_road_surface.py",
+        "leaf_material": "author_roadside_leaves.py/install",
+        "roadside_dressing": "prepare_forest_litter.py",
+        "prepare_leaves": "prepare_forest_litter.py --leaves-only",
+        "cliff_material": "author_cliff_exposure.py/rock_assets",
+        "talus": "author_cliff_talus.install",
+        "exterior_surface": "author_forest_road_mix.install",
+        "prepare_exterior_surface": "prepare_forest_road_mix.py"
+      },
+      "resources": {
+        "guides": [
+          "HillReliefPools-R28/gate-road.csv",
+          "HillReliefPools-R28/quarry-road.csv"
+        ],
+        "verge_width_m": 13.3,
+        "road_look": "B full",
+        "road_function": "/Game/ForestPathStudy/VillageRegion/Reference/MF_TrailDirt",
+        "road_settings": "/Game/ForestPathStudy/VillageRegion/Reference/GateRoad/MPC_GateRoad",
+        "leaf_field": "/Game/ForestPathStudy/VillageRegion/WoodlandDressing/Leaves/T_ShoulderLeafField",
+        "leaf_source": "LeafEdges-R34",
+        "leaf_scans": "ForestLitter-R29",
+        "cliff_exposure": "CliffExposure-R35",
+        "talus_source": "CliffTalus-R36",
+        "talus_rock_catalog": "VillageFlora-R20/rock-pool.json",
+        "exterior_surface_source": "ForestRoadMix-R45",
+        "exterior_surface_field": "/Game/ForestPathStudy/VillageRegion/Reference/GateRoad/RoadMix/T_RoadMixField",
+        "exterior_surface_scans": [
+          "sbhjy2p0",
+          "sbhjzfp0",
+          "vl0iad3g"
+        ]
+      },
+      "layers": {
+        "terrain": {
+          "source": "CliffExposure-R35",
+          "owns": "道路切坡范围与岩壁过渡",
+          "shared": true,
+          "edit_layer": "Forest cliff relief",
+          "materials": [
+            "/Game/ForestPathStudy/VillageRegion/Reference/M_ForestReferenceMesh",
+            "/Game/ForestPathStudy/VillageRegion/Reference/TrailCover/M_ForestVillageLandscape"
+          ]
+        },
+        "Rocks": {
+          "graph": "/Game/ForestPathStudy/VillageRegion/Themes/Road/PCG_Rocks",
+          "members": [
+            "既有花岗岩",
+            "NordicLedge",
+            "BareShelf",
+            "TalusFine",
+            "TalusFragment"
+          ],
+          "source_files": [
+            "CliffExposure-R35/ledge-sites.bin",
+            "CliffTalus-R36/RoadLandscape/Rocks/talus-sites.bin"
+          ]
+        },
+        "Grass": {
+          "graph": "/Game/ForestPathStudy/VillageRegion/Themes/Road/PCG_Grass",
+          "uses": "露岩权重退草，保留根部土草斑",
+          "near_graph": "/Game/ForestPathStudy/VillageRegion/GrassCover/PCG_ForestGrassNear"
+        },
+        "Floor": {
+          "graph": "/Game/ForestPathStudy/VillageRegion/Themes/Road/PCG_Floor",
+          "uses": "苔斑、泥斑；路肩落叶由地表材质绘制",
+          "leaf_field": "/Game/ForestPathStudy/VillageRegion/WoodlandDressing/Leaves/T_ShoulderLeafField"
+        },
+        "Trees": {
+          "graph": "/Game/ForestPathStudy/VillageRegion/Themes/Road/PCG_Trees",
+          "uses": "主题范围内的林冠；可采伐树继续用采伐系统"
+        },
+        "Shrubs": {
+          "graph": "/Game/ForestPathStudy/VillageRegion/Themes/Road/PCG_Shrubs",
+          "uses": "按主题边界分配的林缘和林下灌木"
+        },
+        "Deadwood": {
+          "graph": "/Game/ForestPathStudy/VillageRegion/Themes/Road/PCG_Deadwood",
+          "uses": "独立木体的倒木、木段和细枝；退役带土底座的扫描件"
+        }
+      }
+    }
+  ]
+}

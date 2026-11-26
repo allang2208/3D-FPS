@@ -1,0 +1,29 @@
+// Coverage is a baked world-space habitat value and is independent of the observer.
+float cover=saturate(F.r);
+MeadowNormal=BaseN;
+float3 GroundColor=C;
+[branch] if(cover>=.002)
+{
+float2 uv=float2(.925*P.x+.38*P.y,-.38*P.x+.925*P.y)/52.+(F.gb-.5)*.75;
+float3 pigment;
+float3 micro;
+#if (PIXELSHADER || COMPUTESHADER) && !RAYHITGROUPSHADER
+    float2 gx=ddx(uv),gy=ddy(uv);
+    pigment=Texture2DSampleGrad(Detail,DetailSampler,uv,gx,gy).rgb;
+    micro=UnpackNormalMap(Texture2DSampleGrad(BladeN,BladeNSampler,uv,gx,gy));
+#else
+    pigment=Texture2DSampleLevel(Detail,DetailSampler,uv,2.).rgb;
+    micro=UnpackNormalMap(Texture2DSampleLevel(BladeN,BladeNSampler,uv,2.));
+#endif
+float2 slopeUV=float2(.925*micro.x-.38*micro.y,.38*micro.x+.925*micro.y);
+#if PIXELSHADER
+    slopeUV=TransformWorldVectorToTangent(Parameters.TangentToWorld,float3(slopeUV,0)).xy;
+#endif
+float strength=cover*(.51-.18*Bank);
+MeadowNormal=normalize(float3(BaseN.xy*(1.-.48*cover)+slopeUV*strength,max(.35,BaseN.z)));
+float damp=saturate(Wet);
+float3 grass=pigment*lerp(.83,1.14,F.b)*lerp(1.,.74,damp);
+float3 moss=grass*float3(.91,.88,.83);
+GroundColor=lerp(C,lerp(grass,moss,Bank),cover*.96);
+}
+return GroundColor;

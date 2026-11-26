@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp",
+  "before_sha256_lf": "b548cc738a75f5f4de7b305e23921c938aacfb59b1671958f88d816f530afc00",
+  "after_sha256_lf": "970452370b17b43d6851e3d343b1ef276388c469f8912910ecb3979ccd694867",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsPlacement.cpp\n@@ -102,7 +102,7 @@\n \n void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<FTemperatePlacement>& Out,bool IncludeRegrowth) const\n {\n-    if(!Assets||Layer<0||Layer>4)return;\n+    if(IsForestVillage()||!Assets||Layer<0||Layer>4)return;\n     if(Layer==1)\n     {\n         GetRockPlacements(Bounds,Out);\n"
+}

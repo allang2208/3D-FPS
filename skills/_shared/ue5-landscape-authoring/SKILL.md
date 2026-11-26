@@ -22,3 +22,5 @@ description: 构建或修改 UE5 户外自然地编。适用于丘陵与森林�
 5. **按用户要求交付。** 默认后台制作、保存与必要的 `FPSGAMEEditor` 构建。注明已修改的配方、已保存的包以及使用的恢复清单。用户要求复核时，选择与变化对应的固定机位、真高程采样、主客机或性能测量；分别记录落盘、运行读回和视觉结论。已有玩家采样时，先按[两机位 F6 对照方法](references/ecology-and-atmosphere.md#读取用户导出的-f6-数据)处理原始窗口。
 
 仅做模块建筑、立面或 Shape Grammar 排布时使用[模块建筑 PCG](../ue5-pcg-building/SKILL.md)。修改全项目天气逻辑时使用[天气与昼夜](../ue5-weather-workflow/SKILL.md)。改变持久对象身份或同步协议时使用[存档与复制](../ue5-save-load-replication/SKILL.md)。
+
+修改扫描泥路的实物尺度和车辙裁剪，见[村外道路的扫描材质](references/terrain-and-surfaces.md#村外道路的扫描材质)。迁移 Nanite、流送或核对客机树木与地面，见[迁移林图的渲染和联机预算](references/ecology-and-atmosphere.md#迁移林图的渲染和联机预算)。

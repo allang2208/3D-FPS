@@ -1,0 +1,233 @@
+{
+  "modules": {
+    "final_tested": "E4A2DABF8B7F370FF54112CF12D62DA53082B7FA8DF10E87445AB489B4E5665C",
+    "F6_after_R46": false
+  },
+  "theme_inventory": {
+    "map": true,
+    "themes": {
+      "HillsLandscape": {
+        "component": "SurroundingForestPCG",
+        "parent": true,
+        "layers": {
+          "Rocks": true,
+          "Grass": true,
+          "Floor": true,
+          "Trees": true,
+          "Shrubs": true,
+          "Deadwood": true,
+          "Wetland": true
+        },
+        "source_matches": true,
+        "points": 1058780
+      },
+      "RoadLandscape": {
+        "component": "RoadLandscapePCG",
+        "parent": true,
+        "layers": {
+          "Rocks": true,
+          "Grass": true,
+          "Floor": true,
+          "Trees": true,
+          "Shrubs": true,
+          "Deadwood": true
+        },
+        "source_matches": true,
+        "points": 12699
+      }
+    },
+    "retired_files": 10,
+    "retired_still_present": [],
+    "granite_sources": 35,
+    "tire_frames": {
+      "gate": 24,
+      "quarry": 35
+    }
+  },
+  "package_counts": {
+    "ForestRoadMix-R45": {
+      "matches": 9
+    },
+    "ForestNaniteStreaming-R46": {
+      "matches": 13
+    },
+    "HillsF6Optimizations-R42": {
+      "different": 1,
+      "matches": 2
+    },
+    "ShrineForestShrubs-R43": {
+      "matches": 17
+    },
+    "HillsShadowGeometry-R44": {
+      "matches": 156,
+      "different": 4
+    }
+  },
+  "network": {
+    "A": {
+      "module_sha256": "30E351C41F3E499B52D1FD05D4A12183791681D1E1A0BACF8179ED23E363041E",
+      "rendered": false,
+      "passed": true,
+      "cases": 22,
+      "source_save_unchanged": true,
+      "clean_exit": true,
+      "loss_percent": 2,
+      "lag_ms": 60
+    },
+    "B": {
+      "clean_exit": true,
+      "lag_ms": 60,
+      "loss_percent": 2,
+      "passed": true,
+      "cases": 22,
+      "module_sha256": "682F98FFB27BD791AB7CCCE714257275F2ECEEE865E3051816484B7C70CB4B03",
+      "source_save_unchanged": true,
+      "rendered": false
+    },
+    "Final": {
+      "passed": true,
+      "clean_exit": true,
+      "cases": 22,
+      "rendered": false,
+      "module_sha256": "E4A2DABF8B7F370FF54112CF12D62DA53082B7FA8DF10E87445AB489B4E5665C",
+      "loss_percent": 2,
+      "source_save_unchanged": true,
+      "lag_ms": 60
+    }
+  },
+  "performance": {
+    "units": "milliseconds; paired medians at 1600x900, DX12",
+    "hardware": "RTX 3080 Ti 12 GB",
+    "shadow_ab": {
+      "town": {
+        "A": {
+          "GPUTime": 15.332,
+          "GPU/ShadowDepths": 2.497,
+          "FrameTime": 17.617
+        },
+        "B": {
+          "GPUTime": 15.427,
+          "GPU/ShadowDepths": 2.494,
+          "FrameTime": 16.86
+        }
+      },
+      "cut": {
+        "A": {
+          "GPUTime": 17.17,
+          "GPU/ShadowDepths": 5.473,
+          "FrameTime": 18.681
+        },
+        "B": {
+          "GPUTime": 16.852,
+          "GPU/ShadowDepths": 5.217,
+          "FrameTime": 18.274
+        }
+      },
+      "forest": {
+        "A": {
+          "GPUTime": 18.666,
+          "GPU/ShadowDepths": 5.559,
+          "FrameTime": 20.082
+        },
+        "B": {
+          "GPUTime": 18.419,
+          "GPU/ShadowDepths": 5.328,
+          "FrameTime": 19.835
+        }
+      }
+    },
+    "hazel_instances": 22386,
+    "complete_preload": {
+      "scene_prepared": true,
+      "input_released": false,
+      "required_mib": 5904,
+      "budget_mib": 3894
+    }
+  },
+  "network_cases": [
+    {
+      "case": "forest_saved_pool_sites",
+      "passed": true
+    },
+    {
+      "case": "forest_closed_pool_sample",
+      "passed": true
+    },
+    {
+      "case": "area_0_peer_terrain_and_five_placement_layers",
+      "passed": true
+    },
+    {
+      "case": "area_0_remote_authority_ground",
+      "passed": true
+    },
+    {
+      "case": "area_1_peer_terrain_and_five_placement_layers",
+      "passed": true
+    },
+    {
+      "case": "area_1_remote_authority_ground",
+      "passed": true
+    },
+    {
+      "case": "area_2_peer_terrain_and_five_placement_layers",
+      "passed": true
+    },
+    {
+      "case": "area_2_remote_authority_ground",
+      "passed": true
+    },
+    {
+      "case": "guest_quarry_teleport_rpc",
+      "passed": true
+    },
+    {
+      "case": "client_village_character_movement",
+      "passed": true
+    },
+    {
+      "case": "authority_received_client_movement",
+      "passed": true
+    },
+    {
+      "case": "guest_daylight_and_rain",
+      "passed": true
+    },
+    {
+      "case": "remote_trunk_collision_without_host_canopy",
+      "passed": true
+    },
+    {
+      "case": "guest_tree_harvest_rpc",
+      "passed": true
+    },
+    {
+      "case": "authority_confirmed_guest_tree_depletion",
+      "passed": true
+    },
+    {
+      "case": "client_received_forest_tree_depletion",
+      "passed": true
+    },
+    {
+      "case": "production_logout_removed_guest",
+      "passed": true
+    },
+    {
+      "case": "same_profile_and_world_on_rejoin",
+      "passed": true
+    },
+    {
+      "case": "rejoin_keeps_forest_tree_depleted",
+      "passed": true
+    },
+    {
+      "case": "peer_regrowth_after_dormancy",
+      "passed": true
+    },
+    {
+      "case": "peer_single_mature_regrowth",
+      "passed": true
+    }
+  ]
+}

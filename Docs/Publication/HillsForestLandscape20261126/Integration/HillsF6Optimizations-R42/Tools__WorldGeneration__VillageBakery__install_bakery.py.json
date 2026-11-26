@@ -1,0 +1,7 @@
+{
+  "version": "HillsF6Optimizations-R42",
+  "path": "Tools/WorldGeneration/VillageBakery/install_bakery.py",
+  "before_sha256_lf": "9815e885bab779b74ffc3b6873fd2307baea98e22bc9c56362d44e04eb90839e",
+  "after_sha256_lf": "c44e6efd6e8e6ef24e4ab0ae6b34f5c3fde037dd65e96dd9be237ee608a35347",
+  "patch": "--- a/Tools/WorldGeneration/VillageBakery/install_bakery.py\n+++ b/Tools/WorldGeneration/VillageBakery/install_bakery.py\n@@ -152,6 +152,8 @@\n         light.set_mobility(ue.ComponentMobility.MOVABLE)\n         light.set_relative_location(ue.Vector(*p),False,True)\n         configure(light)\n+        if key=='Light2':  # Loft washstand fill. The oven and the counter pendant supply the main shadows.\n+            light.set_cast_shadows(False)\n         light.set_editor_property('max_draw_distance',2000.)\n     for key,comp in tagged.items():\n         if key in live_keys:\n"
+}

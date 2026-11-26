@@ -1,0 +1,7 @@
+{
+  "version": "HillsQuarryRoad-R16",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp",
+  "before_sha256_lf": "78c921dd4fe96e66422dd330449594e9b14a18f9d54fad1a10c96538cc39f22b",
+  "after_sha256_lf": "34e72dc24536c207ca14cf009cfb5e6dfe6a37b7175fa4a80b6669f68bb2d365",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreaming.cpp\n@@ -110,13 +110,16 @@\n }\n \n }\n+#if !UE_BUILD_SHIPPING\n+#include \"TemperateHillsVisitQuarry.inl\"\n+#endif\n+\n void ATemperateHillsWorld::BeginStreaming()\n {\n     Streaming=MakeShared<FTemperateHillsStreamingState>();\n     auto& S=*Streaming;\n #if !UE_BUILD_SHIPPING\n     S.bVillageVisit=HasAuthority()&&GetWorld()->URL.HasOption(TEXT(\"VisitVillage\"));\n-#include \"TemperateHillsVisitQuarry.inl\"\n #endif\n     DetailRadiusMeters=FMath::Clamp(DetailRadiusMeters,96.f,256.f);\n     ViewRadiusMeters=FMath::Clamp(ViewRadiusMeters,DetailRadiusMeters+96.f,512.f);\n"
+}

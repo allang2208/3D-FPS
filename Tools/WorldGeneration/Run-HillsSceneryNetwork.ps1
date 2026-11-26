@@ -1,10 +1,11 @@
-﻿param([string]$Attempt=(Get-Date -Format 'yyyyMMdd-HHmmss'),[string]$BuildBatch='HillsClosure20261118R2')
+﻿param([string]$Attempt=(Get-Date -Format 'yyyyMMdd-HHmmss'),[string]$BuildBatch='HillsClosure20261118R2',[switch]$ForestVillage,[string]$OutputRoot='')
 $ErrorActionPreference='Stop'
 $project=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../..'))
-$run=Join-Path $project ('Saved/HillsSceneryNetwork20261118/'+$Attempt)
+if(!$OutputRoot){$OutputRoot=Join-Path $project 'Saved/HillsSceneryNetwork20261118'}
+$run=Join-Path $OutputRoot $Attempt
 $hostDir=Join-Path $run 'Host'
 $gate=[Threading.Mutex]::new($false,'Local\CodexUeMcp-Port-8000');$held=$false
-$owned=[Collections.Generic.List[Diagnostics.Process]]::new();$port=20218
+$owned=[Collections.Generic.List[Diagnostics.Process]]::new();$port=if($ForestVillage){24587}else{20218}
 function Launch([string]$Role,[string]$Map,[switch]$Rejoin,[switch]$Mismatch){
     $dir=Join-Path $run $Role;New-Item -ItemType Directory -Force -Path $dir | Out-Null
     $label=if($Rejoin){'rejoin'}else{$Role}
@@ -18,6 +19,11 @@ function Launch([string]$Role,[string]$Map,[switch]$Rejoin,[switch]$Mismatch){
         '-ini:Engine:[/Script/OnlineSubsystemUtils.IpNetDriver]:InitialConnectTimeout=300.0',
         '-ini:Engine:[/Script/PythonScriptPlugin.PythonScriptPluginSettings]:bRemoteExecution=False',
         '-ini:EditorPerProjectUserSettings:[/Script/ModelContextProtocolEngine.ModelContextProtocolSettings]:bAutoStartServer=False')
+    if($ForestVillage){
+        # The headless peers share one machine and can otherwise derive several large textures at once.
+        $arguments+=@('-GameLoadingMode=Quick','-DisablePlugins=FPSStandaloneRuntime',
+            '-corelimit=4','-asynctexturecompilationmaxconcurrency=1')
+    }
     if($Mismatch){$arguments+='-HillsCompatibilityMismatch'}
     $p=Start-Process -FilePath 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor-Cmd.exe' -ArgumentList $arguments -WindowStyle Hidden -PassThru
     $peerHandle=$p.Handle
@@ -48,12 +54,26 @@ try{
     foreach($cache in 'CachedAssetRegistry','CachedAssetRegistryDiscovery.bin'){
         if(Test-Path -LiteralPath "$project/Intermediate/$cache"){Copy-Item -LiteralPath "$project/Intermediate/$cache" -Destination "$hostDir/Intermediate/$cache" -Recurse}
     }
+    if($ForestVillage){
+        foreach($file in 'UnrealEditor-FPSGAME.dll','UnrealEditor-ResidentHairStencil.dll','UnrealEditor.modules'){
+            Copy-Item -LiteralPath "$project/Binaries/Win64/$file" -Destination "$hostDir/Binaries/Win64/$file"
+        }
+        $save="$project/Saved/SaveGames/ForestPathVillage_World.sav"
+        $saveHash=if(Test-Path -LiteralPath $save){(Get-FileHash -LiteralPath $save).Hash}else{$null}
+        if($saveHash){
+            New-Item -ItemType Directory -Force -Path "$run/host/Saved/SaveGames"|Out-Null
+            Copy-Item -LiteralPath $save -Destination "$run/host/Saved/SaveGames/ForestPathVillage_World.sav"
+            Copy-Item -LiteralPath $save -Destination "$hostDir/Saved/SaveGames/ForestPathVillage_World.sav"
+        }
+        $hostPeer=Launch 'host' '/Game/GameMaps/L_ForestPathVillage?listen?HillsContinue'
+    }else{
     $build=Get-Content -LiteralPath "$project/SourceAssets/$BuildBatch/build.json" -Raw|ConvertFrom-Json
     if(-not $build.finished -or @($build.targets|Where-Object {$_.exit_code -ne 0}).Count){throw 'Requested build is incomplete'}
     foreach($file in 'UnrealEditor-FPSGAME.dll','UnrealEditor.modules'){Copy-Item -LiteralPath "$project/SourceAssets/$BuildBatch/Module/$file" -Destination "$hostDir/Binaries/Win64/$file"}
     $save="$project/Saved/SaveGames/TemperateHills_World.sav";$saveHash=(Get-FileHash -LiteralPath $save).Hash
     Copy-Item -LiteralPath $save -Destination "$hostDir/Saved/SaveGames/TemperateHills_World.sav"
     $hostPeer=Launch 'host' '/Game/GameMaps/L_TemperateHills_Initial?listen?HillsContinue'
+    }
     Marker 'GameNetDriver' $hostPeer
     $bad=Launch 'mismatch' ('127.0.0.1:'+$port) -Mismatch
     $end=[DateTime]::UtcNow.AddMinutes(4);$rejected=$false
@@ -81,8 +101,10 @@ try{
         $cleanExit=$cleanExit -and $p.HasExited -and ($p.ExitCode -eq 0)
     }
     $r=Get-Content -LiteralPath "$run/Evidence/result.json" -Raw|ConvertFrom-Json
-    $passed=$r.passed -and $rejected -and $cleanExit
-    @{passed=$passed;cases=($r.checks.Count+1);clean_exit=$cleanExit;module_sha256=(Get-FileHash -LiteralPath "$hostDir/Binaries/Win64/UnrealEditor-FPSGAME.dll").Hash;source_save_unchanged=((Get-FileHash -LiteralPath $save).Hash -eq $saveHash);lag_ms=60;loss_percent=2;rendered=$false}|ConvertTo-Json|Set-Content -LiteralPath "$run/summary.json"
+    $afterHash=if(Test-Path -LiteralPath $save){(Get-FileHash -LiteralPath $save).Hash}else{$null}
+    $saveUnchanged=($afterHash -eq $saveHash)
+    $passed=$r.passed -and $rejected -and $cleanExit -and $saveUnchanged
+    @{passed=$passed;cases=($r.checks.Count+1);clean_exit=$cleanExit;module_sha256=(Get-FileHash -LiteralPath "$hostDir/Binaries/Win64/UnrealEditor-FPSGAME.dll").Hash;source_save_unchanged=$saveUnchanged;lag_ms=60;loss_percent=2;rendered=$false}|ConvertTo-Json|Set-Content -LiteralPath "$run/summary.json"
     Write-Output "HILLS_SCENERY_DONE passed=$passed run=$run"
     if(-not $passed){throw 'Scenery network checks or process shutdown failed'}
 }finally{foreach($p in $owned){Stop-Owned $p};if($held){$gate.ReleaseMutex()};$gate.Dispose()}

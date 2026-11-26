@@ -1,0 +1,7 @@
+{
+  "version": "ForestReference-R14",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp",
+  "before_sha256_lf": "3050ea4e845d03a29b0b8729af800c511515934c56ae471064588ffc0232f47b",
+  "after_sha256_lf": "4d3fddf9fb32c3bff8ffb27ccb8ed78659863d25e5b7a9b0ce2f431dd28b5184",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.cpp\n@@ -367,9 +367,13 @@\n         UE_LOG(LogTemp,Warning,TEXT(\"MPTEST hills client session: seed=%d generator=%d edits=%d\"),Seed,GeneratorVersion,TerrainEdits.Num());\n         StartWorldPipeline();\n     }\n-    if(IsForestVillage()) { TickForestVillage(); return; }\n-    TickStreaming();\n-    TickDayNightSky();\n+    const bool ForestVillage=IsForestVillage();\n+    if(ForestVillage) TickForestVillage();\n+    else\n+    {\n+        TickStreaming();\n+        TickDayNightSky();\n+    }\n     if(!bReady)return;\n     WeatherLookupLeft-=DeltaSeconds;\n     if(!SkyWeather.IsValid()&&WeatherLookupLeft<=0.f)\n@@ -377,7 +381,7 @@\n         WeatherLookupLeft=1.f;\n         for(TActorIterator<AFPSWeatherManager> It(GetWorld());It;++It){SkyWeather=*It;break;}\n     }\n-    TickForestWind(DeltaSeconds);\n+    if(!ForestVillage) TickForestWind(DeltaSeconds);\n     if(SkyWeather.IsValid()&&GroundMID)\n     {\n         const float Wetness=SkyWeather->GetSurfaceWetness();\n"
+}

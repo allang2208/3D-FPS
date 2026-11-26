@@ -1,0 +1,7 @@
+{
+  "version": "TreeRootsWorldMap-R13",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h",
+  "before_sha256_lf": "a398428df3d2dfe6df9455e029f56f820d1c2b4cd670c2bcf62ddec7fe275c1d",
+  "after_sha256_lf": "94cc4d1381ce933498e6d12641ed7fbc560558beb5613cd3cc6c49f27c9714ad",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsWorld.h\n@@ -343,6 +343,8 @@\n     int32 DestroyGroundCover(const FVector& Center, double RadiusCm);\n     int32 GetTerrainEditCount() const { return TerrainEdits.Num(); }\n     uint32 GetTerrainEditRevision() const { return TerrainEditRevision; }\n+    uint32 GetMapSurfaceRevision() const;\n+    FColor ForestMapLayers(double X,double Y,double GroundZ) const;\n     UMaterialInterface* GetMapGroundMaterial() const;\n     void CopyMapGround(TemperateHillsGround::FMapSource& Out) const;\n     void GetPlacements(int32 Layer, const FBox& Bounds, TArray<FTemperatePlacement>& Out, bool IncludeRegrowth=false) const;\n"
+}

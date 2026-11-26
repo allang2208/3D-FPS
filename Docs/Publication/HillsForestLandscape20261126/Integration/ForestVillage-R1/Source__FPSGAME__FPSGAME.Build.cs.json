@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/FPSGAME.Build.cs",
+  "before_sha256_lf": "69f5901353362349bde9a03ebaccba48beabd90d4367dc35e1f155a15bdc6a0f",
+  "after_sha256_lf": "cfcd3de79bbd6553ec941dcde2212725794c7f5567f8640ea071f41abb867cb8",
+  "patch": "--- a/Source/FPSGAME/FPSGAME.Build.cs\n+++ b/Source/FPSGAME/FPSGAME.Build.cs\n@@ -62,7 +62,7 @@\n             PublicSystemLibraries.Add(\"advapi32.lib\"); // ETW controller/provider; no external recorder process.\n         }\n         PrivateDependencyModuleNames.AddRange(new[] { \"ClothingSystemRuntimeCommon\", \"ClothingSystemRuntimeInterface\" });\n-        PrivateDependencyModuleNames.AddRange(new[] { \"PCG\", \"GeometryCore\", \"GeometryFramework\" });\n+        PrivateDependencyModuleNames.AddRange(new[] { \"PCG\", \"GeometryCore\", \"GeometryFramework\", \"Landscape\" });\n         PrivateDependencyModuleNames.Add(\"DynamicWind\"); // Hills PCG plants follow the authoritative weather wind.\n         if (Target.bBuildEditor) PrivateDependencyModuleNames.Add(\"NiagaraEditor\");\n         if (Target.bBuildEditor) PrivateDependencyModuleNames.Add(\"SlateRHIRenderer\"); // Offscreen ammo-wheel diagnosis.\n"
+}

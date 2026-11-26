@@ -1,0 +1,7 @@
+{
+  "version": "ForestDeliveryAudit-R47",
+  "path": "Source/FPSGAME/UI/GameResourcePreparation.h",
+  "before_sha256_lf": "91d2e85984ec40ee1c71957b64e47258e27062493705d66c6294b2c81a6b2198",
+  "after_sha256_lf": "eaeaffe55ca6c4115ba70a336c579b1414653691f250a1b7df617dcb345cc443",
+  "patch": "--- a/Source/FPSGAME/UI/GameResourcePreparation.h\n+++ b/Source/FPSGAME/UI/GameResourcePreparation.h\n@@ -47,6 +47,7 @@\n     TSet<TWeakObjectPtr<UTexture2D>> SeenWarmTextures;\n     TSet<TWeakObjectPtr<UTexture2D>> RequestedWarmTextures;\n     TMap<TWeakObjectPtr<UMaterialInterface>, TArray<TWeakObjectPtr<UTexture>>> MaterialTextures;\n+    int32 CachedTextureQuality=INDEX_NONE;\n     int32 WarmActorCursor = 0, WarmTextureCursor = 0;\n     int64 WarmRequestBytes = 0;\n     bool bSceneAssembling = false;\n"
+}

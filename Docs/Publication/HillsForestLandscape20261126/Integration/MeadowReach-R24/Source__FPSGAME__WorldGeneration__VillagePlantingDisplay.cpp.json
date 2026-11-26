@@ -1,0 +1,7 @@
+{
+  "version": "MeadowReach-R24",
+  "path": "Source/FPSGAME/WorldGeneration/VillagePlantingDisplay.cpp",
+  "before_sha256_lf": "cba2dc0df52cdec913963e682c32d59ea0f339602a12a5651c2844e8ff179327",
+  "after_sha256_lf": "201c13a6806cdf4e9a78be4f869fd4d0d463fb766f739b1e162c883682c2ee05",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/VillagePlantingDisplay.cpp\n+++ b/Source/FPSGAME/WorldGeneration/VillagePlantingDisplay.cpp\n@@ -119,7 +119,12 @@\n                 // Thousands of ankle-high plants and embedded chips share these\n                 // groups. Keep them lit by the wall and trees without adding\n                 // the whole verge to every virtual shadow map marking pass.\n-                if(Pass==2){Entry->SetCastShadow(false);Entry->bAffectDistanceFieldLighting=false;}\n+                if(Pass==2)\n+                {\n+                    Entry->SetCastShadow(false);\n+                    Entry->bAffectDistanceFieldLighting=false;\n+                    if(Hills->IsForestVillage())Entry->SetVisibleInRayTracing(false);\n+                }\n                 AddInstanceComponent(Entry);Entry->SetupAttachment(RootComponent);Entry->SetMobility(EComponentMobility::Movable);\n                 Entry->SetCollisionEnabled(ECollisionEnabled::NoCollision);Entry->SetCanEverAffectNavigation(false);\n                 Entry->SetGenerateOverlapEvents(false);Entry->SetReceivesDecals(false);Entry->ComponentTags.Add(TEXT(\"VillagePlanting\"));Entry->RegisterComponent();\n"
+}

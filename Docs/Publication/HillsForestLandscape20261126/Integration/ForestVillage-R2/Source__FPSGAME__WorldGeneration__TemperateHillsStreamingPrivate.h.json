@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R2",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h",
+  "before_sha256_lf": "83b671db735862ca1ab5721fc2761ba3d39616660ad467d754a2b337aa00400e",
+  "after_sha256_lf": "125019e665e750f00423f1cf905fd7cf3fb26b41736ac22715d924c0499eb3fd",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsStreamingPrivate.h\n@@ -122,6 +122,7 @@\n #endif\n     bool StaggerVillageEntry=false;\n     TWeakObjectPtr<class ALandscapeProxy> ForestLandscape;\n+    TWeakObjectPtr<class AForestVillageRegion> ForestRegion;\n     TArray<double> ForestBorderHeights;\n     bool GroundReady=false;\n     bool LoadingAssets=false;\n"
+}

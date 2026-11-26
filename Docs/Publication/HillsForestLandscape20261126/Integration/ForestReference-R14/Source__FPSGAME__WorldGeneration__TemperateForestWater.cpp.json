@@ -1,0 +1,7 @@
+{
+  "version": "ForestReference-R14",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateForestWater.cpp",
+  "before_sha256_lf": "ac192d7892ff6bbab664d8dbd19aaa2b966fc08b3bc8769251be034c1908704c",
+  "after_sha256_lf": "da62199f3ac5ddcd011c1ec63890da5febbd5118eba016fe7cc1b124f5edb87b",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateForestWater.cpp\n+++ b/Source/FPSGAME/WorldGeneration/TemperateForestWater.cpp\n@@ -181,6 +181,8 @@\n     return Plan;\n }\n }\n+\n+void FPlan::RebuildShoreMoisture() { BuildShoreMoisture(*this); }\n \n void FindClosedPools(FPlan& Tile,const TArray<uint8>& Allowed)\n {\n"
+}

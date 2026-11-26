@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/WorldGeneration/VillageThreatOutlines.cpp",
+  "before_sha256_lf": "0d9f1ff9cc08d4bdb347a816556410897de21bdcf137d7d4df9475ed71876388",
+  "after_sha256_lf": "fd78c2010b0a29213e71ad89e0fc51be060cc53ccb0afd9cd0c17905b4c50071",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/VillageThreatOutlines.cpp\n+++ b/Source/FPSGAME/WorldGeneration/VillageThreatOutlines.cpp\n@@ -1,4 +1,5 @@\n #include \"VillageThreatOutlines.h\"\n+#include \"ForestVillageMap.h\"\n #include \"TemperateHillsWorld.h\"\n #include \"../Combat/RangedAttackQuery.h\"\n #include \"../Monsters/MonsterCombatComponent.h\"\n@@ -12,7 +13,7 @@\n \n bool UVillageThreatOutlines::ShouldCreateSubsystem(UObject* Outer) const\n {\n-    return Super::ShouldCreateSubsystem(Outer)&&UWildlifeSubsystem::IsWildlifeMap(Cast<UWorld>(Outer));\n+    return Super::ShouldCreateSubsystem(Outer)&&(ForestVillageMap::Is(Cast<UWorld>(Outer))||UWildlifeSubsystem::IsWildlifeMap(Cast<UWorld>(Outer)));\n }\n \n void UVillageThreatOutlines::RegisterMonster(UMonsterCombatComponent* Combat)\n"
+}

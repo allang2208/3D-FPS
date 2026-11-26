@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/WorldGeneration/TemperateHillsGroundCache.cpp",
+  "before_sha256_lf": "ed4dfb2c0d0016770f460729d56152df81e11f8db861baa0b806285766f08b3c",
+  "after_sha256_lf": "8400dcdb8eaf05b9e7c4a5d559c138250797d03dbe8282ed56b88fe1f46fbd0f",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/TemperateHillsGroundCache.cpp\n+++ b/Source/FPSGAME/WorldGeneration/TemperateHillsGroundCache.cpp\n@@ -14,7 +14,8 @@\n     VillageSite.bSmithYardRepaired=bVillageBlacksmithRepaired;\n     const FVector2D Center=VillageSite.World(-4080.,-900.);\n     constexpr double Radius=760.;\n-    InvalidateTerrainCells(Center,Radius);\n+    if(IsForestVillage() && !Terrain.IsEmpty()) BuildForestVillageGround();\n+    else InvalidateTerrainCells(Center,Radius);\n     const FBoxSphereBounds Bounds(FBox::BuildAABB(FVector(Center,VillageSite.Ground.Z),FVector(Radius)));\n     for (URuntimeVirtualTextureComponent* Cache : VillageGroundCache) if (Cache) Cache->Invalidate(Bounds);\n }\n"
+}

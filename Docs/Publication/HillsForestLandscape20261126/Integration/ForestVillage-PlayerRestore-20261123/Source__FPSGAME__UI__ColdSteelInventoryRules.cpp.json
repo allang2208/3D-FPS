@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-PlayerRestore-20261123",
+  "path": "Source/FPSGAME/UI/ColdSteelInventoryRules.cpp",
+  "before_sha256_lf": "7099649087b4f0aa402a25d25f7a963d0ca4d781b55d47c145187e50bcf251a7",
+  "after_sha256_lf": "9c1b0a402411fe7fa95cc4a72116d9493a06f4bd7178a2c56f4560ddf0781dd4",
+  "patch": "--- a/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp\n+++ b/Source/FPSGAME/UI/ColdSteelInventoryRules.cpp\n@@ -598,6 +598,8 @@\n     Changed=false;\n     auto Next=Profile;\n     if(!MigrateBackpackLayout(Next,Changed,Reason,true))return false;\n+    // R22 saves identify horses by stall. Upgrade before this first full-profile validation.\n+    Changed|=Next.MountRoster.Upgrade(Next.NetworkProfileId);\n     // Validate the saved layout before changing it. Only the known 1x1 wood\n     // footprint is accepted here; malformed items and overlaps remain errors.\n     if(!ValidateProfile(Next,Reason,true))return false;\n"
+}

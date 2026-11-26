@@ -1,0 +1,7 @@
+{
+  "version": "HillsQuarryRoad-R16",
+  "path": "Source/FPSGAME/WorldGeneration/BakeTemperateHillsLayoutCommandlet.cpp",
+  "before_sha256_lf": "15c95564b49e912227fe6d10b819a7b74f35ccd26846daa1c0baa9a5b598e9f5",
+  "after_sha256_lf": "075a7707f7ff48c1182bc577e982f63bdea148465ba44202368661a190b18c5e",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/BakeTemperateHillsLayoutCommandlet.cpp\n+++ b/Source/FPSGAME/WorldGeneration/BakeTemperateHillsLayoutCommandlet.cpp\n@@ -48,7 +48,12 @@\n     if (World && World->PersistentLevel)\n         for (AActor* Actor : World->PersistentLevel->Actors)\n             if (auto* Hills = Cast<ATemperateHillsWorld>(Actor))\n+            {\n+                FString Directory;\n+                if (FParse::Value(*Params,TEXT(\"ExportQuarry=\"),Directory))\n+                    return Hills->ExportQuarrySurvey(Directory) ? 0 : 1;\n                 return Hills->BakeFixedLayout() ? 0 : 1;\n+            }\n     UE_LOG(LogTemp, Error, TEXT(\"Cannot bake fixed hills: the authored hills world actor was not found.\"));\n #endif\n     return 1;\n"
+}

@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/FPSWeatherManager.cpp",
+  "before_sha256_lf": "9f7807b6b2aacc0c8af98ceb92468218ec7c025178c754ac8d5fef0ac8f7d8f8",
+  "after_sha256_lf": "21786fdbe2a2d5c9d2626d84ac96bee7a0a3eeb2230c662fe3e1cdb60d684094",
+  "patch": "--- a/Source/FPSGAME/FPSWeatherManager.cpp\n+++ b/Source/FPSGAME/FPSWeatherManager.cpp\n@@ -1,4 +1,5 @@\n #include \"FPSWeatherManager.h\"\n+#include \"WorldGeneration/ForestVillageMap.h\"\n #include \"Dungeons/DungeonRoomSubsystem.h\"\n #include \"FPSUDSBridgeComponent.h\"\n #include \"WeatherSurfaceComponent.h\"\n@@ -63,7 +64,7 @@\n     if(GetNetMode()!=NM_DedicatedServer)ViewEffects->Initialize();\n     else ViewEffects->SetComponentTickEnabled(false);\n     const FString Map = UGameplayStatics::GetCurrentLevelName(this, true);\n-    const bool bTemperateHills = Map == TEXT(\"L_TemperateHills_Initial\");\n+    const bool bTemperateHills = ForestVillageMap::HasVillage(Map);\n     if (bTemperateHills)\n     {\n         // Existing hills maps were authored with the schedule disabled for the\n"
+}

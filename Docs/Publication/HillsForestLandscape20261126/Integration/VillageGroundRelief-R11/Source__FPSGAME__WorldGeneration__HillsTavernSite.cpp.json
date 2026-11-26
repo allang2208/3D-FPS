@@ -1,0 +1,7 @@
+{
+  "version": "VillageGroundRelief-R11",
+  "path": "Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp",
+  "before_sha256_lf": "6c4adba82f795d8444dad411d17e582534a36c9be88a3a39bd795ea3df7805eb",
+  "after_sha256_lf": "f55db4ed53665b8847c618dede18aaed10b57883529f5b2e258a78d950c22aff",
+  "patch": "--- a/Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp\n+++ b/Source/FPSGAME/WorldGeneration/HillsTavernSite.cpp\n@@ -1,4 +1,5 @@\n #include \"HillsTavernSite.h\"\n+#include \"ForestVillageRelief.h\"\n \n #include \"HillsTavernInterior.h\"\n #include \"SmithSignMotion.h\"\n@@ -29,6 +30,7 @@\n     StreamedBakery.Reset();\n     StreamedGunshop.Reset();\n     if (!Level) return;\n+    if (IsForestVillage()) ForestVillageRelief::FitLevelDressing(*Level);\n     UVillageExteriorDetail::BindLevel(*Level);\n     if (GetNetMode() != NM_DedicatedServer && !PCGLayers.IsEmpty())\n         UVillageCanopyDetail::For(*this)->SetForest(PCGLayers[0]);\n"
+}

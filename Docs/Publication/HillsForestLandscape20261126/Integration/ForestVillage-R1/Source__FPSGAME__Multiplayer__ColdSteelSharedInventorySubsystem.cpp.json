@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp",
+  "before_sha256_lf": "881786a9ed5b63002a5a31575244600ad605ab59c20f060b0725549652b88f47",
+  "after_sha256_lf": "8dee0e7f47017bf7df6f5eb11f5194472a5d3f51606e72d4cde353cc88394756",
+  "patch": "--- a/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp\n+++ b/Source/FPSGAME/Multiplayer/ColdSteelSharedInventorySubsystem.cpp\n@@ -1,4 +1,5 @@\n #include \"ColdSteelSharedInventorySubsystem.h\"\n+#include \"../WorldGeneration/ForestVillageMap.h\"\n #include \"../Tasks/BlacksmithApprenticeship.h\"\n #include \"../Monsters/WildlifeSubsystem.h\"\n #include \"ColdSteelPlayerState.h\"\n@@ -100,7 +101,7 @@\n         if(!Run||!Run->IsRunActive())return false;\n         RunKey=Run->RunId();\n     }\n-    if(Map==TEXT(\"L_TemperateHills_Initial\"))\n+    if(ForestVillageMap::HasVillage(Map))\n     {ATemperateHillsWorld* Hills=nullptr;for(TActorIterator<ATemperateHillsWorld> It(GetWorld());It;++It){Hills=*It;break;}\n      if(!Hills||!Hills->WorldId.IsValid())return false;RunKey=Hills->WorldId.ToString(EGuidFormats::Digits);}\n     bInitialized=true;\n"
+}

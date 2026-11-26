@@ -1,0 +1,7 @@
+{
+  "version": "ForestVillage-R1",
+  "path": "Source/FPSGAME/NPC/ChapelDialogueSmithTraining.cpp",
+  "before_sha256_lf": "ab4db12b0d4696accad83d032e7723f079680676f42b93792fa51c1204f413a1",
+  "after_sha256_lf": "4b0a2cf6b3aaed888796bd067d6e24aa43c736fde8c91dca53a0901b34df8e2c",
+  "patch": "--- a/Source/FPSGAME/NPC/ChapelDialogueSmithTraining.cpp\n+++ b/Source/FPSGAME/NPC/ChapelDialogueSmithTraining.cpp\n@@ -1,4 +1,5 @@\n #include \"ChapelDialogueComponent.h\"\n+#include \"../WorldGeneration/ForestVillageMap.h\"\n #include \"VillageArtisanMerchant.h\"\n #include \"../FPSGAMECharacter.h\"\n #include \"../Multiplayer/ColdSteelPlayerState.h\"\n@@ -214,7 +215,8 @@\n     };\n     const auto SmithStage=BlacksmithApprenticeship::Stage(Profile);\n     const int32 BeforeSmith = Out.Num();\n-    Append(BlacksmithApprenticeship::LessonStep(SmithStage),SmithTracker,BlacksmithApprenticeship::TaskId,\n+    if(!(ForestVillageMap::Is(GetWorld()) && BlacksmithApprenticeship::IsMining(SmithStage)))\n+        Append(BlacksmithApprenticeship::LessonStep(SmithStage),SmithTracker,BlacksmithApprenticeship::TaskId,\n         INVTEXT(\"铁匠修炼 · 采矿、冶炼与打铁\"),INVTEXT(\"村庄铁匠铺\"),SmithSteps);\n     if (Out.Num() > BeforeSmith && !Out.Last().Objectives.IsEmpty())\n     {\n"
+}

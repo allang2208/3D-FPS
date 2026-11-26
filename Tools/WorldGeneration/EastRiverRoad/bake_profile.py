@@ -1,0 +1,134 @@
+"""Fit the original ForestSaddle heightfield to the fixed village and river coordinates."""
+import argparse
+import json
+import struct
+import zlib
+from functools import lru_cache
+from pathlib import Path
+import numpy as np
+from PIL import Image
+
+def survey_height(path, expected_crc):
+    packed=path.read_bytes()
+    magic,fmt,seed,gen,width,half,cell,layout_crc,_=struct.unpack_from('<IiiiiddII',packed)
+    if (magic,fmt,layout_crc)!=(0x43544846,1,expected_crc):
+        raise ValueError('Incompatible fixed ground survey')
+    @lru_cache(None)
+    def tile(x,y):
+        offset,size,raw_size,crc=struct.unpack_from('<qiiI',packed,44+(y*width+x)*60)
+        data=zlib.decompress(packed[offset:offset+size])
+        if len(data)!=raw_size or zlib.crc32(data)!=crc:raise ValueError('Damaged ground survey')
+        # Custom-version container, DynamicMesh stream header, then its packed XYZ triples.
+        start=4+struct.unpack_from('<i',data)[0]*20+20
+        step=struct.unpack_from('<d',data,start+24)[0]
+        side=round(cell/step)+1
+        vertices=np.frombuffer(data,'<f8',count=side*side*3,offset=start).reshape(side,side,3)
+        if not np.allclose(vertices[-1,-1,:2],[cell,cell]):raise ValueError('Unsupported vertex layout')
+        return vertices[:,:,2],step
+    def sample(p):
+        x,y=np.floor((p+half)/cell).astype(int)
+        z,step=tile(x,y)
+        u,v=(p+half-np.array([x,y])*cell)/step
+        i,j=int(u),int(v)
+        a,b=u-i,v-j
+        return z[j,i]*(1-max(a,b))+z[j+1,i+1]*min(a,b)+(z[j,i+1]*(a-b) if a>b else z[j+1,i]*(b-a))
+    return sample
+
+def bake(layout, heightmap, terrain, dest, receipt):
+    data = layout.read_bytes()
+    offset = 0
+    def unpack(fmt):
+        nonlocal offset
+        values = struct.unpack_from('<' + fmt, data, offset)
+        offset += struct.calcsize('<' + fmt)
+        return values
+    magic, version, seed, gen, _, _, _, crc = unpack('4i3dI')
+    if (magic, version, seed, gen) != (1212763212,2,1518277816,3):
+        raise ValueError('Unsupported Hills.layout')
+    x,y,z,ax,ay,_,half_x,_,*flags = unpack('8d3I2d')
+    origin,axis,side = np.array([x,y]), np.array([ax,ay]), np.array([-ay,ax])
+    gate = origin + (half_x - 500)*axis + 500*side
+    unpack('iddI')
+    unpack('i')
+    for size in (1,2):
+        count, = unpack('i')
+        offset += count*size
+    unpack('i3dI')
+    count, = unpack('i')
+    offset += count
+    count, = unpack('i')
+    river = np.array([unpack('12d') for _ in range(count)])
+    sign = np.where(np.sum((gate-river[:,:2])*river[:,2:4],axis=1)>=0, 1., -1.)
+    width = np.where(sign>0,river[:,8],river[:,9])
+    banks = river[:,:2] + river[:,2:4] * (sign*(width+340.))[:,None]
+    bank_id = np.linalg.norm(banks-gate,axis=1).argmin()
+    bank = banks[bank_id]
+    # The river lies behind the east gate. Travel around the outside of the south wall.
+    control = [gate] + [origin+a*axis+b*side for a,b in [
+        (7700,500),(9050,-150),(9740,-2200),(9160,-4710),(7860,-6950),
+        (5380,-8210),(2500,-9300),(-1500,-10400),(-6100,-12300)]]
+    toward = bank-control[-1]
+    control += [control[-1]+0.52*toward+side*760,bank+river[bank_id,2:4]*sign[bank_id]*2200,bank]
+    control=np.array(control)
+    tangent = np.vstack((control[1]-control[0], (control[2:]-control[:-2])*.5,control[-1]-control[-2]))
+    points = []
+    for i,(a,b) in enumerate(zip(control,control[1:])):
+        for t in np.linspace(0,1,101,endpoint=False):
+            points.append((2*t**3-3*t*t+1)*a+(t**3-2*t*t+t)*tangent[i]+(-2*t**3+3*t*t)*b+(t**3-t*t)*tangent[i+1])
+    points=np.array(points+[bank])
+    dist=np.r_[0.,np.cumsum(np.linalg.norm(np.diff(points,axis=0),axis=1))]
+    stations=np.linspace(0,dist[-1],int(np.ceil(dist[-1]/100))+1)
+    route=np.array([np.interp(stations,dist,c) for c in points.T]).T
+    grid=np.asarray(Image.open(heightmap),dtype=float)
+    if grid.shape!=(505,505): raise ValueError(heightmap)
+    def read(px,py):
+        xx,yy=px+252,py+252
+        ix,iy=np.floor(xx).astype(int),np.floor(yy).astype(int)
+        u,v=xx-ix, yy-iy
+        return ((1-v)*((1-u)*grid[iy,ix]+u*grid[iy,ix+1])+v*((1-u)*grid[iy+1,ix]+u*grid[iy+1,ix+1])-32768)*10/128
+    px=np.linspace(-220,220,len(route))
+    py=-28+.26*px+21*np.sin((px+49)/72)-9*np.sin(px/38)
+    centre=read(px,py)
+    trend=np.linspace(centre[0],centre[-1],len(centre))
+    ground=survey_height(terrain,crc)
+    ties=np.unique(np.r_[np.arange(0,len(route),38),len(route)-1])
+    datum=np.interp(stations,stations[ties],[ground(route[j]) for j in ties])
+    rows=[]
+    for i,p in enumerate(route):
+        # Survey ties anchor the long descent. Every metre of cross-section and the
+        # saddle's longitudinal relief come directly from the original 16-bit image.
+        levels=[datum[i]+read(px[i],py[i]+l)-trend[i] for l in range(-18,19)]
+        rows.append('    {%.2f, %.2f, {%s}},' % (*p, ', '.join(str(round(h)) for h in levels)))
+    dest.write_text('// Generated by Tools/WorldGeneration/EastRiverRoad/bake_profile.py\n'+'\n'.join(rows)+'\n')
+    # Exact ownership for legacy rectangular PCG samplers, in one-metre cells.
+    ix0,iy0=np.floor((route.min(axis=0)-1800)/100).astype(int)
+    ix1,iy1=np.ceil((route.max(axis=0)+1800)/100).astype(int)
+    gx,gy=np.meshgrid((np.arange(ix0,ix1)+.5)*100,(np.arange(iy0,iy1)+.5)*100)
+    best=np.full(gx.shape,1e20)
+    along=np.zeros(gx.shape)
+    cap=np.ones(gx.shape,dtype=bool)
+    for i,(a,b) in enumerate(zip(route,route[1:])):
+        delta=b-a
+        t=((gx-a[0])*delta[0]+(gy-a[1])*delta[1])/np.dot(delta,delta)
+        u=np.clip(t,0,1)
+        sq=(gx-a[0]-u*delta[0])**2+(gy-a[1]-u*delta[1])**2
+        win=sq<best
+        best[win]=sq[win]
+        along[win]=stations[i]+u[win]*(stations[i+1]-stations[i])
+        cap[win]=((t>=0) if i==0 else (t<=1) if i==len(route)-2 else np.ones_like(win))[win]
+    def fade(v):
+        v=np.clip(v,0,1)
+        return v*v*(3-2*v)
+    width=330+1470*fade(along/2000)*fade((stations[-1]-along)/1850)
+    mask=cap&(best<=width**2)
+    spans=[]
+    for i,row in enumerate(mask):
+        bounds=np.where(np.diff(np.r_[False,row,False]))[0]
+        for lo,hi in zip(bounds[::2],bounds[1::2]):spans.append(f'    {{{i+iy0},{lo+ix0},{hi+ix0}}},')
+    dest.with_name('EastRiverRoadMask.inl').write_text('// Generated by bake_profile.py; half-open X intervals per metre row.\n'+'\n'.join(spans)+'\n')
+    receipt.write_text(json.dumps(dict(seed=seed,layout_crc=crc,source=heightmap.name,length_m=round(stations[-1]/100,1),
+                                       gate_cm=gate.tolist(),bank_cm=bank.tolist(),bank_station=int(bank_id),stations=len(rows)),indent=2))
+if __name__=='__main__':
+    parser=argparse.ArgumentParser()
+    for k in ('layout','heightmap','terrain','dest','receipt'):parser.add_argument(k,type=Path)
+    bake(**vars(parser.parse_args()))
