@@ -1,21 +1,251 @@
 {
-  "ue_wooden_torch": {
-    "id": "ue_wooden_torch",
-    "name": "火把",
-    "category": "weapon_melee",
-    "type": "火把",
-    "weaponType": "torch",
-    "weaponTypeTag": "单手近战武器",
-    "equipSlot": "weapon",
-    "isTwoHanded": false,
+  "ue_modern_tactical_boots": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "sprintStaminaCost": -0.05,
+      "firearmStabilityPercent": 0.03
+    },
+    "id": "ue_modern_tactical_boots",
+    "name": "现代战术靴",
+    "category": "equipment",
+    "type": "鞋靴",
+    "equipSlot": "boots",
     "stack_max": 1,
-    "grid_w": 1,
+    "maxStack": 1,
+    "price": 55,
+    "grid_w": 2,
     "grid_h": 3,
-    "level": 1,
-    "desc": "可装备在主手或副手照明。火把击中敌人有25%概率施加1层灼烧，持续5秒。",
-    "ue_icon": "Icons/ue_wooden_torch_r3.png",
-    "viewmodel_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
-    "world_mesh": "/Game/Weapons/WoodenTorch20261122/HearthWrapR7/SM_WrappedHearthTorch.SM_WrappedHearthTorch"
+    "defense": {
+      "base": 10,
+      "perEnhance": 1
+    },
+    "desc": "沙褐色绒面革与织物拼接的高帮系带靴。外侧支撑框从后跟延伸至前掌，橡胶外底带有分区凸齿。",
+    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_tactical_boots.png",
+    "icon_fallback": "靴",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Display/SM_TS01_RidgeBoots_Pickup.SM_TS01_RidgeBoots_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Display/SM_TS01_RidgeBoots_Display.SM_TS01_RidgeBoots_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0
+  },
+  "ue_modern_tactical_pants": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "critRes": 8,
+      "firearmRecoilPercent": -0.03
+    },
+    "id": "ue_modern_tactical_pants",
+    "name": "现代战术裤",
+    "category": "equipment",
+    "type": "裤装",
+    "equipSlot": "pants",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 65,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 14,
+      "perEnhance": 2
+    },
+    "desc": "土棕色防撕裂战术裤，裆底拼入深棕弹力布。两侧设有立体口袋，裤脚可随靴型收束。",
+    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_tactical_pants.png",
+    "icon_fallback": "裤",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Display/SM_TS01_FieldTrousers_Pickup.SM_TS01_FieldTrousers_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Display/SM_TS01_FieldTrousers_Display.SM_TS01_FieldTrousers_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0
+  },
+  "ue_modern_tactical_gloves": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "reloadSpeed": 0.06,
+      "adsPercent": -0.04
+    },
+    "id": "ue_modern_tactical_gloves",
+    "name": "现代战术手套",
+    "category": "equipment",
+    "type": "手套",
+    "equipSlot": "gloves",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 30,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 10,
+      "perEnhance": 1
+    },
+    "desc": "土棕色全指手套配深褐皮革掌面。手背的圆弧护片逐个覆盖指节，腕口以织带收紧。",
+    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_tactical_gloves.png",
+    "icon_fallback": "手",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Display/SM_TS01_CoyoteGloves_Pickup.SM_TS01_CoyoteGloves_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Display/SM_TS01_CoyoteGloves_Display.SM_TS01_CoyoteGloves_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0
+  },
+  "ue_modern_tactical_helmet": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "critRes": 8,
+      "firearmStabilityPercent": 0.04,
+      "adsPercent": -0.03
+    },
+    "id": "ue_modern_tactical_helmet",
+    "name": "现代战术头盔",
+    "category": "equipment",
+    "type": "头盔",
+    "equipSlot": "helmet",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 75,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 18,
+      "perEnhance": 2
+    },
+    "desc": "土棕色高切战术头盔，采用细颗粒复合壳体、连续橡胶盔缘、开槽侧导轨和三点前支座。内置缓冲垫、四点下颏带与后部调节旋钮。",
+    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_tactical_helmet.png",
+    "icon_fallback": "盔",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Pickups/SM_TS01_Helmet.SM_TS01_Helmet",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Icons/SM_TS01_Helmet_Display.SM_TS01_Helmet_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0
+  },
+  "ue_modern_kevlar_vest": {
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
+    "armorSet": "modern_tactical",
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "bonusPerEnhance": {},
+    "bonusStats": {
+      "maxHp": 30,
+      "firearmRecoilPercent": -0.05
+    },
+    "id": "ue_modern_kevlar_vest",
+    "name": "凯夫拉防弹衣",
+    "category": "equipment",
+    "type": "上衣",
+    "equipSlot": "armor",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 120,
+    "grid_w": 3,
+    "grid_h": 3,
+    "defense": {
+      "base": 30,
+      "perEnhance": 4
+    },
+    "desc": "土棕色凯夫拉防弹衣搭配作战上衣。弹力躯干连接防撕裂插肩袖，上臂带拉链袋，肘部有活动褶与补强裁片，袖口以织物袢收紧。",
+    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_kevlar_vest.png",
+    "icon_fallback": "衣",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Display/SM_TS01_PatrolShirt_Pickup.SM_TS01_PatrolShirt_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Display/SM_TS01_PatrolShirt_Display.SM_TS01_PatrolShirt_Display",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0
+  },
+  "ue_arcane_conduit_belt": {
+    "id": "ue_arcane_conduit_belt",
+    "name": "星律导能腰带",
+    "category": "equipment",
+    "type": "腰带",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 0,
+    "desc": "星律研究会为随队术士制作的导能腰带，以靛蓝皮革承托双环星盘与凹嵌紫晶，侧置符片匣和卷轴筒。符文回路缩短魔法冷却并节省施法法力，适合持续施法；侧挂容器为外观组件，不增加收纳格。",
+    "ue_icon": "Icons/CombatBelts20261025/ue_arcane_conduit_belt.png",
+    "icon_fallback": "带",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Pickups/SM_ArcaneConduitBelt.SM_ArcaneConduitBelt",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0,
+    "equipSlot": "belt",
+    "grid_w": 3,
+    "grid_h": 2,
+    "defense": {
+      "base": 0,
+      "perEnhance": 0
+    },
+    "enhancement": {
+      "maxLevel": 15
+    },
+    "bonusStats": {
+      "magicCooldownPercent": -0.025,
+      "magicCostPercent": -0.1
+    },
+    "bonusPerEnhance": {
+      "magicCooldownPercent": -0.005,
+      "magicCostPercent": -0.01
+    }
+  },
+  "ue_melee_combat_belt": {
+    "id": "ue_melee_combat_belt",
+    "name": "破阵近战腰带",
+    "category": "equipment",
+    "type": "腰带",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 0,
+    "desc": "由近战巡卫使用的分段护腰，暗红棕皮革与炭黑织带承托斜切扣具、双点刀鞘挂架和磨刀石袋。它帮助使用者保持出手节奏、节省连续挥击的体力，侧挂组件为装备结构，不提供额外收纳格。",
+    "ue_icon": "Icons/CombatBelts20261025/ue_melee_combat_belt.png",
+    "icon_fallback": "带",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/MeleeCombatBelt20261025/IntegrationR1/Pickups/SM_MeleeCombatBelt.SM_MeleeCombatBelt",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0,
+    "equipSlot": "belt",
+    "grid_w": 3,
+    "grid_h": 2,
+    "defense": {
+      "base": 0,
+      "perEnhance": 0
+    },
+    "enhancement": {
+      "maxLevel": 15
+    },
+    "bonusStats": {
+      "meleeAttackSpeed": 0.05,
+      "meleeStaminaCost": -0.1
+    },
+    "bonusPerEnhance": {
+      "meleeAttackSpeed": 0.005,
+      "meleeStaminaCost": -0.01
+    }
   },
   "ue_leather_quiver_belt": {
     "id": "ue_leather_quiver_belt",
@@ -139,6 +369,32 @@
     "setName": "户外工作套装",
     "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
   },
+  "ue_ranger_feather_hat": {
+    "id": "ue_ranger_feather_hat",
+    "name": "野行翎羽帽",
+    "category": "equipment",
+    "type": "头部装备",
+    "equipSlot": "helmet",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 28,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 6,
+      "perEnhance": 0.6
+    },
+    "desc": "为林地斥候缝制的船型帽，以橄榄斜纹布搭配棕色皮革帽带和包边，黄铜羽座固定单支棕灰翎羽。收起的两侧帽檐便于抬臂与观察，适合游猎装束；柔软帽体提供轻便覆盖，缺少硬盔的防护结构。",
+    "ue_icon": "Icons/FieldRangerFeatherHat20261021/ue_ranger_feather_hat.png",
+    "icon_fallback": "帽",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/FieldRangerFeatherHat20261021/Pickups/SM_RangerFeatherHat.SM_RangerFeatherHat",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/FieldRangerFeatherHat20261021/Icons/SM_RangerFeatherHat_Icon.SM_RangerFeatherHat_Icon",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": -90,
+    "ue_icon_roll": 0,
+    "bonusStats": {}
+  },
   "ue_field_hat": {
     "id": "ue_field_hat",
     "name": "野行奔尼帽",
@@ -151,7 +407,8 @@
     "grid_w": 2,
     "grid_h": 2,
     "defense": {
-      "base": 6
+      "base": 6,
+      "perEnhance": 1
     },
     "desc": "软冠油蜡帆布奔尼帽，帽冠有自然压褶，窄软檐以多圈压线和包边收束；棕皮帽带、黄铜气眼和后收帽绳与工装夹克搭配。",
     "ue_icon": "Icons/WorkwearSet20261024/ue_field_hat.png",
@@ -164,56 +421,6 @@
     "armorSet": "workwear",
     "setName": "户外工作套装",
     "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
-  },
-  "ue_st6_tactical_boots": {
-    "ue_icon_roll": 0,
-    "id": "ue_st6_tactical_boots",
-    "name": "ST6 战术靴",
-    "category": "equipment",
-    "type": "鞋靴",
-    "equipSlot": "boots",
-    "stack_max": 1,
-    "maxStack": 1,
-    "price": 45,
-    "grid_w": 2,
-    "grid_h": 3,
-    "defense": {
-      "base": 8,
-      "perEnhance": 1.2
-    },
-    "desc": "卡其皮革与深灰织物拼接战术靴，带弧形针脚、加固鞋舌、金属鞋眼及绳端套，分层橡胶沿条与防滑齿纹鞋底。",
-    "ue_icon": "Icons/ST6LowerDetail20261024/ue_st6_tactical_boots.png",
-    "icon_fallback": "靴",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerDetail20261024/Pickups/SM_ST6_boots.SM_ST6_boots",
-    "world_material": "",
-    "ue_equipment_icon_mesh": "",
-    "ue_icon_pitch": 0,
-    "ue_icon_yaw": 0
-  },
-  "ue_st6_tactical_pants": {
-    "ue_icon_roll": 0,
-    "id": "ue_st6_tactical_pants",
-    "name": "ST6 战术长裤",
-    "category": "equipment",
-    "type": "裤装",
-    "equipSlot": "pants",
-    "stack_max": 1,
-    "maxStack": 1,
-    "price": 42,
-    "grid_w": 2,
-    "grid_h": 3,
-    "defense": {
-      "base": 10,
-      "perEnhance": 1.2
-    },
-    "desc": "深灰防撕裂战术长裤，配立体腿袋、翻盖扣件、加固套结线和分区护膝。黑色弹力裁片与卡其包边延续 ST6 套装风格。",
-    "ue_icon": "Icons/ST6LowerDetail20261024/ue_st6_tactical_pants.png",
-    "icon_fallback": "裤",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerDetail20261024/Pickups/SM_ST6_pants.SM_ST6_pants",
-    "world_material": "",
-    "ue_equipment_icon_mesh": "",
-    "ue_icon_pitch": 0,
-    "ue_icon_yaw": 0
   },
   "ue_steel_armet": {
     "id": "ue_steel_armet",
@@ -231,11 +438,89 @@
       "perEnhance": 2
     },
     "desc": "灰钢锻造闭面头盔，配有铰接颊片、窄眼缝、透气孔与暗色衬垫。佩戴时遮挡周边视野，中央瞄准保持不变。",
-    "ue_icon": "Icons/SteelArmet20261019/ue_steel_armet.png",
+    "ue_icon": "Icons/SteelArmet20261019/CrownRefine20261020/ue_steel_armet.png",
     "icon_fallback": "盔",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/SteelArmet20261019/ReferenceMatchV5/Pickups/SM_SteelArmet_Pickup.SM_SteelArmet_Pickup",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/SteelArmet20261019/CrownRefine20261020/Pickups/SM_SteelArmet_Pickup.SM_SteelArmet_Pickup",
     "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/SteelArmet20261019/ReferenceMatchV5/Icons/SM_SteelArmet_Icon.SM_SteelArmet_Icon",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/SteelArmet20261019/CrownRefine20261020/Icons/SM_SteelArmet_Icon.SM_SteelArmet_Icon",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0
+  },
+  "ue_blue_mage_boots": {
+    "id": "ue_blue_mage_boots",
+    "name": "蓝黑法师长靴",
+    "category": "equipment",
+    "type": "鞋靴",
+    "equipSlot": "boots",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 45,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 5.1,
+      "perEnhance": 2.986,
+      "magicBase": 5,
+      "magicPerEnhance": 2.057
+    },
+    "desc": "黑色皮革与深蓝织物拼接的膝下长靴，银色星藤纹和蓝宝石扣呼应法师套装。靴口留有裤脚余量，柔软踝部搭配圆头低跟。",
+    "ue_icon": "Icons/BlueMageBoots20261019/ue_blue_mage_boots.png",
+    "icon_fallback": "靴",
+    "world_material": "",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageBoots20261019/Pickups/SM_BlueMageBoots.SM_BlueMageBoots",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageBoots20261019/Icons/SM_BlueMageBoots_Display.SM_BlueMageBoots_Display"
+  },
+  "ue_blue_mage_pants": {
+    "id": "ue_blue_mage_pants",
+    "name": "黑色法师长裤",
+    "category": "equipment",
+    "type": "裤装",
+    "equipSlot": "pants",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 30,
+    "grid_w": 2,
+    "grid_h": 3,
+    "defense": {
+      "base": 5.1,
+      "perEnhance": 2.489,
+      "magicBase": 5,
+      "magicPerEnhance": 1.714
+    },
+    "desc": "哑黑精纺织物长裤，采用修身西裤剪裁、浅褶与平直裤脚，细蓝侧边和银色星藤纹呼应法师套装。",
+    "ue_icon": "Icons/BlueMagePants20261019/ue_blue_mage_pants.png",
+    "icon_fallback": "裤",
+    "world_material": "",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": 0,
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/Pickups/SM_BlueMagePants.SM_BlueMagePants",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/Icons/SM_BlueMagePants_Display.SM_BlueMagePants_Display"
+  },
+  "ue_blue_mage_gloves": {
+    "id": "ue_blue_mage_gloves",
+    "name": "蓝色法师手套",
+    "category": "equipment",
+    "type": "手套",
+    "equipSlot": "gloves",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 20,
+    "grid_w": 2,
+    "grid_h": 2,
+    "defense": {
+      "base": 3.4,
+      "perEnhance": 1.991,
+      "magicBase": 4,
+      "magicPerEnhance": 1.371
+    },
+    "desc": "蓝色织物与深蓝薄皮拼接的全指手套，手背饰银色星纹和藤纹，腕口收束并带低矮蓝宝石扣。掌心与指腹保持柔软，便于施法和握持。",
+    "ue_icon": "Icons/BlueMageGloves20261019/ue_blue_mage_gloves.png",
+    "icon_fallback": "套",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageGloves20261019/Pickups/SM_BlueMageGlove_Pickup.SM_BlueMageGlove_Pickup",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageGloves20261019/Icons/SM_BlueMageGlove_Icon.SM_BlueMageGlove_Icon",
     "ue_icon_pitch": 0,
     "ue_icon_yaw": 0
   },
@@ -251,8 +536,10 @@
     "grid_w": 2,
     "grid_h": 2,
     "defense": {
-      "base": 4,
-      "perEnhance": 0.8
+      "base": 3.4,
+      "perEnhance": 2.489,
+      "magicBase": 4,
+      "magicPerEnhance": 1.714
     },
     "desc": "钴蓝织物尖顶帽，深蓝帽带、银色星纹和蓝宝石帽扣，与蓝色法师长袍配套。柔软帽尖随动作轻摆回弹。",
     "ue_icon": "Icons/BlueMageHat20261019/ue_blue_mage_hat.png",
@@ -275,8 +562,10 @@
     "grid_w": 3,
     "grid_h": 4,
     "defense": {
-      "base": 8,
-      "perEnhance": 1.5
+      "base": 6.8,
+      "perEnhance": 7.466,
+      "magicBase": 12,
+      "magicPerEnhance": 5.143
     },
     "desc": "钴蓝织物长袍，贴合立领与收束袖口，深蓝腰带、浅银刺绣及蓝色领扣。连续裙摆带隐藏活动褶，行走时自然摆动。",
     "ue_icon": "Icons/BlueMageRobe20261018/ue_blue_mage_robe.png",
@@ -287,33 +576,9 @@
     "ue_icon_pitch": 0,
     "ue_icon_yaw": -90
   },
-  "ue_blue_mage_pants": {
-    "id": "ue_blue_mage_pants",
-    "name": "黑色法师长裤",
-    "category": "equipment",
-    "type": "裤装",
-    "equipSlot": "pants",
-    "stack_max": 1,
-    "maxStack": 1,
-    "price": 30,
-    "grid_w": 2,
-    "grid_h": 3,
-    "defense": {
-      "base": 6,
-      "perEnhance": 1.0
-    },
-    "desc": "哑黑精纺织物长裤，采用修身西裤剪裁、浅褶与平直裤脚，细蓝侧边和银色星藤纹呼应法师套装。",
-    "ue_icon": "Icons/BlueMagePants20261019/ue_blue_mage_pants.png",
-    "icon_fallback": "裤",
-    "world_material": "",
-    "ue_icon_pitch": 0,
-    "ue_icon_yaw": 0,
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/Pickups/SM_BlueMagePants.SM_BlueMagePants",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BlueMagePants20261019/Icons/SM_BlueMagePants_Display.SM_BlueMagePants_Display"
-  },
-  "ue_blue_mage_boots": {
-    "id": "ue_blue_mage_boots",
-    "name": "蓝黑法师长靴",
+  "ue_st6_tactical_boots": {
+    "id": "ue_st6_tactical_boots",
+    "name": "ST6 战术靴",
     "category": "equipment",
     "type": "鞋靴",
     "equipSlot": "boots",
@@ -323,41 +588,43 @@
     "grid_w": 2,
     "grid_h": 3,
     "defense": {
-      "base": 6,
-      "perEnhance": 0.8
+      "base": 8,
+      "perEnhance": 1.2
     },
-    "desc": "黑色皮革与深蓝织物拼接的膝下长靴，银色星藤纹和蓝宝石扣呼应法师套装。靴口留有裤脚余量，柔软踝部搭配圆头低跟。",
-    "ue_icon": "Icons/BlueMageBoots20261019/ue_blue_mage_boots.png",
+    "desc": "卡其皮革与深灰织物拼接战术靴，带弧形针脚、加固鞋舌、金属鞋眼及绳端套，分层橡胶沿条与防滑齿纹鞋底。",
+    "ue_icon": "Icons/ST6LowerDetail20261024/ue_st6_tactical_boots.png",
     "icon_fallback": "靴",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerDetail20261024/Pickups/SM_ST6_boots.SM_ST6_boots",
     "world_material": "",
+    "ue_equipment_icon_mesh": "",
     "ue_icon_pitch": 0,
     "ue_icon_yaw": 0,
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageBoots20261019/Pickups/SM_BlueMageBoots.SM_BlueMageBoots",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageBoots20261019/Icons/SM_BlueMageBoots_Display.SM_BlueMageBoots_Display"
+    "ue_icon_roll": 0
   },
-  "ue_blue_mage_gloves": {
-    "id": "ue_blue_mage_gloves",
-    "name": "蓝色法师手套",
+  "ue_st6_tactical_pants": {
+    "id": "ue_st6_tactical_pants",
+    "name": "ST6 战术长裤",
     "category": "equipment",
-    "type": "手套",
-    "equipSlot": "gloves",
+    "type": "裤装",
+    "equipSlot": "pants",
     "stack_max": 1,
     "maxStack": 1,
-    "price": 20,
+    "price": 42,
     "grid_w": 2,
-    "grid_h": 2,
+    "grid_h": 3,
     "defense": {
-      "base": 4,
-      "perEnhance": 0.6
+      "base": 10,
+      "perEnhance": 1.2
     },
-    "desc": "蓝色织物与深蓝薄皮拼接的全指手套，手背饰银色星纹和藤纹，腕口收束并带低矮蓝宝石扣。掌心与指腹保持柔软，便于施法和握持。",
-    "ue_icon": "Icons/BlueMageGloves20261019/ue_blue_mage_gloves.png",
-    "icon_fallback": "套",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageGloves20261019/Pickups/SM_BlueMageGlove_Pickup.SM_BlueMageGlove_Pickup",
+    "desc": "深灰防撕裂战术长裤，配立体腿袋、翻盖扣件、加固套结线和分区护膝。黑色弹力裁片与卡其包边延续 ST6 套装风格。",
+    "ue_icon": "Icons/ST6LowerDetail20261024/ue_st6_tactical_pants.png",
+    "icon_fallback": "裤",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ST6LowerDetail20261024/Pickups/SM_ST6_pants.SM_ST6_pants",
     "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BlueMageGloves20261019/Icons/SM_BlueMageGlove_Icon.SM_BlueMageGlove_Icon",
+    "ue_equipment_icon_mesh": "",
     "ue_icon_pitch": 0,
-    "ue_icon_yaw": 0
+    "ue_icon_yaw": 0,
+    "ue_icon_roll": 0
   },
   "ue_smoke_grey_capri": {
     "id": "ue_smoke_grey_capri",
@@ -397,12 +664,12 @@
       "base": 20,
       "perEnhance": 1.6
     },
-    "desc": "分片裁剪的棕色皮革长裤，弧形拼缝、柔性护膝、腰带和收窄裤脚保留自然褶皱。可搭配同套皮革靴及露指手套。",
-    "ue_icon": "Icons/TrouserFit20261018/ue_leather_pants.png",
+    "desc": "胡桃棕皮革与橄榄色活动布片拼接的野外长裤，膝窝和内腿留有活动余量，斜插袋、腰带及收口裤脚便于携行。",
+    "ue_icon": "Icons/RangerLeatherPantsRealisticCutV3/ue_leather_pants.png",
     "icon_fallback": "裤",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/Pickups/SM_LeatherPants.SM_LeatherPants",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/Pickups/SM_RangerLeatherPants.SM_RangerLeatherPants",
     "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/TrouserFit20261018/Icons/SM_LeatherPants_Display.SM_LeatherPants_Display",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/RangerLeatherPants20261021/RealisticCutV3/Icons/SM_RangerLeatherPants_Display.SM_RangerLeatherPants_Display",
     "ue_icon_pitch": 0,
     "ue_icon_yaw": -90,
     "bonusStats": {
@@ -485,9 +752,6 @@
     "ue_icon_yaw": -90
   },
   "ue_boots": {
-    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。",
-    "setName": "户外工作套装",
-    "armorSet": "workwear",
     "id": "ue_boots",
     "name": "系带皮靴",
     "category": "equipment",
@@ -499,7 +763,8 @@
     "grid_w": 2,
     "grid_h": 2,
     "defense": {
-      "base": 8
+      "base": 8,
+      "perEnhance": 1
     },
     "desc": "为日常行走制作的系带皮靴，靴筒包覆脚踝，厚底与皮革拼接保留自然褶皱。可与长裤搭配，独立穿脱。",
     "ue_icon": "Icons/ue_boots.png",
@@ -508,7 +773,10 @@
     "world_material": "",
     "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/BootsEquipment20261004/Icons/SM_Boots_Display.SM_Boots_Display",
     "ue_icon_pitch": 0,
-    "ue_icon_yaw": 0
+    "ue_icon_yaw": 0,
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
   },
   "ue_jeans": {
     "id": "ue_jeans",
@@ -532,9 +800,6 @@
     "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Icons/SM_Jeans_Display.SM_Jeans_Display"
   },
   "ue_cargo_pants": {
-    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。",
-    "setName": "户外工作套装",
-    "armorSet": "workwear",
     "id": "ue_cargo_pants",
     "name": "工装裤",
     "category": "equipment",
@@ -546,14 +811,18 @@
     "grid_w": 2,
     "grid_h": 3,
     "defense": {
-      "base": 10
+      "base": 10,
+      "perEnhance": 1.2
     },
     "desc": "带立体侧袋的工装长裤，裤腿宽松，可与鞋靴独立搭配。",
     "ue_icon": "Icons/ue_cargo_pants.png",
     "icon_fallback": "裤",
     "world_mesh": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Pickups/SM_Cargo.SM_Cargo",
     "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Icons/SM_Cargo_Display.SM_Cargo_Display"
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/LowerBodyEquipment20261003/Icons/SM_Cargo_Display.SM_Cargo_Display",
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
   },
   "ue_casual_sneakers": {
     "id": "ue_casual_sneakers",
@@ -944,7 +1213,8 @@
       }
     ],
     "type": "祭品",
-    "ue_icon": "Icons/carrot.png"
+    "ue_icon": "Icons/carrot.png",
+    "world_mesh": "/Game/Items/CropHarvest20261111/Meshes/SM_Harvest_Carrot.SM_Harvest_Carrot"
   },
   "chili": {
     "category": "tribute",
@@ -1944,6 +2214,38 @@
     "name": "附魔卷轴：力大无穷",
     "price": 4000,
     "scroll_id": "boundlessStrength",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
+  "enchant_scroll_blood_wolf": {
+    "rarity": "legendary",
+    "category": "enhancement",
+    "desc": "为单手刀／剑附魔传奇后缀「血狼」。仅限单手刀／剑。物理伤害+10%。蓄能｜本武器成功出手命中敌人累计12次后进入狂战士状态，持续20s；同次出手命中多个敌人仅计1次。 狂战士｜本武器攻击和武技不消耗体力，攻击速度+25%、攻击伤害+25%；直接攻击按实际造成伤害的10%恢复生命，移动速度+15%。 双持｜两把武器都附魔血狼时共用蓄能槽与状态，效果不叠加；仅一把武器附魔时，仅对应武器享受攻击强化与免体力消耗。 周期｜状态期间不续时、不再次蓄能；切换武器立即退出狂战士并清空蓄能，切回后重新累计；死亡同样清空。",
+    "grade": "legendary",
+    "grid_w": 1,
+    "grid_h": 2,
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
+    "icon_fallback": "狼",
+    "name": "附魔卷轴：血狼",
+    "price": 8000,
+    "scroll_id": "bloodWolf",
+    "stack_max": 99,
+    "type": "附魔卷轴"
+  },
+  "enchant_scroll_frost_hawk": {
+    "rarity": "legendary",
+    "category": "enhancement",
+    "desc": "为单手刀／剑附魔传奇后缀「霜鸦」。仅限单手刀／剑。暴击率+20%。蓄能｜本武器成功出手命中敌人累计8次后进入霜狱，持续16s；同次出手命中多个目标仅计1次。 霜狱｜本武器直接攻击和武技韧性伤害+35%；每次出手对每个命中的敌人叠加4层寒冷，同次双刀命中同一目标不重复叠加。 寒冷｜每层移动速度−5%，本附魔刷新4s持续时间；已有更长剩余时间不缩短。达到20层触发冻结并消耗10层；本附魔触发的冻结持续4s。冻结期间不再叠加寒冷。 双持｜两把都附魔霜鸦时共用蓄能与状态，效果不叠加；仅一把武器附魔时，仅对应武器提供激活加成。 周期｜触发霜狱的当次出手只负责蓄能；状态期间不续时、不蓄能。切换武器或死亡清空蓄能和状态，目标已有寒冷自行计时。",
+    "grade": "legendary",
+    "grid_w": 1,
+    "grid_h": 2,
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
+    "icon_fallback": "鹰",
+    "name": "附魔卷轴：霜鸦",
+    "price": 8000,
+    "scroll_id": "frostHawk",
     "stack_max": 99,
     "type": "附魔卷轴"
   },
@@ -2990,7 +3292,8 @@
       }
     ],
     "type": "祭品",
-    "ue_icon": "Icons/potato.png"
+    "ue_icon": "Icons/potato.png",
+    "world_mesh": "/Game/Items/CropHarvest20261111/Meshes/SM_Harvest_Potato.SM_Harvest_Potato"
   },
   "pumpkin": {
     "category": "tribute",
@@ -3023,38 +3326,6 @@
     ],
     "type": "祭品",
     "ue_icon": "Icons/pumpkin.png"
-  },
-  "quartz": {
-    "category": "tribute",
-    "desc": "性寒刺骨的晶体。",
-    "dropImage": "assets/items/tributes/ores/石英石.png",
-    "effects": {
-      "hpRegenPercent": -2.0,
-      "mpRegenPercent": 4.0
-    },
-    "icon": "res://assets/original_ui/assets/items/tributes/ores/石英石.png",
-    "iconImage": "assets/items/tributes/ores/石英石.png",
-    "icon_fallback": "🔮",
-    "id": "quartz",
-    "level": 1.0,
-    "maxStack": 999.0,
-    "name": "石英石",
-    "price": 100.0,
-    "rarity": "common",
-    "stack": 1.0,
-    "stack_max": 999,
-    "stats": [
-      {
-        "name": "魔法恢复",
-        "value": "+4%"
-      },
-      {
-        "name": "生命恢复",
-        "value": "-2%"
-      }
-    ],
-    "type": "祭品",
-    "ue_icon": "Icons/quartz.png"
   },
   "reforge_ticket": {
     "category": "material",
@@ -3367,7 +3638,8 @@
       }
     ],
     "type": "祭品",
-    "ue_icon": "Icons/tomato.png"
+    "ue_icon": "Icons/tomato.png",
+    "world_mesh": "/Game/Items/CropHarvest20261111/Meshes/SM_Harvest_Tomato.SM_Harvest_Tomato"
   },
   "tribute_common": {
     "category": "tribute",
@@ -3503,6 +3775,46 @@
     "type": "祭品",
     "ue_icon": "Icons/tungstenOre.png"
   },
+  "voxel_block_roof_slate": {
+    "category": "material",
+    "desc": "石板瓦体素块（CC0：Poly Haven roof_slates_02）。配石质墙体；搭 45°/26° 屋面坡笔刷即成瓦屋顶。拆除或倒塌的体素会以方块掉落，按 Z 可一键拾取。",
+    "icon": "res://assets/ui/building/stone_floor.png",
+    "name": "石板瓦体素块",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "建材",
+    "ue_icon": "Icons/roofslate.png"
+  },
+  "voxel_block_roof_tile": {
+    "category": "material",
+    "desc": "陶土瓦体素块（CC0：Poly Haven clay_roof_tiles_02）。罗马风陶瓦，配大理石与城墙石；搭 45°/26° 屋面坡笔刷即成瓦屋顶。拆除或倒塌的体素会以方块掉落，按 Z 可一键拾取。",
+    "icon": "res://assets/ui/building/stone_floor.png",
+    "name": "陶土瓦体素块",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "建材",
+    "ue_icon": "Icons/rooftile.png"
+  },
+  "voxel_block_thatch": {
+    "category": "material",
+    "desc": "茅草体素块（CC0：Poly Haven reed_roof_04）。轻质茅草顶，配木结构房屋承重最友好；搭 45°/26° 屋面坡笔刷即成茅草屋顶。拆除或倒塌的体素会以方块掉落，按 Z 可一键拾取。",
+    "icon": "res://assets/ui/building/stone_floor.png",
+    "name": "茅草体素块",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "建材",
+    "ue_icon": "Icons/thatch.png"
+  },
+  "voxel_block_castle": {
+    "category": "material",
+    "desc": "城墙石体素块（中世纪风格化石墙，来源 Fab: Free Stylized Stone Wall 01A by LarkArt）。拆除或倒塌的体素会以方块掉落，按 Z 可一键拾取范围内所有掉落物，也用于搭建城墙与堡垒。",
+    "icon": "res://assets/ui/building/stone_floor.png",
+    "name": "城墙石体素块",
+    "rarity": "common",
+    "stack_max": 999,
+    "type": "建材",
+    "ue_icon": "Icons/castle.png"
+  },
   "voxel_block_marble": {
     "category": "material",
     "desc": "大理石体素块。拆除或倒塌的体素会以方块掉落，按 Z 可一键拾取范围内所有掉落物，也用于搭建大理石建筑。",
@@ -3595,7 +3907,8 @@
       }
     ],
     "type": "祭品",
-    "ue_icon": "Icons/wheat.png"
+    "ue_icon": "Icons/wheat.png",
+    "world_mesh": "/Game/Items/CropHarvest20261111/Meshes/SM_Harvest_Wheat.SM_Harvest_Wheat"
   },
   "woodworked_bow_limb": {
     "category": "material",
@@ -3626,6 +3939,7 @@
     "equipSlot": "weapon",
     "icon": "Icons/ue_m4a1.png",
     "id": "ue_m4a1",
+    "fire_sound": "/Game/Weapons/M4OriginalAudio20260913/S_M4_Original_01.S_M4_Original_01",
     "isTwoHanded": true,
     "name": "M4A1",
     "stack_max": 1,
@@ -3650,6 +3964,7 @@
     "equipSlot": "weapon",
     "icon": "Icons/ue_akm.png",
     "id": "ue_akm",
+    "fire_sound": "/Game/Weapons/AKM/VideoAudio20260921/S_AKM_Fire.S_AKM_Fire",
     "isTwoHanded": true,
     "name": "AKM",
     "stack_max": 1,
@@ -3674,6 +3989,7 @@
     "equipSlot": "weapon",
     "icon": "Icons/ue_qbz191.png",
     "id": "ue_qbz191",
+    "fire_sound": "/Game/Weapons/FreeFirearmAudio20260913/S_QBZ191_Fire_01.S_QBZ191_Fire_01",
     "isTwoHanded": true,
     "name": "QBZ-191",
     "stack_max": 1,
@@ -3694,6 +4010,7 @@
   },
   "ue_m1911": {
     "id": "ue_m1911",
+    "fire_sound": "/Game/Weapons/M1911/Integrated20260913/Audio/S_M1911_Fire.S_M1911_Fire",
     "name": "M1911",
     "icon": "Icons/ue_m1911.png",
     "ue_icon": "Icons/ue_m1911.png",
@@ -3776,7 +4093,7 @@
     "level": 1,
     "enhanceLevel": 0,
     "icon_fallback": "魔晶",
-    "desc": "魔力凝结而成的晶体双手剑。近战攻击附加智力×50%＋精神×50%的魔法伤害，随本次攻击倍率结算，并受目标魔法防御影响。精神迸发可将这段附伤提升为智力×100%＋精神×100%。刃部可改造为红魔晶或高能魔晶。",
+    "desc": "魔力凝结而成的晶体双手剑，剑刃可换装红魔晶或高能魔晶。",
     "innate_erosion_intelligence": 0.5,
     "innate_erosion_wisdom": 0.5,
     "melee_damage": 55,
@@ -3793,6 +4110,7 @@
   },
   "ue_dan_wesson715": {
     "id": "ue_dan_wesson715",
+    "fire_sound": "/Game/Weapons/DanWesson715/RecordedAudio20260914/S_DW715_Fire_Recorded.S_DW715_Fire_Recorded",
     "name": "Dan-Wesson 715",
     "icon": "Icons/ue_dan_wesson715.png",
     "ue_icon": "Icons/ue_dan_wesson715.png",
@@ -3839,6 +4157,7 @@
     "icon": "Icons/ue_ash12.png",
     "ue_icon": "Icons/ue_ash12.png",
     "id": "ue_ash12",
+    "fire_sound": "/Game/Weapons/ASH12/Audio20260919/S_ASH12_Fire.S_ASH12_Fire",
     "isTwoHanded": true,
     "name": "ASH-12",
     "stack_max": 1,
@@ -3875,6 +4194,7 @@
     "equipSlot": "weapon",
     "icon": "Icons/ue_m16a2.png",
     "id": "ue_m16a2",
+    "fire_sound": "/Game/Weapons/M16A2/OriginalAudio20260920/S_M16_OriginalFire.S_M16_OriginalFire",
     "isTwoHanded": true,
     "name": "M16A2",
     "stack_max": 1,
@@ -3901,6 +4221,7 @@
     "equipSlot": "weapon",
     "icon": "",
     "id": "ue_a762",
+    "fire_sound": "/Game/Weapons/AKM/VideoAudio20260921/S_AKM_Fire.S_AKM_Fire",
     "isTwoHanded": true,
     "name": "A762",
     "stack_max": 1,
@@ -3926,6 +4247,7 @@
     "icon": "Icons/ue_svd.png",
     "ue_icon": "Icons/ue_svd.png",
     "id": "ue_svd",
+    "fire_sound": "/Game/Weapons/SVDDragunov20260922/VideoAudio20260923/S_SVD_Fire_01.S_SVD_Fire_01",
     "isTwoHanded": true,
     "name": "SVD",
     "stack_max": 1,
@@ -3941,6 +4263,34 @@
     "critDamageBonus": 1.0,
     "innate_weakpoint_percent": 0.9
   },
+  "ue_m249": {
+    "category": "weapon",
+    "desc": "M249 是一款使用 5.56 毫米弹药的班用轻机枪。原厂前握把槽为空，可在枪匠安装前握把、更换瞄具或拆装折叠脚架。弹箱支持持续射击，换弹耗时较长。",
+    "equipSlot": "weapon",
+    "icon": "Icons/ue_m249.png",
+    "ue_icon": "Icons/ue_m249.png",
+    "icon_fallback": "M249",
+    "id": "ue_m249",
+    "fire_sound": "/Game/Weapons/M249/Audio/S_M249_Fire_01.S_M249_Fire_01",
+    "isTwoHanded": true,
+    "name": "M249 轻机枪",
+    "stack_max": 1,
+    "stats": [
+      {
+        "name": "物理攻击",
+        "value": "30"
+      },
+      {
+        "name": "弹匣容量",
+        "value": "100"
+      }
+    ],
+    "type": "武器",
+    "weaponType": "machineGun",
+    "weaponTypeTag": "轻机枪",
+    "grid_w": 5,
+    "grid_h": 2
+  },
   "ue_pkm_lowpoly": {
     "category": "weapon",
     "desc": "口径 7.62×54R 的弹链供弹通用机枪，沉重的枪身配合 100 发弹箱支撑起不间断的压制火力：不用换弹就能长时间封住一条通路，单发伤害也扎实。代价是举枪与移动明显迟缓、换弹耗时偏长，只适合卡位、封锁通路与掩护推进，是把阵地钉住而不是打游击的武器。",
@@ -3949,6 +4299,7 @@
     "ue_icon": "Icons/ue_pkm_lowpoly.png",
     "icon_fallback": "PKM",
     "id": "ue_pkm_lowpoly",
+    "fire_sound": "/Game/Weapons/PKMLowpoly20260922/Audio/S_PKM_Fire.S_PKM_Fire",
     "isTwoHanded": true,
     "name": "PKM",
     "stack_max": 1,
@@ -3980,9 +4331,39 @@
     "type": "弹药",
     "ue_icon": "Icons/ammo_762.png"
   },
+  "ue_forged_steel_greatsword": {
+    "id": "ue_forged_steel_greatsword",
+    "name": "锻钢双手剑",
+    "category": "weapon_melee",
+    "type": "双手剑",
+    "weaponType": "sword",
+    "weaponTypeTag": "双手剑",
+    "equipSlot": "weapon",
+    "isTwoHanded": true,
+    "stack_max": 1,
+    "grid_w": 2,
+    "grid_h": 4,
+    "price": 3200,
+    "level": 1,
+    "enhanceLevel": 0,
+    "desc": "朴素的锻钢长剑。修长的双刃从护手向剑尖收束，皮革包覆的长柄可容双手分握，柄尾配有钢制圆首。",
+    "ue_icon": "Icons/ue_forged_steel_greatsword.png",
+    "melee_damage": 55,
+    "melee_reach_cm": 180,
+    "attack_seconds": 1.775,
+    "contact_start": 0.85,
+    "contact_end": 0.965,
+    "viewmodel_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+    "world_mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Meshes/SM_ForgedSteelGreatsword_Complete_V1.SM_ForgedSteelGreatsword_Complete_V1",
+    "animation_folder": "/Game/Weapons/AzureRunesword20260913",
+    "swing_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Swing.Sword_Swing",
+    "hit_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Hit.Sword_Hit",
+    "icon_fallback": "锻钢",
+    "modular_sword_catalog": "forged-steel-greatsword-modules.json"
+  },
   "ue_highland_claymore": {
     "id": "ue_highland_claymore",
-    "name": "高地·双手剑",
+    "name": "高地双手剑",
     "category": "weapon_melee",
     "type": "高地双手剑",
     "weaponType": "sword",
@@ -4026,14 +4407,16 @@
       "base": 8,
       "perEnhance": 1.2
     },
-    "desc": "厚实针织长袖，配有收口袖缘，可与短手套独立搭配。",
-    "ue_icon": "Icons/FieldSweaterKnit20260929/ue_field_sweater.png",
+    "desc": "橄榄色斜纹布野行上衣，深棕软皮护肩、护肘及前臂加强，低立领、贴合袖口与嵌线口袋，肩背留有活动褶。",
+    "ue_icon": "Icons/FieldRangerTop20261020/TailoredFinish20261021/ue_field_sweater.png",
     "icon_fallback": "衣",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/FieldSweaterKnit20260929/Pickups/SM_Olive_Garment.SM_Olive_Garment",
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/Pickups/SM_FieldRangerTop.SM_FieldRangerTop",
     "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/FieldRangerTop20261020/TailoredFinish20261021/Icons/SM_FieldRangerTop_Icon.SM_FieldRangerTop_Icon",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": -90,
     "bonusStats": {
-      "bowDrawSpeed": 0.1,
-      "reloadSpeed": 0.1
+      "bowDrawSpeed": 0.1
     }
   },
   "ue_field_sweater_charcoal": {
@@ -4098,9 +4481,6 @@
     "world_material": "/Game/Characters/ModularOutfit20260924/BlackLeatherStitchWearV4/Materials/M4/M_BlackLeatherReliefCuff_M4.M_BlackLeatherReliefCuff_M4"
   },
   "ue_original_gloves": {
-    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。",
-    "setName": "户外工作套装",
-    "armorSet": "workwear",
     "id": "ue_original_gloves",
     "name": "厚皮革手套",
     "category": "equipment",
@@ -4112,7 +4492,8 @@
     "grid_w": 2,
     "grid_h": 2,
     "defense": {
-      "base": 8
+      "base": 8,
+      "perEnhance": 1
     },
     "bonusStats": {
       "meleeAttackSpeed": 0.1,
@@ -4122,7 +4503,10 @@
     "ue_icon": "Icons/GloveCompanionDetail20260928/ue_original_gloves.png",
     "icon_fallback": "手",
     "world_mesh": "/Game/Characters/ModularOutfit20260924/GloveCompanionDetail20260928/Tactical/Pickups/SM_Tactical_Detail_Pickup.SM_Tactical_Detail_Pickup",
-    "world_material": ""
+    "world_material": "",
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
   },
   "ue_lmg201": {
     "category": "weapon",
@@ -4130,6 +4514,7 @@
     "equipSlot": "weapon",
     "icon": "",
     "id": "ue_lmg201",
+    "fire_sound": "/Game/Weapons/LMG201/FireAudio01/S_LMG201_Fire_01.S_LMG201_Fire_01",
     "isTwoHanded": true,
     "name": "201轻机枪",
     "stack_max": 1,
@@ -4187,13 +4572,17 @@
       "perEnhance": 3
     },
     "desc": "灰钢锁环交错覆盖衣身与双臂，磨亮环面与暗色衬底形成层次，袖口采用实体金属环和暗色包边，可与手套独立搭配。",
-    "ue_icon": "Icons/ChainmailInterlace20260929/ue_chainmail_shirt.png",
+    "ue_icon": "Icons/ChainmailTorsoRepair20261021/ue_chainmail_shirt.png",
     "icon_fallback": "甲",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/ChainmailShirt20260928/Pickups/SM_ChainmailShirt_Pickup.SM_ChainmailShirt_Pickup",
-    "world_material": "/Game/Characters/ModularOutfit20260924/ChainmailInterlace20260929/Materials/MI_Chainmail_Rings_Standard.MI_Chainmail_Rings_Standard"
+    "world_mesh": "/Game/Characters/ModularOutfit20260924/ChainmailTorsoRepair20261021/Pickups/SM_ChainmailShirt.SM_ChainmailShirt",
+    "world_material": "",
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ChainmailTorsoRepair20261021/Icons/SM_ChainmailShirt_Icon.SM_ChainmailShirt_Icon",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": -90
   },
   "ue_g18": {
     "id": "ue_g18",
+    "fire_sound": "/Game/Weapons/G18/Integrated20260929/Audio/S_G18_Fire_01.S_G18_Fire_01",
     "name": "G18",
     "icon": "Icons/ue_g18.png",
     "ue_icon": "Icons/ue_g18.png",
@@ -4225,6 +4614,7 @@
     "equipSlot": "weapon",
     "icon": "Icons/ue_hk416.png",
     "id": "ue_hk416",
+    "fire_sound": "/Game/Weapons/M4OriginalAudio20260913/S_M4_Original_01.S_M4_Original_01",
     "isTwoHanded": true,
     "name": "HK416",
     "stack_max": 1,
@@ -4314,12 +4704,13 @@
     "modular_sword_catalog": "tang-dao-modules.json"
   },
   "ue_kukri": {
+    "modular_melee_catalog": "kukri-modules.json",
     "id": "ue_kukri",
     "name": "尼泊尔弯刀",
     "category": "weapon_melee",
     "type": "尼泊尔弯刀",
     "weaponType": "kukri",
-    "weaponTypeTag": "单手刀",
+    "weaponTypeTag": "单手近战武器",
     "equipSlot": "weapon",
     "isTwoHanded": false,
     "stack_max": 1,
@@ -4342,6 +4733,7 @@
   },
   "ue_pit_viper2011": {
     "id": "ue_pit_viper2011",
+    "fire_sound": "/Game/Weapons/PitViper2011/Integrated20261002/Audio/S_PitViper2011_Fire.S_PitViper2011_Fire",
     "name": "Pit Viper 2011",
     "icon": "Icons/ue_pit_viper2011.png",
     "ue_icon": "Icons/ue_pit_viper2011.png",
@@ -4405,6 +4797,7 @@
   },
   "baguette_bread": {
     "id": "baguette_bread",
+    "spoilDays": 8,
     "name": "法棍面包",
     "category": "consumable",
     "type": "食物",
@@ -4441,11 +4834,11 @@
     "icon": "",
     "icon_fallback": "🥖",
     "ue_icon": "Icons/baguette_bread.png",
-    "world_mesh": "/Game/Items/Consumables/Baguette20261003/SM_Baguette.SM_Baguette",
-    "spoilDays": 8
+    "world_mesh": "/Game/Items/Consumables/Baguette20261003/SM_Baguette.SM_Baguette"
   },
   "bread": {
     "id": "bread",
+    "spoilDays": 8,
     "name": "普通面包",
     "category": "consumable",
     "type": "食物",
@@ -4482,11 +4875,11 @@
     "icon": "",
     "icon_fallback": "面包",
     "ue_icon": "Icons/bread.png",
-    "world_mesh": "/Game/Items/Consumables/Bread20261003/SM_Bread.SM_Bread",
-    "spoilDays": 8
+    "world_mesh": "/Game/Items/Consumables/Bread20261003/SM_Bread.SM_Bread"
   },
   "ue_rsh12": {
     "id": "ue_rsh12",
+    "fire_sound": "/Game/Weapons/RSH12/DoubleAction20261003/Audio/S_RSH12_Fire.S_RSH12_Fire",
     "name": "RSH-12",
     "icon": "Icons/ue_rsh12.png",
     "ue_icon": "Icons/ue_rsh12.png",
@@ -4586,6 +4979,7 @@
   },
   "ue_super90": {
     "id": "ue_super90",
+    "fire_sound": "/Game/Weapons/Super90/GameDevAudio20261007/S_Super90_Fire.S_Super90_Fire",
     "name": "M4 Super90",
     "category": "weapon",
     "type": "武器",
@@ -4622,21 +5016,21 @@
     "grid_w": 2,
     "grid_h": 2,
     "defense": {
-      "base": 5,
+      "base": 8,
       "perEnhance": 1
     },
-    "desc": "硬质护指关节与织物掌背，沿用源模型的独立手套网格和 PBR 表面。",
+    "desc": "硬质护指关节铆接在织物掌背，握拳与格挡时护住指节，掌面保留抓握纹；可与衣袖独立搭配。",
     "ue_icon": "Icons/Super90Source20261006/ue_hardknuckle_gloves.png",
     "icon_fallback": "手",
     "world_mesh": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Pickups/SM_ue_hardknuckle_gloves.SM_ue_hardknuckle_gloves",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Pickups/SM_ue_hardknuckle_gloves.SM_ue_hardknuckle_gloves",
+    "ue_equipment_icon_mesh": "",
     "world_material": ""
   },
   "ue_st6_sleeves": {
     "id": "ue_st6_sleeves",
-    "name": "ST6 战术衣袖",
+    "name": "ST6 战术上衣",
     "category": "equipment",
-    "type": "护甲",
+    "type": "上衣",
     "equipSlot": "armor",
     "stack_max": 1,
     "maxStack": 1,
@@ -4644,14 +5038,14 @@
     "grid_w": 3,
     "grid_h": 3,
     "defense": {
-      "base": 6,
-      "perEnhance": 1
+      "base": 12,
+      "perEnhance": 2
     },
-    "desc": "独立的 ST6 战术衣袖，保留源模型的袖口、布料纹理与褶皱。此装备为双臂衣袖。",
+    "desc": "深灰织物战术上衣，胸背与肩部采用分区拼接，长袖保留收紧袖口与自然褶皱；前襟与腰侧收束织带便于快速取弹。",
     "ue_icon": "Icons/Super90Source20261006/ue_st6_sleeves.png",
     "icon_fallback": "衣",
     "world_mesh": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Pickups/SM_ue_st6_sleeves.SM_ue_st6_sleeves",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/Super90Source20261006/Pickups/SM_ue_st6_sleeves.SM_ue_st6_sleeves",
+    "ue_equipment_icon_mesh": "",
     "world_material": ""
   },
   "ue_alchemy_spellbook": {
@@ -4672,7 +5066,7 @@
     "ue_icon_pitch": 0,
     "ue_icon_yaw": 75,
     "ue_icon_roll": 90,
-    "desc": "蓝紫色金纹封面的元素炼金书，左手从书脊侧握持。",
+    "desc": "蓝紫色金纹封面的元素炼金书，可在主手或副手握持。",
     "world_mesh": "/Game/Weapons/SpellbookEvildeer20261009/Meshes/SM_Spellbook_Alchemy_Closed.SM_Spellbook_Alchemy_Closed",
     "ue_equipment_icon_mesh": "/Game/Weapons/SpellbookEvildeer20261009/Meshes/SM_Spellbook_Alchemy_Closed.SM_Spellbook_Alchemy_Closed",
     "world_material": "",
@@ -5090,6 +5484,103 @@
     "icon_fallback": "计算加速模块",
     "world_mesh": "/Game/Items/SearchServerEquipment20261013/Meshes/SM_Search_ComputeAccelerator.SM_Search_ComputeAccelerator"
   },
+  "raw_chicken_leg": {
+    "id": "raw_chicken_leg",
+    "spoilDays": 3,
+    "name": "生鸡腿",
+    "category": "material",
+    "type": "食材",
+    "desc": "尚未烹熟的带骨鸡腿，不能直接食用。投入篝火烧烤队列，有燃料时每份烤制30秒，制成1份烤鸡腿。",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 2,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "icon": "",
+    "icon_fallback": "生鸡腿",
+    "ue_icon": "Icons/raw_chicken_leg.png",
+    "world_mesh": "/Game/Items/Consumables/ChickenLeg20261014/Raw/SM_RawChickenLeg.SM_RawChickenLeg"
+  },
+  "roasted_chicken_leg": {
+    "id": "roasted_chicken_leg",
+    "spoilDays": 4,
+    "name": "烤鸡腿",
+    "category": "consumable",
+    "type": "食物",
+    "desc": "带骨鸡腿经篝火烤制，表皮呈金褐色。握住骨端食用，恢复饱食度上限的25%，不改变水分与SAN。",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 2,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "maxUses": 1,
+    "icon": "",
+    "icon_fallback": "烤鸡腿",
+    "ue_icon": "Icons/roasted_chicken_leg.png",
+    "world_mesh": "/Game/Items/Consumables/ChickenLeg20261014/Roasted/SM_RoastedChickenLeg.SM_RoastedChickenLeg",
+    "useEffect": {
+      "maxHungerPercent": 25
+    },
+    "useDuration": 4.8,
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复饱食度",
+        "value": "+25%上限"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ]
+  },
+  "ue_steel_warhammer": {
+    "id": "ue_steel_warhammer",
+    "name": "锻钢战锤",
+    "category": "weapon_melee",
+    "type": "双手战锤",
+    "weaponType": "blunt",
+    "weaponTypeTag": "双手钝器",
+    "equipSlot": "weapon",
+    "isTwoHanded": true,
+    "stack_max": 1,
+    "grid_w": 2,
+    "grid_h": 4,
+    "price": 3200,
+    "level": 1,
+    "enhanceLevel": 0,
+    "desc": "以锻钢锤头配长柄制成的双手战锤。双手分握锤柄，便于蓄势挥击与回收；沉重锤头要求使用者把握出手后的收势节奏。",
+    "ue_icon": "Icons/ue_steel_warhammer.png",
+    "icon_fallback": "战锤",
+    "melee_damage": 49.5,
+    "melee_reach_cm": 180,
+    "combat_reach_cm": 360,
+    "combat_sweep_radius_cm": 24,
+    "attack_seconds": 2.04125,
+    "swing_seconds": 2.04125,
+    "contact_seconds": 1.24125,
+    "toughness_damage_mult": 1.0,
+    "tool_kind": "warhammer",
+    "combat_arc_degrees": 120,
+    "heavy_charge_seconds": 2.0,
+    "heavy_damage_multiplier": 2.5,
+    "heavy_wave_radius_cm": 300,
+    "tool_scale": 1.0,
+    "tool_mesh": "/Game/Weapons/SteelWarhammer20261014/SM_SteelWarhammer.SM_SteelWarhammer",
+    "world_mesh": "/Game/Weapons/SteelWarhammer20261014/SM_SteelWarhammer.SM_SteelWarhammer",
+    "tool_viewmodel": "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1.SK_Warhammer_BareArmsSprintV1",
+    "viewmodel_mesh": "/Game/Weapons/SteelWarhammer20261014/SprintDragV1/SK_Warhammer_BareArmsSprintV1.SK_Warhammer_BareArmsSprintV1",
+    "tool_animation_prefix": "/Game/Items/ProductionTools/RusticPickaxe20260919/A_RusticPickaxe_",
+    "tool_swing_sound": "/Game/Items/ProductionTools/GripMotion20260913/S_Harvest_Swing.S_Harvest_Swing",
+    "tool_sound": "/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick.S_MeleeHit_Quick",
+    "hit_sound": "/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick.S_MeleeHit_Quick",
+    "harvest_reach_cm": 0,
+    "harvest_sweep_radius_cm": 0
+  },
   "search_industrial_multimeter": {
     "id": "search_industrial_multimeter",
     "name": "工业数字万用表",
@@ -5153,6 +5644,60 @@
     "icon_fallback": "充电式冲击扳手",
     "world_mesh": "/Game/Items/FreightTools20261014/VisualRefine/Meshes/SM_Freight_CordlessImpactWrench.SM_Freight_CordlessImpactWrench"
   },
+  "raw_lamb_ribs": {
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "icon": "",
+    "id": "raw_lamb_ribs",
+    "spoilDays": 3,
+    "name": "生羊肋排",
+    "category": "material",
+    "type": "食材",
+    "desc": "切分的小份带骨羊肋排，保留肋骨与肉块。需投入有燃料的篝火烤熟，不能直接食用。",
+    "icon_fallback": "生羊肋排",
+    "ue_icon": "Icons/raw_lamb_ribs.png",
+    "world_mesh": "/Game/Items/Consumables/LambRibs20261014/Raw/SM_RawLambRibs.SM_RawLambRibs"
+  },
+  "roasted_lamb_ribs": {
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "icon": "",
+    "id": "roasted_lamb_ribs",
+    "spoilDays": 4,
+    "name": "烤羊肋排",
+    "category": "consumable",
+    "type": "食物",
+    "desc": "在篝火上烤熟的小份带骨羊肋排，肉面带有烘烤后的色泽。握住骨端食用可补充饱食度，不改变水分与SAN。",
+    "maxUses": 1,
+    "icon_fallback": "烤羊肋排",
+    "ue_icon": "Icons/roasted_lamb_ribs.png",
+    "world_mesh": "/Game/Items/Consumables/LambRibs20261014/Roasted/SM_RoastedLambRibs.SM_RoastedLambRibs",
+    "useEffect": {
+      "maxHungerPercent": 25
+    },
+    "useDuration": 4.8,
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复饱食度",
+        "value": "+25%上限"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ]
+  },
   "search_industrial_fuse_set": {
     "id": "search_industrial_fuse_set",
     "name": "工业熔断器组",
@@ -5215,6 +5760,138 @@
     "ue_icon": "Icons/PowerCollectibles20261014/search_energy_storage_cell.png",
     "icon_fallback": "密封储能电芯",
     "world_mesh": "/Game/Items/PowerCollectibles20261014/V1/Meshes/SM_Power_EnergyStorageCell.SM_Power_EnergyStorageCell"
+  },
+  "raw_sausage": {
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "icon": "",
+    "id": "raw_sausage",
+    "spoilDays": 3,
+    "name": "生香肠",
+    "category": "material",
+    "type": "食材",
+    "desc": "将绞肉灌入肠衣制成的单根生香肠，外皮带有细密褶皱。可投入有燃料的篝火烤熟，不能直接食用。",
+    "icon_fallback": "生香肠",
+    "ue_icon": "Icons/raw_sausage.png",
+    "world_mesh": "/Game/Items/Consumables/Sausage20261014/Raw/SM_RawSausage.SM_RawSausage"
+  },
+  "roasted_sausage": {
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "icon": "",
+    "id": "roasted_sausage",
+    "spoilDays": 4,
+    "name": "烤香肠",
+    "category": "consumable",
+    "type": "食物",
+    "desc": "在篝火上烤熟的单根香肠，肠衣呈现烘烤后的褐色与自然褶皱。握住肠体食用可补充饱食度，不改变水分与SAN。",
+    "maxUses": 1,
+    "icon_fallback": "烤香肠",
+    "ue_icon": "Icons/roasted_sausage.png",
+    "world_mesh": "/Game/Items/Consumables/Sausage20261014/Roasted/SM_RoastedSausage.SM_RoastedSausage",
+    "useEffect": {
+      "maxHungerPercent": 15
+    },
+    "buffs": [
+      {
+        "label": "体力恢复速度",
+        "value": 5,
+        "unit": "%",
+        "duration": 600,
+        "note": "饱腹已满也可食用；重复食用只刷新持续时间，倍率不叠加。"
+      }
+    ],
+    "useDuration": 2.4,
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复饱食度",
+        "value": "+15%上限"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ]
+  },
+  "raw_large_lamb": {
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 2,
+    "grid_h": 2,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "icon": "",
+    "id": "raw_large_lamb",
+    "spoilDays": 3,
+    "name": "生大羊排",
+    "category": "material",
+    "type": "食物",
+    "desc": "完整带骨的大块生羊排，保留肋骨与肉块形态。可投入有燃料的篝火烤熟，不能直接食用。",
+    "icon_fallback": "生大羊排",
+    "ue_icon": "Icons/raw_large_lamb.png",
+    "world_mesh": "/Game/Items/Consumables/LargeLamb20261014/Raw/SM_RawLargeLamb.SM_RawLargeLamb"
+  },
+  "roasted_large_lamb": {
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 2,
+    "grid_h": 2,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "icon": "",
+    "id": "roasted_large_lamb",
+    "spoilDays": 4,
+    "name": "大份烤羊排",
+    "category": "consumable",
+    "type": "食物",
+    "desc": "篝火烤熟的整块带骨羊排。握住肋骨食用可补充饱食度，并获得大份烤羊排增益。水分与SAN不变。",
+    "maxUses": 1,
+    "icon_fallback": "大份烤羊排",
+    "ue_icon": "Icons/roasted_large_lamb.png",
+    "world_mesh": "/Game/Items/Consumables/LargeLamb20261014/Roasted/SM_RoastedLargeLamb.SM_RoastedLargeLamb",
+    "useEffect": {
+      "maxHungerPercent": 50
+    },
+    "buffs": [
+      {
+        "label": "体力上限",
+        "value": 10,
+        "unit": "%",
+        "duration": 600,
+        "note": "提高上限不直接补充体力；饱腹已满也可食用；重复食用只刷新持续时间。"
+      },
+      {
+        "label": "体力恢复速度",
+        "value": 5,
+        "unit": "%",
+        "duration": 600
+      }
+    ],
+    "useDuration": 6.0,
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复饱食度",
+        "value": "+50%上限"
+      },
+      {
+        "name": "食用方式",
+        "value": "握持食用"
+      }
+    ]
   },
   "alchemy_pure_base_fluid": {
     "id": "alchemy_pure_base_fluid",
@@ -5447,6 +6124,25 @@
     "icon_fallback": "封存焚化事故档案",
     "world_mesh": "/Game/Items/IncinerationCollectibles20261015/V1/Meshes/SM_Incineration_IncidentArchive.SM_Incineration_IncidentArchive"
   },
+  "spoiled_food": {
+    "id": "spoiled_food",
+    "name": "腐败食物",
+    "category": "material",
+    "type": "腐败食物",
+    "desc": "已经腐败的食物残余，不能食用。每份占1格，最多10份堆叠。食物腐败时，每件原占1格产生1份腐败食物。",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 10,
+    "maxStack": 10,
+    "inventory_unit": "份",
+    "icon": "",
+    "ue_icon": "Icons/spoiled_food.png",
+    "icon_fallback": "腐败食物",
+    "world_mesh": "/Game/Items/Consumables/SpoiledFood20261016/SM_SpoiledFood.SM_SpoiledFood"
+  },
   "search_flue_gas_catalytic_core": {
     "id": "search_flue_gas_catalytic_core",
     "name": "烟气净化催化芯",
@@ -5470,6 +6166,7 @@
   },
   "ue_m870": {
     "id": "ue_m870",
+    "fire_sound": "/Game/Weapons/M870/Tactical20261015/Audio/S_M870_Fire.S_M870_Fire",
     "name": "M870 Tactical",
     "category": "weapon",
     "type": "武器",
@@ -5494,6 +6191,28 @@
     ],
     "desc": "雷明顿 870 系列的战术型泵动霰弹枪，采用管式弹仓和传统枪托。每次射击后拉动护木退壳，再前推完成供弹。适合近距离掌握节奏逐发射击；装填时从机匣下方逐发补弹，也可提前结束补弹。"
   },
+  "search_private_perfume": {
+    "id": "search_private_perfume",
+    "name": "珍藏香水",
+    "category": "material",
+    "type": "生活区收集物",
+    "loot_group": "daily_supplies",
+    "rarity": "rare",
+    "price": 900,
+    "sell_souls": 900,
+    "desc": "员工私柜中保存的珍藏香水。厚底玻璃瓶内封存着琥珀色香液，金属泵头藏在烟色瓶盖下，纸质标签保留私人收藏编号。可作为生活区贵重收集物带回出售。",
+    "grid_w": 1,
+    "grid_h": 2,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "inventory_unit": "件",
+    "icon": "Icons/StaffLivingCollectibles20261016/search_private_perfume.png",
+    "ue_icon": "Icons/StaffLivingCollectibles20261016/search_private_perfume.png",
+    "world_mesh": "/Game/Items/StaffLivingCollectibles20261016/V1/Meshes/SM_Living_Perfume.SM_Living_Perfume",
+    "icon_fallback": "珍藏香水",
+    "loot_region": "staff_living"
+  },
   "search_business_laptop": {
     "id": "search_business_laptop",
     "name": "商务笔记本电脑",
@@ -5514,28 +6233,6 @@
     "ue_icon": "Icons/StaffLivingCollectibles20261016/search_business_laptop.png",
     "world_mesh": "/Game/Items/StaffLivingCollectibles20261016/V1/Meshes/SM_Living_Laptop.SM_Living_Laptop",
     "icon_fallback": "商务笔记本电脑",
-    "loot_region": "staff_living"
-  },
-  "search_compact_camera": {
-    "id": "search_compact_camera",
-    "name": "袖珍数码相机",
-    "category": "material",
-    "type": "生活区收集物",
-    "loot_group": "daily_supplies",
-    "rarity": "epic",
-    "price": 2400,
-    "sell_souls": 2400,
-    "desc": "员工用于记录日常生活的袖珍数码相机。伸缩镜筒、光学镜片与机械拨轮保存完整，背面留有显示屏和操作按键。可作为贵重摄影设备收集并出售。",
-    "grid_w": 2,
-    "grid_h": 2,
-    "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "inventory_unit": "件",
-    "icon": "Icons/StaffLivingCollectibles20261016/search_compact_camera.png",
-    "ue_icon": "Icons/StaffLivingCollectibles20261016/search_compact_camera.png",
-    "world_mesh": "/Game/Items/StaffLivingCollectibles20261016/V2/Meshes/SM_Living_CompactCamera.SM_Living_CompactCamera",
-    "icon_fallback": "袖珍数码相机",
     "loot_region": "staff_living"
   },
   "search_portable_music_player": {
@@ -5560,49 +6257,56 @@
     "icon_fallback": "便携音乐播放器",
     "loot_region": "staff_living"
   },
-  "search_private_perfume": {
-    "id": "search_private_perfume",
-    "name": "珍藏香水",
+  "search_compact_camera": {
+    "id": "search_compact_camera",
+    "name": "袖珍数码相机",
     "category": "material",
     "type": "生活区收集物",
     "loot_group": "daily_supplies",
-    "rarity": "rare",
-    "price": 900,
-    "sell_souls": 900,
-    "desc": "员工私柜中保存的珍藏香水。厚底玻璃瓶内封存着琥珀色香液，金属泵头藏在烟色瓶盖下，纸质标签保留私人收藏编号。可作为生活区贵重收集物带回出售。",
-    "grid_w": 1,
+    "rarity": "epic",
+    "price": 2400,
+    "sell_souls": 2400,
+    "desc": "员工用于记录日常生活的袖珍数码相机。伸缩镜筒、光学镜片与机械拨轮保存完整，背面留有显示屏和操作按键。可作为贵重摄影设备收集并出售。",
+    "grid_w": 2,
     "grid_h": 2,
     "stack": 1,
     "stack_max": 1,
     "maxStack": 1,
     "inventory_unit": "件",
-    "icon": "Icons/StaffLivingCollectibles20261016/search_private_perfume.png",
-    "ue_icon": "Icons/StaffLivingCollectibles20261016/search_private_perfume.png",
-    "world_mesh": "/Game/Items/StaffLivingCollectibles20261016/V1/Meshes/SM_Living_Perfume.SM_Living_Perfume",
-    "icon_fallback": "珍藏香水",
+    "icon": "Icons/StaffLivingCollectibles20261016/search_compact_camera.png",
+    "ue_icon": "Icons/StaffLivingCollectibles20261016/search_compact_camera.png",
+    "world_mesh": "/Game/Items/StaffLivingCollectibles20261016/V2/Meshes/SM_Living_CompactCamera.SM_Living_CompactCamera",
+    "icon_fallback": "袖珍数码相机",
     "loot_region": "staff_living"
   },
-  "spoiled_food": {
-    "id": "spoiled_food",
-    "name": "腐败食物",
-    "category": "material",
-    "type": "腐败食物",
-    "desc": "已经腐败的食物残余，不能食用。每份占1格，最多10份堆叠。食物腐败时，每件原占1格产生1份腐败食物。",
-    "rarity": "common",
-    "level": 1,
-    "grid_w": 1,
-    "grid_h": 1,
-    "stack": 1,
-    "stack_max": 10,
-    "maxStack": 10,
-    "inventory_unit": "份",
-    "icon": "",
-    "ue_icon": "Icons/spoiled_food.png",
-    "icon_fallback": "腐败食物",
-    "world_mesh": "/Game/Items/Consumables/SpoiledFood20261016/SM_SpoiledFood.SM_SpoiledFood"
+  "ue_svch": {
+    "id": "ue_svch",
+    "fire_sound": "/Game/Weapons/SVDDragunov20260922/VideoAudio20260923/S_SVD_Fire_01.S_SVD_Fire_01",
+    "name": "SVCh",
+    "category": "weapon",
+    "type": "武器",
+    "equipSlot": "weapon",
+    "weaponType": "sniper",
+    "weaponTypeTag": "狙击步枪",
+    "isTwoHanded": true,
+    "stack_max": 1,
+    "grid_w": 5,
+    "grid_h": 2,
+    "icon": "Icons/ue_svch.png",
+    "ue_icon": "Icons/ue_svch.png",
+    "stats": [
+      {
+        "name": "弹匣容量",
+        "value": "10"
+      }
+    ],
+    "desc": "采用长护木、顶部全长导轨和可调枪托的半自动狙击步枪，使用 7.62×54R 有底缘弹与可拆卸弹匣。机械瞄具便于迅速瞄准，也能安装通用光学瞄具。单发威力与远距离命中能力突出，适合稳住枪身后逐发射击。",
+    "critDamageBonus": 1.0,
+    "innate_weakpoint_percent": 0.7
   },
   "ue_saiga12k": {
     "id": "ue_saiga12k",
+    "fire_sound": "/Game/Weapons/Saiga12K/GameDevAudio20261018/S_Saiga12K_Fire.S_Saiga12K_Fire",
     "name": "Saiga 12K",
     "category": "weapon",
     "type": "武器",
@@ -5657,63 +6361,26 @@
     "icon_fallback": "斩马刀",
     "modular_sword_catalog": "zhanmadao-modules.json"
   },
-  "ue_svch": {
-    "id": "ue_svch",
-    "name": "SVCh",
-    "category": "weapon",
-    "type": "武器",
-    "equipSlot": "weapon",
-    "weaponType": "sniper",
-    "weaponTypeTag": "狙击步枪",
-    "isTwoHanded": true,
-    "stack_max": 1,
-    "grid_w": 5,
-    "grid_h": 2,
-    "icon": "Icons/ue_svch.png",
-    "ue_icon": "Icons/ue_svch.png",
-    "stats": [
-      {
-        "name": "弹匣容量",
-        "value": "10"
-      }
-    ],
-    "desc": "采用长护木、顶部全长导轨和可调枪托的半自动狙击步枪，使用 7.62×54R 有底缘弹与可拆卸弹匣。机械瞄具便于迅速瞄准，也能安装通用光学瞄具。单发威力与远距离命中能力突出，适合稳住枪身后逐发射击。",
-    "critDamageBonus": 1.0,
-    "innate_weakpoint_percent": 0.7
-  },
-  "ue_ranger_feather_hat": {
-    "id": "ue_ranger_feather_hat",
-    "name": "野行翎羽帽",
+  "ue_expedition_backpack": {
+    "id": "ue_expedition_backpack",
+    "name": "重装远征背包",
     "category": "equipment",
-    "type": "头部装备",
-    "equipSlot": "helmet",
+    "type": "背包装备",
+    "equipSlot": "backpack",
     "stack_max": 1,
     "maxStack": 1,
-    "price": 28,
-    "grid_w": 2,
-    "grid_h": 2,
-    "defense": {
-      "base": 6,
-      "perEnhance": 0.6
-    },
-    "desc": "为林地斥候缝制的船型帽，以橄榄斜纹布搭配棕色皮革帽带和包边，黄铜羽座固定单支棕灰翎羽。收起的两侧帽檐便于抬臂与观察，适合游猎装束；柔软帽体提供轻便覆盖，缺少硬盔的防护结构。",
-    "ue_icon": "Icons/FieldRangerFeatherHat20261021/ue_ranger_feather_hat.png",
-    "icon_fallback": "帽",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/FieldRangerFeatherHat20261021/Pickups/SM_RangerFeatherHat.SM_RangerFeatherHat",
-    "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/FieldRangerFeatherHat20261021/Icons/SM_RangerFeatherHat_Icon.SM_RangerFeatherHat_Icon",
-    "ue_icon_pitch": 0,
-    "ue_icon_yaw": -90,
-    "ue_icon_roll": 0,
-    "bonusStats": {
-      "crit": 10,
-      "critDamageBonus": 0.25
-    }
+    "price": 180,
+    "grid_w": 3,
+    "grid_h": 4,
+    "bagExtraCells": 36,
+    "bagCompartmentCells": 48,
+    "bagCompartmentColumns": 8,
+    "bagCompartmentRows": 6,
+    "desc": "大容量远征背包，承重框架与加厚肩带、胸带、腰封分担负重。装备后主背包增加两整行（+36格，共108格），独立底仓为8×6共48格。适合多日探索、补给和采集搬运。",
+    "ue_icon": "Icons/ue_expedition_backpack.png",
+    "icon_fallback": "包"
   },
   "ue_st6_tactical_helmet": {
-    "ue_icon_roll": 0,
-    "ue_icon_yaw": -90,
-    "ue_icon_pitch": 0,
     "id": "ue_st6_tactical_helmet",
     "name": "ST6 酒红贝雷帽",
     "category": "equipment",
@@ -5733,7 +6400,10 @@
     "ue_icon": "Icons/ST6Beret20261023/ue_st6_tactical_helmet.png",
     "world_mesh": "/Game/Characters/ModularOutfit20260924/ST6Beret20261023/SurfaceV2/Pickups/SM_ST6_Beret_Pickup.SM_ST6_Beret_Pickup",
     "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ST6Beret20261023/SurfaceV2/Icons/SM_ST6_Beret_Icon.SM_ST6_Beret_Icon"
+    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ST6Beret20261023/SurfaceV2/Icons/SM_ST6_Beret_Icon.SM_ST6_Beret_Icon",
+    "ue_icon_pitch": 0,
+    "ue_icon_yaw": -90,
+    "ue_icon_roll": 0
   },
   "ue_simple_sling_bag": {
     "id": "ue_simple_sling_bag",
@@ -5754,43 +6424,207 @@
     "ue_icon": "Icons/ue_simple_sling_bag.png",
     "icon_fallback": "包"
   },
-  "ue_expedition_backpack": {
-    "id": "ue_expedition_backpack",
-    "name": "重装远征背包",
-    "category": "equipment",
-    "type": "背包装备",
-    "equipSlot": "backpack",
+  "raw_meat_chunk": {
+    "id": "raw_meat_chunk",
+    "name": "生肉块",
+    "category": "material",
+    "type": "食材",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
     "stack_max": 1,
     "maxStack": 1,
-    "price": 180,
-    "grid_w": 3,
-    "grid_h": 4,
-    "bagExtraCells": 36,
-    "bagCompartmentCells": 48,
-    "bagCompartmentColumns": 8,
-    "bagCompartmentRows": 6,
-    "desc": "大容量远征背包，承重框架与加厚肩带、胸带、腰封分担负重。装备后主背包增加两整行（+36格，共108格），独立底仓为8×6共48格。适合多日探索、补给和采集搬运。",
-    "ue_icon": "Icons/ue_expedition_backpack.png",
-    "icon_fallback": "包"
+    "spoilDays": 3,
+    "desc": "狩猎取得的新鲜肉块。可放在有燃料的篝火上烤熟。",
+    "icon": "",
+    "icon_fallback": "生肉块",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RawVenison.SM_RawVenison",
+    "ue_icon": "Icons/raw_venison.png"
   },
-  "ue_pathfinder_backpack": {
-    "id": "ue_pathfinder_backpack",
-    "name": "开拓者战术背包",
-    "category": "equipment",
-    "type": "背包装备",
-    "equipSlot": "backpack",
+  "raw_venison": {
+    "id": "raw_venison",
+    "name": "生鹿肉",
+    "category": "material",
+    "type": "食材",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
     "stack_max": 1,
     "maxStack": 1,
-    "price": 260,
-    "grid_w": 4,
-    "grid_h": 4,
-    "bagExtraCells": 54,
-    "bagCompartmentCells": 60,
-    "bagCompartmentColumns": 10,
-    "bagCompartmentRows": 6,
-    "desc": "野外勘探队使用的模块化战术背包。金属复合承重架与宽腰封分担负重，密封卷装顶仓、工具侧仓和独立夹层适合长途探索与补给搬运。",
-    "ue_icon": "Icons/ue_pathfinder_backpack.png",
-    "icon_fallback": "包"
+    "spoilDays": 3,
+    "desc": "狩猎取得的生鹿肉，切成长条便于穿签烧烤。需要在篝火烤熟后食用，存放过久会腐败。",
+    "icon": "",
+    "icon_fallback": "生鹿肉",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RawVenison.SM_RawVenison",
+    "ue_icon": "Icons/raw_venison.png"
+  },
+  "raw_boar_meat": {
+    "id": "raw_boar_meat",
+    "name": "生野猪肉",
+    "category": "material",
+    "type": "食材",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "spoilDays": 3,
+    "desc": "狩猎取得的生野猪肉，切成长条便于穿签烧烤。需要在篝火烤熟后食用，存放过久会腐败。",
+    "icon": "",
+    "icon_fallback": "生野猪肉",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RawBoarMeat.SM_RawBoarMeat",
+    "ue_icon": "Icons/raw_boar_meat.png"
+  },
+  "raw_fox_meat": {
+    "id": "raw_fox_meat",
+    "name": "生狐肉",
+    "category": "material",
+    "type": "食材",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "spoilDays": 3,
+    "desc": "狩猎取得的生狐肉，切成长条便于穿签烧烤。需要在篝火烤熟后食用，存放过久会腐败。",
+    "icon": "",
+    "icon_fallback": "生狐肉",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RawFoxMeat.SM_RawFoxMeat",
+    "ue_icon": "Icons/raw_fox_meat.png"
+  },
+  "deer_hide": {
+    "id": "deer_hide",
+    "name": "鹿皮",
+    "category": "material",
+    "type": "材料",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 20,
+    "stack_max": 20,
+    "maxStack": 20,
+    "desc": "柔韧的鹿皮，可作皮革工艺的原料。",
+    "icon": "",
+    "icon_fallback": "鹿皮",
+    "world_mesh": "/Game/Monsters/Wildlife/Trophies/SM_deer_hide.SM_deer_hide",
+    "artPending": "inventory icon"
+  },
+  "boar_hide": {
+    "id": "boar_hide",
+    "name": "野猪皮",
+    "category": "material",
+    "type": "材料",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 20,
+    "stack_max": 20,
+    "maxStack": 20,
+    "desc": "厚实耐磨的野猪皮，适合做护具与包具的衬底。",
+    "icon": "",
+    "icon_fallback": "野猪皮",
+    "world_mesh": "/Game/Monsters/Wildlife/Trophies/SM_boar_hide.SM_boar_hide",
+    "artPending": "inventory icon"
+  },
+  "fox_pelt": {
+    "id": "fox_pelt",
+    "name": "狐皮",
+    "category": "material",
+    "type": "材料",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 20,
+    "stack_max": 20,
+    "maxStack": 20,
+    "desc": "蓬松的狐皮，冬季毛色最完整。",
+    "icon": "",
+    "icon_fallback": "狐皮",
+    "world_mesh": "/Game/Monsters/Wildlife/Trophies/SM_fox_pelt.SM_fox_pelt",
+    "artPending": "inventory icon"
+  },
+  "wolf_pelt": {
+    "id": "wolf_pelt",
+    "name": "狼皮",
+    "category": "material",
+    "type": "材料",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 20,
+    "stack_max": 20,
+    "maxStack": 20,
+    "desc": "成年野狼的完整毛皮，脊背处留有旧伤痕。",
+    "icon": "",
+    "icon_fallback": "狼皮",
+    "world_mesh": "/Game/Monsters/Wildlife/Trophies/SM_wolf_pelt.SM_wolf_pelt",
+    "artPending": "inventory icon"
+  },
+  "crow_feather": {
+    "id": "crow_feather",
+    "name": "鸦羽",
+    "category": "material",
+    "type": "材料",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 20,
+    "stack_max": 20,
+    "maxStack": 20,
+    "desc": "漆黑的飞羽，常被用作箭羽与装饰。",
+    "icon": "",
+    "icon_fallback": "鸦羽",
+    "world_mesh": "/Game/Monsters/Wildlife/Trophies/SM_crow_feather.SM_crow_feather",
+    "artPending": "inventory icon"
+  },
+  "deer_antler": {
+    "id": "deer_antler",
+    "name": "鹿角",
+    "category": "material",
+    "type": "材料",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 20,
+    "stack_max": 20,
+    "maxStack": 20,
+    "desc": "公鹿脱落的角，可打磨成工具柄与饰件。",
+    "icon": "",
+    "icon_fallback": "鹿角",
+    "world_mesh": "/Game/Monsters/Wildlife/Trophies/SM_deer_antler.SM_deer_antler",
+    "artPending": "inventory icon"
+  },
+  "boar_tusk": {
+    "id": "boar_tusk",
+    "name": "野猪獠牙",
+    "category": "material",
+    "type": "材料",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 20,
+    "stack_max": 20,
+    "maxStack": 20,
+    "desc": "弯曲的獠牙，尖端仍带磨损。",
+    "icon": "",
+    "icon_fallback": "野猪獠牙",
+    "world_mesh": "/Game/Monsters/Wildlife/Trophies/SM_boar_tusk.SM_boar_tusk",
+    "artPending": "inventory icon"
   },
   "ue_runebound_warhammer": {
     "id": "ue_runebound_warhammer",
@@ -5836,6 +6670,25 @@
     "harvest_sweep_radius_cm": 0,
     "modular_melee_catalog": "runebound-warhammer-modules.json"
   },
+  "ue_pathfinder_backpack": {
+    "id": "ue_pathfinder_backpack",
+    "name": "开拓者战术背包",
+    "category": "equipment",
+    "type": "背包装备",
+    "equipSlot": "backpack",
+    "stack_max": 1,
+    "maxStack": 1,
+    "price": 260,
+    "grid_w": 4,
+    "grid_h": 4,
+    "bagExtraCells": 54,
+    "bagCompartmentCells": 60,
+    "bagCompartmentColumns": 10,
+    "bagCompartmentRows": 6,
+    "desc": "野外勘探队使用的模块化战术背包。金属复合承重架与宽腰封分担负重，密封卷装顶仓、工具侧仓和独立夹层适合长途探索与补给搬运。",
+    "ue_icon": "Icons/ue_pathfinder_backpack.png",
+    "icon_fallback": "包"
+  },
   "ue_farreach_backpack": {
     "id": "ue_farreach_backpack",
     "name": "远界智能远征背包",
@@ -5876,214 +6729,169 @@
     "icon_fallback": "包",
     "world_mesh": "/Game/Characters/SpecialDutyBackpack20261024/MeshyFitR1_20261024/SM_SpecialDutyBackpack.SM_SpecialDutyBackpack"
   },
-  "ue_melee_combat_belt": {
-    "id": "ue_melee_combat_belt",
-    "name": "破阵近战腰带",
-    "category": "equipment",
-    "type": "腰带",
-    "stack_max": 1,
-    "maxStack": 1,
-    "price": 0,
-    "desc": "由近战巡卫使用的分段护腰，暗红棕皮革与炭黑织带承托斜切扣具、双点刀鞘挂架和磨刀石袋。它帮助使用者保持出手节奏、节省连续挥击的体力，侧挂组件为装备结构，不提供额外收纳格。",
-    "ue_icon": "Icons/CombatBelts20261025/ue_melee_combat_belt.png",
-    "icon_fallback": "带",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/MeleeCombatBelt20261025/IntegrationR1/Pickups/SM_MeleeCombatBelt.SM_MeleeCombatBelt",
-    "world_material": "",
-    "ue_equipment_icon_mesh": "",
-    "ue_icon_pitch": 0,
-    "ue_icon_yaw": 0,
-    "ue_icon_roll": 0,
-    "equipSlot": "belt",
-    "grid_w": 3,
-    "grid_h": 2,
-    "defense": {
-      "base": 0,
-      "perEnhance": 0
-    },
-    "enhancement": {
-      "maxLevel": 15
-    },
-    "bonusStats": {
-      "meleeAttackSpeed": 0.05,
-      "meleeStaminaCost": -0.1
-    },
-    "bonusPerEnhance": {
-      "meleeAttackSpeed": 0.005,
-      "meleeStaminaCost": -0.01
-    }
-  },
-  "ue_arcane_conduit_belt": {
-    "id": "ue_arcane_conduit_belt",
-    "name": "星律导能腰带",
-    "category": "equipment",
-    "type": "腰带",
-    "stack_max": 1,
-    "maxStack": 1,
-    "price": 0,
-    "desc": "星律研究会为随队术士制作的导能腰带，以靛蓝皮革承托双环星盘与凹嵌紫晶，侧置符片匣和卷轴筒。符文回路缩短魔法冷却并节省施法法力，适合持续施法；侧挂容器为外观组件，不增加收纳格。",
-    "ue_icon": "Icons/CombatBelts20261025/ue_arcane_conduit_belt.png",
-    "icon_fallback": "带",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/ArcaneConduitBelt20261025/KeeperFixR2/Pickups/SM_ArcaneConduitBelt.SM_ArcaneConduitBelt",
-    "world_material": "",
-    "ue_equipment_icon_mesh": "",
-    "ue_icon_pitch": 0,
-    "ue_icon_yaw": 0,
-    "ue_icon_roll": 0,
-    "equipSlot": "belt",
-    "grid_w": 3,
-    "grid_h": 2,
-    "defense": {
-      "base": 0,
-      "perEnhance": 0
-    },
-    "enhancement": {
-      "maxLevel": 15
-    },
-    "bonusStats": {
-      "magicCooldownPercent": -0.025,
-      "magicCostPercent": -0.1
-    },
-    "bonusPerEnhance": {
-      "magicCooldownPercent": -0.005,
-      "magicCostPercent": -0.01
-    }
-  },
-  "raw_boar_meat": {
-    "id": "raw_boar_meat",
-    "name": "生野猪肉",
+  "wood_core_plain": {
+    "id": "wood_core_plain",
+    "name": "原木芯",
     "category": "material",
-    "type": "食材",
+    "type": "木工材料",
+    "loot_group": "maintenance",
     "rarity": "common",
-    "level": 1,
-    "grid_w": 1,
-    "grid_h": 1,
-    "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "spoilDays": 3,
-    "desc": "狩猎取得的生野猪肉，切成长条便于穿签烧烤。需要在篝火烤熟后食用，存放过久会腐败。",
-    "icon": "",
-    "icon_fallback": "生野猪肉",
-    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RawBoarMeat.SM_RawBoarMeat",
-    "ue_icon": "Icons/raw_boar_meat.png"
-  },
-  "raw_chicken_leg": {
-    "id": "raw_chicken_leg",
-    "spoilDays": 3,
-    "name": "生鸡腿",
-    "category": "material",
-    "type": "食材",
-    "desc": "尚未烹熟的带骨鸡腿，不能直接食用。投入篝火烧烤队列，有燃料时每份烤制30秒，制成1份烤鸡腿。",
-    "rarity": "common",
-    "level": 1,
-    "grid_w": 1,
-    "grid_h": 2,
-    "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "icon": "",
-    "icon_fallback": "生鸡腿",
-    "ue_icon": "Icons/raw_chicken_leg.png",
-    "world_mesh": "/Game/Items/Consumables/ChickenLeg20261014/Raw/SM_RawChickenLeg.SM_RawChickenLeg"
-  },
-  "raw_fox_meat": {
-    "id": "raw_fox_meat",
-    "name": "生狐肉",
-    "category": "material",
-    "type": "食材",
-    "rarity": "common",
-    "level": 1,
-    "grid_w": 1,
-    "grid_h": 1,
-    "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "spoilDays": 3,
-    "desc": "狩猎取得的生狐肉，切成长条便于穿签烧烤。需要在篝火烤熟后食用，存放过久会腐败。",
-    "icon": "",
-    "icon_fallback": "生狐肉",
-    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RawFoxMeat.SM_RawFoxMeat",
-    "ue_icon": "Icons/raw_fox_meat.png"
-  },
-  "raw_lamb_ribs": {
-    "rarity": "common",
-    "level": 1,
-    "grid_w": 1,
-    "grid_h": 1,
-    "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "icon": "",
-    "id": "raw_lamb_ribs",
-    "spoilDays": 3,
-    "name": "生羊肋排",
-    "category": "material",
-    "type": "食材",
-    "desc": "切分的小份带骨羊肋排，保留肋骨与肉块。需投入有燃料的篝火烤熟，不能直接食用。",
-    "icon_fallback": "生羊肋排",
-    "ue_icon": "Icons/raw_lamb_ribs.png",
-    "world_mesh": "/Game/Items/Consumables/LambRibs20261014/Raw/SM_RawLambRibs.SM_RawLambRibs"
-  },
-  "raw_large_lamb": {
-    "rarity": "common",
-    "level": 1,
+    "price": 20,
+    "desc": "从干燥木料中截取并修整的实心木芯，去除树皮后保留清晰的纵向纤维与端面年轮。用作木工装备的主体选材，可由普通木材在工作台加工获得。",
     "grid_w": 2,
-    "grid_h": 2,
-    "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "icon": "",
-    "id": "raw_large_lamb",
-    "spoilDays": 3,
-    "name": "生大羊排",
-    "category": "material",
-    "type": "食物",
-    "desc": "完整带骨的大块生羊排，保留肋骨与肉块形态。可投入有燃料的篝火烤熟，不能直接食用。",
-    "icon_fallback": "生大羊排",
-    "ue_icon": "Icons/raw_large_lamb.png",
-    "world_mesh": "/Game/Items/Consumables/LargeLamb20261014/Raw/SM_RawLargeLamb.SM_RawLargeLamb"
-  },
-  "raw_sausage": {
-    "rarity": "common",
-    "level": 1,
-    "grid_w": 1,
     "grid_h": 1,
     "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "icon": "",
-    "id": "raw_sausage",
-    "spoilDays": 3,
-    "name": "生香肠",
-    "category": "material",
-    "type": "食材",
-    "desc": "将绞肉灌入肠衣制成的单根生香肠，外皮带有细密褶皱。可投入有燃料的篝火烤熟，不能直接食用。",
-    "icon_fallback": "生香肠",
-    "ue_icon": "Icons/raw_sausage.png",
-    "world_mesh": "/Game/Items/Consumables/Sausage20261014/Raw/SM_RawSausage.SM_RawSausage"
+    "stack_max": 20,
+    "maxStack": 20,
+    "inventory_unit": "枚",
+    "icon": "Icons/WoodCores20261026/wood_core_plain.png",
+    "ue_icon": "Icons/WoodCores20261026/wood_core_plain.png",
+    "icon_fallback": "原木芯",
+    "world_mesh": "/Game/Items/WoodCores20261026/SM_WoodCore_Plain.SM_WoodCore_Plain"
   },
-  "raw_venison": {
-    "id": "raw_venison",
-    "name": "生鹿肉",
+  "wood_core_iron": {
+    "id": "wood_core_iron",
+    "name": "铁木芯",
     "category": "material",
-    "type": "食材",
-    "rarity": "common",
-    "level": 1,
-    "grid_w": 1,
+    "type": "木工材料",
+    "loot_group": "maintenance",
+    "rarity": "uncommon",
+    "price": 120,
+    "desc": "工匠挑选深色心材制成的铁木芯，细密纤维沿长轴延伸，端面保留紧密环纹。作为木工装备的主体选材，提供稳定的材质基础，常见于维护物资与木工材料储备。",
+    "grid_w": 2,
     "grid_h": 1,
     "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "spoilDays": 3,
-    "desc": "狩猎取得的生鹿肉，切成长条便于穿签烧烤。需要在篝火烤熟后食用，存放过久会腐败。",
-    "icon": "",
-    "icon_fallback": "生鹿肉",
-    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RawVenison.SM_RawVenison",
-    "ue_icon": "Icons/raw_venison.png"
+    "stack_max": 20,
+    "maxStack": 20,
+    "inventory_unit": "枚",
+    "icon": "Icons/WoodCores20261026/wood_core_iron.png",
+    "ue_icon": "Icons/WoodCores20261026/wood_core_iron.png",
+    "icon_fallback": "铁木芯",
+    "world_mesh": "/Game/Items/WoodCores20261026/SM_WoodCore_Iron.SM_WoodCore_Iron"
   },
-  "roasted_boar_meat": {
-    "id": "roasted_boar_meat",
-    "name": "烤野猪肉",
+  "wood_core_ancient": {
+    "id": "wood_core_ancient",
+    "name": "古树木芯",
+    "category": "material",
+    "type": "木工材料",
+    "loot_group": "maintenance",
+    "rarity": "rare",
+    "price": 350,
+    "desc": "从老树心部保留下来的古树木芯，深浅交错的生长纹理围绕结疤缓慢弯曲。经过干燥和截齐处理，可用于弓与法杖的木工制作，多从探索物资中取得。",
+    "grid_w": 2,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 20,
+    "maxStack": 20,
+    "inventory_unit": "枚",
+    "icon": "Icons/WoodCores20261026/wood_core_ancient.png",
+    "ue_icon": "Icons/WoodCores20261026/wood_core_ancient.png",
+    "icon_fallback": "古树木芯",
+    "world_mesh": "/Game/Items/WoodCores20261026/SM_WoodCore_Ancient.SM_WoodCore_Ancient"
+  },
+  "wood_core_spirit": {
+    "id": "wood_core_spirit",
+    "name": "灵纹木芯",
+    "category": "material",
+    "type": "木工材料",
+    "loot_group": "maintenance",
+    "rarity": "epic",
+    "price": 800,
+    "desc": "保留天然灵纹的实心木芯，灰绿色纤维间散布细弱的纹光。工匠只修整外缘与端面，留下内部纹理作为弓与法杖的制作主材，通常随珍贵探索奖励出现。",
+    "grid_w": 2,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 20,
+    "maxStack": 20,
+    "inventory_unit": "枚",
+    "icon": "Icons/WoodCores20261026/wood_core_spirit.png",
+    "ue_icon": "Icons/WoodCores20261026/wood_core_spirit.png",
+    "icon_fallback": "灵纹木芯",
+    "world_mesh": "/Game/Items/WoodCores20261026/SM_WoodCore_Spirit.SM_WoodCore_Spirit"
+  },
+  "steelIngot": {
+    "id": "steelIngot",
+    "name": "钢锭",
+    "category": "material",
+    "type": "金属材料",
+    "loot_group": "maintenance",
+    "rarity": "uncommon",
+    "price": 160,
+    "desc": "以铁为基础精炼并调配的钢质铸锭，冷蓝灰表面保留细拉丝与单道压槽。可在高炉中精炼铁锭取得，也可从工业物资中回收；用于铁匠锻造和枪械装配的金属选材。",
+    "grid_w": 2,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 999,
+    "maxStack": 999,
+    "inventory_unit": "块",
+    "icon": "Icons/CraftingMaterialTiers20261026/steelIngot.png",
+    "ue_icon": "Icons/CraftingMaterialTiers20261026/steelIngot.png",
+    "icon_fallback": "钢锭",
+    "world_mesh": "/Game/Items/CraftingMaterialTiers20261026/SM_Ingot_Steel.SM_Ingot_Steel"
+  },
+  "platinumIngot": {
+    "id": "platinumIngot",
+    "name": "铂金锭",
+    "category": "material",
+    "type": "金属材料",
+    "loot_group": "maintenance",
+    "rarity": "rare",
+    "price": 620,
+    "desc": "银白色铂金铸锭，表面经过细磨，双道压槽用于辨识与堆放。铂具有耐腐蚀性，可从珍贵工业物资及深层探索奖励中取得，用于铁匠锻造和枪械装配的金属选材。",
+    "grid_w": 2,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 999,
+    "maxStack": 999,
+    "inventory_unit": "块",
+    "icon": "Icons/CraftingMaterialTiers20261026/platinumIngot.png",
+    "ue_icon": "Icons/CraftingMaterialTiers20261026/platinumIngot.png",
+    "icon_fallback": "铂金锭",
+    "world_mesh": "/Game/Items/CraftingMaterialTiers20261026/SM_Ingot_Platinum.SM_Ingot_Platinum"
+  },
+  "wood_core_redgrain": {
+    "id": "wood_core_redgrain",
+    "name": "赤纹木芯",
+    "category": "material",
+    "type": "木工材料",
+    "loot_group": "maintenance",
+    "rarity": "uncommon",
+    "price": 220,
+    "desc": "从赤褐心材中截取的实心木芯，交错红纹沿长轴展开，端面保留细密年轮。工匠将其干燥后修整成圆钝长坯，用作弓与法杖的主体材料，常见于木工物资和探索储备。",
+    "grid_w": 2,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 20,
+    "maxStack": 20,
+    "inventory_unit": "枚",
+    "icon": "Icons/CraftingMaterialTiers20261026/wood_core_redgrain.png",
+    "ue_icon": "Icons/CraftingMaterialTiers20261026/wood_core_redgrain.png",
+    "icon_fallback": "赤纹木芯",
+    "world_mesh": "/Game/Items/CraftingMaterialTiers20261026/SM_WoodCore_Redgrain.SM_WoodCore_Redgrain"
+  },
+  "wood_core_ebony": {
+    "id": "wood_core_ebony",
+    "name": "乌檀木芯",
+    "category": "material",
+    "type": "木工材料",
+    "loot_group": "maintenance",
+    "rarity": "rare",
+    "price": 560,
+    "desc": "经过干燥与修整的乌檀心材，深褐近黑的纤维间夹着细窄金棕纹，端面年轮清晰。表面保留自然哑光，无附加发光涂层，可从珍贵木工物资与深层探索奖励中取得，用作弓与法杖的主体材料。",
+    "grid_w": 2,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 20,
+    "maxStack": 20,
+    "inventory_unit": "枚",
+    "icon": "Icons/CraftingMaterialTiers20261026/wood_core_ebony.png",
+    "ue_icon": "Icons/CraftingMaterialTiers20261026/wood_core_ebony.png",
+    "icon_fallback": "乌檀木芯",
+    "world_mesh": "/Game/Items/CraftingMaterialTiers20261026/SM_WoodCore_Ebony.SM_WoodCore_Ebony"
+  },
+  "roasted_meat_chunk": {
+    "id": "roasted_meat_chunk",
+    "name": "烤肉块",
     "category": "consumable",
     "type": "食物",
     "rarity": "common",
@@ -6095,219 +6903,20 @@
     "maxStack": 1,
     "spoilDays": 4,
     "icon": "",
-    "icon_fallback": "烤野猪肉",
-    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedBoarMeat.SM_RoastedBoarMeat",
-    "ue_icon": "Icons/roasted_boar_meat.png",
-    "desc": "篝火烤熟的野猪肉，外层带有焦香色泽，切面保留肉的纤维纹理。可直接食用补充饱食度，及时领取并食用更为新鲜。",
+    "icon_fallback": "烤肉块",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedVenison.SM_RoastedVenison",
+    "ue_icon": "Icons/roasted_venison.png",
+    "desc": "在篝火上烤熟的肉块，表面焦香。食用可恢复饱食度。",
     "maxUses": 1,
-    "useEffect": {
-      "maxHungerPercent": 30
-    },
-    "useDuration": 2.4,
-    "useCooldown": 0,
-    "stats": [
-      {
-        "name": "恢复饱食度",
-        "value": "+30%上限"
-      },
-      {
-        "name": "食用方式",
-        "value": "单次使用"
-      }
-    ]
-  },
-  "roasted_chicken_leg": {
-    "id": "roasted_chicken_leg",
-    "spoilDays": 4,
-    "name": "烤鸡腿",
-    "category": "consumable",
-    "type": "食物",
-    "desc": "带骨鸡腿经篝火烤制，表皮呈金褐色。握住骨端食用，恢复饱食度上限的25%，不改变水分与SAN。",
-    "rarity": "common",
-    "level": 1,
-    "grid_w": 1,
-    "grid_h": 2,
-    "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "maxUses": 1,
-    "icon": "",
-    "icon_fallback": "烤鸡腿",
-    "ue_icon": "Icons/roasted_chicken_leg.png",
-    "world_mesh": "/Game/Items/Consumables/ChickenLeg20261014/Roasted/SM_RoastedChickenLeg.SM_RoastedChickenLeg",
     "useEffect": {
       "maxHungerPercent": 25
     },
-    "useDuration": 4.8,
+    "useDuration": 2.4,
     "useCooldown": 0,
     "stats": [
       {
         "name": "恢复饱食度",
         "value": "+25%上限"
-      },
-      {
-        "name": "食用方式",
-        "value": "单次使用"
-      }
-    ]
-  },
-  "roasted_fox_meat": {
-    "id": "roasted_fox_meat",
-    "name": "烤狐肉",
-    "category": "consumable",
-    "type": "食物",
-    "rarity": "common",
-    "level": 1,
-    "grid_w": 1,
-    "grid_h": 1,
-    "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "spoilDays": 4,
-    "icon": "",
-    "icon_fallback": "烤狐肉",
-    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedFoxMeat.SM_RoastedFoxMeat",
-    "ue_icon": "Icons/roasted_fox_meat.png",
-    "desc": "篝火烤熟的狐肉，外层带有焦香色泽，切面保留肉的纤维纹理。可直接食用补充饱食度，及时领取并食用更为新鲜。",
-    "maxUses": 1,
-    "useEffect": {
-      "maxHungerPercent": 15
-    },
-    "useDuration": 2.4,
-    "useCooldown": 0,
-    "stats": [
-      {
-        "name": "恢复饱食度",
-        "value": "+15%上限"
-      },
-      {
-        "name": "食用方式",
-        "value": "单次使用"
-      }
-    ]
-  },
-  "roasted_lamb_ribs": {
-    "rarity": "common",
-    "level": 1,
-    "grid_w": 1,
-    "grid_h": 1,
-    "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "icon": "",
-    "id": "roasted_lamb_ribs",
-    "spoilDays": 4,
-    "name": "烤羊肋排",
-    "category": "consumable",
-    "type": "食物",
-    "desc": "在篝火上烤熟的小份带骨羊肋排，肉面带有烘烤后的色泽。握住骨端食用可补充饱食度，不改变水分与SAN。",
-    "maxUses": 1,
-    "icon_fallback": "烤羊肋排",
-    "ue_icon": "Icons/roasted_lamb_ribs.png",
-    "world_mesh": "/Game/Items/Consumables/LambRibs20261014/Roasted/SM_RoastedLambRibs.SM_RoastedLambRibs",
-    "useEffect": {
-      "maxHungerPercent": 25
-    },
-    "useDuration": 4.8,
-    "useCooldown": 0,
-    "stats": [
-      {
-        "name": "恢复饱食度",
-        "value": "+25%上限"
-      },
-      {
-        "name": "食用方式",
-        "value": "单次使用"
-      }
-    ]
-  },
-  "roasted_large_lamb": {
-    "rarity": "common",
-    "level": 1,
-    "grid_w": 2,
-    "grid_h": 2,
-    "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "icon": "",
-    "id": "roasted_large_lamb",
-    "spoilDays": 4,
-    "name": "大份烤羊排",
-    "category": "consumable",
-    "type": "食物",
-    "desc": "篝火烤熟的整块带骨羊排。握住肋骨食用可补充饱食度，并获得大份烤羊排增益。水分与SAN不变。",
-    "maxUses": 1,
-    "icon_fallback": "大份烤羊排",
-    "ue_icon": "Icons/roasted_large_lamb.png",
-    "world_mesh": "/Game/Items/Consumables/LargeLamb20261014/Roasted/SM_RoastedLargeLamb.SM_RoastedLargeLamb",
-    "useEffect": {
-      "maxHungerPercent": 50
-    },
-    "buffs": [
-      {
-        "label": "体力上限",
-        "value": 10,
-        "unit": "%",
-        "duration": 600,
-        "note": "提高上限不直接补充体力；饱腹已满也可食用；重复食用只刷新持续时间。"
-      },
-      {
-        "label": "体力恢复速度",
-        "value": 5,
-        "unit": "%",
-        "duration": 600
-      }
-    ],
-    "useDuration": 6.0,
-    "useCooldown": 0,
-    "stats": [
-      {
-        "name": "恢复饱食度",
-        "value": "+50%上限"
-      },
-      {
-        "name": "食用方式",
-        "value": "握持食用"
-      }
-    ]
-  },
-  "roasted_sausage": {
-    "rarity": "common",
-    "level": 1,
-    "grid_w": 1,
-    "grid_h": 1,
-    "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "icon": "",
-    "id": "roasted_sausage",
-    "spoilDays": 4,
-    "name": "烤香肠",
-    "category": "consumable",
-    "type": "食物",
-    "desc": "在篝火上烤熟的单根香肠，肠衣呈现烘烤后的褐色与自然褶皱。握住肠体食用可补充饱食度，不改变水分与SAN。",
-    "maxUses": 1,
-    "icon_fallback": "烤香肠",
-    "ue_icon": "Icons/roasted_sausage.png",
-    "world_mesh": "/Game/Items/Consumables/Sausage20261014/Roasted/SM_RoastedSausage.SM_RoastedSausage",
-    "useEffect": {
-      "maxHungerPercent": 15
-    },
-    "buffs": [
-      {
-        "label": "体力恢复速度",
-        "value": 5,
-        "unit": "%",
-        "duration": 600,
-        "note": "饱腹已满也可食用；重复食用只刷新持续时间，倍率不叠加。"
-      }
-    ],
-    "useDuration": 2.4,
-    "useCooldown": 0,
-    "stats": [
-      {
-        "name": "恢复饱食度",
-        "value": "+15%上限"
       },
       {
         "name": "食用方式",
@@ -6350,8 +6959,79 @@
       }
     ]
   },
+  "roasted_boar_meat": {
+    "id": "roasted_boar_meat",
+    "name": "烤野猪肉",
+    "category": "consumable",
+    "type": "食物",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "spoilDays": 4,
+    "icon": "",
+    "icon_fallback": "烤野猪肉",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedBoarMeat.SM_RoastedBoarMeat",
+    "ue_icon": "Icons/roasted_boar_meat.png",
+    "desc": "篝火烤熟的野猪肉，外层带有焦香色泽，切面保留肉的纤维纹理。可直接食用补充饱食度，及时领取并食用更为新鲜。",
+    "maxUses": 1,
+    "useEffect": {
+      "maxHungerPercent": 30
+    },
+    "useDuration": 2.4,
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复饱食度",
+        "value": "+30%上限"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ]
+  },
+  "roasted_fox_meat": {
+    "id": "roasted_fox_meat",
+    "name": "烤狐肉",
+    "category": "consumable",
+    "type": "食物",
+    "rarity": "common",
+    "level": 1,
+    "grid_w": 1,
+    "grid_h": 1,
+    "stack": 1,
+    "stack_max": 1,
+    "maxStack": 1,
+    "spoilDays": 4,
+    "icon": "",
+    "icon_fallback": "烤狐肉",
+    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedFoxMeat.SM_RoastedFoxMeat",
+    "ue_icon": "Icons/roasted_fox_meat.png",
+    "desc": "篝火烤熟的狐肉，外层带有焦香色泽，切面保留肉的纤维纹理。可直接食用补充饱食度，及时领取并食用更为新鲜。",
+    "maxUses": 1,
+    "useEffect": {
+      "maxHungerPercent": 15
+    },
+    "useDuration": 2.4,
+    "useCooldown": 0,
+    "stats": [
+      {
+        "name": "恢复饱食度",
+        "value": "+15%上限"
+      },
+      {
+        "name": "食用方式",
+        "value": "单次使用"
+      }
+    ]
+  },
   "ue_m24": {
     "id": "ue_m24",
+    "fire_sound": "/Game/Weapons/M24/FireAudio20261104/S_M24_Fire.S_M24_Fire",
     "name": "M24",
     "category": "weapon",
     "type": "武器",
@@ -6429,6 +7109,24 @@
     "harvest_sweep_radius_cm": 0,
     "modular_melee_catalog": "thunder-god-hammer-modules.json"
   },
+  "ue_wooden_torch": {
+    "id": "ue_wooden_torch",
+    "name": "火把",
+    "category": "weapon_melee",
+    "type": "火把",
+    "weaponType": "torch",
+    "weaponTypeTag": "单手近战武器",
+    "equipSlot": "weapon",
+    "isTwoHanded": false,
+    "stack_max": 1,
+    "grid_w": 1,
+    "grid_h": 3,
+    "level": 1,
+    "desc": "可装备在主手或副手照明。火把击中敌人有25%概率施加1层灼烧，持续5秒。",
+    "ue_icon": "Icons/ue_wooden_torch_r3.png",
+    "viewmodel_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
+    "world_mesh": "/Game/Weapons/WoodenTorch20261122/HearthWrapR7/SM_WrappedHearthTorch.SM_WrappedHearthTorch"
+  },
   "ue_tactical_hatchet": {
     "modular_melee_catalog": "tactical-hatchet-modules.json",
     "id": "ue_tactical_hatchet",
@@ -6440,7 +7138,7 @@
     "equipSlot": "weapon",
     "isTwoHanded": false,
     "stack_max": 1,
-    "grid_w": 2,
+    "grid_w": 1,
     "grid_h": 3,
     "price": 1400,
     "level": 1,
@@ -6459,280 +7157,6 @@
     "icon_fallback": "单手斧",
     "melee_animation_family": "kukri",
     "offhand_melee_mesh": "/Game/Weapons/TacticalHatchet20261101/SM_TacticalHatchet.SM_TacticalHatchet"
-  },
-  "ue_modern_tactical_boots": {
-    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
-    "armorSet": "modern_tactical",
-    "enhancement": {
-      "maxLevel": 10
-    },
-    "bonusPerEnhance": {},
-    "bonusStats": {
-      "sprintStaminaCost": -0.05,
-      "firearmStabilityPercent": 0.03
-    },
-    "id": "ue_modern_tactical_boots",
-    "name": "现代战术靴",
-    "category": "equipment",
-    "type": "鞋靴",
-    "equipSlot": "boots",
-    "stack_max": 1,
-    "maxStack": 1,
-    "price": 55,
-    "grid_w": 2,
-    "grid_h": 3,
-    "defense": {
-      "base": 10,
-      "perEnhance": 1
-    },
-    "desc": "沙褐色绒面革与织物拼接的高帮系带靴。外侧支撑框从后跟延伸至前掌，橡胶外底带有分区凸齿。",
-    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_tactical_boots.png",
-    "icon_fallback": "靴",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Display/SM_TS01_RidgeBoots_Pickup.SM_TS01_RidgeBoots_Pickup",
-    "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/RidgeBootsR2/Display/SM_TS01_RidgeBoots_Display.SM_TS01_RidgeBoots_Display",
-    "ue_icon_pitch": 0,
-    "ue_icon_yaw": 0,
-    "ue_icon_roll": 0
-  },
-  "ue_modern_tactical_pants": {
-    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
-    "armorSet": "modern_tactical",
-    "enhancement": {
-      "maxLevel": 10
-    },
-    "bonusPerEnhance": {},
-    "bonusStats": {
-      "critRes": 8,
-      "firearmRecoilPercent": -0.03
-    },
-    "id": "ue_modern_tactical_pants",
-    "name": "现代战术裤",
-    "category": "equipment",
-    "type": "裤装",
-    "equipSlot": "pants",
-    "stack_max": 1,
-    "maxStack": 1,
-    "price": 65,
-    "grid_w": 2,
-    "grid_h": 3,
-    "defense": {
-      "base": 14,
-      "perEnhance": 2
-    },
-    "desc": "土棕色防撕裂战术裤，裆底拼入深棕弹力布。两侧设有立体口袋，裤脚可随靴型收束。",
-    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_tactical_pants.png",
-    "icon_fallback": "裤",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Display/SM_TS01_FieldTrousers_Pickup.SM_TS01_FieldTrousers_Pickup",
-    "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/FieldTrousersR2/Display/SM_TS01_FieldTrousers_Display.SM_TS01_FieldTrousers_Display",
-    "ue_icon_pitch": 0,
-    "ue_icon_yaw": 0,
-    "ue_icon_roll": 0
-  },
-  "ue_modern_tactical_gloves": {
-    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
-    "armorSet": "modern_tactical",
-    "enhancement": {
-      "maxLevel": 10
-    },
-    "bonusPerEnhance": {},
-    "bonusStats": {
-      "reloadSpeed": 0.06,
-      "adsPercent": -0.04
-    },
-    "id": "ue_modern_tactical_gloves",
-    "name": "现代战术手套",
-    "category": "equipment",
-    "type": "手套",
-    "equipSlot": "gloves",
-    "stack_max": 1,
-    "maxStack": 1,
-    "price": 30,
-    "grid_w": 2,
-    "grid_h": 2,
-    "defense": {
-      "base": 10,
-      "perEnhance": 1
-    },
-    "desc": "土棕色全指手套配深褐皮革掌面。手背的圆弧护片逐个覆盖指节，腕口以织带收紧。",
-    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_tactical_gloves.png",
-    "icon_fallback": "手",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Display/SM_TS01_CoyoteGloves_Pickup.SM_TS01_CoyoteGloves_Pickup",
-    "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/CoyoteGlovesR2/Display/SM_TS01_CoyoteGloves_Display.SM_TS01_CoyoteGloves_Display",
-    "ue_icon_pitch": 0,
-    "ue_icon_yaw": 0,
-    "ue_icon_roll": 0
-  },
-  "ue_modern_tactical_helmet": {
-    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
-    "armorSet": "modern_tactical",
-    "enhancement": {
-      "maxLevel": 10
-    },
-    "bonusPerEnhance": {},
-    "bonusStats": {
-      "critRes": 8,
-      "firearmStabilityPercent": 0.04,
-      "adsPercent": -0.03
-    },
-    "id": "ue_modern_tactical_helmet",
-    "name": "现代战术头盔",
-    "category": "equipment",
-    "type": "头盔",
-    "equipSlot": "helmet",
-    "stack_max": 1,
-    "maxStack": 1,
-    "price": 75,
-    "grid_w": 2,
-    "grid_h": 2,
-    "defense": {
-      "base": 18,
-      "perEnhance": 2
-    },
-    "desc": "土棕色高切战术头盔，采用细颗粒复合壳体、连续橡胶盔缘、开槽侧导轨和三点前支座。内置缓冲垫、四点下颏带与后部调节旋钮。",
-    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_tactical_helmet.png",
-    "icon_fallback": "盔",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Pickups/SM_TS01_Helmet.SM_TS01_Helmet",
-    "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/ExfilReferenceR4/Icons/SM_TS01_Helmet_Display.SM_TS01_Helmet_Display",
-    "ue_icon_pitch": 0,
-    "ue_icon_yaw": 0,
-    "ue_icon_roll": 0
-  },
-  "ue_modern_kevlar_vest": {
-    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
-    "armorSet": "modern_tactical",
-    "enhancement": {
-      "maxLevel": 10
-    },
-    "bonusPerEnhance": {},
-    "bonusStats": {
-      "maxHp": 30,
-      "firearmRecoilPercent": -0.05
-    },
-    "id": "ue_modern_kevlar_vest",
-    "name": "凯夫拉防弹衣",
-    "category": "equipment",
-    "type": "上衣",
-    "equipSlot": "armor",
-    "stack_max": 1,
-    "maxStack": 1,
-    "price": 120,
-    "grid_w": 3,
-    "grid_h": 3,
-    "defense": {
-      "base": 30,
-      "perEnhance": 4
-    },
-    "desc": "土棕色凯夫拉防弹衣搭配作战上衣。弹力躯干连接防撕裂插肩袖，上臂带拉链袋，肘部有活动褶与补强裁片，袖口以织物袢收紧。",
-    "ue_icon": "Icons/ModernTacticalSet20261113/ue_modern_kevlar_vest.png",
-    "icon_fallback": "衣",
-    "world_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Display/SM_TS01_PatrolShirt_Pickup.SM_TS01_PatrolShirt_Pickup",
-    "world_material": "",
-    "ue_equipment_icon_mesh": "/Game/Characters/ModularOutfit20260924/ModernTacticalSet20261113/PatrolShirtR2/Display/SM_TS01_PatrolShirt_Display.SM_TS01_PatrolShirt_Display",
-    "ue_icon_pitch": 0,
-    "ue_icon_yaw": 0,
-    "ue_icon_roll": 0
-  },
-  "raw_meat_chunk": {
-    "id": "raw_meat_chunk",
-    "name": "生肉块",
-    "category": "material",
-    "type": "食材",
-    "rarity": "common",
-    "level": 1,
-    "grid_w": 1,
-    "grid_h": 1,
-    "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "spoilDays": 3,
-    "desc": "狩猎取得的新鲜肉块。可放在有燃料的篝火上烤熟。",
-    "icon": "",
-    "icon_fallback": "生肉块",
-    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RawVenison.SM_RawVenison",
-    "ue_icon": "Icons/raw_venison.png"
-  },
-  "roasted_meat_chunk": {
-    "id": "roasted_meat_chunk",
-    "name": "烤肉块",
-    "category": "consumable",
-    "type": "食物",
-    "rarity": "common",
-    "level": 1,
-    "grid_w": 1,
-    "grid_h": 1,
-    "stack": 1,
-    "stack_max": 1,
-    "maxStack": 1,
-    "spoilDays": 4,
-    "icon": "",
-    "icon_fallback": "烤肉块",
-    "world_mesh": "/Game/Items/Consumables/WildGame20261026/SM_RoastedVenison.SM_RoastedVenison",
-    "ue_icon": "Icons/roasted_venison.png",
-    "desc": "在篝火上烤熟的肉块，表面焦香。食用可恢复饱食度。",
-    "maxUses": 1,
-    "useEffect": {
-      "maxHungerPercent": 25
-    },
-    "useDuration": 2.4,
-    "useCooldown": 0,
-    "stats": [
-      {
-        "name": "恢复饱食度",
-        "value": "+25%上限"
-      },
-      {
-        "name": "食用方式",
-        "value": "单次使用"
-      }
-    ]
-  },
-  "ue_forged_steel_greatsword": {
-    "id": "ue_forged_steel_greatsword",
-    "name": "锻钢双手剑",
-    "category": "weapon_melee",
-    "type": "双手剑",
-    "weaponType": "sword",
-    "weaponTypeTag": "双手剑",
-    "equipSlot": "weapon",
-    "isTwoHanded": true,
-    "stack_max": 1,
-    "grid_w": 2,
-    "grid_h": 4,
-    "price": 3200,
-    "level": 1,
-    "enhanceLevel": 0,
-    "desc": "朴素的锻钢长剑。修长的双刃从护手向剑尖收束，皮革包覆的长柄可容双手分握，柄尾配有钢制圆首。",
-    "ue_icon": "Icons/ue_forged_steel_greatsword.png",
-    "melee_damage": 55,
-    "melee_reach_cm": 180,
-    "attack_seconds": 1.775,
-    "contact_start": 0.85,
-    "contact_end": 0.965,
-    "viewmodel_mesh": "/Game/Weapons/FrostCrystalSword20260915/Modules20260915/SK_FrostSword_Arms.SK_FrostSword_Arms",
-    "world_mesh": "/Game/Weapons/ForgedSteelGreatsword20261120/V1/Meshes/SM_ForgedSteelGreatsword_Complete_V1.SM_ForgedSteelGreatsword_Complete_V1",
-    "animation_folder": "/Game/Weapons/AzureRunesword20260913",
-    "swing_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Swing.Sword_Swing",
-    "hit_sound": "/Game/Weapons/AzureRunesword20260913/Sword_Hit.Sword_Hit",
-    "icon_fallback": "锻钢",
-    "modular_sword_catalog": "forged-steel-greatsword-modules.json"
-  },
-  "stable_barding": {
-    "id": "stable_barding",
-    "name": "钢制马面甲",
-    "category": "horse_equipment",
-    "type": "马具",
-    "desc": "覆盖马额与面部的钢制护甲。",
-    "rarity": "common",
-    "stack_max": 1,
-    "maxStack": 1,
-    "grid_w": 2,
-    "grid_h": 2,
-    "price": 100,
-    "ue_icon": "Icons/HorseTack/stable_barding.png"
   },
   "stable_horseshoes": {
     "id": "stable_horseshoes",
@@ -6761,6 +7185,20 @@
     "grid_h": 2,
     "price": 75,
     "ue_icon": "Icons/HorseTack/stable_saddle.png"
+  },
+  "stable_barding": {
+    "id": "stable_barding",
+    "name": "钢制马面甲",
+    "category": "horse_equipment",
+    "type": "马具",
+    "desc": "覆盖马额与面部的钢制护甲。",
+    "rarity": "common",
+    "stack_max": 1,
+    "maxStack": 1,
+    "grid_w": 2,
+    "grid_h": 2,
+    "price": 100,
+    "ue_icon": "Icons/HorseTack/stable_barding.png"
   },
   "stable_saddlebags": {
     "id": "stable_saddlebags",

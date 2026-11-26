@@ -103,3 +103,4 @@ for path in (ref+'/M_ForestReferenceMesh',ref+'/TrailCover/M_ForestVillageLandsc
     if errors:raise RuntimeError(str(errors))
 save(fn)
 (batch/'authored.txt').write_text(fn.get_path_name(),encoding='utf-8')
+

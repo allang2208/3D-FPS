@@ -1,4 +1,6 @@
 #include "LMG201WeaponAssets.h"
+#include "M24Attachments.h"
+#include "M249WeaponAssets.h"
 #include "HK416WeaponAssets.h"
 #include "HK416Attachments.h"
 #include "CommonHK416Parts.h"
@@ -8,6 +10,7 @@
 #include "Super90OpticAssets.h"
 #include "Saiga12KAttachments.h"
 #include "../FPSGAMECharacter.h"
+#include "PistolDualWieldComponent.h"
 #include "Bow/BowWeaponComponent.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "A762Attachments.h"
@@ -35,6 +38,8 @@ void AFPSGAMECharacter::SetGunsmithOptic(bool bHolographic)
 }
 void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
 {
+    if(IsM24Weapon()){SetM24Optic(Variant);return;}
+    if(M249WeaponAssets::Matches(AKMViewmodel)){SetM249Optic(Variant);return;}
     if (SVCHWeaponAssets::Matches(AKMViewmodel))
         SVCHWeaponAssets::FactorySights(AKMViewmodel, !bInventoryWeaponReady || Variant.IsEmpty() || Variant == TEXT("false") || Variant == TEXT("none"));
     if(Variant==KVScopeAssets::Id)
@@ -85,6 +90,7 @@ void AFPSGAMECharacter::SetGunsmithOpticVariant(const FString& Variant)
     }
     if(Variant==TEXT("thermal_scope")){SetThermalOptic();return;}
     if(HasThermalScope()&&LPVORing){LPVORing->DestroyComponent();LPVORing=nullptr;}
+    if (IsSaiga12KWeapon()) { SetSaiga12KOptic(Variant); return; }
     if (IsM870Weapon()) { SetM870Optic(Variant); return; }
     if (IsSuper90Weapon()) { SetSuper90Optic(Variant); return; }
     if (IsRSH12Weapon()) { SetRSH12Optic(Variant); return; }
@@ -311,11 +317,19 @@ FVector AFPSGAMECharacter::HolographicAimPoint() const
 }
 FVector AFPSGAMECharacter::OpticLocalAimPoint() const
 {
-    if ((HasThermalScope()||OpticVariant==KVScopeAssets::Id)&&HolographicOptic&&HolographicOptic->GetStaticMesh())
+    if(HasM24FactoryScope()&&HolographicOptic&&HolographicOptic->GetStaticMesh())
+    {
+        const UStaticMesh* OpticMesh=HolographicOptic->GetStaticMesh();
+        const auto* Main=OpticMesh->FindSocket(TEXT("SightRear"));
+        const auto* Upper=OpticMesh->FindSocket(TEXT("TopSightRear"));
+        if(Main&&Upper)return FMath::Lerp(Main->RelativeLocation,Upper->RelativeLocation,GetM24UpperSightAlpha());
+    }
+    if ((IsM24Weapon()||M249WeaponAssets::Matches(AKMViewmodel)||HasThermalScope()||OpticVariant==KVScopeAssets::Id)&&HolographicOptic&&HolographicOptic->GetStaticMesh())
         if(const auto* Center=HolographicOptic->GetStaticMesh()->FindSocket(TEXT("SightRear")))return Center->RelativeLocation;
     if (IsPitViperWeapon() && HolographicOptic && HolographicOptic->GetStaticMesh())
         if (const auto* Center = HolographicOptic->GetStaticMesh()->FindSocket(TEXT("AimCenter")))
             return Center->RelativeLocation;
+    if ((IsSaiga12KWeapon() || IsM870Weapon() || IsSuper90Weapon() || IsHK416Weapon() || OpticVariant == CommonHK416Parts::Optic) && HolographicOptic && HolographicOptic->GetStaticMesh())
         if (const auto* Center = HolographicOptic->GetStaticMesh()->FindSocket(TEXT("SightRear")))
             return Center->RelativeLocation;
     if ((bUseDanWesson715 || OpticVariant==PSO1AttachmentAssets::Variant) && HolographicOptic && HolographicOptic->GetStaticMesh())
@@ -331,6 +345,9 @@ FVector AFPSGAMECharacter::OpticLocalAimPoint() const
 }
 float AFPSGAMECharacter::EffectiveADSVerticalFOV() const
 {
+    // The M24's 6x image is now inside its captured lens. The surrounding
+    // scene uses the same normal ADS framing as its upper 1x sight.
+    if(UsesPhysicalScope())return ADSVerticalFieldOfView;
     return FMath::RadiansToDegrees(2.f*FMath::Atan(FMath::Tan(FMath::DegreesToRadians(ADSVerticalFieldOfView)*.5f)/GetDisplayedOpticMagnification()));
 }
 bool AFPSGAMECharacter::ValidateGunsmithSight(float& PixelError) const
@@ -371,12 +388,17 @@ void AFPSGAMECharacter::SetLPVOMagnification(float Value)
 }
 bool AFPSGAMECharacter::AdjustOpticMagnification(float Delta)
 {
-    if(Bow && Bow->IsEquipped())return false;
+    if(Bow && Bow->IsEquipped())return Bow->AdjustScopeMagnification(Delta);
+    if(HasM24FactoryScope()&&IsAiming())
+    {
+        if(!FMath::IsNearlyZero(Delta))LPVOMagnification=Delta>0.f?6.f:1.f;
+        // Consume the wheel even at an endpoint, so it cannot also switch weapons.
+        return true;
+    }
     if(OpticVariant==KVScopeAssets::Id&&IsAiming())
     {
         // Reuse the selected optic value without rotating elevation/windage drums.
         LPVOMagnification=KVScopeAssets::StepMagnification(LPVOMagnification,Delta);
-        DisplayedLPVOMagnification=LPVOMagnification;
         return true;
     }
     if(HasThermalScope()&&IsAiming())
@@ -391,12 +413,12 @@ bool AFPSGAMECharacter::AdjustOpticMagnification(float Delta)
 
 float AFPSGAMECharacter::GetScopePresentationAlpha() const
 {
-    // Both bow lenses use the prism 2x presentation: camera magnification
-    // through the visible physical sight. No screen mask, HUD or arms hiding.
-    // Bow::AimVerticalFOV still supplies the selected fixed 2x/4x zoom.
-    if(Bow && Bow->IsEquipped())return 0.f;
-    if((!HasThermalScope()&&!HasPSO1Scope()&&!HasHandgunScope()&&OpticVariant!=TEXT("lpvo_1_6x")&&OpticVariant!=KVScopeAssets::Id)||!bInventoryWeaponReady||IsTraversing()||IsWeaponBusy())return 0.f;
-    return FMath::SmoothStep(.65f,.98f,CameraADSFactor);
+    // Peakwatch shares the owner-local lens capture. Other bow sights retain
+    // their existing presentation; this alpha never hides the combat HUD.
+    if(Bow && Bow->IsEquipped())return Bow->PhysicalScopeAlpha();
+    if(!UsesPhysicalScope()||!bInventoryWeaponReady||IsTraversing()||(IsM24Weapon()?IsWeaponBusyForAim():IsWeaponBusy()))return 0.f;
+    const float ScopeWeight=HasM24FactoryScope()?FMath::SmoothStep(.35f,.90f,1.f-GetM24UpperSightAlpha()):1.f;
+    return FMath::SmoothStep(.65f,.98f,CameraADSFactor)*ScopeWeight;
 }
 
 // Seconds since the last shot, or a large value so callers can treat it as
@@ -420,13 +442,16 @@ void AFPSGAMECharacter::UpdateScopePresentation()
 {
     UpdateScopeLensMaterial();
     UpdateThermalPresentation();
-    const bool bScopeHidesViewmodel=GetScopePresentationAlpha()>.5f;
+    // M24 renders into its original ocular glass. Its gun, hands and scope
+    // remain physical, including their existing recoil and action motion.
+    const bool bScopeHidesViewmodel=!UsesPhysicalScope()&&GetScopePresentationAlpha()>.5f;
     if(!bScopeHidesViewmodel&&ScopeHiddenParts.IsEmpty())return;
     const auto* Body=FindComponentByClass<UFPSPlayerBodyComponent>();
     const bool bThirdPerson=Body&&Body->IsThirdPersonViewEnabled();
     // Owner-only hiding preserves attachment visibility and other world views.
     if(bScopeHidesViewmodel){
-        TArray<USceneComponent*> Parts;AKMViewmodel->GetChildrenComponents(true,Parts);Parts.Add(AKMViewmodel);
+        USkeletalMeshComponent* SightRig=IsLoneLeftHandRig()?DualPistols->Hand(1).Mesh.Get():AKMViewmodel.Get();
+        TArray<USceneComponent*> Parts;SightRig->GetChildrenComponents(true,Parts);Parts.Add(SightRig);
         for(auto* Part:Parts)if(auto* Primitive=Cast<UPrimitiveComponent>(Part)){
             // Track a scope request even when third person already hides the part,
             // so switching back to first person cannot reveal it inside the scope.

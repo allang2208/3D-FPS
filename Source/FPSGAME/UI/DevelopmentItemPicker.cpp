@@ -1,5 +1,7 @@
 #include "DevelopmentItemPicker.h"
+#include "ColdSteelTextToolTip.h"
 #include "ColdSteelUIStyle.h"
+#include "GunsmithUIStyle.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Styling/CoreStyle.h"
 #include "Widgets/Input/SButton.h"
@@ -10,30 +12,53 @@
 #include "Widgets/SBoxPanel.h"
 #include "Widgets/Text/STextBlock.h"
 
-void UDevelopmentItemPicker::SetOptions(const TArray<FColdSteelCatalogEntry>& Entries, const FString& Selected)
+void UDevelopmentItemPicker::SetOptions(const TArray<FColdSteelCatalogEntry>& Entries, const FString& Selected, bool bCenterCaption)
 {
     CloseMenu();
     Options = Entries;
     SelectedDefinition = Selected;
+    bCenteredCaption = bCenterCaption;
+    SetPixelScale(PixelScale);
     RefreshCaption();
 }
+
+void UDevelopmentItemPicker::SetSelectedOption(const FString& Selected)
+{
+    if (SelectedDefinition == Selected) return;
+    CloseMenu();
+    SelectedDefinition = Selected;
+    RefreshCaption();
+}
+
+FSlateFontInfo UDevelopmentItemPicker::OptionFont(float Size,bool bMedium) const
+{return bPhysicalFontSizes?GunsmithUI::TextFont(Size/PixelScale,bMedium):ColdSteelUI::TextFont(Size/PixelScale,bMedium);}
 
 void UDevelopmentItemPicker::SetPixelScale(float Scale)
 {
     // 视口／DPI 改变时收起旧几何的菜单，下次展开使用当前尺寸和字号。
     CloseMenu();
     PixelScale = FMath::Max(.01f, Scale);
+    const float StyleScale=bPhysicalFontSizes?PixelScale:1.f/PixelScale;
     ComboStyle = FCoreStyle::Get().GetWidgetStyle<FComboButtonStyle>(TEXT("ComboButton"));
-    ComboStyle.ButtonStyle = ColdSteelUI::ButtonStyle(1.f / PixelScale);
+    ComboStyle.ButtonStyle = ColdSteelUI::ButtonStyle(StyleScale);
     ComboStyle.DownArrowImage.TintColor = ColdSteelUI::TextSecondary;
     ComboStyle.MenuBorderBrush = ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback, ColdSteelUI::ButtonRadius / PixelScale);
     ComboStyle.MenuBorderPadding = FMargin(4.f / PixelScale);
-    RowStyle = ColdSteelUI::ButtonStyle(1.f / PixelScale);
+    if (bCenteredCaption)
+    {
+        ComboStyle.DownArrowImage.ImageSize = FVector2D(8.f, 8.f) / PixelScale;
+        ComboStyle.DownArrowPadding = FMargin(4.f / PixelScale, 0.f, 0.f, 0.f);
+    }
+    RowStyle = ColdSteelUI::ButtonStyle(StyleScale);
     RowStyle.SetNormal(ColdSteelUI::RoundedBrush(FLinearColor::Transparent, ColdSteelUI::ButtonRadius / PixelScale, FLinearColor::Transparent, 0.f));
     SelectedRowStyle = RowStyle;
     SelectedRowStyle.SetNormal(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover, ColdSteelUI::ButtonRadius / PixelScale, ColdSteelUI::Accent));
-    if (Choice) Choice->SetButtonContentPadding(FMargin(10.f / PixelScale, 4.f / PixelScale));
-    if (Caption) Caption->SetFont(ColdSteelUI::TextFont(14.f / PixelScale));
+    if (Choice) Choice->SetButtonContentPadding(FMargin(bCenteredCaption ? 22.f : 10.f, 4.f, 10.f, 4.f) * (1.f / PixelScale));
+    if (Caption)
+    {
+        Caption->SetFont(OptionFont(14.f));
+        Caption->SetJustification(bCenteredCaption ? ETextJustify::Center : ETextJustify::Left);
+    }
 }
 
 TSharedRef<SWidget> UDevelopmentItemPicker::RebuildWidget()
@@ -42,13 +67,16 @@ TSharedRef<SWidget> UDevelopmentItemPicker::RebuildWidget()
     SAssignNew(Choice, SComboButton)
         .ComboButtonStyle(&ComboStyle)
         .Method(EPopupMethod::UseCurrentWindow)
-        .ContentPadding(FMargin(10.f / PixelScale, 4.f / PixelScale))
+        .ContentPadding(FMargin(bCenteredCaption ? 22.f : 10.f, 4.f, 10.f, 4.f) * (1.f / PixelScale))
+        .HAlign(HAlign_Fill)
         .OnGetMenuContent_UObject(this, &ThisClass::BuildMenu)
         .ButtonContent()
         [
             SAssignNew(Caption, STextBlock)
-                .Font(ColdSteelUI::TextFont(14.f / PixelScale))
+                .Font(OptionFont(14.f))
                 .ColorAndOpacity(ColdSteelUI::TextPrimary)
+                .Justification(bCenteredCaption ? ETextJustify::Center : ETextJustify::Left)
+                .AutoWrapText(false)
                 .OverflowPolicy(ETextOverflowPolicy::Ellipsis)
         ];
     RefreshCaption();
@@ -59,9 +87,9 @@ void UDevelopmentItemPicker::RefreshCaption()
 {
     if (!Caption) return;
     const auto* Selected = Options.FindByPredicate([this](const auto& Entry) { return Entry.Definition == SelectedDefinition; });
-    const FString Text = Selected ? FString::Printf(TEXT("%s · %s"), *Selected->Group, *Selected->Name) : TEXT("暂无可生成物品");
+    const FString Text = Selected ? FString::Printf(TEXT("%s · %s"), *Selected->Group, *Selected->Name) : TEXT("暂无可选物品");
     Caption->SetText(FText::FromString(Text));
-    Choice->SetToolTipText(FText::FromString(Text));
+    ColdSteelToolTip::Set(*Choice, FText::FromString(Text));
 }
 
 TSharedRef<SWidget> UDevelopmentItemPicker::BuildMenu()
@@ -86,7 +114,7 @@ TSharedRef<SWidget> UDevelopmentItemPicker::BuildMenu()
                     .BorderBackgroundColor(ColdSteelUI::HeaderTint).Padding(FMargin(8.f, 6.f) * InverseScale)
                 [
                     SNew(STextBlock).Text(FText::FromString(Entry.Group))
-                        .Font(ColdSteelUI::TextFont(16.f / PixelScale, true))
+                        .Font(OptionFont(16.f,true))
                         .ColorAndOpacity(ColdSteelUI::TextPrimary)
                 ]
             ];
@@ -106,7 +134,7 @@ TSharedRef<SWidget> UDevelopmentItemPicker::BuildMenu()
             Rows->AddSlot().AutoHeight().Padding(FMargin(18.f, 8.f, 8.f, 4.f) * InverseScale)
             [
                 SNew(STextBlock).Text(FText::FromString(Entry.Subgroup))
-                    .Font(ColdSteelUI::TextFont(14.f / PixelScale, true))
+                    .Font(OptionFont(14.f,true))
                     .ColorAndOpacity(ColdSteelUI::TextSecondary)
             ];
             LastSubgroup = Entry.Subgroup;
@@ -114,12 +142,15 @@ TSharedRef<SWidget> UDevelopmentItemPicker::BuildMenu()
         TSharedRef<SButton> Item = SNew(SButton)
             .ButtonStyle(Entry.Definition == SelectedDefinition ? &SelectedRowStyle : &RowStyle)
             .HAlign(HAlign_Fill).ContentPadding(FMargin(10.f, 7.f) * InverseScale)
-            .ToolTipText(FText::FromString(Entry.Name))
+            .ToolTip(ColdSteelToolTip::Make(FText::FromString(Entry.Name)))
             .OnClicked_UObject(this, &ThisClass::ChooseItem, Entry.Definition)
         [
-            SNew(STextBlock).Text(FText::FromString(Entry.Name))
-                .Font(ColdSteelUI::TextFont(14.f / PixelScale))
-                .ColorAndOpacity(ColdSteelUI::TextPrimary).AutoWrapText(false).OverflowPolicy(ETextOverflowPolicy::Ellipsis)
+            SNew(SBox).MinDesiredHeight((ColdSteelUI::ActionHeight - 14.f) / PixelScale).VAlign(VAlign_Center)
+            [
+                SNew(STextBlock).Text(FText::FromString(Entry.Name))
+                    .Font(OptionFont(14.f))
+                    .ColorAndOpacity(ColdSteelUI::TextPrimary).AutoWrapText(false).OverflowPolicy(ETextOverflowPolicy::Ellipsis)
+            ]
         ];
         Rows->AddSlot().AutoHeight().Padding(FMargin(Entry.Subgroup.IsEmpty() ? 18.f : 28.f, 0.f, 6.f, 2.f) * InverseScale)[Item];
         if (!FocusItem || Entry.Definition == SelectedDefinition) FocusItem = Item;

@@ -33,6 +33,30 @@ def main():
     if missing:raise RuntimeError('Create native shirt sources before backpack fitting: '+', '.join(missing))
     pending=[row for row in plan['rows'] if current['/'.join([row['rig'],row['item'],row['shirt'] or 'bare'])]['signature']!=previous.get('/'.join([row['rig'],row['item'],row['shirt'] or 'bare']),{}).get('signature')]
     (R/'full_plan.json').write_text(json.dumps(plan,ensure_ascii=False,indent=2),encoding='utf-8')
+    # A local garment repair may regenerate just its affected pack combinations.
+    # Preserve the male body as the existing surface-coordinate reference.
+    selected_rig=os.environ.get('BACKPACK_FIT_RIG')
+    selected_shirt=os.environ.get('BACKPACK_FIT_SHIRT')
+    if selected_rig or selected_shirt:
+        if selected_rig and selected_rig not in plan['rigs']:raise RuntimeError('Unknown backpack fit body: '+selected_rig)
+        pending=[row for row in pending if (not selected_rig or row['rig']==selected_rig) and (not selected_shirt or row['shirt']==selected_shirt)]
+        needed=set()
+        active_rigs={row['rig'] for row in pending}
+        plan['rigs']={key:value for key,value in plan['rigs'].items() if key in active_rigs or key=='Jason'}
+        for rig,data in plan['rigs'].items():
+            wanted={row['shirt'] for row in pending if row['rig']==rig}
+            data['shirts']={key:value for key,value in data['shirts'].items() if key in wanted}
+            data['shirt_surfaces']={key:value for key,value in data['shirt_surfaces'].items() if key in wanted}
+            if rig not in active_rigs:
+                data['pants']=[]
+                data.pop('head',None)
+            needed.update([data['body'],*data['pants']])
+            if data.get('head'):needed.add(data['head'])
+            for paths in data['shirt_surfaces'].values():needed.update(paths)
+        for row in pending:
+            needed.add(row['mesh'])
+            if row.get('rigid_mesh'):needed.add(row['rigid_mesh'])
+        plan['assets']=[row for row in plan['assets'] if row['path'] in needed]
     plan.update(rows=pending,include_gravity=True)
     (R/'plan.json').write_text(json.dumps(plan,ensure_ascii=False,indent=2),encoding='utf-8')
     (R/'pending.json').write_text(json.dumps({'count':len(pending),'routes':['/'.join([r['rig'],r['item'],r['shirt'] or 'bare']) for r in pending]},indent=2))

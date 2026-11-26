@@ -4,15 +4,30 @@ class APlayerController;
 class APawn;
 class AActor;
 class AColdSteelSceneContainer;
+class AVillageDefenseSection;
 class UWorld;
+enum class EHighGateUse : uint8;
 namespace ColdSteelWorldInteraction
 {
+    inline constexpr float DefaultUseReach = 250.f;
     /** Interaction reach stays at the player's eyes when the development camera pulls back. */
     void GetReachViewPoint(const APlayerController* Controller,FVector& Eye,FRotator& View);
-    AActor* TraceTarget(const APlayerController* Controller,float Reach=250.f);
+    struct FUseTargets
+    {
+        AActor* Target = nullptr;
+        EHighGateUse GateUse{};
+        AVillageDefenseSection* RepairTarget() const;
+        AActor* CounterResident = nullptr;
+        AVillageDefenseSection* NearbyBreach = nullptr;
+    };
+    /** A visible counter service point is a fallback after the existing E interactions. */
+    FUseTargets TraceUseTargets(const APlayerController* Controller,float Reach=DefaultUseReach,bool bFindNearbyBreach=false);
+    AActor* TraceTarget(const APlayerController* Controller,float Reach=DefaultUseReach);
     AColdSteelSceneContainer* FocusedSceneContainer(const APlayerController* Controller);
     AColdSteelSceneContainer* UpdateSceneContainerHighlight(const APlayerController* Controller,bool bAllowed);
-    bool IsFocused(const APawn* Pawn,const AActor* Target,float Reach=250.f);
+    /** Display the resident selected by this local player's active E prompt, or clear with nullptr. */
+    void UpdateResidentHighlight(const APlayerController* PC, AActor* Target);
+    bool IsFocused(const APawn* Pawn,const AActor* Target,float Reach=DefaultUseReach);
     bool CanReachPickup(const UWorld* World,const APawn* Pawn,const AActor* Target,const FVector& Position);
     /** Authored hub altar; the same target predicate drives its prompt and E action. */
     bool IsExpeditionAltar(const AActor* Target);
@@ -34,6 +49,7 @@ namespace ColdSteelWorldInteraction
      *  workbench prompt and the E action that opens the backpack plus the crafting panel
      *  (Docs/UI/workbench-panel-plan-20260924.md — shell mirrors the smelting panel). */
     bool IsAlchemyBench(const AActor* Target);
+    bool IsEnhancementBench(const AActor* Target);
     bool IsWoodworkingBench(const AActor* Target);
     bool IsWorkbench(const AActor* Target);
     FString WorkbenchPrompt(const AActor* Target);
@@ -43,6 +59,7 @@ namespace ColdSteelWorldInteraction
     {
         FString Text;
         bool bAction=true;
+        FString Title;
     };
-    FInteractionHint ResolveInteractionHint(const AActor* Target);
+    FInteractionHint ResolveInteractionHint(const AActor* Target,APawn* Viewer,EHighGateUse GateUse={});
 }

@@ -1,4 +1,4 @@
-$ErrorActionPreference='Stop'
+﻿$ErrorActionPreference='Stop'
 $saigaRoot='D:/FPS3D/FPSGAME'
 $saigaOut="$saigaRoot/SourceAssets/Saiga12KMagazine20261017/Receipts"
 $saigaBuild='E:/Program Files (x86)/UE_5.8/Engine/Build/BatchFiles/Build.bat'

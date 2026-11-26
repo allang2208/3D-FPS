@@ -1,21 +1,4 @@
 {
-  "ue_forged_steel_greatsword": {
-    "source": "FORGED_STEEL_GREATSWORD_STR_DEX",
-    "base": 43.5,
-    "enhanceFlat": 5.4,
-    "attrs": [
-      {
-        "key": "str",
-        "base": 4.95,
-        "perEnhance": 1.176
-      },
-      {
-        "key": "dex",
-        "base": 3.9,
-        "perEnhance": 0.5695
-      }
-    ]
-  },
   "tool_axe": {
     "source": "HARVEST_AXE_EMERGENCY_MELEE",
     "base": 12,
@@ -322,6 +305,23 @@
       }
     ]
   },
+  "ue_forged_steel_greatsword": {
+    "source": "FORGED_STEEL_GREATSWORD_STR_DEX",
+    "base": 43.5,
+    "enhanceFlat": 5.4,
+    "attrs": [
+      {
+        "key": "str",
+        "base": 4.95,
+        "perEnhance": 1.176
+      },
+      {
+        "key": "dex",
+        "base": 3.9,
+        "perEnhance": 0.5695
+      }
+    ]
+  },
   "ue_highland_claymore": {
     "source": "HIGHLAND_CLAYMORE_STR_DEX_TIER2",
     "base": 43.5,
@@ -424,6 +424,23 @@
     ],
     "source": "Super90 (eight-pellet aggregate)"
   },
+  "ue_steel_warhammer": {
+    "source": "STEEL_WARHAMMER_ZHENYUE_90_STR_CON_V2",
+    "base": 40.5,
+    "enhanceFlat": 5.04,
+    "attrs": [
+      {
+        "key": "str",
+        "base": 4.59,
+        "perEnhance": 0.909
+      },
+      {
+        "key": "con",
+        "base": 3.6,
+        "perEnhance": 0.621
+      }
+    ]
+  },
   "ue_m870": {
     "base": 88,
     "enhanceFlat": 8.8,
@@ -440,6 +457,23 @@
       }
     ],
     "source": "M870 (whole-cartridge aggregate, 2026-10-19 damage tier x1.10)"
+  },
+  "ue_svch": {
+    "source": "SVCH_WEAKPOINT_20261019",
+    "base": 16,
+    "enhanceFlat": 1.1,
+    "attrs": [
+      {
+        "key": "int",
+        "base": 1.0,
+        "perEnhance": 0.11
+      },
+      {
+        "key": "wis",
+        "base": 2.0,
+        "perEnhance": 0.175
+      }
+    ]
   },
   "ue_saiga12k": {
     "base": 72,
@@ -509,8 +543,7 @@
       }
     ]
   },
-  "ue_thunder_god_hammer": {
-    "source": "THUNDER_GOD_HAMMER_STR_CON_20261028",
+  "ue_tactical_hatchet": {    "source": "TACTICAL_HATCHET_STR_DEX_20261102",    "base": 32,    "enhanceFlat": 4,    "attrs": [      {        "key": "str",        "base": 3.4,        "perEnhance": 0.68      },      {        "key": "dex",        "base": 3,        "perEnhance": 0.6      }    ]  },  "ue_thunder_god_hammer": {    "source": "THUNDER_GOD_HAMMER_STR_CON_20261028",
     "base": 40.5,
     "enhanceFlat": 5.04,
     "attrs": [
@@ -543,23 +576,6 @@
       }
     ]
   },
-  "bow_dark": {
-    "source": "HUNTER_LONGBOW_DEX_STR",
-    "base": 58.65,
-    "enhanceFlat": 2.04,
-    "attrs": [
-      {
-        "key": "dex",
-        "base": 1.02,
-        "perEnhance": 0.051
-      },
-      {
-        "key": "str",
-        "base": 0.51,
-        "perEnhance": 0.034
-      }
-    ]
-  },
   "bow_woodsteel": {
     "source": "HIGHLAND_LONGBOW_DEX_STR",
     "base": 62.1,
@@ -574,6 +590,23 @@
         "key": "str",
         "base": 0.54,
         "perEnhance": 0.036
+      }
+    ]
+  },
+  "bow_dark": {
+    "source": "HUNTER_LONGBOW_DEX_STR",
+    "base": 58.65,
+    "enhanceFlat": 2.04,
+    "attrs": [
+      {
+        "key": "dex",
+        "base": 1.02,
+        "perEnhance": 0.051
+      },
+      {
+        "key": "str",
+        "base": 0.51,
+        "perEnhance": 0.034
       }
     ]
   }

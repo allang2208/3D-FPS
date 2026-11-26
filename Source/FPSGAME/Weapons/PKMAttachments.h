@@ -31,6 +31,7 @@ inline UStaticMeshComponent* Configure(AActor* Owner,USkeletalMeshComponent* Rif
     if(!Part)
     {
         Part=NewObject<UStaticMeshComponent>(Owner);Part->SetupAttachment(Rifle,Bone);
+        Part->SetOnlyOwnerSee(Rifle->bOnlyOwnerSee);Part->SetOwnerNoSee(Rifle->bOwnerNoSee);
         Part->SetCollisionEnabled(ECollisionEnabled::NoCollision);Part->SetCastShadow(false);
         Part->bReceivesDecals=false;Part->RegisterComponent();
     }

@@ -1,4 +1,6 @@
 #include "../FPSGAMECharacter.h"
+#include "../Weapons/Kukri/HatchetCharmComponent.h"
+#include "../Skills/LightningHasteSpeed.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
 #include "FPSCharacterMovementComponent.h"
@@ -7,6 +9,7 @@
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../Monsters/PoisonMaggotMonster.h"
 #include "../Skills/EnemyAttackDamage.h"
@@ -46,11 +49,13 @@ bool AFPSGAMECharacter::TryDodgeInDirection(const FVector& Direction)
     auto* Profile=GetNetShadowProfile();
     if(HasAuthority()&&!IsLocallyControlled()&&!Profile)return false;
     if(!Profile)Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    if(HatchetCharms)HatchetCharms->Configure(Profile);
     const float Cost=Profile?Profile->DodgeStaminaCost():0;
     if(Profile&&!Profile->CanSpendStamina(Cost)){Profile->SpendStamina(Cost);return false;}
     const float Distance=DodgeDistance+(Profile?Profile->DodgeEffect().DodgeDistanceCM:0.f);
-    if (!Movement->StartDodge(Direction,Distance,DodgeDuration)) return false;
+    if (!Movement->StartDodge(Direction,Distance,DodgeDuration/LightningHaste::ActionSpeed(this))) return false;
     if(Profile&&!Profile->SpendStamina(Cost)){Movement->CancelDodge();return false;}
+    if(HatchetCharms)HatchetCharms->SpendStep();
     if(GetLocalRole()==ROLE_AutonomousProxy)Movement->QueueDodgeRequest(Direction);
     bDodgeMeleeRewarded=bDodgeRangedRewarded=false;
     ExitSprintForWeapon();
@@ -70,6 +75,10 @@ float AFPSGAMECharacter::DodgePresentationWeight() const
 float AFPSGAMECharacter::TakeDamage(float DamageAmount, const FDamageEvent& DamageEvent,
     AController* EventInstigator, AActor* DamageCauser)
 {
+    if(!HasAuthority())return 0.f;
+    // A joining guest's pawn can exist before its profile upload is accepted.
+    // Wait for its own armor/resources instead of damaging a temporary default life.
+    if(IsPlayerControlled()&&!IsLocallyControlled()&&!ColdSteelAuthority::ForPawn(this))return 0.f;
     const bool DebugInvincible=UDevelopmentTuningSubsystem::IsPlayerOptionEnabled(this,EDevelopmentTuningOption::Invincible);
     // Retain guard/parry reactions under the existing invincibility option,
     // as in gamedev; the health result still remains zero.
@@ -96,8 +105,7 @@ float AFPSGAMECharacter::TakeDamage(float DamageAmount, const FDamageEvent& Dama
         if(Eligible&&((Melee&&!bDodgeMeleeRewarded)||(Ranged&&!bDodgeRangedRewarded)))
         {
             // 联机：远端玩家的闪避奖励记到影子档案，不是主机 GI 单例。
-            auto* Profile=GetNetShadowProfile();
-            if(!Profile)Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+            auto* Profile=ColdSteelAuthority::ForPawn(this);
             if(Profile)
             {
                 if(Melee)bDodgeMeleeRewarded=true;else bDodgeRangedRewarded=true;
@@ -107,19 +115,26 @@ float AFPSGAMECharacter::TakeDamage(float DamageAmount, const FDamageEvent& Dama
         return 0.f;
     }
     if(DamageAmount<=0.f)return 0.f;
-    const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();
+    auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();
     if(Health && Health->IsDead())return 0.f;
     const auto* Type=DamageEvent.DamageTypeClass?DamageEvent.DamageTypeClass->GetDefaultObject<UDamageType>():nullptr;
     AActor* Attacker=EventInstigator?EventInstigator->GetPawn():DamageCauser;
     if(Health)DamageAmount=Health->DamageAfterArmor(DamageAmount,Type,Attacker);
     if(!Direct)
     {
-        if(RuneSword&&RuneSword->IsEquipped())DamageAmount=RuneSword->ResolveGuardDamage(DamageAmount,Type,EventInstigator,DamageCauser);
+        if(RuneSword&&RuneSword->IsGuarding())DamageAmount=RuneSword->ResolveGuardDamage(DamageAmount,Type,EventInstigator,DamageCauser);
     }
     // Independent multiplier after existing armor, status and block reductions.
     if(const auto* Guard=FindComponentByClass<UTangDaoGuardComponent>())DamageAmount*=Guard->DamageTakenMultiplier();
     if(DebugInvincible)return 0.f;
     // A parry returns zero to the attack caller before damage events or its
     // on-hit status effects are emitted. Armor has already been applied once.
-    return DamageAmount>0.f?Super::TakeDamage(DamageAmount,DamageEvent,EventInstigator,DamageCauser):0.f;
+    if(DamageAmount<=0.f)return 0.f;
+    if(!Health)return Super::TakeDamage(DamageAmount,DamageEvent,EventInstigator,DamageCauser);
+    // OnTakeAnyDamage can reject a hit (e.g. moonshadow) after engine dispatch.
+    // Report accepted damage so hostile spells cannot apply on-hit effects to it.
+    float AcceptedDamage=0.f;
+    TGuardValue<float*> Receipt(Health->AcceptedDamageReceipt,&AcceptedDamage);
+    Super::TakeDamage(DamageAmount,DamageEvent,EventInstigator,DamageCauser);
+    return AcceptedDamage;
 }

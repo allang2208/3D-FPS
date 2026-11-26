@@ -7,7 +7,12 @@ saved=json.loads((R/'saved_assets.json').read_text());editable=json.loads((R/'ed
 if not saved.get('completed'):raise RuntimeError('Robe packages are not fully saved')
 paths=[D/'items.json',D/'modular_outfits.json'];raw=[p.read_bytes() for p in paths];texts=[b.decode('utf-8-sig') for b in raw];catalog,config=[json.loads(t) for t in texts]
 profiles=list(dict.fromkeys(v['rig_profile'] for v in config['profiles'].values()));meshes={};owners={};aliases={}
+active=config['items'].get(key,{})
 for profile in profiles:
+    if profile not in ('Body','Jason') and active.get('first_person_sleeve_revision'):
+        meshes[profile]=active['rig_meshes'][profile]
+        aliases[profile]=[k for k,v in config['profiles'].items() if v['rig_profile']==profile]
+        continue
     group='Body' if profile in ('Body','Jason') else 'FP';route=group+'/'+profile;row=saved['saved'][route];source=R/'Authored'/group/(profile+'.json')
     if row['author_sha256']!=hashlib.sha256(source.read_bytes()).hexdigest():raise RuntimeError('Unpublished construction changes '+profile)
     asset=P/'Content'/(row['asset'].split('.')[0].removeprefix('/Game/')+'.uasset')

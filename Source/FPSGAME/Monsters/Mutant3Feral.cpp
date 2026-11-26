@@ -1,4 +1,6 @@
 #include "Mutant3.h"
+#include "MonsterTargeting.h"
+#include "MonsterDamageBalance.h"
 #include "FatZombieAnimInstance.h"
 #include "FPSCombatHealthComponent.h"
 #include "MonsterCombatTuning.h"
@@ -232,8 +234,8 @@ void AMutant3::TryPounceImpact(const FVector& LandingPoint)
     TSet<APawn*> Contacted;
     for (const FOverlapResult& Hit : Hits)
     {
-        APawn* Victim = Cast<APawn>(Hit.GetActor());
-        if (!IsValid(Victim) || !Victim->IsPlayerControlled() || Contacted.Contains(Victim)) continue;
+        APawn* Victim = Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor()));
+        if (!IsValid(Victim) || !MonsterTargeting::IsOpponentPawn(Victim) || Contacted.Contains(Victim)) continue;
         Contacted.Add(Victim);
         float VictimRadius, VictimHalfHeight;
         Victim->GetSimpleCollisionCylinder(VictimRadius, VictimHalfHeight);
@@ -250,7 +252,7 @@ void AMutant3::TryPounceImpact(const FVector& LandingPoint)
             FMath::PointDistToSegmentSquared(Planar, FVector::ZeroVector, LeftEdge) > FMath::Square(VictimRadius) &&
             FMath::PointDistToSegmentSquared(Planar, FVector::ZeroVector, RightEdge) > FMath::Square(VictimRadius)) continue;
         if (!HasFeralSight(Victim)) continue;
-        const float Applied = UGameplayStatics::ApplyDamage(Victim, AttackDamage*PounceDamageScale,
+        const float Applied = UGameplayStatics::ApplyDamage(Victim, MonsterDamageBalance::Limit(AttackDamage*PounceDamageScale,90.f),
             GetController(), this, UEnemyMeleeDamage::StaticClass());
         if (Applied > 0.f)
         {

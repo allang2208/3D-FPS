@@ -1,0 +1,3788 @@
+{
+  "as_of": "2026-10-16T09:51:45.867246+08:00",
+  "scope": "Saved L_Dungeon_Randomized generator catalog, authored containers, runtime loot dispatch, region encounters and final progression; no game run or UE launch",
+  "inputs": [
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\__ExternalActors__\\GameMaps\\L_Dungeon_Randomized\\8\\N2\\KZ839Z5RGFD4Y0908097LH.uasset",
+      "sha256": "812a644be76ec12f2a24334d97eb7fcae2da83e215a91b7adb9b9b5e7404c1ae"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\Content\\ColdSteelData\\scene_search_loot.json",
+      "sha256": "c7bbef4a13fa1ae80da5d8faa08f8142132afb56624844323c4065a04ad65868"
+    },
+    {
+      "path": "D:\\FPS3D\\FPSGAME\\SourceAssets\\DungeonFacilityFlow20261007\\Config\\catalog.json",
+      "sha256": "d5ac696fef8d74bb6f58dece7f4ab0e9fffe8a6535802d9a1646fa5b4c8c0099"
+    }
+  ],
+  "summary": {
+    "modules": 42,
+    "defined_search_container_ids": 280,
+    "bound_search_container_ids": 211,
+    "unbound_search_container_ids": 69,
+    "bindings_including_bedside_family": 212,
+    "pools": 31,
+    "distinct_search_items": 42,
+    "undefined_item_ids": [],
+    "disabled_saved_treasure_chests": [
+      {
+        "module": "AbandonedAnatomyTheatre",
+        "identity": "hospital_rear_gallery_treasure",
+        "role": "hospital_rear_gallery",
+        "interaction_enabled": false,
+        "position": [
+          1151.011,
+          -336.725,
+          216.3
+        ],
+        "loot_system": "PendingLoot: interaction disabled"
+      }
+    ]
+  },
+  "modules": [
+    {
+      "module": "Distribution",
+      "role": null,
+      "in_saved_layout_bank": true,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "Drainage",
+      "role": null,
+      "in_saved_layout_bank": true,
+      "candidate_ids": 2,
+      "bound_ids": 0,
+      "missing_ids": 2,
+      "treasure_count": 0
+    },
+    {
+      "module": "ShoredBreach",
+      "role": null,
+      "in_saved_layout_bank": true,
+      "candidate_ids": 9,
+      "bound_ids": 9,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "Junction",
+      "role": null,
+      "in_saved_layout_bank": false,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "RouteEnd",
+      "role": null,
+      "in_saved_layout_bank": false,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "Transit",
+      "role": null,
+      "in_saved_layout_bank": true,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "Threshold",
+      "role": null,
+      "in_saved_layout_bank": true,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "Treasure",
+      "role": null,
+      "in_saved_layout_bank": false,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 1
+    },
+    {
+      "module": "TreasureLink",
+      "role": null,
+      "in_saved_layout_bank": false,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "VentilationLoop",
+      "role": null,
+      "in_saved_layout_bank": true,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "FreightTransfer",
+      "role": null,
+      "in_saved_layout_bank": false,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "RouteElbow",
+      "role": "connector",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "BossConfluence",
+      "role": "terminal_confluence",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "BossApproach",
+      "role": "terminal_connector",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "BossPumpHall",
+      "role": "boss_terminal",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 1
+    },
+    {
+      "module": "StairDrop1080",
+      "role": "vertical_connector",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "ForkLeft",
+      "role": "junction",
+      "in_saved_layout_bank": false,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "ForkRight",
+      "role": "junction",
+      "in_saved_layout_bank": false,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 7,
+      "bound_ids": 7,
+      "missing_ids": 0,
+      "treasure_count": 1
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 10,
+      "bound_ids": 10,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 16,
+      "bound_ids": 16,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "AbandonedDataArchive",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 8,
+      "bound_ids": 8,
+      "missing_ids": 0,
+      "treasure_count": 1
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 15,
+      "bound_ids": 15,
+      "missing_ids": 0,
+      "treasure_count": 1
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 45,
+      "bound_ids": 45,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 16,
+      "bound_ids": 16,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "RouteRamp540",
+      "role": "vertical_connector",
+      "in_saved_layout_bank": false,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "RouteRamp1080",
+      "role": "vertical_connector",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "RouteRamp1620",
+      "role": "vertical_connector",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "StaffDormitory",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 36,
+      "bound_ids": 0,
+      "missing_ids": 36,
+      "treasure_count": 0
+    },
+    {
+      "module": "StaffChangingShowers",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 24,
+      "bound_ids": 0,
+      "missing_ids": 24,
+      "treasure_count": 0
+    },
+    {
+      "module": "StaffRecreation",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 7,
+      "bound_ids": 0,
+      "missing_ids": 7,
+      "treasure_count": 1
+    },
+    {
+      "module": "EcoNursery",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 9,
+      "bound_ids": 9,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "EcoHydroponics",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 9,
+      "bound_ids": 9,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "EcoBiosphere",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 14,
+      "bound_ids": 14,
+      "missing_ids": 0,
+      "treasure_count": 1
+    },
+    {
+      "module": "SwitchgearGallery",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 4,
+      "bound_ids": 4,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "GeneratorHall",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 3,
+      "bound_ids": 3,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "AccumulatorControl",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 7,
+      "bound_ids": 7,
+      "missing_ids": 0,
+      "treasure_count": 1
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 15,
+      "bound_ids": 15,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "FacilityEntrancePassage",
+      "role": "entry_passage",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 0,
+      "bound_ids": 0,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "FacilityTransit",
+      "role": "junction",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 14,
+      "bound_ids": 14,
+      "missing_ids": 0,
+      "treasure_count": 0
+    },
+    {
+      "module": "MedicalDoctorOffice",
+      "role": "room",
+      "in_saved_layout_bank": true,
+      "candidate_ids": 10,
+      "bound_ids": 10,
+      "missing_ids": 0,
+      "treasure_count": 0
+    }
+  ],
+  "search_containers": [
+    {
+      "module": "Drainage",
+      "container_id": "Hospital.Drainage.Tools.Entry",
+      "caption": "排水检修工具箱",
+      "pool": null,
+      "paths": [
+        ".warehouse_containers.groups[0].slots[0].variants[0].containers[0]",
+        ".warehouse_containers.groups[0].slots[0].variants[1].containers[0]",
+        ".warehouse_containers.groups[0].slots[0].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "Drainage",
+      "container_id": "Hospital.Drainage.Tools.Service",
+      "caption": "排水检修工具箱",
+      "pool": null,
+      "paths": [
+        ".warehouse_containers.groups[0].slots[1].variants[0].containers[0]",
+        ".warehouse_containers.groups[0].slots[1].variants[1].containers[0]",
+        ".warehouse_containers.groups[0].slots[1].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "ShoredBreach",
+      "container_id": "Treatment.ShoredBreach.ToolBox.1.0",
+      "caption": "检修工具箱",
+      "pool": "incineration_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "ShoredBreach",
+      "container_id": "Treatment.ShoredBreach.ToolBox.2.0",
+      "caption": "检修工具箱",
+      "pool": "incineration_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "ShoredBreach",
+      "container_id": "Treatment.ShoredBreach.ToolBox.3.0",
+      "caption": "检修工具箱",
+      "pool": "incineration_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[2].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "ShoredBreach",
+      "container_id": "Treatment.ShoredBreach.ToolBox.4.0",
+      "caption": "检修工具箱",
+      "pool": "incineration_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[3].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "ShoredBreach",
+      "container_id": "Treatment.ShoredBreach.ToolBox.5.0",
+      "caption": "检修工具箱",
+      "pool": "incineration_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[4].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "ShoredBreach",
+      "container_id": "Treatment.ShoredBreach.ToolBox.6.0",
+      "caption": "检修工具箱",
+      "pool": "incineration_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[5].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "ShoredBreach",
+      "container_id": "Treatment.ShoredBreach.PPELocker.1.0",
+      "caption": "防护用品柜",
+      "pool": "incineration_protection",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "ShoredBreach",
+      "container_id": "Treatment.ShoredBreach.PPELocker.2.0",
+      "caption": "防护用品柜",
+      "pool": "incineration_protection",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "ShoredBreach",
+      "container_id": "Treatment.ShoredBreach.PPELocker.3.0",
+      "caption": "防护用品柜",
+      "pool": "incineration_protection",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[2].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "container_id": "StationWorkshop.Tools",
+      "caption": "维修工具柜",
+      "pool": "freight_tool_cabinet",
+      "paths": [
+        ".station_workshop.variants[0].containers[0]",
+        ".station_workshop.variants[1].containers[0]",
+        ".station_workshop.variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "container_id": "StationWorkshop.Tools.Drawer",
+      "caption": "工具柜上层抽屉",
+      "pool": "freight_tool_drawer",
+      "paths": [
+        ".station_workshop.variants[0].containers[1]",
+        ".station_workshop.variants[1].containers[1]",
+        ".station_workshop.variants[2].containers[1]"
+      ]
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "container_id": "StationWorkshop.Rack.ToteA",
+      "caption": "带盖周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".station_workshop.variants[0].containers[2]",
+        ".station_workshop.variants[1].containers[2]",
+        ".station_workshop.variants[2].containers[2]"
+      ]
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "container_id": "StationWorkshop.Rack.ToteB",
+      "caption": "带盖周转箱",
+      "pool": "freight_daily",
+      "paths": [
+        ".station_workshop.variants[0].containers[3]",
+        ".station_workshop.variants[1].containers[3]",
+        ".station_workshop.variants[2].containers[3]"
+      ]
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "container_id": "StationWorkshop.Exterior.EquipmentCase",
+      "caption": "重型金属运输箱",
+      "pool": "freight_hardware",
+      "paths": [
+        ".station_workshop.variants[0].containers[4]",
+        ".station_workshop.variants[1].containers[4]",
+        ".station_workshop.variants[2].containers[4]"
+      ]
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "container_id": "StationWorkshop.DispatchFiles",
+      "caption": "调度文件抽屉",
+      "pool": "freight_documents",
+      "paths": [
+        ".station_workshop.variants[0].containers[5]",
+        ".station_workshop.variants[1].containers[5]",
+        ".station_workshop.variants[2].containers[5]"
+      ]
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "container_id": "StationWorkshop.ReservedSpares",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".station_workshop.variants[0].containers[6]",
+        ".station_workshop.variants[2].containers[6]"
+      ]
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "container_id": "Hospital.Ward.Cart.N01",
+      "caption": "医疗推车抽屉",
+      "pool": "medical_treatment_cart",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[0].variants[0].containers[0]",
+        ".warehouse_containers.groups[0].slots[0].variants[1].containers[0]",
+        ".warehouse_containers.groups[0].slots[0].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "container_id": "Hospital.Ward.Cart.N02",
+      "caption": "医疗推车抽屉",
+      "pool": "medical_treatment_cart",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[1].variants[0].containers[0]",
+        ".warehouse_containers.groups[0].slots[1].variants[1].containers[0]",
+        ".warehouse_containers.groups[0].slots[1].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "container_id": "Hospital.Ward.Cart.N03",
+      "caption": "医疗推车抽屉",
+      "pool": "medical_treatment_cart",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[2].variants[0].containers[0]",
+        ".warehouse_containers.groups[0].slots[2].variants[1].containers[0]",
+        ".warehouse_containers.groups[0].slots[2].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "container_id": "Hospital.Ward.Cart.S01",
+      "caption": "医疗推车抽屉",
+      "pool": "medical_treatment_cart",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[3].variants[0].containers[0]",
+        ".warehouse_containers.groups[0].slots[3].variants[1].containers[0]",
+        ".warehouse_containers.groups[0].slots[3].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "container_id": "Hospital.Ward.Cart.S02",
+      "caption": "医疗推车抽屉",
+      "pool": "medical_treatment_cart",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[4].variants[0].containers[0]",
+        ".warehouse_containers.groups[0].slots[4].variants[1].containers[0]",
+        ".warehouse_containers.groups[0].slots[4].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "container_id": "Hospital.Ward.Emergency.West",
+      "caption": "壁挂急救箱",
+      "pool": "medical_first_aid",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "container_id": "Hospital.Ward.Emergency.East",
+      "caption": "壁挂急救箱",
+      "pool": "medical_first_aid",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "container_id": "Hospital.Office.MedicalBooks",
+      "caption": "医学书柜",
+      "pool": "research_records",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "container_id": "Hospital.Office.PatientRecords",
+      "caption": "病历档案柜",
+      "pool": "research_records",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIsolationWard",
+      "container_id": "Hospital.Office.WorkingShelf",
+      "caption": "医生资料书架",
+      "pool": "research_records",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[2].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.RecordsCabinet.1.0",
+      "caption": "停尸档案·登记记录",
+      "pool": "incineration_records",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.RecordsCabinet.1.1",
+      "caption": "停尸档案·交接记录",
+      "pool": "incineration_records",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[0].variants[0].containers[1]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.RecordsCabinet.1.2",
+      "caption": "停尸档案·设备记录",
+      "pool": "incineration_records",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[0].variants[0].containers[2]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.PPELocker.1.0",
+      "caption": "防护用品柜",
+      "pool": "incineration_protection",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.PPELocker.2.0",
+      "caption": "防护用品柜",
+      "pool": "incineration_protection",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.PPELocker.3.0",
+      "caption": "防护用品柜",
+      "pool": "incineration_protection",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[2].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.1.0",
+      "caption": "耐热器材柜",
+      "pool": "incineration_heat",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.1.1",
+      "caption": "耐热柜上层抽屉",
+      "pool": "incineration_heat",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[0].variants[0].containers[1]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.2.0",
+      "caption": "耐热器材柜",
+      "pool": "incineration_heat",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.2.1",
+      "caption": "耐热柜上层抽屉",
+      "pool": "incineration_heat",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[1].variants[0].containers[1]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.3.0",
+      "caption": "耐热器材柜",
+      "pool": "incineration_heat",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[2].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.HeatCabinet.3.1",
+      "caption": "耐热柜上层抽屉",
+      "pool": "incineration_heat",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[2].variants[0].containers[1]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.ToolBox.1.0",
+      "caption": "检修工具箱",
+      "pool": "incineration_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.ToolBox.2.0",
+      "caption": "检修工具箱",
+      "pool": "incineration_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.ToolBox.3.0",
+      "caption": "检修工具箱",
+      "pool": "incineration_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[2].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedIncineratorHall",
+      "container_id": "Treatment.AbandonedIncineratorHall.ToolBox.4.0",
+      "caption": "检修工具箱",
+      "pool": "incineration_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[3].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "container_id": "Hospital.Theatre.Cart",
+      "caption": "医疗推车抽屉",
+      "pool": "medical_treatment_cart",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[0].variants[0].containers[0]",
+        ".warehouse_containers.groups[0].slots[0].variants[1].containers[0]",
+        ".warehouse_containers.groups[0].slots[0].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "container_id": "Hospital.Theatre.Instruments.A",
+      "caption": "器械消毒盒",
+      "pool": "medical_reagent_stock",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "container_id": "Hospital.Theatre.Instruments.B",
+      "caption": "器械消毒盒",
+      "pool": "medical_reagent_stock",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "container_id": "Hospital.Theatre.Specimens",
+      "caption": "标本运输箱",
+      "pool": "medical_sealed_samples",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "container_id": "Hospital.Theatre.Gallery.West",
+      "caption": "医疗推车抽屉",
+      "pool": "medical_treatment_cart",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[0].variants[0].containers[0]",
+        ".warehouse_containers.groups[3].slots[0].variants[1].containers[0]",
+        ".warehouse_containers.groups[3].slots[0].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "container_id": "Hospital.Theatre.Gallery.NorthWest",
+      "caption": "病人物品箱",
+      "pool": "medical_patient_supplies",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[1].variants[0].containers[0]",
+        ".warehouse_containers.groups[3].slots[1].variants[1].containers[0]",
+        ".warehouse_containers.groups[3].slots[1].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "container_id": "Hospital.Theatre.Gallery.NorthEast",
+      "caption": "排水检修工具箱",
+      "pool": "research_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[2].variants[0].containers[0]",
+        ".warehouse_containers.groups[3].slots[2].variants[1].containers[0]",
+        ".warehouse_containers.groups[3].slots[2].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "container_id": "Hospital.Theatre.Gallery.East",
+      "caption": "标本运输箱",
+      "pool": "medical_sealed_samples",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[3].variants[0].containers[0]",
+        ".warehouse_containers.groups[3].slots[3].variants[1].containers[0]",
+        ".warehouse_containers.groups[3].slots[3].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.PPELocker.1.0",
+      "caption": "防护用品柜",
+      "pool": "incineration_protection",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.PPELocker.2.0",
+      "caption": "防护用品柜",
+      "pool": "incineration_protection",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.HeatCabinet.1.0",
+      "caption": "耐热器材柜",
+      "pool": "incineration_heat",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.HeatCabinet.1.1",
+      "caption": "耐热柜上层抽屉",
+      "pool": "incineration_heat",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[0].variants[0].containers[1]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.HeatCabinet.2.0",
+      "caption": "耐热器材柜",
+      "pool": "incineration_heat",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.HeatCabinet.2.1",
+      "caption": "耐热柜上层抽屉",
+      "pool": "incineration_heat",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[1].variants[0].containers[1]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.1.0",
+      "caption": "滤芯运输箱",
+      "pool": "incineration_filters",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.2.0",
+      "caption": "滤芯运输箱",
+      "pool": "incineration_filters",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.3.0",
+      "caption": "滤芯运输箱",
+      "pool": "incineration_filters",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[2].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.4.0",
+      "caption": "滤芯运输箱",
+      "pool": "incineration_filters",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[3].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.5.0",
+      "caption": "滤芯运输箱",
+      "pool": "incineration_filters",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[4].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.FilterCase.6.0",
+      "caption": "滤芯运输箱",
+      "pool": "incineration_filters",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[5].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.ToolBox.1.0",
+      "caption": "检修工具箱",
+      "pool": "incineration_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.ToolBox.2.0",
+      "caption": "检修工具箱",
+      "pool": "incineration_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "container_id": "Treatment.AbandonedFlueGasStation.ToolBox.3.0",
+      "caption": "检修工具箱",
+      "pool": "incineration_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[2].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_0.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_0.MetalCase",
+      "caption": "重型金属运输箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[0].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_1.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_1.MetalCase",
+      "caption": "重型金属运输箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[1].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_2.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[2].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_2.MetalCase",
+      "caption": "重型金属运输箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[2].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_3.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[3].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_3.MetalCase",
+      "caption": "重型金属运输箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[3].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_4.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[4].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_4.MetalCase",
+      "caption": "重型金属运输箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[4].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_5.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[5].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_5.MetalCase",
+      "caption": "重型金属运输箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[5].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_6.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[6].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_6.MetalCase",
+      "caption": "重型金属运输箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[6].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_7.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[7].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.FloorCargo_7.MetalCase",
+      "caption": "重型金属运输箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[7].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.RackCargo_0.Tote",
+      "caption": "带盖周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[0].variants[0].containers[0]",
+        ".warehouse_containers.groups[1].slots[0].variants[1].containers[0]",
+        ".warehouse_containers.groups[1].slots[0].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.RackCargo_4.Tote",
+      "caption": "带盖周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[1].variants[0].containers[0]",
+        ".warehouse_containers.groups[1].slots[1].variants[1].containers[0]",
+        ".warehouse_containers.groups[1].slots[1].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.RackCargo_5.Tote",
+      "caption": "带盖周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[2].variants[0].containers[0]",
+        ".warehouse_containers.groups[1].slots[2].variants[1].containers[0]",
+        ".warehouse_containers.groups[1].slots[2].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.RackCargo_7.Tote",
+      "caption": "带盖周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[3].variants[0].containers[0]",
+        ".warehouse_containers.groups[1].slots[3].variants[1].containers[0]",
+        ".warehouse_containers.groups[1].slots[3].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.RackCargo_12.Tote",
+      "caption": "带盖周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[4].variants[0].containers[0]",
+        ".warehouse_containers.groups[1].slots[4].variants[1].containers[0]",
+        ".warehouse_containers.groups[1].slots[4].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Tools.DockWest",
+      "caption": "维修工具柜",
+      "pool": "freight_tool_cabinet",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Tools.DockWest.Drawer",
+      "caption": "工具柜上层抽屉",
+      "pool": "freight_tool_drawer",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[0].variants[0].containers[1]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Tools.DockCenter",
+      "caption": "维修工具柜",
+      "pool": "freight_tool_cabinet",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Tools.DockCenter.Drawer",
+      "caption": "工具柜上层抽屉",
+      "pool": "freight_tool_drawer",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[1].variants[0].containers[1]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Tools.SouthWall",
+      "caption": "维修工具柜",
+      "pool": "freight_tool_cabinet",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[2].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Tools.SouthWall.Drawer",
+      "caption": "工具柜上层抽屉",
+      "pool": "freight_tool_drawer",
+      "paths": [
+        ".warehouse_containers.groups[2].slots[2].variants[0].containers[1]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.SouthWest.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.SouthWest.MetalCase",
+      "caption": "金属设备箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[0].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.SouthWest.Tote",
+      "caption": "物资周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[0].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.SouthMiddle.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.SouthMiddle.MetalCase",
+      "caption": "金属设备箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[1].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.SouthMiddle.Tote",
+      "caption": "物资周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[1].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.SouthEast.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[2].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.SouthEast.MetalCase",
+      "caption": "金属设备箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[2].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.SouthEast.Tote",
+      "caption": "物资周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[2].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.DockMiddle.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[3].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.DockMiddle.MetalCase",
+      "caption": "金属设备箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[3].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.DockMiddle.Tote",
+      "caption": "物资周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[3].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.DockEast.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[4].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.DockEast.MetalCase",
+      "caption": "金属设备箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[4].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.DockEast.Tote",
+      "caption": "物资周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[4].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.WestCorner.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[5].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.WestCorner.MetalCase",
+      "caption": "金属设备箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[5].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "AbandonedCargoWarehouse",
+      "container_id": "CargoWarehouse.Reserve.WestCorner.Tote",
+      "caption": "物资周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[3].slots[5].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.EntryWest.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.EntryWest.MetalCase",
+      "caption": "金属设备箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[0].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.EntryWest.Tote",
+      "caption": "物资周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[0].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.EntryEast.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.EntryEast.MetalCase",
+      "caption": "金属设备箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[1].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.EntryEast.Tote",
+      "caption": "物资周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[1].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.DockWest.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[2].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.DockWest.MetalCase",
+      "caption": "金属设备箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[2].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.DockWest.Tote",
+      "caption": "物资周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[2].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.DockEast.WoodCrate",
+      "caption": "加固运输木箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[3].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.DockEast.MetalCase",
+      "caption": "金属设备箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[3].variants[1].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.DockEast.Tote",
+      "caption": "物资周转箱",
+      "pool": "freight_maintenance",
+      "paths": [
+        ".warehouse_containers.groups[0].slots[3].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.Tools.West",
+      "caption": "维护工具柜",
+      "pool": "freight_tool_cabinet",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[0].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.Tools.West.Drawer",
+      "caption": "工具柜抽屉",
+      "pool": "freight_tool_drawer",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[0].variants[0].containers[1]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.Tools.East",
+      "caption": "维护工具柜",
+      "pool": "freight_tool_cabinet",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[1].variants[0].containers[0]"
+      ]
+    },
+    {
+      "module": "FreightTransfer_WarehouseLink",
+      "container_id": "FreightTransfer.Tools.East.Drawer",
+      "caption": "工具柜抽屉",
+      "pool": "freight_tool_drawer",
+      "paths": [
+        ".warehouse_containers.groups[1].slots[1].variants[0].containers[1]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_101_0",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[0]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_101_1",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[1]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_102_0",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[2]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_102_1",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[3]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_103_0",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[4]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_103_1",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[5]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_104_0",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[6]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_104_1",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[7]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_105_0",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[8]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_105_1",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[9]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_106_0",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[10]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_106_1",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[11]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookcase_101",
+      "caption": "员工书柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[12]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookshelf_101",
+      "caption": "员工书架",
+      "pool": null,
+      "paths": [
+        ".scene_containers[13]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside0_101",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[14]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside1_101",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[15]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookcase_102",
+      "caption": "员工书柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[16]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookshelf_102",
+      "caption": "员工书架",
+      "pool": null,
+      "paths": [
+        ".scene_containers[17]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside0_102",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[18]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside1_102",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[19]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookcase_103",
+      "caption": "员工书柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[20]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookshelf_103",
+      "caption": "员工书架",
+      "pool": null,
+      "paths": [
+        ".scene_containers[21]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside0_103",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[22]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside1_103",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[23]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookcase_104",
+      "caption": "员工书柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[24]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookshelf_104",
+      "caption": "员工书架",
+      "pool": null,
+      "paths": [
+        ".scene_containers[25]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside0_104",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[26]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside1_104",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[27]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookcase_105",
+      "caption": "员工书柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[28]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookshelf_105",
+      "caption": "员工书架",
+      "pool": null,
+      "paths": [
+        ".scene_containers[29]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside0_105",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[30]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside1_105",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[31]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookcase_106",
+      "caption": "员工书柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[32]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookshelf_106",
+      "caption": "员工书架",
+      "pool": null,
+      "paths": [
+        ".scene_containers[33]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside0_106",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[34]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside1_106",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[35]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_0",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[0]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_1",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[1]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_2",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[2]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_3",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[3]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_4",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[4]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_5",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[5]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_6",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[6]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_7",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[7]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_8",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[8]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_9",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[9]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_10",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[10]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_11",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[11]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_12",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[12]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_13",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[13]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_14",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[14]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_15",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[15]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_16",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[16]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_17",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[17]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_18",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[18]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_19",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[19]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_20",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[20]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_21",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[21]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_22",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[22]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_23",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[23]"
+      ]
+    },
+    {
+      "module": "StaffRecreation",
+      "container_id": "StaffRecreation.CounterCabinet_0",
+      "caption": "茶水台储物柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[0]"
+      ]
+    },
+    {
+      "module": "StaffRecreation",
+      "container_id": "StaffRecreation.CounterCabinet_1",
+      "caption": "茶水台储物柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[1]"
+      ]
+    },
+    {
+      "module": "StaffRecreation",
+      "container_id": "StaffRecreation.CounterCabinet_2",
+      "caption": "茶水台储物柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[2]"
+      ]
+    },
+    {
+      "module": "StaffRecreation",
+      "container_id": "StaffRecreation.CounterCabinet_3",
+      "caption": "茶水台储物柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[3]"
+      ]
+    },
+    {
+      "module": "StaffRecreation",
+      "container_id": "StaffRecreation.CounterCabinet_4",
+      "caption": "茶水台储物柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[4]"
+      ]
+    },
+    {
+      "module": "StaffRecreation",
+      "container_id": "StaffRecreation.FridgeLower",
+      "caption": "冰箱冷藏室",
+      "pool": null,
+      "paths": [
+        ".scene_containers[5]"
+      ]
+    },
+    {
+      "module": "StaffRecreation",
+      "container_id": "StaffRecreation.FridgeUpper",
+      "caption": "冰箱冷冻室",
+      "pool": null,
+      "paths": [
+        ".scene_containers[6]"
+      ]
+    },
+    {
+      "module": "EcoNursery",
+      "container_id": "EcoNursery.PPE0",
+      "caption": "温室防护用品柜",
+      "pool": "ecology_staff_supplies",
+      "paths": [
+        ".runtime_actors[1]"
+      ]
+    },
+    {
+      "module": "EcoNursery",
+      "container_id": "EcoNursery.PPE1",
+      "caption": "温室防护用品柜",
+      "pool": "ecology_staff_supplies",
+      "paths": [
+        ".runtime_actors[2]"
+      ]
+    },
+    {
+      "module": "EcoNursery",
+      "container_id": "EcoNursery.Tote0",
+      "caption": "培育耗材周转箱",
+      "pool": "ecology_culture_stock",
+      "paths": [
+        ".runtime_actors[3]"
+      ]
+    },
+    {
+      "module": "EcoNursery",
+      "container_id": "EcoNursery.Tote1",
+      "caption": "培育耗材周转箱",
+      "pool": "ecology_culture_stock",
+      "paths": [
+        ".runtime_actors[4]"
+      ]
+    },
+    {
+      "module": "EcoNursery",
+      "container_id": "EcoNursery.Tote2",
+      "caption": "培育耗材周转箱",
+      "pool": "ecology_culture_stock",
+      "paths": [
+        ".runtime_actors[5]"
+      ]
+    },
+    {
+      "module": "EcoNursery",
+      "container_id": "EcoNursery.Sample",
+      "caption": "密封样本箱",
+      "pool": "ecology_sealed_samples",
+      "paths": [
+        ".runtime_actors[6]"
+      ]
+    },
+    {
+      "module": "EcoNursery",
+      "container_id": "EcoNursery.Seeds.Drawer0",
+      "caption": "种子样本柜 · 1",
+      "pool": "ecology_botanical_archive",
+      "paths": [
+        ".runtime_actors[7]"
+      ]
+    },
+    {
+      "module": "EcoNursery",
+      "container_id": "EcoNursery.Seeds.Drawer1",
+      "caption": "种子样本柜 · 2",
+      "pool": "ecology_botanical_archive",
+      "paths": [
+        ".runtime_actors[8]"
+      ]
+    },
+    {
+      "module": "EcoNursery",
+      "container_id": "EcoNursery.Seeds.Drawer2",
+      "caption": "种子样本柜 · 3",
+      "pool": "ecology_botanical_archive",
+      "paths": [
+        ".runtime_actors[9]"
+      ]
+    },
+    {
+      "module": "EcoHydroponics",
+      "container_id": "EcoHydroponics.Tools0.Cabinet",
+      "caption": "水培维护工具柜 · 下柜",
+      "pool": "research_maintenance",
+      "paths": [
+        ".runtime_actors[0]"
+      ]
+    },
+    {
+      "module": "EcoHydroponics",
+      "container_id": "EcoHydroponics.Tools0.Drawer",
+      "caption": "水培维护工具柜 · 抽屉",
+      "pool": "research_maintenance",
+      "paths": [
+        ".runtime_actors[1]"
+      ]
+    },
+    {
+      "module": "EcoHydroponics",
+      "container_id": "EcoHydroponics.Tools1.Cabinet",
+      "caption": "水培维护工具柜 · 下柜",
+      "pool": "research_maintenance",
+      "paths": [
+        ".runtime_actors[2]"
+      ]
+    },
+    {
+      "module": "EcoHydroponics",
+      "container_id": "EcoHydroponics.Tools1.Drawer",
+      "caption": "水培维护工具柜 · 抽屉",
+      "pool": "research_maintenance",
+      "paths": [
+        ".runtime_actors[3]"
+      ]
+    },
+    {
+      "module": "EcoHydroponics",
+      "container_id": "EcoHydroponics.Box0",
+      "caption": "泵组检修工具箱",
+      "pool": "research_maintenance",
+      "paths": [
+        ".runtime_actors[4]"
+      ]
+    },
+    {
+      "module": "EcoHydroponics",
+      "container_id": "EcoHydroponics.Box1",
+      "caption": "泵组检修工具箱",
+      "pool": "research_maintenance",
+      "paths": [
+        ".runtime_actors[5]"
+      ]
+    },
+    {
+      "module": "EcoHydroponics",
+      "container_id": "EcoHydroponics.Filter0",
+      "caption": "备用滤芯箱",
+      "pool": "research_maintenance",
+      "paths": [
+        ".runtime_actors[6]"
+      ]
+    },
+    {
+      "module": "EcoHydroponics",
+      "container_id": "EcoHydroponics.Filter1",
+      "caption": "备用滤芯箱",
+      "pool": "research_maintenance",
+      "paths": [
+        ".runtime_actors[7]"
+      ]
+    },
+    {
+      "module": "EcoHydroponics",
+      "container_id": "EcoHydroponics.Spare",
+      "caption": "水质检测备件箱",
+      "pool": "ecology_analysis_spares",
+      "paths": [
+        ".runtime_actors[8]"
+      ]
+    },
+    {
+      "module": "EcoBiosphere",
+      "container_id": "EcoBiosphere.Records0.Drawer0",
+      "caption": "生态实验记录柜 · 1",
+      "pool": "research_records",
+      "paths": [
+        ".runtime_actors[4]"
+      ]
+    },
+    {
+      "module": "EcoBiosphere",
+      "container_id": "EcoBiosphere.Records0.Drawer1",
+      "caption": "生态实验记录柜 · 2",
+      "pool": "research_records",
+      "paths": [
+        ".runtime_actors[5]"
+      ]
+    },
+    {
+      "module": "EcoBiosphere",
+      "container_id": "EcoBiosphere.Records0.Drawer2",
+      "caption": "生态实验记录柜 · 3",
+      "pool": "research_records",
+      "paths": [
+        ".runtime_actors[6]"
+      ]
+    },
+    {
+      "module": "EcoBiosphere",
+      "container_id": "EcoBiosphere.Records1.Drawer0",
+      "caption": "生态实验记录柜 · 1",
+      "pool": "research_records",
+      "paths": [
+        ".runtime_actors[7]"
+      ]
+    },
+    {
+      "module": "EcoBiosphere",
+      "container_id": "EcoBiosphere.Records1.Drawer1",
+      "caption": "生态实验记录柜 · 2",
+      "pool": "research_records",
+      "paths": [
+        ".runtime_actors[8]"
+      ]
+    },
+    {
+      "module": "EcoBiosphere",
+      "container_id": "EcoBiosphere.Records1.Drawer2",
+      "caption": "生态实验记录柜 · 3",
+      "pool": "research_records",
+      "paths": [
+        ".runtime_actors[9]"
+      ]
+    },
+    {
+      "module": "EcoBiosphere",
+      "container_id": "EcoBiosphere.Sample0",
+      "caption": "封存样本运输箱",
+      "pool": "ecology_sealed_samples",
+      "paths": [
+        ".runtime_actors[10]"
+      ]
+    },
+    {
+      "module": "EcoBiosphere",
+      "container_id": "EcoBiosphere.Sample1",
+      "caption": "封存样本运输箱",
+      "pool": "ecology_sealed_samples",
+      "paths": [
+        ".runtime_actors[11]"
+      ]
+    },
+    {
+      "module": "EcoBiosphere",
+      "container_id": "EcoBiosphere.Sample2",
+      "caption": "封存样本运输箱",
+      "pool": "ecology_sealed_samples",
+      "paths": [
+        ".runtime_actors[12]"
+      ]
+    },
+    {
+      "module": "EcoBiosphere",
+      "container_id": "EcoBiosphere.Tote0",
+      "caption": "生态耗材周转箱",
+      "pool": "ecology_culture_stock",
+      "paths": [
+        ".runtime_actors[13]"
+      ]
+    },
+    {
+      "module": "EcoBiosphere",
+      "container_id": "EcoBiosphere.Tote1",
+      "caption": "生态耗材周转箱",
+      "pool": "ecology_culture_stock",
+      "paths": [
+        ".runtime_actors[14]"
+      ]
+    },
+    {
+      "module": "EcoBiosphere",
+      "container_id": "EcoBiosphere.Tote2",
+      "caption": "生态耗材周转箱",
+      "pool": "ecology_culture_stock",
+      "paths": [
+        ".runtime_actors[15]"
+      ]
+    },
+    {
+      "module": "EcoBiosphere",
+      "container_id": "EcoBiosphere.PPE0",
+      "caption": "应急防护用品柜",
+      "pool": "ecology_staff_supplies",
+      "paths": [
+        ".runtime_actors[16]"
+      ]
+    },
+    {
+      "module": "EcoBiosphere",
+      "container_id": "EcoBiosphere.PPE1",
+      "caption": "应急防护用品柜",
+      "pool": "ecology_staff_supplies",
+      "paths": [
+        ".runtime_actors[17]"
+      ]
+    },
+    {
+      "module": "SwitchgearGallery",
+      "container_id": "PowerTheme20261004RefineV2.SwitchgearGallery.PPE_01",
+      "caption": "供能站防护用品柜",
+      "pool": "power_staff_supplies",
+      "paths": [
+        ".runtime_actors[0]"
+      ]
+    },
+    {
+      "module": "SwitchgearGallery",
+      "container_id": "PowerTheme20261004RefineV2.SwitchgearGallery.Records_01_Drawer1",
+      "caption": "供能站检修记录 1",
+      "pool": "power_records",
+      "paths": [
+        ".runtime_actors[1]"
+      ]
+    },
+    {
+      "module": "SwitchgearGallery",
+      "container_id": "PowerTheme20261004RefineV2.SwitchgearGallery.Records_01_Drawer2",
+      "caption": "供能站检修记录 2",
+      "pool": "power_records",
+      "paths": [
+        ".runtime_actors[2]"
+      ]
+    },
+    {
+      "module": "SwitchgearGallery",
+      "container_id": "PowerTheme20261004RefineV2.SwitchgearGallery.Records_01_Drawer3",
+      "caption": "供能站检修记录 3",
+      "pool": "power_records",
+      "paths": [
+        ".runtime_actors[3]"
+      ]
+    },
+    {
+      "module": "GeneratorHall",
+      "container_id": "PowerTheme20261004RefineV2.GeneratorHall.PPE_02",
+      "caption": "供能站防护用品柜",
+      "pool": "power_staff_supplies",
+      "paths": [
+        ".runtime_actors[0]"
+      ]
+    },
+    {
+      "module": "GeneratorHall",
+      "container_id": "PowerTheme20261004RefineV2.GeneratorHall.MaintenanceToolbox.Ground",
+      "caption": "发电机检修工具箱",
+      "pool": "power_maintenance",
+      "paths": [
+        ".runtime_actors[1]"
+      ]
+    },
+    {
+      "module": "GeneratorHall",
+      "container_id": "PowerTheme20261004RefineV2.GeneratorHall.MaintenanceToolbox.Upper",
+      "caption": "高台检修工具箱",
+      "pool": "power_maintenance",
+      "paths": [
+        ".runtime_actors[2]"
+      ]
+    },
+    {
+      "module": "AccumulatorControl",
+      "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.PPE_03",
+      "caption": "总控室防护用品柜",
+      "pool": "power_staff_supplies",
+      "paths": [
+        ".runtime_actors[0]"
+      ]
+    },
+    {
+      "module": "AccumulatorControl",
+      "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.PPE_04",
+      "caption": "总控室防护用品柜",
+      "pool": "power_staff_supplies",
+      "paths": [
+        ".runtime_actors[1]"
+      ]
+    },
+    {
+      "module": "AccumulatorControl",
+      "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.Records_02_Drawer1",
+      "caption": "总控室检修记录 1",
+      "pool": "power_records",
+      "paths": [
+        ".runtime_actors[2]"
+      ]
+    },
+    {
+      "module": "AccumulatorControl",
+      "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.Records_02_Drawer2",
+      "caption": "总控室检修记录 2",
+      "pool": "power_records",
+      "paths": [
+        ".runtime_actors[3]"
+      ]
+    },
+    {
+      "module": "AccumulatorControl",
+      "container_id": "PowerTheme20261004RefineV2.AccumulatorControl.Records_02_Drawer3",
+      "caption": "总控室检修记录 3",
+      "pool": "power_records",
+      "paths": [
+        ".runtime_actors[4]"
+      ]
+    },
+    {
+      "module": "AccumulatorControl",
+      "container_id": "PowerTheme20261004RefineV2.Server.ControlServerRack01",
+      "caption": "服务器模块",
+      "pool": "server_hardware",
+      "paths": [
+        ".runtime_actors[15]"
+      ]
+    },
+    {
+      "module": "AccumulatorControl",
+      "container_id": "PowerTheme20261004RefineV2.Server.ControlServerRack02",
+      "caption": "服务器模块",
+      "pool": "server_hardware",
+      "paths": [
+        ".runtime_actors[16]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.VisitorLocker1",
+      "caption": "访客寄存柜 01",
+      "pool": "visitor_daily",
+      "paths": [
+        ".runtime_actors[0]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.VisitorLocker2",
+      "caption": "访客寄存柜 02",
+      "pool": "visitor_daily",
+      "paths": [
+        ".runtime_actors[1]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.VisitorLocker3",
+      "caption": "访客寄存柜 03",
+      "pool": "visitor_daily",
+      "paths": [
+        ".runtime_actors[2]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.VisitorLocker4",
+      "caption": "访客寄存柜 04",
+      "pool": "visitor_daily",
+      "paths": [
+        ".runtime_actors[3]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.VisitorLocker5",
+      "caption": "访客寄存柜 05",
+      "pool": "visitor_daily",
+      "paths": [
+        ".runtime_actors[4]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.VisitorLocker6",
+      "caption": "访客寄存柜 06",
+      "pool": "visitor_daily",
+      "paths": [
+        ".runtime_actors[5]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.ReceptionRecords0",
+      "caption": "访客记录 · 登记资料",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[6]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.ReceptionRecords1",
+      "caption": "访客记录 · 通行凭证",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[7]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.ReceptionRecords2",
+      "caption": "访客记录 · 接待档案",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[8]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.UpperRecordsSouth0",
+      "caption": "访客记录 · 登记资料",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[9]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.UpperRecordsSouth1",
+      "caption": "访客记录 · 通行凭证",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[10]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.UpperRecordsSouth2",
+      "caption": "访客记录 · 接待档案",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[11]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.UpperRecordsNorth0",
+      "caption": "访客记录 · 登记资料",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[12]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.UpperRecordsNorth1",
+      "caption": "访客记录 · 通行凭证",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[13]"
+      ]
+    },
+    {
+      "module": "FacilityReceptionHall",
+      "container_id": "ReceptionHall20261006.UpperRecordsNorth2",
+      "caption": "访客记录 · 接待档案",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[14]"
+      ]
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.PPE0",
+      "caption": "中转厅 · 防护用品 1",
+      "pool": "ppe_daily",
+      "paths": [
+        ".runtime_actors[0]"
+      ]
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.PPE1",
+      "caption": "中转厅 · 防护用品 2",
+      "pool": "ppe_daily",
+      "paths": [
+        ".runtime_actors[1]"
+      ]
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.PPE2",
+      "caption": "中转厅 · 防护用品 3",
+      "pool": "ppe_daily",
+      "paths": [
+        ".runtime_actors[2]"
+      ]
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.PPE3",
+      "caption": "中转厅 · 防护用品 4",
+      "pool": "ppe_daily",
+      "paths": [
+        ".runtime_actors[3]"
+      ]
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.PPE4",
+      "caption": "中转厅 · 防护用品 5",
+      "pool": "ppe_daily",
+      "paths": [
+        ".runtime_actors[4]"
+      ]
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.PPE5",
+      "caption": "中转厅 · 防护用品 6",
+      "pool": "ppe_daily",
+      "paths": [
+        ".runtime_actors[5]"
+      ]
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Records00",
+      "caption": "区域通行记录",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[6]"
+      ]
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Records01",
+      "caption": "区域通行记录",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[7]"
+      ]
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Records02",
+      "caption": "区域通行记录",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[8]"
+      ]
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Records10",
+      "caption": "区域通行记录",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[9]"
+      ]
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Records11",
+      "caption": "区域通行记录",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[10]"
+      ]
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Records12",
+      "caption": "区域通行记录",
+      "pool": "office_documents",
+      "paths": [
+        ".runtime_actors[11]"
+      ]
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Tool0",
+      "caption": "中转厅检修工具",
+      "pool": "maintenance_parts",
+      "paths": [
+        ".runtime_actors[12]"
+      ]
+    },
+    {
+      "module": "FacilityTransit",
+      "container_id": "FacilityTransit.Tool1",
+      "caption": "中转厅检修工具",
+      "pool": "maintenance_parts",
+      "paths": [
+        ".runtime_actors[13]"
+      ]
+    },
+    {
+      "module": "MedicalDoctorOffice",
+      "container_id": "MedicalOffice.RecordsCabinet1",
+      "caption": "病历档案柜",
+      "pool": "research_records",
+      "paths": [
+        ".runtime_actors[0]"
+      ]
+    },
+    {
+      "module": "MedicalDoctorOffice",
+      "container_id": "MedicalOffice.RecordsCabinet2",
+      "caption": "病历档案柜",
+      "pool": "research_records",
+      "paths": [
+        ".runtime_actors[1]"
+      ]
+    },
+    {
+      "module": "MedicalDoctorOffice",
+      "container_id": "MedicalOffice.RecordsCabinet3",
+      "caption": "病历档案柜",
+      "pool": "research_records",
+      "paths": [
+        ".runtime_actors[2]"
+      ]
+    },
+    {
+      "module": "MedicalDoctorOffice",
+      "container_id": "MedicalOffice.ChiefMedicalLibrary",
+      "caption": "主任医学书柜",
+      "pool": "research_records",
+      "paths": [
+        ".runtime_actors[3]"
+      ]
+    },
+    {
+      "module": "MedicalDoctorOffice",
+      "container_id": "MedicalOffice.TeamReferenceShelf",
+      "caption": "医生参考资料",
+      "pool": "research_records",
+      "paths": [
+        ".runtime_actors[4]"
+      ]
+    },
+    {
+      "module": "MedicalDoctorOffice",
+      "container_id": "MedicalOffice.TeamClinicalShelf",
+      "caption": "临床记录书架",
+      "pool": "research_records",
+      "paths": [
+        ".runtime_actors[5]"
+      ]
+    },
+    {
+      "module": "MedicalDoctorOffice",
+      "container_id": "MedicalOffice.InstrumentCart1",
+      "caption": "诊疗器械推车",
+      "pool": "medical_treatment_cart",
+      "paths": [
+        ".runtime_actors[6]"
+      ]
+    },
+    {
+      "module": "MedicalDoctorOffice",
+      "container_id": "MedicalOffice.InstrumentCart2",
+      "caption": "诊疗器械推车",
+      "pool": "medical_treatment_cart",
+      "paths": [
+        ".runtime_actors[7]"
+      ]
+    },
+    {
+      "module": "MedicalDoctorOffice",
+      "container_id": "MedicalOffice.InstrumentCart3",
+      "caption": "诊疗器械推车",
+      "pool": "medical_treatment_cart",
+      "paths": [
+        ".runtime_actors[8]"
+      ]
+    },
+    {
+      "module": "MedicalDoctorOffice",
+      "container_id": "MedicalOffice.ClinicalFirstAid",
+      "caption": "诊室急救柜",
+      "pool": "medical_first_aid",
+      "paths": [
+        ".runtime_actors[9]"
+      ]
+    }
+  ],
+  "missing_containers": [
+    {
+      "module": "Drainage",
+      "container_id": "Hospital.Drainage.Tools.Entry",
+      "caption": "排水检修工具箱",
+      "pool": null,
+      "paths": [
+        ".warehouse_containers.groups[0].slots[0].variants[0].containers[0]",
+        ".warehouse_containers.groups[0].slots[0].variants[1].containers[0]",
+        ".warehouse_containers.groups[0].slots[0].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "Drainage",
+      "container_id": "Hospital.Drainage.Tools.Service",
+      "caption": "排水检修工具箱",
+      "pool": null,
+      "paths": [
+        ".warehouse_containers.groups[0].slots[1].variants[0].containers[0]",
+        ".warehouse_containers.groups[0].slots[1].variants[1].containers[0]",
+        ".warehouse_containers.groups[0].slots[1].variants[2].containers[0]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_101_0",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[0]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_101_1",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[1]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_102_0",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[2]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_102_1",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[3]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_103_0",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[4]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_103_1",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[5]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_104_0",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[6]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_104_1",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[7]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_105_0",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[8]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_105_1",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[9]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_106_0",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[10]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Locker_106_1",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[11]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookcase_101",
+      "caption": "员工书柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[12]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookshelf_101",
+      "caption": "员工书架",
+      "pool": null,
+      "paths": [
+        ".scene_containers[13]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside0_101",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[14]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside1_101",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[15]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookcase_102",
+      "caption": "员工书柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[16]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookshelf_102",
+      "caption": "员工书架",
+      "pool": null,
+      "paths": [
+        ".scene_containers[17]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside0_102",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[18]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside1_102",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[19]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookcase_103",
+      "caption": "员工书柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[20]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookshelf_103",
+      "caption": "员工书架",
+      "pool": null,
+      "paths": [
+        ".scene_containers[21]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside0_103",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[22]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside1_103",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[23]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookcase_104",
+      "caption": "员工书柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[24]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookshelf_104",
+      "caption": "员工书架",
+      "pool": null,
+      "paths": [
+        ".scene_containers[25]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside0_104",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[26]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside1_104",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[27]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookcase_105",
+      "caption": "员工书柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[28]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookshelf_105",
+      "caption": "员工书架",
+      "pool": null,
+      "paths": [
+        ".scene_containers[29]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside0_105",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[30]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside1_105",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[31]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookcase_106",
+      "caption": "员工书柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[32]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bookshelf_106",
+      "caption": "员工书架",
+      "pool": null,
+      "paths": [
+        ".scene_containers[33]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside0_106",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[34]"
+      ]
+    },
+    {
+      "module": "StaffDormitory",
+      "container_id": "StaffDormitory.Bedside1_106",
+      "caption": "床头柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[35]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_0",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[0]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_1",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[1]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_2",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[2]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_3",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[3]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_4",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[4]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_5",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[5]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_6",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[6]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_7",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[7]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_8",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[8]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_9",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[9]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_10",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[10]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_11",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[11]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_12",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[12]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_13",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[13]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_14",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[14]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_15",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[15]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_16",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[16]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_17",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[17]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_18",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[18]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_19",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[19]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_20",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[20]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_21",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[21]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_22",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[22]"
+      ]
+    },
+    {
+      "module": "StaffChangingShowers",
+      "container_id": "StaffChangingShowers.ChangingLocker_23",
+      "caption": "",
+      "pool": null,
+      "paths": [
+        ".scene_containers[23]"
+      ]
+    },
+    {
+      "module": "StaffRecreation",
+      "container_id": "StaffRecreation.CounterCabinet_0",
+      "caption": "茶水台储物柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[0]"
+      ]
+    },
+    {
+      "module": "StaffRecreation",
+      "container_id": "StaffRecreation.CounterCabinet_1",
+      "caption": "茶水台储物柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[1]"
+      ]
+    },
+    {
+      "module": "StaffRecreation",
+      "container_id": "StaffRecreation.CounterCabinet_2",
+      "caption": "茶水台储物柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[2]"
+      ]
+    },
+    {
+      "module": "StaffRecreation",
+      "container_id": "StaffRecreation.CounterCabinet_3",
+      "caption": "茶水台储物柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[3]"
+      ]
+    },
+    {
+      "module": "StaffRecreation",
+      "container_id": "StaffRecreation.CounterCabinet_4",
+      "caption": "茶水台储物柜",
+      "pool": null,
+      "paths": [
+        ".scene_containers[4]"
+      ]
+    },
+    {
+      "module": "StaffRecreation",
+      "container_id": "StaffRecreation.FridgeLower",
+      "caption": "冰箱冷藏室",
+      "pool": null,
+      "paths": [
+        ".scene_containers[5]"
+      ]
+    },
+    {
+      "module": "StaffRecreation",
+      "container_id": "StaffRecreation.FridgeUpper",
+      "caption": "冰箱冷冻室",
+      "pool": null,
+      "paths": [
+        ".scene_containers[6]"
+      ]
+    }
+  ],
+  "dynamic_container_family": {
+    "id": "Hospital.Bedside",
+    "pool": "medical_patient_supplies",
+    "runtime_identity": "Hospital.Bedside.DGN_*.Seed*.*.*",
+    "implementation": "Source/FPSGAME/Dungeons/WardBedScatter.cpp:211; Source/FPSGAME/UI/ColdSteelSceneLoot.cpp:89"
+  },
+  "treasure_chests": [
+    {
+      "module": "Treasure",
+      "identity": "gamedev_dungeon_treasure",
+      "role": "treasure_chest",
+      "interaction_enabled": true,
+      "position": [
+        0,
+        -512,
+        0
+      ],
+      "loot_system": "dungeon_loot.json"
+    },
+    {
+      "module": "BossPumpHall",
+      "identity": "gamedev_dungeon_treasure",
+      "role": "final_reward_chest",
+      "interaction_enabled": true,
+      "position": [
+        230,
+        -3180,
+        0.8
+      ],
+      "loot_system": "dungeon_loot.json"
+    },
+    {
+      "module": "AbandonedTransitStation",
+      "identity": "station_upper_platform",
+      "role": "station_ground_tunnel",
+      "interaction_enabled": true,
+      "position": [
+        2960,
+        -780,
+        0.5
+      ],
+      "loot_system": "dungeon_loot.json"
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "identity": "hospital_rear_gallery_treasure",
+      "role": "hospital_rear_gallery",
+      "interaction_enabled": false,
+      "position": [
+        1151.011,
+        -336.725,
+        216.3
+      ],
+      "loot_system": "PendingLoot: interaction disabled"
+    },
+    {
+      "module": "AbandonedFlueGasStation",
+      "identity": "flue_under_platform",
+      "role": "flue_under_platform",
+      "interaction_enabled": true,
+      "position": [
+        300,
+        -1095,
+        0.5
+      ],
+      "loot_system": "dungeon_loot.json"
+    },
+    {
+      "module": "StaffRecreation",
+      "identity": "staff_activity_restroom",
+      "role": "staff_restroom_cache",
+      "interaction_enabled": true,
+      "position": [
+        1035,
+        -915,
+        0.4
+      ],
+      "loot_system": "dungeon_loot.json"
+    },
+    {
+      "module": "EcoBiosphere",
+      "identity": "ecology_upper_platform",
+      "role": "ecology_upper_platform",
+      "interaction_enabled": true,
+      "position": [
+        0.0,
+        -1510.0,
+        300.3
+      ],
+      "loot_system": "dungeon_loot.json"
+    },
+    {
+      "module": "AccumulatorControl",
+      "identity": "power_outer_gallery_treasure",
+      "role": "power_outer_gallery",
+      "interaction_enabled": true,
+      "position": [
+        0,
+        2100,
+        384.3
+      ],
+      "loot_system": "dungeon_loot.json"
+    }
+  ],
+  "saved_vs_author_treasure_differences": [
+    {
+      "module": "AbandonedTransitStation",
+      "identity": "station_upper_platform",
+      "fields": {
+        "position": {
+          "saved_map": [
+            2960,
+            -780,
+            0.5
+          ],
+          "author_catalog": [
+            2650,
+            0,
+            480.8
+          ]
+        },
+        "role": {
+          "saved_map": "station_ground_tunnel",
+          "author_catalog": "station_upper_platform"
+        }
+      }
+    },
+    {
+      "module": "AbandonedAnatomyTheatre",
+      "identity": "hospital_rear_gallery_treasure",
+      "fields": {
+        "interaction_enabled": {
+          "saved_map": false,
+          "author_catalog": true
+        },
+        "position": {
+          "saved_map": [
+            1151.011,
+            -336.725,
+            216.3
+          ],
+          "author_catalog": [
+            0,
+            -1075,
+            216.3
+          ]
+        }
+      }
+    }
+  ],
+  "confirmed_unfinished": [
+    "StaffDormitory/StaffChangingShowers/StaffRecreation: 67 unbound search IDs",
+    "Drainage: Hospital.Drainage.Tools.Entry and Hospital.Drainage.Tools.Service unbound",
+    "AbandonedAnatomyTheatre hospital_rear_gallery_treasure: saved interaction_enabled=false; source authoring recipe also explicitly disables it",
+    "Staff living encounter: no region dispatch, objective, boss defeat state or theme gate binding"
+  ],
+  "not_missing": [
+    "Freight 68, medical 28 plus dynamic bedside family, incineration 40, ecology 32, power 14, halls 29 all have pool bindings",
+    "Final HeQue spawn, boss objective, final chest unlock and return progression exist in current source",
+    "Staff recreation separate treasure chest uses common dungeon loot; its 7 ordinary search entries remain unbound"
+  ],
+  "other_notes": [
+    "AbandonedDataArchive has no search-container specifications or dedicated encounter dispatch; design intent cannot be established from absence alone",
+    "One preplaced DungeonStorageCabinet is the player warehouse, not an unconfigured loot box",
+    "Commemorative watch remains in the earlier design list but has no current item definition or loot entry",
+    "Candidate ID counts are not simultaneous spawned counts; Drainage appears in 81 of the 120 saved layout-bank entries",
+    "The author catalog is not identical to the saved map; medical treasure disabled state and freight treasure placement differ"
+  ],
+  "runtime_tested_this_audit": false,
+  "production_files_modified": false
+}

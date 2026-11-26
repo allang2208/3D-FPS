@@ -1,4 +1,5 @@
 #include "FPSIceWall.h"
+#include "../Monsters/UnknownSpellCombat.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "FPSIceWallComponent.h"
 #include "IceWallPlacement.h"
@@ -13,6 +14,7 @@
 #include "Engine/World.h"
 #include "Engine/OverlapResult.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/GameStateBase.h"
 #include "GameFramework/PlayerController.h"
 #include "Components/CapsuleComponent.h"
 #include "Camera/PlayerCameraManager.h"
@@ -49,10 +51,11 @@ void AFPSIceWall::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifet
     DOREPLIFETIME(AFPSIceWall,NetReleaseOrigin);
     DOREPLIFETIME(AFPSIceWall,NetState);
     DOREPLIFETIME(AFPSIceWall,NetStateAge);
+    DOREPLIFETIME(AFPSIceWall,NetStateAt);
     DOREPLIFETIME(AFPSIceWall,NetDropHeight);
     DOREPLIFETIME(AFPSIceWall,NetHealth);
-    DOREPLIFETIME(AFPSIceWall,Health);
-    DOREPLIFETIME(AFPSIceWall,MaxHealth);
+    // Health is mirrored by OnRep_Health; MaxHealth comes from NetTuning.
+    // These local presentation fields are not UPROPERTY(Replicated).
 }
 
 void AFPSIceWall::Initialize(UFPSIceWallComponent* Ability,const FIceWallCast& Cast,
@@ -149,7 +152,7 @@ void AFPSIceWall::Launch(const FVector& Origin,const FIceWallPlacement& Placemen
     if(HasAuthority())
     {
         NetPlan=Plan;NetTuning=Tuning;NetComponent=Component.Get();NetReleaseOrigin=Origin;
-        NetState=uint8(EState::Rising);NetStateAge=0;
+        NetState=uint8(EState::Rising);NetStateAge=0;NetStateAt=GetWorld()->GetTimeSeconds();
     }
 }
 
@@ -189,7 +192,7 @@ void AFPSIceWall::BeginDrop()
     PreviousMistPosition=GetActorLocation();UpdateColdMist(0);
     if(ColdMist)IceWallPlacement::SetEffectProfile(ColdMist,Plan);
     if(ColdMist)ColdMist->Activate(true);
-    if(HasAuthority()){NetState=uint8(EState::Falling);NetStateAge=Age;NetDropHeight=DropHeight;}
+    if(HasAuthority()){NetState=uint8(EState::Falling);NetStateAge=Age;NetStateAt=GetWorld()->GetTimeSeconds();NetDropHeight=DropHeight;}
 }
 
 void AFPSIceWall::Land()
@@ -209,7 +212,7 @@ void AFPSIceWall::Land()
     EnableTerrainBarriers();
     Health=MaxHealth;SetCanBeDamaged(true);
     State=EState::Solid;Age=0;AuraAge=0;SetActorTickInterval(.1f);
-    if(HasAuthority()){NetState=uint8(EState::Solid);NetStateAge=0;NetHealth=Health;}
+    if(HasAuthority()){NetState=uint8(EState::Solid);NetStateAge=0;NetStateAt=GetWorld()->GetTimeSeconds();NetHealth=Health;}
 }
 
 void AFPSIceWall::EmitLandingFX()
@@ -265,7 +268,7 @@ void AFPSIceWall::ExtrudeMonsters()
     for(auto* Target:Ordered)
     {
         const auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
-        if(!Combat||Combat->IsDead())continue;
+        if((!Combat||Combat->IsDead())&&!UnknownSpell::IsTarget(GetInstigator(),Target))continue;
         if(IceWallPlacement::Displace(GetWorld(),Target,this,Plan,Tuning,Occupants,Reserved))continue;
         // A trapped monster cannot veto the slam. Keep only this actor's movement
         // clear of this wall until it finds an exit; all other wall collision stays active.
@@ -282,7 +285,7 @@ void AFPSIceWall::RetryExtrusion()
     ExtrusionCursor%=PendingMonsters.Num();
     auto* Target=PendingMonsters[ExtrusionCursor].Get();
     const auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
-    bool Clear=!Target||!Combat||Combat->IsDead()||!IceWallPlacement::Occupies(Target,Plan,Tuning);
+    bool Clear=!Target||((!Combat||Combat->IsDead())&&!UnknownSpell::IsTarget(GetInstigator(),Target))||!IceWallPlacement::Occupies(Target,Plan,Tuning);
     if(!Clear)
     {
         const auto Occupants=IceWallPlacement::Monsters(GetWorld(),Plan,Tuning);
@@ -475,7 +478,8 @@ void AFPSIceWall::Shatter()
     // 联机：先播报碎裂态再延时销毁——远端 OnRep 有一帧窗口播同款碎裂 FX。
     if(GetWorld()&&GetWorld()->GetNetMode()!=NM_Standalone)
     {
-        NetState=uint8(EState::Shattered);for(const auto& Mesh:Blocks)Mesh->SetVisibility(false,true);
+        NetState=uint8(EState::Shattered);NetStateAge=0;NetStateAt=GetWorld()->GetTimeSeconds();
+        for(const auto& Mesh:Blocks)Mesh->SetVisibility(false,true);
         SetLifeSpan(.5f);return;
     }
     Destroy();
@@ -484,7 +488,7 @@ void AFPSIceWall::Shatter()
 // ══ 远端副本（非权威）：自载素材建布局，OnRep 状态重演 ═════════════════
 void AFPSIceWall::NetInit()
 {
-    if(bNetInit||!NetPlan.bValid||NetTuning.Count<=0||!NetComponent)return;
+    if(bNetInit||!NetPlan.bValid||NetTuning.Count<=0||!NetComponent||NetStateAt<0||!GetWorld()->GetGameState())return;
     // 素材自载——与组件 BeginPlay 同路径，远端副本不走 Initialize。
     for(int32 I=1;I<=4;++I)
     {
@@ -511,7 +515,7 @@ void AFPSIceWall::OnRep_State()
     if(!bNetInit)return; // 初包先于 NetInit 到达时由 NetInit 尾调兜底重演
     const auto S=static_cast<EState>(NetState);
     if(S==State)return;
-    const auto Was=State;State=S;Age=NetStateAge;
+    const auto Was=State;State=S;Age=NetworkAge();
     if(S==EState::Falling)
     {
         State=Was; // 先恢复供 BuildLayout 读
@@ -528,7 +532,7 @@ void AFPSIceWall::OnRep_State()
         for(const auto& Mesh:Blocks)Mesh->SetVisibility(false,true);
         Barrier->SetCollisionEnabled(ECollisionEnabled::NoCollision);Barrier->SetCanEverAffectNavigation(false);
         for(const auto& Box:TerrainBarriers){Box->SetCollisionEnabled(ECollisionEnabled::NoCollision);Box->SetCanEverAffectNavigation(false);}
-        if(Was!=EState::Seed&&Was!=EState::Preview)
+        if(Was!=EState::Seed&&Was!=EState::Preview&&Age<.75f)
         {
             if(BreakSound)UGameplayStatics::PlaySoundAtLocation(this,BreakSound,GetActorLocation(),.65f);
             if(BreakFX)
@@ -550,7 +554,9 @@ void AFPSIceWall::OnRep_Health()
 void AFPSIceWall::NetLanded()
 {
     SetActorLocationAndRotation(Plan.Location,Plan.Rotation);
-    EmitLandingFX();ShakeNearbyPlayers();EnableTerrainBarriers();
+    // Opening an old wall's channel must not replay its impact or camera shake.
+    if(Age<.75f){EmitLandingFX();ShakeNearbyPlayers();}
+    EnableTerrainBarriers();
     Health=NetHealth>0?NetHealth:MaxHealth;SetActorTickInterval(.1f);
     if(ColdMist){ColdMist->SetVariableFloat(TEXT("User.WallPhase"),1.f);}
     UpdateColdMist(0);
@@ -558,10 +564,15 @@ void AFPSIceWall::NetLanded()
 void AFPSIceWall::NetTick(float Delta)
 {
     if(!bNetInit){NetInit();if(!bNetInit)return;}
-    Age+=Delta;AuraAge+=Delta;
+    Age=FMath::Max(Age,NetworkAge());AuraAge+=Delta;
     // 升降位姿由 ReplicateMovement 搬运；这里只管冷气持续发射与到期兜底。
     if(State==EState::Solid&&Age>=Tuning.Duration+2.f){Destroy();return;} // 服务端销毁超时兜底
     UpdateColdMist(Delta);
+}
+float AFPSIceWall::NetworkAge() const
+{
+    const auto* GS=GetWorld()->GetGameState();
+    return NetStateAge+float(FMath::Max(0.,(GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds())-NetStateAt));
 }
 void AFPSIceWall::EndPlay(EEndPlayReason::Type Reason)
 {

@@ -140,6 +140,60 @@
             }
           ],
           "special_effects": []
+        },
+        {
+          "id": "knife_pommel_chenheng",
+          "name": "沉衡柄尾",
+          "description": "发蓝钢尾座嵌入弧形钨色配重，窄铜带沿掌根收边，尾孔内衬铜圈。",
+          "appearance": "发蓝钢尾座嵌入弧形钨色配重，窄铜带沿掌根收边，尾孔内衬铜圈。",
+          "stats": {
+            "physical_damage_mult": 1.1,
+            "heavy_damage_mult": 1.25,
+            "stamina_mult": 1.1
+          },
+          "effects": [
+            {
+              "text": "物理攻击+10%",
+              "benefit": 1
+            },
+            {
+              "text": "重击伤害+25%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击体力消耗+10%",
+              "benefit": -1
+            }
+          ],
+          "special_effects": []
+        },
+        {
+          "id": "knife_pommel_yangu",
+          "name": "燕骨柄尾",
+          "description": "钛灰尾座以斜向弧筋分出两道贯穿减重窗，圆角外缘衔接掌根。",
+          "appearance": "钛灰尾座以斜向弧筋分出两道贯穿减重窗，圆角外缘衔接掌根。",
+          "stats": {
+            "attack_speed_mult": 1.15,
+            "stamina_mult": 0.85,
+            "heavy_charge_speed_bonus": 0.2
+          },
+          "effects": [
+            {
+              "text": "攻击速度+15%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击体力消耗-15%",
+              "benefit": 1
+            },
+            {
+              "text": "重击蓄力速度+20%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "双持的两把武器都安装燕骨柄尾时，双持重击的蓄力速度额外乘以1.10。"
+          ]
         }
       ]
     },

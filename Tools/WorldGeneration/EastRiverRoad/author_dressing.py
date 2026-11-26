@@ -48,3 +48,4 @@ for label,group in [('Moss','NordicMoss'),('Soil','NordicForestGroundRootsCoarse
         if not ed.connect_material_property(src,pin,prop):raise RuntimeError(str(prop))
     ed.recompile_material(obj)
     save(obj)
+

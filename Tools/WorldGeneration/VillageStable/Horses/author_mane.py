@@ -168,3 +168,4 @@ bpy.ops.export_scene.fbx(filepath=str(dest/('SK_Warhorse_Mane.fbx' if style=='Or
     axis_forward='-Y',axis_up='Z',use_mesh_modifiers=False,path_mode='STRIP',bake_anim=False,
     mesh_smooth_type='OFF' if style=='Original' else 'FACE')
 print('Mane',len(verts),len(faces),'crest',[(round(float(z),2),round(surface(0,z)[0].z,3)) for z in (.22,.45,.72,.955)])
+

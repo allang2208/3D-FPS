@@ -17,16 +17,28 @@ class FPSGAME_API AFPSGAMEPlayerController : public APlayerController
 public:
     AFPSGAMEPlayerController();
     void OpenGameMenu();
+    void OpenWorldMap();
+    const struct FColdSteelMapMarkers* GetMapMarkers() const;
     void CloseGameMenu();
     bool IsGameMenuOpen() const;
     bool CanOpenGameMenu() const;
     void SetHubMusicUserVolume(float Volume);
+    void RefreshRegionMusic();
     UFUNCTION(Server,Reliable) void ServerUseApartmentControl(class AApartmentDeviceControl* Control);
+    UFUNCTION(Server,Reliable) void ServerUseHeQuePump(class AHeQuePumpControl* Control);
+    UFUNCTION(Server,Reliable) void ServerRepairVillageDefense(class AVillageDefenseSection* Section,APawn* RequestPawn,uint32 RequestId);
+    UFUNCTION(Client,Reliable) void ClientVillageRepairResult(uint32 RequestId,bool bRepaired,const FText& Message);
+    void RequestVillageRepair(class AVillageDefenseSection* Section);
+    bool IsInBuildMode() const;
+    class UVillageSiegeControl* GetSiegeControl() const { return SiegeControl; }
     void ToggleWeatherPanel();
     void ToggleDevelopmentPanel();
     UDevelopmentSpawnComponent* GetDevelopmentSpawner() const { return DevelopmentSpawner; }
+    class UChapelDialogueComponent* GetChapelDialogue() const { return ChapelDialogue; }
     /** 开发面板打开期间与背包共用右侧 HUD 让位规则。 */
     UColdSteelHUDWidget* GetColdSteelHUD() const { return ColdSteelHUD; }
+    /** 训练靶命中只回传给实际攻击者的 HUD，避免全服广播/客户端过滤。 */
+    UFUNCTION(Client,Unreliable) void ClientPracticeHit(AActor* Target,FVector Point,float Damage,bool bBullseye,float MagicApplied);
     /** Live item thumbnails are only produced while a consuming panel is open. */
     bool IsItemIconPanelOpen() const;
     /** ALT exposes the HUD cursor without suspending the held weapon/action. */
@@ -46,10 +58,17 @@ public:
     void CloseAlchemy();
     /** Manual development practice entry; never consumes materials or grants rewards. */
     bool OpenEnhancement(const FString& Instance=TEXT(""));
+    bool OpenEnhancement(AActor* Station,const FString& Instance=TEXT(""));
+    bool IsEnhancementOpen() const { return EnhancementPanel!=nullptr; }
+    bool IsEnhancementSessionValid() const;
+    AActor* GetEnhancementStation() const;
+    bool IsEnhancementPanelUnderLocation(FVector2D Position) const;
+    bool HandleEnhancementItemDrop(class UColdSteelItemDrag* Drag,FVector2D Position);
     void CloseEnhancement();
     UFUNCTION(BlueprintCallable, Category="Cold Steel UI") bool OpenExpedition();
     UFUNCTION(BlueprintCallable, Category="Cold Steel UI") void CloseExpedition();
     void PrepareExpeditionEquipment();
+    void ResumeExpeditionAfterEquipment();
     void RunEnhancementAudit();
     void RunM4GunsmithAudit();
     void RunM4DrumAudit();
@@ -63,32 +82,45 @@ protected:
     virtual void BeginPlay() override;
     virtual void PlayerTick(float DeltaTime) override;
     virtual void UpdateRotation(float DeltaTime) override;
+    virtual void UpdateHiddenComponents(const FVector& ViewLocation,TSet<FPrimitiveComponentId>& HiddenComponents) override;
     virtual void SetupInputComponent() override;
     virtual bool InputKey(const FInputKeyEventArgs& Params) override;
 
 private:
+    uint32 VillageRepairRequestId=0;
+    TWeakObjectPtr<APawn> VillageRepairPawn;
+    TMap<uint32,TWeakObjectPtr<AVillageDefenseSection>> PendingVillageRepairs;
+    TWeakObjectPtr<AVillageDefenseSection> RecentlyRepairedSection;
+    double RepairedSectionRetryTime=0.;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelGameMenuWidget> GameMenu;
     bool bGameMenuOwnsInput = false;
     bool bGameMenuOwnsPause = false;
+    bool bMapReturnToCursor = false;
     UPROPERTY(VisibleAnywhere, Category="Development") TObjectPtr<UDevelopmentSpawnComponent> DevelopmentSpawner;
-    /** 主神空间（Hub 地图）驻留 BGM 组件：随控制器存活、换图自动销毁。 */
+    UPROPERTY(VisibleAnywhere, Category="NPC") TObjectPtr<class UChapelDialogueComponent> ChapelDialogue;
+    /** 当前地图 BGM（主神空间／随机地牢）；沿用 HubMusic 名称兼容现有音量设置入口。 */
     UPROPERTY(Transient) TObjectPtr<class UAudioComponent> HubMusic;
+    FString RegionMusicPath;
+    uint32 RegionMusicSerial=0;
+    float HubMusicUserVolume=1.f;
     /** 主神空间测试宝箱（2026-10-02）：出生点旁生成一只地牢宝箱（DungeonTreasure.HubTest），仅 Hub 调用。 */
     void SpawnHubTestChest();
     /** 主神空间训练靶（2026-10-02）：出生点前方 5.5m 生成可命中木架靶（GodSpace.PracticeTarget），仅 Hub 调用。 */
     void SpawnHubPracticeTarget();
+    UPROPERTY(VisibleAnywhere,Category="Building") TObjectPtr<class UVillageSiegeControl> SiegeControl;
     UPROPERTY(VisibleAnywhere,Category="Building") TObjectPtr<class UVoxelBuildComponent> VoxelBuilder;
     /** -VoxelBuildAudit 时创建的建筑系统验收运行器。 */
     UPROPERTY(Transient) TObjectPtr<class UVoxelBuildAudit> VoxelBuildAudit;
     FTimerHandle VoxelBuildAuditTimer;
-    bool bScopePanelsHidden=false;
-    TMap<TWeakObjectPtr<class UUserWidget>,uint8> ScopePanelVisibility;
     UPROPERTY(Transient) TObjectPtr<class UM4GunsmithWidget> GunsmithPanel;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelEnhancementWidget> EnhancementPanel;
-    bool bEnhancementReturnToInventory=false;
+    bool bEnhancementReturnToInventory=false,bEnhancementReturnToCursor=false;
+    UPROPERTY(Transient) TObjectPtr<class AEnhancementWorldView> EnhancementWorld;
+    TWeakObjectPtr<AActor> EnhancementStation;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelExpeditionWidget> ExpeditionPanel;
     bool bExpeditionReturnToInventory=false;
     bool bExpeditionReturnToCursor=false;
+    bool bExpeditionEquipmentOpen=false;
     void ToggleInventory();
     void ToggleTimelineInteraction();
     void CaptureTimelineAudit(const FString& Filename, int32 State);

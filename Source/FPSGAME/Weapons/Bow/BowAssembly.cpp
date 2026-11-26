@@ -10,7 +10,7 @@
 namespace
 {
 const FName RootTag(TEXT("BowAssembly")),PartTag(TEXT("BowAssemblyPart"));
-const TCHAR* BowAssemblySlots[]={TEXT("riser"),TEXT("grip"),TEXT("arrow_rest"),TEXT("sight"),TEXT("string")};
+const TCHAR* BowAssemblySlots[]={TEXT("riser"),TEXT("grip"),TEXT("arrow_rest"),TEXT("sight"),TEXT("sight_zoom"),TEXT("stabilizer"),TEXT("string")};
 const TCHAR* BowAssemblyCylinder=TEXT("/Engine/BasicShapes/Cylinder.Cylinder");
 FString Field(const TCHAR* Slot,const TCHAR* Suffix){return FString::Printf(TEXT("bow_part_%s_%s"),Slot,Suffix);}
 FString Text(const FColdSteelItem& I,const TCHAR* Slot,const TCHAR* Suffix){return ColdSteelInventory::Text(I,*Field(Slot,Suffix));}
@@ -31,7 +31,7 @@ FString ColdSteelBowAssembly::Key(const FColdSteelItem& I)
     }
     Keys.Sort();auto Visual=MakeShared<FJsonObject>();for(const auto& K:Keys)Visual->SetField(K,Data->Values.FindChecked(*K));
     FString Encoded;FJsonSerializer::Serialize(Visual,TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Encoded));
-    return TEXT("bow-v15|")+I.Definition+TEXT("|")+Encoded;
+    return TEXT("bow-v16|")+I.Definition+TEXT("|")+Encoded;
 }
 void ColdSteelBowAssembly::GatherResources(const FColdSteelItem& I,TArray<FSoftObjectPath>& Out)
 {
@@ -104,6 +104,24 @@ bool ColdSteelBowAssembly::Apply(UStaticMeshComponent* Root,const FColdSteelItem
         {
             auto* C=NewPart(Asset);const FVector R=Vector(I,*Field(Slot,TEXT("rotation_deg")));
             C->SetRelativeTransform(FTransform(FRotator(R.X,R.Y,R.Z),Vector(I,*Field(Slot,TEXT("location_cm"))),FVector(ColdSteelInventory::Number(I,*Field(Slot,TEXT("scale")),1))));Material(C,Slot);
+            if(FCString::Strcmp(Slot,TEXT("string"))==0)
+            {
+                if(auto* String=Cast<UPoseableMeshComponent>(C))
+                {
+                    // The live bow drives these bones each frame. Static assemblies need
+                    // the host's resting pose too when a string is shared across bow sizes.
+                    const auto FitAnchor=[&](FName Bone,const TCHAR* FieldName)
+                    {
+                        if(String->GetBoneIndex(Bone)==INDEX_NONE||ColdSteelInventory::Text(I,FieldName).IsEmpty())return;
+                        const FVector Point=String->GetRelativeTransform().InverseTransformPosition(Vector(I,FieldName));
+                        String->SetBoneLocationByName(Bone,Point,EBoneSpaces::ComponentSpace);
+                    };
+                    FitAnchor(TEXT("string_upper"),TEXT("nock_upper_cm"));
+                    FitAnchor(TEXT("string_nock"),TEXT("brace_nock_cm"));
+                    FitAnchor(TEXT("string_lower"),TEXT("nock_lower_cm"));
+                    String->RefreshBoneTransforms();
+                }
+            }
         }
     }
     if(!Mesh(TEXT("string")))

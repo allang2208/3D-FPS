@@ -1,5 +1,7 @@
 #include "VoxelBuildWidget.h"
 #include "VoxelBuildComponent.h"
+#include "VoxelBuildPlacementPrivate.h"
+#include "VillageBuildDefense.h"
 #include "VoxelBuildIcons.h"
 #include "../UI/ColdSteelUIStyle.h"
 #include "../UI/GunsmithUIStyle.h"
@@ -37,20 +39,6 @@
 using namespace VoxelBuildWidgetLayoutPrivate;
 
 
-// Pixel sizes follow Docs/UI/ui-cold-steel-design-system.md (20/16/14/12 tiers).
-namespace
-{
-    // Number row while the drawer is focused: the Nth card of the visible category.
-    // Unity builds concatenate this file with VoxelBuildComponent.cpp, which already
-    // declares its own anonymous-namespace NumberKeyIndex; keep this one distinct.
-    int32 WidgetNumberKeyIndex(const FKey& Key)
-    {
-        static const FKey Keys[]={EKeys::One,EKeys::Two,EKeys::Three,EKeys::Four,EKeys::Five,EKeys::Six,EKeys::Seven,EKeys::Eight,EKeys::Nine};
-        for(int32 Index=0;Index<UE_ARRAY_COUNT(Keys);++Index)if(Key==Keys[Index])return Index;
-        return INDEX_NONE;
-    }
-}
-
 void UVoxelBuildCardProxy::Clicked()
 {
     auto* Owner=Panel.Get();if(!Owner)return;
@@ -79,15 +67,13 @@ UTextBlock* UVoxelBuildWidget::Text(const FString& Caption,float Pixels,bool Num
     if(bTrack)Labels.Add({Label,Pixels,Numeric,Medium});return Label;
 }
 
-UButton* UVoxelBuildWidget::Tab(const FString& Caption,bool bComponents)
+UButton* UVoxelBuildWidget::Tab(const FString& Caption)
 {
     const float Scale=ColdSteelUI::PixelScale(this);
     auto* Button=WidgetTree->ConstructWidget<UButton>();
     Button->SetStyle(ColdSteelUI::ButtonStyle(Scale));
     // 字重由 RefreshCategory 按选中态设置，所以这里不把页签文字交给 DPI 托管（否则会被重设为 Regular）。
     Button->SetContent(Text(Caption,14,false,false,false));
-    if(bComponents)Button->OnClicked.AddDynamic(this,&ThisClass::ShowComponentCategory);
-    else Button->OnClicked.AddDynamic(this,&ThisClass::ShowMaterialCategory);
     return Button;
 }
 
@@ -198,7 +184,12 @@ void UVoxelBuildWidget::SetDrawerOpen(bool Open)
     bDrawerOpen=Open;
     // A collapsed widget is not ticked, so the drawer has to be visible before it can slide in.
     if(Open){bIconPinsDirty=true;SetVisibility(ESlateVisibility::SelfHitTestInvisible);RefreshLayout();SetHudYielded(true);}
-    else {HideTooltip(true);if(auto* Icons=IconsFor())Icons->Suspend();}
+    else
+    {
+        SetVisibility(ESlateVisibility::HitTestInvisible);
+        HideTooltip(true);
+        if(auto* Icons=IconsFor())Icons->Suspend();
+    }
 }
 
 UColdSteelHUDWidget* UVoxelBuildWidget::ResolveHUD() const
@@ -261,6 +252,13 @@ void UVoxelBuildWidget::SetSelection(FName Material,FName Component,int32 ShapeM
     SelectedMaterial=Material;SelectedComponent=Component;SelectedShape=ShapeMode;bSelectionDirty=true;
 }
 
+void UVoxelBuildWidget::SetVillageConstructionTier(VillageBuildDefense::ETier Tier)
+{
+    if(VillageTier==Tier)return;
+    VillageTier=Tier;
+    bCardsDirty=true;
+}
+
 void UVoxelBuildWidget::ToggleMaterial(FName MaterialId)
 {
     if(MaterialId.IsNone())return;
@@ -288,27 +286,31 @@ UVoxelBuildComponent* UVoxelBuildWidget::Builder() const
 FReply UVoxelBuildWidget::NativeOnKeyDown(const FGeometry& Geometry,const FKeyEvent& Event)
 {
     auto* Owner=Builder();
-    if(!Owner)return Super::NativeOnKeyDown(Geometry,Event);
-    // Every key the focused drawer sees is consumed here; the game-side shortcuts skip that frame.
-    Owner->MarkDrawerKeyHandled();
+    if(!Owner||!bDrawerOpen)return Super::NativeOnKeyDown(Geometry,Event);
     const FKey Key=Event.GetKey();
-    if(Key!=EKeys::Zero)
+    const int32 Number=VoxelBuildPlacementPrivate::NumberKeyIndex(Key);
+    if(Number==INDEX_NONE&&Key!=EKeys::Zero&&Key!=EKeys::Escape&&Key!=EKeys::B)
+        return Super::NativeOnKeyDown(Geometry,Event);
+    Owner->MarkDrawerKeyHandled();
+    if(Event.IsRepeat())return FReply::Handled();
+    if(Number!=INDEX_NONE)
     {
-        const int32 Number=WidgetNumberKeyIndex(Key);
-        if(Number!=INDEX_NONE)
+        RefreshCardsIfNeeded();
+        if(Cards.IsValidIndex(Number))
         {
-            // 编号只认可见行：未命中即忽略，不再回落到 HandleDrawerKey 的调色板顺序
-            // （2026-09-19 审计：此前会选中当前分类里没显示的条目并直接开建）。
-            if(Cards.IsValidIndex(Number))Pick(Cards[Number].Id,Cards[Number].bComponent,Cards[Number].ShapeMode);
-            return FReply::Handled();
+            const FCard& Card=Cards[Number];
+            if(Card.Button.IsValid()&&Card.Button->GetIsEnabled())
+                Pick(Card.Id,Card.bComponent,Card.ShapeMode);
         }
+        return FReply::Handled();
     }
     if(Owner->HandleDrawerKey(Key))return FReply::Handled();
     return Super::NativeOnKeyDown(Geometry,Event);
 }
 
-void UVoxelBuildWidget::ShowMaterialCategory(){if(bComponentCategory){bComponentCategory=false;bCardsDirty=true;}}
-void UVoxelBuildWidget::ShowComponentCategory(){if(!bComponentCategory){bComponentCategory=true;bCardsDirty=true;}}
+void UVoxelBuildWidget::ShowMaterialCategory(){if(Category!=ECategory::Materials){Category=ECategory::Materials;bCardsDirty=true;}}
+void UVoxelBuildWidget::ShowComponentCategory(){if(Category!=ECategory::Other){Category=ECategory::Other;bCardsDirty=true;}}
+void UVoxelBuildWidget::ShowVillageCategory(){if(Category!=ECategory::Village){Category=ECategory::Village;bCardsDirty=true;}}
 
 UButton* UVoxelBuildWidget::DisclosureButton(FName MaterialId,bool bExpanded)
 {
@@ -381,6 +383,7 @@ void UVoxelBuildWidget::RefreshIconPins()
 void UVoxelBuildWidget::RefreshSelection()
 {
     const float Scale=ColdSteelUI::PixelScale(this);
+    VoxelHint->SetVisibility(SelectedComponent.IsNone()?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
     for(const FCard& Card:Cards)
     {
         auto* Widget=Card.Surface.Get();if(!Widget)continue;
@@ -400,15 +403,16 @@ void UVoxelBuildWidget::RefreshCategory()
     const float Scale=ColdSteelUI::PixelScale(this);
     const FButtonStyle Normal=ColdSteelUI::ButtonStyle(Scale);
     const FButtonStyle Selected=ColdSteelUI::ButtonStyle(Scale).SetNormal(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonPressed,ColdSteelUI::ButtonRadius/Scale,ColdSteelUI::Accent,1/Scale));
-    if(MaterialTab)MaterialTab->SetStyle(bComponentCategory?Normal:Selected);
-    if(ComponentTab)ComponentTab->SetStyle(bComponentCategory?Selected:Normal);
-    // 选中＝Medium、未选中＝Regular（规划条款）；两个页签字体各自按当前 Scale 设置。
+    if(MaterialTab)MaterialTab->SetStyle(Category==ECategory::Materials?Selected:Normal);
+    if(ComponentTab)ComponentTab->SetStyle(Category==ECategory::Other?Selected:Normal);
+    if(VillageTab)VillageTab->SetStyle(Category==ECategory::Village?Selected:Normal);
     auto ApplyTabFont=[](UTextBlock* Label,bool bSelected,float Scale)
     {
         if(Label)Label->SetFont(GunsmithUI::TextFont(14/Scale,bSelected));
     };
-    ApplyTabFont(MaterialTabLabel.Get(),!bComponentCategory,Scale);
-    ApplyTabFont(ComponentTabLabel.Get(),bComponentCategory,Scale);
+    ApplyTabFont(MaterialTabLabel.Get(),Category==ECategory::Materials,Scale);
+    ApplyTabFont(ComponentTabLabel.Get(),Category==ECategory::Other,Scale);
+    ApplyTabFont(VillageTabLabel.Get(),Category==ECategory::Village,Scale);
 }
 
 void UVoxelBuildWidget::RefreshLayout()
@@ -419,17 +423,20 @@ void UVoxelBuildWidget::RefreshLayout()
     const bool bScaleChanged=!FMath::IsNearlyEqual(Scale,LastScale,.001f);
     LastViewport=View;LastScale=Scale;
     if(bScaleChanged)bCardsDirty=true;
-    const float Pixels=FMath::Max(320.f,View.X);
-    const float Width=FMath::Min(FMath::Clamp(Pixels*DrawerViewportFraction,DrawerMinWidth,DrawerMaxWidth),FMath::Max(240.f,Pixels-DrawerEdgeInset));
+    const float Pixels=View.X>0.f?float(View.X):DrawerMinWidth;
+    const float Width=FMath::Min(FMath::Clamp(Pixels*DrawerViewportFraction,DrawerMinWidth,DrawerMaxWidth),FMath::Max(1.f,Pixels-DrawerEdgeInset));
     DrawerWidth=Width/Scale;
     PanelSlot->SetOffsets(FMargin(0,DrawerEdgeInset/Scale,Width/Scale,DrawerEdgeInset/Scale));
     Surface->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,ColdSteelUI::PanelRadius/Scale,ColdSteelUI::Border,1/Scale));
     Surface->SetPadding(FMargin(DrawerBorderInset/Scale));
-    if(HeaderSize)HeaderSize->SetHeightOverride(HeaderHeight/Scale);
+    if(HeaderSize)HeaderSize->SetMinDesiredHeight(HeaderHeight/Scale);
     if(HeaderPanel)
     {
         HeaderPanel->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::HeaderTint,ColdSteelUI::PanelRadius/Scale));
-        HeaderPanel->SetPadding(FMargin(18/Scale,0));
+        constexpr float SidePadding=18.f;
+        HeaderPanel->SetPadding(FMargin(SidePadding/Scale,4/Scale));
+        for(int32 Index=0;Index+1<HeaderHints->GetChildrenCount();++Index)
+            CastChecked<UHorizontalBoxSlot>(HeaderHints->GetChildAt(Index)->Slot)->SetPadding(FMargin(0,0,14/Scale,0));
     }
     if(GlassTintPanel)GlassTintPanel->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint,ColdSteelUI::PanelRadius/Scale));
     if(Blur)
@@ -442,11 +449,11 @@ void UVoxelBuildWidget::RefreshLayout()
         if(Widget)if(auto* LayoutSlot=Cast<UVerticalBoxSlot>(Widget->Slot))
             LayoutSlot->SetPadding(FMargin(Pixels.Left/Scale,Pixels.Top/Scale,Pixels.Right/Scale,Pixels.Bottom/Scale));
     };
-    Pad(Status,FMargin(18,10,12,2));Pad(Selection,FMargin(18,0,12,4));
+    Pad(Status,FMargin(18,10,12,2));Pad(Selection,FMargin(18,6,12,8));
     Pad(Structure,FMargin(18,0,12,10));Pad(Risk,FMargin(18,0,12,8));
-    Pad(Scroll,FMargin(BuildScrollLeft,0,BuildScrollRight,0));Pad(Controls,FMargin(18,8,18,12));
+    Pad(Scroll,FMargin(BuildScrollLeft,0,BuildScrollRight,8));
     if(MaterialTab)Pad(MaterialTab->GetParent(),FMargin(12,0,12,8));
-    for(UButton* TabButton:{MaterialTab.Get(),ComponentTab.Get()})if(TabButton)
+    for(UButton* TabButton:{MaterialTab.Get(),VillageTab.Get(),ComponentTab.Get()})if(TabButton)
     {
         if(auto* TabSlot=Cast<UHorizontalBoxSlot>(TabButton->Slot))TabSlot->SetPadding(FMargin(ColdSteelUI::ActionGap*.5f/Scale,0));
         if(auto* ContentSlot=Cast<UButtonSlot>(TabButton->GetContent()->Slot))ContentSlot->SetPadding(FMargin(10/Scale,8/Scale));
@@ -456,7 +463,7 @@ void UVoxelBuildWidget::RefreshLayout()
     // Grid spacing and the identical card sizes are DPI-dependent, so they are re-applied with the
     // same scale as the fonts instead of being baked at construction time.
     for(const TWeakObjectPtr<UWrapBox>& Grid:Grids)
-        if(auto* Box=Grid.Get())ConfigureBuildGrid(Box,DrawerWidth,Scale,!bComponentCategory);
+        if(auto* Box=Grid.Get())ConfigureBuildGrid(Box,DrawerWidth,Scale,Category==ECategory::Materials);
     for(const FCard& Card:Cards)
     {
         if(!Card.bGridCard)
@@ -473,16 +480,14 @@ void UVoxelBuildWidget::RefreshLayout()
     }
     for(const FLabel& Label:Labels)if(auto* TextBlock=Label.Widget.Get())
         TextBlock->SetFont(Label.Numeric?GunsmithUI::NumberFont(Label.Pixels/Scale,Label.Medium):GunsmithUI::TextFont(Label.Pixels/Scale,Label.Medium));
-    Controls->SetText(FText::FromString(
-        TEXT("「其他构造」含该分类的形状与构件；「其他」仅含未归类构件。\n")
-        TEXT("1–9 选面板前 9 项 · 0 取消构件 · Esc 返回建造 · B 退出建造\n")
-        TEXT("建造时：左键放 / 右键拆 · 滚轮换形状 · R 旋转 · F 吸附 · 中键取样 · Ctrl+Z 撤建 · Z 拾取")));
     RefreshCategory();
 }
 
 void UVoxelBuildWidget::ShowState(const FString& Headline,const FString& Brush,const FString& Message,bool bValid,bool bSnapEnabled,
     float StructureRisk,const FString& StructureSummary)
 {
+    // Keep the contents steady as the drawer slides out and game input resumes.
+    if(!bDrawerOpen&&DrawerProgress>KINDA_SMALL_NUMBER)return;
     // 审计 P16（本函数由组件每帧调用一次）：
     // 原实现**先**构造 SelectionText（1 次 Printf）与 Signature（1 次拼接），**之后**才比较
     // LastState —— 守卫存在但成本已经付掉；Risk 块更是无条件执行（含 1–2 次 Printf）后才发现
@@ -510,18 +515,50 @@ void UVoxelBuildWidget::ShowState(const FString& Headline,const FString& Brush,c
             Risk->SetColorAndOpacity(bDanger?ColdSteelUI::Danger:ColdSteelUI::Warning);
         }
     }
+    const auto PlacementVisibility=bDrawerOpen?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible;
+    Status->SetVisibility(PlacementVisibility);
+    Structure->SetVisibility(PlacementVisibility);
+    if(bDrawerOpen)
+    {
+        const TCHAR* SnapState=bSnapEnabled?TEXT("吸附已开启"):TEXT("自由放置");
+        const FString Current=Brush.IsEmpty()?FString(SnapState):
+            FString::Printf(TEXT("当前选用 %s　·　%s"),*Brush,SnapState);
+        Selection->SetText(FText::FromString(Current));
+        return;
+    }
     Selection->SetText(FText::FromString(Brush));
     Status->SetText(FText::FromString(Headline));
-    Status->SetColorAndOpacity(bValid?ColdSteelUI::TextPrimary:ColdSteelUI::Warning);
-    const TCHAR* Snap=bSnapEnabled?TEXT("体素吸附已开启 · F 自由放置"):TEXT("自由位置 · F 开启体素吸附");
+    Status->SetColorAndOpacity(bValid?FLinearColor::White:ColdSteelUI::Warning);
+    const TCHAR* Snap=VillageWallStairs::CanDock(SelectedComponent)
+        ? (bSnapEnabled?TEXT("地面每格 1° · 吸附时滚轮换接法 · F 关闭吸附"):TEXT("地面每格 1° · R 转 90° · F 开启吸附"))
+        : (VillageBuildDefense::IsBasicWallOrGate(SelectedComponent)||VillageBuildDefense::IsSiegeEngine(SelectedComponent))
+        ? (bSnapEnabled?TEXT("地面每格 1° · R 转 90° · F 关闭吸附"):TEXT("地面每格 1° · R 转 90° · F 开启吸附"))
+        : (bSnapEnabled?TEXT("体素吸附已开启 · F 自由放置"):TEXT("自由位置 · F 开启体素吸附"));
     Structure->SetText(FText::FromString(FString(Snap)+TEXT("\n")+Message));
+}
+
+void UVoxelBuildWidget::RefreshCardsIfNeeded()
+{
+    if(!bCardsDirty)return;
+    bCardsDirty=false;
+    RebuildCards();
+    // Only enabled cards with a displayed number accept the matching shortcut.
+    const int32 FirstPickable=Cards.IndexOfByPredicate([](const FCard& Card)
+    {
+        return Card.Button.IsValid()&&Card.Button->GetIsEnabled();
+    });
+    PickHint->SetVisibility(FirstPickable==INDEX_NONE?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
+    if(FirstPickable!=INDEX_NONE)
+        PickHint->SetText(FText::FromString(FirstPickable<9?TEXT("点卡片或按编号（1–9）进入放置"):TEXT("点选卡片进入放置")));
+    bSelectionDirty=true;
+    RefreshCategory();
 }
 
 void UVoxelBuildWidget::NativeTick(const FGeometry& Geometry,float Delta)
 {
     Super::NativeTick(Geometry,Delta);
     RefreshLayout();
-    if(bCardsDirty){bCardsDirty=false;RebuildCards();bSelectionDirty=true;RefreshCategory();}
+    RefreshCardsIfNeeded();
     // Thumbnails are captured one per frame by the icon subsystem; the cards pick them up here.
     RefreshIcons();
     if(bSelectionDirty){bSelectionDirty=false;RefreshSelection();}

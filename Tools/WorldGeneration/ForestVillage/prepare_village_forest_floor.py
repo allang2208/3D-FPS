@@ -196,3 +196,4 @@ if __name__=='__main__':
     p.add_argument('--seed',type=int,default=DEFAULT_SEED)
     args=p.parse_args()
     bake(args.output,args.contacts,args.seed)
+

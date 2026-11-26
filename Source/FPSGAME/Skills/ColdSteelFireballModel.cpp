@@ -1,4 +1,7 @@
 #include "../Dungeon/DungeonLayout.h"
+#include "../Weapons/Bow/EclipseBowMark.h"
+#include "ColdSteelSkillTree.h"
+#include "../Monsters/UnknownHumanoid.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelCurrency.h"
@@ -7,9 +10,12 @@
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "ColdSteelSkillRules.h"
+#include "ColdSteelSpellRewards.h"
+#include "ColdSteelSpellFeedback.h"
 #include "FireballDamage.h"
 #include "MagicOcclusion.h"
 #include "FPSIceWall.h"
+#include "../WorldGeneration/VillageDefenseSection.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "FPSMagicPreview.h"
 #include "../FPSGAMECharacter.h"
@@ -30,7 +36,19 @@ bool IsFireballTarget(AActor* Target,APawn* Shooter)
     return Target!=Shooter&&Combat&&!Combat->IsDead()&&!RangedAttackQuery::IsFriendlyUnit(Shooter,Target);
 }
 
-bool FireballExposure(UWorld* World,APawn* Shooter,AActor* Target,const FVector& Center,float Radius,
+void ApplyFireballBurns(const FFireballCast& Spell,APawn* Shooter,AActor* Target)
+{
+    if(Spell.BurnMultiplier>0.f)
+        UCombatStatusFormula::GetOrAdd(Target)->AddBurn(Shooter,Spell.BurnMagicAttack,1,
+            Spell.BurnSeconds,Spell.BurnMultiplier,Spell.BurnTick);
+    if(Spell.SpecBurnStacks>0 && Spell.SpecBurnMultiplier>0.f)
+        UCombatStatusFormula::GetOrAdd(Target)->AddBurn(Shooter,Spell.SpecBurnMagicAttack,
+            Spell.SpecBurnStacks,Spell.SpecBurnSeconds,Spell.SpecBurnMultiplier,.5f);
+}
+
+}
+
+bool MagicOcclusion::BlastExposure(UWorld* World,APawn* Shooter,AActor* Target,const FVector& Center,float Radius,
     const FCollisionQueryParams& Query,float& Distance)
 {
     const auto* Body=Cast<UPrimitiveComponent>(Target->GetRootComponent());
@@ -50,7 +68,6 @@ bool FireballExposure(UWorld* World,APawn* Shooter,AActor* Target,const FVector&
     }
     return Visible;
 }
-}
 
 FColdSteelSkillProgress UColdSteelStatusModel::FireballProgress() const
 { const auto* P=Current.Skills.Find(FireballSkill.Id);return P?*P:FColdSteelSkillProgress(); }
@@ -66,7 +83,7 @@ double UColdSteelStatusModel::MagicImplementMultiplier() const
     return Value>0.?Value:1.;
 }
 
-FFireballCast UColdSteelStatusModel::FireballStats(int32 AtLevel) const
+FFireballCast UColdSteelStatusModel::FireballStats(int32 AtLevel,bool bApplySpecs) const
 {
     const int32 L=FMath::Clamp(AtLevel<0?FireballProgress().Level:AtLevel,1,FireballSkill.MaxLevel);
     const auto& F=FireballSkill.Fireball;FFireballCast C;
@@ -105,6 +122,19 @@ FFireballCast UColdSteelStatusModel::FireballStats(int32 AtLevel) const
             C.BurnMagicAttack=Derived(TEXT("matk"));C.BurnMultiplier=Craft(TEXT("fireBurnDamageMul"));
             C.BurnSeconds=E->CraftEffect(*I,TEXT("fireBurnDuration"),3000)/1000;C.BurnTick=E->CraftEffect(*I,TEXT("fireBurnTickMs"),500)/1000;
         }
+    // Specializations (skill-tree.json, 2026-11-15). Elemental arrows ask for bApplySpecs=false and
+    // apply their 50% inherited share themselves. NPC sheets have no specs, so these read 0.
+    if(bApplySpecs)
+    {
+        C.Radius*=1.f+SpecStat(TEXT("fireball"),TEXT("radiusPercent"))/100.f;
+        C.Range+=100.f*SpecStat(TEXT("fireball"),TEXT("rangeMeters"));
+        C.DropDelay=FMath::Clamp(SpecStat(TEXT("fireball"),TEXT("dropDelaySeconds")),0.f,3.f);
+        C.SpecBurnStacks=FMath::RoundToInt(SpecStat(TEXT("fireball"),TEXT("burnStacks")));
+        if(const auto* Spec=ColdSteelSkillTree::FindSpec(TEXT("fireball")))if(const auto* Ignite=Spec->Find(TEXT("ignite")))
+        {C.SpecBurnSeconds=Ignite->Param(TEXT("burnSeconds"),3.5f);C.SpecBurnMultiplier=Ignite->Param(TEXT("burnMultiplier"),.5f);}
+        C.SpecBurnMagicAttack=Derived(TEXT("matk"));
+    }
+    C.Range*=float(MagicRangeMultiplier());
     C.ManaCost=SpellManaCost(TEXT("fireball"),L);
     C.HoverDuration=F.HoverDuration;ApplySpellCastSpeed(C.CastSpeed);
     return C;
@@ -141,6 +171,8 @@ bool UColdSteelStatusModel::RefundUnreleasedCast(float PaidMana,FName Skill)
     else if(Skill==TEXT("lightning"))Clear(P.LightningCooldown,P.LightningCooldownDuration);
     else if(Skill==TEXT("meteor"))Clear(P.MeteorCooldown,P.MeteorCooldownDuration);
     else if(Skill==TEXT("flameArmor"))Clear(P.FlameArmorCooldown,P.FlameArmorCooldownDuration);
+    else if(Skill==TEXT("iceArmor"))Clear(P.IceArmorCooldown,P.IceArmorCooldownDuration);
+    else if(Skill==TEXT("lightningHaste"))Clear(P.LightningHasteCooldown,P.LightningHasteCooldownDuration);
     else if(Skill==TEXT("dragonBreath")){P.bDragonBreathReserved=false;P.DragonBreathReservedMana=0;Clear(P.DragonBreathCooldown,P.DragonBreathCooldownDuration);}
     else if(Skill==TEXT("fireball")){P.bFireballReserved=false;Clear(P.FireballCooldown,P.FireballCooldownDuration);}
     else if(Skill==TEXT("blizzard")){P.bBlizzardReserved=false;P.BlizzardReservedMana=0;Clear(P.BlizzardCooldown,P.BlizzardCooldownDuration);}
@@ -156,8 +188,9 @@ void UColdSteelStatusModel::FinishFireballCast()
     Current.bFireballReserved=false;SyncRuntime();CommitState(Snapshot());
 }
 
-void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit)
+void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit,bool bElementalArrow,FEclipseBowShot* EclipseShot)
 {
+    if(auto* Unknown=::Cast<AUnknownHumanoid>(Shooter)){Unknown->FireballImpact(Center,Cast,DirectHit);return;}
     if(!Shooter || !GetWorld() || !Shooter->IsPlayerControlled() || !Shooter->HasAuthority())return;
     if(Cast.Damage>0)
     {
@@ -187,7 +220,7 @@ void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector&
         auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
         if(!Combat || Combat->IsDead())continue;
         float Distance=0;
-        if(Target!=DirectTarget&&!FireballExposure(GetWorld(),Shooter,Target,Center,Cast.Radius,Query,Distance))continue;
+        if(Target!=DirectTarget&&!MagicOcclusion::BlastExposure(GetWorld(),Shooter,Target,Center,Cast.Radius,Query,Distance))continue;
         const float Ratio=FMath::Clamp(Distance/Cast.Radius,0.f,1.f);
         const bool Eligible=!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining"));
         Rewards.Victim=Target;
@@ -197,12 +230,14 @@ void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector&
         // 火球是爆炸：按冲击折算削韧。
         const MonsterToughness::FScopedForm FormScope(EMonsterAttackForm::Impact);
         StarMarrow::FHitRecovery CrystalRecovery(Shooter,Target,Cast.StarMarrow);
+        FEclipseBowImpact EclipseImpact(EclipseShot, Target);
         const float Applied=UGameplayStatics::ApplyDamage(Target,FMath::FloorToFloat(Cast.Damage*(1.f-.5f*Ratio)),Shooter->GetController(),Shooter,UFireballDamage::StaticClass());
+        EclipseImpact.Confirm(Applied);
         CrystalRecovery.Finish(Applied);
         Rewards.Victim=nullptr;
         if(Applied<=0)continue;
-        if(Cast.BurnMultiplier>0&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Target)->AddBurn(Shooter,Cast.BurnMagicAttack,1,Cast.BurnSeconds,Cast.BurnMultiplier,Cast.BurnTick);
-        if(auto* Player=::Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied);
+        if(!Combat->IsDead())ApplyFireballBurns(Cast,Shooter,Target);
+        ColdSteelSpellFeedback::NotifyHit(Shooter,Target,Applied,*Combat,Critical);
         if(Eligible)
         {
             ++HitCount;if(Combat->IsDead())++KillCount;
@@ -213,10 +248,15 @@ void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector&
     // explosion cannot destroy its blocker and then reach victims behind it.
     if(auto* Wall=::Cast<AFPSIceWall>(DirectTarget))
         UGameplayStatics::ApplyDamage(Wall,Cast.Damage,Shooter->GetController(),Shooter,UFireballDamage::StaticClass());
-    SyncRuntime();auto P=Snapshot();P.bFireballReserved=false;
+    // An ignition-bearing projectile can leave its real, timed burn on the
+    // struck fortification. Neutral cover stays outside blast rewards and AoE.
+    else if(const auto* Section=::Cast<AVillageDefenseSection>(DirectTarget);Section && Section->GetHealth()>0.f && Cast.Damage>0.f)
+        ApplyFireballBurns(Cast,Shooter,DirectTarget);
+    SyncRuntime();auto P=Snapshot();if(!bElementalArrow)P.bFireballReserved=false;
+    if(bElementalArrow)StageElementalArrowTraining(P,HitCount,KillCount);
     const auto& F=FireballSkill.Fireball;
     ColdSteelSkills::AddExperience(P,FireballSkill,HitCount*F.HitExperience+KillCount*FireballSkill.KillExperience+(HitCount>=2?F.MultiHitExperience:0)+(KillCount>=2?F.MultiKillExperience:0));
-    ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,CriticalHits*CriticalStrikeSkill.CriticalHitExperience+CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
+    ColdSteelSpellRewards::AccumulateCriticalTraining(P,CriticalStrikeSkill,CriticalHits,CriticalKills);
     for(const auto& K:Rewards.Kills)
     {
         if(!DungeonLayout::RecordKill(P.DungeonRun,K.Key.Get()))continue;
@@ -225,7 +265,6 @@ void UColdSteelStatusModel::ApplyFireballExplosion(APawn* Shooter,const FVector&
         P.Experience+=Granted;
         if(Granted>0 && !CreditCombatSouls(P,Granted))return;
     }
-    while(P.Level<10000){const int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
-    if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
+    ColdSteelSpellRewards::ApplyExperienceLevels(P);
     if(StageTraining(MoveTemp(P)))for(const auto& K:Rewards.Kills)RewardedVictims.Add(K.Key);
 }

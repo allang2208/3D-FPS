@@ -51,7 +51,9 @@ void UColdSteelForgeActionWidget::NativeOnInitialized()
         auto* Value=Text(TEXT("—"),16,true);Column->AddChildToVerticalBox(Value);return Value;
     };
     UTextBlock* Label=nullptr;TimeValue=Metric(TEXT("当前光圈"),Label);TimeLabel=Label;
-    HitsValue=Metric(TEXT("有效命中"),Label);QualityValue=Metric(TEXT("工艺伤害"),Label);
+    HitsValue=Metric(TEXT("有效命中"),Label);QualityValue=Metric(TEXT("锻造伤害加成"),Label);
+    BonusBreakdown=Text(TEXT(""),14);BonusBreakdown->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+    BonusSlot=Stack->AddChildToVerticalBox(BonusBreakdown);
     TimerSize=WidgetTree->ConstructWidget<USizeBox>();Timer=WidgetTree->ConstructWidget<UProgressBar>();TimerSize->SetContent(Timer);
     Timer->SetFillColorAndOpacity(ColdSteelUI::Accent);TimerSlot=Stack->AddChildToVerticalBox(TimerSize);
     Hint=Text(TEXT("光圈逐渐缩小 · 对准后左键落锤 · 回锤后等待下一处 · Esc 结算返回"),12);Hint->SetAutoWrapText(true);
@@ -78,6 +80,7 @@ void UColdSteelForgeActionWidget::UpdateLayout()
     }
     for(int32 I=0;I<CardSlots.Num();++I)if(auto* CardSlot=CardSlots[I].Get())CardSlot->SetPadding(FMargin(I?4/Scale:0,0,0,0));
     HeadingSlot->SetPadding(FMargin(0,0,0,8/Scale));TimerSlot->SetPadding(FMargin(0,8/Scale,0,0));HintSlot->SetPadding(FMargin(0,8/Scale,0,0));
+    BonusSlot->SetPadding(FMargin(0,8/Scale,0,0));
     TimerSize->SetHeightOverride(3/Scale);
     FProgressBarStyle Progress;
     Progress.SetBackgroundImage(ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(45),1.5f/Scale,FLinearColor::Transparent,0));
@@ -90,15 +93,27 @@ void UColdSteelForgeActionWidget::Refresh(const UColdSteelForgingSystem* System,
     const double Time=System->Elapsed();const int32 Hits=System->Job().Hits;
     const bool Swing=System->StrikeInProgress(),Waiting=System->TargetIndex()==INDEX_NONE;
     auto Set=[](UTextBlock* T,const FString& S){if(T->GetText().ToString()!=S)T->SetText(FText::FromString(S));};
-    Set(Heading,Finishing?TEXT("淬火 · 冷却剑坯"):Time<0?TEXT("准备 · 等待落锤"):Swing?TEXT("落锤 · 当前热区已锁定")
+    const auto& Job=System->Job();
+    if(Job.Id.IsEmpty())
+    {
+        Set(Heading,TEXT("锻造 · 等待材料确认"));Set(TimeLabel,TEXT("准备中"));Set(TimeValue,TEXT("—"));
+        Set(HitsValue,TEXT("00 / 20"));Set(QualityValue,TEXT("—"));
+        Set(BonusBreakdown,TEXT("材料确认后显示本轮保底加成"));Set(Hint,TEXT("正在接收锻造工件"));
+        Timer->SetPercent(0);return;
+    }
+    Set(Heading,Finishing?TEXT("淬火 · 冷却工件"):Time<0?TEXT("准备 · 等待落锤"):Swing?TEXT("落锤 · 当前热区已锁定")
         :Feedback?(Hit?TEXT("落点准确 · 回锤中"):TEXT("未命中 · 回锤中")):Waiting?TEXT("间歇 · 等待下一处热区")
         :FString::Printf(TEXT("锻打 · 第 %d / %d 处热区"),System->ResolvedTargets()+1,System->TargetCount));
     Set(TimeLabel,Finishing?TEXT("正在冷却"):Time<0?TEXT("准备倒计时"):Swing?TEXT("落锤接触"):Waiting?TEXT("间歇倒计时"):TEXT("光圈剩余"));
     Set(TimeValue,Finishing?TEXT("—"):FString::Printf(TEXT("%.1f s"),System->PhaseRemaining()));
     Set(HitsValue,FString::Printf(TEXT("%02d / 20"),Hits));
-    const double Percent=-25.+2.5*Hits;Set(QualityValue,FString::Printf(TEXT("%+.1f%%"),Percent));
+    const bool Legacy=Job.QualityVersion<ColdSteelForgeQuality::Version;
+    const double Percent=(System->Multiplier(Job)-1)*100;Set(QualityValue,FString::Printf(TEXT("%+.2f%%"),Percent));
+    Set(BonusBreakdown,Legacy?TEXT("旧工件 · 沿用原品质结算"):
+        FString::Printf(TEXT("%s保底 +%.0f%%  ·  命中提升 +%.2f%% / %.0f%%"),*Job.MaterialName,Job.MaterialBonus*100,
+            ColdSteelForgeQuality::HitBonus(Hits)*100,ColdSteelForgeQuality::MaxHitBonus*100));
     QualityValue->SetColorAndOpacity(Percent>0?ColdSteelUI::Success:Percent<0?ColdSteelUI::Danger:ColdSteelUI::TextPrimary);
     Heading->SetColorAndOpacity(Feedback&&!Finishing?(Hit?ColdSteelUI::Success:ColdSteelUI::Warning):ColdSteelUI::TextPrimary);
     Timer->SetPercent(float(System->ResolvedTargets())/System->TargetCount);
-    Set(Hint,Finishing?TEXT("正在冷却工件，完成后返回铸造台。"):TEXT("光圈逐渐缩小 · 对准后左键落锤 · 回锤后等待下一处 · Esc 结算返回"));
+    Set(Hint,Finishing?TEXT("正在冷却工件，完成后返回铸造台。"):TEXT("对准光圈左键落锤 · 命中 +0.75% · 失误不扣保底 · Esc 按当前加成结算"));
 }

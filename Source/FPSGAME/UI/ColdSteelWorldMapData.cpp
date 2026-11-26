@@ -1,4 +1,9 @@
 #include "ColdSteelWorldMapData.h"
+#include "../WorldGeneration/ForestVillageMap.h"
+#include "ColdSteelStatusModel.h"
+#include "../Tasks/BlacksmithApprenticeship.h"
+#include "../WorldGeneration/HillsBlacksmith.h"
+#include "Engine/GameInstance.h"
 #include "ColdSteelDungeonMap.h"
 #include "ColdSteelHillsMap.h"
 #include "Engine/TextureRenderTarget2D.h"
@@ -23,11 +28,12 @@
 
 namespace ColdSteelCartography
 {
-    constexpr int32 Resolution = 192;
+    constexpr int32 ForestResolution = ForestVillageMap::SideMeters/2;
     constexpr float Missing = -FLT_MAX;
 
     FString RegionTitle(const FString& Map)
     {
+        if (Map==ForestVillageMap::Name) return TEXT("林道村庄");
         if (Map==TEXT("DayNight_Lighting")) return TEXT("主神空间");
         if (Map==TEXT("L_Dungeon_Randomized")) return TEXT("废弃设施");
         if (Map==TEXT("L_TemperateHills_Initial")) return TEXT("温带丘陵");
@@ -47,6 +53,7 @@ void FColdSteelWorldMapData::Open(APawn* Viewer, FColdSteelMapSurfaceCache& Cach
     const FString Map=UDungeonRoomSubsystem::LogicalMap(Viewer);
     RegionKey=Map;
     Title=RegionTitle(Map);
+    bForestMap=Map==ForestVillageMap::Name;
     Bounds+=FVector2D(Player);
     bDungeon=Map==TEXT("L_Dungeon_Randomized");
     const bool bDiscoveryReady=Discovery.Update(Cast<APlayerController>(Viewer->GetController()));
@@ -72,9 +79,20 @@ void FColdSteelWorldMapData::Open(APawn* Viewer, FColdSteelMapSurfaceCache& Cach
         {
             Hills=*It;
             const double Half=It->SizeMeters*50.;
-            Bounds=FBox2D(FVector2D(-Half,-Half),FVector2D(Half,Half));
+            Bounds=It->IsForestVillage()?ForestVillageMap::Bounds():FBox2D(FVector2D(-Half,-Half),FVector2D(Half,Half));
             RegionKey+=FString::Printf(TEXT("/%d/%s"),It->Seed,*It->WorldId.ToString());
-            Landmarks.Add({FVector2D(It->GetStartLocation()),TEXT("出发点"),0});
+            if(It->IsForestVillage())
+            {
+                bWaitingForForest=!It->bReady;
+                ForestSeed=It->Seed;
+                ForestWorldId=It->WorldId;
+                if(bWaitingForForest) return;
+            }
+            const FVector Start=It->GetStartLocation();
+            auto& Pin=Landmarks.Add_GetRef({FVector2D(Start),TEXT("出发点"),0});
+            Pin.ActorZ=Start.Z;
+            Pin.bTerrainStart=true;
+            RefreshSmithDestination();
             break;
         }
     }
@@ -82,6 +100,12 @@ void FColdSteelWorldMapData::Open(APawn* Viewer, FColdSteelMapSurfaceCache& Cach
     if (bDungeon)
     {
         for (TActorIterator<ASceneTestPortal> It(World);It;++It) TrackLandmark(*It);
+        return;
+    }
+    if(Map==ForestVillageMap::Name && !Hills.IsValid())
+    {
+        bWaitingForForest=true;
+        Bounds=ForestVillageMap::Bounds();
         return;
     }
     for (TActorIterator<AActor> It(World);It;++It)
@@ -101,7 +125,7 @@ void FColdSteelWorldMapData::Open(APawn* Viewer, FColdSteelMapSurfaceCache& Cach
 
 bool FColdSteelWorldMapData::MarkerGround(APawn* Viewer,FVector2D XY,int32 Floor,FVector& Position) const
 {
-    if (!Viewer || bWaitingForDungeon || IsLoadingHubPhoto()) return false;
+    if (!Viewer || bWaitingForForest || bWaitingForDungeon || IsLoadingHubPhoto()) return false;
     if (bDungeon) return Fog && Fog->MarkerGround(*Viewer,XY,Floor,Position);
     if (!Bounds.IsInsideOrOn(XY)) return false;
     if (const auto* Terrain=Hills.Get())
@@ -144,9 +168,56 @@ bool FColdSteelWorldMapData::TrackLandmark(AActor* Actor)
     return true;
 }
 
+bool FColdSteelWorldMapData::RefreshSmithDestination()
+{
+    auto* Terrain=Hills.Get();
+    if (!Terrain || !Terrain->GetGameInstance()) return false;
+    auto* Model=Terrain->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    if (!Model) return false;
+    const auto Stage=BlacksmithApprenticeship::Stage(Model->ProfileView());
+    const bool Return=Stage==BlacksmithApprenticeship::EStage::ReturnOre;
+    if (!Return && (Terrain->IsForestVillage() || !BlacksmithApprenticeship::IsMining(Stage)))
+    {
+        SmithRock=0;
+        IronSearch.Next=0;
+        RetrySmithLocationAt=0.;
+        return Landmarks.RemoveAll([](const auto& Mark){return Mark.bSmithLesson;})>0;
+    }
+    auto* Pin=Landmarks.FindByPredicate([](const auto& Mark){return Mark.bSmithLesson;});
+    if (Pin && Return==bSmithReturn && (Return || !Terrain->IsProductionDepleted(1,SmithRock))) return false;
+    const double Now=Terrain->GetWorld()->GetRealTimeSeconds();
+    if (Return==bSmithReturn && Now<RetrySmithLocationAt) return false;
+    bSmithReturn=Return;
+    const auto& Village=Terrain->GetVillageSite();
+    if (!Village.bPlaced) return false;
+    // Resolve the place of issue even when its streamed shop actor has unloaded.
+    const FVector2D Smith=Village.World(-3200.,-900.);
+    FVector Target(Smith,Terrain->Height(Smith.X,Smith.Y));
+    for (TActorIterator<AHillsBlacksmith> It(Terrain->GetWorld());It;++It){Target=It->GetActorLocation();break;}
+    if (!Return && !Terrain->FindNearestIronOutcrop(FVector2D(Target),IronSearch,Target,SmithRock))
+    {
+        RetrySmithLocationAt=Now+(IronSearch.Next==INDEX_NONE ? 30. : .2);
+        if (IronSearch.Next==INDEX_NONE) IronSearch.Next=0;
+        return Landmarks.RemoveAll([](const auto& Mark){return Mark.bSmithLesson;})>0;
+    }
+    // The task caption gets the first free label position among nearby landmarks.
+    if (!Pin)
+    {
+        Landmarks.InsertDefaulted(0);
+        Pin=&Landmarks[0];
+    }
+    Pin->Point=FVector2D(Target);
+    Pin->ActorZ=Target.Z;
+    Pin->Floor=0;
+    Pin->Label=Return?TEXT("铁匠 · 交付铁矿石"):TEXT("露天铁矿脉 · 铁匠修炼");
+    Pin->bSmithLesson=true;
+    RetrySmithLocationAt=0.;
+    return true;
+}
+
 bool FColdSteelWorldMapData::RefreshLandmarks()
 {
-    bool bChanged=false;
+    bool bChanged=RefreshSmithDestination();
     for (int32 I=Landmarks.Num()-1; I>=0; --I)
     {
         auto& Mark=Landmarks[I];
@@ -214,18 +285,27 @@ void FColdSteelWorldMapData::BeginSampledSurface(APawn* Viewer, FColdSteelMapSur
     UWorld* World=Viewer->GetWorld();
     const FVector Player=Viewer->GetActorLocation();
     const auto* Terrain=Hills.Get();
-    SampledTerrainRevision=Terrain?Terrain->GetTerrainEditRevision():0;
+    bUsesSampledSurface=true;
+    bStreamChanged=false;
+    SampledTerrainRevision=Terrain?Terrain->GetMapSurfaceRevision():0;
+    GridSize=Terrain && Terrain->IsForestVillage()?ForestResolution:192;
+    NextShade=0;
+    ForestPixels.Reset();
+    Heights.Reset();
     HillsMap.Reset();
     bPreparingHills=false;
     bSurfaceUnavailable=false;
     SampledLevels.Reset();
     FBox2D RequiredBounds=Bounds;
     double RequiredTop=Player.Z, RequiredBottom=Player.Z;
-    if (!Terrain)
+    if (!Terrain || bForestMap)
         for (ULevel* Level:World->GetLevels())
             if (Level && Level->bIsVisible) SampledLevels.Add(Level);
     if (!Hills.IsValid())
     {
+        Bounds=FBox2D(ForceInit);
+        Bounds+=FVector2D(Player);
+        for(const auto& Mark:Landmarks) Bounds+=Mark.Point;
         // Navigation volumes define the authored play area even on clients with no local Recast mesh.
         FBox PlayBounds(ForceInit);
         for (TActorIterator<ANavMeshBoundsVolume> It(World);It;++It)
@@ -261,15 +341,46 @@ void FColdSteelWorldMapData::BeginSampledSurface(APawn* Viewer, FColdSteelMapSur
         ReliefOverlay.Reset(Cache.ReliefOverlay.Get());
         return;
     }
-    if (Terrain) { bPreparingHills=true; return; }
+    if (Terrain && !Terrain->IsForestVillage()) { bPreparingHills=true; return; }
+    if (Terrain) { TraceTop=Player.Z+20000.; TraceBottom=Player.Z-20000.; }
     NextSample=0;
-    Heights.Init(Missing,Resolution*Resolution);
+    Heights.Init(Missing,GridSize*GridSize);
+    if(Terrain && Terrain->IsForestVillage()) ForestPixels.SetNumUninitialized(Heights.Num());
 }
 
-void FColdSteelWorldMapData::RefreshTerrainIfChanged(APawn* Viewer, FColdSteelMapSurfaceCache& Cache)
+bool FColdSteelWorldMapData::ForestIdentityChanged(APawn* Viewer) const
+{
+    if(!bForestMap) return false;
+    if(const auto* Terrain=Hills.Get())
+        return (bWaitingForForest==Terrain->bReady ||
+            Terrain->Seed!=ForestSeed || Terrain->WorldId!=ForestWorldId);
+    if(bWaitingForForest)
+        for(TActorIterator<ATemperateHillsWorld> It(Viewer->GetWorld());It;++It)
+            if(It->IsForestVillage() && It->bReady) return true;
+    return !bWaitingForForest;
+}
+
+bool FColdSteelWorldMapData::RefreshTerrainIfChanged(APawn* Viewer, FColdSteelMapSurfaceCache& Cache)
 {
     const auto* Terrain=Hills.Get();
-    if (Terrain && Terrain->GetTerrainEditRevision()!=SampledTerrainRevision) BeginSampledSurface(Viewer,Cache);
+    const bool Changed=Terrain && Terrain->GetMapSurfaceRevision()!=SampledTerrainRevision;
+    const bool StreamAffectsGround=bStreamChanged && (!Terrain || bForestMap);
+    bStreamChanged=false;
+    if(bWaitingForForest || (!Changed && !StreamAffectsGround)) return false;
+    if(Terrain && Terrain->IsForestVillage())
+    {
+        if(auto* Start=Landmarks.FindByPredicate([](const auto& Mark){return Mark.bTerrainStart;}))
+        {
+            const FVector Position=Terrain->GetStartLocation();
+            Start->Point=FVector2D(Position);
+            Start->ActorZ=Position.Z;
+        }
+        Landmarks.RemoveAll([](const auto& Mark){return Mark.bSmithLesson;});
+        RetrySmithLocationAt=0.;
+        RefreshSmithDestination();
+    }
+    BeginSampledSurface(Viewer,Cache);
+    return true;
 }
 
 void FColdSteelWorldMapData::SampleSurface(APawn* Viewer, FColdSteelMapSurfaceCache& Cache)
@@ -304,20 +415,64 @@ void FColdSteelWorldMapData::SampleSurface(APawn* Viewer, FColdSteelMapSurfaceCa
         const FCollisionObjectQueryParams Objects(ECC_WorldStatic);
         const FCollisionQueryParams Query(SCENE_QUERY_STAT(ColdSteelAreaMap),false,Viewer);
         const FVector2D Size=Bounds.GetSize();
+        const auto* Forest=ForestPixels.IsEmpty()?nullptr:Hills.Get();
         do
         {
             const int32 End=FMath::Min(NextSample+16,Heights.Num());
             for (;NextSample<End;++NextSample)
             {
-                const double X=Bounds.Max.X-(NextSample/Resolution+.5)*Size.X/Resolution;
-                const double Y=Bounds.Min.Y+(NextSample%Resolution+.5)*Size.Y/Resolution;
+                const double X=Bounds.Max.X-(NextSample/GridSize+.5)*Size.X/GridSize;
+                const double Y=Bounds.Min.Y+(NextSample%GridSize+.5)*Size.Y/GridSize;
+                if(Forest)
+                {
+                    const double Z=Forest->Height(X,Y);
+                    Heights[NextSample]=Z;
+                    ForestPixels[NextSample]=Forest->ForestMapLayers(X,Y,Z);
+                    continue;
+                }
                 FHitResult Hit;
                 if (Viewer->GetWorld()->LineTraceSingleByObjectType(Hit,{X,Y,TraceTop},{X,Y,TraceBottom},Objects,Query))
                     Heights[NextSample]=Hit.ImpactPoint.Z;
             }
         } while (NextSample<Heights.Num() && FPlatformTime::Seconds()<Deadline);
         if (NextSample!=Heights.Num()) return;
-        FinishSurface();
+        if(Forest)
+        {
+            // Shade in slices as well, so opening a full-size village map has a bounded CPU cost.
+            const double Step=Size.X/GridSize;
+            do
+            {
+                const int32 End=FMath::Min(NextShade+128,Heights.Num());
+                for(;NextShade<End;++NextShade)
+                {
+                    const int32 I=NextShade;
+                    const float Z=Heights[I], W=(I%GridSize)?Heights[I-1]:Z, N=(I>=GridSize)?Heights[I-GridSize]:Z;
+                    const float E=(I%GridSize+1<GridSize)?Heights[I+1]:Z, S=(I/GridSize+1<GridSize)?Heights[I+GridSize]:Z;
+                    const float Dx=(E-W)*.5f,Dy=(S-N)*.5f;
+                    // Band centres stay at five-metre elevations; line width is measured in sampled pixels.
+                    const float Gradient=FMath::Sqrt(Dx*Dx+Dy*Dy);
+                    const float LevelDistance=FMath::Abs(Z-500.f*FMath::RoundToFloat(Z/500.f));
+                    const float Width=FMath::Clamp(.85f*Gradient,2.f,160.f);
+                    const float Ink=(1.f-FMath::SmoothStep(.18f*Width,Width,LevelDistance))*FMath::SmoothStep(1.f,7.f,Gradient);
+                    const double Light=FMath::Clamp((-Dy-Dx)/Step,-.85,.85)*34.-12.*Ink;
+                    const auto Layers=ForestPixels[I];
+                    const double Dirt=Layers.R/255.,Town=Layers.A/255.;
+                    auto Channel=[&](double ForestColor,double LoessColor,double RoadColor)
+                    {
+                        const double Ground=FMath::Lerp(ForestColor,LoessColor,Town);
+                        return uint8(FMath::Clamp(FMath::Lerp(Ground,RoadColor,Dirt)+Light,0.,255.));
+                    };
+                    ForestPixels[I]=Layers.B?FColor(151,139,126):Layers.G?FColor(55,106,124):
+                        FColor(Channel(78,151,164),Channel(96,122,137),Channel(69,78,95));
+                }
+            } while(NextShade<Heights.Num() && FPlatformTime::Seconds()<Deadline);
+            if(NextShade<Heights.Num()) return;
+            Surface.Reset(UTexture2D::CreateTransient(GridSize,GridSize,PF_B8G8R8A8,NAME_None,
+                TConstArrayView64<uint8>(reinterpret_cast<const uint8*>(ForestPixels.GetData()),ForestPixels.Num()*sizeof(FColor))));
+            Heights.Empty();
+            ForestPixels.Empty();
+        }
+        else FinishSurface();
     }
     Cache.World=Viewer->GetWorld();
     Cache.Origin=Viewer->GetWorld()->OriginLocation;
@@ -337,6 +492,7 @@ void FColdSteelWorldMapData::FinishSurface()
     using namespace ColdSteelCartography;
     TArray<FColor> Pixels;
     Pixels.SetNumUninitialized(Heights.Num());
+    const int32 Resolution=GridSize;
     const double Step=Bounds.GetSize().X/Resolution;
     for (int32 I=0;I<Heights.Num();++I)
     {

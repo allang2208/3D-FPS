@@ -81,3 +81,8 @@ if texture is None:raise RuntimeError('Thermal icon import failed')
 texture.set_editor_property('lod_group',u.TextureGroup.TEXTUREGROUP_UI);texture.set_editor_property('compression_settings',u.TextureCompressionSettings.TC_EDITOR_ICON);texture.set_editor_property('never_stream',True);texture.set_editor_property('srgb',True);save(texture)
 receipt['complete']=True;(O/'install-receipt.json').write_text(json.dumps(receipt,indent=2),encoding='utf-8')
 print('THERMAL_RUNTIME_SAVED '+str(len(receipt['saved']))+' assets')
+
+# Preserve the saved VIPER-specific aperture, PBR maps and source-normal precision.
+# The helper returns without changes until this revision has actually been saved.
+import runpy as _pv_finish_runpy
+_pv_finish_runpy.run_path(str(Path(u.Paths.project_dir()).resolve()/'Tools/Weapons/pit_viper_surface_finish.py'),run_name='__main__')

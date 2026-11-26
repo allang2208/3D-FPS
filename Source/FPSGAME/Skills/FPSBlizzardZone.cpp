@@ -1,4 +1,5 @@
 #include "FPSBlizzardZone.h"
+#include "../Monsters/UnknownSpellCombat.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "BlizzardEnvironment.h"
 #include "FireMagicArea.h"
@@ -176,7 +177,7 @@ void AFPSBlizzardZone::DamageTick()
     for(const auto& Overlap:Overlaps)
     {
         AActor* Target=Overlap.GetActor();if(!IsValid(Target)||Target==Shooter||Seen.Contains(Target))continue;Seen.Add(Target);
-        auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();if(!Combat||Combat->IsDead()||RangedAttackQuery::IsFriendlyUnit(Shooter,Target))continue;
+        auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();if(UnknownSpell::IsCaster(Shooter)?!UnknownSpell::IsTarget(Shooter,Target):(!Combat||Combat->IsDead()||RangedAttackQuery::IsFriendlyUnit(Shooter,Target)))continue;
         // Gameplay is a bounded 3D volume. It is independent of cosmetic floor
         // grids, feet touching ground, particle collisions and visual budgets.
         if(!BlizzardEnvironment::VolumeExposure(Shooter,Target,Center,AxisX,CastSnapshot.RadiusX,CastSnapshot.RadiusY,Origins))continue;

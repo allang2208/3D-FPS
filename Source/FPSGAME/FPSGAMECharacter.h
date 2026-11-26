@@ -13,14 +13,17 @@
 
 class UCameraComponent;
 class USkeletalMeshComponent;
+class UStaticMeshComponent;
 class UAnimSequence;
 class USoundBase;
 class UAudioComponent;
 class UFPSWeaponFXComponent;
 class UFPSGunplayAnimInstance;
 class UWeaponGripProfile;
+class UHatchetCharmComponent;
 struct FGunsmithWeapon;
 struct FSuper90NetAmmoState;
+struct FPhysicalScopeView;
 
 enum class EFirstPersonJumpRig : uint8 { Rifle, Pistol, Sword };
 
@@ -51,8 +54,15 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UPistolDualWieldComponent;
     friend class FDualPistolQuickCombatRegression;
     friend class UFPSConsumableAuditCommandlet;
+    friend class USkillNetworkAuditCommandlet;
+    friend class UWarhammerSprintAuditCommandlet;
+    friend class ULeapStrikeAuditCommandlet;
+    friend class UWeaponEquipCameraAuditCommandlet;
+    friend class AWeaponEquipWireController;
+    friend class UWarhammerNetworkAuditCommandlet;
     friend class UShotgunAttachmentAuditCommandlet;
     friend class AShotgunWireAuditController;
+    friend class AKukriCombatWireController;
     friend class AShotgunWireAuditGameMode;
     friend class URuneSwordComponent;
     friend class UProductionToolComponent;
@@ -65,10 +75,12 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class UStaffWeaponComponent;
     friend class UFPSUnarmedIdleComponent;
     friend class USpellbookComponent;
+    friend class UOffhandKukriComponent;
     friend class UFPSElectricMagicComponent;
     friend struct FStaffLocomotion;
 
 public:
+    UPROPERTY(VisibleAnywhere, Category="Melee") TObjectPtr<UHatchetCharmComponent> HatchetCharms;
     UWeaponGripProfile* WeaponGripProfileFor(EM4SprintGrip Grip) const;
     UWeaponGripProfile* M24MeleeHandProfile(UWeaponGripProfile* SharedGrip) const;
     UPROPERTY(EditDefaultsOnly, Category = "Weapon|Model") bool bUseM4Infima = true;
@@ -100,6 +112,8 @@ public:
     void EjectInterruptedM24Casing();
     bool IsM870Weapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_m870"); }
     bool IsTubeShotgunWeapon() const { return IsSuper90Weapon() || IsM870Weapon(); }
+    bool IsSaiga12KWeapon() const { return ActiveInventoryWeaponDefinition == TEXT("ue_saiga12k"); }
+    bool IsShotgunWeapon() const { return IsTubeShotgunWeapon() || IsSaiga12KWeapon(); }
     float M870PumpPlayRate() const;
     void UpdateM870PumpAudio();
     void PreserveInterruptedM870Pump();
@@ -111,8 +125,20 @@ public:
     FString GetFireModeHint(int32 HandIndex = 0) const;
     UPROPERTY(VisibleAnywhere, Category="Weapon") TObjectPtr<class UPistolDualWieldComponent> DualPistols;
     UPROPERTY(VisibleAnywhere, Category="Skills") TObjectPtr<class UFPSQuickCombatComponent> QuickCombatPistol;
+    UPROPERTY(VisibleAnywhere, Category="Skills") TObjectPtr<class UFPSLightningHasteComponent> LightningHasteSkill;
+    class UFPSLightningHasteComponent* GetLightningHaste() const{return LightningHasteSkill;}
+    float ADSActionRate=1.f;
     bool IsDualWieldingPistols() const;
     bool HasOffhandPistol() const;
+    /**
+     * 主手空置、只装副手手枪：这把手枪顶替主武器驱动单枪状态机（待机/开镜/开火/
+     * 换弹全走主手那一套），视模整体镜像到左手。与双持、法杖副手互斥。
+     */
+    bool IsLoneOffhandPistol() const { return bLoneOffhandPistol; }
+    /** 左手单手由双持组件的左手网格呈现（真正的左臂几何 + 左手动画 + 自己的开镜标定）。 */
+    bool IsLoneLeftHandRig() const;
+    /** 当前单枪状态机读的枪械实例：主手装备，或顶替它的副手手枪。 */
+    const FString& GetActiveWeaponInstance() const { return ActiveInventoryWeapon; }
     bool HasOffhandSpellbook() const;
     bool IsOffhandSpellbookPresented() const;
     // Shared handoff contract for every non-pistol offhand presentation adapter.
@@ -174,14 +200,18 @@ bool TriggerPistolQuickCombat();
     float BaseLookHorizontalFOV() const {return VerticalToHorizontalFOV(BaseVerticalFieldOfView);}
     FVector2D GetCrosshairHalfExtent(FVector2D LocalSize) const;
     /** bFirearmHit selects the gun hit cue; melee and skills keep the shared one. */
-    UFUNCTION(Client,Unreliable) void ClientWeaponHitFeedback(AActor* Target,float AppliedDamage,bool Critical,bool Killed,bool Firearm);
+    UFUNCTION(Client,Unreliable) void ClientWeaponHitFeedback(AActor* Target,float AppliedDamage,bool Critical,bool Killed,bool Firearm,float MagicApplied);
     void NotifyConfirmedWeaponHit(AActor* Target, float AppliedDamage,const FWeaponDamageResult* DamageResult=nullptr,bool bFirearmHit=false,bool bForwardToOwner=true);
+    UFUNCTION(Client,Unreliable) void ClientBallistaHit(bool bKilled);
+    bool WasLastHitLethal() const { return LastMonsterHit.bKilled; }
     float GetHitMarkerOpacity() const;
     bool GetMonsterHitFeedback(FMonsterHitFeedback& Out) const;
     void NotifyCowboyReload();
     float GetCowboyReloadHintOpacity() const;
 private:
+    void PlayMeleeHitConfirmation() const;
     double LastConfirmedWeaponHitTime = -1000.0;
+    void ResetActionsForPriority(bool bWeaponSwitch);
     bool bResolvingActionInterrupt = false;
     FString ActiveProductionToolInstance;
     UPROPERTY(Transient) TObjectPtr<USoundBase> ConfirmedMonsterHitSound;
@@ -200,6 +230,12 @@ public:
     void SetGunsmithOptic(bool bHolographic);
     void SetGunsmithOpticVariant(const FString& Variant);
     const FString& GetGunsmithOpticVariant() const { return OpticVariant; }
+    bool HasM24FactoryScope() const { return IsM24Weapon() && OpticVariant==TEXT("m24_custom_scope_6x"); }
+    float GetM24UpperSightAlpha() const { return HasM24FactoryScope()?FMath::Clamp((6.f-DisplayedLPVOMagnification)/5.f,0.f,1.f):0.f; }
+    float GetM24UpperSightReticleAlpha() const;
+    UStaticMeshComponent* GetM24FactoryOptic() const;
+    float GetM24LensMagnification() const;
+    FVector M24UpperSightADSOffset() const;
     bool HasSVDFactoryScope() const { return ActiveInventoryWeaponDefinition==TEXT("ue_svd") && !bHolographicOptic; }
     bool HasPSO1Scope() const { return HasSVDFactoryScope() || (bHolographicOptic && OpticVariant==TEXT("pso1_4x")); }
     bool HasHandgunScope() const { return bUseDanWesson715 && bHolographicOptic && OpticVariant==TEXT("dw715_handgun_scope_2x"); }
@@ -212,6 +248,10 @@ public:
     bool AdjustOpticMagnification(float Delta);
     void SetLPVOMagnification(float Value);
     float GetScopePresentationAlpha() const;
+    bool UsesPhysicalScope() const;
+    bool GetPhysicalScopeView(FPhysicalScopeView& Out) const;
+    float GetPhysicalScopeMagnification() const;
+    class UMaterialInterface* GetPhysicalThermalMaterial() const;
     // Optic-layer firing presentation facts. Read-only: they never write
     // ControlRotation, the shot direction or the trace.
     float GetLastShotAgeSeconds() const;
@@ -248,6 +288,7 @@ public:
     bool HasPrismHandstop() const;
     bool HasVerticalForegrip() const;
     bool HasLMG201ClothBox() const;
+    bool HasM249SideMagazine() const;
     bool HasCantedForegrip() const;
     bool HasAngledForegrip() const;
     FTransform GetEffectiveMuzzleTransform() const;
@@ -256,7 +297,7 @@ public:
     FVector GetEffectiveMuzzleForward() const;
     float GetShotgunPelletSpreadMultiplier() const;
     bool HasShotgunDuckbill() const;
-    bool IsMuzzleSuppressed() const {return MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||((ActiveInventoryWeaponDefinition==TEXT("ue_svd")||ActiveInventoryWeaponDefinition==TEXT("ue_svch"))&&MuzzleVariant==TEXT("sniper_heavy_suppressor"))||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"))||((IsSuper90Weapon())&&MuzzleVariant==TEXT("shotgun_suppressor"));}
+    bool IsMuzzleSuppressed() const;
     void SetGunsmithInspection(bool bInspect);
     void UpdateGunsmithCapture(class USceneCaptureComponent2D* Capture, bool bAim);
     bool HasGunsmithDrum() const {return bDrumVisual;}
@@ -270,6 +311,7 @@ public:
     bool MeasureHolographicOrientation(float& ScreenRollDegrees,float& RailErrorDegrees) const;
     bool ValidateFoldingSights(bool bFolded) const;
     virtual void Tick(float DeltaSeconds) override;
+    virtual FVector GetNavAgentLocation() const override;
     virtual void CalcCamera(float DeltaTime, FMinimalViewInfo& OutResult) override;
     /** Stable eye/control-aim frame for melee; excludes cosmetic camera feedback. */
     FTransform GetMeleeAimTransform() const;
@@ -298,7 +340,9 @@ public:
     UFUNCTION(BlueprintPure, Category = "AKM") int32 GetReserveAmmo() const { return ReserveAmmo; }
     UFUNCTION(BlueprintPure, Category = "AKM") bool HasInfiniteReserveAmmo() const;
     bool HasInfiniteReserveAmmoFor(const FString& AmmoType) const;
-    bool IsAmmoWheelOpen() const { return AmmoWheel!=nullptr; }
+    bool IsAmmoWheelOpen() const { return AmmoWheel!=nullptr||MagicWheel!=nullptr||IsElementArrowWheelOpen(); }
+    bool IsElementArrowWheelOpen() const;
+    bool IsMagicWheelOpen() const { return MagicWheel!=nullptr; }
     bool IsChoosingAmmo() const { return bReloadInputHeld||IsAmmoWheelOpen(); }
     void CancelAmmoSelection();
     bool StartAmmoSwitch(const FString& WeaponId,const FString& Target);
@@ -354,6 +398,10 @@ protected:
     int32 ADSHorizontalRecoilIndex=0;
     void RunMuzzleMigrationAudit();
     FWeaponHandling WeaponHandling;
+    bool bStabilityGripInstalled = false;
+    float LastShotGripRecoilMultiplier = 1.f;
+    float StabilityGripFireAlpha(double Now) const;
+    FWeaponHandling FeedbackHandlingAt(float GripAlpha);
     void RunWeaponHandlingAudit();
     void RunM1911DevelopmentAudit();
     void RunBallisticPresentationAudit();
@@ -393,11 +441,28 @@ public:
     TMap<FString,FString> AppliedWeaponVisualParts;
     bool bWeaponVisualPartsApplied = false;
     bool bInventoryWeaponReady = true;
+    /**
+     * 副手手枪顶替空的主手：动画图把主手枪那份姿态整体镜像到左手（组件正缩放，
+     * 枪身贴图不翻面），因此待机/开镜/开火/换弹、准星、相机和后坐都沿用主手枪，
+     * 不需要额外一套左手资源；只有骨架缺 WPN_root 时退回镜像场景节点。
+     */
+    bool bLoneOffhandPistol = false;
+    void SetViewmodelMirrored(bool bMirrored);
+    bool IsViewmodelMirrored() const { return bViewmodelMirrored; }
+    /** 选择左手表现：0=关闭，1=姿态镜像（实验），2=镜像场景节点（默认，负缩放）。 */
+    void ApplyLeftHandPresentation();
+    void ApplyLeftHandPresentation(bool bForce);
+    /** 把相机右轴换算成网格物体空间方向，供动画图按当前机位/开镜反射姿态。 */
+    void UpdateLeftHandMirrorPlane();
+    int32 LeftHandPresentation = 0;
     bool bReloadAfterCasting = false;
     void ServiceReloadAfterCasting();
 
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera") TObjectPtr<UCameraComponent> FirstPersonCamera;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AKM") TObjectPtr<USkeletalMeshComponent> AKMViewmodel;
+    /** 镜像兜底节点：只在动画图无法姿态镜像时作 AKMViewmodel 的父级，缩放 Y=-1。 */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AKM") TObjectPtr<USceneComponent> ViewmodelMirror;
+    bool bViewmodelMirrored = false;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "AKM") TObjectPtr<UFPSWeaponFXComponent> WeaponFX;
 
     // UE-space cm. All presentation tuning is local to this pawn (single-player).
@@ -589,12 +654,17 @@ private:
     void UpdateAmmoSelection();
     void MoveAmmoPointer(FVector2D Delta);
     UPROPERTY(Transient) TObjectPtr<class UColdSteelAmmoWheel> AmmoWheel;
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelMagicWheel> MagicWheel;
+    bool bSelectingMagic=false;
     bool bReloadInputHeld=false;
     double ReloadInputStarted=0;
     FString AmmoSelectionWeapon,PendingAmmoType,PendingAmmoWeapon;
     void InspectPressed();
     void QuickCombatPressed();
     void RuneBladesPressed();
+    /** Test key Y (2026-11-14): server-started player knockdown, see UPlayerKnockdownComponent. */
+    void KnockdownTestPressed();
+    UFUNCTION(Server,Reliable) void ServerTestKnockdown();
     /** 当前 M4 的握把配置（冲刺与枪托砸击共用同一解析口径）。 */
     EM4SprintGrip ResolveRifleGripProfile() const;
     /** 按握把配置取枪托砸击 clip（六个配置各自一条作者源动画）。 */
@@ -644,8 +714,13 @@ private:
     void SetRSH12Optic(const FString& Variant);
     void SetSuper90Optic(const FString& Variant);
     void SetM870Optic(const FString& Variant);
+    void SetM24Optic(const FString& Variant);
+    void SetM249Optic(const FString& Variant);
+    void SetM249Muzzle(const FString& Variant);
+    void SetSaiga12KOptic(const FString& Variant);
     void SetM1911Muzzle(const FString& Variant);
     void RunEquipFramingAcceptance(float DeltaSeconds);
+    void RunM24ActionReview(float DeltaSeconds);
     void FinishWeaponAction();
     void FinishReload();
     bool NeedsReloadCycle() const;

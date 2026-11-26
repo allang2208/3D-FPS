@@ -21,7 +21,7 @@ MOUNTS = {
     'Herbalist': ((-178,-375,302), 0, None),
     'Gunshop': ((154,-23,302), 0, 'VillageGunshop.Restored'),
 }
-WAYPOSTS = {'Herbalist':(-2020,-296,26), 'Gunshop':(1880,1072,-160)}
+WAYPOSTS = {'Herbalist':(-2020,-296,26), 'Gunshop':(-3950,330,170)}
 
 
 def hang_trade(owner, frame, shop, anchor=None, yaw=None, scale=1., waypost=False):

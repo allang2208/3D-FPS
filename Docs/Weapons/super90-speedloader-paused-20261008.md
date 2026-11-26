@@ -10,7 +10,7 @@ R10 已按 [R10 方案](super90-speedloader-r10-plan-20261009.md) 在 `SourceAss
 
 ### 参考源（记入备查）
 
-- **主动作参考**：用户自录《三角洲行动》M1014 装填器**空仓**换弹，`C:\Users\allan\Videos\NVIDIA\Delta Force\Delta Force 2026.10.09 - 09.55.46.01.mp4`（7.83 s、2560×1440、60 FPS；装填段约 2.8–5.4 s）。拆帧在本机 `D:\FPS3D\test\super90_df_ref\`（`frames60\` 全帧、`overview\` 分段拼图），仅本机使用、不发布。
+- **主动作参考**：用户自录《三角洲行动》M1014 装填器**空仓**换弹，`C:\Users\allan\Videos\NVIDIA\Delta Force\Delta Force 2026.10.09 - 09.55.46.01.mp4`（7.83 s、2560×1440、60 FPS；装填段约 2.8–5.4 s）。拆帧在本机 `D:/FPS3D/FPSGAME/SourceAssets/Super90LoaderR12_20261009/Reference/DeltaForce/`（`frames60\` 全帧、`overview\` 分段拼图），仅本机使用、不发布。
 - **始终缺失**：非空仓（打几发再装）的第一人称装填器参考至今没有拿到；R10 普通换弹收尾是从空仓段推断的。
 - **旧 B 站参考**：`SourceAssets/Super90MotionRevision20261007/Reference/reference_video.m4s`（BV11wTe6sEsS，480P，装填段 40.63–42.50 s），目录被 gitignore 排除、始终未能看画面，未用于制作。
 - **第三人称机理**（只可观看，不能提取）：Jerry Miculek 高速慢放 <https://www.youtube.com/watch?v=xXkyEbrqNGw>（TEC Loader＋Arredondo 漏斗，Mossberg 930）。

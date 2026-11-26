@@ -5,6 +5,15 @@
 /** Authored hammer body performances. ProductionTool still owns time and hits. */
 namespace FPSBodyWarhammerMotion
 {
+inline const FName PommelStrike(TEXT("WarhammerPommelStrike"));
+inline const FName SpikeThrust(TEXT("WarhammerSpikeThrust"));
+
+inline bool UsesQuickMeleeWrists(const FFPSBodyState& State)
+{
+    return State.Action==EFPSBodyAction::GunBash&&
+        (State.ActionVariant==PommelStrike||State.ActionVariant==SpikeThrust);
+}
+
 inline bool IsNormalClip(FName Key)
 {
     return Key==TEXT("Warhammer.FullBody.Slash1")||Key==TEXT("Warhammer.FullBody.Slash2")||Key==TEXT("Warhammer.FullBody.Slash3");
@@ -12,29 +21,39 @@ inline bool IsNormalClip(FName Key)
 inline bool IsCarry(const FFPSBodyState& S)
 {
     return S.Family==TEXT("Tool")&&S.Weapon==TEXT("warhammer")&&
-        (S.Action==EFPSBodyAction::None||S.Action==EFPSBodyAction::Inspect);
+        (S.Action==EFPSBodyAction::None||(S.Action==EFPSBodyAction::Inspect&&
+            S.ActionVariant!=TEXT("PojunInspect")&&S.ActionVariant!=TEXT("PojunInspectWalk")));
 }
 inline FName Clip(const FFPSBodyState& S)
 {
     if(S.Family!=TEXT("Tool")||S.Weapon!=TEXT("warhammer")||
         S.Motion==EFPSBodyMotion::Vault||S.Motion==EFPSBodyMotion::Mantle)return NAME_None;
+    // The single-hand conductor uses the authored native wrist/finger stream,
+    // rebased onto each body by CaptureMotion, rather than the two-hand slam.
+    if(S.ActionVariant==TEXT("WarhammerCallCharge")||S.ActionVariant==TEXT("WarhammerCallRelease"))return NAME_None;
+    if(S.ActionVariant==TEXT("WarhammerLeapLoad"))return TEXT("Warhammer.FullBody.Uppercut");
+    if(S.ActionVariant==TEXT("WarhammerLeapAir"))return TEXT("Warhammer.FullBody.Charge");
+    if(S.ActionVariant==TEXT("WarhammerLeapSlam"))return TEXT("Warhammer.FullBody.Slam");
     if(IsCarry(S)&&S.Motion==EFPSBodyMotion::Ground)
         return S.ActionVariant==TEXT("WarhammerSprintReady")?TEXT("Warhammer.FullBody.SprintCarry"):TEXT("Warhammer.FullBody.Carry");
     if(S.Action==EFPSBodyAction::Strike||S.Action==EFPSBodyAction::HeavyStrike||S.Action==EFPSBodyAction::ToolRecover)
     {
         // A hit no longer replaces the donor's follow-through with a separately
         // constructed first-person-style recovery. Keep the complete take.
-        // The continuous Pojun performance supplies both wrists and the weapon.
+        // CaptureMotion maps both wrists and the weapon from the continuous
+        // Pojun performance. A full-body override here freezes those samples.
         if(ChainSlashMotion::IsVariant(S.ActionVariant))return NAME_None;
         if(S.ActionVariant==TEXT("WarhammerSlash1"))return TEXT("Warhammer.FullBody.Slash1");
         if(S.ActionVariant==TEXT("WarhammerSlash2"))return TEXT("Warhammer.FullBody.Slash2");
         if(S.ActionVariant==TEXT("WarhammerSlash3"))return TEXT("Warhammer.FullBody.Slash3");
+        if(S.ActionVariant==TEXT("WarhammerThrow"))return TEXT("Warhammer.FullBody.Slash3");
         if(S.ActionVariant==TEXT("WarhammerFinalToll"))return TEXT("Warhammer.FullBody.FinalTollHeavy");
         if(S.ActionVariant==TEXT("WarhammerSlam"))return TEXT("Warhammer.FullBody.Slam");
         if(S.ActionVariant==TEXT("WarhammerSprintSlam"))return TEXT("Warhammer.FullBody.SprintSlam");
         if(S.ActionVariant==TEXT("WarhammerUppercut"))return TEXT("Warhammer.FullBody.Uppercut");
     }
     if(S.Action==EFPSBodyAction::Charge&&S.ActionVariant==TEXT("WarhammerCharge"))return TEXT("Warhammer.FullBody.Charge");
+    if(S.Action==EFPSBodyAction::Charge&&S.ActionVariant==TEXT("WarhammerThrowCharge"))return TEXT("Warhammer.FullBody.Slash3");
     if(S.Action==EFPSBodyAction::Charge&&S.ActionVariant==TEXT("WarhammerFinalTollCharge"))return TEXT("Warhammer.FullBody.FinalTollCharge");
     if(S.Action==EFPSBodyAction::Charge&&S.ActionVariant==TEXT("WarhammerSprintLift"))return TEXT("Warhammer.FullBody.SprintLift");
     if(S.Action==EFPSBodyAction::Whirlwind)
@@ -50,6 +69,7 @@ inline FName Clip(const FFPSBodyState& S)
     }
     if(S.Action==EFPSBodyAction::GuardHit)return TEXT("Warhammer.FullBody.GuardHit");
     if(S.Action==EFPSBodyAction::GuardBreak)return TEXT("Warhammer.FullBody.GuardBreak");
+    // Older body states have no sampled wrists for this variant.
     if(S.Action==EFPSBodyAction::GunBash&&S.ActionVariant==TEXT("WarhammerHeadThrust"))return TEXT("Warhammer.FullBody.QuickMelee");
     return NAME_None;
 }
@@ -68,7 +88,15 @@ struct FDonorPlayback
     {
         const float P=FMath::Clamp(S.ActionProgress,0.f,1.f);
         bSustained=true;
-        if(S.Action==EFPSBodyAction::Whirlwind)
+        if(S.ActionVariant==TEXT("WarhammerLeapLoad"))Seconds=Contact*P;
+        else if(S.ActionVariant==TEXT("WarhammerLeapAir"))Seconds=Length*FMath::SmoothStep(0.f,.41f,P);
+        else if(S.ActionVariant==TEXT("WarhammerLeapSlam"))
+        {
+            const float Hit=FMath::Max(.001f,S.ContactFraction),Hold=FMath::Max(Hit,S.ReleaseFraction);
+            Seconds=P<Hit?Contact*FMath::Square(P/Hit):P<Hold?Contact:
+                FMath::Lerp(Contact,Length,FMath::SmoothStep(Hold,1.f,P));
+        }
+        else if(S.Action==EFPSBodyAction::Whirlwind)
         {
             const float Ready=FMath::Clamp(S.ContactFraction,.01f,.98f);
             const float End=FMath::Clamp(S.ReleaseFraction,Ready+.001f,.99f);
@@ -92,7 +120,7 @@ struct FDonorPlayback
             return Seconds;
         }
         const bool Windup=S.Action==EFPSBodyAction::Charge;
-        const bool Release=S.ActionVariant==TEXT("WarhammerSlam")||S.ActionVariant==TEXT("WarhammerSprintSlam");
+        const bool Release=S.ActionVariant==TEXT("WarhammerSlam")||S.ActionVariant==TEXT("WarhammerSprintSlam")||S.ActionVariant==TEXT("WarhammerThrow");
         const float LoadedTime=FMath::Clamp(Contact*.5f,0.f,Length);
         const float Follow=FMath::Clamp(FollowThrough,Contact,Length);
         const auto Ease=[](float U){U=FMath::Clamp(U,0.f,1.f);return U*U*(3.f-2.f*U);};

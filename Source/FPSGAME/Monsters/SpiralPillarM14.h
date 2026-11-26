@@ -19,6 +19,15 @@ class USoundAttenuation;
 UENUM(BlueprintType)
 enum class EM14State : uint8 { Idle, Crawl, Returning, Bite, Stagger, Dying, Corpse, Spit, SweepLeft, SweepRight, TrunkSlam, Whirlwind };
 
+USTRUCT()
+struct FM14PlaybackState
+{
+    GENERATED_BODY()
+    UPROPERTY() EM14State State=EM14State::Idle;
+    UPROPERTY() double StartedAt=0.;
+    UPROPERTY() uint32 Serial=0;
+};
+
 /** Source-preserving nonhumanoid pillar; shared BT owns decisions and one clock executes attacks. */
 UCLASS(Blueprintable)
 class FPSGAME_API ASpiralPillarM14 : public ACharacter
@@ -58,7 +67,8 @@ public:
     UPROPERTY(EditAnywhere,Category="M14|Bite") float BiteCooldown=2.6f;
     UPROPERTY(EditAnywhere,Category="M14|Death") float CorpseSeconds=20.f;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Replicated,Category="M14") float Health=2200.f;
-    UPROPERTY(VisibleAnywhere,BlueprintReadOnly,ReplicatedUsing=OnRep_State,Category="M14") EM14State State=EM14State::Idle;
+    // Public state remains the existing Blueprint/C++ view of the replicated playback record.
+    UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="M14") EM14State State=EM14State::Idle;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="M14") FVector Home;
     bool Dead() const { return Health<=0.f||State==EM14State::Dying||State==EM14State::Corpse; }
     bool IsAttacking() const { return State==EM14State::Bite||State==EM14State::Spit||State==EM14State::TrunkSlam||State==EM14State::Whirlwind||IsSweeping(); }
@@ -181,4 +191,8 @@ public:
     USoundAttenuation* OneShotAttenuation(float Falloff) const;
 private:
     void UpdateLoopAudio();
+    UPROPERTY(ReplicatedUsing=OnRep_State) FM14PlaybackState PlaybackState;
+    float NetworkStateAge() const;
+    uint32 PresentedStateSerial=0;
+    bool bSpitAudioConsumed=false;
 };

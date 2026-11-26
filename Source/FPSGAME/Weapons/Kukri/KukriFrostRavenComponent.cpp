@@ -1,4 +1,5 @@
 #include "KukriFrostRavenComponent.h"
+#include "KukriEnchantment.h"
 #include "../../Combat/CombatStatusFormula.h"
 #include "KukriBerserkerVFXComponent.h"
 #include "../AzureDragonEnergyComponent.h"
@@ -22,18 +23,14 @@ UKukriFrostRavenComponent::UKukriFrostRavenComponent()
 }
 bool UKukriFrostRavenComponent::Installed(const FColdSteelItem& Item)
 {
-    if(Item.Definition!=TEXT("ue_kukri"))return false;
-    const auto Data=ColdSteelItemData::Read(Item.Data);
-    const TSharedPtr<FJsonObject>* Parts=nullptr;FString Rune;
-    return Data&&Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts)&&
-        (*Parts)->TryGetStringField(TEXT("blade_2"),Rune)&&Rune==TEXT("frost_raven_rune");
+    return KukriEnchantment::Has(Item,TEXT("frostHawk"));
 }
 void UKukriFrostRavenComponent::Configure(const UColdSteelStatusModel* Model)
 {
     Profile=Model;TArray<FString> Next;
-    const auto* Main=Model?Model->Equipped():nullptr;
+    const auto* Main=Model?Model->ActiveKukriWeapon():nullptr;
     const auto* Tool=Model?Model->ActiveProductionTool():nullptr;
-    const auto* Paired=Main?Model->Equipped(Main->Cell==6?8:11):nullptr;
+    const auto* Paired=Main&&Main==Model->Equipped()?Model->Equipped(Main->Cell==6?8:11):nullptr;
     // Track the actual ordered loadout, including the non-rune partner. Swapping
     // hands or changing the other weapon must end the shared frost-raven cycle.
     const FString NextKey=FString::Printf(TEXT("%d|%s|%s|%s"),Main?Main->Cell:-1,
@@ -90,9 +87,10 @@ float UKukriFrostRavenComponent::Remaining() const
 }
 bool UKukriFrostRavenComponent::Eligible(const FColdSteelSkillShot& Shot,const UColdSteelStatusModel* Model) const
 {
-    if(!Shot.bMelee||Shot.bRicochet||Shot.ItemDefinition!=TEXT("ue_kukri"))return false;
+    // EquippedInstances already contains only compatible enchanted blades.
+    if(!Shot.bMelee||Shot.bRicochet)return false;
     if(EquippedInstances.Contains(Shot.ItemInstance))return true;
-    const auto* Main=Model?Model->Equipped():nullptr;
+    const auto* Main=Model?Model->ActiveKukriWeapon():nullptr;
     const auto* Off=Shot.AttackMeta==0x16?ColdSteelMelee::PairedOneHandedWeapon(Main,Model):nullptr;
     return Main&&Off&&Shot.ItemInstance==Main->InstanceId&&EquippedInstances.Contains(Off->InstanceId);
 }
@@ -104,7 +102,7 @@ float UKukriFrostRavenComponent::ToughnessMultiplier(const FColdSteelSkillShot& 
     // All contacts of the activating swing retain its pre-awakening strength.
     const auto* Contact=Rune->RecentAttacks.FindByPredicate([&](const auto& C){return C.Serial==Shot.MasteryAttackSerial;});
     if(Contact&&!Contact->bAwakened)return 1.f;
-    const auto* Main=Model->Equipped();
+    const auto* Main=Model->ActiveKukriWeapon();
     const auto* Off=Shot.AttackMeta==0x16?ColdSteelMelee::PairedOneHandedWeapon(Main,Model):nullptr;
     if(Main&&Off&&Shot.ItemInstance==Main->InstanceId)
     {
@@ -155,9 +153,10 @@ void UKukriFrostRavenComponent::Present()
     if(ActiveVFX)
     {
         uint8 Hands=0;
-        const auto* Model=Profile.Get();const auto* Main=Model?Model->Equipped():nullptr;
+        const auto* Model=Profile.Get();const auto* Main=Model?Model->ActiveKukriWeapon():nullptr;
         const auto* Off=ColdSteelMelee::PairedOneHandedWeapon(Main,Model);
-        if(Main&&EquippedInstances.Contains(Main->InstanceId))Hands|=1;
+        // A lone off-hand blade (main hand empty) frosts on the left hand that holds it.
+        if(Main&&EquippedInstances.Contains(Main->InstanceId))Hands|=Main==Model->Equipped()?1:2;
         if(Off&&EquippedInstances.Contains(Off->InstanceId))Hands|=2;
         ActiveVFX->SetState(Enabled,Seconds,Hands,Instances);
     }

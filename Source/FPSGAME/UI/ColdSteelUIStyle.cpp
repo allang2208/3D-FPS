@@ -2,6 +2,8 @@
 
 #include "Brushes/SlateRoundedBoxBrush.h"
 #include "Fonts/SlateFontInfo.h"
+#include "Fonts/FontMeasure.h"
+#include "Internationalization/BreakIterator.h"
 #include "Styling/SlateTypes.h"
 #include "Misc/Paths.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
@@ -16,10 +18,38 @@
 
 namespace
 {
-    TSharedPtr<FCompositeFont> MakeThemeFont(const TCHAR* File)
+    const FName RegularFace(TEXT("Regular"));
+    const FName SemiBoldFace(TEXT("SemiBold"));
+    const FName BoldFace(TEXT("Bold"));
+    const FName IconFace(TEXT("Icon"));
+
+    TSharedRef<FCompositeFont> MakeThemeFont()
     {
-        return MakeShared<FCompositeFont>(TEXT("Regular"), FPaths::ProjectContentDir()/TEXT("UI/GunsmithWorkbench/Fonts")/File,
-            EFontHinting::AutoLight,EFontLoadingPolicy::LazyLoad);
+        auto Font = MakeShared<FCompositeFont>();
+        const FString Directory = FPaths::ProjectContentDir() / TEXT("UI/GunsmithWorkbench/Fonts");
+        auto& Faces = Font->DefaultTypeface.Fonts;
+        Faces.Emplace(RegularFace, Directory / TEXT("NotoSansSC-Regular.otf"), EFontHinting::AutoLight, EFontLoadingPolicy::LazyLoad);
+        Faces.Emplace(SemiBoldFace, Directory / TEXT("NotoSansSC-SemiBold.ttf"), EFontHinting::AutoLight, EFontLoadingPolicy::LazyLoad);
+        Faces.Emplace(BoldFace, Directory / TEXT("NotoSansSC-Bold.otf"), EFontHinting::AutoLight, EFontLoadingPolicy::LazyLoad);
+        const FString Emoji = Directory / TEXT("NotoColorEmoji.ttf");
+        Faces.Emplace(IconFace, Emoji, EFontHinting::Default, EFontLoadingPolicy::LazyLoad);
+        Font->FallbackTypeface.Typeface.Fonts.Emplace(RegularFace, Emoji, EFontHinting::Default, EFontLoadingPolicy::LazyLoad);
+
+        // These catalogue symbols have text presentation and are absent from both SC and Color Emoji.
+        auto& Shield = Font->SubTypefaces.AddDefaulted_GetRef();
+        Shield.CharacterRanges.Emplace(0x26E8);
+        Shield.Typeface.Fonts.Emplace(RegularFace, Directory / TEXT("NotoSansSymbols-VF.ttf"), EFontHinting::AutoLight, EFontLoadingPolicy::LazyLoad);
+        auto& Marks = Font->SubTypefaces.AddDefaulted_GetRef();
+        Marks.CharacterRanges.Emplace(0x2726);
+        Marks.CharacterRanges.Emplace(0x27A4);
+        Marks.Typeface.Fonts.Emplace(RegularFace, Directory / TEXT("NotoSansSymbols2-Regular.ttf"), EFontHinting::AutoLight, EFontLoadingPolicy::LazyLoad);
+        return Font;
+    }
+
+    const TSharedRef<FCompositeFont>& ThemeFont()
+    {
+        static const auto Font = MakeThemeFont();
+        return Font;
     }
 }
 
@@ -53,25 +83,57 @@ FButtonStyle ColdSteelUI::ButtonStyle(float Scale)
         .SetDisabled(RoundedBrush(ButtonDisabled,ButtonRadius/Scale,Border,1/Scale));
 }
 
-FSlateFontInfo ColdSteelUI::TextFont(float Size, bool bMedium)
+FSlateFontInfo ColdSteelUI::TextFont(float Size, ETextWeight Weight)
 {
-    static TSharedPtr<FCompositeFont> Regular=MakeThemeFont(TEXT("NotoSansSC-Regular.otf"));
-    static TSharedPtr<FCompositeFont> Medium=MakeThemeFont(TEXT("NotoSansSC-Medium.otf"));
-    return FSlateFontInfo(bMedium?Medium:Regular,Size);
+    const auto& Font = ThemeFont();
+    switch (Weight)
+    {
+    case ETextWeight::SemiBold: return FSlateFontInfo(Font, Size, SemiBoldFace);
+    case ETextWeight::Bold: return FSlateFontInfo(Font, Size, BoldFace);
+    default: return FSlateFontInfo(Font, Size, RegularFace);
+    }
+}
+
+FSlateFontInfo ColdSteelUI::TextFont(float Size, bool bEmphasized)
+{
+    return TextFont(Size, bEmphasized ? ETextWeight::Bold : ETextWeight::Regular);
 }
 
 FSlateFontInfo ColdSteelUI::NumberFont(float Size, bool bBold)
 {
-    auto MakeNumeric = [](const TCHAR* File)
+    // The family's lining digits have equal advances at each weight.
+    return TextFont(Size, bBold);
+}
+
+FSlateFontInfo ColdSteelUI::IconFont(float Size)
+{
+    return FSlateFontInfo(ThemeFont(), Size, IconFace);
+}
+
+FString ColdSteelUI::Ellipsize(const FString& Text, const FSlateFontInfo& Font, float Width, const FSlateFontMeasure& Measure)
+{
+    if (Width <= 0.f || Text.IsEmpty()) return {};
+    if (Measure.Measure(Text, Font).X <= Width) return Text;
+    const FString Ellipsis(TEXT("…"));
+    if (Measure.Measure(Ellipsis, Font).X > Width) return {};
+
+    // Search complete graphemes so emoji, combining marks and surrogate pairs stay together.
+    TArray<int32, TInlineAllocator<64>> Ends;
+    Ends.Add(0);
+    auto Breaks = FBreakIterator::GetCharacterBoundaryIterator();
+    Breaks->SetStringRef(Text);
+    Breaks->ResetToBeginning();
+    for (int32 End = Breaks->MoveToNext(); End != INDEX_NONE && End < Text.Len(); End = Breaks->MoveToNext())
+        Ends.Add(End);
+    Breaks->ClearString();
+    int32 Low = 0, High = Ends.Num() - 1;
+    while (Low < High)
     {
-        auto Font = MakeThemeFont(File);
-        Font->FallbackTypeface.Typeface.Fonts.Add(FTypefaceEntry(TEXT("Chinese"),
-            FPaths::ProjectContentDir()/TEXT("UI/GunsmithWorkbench/Fonts/NotoSansSC-Regular.otf"), EFontHinting::AutoLight, EFontLoadingPolicy::LazyLoad));
-        return Font;
-    };
-    static TSharedPtr<FCompositeFont> Regular = MakeNumeric(TEXT("JetBrainsMono-Regular.ttf"));
-    static TSharedPtr<FCompositeFont> Bold = MakeNumeric(TEXT("JetBrainsMono-Medium.ttf"));
-    return FSlateFontInfo(bBold ? Bold : Regular, Size);
+        const int32 Mid = (Low + High + 1) / 2;
+        if (Measure.Measure(Text.Left(Ends[Mid]) + Ellipsis, Font).X <= Width) Low = Mid;
+        else High = Mid - 1;
+    }
+    return Text.Left(Ends[Low]) + Ellipsis;
 }
 
 float ColdSteelUI::PixelScale(const UObject* Context)

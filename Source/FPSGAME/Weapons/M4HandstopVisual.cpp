@@ -1,3 +1,6 @@
+#include "Saiga12KAttachments.h"
+#include "M24Attachments.h"
+#include "SniperSkeletonStock.h"
 #include "HK416Attachments.h"
 #include "HK416WeaponAssets.h"
 #include "LMG201Attachments.h"
@@ -6,6 +9,7 @@
 #include "SVDAttachments.h"
 #include "SVCHForegripAssets.h"
 #include "PKMAttachments.h"
+#include "M249Attachments.h"
 #include "M16Attachments.h"
 #include "AKMAttachmentVisual.h"
 #include "QBZ191Attachments.h"
@@ -58,6 +62,36 @@ void AFPSGAMECharacter::InitializePrismGripAnimations()
 
 void AFPSGAMECharacter::SetGunsmithHandstop(const FString& Variant)
 {
+    const bool Stable=Variant==LMGStabilityGrip::Id&&LMGStabilityGrip::Supports(ActiveInventoryWeaponDefinition);
+    if(M249WeaponAssets::Matches(AKMViewmodel))
+    {
+        const FString Key=M249Attachments::Key(Variant);
+        AngledForegrip=M249Attachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bInventoryWeaponReady&&Key==TEXT("angled"));
+        CantedForegrip=M249Attachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bInventoryWeaponReady&&Key==TEXT("canted"));
+        VerticalForegrip=M249Attachments::Configure(this,AKMViewmodel,VerticalForegrip,Stable?Variant:Key,bInventoryWeaponReady&&(Stable||Key==TEXT("vertical")||Key==TEXT("tactical_vertical")));
+        if(VerticalForegrip){VerticalForegrip->ComponentTags.Remove(TEXT("LMGStabilityGrip"));if(Stable)VerticalForegrip->ComponentTags.AddUnique(TEXT("LMGStabilityGrip"));}
+        PrismHandstop=M249Attachments::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),bInventoryWeaponReady&&Key==TEXT("prism"));
+        // The former factory grip is now an optional, independently tracked part.
+        M249Attachments::FactorySection(AKMViewmodel,TEXT("M249_Factory_Foregrip"),false);
+        return;
+    }
+    if(IsM24Weapon())
+    {
+        // M24 has no foregrip slot. Reuse this managed attachment channel for
+        // its chassis so visibility, world snapshots and cleanup stay shared.
+        PrismHandstop=M24Attachments::Configure(this,AKMViewmodel,PrismHandstop,Variant,
+            bInventoryWeaponReady&&Variant==M24Attachments::AdvancedAction);
+        const bool Independent=SniperSkeletonStock::UsesM24DirectStock(StockAttachment);
+        if(PrismHandstop&&Independent)
+            if(auto* Front=LoadObject<UStaticMesh>(nullptr,*SniperSkeletonStock::M24FrontMeshPath()))
+            {PrismHandstop->EmptyOverrideMaterials();PrismHandstop->SetStaticMesh(Front);}
+        // Hide the native front only after its replacement actually loaded.
+        // The factory buttstock, wrist and independent rear grips remain.
+        M24Attachments::FactoryChassisSections(AKMViewmodel,PrismHandstop==nullptr);
+        if(Independent)SniperSkeletonStock::FactorySections(AKMViewmodel,false);
+        if(bHolographicOptic&&HolographicOptic)SetM24Optic(OpticVariant);
+        return;
+    }
     if(SVCHWeaponAssets::Matches(AKMViewmodel))
     {
         AngledForegrip=SVCHForegripAssets::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bInventoryWeaponReady&&Variant==TEXT("angled_foregrip"));
@@ -67,7 +101,16 @@ void AFPSGAMECharacter::SetGunsmithHandstop(const FString& Variant)
         PrismHandstop=SVCHForegripAssets::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),bInventoryWeaponReady&&Variant==TEXT("prism_handstop"));
         return;
     }
-
+    if(IsSaiga12KWeapon())
+    {
+        const FString Family=Saiga12KAttachments::ForegripFamily(Variant);
+        AngledForegrip=Saiga12KAttachments::Configure(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bInventoryWeaponReady&&Family==TEXT("angled"));
+        CantedForegrip=Saiga12KAttachments::Configure(this,AKMViewmodel,CantedForegrip,TEXT("canted"),bInventoryWeaponReady&&Family==TEXT("canted"));
+        const bool Tactical=Family==TEXT("tactical_vertical");
+        VerticalForegrip=Saiga12KAttachments::Configure(this,AKMViewmodel,VerticalForegrip,Tactical?TEXT("tactical_vertical"):TEXT("vertical"),bInventoryWeaponReady&&(Tactical||Family==TEXT("vertical")));
+        PrismHandstop=Saiga12KAttachments::Configure(this,AKMViewmodel,PrismHandstop,TEXT("prism"),bInventoryWeaponReady&&Family==TEXT("prism"));
+        return;
+    }
     if(IsM870Weapon())
     {
         AngledForegrip=M870FurnitureAssets::ConfigureForegrip(this,AKMViewmodel,AngledForegrip,TEXT("angled"),bInventoryWeaponReady&&Variant==TEXT("angled_foregrip"));
@@ -99,7 +142,16 @@ void AFPSGAMECharacter::SetGunsmithHandstop(const FString& Variant)
     const bool bTacticalVertical=Variant==TEXT("tactical_vertical_foregrip");
     // Both upright grips use this rifle's existing contact and return animation
     // family. The catalog ID, appearance and handling modifiers stay independent.
-    SetVerticalForegrip(Variant==TEXT("vertical_foregrip")||bTacticalVertical);
+    SetVerticalForegrip(Variant==TEXT("vertical_foregrip")||bTacticalVertical||Stable);
+    if(VerticalForegrip){VerticalForegrip->ComponentTags.Remove(TEXT("LMGStabilityGrip"));if(Stable)VerticalForegrip->ComponentTags.AddUnique(TEXT("LMGStabilityGrip"));}
+    if(Stable&&!WeaponGripProfiles.Contains(TEXT("stability")))
+    {
+        TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>> Shared;
+        InitializeWeaponGripFamily(TEXT("stability"),Shared);
+    }
+    if(Stable&&HasVerticalForegrip())
+        if(auto* GripMesh=LoadObject<UStaticMesh>(nullptr,*LMGStabilityGrip::MeshPath(ActiveInventoryWeaponDefinition)))
+        {VerticalForegrip->EmptyOverrideMaterials();VerticalForegrip->SetStaticMesh(GripMesh);}
     if(bTacticalVertical&&HasVerticalForegrip())
     {
         const TCHAR* Rifle=bUseASH12?TEXT("ASH12"):bUseQBZ191?TEXT("QBZ191"):
@@ -158,5 +210,5 @@ void AFPSGAMECharacter::SetGunsmithHandstop(const FString& Variant)
 
 bool AFPSGAMECharacter::HasPrismHandstop() const
 {
-    return PrismHandstop&&PrismHandstop->IsVisible()&&PrismHandstop->GetStaticMesh();
+    return !IsM24Weapon()&&PrismHandstop&&PrismHandstop->IsVisible()&&PrismHandstop->GetStaticMesh();
 }

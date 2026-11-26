@@ -1,114 +1,154 @@
 #include "ColdSteelExpeditionWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
-#include "../FPSGAMEPlayerController.h"
 #include "../FPSGAMECharacter.h"
-#include "../Monsters/FPSCombatHealthComponent.h"
 #include "../Combat/CombatItemFormula.h"
+#include "../Items/FoodSpoilage.h"
 #include "../Weapons/Staff/StaffCatalog.h"
-#include "Dom/JsonObject.h"
 #include "Widgets/SBoxPanel.h"
-#include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
-#include "Widgets/Input/SButton.h"
-#include "Widgets/Notifications/SProgressBar.h"
-#include "Widgets/Text/STextBlock.h"
+
+namespace
+{
+    struct FCarriedSupply
+    {
+        FString Name;
+        int64 Count=0,Uses=0;
+        bool bExpired=false;
+    };
+
+    double Number(const FJsonObject* Data,const TCHAR* Field,double Default=0.)
+    {
+        double Value=Default;
+        return Data&&Data->TryGetNumberField(Field,Value)?Value:Default;
+    }
+}
 
 void UColdSteelExpeditionWidget::RefreshPreparationData()
 {
-    if(auto* Model=Profile())PreparedMaxMana=Model->Derived(TEXT("maxMp"));
-    if(auto* Pawn=GetOwningPlayerPawn())PlayerHealth=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
-    RefreshPreparation();
+    // Inventory transactions can broadcast while the expedition is suspended.
+    // The return path explicitly refreshes the preserved panel once it is visible.
+    if(GetVisibility()!=ESlateVisibility::Collapsed)RefreshPreparation();
 }
 
 void UColdSteelExpeditionWidget::RefreshPreparation()
 {
     if(!PreparationRows)return;
-    auto* Model=Profile();const auto* Entry=Selection();
+    auto* Model=Profile();
     if(!Model)
     {
-        PreparationRows->ClearChildren();
-        PreparationRows->AddSlot().AutoHeight()[Section(TEXT("角色信息暂不可用"),TEXT("角色资料载入后再查看行前准备。"))];return;
+        PreparationRows->ClearChildren();PreparationKey.Reset();
+        PreparationRows->AddSlot().AutoHeight()[Section(TEXT("物资暂不可用"),TEXT("角色资料载入后显示携带物资。"))];
+        return;
     }
-    int64 HealthSupplies=0,ManaSupplies=0;
-    const auto& Items=Model->Items();
-    for(const auto& Item:Items)
+    TArray<FCarriedSupply> Groups[3];
+    int64 Usable[3]={0,0,0};
+    for(const auto& Item:Model->Items())
     {
         if((Item.Place!=0&&Item.Place!=ColdSteelInventory::ColdSteelCompartment::Place)||Item.Count<=0)continue;
-        const auto Data=CombatItemFormula::ReadOnly(Item);const TSharedPtr<FJsonObject>* Effect=nullptr;
-        if(!Data||!Data->TryGetObjectField(TEXT("useEffect"),Effect))continue;
-        const auto Positive=[&](const TCHAR* Field){double Amount=0;return (*Effect)->TryGetNumberField(Field,Amount)&&Amount>0;};
-        if(Positive(TEXT("hp"))||Positive(TEXT("maxHpPercent")))HealthSupplies+=Item.Count;
-        if(Positive(TEXT("mp"))||Positive(TEXT("maxMpPercent")))ManaSupplies+=Item.Count;
+        const auto Data=CombatItemFormula::ReadOnly(Item);
+        const TSharedPtr<FJsonObject>* Effect=nullptr;
+        if(!Data||!Data->TryGetObjectField(TEXT("useEffect"),Effect)||!Effect||!Effect->IsValid())continue;
+        const auto Positive=[&](const TCHAR* Key){return Number(Effect->Get(),Key)>0.;};
+        const bool Food=Positive(TEXT("hunger"))||Positive(TEXT("maxHungerPercent"));
+        const bool Water=Positive(TEXT("hydration"))||Positive(TEXT("maxHydrationPercent"));
+        const bool Potion=Item.Definition.Contains(TEXT("potion"))||Positive(TEXT("hp"))||Positive(TEXT("maxHpPercent"))||Positive(TEXT("mp"))||Positive(TEXT("maxMpPercent"));
+        const int32 Group=Food?0:Water?1:Potion?2:INDEX_NONE;
+        if(Group==INDEX_NONE)continue;
+        const FString Name=ColdSteelInventory::Text(Item,TEXT("name"));
+        const bool Expired=ColdSteelFood::LifetimeDays(Item)>0.&&Model->FoodRemainingDays(Item)<=0.;
+        const int32 MaxUses=FMath::Max(1,int32(Number(Data.Get(),TEXT("maxUses"),1.)));
+        const int32 Remaining=FMath::Clamp(int32(Number(Data.Get(),TEXT("remainingUses"),MaxUses)),0,MaxUses);
+        auto* Supply=Groups[Group].FindByPredicate([&](const auto& Row){return Row.Name==Name&&Row.bExpired==Expired;});
+        if(!Supply){FCarriedSupply Row;Row.Name=Name;Row.bExpired=Expired;Supply=&Groups[Group].Add_GetRef(MoveTemp(Row));}
+        Supply->Count+=Item.Count;Supply->Uses+=Item.Count*Remaining;
+        if(!Expired)Usable[Group]+=Group==1?Item.Count*Remaining:Item.Count;
     }
-    const int32 Capacity=18*ColdSteelInventory::BagRows(Items);
-    int32 FreeCells=0;
-    for(int32 Cell=0;Cell<Capacity;++Cell)if(ColdSteelInventory::Owner(Items,0,Cell)==INDEX_NONE)++FreeCells;
-    const auto* Weapon=Model->Equipped();
-    const FString WeaponName=Weapon?ColdSteelInventory::Text(*Weapon,TEXT("name")):TEXT("未装备");
-    const bool Staff=Weapon&&ColdSteelStaff::IsStaff(*Weapon);
-    const bool UsesAmmo=Weapon&&!Staff&&!ColdSteelInventory::IsMeleeWeapon(*Weapon);
-    const FString Ammo=UsesAmmo?Model->AmmoDefinitionFor(*Weapon):FString();
+    FString Key;
+    for(auto& Group:Groups)
+    {
+        Group.Sort([](const auto& A,const auto& B){return A.Name==B.Name?A.bExpired<B.bExpired:A.Name<B.Name;});
+        for(const auto& Supply:Group)
+            Key+=FString::Printf(TEXT("|%s:%lld:%lld:%d"),*Supply.Name,Supply.Count,Supply.Uses,Supply.bExpired);
+        Key+=TEXT(";");
+    }
     const auto* Character=Cast<AFPSGAMECharacter>(GetOwningPlayerPawn());
-    const bool Infinite=!Ammo.IsEmpty()&&Character&&Character->HasInfiniteReserveAmmoFor(Ammo);
-    const FString Reserve=Infinite?TEXT("∞"):FString::Printf(TEXT("%lld"),Ammo.IsEmpty()?0:Model->PouchCount(Ammo));
-    const FString Key=SelectedId.ToString()+Model->CharacterName+Model->CharacterClass+WeaponName+Ammo+Reserve+
-        FString::Printf(TEXT("|%d|%lld|%lld|%d|%d|%d|%d"),Model->Level,HealthSupplies,ManaSupplies,FreeCells,Capacity,Staff,Model->HasInfiniteMana());
+    const auto* Weapon=Model->Equipped();
+    if(!Weapon)Weapon=Model->ActiveFirearm();
+    if(!Weapon)Weapon=Model->ActiveKukriWeapon();
+    TArray<const FColdSteelItem*> Weapons;
+    if(Weapon)
+    {
+        Weapons.Add(Weapon);
+        if((Weapon->Cell==6||Weapon->Cell==9)&&(ColdSteelInventory::IsDualPistol(*Weapon)||ColdSteelStaff::IsStaff(*Weapon)))
+            if(const auto* Offhand=Model->Equipped(Weapon->Cell==6?8:11);Offhand&&ColdSteelInventory::IsDualPistol(*Offhand))Weapons.Add(Offhand);
+    }
+    struct FWeaponSummary {FString Name,Ammo;int64 Reserve=0;bool bInfinite=false,bStaff=false;};
+    TArray<FWeaponSummary> WeaponSummaries;
+    TArray<FString> Warnings;
+    if(Weapons.IsEmpty())Warnings.Add(TEXT("尚未装备武器"));
+    for(const auto* Equipped:Weapons)
+    {
+        FWeaponSummary Summary;
+        Summary.Name=ColdSteelInventory::Text(*Equipped,TEXT("name"));
+        Summary.bStaff=ColdSteelStaff::IsStaff(*Equipped);
+        Summary.Ammo=Summary.bStaff||ColdSteelInventory::IsMeleeWeapon(*Equipped)?FString():Model->AmmoDefinitionFor(*Equipped);
+        Summary.bInfinite=!Summary.Ammo.IsEmpty()&&Character&&Character->HasInfiniteReserveAmmoFor(Summary.Ammo);
+        Summary.Reserve=Summary.Ammo.IsEmpty()?0:Model->PouchCount(Summary.Ammo);
+        Key+=FString::Printf(TEXT("|%s:%s:%lld:%d:%d:%d"),*Summary.Name,*Summary.Ammo,Summary.Reserve,Summary.bInfinite,Summary.bStaff,Model->HasInfiniteMana());
+        if(!Summary.Ammo.IsEmpty()&&!Summary.bInfinite&&Summary.Reserve==0)Warnings.AddUnique(TEXT("当前弹种没有备弹"));
+        WeaponSummaries.Add(MoveTemp(Summary));
+    }
     if(PreparationKey==Key&&PreparationRows->NumSlots()>0)return;
     PreparationKey=Key;PreparationRows->ClearChildren();
-    auto Identity=SNew(SVerticalBox);
-    Identity->AddSlot().AutoHeight()[Label(Model->CharacterName,20,ColdSteelUI::TextPrimary)];
-    Identity->AddSlot().AutoHeight().Padding(0,6,0,10)[Label(Model->CharacterClass,12,ColdSteelUI::TextSecondary)];
-    Identity->AddSlot().AutoHeight()[Row(TEXT("等级"),FString::FromInt(Model->Level),true)];
-    const auto Resource=[this](bool Mana)
+    auto WeaponRows=SNew(SVerticalBox);
+    WeaponRows->AddSlot().AutoHeight().Padding(0,0,0,10)[Label(TEXT("当前武器"),16,ColdSteelUI::HUDGold)];
+    if(WeaponSummaries.IsEmpty())WeaponRows->AddSlot().AutoHeight()[Label(TEXT("未装备武器"),14,ColdSteelUI::TextSecondary)];
+    for(const auto& Summary:WeaponSummaries)
     {
-        auto Value=SNew(STextBlock).Font(ColdSteelUI::NumberFont(10.5f)).ColorAndOpacity(ColdSteelUI::TextPrimary)
-            .Text_Lambda([this,Mana]()
-            {
-                const auto* ProfileModel=Profile();const auto* Health=PlayerHealth.Get();
-                if(Mana&&ProfileModel)return FText::FromString(FString::Printf(TEXT("%.0f / %.0f"),ProfileModel->Mana(),PreparedMaxMana));
-                return Health?FText::FromString(FString::Printf(TEXT("%.0f / %.0f"),Health->Health,Health->MaxHealth)):FText::FromString(TEXT("—"));
-            });
-        return SNew(SVerticalBox)
-            +SVerticalBox::Slot().AutoHeight().Padding(0,5)
-                [SNew(SHorizontalBox)
-                    +SHorizontalBox::Slot().FillWidth(1)[Label(Mana?TEXT("魔法"):TEXT("生命"),14,ColdSteelUI::TextSecondary)]
-                    +SHorizontalBox::Slot().AutoWidth()[Value]]
-            +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)
-                [SNew(SBox).HeightOverride(4)[SNew(SProgressBar).Style(&ResourceStyle).FillColorAndOpacity(Mana?ColdSteelUI::Mana:ColdSteelUI::Health)
-                    .Percent_Lambda([this,Mana]()->TOptional<float>
-                    {
-                        const auto* M=Profile();const auto* H=PlayerHealth.Get();
-                        return Mana?(M&&PreparedMaxMana>0?FMath::Clamp(M->Mana()/PreparedMaxMana,0.f,1.f):0.f):
-                            (H&&H->MaxHealth>0?FMath::Clamp(H->Health/H->MaxHealth,0.f,1.f):0.f);
-                    })]];
-    };
-    Identity->AddSlot().AutoHeight()[Resource(false)];
-    Identity->AddSlot().AutoHeight()[Resource(true)];
-    Identity->AddSlot().AutoHeight()[Row(TEXT("当前武器"),WeaponName)];
-    if(!Ammo.IsEmpty())
-    {
-        Identity->AddSlot().AutoHeight()[Row(TEXT("使用弹药"),Model->AmmoLabel(Ammo))];
-        Identity->AddSlot().AutoHeight()[Row(TEXT("弹药袋备弹"),Reserve,true)];
+        WeaponRows->AddSlot().AutoHeight().Padding(0,4,0,4)[Label(Summary.Name,16,ColdSteelUI::TextPrimary)];
+        if(!Summary.Ammo.IsEmpty())
+        {
+            WeaponRows->AddSlot().AutoHeight()[Row(TEXT("备弹"),Summary.bInfinite?TEXT("∞"):FString::Printf(TEXT("%lld"),Summary.Reserve),true)];
+            WeaponRows->AddSlot().AutoHeight()[Label(Model->AmmoLabel(Summary.Ammo),12,ColdSteelUI::TextSecondary)];
+        }
+        else WeaponRows->AddSlot().AutoHeight()[Label(Summary.bStaff?(Model->HasInfiniteMana()?TEXT("消耗魔法 · 无限魔法已启用"):TEXT("消耗魔法，无需备弹")):TEXT("无需备弹"),12,ColdSteelUI::TextSecondary)];
     }
-    else if(Staff)Identity->AddSlot().AutoHeight()[Label(Model->HasInfiniteMana()?TEXT("法杖 · 无限魔法已启用"):TEXT("法杖 · 留意魔法与恢复补给"),12,ColdSteelUI::TextSecondary)];
-    PreparationRows->AddSlot().AutoHeight().Padding(0,0,0,12)[SNew(SBorder).BorderImage(&HeroBrush).Padding(14)[Identity]];
-    auto Supplies=SNew(SVerticalBox);
-    Supplies->AddSlot().AutoHeight().Padding(0,0,0,8)[Label(TEXT("携带补给"),16,ColdSteelUI::TextPrimary)];
-    Supplies->AddSlot().AutoHeight()[Row(TEXT("生命恢复品"),FString::Printf(TEXT("%lld"),HealthSupplies),true)];
-    Supplies->AddSlot().AutoHeight()[Row(TEXT("魔法恢复品"),FString::Printf(TEXT("%lld"),ManaSupplies),true)];
-    Supplies->AddSlot().AutoHeight()[Row(TEXT("主背包空格"),FString::Printf(TEXT("%d / %d"),FreeCells,Capacity),true)];
-    Supplies->AddSlot().AutoHeight().Padding(0,6,0,8)[Label(TEXT("恢复品统计背包与夹层；备弹取弹药袋。空格不保证大件能放入。"),12,ColdSteelUI::TextTertiary)];
-    TArray<FString> Warnings;
-    if(!Weapon)Warnings.Add(TEXT("尚未装备武器"));
-    if(HealthSupplies==0)Warnings.Add(TEXT("未携带生命恢复品"));
-    if(Staff&&ManaSupplies==0&&!Model->HasInfiniteMana())Warnings.Add(TEXT("未携带魔法恢复品"));
-    if(!Ammo.IsEmpty()&&!Infinite&&Model->PouchCount(Ammo)==0)Warnings.Add(TEXT("当前弹种没有备弹"));
-    if(FreeCells==0)Warnings.Add(TEXT("主背包已满"));
-    if(!Warnings.IsEmpty())Supplies->AddSlot().AutoHeight().Padding(0,0,0,10)
-        [Label(FString::Join(Warnings,TEXT("；"))+TEXT("。这些提醒不阻止出征。"),12,ColdSteelUI::Warning)];
-    Supplies->AddSlot().AutoHeight()[Action(TEXT("整理装备"),[this](){if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer()))PC->PrepareExpeditionEquipment();})];
-    PreparationRows->AddSlot().AutoHeight().Padding(0,0,0,12)[SNew(SBorder).BorderImage(&HeroBrush).Padding(14)[Supplies]];
-    PreparationRows->AddSlot().AutoHeight()
-        [Section(TEXT("进入条件"),Entry?Entry->EntryCost:TEXT("尚未选择目的地"))];
+    // Natural section heights keep long carried-item lists scrollable without overlap.
+    const auto AddGroup=[this](TSharedRef<SWidget> Content)
+    {
+        auto SectionRows=SNew(SVerticalBox)
+            +SVerticalBox::Slot().AutoHeight().Padding(0,10,0,14)[Content]
+            +SVerticalBox::Slot().AutoHeight()[Divider()];
+        PreparationRows->AddSlot().AutoHeight().Padding(0,6)[SectionRows];
+    };
+    AddGroup(WeaponRows);
+    const TCHAR* Titles[]={TEXT("食物"),TEXT("水与饮品"),TEXT("补给品 · 药水")};
+    for(int32 Group=0;Group<3;++Group)
+    {
+        auto Rows=SNew(SVerticalBox)
+            +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)
+                [SNew(SHorizontalBox)
+                    +SHorizontalBox::Slot().FillWidth(1)[Label(Titles[Group],16,ColdSteelUI::HUDGold,false,false)]
+                    +SHorizontalBox::Slot().AutoWidth()[Label(FString::Printf(TEXT("%lld %s"),Usable[Group],Group==1?TEXT("次"):TEXT("件")),14,ColdSteelUI::TextPrimary,false,false)]];
+        if(Groups[Group].IsEmpty())Rows->AddSlot().AutoHeight().Padding(0,6)[Label(TEXT("未携带"),14,ColdSteelUI::TextSecondary)];
+        for(const auto& Supply:Groups[Group])
+        {
+            const FString Name=Supply.Name+(Supply.bExpired?TEXT("（已变质）"):TEXT(""));
+            const FString Amount=Group==1?FString::Printf(TEXT("%lld 件 · 可饮用 %lld 次"),Supply.Count,Supply.bExpired?0:Supply.Uses):FString::Printf(TEXT("× %lld"),Supply.Count);
+            Rows->AddSlot().AutoHeight().Padding(0,5)
+                [SNew(SHorizontalBox)
+                    +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center).Padding(0,0,12,0)
+                        [Label(Name,14,Supply.bExpired?ColdSteelUI::TextTertiary:ColdSteelUI::TextPrimary)]
+                    +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[Label(Amount,14,ColdSteelUI::TextPrimary,false,false)]];
+        }
+        AddGroup(Rows);
+    }
+    if(Usable[0]==0)Warnings.Add(TEXT("未携带可用食物"));
+    if(Usable[1]==0)Warnings.Add(TEXT("未携带饮水"));
+    if(Usable[2]==0)Warnings.Add(TEXT("未携带药水"));
+    if(!Warnings.IsEmpty())PreparationRows->AddSlot().AutoHeight().Padding(0,12,0,4)
+        [Label(FString::Join(Warnings,TEXT(" · ")),12,ColdSteelUI::Warning)];
+    PreparationRows->AddSlot().AutoHeight().Padding(0,8,0,4)
+        [Label(TEXT("统计背包与夹层；备弹来自弹药袋，未计入弹匣。缺少补给仍可出征。"),12,ColdSteelUI::TextTertiary)];
 }

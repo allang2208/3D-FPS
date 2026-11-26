@@ -1,5 +1,8 @@
 #include "../Monsters/BoundCongregateCaptureComponent.h"
+#include "../Skills/LightningHasteSpeed.h"
+#include "EagleTalonGuardComponent.h"
 #include "RuneSwordComponent.h"
+#include "../Skills/ChainSlashAssets.h"
 #include "TangDaoGuardComponent.h"
 #include "PanChiGuardComponent.h"
 #include "RuneSwordMeshComponent.h"
@@ -26,7 +29,8 @@
 void URuneSwordComponent::LoadUppercutAnimations()
 {
     UppercutLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(
-        TArray<FSoftObjectPath>{UppercutStandard.ToSoftObjectPath(),UppercutLongGrip.ToSoftObjectPath()});
+        TArray<FSoftObjectPath>{UppercutStandard.ToSoftObjectPath(),UppercutLongGrip.ToSoftObjectPath(),
+            FSoftObjectPath(ChainSlash::Standard),FSoftObjectPath(ChainSlash::LongGrip),FSoftObjectPath(ChainSlash::Pojun)});
 }
 
 UAnimSequence* URuneSwordComponent::UppercutAnimation() const
@@ -101,8 +105,8 @@ bool URuneSwordComponent::BeginUppercut()
     SwingSkills.ToughnessDamageMultiplier*=Stats.Modifiers.HeavyToughness;
     // The active skill uses its authored clock; ordinary combo finishers still
     // receive weapon attack speed through StartSwing.
-    SwingRate=1.f;
-    bSwingCuePlayed=bImpactFeedbackPlayed=bThrustImpact=false;
+    SwingRate=LightningHaste::ActionSpeed(GetOwner());
+    bSwingCuePlayed=bImpactFeedbackPlayed=bThrustImpact=bUppercutRiftStarted=false;
     ContactStart=RuneSwordUppercutMotion::ReleaseStart;
     ContactEnd=RuneSwordUppercutMotion::Finish;
     bLungeStarted=bLungeBlocked=false;
@@ -134,19 +138,25 @@ void URuneSwordComponent::TickUppercut(float Delta)
     if(!RisingDragon&&!bSwingCuePlayed&&Next>=ContactStart)
     {
         auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+        const float Before=Profile?Profile->Stamina():0.f;
         if(!Profile||!Profile->CommitSwordUppercutRelease()){CancelAction();return;}
+        SwingSkills.bEagleTalonStrike=UEagleTalonGuardComponent::Commit(GetOwner(),InstanceId);
+        if(Character->HasAuthority() && HasGaleGuard(Profile->Equipped()))
+        {
+            SwingSkills.GalePaymentKey=GaleWing::Key(GaleWing::EAttack::Uppercut,++LocalGaleSkillSerial);
+            RecordGalePayment(SwingSkills.GalePaymentKey,InstanceId,Before-Profile->Stamina());
+        }
         if(!bUppercut)return;
     }
     const FTransform AimBeforeLunge=Character->GetMeleeAimTransform();
     const FVector Moved=AdvanceThrustLunge(Elapsed,Next);
     const FTransform AimNow=Character->GetMeleeAimTransform();
-    if(bRiftActive){RiftOrigin.AddToTranslation(Moved);TickRift(0.f);}
+    if(bRiftActive&&!bRiftUppercutReveal){RiftOrigin.AddToTranslation(Moved);TickRift(0.f);}
     if(!bSwingCuePlayed&&Next>=ContactStart)
     {
         bSwingCuePlayed=true;if(!RisingDragon)bHeavyTrainingPending=true;
         if(AttackLayerSound)UGameplayStatics::PlaySound2D(this,AttackLayerSound,1.f,1.f);
         if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,.72f,1.1f);
-        StartRift(Next-ContactStart);
     }
     const auto FrameAt=[&](float Time)
     {
@@ -186,6 +196,15 @@ void URuneSwordComponent::TickUppercut(float Delta)
             AzureDragonSwingRange(bUppercut?UppercutLowReachCM:MeleeSmallTargets::LowReachCM)),EndFrame.GetUnitAxis(EAxis::X));
     }
     SamplePose(Next);PreviousAimFrame=AimNow;Elapsed=Next;
+    if(!bUppercutRiftStarted&&Elapsed>=RuneSwordUppercutMotion::RiftStart)
+    {
+        bUppercutRiftStarted=true;
+        StartRift(0.f);
+    }
+    else if(bRiftActive&&bRiftUppercutReveal)
+    {
+        TickRift(0.f);
+    }
     // Release only after this tick has applied the complete stride and pose.
     // Read the actual landing position/facing now, never a windup origin or a
     // predicted 150 cm endpoint (a wall may have shortened the real movement).

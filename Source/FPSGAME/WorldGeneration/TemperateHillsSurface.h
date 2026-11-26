@@ -16,7 +16,42 @@ inline double Noise(double X,double Y,int32 Seed,uint32 Salt)
     auto V=[&](int32 A,int32 B){return Unit(Key(A,B,uint32(Seed),Salt))*2-1;};
     return FMath::Lerp(FMath::Lerp(V(IX,IY),V(IX+1,IY),FX),FMath::Lerp(V(IX,IY+1),V(IX+1,IY+1),FX),FY);
 }
-inline double Height(double X,double Y,int32 Seed)
+
+// V2 primitives. The quintic fade removes the first and second derivative at
+// the lattice, and the fixed 36.87-degree rotation stops the value-noise grid
+// from lining up with the world axes (the visible parallel bands in V1).
+inline double Quintic(double T) { return T*T*T*(T*(T*6-15)+10); }
+inline double Noise5(double X,double Y,int32 Seed,uint32 Salt)
+{
+    const double RX=X*.8-Y*.6,RY=X*.6+Y*.8;
+    const int32 IX=FMath::FloorToInt(RX),IY=FMath::FloorToInt(RY);
+    const double FX=Quintic(RX-IX),FY=Quintic(RY-IY);
+    auto V=[&](int32 A,int32 B){return Unit(Key(A,B,uint32(Seed),Salt))*2-1;};
+    return FMath::Lerp(FMath::Lerp(V(IX,IY),V(IX+1,IY),FX),FMath::Lerp(V(IX,IY+1),V(IX+1,IY+1),FX),FY);
+}
+inline double Fbm(double X,double Y,int32 Seed,uint32 Salt,int32 Octaves)
+{
+    double Sum=0,Norm=0,Amp=1,F=1;
+    for(int32 I=0;I<Octaves;++I)
+    {
+        Sum+=Amp*Noise5(X*F+I*13.7,Y*F-I*7.3,Seed,Salt+I*131);
+        Norm+=Amp;Amp*=.5;F*=2.03;
+    }
+    return Sum/Norm;
+}
+inline double Ridged(double X,double Y,int32 Seed,uint32 Salt,int32 Octaves)
+{
+    double Sum=0,Norm=0,Amp=1,F=1;
+    for(int32 I=0;I<Octaves;++I)
+    {
+        const double N=1.0-FMath::Abs(Noise5(X*F+I*17.3,Y*F+I*5.9,Seed,Salt+I*197));
+        Sum+=Amp*N*N;Norm+=Amp;Amp*=.5;F*=2.03;
+    }
+    return Sum/Norm;
+}
+
+// V1 is frozen: existing saves must keep producing exactly the same terrain.
+inline double HeightV1(double X,double Y,int32 Seed)
 {
     const double Warp=Noise(X*.000024,Y*.000024,Seed,14)*4200;
     const double Hill=Noise((X+Warp)*.000055,(Y-Warp*.5)*.000055,Seed,73);
@@ -25,8 +60,45 @@ inline double Height(double X,double Y,int32 Seed)
     const double Detail=Noise(X*.00035,Y*.00035,Seed,26)*95+Noise(X*.0011,Y*.0011,Seed,88)*14;
     return FMath::RoundToDouble(5400+Large*3200+Hill*2400-Valley*1200+Detail);
 }
-inline FVector Normal(double X,double Y,int32 Seed)
-{ return FVector(-(Height(X+100,Y,Seed)-Height(X-100,Y,Seed))/200,-(Height(X,Y+100,Seed)-Height(X,Y-100,Seed))/200,1).GetSafeNormal(); }
+
+// V2: continentalness (C) sets the base, erosion (E) flattens or roughens it,
+// and a warped ridged field (R) supplies the actual hills and rock faces.
+// Constants are tuned for 1-4 km worlds: ~84 m local relief at 1 km and
+// ~147 m at 4 km on seed 122, with 0.2-0.5% of the surface above 45 degrees.
+inline double HeightV2(double X,double Y,int32 Seed)
+{
+    const double C=Fbm(X/140000.0,Y/140000.0,Seed,2101,4);
+    const double E=Fbm(X/90000.0,Y/90000.0,Seed,2102,4)*.5+.5;
+    const double WX=Fbm(X/220000.0,Y/220000.0,Seed,2103,2)*12000.0;
+    const double WY=Fbm(X/220000.0,Y/220000.0,Seed,2104,2)*12000.0;
+    const double R=Ridged((X+WX)/52000.0,(Y+WY)/52000.0,Seed,2105,4);
+    const double D=Fbm(X/6500.0,Y/6500.0,Seed,2106,3)*350.0
+                  +Fbm(X/2400.0,Y/2400.0,Seed,2107,2)*90.0;
+    const double Base=7000.0+3500.0*C;
+    const double Roughness=FMath::Lerp(1.0,0.3,FMath::SmoothStep(0.2,0.8,E));
+    const double Amp=FMath::Clamp(14000.0+14000.0*C,5000.0,28000.0)*Roughness;
+    const double Valley=1500.0*FMath::Exp(-FMath::Square(FMath::Abs(Y-ValleyY(X,Seed))/9000.0));
+    return FMath::RoundToDouble(FMath::Max(150.0,Base+Amp*(R-.35)+D-Valley));
+}
+
+// V3 uses broad signed hills, without the abs() cusps and short, tall ridges of V2.
+// Keep V1/V2 frozen so a saved world's ground only changes by explicit migration.
+inline double HeightV3(double X,double Y,int32 Seed)
+{
+    const double C=Fbm(X/180000.,Y/180000.,Seed,2101,3);
+    const double WX=Fbm(X/220000.,Y/220000.,Seed,2103,2)*4500.;
+    const double WY=Fbm(X/220000.,Y/220000.,Seed,2104,2)*4500.;
+    const double Hills=Fbm((X+WX)/85000.,(Y+WY)/85000.,Seed,2105,3);
+    const double Detail=Noise5(X/10000.,Y/10000.,Seed,2106)*60.
+                       +Noise5(X/3500.,Y/3500.,Seed,2107)*12.;
+    const double Valley=700.*FMath::Exp(-FMath::Square((Y-ValleyY(X,Seed))/14000.));
+    return FMath::RoundToDouble(7000.+2200.*C+3800.*Hills+Detail-Valley);
+}
+
+inline double Height(double X,double Y,int32 Seed,int32 Version=1)
+{ return Version>=3?HeightV3(X,Y,Seed):(Version>=2?HeightV2(X,Y,Seed):HeightV1(X,Y,Seed)); }
+inline FVector Normal(double X,double Y,int32 Seed,int32 Version=1)
+{ return FVector(-(Height(X+100,Y,Seed,Version)-Height(X-100,Y,Seed,Version))/200,-(Height(X,Y+100,Seed,Version)-Height(X,Y-100,Seed,Version))/200,1).GetSafeNormal(); }
 
 // Runtime terrain edits layered on top of the generated height: explosion craters
 // and grid-aligned shovel dig/refill steps. Plain numbers only, so worker mesh jobs
@@ -43,6 +115,7 @@ struct FTerrainEdit
     double Amplitude=0;
     double Lip=0;
     uint32 Seed=0;
+    bool operator==(const FTerrainEdit&) const = default;
 };
 inline bool TerrainEditValid(const FTerrainEdit& E)
 {

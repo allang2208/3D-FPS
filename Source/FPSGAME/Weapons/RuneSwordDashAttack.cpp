@@ -1,5 +1,7 @@
 #include "../Monsters/BoundCongregateCaptureComponent.h"
+#include "../Movement/HorseRiderComponent.h"
 #include "RuneSwordComponent.h"
+#include "HighlandRidgeThrust.h"
 #include "TangDaoGuardComponent.h"
 #include "ModularSwordVisual.h"
 #include "../FPSGAMECharacter.h"
@@ -27,14 +29,14 @@ void URuneSwordComponent::TickDashReadiness(float Delta)
     const auto* Pawn=Character.Get();
     const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const bool Eligible=Pawn&&IsEquipped()&&!IsBusy()&&!bGuardHeld&&CanUse()&&
-        !Pawn->IsCastBlockingLeftHandAction()&&Pawn->bSprintHeld&&
+        !Pawn->IsCastBlockingLeftHandAction()&&(Pawn->bSprintHeld||UHorseRiderComponent::IsCantering(Pawn))&&
         !Pawn->IsDodging()&&
         Profile&&!Profile->ActiveProductionTool()&&Profile->MasteryProgress(TEXT("dashAttack")).Level>0;
     if(!Eligible){ResetDashReadiness();return;}
     const float ReadySeconds=DashReadySeconds(Profile);
     const auto* Movement=Pawn->GetCharacterMovement();
-    const bool bGroundSprint=Pawn->IsSprinting()&&!Pawn->IsSliding()&&Movement->IsMovingOnGround()&&
-        Pawn->GetVelocity().SizeSquared2D()>2500.f;
+    const bool bGroundSprint=UHorseRiderComponent::IsCantering(Pawn) || (Pawn->IsSprinting()&&!Pawn->IsSliding()&&Movement->IsMovingOnGround()&&
+        Pawn->GetVelocity().SizeSquared2D()>2500.f);
     // Only earned readiness survives locomotion changes. The airborne flag also
     // covers the pending LaunchCharacter frame between slide exit and takeoff.
     const bool bSlideOrJump=Pawn->IsSliding()||Movement->IsFalling()||Pawn->bWeaponJumpAirborne||
@@ -52,14 +54,14 @@ void URuneSwordComponent::TickDashReadiness(float Delta)
 float URuneSwordComponent::DashReadyFraction() const
 {
     const auto* Pawn=Character.Get();
-    if(DashSprintSeconds<=0.f||!Pawn||!Pawn->bSprintHeld||IsBusy())return 0.f;
+    if(DashSprintSeconds<=0.f||!Pawn||(!Pawn->bSprintHeld&&!UHorseRiderComponent::IsCantering(Pawn))||IsBusy())return 0.f;
     const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Profile)return 0.f;
     const float ReadySeconds=DashReadySeconds(Profile);
     const auto* Movement=Pawn->GetCharacterMovement();
     const bool bRetainedReady=DashSprintSeconds>=ReadySeconds&&
         (Pawn->IsSliding()||Movement->IsFalling()||Pawn->bWeaponJumpAirborne||!Movement->PendingLaunchVelocity.IsZero());
-    if(!bRetainedReady&&(!Pawn->IsSprinting()||!Movement->IsMovingOnGround()||
+    if(!bRetainedReady&&!UHorseRiderComponent::IsCantering(Pawn)&&(!Pawn->IsSprinting()||!Movement->IsMovingOnGround()||
         Pawn->GetVelocity().SizeSquared2D()<=2500.f))return 0.f;
     return FMath::Clamp(DashSprintSeconds/ReadySeconds,0.f,1.f);
 }
@@ -72,7 +74,7 @@ bool URuneSwordComponent::TryBeginDashAttack()
     auto* Pawn=Character.Get();
     if(bInspecting)CancelAction();
     if(!Pawn||!IsEquipped()||IsBusy()||bGuardHeld||!CanUse()||!Viewmodel||!Viewmodel->GetSkeletalMeshAsset()||
-        !Animations.FindRef(TEXT("Overhead"))||!Pawn->bSprintHeld||Pawn->IsCastBlockingLeftHandAction()||
+        !Animations.FindRef(TEXT("Overhead"))||(!Pawn->bSprintHeld&&!UHorseRiderComponent::IsCantering(Pawn))||Pawn->IsCastBlockingLeftHandAction()||
         Pawn->IsDodging())return false;
     auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Profile||Profile->ActiveProductionTool()||Profile->MasteryProgress(TEXT("dashAttack")).Level<1)return false;
@@ -92,10 +94,11 @@ bool URuneSwordComponent::TryBeginDashAttack()
     const double StatsSeconds=FPlatformTime::Seconds();
     const bool bFromHighCarry=IsTacticalSprintClip(CurrentClip)&&Animations.FindRef(TEXT("SprintOverhead"));
     // StartSwing 提交一次技能体力，替代本次普通挥击消耗；失败不进入动作。
-    if(!StartSwing(TEXT("Overhead"),false,Cast.StaminaCost,false))return false;
+    const bool Ridge=Animations.Contains(HighlandRidgeThrust::Charge);
+    if(!StartSwing(Ridge?HighlandRidgeThrust::Dash:FName(TEXT("Overhead")),false,Cast.StaminaCost,false,true))return false;
     // Same attack contract and source-time contact window; only its entry pose
     // changes, allowing the held sword to drop directly from the sprint carry.
-    if(bFromHighCarry)SetClip(TEXT("SprintOverhead"),false);
+    if(bFromHighCarry&&!Ridge)SetClip(TEXT("SprintOverhead"),false);
     const double SwingSeconds=FPlatformTime::Seconds();
     DashCast=Cast;bDashAttack=bDashTrainingPending=true;bDashCenterCaptured=false;
     SwingSkills.AttackMeta=0x16; // Active dash skill, distinct from an ordinary overhead/third combo.
@@ -106,7 +109,7 @@ bool URuneSwordComponent::TryBeginDashAttack()
     // 冲刺持剑用0.25秒过渡到下劈接触起点；音效、裂隙和判定仍由
     // 同一接触窗触发，前摇期间不命中，接触后的落点与收势保持原时序。
     // The skill's windup, strike and recovery do not scale with weapon attack speed.
-    Elapsed=ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds;
+    Elapsed=Ridge?0.f:ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds;
     SamplePose(Elapsed);
     if(Pawn->IsSliding())Pawn->StopSlide(true);
     Pawn->StopMovementForMeleeSkill();
@@ -118,7 +121,8 @@ bool URuneSwordComponent::TryBeginDashAttack()
     }
     else
     {
-        // Grounded releases keep their original one-metre step. A queued jump
+        if(Ridge&&Movement)Movement->BeginMeleeLungeRequest(EFPSMeleeMove::Dash,LungeDirection);
+        // Grounded releases use the skill snapshot's fitted travel distance. A queued jump
         // still retains its vertical launch even when it has no horizontal speed.
         Pawn->GetCharacterMovement()->PendingLaunchVelocity.X=0.;
         Pawn->GetCharacterMovement()->PendingLaunchVelocity.Y=0.;
@@ -139,8 +143,13 @@ void URuneSwordComponent::DashAttackContractHit()
     // Carry the sector with the moving player so an airborne release cannot
     // leave its damage volume behind at the start of the swing.
     DashCenter=Pawn->GetActorLocation();bDashCenterCaptured=true;
-    const auto Hits=RuneSwordCombat::QuerySector(GetWorld(),Pawn,DashCenter,LungeDirection,
-        AzureDragonRange(DashCast.RangeCM),DashCast.ArcDegrees,HitActors);
+    // The ridge blade shares the moving dash origin and target deduplication.
+    // Its 2x travel must never be added to the rectangle's own weapon reach.
+    const auto Hits=HighlandRidgeThrust::IsRelease(CurrentClip)?
+        RuneSwordCombat::QueryRectangle(GetWorld(),Pawn,DashCenter,LungeDirection,
+            AzureDragonRange(SwingReach),HighlandRidgeThrust::HalfWidthCM,HitActors):
+        RuneSwordCombat::QuerySector(GetWorld(),Pawn,DashCenter,LungeDirection,
+            AzureDragonRange(DashCast.RangeCM),DashCast.ArcDegrees,HitActors);
     const double QuerySeconds=FPlatformTime::Seconds();
     ApplySwingHits(Hits,LungeDirection);
     const double EndSeconds=FPlatformTime::Seconds();

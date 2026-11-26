@@ -60,12 +60,14 @@ void URuneSwordComponent::RefreshOath(const FColdSteelItem* Item)
         {OathReadySound=Cast<USoundBase>(Paths[0].ResolveObject());OathHitSound=Cast<USoundBase>(Paths[1].ResolveObject());}));
 }
 
-void URuneSwordComponent::BeginOathCharge(double Start,float Duration)
+void URuneSwordComponent::BeginOathCharge(double Start,double Duration)
 {
     GaleChargePaid=0.f;
     ClearOath();
     if(!bOathInstalled)return;
-    OathState.Weapon=InstanceId;OathState.Phase=1;OathState.Duration=Duration;OathState.FullAt=Start+Duration;
+    OathState.Weapon=InstanceId;OathState.Phase=1;
+    OathState.Duration=float(Duration);
+    OathState.FullAt=Start+Duration;
     if(GetOwner()->HasAuthority())GetOwner()->ForceNetUpdate();
 }
 

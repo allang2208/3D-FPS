@@ -6,17 +6,25 @@
 #include "AssetCompilingManager.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
+#include "Misc/Parse.h"
 #include "Serialization/JsonSerializer.h"
 
 // Asset authoring: derive exact static-to-bone placement from the already
 // imported original sword. No world, profile, rendering or gameplay is run.
 int32 UFrostSwordModuleAuthoringCommandlet::Main(const FString& Params)
 {
-    const FString Folder=FPaths::ProjectDir()/TEXT("SourceAssets/FrostSwordModules20260915");
+    FString Folder=FPaths::ProjectDir()/TEXT("SourceAssets/FrostSwordModules20260915");
+    FString StaticPath=TEXT("/Game/Weapons/FrostCrystalSword20260915/SM_FrostCrystalSword");
+    FString SkinPath=TEXT("/Game/Weapons/FrostCrystalSword20260915/SK_FrostCrystalSword_Manny");
+    FString MaterialName=TEXT("FrostCrystalSword");
+    FString Target=FPaths::ProjectContentDir()/TEXT("ColdSteelData/frost-sword-modules.json");
+    FParse::Value(*Params,TEXT("Folder="),Folder);FParse::Value(*Params,TEXT("StaticMesh="),StaticPath);
+    FParse::Value(*Params,TEXT("SkeletalMesh="),SkinPath);FParse::Value(*Params,TEXT("Material="),MaterialName);
+    FParse::Value(*Params,TEXT("Output="),Target);
     FString Text;TSharedPtr<FJsonObject> Root;
     if(!FFileHelper::LoadFileToString(Text,*(Folder/TEXT("catalog_base.json")))||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Root))return 1;
-    auto* Static=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/FrostCrystalSword20260915/SM_FrostCrystalSword"));
-    auto* Skin=LoadObject<USkeletalMesh>(nullptr,TEXT("/Game/Weapons/FrostCrystalSword20260915/SK_FrostCrystalSword_Manny"));
+    auto* Static=LoadObject<UStaticMesh>(nullptr,*StaticPath);
+    auto* Skin=LoadObject<USkeletalMesh>(nullptr,*SkinPath);
     auto* Arms=LoadObject<USkeletalMesh>(nullptr,*Root->GetStringField(TEXT("arms_mesh")));
     if(!Static||!Skin||!Arms)return 2;
     FAssetCompilingManager::Get().FinishAllCompilation();
@@ -27,7 +35,7 @@ int32 UFrostSwordModuleAuthoringCommandlet::Main(const FString& Params)
     for(const auto& Section:K.RenderSections)
     {
         const auto& Slot=Skin->GetMaterials()[Section.MaterialIndex];
-        if(!Slot.MaterialSlotName.ToString().Contains(TEXT("FrostCrystalSword")))continue;
+        if(!Slot.MaterialSlotName.ToString().Contains(MaterialName))continue;
         for(uint32 V=Section.BaseVertexIndex;V<Section.BaseVertexIndex+Section.NumVertices;++V)
             Positions.Add(UVKey(K.StaticVertexBuffers.StaticMeshVertexBuffer.GetVertexUV(V,0)),FVector(K.StaticVertexBuffers.PositionVertexBuffer.VertexPosition(V)));
     }
@@ -57,12 +65,16 @@ int32 UFrostSwordModuleAuthoringCommandlet::Main(const FString& Params)
     auto SetVector=[&](TSharedPtr<FJsonObject> Obj,const TCHAR* Field,FVector V){Obj->SetArrayField(Field,Array({V.X,V.Y,V.Z}));};
     auto MountObject=MakeShared<FJsonObject>();SetVector(MountObject,TEXT("location_cm"),Mount.GetLocation());SetVector(MountObject,TEXT("scale"),Mount.GetScale3D());
     const FQuat Q=Mount.GetRotation();MountObject->SetArrayField(TEXT("rotation_xyzw"),Array({Q.X,Q.Y,Q.Z,Q.W}));Root->SetObjectField(TEXT("bone_mount"),MountObject);
-    auto Blade=Root->GetObjectField(TEXT("slots"))->GetObjectField(TEXT("blade_1"))->GetObjectField(TEXT("factory"));
-    SetVector(Blade,TEXT("trace_base_cm"),Canonical.InverseTransformPosition(RefTransform(Skin,TEXT("Blade_Base")).GetLocation()));
-    SetVector(Blade,TEXT("trace_tip_cm"),Canonical.InverseTransformPosition(RefTransform(Skin,TEXT("Blade_Tip")).GetLocation()));
+    const TSharedPtr<FJsonObject>* BladeOptions=nullptr;
+    if(Root->GetObjectField(TEXT("slots"))->TryGetObjectField(TEXT("blade_1"),BladeOptions))
+    {
+        auto Blade=(*BladeOptions)->GetObjectField(TEXT("factory"));
+        SetVector(Blade,TEXT("trace_base_cm"),Canonical.InverseTransformPosition(RefTransform(Skin,TEXT("Blade_Base")).GetLocation()));
+        SetVector(Blade,TEXT("trace_tip_cm"),Canonical.InverseTransformPosition(RefTransform(Skin,TEXT("Blade_Tip")).GetLocation()));
+    }
     Text.Reset();FJsonSerializer::Serialize(Root.ToSharedRef(),TJsonWriterFactory<>::Create(&Text));
-    const FString Target=FPaths::ProjectContentDir()/TEXT("ColdSteelData/frost-sword-modules.json");
-    if(!FFileHelper::SaveStringToFile(Text,*Target))return 6;
+    if(!FFileHelper::SaveStringToFile(Text,*Target,FFileHelper::EEncodingOptions::ForceUTF8WithoutBOM))return 6;
     FFileHelper::SaveStringToFile(FString::Printf(TEXT("source_vertex_pairs=%d\ncanonical_to_component=%s\ncanonical_to_WPN_root=%s\n"),Matched.Num(),*Canonical.ToString(),*Mount.ToString()),*(Folder/TEXT("mount_authoring.txt")));
     UE_LOG(LogTemp,Display,TEXT("FROST_SWORD_MODULE_CATALOG_AUTHORED %s"),*Target);return 0;
 }
+

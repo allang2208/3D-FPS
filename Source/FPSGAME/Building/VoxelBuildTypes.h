@@ -37,7 +37,79 @@ struct FVoxelEditCell
     FName Before;
     FName After;
     FGuid Volume;
+    // 2026-10-15 屋顶楔形格：0=整格立方体；非 0=按 VoxelCut 编码的对角切割（放置/撤销前后各一份）。
+    uint8 ShapeBefore=0;
+    uint8 ShapeAfter=0;
 };
+
+/** 楔形格切割编码（2026-10-15，调研定案：占位场加对角切割平面，而非换网格资产）。
+ *  bit0-1 方向（屋顶面朝哪边爬高）：1=+X 2=-X 3=+Y 4=-Y（0 保留=整格立方体——
+ *  方向必须 1 起编，否则 +X 45° 的编码与"无切割"冲突）；bit2-3 坡型：
+ *  0=45°整格（0→20cm）；1=26.57°下半格（0→10）；2=26.57°上半格（10→20）；
+ *  3=帐篷双切（2026-10-16 屋脊压条）：同时被两侧 45° 面切出屋脊帽断面，
+ *  Dir 1/2=脊线沿 Y（z<=min(lx,20-lx)），Dir 3/4=脊线沿 X（z<=min(ly,20-ly)）。
+ *  同一坡刷的对角格序列用一致的切割后，各格的实心半格恰好拼成一张连续斜面
+ *  （45°: lz<=lx 跨格即 z=x 平面；26°: 下格 lz<=.5lx + 上格 lz<=10+.5lx 拼成 z=x/2 平面）。
+ *  切割只进渲染场与凸碰撞。2026-10-19 第三轮（用户指定一层薄壳）：45° 坡只放坡面
+ *  顶格（1×5=5 格，2×5=10 格），下方不填实心楼梯；同向 pattern0 楔形顶格沿坡向
+ *  只共棱，支撑图补一条名义 20×20 cm 的共面坡棱接缝承重。单层切割在台阶处存在
+ *  固有可见缝隙；26°/山墙/金字塔仍走"实心支撑 + 顶格切割"。 */
+namespace VoxelCut
+{
+    inline constexpr uint8 DirMask=0x03,PatternShift=2;
+    // 值域 1..15（0 保留给"整格"）：+X 45° 编码为 1，任何真实切割都不与立方体冲突。
+    inline uint8 Make(uint8 Dir,uint8 Pattern){return uint8(1+(((Dir-1)&DirMask)|(Pattern<<PatternShift)));}
+    inline uint8 Dir(uint8 Cut){return uint8((((Cut-1)&DirMask))+1);}
+    inline uint8 Pattern(uint8 Cut){return uint8((Cut-1)>>PatternShift);}
+    /** 格内局部坐标（cm，0..20）判定实心侧。Cut=0 恒实心。 */
+    inline bool Solid(uint8 Cut,double LX,double LY,double LZ)
+    {
+        if(!Cut)return true;
+        double Rise,Base;
+        switch(Pattern(Cut))
+        {
+        case 1:Rise=.5;Base=0.;break;              // 26° 下半格：0→10
+        case 2:Rise=.5;Base=10.;break;             // 26° 上半格：10→20
+        default:Rise=1.;Base=0.;break;             // 45°：0→20
+        }
+        if(Pattern(Cut)==3)   // 帐篷（屋脊帽）：两侧 45° 面同时切，格中心 10cm 高的脊线
+            return Dir(Cut)<=2?LZ<=FMath::Min(LX,20.-LX):LZ<=FMath::Min(LY,20.-LY);
+        switch(Dir(Cut))
+        {
+        case 1:return LZ<=Base+Rise*LX;            // +X 爬高
+        case 2:return LZ<=Base+Rise*(20.-LX);      // -X
+        case 3:return LZ<=Base+Rise*LY;            // +Y
+        default:return LZ<=Base+Rise*(20.-LY);     // -Y
+        }
+    }
+    /** 楔形凸包顶点（格局部 cm）：8 个立方角点，实心侧保留原角，空侧沿 Z 投影到切割面。
+     *  45° 得 6 点（四底角+斜脊两角），26° 梯形得 8 点。Cut=0 回退整格盒。 */
+    inline void Corners(uint8 Cut,TArray<FVector>& Out)
+    {
+        Out.Reset(8);
+        if(!Cut){Out.Append({FVector(0,0,0),FVector(20,0,0),FVector(20,20,0),FVector(0,20,0),FVector(0,0,20),FVector(20,0,20),FVector(20,20,20),FVector(0,20,20)});return;}
+        if(Pattern(Cut)==3)
+        {
+            // 帐篷凸包：四底角 + 脊线两端（格中心 z=10）。脊线沿 Y 或沿 X。
+            const bool bAlongY=Dir(Cut)<=2;
+            Out.Append({FVector(0,0,0),FVector(20,0,0),FVector(20,20,0),FVector(0,20,0)});
+            if(bAlongY){Out.Append({FVector(10,0,10),FVector(10,20,10)});}
+            else{Out.Append({FVector(0,10,10),FVector(20,10,10)});}
+            return;
+        }
+        for(int32 I=0;I<8;++I)
+        {
+            const double LX=(I&1)?20.:0.,LY=(I&2)?20.:0.,LZ=(I&4)?20.:0.;
+            if(Solid(Cut,LX,LY,LZ)){Out.Add(FVector(LX,LY,LZ));continue;}
+            double Rise,Base;
+            switch(Pattern(Cut)){case 1:Rise=.5;Base=0.;break;case 2:Rise=.5;Base=10.;break;default:Rise=1.;Base=0.;}
+            double PlaneZ;const double D=Dir(Cut);
+            if(D==1)PlaneZ=Base+Rise*LX;else if(D==2)PlaneZ=Base+Rise*(20.-LX);
+            else if(D==3)PlaneZ=Base+Rise*LY;else PlaneZ=Base+Rise*(20.-LY);
+            Out.Add(FVector(LX,LY,FMath::Clamp(PlaneZ,0.,20.)));
+        }
+    }
+}
 
 USTRUCT()
 struct FVoxelBrokenBond
@@ -72,8 +144,15 @@ struct FVoxelFragmentSave
     UPROPERTY() bool bSleeping=false;
 };
 
-// One placed prefab piece (roman column, balustrade, ...) on the 20 cm building lattice.
-// Cell is the min corner of the occupied box; Footprint is already rotated by Yaw.
+/** Native wall interval left beside a replacement gate, in the wall's original X coordinates. */
+struct FVillageGateCut
+{
+    FGuid PlacedId;
+    int32 Section=INDEX_NONE;
+    FVector2D Remaining=FVector2D::ZeroVector;
+};
+
+// Cell is the minimum grid corner. Footprint already includes the quarter turn.
 struct FVoxelBuildPrefabInstance
 {
     FName Id;
@@ -81,6 +160,9 @@ struct FVoxelBuildPrefabInstance
     FIntVector Cell=FIntVector::ZeroValue;
     int32 Yaw=0;
     FIntVector Footprint=FIntVector(1,1,1);
+    // Exact village pose for sockets and ground turns. Legacy quarter-turn records leave it unset.
+    TOptional<FTransform> WallDockPose;
+    TArray<FVillageGateCut> GateCuts;
 };
 
 /** 可冶炼构件的调色板稳定 ID（Docs/Gameplay/blast-furnace-model-20260923.md）。

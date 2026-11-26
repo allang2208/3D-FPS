@@ -1,5 +1,6 @@
 #pragma once
 #include "../UI/ColdSteelInventoryTypes.h"
+#include "../Skills/ColdSteelSkillTree.h"
 
 namespace ColdSteelProfileMerge
 {
@@ -32,6 +33,12 @@ namespace ColdSteelProfileMerge
             auto& Skill=Into.Skills.FindOrAdd(Pair.Key);
             Progress(Skill.Level,Skill.Experience,Pair.Value.Level,Pair.Value.Experience);
         }
+        // Learning is monotonic like levels: union the learned lists. A version-0 profile counts
+        // every tree skill as learned. Specialization ranks are not merged (reset may lower them);
+        // the owner's upload stays authoritative and the host sanitizes it.
+        if(Into.SkillTreeVersion<1)return;
+        if(Other.SkillTreeVersion<1){for(const auto& Node:ColdSteelSkillTree::Get().Nodes)Into.LearnedSkills.AddUnique(Node.Id);return;}
+        for(FName Id:Other.LearnedSkills)Into.LearnedSkills.AddUnique(Id);
     }
 
     inline void OfferingUsage(FColdSteelProfile& Into,const FColdSteelProfile& Other)

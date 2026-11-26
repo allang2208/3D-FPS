@@ -1,4 +1,5 @@
 #include "SpiralPillarM14.h"
+#include "MonsterTargeting.h"
 #include "FleshHandMonster.h"
 #include "FPSCombatHealthComponent.h"
 #include "../Movement/PlayerGuardBreakComponent.h"
@@ -33,15 +34,15 @@ void ASpiralPillarM14::SlamContact()
     for(const FHitResult& Hit:Hits)
     {
         if(Dead()||State!=EM14State::TrunkSlam)break;
-        AActor* Victim=Hit.GetActor();APawn* Pawn=Cast<APawn>(Victim);
-        const bool PlayerBody=Pawn&&Pawn->IsPlayerControlled()&&Hit.GetComponent()==Pawn->GetRootComponent();
+        AActor* Victim=MonsterTargeting::DamageRecipient(Hit.GetActor());APawn* Pawn=Cast<APawn>(Victim);
+        const bool PlayerBody=Pawn&&MonsterTargeting::IsOpponentPawn(Pawn)&&Hit.GetComponent()==Hit.GetActor()->GetRootComponent();
         if(!IsValid(Victim)||(!PlayerBody&&!Victim->IsA<AFPSIceWall>())||Consumed.Contains(Victim))continue;
         auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
         if(Vitals&&(Vitals->IsDead()||Vitals->IsInvulnerable()))continue;
         // Walls must block the downward strike; no radial damage through scenery.
         FHitResult Block;
         const FVector Sight=GetNavAgentLocation()+FVector::UpVector*100.f;
-        if(GetWorld()->LineTraceSingleByChannel(Block,Sight,Victim->GetActorLocation(),ECC_Visibility,Query)&&Block.GetActor()!=Victim)continue;
+        if(GetWorld()->LineTraceSingleByChannel(Block,Sight,Victim->GetActorLocation(),ECC_Visibility,Query)&&MonsterTargeting::DamageRecipient(Block.GetActor())!=Victim)continue;
         Consumed.Add(Victim);
         const float Before=Vitals?Vitals->Health:0.f;
         UGameplayStatics::ApplyPointDamage(Victim,PhysicalAttack*SlamDamageMultiplier,

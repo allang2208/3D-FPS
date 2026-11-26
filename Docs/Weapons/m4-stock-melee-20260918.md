@@ -20,7 +20,7 @@
 
 ## 参考读谱
 
-参考 `BV13K421e7Rw` 1:05–1:07 的 AK47 枪托近战（本机留档 `D:\FPS3D\test\uzi_ref\uzi_ref.mp4`，
+参考 `BV13K421e7Rw` 1:05–1:07 的 AK47 枪托近战（本机留档 [uzi_ref.mp4](../../SourceAssets/RifleStockMelee20260918/Reference/Video/uzi_ref.mp4)，
 不入库）。逐帧 1/15 s 抽帧 44 张（64.80–67.67 s），两个完整挥击周期。
 
 读到的动作语言（**2026-09-18 晚按 30 fps 原生帧 + 夜景提亮重读，并按用户口述修正**）：

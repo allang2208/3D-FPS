@@ -50,3 +50,4 @@ def apply(outfit,texture_dir):
         r=math_node('ADD',rough,math_node('MULTIPLY',wear,.09))
         r=math_node('SUBTRACT',r,math_node('MULTIPLY',oil,.24))
         attach(math_node('ADD',r,math_node('MULTIPLY',soot,.14)),sh.inputs['Roughness'])
+

@@ -1,4 +1,5 @@
 #include "ColdSteelSharedInventorySubsystem.h"
+#include "../UI/ColdSteelContainerSearchSubsystem.h"
 #include "ColdSteelPlayerState.h"
 #include "ColdSteelInventoryRequestTypes.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -6,8 +7,10 @@
 #include "../UI/ColdSteelSceneLoot.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "../UI/ColdSteelDungeonLoot.h"
+#include "../Dungeons/DungeonRunSubsystem.h"
 #include "../UI/ColdSteelWorldInteraction.h"
 #include "../UI/ColdSteelWarehouseRules.h"
+#include "../Items/FoodSpoilage.h"
 #include "../FPSGAMECharacter.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
@@ -48,20 +51,11 @@ bool MigrateChangedFootprints(TArray<FColdSteelItem>& Items,int32& Pages,bool& C
 }
 bool CanAccessContainer(const APawn* Pawn,const AActor* Target)
 {
-    if(!IsValid(Pawn)||!IsValid(Target)||Pawn->GetWorld()!=Target->GetWorld()||!Pawn->GetController()
-        ||FVector::DistSquared(Pawn->GetActorLocation(),Target->GetActorLocation()+FVector(0,0,70))>FMath::Square(250.f))return false;
-    if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(SharedContainerReach),false,Pawn);Query.AddIgnoredActor(Target);
-    FHitResult Wall;
-    return !Pawn->GetWorld()->LineTraceSingleByChannel(Wall,Pawn->GetPawnViewLocation(),Target->GetActorLocation()+FVector(0,0,70),ECC_Visibility,Query);
+    return UColdSteelContainerSearchSubsystem::CanAccess(Pawn,Target);
 }
 bool ResolveContainer(AActor* Target,FString& Key,int32& Pages,FString& Caption)
 {
-    if(auto* Scene=Cast<AColdSteelSceneContainer>(Target))
-    {Key=Scene->StorageKey();Pages=FMath::Clamp(Scene->StoragePages,1,8);Caption=Scene->Caption;return !Key.IsEmpty();}
-    if(ColdSteelWorldInteraction::IsTreasureChest(Target)&&!Target->ActorHasTag(TEXT("DungeonReward.Locked")))
-    {Key=FColdSteelDungeonLoot::ChestStorageKey(Target);Pages=1;Caption=TEXT("宝箱战利品");return !Key.IsEmpty();}
-    return false;
+    return UColdSteelContainerSearchSubsystem::Resolve(Target,Key,Pages,Caption);
 }
 }
 void UColdSteelSharedInventorySubsystem::FillContainerReply(AActor* Target,UColdSteelInventoryReply* Reply,const APawn* Viewer) const
@@ -71,6 +65,7 @@ void UColdSteelSharedInventorySubsystem::FillContainerReply(AActor* Target,UCold
     const auto* Container=Current.Containers.Find(Key);if(!Container||!Container->bSeeded)return;
     Reply->bContainerView=true;Reply->ContainerKey=Key;Reply->ContainerCaption=Caption;
     Reply->ContainerPages=Container->Pages;Reply->ContainerRevision=Container->Revision;Reply->ContainerItems=Container->Items;
+    if(auto* Search=GetWorld()->GetSubsystem<UColdSteelContainerSearchSubsystem>())Search->FillView(Cast<APlayerController>(Viewer->GetController()),*Reply);
 }
 bool UColdSteelSharedInventorySubsystem::ContainerOperation(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest,
     const FColdSteelInventoryRequest& Request,FString& Reason)
@@ -81,10 +76,16 @@ bool UColdSteelSharedInventorySubsystem::ContainerOperation(UColdSteelStatusMode
     if(!InitializeAuthority()||!PC||!CanAccessContainer(Pawn,Request.Target)||Request.Target->GetWorld()!=GetWorld()
         ||!ResolveContainer(Request.Target,Key,Pages,Caption))
     {Reason=TEXT("容器不可达");return false;}
+    FoodContainerAnchors.Add(Key,Request.Target);
+    if(!SettleFoodSpoilage(Reason))return false;
     Model->SyncRuntime();const auto Before=Model->Snapshot();auto Working=Before;
+    ColdSteelFood::RebaseProfile(Working,ColdSteelFood::Clock(this));
     UColdSteelStatusModel::StripNetworkContainerView(Working);
     CaptureDropTransforms();auto After=Current;auto& Container=After.Containers.FindOrAdd(Key);
     const bool Open=Request.Action==EColdSteelInventoryAction::ContainerOpen;
+    auto* Search=GetWorld()->GetSubsystem<UColdSteelContainerSearchSubsystem>();
+    if((!Open||Request.Count==-1)&&(!Search||!Search->IsActive(PC,Request.Target)))
+    {Reason=TEXT("请重新打开容器开始搜索");return false;}
     auto* SearchScene=Cast<AColdSteelSceneContainer>(Request.Target);
     const bool SearchLoot=ColdSteelSceneLoot::IsBound(SearchScene);
     const FString LegacyKey=SearchLoot?SearchScene->LegacyStorageKey():Key;
@@ -95,6 +96,7 @@ bool UColdSteelSharedInventorySubsystem::ContainerOperation(UColdSteelStatusMode
         {const auto Copy=*Legacy;After.Containers.Remove(LegacyKey);After.Containers.FindChecked(Key)=Copy;
          for(auto& Item:Container.Items)Item.Container=Key;
          LegacyKeyChanged=true;}
+    // The migrated record may have grown beyond the authored actor's page count.
     Pages=FMath::Clamp(FMath::Max(Pages,Container.Pages),1,8);Container.Pages=Pages;
     auto HasPrivate=[&](const FColdSteelProfile& Profile)
     {return Profile.Items.ContainsByPredicate([&](const auto& I){return I.Place==4&&(I.Container==Key||I.Container==LegacyKey);});};
@@ -104,7 +106,7 @@ bool UColdSteelSharedInventorySubsystem::ContainerOperation(UColdSteelStatusMode
     // Only the host can move that profile and shared inventory in one existing journal.
     if(Open&&Guest&&SearchLoot&&!Container.bSceneLootResolved)
         if(const auto* Host=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();Host
-            &&(HasPrivate(Host->Snapshot())||Host->HasDungeonClaim(ColdSteelSceneLoot::Claim(SearchScene->ContainerId))))
+            &&(HasPrivate(Host->Snapshot())||(UDungeonRunSubsystem::Get(GetWorld())&&Host->Snapshot().DungeonRun.RunId==UDungeonRunSubsystem::Get(GetWorld())->RunId()&&Host->HasDungeonClaim(ColdSteelSceneLoot::Claim(SearchScene->ContainerId)))))
         {Reason=TEXT("此旧存档容器需要房主先打开一次");return false;}
     if(Open&&Request.Target->ActorHasTag(TEXT("DungeonTreasure.HubTest"))&&Container.Items.IsEmpty())Container.bSeeded=false;
     bool FootprintChanged=false;
@@ -112,6 +114,7 @@ bool UColdSteelSharedInventorySubsystem::ContainerOperation(UColdSteelStatusMode
     Container.Pages=Pages;
     if(Open&&!LegacyKeyChanged&&!FootprintChanged&&Container.bSeeded&&(!SearchLoot||Container.bSceneLootResolved)&&!HasPrivate(Working))
     {
+        if(Search)Search->Begin(PC,Request.Target);
         if(auto* Scene=Cast<AColdSteelSceneContainer>(Request.Target))Scene->OpenSharedVisual();
         else if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())PS->MulticastSharedChestOpened(Request.Target);
         Reason=TEXT("已打开共享容器");return true;
@@ -178,11 +181,15 @@ bool UColdSteelSharedInventorySubsystem::ContainerOperation(UColdSteelStatusMode
         Reason=Model->ResultMessage();Working=Model->Snapshot();Model->AdoptNetMirror(Before);
     }
     if(!Success)return false;
+    const auto PreviousItems=Container.Items;
     Container.Items.Reset();
     for(auto Item:Working.Items)if(Item.Container==ViewKey){Item.Container=Key;Container.Items.Add(MoveTemp(Item));}
+    if(!Open&&Search&&!Search->ValidateChange(PC,PreviousItems,Container.Items,Reason))return false;
+    const auto UpdatedItems=Container.Items;
     UColdSteelStatusModel::StripNetworkContainerView(Working);
     Container.bSeeded=true;++Container.Revision;
     if(!Commit(Model,Guest,MoveTemp(Working),MoveTemp(After),Reason))return false;
+    if(Search){if(Open)Search->Begin(PC,Request.Target);else Search->ObserveChange(PC,PreviousItems,UpdatedItems);}
     if(auto* Scene=Cast<AColdSteelSceneContainer>(Request.Target))Scene->OpenSharedVisual();
     else if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())PS->MulticastSharedChestOpened(Request.Target);
     if(Reason.IsEmpty()||!bBlocked)Reason=Open?TEXT("已打开共享容器"):TEXT("共享物品已更新");

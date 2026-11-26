@@ -42,3 +42,4 @@ for a in scene:
             groups[name]=[c.get_instance_count(),mesh.get_path_name()]
         report['pcg'][a.get_actor_label()]=groups
 (out/'reference.json').write_text(json.dumps(report,indent=2))
+

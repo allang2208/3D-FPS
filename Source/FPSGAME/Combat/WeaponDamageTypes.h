@@ -8,6 +8,21 @@ struct FWeaponDamageParts
     double Base()const{return BasePhysical+BaseMagic;}
     double Additional()const{return AddedPhysical+AddedMagic;}
     double Total()const{return Base()+Additional();}
+    // Express the accepted damage in HUD units, preserving a pure magic receipt exactly.
+    float MagicPortion(float Accepted) const
+    {
+        const double Magic=BaseMagic+AddedMagic;
+        if(Magic<=0.)return 0.f;
+        const double Physical=BasePhysical+AddedPhysical;
+        return Physical>0.?float(Accepted*(Magic/(Physical+Magic))):Accepted;
+    }
+    static FWeaponDamageParts FromChannels(float Accepted,float Magic)
+    {
+        const float Blue=FMath::Clamp(Magic,0.f,Accepted);
+        return {Accepted-Blue,Blue,0.,0.};
+    }
+    FWeaponDamageParts& operator+=(const FWeaponDamageParts& Other)
+    {BasePhysical+=Other.BasePhysical;BaseMagic+=Other.BaseMagic;AddedPhysical+=Other.AddedPhysical;AddedMagic+=Other.AddedMagic;return *this;}
     FWeaponDamageParts Scaled(double Multiplier)const
     {return {BasePhysical*Multiplier,BaseMagic*Multiplier,AddedPhysical*Multiplier,AddedMagic*Multiplier};}
     // Apply the base receipt first, then the additional receipt, within remaining HP.

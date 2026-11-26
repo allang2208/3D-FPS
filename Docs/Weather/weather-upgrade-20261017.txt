@@ -1,0 +1,64 @@
+天气资源、局部受雨、动态湿润与雷声混音（2026-10-17）
+
+后续复查更正：本轮原交付存在两处接入遗漏，已由 weather-upgrade-review-20261017.txt 记录并修正源码。下方历史构建记录对应首次交付；最新修正构建状态以复查记录为准。
+
+交付范围
+保持模型、贴图分辨率、渲染质量设置、怪物数量和战斗/伤害规则。后台制作，不启动交互编辑器或游戏，不运行测试、截图、录音或主客机验收。
+本轮运行的是隔离的 PythonScript 资产制作 commandlet：NullRHI、NoShaderCompile、不加载地图。它用于实际修改/保存资产，不是游戏测试。
+
+1. 逐材质资源加载
+- UWeatherPresentationAssets 增加 WetMaterialPaths 软引用字段；旧 WetMaterials 硬引用字段保留供原作者目录使用。
+- 已保存 /Game/Weather/WeaponWetIndex20261017/DA_WeaponWetIndex，1319 条源材质到目标湿润材质映射。按原 15 个目录的覆盖顺序合并，再应用原来的 3 组直接映射。
+- 运行时只异步读取这个轻量索引；不加载旧作者目录。当前装备真正需要的目标材质分批异步加载，每批最多 8 个。
+- 自身已经是湿润表面的映射直接复用已加载源材质；不同玩家和左右手的 MID 隔离逻辑继续保留。
+- 未使用缓存 12 秒后解除强引用，由 UE 正常回收；不在游戏中强制 CollectGarbage，也不降低纹理或材质质量。
+- 新索引目录加入 Cook 收录配置，材质依赖通过软对象路径保存。本轮未执行 Cook。
+- 丘陵地面缓存天气管理器，失效时最多每秒重新查找；只有湿度值或地面 MID 变化才提交参数。
+
+2. 按角色采样局部受雨
+- 后续读取真实蓝图发现 Test Actor for Weather Exposure 仍使用相机 Local Weather State，原先只读函数签名不足以证明各玩家的局部天气隔离。
+- 当前改为通过 Generate Weather State At Location 在每名角色坐标生成独立状态，再使用该位置的雨强、风向及原生六个降雨遮挡采样点计算受雨。反射参数仍使用 FStructOnScope 按实际字段写入。
+- 不额外乘房主相机雨量，不替换 UDW 供天空/声音使用的 Local Weather State。
+- 没有可用 UDW 接口的世界仍保留项目回退：5 个角色附近采样点沿上风方向检测，形成连续覆盖比例，替代单根头顶射线。
+- 保留原逐物品湿度、1/255 同步、润湿系数 .065 和每秒 1/120 干燥速率。材质效果是本地表现，数值由服务端维护；不修改伤害或命中。
+
+3. 枪械动态湿润资产
+- 对已有目录映射所涉及的母材质导出实际图结构，共找到 615 个带兼容枪械水珠层的候选。
+- 已实际修改并保存 603 个不透明母材质；12 个透明或非不透明候选保留原状。没有把新层加到原本不支持湿润的任意材质上。
+- 水痕使用材质时间与世界重力转到表面切线空间的方向，稀疏水珠缓慢滑动并带短流痕；保持原始 UV、底色、刻字和干燥图。
+- 不新增流体模拟、Render Target、大纹理、粒子池或每帧 CPU 时间参数推送；完全干燥时湿层计算提前返回。
+- 共用 WS_Wet 水膜根据原金属度/粗糙度响应；12 个已有表面卡预设设置金属、涂层、塑料、橡胶响应。独立旧母图保留其原有颜色/粗糙度接法，仅升级其已有水珠层。
+- 每个修改前的 uasset 有 Before 快照；保存时刷新材质表达式缓存与状态 ID。NoShaderCompile 抑制本轮着色器工作队列，未生成全量 Shader DDC，未运行渲染验收。
+- SourceAssets/WeaponSurface20260930/build_master.py 与 surface_card.json 已接入新版湿层配方，后续重建共用母材质不会退回静态水珠。
+
+4. UDW 雷声混音
+- 沿用 UDW Lightning Flash Started 事件、闪电播放器和雷声资源；实际委托无参数，没有新增随机闪电计时器或第二套雷声播放器。
+- 原生默认 Close Thunder Delay Per KM=.15 的实例迁移到 2.915 秒/公里；作者已自定义的其他延迟值保留。
+- 雨声压低窗口读取 UDW 自己的 Close Thunder Sound Delay 返回值，和原生雷声调度对齐；位置计算仅作接口不可用时的备用。
+- 雷声附近最多降低 45% 雨声，有短预留时间、起伏和平滑恢复；后续复查已将只写 Rain Volume 属性改为提交 Sound_Global / Sound_Directional 的 Rain Volume Multiplier，保留作者音量及天气总音量，不改枪声、脚步或闪电灯光质量。
+- 最多保留 4 个声音窗口；重新绑定、禁用桥和退出时解绑并恢复本组件持有的原值。专服不运行混音。
+- 这是原生音源上的调度/混音升级；没有剪辑或替换 SoundWave，也未进行听感验收。
+
+5. 内存与制作回执
+- 12 次串行制作进程，观测到的最大私有内存为 3.193 GiB，未触发内存停止条件。
+- 启动要求至少 8 GiB 物理余量及 16 GiB 提交余量；自身超过 12 GiB 或系统提交余量低于 6 GiB 时只停止本任务的制作进程。
+- 每个资产/目录批次解除 Python 临时引用，并在独立 commandlet 内即时回收；游戏运行时不采用这套强制回收。
+- 回执：SourceAssets/WeatherUpgrade20261017/prepare-receipt.json、dynamic-wetness-receipt.json、production-summary.json，以及各 *-process.json。
+- 这些是制作进程用量，不是游戏内显存、内存或帧率测试结果。
+
+6. 退役与重建
+- 旧 WeaponWetCatalogIndex.inl 与 build_weapon_wet_catalog_index.py 已移至 trash/weather-catalog-index-retired-20261017，manifest.json 保留源路径、目标路径、字节数和 SHA-256。
+- 原作者目录未删除；当前清单为 SourceAssets/WeatherUpgrade20261017/author-catalogs.json。
+- 重新生成索引用 prepare_assets.py；动态材质最后接线用 dynamic_wet_nodes.py / install_dynamic_wetness.py；大批制作可用 run_remaining_materials.py 断点继续。
+
+构建状态
+- 用户保存并退出交互编辑器后，等待共享构建与后台资产保存释放占用，再完成最终构建。没有关闭其它进程或启动交互编辑器。
+- FPSGAME Win64 Development 成功，18.67 秒，完成增量编译和链接。日志：SourceAssets/WeatherUpgrade20261017/build-game-final.log。
+- FPSGAMEEditor Win64 Development 成功，6.28 秒，UBT 确认当前源码目标已是最新。日志：SourceAssets/WeatherUpgrade20261017/build-editor-final.log。
+- 两次构建均限制最多 4 个并行任务；此前的 build-editor.log 仅保留为资产制作前的历史记录。
+- 收尾时产物：Binaries/Win64/FPSGAME.exe，364658176 字节，2026-10-17 22:47:43；Binaries/Win64/UnrealEditor-FPSGAME.dll，33779712 字节，2026-10-17 22:48:37（本机时间）。
+- 源码、材质资产和最终构建产物均已落盘。未运行测试、Cook、渲染、听音或主客机验收；实际画面、声音和联机效果由用户自行体验。
+
+接口依据
+https://www.ultradynamicsky.com/Documentation/V9/9-7
+实际导出：SourceAssets/WeatherUpgrade20261017/udw-interface.json。使用现有 Actor 暴露查询和原生雷声延迟函数，保留原 UDW 天气/闪电复制。

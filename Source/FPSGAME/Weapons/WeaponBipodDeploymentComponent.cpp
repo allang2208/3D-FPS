@@ -1,5 +1,8 @@
 #include "WeaponBipodDeploymentComponent.h"
 #include "LMG201WeaponAssets.h"
+#include "M249WeaponAssets.h"
+#include "M249Bipod.h"
+#include "M249BipodAnimation.h"
 #include "M24Bipod.h"
 #include "M24WeaponAssets.h"
 #include "M24Attachments.h"
@@ -10,6 +13,7 @@
 #include "PKMLowpolyWeaponAssets.h"
 #include "WeaponHandling.h"
 #include "PKMBipodContacts.h"
+#include "../Building/VoxelBuildGrounding.h"
 #include "../Movement/FPSCharacterMovementComponent.h"
 #include "../Movement/FPSDoorPushComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -35,19 +39,63 @@ namespace
 constexpr double BipodHintInterval=.25;
 constexpr double BipodSupportInterval=.12;
 
+// A stance change adds only vertical travel; lateral reach stays bounded.
+bool WithinBipodReach(FVector Offset,double Reach,double Lowering,double Rising)
+{
+    if(Offset.Z<0.)Offset.Z=FMath::Min(0.,Offset.Z+Lowering);
+    else Offset.Z=FMath::Max(0.,Offset.Z-Rising);
+    return Offset.SizeSquared()<=FMath::Square(Reach);
+}
+
+bool CanSeeBipodContact(UWorld& World,const FVector& Eye,const FVector& Contact,
+    double MaxRise,ECollisionChannel Channel,const FCollisionQueryParams& Params)
+{
+    const FVector Above=Contact+FVector::UpVector*4.;
+    FHitResult Block;
+    if(!World.LineTraceSingleByChannel(Block,Eye,Above,Channel,Params))return true;
+    // From a crouch the near lip may hide its own top. The camera must have a
+    // clear path up and the raised eye must see the contact over the lip.
+    const double Rise=Above.Z-Eye.Z;
+    if(Rise<=0.||Rise>MaxRise)return false;
+    const FVector RaisedEye(Eye.X,Eye.Y,Above.Z);
+    return !World.SweepSingleByChannel(Block,Eye,RaisedEye,FQuat::Identity,Channel,FCollisionShape::MakeSphere(5.f),Params)
+        &&!World.LineTraceSingleByChannel(Block,RaisedEye,Above,Channel,Params);
+}
+
+bool FeetShareSurface(const FVector& A,const FVector& B,float SlopeDegrees)
+{
+    const double Rise=FVector::Dist2D(A,B)*FMath::Tan(FMath::DegreesToRadians(SlopeDegrees));
+    return FMath::Abs(A.Z-B.Z)<=Rise+3.; // allow seams, not two different tiers of a parapet
+}
+
 bool BipodPartInstalled(const FString& Definition,const FString& Part)
 {
+    if(Definition==M249WeaponAssets::Definition)return M249WeaponAssets::HasFactoryBipod(Part);
     return Definition==M24WeaponAssets::Definition?Part==M24Bipod::Id:
         Definition==PKMLowpolyWeaponAssets::Definition?Part==TEXT("pkm_bipod"):
-        Definition==LMG201WeaponAssets::Definition&&Part==TEXT("false");
+        Definition==LMG201WeaponAssets::Definition&&LMG201WeaponAssets::HasFactoryBipod(Part);
 }
 
 bool IsBipodSupport(const FHitResult& Hit)
 {
-    const auto* Component=Hit.GetComponent();
-    return Hit.bBlockingHit && !Hit.bStartPenetrating && Component
-        && !Cast<APawn>(Hit.GetActor()) && !Component->IsSimulatingPhysics()
-        && Component->GetComponentVelocity().SizeSquared()<=4.;
+    // Damageable village defenses are pawns. Their masonry and portal frame
+    // carry the fixed-structure tag; the portcullis and moving gate leaves do not.
+    return Hit.bBlockingHit && !Hit.bStartPenetrating && VoxelGrounding::IsFixedBuildingSurface(Hit)
+        && Hit.GetComponent()->GetComponentVelocity().SizeSquared()<=4.;
+}
+
+bool HasBipodFootArea(UWorld& World,const FVector& Contact,float MinNormal,
+    ECollisionChannel Channel,const FCollisionQueryParams& Params)
+{
+    int32 Edges=0;
+    for(const FVector& Offset:{FVector(1.2,0,0),FVector(-1.2,0,0),FVector(0,1.2,0),FVector(0,-1.2,0)})
+    {
+        FHitResult Edge;
+        const FVector At=Contact+Offset;
+        if(World.LineTraceSingleByChannel(Edge,At+FVector::UpVector*3.,At-FVector::UpVector*3.,Channel,Params)
+            &&IsBipodSupport(Edge)&&Edge.ImpactNormal.Z>=MinNormal&&++Edges>=2)return true;
+    }
+    return false;
 }
 }
 
@@ -65,38 +113,49 @@ bool UWeaponBipodDeploymentComponent::IsM24() const
     return C&&(C->IsLocallyControlled()?C->IsM24Weapon():EquippedDefinition()==M24WeaponAssets::Definition);
 }
 
+bool UWeaponBipodDeploymentComponent::HasHandDeployment() const
+{
+    const auto* C=Character.Get();
+    return IsM24()||(C&&(C->IsLocallyControlled()?C->ActiveInventoryWeaponDefinition==M249WeaponAssets::Definition
+        :EquippedDefinition()==M249WeaponAssets::Definition));
+}
+
 float UWeaponBipodDeploymentComponent::TransitionDuration(bool bDeploy) const
-{return IsM24()?M24Bipod::Duration:(bDeploy?.32f:.16f);}
+{return IsM24()?M24Bipod::Duration:HasHandDeployment()?M249BipodAnimation::Duration:(bDeploy?.32f:.16f);}
 
 float UWeaponBipodDeploymentComponent::PlacementBlend() const
-{return IsM24()?M24Bipod::Seat(Blend):Blend;}
+{return HasHandDeployment()?M24Bipod::Seat(Blend):Blend;}
 
 float UWeaponBipodDeploymentComponent::AimPresentationWeight() const
-{return IsM24()&&(bRequested||Blend>UE_SMALL_NUMBER)?PlacementBlend():1.f;}
+{return HasHandDeployment()&&(bRequested||Blend>UE_SMALL_NUMBER)?PlacementBlend():1.f;}
 
 bool UWeaponBipodDeploymentComponent::BlocksFire() const
-{return (bRequested||(IsM24()&&Blend>UE_SMALL_NUMBER))&&!IsDeployed();}
+{return (bRequested||(HasHandDeployment()&&Blend>UE_SMALL_NUMBER))&&!IsDeployed();}
 
 void UWeaponBipodDeploymentComponent::ApplyHandPose(UFPSGunplayAnimInstance& Animation) const
 {
     const auto* C=Character.Get();
-    if(!IsM24()||!C||Blend<=UE_SMALL_NUMBER||Blend>=.9999f||C->WeaponState!=EAKMWeaponState::Idle)return;
+    if(!HasHandDeployment()||!C||Blend<=UE_SMALL_NUMBER||Blend>=.9999f||C->WeaponState!=EAKMWeaponState::Idle)return;
     const auto* Entry=C->WeaponGripProfiles.Find(TEXT("bipod"));
-    const auto* Profile=Entry?Entry->Get():nullptr;
-    const int32 Index=C->MagazineAttachmentId==M24Attachments::ExtendedMagazine?1:0;
+    auto* Profile=Entry?Entry->Get():nullptr;
+    const int32 Index=IsM24()&&C->MagazineAttachmentId==M24Attachments::ExtendedMagazine?1:0;
     if(!Profile||!Profile->Clips.IsValidIndex(Index))return;
     Animation.ActionClip=Profile->Clips[Index].Playback();
     Animation.ActionTime=Blend*M24Bipod::PoseDuration;
     Animation.ActionAlpha=M24Bipod::Ease(0.f,.025f,Animation.ActionTime)
         *(1.f-M24Bipod::Ease(.44f,M24Bipod::PoseDuration,Animation.ActionTime));
-    // Each current grip profile carries its own sparse bipod pose difference.
-    // This preserves independent rear grips and the current shoulder placement.
-    Animation.ActionGripProfile=Animation.GripProfile;Animation.bGripAction=false;Animation.bGripActionAim=false;
+    // M24 keeps its grip-family deltas. M249 contains its native grip,
+    // complete arms and weapon pullback in one reversible sequence.
+    Animation.ActionGripProfile=IsM24()?Animation.GripProfile.Get():Profile;
+    if(M249WeaponAssets::Matches(C->AKMViewmodel)&&Animation.GripProfile
+        &&Animation.GripProfile->Find(Profile->Clips[Index].Base))
+        Animation.ActionGripProfile=Animation.GripProfile;
+    Animation.bGripAction=false;Animation.bGripActionAim=false;
 }
 
 bool UWeaponBipodDeploymentComponent::DeferReload()
 {
-    auto* C=Character.Get();if(!IsM24()||!C||(!bRequested&&Blend<=UE_SMALL_NUMBER))return false;
+    auto* C=Character.Get();if(!HasHandDeployment()||!C||(!bRequested&&Blend<=UE_SMALL_NUMBER))return false;
     // The left hand finishes folding before it becomes the magazine hand.
     C->bAimHeld=false;C->SetAimingState(false);Release();
     PendingReloadWeapon=C->ActiveInventoryWeapon;bPendingReaim=false;
@@ -112,9 +171,9 @@ FWeaponHandling UWeaponBipodDeploymentComponent::ApplyStability(const FWeaponHan
 void UWeaponBipodDeploymentComponent::FireDeployCue(bool bSeat)
 {
     auto* C=Character.Get();if(!C||!GetWorld())return;
-    if(IsM24())
+    if(HasHandDeployment())
     {
-        // Cached M24 mechanical clicks: contacts share the hand/hinge clock.
+        // Cached weapon mechanical clicks share the hand/hinge clock.
         USoundBase* Sound=bSeat?C->MagSeatSound.Get():C->MagOutSound.Get();
         if(Sound)UGameplayStatics::PlaySoundAtLocation(this,Sound,C->FirstPersonCamera->GetComponentLocation(),bSeat?.42f:.25f,1.12f);
         return;
@@ -145,7 +204,7 @@ void UWeaponBipodDeploymentComponent::EndPlay(const EEndPlayReason::Type Reason)
 UPKMBipodComponent* UWeaponBipodDeploymentComponent::EquippedBipod() const
 {
     auto* C=Character.Get();
-    if(!C || !C->bInventoryWeaponReady || (!PKMLowpolyWeaponAssets::Matches(C->AKMViewmodel)&&!LMG201WeaponAssets::Matches(C->AKMViewmodel)&&!M24Bipod::Matches(C->AKMViewmodel)))return nullptr;
+    if(!C || !C->bInventoryWeaponReady || (!PKMLowpolyWeaponAssets::Matches(C->AKMViewmodel)&&!LMG201WeaponAssets::Matches(C->AKMViewmodel)&&!M24Bipod::Matches(C->AKMViewmodel)&&!M249WeaponAssets::Matches(C->AKMViewmodel)))return nullptr;
     auto* Part=Cast<UPKMBipodComponent>(PKMLowpolyWeaponAssets::FindBipod(C));
     return Part && Part->IsVisible() && !Part->bHiddenInGame ? Part : nullptr;
 }
@@ -170,11 +229,19 @@ bool UWeaponBipodDeploymentComponent::Eligible(bool bContinuing) const
 bool UWeaponBipodDeploymentComponent::ClearPlacement(const FVector& Eye,const FVector& Delta,
     const FVector& Hinge,const FVector& Forward,bool bCheckWeapon) const
 {
-    if(Delta.SizeSquared()>FMath::Square(MaximumCameraReach))return false;
+    const auto* C=Character.Get();
+    if(!WithinBipodReach(Delta,MaximumCameraReach,StanceAdjustment,C&&C->bIsCrouched?StanceAdjustment:0.f))return false;
     FCollisionQueryParams Params(SCENE_QUERY_STAT(BipodClearance),false,GetOwner());
     FHitResult Hit;
-    if(GetWorld()->SweepSingleByChannel(Hit,Eye,Eye+Delta,FQuat::Identity,SupportChannel,
-        FCollisionShape::MakeSphere(5.f),Params))return false;
+    const auto Camera=FCollisionShape::MakeSphere(5.f);
+    if(GetWorld()->SweepSingleByChannel(Hit,Eye,Eye+Delta,FQuat::Identity,SupportChannel,Camera,Params))
+    {
+        // Match the raised sightline at a parapet: rise past the lip before
+        // translating across it. Both segments must clear the camera sphere.
+        const FVector LiftedEye=Eye+FVector::UpVector*Delta.Z;
+        if(Delta.Z<=0.||GetWorld()->SweepSingleByChannel(Hit,Eye,LiftedEye,FQuat::Identity,SupportChannel,Camera,Params)
+            ||GetWorld()->SweepSingleByChannel(Hit,LiftedEye,Eye+Delta,FQuat::Identity,SupportChannel,Camera,Params))return false;
+    }
     if(!bCheckWeapon)return true;
     // Preserve the barrel/receiver corridor. Feet may touch the obstacle, the
     // weapon above them may not be moved through it by the placement correction.
@@ -205,7 +272,11 @@ bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupp
     { return LevelFrame.TransformPosition(CameraFrame.InverseTransformPosition(WorldPoint)); };
     const FVector Hinge=LevelPoint(Part.GetHingeWorld());
     const FVector RestFeet[]={LevelPoint(Part.GetRestFootWorld(0)),LevelPoint(Part.GetRestFootWorld(1))};
+    const FVector FeetCenter=(RestFeet[0]+RestFeet[1])*.5;
+    const auto* Capsule=C->GetCapsuleComponent();
+    const double FloorZ=Capsule->GetComponentLocation().Z-Capsule->GetScaledCapsuleHalfHeight();
     const float SearchHeightRange=FMath::Min(MaximumHeightSnap,MaximumCameraReach);
+    const float Rising=C->bIsCrouched?StanceAdjustment:0.f;
     const float Offsets[]={0.f,ForwardSearch*.5f,-ForwardSearch*.5f,ForwardSearch,-ForwardSearch};
     const float MinNormal=FMath::Cos(FMath::DegreesToRadians(MaximumSlopeDegrees));
     // Use the collision that blocks the character for both acquisition and
@@ -213,7 +284,8 @@ bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupp
     FCollisionQueryParams Params(SCENE_QUERY_STAT(BipodTopSurface),false,C);
     bool bFound=false;
     double BestCost=TNumericLimits<double>::Max();
-    const auto TryFeet=[&](const FVector& First,const FVector& Second,float HeightRange)
+    const auto TryFeet=[&](const FVector& First,const FVector& Second,float HeightRange,
+        double Turn=0.,bool bRaisedOnly=false)
     {
         const FVector Probes[]={First,Second};
         FSupport Candidate;
@@ -223,35 +295,44 @@ bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupp
             FHitResult Hit;
             // Start above the accepted height window so a top exactly on the
             // upper limit does not count as an initial overlap.
-            if(!GetWorld()->LineTraceSingleByChannel(Hit,Probe+FVector::UpVector*(HeightRange+5.f),
-                Probe-FVector::UpVector*HeightRange,SupportChannel,Params)
-                || !IsBipodSupport(Hit) || Hit.ImpactNormal.Z<MinNormal
-                || FMath::Abs(Hit.ImpactPoint.Z-RestFeet[Leg].Z)>HeightRange)return false;
+            if(!GetWorld()->LineTraceSingleByChannel(Hit,Probe+FVector::UpVector*(HeightRange+Rising+5.f),
+                Probe-FVector::UpVector*(HeightRange+StanceAdjustment),SupportChannel,Params)
+                || !IsBipodSupport(Hit) || Hit.ImpactNormal.Z<MinNormal)return false;
+            const bool Raised=Hit.ImpactPoint.Z>FloorZ+5.;
+            const double Height=Hit.ImpactPoint.Z-RestFeet[Leg].Z;
+            if((bRaisedOnly&&!Raised)||Height>HeightRange+(Raised?Rising:0.f)
+                ||Height<-(HeightRange+(Raised?StanceAdjustment:0.f)))return false;
             Candidate.Feet[Leg]=Hit.ImpactPoint+FVector::UpVector*.12;
             Candidate.Components[Leg]=Hit.GetComponent();
             Candidate.Transforms[Leg]=Hit.GetComponent()->GetComponentTransform();
             // Match the authority's contact visibility check for every weapon.
             // This is support occlusion, not the presentation's gun/camera sweep.
-            FHitResult Block;
-            if(GetWorld()->LineTraceSingleByChannel(Block,LevelFrame.GetLocation(),
-                Hit.ImpactPoint+FVector::UpVector*4.,SupportChannel,Params))return false;
+            if(!CanSeeBipodContact(*GetWorld(),LevelFrame.GetLocation(),Hit.ImpactPoint,
+                MaximumCameraReach+Rising,SupportChannel,Params))return false;
             if(bHintOnly)continue;
             // Keep real support under both foot centers, but tolerate an edge
             // or a seam: two of four nearby samples are enough, and an adjacent
             // stationary component can carry part of the same sole.
-            int32 SupportedEdges=0;
-            for(const FVector& Side:{Right*1.2,-Right*1.2,Forward*1.2,-Forward*1.2})
-            {
-                FHitResult Edge;const FVector Center=Hit.ImpactPoint+Side;
-                if(GetWorld()->LineTraceSingleByChannel(Edge,Center+FVector::UpVector*3.,Center-FVector::UpVector*3.,SupportChannel,Params)
-                    && IsBipodSupport(Edge) && Edge.ImpactNormal.Z>=MinNormal)
-                    if(++SupportedEdges>=2)break;
-            }
-            if(SupportedEdges<2)return false;
+            if(!HasBipodFootArea(*GetWorld(),Hit.ImpactPoint,MinNormal,SupportChannel,Params))return false;
         }
-        const FVector Delta=(Candidate.Feet[0]+Candidate.Feet[1]-RestFeet[0]-RestFeet[1])*.5;
-        if(Delta.SizeSquared()>FMath::Square(MaximumCameraReach))return false;
-        Candidate.Anchor=Hinge+Delta;
+        if(!FeetShareSurface(Candidate.Feet[0],Candidate.Feet[1],MaximumSlopeDegrees))return false;
+        const FVector ContactCenter=(Candidate.Feet[0]+Candidate.Feet[1])*.5;
+        const bool Raised=FMath::Min(Candidate.Feet[0].Z,Candidate.Feet[1].Z)>FloorZ+5.;
+        const double Lowering=Raised?StanceAdjustment:0.;
+        const double Lift=Raised?Rising:0.;
+        FVector Delta=ContactCenter-FeetCenter;
+        FQuat MountTurn=FQuat::Identity;
+        if(WithinBipodReach(Delta,MaximumCameraReach,Lowering,Lift))Turn=0.;
+        else
+        {
+            if(FMath::IsNearlyZero(Turn))return false;
+            const FVector Eye=LevelFrame.GetLocation();
+            MountTurn=FQuat(FVector::UpVector,FMath::DegreesToRadians(Turn));
+            Delta=ContactCenter-(Eye+MountTurn.RotateVector(FeetCenter-Eye));
+            if(!WithinBipodReach(Delta,MaximumCameraReach,Lowering,Lift))return false;
+        }
+        Candidate.Anchor=ContactCenter+MountTurn.RotateVector(Hinge-FeetCenter);
+        Candidate.MountYaw=FRotator::NormalizeAxis(Aim.Yaw+Turn);
         // All rifles use physical support to acquire the mount. Leg IK limits
         // and gun/camera clearance only affect presentation, never eligibility.
         const double Cost=Delta.SizeSquared();
@@ -266,17 +347,42 @@ bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupp
 
     // Search around the pawn, not only along the barrel: when aiming along a
     // wall, a forward ray is parallel to its face and cannot find close cover.
-    const FVector FeetCenter=(RestFeet[0]+RestFeet[1])*.5;
     const FVector PawnLocation=C->GetActorLocation();
-    const float CloseReach=C->GetCapsuleComponent()->GetScaledCapsuleRadius()+ForwardSearch;
+    const float CloseReach=Capsule->GetScaledCapsuleRadius()+ForwardSearch;
     const float CloseHeightRange=FMath::Min(MaximumHeightSnap*1.5f,MaximumCameraReach);
+    const double SearchBottom=FloorZ+5.;
+    const double SearchTop=FeetCenter.Z+CloseHeightRange+Rising+5.;
+    const double RadiusLimit=CloseReach+ForwardSearch+5.;
+    if(SearchTop<=SearchBottom || !GetWorld()->OverlapBlockingTestByChannel(
+        FVector(PawnLocation.X,PawnLocation.Y,(SearchBottom+SearchTop)*.5),FQuat::Identity,SupportChannel,
+        FCollisionShape::MakeBox(FVector(RadiusLimit,RadiusLimit,(SearchTop-SearchBottom)*.5)),Params))return false;
+    // A sill under a crenel can be below every horizontal face trace. Probe
+    // down around the pawn in fixed world sectors, starting nearest the view.
+    // Measure reach in the prospective mounted pose even if the player enters
+    // ADS facing across the wall or away from it.
+    constexpr int32 Sectors=16;
+    constexpr double Step=360./Sectors;
+    const int32 StartSector=FMath::RoundToInt(Aim.Yaw/Step);
+    for(int32 Index=0;Index<Sectors;++Index)
+    {
+        const int32 Side=(Index%2==0)?-Index/2:(Index+1)/2;
+        const double Yaw=(StartSector+Side)*Step;
+        const double Turn=FMath::FindDeltaAngleDegrees(double(Aim.Yaw),Yaw);
+        const FVector Direction=FRotator(0.,Yaw,0.).Vector();
+        const FVector HalfSpan=((RestFeet[0]-RestFeet[1])*.5).RotateAngleAxis(Turn,FVector::UpVector);
+        for(double Radius:{double(Capsule->GetScaledCapsuleRadius())+5.,double(CloseReach)+5.,double(CloseReach)+ForwardSearch+5.})
+        {
+            FVector Center=PawnLocation+Direction*Radius;Center.Z=FeetCenter.Z;
+            if(TryFeet(Center+HalfSpan,Center-HalfSpan,SearchHeightRange,Turn,true))return true;
+        }
+    }
     const FVector Directions[]={Forward,Right,-Right,(Forward+Right).GetSafeNormal(),
         (Forward-Right).GetSafeNormal(),(-Forward+Right).GetSafeNormal(),
         (-Forward-Right).GetSafeNormal(),-Forward};
     TArray<FHitResult,TInlineAllocator<24>> NearFaces;
-    for(const float HeightOffset:{-CloseHeightRange-2.f,0.f,CloseHeightRange*.5f})
+    for(const double SampleZ:{FloorZ+12.,FeetCenter.Z-CloseHeightRange-2.,FeetCenter.Z,FeetCenter.Z+CloseHeightRange*.5})
     {
-        FVector Start=PawnLocation;Start.Z=FeetCenter.Z+HeightOffset;
+        FVector Start=PawnLocation;Start.Z=SampleZ;
         for(const FVector& SearchDirection:Directions)
         {
             FHitResult Face;
@@ -306,6 +412,7 @@ bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupp
         // direction. First retain the actual foot span; if a narrow ledge
         // cannot carry that orientation, fit the same span along its edge.
         const FVector Inward=-FVector(Face.ImpactNormal.X,Face.ImpactNormal.Y,0.).GetSafeNormal();
+        const double Turn=FMath::FindDeltaAngleDegrees(double(Aim.Yaw),Inward.Rotation().Yaw);
         FVector AlongEdge=FVector::CrossProduct(FVector::UpVector,Inward);
         if(FVector::DotProduct(AlongEdge,HalfFeet)<0.)AlongEdge=-AlongEdge;
         const double PreferredAlong=FVector::DotProduct(FeetCenter-Face.ImpactPoint,AlongEdge);
@@ -321,7 +428,7 @@ bool UWeaponBipodDeploymentComponent::FindSupport(UPKMBipodComponent& Part,FSupp
                     const FVector Center=Face.ImpactPoint+AlongEdge*Along+Inward*(InnerMargin+Inset);
                     FVector First=Center+HalfSpan;First.Z=RestFeet[0].Z;
                     FVector Second=Center-HalfSpan;Second.Z=RestFeet[1].Z;
-                    if(TryFeet(First,Second,CloseHeightRange))return true;
+                    if(TryFeet(First,Second,CloseHeightRange,Turn))return true;
                 }
             }
         }
@@ -357,16 +464,21 @@ bool UWeaponBipodDeploymentComponent::SupportStillValid(bool bProbeSurface) cons
     return true;
 }
 
-void UWeaponBipodDeploymentComponent::ClampAim() const
+void UWeaponBipodDeploymentComponent::ClampAim()
 {
     const auto* C=Character.Get();if(!C || !C->Controller)return;
     FRotator Aim=C->Controller->GetControlRotation();
-    Aim.Yaw=InitialAim.Yaw+FMath::Clamp(FMath::FindDeltaAngleDegrees(InitialAim.Yaw,Aim.Yaw),-YawLimitDegrees,YawLimitDegrees);
+    const float Weight=FMath::SmoothStep(0.f,1.f,PlacementBlend());
+    if(!FMath::IsNearlyZero(EntryYawOffset))
+    {
+        Aim.Yaw=InitialAim.Yaw+EntryYawOffset*(1.f-Weight);
+        if(Weight>=1.f-UE_SMALL_NUMBER)EntryYawOffset=0.f;
+    }
+    else Aim.Yaw=InitialAim.Yaw+FMath::Clamp(FMath::FindDeltaAngleDegrees(InitialAim.Yaw,Aim.Yaw),-YawLimitDegrees,YawLimitDegrees);
     // Deployment accepts any entry pitch. Bring an outlying view into the
     // level-mounted aim window over the weapon's placement blend;
     // do not snap the view or lock the finished mount toward the ground/sky.
     const float EntryPitchDelta=FMath::FindDeltaAngleDegrees(InitialAim.Pitch,EntryAimPitch);
-    const float Weight=FMath::SmoothStep(0.f,1.f,PlacementBlend());
     const float MinPitch=FMath::Lerp(FMath::Min(-PitchLimitDegrees,EntryPitchDelta),-PitchLimitDegrees,Weight);
     const float MaxPitch=FMath::Lerp(FMath::Max(PitchLimitDegrees,EntryPitchDelta),PitchLimitDegrees,Weight);
     Aim.Pitch=InitialAim.Pitch+FMath::Clamp(FMath::FindDeltaAngleDegrees(InitialAim.Pitch,Aim.Pitch),MinPitch,MaxPitch);
@@ -377,18 +489,21 @@ bool UWeaponBipodDeploymentComponent::TryDeployFromADS()
 {
     auto* C=Character.Get();auto* Part=EquippedBipod();
     if(!Eligible() || !C || !C->bIsAiming || C->bFireHeld || !Part)return false;
-    if(IsM24()&&(!C->WeaponGripProfiles.Contains(TEXT("bipod"))||C->IsRevolverFireActionPlaying()))return false;
+    if(HasHandDeployment()&&!C->WeaponGripProfiles.Contains(TEXT("bipod")))return false;
+    if(IsM24()&&C->IsRevolverFireActionPlaying())return false;
     if(bRequested)return true;
     // A quick release/re-aim is another deliberate ADS entry. Finish the old
     // release before measuring new support instead of losing that input.
     if(Blend>UE_SMALL_NUMBER)
     {
-        if(IsM24()){bPendingReaim=PendingReloadWeapon.IsEmpty();return false;}
+        if(HasHandDeployment()){bPendingReaim=PendingReloadWeapon.IsEmpty();return false;}
         Release(true);
     }
     RestoreCameraOffset();FSupport Candidate;
     if(!FindSupport(*Part,Candidate)){bCandidate=false;return false;}
     Bipod=Part;Support=Candidate;InitialAim=C->GetControlRotation();
+    EntryYawOffset=FMath::FindDeltaAngleDegrees(Candidate.MountYaw,float(InitialAim.Yaw));
+    InitialAim.Yaw=Candidate.MountYaw;
     EntryAimPitch=FRotator::NormalizeAxis(InitialAim.Pitch);
     InitialAim.Pitch=0.f;InitialAim.Roll=0.f;
     PawnAnchor=C->GetActorLocation();bRequested=true;bCandidate=false;bSeatFired=false;bPendingReaim=false;
@@ -402,7 +517,7 @@ bool UWeaponBipodDeploymentComponent::TryDeployFromADS()
     ConfirmedDeployment=FWeaponBipodNetState();
     ServerDeploy(LocalSequence,C->ActiveInventoryWeapon,Support.Feet[0],Support.Feet[1],Support.Anchor,InitialAim);
     if(!bRequested)return false;
-    if(!IsM24())FireDeployCue(false);
+    if(!HasHandDeployment())FireDeployCue(false);
     SetComponentTickEnabled(true);return true;
 }
 
@@ -421,7 +536,7 @@ void UWeaponBipodDeploymentComponent::Release(bool bImmediate)
     {
         PendingReloadWeapon.Reset();bPendingReaim=false;
         Blend=0.f;RestoreCameraOffset();
-        if(auto* Part=Bipod.Get()){Part->SetDeploymentContacts(FVector::ZeroVector,FVector::ZeroVector,0.f);Part->SetM24DeploymentTime(0.f);}
+        if(auto* Part=Bipod.Get()){Part->SetDeploymentContacts(FVector::ZeroVector,FVector::ZeroVector,0.f);Part->SetM24DeploymentTime(0.f);Part->SetM249DeploymentWeight(0.f);}
         Bipod.Reset();SetComponentTickEnabled(false);
     }
 }
@@ -434,6 +549,7 @@ void UWeaponBipodDeploymentComponent::Advance(float DeltaSeconds)
         if(C->HasAuthority())AdvanceRemoteAuthority(DeltaSeconds);
         else {bRequested=NetDeployment.bActive;Blend=FMath::FInterpConstantTo(Blend,bRequested?1.f:0.f,DeltaSeconds,1.f/TransitionDuration(bRequested));}
         if(IsM24())if(auto* Part=EquippedBipod())Part->SetM24DeploymentTime(Blend*M24Bipod::Duration);
+        if(auto* Part=EquippedBipod())Part->SetM249DeploymentWeight(M249BipodAnimation::LegWeight(Blend));
         return;
     }
     const bool Allowed=Eligible(bRequested);const double Now=GetWorld()->GetTimeSeconds();
@@ -450,7 +566,8 @@ void UWeaponBipodDeploymentComponent::Advance(float DeltaSeconds)
     if(!(IsM24()&&!bRequested&&C->IsRevolverFireActionPlaying()))
         Blend=FMath::FInterpConstantTo(Blend,bRequested?1.f:0.f,DeltaSeconds,1.f/TransitionDuration(bRequested));
     if(auto* Part=Bipod.Get())Part->SetM24DeploymentTime(Blend*M24Bipod::Duration);
-    if(IsM24())
+    if(auto* Part=Bipod.Get())Part->SetM249DeploymentWeight(M249BipodAnimation::LegWeight(Blend));
+    if(HasHandDeployment())
     {
         const float Seconds=Blend*M24Bipod::Duration;
         for(const float Contact:{M24Bipod::GripContact,M24Bipod::PullComplete})
@@ -459,11 +576,11 @@ void UWeaponBipodDeploymentComponent::Advance(float DeltaSeconds)
     }
     if(bRequested)ClampAim();
     // 完全落位的瞬间：坐弹链咔哒 + 起枪身衰减抖（表现"架在固体上"的沉降）。
-    if(bRequested&&!bSeatFired&&Blend>=.999f){bSeatFired=true;SettleClock=0.f;if(!IsM24())FireDeployCue(true);}
+    if(bRequested&&!bSeatFired&&Blend>=.999f){bSeatFired=true;SettleClock=0.f;if(!HasHandDeployment())FireDeployCue(true);}
     if(SettleClock>=0.f){SettleClock+=DeltaSeconds;if(SettleClock>.9f)SettleClock=-1.f;}
     if(!bRequested && Blend<=UE_SMALL_NUMBER)
     {
-        const bool bReaim=IsM24()&&Bipod.IsValid()&&bPendingReaim;
+        const bool bReaim=HasHandDeployment()&&Bipod.IsValid()&&bPendingReaim;
         const bool bReload=!PendingReloadWeapon.IsEmpty()&&PendingReloadWeapon==C->ActiveInventoryWeapon;
         if(Bipod.IsValid() || !AppliedCameraOffset.IsNearlyZero())Release(true);
         PendingReloadWeapon.Reset();bPendingReaim=false;
@@ -525,13 +642,14 @@ void UWeaponBipodDeploymentComponent::ApplyPresentation(bool bAfterPose)
     }
     // 2026-09-23 用户要求：架设期间不再对脚架做动画——两腿固定在默认下垂姿态，不随
     // 枪体旋转/平移解算接触点（穿模可接受）；解除后恢复正常摆动表现。
-    if(IsM24())
+    if(HasHandDeployment())
     {
-        // Keep M24's authored unfold/fold clock, then hold its opened rest pose
+        // Keep the authored unfold/fold clock, then hold the opened rest pose
         // just like the machine guns. Looking around must not drive leg IK or
         // turn a visual reach/clearance limit into support loss or lost bonuses.
         Part->SetDeploymentContacts(FVector::ZeroVector,FVector::ZeroVector,0.f);
         Part->SetM24DeploymentTime(Blend*M24Bipod::Duration);
+        Part->SetM249DeploymentWeight(M249BipodAnimation::LegWeight(Blend));
     }
     else
     {
@@ -540,7 +658,7 @@ void UWeaponBipodDeploymentComponent::ApplyPresentation(bool bAfterPose)
     }
     // 落位沉降抖：骨骼姿态与相机修正都定稿之后再叠加，只动枪身——两腿钉死在默认
     // 下垂，视觉上是枪体坐实在架点上，镜头与手臂不受扰。
-    if(bAfterPose&&!IsM24()&&SettleClock>=0.f&&C->AKMViewmodel)
+    if(bAfterPose&&!HasHandDeployment()&&SettleClock>=0.f&&C->AKMViewmodel)
     {
         const float Decay=FMath::Exp(-SettleClock*7.5f);
         if(Decay>.01f)
@@ -595,7 +713,7 @@ float UWeaponBipodDeploymentComponent::HandlingBlend() const
     const auto* State=GetWorld()->GetGameState();
     const double Now=State?State->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
     const float Confirmed=FMath::Min(Blend,float(FMath::Clamp((Now-Deployment.StartedAt)/TransitionDuration(true),0.,1.)));
-    return IsM24()?M24Bipod::Seat(Confirmed):Confirmed;
+    return HasHandDeployment()?M24Bipod::Seat(Confirmed):Confirmed;
 }
 
 FString UWeaponBipodDeploymentComponent::EquippedDefinition() const
@@ -611,7 +729,7 @@ bool UWeaponBipodDeploymentComponent::AuthorityEligible(bool bContinuing) const
 {
     const auto* C=Character.Get();if(!C||!C->HasAuthority()||!C->Controller)return false;
     const FString Definition=EquippedDefinition();
-    if(Definition!=PKMLowpolyWeaponAssets::Definition&&Definition!=LMG201WeaponAssets::Definition&&Definition!=M24WeaponAssets::Definition)return false;
+    if(Definition!=PKMLowpolyWeaponAssets::Definition&&Definition!=LMG201WeaponAssets::Definition&&Definition!=M24WeaponAssets::Definition&&Definition!=M249WeaponAssets::Definition)return false;
     {
         const auto* Model=C->GetNetShadowProfile();
         if(!Model&&C->IsLocallyControlled())Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
@@ -638,43 +756,36 @@ bool UWeaponBipodDeploymentComponent::ResolveServerSupport(const FWeaponBipodNet
     // Remote first-person rigs do not evaluate their pose. Resolve actual server
     // collision from bounded world contacts; never trust a client component pointer.
     const FVector Eye=C->GetMeleeAimTransform().GetLocation();
-    if(FVector::DistSquared(Eye,Proposed.Anchor)>FMath::Square(100.f+MaximumCameraReach))return false;
-    const FRotator ServerAim=C->GetControlRotation();
-    // Pitch is resolved by the mount, not an acquisition requirement. Keep the
-    // horizontal intent and all world-space support/reach/occlusion checks.
-    if(FMath::Abs(FMath::FindDeltaAngleDegrees(ServerAim.Yaw,Proposed.Aim.Yaw))>30.f)return false;
+    const auto* Capsule=C->GetCapsuleComponent();
+    const double FloorZ=Capsule->GetComponentLocation().Z-Capsule->GetScaledCapsuleHalfHeight();
+    const bool Raised=FMath::Min(Proposed.FeetA.Z,Proposed.FeetB.Z)>FloorZ+5.;
+    const double Lowering=Raised?StanceAdjustment:0.;
+    const double Rising=C->bIsCrouched?Lowering:0.;
+    if(!WithinBipodReach(FVector(Proposed.Anchor)-Eye,100.f+MaximumCameraReach,Lowering,Rising))return false;
+    // Aim is the destination of the presentation turn. Authority verifies the
+    // world contacts relative to the pawn regardless of its incoming view.
     const bool LMG=EquippedDefinition()==LMG201WeaponAssets::Definition;
     const bool Sniper=EquippedDefinition()==M24WeaponAssets::Definition;
-    const float Span=Sniper?float((M24Bipod::Pivots[0]+M24Bipod::Tips[0]-M24Bipod::Pivots[1]-M24Bipod::Tips[1]).Size()):LMG?float((LMG201WeaponAssets::BipodPivotsCm[0]+LMG201WeaponAssets::BipodFeetCm[0]
+    const float Span=EquippedDefinition()==M249WeaponAssets::Definition?float((M249Bipod::Pivots[0]+M249Bipod::Tips[0]-M249Bipod::Pivots[1]-M249Bipod::Tips[1]).Size()):Sniper?float((M24Bipod::Pivots[0]+M24Bipod::Tips[0]-M24Bipod::Pivots[1]-M24Bipod::Tips[1]).Size()):LMG?float((LMG201WeaponAssets::BipodPivotsCm[0]+LMG201WeaponAssets::BipodFeetCm[0]
         -LMG201WeaponAssets::BipodPivotsCm[1]-LMG201WeaponAssets::BipodFeetCm[1]).Size()):12.469f;
     const double Width=FVector::Dist2D(Proposed.FeetA,Proposed.FeetB);
-    if(Width<Span*.5||Width>Span*1.5+4.||FMath::Abs(Proposed.FeetA.Z-Proposed.FeetB.Z)>MaximumHeightSnap*3.f)return false;
+    if(Width<Span*.5||Width>Span*1.5+4.||!FeetShareSurface(Proposed.FeetA,Proposed.FeetB,MaximumSlopeDegrees))return false;
     const FVector Center=(FVector(Proposed.FeetA)+FVector(Proposed.FeetB))*.5;
     if(FVector::DistSquared(Center,Proposed.Anchor)>FMath::Square(65.f))return false;
     FCollisionQueryParams Params(SCENE_QUERY_STAT(NetBipodSupport),false,C);
     const FVector Feet[]={Proposed.FeetA,Proposed.FeetB};
     const float MinNormal=FMath::Cos(FMath::DegreesToRadians(MaximumSlopeDegrees));
-    const FVector Forward=FRotator(0,Proposed.Aim.Yaw,0).Vector();
-    const FVector Right=FVector::CrossProduct(FVector::UpVector,Forward);
     // Use the same bounded support, slope, area and occlusion checks for M24,
     // PKM and LMG201. Remote rigs have no evaluated pose: visual leg reach and
     // the barrel corridor must not impose an extra M24 deployment restriction.
     for(int32 I=0;I<2;++I)
     {
-        if(FVector::DistSquared(Eye,Feet[I])>FMath::Square(110.f+MaximumCameraReach))return false;
+        if(!WithinBipodReach(Feet[I]-Eye,110.f+MaximumCameraReach,Lowering,Rising))return false;
         FHitResult Hit;
         if(!GetWorld()->LineTraceSingleByChannel(Hit,Feet[I]+FVector(0,0,3),Feet[I]-FVector(0,0,3),SupportChannel,Params)||
             !IsBipodSupport(Hit)||Hit.ImpactNormal.Z<MinNormal||FVector::DistSquared(Hit.ImpactPoint,Feet[I])>4.)return false;
-        FHitResult Obstruction;
-        if(GetWorld()->LineTraceSingleByChannel(Obstruction,Eye,Hit.ImpactPoint+FVector(0,0,4),SupportChannel,Params))return false;
-        int32 Edges=0;
-        for(const FVector& Offset:{Right*1.2,-Right*1.2,Forward*1.2,-Forward*1.2})
-        {
-            FHitResult Edge;const FVector At=Hit.ImpactPoint+Offset;
-            if(GetWorld()->LineTraceSingleByChannel(Edge,At+FVector(0,0,3),At-FVector(0,0,3),SupportChannel,Params)&&
-                IsBipodSupport(Edge)&&Edge.ImpactNormal.Z>=MinNormal)++Edges;
-        }
-        if(Edges<2)return false;
+        if(!CanSeeBipodContact(*GetWorld(),Eye,Hit.ImpactPoint,MaximumCameraReach+Rising,SupportChannel,Params))return false;
+        if(!HasBipodFootArea(*GetWorld(),Hit.ImpactPoint,MinNormal,SupportChannel,Params))return false;
         Out.Feet[I]=Hit.ImpactPoint+FVector(0,0,.12);
         Out.Components[I]=Hit.GetComponent();Out.Transforms[I]=Hit.GetComponent()->GetComponentTransform();
     }
@@ -709,6 +820,7 @@ void UWeaponBipodDeploymentComponent::ServerDeploy_Implementation(uint16 Sequenc
     {
         Support=Resolved;NetDeployment.FeetA=Support.Feet[0];NetDeployment.FeetB=Support.Feet[1];
         EntryAimPitch=FRotator::NormalizeAxis(Character->GetControlRotation().Pitch);
+        EntryYawOffset=FMath::FindDeltaAngleDegrees(Proposed.Aim.Yaw,Character->GetControlRotation().Yaw);
         PawnAnchor=Character->GetActorLocation();InitialAim=Proposed.Aim;
         MountedDefinition=EquippedDefinition();NextSupportProbe=Now+BipodSupportInterval;
         bRequested=true;Character->GetCharacterMovement()->StopMovementImmediately();

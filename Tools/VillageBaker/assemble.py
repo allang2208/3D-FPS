@@ -36,8 +36,8 @@ def load_json(path):
     return json.loads(path.read_text(encoding="utf-8-sig"))
 
 
-def source_surface():
-    scene = trimesh.load_scene(GLB, process=False, merge_primitives=False)
+def source_surface(glb=GLB, texture_dir=TEX, prefix="Baker"):
+    scene = trimesh.load_scene(glb, process=False, merge_primitives=False)
     # glTF +Z is forward and +Y is up. Jason faces Blender +Y. Use a rotation
     # so the asymmetry in the eyes, mouth and temples stays on the same side.
     axes = np.array([[-1., 0., 0.], [0., 0., 1.], [0., 1., 0.]])
@@ -53,7 +53,7 @@ def source_surface():
         maps = {}
         def store(channel, image):
             if image is not None:
-                path = TEX / f"T_Baker_Head_{atlas}_{channel}.png"
+                path = texture_dir / f"T_{prefix}_Head_{atlas}_{channel}.png"
                 image.save(path)
                 maps[channel] = str(path)
         store("BC", material.baseColorTexture)
@@ -137,8 +137,9 @@ def color_at(im, uv):
     return im[y, x, :3]
 
 
-def collar_albedo(atlases, atlas_uv, collar_uv, p, uv, faces, cut):
-    source = np.asarray(Image.open(NATIVE_SKIN).convert("RGB"))
+def collar_albedo(atlases, atlas_uv, collar_uv, p, uv, faces, cut, texture_dir=TEX,
+                  prefix="Baker", native_skin=NATIVE_SKIN):
+    source = np.asarray(Image.open(native_skin).convert("RGB"))
     samples = []
     for i, mat in enumerate(atlases):
         local = atlas_uv[np.rint(atlas_uv[:, 2]).astype(int) == i]
@@ -161,18 +162,19 @@ def collar_albedo(atlases, atlas_uv, collar_uv, p, uv, faces, cut):
         rgb *= 1 + (ratio - 1) * (mask[sl, :, None].astype(np.float32) / 255)
         srgb = np.where(rgb <= .0031308, 12.92 * rgb, 1.055 * np.power(rgb, 1 / 2.4) - .055)
         tint[sl] = np.round(np.clip(srgb, 0, 1) * 255).astype(np.uint8)
-    path = TEX / "T_Baker_Neck_BC.png"
+    path = texture_dir / f"T_{prefix}_Neck_BC.png"
     Image.fromarray(tint).save(path)
     maps = {"BC": str(path), "N": str(WARDROBE_TEX / "T_Baker_NativeNeck_N.png")}
-    rough = TEX / "T_Baker_Neck_R.png"
+    rough = texture_dir / f"T_{prefix}_Neck_R.png"
     with Image.open(WARDROBE_TEX / "T_Baker_NativeNeck_ORM.png") as image:
         image.getchannel("G").save(rough)
     maps["R"] = str(rough)
     return maps, ratio.tolist()
 
 
-def fit(work):
-    p, n, u, tri, atlases = source_surface()
+def fit(work, *, glb=GLB, texture_dir=TEX, prefix="Baker", native_skin=NATIVE_SKIN,
+        wardrobe=WARDROBE, export_wardrobe=True):
+    p, n, u, tri, atlases = source_surface(glb, texture_dir, prefix)
     crown, nose = points_of_fit(p)
     scale = (181.0 - 164.9) / (crown - nose[2])
     p = (p - nose) * scale + [0., 13.2, 164.9]
@@ -201,7 +203,8 @@ def fit(work):
     bridge = bridge_faces(hp[hi], lp[li], ha, la)
     bridge_indices = np.concatenate((hi, li + len(hp)))[bridge]
     bridge_uv = np.vstack((lu[li[tree.query(hp[hi, :2])[1]]], lu[li]))[bridge]
-    neck_atlas, ratio = collar_albedo(atlases, hu[hi], lu[li], lp, lu, lf, lower_z)
+    neck_atlas, ratio = collar_albedo(atlases, hu[hi], lu[li], lp, lu, lf, lower_z,
+                                      texture_dir, prefix, native_skin)
     face_material = np.rint(hu[hf[:, 0], 2]).astype(np.int32)
     all_mat = np.concatenate([face_material, np.full(len(lf) + len(bridge), len(atlases), np.int32)])
     atlases.append(neck_atlas)
@@ -220,14 +223,14 @@ def fit(work):
             joints[i, j], amounts[i, j] = index, weight / total
     np.savez(work / "head.npz", p=np.vstack((hp, lp)) * .01, n=np.vstack((hn, ln)), tri=faces,
              uv=uvs, m=all_mat, joints=joints, weights=amounts)
-    record = {"source_head": str(GLB.relative_to(PROJECT)), "source_triangles": len(tri),
-              "native_body": str(WARDROBE.relative_to(PROJECT)), "native_skeleton": skeleton,
+    record = {"source_head": str(glb.relative_to(PROJECT)), "source_triangles": len(tri),
+              "native_body": str(wardrobe.relative_to(PROJECT)), "native_skeleton": skeleton,
               "scale_to_cm": float(scale), "source_nose": nose.tolist(), "nose_cm": [0.,13.2,164.9],
               "crown_cm": 181., "neck_transition_cm": [lower_z, cut, cut+2.2],
               "native_neck_upper_tint_linear": ratio, "face_and_hair_triangles": len(hf),
               "collar_triangles": len(lf), "connecting_triangles": len(bridge)}
     interchange_maps = {}
-    for folder in (WARDROBE_TEX, BAKER / "CapR1"):
+    for folder in ((WARDROBE_TEX, BAKER / "CapR1") if export_wardrobe else ()):
         for packed in folder.glob("*_ORM.png"):
             with Image.open(packed) as source:
                 rough = TEX / (packed.stem[:-4] + "_R.png")

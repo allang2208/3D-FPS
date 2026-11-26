@@ -27,8 +27,16 @@ namespace
         {TEXT("wood"),150.,700000.,260000.,120000.,180.,6.},
         {TEXT("stone"),650.,6000000.,900000.,300000.,500.,15.},
         {TEXT("marble"),650.,6000000.,900000.,300000.,500.,15.},
+        // castle = 城墙石（2026-10-13 新增第四种体素材质，Fab Free Stylized Stone Wall 01A）：
+        // 物理走资产内 override（与 stone 同档），见 DA_VoxelBuildPalette 的 castle 条目。
+        {TEXT("castle"),650.,6000000.,900000.,300000.,500.,15.},
+        // 屋顶三件（2026-10-14，CC0 Poly Haven 贴图 + 三平面材质管线）：茅草轻质档、瓦档稍轻于石头。
+        {TEXT("thatch"),90.,500000.,110000.,90000.,120.,5.},
+        {TEXT("roof_tile"),500.,4800000.,420000.,240000.,400.,12.},
+        {TEXT("roof_slate"),500.,5200000.,420000.,240000.,450.,12.},
     };
-    const TCHAR* BlockIcons[]={TEXT("Icons/wood.png"),TEXT("Icons/stone.png"),TEXT("Icons/marble.png")};
+    const TCHAR* BlockIcons[]={TEXT("Icons/wood.png"),TEXT("Icons/stone.png"),TEXT("Icons/marble.png"),TEXT("Icons/castle.png"),
+        TEXT("Icons/thatch.png"),TEXT("Icons/rooftile.png"),TEXT("Icons/roofslate.png")};
 }
 
 bool UVoxelBuildAudit::Requested()
@@ -83,7 +91,8 @@ bool UVoxelBuildAudit::CheckItemCatalog()
     FString Text;
     const bool bLoaded=FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")));
     Report(TEXT("item catalog readable"),bLoaded);
-    for(const TCHAR* Id: {TEXT("voxel_block_wood"),TEXT("voxel_block_stone"),TEXT("voxel_block_marble")})
+    for(const TCHAR* Id: {TEXT("voxel_block_wood"),TEXT("voxel_block_stone"),TEXT("voxel_block_marble"),TEXT("voxel_block_castle"),
+        TEXT("voxel_block_thatch"),TEXT("voxel_block_roof_tile"),TEXT("voxel_block_roof_slate")})
         Report(*FString::Printf(TEXT("catalog contains %s"),Id),bLoaded&&Text.Contains(Id));
     for(const TCHAR* Icon:BlockIcons)
         Report(*FString::Printf(TEXT("block icon present %s"),Icon),FPaths::FileExists(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/Icon));

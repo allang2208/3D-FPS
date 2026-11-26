@@ -10,46 +10,58 @@
       "options": [
         {
           "id": "hatchet_falcon_edge",
-          "name": "隼喙凿锋斧刃",
-          "appearance": "下探钩刃与短背喙夹出开阔斧面，三角减重孔贯穿厚脊，哑光碳钢衔接银色凿磨刃口。",
+          "name": "利隼",
+          "appearance": "四道青色嵌线沿黑钢斧面展开，末端收细渐隐。背喙从蓝黑钢渐变为深青，抛光尖端透出亮青。",
           "stats": {
-            "physical_damage_mult": 1.2,
-            "melee_critical_damage_bonus": 0.35,
-            "attack_speed_mult": 0.9,
-            "stamina_mult": 1.15
+            "physical_damage_mult": 1.4,
+            "attack_speed_mult": 0.85,
+            "stamina_mult": 1.25
           },
           "effects": [
             {
-              "text": "物理伤害+20%",
+              "text": "物理伤害+40%",
               "benefit": 1
             },
             {
-              "text": "暴击伤害+35%",
-              "benefit": 1
-            },
-            {
-              "text": "攻击速度-10%",
+              "text": "攻击体力消耗+25%",
               "benefit": -1
             },
             {
-              "text": "攻击体力消耗+15%",
+              "text": "攻击速度-15%",
               "benefit": -1
             }
           ],
-          "special_effects": [],
-          "description": "下探钩刃与短背喙夹出开阔斧面，三角减重孔贯穿厚脊，哑光碳钢衔接银色凿磨刃口。"
+          "special_effects": [
+            "隼爪回勾：重击下劈钩住一名敌人，停顿0.35秒后回拉。下劈与回拉各造成常规重击90%的物理伤害，分别判定命中。",
+            "回拉在0.16秒内将目标向身前拖近，最多80厘米。普通怪可直接牵引，精英和首领须先破韧。双持两把利隼时，每把斧可钩一名敌人，同一目标只拖动一次。"
+          ],
+          "description": "青色光带沿钩刃渐隐，黑钢背喙向抛光青色尖刺自然过渡。"
+        },
+        {
+          "id": "hatchet_ghost_scythe",
+          "name": "鬼镰",
+          "appearance": "银钢脊覆在猩红弯刃与尖棱护甲之上，刃根嵌着暗红晶石，短穗下垂，刃侧有薄红血雾。",
+          "description": "碳钢战斧专属镰形斧刃。",
+          "stats": {
+            "physical_damage_mult": 1.2,
+            "melee_critical_chance_add": 10
+          },
+          "effects": [
+            {
+              "text": "物理攻击+20%",
+              "benefit": 1
+            },
+            {
+              "text": "暴击率+10%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "护甲腐蚀｜鬼镰每次命中施加1层，每层降低目标5%物理护甲，最多12层（60%）。命中刷新全部层数的8秒持续时间，到期全部移除。"
+          ]
         }
       ],
       "options_library": "shared-axe-blade-options.json"
-    },
-    {
-      "key": "blade_2",
-      "options": [],
-      "name": "斧面符文",
-      "default": "无附加符文",
-      "description": "保留斧头主体钢材，不添加额外符文。",
-      "options_library": "shared-knife-component-options.json",
-      "options_column": "blade_2"
     },
     {
       "key": "grip",
@@ -134,12 +146,58 @@
     },
     {
       "key": "lanyard",
-      "options": [],
+      "options": [
+        {
+          "id": "hatchet_lanyard_ember_wedge",
+          "name": "余烬斧楔",
+          "description": "打裂的锻钢斧楔由双铆铜片箍住，暗红石芯藏在裂缝中。",
+          "appearance": "打裂的锻钢斧楔由双铆铜片箍住，暗红石芯藏在裂缝中。",
+          "stats": {
+            "heavy_damage_mult": 1.08
+          },
+          "effects": [
+            {
+              "text": "重击伤害+8%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "震楔｜蓄满重击对每个目标的首次接触韧性伤害+30%。该击破韧恢复6点体力，回体冷却4秒。"
+          ]
+        },
+        {
+          "id": "hatchet_lanyard_raven_whistle",
+          "name": "鸦骨风哨",
+          "description": "弯曲的骨哨以青线和铜箍收口，从柄尾侧环斜挂。",
+          "appearance": "弯曲的骨哨以青线和铜箍收口，从柄尾侧环斜挂。",
+          "stats": {
+            "normal_attack_stamina_mult": 0.92
+          },
+          "effects": [
+            {
+              "text": "普通攻击体力消耗-8%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "掠步｜普通斧击命中后3秒内，下一次闪避体力消耗-24%；该次闪避结束后移动速度+12%，持续1.5秒。触发冷却4秒。"
+          ]
+        }
+      ],
       "name": "挂坠",
       "default": "无挂坠",
-      "description": "挂坠穿过柄尾孔，安装位置跟随柄尾；可选用通用挂绳与挂饰。",
+      "description": "短绳穿过柄尾孔，可安装斧头专属挂件或通用挂坠。",
       "options_library": "shared-knife-component-options.json",
       "options_column": "lanyard"
+    },
+    {
+      "key": "blade_2",
+      "options": [],
+      "name": "斧面符文",
+      "default": "无附加符文",
+      "description": "保留斧头主体钢材，不添加额外符文。",
+      "options_library": "shared-knife-component-options.json",
+      "options_column": "blade_2"
     }
   ]
 }

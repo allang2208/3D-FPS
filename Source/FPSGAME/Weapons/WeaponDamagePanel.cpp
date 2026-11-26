@@ -1,4 +1,6 @@
 #include "WeaponDamagePanel.h"
+#include "Kukri/KukriBerserkerComponent.h"
+#include "Kukri/KukriEnchantment.h"
 #include "GunsmithSystem.h"
 #include "../Production/ProductionToolComponent.h"
 #include "../Production/RuneboundHammerTuning.h"
@@ -65,5 +67,7 @@ FWeaponDamageParts ColdSteelWeaponDamage::Evaluate(const FColdSteelItem& Item,co
         R.BasePhysical*=Melee->PhysicalDamage;
         R.AddedPhysical*=Melee->PhysicalDamage;
     }
-    return Melee?R.Scaled(Melee->AllAttackDamage):R;
+    const double BloodWolf=KukriEnchantment::PhysicalMultiplier(Item);
+    R.BasePhysical*=BloodWolf;R.AddedPhysical*=BloodWolf;
+    return R.Scaled((Melee?Melee->AllAttackDamage:1.)*UKukriBerserkerComponent::DamageMultiplier(&Item,Profile));
 }

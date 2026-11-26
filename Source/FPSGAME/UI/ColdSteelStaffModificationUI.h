@@ -20,7 +20,7 @@ namespace ColdSteelStaffUI
     // Share this direct-attribute list across details, overview and item tooltips.
     inline const FEffectField Fields[] = {
         {TEXT("magicDamagePercent"),TEXT("法术伤害加成"),100,1,TEXT("%"),false,true},
-        {TEXT("magicCritPercent"),TEXT("法术暴击率加成"),100,1,TEXT("%"),false,true},
+        {TEXT("magicCritPercent"),TEXT("法术暴击率"),100,1,TEXT("%"),false,true},
         {TEXT("magicMpCostPercent"),TEXT("法术耗蓝增减"),100,1,TEXT("%"),true,true},
         {TEXT("magicRangePercent"),TEXT("法术距离加成"),100,1,TEXT("%"),false,true},
         {TEXT("magicCooldownPercent"),TEXT("法术冷却缩减"),100,1,TEXT("%"),false,true},

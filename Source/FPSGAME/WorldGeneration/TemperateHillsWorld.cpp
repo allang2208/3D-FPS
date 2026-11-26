@@ -1,7 +1,12 @@
 #include "TemperateHillsWorld.h"
+#include "VillageMechanicalWorkshop.h"
+#include "TemperateHillsMap.h"
+#include "Algo/Compare.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "Net/UnrealNetwork.h" // M4: DOREPLIFETIME
 #include "TemperateHillsSurface.h"
+#include "TemperateHillsVisibility.h"
+#include "TemperateForestHabitat.h"
 #include "../UI/TransitLoadingSubsystem.h"
 #include "Engine/GameInstance.h"
 #include "PCGComponent.h"
@@ -33,53 +38,35 @@
 #include "Misc/Parse.h"
 #include "Misc/Paths.h"
 #include "Misc/FileHelper.h"
+#include "Misc/ConfigCacheIni.h"
 #include "HAL/FileManager.h"
 #include "HAL/IConsoleManager.h"
 #include "HighResScreenshot.h"
 #include "TimerManager.h"
 #include "../FPSWeatherManager.h"
+#include "../Production/ProductionOreRocks.h"
+#include "TemperateVegetationPlacement.h"
 #include "../UI/ColdSteelStatusModel.h"
 
+#include "TemperateHillsMathPrivate.h"
 namespace TemperateHills
 {
 uint32 Mix(uint32 V) { V ^= V >> 16; V *= 0x7feb352dU; V ^= V >> 15; V *= 0x846ca68bU; return V ^ (V >> 16); }
 uint32 Key(int32 X, int32 Y, uint32 Seed, uint32 Salt) { return Mix(Mix(uint32(X)*0x9e3779b9U) ^ Mix(uint32(Y)*0x85ebca6bU+0x1b873593U) ^ Mix(Seed+Salt)); }
 uint64 CellId(int32 X,int32 Y) { return (uint64(uint32(X))<<32)|uint32(Y); }
-// Spatial buckets for terrain-edit lookups: Height()/SurfaceNormal() are called millions
-// of times by vegetation placement, so they must not walk the whole edit list.
-constexpr double EditBucketCm = 3200.0;
-// Terrain destruction limits (cm). Digging and craters stop this far below the generated
-// surface; refilling stops this far above it.
-static TAutoConsoleVariable<float> MaxDropCm(
-    TEXT("fps.Hills.MaxDropCm"), 400.f,
-    TEXT("How far terrain destruction may sink below the generated surface (cm)."));
-static TAutoConsoleVariable<float> MaxRiseCm(
-    TEXT("fps.Hills.MaxRiseCm"), 100.f,
-    TEXT("How far refilling may raise terrain above the generated surface (cm)."));
 double Unit(uint32 V) { return double(Mix(V) & 0x00ffffffU) / 16777216.0; }
 double Smooth(double T) { T=FMath::Clamp(T,0.0,1.0); return T*T*(3-2*T); }
-double ValleyY(double X, int32 Seed) { return 1900*FMath::Sin(X*.000065+Unit(Seed)*3)+850*FMath::Sin(X*.00014); }
-struct FLayerRadii : FPCGRuntimeGenerationRadii
-{
-    explicit FLayerRadii(float Radius)
-    {
-        RadiusUnbounded.Default=Radius;
-        Radius12800.Default=Radius;
-        Radius6400.Default=Radius;
-        Radius3200.Default=Radius;
-        Radius1600.Default=Radius;
-        CleanupRadiusScalar.Default=1.3f;
-        ComputeHash();
-    }
-};
+double ValleyY(double X, int32 Seed) { return 1900*FMath::Sin(X*.000065+Unit(Seed)*3)+850*FMath::Sin(X*.00014); } // Keep in sync with TemperateHillsSurface::ValleyY.
 }
 
 ATemperateHillsWorld::ATemperateHillsWorld()
 {
     PrimaryActorTick.bCanEverTick=true;
     bReplicates=true; // M4：会话(种子/编辑)复制给客户端做确定性重建
+    bAlwaysRelevant=true; // One session actor serves the entire kilometre-wide map.
     GenerationBounds=CreateDefaultSubobject<UBoxComponent>(TEXT("WorldBounds"));
     RootComponent=GenerationBounds;
+    GenerationBounds->SetMobility(EComponentMobility::Static);
     GenerationBounds->SetBoxExtent(FVector(51200,51200,50000));
     GenerationBounds->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     GenerationBounds->SetCanEverAffectNavigation(false);
@@ -114,22 +101,60 @@ void ATemperateHillsWorld::ResolveSession()
 #if !UE_BUILD_SHIPPING
     // Portal regression needs real hills travel without touching the player's world save.
     if(FParse::Param(FCommandLine::Get(),TEXT("GrassPortalAudit")))Slot=TEXT("TemperateHills_GrassPortalAudit");
+    if(FParse::Param(FCommandLine::Get(),TEXT("ChapelReview")))Slot=TEXT("TemperateHills_ChapelReview");
 #endif
-    int32 Requested=Seed;
-    // Portal re-entry continues the existing world even when this process was
-    // originally launched with a new-world or explicit-seed command-line flag.
+    if(IsForestVillage()) Slot=bAudit?TEXT("ForestPathVillage_Audit"):TEXT("ForestPathVillage_World");
+    int32 Requested=TemperateHillsMap::Seed;
+    int32 RequestedGen=TemperateHillsMap::GeneratorVersion;
     const bool ContinueWorld=GetWorld()->URL.HasOption(TEXT("HillsContinue"));
-    const bool Explicit=!ContinueWorld&&FParse::Value(FCommandLine::Get(),TEXT("HillsSeed="),Requested);
+    bool Explicit=false;
+#if !UE_BUILD_SHIPPING
+    // Existing authoring and regression fixtures can still request a particular
+    // historical map. Normal play and portal re-entry use the authored map or save.
+    Explicit=!ContinueWorld&&FParse::Value(FCommandLine::Get(),TEXT("HillsSeed="),Requested);
+    FParse::Value(FCommandLine::Get(),TEXT("HillsGen="),RequestedGen);
+#endif
     const bool NewWorld=!ContinueWorld&&FParse::Param(FCommandLine::Get(),TEXT("HillsNewWorld"));
     UTemperateHillsSave* Saved=Cast<UTemperateHillsSave>(UGameplayStatics::LoadGameFromSlot(Slot,0));
-    if(Saved&&!NewWorld&&!Explicit&&Saved->Version>3)
+    if(!Saved&&!NewWorld&&!Explicit&&UGameplayStatics::DoesSaveGameExist(Slot,0))
+    {
+        UE_LOG(LogTemp,Error,TEXT("HILLS_SESSION could not read existing world %s"),*Slot);
+        Slot.Reset();return;
+    }
+    if(Saved&&!NewWorld&&!Explicit&&(Saved->Version>6||Saved->GeneratorVersion>3||Saved->VillagePlanVersion>UTemperateHillsSave::CurrentVillagePlanVersion))
     {
         UE_LOG(LogTemp,Error,TEXT("HILLS_SESSION incompatible version=%d; original save retained"),Saved->Version);
         Slot.Reset();return;
     }
     if(Saved&&!NewWorld&&!Explicit)
     {
+        // V1 stored plans without repairing buildings. Resolve those unlocks before
+        // scene generation; no live pawns or building collision exist at this point.
+        if(Saved->VillagePlanVersion<2&&(Saved->VillagePlansUnlocked&3))
+        {
+            const bool OldWall=Saved->bVillageWallRepaired,OldShop=Saved->bVillageBlacksmithRepaired;
+            const int32 OldPlanVersion=Saved->VillagePlanVersion;
+            Saved->bVillageWallRepaired|=(Saved->VillagePlansUnlocked&1)!=0;
+            Saved->bVillageBlacksmithRepaired|=(Saved->VillagePlansUnlocked&2)!=0;
+            Saved->VillagePlanVersion=2;
+            if(!UGameplayStatics::SaveGameToSlot(Saved,Slot,0))
+            {
+                Saved->bVillageWallRepaired=OldWall;Saved->bVillageBlacksmithRepaired=OldShop;
+                Saved->VillagePlanVersion=OldPlanVersion;
+                UE_LOG(LogTemp,Warning,TEXT("HILLS_SESSION village plan migration could not be saved; repair remains available from the nun"));
+            }
+        }
         Seed=Saved->Seed;WorldId=Saved->WorldId;
+        PlaythroughSeed=Saved->PlaythroughSeed;
+        VillageDefenseGeneration=Saved->VillageDefenseGeneration;
+        bVillageWallRepaired=Saved->bVillageWallRepaired;
+        bVillageBlacksmithRepaired=Saved->bVillageBlacksmithRepaired;
+        VillagePlansUnlocked=Saved->SavedVillagePlans();
+        bVillageBakeryRepaired=Saved->VillagePlanVersion>=9 && Saved->bVillageBakeryRepaired;
+        bVillageGunshopRepaired=Saved->VillagePlanVersion>=10 && Saved->bVillageGunshopRepaired;
+        bGarrisonMechanics=Saved->VillagePlanVersion>=11 && Saved->bGarrisonMechanics;
+        // Old saves have no GeneratorVersion and must keep the frozen V1 field.
+        GeneratorVersion=FMath::Clamp(Saved->GeneratorVersion,1,3);
         // V1 saves carry no edits and simply start with untouched ground. V2 stored
         // circular craters only; they migrate to the general edit list as bowls.
         TerrainEdits.Reset(Saved->Edits.Num()+Saved->Craters.Num());
@@ -154,24 +179,44 @@ void ATemperateHillsWorld::ResolveSession()
     }
     else
     {
-        Seed=Explicit?Requested:int32(TemperateHills::Mix(FGuid::NewGuid().A));
+        Seed=Requested;
         WorldId=FGuid::NewGuid();
+        if(!Explicit) PlaythroughSeed=int32(GetTypeHash(WorldId) | 1u);
+        GeneratorVersion=FMath::Clamp(RequestedGen,1,3);
         auto* Save=Cast<UTemperateHillsSave>(UGameplayStatics::CreateSaveGameObject(UTemperateHillsSave::StaticClass()));
-        Save->Version=3;Save->Seed=Seed;Save->WorldId=WorldId;
+        Save->Version=6;Save->Seed=Seed;Save->WorldId=WorldId;Save->GeneratorVersion=GeneratorVersion;
+        Save->PlaythroughSeed=PlaythroughSeed;
+        Save->VillagePlanVersion=2;
         if(!UGameplayStatics::SaveGameToSlot(Save,Slot,0)){UE_LOG(LogTemp,Error,TEXT("HILLS_SESSION save failed"));Slot.Reset();}
     }
+    UE_LOG(LogTemp,Display,TEXT("HILLS_SESSION seed=%d generator=%d world=%s"),Seed,GeneratorVersion,*WorldId.ToString());
 }
 
 void ATemperateHillsWorld::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(ATemperateHillsWorld,Seed);
+    DOREPLIFETIME(ATemperateHillsWorld,GeneratorVersion);
     DOREPLIFETIME(ATemperateHillsWorld,WorldId);
+    DOREPLIFETIME(ATemperateHillsWorld,ForestGrowthDay);
+    DOREPLIFETIME_CONDITION(ATemperateHillsWorld,PlaythroughSeed,COND_InitialOnly);
+    DOREPLIFETIME(ATemperateHillsWorld,bVillageWallRepaired);
+    DOREPLIFETIME(ATemperateHillsWorld,bVillageBlacksmithRepaired);
+    DOREPLIFETIME(ATemperateHillsWorld,VillagePlansUnlocked);
+    DOREPLIFETIME(ATemperateHillsWorld,bVillageBakeryRepaired);
+    DOREPLIFETIME(ATemperateHillsWorld,bVillageGunshopRepaired);
+    DOREPLIFETIME(ATemperateHillsWorld,bGarrisonMechanics);
+    DOREPLIFETIME(ATemperateHillsWorld,SiegeRanks);
+    DOREPLIFETIME_CONDITION(ATemperateHillsWorld,SizeMeters,COND_InitialOnly);
+    DOREPLIFETIME_CONDITION(ATemperateHillsWorld,NetEcology,COND_InitialOnly);
+    DOREPLIFETIME_CONDITION(ATemperateHillsWorld,bTerrainDestructionEnabled,COND_InitialOnly);
     DOREPLIFETIME(ATemperateHillsWorld,NetEdits);
     DOREPLIFETIME(ATemperateHillsWorld,NetEditsVersion);
 }
 void ATemperateHillsWorld::BeginPlay()
 {
+    // The generated world is fixed in space, including previously saved map actors.
+    RootComponent->SetMobility(EComponentMobility::Static);
     Super::BeginPlay();
     if(auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>())
         Loading->BeginHillsPreparation();
@@ -180,6 +225,9 @@ void ATemperateHillsWorld::BeginPlay()
     // 监听服与单机照常权威生成。
     if(GetNetMode()==NM_DedicatedServer){UE_LOG(LogTemp,Error,TEXT("HILLS_V1 dedicated server unsupported"));return;}
     if(GetNetMode()==NM_Client){UE_LOG(LogTemp,Display,TEXT("HILLS_NET client: awaiting replicated session"));return;}
+    NetEcology.Profile=TemperateEcology::Get();
+    NetEcology.Ready=true;
+    GConfig->GetBool(TEXT("TemperateHills.Gameplay"),TEXT("TerrainDestructionEnabled"),bTerrainDestructionEnabled,GGameIni);
     ResolveSession();
     if(GetNetMode()!=NM_Standalone)SyncNetEdits(); // 会话(种子+存量编辑)首帧广播
     StartWorldPipeline();
@@ -194,9 +242,14 @@ bool ATemperateHillsWorld::StartWorldPipeline()
             Loading->FailPreparation(FText::FromString(TEXT("世界数据无法读取，请返回主场景后重试。")));
         return false;
     }
-    SizeMeters=FMath::Clamp(FMath::RoundToFloat(SizeMeters/128)*128,256.f,1024.f);
+    GeneratorVersion=FMath::Clamp(GeneratorVersion,1,3);
+    // The expanded hilltop reservation and its slopes need a full 512 m study area.
+    SizeMeters=FMath::Clamp(FMath::RoundToFloat(SizeMeters/128)*128,GeneratorVersion>=3?512.f:256.f,1024.f);
+    bStartLocationCached=false;
+    UE_LOG(LogTemp,Display,TEXT("HILLS_GEN generator=%d seed=%d size=%.0fm"),GeneratorVersion,Seed,SizeMeters);
     GenerationBounds->SetBoxExtent(FVector(SizeMeters*50,SizeMeters*50,50000));
-    BeginStreaming();
+    if(IsForestVillage()) BeginForestVillage();
+    else BeginStreaming();
     return true;
 }
 void ATemperateHillsWorld::ConvertNetEdits()
@@ -229,8 +282,17 @@ void ATemperateHillsWorld::SyncNetEdits()
 void ATemperateHillsWorld::OnRep_NetEdits()
 {
     if(GetNetMode()!=NM_Client||!bClientWorldInit)return;
+    const auto Previous=MoveTemp(TerrainEdits);
     ConvertNetEdits();
-    for(const TemperateHillsSurface::FTerrainEdit& Edit:TerrainEdits)
+    // The authority appends edits and retires the oldest. A client may receive several
+    // changes together, including a replacement at the 256-entry limit.
+    const auto Old=MakeArrayView(Previous);
+    const auto Current=MakeArrayView(TerrainEdits);
+    int32 Retained=FMath::Min(Old.Num(),Current.Num());
+    while(Retained>0 && !Algo::Compare(Old.Right(Retained),Current.Left(Retained)))--Retained;
+    for(const auto& Edit:Old.Left(Old.Num()-Retained))
+        InvalidateTerrainCells(FVector2D(Edit.X,Edit.Y),TemperateHillsSurface::TerrainEditReach(Edit));
+    for(const auto& Edit:Current.RightChop(Retained))
     {
         InvalidateTerrainCells(FVector2D(Edit.X,Edit.Y),TemperateHillsSurface::TerrainEditReach(Edit));
         ClearCoverForEdit(Edit);
@@ -238,242 +300,54 @@ void ATemperateHillsWorld::OnRep_NetEdits()
     UE_LOG(LogTemp,Warning,TEXT("MPTEST hills client edits applied: count=%d version=%d"),TerrainEdits.Num(),NetEditsVersion);
 }
 
-double ATemperateHillsWorld::Noise(double X,double Y,uint32 Salt) const
-{
-    const int32 IX=FMath::FloorToInt(X),IY=FMath::FloorToInt(Y);
-    const double FX=TemperateHills::Smooth(X-IX),FY=TemperateHills::Smooth(Y-IY);
-    auto V=[&](int32 A,int32 B){return TemperateHills::Unit(TemperateHills::Key(A,B,uint32(Seed),Salt))*2-1;};
-    return FMath::Lerp(FMath::Lerp(V(IX,IY),V(IX+1,IY),FX),FMath::Lerp(V(IX,IY+1),V(IX+1,IY+1),FX),FY);
-}
-
-double ATemperateHillsWorld::PathDistance(double X,double Y) const {return FMath::Abs(Y-TemperateHills::ValleyY(X,Seed));}
-double ATemperateHillsWorld::Height(double X,double Y) const
-{return BaseHeight(X,Y)+TerrainOffsetAt(X,Y);}
-double ATemperateHillsWorld::BaseHeight(double X,double Y) const
-{return RiverPlan?RiverPlan->Height(X,Y,Seed):TemperateHillsSurface::Height(X,Y,Seed);}
-double ATemperateHillsWorld::TerrainOffsetAt(double X,double Y) const
-{
-    if(TerrainEdits.IsEmpty())return 0;
-    const TArray<int32>* Bucket=EditBuckets.Find(
-        TemperateHills::CellId(FMath::FloorToInt(X/TemperateHills::EditBucketCm),FMath::FloorToInt(Y/TemperateHills::EditBucketCm)));
-    if(!Bucket||Bucket->IsEmpty())return 0;
-    TArray<TemperateHillsSurface::FTerrainEdit,TInlineAllocator<8>> Local;
-    Local.Reserve(Bucket->Num());
-    for(const int32 Index:*Bucket)Local.Add(TerrainEdits[Index]);
-    return TemperateHillsSurface::TerrainEditOffset(Local,X,Y);
-}
-bool ATemperateHillsWorld::TerrainEditTouchesPoint(double X,double Y) const
-{
-    if(TerrainEdits.IsEmpty())return false;
-    // The 3x3 neighbourhood catches edits that only reach across a bucket border.
-    const int32 BaseX=FMath::FloorToInt(X/TemperateHills::EditBucketCm);
-    const int32 BaseY=FMath::FloorToInt(Y/TemperateHills::EditBucketCm);
-    for(int32 DY=-1;DY<=1;++DY)for(int32 DX=-1;DX<=1;++DX)
-    {
-        const TArray<int32>* Bucket=EditBuckets.Find(TemperateHills::CellId(BaseX+DX,BaseY+DY));
-        if(!Bucket)continue;
-        for(const int32 Index:*Bucket)
-            if(TemperateHillsSurface::TerrainEditTouches(TerrainEdits[Index],X,Y))return true;
-    }
-    return false;
-}
-void ATemperateHillsWorld::RebuildEditBuckets()
-{
-    EditBuckets.Reset();
-    for(int32 Index=0;Index<TerrainEdits.Num();++Index)
-    {
-        const TemperateHillsSurface::FTerrainEdit& Edit=TerrainEdits[Index];
-        const double Reach=TemperateHillsSurface::TerrainEditReach(Edit);
-        const int32 MinX=FMath::FloorToInt((Edit.X-Reach)/TemperateHills::EditBucketCm);
-        const int32 MaxX=FMath::FloorToInt((Edit.X+Reach)/TemperateHills::EditBucketCm);
-        const int32 MinY=FMath::FloorToInt((Edit.Y-Reach)/TemperateHills::EditBucketCm);
-        const int32 MaxY=FMath::FloorToInt((Edit.Y+Reach)/TemperateHills::EditBucketCm);
-        for(int32 Y=MinY;Y<=MaxY;++Y)for(int32 X=MinX;X<=MaxX;++X)
-            EditBuckets.FindOrAdd(TemperateHills::CellId(X,Y)).Add(Index);
-    }
-}
-FVector ATemperateHillsWorld::SurfaceNormal(double X,double Y) const
-{
-    // Edits only bend the normal where they actually touch the ground; outside
-    // their influence the generated normal is still exact and much cheaper.
-    if(TerrainEditTouchesPoint(X,Y))
-        return TemperateHillsSurface::NumericNormal([this](double PX,double PY){return Height(PX,PY);},X,Y);
-    return RiverPlan?RiverPlan->Normal(X,Y,Seed):TemperateHillsSurface::Normal(X,Y,Seed);
-}
-void ATemperateHillsWorld::PersistTerrainEdits()
-{
-    if(Slot.IsEmpty())return;
-    auto* Save=Cast<UTemperateHillsSave>(UGameplayStatics::LoadGameFromSlot(Slot,0));
-    if(!Save)Save=Cast<UTemperateHillsSave>(UGameplayStatics::CreateSaveGameObject(UTemperateHillsSave::StaticClass()));
-    if(!Save)return;
-    Save->Version=3;Save->Seed=Seed;Save->WorldId=WorldId;
-    Save->Craters.Reset();
-    Save->Edits.Reset(TerrainEdits.Num());
-    for(const TemperateHillsSurface::FTerrainEdit& Edit:TerrainEdits)
-    {
-        FHillsTerrainEditRecord Record;
-        Record.Type=Edit.Type;Record.X=Edit.X;Record.Y=Edit.Y;Record.Radius=Edit.Radius;
-        Record.HalfX=Edit.HalfX;Record.HalfY=Edit.HalfY;Record.Amplitude=Edit.Amplitude;
-        Record.Lip=Edit.Lip;Record.Seed=int32(Edit.Seed);
-        Save->Edits.Add(Record);
-    }
-    if(!UGameplayStatics::SaveGameToSlot(Save,Slot,0))UE_LOG(LogTemp,Error,TEXT("HILLS_EDIT save failed edits=%d"),TerrainEdits.Num());
-}
-bool ATemperateHillsWorld::ApplyCrater(const FVector& Location,double RadiusCm,double DepthCm,double RimCm)
-{
-    if(RadiusCm<=0||DepthCm<=0)return false;
-    // Sink limit: a crater may only use the depth still available under this spot.
-    const double Room=FMath::Max(0.0,TemperateHills::MaxDropCm.GetValueOnGameThread()+TerrainOffsetAt(Location.X,Location.Y));
-    DepthCm=FMath::Min(DepthCm,Room);
-    if(DepthCm<=0)return false;
-    TemperateHillsSurface::FTerrainEdit Edit;
-    Edit.Type=0;
-    Edit.X=Location.X;Edit.Y=Location.Y;Edit.Radius=RadiusCm;
-    Edit.Amplitude=-DepthCm;Edit.Lip=RimCm;
-    // Deterministic per-position seed: the same spot always gets the same outline,
-    // and two blasts side by side do not share one shape.
-    Edit.Seed=TemperateHills::Key(int32(Location.X),int32(Location.Y),uint32(Seed),7043);
-    AddTerrainEdit(Edit);
-    UE_LOG(LogTemp,Display,TEXT("HILLS_CRATER x=%.1f y=%.1f radius=%.1f depth=%.1f rim=%.1f count=%d"),
-        Edit.X,Edit.Y,Edit.Radius,DepthCm,RimCm,TerrainEdits.Num());
-    return true;
-}
-bool ATemperateHillsWorld::ApplyTerrainStep(const FVector& Location,double HalfXCm,double HalfYCm,double AmplitudeCm,uint32 EditSeed)
-{
-    if(HalfXCm<=0||HalfYCm<=0||AmplitudeCm==0)return false;
-    // Digging stops at the sink limit, refilling stops at the rise limit; both limits are
-    // measured against the generated surface, so a pit can never eat into the landscape
-    // forever and a dirt pile can never become a tower.
-    const double Offset=TerrainOffsetAt(Location.X,Location.Y);
-    if(AmplitudeCm<0)
-        AmplitudeCm=-FMath::Min(-AmplitudeCm,FMath::Max(0.0,TemperateHills::MaxDropCm.GetValueOnGameThread()+Offset));
-    else
-        AmplitudeCm=FMath::Min(AmplitudeCm,FMath::Max(0.0,TemperateHills::MaxRiseCm.GetValueOnGameThread()-Offset));
-    if(AmplitudeCm==0)return false;
-    TemperateHillsSurface::FTerrainEdit Edit;
-    Edit.Type=1;
-    Edit.X=Location.X;Edit.Y=Location.Y;
-    Edit.HalfX=HalfXCm;Edit.HalfY=HalfYCm;
-    Edit.Amplitude=AmplitudeCm;Edit.Seed=EditSeed;
-    AddTerrainEdit(Edit);
-    UE_LOG(LogTemp,Display,TEXT("HILLS_STEP x=%.1f y=%.1f half=%.1f/%.1f amount=%.1f count=%d"),
-        Edit.X,Edit.Y,Edit.HalfX,Edit.HalfY,Edit.Amplitude,TerrainEdits.Num());
-    return true;
-}
-void ATemperateHillsWorld::AddTerrainEdit(const TemperateHillsSurface::FTerrainEdit& Edit)
-{
-    // Edits are cheap but unbounded; the oldest is retired past the cap and its
-    // cells are rebuilt back to the generated height.
-    constexpr int32 MaxEdits=256;
-    if(TerrainEdits.Num()>=MaxEdits)
-    {
-        const TemperateHillsSurface::FTerrainEdit Old=TerrainEdits[0];
-        // RemoveAt (not RemoveAtSwap): the swap moves the newest edit into slot 0,
-        // so the next "oldest" eviction would discard a fresh player edit instead.
-        TerrainEdits.RemoveAt(0);
-        InvalidateTerrainCells(FVector2D(Old.X,Old.Y),TemperateHillsSurface::TerrainEditReach(Old));
-    }
-    TerrainEdits.Add(Edit);
-    RebuildEditBuckets();
-    // Only the cells the edit reaches are rebuilt; the rest of the world keeps its
-    // meshes, so one crater or one shovel layer costs a few cells, not a re-stream.
-    InvalidateTerrainCells(FVector2D(Edit.X,Edit.Y),TemperateHillsSurface::TerrainEditReach(Edit));
-    ClearCoverForEdit(Edit);
-    PersistTerrainEdits();
-    if(GetNetMode()!=NM_Standalone)SyncNetEdits(); // M4：编辑广播（全量≤256条重发，粗但正确；差分留 perf 轮）
-}
-
-bool ATemperateHillsWorld::IsGroundCoverMesh(const UStaticMesh* Mesh) const
-{
-    if(!Mesh||!Assets)return false;
-    const auto Matches=[&](const TArray<TSoftObjectPtr<UStaticMesh>>& List)
-    {
-        for(const TSoftObjectPtr<UStaticMesh>& Entry:List)
-            if(Entry.Get()==Mesh)return true;
-        return false;
-    };
-    // Grass layers only. Trees are skeletal instances and rocks/shrubs are props, so
-    // they are never touched here. Meadow flowers are grass-layer cover too.
-    return Matches(Assets->Grass)||Matches(Assets->GrassAccents)||Matches(Assets->MeadowFlowers);
-}
-
-int32 ATemperateHillsWorld::DestroyGroundCover(const FVector& Center,double RadiusCm)
-{
-    if(RadiusCm<=0||!Assets)return 0;
-    const double R2=RadiusCm*RadiusCm;
-    const FBox Reach(Center-FVector(RadiusCm,RadiusCm,600),Center+FVector(RadiusCm,RadiusCm,600));
-    int32 Removed=0;
-    // PCG owns the instances, but the components themselves are ordinary streamed
-    // ISMs, so they are found the same way tree instances are removed below.
-    for(TObjectIterator<UInstancedStaticMeshComponent> It;It;++It)
-    {
-        auto* Instances=*It;
-        if(!Instances||Instances->GetWorld()!=GetWorld()||Instances->GetInstanceCount()<=0)continue;
-        if(!IsGroundCoverMesh(Instances->GetStaticMesh()))continue;
-        if(!Instances->Bounds.GetBox().Intersect(Reach))continue;
-        for(int32 Index=Instances->GetInstanceCount()-1;Index>=0;--Index)
-        {
-            FTransform Transform;
-            if(!Instances->GetInstanceTransform(Index,Transform,true))continue;
-            const FVector P=Transform.GetLocation();
-            if(FMath::Square(P.X-Center.X)+FMath::Square(P.Y-Center.Y)>R2)continue;
-            if(FMath::Abs(P.Z-Center.Z)>500)continue;
-            Instances->RemoveInstance(Index);++Removed;
-        }
-    }
-    return Removed;
-}
-
-int32 ATemperateHillsWorld::ClearCoverForEdit(const TemperateHillsSurface::FTerrainEdit& Edit)
-{
-    if(Edit.Type==1)
-    {
-        // Shovel layers take the turf with them: clear a slightly larger box.
-        const double Radius=FMath::Max(Edit.HalfX,Edit.HalfY)+20;
-        return DestroyGroundCover(FVector(Edit.X,Edit.Y,Height(Edit.X,Edit.Y)),Radius);
-    }
-    // Crater: the scorched zone is a little wider than the bowl.
-    const double Radius=Edit.Radius*1.15;
-    const int32 Removed=DestroyGroundCover(FVector(Edit.X,Edit.Y,Height(Edit.X,Edit.Y)+40),Radius);
-    UE_LOG(LogTemp,Display,TEXT("HILLS_GROUND_COVER removed=%d x=%.0f y=%.0f radius=%.0f"),Removed,Edit.X,Edit.Y,Radius);
-    return Removed;
-}
-
-bool ATemperateHillsWorld::ApplySoilRefill(const FVector& Location,FString& OutMessage)
-{
-    // Refill uses the same 20 cm unit as digging: one 20 cm layer over a 240 cm
-    // footprint (12 x 12 cells of the 20 cm building grid), centre snapped to the grid.
-    constexpr double SnapCm=20.0;
-    constexpr double HalfCm=120.0;
-    constexpr double LayerCm=20.0;
-    constexpr int64 SoilPerLayer=2;   // symmetric with the 2 soil one topsoil dig yields
-    const double CX=FMath::GridSnap(Location.X,SnapCm),CY=FMath::GridSnap(Location.Y,SnapCm);
-    const double RiseLimit=TemperateHills::MaxRiseCm.GetValueOnGameThread();
-    if(TerrainOffsetAt(CX,CY)>=RiseLimit)
-    {OutMessage=FString::Printf(TEXT("这里已经回填到上限（%.0f cm），换一处再填"),RiseLimit);return false;}
-    auto* Profile=ColdSteelAuthority::Model(this);
-    if(!Profile){OutMessage=TEXT("找不到角色档案");return false;}
-    FString Reason;
-    if(!Profile->ConsumeItem(TEXT("soil"),SoilPerLayer,Reason))
-    {OutMessage=FString::Printf(TEXT("回填一层需要 %lld 个泥土，当前不够"),SoilPerLayer);return false;}
-    ApplyTerrainStep(FVector(CX,CY,Height(CX,CY)),HalfCm,HalfCm,LayerCm,
-        TemperateHills::Key(int32(CX),int32(CY),uint32(Seed),9111));
-    UE_LOG(LogTemp,Display,TEXT("HILLS_REFILL x=%.1f y=%.1f amount=%.1f soil=%lld"),CX,CY,LayerCm,SoilPerLayer);
-    OutMessage=TEXT("回填 20 cm 泥土层");
-    return true;
-}
-
 double ATemperateHillsWorld::ForestWeight(double X,double Y) const
-{return TemperateHills::Smooth((Noise(X*.00014,Y*.00014,173)+.45)/1.05);}
+{return TemperateForestHabitat::Canopy(X,Y,Seed,RainforestWeight(X,Y), EcologyProfile());}
 FVector ATemperateHillsWorld::GetStartLocation() const
 {
-    const double X=-SizeMeters*25+173;
-    const double Y=TemperateHills::ValleyY(X,Seed);
-    return FVector(X,Y,Height(X,Y)+106);
+    if(IsForestVillage() && VillageSite.bPlaced && GetWorld()->URL.HasOption(TEXT("VisitVillage")))
+    {
+        const FVector2D P=VillageSite.World(VillageSite.WallHalfSize().X-750.,500.);
+        return FVector(P,Height(P.X,P.Y)+106.);
+    }
+    if(ChapelSite.bPlaced)
+    {
+        const FVector2D Entry=ChapelSite.Entry();
+        return FVector(Entry,Height(Entry.X,Entry.Y)+106.);
+    }
+    return GetGenerationAnchor();
+}
+FVector ATemperateHillsWorld::GetGenerationAnchor() const
+{
+    const double X0=-SizeMeters*25+173;
+    if(GeneratorVersion<2)
+    {
+        const double Y=TemperateHills::ValleyY(X0,Seed);
+        return FVector(X0,Y,Height(X0,Y)+106);
+    }
+    // V2 relief can put a ridge on the old fixed spawn. Walk east along the
+    // valley in 2 m steps and keep the first walkable (<=8 deg) spot; fall back
+    // to the flattest sample if the whole search strip is steep.
+    if(bStartLocationCached)return CachedStartLocation;
+    const bool FixedSurvey=PlaythroughSeed!=0 && Seed==TemperateHillsMap::Seed && GeneratorVersion==TemperateHillsMap::GeneratorVersion;
+    double BestX=X0,BestY=TemperateHills::ValleyY(X0,Seed),BestZ=0,BestSlope=DBL_MAX;
+    for(int32 I=0;I<65;++I)
+    {
+        const double X=X0+I*200.0;
+        const double Y=TemperateHills::ValleyY(X,Seed);
+        const double Z=FixedSurvey?TemperateHillsSurface::Height(X,Y,Seed,GeneratorVersion):Height(X,Y);
+        const FVector N=FixedSurvey?TemperateHillsSurface::Normal(X,Y,Seed,GeneratorVersion):SurfaceNormal(X,Y);
+        const double Slope=FMath::RadiansToDegrees(FMath::Acos(FMath::Clamp(N.Z,-1.0,1.0)));
+        if(Slope<BestSlope){BestSlope=Slope;BestX=X;BestY=Y;BestZ=Z;}
+        if(Slope<=8.0)break;
+    }
+    CachedStartLocation=FVector(BestX,BestY,BestZ+106);
+    bStartLocationCached=true;
+    return CachedStartLocation;
 }
 
 FRotator ATemperateHillsWorld::GetStartRotation() const
 {
+    if(ChapelSite.bPlaced)return FVector(ChapelSite.Axis,0.).Rotation();
     if(!RiverPlan||RiverPlan->Points.IsEmpty())return FRotator(0,18,0);
     const FVector2D Start(GetStartLocation());
     FVector2D Target=RiverPlan->Points[0].XY;double Best=DBL_MAX;
@@ -485,209 +359,42 @@ FRotator ATemperateHillsWorld::GetStartRotation() const
     return FRotator(0,FMath::RadiansToDegrees(FMath::Atan2(Target.Y-Start.Y,Target.X-Start.X)),0);
 }
 
-bool ATemperateHillsWorld::TreeCandidate(int32 GX,int32 GY,FTemperatePlacement& Out) const
-{
-    if(!Assets||Assets->Trees.IsEmpty())return false;
-    const uint32 K=TemperateHills::Key(GX,GY,uint32(Seed),11);
-    const double X=(GX+.5+(TemperateHills::Unit(K+1)-.5)*.56)*1200;
-    const double Y=(GY+.5+(TemperateHills::Unit(K+2)-.5)*.56)*1200;
-    const double Half=SizeMeters*50-1000;
-    if(RiverPlan&&RiverPlan->Sample(X,Y).Bank>.02)return false;
-    if(FMath::Abs(X)>Half||FMath::Abs(Y)>Half||PathDistance(X,Y)<1150||
-        FVector2D::Distance(FVector2D(X,Y),FVector2D(GetStartLocation()))<2200||SurfaceNormal(X,Y).Z<.87)return false;
-    const double Forest=ForestWeight(X,Y);
-    if(TemperateHills::Unit(K+3)>.045+Forest*.48)return false;
-    const double Scale=.68+TemperateHills::Unit(K+5)*.4;
-    Out.Transform=FTransform(FRotator(0,TemperateHills::Unit(K+4)*360,0),FVector(X,Y,Height(X,Y)-10),FVector(Scale));
-    Out.Mesh=Assets->Trees[K%Assets->Trees.Num()].ToSoftObjectPath();Out.Key=K;Out.CandidateId=TemperateHills::CellId(GX,GY);
-    return !Out.Mesh.IsNull();
-}
-
-FString ATemperateHillsWorld::RockOreDefinition(uint32 Key, const FVector2D& At) const
-{
-    // Single source of truth for a rock candidate's mineral; the resolve side
-    // (rewards) and the render side (vein variant mesh) must call it with the
-    // same candidate position or what the player sees and digs would drift.
-    //
-    // 2026-09-30 spatial weighting (user rule): ore concentrates around rocky
-    // terrain and river beds instead of scattering evenly. Weight = base sprinkle
-    // + slope + the same dry-gravel patch field the ground material paints (so
-    // stony-looking ground actually carries ore) + river corridor bonus.
-    auto Smooth=[](double T){T=FMath::Clamp(T,0.0,1.0);return T*T*(3-2*T);};
-    double Weight=0.08;
-    const FVector N=SurfaceNormal(At.X,At.Y);
-    Weight+=Smooth((1.0-N.Z)*2.4)*.45;                       // steep ground = rocky terrain
-    const double WX=At.X+Noise(At.X*.0004,At.Y*.0004,1411)*650;   // ground material's
-    const double WY=At.Y+Noise(At.X*.0004,At.Y*.0004,1417)*650;   // dry-gravel patch field
-    const double Patch=Noise(WX*.0000405,WY*.0000405,1459)*.5+.5;
-    Weight+=Smooth((.58-Patch)/.40)*.40;
-    if(RiverPlan)
-    {
-        const auto R=RiverPlan->Sample(At.X,At.Y);
-        if(R.Wet>.3||R.Distance<R.HalfWidth)Weight+=.55;    // in the wet bed / channel
-        else if(R.Bank<.5)Weight+=.25*(1.-R.Bank);          // floodplain falloff
-    }
-    const uint32 Roll=Key%1000;
-    if(Roll>=uint32(FMath::Clamp(Weight,0.0,1.0)*1000))return FString();
-    const uint32 Pick=(Key/1000)%100;
-    return Pick<25?TEXT("iron_ore"):Pick<37?TEXT("copper_ore"):Pick<41?TEXT("silver_ore"):Pick<43?TEXT("gold_ore"):TEXT("");
-}
-
-FSoftObjectPath ATemperateHillsWorld::OreRockVariantMesh(uint32 Key, const FVector2D& At) const
-{
-    const FString Ore=RockOreDefinition(Key,At);
-    if(Ore.IsEmpty())return FSoftObjectPath();
-    const TCHAR* Suffix=Ore==TEXT("iron_ore")?TEXT("Iron"):Ore==TEXT("copper_ore")?TEXT("Copper"):
-        Ore==TEXT("silver_ore")?TEXT("Silver"):TEXT("Gold");
-    return FSoftObjectPath(FString::Printf(
-        TEXT("/Game/WorldGeneration/TemperateHills/OreRocks/SM_LS_Rock_00A_%s.SM_LS_Rock_00A_%s"),Suffix,Suffix));
-}
-
-void ATemperateHillsWorld::GetPlacements(int32 Layer,const FBox& Bounds,TArray<FTemperatePlacement>& Out,bool IncludeRegrowth) const
-{
-    if(!Assets||Layer<0||Layer>3)return;
-    if(Layer==3){GetGrassPlacements(Bounds,Out);GetGroundDebrisPlacements(Bounds,Out);GetRiverPlantPlacements(Bounds,Out);GetRiverPebblePlacements(Bounds,Out);return;}
-    if(Layer==2)GetRiverShrubPlacements(Bounds,Out);
-    if(Layer==0 && IncludeRegrowth)GetRegrowingTrees(Bounds,Out);
-    const double Spacing=Layer==0?1200:(Layer==1?2400:650);
-    const double Half=SizeMeters*50;
-    const double MinX=FMath::Max(-Half,Bounds.Min.X),MinY=FMath::Max(-Half,Bounds.Min.Y);
-    const double MaxX=FMath::Min(Half,Bounds.Max.X),MaxY=FMath::Min(Half,Bounds.Max.Y);
-    if(MinX>=MaxX||MinY>=MaxY)return;
-    TMap<FIntPoint,FTemperatePlacement> TreeCache;
-    TSet<FIntPoint> EmptyTreeCells;
-    for(int32 GY=FMath::FloorToInt(MinY/Spacing)-1;GY<=FMath::FloorToInt(MaxY/Spacing)+1;++GY)
-    for(int32 GX=FMath::FloorToInt(MinX/Spacing)-1;GX<=FMath::FloorToInt(MaxX/Spacing)+1;++GX)
-    {
-        FTemperatePlacement P;
-        if(Layer==0){if(!TreeCandidate(GX,GY,P))continue;}
-        else
-        {
-            const uint32 K=TemperateHills::Key(GX,GY,uint32(Seed),101+Layer);
-            const double X=(GX+.5+(TemperateHills::Unit(K+1)-.5)*.8)*Spacing;
-            const double Y=(GY+.5+(TemperateHills::Unit(K+2)-.5)*.8)*Spacing;
-            if(X<MinX||X>=MaxX||Y<MinY||Y>=MaxY||FMath::Abs(X)>Half-500||FMath::Abs(Y)>Half-500)continue;
-            // Keep ordinary slope stones and vegetation out of the carved river corridor.
-            if(RiverPlan&&RiverPlan->Sample(X,Y).Bank>(Layer==3?.08:.02))continue;
-            const FVector N=SurfaceNormal(X,Y);
-            if(N.Z<(Layer==1?.72:.83)||PathDistance(X,Y)<(Layer==3?240:700))continue;
-            if(Layer<3&&FVector2D::Distance(FVector2D(X,Y),FVector2D(GetStartLocation()))<1600)continue;
-            const double Forest=ForestWeight(X,Y);
-            const double Probability=Layer==1?(.12+(1-N.Z)*1.6):(Layer==2?.05+Forest*.28:.77-Forest*.23);
-            if(TemperateHills::Unit(K+3)>Probability)continue;
-            bool TrunkOverlap=false;
-            for(int32 TY=FMath::FloorToInt(Y/1200)-1;TY<=FMath::FloorToInt(Y/1200)+1&&!TrunkOverlap;++TY)
-            for(int32 TX=FMath::FloorToInt(X/1200)-1;TX<=FMath::FloorToInt(X/1200)+1;++TX)
-            {
-                const FIntPoint Cell(TX,TY);
-                if(EmptyTreeCells.Contains(Cell))continue;
-                FTemperatePlacement* T=TreeCache.Find(Cell);
-                if(!T){FTemperatePlacement Candidate;if(!TreeCandidate(TX,TY,Candidate)){EmptyTreeCells.Add(Cell);continue;}T=&TreeCache.Add(Cell,MoveTemp(Candidate));}
-                if(FVector2D::Distance(FVector2D(X,Y),FVector2D(T->Transform.GetLocation()))<(Layer==1?500:100)){TrunkOverlap=true;break;}
-            }
-            if(TrunkOverlap)continue;
-            const TArray<TSoftObjectPtr<UStaticMesh>>& List=Layer==1?Assets->Rocks:(Layer==2?Assets->Shrubs:Assets->Grass);
-            if(List.IsEmpty())continue;
-            // Slope stones span small collectible boulders up to unmineable cliff
-            // masses: the pickaxe gate rejects instance radius > 500 cm, and the
-            // old 0.7 floor kept every slope stone above it (nothing was minable).
-            const double Scale=Layer==1?.30+TemperateHills::Unit(K+5)*1.70:(Layer==2?.65+TemperateHills::Unit(K+5)*.5:.65+TemperateHills::Unit(K+5)*.6);
-            const FQuat Rotation=FQuat(N,TemperateHills::Unit(K+4)*2*PI)*FQuat(FQuat::FindBetweenNormals(FVector::UpVector,N));
-            P.Transform=FTransform(Rotation,FVector(X,Y,Height(X,Y)-(Layer==1?35:3)),FVector(Scale));
-            P.Mesh=List[K%List.Num()].ToSoftObjectPath();P.Key=K;P.CandidateId=TemperateHills::CellId(GX,GY);
-            // Ore-bearing candidates swap to the vein variant mesh (one shared shape,
-            // per-mineral material). Pure stones keep the four-mesh rotation.
-            if(Layer==1)
-                if(const FSoftObjectPath Vein=OreRockVariantMesh(K,FVector2D(X,Y));Vein.IsValid())P.Mesh=Vein;
-        }
-        const FVector Pos=P.Transform.GetLocation();
-        if(Layer<=1&&IsProductionDepleted(Layer,P.CandidateId))continue;
-        // Half-open ownership ensures no duplicates when HiGen cells share an edge.
-        if(Pos.X>=MinX&&Pos.X<MaxX&&Pos.Y>=MinY&&Pos.Y<MaxY)Out.Add(P);
-    }
-    // River stones reuse the existing 64 m PCG rock layer, radius and collision
-    // lifecycle. Candidate keys occupy a separate ID namespace from slope stones.
-    if(Layer==1&&RiverPlan&&!Assets->RiverRocks.IsEmpty())
-    {
-        constexpr double RiverSpacing=750;
-        for(int32 GY=FMath::FloorToInt(MinY/RiverSpacing)-1;GY<=FMath::FloorToInt(MaxY/RiverSpacing);++GY)
-        for(int32 GX=FMath::FloorToInt(MinX/RiverSpacing)-1;GX<=FMath::FloorToInt(MaxX/RiverSpacing);++GX)
-        {
-            const uint32 K=TemperateHills::Key(GX,GY,Seed,809);
-            const double X=(GX+.2+TemperateHills::Unit(K+1)*.6)*RiverSpacing;
-            const double Y=(GY+.2+TemperateHills::Unit(K+2)*.6)*RiverSpacing;
-            if(X<MinX||X>=MaxX||Y<MinY||Y>=MaxY||FMath::Abs(X)>Half-400||FMath::Abs(Y)>Half-400)continue;
-            const auto River=RiverPlan->Sample(X,Y);
-            if(River.Bank<.65||River.Distance>River.HalfWidth+550||River.Distance<River.HalfWidth*.3)continue;
-            if(TemperateHills::Unit(K+3)>(River.Wet>.7?.22:.48))continue;
-            const FVector N=SurfaceNormal(X,Y);if(N.Z<.90)continue;
-            // Bed stones stay mostly under the 500 cm mineable-radius gate so the
-            // corridor is where collectible river ore actually comes from.
-            const double Scale=.30+TemperateHills::Unit(K+5)*.45;
-            const FQuat Rotation=FQuat(N,TemperateHills::Unit(K+4)*2*PI)*FQuat(FQuat::FindBetweenNormals(FVector::UpVector,N));
-            FTemperatePlacement P;
-            const auto& Rock=Assets->RiverRocks[K%Assets->RiverRocks.Num()];
-            const double Base=Rock.IsValid()?Rock.Get()->GetBoundingBox().Min.Z:0;
-            P.Transform=FTransform(Rotation,FVector(X,Y,Height(X,Y)-(Base+18)*Scale),FVector(Scale));
-            P.Mesh=Rock.ToSoftObjectPath();P.Key=K;
-            if(const FSoftObjectPath Vein=OreRockVariantMesh(K,FVector2D(X,Y));Vein.IsValid())P.Mesh=Vein;
-            P.CandidateId=TemperateHills::CellId(GX,GY)^0x4000000000000000ULL;
-            if(IsProductionDepleted(1,P.CandidateId))continue;
-            Out.Add(P);
-        }
-    }
-    // Forest-floor deadwood and hillside cliffs reuse the same rock layer and
-    // bounds contract; each keeps its own candidate namespace (TemperateHillsDressing.cpp).
-    if(Layer==1)
-    {
-        GetForestFloorPlacements(Bounds,Out);
-        GetCliffPlacements(Bounds,Out);
-    }
-}
-
-uint32 ATemperateHillsWorld::LayoutHash(int32 Layer) const
-{
-    // Sample a fixed central region; independent of current viewer/PCG scheduling.
-    TArray<FTemperatePlacement> Points;GetPlacements(Layer,FBox(FVector(-12800,-12800,-50000),FVector(12800,12800,50000)),Points);
-    uint32 H=uint32(Seed);
-    for(const auto& P:Points){const FVector V=P.Transform.GetLocation();H=TemperateHills::Mix(H^P.Key^uint32(FMath::RoundToInt(V.Z)));}
-    return H;
-}
-
-void ATemperateHillsWorld::ActivateVegetationLayer(int32 Layer)
-{
-    // Grass is invisible by 50 m, with a 10 m generation lead and 78 m cleanup.
-    const float Radii[]={18000,12000,8000,6000};
-    auto* C=PCGLayers[Layer].Get();C->Seed=Seed;
-    C->GenerationRadii=TemperateHills::FLayerRadii(Radii[Layer]);
-    C->SetGraph(Assets->Graphs[Layer].Get());
-    if(auto* Sub=GetWorld()->GetSubsystem<UPCGSubsystem>())
-    {
-        Sub->RegisterOrUpdateExecutionSource(C);
-        Sub->RefreshRuntimeGenExecutionSource(C,EPCGChangeType::GenerationGrid);
-    }
-}
-
 void ATemperateHillsWorld::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
     // M4：客户端确定性重建入口——等服务端会话(种子+编辑)复制到位再启动管线。
     if(GetNetMode()==NM_Client&&!bClientWorldInit)
     {
-        if(!WorldId.IsValid())return;
+        if(!WorldId.IsValid()||GeneratorVersion<=0||!NetEcology.Ready)return;
         bClientWorldInit=true;
         Slot.Reset();
         ConvertNetEdits();
-        UE_LOG(LogTemp,Warning,TEXT("MPTEST hills client session: seed=%d edits=%d"),Seed,TerrainEdits.Num());
+        UE_LOG(LogTemp,Warning,TEXT("MPTEST hills client session: seed=%d generator=%d edits=%d"),Seed,GeneratorVersion,TerrainEdits.Num());
         StartWorldPipeline();
     }
-    TickStreaming();
-    TickDayNightSky();
-    if(!bReady)return;
-    for(TActorIterator<AFPSWeatherManager> It(GetWorld());It;++It)
+    const bool ForestVillage=IsForestVillage();
+    if(ForestVillage) TickForestVillage();
+    else
     {
-        if(GroundMID)GroundMID->SetScalarParameterValue(TEXT("Wetness"),It->GetSurfaceWetness());
-        break;
+        TickStreaming();
+        TickDayNightSky();
+    }
+    if(!bReady)return;
+    WeatherLookupLeft-=DeltaSeconds;
+    if(!SkyWeather.IsValid()&&WeatherLookupLeft<=0.f)
+    {
+        WeatherLookupLeft=1.f;
+        for(TActorIterator<AFPSWeatherManager> It(GetWorld());It;++It){SkyWeather=*It;break;}
+    }
+    if(!ForestVillage) TickForestWind(DeltaSeconds);
+    if(SkyWeather.IsValid()&&GroundMID)
+    {
+        const float Wetness=SkyWeather->GetSurfaceWetness();
+        if(WetGroundMaterial!=GroundMID||LastGroundWetness!=Wetness)
+        {
+            GroundMID->SetScalarParameterValue(TEXT("Wetness"),Wetness);
+            WetGroundMaterial=GroundMID;LastGroundWetness=Wetness;
+        }
     }
     if(bAudit)
     {
@@ -807,6 +514,10 @@ void ATemperateHillsWorld::RunAudit()
 void ATemperateHillsWorld::EndPlay(const EEndPlayReason::Type Reason)
 {
     bReady=false;
+    if(IsValid(MechanicalWorkshop)&&HasAuthority())MechanicalWorkshop->Destroy();
+    if(IsValid(ChapelDoor)&&HasAuthority())ChapelDoor->Destroy();
+    if(IsValid(ChapelShrine)&&HasAuthority())ChapelShrine->Destroy();
+    ClearVillagePerimeter();
     EndStreaming();
     Super::EndPlay(Reason);
 }
@@ -815,7 +526,7 @@ void ATemperateHillsGameMode::RestartPlayer(AController* NewPlayer)
 {
     if(!IsValid(NewPlayer)||NewPlayer->GetPawn())return;
     for(TActorIterator<ATemperateHillsWorld> It(GetWorld());It;++It)
-        if(It->bSurfaceReady){RestartPlayerAtTransform(NewPlayer,FTransform(It->GetStartRotation(),It->GetStartLocation()));return;}
+        if(It->PrepareSpawnGround(NewPlayer)){RestartPlayerAtTransform(NewPlayer,FTransform(It->GetStartRotation(),It->GetStartLocation()));return;}
     FTimerHandle Retry;
     GetWorldTimerManager().SetTimer(Retry,FTimerDelegate::CreateWeakLambda(this,[this,Weak=TWeakObjectPtr<AController>(NewPlayer)](){if(Weak.IsValid())RestartPlayer(Weak.Get());}),.15f,false);
 }

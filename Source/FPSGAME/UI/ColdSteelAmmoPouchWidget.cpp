@@ -127,7 +127,12 @@ void UColdSteelAmmoPouchWidget::BuildPage(const FColdSteelAmmoPouchView& View,fl
     const float Offset=List?List->GetScrollOffset():0;
     Surface->ClearChildren();TransferRows.Reset();
     auto Label=[&](const FString& Text,float Pixels,FLinearColor Color=ColdSteelUI::TextPrimary,bool Numeric=false,bool Wrap=true)->TSharedRef<SWidget>
-    {return SNew(STextBlock).Text(FText::FromString(Text)).Font(Numeric?ColdSteelUI::NumberFont(Pixels*.75f*U):ColdSteelUI::TextFont(Pixels*.75f*U)).ColorAndOpacity(Color).AutoWrapText(Wrap);};
+    {
+        const float Points = Pixels * .75f * U;
+        return SNew(STextBlock).Text(FText::FromString(Text))
+            .Font(Numeric ? ColdSteelUI::NumberFont(Points) : ColdSteelUI::TextFont(Points, Pixels >= 16))
+            .ColorAndOpacity(Color).AutoWrapText(Wrap);
+    };
     // 右侧数字列与状态列按本页最长内容定宽。定宽之后每张卡的左栏可用宽度完全相同，
     // 数量多的那一行不会把左栏挤窄去换行，卡片高度也就不会因内容长度而参差。
     const FSlateFontInfo CountFont=ColdSteelUI::NumberFont(16*.75f*U);

@@ -15,11 +15,21 @@ UFPSTraversalComponent::UFPSTraversalComponent()
 
 bool UFPSTraversalComponent::IsStableSurface(const UPrimitiveComponent* Surface)
 {
+    if (!IsValid(Surface) || !Surface->IsRegistered() || !Surface->IsQueryCollisionEnabled()) return false;
+    const AActor* Owner=Surface->GetOwner();
+    if (!Owner || !Owner->GetActorEnableCollision()) return false;
+    // Destructible structures use Pawn for the monster target contract. Only
+    // their authored, fixed collision can support traversal; living pawns and
+    // hinged gate leaves are not platforms, even while temporarily stationary.
+    if (const auto* Pawn=Cast<APawn>(Owner))
+    {
+        static const FName FixedStructureTag(TEXT("Traversal.FixedStructure"));
+        if (!Surface->ComponentHasTag(FixedStructureTag) || Pawn->GetMovementComponent() || Pawn->GetController())
+            return false;
+    }
     // Imported village props often use Movable even though they never move.
     // Mobility is an editor capability, not evidence of current motion.
-    return IsValid(Surface) && Surface->IsRegistered() && Surface->IsQueryCollisionEnabled() &&
-        Surface->GetOwner() && Surface->GetOwner()->GetActorEnableCollision() && !Cast<APawn>(Surface->GetOwner()) &&
-        !Surface->IsSimulatingPhysics() && Surface->GetComponentVelocity().SizeSquared()<=1.f;
+    return !Surface->IsSimulatingPhysics() && Surface->GetComponentVelocity().SizeSquared()<=1.f;
 }
 
 bool UFPSTraversalComponent::IsBlockingSupport(const UPrimitiveComponent* Surface) const

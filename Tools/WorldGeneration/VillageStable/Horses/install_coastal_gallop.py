@@ -68,3 +68,4 @@ def install(data_path):
     save(clip)
     return dict(package=package, motion=motion['source'], period_s=expected, rate_scale=motion['rate_scale'],
                 game_period_at_full_speed_s=expected*660/1160/motion['rate_scale'], contact_phases=motion['contacts'])
+

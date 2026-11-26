@@ -1,4 +1,6 @@
 #include "M25MagicComponent.h"
+#include "MonsterTargeting.h"
+#include "MonsterDamageBalance.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "VortexCofferM25.h"
 #include "MonsterAIController.h"
@@ -90,6 +92,7 @@ bool UM25MagicComponent::CanExecute() const
 
 bool UM25MagicComponent::LivingEnemyPlayer(const APawn* Target) const
 {
+    if (MonsterTargeting::IsActiveArtisan(Target)) return true;
     if (!IsValid(Target) || !Target->IsPlayerControlled() || Target->IsActorBeingDestroyed()) return false;
     const auto* Health = Target->FindComponentByClass<UFPSCombatHealthComponent>();
     return Health && !Health->IsDead();
@@ -175,6 +178,7 @@ bool UM25MagicComponent::StartAttack(APawn* Target)
     AttackTarget = Target;
     DamageSnapshot = FMath::Max(0.f, MagicAttack) * FMath::Max(0.f,
         Spell == EM25Spell::ThunderLance ? LanceMultiplier : LightningMultiplier);
+    DamageSnapshot=MonsterDamageBalance::Limit(DamageSnapshot,Spell==EM25Spell::ThunderLance?100.f:70.f);
     Monster->GetCharacterMovement()->StopMovementImmediately();
     if (auto* AI = Cast<AMonsterAIController>(Monster->GetController())) AI->StopMovement();
     CastState.Aim = TargetPoint(Target);
@@ -406,7 +410,7 @@ bool UM25MagicComponent::FirstContact(FVector Start, FVector End, float Radius, 
         const auto* Component = Contact.GetComponent();
         const auto* Pawn = Cast<APawn>(Contact.GetActor());
         // Player capsules intentionally ignore Visibility; overlap-only volumes never block spells.
-        const bool PlayerCapsule = Pawn && Pawn->IsPlayerControlled() && Component == Pawn->GetRootComponent();
+        const bool PlayerCapsule = Pawn && MonsterTargeting::IsOpponentPawn(Pawn) && Component == Pawn->GetRootComponent();
         if (!Component || (!PlayerCapsule && Component->GetCollisionResponseToChannel(ECC_Visibility) != ECR_Block)) continue;
         if (!Found || Contact.Time < Hit.Time) { Hit = Contact; Found = true; }
     }
@@ -431,8 +435,8 @@ void UM25MagicComponent::Release()
     if (Lance) LanceReadyAt = Clock() + FMath::Max(0.f, LanceCooldown);
     else { LightningReadyAt = Clock() + FMath::Max(0.f, LightningCooldown); bOpenedWithLightning = true; }
     SetPhase(EM25Spell::Recovery, Lance ? .7f : .4f);
-    if (Blocked && LivingEnemyPlayer(Cast<APawn>(Hit.GetActor())))
-        UGameplayStatics::ApplyPointDamage(Hit.GetActor(), DamageSnapshot, Direction, Hit,
+    if (Blocked && LivingEnemyPlayer(Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor()))))
+        UGameplayStatics::ApplyPointDamage(MonsterTargeting::DamageRecipient(Hit.GetActor()), DamageSnapshot, Direction, Hit,
             Monster->GetController(), Monster.Get(), ULightningDamage::StaticClass());
 
     // The existing replicated spell VFX actor carries only presentation; damage is resolved above once.

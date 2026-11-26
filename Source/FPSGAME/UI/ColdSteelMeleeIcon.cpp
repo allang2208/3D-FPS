@@ -38,20 +38,48 @@ bool UColdSteelWeaponIcons::PrepareMelee(const FColdSteelItem& Item)
         if(!ColdSteelStaffAssembly::Apply(MeleeMesh,ColdSteelStaff::Resolve(Item,bCatalogExport?&Factory:nullptr)))return false;
         if(!ColdSteelStaffPreview::ApplyMaterials(MeleeMesh))return false;
     }
-    else if(Modular){if(!ColdSteelModularSword::Apply(MeleeMesh,Item,nullptr,!bCatalogExport))return false;}
+    else if(Modular)
+    {
+        if(!ColdSteelModularSword::Apply(MeleeMesh,Item,nullptr,!bCatalogExport))return false;
+        if(!ColdSteelModularSword::ApplyGlassPreview(MeleeMesh))return false;
+    }
     else {ColdSteelModularSword::Clear(MeleeMesh);MeleeMesh->EmptyOverrideMaterials();MeleeMesh->SetStaticMesh(Asset);ColdSteelMeleeRune::Apply(MeleeMesh,bCatalogExport?FString():ColdSteelMeleeRune::Selected(Item),Item.Definition);}
     const auto Parts=Staff?ColdSteelStaffAssembly::Components(MeleeMesh):ColdSteelModularSword::Components(MeleeMesh);
     const FBox Local=Staff?ColdSteelStaffAssembly::Bounds(MeleeMesh):ColdSteelModularSword::LocalBounds(MeleeMesh);
-    MeleeMesh->SetWorldTransform(ColdSteelMeleePreview::Pose(Local,ColdSteelMeleePreview::Rotation(Local,true)));
+    FQuat Portrait=ColdSteelMeleePreview::Rotation(Local,true);
+    if(Item.Definition==TEXT("ue_tactical_hatchet"))
+    {
+        // Turn the broad cheek toward a three-quarter view. The camera looks along X;
+        // Y is canvas width and Z is the grip axis. Cap the turn so the blade face reads.
+        const FVector Extent=Local.TransformBy(FTransform(Portrait)).GetSize();
+        const double TargetWidth=.255*Extent.Z;
+        if(Extent.Y>TargetWidth)
+        {
+            const double Diagonal=FMath::Sqrt(Extent.X*Extent.X+Extent.Y*Extent.Y);
+            const double Angle=FMath::Atan2(Extent.X,Extent.Y)+FMath::Acos(TargetWidth/Diagonal);
+            Portrait=FQuat(FVector::UpVector,FMath::Min(Angle,FMath::DegreesToRadians(65.0)))*Portrait;
+        }
+    }
+    MeleeMesh->SetWorldTransform(ColdSteelMeleePreview::Pose(Local,Portrait));
     Capture->ShowOnlyComponents.Reset();for(auto* Part:Parts)Capture->ShowOnlyComponent(Part);
-    const FBox Bounds=Local.TransformBy(MeleeMesh->GetComponentTransform());
+    FBox Bounds=Local.TransformBy(MeleeMesh->GetComponentTransform());
+    if(Item.Definition==TEXT("ue_tactical_hatchet"))
+    {
+        // Use each fitted part's bounds, including the lanyard. Rotating one large
+        // assembly AABB would frame empty corners between the head and handle.
+        FBox Fitted(ForceInit);
+        for(const UStaticMeshComponent* Part:Parts)
+            if(const UStaticMesh* Mesh=Part->GetStaticMesh())
+                Fitted+=Mesh->GetBoundingBox().TransformBy(Part->GetComponentTransform());
+        if(Fitted.IsValid)Bounds=Fitted;
+    }
     const FVector Size=Bounds.GetSize(),Center=Bounds.GetCenter();
-    // Keep the authored aspect when applying the minimum capture resolution.
-    // Widening a 1x4 canvas to 256x320 adds empty space that limits the equipment
-    // card's rotated fit. Scale both axes (256x1024), not just its short edge.
+    // Staffs and single-hand blades retain their own inventory aspect. The
+    // kukri is 1x3 (256x768), rather than the two-handed sword's 384x768 canvas.
+    const bool FootprintCanvas=Staff||ColdSteelInventory::IsOneHandedMelee(Item);
     const FIntPoint Grid=ColdSteelInventory::BaseFootprint(Item);
-    const int32 Width=Staff?FMath::Max(256,FMath::RoundToInt(320.f*float(Grid.X)/FMath::Max(1,Grid.Y))):384;
-    const int32 Height=Staff?FMath::Max(320,FMath::RoundToInt(float(Width)*Grid.Y/FMath::Max(1,Grid.X))):768;
+    const int32 Width=FootprintCanvas?FMath::Max(256,FMath::RoundToInt(320.f*float(Grid.X)/FMath::Max(1,Grid.Y))):384;
+    const int32 Height=FootprintCanvas?FMath::Max(320,FMath::RoundToInt(float(Width)*Grid.Y/FMath::Max(1,Grid.X))):768;
     if(Target->SizeX!=Width||Target->SizeY!=Height)Target->ResizeTarget(Width,Height);
     const float Aspect=float(Width)/Height;
     Capture->SetWorldLocation(FVector(Bounds.Min.X-200,Center.Y,Center.Z));Capture->SetWorldRotation(FRotator::ZeroRotator);

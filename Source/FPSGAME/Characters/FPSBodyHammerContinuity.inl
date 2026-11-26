@@ -10,9 +10,9 @@ void FControls::RememberHammerPose(FPoseContext& Out,FCSPose<FCompactPose>& Pose
     const auto& Bones=Out.Pose.GetBoneContainer();
     if(Hands[0].IsValidToEvaluate(Bones)&&Hands[1].IsValidToEvaluate(Bones))
     {
-        HammerGripLast=Pose.GetComponentSpaceTransform(Hands[1].GetCompactPoseIndex(Bones)).GetRelativeTransform(
+        PairedGripLast=Pose.GetComponentSpaceTransform(Hands[1].GetCompactPoseIndex(Bones)).GetRelativeTransform(
             Pose.GetComponentSpaceTransform(Hands[0].GetCompactPoseIndex(Bones)));
-        bHasHammerGripHistory=true;
+        bHasPairedGripHistory=true;
     }
 }
 

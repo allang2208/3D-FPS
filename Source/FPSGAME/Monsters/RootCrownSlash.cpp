@@ -1,4 +1,5 @@
 #include "RootCrownRigPreview.h"
+#include "MonsterTargeting.h"
 #include "RootCrownSlashTiming.h"
 #include "RootCrownRootField.h"
 #include "MonsterAIController.h"
@@ -41,7 +42,7 @@ bool ARootCrownRigPreview::CanSeeTarget(const APawn* Victim) const
 bool ARootCrownRigPreview::CanSlash(APawn* Victim) const
 {
     if(Busy() || !SlashClip || SlashFrames.Num()<2 || !GetCharacterMovement()->IsMovingOnGround()
-        || ActionClock()<NextSlashAt || !IsValid(Victim) || !Victim->IsPlayerControlled())return false;
+        || ActionClock()<NextSlashAt || !IsValid(Victim) || !MonsterTargeting::IsOpponentPawn(Victim))return false;
     const auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
     if(Vitals&&Vitals->IsDead())return false;
     const FVector Delta=Victim->GetActorLocation()-GetActorLocation();
@@ -160,8 +161,8 @@ void ARootCrownRigPreview::SlashContact(int32 Index)
         for(const auto& Hit:Hits)
         {
             if(!IsSlashing() || Controlled() || IsActorBeingDestroyed())return;
-            AActor* Victim=Hit.GetActor();APawn* Pawn=Cast<APawn>(Victim);
-            const bool Player=Pawn && Pawn->IsPlayerControlled() && Hit.GetComponent()==Pawn->GetRootComponent();
+            AActor* Victim=MonsterTargeting::DamageRecipient(Hit.GetActor());APawn* Pawn=Cast<APawn>(Victim);
+            const bool Player=Pawn && MonsterTargeting::IsOpponentPawn(Pawn) && Hit.GetComponent()==Hit.GetActor()->GetRootComponent();
             if(!IsValid(Victim) || (!Player&&!Victim->IsA<AFPSIceWall>()) || SlashVictims.Contains(Victim))continue;
             const FVector Delta=Victim->GetActorLocation()-GetActorLocation();
             if(Delta.Size2D()>SlashTriggerRange+70.f*SlashReachScale || FVector::DotProduct(Delta.GetSafeNormal2D(),GetActorForwardVector())<FMath::Cos(FMath::DegreesToRadians(50.f)))continue;
@@ -169,7 +170,7 @@ void ARootCrownRigPreview::SlashContact(int32 Index)
             if(Vitals && (Vitals->IsDead()||Vitals->IsInvulnerable()))continue;
             FHitResult Block;
             const FVector Sight=GetNavAgentLocation()+FVector(0,0,100);
-            if(GetWorld()->LineTraceSingleByChannel(Block,Sight,Hit.ImpactPoint,ECC_Visibility,Query) && Block.GetActor()!=Victim)continue;
+            if(GetWorld()->LineTraceSingleByChannel(Block,Sight,Hit.ImpactPoint,ECC_Visibility,Query) && MonsterTargeting::DamageRecipient(Block.GetActor())!=Victim)continue;
             SlashVictims.Add(Victim);
             const float Before=Vitals?Vitals->Health:0.f;
             const FVector Direction=(To-From).GetSafeNormal();

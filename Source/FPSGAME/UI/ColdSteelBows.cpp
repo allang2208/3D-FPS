@@ -135,7 +135,14 @@ bool UColdSteelStatusModel::NormalizeBowState(FColdSteelProfile& State) const
         double DamageVersion=0., LatestDamage=0.;
         Data->TryGetNumberField(TEXT("bow_damage_revision"),DamageVersion);
         Defaults->TryGetNumberField(TEXT("bow_damage_revision"),LatestDamage);
-        if(DamageVersion<1. && LatestDamage>=1.)
+        if(DamageVersion<2. && LatestDamage>=2.)
+        {
+            Data->SetNumberField(TEXT("full_damage"), Defaults->GetNumberField(TEXT("full_damage")));
+            Data->SetNumberField(TEXT("bow_damage_coefficient_scale"), Defaults->GetNumberField(TEXT("bow_damage_coefficient_scale")));
+            Data->SetNumberField(TEXT("bow_damage_revision"),2.);
+            bUpdated=true;
+        }
+        else if(DamageVersion<1. && LatestDamage>=1.)
         {
             double PreviousBase=46.;Data->TryGetNumberField(TEXT("full_damage"),PreviousBase);
             Data->SetNumberField(TEXT("full_damage"),PreviousBase*1.5);
@@ -152,7 +159,8 @@ bool UColdSteelStatusModel::NormalizeBowState(FColdSteelProfile& State) const
         Defaults->TryGetNumberField(TEXT("bow_traits_revision"), LatestTraits);
         if (TraitVersion < LatestTraits)
         {
-            for (const TCHAR* Key : { TEXT("critDamageBonus"), TEXT("range_cm"), TEXT("full_speed_cm"), TEXT("arrow_gravity_cm") })
+            for (const TCHAR* Key : { TEXT("critDamageBonus"), TEXT("range_cm"), TEXT("full_speed_cm"), TEXT("arrow_gravity_cm"),
+                TEXT("bow_hip_spread"), TEXT("bow_innate_draw_speed_bonus"), TEXT("bow_innate_hip_spread_mult") })
             {
                 double Value = 0.;
                 if (Defaults->TryGetNumberField(Key, Value)) Data->SetNumberField(Key, Value);

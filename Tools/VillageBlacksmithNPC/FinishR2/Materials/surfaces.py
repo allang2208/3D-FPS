@@ -113,3 +113,4 @@ soot=np.clip(soot*(.54+.16*large+.14*soft+.09*fine),0,1)
 write('T_Smith_Apron_Contact.png',255*np.stack([rub,oil,soot],2))
 settings={'upgraded':list(SETTINGS),'reuse':['Brass','Thread','Sole'],'normal_format':'DirectX','surface_inputs':'Original image-generated colour plates. Height, normal, roughness and occlusion art-directed from aligned grain.','original_uv':True,'apron_contact':{'position_cm':'pre-skinned x,z','u':'0.5 + x/37.0','v':'(136.2-z)/81.0','wear_rgb_lift_linear':[.086,.045,.017],'oil_darkening':.39,'soot_darkening':.35,'rough_adjust':[.09,-.24,.14]},'specular':{'Linen':.26,'Twill':.28,'Saddle':.47,'Apron':.43,'Boot':.45},'size':{k:v[3] for k,v in SETTINGS.items()}}
 (OUT/'material_settings.json').write_text(json.dumps(settings,indent=2))
+

@@ -1,4 +1,4 @@
-param([string[]]$Definitions=@(),[string]$OutputGroup='Catalog',[switch]$SaveDisplay)
+﻿param([string[]]$Definitions=@(),[string]$OutputGroup='Catalog',[switch]$SaveDisplay)
 $ErrorActionPreference='Stop'
 $packProject='D:/FPS3D/FPSGAME'
 $packRoot=Join-Path $packProject 'SourceAssets/BackpackIcons20261025/FrontR1'

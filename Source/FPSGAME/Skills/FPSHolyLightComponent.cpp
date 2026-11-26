@@ -1,4 +1,8 @@
 #include "FPSHolyLightComponent.h"
+#include "FPSHolyRenewalComponent.h"
+#include "../Monsters/UnknownSpellCombat.h"
+#include "../Monsters/UnknownHumanoid.h"
+#include "PlayerSkillPreparation.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Dungeons/WardBreakableGlass.h"
@@ -26,11 +30,15 @@ UFPSHolyLightComponent::UFPSHolyLightComponent(){PrimaryComponentTick.bCanEverTi
 void UFPSHolyLightComponent::BeginPlay()
 {
     Super::BeginPlay();AddTickPrerequisiteActor(GetOwner());
-    MoteSystem=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/HolyLight/NS_HolyLightMotes.NS_HolyLightMotes"));
-    CastSounds.Add(LoadObject<USoundBase>(nullptr,TEXT("/Game/Skills/HolyLight/S_HolyLightCast.S_HolyLightCast")));
+    PlayerSkillAssets::Defer(GetOwner(),TEXT("holyLight"),FSimpleDelegate::CreateWeakLambda(this,[this]()
+    {
+    CastSounds.Reset();
+    MoteSystem=PlayerSkillAssets::Resolve<UNiagaraSystem>(TEXT("/Game/Skills/HolyLight/NS_HolyLightMotes.NS_HolyLightMotes"));
+    CastSounds.Add(PlayerSkillAssets::Resolve<USoundBase>(TEXT("/Game/Skills/HolyLight/S_HolyLightCast.S_HolyLightCast")));
+    }));
 }
 UColdSteelStatusModel* UFPSHolyLightComponent::Model() const
-{return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
+{return NetCast::LocalModel(*this);}
 UFPSFireballComponent* UFPSHolyLightComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
 bool UFPSHolyLightComponent::IsTarget(AActor* Target) const
 {
@@ -93,7 +101,7 @@ void UFPSHolyLightComponent::Trigger(bool bSelf)
     {bQueued=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
     if(Player->IsSpellHandHeld()){RejectHeldHand();return;}
     if(M->HolyLightCooldown()>0){Feedback(TEXT("冷却"));return;}
-    if(!MoteSystem||CastSounds.Num()!=1||CastSounds.Contains(nullptr)){Feedback(TEXT("缺素材"));return;}
+    if(!MoteSystem||CastSounds.Num()!=1||CastSounds.Contains(nullptr)){Feedback(TEXT("魔法素材准备中"));return;}
     const auto Spell=M->HolyLightStats();FString Failure;
     if(!bSelf&&!SelectTarget(Spell,Failure)){Feedback(Failure);return;}
     if(!M->CanSpendMana(Spell.ManaCost)){Feedback(TEXT("缺蓝"));return;}
@@ -160,6 +168,7 @@ void UFPSHolyLightComponent::ReleaseAtContact()
     if(auto* Effect=GetWorld()->SpawnActor<AFPSHolyLightEffect>(Target->GetActorLocation(),FRotator::ZeroRotator,P))
     {Effect->InitializeLight(Target,MoteSystem,CastSnapshot);Effects.Add(Effect);}
     M->FinishHolyLightCast(Rewards);
+    M->NotifyMagicReleased();
     if(auto* Status=UCombatStatusFormula::GetOrAdd(Player))
     {if(CastSnapshot.bGrantChain)Status->AddChainSpell();if(CastSnapshot.CastHasteStacks>0)Status->AddHaste(CastSnapshot.CastHasteStacks,CastSnapshot.CastHasteDuration);}
 }
@@ -189,13 +198,19 @@ bool UFPSHolyLightComponent::NetRelease(APawn* Caster,const FColdSteelNetCastReq
     const bool bSelf=Target==Caster;
     if(!bSelf)
     {
-        if(!IsTarget(Target))return false;
+        if(UnknownSpell::IsCaster(Caster)?!UnknownSpell::IsTarget(Caster,Target):!IsTarget(Target))return false;
         const FVector Eye=Caster->GetPawnViewLocation();
         if(FVector::Dist(Caster->GetActorLocation(),UWardBreakableGlass::TargetPoint(Target))>Spell.Range*1.15f)return false;
         if(!VisibleFrom(Caster,Target,Eye))return false;
     }
     FHolyLightRewards Rewards;
-    if(HolyLightTargets::IsFriendly(Target)||bSelf)
+    if(auto* Monster=Cast<AUnknownHumanoid>(Caster); Monster&&bSelf)
+    {
+        HolyLightTargets::Heal(Monster,Spell.Healing);
+        if(Spell.RenewalStacks>0)UFPSHolyRenewalComponent::Apply(Monster,Spell.RenewalStacks,Spell.RenewalSeconds);
+        if(Spell.HealHasteStacks>0)UCombatStatusFormula::GetOrAdd(Monster)->AddHaste(Spell.HealHasteStacks,Spell.HealHasteSeconds);
+    }
+    else if(!UnknownSpell::IsCaster(Caster)&&(HolyLightTargets::IsFriendly(Target)||bSelf))
         Shadow->ApplyHolyLightHealing(Target,Spell,Rewards);
     else
         {

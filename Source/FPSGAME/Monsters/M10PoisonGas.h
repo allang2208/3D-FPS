@@ -13,7 +13,7 @@ public:
     virtual void Tick(float DeltaSeconds) override;
     UPROPERTY(EditAnywhere,Category="M10|RearGas",meta=(ClampMin="0")) float MagicDamagePerSecond=6.f;
 protected:
-    virtual void GetEmissionSources(FVector (&Origins)[3],FVector& Drift) const override;
+    virtual void GetEmissionSources(FVector (&Origins)[4],FVector& Drift) const override;
     virtual bool ShouldEmit() const override;
     virtual float GetDiffusionSpeed() const override { return 1.5f; }
 private:

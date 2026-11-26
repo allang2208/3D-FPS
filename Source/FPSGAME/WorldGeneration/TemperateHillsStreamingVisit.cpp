@@ -1,0 +1,188 @@
+#include "TemperateHillsWorld.h"
+#include "ForestVillageMap.h"
+#include "HillsNightRaidSubsystem.h"
+#include "VT/RuntimeVirtualTexture.h"
+#include "TemperateHillsChapel.h"
+#include "TemperateHillsPCG.h"
+#include "TemperateHillsVisibility.h"
+#include "TemperateHillsSurface.h"
+#include "TemperateForestHabitat.h"
+#include "../FPSWeatherManager.h"
+#include "../Production/ProductionOreRocks.h"
+#include "TemperateHillsBackdrop.h"
+#include "TemperateHillsGroundLayers.h"
+#include "RiverPilotFXSubsystem.h"
+#include "NiagaraSystem.h"
+#include "../UI/TransitLoadingSubsystem.h"
+#include "../Monsters/FPSCombatHealthComponent.h"
+#include "Async/Async.h"
+#include "Algo/AllOf.h"
+#include "Components/DynamicMeshComponent.h"
+#include "Components/InstancedStaticMeshComponent.h"
+#include "Components/InstancedSkinnedMeshComponent.h"
+#include "Animation/TransformProviderData.h"
+#include "Components/CapsuleComponent.h"
+#include "DynamicMesh/DynamicMesh3.h"
+#include "DynamicMesh/DynamicMeshAttributeSet.h"
+#include "Engine/AssetManager.h"
+#include "Engine/GameInstance.h"
+#include "Engine/StreamableManager.h"
+#include "Engine/LevelStreamingDynamic.h"
+#include "Engine/GameViewportClient.h"
+#include "Engine/World.h"
+#include "EngineUtils.h"
+#include "Engine/SkeletalMesh.h"
+#include "Engine/StaticMesh.h"
+#include "Engine/Texture2D.h"
+#include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/PlayerController.h"
+#include "Kismet/GameplayStatics.h"
+#include "Materials/MaterialInstanceDynamic.h"
+#include "MaterialShared.h"
+#include "RHIGlobals.h"
+#include "HAL/IConsoleManager.h"
+#include "PCGGraph.h"
+#include "PCGComponent.h"
+#include "PCGWorldActor.h"
+#include "RuntimeGen/PCGGenSourceManager.h"
+#include "PCGGraphExecutionStateInterface.h"
+#include "Subsystems/PCGSubsystem.h"
+#include "ContentStreaming.h"
+#include "RenderCommandFence.h"
+#include "Misc/ScopeExit.h"
+
+#include "TemperateHillsStreamingPrivate.h"
+#if !UE_BUILD_SHIPPING
+// Stage only the destination tile. The visitor can keep moving at the source
+// until the real, cooked terrain can support a full character capsule.
+void ATemperateHillsWorld::RequestRainforestVisit()
+{
+    auto* PC=GetWorld()->GetFirstPlayerController();
+    auto* Player=PC?Cast<ACharacter>(PC->GetPawn()):nullptr;
+    if(!Player||!PC->IsLocalController())return;
+    if(!HasAuthority()||!bReady||!Streaming||!ForestWaterPlan||!RiverPlan||RiverPlan->RainforestMask.IsEmpty())
+    {
+        PC->ClientMessage(TEXT("请先在单人或主机上进入已就绪的温带丘陵密林。"));return;
+    }
+    auto& S=*Streaming;
+    const FVector2D Focus=ForestWaterPlan->Pools.IsEmpty()?
+        RiverPlan->ForestAnchor:
+        ForestWaterPlan->Pools[0].Bounds.GetCenter();
+    S.bVillageVisit=false;S.bWhiteCliffsVisit=false;
+    S.StageVisit(Player,Focus+FVector2D(-1500,-1100),Focus,SizeMeters*50.);
+    PC->ClientMessage(TEXT("正在准备密林岸边的地面碰撞…"));
+}
+
+static FAutoConsoleCommandWithWorld VisitRainforestCommand(TEXT("fps.Hills.VisitRainforest"),
+    TEXT("Travel on foot to the local temperate rainforest bank."),
+    FConsoleCommandWithWorldDelegate::CreateLambda([](UWorld* World)
+    {
+        if(!World||!World->IsGameWorld())return;
+        for(TActorIterator<ATemperateHillsWorld> It(World);It;++It){It->RequestRainforestVisit();return;}
+    }));
+
+void ATemperateHillsWorld::RequestVillageVisit()
+{
+    auto* PC=GetWorld()->GetFirstPlayerController();
+    if(!PC||!PC->IsLocalController())return;
+    if(!HasAuthority()||!Streaming||Streaming->Failed)
+    {
+        PC->ClientMessage(TEXT("请在单人或主机的丘陵场景使用村庄传送。"));return;
+    }
+    if(IsForestVillage())
+    {
+        if(!bReady || !PC->GetPawn()) return;
+        const FVector2D InsideGate=VillageSite.World(VillageSite.WallHalfSize().X-750.,500.);
+        const FVector Destination(InsideGate,Height(InsideGate.X,InsideGate.Y)+106.);
+        const FRotator Facing=FVector(VillageSite.Axis,0.).Rotation();
+        if(PC->GetPawn()->TeleportTo(Destination,Facing)) PC->SetControlRotation(Facing);
+        return;
+    }
+    Streaming->Visitor.Reset();
+    Streaming->bWhiteCliffsVisit=false;
+    Streaming->bVillageVisit=true;
+    PC->ClientMessage(TEXT("正在准备西侧村口…"));
+}
+
+static FAutoConsoleCommandWithWorld VisitVillageCommand(TEXT("fps.Hills.VisitVillage"),
+    TEXT("Visit the seeded village from the hills, or continue the saved hills from the solo hub."),
+    FConsoleCommandWithWorldDelegate::CreateLambda([](UWorld* World)
+    {
+        if(!World||!World->IsGameWorld())return;
+        for(TActorIterator<ATemperateHillsWorld> It(World);It;++It){It->RequestVillageVisit();return;}
+        const FString Map=UGameplayStatics::GetCurrentLevelName(World,true);
+        if(World->GetNetMode()==NM_Standalone&&Map==TEXT("DayNight_Lighting"))
+        {
+            UGameplayStatics::OpenLevel(World,ForestVillageMap::Package,true,TEXT("HillsContinue?VisitVillage"));
+            return;
+        }
+        if(auto* PC=World->GetFirstPlayerController())
+            PC->ClientMessage(TEXT("请在单人主神空间或主机的温带丘陵使用村庄传送。"));
+    }));
+
+bool LandAtVisitTarget(ATemperateHillsWorld& Hills,FTemperateHillsStreamingState& S,UDynamicMeshComponent* Ground,ACharacter& Player)
+{
+    auto* PC=Cast<APlayerController>(Player.GetController());
+    if(!PC||!Ground||(!PC->IsLocalController()&&!Hills.HasAuthority()))return false;
+    auto* Move=Player.GetCharacterMovement();
+    const auto* Capsule=Player.GetCapsuleComponent();
+    const auto Shape=Capsule->GetCollisionShape();
+    const FCollisionQueryParams Query(SCENE_QUERY_STAT(HillsVisitLanding),false,&Player);
+    const FCollisionResponseParams Response(Capsule->GetCollisionResponseToChannels());
+    // Reject future trunks / solid rocks even if their PCG cells have not spawned.
+    const FVector Site(S.VisitTarget,0);
+    const FBox Neighborhood(Site-FVector(2500,2500,100000),Site+FVector(2500,2500,100000));
+    TArray<FTemperatePlacement> Trees,Rocks;
+    Hills.GetPlacements(0,Neighborhood,Trees);
+    Hills.GetPlacements(1,Neighborhood,Rocks);
+    const FVector2D AlongStreet=(S.VisitFocus-S.VisitTarget).GetSafeNormal();
+    for(int32 I=0;I<(S.bVillageVisit?9:49);++I)
+    {
+        FVector2D XY=S.VisitTarget;
+        if(S.bVillageVisit)
+        {
+            // Search the lane centreline, inside the gap between the two walls.
+            XY+=AlongStreet*((I%2?1.:-1.)*((I+1)/2)*75.);
+        }
+        else
+        {
+            const double Radius=I?175.*(1+(I-1)/12):0.;
+            const double Angle=(I%12)*(2.*PI/12.);
+            XY+=Radius*FVector2D(FMath::Cos(Angle),FMath::Sin(Angle));
+        }
+        if((!S.bVillageVisit&&!S.bWhiteCliffsVisit&&Hills.RainforestWeight(XY.X,XY.Y)<.5)||
+            Hills.SampleForestWater(XY.X,XY.Y).Wet||Hills.SampleRiver(XY.X,XY.Y).Bank>.12)continue;
+        if(Trees.ContainsByPredicate([&](const auto& T)
+            {return FVector2D::DistSquared(XY,FVector2D(T.Transform.GetLocation()))<FMath::Square(90.+Capsule->GetScaledCapsuleRadius());}))continue;
+        const FVector Floor(XY,Hills.Height(XY.X,XY.Y));
+        FHitResult Hit;
+        if(!Hills.GetWorld()->SweepSingleByChannel(Hit,Floor+FVector(0,0,Shape.GetCapsuleHalfHeight()+140),
+            Floor-FVector(0,0,60),FQuat::Identity,Capsule->GetCollisionObjectType(),Shape,Query,Response)||
+            Hit.bStartPenetrating||Hit.GetComponent()!=Ground||!Move->IsWalkable(Hit))continue;
+        const FVector Landing=Hit.Location+FVector(0,0,2.5);
+        if(Rocks.ContainsByPredicate([&](const auto& Rock)
+        {
+            auto* Mesh=Cast<UStaticMesh>(Rock.Mesh.ResolveObject());
+            return Mesh&&Mesh->GetBoundingBox().TransformBy(Rock.Transform).ExpandBy(Capsule->Bounds.BoxExtent).IsInsideOrOn(Landing);
+        }))continue;
+        const FRotator Facing=FVector(S.VisitFocus-XY,0).Rotation();
+        if(!Player.TeleportTo(Landing,Facing,false,true))continue;
+        S.HeldPawns.Remove(&Player);
+        Move->StopMovementImmediately();
+        Move->SetMovementMode(MOVE_Walking);
+        Player.ClientCheatWalk();  // restores capsule collision and clears bCheatFlying
+        // At the lower quarry entrance the road climbs towards the exposed cut.
+        const FRotator View(S.bWhiteCliffsVisit?TemperateQuarry::EntryPitch:-6.,Facing.Yaw,0);
+        PC->SetControlRotation(View);
+        if(!PC->IsLocalController())PC->ClientSetRotation(View);
+        Player.ForceNetUpdate();
+        UE_LOG(LogTemp,Display,TEXT("%s seed=%d location=%s support=%s"),
+            S.bVillageVisit?TEXT("HILLS_VILLAGE_LANDED"):S.bWhiteCliffsVisit?TEXT("HILLS_QUARRY_LANDED"):TEXT("HILLS_FOREST_LANDED"),Hills.Seed,*Landing.ToString(),*Ground->GetName());
+        return true;
+    }
+    PC->ClientMessage(TEXT("附近未找到可站立的干燥地面，已保留当前位置。"));
+    return false;
+}
+#endif
+

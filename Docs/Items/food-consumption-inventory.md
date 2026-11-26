@@ -38,9 +38,9 @@
 
 食物接触时跟随握持手，咬下后向画面下方收回。大份烤羊排使用独立双手骨架，右手跟随左手实际托起的羊排。用工程当前的双手模型单独采样 2.75 秒的持握姿态和 4.65 秒的咬食姿态，两处最大相交深度均为左手 1.7 毫米、右手 0.3 毫米。第三人称单手烤肉按各自的咬点送到嘴边。
 
-第三人称大份烤羊排在咬食末段按角色嘴部位置一起调整两只手。原动作的咬点在 Jason 身上离嘴 2.50 厘米，在 Kaitlin 身上离嘴 3.44 厘米。更新后以两种实际角色骨架分别采样十种固体食物，共 46 组，咬食帧的咬点与嘴部目标最大相距 0.63 毫米。双手羊排在所测徒手、步枪、法杖、蹲行和关闭后处理的条件下均小于 0.01 毫米。这项测量记录道具咬点和嘴部目标的距离，不包含食物与脸颊的逐三角形相交量。[两种角色的采样摘要及原始记录散列](../Publication/ConversationDelivery20261120/historical-evidence.json)
+第三人称大份烤羊排在咬食末段按角色嘴部位置一起调整两只手。原动作的咬点在 Jason 身上离嘴 2.50 厘米，在 Kaitlin 身上离嘴 3.44 厘米。更新后以两种实际角色骨架分别采样十种固体食物，共 46 组，咬食帧的咬点与嘴部目标最大相距 0.63 毫米。双手羊排在所测徒手、步枪、法杖、蹲行和关闭后处理的条件下均小于 0.01 毫米。这项测量记录道具咬点和嘴部目标的距离，不包含食物与脸颊的逐三角形相交量。[Jason 采样](../../Saved/ConversationReview20261120/NativeR2/food-poses-jason.json) · [Kaitlin 采样](../../Saved/ConversationReview20261120/NativeR2/food-poses-kaitlin.json)
 
-联机食用结算另以独立房主和访客运行了 9 个场景，覆盖咬食前后取消、重复请求、分次喝水、魔力药水及普通面包。访客库存与服务器写入的档案一致，房主保留自己的物品。[联机用例和原始记录散列](../Publication/ConversationDelivery20261120/historical-evidence.json)
+联机食用结算另以独立房主和访客运行了 9 个场景，覆盖咬食前后取消、重复请求、分次喝水、魔力药水及普通面包。访客库存与服务器写入的档案一致，房主保留自己的物品。[联机记录](../../Saved/ConversationReview20261120/Host/Saved/MealNetworkReview/Wire/20261120-221318/host.json)
 
 ## 篝火生食材与对应成品
 
@@ -78,6 +78,6 @@
 
 ## 数据来源
 
-- 名称、即时恢复量、增益、保鲜期与动作取自[物品目录](../../Content/ColdSteelData/items.json)、[动作配置](../../Content/ColdSteelData/potion_use_motion.json)、本机食用结算宿主 `ColdSteelProfileItems.cpp`和[动作选择](../../Source/FPSGAME/Items/FPSPotionUseComponent.cpp)。
+- 名称、即时恢复量、增益、保鲜期与动作取自[物品目录](../../Content/ColdSteelData/items.json)、[动作配置](../../Content/ColdSteelData/potion_use_motion.json)、[食用结算](../../Source/FPSGAME/UI/ColdSteelProfileItems.cpp)和[动作选择](../../Source/FPSGAME/Items/FPSPotionUseComponent.cpp)。
 - 制作与获取取自[营火配方](../../Content/ColdSteelData/campfire-recipes.json)、[商店、面包房与酒馆的商品表](../../Source/FPSGAME/UI/ColdSteelShopModel.cpp)、[场景搜刮表](../../Content/ColdSteelData/scene_search_loot.json)和[动物掉落表](../../Content/ColdSteelData/wildlife.json)。
-- 相关交互取自[腐败转换](../../Source/FPSGAME/Items/FoodSpoilage.cpp)、本机种植规则 `Content/ColdSteelData/planting_rules.json`和[喷泉交互](../../Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp)。
+- 相关交互取自[腐败转换](../../Source/FPSGAME/Items/FoodSpoilage.cpp)、[种植规则](../../Content/ColdSteelData/planting_rules.json)和[喷泉交互](../../Source/FPSGAME/UI/ColdSteelWorldInteraction.cpp)。

@@ -141,3 +141,4 @@ if not portals_only and not high_walls_only:
         receipt['saved'][role]=dress_existing_wall(role,wall)
 if not receipt['saved']:raise RuntimeError('No gatehouse meshes')
 (RUN/'saved.json').write_text(json.dumps(receipt,ensure_ascii=False,indent=2),encoding='utf8')
+

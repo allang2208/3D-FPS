@@ -1,10 +1,13 @@
 #include "ColdSteelWoodworkingManagementWidget.h"
+#include "ColdSteelTextToolTip.h"
+#include "../Development/DevelopmentTuningSubsystem.h"
 #include "ColdSteelForgeBoard.h"
 #include "../Building/WoodworkingQuality.h"
 #include "ColdSteelGunRecipeOptionWidget.h"
 #include "ColdSteelWoodworkingWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelCraftingResultStyle.h"
 #include "ColdSteelItemTooltipData.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "GunsmithUIStyle.h"
@@ -30,6 +33,7 @@
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
+#include "Components/WrapBox.h"
 #include "ImageUtils.h"
 #include "Misc/Paths.h"
 #include "Styling/SlateTypes.h"
@@ -41,7 +45,7 @@ void SetText(UTextBlock* Widget,const FString& Value)
 }
 void UColdSteelWoodworkingManagementWidget::Configure(UColdSteelWoodworkingWidget* Owner)
 {OwnerWidget=Owner;bMaterialsDirty=true;Refresh();}
-bool UColdSteelWoodworkingManagementWidget::IsRecipeMenuOpen() const {return RecipeChoice&&RecipeChoice->IsOpen();}
+bool UColdSteelWoodworkingManagementWidget::IsRecipeMenuOpen() const {return (RecipeChoice&&RecipeChoice->IsOpen())||(CoreChoice&&CoreChoice->IsOpen());}
 const FColdSteelCraftingRecipe* UColdSteelWoodworkingManagementWidget::Recipe() const
 {
     const auto* Pattern=System?System->Pattern():nullptr;
@@ -151,9 +155,20 @@ void UColdSteelWoodworkingManagementWidget::NativeOnInitialized()
         RecipeChoice->AddOption(Entry?ColdSteelInventory::Text(Model->CreateItem(Entry->Output),TEXT("name")):Pattern.Name);
     }
     RecipeChoice->OnSelectionChanged.AddDynamic(this,&ThisClass::HandleRecipeSelected);
-    RecipeChoice->SetToolTipText(FText::FromString(TEXT("选择木工配方；当前工件需领取或废弃后才能更换。")));
+    ColdSteelToolTip::Set(*RecipeChoice, FText::FromString(TEXT("选择木工配方；当前工件需领取或废弃后才能更换。")));
     auto* ChoiceSize=WidgetTree->ConstructWidget<USizeBox>();ChoiceSize->SetContent(RecipeChoice);ButtonSizes.Add(ChoiceSize);
     Space(RecipeCard->AddChildToVerticalBox(ChoiceSize),FMargin(0,0,0,8));
+    auto* CoreCaption=Text(TEXT("木芯 · 材质保底"),12);CoreCaption->SetColorAndOpacity(ColdSteelUI::TextTertiary);
+    Space(RecipeCard->AddChildToVerticalBox(CoreCaption),FMargin(0,4,0,4));
+    CoreChoice=WidgetTree->ConstructWidget<UComboBoxString>();
+    CoreChoice->OnGenerateWidgetEvent.BindDynamic(this,&ThisClass::GenerateRecipeOption);
+    for(const auto& Core:System->Cores())CoreChoice->AddOption(FString::Printf(TEXT("%s · 保底 %+.0f%%"),*Core.Name,Core.Bonus*100));
+    CoreChoice->OnSelectionChanged.AddDynamic(this,&ThisClass::HandleCoreSelected);
+    ColdSteelToolTip::Set(*CoreChoice, FText::FromString(TEXT("每件额外投入木芯 ×1。原木芯可用 2 木材在普通工作台制作；其他木芯来自探索物资。开工后本件材质锁定。")));
+    auto* CoreSize=WidgetTree->ConstructWidget<USizeBox>();CoreSize->SetContent(CoreChoice);ButtonSizes.Add(CoreSize);
+    Space(RecipeCard->AddChildToVerticalBox(CoreSize),FMargin(0,0,0,4));
+    CoreInfo=Text(TEXT(""),12);CoreInfo->SetAutoWrapText(true);CoreInfo->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+    Space(RecipeCard->AddChildToVerticalBox(CoreInfo),FMargin(0,0,0,8));
     Materials=Text(TEXT("所需材料"),14,false,true);Space(RecipeCard->AddChildToVerticalBox(Materials),FMargin(0,0,0,4));
     auto* Source=Text(TEXT("材料来源 · 背包 + 主仓库"),12);Source->SetColorAndOpacity(ColdSteelUI::TextTertiary);MaterialSource=Source;
     Space(RecipeCard->AddChildToVerticalBox(Source),FMargin(0,0,0,4));
@@ -168,7 +183,13 @@ void UColdSteelWoodworkingManagementWidget::NativeOnInitialized()
     auto* StateCard=Card(Content);
     Stage=Text(TEXT("准备加工"),16,false,true);Space(StateCard->AddChildToVerticalBox(Stage),FMargin(0,0,0,8));
     Stats=Text(TEXT(""),16,true);Space(StateCard->AddChildToVerticalBox(Stats),FMargin(0,0,0,4));
+    ResultMetrics=WidgetTree->ConstructWidget<UWrapBox>();Space(StateCard->AddChildToVerticalBox(ResultMetrics),FMargin(0,0,0,4));
+    ScoreValue=Text(TEXT(""),16,true);ClearanceValue=Text(TEXT(""),16,true);DamageValue=Text(TEXT(""),16,true);
+    for(UTextBlock* Value:{ClearanceValue.Get(),DamageValue.Get(),ScoreValue.Get()})ResultMetrics->AddChildToWrapBox(Value);
     StatLegend=Text(TEXT("切割时限   /   废料清除   /   主体损伤"),12);StatLegend->SetColorAndOpacity(ColdSteelUI::TextTertiary);StateCard->AddChildToVerticalBox(StatLegend);
+    BonusMetrics=WidgetTree->ConstructWidget<UWrapBox>();StateCard->AddChildToVerticalBox(BonusMetrics);
+    QualityBonusValue=Text(TEXT(""),14,false,true);MaterialBonusValue=Text(TEXT(""),12);ProcessingBonusValue=Text(TEXT(""),12);
+    for(auto* Value:{QualityBonusValue.Get(),MaterialBonusValue.Get(),ProcessingBonusValue.Get()})BonusMetrics->AddChildToWrapBox(Value);
     RefundPreview=Text(TEXT(""),12);RefundPreview->SetAutoWrapText(true);RefundPreview->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(StateCard->AddChildToVerticalBox(RefundPreview),FMargin(0,8,0,0));
     Timer=WidgetTree->ConstructWidget<UProgressBar>();Timer->SetFillColorAndOpacity(ColdSteelUI::Accent);
     TimerSize=WidgetTree->ConstructWidget<USizeBox>();TimerSize->SetContent(Timer);Space(StateCard->AddChildToVerticalBox(TimerSize),FMargin(0,8,0,0));
@@ -200,8 +221,8 @@ void UColdSteelWoodworkingManagementWidget::NativeOnInitialized()
     auto* Actions=WidgetTree->ConstructWidget<UHorizontalBox>();Foot->AddChildToVerticalBox(Actions);
     UTextBlock* NewActionLabel=nullptr;ActionButton=Button(TEXT("开始加工"),NewActionLabel);ActionLabel=NewActionLabel;ActionButton->OnClicked.AddDynamic(this,&ThisClass::HandleAction);
     auto* ActionSize=WidgetTree->ConstructWidget<USizeBox>();ActionSize->SetContent(ActionButton);ButtonSizes.Add(ActionSize);Actions->AddChildToHorizontalBox(ActionSize)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-    UTextBlock* DiscardLabel=nullptr;DiscardButton=Button(TEXT("废弃 · 返还一半"),DiscardLabel);DiscardButton->OnClicked.AddDynamic(this,&ThisClass::HandleDiscard);
-    DiscardButton->SetToolTipText(FText::FromString(TEXT("直接废弃未领取的成品，返还一半投入材料至背包（逐项向下取整）。背包空间不足时保留成品。")));
+    UTextBlock* NewDiscardLabel=nullptr;DiscardButton=Button(TEXT("废弃成品"),NewDiscardLabel);DiscardLabel=NewDiscardLabel;DiscardButton->OnClicked.AddDynamic(this,&ThisClass::HandleDiscard);
+    ColdSteelToolTip::Set(*DiscardButton, FText::FromString(TEXT("取消工件或废弃成品；实际返还见本轮材料说明。免材料制作不返料；背包空间不足时保留工件。")));
     auto* DiscardSize=WidgetTree->ConstructWidget<USizeBox>();DiscardSize->SetContent(DiscardButton);ButtonSizes.Add(DiscardSize);DiscardActionSlot=Actions->AddChildToHorizontalBox(DiscardSize);DiscardActionSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     UpdateScale();Refresh();
 }
@@ -222,12 +243,15 @@ void UColdSteelWoodworkingManagementWidget::RefreshProductPreview()
     const bool HasJob=!Job.Id.IsEmpty();
     FColdSteelItem Item=HasJob?Job.Item:Recipe?Model->CreateItem(Recipe->Output):FColdSteelItem{};
     // Older unclaimed jobs use the same saved score that Claim applies on authority.
-    if(HasJob&&Job.bFinished&&Job.bPassed)ColdSteelWoodQuality::Apply(Item,Job.Quality);
+    if(HasJob&&Job.bFinished&&Job.bPassed)ColdSteelWoodQuality::Apply(Item,Job);
+    else if(!HasJob||Job.QualityVersion>=ColdSteelWoodQuality::Version)
+        ColdSteelWoodQuality::Apply(Item,0,System->MaterialBonus(),System->Core(),ColdSteelWoodQuality::Version);
     Board->Configure(nullptr,ProductImages.FindRef(ColdSteelInventory::Text(Item,TEXT("ue_icon"))));
     const auto Data=Item.Data.IsEmpty()?FColdSteelTooltipContent{}:
         BuildColdSteelItemTooltip(Item,Model,GetGameInstance()->GetSubsystem<UGunsmithSystem>());
     SetText(PreviewName,Data.Name.IsEmpty()?TEXT("暂无成品参数"):Data.Name);
-    SetText(PreviewStage,HasJob&&Job.bFinished&&Job.bPassed?TEXT("成品实际参数 · 已计入木工品质修正"):TEXT("配方基础参数 · 尚未计入木工品质"));
+    SetText(PreviewStage,HasJob&&Job.bFinished&&Job.bPassed?TEXT("成品实际参数 · 已计入木工品质修正"):
+        HasJob&&Job.QualityVersion<ColdSteelWoodQuality::Version?TEXT("旧工件基础参数 · 保留原工艺规则"):TEXT("保底参数 · 已计入材质，加工完成后提升"));
     SetText(PreviewScope,Data.ValueScope);
     while(PreviewRows.Num()<Data.Summary.Num())
     {
@@ -261,6 +285,8 @@ void UColdSteelWoodworkingManagementWidget::UpdateScale()
     for(const auto& W:ButtonSizes)if(auto* S=W.Get())S->SetHeightOverride(ColdSteelUI::ActionHeight/Scale);
     CloseSize->SetWidthOverride(ColdSteelUI::ActionHeight/Scale);
     DiscardActionSlot->SetPadding(FMargin(ColdSteelUI::ActionGap/Scale,0,0,0));
+    ResultMetrics->SetInnerSlotPadding(FVector2D(12/Scale,4/Scale));
+    BonusMetrics->SetInnerSlotPadding(FVector2D(12/Scale,4/Scale));
     auto ComboStyle=RecipeChoice->GetWidgetStyle();auto ComboButton=ComboStyle.ComboButtonStyle;
     ComboButton.SetButtonStyle(ColdSteelUI::ButtonStyle(Scale));
     ComboButton.SetMenuBorderBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(25,252),ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1/Scale));
@@ -276,6 +302,8 @@ void UColdSteelWoodworkingManagementWidget::UpdateScale()
     ItemStyle.SetOddRowBackgroundHoveredBrush(ItemStyle.EvenRowBackgroundHoveredBrush);
     ItemStyle.SetActiveBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover,ColdSteelUI::ButtonRadius/Scale,ColdSteelUI::Accent,1/Scale));
     ItemStyle.SetInactiveBrush(ItemStyle.ActiveBrush);RecipeChoice->SetItemStyle(ItemStyle);
+    CoreChoice->SetWidgetStyle(ComboStyle);CoreChoice->SetItemStyle(ItemStyle);
+    CoreChoice->SetContentPadding(FMargin(22/Scale,4/Scale,10/Scale,4/Scale));CoreChoice->SetMaxListHeight(240/Scale);
     // Symmetric padding keeps the two visible halves equally wide.
     if(auto* LeftSlot=Cast<UHorizontalBoxSlot>(Board->Slot))LeftSlot->SetPadding(FMargin(0,0,4/Scale,0));
     PreviewParameterSlot->SetPadding(FMargin(4/Scale,0,0,0));
@@ -307,15 +335,20 @@ void UColdSteelWoodworkingManagementWidget::Refresh()
     using ColdSteelWoodManagementPresentation::SetText;
     auto* Owner=OwnerWidget.Get();if(!System||!Model||!ActionButton||!Owner)return;
     const auto& Job=System->Job();const bool Pending=System->HasPendingJob();
+    const bool Free=Pending?Job.bMaterialsWaived:UDevelopmentTuningSubsystem::IsFreeCrafting(Model);
     const auto* Pattern=System->Pattern();const auto* Recipe=this->Recipe();
     const FName PatternId=Pattern?Pattern->Id:NAME_None;
     const bool Preparing=Owner->IsPreparingProject(),Busy=System->TransactionPending(),InputReady=Owner->ManagementInputReady();
     const bool NeedsSettlement=Pending&&!Job.bFinished&&(System->State()==EWoodworkingPhase::Complete||System->State()==EWoodworkingPhase::Failed);
-    if(ObservedPattern!=PatternId||ObservedJobId!=Job.Id||bObservedFinished!=Job.bFinished||bObservedBusy!=Busy||ObservedPhase!=uint8(System->State()))
-    {ObservedPattern=PatternId;ObservedJobId=Job.Id;bObservedFinished=Job.bFinished;bObservedBusy=Busy;ObservedPhase=uint8(System->State());bMaterialsDirty=true;}
+    if(ObservedCore!=System->Core()||ObservedPattern!=PatternId||ObservedJobId!=Job.Id||bObservedFinished!=Job.bFinished||bObservedBusy!=Busy||bObservedFree!=Free||ObservedPhase!=uint8(System->State()))
+    {ObservedCore=System->Core();ObservedPattern=PatternId;ObservedJobId=Job.Id;bObservedFinished=Job.bFinished;bObservedBusy=Busy;bObservedFree=Free;ObservedPhase=uint8(System->State());bMaterialsDirty=true;}
     if(bMaterialsDirty)
     {
         RefreshProductPreview();
+        const int32 CoreIndex=System->Cores().IndexOfByPredicate([this](const auto& C){return C.Id==System->Core();});
+        if(CoreChoice->GetSelectedIndex()!=CoreIndex)CoreChoice->SetSelectedIndex(CoreIndex);
+        SetText(CoreInfo,Pending&&Job.QualityVersion<ColdSteelWoodQuality::Version?TEXT("旧工件 · 保留原工艺规则，无需补投木芯"):
+            FString::Printf(TEXT("木芯保底 %+.0f%% · 加工最高 +15%% · 成品最高 %+.0f%%"),System->MaterialBonus()*100,(System->MaterialBonus()+.15)*100));
         const int32 Index=System->Patterns().IndexOfByPredicate([PatternId](const auto& P){return P.Id==PatternId;});
         if(RecipeChoice->GetSelectedIndex()!=Index)RecipeChoice->SetSelectedIndex(Index);
         const FString ProductName=ColdSteelInventory::Text(Pending?Job.Item:Recipe?Model->CreateItem(Recipe->Output):FColdSteelItem{},TEXT("name"));
@@ -329,10 +362,10 @@ void UColdSteelWoodworkingManagementWidget::Refresh()
             TArray<FString> Definitions;Paid.GetKeys(Definitions);Definitions.Sort();
             for(const auto& Definition:Definitions)DisplayInputs.Add({Definition,Paid.FindRef(Definition)});
         }
-        else if(Recipe)DisplayInputs=Recipe->Inputs;
-        SetText(Materials,Pending?TEXT("本轮已投入材料"):TEXT("所需材料"));
-        SetText(MaterialSource.Get(),Pending?TEXT("本轮材料已扣除"):Recipe?TEXT("材料来源 · 背包 + 主仓库"):TEXT("暂无可用配方"));
-        SetText(MaterialQuantityHeader.Get(),Pending?TEXT("已投入数量"):TEXT("持有 / 需要"));
+        else System->InputsFor(DisplayInputs);
+        SetText(Materials,Free?TEXT("免材料制作"):Pending?TEXT("本轮已投入材料"):TEXT("所需材料"));
+        SetText(MaterialSource.Get(),Free?TEXT("本轮不扣材料 · 免费工件废弃不返料"):Pending?TEXT("本轮材料已扣除"):Recipe?TEXT("材料来源 · 背包 + 主仓库"):TEXT("暂无可用配方"));
+        SetText(MaterialQuantityHeader.Get(),Pending?TEXT("已投入数量"):Free?TEXT("持有 / 本次消耗"):TEXT("持有 / 需要"));
         EnsureMaterialRows(DisplayInputs.Num());
         for(int32 MaterialIndex=0;MaterialIndex<MaterialRows.Num();++MaterialIndex)
         {
@@ -343,13 +376,13 @@ void UColdSteelWoodworkingManagementWidget::Refresh()
             const auto& Input=DisplayInputs[MaterialIndex];const int64 Owned=Pending?Input.Count:Model->CountMaterial(Input.Item);
             SetText(Row.Name.Get(),ColdSteelInventory::Text(Model->CreateItem(Input.Item),TEXT("name")));
             SetText(Row.Owned.Get(),FString::Printf(TEXT("%lld"),Owned));
-            SetText(Row.Required.Get(),FString::Printf(TEXT("%lld"),Input.Count));
+            SetText(Row.Required.Get(),FString::Printf(TEXT("%lld"),Free?int64(0):Input.Count));
             Row.Separator->SetVisibility(Pending?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
             Row.Required->SetVisibility(Pending?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
-            const bool Enough=Owned>=Input.Count;
+            const bool Enough=Free||Owned>=Input.Count;
             const FLinearColor Color=Pending?ColdSteelUI::TextPrimary:Enough?ColdSteelUI::Success:ColdSteelUI::Danger;
             Row.Owned->SetColorAndOpacity(Color);
-            SetText(Row.State.Get(),Pending?TEXT("已投入"):Enough?TEXT("已满足"):FString::Printf(TEXT("缺 %lld"),Input.Count-Owned));
+            SetText(Row.State.Get(),Free?TEXT("免消耗"):Pending?TEXT("已投入"):Enough?TEXT("已满足"):FString::Printf(TEXT("缺 %lld"),Input.Count-Owned));
             Row.State->SetColorAndOpacity(Pending?ColdSteelUI::TextSecondary:Color);
         }
         bCanStart=System->CanStart(false,StartReason);
@@ -358,28 +391,62 @@ void UColdSteelWoodworkingManagementWidget::Refresh()
         {
             TArray<FString> Returned;
             for(const auto& Input:Refund)Returned.Add(FString::Printf(TEXT("%s × %lld"),*ColdSteelInventory::Text(Model->CreateItem(Input.Item),TEXT("name")),Input.Count));
-            Reason=Returned.IsEmpty()?TEXT("废弃返还：无（各项材料折半不足 1 个）"):TEXT("废弃返还至背包：")+FString::Join(Returned,TEXT("、"));
+            Reason=Job.bMaterialsWaived?TEXT("本轮免材料制作 · 废弃不返料"):Returned.IsEmpty()?TEXT("废弃返还：无（各项材料折半不足 1 个）"):TEXT("废弃返还至背包：")+FString::Join(Returned,TEXT("、"));
         }
-        SetText(RefundPreview,Pending?Job.Result+TEXT("\n")+Reason:TEXT(""));
-        SetText(RulesText,Pattern?Pattern->Instructions+FString::Printf(TEXT("\nQ / E 每次 1° · Shift + Q / E 每次 0.25° · Ctrl + Z 撤销，最多 %d 次\n调整时暂停计时，关键连接必须完整；达到清除目标且损伤不超限才能领取成品。\n评分决定成品修正：50 分不变，100 分 +25%%，最低 -25%%；弓修正物理伤害，法杖修正本件魔法攻击。\nEsc 或“暂停并返回”保留进度；“结束并返回”按当前进度结算。"),System->Settings().UndoLimit):TEXT("暂无加工说明"));
+        SetText(RefundPreview,Pending?((Job.bFinished&&Job.bPassed)||Job.Result.IsEmpty()?Reason:Job.Result+TEXT("\n")+Reason):TEXT(""));
+        SetText(RulesText,Pattern?Pattern->Instructions+FString::Printf(TEXT("\nQ / E 每次 1° · Shift + Q / E 每次 0.25° · Ctrl + Z 撤销，最多 %d 次\n调整时暂停计时，关键连接必须完整；达到清除目标且损伤不超限才能领取成品。\n新工件：木芯保底 0～10%%，加工 0～15%%，合计最高 +25%%；旧工件保留原规则。弓修正物理伤害，法杖修正本件魔法攻击。\nEsc 或“暂停并返回”保留进度；“结束并返回”按当前进度结算。"),System->Settings().UndoLimit):TEXT("暂无加工说明"));
         bMaterialsDirty=false;
     }
     RefundPreview->SetVisibility(Pending?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
-    SetText(Stage,Preparing?TEXT("准备台面与木板"):NeedsSettlement?TEXT("加工已结束 · 等待保存结果"):Pending?(Job.bFinished?(Job.bPassed?TEXT("加工完成 · 已达标"):TEXT("加工结束 · 未达标")):TEXT("加工已暂停 · 进度保留")):TEXT("选择工件 · 准备加工"));
-    SetText(Stats,Pending?FString::Printf(TEXT("%.1f 分   |   %.1f%%   |   %.1f%%"),Job.Quality,Job.Clearance*100,(1-Job.Integrity)*100):
-        Pattern?FString::Printf(TEXT("%.0f s   |   ≥%.1f%%   |   ≤%.1f%%"),Pattern->Seconds,Pattern->RequiredClearance*100,Pattern->MaximumDamage*100):TEXT("—"));
-    SetText(StatLegend,Pending?TEXT("工艺评分   /   废料清除   /   主体损伤"):TEXT("切割时限   /   废料清除   /   主体损伤"));
-    Stats->SetColorAndOpacity(!Pending||!Job.bFinished?ColdSteelUI::TextSecondary:Job.bPassed?ColdSteelUI::Success:ColdSteelUI::Danger);
-    Timer->SetPercent(Pending?FMath::Clamp(float(Job.Clearance),0.f,1.f):0.f);
-    SetText(ActionLabel,Preparing?TEXT("准备加工中"):NeedsSettlement?TEXT("重试结算"):Pending?(Job.bFinished?TEXT("领取成品"):TEXT("继续加工")):TEXT("开始加工"));
+    const bool Finished=Pending&&Job.bFinished;
+    const FLinearColor QualityColor=ColdSteelCraftingResultStyle::ScoreColor(Job.Quality);
+    SetText(Stage,Preparing?TEXT("准备台面与木板"):NeedsSettlement?TEXT("加工已结束 · 等待保存结果"):Pending?(Job.bFinished?(Job.bPassed?TEXT("交付成品 · 已达标"):TEXT("加工结束 · 未达标")):TEXT("加工已暂停 · 进度保留")):TEXT("选择工件 · 准备加工"));
+    Stage->SetColorAndOpacity(Finished?(Job.bPassed?QualityColor:ColdSteelUI::Danger):ColdSteelUI::TextPrimary);
+    Stats->SetVisibility(Pending?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
+    StatLegend->SetVisibility(Pending?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
+    ResultMetrics->SetVisibility(Pending?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+    SetText(Stats,Pattern?FString::Printf(TEXT("%.0f 秒   ·   ≥%.1f%%   ·   ≤%.1f%%"),Pattern->Seconds,Pattern->RequiredClearance*100,Pattern->MaximumDamage*100):TEXT("—"));
+    Stats->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+    if(Pending)
+    {
+        SetText(ScoreValue,Finished?FString::Printf(TEXT("%.0f 分"),Job.Quality):TEXT("待完成"));
+        ScoreValue->SetColorAndOpacity(Finished?QualityColor:ColdSteelUI::TextTertiary);
+        SetText(ClearanceValue,FString::Printf(TEXT("清除 %.1f%%"),Job.Clearance*100));ClearanceValue->SetColorAndOpacity(ColdSteelUI::TextPrimary);
+        const int32 DamageTenths=FMath::RoundToInt(FMath::Clamp(1-Job.Integrity,0.,1.)*1000.);
+        SetText(DamageValue,FString::Printf(TEXT("损伤 %.1f%%"),DamageTenths/10.));
+        DamageValue->SetColorAndOpacity(DamageTenths>0?ColdSteelUI::Danger:ColdSteelUI::TextTertiary);
+    }
+    const bool ShowBonus=!Finished||Job.bPassed;
+    const bool Legacy=Pending&&Job.QualityVersion<ColdSteelWoodQuality::Version;
+    QualityBonusValue->SetVisibility(ESlateVisibility::HitTestInvisible);
+    MaterialBonusValue->SetVisibility(ShowBonus&&!Legacy?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+    ProcessingBonusValue->SetVisibility(ShowBonus?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+    ColdSteelCraftingResultStyle::SetBonus(MaterialBonusValue,TEXT("材质"),System->MaterialBonus());
+    ColdSteelCraftingResultStyle::SetBonus(ProcessingBonusValue,Legacy?TEXT("旧版工艺"):TEXT("加工"),System->ProcessingBonus());
+    const auto PreviewItem=Pending?Job.Item:Recipe?Model->CreateItem(Recipe->Output):FColdSteelItem{};
+    ColdSteelCraftingResultStyle::SetBonus(QualityBonusValue,*ColdSteelWoodQuality::StatLabel(PreviewItem),System->MaterialBonus()+System->ProcessingBonus());
+    if(Finished)
+    {
+        if(!Job.bPassed)
+        {SetText(QualityBonusValue,TEXT("未达标 · 无可领取成品"));QualityBonusValue->SetColorAndOpacity(ColdSteelUI::Danger);}
+        else if(ColdSteelWoodQuality::Channel(Job.Item)==ColdSteelWoodQuality::EChannel::None)
+        {SetText(QualityBonusValue,TEXT("此工件无伤害修正"));QualityBonusValue->SetColorAndOpacity(ColdSteelUI::TextTertiary);}
+        else ColdSteelCraftingResultStyle::SetBonus(QualityBonusValue,*ColdSteelWoodQuality::StatLabel(Job.Item),ColdSteelWoodQuality::FromJob(Job)-1);
+    }
+    Timer->SetPercent(Finished?1.f:Pending?FMath::Clamp(float(Job.Clearance),0.f,1.f):0.f);
+    Timer->SetFillColorAndOpacity(Finished?(Job.bPassed?QualityColor:ColdSteelUI::Danger):ColdSteelUI::Accent);
+    SetText(ActionLabel,Preparing?TEXT("准备加工中"):NeedsSettlement?TEXT("重试结算"):Pending?(Job.bFinished?(Job.bPassed?TEXT("领取成品"):TEXT("未达标")):TEXT("继续加工")):TEXT("开始加工"));
+    SetText(DiscardLabel,Finished?(Job.bPassed?TEXT("废弃成品"):TEXT("废弃工件")):TEXT("取消工件"));
     ActionButton->SetIsEnabled(InputReady&&!Preparing&&!Busy&&(Pending?(Job.bFinished?Job.bPassed:(NeedsSettlement||System->CanResume())):(bCanStart&&Owner->CanConfirmProject())));
+    CoreChoice->SetIsEnabled(InputReady&&!Preparing&&!Busy&&System->CanSelect());
     RecipeChoice->SetIsEnabled(InputReady&&!Preparing&&!Busy&&System->CanSelect()&&System->Patterns().Num()>1);
     DiscardButton->SetIsEnabled(InputReady&&!Preparing&&!Busy&&Pending&&bCanDiscard);
     FString Reason;
     if(Preparing)Reason=Owner->PresentationStatus().IsEmpty()?TEXT("正在准备台面与木板，准备完成后投入材料。"):Owner->PresentationStatus();
     else if(Busy)Reason=TEXT("正在等待服务器结算…");
+    else if(!Owner->PresentationStatus().IsEmpty())Reason=Owner->PresentationStatus();
     else if(Pending)Reason=System->Message();
-    else Reason=!Owner->PresentationStatus().IsEmpty()?Owner->PresentationStatus():StartReason;
+    else Reason=StartReason;
     SetText(Status,Reason);
 }
 void UColdSteelWoodworkingManagementWidget::HandleAction()
@@ -410,6 +477,14 @@ UWidget* UColdSteelWoodworkingManagementWidget::GenerateRecipeOption(FString Opt
     RecipeOptionWidgets.RemoveAll([](const auto& Entry){return !Entry.IsValid();});
     RecipeOptionWidgets.Add(Widget);
     return Widget;
+}
+void UColdSteelWoodworkingManagementWidget::HandleCoreSelected(FString Option,ESelectInfo::Type SelectionType)
+{
+    if(SelectionType==ESelectInfo::Direct||!System)return;
+    auto* Owner=OwnerWidget.Get();const int32 Index=CoreChoice->GetSelectedIndex();
+    if(Owner&&Owner->ManagementInputReady()&&!Owner->IsPreparingProject()&&System->Cores().IsValidIndex(Index))
+        System->SelectCore(System->Cores()[Index].Id);
+    bMaterialsDirty=true;Refresh();SetKeyboardFocus();
 }
 void UColdSteelWoodworkingManagementWidget::HandleRecipeSelected(FString Option,ESelectInfo::Type SelectionType)
 {

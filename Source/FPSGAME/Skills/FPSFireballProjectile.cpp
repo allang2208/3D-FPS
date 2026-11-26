@@ -1,4 +1,7 @@
 #include "FPSFireballProjectile.h"
+#include "../Combat/FPSAttackQuery.h"
+#include "../Monsters/MonsterSpellAim.h"
+#include "../Monsters/UnknownHumanoid.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "../Weapons/ThermalTargetSubsystem.h"
 #include "../WorldGeneration/RiverPilotFXSubsystem.h"
@@ -96,23 +99,29 @@ void AFPSFireballProjectile::ResolveNetState()
     if(!Source.IsValid())return;
     if(!bAssetsAttached)Source->AttachPresentationAssets(this);
     // 施法者本机：把复制到达的服务端球认领成本地表现态（手势收尾/发射队列/取消都读 Active）。
-    if(Shooter->IsLocallyControlled())Source->AdoptNetOrb(this);
+    if(Shooter->IsPlayerControlled()&&Shooter->IsLocallyControlled())Source->AdoptNetOrb(this);
 }
-void AFPSFireballProjectile::LaunchAt(const FVector& AimPoint)
+void AFPSFireballProjectile::LaunchAt(const FVector& AimPoint, const APawn* LeadTarget)
 {
     if(bFlying||bFinished||!Shooter)return;
-    PreviewAimPoint=AimPoint;bPreviewLaunchLocked=true;Launch();
+    PreviewAimPoint=AimPoint;bPreviewLaunchLocked=true;LaunchFromHover(LeadTarget);
 }
 void AFPSFireballProjectile::Launch()
 {
+    LaunchFromHover(nullptr);
+}
+void AFPSFireballProjectile::LaunchFromHover(const APawn* LeadTarget)
+{
     if(bFlying||bFinished||!Shooter)return;
     // Contact is evaluated before this projectile's tick. Catch up to the
-    // player's current pose before detaching, including wall clearance.
+    // player's current pose before detaching.
     UpdateHover();
     const bool bUsePreview=bPreviewLaunchLocked;
-    const FVector AimPoint=bUsePreview?PreviewAimPoint:FPSMagicPreview::AimPoint(Shooter.Get(),this);
+    const FVector AimPoint = LeadTarget
+        ? MonsterSpellAim::LaunchAim(Shooter.Get(), LeadTarget, GetActorLocation(), PreviewAimPoint, Cast.Speed, Cast.Range, Cast.Gravity)
+        : (bUsePreview ? PreviewAimPoint : FPSMagicPreview::AimPoint(Shooter.Get(),this));
     SetAimPreviewActive(false);
-    // Launch from the actual hovering position, including any wall clearance;
+    // Launch from the actual hovering position;
     // the remote hand gesture does not pull or teleport the orb toward the hand.
     StarMarrow::CaptureSpell(Shooter.Get(),Cast.StarMarrow);
     bFlying=true;FlightAge=0.f;
@@ -153,20 +162,17 @@ void AFPSFireballProjectile::RefreshAimPreview()
     LaunchPosition=Start;
     LaunchVelocity=FPSMagicPreview::LaunchVelocity(Start,AimPoint,Cast.Speed,Shooter->GetActorForwardVector());
     FPSMagicPreview::SamplePath(Shooter.Get(),this,Start,LaunchVelocity,Cast.Gravity,
-        Cast.Range,14.f,PreviewPoints,false);
+        Cast.Range,14.f,PreviewPoints,false,Cast.DropDelay);
     FPSMagicPreview::DrawPath(AimPreviewLines,PreviewPoints);
 }
 void AFPSFireballProjectile::UpdateHover()
 {
     if(!IsValid(Shooter.Get()))return;
     const FVector Desired=HoverPosition(Shooter.Get());
-    // The authored trajectory already eases. Continue following through the
-    // windup, without a second interpolator or freezing at input release.
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(FireballMove),false,Shooter.Get());Query.AddIgnoredActor(this);
-    FHitResult Hit;
-    const bool Blocked=RangedAttackQuery::SweepSingle(GetWorld(), Shooter.Get(), Hit,GetActorLocation(),Desired,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
-    SetActorLocation(Blocked?Hit.Location:Desired);
-    if(const auto* Camera=Shooter->FindComponentByClass<UCameraComponent>())Core->SetVisibility(FVector::Distance(Camera->GetComponentLocation(),GetActorLocation())>30);
+    // Prepared hover ignores world geometry unconditionally so stairs/railings
+    // cannot snag the orb behind the player.
+    SetActorLocation(Desired,false,nullptr,ETeleportType::TeleportPhysics);
+    Core->SetVisibility(true);
 }
 void AFPSFireballProjectile::UpdateFlightFX(const FVector& PreviousPosition)
 {
@@ -219,6 +225,7 @@ void AFPSFireballProjectile::Tick(float Delta)
         return;
     }
     if(!IsValid(Shooter.Get())||!Source.IsValid()){Destroy();return;}
+    if(const auto* Unknown=::Cast<AUnknownHumanoid>(Shooter.Get());Unknown&&Unknown->Dead()){Destroy();return;}
     if(const auto* Health=Shooter->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead()){Destroy();return;}
     Age+=Delta;
     const float T=bFlying?1.f:Source->GatherFraction(),Grow=T*T*(3-2*T);
@@ -234,16 +241,18 @@ void AFPSFireballProjectile::Tick(float Delta)
         return;
     }
     Core->SetVisibility(true);FlightAge+=Delta;
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(FireballMove),false,Shooter.Get());Query.AddIgnoredActor(this);
+    FFPSAttackQuery Query(SCENE_QUERY_STAT(FireballMove),false,Shooter.Get());Query.AddIgnoredActor(this);
     FHitResult Hit;
     const FVector PreviousPosition=GetActorLocation();
     // Ballistic flight: the analytic position keeps the drop frame-rate independent, so the
     // preview line can reproduce the same arc with the same integration.
+    // 平直弹道 specialization: gravity starts only after Cast.DropDelay (0 = original arc).
     const FVector Gravity(0,0,-Cast.Gravity);
     const FVector NextPosition=FPSMagicPreview::LimitStep(PreviousPosition,
-        LaunchPosition+LaunchVelocity*FlightAge+.5f*Gravity*FlightAge*FlightAge,Cast.Range-Distance);
-    Velocity=LaunchVelocity+Gravity*FlightAge;
-    const bool Blocked=RangedAttackQuery::SweepSingle(GetWorld(), Shooter.Get(), Hit,PreviousPosition,NextPosition,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
+        FPSMagicPreview::DelayedBallistic(LaunchPosition,LaunchVelocity,Cast.Gravity,FlightAge,Cast.DropDelay),Cast.Range-Distance);
+    Velocity=LaunchVelocity+Gravity*FMath::Max(0.f,FlightAge-Cast.DropDelay);
+    const bool Blocked=Shooter->IsA<AUnknownHumanoid>() ? RangedAttackQuery::TraceToPlayer(GetWorld(),Shooter.Get(),Hit,PreviousPosition,NextPosition,14.f,Query) :
+        RangedAttackQuery::SweepSingle(GetWorld(), Shooter.Get(), Hit,PreviousPosition,NextPosition,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query);
     SetActorLocation(Blocked?Hit.Location:NextPosition);
     if(!bWaterContact)
         if(auto* Water=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())
@@ -310,11 +319,15 @@ void AFPSFireballProjectile::Explode(const FHitResult* Hit)
         UAISense_Hearing::ReportNoiseEvent(this,Center,1.f,Shooter.Get(),1600,TEXT("Fireball"));
         // Keep the collision bone for direct-hit weakpoints; airbursts have no hit.
         // 联机：客人的球结算到自己的影子档案；主机玩家的球回落本机单例。
+        const FVector WaveOrigin=Contact+(Hit?Normal*4:FVector::ZeroVector);
+        if(auto* Unknown=::Cast<AUnknownHumanoid>(Shooter.Get()))Unknown->FireballImpact(WaveOrigin,Cast,Hit);
+        else
+        {
         UColdSteelStatusModel* P=nullptr;
         if(const auto* Char=::Cast<AFPSGAMECharacter>(Shooter.Get()))P=Char->GetNetShadowProfile();
         if(!P)P=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-        const FVector WaveOrigin=Contact+(Hit?Normal*4:FVector::ZeroVector);
         if(P)P->ApplyFireballExplosion(Shooter.Get(),WaveOrigin,Cast,Hit);
+        }
     }
     if(Source.IsValid())Source->ProjectileFinished(this);Source.Reset();
     SetLifeSpan(1.2f); // Let the world-space trail finish its existing particles.

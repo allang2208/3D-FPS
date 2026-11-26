@@ -1,4 +1,6 @@
 #include "HundredEyedSlagMonster.h"
+#include "MonsterTargeting.h"
+#include "MonsterDamageBalance.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "GameFramework/GameStateBase.h"
 #include "HumanoidRagdollBudget.h"
@@ -157,7 +159,7 @@ void AHundredEyedSlagMonster::ReleaseEyeLaser(bool DamagePulse)
     for (const FHitResult& Hit : Hits)
     {
         APawn* Victim = Cast<APawn>(Hit.GetActor());
-        if (!IsValid(Victim) || !Victim->IsPlayerControlled() || PulseHitVictims.Contains(Victim)) continue;
+        if (!IsValid(Victim) || !MonsterTargeting::IsOpponentPawn(Victim) || PulseHitVictims.Contains(Victim)) continue;
         const auto* Vitals = Victim->FindComponentByClass<UFPSCombatHealthComponent>();
         if (Vitals && Vitals->IsDead()) continue;
         FCollisionQueryParams Occlusion = Query;
@@ -167,7 +169,10 @@ void AHundredEyedSlagMonster::ReleaseEyeLaser(bool DamagePulse)
         // Multiple collision bodies still receive only one hit in this
         // pulse; later pulses may damage the same living target again.
         PulseHitVictims.Add(Victim);
-        UGameplayStatics::ApplyDamage(Victim,MagicAttack*LaserDamageMultiplier,
+        // Five pulses in the default .65 s burst. Balance the complete beam,
+        // including authored interval changes, rather than five full spell hits.
+        const float Pulses=FMath::Max(1.f,FMath::CeilToFloat(FMath::Max(.1f,LaserFireSeconds)/FMath::Max(.05f,LaserDamageIntervalSeconds)));
+        UGameplayStatics::ApplyDamage(Victim,MonsterDamageBalance::Limit(MagicAttack*LaserDamageMultiplier*.6f,75.f/Pulses),
             GetController(),this,UHandBrainMagicDamage::StaticClass());
         if (State != ESlagState::EyeLaserFire || Dead()) return;
     }

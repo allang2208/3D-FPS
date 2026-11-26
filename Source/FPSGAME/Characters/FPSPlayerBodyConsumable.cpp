@@ -1,4 +1,6 @@
 #include "FPSPlayerBodyComponent.h"
+#include "../Weapons/Kukri/KukriWeaponComponent.h"
+#include "Components/DynamicMeshComponent.h"
 #include "FPSPlayerBodyAnimInstance.h"
 #include "../FPSGAMECharacter.h"
 #include "../Items/FPSPotionUseComponent.h"
@@ -90,7 +92,7 @@ void UFPSPlayerBodyComponent::UpdateConsumable(const FFPSBodyMotionSample& Sampl
     for(int32 I=0;I<ConsumableParts.Num();++I)if(auto* Part=ConsumableParts[I].Get())
     {
         Part->SetRelativeTransform(Sample.Props[I]);
-        const bool Show=(Sample.PropVisibility&(1<<I))&&!FPSPlayerBodyWorldBodyHidden();
+        const bool Show=(Sample.PropVisibility&(1<<I))&&!IsWorldBodyPresentationHidden();
         if(Part->IsVisible()!=Show)Part->SetVisibility(Show);
         FPSBodyEquipment::ApplyOwnerVisibilityFlags(Part,false,OwnerFirst);
         FPSBodyEquipment::ApplyShadowFlags(Part,Show&&ShouldWorldBodyCastShadow());
@@ -107,9 +109,42 @@ void UFPSPlayerBodyComponent::UpdateConsumable(const FFPSBodyMotionSample& Sampl
 }
 void UFPSPlayerBodyComponent::OnBodyPoseFinalized()
 {
+    UpdateAppearanceFallbackPose();
     UpdateSwordGripMount();
+    UpdateKukriPresentation();
+    UpdateObserverKukriRifts();
     PresentBeiweiTrail();
+    PresentSwordSweepRift();
+    PresentRidgeGather();
+    PresentOathRune();
+    // The owner-view whirlwind uses the actual world blade after this frame's
+    // hand pose is finalized, alongside the other post-pose weapon effects.
+    if(Character.IsValid()&&Character->IsLocallyControlled()&&IsThirdPersonViewEnabled())
+    {
+        auto* Kukri=Character->FindComponentByClass<UKukriWeaponComponent>();
+        if(Kukri&&Kukri->SkillRift==EKukriSkillRift::Whirlwind&&Kukri->bWhirlwind)
+        {
+            bool Found=false;
+            for(const auto& Binding:MotionBindings)
+            {
+                const auto& W=Binding.Definition;
+                if(Kukri->bStaffOffhandWhirlwind)
+                {if(W.AttachHand!=1||W.ItemInstance!=Kukri->Shot.ItemInstance)continue;}
+                // Lone off-hand blade: the body blade is the acting weapon but hangs on hand_l.
+                else if(W.bLoneBlade)
+                {if(W.PoseFamily!=TEXT("Kukri")||W.ItemInstance!=Kukri->InstanceId)continue;}
+                else if(W.PoseFamily!=TEXT("Kukri")||W.AttachHand!=0||W.ItemInstance!=Kukri->InstanceId)continue;
+                auto* Blade=Binding.Static.Get();
+                if(!Blade||!Blade->IsVisible()||Blade->bHiddenInGame||IsWorldWeaponStowed(Blade))break;
+                auto* Parent=Blade->GetAttachParent();if(!Parent)break;
+                const FTransform Knife=Blade->GetRelativeTransform()*Parent->GetSocketTransform(Blade->GetAttachSocketName(),RTS_World);
+                Kukri->UpdateWhirlwindRiftPose(Knife);Found=true;break;
+            }
+            if(!Found&&Kukri->SkillRiftVisual)Kukri->SkillRiftVisual->SetVisibility(false);
+        }
+    }
     UpdateNativeBowContacts();
+    UpdateBowMagic();
     if(!QueuedWorldDiscards)return;
     if(GetBodyMesh())GetBodyMesh()->UpdateChildTransforms();
     for(int32 I=0;I<3;++I)if(QueuedWorldDiscards&(1<<I))

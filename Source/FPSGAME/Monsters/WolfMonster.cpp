@@ -1,4 +1,9 @@
 #include "WolfMonster.h"
+#include "MonsterTargeting.h"
+#include "HillsWildlifeAudio.h"
+#include "WildlifeDistanceActivity.h"
+#include "WildlifeSubsystem.h"
+#include "WildlifeAnimal.h"
 #include "GameFramework/GameStateBase.h"
 #include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "Net/UnrealNetwork.h"
@@ -25,6 +30,8 @@
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
+#include "Misc/PackagePath.h"
+#include "UObject/Package.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "PhysicsEngine/PhysicsAsset.h"
@@ -36,6 +43,8 @@ AWolfMonster::AWolfMonster(const FObjectInitializer& ObjectInitializer)
         .SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
     PrimaryActorTick.bCanEverTick = true;
+    WildlifeAudio = CreateDefaultSubobject<UHillsWildlifeAudio>(TEXT("HillsWildlifeAudio"));
+    DistanceActivity = CreateDefaultSubobject<UWildlifeDistanceActivity>(TEXT("WildlifeDistanceActivity"));
     Combat = CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
     WoundAppearance = CreateDefaultSubobject<UZombieDogAppearanceComponent>(TEXT("WoundAppearance"));
     CorpseRagdoll = CreateDefaultSubobject<UMonsterCorpseRagdollComponent>(TEXT("CorpseRagdoll"));
@@ -104,9 +113,26 @@ float AWolfMonster::ClipLength(FName Action) const
     UAnimSequence* Clip = AnimationSet ? AnimationSet->FindSequence(Action) : nullptr;
     return Clip ? Clip->GetPlayLength() : 0.f;
 }
+void AWolfMonster::PostInitializeComponents()
+{
+    bWildlifeWolf = UWildlifeSubsystem::IsWildlifeMap(GetWorld()) && UWildlifeSubsystem::IsCatalogClass(FSoftObjectPath(GetClass()));
+    CorpseRagdoll->bAllowClientPresentation = bWildlifeWolf;
+    Super::PostInitializeComponents();
+    UWorld* World = GetWorld();
+    if (!World->IsGameWorld() || !HasAuthority() || UWildlifeSubsystem::IsWildlifeMap(World)) return;
+
+    // Synthetic combat fixtures construct the native wolf in an unsaved, standalone world.
+    const bool bNativeMapWolf = GetClass() == StaticClass()
+        && (World->WorldType == EWorldType::PIE || !World->GetPackage()->GetLoadedPath().IsEmpty());
+    // The zombie dog inherits the wolf blueprint and has its own combat spawning rules.
+    if (bNativeMapWolf || UWildlifeSubsystem::IsCatalogClass(FSoftObjectPath(GetClass())))
+        Destroy();
+}
+
 void AWolfMonster::BeginPlay()
 {
     Super::BeginPlay();
+    if (bWildlifeWolf) WildlifeAudio->SetSpecies(TEXT("wolf"));
     Home = GetActorLocation(); if(HasAuthority()){MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier()); Health = FMath::Max(1.f, MaxHealth);} // 全局生命成长层；归巢回血读取的也是放大后的 MaxHealth
     AlignVisual();
     WoundAppearance->ApplyAppearance(GetMesh());
@@ -120,11 +146,12 @@ void AWolfMonster::BeginPlay()
     GetMesh()->AddTickPrerequisiteActor(this);
     GetMesh()->AddTickPrerequisiteComponent(Combat);
     EnterState(HasAuthority()?EWolfState::Idle:State);
+    if (!HasAuthority() && bWildlifeWolf && WildlifeHitPresentation.Revision) StartHitPresentation();
     if (auto* AI = Cast<AMonsterAIController>(GetController())) AI->UpdateKnowledge();
 }
 bool AWolfMonster::Busy() const
 {
-    return Dead() || State == EWolfState::Howl || State == EWolfState::Bite || State == EWolfState::Pounce || State == EWolfState::Stagger || State == EWolfState::Recovery;
+    return Dead() || State == EWolfState::Howl || State == EWolfState::Bite || State == EWolfState::Pounce || State == EWolfState::Stagger || State == EWolfState::Recovery || State == EWolfState::Flee;
 }
 FVector AWolfMonster::Mouth() const
 {
@@ -136,7 +163,9 @@ bool AWolfMonster::CanSee(const AActor* Actor) const
     FHitResult Hit;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(WolfSight), false, this);
     Query.AddIgnoredActor(Actor);
-    return !GetWorld()->LineTraceSingleByChannel(Hit, Mouth(), Actor->GetActorLocation(), ECC_Visibility, Query);
+    const auto* Body=MonsterTargeting::ContactBody(Cast<APawn>(Actor));
+    Query.AddIgnoredActor(Body);
+    return !GetWorld()->LineTraceSingleByChannel(Hit, Mouth(), Body?Body->GetActorLocation():Actor->GetActorLocation(), ECC_Visibility, Query);
 }
 bool AWolfMonster::CanAttack(APawn* Victim) const
 {
@@ -148,7 +177,7 @@ bool AWolfMonster::CanAttack(APawn* Victim) const
         const auto* Bite=AnimationSet?AnimationSet->FindAction(TEXT("AttackBite")):nullptr;
         return BiteCooldownLeft<=0.f&&Bite&&Bite->ContactStartSeconds>=0.f&&Bite->ContactEndSeconds>Bite->ContactStartSeconds;
     }
-    const FVector Offset = Victim->GetActorLocation() - GetActorLocation();
+    const FVector Offset = MonsterTargeting::ContactBody(Victim)->GetActorLocation() - GetActorLocation();
     if (bUsePredictiveHunting ? !HuntingSightFrom(Victim, GetActorLocation()) : (FMath::Abs(Offset.Z) > 120.f || !CanSee(Victim))) return false;
     const float Distance = Offset.Size2D();
     if (bHowlOnEncounter && !bHasAlerted && Distance > PounceMinRange && Distance <= AggroRadius && ClipLength(TEXT("Howl")) > 0.f) return true;
@@ -202,9 +231,11 @@ void AWolfMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLife
     DOREPLIFETIME(AWolfMonster,Health);DOREPLIFETIME(AWolfMonster,MaxHealth);
     DOREPLIFETIME(AWolfMonster, State);DOREPLIFETIME(AWolfMonster,ActivePounceFlightSeconds);
     DOREPLIFETIME(AWolfMonster, SoftDeathLeadSeconds);
+    DOREPLIFETIME(AWolfMonster, WildlifeHitPresentation);
 }
 void AWolfMonster::OnRep_State()
 {
+    if (Dead()) DistanceActivity->LeaveForDeath();
     // 远端副本：EnterState 本身是表现内聚的（动画/移动标志），直接重放。
     if(!HasAuthority())EnterState(State);
 }
@@ -212,6 +243,13 @@ void AWolfMonster::EnterState(EWolfState NewState)
 {
     if(HasAuthority())NetworkStateStarted=GetWorld()->GetTimeSeconds();
     State = NewState; StateSeconds = 0.f;
+    if (Dead() && bWildlifeWolf)
+    {
+        DistanceActivity->LeaveForDeath();
+        GetCharacterMovement()->DisableMovement();
+        GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        GetMesh()->SetCollisionResponseToChannel(ECC_Pawn, ECR_Ignore);
+    }
     if (Dead()) OnDeathPresentationStarted();
     // A replicated handoff may arrive before the client's last lead-in frame.
     // Capture the same authored pose before hiding the live mesh.
@@ -219,7 +257,18 @@ void AWolfMonster::EnterState(EWolfState NewState)
         SampleAction(TEXT("Death"), SoftDeathLeadSeconds);
     if ((State == EWolfState::Ragdoll || (State == EWolfState::Dying && SoftDeathLeadSeconds <= 0.f))
         && CorpseRagdoll->TryStartSoftDeath(GetMesh())) return;
-    const bool Moving = State == EWolfState::Chase || State == EWolfState::Returning;
+    // Wildlife can fall back to the authored physics asset when no soft-body
+    // binding is present. Remote corpses must also complete that presentation.
+    if (!HasAuthority() && bWildlifeWolf && State == EWolfState::Ragdoll)
+    {
+        if (!CorpseRagdoll->WasAttempted() && !CorpseRagdoll->IsFrozen())
+        {
+            SampleAction(TEXT("Death"), ClipLength(TEXT("Death")) * (bUseRagdoll ? DeathAnimationFraction : 1.f));
+            if (!bUseRagdoll || !CorpseRagdoll->Start(GetMesh())) CorpseRagdoll->FreezeAnimatedPose(GetMesh());
+        }
+        return;
+    }
+    const bool Moving = State == EWolfState::Chase || State == EWolfState::Returning || State == EWolfState::Flee;
     GetCharacterMovement()->bOrientRotationToMovement = Moving;
     GetCharacterMovement()->MaxWalkSpeed = State == EWolfState::Returning ? WalkSpeed : ChaseSpeed;
     if (!Moving) GetCharacterMovement()->StopMovementImmediately();
@@ -260,7 +309,7 @@ void AWolfMonster::SampleAction(FName Action, float SourceSeconds)
 }
 void AWolfMonster::TryContact(float SourceSeconds)
 {
-    if (bAttackConsumed || !Target.IsValid()) return;
+    if (bAttackConsumed || !Target.IsValid() || MonsterTargeting::IsDownedArtisan(Target.Get())) return;
     if(IceWallCombat::ApplyMelee(this,Target.Get(),BiteTriggerRange+35.f,State==EWolfState::Pounce?PounceDamage:BiteDamage))
     {bAttackConsumed=true;return;}
     const auto* Vitals = Target->FindComponentByClass<UFPSCombatHealthComponent>();
@@ -274,7 +323,7 @@ void AWolfMonster::TryContact(float SourceSeconds)
         if (!CanSee(Target.Get())) return;
         const FVector Offset = Target->GetActorLocation() - GetActorLocation();
         if (Offset.Size2D() > BiteTriggerRange + 35.f || FVector::DotProduct(AttackDirection, Offset.GetSafeNormal2D()) < .35f) return;
-        auto* TargetBody = Cast<UPrimitiveComponent>(Target->GetRootComponent());
+        auto* TargetBody = Cast<UPrimitiveComponent>(MonsterTargeting::ContactBody(Target.Get())->GetRootComponent());
         FVector Closest;
         if (!TargetBody || TargetBody->GetClosestPointOnCollision(Mouth(), Closest) < 0.f || FVector::DistSquared(Mouth(), Closest) > FMath::Square(ContactRadius)) return;
     }
@@ -453,7 +502,12 @@ void AWolfMonster::Tick(float DeltaSeconds)
                 SampleAction(Action,FMath::Min(T,ClipLength(Action)));
             }
         }
-        if (State == EWolfState::Dying && SoftDeathLeadSeconds > 0.f)
+        if (State == EWolfState::Dying && bWildlifeWolf && !CorpseRagdoll->HasSoftDeath())
+        {
+            SampleAction(TEXT("Death"), FMath::Min(StateSeconds, ClipLength(TEXT("Death"))));
+            CorpseRagdoll->RecordDeathPose(GetMesh(), DeltaSeconds, true);
+        }
+        else if (State == EWolfState::Dying && SoftDeathLeadSeconds > 0.f)
         {
             StateSeconds = FMath::Min(SoftDeathLeadSeconds, StateSeconds + FMath::Max(0.f, DeltaSeconds));
             SampleAction(TEXT("Death"), StateSeconds);
@@ -482,6 +536,35 @@ void AWolfMonster::Tick(float DeltaSeconds)
     }
     if (State == EWolfState::Ragdoll) return;
     if (State == EWolfState::Stagger) { if (StateSeconds >= ReactionSeconds) Combat->FinishReaction(); return; }
+    const double Now = GetWorld()->GetTimeSeconds();
+    if (Now < FleeUntil && !Combat->IsControlled() && !Combat->IsKnockedDown())
+    {
+        if (State != EWolfState::Flee)
+        {
+            bAttackConsumed = true;
+            FinishPounceMovement();
+            Target.Reset();
+            EnterState(EWolfState::Flee);
+            WildlifeAudio->Signal(EHillsAnimalSound::Alarm);
+            if (auto* AI = Cast<AMonsterAIController>(GetController())) { AI->StopMovement(); AI->UpdateKnowledge(); }
+            NextEscapeStep = 0.;
+        }
+        if (Now >= NextEscapeStep)
+        {
+            EscapeStep = GetActorLocation();
+            if (auto* Wildlife = GetWorld()->GetSubsystem<UWildlifeSubsystem>())
+                Wildlife->FindEscapeStep(*this, WildlifeThreat, EscapeStep);
+            NextEscapeStep = Now + .45;
+        }
+        const FVector Offset = EscapeStep - GetActorLocation();
+        if (Offset.SizeSquared2D() > FMath::Square(45.)) AddMovementInput(Offset.GetSafeNormal2D(), 1.f, true);
+        return;
+    }
+    if (State == EWolfState::Flee && Now >= FleeUntil)
+    {
+        EnterState(EWolfState::Idle);
+        if (auto* AI = Cast<AMonsterAIController>(GetController())) AI->UpdateKnowledge();
+    }
     if (State == EWolfState::Recovery)
     {
         if (StateSeconds >= RecoverySeconds) { EnterState(EWolfState::Idle); if (auto* AI = Cast<AMonsterAIController>(GetController())) AI->UpdateKnowledge(); }
@@ -515,14 +598,38 @@ void AWolfMonster::InterruptAttack(float Seconds)
 }
 void AWolfMonster::StartHitPresentation()
 {
-    const FVector Incoming = Combat->IsParryReaction() ? Combat->GetParryDirection() : IncomingHitDirection;
-    const float Side = FVector::DotProduct(-Incoming.GetSafeNormal2D(), GetActorRightVector());
-    ReactionAction = Side > .4f ? TEXT("HitRight") : Side < -.4f ? TEXT("HitLeft") : TEXT("HitFront");
+    if (bWildlifeWolf && !HasAuthority())
+    {
+        // Combat-component and actor RepNotifies can arrive in either order.
+        // Never derive the remote direction from its uninitialized local hit vector.
+        const auto* GS=GetWorld()->GetGameState();
+        const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+        if (Dead() || !WildlifeHitPresentation.Revision || Now>WildlifeHitPresentation.StartedAt+WildlifeHitPresentation.Duration) return;
+        ReactionAction=WildlifeHitPresentation.Action;
+    }
+    else
+    {
+        const FVector Incoming = Combat->IsParryReaction() ? Combat->GetParryDirection() : IncomingHitDirection;
+        const float Side = FVector::DotProduct(-Incoming.GetSafeNormal2D(), GetActorRightVector());
+        ReactionAction = Side > .4f ? TEXT("HitRight") : Side < -.4f ? TEXT("HitLeft") : TEXT("HitFront");
+        if (bWildlifeWolf)
+        {
+            WildlifeHitPresentation.Action=ReactionAction;
+            WildlifeHitPresentation.StartedAt=GetWorld()->GetTimeSeconds();
+            WildlifeHitPresentation.Duration=FMath::Max(.1f,ReactionSeconds);
+            ++WildlifeHitPresentation.Revision;
+            ForceNetUpdate();
+        }
+    }
     if (auto* Anim = Animation())
     {
         Anim->PlayTemplateAction(ReactionAction, true);
         if (Combat->IsParryReaction()) Anim->FinishPoseTransition();
     }
+}
+void AWolfMonster::OnRep_WildlifeHitPresentation()
+{
+    if (!HasAuthority() && bWildlifeWolf && HasActorBegunPlay()) StartHitPresentation();
 }
 void AWolfMonster::SetHitPresentationTime(float Elapsed, float Remaining)
 {
@@ -547,15 +654,47 @@ float AWolfMonster::TakeDamage(float Damage, const FDamageEvent& Event, AControl
     Health -= Applied;
     Super::TakeDamage(Applied, Event, EventInstigator, Causer);
     if (Health <= 0.f) Die(EventInstigator);
-    else Combat->ReceiveHit(Applied, EventInstigator ? EventInstigator->GetPawn().Get() : Cast<APawn>(Causer),
-        MonsterToughness::FormOf(Event.DamageTypeClass));
+    else
+    {
+        if (bWildlifeWolf) WildlifeAudio->Signal(EHillsAnimalSound::Hurt);
+        APawn* Attacker = EventInstigator ? EventInstigator->GetPawn().Get() : Cast<APawn>(Causer);
+        if (Attacker && Attacker->IsPlayerControlled()) RememberWildlifeThreat(Attacker->GetActorLocation());
+        Combat->ReceiveHit(Applied, Attacker, MonsterToughness::FormOf(Event.DamageTypeClass));
+    }
     // Per-hit reporting: Verbose keeps automatic fire from flooding the log.
     UE_LOG(LogTemp, Verbose, TEXT("WOLF_DAMAGE target=%s requested=%.2f applied=%.2f health=%.2f/%.2f"), *GetName(), Requested, Applied, Health, MaxHealth);
     return Applied;
 }
+void AWolfMonster::RememberWildlifeThreat(const FVector& Source)
+{
+    if (!bWildlifeWolf || !HasAuthority() || Dead() || DistanceActivity->IsDistancePaused()) return;
+    WildlifeThreat = Source;
+    const double Now = GetWorld()->GetTimeSeconds();
+    if (Now >= FleeUntil) WildlifeAudio->Signal(EHillsAnimalSound::Alarm);
+    FleeUntil = Now + 6.;
+}
+
+void AWolfMonster::MulticastWildlifeGunHit_Implementation(FName Bone, FVector_NetQuantize Point,
+    FVector_NetQuantizeNormal Direction, float Damage)
+{
+    if (Dead() || GetNetMode() == NM_DedicatedServer) return;
+    FHitResult Hit;
+    Hit.BoneName = Bone;
+    Hit.ImpactPoint = Point;
+    if (auto* Body = Cast<UMonsterIdleBreathingMeshComponent>(GetMesh())) Body->AddGunHitFeedback(Hit, Direction, Damage);
+}
+void AWolfMonster::ResumeWildlifeStateClock()
+{
+    // Remote clients sample attacks from absolute server time. Skip the time
+    // spent asleep, just as the server's per-state accumulator did.
+    NetworkStateStarted = GetWorld()->GetTimeSeconds() - StateSeconds;
+}
+
 void AWolfMonster::Die(AController* Killer)
 {
     if (Dead()) return;
+    if (bWildlifeWolf) DistanceActivity->LeaveForDeath();
+    if (bWildlifeWolf) WildlifeAudio->Signal(EHillsAnimalSound::Death);
     SoftDeathLeadSeconds = ShouldPlaySoftDeathLeadIn()
         ? ClipLength(TEXT("Death")) * FMath::Clamp(DeathAnimationFraction, 0.f, 1.f) : 0.f;
     CorpseRagdoll->PrepareDeath(GetMesh());
@@ -565,7 +704,14 @@ void AWolfMonster::Die(AController* Killer)
     GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     GetMesh()->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
     if (auto* AI = Cast<AMonsterAIController>(GetController())) AI->UpdateKnowledge();
-    SetLifeSpan(FMath::Max(CorpseSeconds, ClipLength(TEXT("Death")) + 3.f));
+    auto* Wildlife = bWildlifeWolf ? GetWorld()->GetSubsystem<UWildlifeSubsystem>() : nullptr;
+    const auto* Wolf = Wildlife ? WildlifeCatalog::Get().Find(TEXT("wolf")) : nullptr;
+    if (Wolf)
+    {
+        Wildlife->BeginCorpse(*this, *Wolf);
+        Wildlife->DropLoot(*this, *Wolf, GetActorLocation());
+    }
+    else SetLifeSpan(FMath::Max(CorpseSeconds, ClipLength(TEXT("Death")) + 3.f));
     ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),Killer,this);
     ColdSteelSkills::AwardKillByOwner(GetGameInstance(),Killer,this,ExperienceReward);
 }

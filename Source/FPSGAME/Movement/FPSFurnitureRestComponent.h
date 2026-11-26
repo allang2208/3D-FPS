@@ -21,6 +21,7 @@ struct FFurnitureRestState
     UPROPERTY() FTransform Approach;
     UPROPERTY() FVector Exit=FVector::ZeroVector;
     UPROPERTY() float GroundZ=0.f;
+    UPROPERTY() float SeatFloorCorrection=0.f;
     // Runtime reservation: authority matches component/instance/slot; replicas
     // use the published slot location for local interaction feedback.
     UPROPERTY() int32 SlotIndex=INDEX_NONE;
@@ -92,8 +93,8 @@ private:
     void ApplyRestCameraReturn(FMinimalViewInfo& View);
     void OutlineLoaded();
     bool ResolveFocus(FHitResult& Hit,FTransform& Transform,int32& Slot,FName& Kind,FVector& Seat,float& Yaw,bool& bOccupied) const;
-    bool IsSlotOccupied(const UStaticMeshComponent* Mesh,int32 Instance,int32 Slot,const FVector& Location) const;
-    bool FindExit(const FTransform& Root,FVector& Exit,FName Kind,bool bMirror) const;
+    bool bActiveFitted=false;
+    bool FindExit(const FTransform& Root,FVector& Exit,FName Kind,bool bMirror,bool bFitted) const;
     bool ExitClear(const FVector& Position) const;
     void StartRest();
     void SetPhase(uint8 Phase);

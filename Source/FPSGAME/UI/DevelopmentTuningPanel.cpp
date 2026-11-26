@@ -28,6 +28,7 @@ void UDevelopmentPanelWidget::NativeConstruct()
 void UDevelopmentPanelWidget::NativeDestruct()
 {
     if (ItemChoice) ItemChoice->CloseMenu();
+    if (QuestChoice) QuestChoice->CloseMenu();
     ++PerformanceExportGeneration;
     bPerformanceExporting = false;
     if (PerformanceExportButton) PerformanceExportButton->SetIsEnabled(true);
@@ -64,7 +65,8 @@ void UDevelopmentPanelWidget::BuildTuningPage(UVerticalBox* Page)
         {EDevelopmentTuningOption::InfiniteMana, TEXT("无限魔法值"), TEXT("魔法值保持可用上限，施法不扣蓝；关闭后恢复原有数值。"), TEXT("DevelopmentInfiniteMana")},
         {EDevelopmentTuningOption::NoAbilityCooldown, TEXT("魔法／技能无 CD"), TEXT("清除现有冷却，施放后不再等待 CD；保留施法动作与飞行过程。"), TEXT("DevelopmentNoCooldown")},
         {EDevelopmentTuningOption::FreeBuilding, TEXT("建造不消耗资源"), TEXT("放置体素块不扣背包／仓库体块；拆除回收仍按原规则发放。"), TEXT("DevelopmentFreeBuilding")},
-        {EDevelopmentTuningOption::FreeCrafting, TEXT("制作不消耗材料"), TEXT("打铁、制药、木工、枪械／弹药制造免材料；篝火只免食材，木材照常消耗。小游戏与加工时间照常，免费工件和未加工食材不退料。"), TEXT("DevelopmentFreeCrafting")}
+        {EDevelopmentTuningOption::FreeCrafting, TEXT("制作不消耗材料"), TEXT("打铁、制药、木工、枪械／弹药制造免材料；篝火只免食材，木材照常消耗。小游戏与加工时间照常，免费工件和未加工食材不退料。"), TEXT("DevelopmentFreeCrafting")},
+        {EDevelopmentTuningOption::FreePlanting, TEXT("无需种子也可种植植物"), TEXT("播种不需要或消耗种子／种植材料；真实占地、成熟时间与产量不变。仅单机及房主本人有效，联机访客仍按正常规则消耗。"), TEXT("DevelopmentFreePlanting")}
     };
     for (const auto& Option : Options)
     {
@@ -97,6 +99,7 @@ void UDevelopmentPanelWidget::BuildTuningPage(UVerticalBox* Page)
         case EDevelopmentTuningOption::NoAbilityCooldown: Button->OnClicked.AddDynamic(this,&ThisClass::NoCooldownClicked); break;
         case EDevelopmentTuningOption::FreeBuilding: Button->OnClicked.AddDynamic(this,&ThisClass::FreeBuildingClicked); break;
         case EDevelopmentTuningOption::FreeCrafting: Button->OnClicked.AddDynamic(this,&ThisClass::FreeCraftingClicked); break;
+        case EDevelopmentTuningOption::FreePlanting: Button->OnClicked.AddDynamic(this,&ThisClass::FreePlantingClicked); break;
         case EDevelopmentTuningOption::ThirdPersonView: Button->OnClicked.AddDynamic(this,&ThisClass::ThirdPersonViewClicked); break;
         case EDevelopmentTuningOption::FixedThirdPersonView: Button->OnClicked.AddDynamic(this,&ThisClass::FixedThirdPersonViewClicked); break;
         }
@@ -198,7 +201,7 @@ void UDevelopmentPanelWidget::RefreshTuning()
     }
     TuningStatus->SetText(FText::FromString(bTuningAvailable
         ? FString::Printf(TEXT("当前已开启 %d / %d 项"),Enabled,TuningRows.Num())
-        : TEXT("进入单机游戏并控制角色后，可使用基本调参。")));
+        : TEXT("仅单机玩家或房主控制角色后，可使用基本调参。")));
     TuningStatus->SetColorAndOpacity(bTuningAvailable ? ColdSteelUI::TextSecondary : ColdSteelUI::Warning);
     if (DisableTuningButton) DisableTuningButton->SetIsEnabled(bTuningAvailable && Enabled > 0);
 }
@@ -218,6 +221,7 @@ void UDevelopmentPanelWidget::InfiniteManaClicked() { ToggleTuning(EDevelopmentT
 void UDevelopmentPanelWidget::NoCooldownClicked() { ToggleTuning(EDevelopmentTuningOption::NoAbilityCooldown); }
 void UDevelopmentPanelWidget::FreeBuildingClicked() { ToggleTuning(EDevelopmentTuningOption::FreeBuilding); }
 void UDevelopmentPanelWidget::FreeCraftingClicked() { ToggleTuning(EDevelopmentTuningOption::FreeCrafting); }
+void UDevelopmentPanelWidget::FreePlantingClicked() { ToggleTuning(EDevelopmentTuningOption::FreePlanting); }
 void UDevelopmentPanelWidget::ThirdPersonViewClicked() { ToggleTuning(EDevelopmentTuningOption::ThirdPersonView); }
 void UDevelopmentPanelWidget::FixedThirdPersonViewClicked() { ToggleTuning(EDevelopmentTuningOption::FixedThirdPersonView); }
 void UDevelopmentPanelWidget::DisableTuningClicked()

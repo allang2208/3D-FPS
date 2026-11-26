@@ -1,4 +1,6 @@
 #include "FPSCharacterMovementComponent.h"
+#include "../FPSGAMECharacter.h"
+#include "../Weapons/Kukri/HatchetCharmComponent.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "FPSDodgeRootMotionSource.h"
 #include "Engine/World.h"
@@ -94,12 +96,18 @@ void UFPSCharacterMovementComponent::UpdateDodgeState()
     const auto Source=GetRootMotionSourceByID(DodgeRootMotionId);
     if (!Source || Source->GetTime()>=ActiveDodgeDuration ||
         Source->Status.HasFlag(ERootMotionSourceStatusFlags::MarkedForRemoval) || !IsDodging())
+    {
+        const bool Completed=Source&&Source->GetTime()>=ActiveDodgeDuration-UE_SMALL_NUMBER;
+        if(auto* Player=Cast<AFPSGAMECharacter>(CharacterOwner);Player&&Player->HatchetCharms)
+            Player->HatchetCharms->FinishDodge(Completed);
         CancelDodge();
+    }
 }
 
 void UFPSCharacterMovementComponent::CancelDodge()
 {
     if (!DodgeRootMotionId) return;
+    if(auto* Player=Cast<AFPSGAMECharacter>(CharacterOwner);Player&&Player->HatchetCharms)Player->HatchetCharms->FinishDodge(false);
     RemoveRootMotionSourceByID(DodgeRootMotionId);
     DodgeRootMotionId=0;
     Velocity.X=Velocity.Y=0.f;

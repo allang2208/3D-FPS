@@ -31,3 +31,4 @@ if not region.install_grass_cover(str(cover/'near_grass.u8')):
 if not u.EditorLoadingAndSavingUtils.save_map(world,target):
     raise RuntimeError('Cannot save the village and mountain map')
 (batch/'baked.json').write_text(json.dumps(dict(map=target,site=site,grass=json.loads((cover/'generation.json').read_text())),indent=2),encoding='utf8')
+

@@ -27,4 +27,4 @@
 
 服务器核对对话、距离、世界、已显示的等级以及玩家余额；城防存档记录订单，角色档写入扣款回执，随后升一级。读档沿用城防恢复流程。旧世界各项默认为零级，村庄重置时清空。
 
-[数值来源](../Publication/VillageDefense20261126/Implementation/Source/FPSGAME/WorldGeneration/VillageSiegeUpgrades.h) · [升级页面](../Publication/VillageDefense20261126/Implementation/Source/FPSGAME/UI/SSiegeWorkshopMarket.cpp) · [机械卡图](../../Content/ColdSteelUI/SiegeWorkshop) · [版本备份](Y:/备份/FPS3D/HighVillageDefense/MasterArtisan-SiegeUpgrades-20261124/SiegeUpgrades.zip)
+[数值来源](../../Source/FPSGAME/WorldGeneration/VillageSiegeUpgrades.h) · [升级页面](../../Source/FPSGAME/UI/SSiegeWorkshopMarket.cpp) · [机械卡图](../../Content/ColdSteelUI/SiegeWorkshop) · [版本备份](Y:/备份/FPS3D/HighVillageDefense/MasterArtisan-SiegeUpgrades-20261124/SiegeUpgrades.zip)

@@ -12,7 +12,7 @@
 void AColdSteelPlayerState::ServerRememberM24Launch_Implementation(APawn* SourcePawn,const FString& Instance,uint32 Sequence,int32 Rounds)
 {
     auto* Shooter=Cast<AFPSGAMECharacter>(GetPawn());
-    if(!HasAuthority()||!Shooter||SourcePawn!=Shooter||!ShadowModel||!Sequence)return;
+    if(!HasAuthority()||!Shooter||SourcePawn!=Shooter||!ShadowModel||!Sequence||HasAuthorityConsumableReservation(Shooter))return;
     if(LastM24LaunchSequence&&int32(Sequence-LastM24LaunchSequence)<=0)return;
     const auto* Gun=ShadowModel->Equipped();
     if(!Gun||!SniperSuppressorAssets::SupportsZhiming(Gun->Definition)||Gun->Definition!=Shooter->ActiveInventoryWeaponDefinition||Gun->InstanceId!=Instance||Instance!=Shooter->ActiveInventoryWeapon)return;
@@ -34,6 +34,7 @@ void AColdSteelPlayerState::ServerRememberM24Launch_Implementation(APawn* Source
     Launch.Eye=Shooter->GetPawnViewLocation();Launch.TraceRange=Shooter->TraceDistance;
     Launch.ViewForward=Shooter->GetBaseAimRotation().Vector();
     Launch.EffectiveRange=Shooter->EffectiveWeaponRangeCM;Launch.Interval=Shooter->EffectiveFireInterval();
+    RecordAuthorityShotRecovery(Shooter,FastestAuthorityFireInterval(Shooter));
     Launch.MaxTargets=1+FMath::Max(0,ColdSteelCombat::Snapshot(Shooter,Gun).Piercing);
     static const auto* Scale=IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Ballistics.SpeedScale"));
     const float Speed=Shooter->ProjectileSpeedCM*(Scale?FMath::Clamp(Scale->GetFloat(),.05f,10.f):1.f);

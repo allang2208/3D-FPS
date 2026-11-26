@@ -1,4 +1,5 @@
 #include "HeQueMonster.h"
+#include "MonsterTargeting.h"
 #include "HeQueClampTiming.h"
 #include "MonsterAIController.h"
 #include "FPSCombatHealthComponent.h"
@@ -11,7 +12,7 @@ float AHeQueMonster::ClampAge() const {return FMath::Max(0.f,float(ActionClock()
 bool AHeQueMonster::CanClamp(APawn* Victim) const
 {
     if(Busy()||SweepBlocked()||!ClampClip||ClampFrames.Num()<2||ActionClock()<NextClampAt||
-        !IsValid(Victim)||!Victim->IsPlayerControlled())return false;
+        !IsValid(Victim)||!MonsterTargeting::IsOpponentPawn(Victim))return false;
     const auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
     if(Vitals&&Vitals->IsDead())return false;
     const FVector Delta=Victim->GetActorLocation()-GetActorLocation();

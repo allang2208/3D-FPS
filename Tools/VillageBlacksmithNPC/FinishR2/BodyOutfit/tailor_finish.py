@@ -321,3 +321,4 @@ tmp=target.with_suffix('.tmp')
 tmp.write_text(json.dumps(d,separators=(',',':')));tmp.replace(target)
 (TARGET/'geometry.json').write_text(json.dumps({'vertices':len(d['positions']),'triangles':len(d['triangles']),'shirt_triangles':len(f),'lower_vent_cm':16.8,'turned_apron_mm':2.3,'new_keeper_pairs':2,'source_sha256':__import__('hashlib').sha256((BASE/'BodyOutfit/outfit.json').read_bytes()).hexdigest(),'slots':slots},indent=2))
 print('SMITH_R2_PATTERNS',len(d['positions']),len(d['triangles']),flush=True)
+

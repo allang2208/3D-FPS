@@ -6,6 +6,7 @@
 #include "M14SoftBodyDeath.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
+#include "GameFramework/PlayerController.h"
 #include "HAL/IConsoleManager.h"
 
 static TAutoConsoleVariable<int32> CVarHumanoidRagdolls(TEXT("fps.MonsterRagdoll.MaxActive"),8,TEXT("Maximum simultaneously simulated humanoid/corpse budget clients."));
@@ -68,7 +69,8 @@ void UHumanoidRagdollBudget::RegisterFrozenMesh(USkinnedMeshComponent* Mesh)
 {
     if (!Mesh || GetWorld()->GetNetMode() == NM_DedicatedServer) return;
     Mesh->SetForcedLOD(0);
-    if (Mesh->GetNumLODs() <= 1) return;
+    if (Mesh->GetNumLODs() <= 1 && !Cast<UMonsterCorpseMeshComponent>(Mesh)) return;
+    FrozenSince.FindOrAdd(Mesh,GetWorld()->GetTimeSeconds());
     FrozenMeshes.AddUnique(Mesh);
     if (!GetWorld()->GetTimerManager().IsTimerActive(FrozenLODTimer))
         GetWorld()->GetTimerManager().SetTimer(FrozenLODTimer, this,
@@ -77,14 +79,47 @@ void UHumanoidRagdollBudget::RegisterFrozenMesh(USkinnedMeshComponent* Mesh)
 
 void UHumanoidRagdollBudget::UpdateFrozenLODs()
 {
-    FrozenMeshes.RemoveAll([](const auto& Entry)
+    FrozenMeshes.RemoveAll([this](const auto& Entry)
     {
         const auto* Mesh = Entry.Get();
-        return !Mesh || Mesh->IsComponentTickEnabled() || Mesh->IsSimulatingPhysics();
+        const bool Remove=!Mesh || Mesh->IsComponentTickEnabled() || Mesh->IsSimulatingPhysics();
+        if(Remove)
+        {
+            FrozenSince.Remove(Entry);
+            if(auto* Body=Cast<UMonsterCorpseMeshComponent>(Entry.Get()))Body->RestoreFrozenSkeletalMesh();
+        }
+        return Remove;
     });
-    for (const auto& Entry : FrozenMeshes)
+    // Bound work after large simultaneous kills; offscreen bodies keep the full snapshot.
+    TArray<FVector,TInlineAllocator<4>> Views;
+    for (auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+        if(const auto* PC=It->Get();PC && PC->IsLocalController())
+        {FVector Loc;FRotator Rot;PC->GetPlayerViewPoint(Loc,Rot);Views.Add(Loc);}
+    bool AttemptedThisUpdate=false;
+    const double Now=GetWorld()->GetTimeSeconds();
+    const int32 Work=FMath::Min(16,FrozenMeshes.Num());
+    for (int32 I=0;I<Work;++I)
     {
-        auto* Mesh = Entry.Get();
+        FrozenCursor%=FrozenMeshes.Num();
+        auto* Mesh = FrozenMeshes[FrozenCursor++].Get();
+        if(auto* Body=Cast<UMonsterCorpseMeshComponent>(Mesh);Body && !Views.IsEmpty())
+        {
+            double DistSq=DBL_MAX;
+            for(const auto& View:Views)DistSq=FMath::Min(DistSq,Mesh->Bounds.GetBox().ComputeSquaredDistanceToPoint(View));
+            if(Body->HasFrozenStaticMesh())
+            {
+                if(DistSq>FMath::Square(1800.))continue;
+                Body->RestoreFrozenSkeletalMesh();
+                FrozenSince.FindOrAdd(Mesh)=Now;
+            }
+            else if(!AttemptedThisUpdate && DistSq>FMath::Square(2200.) && Now-FrozenSince.FindRef(Mesh)>=3.)
+            {
+                AttemptedThisUpdate=true;
+                FrozenSince.FindOrAdd(Mesh)=Now;
+                if(Body->TryBuildFrozenStaticMesh())continue;
+            }
+        }
+        if(!Mesh->WasRecentlyRendered(.6f))continue;
         if (!Mesh->UpdateLODStatus()) continue;
         // Poseable soft corpses already hold every render-bone transform and
         // must not restart animation or the solver when the distance changes.

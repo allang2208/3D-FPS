@@ -1,4 +1,5 @@
 #include "WolfMonster.h"
+#include "MonsterTargeting.h"
 #include "QuadrupedAnimationTemplate.h"
 #include "FPSCombatHealthComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -24,25 +25,26 @@ bool AWolfMonster::HuntingSightFrom(const APawn* Victim, const FVector& From) co
     FHitResult Hit;
     FCollisionQueryParams Params(SCENE_QUERY_STAT(CanineSight), false, this);
     Params.AddIgnoredActor(Victim);
+    Params.AddIgnoredActor(MonsterTargeting::ContactBody(Victim));
     return !GetWorld()->LineTraceSingleByChannel(Hit, From+FVector(0,0,15),
-        Victim->GetActorLocation(), ECC_Visibility, Params);
+        MonsterTargeting::ContactBody(Victim)->GetActorLocation(), ECC_Visibility, Params);
 }
 
 bool AWolfMonster::CanBiteFrom(const APawn* Victim, const FVector& From, float Range) const
 {
     if (!IsValid(Victim)) return false;
     float Radius, HalfHeight;
-    Victim->GetSimpleCollisionCylinder(Radius, HalfHeight);
+    MonsterTargeting::ContactBody(Victim)->GetSimpleCollisionCylinder(Radius, HalfHeight);
     const float FeetZ = From.Z-GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
     return FMath::Abs(Victim->GetNavAgentLocation().Z-FeetZ) <= HuntingHeightTolerance &&
-        FVector::DistSquared2D(From, Victim->GetActorLocation()) <= FMath::Square(FMath::Max(0.f, Range)+Radius) &&
+        FVector::DistSquared2D(From, MonsterTargeting::ContactBody(Victim)->GetActorLocation()) <= FMath::Square(FMath::Max(0.f, Range)+Radius) &&
         HuntingSightFrom(Victim, From);
 }
 
 FVector AWolfMonster::PredictHuntingTarget(APawn* Victim, float Seconds, float MaxDistance) const
 {
-    const FVector Position = Victim->GetActorLocation();
-    const FVector Velocity = Victim->GetVelocity();
+    const FVector Position = MonsterTargeting::ContactBody(Victim)->GetActorLocation();
+    const FVector Velocity = MonsterTargeting::ContactBody(Victim)->GetVelocity();
     FVector Lead = (FVector(Velocity.X, Velocity.Y, 0)*FMath::Max(0.f, Seconds))
         .GetClampedToMaxSize(FMath::Max(0.f, MaxDistance));
     // The same bounded velocity forecast used by Mutant3: a player's own
@@ -54,6 +56,7 @@ FVector AWolfMonster::PredictHuntingTarget(APawn* Victim, float Seconds, float M
             FMath::Max(Capsule->GetScaledCapsuleRadius(), Capsule->GetScaledCapsuleHalfHeight()-2.f));
         FCollisionQueryParams Params(SCENE_QUERY_STAT(CaninePrediction), false, this);
         Params.AddIgnoredActor(Victim);
+    Params.AddIgnoredActor(MonsterTargeting::ContactBody(Victim));
         FHitResult Hit;
         if (GetWorld()->SweepSingleByChannel(Hit, Position, Position+Lead, FQuat::Identity,
             Capsule->GetCollisionObjectType(), Shape, Params,
@@ -67,7 +70,7 @@ bool AWolfMonster::BuildHuntingPounce(APawn* Victim, FVector& Landing) const
 {
     if (!IsValid(Victim) || !HuntingSightFrom(Victim, GetActorLocation())) return false;
     const FVector Start = GetActorLocation();
-    const FVector Position = Victim->GetActorLocation();
+    const FVector Position = MonsterTargeting::ContactBody(Victim)->GetActorLocation();
     const float Distance = FVector::Dist2D(Start, Position);
     const float Duration = PounceTravelEnd-PounceTravelStart;
     if (Distance < PounceMinRange || Distance > PounceMaxRange || Duration <= SMALL_NUMBER) return false;
@@ -75,12 +78,13 @@ bool AWolfMonster::BuildHuntingPounce(APawn* Victim, FVector& Landing) const
     const auto* Move = GetCharacterMovement();
     const float HalfHeight = Capsule->GetScaledCapsuleHalfHeight();
     float TargetRadius, TargetHalfHeight;
-    Victim->GetSimpleCollisionCylinder(TargetRadius, TargetHalfHeight);
+    MonsterTargeting::ContactBody(Victim)->GetSimpleCollisionCylinder(TargetRadius, TargetHalfHeight);
     const float StandOff = FMath::Max(PounceStandOff, Capsule->GetScaledCapsuleRadius()+TargetRadius+4.f);
     const FVector Lead = PredictHuntingTarget(Victim,
         Duration*FMath::Clamp(PounceLeadStrength, 0.f, 1.5f), PounceMaxLeadDistance)-Position;
     FCollisionQueryParams Params(SCENE_QUERY_STAT(CaninePouncePlan), false, this);
     Params.AddIgnoredActor(Victim);
+    Params.AddIgnoredActor(MonsterTargeting::ContactBody(Victim));
     const FCollisionShape Shape = FCollisionShape::MakeCapsule(Capsule->GetScaledCapsuleRadius(),
         FMath::Max(Capsule->GetScaledCapsuleRadius(), HalfHeight-1.f));
     const FCollisionResponseParams Response(Capsule->GetCollisionResponseToChannels());
@@ -145,8 +149,8 @@ bool AWolfMonster::HuntingContact(const APawn* Victim, bool bPounce) const
     const float Reach = bPounce ? PounceContactReach : BiteTriggerRange+BiteContactSlack;
     if (!CanBiteFrom(Victim, GetActorLocation(), Reach)) return false;
     float Radius, HalfHeight;
-    Victim->GetSimpleCollisionCylinder(Radius, HalfHeight);
-    const FVector Offset = Victim->GetActorLocation()-GetActorLocation();
+    MonsterTargeting::ContactBody(Victim)->GetSimpleCollisionCylinder(Radius, HalfHeight);
+    const FVector Offset = MonsterTargeting::ContactBody(Victim)->GetActorLocation()-GetActorLocation();
     const FVector Planar(Offset.X, Offset.Y, 0);
     const float HalfAngle = FMath::Clamp(bPounce ? PounceContactAngle : BiteContactAngle, 1.f, 180.f)*.5f;
     const FVector Forward = AttackDirection.GetSafeNormal2D();

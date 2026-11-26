@@ -1,15 +1,47 @@
 #include "ProductionToolComponent.h"
 #include "ProductionPickaxeImpactMotion.h"
+#include "WarhammerHeavyMotion.h"
 #include "../FPSGAMECharacter.h"
 #include "../Movement/FPSFootstepAudioComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/CharacterMovementComponent.h"
+
+namespace
+{
+constexpr float ThunderChargeSideCM=6.5f;
+
+FQuat ThunderChargeSightRotation(float Weight)
+{
+    // Camera +Y is right. Cant the top of the shaft right while yawing the
+    // complete grasp slightly, without rotating either wrist relative to it.
+    return FQuat(FVector::UpVector,FMath::DegreesToRadians(8.f*Weight))*
+        FQuat(FVector::ForwardVector,FMath::DegreesToRadians(-6.f*Weight));
+}
+
+void ApplyToolCarryFrame(USkeletalMeshComponent* Arms,const FVector& Offset,const FQuat& Rotation)
+{
+    const FQuat BaseRotation=FRotator(0,90,0).Quaternion();
+    const FVector GripCenter=BaseRotation.RotateVector((
+        Arms->GetSocketTransform(TEXT("hand_l"),RTS_Component).GetLocation()+
+        Arms->GetSocketTransform(TEXT("hand_r"),RTS_Component).GetLocation())*.5f);
+    Arms->SetRelativeLocationAndRotation(Offset+GripCenter-Rotation.RotateVector(GripCenter),Rotation*BaseRotation);
+}
+}
 
 void UProductionToolComponent::UpdateTwoHandLocomotion(float Delta)
 {
     if(bBluntHeavy&&Elapsed>=0.f)
     {
         AxeLocomotionOffset=FVector::ZeroVector;AxeLocomotionRotation=FQuat::Identity;
+        if(UsesThunderThrowHeavy())
+        {
+            // Keep the raised frame continuous at release input, then return to
+            // the original launch frame before the .24 s projectile handoff.
+            const float Weight=1.f-FMath::SmoothStep(0.f,.18f,AuthoredElapsed());
+            AxeLocomotionOffset=FVector(0,ThunderChargeSideCM*Weight,0);
+            AxeLocomotionRotation=ThunderChargeSightRotation(Weight);
+            ApplyToolCarryFrame(Viewmodel,AxeLocomotionOffset,AxeLocomotionRotation);
+        }
         return; // The stable slam frame was set before the floor/arm solve.
     }
     const auto* Movement=Character->GetCharacterMovement();
@@ -34,11 +66,17 @@ void UProductionToolComponent::UpdateTwoHandLocomotion(float Delta)
     const float Phase=AxeStridePhase;
     // One sideways cycle spans two steps. Two vertical pulses follow footfall;
     // the slight angular delay lets the heavy head follow the two-hand carry.
-    const FVector TargetOffset=FVector(Travel.X*FMath::Sin(2.f*Phase),
+    FVector TargetOffset=FVector(Travel.X*FMath::Sin(2.f*Phase),
         Travel.Y*FMath::Cos(Phase),
         -Travel.Z*(FMath::Cos(2.f*Phase)+.12f*FMath::Cos(4.f*Phase))/1.12f)*Weight;
-    const FQuat TargetRotation=(FRotator(-Angles.Pitch*FMath::Sin(2.f*Phase-.25f),
+    FQuat TargetRotation=(FRotator(-Angles.Pitch*FMath::Sin(2.f*Phase-.25f),
         Angles.Yaw*FMath::Sin(Phase-.3f),-Angles.Roll*FMath::Cos(Phase-.18f))*Weight).Quaternion();
+    if(bThunderThrowSeat&&(bBluntCharging||bBluntReturningCharge))
+    {
+        const float Charge=FMath::SmoothStep(.15f,.8f,BluntChargePoseSeconds()/WarhammerHeavy::ChargeSeconds);
+        TargetOffset+=FVector(0,ThunderChargeSideCM*Charge,0);
+        TargetRotation=ThunderChargeSightRotation(Charge)*TargetRotation;
+    }
     const float Follow=1.f-FMath::Exp(-(bAction?28.f:18.f)*Delta);
     AxeLocomotionOffset=FMath::Lerp(AxeLocomotionOffset,TargetOffset,Follow);
     AxeLocomotionRotation=FQuat::Slerp(AxeLocomotionRotation,TargetRotation,Follow).GetNormalized();
@@ -57,10 +95,5 @@ void UProductionToolComponent::UpdateTwoHandLocomotion(float Delta)
 
     // Move both arms and the held tool together. Rotating around the grip midpoint
     // preserves the idle hand contacts and avoids a large orbit around the eye.
-    const FQuat BaseRotation=FRotator(0,90,0).Quaternion();
-    const FVector GripCenter=BaseRotation.RotateVector((
-        Viewmodel->GetSocketTransform(TEXT("hand_l"),RTS_Component).GetLocation()+
-        Viewmodel->GetSocketTransform(TEXT("hand_r"),RTS_Component).GetLocation())*.5f);
-    const FVector Location=AxeLocomotionOffset+GripCenter-AxeLocomotionRotation.RotateVector(GripCenter);
-    Viewmodel->SetRelativeLocationAndRotation(Location,AxeLocomotionRotation*BaseRotation);
+    ApplyToolCarryFrame(Viewmodel,AxeLocomotionOffset,AxeLocomotionRotation);
 }

@@ -8,10 +8,12 @@ class UColdSteelStatusModel;
 class UColdSteelForgingSystem;
 class UColdSteelForgeBoard;
 class UColdSteelGunRecipeOptionWidget;
+class UDevelopmentItemPicker;
 class UBackgroundBlur;
 class UBorder;
 class UButton;
 class UTextBlock;
+class UWrapBox;
 class USizeBox;
 class UProgressBar;
 class UTexture2D;
@@ -32,6 +34,7 @@ public:
     void Configure(UColdSteelHUDWidget* Owner);
     void SetStation(AVoxelBuildWorld* InWorld,FIntVector InCell);
     void SetInputReady(bool bReady);
+    void ShowEntryError(const FString& Reason);
 protected:
     virtual void NativeOnInitialized() override;
     virtual void NativeConstruct() override;
@@ -43,7 +46,8 @@ private:
     UFUNCTION() void HandleDiscard();
     UFUNCTION() void HandleClose();
     UFUNCTION() void HandleSmelting();
-    UFUNCTION() void HandleRecipeSelected(FString Option,ESelectInfo::Type SelectionType);
+    UFUNCTION() void HandleRecipeSelected(const FString& RecipeId);
+    UFUNCTION() void HandleMetalSelected(FString Option,ESelectInfo::Type SelectionType);
     UFUNCTION() UWidget* GenerateRecipeOption(FString Option);
     UTextBlock* Text(const FString& Caption,float Pixels,bool bNumeric=false,bool bMedium=false);
     UButton* Button(const FString& Caption,UTextBlock*& Label);
@@ -56,12 +60,15 @@ private:
     void AddMaterialCell(UWidget* Widget,int32 Row,int32 Column);
     void EnsureMaterialRows(int32 Count);
     FName SelectedRecipe;
+    FName SelectedMetal=TEXT("ironIngot");
+    FString SelectedMetalName;
     TWeakObjectPtr<AVoxelBuildWorld> World;
     FIntVector Cell=FIntVector::ZeroValue;
     FDelegateHandle ChangedHandle;
     float Scale=0,RefreshClock=0,BoardHeight=0;
     bool bInputReady=false,bMaterialsDirty=true,bCanStart=false,bCanDiscard=false;
     FString Notice,LoadedMold,StartReason;
+    bool bEntryError=false;
     struct FLabel {TWeakObjectPtr<UTextBlock> Widget;float Pixels;bool Numeric,Medium;};
     TArray<FLabel> Labels;
     // Slate owns the option's SObjectWidget; this cache only updates visible rows for DPI changes.
@@ -99,7 +106,14 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Materials;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Stage;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Stats;
+    UPROPERTY(Transient) TObjectPtr<UWrapBox> ResultMetrics;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> ScoreValue;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> StatLegend;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> BonusBreakdown;
+    UPROPERTY(Transient) TObjectPtr<UWrapBox> BonusBreakdownRow;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> DamageBonusValue;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> MaterialBonusValue;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> HitBonusValue;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> RefundPreview;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Status;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> ActionLabel;
@@ -107,7 +121,8 @@ private:
     UPROPERTY(Transient) TObjectPtr<UButton> DiscardButton;
     UPROPERTY(Transient) TObjectPtr<UButton> SmeltingButton;
     UPROPERTY(Transient) TObjectPtr<UProgressBar> Timer;
-    UPROPERTY(Transient) TObjectPtr<UComboBoxString> RecipeChoice;
+    UPROPERTY(Transient) TObjectPtr<UDevelopmentItemPicker> RecipeChoice;
+    UPROPERTY(Transient) TObjectPtr<UComboBoxString> MetalChoice;
     // Reused on data changes; the widget tree owns these children.
     struct FMaterialRow
     {

@@ -1,0 +1,526 @@
+#include "../Weapons/MagicCrystalMana.h"
+#include "../Skills/ColdSteelSkillTree.h"
+#include "../Dungeon/DungeonLayout.h"
+#include "../Weapons/JingangRuneComponent.h"
+#include "../Production/ProductionToolComponent.h"
+#include "ColdSteelStatusModel.h"
+#include "ColdSteelIncineratorStorage.h"
+#include "../Skills/FPSMagicArrowRainComponent.h"
+#include "../Skills/FPSElementalArrowComponent.h"
+#include "ColdSteelContainerSearchSubsystem.h"
+#include "GameFramework/PlayerController.h"
+#include "ColdSteelProfileRecovery.h"
+#include "../Items/FoodSpoilage.h"
+#include "../Items/CampfireFoodCatalog.h"
+#include "ColdSteelCurrency.h"
+#include "ColdSteelItemRarity.h"
+#include "../Items/FPSPotionUseComponent.h"
+#include "../Weapons/WeaponReloadStages.h"
+#include "../Weapons/PistolDualWieldComponent.h"
+#include "../Weapons/RuneOrbBladesComponent.h"
+#include "../Skills/ColdSteelSkillRules.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
+#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
+#include "ColdSteelPickup.h"
+#include "../FPSGAMECharacter.h"
+#include "../Monsters/FPSCombatHealthComponent.h"
+#include "../Survival/FPSSurvivalComponent.h"
+#include "../Combat/CombatStatusFormula.h"
+#include "../Monsters/MonsterCoreStats.h"
+#include "Dom/JsonObject.h"
+#include "Dom/JsonValue.h"
+#include "Serialization/JsonSerializer.h"
+#include "Kismet/GameplayStatics.h"
+#include "Misc/FileHelper.h"
+#include "Misc/Paths.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
+#include "Engine/GameInstance.h"
+#include "Engine/Engine.h"
+#include "Engine/World.h"
+#include "HAL/IConsoleManager.h"
+#include "EngineUtils.h"
+#include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/FrostSwordRunes.h"
+#include "Misc/SecureHash.h"
+
+using namespace ColdSteelInventory;
+#include "ColdSteelProfilePersistence.h"
+using namespace ColdSteelProfilePersistence;
+
+bool UColdSteelStatusModel::ReloadProfile()
+{
+    ResetAcquisitionNotices();ResetExperienceNotices();TGuardValue<bool> NoticeGuard(bAcquisitionFeedEnabled,false);
+    UColdSteelProfileSave* Best=nullptr;FString Reason;bool BestFootprintMigrated=false;
+    for(const TCHAR* S:{TEXT("_A"),TEXT("_B")})
+    {
+        auto* Save=ReadCheckedProfile(SaveSlot+S);if(!Save)continue;
+        bool FootprintMigrated=false;
+        // Wood changed from 1x1 to 1x2 on 2026-09-24. The old loader
+        // rejected both slots before reaching its later wood migration.
+        if(!MigrateLegacyWoodFootprints(Save->Profile,FootprintMigrated,Reason))
+        {UE_LOG(LogTemp,Warning,TEXT("ColdSteel profile %s%s rejected: %s"),*SaveSlot,S,*Reason);continue;}
+        const bool InitialLayoutMigrated=FootprintMigrated;
+        // 2026-10-01 作者占格回填：卷轴 1x1→1x2 竖直、金属锭 1x1→2x1 横放；
+        // 迁移把当前 grid_w/grid_h 写回每个旧实例的 Data 快照。
+        if(!MigrateAuthoredGridFootprints(Save->Profile,FootprintMigrated,Reason))
+        {UE_LOG(LogTemp,Warning,TEXT("ColdSteel profile %s%s rejected: %s"),*SaveSlot,S,*Reason);continue;}
+        FootprintMigrated|=InitialLayoutMigrated;
+        bool CurrencyChanged=false;
+        if(!ColdSteelCurrency::Normalize(Save->Profile,CurrencyChanged,Reason))
+        {UE_LOG(LogTemp,Warning,TEXT("ColdSteel profile %s%s rejected: %s"),*SaveSlot,S,*Reason);continue;}
+        FootprintMigrated|=CurrencyChanged;
+        if(!Best||Save->Profile.Generation>Best->Profile.Generation)
+        {Best=Save;BestFootprintMigrated=FootprintMigrated;}
+    }
+    if(!Best){bPersistenceBlocked=true;Message=TEXT("两个存档版本均不可读取，已保留原文件");return false;}
+    auto Clean=Best->Profile;
+    int64 RecoveredGroundAmmo=0;
+    for(const auto& Item:Clean.Items)if(Item.Place==2&&AmmoType(Item.Definition))RecoveredGroundAmmo+=Item.Count;
+    bool AmmoMigrated=false;
+    if(!NormalizeAmmo(Clean,AmmoMigrated)){bPersistenceBlocked=true;Message=TEXT("弹药迁移失败，原存档保留");return false;}
+    const bool Migrated=Clean.WarehouseLayoutVersion==0;
+    if(!ColdSteelWarehouse::MigrateLayout(Clean)){bPersistenceBlocked=true;Message=TEXT("仓库布局迁移失败，原存档保留");return false;}
+    const bool SkillsMigrated=ColdSteelSkills::Migrate(Clean);
+    const bool QuickBarMigrated=ColdSteelQuickBar::Migrate(Clean);
+    const bool StaminaMigrated=NormalizeStamina(Clean);
+    Clean.Survival.Normalize();
+    const bool Interrupted=ColdSteelProfileRecovery::InterruptedSpells(Clean,float(ResourceMaximum(Clean,true)));
+    bool Removed=RemoveRetiredItems(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||Interrupted||AmmoMigrated||BestFootprintMigrated;
+    // Refresh authorized material rarity and scroll presentation on existing instances.
+    for(auto& I:Clean.Items)
+    {
+        // The hardknuckle gloves and ST6 sleeves, trousers and boots switched from an icon display
+        // mesh to catalog PNGs; without the refresh their stored instances keep
+        // routing through the mesh path and render blank.
+        if(I.Definition==TEXT("ue_alchemy_spellbook")||I.Definition==TEXT("ue_hardknuckle_gloves")||I.Definition==TEXT("ue_st6_sleeves")||
+            I.Definition==TEXT("ue_st6_tactical_helmet")||I.Definition==TEXT("ue_st6_tactical_pants")||
+            I.Definition==TEXT("ue_st6_tactical_boots")||I.Definition==TEXT("ue_field_hat")||
+            I.Definition==TEXT("ue_work_jacket")||I.Definition==TEXT("ue_cargo_pants")||
+            I.Definition==TEXT("ue_boots")||I.Definition==TEXT("ue_original_gloves"))
+        {
+            // Refresh definition-owned presentation and balance fields; retain instance enhancement.
+            const FString* Catalog=Definitions.Find(I.Definition);
+            TSharedPtr<FJsonObject> Data,Defaults;
+            if(Catalog&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)&&Data&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Catalog),Defaults)&&Defaults)
+            {
+                bool Updated=false;
+                for(const TCHAR* Key:{TEXT("ue_icon"),TEXT("ue_equipment_icon_mesh"),TEXT("armorSet"),TEXT("setName"),TEXT("setBonusDesc")})
+                {
+                    FString Value,Old;Data->TryGetStringField(Key,Old);
+                    if(Defaults->TryGetStringField(Key,Value)&&Value!=Old)
+                    {Data->SetStringField(Key,Value);Updated=true;}
+                }
+                for(const TCHAR* Key:{TEXT("ue_icon_pitch"),TEXT("ue_icon_yaw"),TEXT("ue_icon_roll")})
+                {
+                    double Value=0,Old=0;
+                    if(Defaults->TryGetNumberField(Key,Value)&&(!Data->TryGetNumberField(Key,Old)||Value!=Old))
+                    {Data->SetNumberField(Key,Value);Updated=true;}
+                }
+                // Existing ST6 instances follow the upgraded catalog appearance,
+                // including equipment kept in storage or on the ground.
+                if(I.Definition==TEXT("ue_st6_tactical_helmet")||I.Definition==TEXT("ue_st6_tactical_pants")||
+                    I.Definition==TEXT("ue_st6_tactical_boots")||I.Definition==TEXT("ue_field_hat")||
+                    I.Definition==TEXT("ue_work_jacket"))
+                    for(const TCHAR* Key:{TEXT("world_mesh"),TEXT("world_material")})
+                    {
+                        FString Value,Old;Data->TryGetStringField(Key,Old);
+                        if(Defaults->TryGetStringField(Key,Value)&&Value!=Old)
+                        {Data->SetStringField(Key,Value);Updated=true;}
+                    }
+                double Revision=0,OldRevision=0;
+                Data->TryGetNumberField(TEXT("spellbookStatsRevision"),OldRevision);
+                if(Defaults->TryGetNumberField(TEXT("spellbookStatsRevision"),Revision)&&OldRevision<Revision)
+                {
+                    for(const TCHAR* Key:{TEXT("matkFormula"),TEXT("focusEffects"),TEXT("spellbookStatsRevision")})
+                        if(const auto* Value=Defaults->Values.Find(Key))Data->SetField(Key,*Value);
+                    Updated=true;
+                }
+                if(Updated)
+                {I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
+            }
+        }
+        if(I.Definition==TEXT("wood"))
+        {
+            const FIntPoint Size=ColdSteelInventory::Footprint(I);
+            if(I.Width!=Size.X||I.Height!=Size.Y){I.Width=Size.X;I.Height=Size.Y;Removed=true;}
+            const FString* Catalog=Definitions.Find(I.Definition);
+            TSharedPtr<FJsonObject> Data,Defaults;
+            if(Catalog&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)&&Data&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Catalog),Defaults)&&Defaults)
+            {
+                FString Icon,Old;Defaults->TryGetStringField(TEXT("ue_icon"),Icon);Data->TryGetStringField(TEXT("ue_icon"),Old);
+                if(!Icon.IsEmpty()&&Icon!=Old){Data->SetStringField(TEXT("ue_icon"),Icon);I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
+            }
+        }
+        if(I.Definition==ColdSteelFrostRunes::Definition)
+        {
+            const FString* Definition=Definitions.Find(I.Definition);
+            TSharedPtr<FJsonObject> Data,Defaults;
+            if(Definition&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)&&Data&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),Defaults)&&Defaults)
+            {
+                bool Updated=false;
+                for(const TCHAR* Key:{TEXT("innate_erosion_intelligence"),TEXT("innate_erosion_wisdom")})
+                {
+                    double Value=0,Old=0;
+                    if(Defaults->TryGetNumberField(Key,Value)&&(!Data->TryGetNumberField(Key,Old)||Old!=Value))
+                    {Data->SetNumberField(Key,Value);Updated=true;}
+                }
+                FString Description,OldDescription;Data->TryGetStringField(TEXT("desc"),OldDescription);
+                if(Defaults->TryGetStringField(TEXT("desc"),Description)&&Description!=OldDescription)
+                {Data->SetStringField(TEXT("desc"),Description);Updated=true;}
+                if(Updated){I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
+            }
+        }
+        // Remove legacy gold selections outside the rune sword, and retain the
+        // frost erosion-to-spirit migration through the existing A/B save commit.
+        // Retired kukri wolf/hawk runes are cleared here without changing affixes.
+        if(I.Definition!=TEXT("ue_rune_sword"))
+        {
+            TSharedPtr<FJsonObject> Data;const TSharedPtr<FJsonObject>* Parts=nullptr;FString Rune;
+            if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)&&Data&&
+                Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts))
+            {
+                (*Parts)->TryGetStringField(TEXT("blade_2"),Rune);
+                FString Blade;
+                const TCHAR* LegacyRune=I.Definition==ColdSteelFrostRunes::Zhanmadao&&(*Parts)->TryGetStringField(TEXT("blade_1"),Blade)?
+                    ColdSteelFrostRunes::LegacyBladeRune(I.Definition,Blade):nullptr;
+                const FString Replacement=LegacyRune?FString(LegacyRune):ColdSteelFrostRunes::Upgrade(I.Definition,Rune);
+                if(LegacyRune||Replacement!=Rune)
+                {
+                    if(LegacyRune)(*Parts)->RemoveField(TEXT("blade_1"));
+                    if(Replacement.IsEmpty())(*Parts)->RemoveField(TEXT("blade_2"));
+                    else (*Parts)->SetStringField(TEXT("blade_2"),Replacement);
+                    I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
+            }
+        }
+        // 武器归类以目录为准：PKM 从步枪改判机枪后，旧存档实例仍带着
+        // weaponType:"rifle"，会让持械移速与专精结算继续走步枪分支。
+        // 只同步目录里真实存在的 weaponType，且只在不同才写回。
+        if(const FString* CatalogDefinition=Definitions.Find(I.Definition))
+        {
+            TSharedPtr<FJsonObject> CatalogData,ItemData;
+            FString CatalogType,StoredType;
+            if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*CatalogDefinition),CatalogData)&&CatalogData&&
+                CatalogData->TryGetStringField(TEXT("weaponType"),CatalogType)&&!CatalogType.IsEmpty()&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData&&
+                (!ItemData->TryGetStringField(TEXT("weaponType"),StoredType)||StoredType!=CatalogType))
+            {
+                ItemData->SetStringField(TEXT("weaponType"),CatalogType);
+                I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+            }
+            // 目录自带的暴击/要害/穿甲加成都属于调校，不是实例强化：
+            // 旧档实例缺项时读 0，会整段吞掉 M1911 的要害、Viper 的穿甲与狙击的弱点收益。
+            double Innate=0.;
+            const bool bCatalogInnate=CatalogData&&(CatalogData->TryGetNumberField(TEXT("critDamageBonus"),Innate)
+                ||CatalogData->TryGetNumberField(TEXT("innate_weakpoint_percent"),Innate)
+                ||CatalogData->TryGetNumberField(TEXT("innate_armor_penetration"),Innate));
+            if(bCatalogInnate&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+            {
+                bool TuningChanged=false;
+                for(const TCHAR* Field:{TEXT("critDamageBonus"),TEXT("innate_weakpoint_percent"),TEXT("innate_armor_penetration")})
+                {
+                    double Value=0.,Old=0.;
+                    if(CatalogData->TryGetNumberField(Field,Value)&&(!ItemData->TryGetNumberField(Field,Old)||Old!=Value))
+                    {ItemData->SetNumberField(Field,Value);TuningChanged=true;}
+                }
+                if(TuningChanged){I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
+            }
+            // Melee base cadence / reach / damage / guard economy are catalog tuning, not instance upgrades: an
+            // instance keeps the catalog snapshot of the day it was created, so two of the same weapon could swing
+            // at different speeds after a rebalance (two kukris: attack_seconds 0.8 vs 1.9792, reach 150 vs 220).
+            // Same field set as SanitizeNetworkItem; forging quality, parts and enhancement stay instance state.
+            if(ColdSteelInventory::IsMeleeWeapon(I)&&CatalogData&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+            {
+                bool TuningChanged=false;
+                for(const TCHAR* Key:{TEXT("melee_damage"),TEXT("melee_reach_cm"),TEXT("attack_seconds"),TEXT("swing_seconds"),
+                    TEXT("contact_seconds"),TEXT("melee_stamina"),TEXT("block_stamina"),TEXT("block_reduction")})
+                {
+                    double CatalogValue=0.,StoredValue=0.;
+                    if(CatalogData->TryGetNumberField(Key,CatalogValue)&&
+                        (!ItemData->TryGetNumberField(Key,StoredValue)||StoredValue!=CatalogValue))
+                    {ItemData->SetNumberField(Key,CatalogValue);TuningChanged=true;}
+                }
+                if(TuningChanged){I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
+            }
+            // 条目说明同样以目录为准。物品实例存的是创建当时的目录快照，
+            // 所以只改 items.json 时，已经持有的武器仍显示旧介绍
+            // （实测：旧文案在 ColdSteelPlayer_A.sav 里各命中 1-2 处，新文案 0 处）。
+            // 只同步纯展示文本，不碰数值、改造件或附魔数据。
+            // 实例里没有该字段时也要补上：否则战斗目录的补全逻辑会继续留着旧值。
+            FString CatalogDesc,CatalogName;
+            if(CatalogData->TryGetStringField(TEXT("desc"),CatalogDesc)&&!CatalogDesc.IsEmpty())
+            {
+                FString StoredDesc;
+                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
+                    &&ItemData&&ItemData->TryGetStringField(TEXT("desc"),StoredDesc);
+                if(!bHasStored||StoredDesc!=CatalogDesc)
+                {
+                    if(!ItemData)ItemData=MakeShared<FJsonObject>();
+                    ItemData->SetStringField(TEXT("desc"),CatalogDesc);
+                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
+            }
+            if(CatalogData->TryGetStringField(TEXT("name"),CatalogName)&&!CatalogName.IsEmpty())
+            {
+                FString StoredName;
+                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
+                    &&ItemData&&ItemData->TryGetStringField(TEXT("name"),StoredName);
+                if(!bHasStored||StoredName!=CatalogName)
+                {
+                    if(!ItemData)ItemData=MakeShared<FJsonObject>();
+                    ItemData->SetStringField(TEXT("name"),CatalogName);
+                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
+            }
+            // 武器类型标签与铁铲 dig 块同为纯展示字段：目录补齐后旧实例也要跟上，
+            // 否则浮窗的「武器类型」「采集参数」对老存档仍是旧口径。
+            FString CatalogTag;
+            if(CatalogData->TryGetStringField(TEXT("weaponTypeTag"),CatalogTag)&&!CatalogTag.IsEmpty())
+            {
+                FString StoredTag;
+                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
+                    &&ItemData&&ItemData->TryGetStringField(TEXT("weaponTypeTag"),StoredTag);
+                if(!bHasStored||StoredTag!=CatalogTag)
+                {
+                    if(!ItemData)ItemData=MakeShared<FJsonObject>();
+                    ItemData->SetStringField(TEXT("weaponTypeTag"),CatalogTag);
+                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
+            }
+            const TSharedPtr<FJsonObject>* CatalogDig=nullptr;
+            if(CatalogData->TryGetObjectField(TEXT("dig"),CatalogDig)&&*CatalogDig)
+            {
+                const TSharedPtr<FJsonObject>* StoredDig=nullptr;
+                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
+                    &&ItemData&&ItemData->TryGetObjectField(TEXT("dig"),StoredDig)&&*StoredDig;
+                FString CatalogDigText;
+                FJsonSerializer::Serialize(CatalogDig->ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&CatalogDigText));
+                FString StoredDigText;
+                if(bHasStored)FJsonSerializer::Serialize(StoredDig->ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&StoredDigText));
+                if(!bHasStored||StoredDigText!=CatalogDigText)
+                {
+                    // 深拷贝后再挂到实例上：目录 JSON 是全实例共享的静态对象，
+                    // 直接 SetObjectField 会把实例和目录绑到同一个对象上。
+                    TSharedPtr<FJsonObject> DigCopy;
+                    if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(CatalogDigText),DigCopy)&&DigCopy)
+                    {
+                        if(!ItemData)ItemData=MakeShared<FJsonObject>();
+                        ItemData->SetObjectField(TEXT("dig"),DigCopy);
+                        I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                    }
+                }
+            }
+            // defense/bonusStats 与 weaponTypeTag 同类：目录权威数值，实例自身
+            // 从不演化（强化走实例的 enhanceLevel，两者只存基础值），所以老存档
+            // 里先于数值上表的装备实例也照目录补齐。
+            for(const TCHAR* NumericKey:{TEXT("defense"),TEXT("bonusStats"),TEXT("bonusPerEnhance"),TEXT("enhancement")})
+            {
+                const TSharedPtr<FJsonObject>* CatalogNumeric=nullptr;
+                if(!CatalogData->TryGetObjectField(NumericKey,CatalogNumeric)||!*CatalogNumeric)continue;
+                const TSharedPtr<FJsonObject>* StoredNumeric=nullptr;
+                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
+                    &&ItemData&&ItemData->TryGetObjectField(NumericKey,StoredNumeric)&&*StoredNumeric;
+                FString CatalogText;
+                FJsonSerializer::Serialize((*CatalogNumeric).ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&CatalogText));
+                FString StoredText;
+                if(bHasStored)FJsonSerializer::Serialize((*StoredNumeric).ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&StoredText));
+                if(!bHasStored||StoredText!=CatalogText)
+                {
+                    TSharedPtr<FJsonObject> NumericCopy;
+                    if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(CatalogText),NumericCopy)&&NumericCopy)
+                    {
+                        if(!ItemData)ItemData=MakeShared<FJsonObject>();
+                        ItemData->SetObjectField(NumericKey,NumericCopy);
+                        I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                    }
+                }
+            }
+            // 硬壳手套/ST6 战术套/灰钢锁子甲套/野行手套的换弹、ADS、奔跑体力、暴击与套装饰品
+            // 数值按既有约定放在 source-combat-items 覆盖层；实例里若残留早期
+            // items.json 写入的 bonusStats 会挡住覆盖层，清掉后按覆盖层读取。
+            // 野行帽的暴击是单件属性，写在 items.json，不能清。
+            // ST6 战术头盔/长裤/靴（2026-10-22 新增单件效果）必须在此登记，
+            // 否则老存档里残留的 bonusStats 会盖掉覆盖层，三件的效果在联机远端不生效。
+            const bool bSourceCombatStats=
+                I.Definition==TEXT("ue_hardknuckle_gloves")||I.Definition==TEXT("ue_st6_sleeves")||
+                I.Definition==TEXT("ue_st6_tactical_helmet")||I.Definition==TEXT("ue_st6_tactical_pants")||
+                I.Definition==TEXT("ue_st6_tactical_boots")||
+                I.Definition==TEXT("ue_steel_armet")||I.Definition==TEXT("ue_chainmail_shirt")||
+                I.Definition==TEXT("ue_chainmail_pants")||I.Definition==TEXT("ue_armored_boots")||
+                I.Definition==TEXT("ue_steel_gauntlets")||I.Definition==TEXT("ue_field_gloves");
+            if(bSourceCombatStats&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData&&
+                ItemData->HasField(TEXT("bonusStats")))
+            {
+                ItemData->RemoveField(TEXT("bonusStats"));
+                I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+            }
+            // Existing modular gloves retain their original catalog snapshot.
+            // Refresh appearance when loading, including gloves left on the
+            // ground, while keeping instance stats and equipment state intact.
+            if((I.Definition==TEXT("ue_field_gloves")||I.Definition==TEXT("ue_original_gloves"))&&CatalogData&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+            {
+                bool AppearanceUpdated=false;
+                for(const TCHAR* Key:{TEXT("ue_icon"),TEXT("world_mesh"),TEXT("world_material")})
+                {
+                    FString CurrentValue,CatalogValue;
+                    ItemData->TryGetStringField(Key,CurrentValue);
+                    if(CatalogData->TryGetStringField(Key,CatalogValue)&&!CatalogValue.IsEmpty()&&CurrentValue!=CatalogValue)
+                    {
+                        ItemData->SetStringField(Key,CatalogValue);
+                        AppearanceUpdated=true;
+                    }
+                }
+                if(AppearanceUpdated)
+                {
+                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
+            }
+            // Previously acquired wildlife meat gains its completed presentation without
+            // recreating the item or resetting its natural-day freshness clock.
+            if((I.Definition==TEXT("raw_venison")||I.Definition==TEXT("raw_boar_meat")||I.Definition==TEXT("raw_fox_meat"))&&CatalogData&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+            {
+                bool Updated=false;
+                for(const TCHAR* Key:{TEXT("ue_icon"),TEXT("world_mesh"),TEXT("desc")})
+                {
+                    FString StoredValue,CatalogValue;ItemData->TryGetStringField(Key,StoredValue);
+                    if(CatalogData->TryGetStringField(Key,CatalogValue)&&!CatalogValue.IsEmpty()&&StoredValue!=CatalogValue)
+                    {ItemData->SetStringField(Key,CatalogValue);Updated=true;}
+                }
+                if(ItemData->HasField(TEXT("artPending"))){ItemData->RemoveField(TEXT("artPending"));Updated=true;}
+                if(Updated){I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
+            }
+            // Reference-remodeled server props keep their inventory identity and footprint.
+            if((I.Definition==TEXT("search_graphics_card")||I.Definition==TEXT("search_ram_module")||
+                I.Definition==TEXT("search_ssd"))&&CatalogData&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+            {
+                bool AppearanceUpdated=false;
+                for(const TCHAR* Key:{TEXT("icon"),TEXT("ue_icon"),TEXT("world_mesh"),TEXT("desc")})
+                {
+                    FString StoredValue,CatalogValue;
+                    ItemData->TryGetStringField(Key,StoredValue);
+                    if(CatalogData->TryGetStringField(Key,CatalogValue)&&!CatalogValue.IsEmpty()&&StoredValue!=CatalogValue)
+                    {
+                        ItemData->SetStringField(Key,CatalogValue);
+                        AppearanceUpdated=true;
+                    }
+                }
+                if(AppearanceUpdated)
+                {
+                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
+            }
+            // Animated consumable effects and display timings follow the catalog
+            // for existing stacks too. Keep instance identity, quantity and place.
+            if(UFPSPotionUseComponent::IsAnimatedConsumable(I.Definition)&&CatalogData&&
+                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+            {
+                bool PotionUpdated=false;
+                for(const TCHAR* Key:{TEXT("useEffect"),TEXT("buffs"),TEXT("stats"),TEXT("useDuration")})
+                {
+                    const auto* CatalogValue=CatalogData->Values.Find(Key);
+                    const auto* StoredValue=ItemData->Values.Find(Key);
+                    if(CatalogValue&&CatalogValue->IsValid()&&
+                        (!StoredValue||!StoredValue->IsValid()||!FJsonValue::CompareEqual(**StoredValue,**CatalogValue)))
+                    {
+                        ItemData->SetField(Key,*CatalogValue);
+                        PotionUpdated=true;
+                    }
+                }
+                // These two consumables now use the green catalog tier, including saved stacks.
+                if(I.Definition==TEXT("soda_can")||I.Definition==TEXT("baguette_bread"))
+                {
+                    FString CatalogRarity;
+                    if(CatalogData->TryGetStringField(TEXT("rarity"),CatalogRarity)&&!CatalogRarity.IsEmpty())
+                        for(const TCHAR* Key:{TEXT("rarity"),TEXT("grade")})
+                        {
+                            if(FCString::Strcmp(Key,TEXT("grade"))==0&&!ItemData->HasField(Key))continue;
+                            FString StoredRarity;
+                            if(!ItemData->TryGetStringField(Key,StoredRarity)||StoredRarity!=CatalogRarity)
+                            {ItemData->SetStringField(Key,CatalogRarity);PotionUpdated=true;}
+                        }
+                }
+                if(PotionUpdated)
+                {
+                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                }
+            }
+            // 背包容积字段同为目录权威：实例 Data 是创建时快照，目录补/调
+            // bagExtraCells 与夹层尺寸后，已持有背包需跟上才能扩出横列。
+            // 这里只同步纯容量字段，不碰占格(grid_w/h)、身份与放置状态；
+            // 若扩行造成既有占用越界，交给本节末尾的占格校验统一处理。
+            FString CatalogEquipSlot;
+            if(CatalogData&&CatalogData->TryGetStringField(TEXT("equipSlot"),CatalogEquipSlot)&&CatalogEquipSlot==TEXT("backpack"))
+            {
+                if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
+                {
+                    bool BagUpdated=false;
+                    for(const TCHAR* Key:{TEXT("bagExtraCells"),TEXT("bagCompartmentCells"),TEXT("bagCompartmentColumns"),TEXT("bagCompartmentRows")})
+                    {
+                        double CatalogValue=0,StoredValue=0;
+                        const bool bHasCatalog=CatalogData->TryGetNumberField(Key,CatalogValue);
+                        const bool bHasStored=ItemData->TryGetNumberField(Key,StoredValue);
+                        if(bHasCatalog&&(!bHasStored||StoredValue!=CatalogValue))
+                        {ItemData->SetNumberField(Key,CatalogValue);BagUpdated=true;}
+                    }
+                    if(BagUpdated)
+                    {
+                        I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
+                    }
+                }
+            }
+        }
+        const bool Material=I.Definition==TEXT("enhancement_stone")||I.Definition==TEXT("magic_dust");
+        const bool Scroll=I.Definition.StartsWith(TEXT("enchant_scroll_"));
+        if(!Material&&!Scroll)continue;
+        const FString* Definition=Definitions.Find(I.Definition);if(!Definition)continue;
+        TSharedPtr<FJsonObject> CurrentData,DefinitionData;
+        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),CurrentData)||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),DefinitionData))continue;
+        bool Updated=false;
+        // Old instances retain their own count and enchantment payload; only
+        // synchronize the scroll's classification with the current catalog.
+        if(Scroll)for(const TCHAR* Key:{TEXT("category"),TEXT("type")})
+        {
+            FString CatalogValue,StoredValue;CurrentData->TryGetStringField(Key,StoredValue);
+            if(DefinitionData->TryGetStringField(Key,CatalogValue)&&!CatalogValue.IsEmpty()&&StoredValue!=CatalogValue)
+            {CurrentData->SetStringField(Key,CatalogValue);Updated=true;}
+        }
+        for(const TCHAR* Key:{TEXT("icon"),TEXT("ue_icon"),TEXT("rarity"),TEXT("grade")})
+        {
+            if(Material&&FString(Key)!=TEXT("rarity")&&FString(Key)!=TEXT("grade"))continue;
+            if(!Material&&FString(Key)==TEXT("grade"))continue;
+            FString NewIcon,OldIcon;CurrentData->TryGetStringField(Key,OldIcon);
+            if(DefinitionData->TryGetStringField(Key,NewIcon)&&!NewIcon.IsEmpty()&&OldIcon!=NewIcon){CurrentData->SetStringField(Key,NewIcon);Updated=true;}
+        }
+        if(Updated){I.Data.Empty();FJsonSerializer::Serialize(CurrentData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
+    }
+    Removed = NormalizeBowState(Clean) || Removed;
+    NormalizeProductionState(Clean);
+    Removed=NormalizeStaffState(Clean)||Removed;
+    Removed = ColdSteelItemRarity::Normalize(Clean.Items) || Removed;
+    if(!Clean.NetworkProfileId.IsValid()){Clean.NetworkProfileId=FGuid::NewGuid();Removed=true;}
+    const auto Previous=Snapshot();bPersistenceBlocked=false;
+    // Commit through the checked A/B transaction; never reset the player's save.
+    if(Removed){Publish(Best->Profile);if(!CommitState(Clean)){Publish(Previous);bPersistenceBlocked=true;return false;}}
+    else Publish(Clean);
+    ApplyToPawn();
+    if(CurrentPawn.IsValid())UProgressiveInfectionComponent::GetOrAdd(CurrentPawn.Get())->Restore(Current.Infection);
+    RefreshDrops();OnChanged.Broadcast();
+    if(RecoveredGroundAmmo>0)PostNotice(TEXT("旧版地面弹药已回收"),FString::Printf(TEXT("%lld 发已计入弹药袋"),RecoveredGroundAmmo));
+    return true;
+}
+bool UColdSteelStatusModel::SaveNow()
+{
+    SyncRuntime();
+    // Saving captures the live weapon; it is not an equipment command. Keep the
+    // checked transaction and UI publication without reapplying the pawn to itself.
+    return PersistState(Snapshot(),false);
+}

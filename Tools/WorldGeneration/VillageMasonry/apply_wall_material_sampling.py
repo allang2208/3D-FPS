@@ -103,3 +103,4 @@ def main(out):
 
 if __name__ == '__main__':
     main(Path(os.environ['VILLAGE_WALL_MATERIAL_RUN']))
+

@@ -10,6 +10,7 @@ struct FColdSteelForgeNetState
     GENERATED_BODY()
     UPROPERTY() FString JobId;
     UPROPERTY() int32 Hits=0;
+    UPROPERTY() bool bHammeredBlank=false;
     UPROPERTY() bool Finished=false;
     UPROPERTY() TArray<FVector2D> Points;
     UPROPERTY() bool Active=false;
@@ -28,6 +29,7 @@ struct FColdSteelAssemblyNetState
     GENERATED_BODY()
     UPROPERTY() FString Id;
     UPROPERTY() int32 InstalledMask=0;
+    UPROPERTY() int32 CalibrationVersion=0;
     UPROPERTY() TArray<float> Scores;
     UPROPERTY() TArray<int32> Misses;
     UPROPERTY() float CalibrationSeconds=0;
@@ -68,6 +70,6 @@ namespace ColdSteelStationNet
 {
     struct FInputScope {FInputScope();~FInputScope();bool Root;};
     bool IsClient(const UObject* Context);
-    bool Request(const UObject* Context,const FString& Mode,FName Recipe=NAME_None,int64 Count=1,class AActor* Target=nullptr,FIntVector Cell=FIntVector::ZeroValue);
+    bool Request(const UObject* Context,const FString& Mode,FName Recipe=NAME_None,int64 Count=1,class AActor* Target=nullptr,FIntVector Cell=FIntVector::ZeroValue,FName ForgeMetal=NAME_None);
     void Input(const UObject* Context,FName System,uint8 Op,FName Recipe=NAME_None,int32 Index=0,FVector2D A=FVector2D::ZeroVector,FVector2D B=FVector2D::ZeroVector);
 }

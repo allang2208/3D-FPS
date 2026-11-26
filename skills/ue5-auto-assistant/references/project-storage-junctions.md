@@ -1,6 +1,6 @@
 # FPSGAME 资产和缓存的目录联接
 
-本页收敛为仓库内发布快照入口：[完整规则与逐条原因](../../_shared/ue5-auto-assistant/references/project-storage-junctions.md)。
+当前制作源、审查库、工作目录和恢复位置见[工程制作索引](../../../Docs/Production/README.md#文件放在哪里)。联接迁移流程见[仓库发布快照](../../_shared/ue5-auto-assistant/references/project-storage-junctions.md)。
 
 - 共用规则在个人维护源修改，获授权发布时更新上述快照；工程专属增补仍写在对应工程文档。原因：同一规则保留两份正文会在后续修订时重新分叉。
 - 当前入口已包含仓库内发布快照，换机时按快照清单恢复所需资料。原因：仓库相对链接不依赖个人目录，快照仍需与本次发布版本对应。

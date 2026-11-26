@@ -65,7 +65,7 @@ int32 UWarhammerNetworkAuditCommandlet::AuditSprint(const FString& Params)
         Move->MeleeRequest={};Move->RejectedMeleeSequence=0;
     };
     const auto Ready=[&]() {for(int32 I=0;I<240;++I)Tool->AdvanceBluntSprintReadiness(1.f/60.f);};
-    const auto Commit=[&](uint32 Id) {Ready();Tool->ServerBeginBluntAttack_Implementation(Id,false,true);};
+    const auto Commit=[&](uint32 Id) {Ready();Tool->ServerBeginBluntAttack_Implementation(Id,false,true,Hammer.InstanceId);};
     const auto Packet=[](uint32 Sequence,uint32 Id,float Distance,EFPSMeleeMove Kind=EFPSMeleeMove::HammerDash)
     {FFPSNetworkMoveData Data;Data.MeleeRequest.Sequence=Sequence;Data.MeleeRequest.HammerAttackId=Id;
      Data.MeleeRequest.Kind=Kind;Data.MeleeRequest.Direction=FVector::ForwardVector;Data.MeleeRequest.Distance=Distance;return Data;};
@@ -83,7 +83,7 @@ int32 UWarhammerNetworkAuditCommandlet::AuditSprint(const FString& Params)
     Check(Move->LastServerMeleeSequence==0&&Pawn->GetActorLocation().Equals(Origin),TEXT("movement preceding reliable cast remains pending without displacement"));
     Commit(101);const float Spent=Shadow->Stamina();
     Check(Tool->bBluntServerSprintAttack&&Tool->BluntServerAttackId==101&&Spent<100.f,TEXT("remote prepared sprint commits with authority stamina cost"));
-    Tool->ServerBeginBluntAttack_Implementation(101,false,true);
+    Tool->ServerBeginBluntAttack_Implementation(101,false,true,Hammer.InstanceId);
     Check(Shadow->Stamina()==Spent&&Tool->bBluntServerSprintAttack,TEXT("duplicate sprint RPC cannot spend twice or cancel pose"));
     Tool->BluntServerSprintStartedAt=World->GetTimeSeconds()-.125;
     Data.MeleeRequest.Direction=FVector::RightVector;Move->ProcessMeleeNetworkMove(Data,true);

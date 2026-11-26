@@ -17,7 +17,7 @@ policies=json.loads((P/'Tools/GarmentWaist/policies.json').read_text(encoding='u
 missing=set(shirts)-set(policies['shirts'])
 if missing:raise RuntimeError('Declare waist construction and native sources for new shirts: '+str(sorted(missing)))
 for item in shirts:
-    if policies['shirts'][item]['mode'] not in ('tuck','native_body_with_tucked_trim','existing_tuck','robe_underlayer','outer_jacket_with_inner_tuck'):
+    if policies['shirts'][item]['mode'] not in ('tuck','native_body_with_tucked_trim','existing_tuck','robe_underlayer','outer_jacket_with_inner_tuck','outer_armor_above_waist'):
         raise RuntimeError('Provide the producer for this garment construction: '+item)
     if policies['shirts'][item]['mode']=='outer_jacket_with_inner_tuck':
         # Dedicated outer jackets must not be silently omitted when a new
@@ -25,7 +25,23 @@ for item in shirts:
         policy=policies['shirts'][item]
         baseline=json.loads((P/policy['source_root']/'Before/modular_outfits.json').read_text(encoding='utf-8-sig'))
         previous={k:v for k,v in baseline['items'].items() if v.get('slot')==15}
-        if set(previous)!=set(pants) or any(previous[k].get(field)!=v.get(field) for k,v in pants.items() for field in ('rig_meshes','shoe_fit_meshes')):
+        # An additional native lower can reuse the exact existing waistband.
+        # Accept additional routes only when publication already provided the
+        # jacket's item-level fit and exact mesh-level fit for every new path.
+        jacket=shirts[item]
+        def published_fit(key,path):
+            pair=jacket.get('pants_fit_meshes',{}).get(key)
+            return bool(pair and jacket.get('pants_mesh_fit_meshes',{}).get(path)==pair)
+        stale=bool(set(previous)-set(pants))
+        for key,recipe in pants.items():
+            old=previous.get(key);shoes=recipe.get('shoe_fit_meshes',{});base=recipe.get('rig_meshes',{})
+            if old:
+                old_shoes=old.get('shoe_fit_meshes',{})
+                stale |= old.get('rig_meshes',{})!=base or any(shoes.get(s)!=route for s,route in old_shoes.items())
+                additions=[route for shoe,route in shoes.items() if shoe not in old_shoes]
+            else:additions=[base,*shoes.values()]
+            stale |= any(not published_fit(key,route.get('Jason')) for route in additions)
+        if stale:
             raise RuntimeError('Refresh the dedicated outer-jacket waist producer before continuing: '+policy['producer'])
 catalog_missing=[k for k,v in catalog.items() if v.get('equipSlot')=='pants' and k not in pants]
 if catalog_missing:raise RuntimeError('Missing wearable pants recipes: '+str(catalog_missing))

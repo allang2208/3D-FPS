@@ -26,12 +26,11 @@ void FPSBodyRuneVisual::Capture(UStaticMeshComponent* Source,const FColdSteelIte
 {
     if(!Source||!Item||(!ColdSteelInventory::IsTwoHandedSword(*Item)&&!ColdSteelInventory::IsTwoHandedBlunt(*Item)))return;
     const bool Blade=Source->ComponentHasTag(TEXT("SwordSlot=blade_1"));
-    const bool Guard=Source->ComponentHasTag(TEXT("SwordSlot=guard"));
     if(ColdSteelModularSword::IsBladeFinishCarrier(Source,*Item))
     {
         Out.BladeFinishMode=ColdSteelModularSword::BladeFinishMode(*Item);
         Out.BladeFinishSeed=ColdSteelModularSword::BladeFinishSeed(*Item);
-        Out.bBladeFinishGuardRoot=Item->Definition==TEXT("ue_rune_sword")&&Guard;
+        Out.bBladeFinishGuardRoot=ColdSteelModularSword::UsesBladeSeatMask(Source,*Item);
     }
     if(Blade&&Item->Definition==ColdSteelFrostRunes::Zhanmadao)
     {

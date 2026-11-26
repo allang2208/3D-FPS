@@ -1,4 +1,6 @@
 #include "M66IncineratorMonster.h"
+#include "MonsterTargeting.h"
+#include "MonsterDamageBalance.h"
 #include "M66BreathTiming.h"
 #include "M66FurnaceVisualComponent.h"
 #include "MonsterCombatComponent.h"
@@ -77,7 +79,8 @@ void AM66IncineratorMonster::BreathHit()
         AActor* Target=Overlap.GetActor();if(!IsValid(Target)||Seen.Contains(Target)||Target==this||!Target->CanBeDamaged())continue;
         Seen.Add(Target);
         auto* Vitals=Target->FindComponentByClass<UFPSCombatHealthComponent>();auto* Combatant=Target->FindComponentByClass<UMonsterCombatComponent>();
-        if((!Vitals&&!Combatant)||(Vitals&&Vitals->IsDead())||(Combatant&&Combatant->IsDead())||RangedAttackQuery::IsFriendlyUnit(this,Target))continue;
+        if((!Vitals&&!Combatant&&!MonsterTargeting::IsActiveArtisan(Cast<APawn>(Target)))||
+            (Vitals&&Vitals->IsDead())||(Combatant&&Combatant->IsDead())||RangedAttackQuery::IsFriendlyUnit(this,Target))continue;
         MagicOcclusion::FBodySamples Samples;MagicOcclusion::BodySamples(Target,Origin,Samples);
         for(const FVector& Point:Samples)
         {
@@ -86,7 +89,7 @@ void AM66IncineratorMonster::BreathHit()
             FHitResult Block;if(FireMagic::TraceSurface(this,Origin,Point,Block,true))continue;
             auto* Shape=Cast<UPrimitiveComponent>(Target->GetRootComponent());
             FHitResult Hit(Target,Shape,Point,(Origin-Point).GetSafeNormal());Hit.TraceStart=Origin;Hit.TraceEnd=Point;
-            UGameplayStatics::ApplyPointDamage(Target,BreathDamage,(Point-Origin).GetSafeNormal(),Hit,GetController(),this,UFireMagicDamage::StaticClass());
+            UGameplayStatics::ApplyPointDamage(Target,MonsterDamageBalance::Limit(BreathDamage*.55f,16.f),(Point-Origin).GetSafeNormal(),Hit,GetController(),this,UFireMagicDamage::StaticClass());
             if(!IsBreathing()||IsActorBeingDestroyed())return;
             break;
         }

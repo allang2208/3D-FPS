@@ -8,6 +8,7 @@
 #include "Components/AudioComponent.h"
 #include "Components/DynamicMeshComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
+#include "Components/InstancedSkinnedMeshComponent.h"
 #include "Components/LightComponent.h"
 #include "Components/SkyLightComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -30,6 +31,26 @@
 
 namespace
 {
+void ReadSkinnedGeometry(const USkinnedAsset* Mesh,FFPSComponentCost& Out)
+{
+    if(!Mesh)return;
+    Out.Detail=Mesh->GetPathName();
+    // A snapshot must not finish an asset compilation or wait for render data.
+    if(Mesh->IsCompiling())return;
+    const FSkeletalMeshRenderData* Data=Mesh->GetResourceForRendering();
+    if(!Data)return;
+    Out.bHasNaniteData=Data->HasValidNaniteData();
+    Out.bHasGeometry=!Data->LODRenderData.IsEmpty();
+    for(int32 LOD=0;LOD<Data->LODRenderData.Num();++LOD)
+    {
+        const FSkeletalMeshLODRenderData& Lod=Data->LODRenderData[LOD];
+        int64 Triangles=0;
+        for(const FSkelMeshRenderSection& Section:Lod.RenderSections)Triangles+=Section.NumTriangles;
+        Out.LODTriangles.Add(Triangles);
+        if(LOD==0){Out.Triangles=Triangles;Out.Vertices=Lod.GetNumVertices();}
+    }
+}
+
 void ReadGeometry(UPrimitiveComponent* Primitive, FFPSComponentCost& Out)
 {
     if (const auto* Static = Cast<UStaticMeshComponent>(Primitive))
@@ -59,26 +80,18 @@ void ReadGeometry(UPrimitiveComponent* Primitive, FFPSComponentCost& Out)
             }
         }
     }
+    else if (const auto* SkinnedInstances = Cast<UInstancedSkinnedMeshComponent>(Primitive))
+    {
+        // Nanite forest trees use this component, not USkeletalMeshComponent.
+        Out.Kind=TEXT("蒙皮实例网格");
+        Out.bInstanced=true;
+        Out.Instances=SkinnedInstances->GetInstanceCount();
+        ReadSkinnedGeometry(SkinnedInstances->GetSkinnedAsset(),Out);
+    }
     else if (const auto* Skeletal = Cast<USkeletalMeshComponent>(Primitive))
     {
         Out.Kind = TEXT("骨骼网格");
-        if (const USkeletalMesh* Mesh = Skeletal->GetSkeletalMeshAsset())
-        {
-            Out.Detail = Mesh->GetPathName();
-            if (const FSkeletalMeshRenderData* Data = Mesh->GetResourceForRendering())
-            {
-                Out.bHasGeometry = !Data->LODRenderData.IsEmpty();
-                for (int32 LOD = 0; LOD < Data->LODRenderData.Num(); ++LOD)
-                {
-                    const FSkeletalMeshLODRenderData& Lod = Data->LODRenderData[LOD];
-                    int64 Triangles = 0;
-                    for (const FSkelMeshRenderSection& Section : Lod.RenderSections)
-                        Triangles += Section.NumTriangles;
-                    Out.LODTriangles.Add(Triangles);
-                    if (LOD == 0) { Out.Triangles = Triangles; Out.Vertices = Lod.GetNumVertices(); }
-                }
-            }
-        }
+        ReadSkinnedGeometry(Skeletal->GetSkeletalMeshAsset(),Out);
     }
     else if (const auto* Dynamic = Cast<UDynamicMeshComponent>(Primitive))
     {

@@ -85,3 +85,4 @@ def granite():
     if set(x['listing'] for x in pool)!=set(x['uid'] for x in json.loads((batch/'rocks.json').read_text())):raise RuntimeError('Incomplete granite library')
     (src/'rock-pool.json').write_text(json.dumps(pool,indent=2))
 granite()
+

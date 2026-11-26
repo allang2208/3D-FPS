@@ -1,4 +1,5 @@
 #include "CraftingSystem.h"
+#include "../Development/DevelopmentTuningSubsystem.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../Multiplayer/ColdSteelStationNetwork.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -110,36 +111,49 @@ const FColdSteelCraftingRecipe* UColdSteelCraftingSystem::Find(FName Id) const
     return nullptr;
 }
 
+bool UColdSteelCraftingSystem::IsAmmoRecipe(FName Id) const
+{return AmmoRecipes.ContainsByPredicate([Id](const auto& Entry){return Entry.Id==Id;});}
+
 int64 UColdSteelCraftingSystem::MaxCraftable(const UColdSteelStatusModel* Model,const FColdSteelCraftingRecipe& R) const
 {
     if(!Model||R.Inputs.Num()==0)return 0;
+    const bool Free=UDevelopmentTuningSubsystem::IsFreeCrafting(Model)&&
+        AmmoRecipes.ContainsByPredicate([&R](const auto& Entry){return Entry.Id==R.Id;});
     int64 Cap=99;
     for(const FColdSteelCraftingInput& In:R.Inputs)
     {
         if(In.Count<=0)return 0;
-        Cap=FMath::Min<int64>(Cap,Model->CountMaterial(In.Item)/In.Count);
+        if(!Free)Cap=FMath::Min<int64>(Cap,Model->CountMaterial(In.Item)/In.Count);
     }
+    if(Model->AmmoType(R.Output))
+        Cap=R.OutputCount>0?FMath::Min(Cap,(ColdSteelAmmo::MaxCount-Model->PouchCount(R.Output))/R.OutputCount):0;
     return FMath::Max<int64>(0,Cap);
 }
 
-bool UColdSteelCraftingSystem::Craft(FName Recipe,int64 Batch,FString& Reason)
+bool UColdSteelCraftingSystem::Craft(FName Recipe,int64 Batch,FString& Reason,AActor* Station)
 {
     const FColdSteelCraftingRecipe* R=Find(Recipe);
     if(!R){Reason=TEXT("该配方不存在");return false;}
-    return Craft(*R,Batch,Reason);
+    return Craft(*R,Batch,Reason,Station);
 }
 
-bool UColdSteelCraftingSystem::Craft(const FColdSteelCraftingRecipe& R,int64 Batch,FString& Reason)
+bool UColdSteelCraftingSystem::Craft(const FColdSteelCraftingRecipe& R,int64 Batch,FString& Reason,AActor* Station)
 {
     if(WoodworkingRecipes.ContainsByPredicate([&](const auto& Entry){return Entry.Id==R.Id;}))
     {Reason=TEXT("该装备需要在木工工作台完成加工后领取");return false;}
-    if(ColdSteelStationNet::IsClient(this)){Reason=TEXT("等待服务器制作");return ColdSteelStationNet::Request(this,TEXT("craft"),R.Id,Batch);}
+    if(ColdSteelStationNet::IsClient(this))
+    {
+        const bool Sent=ColdSteelStationNet::Request(this,TEXT("craft"),R.Id,Batch,Station);
+        Reason=Sent?TEXT("等待服务器确认制作结果…"):TEXT("当前操作尚未同步，请稍后重试");return Sent;
+    }
     auto* M=Model();
     if(!M){Reason=TEXT("角色数据未就绪");return false;}
     M->SyncRuntime();
     FColdSteelProfile Proposed;
     if(!PrepareCraft(R,Batch,Proposed,Reason))return false;
     if(!M->CommitState(MoveTemp(Proposed))){Reason=TEXT("保存失败，材料未扣除");return false;}
+    if(M->AmmoType(R.Output))Reason=FString::Printf(TEXT("已制作 %lld 发 %s · 已存入弹药袋"),
+        R.OutputCount*FMath::Clamp(Batch,1LL,99LL),*M->AmmoLabel(R.Output));
     return true;
 }
 
@@ -163,8 +177,11 @@ bool UColdSteelCraftingSystem::PrepareCraft(const FColdSteelCraftingRecipe& R,in
     const auto* Ammo=M->AmmoType(R.Output);
     if(Ammo&&!Ammo->Enabled){Reason=TEXT("该弹药暂未开放制作");return false;}
     if(!Ammo&&M->CreateItem(R.Output).Data.IsEmpty()){Reason=TEXT("物品目录缺少该产物");return false;}
+    // The gun workbench's ammo recipes share this transaction with ordinary tool recipes.
+    const bool Free=UDevelopmentTuningSubsystem::IsFreeCrafting(M)&&
+        AmmoRecipes.ContainsByPredicate([&R](const auto& Entry){return Entry.Id==R.Id;});
     // 材料不足：点名第一个缺口（与冶炼 ConsumeItem 同句式"缺少 N（背包+仓库共 M）"）。
-    for(const FColdSteelCraftingInput& In:R.Inputs)
+    if(!Free)for(const FColdSteelCraftingInput& In:R.Inputs)
     {
         const int64 Have=M->CountMaterial(In.Item),Need=In.Count*Batch;
         if(Have<Need)
@@ -176,7 +193,7 @@ bool UColdSteelCraftingSystem::PrepareCraft(const FColdSteelCraftingRecipe& R,in
     }
     // 单事务：本地快照上先扣后发，全部成功才 CommitState——任一失败都不扣任何东西。
     Proposed=M->Snapshot();
-    for(const FColdSteelCraftingInput& In:R.Inputs)
+    if(!Free)for(const FColdSteelCraftingInput& In:R.Inputs)
         if(!CraftDeduct(Proposed,In.Item,In.Count*Batch)){Reason=TEXT("材料不足，制作已取消");return false;}
     if(!CraftGrant(M,Proposed,R.Output,R.OutputCount*Batch)){Reason=Ammo?TEXT("弹药袋数量已达上限，材料未扣除"):TEXT("背包放不下，先整理背包");return false;}
     return true;

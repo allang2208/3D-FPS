@@ -24,5 +24,9 @@ struct FFireballCast
     float ManaCost=50, Cooldown=12, HoverDuration=30;
     float CastSpeed=1,CastHasteStacks=0,CastHasteDuration=5;
     float BurnMagicAttack=0,BurnMultiplier=0,BurnSeconds=3,BurnTick=.5f;
+    // Specialization (skill-tree.json, 2026-11-15): straight flight before gravity, ignite burn stacks.
+    float DropDelay=0;
+    int32 SpecBurnStacks=0;
+    float SpecBurnMagicAttack=0,SpecBurnSeconds=3.5f,SpecBurnMultiplier=.5f;
     bool bGrantChain=false;
 };

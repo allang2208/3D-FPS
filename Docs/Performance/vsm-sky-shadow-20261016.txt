@@ -1,0 +1,58 @@
+VSM 非 Nanite 标记队列溢出：天空背景投影修正（2026-10-16）
+
+用户截图与日志
+截图为 [VSM] Non-Nanite Marking Job Queue overflow，不是 Physical Page Pool overflow。
+Saved/Logs/FPSGAME.log 在 2026.10.16-12.38.23:619 UTC / frame 391 记录同一条警告。
+当时世界为 /Game/GameMaps/UEDPIE_0_DayNight_Lighting.DayNight_Lighting。
+未新开 UE、未启动 PIE、未重新采样；利用已有运行世界做定向只读排查。
+
+引擎机制（本机 UE 5.8）
+Engine/Shaders/Private/VirtualShadowMaps/VirtualShadowMapBuildPerPageDrawCommands.usf：
+- 覆盖超过 8 页且需要写 dirty flags 的任务进入 groupshared 队列。
+- 队列上限是 NUM_THREADS_PER_GROUP * 2；工作组会累积多个 clip/mip 层的任务。
+- 溢出时退回当前线程循环遍历页面；仍执行原有标记工作，可能显著变慢。
+MaxPhysicalPages、MaxLightsPerPixel、MaxCulledInstanceAllocationSize 都不是这个队列容量，不能混用。
+没有修改 AllowScreenOverflowMessages、阴影分辨率、粗页参与、批处理或引擎 shader。
+
+当前世界中确认的错误配置
+对象：BP_FPS_DayNightManager_C_0.SM_SkySphere。
+网格：/Engine/EngineSky/SM_SkySphere.SM_SkySphere。
+缩放：10000；包围球半径：40960004 cm，约 409.6 km。
+状态：可见、Movable、非 Nanite、CastShadow=true、CastDynamicShadow=true。
+实际材质：/Game/PWL_Light_Manager/Shader/MI_Sky_Sunshine_02。
+母材质：M_Cubemap_Sky_Material，Opaque、Unlit、IsSky=true、单面。
+UMaterial 的 IsSky 只影响天空材质的空中透视等处理；FMaterial::ShouldCastDynamicShadows 对这个 Opaque 材质仍返回 true。
+所以不能因“天空／自发光材质”假定它自动退出阴影通道。此背景范围覆盖整个场景，是确定应修正的阴影工作源。
+本次只读观察没有逐 GPU 事件的 primitive ID，尚不能证明该对象独占此前的每一次溢出，更不能将它写成地牢 Morph 高耗时的全部根因。
+
+修正范围
+1. StormCloudComponent::Discover 的现有 1 秒发现入口，仅识别 FPS_DayNightManager 下名为 SM_SkySphere、实际使用 IsSky 材质的背景；CastShadow 为 true 时一次性设 false。
+   放在已发现网格的跳过判断之前，覆盖旧地图实例覆盖值；不新增逐帧扫描、材质重建或日志刷屏。
+2. Tools/Weather/repair_sky_sphere_shadow.py 定向修改 BP_FPS_DayNightManager 内同一网格的组件模板，仅保存该蓝图包；保留源资产备份和 SHA-256 回执。
+   只改组件默认值，无图表或反射布局变更，不编译／重实例化蓝图，不启动／停止 PIE；将同一纠正应用于已有游戏实例。
+   若目标蓝图有未保存编辑，脚本保留现场退出。
+天空仍可见，HDR、材质、亮度、太阳、云层、建筑／角色投影、光追、Lumen、怪物数量和玩法均不调整。
+
+证据与边界
+Saved/VsmOverflow20261016/scene.json：当前世界投影网格及灯光的只读观察。
+Saved/VsmOverflow20261016/sky.json：实际材质和天空组件投影标志。
+Saved/VsmOverflow20261016/sky-shadow-install.json：已保存蓝图正式组件模板的回执。
+Saved/VsmOverflow20261016/Before/：修改前源码／蓝图备份。
+game-build-02.log：StormCloudComponent.cpp 编译通过；全目标被 ColdSteelAlchemyWidget.cpp 与其头文件不一致挡住，未修改并行炼金代码。
+实际保存／构建最终状态见下方后续记录；未运行性能或画面测试，未宣称消除全部溢出或提升具体帧率。
+
+最终交付（2026-10-16 20:54，北京时间）
+- 原有 UE 进程在排队期间退出；没有重新打开交互编辑器。使用 NullRHI / NoShaderCompile PythonScript commandlet 只保存目标蓝图。
+- 子对象工具返回同名引用，经路径去重并选择正式 GeneratedClass 所属模板：
+  /Game/Lighting/BP_FPS_DayNightManager.BP_FPS_DayNightManager_C:SM_SkySphere_GEN_VARIABLE。
+- BP_FPS_DayNightManager.uasset 已保存；cast_shadow_before=true，cast_shadow_after=false，命令退出码 0。
+- 保存前 SHA-256 f38c800340ab817e78dc9542f2704cdec17da205f52063ce2b8d0367a1736358，
+  保存后 SHA-256 51697b64701ff867f4873dfcc41ca8f22d2177c442350db581de30196f259767。
+- 资产配置修正已经落盘，下一次加载使用；保存时没有游戏世界，未修改运行中实例，未自动启动游戏确认。
+- Game 的 StormCloudComponent.cpp 单文件编译通过；Game/Editor 全目标均受并行炼金 UI 错误阻塞，未宣称原生 DLL/EXE 已更新。
+  Editor 最终输出见 editor-build-02.log：ColdSteelAlchemyWidget.cpp 头／实现不一致及 ColdSteelAlchemyEntry*.cpp 的成员遮蔽 C4458。
+  已保留这些并行文件；原生旧实例纠正逻辑待工程正常全目标构建后生效，蓝图默认值修正不依赖这段新增原生代码。
+  未重新尝试与本改动无关的持续构建循环，未运行测试或采样。
+
+Epic 说明（页面覆盖与包围体）：
+https://dev.epicgames.com/documentation/unreal-engine/virtual-shadow-maps-in-unreal-engine#objectbounds

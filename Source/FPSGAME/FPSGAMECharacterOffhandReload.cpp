@@ -2,6 +2,7 @@
 #include "FPSGAMEPlayerController.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "Weapons/Spellbook/SpellbookComponent.h"
+#include "Weapons/WoodenTorchItem.h"
 #include "Monsters/FPSCombatHealthComponent.h"
 #include "Multiplayer/ColdSteelAuthorityContext.h"
 #include "Engine/GameInstance.h"
@@ -19,7 +20,7 @@ float AFPSGAMECharacter::GetReloadSeconds(bool bEmpty) const
     // The authority's shot/reload ledger must price the same handling time as
     // the owning client, using this pawn's shadow profile rather than the host's.
     return Off&&!ColdSteelInventory::IsDualPistol(*Off)
-        ?Native+FOffhandReloadHandoff::LowerSeconds+FOffhandReloadHandoff::RaiseSeconds:Native;
+        ?Native+FOffhandReloadHandoff::LowerSecondsFor(*Off)+FOffhandReloadHandoff::RaiseSeconds:Native;
 }
 
 float AFPSGAMECharacter::GetOffhandReloadLowerWeight() const
@@ -47,8 +48,10 @@ bool AFPSGAMECharacter::TryBeginOffhandReload()
     if(!Off||ColdSteelInventory::IsDualPistol(*Off))return false;
     if(Spellbook)Spellbook->CancelFocus();
     OffhandReload.Phase=EOffhandReloadPhase::Lower;
+    OffhandReload.bWaitForReloadEnd=ColdSteelInventory::IsWoodenTorch(*Off);
     OffhandReload.Weapon=Main->InstanceId;OffhandReload.Offhand=Off->InstanceId;OffhandReload.Slot=Slot;
     OffhandReload.StartedAt=GetWorld()->GetTimeSeconds();
+    OffhandReload.LowerDuration=FOffhandReloadHandoff::LowerSecondsFor(*Off);
     GetWorldTimerManager().ClearTimer(FireTimerHandle);SetAimingState(false);
     bRevolverReloadAfterFire=bReloadAfterCasting=false;
     return true;
@@ -77,7 +80,7 @@ void AFPSGAMECharacter::ReturnOffhandAfterReload()
 void AFPSGAMECharacter::BeginOffhandReloadReturnIfReady(float SourceTime)
 {
     // AdvanceReloadStages calls this only after any required cycle is completed.
-    if(OffhandReload.Phase!=EOffhandReloadPhase::Reload||OffhandReload.bEarlyReturn||!bReloadAmmoCommitted)return;
+    if(OffhandReload.Phase!=EOffhandReloadPhase::Reload||OffhandReload.bWaitForReloadEnd||OffhandReload.bEarlyReturn||!bReloadAmmoCommitted)return;
     // M1911/G18/Pit Viper share the native 120 fps magazine contacts. Normal
     // loading must also finish the seat at 128; empty loading keeps slide release.
     const float Release=bUseM1911&&!bPendingEmptyReload?FMath::Max(ReloadStages.Ready,128.f/120.f):ReloadStages.Ready;
@@ -110,7 +113,7 @@ void AFPSGAMECharacter::AdvanceOffhandReload()
         CancelOffhandReload();InterruptReload();return;
     }
     const double Now=GetWorld()->GetTimeSeconds();
-    if(OffhandReload.Phase==EOffhandReloadPhase::Lower&&Now-OffhandReload.StartedAt>=FOffhandReloadHandoff::LowerSeconds)
+    if(OffhandReload.Phase==EOffhandReloadPhase::Lower&&Now-OffhandReload.StartedAt>=OffhandReload.LowerDuration)
     {
         OffhandReload.Phase=EOffhandReloadPhase::Reload;
         ReloadPressed();

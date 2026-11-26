@@ -17,7 +17,7 @@ enum class EQuickCombatBashPhase : uint8 { None, Release, Cock, Smash, Follow, R
 // 单一绝对时钟 ActionAge 驱动阶段/镜头/接触点，全部由 clip 长度换算，不逐段累计。
 // 两种武器的动作本体都在作者源 clip 里（手枪 DW715、步枪 M4 六个握把配置），
 // 本组件不参与姿态——只给出命中探针来源、结算时机与镜头语言。
-enum class EQuickCombatStyle : uint8 { Pistol, Rifle, M4ReferenceRifle, DualPistol, Bow, StaffPunch, StaffOffhandPistol, UnarmedPunch, SpellbookPush, Warhammer };
+enum class EQuickCombatStyle : uint8 { Pistol, Rifle, M4ReferenceRifle, DualPistol, Bow, StaffPunch, StaffOffhandPistol, UnarmedPunch, SpellbookPush, Warhammer, TorchStrike };
 
 UCLASS(ClassGroup=(Skills),meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UFPSQuickCombatComponent : public UActorComponent
@@ -28,8 +28,9 @@ public:
     /** 动作入口：武装仲裁通过后由角色调用；扣体力、占用动作与使用修炼。 */
     bool BeginAction();
     void Cancel();
-    // ASH/SVCH call this before character presentation; other weapons use TickComponent.
-    // ActionAge remains source-clip seconds, including a confirmed-hit pause.
+    // ASH/SVCH/M24 call this before character presentation; other weapons use TickComponent.
+    // ActionAge is the family's pose clock, including a confirmed-hit pause;
+    // conical thrust maps it to the retained V7 source through SourceSeconds.
     void AdvanceAction(float Delta);
     bool IsImpactPaused() const;
     UFUNCTION(BlueprintPure,Category="Skills|QuickCombat") bool IsOccupyingLeftHand() const { return Phase!=EQuickCombatBashPhase::None; }
@@ -46,25 +47,34 @@ public:
     void ConfigureForRifle(float Length,bool bM4Reference=false);
     void ConfigureForBow(float Length);
     void ConfigureForStaffPunch();
+    void ConfigureForTorchStrike();
+    void ConfirmTorchContact(const FVector& Point);
     void ConfigureForSpellbookPush();
-    void ConfigureForWarhammer();
+    void ConfigureForWarhammer(bool bHeadThrust=false);
+    bool UsesWarhammerHeadThrust() const { return Style==EQuickCombatStyle::Warhammer&&bWarhammerHeadThrust; }
     // Ordinary primary punches share the contact clock, without casting/training the F skill.
     void ConfigureForUnarmedPunch();
     void ConfigureForStaffOffhandPistol(float Length);
     EQuickCombatStyle GetStyle() const { return Style; }
     /** 镜头语言（配重锤 GetCameraMotion 同款合同）：相机空间位置 cm 与旋转度。 */
     void GetCameraMotion(FVector& Location,FRotator& Rotation) const;
+    float GetCameraFOV() const;
     uint32 GetActionSerial() const { return Serial; }
     float GetSourceLength() const { return ClipLength; }
+    float GetActionRate() const { return ActionRate; }
     float GetContactFraction() const { return ClipLength>0.f?ContactTime/ClipLength:.45f; }
+    float GetBowRecoilCM() const;
+    float GetBowSourcePlaybackRate() const;
 protected:
     virtual void BeginPlay() override;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
+    friend class UBowSkillTrainingAuditCommandlet;
     bool IsPistolStyle() const { return Style==EQuickCombatStyle::Pistol || Style==EQuickCombatStyle::DualPistol || Style==EQuickCombatStyle::StaffOffhandPistol; }
     bool IsRifleStyle() const { return Style==EQuickCombatStyle::Rifle || Style==EQuickCombatStyle::M4ReferenceRifle; }
     EQuickCombatStyle Style=EQuickCombatStyle::Pistol;
+    bool bWarhammerHeadThrust=false;
     EQuickCombatBashPhase Phase=EQuickCombatBashPhase::None;
     float ActionAge=0.f;
     // 运行时时间轴（由 clip 长度换算）
@@ -73,12 +83,16 @@ private:
     float ImpactAge=1.f;   // 1=无冲量；命中置 0，Tick 内衰减
     float ImpactStrength=0.f;
     uint32 Serial=0;
+    uint32 GenericMeleeSerial=0;
     bool bContactDone=false,bKillPending=false;
     UPROPERTY(Transient) TObjectPtr<USoundBase> ImpactSound;
     UPROPERTY(Transient) TObjectPtr<USoundBase> SwingSound;
     void ContactHit();
     void ContactWarhammer(AFPSGAMECharacter* Player,UColdSteelStatusModel* Profile);
     void FinishAction();
+    float ActionRate=1.f;
+    float ActionSourceDuration() const;
+    float ActionSourceRemaining() const;
     float ActionDuration() const;
     float ActionRemaining() const;
     EQuickCombatBashPhase PhaseForAge(float Age) const;

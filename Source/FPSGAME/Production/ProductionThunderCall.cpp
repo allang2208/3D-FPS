@@ -1,5 +1,6 @@
 #include "ProductionToolComponent.h"
 #include "ThunderHammerTuning.h"
+#include "ThunderHammerCallIntent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
@@ -10,11 +11,23 @@
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Engine/World.h"
 
+bool UProductionToolComponent::IsThunderCalling() const
+{
+    const auto* Pawn=Character.Get();
+    if(!bThunderCallSeat||!IsHeavyCharging()||!Pawn||!GetWorld())return false;
+    // A delayed tap-release packet is not evidence that the owner held input.
+    if(!Pawn->IsLocallyControlled()&&!bThunderCallHoldConfirmed)return false;
+    const double StartedAt=Pawn->IsLocallyControlled()?BluntChargeStartedAt:BluntServerChargeStartedAt;
+    return ThunderHammerCallIntent::Phase(float(GetWorld()->GetTimeSeconds()-StartedAt),BluntChargeSeconds)
+        !=ThunderHammerCallIntent::EPhase::TapPending;
+}
+
 float UProductionToolComponent::ThunderCallChargeProgress() const
 {
     if(!bThunderCallCharging)return 0.f;
     const auto* Pawn=Character.Get();
-    if(Pawn&&Pawn->IsLocallyControlled())return HeavyChargeFraction();
+    if(Pawn&&Pawn->IsLocallyControlled())
+        return ThunderHammerCallIntent::Progress(float(GetWorld()->GetTimeSeconds()-BluntChargeStartedAt),BluntChargeSeconds);
     return FMath::Clamp(float(RuneboundClock()-ThunderCallVisualStartedAt)/FMath::Max(.01f,ThunderCallVisualSeconds),0.f,1.f);
 }
 
@@ -39,17 +52,18 @@ void UProductionToolComponent::TickThunderCallAudio()
         Audio->AttenuationOverrides.bAttenuate=!Pawn->IsLocallyControlled();
         Audio->AttenuationOverrides.AttenuationShapeExtents=FVector(250.f,0.f,0.f);
         Audio->AttenuationOverrides.FalloffDistance=1800.f;
-        Audio->RegisterComponent();Audio->SetLowPassFilterEnabled(true);ThunderCallChargeAudio=Audio;
+        Audio->RegisterComponent();ThunderCallChargeAudio=Audio;
     }
     const float Charge=ThunderCallChargeProgress(),Energy=FMath::SmoothStep(0.f,1.f,Charge);
-    // A low magnetic hum grows into a denser electrical rasp. Use the same
-    // charge clock as the arm and lightning, including remote observers.
-    const float Volume=FMath::Lerp(.055f,.70f,Energy);
+    // The selected recording stays at its native pitch and bandwidth. The
+    // MetaSound continuously randomizes cuts; charge changes only intensity.
+    const float Volume=FMath::Lerp(.16f,.70f,Energy);
     ThunderCallChargeAudio->SetVolumeMultiplier(Volume);
-    ThunderCallChargeAudio->SetPitchMultiplier(FMath::Lerp(.72f,1.18f,Energy));
-    ThunderCallChargeAudio->SetLowPassFilterFrequency(FMath::Lerp(520.f,3600.f,Energy*Energy));
     if(!bThunderCallAudioActive)
     {
+        ThunderCallChargeAudio->SetSound(ThunderCallChargeSound);
+        ThunderCallChargeAudio->SetPitchMultiplier(1.f);
+        ThunderCallChargeAudio->SetLowPassFilterEnabled(false);
         ThunderCallChargeAudio->FadeIn(.06f,1.f);bThunderCallAudioActive=true;
     }
 }
@@ -65,6 +79,31 @@ void UProductionToolComponent::TickThunderCall(float Delta)
 {
     auto* Pawn=Character.Get();if(!Pawn)return;
     auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
+    if(Pawn->IsLocallyControlled()&&IsThunderCalling()&&!bThunderCallHoldConfirmed)
+    {
+        bThunderCallHoldConfirmed=true;
+        if(GetNetMode()!=NM_Standalone)ServerConfirmThunderCall(BluntAttackId);
+    }
+    if(Pawn->HasAuthority()||Pawn->IsLocallyControlled())
+    {
+        const bool Charging=IsThunderCalling();
+        if(bThunderCallCharging!=Charging)
+        {
+            bThunderCallCharging=Charging;
+            if(Pawn->HasAuthority())
+            {
+                if(Charging)
+                {
+                    const double StartedAt=Pawn->IsLocallyControlled()?BluntChargeStartedAt:BluntServerChargeStartedAt;
+                    const float Held=float(GetWorld()->GetTimeSeconds()-StartedAt);
+                    ThunderCallVisualStartedAt=RuneboundClock()-Held+ThunderHammerCallIntent::PendingSeconds(BluntChargeSeconds);
+                    ThunderCallVisualSeconds=ThunderHammerCallIntent::LiftSeconds(BluntChargeSeconds);
+                    bThunderCallResourcesDirty=true;
+                }
+                Pawn->ForceNetUpdate();
+            }
+        }
+    }
     if(!IsThunderCalling()&&bThunderCallResourcesDirty)FinishThunderCallResources();
     if(IsThunderCalling()&&Profile&&!Profile->HasInfiniteMana()&&Profile->Mana()<=0.f)
     {CancelHeavyCharge();return;}
@@ -119,15 +158,16 @@ void UProductionToolComponent::FinishThunderCallResources()
     const auto* PS=!Pawn->IsLocallyControlled()?Pawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
     if(!Profile->CommitCampfireState(Profile->Snapshot(),TEXT("JiLeiCharge"),PS?PS->CampfireGuestSlot():FString()))return;
     bThunderCallResourcesDirty=false;const auto State=Profile->Snapshot();
-    ClientThunderCallResources(State.CampfireInventoryRevision,State.Mana,State.Stamina,State.StaminaRecoveryDelay,State.bSprintExhausted);
+    ClientThunderCallResources(State.CampfireInventoryRevision,State.Mana,State.Stamina,State.StaminaRecoveryDelay,State.bSprintExhausted,State.MagicCrystalManaRestored);
 }
 
-void UProductionToolComponent::ClientThunderCallResources_Implementation(int64 Revision,float Mana,float Stamina,float RecoveryDelay,bool Exhausted)
+void UProductionToolComponent::ClientThunderCallResources_Implementation(int64 Revision,float Mana,float Stamina,float RecoveryDelay,bool Exhausted,double CrystalManaTotal)
 {
     auto* Pawn=Character.Get();auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
     if(!Pawn||Pawn->HasAuthority()||!Pawn->IsLocallyControlled()||!Profile||Revision<=ThunderCallResourceRevision)return;
     auto State=Profile->Snapshot();if(Revision<State.CampfireInventoryRevision)return;
     ThunderCallResourceRevision=Revision;State.CampfireInventoryRevision=Revision;State.CampfireWorldReceipts.FindOrAdd(TEXT("JiLeiCharge"))=Revision;
+    State.MagicCrystalManaRestored=CrystalManaTotal;
     State.Mana=FMath::Clamp(Mana,0.f,float(Profile->Derived(TEXT("maxMp"))));State.Stamina=FMath::Clamp(Stamina,0.f,Profile->MaxStamina());
     State.StaminaRecoveryDelay=RecoveryDelay;State.bSprintExhausted=Exhausted;
     Profile->AdoptNetMirror(State,true);Profile->OnChanged.Broadcast();Profile->SaveNow();

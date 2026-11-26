@@ -143,6 +143,7 @@ FColdSteelProposal Transfer(const TArray<FColdSteelItem>& Items,const FString& I
 int32 Category(const FColdSteelItem& I)
 {
     const FString C=Text(I,TEXT("category")),Slot=Text(I,TEXT("equipSlot"));
+    if(C==TEXT("weapon_magic"))return 9;
     if(C==TEXT("weapon_melee"))return 0;if(C==TEXT("weapon_ranged"))return 1;
     if(Text(I,TEXT("weaponType"))==TEXT("shield"))return 2;
     if(!Slot.IsEmpty()&&Slot!=TEXT("weapon"))return 3;

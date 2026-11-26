@@ -1,9 +1,12 @@
 #include "FPSStatusReplicationComponent.h"
+#include "../Weapons/FPSImpactFXSubsystem.h"
 #include "GameFramework/Controller.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/PoisonMaggotProjectile.h"
 #include "../Monsters/HandBrainFearComponent.h"
 #include "../UI/StatusEffectsComponent.h"
+#include "../WorldGeneration/VillageDefenseSection.h"
+#include "../NPC/VillageResidentStatus.h"
 #include "../Movement/PlayerGuardBreakComponent.h"
 #include "GameFramework/GameStateBase.h"
 #include "GameFramework/Character.h"
@@ -14,6 +17,11 @@ UFPSStatusReplicationComponent::UFPSStatusReplicationComponent()
 {SetIsReplicatedByDefault(true);PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickInterval=.1f;}
 double UFPSStatusReplicationComponent::ServerTime() const
 {const auto* GS=GetWorld()->GetGameState();return GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();}
+void UFPSStatusReplicationComponent::MulticastBleedingBurst_Implementation(FVector_NetQuantize Position,FVector_NetQuantizeNormal Normal,int32 Stacks)
+{
+    if(GetNetMode()==NM_DedicatedServer)return;
+    if(auto* FX=GetWorld()->GetSubsystem<UFPSImpactFXSubsystem>())FX->SpawnBleedingBurst(Position,Normal,Stacks,GetOwner());
+}
 void UFPSStatusReplicationComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(UFPSStatusReplicationComponent,State);}
 void UFPSStatusReplicationComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
@@ -21,6 +29,30 @@ void UFPSStatusReplicationComponent::TickComponent(float Delta,ELevelTick Type,F
     Super::TickComponent(Delta,Type,Tick);
     if(!GetOwner()->HasAuthority()){ApplyState(false);return;}
     if(GetNetMode()==NM_Standalone)return;
+    CaptureAuthorityState();
+}
+
+void UFPSStatusReplicationComponent::BindWorldTargetEffects(UStatusEffectsComponent& Effects)
+{
+    AActor* Owner=Effects.GetOwner();
+    if(!Owner->HasAuthority() || !Owner->GetIsReplicated() || Owner->GetNetMode()==NM_Standalone ||
+       (!Owner->IsA<AVillageDefenseSection>() && !VillageResidentStatus::Name(Owner)))return;
+    auto* Replica=NewObject<UFPSStatusReplicationComponent>(Owner);
+    Owner->AddInstanceComponent(Replica);
+    Replica->RegisterComponent();
+    Replica->SetComponentTickEnabled(false);
+    Effects.OnChanged.AddUObject(Replica,&UFPSStatusReplicationComponent::PublishWorldTargetEffects);
+}
+
+void UFPSStatusReplicationComponent::PublishWorldTargetEffects()
+{
+    GetOwner()->FlushNetDormancy();
+    CaptureAuthorityState();
+    GetOwner()->ForceNetUpdate();
+}
+
+void UFPSStatusReplicationComponent::CaptureAuthorityState()
+{
     const double Now=ServerTime();
     const auto Quantize=[](double T){return FMath::RoundToDouble(T*20.)/20.;};
     FFPSStatusNetState Next;
@@ -38,10 +70,12 @@ void UFPSStatusReplicationComponent::TickComponent(float Delta,ELevelTick Type,F
         Next.VulnerabilityTime=C->VulnerabilityTime>0.f?Quantize(Now+C->VulnerabilityTime):0.;
         Next.BleedTime=C->BleedTime>0.f?Quantize(Now+C->BleedTime):0.;
         Next.RuneVulnerabilityTime=C->RuneVulnerabilityTime>0.f?Quantize(Now+C->RuneVulnerabilityTime):0.;
+        Next.MagicInspirationTime=C->MagicInspirationTime>0.f?Quantize(Now+C->MagicInspirationTime):0.;
         Next.RiposteTime=C->RiposteTime>0.f?Quantize(Now+C->RiposteTime):0.;
         Next.StunTime=C->StunTime>0.f?Quantize(Now+C->StunTime):0.;
         Next.BindTime=C->BindTime>0.f?Quantize(Now+C->BindTime):0.;
         Next.SlowTime=C->SlowTime>0.f?Quantize(Now+C->SlowTime):0.;
+        Next.ExhaustionTime=C->ExhaustionTime>0.f?Quantize(Now+C->ExhaustionTime):0.;
         Next.WaxTime=C->WaxTime>0.f?Quantize(Now+C->WaxTime):0.;
         Next.WeaponHasteTime=C->WeaponHasteTime>0.f?Quantize(Now+C->WeaponHasteTime):0.;
         Next.PetrifyTime=C->PetrifyTime>0.f?Quantize(Now+C->PetrifyTime):0.;
@@ -57,8 +91,8 @@ void UFPSStatusReplicationComponent::TickComponent(float Delta,ELevelTick Type,F
         Next.ComposureEndsAt=C->ComposureEndsAt>0.?Quantize(C->ComposureEndsAt):0.;
         Next.WeaknessEndsAt=C->WeaknessEndsAt>0.?Quantize(C->WeaknessEndsAt):0.;
         Next.CriticalVulnerabilityEndsAt=C->CriticalVulnerabilityEndsAt>0.?Quantize(C->CriticalVulnerabilityEndsAt):0.;
+        Next.ArmorCorrosionEndsAt=C->ArmorCorrosionEndsAt>0.?Quantize(C->ArmorCorrosionEndsAt):0.;
         Next.ElectrifiedBonus=C->ElectrifiedBonus;
-        Next.ChillSlow=C->ChillSlow;
         Next.CorrosionDuration=C->CorrosionDuration;
         Next.CorrosionReduction=C->CorrosionReduction;
         Next.Shred=C->Shred;
@@ -96,6 +130,7 @@ void UFPSStatusReplicationComponent::TickComponent(float Delta,ELevelTick Type,F
         Next.ComposureStacks=C->ComposureStacks;
         Next.WeaknessStacks=C->WeaknessCount();
         Next.CriticalVulnerabilityStacks=C->CriticalVulnerabilityCount();
+        Next.ArmorCorrosionStacks=C->ArmorCorrosionCount();
     }
     if(const auto* I=GetOwner()->FindComponentByClass<UProgressiveInfectionComponent>())
     {Next.Infection=I->State;Next.InfectedAt=Next.Infection.bActive?Quantize(Now-Next.Infection.ElapsedSeconds):0.;Next.Infection.ElapsedSeconds=0.f;}
@@ -114,7 +149,11 @@ void UFPSStatusReplicationComponent::TickComponent(float Delta,ELevelTick Type,F
         }
     State=MoveTemp(Next);
 }
-void UFPSStatusReplicationComponent::OnRep_State(){ApplyState(true);}
+void UFPSStatusReplicationComponent::OnRep_State()
+{
+    ApplyState(true);
+    if(GetOwner()->IsA<AVillageDefenseSection>() || VillageResidentStatus::Name(GetOwner()))SetComponentTickEnabled(!State.Display.IsEmpty());
+}
 void UFPSStatusReplicationComponent::ApplyState(bool bPublishDisplay)
 {
     if(GetOwner()->HasAuthority())return;
@@ -133,10 +172,12 @@ void UFPSStatusReplicationComponent::ApplyState(bool bPublishDisplay)
         C->VulnerabilityTime=State.VulnerabilityTime>0.?FMath::Max(0.,State.VulnerabilityTime-Now):0.f;
         C->BleedTime=State.BleedTime>0.?FMath::Max(0.,State.BleedTime-Now):0.f;
         C->RuneVulnerabilityTime=State.RuneVulnerabilityTime>0.?FMath::Max(0.,State.RuneVulnerabilityTime-Now):0.f;
+        C->MagicInspirationTime=State.MagicInspirationTime>0.?FMath::Max(0.,State.MagicInspirationTime-Now):0.f;
         C->RiposteTime=State.RiposteTime>0.?FMath::Max(0.,State.RiposteTime-Now):0.f;
         C->StunTime=State.StunTime>0.?FMath::Max(0.,State.StunTime-Now):0.f;
         C->BindTime=State.BindTime>0.?FMath::Max(0.,State.BindTime-Now):0.f;
         C->SlowTime=State.SlowTime>0.?FMath::Max(0.,State.SlowTime-Now):0.f;
+        C->ExhaustionTime=State.ExhaustionTime>0.?FMath::Max(0.,State.ExhaustionTime-Now):0.f;
         C->WaxTime=State.WaxTime>0.?FMath::Max(0.,State.WaxTime-Now):0.f;
         C->WeaponHasteTime=State.WeaponHasteTime>0.?FMath::Max(0.,State.WeaponHasteTime-Now):0.f;
         C->PetrifyTime=State.PetrifyTime>0.?FMath::Max(0.,State.PetrifyTime-Now):0.f;
@@ -152,8 +193,8 @@ void UFPSStatusReplicationComponent::ApplyState(bool bPublishDisplay)
         C->ComposureEndsAt=State.ComposureEndsAt>0.?LocalNow+State.ComposureEndsAt-Now:0.;
         C->WeaknessEndsAt=State.WeaknessEndsAt>0.?LocalNow+State.WeaknessEndsAt-Now:0.;
         C->CriticalVulnerabilityEndsAt=State.CriticalVulnerabilityEndsAt>0.?LocalNow+State.CriticalVulnerabilityEndsAt-Now:0.;
+        C->ArmorCorrosionEndsAt=State.ArmorCorrosionEndsAt>0.?LocalNow+State.ArmorCorrosionEndsAt-Now:0.;
         C->ElectrifiedBonus=State.ElectrifiedBonus;
-        C->ChillSlow=State.ChillSlow;
         C->CorrosionDuration=State.CorrosionDuration;
         C->CorrosionReduction=State.CorrosionReduction;
         C->Shred=State.Shred;
@@ -191,6 +232,7 @@ void UFPSStatusReplicationComponent::ApplyState(bool bPublishDisplay)
         C->ComposureStacks=State.ComposureStacks;
         C->WeaknessStacks=State.WeaknessStacks;
         C->CriticalVulnerabilityStacks=State.CriticalVulnerabilityStacks;
+        C->ArmorCorrosionStacks=State.ArmorCorrosionStacks;
 
     }
     if(State.Infection.bActive||GetOwner()->FindComponentByClass<UProgressiveInfectionComponent>())

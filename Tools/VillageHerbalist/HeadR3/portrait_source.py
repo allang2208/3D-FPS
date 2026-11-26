@@ -59,3 +59,4 @@ for view,degrees in [('front',0),('three-quarter',38)]:
     aim(camera)
     scene.render.filepath=str(OUT/(view+'.png'))
     bpy.ops.render.render(write_still=True)
+

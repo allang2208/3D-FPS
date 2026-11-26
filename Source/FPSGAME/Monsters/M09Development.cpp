@@ -9,7 +9,7 @@
 #include "Kismet/GameplayStatics.h"
 void AHangingBellM09::ConfigureReturnPortal(AActor* Portal)
 {
- if(auto* Door=Cast<ASceneTestPortal>(Portal))Door->Configure(TEXT("/Game/GameMaps/DayNight_Lighting"),TEXT("RETURN TO HUB"));
+ if(auto* Door=Cast<ASceneTestPortal>(Portal))Door->Configure(TEXT("/Game/GameMaps/DayNight_Lighting"),TEXT("返回主神空间"));
 }
 #if !UE_BUILD_SHIPPING
 namespace M09Development

@@ -10,6 +10,6 @@ namespace WarhammerCombat
     constexpr float HeavyStunSeconds=2.f;
     float ShockwaveRadius(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile);
     FWeaponDamageParts Damage(const FWeaponDamageParts& Base,const UColdSteelStatusModel* Profile,
-        bool bSprint,bool bHeavy,float HeavyMultiplier,int32 Stage);
+        bool bSprint,bool bHeavy,float HeavyMultiplier,int32 Stage,TOptional<double> FinisherMultiplier={});
     void ApplyHeavyStun(AActor* Target,float Seconds);
 }

@@ -46,7 +46,10 @@ namespace FPSMagicPreview
      * OutPoints always starts at Start and ends at the contact/limit, so it can be drawn directly.
      */
     void SamplePath(const APawn* Shooter,const AActor* Ignore,const FVector& Start,const FVector& LaunchVelocity,
-        float Gravity,float MaxDistance,float SweepRadius,TArray<FVector>& OutPoints,bool bIgnoreDead=true);
+        float Gravity,float MaxDistance,float SweepRadius,TArray<FVector>& OutPoints,bool bIgnoreDead=true,float DropDelay=0.f);
+    /** Ballistic position after T seconds when gravity only starts after DropDelay (fireball 平直弹道 spec). */
+    inline FVector DelayedBallistic(const FVector& Start,const FVector& Velocity,float Gravity,float T,float DropDelay)
+    { const float Fall=FMath::Max(0.f,T-FMath::Max(0.f,DropDelay)); return Start+Velocity*T+FVector(0,0,-.5f*Gravity*Fall*Fall); }
 
     /**
      * Starts one frame of preview: lazily creates Owner's line batcher and drops the previous
@@ -58,11 +61,12 @@ namespace FPSMagicPreview
      * Draws one projectile's arc as a dashed red line: the rhythm runs along the whole path
      * (`fps.Magic.PreviewDashCM` / `PreviewGapCM`), and the end touching the spell fades in from
      * invisible and is thinner there, so the attachment reads as a soft lead-in.
+     * bEndWithDash anchors the dash pattern at a surface contact that must be visible.
      */
     // The default preserves spell styling. A centred weapon throw can opt into
     // a stronger lead-in so a short first dash does not disappear completely.
     void DrawPath(TObjectPtr<ULineBatchComponent>& Lines,const TArray<FVector>& Points,
-        float Thickness=LineThickness,float MinimumOpacity=0.f);
+        float Thickness=LineThickness,float MinimumOpacity=0.f,bool bEndWithDash=false);
     /** Stops drawing immediately: pending segments are dropped. */
     void Clear(ULineBatchComponent* Lines);
 }

@@ -230,6 +230,9 @@ public:
     UAnimSequence* JumpClip(float& Seconds) const;
     void SetLocomotion(bool Moving,bool Returning);
     void InterruptAttack(float Seconds);
+    void ReceivePumpRelease();
+    UPROPERTY(Replicated) double PumpCooldownUntil=0.;
+    UPROPERTY(Replicated) double PumpVulnerableUntil=0.;
     void FinishHitReaction();
     void ExtendControl(float Seconds);
     bool StartLaunch(APawn* Attacker,const FVector& Velocity,float HoldSeconds);

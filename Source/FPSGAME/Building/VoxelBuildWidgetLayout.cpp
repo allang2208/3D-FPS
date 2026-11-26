@@ -1,6 +1,9 @@
 #include "VoxelBuildWidget.h"
+#include "../UI/ColdSteelTextToolTip.h"
 #include "VoxelBuildComponent.h"
 #include "VoxelBuildIcons.h"
+#include "VoxelBuildPalette.h"
+#include "VillageBuildDefense.h"
 #include "../UI/ColdSteelUIStyle.h"
 #include "../UI/GunsmithUIStyle.h"
 #include "../UI/ColdSteelHUDWidget.h"
@@ -66,19 +69,40 @@ void UVoxelBuildWidget::NativeOnInitialized()
     auto* Header=WidgetTree->ConstructWidget<UBorder>();HeaderPanel=Header;
     Header->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::HeaderTint,ColdSteelUI::PanelRadius/Scale));
     Stack->AddChildToVerticalBox(Header);
-    HeaderSize=WidgetTree->ConstructWidget<USizeBox>();HeaderSize->SetHeightOverride(HeaderHeight/Scale);Header->SetContent(HeaderSize);
-    Header->SetPadding(FMargin(18/Scale,0));
-    auto* Heading=WidgetTree->ConstructWidget<UHorizontalBox>();HeaderSize->SetContent(Heading);
-    Title=Text(TEXT("自由建造"),20,false,true);
-    auto* TitleSlot=Heading->AddChildToHorizontalBox(Title);
-    TitleSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));TitleSlot->SetVerticalAlignment(VAlign_Center);
+    HeaderSize=WidgetTree->ConstructWidget<USizeBox>();HeaderSize->SetMinDesiredHeight(HeaderHeight/Scale);Header->SetContent(HeaderSize);
+    auto* HeaderRows=WidgetTree->ConstructWidget<UVerticalBox>();
+    HeaderSize->SetContent(HeaderRows);
+    auto* Title=Text(TEXT("自由建造"),20.f,false,true);
+    Title->SetAutoWrapText(false);
+    Title->SetColorAndOpacity(ColdSteelUI::NoticeGold);
+    HeaderRows->AddChildToVerticalBox(Title)->SetHorizontalAlignment(HAlign_Left);
+    auto* HintFit=WidgetTree->ConstructWidget<UScaleBox>();
+    HintFit->SetStretch(EStretch::ScaleToFit);
+    HintFit->SetStretchDirection(EStretchDirection::DownOnly);
+    HeaderRows->AddChildToVerticalBox(HintFit);
+    HeaderHints=WidgetTree->ConstructWidget<UHorizontalBox>();
+    HintFit->SetContent(HeaderHints);
+    CastChecked<UScaleBoxSlot>(HeaderHints->Slot)->SetHorizontalAlignment(HAlign_Left);
+    auto AddHint=[this](const TCHAR* Caption)
+    {
+        auto* Label=Text(Caption,14.f);
+        Label->SetAutoWrapText(false);
+        Label->SetColorAndOpacity(FLinearColor::White);
+        HeaderHints->AddChildToHorizontalBox(Label)->SetVerticalAlignment(VAlign_Center);
+        return Label;
+    };
+    PickHint=AddHint(TEXT(""));
+    VoxelHint=AddHint(TEXT("0 切回体素"));
+    AddHint(TEXT("Esc 继续放置"));
+    AddHint(TEXT("B 退出建造"));
     auto* Body=WidgetTree->ConstructWidget<UVerticalBox>();Stack->AddChildToVerticalBox(Body)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     Status=Text(TEXT(""),14,false,true);Status->SetAutoWrapText(true);
     Body->AddChildToVerticalBox(Status)->SetPadding(FMargin(18/Scale,10/Scale,12/Scale,2/Scale));
-    Selection=Text(TEXT(""),14);Selection->SetAutoWrapText(true);
-    Selection->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+    Selection=Text(TEXT(""),14);Selection->SetAutoWrapText(false);
+    Selection->SetTextOverflowPolicy(ETextOverflowPolicy::Ellipsis);
+    Selection->SetColorAndOpacity(FLinearColor::White);
     Body->AddChildToVerticalBox(Selection)->SetPadding(FMargin(18/Scale,0,12/Scale,4/Scale));
-    Structure=Text(TEXT(""),12);Structure->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+    Structure=Text(TEXT(""),12);Structure->SetColorAndOpacity(FLinearColor::White);
     Structure->SetAutoWrapText(true);
     Body->AddChildToVerticalBox(Structure)->SetPadding(FMargin(18/Scale,0,12/Scale,10/Scale));
     // Structure warning: hidden until the weakest joint passes 85% of its limit, then it names the
@@ -89,11 +113,15 @@ void UVoxelBuildWidget::NativeOnInitialized()
     Body->AddChildToVerticalBox(Tabs)->SetPadding(FMargin(12/Scale,0,12/Scale,8/Scale));
     // 2026-09-16: the old 构件 category is renamed 其他, because constructions are now grouped under
     // the material that owns them; 其他 contains only pieces without a material category.
-    MaterialTab=Tab(TEXT("材质"),false);ComponentTab=Tab(TEXT("其他"),true);
+    MaterialTab=Tab(TEXT("材质"));VillageTab=Tab(TEXT("村庄建筑"));ComponentTab=Tab(TEXT("其他"));
+    MaterialTab->OnClicked.AddDynamic(this,&ThisClass::ShowMaterialCategory);
+    VillageTab->OnClicked.AddDynamic(this,&ThisClass::ShowVillageCategory);
+    ComponentTab->OnClicked.AddDynamic(this,&ThisClass::ShowComponentCategory);
     // 页签字重由 RefreshCategory 按选中态设置；此前把分类标志误当 Medium 传进 Text()，两页签字重恒定不同。
     MaterialTabLabel=Cast<UTextBlock>(MaterialTab->GetContent());
     ComponentTabLabel=Cast<UTextBlock>(ComponentTab->GetContent());
-    for(UButton* Entry:{MaterialTab.Get(),ComponentTab.Get()})
+    VillageTabLabel=Cast<UTextBlock>(VillageTab->GetContent());
+    for(UButton* Entry:{MaterialTab.Get(),VillageTab.Get(),ComponentTab.Get()})
     {
         auto* TabSlot=Tabs->AddChildToHorizontalBox(Entry);TabSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
         TabSlot->SetPadding(FMargin(ColdSteelUI::ActionGap*.5f/Scale,0));
@@ -104,8 +132,6 @@ void UVoxelBuildWidget::NativeOnInitialized()
     auto* ScrollSlot=Body->AddChildToVerticalBox(Scroll);
     ScrollSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));ScrollSlot->SetPadding(FMargin(BuildScrollLeft/Scale,0,BuildScrollRight/Scale,0));
     CardList=WidgetTree->ConstructWidget<UVerticalBox>();Scroll->AddChild(CardList);
-    Controls=Text(TEXT(""),12);Controls->SetColorAndOpacity(ColdSteelUI::TextTertiary);Controls->SetAutoWrapText(true);
-    Stack->AddChildToVerticalBox(Controls)->SetPadding(FMargin(18/Scale,8/Scale,18/Scale,12/Scale));
     BuildTooltipCard();
     SetVisibility(ESlateVisibility::Collapsed);
 }
@@ -150,12 +176,15 @@ void UVoxelBuildWidget::AddGridCard(UWrapBox* Grid,const FVoxelBuildPanelCard& E
     const FVoxelBuildPanelCard* MaterialRow)
 {
     if(!Grid)return;
+    const auto Required=VillageBuildDefense::RequiredTier(Entry.Id);
+    const bool bLocked=Required>VillageTier;
     const float Scale=ColdSteelUI::PixelScale(this);
     // Shapes reuse the material row's block mesh and surface, so the thumbnail shows the same stone /
     // wood / marble the player would place; pieces bring their own mesh.
     FVoxelBuildIconRequest Request;
     if(Entry.bComponent)
     {
+        Request.PieceId=Entry.Id;
         Request.Key=UVoxelBuildIcons::KeyForPiece(Entry.Id);
         Request.Mesh=Entry.IconMesh;Request.Surface=Entry.IconSurface;
         Request.ActorClass=Entry.IconActorClass;
@@ -181,6 +210,7 @@ void UVoxelBuildWidget::AddGridCard(UWrapBox* Grid,const FVoxelBuildPanelCard& E
     CardProxies.Add(Proxy);
 
     auto* Button=WidgetTree->ConstructWidget<UButton>();
+    Button->SetIsEnabled(!bLocked);
     Button->SetStyle(FButtonStyle()
         .SetNormal(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,ColdSteelUI::CardRadius/Scale,FLinearColor::Transparent,0))
         .SetHovered(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover,ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1/Scale))
@@ -214,7 +244,15 @@ void UVoxelBuildWidget::AddGridCard(UWrapBox* Grid,const FVoxelBuildPanelCard& E
     auto* PlaceholderSlot=Preview->AddChildToOverlay(Placeholder);
     PlaceholderSlot->SetHorizontalAlignment(HAlign_Center);PlaceholderSlot->SetVerticalAlignment(VAlign_Center);
     Picture->SetVisibility(ESlateVisibility::Hidden);
-    if(Proxy->CardIndex<9)
+    if(bLocked)
+    {
+        auto* Condition=Text(VillageBuildDefense::ProjectName(Required),12);
+        Condition->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+        auto* ConditionSlot=Preview->AddChildToOverlay(Condition);
+        ConditionSlot->SetHorizontalAlignment(HAlign_Center);
+        ConditionSlot->SetVerticalAlignment(VAlign_Bottom);
+    }
+    else if(Proxy->CardIndex<9)
     {
         auto* Shortcut=Text(FString::FromInt(Proxy->CardIndex+1),12,true);
         Shortcut->SetColorAndOpacity(ColdSteelUI::TextSecondary);
@@ -228,7 +266,7 @@ void UVoxelBuildWidget::AddGridCard(UWrapBox* Grid,const FVoxelBuildPanelCard& E
     ShortCaption.ReplaceInline(TEXT("\r"),TEXT(" "));ShortCaption.ReplaceInline(TEXT("\n"),TEXT(" "));
     auto* Label=Text(ShortCaption.TrimStartAndEnd(),14);Label->SetJustification(ETextJustify::Center);
     // Keep build-card captions horizontal; the full name remains available in the tooltip.
-    Label->SetAutoWrapText(false);Label->SetWrapTextAt(0);Label->SetTextOverflowPolicy(ETextOverflowPolicy::Ellipsis);Label->SetToolTipText(FText::FromString(Entry.Caption));
+    Label->SetAutoWrapText(false);Label->SetWrapTextAt(0);Label->SetTextOverflowPolicy(ETextOverflowPolicy::Ellipsis);ColdSteelToolTip::Set(*Label, FText::FromString(Entry.Caption));
     auto* LabelBox=WidgetTree->ConstructWidget<USizeBox>();
     LabelBox->SetWidthOverride(GridNameWidth/Scale);LabelBox->SetMinDesiredHeight(44/Scale);LabelBox->SetContent(Label);
     if(auto* ContentSlot=Cast<USizeBoxSlot>(Label->Slot))
@@ -333,7 +371,7 @@ void UVoxelBuildWidget::RebuildCards()
     });
     // 卡片重来一遍：缩略图键集合跟着换，旧键失去"正在显示"的保护后随淘汰回收。
     bIconPinsDirty=true;
-    if(!bComponentCategory)
+    if(Category==ECategory::Materials)
     {
         if(MaterialCards.IsEmpty())
         {
@@ -361,12 +399,21 @@ void UVoxelBuildWidget::RebuildCards()
     }
     // 「其他」分类只列**未归类**的构件（调色板 Material 留空）；归到某栏材质的构件只在该材质的
     // 「其他构造」里出现，同一个门不会在两处重复（2026-09-17 用户要求）。
-    TArray<const FVoxelBuildPanelCard*> Unclassified;
-    for(const FVoxelBuildPanelCard& Entry:ComponentCards)
-        if(Entry.MaterialId.IsNone())Unclassified.Add(&Entry);
-    if(Unclassified.IsEmpty())
+    const bool bVillage=Category==ECategory::Village;
+    if(bVillage&&VillageTier==VillageBuildDefense::ETier::None)
     {
-        auto* Empty=Text(TEXT("暂无其他构件 · 已分类构件可在对应材质的「其他构造」中选择"),14);
+        auto* Hint=Text(TEXT("在修女处完成「修复城墙」，即可建造矮墙和木质大门。"),14);
+        Hint->SetAutoWrapText(true);
+        Hint->SetColorAndOpacity(ColdSteelUI::TextSecondary);
+        CardList->AddChildToVerticalBox(Hint)->SetPadding(FMargin(2/Scale,4/Scale,0,10/Scale));
+    }
+    TArray<const FVoxelBuildPanelCard*> PageEntries;
+    for(const FVoxelBuildPanelCard& Entry:ComponentCards)
+        if(bVillage==VillageBuildDefense::IsVillageRecipe(Entry.Id)&&(bVillage||Entry.MaterialId.IsNone()))
+            PageEntries.Add(&Entry);
+    if(PageEntries.IsEmpty())
+    {
+        auto* Empty=Text(bVillage?TEXT("暂无可用村庄构件"):TEXT("暂无其他构件 · 已分类构件可在对应材质的「其他构造」中选择"),14);
         Empty->SetAutoWrapText(true);
         Empty->SetColorAndOpacity(ColdSteelUI::TextTertiary);
         CardList->AddChildToVerticalBox(Empty)->SetPadding(FMargin(2/Scale,6/Scale));
@@ -376,6 +423,7 @@ void UVoxelBuildWidget::RebuildCards()
     CardList->AddChildToVerticalBox(Grid);
     ConfigureBuildGrid(Grid,DrawerWidth,Scale,false);
     Grids.Add(Grid);
-    for(const FVoxelBuildPanelCard* Entry:Unclassified)AddGridCard(Grid,*Entry,NAME_None,false,nullptr);
+    for(const FVoxelBuildPanelCard* Entry:PageEntries)AddGridCard(Grid,*Entry,NAME_None,false,nullptr);
     RefreshIcons();
 }
+

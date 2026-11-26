@@ -1,5 +1,6 @@
 #include "FPSModularOutfitComponent.h"
 #include "FPSPlayerBodyComponent.h"
+#include "FPSPlayerBodyMeshComponent.h"
 #include "FPSOutfitSecondaryMotion.h"
 #include "FPSQuiverMotion.h"
 #include "Engine/StaticMesh.h"
@@ -68,9 +69,15 @@ void UFPSModularOutfitComponent::BeginPlay()
     Super::BeginPlay();
     if(GetNetMode()==NM_DedicatedServer||!GetWorld()->IsGameWorld())
     {SetComponentTickEnabled(false);return;}
-    FString Json;
-    if(FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/modular_outfits.json"))))
-        FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Configuration);
+    static TWeakPtr<FJsonObject> SharedConfiguration;
+    Configuration=SharedConfiguration.Pin();
+    if(!Configuration)
+    {
+        FString Json;
+        if(FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/modular_outfits.json"))))
+            FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Configuration);
+        SharedConfiguration=Configuration;
+    }
     if(!Configuration){SetComponentTickEnabled(false);return;}
     BaseConfiguration=Configuration;
     BodyConfigurations.Add(TEXT("jason"),BaseConfiguration);
@@ -88,14 +95,14 @@ void UFPSModularOutfitComponent::BeginPlay()
 void UFPSModularOutfitComponent::RefreshInventory()
 {
     const auto* Pawn=Cast<APawn>(GetOwner());
-    if(!Pawn||!Pawn->IsLocallyControlled()||!GetWorld()->GetGameInstance())return;
+    if(ExternalWorldBody||!Pawn||!Pawn->IsLocallyControlled()||!GetWorld()->GetGameInstance())return;
     auto* Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!Model)return;
     if(!InventoryChanged.IsValid())
         InventoryChanged=Model->OnChanged.AddUObject(this,&UFPSModularOutfitComponent::RefreshInventory);
     TMap<int32,FName> Next;
     for(const auto& Item:Model->Items())if(Item.Place==1&&(Item.Cell==3||Item.Cell==7||Item.Cell==10||Item.Cell==13||Item.Cell==15))Next.Add(Item.Cell,FName(*Item.Definition));
     if(Next.OrderIndependentCompareEqual(Equipped))return;
-    Equipped=MoveTemp(Next);bDirty=true;DiscoverCountdown=0.f;
+    Equipped=MoveTemp(Next);bWorldPresentationReady=false;bDirty=true;DiscoverCountdown=0.f;
 }
 bool UFPSModularOutfitComponent::IsSteelGauntletEquipped() const
 {
@@ -110,13 +117,14 @@ bool UFPSModularOutfitComponent::IsChainmailEquipped() const
 void UFPSModularOutfitComponent::SetWorldOutfit(const TArray<FFPSBodyOutfitSlot>& Outfit)
 {
     const auto* Pawn=Cast<APawn>(GetOwner());
-    if(Pawn&&Pawn->IsLocallyControlled()){RefreshInventory();return;}
+    if(!ExternalWorldBody&&Pawn&&Pawn->IsLocallyControlled()){RefreshInventory();return;}
     TMap<int32,FName> Next;
     for(const auto& Item:Outfit)if(Item.Slot==3||Item.Slot==7||Item.Slot==10||Item.Slot==13||Item.Slot==15)Next.Add(Item.Slot,Item.Definition);
-    if(!Next.OrderIndependentCompareEqual(Equipped)){Equipped=MoveTemp(Next);bDirty=true;DiscoverCountdown=0.f;}
+    if(!Next.OrderIndependentCompareEqual(Equipped)){Equipped=MoveTemp(Next);bWorldPresentationReady=false;bDirty=true;DiscoverCountdown=0.f;}
 }
 void UFPSModularOutfitComponent::ReleasePresentation(FFPSOutfitPresentation& P)
 {
+    if (auto* Body = Cast<UFPSPlayerBodyMeshComponent>(P.Source.Get())) Body->RestoreSourceRendering();
     if(P.RobeHem)if(auto* Robe=P.RobeHem->Garment.Get())
     {
         PrimaryComponentTick.RemovePrerequisite(Robe,Robe->PrimaryComponentTick);
@@ -162,6 +170,15 @@ void UFPSModularOutfitComponent::FollowVisibility(FFPSOutfitPresentation& P)
         if(Part->FirstPersonPrimitiveType!=Source->FirstPersonPrimitiveType)Part->SetFirstPersonPrimitiveType(Source->FirstPersonPrimitiveType);
     }
 }
+void UFPSModularOutfitComponent::RefreshWorldVisibility()
+{
+    for(auto& P:Presentations)if(P.bWorld)FollowVisibility(P);
+}
+void UFPSModularOutfitComponent::RefreshVisibilityForSource(const USkeletalMeshComponent* Source)
+{
+    if(!Source)return;
+    for(auto& P:Presentations)if(P.Source.Get()==Source)FollowVisibility(P);
+}
 void UFPSModularOutfitComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
@@ -186,6 +203,7 @@ void UFPSModularOutfitComponent::TickComponent(float Delta,ELevelTick Type,FActo
 }
 void UFPSModularOutfitComponent::ResetBodyPresentation()
 {
+    bWorldPresentationReady=false;
     for(auto& Load:PendingLoads)if(Load.Value)Load.Value->CancelHandle();
     PendingLoads.Reset();FailedLoads.Reset();
     for(auto& Presentation:Presentations)ReleasePresentation(Presentation);
@@ -292,6 +310,7 @@ void UFPSModularOutfitComponent::DiscoverSources()
 {
     using namespace FPSModularOutfit;
     if(!Configuration||bEnding)return;
+    bWorldPresentationReady=false;
     if(!InventoryChanged.IsValid())RefreshInventory();
     const auto Recipes=Object(Configuration,TEXT("items"));
     const auto GloveRecipe=Object(Recipes,Equipped.FindRef(3).ToString());
@@ -307,7 +326,7 @@ void UFPSModularOutfitComponent::DiscoverSources()
     const bool bTryCandidate=!bRestoreSourceArms&&!bWearingModularOutfit&&Pawn&&Pawn->IsLocallyControlled()
         &&CVarBareArmsCandidate.GetValueOnGameThread()==1;
     auto* BodyComponent=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();
-    auto* Body=BodyComponent?BodyComponent->GetBodyMesh():nullptr;
+    auto* Body=BodyComponent?BodyComponent->GetBodyMesh():ExternalWorldBody.Get();
     auto* LowerBody=BodyComponent?BodyComponent->GetFirstPersonLowerBodyMesh():nullptr;
     if(!LowerBody&&!bWearingModularOutfit&&!bWearingLowerBody&&!bNativeBareHandsDefault&&!bTryCandidate&&!bRestoreSourceArms)
     {
@@ -315,7 +334,7 @@ void UFPSModularOutfitComponent::DiscoverSources()
         for(auto& Load:PendingLoads)if(Load.Value)Load.Value->CancelHandle();
         PendingLoads.Reset();
         for(auto& P:Presentations)ReleasePresentation(P);
-        Presentations.Reset();
+        Presentations.Reset();bWorldPresentationReady=true;
         return;
     }
     const auto Profiles=Object(Configuration,TEXT("profiles"));if(!Profiles)return;
@@ -327,7 +346,7 @@ void UFPSModularOutfitComponent::DiscoverSources()
             &&!String(Profile,TEXT("bare_arms_candidate")).IsEmpty();
     };
     TSet<FString> CurrentKeys;
-    for(auto* Source:Sources)if(Source&&Source->GetSkeletalMeshAsset()&&!Source->ComponentHasTag(TEXT("ModularOutfit"))
+    for(auto* Source:Sources)if(Source&&Source->GetSkeletalMeshAsset()&&!Source->ComponentHasTag(TEXT("ModularOutfit"))&&!Source->ComponentHasTag(TEXT("InitialAppearanceFallback"))
         &&(Source==Body||(Source->IsVisible()&&!Source->bHiddenInGame)
             ||(Source->bOnlyOwnerSee&&Source->ComponentHasTag(TEXT("PreloadModularOutfit")))))
     {
@@ -347,12 +366,15 @@ void UFPSModularOutfitComponent::DiscoverSources()
     TSet<USkeletalMeshComponent*> ActiveSources;
     for(auto* Source:Sources)
     {
-        if(!IsValid(Source)||!Source->GetSkeletalMeshAsset()||Source->ComponentHasTag(TEXT("ModularOutfit")))continue;
+        if(!IsValid(Source)||!Source->GetSkeletalMeshAsset()||Source->ComponentHasTag(TEXT("ModularOutfit"))||Source->ComponentHasTag(TEXT("InitialAppearanceFallback")))continue;
         const bool bWorld=Source==Body;
+        // No participating profile/garment is a complete bare-body presentation.
+        // UpdatePresentation below turns this false until its current key commits.
+        if(bWorld)bWorldPresentationReady=true;
         const bool bLowerBody=Source==LowerBody;
         const bool bHasLegs=bWorld||bLowerBody;
-        if(bWorld&&FPSPlayerBodyWorldBodySuppressed())continue;
-        if(!bWorld&&(!Pawn||!Pawn->IsLocallyControlled()))continue;
+        if(bWorld&&!ExternalWorldBody&&FPSPlayerBodyWorldBodySuppressed())continue;
+        if(!bWorld&&(ExternalWorldBody||!Pawn||!Pawn->IsLocallyControlled()))continue;
         auto Profile=Object(Profiles,Source->GetSkeletalMeshAsset()->GetPathName());
         if(!Profile)continue;
         const bool bBakedBare=!bHasLegs&&Flag(Profile,TEXT("native_bare_arms"));
@@ -405,9 +427,13 @@ void UFPSModularOutfitComponent::DiscoverSources()
 void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Source,const TSharedPtr<FJsonObject>& Profile,bool bWorld,bool bLowerBody)
 {
     using namespace FPSModularOutfit;
+    if(bWorld)bWorldPresentationReady=false;
     const bool bHasLegs=bWorld||bLowerBody;
     const auto Recipes=Object(Configuration,TEXT("items"));
     auto Shirt=Flag(Profile,TEXT("restore_original_gloves"))?nullptr:Object(Recipes,Equipped.FindRef(7).ToString());
+    // Sleeveless outer armor belongs to the body. It must not request an
+    // absent viewmodel shirt and cancel the independently equipped gloves.
+    if(!bHasLegs&&String(Shirt,TEXT("first_person_mode"))==TEXT("body_only"))Shirt=nullptr;
     const FString OwnerShirt=String(Object(Shirt,TEXT("owner_body_meshes")),*String(Profile,TEXT("rig_profile")));
     const auto BaseMaterials=Object(Object(Shirt,TEXT("base_material_overrides")),String(Profile,TEXT("rig_profile")));
     // Only display an authored torso section set. A missing owner variant must
@@ -425,10 +451,12 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
     auto* Existing=Presentations.FindByPredicate([Source](const auto& P){return P.Source==Source;});
     if(Existing&&Existing->Key==Key)
     {
+        if(bWorld)bWorldPresentationReady=true;
         // Other equipment refreshes can restore source sections; conceal only
         // the arm/body sections owned by this presentation, never weapon parts.
         for(int32 L=0;L<Existing->PreviouslyVisible.Num();++L)for(int32 M:Existing->HiddenMaterials)
             if(Source->IsMaterialSectionShown(M,L))Section(Source,M,L,false);
+        if (auto* Body = Cast<UFPSPlayerBodyMeshComponent>(Source)) Body->UpdateModularRenderOwnership();
         return;
     }
     TMap<int32,FString> BaseMaterialPaths;
@@ -706,6 +734,8 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
             {if(Source->IsMaterialSectionShown(M,L))Visible.Add(M);Section(Source,M,L,false);}
         }
     FollowVisibility(*Existing);
+    if(bWorld)bWorldPresentationReady=true;
+    if (auto* Body = Cast<UFPSPlayerBodyMeshComponent>(Source)) Body->UpdateModularRenderOwnership();
     // Completed stale loads cannot apply an old recipe: source identity and the
     // current equipment are re-read by DiscoverSources, never captured on commit.
     for(auto It=PendingLoads.CreateIterator();It;++It)

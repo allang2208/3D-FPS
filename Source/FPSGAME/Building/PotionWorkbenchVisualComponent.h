@@ -37,6 +37,7 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
     friend class AAlchemyManualNetAuditController;
+    friend class AAlchemyWorldView;
     void Loaded();
     void UpdateBook();
     void UpdateThermometer();

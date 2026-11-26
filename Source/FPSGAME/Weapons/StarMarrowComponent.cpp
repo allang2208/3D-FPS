@@ -17,6 +17,9 @@
 #include "Engine/World.h"
 #include "NiagaraComponent.h"
 #include "Net/UnrealNetwork.h"
+#include "Kismet/GameplayStatics.h"
+#include "Components/AudioComponent.h"
+#include "Sound/SoundBase.h"
 
 UStarMarrowComponent::UStarMarrowComponent()
 {
@@ -34,7 +37,7 @@ void UStarMarrowComponent::Configure(const UColdSteelStatusModel* M)
     Profile=M;const FString Next=Equipped(M)?M->Equipped()->InstanceId:FString();
     if(Next!=EquippedInstance){Clear();HUDVisibleUntil=0.;}
     EquippedInstance=Next;EquippedData=Next.IsEmpty()?FString():M->Equipped()->Data;
-    if(!Next.IsEmpty()){LoadFlames();LoadHUD();}
+    if(!Next.IsEmpty()){LoadFlames();LoadHUD();LoadChargeSound();}
     if(Remaining()>0.f)OnRep_State();
 }
 bool UStarMarrowComponent::IsEquipped() const
@@ -124,18 +127,18 @@ void UStarMarrowComponent::Clear()
     if(auto* Sword=GetOwner()->FindComponentByClass<URuneSwordComponent>())Sword->CancelStarMarrowChargeMotion();
     HUDVisibleUntil=FMath::Min(HUDVisibleUntil,Clock());
     if(GetOwner()->HasAuthority()&&ChargedUntil>0.){ChargedUntil=0.;ChargedInstance.Reset();GetOwner()->ForceNetUpdate();}
-    StopFlames();SetComponentTickEnabled(false);
+    StopFlames();StopChargeSound(.08f);SetComponentTickEnabled(false);
 }
 void UStarMarrowComponent::OnRep_State()
 {
     if(Remaining()>0.f)
     {
-        HUDVisibleUntil=ChargedUntil;LoadFlames();LoadHUD();SetComponentTickEnabled(true);
+        HUDVisibleUntil=ChargedUntil;LoadFlames();LoadHUD();LoadChargeSound();SetComponentTickEnabled(true);
         AcceptedRetryAfter=0.;
         PresentChargeMotion();
     }
     else if(ChargedUntil<=0.&&!PendingSequence)Clear();
-    else {HUDVisibleUntil=FMath::Min(HUDVisibleUntil,Clock());StopFlames();SetComponentTickEnabled(false);}
+    else {HUDVisibleUntil=FMath::Min(HUDVisibleUntil,Clock());StopFlames();StopChargeSound(.08f);SetComponentTickEnabled(false);}
 }
 void UStarMarrowComponent::PresentChargeMotion()
 {
@@ -148,13 +151,50 @@ void UStarMarrowComponent::PresentChargeMotion()
     {
         PresentedChargeUntil=ChargedUntil;
         bPredictedChargeMotion=false;
+        // Both the local prediction and the later authority confirmation land here; play once.
+        PlayChargeSound();
     }
+}
+void UStarMarrowComponent::LoadChargeSound()
+{
+    // Loaded beside the flames: the charge can be triggered before the async
+    // assets finish, so this is a streamed reference rather than a load on G.
+    if(ChargeSound||GetNetMode()==NM_DedicatedServer)return;
+    const FSoftObjectPath Path(TEXT("/Game/Weapons/FrostCrystalSword20260915/StarMarrowChargeAudio20261104/S_StarMarrow_Charge.S_StarMarrow_Charge"));
+    UAssetManager::GetStreamableManager().RequestAsyncLoad(Path,FStreamableDelegate::CreateWeakLambda(this,[this,Path]()
+    {ChargeSound=Cast<USoundBase>(Path.ResolveObject());}));
+}
+void UStarMarrowComponent::PlayChargeSound()
+{
+    if(bChargeSoundPlayed||GetNetMode()==NM_DedicatedServer)return;
+    const auto* Pawn=Cast<APawn>(GetOwner());
+    if(!Pawn||!Pawn->IsLocallyControlled())return;
+    // The equip-time async load can still be in flight on the first charge; leave
+    // the flag clear so the next tick plays it instead of silently skipping the cue.
+    if(!ChargeSound){LoadChargeSound();return;}
+    bChargeSoundPlayed=true;
+    // Its own component so a cancelled charge can fade the remaining tail
+    // instead of letting it ring over the next action.
+    ChargeAudio=UGameplayStatics::CreateSound2D(this,ChargeSound,1.f,1.f,0.f,nullptr,false,true);
+}
+void UStarMarrowComponent::StopChargeSound(float FadeSeconds)
+{
+    if(IsValid(ChargeAudio))
+    {
+        if(FadeSeconds>0.f)ChargeAudio->FadeOut(FadeSeconds,0.f);
+        else ChargeAudio->Stop();
+    }
+    ChargeAudio=nullptr;
+    bChargeSoundPlayed=false;
 }
 void UStarMarrowComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Function)
 {
     Super::TickComponent(Delta,Type,Function);
     if(Remaining()<=0.f){Clear();return;}
     PresentChargeMotion();
+    // The motion may already be presented while the sound is still streaming; retry
+    // here until it starts rather than losing the cue on the first G.
+    if(PresentedChargeUntil!=0.&&!bChargeSoundPlayed)PlayChargeSound();
     UpdateFlames(Delta);
 }
 bool UStarMarrowComponent::HUDVisible() const
@@ -193,6 +233,7 @@ FString UStarMarrowComponent::HUDLabel() const
 }
 void UStarMarrowComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    StopChargeSound(0.f);ChargeSound=nullptr;
     if(FlameLoad)FlameLoad->CancelHandle();FlameLoad.Reset();
     if(HUDLoad)HUDLoad->CancelHandle();HUDLoad.Reset();ChargeHUDMaterial=nullptr;
     for(auto& FX:FlameFX)if(FX)FX->DestroyComponent();

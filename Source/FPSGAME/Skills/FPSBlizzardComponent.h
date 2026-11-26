@@ -55,7 +55,7 @@ private:
     bool bQueued=false,bCommitted=false,bAssetsReady=false;
     UColdSteelStatusModel* Model() const;
     UFPSFireballComponent* Hands() const;
-    bool InputAvailable() const;
+    bool InputAvailable(bool bContinuing = false) const;
     bool Allowed(const FBlizzardCast& Spell,FString& Failure) const;
     bool SelectGround(const FBlizzardCast& Spell,FString& Failure);
     void ServiceQueue();

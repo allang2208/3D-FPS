@@ -2,6 +2,7 @@
 #include "FPSDodgeRootMotionSource.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "../Combat/CombatStatusFormula.h"
+#include "../Combat/CombatControlImmunity.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/GameStateBase.h"
@@ -30,6 +31,7 @@ void UFPSCharacterMovementComponent::ApplyImpactPush(const FVector& Direction,fl
 {
     if(!CharacterOwner||!CharacterOwner->HasAuthority()||!FMath::IsFinite(DistanceCM)||DistanceCM<=0.f
         ||Direction.ContainsNaN()||Direction.GetSafeNormal2D().IsNearlyZero())return;
+    if(CombatControl::IsImmune(CharacterOwner))return;
     StartImpactPush(Direction,DistanceCM,0.f);
     // The owner starts the same source; native root-motion corrections reconcile
     // its elapsed time and position. Simulated proxies use replicated movement.

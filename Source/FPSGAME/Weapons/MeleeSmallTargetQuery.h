@@ -8,6 +8,8 @@ class UWorld;
 
 namespace MeleeSmallTargets
 {
+    // Presentation only. Sweep the metal along its real travel, independent of the skill's damage radius.
+    bool BladeScenery(UWorld* World,AActor* Owner,const FVector& Start,const FVector& End,FHitResult& Hit);
     // Query assistance only: never changes aim, movement, pose or target selection state.
     inline constexpr float LowReachCM=120.f;
     inline constexpr float LowArcDegrees=60.f;
@@ -26,4 +28,6 @@ namespace MeleeSmallTargets
     // Same sweep and low-sector fallback as quick contact, but bodies do not stop a cleave.
     TArray<FHitResult> QueryQuickAreaContacts(UWorld* World,ACharacter* Owner,const FTransform& Aim,
         const FVector& Start,float Reach,float Radius);
+    TArray<FHitResult> QueryQuickAreaContacts(UWorld* World,ACharacter* Owner,const FTransform& Aim,
+        const FVector& Start,float Reach,float Radius,float LowTargetArcDegrees);
 }

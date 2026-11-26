@@ -68,7 +68,7 @@
     },
     "melee": {
       "name": "近战",
-      "lanes": 3
+      "lanes": 4
     },
     "general": {
       "name": "通用",
@@ -377,23 +377,47 @@
         }
       ]
     },
-    "swordMastery": {
+    "twoHandedMastery": {
       "branch": "melee",
-      "lane": 0,
+      "lane": 1,
       "column": 0,
       "kind": "mastery",
       "active": false,
       "requires": []
     },
-    "swordUppercut": {
+    "oneHandedMastery": {
+      "branch": "melee",
+      "lane": 3,
+      "column": 0,
+      "kind": "mastery",
+      "active": false,
+      "requires": []
+    },
+    "swordMastery": {
       "branch": "melee",
       "lane": 0,
       "column": 1,
+      "kind": "mastery",
+      "active": false,
+      "requires": [
+        {
+          "skill": "twoHandedMastery",
+          "level": 3
+        }
+      ]
+    },
+    "swordUppercut": {
+      "branch": "melee",
+      "lane": 0,
+      "column": 2,
       "kind": "martial",
       "active": true,
       "requires": [
         {
-          "skill": "swordMastery",
+          "anyOf": [
+            "twoHandedMastery",
+            "oneHandedMastery"
+          ],
           "level": 3
         }
       ]
@@ -401,7 +425,7 @@
     "chainSlash": {
       "branch": "melee",
       "lane": 0,
-      "column": 2,
+      "column": 3,
       "kind": "martial",
       "active": true,
       "requires": [
@@ -424,8 +448,8 @@
       "requires": [
         {
           "anyOf": [
-            "swordMastery",
-            "bluntMastery"
+            "twoHandedMastery",
+            "oneHandedMastery"
           ],
           "level": 3
         }
@@ -447,20 +471,28 @@
     "bluntMastery": {
       "branch": "melee",
       "lane": 2,
-      "column": 0,
+      "column": 1,
       "kind": "mastery",
       "active": false,
-      "requires": []
+      "requires": [
+        {
+          "skill": "twoHandedMastery",
+          "level": 3
+        }
+      ]
     },
     "dashAttack": {
       "branch": "melee",
       "lane": 2,
-      "column": 1,
+      "column": 2,
       "kind": "martial",
       "active": false,
       "requires": [
         {
-          "skill": "bluntMastery",
+          "anyOf": [
+            "twoHandedMastery",
+            "oneHandedMastery"
+          ],
           "level": 3
         }
       ]
@@ -468,7 +500,7 @@
     "leapStrike": {
       "branch": "melee",
       "lane": 2,
-      "column": 2,
+      "column": 3,
       "kind": "martial",
       "active": true,
       "requires": [
@@ -479,6 +511,23 @@
         {
           "skill": "bluntMastery",
           "level": 4
+        }
+      ]
+    },
+    "shadowStepSlash": {
+      "branch": "melee",
+      "lane": 3,
+      "column": 3,
+      "kind": "martial",
+      "active": true,
+      "requires": [
+        {
+          "skill": "oneHandedMastery",
+          "level": 5
+        },
+        {
+          "skill": "dashAttack",
+          "level": 5
         }
       ]
     },

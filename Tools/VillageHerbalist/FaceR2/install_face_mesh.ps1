@@ -1,4 +1,4 @@
-param([switch]$StageBaselineOnly)
+﻿param([switch]$StageBaselineOnly)
 $ErrorActionPreference = 'Stop'
 $project = [IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../..'))
 $body = Join-Path $project 'SourceAssets/VillageHerbalist/FullBody'

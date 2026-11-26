@@ -91,6 +91,8 @@ public:
     UFPSWeaponFXComponent();
     UFUNCTION(BlueprintCallable, Category="Weapon FX")
     void Initialize(USkeletalMeshComponent* InWeaponMesh, UCameraComponent* InCamera);
+    /** World-space tracers for NPCs that have no first-person weapon or camera. */
+    void InitializeWorldTracers();
     void SetIndependentPistol(bool Revolver,bool Suppressed,class USceneComponent* Exit);
     void SetWorldGunSuppressed(bool Suppressed){bWorldGun=true;bWorldGunSuppressed=Suppressed;bUseCharacterMuzzle=false;}
     void SetWorldMuzzle(UStaticMeshComponent* Part,FVector Tip,FVector Axis);
@@ -117,12 +119,14 @@ public:
     void OnReplicatedShot(bool bADS,float PumpRate,float ShotAge);
     bool PausePumpEjection();
     void EjectPumpCasing();
+    float MuzzleFlashVisualScale() const;
     /** Detached reload geometry; Frame uses centimetres and unit mesh scale. */
     void OnReloadCartridge(UStaticMesh* Geometry,const FTransform& Frame,const FVector& Velocity,float InitialAge);
     UFUNCTION(BlueprintCallable, Category="Weapon FX") void OnImpact(const FHitResult& Hit);
     void OnTracerSegment(const FVector& Start,const FVector& End,bool bConverged=false);
     /** Flying round: refreshes (or opens) the streak owned by RoundId. */
-    void OnTracerSegment(int32 RoundId,const FVector& Start,const FVector& End,bool bConverged=false);
+    void OnTracerSegment(int32 RoundId,const FVector& Start,const FVector& End,bool bConverged=false,
+        const FVector* VisualMuzzle=nullptr);
     int32 TracerSegments=0;
     /** 汇聚段的诊断计数：开了几条段、重建过几次螺旋管几何（逐帧重建会让后者暴涨）。 */
     int32 ConvergedTracerSegments=0;
@@ -182,6 +186,8 @@ private:
     FFPSWeaponFXTracer* AcquireTracer(int32 RoundId);
     void ReleaseTracer(FFPSWeaponFXTracer& Tracer);
     void ApplyTracerTransform(FFPSWeaponFXTracer& Tracer);
+    void TickTracers(float DeltaTime);
+    bool bTracersOnly=false;
     /** 汇聚段第一次用到时创建螺旋管组件，并在几何参数变化时重建（几何只生成，不在逐帧里重建）。 */
     void EnsureSpiral(FFPSWeaponFXTracer& Tracer,float Turns,float CoilRadiusCM,float ThicknessCM);
     /** 汇聚段第一次用到光柱拖尾时创建它的组件；普通曳光从不创建。 */

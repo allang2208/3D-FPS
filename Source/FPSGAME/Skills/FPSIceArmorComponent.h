@@ -44,6 +44,7 @@ protected:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Props) const override;
 private:
     friend class USkillNetworkAuditCommandlet;
+    friend struct FUnknownNetworkAuditAccess;
     UPROPERTY(ReplicatedUsing=OnRep_State) FIceArmorState State;
     UFUNCTION() void OnRep_State();
     UPROPERTY(ReplicatedUsing=OnRep_Impact) FIceArmorImpact Impact;

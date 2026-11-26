@@ -266,6 +266,7 @@ def main():
         'SM_BeechBackdrop_' + v, materials) for v in 'AB'])
     ferns = install_ferns(da)
     connect_understory()
+    runpy.run_path(str(PROJECT/'Tools/WorldGeneration/temperate_render_budget.py'))['apply_palette'](da)
     import_floor()
     # Retain the current landscape, river blend and all map actors.
     ground = runpy.run_path(str(PROJECT / 'Tools/WorldGeneration/build_hills_ground_v2.py'), run_name='__main__')

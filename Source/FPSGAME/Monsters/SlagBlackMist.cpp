@@ -19,11 +19,14 @@ namespace
     // One shared scale expands particle spread, puff size and exposure together.
     constexpr float CoverageScale = 1.5f;
     constexpr int32 MaximumHistory = 32;
-    FVector PuffCenter(const FVector& Origin, const FVector& Drift, float Age)
-    {
-        return Origin + Drift * Age + FVector(0, 0, RiseAcceleration * Age * Age);
-    }
 }
+
+FVector ASlagBlackMist::PuffCenter(const FVector& Origin,const FVector& Drift,float Age,float) const
+{return Origin+Drift*Age+FVector(0,0,RiseAcceleration*Age*Age);}
+float ASlagBlackMist::CoreRadiusFraction(float NormalizedAge) const
+{return .18f+.23f*FMath::Sqrt(NormalizedAge);}
+void ASlagBlackMist::CapturePuffFloors(const FVector (&)[4],float (&Floors)[4]) const
+{for(float& Floor:Floors)Floor=0.f;}
 
 ASlagBlackMist::ASlagBlackMist()
 {
@@ -57,7 +60,7 @@ void ASlagBlackMist::OnRep_Cloud()
     Smoke->SetVariableFloat(TEXT("User.DiffusionSpeed"), GetDiffusionSpeed());
     Smoke->SetVariableFloat(TEXT("User.SmokeHoldTime"), SmokeLifetime);
     Smoke->SetVariableFloat(TEXT("User.SmokeLifetime"), SmokeLifetime + DissipationSeconds);
-    Smoke->SetVariableFloat(TEXT("User.EmissionRate"), bEmitting ? 8.f : 0.f);
+    Smoke->SetVariableFloat(TEXT("User.EmissionRate"), bEmitting ? GetEmissionRate() : 0.f);
     if (GetNetMode() != NM_DedicatedServer && !Smoke->IsActive()) Smoke->Activate(true);
 }
 void ASlagBlackMist::EndPlay(const EEndPlayReason::Type Reason)
@@ -81,7 +84,7 @@ bool ASlagBlackMist::ContainsExposedEye(const FVector& Eye, const AActor* Player
 {
     FCollisionQueryParams Query(SCENE_QUERY_STAT(SlagMistExposure), false, this);
     Query.AddIgnoredActor(GetOwner()); Query.AddIgnoredActor(Player);
-    const double Now = GetWorld()->GetTimeSeconds();
+    const double Now = WakeClock();
     const float Lifetime = SmokeLifetime + DissipationSeconds;
     for (const FWakePuff& Puff : Trail)
     {
@@ -90,10 +93,10 @@ bool ASlagBlackMist::ContainsExposedEye(const FVector& Eye, const AActor* Player
         const float N = FMath::Clamp(Age * GetDiffusionSpeed() / Lifetime, 0.f, 1.f);
         // Only the visible, dense core applies blindness; fading fringes do not.
         const float Fade = FMath::Clamp((Lifetime - Age) / DissipationSeconds, 0.f, 1.f);
-        const float Core = Radius * CoverageScale * (.18f + .23f * FMath::Sqrt(N)) * FMath::Sqrt(Fade);
-        for (const FVector& Origin : Puff.Origins)
+        const float Core = Radius * CoverageScale * CoreRadiusFraction(N) * FMath::Sqrt(Fade);
+        for (int32 I=0;I<GetEmissionSourceCount();++I)
         {
-            const FVector Center = PuffCenter(Origin, Puff.Drift, Age);
+            const FVector Center = PuffCenter(Puff.Origins[I], Puff.Drift, Age,Puff.Floors[I]);
             if (FVector::DistSquared(Eye, Center) > FMath::Square(Core)) continue;
             FHitResult Cover;
             if (!RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Cover, Center, Eye, ECC_Visibility, Query)) return true;
@@ -110,17 +113,21 @@ void ASlagBlackMist::UpdateWake()
     {
         // Animated body locations affect new smoke only. Old particles retain
         // their birth positions and rise independently of movement or facing.
-        static const FName Origins[] = {TEXT("User.EmitOrigin0"), TEXT("User.EmitOrigin1"), TEXT("User.EmitOrigin2")};
+        static const FName Origins[] = {TEXT("User.EmitOrigin0"), TEXT("User.EmitOrigin1"), TEXT("User.EmitOrigin2"),TEXT("User.EmitOrigin3")};
+        static const FName Floors[] = {TEXT("User.EmitFloor0"),TEXT("User.EmitFloor1"),TEXT("User.EmitFloor2"),TEXT("User.EmitFloor3")};
         FWakePuff NewPuff;
         GetEmissionSources(NewPuff.Origins, NewPuff.Drift); NewPuff.Born = Now;
-        for (int32 I = 0; I < 3; ++I)
+        if(Now>=NextWake)CapturePuffFloors(NewPuff.Origins,CurrentFloors);
+        for (int32 I = 0; I < GetEmissionSourceCount(); ++I)
         {
+            NewPuff.Floors[I]=CurrentFloors[I];
             Smoke->SetVariablePosition(Origins[I], NewPuff.Origins[I]);
+            Smoke->SetVariableFloat(Floors[I],NewPuff.Floors[I]);
         }
         Smoke->SetVariableVec3(TEXT("User.EmitDrift"), NewPuff.Drift);
         if (Now >= NextWake)
         {
-            // Three body origins per 0.3 s group cover the full 9.5 s life.
+            // Bounded source groups cover the full 9.5 s life.
             if (Trail.Num() == MaximumHistory) Trail.RemoveAt(0);
             Trail.Add(NewPuff); NextWake = Now + .3;
         }
@@ -128,13 +135,29 @@ void ASlagBlackMist::UpdateWake()
     FBox WorldBounds(ForceInit);
     for (const FWakePuff& Puff : Trail)
     {
-        for (const FVector& Origin : Puff.Origins)
-            WorldBounds += FBox::BuildAABB(PuffCenter(Origin, Puff.Drift, float(Now - Puff.Born)), FVector(Radius * CoverageScale));
+        for (int32 I=0;I<GetEmissionSourceCount();++I)
+            WorldBounds += FBox::BuildAABB(PuffCenter(Puff.Origins[I], Puff.Drift, float(Now - Puff.Born),Puff.Floors[I]), FVector(Radius * CoverageScale));
+    }
+    if (bEmitting && WorldBounds.IsValid && Now >= NextEmissionBudgetUpdate && GetNetMode() != NM_DedicatedServer)
+    {
+        NextEmissionBudgetUpdate = Now + .5;
+        double DistanceSq = TNumericLimits<double>::Max();
+        for (auto It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
+        {
+            const auto* Controller = It->Get();
+            if (!Controller || !Controller->IsLocalController()) continue;
+            FVector Eye; FRotator Rotation;
+            Controller->GetPlayerViewPoint(Eye, Rotation);
+            DistanceSq = FMath::Min(DistanceSq, WorldBounds.ComputeSquaredDistanceToPoint(Eye));
+        }
+        const float Fade = FMath::SmoothStep(2000., 6000., FMath::Sqrt(DistanceSq));
+        Smoke->SetVariableFloat(TEXT("User.EmissionRate"), GetEmissionRate() * (1.f - .45f * Fade));
     }
     if (WorldBounds.IsValid)
         Smoke->SetSystemFixedBounds(WorldBounds.TransformBy(Smoke->GetComponentTransform().ToInverseMatrixWithScale()));
 }
-void ASlagBlackMist::GetEmissionSources(FVector (&Origins)[3], FVector& Drift) const
+double ASlagBlackMist::WakeClock() const {return GetWorld()->GetTimeSeconds();}
+void ASlagBlackMist::GetEmissionSources(FVector (&Origins)[4], FVector& Drift) const
 {
     const auto* Monster = Cast<AHundredEyedSlagMonster>(GetOwner());
     const auto* Mesh = Monster ? Monster->GetMesh() : nullptr;

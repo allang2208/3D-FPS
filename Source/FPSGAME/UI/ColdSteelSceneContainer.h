@@ -47,6 +47,7 @@ public:
     FString StorageKey() const;
     const FString& LegacyStorageKey() const {return RuntimeStorageKey;}
     bool IsWithinPanelReach(const APlayerController* Controller) const;
+    bool IsAvailableForSearch() const;
     void OpenSharedVisual(bool bInstant=false);
     // Apartment fixtures close when their existing storage panel is dismissed.
     void CloseLootVisual();

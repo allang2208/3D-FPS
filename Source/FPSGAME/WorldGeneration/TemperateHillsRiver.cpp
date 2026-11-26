@@ -1,5 +1,7 @@
 #include "TemperateHillsRiver.h"
+#include "TemperateLakeCoveOutlet.h"
 #include "TemperateHillsSurface.h"
+#include "TemperateShoreHabitat.h"
 #include "DynamicMesh/DynamicMesh3.h"
 #include "DynamicMesh/DynamicMeshAttributeSet.h"
 #include <queue>
@@ -13,7 +15,6 @@ namespace TemperateRiver
 namespace
 {
 constexpr double BucketSize = 6400;
-constexpr double BankReach = 3200;
 double Smooth(double A, double B, double V)
 {
     const double T = FMath::Clamp((V-A)/(B-A), 0.0, 1.0);
@@ -42,12 +43,55 @@ struct FWaterVertex
     FVector2f UV;
     FVector4f Color;
 };
+
+LakeShoreDetail::FProfile ChannelMargin(const FSample& Channel,double X,double Y,int32 Seed)
+{
+    const double Edge=Channel.Distance-Channel.HalfWidth;
+    const double Side=Channel.SignedDistance>=0.?1.:-1.;
+    const double Inside=Channel.Bend*Side;
+    auto Shore=LakeShoreDetail::AtBend(X,Y,Seed,Edge,Inside);
+    if(Seed!=LakeShoreDetail::SurveySeed || Edge<=-80. || Edge>=1050.)return Shore;
+
+    // Keep the two surveyed bends. Along the rest of the channel an inner bar
+    // widens as flow slows, and a cutbank keeps the rooted turf above its toe.
+    const double SurveyDistanceSq=FVector2D::DistSquared(FVector2D(X,Y),FVector2D(-9380.,2810.));
+    const double Freedom=Smooth(2050.*2050.,3000.*3000.,SurveyDistanceSq)*
+        Smooth(180.,1600.,Channel.Along)*Smooth(-80.,15.,Edge);
+    if(Freedom<=0.)return Shore;
+    const double Slack=1.-Smooth(22.,51.,Channel.Speed);
+    const double Bar=FMath::Max(Smooth(.10,.69,Inside),Slack*.78);
+    const double Cut=Smooth(.18,.72,-Inside)*(1.-.75*Slack);
+    if(Bar<=0. && Cut<=0.)return Shore;
+    const double Drift=TemperateHillsSurface::Noise5(Channel.Along/1900.,Side*6.7,Seed,5791);
+    const double Turn=TemperateHillsSurface::Noise5(Channel.Along/760.,Side*3.1,Seed,5797);
+    const double Patch=Freedom*Smooth(-.48,.28,Drift+.27*Turn);
+    if(Patch<=0.)return Shore;
+    const auto Band=[Edge](double Axis,double Core,double Radius)
+    {
+        return 1.-FMath::SmoothStep(Core,Radius,FMath::Abs(Edge-Axis));
+    };
+    const double Toe=105.+115.*Turn+40.*Drift;
+    const double BarAxis=Toe+140.*Bar;
+    const double Gravel=Patch*Bar*Band(BarAxis,65.,220.+95.*Slack);
+    const double Silt=Patch*Slack*Band(BarAxis-153.,40.,157.);
+    const double Lip=Patch*Cut*Band(Toe,36.,190.);
+    const double Grass=Patch*(Bar*Band(BarAxis+276.,61.,238.)+Cut*Band(Toe+217.,42.,167.))*
+        Smooth(25.,180.,Edge);
+    Shore.DepositedGravel=Shore.Bar=float(Gravel);
+    Shore.Silt=Shore.Runnel=float(Silt);
+    Shore.Stones=Shore.Spine=float(Lip);
+    Shore.ShortGrass=Shore.Roots=float(FMath::Min(1.,Grass));
+    return Shore;
+}
 }
 
-FPlanPtr Generate(int32 Seed, double Half, const FVector2D& Spawn, double BankReliefCm)
+FPlanPtr Generate(int32 Seed, double Half, const FVector2D& Spawn, double BankReliefCm, int32 Version,
+    const TemperateEcology::FProfile& Ecology)
 {
     auto Plan = MakeShared<FPlan, ESPMode::ThreadSafe>();
+    Plan->Ecology = Ecology;
     Plan->BankReliefCm=FMath::Clamp(BankReliefCm,0.0,40.0);
+    Plan->GenerationVersion=Version;
     constexpr double Grid = 1600;
     const int32 N = FMath::RoundToInt(2*Half/Grid)+1;
     TArray<FDrainNode> Nodes;
@@ -60,7 +104,7 @@ FPlanPtr Generate(int32 Seed, double Half, const FVector2D& Spawn, double BankRe
     {
         const FVector2D P = XY(I);
         auto& Node = Nodes[I];
-        Node.Height = TemperateHillsSurface::Height(P.X, P.Y, Seed);
+        Node.Height = TemperateHillsSurface::Height(P.X, P.Y, Seed, Version);
         Node.Flood = Node.Height;
         // Keep the existing spawn, return portal and approach on dry unmodified ground.
         if(FVector2D::Distance(P, Spawn)<6000) { Node.Visited=true; continue; }
@@ -125,7 +169,7 @@ FPlanPtr Generate(int32 Seed, double Half, const FVector2D& Spawn, double BankRe
             if(Steps>Longest){Longest=Steps;Source=I;}
         }
     }
-    if(Source==INDEX_NONE)return Plan;
+    if(Source==INDEX_NONE){Plan->BuildRainforest(Seed,Half);return Plan;}
     struct FCurvePoint { FVector2D XY; double Flow; };
     TArray<FCurvePoint> Curve;
     for(int32 I=Source; I!=INDEX_NONE; I=Nodes[I].Parent)Curve.Add({XY(I),Nodes[I].Flow});
@@ -149,7 +193,7 @@ FPlanPtr Generate(int32 Seed, double Half, const FVector2D& Spawn, double BankRe
         if(I>0)Distance+=FVector2D::Distance(Curve[I-1].XY,Curve[I].XY);
         FPoint P;P.XY=Curve[I].XY;P.Distance=Distance;
         const double Step=I>0?FVector2D::Distance(Curve[I-1].XY,P.XY):0;
-        Water=FMath::Min(Water-Step*.001,TemperateHillsSurface::Height(P.XY.X,P.XY.Y,Seed)-25);
+        Water=FMath::Min(Water-Step*.001,TemperateHillsSurface::Height(P.XY.X,P.XY.Y,Seed,Version)-25);
         P.WaterZ=Water;
         P.HalfWidth=FMath::Clamp(320+FMath::Sqrt(Curve[I].Flow)*19,350.0,650.0)
             *FMath::Lerp(.08,1.0,Smooth(0,2200,Distance));
@@ -197,24 +241,32 @@ FPlanPtr Generate(int32 Seed, double Half, const FVector2D& Spawn, double BankRe
         const double Slope=(P.WaterZ-Next.WaterZ)/FMath::Max(1.0,Next.Distance-P.Distance);
         P.Speed=FMath::Clamp(30+FMath::Sqrt(FMath::Max(.0001,Slope))*220,32.0,130.0);
     }
-    for(int32 I=0; I+1<Plan->Points.Num(); ++I)
-    {
-        const auto& A=Plan->Points[I];const auto& B=Plan->Points[I+1];
-        const double Reach=FMath::Max(FMath::Max(A.LeftWidth,A.RightWidth),FMath::Max(B.LeftWidth,B.RightWidth))+BankReach;
-        const FIntPoint Min=Bucket(FMath::Min(A.XY.X,B.XY.X)-Reach,FMath::Min(A.XY.Y,B.XY.Y)-Reach);
-        const FIntPoint Max=Bucket(FMath::Max(A.XY.X,B.XY.X)+Reach,FMath::Max(A.XY.Y,B.XY.Y)+Reach);
-        for(int32 Y=Min.Y;Y<=Max.Y;++Y)for(int32 X=Min.X;X<=Max.X;++X)
-            Plan->Buckets.FindOrAdd(FIntPoint(X,Y)).Add(I);
-    }
+    Plan->RebuildBuckets();
+    Plan->BuildRainforest(Seed,Half);
     return Plan;
 }
 
-FSample FPlan::Sample(double X,double Y) const
+void FPlan::RebuildBuckets()
+{
+    Buckets.Reset();
+    for(int32 I=0; I+1<Points.Num(); ++I)
+    {
+        const auto& A=Points[I];const auto& B=Points[I+1];
+        const double Reach=ChannelReach(A,B);
+        const FIntPoint Min=Bucket(FMath::Min(A.XY.X,B.XY.X)-Reach,FMath::Min(A.XY.Y,B.XY.Y)-Reach);
+        const FIntPoint Max=Bucket(FMath::Max(A.XY.X,B.XY.X)+Reach,FMath::Max(A.XY.Y,B.XY.Y)+Reach);
+        for(int32 Y=Min.Y;Y<=Max.Y;++Y)for(int32 X=Min.X;X<=Max.X;++X)
+            Buckets.FindOrAdd(FIntPoint(X,Y)).Add(I);
+    }
+}
+
+FSample FPlan::SampleChannel(double X,double Y) const
 {
     FSample R;
-    const auto* Candidates=Buckets.Find(Bucket(X,Y));if(!Candidates)return R;
+    R.CliffWeight=WhiteCliffs.Weight(X,Y);
+    const auto* Candidates=Buckets.Find(Bucket(X,Y));
     const FVector2D P(X,Y);
-    for(int32 I:*Candidates)
+    if(Candidates)for(int32 I:*Candidates)
     {
         const auto& A=Points[I];const auto& B=Points[I+1];
         const FVector2D Delta=B.XY-A.XY;
@@ -223,6 +275,7 @@ FSample FPlan::Sample(double X,double Y) const
         if(D>=R.Distance)continue;
         R.Distance=D;R.WaterZ=FMath::Lerp(A.WaterZ,B.WaterZ,T);
         const FVector2D Side=FMath::Lerp(A.Side,B.Side,T).GetSafeNormal();
+        R.Flow=FVector2D(Side.Y,-Side.X);
         R.SignedDistance=FVector2D::DotProduct(P-FMath::Lerp(A.XY,B.XY,T),Side);
         R.HalfWidth=R.SignedDistance>=0?FMath::Lerp(A.LeftWidth,B.LeftWidth,T):FMath::Lerp(A.RightWidth,B.RightWidth,T);
         R.Depth=FMath::Lerp(A.Depth,B.Depth,T);
@@ -232,9 +285,44 @@ FSample FPlan::Sample(double X,double Y) const
     if(R.Distance<DBL_MAX)
     {
         const double Inner=R.Bend*(R.SignedDistance>=0?1:-1);
-        R.BankExtent=FMath::Clamp(2400+Inner*900,1500.0,BankReach);
+        R.BankExtent=FMath::Clamp(2400+Inner*900,1500.0,MaxChannelBankCm);
         R.Bank=1-Smooth(R.HalfWidth+120,R.HalfWidth+R.BankExtent,R.Distance);
         R.Wet=1-Smooth(R.HalfWidth-100,R.HalfWidth+220,R.Distance);
+        if(Lake.bNaturalShore&&R.Bank>0.)R.LocalShore=ChannelMargin(R,X,Y,Lake.LandformSeed);
+    }
+    return R;
+}
+
+FSample FPlan::Sample(double X,double Y) const
+{
+    if(SettlementBaseline&&Protection(X,Y)>=.999)return SettlementBaseline->Sample(X,Y);
+    FSample R=SampleChannel(X,Y);
+    const double LakeEdge=Lake.Edge(X,Y);
+    if(Lake.Valid&&LakeEdge<(Lake.bNaturalShore?FPlan::FLake::MaxBankExtent:3200.)&&LakeEdge<R.Distance-R.HalfWidth)
+    {
+        const auto Shore=Lake.Shore(X,Y);
+        if(LakeEdge<Shore.Reach)
+        {
+            R.LocalShore=Lake.bNaturalShore?Lake.BankAtChannel(X,Y,LakeEdge,R):LakeShoreDetail::FProfile{};
+            double LakeDepth=Lake.bNaturalShore?Lake.WaterDepth(X,Y,LakeEdge,Shore,R.LocalShore):Lake.Depth;
+            if(Lake.bNaturalShore&&LakeEdge<0.&&R.Distance<R.HalfWidth)
+            {
+                const double Inner=R.Bend*(R.SignedDistance>=0?1.:-1.);
+                const double ChannelDepth=FMath::Clamp(R.Depth*(1.-Inner*.42),25.,90.);
+                const double BedDepth=ChannelDepth-(ChannelDepth+4.)*Smooth(.05,1.,R.Distance/FMath::Max(1.,R.HalfWidth));
+                // Continue the existing submerged inlet through the shallow
+                // shelf instead of leaving a raised lip across the river mouth.
+                LakeDepth=FMath::Clamp(FMath::Max(LakeDepth,Lake.WaterZ-R.WaterZ+BedDepth),0.,Lake.Depth);
+            }
+            R.bLake=true;R.HalfWidth=Lake.RadiusY;R.Distance=FMath::Max(0.,R.HalfWidth+LakeEdge);
+            R.SignedDistance=R.Distance;R.WaterZ=Lake.WaterZ;R.Depth=LakeDepth;R.Bend=0.;R.Speed=4.;
+            // Terrain grading reaches up the hillside; bare wet-bank habitat
+            // remains close to the water so the upper slope can carry groves.
+            const double HabitatReach=Lake.bNaturalShore?FMath::Lerp(2600.,1700.,Shore.Rock):Shore.Reach;
+            R.Along=Lake.Along;R.BankExtent=HabitatReach;R.Bank=1.-Smooth(120.,HabitatReach,LakeEdge);
+            R.ShoreRock=Shore.Rock;
+            R.Wet=1.-Smooth(-100.,220.,LakeEdge);
+        }
     }
     return R;
 }
@@ -243,54 +331,41 @@ double PebbleCover(double X,double Y,int32 Seed,const FSample& River)
 {
     if(River.Bank<=0)return 0;
     const double Edge=River.Distance-River.HalfWidth;
-    const double Patch=TemperateHillsSurface::Noise(X*.0014,Y*.0014,Seed,2309)*.5+.5;
+    const double Exposure=TemperateShore::Exposure(River);
+    const double Reach=FMath::Lerp(1680.,510.,Exposure);
+    if(Edge>=Reach)return 0.;
+    const double MouthBed=River.bLake&&Edge<35.?.94*(LakeShoreDetail::CoveOutlet::Near(X,Y,Seed)?
+        River.LocalShore.Bar:River.LocalShore.DepositedGravel):0.;
+    if(Edge<=-105.)return MouthBed;
+    // Channel deposits stretch downstream. Lake patches follow world space so
+    // opposite bays do not inherit the inlet's single along-channel station.
+    const double Side=River.SignedDistance>=0.?1.:-1.;
+    const double Patch=River.bLake?TemperateHillsSurface::Noise(X/1100.,Y/1100.,Seed,2309)*.5+.5:
+        TemperateHillsSurface::Noise(River.Along/1700.,Side*(4.3+Edge/650.),Seed,2309)*.5+.5;
     const double Fine=TemperateHillsSurface::Noise(X*.0031,Y*.0031,Seed,2311)*.5+.5;
-    return Smooth(-100,220,Edge)*(1-Smooth(1000,2100,Edge))*Smooth(.28,.72,Patch*.75+Fine*.25);
+    const double Bar=Smooth(.28,.72,Patch*.78+Fine*.22);
+    const auto& Local=River.LocalShore;
+    const double Sediment=FMath::Max(Bar*(1.-.85*Local.Runnel),.94*Local.Bar)*(1.-.58*Local.Spine);
+    return FMath::Max(MouthBed,Smooth(-105.,35.,Edge)*(1.-Smooth(Reach*.24,Reach,Edge))*Sediment);
 }
 
-double FPlan::Height(double X,double Y,int32 Seed) const
-{
-    const double Base=TemperateHillsSurface::Height(X,Y,Seed);
-    const FSample S=Sample(X,Y);
-    if(S.Bank<=0)return Base;
-    const double Inner=S.Bend*(S.SignedDistance>=0?1:-1);
-    const double Rough=TemperateHillsSurface::Noise(X*.004,Y*.004,Seed,1963)*4;
-    double Bed=0;
-    if(S.Distance<S.HalfWidth)
-    {
-        const double Across=S.Distance/FMath::Max(1.0,S.HalfWidth);
-        const double Channel=Smooth(.05,1.0,Across);
-        const double Depth=FMath::Clamp(S.Depth*(1-Inner*.42),25.0,90.0);
-        Bed=S.WaterZ-Depth+(Depth+4)*Channel+Rough*(1-Channel);
-    }
-    else
-    {
-        // Broad depositional inner bank, narrower eroded outer bank; the final
-        // blend reaches the original hills with zero slope at its outer edge.
-        const double Shelf=FMath::Clamp(650+Inner*450,300.0,1100.0);
-        Bed=S.WaterZ+4+55*Smooth(S.HalfWidth,S.HalfWidth+Shelf,S.Distance)
-            +Rough*Smooth(S.HalfWidth,S.HalfWidth+200,S.Distance);
-        const double Edge=S.Distance-S.HalfWidth;
-        // Broad deposited bars with smaller wash-out hollows. Wavelengths stay
-        // above the 1 m near terrain grid; individual stones are separate meshes.
-        const double Mound=TemperateHillsSurface::Noise(X*.0014,Y*.0014,Seed,2309);
-        const double Pocket=TemperateHillsSurface::Noise(X*.0031,Y*.0031,Seed,2311);
-        const double ReliefWeight=Smooth(40,300,Edge)*(1-Smooth(1200,S.BankExtent,Edge));
-        Bed+=BankReliefCm*(Mound+.38*Pocket)*ReliefWeight;
-    }
-    return FMath::Lerp(Base,Bed,S.Bank);
-}
 FVector FPlan::Normal(double X,double Y,int32 Seed) const
 { return FVector(-(Height(X+50,Y,Seed)-Height(X-50,Y,Seed))/100,-(Height(X,Y+50,Seed)-Height(X,Y-50,Seed))/100,1).GetSafeNormal(); }
 
 bool FPlan::IntersectsCell(double X,double Y,double Size) const
 {
+    if(Lake.Valid)
+    {
+        const double Reach=FMath::Max(Lake.RadiusX,Lake.RadiusY)*(Lake.bNaturalShore?1.4:1.12)
+            +(Lake.bNaturalShore?FPlan::FLake::MaxBankExtent:3200.);
+        if(X<=Lake.Center.X+Reach&&X+Size>=Lake.Center.X-Reach&&Y<=Lake.Center.Y+Reach&&Y+Size>=Lake.Center.Y-Reach)return true;
+    }
     const FIntPoint Min=Bucket(X,Y),Max=Bucket(X+Size,Y+Size);
     for(int32 BY=Min.Y;BY<=Max.Y;++BY)for(int32 BX=Min.X;BX<=Max.X;++BX)
         if(const auto* List=Buckets.Find(FIntPoint(BX,BY)))for(int32 I:*List)
         {
             const auto& A=Points[I];const auto& B=Points[I+1];
-            const double Reach=FMath::Max(FMath::Max(A.LeftWidth,A.RightWidth),FMath::Max(B.LeftWidth,B.RightWidth))+BankReach;
+            const double Reach=ChannelReach(A,B);
             if(FMath::Max(A.XY.X,B.XY.X)+Reach>=X&&FMath::Min(A.XY.X,B.XY.X)-Reach<=X+Size&&
                 FMath::Max(A.XY.Y,B.XY.Y)+Reach>=Y&&FMath::Min(A.XY.Y,B.XY.Y)-Reach<=Y+Size)return true;
         }
@@ -299,6 +374,7 @@ bool FPlan::IntersectsCell(double X,double Y,double Size) const
 
 void FPlan::BuildWaterMesh(double X,double Y,double Size,UE::Geometry::FDynamicMesh3& Mesh) const
 {
+    if(bRiverLake){BuildRiverLakeMesh(X,Y,Size,Mesh);return;}
     Mesh.EnableAttributes();Mesh.Attributes()->EnablePrimaryColors();
     auto* Normals=Mesh.Attributes()->PrimaryNormals();auto* UVs=Mesh.Attributes()->PrimaryUV();
     auto* Colors=Mesh.Attributes()->PrimaryColors();

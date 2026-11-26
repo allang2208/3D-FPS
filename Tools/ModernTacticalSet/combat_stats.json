@@ -1,0 +1,83 @@
+{
+  "ue_modern_tactical_helmet": {
+    "defense": {
+      "base": 18,
+      "perEnhance": 2
+    },
+    "bonusStats": {
+      "critRes": 8,
+      "firearmStabilityPercent": 0.04,
+      "adsPercent": -0.03
+    },
+    "bonusPerEnhance": {},
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "armorSet": "modern_tactical",
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。"
+  },
+  "ue_modern_kevlar_vest": {
+    "defense": {
+      "base": 30,
+      "perEnhance": 4
+    },
+    "bonusStats": {
+      "maxHp": 30,
+      "firearmRecoilPercent": -0.05
+    },
+    "bonusPerEnhance": {},
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "armorSet": "modern_tactical",
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。"
+  },
+  "ue_modern_tactical_gloves": {
+    "defense": {
+      "base": 10,
+      "perEnhance": 1
+    },
+    "bonusStats": {
+      "reloadSpeed": 0.06,
+      "adsPercent": -0.04
+    },
+    "bonusPerEnhance": {},
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "armorSet": "modern_tactical",
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。"
+  },
+  "ue_modern_tactical_pants": {
+    "defense": {
+      "base": 14,
+      "perEnhance": 2
+    },
+    "bonusStats": {
+      "critRes": 8,
+      "firearmRecoilPercent": -0.03
+    },
+    "bonusPerEnhance": {},
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "armorSet": "modern_tactical",
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。"
+  },
+  "ue_modern_tactical_boots": {
+    "defense": {
+      "base": 10,
+      "perEnhance": 1
+    },
+    "bonusStats": {
+      "sprintStaminaCost": -0.05,
+      "firearmStabilityPercent": 0.03
+    },
+    "bonusPerEnhance": {},
+    "enhancement": {
+      "maxLevel": 10
+    },
+    "armorSet": "modern_tactical",
+    "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。"
+  }
+}

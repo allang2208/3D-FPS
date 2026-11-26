@@ -18,8 +18,9 @@ class FPSGAME_API AVoxelBuildPrefabActor : public AActor
     GENERATED_BODY()
 public:
     AVoxelBuildPrefabActor();
+    virtual void OnRep_Owner() override;
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
-    UFUNCTION() void OnRep_Configuration();
+    UFUNCTION() virtual void OnRep_Configuration();
     UPROPERTY(ReplicatedUsing=OnRep_Configuration) TObjectPtr<UStaticMesh> NetMesh;
     UPROPERTY(ReplicatedUsing=OnRep_Configuration) TObjectPtr<UMaterialInterface> NetSurface;
     void Configure(FName InId,FIntVector InCell,int32 InYaw,UStaticMesh* Mesh,UMaterialInterface* Surface,UPhysicalMaterial* Contact);
@@ -27,6 +28,10 @@ public:
     FIntVector AnchorCell() const {return Cell;}
     int32 Yaw() const {return QuarterTurns;}
     UStaticMeshComponent* Body() const {return MeshComponent;}
+    /** Level-owned stations persist across construction snapshots, including while their shop is ruined. */
+    virtual bool IsSceneStation() const { return false; }
+    /** Scene fixtures opt in when the authored station can accept its normal workstation interactions. */
+    virtual bool IsSceneStationAvailable() const { return false; }
     /** Cosmetic burn interval, authority writes only after a durable inventory commit. */
     void PresentIncineration();
     double IncinerationRemaining() const;
@@ -59,8 +64,9 @@ public:
     static FIntVector RotatedFootprint(FIntVector Footprint,int32 QuarterTurns);
     /** Bounds-centred transform so a rotated piece keeps filling its snapped cell box. */
     static FTransform ComputeTransform(const FVoxelBuildPrefab& Definition,UStaticMesh* Mesh,FIntVector Cell,int32 QuarterTurns);
-private:
+protected:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
+private:
     UPROPERTY() TObjectPtr<UStaticMeshComponent> MeshComponent;
     UPROPERTY(ReplicatedUsing=OnRep_Falling) TObjectPtr<AActor> LogicActor;
     UPROPERTY(ReplicatedUsing=OnRep_Configuration) FName Id;

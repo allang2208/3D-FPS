@@ -191,3 +191,4 @@ for name in ['Bib strap -1','Bib strap 1']:
     p[lo:hi]=grid.reshape(-1,3).round(5).tolist()
 (OUT/'outfit.json').write_text(json.dumps(d,separators=(',',':')))
 print('SMITH_WORKSHIRT_FINISHED',len(p),len(f),flush=True)
+

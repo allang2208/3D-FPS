@@ -330,7 +330,7 @@ FPSGAME 源码与实施记录：[图鉴栏系统规划](../../../Docs/UI/codex-p
 - **每条经验独立套一个贴合文字的直角金框**：透明底、约 1.5px `HUDGold` 细线，左右约 4px、上下约 3px 内边距，并叠加一像素深色描边；框随各自行的堆叠、上浮和淡出移动，不再使用整组大正方形框。
 - 0.12 秒淡入、向上漂浮 9px，停留 1.65 秒后 0.38 秒淡出；最多 3 行、行距 38px，新条目最靠近准星；同一帧批量击杀合并为一条，满行时排队等待。
 - 数据取 `StageTraining` 前后真实角色经验增量，升级扣除的门槛逐级补回；`GainExperience` 提交成功也入队。读档和 HUD 销毁清空；面板打开、鼠标模式或弹药／魔法轮盘时隐藏并冻结消费，游戏暂停时保持当前帧并冻结动画。
-- 实现：`ColdSteelExperienceFeed.h/.cpp`、`ColdSteelExperienceNotices.cpp`、`ColdSteelProfileRuntime.cpp`、`ColdSteelHUDWidget.cpp`；规划 经验到账提示（本机资料：`Docs/UI/experience-gain-feed-plan-20261017.md`，不随本次发布）。每条经验独立贴合金框版本已通过后台 `FPSGAME` 与 `FPSGAMEEditor` 构建（23:05），Editor DLL 已重链；未运行游戏或测试。
+- 实现：`ColdSteelExperienceFeed.h/.cpp`、`ColdSteelExperienceNotices.cpp`、`ColdSteelProfileRuntime.cpp`、`ColdSteelHUDWidget.cpp`；规划 [经验到账提示](../../../Docs/UI/experience-gain-feed-plan-20261017.md)。每条经验独立贴合金框版本已通过后台 `FPSGAME` 与 `FPSGAMEEditor` 构建（23:05），Editor DLL 已重链；未运行游戏或测试。
 
 ## 食物腐败条（2026-10-17）
 
@@ -344,7 +344,7 @@ FPSGAME 源码与实施记录：[图鉴栏系统规划](../../../Docs/UI/codex-p
 - 世界锚点投影到屏幕；数字 24px JetBrains Mono Medium，普通 `HUDGoldLight`，重击 `DamageHeavy` #FF9A46，暴击 `DamageCritical` #FF4D3D + 12px「暴击」；击杀标签、`×N`；四向约 1.25px 描边，无背景。数字水平居中在锚点正上方、底边约 6px；怪物每帧取 `head`／`cranium` 骨骼上方 20cm（无头骨退回骨骼网格资产包围盒，避开 `BoundsScale` 放大），训练靶用命中点。
 - 只给攻击者 HUD 显示；训练靶只在服务器生成并复制，伤害数字走攻击者 `AFPSGAMEPlayerController::ClientPracticeHit`（靶面晃动仍走组播），怪物沿用 `NotifyConfirmedWeaponHit` 的 owner 回执；魔法/符文刃把 `bCritical`/`bKilled` 纳入 `FWeaponDamageResult`，客户端击杀用回执 OR 本地死亡态；不新增复制 Actor。 原因：客户端表现与服务器结算可能重复经过入口，权威路径必须保持一次有效事务。
 - 性能：事件队列 128、HUD 64 条固定池，不在命中路径创建 UObject；训练靶移除 TextRender 跳字，保留 DPS 牌和靶面晃动。
-- 实现：`ColdSteelDamageNumberSubsystem.*`、`ColdSteelDamageNumbers.*`、`FPSGAMECharacterCombatFeedback.cpp`、`FPSGAMEPlayerController.*`、`FPSPracticeTarget.*`、`ColdSteelHUDWidget.*`、六个魔法技能与符文刃回执；规划 怪物伤害跳字（本机资料：`Docs/UI/damage-numbers-plan-20261017.md`，不随本次发布）。怪物锚点优先 `head`／`cranium` 骨骼上方 20cm（无头骨退回资产包围盒，避开 `BoundsScale`），数字水平居中在正上方；Game 已编译并链接（FPSGAME.exe 10:27:11，含符文刃回执修复），Editor DLL 10:23:00 已含主要联机修复、符文刃回执待空闲批次重链；未运行游戏或测试。 原因：渲染防剔除范围可大于真实几何，直接用于命中会让可点击区域偏离可见物体。
+- 实现：`ColdSteelDamageNumberSubsystem.*`、`ColdSteelDamageNumbers.*`、`FPSGAMECharacterCombatFeedback.cpp`、`FPSGAMEPlayerController.*`、`FPSPracticeTarget.*`、`ColdSteelHUDWidget.*`、六个魔法技能与符文刃回执；规划 [怪物伤害跳字](../../../Docs/UI/damage-numbers-plan-20261017.md)。怪物锚点优先 `head`／`cranium` 骨骼上方 20cm（无头骨退回资产包围盒，避开 `BoundsScale`），数字水平居中在正上方；Game 已编译并链接（FPSGAME.exe 10:27:11，含符文刃回执修复），Editor DLL 10:23:00 已含主要联机修复、符文刃回执待空闲批次重链；未运行游戏或测试。 原因：渲染防剔除范围可大于真实几何，直接用于命中会让可点击区域偏离可见物体。
 
 ## 消耗品浮窗标准（2026-10-18）
 

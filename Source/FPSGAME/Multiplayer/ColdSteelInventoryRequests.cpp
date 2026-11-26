@@ -1,17 +1,31 @@
 #include "ColdSteelPlayerState.h"
+#include "../NPC/ChapelDialogueComponent.h"
+#include "../NPC/VillageArtisanMerchant.h"
+#include "../Tasks/BlacksmithApprenticeship.h"
+#include "../Tasks/CarpenterApprenticeship.h"
+#include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "TimerManager.h"
 #include "../Building/AlchemySystem.h"
 #include "../UI/ColdSteelShopModel.h"
 #include "../Dungeons/DungeonRunSubsystem.h"
 #include "../Building/WoodworkingSystem.h"
+#include "../Building/GunAssemblySystem.h"
+#include "../Building/CraftingSystem.h"
+#include "../Building/ColdSteelPlantingSystem.h"
+#include "../Building/VoxelBuildWorld.h"
+#include "../Building/VoxelBuildPrefabActor.h"
 #include "ColdSteelProfileTransfer.h"
 #include "ColdSteelSharedInventorySubsystem.h"
 #include "../UI/ColdSteelPickup.h"
 #include "../UI/ColdSteelWarehouseChest.h"
 #include "../Weapons/Bow/BowArrow.h"
+#include "../Weapons/Bow/BowWeaponComponent.h"
+#include "../Skills/FPSElementalArrowComponent.h"
+#include "../Skills/FPSIlluminationArrowComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../UI/ColdSteelIncineratorStorage.h"
 #include "../UI/ColdSteelWorldInteraction.h"
 #include "../Survival/FPSSurvivalComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
@@ -20,6 +34,16 @@
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
 #include "Misc/SecureHash.h"
+
+bool AColdSteelPlayerState::RequestArtisanLesson(AVillageArtisanMerchant* Teacher,uint32 ConversationSession)
+{
+    if(!IsValid(Teacher)||!ConversationSession||GetNetMode()!=NM_Client)return false;
+    FColdSteelInventoryRequest Request;
+    Request.Action=EColdSteelInventoryAction::ArtisanLesson;
+    Request.Target=Teacher;
+    Request.ConversationSession=ConversationSession;
+    return RequestInventoryAction(Request);
+}
 
 bool AColdSteelPlayerState::RequestInventoryAction(EColdSteelInventoryAction Action,const FString& Item,AActor* Target)
 {
@@ -58,7 +82,15 @@ bool AColdSteelPlayerState::RequestInventoryAction(FColdSteelInventoryRequest Re
     const auto Baseline=InventoryBaseline(Model->Snapshot());
     const auto Currency=Model->Snapshot();
     const bool TradeReady=Request.Action!=EColdSteelInventoryAction::Shop||(Currency.Souls==ConfirmedSouls&&Currency.ServerSoulCredits==ConfirmedSoulCredits&&Currency.ServerSoulDebits==ConfirmedSoulDebits);
-    if(TradeReady&&!Baseline.IsEmpty()&&Baseline==AcknowledgedInventoryBaseline)
+    // Planting consumes the already acknowledged authority inventory. Do not
+    // turn this world intent into an owner-provided inventory replacement.
+    if(Request.Action==EColdSteelInventoryAction::Planting&&(Baseline.IsEmpty()||Baseline!=AcknowledgedInventoryBaseline))
+    {
+        bInventoryRequestPending=false;InventoryRequestPawn.Reset();bHasLastSent=false;HeartbeatTimer=0.f;
+        Model->PostNotice(TEXT("种植库存正在同步"),TEXT("请等待服务端确认当前库存后重试"));return false;
+    }
+    const bool AppearanceUploaded=bHasUploadedAppearance&&Currency.PlayerHeadId==UploadedHeadId&&Currency.PlayerHairId==UploadedHairId;
+    if(TradeReady&&AppearanceUploaded&&!Baseline.IsEmpty()&&Baseline==AcknowledgedInventoryBaseline)
     {
         PendingUpload.Reset();PendingNormBlob.Reset();
         Model->SetCampfireInventoryPending(true);PendingInventoryRequest=Request;
@@ -74,8 +106,11 @@ bool AColdSteelPlayerState::RequestInventoryAction(FColdSteelInventoryRequest Re
     PendingUpload.Reset();PendingNormBlob.Reset();
     if(!ColdSteelProfileTransfer::SaveToBlob(ScratchSave,PendingUpload))
     {bInventoryRequestPending=false;InventoryRequestPawn.Reset();return false;}
+    PendingUploadHeadId=ScratchSave->Profile.PlayerHeadId;PendingUploadHairId=ScratchSave->Profile.PlayerHairId;
+    PendingUploadGunsmithSequence=LocalGunsmithSequence;
     PendingNormBlob=PendingUpload;PendingUploadId=++UploadCounter;NextChunkIndex=0;
     PendingSuper90Revision=Super90AppliedRevision;PendingUploadPawn=PC->GetPawn();
+    PendingPistolAmmoRevision=PistolAppliedAmmoRevision;PendingPistolIntent=PistolControlSequence;
     PendingTotalChunks=FMath::DivideAndRoundUp(PendingUpload.Num(),ProfileChunkSize);
     bInventoryWaitingUpload=true;PendingInventoryRequest=Request;
     Model->SetCampfireInventoryPending(true);
@@ -113,15 +148,44 @@ void AColdSteelPlayerState::ServerWarehouseOpen_Implementation(AColdSteelWarehou
     Chest->SetOpenFor(GetPawn(),Open);
 }
 
+bool AColdSteelPlayerState::HasAuthorityConsumableReservation(const APawn* Pawn) const
+{
+    const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+    return HasAuthority()&&Pawn&&Pawn==GetPawn()&&ConsumablePawn.Get()==Pawn&&ConsumableUseId.IsValid()
+        &&Health&&!Health->IsDead()&&GetWorld()&&GetWorld()->GetTimeSeconds()<ConsumableExpiresAt;
+}
+
+bool AColdSteelPlayerState::CanAuthorityBeginConsumable(const APawn* SourcePawn) const
+{
+    const auto* Pawn=Cast<AFPSGAMECharacter>(SourcePawn);
+    if(!Pawn||Pawn!=GetPawn()||!GetWorld())return false;
+    const double Now=GetWorld()->GetTimeSeconds();
+    if((GenericLaunchPawn.Get()==Pawn&&Now<GenericLaunchReadyAt)||HasGenericMeleeBusy(Pawn)
+        ||(AuthorityShotRecoveryPawn.Get()==Pawn&&Now<AuthorityShotRecoveryUntil))return false;
+    // These clocks/receipts exist on authority. Do not consult the remote
+    // owner's first-person reload, animation or trigger presentation clocks.
+    if(Pawn->IsTraversing()||Pawn->IsDodging()||Pawn->IsSliding()||Pawn->IsSpellGestureBlocking()
+        ||!PendingCastSkill.IsNone()||UppercutActiveSequence||IsQuickCombatExecuting(Pawn)||IsSwordWhirlwindExecuting(Pawn)
+        ||(KukriAttack.Pawn.Get()==Pawn&&Now<KukriReadyAt)
+        ||(RidgeStrike.Pawn.Get()==Pawn&&Now<RidgeStrike.NextSwingAt)
+        ||(Super90Reload.Active&&Super90Reload.Pawn.Get()==Pawn))return false;
+    for(const auto& Pair:PistolReloads)if(Pair.Value.Active&&Pair.Value.Pawn.Get()==Pawn)return false;
+    return true;
+}
+
 void AColdSteelPlayerState::ServerBeginConsumableUse_Implementation(APawn* SourcePawn,FGuid UseId,const FString& Item,FName Definition)
 {
     if(!SourcePawn || GetPawn()!=SourcePawn || !UseId.IsValid() || Item.IsEmpty() || Item.Len()>128)return;
+    if(!HasAuthority()||UseId==LastConsumableBeginId||HasAuthorityConsumableReservation(SourcePawn)||!CanAuthorityBeginConsumable(SourcePawn))return;
+    LastConsumableBeginId=UseId;
     const FString Def=Definition.ToString();
     const auto* Use=SourcePawn->FindComponentByClass<UFPSPotionUseComponent>();
     const auto* Health=SourcePawn->FindComponentByClass<UFPSCombatHealthComponent>();
     if(!Use || !Health || Health->IsDead() || !UFPSPotionUseComponent::IsAnimatedConsumable(Def))return;
     ConsumablePawn=SourcePawn;ConsumableUseId=UseId;ConsumableItem=Item;ConsumableDefinition=Definition;
     ConsumableContactAt=GetWorld()->GetTimeSeconds()+Use->MinimumContactDelay(Def);
+    // Bound abandoned intents while allowing profile upload and reliable-channel jitter.
+    ConsumableExpiresAt=ConsumableContactAt+60.;
 }
 
 void AColdSteelPlayerState::ServerCancelConsumableUse_Implementation(FGuid UseId)
@@ -167,10 +231,38 @@ void AColdSteelPlayerState::ProcessInventoryAction(const FColdSteelInventoryRequ
     else if(!Model)Reason=TEXT("角色档案正在同步，请稍后重试");
     else if(Model->HasUnconfirmedTransactionSave())Reason=TEXT("交易保存结果待恢复，当前不能继续扣费或领取");
     else if(Request.Revision!=Before.CampfireInventoryRevision)Reason=TEXT("库存正在更新，请稍后重试");
+    else if(Request.Action==EColdSteelInventoryAction::MountGear)
+    {
+        if(Request.Mode==TEXT("equip") || Request.Mode==TEXT("remove"))
+            Success=Model->ChangeMountGear(Request.MountId,Request.Cell,Request.Item,Request.Mode==TEXT("equip"),Reason);
+        else Reason=TEXT("马具操作无效");
+    }
+    else if(Request.Action==EColdSteelInventoryAction::MountPotion)
+        Success=Model->GiveMountPotion(Request.MountId,Request.Item,Reason);
     else if(Request.Action==EColdSteelInventoryAction::Shrine)
-    {if(auto* Run=UDungeonRunSubsystem::Get(GetWorld()))Success=Run->ClaimShrine(PC,Request.Target);Reason=Success?TEXT("已获得本次地牢赐福"):TEXT("神龛不可达或已领取");}
+    {if(auto* Run=UDungeonRunSubsystem::Get(GetWorld()))Success=Run->ClaimShrine(PC,Request.Target);Reason=Success?TEXT("已获得神像赐福"):TEXT("神龛不可达或已领取");}
     else if(Request.Action==EColdSteelInventoryAction::Shop)
         Success=UColdSteelShopModel::ExecuteNetworkTrade(Model,Request,PC->IsLocalController()?FString():SlotName,Reason);
+    else if(Request.Action==EColdSteelInventoryAction::ArtisanLesson)
+    {
+        const auto* Dialogue=PC->FindComponentByClass<UChapelDialogueComponent>();
+        const auto* Teacher=Cast<AVillageArtisanMerchant>(Request.Target.Get());
+        if(!Teacher||!Dialogue||!Dialogue->CanAcceptArtisanTask(Request.ConversationSession,Teacher))
+            Reason=TEXT("交谈已结束，请回到师傅身边。");
+        else if(!IsGuestInitialized()||SlotName.IsEmpty()||Model->RuntimePawn()!=Pawn)
+            Reason=TEXT("角色档案正在同步，请稍后再试。");
+        else
+            Success=Teacher->IsCarpenterMerchant()?CarpenterApprenticeship::Accept(Model,SlotName,Reason)
+                                               :BlacksmithApprenticeship::Accept(Model,SlotName,Reason);
+    }
+    else if(Request.Action==EColdSteelInventoryAction::Planting)
+    {
+        if(auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>())
+            Success=Shared->PlantingAction(Model,PC->IsLocalController()?nullptr:this,Request,Reason);
+    }
+    else if(Request.Action==EColdSteelInventoryAction::Incinerate)
+        Success=ColdSteelIncineratorStorage::ExecuteAuthority(*Model,Request.Target,Request.Item,Request.Mode,
+            PC->IsLocalController()?FString():SlotName,Reason);
     else if(Request.Action>=EColdSteelInventoryAction::Harvest)
         Success=ExecuteWorldAction(Request,Model,Reason);
     else if(Request.Action==EColdSteelInventoryAction::Consume)
@@ -179,7 +271,8 @@ void AColdSteelPlayerState::ProcessInventoryAction(const FColdSteelInventoryRequ
         const bool Animated=Item&&UFPSPotionUseComponent::IsAnimatedConsumable(Item->Definition);
         if(!PC->IsLocalController() && (Animated || Request.ConsumableUseId.IsValid()) &&
             (!Item || !Request.ConsumableUseId.IsValid() || Request.ConsumableUseId!=ConsumableUseId ||
-             ConsumablePawn.Get()!=Pawn || ConsumableItem!=Request.Item || ConsumableDefinition!=FName(*Item->Definition)))
+             ConsumablePawn.Get()!=Pawn || ConsumableItem!=Request.Item || ConsumableDefinition!=FName(*Item->Definition) ||
+              !HasAuthorityConsumableReservation(Pawn) || !CanAuthorityBeginConsumable(Pawn)))
         {
             Reason=TEXT("使用动作已取消或物品已变化");
         }
@@ -230,6 +323,15 @@ void AColdSteelPlayerState::ProcessInventoryAction(const FColdSteelInventoryRequ
         default:Reason=TEXT("未知物品操作");break;
         }
     }
+    if(!Success&&Request.Action==EColdSteelInventoryAction::BowShot&&Pawn&&Request.Pawn==Pawn)
+    {
+        // General inventory validation can reject before ExecuteBowShot is reached.
+        // Retire the same pawn's preparation and draw on every failed shot.
+        if(Request.bIlluminationArrow)if(auto* Light=Pawn->FindComponentByClass<UFPSIlluminationArrowComponent>())Light->ShotCommitted();
+        if(Request.ArrowElement!=EArrowElement::None)if(auto* Element=Pawn->FindComponentByClass<UFPSElementalArrowComponent>())Element->ShotRejected();
+        if(Request.BowDrawId==BowDrawId)
+        {BowDrawStartedAt=-1.;BowDrawPawn.Reset();BowDrawWeapon.Reset();BowDrawId.Invalidate();}
+    }
     if(Request.Action==EColdSteelInventoryAction::Consume && Request.ConsumableUseId==ConsumableUseId)ConsumableUseId.Invalidate();
     if(Reason.IsEmpty())Reason=TEXT("物品已变化或当前无法使用");
     const auto After=Model?Model->Snapshot():Before;
@@ -237,7 +339,7 @@ void AColdSteelPlayerState::ProcessInventoryAction(const FColdSteelInventoryRequ
     if(Success)
     {
         bServerDirty=true;ServerSaveTimer=20.f;
-        Pawn->ForceNetUpdate();SendSuper90Ammo();
+        Pawn->ForceNetUpdate();SendSuper90Ammo();SendPistolAmmo();
     }
     else if(Model){ShadowMirrorTimer=3.f;}
 }
@@ -248,6 +350,19 @@ void AColdSteelPlayerState::QueueInventoryReply(const FColdSteelInventoryRequest
     auto* Reply=NewObject<UColdSteelInventoryReply>();
     Reply->Sequence=Request.Sequence;Reply->Revision=After.CampfireInventoryRevision;
     Reply->bSuccess=Success;Reply->Message=Reason;Reply->WorldReceipts=After.CampfireWorldReceipts;
+    if(Request.Action==EColdSteelInventoryAction::BowShot)
+    {
+        // A refused shot preserves the last actually earned bonus. The owner
+        // receives it explicitly; unchanged replicated bools cannot undo prediction.
+        RefreshBowPerfectOwner();Reply->bBowPerfect=bBowPerfectSpeedBonus;
+        Reply->bBowPiercing=Success&&bLastBowShotPiercing;
+    }
+    Reply->FoodClockId=After.FoodClockId;Reply->FoodClockDay=After.FoodClockDay;
+    if(Request.Action==EColdSteelInventoryAction::Planting)
+        if(auto* Bed=Cast<AVoxelBuildPrefabActor>(Request.Target);Bed&&Bed->GetWorld()==GetWorld())
+            if(auto* World=Cast<AVoxelBuildWorld>(Bed->GetOwner()))
+                if(auto* Planting=GetGameInstance()->GetSubsystem<UColdSteelPlantingSystem>())
+                {Reply->bPlantingView=true;Reply->Planting=Planting->NetworkState(World);}
     if(Request.Action>=EColdSteelInventoryAction::ContainerOpen&&Request.Action<=EColdSteelInventoryAction::ContainerRetrieveAll)
         if(auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>())
         {
@@ -256,11 +371,12 @@ void AColdSteelPlayerState::QueueInventoryReply(const FColdSteelInventoryRequest
         }
     Reply->ServerSoulCredits=After.ServerSoulCredits;Reply->ServerSoulDebits=After.ServerSoulDebits;
     Reply->bWorldAction=Request.Action>=EColdSteelInventoryAction::Shrine&&Request.Action<=EColdSteelInventoryAction::Workstation;
-    if(Reply->bWorldAction){Reply->DungeonRun=After.DungeonRun;Reply->ForgeJob=After.ForgeJob;Reply->GunAssemblyJob=After.GunAssemblyJob;Reply->WoodworkingJob=After.WoodworkingJob;Reply->AlchemyJob=After.AlchemyJob;}
+    if(Reply->bWorldAction){Reply->DungeonRun=After.DungeonRun;Reply->ForgeJob=After.ForgeJob;Reply->GunAssemblyJob=After.GunAssemblyJob;Reply->WoodworkingJob=After.WoodworkingJob;Reply->AlchemyJob=After.AlchemyJob;Reply->EnhancementItem=After.EnhancementItem;}
     if(Success)
     {
         for(const auto& Item:After.Items)
         {
+            if(Item.Container.StartsWith(TEXT("NetView.")))continue;
             const auto* Old=Before.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Item.InstanceId;});
             if(!Old||!FColdSteelItem::StaticStruct()->CompareScriptStruct(Old,&Item,0))Reply->Changed.Add(Item);
         }
@@ -273,8 +389,24 @@ void AColdSteelPlayerState::QueueInventoryReply(const FColdSteelInventoryRequest
         }
         for(const auto& Pair:Before.AmmoPouch)
             if(!After.AmmoPouch.Contains(Pair.Key)&&Pair.Value)Reply->PouchDelta.Add(Pair.Key,-Pair.Value);
+        if(Request.Action==EColdSteelInventoryAction::MountGear || Request.Action==EColdSteelInventoryAction::MountPotion ||
+            (Request.Action==EColdSteelInventoryAction::Shop && Request.Mode==TEXT("stable.buy")))
+            Reply->MountPotionRoster=After.MountRoster;
         Reply->bResourcesChanged=Request.Action==EColdSteelInventoryAction::Consume;
         Reply->ManaRestored=FMath::Max(0.f,After.Mana-Before.Mana);
+        if(Request.Action==EColdSteelInventoryAction::BowShot)Reply->ElementManaSpent=FMath::Max(0.f,Before.Mana-After.Mana);
+        if(Request.Action==EColdSteelInventoryAction::BowShot&&Request.bIlluminationArrow)
+        {
+            Reply->bIlluminationArrow=true;
+            Reply->ElementCooldown=After.IlluminationArrowCooldownDuration;Reply->ElementCooldownEnd=GetWorld()->GetTimeSeconds()+After.IlluminationArrowCooldown;
+        }
+        if(Request.Action==EColdSteelInventoryAction::BowShot&&ElementalArrow::IsElement(Request.ArrowElement))
+        {
+            Reply->ArrowElement=Request.ArrowElement;
+            Reply->ElementCooldown=Request.ArrowElement==EArrowElement::Fire?After.FireballCooldownDuration:Request.ArrowElement==EArrowElement::Ice?After.IceSpikeCooldownDuration:After.LightningCooldownDuration;
+            const float Remaining=Request.ArrowElement==EArrowElement::Fire?After.FireballCooldown:Request.ArrowElement==EArrowElement::Ice?After.IceSpikeCooldown:After.LightningCooldown;
+            Reply->ElementCooldownEnd=GetWorld()->GetTimeSeconds()+Remaining;
+        }
         if(Request.Action==EColdSteelInventoryAction::BowShot||Request.Action==EColdSteelInventoryAction::Harvest)Reply->StaminaSpent=FMath::Max(0.f,Before.Stamina-After.Stamina);
         Reply->bEquipmentChanged=Before.ActiveWeaponSlot!=After.ActiveWeaponSlot||Before.ActiveProductionTool!=After.ActiveProductionTool;
         Reply->ActiveWeaponSlot=After.ActiveWeaponSlot;Reply->ActiveProductionTool=After.ActiveProductionTool;
@@ -284,14 +416,20 @@ void AColdSteelPlayerState::QueueInventoryReply(const FColdSteelInventoryRequest
     {
         bInventoryRequestPending=false;
         if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
-        {Model->ApplyNetworkContainerView(Reply,Request.Target);Model->PostNotice(TEXT("物品操作"),Reason);}
+        {Model->ApplyNetworkContainerView(Reply,Request.Target);
+         if(!Success||Request.Action!=EColdSteelInventoryAction::ContainerOpen||Request.Count!=-1)
+             Model->PostNotice(Request.Action==EColdSteelInventoryAction::Building?TEXT("建造"):TEXT("物品操作"),Reason);}
+        if(Request.Mode.StartsWith(TEXT("enhancement.")))GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>()->NetworkFinished(Success,Reason);
         if(Request.Action==EColdSteelInventoryAction::Shop)GetGameInstance()->GetSubsystem<UColdSteelShopModel>()->NetworkTradeFinished(Success,Reason);
+        if(Request.Action==EColdSteelInventoryAction::Planting)
+            GetGameInstance()->GetSubsystem<UColdSteelPlantingSystem>()->NetworkFinished(Request,Success,Reason,InventoryRequestPawn.Get());
         InventoryRequestPawn.Reset();return;
     }
     if(!ColdSteelProfileTransfer::SaveToBlob(Reply,InventoryReplyOutgoing))
     {
         // An unrepresentable receipt must not strand the owning UI's pending lock.
         Reply->Changed.Reset();Reply->Removed.Reset();Reply->PouchDelta.Reset();Reply->ContainerItems.Reset();Reply->bContainerView=false;
+        Reply->Planting={};Reply->bPlantingView=false;
         Reply->bSuccess=false;Reply->bResourcesChanged=false;
         Reply->Message=TEXT("操作结果等待完整档案同步");
         ColdSteelProfileTransfer::SaveToBlob(Reply,InventoryReplyOutgoing);
@@ -335,27 +473,59 @@ void AColdSteelPlayerState::ClientInventoryReplyChunk_Implementation(uint32 Sequ
         Model->SetCampfireInventoryPending(false);
         const bool Applied=Decoded&&(!Reply->bSuccess||Model->ApplyNetworkInventoryReply(Reply,InventoryRequestPawn.Get()));
         OwnerAppliedReceipt=Applied&&Reply->bSuccess;
+        if(PendingInventoryRequest.Action==EColdSteelInventoryAction::ArtisanLesson)
+            if(auto* PC=Cast<APlayerController>(GetOwner()))
+                if(auto* Dialogue=PC->FindComponentByClass<UChapelDialogueComponent>())
+                    Dialogue->FinishArtisanInventoryRequest(PendingInventoryRequest.ConversationSession,OwnerAppliedReceipt,
+                        Applied?Reply->Message:TEXT("材料正在与主机同步，请稍后查看背包。"));
         if(PendingInventoryRequest.Action==EColdSteelInventoryAction::Consume && InventoryRequestPawn.IsValid() &&
             InventoryRequestPawn.Get()==GetPawn())
             if(auto* Use=InventoryRequestPawn->FindComponentByClass<UFPSPotionUseComponent>())
                 Use->ReceiveContactResult(PendingInventoryRequest.ConsumableUseId,Decoded&&Reply->bSuccess);
+        if(Decoded&&Reply->bPlantingView)
+            GetGameInstance()->GetSubsystem<UColdSteelPlantingSystem>()->ApplyNetworkState(GetWorld(),Reply->Planting);
+        if(PendingInventoryRequest.Action==EColdSteelInventoryAction::Planting)
+            GetGameInstance()->GetSubsystem<UColdSteelPlantingSystem>()->NetworkFinished(PendingInventoryRequest,Decoded&&Reply->bSuccess&&Applied,
+                Decoded&&Applied?Reply->Message:TEXT("种植结果正在重新同步"),InventoryRequestPawn.Get());
         if(PendingInventoryRequest.Mode.StartsWith(TEXT("alchemy.")))
             GetGameInstance()->GetSubsystem<UColdSteelAlchemySystem>()->NetworkFinished(PendingInventoryRequest.Mode,Decoded&&Reply->bSuccess&&Applied,
                 Decoded&&Applied?Reply->Message:TEXT("炼药结果正在重新同步"));
         if(PendingInventoryRequest.Mode.StartsWith(TEXT("wood.")))
             GetGameInstance()->GetSubsystem<UWoodworkingSystem>()->NetworkTransactionFinished(PendingInventoryRequest.Mode,Decoded&&Reply->bSuccess&&Applied,
-                Decoded&&Applied?Reply->Message:TEXT("工件结算正在重新同步"));
+                Decoded&&Applied?Reply->Message:TEXT("工件结算正在重新同步"),InventoryRequestPawn.IsValid()&&InventoryRequestPawn.Get()==GetPawn());
+        if(InventoryRequestPawn.IsValid()&&InventoryRequestPawn.Get()==GetPawn())
+        {
+            const bool Confirmed=Decoded&&Reply->bSuccess&&Applied;
+            const FString Result=Decoded&&Applied?Reply->Message:TEXT("制作结果正在重新同步，请稍候");
+            if(PendingInventoryRequest.Mode.StartsWith(TEXT("assembly.")))
+                GetGameInstance()->GetSubsystem<UGunAssemblySystem>()->OnNetworkResult.Broadcast(PendingInventoryRequest.Mode,Confirmed,Result);
+            if(PendingInventoryRequest.Mode.StartsWith(TEXT("enhancement.")))
+                GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>()->NetworkFinished(Confirmed,Result);
+            if(PendingInventoryRequest.Mode==TEXT("craft"))
+                GetGameInstance()->GetSubsystem<UColdSteelCraftingSystem>()->OnNetworkResult.Broadcast(PendingInventoryRequest.Definition,Confirmed,Result);
+        }
         if(PendingInventoryRequest.Action==EColdSteelInventoryAction::Shop)
-            GetGameInstance()->GetSubsystem<UColdSteelShopModel>()->NetworkTradeFinished(Decoded&&Reply->bSuccess,
+            GetGameInstance()->GetSubsystem<UColdSteelShopModel>()->NetworkTradeFinished(OwnerAppliedReceipt,
                 Decoded&&Applied?Reply->Message:TEXT("交易结果等待档案同步"));
         if(Applied&&Reply->bSuccess)AcknowledgedInventoryBaseline=InventoryBaseline(Model->Snapshot());
         else AcknowledgedInventoryBaseline.Reset();
         const bool InitialOpen=PendingInventoryRequest.Action==EColdSteelInventoryAction::ContainerOpen&&PendingInventoryRequest.Count==0;
         if(Decoded&&InventoryRequestPawn.Get()==GetPawn()&&(InitialOpen||Model->bWarehouseOpen))
             Model->ApplyNetworkContainerView(Reply,PendingInventoryRequest.Target);
-        Model->PostNotice(TEXT("联机物品操作"),Applied?Reply->Message:TEXT("结果正在重新同步"));
+        if(!Applied||!Reply->bSuccess||PendingInventoryRequest.Action!=EColdSteelInventoryAction::ContainerOpen||PendingInventoryRequest.Count!=-1)
+            Model->PostNotice(PendingInventoryRequest.Action==EColdSteelInventoryAction::Building?TEXT("建造"):TEXT("联机物品操作"),
+                Applied?Reply->Message:TEXT("结果正在重新同步"));
     }
     if(OwnerAppliedReceipt)AcknowledgeInventoryProfile();else {bHasLastSent=false;HeartbeatTimer=0.f;}
+    if(PendingInventoryRequest.Action==EColdSteelInventoryAction::BowShot)
+        if(auto* ShotPawn=InventoryRequestPawn.Get())
+        {
+            if(Decoded&&ShotPawn==GetPawn())if(auto* Bow=ShotPawn->FindComponentByClass<UBowWeaponComponent>())
+                Bow->ConfirmNetworkRelease(PendingInventoryRequest.Item,PendingInventoryRequest.BowDrawId,
+                    Reply->bSuccess,Reply->bBowPerfect,Reply->bBowPiercing);
+            if(PendingInventoryRequest.bIlluminationArrow)if(auto* Light=ShotPawn->FindComponentByClass<UFPSIlluminationArrowComponent>())Light->ResolveShotReply();
+            if(PendingInventoryRequest.ArrowElement!=EArrowElement::None)if(auto* Element=ShotPawn->FindComponentByClass<UFPSElementalArrowComponent>())Element->ResolveShotReply();
+        }
     InventoryRequestPawn.Reset();
 }
 void AColdSteelPlayerState::ClientContainerInvalidated_Implementation(AActor* Target)

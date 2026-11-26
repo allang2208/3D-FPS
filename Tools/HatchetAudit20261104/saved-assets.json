@@ -1,0 +1,220 @@
+{
+  "passed": true,
+  "saved_package_checks": [
+    {
+      "head": "factory",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_Factory_RuneCarrier.SM_TacticalHatchet_Head_Factory_RuneCarrier",
+      "slots": [
+        "M_TacticalHatchet_Head_Factory_RuneCarrier"
+      ],
+      "remove_degenerates": true
+    },
+    {
+      "head": "axe_swift_crescent",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_SwiftCrescent_R4.SM_TacticalHatchet_Head_SwiftCrescent_R4",
+      "slots": [
+        "M_TacticalHatchet_Head_SwiftCrescent_R4"
+      ],
+      "remove_degenerates": true
+    },
+    {
+      "head": "axe_heavy_cleaver",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_HeavyCleaver_R5.SM_TacticalHatchet_Head_HeavyCleaver_R5",
+      "slots": [
+        "M_TacticalHatchet_Head_HeavyCleaver_R5"
+      ],
+      "remove_degenerates": true
+    },
+    {
+      "head": "axe_folded_arc",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SM_TacticalHatchet_Head_FoldedArc_R5.SM_TacticalHatchet_Head_FoldedArc_R5",
+      "slots": [
+        "M_TacticalHatchet_Head_FoldedArc_R5"
+      ],
+      "remove_degenerates": true
+    },
+    {
+      "head": "hatchet_falcon_edge",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/SwiftFalconLegendary/SM_TacticalHatchet_Head_SwiftFalcon.SM_TacticalHatchet_Head_SwiftFalcon",
+      "slots": [
+        "M_TacticalHatchet_Head_FalconEdge"
+      ],
+      "remove_degenerates": true
+    },
+    {
+      "head": "hatchet_ghost_scythe",
+      "mesh": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/GhostScytheJointR11/SM_TacticalHatchet_Head_GhostScythe_V6.SM_TacticalHatchet_Head_GhostScythe_V6",
+      "slots": [
+        "M_GhostScythe_OEM_R10",
+        "M_GhostScythe_Joint_R11",
+        "M_GhostScythe_Meshy_R10"
+      ],
+      "remove_degenerates": true
+    }
+  ],
+  "combinations": [
+    {
+      "head": "factory",
+      "rune": "factory",
+      "material": "/Game/Weapons/TacticalHatchet20261101/Materials/M_TacticalHatchet.M_TacticalHatchet"
+    },
+    {
+      "head": "factory",
+      "rune": "knife_mark_wing",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_Factory_RuneWing.MI_HatchetMark_Factory_RuneWing",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_Factory_RuneWing.T_HatchetRune_Factory_RuneWing",
+      "uniform_scale": true
+    },
+    {
+      "head": "factory",
+      "rune": "knife_mark_knot",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_Factory_RuneKnot.MI_HatchetMark_Factory_RuneKnot",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_Factory_RuneKnot.T_HatchetRune_Factory_RuneKnot",
+      "uniform_scale": true
+    },
+    {
+      "head": "factory",
+      "rune": "knife_mark_peaks",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_Factory_RunePeaks.MI_HatchetMark_Factory_RunePeaks",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_Factory_RunePeaks.T_HatchetRune_Factory_RunePeaks",
+      "uniform_scale": true
+    },
+    {
+      "head": "axe_swift_crescent",
+      "rune": "factory",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_SwiftCrescent_R4.M_TacticalHatchet_Head_SwiftCrescent_R4"
+    },
+    {
+      "head": "axe_swift_crescent",
+      "rune": "knife_mark_wing",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_SwiftCrescent_RuneWing.MI_HatchetMark_SwiftCrescent_RuneWing",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_SwiftCrescent_RuneWing.T_HatchetRune_SwiftCrescent_RuneWing",
+      "uniform_scale": true
+    },
+    {
+      "head": "axe_swift_crescent",
+      "rune": "knife_mark_knot",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_SwiftCrescent_RuneKnot.MI_HatchetMark_SwiftCrescent_RuneKnot",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_SwiftCrescent_RuneKnot.T_HatchetRune_SwiftCrescent_RuneKnot",
+      "uniform_scale": true
+    },
+    {
+      "head": "axe_swift_crescent",
+      "rune": "knife_mark_peaks",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_SwiftCrescent_RunePeaks.MI_HatchetMark_SwiftCrescent_RunePeaks",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_SwiftCrescent_RunePeaks.T_HatchetRune_SwiftCrescent_RunePeaks",
+      "uniform_scale": true
+    },
+    {
+      "head": "axe_heavy_cleaver",
+      "rune": "factory",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_HeavyCleaver_R5.M_TacticalHatchet_Head_HeavyCleaver_R5"
+    },
+    {
+      "head": "axe_heavy_cleaver",
+      "rune": "knife_mark_wing",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_HeavyCleaver_RuneWing.MI_HatchetMark_HeavyCleaver_RuneWing",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_HeavyCleaver_RuneWing.T_HatchetRune_HeavyCleaver_RuneWing",
+      "uniform_scale": true
+    },
+    {
+      "head": "axe_heavy_cleaver",
+      "rune": "knife_mark_knot",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_HeavyCleaver_RuneKnot.MI_HatchetMark_HeavyCleaver_RuneKnot",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_HeavyCleaver_RuneKnot.T_HatchetRune_HeavyCleaver_RuneKnot",
+      "uniform_scale": true
+    },
+    {
+      "head": "axe_heavy_cleaver",
+      "rune": "knife_mark_peaks",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_HeavyCleaver_RunePeaks.MI_HatchetMark_HeavyCleaver_RunePeaks",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_HeavyCleaver_RunePeaks.T_HatchetRune_HeavyCleaver_RunePeaks",
+      "uniform_scale": true
+    },
+    {
+      "head": "axe_folded_arc",
+      "rune": "factory",
+      "material": "/Game/Weapons/TacticalHatchet20261101/ModulesV1/Materials/M_TacticalHatchet_Head_FoldedArc_R5.M_TacticalHatchet_Head_FoldedArc_R5"
+    },
+    {
+      "head": "axe_folded_arc",
+      "rune": "knife_mark_wing",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FoldedArc_RuneWing.MI_HatchetMark_FoldedArc_RuneWing",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_FoldedArc_RuneWing.T_HatchetRune_FoldedArc_RuneWing",
+      "uniform_scale": true
+    },
+    {
+      "head": "axe_folded_arc",
+      "rune": "knife_mark_knot",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FoldedArc_RuneKnot.MI_HatchetMark_FoldedArc_RuneKnot",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_FoldedArc_RuneKnot.T_HatchetRune_FoldedArc_RuneKnot",
+      "uniform_scale": true
+    },
+    {
+      "head": "axe_folded_arc",
+      "rune": "knife_mark_peaks",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_FoldedArc_RunePeaks.MI_HatchetMark_FoldedArc_RunePeaks",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_FoldedArc_RunePeaks.T_HatchetRune_FoldedArc_RunePeaks",
+      "uniform_scale": true
+    },
+    {
+      "head": "hatchet_falcon_edge",
+      "rune": "factory",
+      "material": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconLegendary/Materials/M_SwiftFalcon_BlackSteel.M_SwiftFalcon_BlackSteel"
+    },
+    {
+      "head": "hatchet_falcon_edge",
+      "rune": "knife_mark_wing",
+      "material": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconLegendary/Materials/MI_SwiftFalcon_RuneWing.MI_SwiftFalcon_RuneWing",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_FalconEdge_RuneWing.T_HatchetRune_FalconEdge_RuneWing",
+      "uniform_scale": true
+    },
+    {
+      "head": "hatchet_falcon_edge",
+      "rune": "knife_mark_knot",
+      "material": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconLegendary/Materials/MI_SwiftFalcon_RuneKnot.MI_SwiftFalcon_RuneKnot",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_FalconEdge_RuneKnot.T_HatchetRune_FalconEdge_RuneKnot",
+      "uniform_scale": true
+    },
+    {
+      "head": "hatchet_falcon_edge",
+      "rune": "knife_mark_peaks",
+      "material": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconLegendary/Materials/MI_SwiftFalcon_RunePeaks.MI_SwiftFalcon_RunePeaks",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_FalconEdge_RunePeaks.T_HatchetRune_FalconEdge_RunePeaks",
+      "uniform_scale": true
+    },
+    {
+      "head": "hatchet_ghost_scythe",
+      "rune": "factory",
+      "material": "/Game/Weapons/TacticalHatchet20261101/GhostScythe20261104/MeshyBloodmoonR10/M_GhostScythe_Meshy_R10.M_GhostScythe_Meshy_R10"
+    },
+    {
+      "head": "hatchet_ghost_scythe",
+      "rune": "knife_mark_wing",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_GhostScythe_RuneWing.MI_HatchetMark_GhostScythe_RuneWing",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_GhostScythe_RuneWing.T_HatchetRune_GhostScythe_RuneWing",
+      "uniform_scale": true
+    },
+    {
+      "head": "hatchet_ghost_scythe",
+      "rune": "knife_mark_knot",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_GhostScythe_RuneKnot.MI_HatchetMark_GhostScythe_RuneKnot",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_GhostScythe_RuneKnot.T_HatchetRune_GhostScythe_RuneKnot",
+      "uniform_scale": true
+    },
+    {
+      "head": "hatchet_ghost_scythe",
+      "rune": "knife_mark_peaks",
+      "material": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Materials/MI_HatchetMark_GhostScythe_RunePeaks.MI_HatchetMark_GhostScythe_RunePeaks",
+      "mask": "/Game/Weapons/TacticalHatchet20261101/CommonRunes20261104/Textures/T_HatchetRune_GhostScythe_RunePeaks.T_HatchetRune_GhostScythe_RunePeaks",
+      "uniform_scale": true
+    }
+  ],
+  "icons": [
+    "/Game/ColdSteelData/AttachmentIcons20260913/blade_1_axe_swift_crescent.blade_1_axe_swift_crescent",
+    "/Game/ColdSteelData/AttachmentIcons20260913/blade_1_axe_heavy_cleaver.blade_1_axe_heavy_cleaver",
+    "/Game/ColdSteelData/AttachmentIcons20260913/blade_1_axe_folded_arc.blade_1_axe_folded_arc"
+  ],
+  "errors": [],
+  "rendered": false
+}

@@ -17,6 +17,7 @@ class FPSGAME_API AMantisM27Monster : public ANurseZombie
 {
     GENERATED_BODY()
 public:
+    void RevealByIllumination();
     AMantisM27Monster(const FObjectInitializer& Initializer = FObjectInitializer::Get());
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M27|Hearing", meta=(ClampMin="0", Units="cm"))
     float GunshotHearingRadius = 3600.f;
@@ -155,4 +156,15 @@ private:
     int32 LastMantisAudioAttack = 0;
     int32 MantisContactAudioIndex = 0;
     FName MantisAmbientRole;
+    // Server-only recovery navigation; append without shifting established state.
+    void ResetCloakNavigation();
+    bool ChooseCloakRoute(AMonsterAIController* AI, const FVector& TargetFeet);
+    FVector CloakProgressFeet = FVector::ZeroVector;
+    FVector CloakFailedGoal = FVector::ZeroVector;
+    double CloakProgressAt = 0., CloakRouteDeadline = 0., CloakNavigationTickAt = 0.;
+    double CloakFailedGoalUntil = 0.;
+    uint8 CloakRouteSearchPass = 0;
+    bool bHasCloakRoute = false;
+    void CounterattackFromBlockedCloak(AMonsterAIController* AI);
+    uint8 CloakBlockedAttempts = 0;
 };

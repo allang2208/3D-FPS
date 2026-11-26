@@ -1,7 +1,7 @@
 #include "KukriArmsMeshComponent.h"
-#include "../../Items/FPSPotionUseComponent.h"
 #include "KukriLeftRest.h"
 #include "../../FPSGAMECharacter.h"
+#include "../../Items/FPSPotionUseComponent.h"
 #include "Engine/SkeletalMesh.h"
 
 namespace KukriGrip
@@ -23,18 +23,70 @@ void UKukriArmsMeshComponent::CacheBones()
 {
     auto* Mesh=GetSkeletalMeshAsset();
     if(!Mesh||CachedMesh.Get()==Mesh)return;
-    CachedMesh=Mesh;EntryLocal.Reset();LeftChain.Reset();
+    CachedMesh=Mesh;EntryLocal.Reset();LeftChain.Reset();RightChain.Reset();
     const auto& Ref=Mesh->GetRefSkeleton();
     HandR=Ref.FindBoneIndex(TEXT("hand_r"));
+    HandL=Ref.FindBoneIndex(TEXT("hand_l"));
     Weapon=Ref.FindBoneIndex(TEXT("WPN_root"));
     ClavicleL=Ref.FindBoneIndex(TEXT("clavicle_l"));
+    const int32 ClavicleR=Ref.FindBoneIndex(TEXT("clavicle_r"));
+    if(ClavicleR!=INDEX_NONE)
+        for(int32 I=0;I<Ref.GetNum();++I)
+            if(I==ClavicleR||Ref.BoneIsChildOf(I,ClavicleR))RightChain.Add(I);
     if(ClavicleL!=INDEX_NONE)
         for(int32 I=0;I<Ref.GetNum();++I)
             if(I==ClavicleL||Ref.BoneIsChildOf(I,ClavicleL))LeftChain.Add(I);
+    // Mesh X is camera left/right (this rig is attached with yaw 90). Conjugate rotations
+    // through that plane, then restore each left bone's native binding and segment length.
+    MirrorReferenceLocal=Ref.GetRefBonePose();
+    TArray<FTransform> Bind=MirrorReferenceLocal;
+    for(int32 I=0;I<Bind.Num();++I)
+    {const int32 Parent=Ref.GetParentIndex(I);if(Parent>=0)Bind[I]=Bind[I]*Bind[Parent];}
+    MirrorSources.Reset();MirrorBindCorrection.Reset();
+    for(const int32 L:LeftChain)
+    {
+        const FString Name=Ref.GetBoneName(L).ToString();
+        const int32 R=Name.EndsWith(TEXT("_l"))?Ref.FindBoneIndex(FName(Name.LeftChop(2)+TEXT("_r"))):INDEX_NONE;
+        MirrorSources.Add(R);
+        const FQuat Q=R>=0?Bind[R].GetRotation():FQuat::Identity;
+        const FQuat Mirrored(Q.X,-Q.Y,-Q.Z,Q.W);
+        MirrorBindCorrection.Add(R>=0?(Mirrored.Inverse()*Bind[L].GetRotation()).GetNormalized():FQuat::Identity);
+        if(L==ClavicleL&&R>=0)
+        {
+            const FVector RP=Bind[R].GetLocation();
+            MirrorClavicleOffset=Bind[L].GetLocation()-FVector(-RP.X,RP.Y,RP.Z);
+        }
+    }
     WeaponChain.Reset();
     if(Weapon!=INDEX_NONE)
         for(int32 I=0;I<Ref.GetNum();++I)
             if(Ref.BoneIsChildOf(I,Weapon))WeaponChain.Add(I);
+    MirrorHandL=LeftChain.IndexOfByKey(HandL);
+    // Hidden on a left-hand-only rig: the right arm and the right weapon chain.
+    HiddenRight.Init(false,Ref.GetNum());
+    for(const int32 I:RightChain)HiddenRight[I]=true;
+    if(Weapon!=INDEX_NONE)HiddenRight[Weapon]=true;
+    for(const int32 I:WeaponChain)HiddenRight[I]=true;
+}
+
+void UKukriArmsMeshComponent::MirrorRightPose(TArray<FTransform>& Pose) const
+{
+    const auto& Ref=GetSkeletalMeshAsset()->GetRefSkeleton();
+    for(int32 K=0;K<LeftChain.Num();++K)
+    {
+        const int32 L=LeftChain[K],R=MirrorSources[K],Parent=Ref.GetParentIndex(L);
+        if(R==INDEX_NONE)continue;
+        const FQuat Q=Pose[R].GetRotation();
+        const FQuat Goal=(FQuat(Q.X,-Q.Y,-Q.Z,Q.W)*MirrorBindCorrection[K]).GetNormalized();
+        FTransform Local=MirrorReferenceLocal[L];
+        Local.SetRotation(Parent>=0?(Pose[Parent].GetRotation().Inverse()*Goal).GetNormalized():Goal);
+        Pose[L]=Parent>=0?Local*Pose[Parent]:Local;
+        if(L==ClavicleL)
+        {
+            const FVector RP=Pose[R].GetLocation();
+            Pose[L].SetLocation(FVector(-RP.X,RP.Y,RP.Z)+MirrorClavicleOffset);
+        }
+    }
 }
 
 void UKukriArmsMeshComponent::CaptureEntry(float Seconds)
@@ -104,11 +156,36 @@ void UKukriArmsMeshComponent::FinalizeBoneTransform()
     const auto* Mesh=GetSkeletalMeshAsset();
     auto& Pose=GetEditableComponentSpaceTransforms();
     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
-    const bool OffhandLeft=Player&&(Player->HasOffhandPistol()||Player->IsOffhandSpellbookPresented());
+    const bool OffhandLeft=!bLeftHandOnly&&(bRightHandOnly||(Player&&(Player->HasOffhandPistol()||Player->IsOffhandSpellbookPresented())));
     bApplyLeftHandCast=!OffhandLeft;
     if(Mesh&&Pose.Num()==Mesh->GetRefSkeleton().GetNum())
     {
         const auto& Ref=Mesh->GetRefSkeleton();
+        if(bMirrorRightToLeft)
+        {
+            MirrorRightPose(Pose);
+            if(HandR!=INDEX_NONE&&Weapon!=INDEX_NONE&&MirrorHandL!=INDEX_NONE)
+            {
+                // Lone off-hand blade (2026-11-04): the clip's right weapon in its fist -- the grip lock below, applied to the
+                // sampled pose -- mirrored into the left fist.  hand_l = mirror(hand_r) * bind correction (MirrorRightPose),
+                // the blade = mirror(weapon) turned half about its grip Z (the blade-plane flip, dual_rig.left_kukri), so the
+                // relation follows from the right one alone (SourceAssets/HatchetPairs20261104/Work/probe_lone_mirror.py: the
+                // accepted left grip to 0.001 cm).  Taken before the entry blend: blending from the hidden, collapsed right
+                // arm carried the blade off the left fist for the length of every clip change.
+                const FTransform Old=Pose[Weapon];
+                const FTransform Locked=FTransform(FQuat(GripFlipAxis,GripFlipAngle))*KukriGrip::HandToWeapon()*Pose[HandR];
+                const float Deviation=FVector::Dist(Old.GetLocation(),Locked.GetLocation())
+                    +FMath::RadiansToDegrees(Old.GetRotation().AngularDistance(Locked.GetRotation()))*KukriGrip::DegreeToCm;
+                const float Free=bGripFlipHold?0.f:FMath::SmoothStep(KukriGrip::HoldBand,KukriGrip::ReleaseBand,Deviation);
+                FTransform Held=Locked;
+                if(Free>0.f)Held.Blend(Locked,Old,Free);
+                const FTransform Right=Held.GetRelativeTransform(Pose[HandR]);
+                const FQuat Q=Right.GetRotation();const FVector L=Right.GetLocation();
+                const FQuat Unbind=MirrorBindCorrection[MirrorHandL].Inverse();
+                MirroredWeaponRelative=FTransform((Unbind*FQuat(Q.X,-Q.Y,-Q.Z,Q.W)*FQuat(FVector::ZAxisVector,PI)).GetNormalized(),
+                    Unbind.RotateVector(FVector(-L.X,L.Y,L.Z)),FVector::OneVector);
+            }
+        }
         if(EntryLocal.Num()==Pose.Num()&&EntryDuration>0.f)
         {
             const float X=FMath::Clamp(EntryTime/EntryDuration,0.f,1.f);
@@ -122,6 +199,9 @@ void UKukriArmsMeshComponent::FinalizeBoneTransform()
             {
                 const int32 Parent=Ref.GetParentIndex(I);
                 const FTransform Target=Parent>=0?Pose[I].GetRelativeTransform(Pose[Parent]):Pose[I];
+                // A left-hand-only rig captured its right arm collapsed (zero scale): that arm and the weapon chain keep the
+                // clip instead of growing out of the shoulder.
+                if(bLeftHandOnly&&HiddenRight.IsValidIndex(I)&&HiddenRight[I]){Local[I]=Target;continue;}
                 FTransform Blend;Blend.Blend(EntryLocal[I],Target,Alpha);
                 Local[I]=Blend;
             }
@@ -172,6 +252,11 @@ void UKukriArmsMeshComponent::FinalizeBoneTransform()
                 Pose[LeftChain[K]]=Parent>=0?Local[K]*Pose[Parent]:Local[K];
             }
         }
+        if(bLeftHandOnly&&!RightChain.IsEmpty())
+        {
+            const FTransform Hidden(FQuat::Identity,Pose[RightChain[0]].GetLocation(),FVector::ZeroVector);
+            for(const int32 I:RightChain)Pose[I]=Hidden;
+        }
         if(OffhandLeft&&!LeftChain.IsEmpty())
         {
             // Zero scale alone leaves weighted vertices spanning separated joints.
@@ -180,7 +265,10 @@ void UKukriArmsMeshComponent::FinalizeBoneTransform()
             for(const int32 I:LeftChain)Pose[I]=Hidden;
         }
         const auto* Use=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();
-        const bool ConsumeStow=Use&&Use->UsesHandMesh(this)&&Use->IsStowingOffhand()&&!Use->IsTwoHanded();
+        // The main kukri/hatchet rig owns both arms. Lower only its left chain;
+        // staff pairs have a separate left rig with their own component offset.
+        const bool ConsumeStow=Use&&Use->UsesHandMesh(this)&&Use->IsStowingOffhand()&&!Use->IsTwoHanded()
+            &&(!bLeftHandOnly||bMirrorRightToLeft);
         const float LowerWeight=ConsumeStow?Use->OffhandLowerWeight():0.f;
         if(FMath::Max(FMath::Abs(LeftRestWeight),LowerWeight)>UE_KINDA_SMALL_NUMBER&&!LeftChain.IsEmpty())
         {
@@ -188,7 +276,6 @@ void UKukriArmsMeshComponent::FinalizeBoneTransform()
             // rides hand_l -- it filled the upper view.  Blend the whole left chain to the single-hand Idle's hanging arm
             // (KukriLeftRest.h), in parent space so every segment keeps its length and the shoulder stays anchored.
             const float W=FMath::Clamp(FMath::Max(LeftRestWeight,LowerWeight),0.f,1.f);
-            const int32 HandL=Ref.FindBoneIndex(TEXT("hand_l"));
             TArray<FTransform> Local;Local.SetNum(Pose.Num());
             for(const int32 I:LeftChain)
             {
@@ -199,7 +286,10 @@ void UKukriArmsMeshComponent::FinalizeBoneTransform()
             {
                 const int32 I=Ref.FindBoneIndex(Bone.Name);
                 if(I==INDEX_NONE||!LeftChain.Contains(I))continue;
-                if(ConsumeStow&&HandL!=INDEX_NONE&&I!=HandL&&Ref.BoneIsChildOf(I,HandL))continue;
+                // Keep the actual weapon grasp until it is outside the frame.
+                // Shoulder/elbow/wrist rotate together; fingers and segment
+                // lengths retain the sampled native binding and weapon fit.
+                if(ConsumeStow&&I!=HandL&&Ref.BoneIsChildOf(I,HandL))continue;
                 const FTransform Rest(FQuat(Bone.Q[0],Bone.Q[1],Bone.Q[2],Bone.Q[3]).GetNormalized(),
                     ConsumeStow?Local[I].GetLocation():FVector(Bone.P[0],Bone.P[1],Bone.P[2]),
                     ConsumeStow?Local[I].GetScale3D():FVector::OneVector);

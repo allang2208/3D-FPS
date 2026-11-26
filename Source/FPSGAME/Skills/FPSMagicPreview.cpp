@@ -1,4 +1,5 @@
 #include "FPSMagicPreview.h"
+#include "../Combat/FPSAttackQuery.h"
 #include "../Combat/RangedAttackQuery.h"
 
 #include "../Monsters/MonsterCombatComponent.h"
@@ -30,7 +31,7 @@ FVector FPSMagicPreview::AimPoint(const APawn* Shooter,const AActor* Ignore)
     const FVector Eye=Camera?Camera->GetComponentLocation():Shooter->GetPawnViewLocation();
     const FVector Forward=Camera?Camera->GetForwardVector():Shooter->GetActorForwardVector();
     const FVector End=Eye+Forward*20000;
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(MagicAimPreview),true,Shooter);
+    FFPSAttackQuery Query(SCENE_QUERY_STAT(MagicAimPreview),true,Shooter);
     if(Ignore)Query.AddIgnoredActor(Ignore);
     FHitResult Hit;
     RangedAttackQuery::LineTraceSingle(Shooter->GetWorld(), Shooter, Hit,Eye,End,ECC_Visibility,Query);
@@ -52,7 +53,7 @@ bool FPSMagicPreview::SweepSegment(const APawn* Shooter,const AActor* Ignore,con
 {
     OutEnd=End;
     if(!Shooter||!Shooter->GetWorld())return false;
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(MagicAimPreviewTrace),false,Shooter);
+    FFPSAttackQuery Query(SCENE_QUERY_STAT(MagicAimPreviewTrace),false,Shooter);
     if(Ignore)Query.AddIgnoredActor(Ignore);
     FHitResult Hit;
     // A body that is already down must not consume the projectile, so it is skipped and the
@@ -70,18 +71,17 @@ bool FPSMagicPreview::SweepSegment(const APawn* Shooter,const AActor* Ignore,con
 }
 
 void FPSMagicPreview::SamplePath(const APawn* Shooter,const AActor* Ignore,const FVector& Start,
-    const FVector& LaunchVelocity,float Gravity,float MaxDistance,float SweepRadius,TArray<FVector>& OutPoints,bool bIgnoreDead)
+    const FVector& LaunchVelocity,float Gravity,float MaxDistance,float SweepRadius,TArray<FVector>& OutPoints,bool bIgnoreDead,float DropDelay)
 {
     OutPoints.Reset();
     OutPoints.Add(Start);
-    const FVector Acceleration(0,0,-FMath::Max(0.f,Gravity));
     FVector Previous=Start;
     float Travelled=0.f;
     for(int32 Step=1;Step<=MaxPathPoints&&Travelled<MaxDistance;++Step)
     {
         // Same ballistic integration the flight uses, so the drawn arc is the real trajectory.
         const float T=Step*StepSeconds;
-        const FVector Next=LimitStep(Previous,Start+LaunchVelocity*T+.5f*Acceleration*T*T,MaxDistance-Travelled);
+        const FVector Next=LimitStep(Previous,DelayedBallistic(Start,LaunchVelocity,FMath::Max(0.f,Gravity),T,DropDelay),MaxDistance-Travelled);
         FVector End;
         if(SweepSegment(Shooter,Ignore,Previous,Next,SweepRadius,End,bIgnoreDead)){OutPoints.Add(End);return;}
         Travelled+=FVector::Distance(Previous,Next);
@@ -103,7 +103,7 @@ void FPSMagicPreview::BeginRefresh(TObjectPtr<ULineBatchComponent>& Lines,AActor
 }
 
 void FPSMagicPreview::DrawPath(TObjectPtr<ULineBatchComponent>& Lines,const TArray<FVector>& Points,
-    float Thickness,float MinimumOpacity)
+    float Thickness,float MinimumOpacity,bool bEndWithDash)
 {
     if(!Lines||Points.Num()<2)return;
     const FLinearColor Color=LineColor();
@@ -116,6 +116,14 @@ void FPSMagicPreview::DrawPath(TObjectPtr<ULineBatchComponent>& Lines,const TArr
     // arc instead of restarting per sampled segment; that keeps the breaks evenly spaced.
     float Travelled=0.f,Phase=0.f;
     bool bDash=true;
+    if(bEndWithDash)
+    {
+        // Anchor the pattern at contact so a trailing gap cannot make the line stop in mid-air.
+        const float Period=Dash+Gap;
+        Phase=FMath::Fmod(Period+.5f*Dash-FMath::Fmod(Total,Period),Period);
+        bDash=Phase<Dash;
+        if(!bDash)Phase-=Dash;
+    }
     for(int32 I=1;I<Points.Num();++I)
     {
         const FVector Start=Points[I-1],End=Points[I];

@@ -4,26 +4,21 @@
 用与源码完全相同的参数把面板 1:1 画出来，供"不打开 UE"时的布局/居中验收：
 色值/圆角/留白/字号档取自 Source/FPSGAME/UI/ColdSteelUIStyle.h 与
 ColdSteelWorkbenchWidget.cpp / ColdSteelSmeltingWidget.cpp（Scale=1 像素口径）。
-字体：中文 Noto Sans SC（工程同款）；纯数字位 JetBrains Mono 未装机时用 Consolas 代替（仅预览）。
+中文、字母和数字共用项目内的思源黑体，正文使用常规字重，强调使用半粗字重。
 输出：Saved/UIPreview/workbench-crafting-preview.png / smelting-batch-center-compare.png
 """
 import os
+from pathlib import Path
 from PIL import Image, ImageDraw, ImageFont
 
 OUT = os.path.join(os.path.dirname(__file__), "..", "..", "Saved", "UIPreview")
 os.makedirs(OUT, exist_ok=True)
 
-NOTO = "C:/Windows/Fonts/NotoSansSC-VF.ttf"
-MONO = "C:/Windows/Fonts/consola.ttf"
+FONTS = Path(__file__).resolve().parents[2] / "Content/UI/GunsmithWorkbench/Fonts"
 
 def font(px, medium=False, numeric=False):
-    f = ImageFont.truetype(MONO if numeric else NOTO, px)
-    if not numeric and medium:
-        try:
-            f.set_variation_by_axes([500])
-        except Exception:
-            pass
-    return f
+    name = "NotoSansSC-SemiBold.ttf" if medium else "NotoSansSC-Regular.otf"
+    return ImageFont.truetype(str(FONTS / name), px)
 
 # —— 冷钢正式规则色值（ColdSteelUIStyle.h，sRGB＋alpha/255）——
 GLASS      = (26, 26, 26, 248)
@@ -162,7 +157,7 @@ text(td, (18, 30 - 13), "升", 14, TEXTP, medium=True, anchor="mm")
 text(td, (18, 30 + 12), "级", 14, TEXTP, medium=True, anchor="mm")
 img.alpha_composite(tab, (PX - 36 + 1, PY + (H - 60) // 2))
 cap = ImageDraw.Draw(img)
-text(cap, (PX, PY + H + 8), "离线布局预览（非引擎渲染）· 参数同源 ColdSteelWorkbenchWidget.cpp · 数字位字体以 Consolas 代 JetBrains Mono", 12, TEXTT)
+text(cap, (PX, PY + H + 8), "离线布局预览 · 参数同源 ColdSteelWorkbenchWidget.cpp", 12, TEXTT)
 img.convert("RGB").save(os.path.join(OUT, "workbench-crafting-preview.png"))
 
 # ================= 图 2：冶炼步进行居中对照 =================

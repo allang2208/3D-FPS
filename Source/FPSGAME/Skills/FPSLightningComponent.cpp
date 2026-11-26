@@ -1,5 +1,7 @@
 #include "FPSLightningComponent.h"
+#include "../Monsters/UnknownSpellCombat.h"
 #include "../Production/ThunderHammerRunes.h"
+#include "PlayerSkillPreparation.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Dungeons/WardBreakableGlass.h"
@@ -27,14 +29,19 @@ UFPSLightningComponent::UFPSLightningComponent(){PrimaryComponentTick.bCanEverTi
 void UFPSLightningComponent::BeginPlay()
 {
     Super::BeginPlay();AddTickPrerequisiteActor(GetOwner());
-    ArcSystem=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/Lightning/NS_LightningChain.NS_LightningChain"));
-    for(int32 I=1;I<=2;++I)CastSounds.Add(LoadObject<USoundBase>(nullptr,*FString::Printf(TEXT("/Game/Skills/Lightning/S_LightningCast%d.S_LightningCast%d"),I,I)));
+    PlayerSkillAssets::Defer(GetOwner(),TEXT("lightningStrike"),FSimpleDelegate::CreateWeakLambda(this,[this]()
+    {
+    CastSounds.Reset();
+    ArcSystem=PlayerSkillAssets::Resolve<UNiagaraSystem>(TEXT("/Game/Skills/Lightning/NS_LightningChain.NS_LightningChain"));
+    for(int32 I=1;I<=2;++I)CastSounds.Add(PlayerSkillAssets::Resolve<USoundBase>(*FString::Printf(TEXT("/Game/Skills/Lightning/S_LightningCast%d.S_LightningCast%d"),I,I)));
+    }));
 }
 UColdSteelStatusModel* UFPSLightningComponent::Model() const
-{return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
+{return NetCast::LocalModel(*this);}
 UFPSFireballComponent* UFPSLightningComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
 bool UFPSLightningComponent::IsTarget(AActor* Target) const
 {
+    if(UnknownSpell::IsCaster(GetOwner()))return UnknownSpell::IsTarget(GetOwner(),Target);
     if(UWardBreakableGlass::IntactPane(Target))return true;
     const auto* C=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
     return Target!=GetOwner()&&C&&!C->IsDead()&&!RangedAttackQuery::IsFriendlyUnit(GetOwner(),Target);
@@ -96,7 +103,7 @@ void UFPSLightningComponent::Trigger()
     {bQueued=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
     if(Player->IsSpellHandHeld()){RejectHeldHand();return;}
     if(M->LightningCooldown()>0){Feedback(TEXT("冷却"));return;}
-    if(!ArcSystem||CastSounds.Num()!=2||CastSounds.Contains(nullptr)){Feedback(TEXT("缺素材"));return;}
+    if(!ArcSystem||CastSounds.Num()!=2||CastSounds.Contains(nullptr)){Feedback(TEXT("魔法素材准备中"));return;}
     const auto Spell=M->LightningStats();FString Failure;
     if(!SelectTarget(Spell,Failure)){Feedback(Failure);return;}
     if(!M->CanSpendMana(Spell.ManaCost)){Feedback(TEXT("缺蓝"));return;}
@@ -188,6 +195,7 @@ void UFPSLightningComponent::ReleaseAtContact()
     FLightningRewards Rewards;
     RunChain(Player,M,First,Start,Rewards);
     M->FinishLightningCast(Rewards);
+    M->NotifyMagicReleased();
     if(auto* Status=UCombatStatusFormula::GetOrAdd(Player))
     {if(CastSnapshot.bGrantChain)Status->AddChainSpell();if(CastSnapshot.CastHasteStacks>0)Status->AddHaste(CastSnapshot.CastHasteStacks,CastSnapshot.CastHasteDuration);}
 }
@@ -214,7 +222,7 @@ void UFPSLightningComponent::RunChain(APawn* Player,UColdSteelStatusModel* M,AAc
         const FVector End=UWardBreakableGlass::TargetPoint(Target);const float Decay=FMath::Pow(1-CastSnapshot.ChainDecay,I);
         SpawnArc(From,End,.75f+.25f*Decay);
         if(M->ApplyLightningHit(Player,Target,From,CastSnapshot,FMath::FloorToFloat(CastSnapshot.Damage*Decay),Rewards))
-            if(auto* C=Target->FindComponentByClass<UMonsterCombatComponent>();C&&!C->IsDead())
+            if(auto* C=Target->FindComponentByClass<UMonsterCombatComponent>();(C&&!C->IsDead())||UnknownSpell::IsTarget(Player,Target))
             {
                 auto* Status=UCombatStatusFormula::GetOrAdd(Target);
                 if(!Status->IsImmune())

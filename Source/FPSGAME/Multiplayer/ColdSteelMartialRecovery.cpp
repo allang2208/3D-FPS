@@ -35,5 +35,15 @@ void AColdSteelPlayerState::ServerMartialCooldowns_Implementation(APawn* SourceP
     const auto* GS=GetWorld()->GetGameState();
     const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
     ColdSteelProfileRecovery::MartialCooldowns(State,Incoming,float(FMath::Max(0.,Now-CapturedAt)));
+    State.ChainSlashCooldown=ShadowModel->Current.ChainSlashCooldown;
+    State.LeapStrikeCooldown=ShadowModel->Current.LeapStrikeCooldown;
+    State.ChainSlashCooldownDuration=ShadowModel->Current.ChainSlashCooldownDuration;
+    State.LeapStrikeCooldownDuration=ShadowModel->Current.LeapStrikeCooldownDuration;
+    State.ShadowStepCooldown=ShadowModel->Current.ShadowStepCooldown;
+    State.ShadowStepCooldownDuration=ShadowModel->Current.ShadowStepCooldownDuration;
+    State.SwordUppercutCooldown=ShadowModel->Current.SwordUppercutCooldown;
+    State.SwordUppercutCooldownDuration=ShadowModel->Current.SwordUppercutCooldownDuration;
+    State.WhirlwindCooldown=ShadowModel->Current.WhirlwindCooldown;
+    State.WhirlwindCooldownDuration=ShadowModel->Current.WhirlwindCooldownDuration;
     ShadowModel->AdoptNetMirror(State);bServerDirty=true;
 }

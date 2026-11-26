@@ -13,6 +13,7 @@
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "M16Attachments.h"
+#include "M24Attachments.h"
 #include "AKMSovietCalibration.h"
 #include "GunsmithSystem.h"
 #include "DanWesson715WeaponAssets.h"
@@ -24,6 +25,7 @@
 #include "Components/SpotLightComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Engine/StaticMesh.h"
+#include "Engine/StaticMeshSocket.h"
 #include "Engine/SkeletalMesh.h"
 #include "Materials/MaterialInterface.h"
 #include "Engine/World.h"
@@ -210,18 +212,26 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Re
     if(Body)Body->SetVisibility(false);
     const bool Active=Enabled&&Rifle&&Rifle->GetSkeletalMeshAsset()&&(Variant==TEXT("laser")||Variant==TEXT("flashlight"));
     SetComponentTickEnabled(Active);
-    if(!Active)return;
+    if(!Active)
+    {
+        // Match S12K's installed-only attachment manifest after removing a
+        // tactical module. Temporary aiming/animation hiding happens elsewhere.
+        if((Family==TEXT("Saiga12K")||Family==TEXT("M24"))&&Body)Body->SetStaticMesh(nullptr);
+        return;
+    }
     const bool RSH=Family==TEXT("RSH12");
     // Super90's WPN_root up axis is not the gun's up axis. Projecting its sight
     // line onto that plane sends the hip beam down; the fitted sockets encode
     // the actual barrel axis and follow the same native root through all poses.
-    bUseAuthoredEmitterAxis=RSH||Family==TEXT("Super90")||Family==TEXT("M870");
+    bUseAuthoredEmitterAxis=RSH||Family==TEXT("Super90")||Family==TEXT("M870")||Family==TEXT("Saiga12K")||Family==TEXT("M24");
     const bool Revolver=Family==TEXT("DanWesson715");
     const bool PitViper=Family==TEXT("PitViper2011");
     const bool Pistol=Family==TEXT("M1911")||Family==TEXT("G18")||PitViper||Revolver||RSH;
     const bool ASH=Family==TEXT("ASH12");
     const bool Super90=Family==TEXT("Super90");
     const bool M870=Family==TEXT("M870");
+    const bool Saiga=Family==TEXT("Saiga12K");
+    const bool M24=Family==TEXT("M24");
     const FString Path=!Pistol?TacticalDeviceVariants::FittedMeshPath(Family,Kind,OppositeSide)
         :Kind==TacticalDeviceVariants::BlessedLaser?TacticalDeviceVariants::BlessedMeshPath(Family)
         :RSH?RSH12TacticalAssets::MeshPath(Variant):PitViper?PitViper2011WeaponAssets::AttachmentPath(Variant)
@@ -239,7 +249,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Re
         Body->EmptyOverrideMaterials();
         Body->SetStaticMesh(LoadObject<UStaticMesh>(nullptr,*Path));AssetPath=Path;
     }
-    if(!Super90&&!M870&&Kind!=TacticalDeviceVariants::BlessedLaser&&Family!=TEXT("HK416")&&!Pistol&&!ASH&&Family!=TEXT("LMG201")&&Family!=TEXT("SVD")&&Family!=TEXT("PKM")&&Family!=TEXT("A762")&&Family!=TEXT("M16")&&Variant==TEXT("laser"))
+    if(!M24&&!Super90&&!M870&&!Saiga&&Kind!=TacticalDeviceVariants::BlessedLaser&&Family!=TEXT("HK416")&&!Pistol&&!ASH&&Family!=TEXT("LMG201")&&Family!=TEXT("SVD")&&Family!=TEXT("PKM")&&Family!=TEXT("A762")&&Family!=TEXT("M16")&&Variant==TEXT("laser"))
     {
         const FString OpticalPath=FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/%s/laser/M_%s_laser_Body_OpticalV2"),*Family,*Family);
         if(auto* Optical=LoadObject<UMaterialInterface>(nullptr,*OpticalPath))
@@ -248,7 +258,7 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Re
             if(Slot!=INDEX_NONE)Body->SetMaterial(Slot,Optical);
         }
     }
-    if(!Super90&&!M870&&Family!=TEXT("HK416")&&!Pistol&&!ASH&&Family!=TEXT("LMG201")&&Family!=TEXT("SVD")&&Family!=TEXT("PKM")&&Family!=TEXT("A762")&&Family!=TEXT("M16")&&Variant==TEXT("flashlight"))
+    if(!M24&&!Super90&&!M870&&!Saiga&&Family!=TEXT("HK416")&&!Pistol&&!ASH&&Family!=TEXT("LMG201")&&Family!=TEXT("SVD")&&Family!=TEXT("PKM")&&Family!=TEXT("A762")&&Family!=TEXT("M16")&&Variant==TEXT("flashlight"))
     {
         const FString MaterialPath=FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/HunyuanV3/%s/flashlight/M_%s_flashlight_Body_MetalTail"),*Family,*Family);
         if(auto* MetalTail=LoadObject<UMaterialInterface>(nullptr,*MaterialPath))
@@ -261,8 +271,8 @@ void UTacticalDeviceComponent::Configure(const FString& Family,const FString& Re
     if(!bWorldPresentation)Body->AttachToComponent(Rifle,FAttachmentTransformRules::KeepRelativeTransform,TEXT("WPN_root"));
     Body->SetOnlyOwnerSee(Rifle->bOnlyOwnerSee);
     Body->SetFirstPersonPrimitiveType(Rifle->FirstPersonPrimitiveType);
-    FTransform Mount=M870?M870TacticalAssets::Mount(Rifle):Super90?Super90TacticalMount(Rifle):RSH?RSH12TacticalAssets::Mount():Family==TEXT("HK416")?HK416Attachments::ReferenceMount(Rifle):ASH?ASH12TacticalMount(Rifle,OppositeSide):Pistol?PistolTacticalMount(Rifle,PitViper):FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f));
-    if(OppositeSide&&!ASH&&!Pistol&&!Super90&&!M870)Mount=OppositeTacticalMount(Family,Mount);
+    FTransform Mount=M24?M24Attachments::Mount(Rifle):M870?M870TacticalAssets::Mount(Rifle):Super90?Super90TacticalMount(Rifle):RSH?RSH12TacticalAssets::Mount():Family==TEXT("HK416")?HK416Attachments::ReferenceMount(Rifle):ASH?ASH12TacticalMount(Rifle,OppositeSide):Pistol?PistolTacticalMount(Rifle,PitViper):FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.01f));
+    if(OppositeSide&&!M24&&!ASH&&!Pistol&&!Super90&&!M870&&!Saiga)Mount=OppositeTacticalMount(Family,Mount);
     if(!bWorldPresentation)Body->SetRelativeTransform(Mount);
     Body->SetVisibility(!bPresentationHidden&&Body->GetStaticMesh()!=nullptr);
     InitializeEffects();
@@ -315,6 +325,11 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     // Beam/dot/light are independent world primitives and do not inherit it.
     // Keep the configured switch state; normal emission resumes after recovery.
     if(ConsumableStowsTacticalEffects(C,Host)){HideEffects();return;}
+    // Workbench views hide the pawn through PlayerController::HiddenActors, which
+    // does not change AActor::IsHidden(). Beam/dot/light are independent world
+    // primitives, so they must be hidden explicitly or a gold laser stays drawn
+    // across the alchemy table (and the other first-person workbenches).
+    if(const auto* PC=C?C->GetController<APlayerController>():nullptr;PC&&PC->HiddenActors.Contains(C)){HideEffects();return;}
     // Preview and dropped-weapon rigs keep geometry, never illuminate the live world.
     if(!C||C->IsHidden()||!Host||!Host->IsVisible()||Host->bHiddenInGame||!Body||!Body->IsVisible()||Body->bHiddenInGame||!Body->GetStaticMesh()){HideEffects();return;}
     if(!bWorldPresentation&&(!C->GetController()||!C->FirstPersonCamera||!C->IsLocallyControlled()||(!C->HasInventoryWeapon()&&!C->HasOffhandPistol())||C->IsTraversing())){HideEffects();return;}
@@ -331,22 +346,32 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     {HideEffects();return;}
     if(ThirdPerson)VisibleHost->UpdateChildTransforms();
     if(!VisibleDevice->DoesSocketExist(TEXT("Emitter"))){HideEffects();return;}
-    const FVector RenderOrigin=VisibleDevice->GetSocketLocation(TEXT("Emitter"));
     // F6 changes only the visible emitter, not the gameplay ray or shared dot.
     const bool NativeRay=!bWorldPresentation&&TacticalDeviceVariants::IsLaser(Kind);
     auto* RayDevice=NativeRay?Body.Get():VisibleDevice;
     auto* RayHost=NativeRay?Host.Get():VisibleHost;
-    const FVector Origin=RayDevice->GetSocketLocation(TEXT("Emitter"));
-    // Direction comes from the weapon's own sight axis; the mesh sockets only
-    // supply the emitter position the player sees. See WeaponForwardAxis above.
+    // M24 stays in ADS during its shot/bolt clip. The laser follows the fitted
+    // rail through both magazine reloads and that clip, even while aim is allowed.
+    const bool bFollowM24Action=NativeRay&&C->IsM24Weapon()&&(C->IsReloading()||C->IsRevolverFireActionPlaying());
+    FTransform PosedDeviceWorld;
+    if(bFollowM24Action)PosedDeviceWorld=RayDevice->GetRelativeTransform()*RayHost->GetSocketTransform(RayDevice->GetAttachSocketName());
+    const auto RaySocket=[&](FName Socket)
+    {
+        if(bFollowM24Action)
+            if(const auto* MountSocket=RayDevice->GetStaticMesh()->FindSocket(Socket))
+                return PosedDeviceWorld.TransformPosition(MountSocket->RelativeLocation);
+        return RayDevice->GetSocketLocation(Socket);
+    };
+    const FVector Origin=RaySocket(TEXT("Emitter"));
+    const FVector RenderOrigin=VisibleDevice==RayDevice?Origin:VisibleDevice->GetSocketLocation(TEXT("Emitter"));
     FVector LocalForward;
     FVector Direction;
     if(bUseAuthoredEmitterAxis && RayDevice->DoesSocketExist(TEXT("AimGuide")))
-        Direction=(RayDevice->GetSocketLocation(TEXT("AimGuide"))-Origin).GetSafeNormal();
+        Direction=(RaySocket(TEXT("AimGuide"))-Origin).GetSafeNormal();
     else if(WeaponForwardAxis(RayHost,LocalForward))
         Direction=RayHost->GetSocketRotation(TEXT("WPN_root")).RotateVector(LocalForward);
     else if(RayDevice->DoesSocketExist(TEXT("AimGuide")))
-        Direction=(RayDevice->GetSocketLocation(TEXT("AimGuide"))-Origin).GetSafeNormal();
+        Direction=(RaySocket(TEXT("AimGuide"))-Origin).GetSafeNormal();
     else
         {HideEffects();return;}
     FCollisionQueryParams Params(SCENE_QUERY_STAT(TacticalDevice),true,C);FHitResult Hit;
@@ -389,7 +414,7 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     if(bWorldPresentation&&(!WorldBody||!WorldBody->ResolveLaserSample(WorldRigIndex,WorldPartIndex,WorldSchema,WorldSample)))
     {HideEffects();return;}
     const bool ContinuousPistolAim=!C->HasOffhandPistol()&&C->IsPistolWeapon();
-    bool Ready=!bWorldPresentation&&!C->IsSprinting()&&!C->IsDodging()
+    bool Ready=!bFollowM24Action&&!bWorldPresentation&&!C->IsSprinting()&&!C->IsDodging()
         &&!C->IsDoorPushActive()&&C->NearWallAlpha<.01f;
     if(Ready&&C->HasOffhandPistol())
     {
@@ -420,7 +445,8 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
             &&FMath::SmoothStep(0.f,1.f,C->SprintPoseFactor)<.01f
             &&(ContinuousPistolAim||HipReady||ADSReady);
     }
-    LaserAimBlend=LaserConvergeSeconds>KINDA_SMALL_NUMBER
+    if(bFollowM24Action)ResetLaserAim();
+    else LaserAimBlend=LaserConvergeSeconds>KINDA_SMALL_NUMBER
         ?FMath::FInterpConstantTo(LaserAimBlend,Ready?1.f:0.f,Delta,1.f/LaserConvergeSeconds)
         :(Ready?1.f:0.f);
     if(LaserAimBlend>0.f&&TacticalDeviceVariants::IsLaser(Kind))
@@ -526,7 +552,7 @@ void UTacticalDeviceComponent::EndPlay(const EEndPlayReason::Type Reason)
 void AFPSGAMECharacter::SetGunsmithTactical(const FString& Variant,const FString& SecondaryVariant)
 {
     const FString Secondary=TacticalDeviceVariants::SupportsSecondary(ActiveInventoryWeaponDefinition)?SecondaryVariant:FString();
-    const FString Family=IsM870Weapon()?TEXT("M870"):IsSuper90Weapon()?TEXT("Super90"):IsRSH12Weapon()?TEXT("RSH12"):IsHK416Weapon()?TEXT("HK416"):IsPitViperWeapon()?TEXT("PitViper2011"):IsG18Weapon()?TEXT("G18"):LMG201WeaponAssets::Matches(AKMViewmodel)?TEXT("LMG201"):SVDWeaponAssets::Matches(AKMViewmodel)?TEXT("SVD"):PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?TEXT("PKM"):A762WeaponAssets::Matches(AKMViewmodel)?TEXT("A762"):bUseM16?TEXT("M16"):bUseASH12?TEXT("ASH12"):bUseDanWesson715?TEXT("DanWesson715"):bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
+    const FString Family=IsM24Weapon()?TEXT("M24"):IsSaiga12KWeapon()?TEXT("Saiga12K"):IsM870Weapon()?TEXT("M870"):IsSuper90Weapon()?TEXT("Super90"):IsRSH12Weapon()?TEXT("RSH12"):IsHK416Weapon()?TEXT("HK416"):IsPitViperWeapon()?TEXT("PitViper2011"):IsG18Weapon()?TEXT("G18"):LMG201WeaponAssets::Matches(AKMViewmodel)?TEXT("LMG201"):SVDWeaponAssets::Matches(AKMViewmodel)?TEXT("SVD"):PKMLowpolyWeaponAssets::Matches(AKMViewmodel)?TEXT("PKM"):A762WeaponAssets::Matches(AKMViewmodel)?TEXT("A762"):bUseM16?TEXT("M16"):bUseASH12?TEXT("ASH12"):bUseDanWesson715?TEXT("DanWesson715"):bUseM1911?TEXT("M1911"):bUseQBZ191?TEXT("QBZ191"):AKMSoviet::Matches(AKMViewmodel)?TEXT("AKM"):TEXT("M4");
     auto ConfigureSlot=[&](TObjectPtr<UTacticalDeviceComponent>& Device,const FString& Id,bool Opposite)
     {
         if(!Device)
@@ -537,7 +563,8 @@ void AFPSGAMECharacter::SetGunsmithTactical(const FString& Variant,const FString
         }
         // Each installed device emits independently. Laser priority only affects
         // the numeric modifiers resolved by UGunsmithSystem::Calculate.
-        Device->Configure(Family,Id,AKMViewmodel,bInventoryWeaponReady,Opposite);
+        const bool MountReady=!IsM24Weapon()||(PrismHandstop&&PrismHandstop->GetStaticMesh());
+        Device->Configure(Family,Id,AKMViewmodel,bInventoryWeaponReady&&MountReady,Opposite);
     };
     ConfigureSlot(TacticalDevice,Variant,false);
     ConfigureSlot(SecondaryTacticalDevice,Secondary,true);

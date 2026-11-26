@@ -16,6 +16,8 @@ struct FPort
 // Left-hand pistols retain the unmirrored gun, including its ejection side.
 inline const FPort Ports[] =
 {
+    {TEXT("/Weapons/M24/Gameplay20261026/"), FVector::ZeroVector, TEXT("WPN_Eject"), 1.f},
+    {TEXT("/Weapons/Saiga12K/"), FVector(-1.42,11.145,5.645), TEXT("WPN_root"), 1.f}, // source port in fitted root cm
     {TEXT("SK_M4_FoldingSights_HK416"), FVector(-2.214491, 10.534923, 7.704488), TEXT("WPN_root"), 1.0f}, // m4
     {TEXT("/Weapons/HK416/"), FVector(-2.003803, 11.034250, 8.092675), TEXT("WPN_root"), 1.0f}, // hk416
     {TEXT("/Weapons/QBZ191/"), FVector(-2.036330, 13.507045, 7.250817), TEXT("WPN_root"), 1.0f}, // qbz191

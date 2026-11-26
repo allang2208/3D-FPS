@@ -3,7 +3,7 @@
 class APawn;
 class UMaterialInstanceDynamic;
 
-/** Blizzard-only environment queries. Geometry remains authoritative; cosmetic
+/** Shared ground-area targeting and Blizzard environment queries. Geometry remains authoritative; cosmetic
  *  cloud/ice collisions never decide whether a region deals damage. */
 namespace BlizzardEnvironment
 {

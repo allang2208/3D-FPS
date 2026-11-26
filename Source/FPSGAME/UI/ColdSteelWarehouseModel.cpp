@@ -1,6 +1,9 @@
+#include "../Weapons/WoodenTorchItem.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelCurrency.h"
 #include "ColdSteelItemRarity.h"
 #include "ColdSteelWarehouseRules.h"
+#include "../Multiplayer/ColdSteelInventoryRequestTypes.h"
 using namespace ColdSteelInventory;
 int32 UColdSteelStatusModel::OpenStorageCapacity() const
 {
@@ -13,13 +16,18 @@ void UColdSteelStatusModel::BeginStorageSession(const FString& ContainerKey,int3
     if(!ContainerKey.IsEmpty()&&Pages>0){auto P=Snapshot();int32& Stored=P.StoragePages.FindOrAdd(ContainerKey);if(Stored<Pages){Stored=Pages;CommitState(P);}}
     ActiveContainer=ContainerKey;ActiveStorageCaption=Caption;WarehousePage=0;
 }
-void UColdSteelStatusModel::EndStorageSession(){ActiveContainer.Empty();ActiveStorageCaption.Empty();WarehousePage=0;}
+void UColdSteelStatusModel::EndStorageSession()
+{
+    if(HasNetworkContainerView()){auto State=Snapshot();StripNetworkContainerView(State);AdoptNetMirror(State);NetworkContainerAnchor.Reset();}
+    ActiveContainer.Empty();ActiveStorageCaption.Empty();WarehousePage=0;
+}
 FColdSteelProposal UColdSteelStatusModel::ProposeWarehouse(const FString& Id,int32 Place,int32 Cell,int32 Orientation) const
 {
     auto R=ColdSteelWarehouse::Transfer(Current.Items,Id,Place,Cell,OpenStorageCapacity(),WarehousePage,Orientation,ActiveContainer);R.Revision=Current.Generation;return R;
 }
 bool UColdSteelStatusModel::TransferWarehouse(const FString& Id,int32 Place,int32 Cell,int32 Orientation)
 {
+    if(HasNetworkContainerView())return RequestContainerOperation(uint8(EColdSteelInventoryAction::ContainerMove),Id,Place,Cell,Orientation);
     SyncRuntime();
     // 储物箱（含地牢宝箱容器）里的弹药物品"取出"＝按拾取口径转弹药池；普通物品照常走仓库规则。
     if(const FColdSteelItem* Prev=FindItem(Id);(Place==0||Place==ColdSteelCompartment::Place)&&Prev&&Prev->Place==ColdSteelWarehouse::Place&&!Prev->Container.IsEmpty()&&AmmoType(Prev->Definition))
@@ -40,20 +48,25 @@ FColdSteelProposal UColdSteelStatusModel::ProposeCompartment(const FString& Id,i
 bool UColdSteelStatusModel::GrantStartingArmory()
 {
     auto State=Snapshot();bool Changed=false;
-    for (const TCHAR* Definition : {TEXT("ue_m870"), TEXT("ue_super90"), TEXT("ue_hk416"), TEXT("ue_pit_viper2011"), TEXT("ue_g18"), TEXT("ue_svd"),TEXT("ue_svch"), TEXT("ue_pkm_lowpoly"), TEXT("ue_a762"), TEXT("ue_lmg201"), TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_rsh12"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword"), TEXT("ue_frost_crystal_sword"), TEXT("ue_highland_claymore"), TEXT("ue_apprentice_staff"), TEXT("ue_alchemy_spellbook"), TEXT("ue_tang_dao"), TEXT("ue_xuanchi_zhenyue"), TEXT("ue_kukri")})
+    for (const TCHAR* Definition : {TEXT("ue_saiga12k"), TEXT("ue_m870"), TEXT("ue_super90"), TEXT("ue_hk416"), TEXT("ue_pit_viper2011"), TEXT("ue_g18"), TEXT("ue_svd"), TEXT("ue_svch"), TEXT("ue_m24"), TEXT("ue_pkm_lowpoly"), TEXT("ue_m249"), TEXT("ue_a762"), TEXT("ue_lmg201"), TEXT("ue_akm"), TEXT("ue_qbz191"), TEXT("ue_ash12"), TEXT("ue_m1911"), TEXT("ue_rsh12"), TEXT("ue_dan_wesson715"), TEXT("ue_rune_sword"), TEXT("ue_frost_crystal_sword"), TEXT("ue_highland_claymore"), TEXT("ue_apprentice_staff"), TEXT("ue_alchemy_spellbook"), TEXT("ue_tang_dao"), TEXT("ue_xuanchi_zhenyue"), TEXT("ue_zhanmadao"), TEXT("ue_steel_warhammer"), TEXT("ue_runebound_warhammer"), TEXT("ue_thunder_god_hammer"), TEXT("ue_kukri"), TEXT("ue_tactical_hatchet"), TEXT("ue_forged_steel_greatsword")})
     {
         if(State.ArmoryReceived.Contains(Definition))continue;
         auto Gun=CreateItem(Definition);if(Gun.Data.IsEmpty())return false;
-        Gun.Magazine=(IsMeleeWeapon(Gun)||FString(Definition)==TEXT("ue_alchemy_spellbook"))?0:FString(Definition)==TEXT("ue_pit_viper2011")?15:FString(Definition)==TEXT("ue_g18")?17:(FString(Definition)==TEXT("ue_super90")||FString(Definition)==TEXT("ue_m870"))?7:(FString(Definition)==TEXT("ue_svd")||FString(Definition)==TEXT("ue_svch"))?10:FString(Definition)==TEXT("ue_pkm_lowpoly")?100:FString(Definition)==TEXT("ue_m1911")?7:FString(Definition)==TEXT("ue_rsh12")?5:FString(Definition)==TEXT("ue_dan_wesson715")?6:FString(Definition)==TEXT("ue_ash12")?20:30;
+        Gun.Magazine=(IsMeleeWeapon(Gun)||ColdSteelInventory::IsStaff(Gun)||FString(Definition)==TEXT("ue_alchemy_spellbook"))?0:FString(Definition)==TEXT("ue_saiga12k")?8:FString(Definition)==TEXT("ue_pit_viper2011")?15:FString(Definition)==TEXT("ue_g18")?17:(FString(Definition)==TEXT("ue_super90")||FString(Definition)==TEXT("ue_m870"))?7:FString(Definition)==TEXT("ue_svd")?10:FString(Definition)==TEXT("ue_svch")?10:FString(Definition)==TEXT("ue_m24")?5:(FString(Definition)==TEXT("ue_pkm_lowpoly")||FString(Definition)==TEXT("ue_m249"))?100:FString(Definition)==TEXT("ue_m1911")?7:FString(Definition)==TEXT("ue_rsh12")?5:FString(Definition)==TEXT("ue_dan_wesson715")?6:FString(Definition)==TEXT("ue_ash12")?20:30;
         if(!ColdSteelWarehouse::Insert(State.Items,Gun,WarehouseCapacity()))return false;
-        if((FString(Definition)==TEXT("ue_super90")||FString(Definition)==TEXT("ue_m870")))
+        if((FString(Definition)==TEXT("ue_super90")||FString(Definition)==TEXT("ue_m870")||FString(Definition)==TEXT("ue_saiga12k")))
         {
             if(!AddAmmoToState(State,TEXT("ammo_12g"),42))return false;
         }
-        if((FString(Definition)==TEXT("ue_svd")||FString(Definition)==TEXT("ue_svch")))
+        if(FString(Definition)==TEXT("ue_svd")||FString(Definition)==TEXT("ue_svch"))
         {
             if(!AddAmmoToState(State,TEXT("ammo_pkm_762x54r"),60))return false;
         }
+        if(FString(Definition)==TEXT("ue_m24"))
+        {
+            if(!AddAmmoToState(State,TEXT("ammo_m24_762x51"),30))return false;
+        }
+        if(FString(Definition)==TEXT("ue_m249")&&!AddAmmoToState(State,TEXT("ammo_556"),200))return false;
         if(FString(Definition)==TEXT("ue_pkm_lowpoly"))
         {
             if(!AddAmmoToState(State,TEXT("ammo_pkm_762x54r"),300))return false;
@@ -92,6 +105,16 @@ bool UColdSteelStatusModel::GrantStartingArmory()
         }
         State.ArmoryReceived.Add(Definition);Changed=true;
     }
+    if(!State.ArmoryReceived.Contains(ColdSteelInventory::WoodenTorchDefinition))
+    {
+        for(int32 Hand=0;Hand<2;++Hand)
+        {
+            auto Torch=CreateItem(ColdSteelInventory::WoodenTorchDefinition);
+            if(Torch.Data.IsEmpty()||!ColdSteelWarehouse::Insert(State.Items,Torch,WarehouseCapacity()))return false;
+        }
+        State.ArmoryReceived.Add(ColdSteelInventory::WoodenTorchDefinition);
+        Changed=true;
+    }
     for(const TCHAR* Definition:{TEXT("ue_hardknuckle_gloves"),TEXT("ue_st6_sleeves")})
     {
         if(State.ArmoryReceived.Contains(Definition))continue;
@@ -103,6 +126,7 @@ bool UColdSteelStatusModel::GrantStartingArmory()
 }
 bool UColdSteelStatusModel::WarehouseBatch(bool bMatching)
 {
+    if(HasNetworkContainerView())return RequestContainerOperation(uint8(EColdSteelInventoryAction::ContainerBatch),FString(),0,-1,-1,bMatching?1:0);
     SyncRuntime();auto P=Snapshot();TSet<FString> Names;TArray<FColdSteelItem> Sources;
     for(const auto& I:P.Items)if(I.Place==0)Names.Add(Text(I,TEXT("name")));
     for(const auto& I:P.Items)if((bMatching&&InOpenStorage(I)&&Names.Contains(Text(I,TEXT("name"))))||(!bMatching&&I.Place==0))Sources.Add(I);
@@ -115,6 +139,7 @@ bool UColdSteelStatusModel::WarehouseBatch(bool bMatching)
 }
 bool UColdSteelStatusModel::StoreMatchingToWarehouse()
 {
+    if(HasNetworkContainerView())return RequestContainerOperation(uint8(EColdSteelInventoryAction::ContainerStoreMatching));
     SyncRuntime();auto P=Snapshot();TSet<FString> StoredDefinitions;TArray<FString> Sources;
     for(const auto& I:P.Items)if(InOpenStorage(I))StoredDefinitions.Add(I.Definition);
     for(const auto& I:P.Items)
@@ -141,6 +166,7 @@ bool UColdSteelStatusModel::StoreMatchingToWarehouse()
 }
 bool UColdSteelStatusModel::SortWarehouse(const FString& Mode,int32 Category)
 {
+    if(HasNetworkContainerView())return RequestContainerOperation(uint8(EColdSteelInventoryAction::ContainerSort),FString(),Category,-1,-1,0,Mode);
     if(Mode!=TEXT("rarity")&&Mode!=TEXT("price")&&Mode!=TEXT("category"))return false;
     SyncRuntime();auto P=Snapshot();TArray<FColdSteelItem> Stored;
     for(const auto& I:P.Items)if(InOpenStorage(I))Stored.Add(I);
@@ -163,11 +189,13 @@ bool UColdSteelStatusModel::SortWarehouse(const FString& Mode,int32 Category)
 }
 int64 UColdSteelStatusModel::CountMaterial(const FString& Def)const
 {
+    if(ColdSteelCurrency::IsCurrency(Def))return SoulBalance();
     if(AmmoType(Def))return PouchCount(Def);
     int64 Count=0;for(const auto& I:Current.Items)if(I.Definition==Def&&(I.Place==0||I.Place==ColdSteelCompartment::Place||(I.Place==4&&I.Container.IsEmpty())))Count+=I.Count;return Count;
 }
 bool UColdSteelStatusModel::ConsumeMaterial(const FString& Def,int64 Amount)
 {
+    if(ColdSteelCurrency::IsCurrency(Def))return SpendSouls(Amount);
     if(AmmoType(Def))return SpendAmmo(Def,Amount);
     if(Amount<=0||CountMaterial(Def)<Amount)return false;
     SyncRuntime();auto P=Snapshot();int64 Left=Amount;
@@ -176,6 +204,7 @@ bool UColdSteelStatusModel::ConsumeMaterial(const FString& Def,int64 Amount)
 }
 bool UColdSteelStatusModel::AddWarehouseItem(const FColdSteelItem& Source,int32 Preferred)
 {
+    if(ColdSteelCurrency::IsCurrency(Source.Definition))return GrantSouls(Source.Count);
     if(AmmoType(Source.Definition))return GrantAmmo(Source.Definition,Source.Count);
     SyncRuntime();auto P=Snapshot();auto Item=Source;Item.Container=ActiveContainer; // 存入落在当前会话容器
     const int32 Cap=OpenStorageCapacity();
@@ -184,6 +213,7 @@ bool UColdSteelStatusModel::AddWarehouseItem(const FColdSteelItem& Source,int32 
 }
 int64 UColdSteelStatusModel::WarehouseRemainingCapacity(const FColdSteelItem& Item)const
 {
+    if(ColdSteelCurrency::IsCurrency(Item.Definition))return ColdSteelCurrency::MaxSouls-SoulBalance();
     if(AmmoType(Item.Definition))return ColdSteelAmmo::MaxCount-PouchCount(Item.Definition);
     if(Item.Definition.IsEmpty()||Item.StackMax<1||Item.StackMax>9007199254740991ll)return 0;
     if(Item.Width<1||Item.Width>18||Item.Height<1||Item.Height>ColdSteelWarehouse::Rows)return 0;
@@ -206,6 +236,7 @@ int64 UColdSteelStatusModel::DepositWarehouseAmount(const FColdSteelItem& Item)
 }
 bool UColdSteelStatusModel::RetrieveAllFromWarehouse()
 {
+    if(HasNetworkContainerView())return RequestContainerOperation(uint8(EColdSteelInventoryAction::ContainerRetrieveAll));
     SyncRuntime();auto P=Snapshot();const auto Original=P.Items;int32 Moved=0,Blocked=0;
     for(const auto& I:Original)if(InOpenStorage(I)){auto R=ColdSteelWarehouse::Transfer(P.Items,I.InstanceId,0,-1,OpenStorageCapacity(),WarehousePage,-1,ActiveContainer);if(!R.bValid){++Blocked;continue;}P.Items=MoveTemp(R.Items);++Moved;}
     if(Moved&&!CommitState(P))return false;

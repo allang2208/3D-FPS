@@ -1,16 +1,42 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "Blueprint/DragDropOperation.h"
 #include "Styling/SlateTypes.h"
 #include "ColdSteelEnhancementSystem.h"
 #include "ColdSteelEnhancementWidget.generated.h"
+
+/** A retrieval intent, never an inventory item or a world pickup. */
+UCLASS()
+class UColdSteelEnhancementDrag : public UDragDropOperation
+{
+    GENERATED_BODY()
+public:
+    TWeakObjectPtr<class UColdSteelEnhancementWidget> Source;
+    FColdSteelItem Item;
+    bool PreviewReturn(const class UColdSteelStatusModel* Model,FColdSteelItem& Placed,FString& Reason) const;
+    bool Retrieve();
+    UPROPERTY(Transient) TObjectPtr<class UColdSteelDragVisual> PointerVisual;
+    void ReleaseVisual();
+    virtual void Dragged_Implementation(const FPointerEvent&)override;
+    virtual void Drop_Implementation(const FPointerEvent&)override;
+    virtual void DragCancelled_Implementation(const FPointerEvent&)override;
+    void HandleApplicationActivation(bool Active);
+    FDelegateHandle ActivationHandle;
+};
 
 UCLASS()
 class FPSGAME_API UColdSteelEnhancementWidget : public UUserWidget
 {
     GENERATED_BODY()
 public:
+    void ConfigureWorld(class AEnhancementWorldView* View);
+    bool ContainsManagement(FVector2D Position) const;
+    bool ContainsRitual(FVector2D Position) const;
+    bool HandleItemDrop(class UColdSteelItemDrag* Drag,FVector2D Position);
     void SelectItem(const FString& Id);
+    bool CanRetrieve(const FColdSteelItem& Snapshot) const;
+    bool RetrieveItem(const FColdSteelItem& Snapshot);
     void SelectTab(bool Enchant);
     void SelectScroll(const FString& Id);
     bool Confirm();
@@ -31,6 +57,13 @@ protected:
     virtual void NativeDestruct()override;
     virtual void NativeTick(const FGeometry&,float Delta)override;
     virtual FReply NativeOnKeyDown(const FGeometry&,const FKeyEvent&)override;
+    virtual FReply NativeOnMouseMove(const FGeometry&,const FPointerEvent&)override;
+    virtual void NativeOnMouseLeave(const FPointerEvent&)override;
+    virtual FReply NativeOnMouseButtonDown(const FGeometry&,const FPointerEvent&)override;
+    virtual FReply NativeOnMouseButtonUp(const FGeometry&,const FPointerEvent&)override;
+    virtual void NativeOnDragDetected(const FGeometry&,const FPointerEvent&,UDragDropOperation*&)override;
+    virtual bool NativeOnDragOver(const FGeometry&,const FDragDropEvent&,UDragDropOperation*)override;
+    virtual bool NativeOnDrop(const FGeometry&,const FDragDropEvent&,UDragDropOperation*)override;
 private:
     class UColdSteelEnhancementSystem* System()const;
     class UColdSteelStatusModel* Profile()const;
@@ -39,6 +72,7 @@ private:
     TSharedRef<class SWidget> TableRow(const FString&,const FString&,const FString&,const FString&,int32 Benefit=0)const;
     TSharedRef<class SWidget> GlassPanel(TSharedRef<class SWidget> Content);
     void UpdateResponsiveLayout();
+    void BuildStatComparison(const FColdSteelItem& Before,const FColdSteelItem& After);
     void RefreshIcons();
     void OnWeaponIconReady(const FString& Recipe);
     const FSlateBrush* MaterialIcon(const FString& Definition);
@@ -51,11 +85,19 @@ private:
     TArray<FString> PendingIcons;
     TMap<FString,TArray<TWeakPtr<class SImage>>> PendingIconImages;
     TMap<FString,TArray<TWeakPtr<class SBorder>>> PendingIconTiles;
-    FString ItemId,ScrollId,Message;
-    bool bEnchant=false,bCompareBase=false,bLastApplySucceeded=false;
+    FString ItemId,ScrollId,Message,PlacementRequestId;
+    bool bEnchant=false,bCompareBase=false,bLastApplySucceeded=false,bProcessingRequest=false;
     double LastConfirm=-1,FlashUntil=-1;
     FColdSteelEnhanceQuote Preview;
-    FDelegateHandle ProfileHandle,IconHandle;
+    FDelegateHandle ProfileHandle,IconHandle,NetworkHandle;
+    void OnNetworkResult(bool Success,const FString& Result);
+    bool HitWorldItem(FVector2D Position) const;
+    FColdSteelItem PressedBenchItem;
+    TWeakObjectPtr<UColdSteelEnhancementDrag> ActiveBenchDrag;
+    void RefreshBenchDragVisual();
+    bool bWorldMode=false;
+    TWeakObjectPtr<class AEnhancementWorldView> WorldView;
+    TSharedPtr<class SWidget> ManagementSurface;
     TSharedPtr<class SVerticalBox> Rail,Inspector,ProjectSummary,Costs;
     TSharedPtr<class SHorizontalBox> Options;
     TSharedPtr<class STextBlock> ItemTitle,ItemLevel,Footer,ConfirmText;

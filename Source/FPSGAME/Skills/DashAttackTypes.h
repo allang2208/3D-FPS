@@ -17,4 +17,6 @@ struct FDashAttackCast
     float Damage=0.f, DamageMultiplier=1.8f, ReadySeconds=1.f, StaminaCost=20.f;
     float DistanceCM=0.f, RangeCM=0.f, RangeBonusCM=100.5f;
     float KnockbackCM=0.f, KnockbackBonusCM=291.f, ArcDegrees=60.f;
+    float RectangleWidthCM=0.f;
+    float ToughnessMultiplier=1.f;
 };

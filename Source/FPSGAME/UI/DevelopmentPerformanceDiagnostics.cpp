@@ -1,4 +1,5 @@
 #include "DevelopmentPanelWidget.h"
+#include "ColdSteelTextToolTip.h"
 #include "PerformanceTextUpdate.h"
 #include "Components/TextBlock.h"
 
@@ -200,6 +201,6 @@ void UDevelopmentPanelWidget::RefreshPerformanceDiagnostics()
         }
         Text += TEXT("\n未列出的分段无完整事件样本；跨窗事件仅在 JSON 保留全长与边界标记。\nSlate 包含编辑器其他窗口；JSON 的 CoreTicker 时间点位于正常引擎循环的帧末同步之后，点前区间不等于纯等待耗时。");
         SetPerformanceText(PerformanceIconTasks, FText::FromString(Text));
-        PerformanceIconTasks->SetToolTipText(FText::FromString(FailureDetails));
+        ColdSteelToolTip::Set(*PerformanceIconTasks, FText::FromString(FailureDetails));
     }
 }

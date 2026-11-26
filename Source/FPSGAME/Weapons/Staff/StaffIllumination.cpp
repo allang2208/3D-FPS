@@ -1,4 +1,6 @@
 #include "StaffWeaponComponent.h"
+#include "StaffIlluminationProfile.h"
+#include "../../Skills/LightningHasteSpeed.h"
 #include "StaffAssembly.h"
 #include "../../FPSGAMECharacter.h"
 #include "../../Characters/FPSPlayerBodyComponent.h"
@@ -15,12 +17,8 @@
 namespace StaffIllumination
 {
     const FName AmountParameter(TEXT("StaffLightAmount"));
-    constexpr float Lumens=1000.f;
-    constexpr float RadiusCm=800.f;
-    constexpr float EmissiveStrength=3.f;
     constexpr float ChargeHoldSeconds=.12f;
     constexpr float GestureSeconds=StaffCastMotion::ReadySeconds+ChargeHoldSeconds+StaffCastMotion::RecoverSeconds;
-    const FLinearColor Color(1.f,.94f,.82f);
 }
 
 void UStaffWeaponComponent::ConfigureIllumination(const FColdSteelItem& Resolved)
@@ -50,17 +48,7 @@ void UStaffWeaponComponent::ConfigureIllumination(const FColdSteelItem& Resolved
         GetOwner()->AddInstanceComponent(CrystalLight);
         CrystalLight->SetupAttachment(Staff);
         CrystalLight->SetMobility(EComponentMobility::Movable);
-        CrystalLight->SetIntensityUnits(ELightUnits::Lumens);
-        // A gameplay lamp stays readable under the scene's automatic exposure.
-        CrystalLight->SetInverseExposureBlend(1.f);
-        CrystalLight->SetAttenuationRadius(StaffIllumination::RadiusCm);
-        CrystalLight->SetSourceRadius(3.f);
-        CrystalLight->SetSoftSourceRadius(5.f);
-        // One nearby shadowed light: dungeon walls still occlude its illumination.
-        CrystalLight->SetCastShadows(true);
-        CrystalLight->SetVolumetricScatteringIntensity(.15f);
-        CrystalLight->SetLightColor(StaffIllumination::Color);
-        CrystalLight->SetIntensity(0.f);
+        UStaffIlluminationProfile::ApplyToPointLight(CrystalLight, 0.f);
         CrystalLight->SetVisibility(false);
         CrystalLight->RegisterComponent();
     }
@@ -104,7 +92,7 @@ void UStaffWeaponComponent::UpdateIllumination(float Delta)
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
     if(IlluminationGestureAge>=0.f)
     {
-        IlluminationGestureAge+=Delta;
+        IlluminationGestureAge+=Delta*LightningHaste::ActionSpeed(GetOwner());
         // Spell entry already snapshots the actual carry pose. Its recovery must
         // target the ordinary carry, not a dormant second casting gesture.
         if(IlluminationGestureAge>=StaffIllumination::GestureSeconds||Age>=0.f
@@ -126,10 +114,10 @@ void UStaffWeaponComponent::PublishIllumination()
     // Stable on/off states do not continually dirty the light or material proxies.
     if(Level==PublishedIllumination)return;
     PublishedIllumination=Level;
-    CrystalLight->SetIntensity(StaffIllumination::Lumens*Level);
+    CrystalLight->SetIntensity(UStaffIlluminationProfile::FullLumens*Level);
     CrystalLight->SetVisibility(Level>0.f);
     for(const auto& Material:CrystalLightMaterials)
-        if(Material)Material->SetScalarParameterValue(StaffIllumination::AmountParameter,StaffIllumination::EmissiveStrength*Level);
+        if(Material)Material->SetScalarParameterValue(StaffIllumination::AmountParameter,UStaffIlluminationProfile::EmissionStrength*Level);
 }
 
 void UStaffWeaponComponent::ResetIllumination()

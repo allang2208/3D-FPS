@@ -6,6 +6,7 @@ import unreal as ue
 
 from stable_actors import ASSEMBLY as TAG, ROOT, add_door, add_instances, label_stable
 from stable_perimeter import install_stable_perimeter
+from stable_master_house import install_stable_master_house
 from stable_ground_detail import install_ground_detail
 from stable_horses import install_horses
 
@@ -43,13 +44,13 @@ def clear_old_scatter(actors):
                 pose=comp.get_instance_transform(i,True)
                 p=ue.MathLibrary.transform_location(pose,center)
                 x,y=p.x,p.y
-                if x<2400 or x>6400 or y<190 or y>4550:
+                if x<800 or x>6400 or y<190 or y>4720:
                     continue
                 radius=min(170,max((bounds.max.x-bounds.min.x)*abs(pose.scale3d.x),
                                    (bounds.max.y-bounds.min.y)*abs(pose.scale3d.y))*.5)
                 def overlaps(ax,ay,bx,by):
                     return math.hypot(max(ax-x,0,x-bx),max(ay-y,0,y-by))<=radius
-                occupied=(overlaps(2810,3210,5800,4380) or overlaps(4490,1590,5810,3220) or
+                occupied=(overlaps(880,3220,5850,4680) or overlaps(4490,1590,5810,3220) or
                           any(distance_to_segment(x,y,a,b)<=width+radius for line,width in ((CART,200),(HORSE,110))
                               for a,b in zip(line,line[1:])))
                 if occupied:
@@ -140,9 +141,12 @@ def install_stable(actors):
     decal.set_decal_material(load(ROOT+'/Materials/M_StableTraffic'))
     decal.set_fade_screen_size(.001)
     perimeter=install_stable_perimeter(actors)
+    master_house=install_stable_master_house(actors)
     ground_detail=install_ground_detail(actors)
     residents=install_horses(actors)
     counts=defaultdict(int,perimeter['instances'])
+    for role,count in master_house['instances'].items():
+        counts[role]+=count
     for role,count in ground_detail['instances'].items():
         counts[role]+=count
     for (role,_),poses in groups.items():

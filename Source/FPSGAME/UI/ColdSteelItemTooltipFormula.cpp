@@ -1,11 +1,14 @@
 #include "ColdSteelItemTooltipData.h"
 #include "ColdSteelWeaponText.h"
 #include "../Building/WoodworkingQuality.h"
+#include "../Building/ForgingQuality.h"
+#include "../Building/GunAssemblyQuality.h"
 #include "ColdSteelEnhancementSystem.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelItemReadCache.h"
 #include "../Combat/CombatItemFormula.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/Bow/BowDamageTuning.h"
 #include "Engine/GameInstance.h"
 
 namespace
@@ -40,21 +43,21 @@ void AppendColdSteelTooltipAttackFormula(const FColdSteelItem& Item,UColdSteelSt
     const bool bProductionAxe=ColdSteelInventory::IsEquippedProductionTool(Item);
     const auto* Enhancement=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
     if(!Enhancement){FormulaRow(Card,TEXT("攻击力计算公式"),TEXT("—"));return;}
-    double ForgeMultiplier=1;
-    if(const auto Data=ColdSteelItemData::Read(Item.Data))
-    {
-        const TSharedPtr<FJsonObject>* Forge=nullptr;
-        if(Data->TryGetObjectField(TEXT("_forgeQuality"),Forge)&&*Forge)
-            (*Forge)->TryGetNumberField(TEXT("multiplier"),ForgeMultiplier);
-    }
-    ForgeMultiplier=FMath::Clamp(ForgeMultiplier,.75,1.25);
+    double ForgeMultiplier=ColdSteelForgeQuality::Multiplier(Item)*ColdSteelAssemblyQuality::Multiplier(Item);
     // Bow physical quality is applied after damage channels are separated in WeaponDamagePanel.
     ForgeMultiplier*=ColdSteelWoodQuality::Multiplier(Item,ColdSteelWoodQuality::EChannel::Physical);
+    if(ColdSteelInventory::IsBow(Item))
+        if(const auto* Gunsmith=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())
+        {
+            const auto Mods=Gunsmith->Calculate(Item.Definition,Gunsmith->Installed(Item)).Bow;
+            ForgeMultiplier*=Mods.ShotDamage*Mods.PhysicalDamage;
+        }
     auto WithForging=[&](const FString& Expression)
     {return FMath::IsNearlyEqual(ForgeMultiplier,1.)?Expression:TEXT("(")+Expression+TEXT(")×")+FormulaNumber(ForgeMultiplier);};
     if(const auto Formula=Enhancement->AttackFormula(Item))
     {
-        const double Base=FormulaValue(Formula,TEXT("base")),Flat=FormulaValue(Formula,TEXT("enhanceFlat"));
+        const double Base=ColdSteelBow::AdjustFormulaBase(Item,FormulaValue(Formula,TEXT("base")),WeaponBase);
+        const double Flat=FormulaValue(Formula,TEXT("enhanceFlat"));
         FString BaseExpression=FormulaNumber(Base),EnhancedExpression=BaseExpression;
         TArray<FFormulaGroup> Groups;
         if(Flat!=0)EnhancedExpression+=TEXT("+")+FormulaNumber(Flat)+TEXT("L");

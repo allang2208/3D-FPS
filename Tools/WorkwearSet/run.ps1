@@ -1,4 +1,4 @@
-param([switch]$AuthorOnly,[switch]$ResumeSave)
+﻿param([switch]$AuthorOnly,[switch]$ResumeSave)
 $ErrorActionPreference='Stop'
 $workwearProject='D:/FPS3D/FPSGAME'
 $workwearRoot=Join-Path $workwearProject 'SourceAssets/WorkwearSet20261024'

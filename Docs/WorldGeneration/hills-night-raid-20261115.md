@@ -49,3 +49,11 @@
 新资产为 `/Game/WorldGeneration/HillsNightRaid/M_NightPortalSkyBeam` 和 `SM_NightPortalSkyBeam`，加入既有异步预载与烹饪目录。作者入口 `Tools/WorldGeneration/author_hills_night_sky_beam.py`，HLSL、网格源、改前备份及本轮交付回执位于 `SourceAssets/HillsNightRaid20261115/SkyBeam`。此追加不改刷怪、伤害、神像、种子和地图包。
 
 本轮 Editor／Game 后台构建均成功（`SkyBeam/*-build.json`，日志后缀 `-1`）。独立作者批次已成功保存光柱材质与网格（`SkyBeam/authoring-receipt.json`，`authoring-process-2.json` 退出码 0），未重存地图。未运行游戏、截图或视觉验收，由用户进场确认实际观感。
+
+<a id="forest-village-night-raid"></a>
+
+## 林道村庄接入 · 2026-11-24
+
+正式地图为 `/Game/GameMaps/L_ForestPathVillage`。夜袭沿用 11 月 21 日完整工程备份的门框、紫色光幕与天空光柱、护士与胖子僵尸、天气时钟、刷怪额度和独立存档。当前地图的城外门址按东、西两处城门和烘焙的林道权重选择；道路满占时会尝试城门外的空地。选址和落地共用地表识别，覆盖村庄地基、带地表标记的外围地形块以及原林道 Landscape。地基碰撞提交后刷新服务端导航，生成时要求有到神像或可攻击防御工事的完整路径。此前村址迁移留下的远端门址会重新选择，当夜已刷数量和剩余波次沿用存档。
+
+[地图选址和刷怪](../../Source/FPSGAME/WorldGeneration/HillsNightRaidSubsystem.cpp) · [存档接入](../../Source/FPSGAME/WorldGeneration/HillsNightPersistence.cpp) · [村庄地基导航](../../Source/FPSGAME/WorldGeneration/ForestVillage.cpp) · [备份复用清单](F:/FPSGAMEData/ArtProduction/HillsForestPath/ForestVillageNightRaid-R1-20261124/reused.json) · [地图接入恢复版本](Y:/备份/FPS3D/HillsForestPath/ForestVillageNightRaid-R1-20261124/ForestVillageNightRaid-R1.zip)。

@@ -1,6 +1,9 @@
 #include "ProductionToolComponent.h"
+#include "../Weapons/PojunGrip.h"
 #include "WarhammerUppercutArc.h"
 #include "WarhammerUppercutMotion.h"
+#include "ProductionBluntCombo.h"
+#include "../Weapons/RuneSwordRisingDragon.h"
 #include "WarhammerAudioPaths.h"
 #include "../FPSGAMECharacter.h"
 #include "../FPSGAMEPlayerController.h"
@@ -12,6 +15,7 @@
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/RuneSwordUppercutMotion.h"
 #include "../Weapons/RuneSwordHitQuery.h"
+#include "../Weapons/MeleeSmallTargetQuery.h"
 #include "../Weapons/RuneSwordMeshComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
@@ -31,7 +35,7 @@
 
 namespace
 {
-bool CanUppercut(AFPSGAMECharacter* Pawn,const UColdSteelStatusModel* Profile)
+bool CanUppercut(AFPSGAMECharacter* Pawn,const UColdSteelStatusModel* Profile,bool bContinuing=false)
 {
     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
     const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
@@ -39,11 +43,12 @@ bool CanUppercut(AFPSGAMECharacter* Pawn,const UColdSteelStatusModel* Profile)
     const auto* Build=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
     const auto* PS=Pawn?Pawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
     const auto* Sword=Pawn?Pawn->FindComponentByClass<URuneSwordComponent>():nullptr;
-    return Pawn&&PC&&Item&&ColdSteelInventory::IsTwoHandedBlunt(*Item)&&
-        (!Sword||!Sword->IsGuarding())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&
+    const auto* Tool=Pawn?Pawn->FindComponentByClass<UProductionToolComponent>():nullptr;
+    return Pawn&&PC&&Item&&PojunGrip::UsesHammerMotion(*Item)&&
+        (!Sword||(!Sword->IsGuarding()&&!Sword->IsPojunChainOccupied()))&&(!Tool||!Tool->IsThunderHammerAway())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&
         !Pawn->IsTraversing()&&!Pawn->IsDodging()&&!Pawn->IsSliding()&&!Pawn->IsCastBlockingLeftHandAction()&&
         !UBoundCongregateCaptureComponent::IsCaptured(Pawn)&&(!Health||!Health->IsDead())&&
-        !AFPSGAMEPlayerController::BlocksOngoingActions(PC)&&(!Build||!Build->IsBuilding());
+        !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC))&&(!Build||!Build->IsBuilding());
 }
 constexpr float HitPause=.05f;
 }
@@ -76,7 +81,7 @@ bool UProductionToolComponent::BeginUppercut()
 void UProductionToolComponent::ServerBeginBluntUppercut_Implementation(uint32 AttackId)
 {
     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
-    if(!CanUppercut(Pawn,Profile)||bBluntUppercut||bBluntWhirlwind||bBluntServerCharging||
+    if(!CanUppercut(Pawn,Profile)||IsLeapStrikeActive()||bBluntUppercut||bBluntWhirlwind||bBluntServerCharging||
         GetWorld()->GetTimeSeconds()<BluntServerReadyAt||Profile->SwordUppercutCooldown()>0.f||
         !Profile->CanSpendStamina(Profile->SwordUppercutStaminaCost()))
     {ClientBluntUppercutResult(AttackId,false);return;}
@@ -93,6 +98,21 @@ void UProductionToolComponent::ClientBluntUppercutImpact_Implementation(uint32 A
     BluntUppercutPause=HitPause;BluntUppercutImpactAge=0.f;
 }
 
+void UProductionToolComponent::StartPojunAttack(PojunGrip::EAttack Attack,UColdSteelStatusModel* Profile)
+{
+    const auto* Item=Profile->ActiveProductionTool();
+    if(!Item)return;
+    PojunAttack=Attack;PojunAttackItemData=Item->Data;
+    Elapsed=-1.f;bQueuedBluntAttack=bBluntChain=bBluntFloorTarget=false;
+    BluntStartClip=0.f;BluntServerGroundSlamUntil=BluntServerSprintContactAt=0.;
+    if(Attack==PojunGrip::EAttack::Zhufeng)
+    {
+        StartBluntWhirlwind(Profile);
+        return;
+    }
+    StartBluntUppercut(Profile);
+}
+
 void UProductionToolComponent::StartBluntUppercut(UColdSteelStatusModel* Profile)
 {
     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;if(!Item)return;
@@ -102,22 +122,58 @@ void UProductionToolComponent::StartBluntUppercut(UColdSteelStatusModel* Profile
     BluntUppercutHits=BluntUppercutKills=0;BluntUppercutHitActors.Reset();
     BluntUppercutDirection=FVector::ZeroVector;BluntUppercutInstance=Item->InstanceId;
     const auto Stats=ColdSteelMelee::Evaluate(*Item,Profile);
-    const auto Effect=Profile->MasteryEffect(TEXT("swordUppercut"));
-    BluntUppercutDamage=Stats.Damage*ColdSteelMelee::UppercutMultiplier(Profile,Stats.Modifiers);
-    BluntUppercutReach=Stats.ThrustReach*Effect.UppercutReachMultiplier;
-    BluntUppercutRange=RuneSwordCombatTuning::RangeMultiplier*Stats.Modifiers.Range*
-        Profile->MasteryDefinition(TEXT("swordUppercut")).UppercutRangeMultiplier;
     ApplyToolStats(Item,Profile);
-    BluntUppercutShot=ColdSteelSkills::Snapshot(Character.Get(),Item);
-    BluntUppercutShot.bMelee=true;BluntUppercutShot.WeakpointPercent=0.f;
-    BluntUppercutShot.AttackMeta=SwordUppercut::AttackMeta;
-    BluntUppercutShot.DamagePanel=Stats.DamageParts.Scaled(Stats.Damage>0.?BluntUppercutDamage/Stats.Damage:0.);
-    BluntUppercutShot.ToughnessDamageMultiplier=float(ToolStats.ToughnessDamage*Stats.Modifiers.HeavyToughness);
-    BluntUppercutShot.CriticalChance=FMath::Clamp(BluntUppercutShot.CriticalChance+float(ToolStats.CriticalChanceAdd),0.f,100.f);
+    PojunSlashTime=-1.f;
+    if(PojunAttack==PojunGrip::EAttack::Ordinary)
+    {
+        const auto Effect=Profile->MasteryEffect(TEXT("swordUppercut"));
+        BluntUppercutDamage=Stats.Damage*ColdSteelMelee::UppercutMultiplier(Profile,Stats.Modifiers);
+        BluntUppercutReach=Stats.ThrustReach*Effect.UppercutReachMultiplier;
+        BluntUppercutRange=RuneSwordCombatTuning::RangeMultiplier*Stats.Modifiers.Range*
+            Profile->MasteryDefinition(TEXT("swordUppercut")).UppercutRangeMultiplier;
+        BluntUppercutShot=ColdSteelSkills::Snapshot(Character.Get(),Item);
+        BluntUppercutShot.bMelee=true;BluntUppercutShot.WeakpointPercent=0.f;
+        BluntUppercutShot.AttackMeta=SwordUppercut::AttackMeta;
+        BluntUppercutShot.DamagePanel=Stats.DamageParts.Scaled(Stats.Damage>0.?BluntUppercutDamage/Stats.Damage:0.);
+        BluntUppercutShot.ToughnessDamageMultiplier=float(ToolStats.ToughnessDamage*Stats.Modifiers.HeavyToughness);
+        BluntUppercutShot.CriticalChance=FMath::Clamp(BluntUppercutShot.CriticalChance+float(ToolStats.CriticalChanceAdd),0.f,100.f);
+    }
+    else
+    {
+        const bool Rising=PojunAttack==PojunGrip::EAttack::Tengyun;
+        PojunSlashTime=Rising?-1.f:PojunChixiao::Start;
+        const auto& Mods=Stats.Modifiers;
+        AxeStrike.AttackMeta=Rising?3:0x10;
+        AxeStrike.bRisingDragonFinisher=Rising;
+        AxeStrike.DamagePanel=ToolStats.Damage.Scaled(Rising?Mods.ComboMultiplier(3):BluntHeavyMultiplier);
+        AxeStrike.ToughnessDamageMultiplier=float(ToolStats.ToughnessDamage*(Rising?Mods.ComboThirdToughness:Mods.HeavyToughness));
+        BluntUppercutShot=AxeStrike;
+        BluntUppercutDamage=BluntUppercutShot.DamagePanel.Total();
+        BluntUppercutReach=AxeCombatReach;BluntUppercutRange=RuneSwordCombatTuning::RangeMultiplier*Mods.Range;
+    }
     bQueuedBluntAttack=false;bBluntHeavy=bBluntSprintAttack=false;NextBluntStage=0;
     BluntSprintSeconds=0.f;BluntSprintReadyAt=-100.;SetTickGroup(TG_PostPhysics);
-    BluntServerReadyAt=GetWorld()->GetTimeSeconds()+RuneSwordUppercutMotion::SkillPlaybackTime(RuneSwordUppercutMotion::End)+HitPause;
+    BluntServerReadyAt=GetWorld()->GetTimeSeconds()+(RuneSwordUppercutMotion::SkillPlaybackTime(RuneSwordUppercutMotion::End)+HitPause)/HasteActionRate;
+    if(PojunAttack!=PojunGrip::EAttack::Ordinary)
+    {
+        const float Lead=PojunSlashTime>=0.f?PojunChixiao::Handoff-PojunChixiao::Start:-RuneSwordRisingDragon::WindupEnd;
+        BluntServerReadyAt=GetWorld()->GetTimeSeconds()+
+            (Lead+RuneSwordUppercutMotion::SkillPlaybackTime(RuneSwordUppercutMotion::End)+HitPause)/PojunCutRate();
+    }
     Character->StopMovementForMeleeSkill();
+}
+
+bool UProductionToolComponent::PojunAttackStillEquipped(const FColdSteelItem& Item)
+{
+    if(PojunAttack==PojunGrip::EAttack::Ordinary||Item.Data==PojunAttackItemData)return true;
+    if(PojunGrip::Attack(Item,PojunAttack==PojunGrip::EAttack::Chixiao,PojunAttack==PojunGrip::EAttack::Zhufeng,2)!=PojunAttack)return false;
+    PojunAttackItemData=Item.Data;
+    return true;
+}
+
+float UProductionToolComponent::PojunCutRate() const
+{
+    return PojunAttack==PojunGrip::EAttack::Chixiao?RateScale*BluntMasteryInterval:RateScale;
 }
 
 float UProductionToolComponent::BluntUppercutPoseTime() const
@@ -128,9 +184,30 @@ void UProductionToolComponent::TickBluntUppercut(float Delta)
     auto* Pawn=Character.Get();if(!Pawn)return;
     auto* Profile=Pawn->HasAuthority()?ColdSteelAuthority::ForPawn(Pawn):GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
-    if(!CanUppercut(Pawn,Profile)||!Item||Item->InstanceId!=BluntUppercutInstance)
+    if(!CanUppercut(Pawn,Profile,true)||!Item||Item->InstanceId!=BluntUppercutInstance)
     {FinishBluntUppercut();return;}
     ColdSteelAuthority::FScope Scope(Profile);
+    if(!PojunAttackStillEquipped(*Item))
+    {FinishBluntUppercut();return;}
+    Delta*=PojunAttack==PojunGrip::EAttack::Ordinary?HasteActionRate:PojunCutRate();
+    if(PojunSlashTime>=0.f)
+    {
+        const float Before=PojunSlashTime;
+        const float Handoff=PojunChixiao::Handoff;
+        PojunSlashTime=FMath::Min(Handoff,Before+Delta);
+        Delta-=PojunSlashTime-Before;
+        const float Whoosh=ProductionBluntCombo::WhooshClip(PojunChixiao::OpeningStage);
+        if(Before<Whoosh&&PojunSlashTime>=Whoosh&&Pawn->IsLocallyControlled())
+            PlayPojunSwing(.95f,.9f);
+        if(Before<ProductionBluntCombo::ContactSeconds&&PojunSlashTime>=ProductionBluntCombo::ContactSeconds&&Pawn->HasAuthority())
+            ResolveBluntContact(BluntHeavyStunSeconds);
+        if(!bBluntUppercut||PojunSlashTime<Handoff)return;
+        PojunSlashTime=-1.f;
+        if(Pawn->HasAuthority())
+            BluntUppercutShot.MasteryAttackSerial=ColdSteelSkills::Snapshot(Pawn,Profile->ActiveProductionTool()).MasteryAttackSerial;
+    }
+    if(PojunAttack==PojunGrip::EAttack::Tengyun&&BluntUppercutTime<RuneSwordUppercutMotion::ReleaseStart)
+        Delta+=FMath::Min(Delta,(RuneSwordUppercutMotion::ReleaseStart-BluntUppercutTime)*.5f);
     const float Pause=FMath::Min(Delta,BluntUppercutPause);BluntUppercutPause-=Pause;Delta-=Pause;
     if(Delta<=0.f){if(Viewmodel)Viewmodel->ClearMotionVector();return;}
     BluntUppercutImpactAge+=Delta;
@@ -144,7 +221,7 @@ void UProductionToolComponent::TickBluntUppercut(float Delta)
         const float To=BluntUppercutPoseTime();
         if(!bBluntUppercutReleased&&To>=RuneSwordUppercutMotion::ReleaseStart)
         {
-            if(Pawn->HasAuthority())
+            if(Pawn->HasAuthority()&&PojunAttack==PojunGrip::EAttack::Ordinary)
             {
                 const float StaminaBefore=Profile->Stamina();
                 if(!Profile->CommitSwordUppercutRelease())
@@ -157,7 +234,8 @@ void UProductionToolComponent::TickBluntUppercut(float Delta)
         if(BeforeTime<WarhammerUppercutMotion::StrikeStart&&BluntUppercutTime>=WarhammerUppercutMotion::StrikeStart&&
             Pawn->IsLocallyControlled())
         {
-            if(auto* Sound=Cast<USoundBase>(WarhammerAudioPaths::Uppercut.ResolveObject()))
+            if(bPojunGrip)PlayPojunSwing(.72f,1.1f);
+            else if(auto* Sound=Cast<USoundBase>(WarhammerAudioPaths::Uppercut.ResolveObject()))
                 UGameplayStatics::PlaySound2D(this,Sound,.72f,1.f);
         }
         const FTransform Before=Pawn->GetMeleeAimTransform();
@@ -189,11 +267,16 @@ void UProductionToolComponent::TickBluntUppercut(float Delta)
                 }
             }
         }
-        if(Pawn->HasAuthority()&&bBluntUppercutReleased&&BluntUppercutHitActors.IsEmpty())
+        if(Pawn->HasAuthority()&&bBluntUppercutReleased&&(BluntUppercutHitActors.IsEmpty()||PojunAttack==PojunGrip::EAttack::Chixiao||PojunAttack==PojunGrip::EAttack::Tengyun))
             SweepBluntUppercut(From,To,Before,Pawn->GetMeleeAimTransform());
         if(BluntUppercutPause>0.f)break;
     }
-    if(bBluntUppercut&&BluntUppercutTime>=End-UE_SMALL_NUMBER)FinishBluntUppercut();
+    if(bBluntUppercut&&BluntUppercutTime>=End-UE_SMALL_NUMBER)
+    {
+        const bool NextCut=PojunAttack==PojunGrip::EAttack::Tengyun&&bQueuedBluntAttack&&Pawn->IsLocallyControlled();
+        FinishBluntUppercut();
+        if(NextCut)BeginUse();
+    }
 }
 
 void UProductionToolComponent::SweepBluntUppercut(float From,float To,const FTransform& Before,const FTransform& After)
@@ -212,30 +295,40 @@ void UProductionToolComponent::SweepBluntUppercut(float From,float To,const FTra
         Result.Tip=Aim.TransformPosition(Axis*BluntUppercutReach);
         return Result;
     };
-    FRuneSwordTraceSettings Settings;Settings.bCleavePawns=false;Settings.Radius=RuneSwordCombat::BladeRadius*BluntUppercutRange;
-    const auto Hits=RuneSwordCombat::Query(GetWorld(),Pawn,Sample(A,Before),Sample(B,After),BluntUppercutReach,BluntUppercutHitActors,Settings);
+    const bool Rising=PojunAttack==PojunGrip::EAttack::Tengyun;
+    const bool Cleave=Rising||PojunAttack==PojunGrip::EAttack::Chixiao;
+    FRuneSwordTraceSettings Settings;Settings.bCleavePawns=Cleave;Settings.bAreaDamage=Rising;Settings.Radius=RuneSwordCombat::BladeRadius*BluntUppercutRange;
+    auto Hits=RuneSwordCombat::Query(GetWorld(),Pawn,Sample(A,Before),Sample(B,After),BluntUppercutReach,BluntUppercutHitActors,Settings);
+    if(Rising)Hits.Append(MeleeSmallTargets::QueryLowSector(GetWorld(),Pawn,After,BluntUppercutReach,BluntUppercutHitActors));
+    bool Confirmed=false;
     for(const auto& Hit:Hits)
     {
-        auto* Target=Hit.GetActor();if(!IsValid(Target))continue;
+        auto* Target=Hit.GetActor();if(!IsValid(Target)||BluntUppercutHitActors.Contains(Target))continue;
         auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();if(Combat&&Combat->IsDead())continue;
         FWeaponDamageResult Result;
         const float Applied=ColdSteelSkills::ApplyHit(Pawn,Hit,BluntUppercutDamage,After.GetUnitAxis(EAxis::X),BluntUppercutShot,&Result);
         if(Applied<=0.f&&!(Combat&&Combat->IsDead()))continue;
+        if(BluntUppercutShot.ItemDefinition==PojunGrip::Weapon)MulticastPojunCutImpact(Hit.ImpactPoint);
         BluntUppercutHitActors.Add(Target);
         if(Combat&&!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))
-        {BluntUppercutHits=1;BluntUppercutKills=Combat->IsDead()?1:0;}
+        {++BluntUppercutHits;if(Combat->IsDead())++BluntUppercutKills;}
         Pawn->NotifyConfirmedWeaponHit(Target,Applied,&Result);
         if(!bBluntUppercut)return;
+        Confirmed=true;
+        if(!Cleave)break;
+    }
+    if(Confirmed)
+    {
         BluntUppercutPause=HitPause;BluntUppercutImpactAge=0.f;
         if(!Pawn->IsLocallyControlled())ClientBluntUppercutImpact(BluntAttackId);
-        break;
     }
 }
 
 void UProductionToolComponent::FinishBluntUppercut()
 {
     if(!bBluntUppercut)return;
-    const bool Train=bBluntUppercutReleased;
+    const bool Train=bBluntUppercutReleased&&PojunAttack==PojunGrip::EAttack::Ordinary;
+    PojunAttack=PojunGrip::EAttack::Ordinary;PojunSlashTime=-1.f;PojunAttackItemData.Reset();bQueuedBluntAttack=false;
     bBluntUppercut=false;bBluntUppercutReleased=false;BluntUppercutPause=0.f;
     if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->ClearWhirlwindEntry();
     if(Train&&Character.IsValid()&&Character->HasAuthority())

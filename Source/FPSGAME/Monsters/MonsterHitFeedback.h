@@ -9,6 +9,7 @@ struct FMonsterHitFeedback
 {
     TWeakObjectPtr<AActor> Target;
     FText Name;
+    FText FriendlyActivity;
     float Damage = 0.f;
     FWeaponDamageResult DamageResult;
     float Health = 0.f;

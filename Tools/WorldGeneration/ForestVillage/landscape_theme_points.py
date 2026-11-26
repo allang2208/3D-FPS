@@ -62,3 +62,4 @@ if __name__=='__main__':
     parser.add_argument('points',type=Path);parser.add_argument('terrain',type=Path);parser.add_argument('output',type=Path)
     parser.add_argument('--theme',choices=[*THEMES,*THEMES.values()])
     a=parser.parse_args();store(a.points,a.terrain,a.output,only=a.theme)
+

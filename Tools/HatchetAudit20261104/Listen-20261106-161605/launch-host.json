@@ -1,0 +1,31 @@
+{
+  "arguments": [
+    "\"D:\\FPS3D\\FPSGAME\\FPSGAME.uproject\"",
+    "\"/Engine/Maps/Entry?game=/Script/FPSGAME.KukriCombatWireGameMode?listen\"",
+    "-game",
+    "-nosound",
+    "-unattended",
+    "-nosplash",
+    "-NoLiveCoding",
+    "-AssetGatherAll=false",
+    "-KukriCombatWireAudit",
+    "-HatchetCombatWireAudit",
+    "-KukriHeavyNetTrace",
+    "-ini:Engine:[/Script/PythonScriptPlugin.PythonScriptPluginSettings]:bRemoteExecution=False",
+    "-KukriRiftTrace",
+    "-ColdSteelProfile=KukriWireAudit_20261106-161605_host",
+    "-KukriProfileId=b78650f1-4777-4a7d-b01d-4c91bff48853",
+    "-KukriWireHead=jason",
+    "-port=19937",
+    "-UserDir=\"D:/FPS3D/FPSGAME/Tools/HatchetAudit20261104/Listen-20261106-161605/host/\"",
+    "-KukriWireOutput=\"D:\\FPS3D\\FPSGAME\\Tools\\HatchetAudit20261104\\Listen-20261106-161605\\host.json\"",
+    "-abslog=\"D:\\FPS3D\\FPSGAME\\Tools\\HatchetAudit20261104\\Listen-20261106-161605\\host.log\"",
+    "-ExecCmds=\"t.MaxFPS 30\"",
+    "-HatchetLegend=Falcon",
+    "-HatchetSplitTargets",
+    "-ini:EditorPerProjectUserSettings:[/Script/ModelContextProtocolEngine.ModelContextProtocolSettings]:bAutoStartServer=False",
+    "-nullrhi"
+  ],
+  "role": "host",
+  "pid": 52040
+}

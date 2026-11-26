@@ -543,3 +543,4 @@ void UColdSteelSmeltingWidget::ApplyUpgradeTabVisual()
         S.SetDisabled(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,0.f,FLinearColor::Transparent,0.f));
         UpgradeTabBtn->SetStyle(S);   }
 }
+

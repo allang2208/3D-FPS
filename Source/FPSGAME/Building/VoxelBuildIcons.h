@@ -18,6 +18,7 @@ class UTextureRenderTarget2D;
 struct FVoxelBuildIconRequest
 {
     FString Key;
+    FName PieceId;
     TSoftObjectPtr<UStaticMesh> Mesh;
     TSoftObjectPtr<UMaterialInterface> Surface;
     TSoftClassPtr<AActor> ActorClass;

@@ -2,7 +2,12 @@
 // 布局与背包装备同一抽屉规格，控件只调用档案事务，不自行扣除或保存。
 #include "DevelopmentPanelWidget.h"
 #include "DevelopmentItemPicker.h"
+#include "../Tasks/BlacksmithApprenticeship.h"
+#include "../Tasks/CarpenterApprenticeship.h"
+#include "../FPSGAMECharacter.h"
+#include "GameFramework/PlayerController.h"
 #include "ColdSteelUIStyle.h"
+#include "Engine/World.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
 #include "Components/Button.h"
@@ -16,6 +21,22 @@
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
+
+namespace
+{
+struct FDevelopmentQuestLine
+{
+    const TCHAR* Id;
+    const TCHAR* Teacher;
+    const TCHAR* Name;
+    bool (*Reset)(FColdSteelProfile&);
+};
+
+constexpr FDevelopmentQuestLine ResettableQuests[] = {
+    {BlacksmithApprenticeship::TaskId, TEXT("铁匠"), TEXT("采矿、冶炼与打铁"), BlacksmithApprenticeship::Reset},
+    {CarpenterApprenticeship::TaskId, TEXT("木匠"), TEXT("木工修炼"), CarpenterApprenticeship::Reset}
+};
+}
 
 void UDevelopmentPanelWidget::BuildFeatureRows(UVerticalBox* Page)
 {
@@ -90,6 +111,32 @@ void UDevelopmentPanelWidget::BuildFeatureRows(UVerticalBox* Page)
         FeatureRows.Add(Parts.Row);
     }
 
+    {
+        TArray<FColdSteelCatalogEntry> Options;
+        TArray<FString> Names;
+        for (const auto& Quest : ResettableQuests)
+        {
+            auto& Entry = Options.AddDefaulted_GetRef();
+            Entry.Definition = Quest.Id;
+            Entry.Group = Quest.Teacher;
+            Entry.Name = Quest.Name;
+            Names.Add(Entry.Name);
+        }
+        const FString Help = FString::Printf(TEXT("共 %d 条任务线，可重置 %d 条：%s。%s\n地牢探险（全队共享） · 进度随本局地牢单独记录。"),
+            Options.Num() + 1, Options.Num(), *FString::Join(Names, TEXT("、")), GetWorld() && GetWorld()->GetNetMode() == NM_Client
+                ? TEXT("重置仅对房主自己的角色开放。") : TEXT("重置后可找对应 NPC 重新领取。"));
+        FCardParts Parts = NewCard(TEXT("重置任务线"), *Help);
+        QuestChoice = WidgetTree->ConstructWidget<UDevelopmentItemPicker>();
+        SelectedQuestId = Options[0].Definition;
+        QuestChoice->SetOptions(Options, SelectedQuestId);
+        QuestChoice->OnSelectionChanged.AddDynamic(this, &ThisClass::QuestSelected);
+        AddFlex(Parts, QuestChoice, 200.f);
+        ResetQuestButton = MakeButton(TEXT("重置"), TEXT("DevelopmentResetQuestLine"));
+        ResetQuestButton->OnClicked.AddDynamic(this, &ThisClass::ResetQuestClicked);
+        AddFixed(Parts, ResetQuestButton, 96.f);
+        FeatureRows.Add(Parts.Row);
+    }
+
     // 提升等级：按正常升级发放属性点，说明行显示当前等级与属性点。
     {
         FCardParts Parts = NewCard(TEXT("提升等级"),
@@ -119,6 +166,19 @@ void UDevelopmentPanelWidget::BuildFeatureRows(UVerticalBox* Page)
         FeatureRows.Add(Parts.Row);
     }
 
+    // 专精重置（2026-11-15）：重置代价留待后续开发，现阶段只在开发面板返还专精点。
+    {
+        FCardParts Parts = NewCard(TEXT("专精重置"),
+            TEXT("返还上方所选技能（或全部技能）已投入的专精点；技能等级与修炼值不变，结果写入角色档案。"));
+        ResetSpecButton = MakeButton(TEXT("重置该技能专精"), TEXT("DevelopmentSpecReset"));
+        ResetSpecButton->OnClicked.AddDynamic(this, &ThisClass::ResetSkillSpecClicked);
+        AddFixed(Parts, ResetSpecButton, 150.f);
+        ResetAllSpecsButton = MakeButton(TEXT("重置全部专精"), TEXT("DevelopmentSpecResetAll"));
+        ResetAllSpecsButton->OnClicked.AddDynamic(this, &ThisClass::ResetAllSpecsClicked);
+        AddFixed(Parts, ResetAllSpecsButton, 140.f);
+        FeatureRows.Add(Parts.Row);
+    }
+
     // 快进时间：世界时钟整体前推 1 小时，用来快速走到黄昏/夜晚核对点火、光照与天气。
     {
         FCardParts Parts = NewCard(TEXT("快进时间"),
@@ -128,6 +188,51 @@ void UDevelopmentPanelWidget::BuildFeatureRows(UVerticalBox* Page)
         AdvanceHourButton->OnClicked.AddDynamic(this, &ThisClass::AdvanceHourClicked);
         AddFixed(Parts, AdvanceHourButton, 130.f);
         FeatureRows.Add(Parts.Row);
+    }
+
+    {
+        FCardParts Parts = NewCard(TEXT("村庄建设"), GetWorld() && GetWorld()->GetNetMode() == NM_Client
+            ? TEXT("当前丘陵世界的村庄升级由房主重置。")
+            : TEXT("将当前丘陵世界的围墙和所有已修复的建筑恢复为破败形态，并保存建设进度。"));
+        VillageResetHelp = Parts.Help;
+        ResetVillageButton = MakeButton(TEXT("重置村庄升级"), TEXT("DevelopmentResetVillageUpgrades"));
+        ResetVillageButton->OnClicked.AddDynamic(this, &ThisClass::ResetVillageUpgradesClicked);
+        AddFixed(Parts, ResetVillageButton, 150.f);
+        FeatureRows.Add(Parts.Row);
+    }
+}
+
+void UDevelopmentPanelWidget::QuestSelected(const FString& Definition)
+{
+    SelectedQuestId = Definition;
+}
+
+void UDevelopmentPanelWidget::ResetQuestClicked()
+{
+    auto* Model = ResolveModel();
+    const auto* Player = GetOwningPlayer();
+    if (!Model || !Player || !Player->HasAuthority() || !Player->IsLocalController() ||
+        !Model->RuntimePawn() || Model->RuntimePawn() != Player->GetPawn() || Model->IsStagingNetworkContainer())
+    {
+        SetFeatureMessage(TEXT("请在单机或房主角色档案就绪后重置任务。"), ColdSteelUI::Warning);
+        return;
+    }
+
+    for (const auto& Quest : ResettableQuests)
+    {
+        if (SelectedQuestId != Quest.Id) continue;
+        Model->SyncRuntime();
+        auto Next = Model->Snapshot();
+        if (!Quest.Reset(Next))
+        {
+            SetFeatureMessage(FString::Printf(TEXT("「%s」尚未领取，可直接找%s接取。"), Quest.Name, Quest.Teacher), ColdSteelUI::TextSecondary);
+            return;
+        }
+        if (Model->CommitCampfireState(MoveTemp(Next), SelectedQuestId + TEXT(".reset")))
+            SetFeatureMessage(FString::Printf(TEXT("已重置「%s」，可找%s重新领取。"), Quest.Name, Quest.Teacher), ColdSteelUI::Success);
+        else
+            SetFeatureMessage(FString::Printf(TEXT("任务重置保存失败：%s"), *Model->ResultMessage()), ColdSteelUI::Warning);
+        return;
     }
 }
 

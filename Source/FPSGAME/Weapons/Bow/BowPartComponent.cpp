@@ -47,9 +47,8 @@ namespace
         // Preserve the authored shaft axis: asymmetric fletching must not shift
         // the nock away from the string merely because its bounds are off-centre.
         const FVector Centre = Mesh ? Axis * FVector::DotProduct(Mesh->GetBounds().Origin, Axis) : FVector::ZeroVector;
-        Rod->SetRelativeLocation((From + To) * .5f - Rotation.RotateVector(Centre * Scale));
-        Rod->SetRelativeRotation(Rotation);
-        Rod->SetRelativeScale3D(Scale);
+        const FVector Location = (From + To) * .5f - Rotation.RotateVector(Centre * Scale);
+        Rod->SetRelativeTransform(FTransform(Rotation, Location, Scale));
         Rod->SetVisibility(true);
     }
 }
@@ -81,6 +80,7 @@ void UBowPartComponent::InitializeAsPart(AActor* Owner, const FName& InSlot, USc
 
 void UBowPartComponent::SetMesh(UStaticMesh* Mesh)
 {
+    RestoreBeamFilament();
     if(FlexVisual){FlexVisual->SetVisibility(false);FlexVisual->SetFlexMesh(nullptr);}
     PartMesh = Mesh;
     if (Visual)
@@ -92,8 +92,26 @@ void UBowPartComponent::SetMesh(UStaticMesh* Mesh)
     for (const auto& Rod : Rods) if (Rod) Rod->EmptyOverrideMaterials();
 }
 
-void UBowPartComponent::SetSkeletalMesh(USkeletalMesh* Mesh)
+void UBowPartComponent::RestoreBeamFilament()
 {
+    if (BeamFilamentSlot == INDEX_NONE) return;
+    for (int32 LOD = 0; LOD < FlexVisual->GetNumLODs(); ++LOD)
+        FlexVisual->ShowMaterialSection(BeamFilamentSlot, INDEX_NONE, true, LOD);
+    for (const auto& Rod : Rods)
+        if (Rod)
+        {
+            Rod->EmptyOverrideMaterials();
+            Rod->SetCustomPrimitiveDataFloat(0, 0.f);
+            Rod->SetVisibility(false);
+        }
+    BeamFilamentSlot = INDEX_NONE;
+}
+
+void UBowPartComponent::SetSkeletalMesh(USkeletalMesh* Mesh, bool bFitBeamToCams)
+{
+    RestoreBeamFilament();
+    StringCharges=INDEX_NONE;
+    for(const auto& Rod:Rods)if(Rod)Rod->SetVisibility(false);
     PartMesh=nullptr;if(Visual){Visual->SetStaticMesh(nullptr);Visual->SetVisibility(false);}
     if(!FlexVisual&&Mesh)
     {
@@ -102,11 +120,58 @@ void UBowPartComponent::SetSkeletalMesh(USkeletalMesh* Mesh)
         FlexVisual->SetCanEverAffectNavigation(false);FlexVisual->SetCastShadow(false);FlexVisual->SetOnlyOwnerSee(true);FlexVisual->RegisterComponent();
     }
     if(FlexVisual){FlexVisual->EmptyOverrideMaterials();FlexVisual->SetFlexMesh(Mesh);FlexVisual->SetVisibility(bPartVisible&&Mesh);}
+    if (bFitBeamToCams && Mesh && RodMesh && Rods.Num() >= 2 && Rods[0] && Rods[1])
+    {
+        static const FName FilamentName(TEXT("M_Highland_BeamString_Light"));
+        const int32 Slot = FlexVisual->GetMaterialIndex(FilamentName);
+        if (Slot != INDEX_NONE)
+            if (UMaterialInterface* Light = FlexVisual->GetMaterial(Slot))
+            {
+                BeamFilamentSlot = Slot;
+                for (int32 LOD = 0; LOD < FlexVisual->GetNumLODs(); ++LOD)
+                    FlexVisual->ShowMaterialSection(Slot, INDEX_NONE, false, LOD);
+                for (int32 I = 0; I < 2; ++I)
+                {
+                    Rods[I]->SetStaticMesh(RodMesh);
+                    Rods[I]->SetMaterial(0, Light);
+                }
+            }
+    }
 }
 bool UBowPartComponent::HasMesh() const{return PartMesh||(FlexVisual&&FlexVisual->GetSkinnedAsset());}
 void UBowPartComponent::ApplyStringLoad(const FVector& NockCM,const FVector& BraceCM,float Distribution,float RingDegrees)
 {if(FlexVisual)FlexVisual->ApplyStringLoad(NockCM,BraceCM,Distribution,RingDegrees);}
 bool UBowPartComponent::FlexTips(FVector& Upper,FVector& Lower) const{return FlexVisual&&FlexVisual->Tips(Upper,Lower);}
+bool UBowPartComponent::PoseString(const FVector& Upper,const FVector& Nock,const FVector& Lower,int32 Charges)
+{
+    if (!FlexVisual) return false;
+    if (BeamFilamentSlot != INDEX_NONE)
+    {
+        const FVector TopAxis = (Upper - Nock).GetSafeNormal();
+        const FVector BottomAxis = (Nock - Lower).GetSafeNormal();
+        const FVector ServingAxis = (TopAxis + BottomAxis).GetSafeNormal(UE_DOUBLE_SMALL_NUMBER, FVector::UpVector);
+        const FVector Axes[] = {TopAxis, ServingAxis, BottomAxis};
+        if (!FlexVisual->PoseString(Upper, Nock, Lower, Axes)) return false;
+        // Match the inset ends of the authored beam and the asymmetric centre serving (cm).
+        constexpr double FerruleInset = 1.15, ServingTop = 1.93, ServingBottom = 3.93;
+        constexpr float FilamentRadius = .076f;
+        StretchRod(0, Upper - TopAxis * FerruleInset, Nock + ServingAxis * ServingTop, FilamentRadius);
+        StretchRod(1, Lower + BottomAxis * FerruleInset, Nock - ServingAxis * ServingBottom, FilamentRadius);
+        if (Charges != StringCharges)
+            for (int32 I = 0; I < 2; ++I) Rods[I]->SetCustomPrimitiveDataFloat(0, float(Charges));
+    }
+    else
+    {
+        if (!FlexVisual->PoseString(Upper, Nock, Lower)) return false;
+        for (const auto& Rod : Rods) if (Rod && Rod->IsVisible()) Rod->SetVisibility(false);
+    }
+    if (Charges != StringCharges)
+    {
+        StringCharges = Charges;
+        FlexVisual->SetCustomPrimitiveDataFloat(0, float(Charges));
+    }
+    return true;
+}
 
 int32 UBowPartComponent::AddRod(const TCHAR* Label)
 {

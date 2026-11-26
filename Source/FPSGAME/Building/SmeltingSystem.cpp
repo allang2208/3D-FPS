@@ -1,4 +1,6 @@
 #include "SmeltingSystem.h"
+#include "ForgingSystem.h"
+#include "../Tasks/BlacksmithApprenticeship.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../Multiplayer/ColdSteelStationNetwork.h"
 #include "VoxelBuildWorld.h"
@@ -432,6 +434,7 @@ bool UColdSteelSmeltingSystem::CollectSmelting(AVoxelBuildWorld* World,FIntVecto
         if(!Status){Reason=TEXT("角色数据未就绪");return false;}
         Status->SyncRuntime();auto P=Status->Snapshot();
         TArray<FColdSteelSmeltIntent> Intents;
+        const auto* Forge = GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>();
         int64 Total=0;int32 Serial=Job->ActionSerial;
         for(const auto& Product:Job->Products)
         {
@@ -446,6 +449,7 @@ bool UColdSteelSmeltingSystem::CollectSmelting(AVoxelBuildWorld* World,FIntVecto
             {
                 auto Intent=MakeIntent(World,Cell,CastingCollect);
                 Intent.Item=Product.Item;Intent.Count=Taken;Intent.Level=++Serial;
+                if (Forge && Forge->FindMetal(FName(*Product.Item))) BlacksmithApprenticeship::CollectIngots(P, Taken);
                 Intents.Add(Intent);P.SmeltIntents.Add(Intent);Total+=Taken;
             }
         }
@@ -469,6 +473,8 @@ bool UColdSteelSmeltingSystem::CollectSmelting(AVoxelBuildWorld* World,FIntVecto
     const int64 OutCount=R->OutputCount*FMath::Max<int64>(1,Job->BatchCount);
     Model->SyncRuntime();auto P=Model->Snapshot();
     if(!Grant(Model,P,R->Output,OutCount)){Reason=TEXT("背包放不下，先整理背包");return false;}
+    const auto* Forge = GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>();
+    if (!R->bCampfire && Forge && Forge->FindMetal(FName(*R->Output))) BlacksmithApprenticeship::CollectIngots(P, OutCount);
     FColdSteelSmeltIntent Intent=MakeIntent(World,Cell,SmeltCollect);
     Intent.Item=R->Output;Intent.Count=OutCount;Intent.Recipe=Job->Recipe.ToString();Intent.Batch=Job->BatchCount;
     P.SmeltIntents.Add(Intent);

@@ -59,3 +59,4 @@ def import_skin(source,folder,mat):
     slots=list(skin.materials);slots[0].material_interface=mat;skin.materials=slots
     save(skin)
     return skin
+

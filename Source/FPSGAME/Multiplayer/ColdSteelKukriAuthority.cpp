@@ -1,9 +1,12 @@
 #include "ColdSteelPlayerState.h"
+#include "../Movement/HorseRiderComponent.h"
 #include "ColdSteelAuthorityContext.h"
 #include "UppercutStaminaReceipt.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Weapons/Kukri/KukriWeaponComponent.h"
+#include "../Weapons/Kukri/KukriRelentlessComponent.h"
+#include "../Weapons/Kukri/KukriDecisiveComponent.h"
 #include "../Weapons/Kukri/KukriDashRhythm.h"
 #include "../Weapons/Kukri/KukriAttackTiming.h"
 #include "../Weapons/MeleeWeaponStats.h"
@@ -19,6 +22,8 @@
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "GameFramework/GameStateBase.h"
+#include "Misc/CommandLine.h"
+#include "Misc/Parse.h"
 
 uint32 AColdSteelPlayerState::ResolveKukriRuneAttackSerial(const FColdSteelNetHitReport& R,uint32 SnapshotSerial)
 {
@@ -30,6 +35,7 @@ uint32 AColdSteelPlayerState::ResolveKukriRuneAttackSerial(const FColdSteelNetHi
     int32 Family=0;uint32 Sequence=KukriAttack.Serial;
     if(R.AttackMeta&0x80){Family=1;Sequence=QuickCombatServerSequence;}
     else if(R.AttackMeta==SwordUppercut::AttackMeta){Family=2;Sequence=UppercutActiveSequence;}
+    else if(ShadowStep::IsMeta(R.AttackMeta)){Family=2;Sequence=ShadowStepActiveSequence;}
     else if(R.AttackMeta&0x20){Family=3;Sequence=WhirlwindActiveSequence;}
     else if((R.AttackMeta&0x10)&&R.AttackMeta!=0x16)
     {
@@ -42,6 +48,8 @@ uint32 AColdSteelPlayerState::ResolveKukriRuneAttackSerial(const FColdSteelNetHi
     {
         KukriRuneSequences[Family]=Sequence;
         KukriRuneAttackIds[Family]=SnapshotSerial;
+        if(auto* Pendant=GetPawn()->FindComponentByClass<UKukriRelentlessComponent>())Pendant->BindServerAttack(Family,SnapshotSerial);
+        if(auto* Pendant=GetPawn()->FindComponentByClass<UKukriDecisiveComponent>())Pendant->BindServerAttack(Family,SnapshotSerial);
     }
     return KukriRuneAttackIds[Family];
 }
@@ -62,7 +70,7 @@ void AColdSteelPlayerState::FinishKukriAttack(uint32 Serial,bool Cancelled)
 
 bool AColdSteelPlayerState::MatchesKukriEquipment() const
 {
-    const auto* Main=ShadowModel&&!ShadowModel->ActiveProductionTool()?ShadowModel->Equipped():nullptr;
+    const auto* Main=ShadowModel&&!ShadowModel->ActiveProductionTool()?ShadowModel->ActiveKukriWeapon():nullptr;
     const auto* Off=ColdSteelMelee::PairedOneHandedWeapon(Main,ShadowModel);
     return Main&&Main->InstanceId==KukriAttack.Main&&KukriAttack.Pawn.Get()==GetPawn()&&
         (Off?Off->InstanceId:FString())==KukriAttack.Offhand;
@@ -70,6 +78,7 @@ bool AColdSteelPlayerState::MatchesKukriEquipment() const
 
 void AColdSteelPlayerState::ClearKukriAttack()
 {
+    if(GetPawn())if(auto* Pendant=GetPawn()->FindComponentByClass<UKukriDecisiveComponent>())Pendant->EndServer(0);
     if(auto* Pawn=Cast<AFPSGAMECharacter>(KukriAttack.Pawn.Get()))
         if(auto* Move=Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement()))
             Move->CancelKukriAttackMove(KukriAttack.Serial);
@@ -86,45 +95,51 @@ void AColdSteelPlayerState::ServerBeginKukriAttack_Implementation(uint32 Serial,
     KukriReceivedSequence=Serial;
     TickKukriAuthority(0.f);
     auto* Pawn=Cast<AFPSGAMECharacter>(GetPawn());
-    const auto* Main=ShadowModel&&!ShadowModel->ActiveProductionTool()?ShadowModel->Equipped():nullptr;
+    const auto* Main=ShadowModel&&!ShadowModel->ActiveProductionTool()?ShadowModel->ActiveKukriWeapon():nullptr;
     const auto* Off=ColdSteelMelee::PairedOneHandedWeapon(Main,ShadowModel);
     const auto* HP=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
     const auto* Status=Pawn?Pawn->FindComponentByClass<UCombatStatusFormula>():nullptr;
     const double Now=GetWorld()->GetTimeSeconds();
-    const auto Reply=[&](bool Accepted){ClientKukriAttackResult(Serial,ActionPawn,Accepted,
-        ShadowModel?ShadowModel->Snapshot().UppercutStaminaSpent:0.);};
+    const auto Reply=[&](bool Accepted,const TCHAR* Reason=TEXT("accepted"))
+    {
+        if(FParse::Param(FCommandLine::Get(),TEXT("KukriHeavyNetTrace")))
+            UE_LOG(LogTemp,Display,TEXT("KUKRI_BEGIN_RESULT serial=%u stage=%u accepted=%d reason=%s age=%.3f ready_delta=%.3f next=%u active=%u"),
+                Serial,Stage,Accepted,Reason,Now-ClientStartedAt,ClientStartedAt-KukriReadyAt,KukriNextStage,KukriAttack.Serial);
+        ClientKukriAttackResult(Serial,ActionPawn,Accepted,ShadowModel?ShadowModel->Snapshot().UppercutStaminaSpent:0.);
+    };
     // Reliable begin/hit messages can arrive in one frame after loss or a host
     // hitch. Use the same bounded server-clock domain as the hit report, while
     // keeping cadence on this timeline so backdating cannot accelerate a chain.
     if(!FMath::IsFinite(ClientStartedAt)||ClientStartedAt<=0.||ClientStartedAt>Now+.1||Now-ClientStartedAt>.9)
-    {Reply(false);return;}
+    {Reply(false,TEXT("start_timestamp"));return;}
     const double StartedAt=FMath::Min(ClientStartedAt,Now);
-    if(!Pawn||Pawn!=ActionPawn||!ShadowModel||!Main||Main->Definition!=TEXT("ue_kukri")||
+    if(!Pawn||Pawn!=ActionPawn||!ShadowModel||!Main||!ColdSteelInventory::UsesKukriMoveset(*Main)||
         Main->InstanceId!=MainId||(Off?Off->InstanceId:FString())!=OffId||Stage>=KukriRhythm::SwingCount||
         !MasterySerial||!HP||HP->IsDead()||Pawn->IsTraversing()||Pawn->IsDodging()||(!Dash&&Pawn->IsSliding())||
         Pawn->IsCastBlockingLeftHandAction()||UBoundCongregateCaptureComponent::IsCaptured(Pawn)||
         (Status&&Status->BlocksMovement())||IsQuickCombatExecuting(Pawn)||IsSwordWhirlwindExecuting(Pawn)||
         UppercutActiveSequence||!PendingCastSkill.IsNone()||Direction.ContainsNaN()||FVector(Direction).GetSafeNormal2D().IsNearlyZero())
-    {Reply(false);return;}
+    {Reply(false,TEXT("identity_or_action_gate"));return;}
     const FString Key=MainId+TEXT("|")+OffId;
-    if(Key==KukriChainKey&&StartedAt+.08<KukriReadyAt){Reply(false);return;}
+    if(Key==KukriChainKey&&StartedAt+.08<KukriReadyAt){Reply(false,TEXT("cadence"));return;}
     // Stages follow accepted starts, including misses; swapping either blade resets the chain.
     const uint8 Expected=Key==KukriChainKey&&StartedAt<=KukriChainUntil?KukriNextStage:0;
     if((!Dash&&Stage!=0&&Stage!=Expected)||(Dash&&(ShadowModel->MasteryProgress(TEXT("dashAttack")).Level<1||
         KukriSprintKey!=Key||KukriSprintPawn.Get()!=Pawn||StartedAt>KukriDashReadyUntil)))
-    {Reply(false);return;}
+    {Reply(false,TEXT("stage_or_dash_ready"));return;}
     ColdSteelAuthority::FScope Scope(ShadowModel);
     const float MainRate=FMath::Max(.01f,KukriAttackTiming::PlayRate(ColdSteelMelee::Evaluate(*Main,ShadowModel).AttackRate));
     const float OffRate=Off?FMath::Max(.01f,KukriAttackTiming::PlayRate(ColdSteelMelee::Evaluate(*Off,ShadowModel).AttackRate)):MainRate;
     const float SkillRate=FMath::Max(.05f,LightningHaste::ActionSpeed(Pawn));
     const float Cost=Dash?ShadowModel->DashAttackStats().StaminaCost:ColdSteelMelee::ComboAttackStamina(Main,ShadowModel,Off!=nullptr);
     const float Before=ShadowModel->Stamina();
-    if(!ShadowModel->SpendStamina(Cost)){Reply(false);return;}
+    if(!ShadowModel->SpendStamina(Cost)){Reply(false,TEXT("stamina"));return;}
     // Only confirmed costs enter the persisted cumulative ledger. Never debit at each hit.
     ShadowModel->Current.UppercutStaminaSpent+=FMath::Max(0.f,Before-ShadowModel->Stamina());
     ClearKukriAttack();
     auto& A=KukriAttack;A.Serial=Serial;A.MasterySerial=MasterySerial;A.Pawn=Pawn;A.RewardModel=ShadowModel;
     A.Main=MainId;A.Offhand=OffId;A.Dash=Dash;A.Stage=Stage;
+    if(auto* Pendant=Pawn->FindComponentByClass<UKukriRelentlessComponent>())Pendant->PrepareServerAttack(0);
     if(Dash)A.DashKnockback=ShadowModel->DashAttackStats().KnockbackCM;
     A.Started=StartedAt;A.Direction=FVector(Direction).GetSafeNormal2D();
     A.ThrustRate=KukriAttackTiming::PairedPlayRate(MainRate,OffRate);
@@ -141,6 +156,7 @@ void AColdSteelPlayerState::ServerBeginKukriAttack_Implementation(uint32 Serial,
     }
     // Fixed presentation/hit-stop allowance; it does not permit early contacts or faster next attacks.
     A.Until=StartedAt+Duration+.5;
+    if(auto* Pendant=Pawn->FindComponentByClass<UKukriDecisiveComponent>())Pendant->BeginServer(0,MainId,OffId,Dash,float(A.Until-GetWorld()->GetTimeSeconds()));
     KukriReadyAt=StartedAt+Duration;KukriChainKey=Key;
     KukriNextStage=Dash?0:(Stage+1)%KukriRhythm::SwingCount;
     KukriChainUntil=Dash?0.:A.Until+KukriRhythm::ComboResetSeconds;
@@ -166,11 +182,11 @@ void AColdSteelPlayerState::TickKukriAuthority(float Delta)
         Pawn->IsTraversing()||Pawn->IsDodging()||Pawn->IsCastBlockingLeftHandAction()||
         UBoundCongregateCaptureComponent::IsCaptured(Pawn)||(Status&&Status->BlocksMovement())))
     {ClearKukriAttack();KukriChainUntil=0.;KukriNextStage=0;}
-    const auto* Main=ShadowModel&&!ShadowModel->ActiveProductionTool()?ShadowModel->Equipped():nullptr;
+    const auto* Main=ShadowModel&&!ShadowModel->ActiveProductionTool()?ShadowModel->ActiveKukriWeapon():nullptr;
     const auto* Off=ColdSteelMelee::PairedOneHandedWeapon(Main,ShadowModel);
     const FString Key=Main?Main->InstanceId+TEXT("|")+(Off?Off->InstanceId:FString()):FString();
     const auto* Move=Pawn?Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement()):nullptr;
-    const bool Eligible=Move&&HP&&!HP->IsDead()&&Main&&Main->Definition==TEXT("ue_kukri")&&
+    const bool Eligible=Move&&HP&&!HP->IsDead()&&Main&&ColdSteelInventory::UsesKukriMoveset(*Main)&&
         !KukriAttack.Serial&&!IsSwordWhirlwindExecuting(Pawn)&&!UppercutActiveSequence&&!IsQuickCombatExecuting(Pawn)&&
         !Pawn->IsTraversing()&&!Pawn->IsDodging()&&!Pawn->IsCastBlockingLeftHandAction()&&
         !UBoundCongregateCaptureComponent::IsCaptured(Pawn)&&!(Status&&Status->BlocksMovement());
@@ -180,7 +196,7 @@ void AColdSteelPlayerState::TickKukriAuthority(float Delta)
     const auto& Def=ShadowModel->MasteryDefinition(TEXT("dashAttack"));
     const int32 Level=FMath::Clamp(ShadowModel->MasteryProgress(Def.Id).Level,1,Def.MaxLevel);
     const float Ready=FMath::Max(.01f,Def.DashAttack.ReadySeconds*(1.f-(Level-1)*Def.DashAttack.ReadyReductionPerLevel));
-    const bool Sprint=Move->bWantsToSprint&&Move->IsMovingOnGround()&&!Pawn->IsSliding()&&Pawn->GetVelocity().SizeSquared2D()>2500.f;
+    const bool Sprint=UHorseRiderComponent::IsCantering(Pawn) || (Move->bWantsToSprint&&Move->IsMovingOnGround()&&!Pawn->IsSliding()&&Pawn->GetVelocity().SizeSquared2D()>2500.f);
     const bool Carry=KukriSprintSeconds>=Ready&&(Pawn->IsSliding()||Move->IsFalling()||!Move->PendingLaunchVelocity.IsZero());
     KukriSprintSeconds=Sprint?FMath::Min(Ready,KukriSprintSeconds+Delta):Carry?Ready:0.f;
     // The release packet may precede the reliable attack. Retain a short earned-ready grace.
@@ -203,7 +219,13 @@ bool AColdSteelPlayerState::ValidateKukriHit(const FColdSteelNetHitReport& R,con
         !FMath::IsFinite(R.ClientFireTime)||R.ClientFireTime<0.||ContactAt>Now+.1||Now-ContactAt>.9||
         Age+.10<A.ContactStart[Hand]||Age>A.ContactEnd[Hand]+.5||Now>A.Until||
         !R.Target||A.Targets[Hand].Contains(R.Target.Get()))
-    {Reason=TEXT("kukri attack not committed, out of contact window or duplicate blade target");return false;}
+    {
+        if(FParse::Param(FCommandLine::Get(),TEXT("KukriHeavyNetTrace")))
+            UE_LOG(LogTemp,Display,TEXT("KUKRI_CONTACT_REJECT serial=%u active=%u mastery=%u/%u hand=%d age=%.3f window=%.3f..%.3f remaining=%.3f duplicate=%d equipment=%d"),
+                R.KukriAttackSerial,A.Serial,R.MasteryAttackSerial,A.MasterySerial,Hand,Age,A.ContactStart[Hand],A.ContactEnd[Hand],
+                A.Until-Now,R.Target&&A.Targets[Hand].Contains(R.Target.Get()),MatchesKukriEquipment());
+        Reason=TEXT("kukri attack not committed, out of contact window or duplicate blade target");return false;
+    }
     return true;
 }
 

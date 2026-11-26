@@ -5,6 +5,11 @@
 
 namespace WeaponShotNoise
 {
+inline bool PistolSuppressed(const FString& Definition, const FString& Muzzle)
+{
+    return Muzzle == TEXT("tactical_suppressor") || Muzzle == TEXT("true") || Muzzle == TEXT("multi_caliber_suppressor")
+        || (Definition == TEXT("ue_rsh12") && Muzzle == TEXT("rsh12_heavy_suppressor"));
+}
 inline void Report(APawn* Shooter,const FString& Definition,const FString& Muzzle,bool Suppressed)
 {
     if(SniperSuppressorAssets::Supports(Definition)&&Muzzle==SniperSuppressorAssets::Part)return;

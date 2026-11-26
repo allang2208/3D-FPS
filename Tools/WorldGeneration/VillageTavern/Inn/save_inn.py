@@ -60,3 +60,4 @@ set_tavern_vision(vis,house,shape,plan)
 if file.stat().st_mtime_ns!=stamp:raise RuntimeError('Concurrent village edit')
 if not u.EditorLoadingAndSavingUtils.save_map(world,level):raise RuntimeError('Failed saving '+level)
 (out/'level.json').write_text(json.dumps(dict(level=level,**report),indent=2),encoding='utf8')
+

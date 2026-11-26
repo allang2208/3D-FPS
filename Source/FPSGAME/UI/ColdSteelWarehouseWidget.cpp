@@ -1,4 +1,5 @@
 #include "ColdSteelWarehouseWidget.h"
+#include "ColdSteelTextToolTip.h"
 #include "ColdSteelIncineratorStorage.h"
 #include "ColdSteelWarehouseSortOption.h"
 #include "ColdSteelStatusModel.h"
@@ -51,9 +52,9 @@ void UColdSteelWarehouseWidget::NativeOnInitialized()
     auto* Store=Button(TEXT("全部存入"));AddAction(Store);Store->OnClicked.AddDynamic(this,&ThisClass::StoreAll);
     auto* Match=Button(TEXT("取出同类"));AddAction(Match);Match->OnClicked.AddDynamic(this,&ThisClass::Matching);
     auto* DepositMatching=Button(TEXT("存入同类"));AddAction(DepositMatching);DepositMatching->OnClicked.AddDynamic(this,&ThisClass::StoreMatching);
-    DepositMatching->SetToolTipText(FText::FromString(TEXT("存入背包中仓库已有的同种物品，优先合并堆叠；武器与装备不参与。")));
+    ColdSteelToolTip::Set(*DepositMatching, FText::FromString(TEXT("存入背包中仓库已有的同种物品，优先合并堆叠；武器与装备不参与。")));
     SortMenu=WidgetTree->ConstructWidget<UComboBoxString>();SortMenu->OnGenerateWidgetEvent.BindDynamic(this,&ThisClass::SortOption);
-    for(const FString Option:{TEXT("整理仓库"),TEXT("按稀有度"),TEXT("按价值"),TEXT("近战武器"),TEXT("远程武器"),TEXT("盾牌"),TEXT("防具与饰品"),TEXT("消耗品"),TEXT("强化材料"),TEXT("材料"),TEXT("贡品"),TEXT("其他")})SortMenu->AddOption(Option);
+    for(const FString Option:{TEXT("整理仓库"),TEXT("按稀有度"),TEXT("按价值"),TEXT("近战武器"),TEXT("远程武器"),TEXT("盾牌"),TEXT("防具与饰品"),TEXT("消耗品"),TEXT("强化材料"),TEXT("材料"),TEXT("贡品"),TEXT("其他"),TEXT("魔法武器")})SortMenu->AddOption(Option);
     SortMenu->SetSelectedIndex(0);AddAction(SortMenu);SortMenu->OnSelectionChanged.AddDynamic(this,&ThisClass::SortChanged);
     Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetAllowOverscroll(false);Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Never);Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     Board=CreateWidget<UColdSteelInventoryWidget>(GetOwningPlayer());Board->ConfigureWarehouse(HUD);Scroll->AddChild(Board);
@@ -62,7 +63,7 @@ void UColdSteelWarehouseWidget::NativeOnInitialized()
     Page=Text(TEXT(""),12,true);Page->SetJustification(ETextJustify::Center);auto* PageSlot=Footer->AddChildToHorizontalBox(Page);PageSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));PageSlot->SetVerticalAlignment(VAlign_Center);
     Next=Button(TEXT("下一页"));Footer->AddChildToHorizontalBox(Next);Next->OnClicked.AddDynamic(this,&ThisClass::NextPage);
     IncineratorRecovery=Button(TEXT("取回焚化暂存"));
-    IncineratorRecovery->SetToolTipText(FText::FromString(TEXT("取回本档案各焚化炉的暂存物品，包括已拆除或尚未载入的炉子；放不下的物品原处保留。")));
+    ColdSteelToolTip::Set(*IncineratorRecovery, FText::FromString(TEXT("取回本档案各焚化炉的暂存物品，包括已拆除或尚未载入的炉子；放不下的物品原处保留。")));
     IncineratorRecovery->OnClicked.AddDynamic(this,&ThisClass::RetrieveIncinerator);
     IncineratorRecoverySize=WidgetTree->ConstructWidget<USizeBox>();IncineratorRecoverySize->SetContent(IncineratorRecovery);
     Stack->AddChildToVerticalBox(IncineratorRecoverySize)->SetPadding(FMargin(12/Scale,0,12/Scale,8/Scale));

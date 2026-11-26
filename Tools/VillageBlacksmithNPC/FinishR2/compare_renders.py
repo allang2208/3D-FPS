@@ -19,3 +19,4 @@ if __name__=='__main__':
     prefix='ue_' if '--ue' in sys.argv else ''
     for slug in ('portrait','workwear'):pair(slug,prefix)
     if not prefix:pair('portrait',crop=(427,49,968,589),filename='hair_eyes_compare')
+

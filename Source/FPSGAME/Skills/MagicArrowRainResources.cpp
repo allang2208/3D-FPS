@@ -1,0 +1,35 @@
+#include "MagicArrowRainResources.h"
+#include "NetCastUtils.h"
+#include "../UI/ColdSteelStatusModel.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
+#include "../FPSGAMECharacter.h"
+#include "Engine/World.h"
+#include "GameFramework/GameStateBase.h"
+
+bool MagicArrowRainResources::Commit(UColdSteelStatusModel& Model,FColdSteelProfile State)
+{
+    const auto* Pawn=Model.RuntimePawn();
+    const auto* PS=Pawn&&Pawn->HasAuthority()&&!Pawn->IsLocallyControlled()?Pawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
+    return Model.CommitCampfireState(MoveTemp(State),TEXT("MagicArrowRain"),PS?PS->CampfireGuestSlot():FString());
+}
+FMagicArrowRainResourceReceipt MagicArrowRainResources::Capture(const UColdSteelStatusModel& Model,const FString& Ammo)
+{
+    const auto P=Model.Snapshot();FMagicArrowRainResourceReceipt R;
+    R.Revision=P.CampfireInventoryRevision;R.Mana=P.Mana;R.CrystalManaTotal=P.MagicCrystalManaRestored;R.Ammo=Ammo;R.ArrowCount=P.AmmoPouch.FindRef(Ammo);
+    R.Cooldown=P.MagicArrowRainCooldown;R.CooldownDuration=P.MagicArrowRainCooldownDuration;
+    R.bReserved=P.bMagicArrowRainReserved;R.ReservedMana=P.MagicArrowRainReservedMana;
+    R.CapturedAt=Model.GetWorld()->GetTimeSeconds();return R;
+}
+bool MagicArrowRainResources::Apply(UColdSteelStatusModel& Model,const FMagicArrowRainResourceReceipt& R)
+{
+    auto P=Model.Snapshot();if(R.Revision<0||R.Revision<P.CampfireInventoryRevision)return false;
+    P.CampfireInventoryRevision=R.Revision;P.CampfireWorldReceipts.FindOrAdd(TEXT("MagicArrowRain"))=R.Revision;
+    // Absolute counts make a receipt idempotent even when a full mirror arrived first.
+    if(!R.Ammo.IsEmpty())P.AmmoPouch.FindOrAdd(R.Ammo)=R.ArrowCount;
+    P.MagicCrystalManaRestored=R.CrystalManaTotal;
+    P.Mana=FMath::Clamp(R.Mana,0.f,float(Model.Derived(TEXT("maxMp"))));
+    const auto* GS=Model.GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():Model.GetWorld()->GetTimeSeconds();
+    P.MagicArrowRainCooldown=NetCast::RemainingCooldown(R.Cooldown,R.CapturedAt,Now);
+    P.MagicArrowRainCooldownDuration=R.CooldownDuration;P.bMagicArrowRainReserved=R.bReserved;P.MagicArrowRainReservedMana=R.ReservedMana;
+    Model.AdoptNetMirror(P,true);Model.OnChanged.Broadcast();return true;
+}

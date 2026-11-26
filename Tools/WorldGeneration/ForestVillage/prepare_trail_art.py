@@ -85,3 +85,5 @@ if __name__=='__main__':
     root,out=map(Path,sys.argv[1:])
     separate_moss(root/'MagnetVFX/Fab/NordicForestGroundRootsCoarse',out)
     patch(out,root/'HillsGrassDistance-R15/T_HillsFarGrass.png')
+
+

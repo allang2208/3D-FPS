@@ -139,3 +139,4 @@ for sign in (-1,1):
 d['positions']=p.round(5).tolist()
 d['shirt_finish']='Fitted neckline and continuous crossing apron straps'
 (out/'outfit.json').write_text(json.dumps(d,separators=(',',':')))
+

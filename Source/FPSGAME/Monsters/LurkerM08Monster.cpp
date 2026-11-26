@@ -82,7 +82,8 @@ bool ALurkerM08Monster::ShouldPlaySoftDeathLeadIn() const
 
 void ALurkerM08Monster::OnDeathPresentationStarted()
 {
-    bWantsSurfaceMove = bSurfaceAttached = bTraversalJump = false;
+    bWantsSurfaceMove = bSurfaceAttached = false;
+    EndTraversalJump();
     SurfacePath.Reset(); SurfaceVictim.Reset(); bHasSurfacePlan = false;
     if (AirCannon.bActive) EndAirCannon();
     // Immediate soft deaths disable actor Tick; emit the cue and stop loops now.

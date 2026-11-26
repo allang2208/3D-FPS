@@ -1,0 +1,259 @@
+{
+	"checks": [
+		{
+			"case": "heavy fixture uses a remote authority pawn",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri authority holds no first-person animations",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri stale future or NaN start rejected without payment",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri stale future or NaN start rejected without payment",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri stale future or NaN start rejected without payment",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri delayed begin retains bounded input time",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri duplicate begin cannot backdate active charge",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri foreign weapon stop cannot erase charge",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri premature release and later hit cannot commit",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri replayed cancelled begin cannot reopen charge",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri tap cancellation does not bill network transit or release",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri delayed single or paired release commits without loaded clips",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri hidden charge time plus release billed exactly once",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri late and duplicate release cannot debit twice",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri released blade identities retained",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri duplicate contact remains rejected",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri receipt still expires",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri delayed single or paired release commits without loaded clips",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri hidden charge time plus release billed exactly once",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri late and duplicate release cannot debit twice",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri released blade identities retained",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri duplicate contact remains rejected",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri receipt still expires",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri normal delivery retains original total cost",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri release must afford both catchup and strike atomically",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri offhand removal invalidates paired release",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri main weapon removal invalidates release",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri Chenheng physical, heavy damage and stamina use the installed hand",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri Yangu speed, stamina and single-blade charge",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri mixed pommels get no pair bonus on authority",
+			"passed": true
+		},
+		{
+			"case": "ue_kukri dual Yangu pair bonus applies once on authority",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet authority holds no first-person animations",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet stale future or NaN start rejected without payment",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet stale future or NaN start rejected without payment",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet stale future or NaN start rejected without payment",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet delayed begin retains bounded input time",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet duplicate begin cannot backdate active charge",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet foreign weapon stop cannot erase charge",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet premature release and later hit cannot commit",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet replayed cancelled begin cannot reopen charge",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet tap cancellation does not bill network transit or release",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet delayed single or paired release commits without loaded clips",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet hidden charge time plus release billed exactly once",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet late and duplicate release cannot debit twice",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet released blade identities retained",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet duplicate contact remains rejected",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet receipt still expires",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet delayed single or paired release commits without loaded clips",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet hidden charge time plus release billed exactly once",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet late and duplicate release cannot debit twice",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet released blade identities retained",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet duplicate contact remains rejected",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet receipt still expires",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet normal delivery retains original total cost",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet release must afford both catchup and strike atomically",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet offhand removal invalidates paired release",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet main weapon removal invalidates release",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet Chenheng physical, heavy damage and stamina use the installed hand",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet Yangu speed, stamina and single-blade charge",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet mixed pommels get no pair bonus on authority",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet dual Yangu pair bonus applies once on authority",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet old rotated 2x3 axe shrinks to 3x1 without losing its cell or installed pommel",
+			"passed": true
+		},
+		{
+			"case": "ue_tactical_hatchet validated rotated guest axe remains a canonical 1x3 item",
+			"passed": true
+		}
+	],
+	"failures": 0,
+	"udp_or_multiplayer_runtime": false,
+	"visuals_tested": false
+}

@@ -26,7 +26,7 @@ public:
     static constexpr float ConsumptionMultiplier=.5f;
     static float ConsumptionMultiplierAt(const APawn* Player);
     bool IsProvidingWarmth() const;
-    bool HasPresentation() const { return Flame!=nullptr; }
+    bool HasPresentation() const { return FireLight!=nullptr; }
     /** Shared fluid scheduler owns distance and world instance budgets. */
     void SetPresentationActive(bool bActive);
     void Extinguish();
@@ -48,6 +48,7 @@ private:
     UFUNCTION() void OnRep_Shared();
     UPROPERTY() TObjectPtr<UCampfireCookingPresentation> CookingPresentation;
     bool bPresentationRequested=false;
+    bool bFullFlame = true;
     double LastSharedPublish=-100;
     UPROPERTY() TObjectPtr<UStaticMeshComponent> Body;
     UPROPERTY() TObjectPtr<USphereComponent> WarmthQuery;

@@ -1,4 +1,5 @@
 #include "FPSGpuTraceCapture.h"
+#include "../Diagnostics/VillageShadowCapture.h"
 
 #include "Async/Async.h"
 #include "Containers/Queue.h"
@@ -34,6 +35,9 @@ FCriticalSection OwnerLock;
 TSharedPtr<FFPSGpuTraceCapture, ESPMode::ThreadSafe> Owner;
 constexpr double MaxSeconds = 180.;
 constexpr int64 MaxUeBytes = 1024ll * 1024 * 1024;
+constexpr uint32 MaxEtwMegabytes = 512;
+// Leave room for buffered events and the final allocation rundown.
+constexpr int64 EtwStopBytes = 384ll * 1024 * 1024;
 constexpr int32 MaxQueuedIdentities = 1024;
 FString Hex(uint64 Value) { return FString::Printf(TEXT("0x%016llx"), Value); }
 FString Json(const TSharedRef<FJsonObject>& Value)
@@ -74,7 +78,10 @@ const GUID DxgKrnl = {0x802ec45a,0x1e99,0x4b83,{0x99,0x20,0x87,0xc9,0x82,0x77,0x
 const GUID D3D12 = {0x5d8087dd,0x3a9b,0x4f56,{0x90,0xdf,0x49,0x19,0x6c,0xdc,0x4f,0x11}};
 const GUID Umd = {0xa688ee40,0xd8d9,0x4736,{0xb6,0xf9,0x6b,0x74,0x93,0x5b,0xa3,0xb1}};
 const GUID Identity = {0x9c613968,0xe475,0x4f37,{0xa1,0x6d,0x0e,0xc7,0x53,0xf8,0x49,0x25}};
-constexpr uint64 DxgKeywords = 0x043084c7ull; // Base,Profiler,References,Resource,Memory,DriverEvents,GPUScheduler,GPUVA,VidMm,HWS.
+// Profiler alone produced 2.2 million driver enter/leave events in a 7.5 s
+// retained window. Queue, allocation, residency and GPU VA events remain enabled.
+constexpr uint64 DxgKeywords = 0x043084c5ull; // Base,References,Resource,Memory,DriverEvents,GPUScheduler,GPUVA,VidMm,HWS.
+constexpr uint64 D3dKeywords = 0x87ull; // Names,Devices,Resources,ObjectLifetime; GPU pass timing comes from UE Trace.
 struct FEtwProperties
 {
     EVENT_TRACE_PROPERTIES Value{};
@@ -92,7 +99,7 @@ FString FFPSGpuTraceCapture::ReadyStatusText()
         return FString::Printf(TEXT("GPU 深采未开始；进程权限状态读取失败（%lu）。开始后确认 WDDM 状态；错误 5 的启动说明见项目根目录 Launch-F6-WddmCapture.cmd。"), Permissions.Error);
     if (!Permissions.bElevated)
         return TEXT("当前 UE 进程未提权。WDDM 若报错误 5：先保存并退出 UE，再双击项目根目录 Launch-F6-WddmCapture.cmd，确认 Windows 权限提示；随后从 F6 开始采集。");
-    return TEXT("当前进程已提权。复现前点“GPU 驻留/调度：开始”，等待显示“WDDM + UE 正在记录”；卡顿后导出整份 gpu- 文件夹，最多 180 秒。");
+    return TEXT("当前进程已提权。复现前点“GPU 驻留/调度：开始”，等待显示“WDDM + UE 正在记录”；卡顿后导出整份 gpu- 文件夹。最多 180 秒，达到容量会提前停止。");
 #else
     return TEXT("WDDM 驻留/调度采集仅支持 Windows。");
 #endif
@@ -120,6 +127,7 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
     TSharedRef<FJsonObject> Manifest = MakeShared<FJsonObject>();
     TUniquePtr<IFileHandle> IdentityFile;
     TArray<FString> AddedChannels;
+    FVillageShadowCapture VillageShadows;
     // Initialized on the game thread before Run is launched, then immutable.
     bool bOwnsTrace = false, bDirectoryReady = false;
     // Game-thread-only trace control state; the worker only consumes the events/atomics.
@@ -223,7 +231,7 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
         Row->SetNumberField(TEXT("dxgkrnl_error"), EnableTraceEx2(Etw, &FPSGpuTrace::DxgKrnl,
             EVENT_CONTROL_CODE_CAPTURE_STATE, TRACE_LEVEL_VERBOSE, FPSGpuTrace::DxgKeywords, 0, 3000, nullptr));
         Row->SetNumberField(TEXT("d3d12_error"), EnableTraceEx2(Etw, &FPSGpuTrace::D3D12,
-            EVENT_CONTROL_CODE_CAPTURE_STATE, TRACE_LEVEL_VERBOSE, MAX_uint64, 0, 3000, nullptr));
+            EVENT_CONTROL_CODE_CAPTURE_STATE, TRACE_LEVEL_VERBOSE, FPSGpuTrace::D3dKeywords, 0, 3000, nullptr));
         Row->SetStringField(TEXT("contract"), TEXT("Rundown requested; successful API return does not guarantee all pre-existing allocations were emitted."));
         Manifest->SetObjectField(Phase, Row);
     }
@@ -232,7 +240,9 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
         auto& P = Properties.Value;
         P.Wnode.BufferSize = sizeof(Properties); P.Wnode.Flags = WNODE_FLAG_TRACED_GUID;
         P.Wnode.ClientContext = 1; // QPC clock, matched by our in-stream anchors.
-        P.LogFileMode = EVENT_TRACE_FILE_MODE_CIRCULAR; P.MaximumFileSize = 512;
+        // Preserve first-use allocation lifetimes. Circular mode silently
+        // overwrote the beginning without incrementing EventsLost.
+        P.LogFileMode = EVENT_TRACE_FILE_MODE_SEQUENTIAL; P.MaximumFileSize = FPSGpuTrace::MaxEtwMegabytes;
         P.BufferSize = 256; P.MinimumBuffers = 64; P.MaximumBuffers = 128; P.FlushTimer = 1;
         P.LoggerNameOffset = offsetof(FPSGpuTrace::FEtwProperties, Session);
         P.LogFileNameOffset = offsetof(FPSGpuTrace::FEtwProperties, File);
@@ -247,7 +257,7 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
             return false;
         }
         const ULONG Dxg = Enable(FPSGpuTrace::DxgKrnl, FPSGpuTrace::DxgKeywords, false);
-        const ULONG D3d = Enable(FPSGpuTrace::D3D12, MAX_uint64, true);
+        const ULONG D3d = Enable(FPSGpuTrace::D3D12, FPSGpuTrace::D3dKeywords, true);
         const ULONG Umd = Enable(FPSGpuTrace::Umd, 1, true);
         Manifest->SetNumberField(TEXT("dxgkrnl_enable_error"), Dxg);
         Manifest->SetNumberField(TEXT("d3d12_enable_error"), D3d);
@@ -289,8 +299,13 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
         FTraceAuxiliary::GetActiveChannelsString(Previous);
         TArray<FString> Enabled; FString(Previous.ToString()).ParseIntoArray(Enabled, TEXT(","), true);
         for (FString& Name : Enabled) Name.TrimStartAndEndInline();
-        for (const TCHAR* Name : {TEXT("cpu"), TEXT("frame"), TEXT("gpu"), TEXT("counters"), TEXT("bookmark")})
-            if (!Enabled.ContainsByPredicate([Name](const FString& Item){return Item.Equals(Name, ESearchCase::IgnoreCase);})) AddedChannels.Add(Name);
+        UWorld* World = OwningGameInstance.IsValid() ? OwningGameInstance->GetWorld() : nullptr;
+        const bool bNightFixtures = VillageShadows.FindFixtures(World);
+        TArray<FString> Requested{TEXT("cpu"), TEXT("frame"), TEXT("gpu"), TEXT("counters"), TEXT("bookmark")};
+        if (bNightFixtures) { Requested.Add(TEXT("vsm")); Requested.Add(TEXT("log")); }
+        for (const FString& Name : Requested)
+            if (!Enabled.ContainsByPredicate([&Name](const FString& Item){return Item.Equals(Name, ESearchCase::IgnoreCase);})) AddedChannels.Add(Name);
+        const FString Channels = FString::Join(Requested, TEXT(","));
         FTraceAuxiliary::FOptions Options; Options.bExcludeTail = true;
         const TWeakPtr<FState, ESPMode::ThreadSafe> WeakState = AsShared();
         TraceClosedHandle = FTraceAuxiliary::OnClosed.AddLambda([WeakState]
@@ -298,9 +313,11 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
             if (auto Pinned = WeakState.Pin()) Pinned->TraceClosed->Trigger();
         });
         bOwnsTrace = FTraceAuxiliary::Start(FTraceAuxiliary::EConnectionType::File, *TracePath,
-            TEXT("cpu,frame,gpu,counters,bookmark"), &Options)
+            *Channels, &Options)
             && FPaths::IsSamePath(FTraceAuxiliary::GetTraceDestinationString(), TracePath);
         Manifest->SetStringField(TEXT("ue_trace_status"), bOwnsTrace ? TEXT("recording") : TEXT("start_failed"));
+        Manifest->SetBoolField(TEXT("village_shadow_diagnostics"), bOwnsTrace && bNightFixtures);
+        if (bOwnsTrace && bNightFixtures) VillageShadows.Start(*World);
         if (!bOwnsTrace)
         {
             if (!FTraceAuxiliary::IsConnected() && FTraceAuxiliary::GetTraceDestinationString().IsEmpty())
@@ -314,6 +331,7 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
         check(IsInGameThread());
         if (bTraceControlCleaned) return;
         bTraceControlCleaned = true;
+        VillageShadows.Finish(Directory);
         if (TraceClosedHandle.IsValid())
         {
             FTraceAuxiliary::OnClosed.Remove(TraceClosedHandle);
@@ -329,11 +347,13 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
         if (!bOwnsTrace) { TraceStopHandled->Trigger(); CleanupTraceControl(); return true; }
         if (!TraceStopHandled->Wait(0))
         {
+            if (!TraceStopNeeded.Load() && !StopRequested.Load()) VillageShadows.Sample();
             // Never stop a trace opened by a different owner after ours ended.
             if (!FPaths::IsSamePath(FTraceAuxiliary::GetTraceDestinationString(), TracePath))
             {
                 TraceInterrupted.Store(true);
                 Stop(TEXT("ue_trace_interrupted"));
+                VillageShadows.Finish(Directory);
                 TraceStopHandled->Trigger();
             }
             else if (TraceStopNeeded.Load())
@@ -346,6 +366,7 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
                 if (bAccepted || TraceClosed->Wait(0) || Now >= TraceStopDeadline)
                 {
                     TraceStopAccepted.Store(bAccepted);
+                    VillageShadows.Finish(Directory);
                     TraceStopHandled->Trigger();
                 }
             }
@@ -371,7 +392,7 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
     }
     void Run()
     {
-        Manifest->SetNumberField(TEXT("version"), 5);
+        Manifest->SetNumberField(TEXT("version"), 6);
 #if PLATFORM_WINDOWS
         const auto& Permissions = FPSGpuTrace::ProcessPermissions();
         Manifest->SetNumberField(TEXT("windows_token_query_error"), Permissions.Error);
@@ -390,11 +411,16 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
         Manifest->SetNumberField(TEXT("process_id"), FPlatformProcess::GetCurrentProcessId());
         Manifest->SetStringField(TEXT("rhi"), GDynamicRHI ? GDynamicRHI->GetName() : TEXT("unavailable"));
         Manifest->SetStringField(TEXT("directory"), Directory);
-        Manifest->SetStringField(TEXT("contract"), TEXT("Explicit bounded diagnostic capture. ETL is system-wide GPU metadata; D3D12/UMD/identity providers filtered to this PID. ETW events must be joined by PID, adapter, GPU VA/resource lifetime and QPC; no physical residency is inferred from UE's resident flag. Capture has overhead. A successful provider enable is not proof of complete event coverage. Circular ETL can overwrite its beginning without counting that as lost events. F6's displayed snapshot can be older than this capture; compare timestamps and generation."));
-        Manifest->SetNumberField(TEXT("etw_circular_limit_mb"), 512);
+        Manifest->SetStringField(TEXT("contract"), TEXT("Explicit bounded diagnostic capture. ETL is system-wide GPU metadata; D3D12/UMD/identity providers filtered to this PID. ETW events must be joined by PID, adapter, GPU VA/resource lifetime and QPC; no physical residency is inferred from UE's resident flag. Capture has overhead. A successful provider enable is not proof of complete event coverage. Sequential ETL preserves its beginning and requests stop at the soft size limit; reaching the hard limit marks the bundle incomplete. Files finalized does not prove coverage of a later F6 snapshot; compare actual event times, stop_reason and generation."));
+        Manifest->SetStringField(TEXT("etw_file_mode"), TEXT("sequential"));
+        Manifest->SetNumberField(TEXT("etw_hard_limit_mb"), FPSGpuTrace::MaxEtwMegabytes);
+        Manifest->SetNumberField(TEXT("etw_stop_limit_bytes"), double(FPSGpuTrace::EtwStopBytes));
         Manifest->SetNumberField(TEXT("maximum_seconds"), FPSGpuTrace::MaxSeconds);
         Manifest->SetNumberField(TEXT("ue_trace_limit_bytes"), double(FPSGpuTrace::MaxUeBytes));
-        Manifest->SetStringField(TEXT("dxgkrnl_keywords"), FPSGpuTrace::Hex(0x043084c7));
+#if PLATFORM_WINDOWS
+        Manifest->SetStringField(TEXT("dxgkrnl_keywords"), FPSGpuTrace::Hex(FPSGpuTrace::DxgKeywords));
+        Manifest->SetStringField(TEXT("d3d12_keywords"), FPSGpuTrace::Hex(FPSGpuTrace::D3dKeywords));
+#endif
         bool bStarted = bDirectoryReady;
         if (bStarted) IdentityFile.Reset(FPlatformFileManager::Get().GetPlatformFile().OpenWrite(*(Directory / TEXT("buffers.jsonl"))));
         bStarted &= IdentityFile.IsValid();
@@ -428,7 +454,7 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
         {
             Collecting.Store(true);
             SetStatus(bWddmReady
-                ? TEXT("WDDM + UE 正在记录（含缓冲身份，最多 180 秒）；复现卡顿后直接导出记录。")
+                ? TEXT("WDDM + UE 正在记录（含缓冲身份，最多 180 秒，达到容量提前停止）；复现卡顿后直接导出记录。")
                 : FString::Printf(TEXT("仅 UE GPU 时间线/缓冲身份记录中（最多 180 秒，缺少 WDDM）。%s"), *WddmFailure));
             double NextSizeCheck = 0.;
             while (!StopRequested.Load())
@@ -438,7 +464,9 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
                 if (Now - StartSeconds >= FPSGpuTrace::MaxSeconds) { Stop(TEXT("duration_limit")); break; }
                 if (Now >= NextSizeCheck)
                 {
-                    NextSizeCheck = Now + 1.;
+                    NextSizeCheck = Now + .25;
+                    if (bEtwSessionStarted && IFileManager::Get().FileSize(*(Directory / TEXT("wddm.etl"))) >= FPSGpuTrace::EtwStopBytes)
+                    { Stop(TEXT("etw_file_size_limit")); break; }
                     if (IFileManager::Get().FileSize(*TracePath) >= FPSGpuTrace::MaxUeBytes) { Stop(TEXT("ue_file_size_limit")); break; }
                 }
                 Wake->Wait(250);
@@ -447,19 +475,9 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
         { FScopeLock Guard(&Lock); Collecting.Store(false); }
         ClockAnchor(TEXT("capture_stop"));
         TraceStopNeeded.Store(true);
-        bool bTraceSealed = false, bEtwSealed = false;
-        if (bOwnsTrace)
-        {
-            TraceStopHandled->Wait();
-            if (!TraceInterrupted.Load())
-            {
-                Manifest->SetBoolField(TEXT("ue_trace_stop_ok"), TraceStopAccepted.Load());
-                bTraceSealed = TraceClosed->Wait(10000);
-                Manifest->SetBoolField(TEXT("ue_trace_file_closed"), bTraceSealed);
-                Manifest->SetStringField(TEXT("ue_trace_status"), bTraceSealed ? TEXT("closed") : TEXT("close_not_confirmed"));
-            }
-            else Manifest->SetStringField(TEXT("ue_trace_status"), TEXT("interrupted_by_external_trace_change"));
-        }
+        bool bTraceSealed = false, bEtwSealed = false, bEtwHardLimitReached = false;
+        // Seal ETW before waiting for game-thread trace control. A blocked game
+        // thread must not keep filling the ETL after its size limit requested stop.
 #if PLATFORM_WINDOWS
         if (Etw)
         {
@@ -480,7 +498,22 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
             Etw = 0;
         }
         { FScopeLock Guard(&Lock); if (IdentityProvider) EventUnregister(IdentityProvider); IdentityProvider = 0; }
+        bEtwHardLimitReached = bEtwSessionStarted && IFileManager::Get().FileSize(*(Directory / TEXT("wddm.etl")))
+            >= int64(FPSGpuTrace::MaxEtwMegabytes) * 1024 * 1024;
 #endif
+        Manifest->SetBoolField(TEXT("etw_hard_limit_reached"), bEtwHardLimitReached);
+        if (bOwnsTrace)
+        {
+            TraceStopHandled->Wait();
+            if (!TraceInterrupted.Load())
+            {
+                Manifest->SetBoolField(TEXT("ue_trace_stop_ok"), TraceStopAccepted.Load());
+                bTraceSealed = TraceClosed->Wait(10000);
+                Manifest->SetBoolField(TEXT("ue_trace_file_closed"), bTraceSealed);
+                Manifest->SetStringField(TEXT("ue_trace_status"), bTraceSealed ? TEXT("closed") : TEXT("close_not_confirmed"));
+            }
+            else Manifest->SetStringField(TEXT("ue_trace_status"), TEXT("interrupted_by_external_trace_change"));
+        }
         while (QueuedIdentities.Load() > 0) Drain();
         bool bIdentityFlushed = false;
         if (IdentityFile) { bIdentityFlushed = IdentityFile->Flush(); IdentityFile.Reset(); }
@@ -505,7 +538,7 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
             Files->SetObjectField(Name, File);
         }
         Manifest->SetObjectField(TEXT("files"), Files);
-        bool bLost = DroppedIdentities.Load() != 0 || IdentityEtwWriteFailures.Load() != 0;
+        bool bLost = bEtwHardLimitReached || DroppedIdentities.Load() != 0 || IdentityEtwWriteFailures.Load() != 0;
         double Lost = 0;
         for (const TCHAR* Name : {TEXT("events_lost"), TEXT("log_buffers_lost"), TEXT("real_time_buffers_lost")})
             if (Manifest->TryGetNumberField(Name, Lost) && Lost > 0) bLost = true;
@@ -514,7 +547,8 @@ struct FFPSGpuTraceCapture::FState : TSharedFromThis<FFPSGpuTraceCapture::FState
             SetStatus(!bAvailableFilesSealed ? TEXT("GPU 记录收尾不完整；请保留整份文件夹中的失败详情。")
                 : !bWddmReady ? FString::Printf(TEXT("已保存 UE GPU 时间线/缓冲身份，缺少完整 WDDM%s。%s"),
                     bLost ? TEXT("，且存在丢失事件") : TEXT(""), *WddmFailure)
-                : bLost ? TEXT("GPU 记录已停止，存在丢失事件；请导出整份文件夹。")
+                : bLost ? TEXT("GPU 记录已停止，存在丢失事件或触及文件硬上限；请导出整份文件夹。")
+                : StopReason == TEXT("etw_file_size_limit") ? TEXT("GPU 记录已达到容量并提前停止，已保留记录开头；请导出整份文件夹，按实际记录时间分析。")
                 : TEXT("GPU 驻留/调度记录已停止；导出时请保留整份文件夹。"));
         }
         { FScopeLock Guard(&Lock); Manifest->SetStringField(TEXT("status_text"), Status); }

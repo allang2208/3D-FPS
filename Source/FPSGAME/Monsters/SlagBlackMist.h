@@ -28,14 +28,22 @@ public:
     static void Gather(UWorld* World, TArray<ASlagBlackMist*>& Out);
     UMaterialInterface* GetBlindViewOverride() const { return BlindViewOverride; }
 protected:
-    virtual void GetEmissionSources(FVector (&Origins)[3], FVector& Drift) const;
+    virtual void GetEmissionSources(FVector (&Origins)[4], FVector& Drift) const;
     virtual bool ShouldEmit() const;
     UNiagaraComponent* GetSmokeComponent() const { return Smoke; }
-private:
-    struct FWakePuff { FVector Origins[3], Drift; double Born; };
+    virtual int32 GetEmissionSourceCount() const { return 3; }
+    virtual float GetEmissionRate() const { return 8.f; }
+    virtual void CapturePuffFloors(const FVector (&Origins)[4],float (&Floors)[4]) const;
+    virtual FVector PuffCenter(const FVector& Origin,const FVector& Drift,float Age,float FloorZ) const;
+    virtual float CoreRadiusFraction(float NormalizedAge) const;
+protected:
+    struct FWakePuff { FVector Origins[4], Drift; float Floors[4]{}; double Born; };
     TArray<FWakePuff, TInlineAllocator<32>> Trail;
     double NextWake = 0.;
-    void UpdateWake();
+    double NextEmissionBudgetUpdate = 0.;
+    float CurrentFloors[4]{};
+    virtual void UpdateWake();
+    virtual double WakeClock() const;
     UPROPERTY(ReplicatedUsing=OnRep_Cloud) bool bEmitting = true;
     UPROPERTY(VisibleAnywhere) TObjectPtr<USceneComponent> Root;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UNiagaraComponent> Smoke;

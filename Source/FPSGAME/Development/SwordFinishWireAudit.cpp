@@ -1,4 +1,6 @@
 #include "SwordFinishWireAudit.h"
+#include "HatchetRuneWireAudit.h"
+#include "HighlandEquipmentWireAudit.h"
 #include "../FPSGAMECharacter.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -19,6 +21,8 @@
 #include "Misc/Parse.h"
 #include "Serialization/JsonSerializer.h"
 #include "UObject/UnrealType.h"
+#include "../Weapons/SwordTasselMeshComponent.h"
+#include "ForgedSwordEquipmentWire.inl"
 
 namespace SwordFinishWire
 {
@@ -47,6 +51,9 @@ void Network(UWorld* World)
 FString Identity(bool Host){return Host?TEXT("SwordFinishAudit_HostSword"):TEXT("SwordFinishAudit_GuestSword");}
 FColdSteelProfile Seed(UColdSteelStatusModel* Model,bool Host)
 {
+    if(ForgedSwordEquipmentWire::Enabled())return ForgedSwordEquipmentWire::Seed(Model,Host);
+    if(HighlandEquipmentWire::Enabled())return HighlandEquipmentWire::Seed(Model,Host);
+    if(HatchetRuneWire::Enabled())return HatchetRuneWire::Seed(Model,Host);
     auto State=Model->Snapshot();State.Items.Reset();State.ActiveWeaponSlot=6;State.ActiveProductionTool.Reset();State.DungeonRun={};
     State.Stamina=150;State.bSprintExhausted=false;
     auto Item=Model->CreateItem(TEXT("ue_rune_sword"));Item.Place=1;Item.Cell=6;Item.InstanceId=Identity(Host);State.Items.Add(Item);
@@ -59,7 +66,10 @@ void Prepare(AFPSGAMECharacter* Pawn,UColdSteelStatusModel* Model,int32 Phase,bo
     Pawn->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);Pawn->SetActorTickEnabled(false);
     auto State=Model->Snapshot();State.ActiveWeaponSlot=Phase==4?9:6;
     const auto Desired=Selection(Phase,Host);
-    for(auto& Item:State.Items)if(Item.InstanceId==Identity(Host))
+    if(ForgedSwordEquipmentWire::Enabled())ForgedSwordEquipmentWire::Select(State,Phase,Host);
+    else if(HighlandEquipmentWire::Enabled())HighlandEquipmentWire::Select(State,Phase,Host);
+    else if(HatchetRuneWire::Enabled())HatchetRuneWire::Select(State,Phase,Host);
+    else for(auto& Item:State.Items)if(Item.InstanceId==Identity(Host))
     {
         TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data);
         auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("blade_material"),Desired.Finish);
@@ -72,6 +82,9 @@ void Prepare(AFPSGAMECharacter* Pawn,UColdSteelStatusModel* Model,int32 Phase,bo
 }
 bool Check(AFPSGAMECharacter* Pawn,int32 Phase,bool Host,FString& Details)
 {
+    if(ForgedSwordEquipmentWire::Enabled())return ForgedSwordEquipmentWire::Check(Pawn,Phase,Host,Details);
+    if(HighlandEquipmentWire::Enabled())return HighlandEquipmentWire::Check(Pawn,Phase,Host,Details);
+    if(HatchetRuneWire::Enabled())return HatchetRuneWire::Check(Pawn,Phase,Host,Details);
     auto* Body=Pawn?Pawn->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
     if(!Body){Details=TEXT("body unavailable");return false;}
     const auto Desired=Selection(Phase,Host);
@@ -122,7 +135,14 @@ void ASwordFinishWireController::Tick(float Delta)
         if(Prepared<0){SwordFinishWire::Network(GetWorld());Model->AdoptNetMirror(SwordFinishWire::Seed(Model,false));}
         Prepared=Phase;Started=Now;LastSent=-10;SwordFinishWire::Prepare(Controlled,Model,Phase,false);
     }
-    if(Now-Started<1.||Now-LastSent<.5)return;
+    if(Phase==5 && HighlandEquipmentWire::Enabled())
+    {
+        HighlandEquipmentWire::ObserveJudgment(Subject);HighlandEquipmentWire::ObserveJudgment(Controlled);
+    }
+    if(Now-Started<1.)return;
+    if(HighlandEquipmentWire::Enabled()&&!HighlandEquipmentWire::TickGaleAttack(Controlled,Phase)&&Now-Started<60.)return;
+    if(HighlandEquipmentWire::Enabled()&&!HighlandEquipmentWire::TickCharge(Controlled,Phase)&&Now-Started<60.)return;
+    if(Now-LastSent<.5)return;
     FString OwnerDetails,Observer;const bool A=SwordFinishWire::Check(Controlled,Phase,false,OwnerDetails),B=SwordFinishWire::Check(Subject,Phase,true,Observer);
     if((A&&B)||Now-Started>60.){LastSent=Now;ServerResult(Phase,A&&B,OwnerDetails+TEXT(" | host observer: ")+Observer);}
 }
@@ -150,7 +170,10 @@ void ASwordFinishWireGameMode::Record(ASwordFinishWireController* Sender,int32 C
     const bool B=SwordFinishWire::Check(Cast<AFPSGAMECharacter>(Guest->GetPawn()),Case,false,GuestView);
     if(ClientPassed&&(!A||!B)&&GetWorld()->GetRealTimeSeconds()-PhaseAt<60.)return;
     const bool OK=ClientPassed&&A&&B&&(Case!=6||Reconnected);
-    auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("case"),SwordFinishWire::Names[Case]);Row->SetBoolField(TEXT("passed"),OK);
+    const TCHAR* HighlandNames[]={TEXT("late_join_ridge_gale"),TEXT("remove_gale"),TEXT("long_grip_ridge_guard_whirlwind_kill"),
+        TEXT("factory_and_broadblade_guard_swing_kill"),TEXT("unequip"),TEXT("reequip_and_heavy_rpc"),TEXT("reconnect_retained_equipment")};
+    auto Row=MakeShared<FJsonObject>();Row->SetStringField(TEXT("case"),ForgedSwordEquipmentWire::Enabled()?ForgedSwordEquipmentWire::Cases[Case]:
+        HighlandEquipmentWire::Enabled()?HighlandNames[Case]:SwordFinishWire::Names[Case]);Row->SetBoolField(TEXT("passed"),OK);
     Row->SetStringField(TEXT("client"),Details);Row->SetStringField(TEXT("server_host"),HostView);Row->SetStringField(TEXT("server_guest"),GuestView);
     Rows.Add(MakeShared<FJsonValueObject>(Row));Passed&=OK;Sender->Reported=true;
     UE_LOG(LogTemp,Display,TEXT("SWORD_FINISH_WIRE_CASE %d passed=%d %s | server: %s / %s"),Case,OK,*Details,*HostView,*GuestView);
@@ -162,8 +185,15 @@ void ASwordFinishWireGameMode::Finish()
 {
     if(ExitAt>=0)return;
     auto Result=MakeShared<FJsonObject>();Result->SetBoolField(TEXT("passed"),Passed&&Rows.Num()==7&&Reconnected);Result->SetArrayField(TEXT("cases"),Rows);
+    Result->SetStringField(TEXT("weapon"),HighlandEquipmentWire::Enabled()?TEXT("ue_highland_claymore"):HatchetRuneWire::Enabled()?TEXT("ue_tactical_hatchet"):TEXT("ue_rune_sword"));
     Result->SetBoolField(TEXT("actual_network_transport"),GetWorld()->GetNetDriver()!=nullptr);Result->SetBoolField(TEXT("rendered"),false);
     Result->SetBoolField(TEXT("reconnected"),Reconnected);Result->SetStringField(TEXT("scope"),TEXT("production body equipment capture/replication/OnRep reconstruction over UDP; same retained server-side item instances after reconnect; fixture-seeded inventory, no attack RPC or inventory upload"));
+    if(HighlandEquipmentWire::Enabled())Result->SetStringField(TEXT("scope"),TEXT("Highland blade, pommel and fitted guard meshes, actual guest whirlwind and swing kills, owner/server stamina receipts and timed HUD speed buff, judged ridge strike and reconnect; fixture-seeded inventory, no rendered VFX"));
+    if(ForgedSwordEquipmentWire::Enabled())
+    {
+        Result->SetStringField(TEXT("weapon"),TEXT("ue_forged_steel_greatsword"));
+        Result->SetStringField(TEXT("scope"),TEXT("Retained forged sword instances, actual world meshes and chain simulation component on owner, authority and observer across swaps, late join and reconnect; fixture-seeded inventory."));
+    }
 #if DO_ENABLE_NET_TEST
     if(const auto* Driver=GetWorld()->GetNetDriver()){Result->SetNumberField(TEXT("lag_ms_per_peer"),Driver->PacketSimulationSettings.PktLag);Result->SetNumberField(TEXT("loss_percent_per_peer"),Driver->PacketSimulationSettings.PktLoss);}
 #endif
@@ -196,7 +226,17 @@ void ASwordFinishWireGameMode::Tick(float Delta)
         // Reconnect reattaches the retained authority profile without replacing its items.
         if(NextPhase==6){GuestModel->AttachPawn(Pawn);Pawn->SetActorTickEnabled(false);Pawn->GetCharacterMovement()->DisableMovement();}
         else SwordFinishWire::Prepare(Pawn,GuestModel,NextPhase,false);
+        if((NextPhase==2 || NextPhase==3 || NextPhase==5) && HighlandEquipmentWire::Enabled())
+            HighlandEquipmentWire::PlaceTarget(Pawn,NextPhase!=5);
         Guest->Subject=Host;Guest->Phase=NextPhase;Guest->Reported=false;Guest->ForceNetUpdate();
+    }
+    if(HighlandEquipmentWire::Enabled()&&Prepared==5)
+    {
+        // This fixture's PlayerState intentionally disables normal profile tick.
+        GuestModel->TickRuntime(Delta,Pawn);
+        if(Now-PhaseAt>1.)HighlandEquipmentWire::TickCharge(Host,5);
+        HighlandEquipmentWire::ObserveJudgment(Host);HighlandEquipmentWire::ObserveJudgment(Pawn);
+        FString ChargeDetails;HighlandEquipmentWire::Check(Pawn,5,false,ChargeDetails);
     }
     if(Now-PhaseAt>100.){Passed=false;Finish();}
 }

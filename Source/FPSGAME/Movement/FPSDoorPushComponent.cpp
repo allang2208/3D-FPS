@@ -1,4 +1,7 @@
 #include "FPSDoorPushComponent.h"
+#include "../WorldGeneration/VillageDefenseSection.h"
+#include "../WorldGeneration/HighVillageDefense.h"
+#include "../Skills/LightningHasteSpeed.h"
 #include "DoorPushAuthored20261002.h"
 #include "DoorPushCameraShake.h"
 #include "FPSCharacterMovementComponent.h"
@@ -143,6 +146,11 @@ bool UFPSDoorPushComponent::Probe(FHitResult& Hit) const
     return false;
 }
 
+bool UFPSDoorPushComponent::UsesHandMesh(const UFPSCastingMeshComponent* Mesh) const
+{
+    return bActive && ActiveHands.Get()==Mesh;
+}
+
 bool UFPSDoorPushComponent::BeginPush(const FHitResult& Hit)
 {
     auto* Player=Cast<AFPSGAMECharacter>(GetOwner());if(!Player)return false;
@@ -186,6 +194,7 @@ bool UFPSDoorPushComponent::BeginPush(const FHitResult& Hit)
         return false;
     }
     Door=LastDoor=Hit.GetActor();
+    ActionRate=LightningHaste::ActionSpeed(GetOwner());
     Age=0.f;bContactResolved=false;bActive=true;bAwaitingImpact=true;
     ++LocalSequence;ServerBeginPush(LocalSequence,Door.Get());
     return true;
@@ -212,7 +221,7 @@ void UFPSDoorPushComponent::Advance(float Delta)
         if(!ActiveHands.IsValid()||!PC||PC->GetViewTarget()!=Player||Player->IsTraversing()||Player->IsDodging()||Player->IsSliding()||
             (Health&&Health->IsDead())||AFPSGAMEPlayerController::BlocksActionContinuation(PC))
         {Cancel();return;}
-        Age+=Delta;
+        Age+=Delta*ActionRate;
         if(Age>=DoorPushAuthored20261002::ContactSeconds&&!bContactResolved)
         {
             bContactResolved=true;
@@ -301,7 +310,7 @@ void UFPSDoorPushComponent::EndPlay(const EEndPlayReason::Type Reason)
 {Cancel();if(Load){Load->CancelHandle();Load.Reset();}Super::EndPlay(Reason);}
 
 // RPCs travel on the owning pawn's component. Door actors remain server-owned.
-bool UFPSDoorPushComponent::ServerCanInteract(AActor* Target,bool bSprint,FString* OutReason) const
+bool UFPSDoorPushComponent::ServerCanInteract(AActor* Target,bool bSprint,FString* OutReason,FHitResult* OutHit) const
 {
     auto Fail=[&](const TCHAR* Reason){if(OutReason)*OutReason=Reason;return false;};
     const auto* Player=Cast<AFPSGAMECharacter>(GetOwner());
@@ -348,6 +357,7 @@ bool UFPSDoorPushComponent::ServerCanInteract(AActor* Target,bool bSprint,FStrin
             const float Facing=FVector::DotProduct(Hit.ImpactNormal,FRotator(0,Aim.Yaw,0).Vector());
             if(Facing>-.55f)return Fail(TEXT("服务器侧朝向拒绝"));
         }
+        if(OutHit)*OutHit=Hit;
         if(OutReason)*OutReason=TEXT("");
         return true;
     }
@@ -370,6 +380,7 @@ void UFPSDoorPushComponent::ServerBeginPush_Implementation(uint16 Sequence,AActo
             ServerDoor.IsValid()?1:0,float(Now-LastServerRequest));
         ClientPushResult(Sequence,false);return;
     }
+    ServerActionRate=LightningHaste::ActionSpeed(GetOwner());
     LastServerRequest=Now;ServerSequence=Sequence;ServerDoor=Target;ServerAge=0.f;bServerContact=false;
 }
 
@@ -387,7 +398,7 @@ void UFPSDoorPushComponent::ServerCancelPush_Implementation(uint16 Sequence)
 void UFPSDoorPushComponent::AdvanceAuthority(float DeltaSeconds)
 {
     if(!ServerDoor.IsValid())return;
-    ServerAge+=DeltaSeconds;
+    ServerAge+=DeltaSeconds*ServerActionRate;
     if(ServerAge>DoorPushAuthored20261002::DurationSeconds+.5f)
     {ServerDoor.Reset();ClientPushResult(ServerSequence,false);
      UE_LOG(LogTemp,Warning,TEXT("[DoorPush] 服务器超时未收到接触，回执失败"));return;}
@@ -441,7 +452,8 @@ bool UFPSDoorPushComponent::IsNativeDoor(AActor* Target)
     // 原生门族：全部经服务器权威开关（E 键 RequestDoorInteraction / 松开 ReleasePressedDoor）。
     // Fab 包的门（BI_Interact 蓝图）不在此列，继续走各自的 OnInteraction 泛化路径。
     return Target&&(Cast<AColdSteelDoor>(Target)||Cast<AColdSteelWindow>(Target)||
-        Cast<AColdSteelSlidingDoor>(Target)||Cast<AColdSteelRevolvingDoor>(Target));
+        Cast<AColdSteelSlidingDoor>(Target)||Cast<AColdSteelRevolvingDoor>(Target)||Cast<AVillageDefenseGate>(Target)
+        ||Cast<AHighVillageGate>(Target));
 }
 
 bool UFPSDoorPushComponent::RequestDoorInteraction(AActor* Target)
@@ -450,6 +462,13 @@ bool UFPSDoorPushComponent::RequestDoorInteraction(AActor* Target)
     if(!IsValid(Target)||!IsNativeDoor(Target))
     {UE_LOG(LogTemp,Warning,TEXT("[DoorPush] E键请求被拒：目标=%s 原生门族=%d"),
         *GetNameSafe(Target),IsNativeDoor(Target)?1:0);return false;}
+    if(Target->IsA<AHighVillageGate>())
+    {
+        const auto* Pawn=Cast<APawn>(GetOwner());
+        const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
+        const auto Focus=ColdSteelWorldInteraction::TraceUseTargets(PC);
+        if(Focus.Target!=Target || Focus.GateUse!=EHighGateUse::Release)return false;
+    }
     Cancel();PressedDoor=Target;ServerToggleDoor(Target);return true;
 }
 
@@ -465,11 +484,19 @@ void UFPSDoorPushComponent::ServerToggleDoor_Implementation(AActor* Target)
 {
     const double Now=GetWorld()->GetTimeSeconds();
     FString Reason;
-    const bool bOk=ServerCanInteract(Target,false,&Reason);
+    FHitResult Hit;
+    const bool bOk=ServerCanInteract(Target,false,&Reason,&Hit);
     if(!bOk){UE_LOG(LogTemp,Warning,TEXT("[DoorPush] E键开关门拒绝：目标=%s 原因=%s"),*GetNameSafe(Target),*Reason);}
     else if(DoorPushDebug()){UE_LOG(LogTemp,Display,TEXT("[DoorPush] E键开关门：目标=%s 结果=1"),*GetNameSafe(Target));}
     if((LastServerRequest>=0.&&Now-LastServerRequest<.15)||!bOk)return;
     LastServerRequest=Now;ServerDoor.Reset();bServerContact=false;
+    if(auto* Gate=Cast<AVillageDefenseGate>(Target)){Gate->ToggleDoor();return;}
+    if(auto* Gate=Cast<AHighVillageGate>(Target))
+    {
+        if(Gate->ResolveUse(Hit)!=EHighGateUse::Release)return;
+        Gate->ToggleDoor();
+        return;
+    }
     if(auto* Single=Cast<AColdSteelDoor>(Target))Single->ToggleDoorFrom(Cast<APawn>(GetOwner()));
     else if(auto* Window=Cast<AColdSteelWindow>(Target))Window->ToggleWindowFrom(Cast<APawn>(GetOwner()));
     else if(auto* Slide=Cast<AColdSteelSlidingDoor>(Target))Slide->ToggleDoorFrom(Cast<APawn>(GetOwner()));

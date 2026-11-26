@@ -84,3 +84,4 @@ def wood():
         result.append(dict(role=role,uid=item['uid'],name=item['title'],mesh=m.get_path_name(),size_cm=rest_log(m,role)))
     (src/'wood-palette.json').write_text(json.dumps(result,indent=2))
 if __name__=='__main__':wood()
+

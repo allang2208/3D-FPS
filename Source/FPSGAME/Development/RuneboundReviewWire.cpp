@@ -43,11 +43,11 @@ void ARuneboundReviewController::Tick(float Delta)
         Remote->ReconcileFinalTollSeals(Remote->RuneboundActiveUntil>Remote->RuneboundClock());
         const bool Initial=Remote->FinalTollSealState.Marks.Num()==1&&Remote->FinalTollVisualMarks.Num()==1&&Own->RuneboundCharge==5&&Own->IsRuneboundAwakened(*Model->ActiveProductionTool());
         if(!Initial&&Now-Started<10.)return;
-        ServerPhase(1,Initial);Own->ServerBeginBluntCharge(9001);Started=Now;Stage=1;return;
+        ServerPhase(1,Initial);Own->ServerBeginBluntCharge(9001,Own->EquippedId);Started=Now;Stage=1;return;
     }
     if(Stage==1&&Now-Started>2.6)
     {
-        Own->ServerBeginBluntAttack(9001,true,false);Own->ServerBeginBluntAttack(9001,true,false);
+        Own->ServerBeginBluntAttack(9001,true,false,Own->EquippedId);Own->ServerBeginBluntAttack(9001,true,false,Own->EquippedId);
         Started=Now;Stage=2;return;
     }
     if(Stage==2&&Now-Started>2.)

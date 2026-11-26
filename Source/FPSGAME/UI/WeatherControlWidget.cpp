@@ -62,7 +62,7 @@ void UWeatherControlWidget::NativeOnInitialized()
     Surface->SetContent(Stack);
     auto* Title = WidgetTree->ConstructWidget<UTextBlock>();
     Title->SetText(FText::FromString(TEXT("天气控制")));
-    Title->SetFont(ColdSteelUI::TextFont(18 / PixelScale));
+    Title->SetFont(ColdSteelUI::TextFont(18 / PixelScale, true));
     Title->SetColorAndOpacity(ColdSteelUI::TextPrimary);
     Stack->AddChildToVerticalBox(Title)->SetPadding(FMargin(0, 0, 0, 12));
     auto* Scroll = WidgetTree->ConstructWidget<UScrollBox>();
@@ -98,7 +98,7 @@ UTextBlock* UWeatherControlWidget::CreatePanelText(const FString& Caption, float
 {
     auto* Text = WidgetTree->ConstructWidget<UTextBlock>();
     Text->SetText(FText::FromString(Caption));
-    Text->SetFont(ColdSteelUI::TextFont(Pixels * .75f / ColdSteelUI::PixelScale(this)));
+    Text->SetFont(ColdSteelUI::TextFont(Pixels * .75f / ColdSteelUI::PixelScale(this), Pixels >= 16));
     Text->SetColorAndOpacity(Color); Text->SetAutoWrapText(true);
     TextSizes.Emplace(Text, Pixels);
     return Text;
@@ -124,7 +124,7 @@ UButton* UWeatherControlWidget::AddButton(UVerticalBox* Stack, const FString& Ca
 void UWeatherControlWidget::RefreshPanelTypography()
 {
     const float Scale = ColdSteelUI::PixelScale(this);
-    for (const auto& Item : TextSizes) if (Item.Key.IsValid()) Item.Key->SetFont(ColdSteelUI::TextFont(Item.Value * .75f / Scale));
+    for (const auto& Item : TextSizes) if (Item.Key.IsValid()) Item.Key->SetFont(ColdSteelUI::TextFont(Item.Value * .75f / Scale, Item.Value >= 16));
     TArray<UWidget*> Widgets; WidgetTree->GetAllWidgets(Widgets);
     for (auto* Widget : Widgets) if (auto* Button = Cast<UButton>(Widget)) Button->SetStyle(ColdSteelUI::ButtonStyle(1.f / Scale));
 }
@@ -170,7 +170,8 @@ void UWeatherControlWidget::SetPanelOpen(bool bOpen)
 void UWeatherControlWidget::RefreshStatus()
 {
     auto* Manager = ResolveWeather();
-    for (UButton* Button : PresetButtons) Button->SetIsEnabled(Manager != nullptr);
+    const bool CanControl=Manager && Manager->HasAuthority();
+    for (UButton* Button : PresetButtons) Button->SetIsEnabled(CanControl);
     if (!Manager) { Status->SetText(FText::FromString(TEXT("当前场景未找到天气系统"))); return; }
     const int32 Minutes = FMath::FloorToInt(Manager->NormalizedDayTime * 1440.0f) % 1440;
     const FString Map = UGameplayStatics::GetCurrentLevelName(this, true);
@@ -178,10 +179,11 @@ void UWeatherControlWidget::RefreshStatus()
     FString StatusText = FString::Printf(TEXT("%s  ·  %02d:%02d\n%s · %s  |  当前雨量 %.0f%%\n昼夜：%s"),
         *Scene, Minutes / 60, Minutes % 60, Manager->bAutomaticSchedule ? TEXT("自动天气") : TEXT("手动天气"),
         PresetNames[FMath::Clamp(static_cast<int32>(Manager->CurrentState), 0, 4)], Manager->GetEffectiveRainIntensity() * 100,
-        Manager->IsSkyClockConnected() ? TEXT("已连接天空时钟") : Manager->IsSceneDayNightActive() ? TEXT("已连接场景光照") : TEXT("未连接场景光照"));
+        Manager->IsSkyClockConnected() ? TEXT("已连接 UDS 天空时钟") : TEXT("未连接天空时钟"));
     if (Manager->IsRainPending())
         StatusText += FString::Printf(TEXT("\n云层正在聚集，约 %d 秒后开始%s"), FMath::CeilToInt(Manager->GetRainLeadInRemaining()),
             PresetNames[FMath::Clamp(static_cast<int32>(Manager->GetPendingRainState()), 0, 4)]);
+    if(!CanControl)StatusText+=TEXT("\n联机天气由房主控制");
     Status->SetText(FText::FromString(StatusText));
     for (int32 Index = 0; Index < PresetButtons.Num(); ++Index)
     {

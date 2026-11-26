@@ -67,3 +67,4 @@ if __name__ == '__main__':
     parser.add_argument('output', type=Path)
     args = parser.parse_args()
     prepare(args.study, args.output)
+

@@ -1,0 +1,12 @@
+#pragma once
+#include "Commandlets/Commandlet.h"
+#include "NonHumanoidHitRepairCommandlet.generated.h"
+
+/** Add model-fitted query surfaces to the specific physics assets found by the audit. */
+UCLASS()
+class UNonHumanoidHitRepairCommandlet : public UCommandlet
+{
+    GENERATED_BODY()
+public:
+    virtual int32 Main(const FString& Params) override;
+};

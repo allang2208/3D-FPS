@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "../Combat/CombatChill.h"
 #include "Engine/NetSerialization.h"
 #include "IceArmorTypes.generated.h"
 
@@ -8,7 +9,7 @@ struct FIceArmorTuning
     float PhysicalBase=18,PhysicalPerLevel=2,PhysicalMagic=.2f;
     float MagicBase=5,MagicPerLevel=.5f,MagicMagic=.05f;
     float DurationBase=12,DurationGrowth=12,ManaBase=30,ManaPerLevel=1.2f,Cooldown=32,CooldownReduction=4;
-    float RadiusBase=175,RadiusGrowth=75,PulseSeconds=2,ChillSeconds=2.5f,ChillGrowth=1,SlowPerStack=.03f;
+    float RadiusBase=175,RadiusGrowth=75,PulseSeconds=2,ChillSeconds=2.5f,ChillGrowth=1,SlowPerStack=CombatChill::SlowPerStack;
     float TrainingSourceInterval=1.f;
     int32 CastExperience=2,MeleeExperience=3,RangedExperience=2,ExperienceCap=36;
 };
@@ -24,7 +25,7 @@ struct FIceArmorCast
     UPROPERTY() float Radius=175;
     UPROPERTY() float PulseSeconds=2;
     UPROPERTY() float ChillSeconds=2.5f;
-    UPROPERTY() float SlowPerStack=.03f;
+    UPROPERTY() float SlowPerStack=CombatChill::SlowPerStack;
     UPROPERTY() float CastSpeed=1;
     UPROPERTY() float TrainingSourceInterval=1.f;
     UPROPERTY() int32 CastExperience=2;

@@ -1,17 +1,30 @@
 #include "FPSPlayerBodyComponent.h"
+#include "../WorldGeneration/VillageOilCarry.h"
+#include "FPSBodyHighlandMotion.h"
+#include "../Weapons/BeiweiSwordTrailComponent.h"
+#include "../Weapons/HighlandRidgeGatherComponent.h"
 #include "../Movement/FPSFurnitureRestComponent.h"
+#include "../Movement/HorseRiderComponent.h"
+#include "../Building/FPSForgeWorkComponent.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "../Weapons/WeaponBipodDeploymentComponent.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
+#include "../Weapons/Bow/BowScopeOptics.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../UI/FPSPerformanceMetrics.h"
 #include "FPSPlayerBodyAnimInstance.h"
+#include "../Combat/RangedAttackQuery.h"
+#include "FPSBodyWeaponMeshComponent.h"
+#include "UObject/ConstructorHelpers.h"
+#include "FPSBodyKukriMotion.h"
+#include "FPSBodyKukriRifts.h"
 #include "FPSPlayerBodyPoses.h"
 #include "../FPSGAMECharacter.h"
 #include "../Movement/FPSTraversalComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/Kukri/KukriWeaponComponent.h"
 #include "../Weapons/PistolDualWieldComponent.h"
 #include "../Production/ProductionToolComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
@@ -114,28 +127,49 @@ bool UFPSPlayerBodyComponent::ShouldWorldBodyCastShadow() const
 {
     // The diagnostic shadow switch controls the local first-person body only.
     const bool FirstPersonOwner=Character.IsValid()&&Character->IsLocallyControlled()&&!IsThirdPersonViewEnabled();
-    return !FPSPlayerBodyWorldBodyHidden()&&(!FirstPersonOwner||FPSPlayerBodyWorldBodyShadowEnabled());
+    return !IsWorldBodyPresentationHidden()&&(!FirstPersonOwner||FPSPlayerBodyWorldBodyShadowEnabled());
+}
+
+bool UFPSPlayerBodyComponent::UsesWarhammerFirstPersonPass() const
+{
+    if(!Character.IsValid()||!Character->IsLocallyControlled()||IsThirdPersonViewEnabled()||IsDeathViewActive())return false;
+    const auto* Tool=Character->FindComponentByClass<UProductionToolComponent>();
+    return Tool&&Tool->IsEquipped()&&Tool->Kind==TEXT("warhammer");
 }
 
 void UFPSPlayerBodyComponent::ApplyWorldBodyShadow()
 {
     if(!Character.IsValid())return;
     const bool bCast=ShouldWorldBodyCastShadow();
-    FPSBodyEquipment::ApplyShadowFlags(GetBodyMesh(),bCast);
+    FPSBodyEquipment::ApplyShadowFlags(GetBodyMesh(),bCast&&!bInitialAppearancePending);
     for(const TObjectPtr<USkeletalMeshComponent>& Outfit:OutfitMeshes)
-        FPSBodyEquipment::ApplyShadowFlags(Outfit,bCast);
+        FPSBodyEquipment::ApplyShadowFlags(Outfit,bCast&&!bInitialAppearancePending);
     for(const TObjectPtr<UStaticMeshComponent>& Outfit:OutfitStaticMeshes)
-        FPSBodyEquipment::ApplyShadowFlags(Outfit,bCast);
+        FPSBodyEquipment::ApplyShadowFlags(Outfit,bCast&&!bInitialAppearancePending);
     // Weapons use the same policy plus traversal / per-hand occupancy.
     UpdateWorldWeaponPresentation();
     UpdateAppearanceVisibility();
+    // VSM keeps this representation's shadow on the world, but excludes it
+    // from FirstPerson pixels. A hidden world hand must not shadow the native
+    // FPS palm at the same grip position. Ordinary environment shadows remain.
+    const auto ShadowType=UsesWarhammerFirstPersonPass()?EFirstPersonPrimitiveType::WorldSpaceRepresentation:EFirstPersonPrimitiveType::None;
+    const auto SetShadowRole=[ShadowType](UPrimitiveComponent* Mesh)
+    {
+        if(Mesh&&Mesh->FirstPersonPrimitiveType!=ShadowType)Mesh->SetFirstPersonPrimitiveType(ShadowType);
+    };
+    SetShadowRole(GetBodyMesh());
+    for(auto Outfit:OutfitMeshes)SetShadowRole(Outfit);
+    for(auto Outfit:OutfitStaticMeshes)SetShadowRole(Outfit);
+    for(auto Weapon:WorldWeapons)SetShadowRole(Weapon);
+    for(auto Part:WorldParts)SetShadowRole(Part);
+    for(auto Prop:WorldReloadProps)SetShadowRole(Prop);
 }
 
 void UFPSPlayerBodyComponent::ApplyWorldBodyVisibility()
 {
     // Equipment is handled separately with its hand-occupancy rules; never briefly
     // unhide a stowed weapon here before hiding it again later in the same frame.
-    const bool bHidden=FPSPlayerBodyWorldBodyHidden();
+    const bool bHidden=IsWorldBodyPresentationHidden()||bInitialAppearancePending;
     TArray<UPrimitiveComponent*> Targets;
     if(auto* Body=GetBodyMesh())Targets.Add(Body);
     // These arrays hold TObjectPtr, so the element type must be spelled out rather than
@@ -154,12 +188,14 @@ void UFPSPlayerBodyComponent::ApplyWorldBodyVisibility()
     {
         const bool bDrawn=!bHidden&&Character.IsValid()&&(!Character->IsLocallyControlled()||IsThirdPersonViewEnabled()
             ||ShouldWorldBodyCastShadow()||(FirstPersonLowerBody&&ShouldShowFirstPersonLowerBody()));
-        const auto Wanted=bDrawn?EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones
+        // The first head CopyPose must run while the assembly is still hidden.
+        const auto Wanted=(bDrawn||bInitialAppearancePending)?EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones
                                 :EVisibilityBasedAnimTickOption::AlwaysTickPose;
         if(Body->VisibilityBasedAnimTickOption!=Wanted)Body->VisibilityBasedAnimTickOption=Wanted;
     }
     // Apply each primitive's final shadow state, including stowed equipment.
     ApplyWorldBodyShadow();
+    UpdateAppearanceFallbackVisibility();
     UpdateFirstPersonLowerBodyVisibility();
 }
 
@@ -168,6 +204,10 @@ UFPSPlayerBodyComponent::UFPSPlayerBodyComponent()
     PrimaryComponentTick.bCanEverTick=true;
     PrimaryComponentTick.TickGroup=TG_PostUpdateWork;
     SetIsReplicatedByDefault(true);
+    // One small, complete mesh is held by the class before pawns enter the world.
+    // The selected MetaHuman face/hair never becomes a prerequisite for visibility.
+    static ConstructorHelpers::FObjectFinder<USkeletalMesh> Fallback(TEXT("/Game/Characters/Mannequins/Meshes/SKM_Manny_Simple.SKM_Manny_Simple"));
+    InitialAppearanceFallbackAsset=Fallback.Object;
 }
 void UFPSPlayerBodyComponent::BeginPlay()
 {
@@ -176,6 +216,7 @@ void UFPSPlayerBodyComponent::BeginPlay()
     {SetComponentTickEnabled(false);return;}
     AddTickPrerequisiteActor(Character.Get());
     if(auto* Sword=Character->FindComponentByClass<URuneSwordComponent>())AddTickPrerequisiteComponent(Sword);
+    if(auto* Kukri=Character->FindComponentByClass<UKukriWeaponComponent>())AddTickPrerequisiteComponent(Kukri);
     if(auto* Bow=Character->FindComponentByClass<UBowWeaponComponent>())AddTickPrerequisiteComponent(Bow);
     if(auto* Staff=Character->FindComponentByClass<UStaffWeaponComponent>())AddTickPrerequisiteComponent(Staff);
     if(auto* Tool=Character->FindComponentByClass<UProductionToolComponent>())AddTickPrerequisiteComponent(Tool);
@@ -189,7 +230,11 @@ void UFPSPlayerBodyComponent::BeginPlay()
     if(!Configuration.IsValid())
     {UE_LOG(LogTemp,Error,TEXT("PlayerBody: missing Content/ColdSteelData/player_body.json"));SetComponentTickEnabled(false);return;}
     InitializeBodyConfigurations();
-    if(GetNetMode()!=NM_DedicatedServer){InitializeDeathPresentation();InitializeBody();}
+    if(GetNetMode()!=NM_DedicatedServer)
+    {
+        bInitialAppearancePending=true;
+        InitializeDeathPresentation();InitializeBody();
+    }
     if(Character->GetGameInstance())if(auto* Profile=Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
         ProfileChanged=Profile->OnChanged.AddWeakLambda(this,[this]()
         {
@@ -202,6 +247,10 @@ void UFPSPlayerBodyComponent::BeginPlay()
 }
 void UFPSPlayerBodyComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    if(ObserverKukriRifts){ObserverKukriRifts->Clear(GetOwner());ObserverKukriRifts.Reset();}
+    if(BeiweiWorldTrail){GetOwner()->RemoveInstanceComponent(BeiweiWorldTrail);BeiweiWorldTrail->DestroyComponent();BeiweiWorldTrail=nullptr;}
+    if(WorldSweepTrail){GetOwner()->RemoveInstanceComponent(WorldSweepTrail);WorldSweepTrail->DestroyComponent();WorldSweepTrail=nullptr;}
+    if(WorldRidgeGather){WorldRidgeGather->DestroyComponent();WorldRidgeGather=nullptr;}
     ReleaseDeathCamera();
     ClearGunPresentation();
     if(FirstPersonLowerBody){FirstPersonLowerBody->DestroyComponent();FirstPersonLowerBody=nullptr;}
@@ -211,6 +260,9 @@ void UFPSPlayerBodyComponent::EndPlay(const EEndPlayReason::Type Reason)
     ClearHeadEquipment();
     ++AppearanceRequest;
     if(AppearanceLoad){AppearanceLoad->CancelHandle();AppearanceLoad.Reset();}
+    if(HeadMesh&&InitialHeadPoseHandle.IsValid())HeadMesh->UnregisterOnBoneTransformsFinalizedDelegate(InitialHeadPoseHandle);
+    InitialHeadPoseHandle.Reset();
+    if(InitialAppearanceFallback){InitialAppearanceFallback->DestroyComponent();InitialAppearanceFallback=nullptr;}
     ClearOutfitPresentation();
     if(Character.IsValid()&&Character->GetGameInstance())if(auto* Profile=Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
         Profile->OnChanged.Remove(ProfileChanged);
@@ -224,10 +276,12 @@ void UFPSPlayerBodyComponent::InitializeBody(bool bRefreshAppearance)
         UE_LOG(LogTemp,Display,TEXT("PlayerBody: world body suppressed by fps.body.WorldBodySuppress 1 (capture isolation)"));
         SetComponentTickEnabled(false);return;
     }
+    InitializeAppearanceFallback();
     const FString MeshPath=Configuration->GetStringField(TEXT("body_mesh"));
     auto* Mesh=LoadObject<USkeletalMesh>(nullptr,*MeshPath);
     if(!Mesh){UE_LOG(LogTemp,Error,TEXT("PlayerBody: cannot load %s"),*MeshPath);return;}
     Body->SetSkeletalMeshAsset(Mesh);
+    FallbackPoseSource.Reset();
     // World weapon rigs were authored for Manny's hand axes. Retargeting the
     // body does not change those rigs; convert their mounts to the new bind axes.
     FString ReferencePath;
@@ -253,7 +307,8 @@ void UFPSPlayerBodyComponent::InitializeBody(bool bRefreshAppearance)
     Body->SetGenerateOverlapEvents(false);
     Body->SetOnlyOwnerSee(false);Body->SetOwnerNoSee(true);
     Body->SetCastShadow(true);Body->bCastHiddenShadow=true;
-    Body->SetVisibility(true);Body->SetHiddenInGame(false);
+    const bool bHideAssembly=IsWorldBodyPresentationHidden()||bInitialAppearancePending;
+    Body->SetVisibility(!bHideAssembly);Body->SetHiddenInGame(bHideAssembly);
     Body->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
     Body->SetAnimationMode(EAnimationMode::AnimationBlueprint);
     Body->SetAnimInstanceClass(UFPSPlayerBodyAnimInstance::StaticClass());
@@ -275,6 +330,7 @@ void UFPSPlayerBodyComponent::InitializeBody(bool bRefreshAppearance)
             if(Pair.Key.ToView().StartsWith(TEXT("Forge.")))continue;
             if(auto* Sequence=LoadObject<UAnimSequence>(nullptr,*Pair.Value->AsString()))BodyAnimation->Clips.Add(FName(*Pair.Key),Sequence);
         }
+        FPSBodyHighlandMotion::SelectGrip(BodyAnimation->Clips,false);
     }
     Body->AddTickPrerequisiteComponent(this);
     BodyPoseFinalizedHandle=Body->RegisterOnBoneTransformsFinalizedDelegate(FOnBoneTransformsFinalizedMultiCast::FDelegate::CreateUObject(this,&ThisClass::OnBodyPoseFinalized));
@@ -326,7 +382,7 @@ void UFPSPlayerBodyComponent::EndWorkstationIdle(AActor* View)
     RefreshViewMode();
 }
 bool UFPSPlayerBodyComponent::IsWorkstationIdle() const
-{return bWorkstationIdle;}
+{return bWorkstationIdle||UFPSForgeWorkComponent::IsWorking(Character.Get());}
 void UFPSPlayerBodyComponent::ServerSetWorkstationIdle_Implementation(bool bIdle)
 {
     // Cosmetic only: station systems retain their own reach, job and inventory authority.
@@ -355,22 +411,30 @@ void UFPSPlayerBodyComponent::UpdateOwnerVisibility()
     // A network pawn can become locally controlled after BeginPlay.
     InitializeFirstPersonLowerBody();
     const bool bThirdPerson=IsThirdPersonViewEnabled();
-    UpdateWorldOwnerVisibility(!bThirdPerson&&!IsDeathViewActive());
+    const bool bSaddleHands=UHorseRiderComponent::UsesSaddleHands(Character.Get());
+    UpdateWorldOwnerVisibility(!bThirdPerson&&!IsDeathViewActive()&&(!bSaddleHands||bRideEyeOccluded));
     // Compress only the owning pistol viewmodel's rendered depth. Sleeves,
     // bare skin, gloves, optics and dual-wield parts must use the same space;
     // scaling a sleeve alone would reverse its depth order against the hand.
-    const auto ViewmodelType=Character->IsLocallyControlled()&&Character->IsPistolWeapon()
+    const bool bPistol=Character->IsLocallyControlled()&&Character->HasInventoryWeapon()&&Character->IsPistolWeapon();
+    const auto ViewmodelType=bPistol||UsesWarhammerFirstPersonPass()
         ?EFirstPersonPrimitiveType::FirstPerson:EFirstPersonPrimitiveType::None;
+    const auto* Bow=Character->FindComponentByClass<UBowWeaponComponent>();
+    const auto* BowOptics=Bow?Bow->ScopeOptics():nullptr;
     const auto ApplyFirstPersonVisibility=[&](USceneComponent* Child,EFirstPersonPrimitiveType PrimitiveType)
     {
         auto* Primitive=Cast<UPrimitiveComponent>(Child);if(!Primitive)return;
+        // Ground dressing must not project onto owner hands, sleeves or held parts.
+        if(Primitive->bReceivesDecals)Primitive->SetReceivesDecals(false);
+        if(BowOptics&&BowOptics->OwnsPrimitive(Primitive))PrimitiveType=EFirstPersonPrimitiveType::FirstPerson;
         if(Primitive->FirstPersonPrimitiveType!=PrimitiveType)Primitive->SetFirstPersonPrimitiveType(PrimitiveType);
         // Every setter below marks the primitive's render state dirty and
         // re-registers it in the shadow scene, so only touch what actually
         // changed: this runs again on every camera update and every 0.2 s.
         // The scope owns its recorded hide request until it releases it. Clearing
         // it here every 0.2 s exposes the rifle/arms for a frame during scoped ADS.
-        const bool bHideFromOwner=bThirdPerson||IsDeathViewActive()||UFPSFurnitureRestComponent::IsResting(Character.Get())||IsWorkstationIdle()||Character->ScopeHiddenParts.Contains(Primitive);
+        const bool bHideFromOwner=bThirdPerson||bSaddleHands||IsDeathViewActive()||UFPSFurnitureRestComponent::IsResting(Character.Get())||IsWorkstationIdle()||Character->ScopeHiddenParts.Contains(Primitive)
+            ||(BowOptics&&BowOptics->HidesPrimitive(Primitive));
         FPSBodyEquipment::ApplyOwnerVisibilityFlags(Primitive,/*bOnlyOwnerSee=*/true,/*bOwnerNoSee=*/bHideFromOwner);
         FPSBodyEquipment::ApplyShadowFlags(Primitive,false);
     };
@@ -396,6 +460,7 @@ void UFPSPlayerBodyComponent::UpdateOwnerVisibility()
 void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);if(!Character.IsValid())return;
+    if(ObserverKukriRifts)ObserverKukriRifts->Advance(GetWorld()->GetTimeSeconds());
     UpdateReactions();
     const bool Local=GetNetMode()==NM_Standalone||Character->IsLocallyControlled();
     if(Local&&!bExternalAuthorityState)
@@ -449,12 +514,17 @@ void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
     }
     // Keep weapons stowed through the short return from an interrupted hand pose.
     const float Now=ServerClock();
-    if(FPSBodyPoses::Traversing(DisplayState.Motion))WorldWeaponsHiddenUntil=Now+.1f;
-    if((DisplayState.bDual||DisplayState.bOffhandPistol)&&DisplayState.Action==EFPSBodyAction::Cast&&DisplayState.Contacts.Channel!=TEXT("StaffCast"))OffhandWeaponHiddenUntil=Now+.1f;
-    if((DisplayState.bDual||DisplayState.bOffhandPistol)&&DisplayState.Action==EFPSBodyAction::Consume&&DisplayState.ActionWeight>UE_KINDA_SMALL_NUMBER)
+    const auto* Oil=GetOwner()->FindComponentByClass<UVillageOilCarry>();
+    if(FPSBodyPoses::Traversing(DisplayState.Motion) || (Oil && Oil->Occupied()))
+    {WorldWeaponsHiddenUntil=Now+.1f;OffhandWeaponHiddenUntil=Now+.1f;}
+    const bool StowableLeft=DisplayState.bDual||DisplayState.bOffhandPistol||
+        (BodyAnimation&&FPSBodyKukriMotion::MatchesOffhand(DisplayState,
+            BodyAnimation->bOffhandKukriEquipment,BodyAnimation->OffhandKukriEquipmentInstance));
+    if(StowableLeft&&DisplayState.Action==EFPSBodyAction::Cast&&DisplayState.Contacts.Channel!=TEXT("StaffCast"))OffhandWeaponHiddenUntil=Now+.1f;
+    if(StowableLeft&&DisplayState.Action==EFPSBodyAction::Consume&&DisplayState.ActionWeight>UE_KINDA_SMALL_NUMBER)
     {
         // Cancellation fades the native consume arm out at 10/s. Keep its
-        // pistol hidden until that arm has returned from the mouth/food.
+        // offhand weapon hidden until that arm has returned from the mouth/food.
         if(DisplayState.ConsumeHands&1)WorldWeaponsHiddenUntil=Now+.1f;
         if(DisplayState.ConsumeHands&2)OffhandWeaponHiddenUntil=Now+.1f;
     }
@@ -468,6 +538,8 @@ void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
     if(BodyAnimation)
     {
         BodyAnimation->BodyState=DisplayState;BodyAnimation->Clock=ServerClock();
+        BodyAnimation->bHasGunAimTarget=DisplayState.bHasGunAimTarget&&DisplayState.Action!=EFPSBodyAction::Dead;
+        BodyAnimation->GunAimTarget=DisplayState.GunAimTarget;
         BodyAnimation->Reactions=Reactions;
         const FVector LocalVelocity=Character->GetActorQuat().UnrotateVector(Character->GetVelocity());
         BodyAnimation->Speed=LocalVelocity.Size2D();
@@ -477,7 +549,8 @@ void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
             Character->GetMesh()->GetComponentLocation():Character->GetActorLocation();
         const bool HammerSprint=DisplayState.Family==TEXT("Tool")&&DisplayState.Weapon==TEXT("warhammer")&&
             (DisplayState.ActionVariant==TEXT("WarhammerSprintLift")||DisplayState.ActionVariant==TEXT("WarhammerSprintSlam"));
-        if(HammerSprint&&!BodyAnimation->bFalling&&bHasSprintBodyLocation&&Delta>SMALL_NUMBER)
+        const bool RidgeDash=FPSBodyHighlandMotion::IsDash(DisplayState);
+        if((HammerSprint||RidgeDash)&&!BodyAnimation->bFalling&&bHasSprintBodyLocation&&Delta>SMALL_NUMBER)
         {
             // Capsule sweeps and observer network smoothing do not populate
             // locomotion Velocity. Drive both owner and observer feet by travel.
@@ -486,5 +559,13 @@ void UFPSPlayerBodyComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
             if(BodyAnimation->Speed>3.f)BodyAnimation->Direction=FMath::RadiansToDegrees(FMath::Atan2(Travel.Y,Travel.X));
         }
         PreviousSprintBodyLocation=Location;bHasSprintBodyLocation=true;
+        if(DisplayState.Action==EFPSBodyAction::Whirlwind&&DisplayState.ActionVariant==TEXT("ZhufengWhirlwind"))
+        {
+            const float Progress=FPSBodyPoses::Progress(DisplayState,ServerClock());
+            BodyAnimation->Speed=Progress<DisplayState.ReleaseFraction?DisplayState.ZhufengForwardSpeed:0.f;
+            BodyAnimation->Direction=0.f;
+        }
     }
+    // Existing component tick only; the readiness check performs no loading or discovery.
+    if(bInitialAppearancePending)FinishInitialAppearance();
 }

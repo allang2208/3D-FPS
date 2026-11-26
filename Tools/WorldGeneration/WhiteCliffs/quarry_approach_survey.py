@@ -197,3 +197,4 @@ def make_mask():
     Image.fromarray(np.rint(255*arr).astype('uint8')).save(out/"T_QuarryWorkGround.png")
     chip_detail(out,powder,pieces,allowed)
 if __name__=="__main__":make_mask()
+

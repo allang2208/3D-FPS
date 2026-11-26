@@ -1,4 +1,4 @@
-param([string]$Run='build-01')
+﻿param([string]$Run='build-01')
 $ErrorActionPreference='Stop'
 $furnitureProject='D:/FPS3D/FPSGAME'
 $furnitureOut="$furnitureProject/SourceAssets/FurnitureRest20261022/ApartmentIntegration20261024"

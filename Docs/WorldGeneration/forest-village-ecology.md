@@ -45,6 +45,7 @@ forest_ecology.compose('Trees', 'Shrubs', 'Wetland')
 1. 新变体沿用原来的放置输入。基础 16 个槽依照既有二进制布局分层；扩展网格按已登记的扫描家族、花岗岩目录和木料目录分类。新增的扩展网格也可在资产元数据中设置 `ForestEcologyLayer`，取值为表中的英文标识。未标注的普通装饰归入 `Floor`；拼错显式标识会报错并中止生成。层归属决定组织方式，放置规则、碰撞及裁剪规则仍由相应生成器决定。
 2. 改了地形或水坑，走 [地形与水坑制作入口](../../Tools/WorldGeneration/ForestVillage/author_hill_relief_pools.py)，随后由原流程重算植被、湿岸和 R29 布景。改了倒木分布或落叶配方，走 [林道布景制作入口](../../Tools/WorldGeneration/ForestVillage/author_forest_litter.py)。两条路径都使用同一个原生分层构建器。
 3. 只调整分层或重用已有点位时，在正式包的隔离宿主里运行 [forest_ecology.py](../../Tools/WorldGeneration/ForestVillage/forest_ecology.py)。`FPS_FOREST_REFERENCE_SOURCE` 指向 R29 的制作源目录，默认读取其 `Dressing` 子目录；可用 `FPS_FOREST_PLANTING_DIR` 指定其他同格式点集目录。需要 `planting.bin`、`reference-meshes.txt`、`harvest-trees.f32`、`study-granite.i32`。后台只制作组合时设置 `FPS_FOREST_ECOLOGY_LAYERS=Trees,Shrubs,Grass`；重建完整主图时不设置该变量。
-4. 生态层资产和数据页由制作代码重建。长期调整写回 [分层与生成器代码](../Publication/HillsForestLandscape20261126/Implementation/Source/FPSGAME/WorldGeneration/ForestVillageRegionPCG.cpp) 或源配方，手工组合保存在独立图里。
+4. 生态层资产和数据页由制作代码重建。长期调整写回 [分层与生成器代码](../../Source/FPSGAME/WorldGeneration/ForestVillageRegionPCG.cpp) 或源配方，手工组合保存在独立图里。
 
 本次全图重新载入后，按网格比对 1,072,095 个实例的世界位置、四元数和缩放，位置精度为 0.1 厘米，四元数和缩放精度为 0.0001。另核对了 12 个水坑和 89 个贴花的位置。两种组合均在隔离宿主中实际生成，R30 当批的正式关卡保存了完整组合。当前正式关卡采用 R31 的双主题装配。[分层与组合检查结果](F:/FPSGAMEData/ArtProduction/HillsForestPath/ForestEcologyLayers-R30/audit.json) · [发布和恢复清单](F:/FPSGAMEData/ArtProduction/HillsForestPath/ForestEcologyLayers-R30/published.json)
+

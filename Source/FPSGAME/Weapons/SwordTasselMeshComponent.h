@@ -14,6 +14,7 @@ class FPSGAME_API USwordTasselMeshComponent : public UStaticMeshComponent
 public:
     USwordTasselMeshComponent();
     void Configure(const TSharedPtr<FJsonObject>& Spec);
+    FVector DeformedPoint(const FVector& LocalPoint,int32 Segment) const;
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
 private:
     struct FCapsule { FVector A,B; double Radius; };

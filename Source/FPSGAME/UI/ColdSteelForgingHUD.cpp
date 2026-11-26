@@ -1,5 +1,6 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelForgingWidget.h"
+#include "ColdSteelWorldInteraction.h"
 #include "ColdSteelUIStyle.h"
 #include "../Building/ForgingSystem.h"
 #include "../Building/ForgeInteraction.h"
@@ -19,12 +20,13 @@ void UColdSteelHUDWidget::BuildForging(UCanvasPanel* Root)
 void UColdSteelHUDWidget::OpenForging(AActor* Station)
 {
     auto* Piece=Cast<AVoxelBuildPrefabActor>(Station);auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
-    if(!Piece||Piece->PrefabId()!=VoxelCastingStationId||Piece->IsFalling()||!World||!World->HasPrefabAt(Piece->AnchorCell()))return;
+    if(!Piece||Piece->PrefabId()!=VoxelCastingStationId||Piece->IsFalling()||!World||!World->HasPrefabAt(Piece->AnchorCell())||World->PrefabActorAt(Piece->AnchorCell())!=Piece)return;
     if(bForgingOpen&&ForgingStation.Get()==Station)return;
     CloseShop();
     HideForgingInstantly();HideSmeltingInstantly();HideWorkbenchInstantly();CloseWarehouse();
     if(!bInventoryOpen){SetInventoryTab(false);SetInventoryOpen(true);}
     ForgingWorld=World;ForgingCell=Piece->AnchorCell();ForgingStation=Station;bForgingOpen=true;bForgeRiding=false;
+    GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>()->SetStation(Station);
     ForgingWidget->SetStation(World,ForgingCell);ForgingWidget->SetKeyboardFocus();
     ForgeInteraction=GetWorld()->SpawnActor<AForgeInteraction>();
     if(ForgeInteraction)ForgeInteraction->Prepare(GetOwningPlayer(),Piece,this);
@@ -56,7 +58,8 @@ void UColdSteelHUDWidget::HideForgingInstantly()
 void UColdSteelHUDWidget::TickForging(float DeltaTime,float DrawerEase)
 {
     if(!ForgingWidget)return;
-    if(bForgingOpen&&(!ForgingStation.IsValid()||!ForgingWorld.IsValid()||!ForgingWorld->HasPrefabAt(ForgingCell)))CloseForging();
+    if(bForgingOpen&&(!ForgingStation.IsValid()||!ForgingWorld.IsValid()||!ForgingWorld->HasPrefabAt(ForgingCell)
+        ||ForgingWorld->PrefabActorAt(ForgingCell)!=ForgingStation.Get()||!ColdSteelWorldInteraction::IsForgingStation(ForgingStation.Get())))CloseForging();
     const float S=ColdSteelUI::PixelScale(this);
     if(bForgeRiding)
     {
@@ -86,18 +89,29 @@ bool UColdSteelHUDWidget::IsWorldForging() const
 {return ForgeInteraction&&ForgeInteraction->IsRunning();}
 bool UColdSteelHUDWidget::HandleWorldForgeInput(const FInputKeyEventArgs& Event)
 {return ForgeInteraction&&ForgeInteraction->HandleInput(Event);}
-bool UColdSteelHUDWidget::StartWorldForging(FName Recipe,FString& Reason)
+bool UColdSteelHUDWidget::StartWorldForging(FName Recipe,FString& Reason,FName Metal)
 {
-    if(!bForgingOpen||!ForgeInteraction||!ForgeInteraction->Start(Recipe,Reason))return false;
+    if(!bForgingOpen||!ForgeInteraction){Reason=TEXT("铸造面板尚未就绪，请重新打开");return false;}
+    if(!ForgeInteraction->Start(Recipe,Reason,Metal))
+    {
+        if(Reason.IsEmpty())Reason=TEXT("暂时无法开始锻造，请重新打开铸造面板");
+        UE_LOG(LogTemp,Warning,TEXT("ForgeEntry start rejected: %s"),*Reason);
+        return false;
+    }
+    UE_LOG(LogTemp,Display,TEXT("ForgeEntry accepted: recipe=%s station=%s"),*Recipe.ToString(),*GetNameSafe(ForgingStation.Get()));
     // Retain the station/job while the same paired drawer slides out. CloseForging must
     // not finalize the just-started job when SetInventoryOpen closes the inventory.
     bForgingOpen=false;bForgeRiding=true;ForgingWidget->SetInputReady(false);
     SetInventoryOpen(false);ForgeInteraction->Enter();return true;
 }
-void UColdSteelHUDWidget::CompleteWorldForging(AForgeInteraction* Interaction,bool bReturnPanel)
+void UColdSteelHUDWidget::CompleteWorldForging(AForgeInteraction* Interaction,bool bReturnPanel,const FString& EntryError)
 {
     if(ForgeInteraction!=Interaction)return;
     AActor* Station=ForgingStation.Get();ForgeInteraction=nullptr;
-    if(bReturnPanel&&Station)OpenForging(Station);
+    if(bReturnPanel&&Station)
+    {
+        OpenForging(Station);
+        if(!EntryError.IsEmpty()&&ForgingWidget)ForgingWidget->ShowEntryError(EntryError);
+    }
     else HideForgingInstantly();
 }

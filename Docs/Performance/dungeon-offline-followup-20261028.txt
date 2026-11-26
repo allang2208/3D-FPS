@@ -1,0 +1,143 @@
+废弃设施地牢：已有 GPU 与 WDDM 记录的继续归因
+2026-10-28
+
+执行范围
+用户要求继续研究。只读取已有记录、项目和本机引擎源码，用 xperf 解码既有 ETL、
+用 UnrealInsights -NoUI 解码既有 utrace，并运行本轮离线统计脚本。
+没有打开 UE 编辑器、启动游戏、采集新数据、编译游戏或运行测试；没有改游戏源码、
+配置、画质、怪物数量、波次或战斗规则。新文件仅为本报告与 Saved 下的研究产物。
+
+输入及可重现入口
+慢态：Saved/PerformanceReports/gpu-0BADA70244766222EC791881A63FE903/
+快态：Saved/PerformanceReports/gpu-DF45C1894478F7214176018473D09B16/
+它们是 2026-10-26 的不同运行，种子/房间数/视角/过程状态不同，不是优化 A/B。
+慢态 GPU 事件复用 Saved/PerformanceAnalysis20261026_111055/events.csv。
+快态本轮导出 GPU 事件；过程命令和日志在 Saved/DungeonGpuResearch20261028/。
+decode_etl.py 及 --supplement 仅消费现存 ETL；analyze_etl.py 进行资源关联；
+compare_gpu.py 进行 GPU 时间范围统计。全部不含新采集或游戏控制入口。
+
+一、本轮新的关联结果
+
+1. 已能把部分 Morph 输出连到内核分配，而不是只看总显存数字。
+现存快态 ETL 约 66.26 秒会话仅保留末尾约 7.48 秒。
+本轮按事件头字段数保留 QueuePacket/DmaPacket 的多个版本，解码所选事件没有
+字段数量不匹配的丢弃；主集保留 864996 条，补充集保留 183259 条。
+统计仍有事件类型和采集范围边界，不等于覆盖全部 GPU 工作。
+
+与该片段重叠的 buffers.jsonl 中，有 29 个不同的 Morph 原生资源身份：
+- 29 个全部找到 Direct3D12 Resource 记录；
+- 23 个输出资源找到 pHeap，再经 Heap.hKMAllocation 和 DeviceAllocation.hThunkAllocation
+  连接到 VidMm 全局分配；
+- 6 个共享输入没有通过本轮关联链补齐内核分配，保持未知；
+- 4 个输出地址在保留片段中存在 Start/Stop 生命周期边界，不能把同一地址当同一对象。
+  将它们全部排除出稳定集合，不把同址多堆误报为输出泄漏或多份同时常驻。
+
+稳定集合为 19 个输出资源，对应 10 个不同的父堆/全局分配。
+这些父堆每个 32 MiB，是共享分配空间，不能按 19 个输出各算一份 32 MiB，
+也不能把父堆大小算成这些 Morph 独占的物理显存。
+覆盖玩家 PitViper/手臂，以及研究员和迎宾员输出；没有覆盖全部 SkinCache/RT/Groom 缓冲。
+
+2. 快态稳定输出集合没有匹配到换入/驱逐事件。
+上述 10 个全局分配在保留窗口内没有匹配到 AllocationFault、PageInAllocation、
+EvictAllocation，也没有 VidMmMakeResident/Evict 的动态 Info 事件。
+每个分配在结束 rundown 中有一条 VidMmMakeResident/DC_Start 状态记录。
+因此，不能用本份快态文件证明“怪物热输出正在频繁换出”。
+
+这是结束 rundown 对先前稳定观察的回溯关联：原生宽度一致、GPU VA 观察稳定、
+没有该资源 Start/Stop 边界。它不证明全程位于本地显存，不补回已覆盖的开头，
+也不能替慢态证明或排除驻留问题。没有逐页物理位置和迁移时延结论。
+
+3. 全系统分页计数大部分不能归给游戏。
+不能用事件回调线程的 PID 判断拥有者；很多分页事件由 System 发出。
+本轮使用 AdapterAllocation/DeviceAllocation 的 payload 和结束 rundown 关联拥有者。
+保留片段里的计数：
+- AllocationFault 共 13442：仅关联游戏 35，游戏与其他拥有者共享 77，其余 13330。
+- EvictAllocation 共 13997：仅关联游戏 6，共享 349，其余 13642。
+- PageInAllocation 共 14074：仅关联游戏 33，共享 408，其余 13595，未匹配/歧义 38。
+这些是拥有者关联分类，不是物理搬运字节或停顿耗时；共享项不能独占归给游戏。
+也不能据此断言某个后台程序导致慢态，或者用今天的 PID 查询为历史进程补名字。
+队列关联只覆盖部分 Context 路径，未完成全部 HWS 硬件队列执行区间重建；
+没有把这个片段的队列计数当作所有 GPU 队列的等待或占用结论。
+
+二、慢态与快态 GPU 范围进一步比较
+
+慢态原生 trace 1005.55727–1008.03231 秒，29 个完整 Graphics Frame。
+快态选择 304.2–311.3 秒内的 330 个完整 Graphics Frame，位于保留尾段附近。
+此处是描述不同运行的短窗口，不计算某次修改收益，不冒充同种子/同姿势实验。
+标准导出缺 GPUWork 交集和逐 dispatch 资源元数据；范围含可能的同步/队列等待，
+不是硬件纯计算时间。父子项、不同 GPU 队列不可累加。
+
+每个 Graphics Frame 的包含范围均值（慢 / 快，毫秒）：
+- Frame：85.300 / 20.945
+- MorphUpdate：19.394 / 0.675
+- 其中 Normalize：12.847 / 0.169
+- GPUSkinCache_UpdateSkinningBatches：20.342 / 1.098
+- 其中 SkinCacheDispatch：14.521 / 0.433
+- RayTracingDynamicGeometry：14.933 / 1.165
+- ShadowDepths：10.768 / 3.865
+- Hair：1.619 / 1.343
+- BasePass：3.942 / 1.010
+
+Normalize 事件平均每帧 21.03 / 19.95 个；SkinCacheDispatch 312.90 / 288.14 个。
+数量差异远小于时间跨度差异，与既有同次 37 怪/284 派发快慢变化的方向一致。
+但本轮跨运行派发大小、LOD、姿势、资源身份并不严格相同，不能只用数量推定
+每个 dispatch 都是等量工作，更不能把一个总 scope 精确归到某只怪。
+Hair 在本次窗口中的差异很小，不支持把“删毛发”作为主修复。
+动态光追也变慢，但这不足以区分它自身的计算成本和共同的资源/同步问题。
+
+额外排除一个读数陷阱：慢态 SkinCache 外层范围平均每帧出现两次，其中一条
+是帧尾接近零时长的范围；本机 GPUSkinCache.cpp 的范围包住整个批次循环。
+不能据此宣称同一怪物完整蒙皮了两遍。具体工作数应看内部 dispatch，仍保留
+上述逐资源/逐实例对应缺失的边界。
+
+三、当前仍没有闭合的主因
+
+已确认：
+- 慢态在生成动作结束后继续存在；并非仅仅 SpawnActor 函数过慢。
+- 严重慢态仍涉及多个角色的变形/蒙皮与相关 GPU 范围。
+- 快态的部分输出资源可建立资源—父堆—内核分配关联。
+- 全系统分页事件不能直接归因给怪群。
+
+尚不能确认：
+- 慢态热输出是否发生非本地访问、实际迁移，或被其它负载挤压。
+- 慢范围有多少来自实际执行、UAV/屏障等待、硬件调度或驱动内部等待。
+- 某一个资源拥有者或某一个渲染 pass 是否足以解释全部异常。
+慢态包没有 WDDM；快态有 WDDM 的末段不具有相同异常，这个证据缺口不能
+通过进一步求总显存平均值或反复扩充对象池填平。
+
+四、后续工作边界与最小补充
+
+已有采集器 v6 的顺序写入、削减 Profiler/Marker 和容量停止修正继续使用，
+本轮没有重复开发采集器。源码/历史构建存在不代表旧进程已加载最新 DLL。
+
+目前没有足够因果证据支持修改 GPU 堆优先级、删除同步屏障、调整驱动设置、
+放宽准备池内存门槛或降低画质。不要把这些作为下一轮盲改。
+
+如后续正常使用原工程时再次出现持续低帧，最小有用补充是：
+由用户在该慢态尚未恢复时，用已具备 WDDM 权限、含 v6 采集器的进程，
+开启现有 F6 GPU 驻留/调度，保留约 8–12 秒持续慢态后立即导出完整目录。
+这次针对“慢态内部在发生什么”，不要求为了重演首刷从头重打一局。
+若已经在记录，则直接在慢态窗口收尾。无需额外打开 GPU 资源清单。
+权限只能通过用户正常保存退出后从原工程 Launch-F6-WddmCapture.cmd 获取；
+重启使慢态消失时，不把新的快态冒充原问题的慢态证据，也不要求反复打到卡。
+
+接收后由分析端核对实际事件覆盖、manifest 版本/文件模式/停止原因、时间交集，
+再复用本轮关联方法判断慢态输出父堆与分页/队列事件是否同步。
+若资源链仍无对应迁移或等待证据，应转向定向硬件 GPU 分析，而不是再加一层
+通用 F6 统计。后者是否需要由具体缺失字段决定，本轮不安装或运行新工具采集。
+
+本轮产物
+Saved/DungeonGpuResearch20261028/
+- allocation-attribution.json：资源、父堆、全局分配及动态/结束 rundown 事件。
+- gpu-span-comparison.json：时间窗、每帧范围、事件数和统计口径。
+- etl-selected*.jsonl.gz、etl-decode*-summary.json：所选原始事件和字段版本。
+- fast-gpu-events.csv、insights-fast.log、export-fast.txt：既有快态 utrace 导出。
+- decode_etl.py、analyze_etl.py、compare_gpu.py：可复用的离线计算入口。
+原始用户 ETL/utrace/JSON 未覆盖。无游戏运行验收或本轮优化收益声明。
+
+API/事件解释参考
+Microsoft xperf dumper（只读解码）：
+https://learn.microsoft.com/en-us/windows-hardware/test/wpt/dumper
+Microsoft D3D12 residency（逻辑分配、堆及驻留语义）：
+https://learn.microsoft.com/en-us/windows/win32/direct3d12/residency
+本机引擎 GPU 范围入口：Engine/Source/Runtime/Engine/Private/GPUSkinCache.cpp:1841。

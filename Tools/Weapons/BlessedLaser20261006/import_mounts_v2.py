@@ -54,3 +54,8 @@ try:
 finally:u.SystemLibrary.execute_console_command(None,'Interchange.FeatureFlags.Import.FBX '+str(old))
 report['status']='fifteen_mount_assets_imported_and_saved';receipt.write_text(json.dumps(report,indent=2),encoding='utf-8')
 print('BLESSED_MOUNT_V2_COMPLETE '+str(len(report['saved'])))
+
+# Preserve the saved VIPER-specific aperture, PBR maps and source-normal precision.
+# The helper returns without changes until this revision has actually been saved.
+import runpy as _pv_finish_runpy
+_pv_finish_runpy.run_path(str(Path(u.Paths.project_dir()).resolve()/'Tools/Weapons/pit_viper_surface_finish.py'),run_name='__main__')

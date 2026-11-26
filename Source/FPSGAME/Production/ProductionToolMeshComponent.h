@@ -1,5 +1,6 @@
 #pragma once
 #include "../Weapons/RuneSwordMeshComponent.h"
+#include "WarhammerHeadMarker.h"
 #include "ProductionToolMeshComponent.generated.h"
 
 /** Warhammer floor contact is fitted as one hand/weapon group before publication. */
@@ -9,8 +10,10 @@ class FPSGAME_API UProductionToolMeshComponent : public URuneSwordMeshComponent
     GENERATED_BODY()
 public:
     void SetFloorContact(const FVector& Point,float Weight){FloorPoint=Point;FloorWeight=Weight;}
+    void SetFloorMarker(const FVector& Marker){FloorMarker=Marker;}
     virtual void FinalizeBoneTransform() override;
 private:
     FVector FloorPoint=FVector::ZeroVector;
+    FVector FloorMarker=WarhammerHeavy::HeadMarker;
     float FloorWeight=0.f;
 };

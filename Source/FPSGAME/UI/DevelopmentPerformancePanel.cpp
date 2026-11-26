@@ -1,5 +1,6 @@
 // F6 performance UI: measured observations, instrumented counts and resource inventory are distinct.
 #include "DevelopmentPanelWidget.h"
+#include "ColdSteelTextToolTip.h"
 #include "PerformanceTextUpdate.h"
 #include "FPSGpuTraceCapture.h"
 #include "Components/BackgroundBlur.h"
@@ -487,7 +488,7 @@ void UDevelopmentPanelWidget::RefreshPerformance(float)
         if (auto* Label = Row.Label.Get())
         {
             SetPerformanceText(Label, FText::FromString(Cost.Label));
-            Label->SetToolTipText(FText::FromString(Cost.ObjectPath + TEXT("\n") + Cost.Detail));
+            ColdSteelToolTip::Set(*Label, FText::FromString(Cost.ObjectPath + TEXT("\n") + Cost.Detail));
         }
         if (auto* Label = Row.Share.Get())
             SetPerformanceText(Label, FText::FromString(FString::Printf(TEXT("%.1f%% 权重"), Cost.ShareOfAll * 100.f)));

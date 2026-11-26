@@ -1,4 +1,5 @@
 #include "M14MucusProjectile.h"
+#include "MonsterTargeting.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "SpiralPillarM14.h"
 #include "PoisonMaggotVenomFX.h"
@@ -135,9 +136,9 @@ void AM14MucusProjectile::Tick(float Dt)
     if(First)
     {
         UpdateLiquidVisual(Dt*First->Time,Start,First->Location);
-        const auto* HitPawn=Cast<APawn>(First->GetActor());
+        AActor* HitActor=MonsterTargeting::DamageRecipient(First->GetActor());
+        const auto* HitPawn=Cast<APawn>(HitActor);
         ShowImpact(*First,Velocity);
-        AActor* HitActor=First->GetActor();
         if(HitPawn&&HitPawn->IsPlayerControlled())
         {
             auto* Vitals=HitActor->FindComponentByClass<UFPSCombatHealthComponent>();
@@ -157,7 +158,7 @@ void AM14MucusProjectile::Tick(float Dt)
                 }
             }
         }
-        else if(HitActor&&HitActor->IsA<AFPSIceWall>())
+        else if(MonsterTargeting::IsActiveArtisan(HitPawn)||(HitActor&&HitActor->IsA<AFPSIceWall>()))
             UGameplayStatics::ApplyPointDamage(HitActor,HitDamage,Velocity.GetSafeNormal(),*First,
                 Shooter->GetController(),Shooter.Get(),UEnemyRangedDamage::StaticClass());
         Destroy();return;

@@ -50,10 +50,11 @@ def gun_material(part,key,density):
  mi=load(path) if E.does_asset_exist(path) else AT.create_asset(name,D+'/Materials',u.MaterialInstanceConstant,u.MaterialInstanceConstantFactoryNew());L.set_material_instance_parent(mi,load('/Game/Weapons/WeaponSurface/Presets/MI_WS_'+preset))
  values=dict(CLEAN,Roughness=rough,Metallic=0. if poly or rubber or inside else 1.,MaskUVChannel=1.,BeadScale=2.42/max(density,.0001))
  if poly or rubber or inside:values.update(EdgeMetallic=0.,EdgeHighlight=.012)
+ values.update(f.get('scalars',{}))
  for k,v in values.items():L.set_material_instance_scalar_parameter_value(mi,k,v)
  L.set_material_instance_vector_parameter_value(mi,'FinishColor',u.LinearColor(*color,1.));L.set_material_instance_texture_parameter_value(mi,'SurfaceNormal',tex[(key,'N')]);L.set_material_instance_texture_parameter_value(mi,'SurfaceMask',tex[(key,'Mask')])
  overrides=mi.get_editor_property('base_property_overrides');overrides.set_editor_property('override_two_sided',True);overrides.set_editor_property('two_sided',part not in ('ReceiverCover','ReceiverInterior','Barrel','GasTube','Stock','RearGrip','Handguard'));mi.set_editor_property('base_property_overrides',overrides)
- L.update_material_instance(mi);E.set_metadata_tag(mi,'SaigaSurfaceRebuild','Clean WS1.1; structural normals UV0; own mask UV1; grain/mottle/stipple disabled');save(mi);R['materials'][name]={'path':mi.get_path_name(),'scalars':values,'normal':tex[(key,'N')].get_path_name(),'mask':tex[(key,'Mask')].get_path_name()};record();return mi
+ L.update_material_instance(mi);E.set_metadata_tag(mi,'SaigaSurfaceRebuild','Clean WS1.1; structural normals UV0; own mask UV1; per-part fine finish from finish.json');save(mi);R['materials'][name]={'path':mi.get_path_name(),'scalars':values,'normal':tex[(key,'N')].get_path_name(),'mask':tex[(key,'Mask')].get_path_name()};record();return mi
 native=load(C['assets']['native']['path']);dm=read(native);_,boneinfo=BW.get_all_bones_info(dm);bones={str(b.name):b for b in boneinfo};names=[str(b.name) for b in boneinfo]
 idle=load('/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_idle');local=u.AnimationLibrary.get_bone_poses_for_frame(idle,names,0,False,native);pose={}
 for b,t in zip(boneinfo,local):pose[str(b.name)]=t if b.parent_index<0 else t.multiply(pose[names[b.parent_index]])

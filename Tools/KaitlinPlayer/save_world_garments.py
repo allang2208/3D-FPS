@@ -59,6 +59,13 @@ for source, row in manifest.items():
         for index, weights in enumerate(data['weights']):
             B.set_vertex_bone_weights(mesh, index, [u.GeometryScriptBoneWeight(bone_index=bone, weight=weight)
                                                    for bone, weight in weights])
+    # ST6's independent head/neck is not represented by the torso-only fit
+    # field. Keep its native female collar when generating future waist pairs.
+    collar_hook = None
+    if any(material['slot'] == 'ST6NeckAndHemFabric' for material in data['materials']):
+        import runpy
+        collar_hook = runpy.run_path('D:/FPS3D/FPSGAME/Tools/ST6FemaleCollar/apply.py')
+        collar_hook['replace_collar'](mesh, data['materials'])
     options = u.GeometryScriptCreateNewSkeletalMeshAssetOptions()
     options.use_mesh_bone_proportions = True
     options.enable_recompute_normals = True
@@ -71,6 +78,8 @@ for source, row in manifest.items():
     # Carry the project's existing outfit distance-LOD policy; keep authored LOD0.
     if not u.FPSModularOutfitComponent.configure_outfit_lods(asset):
         raise RuntimeError('Could not apply existing outfit LOD policy: ' + row['asset'])
+    if collar_hook:
+        collar_hook['configure_lods'](asset)
     if not u.get_editor_subsystem(u.SkeletalMeshEditorSubsystem).regenerate_lod(asset, 3, True, False):
         raise RuntimeError('Garment LOD build did not finish: ' + row['asset'])
     asset.set_editor_property('physics_asset', target.physics_asset)

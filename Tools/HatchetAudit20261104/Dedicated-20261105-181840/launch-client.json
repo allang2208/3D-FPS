@@ -1,0 +1,30 @@
+{
+  "role": "client",
+  "pid": 71704,
+  "arguments": [
+    "\"D:\\FPS3D\\FPSGAME\\FPSGAME.uproject\"",
+    "\"127.0.0.1:19938\"",
+    "-game",
+    "-nosound",
+    "-unattended",
+    "-nosplash",
+    "-NoLiveCoding",
+    "-AssetGatherAll=false",
+    "-KukriCombatWireAudit",
+    "-HatchetCombatWireAudit",
+    "-KukriHeavyNetTrace",
+    "-ini:Engine:[/Script/PythonScriptPlugin.PythonScriptPluginSettings]:bRemoteExecution=False",
+    "-KukriRiftTrace",
+    "-ColdSteelProfile=KukriWireAudit_20261105-181840_client",
+    "-KukriProfileId=2785af44-b410-406a-9bb7-f1803cadf1e1",
+    "-KukriWireHead=jason",
+    "-port=19938",
+    "-UserDir=\"D:/FPS3D/FPSGAME/Tools/HatchetAudit20261104/Dedicated-20261105-181840/client/\"",
+    "-KukriWireOutput=\"D:\\FPS3D\\FPSGAME\\Tools\\HatchetAudit20261104\\Dedicated-20261105-181840\\client.json\"",
+    "-abslog=\"D:\\FPS3D\\FPSGAME\\Tools\\HatchetAudit20261104\\Dedicated-20261105-181840\\client.log\"",
+    "-ExecCmds=\"t.MaxFPS 30\"",
+    "-HatchetLegend=Ghost",
+    "-ini:EditorPerProjectUserSettings:[/Script/ModelContextProtocolEngine.ModelContextProtocolSettings]:bAutoStartServer=False",
+    "-nullrhi"
+  ]
+}

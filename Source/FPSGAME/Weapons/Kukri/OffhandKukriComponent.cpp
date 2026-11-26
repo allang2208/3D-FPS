@@ -1,7 +1,17 @@
 #include "OffhandKukriComponent.h"
 #include "OffhandKukriAuthoredPose.h"
+#include "OffhandBladeDraw.h"
+#include "PistolKukriDrawWrist.h"
+#include "KukriDrawRhythm.h"
+#include "../../Skills/LightningHasteSpeed.h"
+#include "Sound/SoundBase.h"
 #include "OffhandKukriAuthoredStrike.h"
 #include "OffhandKukriAuthoredUppercut.h"
+#include "OffhandShadowStepMotion.h"
+#include "OffhandAxeQuickMotion.h"
+#include "OffhandQuickClearance.h"
+#include "PistolHatchetCarry.h"
+#include "PistolHatchetDrawMotion.h"
 #include "../Spellbook/SpellbookPistolArmSolver.h"
 #include "../../FPSGAMECharacter.h"
 #include "../../UI/ColdSteelStatusModel.h"
@@ -25,17 +35,73 @@ namespace
 // Same native V9 off-hand arm as the spellbook; the accepted kukri mesh.
 const FSoftObjectPath ArmsPath(TEXT("/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7.SK_M4_BareArmsV7"));
 const FSoftObjectPath KukriPath(TEXT("/Game/Weapons/Kukri20261020/SM_Kukri.SM_Kukri"));
-// Lowering arc (camera cm, added to the stance wrist): the fist first pulls back toward the body, then drops out
-// of view below the frame; quadratic Bezier stance -> control -> end. The hand turns the blade down meanwhile.
-const FVector LowerArcControl(-6.f,-7.f,-10.f);
-const FVector LowerArcEnd(-8.f,-6.f,-34.f);
+// The reversed kukri tips down as the fist drops below the frame.
 const FQuat LowerHandTurn(FVector::RightVector,FMath::DegreesToRadians(55.f));
 // Draw entry: the knife hand rises into the hold while the pistol is drawn (or whenever the pair re-presents).
 constexpr float EntryDelaySeconds=.06f,EntryRiseSeconds=.42f;
 // The native support hand starts the reload clip on the grip: bring it in from below instead of popping it there.
 const FVector NativeReloadEntryOffset(-7.f,-3.f,-42.f);
 constexpr float NativeReloadEntrySeconds=.28f;
+FQuat KukriDrawWristRotation(float Time)
+{
+    const auto& Keys=PistolKukriDraw::WristRotation;
+    const int32 Last=UE_ARRAY_COUNT(Keys)-1;
+    const float Frame=FMath::Clamp(Time*60.f,0.f,float(Last));
+    const int32 Start=FMath::Min(int32(Frame),Last-1);
+    const auto Key=[&](int32 Index){const auto& Q=Keys[Index];return FQuat(Q[0],Q[1],Q[2],Q[3]);};
+    return FQuat::Slerp(Key(Start),Key(Start+1),Frame-Start).GetNormalized();
+}
+
 float Smooth(float T){T=FMath::Clamp(T,0.f,1.f);return T*T*(3.f-2.f*T);}
+
+FVector PistolLeftWristOffset(float A)
+{
+    namespace K=OffhandKukriPose;
+    FVector WristOffset=FMath::Lerp(K::Hip.LeftWristFromRightHand,K::Aim.LeftWristFromRightHand,A);
+    WristOffset.Z-=K::TransferDipCm*FMath::Sin(PI*A);
+    return WristOffset;
+}
+}
+
+void UPistolHatchetArmsMeshComponent::ConfigureCarry()
+{
+    const auto& Ref=GetSkeletalMeshAsset()->GetRefSkeleton();
+    CarryHandInCamera=PistolHatchetCarry::PalmInView(KukriOffhandDraw::Grip().GetRotation());
+    Clavicle=Ref.FindBoneIndex(TEXT("clavicle_l"));Upper=Ref.FindBoneIndex(TEXT("upperarm_l"));
+    Lower=Ref.FindBoneIndex(TEXT("lowerarm_l"));Hand=Ref.FindBoneIndex(TEXT("hand_l"));
+    Twist01=Ref.FindBoneIndex(TEXT("lowerarm_twist_01_l"));Twist02=Ref.FindBoneIndex(TEXT("lowerarm_twist_02_l"));
+    CarryBones.Reset();
+    if(Hand>=0&&Clavicle>=0&&Upper>=0&&Lower>=0)
+        for(int32 I=Clavicle;I<Ref.GetNum();++I)
+            if(I==Clavicle||Ref.BoneIsChildOf(I,Clavicle))CarryBones.Add(I);
+}
+
+void UPistolHatchetArmsMeshComponent::FinalizeBoneTransform()
+{
+    auto& Pose=GetEditableComponentSpaceTransforms();
+    const auto* Mesh=GetSkeletalMeshAsset();
+    if(bCrossedCarry&&Mesh&&!CarryBones.IsEmpty()&&Pose.Num()==Mesh->GetRefSkeleton().GetNum())
+    {
+        namespace K=OffhandKukriPose;
+        const float A=K::Ease(AimWeight);
+        // Keep the accepted crossed-arm shoulder and elbow. A small wrist dip
+        // leaves clearance for the newly rotated axe fist beneath the gun hand.
+        const FVector Wrist=CarryAnchorInCamera+PistolLeftWristOffset(A)+FVector(0.,0.,-FMath::Lerp(5.f,2.f,A));
+        const FVector Shoulder=FMath::Lerp(K::Hip.LeftShoulder,K::Aim.LeftShoulder,A);
+        const FVector Pole=FMath::Lerp(K::Hip.LeftPole,K::Aim.LeftPole,A);
+        const FQuat ToMesh=GetRelativeRotation().Quaternion().Inverse();
+        const FVector TargetWrist=FMath::Lerp(Pose[Hand].GetLocation(),ToMesh.RotateVector(Wrist),CarryWeight);
+        const FVector TargetShoulder=FMath::Lerp(Pose[Upper].GetLocation(),ToMesh.RotateVector(Shoulder),CarryWeight);
+        const FVector TargetPole=FMath::Lerp(Pose[Lower].GetLocation(),ToMesh.RotateVector(Pole),CarryWeight);
+        const FQuat TargetHand=FQuat::Slerp(Pose[Hand].GetRotation(),ToMesh*CarryHandInCamera,CarryWeight).GetNormalized();
+        const SpellbookPistolArm::FJoints J{Clavicle,Upper,Lower,Hand,Twist01,Twist02};
+        // Keep the fitted fist closed as the elbow follows the wrist into the crossed hold.
+        SpellbookPistolArm::Solve(Mesh->GetRefSkeleton(),Pose,Pose,CarryBones,J,
+            TargetShoulder,TargetWrist,TargetPole,TargetHand,0.f,CarryWeight,CarryPose);
+        PistolHatchetCarry::FitFingers(Mesh->GetRefSkeleton(),CarryPose,CarryWeight);
+        for(const int32 I:CarryBones)Pose[I]=CarryPose[I];
+    }
+    Super::FinalizeBoneTransform();
 }
 
 void UOffhandKukriArmsMeshComponent::CacheRig()
@@ -81,6 +147,19 @@ void UOffhandKukriArmsMeshComponent::CacheRig()
         Local.SetRotation(Rotation->GetNormalized());
         SourceUpper[I]=Local*SourceUpper[P];
     }
+    // Mirrored ShadowStepSlash: forward grip digits baked from ShadowStep Stage 1.
+    SourceShadowStep=Reference;
+    TMap<FName,FQuat> ShadowDigits;
+    for(const auto& D:OffhandShadowStepMotion::Digits)ShadowDigits.Add(FName(D.Name),D.LocalRotation);
+    for(const int32 I:LeftBones)
+    {
+        const int32 P=Ref.GetParentIndex(I);
+        const FQuat* Rotation=ShadowDigits.Find(Ref.GetBoneName(I));
+        if(P<0||!Rotation)continue;
+        FTransform Local=Reference[I].GetRelativeTransform(Reference[P]);
+        Local.SetRotation(Rotation->GetNormalized());
+        SourceShadowStep[I]=Local*SourceShadowStep[P];
+    }
     Target=Source;
 }
 
@@ -91,10 +170,10 @@ void UOffhandKukriArmsMeshComponent::FinalizeBoneTransform()
     auto& Pose=GetEditableComponentSpaceTransforms();
     if(Camera&&GetSkeletalMeshAsset()&&Pose.Num()==Reference.Num()&&Clavicle>=0&&Upper>=0&&Lower>=0&&Hand>=0)
     {
-        namespace K=OffhandKukriPose;
         const auto& Ref=GetSkeletalMeshAsset()->GetRefSkeleton();
         FVector Offset,Shoulder,Pole;FQuat HandRotation;
         bool ForwardGrip=false;
+        bool UseShadowDigits=false;
         float ClavicleShare=0.f;
         if(StrikeTime>=0.f)
         {
@@ -102,6 +181,14 @@ void UOffhandKukriArmsMeshComponent::FinalizeBoneTransform()
             FTransform Framing;
             OffhandKukriStrike::SamplePose(StrikeTime,Offset,HandRotation,Shoulder,Pole,Framing);
             ClavicleShare=OffhandKukriStrike::SampleClavicle(StrikeTime);
+        }
+        else if(ShadowStepTime>=0.f)
+        {
+            FTransform Framing;
+            OffhandShadowStepMotion::SamplePose(bShadowStepStage2,ShadowStepTime,Offset,HandRotation,Shoulder,Pole,Framing);
+            ForwardGrip=OffhandShadowStepMotion::UsesForwardGrip(bShadowStepStage2,ShadowStepTime);
+            UseShadowDigits=ForwardGrip;
+            ClavicleShare=OffhandShadowStepMotion::SampleClavicle(bShadowStepStage2,ShadowStepTime);
         }
         else if(UppercutTime>=0.f)
         {
@@ -114,24 +201,38 @@ void UOffhandKukriArmsMeshComponent::FinalizeBoneTransform()
         }
         else
         {
+            namespace K=OffhandKukriPose;
             const float A=K::Ease(AimWeight);
-            // The left wrist rides on this frame's pistol hand; on the way in and out
-            // of ADS the fist dips under the right wrist before settling.
-            Offset=FMath::Lerp(K::Hip.LeftWristFromRightHand,K::Aim.LeftWristFromRightHand,A);
-            Offset.Z-=K::TransferDipCm*FMath::Sin(PI*A);
-            HandRotation=FQuat::Slerp(K::Hip.LeftHand,K::Aim.LeftHand,A).GetNormalized();
+            Offset=PistolLeftWristOffset(A);
             Shoulder=FMath::Lerp(K::Hip.LeftShoulder,K::Aim.LeftShoulder,A);
             Pole=FMath::Lerp(K::Hip.LeftPole,K::Aim.LeftPole,A);
+            HandRotation=FQuat::Slerp(K::Hip.LeftHand,K::Aim.LeftHand,A).GetNormalized();
+            if(DrawTime>=0.f)
+            {
+                Offset+=OffhandBladeDraw::WristOffset(false,DrawTime);
+                HandRotation=(KukriDrawWristRotation(DrawTime)*HandRotation).GetNormalized();
+            }
             if(LowerWeight>0.f)
             {
                 const float S=FMath::Clamp(LowerWeight,0.f,1.f);
-                Offset+=2.f*(1.f-S)*S*LowerArcControl+S*S*LowerArcEnd;
+                Offset+=PistolOffhandRaise::WristOffset(S);
                 HandRotation=(FQuat::Slerp(FQuat::Identity,LowerHandTurn,S)*HandRotation).GetNormalized();
             }
         }
         const SpellbookPistolArm::FJoints J{Clavicle,Upper,Lower,Hand,Twist01,Twist02};
-        SpellbookPistolArm::Solve(Ref,Reference,ForwardGrip?SourceUpper:Source,LeftBones,J,Shoulder,
+        SpellbookPistolArm::Solve(Ref,Reference,UseShadowDigits?SourceShadowStep:(ForwardGrip?SourceUpper:Source),LeftBones,J,Shoulder,
             RightHandInCamera+Offset,Pole,HandRotation,0.f,1.f,Target);
+        if(DrawTime>=0.f&&StrikeTime<0.f&&UppercutTime<0.f&&ShadowStepTime<0.f)
+        {
+            const float Open=OffhandBladeDraw::OpenHand(false,DrawTime);
+            for(const int32 I:LeftBones)if(Ref.BoneIsChildOf(I,Hand))
+            {
+                const int32 Parent=Ref.GetParentIndex(I);
+                FTransform Local=Source[I].GetRelativeTransform(Source[Parent]);
+                Local.SetRotation(FQuat::Slerp(Local.GetRotation(),Ref.GetRefBonePose()[I].GetRotation(),Open).GetNormalized());
+                Target[I]=Local*Target[Parent];
+            }
+        }
         if(ClavicleShare>0.f)
         {
             // The bind clavicle points back along camera -X; a raised upper arm pinches the shoulder skin
@@ -148,7 +249,7 @@ void UOffhandKukriArmsMeshComponent::FinalizeBoneTransform()
         for(const int32 I:LeftBones)
         {
             // Keep each bone's native scale.
-            Pose[I].SetLocation(ToMesh.TransformPosition(Target[I].GetLocation()));
+            Pose[I].SetLocation(ToMesh.TransformPosition(Target[I].GetLocation()+PresentationOffset));
             Pose[I].SetRotation((ToMesh.GetRotation()*Target[I].GetRotation()).GetNormalized());
         }
         const FTransform Hidden(FQuat::Identity,FVector::ZeroVector,FVector::ZeroVector);
@@ -161,7 +262,7 @@ void UOffhandKukriArmsMeshComponent::FinalizeBoneTransform()
 UOffhandKukriComponent::UOffhandKukriComponent()
 {PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostPhysics;}
 
-bool UOffhandKukriComponent::IsOffhandKukri(const FColdSteelItem& Item) {return Item.Definition==TEXT("ue_kukri");}
+bool UOffhandKukriComponent::IsOffhandKukri(const FColdSteelItem& Item) {return ColdSteelInventory::UsesKukriMoveset(Item);}
 
 bool UOffhandKukriComponent::IsEquippedOn(const AActor* Owner)
 {
@@ -203,9 +304,18 @@ void UOffhandKukriComponent::BeginPlay()
     RefreshEquipment();
 }
 
+void UOffhandKukriComponent::OnPistolEquipStarted()
+{
+    // The firearm and the offhand listen to the same inventory change in either order.
+    RefreshEquipment();
+    if(!bEquipped)return;
+    PendingDraw=EDrawEntry::Raise;
+    EntryAge=DrawTime=-1.f;
+}
+
 void UOffhandKukriComponent::RefreshEquipment()
 {
-    bool Active=false;bEquipmentResolved=false;
+    bool Active=false;bEquipmentResolved=false;const FColdSteelItem* Knife=nullptr;
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
     if(Model.IsValid()&&Pawn&&Pawn->IsLocallyControlled())
     {
@@ -215,22 +325,50 @@ void UOffhandKukriComponent::RefreshEquipment()
         const auto* Item=Model->Equipped(State.ActiveWeaponSlot==6?8:11);
         const auto* Primary=Model->Equipped(State.ActiveWeaponSlot);
         Active=Item&&IsOffhandKukri(*Item)&&Primary&&ColdSteelInventory::IsDualPistol(*Primary)&&!Model->ActiveProductionTool();
+        if(Active)Knife=Item;
         bEquipmentResolved=true;
     }
-    if(Active==bEquipped)return;
-    if(!Active&&bQuickCombat)CancelQuickCombat();
-    if(!Active&&bUppercut)CancelUppercut();
+    const FString Next=Knife?Knife->InstanceId:FString();
+    if(Active==bEquipped&&BladeInstance==Next){if(Active&&bAssetsReady&&Blade)Modules.Refresh(Blade,Knife);return;}
+    if(Load){Load->CancelHandle();Load.Reset();}
+    BladeInstance=Next;bAssetsReady=false;DrawTime=EntryAge=-1.f;
+    bDrawHatchet=Knife&&ColdSteelInventory::Text(*Knife,TEXT("weaponType"))==TEXT("hatchet");
+    PendingDraw=!Active?EDrawEntry::None:(bDrawHatchet?EDrawEntry::Raise:EDrawEntry::KukriToss);
+    if(AxeArms)
+    {
+        AxeArms->SetVisibility(false);
+        AxeArms->ComponentTags.Remove(TEXT("PreloadModularOutfit"));
+    }
+    AxeChop=nullptr;AxeIdle=nullptr;AxeIdleAge=0.f;
+    if(bQuickCombat)CancelQuickCombat();
+    if(bUppercut)CancelUppercut();
+    if(bShadowStep)CancelShadowStep();
     bEquipped=Active;RightWeight=AimWeight=0.f;bPair=bHold=false;
     if(!Arms||!Blade)return;
     if(!Active)
     {
+        Modules.Clear(Blade);
         Arms->ComponentTags.Remove(TEXT("PreloadModularOutfit"));
         if(Load){Load->CancelHandle();Load.Reset();}UpdateVisibility();return;
     }
+    UpdateVisibility();
     // Gloves and sleeves follow this arm exactly like the spellbook arm.
     Arms->ComponentTags.AddUnique(TEXT("PreloadModularOutfit"));
-    if(ArmsPath.ResolveObject()&&KukriPath.ResolveObject())ApplyAssets();
-    else Load=UAssetManager::GetStreamableManager().RequestAsyncLoad(TArray<FSoftObjectPath>{ArmsPath,KukriPath},
+    TArray<FSoftObjectPath> Paths{ArmsPath,KukriPath};
+    if(bDrawHatchet)
+    {
+        Paths.Add(FSoftObjectPath(KukriRhythm::ArmsMesh));
+        Paths.Add(FSoftObjectPath(HatchetPairRhythm::Attack3KHClip));
+        Paths.Add(FSoftObjectPath(OffhandAxeQuickMotion::IdlePath));
+        Paths.Add(FSoftObjectPath(KukriRhythm::RiftMaterial));
+    }
+    else
+    {
+        Paths.Add(FSoftObjectPath(KukriDrawRhythm::TossSound));
+        Paths.Add(FSoftObjectPath(KukriDrawRhythm::CatchSound));
+    }
+    if(!Paths.ContainsByPredicate([](const FSoftObjectPath& Path){return !Path.ResolveObject();}))ApplyAssets();
+    else Load=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
         FStreamableDelegate::CreateUObject(this,&UOffhandKukriComponent::ApplyAssets));
 }
 
@@ -240,6 +378,10 @@ void UOffhandKukriComponent::ApplyAssets()
     auto* Skin=Cast<USkeletalMesh>(ArmsPath.ResolveObject());auto* Mesh=Cast<UStaticMesh>(KukriPath.ResolveObject());
     if(!Skin||!Mesh)return;
     Arms->SetSkeletalMesh(Skin);Blade->SetStaticMesh(Mesh);
+    DrawTossSound=bDrawHatchet?nullptr:Cast<USoundBase>(FSoftObjectPath(KukriDrawRhythm::TossSound).ResolveObject());
+    DrawCatchSound=bDrawHatchet?nullptr:Cast<USoundBase>(FSoftObjectPath(KukriDrawRhythm::CatchSound).ResolveObject());
+    Modules.Clear(Blade);
+    if(Model.IsValid())Modules.Refresh(Blade,Model->Equipped(Model->Snapshot().ActiveWeaponSlot==6?8:11));
     if(const auto* Render=Skin->GetResourceForRendering())for(int32 L=0;L<Render->LODRenderData.Num();++L)
         for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
         {
@@ -250,13 +392,66 @@ void UOffhandKukriComponent::ApplyAssets()
             Arms->ShowMaterialSection(M,S,HandSection,L);
         }
     Arms->HideBoneByName(TEXT("clavicle_r"),EPhysBodyOp::PBO_None);
+    if(bDrawHatchet)InstallAxeArms();
+    bAssetsReady=true;
     UpdateVisibility();
+}
+
+void UOffhandKukriComponent::InstallAxeArms()
+{
+    auto* Skin=Cast<USkeletalMesh>(FSoftObjectPath(KukriRhythm::ArmsMesh).ResolveObject());
+    AxeChop=Cast<UAnimSequence>(FSoftObjectPath(HatchetPairRhythm::Attack3KHClip).ResolveObject());
+    AxeIdle=Cast<UAnimSequence>(FSoftObjectPath(OffhandAxeQuickMotion::IdlePath).ResolveObject());
+    if(!Skin||!AxeIdle||!AxeChop)return;
+    if(!AxeArms)
+    {
+        AxeArms=NewObject<UPistolHatchetArmsMeshComponent>(GetOwner(),TEXT("PistolOffhandHatchetArms"));
+        GetOwner()->AddInstanceComponent(AxeArms);
+        AxeArms->SetupAttachment(Camera.Get());
+        AxeArms->SetRelativeRotation(FRotator(0,90,0));
+        AxeArms->bLeftHandOnly=true;
+        AxeArms->SetOnlyOwnerSee(true);AxeArms->SetCastShadow(false);
+        AxeArms->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        AxeArms->SetCanEverAffectNavigation(false);AxeArms->bReceivesDecals=false;
+        AxeArms->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+        AxeArms->SetVisibility(false);AxeArms->RegisterComponent();
+        AxeArms->SetComponentTickEnabled(false);
+    }
+    AxeArms->SetSkeletalMesh(Skin);
+    AxeArms->ConfigureCarry();
+    PrepareQuickRift();
+    AxeArms->ComponentTags.AddUnique(TEXT("PreloadModularOutfit"));
+}
+
+bool UOffhandKukriComponent::UsesNativeAxe() const
+{
+    return bEquipped&&bDrawHatchet&&!bUppercut&&!bShadowStep&&AxeArms&&AxeIdle&&AxeChop;
+}
+
+USkeletalMeshComponent* UOffhandKukriComponent::ArmsMesh() const
+{
+    return UsesNativeAxe()?static_cast<USkeletalMeshComponent*>(AxeArms.Get()):Arms.Get();
+}
+
+FTransform UOffhandKukriComponent::SampleAxeBlade(float Time,bool Striking,float EntryLower)
+{
+    auto* Clip=Striking?AxeChop.Get():AxeIdle.Get();
+    AxeArms->CarryWeight=Striking?OffhandAxeQuickMotion::Carry(Time):1.f;
+    AxeArms->bCrossedCarry=AxeArms->CarryWeight>0.f;
+    if(AxeArms->bCrossedCarry)
+    {
+        AxeArms->CarryAnchorInCamera=Arms->RightHandInCamera+PistolOffhandRaise::WristOffset(EntryLower);
+        AxeArms->AimWeight=AimWeight;
+    }
+    const float ClipTime=Striking?Time*OffhandAxeQuickMotion::ClipRate:AxeIdleAge;
+    OffhandAxeQuickMotion::Sample(*AxeArms,Clip,ClipTime);
+    return OffhandAxeQuickMotion::BladeWorld(*AxeArms);
 }
 
 bool UOffhandKukriComponent::OwnsLeftHand() const
 {
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
-    if(!bEquipped||!Pawn||!Pawn->IsLocallyControlled()||!Arms||!Arms->GetSkeletalMeshAsset()||!Blade||!Blade->GetStaticMesh())return false;
+    if(!bEquipped||!bAssetsReady||!Pawn||!Pawn->IsLocallyControlled()||!Arms||!Arms->GetSkeletalMeshAsset()||!Blade||!Blade->GetStaticMesh())return false;
     if(!Pawn->HasInventoryWeapon()||!Pawn->IsPistolWeapon()||Pawn->HasOffhandPistol())return false;
     // The pistol draw keeps the knife hand: it rises into the hold with the gun (draw entry).
     const bool Drawing=Pawn->GetWeaponState()==EAKMWeaponState::Equipping;
@@ -273,11 +468,13 @@ bool UOffhandKukriComponent::OwnsLeftHand() const
 
 void UOffhandKukriComponent::UpdateVisibility()
 {
-    if(!Arms||!Blade)return;const bool Show=OwnsLeftHand();
+    if(!Arms||!Blade)return;const bool Show=OwnsLeftHand()&&PendingDraw==EDrawEntry::None;
     const auto* Potion=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();
     const bool ShowBlade=Show&&(!Potion||!Potion->IsOffhandWeaponHidden())&&!Cast<AFPSGAMECharacter>(GetOwner())->IsDoorPushActive();
-    if(Arms->IsVisible()!=Show)Arms->SetVisibility(Show);
-    if(Blade->IsVisible()!=ShowBlade)Blade->SetVisibility(ShowBlade);
+    const bool Native=UsesNativeAxe();
+    if(Arms->IsVisible()!=(Show&&!Native))Arms->SetVisibility(Show&&!Native);
+    if(AxeArms&&AxeArms->IsVisible()!=(Show&&Native))AxeArms->SetVisibility(Show&&Native);
+    if(Blade->IsVisible()!=ShowBlade)Blade->SetVisibility(ShowBlade,true);
 }
 
 void UOffhandKukriComponent::AdvanceActionBeforeCamera(float Delta)
@@ -295,6 +492,12 @@ void UOffhandKukriComponent::AdvanceActionBeforeCamera(float Delta)
             Pawn->GetWeaponState()!=EAKMWeaponState::Idle)CancelUppercut();
         else AdvanceUppercut(Delta);
     }
+    if(bShadowStep)
+    {
+        if(!Pawn||Pawn->IsDodging()||Pawn->IsTraversing()||Pawn->IsSwitchingWeapon()||
+            (!bStaffShadowStep&&Pawn->GetWeaponState()!=EAKMWeaponState::Idle))CancelShadowStep();
+        else AdvanceShadowStep(Delta);
+    }
     if(bUpperRiftActive)TickUpperRift(Delta);
     const auto* Gun=Pawn?Pawn->AKMViewmodel.Get():nullptr;
     const auto* Body=Pawn?Pawn->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
@@ -307,12 +510,34 @@ void UOffhandKukriComponent::AdvanceActionBeforeCamera(float Delta)
     else NativeReloadEnteredAt=-1.;
     // The draw entry starts each time the knife hand takes the left hand over outside the reload's own raise.
     const bool Presenting=bPair&&OwnsLeftHand();
-    if(Presenting&&!bWasPresenting&&!Pawn->IsOffhandReloadActive())EntryAge=0.f;
-    bWasPresenting=Presenting;
+    const auto* Potion=Pawn?Pawn->FindComponentByClass<UFPSPotionUseComponent>():nullptr;
+    const bool CanDraw=Presenting&&!Pawn->IsOffhandReloadActive()&&!Pawn->IsDoorPushActive()&&
+        !(Potion&&Potion->IsActive())&&!bQuickCombat&&!bUppercut&&!bShadowStep;
     if(EntryAge>=0.f){EntryAge+=Delta;if(EntryAge>=EntryDelaySeconds+EntryRiseSeconds)EntryAge=-1.f;}
+    if(PendingDraw!=EDrawEntry::None&&CanDraw)
+    {
+        // Only a kukri fitted to an already presented pistol uses the toss clock.
+        const bool Toss=PendingDraw==EDrawEntry::KukriToss&&!Drawing;
+        EntryAge=Toss?-1.f:0.f;
+        DrawTime=Toss?0.f:-1.f;
+        if(bDrawHatchet&&AxeArms)AxeArms->ClearEntry();
+        PendingDraw=EDrawEntry::None;
+    }
+    else if(DrawTime>=0.f)
+    {
+        if(CanDraw)
+        {
+            const float Before=DrawTime;
+            DrawTime+=Delta*LightningHaste::ActionSpeed(Pawn);
+            OffhandBladeDraw::PlayCues(this,false,Before,DrawTime,DrawTossSound,DrawCatchSound);
+            if(DrawTime>=OffhandBladeDraw::Length(false))DrawTime=-1.f;
+        }
+        else DrawTime=-1.f;
+    }
+    else if(Presenting&&!bWasPresenting&&!Pawn->IsOffhandReloadActive())EntryAge=0.f;
+    bWasPresenting=Presenting;
     if(!bPair){RightWeight=AimWeight=0.f;bHold=false;EntryAge=-1.f;return;}
     const auto Phase=Pawn->GetOffhandReloadPhase();
-    const auto* Potion=Pawn->FindComponentByClass<UFPSPotionUseComponent>();
     bHold=Phase==EOffhandReloadPhase::Lower||Phase==EOffhandReloadPhase::Reload||
         (Potion&&Potion->IsStowingOffhand()&&!Potion->IsOffhandWeaponHidden())||
         (Pawn->GetWeaponState()!=EAKMWeaponState::Idle&&Phase!=EOffhandReloadPhase::Raise&&!Drawing);
@@ -324,36 +549,77 @@ void UOffhandKukriComponent::AdvanceActionBeforeCamera(float Delta)
     RightWeight=FMath::FInterpConstantTo(RightWeight,Ready?1.f:0.f,Delta,1.f/K::ContactReturnSeconds);
     // The gun centres and cants together with the knife hand instead of in a second move: during the draw it
     // follows the entry, around a reload it unwinds as the knife drops and returns as it rises.
-    if(Drawing)RightWeight=Presenting?1.f-EntryLowerWeight():0.f;   // arm assets still streaming: native draw
+    if(Drawing||(Ready&&EntryAge>=0.f))
+        RightWeight=Presenting?1.f-EntryLowerWeight():0.f;
     else if(Pawn->IsOffhandReloadActive())RightWeight=1.f-Pawn->GetOffhandReloadLowerWeight();
     if(bHold)return;
     const bool Aim=Ready&&Pawn->IsAiming();
     AimWeight=FMath::FInterpConstantTo(AimWeight,Aim?1.f:0.f,Delta,1.f/(Aim?K::AimInSeconds:K::AimOutSeconds));
-    // The flourish and the uppercut hold the authored gun framing for their whole clock.
-    if(bQuickCombat||bUppercut){RightWeight=1.f;AimWeight=0.f;}
+    // The flourish, uppercut and shadow step hold the authored gun framing for their whole clock.
+    if(bQuickCombat||bUppercut||bShadowStep){RightWeight=1.f;AimWeight=0.f;}
 }
 
 void UOffhandKukriComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());if(!Pawn||!Pawn->IsLocallyControlled())return;
+    // Freeze the trail after this frame's camera update, including staff pairs
+    // whose presentation is owned by their separate off-hand component.
+    if(bQuickCombat&&bHatchetQuickCombat&&!bUpperRiftStarted&&QuickElapsed>=OffhandAxeQuickMotion::RiftStart)
+    {bUpperRiftStarted=true;StartQuickRift();}
     if(!bEquipmentResolved)RefreshEquipment();
     if(!bEquipped)return;
-    UpdateVisibility();if(!Arms||!Arms->IsVisible())return;
+    UpdateVisibility();if(!ArmsMesh()||!ArmsMesh()->IsVisible())return;
     const auto* Gun=Pawn->AKMViewmodel.Get();
     if(Gun&&Gun->GetSkeletalMeshAsset()&&Camera.IsValid())
         if(const int32 Index=Gun->GetBoneIndex(TEXT("hand_r"));Index!=INDEX_NONE)
+        {
             Arms->RightHandInCamera=Camera->GetComponentTransform().InverseTransformPosition(Gun->GetBoneTransform(Index).GetLocation());
+            if(bQuickCombat&&!bStaffQuickCombat)
+            {
+                const FTransform Presented=OffhandQuickClearance::PistolFrame(OffhandKukriPose::HipFraming,
+                    QuickElapsed/GetQuickCombatLength(),bHatchetQuickCombat);
+                QuickNativePistolHand=Presented.InverseTransformPosition(Arms->RightHandInCamera);
+                FTransform BladeReference=OffhandKukriPose::HipFraming;
+                if(!bHatchetQuickCombat)
+                {
+                    FVector Wrist,Shoulder,Pole;FQuat Hand;
+                    OffhandKukriStrike::SamplePose(QuickElapsed,Wrist,Hand,Shoulder,Pole,BladeReference);
+                }
+                // The left blade retains its authored lane while the right
+                // gun uses a smaller independent arc. Axe carry stays at idle.
+                Arms->RightHandInCamera=BladeReference.TransformPosition(QuickNativePistolHand);
+            }
+        }
     const auto* Potion=Pawn->FindComponentByClass<UFPSPotionUseComponent>();
     const float Stow=FMath::Max(Pawn->GetOffhandReloadLowerWeight(),Potion&&Potion->IsStowingOffhand()?Potion->OffhandLowerWeight():0.f);
+    if(UsesNativeAxe())
+    {
+        const bool Striking=IsHatchetQuickCombat();
+        // Reload and consumables lower the whole rig. During equip the shoulder
+        // stays in place and the wrist covers the remainder of the below-frame arc.
+        const float EntryLower=Striking?0.f:FMath::Max(0.f,EntryLowerWeight()-Stow);
+        AxeArms->SetRelativeLocation(PistolOffhandRaise::LowerEnd*(Striking?0.f:Stow));
+        if(!bQuickCombat||QuickHitStop<=0.f)AxeArms->AdvanceEntry(Delta*LightningHaste::ActionSpeed(Pawn));
+        if(!Striking)AxeIdleAge=FMath::Fmod(AxeIdleAge+Delta,FMath::Max(.01f,AxeIdle->GetPlayLength()));
+        Blade->SetWorldTransform(SampleAxeBlade(QuickElapsed,Striking,EntryLower));
+        return;
+    }
     Arms->LowerWeight=FMath::Max(Stow,EntryLowerWeight());Arms->AimWeight=AimWeight;
+    Arms->DrawTime=DrawTime;
     Arms->StrikeTime=bQuickCombat?QuickElapsed:-1.f;
     Arms->UppercutTime=bUppercut?UppercutElapsed:-1.f;
+    Arms->ShadowStepTime=bShadowStep?FMath::Clamp(ShadowStepElapsed,0.f,bShadowStepStage2?OffhandShadowStepMotion::Stage2Length:OffhandShadowStepMotion::Stage1Length):-1.f;
+    Arms->bShadowStepStage2=bShadowStepStage2;
+    Arms->PresentationOffset=bShadowStep?ShadowStepPressOffset():FVector::ZeroVector;
     Arms->TickAnimation(0.f,false);Arms->RefreshBoneTransforms();
     // Same-frame rigid contact; the native hand carries a scale-100 import.
     FTransform HandFrame=Arms->GetSocketTransform(TEXT("hand_l"));HandFrame.SetScale3D(FVector::OneVector);
+    const bool ForwardShadow=bShadowStep&&OffhandShadowStepMotion::UsesForwardGrip(bShadowStepStage2,Arms->ShadowStepTime);
     const bool ForwardGrip=bUppercut&&UppercutElapsed>=OffhandKukriUpper::DigitsAt&&UppercutElapsed<=OffhandKukriUpper::DigitsEnd;
-    Blade->SetWorldTransform((ForwardGrip?OffhandKukriUpper::KukriInHand:OffhandKukriPose::KukriInHand)*HandFrame);
+    const FTransform Grip=ForwardShadow?OffhandShadowStepMotion::KukriInHand:(ForwardGrip?OffhandKukriUpper::KukriInHand:OffhandKukriPose::KukriInHand);
+    const FTransform Flight=DrawTime>=0.f&&!bQuickCombat&&!bUppercut&&!bShadowStep?OffhandBladeDraw::FlightDelta(false,DrawTime):FTransform::Identity;
+    Blade->SetWorldTransform(Flight*Grip*HandFrame);
     UpdateVisibility();
 }
 
@@ -412,8 +678,15 @@ void UOffhandKukriComponent::ApplyPistolRightArm(USkeletalMeshComponent& Gun,TAr
     for(int32 I=0;I<Pose.Num();++I)RightSource[I]=Pose[I]*ToCamera;
     namespace K=OffhandKukriPose;
     const float A=K::Ease(AimWeight);
-    const FVector Shoulder=FMath::Lerp(RightSource[RightUpper].GetLocation(),FMath::Lerp(K::Hip.RightShoulder,K::Aim.RightShoulder,A),Weight);
-    const FVector Pole=FMath::Lerp(RightSource[RightLower].GetLocation(),FMath::Lerp(K::Hip.RightPole,K::Aim.RightPole,A),Weight);
+    FVector Shoulder=FMath::Lerp(RightSource[RightUpper].GetLocation(),FMath::Lerp(K::Hip.RightShoulder,K::Aim.RightShoulder,A),Weight);
+    FVector Pole=FMath::Lerp(RightSource[RightLower].GetLocation(),FMath::Lerp(K::Hip.RightPole,K::Aim.RightPole,A),Weight);
+    if(bQuickCombat&&!bStaffQuickCombat)
+    {
+        const auto Clearance=OffhandQuickClearance::Sample(QuickElapsed/GetQuickCombatLength(),bHatchetQuickCombat);
+        const float Support=FMath::Clamp(float(Clearance.Offset.Y)/22.f,0.f,1.f);
+        Shoulder+=Clearance.Offset*.12;
+        Pole+=Clearance.Offset*.45+FVector(-1,1,-2)*Support;
+    }
     const auto& Ref=Gun.GetSkeletalMeshAsset()->GetRefSkeleton();
     const SpellbookPistolArm::FJoints J{RightClavicle,RightUpper,RightLower,RightHand,RightTwist01,RightTwist02};
     SpellbookPistolArm::Solve(Ref,RightReference,RightSource,RightBones,J,Shoulder,RightSource[RightHand].GetLocation(),Pole,
@@ -429,7 +702,9 @@ void UOffhandKukriComponent::ApplyPistolRightArm(USkeletalMeshComponent& Gun,TAr
 
 void UOffhandKukriComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
-    CancelQuickCombat();CancelUppercut();
+    Modules.Clear(Blade);
+    CancelQuickCombat();CancelUppercut();CancelShadowStep();
+    StopUpperRift();
     if(Model.IsValid()&&EquipmentChanged.IsValid())Model->OnChanged.Remove(EquipmentChanged);
     if(Load)Load->CancelHandle();Super::EndPlay(Reason);
 }

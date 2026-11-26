@@ -1,7 +1,13 @@
 #include "OffhandKukriComponent.h"
+#include "../../Combat/FPSAttackQuery.h"
+#include "KukriDecisiveComponent.h"
 #include "OffhandKukriAuthoredPose.h"
 #include "OffhandKukriAuthoredUppercut.h"
+#include "ShadowStepRiftRibbons.h"
 #include "KukriRhythm.h"
+#include "OffhandAxeQuickMotion.h"
+#include "../Staff/StaffOffhandMeleeComponent.h"
+#include "../Staff/StaffOffhandQuickMotion.h"
 #include "../MeleeSmallTargetQuery.h"
 #include "../MeleeWeaponStats.h"
 #include "../RuneSwordUppercutMotion.h"
@@ -13,6 +19,7 @@
 #include "../../Skills/LightningHasteSpeed.h"
 #include "../../Skills/SwordUppercutTuning.h"
 #include "../../FPSGAMECharacter.h"
+#include "../../FPSGAMEPlayerController.h"
 #include "../../UI/ColdSteelStatusModel.h"
 #include "../../UI/ColdSteelInventoryTypes.h"
 #include "../../Monsters/MonsterCombatComponent.h"
@@ -43,20 +50,21 @@
 
 namespace
 {
-constexpr float LungeStart=.24f,LungeEnd=.37f,LungeCM=120.f;   // author s; <= the 150 cm server budget
+// author s (KukriRhythm, V3: the stride starts as the charge fills); <= the 150 cm server budget
+constexpr float LungeStart=KukriRhythm::UpperLungeStart,LungeEnd=KukriRhythm::UpperLungeEnd,LungeCM=120.f;
 const TCHAR* OffhandUpperWallPath=TEXT("/Game/Audio/MeleeBlock20260927/S_MeleeBlock_02.S_MeleeBlock_02");
 
-UE::Geometry::FDynamicMesh3 BuildUpperRift()
+UE::Geometry::FDynamicMesh3 BuildUpperRift(bool Hatchet=false)
 {
     using namespace UE::Geometry;
     FDynamicMesh3 Mesh;Mesh.EnableAttributes();
     FDynamicMeshUVOverlay* UV=Mesh.Attributes()->PrimaryUV();
     FDynamicMeshNormalOverlay* Normals=Mesh.Attributes()->PrimaryNormals();
-    constexpr int32 N=OffhandKukriUpper::RiftStations;
+    const int32 N=Hatchet?HatchetDualChopRhythm::Stations:OffhandKukriUpper::RiftStations;
     for(int32 S=0;S<N;++S)
         for(int32 E=0;E<2;++E)
         {
-            const float* P=OffhandKukriUpper::Rift[S][E];
+            const float* P=Hatchet?HatchetDualChopRhythm::RibbonLeft[S][E]:OffhandKukriUpper::Rift[S][E];
             Mesh.AppendVertex(FVector3d(P[0],P[1],P[2]));
             UV->AppendElement(FVector2f(float(S)/(N-1),float(E)));
             Normals->AppendElement(FVector3f(0.f,0.f,1.f));   // unlit two-sided material: the normal is unused
@@ -73,16 +81,23 @@ UE::Geometry::FDynamicMesh3 BuildUpperRift()
 
 FString UOffhandKukriComponent::UppercutStatusText() const
 {
-    if(!bEquipped)return TEXT("需要持刀");
-    if(bUppercut)return TEXT("上挑中");
     const auto* P=Cast<AFPSGAMECharacter>(GetOwner());
-    if(!P||!Model.IsValid()||!bPair)return TEXT("暂不可用");
+    const auto* StaffPair=P?P->FindComponentByClass<UStaffOffhandMeleeComponent>():nullptr;
+    const bool WithStaff=StaffPair&&StaffPair->IsEquipped();
+    if(!bEquipped&&!WithStaff)return TEXT("需要持刀");
+    if(bUppercut)return TEXT("上挑中");
+    if(!P||!Model.IsValid()||(!WithStaff&&!bPair))return TEXT("暂不可用");
     if(Model->SwordUppercutCooldown()>0.f)return TEXT("冷却中");
     if(!Model->CanSpendStamina(Model->SwordUppercutStaminaCost()))return TEXT("体力不足");
-    if(bQuickCombat||P->IsWeaponBusy())return TEXT("动作中");
+    if(bQuickCombat||bShadowStep||P->IsWeaponBusy())return TEXT("动作中");
     if(P->IsCastBlockingLeftHandAction()||P->IsDodging()||P->IsSpellGestureBlocking()||P->IsSprinting()||P->IsAiming())
         return TEXT("动作占用");
-    if(!OwnsLeftHand())return TEXT("动作占用");
+    if(WithStaff)
+    {
+        if(!StaffPair->CanQuickCombat(true))return TEXT("动作未就绪");
+        if(!StaffPair->OwnsLeftHand()||AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(P->GetController())))return TEXT("动作占用");
+    }
+    else if(!OwnsLeftHand())return TEXT("动作占用");
     return FString();
 }
 
@@ -90,16 +105,20 @@ bool UOffhandKukriComponent::BeginUppercut()
 {
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());
     if(!P||UBoundCongregateCaptureComponent::IsCaptured(P)||!UppercutStatusText().IsEmpty())return false;
+    auto* StaffPair=P->FindComponentByClass<UStaffOffhandMeleeComponent>();
+    if(StaffPair&&!StaffPair->IsEquipped())StaffPair=nullptr;
     auto* Profile=Model.Get();
     const auto State=Profile?Profile->Snapshot():FColdSteelProfile();
     const auto* Item=Profile?Profile->Equipped(State.ActiveWeaponSlot==6?8:11):nullptr;
-    if(!Item||!IsOffhandKukri(*Item)||Profile->ActiveProductionTool())return false;
+    if(!Item||!(StaffPair?ColdSteelInventory::IsOneHandedBlade(*Item):IsOffhandKukri(*Item))||Profile->ActiveProductionTool())return false;
+    if(StaffPair)StaffPair->CaptureActionEntry();
     // Snapshot at the start: damage, reach and skill tier stay fixed for this cast (the cost is paid at the release).
     const auto Stats=ColdSteelMelee::Evaluate(*Item,Profile);
     const auto Effect=Profile->MasteryEffect(TEXT("swordUppercut"));
     UpperDamage=float(Stats.Damage*ColdSteelMelee::UppercutMultiplier(Profile,Stats.Modifiers));
     UpperReach=float((Stats.BaseReach>0.?Stats.BaseReach:KukriRhythm::DefaultReachCM)*Effect.UppercutReachMultiplier*Stats.Modifiers.MartialRange);
     UpperShot=ColdSteelSkills::Snapshot(P,Item);
+    CaptureContactEdge(*Item);
     UpperShot.bRifle=false;UpperShot.bPistol=false;UpperShot.WeakpointPercent=0;UpperShot.bMelee=true;UpperShot.bMeleeStrike=true;
     UpperShot.AttackForm=KukriRhythm::Form;
     UpperShot.AttackMeta=SwordUppercut::AttackMeta;   // heavy formula family + the shared forced launch
@@ -111,11 +130,15 @@ bool UOffhandKukriComponent::BeginUppercut()
     ThudSounds.Reset();
     for(const TCHAR* Path:KukriRhythm::StabThud)if(auto* Thud=LoadObject<USoundBase>(nullptr,Path))ThudSounds.Add(Thud);
     bUppercut=true;bUppercutReleased=bUppercutTrainingPending=false;bUppercutLungeStarted=bUppercutLungeBlocked=false;
+    bStaffUppercut=StaffPair!=nullptr;
+    UppercutEndTime=OffhandKukriUpper::Length+(bStaffUppercut?StaffOffhandQuickMotion::Return:0.f);
     UppercutDirection=FVector::ZeroVector;
     bUpperSwingPlayed=bUpperImpactConfirmed=bUpperWallHit=false;
-    UppercutElapsed=0.f;UppercutHitStop=0.f;UppercutImpactAge=-1.f;UppercutStrikeAge=-1.f;UppercutImpactKick=0.f;
+    UppercutElapsed=bStaffUppercut?-StaffOffhandQuickMotion::Entry:0.f;
+    UppercutHitStop=0.f;UppercutImpactAge=-1.f;UppercutStrikeAge=-1.f;UppercutImpactKick=0.f;
+    if(StaffPair)StaffPair->BeginActionPresentation(true);
     ResetUpperStrike();UpperHitActors.Reset();
-    UpperPreviousBlade=UpperBladeFrame(0.f);bHaveUpperPreviousBlade=true;
+    UpperPreviousBlade=UpperBladeFrame(UppercutElapsed);bHaveUpperPreviousBlade=true;
     StopUpperRift();bUpperRiftStarted=false;
     return true;
 }
@@ -124,6 +147,9 @@ FTransform UOffhandKukriComponent::UpperBladeFrame(float T) const
 {
     // The authored left-hand frame at author time T (the visible mesh is a tick behind), in world space.
     if(!Camera.IsValid())return FTransform::Identity;
+    if(bStaffUppercut)
+        if(const auto* Pair=GetOwner()->FindComponentByClass<UStaffOffhandMeleeComponent>())
+            return Pair->ActionBladeInCamera(T)*Camera->GetComponentTransform();
     FVector Wrist,Shoulder,Pole;FQuat Hand;FTransform Framing;
     OffhandKukriUpper::SamplePose(T,Wrist,Hand,Shoulder,Pole,Framing);
     const FVector HandPos=Arms?Arms->RightHandInCamera:FVector::ZeroVector;
@@ -162,7 +188,12 @@ void UOffhandKukriComponent::AdvanceUppercut(float Delta)
     auto* Profile=Model.Get();
     const auto State=Profile?Profile->Snapshot():FColdSteelProfile();
     const auto* Item=Profile?Profile->Equipped(State.ActiveWeaponSlot==6?8:11):nullptr;
-    if(!P||!Item||!IsOffhandKukri(*Item)){CancelUppercut();return;}
+    auto* StaffPair=bStaffUppercut&&P?P->FindComponentByClass<UStaffOffhandMeleeComponent>():nullptr;
+    if(!P||!Item||Item->InstanceId!=UpperShot.ItemInstance||
+        !(bStaffUppercut?ColdSteelInventory::IsOneHandedBlade(*Item):IsOffhandKukri(*Item))||
+        (bStaffUppercut&&(!StaffPair||!StaffPair->OwnsLeftHand()||
+            AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(P->GetController())))))
+    {CancelUppercut();return;}
     const auto& S=KukriRhythm::Swings[KukriRhythm::UppercutStage];
     const float Rate=FMath::Max(.05f,LightningHaste::ActionSpeed(P));
     // The impact rattle and the contact accent are real time; the hit-stop freezes the author clock.
@@ -178,22 +209,26 @@ void UOffhandKukriComponent::AdvanceUppercut(float Delta)
             UppercutHitStop-=Pause;Remaining-=Pause;
             continue;
         }
-        const float StageRate=Rate*KukriRhythm::StageTempo(KukriRhythm::UppercutStage,UppercutElapsed);
+        const float StageRate=Rate*(bStaffUppercut&&(UppercutElapsed<0.f||UppercutElapsed>=OffhandKukriUpper::Length)?1.f:
+            KukriRhythm::StageTempo(KukriRhythm::UppercutStage,UppercutElapsed));
         float Step=FMath::Min(Remaining*StageRate,1.f/120.f);
         const float StrikeAt=KukriRhythm::Strikes[KukriRhythm::UppercutStage].At;
         const float RiftAt=KukriRhythm::Rifts[KukriRhythm::UppercutStage].Start;
-        for(const float Boundary:{S.SwingSound,S.ContactStart,S.ContactEnd,StrikeAt,RiftAt,OffhandKukriUpper::Length})
+        for(const float Boundary:{0.f,S.SwingSound,S.ContactStart,S.ContactEnd,StrikeAt,RiftAt,OffhandKukriUpper::Length,UppercutEndTime})
             if(UppercutElapsed<Boundary-UE_KINDA_SMALL_NUMBER)Step=FMath::Min(Step,Boundary-UppercutElapsed);
         Step=FMath::Max(Step,1e-4f);
         const float Before=UppercutElapsed;
-        UppercutElapsed=FMath::Min(OffhandKukriUpper::Length,UppercutElapsed+Step);
+        UppercutElapsed=FMath::Min(UppercutEndTime,UppercutElapsed+Step);
+        if(StaffPair)StaffPair->SetActionTime(UppercutElapsed);
         Remaining=FMath::Max(0.f,Remaining-(UppercutElapsed-Before)/StageRate);
         // Release: stamina and cooldown are committed when the cut starts (as for the sword); a refused
         // payment (cooldown, stamina, a server rejection) cancels the cast before anything lands.
         if(!bUppercutReleased&&UppercutElapsed>=S.ContactStart-UE_KINDA_SMALL_NUMBER)
         {
             if(!Profile->CommitSwordUppercutRelease()){CancelUppercut();return;}
+            if(!bUppercut)return;
             bUppercutReleased=bUppercutTrainingPending=true;
+            if(auto* Pendant=P->FindComponentByClass<UKukriDecisiveComponent>())Pendant->BeginLocal(UpperShot,true);
         }
         AdvanceUppercutLunge(Before,UppercutElapsed);
         const FTransform Now=UpperBladeFrame(UppercutElapsed);
@@ -209,11 +244,13 @@ void UOffhandKukriComponent::AdvanceUppercut(float Delta)
             UppercutTrace(UpperPreviousBlade,Now);
         UpperPreviousBlade=Now;bHaveUpperPreviousBlade=true;
         if(StrikeAt>0.f&&!bUpperStrikeDone&&UppercutElapsed>=StrikeAt-UE_KINDA_SMALL_NUMBER)ArriveUpperStrike();
-        if(!bUpperRiftStarted&&UppercutElapsed>=RiftAt-UE_KINDA_SMALL_NUMBER){bUpperRiftStarted=true;StartUpperRift();}
+        if(bUppercutReleased&&!bUpperRiftStarted&&UppercutElapsed>=RiftAt-UE_KINDA_SMALL_NUMBER){bUpperRiftStarted=true;StartUpperRift();}
         if(bUppercutTrainingPending&&UppercutElapsed>=S.ContactEnd-UE_KINDA_SMALL_NUMBER)FinishUppercut(true);
-        if(UppercutElapsed>=OffhandKukriUpper::Length-UE_KINDA_SMALL_NUMBER)
+        if(UppercutElapsed>=UppercutEndTime-UE_KINDA_SMALL_NUMBER)
         {
             bUppercut=false;UpperHitActors.Reset();
+            if(StaffPair)StaffPair->EndActionPresentation(false);
+            bStaffUppercut=false;
             FinishUppercut(true);
         }
     }
@@ -233,12 +270,13 @@ void UOffhandKukriComponent::UppercutTrace(const FTransform& From,const FTransfo
         Contacts.Append(MeleeSmallTargets::QueryQuickAreaContacts(World,P,Aim,Probe,FMath::Max(40.f,UpperReach-Forward),KukriRhythm::QueryRadiusCM));
     // Scenery: the real edge from root to tip, swept between substeps.  The follow-through carries the blade up past
     // the head, so the player's own attached gear and anything at the eye are not scenery (no block clang there).
-    FCollisionQueryParams Q(SCENE_QUERY_STAT(OffhandKukriUppercut),false,GetOwner());
+    FFPSAttackQuery Q(SCENE_QUERY_STAT(OffhandKukriUppercut),false,GetOwner());
+    Q.bReturnPhysicalMaterial=true;Q.bReturnFaceIndex=true;
     TArray<AActor*> OwnGear;GetOwner()->GetAttachedActors(OwnGear,true,true);Q.AddIgnoredActors(OwnGear);
     for(const auto& Actor:UpperHitActors)if(Actor.IsValid())Q.AddIgnoredActor(Actor.Get());
     for(int32 Segment=0;Segment<=3;++Segment)
     {
-        const FVector Local=FMath::Lerp(KukriRhythm::BladeRoot,KukriRhythm::BladeTip,Segment/3.f);
+        const FVector Local=FMath::Lerp(ContactBase,ContactTip,Segment/3.f);
         FHitResult Hit;
         if(World->SweepSingleByChannel(Hit,From.TransformPosition(Local),To.TransformPosition(Local),FQuat::Identity,
             ECC_Visibility,FCollisionShape::MakeSphere(2.5f),Q))
@@ -271,7 +309,7 @@ void UOffhandKukriComponent::UppercutTrace(const FTransform& From,const FTransfo
         if(Applied>0.f||Combat->IsDead())
         {
             ConfirmUpperImpact(Hit,false);
-            QueueUpperFX(Hit,false);
+            if(P->HasAuthority())QueueUpperFX(Hit,false);
             P->NotifyConfirmedWeaponHit(Actor,Applied,&Receipt,false);
         }
     }
@@ -365,6 +403,9 @@ void UOffhandKukriComponent::CancelUppercut()
 {
     if(!bUppercut)return;
     bUppercut=false;
+    if(bStaffUppercut)
+        if(auto* Pair=GetOwner()->FindComponentByClass<UStaffOffhandMeleeComponent>())Pair->EndActionPresentation(true);
+    bStaffUppercut=false;
     // A cancelled uppercut keeps its paid release and still trains once (the sword's rule).
     FinishUppercut(true);
     UpperHitActors.Reset();UpperPendingFX.Reset();
@@ -372,14 +413,14 @@ void UOffhandKukriComponent::CancelUppercut()
     if(Arms)Arms->UppercutTime=-1.f;
 }
 
-void UOffhandKukriComponent::StartUpperRift()
+bool UOffhandKukriComponent::PrepareRiftVisual()
 {
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());
-    if(!P||!Camera.IsValid())return;
+    if(!P||!Camera.IsValid())return false;
     if(!UpperRiftVisual)
     {
         auto* Material=LoadObject<UMaterialInterface>(nullptr,KukriRhythm::RiftMaterial);
-        if(!Material)return;
+        if(!Material)return false;
         UpperRiftVisual=NewObject<UDynamicMeshComponent>(P,TEXT("OffhandKukriRift"));
         P->AddInstanceComponent(UpperRiftVisual);
         UpperRiftVisual->SetMobility(EComponentMobility::Movable);
@@ -387,15 +428,52 @@ void UOffhandKukriComponent::StartUpperRift()
         UpperRiftVisual->SetCanEverAffectNavigation(false);UpperRiftVisual->SetCastShadow(false);UpperRiftVisual->SetReceivesDecals(false);
         UpperRiftVisual->SetOnlyOwnerSee(true);UpperRiftVisual->bVisibleInRayTracing=false;UpperRiftVisual->bAffectDistanceFieldLighting=false;
         UpperRiftVisual->SetTangentsType(EDynamicMeshComponentTangentsMode::NoTangents);
+        UpperRiftVisual->SetVisibility(false);
         UpperRiftVisual->RegisterComponent();
         UpperRiftMID=UMaterialInstanceDynamic::Create(Material,this);
     }
+    return UpperRiftMID!=nullptr;
+}
+
+void UOffhandKukriComponent::PrepareQuickRift()
+{
+    if(bUppercut||bUpperRiftActive||!PrepareRiftVisual())return;
+    if(!UpperRiftVisual->ComponentHasTag(OffhandAxeQuickMotion::RiftTag))
+    {
+        UpperRiftVisual->SetMesh(BuildUpperRift(true));
+        UpperRiftVisual->SetMaterial(0,UpperRiftMID);
+        UpperRiftVisual->ComponentTags.AddUnique(OffhandAxeQuickMotion::RiftTag);
+    }
+}
+
+void UOffhandKukriComponent::StartQuickRift()
+{
+    PrepareQuickRift();
+    if(!UpperRiftVisual||!UpperRiftMID||!Camera.IsValid()||!UpperRiftVisual->ComponentHasTag(OffhandAxeQuickMotion::RiftTag))return;
+    // PairAttack3KH is already left-handed: use its left ribbon without another
+    // mirror. This native mesh-space path stays in the world once released.
+    UpperRiftOrigin=FTransform(FRotator(0.f,90.f,0.f),bStaffQuickCombat?OffhandAxeQuickMotion::StaffOffset:FVector::ZeroVector)
+        *Camera->GetComponentTransform();
+    UpperRiftDirection=Camera->GetForwardVector();
+    UpperRiftAge=0.f;UpperRiftFadeAge=-1.f;bUpperRiftActive=true;OffhandRiftMode=1;
+    UpperRiftMID->SetScalarParameterValue(TEXT("RiftStrength"),HatchetDualChopRhythm::Rift.Strength);
+    UpperRiftMID->SetScalarParameterValue(TEXT("RiftFade"),1.f);
+    const float Reveal=FMath::Clamp((QuickElapsed-OffhandAxeQuickMotion::RiftStart)/(OffhandAxeQuickMotion::RiftEnd-OffhandAxeQuickMotion::RiftStart),0.f,1.f);
+    UpperRiftMID->SetScalarParameterValue(TEXT("SweepProgress"),Reveal*1.06f);
+    UpperRiftVisual->SetWorldTransform(UpperRiftOrigin);
+    UpperRiftVisual->SetVisibility(true);
+}
+
+void UOffhandKukriComponent::StartUpperRift()
+{
+    if(!PrepareRiftVisual())return;
+    UpperRiftVisual->ComponentTags.Remove(OffhandAxeQuickMotion::RiftTag);
     UpperRiftVisual->SetMesh(BuildUpperRift());
     UpperRiftVisual->SetMaterial(0,UpperRiftMID);
     // Freeze the mirrored crescent where the camera is now (the table is camera space), so it
     // stays in the world while the view moves on.
     UpperRiftOrigin=Camera->GetComponentTransform();UpperRiftDirection=Camera->GetForwardVector();
-    UpperRiftAge=0.f;UpperRiftFadeAge=-1.f;bUpperRiftActive=true;
+    UpperRiftAge=0.f;UpperRiftFadeAge=-1.f;bUpperRiftActive=true;OffhandRiftMode=0;OffhandRiftMode=1;
     const auto& R=KukriRhythm::Rifts[KukriRhythm::UppercutStage];
     UpperRiftMID->SetScalarParameterValue(TEXT("RiftStrength"),R.Strength);
     UpperRiftMID->SetScalarParameterValue(TEXT("RiftFade"),1.f);
@@ -407,17 +485,38 @@ void UOffhandKukriComponent::StartUpperRift()
 void UOffhandKukriComponent::TickUpperRift(float Delta)
 {
     if(!bUpperRiftActive||!UpperRiftVisual||!UpperRiftMID)return;
-    const auto& R=KukriRhythm::Rifts[KukriRhythm::UppercutStage];
     UpperRiftAge+=Delta;
-    // Reveal on the swing's author clock while it plays (frozen through a hit-stop); the fade is real time.
-    const float Reveal=bUppercut?FMath::Clamp((UppercutElapsed-R.Start)/FMath::Max(.01f,R.End-R.Start),0.f,1.f):1.f;
+    float Reveal=1.f,Dissolve=KukriRhythm::Rifts[KukriRhythm::UppercutStage].Dissolve,DriftCM=KukriRhythm::Rifts[KukriRhythm::UppercutStage].DriftCM;
+    bool bQuickDrift=false;
+    if(OffhandRiftMode==2||OffhandRiftMode==3)
+    {
+        const bool bS2=OffhandRiftMode==3;
+        const float Start=bS2?ShadowStepRiftRibbons::Stage2Start:ShadowStepRiftRibbons::Stage1Start;
+        const float End=bS2?ShadowStepRiftRibbons::Stage2End:ShadowStepRiftRibbons::Stage1End;
+        Dissolve=bS2?ShadowStepRiftRibbons::DissolveStage2:ShadowStepRiftRibbons::DissolveStage1;
+        DriftCM=ShadowStepRiftRibbons::DriftCM;
+        const bool Playing=bShadowStep&&bShadowStepStage2==bS2;
+        Reveal=Playing?FMath::Clamp((ShadowStepElapsed-Start)/FMath::Max(.01f,End-Start),0.f,1.f):1.f;
+        if(Playing&&ShadowStepHitStop>0.f)Reveal=FMath::Min(Reveal,.999f);
+    }
+    else
+    {
+        const bool Quick=OffhandRiftMode==1||UpperRiftVisual->ComponentHasTag(OffhandAxeQuickMotion::RiftTag);
+        bQuickDrift=Quick;
+        const auto& R=Quick?HatchetDualChopRhythm::Rift:KukriRhythm::Rifts[KukriRhythm::UppercutStage];
+        Dissolve=R.Dissolve;DriftCM=R.DriftCM;
+        const bool Playing=Quick?(bQuickCombat&&bHatchetQuickCombat):bUppercut;
+        const float T=Quick?QuickElapsed*OffhandAxeQuickMotion::ClipRate:UppercutElapsed;
+        Reveal=Playing?FMath::Clamp((T-R.Start)/FMath::Max(.01f,R.End-R.Start),0.f,1.f):1.f;
+    }
     if(Reveal>=1.f&&UpperRiftFadeAge<0.f)UpperRiftFadeAge=0.f;
     else if(UpperRiftFadeAge>=0.f)UpperRiftFadeAge+=Delta;
-    const float Recovery=UpperRiftFadeAge<0.f?0.f:FMath::Clamp(UpperRiftFadeAge/R.Dissolve,0.f,1.f);
+    const float Recovery=UpperRiftFadeAge<0.f?0.f:FMath::Clamp(UpperRiftFadeAge/Dissolve,0.f,1.f);
     if(Recovery>=1.f){StopUpperRift();return;}
     UpperRiftMID->SetScalarParameterValue(TEXT("SweepProgress"),Reveal*1.06f);
     UpperRiftMID->SetScalarParameterValue(TEXT("RiftFade"),1.f-Recovery*Recovery*(3.f-2.f*Recovery));
-    FTransform Pose=UpperRiftOrigin;Pose.AddToTranslation(UpperRiftDirection*(UpperRiftAge*R.DriftCM));
+    const float DriftAge=bQuickDrift?UpperRiftAge:FMath::Max(0.f,UpperRiftFadeAge);
+    FTransform Pose=UpperRiftOrigin;Pose.AddToTranslation(UpperRiftDirection*(DriftAge*DriftCM));
     UpperRiftVisual->SetWorldTransform(Pose);
 }
 

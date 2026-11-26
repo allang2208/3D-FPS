@@ -83,3 +83,4 @@ if not wear_only:
     if not E.save_loaded_asset(texture,False):raise RuntimeError('Inventory texture did not save')
     receipt.update(icon=texture.get_path_name(),icon_sha=hashlib.sha256(png.read_bytes()).hexdigest())
 receipt['completed']=True;record();print('HELMET_CONTOUR_ASSETS_COMPLETE',flush=True)
+

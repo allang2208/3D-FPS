@@ -6,6 +6,9 @@
 // mechanical parts. No actor movement, damage or inventory values are carried.
 struct FFPSBodyMotionHand
 {
+    // Normally body space. A spellbook left wrist on SpellbookFocus/StaffCast
+    // carries a delta from native carry, resolved by the complete support arm.
+    // Independent-pistol equip/reload/bash wrists also use native carry deltas.
     FTransform Wrist=FTransform::Identity;
     FQuat Fingers[15];
     FFPSBodyMotionHand(){for(auto& Q:Fingers)Q=FQuat::Identity;}
@@ -37,7 +40,7 @@ struct FFPSBodyMotionSample
     FFPSBodyMotionHand Hands[2];
     TArray<FFPSBodyMotionRig> Rigs;
     bool FloatingBook=false;
-    FTransform BookFrame=FTransform::Identity; // body space, independent of observation camera
+    FTransform BookFrame=FTransform::Identity; // relative to the mapped left wrist; follows the final body hand
     TArray<FTransform> BookPose; // exact cover/page component pose, including interrupted close
     FVector3f BookGold=FVector3f::ZeroVector; // fade, shared effect clock, page activity
     FTransform Props[3]={FTransform::Identity,FTransform::Identity,FTransform::Identity};

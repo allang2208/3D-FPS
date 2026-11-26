@@ -121,3 +121,4 @@ if __name__=='__main__':
     heights=np.fromfile(terrain/'region.i16','<i2').reshape(1025,1025).astype('f4')
     paint=np.fromfile(terrain/'paint.rg8','u1').reshape(1025,1025,2)
     print('Fine grass sites:',bake(base,out,heights,paint))
+

@@ -43,7 +43,9 @@ bool URainAssetEditor::SetInput(UNiagaraSystem* System,const FString& Emitter,co
     Data.InitializeAs(Struct);
     if(!Struct->ImportText(*Value,Data.GetMutableMemory(),nullptr,PPF_None,GWarn,Struct->GetName()))return false;
     FNiagaraExt_StackItemReference Ref;
-    Ref.System=System;Ref.EmitterName=*Emitter;Ref.ScriptName=*Script;Ref.ModuleName=*Module;Ref.InputNameStack.Add(*Input);
+    Ref.System=System;Ref.EmitterName=*Emitter;Ref.ScriptName=*Script;Ref.ModuleName=*Module;
+    TArray<FString> InputPath;Input.ParseIntoArray(InputPath,TEXT("|"),false);
+    for(const FString& Part:InputPath)Ref.InputNameStack.Add(*Part);
     FNiagaraExternalEditContext Context(Ref);
     UNiagaraExternalEditUtilities::SetStackInputData(Ref,Data,Context);
     FNiagaraExt_StackInputValue Actual;
@@ -58,7 +60,9 @@ FString URainAssetEditor::ReadInput(UNiagaraSystem* System,const FString& Emitte
 {
 #if WITH_EDITOR
     FNiagaraExt_StackItemReference Ref;
-    Ref.System=System;Ref.EmitterName=*Emitter;Ref.ScriptName=*Script;Ref.ModuleName=*Module;Ref.InputNameStack.Add(*Input);
+    Ref.System=System;Ref.EmitterName=*Emitter;Ref.ScriptName=*Script;Ref.ModuleName=*Module;
+    TArray<FString> InputPath;Input.ParseIntoArray(InputPath,TEXT("|"),false);
+    for(const FString& Part:InputPath)Ref.InputNameStack.Add(*Part);
     FNiagaraExternalEditContext Context(Ref);
     FNiagaraExt_StackInputValue Actual;
     UNiagaraExternalEditUtilities::GetStackInputData(Ref,Actual,Context);

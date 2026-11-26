@@ -1,11 +1,13 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "GunsmithSystem.h"
+#include "RingChainSweepMotion.h"
 #include "../UI/ColdSteelInventoryTypes.h"
 
 namespace HighlandBreakSweep
 {
     inline const FName Clip(TEXT("HighlandBreakSweep"));
+    inline bool UsesRibbon(FName Action) { return Action==Clip || Action==RingChainSweepMotion::Release; }
     constexpr uint8 AttackMeta = 0x09;
     constexpr float Contact = .30f;
     constexpr float Release = .47f;

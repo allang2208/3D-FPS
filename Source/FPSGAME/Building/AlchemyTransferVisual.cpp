@@ -59,7 +59,7 @@ void UPotionWorkbenchVisualComponent::AnimateIngredients(float T,bool Pouring)
     for(int32 I=0;I<IngredientParts.Num();++I)
     {
         if(!IngredientRest.IsValidIndex(I)||!IngredientParts[I]->GetStaticMesh())continue;
-        const FTransform& Rest=IngredientRest[I];FTransform Body=Rest,Cap=Rest;
+        const FTransform& Rest=IngredientRest[I];FTransform Body=Rest,Cap=Rest;float CapAlpha=0.f;
         if(Pouring&&I==State.Ingredient)
         {
             // Open the selected original container first, then carry it by its body.
@@ -71,12 +71,21 @@ void UPotionWorkbenchVisualComponent::AnimateIngredients(float T,bool Pouring)
             Mouth.Z+=8.f*FMath::Sin(Carry*PI);
             Body=FTransform(Q,Mouth-Q.RotateVector(IngredientMouth[I]*Rest.GetScale3D()),Rest.GetScale3D());
             const float Open=AlchemyInteraction::Smooth(T/.24f)*(1-AlchemyInteraction::Smooth((T-3.1f)/.2f));
+            CapAlpha=Open;
             const float Side=AlchemyInteraction::Smooth((T-.24f)/.14f)*(1-AlchemyInteraction::Smooth((T-2.9f)/.2f));
             const float Lift=FMath::Max(9.f,float(IngredientMouth[I].Z*Rest.GetScale3D().Z)+2.f);
             // The long extraction pipette clears the neck vertically before it moves aside.
             Cap=FTransform(FQuat(FVector::UpVector,Open*PI*1.5f),Rest.GetLocation()+FVector(-7*Side,-5*Side,Lift*Open),Rest.GetScale3D());
         }
-        IngredientParts[I]->SetRelativeTransform(Body);IngredientCaps[I]->SetRelativeTransform(Cap);
+        IngredientParts[I]->SetRelativeTransform(Body);
+        if(IngredientCaps.IsValidIndex(I)&&IngredientCaps[I])
+        {
+            IngredientCaps[I]->SetRelativeTransform(Cap);
+            // RedRoot's cap carries a ~10.8 cm extraction pipette. Once the cap
+            // clears the neck it reads as a thin line across the table; park it
+            // out of sight and show it again for the closing animation.
+            IngredientCaps[I]->SetVisibility(CapAlpha<.82f);
+        }
     }
 }
 void UPotionWorkbenchVisualComponent::UpdateTransfer(float T,float SurfaceZ,bool Active)
@@ -219,3 +228,4 @@ void UPotionWorkbenchVisualComponent::UpdateHoverProxies()
         Proxy->SetWorldTransform(Source->GetComponentTransform());
     }
 }
+

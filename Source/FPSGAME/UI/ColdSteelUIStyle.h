@@ -4,6 +4,7 @@
 #include "Styling/SlateBrush.h"
 
 struct FSlateFontInfo;
+class FSlateFontMeasure;
 struct FButtonStyle;
 
 namespace ColdSteelUI
@@ -22,10 +23,10 @@ namespace ColdSteelUI
     // HUD decoration and focus only; gameplay rarity/resource colours keep their meaning.
     inline const FLinearColor HUDGold = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("C7AA70FF")));
     inline const FLinearColor HUDGoldLight = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E8D39AFF")));
-    inline const FLinearColor DamageMagic = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("57B5FFFF")));
-    inline const FLinearColor DamageHeavy = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("FF9A46FF")));
-    inline const FLinearColor DamageCritical = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("FF4D3DFF")));
     inline const FLinearColor HUDGoldDim = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("756447FF")));
+    // Top progress notice (2026-11-15, game-dev level-up-text): plate-less gold title, green detail.
+    inline const FLinearColor NoticeGold = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E3C574FF")));
+    inline const FLinearColor NoticeDetail = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("A8CBB1FF")));
     // Legendary modification identity; installation remains a separate green status.
     inline const FLinearColor LegendaryCard = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("4A2029E8")));
     inline const FLinearColor LegendaryCardHover = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("6A2938EE")));
@@ -40,6 +41,12 @@ namespace ColdSteelUI
     inline const FLinearColor ExclusiveText = HUDGoldLight;
     inline constexpr float HUDCornerWidth=286.f,HUDCornerHeight=72.f,HUDGap=12.f;
     inline const FLinearColor Warning = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("F0BE71FF")));
+    // Damage-number tiers (2026-10-17): semantic combat feedback only; normal numbers use HUDGoldLight.
+    inline const FLinearColor DamageMagic = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("57B5FFFF")));
+    inline const FLinearColor DamageHeavy = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("FF9A46FF")));
+    inline const FLinearColor DamageCritical = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("FF4D3DFF")));
+    // Bow skill readiness: user-requested red, independent of damage-number tiers.
+    inline const FLinearColor BowPiercingReady = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("E84B4BFF")));
     // 生命/魔法语义色（2026-09-28 统一）：HUD 资源条与人物状态页同源，
     // 原 ResourceMeter 与 CharacterSheet 的五处字面量（763B43/BD626D/36566E/7194AC/55799D）收敛于此。
     inline const FLinearColor Health = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("BD626DFF")));
@@ -47,6 +54,8 @@ namespace ColdSteelUI
     inline const FLinearColor Mana = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("7194ACFF")));
     inline const FLinearColor ManaDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("36566EFF")));
     inline const FLinearColor Stamina = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("A1A44FFF")));
+    inline const FLinearColor MountStamina = FLinearColor::FromSRGBColor(FColor(99, 173, 233));
+    inline const FLinearColor MountStaminaDeep = FLinearColor::FromSRGBColor(FColor(46, 99, 152));
     inline const FLinearColor StaminaDeep = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("666B35FF")));
     // Survival identities stay on the data tracks; the glass and borders remain neutral.
     inline const FLinearColor Hunger = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("BEA06EFF")));
@@ -105,6 +114,8 @@ inline constexpr float NavigationDrawerInset=0.f;
     // 浮窗暗金融合（2026-09-28）：金只上身份层——区块/卡片标题、元信息行、分隔线；
     // 正文与数值保持中性灰阶，正负语义色不变。浅底文字金取 HUDGoldDim（对卡面 5.0:1、
     // 对头带 4.6:1；HUDGold 原值在浅底仅 1.95:1，只作分隔线基底降透明使用，不作文字）。
+    // 2026-10-19 装备缩略摘要例外：增益分区/属性名/数值用 ItemTooltipGold，减益用
+    // ItemTooltipText（卡片墨黑）；详细卡片与对比仍用 Positive/Negative。见设计系统 2.23。
     // 旧 ItemTooltipRule（CDD2D5 灰线）由 GoldRule 取代后退役。
     inline const FLinearColor ItemTooltipGold = HUDGoldDim;
     inline const FLinearColor ItemTooltipGoldRule = FLinearColor::FromSRGBColor(FColor::FromHex(TEXT("C7AA7059")));
@@ -124,8 +135,13 @@ inline constexpr float NavigationDrawerInset=0.f;
     FPSGAME_API FSlateBrush RoundedBrushCorners(const FLinearColor& Fill, const FVector4& CornerRadii, const FLinearColor& Outline = FLinearColor::Transparent, float OutlineWidth = 0.f);
     FPSGAME_API FButtonStyle ButtonStyle(float Scale=1.f);
     // These legacy entry points take Slate points. Screen px -> points: px * .75 / PixelScale.
-    FPSGAME_API FSlateFontInfo TextFont(float Size, bool bMedium = false);
+    enum class ETextWeight : uint8 { Regular, SemiBold, Bold };
+    FPSGAME_API FSlateFontInfo TextFont(float Size, ETextWeight Weight);
+    FPSGAME_API FSlateFontInfo TextFont(float Size, bool bEmphasized = false);
     FPSGAME_API FSlateFontInfo NumberFont(float Size, bool bBold = false);
+    FPSGAME_API FSlateFontInfo IconFont(float Size);
+    /** Both the font size and the available width are in the caller's Slate space. */
+    FPSGAME_API FString Ellipsize(const FString& Text, const FSlateFontInfo& Font, float Width, const FSlateFontMeasure& Measure);
     FPSGAME_API float PixelScale(const UObject* Context);
     /** 滑移动画统一缓动（2026-09-24 用户"高帧率平滑过渡"）：进度变量仍由 FInterpConstantTo
      *  驱动（固定时长、帧率无关），渲染位移/透明度按 smoothstep T²(3−2T) 走——起步收尾皆静止、

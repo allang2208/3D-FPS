@@ -1,4 +1,5 @@
 #include "FPSMeteorStrike.h"
+#include "../Monsters/UnknownSpellCombat.h"
 #include "MeteorAssets.h"
 #include "../Weapons/ThermalTargetSubsystem.h"
 #include "../Dungeons/WardBreakableGlass.h"
@@ -166,9 +167,10 @@ void AFPSMeteorStrike::DamageArea(bool bExplosion)
         const float Amount=bExplosion?FMath::FloorToFloat(CastSnapshot.Damage*(1-.5f*Ratio)):CastSnapshot.AuraDamage;
         const int32 Before=Rewards.Hits;
         if(!M->ApplyFireMagicHit(Caster,Target,CastSnapshot,Amount,Rewards))continue;Hits+=Rewards.Hits-Before;
-        if(auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();Combat&&!Combat->IsDead())
+        if(UnknownSpell::IsTarget(Caster,Target)&&bExplosion)UCombatStatusFormula::GetOrAdd(Target)->AddStun(CastSnapshot.StunSeconds);
+        if(auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();(Combat&&!Combat->IsDead())||UnknownSpell::IsTarget(Caster,Target))
         {
-            if(bExplosion)
+            if(bExplosion&&Combat)
             {
                 const FVector Away=Offset.GetSafeNormal2D();
                 const bool bLaunched=Combat->ReceiveKnockdown(Caster,Away*FMath::Lerp(520.f,260.f,Ratio)+

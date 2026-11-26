@@ -3,8 +3,10 @@
 
 namespace ProductionHarvestAssets
 {
+    // Stable harvest variants: black poplar A-D, then beech A-D.
+    inline constexpr int32 TreeVariantCount=8;
     bool IsMaterial(const FString& Definition);
-    /** 冶炼锭族判定（ironIngot/copperIngot/silverIngot/goldIngot）。 */
+    /** Shared six-tier ingot family used by pickup and furnace presentation. */
     bool IsSmeltingIngot(const FString& Definition);
     FSoftObjectPath PickupMesh(const FString& Definition,int32 Variant=0);
     /** 2026-09-24 冶炼材料建模：矿石=强化石网格×分矿种色调材质、锭=铸锭网格×金属色材质；
@@ -20,7 +22,7 @@ namespace ProductionHarvestAssets
     FSoftObjectPath CutProfile(int32 Variant);
     /** 切口封盖面（从重制网格按切口材质提取的单片小网格），补在倒下的树断口上。 */
     FSoftObjectPath CutCap(int32 Variant);
-    FSoftObjectPath FallingMaterial(int32 Slot);
+    FSoftObjectPath FallingMaterial(int32 Slot,int32 Variant=0);
     FSoftObjectPath TreeSound(bool Landing);
     FSoftObjectPath Destruction(bool Wood);
     FSoftObjectPath Leaves();

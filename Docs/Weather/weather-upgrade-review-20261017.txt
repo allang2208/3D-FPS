@@ -1,0 +1,57 @@
+天气升级复查与联机修正（2026-10-17）
+
+丘陵后续收尾：用户另行要求继续构建，旧远景雾写入与 UDS 的交接改动见 hills-weather-handoff-20261017.txt；该批源码/构建状态单独记录，不与下方已有构建回执混用。
+
+结论
+上一轮源码、603 个母材质、12 个表面预设及 1319 条软映射索引已落盘，并有当时的 Editor/Game 成功构建回执；这不代表联机闭环已经验收。
+本轮按用户要求复查源码和本机 UDW 9.7 蓝图节点，确认两处上一轮接入错误，已修正源码。没有运行游戏、联机、画面/听感测试或重新写入材质资产。
+
+已修正的明确问题
+
+1. P1：远端玩家的受雨强度和风向仍可能借用了房主所在区域。
+   本机 Test Actor for Weather Exposure 的射线边界来自传入 Actor，但 Rain/Snow/Wind Intensity/Dust 来自 UDW 的 Local Weather State；它不是完整的按 Actor 位置查询。
+   Trace Bounds for Exposure Values 调用的 General Weather Particle Direction / Wind Rotation 也使用同一相机局部状态。
+   因此房主与客机处在不同 Weather Override Volume 时，服务器会把房主区域的雨强/风向配到客机自身的遮挡上。
+   修正：Generate Weather State At Location 接收目标 Actor 坐标及独立、可复用的 UDS_Weather_Settings 对象。按查询到的雨强/风向执行原生六个降雨遮挡采样点、相同方向公式和天空 Occlusion Max Trace Distance；不替换或修改 UDW 的相机局部状态。
+   保留服务端积分、现有湿度速率、量化快照及原五射线缺接口回退。每个天气桥只持有一个临时状态对象，不为每名玩家复制资源或生成材质。
+   源码：Source/FPSGAME/FPSUDSWeatherExposure.cpp、FPSUDSBridgeComponent.h/.cpp。
+
+2. P2：雷声压低雨声只改了属性，没有向声音提交增益。
+   AU - Update Rain Sound Parameter 只提交 Rain Intensity；真正的音量参数位于 Sound_Global 和 Sound_Directional 上，名为 Rain Volume Multiplier，基准为 Rain Volume × Weather Sounds Master Volume。
+   原桥通过反射直接写 Rain Volume，没有调用对应音频参数接口，不能据此认为短暂压低已生效。
+   修正：在本端音频组件提交雨声参数，仍使用原有包络和最多 45% 压低量；读取当前作者雨声音量及天气总音量，不改共享/复制属性。稳定参数去重，窗口结束、桥禁用、重绑定和退出时恢复基准增益。
+   同时拒绝没有有效闪光、已禁用天气声音或近雷音量为零时的无声压低窗口；原生 dispatcher 在 Start Lightning Flash 未找到落点后也可能广播。
+   原生 Close Thunder Sound Delay 根据本端相机到当前闪电的距离计算，事件在原生声音参数提交之后广播，因此继续使用该返回值安排本端压低窗口，不新增闪电 RPC 或播放器。
+   源码：Source/FPSGAME/FPSUDSWeatherAudio.cpp、FPSUDSBridgeComponent.h。
+
+覆盖清单（源码/蓝图阅读，不等于运行通过）
+路径 | 本轮结论
+服务器/房主天气与时钟 | Manager 持有天气快照；客户端不自行生成天空、不提交 Change Weather。
+各玩家局部受雨 | 已修正相机局部雨强/风向串用；服务端按实际角色位置查询，原有湿度变化规则保留。
+客机装备归属 | ColdSteelAuthority::ForPawn 为远端 Pawn 读取对应 PlayerState 影子档案，未使用房主库存单例。
+装备/湿度不同到达顺序 | FFPSBodyWeapon.ItemInstance 与湿度快照独立携带实例 ID；GetWetness 不匹配时返回零，持续显示更新会在匹配快照到达后恢复。
+晚加入 | 当前装备湿度由复制快照发送；地表湿度由 NetworkWeather.SurfaceWetness 初始化。未运行晚加入实例。
+双持/他人武器表现 | 材质池键包含 Pawn、左右手及原材质；不会按房主当前武器湿度统一写所有角色。左右手实例分别匹配。
+异步加载/快速切枪 | 回调仅缓存目标材质，实际绑定重新读取当前网格与物品 ID；不在完成回调中把旧枪材质强制写回。
+资源寿命/换图 | EndPlay 取消加载并恢复绑定；闲置缓存解除强引用，不强制游戏 GC。
+原生闪电网络 | Lightning Flash Spawning 的 Authority 分支调用 Global Lightning Internal；导出 FunctionFlags=201867328，含 Net 与 NetMulticast。客户端随后执行本地闪电与音频逻辑。
+本端雷声/雨声 | 按原生本端延迟调度；新修正只提交原生雨声音轨参数，专服不运行音频混音。
+丘陵地表 | 使用已有天气弱引用，只有湿度或 MID 变化才写入；未降低质量或量化地表湿度。
+动态材质资产 | 本轮复用已保存的 603 个不透明母材质和 12 个预设，12 个非不透明候选保留。没有追加材质修改、Shader DDC、Cook 或渲染测试。
+
+仍未覆盖的边界，不宣称已完成
+- 跨 Pawn / 物品转交的湿度延续：ItemWetness 是 UWeaponWeatherStateComponent 的内存表。切枪收起再拿出可保留并干燥，但转交给另一个玩家、死亡换 Pawn、重连和换图没有湿度交接/持久化。它是纯外观状态，不影响战斗数值；本轮没有扩展库存、掉落或存档协议。
+- 专用服务器的局部天气体：本机 UDW 的 Bind Local State Update Functions 在专服仅绑定 Copy Global to Local，跳过局部天气体及其余本地修饰器。普通全局降雨和碰撞遮雨路径可读到，但不能将本轮监听服务器修正表述为专服局部天气体已完整支持。
+- 闪电共享坐标：原生 Global Lightning Internal 同步角度和触发阈值；普通闪电位置仍结合每端相机、随机距离和云层条件求出。Replicate Lightning Direction 保证方向分支，不等于所有玩家看到同一世界坐标的落雷。当前无新增落雷伤害规则，本轮保留原生行为。
+- 世界日历跨图延续：仍按既有场景规则重新初始化，没有新增房间级跨图日历保存。
+- 首次材质 Shader 编译、渲染效果、听感、真机双端/晚加入/断线重连及打包 Cook 未运行；不能据源码阅读认定这些已通过。
+
+证据与构建
+本轮只读导出在 SourceAssets/WeatherUpgrade20261017/Review/：graph-00/01/02 为受雨链，graph-09/23 为风向公式，graph-11 为声音音量参数，graph-28 为闪电 RPC/事件顺序，graph-18 为专服局部修饰器分支。
+graph-*.t3d 是本机原始节点连接；graph-*.txt/.json 只是便于阅读的派生文本。graphs.json 标明哪些图实际找到并导出；它不是测试回执。
+首次只读 commandlet 使用 NullRHI/NoShaderCompile，峰值私有内存约 3.15 GiB，没有加载地图。后续只读导出通过已有编辑器的批次互斥桥完成；本任务没有启动交互编辑器或修改/保存 UDW 资产。
+修改前源码备份：SourceAssets/WeatherUpgrade20261017/Review/Before。
+本轮修正后的 Game Win64 Development 构建成功，165.82 秒，完成编译和链接；日志为 Review/build-game.log。
+本轮修正后的 Editor Win64 Development 构建成功，51.74 秒，完成最终 DLL 链接；日志为 Review/build-editor.log。
+两次均限制最多 4 个并行构建任务；摘要为 Review/build-receipt.json。编译不是联机或音画测试，本轮没有启动交互编辑器、游戏或测试实例。
+现有 Saved/Logs/FPSGAME.log 只提供 23:21 左右 authority=1、提交晴天天气的记录，不足以证明雨天/双端路径。

@@ -1,13 +1,20 @@
+#include "../UI/ColdSteelStatusModel.h"
 // F6 开发面板的数据入口：等级、技能等级与物品目录。全部走档案的
 // SyncRuntime → Snapshot → CommitState 事务，控件不直接改写存档。
-#include "../UI/ColdSteelStatusModel.h"
 #include "../Skills/ColdSteelSkillRules.h"
+#include "../Skills/ColdSteelSkillTree.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
 
 namespace
 {
+    /** 2026-11-17: F6 技能升级同时习得技能树节点，否则未习得技能的等级不生效，高阶技能也无法直接测试。 */
+    bool DevelopmentLearnTreeSkill(FColdSteelProfile& P,FName Id)
+    {
+        if(P.SkillTreeVersion<1||!ColdSteelSkillTree::InTree(Id)||P.LearnedSkills.Contains(Id))return false;
+        P.LearnedSkills.Add(Id);return true;
+    }
     /** 大类沿用目录顺序，武器与消耗品的真实类型形成独立子标题。 */
     void ClassifyItem(const FString& Category,const FString& Type,const FString& WeaponType,
         const FString& WeaponTag,FColdSteelCatalogEntry& Entry)
@@ -25,7 +32,7 @@ namespace
             else if(WeaponType==TEXT("sword")||Category==TEXT("weapon_melee")){Entry.Subgroup=TEXT("近战武器");Entry.SubgroupOrder=4;}
             else if(WeaponType==TEXT("bow")||Category==TEXT("weapon_bow")){Entry.Subgroup=TEXT("弓");Entry.SubgroupOrder=5;}
             else if(WeaponType==TEXT("staff")||Category==TEXT("weapon_magic")){Entry.Subgroup=TEXT("魔法武器");Entry.SubgroupOrder=6;}
-            if(!WeaponTag.IsEmpty())Entry.Subgroup=WeaponTag;
+            if(!WeaponTag.IsEmpty()&&Category!=TEXT("weapon_magic"))Entry.Subgroup=WeaponTag;
             return;
         }
         if(Category==TEXT("material")&&Type==TEXT("弹药"))
@@ -52,10 +59,10 @@ const TArray<FName>& UColdSteelStatusModel::SkillCatalog() const
 {
     // 顺序即开发面板的技能下拉顺序；与 ColdSteelSkills::Migrate 建立的存档键一一对应。
     static const TArray<FName> Ids={
-        TEXT("rifleMastery"),TEXT("pistolMastery"),TEXT("swordMastery"),
-        TEXT("machineGunMastery"),TEXT("shotgunMastery"),TEXT("bowMastery"),
-        TEXT("heavyStrike"),TEXT("swordUppercut"),TEXT("whirlwind"),TEXT("dashAttack"),TEXT("criticalStrike"),TEXT("dodge"),
-        TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike"),TEXT("iceWall"),TEXT("blizzard"),TEXT("meteor"),TEXT("flameArmor"),TEXT("dragonBreath"),TEXT("lightningStrike"),TEXT("stormDomain"),TEXT("thunderLance"),TEXT("holyLight"),TEXT("quickCombat")};
+        TEXT("rifleMastery"),TEXT("pistolMastery"),TEXT("twoHandedMastery"),TEXT("oneHandedMastery"),TEXT("swordMastery"),TEXT("bluntMastery"),
+        TEXT("machineGunMastery"),TEXT("shotgunMastery"),TEXT("bowMastery"),TEXT("heartPiercingArrow"),TEXT("illuminationArrow"),TEXT("magicArrowRain"),TEXT("elementalArrow"),
+        TEXT("heavyStrike"),TEXT("swordUppercut"),TEXT("leapStrike"),TEXT("chainSlash"),TEXT("shadowStepSlash"),TEXT("whirlwind"),TEXT("dashAttack"),TEXT("criticalStrike"),TEXT("dodge"),
+        TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike"),TEXT("iceWall"),TEXT("blizzard"),TEXT("meteor"),TEXT("flameArmor"),TEXT("iceArmor"),TEXT("lightningHaste"),TEXT("dragonBreath"),TEXT("lightningStrike"),TEXT("stormDomain"),TEXT("thunderLance"),TEXT("holyLight"),TEXT("quickCombat")};
     return Ids;
 }
 
@@ -73,6 +80,8 @@ const FColdSteelSkillDefinition& UColdSteelStatusModel::DevelopmentSkillDefiniti
     if(Id==TEXT("lightningStrike"))return LightningDefinition();
     if(ElectricMagic::IsSkill(Id))return ElectricMagicDefinition(Id);
     if(FireMagic::IsSkill(Id))return FireMagicDefinition(Id);
+    if(Id==TEXT("iceArmor"))return IceArmorDefinition();
+    if(Id==TEXT("lightningHaste"))return LightningHasteDefinition();
     if(Id==TEXT("holyLight"))return HolyLightDefinition();
     if(Id==TEXT("quickCombat"))return QuickCombatDefinition();
     return MasteryDefinition(Id);
@@ -97,8 +106,9 @@ bool UColdSteelStatusModel::RaiseSkillLevel(FName Id,int32 Count)
     if(Count<=0||!SkillCatalog().Contains(Id))return false;
     const FColdSteelSkillDefinition& Definition=DevelopmentSkillDefinition(Id);
     SyncRuntime();auto Next=Snapshot();
+    const bool bLearned=DevelopmentLearnTreeSkill(Next,Id);
     FColdSteelSkillProgress& Progress=Next.Skills.FindOrAdd(Id);
-    if(Progress.Level>=Definition.MaxLevel)return false;
+    if(Progress.Level>=Definition.MaxLevel&&!bLearned)return false;
     Progress.Level=FMath::Clamp(Progress.Level+Count,1,Definition.MaxLevel);
     // 满级必须把修炼值清零，与 ColdSteelSkills::Validate 的合同一致。
     if(Progress.Level>=Definition.MaxLevel)Progress.Experience=0;
@@ -110,8 +120,9 @@ bool UColdSteelStatusModel::MaxSkillLevel(FName Id)
     if(!SkillCatalog().Contains(Id))return false;
     const FColdSteelSkillDefinition& Definition=DevelopmentSkillDefinition(Id);
     SyncRuntime();auto Next=Snapshot();
+    const bool bLearned=DevelopmentLearnTreeSkill(Next,Id);
     FColdSteelSkillProgress& Progress=Next.Skills.FindOrAdd(Id);
-    if(Progress.Level>=Definition.MaxLevel)return false;
+    if(Progress.Level>=Definition.MaxLevel&&!bLearned)return false;
     Progress.Level=Definition.MaxLevel;Progress.Experience=0;
     return CommitState(MoveTemp(Next));
 }

@@ -1,4 +1,6 @@
 #include "M66SlamWave.h"
+#include "MonsterTargeting.h"
+#include "MonsterDamageBalance.h"
 #include "M66IncineratorMonster.h"
 #include "MonsterCombatComponent.h"
 #include "FPSCombatHealthComponent.h"
@@ -36,7 +38,7 @@ double AM66SlamWave::Clock() const
 }
 void AM66SlamWave::Setup(float InDamage,float Radius,float Seconds,float Stun,UMaterialInterface* Material,double StartedAt)
 {
-    Damage=FMath::Max(0.f,InDamage);StunSeconds=FMath::Max(0.f,Stun);
+    Damage=MonsterDamageBalance::Limit(InDamage,105.f);StunSeconds=FMath::Max(0.f,Stun);
     Wave.Radius=FMath::Max(20.f,Radius);Wave.Seconds=FMath::Max(.1f,Seconds);
     Wave.StartedAt=StartedAt;Wave.Material=Material;Wave.Ready=true;
 }
@@ -63,16 +65,17 @@ void AM66SlamWave::ApplyWave(float Radius)
     for(const auto& Overlap:Overlaps)
     {
         if(!IsValid(Source))return;
-        auto* Target=Cast<APawn>(Overlap.GetActor());
+        auto* Target=Cast<APawn>(MonsterTargeting::DamageRecipient(Overlap.GetActor()));
         if(!IsValid(Target)||Seen.Contains(Target)||HitActors.Contains(Target)||!Target->CanBeDamaged()
             ||RangedAttackQuery::IsFriendlyUnit(Source,Target))continue;
         Seen.Add(Target);
         auto* Vitals=Target->FindComponentByClass<UFPSCombatHealthComponent>();
         auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
-        if((!Vitals&&!Combat)||(Vitals&&Vitals->IsDead())||(Combat&&Combat->IsDead()))continue;
-        auto* Shape=Cast<UPrimitiveComponent>(Target->GetRootComponent());if(!Shape)continue;
-        float BodyRadius=0,Half=0;Target->GetSimpleCollisionCylinder(BodyRadius,Half);
-        const FVector Feet=Target->GetActorLocation()-FVector(0,0,Half),Delta=Feet-Point;
+        if((!Vitals&&!Combat&&!MonsterTargeting::IsActiveArtisan(Target))||(Vitals&&Vitals->IsDead())||(Combat&&Combat->IsDead()))continue;
+        const auto* Body=MonsterTargeting::ContactBody(Target);
+        auto* Shape=Cast<UPrimitiveComponent>(Body->GetRootComponent());if(!Shape)continue;
+        float BodyRadius=0,Half=0;Body->GetSimpleCollisionCylinder(BodyRadius,Half);
+        const FVector Feet=Body->GetActorLocation()-FVector(0,0,Half),Delta=Feet-Point;
         const float Height=FVector::DotProduct(Delta,Normal);
         if(FMath::Abs(Height)>75.f)continue;
         const float Distance=(Delta-Normal*Height).Size();
@@ -86,7 +89,8 @@ void AM66SlamWave::ApplyWave(float Radius)
         const float Before=Vitals?Vitals->Health:0.f;
         const float Applied=UGameplayStatics::ApplyPointDamage(Target,Damage,(Contact-Point).GetSafeNormal(),Hit,
             Source->GetController(),Source,UEnemyMeleeDamage::StaticClass());
-        if(!IsValid(Target)||Applied<=0.f||(Vitals&&(Vitals->IsDead()||Vitals->Health>=Before))||(Combat&&Combat->IsDead()))continue;
+        if(!IsValid(Target)||Applied<=0.f||(Vitals&&(Vitals->IsDead()||Vitals->Health>=Before))||
+            (Combat&&Combat->IsDead())||MonsterTargeting::IsDownedArtisan(Target))continue;
         if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddStun(StunSeconds);
     }
 }

@@ -6,6 +6,8 @@ import shutil
 PROJECT = Path(__file__).resolve().parents[2]
 RUNTIME = PROJECT / "Content/ColdSteelData/Skills"
 ICONS = {
+    "leap_strike_cold_steel.png": "SourceAssets/LeapStrike20261107/Icon/leap_strike_cold_steel.png",
+    "chain_slash_cold_steel.png": "SourceAssets/ChainSlash20261107/Icon/chain_slash_cold_steel.png",
     "sword_uppercut_cold_steel.png": "SourceAssets/SkillIconRoundedSquare20261004/UppercutSilhouetteV5/sword_uppercut_silhouette_v5.png",
     "dash_attack.png": "SourceAssets/SkillIconRoundedSquare20261004/MartialSilhouetteFamilyV1/dash_attack_silhouette_v1.png",
     "ice_wall_cold_steel.png": "SourceAssets/IceSkillIcons20260930/ice_wall_cold_steel.png",
@@ -29,6 +31,7 @@ ICONS = {
     "dexterous_hands.png": "SourceAssets/DexterousHands20260913/dexterous_hands.png",
     "dodge_cold_steel.png": "SourceAssets/DexterousHands20260913/dodge_cold_steel.png",
     "quick_combat_placeholder.png": "SourceAssets/QuickCombat20260917/quick_combat_placeholder.png",
+    "heart_piercing_arrow_cold_steel.png": "SourceAssets/HeartPiercingArrow20261026/Selected/heart_piercing_arrow_cold_steel.png",
 }
 
 
@@ -40,6 +43,12 @@ if _unified.is_file():
         ICONS[entry["file"]] = "SourceAssets/SkillIconUnified20261013/Selected/" + entry["file"]
 
 
+_melee = PROJECT / "SourceAssets/MeleeMasteries20261019/manifest.json"
+if _melee.is_file():
+    for entry in json.loads(_melee.read_text(encoding="utf-8"))["icons"]:
+        ICONS[entry["file"]] = "SourceAssets/MeleeMasteries20261019/Selected/" + entry["file"]
+
+# Selected elemental haste replacement overrides all older series manifests.
 ICONS["lightning_haste_cold_steel.png"] = "SourceAssets/LightningHasteReview20261107/Icon/lightning_haste_cold_steel.png"
 
 def main():

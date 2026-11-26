@@ -1,0 +1,11 @@
+{
+  "viewer": {
+    "flesh": 9,
+    "metal_wall": 1
+  },
+  "client": {
+    "metal_wall": 1,
+    "flesh": 9,
+    "accepted_body_hits": 9.0
+  }
+}

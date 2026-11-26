@@ -10,7 +10,7 @@
   3. effects 逐行规范措辞（无 后坐力控制／后坐力减少／枪械稳定性增加／ADS瞄准耗时／
      开镜时间 等旧同义词），数字可由同件 stats 推导，benefit 方向与动词一致，
      「；」只允许连接"不变"声明或规格×子句，换弹/装填行不含任何数字；
-  4. 同 (slot, id) 跨枪 stats 与 effects 逐字一致（description 允许枪专属差异）；
+  4. 同 (slot, id) 跨枪 stats 与 effects 逐字一致（description 及用户指定单枪数值例外）；
   5. 禁用词与「。 」拼接残句清零；
   6. traits：必备；「可改造」槽位清单＝运行时实际槽集（含目录声明的 common_options）；数字回 base
      核对（射速/组速/开镜/容量/射程/弹速）；旧称「下挂」禁用；items.json 静态 物理攻击/容量
@@ -31,12 +31,15 @@ ROOT = Path(__file__).resolve().parents[2]
 SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else ROOT / 'Content' / 'ColdSteelData' / 'gunsmith.json'
 
 KNOWN_KEYS = {'ads_percent', 'ads_seconds', 'recoil_mult', 'shake_mult', 'stability_mult',
-              'hip_spread_mult', 'reload_mult', 'empty_reload_mult', 'fire_interval_mult',
+              'hip_spread_mult', 'pellet_spread_mult', 'reload_mult', 'empty_reload_mult', 'fire_interval_mult',
               'range_mult', 'bullet_speed_mult', 'mag_delta', 'equip_speed_bonus'}
 FORBIDDEN = ['瞄准耗时', 'ADS瞄准', '开镜时间', '后坐力控制', '后坐力减少', '枪械稳定性增加']
+# 型号名是正常描述，不算「可推导数字」。M870 / Saiga 12K / RSH-12 等此前漏登记，
+# 导致 description 里写枪名就被判成残留数字；2026-10-21 补入。
 MODEL_TOKENS = ['QBZ-191', 'M1911', 'ASH-12', 'M16A2', 'A762', '715', 'SVD', 'PKM',
                 'PSO-1', 'M4', 'M16', '5.56', '7.62', '5.45', 'RSH-12', 'RSH', '2011',
-                '201', 'SUPER90', 'Super90', 'HK416', 'G18', 'Pit Viper', '蝮蛇']
+                '201', 'SUPER90', 'Super90', 'HK416', 'G18', 'Pit Viper', '蝮蛇',
+                'M870', '870', 'Saiga 12K', 'Saiga', '12K']
 # 静态规格白名单；来源：80 米 = TacticalDeviceComponent.cpp `Range=8000.f`，
 # 口径/倍率 = 瞄具与弹药物理规格，非 stats 可推导值。
 SPEC_PATTERNS = [r'12\.7×55\s*mm', r'80\s*米',
@@ -50,6 +53,7 @@ VERB = {  # 行类: {规范动词: 期望 benefit}（+1 增益 / −1 代价 / 0
     'recoil': {'降低': 1, '增加': -1},
     'stability': {'提高': 1, '降低': -1},
     'hip': {'减少': 1, '增加': -1},
+    'pellet': {'减少': 1, '增加': -1},
     'speed': {'降低': -1, '增加': 1},
     'range': {'增加': 1, '减少': -1},
     'interval': {'减少': 1, '增加': -1},
@@ -59,6 +63,7 @@ VERB = {  # 行类: {规范动词: 期望 benefit}（+1 增益 / −1 代价 / 0
 }
 CLASS_OF_KEY = {'ads_percent': 'ads', 'ads_seconds': 'ads', 'recoil_mult': 'recoil',
                 'stability_mult': 'stability', 'hip_spread_mult': 'hip',
+                'pellet_spread_mult': 'pellet',
                 'bullet_speed_mult': 'speed', 'range_mult': 'range',
                 'fire_interval_mult': 'interval', 'mag_delta': 'cap',
                 'reload_mult': 'reload', 'empty_reload_mult': 'reload', 'shake_mult': 'shake'}
@@ -95,7 +100,7 @@ def derive(st):
 
 def classify(text):
     for key, words in [('ads', ('开镜',)), ('cap', ('容量',)), ('interval', ('射击间隔',)),
-                       ('recoil', ('后坐力',)), ('stability', ('稳定性',)), ('hip', ('腰射',)),
+                       ('recoil', ('后坐力',)), ('stability', ('稳定性',)), ('pellet', ('弹丸散布',)), ('hip', ('腰射',)),
                        ('speed', ('弹速', '子弹速度')), ('range', ('射程',)), ('shake', ('抖动',)),
                        ('reload', ('装填', '换弹'))]:
         if any(w in text for w in words):
@@ -208,6 +213,9 @@ for w in d['weapons']:
     for s, arr in (w.get('options', {}) or {}).items():
         for o in arr:
             check('%s %s/%s' % (w['id'], s, o.get('id')), mag_size, s, o)
+            # 2026-11-04: user assigned M24 its own skeleton-stock balance.
+            if (w['id'], s, o['id']) == ('ue_m24', 'stock', 'sniper_skeleton_stock'):
+                continue
             shared[(s, o['id'])].add((json.dumps(o.get('stats'), sort_keys=True, ensure_ascii=False),
                                       json.dumps(o.get('effects'), ensure_ascii=False)))
 for s, arr in (d.get('common_options') or {}).items():

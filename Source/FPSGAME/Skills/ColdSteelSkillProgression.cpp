@@ -1,0 +1,203 @@
+#include "ColdSteelSkillRules.h"
+#include "ColdSteelSkillTree.h"
+#include "../UI/ColdSteelInventoryTypes.h"
+
+bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
+{
+    if (P.SkillProgressVersion >= 33) return false;
+    P.ShadowStepCooldown=P.ShadowStepCooldownDuration=0.f;
+    P.Skills.FindOrAdd(TEXT("twoHandedMastery"));
+    P.Skills.FindOrAdd(TEXT("oneHandedMastery"));
+    P.Skills.FindOrAdd(TEXT("shadowStepSlash"));
+    if(P.SkillProgressVersion==32){P.SkillProgressVersion=33;return true;}
+    P.LeapStrikeCooldown=P.LeapStrikeCooldownDuration=0.f;
+    P.Skills.FindOrAdd(TEXT("leapStrike"));
+    if(P.SkillProgressVersion==31){P.SkillProgressVersion=33;return true;}
+    if(P.SkillProgressVersion==30){P.SkillProgressVersion=33;return true;}
+    P.Skills.FindOrAdd(TEXT("chainSlash"));
+    if(P.SkillProgressVersion==29){P.SkillProgressVersion=33;return true;}
+    P.Skills.FindOrAdd(TEXT("illuminationArrow"));
+    if(P.SkillProgressVersion==28){P.SkillProgressVersion=33;return true;}
+    P.Skills.FindOrAdd(TEXT("elementalArrow"));
+    if(P.SkillProgressVersion==27){P.SkillProgressVersion=33;return true;}
+    P.Skills.FindOrAdd(TEXT("magicArrowRain"));
+    if(P.SkillProgressVersion==26){P.SkillProgressVersion=33;return true;}
+    P.Skills.FindOrAdd(TEXT("heartPiercingArrow"));
+    if(P.SkillProgressVersion==25){P.SkillProgressVersion=33;return true;}
+    P.Skills.FindOrAdd(TEXT("bluntMastery"));
+    if(P.SkillProgressVersion==24){P.SkillProgressVersion=33;return true;}
+    P.Skills.FindOrAdd(TEXT("lightningHaste"));P.LightningHasteCooldown=P.LightningHasteCooldownDuration=0;
+    if(P.SkillProgressVersion==23){P.SkillProgressVersion=33;return true;}
+    P.Skills.FindOrAdd(TEXT("iceArmor"));P.IceArmorCooldown=P.IceArmorCooldownDuration=0;
+    if(P.SkillProgressVersion==22){P.SkillProgressVersion=33;return true;}
+    P.Skills.FindOrAdd(TEXT("dragonBreath"));
+    P.DragonBreathCooldown=P.DragonBreathCooldownDuration=P.DragonBreathReservedMana=0.f;
+    P.bDragonBreathReserved=false;
+    if(P.SkillProgressVersion==21){P.SkillProgressVersion=33;return true;}
+    if (P.SkillProgressVersion < 8)
+    {
+        P.Skills.FindOrAdd(TEXT("rifleMastery"));P.Skills.FindOrAdd(TEXT("dodge"));P.Skills.FindOrAdd(TEXT("dexterousHands"));P.Skills.FindOrAdd(TEXT("pistolMastery"));P.Skills.FindOrAdd(TEXT("criticalStrike"));P.Skills.FindOrAdd(TEXT("fireball"));for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery"))})P.Skills.FindOrAdd(Id);P.Skills.FindOrAdd(TEXT("heavyStrike"));
+    }
+    if(P.SkillProgressVersion<9)
+    {
+    P.FireballCooldownDuration=0.f;
+    if (P.FireballCooldown>0.f)
+    {
+        // Legacy saves have no cast-time level/equipment snapshot. Estimate once
+        // from the saved level, preserving the actual remaining cooldown exactly.
+        const auto Definition=LoadDefinition(TEXT("fireball"));
+        const auto* Progress=P.Skills.Find(TEXT("fireball"));
+        const int32 L=FMath::Clamp(Progress?Progress->Level:1,1,Definition.MaxLevel);
+        const float Growth=float(L-1)/FMath::Max(1,Definition.MaxLevel-1);
+        const float Estimated=FMath::Lerp(Definition.Fireball.Cooldown,Definition.Fireball.MinimumCooldown,Growth);
+        P.FireballCooldownDuration=FMath::Max(P.FireballCooldown,Estimated);
+    }
+    }
+    P.Skills.FindOrAdd(TEXT("iceSpike"));
+    // Ensure quickCombat exists for legacy versions that reach this shared migration.
+    P.Skills.FindOrAdd(TEXT("quickCombat"));
+    P.Skills.FindOrAdd(TEXT("whirlwind"));
+    P.Skills.FindOrAdd(TEXT("lightningStrike"));
+    P.Skills.FindOrAdd(TEXT("holyLight"));
+    P.Skills.FindOrAdd(TEXT("dashAttack"));
+    P.Skills.FindOrAdd(TEXT("meteor"));P.Skills.FindOrAdd(TEXT("flameArmor"));
+    P.Skills.FindOrAdd(TEXT("iceWall"));
+    P.Skills.FindOrAdd(TEXT("blizzard"));
+    for(FName Id:{FName(TEXT("stormDomain")),FName(TEXT("thunderLance"))}){P.Skills.FindOrAdd(Id);P.ElectricCooldowns.FindOrAdd(Id);P.ElectricCooldownDurations.FindOrAdd(Id);}
+    P.Skills.FindOrAdd(TEXT("swordUppercut"));
+    P.SwordUppercutCooldown=P.SwordUppercutCooldownDuration=0.f;
+    P.SkillProgressVersion=33;
+    return true;
+}
+bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
+{
+    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>33 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
+    if(P.SkillProgressVersion>=33&&(!P.Skills.Contains(TEXT("twoHandedMastery"))||!P.Skills.Contains(TEXT("oneHandedMastery"))||
+        !P.Skills.Contains(TEXT("shadowStepSlash"))||!FMath::IsFinite(P.ShadowStepCooldown)||!FMath::IsFinite(P.ShadowStepCooldownDuration)||
+        P.ShadowStepCooldown<0||P.ShadowStepCooldownDuration<P.ShadowStepCooldown||P.ShadowStepCooldownDuration>300))
+    {Reason=TEXT("瞬步掠影斩或精通进度无效");return false;}
+    if(P.SkillProgressVersion>=32&&(!FMath::IsFinite(P.LeapStrikeCooldown)||!FMath::IsFinite(P.LeapStrikeCooldownDuration)||
+        P.LeapStrikeCooldown<0||P.LeapStrikeCooldownDuration<P.LeapStrikeCooldown||P.LeapStrikeCooldownDuration>300))
+    {Reason=TEXT("跃击冷却无效");return false;}
+    if(P.SkillProgressVersion>=31&&!P.Skills.Contains(TEXT("leapStrike"))){Reason=TEXT("跃击记录缺失");return false;}
+    if(P.SkillProgressVersion>=30&&(!P.Skills.Contains(TEXT("chainSlash"))||!FMath::IsFinite(P.ChainSlashCooldown)||
+        !FMath::IsFinite(P.ChainSlashCooldownDuration)||P.ChainSlashCooldown<0||P.ChainSlashCooldownDuration<P.ChainSlashCooldown||
+        P.ChainSlashCooldownDuration>300)){Reason=TEXT("连斩进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=29&&(!P.Skills.Contains(TEXT("illuminationArrow"))||!FMath::IsFinite(P.IlluminationArrowCooldown)
+        ||!FMath::IsFinite(P.IlluminationArrowCooldownDuration)||P.IlluminationArrowCooldown<0||P.IlluminationArrowCooldownDuration<P.IlluminationArrowCooldown
+        ||P.IlluminationArrowCooldownDuration>300)){Reason=TEXT("照明箭进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=28&&!P.Skills.Contains(TEXT("elementalArrow"))){Reason=TEXT("元素箭进度缺失");return false;}
+    if(P.SkillProgressVersion>=27&&(!P.Skills.Contains(TEXT("magicArrowRain"))||!FMath::IsFinite(P.MagicArrowRainCooldown)
+        ||P.MagicArrowRainCooldown<0||!FMath::IsFinite(P.MagicArrowRainCooldownDuration)||P.MagicArrowRainCooldownDuration<P.MagicArrowRainCooldown
+        ||P.MagicArrowRainCooldownDuration>300||!FMath::IsFinite(P.MagicArrowRainReservedMana)||P.MagicArrowRainReservedMana<0
+        ||(!P.bMagicArrowRainReserved&&P.MagicArrowRainReservedMana!=0)))
+    {Reason=TEXT("魔法箭雨进度或资源无效");return false;}
+    if(P.SkillProgressVersion>=26&&!P.Skills.Contains(TEXT("heartPiercingArrow"))){Reason=TEXT("穿心箭进度缺失");return false;}
+    if(P.SkillProgressVersion>=25&&!P.Skills.Contains(TEXT("bluntMastery"))){Reason=TEXT("钝器精通进度缺失");return false;}
+    if(P.SkillProgressVersion>=24&&(!P.Skills.Contains(TEXT("lightningHaste"))||!FMath::IsFinite(P.LightningHasteCooldown)||!FMath::IsFinite(P.LightningHasteCooldownDuration)||P.LightningHasteCooldown<0||P.LightningHasteCooldownDuration<P.LightningHasteCooldown||P.LightningHasteCooldownDuration>300)){Reason=TEXT("雷电迅捷进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=23&&(!P.Skills.Contains(TEXT("iceArmor"))||!FMath::IsFinite(P.IceArmorCooldown)||!FMath::IsFinite(P.IceArmorCooldownDuration)||P.IceArmorCooldown<0||P.IceArmorCooldownDuration<P.IceArmorCooldown||P.IceArmorCooldownDuration>300)){Reason=TEXT("坚冰铠甲进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=22&&(!P.Skills.Contains(TEXT("dragonBreath"))||!FMath::IsFinite(P.DragonBreathCooldown)||
+        !FMath::IsFinite(P.DragonBreathCooldownDuration)||P.DragonBreathCooldown<0||P.DragonBreathCooldownDuration<P.DragonBreathCooldown||
+        P.DragonBreathCooldownDuration>300||!FMath::IsFinite(P.DragonBreathReservedMana)||P.DragonBreathReservedMana<0||
+        (!P.bDragonBreathReserved&&P.DragonBreathReservedMana!=0)))
+    {Reason=TEXT("龙息进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=21&&(!FMath::IsFinite(P.SwordUppercutCooldown)||P.SwordUppercutCooldown<0.f||!FMath::IsFinite(P.SwordUppercutCooldownDuration)||P.SwordUppercutCooldownDuration<P.SwordUppercutCooldown||P.SwordUppercutCooldownDuration>300.f))
+    {Reason=TEXT("上挑冷却无效");return false;}
+    if(P.SkillProgressVersion>=20&&!P.Skills.Contains(TEXT("swordUppercut"))){Reason=TEXT("上挑进度缺失");return false;}
+    if(P.SkillProgressVersion>=19)
+    {
+        if(P.ElectricCooldowns.Num()>2||P.ElectricCooldownDurations.Num()>2||P.ElectricReservedMana.Num()>2){Reason=TEXT("电系技能存档无效");return false;}
+        for(FName Id:{FName(TEXT("stormDomain")),FName(TEXT("thunderLance"))})
+        {
+            const float R=P.ElectricCooldowns.FindRef(Id),D=P.ElectricCooldownDurations.FindRef(Id);
+            if(!P.Skills.Contains(Id)||!P.ElectricCooldowns.Contains(Id)||!P.ElectricCooldownDurations.Contains(Id)||!FMath::IsFinite(R)||!FMath::IsFinite(D)||R<0||D<R||D>300){Reason=TEXT("电系技能进度或冷却无效");return false;}
+        }
+        for(const auto& R:P.ElectricReservedMana)if(!ElectricMagic::IsSkill(R.Key)||!FMath::IsFinite(R.Value)||R.Value<0){Reason=TEXT("电系未释放蓝耗无效");return false;}
+    }
+    if(P.SkillProgressVersion>=18&&(!P.Skills.Contains(TEXT("blizzard"))||!FMath::IsFinite(P.BlizzardCooldown)||P.BlizzardCooldown<0||!FMath::IsFinite(P.BlizzardCooldownDuration)||P.BlizzardCooldownDuration<P.BlizzardCooldown||P.BlizzardCooldownDuration>300))
+    {Reason=TEXT("暴风雪进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=18&&(!FMath::IsFinite(P.BlizzardReservedMana)||P.BlizzardReservedMana<0||(!P.bBlizzardReserved&&P.BlizzardReservedMana!=0)))
+    {Reason=TEXT("暴风雪未释放蓝耗无效");return false;}
+    if(P.SkillProgressVersion>=17&&(!P.Skills.Contains(TEXT("iceWall"))||!FMath::IsFinite(P.IceWallCooldown)||P.IceWallCooldown<0||!FMath::IsFinite(P.IceWallCooldownDuration)||P.IceWallCooldownDuration<P.IceWallCooldown||P.IceWallCooldownDuration>300))
+    {Reason=TEXT("冰墙进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=17&&(!FMath::IsFinite(P.IceWallReservedMana)||P.IceWallReservedMana<0||(!P.bIceWallReserved&&P.IceWallReservedMana!=0)))
+    {Reason=TEXT("冰墙未释放蓝耗无效");return false;}
+    if(P.SkillProgressVersion>=16)
+    {
+        if(!P.Skills.Contains(TEXT("meteor"))||!P.Skills.Contains(TEXT("flameArmor"))) {Reason=TEXT("火系技能进度缺失");return false;}
+        for(const auto Pair:{TPair<float,float>(P.MeteorCooldown,P.MeteorCooldownDuration),TPair<float,float>(P.FlameArmorCooldown,P.FlameArmorCooldownDuration)})
+            if(!FMath::IsFinite(Pair.Key)||!FMath::IsFinite(Pair.Value)||Pair.Key<0||Pair.Value<Pair.Key||Pair.Value>300){Reason=TEXT("火系技能冷却无效");return false;}
+    }
+    if (P.SkillProgressVersion>=1 && !P.Skills.Contains(TEXT("rifleMastery"))) { Reason=TEXT("技能进度缺失"); return false; }
+    if (P.SkillProgressVersion>=2 && !P.Skills.Contains(TEXT("dodge"))) { Reason=TEXT("闪避进度缺失"); return false; }
+    if (P.SkillProgressVersion>=3 && !P.Skills.Contains(TEXT("dexterousHands"))) { Reason=TEXT("巧手进度缺失"); return false; }
+    if (P.SkillProgressVersion>=4 && !P.Skills.Contains(TEXT("pistolMastery"))) { Reason=TEXT("手枪精通进度缺失"); return false; }
+    if (P.SkillProgressVersion>=5 && !P.Skills.Contains(TEXT("criticalStrike"))) { Reason=TEXT("暴击进度缺失"); return false; }
+    if (P.SkillProgressVersion>=6 && (!P.Skills.Contains(TEXT("fireball")) || !FMath::IsFinite(P.FireballCooldown) || P.FireballCooldown<0 || P.FireballCooldown>300)) { Reason=TEXT("火球进度或冷却无效"); return false; }
+    if(P.SkillProgressVersion>=8&&!P.Skills.Contains(TEXT("heavyStrike"))){Reason=TEXT("重击进度缺失");return false;}
+    if(P.SkillProgressVersion>=9&&(!FMath::IsFinite(P.FireballCooldownDuration)||P.FireballCooldownDuration<P.FireballCooldown||P.FireballCooldownDuration>300)){Reason=TEXT("火球冷却总时长无效");return false;}
+    if(P.SkillProgressVersion>=10&&(!P.Skills.Contains(TEXT("iceSpike"))||!FMath::IsFinite(P.IceSpikeCooldown)||P.IceSpikeCooldown<0||!FMath::IsFinite(P.IceSpikeCooldownDuration)||P.IceSpikeCooldownDuration<P.IceSpikeCooldown||P.IceSpikeCooldownDuration>300)){Reason=TEXT("冰锥进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=11&&!P.Skills.Contains(TEXT("quickCombat"))){Reason=TEXT("快速进战进度缺失");return false;}
+    if(P.SkillProgressVersion>=11&&(!FMath::IsFinite(P.QuickCombatCooldown)||P.QuickCombatCooldown<0||!FMath::IsFinite(P.QuickCombatCooldownDuration)||P.QuickCombatCooldownDuration<P.QuickCombatCooldown||P.QuickCombatCooldownDuration>300)){Reason=TEXT("快速进战冷却无效");return false;}
+    if(P.SkillProgressVersion>=12&&(!P.Skills.Contains(TEXT("whirlwind"))||!FMath::IsFinite(P.WhirlwindCooldown)||P.WhirlwindCooldown<0||!FMath::IsFinite(P.WhirlwindCooldownDuration)||P.WhirlwindCooldownDuration<P.WhirlwindCooldown||P.WhirlwindCooldownDuration>300))
+    {Reason=TEXT("大旋风进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=13&&(!P.Skills.Contains(TEXT("lightningStrike"))||!FMath::IsFinite(P.LightningCooldown)||P.LightningCooldown<0||!FMath::IsFinite(P.LightningCooldownDuration)||P.LightningCooldownDuration<P.LightningCooldown||P.LightningCooldownDuration>300))
+    {Reason=TEXT("闪电进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=14&&(!P.Skills.Contains(TEXT("holyLight"))||!FMath::IsFinite(P.HolyLightCooldown)||P.HolyLightCooldown<0||!FMath::IsFinite(P.HolyLightCooldownDuration)||P.HolyLightCooldownDuration<P.HolyLightCooldown||P.HolyLightCooldownDuration>300))
+    {Reason=TEXT("圣光进度或冷却无效");return false;}
+    if(P.SkillProgressVersion>=15&&!P.Skills.Contains(TEXT("dashAttack"))){Reason=TEXT("冲刺攻击进度缺失");return false;}
+    for (const auto& Pair:P.Skills)
+        if (Pair.Key.IsNone() || Pair.Value.Level<1 || Pair.Value.Level>20 || Pair.Value.Experience<0 || Pair.Value.Experience>2000000 || (Pair.Value.Level==20 && Pair.Value.Experience!=0))
+        { Reason=TEXT("技能等级或修炼值无效"); return false; }
+    return true;
+}
+
+FColdSteelSkillEffect ColdSteelSkills::Effect(const FColdSteelSkillDefinition& D, int32 Level)
+{
+    const int32 L=FMath::Clamp(Level,0,D.MaxLevel);
+    if(D.Id==TEXT("leapStrike")||D.Id==TEXT("chainSlash")||D.Id==TEXT("shadowStepSlash")||D.Id==TEXT("dashAttack"))return FColdSteelSkillEffect{};
+    if(D.Id==TEXT("whirlwind")){FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;return E;}
+    if(D.Id==TEXT("swordUppercut"))
+    {
+        FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;
+        E.HeavyMultiplier=D.HeavyMultiplierBase+FMath::Max(0,L-1)*D.HeavyMultiplierPerLevel;
+        E.UppercutReachMultiplier=D.UppercutRangeMultiplier*(1.f+FMath::Max(0,L-1)*D.UppercutReachGrowthPerLevel);
+        return E;
+    }
+    if(D.Id==TEXT("heavyStrike")){FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;E.HeavyMultiplier=D.HeavyMultiplierBase+FMath::Max(0,L-1)*D.HeavyMultiplierPerLevel;E.HeavyChargeSeconds=FMath::Max(.1f,D.HeavyChargeBase-FMath::Max(0,L-1)*D.HeavyChargeReductionPerLevel);return E;}
+    if(IsMeleeMastery(D.Id)||D.Id==TEXT("machineGunMastery")||D.Id==TEXT("shotgunMastery")||D.Id==TEXT("bowMastery"))
+    {FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;E.Constitution=L*D.ConstitutionPerLevel;E.Dexterity=L*D.DexterityPerLevel;E.DamagePercent=L*D.DamagePercentPerLevel;E.FlatDamage=L*D.FlatDamagePerLevel;E.CooldownReduction=L*D.CooldownReductionPerLevel;E.CriticalChance=L*D.CriticalChancePerLevel;E.MovementMultiplier=D.MovementMultiplier;return E;}
+    if(D.Id==TEXT("criticalStrike")){FColdSteelSkillEffect E;E.CriticalDamageBonus=L>0?D.CriticalDamageBase+L*D.CriticalDamagePerLevel:0.f;E.Luck=L*D.LuckPerLevel;return E;}
+    if(D.Id==TEXT("dodge")){FColdSteelSkillEffect E;E.DodgeDistanceCM=L*D.DodgeDistanceCMPerLevel;E.DodgeCostReduction=L*D.DodgeCostReductionPerLevel;return E;}
+    // 快速进战没有常驻属性收益；主动伤害和体力成长由 QuickCombatStats 计算。
+    if(D.Id==TEXT("quickCombat")||D.Id==TEXT("heartPiercingArrow")){FColdSteelSkillEffect E;return E;}
+    if(D.Id==TEXT("dexterousHands")){FColdSteelSkillEffect E;E.Dexterity=L*D.DexterityPerLevel;E.ReloadSpeed=L*D.ReloadSpeedPerLevel;E.BowDrawSpeed=L*D.BowDrawSpeedPerLevel;return E;}
+    if(D.Id==TEXT("pistolMastery")){FColdSteelSkillEffect E;E.Dexterity=L*D.DexterityPerLevel;E.DamagePercent=L*D.DamagePercentPerLevel;E.FlatDamage=L*D.FlatDamagePerLevel;E.MoveSpeed=L*D.MoveSpeedPerLevel;return E;}
+    FColdSteelSkillEffect E; E.DamagePercent=L*D.DamagePercentPerLevel; E.FlatDamage=L*D.FlatDamagePerLevel;
+    E.WeakpointPercent=L*D.WeakpointPerLevel; E.Wisdom=L*D.WisdomPerLevel; return E;
+}
+int32 ColdSteelSkills::ExperienceRequired(const FColdSteelSkillDefinition& D, int32 L)
+{ return L>=D.MaxLevel?0:FMath::Max(1,L)*D.ExperiencePerLevel; }
+void ColdSteelSkills::AddExperience(FColdSteelProfile& P, const FColdSteelSkillDefinition& D, int32 Amount)
+{
+    auto* Progress=P.Skills.Find(D.Id);
+    if (!Progress || Amount<=0 || Progress->Level>=D.MaxLevel) return;
+    // Skill tree: an unlearned skill does not train (2026-11-15).
+    if (!ColdSteelSkillTree::IsLearned(P, D.Id)) return;
+    Progress->Experience+=Amount;
+    while (Progress->Level<D.MaxLevel)
+    {
+        const int32 Need=ExperienceRequired(D,Progress->Level); if (Progress->Experience<Need) break;
+        Progress->Experience-=Need; ++Progress->Level;
+    }
+    if (Progress->Level==D.MaxLevel) Progress->Experience=0;
+}
+FString ColdSteelSkills::EffectSummary(const FColdSteelSkillEffect& E)
+{ if(E.HeavyMultiplier>0)return FString::Printf(TEXT("重击 ×%.1f · 蓄力 %.2f 秒 · 力量 +%d"),E.HeavyMultiplier,E.HeavyChargeSeconds,E.Strength);
+if(E.CriticalDamageBonus>0||E.Luck>0)return FString::Printf(TEXT("暴击伤害 +%.0f%%   ·   幸运 +%d"),E.CriticalDamageBonus*100,E.Luck);
+if(E.DodgeDistanceCM>0||E.DodgeCostReduction>0)return FString::Printf(TEXT("闪避距离 +%.1f 米   ·   体力消耗 −%.1f%%"),E.DodgeDistanceCM/100,E.DodgeCostReduction*100);
+if(E.MoveSpeed>0)return FString::Printf(TEXT("手枪伤害 +%.0f%% / +%.0f   ·   敏捷 +%d   ·   持枪移速 +%.0f%%"),E.DamagePercent*100,E.FlatDamage,E.Dexterity,E.MoveSpeed*100);
+if(E.CooldownReduction>0||E.Strength>0||E.Constitution>0)return FString::Printf(TEXT("伤害 +%.0f%% / +%.0f · 属性 +%d%s"),E.DamagePercent*100,E.FlatDamage,E.Strength+E.Constitution+E.Dexterity,E.CooldownReduction>0?*FString::Printf(TEXT(" · 攻速 +%.0f%%"),(1.f/FMath::Max(.05f,1.f-E.CooldownReduction)-1.f)*100):TEXT(""));
+if(E.BowDrawSpeed>0)return FString::Printf(TEXT("敏捷 +%d · 换弹速度 +%.0f%% · 拉弓速度 +%.2f%%"),E.Dexterity,E.ReloadSpeed*100,E.BowDrawSpeed*100);
+if(E.Dexterity>0||E.ReloadSpeed>0)return FString::Printf(TEXT("敏捷 +%d   ·   换弹速度 +%.0f%%"),E.Dexterity,E.ReloadSpeed*100);
+return FString::Printf(TEXT("步枪伤害 +%.0f%% / +%.0f   ·   精神 +%d   ·   要害伤害 +%.0f%%"),E.DamagePercent*100,E.FlatDamage,E.Wisdom,E.WeakpointPercent*100); }

@@ -45,6 +45,7 @@ UCLASS()
 class FPSGAME_API UColdSteelSmeltingSystem : public UGameInstanceSubsystem
 {
     GENERATED_BODY()
+    friend class ULargeLambMealAuditCommandlet;
 public:
     virtual void Initialize(FSubsystemCollectionBase& Collection) override;
     const TArray<FColdSteelSmeltingRecipe>& Catalog() const {return Recipes;}
@@ -106,6 +107,7 @@ public:
     static int64 FreshCampfireCount(const UColdSteelStatusModel* Operator,const FString& Definition);
 private:
     TSet<TWeakObjectPtr<AVoxelBuildWorld>> CampfireBlockedWorlds;
+    friend void RunCampfireFoodSpoilageAudit(UWorld* World,UColdSteelStatusModel* Model,TFunctionRef<void(bool,const FString&)> Check);
     void LoadCampfireRecipes();
     bool SettleCampfire(AVoxelBuildWorld* World,FIntVector Cell);
     bool CanUseCampfireTransaction(const AVoxelBuildWorld* World,FIntVector Cell,FString& Reason) const;

@@ -9,4 +9,8 @@ class UFPSConsumableAuditCommandlet : public UCommandlet
     GENERATED_BODY()
 public:
     virtual int32 Main(const FString& Params) override;
+    static void RunAuthorityFoodAudit(UWorld* World,class UColdSteelStatusModel* Model,
+        TFunctionRef<void(bool,const FString&,const FString&)> Check);
+    static void RunGenericMeleeAudit(UWorld* World,class UColdSteelStatusModel* Model,
+        TFunctionRef<void(bool,const FString&,const FString&)> Check);
 };

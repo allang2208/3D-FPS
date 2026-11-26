@@ -20,13 +20,22 @@ def paired(route):
     prefix=route['signature']+'/'
     return dict(rig_meshes={'Jason':saved['saved'][prefix+'Jason']['asset']},owner_body_meshes={'Jason':saved['saved'][prefix+'Owner_Jason']['asset']})
 mesh_pairs={path:paired(row) for path,row in authored['routes'].items()}
+# The all-garment producer owns the per-angle sloped-waist refinement. Keep
+# that saved pair while this lower-level guide producer refreshes its inputs;
+# GarmentWaist publishes the replacement after its new assets are saved.
+for path,route in authored['routes'].items():
+    current=shirt.get('pants_mesh_fit_meshes',{}).get(path,{})
+    current_asset=current.get('rig_meshes',{}).get('Jason','')
+    group=authored['groups'].get(route.get('signature'),{})
+    if group.get('waist_top_cm',100.)<98.5 and '/GarmentWaist20261023/' in current_asset:
+        mesh_pairs[path]=current
 shirt.setdefault('pants_mesh_fit_meshes',{}).update(mesh_pairs)
 for key,item in inventory['items'].items():
     path=item['recipe']['rig_meshes']['Jason'];shirt.setdefault('pants_fit_meshes',{})[key]=mesh_pairs[path]
 # Accepted tuck is a native-rig fallback, not an item-ID allowlist. Future
 # authored pants receive measured exact pairs through this same inventory.
 shirt['pants_fit_default']=paired(dict(reused=False,signature=authored['default_signature']))
-shirt['pants_fit_pipeline']='Tools/PantsCompatibility/run.ps1'
+shirt['pants_fit_pipeline']='Tools/GarmentWaist/run.ps1' if shirt.get('waist_fit_revision') else 'Tools/PantsCompatibility/run.ps1'
 template=cfg['items']['ue_blue_mage_pants'];inner=robe['underlayer_meshes']
 default=copy.deepcopy(robe.get('pants_underlayer_default'))
 if not default:default=dict(rig_meshes={rig:inner[path] for rig,path in template['rig_meshes'].items()},shoe_fit_meshes={shoe:{rig:inner[path] for rig,path in rigs.items()} for shoe,rigs in template['shoe_fit_meshes'].items()})

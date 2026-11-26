@@ -44,12 +44,17 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     virtual void TickComponent(float Delta, ELevelTick Type, FActorComponentTickFunction* Tick) override;
     /** Existing server-authoritative world-body equipment replication supplies remote appearances. */
+    void SetExternalWorldBody(USkeletalMeshComponent* Body) { ExternalWorldBody=Body; }
     void SetWorldOutfit(const TArray<FFPSBodyOutfitSlot>& Outfit);
     void RefreshInventory();
     /** Release only this body's followers before changing its source skeleton. */
     void ResetBodyPresentation();
     void SetBodyType(FName BodyId);
     void CollectBodyAssets(FName BodyId,const FString& BodyMesh,TArray<FSoftObjectPath>& Out) const;
+    /** Readiness of this pawn's current world outfit only, excluding viewmodel loads. */
+    bool IsWorldPresentationReady() const { return bWorldPresentationReady; }
+    void RefreshWorldVisibility();
+    void RefreshVisibilityForSource(const USkeletalMeshComponent* Source);
     /** Local visual pose layers use the current equipment, never inventory copies. */
     bool IsSteelGauntletEquipped() const;
     bool IsChainmailEquipped() const;
@@ -78,6 +83,7 @@ public:
     static int32 AddRobeHemMaskPin(UObject* Expression);
 
 private:
+    UPROPERTY() TObjectPtr<USkeletalMeshComponent> ExternalWorldBody;
     UPROPERTY(Transient) TArray<FFPSOutfitPresentation> Presentations;
     TSharedPtr<FJsonObject> Configuration;
     TSharedPtr<FJsonObject> BaseConfiguration;
@@ -89,6 +95,7 @@ private:
     float DiscoverCountdown = 0.f;
     bool bDirty = true;
     bool bEnding = false;
+    bool bWorldPresentationReady = false;
     float RobeStairUntil = -1.f;
     bool bHideRobeCalves = false;
     void UpdateRobeStairVisibility();

@@ -11,7 +11,7 @@ namespace RifleAxialRecoil
     inline EProfile ForWeapon(const FString& Definition)
     {
         if (Definition == TEXT("ue_qbz191")) return EProfile::QBZ191;
-        if (Definition == TEXT("ue_pkm_lowpoly")) return EProfile::PKM;
+        if (Definition == TEXT("ue_pkm_lowpoly") || Definition==TEXT("ue_m249")) return EProfile::PKM;
         if (Definition == TEXT("ue_svd")) return EProfile::SVD;
         if (Definition == TEXT("ue_a762") || Definition == TEXT("ue_akm")
             || Definition == TEXT("ue_lmg201")) return EProfile::Reference;

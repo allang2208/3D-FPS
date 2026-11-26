@@ -1,4 +1,5 @@
 #include "PoisonMaggotProjectile.h"
+#include "MonsterTargeting.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "Net/UnrealNetwork.h"
 #include "PoisonMaggotMonster.h"
@@ -95,7 +96,11 @@ void APoisonMaggotProjectile::Tick(float Dt)
   if(auto* Wall=Cast<AFPSIceWall>(Hit.GetActor()))
    UGameplayStatics::ApplyDamage(Wall,HitDamage,Shooter->GetController(),Shooter.Get(),UMaggotVenomDamage::StaticClass());
   if(FParse::Param(FCommandLine::Get(),TEXT("MonsterFeedbackProbe")))UE_LOG(LogTemp,Display,TEXT("MAGGOT_IMPACT_PROBE actor=%s component=%s profile=%s visibility=%d pawn=%d initial=%d"),*GetPathNameSafe(Hit.GetActor()),*GetNameSafe(Hit.GetComponent()),Hit.GetComponent()?*Hit.GetComponent()->GetCollisionProfileName().ToString():TEXT("none"),Hit.GetComponent()?int32(Hit.GetComponent()->GetCollisionResponseToChannel(ECC_Visibility)):-1,Hit.GetComponent()?int32(Hit.GetComponent()->GetCollisionResponseToChannel(ECC_Pawn)):-1,Hit.bStartPenetrating);
-  if(auto* P=Cast<APawn>(Hit.GetActor()))if(P->IsPlayerControlled())
+  if(auto* P=Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor()));MonsterTargeting::IsActiveArtisan(P))
+  {
+   if(UGameplayStatics::ApplyDamage(P,HitDamage,Shooter->GetController(),Shooter.Get(),UMaggotVenomDamage::StaticClass())>0.f)++Shooter->ProjectileHits;
+  }
+  else if(P&&P->IsPlayerControlled())
   {
    auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();
    if(H&&!H->IsDead())
@@ -116,7 +121,15 @@ void UMaggotPoisonComponent::AddStack(AActor* Source)
  const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>();
  if(Combat?Combat->IsDead():(!H||H->IsDead()||H->IsInvulnerable()))return;
  if(const auto* S=GetOwner()->FindComponentByClass<UCombatStatusFormula>();S&&S->IsImmune())return; // 旧 applyPoison：statusImmune 直接拒绝上毒
- if(Stacks==0)NextTick=1;Stacks=FMath::Min(20,Stacks+1);DecayLeft=5;DamageSource=Source;
+ const auto* SourcePawn=Cast<APawn>(Source);if(!SourcePawn)SourcePawn=Source->GetInstigator();
+ const auto* SourceOwner=Source->GetOwner();
+ const bool MonsterSource=Source->FindComponentByClass<UMonsterCombatComponent>()||
+     (SourcePawn&&SourcePawn->FindComponentByClass<UMonsterCombatComponent>())||
+     (SourceOwner&&SourceOwner->FindComponentByClass<UMonsterCombatComponent>());
+ // Only hostile poison on player health gets the four-stack budget. Player
+ // poison ammunition and any already-present stronger poison retain their values.
+ const int32 Cap=H&&MonsterSource?4:20;
+ if(Stacks==0)NextTick=1;Stacks=FMath::Max(Stacks,FMath::Min(Cap,Stacks+1));DecayLeft=5;DamageSource=Source;
  const auto* Pawn=Cast<APawn>(Source);DamageInstigator=Pawn?Pawn->GetController():Source->GetInstigatorController();SetComponentTickEnabled(true);
  UStatusEffectsComponent::Notify(GetOwner());
 }

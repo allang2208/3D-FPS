@@ -1,6 +1,33 @@
 {
   "effects": [
     {
+      "type": "eclipsePhase",
+      "icon": "蚀",
+      "name": "食相",
+      "color": "#d5a45f",
+      "description": "每层使受到的伤害提高3%，最多10层。命中或扩散刷新10秒，到期全部消失。死亡时将现有层数扩散给10米内的目标。",
+      "kind": "debuff",
+      "group": "combat"
+    },
+    {
+      "type": "illuminationMarked",
+      "icon": "标",
+      "name": "照明标记",
+      "color": "#ff3b34",
+      "description": "照明箭施加的标记。红色轮廓高亮，无法隐身，受到的伤害提高15%～50%，持续10～30秒，取决于施放者照明箭等级。重复标记不叠加增伤。",
+      "kind": "debuff",
+      "group": "combat"
+    },
+    {
+      "type": "exhaustion",
+      "icon": "竭",
+      "name": "力竭",
+      "color": "#a39789",
+      "description": "体力耗尽时触发，持续5秒，移动速度降低50%，禁止冲刺，视野变暗并发出喘气声。即使体力恢复，也须等待力竭结束后才能重新冲刺；持续期间不叠加、不刷新时间。",
+      "kind": "debuff",
+      "group": "combat"
+    },
+    {
       "type": "tentacleEntangled",
       "icon": "缠",
       "name": "缠绕",
@@ -365,7 +392,7 @@
       "icon": "❄️",
       "name": "寒冷",
       "color": "#7ab8e0",
-      "description": "每层降低 5% 移动速度；层数加法叠加，最终乘算。",
+      "description": "所有来源共用寒冷层数，每层移动速度−5%，层数加法叠加。达到20层触发冻结并消耗10层；冻结期间不再叠加寒冷，寒冷到期清空余层。",
       "kind": "debuff",
       "group": "combat"
     },
@@ -383,7 +410,7 @@
       "icon": "🧊",
       "name": "冻结",
       "color": "#a0d8ff",
-      "description": "无法移动、攻击、使用技能与物品；受到的非魔法伤害提高 50%。",
+      "description": "无法移动、攻击、使用技能与物品；受到的非魔法伤害+50%。由寒冷达到20层触发并消耗10层，冻结时长由触发来源决定；冻结期间不再叠加寒冷。",
       "kind": "debuff",
       "group": "combat"
     },
@@ -1198,11 +1225,47 @@
       "group": "triggered"
     },
     {
+      "type": "sausageRecovery",
+      "name": "香肠滋养",
+      "icon": "食",
+      "color": "#DDA95F",
+      "description": "体力自然恢复速度提高5%，持续600秒。再次食用烤香肠刷新至600秒，倍率和持续时间不叠加。死亡重生后清除。",
+      "kind": "buff",
+      "group": "triggered"
+    },
+    {
+      "type": "largeLambMeal",
+      "name": "大份烤羊排",
+      "icon": "食",
+      "color": "#DDA95F",
+      "description": "体力上限提高10%，自然恢复速度提高5%，持续600秒。重复食用刷新至600秒，同名倍率和时间不叠加。提高上限不直接补充体力；到期超过上限的体力截回。",
+      "kind": "buff",
+      "group": "triggered"
+    },
+    {
       "type": "iceArmor",
       "icon": "冰",
       "name": "坚冰铠甲",
       "color": "#8ED9F4",
       "description": "冰甲提高物理与魔法防御。近战受伤向攻击者施加寒冷，每2秒对附近敌人施加寒冷。",
+      "kind": "buff",
+      "group": "combat"
+    },
+    {
+      "type": "galeSwiftness",
+      "icon": "翼",
+      "name": "迅捷",
+      "color": "#83D8CF",
+      "description": "风誓翼锋护手击杀敌人后，移动速度+25%，持续3秒。再次击杀刷新持续时间。",
+      "kind": "buff",
+      "group": "triggered"
+    },
+    {
+      "type": "lightningHaste",
+      "icon": "雷",
+      "name": "雷电迅捷",
+      "color": "#87AFFF",
+      "description": "电弧环绕四肢，移动和动作速度提高。",
       "kind": "buff",
       "group": "combat"
     },
@@ -1216,11 +1279,56 @@
       "group": "combat"
     },
     {
+      "type": "bowCadence",
+      "icon": "cadence",
+      "name": "律动",
+      "kind": "buff",
+      "group": "triggered",
+      "color": "#8FBFD6",
+      "description": "疾律弓弦：节拍判定窗口+100%；节拍放箭叠加律动，每层拉弓速度+20%，最多5层（满层+100%），持续6秒。满层腰射扩散−50%、物理伤害+20%，成功射出任意手动箭即触发节拍并刷新6秒。未满层非节拍放箭、超时、切换武器或死亡时清空。"
+    },
+    {
+      "type": "magicInspiration",
+      "icon": "励",
+      "name": "魔法激励",
+      "color": "#d6dce5",
+      "description": "攻击速度提高25%，持续10秒；满足装备的触发条件时获得，再次触发刷新持续时间，不叠层。",
+      "kind": "buff",
+      "group": "combat"
+    },
+    {
+      "type": "kukriRelentlessMain",
+      "icon": "锋",
+      "name": "主手连锋",
+      "color": "#dda15e",
+      "description": "百折·连锋坠：连续攻击命中叠层，最多10层，每层使本刀后续出手伤害+3%、韧性伤害+6%。停手4秒后每0.5秒减1层；双持逐刀计算，切换或拆卸清空。",
+      "kind": "buff",
+      "group": "triggered"
+    },
+    {
+      "type": "kukriRelentlessOffhand",
+      "icon": "锋",
+      "name": "副手连锋",
+      "color": "#dda15e",
+      "description": "百折·连锋坠：连续攻击命中叠层，最多10层，每层使本刀后续出手伤害+3%、韧性伤害+6%。停手4秒后每0.5秒减1层；双持逐刀计算，切换或拆卸清空。",
+      "kind": "buff",
+      "group": "triggered"
+    },
+    {
       "type": "weakness",
       "icon": "虚",
       "name": "虚弱",
       "color": "#9a86a8",
       "description": "每层使造成的伤害降低10%，最多5层，满层降低50%。持续8秒；再次触发叠加1层并将全部层数的剩余时间刷新为8秒，满层时仍刷新时间，到期全部清除。",
+      "kind": "debuff",
+      "group": "combat"
+    },
+    {
+      "type": "ghostArmorCorrosion",
+      "icon": "蚀",
+      "name": "护甲腐蚀",
+      "color": "#BA6864",
+      "description": "每层降低5%物理护甲，最多12层（60%）。每次鬼镰命中都会将全部层数的持续时间刷新至8秒，到期全部移除。",
       "kind": "debuff",
       "group": "combat"
     },
@@ -1234,11 +1342,11 @@
       "group": "combat"
     },
     {
-      "type": "galeSwiftness",
-      "icon": "翼",
-      "name": "迅捷",
-      "color": "#83D8CF",
-      "description": "风誓翼锋护手击杀敌人后，移动速度+25%，持续3秒。再次击杀刷新持续时间。",
+      "type": "leapControlImmune",
+      "icon": "🛡️",
+      "name": "跃击·免控",
+      "color": "#5ac8c8",
+      "description": "跃击起跳后免疫眩晕、恐惧、束缚、冻结、石化、失明、抓取与强制位移，触地解除；减速仍生效。",
       "kind": "buff",
       "group": "triggered"
     }

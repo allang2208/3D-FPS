@@ -4,6 +4,9 @@
 #include "SceneTestPortal.generated.h"
 
 class UTextRenderComponent;
+class SWidget;
+class APlayerController;
+class UGameViewportClient;
 struct FStreamableHandle;
 
     /** Travel actor for the hills hub door and authored dungeon return doors. */
@@ -19,6 +22,8 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
     UFUNCTION() void OnRep_Destination();
     bool IsWithinInteractionRange(const APawn* Pawn) const;
+    /** Release this player's local modal before an externally initiated team travel. */
+    static void CloseLocalReturnConfirmations(APlayerController* Player);
     /** 0 = wait for pawn, 1 = installed or already present, 2 = skip this map. */
     static int32 InstallHillsLink(UWorld* World);
 protected:
@@ -26,6 +31,11 @@ protected:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
     void UsePortal();
+    void BeginTravel(bool bConfirmUnclaimedReward = false);
+    void ShowReturnConfirmation(APlayerController* Player);
+    void ConfirmReturn();
+    void CloseReturnConfirmation(bool bRestoreInput = true);
+    UFUNCTION() void OnConfirmationPawnChanged(APawn* OldPawn, APawn* NewPawn);
     void CancelLoading();
     void FinishLoading();
     void OpenDestination();
@@ -36,4 +46,9 @@ private:
     TSharedPtr<FStreamableHandle> PreloadHandle;
     FTimerHandle DungeonTravelTimer;
     bool bTravelling = false;
+    TSharedPtr<SWidget> ReturnConfirmation;
+    TWeakObjectPtr<APlayerController> ConfirmationPlayer;
+    TWeakObjectPtr<APawn> ConfirmationPawn;
+    TWeakObjectPtr<UGameViewportClient> ConfirmationViewport;
+    FDelegateHandle TravelFailureHandle;
 };

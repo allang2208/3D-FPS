@@ -2,6 +2,7 @@
 #include "ProductionBluntCombo.h"
 #include "WarhammerHeavyMotion.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/PojunGrip.h"
 #include "Engine/GameInstance.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Monsters/MonsterCombatComponent.h"
@@ -11,6 +12,7 @@
 float WarhammerCombat::ShockwaveRadius(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile)
 {
     const float Base=float(ColdSteelInventory::Number(Item,TEXT("heavy_wave_radius_cm"),WarhammerHeavy::Radius));
+    if(const auto* Grip=PojunGrip::Modifiers(&Item,Profile))return Base*float(Grip->Range);
     if(Item.Definition!=TEXT("ue_steel_warhammer")||!Profile)return Base;
     const auto* GI=Profile->GetGameInstance();
     const auto* Gunsmith=GI?GI->GetSubsystem<UGunsmithSystem>():nullptr;
@@ -38,7 +40,7 @@ float WarhammerCombat::ShockwaveRadius(const FColdSteelItem& Item,const UColdSte
 }
 
 FWeaponDamageParts WarhammerCombat::Damage(const FWeaponDamageParts& Base,const UColdSteelStatusModel* Profile,
-    bool bSprint,bool bHeavy,float HeavyMultiplier,int32 Stage)
+    bool bSprint,bool bHeavy,float HeavyMultiplier,int32 Stage,TOptional<double> FinisherMultiplier)
 {
     if(bSprint&&Profile)
     {
@@ -48,7 +50,8 @@ FWeaponDamageParts WarhammerCombat::Damage(const FWeaponDamageParts& Base,const 
         const double Amount=FMath::FloorToFloat(Total*Profile->DashAttackStats().DamageMultiplier);
         return Base.Scaled(Total>0.?Amount/Total:0.);
     }
-    return Base.Scaled(bHeavy?HeavyMultiplier:ProductionBluntCombo::DamageMultiplier(Stage));
+    const double Combo=Stage==2&&FinisherMultiplier.IsSet()?FinisherMultiplier.GetValue():ProductionBluntCombo::DamageMultiplier(Stage);
+    return Base.Scaled(bHeavy?HeavyMultiplier:Combo);
 }
 
 void WarhammerCombat::ApplyHeavyStun(AActor* Target,float Seconds)

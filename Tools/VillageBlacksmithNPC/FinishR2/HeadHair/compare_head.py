@@ -17,3 +17,4 @@ for name,pic in [('修订前',before),('修订后',after)]:
 comparison=Image.new('RGB',(frames[0].width*2+2,frames[0].height),(26,28,31))
 comparison.paste(frames[0],(0,0));comparison.paste(frames[1],(frames[0].width+2,0))
 comparison.save(out/'head_close_comparison.jpg',quality=95,subsampling=0)
+

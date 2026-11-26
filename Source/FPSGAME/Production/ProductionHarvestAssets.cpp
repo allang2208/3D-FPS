@@ -1,4 +1,5 @@
 #include "ProductionHarvestAssets.h"
+#include "../WorldGeneration/EastRiverRoad.h"
 
 namespace ProductionHarvestAssets
 {
@@ -6,14 +7,17 @@ bool IsMaterial(const FString& Definition)
 {
     return Definition==TEXT("wood")||Definition==TEXT("stone")||Definition==TEXT("iron_ore")||
         Definition==TEXT("copper_ore")||Definition==TEXT("silver_ore")||Definition==TEXT("gold_ore")||
-        Definition==TEXT("ironIngot")||Definition==TEXT("copperIngot")||   // 锭类也走生产材料拾取链
-        Definition==TEXT("silverIngot")||Definition==TEXT("goldIngot");    //  （落地物理＋稀有度光柱）
+        IsSmeltingIngot(Definition); // 金属锭共用落地物理、拾取与稀有度表现。
 }
-/** 冶炼家族定义的后缀判定：*_ore＝四种矿石，*Ingot＝四种金属锭。 */
+/** Explicit ore and ingot families; new ingots can carry their own authored geometry. */
 static bool IsSmeltingOre(const FString& D){return D==TEXT("iron_ore")||D==TEXT("copper_ore")||D==TEXT("silver_ore")||D==TEXT("gold_ore");}
-bool IsSmeltingIngot(const FString& D){return D==TEXT("ironIngot")||D==TEXT("copperIngot")||D==TEXT("silverIngot")||D==TEXT("goldIngot");}
+bool IsSmeltingIngot(const FString& D){return D==TEXT("ironIngot")||D==TEXT("copperIngot")||D==TEXT("steelIngot")||D==TEXT("silverIngot")||D==TEXT("platinumIngot")||D==TEXT("goldIngot");}
 FSoftObjectPath PickupMesh(const FString& Definition,int32 Variant)
 {
+    if(Definition==TEXT("steelIngot"))
+        return FSoftObjectPath(TEXT("/Game/Items/CraftingMaterialTiers20261026/SM_Ingot_Steel.SM_Ingot_Steel"));
+    if(Definition==TEXT("platinumIngot"))
+        return FSoftObjectPath(TEXT("/Game/Items/CraftingMaterialTiers20261026/SM_Ingot_Platinum.SM_Ingot_Platinum"));
     if(Definition==TEXT("wood"))
     {
         (void)Variant;
@@ -27,6 +31,10 @@ FSoftObjectPath PickupMesh(const FString& Definition,int32 Variant)
 }
 FSoftObjectPath PickupMaterial(const FString& Definition)
 {
+    if(Definition==TEXT("steelIngot"))
+        return FSoftObjectPath(TEXT("/Game/Items/CraftingMaterialTiers20261026/MI_Ingot_Steel.MI_Ingot_Steel"));
+    if(Definition==TEXT("platinumIngot"))
+        return FSoftObjectPath(TEXT("/Game/Items/CraftingMaterialTiers20261026/MI_Ingot_Platinum.MI_Ingot_Platinum"));
     if(IsSmeltingIngot(Definition))
         return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/Smelting/Ingot/MI_%s.MI_%s"),*Definition,*Definition));
     if(IsSmeltingOre(Definition))
@@ -37,39 +45,58 @@ bool IsIconSubject(const FString& Definition)
 {
     // 木材已有离线渲染的 1x2 竖幅目录图，不进捕获通道；其余生产材料都是 1x1 方格，
     // 捕获画布按同一规则推成 320x320，与格子比例一致。
-    return IsMaterial(Definition)&&Definition!=TEXT("wood");
+    // These new ingots use production PNGs rendered from their actual meshes.
+    return IsMaterial(Definition)&&Definition!=TEXT("wood")&&Definition!=TEXT("steelIngot")&&Definition!=TEXT("platinumIngot");
 }
 int32 TreeVariant(const FSoftObjectPath& Tree)
 {
+    const int32 RoadForm=EastRiverRoad::CanopyForm(Tree);
+    if(RoadForm!=INDEX_NONE)return 4+RoadForm; // Shared broadleaf cut profiles and stump fittings.
     for(int32 Index=0;Index<4;++Index)
+    {
         if(Tree.GetAssetName()==FString::Printf(TEXT("SK_BlackPoplarPCG_%c"),TEXT('A')+Index))return Index;
+        if(Tree.GetAssetName()==FString::Printf(TEXT("SK_Beech_%c"),TEXT('A')+Index))return 4+Index;
+    }
     return INDEX_NONE;
+}
+static FSoftObjectPath BeechPart(const TCHAR* Prefix,int32 Variant)
+{
+    const FString Name=FString::Printf(TEXT("%s_%c"),Prefix,TEXT('A')+Variant-4);
+    return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/Beech/%s.%s"),*Name,*Name));
 }
 FSoftObjectPath Stump(int32 Variant)
 {
+    if(Variant>=4&&Variant<TreeVariantCount)return BeechPart(TEXT("SM_CutStump"),Variant);
     const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,3);
     return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/SM_CutStump_%c.SM_CutStump_%c"),Letter,Letter));
 }
 FSoftObjectPath FallingMesh(int32 Variant)
 {
+    if(Variant>=4&&Variant<TreeVariantCount)return BeechPart(TEXT("SK_CutUpper"),Variant);
     const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,3);
     return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/SK_CutUpper_%c.SK_CutUpper_%c"),Letter,Letter));
 }
 FSoftObjectPath CutProfile(int32 Variant)
 {
+    if(Variant>=4&&Variant<TreeVariantCount)return BeechPart(TEXT("DA_TreeCut"),Variant);
     const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,3);
     return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/DA_TreeCut_%c.DA_TreeCut_%c"),Letter,Letter));
 }
 FSoftObjectPath CutCap(int32 Variant)
 {
+    if(Variant>=4&&Variant<TreeVariantCount)return BeechPart(TEXT("SM_CutCap"),Variant);
     // 2026-09-26 用户反馈"倒下的树断面中空"：封盖网格由
     // Tools/Production/build_tree_cut_caps.py 从 SM_CutUpper_* 按切口材质提取（单槽 M_FallingCutEnd，
     // 顶点在树本地坐标、切面 Z=42），贴在倒树断口上闭合。
     const TCHAR Letter=TEXT('A')+FMath::Clamp(Variant,0,3);
     return FSoftObjectPath(FString::Printf(TEXT("/Game/Items/HarvestTimber/SM_CutCap_%c.SM_CutCap_%c"),Letter,Letter));
 }
-FSoftObjectPath FallingMaterial(int32 Slot)
+FSoftObjectPath FallingMaterial(int32 Slot,int32 Variant)
 {
+    if(Variant>=4&&Variant<TreeVariantCount&&Slot<2)
+        return FSoftObjectPath(Slot==0?
+            TEXT("/Game/Items/HarvestTimber/Beech/MI_FallingBeech_Bark.MI_FallingBeech_Bark"):
+            TEXT("/Game/Items/HarvestTimber/Beech/MI_FallingBeech_Foliage.MI_FallingBeech_Foliage"));
     // 2026-09-26 三角碎片修复后的默认口径：倒树上半段用原树网格，切口靠 material-space 遮罩，
     // 因此槽 0/1 指向上一代那套带 `step(H,P.z)` 的 M_FallingPoplar 实例（使用标志齐全）。
     // 槽 2 仍是重制路径的断面材质，供 fps.Harvest.TreeFallUseSourceMesh 0 时对照使用。
@@ -102,7 +129,8 @@ TArray<FSoftObjectPath> LoadSet(bool Wood)
         // 重制路径（fps.Harvest.TreeFallUseSourceMesh 0）对照用：它用网格自带的槽材质。
         Paths.Append({FSoftObjectPath(TEXT("/Game/Items/HarvestTimber/MI_CutUpper_Bark.MI_CutUpper_Bark")),
             FSoftObjectPath(TEXT("/Game/Items/HarvestTimber/MI_CutUpper_Foliage.MI_CutUpper_Foliage"))});
-        for(int32 Variant=0;Variant<4;++Variant)Paths.Append({Stump(Variant),CutProfile(Variant),CutCap(Variant)});
+        Paths.Append({FallingMaterial(0,4),FallingMaterial(1,4)});
+        for(int32 Variant=0;Variant<TreeVariantCount;++Variant)Paths.Append({Stump(Variant),CutProfile(Variant),CutCap(Variant)});
     }
     return Paths;
 }

@@ -1,4 +1,6 @@
 #include "SpiralPillarM14.h"
+#include "MonsterTargeting.h"
+#include "MonsterDamageBalance.h"
 #include "M14WhirlwindMotion.h"
 #include "FleshHandMonster.h"
 #include "FPSCombatHealthComponent.h"
@@ -50,8 +52,8 @@ void ASpiralPillarM14::WhirlwindContact(float FromTime,float ToTime)
     for(const FHitResult& Hit:Candidates)
     {
         if(State!=EM14State::Whirlwind||Dead())return;
-        AActor* Victim=Hit.GetActor();APawn* Pawn=Cast<APawn>(Victim);
-        const bool PlayerBody=Pawn&&Pawn->IsPlayerControlled()&&Hit.GetComponent()==Pawn->GetRootComponent();
+        AActor* Victim=MonsterTargeting::DamageRecipient(Hit.GetActor());APawn* Pawn=Cast<APawn>(Victim);
+        const bool PlayerBody=Pawn&&MonsterTargeting::IsOpponentPawn(Pawn)&&Hit.GetComponent()==Hit.GetActor()->GetRootComponent();
         if(!IsValid(Victim)||(!PlayerBody&&!Victim->IsA<AFPSIceWall>())||WhirlwindVictims.Contains(Victim))continue;
         auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
         if(Vitals&&(Vitals->IsDead()||Vitals->IsInvulnerable()))continue;
@@ -59,12 +61,12 @@ void ASpiralPillarM14::WhirlwindContact(float FromTime,float ToTime)
         // not damage a player behind scenery or behind a surviving ice wall.
         FVector Contact=Victim->GetActorLocation();Contact.Z=Origin.Z;
         FHitResult Block;
-        if(GetWorld()->LineTraceSingleByChannel(Block,Origin,Contact,ECC_Visibility,Query)&&Block.GetActor()!=Victim)continue;
+        if(GetWorld()->LineTraceSingleByChannel(Block,Origin,Contact,ECC_Visibility,Query)&&MonsterTargeting::DamageRecipient(Block.GetActor())!=Victim)continue;
         WhirlwindVictims.Add(Victim);
         FVector Direction=(Victim->GetActorLocation()-GetActorLocation()).GetSafeNormal2D();
         if(Direction.IsNearlyZero())Direction=GetActorForwardVector();
         const float Before=Vitals?Vitals->Health:0.f;
-        UGameplayStatics::ApplyPointDamage(Victim,PhysicalAttack*WhirlwindDamageMultiplier,
+        UGameplayStatics::ApplyPointDamage(Victim,MonsterDamageBalance::Limit(PhysicalAttack*WhirlwindDamageMultiplier,100.f),
             Direction,Hit,GetController(),this,UEnemyMeleeDamage::StaticClass());
         // Guard/parry may synchronously interrupt or kill the attacking monster.
         // Invulnerability and a fully blocked hit must not produce displacement.

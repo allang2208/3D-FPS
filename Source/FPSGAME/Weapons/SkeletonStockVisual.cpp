@@ -1,7 +1,10 @@
+#include "Saiga12KAttachments.h"
+#include "M24Attachments.h"
 #include "HK416Attachments.h"
 #include "HK416WeaponAssets.h"
 #include "AR416Furniture.h"
 #include "LegendaryTacticalStock.h"
+#include "SniperSkeletonStock.h"
 #include "Super90StockAssets.h"
 #include "M870FurnitureAssets.h"
 #include "Super90WeaponAssets.h"
@@ -10,6 +13,7 @@
 #include "A762Attachments.h"
 #include "SVDAttachments.h"
 #include "PKMAttachments.h"
+#include "M249Attachments.h"
 #include "M16Attachments.h"
 #include "AKMSovietCalibration.h"
 #include "QBZ191Attachments.h"
@@ -47,7 +51,53 @@ FTransform ASHCheekRestMount(const USkeletalMesh* Asset)
 
 void AFPSGAMECharacter::SetGunsmithStock(const FString& Variant)
 {
+    if(M249WeaponAssets::Matches(AKMViewmodel))
+    {
+        StockAttachment=M249Attachments::Configure(this,AKMViewmodel,StockAttachment,Variant,bInventoryWeaponReady&&M249Attachments::IsStock(Variant));
+        bSkeletonStock=StockAttachment!=nullptr;if(StockAttachment)StockMount=StockAttachment->GetRelativeTransform();
+        M249Attachments::FactorySection(AKMViewmodel,TEXT("M249_Factory_Stock"),!bSkeletonStock);
+        return;
+    }
+    const FString M24Grip=IsM24Weapon()?SniperSkeletonStock::M24GripVariant(RearGripAttachment):FString();
+    const bool M24Advanced=IsM24Weapon()&&PrismHandstop&&PrismHandstop->IsVisible();
+    if(SniperSkeletonStock::Supports(ActiveInventoryWeaponDefinition))
+    {
+        if(SniperSkeletonStock::IsReplacement(ActiveInventoryWeaponDefinition,Variant)&&bInventoryWeaponReady)
+        {
+            StockAttachment=SniperSkeletonStock::Configure(this,AKMViewmodel,StockAttachment,ActiveInventoryWeaponDefinition,M24Advanced,Variant);
+            bSkeletonStock=StockAttachment&&StockAttachment->IsVisible();
+            if(StockAttachment)StockMount=StockAttachment->GetRelativeTransform();
+            if(IsM24Weapon())
+            {
+                TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>> Unused;
+                for(const FName Family:{FName(TEXT("skeleton_base")),FName(TEXT("skeleton_mag10"))})
+                    if(!WeaponGripProfiles.Contains(Family))InitializeWeaponGripFamily(Family,Unused);
+                if(M24Advanced)SetGunsmithHandstop(M24Attachments::AdvancedAction);
+                SetGunsmithRearGrip(M24Grip);
+            }
+            return;
+        }
+        SniperSkeletonStock::FactorySections(AKMViewmodel,true);
+    }
+    if(IsM24Weapon())
+    {
+        StockAttachment=M24Attachments::Configure(this,AKMViewmodel,StockAttachment,Variant,
+            bInventoryWeaponReady&&Variant==M24Attachments::CheekRest);
+        bSkeletonStock=StockAttachment&&StockAttachment->IsVisible();
+        if(StockAttachment)StockMount=StockAttachment->GetRelativeTransform();
+        if(M24Advanced)SetGunsmithHandstop(M24Attachments::AdvancedAction);
+        SetGunsmithRearGrip(M24Grip);
+        return;
+    }
     if (IsPistolWeapon()) return;
+    if(IsSaiga12KWeapon())
+    {
+        StockAttachment=Saiga12KAttachments::Configure(this,AKMViewmodel,StockAttachment,Variant,bInventoryWeaponReady&&Saiga12KAttachments::SupportsStock(Variant));
+        bSkeletonStock=StockAttachment&&StockAttachment->IsVisible();
+        if(StockAttachment)StockMount=StockAttachment->GetRelativeTransform();
+        Saiga12KAttachments::FactorySection(AKMViewmodel,TEXT("Saiga12K_Stock"),!bSkeletonStock);
+        return;
+    }
     if(IsM870Weapon())
     {
         auto* Stock=StockAttachment.Get();auto* Grip=RearGripAttachment.Get();

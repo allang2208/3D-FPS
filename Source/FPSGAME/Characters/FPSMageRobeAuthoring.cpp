@@ -137,7 +137,16 @@ bool UFPSModularOutfitComponent::BuildMageRobeDrapeForBody(USkeletalMesh* Mesh,c
         Capsule(*(TEXT("foot_")+S),*(TEXT("ball_")+S),4.f);
         Capsule(*(TEXT("lowerarm_")+S),*(TEXT("hand_")+S),3.7f);
         Capsule(*(TEXT("hand_")+S),*(TEXT("middle_01_")+S),3.f);
+        // These are body-to-robe colliders. They affect the simulated robe,
+        // not the independently skinned backpack straps. The radii remain
+        // authoring parameters; capsule presence alone is not a fit test.
+        Capsule(*(TEXT("upperarm_")+S),*(TEXT("lowerarm_")+S),4.6f);
+        Capsule(*(TEXT("clavicle_")+S),*(TEXT("upperarm_")+S),5.2f,true);
     }
+    // Upper-torso body coverage, using this mesh's actual reference bones.
+    // Do not infer strap clearance from this capsule or from another rig's
+    // spine heights; backpack fitting is authored independently.
+    Capsule(TEXT("spine_04"),TEXT("spine_05"),11.0f,true);
     }
     else
     {

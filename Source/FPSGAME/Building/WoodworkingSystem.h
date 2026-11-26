@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "GameFramework/Actor.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "Tickable.h"
 #include "CraftingSystem.h"
@@ -15,6 +16,14 @@ struct FWoodworkingPattern
     TArray<FVector2D> Outline,Connections;
     double Seconds=90,RequiredClearance=.98,MaximumDamage=.12;
 };
+struct FWoodworkingCore
+{
+    FName Id;
+    FString Name;
+    double Bonus=0;
+    FSoftObjectPath Material;
+};
+
 enum class EWoodworkingPhase : uint8 {Preview,Running,Complete,Failed,Delivered,Abandoned};
 // Keep legacy wire values; only Craft can start a new session.
 enum class EWoodworkingMode : uint8 {Practice,Challenge,Craft};
@@ -24,10 +33,12 @@ UCLASS()
 class FPSGAME_API UWoodworkingSystem : public UGameInstanceSubsystem,public FTickableGameObject
 {
     GENERATED_BODY()
+    friend class UWoodworkingAuditCommandlet;
 public:
     UWoodworkingSystem* CreateNetworkSession(class UColdSteelStatusModel* Model);
     void NetworkDelivered(bool Success);
-    void NetworkTransactionFinished(const FString& Operation,bool Success,const FString& Reason);
+    void NetworkTransactionFinished(const FString& Operation,bool Success,const FString& Reason,bool SamePawn=true);
+    void AuthorityTransactionFinished(const FString& Operation,bool Success,const FString& Reason);
     void NetworkSessionEnded();
     const FColdSteelWoodworkingJob& Job() const;
     bool HasPendingJob() const {return !Job().Id.IsEmpty();}
@@ -41,6 +52,8 @@ public:
     class UColdSteelWoodNetState* NetworkState();
     bool ApplyNetworkState(const UColdSteelWoodNetState* State);
     bool NetworkOpen() const {return bOpen;}
+    void SetStation(AActor* Station){BoundStation=Station;}
+    AActor* Station() const {return BoundStation.Get();}
     void NetworkUnavailable(const FString& Reason);
     virtual void Initialize(FSubsystemCollectionBase&) override;
     virtual void Deinitialize() override;
@@ -52,6 +65,14 @@ public:
     bool Open(bool PracticeOnly);
     bool Close();
     bool Select(FName Id);
+    const TArray<FWoodworkingCore>& Cores() const {return CoreCatalog;}
+    const FWoodworkingCore* FindCore(FName Id) const;
+    FName Core() const;
+    bool SelectCore(FName Id);
+    bool InputsFor(TArray<FColdSteelCraftingInput>& Inputs) const;
+    bool RecipeInputs(FName CraftRecipe, FName CoreId, TArray<FColdSteelCraftingInput>& Inputs) const;
+    double MaterialBonus() const;
+    double ProcessingBonus() const;
     bool CanStart(bool Practice,FString& Reason) const;
     bool Start(bool Practice);
     bool CanStartMode(EWoodworkingMode Mode,FString& Reason) const;
@@ -98,7 +119,9 @@ private:
     bool ReadCheckpoint(const TArray<uint8>& Bytes);
     void BeginPaidRun();
     UPROPERTY(Transient) TObjectPtr<class UColdSteelStatusModel> NetworkModel;
+    TWeakObjectPtr<AActor> BoundStation;
     void Load();
+    bool LoadCores();
     void AdvanceClock();
     void Evaluate(bool TimedOut);
     void CheckDamage();
@@ -109,6 +132,8 @@ private:
     ColdSteelWoodworking::FSettings Rules;
     ColdSteelWoodworking::FMask Board;
     TArray<FWoodworkingPattern> Catalog;
+    TArray<FWoodworkingCore> CoreCatalog;
+    FName SelectedCore=TEXT("wood_core_plain");
     FName Selected;
     FColdSteelCraftingRecipe AcceptedRecipe;
     EWoodworkingPhase Phase=EWoodworkingPhase::Abandoned;

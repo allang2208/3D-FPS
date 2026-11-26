@@ -71,6 +71,7 @@ class FPSGAME_API UVoxelBuildPalette : public UDataAsset
 {
     GENERATED_BODY()
 public:
+    virtual void PostLoad() override;
     UPROPERTY(EditAnywhere, BlueprintReadOnly) TArray<FVoxelBuildMaterial> Materials;
     /** Prefabricated pieces the player can place as whole units (roman column, balustrade, ...).
         Footprint is measured in 20 cm grid cells; placement snaps to that same grid. */

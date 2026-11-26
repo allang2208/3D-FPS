@@ -1,0 +1,28 @@
+{
+  "port": 19937,
+  "head": "jason",
+  "mode": "Dedicated",
+  "passed": true,
+  "peer_exits": [
+    {
+      "exit_code": 0,
+      "pid": 33600
+    },
+    {
+      "exit_code": 0,
+      "pid": 68456
+    },
+    {
+      "exit_code": 0,
+      "pid": 70312
+    }
+  ],
+  "charge_start_lag_ms": 0,
+  "profile_id": "52e12d90-b15f-4287-a550-a738f52b8caa",
+  "configured_lag_ms_each_peer": 60,
+  "run": "D:\\FPS3D\\FPSGAME\\Tools\\HatchetAudit20261104\\Dedicated-20261105-183540",
+  "rendered": false,
+  "heavy_cycles": 0,
+  "configured_loss_percent_each_peer": 3,
+  "outfit": "ST6 top, pants, boots"
+}

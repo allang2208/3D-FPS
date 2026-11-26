@@ -8,6 +8,8 @@
 
 ## 恢复入口
 
+11 月 22 日后续修订涵盖四张专属改造卡与三张共用握把材质。恢复这七项时使用[本版文件、图标键、材质用法和 SHA-256](F:/FPSGAMEData/ArtProduction/ForgedSteelGreatsword/WorkbenchAppearance20261122/published.json)。原厂五图继续使用本目录的历史指纹。
+
 正式工程从 `D:/FPS3D/FPSGAME` 打开，资产位于 `F:/FPSGAMEData/Content`，游戏内使用原 `/Game/...` 路径。Git 收录可公开的脚本、配置、源码、版本清单和共享文件的定向补丁。Meshy 原模型、正式 UE 二进制及其依赖由本机资产库提供。取回旧版本时先用条目里的包名与 SHA-256 对照，再按该条目的顺序恢复。
 
 11 月 21 日抢救留下的 `F:/FPSGAME-Recovery-Work-20261120/ForgedSteelThread20261121` 下有 `Bows-recovered.zip`、`ForgedSteelGreatsword-recovered.zip` 及 `recovered-entries.json`。这些压缩包用于找回当时的输入；后续的光束弦、宽根尖锋、鱼尾攻击特性与 11 月 22 日钢材分别以各自最新发布回执为准。锻钢三视图的定稿是 `SourceAssets/ForgedSteelGreatsword20261120/ReferenceV4/ForgedSteelGreatsword_V4_ThreeViews.png`。

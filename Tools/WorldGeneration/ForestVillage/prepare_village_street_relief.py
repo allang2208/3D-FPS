@@ -191,8 +191,87 @@ def bake(base, donor, contacts_path, out):
     site_gap=refitted_sites(x,y,plan)
     transition=ramp((site_gap-math.sqrt(2))/3.15)
     delta=np.rint(transition*delta-(1.-transition)*old)
-    if np.max(abs(delta))>127:raise ValueError('Village adjustment exceeds int8 range')
-    delta=delta.astype('int8')
+    # Stable forecourt relief (ForecourtR45):
+    # Replace the old flat -15 cm sunken pit in the entering stable forecourt (strictly inside perimeter fences,
+    # X: 41.6..57.9 m, Y: 16.0..34.8 m) with gentle, organic, riding-friendly undulation:
+    # target p10..p90 ~ [-7.5, +8.5] cm, peak [-11, +11] cm, max slope 6.0 cm/m (3.4 deg) — noticeably flatter
+    # than village streets ([-16.4, +19.0] cm) & yards ([-38, +52] cm), while clearly readable to the eye!
+    # Every fence post, gate swing apron, HayWagon, barn apron, and solid perimeter prop stays strictly at Z = 0 cm.
+    fc_poly = [
+        (45.03, 16.0), (57.93, 16.0), (57.93, 35.0), (36.70, 35.0),
+        (36.70, 32.28), (40.40, 31.98), (44.40, 30.88), (45.03, 28.88),
+        (45.03, 24.0), (41.53, 21.10), (41.53, 19.49), (45.03, 17.44),
+    ]
+    # Pure-numpy ray-casting point-in-polygon mask (no matplotlib dependency)
+    fc_inside = np.zeros(x.shape, dtype=bool)
+    n_poly = len(fc_poly)
+    for pi in range(n_poly):
+        ax, ay = fc_poly[pi]
+        bx, by = fc_poly[(pi + 1) % n_poly]
+        cond = (ay > y) != (by > y)
+        x_int = ax + (y - ay) * (bx - ax) / ((by - ay) + 1e-12)
+        fc_inside ^= cond & (x < x_int)
+    fc_area = fc_inside & (y >= 16.0) & (y <= 34.8)
+
+    fc_clear_prop = np.full_like(x, 1000., dtype=float)
+    fc_clear_edge = np.full_like(x, 1000., dtype=float)
+    # Lock Barn north wall/eave apron (Y >= 34.0 m) & actual inward gate leaf sweep aprons
+    for center, half in (
+        ((44.0, 39.5), (16.0, 5.2)),       # Barn & stalls (Y >= 34.3 m)
+        ((46.29, 17.0), (1.30, 1.05)),     # LeadHorseGate inward swing apron
+        ((52.50, 17.0), (2.40, 1.05)),     # WagonGate inward swing apron
+    ):
+        np.minimum(fc_clear_prop, box(x, y, center, half), out=fc_clear_prop)
+    fc_fences = [
+        [(45.03, 16.0), (57.93, 16.0)],
+        [(57.93, 16.0), (57.93, 35.5)],
+        [(45.03, 16.0), (45.03, 17.44), (41.53, 19.49), (41.53, 21.10),
+         (45.03, 24.0), (45.03, 28.88), (44.40, 30.88), (40.40, 31.98), (36.70, 32.28)],
+    ]
+    for pts in fc_fences:
+        np.minimum(fc_clear_edge, distance(x, y, pts) - 0.25, out=fc_clear_edge)
+    # Lock every non-FOLLOW solid static contact (HayWagon, barrels, crates, logs, skids, wheels, barn, posts)
+    # Soft ground-hugging detail (Chaff, EarthShoulder) does not lock the open yard.
+    FC_SOFT = FOLLOW + ('SM_MillChaff', 'SM_MillEarthShoulder', 'SM_MillGrain')
+    for left, bottom, right, top, name, instanced in read(contacts_path):
+        if instanced and name.startswith(FC_SOFT):
+            continue
+        if right < 36.0 or left > 59.5 or top < 14.5 or bottom > 36.5:
+            continue
+        near = (x >= left - 6) & (x <= right + 6) & (y >= bottom - 6) & (y <= top + 6)
+        gap_c = np.hypot(np.maximum(np.maximum(left - x[near], x[near] - right), 0.),
+                         np.maximum(np.maximum(bottom - y[near], y[near] - top), 0.))
+        if 'FenceRails' in name or 'Stable_A06' in name or 'GatePier' in name:
+            fc_clear_edge[near] = np.minimum(fc_clear_edge[near], gap_c)
+        else:
+            fc_clear_prop[near] = np.minimum(fc_clear_prop[near], gap_c)
+
+    # Rigid contacts lock full 1.414 m triangle collar; fence edges lock 1.05 m; silky 1.75 m ramp into yard
+    fc_footing = np.minimum(
+        ramp((fc_clear_prop - math.sqrt(2)) / 1.75),
+        ramp((fc_clear_edge - 1.05) / 1.65),
+    )
+    # Multi-frequency organic earth relief from the same measured Forest DEM + natural court tread swells
+    mid = band(1.8, 5.2)
+    fc_rng = np.random.default_rng(261148)
+    fc_swell_a = gaussian_filter(fc_rng.standard_normal(old.shape), 2.1)
+    fc_swell_a = np.tanh(fc_swell_a / max(fc_swell_a.std(), 1e-5))
+    fc_swell_b = gaussian_filter(fc_rng.standard_normal(old.shape), 1.15)
+    fc_swell_b = np.tanh(fc_swell_b / max(fc_swell_b.std(), 1e-5))
+    fc_open = fc_area & (fc_footing > 0.20)
+    fc_raw = 5.5 * mid + 4.8 * short + 6.2 * fc_swell_a + 3.2 * fc_swell_b
+    if np.any(fc_open):
+        fc_raw = fc_raw - np.median(fc_raw[fc_open])
+        fc_scale = np.percentile(np.abs(fc_raw[fc_open]), 80)
+        fc_raw = 11.8 * np.tanh(fc_raw / max(fc_scale, 1.0))
+    fc_target = np.where(fc_area, fc_raw * fc_footing, 0.0)
+    fc_target = limit_grade(fc_target, np.full_like(delta, 6.0, dtype=float))
+    # Inside forecourt, drive final surface (old + delta) = fc_target (0 cm at all contacts, gentle undulation inside)
+    delta_final = np.where(fc_area, np.rint(fc_target - old), delta)
+    if np.max(np.abs(delta_final)) > 127:
+        raise ValueError('Village adjustment exceeds int8 range')
+    delta = delta_final.astype('int8')
+
     out.mkdir(parents=True,exist_ok=True)
     Image.fromarray((32768+delta.astype('int32')).astype('uint16')).save(out/'H_StreetYardDeltaCm.png')
     Image.fromarray((32768+total+delta).astype('uint16')).save(out/'H_StreetYardGroundCm.png')
@@ -206,10 +285,15 @@ def bake(base, donor, contacts_path, out):
     def interval(mask):
         return np.percentile(delta[mask],[10,90]).round(1).tolist()
     playable=(footing>.65)&(edge>.95)
+    fc_final = old + delta
     result=dict(grid_xy=[old.shape[1],old.shape[0]],pitch_m=1,changed_knots=int(np.count_nonzero(delta)),
                 adjustment_cm=[int(delta.min()),int(delta.max())],road_p10_p90_cm=interval(playable&(gap<0)),
-                yard_p10_p90_cm=interval(playable&(gap>2.8)),foundation_lock_m=round(math.sqrt(2),3),
-                foundation_blend_m=3.15,source=base.name)
+                yard_p10_p90_cm=interval(playable&(gap>2.8)),
+                forecourt_knots=int(np.count_nonzero(fc_open)),
+                forecourt_final_cm=[int(fc_final[fc_area].min()), int(fc_final[fc_area].max())],
+                forecourt_p10_p90_cm=np.percentile(fc_final[fc_open], [10, 90]).round(1).tolist() if np.any(fc_open) else [0.0, 0.0],
+                foundation_lock_m=round(math.sqrt(2),3),
+                foundation_blend_m=3.15,forecourt_blend_m=1.75,forecourt_max_grade_cm_m=6.0,source=base.name)
     (out/'generation.json').write_text(json.dumps(result,indent=2),encoding='utf8')
     print(json.dumps(result))
 
@@ -220,3 +304,4 @@ if __name__=='__main__':
         parser.add_argument(arg,type=Path)
     args=parser.parse_args()
     bake(args.base,args.donor,args.contacts,args.out)
+

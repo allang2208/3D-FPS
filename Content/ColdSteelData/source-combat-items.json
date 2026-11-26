@@ -1,4 +1,186 @@
 {
+  "ue_work_jacket": {
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。",
+    "name": "工装夹克",
+    "defense": {
+      "base": 8,
+      "perEnhance": 1.2
+    }
+  },
+  "ue_field_hat": {
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
+  },
+  "ue_original_gloves": {
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
+  },
+  "ue_boots": {
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
+  },
+  "ue_cargo_pants": {
+    "armorSet": "workwear",
+    "setName": "户外工作套装",
+    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
+  },
+  "ue_leather_boots": {
+    "armorSet": "ranger_field",
+    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
+  },
+  "ue_leather_pants": {
+    "armorSet": "ranger_field",
+    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
+  },
+  "ue_field_sweater": {
+    "armorSet": "ranger_field",
+    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
+  },
+  "ue_ranger_feather_hat": {
+    "armorSet": "ranger_field",
+    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
+  },
+  "ue_steel_armet": {
+    "armorSet": "steel_chainmail",
+    "setBonusDesc": "五件套：防御力 +15%",
+    "bonusStats": {
+      "maxHpPercent": 0.05,
+      "critRes": 10,
+      "castSpeedPercent": -0.05
+    }
+  },
+  "ue_chainmail_shirt": {
+    "armorSet": "steel_chainmail",
+    "setBonusDesc": "五件套：防御力 +15%",
+    "bonusStats": {
+      "maxHpPercent": 0.1,
+      "critRes": 15,
+      "moveSpeedPercent": -0.05,
+      "meleeAttackSpeed": -0.05
+    }
+  },
+  "ue_chainmail_pants": {
+    "armorSet": "steel_chainmail",
+    "setBonusDesc": "五件套：防御力 +15%",
+    "bonusStats": {
+      "maxHpPercent": 0.05,
+      "stunResist": 25,
+      "moveSpeedPercent": -0.05
+    }
+  },
+  "ue_armored_boots": {
+    "armorSet": "steel_chainmail",
+    "setBonusDesc": "五件套：防御力 +15%",
+    "bonusStats": {
+      "stunResist": 25,
+      "moveSpeedPercent": -0.05
+    }
+  },
+  "ue_steel_gauntlets": {
+    "armorSet": "steel_chainmail",
+    "setBonusDesc": "五件套：防御力 +15%",
+    "defense": {
+      "base": 8,
+      "perEnhance": 1
+    },
+    "bonusStats": {
+      "meleeDamagePercent": 0.05,
+      "reloadSpeed": -0.1,
+      "bowDrawSpeed": -0.1,
+      "castSpeedPercent": -0.05
+    }
+  },
+  "ue_field_gloves": {
+    "defense": {
+      "base": 2,
+      "perEnhance": 0.5
+    },
+    "bonusStats": {
+      "bowDrawSpeed": 0.1
+    },
+    "armorSet": "ranger_field",
+    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
+  },
+  "ue_field_gloves_black": {
+    "defense": {
+      "base": 4,
+      "perEnhance": 1
+    },
+    "bonusStats": {
+      "meleeAttackSpeed": 0.05,
+      "reloadSpeed": 0.05
+    }
+  },
+  "ue_hardknuckle_gloves": {
+    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
+    "armorSet": "st6_tactical",
+    "bonusStats": {}
+  },
+  "ue_st6_sleeves": {
+    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
+    "armorSet": "st6_tactical",
+    "bonusStats": {}
+  },
+  "ue_blue_mage_hat": {
+    "armorSet": "blue_mage",
+    "setBonusDesc": "五件套：施法距离 +50%，魔法攻击力 +10%",
+    "bonusStats": {}
+  },
+  "ue_blue_mage_robe": {
+    "armorSet": "blue_mage",
+    "setBonusDesc": "五件套：施法距离 +50%，魔法攻击力 +10%",
+    "bonusStats": {
+      "moveSpeedPercent": -0.1
+    }
+  },
+  "ue_blue_mage_pants": {
+    "armorSet": "blue_mage",
+    "setBonusDesc": "五件套：施法距离 +50%，魔法攻击力 +10%",
+    "bonusStats": {
+      "magicCooldownPercent": -0.25
+    }
+  },
+  "ue_blue_mage_boots": {
+    "armorSet": "blue_mage",
+    "setBonusDesc": "五件套：施法距离 +50%，魔法攻击力 +10%",
+    "bonusStats": {
+      "magicCostPercent": -0.25
+    }
+  },
+  "ue_blue_mage_gloves": {
+    "armorSet": "blue_mage",
+    "setBonusDesc": "五件套：施法距离 +50%，魔法攻击力 +10%",
+    "bonusStats": {
+      "castSpeedPercent": 0.3,
+      "reloadSpeed": -0.1,
+      "bowDrawSpeed": -0.1,
+      "meleeAttackSpeed": -0.1
+    }
+  },
+  "ue_st6_tactical_pants": {
+    "armorSet": "st6_tactical",
+    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
+    "bonusStats": {
+      "critRes": 15
+    }
+  },
+  "ue_st6_tactical_boots": {
+    "armorSet": "st6_tactical",
+    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
+    "bonusStats": {
+      "moveSpeedPercent": 0.05
+    }
+  },
+  "ue_st6_tactical_helmet": {
+    "armorSet": "st6_tactical",
+    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
+    "bonusStats": {}
+  },
   "ue_modern_tactical_boots": {
     "setBonusDesc": "现代战术五件套：集齐五件额外获得防御力 +12%、枪械后坐力 -8%、枪械稳定性 +10%、ADS 瞄准时间 -5%。",
     "armorSet": "modern_tactical",
@@ -83,202 +265,6 @@
     "defense": {
       "base": 30,
       "perEnhance": 4
-    }
-  },
-  "ue_work_jacket": {
-    "armorSet": "workwear",
-    "setName": "户外工作套装",
-    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。",
-    "name": "工装夹克",
-    "defense": {
-      "base": 8,
-      "perEnhance": 1.2
-    }
-  },
-  "ue_field_hat": {
-    "armorSet": "workwear",
-    "setName": "户外工作套装",
-    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
-  },
-  "ue_original_gloves": {
-    "armorSet": "workwear",
-    "setName": "户外工作套装",
-    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
-  },
-  "ue_boots": {
-    "armorSet": "workwear",
-    "setName": "户外工作套装",
-    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
-  },
-  "ue_cargo_pants": {
-    "armorSet": "workwear",
-    "setName": "户外工作套装",
-    "setBonusDesc": "集齐五件：所有动作体力消耗 -15%，移动速度 +10%，饥饿及口渴下降速度 -25%。"
-  },
-  "ue_ranger_feather_hat": {
-    "armorSet": "ranger_field",
-    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
-  },
-  "ue_field_sweater": {
-    "armorSet": "ranger_field",
-    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
-  },
-  "ue_leather_pants": {
-    "armorSet": "ranger_field",
-    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
-  },
-  "ue_leather_boots": {
-    "armorSet": "ranger_field",
-    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
-  },
-  "ue_steel_armet": {
-    "armorSet": "steel_chainmail",
-    "setBonusDesc": "五件套：防御力 +15%",
-    "bonusStats": {
-      "maxHpPercent": 0.05,
-      "critRes": 10,
-      "castSpeedPercent": -0.05
-    }
-  },
-  "ue_chainmail_shirt": {
-    "armorSet": "steel_chainmail",
-    "setBonusDesc": "五件套：防御力 +15%",
-    "bonusStats": {
-      "maxHpPercent": 0.10,
-      "critRes": 15,
-      "moveSpeedPercent": -0.05,
-      "meleeAttackSpeed": -0.05
-    }
-  },
-  "ue_chainmail_pants": {
-    "armorSet": "steel_chainmail",
-    "setBonusDesc": "五件套：防御力 +15%",
-    "bonusStats": {
-      "maxHpPercent": 0.05,
-      "stunResist": 25,
-      "moveSpeedPercent": -0.05
-    }
-  },
-  "ue_armored_boots": {
-    "armorSet": "steel_chainmail",
-    "setBonusDesc": "五件套：防御力 +15%",
-    "bonusStats": {
-      "stunResist": 25,
-      "moveSpeedPercent": -0.05
-    }
-  },
-  "ue_steel_gauntlets": {
-    "armorSet": "steel_chainmail",
-    "setBonusDesc": "五件套：防御力 +15%",
-    "defense": {
-      "base": 8,
-      "perEnhance": 1
-    },
-    "bonusStats": {
-      "meleeDamagePercent": 0.05,
-      "reloadSpeed": -0.1,
-      "bowDrawSpeed": -0.1,
-      "castSpeedPercent": -0.05
-    }
-  },
-  "ue_field_gloves": {
-    "defense": {
-      "base": 2,
-      "perEnhance": 0.5
-    },
-    "bonusStats": {
-      "bowDrawSpeed": 0.1,
-      "reloadSpeed": 0.1
-    },
-    "armorSet": "ranger_field",
-    "setBonusDesc": "野行套：轻甲五件，集齐五件额外获得防御 +5%、暴击率 +10%、暴击伤害 +25%。"
-  },
-  "ue_field_gloves_black": {
-    "defense": {
-      "base": 4,
-      "perEnhance": 1
-    },
-    "bonusStats": {
-      "meleeAttackSpeed": 0.05,
-      "reloadSpeed": 0.05
-    }
-  },
-  "ue_hardknuckle_gloves": {
-    "armorSet": "st6_tactical",
-    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
-    "bonusStats": {
-      "reloadSpeed": 0.05,
-      "adsPercent": -0.05
-    }
-  },
-  "ue_st6_sleeves": {
-    "armorSet": "st6_tactical",
-    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
-    "bonusStats": {
-      "reloadSpeed": 0.05,
-      "sprintStaminaCost": -0.1
-    }
-  },
-  "ue_blue_mage_hat": {
-    "armorSet": "blue_mage",
-    "setBonusDesc": "五件套：施法距离 +50%，魔法攻击力 +10%",
-    "bonusStats": {
-      "magicAttackPercent": 0.1
-    }
-  },
-  "ue_blue_mage_robe": {
-    "armorSet": "blue_mage",
-    "setBonusDesc": "五件套：施法距离 +50%，魔法攻击力 +10%",
-    "bonusStats": {
-      "castRangePercent": 0.5,
-      "moveSpeedPercent": -0.1
-    }
-  },
-  "ue_blue_mage_pants": {
-    "armorSet": "blue_mage",
-    "setBonusDesc": "五件套：施法距离 +50%，魔法攻击力 +10%",
-    "bonusStats": {
-      "magicCooldownPercent": -0.25
-    }
-  },
-  "ue_blue_mage_boots": {
-    "armorSet": "blue_mage",
-    "setBonusDesc": "五件套：施法距离 +50%，魔法攻击力 +10%",
-    "bonusStats": {
-      "magicCostPercent": -0.25
-    }
-  },
-  "ue_blue_mage_gloves": {
-    "armorSet": "blue_mage",
-    "setBonusDesc": "五件套：施法距离 +50%，魔法攻击力 +10%",
-    "bonusStats": {
-      "castSpeedPercent": 0.3,
-      "reloadSpeed": -0.1,
-      "bowDrawSpeed": -0.1,
-      "meleeAttackSpeed": -0.1
-    }
-  },
-  "ue_st6_tactical_helmet": {
-    "armorSet": "st6_tactical",
-    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
-    "bonusStats": {
-      "critDamageBonus": 0.25
-    }
-  },
-  "ue_st6_tactical_pants": {
-    "armorSet": "st6_tactical",
-    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
-    "bonusStats": {
-      "critRes": 15,
-      "sprintStaminaCost": -0.05
-    }
-  },
-  "ue_st6_tactical_boots": {
-    "armorSet": "st6_tactical",
-    "setBonusDesc": "ST6 战术五件套：集齐五件额外获得换弹速度 +15%、ADS 瞄准时间 -10%、奔跑体力消耗 -15%。",
-    "bonusStats": {
-      "moveSpeedPercent": 0.05,
-      "sprintStaminaCost": -0.05
     }
   }
 }

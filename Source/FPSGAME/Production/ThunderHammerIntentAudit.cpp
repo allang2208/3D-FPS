@@ -50,7 +50,7 @@ int32 UWarhammerModificationAuditCommandlet::AuditJiLeiIntent(const FString& Par
     const auto Begin=[&](uint32 Id,float Mana)
     {
         Tool->CancelUse();Tool->BluntServerReadyAt=0.;auto P=Seed;P.Mana=Mana;Guest->AdoptNetMirror(P);
-        Tool->ServerBeginBluntCharge_Implementation(Id);
+        Tool->ServerBeginBluntCharge_Implementation(Id,Hammer.InstanceId);
         Tool->BluntServerChargeStartedAt=World->GetTimeSeconds()-1.;
     };
     Begin(1,100);
@@ -60,23 +60,23 @@ int32 UWarhammerModificationAuditCommandlet::AuditJiLeiIntent(const FString& Par
     const float BeforePendingTick=Guest->Stamina();Guest->TickRuntime(.1f,Pawn);
     Check(Guest->Stamina()>=FMath::Min(BeforePendingTick,Guest->MaxStamina())&&Guest->Mana()>=FMath::Min(100.f,float(Guest->Derived(TEXT("maxMp")))),TEXT("profile tick does not debit generic heavy charge during pending tap"));
     const float PendingMana=Guest->Mana();
-    Tool->ServerBeginBluntAttack_Implementation(1,true,false);
+    Tool->ServerBeginBluntAttack_Implementation(1,true,false,Hammer.InstanceId);
     Check(Tool->BluntLastServerRequestId==1&&Guest->Stamina()<FMath::Min(150.f,Guest->MaxStamina())&&Guest->Mana()==PendingMana,TEXT("delayed tap commits ordinary stamina only"));
     const float AfterTap=Guest->Stamina();Tool->BluntServerReadyAt=0.;
-    Tool->ServerBeginBluntAttack_Implementation(1,false,false);
+    Tool->ServerBeginBluntAttack_Implementation(1,false,false,Hammer.InstanceId);
     Check(Guest->Stamina()==AfterTap,TEXT("repeated ordinary RPC cannot debit stamina twice"));
     Begin(2,0);Check(Tool->bBluntServerCharging,TEXT("zero mana permits pending tap"));
-    Tool->ServerBeginBluntAttack_Implementation(2,true,false);
+    Tool->ServerBeginBluntAttack_Implementation(2,true,false,Hammer.InstanceId);
     Check(Tool->BluntLastServerRequestId==2&&Guest->Stamina()<150&&Guest->Mana()==0,TEXT("zero mana ordinary attack accepted"));
     Begin(3,0);Tool->ServerConfirmThunderCall_Implementation(3);
     Check(!Tool->bBluntServerCharging&&!Tool->bThunderCallHoldConfirmed,TEXT("zero mana rejects only confirmed hold"));
     Begin(4,100);Tool->ServerConfirmThunderCall_Implementation(3);
     Check(!Tool->IsThunderCalling()&&Tool->bBluntServerCharging,TEXT("stale confirmation cannot activate next input"));
-    Tool->ServerBeginBluntCharge_Implementation(3);Tool->ServerReleaseThunderCall_Implementation(3,FVector::ZeroVector);
+    Tool->ServerBeginBluntCharge_Implementation(3,Hammer.InstanceId);Tool->ServerReleaseThunderCall_Implementation(3,FVector::ZeroVector);
     Check(Tool->bBluntServerCharging&&Tool->BluntServerAttackId==4,TEXT("stale begin and release cannot replace or cancel next input"));
     Tool->ServerConfirmThunderCall_Implementation(4);Tool->TickThunderCall(.1f);
     Check(Tool->IsThunderCalling()&&Tool->bThunderCallCharging,TEXT("matching confirmation activates charge"));
-    Tool->ServerBeginBluntAttack_Implementation(4,true,false);
+    Tool->ServerBeginBluntAttack_Implementation(4,true,false,Hammer.InstanceId);
     Check(!Tool->bBluntServerCharging&&!Tool->bThunderCallCharging&&Guest->Stamina()==150,TEXT("confirmed hold cannot splice into ordinary attack"));
     Begin(5,100);Tool->ServerConfirmThunderCall_Implementation(5);Tool->TickThunderCall(.1f);
     Tool->ServerCancelBluntAttack_Implementation(5);Tool->ServerConfirmThunderCall_Implementation(5);

@@ -1,4 +1,5 @@
 #include "../Weapons/GunsmithModificationTier.h"
+#include "ColdSteelTextToolTip.h"
 #include "M4GunsmithWidget.h"
 #include "../Weapons/TacticalDeviceVariants.h"
 #include "SM4PreviewSurface.h"
@@ -11,12 +12,14 @@
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/RSH12OpticAssets.h"
 #include "../Weapons/ModularSwordVisual.h"
+#include "../Weapons/FrostSwordRunes.h"
 #include "../Production/ProductionToolEnhance.h"
 #include "../FPSGAMEPlayerController.h"
 #include "Engine/GameInstance.h"
 #include "Engine/Texture2D.h"
 #include "ImageUtils.h"
 #include "Misc/Paths.h"
+#include "Dom/JsonObject.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
@@ -35,7 +38,7 @@
 namespace
 {
 TSharedRef<STextBlock> Label(const FString& Text,int32 Size=14,FLinearColor Color=GunsmithUI::Text,bool Medium=false)
-{return SNew(STextBlock).Text(FText::FromString(Text)).Font(GunsmithUI::TextFont(Size,Medium)).ColorAndOpacity(Color).AutoWrapText(false).OverflowPolicy(ETextOverflowPolicy::Ellipsis).ToolTipText(FText::FromString(Text));}
+{return SNew(STextBlock).Text(FText::FromString(Text)).Font(GunsmithUI::TextFont(Size,Medium)).ColorAndOpacity(Color).AutoWrapText(false).OverflowPolicy(ETextOverflowPolicy::Ellipsis).ToolTip(ColdSteelToolTip::Make(FText::FromString(Text)));}
 }
 
 TSharedRef<SWidget> UM4GunsmithWidget::GlassPanel(TSharedRef<SWidget> Content,FMargin PanelPadding)
@@ -59,15 +62,24 @@ void UM4GunsmithWidget::LoadCategoryIcons()
     for(const auto& Key:IconKeys)
     {
         if(Key!=TEXT("enhance")&&!IsCategoryAvailable(Key))continue;
-        const FString IconSlot=TacticalDeviceVariants::IconSlot(Key);
+        const FString IconSlot=Key==TEXT("blade_material")&&ColdSteelFrostRunes::IsWarhammer(Model()->Definition())?
+            TEXT("hammer_heads"):TacticalDeviceVariants::IconSlot(Key);
+        FString CategoryIconKey=Model()->Definition()+TEXT("_category_")+IconSlot;
+        if(IsBowWorkbench())
+            if(const auto* Catalog=Model()->ModifiableWeapon(Model()->Definition());Catalog&&Catalog->Source)
+            {
+                const TSharedPtr<FJsonObject>* Sources=nullptr;
+                if(Catalog->Source->TryGetObjectField(TEXT("category_icon_sources"),Sources))
+                    (*Sources)->TryGetStringField(IconSlot,CategoryIconKey);
+            }
         FString IconDirectory=FPaths::ProjectContentDir()/TEXT("ColdSteelData/AttachmentIcons20260913");
         const FString FramedDirectory=IconDirectory/(IsBowWorkbench()?TEXT("FramedBows"):TEXT("FramedFirearms"));
         const FString SharedFramedPath=FramedDirectory/(TEXT("category_")+IconSlot+TEXT(".png"));
         const bool SharedFirearmCategory=!IsStandaloneWorkbench()&&FPaths::FileExists(SharedFramedPath);
-        if(SharedFirearmCategory||((!IsStandaloneWorkbench()||IsBowWorkbench())&&(FPaths::FileExists(FramedDirectory/(Model()->Definition()+TEXT("_category_")+IconSlot+TEXT(".png")))
-            ||(!FPaths::FileExists(IconDirectory/(Model()->Definition()+TEXT("_category_")+IconSlot+TEXT(".png")))
+        if(SharedFirearmCategory||((!IsStandaloneWorkbench()||IsBowWorkbench())&&(FPaths::FileExists(FramedDirectory/(CategoryIconKey+TEXT(".png")))
+            ||(!FPaths::FileExists(IconDirectory/(CategoryIconKey+TEXT(".png")))
                 &&FPaths::FileExists(SharedFramedPath)))))IconDirectory=FramedDirectory;
-        const FString WeaponIconPath=IconDirectory/(Model()->Definition()+TEXT("_category_")+IconSlot+TEXT(".png"));
+        const FString WeaponIconPath=IconDirectory/(CategoryIconKey+TEXT(".png"));
         // 近战新改造件允许缺武器专属图：回退通用分类图/SMeleePartIcon，不再整卡隐藏。
         const FString IconPath=SharedFirearmCategory?SharedFramedPath:FPaths::FileExists(WeaponIconPath)?WeaponIconPath:IconDirectory/(TEXT("category_")+IconSlot+TEXT(".png"));
         if(auto* Texture=FImageUtils::ImportFileAsTexture2D(IconPath))
@@ -141,13 +153,13 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
     {
         return SNew(SButton).ButtonStyle(Primary?&PrimaryButton:&NormalButton).ContentPadding(FMargin(14,10))
             .IsEnabled_Lambda([this,Primary](){if(!Primary||!IsStandaloneWorkbench())return true;FString Reason;return Model()->CanApply(Reason);})
-            .ToolTipText_Lambda([this,Primary](){return Primary?FText::FromString(Model()->ApplyFeedback()):FText::GetEmpty();})
+            .ToolTip(ColdSteelToolTip::Make(TAttribute<FText>::CreateLambda([this,Primary](){return Primary?FText::FromString(Model()->ApplyFeedback()):FText::GetEmpty();})))
             .OnClicked_Lambda([Fn](){Fn();return FReply::Handled();})
             [SNew(STextBlock).Text(FText::FromString(ButtonText)).Font(GunsmithUI::TextFont(14,true))
                 .ColorAndOpacity(Primary?GunsmithUI::Gray(22):GunsmithUI::Text).MinDesiredWidth(84).Justification(ETextJustify::Center)];
     };
     const auto* W=Model()->ModifiableWeapon(Model()->Definition());
-    const FString WeaponSubtitle=IsStaffWorkbench()?TEXT("   /   长杖 · 六槽改造"):IsBowWorkbench()?TEXT("   /   双手弓 · 五槽改造"):IsToolWorkbench()?TEXT("   /   采集工具"):IsMeleeWorkbench()?TEXT("   /   双手近战武器"):
+    const FString WeaponSubtitle=IsStaffWorkbench()?TEXT("   /   长杖 · 六槽改造"):IsBowWorkbench()?FString::Printf(TEXT("   /   双手弓 · %d 槽改造"),W ? W->Allowed.Num() : 0):IsToolWorkbench()?TEXT("   /   采集工具"):IsMeleeWorkbench()?TEXT("   /   双手近战武器"):
         W&&W->Ammo==TEXT("ammo_357")?TEXT("   /   .357 Magnum"):W&&W->Ammo==TEXT("ammo_45acp")?TEXT("   /   .45 ACP"):
         W&&(W->Ammo==TEXT("ammo_9")||W->Ammo==TEXT("ammo_9mm"))?TEXT("   /   9 mm"):
         W&&W->Ammo==TEXT("ammo_58")?TEXT("   /   5.8 mm"):W&&W->Ammo==TEXT("ammo_762")?TEXT("   /   7.62 mm"):TEXT("   /   5.56 mm");
@@ -167,7 +179,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
             auto Icon=SNew(SBox).WidthOverride(48).HeightOverride(48)
                 [IconContent];
             auto Category=SNew(SButton).ButtonStyle(&NormalButton).ContentPadding(FMargin(8,7))
-                .ToolTipText_Lambda([this,Name,Key](){return FText::FromString(Name+TEXT(" · ")+CategoryPartName(Key));})
+                .ToolTip(ColdSteelToolTip::Make(TAttribute<FText>::CreateLambda([this,Name,Key](){return FText::FromString(Name+TEXT(" · ")+CategoryPartName(Key));})))
                 .OnClicked_Lambda([this,Key](){SelectCategory(Key);return FReply::Handled();})
                 [SNew(SHorizontalBox)+SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[Icon]
                     +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center).Padding(8,0,0,0)
@@ -190,7 +202,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
     {
         const FString Enhance=TEXT("enhance");
         auto EnhanceCategory=SNew(SButton).ButtonStyle(&NormalButton).ContentPadding(FMargin(8,7))
-            .ToolTipText(FText::FromString(TEXT("强化 · 金属材质档位")))
+            .ToolTip(ColdSteelToolTip::Make(FText::FromString(TEXT("强化 · 金属材质档位"))))
             .OnClicked_Lambda([this,Enhance](){SelectCategory(Enhance);return FReply::Handled();})
             [SNew(SHorizontalBox)+SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)
                 [SNew(SBox).WidthOverride(48).HeightOverride(48)
@@ -349,11 +361,27 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     // Retained RSH models keep their existing pictograms; only catalog identity changes.
     const FString IconId=Weapon==TEXT("ue_rsh12")&&SlotKey==TEXT("optic")?RSH12OpticAssets::SourceVariant(Id)
         :Weapon==TEXT("ue_m870")&&SlotKey==TEXT("magazine")&&Id==TEXT("m870_tube_extension")?TEXT("super90_extended_tube"):Id;
-    const FString IconSlot=Weapon==TEXT("ue_steel_warhammer")&&SlotKey==TEXT("rune")&&Id!=TEXT("false")?
+    const FString IconSlot=SlotKey==TEXT("blade_material")&&Id==TEXT("false")?
+        (ColdSteelFrostRunes::IsWarhammer(Weapon)?TEXT("hammer_heads"):TEXT("blade_1")):
+        ColdSteelFrostRunes::IsWarhammer(Weapon)&&SlotKey==TEXT("rune")&&Id!=TEXT("false")?
         TEXT("blade_2"):TacticalDeviceVariants::IconSlot(SlotKey);
-    const FString WeaponIconKey=Model()->Definition()+TEXT("_")+IconSlot+TEXT("_")+IconId;
+    FString IconWeapon=Model()->Definition();
+    if(IsBowWorkbench()&&ColdSteelModification::IsSharedSpecialBowstring(SlotKey,Id))
+        IconWeapon=TEXT("bow_woodsteel");
+    else if(IsBowWorkbench()&&Id!=TEXT("false")&&!Exclusive&&!Legendary)
+        if(const auto* Catalog=Model()->ModifiableWeapon(Model()->Definition());Catalog&&Catalog->Source)
+            Catalog->Source->TryGetStringField(TEXT("shared_icon_weapon"),IconWeapon);
+    FString WeaponIconKey=IconWeapon+TEXT("_")+IconSlot+TEXT("_")+IconId;
+    if((IsBowWorkbench()||IsMeleeWorkbench())&&Id==TEXT("false"))
+        if(const auto* Catalog=Model()->ModifiableWeapon(Model()->Definition());Catalog&&Catalog->Source)
+        {
+            const TSharedPtr<FJsonObject>* Sources=nullptr;
+            if(Catalog->Source->TryGetObjectField(TEXT("factory_icon_sources"),Sources))
+                (*Sources)->TryGetStringField(IsMeleeWorkbench()?SlotKey:IconSlot,WeaponIconKey);
+        }
     // Numeric trigger kits share the established lightweight-trigger pictogram.
-    const FString CommonIconKey=SlotKey==TEXT("trigger")&&(Id==TEXT("pit_viper_lightweight_fast")
+    const FString CommonIconKey=Weapon==TEXT("ue_m24")&&Id==TEXT("none")?(SlotKey==TEXT("optic")?TEXT("optic_m24_palma_iron"):TEXT("tactical_false"))
+        :SlotKey==TEXT("trigger")&&(Id==TEXT("pit_viper_lightweight_fast")
         ||(Weapon==TEXT("ue_m870")&&Id==TEXT("m870_lightweight_trigger_kit")))
         ?TEXT("trigger_m1911_lightweight_fast"):IconSlot+TEXT("_")+IconId;
     const FString FramedDirectory=IconDirectory/(IsBowWorkbench()?TEXT("FramedBows"):TEXT("FramedFirearms"));
@@ -384,7 +412,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
     }
     const FSlateBrush* Icon=AttachmentBrushes.Contains(IconKey)?AttachmentBrushes.FindChecked(IconKey).Get():
         (CategoryBrushes.Contains(SlotKey)?CategoryBrushes.FindChecked(SlotKey).Get():FCoreStyle::Get().GetBrush("NoBrush"));
-    TSharedRef<SWidget> OptionIcon=SNew(SImage).Image(Icon).ToolTipText(FText::FromString(O->Name));
+    TSharedRef<SWidget> OptionIcon=SNew(SImage).Image(Icon).ToolTip(ColdSteelToolTip::Make(FText::FromString(O->Name)));
     if(IsStandaloneWorkbench()&&!IsBowWorkbench()&&AttachmentBrushes.Contains(IconKey))OptionIcon=SNew(SScaleBox).Stretch(EStretch::ScaleToFit)[OptionIcon];
     if(IsStandaloneWorkbench()&&!AttachmentBrushes.Contains(IconKey))
         OptionIcon=SNew(SMeleePartIcon).Part(SlotKey).bTool(IsToolWorkbench()).Definition(Model()->Definition());
@@ -393,13 +421,14 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
             [SNew(SScaleBox).Stretch(EStretch::ScaleToFit)[OptionIcon]];
     FString Appearance;
     // 工具四栏当前是数值改造：外观说明直接取目录的 appearance 字段，不查剑类模块 JSON。
-    if(IsToolWorkbench()||IsBowWorkbench()||IsStaffWorkbench())Appearance=O->Appearance;
+    if(IsToolWorkbench()||IsBowWorkbench()||IsStaffWorkbench()||SlotKey==TEXT("blade_material"))Appearance=O->Appearance;
     else if(IsMeleeWorkbench())if(const auto* Item=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->FindItem(Model()->Instance()))
         Appearance=ColdSteelModularSword::Appearance(*Item,SlotKey,Id);
     return SNew(SBox).WidthOverride(IsStandaloneWorkbench()?288:264).HeightOverride(142)
         [SNew(SOverlay)+SOverlay::Slot()
         [SNew(SBorder).Padding(2).BorderImage(&OptionFrameBrush).BorderBackgroundColor_Lambda(Frame)
-        [SNew(SButton).ButtonStyle(Legendary?&LegendaryButton:Exclusive?&ExclusiveButton:&NormalButton).ContentPadding(FMargin(10,8)).ToolTipText(FText::FromString(O->Name+TEXT("\n")+O->Description))
+        [SNew(SButton).ButtonStyle(Legendary?&LegendaryButton:Exclusive?&ExclusiveButton:&NormalButton).ContentPadding(FMargin(10,8)).ToolTip(ColdSteelToolTip::Make(FText::FromString(O->Name+TEXT("\n")+O->Description)))
+            .IsEnabled_Lambda([this,SlotKey,Id](){return Model()->OptionLockReason(SlotKey,Id).IsEmpty();})
             .OnClicked_Lambda([this,SlotKey,Id](){ChooseOption(SlotKey,Id);return FReply::Handled();})
             [SNew(SVerticalBox)
                 +SVerticalBox::Slot().AutoHeight()[Label(O->Name,16,TierColor,true)]
@@ -420,7 +449,9 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildOption(const FString& SlotKey,const 
                     +SOverlay::Slot()[SNew(SImage).Image(FCoreStyle::Get().GetBrush("WhiteBrush"))
                         .ColorAndOpacity_Lambda([Neon](){auto C=ColdSteelUI::Success;C.A=Neon()?.08f:0.f;return C;}).Visibility(EVisibility::HitTestInvisible)]
                     +SOverlay::Slot().Padding(6,2)
-                    [SNew(STextBlock).Text_Lambda([Selected,Installed,Id,Tier](){
+                    [SNew(STextBlock).Text_Lambda([this,SlotKey,Selected,Installed,Id,Tier](){
+                        const FString Locked=Model()->OptionLockReason(SlotKey,Id);
+                        if(!Locked.IsEmpty())return FText::FromString(Locked);
                         const FString Status=Installed()?(Id==TEXT("false")?TEXT("当前原厂配置"):TEXT("已安装")):(Selected()?TEXT("已选 · 待应用"):TEXT("选择配件"));
                         return FText::FromString(FString(Id==TEXT("false")?TEXT(""):ColdSteelModification::Label(Tier))+(Id==TEXT("false")?TEXT(""):TEXT(" · "))+Status);})
                         .Font(GunsmithUI::TextFont(12,true))

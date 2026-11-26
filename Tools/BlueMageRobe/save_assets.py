@@ -5,7 +5,10 @@ import unreal as u
 P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/BlueMageRobe20261018';sys.path.insert(0,str(P/'Tools/BlueMageRobe'))
 import materials
 DEST=materials.DEST;E=u.EditorAssetLibrary;A=u.AssetToolsHelpers.get_asset_tools();G=u.GeometryScript_AssetUtils;B=u.GeometryScript_BoneWeights;S=u.get_editor_subsystem(u.SkeletalMeshEditorSubsystem)
-CLOTH_REVISION='20261019-hipfit-restored-v1'
+# Bumped so the shoulder colliders added in FPSMageRobeAuthoring.cpp actually
+# get built: without this the SHA+revision check short-circuits and the old
+# cloth asset (no shoulder capsules) is kept.
+CLOTH_REVISION='20261020-shoulder-colliders-v1'
 ACTIVE_BODY_REVISION='FacingFix20261020'
 receipt_path=R/'saved_assets.json';receipt=json.loads(receipt_path.read_text()) if receipt_path.exists() else dict(saved={},runtime_tested=False)
 def record():receipt_path.write_text(json.dumps(receipt,indent=2),encoding='utf-8')

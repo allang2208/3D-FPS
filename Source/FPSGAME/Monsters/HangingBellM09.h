@@ -47,7 +47,7 @@ public:
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M09|Stats") int32 PhysicalDefense=30;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M09|Stats") int32 MagicalDefense=38;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M09|Stats") int32 Level=8;
- UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M09|Stats") EMonsterRank Rank=EMonsterRank::Elite;
+ UPROPERTY(EditAnywhere,BlueprintReadWrite,Replicated,Category="M09|Stats") EMonsterRank Rank=EMonsterRank::Elite;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M09|Stats") int32 ExperienceReward=400;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M09|AI") float AggroRadius=2500.f;
  UPROPERTY(EditAnywhere,BlueprintReadWrite,Category="M09|AI") float LeashRadius=3200.f;

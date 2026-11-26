@@ -90,6 +90,23 @@ void FPKMSoftChain::Solve(const TArray<FVector>& Guide, const FTransform& Compon
     for (int32 I=0;I<Count;++I) Result[I]=Component.InverseTransformPosition(Positions[I]);
 }
 
+void FPKMSoftChain::CommitProjection(const TArray<FVector>& Result,const FTransform& Component)
+{
+    if(Result.Num()!=Positions.Num())return;
+    for(int32 I=0;I<Result.Num();++I)
+    {
+        const FVector Corrected=Component.TransformPosition(Result[I]);
+        const FVector Normal=(Corrected-Positions[I]).GetSafeNormal();
+        if(!Normal.IsNearlyZero())
+        {
+            // Remove only velocity pressing into the contact surface.
+            const double Into=FVector::DotProduct(Velocities[I],Normal);
+            if(Into<0.)Velocities[I]-=Normal*Into;
+            Positions[I]=Corrected;
+        }
+    }
+}
+
 void FPKMSoftBeltDynamics::Apply(USkeletalMeshComponent& Mesh, TArray<FTransform>& Pose,
     bool Reloading, bool Empty, float SourceTime, bool OldVisible, bool NewVisible)
 {

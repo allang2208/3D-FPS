@@ -50,7 +50,7 @@ void FFPSBodyKukriRifts::Sample(AActor* Owner,int32 Hand,const FString& Weapon,F
     {T.Points.Reset();T.Weapon=Weapon;T.Action=Action;T.Progress=-1.f;if(T.Mesh.IsValid())T.Mesh->SetVisibility(false);}
     if(Progress<=T.Progress+UE_SMALL_NUMBER)return; // A replicated hit-stop adds no phantom motion.
     T.Progress=Progress;T.LastSample=Now;T.Whirlwind=Whirlwind;
-    const bool Falcon=Action==BodyKukriRift::FalconChop||Action==BodyKukriRift::FalconPull||Action==TEXT("HatchetDualAttack3");
+    const bool Falcon=Action==BodyKukriRift::FalconChop||Action==BodyKukriRift::FalconPull||Action==TEXT("HatchetDualAttack3")||Action==TEXT("OffhandHatchetChop");
     FPoint P;P.Inner=Knife.TransformPosition(Falcon?SwiftFalconRibbons::EdgeBase:KukriRhythm::BladeTip*.40f);
     P.Outer=Knife.TransformPosition(Falcon?SwiftFalconRibbons::EdgeTip:KukriRhythm::BladeTip*1.35f);P.At=Now;
     if(!T.Points.IsEmpty())
@@ -168,7 +168,9 @@ void UFPSPlayerBodyComponent::UpdateObserverKukriRifts()
     for(int32 Hand=0;Hand<2;++Hand)
     {
         auto& T=R.Trails[Hand];
-        if(!T.Weapon.IsEmpty()&&T.Weapon!=(Hand?S.OffhandInstance:S.WeaponInstance))
+        // The lone blade's item identity is the acting weapon but its trail rides hand_l (Hand 1), not the main slot.
+        const bool OwnsHand=Hand==1&&S.bLoneBlade&&!S.WeaponInstance.IsEmpty();
+        if(!T.Weapon.IsEmpty()&&!OwnsHand&&T.Weapon!=(Hand?S.OffhandInstance:S.WeaponInstance))
         {T.Points.Reset();T.Weapon.Reset();T.Progress=T.ProbeProgress=-1.f;T.LastSample=-1.;if(T.Mesh.IsValid())T.Mesh->SetVisibility(false);}
     }
     if(S.Action==EFPSBodyAction::Dead||FPSBodyPoses::Traversing(S.Motion))
@@ -180,13 +182,29 @@ void UFPSPlayerBodyComponent::UpdateObserverKukriRifts()
     {
         const auto& W=B.Definition;const int32 Hand=W.AttachHand;
         if(Hand<0||Hand>1||(W.PoseFamily!=TEXT("Kukri")&&W.PoseFamily!=TEXT("KukriDual")&&W.PoseFamily!=TEXT("OffhandKukri")))continue;
-        if(W.ItemInstance!=(Hand?S.OffhandInstance:S.WeaponInstance))continue;
-        if(Hand==1&&S.Family==TEXT("Kukri")&&S.ActionVariant==TEXT("Uppercut"))continue;
-        float Start=FMath::Max(0.f,S.ContactFraction-(Spin?0.f:.08f)),End=S.ReleaseFraction;
-        if(S.Action==EFPSBodyAction::Thrust&&S.ActionVariant==TEXT("HatchetDualAttack3"))
+        if(W.ItemInstance!=(Hand?S.OffhandInstance:S.WeaponInstance)&&
+            !(W.bLoneBlade&&W.ItemInstance==S.WeaponInstance))continue;
+        // The dual kukri's off-hand blade does not swing on the uppercut. The lone blade IS the swinging weapon (hand_l).
+        if(Hand==1&&S.Family==TEXT("Kukri")&&S.ActionVariant==TEXT("Uppercut")&&!W.bLoneBlade)continue;
+        const bool UppercutVariant=S.ActionVariant==TEXT("Uppercut")||S.ActionVariant==TEXT("OffhandKukriUppercut")||ShadowStep::IsBodyVariant(S.ActionVariant);
+        float Start=FMath::Max(0.f,S.ContactFraction-(Spin||UppercutVariant?0.f:.08f)),End=S.ReleaseFraction;
+        if(FPSBodyKukriMotion::IsOffhandHatchetChop(S))
         {
+            if(Hand!=1)continue;
             Start=HatchetDualChopRhythm::Rift.Start/KukriRhythm::DualThrustSeconds;
             End=HatchetDualChopRhythm::Rift.End/KukriRhythm::DualThrustSeconds;
+        }
+        if(S.Action==EFPSBodyAction::Thrust&&(S.ActionVariant==TEXT("HatchetDualAttack3")||
+            S.ActionVariant==TEXT("HatchetPairAttack3HK")||S.ActionVariant==TEXT("HatchetPairAttack3KH")))
+        {
+            // Mixed pair: only the hatchet hand chops; the kukri hand keeps the double thrust's window. HK = hatchet right.
+            const bool HatchetHand=S.ActionVariant==TEXT("HatchetPairAttack3HK")?Hand==0:
+                S.ActionVariant==TEXT("HatchetPairAttack3KH")?Hand==1:true;
+            if(HatchetHand)
+            {
+                Start=HatchetDualChopRhythm::Rift.Start/KukriRhythm::DualThrustSeconds;
+                End=HatchetDualChopRhythm::Rift.End/KukriRhythm::DualThrustSeconds;
+            }
         }
         if(S.Action==EFPSBodyAction::Strike&&(S.ActionVariant==TEXT("DualAttack")||S.ActionVariant==TEXT("DualAttack2")))
         {
@@ -210,7 +228,16 @@ void UFPSPlayerBodyComponent::UpdateObserverKukriRifts()
             R.SampleWindow(GetOwner(),Hand,W.ItemInstance,Pull?BodyKukriRift::FalconPull:BodyKukriRift::FalconChop,
                 P-Offset/SwiftFalconHeavy::Length,Start,End,false,Knife,Now);
         }
-        else if(Attack)R.SampleWindow(GetOwner(),Hand,W.ItemInstance,S.ActionVariant,P,Start,End,Spin,Knife,Now);
+        else if(Attack)
+        {
+            // Mixed pair: give the hatchet hand the axe's own edge samples, the kukri hand the blade's, so the two ribbons
+            // do not share one action's geometry.
+            const bool Pair=S.ActionVariant==TEXT("HatchetPairAttack3HK")||S.ActionVariant==TEXT("HatchetPairAttack3KH");
+            const bool HatchetHand=!Pair||(S.ActionVariant==TEXT("HatchetPairAttack3HK")?Hand==0:Hand==1);
+            R.SampleWindow(GetOwner(),Hand,W.ItemInstance,
+                Pair?(HatchetHand?BodyKukriRift::FalconChop:FName(TEXT("HatchetPairKukriThrust"))):S.ActionVariant,
+                P,Start,End,Spin,Knife,Now);
+        }
         R.RememberPose(Hand,W.ItemInstance,Knife,Now);
     }
 }

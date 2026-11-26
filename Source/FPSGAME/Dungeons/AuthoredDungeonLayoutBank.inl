@@ -114,6 +114,11 @@ bool ReplayFacilityLayout(const FSocket& Start)
 
 bool BuildFacility(int32 Seed,const FSocket& Start)
 {
+    const bool bBakingLayout=IsRunningCommandlet()&&FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutBake"));
+    // Production rebakes may reuse a candidate only after the normal placement,
+    // socket and mission construction accepts it against the NEW room geometry.
+    // Failed candidates continue into the authoring solver; gameplay is unchanged.
+    if(bBakingLayout&&ReplayFacilityLayout(Start))return true;
     if(bLayoutProbe&&FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutBankProbe")))
     {
         const bool Replayed=ReplayFacilityLayout(Start);
@@ -124,7 +129,6 @@ bool BuildFacility(int32 Seed,const FSocket& Start)
     // Keep part of the existing 12 s window for validating a fallback, even if
     // candidate search meets its time bound on a slow machine.
     const double FullDeadline=PlanningDeadline;
-    const bool bBakingLayout=IsRunningCommandlet()&&FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutBake"));
     PlanningDeadline=bBakingLayout?FullDeadline:FMath::Min(FullDeadline,FPlatformTime::Seconds()+8.);
     const bool Generated=BuildJointFacility(Seed,Start);
     PlanningDeadline=FullDeadline;bSearchExpired=false;

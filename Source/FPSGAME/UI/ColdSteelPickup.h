@@ -25,6 +25,12 @@ public:
     /** 准星小浮窗统一读取（不再挂世界空间名牌）：形如"拾取 铁锭 ×12"。 */
     const FString& GetPromptText()const{return PromptCaption;}
     void InitializeItem(const FColdSteelItem& Item);
+    /** Cosmetic workstation copy. Never a collectible or an inventory owner. */
+    bool InitializeWorkbenchDisplay(const FColdSteelItem& Item);
+    bool IsWorkbenchDisplayReady() const;
+    // Copies the equipped gun pose and fitted parts into a world component. Only drops need centered physics bounds.
+    static bool AssembleWorldGun(const FColdSteelItem& Item, UGameInstance& Context,
+        class UPoseableMeshComponent& GunMesh, class UBoxComponent* DropBody=nullptr,FTransform* OutMuzzleInMesh=nullptr);
     void InitializeSharedItem(const FColdSteelItem& Item);
     bool IsSharedPickup() const {return !SharedItem.InstanceId.IsEmpty();}
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
@@ -33,9 +39,11 @@ public:
     UPROPERTY(VisibleAnywhere) TObjectPtr<class UBoxComponent> Body;
     UPROPERTY(VisibleAnywhere) TObjectPtr<class UPoseableMeshComponent> Weapon;
 private:
+    bool bWorkbenchDisplay=false;
     UPROPERTY(ReplicatedUsing=OnRep_SharedItem) FColdSteelItem SharedItem;
     UFUNCTION() void OnRep_SharedItem();
     friend class UColdSteelPickupStudio;
+    friend class UEnhancementDisplayAuditCommandlet;
     bool BuildWeapon(const FColdSteelItem& Item,class UGameInstance* Context=nullptr);
     bool BuildConsumable(const FColdSteelItem& Item);
     bool BuildStaff(const FColdSteelItem& Item);

@@ -14,3 +14,4 @@ if __name__=='__main__':
     for name in ('gate-road.csv','hill.json','reference.f32'):
         shutil.copyfile(base/name,out/name)
     grade_quarry(out,base)
+

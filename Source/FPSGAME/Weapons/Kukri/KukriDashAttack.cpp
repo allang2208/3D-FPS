@@ -1,4 +1,5 @@
 #include "KukriWeaponComponent.h"
+#include "../../Movement/HorseRiderComponent.h"
 #include "KukriDecisiveComponent.h"
 #include "KukriArmsMeshComponent.h"
 #include "KukriRhythm.h"
@@ -55,8 +56,8 @@ void UKukriWeaponComponent::TickDashReadiness(float Delta)
     if(!Eligible){ResetDashReadiness();return;}
     const float ReadySeconds=KukriDashReadySeconds(Profile);
     const auto* Movement=P->GetCharacterMovement();
-    const bool bGroundSprint=P->IsSprinting()&&!P->IsSliding()&&Movement->IsMovingOnGround()&&
-        P->GetVelocity().SizeSquared2D()>2500.f;
+    const bool bGroundSprint=UHorseRiderComponent::IsCantering(P) || (P->IsSprinting()&&!P->IsSliding()&&Movement->IsMovingOnGround()&&
+        P->GetVelocity().SizeSquared2D()>2500.f);
     // An earned charge survives a slide or slide-jump (including the pending LaunchCharacter frame).
     const bool bSlideOrJump=P->IsSliding()||Movement->IsFalling()||P->bWeaponJumpAirborne||
         !Movement->PendingLaunchVelocity.IsZero();
@@ -74,7 +75,7 @@ float UKukriWeaponComponent::DashReadyFraction() const
     const auto* Movement=P->GetCharacterMovement();
     const bool bRetainedReady=DashSprintSeconds>=ReadySeconds&&
         (P->IsSliding()||Movement->IsFalling()||P->bWeaponJumpAirborne||!Movement->PendingLaunchVelocity.IsZero());
-    if(!bRetainedReady&&(!P->IsSprinting()||!Movement->IsMovingOnGround()||P->GetVelocity().SizeSquared2D()<=2500.f))return 0.f;
+    if(!bRetainedReady&&!UHorseRiderComponent::IsCantering(P)&&(!P->IsSprinting()||!Movement->IsMovingOnGround()||P->GetVelocity().SizeSquared2D()<=2500.f))return 0.f;
     return FMath::Clamp(DashSprintSeconds/ReadySeconds,0.f,1.f);
 }
 

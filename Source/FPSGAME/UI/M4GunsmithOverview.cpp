@@ -1,4 +1,5 @@
 #include "../Weapons/GunsmithModificationTier.h"
+#include "ColdSteelTextToolTip.h"
 #include "../Weapons/KVScopeAssets.h"
 #include "ColdSteelWeaponText.h"
 #include "M4GunsmithWidget.h"
@@ -17,7 +18,7 @@
 
 namespace {
 TSharedRef<STextBlock> Text(const FString& S,int32 Size,FLinearColor Color,bool Number=false)
-{return SNew(STextBlock).Text(FText::FromString(S)).Font(Number?GunsmithUI::NumberFont(Size):GunsmithUI::TextFont(Size)).ColorAndOpacity(Color).AutoWrapText(false).OverflowPolicy(ETextOverflowPolicy::Ellipsis).ToolTipText(FText::FromString(S)).Justification(Number?ETextJustify::Right:ETextJustify::Left);}
+{return SNew(STextBlock).Text(FText::FromString(S)).Font(Number?GunsmithUI::NumberFont(Size):GunsmithUI::TextFont(Size)).ColorAndOpacity(Color).AutoWrapText(false).OverflowPolicy(ETextOverflowPolicy::Ellipsis).ToolTip(ColdSteelToolTip::Make(FText::FromString(S))).Justification(Number?ETextJustify::Right:ETextJustify::Left);}
 FString Value(double N,int32 Digits,const TCHAR* Unit){return FString::Printf(TEXT("%.*f%s"),Digits,N,Unit);}
 FLinearColor BenefitColor(int32 Benefit){return Benefit>0?ColdSteelUI::Success:Benefit<0?ColdSteelUI::Danger:GunsmithUI::Secondary;}
 }
@@ -52,8 +53,6 @@ void UM4GunsmithWidget::RefreshPresentation()
     }
     auto S=G->CalculateItem(*I,G->Draft());
     auto B=G->CalculateItem(*I,bCompareFactory?FGunsmithParts():G->Installed(*I));
-    ColdSteelWeaponStats::ApplyFirearmEquipmentHandling(S,P);
-    ColdSteelWeaponStats::ApplyFirearmEquipmentHandling(B,P);
     Overview.Reset();
     auto Row=[this](const TCHAR* Name,double Before,double After,int32 Digits,const TCHAR* Unit,bool Lower=false)
     {
@@ -67,7 +66,10 @@ void UM4GunsmithWidget::RefreshPresentation()
     else if(IsMeleeWorkbench())AppendMeleeOverview(*I);
     else
     {
-    Row(ColdSteelWeaponText::ADS,B.ADS*1000,S.ADS*1000,0,TEXT(" ms"),true);
+    ColdSteelWeaponStats::ApplyFirearmEquipmentHandling(S,P);
+    ColdSteelWeaponStats::ApplyFirearmEquipmentHandling(B,P);
+    const double ADSMultiplier=P->ADSTimeMultiplier();
+    Row(ColdSteelWeaponText::ADS,B.ADS*1000*ADSMultiplier,S.ADS*1000*ADSMultiplier,0,TEXT(" ms"),true);
     Row(ColdSteelWeaponText::Capacity,B.Capacity,S.Capacity,0,TEXT(" 发"));
     // Reload rows go through the shared stack (敏捷 × 快手 × 附魔 × 配件) so the
     // panel shows the time the player actually spends.
@@ -189,7 +191,7 @@ void UM4GunsmithWidget::RefreshPresentation()
             else if(R.Label.Contains(TEXT("上跳")))Hint=TEXT("控制瞄准方向的逐发垂直后坐角度。首发为完全恢复后的第一枪；连射值为第9发起的单发上限，不包含随机晃动。");
             else if(R.Label.Contains(TEXT("水平")))Hint=TEXT("ADS逐发水平后坐角度的绝对值，越低越好。首发向右，连射按固定左右节奏循环；上限是单发最大偏转，不是随机散布或累计偏移。配件后坐力倍率同时缩放垂直和水平角度。");
             else if(R.Label.Contains(TEXT("后坐力")))Hint=TEXT("后坐力指数，越低越好。统一参考值100；配件倍率相乘，实际射击与面板使用相同结果。");
-            OverviewList->AddSlot().AutoHeight().Padding(0,0,0,1)[SNew(SBorder).BorderImage(&RowBrush).Padding(0).ToolTipText(FText::FromString(Hint))[Cells({R.Label,R.Current,R.Final,R.Delta},14,Color,false)]];
+            OverviewList->AddSlot().AutoHeight().Padding(0,0,0,1)[SNew(SBorder).BorderImage(&RowBrush).Padding(0).ToolTip(ColdSteelToolTip::Make(FText::FromString(Hint)))[Cells({R.Label,R.Current,R.Final,R.Delta},14,Color,false)]];
         }
     }
 }

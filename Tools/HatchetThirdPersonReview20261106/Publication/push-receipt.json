@@ -1,0 +1,18 @@
+{
+  "commit": "1aff725a52e3c05d8e2cfec5b4fbe734f3fce003",
+  "base_commit": "5a69db8a051a697c123c701f8738dc530ac0c6f8",
+  "tree": "75b0acb8cf34a1c9b981493d102097641d0cfa82",
+  "files": 64,
+  "unrelated_staged_paths_preserved": 238,
+  "unrelated_index_entries_preserved": true,
+  "working_files_untouched": true,
+  "push_status": "confirmed",
+  "remote_url": "https://github.com/allang2208/3D-FPS.git",
+  "remote_refs": {
+    "refs/heads/main": "1aff725a52e3c05d8e2cfec5b4fbe734f3fce003",
+    "refs/tags/archive/godot-before-ue5-20260910": "49cec1dd11d65295f43c737bac327de829cfd7b1"
+  },
+  "committed_and_remote_body_routes": 10,
+  "unrelated_staged_paths_preserved_after_push": 238,
+  "gameplay_rerun": false
+}

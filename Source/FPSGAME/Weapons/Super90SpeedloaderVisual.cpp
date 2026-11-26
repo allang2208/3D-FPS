@@ -66,16 +66,15 @@ void AFPSGAMECharacter::SetSuper90Speedloader(bool bEnabled)
     if(!GuideMesh)return;
     if(!Super90LoaderGuide)
     {
-        auto* GuideMesh=LoadObject<UStaticMesh>(nullptr,Super90SpeedloaderAssets::Guide);
-        if(!GuideMesh)return;
         Super90LoaderGuide=NewObject<UStaticMeshComponent>(this,TEXT("Super90LoaderGuide"));
         AddInstanceComponent(Super90LoaderGuide);Super90LoaderGuide->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));
         Super90LoaderGuide->SetCollisionEnabled(ECollisionEnabled::NoCollision);Super90LoaderGuide->SetCastShadow(false);
-        Super90LoaderGuide->bReceivesDecals=false;Super90LoaderGuide->SetStaticMesh(GuideMesh);
+        Super90LoaderGuide->bReceivesDecals=false;
         Super90LoaderGuide->SetOnlyOwnerSee(AKMViewmodel->bOnlyOwnerSee);
         Super90LoaderGuide->SetFirstPersonPrimitiveType(AKMViewmodel->FirstPersonPrimitiveType);
         Super90LoaderGuide->RegisterComponent();
     }
+    if(Super90LoaderGuide->GetStaticMesh()!=GuideMesh)Super90LoaderGuide->SetStaticMesh(GuideMesh);
     const auto& Ref=AKMViewmodel->GetSkeletalMeshAsset()->GetRefSkeleton();FTransform Root=FTransform::Identity;
     for(int32 Bone=Ref.FindBoneIndex(TEXT("WPN_root"));Bone!=INDEX_NONE;Bone=Ref.GetParentIndex(Bone))Root=Root*Ref.GetRefBonePose()[Bone];
     Super90LoaderGuide->SetRelativeTransform(FTransform::Identity.GetRelativeTransform(Root));

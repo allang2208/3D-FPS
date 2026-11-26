@@ -35,9 +35,9 @@ void URuneOrbBladesComponent::ClientOrbitRejected_Implementation(float Remaining
     CooldownDuration=Duration;
     if(auto* Model=Profile())Model->PostNotice(TEXT("飞剑未释放"),TEXT("武器状态或冷却尚未同步"));
 }
-void URuneOrbBladesComponent::ClientBladeKill_Implementation()
+void URuneOrbBladesComponent::ClientBladeMagicCooldown_Implementation(float Seconds)
 {
-    if(auto* Model=Profile())Model->ReduceAllAbilityCooldowns(.5f);
+    if(auto* Model=Profile())Model->ReduceMagicCooldowns(Seconds);
 }
 
 void URuneOrbBladesComponent::ClientMeleeCooldownReward_Implementation(float Seconds,float BladeRemaining)

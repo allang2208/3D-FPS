@@ -15,14 +15,23 @@ struct MagicHit
     bool bWeakpoint=false;
 };
 extern thread_local const MagicHit* ActiveMagicHit;
+struct WeaponContribution
+{
+    FWeaponDamageParts Incoming,Mitigated;
+    double PhysicalPenetration=0,MagicPenetration=0;
+};
 struct WeaponHit
 {
     AActor* Target=nullptr;
     FWeaponDamageParts Incoming,Mitigated;
     double PhysicalPenetration=0,MagicPenetration=0;
     bool bResolved=false;
-    bool bDamageAlreadyMitigated=false;
     bool bMelee=false;
+    // A delayed receipt already includes the original defense/critical roll.
+    bool bDamageAlreadyMitigated=false;
+    // Simultaneous blades keep their own armor penetration and rounding, then
+    // submit one damage event to the target. Empty for ordinary contacts.
+    TArray<WeaponContribution,TInlineAllocator<2>> Contributions;
 };
 extern thread_local WeaponHit* ActiveWeaponHit;
 extern thread_local const double* ActivePhysicalPenetration;

@@ -1,8 +1,10 @@
 #include "PlayerGuardBreakComponent.h"
+#include "../Combat/CombatControlImmunity.h"
 #include "../FPSGAMECharacter.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "../UI/StatusEffectsComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "PlayerKnockdownComponent.h"
 #include "InputCoreTypes.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/CharacterMovementComponent.h"
@@ -20,7 +22,7 @@ void UPlayerGuardBreakComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProp
 }
 void UPlayerGuardBreakComponent::Apply(float Seconds)
 {
-    if(!GetOwner()->HasAuthority()||Seconds<=0.f)return;
+    if(!GetOwner()->HasAuthority()||Seconds<=0.f||CombatControl::IsImmune(GetOwner()))return;
     StunUntil=FMath::Max(StunUntil,GetWorld()->GetTimeSeconds()+Seconds);
     ApplyInputLock(float(StunUntil-GetWorld()->GetTimeSeconds()));GetOwner()->ForceNetUpdate();
 }
@@ -61,7 +63,9 @@ void UPlayerGuardBreakComponent::Release()
     {
         PC->SetIgnoreMoveInput(false);PC->SetIgnoreLookInput(false);
         const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
-        if(Pawn && !Pawn->IsActorBeingDestroyed() && (!Health || !Health->IsDead()))
+        // A knockdown that is still running owns the key bindings until its own release.
+        if(Pawn && !Pawn->IsActorBeingDestroyed() && (!Health || !Health->IsDead())
+            && !UPlayerKnockdownComponent::IsKnockedDown(Pawn))
         {
             Pawn->EnableInput(PC);ResumeGuard=PC->IsInputKeyDown(EKeys::RightMouseButton);
         }

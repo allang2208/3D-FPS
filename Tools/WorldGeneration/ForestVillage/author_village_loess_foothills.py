@@ -124,3 +124,4 @@ def install():
     if not level.save.save_map(world,level.village):raise RuntimeError('Map save')
     (art.batch/'authored.json').write_text(json.dumps(dict(map=level.village,fine_grass=count,cells=cells,shores=shores,pools=sum(isinstance(a,u.ForestVillagePoolSurface) and a.get_path_name().startswith(level.village+'.') for a in level.actor_list())),indent=2))
 if __name__=='__main__':install()
+

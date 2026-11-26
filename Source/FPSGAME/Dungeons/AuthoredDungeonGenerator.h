@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
 #include "AuthoredDungeonLighting.h"
+#include "FacilityAtmosphere.h"
 #include "DungeonSharedProgress.h"
 #include "AuthoredDungeonGenerator.generated.h"
 
@@ -18,7 +19,9 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
     UPROPERTY(ReplicatedUsing=OnRep_NetworkRun) FString NetworkRunId;
     UPROPERTY(ReplicatedUsing=OnRep_NetworkRun) int32 NetworkSeed=0;
+    UPROPERTY(ReplicatedUsing=OnRep_NetworkRun) FString NetworkFailure;
     UFUNCTION() void OnRep_NetworkRun();
+    bool AcceptNetworkLayout(const FString& RunId, int32 Seed, const TArray<FString>& Parts);
     // Small, always-relevant progress replication is independent of bulk world snapshots.
     UPROPERTY(ReplicatedUsing=OnRep_SharedProgress) FDungeonSharedProgress SharedProgress;
     UFUNCTION() void OnRep_SharedProgress();
@@ -34,7 +37,8 @@ public:
     UFUNCTION(CallInEditor, Category="Dungeon") void GeneratePreview();
     /** On-demand CPU preparation report. Never represents GPU work or frame-time savings. */
     FString GetGenerationMetricsJson() const;
-    bool IsPreparationPending() const { return BuildState.IsValid(); }
+    FVector RuntimeOffset() const;
+    bool IsPreparationPending() const { return bWaitingNetworkLayout || BuildState.IsValid(); }
 #if WITH_EDITOR
     virtual void PreSave(FObjectPreSaveContext SaveContext) override;
 #endif
@@ -51,6 +55,8 @@ private:
     uint64 GenerationSerial = 0;
     FString LastGenerationMetricsJson;
     FString RequestedNetworkRunId;
+    FString AcceptedNetworkRunId, PendingNetworkLayout;
+    bool bWaitingNetworkLayout=false;
     void PrepareAssembly();
     void PumpAssembly(bool bSynchronous);
     void FinishAssembly(bool bSynchronous);
@@ -70,6 +76,7 @@ private:
     double LastLightingUpdateSeconds = 0.0;
     bool bLightingOptimizationApplied = false;
     TArray<FAuthoredDungeonRenderGroup> RenderGroups;
+    FFacilityAtmosphere Atmosphere;
     int32 RoomHideCursor = 0;
     void UpdateRoomRendering(const TArray<bool>& Wanted, const FVector* Eye, double Now);
     void ResetRoomRendering();

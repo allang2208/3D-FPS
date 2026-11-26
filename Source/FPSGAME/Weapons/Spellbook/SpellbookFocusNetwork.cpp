@@ -1,4 +1,5 @@
 #include "SpellbookComponent.h"
+#include "../../Skills/LightningHasteSpeed.h"
 #include "SpellbookFocusMotion.h"
 #include "SpellbookFocusInterruptMotion.h"
 #include "../Staff/StaffCatalog.h"
@@ -75,6 +76,7 @@ void USpellbookComponent::ApplyNetFocusRequest(uint32 Session,uint8 State)
         }
         NetFocusBook=EquippedBook->InstanceId;NetFocusStaff=Staff->InstanceId;
         FocusMoveMultiplier=Profile->SpellbookFocusMovementMultiplier();
+        FocusActionRate=LightningHaste::ActionSpeed(GetOwner());
         NetFocusStartedAt=Now;NetFocusBusyUntil=0.0;
         UCombatStatusFormula::GetOrAdd(Character);
         return;
@@ -82,7 +84,7 @@ void USpellbookComponent::ApplyNetFocusRequest(uint32 Session,uint8 State)
     if(Session!=NetFocusSession)return;
     // Closing removes the benefits immediately, but retains quick-melee occupancy.
     if(State==2&&NetFocusStartedAt>=0.0)
-        NetFocusBusyUntil=Now+FMath::Clamp(Now-NetFocusStartedAt,0.0,double(SpellbookFocusMotion::OpenLength));
+        NetFocusBusyUntil=Now+FMath::Clamp((Now-NetFocusStartedAt)*FocusActionRate,0.0,double(SpellbookFocusMotion::OpenLength))/FocusActionRate;
     if(State==0)NetFocusBusyUntil=0.0;
     NetFocusStartedAt=-1.0;
 }
@@ -104,7 +106,7 @@ void USpellbookComponent::StopNetFocus(bool Interrupted)
     if(NetFocusStartedAt<0.0&&NetFocusBusyUntil<=0.0)return;
     auto* Character=CastChecked<AFPSGAMECharacter>(GetOwner());
     const double Now=GetWorld()->GetTimeSeconds();
-    const float Age=float(FMath::Max(0.0,Now-NetFocusStartedAt));
+    const float Age=float(FMath::Max(0.0,Now-NetFocusStartedAt))*FocusActionRate;
     NetFocusStartedAt=-1.0; // Clear before the mana notification can re-enter equipment code.
     NetFocusBusyUntil=0.0;
     if(Interrupted)

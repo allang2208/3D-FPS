@@ -22,3 +22,4 @@ for label, prefix, channels in sets:
         task.replace_identical = True
         if not u.Exporter.run_asset_export_task(task):
             raise RuntimeError(task.filename)
+

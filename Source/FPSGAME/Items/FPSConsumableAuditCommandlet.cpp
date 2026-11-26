@@ -1,13 +1,20 @@
 #include "FPSConsumableAuditCommandlet.h"
 #include "FPSPotionUseComponent.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../Characters/FPSBodyConsumeMotion.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
+#include "../Weapons/Bow/BowArmsMeshComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "../Weapons/Staff/StaffArmsMeshComponent.h"
 #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
 #include "../Weapons/PistolDualWieldComponent.h"
+#include "../Weapons/Kukri/KukriWeaponComponent.h"
+#include "../Weapons/Kukri/KukriArmsMeshComponent.h"
+#include "../Weapons/Kukri/KukriRhythm.h"
+#include "Camera/CameraComponent.h"
+#include "Engine/SkeletalMesh.h"
 #include "../Production/ProductionToolComponent.h"
 #include "../Skills/FPSCastingMeshComponent.h"
 #include "Animation/AnimSequence.h"
@@ -46,6 +53,54 @@ int32 UFPSConsumableAuditCommandlet::Main(const FString& Params)
         OK?++Passed:++Failed;
         Report+=FString::Printf(TEXT("%s %s\n"),OK?TEXT("PASS"):TEXT("FAIL"),*Label);
     };
+    // In-memory authority receipt checks only. No BeginPlay, subsystem or save.
+    auto* Authority=World->SpawnActor<AColdSteelPlayerState>();
+    Controller->SetPlayerState(Authority);Authority->SetOwner(Controller);
+    Controller->UnPossess();Controller->Possess(Player);Player->SetPlayerState(Authority);
+    const FGuid FirstUse=FGuid::NewGuid();
+    Authority->ServerBeginConsumableUse_Implementation(Player,FirstUse,TEXT("audit-food"),TEXT("bread"));
+    Check(Authority->HasAuthorityConsumableReservation(Player),TEXT("authority reserves current living pawn"));
+    const double Contact=Authority->ConsumableContactAt;
+    Authority->ServerBeginConsumableUse_Implementation(Player,FirstUse,TEXT("audit-food"),TEXT("bread"));
+    Check(Authority->ConsumableContactAt==Contact,TEXT("repeated begin cannot restart contact clock"));
+    Check(Player->IsCastBlockingLeftHandAction(),TEXT("authority reservation blocks subsequent hand actions"));
+    Authority->ServerCancelConsumableUse_Implementation(FGuid::NewGuid());
+    Check(Authority->HasAuthorityConsumableReservation(Player),TEXT("stale cancel cannot retire current use"));
+    Authority->ServerCancelConsumableUse_Implementation(FirstUse);
+    Check(!Authority->HasAuthorityConsumableReservation(Player),TEXT("matching cancel releases reservation"));
+    Authority->ServerBeginConsumableUse_Implementation(Player,FirstUse,TEXT("audit-food"),TEXT("bread"));
+    Check(!Authority->HasAuthorityConsumableReservation(Player),TEXT("last cancelled begin cannot replay"));
+    Authority->PendingCastSkill=TEXT("fireball");
+    Check(!Authority->CanAuthorityBeginConsumable(Player),TEXT("authority pending spell blocks consumption"));
+    Authority->PendingCastSkill=NAME_None;
+    Authority->KukriAttack.Pawn=Player;Authority->KukriReadyAt=World->GetTimeSeconds()+1.;
+    Check(!Authority->CanAuthorityBeginConsumable(Player),TEXT("authority attack receipt blocks consumption"));
+    Authority->KukriAttack.Pawn.Reset();
+    Authority->ServerBeginConsumableUse_Implementation(Player,FGuid::NewGuid(),TEXT("audit-food"),TEXT("bread"));
+    Authority->ConsumableExpiresAt=World->GetTimeSeconds()-1.;
+    Check(!Authority->HasAuthorityConsumableReservation(Player),TEXT("abandoned reservation expires"));
+    Authority->ConsumableExpiresAt=World->GetTimeSeconds()+1.;
+    Controller->UnPossess();
+    Check(!Authority->HasAuthorityConsumableReservation(Player),TEXT("unpossessed pawn cannot retain reservation"));
+    Controller->Possess(Player);Player->SetPlayerState(Authority);
+    Authority->ConsumableUseId.Invalidate();
+    // Registered launch identity survives a later food reservation. No ammo
+    // or profile is involved in these lookup/lifecycle cases.
+    FColdSteelNetHitReport LaunchHit;LaunchHit.FireSequence=71;LaunchHit.ItemInstance=TEXT("audit-rifle");
+    LaunchHit.ItemDefinition=TEXT("ue_akm");LaunchHit.ConvergenceRounds=1;
+    auto& Launch=Authority->GenericLaunches.Add(71);Launch.Pawn=Player;
+    Launch.Item.InstanceId=LaunchHit.ItemInstance;Launch.Item.Definition=LaunchHit.ItemDefinition;
+    Launch.Rounds=1;Launch.Expires=World->GetTimeSeconds()+2.;
+    Check(Authority->FindGenericLaunch(LaunchHit,Player)!=nullptr,TEXT("registered generic launch matches exact identity"));
+    Authority->ConsumablePawn=Player;Authority->ConsumableUseId=FGuid::NewGuid();
+    Authority->ConsumableExpiresAt=World->GetTimeSeconds()+1.;
+    Check(Authority->HasAuthorityConsumableReservation(Player)&&Authority->FindGenericLaunch(LaunchHit,Player),TEXT("old registered launch survives food reservation"));
+    ++LaunchHit.FireSequence;Check(!Authority->FindGenericLaunch(LaunchHit,Player),TEXT("unknown launch cannot reuse old receipt"));
+    --LaunchHit.FireSequence;LaunchHit.ItemInstance=TEXT("other-rifle");
+    Check(!Authority->FindGenericLaunch(LaunchHit,Player),TEXT("launch cannot change weapon instance"));
+    LaunchHit.ItemInstance=TEXT("audit-rifle");Launch.Expires=World->GetTimeSeconds()-1.;
+    Check(!Authority->FindGenericLaunch(LaunchHit,Player),TEXT("generic launch expires instead of unlimited pre-registration"));
+    Authority->GenericLaunches.Reset();Authority->ConsumableUseId.Invalidate();
     const auto CanUse=[&](){return Player->CanBeginConsumableUse();};
     Player->WeaponState=EAKMWeaponState::Idle;Player->bInventoryWeaponReady=true;
     // Every single-firearm family shares this path, independently of its rig.
@@ -87,7 +142,7 @@ int32 UFPSConsumableAuditCommandlet::Main(const FString& Params)
     Tool->Elapsed=0;Check(!CanUse(),TEXT("tool swing retains hand"));Tool->Elapsed=-1;
     Tool->EquipElapsed=0;Check(!CanUse(),TEXT("tool equip retains hand"));Tool->EquipElapsed=-1;Tool->EquippedId.Reset();
 
-    Bow->InstanceId=TEXT("test-bow");
+    Bow->InstanceId=TEXT("test-bow");Bow->bPresentationReady=true;Bow->Viewmodel=NewObject<UBowArmsMeshComponent>(Player);
     for(auto Stage:{EBowStage::Ready,EBowStage::Stowed,EBowStage::DrawEntry,EBowStage::Drawing,EBowStage::Holding,EBowStage::LetDown})
     {Bow->Stage=Stage;Check(CanUse(),FString::Printf(TEXT("bow held stage %d can yield"),int32(Stage)));}
     for(auto Stage:{EBowStage::Equip,EBowStage::Nocking,EBowStage::Release,EBowStage::Recover,EBowStage::QuickCombat})
@@ -95,7 +150,7 @@ int32 UFPSConsumableAuditCommandlet::Main(const FString& Params)
     Bow->Stage=EBowStage::Holding;Bow->bArrowNocked=Bow->bTriggerHeld=Bow->bSteadyHeld=true;
     Player->PrepareForConsumableUse();
     Check(Bow->bArrowNocked&&!Bow->bTriggerHeld&&!Bow->bSteadyHeld,TEXT("stow draw without firing or consuming arrow"));
-    Check(Player->ConsumableHands()==nullptr,TEXT("bow selects dedicated fallback arm"));Bow->InstanceId.Reset();
+    Check(Player->ConsumableHands()==Bow->Viewmodel,TEXT("bow selects its native shared consumable arm"));Bow->InstanceId.Reset();
 
     Staff->Instance=TEXT("test-staff");Staff->EquipAge=1;
     Staff->Arms=NewObject<UStaffArmsMeshComponent>(Player);Staff->Arms->SetVisibility(false);
@@ -118,6 +173,64 @@ int32 UFPSConsumableAuditCommandlet::Main(const FString& Params)
         Dual->Hands[1].Action=NewObject<UAnimSequence>(Player);Check(!CanUse(),Family+TEXT(" left action retains hand"));Dual->Hands[1].Action=nullptr;
     }
     Dual->bActive=false;
+    // Sample the real dual blade binding without BeginPlay, inventory or a map.
+    // Both hatchets and kukris use this carry; the right hand must never move
+    // when the consumable borrows the left hand.
+    auto* Blade=Player->FindComponentByClass<UKukriWeaponComponent>();
+    Blade->InstanceId=TEXT("consumable-handoff-blade");Blade->bDual=true;
+    auto* Arms=NewObject<UKukriArmsMeshComponent>(Player);
+    Blade->Viewmodel=Arms;
+    Arms->SetupAttachment(Player->FirstPersonCamera);Arms->SetRelativeRotation(FRotator(0,90,0));
+    auto* ArmAsset=LoadObject<USkeletalMesh>(nullptr,KukriRhythm::ArmsMesh);
+    auto* Carry=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/Kukri20261020/Animations/A_Kukri_DualIdle.A_Kukri_DualIdle"));
+    Check(ArmAsset&&Carry,TEXT("dual blade native carry resources available"));
+    Check(Player->ConsumableHands()==Arms,TEXT("dual hatchet/kukri selects its native left arm, not fallback arms"));
+    if(ArmAsset&&Carry)
+    {
+        Potion->Bottle=NewObject<UStaticMeshComponent>(Player);
+        Potion->Liquid=NewObject<UStaticMeshComponent>(Player);
+        Potion->Stopper=NewObject<UStaticMeshComponent>(Player);
+        Arms->SetSkeletalMesh(ArmAsset);Arms->RegisterComponent();Arms->PlayAnimation(Carry,true);Arms->SetPlayRate(0.f);
+        Potion->bActive=true;Potion->bStowOffhand=true;Potion->UseRate=1.f;
+        Potion->Motion.Load(false);Potion->ActiveHands=Arms;
+        const auto Sample=[&](float Age)
+        {
+            Potion->StartTime=World->GetTimeSeconds()-Age;
+            Arms->SetPosition(0.f,false);Arms->TickAnimation(0.f,false);Arms->RefreshBoneTransforms();
+            return Player->FirstPersonCamera->GetComponentTransform().InverseTransformPosition(Arms->GetSocketLocation(TEXT("hand_l")));
+        };
+        const auto Lengths=[&]()
+        {
+            return FVector2D(FVector::Dist(Arms->GetSocketLocation(TEXT("upperarm_l")),Arms->GetSocketLocation(TEXT("lowerarm_l"))),
+                FVector::Dist(Arms->GetSocketLocation(TEXT("lowerarm_l")),Arms->GetSocketLocation(TEXT("hand_l"))));
+        };
+        const FVector Start=Sample(-Potion->OffhandLowerSeconds);
+        const FTransform Right=Arms->GetSocketTransform(TEXT("hand_r"));const FVector2D NativeLengths=Lengths();
+        float MaxRightDrift=0.f,MaxLengthDrift=0.f,MaxStep=0.f;
+        FVector Previous=Start;
+        for(int32 I=1;I<=36;++I)
+        {
+            const float Age=-Potion->OffhandLowerSeconds+Potion->OffhandLowerSeconds*I/36.f;
+            const FVector Current=Sample(Age);
+            MaxStep=FMath::Max(MaxStep,float(FVector::Dist(Current,Previous)));Previous=Current;
+            MaxRightDrift=FMath::Max(MaxRightDrift,float(FVector::Dist(Right.GetLocation(),Arms->GetSocketLocation(TEXT("hand_r")))));
+            MaxLengthDrift=FMath::Max(MaxLengthDrift,float((Lengths()-NativeLengths).Size()));
+        }
+        const FVector Lowered=Previous;
+        Check(Lowered.Z<Start.Z-15.f&&Lowered.Z<-30.f,TEXT("consuming blade hand lowers below the camera before use"));
+        Check(MaxRightDrift<.01f,TEXT("stow preserves opposite hand position"));
+        Check(MaxLengthDrift<.02f,TEXT("stow preserves native upper/forearm lengths"));
+        Check(MaxStep<5.f,TEXT("stow is continuous at 100 Hz"));
+        Sample(-.001f);Check(!Potion->IsOffhandWeaponHidden(),TEXT("weapon remains visible until stow completes"));
+        const FVector Before=Sample(-.0001f),After=Sample(.0001f);
+        Check(FVector::Dist(Before,After)<.1f&&Potion->IsOffhandWeaponHidden(),TEXT("no hand jump at stow-to-consume handoff"));
+        const FVector Return=Sample(Potion->Motion.Duration+Potion->OffhandRaiseSeconds);
+        Check(FVector::Dist(Return,Start)<.1f&&!Potion->IsOffhandWeaponHidden(),TEXT("completion raises the native equipped hand back"));
+        Report+=FString::Printf(TEXT("DUAL_HAND start=%s lowered=%s right_drift_cm=%.6f length_drift_cm=%.6f max_step_cm=%.4f\n"),
+            *Start.ToString(),*Lowered.ToString(),MaxRightDrift,MaxLengthDrift,MaxStep);
+        Potion->Finish();Arms->DestroyComponent();
+    }
+    Blade->InstanceId.Reset();Blade->bDual=false;Blade->Viewmodel=nullptr;
     Unarmed->bEquipmentResolved=Unarmed->bHandsEmpty=true;Unarmed->Arms=NewObject<UFPSUnarmedArmsMeshComponent>(Player);
     Check(CanUse(),TEXT("unarmed idle can consume"));Check(Player->ConsumableHands()==Unarmed->Arms,TEXT("unarmed uses current arms"));
     Potion->bActive=true;Check(!CanUse(),TEXT("active consumable prevents reentry"));Potion->Finish();

@@ -1,4 +1,5 @@
 #include "SpellbookComponent.h"
+#include "../../Skills/LightningHasteSpeed.h"
 #include "SpellbookFocusMotion.h"
 #include "SpellbookFocusInterruptMotion.h"
 #include "SpellbookAuthoredGrip.h"
@@ -63,7 +64,7 @@ void USpellbookComponent::CreateFocusMeshes()
 bool USpellbookComponent::IsFocusEmpowered() const
 {
     if(UsesNetFocusAuthority())return IsConcentrating()&&
-        GetWorld()->GetTimeSeconds()-NetFocusStartedAt>=SpellbookFocusMotion::OpenLength;
+        (GetWorld()->GetTimeSeconds()-NetFocusStartedAt)*FocusActionRate>=SpellbookFocusMotion::OpenLength;
     // Opening/closing still own the animation, but only the fully open hold grants stats.
     return bFocusPair&&bFocusDesired&&IsConcentrating()&&FocusAge>=SpellbookFocusMotion::OpenLength&&OwnsLeftHand();
 }
@@ -90,6 +91,7 @@ bool USpellbookComponent::ToggleFocus()
     if(!SpellbookBookSampling::Sample(*FocusBook,OpenClip,0.f))return false;
     Pawn->ExitSprintForWeapon();Arms->CaptureFocusEntry();
     UCombatStatusFormula::GetOrAdd(Pawn);
+    FocusActionRate=LightningHaste::ActionSpeed(GetOwner());
     FocusAge=PagePhase=PageAlpha=OpenAlpha=0.f;
     bFocusDesired=true;bFocusClosing=bFocusDetached=bFocusInterrupted=false;
     Arms->SetFocusPose(0.f,1.f,false);
@@ -169,6 +171,7 @@ void USpellbookComponent::AdvanceFocus(float Delta)
     {CancelFocus();return;}
     namespace Motion=SpellbookFocusMotion;
     if(bFocusInterrupted){AdvanceFocusInterrupt(Delta);return;}
+    Delta*=FocusActionRate;
     if(!bFocusClosing)
     {
         const float PreviousAge=FocusAge;FocusAge+=Delta;

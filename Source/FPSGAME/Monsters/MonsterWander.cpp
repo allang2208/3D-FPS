@@ -2,6 +2,7 @@
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "MonsterNavigationCache.h"
 #include "MonsterCombatComponent.h"
+#include "../Dungeons/FacilityHallEncounter.h"
 #include "LurkerM08Monster.h"
 #include "HangingBellM09.h"
 #include "BehaviorTree/BlackboardComponent.h"
@@ -90,14 +91,22 @@ bool AMonsterAIController::ChooseWanderDestination()
     const FVector Feet = MonsterPawn->GetNavAgentLocation();
     const auto& Agent = GetNavAgentPropertiesRef();
     const auto* Data = Nav ? Nav->GetNavDataForProps(Agent, Feet) : nullptr;
+    if (bHillsPursuitRecovery && Data && (Data->GetConfig().AgentRadius+KINDA_SMALL_NUMBER<Agent.AgentRadius
+        || Data->GetConfig().AgentHeight+KINDA_SMALL_NUMBER<Agent.AgentHeight)) return false;
     FNavLocation Goal;
     const FVector DesiredFeet = Desired - (Position - Feet);
     const float Extent = FMath::Max(80.f, Agent.AgentRadius);
-    if (!Data || !GetWorld()->GetSubsystem<UMonsterNavigationCache>()->Project(Nav, Data, DesiredFeet, FVector(Extent, Extent, 75.f), Goal)) return false;
+    const float FloorZ=MonsterCharacter->GetCharacterMovement()->GetWalkableFloorZ();
+    // A flat 75 cm projection band rejects ordinary hills before pathfinding.
+    const float HeightExtent=bHillsPursuitRecovery
+        ? FMath::Max(75.f,Distance*FMath::Sqrt(FMath::Max(0.f,1.f-FloorZ*FloorZ))/FMath::Max(.1f,FloorZ)+40.f) : 75.f;
+    if (!Data || !GetWorld()->GetSubsystem<UMonsterNavigationCache>()->Project(Nav, Data, DesiredFeet, FVector(Extent, Extent, HeightExtent), Goal)) return false;
     const FVector HomeFeet = C->Home() - (Position - Feet);
     if (FVector::DistSquared2D(Goal.Location, HomeFeet) > FMath::Square(Radius)
-        || FMath::Abs(Goal.Location.Z - HomeFeet.Z) > 100.f
+        || (!bHillsPursuitRecovery && FMath::Abs(Goal.Location.Z - HomeFeet.Z) > 100.f)
         || FVector::DistSquared2D(Goal.Location, Feet) < FMath::Square(100.f)) return false;
+    if (const auto* Hall = Cast<AFacilityHallEncounter>(MonsterPawn->GetOwner());
+        Hall && !Hall->AllowsStaffIdleGoal(MonsterCharacter, Goal.Location)) return false;
     // One full path request establishes reachability. Do not accept a partial
     // path or issue a second random-reachable flood search for the same point.
     ++NavigationRequests;

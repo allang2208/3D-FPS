@@ -20,6 +20,8 @@ struct FRuneSwordTraceSettings
 namespace RuneSwordCombat
 {
     inline constexpr float BladeRadius=4.f;
+    TArray<FHitResult> QueryFrontSlash(UWorld* World,AActor* Owner,const FTransform& Aim,
+        float Reach,const TSet<TWeakObjectPtr<AActor>>& AlreadyHit);
     TArray<FHitResult> QuerySector(UWorld* World,AActor* Owner,const FVector& Origin,const FVector& Forward,
         float Radius,float ArcDegrees,const TSet<TWeakObjectPtr<AActor>>& AlreadyHit);
     // Forward rectangle on the ground plane, with the owner's capsule height.

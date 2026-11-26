@@ -1,4 +1,5 @@
 #include "ThunderHammerThrown.h"
+#include "../Combat/FPSAttackQuery.h"
 #include "ThunderHammerThrow.h"
 #include "ProductionToolStats.h"
 #include "../FPSGAMECharacter.h"
@@ -114,7 +115,7 @@ void AThunderHammerThrown::HitRecallSegment(const FVector& From,const FVector& T
     {RecallShot.DamagePanel={};return;}
     auto* Profile=ColdSteelAuthority::ForPawn(Pawn);if(!Profile)return;
     ColdSteelAuthority::FScope Scope(Profile);
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(ThunderHammerRecall),false,Pawn);Query.AddIgnoredActor(this);
+    FFPSAttackQuery Query(SCENE_QUERY_STAT(ThunderHammerRecall),false,Pawn);Query.AddIgnoredActor(this);
     TArray<FHitResult> Hits;
     GetWorld()->SweepMultiByObjectType(Hits,From,To,FQuat::Identity,FCollisionObjectQueryParams::AllDynamicObjects,
         FCollisionShape::MakeSphere(ThunderHammerThrow::RecallHitRadius),Query);

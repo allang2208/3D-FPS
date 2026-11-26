@@ -25,7 +25,7 @@ public:
     void Prepare(UFPSFireballComponent* Ability,APawn* Caster,const FFireballCast& Snapshot,UNiagaraSystem* CoreFX,UNiagaraSystem* TrailFX,UNiagaraSystem* ImpactFX,UMaterialInterface* WaveMaterial,USoundBase* HitSound);
     void Launch();
     /** 联机服务端入口：按客户端上报的瞄准点直接发射（等价锁定预览后 Launch）。 */
-    void LaunchAt(const FVector& AimPoint);
+    void LaunchAt(const FVector& AimPoint, const APawn* LeadTarget = nullptr);
     bool IsFlying() const { return bFlying; }
     const FFireballCast& Snapshot() const {return Cast;}
     /** Hold-to-preview: red segment from the hovering orb to its predicted contact. */
@@ -40,6 +40,7 @@ protected:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     UFUNCTION() void OnRep_Finished();
 private:
+    void LaunchFromHover(const APawn* LeadTarget);
     UPROPERTY(VisibleAnywhere) TObjectPtr<USphereComponent> Body;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UNiagaraComponent> Core;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UNiagaraComponent> Trail;

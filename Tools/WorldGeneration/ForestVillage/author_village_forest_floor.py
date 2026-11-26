@@ -89,3 +89,4 @@ def install():
     bind(master,mask)
     art.compile_mat(master)
     return [mask.get_path_name(),master.get_path_name()]
+

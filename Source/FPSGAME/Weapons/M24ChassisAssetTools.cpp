@@ -192,27 +192,17 @@ bool UM24ChassisAssetTools::SplitFactoryFront(USkeletalMesh* Mesh,const TArray<F
 #endif
 }
 
-bool UM24ChassisAssetTools::SplitFactoryRearSeat(USkeletalMesh* Mesh,const TArray<FVector>& ComponentFaceCentersCM)
-{
 #if WITH_EDITOR
-    if(!Mesh||ComponentFaceCentersCM.IsEmpty())return false;
-    for(const auto& Material:Mesh->GetMaterials())
-        if(Material.MaterialSlotName==TEXT("M24_FactoryRearSeat"))return true;
-    auto* Description=Mesh->GetMeshDescription(0);if(!Description)return false;
-    int32 FrontIndex=INDEX_NONE;
-    for(int32 I=0;I<Mesh->GetMaterials().Num();++I)
-        if(Mesh->GetMaterials()[I].MaterialSlotName==TEXT("M24_FactoryFront"))FrontIndex=I;
-    if(FrontIndex==INDEX_NONE)return false;
-    constexpr double Cell=.015;
-    auto Key=[](const FVector& P){return FIntVector(FMath::RoundToInt(P.X/Cell),FMath::RoundToInt(P.Y/Cell),FMath::RoundToInt(P.Z/Cell));};
+static bool FindFactoryFaces(FMeshDescription* Description,FName FromSlot,const TArray<FVector>& ComponentFaceCentersCM,TArray<FPolygonID>& Selected,double Cell)
+{
+    auto Key=[Cell](const FVector& P){return FIntVector(FMath::RoundToInt(P.X/Cell),FMath::RoundToInt(P.Y/Cell),FMath::RoundToInt(P.Z/Cell));};
     TMultiMap<FIntVector,FVector> Centers;
     for(const FVector& P:ComponentFaceCentersCM)Centers.Add(Key(P),P);
     FSkeletalMeshAttributes Attributes(*Description);
     const auto Positions=Attributes.GetVertexPositions();auto Slots=Attributes.GetPolygonGroupMaterialSlotNames();
-    TArray<FPolygonID> Selected;
     for(const FPolygonID Face:Description->Polygons().GetElementIDs())
     {
-        if(Slots[Description->GetPolygonPolygonGroup(Face)]!=TEXT("M24_FactoryFront"))continue;
+        if(Slots[Description->GetPolygonPolygonGroup(Face)]!=FromSlot)continue;
         const auto Instances=Description->GetPolygonVertexInstances(Face);
         FVector Center=FVector::ZeroVector;
         for(const FVertexInstanceID V:Instances)Center+=FVector(Positions[Description->GetVertexInstanceVertex(V)]);
@@ -227,8 +217,47 @@ bool UM24ChassisAssetTools::SplitFactoryRearSeat(USkeletalMesh* Mesh,const TArra
     }
     if(Selected.Num()!=ComponentFaceCentersCM.Num())
     {
-        UE_LOG(LogTemp,Error,TEXT("M24_REAR_SEAT: matched %d of %d source faces; mesh retained"),Selected.Num(),ComponentFaceCentersCM.Num());return false;
+        UE_LOG(LogTemp,Error,TEXT("Factory section %s matched %d of %d source faces"),*FromSlot.ToString(),Selected.Num(),ComponentFaceCentersCM.Num());return false;
     }
+    return true;
+}
+#endif
+
+bool UM24ChassisAssetTools::MoveFactoryFaces(USkeletalMesh* Mesh,FName FromSlot,FName ToSlot,const TArray<FVector>& ComponentFaceCentersCM)
+{
+#if WITH_EDITOR
+    if(!Mesh||FromSlot==ToSlot||ComponentFaceCentersCM.IsEmpty())return false;
+    auto* Description=Mesh->GetMeshDescription(0);if(!Description)return false;
+    const auto Slots=FSkeletalMeshAttributes(*Description).GetPolygonGroupMaterialSlotNames();
+    for(const FPolygonGroupID Group:Description->PolygonGroups().GetElementIDs())
+    {
+        if(Slots[Group]!=ToSlot)continue;
+        TArray<FPolygonID> Selected;
+        if(!FindFactoryFaces(Description,FromSlot,ComponentFaceCentersCM,Selected,.001))return false;
+        Mesh->Modify();
+        for(const FPolygonID Face:Selected)Description->SetPolygonPolygonGroup(Face,Group);
+        if(!Mesh->CommitMeshDescription(0))return false;
+        Mesh->PostEditChange();Mesh->MarkPackageDirty();
+        return true;
+    }
+#endif
+    return false;
+}
+
+bool UM24ChassisAssetTools::SplitFactoryRearSeat(USkeletalMesh* Mesh,const TArray<FVector>& ComponentFaceCentersCM)
+{
+#if WITH_EDITOR
+    if(!Mesh||ComponentFaceCentersCM.IsEmpty())return false;
+    for(const auto& Material:Mesh->GetMaterials())
+        if(Material.MaterialSlotName==TEXT("M24_FactoryRearSeat"))return true;
+    auto* Description=Mesh->GetMeshDescription(0);if(!Description)return false;
+    int32 FrontIndex=INDEX_NONE;
+    for(int32 I=0;I<Mesh->GetMaterials().Num();++I)
+        if(Mesh->GetMaterials()[I].MaterialSlotName==TEXT("M24_FactoryFront"))FrontIndex=I;
+    if(FrontIndex==INDEX_NONE)return false;
+    TArray<FPolygonID> Selected;
+    if(!FindFactoryFaces(Description,TEXT("M24_FactoryFront"),ComponentFaceCentersCM,Selected,.015))return false;
+    auto Slots=FSkeletalMeshAttributes(*Description).GetPolygonGroupMaterialSlotNames();
     Mesh->Modify();const FPolygonGroupID Group=Description->CreatePolygonGroup();Slots[Group]=TEXT("M24_FactoryRearSeat");
     auto Material=Mesh->GetMaterials()[FrontIndex];Material.MaterialSlotName=TEXT("M24_FactoryRearSeat");Material.ImportedMaterialSlotName=Material.MaterialSlotName;
     Mesh->GetMaterials().Add(Material);

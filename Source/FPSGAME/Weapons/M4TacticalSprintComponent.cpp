@@ -10,9 +10,11 @@
 #include "M16Attachments.h"
 #include "A762WeaponAssets.h"
 #include "SVDWeaponAssets.h"
+#include "M24WeaponAssets.h"
 #include "Super90WeaponAssets.h"
 #include "TubeShotgunAssets.h"
 #include "PKMLowpolyWeaponAssets.h"
+#include "M249WeaponAssets.h"
 #include "A762Attachments.h"
 #include "SVDAttachments.h"
 #include "PKMAttachments.h"
@@ -38,6 +40,23 @@ void UM4TacticalSprintComponent::Configure(ERifleSprintWeapon Weapon)
     CurrentGrip = EM4SprintGrip::Base;
     bEnabled = Weapon != ERifleSprintWeapon::None;
     if (!bEnabled || !Clips.IsEmpty()) return;
+    if(Weapon==ERifleSprintWeapon::M249)
+    {
+        for(const TCHAR* Role:{TEXT("sprint_enter"),TEXT("sprint_loop"),TEXT("sprint_exit")})
+            Clips.Add(LoadObject<UAnimSequence>(nullptr,*M249WeaponAssets::AnimationPath(Role)));
+        const auto BaseClips=Clips;
+        for(int32 Grip=1;Grip<6;++Grip) Clips.Append(BaseClips);
+        return;
+    }
+    if(Weapon==ERifleSprintWeapon::M24)
+    {
+        // Magazine length changes reload contact only. Reuse these three native
+        // sequences for every grip index, independent of the reload-only layer.
+        for(int32 Grip=0;Grip<6;++Grip)
+            for(const TCHAR* Role:{TEXT("sprint_enter"),TEXT("sprint_loop"),TEXT("sprint_exit")})
+                Clips.Add(LoadObject<UAnimSequence>(nullptr,*M24WeaponAssets::AnimationPath(Role)));
+        return;
+    }
     const auto* Shared=Character?Character->WeaponGripProfileFor(EM4SprintGrip::Angled):nullptr;
     const bool bNeedsDrum=Weapon==ERifleSprintWeapon::M4||Weapon==ERifleSprintWeapon::M16||bHK416;
     if(Shared&&(!bNeedsDrum||Character->WeaponGripProfileFor(EM4SprintGrip::Drum)))

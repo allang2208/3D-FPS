@@ -1,9 +1,13 @@
 #include "FPSBodyRifleHold.h"
+#include "FPSBodyGunAimTypes.h"
 #include "FPSBodyRifleStockContacts.h"
 #include "FPSPlayerBodyTypes.h"
 #include "../Weapons/AKMSovietCalibration.h"
 #include "../Weapons/M870WeaponAssets.h"
 #include "../Weapons/M870FurnitureAssets.h"
+#include "../Weapons/Saiga12KWeaponAssets.h"
+#include "../Weapons/Saiga12KAttachments.h"
+#include "../Weapons/M24WeaponAssets.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Math/RotationMatrix.h"
@@ -14,21 +18,15 @@ FFPSBodyRifleHold BuildFPSBodyRifleHold(USkeletalMeshComponent& Weapon,const FFP
     const auto* Asset=Weapon.GetSkeletalMeshAsset();
     if(!Asset||Definition.PoseFamily!=TEXT("Gun"))return Hold;
     const FVector* StockRoot=FPSBodyRifleStock::Find(Asset->GetPathName());
-    if(!StockRoot||!Weapon.DoesSocketExist(TEXT("WPN_root"))||!Weapon.DoesSocketExist(TEXT("WPN_FrontSight"))||!Weapon.DoesSocketExist(TEXT("WPN_RearSight")))return Hold;
+    if((!StockRoot&&!Weapon.DoesSocketExist(TEXT("WPN_StockContact")))||!Weapon.DoesSocketExist(TEXT("WPN_root"))||!Weapon.DoesSocketExist(TEXT("WPN_FrontSight"))||!Weapon.DoesSocketExist(TEXT("WPN_RearSight")))return Hold;
     const FTransform Root=Weapon.GetSocketTransform(TEXT("WPN_root"),RTS_Component);
     const bool M870=Asset->GetPathName()==M870WeaponAssets::MeshPath;
-    const bool SVCH=SVCHWeaponAssets::Matches(&Weapon);
-    // M870 inherits a shotgun root whose +Z points along the barrel. Using
-    // that as "up" projects away the sight line and leaves a downward axis.
-    // Preserve its measured complete sight frame through the current root.
-    const FVector Up=SVCH?Root.TransformVectorNoScale(SVCHWeaponAssets::SightUp).GetSafeNormal():
-        M870?Root.TransformVectorNoScale(FVector(0,-.9999901840,-.0044230472)).GetSafeNormal():
-        Root.GetRotation().GetUpVector();
-    const FVector Front=SVCH?Root.TransformPosition(SVCHWeaponAssets::FrontSight):AKMSoviet::Matches(&Weapon)?Root.TransformPosition(AKMSoviet::Front):Weapon.GetSocketTransform(TEXT("WPN_FrontSight"),RTS_Component).GetLocation();
-    const FVector Rear=SVCH?Root.TransformPosition(SVCHWeaponAssets::RearSight):AKMSoviet::Matches(&Weapon)?Root.TransformPosition(AKMSoviet::Rear):Weapon.GetSocketTransform(TEXT("WPN_RearSight"),RTS_Component).GetLocation();
-    const FVector Forward=FVector::VectorPlaneProject(Front-Rear,Up).GetSafeNormal();
-    if(Forward.IsNearlyZero())return Hold;
-    FVector Stock=Root.TransformPosition(*StockRoot);
+    const bool Saiga=Saiga12KWeaponAssets::Matches(&Weapon);
+    FTransform Sight;
+    if(!FPSBodyGunAim::SightFrame(Weapon,Sight))return Hold;
+    const FVector Forward=Sight.GetRotation().GetForwardVector();
+    const FVector Up=Sight.GetRotation().GetUpVector();
+    FVector Stock=Weapon.DoesSocketExist(TEXT("WPN_StockContact"))?Weapon.GetSocketTransform(TEXT("WPN_StockContact"),RTS_Component).GetLocation():Root.TransformPosition(*StockRoot);
     const FVector Side=FVector::CrossProduct(Up,Forward).GetSafeNormal();
     for(const auto& Part:Definition.Parts)
     {
@@ -36,7 +34,9 @@ FFPSBodyRifleHold BuildFPSBodyRifleHold(USkeletalMeshComponent& Weapon,const FFP
         // Several M870 stock recipes (skeleton, qr_performance, telescopic)
         // do not contain "Stock" in their mesh name. Use their actual recipe.
         const FString M870Part=M870&&Name.StartsWith(TEXT("SM_M870_"))?Name.RightChop(8):FString();
+        const FString SaigaPart=Saiga&&Name.StartsWith(TEXT("SM_Saiga12K_"))?Name.RightChop(12):FString();
         const bool StockPart=M870?(M870FurnitureAssets::SupportsStock(M870Part)||M870Part==TEXT("factory_stock")):
+            Saiga?(Saiga12KAttachments::SupportsStock(SaigaPart)||Name==TEXT("SM_Saiga12K_SpecialStock")):
             (Name.Contains(TEXT("Stock"))&&!Name.Contains(TEXT("Cheek")));
         if(!Part.bVisible||!StockPart)continue;
         const auto* Mesh=Part.Mesh.LoadSynchronous();if(!Mesh)continue;
@@ -56,7 +56,7 @@ FFPSBodyRifleHold BuildFPSBodyRifleHold(USkeletalMeshComponent& Weapon,const FFP
     }
     const FTransform Mount=Weapon.GetRelativeTransform();
     Hold.StockInHand=Mount.TransformPosition(Stock);
-    Hold.BarrelInHand=(Mount.GetRotation()*FRotationMatrix::MakeFromXZ(Forward,Up).ToQuat()).GetNormalized();
+    Hold.BarrelInHand=(Mount.GetRotation()*Sight.GetRotation()).GetNormalized();
     Hold.bValid=true;
     return Hold;
 }

@@ -4,6 +4,7 @@
 #include "../Weapons/PKMCarryHandleDynamics.h"
 #include "../Weapons/PKMOutgoingBeltDynamics.h"
 #include "../Weapons/LMG201BeltDynamics.h"
+#include "../Weapons/M249BeltDynamics.h"
 #include "../Weapons/FPSOutfitArmClearance.h"
 #include "FPSCastingMeshComponent.generated.h"
 
@@ -43,4 +44,5 @@ private:
     FFPSOutfitArmClearance OutfitArmClearance;
 public:
     FLMG201BeltDynamics LMG201BeltDynamics;
+    FM249BeltDynamics M249BeltDynamics;
 };

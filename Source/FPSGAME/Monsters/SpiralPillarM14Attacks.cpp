@@ -1,4 +1,5 @@
 #include "SpiralPillarM14.h"
+#include "MonsterTargeting.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "M14MucusProjectile.h"
 #include "MonsterAIController.h"
@@ -113,11 +114,11 @@ void ASpiralPillarM14::TickAttack(float Dt)
     // The existing recording includes a 1.10 s windup. Never play that prefix,
     // even if an older SoundWave is loaded. Preserve only the synchronized jet
     // tail, on the same release crossing for authority and replicated clients.
-    if(GetNetMode()!=NM_DedicatedServer&&State==EM14State::Spit&&SpitSound&&
-        StateSeconds>=SpitReleaseSeconds&&StateSeconds-Dt<SpitReleaseSeconds)
+    if(!bSpitAudioConsumed&&State==EM14State::Spit&&StateSeconds>=SpitReleaseSeconds)
     {
+        bSpitAudioConsumed=true;
         const float SourceTime=1.10f+StateSeconds-SpitReleaseSeconds;
-        if(SourceTime<SpitSound->GetDuration())
+        if(GetNetMode()!=NM_DedicatedServer&&SpitSound&&SourceTime<SpitSound->GetDuration())
             UGameplayStatics::PlaySoundAtLocation(this,SpitSound,Mouth(),1.f,1.f,SourceTime,OneShotAttenuation(2400.f));
     }
     if(!HasAuthority())return;
@@ -222,7 +223,7 @@ void ASpiralPillarM14::SweepContact()
         {
             AActor* Actor=Hit.GetActor();const auto* Component=Hit.GetComponent();
             APawn* Pawn=Cast<APawn>(Actor);
-            const bool PlayerBody=Pawn&&Pawn->IsPlayerControlled()&&Component==Pawn->GetRootComponent();
+            const bool PlayerBody=Pawn&&MonsterTargeting::IsOpponentPawn(Pawn)&&Component==Pawn->GetRootComponent();
             if(!IsValid(Actor)||!Component||(!PlayerBody&&Component->GetCollisionResponseToChannel(ECC_Visibility)!=ECR_Block))continue;
             if(PlayerBody||Actor->IsA<AFPSIceWall>())
             {

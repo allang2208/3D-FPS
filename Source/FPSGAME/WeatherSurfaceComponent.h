@@ -29,6 +29,8 @@ public:
     UWeatherSurfaceComponent();
     void Initialize(UNiagaraSystem* Splashes, UNiagaraSystem* Drips, UMaterialInterface* Material);
     void SetRain(float Value) { Rain = Value; }
+    /** First replicated sample restores history; later samples blend locally. */
+    void SetReplicatedWetness(float Value);
     float GetWetness() const { return Wetness; }
     int32 GetPatchCount() const { return Patches.Num(); }
     int32 GetValidPatchCount() const;
@@ -42,6 +44,8 @@ private:
     UPROPERTY(Transient) TObjectPtr<UMaterialInterface> SurfaceMaterial;
     float Rain = 0;
     float Wetness = 0;
+    float ReplicatedWetness = 0;
+    bool bReceivedWetness = false;
     int32 Cursor = 0;
     int32 LastTraceCount = 0;
     FVector LastFootstep = FVector::ZeroVector;

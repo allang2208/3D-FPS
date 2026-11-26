@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "Subsystems/WorldSubsystem.h"
 #include "TemperateHillsRiver.h"
+#include "TemperateForestWater.h"
 #include "TimerManager.h"
 #include "RiverPilotFXSubsystem.generated.h"
 
@@ -44,6 +45,8 @@ public:
         UMaterialInterface* Material,UNiagaraSystem* Splash);
     void UnbindRiver(ATemperateHillsWorld* River);
     UMaterialInterface* GetRiverMaterial() const;
+    void BindForestWater(ATemperateHillsWorld* River,TemperateForestWater::FPlanPtr Plan,UMaterialInterface* Material);
+    UMaterialInterface* GetForestWaterMaterial() const;
     bool TryBulletCrossing(const FVector& Start,const FVector& End,float SpeedCM);
     bool FindWaterCrossing(const FVector& Start,const FVector& End,FFluidWaterContact& Contact) const;
     bool SampleWater(const FVector& Feet,float MaxDepth,FFluidWaterContact& Contact) const;
@@ -70,6 +73,8 @@ private:
     static constexpr int32 SplashSlots=12;
     static constexpr int32 RippleSlots=8;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> WaterMID;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> ForestWaterMID;
+    TemperateForestWater::FPlanPtr ForestWaterPlan;
     UPROPERTY(Transient) TArray<TObjectPtr<UNiagaraComponent>> SplashPool;
     UPROPERTY(Transient) TArray<TObjectPtr<UNiagaraComponent>> SteamPool;
     UPROPERTY() TSoftObjectPtr<UNiagaraSystem> SteamTemplate=TSoftObjectPtr<UNiagaraSystem>(
@@ -86,6 +91,7 @@ private:
     struct FWakeSlot { TWeakObjectPtr<AActor> Owner; TWeakObjectPtr<UMaterialInstanceDynamic> Material; double Time=-100; };
     FWakeSlot Wakes[4];
     void RegisterLevelWater(ULevel* Level,UWorld* World);
+    void UnregisterLevelWater(ULevel* Level,UWorld* World);
     void PrepareSplashPool(UNiagaraSystem* Splash);
     void PrepareSteamPool();
     void EmitWater(const FFluidWaterContact& Contact,float Strength,const FVector& Flow,bool bImportant,float Spread=1.f);

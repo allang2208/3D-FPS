@@ -3,6 +3,7 @@
 #include "Components/ActorComponent.h"
 #include "../../Skills/FPSCastingMeshComponent.h"
 #include "../Staff/StaffLocomotion.h"
+#include "SpellbookHandMirror.h"
 #include "SpellbookComponent.generated.h"
 
 class UCameraComponent;
@@ -22,6 +23,7 @@ class FPSGAME_API USpellbookArmsMeshComponent : public UFPSCastingMeshComponent
     GENERATED_BODY()
 public:
     float StridePhase=0.f,MoveWeight=0.f,RunWeight=0.f,MotionTime=0.f;
+    FTransform MainBookGrip=FTransform::Identity;
     FVector CarryOffset=FVector::ZeroVector;
     virtual void FinalizeBoneTransform() override;
     void AdvancePistolSupport(float Delta,bool Equipped);
@@ -40,6 +42,7 @@ private:
     TArray<FTransform> Reference;
     TArray<FTransform> CarryKeys[65];
     TArray<int32> LeftBones,RightBones;
+    TArray<SpellbookHandMirror::FBone> MirrorBones;
     void CachePose();
     // First-person contact layer; authored actions consume this as their carry
     // destination. The world body keeps its own anatomical arm presentation.
@@ -77,7 +80,8 @@ class FPSGAME_API USpellbookComponent : public UActorComponent
     GENERATED_BODY()
 public:
     USpellbookComponent();
-    bool IsEquipped() const {return bEquipped;}
+    bool IsEquipped() const {return bEquipped&&!bMainHand;}
+    bool IsMainHandEquipped() const {return bEquipped&&bMainHand;}
     float PistolSupportFramingWeight() const {return Arms?Arms->PistolRightBlend():0.f;}
     void ApplyPistolRightArm(USkeletalMeshComponent& Gun,TArray<FTransform>& Pose) {if(Arms)Arms->ApplyPistolRightArm(Gun,Pose);}
     bool OwnsLeftHand() const;
@@ -115,7 +119,9 @@ private:
     TSharedPtr<FStreamableHandle> Load;
     FDelegateHandle EquipmentChanged;
     FStaffLocomotion Locomotion;
-    bool bEquipped=false,bEquipmentResolved=false;
+    bool bEquipped=false,bEquipmentResolved=false,bMainHand=false;
+    bool CanPresentBook() const;
+    void PlaceClosedBook();
     void RefreshEquipment();
     void ApplyAssets();
     void UpdateVisibility();
@@ -128,6 +134,7 @@ private:
     float InterruptOpenAlpha=0.f,InterruptGoldFade=0.f;
     TArray<FTransform> InterruptBookEntry,InterruptBookClosed;
     FTransform InterruptBookFrame=FTransform::Identity;
+    float FocusActionRate=1.f;
     float FocusAge=-1.f,PagePhase=0.f,PageAlpha=0.f,OpenAlpha=0.f,DetachAge=0.f;
     float CloseAge=0.f,ClosePageAlpha=0.f,ReturnStartTime=0.f,CloseBookSeconds=0.f;
     TArray<int32> PageBones;

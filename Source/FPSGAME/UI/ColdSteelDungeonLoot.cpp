@@ -10,6 +10,7 @@
 #include "Serialization/JsonSerializer.h"
 
 #include "../Dungeons/DungeonRunSubsystem.h"
+#include "../Dungeons/DungeonRoomSubsystem.h"
 #include "ColdSteelStatusModel.h"
 
 namespace
@@ -35,6 +36,8 @@ namespace
     {
         double FinalMultiplier = 3.0;
         TArray<FDungeonLootTier> Tiers;   // 按 MinDepth 升序
+        // Separate, final quantities: never multiplied by depth, route or final tier.
+        TMap<FString,TArray<FDungeonLootEntry>> Materials;
     };
 
     /** 一次性读取 Content/ColdSteelData/dungeon_loot.json（static 缓存+已读标志，与 ApplyDungeonEventBuff 同一口径，不做热重载）。 */
@@ -59,6 +62,28 @@ namespace
             UE_LOG(LogTemp, Warning, TEXT("[DungeonLoot] 战利品表 version=%g，按 version 1 口径继续解析。"), Version);
         Json->TryGetNumberField(TEXT("final_multiplier"), Table.FinalMultiplier);
         if (!(Table.FinalMultiplier > 0)) Table.FinalMultiplier = 3.0;
+
+        const TSharedPtr<FJsonObject>* Materials=nullptr;
+        if(Json->TryGetObjectField(TEXT("materials"),Materials))
+            for(const TCHAR* Kind:{TEXT("theme"),TEXT("side"),TEXT("final")})
+            {
+                const TArray<TSharedPtr<FJsonValue>>* Entries=nullptr;
+                if(!(*Materials)->TryGetArrayField(Kind,Entries))continue;
+                for(const auto& Value:*Entries)
+                {
+                    const TSharedPtr<FJsonObject>* Object=nullptr;
+                    if(!Value.IsValid()||!Value->TryGetObject(Object))continue;
+                    FDungeonLootEntry Entry;
+                    if(!(*Object)->TryGetStringField(TEXT("id"),Entry.Id))continue;
+                    (*Object)->TryGetNumberField(TEXT("chance"),Entry.Weight);
+                    Entry.Weight=FMath::Clamp(Entry.Weight,0.,1.);
+                    const TArray<TSharedPtr<FJsonValue>>* Count=nullptr;
+                    if(!(*Object)->TryGetArrayField(TEXT("count"),Count)||Count->Num()!=2)continue;
+                    Entry.CountMin=FMath::Max(1,FMath::RoundToInt32((*Count)[0]->AsNumber()));
+                    Entry.CountMax=FMath::Max(Entry.CountMin,FMath::RoundToInt32((*Count)[1]->AsNumber()));
+                    Table.Materials.FindOrAdd(Kind).Add(MoveTemp(Entry));
+                }
+            }
 
         const TArray<TSharedPtr<FJsonValue>>* Tiers = nullptr;
         if (Json->TryGetArrayField(TEXT("tiers"), Tiers))
@@ -118,6 +143,14 @@ TArray<FColdSteelDungeonLootPreview> FColdSteelDungeonLoot::PreviewItems()
             }
             Existing->bInFinalTier|=I==Table.Tiers.Num()-1;
         }
+    for(const auto& Pool:Table.Materials)for(const auto& Entry:Pool.Value)
+    {
+        if(Entry.Weight<=0.)continue;
+        auto* Existing=Result.FindByPredicate([&](const auto& Row){return Row.Definition==Entry.Id;});
+        if(!Existing){Result.Add({Entry.Id,0,false});Existing=&Result.Last();}
+        Existing->MinimumDepth=0;
+        Existing->bInFinalTier|=Pool.Key==TEXT("final");
+    }
     return Result;
 }
 
@@ -177,7 +210,7 @@ FString FColdSteelDungeonLoot::ChestStorageKey(AActor* Chest)
 {
     FChestLootContext Ctx;
     if(!ResolveChestContext(Chest,Ctx))return FString();
-    return TEXT("DungeonChest.")+Ctx.ClaimId;
+    return TEXT("DungeonChest.")+Ctx.ClaimId+(Ctx.bHubTest||!UDungeonRoomSubsystem::Supports(Chest->GetWorld())?FString():TEXT(".Run.")+Ctx.Run->RunId());
 }
 
 bool FColdSteelDungeonLoot::StoreFromChest(AActor* Chest,FString& OutContainerKey,UColdSteelStatusModel* ActingModel)
@@ -195,7 +228,7 @@ bool FColdSteelDungeonLoot::StoreFromChest(AActor* Chest,FString& OutContainerKe
         return false;
     }
     const FName Claim(*Ctx.ClaimId);
-    OutContainerKey=TEXT("DungeonChest.")+Ctx.ClaimId;
+    OutContainerKey=ChestStorageKey(Chest);
     // 重复开箱：领取标记在案即不重 roll——roll 流可复现，但重写会把弹药池条目再发一遍。
     // 测试箱（主神空间）例外：战利品已被取空＝解除标记，这次开箱重新 roll，方便反复实测。
     if(Model->HasDungeonClaim(Claim))
@@ -234,6 +267,19 @@ bool FColdSteelDungeonLoot::StoreFromChest(AActor* Chest,FString& OutContainerKe
             Slot->Value+=Count;
         else
             Loot.Emplace(Picked->Id,Count);
+    }
+    // Independent seeded stream keeps material rolls separate from ordinary supplies.
+    const FString Kind=Ctx.bFinalTreasure?TEXT("final"):
+        Ctx.Node&&Ctx.Node->bTreasure?TEXT("side"):TEXT("theme");
+    if(const auto* Materials=Table.Materials.Find(Kind))
+    {
+        FRandomStream MaterialStream=Ctx.Run->GameplayStream(DungeonRunDomains::ChestMaterials^GetTypeHash(Ctx.ClaimId));
+        for(const auto& Entry:*Materials)if(MaterialStream.FRand()<Entry.Weight)
+        {
+            const int64 Count=MaterialStream.RandRange(Entry.CountMin,Entry.CountMax);
+            if(auto* Existing=Loot.FindByPredicate([&](const auto& Row){return Row.Key==Entry.Id;}))Existing->Value+=Count;
+            else Loot.Emplace(Entry.Id,Count);
+        }
     }
     if(Loot.IsEmpty())return false;
     // 一页仓库面板；不再直接进背包、不再播报——面板与取出交互由仓库规则承担。

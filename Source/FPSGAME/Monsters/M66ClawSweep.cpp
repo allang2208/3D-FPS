@@ -1,4 +1,5 @@
 #include "M66IncineratorMonster.h"
+#include "MonsterTargeting.h"
 #include "M66SweepTiming.h"
 #include "M66SlamTiming.h"
 #include "M66BreathTiming.h"
@@ -38,7 +39,7 @@ bool AM66IncineratorMonster::DesiredCombatFacing(float& Yaw) const
 bool AM66IncineratorMonster::CanAttack(APawn* Victim) const
 {
     if(Busy()||ActionClock()<NextAttackAt||!GetCharacterMovement()->IsMovingOnGround()
-        ||!IsValid(Victim)||!Victim->IsPlayerControlled())return false;
+        ||!IsValid(Victim)||!MonsterTargeting::IsOpponentPawn(Victim))return false;
     if(Status&&(Status->IsFrozen()||Status->IsPetrified()||Status->IsStunned()))return false;
     const auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
     if(Vitals&&Vitals->IsDead())return false;
@@ -173,14 +174,14 @@ void AM66IncineratorMonster::SweepContact(int32 FrameIndex)
         for(const auto& Hit:Hits)
         {
             if(!IsSweeping()||IsActorBeingDestroyed())return;
-            AActor* Victim=Hit.GetActor();APawn* Player=Cast<APawn>(Victim);
+            AActor* Victim=MonsterTargeting::DamageRecipient(Hit.GetActor());APawn* Player=Cast<APawn>(Victim);
             if(!IsValid(Victim)||SweepVictims.Contains(Victim)||
-                (!(Player&&Player->IsPlayerControlled()&&Hit.GetComponent()==Player->GetRootComponent())&&!Victim->IsA<AFPSIceWall>()))continue;
+                (!(Player&&MonsterTargeting::IsOpponentPawn(Player)&&Hit.GetComponent()==Hit.GetActor()->GetRootComponent())&&!Victim->IsA<AFPSIceWall>()))continue;
             const auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
             if(Vitals&&(Vitals->IsDead()||Vitals->IsInvulnerable()))continue;
             FHitResult Block;
             const FVector Sight=GetNavAgentLocation()+FVector(0,0,110);
-            if(GetWorld()->LineTraceSingleByChannel(Block,Sight,Hit.ImpactPoint,ECC_Visibility,Query)&&Block.GetActor()!=Victim)continue;
+            if(GetWorld()->LineTraceSingleByChannel(Block,Sight,Hit.ImpactPoint,ECC_Visibility,Query)&&MonsterTargeting::DamageRecipient(Block.GetActor())!=Victim)continue;
             SweepVictims.Add(Victim);
             const FVector Direction=(To-From).GetSafeNormal();
             const float Applied=UGameplayStatics::ApplyPointDamage(Victim,Damage,Direction.IsNearlyZero()?GetActorForwardVector():Direction,

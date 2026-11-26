@@ -1,5 +1,6 @@
 #include "ColdSteelPickup.h"
 #include "../Items/PotionVisuals.h"
+#include "../Items/CampfireFoodCatalog.h"
 #include "../Items/SpoiledFoodVisuals.h"
 #include "../Weapons/MeleeRuneVisual.h"
 #include "../Weapons/MeleeGuardAssets.h"
@@ -14,6 +15,45 @@
 bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
 {
     const FString& Id=Item.Definition;
+    static const TSet<FString> WildlifeTrophies = {
+        TEXT("deer_hide"), TEXT("boar_hide"), TEXT("fox_pelt"), TEXT("wolf_pelt"),
+        TEXT("deer_antler"), TEXT("boar_tusk"), TEXT("crow_feather")
+    };
+    if (WildlifeTrophies.Contains(Id))
+    {
+        FString Path = ColdSteelInventory::Text(Item, TEXT("world_mesh"));
+        if (Path.IsEmpty()) Path = FString::Printf(TEXT("/Game/Monsters/Wildlife/Trophies/SM_%s.SM_%s"), *Id, *Id);
+        auto* Asset = LoadObject<UStaticMesh>(nullptr, *Path);
+        if (!Asset) return false;
+        const auto Bounds = Asset->GetBounds();
+        Mesh->SetStaticMesh(Asset);
+        Mesh->SetRelativeScale3D(FVector::OneVector);
+        Mesh->SetRelativeLocation(-Bounds.Origin);
+        Body->SetBoxExtent(Bounds.BoxExtent.ComponentMax(FVector(1.5f)));
+        return true;
+    }
+    // Resolve harvest appearance by definition, including old saved inventory/drops
+    // whose instance snapshot predates the catalog world_mesh fields.
+    const TCHAR* HarvestCrop=Id==TEXT("tomato")?TEXT("Tomato"):
+        Id==TEXT("potato")?TEXT("Potato"):Id==TEXT("carrot")?TEXT("Carrot"):
+        Id==TEXT("wheat")?TEXT("Wheat"):nullptr;
+    if(HarvestCrop)
+    {
+        const FString Path=FString::Printf(TEXT("/Game/Items/CropHarvest20261111/Meshes/SM_Harvest_%s.SM_Harvest_%s"),HarvestCrop,HarvestCrop);
+        auto* Asset=LoadObject<UStaticMesh>(nullptr,*Path);
+        if(!Asset)
+        {
+            UE_LOG(LogTemp,Warning,TEXT("HarvestPickup: missing %s"),*Path);
+            return false;
+        }
+        const auto Bounds=Asset->GetBounds();
+        Mesh->EmptyOverrideMaterials();Mesh->SetStaticMesh(Asset);
+        Mesh->SetRelativeScale3D(FVector(1));
+        Mesh->SetRelativeRotation(FRotator::ZeroRotator);
+        Mesh->SetRelativeLocation(-Bounds.Origin);
+        Body->SetBoxExtent(Bounds.BoxExtent.ComponentMax(FVector(1.f)));
+        return true;
+    }
     if(Id==TEXT("spoiled_food"))
     {
         auto* Asset=LoadObject<UStaticMesh>(nullptr,SpoiledFoodVisuals::Mesh);
@@ -41,7 +81,7 @@ bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
     {
         return BuildStaff(Item);
     }
-    if(ColdSteelInventory::Text(Item,TEXT("category"))==TEXT("equipment"))
+    if(ColdSteelInventory::Text(Item,TEXT("category"))==TEXT("equipment")||ColdSteelInventory::Text(Item,TEXT("category"))==TEXT("magic_book"))
     {
         const FString Path=ColdSteelInventory::Text(Item,TEXT("world_mesh"));
         if(auto* Asset=Path.IsEmpty()?nullptr:LoadObject<UStaticMesh>(nullptr,*Path))
@@ -89,7 +129,10 @@ bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
     const bool bIncinerationCollectible=Id==TEXT("search_sealed_respirator_filter")||Id==TEXT("search_refractory_ceramic_module")||
         Id==TEXT("search_high_temperature_thermocouple")||Id==TEXT("search_industrial_filter_cartridge")||
         Id==TEXT("search_sealed_incineration_archive")||Id==TEXT("search_flue_gas_catalytic_core");
-    if(Id==TEXT("baguette_bread")||Id==TEXT("bread")||Id==TEXT("soda_can")||bDocumentCollectible||bMaintenanceCollectible||bServerCollectible||bAlchemyMaterial||bIncinerationCollectible)
+    const bool bLivingCollectible=Id==TEXT("search_private_perfume")||Id==TEXT("search_business_laptop")||
+        Id==TEXT("search_portable_music_player")||Id==TEXT("search_compact_camera");
+    const bool bWoodCore=Id.StartsWith(TEXT("wood_core_"));
+    if(Id==TEXT("baguette_bread")||Id==TEXT("bread")||Id==TEXT("soda_can")||CampfireFood::Contains(Id)||bDocumentCollectible||bMaintenanceCollectible||bServerCollectible||bAlchemyMaterial||bIncinerationCollectible||bLivingCollectible||bWoodCore)
     {
         auto* Asset=LoadObject<UStaticMesh>(nullptr,*ColdSteelInventory::Text(Item,TEXT("world_mesh")));
         if(!Asset)return false;

@@ -5,8 +5,11 @@
 ## 剑身与握柄
 
 - 处刑剑身的刃根较宽，自护手向上渐窄，前端尖锋的模型坐标约为 Z 104.95 cm。更换护手时保留选中的翼形。枪匠预览、第一人称和旁观模型按照当前护手的 `mesh_by_blade.executioner_blade` 选择接口，四款护手均有独立的收口网格。握位、战斗追踪端点与视觉剑尖分别登记。
+- 剑座上端的外露钢面与护翼共用护手网格的材质槽。四款护手及处刑适配件都绑定锻钢公共材质，装配时对护手设置 `BladeFinishGuardRoot`。普通和旋风材质共用 `GuardSeatFinish/seat_profile.py` 的盾饰边界，大马士革纹在接缝处共用剑体坐标和实例种子。原厂底色与金属粗糙度图集沿同一轮廓烘焙。
 - 保留厂件材质槽名称、原厂 UV 和钢材纹理。皮革、钢脊和编织握区分别检查实际网格槽及纹理来源。预览中的发白也可能来自预览灯光，查看实装握柄和改造台相机两个入口。
 - 五张原厂卡对应剑身、护手、握柄、配重和剑身材质。用 `CommonMods/prepare_stock_icons.py` 复用批准的 `SourceAssets/FirearmFramedIcons20260930/muzzle_brake_framed_v2.png` 原尺寸 1254 × 1254 RGBA 边框，只更换椭圆内的部件画面。分类图和当前原厂选项共十个入口，制作时一起更新 PNG 与 Texture2D。用户要求核查边框时，可在原分辨率比较椭圆外的颜色及透明度，再从 UE 读回对应纹理。
+- 锻钢剑五款改造握把由 `GripFinish/install_assets.py` 保存到 `/Game/Weapons/ForgedSteelGreatsword20261120/GripFinish`。网格沿用原槽名，实际绑定为锻钢专用棕皮、金属和织带；装配覆盖从该批 `Art/import_receipt.json` 读取各网格的真实槽位。专属表面保留共享 Substrate 图与 Nanite 用法，贴图从 `GripFinish/author_textures.py` 重建。原厂握把及改造件两端沿用锻钢 V1 图集。
+- 镂空、处刑、环链和鱼尾的四张专属卡以 `CommonMods/exclusive_cards.json` 对应实物。用 `author_icons.py` 生成轮廓参考到 `IconReferences/`，将金属框定稿保存在 `IconMasters/`，运行 `prepare_stock_icons.py --exclusive`，再由 `install_stock_icons.py` 中的 `install_exclusive_icons()` 同步四个专属 PNG 与同名 UI 纹理包。通用改造沿用共享卡。
 
 ## 左键输入和范围
 

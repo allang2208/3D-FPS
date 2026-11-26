@@ -1,4 +1,6 @@
 #include "M10Mawcrawler.h"
+#include "MonsterTargeting.h"
+#include "MonsterDamageBalance.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "M10HowlDamage.h"
 #include "MonsterAIController.h"
@@ -38,14 +40,15 @@ bool AM10Mawcrawler::CanHowl(APawn* Victim) const
 void AM10Mawcrawler::DealHowl()
 {
     if(!HasAuthority()||Dead()||State!=EM10State::Howl)return;
-    for(FConstPlayerControllerIterator It=GetWorld()->GetPlayerControllerIterator();It;++It)
+    TArray<APawn*> Victims;
+    MonsterTargeting::GatherAreaOpponents(GetWorld(),Mouth(),HowlRange+200.f,Victims);
+    for(APawn* Victim:Victims)
     {
-        APawn* Victim=It->Get()?It->Get()->GetPawn():nullptr;
-        const auto* HealthComponent=Victim?Victim->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
-        if(!HealthComponent||HealthComponent->IsDead()||!IsInHowlSector(Victim))continue;
+        const auto* HealthComponent=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
+        if((HealthComponent?HealthComponent->IsDead():!MonsterTargeting::IsActiveArtisan(Victim))||!IsInHowlSector(Victim))continue;
         // SAN/cripple are committed by the health component only after this hit
         // survives dodge, invulnerability and the normal magic defense chain.
-        UGameplayStatics::ApplyDamage(Victim,HowlDamagePerTick,GetController(),this,UM10HowlDamage::StaticClass());
+        UGameplayStatics::ApplyDamage(Victim,MonsterDamageBalance::Limit(HowlDamagePerTick*.55f,20.f),GetController(),this,UM10HowlDamage::StaticClass());
         if(State!=EM10State::Howl||Dead())return;
     }
 }

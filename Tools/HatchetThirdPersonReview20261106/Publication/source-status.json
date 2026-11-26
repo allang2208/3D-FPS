@@ -1,0 +1,104 @@
+[
+  {
+    "path": "Source/FPSGAME/Characters/FPSBodyKukriMotion.h",
+    "status": "M Source/FPSGAME/Characters/FPSBodyKukriMotion.h",
+    "staged": "",
+    "unstaged": "25\t5\tSource/FPSGAME/Characters/FPSBodyKukriMotion.h"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+    "status": "M Source/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp",
+    "staged": "",
+    "unstaged": "1294\t105\tSource/FPSGAME/Characters/FPSPlayerBodyAnimInstance.cpp"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSBodySwordPose.inl",
+    "status": "M Source/FPSGAME/Characters/FPSBodySwordPose.inl",
+    "staged": "",
+    "unstaged": "120\t4\tSource/FPSGAME/Characters/FPSBodySwordPose.inl"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "status": "M Source/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp",
+    "staged": "",
+    "unstaged": "236\t19\tSource/FPSGAME/Characters/FPSPlayerBodyEquipment.cpp"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyKukri.cpp",
+    "status": "M Source/FPSGAME/Characters/FPSPlayerBodyKukri.cpp",
+    "staged": "",
+    "unstaged": "29\t3\tSource/FPSGAME/Characters/FPSPlayerBodyKukri.cpp"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+    "status": "M Source/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp",
+    "staged": "",
+    "unstaged": "47\t7\tSource/FPSGAME/Characters/FPSPlayerBodyNetwork.cpp"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+    "status": "M Source/FPSGAME/Characters/FPSPlayerBodyComponent.h",
+    "staged": "",
+    "unstaged": "66\t3\tSource/FPSGAME/Characters/FPSPlayerBodyComponent.h"
+  },
+  {
+    "path": "Source/FPSGAME/Characters/FPSBodyKukriRifts.cpp",
+    "status": "M Source/FPSGAME/Characters/FPSBodyKukriRifts.cpp",
+    "staged": "",
+    "unstaged": "22\t3\tSource/FPSGAME/Characters/FPSBodyKukriRifts.cpp"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/HatchetHeavyChopRhythm.h",
+    "status": "?? Source/FPSGAME/Weapons/Kukri/HatchetHeavyChopRhythm.h",
+    "staged": "",
+    "unstaged": ""
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+    "status": "M Source/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp",
+    "staged": "",
+    "unstaged": "285\t81\tSource/FPSGAME/Weapons/Kukri/KukriWeaponComponent.cpp"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp",
+    "status": "M Source/FPSGAME/Weapons/Kukri/KukriHeavy.cpp",
+    "staged": "",
+    "unstaged": "145\t34\tSource/FPSGAME/Weapons/Kukri/KukriHeavy.cpp"
+  },
+  {
+    "path": "Source/FPSGAME/Weapons/Kukri/KukriEnchantment.h",
+    "status": "?? Source/FPSGAME/Weapons/Kukri/KukriEnchantment.h",
+    "staged": "",
+    "unstaged": ""
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/ColdSteelKukriAuthority.cpp",
+    "status": "M Source/FPSGAME/Multiplayer/ColdSteelKukriAuthority.cpp",
+    "staged": "",
+    "unstaged": "33\t13\tSource/FPSGAME/Multiplayer/ColdSteelKukriAuthority.cpp"
+  },
+  {
+    "path": "Source/FPSGAME/Multiplayer/KukriRuneAuditCases.cpp",
+    "status": "M Source/FPSGAME/Multiplayer/KukriRuneAuditCases.cpp",
+    "staged": "",
+    "unstaged": "14\t11\tSource/FPSGAME/Multiplayer/KukriRuneAuditCases.cpp"
+  },
+  {
+    "path": "Source/FPSGAME/Development/KukriCombatWireAudit.cpp",
+    "status": "M Source/FPSGAME/Development/KukriCombatWireAudit.cpp",
+    "staged": "",
+    "unstaged": "173\t21\tSource/FPSGAME/Development/KukriCombatWireAudit.cpp"
+  },
+  {
+    "path": "Source/FPSGAME/Development/KukriRuneWireAudit.cpp",
+    "status": "M Source/FPSGAME/Development/KukriRuneWireAudit.cpp",
+    "staged": "",
+    "unstaged": "5\t5\tSource/FPSGAME/Development/KukriRuneWireAudit.cpp"
+  },
+  {
+    "path": "Source/FPSGAME/Development/KukriEnchantAuditFixture.h",
+    "status": "?? Source/FPSGAME/Development/KukriEnchantAuditFixture.h",
+    "staged": "",
+    "unstaged": ""
+  }
+]

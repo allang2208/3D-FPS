@@ -54,3 +54,4 @@ def projection(folder, slug, x0=-8, x1=8, z0=162.5, z1=173.5, scale=77, annotate
             py=int((z1-z)*scale);draw.line((0,py,12,py),fill=(0,255,0));draw.text((12,py),str(z),fill='white')
     im.save(OUT/(slug+'.png'))
 if __name__=='__main__':projection(OLD,'eye_landmarks',annotate=True)
+

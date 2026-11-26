@@ -72,22 +72,31 @@ struct FDualPistolHand
     TSet<FString> PlayedCues;
     UPROPERTY(Transient) TMap<FName,TObjectPtr<class UWeaponGripProfile>> PoseProfiles;
     FName ActionPoseProfile;
+    FName LoneGripFamily;
     // Per-instance capability/mode; refreshed only when that hand's item changes.
     bool SelectableAutomatic=false, Automatic=false;
 };
 
-/** Pistol pair or staff/offhand pistol; each active hand owns its trigger, ammo and action clock. */
+/** Pistol pair or staff/blade + offhand pistol; each gun owns its trigger, ammo and action clock. */
 UCLASS()
 class FPSGAME_API UPistolDualWieldComponent : public UActorComponent
 {
     GENERATED_BODY()
     friend class FDualPistolQuickCombatRegression;
     friend class UFPSConsumableAuditCommandlet;
+    friend class UShotgunAttachmentAuditCommandlet;
+    friend class AShotgunWireAuditController;
 public:
     UPistolDualWieldComponent();
     bool IsActive() const { return bActive; }
     bool IsPair() const { return bActive && !bOffhandOnly; }
     bool IsOffhandOnly() const { return bActive && bOffhandOnly; }
+    bool IsMeleePair() const { return bActive && bMeleePrimary; }
+    bool IsMeleePairBlocked() const;
+    // Restore an existing reload request after the main blade's priority interrupt.
+    void QueueMeleeReload(const FString& AmmoType);
+    void RestoreMeleeTrigger(bool Held,bool Pending);
+    bool IsTwoHandedLone() const { return bActive && bTwoHandedLone; }
     bool HasHeldTrigger() const { return bActive && ((!bOffhandOnly && Hands[0].Held) || Hands[1].Held); }
     bool IsReloading() const { return bActive && ((!bOffhandOnly && Hands[0].Reloading) || Hands[1].Reloading); }
     bool IsEquipping() const;
@@ -111,9 +120,13 @@ public:
     // cone that both hands shoot and the reticle displays. Identical pistols
     // average to their own value, leaving those loadouts unchanged.
     float SharedConeSpread() const;
+    FVector LoneAimDirection() const;
+    class UStaticMeshComponent* LonePhysicalOptic() const;
     void Deactivate();
     // The character ends the old loadout before applying the new equipment data.
     void RefreshEquipment(UColdSteelStatusModel* Model);
+    void RefreshNetworkAmmo(UColdSteelStatusModel* Model);
+    void FinishNetworkReload(const FString& Instance);
     void Advance(float Delta);
     void Trigger(int32 Index,bool Pressed);
     void Reload();
@@ -134,11 +147,29 @@ private:
     UPROPERTY(Transient) TArray<TObjectPtr<class USceneComponent>> LeftAttachments;
     bool bActive=false;
     bool bOffhandOnly=false;
+    bool bMeleePrimary=false;
+    float MeleeAvoidance=0.f;
+    UPROPERTY(Transient) TObjectPtr<UAnimSequence> MeleeReleaseClip;
+    UPROPERTY(Transient) TObjectPtr<class UWeaponGripProfile> MeleeReleaseGrip;
+    float MeleeReleaseTime=0.f,MeleeReleaseAlpha=0.f,MeleeReleaseAge=0.f;
+    bool MainMeleeBusy() const;
+    void AdvanceMeleePair(float Delta);
+    void CaptureMeleeReleasePose(int32 Index);
+    void ApplyMeleeReleasePose(int32 Index);
+    void ApplyMeleePairPose(int32 Index,FVector& Offset,FQuat& Rotation) const;
+    bool bTwoHandedLone=false;
     FString MainHandInstance;
     int32 FirstHand() const { return bOffhandOnly ? 1 : 0; }
     float Clock=0, Phase=0, SprintPhase=0;
     float AimInverseDistance=1.f/1200.f;
     FVector AimTargetWorld=FVector::ZeroVector;
+    // Attachment identity is cached; the graph reads the evaluated sight frame.
+    bool bLoneSightCalibrated=false;
+    TWeakObjectPtr<USceneComponent> LeftOptic;
+    FVector LeftOpticRear=FVector::ZeroVector;
+    FVector LeftOpticFront=FVector::ForwardVector;
+    FVector LeftOpticUp=FVector::UpVector;
+    void ConfigureLoneSight();
     void UpdateAimTarget(float Delta);
     FVector SightDirection() const;
     void LoadHand(int32 Index,const FColdSteelItem& Item);
@@ -151,7 +182,7 @@ private:
     bool CommitReloadInsertion(int32 Index,int32 Count,bool Completed);
     bool CompleteReloadMechanism(int32 Index,float Source);
     void TryFire(int32 Index);
-    void StopAction(int32 Index);
+    void StopAction(int32 Index,bool NetworkCancel=true);
     void Cue(int32 Index,const FString& Name,float At,float Previous,float Now);
     void Pose(int32 Index,float Delta);
     bool InputAvailable() const;

@@ -1,0 +1,29 @@
+﻿{
+    "pid":  55064,
+    "arguments":  [
+                      "\"D:\\FPS3D\\FPSGAME\\FPSGAME.uproject\"",
+                      "\"/Engine/Maps/Entry?game=/Script/FPSGAME.KukriCombatWireGameMode\"",
+                      "-game",
+                      "-nosound",
+                      "-unattended",
+                      "-nosplash",
+                      "-NoLiveCoding",
+                      "-AssetGatherAll=false",
+                      "-KukriCombatWireAudit",
+                      "-HatchetCombatWireAudit",
+                      "-KukriHeavyNetTrace",
+                      "-ini:Engine:[/Script/PythonScriptPlugin.PythonScriptPluginSettings]:bRemoteExecution=False",
+                      "-KukriRiftTrace",
+                      "-ColdSteelProfile=KukriWireAudit_20261104-161150_host",
+                      "-KukriProfileId=c7f47ddf-f09d-45fb-9d42-3475642beeaa",
+                      "-KukriWireHead=jason",
+                      "-port=19937",
+                      "-UserDir=\"D:/FPS3D/FPSGAME/Tools/HatchetAudit20261104/Dedicated-20261104-161150/host/\"",
+                      "-KukriWireOutput=\"D:\\FPS3D\\FPSGAME\\Tools\\HatchetAudit20261104\\Dedicated-20261104-161150\\host.json\"",
+                      "-abslog=\"D:\\FPS3D\\FPSGAME\\Tools\\HatchetAudit20261104\\Dedicated-20261104-161150\\host.log\"",
+                      "-ExecCmds=\"t.MaxFPS 30\"",
+                      "-server",
+                      "-nullrhi"
+                  ],
+    "role":  "host"
+}

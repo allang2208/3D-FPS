@@ -2,6 +2,7 @@
 #include "BoundCongregate.h"
 #include "FPSCombatHealthComponent.h"
 #include "../Combat/CombatStatusFormula.h"
+#include "../Combat/CombatControlImmunity.h"
 #include "../Skills/FPSFireballComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../UI/StatusEffectsComponent.h"
@@ -61,8 +62,7 @@ bool UBoundCongregateCaptureComponent::Capture(ABoundCongregate* Captor)
     auto* Victim=Cast<ACharacter>(GetOwner());
     if(!Victim||!Victim->HasAuthority()||!Captor||IsValid(Source))return false;
     const auto* Health=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
-    const auto* Status=Victim->FindComponentByClass<UCombatStatusFormula>();
-    if((Health&&(Health->IsDead()||Health->IsInvulnerable()))||(Status&&Status->IsImmune()))return false;
+    if((Health&&(Health->IsDead()||Health->IsInvulnerable()))||CombatControl::IsImmune(Victim))return false;
     EscapeHits=0;NextEscapeContact=0.;Source=Captor;ApplyControl();Victim->ForceNetUpdate();return true;
 }
 void UBoundCongregateCaptureComponent::Release(ABoundCongregate* Captor)

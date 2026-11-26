@@ -132,3 +132,5 @@ def render(mode):
 
 if __name__=="__main__":
     render(sys.argv[sys.argv.index('--')+1] if '--' in sys.argv else 'hero')
+
+

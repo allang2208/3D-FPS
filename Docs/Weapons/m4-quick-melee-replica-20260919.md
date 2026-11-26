@@ -6,7 +6,7 @@
 
 ## 参考和主要修改
 
-参考：[BV13K421e7Rw](https://www.bilibili.com/video/BV13K421e7Rw/) 1:05–1:07；本机原片 `D:/FPS3D/test/uzi_ref/uzi_ref.mp4`。
+参考：[BV13K421e7Rw](https://www.bilibili.com/video/BV13K421e7Rw/) 1:05–1:07；本机原片 [uzi_ref.mp4](../../SourceAssets/RifleStockMelee20260918/Reference/Video/uzi_ref.mp4)。
 
 按原生 30 fps 重读 66.266667–67.166667 s：枪托从右上向画面中部送出，接触时枪口仍朝左下。旧 H 的枪口左到右大幅回旋不符合这段参考。本轮制作独立 I 版：快速横入、枪托送出、短暂受力停留、收回低持。
 

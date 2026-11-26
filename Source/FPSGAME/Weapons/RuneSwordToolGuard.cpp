@@ -1,4 +1,6 @@
 #include "RuneSwordComponent.h"
+#include "../Weapons/PojunGrip.h"
+#include "../Skills/LightningHasteSpeed.h"
 #include "../Production/ProductionToolComponent.h"
 #include "../Production/WarhammerGuardMotion.h"
 #include "../FPSGAMECharacter.h"
@@ -10,13 +12,13 @@ const FColdSteelItem* URuneSwordComponent::GuardItem(const UColdSteelStatusModel
 {
     if(!Profile)return nullptr;
     const auto* Tool=Profile->ActiveProductionTool();
-    return Tool&&ColdSteelInventory::IsTwoHandedBlunt(*Tool)?Tool:Profile->Equipped();
+    return Tool&&PojunGrip::UsesHammerMotion(*Tool)?Tool:Profile->Equipped();
 }
 
 void URuneSwordComponent::RefreshToolGuardEquipment(UColdSteelStatusModel* Profile)
 {
     const auto* Item=GuardItem(Profile);
-    const FString Next=Item&&ColdSteelInventory::IsTwoHandedBlunt(*Item)?Item->InstanceId:FString();
+    const FString Next=Item&&PojunGrip::UsesHammerMotion(*Item)?Item->InstanceId:FString();
     if(Next!=ToolGuardInstance){ClearGuard();ToolGuardInstance=Next;}
     if(!Next.IsEmpty())ToolGuardModifiers=ColdSteelMelee::Evaluate(*Item,Profile).Modifiers;
 }
@@ -60,7 +62,7 @@ void URuneSwordComponent::AdvanceToolGuard(float Delta)
     }
     if(bGuarding)
     {
-        ToolGuardAge+=Delta;
+        ToolGuardAge+=Delta*LightningHaste::ActionSpeed(GetOwner());
         if(ToolGuardClip==TEXT("GuardEnter"))
         {
             GuardPoseTime=FMath::Min(WarhammerGuard::EnterSeconds,ToolGuardAge);
@@ -73,12 +75,12 @@ void URuneSwordComponent::AdvanceToolGuard(float Delta)
     {
         if(ToolGuardClip==TEXT("GuardEnter"))
         {
-            ToolGuardAge=FMath::Max(0.f,ToolGuardAge-Delta*WarhammerGuard::EnterSeconds/WarhammerGuard::ExitSeconds);
+            ToolGuardAge=FMath::Max(0.f,ToolGuardAge-Delta*LightningHaste::ActionSpeed(GetOwner())*WarhammerGuard::EnterSeconds/WarhammerGuard::ExitSeconds);
             GuardPoseTime=ToolGuardAge;
             if(ToolGuardAge<=0.f){bReturningGuard=false;ToolGuardClip=NAME_None;}
             return;
         }
-        ToolGuardAge=FMath::Min(WarhammerGuard::ExitSeconds,ToolGuardAge+Delta);
+        ToolGuardAge=FMath::Min(WarhammerGuard::ExitSeconds,ToolGuardAge+Delta*LightningHaste::ActionSpeed(GetOwner()));
         GuardPoseTime=WarhammerGuard::EnterSeconds*(1.f-ToolGuardAge/WarhammerGuard::ExitSeconds);
         if(ToolGuardAge>=WarhammerGuard::ExitSeconds){bReturningGuard=false;ToolGuardClip=NAME_None;}
     }

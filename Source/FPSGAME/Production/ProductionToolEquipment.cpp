@@ -1,0 +1,406 @@
+#include "ProductionToolComponent.h"
+#include "../Weapons/PojunGrip.h"
+#include "../Weapons/BeiweiSwordTrailComponent.h"
+#include "../Weapons/MeleeRuneVisual.h"
+#include "../Weapons/FrostSwordRunes.h"
+#include "../Movement/FPSCharacterMovementComponent.h"
+#include "../Skills/LightningHasteSpeed.h"
+#include "WarhammerCombat.h"
+#include "WarhammerAudioPaths.h"
+#include "WarhammerQuickCombatMotion.h"
+#include "WarhammerConicalThrustMotion.h"
+#include "ConicalHammerSeat.h"
+#include "../Skills/LeapStrikeMotion.h"
+#include "../Skills/MeteorAssets.h"
+#include "WarhammerGuardMotion.h"
+#include "../Skills/FPSQuickCombatComponent.h"
+#include "ProductionBluntCombo.h"
+#include "WarhammerUppercutMotion.h"
+#include "WarhammerHeavyMotion.h"
+#include "ThunderHammerTuning.h"
+#include "ThunderHammerZhenTing.h"
+#include "ThunderHammerStaticField.h"
+#include "ThunderHammerCoil.h"
+#include "ThunderHammerPommel.h"
+#include "ThunderHammerThrown.h"
+#include "ThunderHammerRecallAudio.h"
+#include "Components/LineBatchComponent.h"
+#include "Components/DecalComponent.h"
+#include "../Skills/FPSMagicPreview.h"
+#include "RuneboundHammerTuning.h"
+#include "ProductionToolMeshComponent.h"
+#include "WarhammerHeadMarker.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
+#include "../Multiplayer/ColdSteelGenericMelee.h"
+#include "../Dungeons/WardBreakableGlass.h"
+#include "ProductionToolAppearance.h"
+#include "../Characters/FPSPlayerBodyComponent.h"
+#include "ProductionPickaxeImpactMotion.h"
+#include "../Skills/FPSCastingMeshComponent.h"
+#include "../Weapons/RuneSwordMeshComponent.h"
+#include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/WeaponGripProfile.h"
+#include "../Skills/ColdSteelSkillRules.h"
+#include "../Weapons/WeaponStatEvaluation.h"
+#include "../Weapons/ModularSwordVisual.h"
+#include "Rendering/SkeletalMeshRenderData.h"
+#include "ProductionHarvestSubsystem.h"
+#include "ProductionTreeHealth.h"
+#include "../FPSGAMECharacter.h"
+#include "../FPSGAMEPlayerController.h"
+#include "../UI/ColdSteelStatusModel.h"
+#include "../UI/ColdSteelPickup.h"
+#include "../Building/VoxelBuildComponent.h"
+#include "../Monsters/FPSCombatHealthComponent.h"
+#include "../WorldGeneration/TemperateHillsWorld.h"
+#include "HAL/IConsoleManager.h"
+#include "Camera/CameraComponent.h"
+#include "Animation/AnimSequence.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
+#include "Engine/StaticMesh.h"
+#include "Engine/SkeletalMesh.h"
+#include "Engine/GameInstance.h"
+#include "Engine/World.h"
+#include "EngineUtils.h"
+#include "GameFramework/PlayerController.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Kismet/GameplayStatics.h"
+#include "Misc/PackageName.h"
+#include "Particles/ParticleSystem.h"
+#include "Sound/SoundBase.h"
+#include "Components/AudioComponent.h"
+
+#include "ProductionToolEquipmentPrivate.h"
+using namespace ProductionToolEquipmentPrivate;
+
+namespace
+{
+    const FSoftObjectPath WarhammerWhirlwindPath(TEXT("/Game/Weapons/SteelWarhammer20261014/WhirlwindV1/A_Warhammer_Whirlwind.A_Warhammer_Whirlwind"));
+    const FSoftObjectPath WarhammerUppercutPath(TEXT("/Game/Weapons/SteelWarhammer20261014/UppercutV1/A_Warhammer_Uppercut.A_Warhammer_Uppercut"));
+    const FSoftObjectPath WarhammerInspectPath(TEXT("/Game/Weapons/SteelWarhammer20261014/InspectV1/A_Warhammer_Inspect.A_Warhammer_Inspect"));
+    const FSoftObjectPath WarhammerInspectWalkPath(TEXT("/Game/Weapons/SteelWarhammer20261014/InspectV1/A_Warhammer_InspectWalk.A_Warhammer_InspectWalk"));
+    const FSoftObjectPath WarhammerWhirlwindFocusPath(TEXT("/Game/Skills/Whirlwind20260920/M_WhirlwindFocus.M_WhirlwindFocus"));
+    FSoftObjectPath HarvestMotionPath(const FString& Prefix,const TCHAR* Clip)
+    {
+        const FString Package=Prefix+Clip;
+        return FSoftObjectPath(Package+TEXT(".")+FPackageName::GetLongPackageAssetName(Package));
+    }
+}
+
+void UProductionToolComponent::InitializeLocalTool()
+{
+    if(Pivot)return;
+    auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner()); Character=Pawn;
+    auto* World=GetWorld();
+    auto* GameInstance=World?World->GetGameInstance():nullptr;
+    // Preview worlds also report standalone. They have no player inventory and
+    // can receive BeginPlay while a different world's pawn is being spawned.
+    if (!Pawn || !GameInstance || (World->WorldType!=EWorldType::Game && World->WorldType!=EWorldType::PIE) || (!Pawn->HasAuthority()&&!Pawn->IsLocallyControlled()))
+    { return; }
+    AddTickPrerequisiteActor(Pawn);
+    AxeMotion.Load();
+    Camera=Pawn->FindComponentByClass<UCameraComponent>();
+    Pivot=NewObject<USceneComponent>(Pawn,TEXT("ProductionToolPivot"));
+    Pawn->AddInstanceComponent(Pivot); Pivot->SetupAttachment(Camera); Pivot->RegisterComponent();
+    Pivot->SetRelativeLocation(FVector(55,24,-35));
+    ToolMesh=NewObject<UStaticMeshComponent>(Pawn,TEXT("ProductionToolMesh"));
+    Pawn->AddInstanceComponent(ToolMesh); ToolMesh->SetupAttachment(Pivot);
+    ToolMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision); ToolMesh->SetCanEverAffectNavigation(false);
+    ToolMesh->SetReceivesDecals(false);
+    ToolMesh->SetCastShadow(false); ToolMesh->SetOnlyOwnerSee(true); ToolMesh->SetVisibility(false); ToolMesh->RegisterComponent();
+    // Reuse the grip-constrained two-arm handoff layer for blunt sprint poses.
+    Viewmodel=NewObject<UProductionToolMeshComponent>(Pawn,TEXT("ProductionToolHands"));
+    Pawn->AddInstanceComponent(Viewmodel); Viewmodel->SetupAttachment(Camera);
+    Viewmodel->SetRelativeRotation(FRotator(0,90,0));
+    Viewmodel->SetCollisionEnabled(ECollisionEnabled::NoCollision); Viewmodel->SetCanEverAffectNavigation(false);
+    Viewmodel->SetCastShadow(false); Viewmodel->SetOnlyOwnerSee(true); Viewmodel->bReceivesDecals=false;
+    Viewmodel->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+    Viewmodel->RegisterComponent(); Viewmodel->SetVisibility(false);
+    // Sample once from the harvest clock; hidden tools do not evaluate animation.
+    Viewmodel->SetComponentTickEnabled(false);
+    if(Pawn->IsLocallyControlled())
+        if(auto* Profile=GameInstance->GetSubsystem<UColdSteelStatusModel>())Profile->GrantProductionTools();
+    RefreshHeldTool();
+}
+
+/**
+ * 采集工具改造实值落地：距离与宽容半径供射线判定使用，RateScale 供作者节奏换算使用。
+ * 铁铲没有目录条目，Evaluate 返回出厂倍率，行为与改造前一致。
+ *
+ * 强化外观也挂在这里：`RefreshHeldTool` 的路径 ②（同实例只改数据）与路径 ③（换实例）
+ * 都会走到本函数，而等级写在物品 Data 里、改等级必然改 `DataHash`，必然落到路径 ②。
+ * 若把 `ApplyLevel` 只挂在路径 ③ 的资源加载完成回调之后，「应用强化」后手上工具不换材质。
+ * 资源未加载完时两处调用都是安全的空操作（空组件／空资产＝找不到槽，保持现状）。
+ */
+void UProductionToolComponent::ApplyToolStats(const FColdSteelItem* Item,UColdSteelStatusModel* Profile)
+{
+    bConicalSeat=ConicalHammerSeat::Installed(Item);
+    bPojunGrip=Item&&PojunGrip::Installed(*Item);
+    const FString PojunRune=bPojunGrip?ColdSteelMeleeRune::Selected(*Item):FString();
+    bPojunZhufengRune=PojunRune==ColdSteelFrostRunes::Zhufeng;
+    if(!PojunRuneTrail&&(bPojunZhufengRune||PojunRune==ColdSteelFrostRunes::Chixiao)&&Character.IsValid()&&Character->IsLocallyControlled()&&GetNetMode()!=NM_DedicatedServer)
+    {
+        PojunRuneTrail=NewObject<UBeiweiSwordTrailComponent>(GetOwner());
+        GetOwner()->AddInstanceComponent(PojunRuneTrail);
+        PojunRuneTrail->SetView(true,false);
+        PojunRuneTrail->RegisterComponent();
+    }
+    if(bPojunGrip)
+    {
+        const FTransform Mount=ColdSteelModularSword::BoneMount(*Item);
+        PojunBladeBase=Mount.TransformPosition(ColdSteelModularSword::BladePoint(*Item,false));
+        PojunBladeTip=Mount.TransformPosition(ColdSteelModularSword::BladePoint(*Item,true));
+    }
+    if(auto* Arms=Cast<UProductionToolMeshComponent>(Viewmodel))
+        Arms->SetFloorMarker(bPojunGrip?PojunBladeTip:WarhammerHeavy::HeadMarker);
+    ConicalStrikeLocal=Item?ConicalHammerSeat::StrikeLocal(Item->Definition):FVector::ZeroVector;
+    bFinalTollHead=Item&&RuneboundHammer::HasFinalToll(*Item);
+    bThunderThrowSeat=Item&&ThunderHammerThrow::Installed(*Item,Profile);
+    bThunderCallSeat=Item&&ThunderHammerCall::Installed(*Item);
+    ToolStats=Item?ColdSteelTool::Evaluate(*Item,Profile):FProductionToolStats{};
+    RateScale=float(ToolStats.RateScale);
+    BluntMasteryInterval=Item&&Profile?Profile->MeleeMasteryIntervalMultiplier(*Item):1.f;
+    HasteActionRate=LightningHaste::ActionSpeed(GetOwner());
+    // Sprint slams use their own action clock, outside the normal swing rate.
+    if(const auto* Grip=PojunGrip::Modifiers(Item,Profile))HasteActionRate*=float(Grip->AttackSpeed);
+    if(Item&&PojunGrip::UsesHammerMotion(*Item))
+    {
+        SwingSeconds=float(ToolStats.SwingSeconds*RateScale);ContactSeconds=float(ToolStats.ContactSeconds*RateScale);
+        BluntChargeSeconds=float(ToolStats.HeavyChargeSeconds);
+        BluntHeavyMultiplier=float(ToolStats.HeavyDamageMultiplier);
+        BluntHeavyStunSeconds=FMath::Max(0.f,float(ColdSteelInventory::Number(*Item,TEXT("heavy_stun_seconds"),WarhammerCombat::HeavyStunSeconds)));
+        BluntWaveRadius=WarhammerCombat::ShockwaveRadius(*Item,Profile);
+        BluntArcDegrees=float(ColdSteelInventory::Number(*Item,TEXT("combat_arc_degrees"),WarhammerHeavy::Arc));
+    }
+    if(UsesTwoHandMotion())
+    {
+        AxeHarvestReach=float(ToolStats.HarvestReachCM);
+        AxeCombatReach=float(ToolStats.CombatReachCM);
+        AxeHarvestRadius=float(ToolStats.HarvestRadiusCM);
+        AxeCombatRadius=float(ToolStats.CombatRadiusCM);
+    }
+    // 世界网格与第一人称视模各一次；用实例等级，不传 override。
+    if(Item)
+    {
+        ProductionToolAppearance::ApplyLevel(ToolMesh,*Item);
+        ProductionToolAppearance::ApplyLevel(Viewmodel,*Item);
+    }
+}
+
+void UProductionToolComponent::RefreshHeldTool()
+{
+    if (!ToolMesh) return;
+    auto* Profile=Character.IsValid()&&!Character->IsLocallyControlled()
+        ? Character->GetNetShadowProfile() : GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
+    const FString Id=Item?Item->InstanceId:FString();
+    // 改造应用会改写物品 Data：同一实例改了配件也要重新取数值，但资源不必重新请求。
+    const uint32 DataHash=Item?GetTypeHash(Item->Data):0u;
+    if (Id==EquippedId && DataHash==EquippedDataHash) return;
+    // 同一实例只是改造数据变了：保留已加载的视模与动作，只重算数值，手上工具不闪帧。
+    // Only the motion resources come from the hammer. Assembly, stats and saved identity use the dao.
+    const bool Pojun=Item&&PojunGrip::Installed(*Item);
+    FColdSteelItem HammerMotion;
+    if(Pojun)HammerMotion.Data=Profile->ItemDefinitions().FindRef(TEXT("ue_steel_warhammer"));
+    const FColdSteelItem* MotionItem=Pojun?&HammerMotion:Item;
+    const bool SameArms=Item&&Viewmodel&&Viewmodel->GetSkeletalMeshAsset()&&
+        Viewmodel->GetSkeletalMeshAsset()->GetPathName()==ColdSteelInventory::Text(*MotionItem,TEXT("tool_viewmodel"));
+    const bool SameModules=!Item||!ColdSteelModularSword::Supports(*Item)||
+        ToolMesh->ComponentHasTag(FName(*(TEXT("FrostSwordVisual=")+ColdSteelModularSword::Key(*Item))));
+    const bool Conical=ConicalHammerSeat::Installed(Item);
+    const FSoftObjectPath QuickCombatPath(Conical?WarhammerConicalThrust::Asset:WarhammerQuickCombat::Asset);
+    // A visual/attribute refresh can keep the same item and rig. Reuse the
+    // cached motion only when it matches the stroke selected by the new seat.
+    const UAnimSequence* LoadedQuick=Motions.FindRef(TEXT("QuickCombat"));
+    const bool SameQuickMotion=!Item||!PojunGrip::UsesHammerMotion(*Item)||
+        (LoadedQuick&&LoadedQuick==QuickCombatPath.ResolveObject());
+    if (Id==EquippedId && Item && (!bUsesArms||SameArms)&&SameModules&&SameQuickMotion) { EquippedDataHash=DataHash; ApplyToolStats(Item,Profile); return; }
+    CancelUse(); EquippedId=Id; EquippedDataHash=DataHash; Kind.Reset(); Feedback.Reset(); ScheduleWalkInspect(false);
+    PojunStrikeLocal.Reset();bPojunZhufengRune=false;
+    if(PojunRuneTrail)PojunRuneTrail->Clear();
+    LeiXiCoreMaterial.Reset();bLeiXiCoreActive=false;
+    ColdSteelModularSword::Clear(ToolMesh);
+    ToolMesh->ComponentTags.Remove(TEXT("WarhammerModule"));
+    ToolMesh->AttachToComponent(Pivot,FAttachmentTransformRules::KeepRelativeTransform);
+    ToolMesh->SetRelativeTransform(FTransform::Identity);
+    ToolMesh->SetVisibility(false,true); ToolMesh->SetStaticMesh(nullptr); HitSound=nullptr; SwingSound=nullptr;GuardSounds.Reset();
+    Viewmodel->SetVisibility(false); Viewmodel->SetSkeletalMesh(nullptr);
+    CurrentMotion=nullptr; Motions.Reset(); bUsesArms=false; VisualTime=0; SprintBlend=0;
+    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetGripProfile(nullptr);
+    AxeStridePhase=0; AxeLocomotionOffset=FVector::ZeroVector; AxeLocomotionRotation=FQuat::Identity;
+    Viewmodel->SetRelativeLocationAndRotation(FVector::ZeroVector,FRotator(0,90,0));
+    if (LoadHandle) { LoadHandle->CancelHandle(); LoadHandle.Reset(); }
+    if (!Item) { bPojunGrip=false; ToolStats=FProductionToolStats{}; RateScale=1.f; return; }
+    Kind=ColdSteelInventory::Text(*MotionItem,TEXT("tool_kind")); ToolName=ColdSteelInventory::Text(*Item,TEXT("name"));
+    // Publish the complete arm pose before the camera cache; post-update poses
+    // can expose a near-camera shoulder cut for one frame during movement.
+    PrimaryComponentTick.TickGroup=Kind==TEXT("warhammer")?TG_PostPhysics:TG_PostUpdateWork;
+    if(Kind==TEXT("warhammer")&&Character.IsValid())AddTickPrerequisiteComponent(Character->GetCharacterMovement());
+    if(Kind==TEXT("axe")||Kind==TEXT("pickaxe"))
+        if(auto* Harvest=GetWorld()->GetSubsystem<UProductionHarvestSubsystem>())Harvest->Prepare(Kind==TEXT("axe"));
+    ApplyToolStats(Item,Profile);
+    SwingSeconds=FMath::Max(.4f,float(ColdSteelInventory::Number(*MotionItem,TEXT("swing_seconds"),.68)));
+    ContactSeconds=FMath::Clamp(float(ColdSteelInventory::Number(*MotionItem,TEXT("contact_seconds"),.24)),.1f,SwingSeconds-.1f);
+    if(Kind==TEXT("axe"))
+    {
+        SwingSeconds=AxeMotion.SwingSeconds;
+        ContactSeconds=AxeMotion.ContactSeconds;
+    }
+    const float Scale=ColdSteelInventory::Number(*MotionItem,TEXT("tool_scale"),.65);
+    ToolMesh->SetRelativeScale3D(FVector(Scale));
+    ToolMesh->SetRelativeRotation(FRotator(ColdSteelInventory::Number(*Item,TEXT("mount_pitch")),
+        ColdSteelInventory::Number(*Item,TEXT("mount_yaw")),ColdSteelInventory::Number(*Item,TEXT("mount_roll"))));
+    const FSoftObjectPath MeshPath(ColdSteelInventory::Text(*Item,TEXT("tool_mesh")));
+    const FSoftObjectPath SoundPath(Pojun?ColdSteelInventory::Text(*Item,TEXT("hit_sound")):ColdSteelInventory::Text(*MotionItem,TEXT("tool_sound")));
+    const FSoftObjectPath DustPath(TEXT("/Game/EasyBuildingSystem/Effects/PS_Dust.PS_Dust"));
+    const FSoftObjectPath ViewmodelPath(ColdSteelInventory::Text(*MotionItem,TEXT("tool_viewmodel")));
+    const FSoftObjectPath SwingPath(Pojun?ColdSteelInventory::Text(*Item,TEXT("swing_sound")):ColdSteelInventory::Text(*MotionItem,TEXT("tool_swing_sound")));
+    const FString MotionPrefix=ColdSteelInventory::Text(*MotionItem,TEXT("tool_animation_prefix"));
+    const FString BluntMotionPrefix=TEXT("/Game/Weapons/SteelWarhammer20261014/SprintDragV1/A_Warhammer_");
+    const FString ComboMotionPrefix=TEXT("/Game/Weapons/SteelWarhammer20261014/NormalComboV4/A_Warhammer_");
+    const FString HeavyMotionPrefix=TEXT("/Game/Weapons/SteelWarhammer20261014/HeavySlamV4/A_Warhammer_");
+    // These grips use native ordinary cuts with a baked left-palm contact fit.
+    // The profile retains the common clearance layers and the authored hand swap.
+    const bool ConductiveGrip=ThunderHammerStaticField::Installed(Item)||ThunderHammerCoil::Installed(Item);
+    const FSoftObjectPath BluntGripPath(Kind==TEXT("warhammer")?
+        (ConductiveGrip?TEXT("/Game/Weapons/ThunderGodHammer20261028/NormalGripFix20261031/DA_ThunderHammer_ConductiveGrip.DA_ThunderHammer_ConductiveGrip"):
+        TEXT("/Game/Weapons/SteelWarhammer20261014/RhythmClearanceV2/DA_Warhammer_Clearance.DA_Warhammer_Clearance")):TEXT(""));
+    bUsesArms=!ViewmodelPath.IsNull();
+    TArray<FSoftObjectPath> Paths={SoundPath,DustPath};
+    if(ColdSteelModularSword::Supports(*Item))ColdSteelModularSword::GatherVisualResources(*Item,Paths);
+    if(bUsesArms)
+    {
+        Paths.Add(ViewmodelPath);
+        if(!SwingPath.IsNull())Paths.Add(SwingPath);
+        for(const TCHAR* Clip:{TEXT("Idle"),TEXT("Walk"),TEXT("Equip"),TEXT("Swing"),TEXT("HitRecover")})
+            if(!UsesTwoHandMotion() || FName(Clip)!=TEXT("Walk"))
+                Paths.Add(HarvestMotionPath(MotionPrefix,Clip));
+    }
+    else Paths.Add(MeshPath);
+    if(Kind==TEXT("warhammer"))
+    {
+        Paths.Add(FSoftObjectPath(WarhammerRift::Material));
+        Paths.Add(FSoftObjectPath(TEXT("/Game/Weapons/SteelWarhammer20261014/LeapStrikeV2/SM_LeapGroundWave.SM_LeapGroundWave")));
+        if(Pojun)
+        {
+            Paths.Add(FSoftObjectPath(PojunGrip::SwordAttackLayer));
+            Paths.Add(FSoftObjectPath(TEXT("/Game/Weapons/AzureRunesword20260913/WristRiftV3/M_RuneRift.M_RuneRift")));
+        }
+        else
+        {
+            Paths.Add(WarhammerOrdinarySwingSoundPath);
+            Paths.Add(WarhammerAudioPaths::Uppercut);
+        }
+        Paths.Add(WarhammerWhirlwindPath);
+        Paths.Add(WarhammerUppercutPath);
+        Paths.Add(FSoftObjectPath(LeapStrike::Asset));
+        Paths.Add(FSoftObjectPath(MeteorSpellAssets::Preview));
+        if(bFinalTollHead)Paths.Add(FSoftObjectPath(FinalTollHeavy::Asset));
+        if(Item&&Item->Definition==ThunderHammer::Definition)
+            for(const TCHAR* Path:{ThunderHammerThrow::Charge,ThunderHammerThrow::Throw,ThunderHammerThrow::RecallReady,ThunderHammerThrow::Catch,ThunderHammerCall::Charge,ThunderHammerCall::Release,ThunderHammerCall::ChargeSound,ThunderHammerRecallAudio::Metal,ThunderHammerRecallAudio::Air,ThunderHammerRecallAudio::Catch})Paths.Add(FSoftObjectPath(Path));
+        if(Item&&Item->Definition==ThunderHammer::Definition)
+            Paths.Add(FSoftObjectPath(TEXT("/Game/Weapons/ThunderGodHammer20261028/JiLeiSeatV1/M_JiLeiAim.M_JiLeiAim")));
+        Paths.Add(WarhammerInspectPath);
+        Paths.Add(WarhammerInspectWalkPath);
+        for(const auto& Path:FTwoHandInspectAudio::Paths)Paths.AddUnique(Path);
+        Paths.Add(QuickCombatPath);
+        for(const TCHAR* Clip:WarhammerGuard::Clips)Paths.Add(FSoftObjectPath(WarhammerGuard::ClipPath(Clip)));
+        for(const TCHAR* Sound:WarhammerGuard::Sounds)Paths.Add(FSoftObjectPath(Sound));
+        Paths.Add(WarhammerWhirlwindFocusPath);
+        Paths.Add(BluntGripPath);
+        Paths.Add(HarvestMotionPath(BluntMotionPrefix,TEXT("SprintCarry")));
+        for(const TCHAR* Clip:ProductionBluntCombo::Clips)
+            Paths.Add(HarvestMotionPath(ComboMotionPrefix,Clip));
+        for(const TCHAR* Clip:{TEXT("HeavyCharge"),TEXT("HeavyRelease")})Paths.Add(HarvestMotionPath(HeavyMotionPrefix,Clip));
+    }
+    LoadHandle=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
+        FStreamableDelegate::CreateWeakLambda(this,[this,Id,MeshPath,SoundPath,DustPath,ViewmodelPath,SwingPath,MotionPrefix,BluntMotionPrefix,ComboMotionPrefix,HeavyMotionPrefix,BluntGripPath,QuickCombatPath,Conical,OwnerProfile=TWeakObjectPtr<UColdSteelStatusModel>(Profile)]()
+        {
+            if (EquippedId!=Id || !ToolMesh || Conical!=bConicalSeat) return;
+            if(bUsesArms)
+            {
+                Viewmodel->SetSkeletalMesh(Cast<USkeletalMesh>(ViewmodelPath.ResolveObject()));
+                for(const TCHAR* Clip:{TEXT("Idle"),TEXT("Walk"),TEXT("Equip"),TEXT("Swing"),TEXT("HitRecover")})
+                    if(!UsesTwoHandMotion() || FName(Clip)!=TEXT("Walk"))
+                        Motions.Add(FName(Clip),Cast<UAnimSequence>(HarvestMotionPath(MotionPrefix,Clip).ResolveObject()));
+                SwingSound=Cast<USoundBase>(SwingPath.ResolveObject());
+                if(Kind==TEXT("warhammer"))
+                {
+                    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetGripProfile(Cast<UWeaponGripProfile>(BluntGripPath.ResolveObject()));
+                    Motions.Add(TEXT("SprintCarry"),Cast<UAnimSequence>(HarvestMotionPath(BluntMotionPrefix,TEXT("SprintCarry")).ResolveObject()));
+                    for(const TCHAR* Clip:ProductionBluntCombo::Clips)
+                        Motions.Add(FName(Clip),Cast<UAnimSequence>(HarvestMotionPath(ComboMotionPrefix,Clip).ResolveObject()));
+                    Motions.Add(TEXT("Whirlwind"),Cast<UAnimSequence>(WarhammerWhirlwindPath.ResolveObject()));
+                    Motions.Add(TEXT("Uppercut"),Cast<UAnimSequence>(WarhammerUppercutPath.ResolveObject()));
+                    Motions.Add(TEXT("LeapStrike"),Cast<UAnimSequence>(FSoftObjectPath(LeapStrike::Asset).ResolveObject()));
+                    LeapAimMaterial=Cast<UMaterialInterface>(FSoftObjectPath(MeteorSpellAssets::Preview).ResolveObject());
+                    Motions.Add(TEXT("FinalTollHeavy"),Cast<UAnimSequence>(FSoftObjectPath(FinalTollHeavy::Asset).ResolveObject()));
+                    Motions.Add(TEXT("ThunderCharge"),Cast<UAnimSequence>(FSoftObjectPath(ThunderHammerThrow::Charge).ResolveObject()));
+                    Motions.Add(TEXT("ThunderCallCharge"),Cast<UAnimSequence>(FSoftObjectPath(ThunderHammerCall::Charge).ResolveObject()));
+                    Motions.Add(TEXT("ThunderCallRelease"),Cast<UAnimSequence>(FSoftObjectPath(ThunderHammerCall::Release).ResolveObject()));
+                    ThunderCallChargeSound=Cast<USoundBase>(FSoftObjectPath(ThunderHammerCall::ChargeSound).ResolveObject());
+                    Motions.Add(TEXT("ThunderThrow"),Cast<UAnimSequence>(FSoftObjectPath(ThunderHammerThrow::Throw).ResolveObject()));
+                    Motions.Add(TEXT("ThunderCatch"),Cast<UAnimSequence>(FSoftObjectPath(ThunderHammerThrow::Catch).ResolveObject()));
+                    Motions.Add(TEXT("ThunderRecallReady"),Cast<UAnimSequence>(FSoftObjectPath(ThunderHammerThrow::RecallReady).ResolveObject()));
+                    Motions.Add(TEXT("Inspect"),Cast<UAnimSequence>(WarhammerInspectPath.ResolveObject()));
+                    Motions.Add(TEXT("InspectWalk"),Cast<UAnimSequence>(WarhammerInspectWalkPath.ResolveObject()));
+                    InspectAir.PrepareSounds(false);
+                    Motions.Add(TEXT("QuickCombat"),Cast<UAnimSequence>(QuickCombatPath.ResolveObject()));
+                    for(const TCHAR* Clip:WarhammerGuard::Clips)
+                        Motions.Add(Clip,Cast<UAnimSequence>(FSoftObjectPath(WarhammerGuard::ClipPath(Clip)).ResolveObject()));
+                    GuardSounds.Reset();
+                    for(const TCHAR* Sound:WarhammerGuard::Sounds)
+                        GuardSounds.Add(Cast<USoundBase>(FSoftObjectPath(Sound).ResolveObject()));
+                    for(const TCHAR* Clip:{TEXT("HeavyCharge"),TEXT("HeavyRelease")})
+                        Motions.Add(FName(Clip),Cast<UAnimSequence>(HarvestMotionPath(HeavyMotionPrefix,Clip).ResolveObject()));
+                }
+                if(HasReadyPresentation())
+                {
+                    const bool Local=Character.IsValid()&&Character->IsLocallyControlled();
+                    // Returning to an already-thrown instance cannot draw it
+                    // into the hand. Leave primary input available for recall.
+                    const bool Draw=Local&&!IsThunderHammerAway();
+                    EquipElapsed=Draw?0.f:-1.f;SampleMotion(Draw?TEXT("Equip"):TEXT("Idle"),0.f);
+                }
+            }
+            else ToolMesh->SetStaticMesh(Cast<UStaticMesh>(MeshPath.ResolveObject()));
+            // 资源是异步到位的：槽在 SetMesh 之前不存在，所以路径 ③ 必须在这里补一次。
+            // 等级读当前物品 Data（与 EquippedId/DataHash 同步），重复设置同一 MI 幂等。
+            auto* LiveProfile=OwnerProfile.Get();
+            if(const auto* Current=LiveProfile?LiveProfile->ActiveProductionTool():nullptr)
+            {
+                if(bUsesArms&&ColdSteelModularSword::Supports(*Current)&&ColdSteelModularSword::Apply(ToolMesh,*Current))
+                {
+                    ToolMesh->AttachToComponent(Viewmodel,FAttachmentTransformRules::KeepRelativeTransform,TEXT("WPN_root"));
+                    const FTransform Mount=ColdSteelModularSword::BoneMount(*Current);
+                    ToolMesh->SetRelativeTransform(Mount);
+                    if(bPojunGrip)
+                        if(const auto Contact=ColdSteelModularSword::PommelContact(ToolMesh,*Current);Contact.IsSet())
+                            PojunStrikeLocal=Mount.TransformPosition(Contact.GetValue());
+                    for(auto* Part:ColdSteelModularSword::Components(ToolMesh))Part->ComponentTags.AddUnique(TEXT("WarhammerModule"));
+                    // Keep the live, repaired V7 hands and every existing animation.
+                    // Only the original integral hammer section is replaced.
+                    const auto* Skin=Viewmodel->GetSkeletalMeshAsset();
+                    if(const auto* Render=Skin?Skin->GetResourceForRendering():nullptr)
+                        for(int32 L=0;L<Render->LODRenderData.Num();++L)
+                            for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
+                            {
+                                const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
+                                if(Skin->GetMaterials()[M].MaterialSlotName==TEXT("M_SteelWarhammerSurface"))
+                                    Viewmodel->ShowMaterialSection(M,S,false,L);
+                            }
+                }
+                ProductionToolAppearance::ApplyLevel(ToolMesh,*Current);
+                LeiXiCoreMaterial=ThunderHammerPommel::BindVisual(ToolMesh);bLeiXiCoreActive=false;
+                ProductionToolAppearance::ApplyLevel(Viewmodel,*Current);
+            }
+            HitSound=Cast<USoundBase>(SoundPath.ResolveObject()); ImpactDust=Cast<UParticleSystem>(DustPath.ResolveObject());
+            Feedback=Kind==TEXT("warhammer")?ToolName+TEXT(" · 左键三连击 · G / 滚轮切换武器"):HasReadyPresentation()?((UsesTwoHandMotion())?TEXT("双手工具 · 左键攻击 / 采集 · G / 滚轮切换武器"):TEXT("左键采集 · F7 收起工具")):TEXT("工具或手部动作加载失败，请重新装备");
+            FeedbackSeconds=3.f;
+            if(auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>())Body->RefreshEquipment();
+        }));
+}
+

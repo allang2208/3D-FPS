@@ -1,4 +1,5 @@
 #include "FPSUnarmedIdleComponent.h"
+#include "../../Skills/LightningHasteSpeed.h"
 #include "FPSUnarmedHandPose.h"
 #include "UnarmedAuthoredLocomotion20261001.h"
 #include "../../FPSGAMECharacter.h"
@@ -189,8 +190,15 @@ void UFPSUnarmedIdleComponent::RefreshEquipment()
     {
         // Snapshot is read on profile publication, never on the animation tick.
         const auto State=Model->Snapshot();const int32 Offhand=State.ActiveWeaponSlot==6?8:11;
-        bHandsEmpty=!Model->Equipped(State.ActiveWeaponSlot)&&!Model->Equipped(Offhand)&&!Model->ActiveProductionTool();
         const auto* Left=Model->Equipped(Offhand);
+        // A pistol in either offhand slot owns the left arm even when the main
+        // hand is empty (lone offhand pistol); bare hands must never overlap it.
+        const auto* OtherLeft=Model->Equipped(Offhand==8?11:8);
+        const bool OffhandPistol=(Left&&ColdSteelInventory::IsDualPistol(*Left))
+            ||(OtherLeft&&ColdSteelInventory::IsDualPistol(*OtherLeft));
+        // An off-hand kukri / hatchet with the main hand empty acts alone in the left hand (UKukriWeaponComponent,
+        // ActiveKukriWeapon, 2026-11-04): no bare fists over it.
+        bHandsEmpty=!OffhandPistol&&!Model->Equipped(State.ActiveWeaponSlot)&&!Left&&!Model->ActiveProductionTool();
         bBookOffhandOnly=!Model->Equipped(State.ActiveWeaponSlot)&&Left&&Left->Definition==TEXT("ue_alchemy_spellbook")&&!Model->ActiveProductionTool();
         bEquipmentResolved=true;
     }
@@ -234,6 +242,8 @@ bool UFPSUnarmedIdleComponent::ShouldShow() const
 {
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
     if((!bHandsEmpty&&!bBookOffhandOnly)||!Arms||!Arms->GetSkeletalMeshAsset()||!Pawn||!Pawn->IsLocallyControlled()||Pawn->IsTraversing())return false;
+    // The dual/offhand pistol rig owns the left arm while it is presented.
+    if(Pawn->HasOffhandPistol())return false;
     const auto* PC=Cast<APlayerController>(Pawn->GetController());
     if(!PC||PC->GetViewTarget()!=Pawn)return false;
     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return false;
@@ -255,7 +265,7 @@ void UFPSUnarmedIdleComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     if(!bLoadRequested)LoadArms();UpdateVisibility();
     RefreshPunchSample();
     if(!Arms||!Arms->IsVisible()||Arms->bHiddenInGame)return;
-    CycleTime=FMath::Fmod(CycleTime+Delta,UnarmedAuthoredLocomotion20261001::PeriodSeconds);VisibleAge+=Delta;
+    CycleTime=FMath::Fmod(CycleTime+Delta,UnarmedAuthoredLocomotion20261001::PeriodSeconds);VisibleAge+=Delta*LightningHaste::ActionSpeed(GetOwner());
     const float Breath=.5f-.5f*FMath::Cos(2.f*PI*CycleTime/UnarmedAuthoredLocomotion20261001::PeriodSeconds);
     const float Enter=FMath::SmoothStep(0.f,.18f,VisibleAge);
     const auto* Movement=Pawn->GetCharacterMovement();

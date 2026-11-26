@@ -1,4 +1,6 @@
 #include "HandBrainMonster.h"
+#include "MonsterTargeting.h"
+#include "MonsterDamageBalance.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "GameFramework/GameStateBase.h"
 #include "../Multiplayer/FPSStatusReplicationComponent.h"
@@ -160,13 +162,14 @@ void AHandBrainMonster::DealSlam()
  if(bSlamConsumed||Dead())return;bSlamConsumed=true;
  if(SlamSound)UGameplayStatics::PlaySoundAtLocation(this,SlamSound,SlamCenter,.9f);
  if(IceWallCombat::ApplyMelee(this,Target.Get(),SlamTriggerRange,PhysicalAttack*2))return;
- for(FConstPlayerControllerIterator It=GetWorld()->GetPlayerControllerIterator();It;++It)
+ TArray<APawn*> Victims;
+ MonsterTargeting::GatherAreaOpponents(GetWorld(),SlamCenter,SlamRadius+170.f,Victims);
+ for(APawn* P:Victims)
  {
-  APawn* P=It->Get()?It->Get()->GetPawn():nullptr;if(!P)continue;
   auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();if(H&&H->IsDead())continue;
   FVector Delta=P->GetActorLocation()-SlamCenter;
   if(Delta.Size2D()>SlamRadius||FMath::Abs(Delta.Z)>170||!CanSee(P,SlamCenter+FVector(0,0,60)))continue;
-  UGameplayStatics::ApplyDamage(P,PhysicalAttack*2,GetController(),this,UEnemyMeleeDamage::StaticClass());++SlamHits;
+  UGameplayStatics::ApplyDamage(P,MonsterDamageBalance::Limit(PhysicalAttack*2,90.f),GetController(),this,UEnemyMeleeDamage::StaticClass());++SlamHits;
   if(State!=EHandBrainState::Slam)return;
  }
  UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_SLAM time=%.3f hits=%d center=%s"),StateSeconds,SlamHits,*SlamCenter.ToString());
@@ -174,13 +177,15 @@ void AHandBrainMonster::DealSlam()
 void AHandBrainMonster::DealHowl()
 {
  if(Dead())return;
- for(FConstPlayerControllerIterator It=GetWorld()->GetPlayerControllerIterator();It;++It)
+ TArray<APawn*> Victims;
+ MonsterTargeting::GatherAreaOpponents(GetWorld(),GetActorLocation(),HowlRadius+170.f,Victims);
+ for(APawn* P:Victims)
  {
-  APawn* P=It->Get()?It->Get()->GetPawn():nullptr;if(!P)continue;auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();if(H&&H->IsDead())continue;
+  auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();if(H&&H->IsDead())continue;
   FVector Delta=P->GetActorLocation()-GetActorLocation();
   if(Delta.Size2D()>HowlRadius||FMath::Abs(Delta.Z)>170||!CanSee(P,GetActorLocation()+FVector(0,0,30)))continue;
   const float Applied=UGameplayStatics::ApplyDamage(P,MagicAttack*.5f,GetController(),this,UHandBrainMagicDamage::StaticClass());++HowlHits;
-  if(Applied>0.f&&(!H||!H->IsDead())){auto* Fear=P->FindComponentByClass<UHandBrainFearComponent>();if(!Fear){Fear=NewObject<UHandBrainFearComponent>(P);P->AddInstanceComponent(Fear);Fear->RegisterComponent();}Fear->Apply(this);}
+  if(Applied>0.f&&P->IsPlayerControlled()&&(!H||!H->IsDead())){auto* Fear=P->FindComponentByClass<UHandBrainFearComponent>();if(!Fear){Fear=NewObject<UHandBrainFearComponent>(P);P->AddInstanceComponent(Fear);Fear->RegisterComponent();}Fear->Apply(this);}
  }
  UE_LOG(LogTemp,Display,TEXT("HANDBRAIN_HOWL time=%.3f hits=%d"),StateSeconds,HowlHits);
 }

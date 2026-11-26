@@ -1,0 +1,604 @@
+{
+  "heads": [
+    {
+      "id": "factory",
+      "triangles": 118752,
+      "boundary_edges": 0,
+      "nonmanifold_nonboundary": 0,
+      "tiny_faces_below_1e14_m2": 0,
+      "zero_area_faces": 0,
+      "minimum_triangle_area_m2": 1.607774650176294e-13,
+      "masks": [
+        {
+          "rune": "knife_mark_wing",
+          "ink_triangles": 2268,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 1126,
+              "bounds_xz_m": [
+                [
+                  0.08052587012449901,
+                  0.24742930134137472
+                ],
+                [
+                  0.12758313119411469,
+                  0.2775828043619792
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 1142,
+              "bounds_xz_m": [
+                [
+                  0.0802992656826973,
+                  0.2471881260474523
+                ],
+                [
+                  0.12754913171132407,
+                  0.27837581435839337
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        },
+        {
+          "rune": "knife_mark_knot",
+          "ink_triangles": 2251,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 1129,
+              "bounds_xz_m": [
+                [
+                  0.08380322903394699,
+                  0.24279901385307312
+                ],
+                [
+                  0.12446856498718262,
+                  0.2831624050935109
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 1122,
+              "bounds_xz_m": [
+                [
+                  0.08399383972088496,
+                  0.24305116136868796
+                ],
+                [
+                  0.12453266481558482,
+                  0.2830179234345754
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        },
+        {
+          "rune": "knife_mark_peaks",
+          "ink_triangles": 1501,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 763,
+              "bounds_xz_m": [
+                [
+                  0.08422140032052994,
+                  0.24525637924671173
+                ],
+                [
+                  0.12388296176989873,
+                  0.27938981850941974
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 738,
+              "bounds_xz_m": [
+                [
+                  0.0840515395005544,
+                  0.2452544023593267
+                ],
+                [
+                  0.12366342792908351,
+                  0.27928426861763
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "axe_swift_crescent",
+      "triangles": 36762,
+      "boundary_edges": 0,
+      "nonmanifold_nonboundary": 0,
+      "tiny_faces_below_1e14_m2": 3,
+      "zero_area_faces": 0,
+      "minimum_triangle_area_m2": 3.0840240910633317e-15,
+      "masks": [
+        {
+          "rune": "knife_mark_wing",
+          "ink_triangles": 528,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 261,
+              "bounds_xz_m": [
+                [
+                  0.04414204756418864,
+                  0.2121438185373942
+                ],
+                [
+                  0.0858175332347552,
+                  0.23861337701479593
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 267,
+              "bounds_xz_m": [
+                [
+                  0.04526841019590696,
+                  0.2121438185373942
+                ],
+                [
+                  0.08469116687774658,
+                  0.2369238336881002
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        },
+        {
+          "rune": "knife_mark_knot",
+          "ink_triangles": 518,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 259,
+              "bounds_xz_m": [
+                [
+                  0.046957949797312416,
+                  0.20820153752962747
+                ],
+                [
+                  0.08243843416372935,
+                  0.24199248353640238
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 259,
+              "bounds_xz_m": [
+                [
+                  0.046957949797312416,
+                  0.20820153752962747
+                ],
+                [
+                  0.08243843416372935,
+                  0.24199248353640238
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        },
+        {
+          "rune": "knife_mark_peaks",
+          "ink_triangles": 352,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 179,
+              "bounds_xz_m": [
+                [
+                  0.048647494365771614,
+                  0.2098910907904307
+                ],
+                [
+                  0.08243843416372935,
+                  0.23748701314131418
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 173,
+              "bounds_xz_m": [
+                [
+                  0.048647494365771614,
+                  0.2098910907904307
+                ],
+                [
+                  0.08243843416372935,
+                  0.23748701314131418
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "axe_heavy_cleaver",
+      "triangles": 42950,
+      "boundary_edges": 0,
+      "nonmanifold_nonboundary": 0,
+      "tiny_faces_below_1e14_m2": 0,
+      "zero_area_faces": 0,
+      "minimum_triangle_area_m2": 2.4614923136876896e-14,
+      "masks": [
+        {
+          "rune": "knife_mark_wing",
+          "ink_triangles": 344,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 174,
+              "bounds_xz_m": [
+                [
+                  0.06889999906222026,
+                  0.2399000028769175
+                ],
+                [
+                  0.1145000010728836,
+                  0.2702999909718831
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 170,
+              "bounds_xz_m": [
+                [
+                  0.06889999906222026,
+                  0.2399000028769175
+                ],
+                [
+                  0.1145000010728836,
+                  0.2702999909718831
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        },
+        {
+          "rune": "knife_mark_knot",
+          "ink_triangles": 329,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 161,
+              "bounds_xz_m": [
+                [
+                  0.07209999859333038,
+                  0.235099991162618
+                ],
+                [
+                  0.11050000041723251,
+                  0.2750999927520752
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 168,
+              "bounds_xz_m": [
+                [
+                  0.07209999859333038,
+                  0.235099991162618
+                ],
+                [
+                  0.11050000041723251,
+                  0.2750999927520752
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        },
+        {
+          "rune": "knife_mark_peaks",
+          "ink_triangles": 242,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 121,
+              "bounds_xz_m": [
+                [
+                  0.07129999995231628,
+                  0.23749999205271402
+                ],
+                [
+                  0.11050000041723251,
+                  0.2702999909718831
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 121,
+              "bounds_xz_m": [
+                [
+                  0.07129999995231628,
+                  0.23749999205271402
+                ],
+                [
+                  0.11050000041723251,
+                  0.2702999909718831
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "axe_folded_arc",
+      "triangles": 39702,
+      "boundary_edges": 0,
+      "nonmanifold_nonboundary": 0,
+      "tiny_faces_below_1e14_m2": 0,
+      "zero_area_faces": 0,
+      "minimum_triangle_area_m2": 2.4614923136876896e-14,
+      "masks": [
+        {
+          "rune": "knife_mark_wing",
+          "ink_triangles": 354,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 175,
+              "bounds_xz_m": [
+                [
+                  0.07209999859333038,
+                  0.2559000054995219
+                ],
+                [
+                  0.11770000060399373,
+                  0.2846999963124593
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 179,
+              "bounds_xz_m": [
+                [
+                  0.07209999859333038,
+                  0.2559000054995219
+                ],
+                [
+                  0.11770000060399373,
+                  0.2846999963124593
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        },
+        {
+          "rune": "knife_mark_knot",
+          "ink_triangles": 342,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 171,
+              "bounds_xz_m": [
+                [
+                  0.07449999948342641,
+                  0.25109999378522235
+                ],
+                [
+                  0.1152999997138977,
+                  0.28950000802675885
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 171,
+              "bounds_xz_m": [
+                [
+                  0.07449999948342641,
+                  0.25109999378522235
+                ],
+                [
+                  0.1152999997138977,
+                  0.28950000802675885
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        },
+        {
+          "rune": "knife_mark_peaks",
+          "ink_triangles": 242,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 121,
+              "bounds_xz_m": [
+                [
+                  0.07609999924898148,
+                  0.25350000460942584
+                ],
+                [
+                  0.1145000010728836,
+                  0.28549999992052716
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 121,
+              "bounds_xz_m": [
+                [
+                  0.07609999924898148,
+                  0.25350000460942584
+                ],
+                [
+                  0.1145000010728836,
+                  0.28549999992052716
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "hatchet_falcon_edge",
+      "triangles": 119234,
+      "boundary_edges": 0,
+      "nonmanifold_nonboundary": 0,
+      "tiny_faces_below_1e14_m2": 6,
+      "zero_area_faces": 4,
+      "minimum_triangle_area_m2": 0.0,
+      "masks": [
+        {
+          "rune": "knife_mark_wing",
+          "ink_triangles": 1893,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 952,
+              "bounds_xz_m": [
+                [
+                  0.08955586204926173,
+                  0.23598752419153848
+                ],
+                [
+                  0.13659886022408804,
+                  0.26570823788642883
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 941,
+              "bounds_xz_m": [
+                [
+                  0.08943145473798116,
+                  0.2360160748163859
+                ],
+                [
+                  0.13653726875782013,
+                  0.26610418160756427
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        },
+        {
+          "rune": "knife_mark_knot",
+          "ink_triangles": 1873,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 941,
+              "bounds_xz_m": [
+                [
+                  0.09231747935215633,
+                  0.23141434788703918
+                ],
+                [
+                  0.133092999458313,
+                  0.2710655629634857
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 932,
+              "bounds_xz_m": [
+                [
+                  0.0925612101952235,
+                  0.23071193198362985
+                ],
+                [
+                  0.1334141343832016,
+                  0.27069822947184247
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        },
+        {
+          "rune": "knife_mark_peaks",
+          "ink_triangles": 1207,
+          "sides": [
+            {
+              "side": -1,
+              "samples": 597,
+              "bounds_xz_m": [
+                [
+                  0.09285515298446019,
+                  0.23323708275953928
+                ],
+                [
+                  0.13250444332758585,
+                  0.26675742864608765
+                ]
+              ],
+              "inside_authored_body_window": true
+            },
+            {
+              "side": 1,
+              "samples": 610,
+              "bounds_xz_m": [
+                [
+                  0.09324592848618825,
+                  0.23327312370141348
+                ],
+                [
+                  0.13274850944677988,
+                  0.26726095875104267
+                ]
+              ],
+              "inside_authored_body_window": true
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "errors": [
+    "hatchet_falcon_edge: invalid topology"
+  ],
+  "rendered": false,
+  "passed": false
+}

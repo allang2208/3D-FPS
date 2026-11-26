@@ -1,6 +1,7 @@
 #pragma once
 #include "FPSPlayerBodyTypes.h"
 #include "FPSPlayerBodyGrip.h"
+#include "FPSBodyRevolverReload.h"
 
 struct FFPSBodyMotionBinding
 {
@@ -18,9 +19,22 @@ struct FFPSBodyMotionBinding
     float LocomotionTime=0.f;
     TArray<FTransform> LocomotionPose;
     FTransform Mount=FTransform::Identity;
+    TOptional<FTransform> UppercutReverseMount;
     uint32 LastSections=0;
+    uint32 IncomingFeedSections=0;
     bool bHasSections=false;
     FFPSBodyMotionRig Smoothed;
+    // World-only dual-pistol reload. Factory geometry is retained by the body
+    // component; attached magazines reuse their equipped mesh and materials.
+    TWeakObjectPtr<class UStaticMesh> FactoryMagazine;
+    int32 MagazineBone=INDEX_NONE,MagazinePart=INDEX_NONE;
+    TArray<int32> MagazineBones;
+    FVector MagazineExit=FVector::ZeroVector;
+    FTransform MagazinePartPose=FTransform::Identity;
+    float MagazineReloadStartedAt=-100.f;
+    bool bMagazineDropArmed=false,bMagazineDropped=false;
+    bool bMagazineOverride=false,bMagazineHidden=false;
+    FFPSBodyRevolverReload Revolver;
 };
 struct FFPSBodyMotionMap
 {

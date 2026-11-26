@@ -33,8 +33,28 @@ void FControls::CorrectConsumeElbows(FCSPose<FCompactPose>& Pose)
 // the large-rack take owns both arms, while single-hand food preserves equipment.
 void FControls::BlendConsume(FPoseContext& Out,FCSPose<FCompactPose>& Pose)
 {
-    if(ConsumeWeight<=ZERO_ANIMWEIGHT_THRESH)return;
     const auto& Bones=Out.Pose.GetBoneContainer();
+    // Non-pistol offhands also need a body-space stow before the native eating
+    // take starts. Use the replicated envelope, not the owner's camera wrist.
+    // Pistol arms already apply this envelope in PistolHandTarget.
+    if(State.ConsumeHands==2&&State.ConsumeStowWeight>ZERO_ANIMWEIGHT_THRESH&&
+        !PistolArmActive(1)&&Hands[1].IsValidToEvaluate(Bones))
+    {
+        const auto W=Hands[1].GetCompactPoseIndex(Bones),E=Bones.GetParentBoneIndex(W),U=Bones.GetParentBoneIndex(E);
+        auto Root=Pose.GetComponentSpaceTransform(U),Joint=Pose.GetComponentSpaceTransform(E),Wrist=Pose.GetComponentSpaceTransform(W);
+        const FTransform WristLocal=Wrist.GetRelativeTransform(Joint);
+        const FVector Shoulder=Root.GetLocation();
+        const double UpperLength=FVector::Distance(Shoulder,Joint.GetLocation());
+        const double LowerLength=FVector::Distance(Joint.GetLocation(),Wrist.GetLocation());
+        const FVector Down=FVector(.18,.16,-.97).GetSafeNormal();
+        const FVector Target=Shoulder+Down*(UpperLength+LowerLength)*.94;
+        AnimationCore::SolveTwoBoneIK(Root,Joint,Wrist,Shoulder+FVector(28,20,-16)*PoseScale,Target,
+            UpperLength,LowerLength,false,1.,1.);
+        TArray<FBoneTransform,TInlineAllocator<3>> Stow;
+        Stow.Emplace(U,Root);Stow.Emplace(E,Joint);Stow.Emplace(W,WristLocal*Joint);
+        Pose.LocalBlendCSBoneTransforms(Stow,FMath::Clamp(State.ConsumeStowWeight,0.f,1.f));
+    }
+    if(ConsumeWeight<=ZERO_ANIMWEIGHT_THRESH)return;
     const bool TwoHands=!bConsumeTwoHands&&State.Contacts.Consumable==TEXT("roasted_large_lamb")&&
         (State.Contacts.Wrists&3)==3&&Hands[0].IsValidToEvaluate(Bones)&&Hands[1].IsValidToEvaluate(Bones);
     FTransform RightFromLeft;

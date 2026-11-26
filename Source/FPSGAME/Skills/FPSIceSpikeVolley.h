@@ -22,7 +22,7 @@ public:
     void Prepare(UFPSIceSpikeComponent* Source,APawn* Shooter,const FIceSpikeCast& Snapshot,const TArray<TObjectPtr<UStaticMesh>>& Spikes,UStaticMesh* Shard,UMaterialInterface* Material,UMaterialInterface* ShellMaterial,UParticleSystem* FX,USoundBase* Sound,UNiagaraSystem* Motes,UNiagaraSystem* ColdMist);
     void Launch();
     /** 联机：服务端按客官上报的瞄准点直接起飞（远端 pawn 无相机，AimPoint 不可信本地推导）。 */
-    void LaunchAt(const FVector& AimPoint);
+    void LaunchAt(const FVector& AimPoint, const APawn* LeadTarget = nullptr);
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     bool IsFlying() const {return bFlying;}
     /** Red trajectory preview: one segment per hovering shard, refreshed while held. */
@@ -36,6 +36,7 @@ public:
 protected:
     virtual void EndPlay(EEndPlayReason::Type Reason) override;
 private:
+    void LaunchFromHover(const APawn* LeadTarget);
     struct FFlight
     {
         FVector Position=FVector::ZeroVector,Direction=FVector::ForwardVector;
@@ -43,6 +44,7 @@ private:
         FVector LaunchPosition=FVector::ZeroVector,LaunchVelocity=FVector::ZeroVector;
         FVector2D HoverNoiseSeed=FVector2D::ZeroVector,HoverNoiseRate=FVector2D::ZeroVector;
         float Remaining=0,NextFluidEnvironment=0;
+        float InterceptSeconds=0;
         bool bActive=true,bAimEndpoint=false;
     };
     TArray<FFlight> Flights;

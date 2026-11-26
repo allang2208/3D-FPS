@@ -139,4 +139,6 @@ void AHeQueMonster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLif
     DOREPLIFETIME(AHeQueMonster,Clamp);
     DOREPLIFETIME(AHeQueMonster,Psychic);
     DOREPLIFETIME(AHeQueMonster,JumpSlam);
+    DOREPLIFETIME(AHeQueMonster,PumpCooldownUntil);
+    DOREPLIFETIME(AHeQueMonster,PumpVulnerableUntil);
 }

@@ -3,8 +3,6 @@
 #include "../FPSGAMECharacter.h"
 #include "Animation/AnimSequence.h"
 #include "GameFramework/CharacterMovementComponent.h"
-#include "Kismet/GameplayStatics.h"
-#include "Sound/SoundBase.h"
 
 bool UProductionToolComponent::ShouldBreakInspect() const
 {
@@ -21,6 +19,7 @@ bool UProductionToolComponent::BeginInspect(bool bWalking)
     const FName Clip=bWalking?FName(TEXT("InspectWalk")):FName(TEXT("Inspect"));
     if(!IsWarhammerEquipped()||!CanUse()||!HasReadyPresentation()||!Motions.FindRef(Clip)||ShouldBreakInspect())
         return false;
+    InspectAir.Stop();
     InspectClip=Clip;InspectElapsed=0.f;
     ScheduleWalkInspect(true);
     return true;
@@ -51,13 +50,20 @@ void UProductionToolComponent::TickWalkInspect(float Delta)
     if(!BeginInspect(true))WalkInspectDelay=FMath::FRandRange(1.f,2.f);
 }
 
-void UProductionToolComponent::PlayInspectCues(float From,float To) const
+void UProductionToolComponent::CancelInspect()
 {
-    // Walking inspect only: air whoosh plus steel ring/strike on the clip
-    // clock. An interrupted inspect simply stops reaching later cues.
-    if(InspectClip!=TEXT("InspectWalk"))return;
-    for(const auto& Cue:WarhammerInspectWalkCues::Cues)
-        if(From<Cue.Seconds&&Cue.Seconds<=To)
-            if(auto* Sound=Cast<USoundBase>(FSoftObjectPath(Cue.Sound).ResolveObject()))
-                UGameplayStatics::PlaySound2D(this,Sound,Cue.Volume,Cue.Pitch);
+    InspectElapsed=-1.f;
+    InspectAir.Stop();
+}
+
+void UProductionToolComponent::PlayInspectCues(float From,float To,float Rate)
+{
+    namespace Cues=WarhammerInspectCues;
+    if(InspectClip==TEXT("InspectWalk"))
+    {
+        InspectAir.PlayBeat(this,From,To,Cues::WalkTurnPeak,.53f,Rate);
+        return;
+    }
+    InspectAir.PlayBeat(this,From,To,Cues::RockPeak,.29f,Rate);
+    InspectAir.PlayBeat(this,From,To,Cues::TurnPeak,.59f,Rate);
 }

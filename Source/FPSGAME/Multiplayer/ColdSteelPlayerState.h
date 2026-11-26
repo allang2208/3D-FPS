@@ -6,13 +6,20 @@
 #include "../Skills/IceWallTypes.h"
 #include "../Skills/BlizzardTypes.h"
 #include "../Skills/HolyLightTypes.h"
+#include "../Skills/IceArmorTypes.h"
+#include "../Skills/LightningHasteTypes.h"
 #include "../Skills/LightningTypes.h"
 #include "../Skills/FireMagicTypes.h"
+#include "../Skills/WhirlwindTypes.h"
+#include "../Skills/ShadowStepTypes.h"
+#include "../Weapons/Kukri/KukriAttackReceipt.h"
 #include "../Skills/ElectricMagicTypes.h"
 #include "Super90NetworkTypes.h"
+#include "PistolNetworkTypes.h"
 #include "ColdSteelInventoryRequestTypes.h"
 #include "ColdSteelStationNetwork.h"
 #include "../Building/ColdSteelDoorNetState.h"
+#include "ColdSteelPlayerProtocol.h"
 #include "ColdSteelPlayerState.generated.h"
 
 class UColdSteelStatusModel;
@@ -20,104 +27,10 @@ class UColdSteelProfileSave;
 class APlayerController;
 class AFPSGAMECharacter;
 struct FColdSteelSkillShot;
+struct FKukriPairedHeavyHit;
+struct FColdSteelPreparedHit;
 struct FHitResult;
 struct FFoodClockSample;
-
-/** One small owner-only sample; natural food time does not require a full inventory mirror. */
-USTRUCT()
-struct FColdSteelFoodClockState
-{
-    GENERATED_BODY()
-    UPROPERTY() FGuid Id;
-    UPROPERTY() double Day=0.;
-};
-
-/**
- * 命中上报（客户端→服务端）的权威化口径：
- * 客户端只申报"我开枪了+几何上下文"（原点/命中点/骨骼/方向/武器声明/自报伤害），
- * 伤害构成（精通/暴击/穿透/弹药效果/面板拆项）一律由服务端按影子档案重算，
- * 自报伤害被钳制在服务端武器包络内。命中结论、目标与位置由服务端校验。
- */
-USTRUCT()
-struct FColdSteelNetHitReport
-{
-    GENERATED_BODY()
-    UPROPERTY() TObjectPtr<AActor> Target = nullptr;
-    /** 客户端开火瞬间的相机/枪口原点——服务端用于位置容差与将来 rewind。 */
-    UPROPERTY() FVector_NetQuantize AimOrigin;
-    UPROPERTY() FVector_NetQuantize ImpactPoint;
-    UPROPERTY() FVector_NetQuantizeNormal HitNormal;
-    UPROPERTY() FName BoneName;
-    UPROPERTY() FName HitComponent;
-    UPROPERTY() FVector_NetQuantizeNormal Direction;
-    UPROPERTY() FString ItemDefinition;
-    /** 客户端自报标量伤害：仅作参考，服务端按武器包络钳制。 */
-    UPROPERTY() float ClaimedDamage = 0.f;
-    /** 汇聚附魔消耗的弹数（0/1=无汇聚）；服务端按影子档案同参数复算倍率。 */
-    UPROPERTY() uint8 ConvergenceRounds = 0;
-    /** bit0 bMeleeStrike / bit1 bRifle / bit2 bPistol / bit3 bMelee / bit4 bRicochet / bit5 bInheritedCritical / bit6 bFiredRound / bit7 Azure Dragon active */
-    UPROPERTY() uint8 Flags = 0;
-    /** 攻击语义位（与 FColdSteelSkillShot::AttackMeta 同码）：0x0F=连段阶段，0x10=重击，0x20=旋风，0x40=裂斩波。 */
-    UPROPERTY() uint8 AttackMeta = 0;
-    /** 攻击语义上下文：弓=拉弦比 0-1。服务端据此把伤害完全重算为权威值。 */
-    UPROPERTY() float DamageContext = 0.f;
-    /** EMonsterAttackForm 的窄化传输；0 表示沿用服务端 Snapshot 推断值。 */
-    UPROPERTY() uint8 AttackForm = 0;
-    UPROPERTY() double ClientFireTime = 0.0;
-    /** Groups targets from one blade swing; carries no client-provided buff values. */
-    UPROPERTY() uint32 GuardAttackSerial = 0;
-    UPROPERTY() uint32 QuickCombatSerial = 0;
-};
-
-/**
- * 施法意图上报（客户端→服务端）：A 模式服务端化通道——
- * 客户端只报"放了哪个技能+相位+瞄准上下文"，消耗校验、orb 生成、弹道与伤害结算
- * 全部在服务端按影子档案执行，法术实体以复制 actor 回流到各端。
- * Phase: 0=凝聚 1=释放 2=未释放取消 3=弃置 4=龙息按 CastId 停止／取消。
- * 各字段按技能取用：AimPoint=瞄准/放置点（龙息为眼部瞄准空间的杖尖偏移）；AimNormal=放置朝向/坡面法线/弹道方向；
- * Variant=形态位（冰墙 0=高 1=低；圣光 bit0=自我施放）；Target=目标类法术锁定的 actor；
- * Charge=充能类技能的充量比（thunderLance）。
- */
-USTRUCT()
-struct FColdSteelNetCastRequest
-{
-    GENERATED_BODY()
-    UPROPERTY() FName SkillId;
-    UPROPERTY() TObjectPtr<APawn> SourcePawn=nullptr;
-    UPROPERTY() uint32 Sequence=0;
-    UPROPERTY() uint32 CastId=0; // Dragon/Storm prepare sequence; stable through release/cancellation.
-    UPROPERTY() FString WeaponInstance; // Required by equipped-item casts.
-    UPROPERTY() uint8 Phase = 0;
-    UPROPERTY() FVector_NetQuantize AimPoint = FVector::ZeroVector;
-    UPROPERTY() FVector_NetQuantizeNormal AimNormal = FVector::UpVector;
-    UPROPERTY() FVector_NetQuantizeNormal AimAxis = FVector::ForwardVector; // 暴雪区椭圆长轴
-    UPROPERTY() uint8 Variant = 0;
-    UPROPERTY() TObjectPtr<AActor> Target = nullptr;
-    UPROPERTY() float Charge = 0.f;
-};
-
-/** 服务端→客户端的命中回执（命中标记/击杀反馈）。 */
-USTRUCT()
-struct FColdSteelNetHitReceipt
-{
-    GENERATED_BODY()
-    UPROPERTY() TObjectPtr<AActor> Target = nullptr;
-    UPROPERTY() float Applied = 0.f;
-    UPROPERTY() bool bCritical = false;
-    UPROPERTY() bool bKilled = false;
-    UPROPERTY() bool bRejected = false;
-    UPROPERTY() bool bFirearm = false;
-};
-
-/** 全员可见的玩家公开信息（名牌/HUD/远端表现用的小字段，私有数据走 OwnerOnly）。 */
-USTRUCT(BlueprintType)
-struct FColdSteelPublicPlayerInfo
-{
-    GENERATED_BODY()
-    UPROPERTY(BlueprintReadOnly) FString ActiveWeaponDefinition;
-    UPROPERTY(BlueprintReadOnly) int32 Level = 1;
-    UPROPERTY(BlueprintReadOnly) int32 Kills = 0;
-};
 
 /**
  * 联机玩家数据归属（重构自 UColdSteelNetChannelComponent 的档案/命中通路）：
@@ -134,9 +47,8 @@ UCLASS()
 class FPSGAME_API AColdSteelPlayerState : public APlayerState
 {
     GENERATED_BODY()
-    friend class ASkillWireAuditController;
-    friend class ASkillWireAuditGameMode;
     friend class UBowSkillTrainingAuditCommandlet;
+    friend struct FSharedFoodSpoilageAuditAccess;
 
 public:
     UFUNCTION(Client,Reliable) void ClientGlassBroken(const FString& ActorName,FVector_NetQuantize Point,FVector_NetQuantizeNormal Direction);
@@ -176,16 +88,29 @@ public:
     TArray<uint8> MirrorBlob;
     UFUNCTION() void OnRep_MirrorBlob();
     UFUNCTION(Client, Reliable)
-    void ClientReceiveProfileChunk(uint32 TransferId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,APawn* SourcePawn,uint32 CastSequence,double CapturedAt);
+    void ClientReceiveProfileChunk(uint32 TransferId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,APawn* SourcePawn,uint32 CastSequence,double CapturedAt,uint32 GunsmithSequence);
 
     /** 档案快照分块上行（客户端→服务端）。TMap 不能直接 RPC，序列化成字节流按 1KB 分片。 */
     UFUNCTION(Server, Reliable)
-    void ServerSubmitProfileChunk(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision,APawn* SourcePawn);
+    void ServerSubmitProfileChunk(int32 UploadId, int32 ChunkIndex, int32 TotalChunks, const TArray<uint8>& Chunk,uint32 AmmoRevision,APawn* SourcePawn,uint32 UploadPistolRevision,uint32 PistolIntentSequence,uint32 GunsmithSequence);
     UFUNCTION(Client,Reliable) void ClientRetryProfileUpload(int32 UploadId);
-
+    UFUNCTION(Client,Reliable) void ClientBlacksmithLesson(FGuid ProfileId,uint8 StageValue);
+    UFUNCTION(Client,Reliable) void ClientCarpenterLesson(FGuid ProfileId,uint8 StageValue);
+    void NotifyGunsmithApplied(const FString& InstanceId,const TSet<FString>& BowSlots);
     UFUNCTION(Client,Reliable) void ClientStarMarrowSpend(AFPSGAMECharacter* Character,double Total);
     void NotifyMagicCrystalMana(AFPSGAMECharacter* Character,double Total);
     UFUNCTION(Client,Reliable) void ClientMagicCrystalMana(AFPSGAMECharacter* Character,double Total);
+
+    UFUNCTION(Server,Reliable) void ServerRememberPistolShot(uint32 Sequence,const FString& Instance,int32 ActiveSlot,int32 Rounds,APawn* SourcePawn);
+    void RequestPistolShot(uint32 Sequence,const FString& Instance,int32 ActiveSlot,int32 Rounds);
+    bool RequestPistolReload(const FString& Instance,const FString& Ammo);
+    void CancelPistolReload(const FString& Instance);
+    bool IsPistolReloadPending(const FString& Instance) const {return PistolPendingReloads.Contains(Instance);}
+    bool IsPistolServerReady(const FString& Instance) const {return PistolServerWeapons.Contains(Instance);}
+    UFUNCTION(Server,Reliable) void ServerPistolReload(uint32 Serial,const FString& Instance,const FString& Ammo,int32 ActiveSlot,APawn* SourcePawn);
+    UFUNCTION(Server,Reliable) void ServerPistolCancel(uint32 Serial,const FString& Instance,uint32 ReloadSerial,APawn* SourcePawn);
+    UFUNCTION(Client,Reliable) void ClientPistolAmmo(const FPistolNetAmmoState& Receipt);
+    void PistolCowboyReload();
     uint32 RequestSuper90Shot(const FString& Weapon,const FVector& Eye,const FVector& Muzzle,const FVector& Aim,bool Aiming,int32 PredictedRounds);
     void RequestSuper90Reload(const FString& Weapon,const FString& Ammo);
     void CancelSuper90Reload(bool Soft);
@@ -205,6 +130,8 @@ public:
     /** 客户端命中上报：只报开火几何与武器声明，数值由服务端按影子档案重算。 */
     UFUNCTION(Server, Reliable)
     void ServerReportHit(const FColdSteelNetHitReport& Report);
+    UFUNCTION(Server,Reliable) void ServerReportPairedHeavyHit(const FColdSteelNetHitReport& First,const FColdSteelNetHitReport& Second);
+    static bool ForwardPairedHeavyHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot,const FKukriPairedHeavyHit& Pair);
     UFUNCTION(Server,Reliable) void ServerReleaseRiftSlash(uint32 Sequence,const FString& Weapon,FVector_NetQuantize Origin,FVector_NetQuantizeNormal Direction,uint32 GuardSerial,bool bAzureDragon,bool bClovenCounter);
     uint32 LastRiftSequence=0;
     double LastRiftReleasedAt=-100.;
@@ -213,6 +140,8 @@ public:
     /** 服务端命中回执。 */
     UFUNCTION(Client, Reliable)
     void ClientConfirmHit(const FColdSteelNetHitReceipt& Receipt);
+    UFUNCTION(Client,Reliable) void ClientConfirmBladeHit(const FColdSteelNetHitReceipt& Receipt,APawn* Attacker,const FHitResult& Hit,uint32 OwnerSwing,uint8 Phase);
+    UFUNCTION(Client,Reliable) void ClientConfirmTorchHit(const FColdSteelNetHitReceipt& Receipt,APawn* Attacker,FVector_NetQuantize10 Point,uint32 StrikeSerial,bool bQuick);
 
     /** 远端身体表现：客户端上报离散动作开始（换弹/检视/施法等），服务端写进身体复制态。 */
     UFUNCTION(Server, Reliable)
@@ -226,14 +155,15 @@ public:
 
     /** One reliable start/cancel per draw; no per-frame timing reports. */
     UFUNCTION(Server, Reliable)
-    void ServerSetBowDraw(AFPSGAMECharacter* Character,const FString& Weapon,bool bDrawing,float CarriedSeconds);
+    void ServerSetBowDraw(AFPSGAMECharacter* Character,const FString& Weapon,bool bDrawing,float CarriedSeconds,FGuid DrawId);
 
-    /** 完美节拍奖励是否待生效：下一条箭拉弓速度 +25%（服务器判定，拥有者同步）。 */
-    bool BowPerfectSpeedBonusPending() const { return bBowPerfectSpeedBonus; }
-
-    /** 射击被拒时清除拥有者本机预测的完美节拍加速，避免之后每箭都按基础时长判定。 */
+    bool IsBowDrawActive(const AFPSGAMECharacter* Character) const;
+    void CancelBowDraw(bool bExhausted=false);
+    void ResetBowPerfectSpeedBonus();
     UFUNCTION(Client, Reliable)
-    void ClientClearBowPerfectSpeedBonus();
+    void ClientCancelBowDraw(AFPSGAMECharacter* Character,const FString& Weapon,FGuid DrawId,bool bExhausted);
+    UFUNCTION(Client, Reliable)
+    void ClientConfirmBowDraw(AFPSGAMECharacter* Character,const FString& Weapon,FGuid DrawId,float FullDrawSeconds,bool PerfectSpeed);
 
     /** 施法意图上报：见 FColdSteelNetCastRequest。 */
     UFUNCTION(Server, Reliable)
@@ -253,6 +183,9 @@ public:
 
     /** 服务端最近一次已接受的合法命中时刻（服务端时钟域）——远端身体开火表现读它。 */
     double LastValidatedShotAt = -100.0;
+    /** 同一发的多弹丸/穿透命中共享一次暴击样本（按上报开火时刻归并，2026-10-19）。 */
+    double LastHitCriticalTime = -1.0;
+    float LastHitCriticalRoll = -1.f;
 
     /** ColdSteelSkills::ApplyHit 的转发器实现：从射手 Pawn 找本 PlayerState 再发 ServerReportHit。
      *  ColdSteelNet 模块启动时注册到 NetHitForward()。 */
@@ -261,6 +194,7 @@ public:
 public:
     /** 服务端：影子档案落盘到主机磁盘（玩家离开时由 NetWorldSubsystem 调用）。 */
     bool SaveShadowToHostDisk();
+    void MarkGuestProfileDirty() { bServerDirty=true; }
     void PrepareForDisconnect();
     const FString& CampfireGuestSlot() const { return SlotName; }
     /** UI sends intents on the owned PlayerState channel, never on a world-owned campfire. */
@@ -273,26 +207,92 @@ public:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     bool RequestInventoryAction(EColdSteelInventoryAction Action,const FString& Item=FString(),AActor* Target=nullptr);
     bool RequestInventoryAction(FColdSteelInventoryRequest Request);
+    bool RequestArtisanLesson(class AVillageArtisanMerchant* Teacher,uint32 ConversationSession);
     UFUNCTION(Server,Reliable) void ServerBeginConsumableUse(APawn* SourcePawn,FGuid UseId,const FString& Item,FName Definition);
     UFUNCTION(Server,Reliable) void ServerCancelConsumableUse(FGuid UseId);
+    bool HasAuthorityConsumableReservation(const APawn* Pawn) const;
+    UFUNCTION(Server,Reliable) void ServerRememberGenericLaunch(APawn* SourcePawn,const FString& Instance,uint32 Sequence,int32 Rounds);
+    bool IsGenericFirearm(const FColdSteelItem& Item) const;
+    double FastestAuthorityFireInterval(const AFPSGAMECharacter* Pawn) const;
+    void RecordAuthorityShotRecovery(APawn* Pawn,double Seconds);
+    TWeakObjectPtr<APawn> AuthorityShotRecoveryPawn;
+    double AuthorityShotRecoveryUntil=0.;
+    uint32 RequestGenericMeleeStart(APawn* Pawn,const FString& Instance,uint8 Family,uint8 Meta);
+    UFUNCTION(Server,Reliable) void ServerRememberGenericMeleeStart(APawn* SourcePawn,const FString& Instance,uint8 Family,uint8 Meta,uint32 Serial);
+    bool RequiresGenericMeleeReceipt(const FColdSteelNetHitReport& Report,const FColdSteelItem* Item) const;
+    bool ValidateGenericMeleeReceipt(const FColdSteelNetHitReport& Report,const APawn* Pawn,const FColdSteelItem* Item) const;
+    void CommitGenericMeleeReceipt(const FColdSteelNetHitReport& Report,const APawn* Pawn,const FColdSteelItem* Item);
+    bool HasGenericMeleeBusy(const APawn* Pawn) const;
+    void RequestTorchEmbers(APawn* Pawn,uint32 OrdinarySwingSerial,const FVector& Point,const FVector& Normal);
+    UFUNCTION(Server,Unreliable) void ServerTorchEmbers(APawn* Pawn,uint32 Serial,bool bQuick,FVector_NetQuantize10 Point,FVector_NetQuantizeNormal Normal);
+    struct FGenericMeleeReceipt
+    {
+        TWeakObjectPtr<APawn> Pawn;
+        FColdSteelItem Item;
+        uint32 Serial=0;
+        uint8 Family=0,Meta=0;
+        bool bTorchSurfaceSent=false;
+        double StartedAt=0.,ContactFrom=0.,ContactUntil=0.,BusyUntil=0.,Expires=0.;
+        TSet<TWeakObjectPtr<AActor>> Targets;
+    };
+    TMap<uint32,FGenericMeleeReceipt> GenericMeleeReceipts;
+    TWeakObjectPtr<APawn> GenericMeleePawn;
+    uint32 GenericMeleeSequence=0,LastGenericMeleeSequence=0;
+    double GenericMeleeReadyAt=0.;
+    struct FGenericLaunch
+    {
+        FColdSteelItem Item;
+        TWeakObjectPtr<APawn> Pawn;
+        uint32 Sequence=0;
+        int32 Rounds=1;
+        double At=0.,Expires=0.,ReadyAt=0.;
+    };
+    const FGenericLaunch* FindGenericLaunch(const FColdSteelNetHitReport& Report,const APawn* Pawn) const;
+    TMap<uint32,FGenericLaunch> GenericLaunches;
+    uint32 LastGenericLaunchSequence=0;
+    TWeakObjectPtr<APawn> GenericLaunchPawn;
+    double GenericLaunchReadyAt=0.;
+    double GenericLaunchTokenAt=0.;
+    float GenericLaunchTokens=6.f;
     void AcknowledgeInventoryProfile();
     void SyncMartialCooldowns(const FColdSteelProfile& Profile,bool Immediate);
     UFUNCTION(Server,Reliable) void ServerMartialCooldowns(APawn* SourcePawn,int64 Revision,float Whirlwind,
         float WhirlwindDuration,float Uppercut,float UppercutDuration,double CapturedAt);
     bool ExecuteWorldAction(const FColdSteelInventoryRequest& Request,UColdSteelStatusModel* Model,FString& Reason);
-    bool RequestTeamTravel(AActor* Entrance);
-    UFUNCTION(Server,Reliable) void ServerTeamTravel(AActor* Entrance);
+    bool RequestTeamTravel(AActor* Entrance,bool bConfirmUnclaimedReward=false);
+    /** Runtime region belongs to the connection, not the host's current camera/map. */
+    UPROPERTY(Replicated) bool bInDungeonRoom=false;
+    UPROPERTY(Replicated) bool bClaimedFinalDungeonTreasure=false;
+    FGuid RoomTransferToken,RoomTransferInstance;
+    TWeakObjectPtr<APawn> RoomTransferPawn;
+    bool bRoomEntryAckSent=false;
+    UFUNCTION(Client,Reliable) void ClientBeginRoomEntry(FGuid Token,FGuid Instance,APawn* Pawn);
+    UFUNCTION(Server,Reliable) void ServerRoomEntryReady(FGuid Token,FGuid Instance,APawn* Pawn);
+    UFUNCTION(Server,Reliable) void ServerCancelRoomEntry(FGuid Token);
+    UFUNCTION(Client,Reliable) void ClientFinishRoomEntry(FGuid Token,bool Dungeon,const FString& Reason);
+    UFUNCTION(Client,Reliable) void ClientRoomRegionChanged(bool Dungeon);
+    UFUNCTION(Client,Reliable) void ClientTeamTravelFinished(FGuid TravelId);
+    void TickRoomEntry();
+    void FinishTravelBatch(FGuid Id);
+    UFUNCTION(Server,Reliable) void ServerTeamTravel(AActor* Entrance,bool bConfirmUnclaimedReward);
+    /** Development landmark command; server derives the destination from its world. */
+    UFUNCTION(Server,Reliable) void ServerVisitHillsQuarry();
+    UFUNCTION(Client,Reliable) void ClientTeamTravelRejected(const FString& Reason);
     UFUNCTION(Client,Reliable) void ClientPrepareTeamTravel(FGuid TravelId);
     UFUNCTION(Server,Reliable) void ServerTeamTravelReady(FGuid TravelId,int32 AcceptedUploadId);
     UFUNCTION(Client,Reliable) void ClientTeamTravelSaveFailed(FGuid TravelId,const FString& Reason);
     void AbortTeamTravel(const FString& Reason);
+    void RollbackTeamReturnCompletion();
     void InvalidateTeamTravelReady();
     bool SaveTeamTravelParticipant();
     virtual void CopyProperties(APlayerState* Other) override;
     void TickTeamTravel();
     void TickWorldNetwork(float Delta);
+    UPROPERTY(ReplicatedUsing=OnRep_PlantingClock) int64 PlantingUtcTicks=0;
+    UFUNCTION() void OnRep_PlantingClock();
+    double PlantingClockPublishAt=0.;
     bool ExecuteStation(const FColdSteelInventoryRequest& R,UColdSteelStatusModel* M,FString& Reason);
-    bool StationReach(FName Kind) const;
+    bool StationReach(FName Kind,AActor* Target=nullptr) const;
     void InitializeStations(UColdSteelStatusModel* M);
     void TickStations(float Delta);
     UFUNCTION(Client,Reliable) void ClientAlchemyState(const FColdSteelAlchemyNetState& State,APawn* SourcePawn);
@@ -303,6 +303,7 @@ public:
     bool bAlchemyWasActive=false,bAlchemyWasSaving=false;
     bool CloseStationSessions();
     UFUNCTION(Server,Reliable) void ServerStationInput(APawn* InputPawn,const FString& JobId,FName System,uint8 Op,FName Recipe,int32 Index,FVector2D A,FVector2D B,uint32 Sequence);
+    UFUNCTION(Server,Reliable) void ServerOpenWoodworking(APawn* InputPawn,const FString& JobId,AActor* Station,uint32 Sequence);
     void TickWoodNetwork();
     UFUNCTION(Client,Reliable) void ClientWoodChunk(int32 Transfer,uint32 Ack,int32 Index,int32 Total,const TArray<uint8>& Bytes,APawn* SourcePawn);
     uint32 WoodInputSerial=0,WoodAuthoritySequence=0,WoodOutgoingAck=0,WoodIncomingAck=0;
@@ -325,40 +326,158 @@ public:
     void EnsureWorldStreamContext();
     bool ApplyWorldState();
     TArray<uint8> WorldOutgoing,WorldIncoming,WorldLastSent;
+    FString LastDungeonLayoutSentRunId;
     int32 WorldSerial=0,WorldChunk=0,WorldReceiveSerial=0,WorldReceiveTotal=0;
     double WorldSendAt=0,WorldSnapshotAt=0,WorldApplyAt=0;
     bool bWorldHarvestApplied=false;
     bool bTravelFlush=false,bTravelReady=false,bTravelNeedsFreshUpload=false;
+    bool bTeamReturnUnclaimedConfirmed=false,bTeamReturnCompletionStaged=false;
     bool bDisconnectPrepared=false;
     bool bWasLocalOwner=false;
     FGuid TeamTravelId;
     TWeakObjectPtr<UWorld> TeamTravelWorld;
     TWeakObjectPtr<APawn> TeamTravelPawn;
     FString TeamDestination,TeamOptions;
+    TWeakObjectPtr<AActor> TeamTravelEntrance;
     double TeamTravelStarted=0.;
     bool InventoryRequestPending() const {return bInventoryRequestPending;}
-    void RequestQuickCombat(float Duration,float PredictedCost);
+    void RequestQuickCombat(float Duration,float PredictedCost,float PredictedMana=0.f);
     void FinishQuickCombat();
-    UFUNCTION(Server,Reliable) void ServerQuickCombat(uint32 Sequence,APawn* Pawn,float Duration,bool Finish);
+    bool IsQuickCombatExecuting(const APawn* Pawn) const;
+    bool RequestSwordUppercutRelease();
+    uint32 RequestKukriAttack(const FString& Main,const FString& Offhand,uint8 Stage,bool Dash,const FVector& Direction,uint32 MasterySerial);
+    void FinishKukriAttack(uint32 Serial,bool Cancelled);
+    bool GetKukriMovement(uint32 Serial,uint8 Kind,FVector& Direction,float& Limit,float& Recovery) const;
+    bool IsKukriMovementPending(uint32 Serial) const;
+    UFUNCTION(Server,Reliable) void ServerPayGaleSwing(APawn* ActionPawn,const FString& Weapon,uint32 Serial,bool Dash);
+    UFUNCTION(Client,Reliable) void ClientGaleSwingCost(double TotalSpent);
+    UFUNCTION(Client,Reliable) void ClientGaleCredit(double TotalSpent,double TotalCredit);
+    UFUNCTION(Server,Reliable) void ServerBeginRidgeStrike(APawn* ActionPawn,const FString& Weapon,uint32 Serial,uint8 Meta,double ClientStartedAt);
+    UFUNCTION(Server,Reliable) void ServerBeginKukriAttack(uint32 Serial,APawn* Pawn,const FString& Main,
+        const FString& Offhand,uint8 Stage,bool Dash,FVector_NetQuantizeNormal Direction,uint32 MasterySerial,double ClientStartedAt);
+    UFUNCTION(Server,Reliable) void ServerFinishKukriAttack(uint32 Serial,APawn* Pawn,bool Cancelled);
+    UFUNCTION(Client,Reliable) void ClientKukriAttackResult(uint32 Serial,APawn* Pawn,bool Accepted,double TotalSpent);
+    void FinishSwordUppercut();
+    void SettleSwordUppercut();
+    bool RequestSwordWhirlwind(bool Zhufeng,const FVector& Direction);
+    void FinishSwordWhirlwind();
+    void SettleSwordWhirlwind();
+    bool IsSwordWhirlwindExecuting(const APawn* Pawn) const;
+    bool SwordWhirlwindMove(uint32 MoveSequence,FVector& Direction,float& DistanceLimit) const;
+    UFUNCTION(Server,Reliable) void ServerSwordWhirlwind(uint32 Sequence,APawn* Pawn,const FString& Weapon,bool Zhufeng,
+        uint32 MoveSequence,FVector_NetQuantizeNormal Direction,bool Finish);
+    UFUNCTION(Client,Reliable) void ClientSwordWhirlwindResult(uint32 Sequence,APawn* Pawn,bool Accepted,bool Zhufeng,
+        double TotalSpent,float Cooldown,float Duration,int64 Revision,double ServerAt);
+    UFUNCTION(Server,Reliable) void ServerSwordUppercut(uint32 Sequence,APawn* Pawn,const FString& Weapon,bool Finish);
+    UFUNCTION(Client,Reliable) void ClientSwordUppercutResult(uint32 Sequence,APawn* Pawn,bool Accepted,double TotalSpent,float Cooldown,float Duration,int64 Revision,double ServerAt);
+    uint32 RequestShadowStep(const FString& PrimaryWeapon,const FString& SecondaryWeapon,const FVector& Direction);
+    bool RequestShadowStepFollowup(uint32 Sequence);
+    void FinishShadowStep(uint32 Sequence);
+    void SettleShadowStep();
+    bool IsShadowStepDashOpen(const APawn* Pawn) const;
+    UFUNCTION(Server,Reliable) void ServerShadowStep(uint32 Sequence,APawn* Pawn,const FString& PrimaryWeapon,const FString& SecondaryWeapon,FVector_NetQuantizeNormal Direction,bool Finish);
+    UFUNCTION(Server,Reliable) void ServerShadowStepFollowup(uint32 Sequence,APawn* Pawn);
+    UFUNCTION(Client,Reliable) void ClientShadowStepResult(uint32 Sequence,APawn* Pawn,bool Accepted,double TotalSpent,float Cooldown,float Duration,int64 Revision,double ServerAt);
+    UFUNCTION(Client,Reliable) void ClientShadowStepFollowupWindow(uint32 Sequence,APawn* Pawn,float WindowSeconds);
+    UFUNCTION(Client,Reliable) void ClientShadowStepFollowupResult(uint32 Sequence,APawn* Pawn,bool Accepted);
+    UFUNCTION(Server,Reliable) void ServerQuickCombat(uint32 Sequence,APawn* Pawn,float Duration,bool Finish,const FString& Equipment);
     UFUNCTION(Client,Reliable) void ClientQuickCombatRejected(uint32 Sequence);
     UFUNCTION(Server,Reliable) void ServerInventoryAction(const FColdSteelInventoryRequest& Request);
     UFUNCTION(Client,Reliable) void ClientInventoryReplyChunk(uint32 Sequence,int32 Index,int32 Total,const TArray<uint8>& Chunk);
     UFUNCTION(Client,Reliable) void ClientInventoryBaseline(const FString& Digest,int64 Souls,int64 Credits,int64 Debits);
     UFUNCTION(Server,Reliable) void ServerWarehouseOpen(class AColdSteelWarehouseChest* Chest,bool Open);
     UFUNCTION(Client,Reliable) void ClientContainerInvalidated(AActor* Target);
+    UFUNCTION(Server,Reliable) void ServerCloseContainerSearch(AActor* Target);
     UFUNCTION(NetMulticast,Reliable) void MulticastSharedChestOpened(AActor* Target);
 
 private:
+    friend class UFPSConsumableAuditCommandlet;
+    friend class URuneSwordAuditCommandlet;
+    friend class UKukriNetworkAuditCommandlet;
+    friend class UEnhancementEscrowAuditCommandlet;
+    friend class AEnhancementEscrowWirePlayerState;
+    friend class AEnhancementEscrowWireController;
+    friend class AEnhancementEscrowWireGameMode;
+    void TickKukriAuthority(float Delta);
+    void ClearKukriAttack();
+    bool MatchesKukriEquipment() const;
+    bool ValidateKukriHit(const FColdSteelNetHitReport& Report,const AFPSGAMECharacter* Pawn,FString& Reason) const;
+    void ConfirmKukriHit(const FColdSteelNetHitReport& Report,AFPSGAMECharacter* Pawn,float Applied,bool Killed,bool TrainingEligible);
+    FKukriAttackReceipt KukriAttack;
+    uint32 KukriSequence=0,KukriReceivedSequence=0,KukriReceiptSequence=0;
+    double KukriReadyAt=0.,KukriChainUntil=0.,KukriDashReadyUntil=-1.;
+    uint8 KukriNextStage=0;
+    float KukriSprintSeconds=0.f;
+    FString KukriChainKey,KukriSprintKey;
+    TWeakObjectPtr<APawn> KukriSprintPawn;
     bool bContainerNeedsRefresh=false;
     friend class UColdSteelAcquisitionAuditCommandlet;
+    friend class USkillNetworkAuditCommandlet;
+    friend class UMonsterNetworkHitAuditCommandlet;
+    friend class UShotgunAttachmentAuditCommandlet;
+    friend class AShotgunWireAuditController;
+    friend class AShotgunWireAuditGameMode;
+    friend class UWarhammerNetworkAuditCommandlet;
+    friend class ASkillWireAuditController;
+    friend class ASkillWireAuditGameMode;
+    friend struct FUnknownJoinAuditAccess;
+    void TickSwordUppercut();
+    void TickShadowStep();
+    bool ValidateShadowStepHit(const FColdSteelNetHitReport& Report,const AFPSGAMECharacter* Pawn,FString& Reason) const;
+    void RecordShadowStepTarget(const FColdSteelNetHitReport& Report);
+    void ConfirmShadowStepHit(const FColdSteelNetHitReport& Report,AFPSGAMECharacter* Shooter,float Applied,bool Killed);
+    void TickSwordWhirlwind(float Delta);
+    bool ValidateSwordWhirlwindHit(const FColdSteelNetHitReport& Report,const AFPSGAMECharacter* Pawn,FString& Reason) const;
+    void ConfirmSwordWhirlwindHit(AFPSGAMECharacter* Pawn,AActor* Target,float Applied,bool Killed);
+    uint32 WhirlwindSequence=0,WhirlwindReceivedSequence=0,WhirlwindActiveSequence=0,WhirlwindReceiptSequence=0;
+    uint32 WhirlwindMoveSequence=0;
+    TWeakObjectPtr<APawn> WhirlwindPawn;
+    UPROPERTY(Transient) TObjectPtr<UColdSteelStatusModel> WhirlwindRewardModel;
+    FString WhirlwindWeapon,WhirlwindSprintWeapon;
+    FWhirlwindCast ServerWhirlwindCast;
+    FVector WhirlwindMoveDirection=FVector::ForwardVector;
+    double WhirlwindStartedAt=0.,WhirlwindUntil=0.,WhirlwindDashReadyUntil=-1.;
+    float WhirlwindReadySeconds=0.f,WhirlwindMoveSeconds=0.f,WhirlwindMoveSpeed=0.f,WhirlwindSprintSeconds=0.f;
+    float WhirlwindRuneVulnerability=0.f,WhirlwindRuneSeconds=0.f,WhirlwindCooldownReduction=0.f;
+    bool bWhirlwindZhufeng=false,bWhirlwindCooldownReduced=false;
+    int32 WhirlwindHits=0,WhirlwindKills=0;
+    TSet<TWeakObjectPtr<AActor>> WhirlwindTargets;
+    uint32 UppercutSequence=0,UppercutReceivedSequence=0,UppercutActiveSequence=0,UppercutReceiptSequence=0;
+    TWeakObjectPtr<APawn> UppercutPawn;
+    UPROPERTY(Transient) TObjectPtr<UColdSteelStatusModel> UppercutRewardModel;
+    FString UppercutWeapon;
+    double UppercutUntil=0.;
+    bool bUppercutContact=false;
+    int32 UppercutHits=0,UppercutKills=0;
+    uint32 ShadowStepSequence=0,ShadowStepReceivedSequence=0,ShadowStepActiveSequence=0,ShadowStepReceiptSequence=0;
+    TWeakObjectPtr<APawn> ShadowStepPawn;
+    UPROPERTY(Transient) TObjectPtr<UColdSteelStatusModel> ShadowStepRewardModel;
+    FString ShadowStepPrimaryWeapon,ShadowStepSecondaryWeapon;
+    FShadowStepCast ServerShadowStepCast;
+    bool bShadowStepDual=false,bShadowStepStage1Hit=false,bShadowStepFollowupStarted=false;
+    double ShadowStepUntil=0.,ShadowStepDashUntil=0.,ShadowStepFollowupUntil=0.;
+    int32 ShadowStepKills=0;
+    TSet<TWeakObjectPtr<AActor>> ShadowStepTargets[2];
+    TSet<TWeakObjectPtr<AActor>> ShadowStepFollowTargets[2];
     void TickContainerRefresh();
     uint32 QuickCombatSequence=0,QuickCombatServerSequence=0,QuickCombatRequestSequence=0;
     double QuickCombatUntil=0.;
-    TMap<uint32,float> QuickCombatPredictedCosts;
+    TMap<uint32,FVector2f> QuickCombatPredictedCosts;
     TWeakObjectPtr<APawn> QuickCombatPawn;
     FString QuickCombatEquipment;
     FString QuickCombatEquipmentKey() const;
     TSet<TWeakObjectPtr<AActor>> QuickCombatTargets;
+    uint32 LastTorchQuickSurface=0;
+    uint32 LastRuneCooldownAttackSerial=0;
+    TWeakObjectPtr<APawn> RuneCooldownPawn;
+    uint32 LastMasteryAttackSerial=0;
+    uint32 ResolveKukriRuneAttackSerial(const FColdSteelNetHitReport& Report,uint32 SnapshotSerial);
+    TWeakObjectPtr<APawn> KukriRunePawn;
+    uint32 KukriRuneSequences[5]={},KukriRuneAttackIds[5]={};
+    int32 MeleeMasteryHits=0;
+    TWeakObjectPtr<APawn> MeleeMasteryPawn;
+    FString MeleeMasteryWeapon;
+    TSet<TWeakObjectPtr<AActor>> MeleeMasteryTargets;
     int64 ConfirmedSouls=-1,ConfirmedSoulCredits=-1,ConfirmedSoulDebits=-1;
     bool bInventoryRequestPending=false;
     bool bInventoryWaitingUpload=false;
@@ -368,13 +487,19 @@ private:
     static TArray<uint8> InventoryBaseline(const FColdSteelProfile& Profile);
     void SendInventoryBaseline();
     bool ExecuteBowShot(const FColdSteelInventoryRequest& Request,UColdSteelStatusModel* Model,FString& Reason);
+    void TickBowDrawAuthority();
     double LastBowShotAt=-100.;
     TWeakObjectPtr<APawn> BowDrawPawn;
     FString BowDrawWeapon;
     double BowDrawStartedAt=-1.;
     float BowDrawSeconds=0.f;
-    /** 完美节拍奖励：服务器判定后复制给拥有者，下一条箭的拉弓速度 +25%。 */
-    UPROPERTY(Replicated) bool bBowPerfectSpeedBonus=false;
+    FGuid BowDrawId;
+    TWeakObjectPtr<APawn> BowPerfectPawn;
+    FString BowPerfectWeapon;
+    void RefreshBowPerfectOwner();
+    bool bLastBowShotPiercing=false;
+    /** Authority-only; the exact release receipt reconciles the owner's prediction. */
+    bool bBowPerfectSpeedBonus=false;
     TWeakObjectPtr<APawn> InventoryRequestPawn;
     uint32 InventoryRequestSequence=0,LastInventoryRequestSequence=0,ReplySequence=0;
     TArray<uint8> InventoryReplyOutgoing,InventoryReplyIncoming;
@@ -387,6 +512,9 @@ private:
     FName ConsumableDefinition;
     FString ConsumableItem;
     double ConsumableContactAt=0.;
+    double ConsumableExpiresAt=0.;
+    FGuid LastConsumableBeginId;
+    bool CanAuthorityBeginConsumable(const APawn* Pawn) const;
     FTimerHandle ConsumableContactTimer;
     void QueueInventoryReply(const FColdSteelInventoryRequest& Request,bool Success,const FString& Reason,
         const FColdSteelProfile& Before,const FColdSteelProfile& After);
@@ -415,6 +543,32 @@ private:
     void PreserveSuper90ClientAmmo(FColdSteelProfile& Incoming) const;
     class AFPSGAMECharacter* Super90AuthorityPawn(const FString& Weapon);
     void FinishSuper90AuthorityReload();
+    uint32 PistolControlSequence=0,PistolProcessedControl=0,PistolProcessedShot=0;
+    uint32 PistolReceiptRevision=0,PistolAppliedReceipt=0,PistolAmmoRevision=0,PistolAppliedAmmoRevision=0;
+    int64 PistolAppliedInventoryRevision=-1;
+    uint32 PendingPistolAmmoRevision=0,IncomingPistolAmmoRevision=0,PendingPistolIntent=0,IncomingPistolIntent=0;
+    TArray<FString> PistolAmmoIds;
+    TMap<FString,int64> PistolPouchDelta,PistolAppliedPouchDelta;
+    TMap<uint32,TMap<FString,int64>> PistolPouchHistory;
+    TMap<FString,FPistolServerReload> PistolReloads;
+    TMap<FString,uint32> PistolPendingReloads;
+    TSet<FString> PistolCancelPending;
+    TArray<FPistolPredictedShot> PistolPredictedShots;
+    TSet<FString> PistolServerWeapons;
+    TWeakObjectPtr<APawn> PistolClientPawn;
+    UPROPERTY() FPistolNetAmmoState PendingPistolState;
+    bool bPendingPistolState=false,bPistolAmmoInitialized=false,bApplyingPistolReceipt=false;
+    void TickPistolAuthority();
+    void TickPistolRecovery();
+    void SendPistolAmmo(bool Cowboy=false);
+    void EnsurePistolAmmoIds();
+    bool ConsumePistolAmmo(const FColdSteelItem& Item,int32 Rounds,FString& Reason);
+    void FinishPistolReload(FPistolServerReload& Reload,bool Rejected=false);
+    void RecordPistolPouchChange(const TMap<FString,int64>& Before);
+    bool RebasePistolUpload(FColdSteelProfile& Incoming,const FColdSteelProfile& Previous,bool KeepServerPouch) const;
+    void PreservePistolClientAmmo(FColdSteelProfile& Incoming) const;
+    void RefreshPistolAmmoCounters(class AFPSGAMECharacter* Pawn,UColdSteelStatusModel* Model,bool AmmoChanged=false);
+    void StopPistolAuthority();
     bool bCampfirePending=false,bCampfireWaitingUpload=false;
     bool bCampfireResultSucceeded=false;
     int32 CampfireRequestId=0,LastCampfireRequestId=0;
@@ -440,9 +594,14 @@ private:
         const struct FColdSteelItem*& OutDeclaredItem);
     /** Server-side magazine ledger. Client hit reports never grant free rounds. */
     bool ConsumeServerAmmo(const FColdSteelItem* Item,int32 Rounds,double Now,FString& OutReason);
-    int32 ServerMagazineAmmo=-1;
-    FString ServerAmmoInstance;
-    double ServerReloadReadyAt=0.,ServerLastShotClientTime=-1.,ServerLastShotServerAt=-1.;
+    struct FServerGunLedger
+    {
+        int32 Magazine=-1;
+        double ReloadReadyAt=0.,LastClientTime=-1.,LastServerAt=-1.;
+        uint32 LastSequence=0;
+        TMap<uint32,float> CriticalRolls;
+    };
+    TMap<FString,FServerGunLedger> ServerGunLedgers;
     // Short-lived launch context for M24 bullets still in flight after a swap.
     struct FM24Launch
     {
@@ -457,10 +616,36 @@ private:
     TMap<uint32,FM24Launch> M24Launches;
     uint32 LastM24LaunchSequence=0;
     const FM24Launch* FindM24Launch(const FColdSteelNetHitReport& Report,const APawn* Shooter) const;
+    struct FRegisteredPistolShot
+    {
+        FColdSteelItem Item;
+        TWeakObjectPtr<APawn> Pawn;
+        double At=0.;
+        int32 Rounds=1;
+    };
+    TMap<uint32,FRegisteredPistolShot> RegisteredPistolShots;
+    TWeakObjectPtr<APawn> GaleSwingPawn;
+    uint32 LastGaleSwingSerial=0;
     int32 ServerComboStage=0,ValidatedComboStage=0;
     double ServerComboAt=-100.,ServerComboSwingAt=-100.;
     FString ServerComboWeapon;
+    // Begin and hit reports share this actor channel, so a miss still advances
+    // the installed blade's combo and one rectangle may hit several distinct targets.
+    struct FRidgeStrike
+    {
+        TWeakObjectPtr<APawn> Pawn;
+        FString Weapon;
+        uint32 Serial=0;
+        uint8 Meta=0,NextStage=1;
+        double StartedAt=-1.,NextSwingAt=0.,ChainUntil=0.,HitFrom=0.,HitUntil=0.;
+        float Length=0.f;
+        FVector DashForward=FVector::ForwardVector;
+        TSet<TWeakObjectPtr<AActor>> Targets;
+    } RidgeStrike;
     /** 服务端权威伤害：按武器族从影子档案同参复算，客户端 ClaimedDamage 只作对账参考。 */
+    bool PrepareHitReport(const FColdSteelNetHitReport& Report,FColdSteelPreparedHit& Prepared);
+    void SettleHitReport(FColdSteelPreparedHit& Prepared,FKukriPairedHeavyHit* PairedHeavy=nullptr);
+    static FColdSteelNetHitReport MakeHitReport(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot);
     float ComputeServerDamage(class AFPSGAMECharacter* Shooter, const FColdSteelNetHitReport& Report,
         const struct FColdSteelSkillShot& Shot, const struct FColdSteelItem* DeclaredItem, float ConvergenceScale) const;
 
@@ -494,8 +679,11 @@ private:
     FIceWallCast PendingIceWallStats;
     FBlizzardCast PendingBlizzardStats;
     FHolyLightCast PendingHolyLightStats;
+    FIceArmorCast PendingIceArmorStats;
+    FLightningHasteCast PendingLightningHasteStats;
     FLightningCast PendingLightningStats;
     FFireMagicCast PendingFireMagicStats;
+    FVector PendingMeteorPoint=FVector::ZeroVector,PendingMeteorNormal=FVector::UpVector;
     FElectricMagicCast PendingElectricMagicStats;
     double LastCastRequestAt = -100.0;
 
@@ -511,6 +699,17 @@ private:
     TArray<uint8> LastSentNormBlob;
     /** 在途上传对应的归一 blob，完成时迁入 LastSentNormBlob。 */
     TArray<uint8> PendingNormBlob;
+    // Inventory-only receipts do not acknowledge cosmetics. Keep the selection
+    // from the last complete upload separate from the rebased inventory blobs.
+    FName UploadedHeadId,UploadedHairId,PendingUploadHeadId,PendingUploadHairId;
+    bool bHasUploadedAppearance=false;
+    // Freeze the customization identity with each upload and mirror. Sending
+    // the last chunk is not acknowledgement that a paced mirror contains it.
+    uint32 LocalGunsmithSequence=0,ProcessedGunsmithSequence=0,UploadedGunsmithSequence=0;
+    uint32 PendingUploadGunsmithSequence=0,IncomingGunsmithSequence=0;
+    uint32 PendingMirrorGunsmithSequence=0,ReceivingMirrorGunsmithSequence=0;
+    bool bGunsmithReplyPending=false;
+    TMap<FString,TSet<FString>> PendingGunsmithInstances;
     bool bHasLastSent = false;
     /** 最近分片发送的真实时间；整块完成后也作为 30s 生命体征补传的基准。 */
     double LastUploadAt = 0.0;

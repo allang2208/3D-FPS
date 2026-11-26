@@ -1,4 +1,5 @@
 #include "BoundCongregate.h"
+#include "MonsterTargeting.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "BoundCongregateCaptureComponent.h"
 #include "BoundCongregateTentacleTiming.h"
@@ -110,7 +111,7 @@ void ABoundCongregate::TickTentacle(float Dt)
                 FQuat::Identity,ECC_Pawn,Shape,Query);
         if(bContact)
         {
-            if(auto* Victim=Cast<ACharacter>(Hit.GetActor());Victim&&Victim==Target.Get()&&
+            if(auto* Victim=Cast<ACharacter>(MonsterTargeting::DamageRecipient(Hit.GetActor()));Victim&&Victim==Target.Get()&&
                 FVector::DistSquared(Victim->GetActorLocation(),GetActorLocation())<=FMath::Square(TentacleRange))TentacleHit(Victim,Hit);
             if(NetState.State==EBoundCongregateState::TentacleStrike){EndTentacle(true);return;}
         }

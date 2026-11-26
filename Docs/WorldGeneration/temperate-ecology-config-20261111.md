@@ -9,6 +9,20 @@
 - 本地配置在游戏线程初始化一次；每个丘陵世界由权威端生成只读生态快照，客机等待复制完成后使用该世界快照。PCG、远景树和地形工作线程显式接收同一份参数，不逐点读取配置，也不改写其他世界的配置。
 - 修改配置后正常关闭并重新启动编辑器／游戏进程生效；无需为参数修改重新编译 C++。本轮没有主动启动图形编辑器或游戏。
 
+## 普通丘陵地编（2026-11-12）
+
+开阔而湿润的缓坡使用草甸配方，阳向、排水快的坡面露出更多石质草皮，湿润林下偏向蕨丛、幼树和倒木。三个权重沿用世界种子、林冠与湿度场，按实际地形法线取坡度和坡向，在湿林样板边缘连续交接。可在同一节调整以下 0–1 参数，默认均为 1。
+
+| 参数 | 影响 |
+| --- | --- |
+| `UplandMeadowStrength` | 缓坡草皮、折叶短草、草甸成簇野花与高草密度 |
+| `UplandStoneStrength` | 石质地表、嵌地碎石、草丛缩矮与露土 |
+| `UplandShelterStrength` | 潮湿林下的蕨类、幼树、倒木及林地枯枝 |
+
+地表保留 UV0、湿林 UV1 与顶点色。新增 UV2 的 X/Y 分别存储草甸和石坡覆盖（编码值为 2 + 权重），用于两份丘陵地表母材质。土层在道路、河岸和陡峭岩面渐退；近景使用真实尺寸的扫描、共享错位采样与高度交界，远景代理沿用同一配色。雨后颜色、粗糙度读取现有天气状态。
+
+碎石草坡来自 Quixel **Rocky Steppe**（`uknicjmmw`，1 × 1 m）；草甸边缘来自已有 Fab 原包 **Littered Grassy Ground**（`vlqvdja`，2 × 2 m），较湿草甸混入项目已有的绿色草皮。制作入口为 `SourceAssets/HillsLandscape20261112/prepare.py` 和 `author_assets.py`。增量导入的六张 2K 纹理位于 `/Game/WorldGeneration/TemperateHills/Upland/Textures`，扫描法线与色图分开，AO、粗糙度和高度分别装入 ARH 的 RGB。常规两份地表重建继续走 `build_hills_ground_v2.py`。原包来源见 [Rocky Steppe](https://www.fab.com/listings/8fedab16-e572-4dd7-8e54-df447a50fc1c) 与 [Littered Grassy Ground](https://www.fab.com/listings/c23457cd-685e-4375-8d43-aaa8b726517d)。
+
 ## 树种和密度
 
 `PoplarShareMin=0.10`、`PoplarShareMax=0.20` 控制各个带固定种子的林分中黑杨的选择概率，其余选择山毛榉。当前主树调色板仍使用黑杨 0–3、其后山毛榉的既有槽位合同。约 85% 山毛榉／15% 黑杨是默认选择概率的整体期望，不是最终可见实例计数保证；局部林分、支持筛选与资产可用性会影响数量。

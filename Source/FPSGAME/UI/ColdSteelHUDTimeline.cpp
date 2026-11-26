@@ -1,0 +1,424 @@
+#include "ColdSteelHUDWidget.h"
+#include "ColdSteelTextToolTip.h"
+#include "StatusEffectsHUD.h"
+#include "../Dungeons/DungeonRoomSubsystem.h"
+#include "../FPSGAMEPlayerController.h"
+#include "../Movement/FPSFurnitureRestComponent.h"
+#include "../Building/ColdSteelCampfire.h"
+#include "ColdSteelSceneContainer.h"
+#include "Framework/Application/SlateApplication.h"
+#include "ColdSteelGunAssemblyWidget.h"
+#include "ColdSteelIncineratorWidget.h"
+#include "ColdSteelSmeltingWidget.h"
+#include "ColdSteelWorkbenchWidget.h"
+#include "../Building/VoxelBuildWorld.h"
+#include "Widgets/SWidget.h"
+#include "ColdSteelSkillPage.h"
+#include "ColdSteelCodexPage.h"
+#include "ColdSteelProgressNotification.h"
+#include "ColdSteelSkillTreeScreen.h"
+#include "ColdSteelDungeonTracker.h"
+#include "ColdSteelAcquisitionFeed.h"
+#include "ColdSteelExperienceFeed.h"
+#include "ColdSteelDamageNumbers.h"
+#include "ColdSteelAmmoReadout.h"
+#include "ColdSteelAmmoPouchWidget.h"
+#include "ColdSteelInventoryWidget.h"
+#include "ColdSteelWorldClock.h"
+#include "ColdSteelStatusModel.h"
+#include "../Weapons/MeleeWeaponStats.h"
+#include "Dom/JsonValue.h"
+#include "Blueprint/WidgetBlueprintLibrary.h"
+#include "Engine/GameInstance.h"
+
+#include "../FPSGAMECharacter.h"
+#include "../FPSWeatherManager.h"
+#include "../Monsters/FPSCombatHealthComponent.h"
+#include "ColdSteelUIStyle.h"
+#include "GunsmithUIStyle.h"
+#include "ColdSteelWorldInteraction.h"
+
+#include "Blueprint/WidgetTree.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
+#include "Components/BackgroundBlur.h"
+#include "Components/Border.h"
+#include "Components/Button.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
+#include "Components/ButtonSlot.h"
+#include "Components/CanvasPanel.h"
+#include "Components/CanvasPanelSlot.h"
+#include "Components/HorizontalBox.h"
+#include "Components/HorizontalBoxSlot.h"
+#include "Components/Image.h"
+#include "Components/Overlay.h"
+#include "Components/OverlaySlot.h"
+#include "Components/ProgressBar.h"
+#include "Components/ScaleBox.h"
+#include "Components/ScaleBoxSlot.h"
+#include "Components/ScrollBox.h"
+#include "Components/SizeBox.h"
+#include "Components/Spacer.h"
+#include "Components/TextBlock.h"
+#include "Components/UniformGridPanel.h"
+#include "Components/UniformGridSlot.h"
+#include "Components/VerticalBox.h"
+#include "Components/VerticalBoxSlot.h"
+#include "Engine/Texture2D.h"
+#include "EngineUtils.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/PlayerController.h"
+#include "ImageUtils.h"
+#include "Input/Reply.h"
+#include "InputCoreTypes.h"
+#include "Misc/Paths.h"
+#include "Styling/SlateTypes.h"
+#include "UObject/UnrealType.h"
+#include "ProfilingDebugging/CpuProfilerTrace.h"
+
+#include "ColdSteelHUDPrivate.h"
+using namespace ColdSteelHUDPrivate;
+
+void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
+{
+    if (FParse::Param(FCommandLine::Get(), TEXT("EventTimelineUIAudit")))
+    {
+        ApplyEventTimelineAuditFixture();
+        return;
+    }
+
+    AFPSWeatherManager* Weather = HUDWeatherSource.Get();
+    if (!Weather) if (UWorld* World = GetWorld())
+    {
+        for (TActorIterator<AFPSWeatherManager> It(World); It; ++It)
+        {
+            Weather = *It;
+            HUDWeatherSource = Weather;
+            break;
+        }
+    }
+
+    bTimelineHasEvent = false;
+    bTimelineEventActive = false;
+    bTimelineManual = Weather && !Weather->bAutomaticSchedule;
+    TimelineStageStates.Reset();
+    TimelineStageStarts.Reset();
+    TimelineStageEnds.Reset();
+
+    if (Weather)
+    {
+        const float DaySeconds = FMath::Max(60.0f, Weather->RealSecondsPerGameDay);
+        TimelineDaySeconds = DaySeconds;
+        const float DayFraction = FMath::Clamp(Weather->NormalizedDayTime, 0.0f, 0.999999f);
+        TimelineDaySerial = Weather->GetScheduleDay();
+        const float Now = TimelineDaySerial * DaySeconds + DayFraction * DaySeconds;
+        const float SegmentSeconds = DaySeconds / WeatherSegmentsPerDay;
+        const int32 CurrentGlobalSegment = TimelineDaySerial * WeatherSegmentsPerDay
+            + FMath::Clamp(FMath::FloorToInt(DayFraction * WeatherSegmentsPerDay), 0, WeatherSegmentsPerDay - 1);
+
+        int32 FirstWetSegment = INDEX_NONE;
+        int32 EndWetSegment = INDEX_NONE;
+        const int32 HorizonSegments = FMath::CeilToInt(TimelineHorizonDays * WeatherSegmentsPerDay);
+
+        if (!Weather->bAutomaticSchedule)
+        {
+            if (IsWetWeather(Weather->CurrentState) || Weather->IsRainPending())
+            {
+                FirstWetSegment = CurrentGlobalSegment;
+                EndWetSegment = CurrentGlobalSegment + 1;
+                bTimelineManual = true;
+            }
+        }
+        else
+        {
+            bTimelineManual = false;
+            for (int32 Offset = 0; Offset <= HorizonSegments; ++Offset)
+            {
+                const int32 GlobalSegment = CurrentGlobalSegment + Offset;
+                const int32 Day = FMath::FloorToInt(static_cast<float>(GlobalSegment) / WeatherSegmentsPerDay);
+                const int32 Segment = FMath::FloorToInt(FMath::Fmod(static_cast<float>(GlobalSegment), static_cast<float>(WeatherSegmentsPerDay)) + WeatherSegmentsPerDay) % WeatherSegmentsPerDay;
+                const EFPSWeatherState State = Offset == 0
+                    ? (Weather->IsRainPending() ? Weather->GetPendingRainState() : Weather->CurrentState)
+                    : Weather->GetScheduledStateAt(Day, Segment);
+                if (IsWetWeather(State))
+                {
+                    FirstWetSegment = GlobalSegment;
+                    break;
+                }
+            }
+            if (FirstWetSegment != INDEX_NONE)
+            {
+                while (FirstWetSegment > 0)
+                {
+                    const int32 Previous = FirstWetSegment - 1;
+                    const int32 PreviousDay = Previous / WeatherSegmentsPerDay;
+                    const int32 PreviousSegment = Previous % WeatherSegmentsPerDay;
+                    if (!IsWetWeather(Weather->GetScheduledStateAt(PreviousDay, PreviousSegment))) break;
+                    --FirstWetSegment;
+                }
+                EndWetSegment = FirstWetSegment;
+                while (EndWetSegment <= CurrentGlobalSegment + HorizonSegments + WeatherSegmentsPerDay)
+                {
+                    const int32 Day = EndWetSegment / WeatherSegmentsPerDay;
+                    const int32 Segment = EndWetSegment % WeatherSegmentsPerDay;
+                    if (!IsWetWeather(Weather->GetScheduledStateAt(Day, Segment))) break;
+                    ++EndWetSegment;
+                }
+            }
+        }
+
+        if (FirstWetSegment != INDEX_NONE && EndWetSegment > FirstWetSegment)
+        {
+            bTimelineHasEvent = true;
+            TimelineEventStart = bTimelineManual ? Now : FirstWetSegment * SegmentSeconds;
+            TimelineEventEnd = bTimelineManual ? Now : EndWetSegment * SegmentSeconds;
+            const bool bWaitingForClouds = Weather->IsRainPending() && FirstWetSegment <= CurrentGlobalSegment;
+            if (bWaitingForClouds) TimelineEventStart = Now + Weather->GetRainLeadInRemaining();
+            bTimelineEventActive = !bWaitingForClouds && (bTimelineManual || TimelineEventStart <= Now);
+            bTimelineContainsStorm = false;
+
+            if (bTimelineManual)
+            {
+                const EFPSWeatherState State = bWaitingForClouds ? Weather->GetPendingRainState() : Weather->CurrentState;
+                TimelineStageStates.Add(static_cast<int32>(State));
+                TimelineStageStarts.Add(TimelineEventStart);
+                TimelineStageEnds.Add(TimelineEventStart);
+                bTimelineContainsStorm = State == EFPSWeatherState::Storm;
+            }
+            else
+            {
+                for (int32 GlobalSegment = FirstWetSegment; GlobalSegment < EndWetSegment; ++GlobalSegment)
+                {
+                    const int32 Day = GlobalSegment / WeatherSegmentsPerDay;
+                    const int32 Segment = GlobalSegment % WeatherSegmentsPerDay;
+                    const EFPSWeatherState State = Weather->GetScheduledStateAt(Day, Segment);
+                    const float StageStart = FMath::Max(GlobalSegment * SegmentSeconds, TimelineEventStart);
+                    const float StageEnd = (GlobalSegment + 1) * SegmentSeconds;
+                    if (StageEnd <= StageStart) continue;
+                    bTimelineContainsStorm |= State == EFPSWeatherState::Storm;
+                    if (!TimelineStageStates.IsEmpty() && TimelineStageStates.Last() == static_cast<int32>(State))
+                    {
+                        TimelineStageEnds.Last() = StageEnd;
+                    }
+                    else
+                    {
+                        TimelineStageStates.Add(static_cast<int32>(State));
+                        TimelineStageStarts.Add(StageStart);
+                        TimelineStageEnds.Add(StageEnd);
+                    }
+                }
+            }
+
+            // A short automatic rain window can end before the cloud lead-in;
+            // keep the pending forecast readable until the schedule cancels it.
+            if (TimelineStageStates.IsEmpty())
+            {
+                TimelineStageStates.Add(static_cast<int32>(Weather->GetPendingRainState()));
+                TimelineStageStarts.Add(TimelineEventStart);
+                TimelineStageEnds.Add(TimelineEventStart);
+            }
+            TimelineEventEnd = FMath::Max(TimelineEventEnd, TimelineEventStart);
+            EFPSWeatherState DisplayState = static_cast<EFPSWeatherState>(TimelineStageStates[0]);
+            if (bTimelineEventActive) DisplayState = Weather->CurrentState;
+            else if (bTimelineContainsStorm) DisplayState = EFPSWeatherState::Storm;
+
+            const FString RegionName = WeatherRegionName(GetWorld());
+            TimelineEventLabel = RegionName + (bTimelineContainsStorm ? TEXT(" · 降雨 · 有雷暴") : TEXT(" · 降雨"));
+            TimelineIntensityLabel = !bTimelineEventActive && TimelineStageStates.Num() > 1
+                ? TEXT("雨势有变化") : WeatherName(DisplayState);
+            TimelineStartLabel = FormatTimelineAbsolute(TimelineEventStart, DaySeconds);
+            TimelineEndLabel = bTimelineManual ? TEXT("—") : FormatTimelineAbsolute(TimelineEventEnd, DaySeconds);
+            TimelineDurationLabel = bTimelineManual
+                ? TEXT("手动控制")
+                : FString::Printf(TEXT("%.1f 小时"), (TimelineEventEnd - TimelineEventStart) / DaySeconds * 24.0f);
+            TimelineWarningLabel = bTimelineManual
+                ? TEXT("手动天气，自动预报暂停")
+                : bTimelineContainsStorm ? TEXT("本轮降雨包含雷暴，请留意雨势变化")
+                : TEXT("本轮降雨结束后转为") + WeatherName(Weather->GetScheduledStateAt(EndWetSegment / WeatherSegmentsPerDay, EndWetSegment % WeatherSegmentsPerDay));
+            if (bWaitingForClouds)
+                TimelineWarningLabel = TEXT("云层正在聚集，随后开始") + WeatherName(Weather->GetPendingRainState());
+            TimelineEventFraction = bTimelineEventActive
+                ? 0.04f
+                : 0.04f + FMath::Clamp((TimelineEventStart - Now) / (DaySeconds * TimelineHorizonDays), 0.0f, 1.0f) * 0.94f;
+
+            FString TimeLabel;
+            if (bTimelineEventActive)
+            {
+                TimeLabel = TEXT("进行中");
+            }
+            else
+            {
+                const float GameHours = (TimelineEventStart - Now) / DaySeconds * 24.0f;
+                TimeLabel = GameHours < 1.0f ? TEXT("即将发生")
+                    : GameHours < 24.0f ? FString::Printf(TEXT("%d 小时后"), FMath::CeilToInt(GameHours))
+                    : FString::Printf(TEXT("%.1f 天后"), GameHours / 24.0f);
+            }
+
+            TimelineMarkerTimeText->SetText(FText::FromString(TimeLabel));
+            ColdSteelToolTip::Set(*TimelineMarkerButton, FText::FromString(FString::Printf(TEXT("%s\n%s · 持续 %s\n%s 至 %s\n%s · 点击查看完整预报"),
+                *TimelineEventLabel, *TimelineIntensityLabel, *TimelineDurationLabel, *TimelineStartLabel, *TimelineEndLabel,
+                bTimelineEventActive ? TEXT("正在发生") : TEXT("即将发生"))));
+            if (UTexture2D* EventTexture = LoadUiTexture(WeatherIconFile(DisplayState)))
+            {
+                TimelineMarkerImage->SetBrushFromTexture(EventTexture, true);
+            }
+            TimelineEventLine->SetBrush(ColdSteelUI::RoundedBrush(bTimelineContainsStorm ? TimelineCriticalColor : TimelineWeatherColor, 0.0f, FLinearColor::Transparent, 0.0f));
+        }
+    }
+
+    const int32 EventCount = bTimelineHasEvent ? 1 : 0;
+    TimelineWindowText->SetText(FText::FromString(bTimelineWeatherFilter
+        ? FString::Printf(TEXT("未来5日 · 显示%d/%d个事件"), EventCount, EventCount)
+        : FString::Printf(TEXT("未来5日 · %d个事件"), EventCount)));
+    TimelineAllFilterText->SetText(FText::FromString(FString::Printf(TEXT("全部 %d"), EventCount)));
+    TimelineWeatherFilterText->SetText(FText::FromString(FString::Printf(TEXT("天气 %d"), EventCount)));
+    UpdateEventTimelineFilterButtons();
+    TimelineMarkerButton->SetVisibility(bTimelineHasEvent ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
+    TimelineEventLine->SetVisibility(bTimelineHasEvent ? ESlateVisibility::HitTestInvisible : ESlateVisibility::Collapsed);
+    if (!bTimelineHasEvent) SetTimelineDetailsOpen(false);
+
+    const FString NewSignature = FString::Printf(TEXT("%d|%d|%d|%s|%s|%s|%s|%s"), bTimelineHasEvent, bTimelineEventActive,
+        bTimelineContainsStorm, *TimelineEventLabel, *TimelineStartLabel, *TimelineEndLabel, *TimelineWarningLabel, *TimelineIntensityLabel);
+    if (bForce || NewSignature != TimelineDetailSignature)
+    {
+        TimelineDetailSignature = NewSignature;
+        RebuildEventDetails();
+    }
+    UpdateEventTimelineLayout();
+}
+
+void UColdSteelHUDWidget::RebuildEventDetails()
+{
+    if(!TimelineDetailContent)return;
+    const float S=ColdSteelUI::PixelScale(this);
+    const float Scroll=TimelineDetailScroll?TimelineDetailScroll->GetScrollOffset():0;
+    TimelineDetailContent->ClearChildren();
+    if(!bTimelineHasEvent || TimelineStageStates.IsEmpty())return;
+    auto* Summary=WidgetTree->ConstructWidget<UHorizontalBox>();
+    TimelineDetailContent->AddChildToVerticalBox(Summary)->SetPadding(FMargin(0,0,0,12/S));
+    auto* Icon=WidgetTree->ConstructWidget<UImage>();
+    const auto State=bTimelineContainsStorm?EFPSWeatherState::Storm:static_cast<EFPSWeatherState>(TimelineStageStates[0]);
+    if(auto* T=LoadUiTexture(WeatherIconFile(State)))Icon->SetBrushFromTexture(T,true);
+    auto* IconSize=WidgetTree->ConstructWidget<USizeBox>();IconSize->SetWidthOverride(36/S);IconSize->SetHeightOverride(36/S);IconSize->SetContent(Icon);
+    Summary->AddChildToHorizontalBox(IconSize)->SetPadding(FMargin(0,0,10/S,0));
+    auto* Name=MakeTimelineText(TimelineEventLabel,16,ColdSteelUI::TextPrimary,false,true);Name->SetAutoWrapText(true);
+    Name->SetJustification(ETextJustify::Center);
+    auto* NameSlot=Summary->AddChildToHorizontalBox(Name);NameSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));NameSlot->SetVerticalAlignment(VAlign_Center);
+    auto* SummaryBalance=WidgetTree->ConstructWidget<USizeBox>();SummaryBalance->SetWidthOverride(46/S);Summary->AddChildToHorizontalBox(SummaryBalance);
+    const TArray<TPair<FString,FString>> Pairs={
+        {TEXT("位面"),WeatherRegionName(GetWorld())},{TEXT("强度"),TimelineIntensityLabel},
+        {TEXT("开始"),TimelineStartLabel},{TEXT("结束"),TimelineEndLabel},
+        {TEXT("持续"),TimelineDurationLabel},{TEXT("状态"),bTimelineEventActive?TEXT("正在发生"):TEXT("预测中")}};
+    auto* Grid=WidgetTree->ConstructWidget<UUniformGridPanel>();Grid->SetSlotPadding(FMargin(2/S));TimelineDetailContent->AddChildToVerticalBox(Grid);
+    const int32 Columns=TimelineDetailWidth>0 && TimelineDetailWidth<440?1:2;
+    for(int32 I=0;I<Pairs.Num();++I)
+    {
+        auto* Cell=MakeSurface(ColdSteelUI::StatusCard,8/S,ColdSteelUI::Border,1/S);Cell->SetPadding(FMargin(10/S,8/S));
+        auto* Row=WidgetTree->ConstructWidget<UHorizontalBox>();Cell->SetContent(Row);
+        auto* Key=MakeTimelineText(Pairs[I].Key,12,ColdSteelUI::TextSecondary);Row->AddChildToHorizontalBox(Key)->SetPadding(FMargin(0,0,8/S,0));
+        bool Numeric=false;for(TCHAR C:Pairs[I].Value)Numeric|=FChar::IsDigit(C);
+        auto* Value=MakeTimelineText(Pairs[I].Value,14,ColdSteelUI::TextPrimary,Numeric);Value->SetAutoWrapText(true);Value->SetJustification(ETextJustify::Right);
+        Row->AddChildToHorizontalBox(Value)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+        auto* CellSlot=Grid->AddChildToUniformGrid(Cell,I/Columns,I%Columns);CellSlot->SetHorizontalAlignment(HAlign_Fill);CellSlot->SetVerticalAlignment(VAlign_Fill);
+    }
+    auto* Note=MakeTimelineText(TimelineWarningLabel,14,bTimelineContainsStorm?ColdSteelUI::Warning:ColdSteelUI::TextSecondary);Note->SetAutoWrapText(true);
+    TimelineDetailContent->AddChildToVerticalBox(Note)->SetPadding(FMargin(2/S,10/S,2/S,8/S));
+    if(TimelineStageStates.Num()>1)
+    {
+        TimelineDetailContent->AddChildToVerticalBox(MakeTimelineText(TEXT("雨势变化"),16,ColdSteelUI::TextPrimary,false,true))->SetPadding(FMargin(2/S,8/S,0,4/S));
+        for(int32 I=0;I<TimelineStageStates.Num();++I)
+        {
+            auto* Phase=WidgetTree->ConstructWidget<UVerticalBox>();TimelineDetailContent->AddChildToVerticalBox(Phase)->SetPadding(FMargin(2/S,6/S));
+            Phase->AddChildToVerticalBox(MakeTimelineText(WeatherName(static_cast<EFPSWeatherState>(TimelineStageStates[I])),14,ColdSteelUI::TextPrimary));
+            auto* Time=MakeTimelineText(FormatTimelineAbsolute(TimelineStageStarts[I],TimelineDaySeconds)+TEXT(" — ")+FormatTimelineAbsolute(TimelineStageEnds[I],TimelineDaySeconds),12,ColdSteelUI::TextSecondary,true);
+            Time->SetAutoWrapText(true);Phase->AddChildToVerticalBox(Time);
+        }
+    }
+    if(TimelineDetailScroll)TimelineDetailScroll->SetScrollOffset(Scroll);
+}
+
+void UColdSteelHUDWidget::ApplyEventTimelineAuditFixture()
+{
+    bTimelineHasEvent = true;
+    bTimelineEventActive = false;
+    bTimelineManual = false;
+    bTimelineContainsStorm = false;
+    TimelineDaySeconds = 1440.0f;
+    TimelineEventStart = 844.0f;
+    TimelineEventEnd = 1032.0f;
+    TimelineEventFraction = 0.064f;
+    TimelineEventLabel = TEXT("天空基地 · 降雨");
+    TimelineIntensityLabel = TEXT("雨势有变化");
+    TimelineStartLabel = TEXT("第1日 14:04");
+    TimelineEndLabel = TEXT("第1日 17:12");
+    TimelineDurationLabel = TEXT("3.1 小时");
+    TimelineWarningLabel = TEXT("本轮降雨结束后转为多云");
+    TimelineStageStates = {
+        static_cast<int32>(EFPSWeatherState::LightRain),
+        static_cast<int32>(EFPSWeatherState::Rain),
+        static_cast<int32>(EFPSWeatherState::LightRain)
+    };
+    TimelineStageStarts = {844.0f, 943.0f, 999.0f};
+    TimelineStageEnds = {943.0f, 999.0f, 1032.0f};
+    TimelineMarkerTimeText->SetText(FText::FromString(TEXT("3 小时后")));
+    TimelineWindowText->SetText(FText::FromString(bTimelineWeatherFilter
+        ? TEXT("未来5日 · 显示1/1个事件") : TEXT("未来5日 · 1个事件")));
+    TimelineAllFilterText->SetText(FText::FromString(TEXT("全部 1")));
+    TimelineWeatherFilterText->SetText(FText::FromString(TEXT("天气 1")));
+    UpdateEventTimelineFilterButtons();
+    TimelineMarkerButton->SetVisibility(ESlateVisibility::Visible);
+    TimelineEventLine->SetVisibility(ESlateVisibility::HitTestInvisible);
+    if (UTexture2D* EventTexture = LoadUiTexture(TEXT("rain-light.png")))
+    {
+        TimelineMarkerImage->SetBrushFromTexture(EventTexture, true);
+    }
+    TimelineEventLine->SetBrush(ColdSteelUI::RoundedBrush(TimelineWeatherColor, 0.0f, FLinearColor::Transparent, 0.0f));
+    ColdSteelToolTip::Set(*TimelineMarkerButton, FText::FromString(TEXT("天空基地 · 降雨\n雨势有变化 · 持续 3.1 小时\n第1日 14:04 至 第1日 17:12\n即将发生 · 点击查看完整预报")));
+    TimelineDetailSignature = TEXT("audit-weather-fixture");
+    RebuildEventDetails();
+    UpdateEventTimelineLayout();
+}
+
+void UColdSteelHUDWidget::SetEventTimelineAuditState(int32 State)
+{
+    RefreshEventTimeline(true);
+    SetEventTimelineCompact(State <= 0);
+    if (State >= 2 && bTimelineHasEvent)
+    {
+        RebuildEventDetails();
+        SetTimelineDetailsOpen(true);
+    }
+}
+
+void UColdSteelHUDWidget::HandleTimelineToggleClicked()
+{
+    SetEventTimelineCompact(!bTimelineCompact);
+}
+
+void UColdSteelHUDWidget::HandleTimelineMarkerClicked()
+{
+    if (!bTimelineHasEvent) return;
+    RebuildEventDetails();
+    SetTimelineDetailsOpen(!bTimelineDetailsOpen);
+}
+
+void UColdSteelHUDWidget::HandleTimelineDetailsCloseClicked()
+{
+    SetTimelineDetailsOpen(false);
+}
+
+void UColdSteelHUDWidget::HandleTimelineFilterAllClicked()
+{
+    bTimelineWeatherFilter = false;
+    RefreshEventTimeline(true);
+    SetTimelineDetailsOpen(false);
+}
+
+void UColdSteelHUDWidget::HandleTimelineFilterWeatherClicked()
+{
+    bTimelineWeatherFilter = true;
+    RefreshEventTimeline(true);
+    // Refresh builds the current forecast; selecting weather should reveal it.
+    SetTimelineDetailsOpen(bTimelineHasEvent);
+}
+

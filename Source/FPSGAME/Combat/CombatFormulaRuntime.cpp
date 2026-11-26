@@ -1,5 +1,8 @@
 #include "CombatFormulaRuntime.h"
+#include "../Weapons/Bow/EclipseBowMark.h"
 #include "../Weapons/StarMarrowComponent.h"
+#include "../Skills/IlluminationMarkComponent.h"
+#include "../Skills/MagicArrowRainDamage.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../Weapons/JingangRuneComponent.h"
 #include "CoreCombatFormula.h"
@@ -29,7 +32,7 @@ thread_local const CombatFormulaRuntime::MagicHit* CombatFormulaRuntime::ActiveM
 thread_local CombatFormulaRuntime::WeaponHit* CombatFormulaRuntime::ActiveWeaponHit=nullptr;
 thread_local const double* CombatFormulaRuntime::ActivePhysicalPenetration=nullptr;
 bool CombatFormulaRuntime::IsMagic(const UDamageType* Type)
-{return Type&&(Type->IsA<UHandBrainMagicDamage>()||Type->IsA<UWitchMagicDamage>()||Type->IsA<UFireballDamage>()||Type->IsA<UIceSpikeDamage>()||Type->IsA<ULightningDamage>()||Type->IsA<UHolyLightDamage>()||Type->IsA<UFireMagicDamage>()||Type->IsA<UCorrosivePusDamage>()||Type->IsA<URuneOrbBladeDamage>()||Type->IsA<UStatusMagicDamage>());}
+{return Type&&(Type->IsA<UHandBrainMagicDamage>()||Type->IsA<UWitchMagicDamage>()||Type->IsA<UFireballDamage>()||Type->IsA<UIceSpikeDamage>()||Type->IsA<UMagicArrowRainDamage>()||Type->IsA<ULightningDamage>()||Type->IsA<UHolyLightDamage>()||Type->IsA<UFireMagicDamage>()||Type->IsA<UCorrosivePusDamage>()||Type->IsA<URuneOrbBladeDamage>()||Type->IsA<UStatusMagicDamage>());}
 float CombatFormulaRuntime::MonsterDefense(const AActor* Target,bool Magic)
 {
     // 2026-09-28 六维剔除：防御直接读常量表（旧狼系字段、大手/小手/手脑/巫婆魔防覆盖
@@ -66,12 +69,13 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
         ActiveWeaponHit->bResolved=true;
         return ActiveWeaponHit->Mitigated.Total();
     }
+    const double EclipseMultiplier = UEclipseBowMark::DamageMultiplier(Target);
     const bool Charged=Source!=Target&&UStarMarrowComponent::ChargesDamage(Source);
     if(Type&&Type->IsA<UCombatDirectDamage>()&&!Charged)
     {
         const auto* Field=Target->FindComponentByClass<UCombatStatusFormula>();
         const auto* SourceStatus=UCombatStatusFormula::ForDamageSource(Source);
-        return Damage*(SourceStatus?SourceStatus->WeaknessDamageMultiplier():1.f)*(Field?Field->ZhenmoDamageMultiplier():1.f);
+        return Damage*EclipseMultiplier*(SourceStatus?SourceStatus->WeaknessDamageMultiplier():1.f)*(Field?Field->ZhenmoDamageMultiplier():1.f)*(1.f+UIlluminationMarkComponent::DamageBonus(Target));
     }
     if(ActiveWeaponHit&&ActiveWeaponHit->Target==Target&&!ActiveWeaponHit->bResolved&&!IsMagic(Type))
     {
@@ -80,18 +84,18 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
         {
             const auto Convert=[](FWeaponDamageParts& P)
             {P={0.,P.Base()*UStarMarrowComponent::DamageMultiplier,0.,P.Additional()*UStarMarrowComponent::DamageMultiplier};};
-            Convert(Hit.Incoming);
+            Convert(Hit.Incoming);for(auto& Part:Hit.Contributions)Convert(Part.Incoming);
         }
         const auto* Status=Target->FindComponentByClass<UCombatStatusFormula>();
-        const auto* SourceStatus=Source?Source->FindComponentByClass<UCombatStatusFormula>():nullptr;
-        double Common=UJingangRuneComponent::OutgoingMultiplier(Source);
+        const auto* SourceStatus=UCombatStatusFormula::ForDamageSource(Source);
+        double Common=UJingangRuneComponent::OutgoingMultiplier(Source)*EclipseMultiplier;
         if(Status)Common*=Status->ZhenmoDamageMultiplier();
         if(const auto* P=AttackerModel)
             Common*=P->TributeEffect(TEXT("monsterDamageTakenPercent"));
-        auto Resolve=[&](double Amount,bool Magic)
+        auto Resolve=[&](double Amount,bool Magic,double PhysicalPenetration,double MagicPenetration)
         {
             double Final=CoreCombatFormula::Defense(Amount,MonsterDefense(Target,Magic),Magic,
-                Magic?Hit.MagicPenetration:Hit.PhysicalPenetration,Status?Status->MagicShred():0,Status?Status->CorrosionMultiplier():1);
+                Magic?MagicPenetration:PhysicalPenetration,Status?Status->MagicShred():0,Status?Status->CorrosionMultiplier():1);
             Final=std::floor(Magic?Final*(Status?Status->MagicVulnerabilityMultiplier():1.):Final*((Status&&Status->FrozenRemaining()>0)?1.5:1.));
             if(!Magic&&Status)Final=std::floor(Final*Status->PhysicalVulnerabilityMultiplier());
             // 旧链顺序：魔法易伤→石化→无人机易伤→献祭承伤→冻结→来源减伤→标记→圣佑（逐段取整）。
@@ -101,8 +105,12 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
             if(Status)Final=std::floor(Final*Status->MarkedMultiplier());
             return FMath::Max(0.,std::floor(Final*Common*(Status?Status->FinalMultiplier():1)));
         };
-        const auto& In=Hit.Incoming;
-        Hit.Mitigated={Resolve(In.BasePhysical,false),Resolve(In.BaseMagic,true),Resolve(In.AddedPhysical,false),Resolve(In.AddedMagic,true)};
+        const auto ResolveParts=[&](const FWeaponDamageParts& In,double PhysicalPenetration,double MagicPenetration)
+        {return FWeaponDamageParts{Resolve(In.BasePhysical,false,PhysicalPenetration,MagicPenetration),Resolve(In.BaseMagic,true,PhysicalPenetration,MagicPenetration),Resolve(In.AddedPhysical,false,PhysicalPenetration,MagicPenetration),Resolve(In.AddedMagic,true,PhysicalPenetration,MagicPenetration)};};
+        Hit.Mitigated={};
+        if(Hit.Contributions.IsEmpty())Hit.Mitigated=ResolveParts(Hit.Incoming,Hit.PhysicalPenetration,Hit.MagicPenetration);
+        else for(auto& Blade:Hit.Contributions)
+        {Blade.Mitigated=ResolveParts(Blade.Incoming,Blade.PhysicalPenetration,Blade.MagicPenetration);Hit.Mitigated+=Blade.Mitigated;}
         Hit.bResolved=true;
         return Hit.Mitigated.Total();
     }
@@ -135,7 +143,7 @@ float CombatFormulaRuntime::MitigateMonster(AActor* Target,float Damage,const UD
     // Equipped-only, evaluated on contact for spells as well as direct attacks.
     Result=std::floor(Result*UJingangRuneComponent::OutgoingMultiplier(Source));
     // 旧链尾段：来源侧减益（骆驼惊吓等）→ 标记 → 圣佑，逐段取整。
-    if(const auto* SourceStatus=Source?Source->FindComponentByClass<UCombatStatusFormula>():nullptr)Result=std::floor(Result*SourceStatus->OutgoingDamageMultiplier());
+    if(const auto* SourceStatus=UCombatStatusFormula::ForDamageSource(Source))Result=std::floor(Result*SourceStatus->OutgoingDamageMultiplier());
     if(Status)Result=std::floor(Result*Status->MarkedMultiplier());
-    return Status?std::floor(Result*Status->FinalMultiplier()*Status->ZhenmoDamageMultiplier()):Result;
+    return std::floor(Result*EclipseMultiplier*(Status?Status->FinalMultiplier()*Status->ZhenmoDamageMultiplier():1.));
 }

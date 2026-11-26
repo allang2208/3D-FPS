@@ -177,17 +177,8 @@ hill.set_editor_property('seed',122)
 hill.set_editor_property('size_meters',1024)
 hill.set_editor_property('detail_radius_meters',160)
 hill.set_editor_property('view_radius_meters',384)
-sun=actors.spawn_actor_from_class(u.DirectionalLight,u.Vector(0,0,18000),u.Rotator(-32,-35,0))
-sun.set_actor_label('Hills Sun')
-sun.light_component.set_mobility(u.ComponentMobility.MOVABLE)
-sun.light_component.set_editor_property('intensity',5.0)
-sun.light_component.set_editor_property('atmosphere_sun_light',True)
-sun.light_component.set_editor_property('light_source_angle',1.4)
-actors.spawn_actor_from_class(u.SkyAtmosphere,u.Vector(0,0,0))
-sky=actors.spawn_actor_from_class(u.SkyLight,u.Vector(0,0,15000))
-sky.light_component.set_mobility(u.ComponentMobility.MOVABLE)
-sky.light_component.set_editor_property('real_time_capture',True)
-sky.light_component.set_editor_property('intensity',.9)
+# UDS owns the sun, moon, atmosphere and ambient capture. Do not recreate the
+# fixed daylight study rig: it would keep lighting the terrain after sunset.
 air=actors.spawn_actor_from_class(u.ExponentialHeightFog,u.Vector(0,0,1800))
 air.component.set_editor_property('fog_density',.012)
 air.component.set_editor_property('fog_height_falloff',.20)
@@ -195,12 +186,16 @@ air.component.set_editor_property('enable_volumetric_fog',True)
 air.component.set_editor_property('volumetric_fog_distance',85000)
 weather=actors.spawn_actor_from_class(u.FPSWeatherManager,u.Vector(0,0,0))
 weather.set_editor_property('automatic_schedule',True)
-# A fixed exposure keeps the vegetation study comparable across seed captures.
+# Preserve the grading volume while allowing UDS to control day/night exposure.
 post=actors.spawn_actor_from_class(u.PostProcessVolume,u.Vector(0,0,0))
 post.set_editor_property('unbound',True)
 settings=post.get_editor_property('settings')
-for key,value in [('override_auto_exposure_min_brightness',True),('override_auto_exposure_max_brightness',True),('auto_exposure_min_brightness',1.0),('auto_exposure_max_brightness',1.0)]:settings.set_editor_property(key,value)
+for key in ('override_auto_exposure_min_brightness','override_auto_exposure_max_brightness'):settings.set_editor_property(key,False)
 post.set_editor_property('settings',settings)
+import sys
+sys.path.insert(0,str(ROOT/'Tools/Weather'))
+from hills_sky_ownership import configure_hills_sky
+configure_hills_sky()
 u.get_editor_subsystem(u.UnrealEditorSubsystem).set_level_viewport_camera_info(u.Vector(-29000,-10000,14000),u.Rotator(-12,22,0))
 assert editor.save_current_level()
 report['map']=LEVEL

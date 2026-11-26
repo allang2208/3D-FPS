@@ -12,7 +12,7 @@
 bool UFPSBallisticsComponent::IsShatterEnemy(AActor* Target,AActor* Shooter)
 {
     if(!IsValid(Target)||Target==Shooter||Target->IsActorBeingDestroyed()||!Target->CanBeDamaged()
-        ||Target->IsA<AFPSGAMECharacter>()||Target->ActorHasTag(TEXT("Player"))
+        ||Target->IsA<AFPSGAMECharacter>()||Target->ActorHasTag(TEXT("Player"))||Target->ActorHasTag(TEXT("Wildlife"))
         ||Target->ActorHasTag(TEXT("Friendly"))||Target->ActorHasTag(TEXT("Companion"))
         ||RangedAttackQuery::IsFriendlyUnit(Shooter,Target))return false;
     const auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();

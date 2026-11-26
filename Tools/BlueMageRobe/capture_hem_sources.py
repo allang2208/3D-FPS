@@ -2,7 +2,7 @@
 import json,hashlib,gc
 from pathlib import Path
 import unreal as u
-P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/BlueMageRobe20261018/HemContinuity20261019';OUT=R/'Read';OUT.mkdir(parents=True,exist_ok=True)
+P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/BlueMageRobe20261018/TurnLegContinuity20261020';OUT=R/'Read';OUT.mkdir(parents=True,exist_ok=True)
 c=json.loads((P/'Content/ColdSteelData/modular_outfits.json').read_text(encoding='utf-8-sig'));recipe=c['items']['ue_blue_mage_robe'];known={}
 def add(path,profile,kind):
     if path:known[path]=(profile,kind)

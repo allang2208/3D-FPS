@@ -131,3 +131,5 @@ def build():
     if not save.save_map(w,village):raise RuntimeError('Could not save village')
     (batch/'baked.json').write_text(json.dumps(dict(patches=total,components=cells,landscape=copy,terrain=json.loads((src/'generation.json').read_text())),indent=2))
 if __name__=="__main__":build()
+
+

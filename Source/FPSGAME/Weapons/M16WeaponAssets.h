@@ -6,6 +6,10 @@ namespace M16WeaponAssets
     inline constexpr const TCHAR* Definition = TEXT("ue_m16a2");
     inline constexpr const TCHAR* MeshPath = TEXT("/Game/Weapons/M16A2/Gameplay20260919/SK_M16_Manny.SK_M16_Manny");
     inline constexpr const TCHAR* FireSoundPath = TEXT("/Game/Weapons/M16A2/OriginalAudio20260920/S_M16_OriginalFire.S_M16_OriginalFire");
+    inline FString SuppressedSoundPath(int32 Variant = 1)
+    {
+        return FString::Printf(TEXT("/Game/Weapons/M16A2/SuppressedAudio20261015/S_M16_Suppressed_%02d.S_M16_Suppressed_%02d"), Variant, Variant);
+    }
     // The factory part's rear bore centre, already authored into the M16 rig.
     // The legacy firing marker is 5.89 mm above this axis; it is not a mount.
     inline constexpr const TCHAR* MuzzleMountBone = TEXT("WPN_M16Muzzle");

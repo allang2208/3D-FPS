@@ -1,4 +1,5 @@
 #include "RootCrownNeedleProjectile.h"
+#include "MonsterTargeting.h"
 #include "RootCrownRigPreview.h"
 #include "FPSCombatHealthComponent.h"
 #include "../Combat/RangedAttackQuery.h"
@@ -62,7 +63,7 @@ void ARootCrownNeedleProjectile::Tick(float Dt)
     for(const auto& Hit:Hits)
     {
         const auto* Component=Hit.GetComponent();const auto* Pawn=Cast<APawn>(Hit.GetActor());
-        const bool Player=Pawn&&Pawn->IsPlayerControlled()&&Component==Pawn->GetRootComponent();
+        const bool Player=Pawn&&MonsterTargeting::IsOpponentPawn(Pawn)&&Component==Pawn->GetRootComponent();
         if(!Component || (!Player&&Component->GetCollisionResponseToChannel(ECC_Visibility)!=ECR_Block))continue;
         if(!First || Hit.Time<First->Time)First=&Hit;
     }
@@ -70,8 +71,8 @@ void ARootCrownNeedleProjectile::Tick(float Dt)
     {
         SetActorLocation(End);Remaining-=Step;if(Remaining<=0.f)Destroy();return;
     }
-    AActor* Victim=First->GetActor();const auto* Pawn=Cast<APawn>(Victim);
-    const bool Player=Pawn&&Pawn->IsPlayerControlled();
+    AActor* Victim=MonsterTargeting::DamageRecipient(First->GetActor());const auto* Pawn=Cast<APawn>(Victim);
+    const bool Player=Pawn&&MonsterTargeting::IsOpponentPawn(Pawn);
     bStopped=true;SetActorLocation(First->ImpactPoint-Direction*10.f);PlayImpact(First->ImpactPoint);
     if(Player)
     {

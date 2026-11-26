@@ -80,7 +80,20 @@ int32 UTaskTrackingContractCommandlet::Main(const FString&)
     Require(HostView.ApplyNewer(Authority,Authority.RunId)&&GuestView.ApplyNewer(Authority,Authority.RunId),
         TEXT("host and guest start with one shared run state"));
     const auto BeforeKill=Authority;
+    FDungeonSharedProgress OtherRegion=Authority,IndependentGuest;
+    ++OtherRegion.Revision;OtherRegion.bMedicalBossDefeated=true;
+    Require(IndependentGuest.ApplyNewer(OtherRegion,Authority.RunId)&&IndependentGuest.bMedicalBossDefeated
+        &&!IndependentGuest.bEcologyBossDefeated&&!IndependentGuest.bPowerBossDefeated,
+        TEXT("a medical kill does not complete ecology or power for players on another branch"));
+    FDungeonSharedProgress PowerOnly=Authority,PowerGuest;
+    ++PowerOnly.Revision;PowerOnly.bPowerBossDefeated=true;
+    Require(PowerGuest.ApplyNewer(PowerOnly,Authority.RunId)&&PowerGuest.bPowerBossDefeated
+        &&!PowerGuest.bMedicalBossDefeated&&!PowerGuest.bFreightBossDefeated&&!PowerGuest.bEcologyBossDefeated,
+        TEXT("a power kill completes only the power objective for players on separate branches"));
     ++Authority.Revision;Authority.bWelcomeEliteDefeated=true;
+    Authority.bMedicalBossDefeated=true;Authority.bFreightBossDefeated=true;Authority.bEcologyBossDefeated=true;
+    Authority.bPowerBossDefeated=true;
+    Authority.bFinalBossDefeated=true;
     Authority.Cleared.Add(TEXT("shared.room"));Authority.Explored.Add(TEXT("shared.room"));
     TArray<uint8> Bytes;
     {FMemoryWriter Writer(Bytes);FObjectAndNameAsStringProxyArchive Archive(Writer,false);
@@ -95,12 +108,54 @@ int32 UTaskTrackingContractCommandlet::Main(const FString&)
     Require(!GuestView.ApplyNewer(BeforeKill,Authority.RunId)&&GuestView.bWelcomeEliteDefeated,
         TEXT("late pre-kill progress cannot undo team completion"));
     Require(!GuestView.ApplyNewer(Received,Authority.RunId),TEXT("duplicate completion is idempotent"));
+    Require(Received.bFinalBossDefeated&&HostView.bFinalBossDefeated&&GuestView.bFinalBossDefeated
+        &&!GuestView.bFinalTreasureLooted&&!GuestView.bCompleted,
+        TEXT("final boss death replicates without granting loot or return completion"));
+    auto Looted=Authority;++Looted.Revision;Looted.bFinalTreasureLooted=true;
+    TArray<uint8> LootBytes;
+    {FMemoryWriter Writer(LootBytes);FObjectAndNameAsStringProxyArchive Archive(Writer,false);
+        FDungeonSharedProgress::StaticStruct()->SerializeItem(Archive,&Looted,nullptr);}
+    FDungeonSharedProgress LootReceived,LootGuest;
+    {FMemoryReader Reader(LootBytes);FObjectAndNameAsStringProxyArchive Archive(Reader,false);
+        FDungeonSharedProgress::StaticStruct()->SerializeItem(Archive,&LootReceived,nullptr);}
+    Require(LootGuest.ApplyNewer(LootReceived,Authority.RunId)&&LootGuest.bFinalBossDefeated
+        &&LootGuest.bFinalTreasureLooted&&!LootGuest.bCompleted,
+        TEXT("teammate looting survives serialization without completing return"));
+    Require(!LootGuest.ApplyNewer(Received,Authority.RunId)&&LootGuest.bFinalTreasureLooted,
+        TEXT("delayed pre-loot packet cannot lock the return portal again"));
+    FDungeonSharedProgress LateLootGuest;
+    Require(!LateLootGuest.ApplyNewer(LootReceived,FString())&&LateLootGuest.ApplyNewer(LootReceived,Authority.RunId)
+        &&LateLootGuest.bFinalBossDefeated&&LateLootGuest.bFinalTreasureLooted,
+        TEXT("late join after looting restores final reward prerequisites after layout binding"));
+    auto CancelledReturn=LootReceived;++CancelledReturn.Revision;CancelledReturn.bCompleted=true;
+    Require(LootGuest.ApplyNewer(CancelledReturn,Authority.RunId)&&LootGuest.bCompleted,
+        TEXT("prepared return reaches the shared progress mirror"));
+    ++CancelledReturn.Revision;CancelledReturn.bCompleted=false;
+    Require(LootGuest.ApplyNewer(CancelledReturn,Authority.RunId)&&!LootGuest.bCompleted&&LootGuest.bFinalTreasureLooted,
+        TEXT("cancelled travel resets completion while preserving earned loot"));
+    Require(HostView.bFreightBossDefeated&&GuestView.bFreightBossDefeated&&Received.bFreightBossDefeated,
+        TEXT("freight boss completion survives serialization and is shared by host and guest"));
+    Require(HostView.bEcologyBossDefeated&&GuestView.bEcologyBossDefeated&&Received.bEcologyBossDefeated,
+        TEXT("ecology boss completion survives serialization and is shared by host and guest"));
+    Require(HostView.bPowerBossDefeated&&GuestView.bPowerBossDefeated&&Received.bPowerBossDefeated,
+        TEXT("power boss completion survives serialization and is shared by host and guest"));
+    Require(!GuestView.ApplyNewer(BeforeKill,Authority.RunId)&&GuestView.bPowerBossDefeated,
+        TEXT("late pre-kill progress cannot undo power completion"));
+    Require(!GuestView.ApplyNewer(BeforeKill,Authority.RunId)&&GuestView.bEcologyBossDefeated,
+        TEXT("late pre-kill progress cannot undo ecology completion"));
     Require(!LateGuest.ApplyNewer(Received,FString())&&LateGuest.ApplyNewer(Received,Authority.RunId)
         &&LateGuest.bWelcomeEliteDefeated,TEXT("progress received before layout readiness applies after binding"));
+    Require(LateGuest.bFreightBossDefeated,TEXT("late participant receives freight boss completion after layout binding"));
+    Require(LateGuest.bEcologyBossDefeated,TEXT("late participant receives ecology boss completion after layout binding"));
+    Require(LateGuest.bPowerBossDefeated,TEXT("late participant receives power boss completion after layout binding"));
     Require(!GuestView.ApplyNewer(Received,TEXT("shared.run.2")),TEXT("old run packets cannot complete a new run"));
     FDungeonSharedProgress NewRun;NewRun.RunId=TEXT("shared.run.2");NewRun.Revision=1;
     Require(GuestView.ApplyNewer(NewRun,NewRun.RunId)&&!GuestView.bWelcomeEliteDefeated&&GuestView.Cleared.IsEmpty(),
         TEXT("new run clears completion even when its revision starts at one"));
+    Require(!GuestView.bFreightBossDefeated&&!GuestView.bMedicalBossDefeated&&!GuestView.bEcologyBossDefeated&&!GuestView.bPowerBossDefeated,
+        TEXT("new run clears all regional boss completion flags"));
+    Require(LateLootGuest.ApplyNewer(NewRun,NewRun.RunId)&&!LateLootGuest.bFinalBossDefeated&&!LateLootGuest.bFinalTreasureLooted
+        &&!LateLootGuest.ApplyNewer(LootReceived,NewRun.RunId),TEXT("new run clears final rewards and rejects old-run loot packets"));
     ++Authority.Revision;Authority.bCompleted=true;
     Require(HostView.ApplyNewer(Authority,Authority.RunId)&&LateGuest.ApplyNewer(Authority,Authority.RunId)
         &&HostView.bCompleted&&LateGuest.bCompleted,TEXT("run completion is shared with late participants"));

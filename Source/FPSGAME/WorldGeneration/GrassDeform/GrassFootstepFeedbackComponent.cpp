@@ -4,6 +4,8 @@
 #include "GrassDeformSubsystem.h"
 #include "GrassDeformSettings.h"
 #include "Components/DecalComponent.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
 #include "Engine/World.h"
 #include "GameFramework/Character.h"
 #include "Materials/MaterialInstanceDynamic.h"
@@ -69,14 +71,19 @@ void UGrassFootstepFeedbackComponent::BeginPlay()
         return;
     }
 
-    // Possession may arrive after BeginPlay on clients. Subscribe for every displayed pawn;
-    // the event supplies its source, and assets remain lazy until this pawn actually steps.
+    // A first landing also dispatches a footstep. Warm its assets before movement
+    // prediction starts so the contact frame does not have to flush the loader.
+    TArray<FSoftObjectPath> Paths={FSoftObjectPath(GrassFootstepAssets::DefaultConfigPath),
+        FSoftObjectPath(GrassFootstepAssets::DefaultPuffPath),FSoftObjectPath(GrassFootstepAssets::DefaultDecalPath)};
+    if(!Config.IsNull())Paths.AddUnique(Config.ToSoftObjectPath());
+    FootstepPreload=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths);
     Subscribe();
 }
 
 void UGrassFootstepFeedbackComponent::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
     Unsubscribe();
+    FootstepPreload.Reset();
     Super::EndPlay(EndPlayReason);
 }
 
@@ -125,6 +132,7 @@ bool UGrassFootstepFeedbackComponent::ResolveAssets()
     // deferred decal that does not project onto the DynamicMesh ground is "RT + Niagara only"
     // (plan section 10.3), so a missing decal material degrades instead of disabling the feature.
     bReady = ResolvedConfig && ResolvedConfig->Surfaces.Num() > 0;
+    if(bReady)FootstepPreload.Reset();
     if (!bReady && !bMissingAssetsLogged)
     {
         bMissingAssetsLogged = true;

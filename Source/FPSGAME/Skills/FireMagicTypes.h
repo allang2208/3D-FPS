@@ -47,6 +47,7 @@ struct FFlameArmorNetState
     UPROPERTY() FFireMagicCast Cast;
     UPROPERTY() double StartedAt=0;
     UPROPERTY() uint32 Serial=0;
+    UPROPERTY() uint32 CastId=0;
     UPROPERTY() bool bActive=false;
 };
 

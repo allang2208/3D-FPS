@@ -1,4 +1,5 @@
 #include "AlchemySystem.h"
+#include "../Development/DevelopmentTuningSubsystem.h"
 #include "AlchemyInteractionAssets.h"
 #include "AlchemyWorkbenchLayout.h"
 #include "VoxelBuildPrefabActor.h"
@@ -160,7 +161,7 @@ bool UColdSteelAlchemySystem::Open(AActor* S,APawn* Pawn)
 bool UColdSteelAlchemySystem::Reachable() const
 {
     const auto* B=Bench.Get();const auto* P=WorkingPawn.Get();
-    if(!B||!P||B->GetWorld()!=GetWorld()||B->GetWorld()!=P->GetWorld()||B->IsFalling()||!P->GetController()||P->GetController()->GetPawn()!=P)return false;
+    if(!B||B->PrefabId()!=FName(TEXT("potion_workbench"))||!P||B->GetWorld()!=GetWorld()||B->GetWorld()!=P->GetWorld()||B->IsFalling()||!P->GetController()||P->GetController()->GetPawn()!=P)return false;
     const auto* W=Cast<AVoxelBuildWorld>(B->GetOwner());if(!W||!W->HasPrefabAt(B->AnchorCell())||W->PrefabActorAt(B->AnchorCell())!=B)return false;
     if(const auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead())return false;
     const FVector Near=B->Body()->Bounds.GetBox().GetClosestPointTo(P->GetPawnViewLocation());
@@ -175,7 +176,8 @@ bool UColdSteelAlchemySystem::CanStart(FName Id,FString& Reason) const
     if(M->IsCampfireInventoryPending()){Reason=TEXT("背包正在同步，请稍候再开炉");return false;}
     if(Saving()){Reason=M->ResultMessage();if(Reason.IsEmpty())Reason=TEXT("本炉保存尚未确认，请稍候");return false;}
     if(HasJob()||bPending){Reason=TEXT("请先处理本炉或等待操作完成");return false;}
-    for(const auto& I:R->Inputs)if(M->CountMaterial(I.Item)<I.Count){Reason=TEXT("材料不足");return false;}
+    if(!UDevelopmentTuningSubsystem::IsFreeCrafting(M))
+        for(const auto& I:R->Inputs)if(M->CountMaterial(I.Item)<I.Count){Reason=TEXT("材料不足");return false;}
     if(!Reachable()){Reason=TEXT("请靠近有效的药水工作台");return false;}
     if(const auto* B=Bench.Get();B&&B->AlchemyPresentation().Operator&&B->AlchemyPresentation().Operator!=WorkingPawn.Get())
     {Reason=TEXT("另一名玩家正在使用坩埚");return false;}
@@ -230,9 +232,19 @@ bool UColdSteelAlchemySystem::Pay(FName Id)
     const auto* R=Find(Id);auto* M=Model();M->SyncRuntime();auto Next=M->Snapshot();
     FColdSteelAlchemyJob J;J.Id=FGuid::NewGuid().ToString(EGuidFormats::Digits);J.Recipe=R->Id;J.Name=R->Name;
     J.RecipeSnapshot=R->Raw;J.Revision=1;J.Progress.Init(0,R->Steps.Num());J.Product=M->CreateItem(R->Output,1);
+    J.bMaterialsWaived=UDevelopmentTuningSubsystem::IsFreeCrafting(M);
     if(J.Product.Data.IsEmpty()){Notice=TEXT("成品数据未就绪，未扣料");return false;}
     for(const auto& Input:R->Inputs)
     {
+        if(J.bMaterialsWaived)
+        {
+            // Brewing still needs a full batch for grinding, opening and pouring.
+            // These supplies remain inside the job and never enter the inventory.
+            auto Supplied=M->CreateItem(Input.Item,Input.Count);
+            if(Supplied.Data.IsEmpty()){Notice=TEXT("备料数据未就绪");return false;}
+            Supplied.Place=0;Supplied.Cell=-1;Supplied.Container.Reset();
+            J.Escrow.Add(MoveTemp(Supplied));continue;
+        }
         int64 Left=Input.Count;
         for(int32 Place:{0,5,4})for(int32 I=Next.Items.Num()-1;I>=0&&Left>0;--I)
         {
@@ -512,6 +524,7 @@ bool UColdSteelAlchemySystem::Claim()
 }
 TArray<FColdSteelItem> UColdSteelAlchemySystem::DiscardRefund() const
 {
+    if(Job().bMaterialsWaived)return {};
     const auto& J=Job();auto Used=J.Opened;
     if(J.bFinished)
     {
@@ -534,14 +547,14 @@ bool UColdSteelAlchemySystem::Discard()
     if(bActive||bPending||Saving()||!HasJob())return false;
     if(ColdSteelStationNet::IsClient(this))return Request(TEXT("alchemy.discard"));
     auto* M=Model();M->SyncRuntime();auto Next=M->Snapshot();
-    const bool Finished=Job().bFinished;const auto Refund=DiscardRefund();
+    const bool Finished=Job().bFinished,Free=Job().bMaterialsWaived;const auto Refund=DiscardRefund();
     for(const auto& Item:Refund)
     {
         if(!ColdSteelInventory::Insert(Next.Items,Item)){Notice=TEXT("背包放不下全部退料，本炉保留");return false;}
     }
     Next.AlchemyJob={};if(!M->CommitState(MoveTemp(Next))){Notice=M->ResultMessage();return false;}
     Working={};RestoredId.Reset();bSaveRetry=false;Release();
-    Notice=Finished?(Refund.IsEmpty()?TEXT("本炉已作废 · 按半数取整后无可退材料"):TEXT("本炉已作废 · 一半投入材料已返还背包（逐项向下取整）")):
+    Notice=Free?TEXT("本炉已废弃 · 免材料制作，无材料返还"):Finished?(Refund.IsEmpty()?TEXT("本炉已作废 · 按半数取整后无可退材料"):TEXT("本炉已作废 · 一半投入材料已返还背包（逐项向下取整）")):
         TEXT("本炉已废弃 · 未开封备料已返还");return true;
 }
 bool UColdSteelAlchemySystem::Transaction(const FString& Op,FName Id,AActor* S,APawn* P,FString& Reason)

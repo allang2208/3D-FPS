@@ -1,8 +1,10 @@
 #include "FPSGAMECharacter.h"
 #include "Weapons/RuneSwordComponent.h"
+#include "Weapons/WoodenTorchComponent.h"
 #include "Weapons/Bow/BowWeaponComponent.h"
 #include "Weapons/Bow/BowArmsMeshComponent.h"
 #include "Weapons/Staff/StaffWeaponComponent.h"
+#include "Weapons/Staff/StaffOffhandMeleeComponent.h"
 #include "Weapons/Spellbook/SpellbookComponent.h"
 #include "Weapons/Kukri/OffhandKukriComponent.h"
 #include "Weapons/Kukri/KukriWeaponComponent.h"
@@ -14,10 +16,16 @@
 
 bool AFPSGAMECharacter::CanBeginConsumableUse() const
 {
+    if(Staff&&Staff->IsPairedTorchSwing())return false;
+    if(Staff&&Staff->IsQuickCombatActive())
+        if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&Torch->UsesQuickAttack())return false;
+    if(IsOffhandReloadActive())
+        if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&Torch->HoldsLeft())return false;
     if(IsDodging() || IsSliding() || IsChoosingAmmo())return false;
     if(IsResolvingActionInterrupt() || IsTraversing() || IsCastBlockingLeftHandAction() || IsSpellGestureBlocking())return false;
     if(const auto* Use=FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->IsReturningBow())return false;
     if(HasOffhandPistol() && (DualPistols->HandBusy(0) || DualPistols->HandBusy(1)))return false;
+    if(const auto* Pair=FindComponentByClass<UStaffOffhandMeleeComponent>();Pair&&Pair->IsEquipped()&&Pair->IsActionPresentationActive())return false;
     // Only the equipped family owns this gate. The inactive firearm clock/ADS
     // and a menu-hidden staff must not lock a sword, tool or empty hand.
     if(RuneSword && RuneSword->IsEquipped())return RuneSword->CanReleaseSupportHand();
@@ -33,7 +41,7 @@ bool AFPSGAMECharacter::CanBeginConsumableUse() const
         default:return false; // equip, nock, release/recovery and melee keep their clock
         }
     }
-    if(Staff && Staff->IsEquipped())return !Staff->IsBusy();
+    if(Staff && Staff->HasMeleeMoveset())return !Staff->IsBusy();
     if(HasOffhandPistol())return true; // the offhand controller owns both pistol clocks
     if(!bInventoryWeaponReady)return true;
     // Single firearms can be in Idle while their trigger or recoil clip is still active.
@@ -57,6 +65,8 @@ void AFPSGAMECharacter::PrepareForConsumableUse()
 
 USkeletalMeshComponent* AFPSGAMECharacter::ConsumableHands() const
 {
+    if(const auto* Torch=FindComponentByClass<UWoodenTorchComponent>();Torch&&Torch->HoldsLeft())return Torch->HandForMotion(1);
+    if(const auto* Pair=FindComponentByClass<UStaffOffhandMeleeComponent>();Pair&&Pair->IsEquipped())return Pair->ArmsMesh();
     if(HasOffhandSpellbook())return Spellbook->ArmsMesh();
     if(const auto* OffhandKukri=FindComponentByClass<UOffhandKukriComponent>();OffhandKukri&&OffhandKukri->IsEquipped())return OffhandKukri->ArmsMesh();
     if(HasOffhandPistol())return DualPistols->Hand(1).Mesh.Get();
@@ -64,7 +74,7 @@ USkeletalMeshComponent* AFPSGAMECharacter::ConsumableHands() const
     if(RuneSword && RuneSword->IsEquipped())return RuneSword->ArmsMesh();
     if(const auto* Tool=FindComponentByClass<UProductionToolComponent>();Tool && Tool->IsEquipped())return Tool->ArmsMesh();
     if(Bow && Bow->IsEquipped())return Bow->ArmsMesh();
-    if(Staff && Staff->IsEquipped())return Staff->ArmsMesh();
+    if(Staff && Staff->HasMeleeMoveset())return Staff->ArmsMesh();
     if(UnarmedIdle && UnarmedIdle->IsEquipped())return UnarmedIdle->ArmsMesh();
     return bInventoryWeaponReady ? AKMViewmodel.Get() : nullptr;
 }

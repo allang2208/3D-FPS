@@ -112,10 +112,10 @@ int32 URuneboundReviewAuditCommandlet::Main(const FString& Params)
     for(int32 Mode=0;Mode<3;++Mode)
     {
         Reset(RuneboundHammer::FinalTollHead);Awake();const uint32 Id=++Serial;
-        Tool->ServerBeginBluntCharge(Id);Tool->BluntServerChargeStartedAt=World->GetTimeSeconds()-Tool->BluntChargeSeconds-.1f;
-        Tool->ServerBeginBluntAttack(Id,true,false);
+        Tool->ServerBeginBluntCharge(Id,Instance);Tool->BluntServerChargeStartedAt=World->GetTimeSeconds()-Tool->BluntChargeSeconds-.1f;
+        Tool->ServerBeginBluntAttack(Id,true,false,Instance);
         const float Paid=100.f-Shadow->Stamina();
-        Tool->ServerBeginBluntAttack(Id,true,false);
+        Tool->ServerBeginBluntAttack(Id,true,false,Instance);
         Check(FMath::IsNearlyEqual(Paid,float(Tool->ToolStats.HeavyReleaseStaminaCost),.01f)&&FMath::IsNearlyEqual(100.f-Shadow->Stamina(),Paid,.01f),TEXT("double heavy pays release once despite replay"));
         if(Mode==1)Shadow->AdoptNetMirror(RuneboundReview::Seed(Host,Instance,TEXT("")));
         if(Mode==2)Tool->ServerCancelBluntAttack(Id);

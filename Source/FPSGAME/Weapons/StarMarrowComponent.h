@@ -59,6 +59,13 @@ private:
     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> FlameSystem;
     UPROPERTY(Transient) TArray<TObjectPtr<UNiagaraComponent>> FlameFX;
     TSharedPtr<FStreamableHandle> FlameLoad;
+    /** User-selected charge sound; played once when the charge motion actually starts. */
+    UPROPERTY(Transient) TObjectPtr<class USoundBase> ChargeSound;
+    UPROPERTY(Transient) TObjectPtr<class UAudioComponent> ChargeAudio;
+    bool bChargeSoundPlayed=false;
+    void LoadChargeSound();
+    void PlayChargeSound();
+    void StopChargeSound(float FadeSeconds);
     struct FBladeFireHistory : FFlameArmorHistory
     {
         FVector BaseFlow = FVector::ZeroVector;

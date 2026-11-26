@@ -1,8 +1,12 @@
 #include "WoodworkingSystem.h"
+#include "../Development/DevelopmentTuningSubsystem.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "WoodworkingQuality.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../Multiplayer/ColdSteelStationNetwork.h"
+#include "../Tasks/CarpenterApprenticeship.h"
+#include "../FPSGAMECharacter.h"
 #include "Engine/GameInstance.h"
 #include "Serialization/MemoryWriter.h"
 #include "Serialization/MemoryReader.h"
@@ -19,8 +23,11 @@ bool UWoodworkingSystem::PayForJob()
     auto* M=Model();const auto* P=Pattern();
     const auto* Recipe=P?GetGameInstance()->GetSubsystem<UColdSteelCraftingSystem>()->Find(P->CraftRecipe):nullptr;
     if(!M||!Recipe||HasPendingJob())return false;
+    TArray<FColdSteelCraftingInput> Inputs;
+    if(!InputsFor(Inputs)){Notice=TEXT("请选择可用木芯");return false;}
     M->SyncRuntime();auto Next=M->Snapshot();
-    for(const auto& Input:Recipe->Inputs)
+    const bool Free=UDevelopmentTuningSubsystem::IsFreeCrafting(M);
+    if(!Free)for(const auto& Input:Inputs)
     {
         int64 Left=Input.Count;
         for(int32 Place:{0,5,4})for(int32 Index=Next.Items.Num()-1;Index>=0&&Left>0;--Index)
@@ -36,9 +43,12 @@ bool UWoodworkingSystem::PayForJob()
     Pending.Id=FGuid::NewGuid().ToString(EGuidFormats::Digits);Pending.Pattern=P->Id;
     Pending.Recipe=Recipe->Id;Pending.Name=P->Name;Pending.Item=M->CreateItem(Recipe->Output,Recipe->OutputCount);
     if(Pending.Item.Data.IsEmpty()){Notice=TEXT("成品数据尚未就绪，未扣除材料");return false;}
-    for(const auto& Input:Recipe->Inputs)Pending.PaidMaterials.FindOrAdd(Input.Item)+=Input.Count;
+    Pending.bMaterialsWaived=Free;Pending.QualityVersion=ColdSteelWoodQuality::Version;
+    Pending.Core=Core();Pending.MaterialBonus=MaterialBonus();
+    if(!Free)for(const auto& Input:Inputs)Pending.PaidMaterials.FindOrAdd(Input.Item)+=Input.Count;
     FString Error;if(!Board.Initialize(Rules,P->Outline,P->Connections,Error)){Notice=Error;return false;}
     FrozenElapsed=0;bCheckpointReady=true;WriteCheckpoint(Pending.Mask);
+    CarpenterApprenticeship::WorkpieceUpdated(Next);
     if(!M->CommitState(MoveTemp(Next))){Notice=M->ResultMessage();return false;}
     AcceptedRecipe=*Recipe;return true;
 }
@@ -50,7 +60,7 @@ void UWoodworkingSystem::BeginPaidRun()
     SessionMode=EWoodworkingMode::Craft;bPractice=false;bFeeding=bUndoPose=false;
     FrozenElapsed=0;StartedAt=FPlatformTime::Seconds();Phase=EWoodworkingPhase::Running;bMotorOn=false;bCheckpointReady=true;
     NextCheckpointAt=StartedAt+5;
-    Notice=TEXT("材料已投入 · 先调整木板方向，按空格进入切割；加工结束后返回工作面板结算。");
+    Notice=(Job().bMaterialsWaived?FString(TEXT("免材料制作")):FString(TEXT("材料已投入")))+TEXT(" · 先调整木板方向，按空格进入切割；加工结束后返回工作面板结算。");
 }
 
 bool UWoodworkingSystem::SaveResult()
@@ -63,12 +73,16 @@ bool UWoodworkingSystem::SaveResult()
     Pending.bFinished=true;Pending.bPassed=Phase==EWoodworkingPhase::Complete;
     Pending.Elapsed=FrozenElapsed;Pending.Quality=Score;Pending.Clearance=Metrics.Clearance;
     Pending.Integrity=Metrics.Integrity;Pending.EdgeFit=Metrics.EdgeFit;Pending.Result=Summary;
-    if(Pending.bPassed&&!ColdSteelWoodQuality::Apply(Pending.Item,Score))
+    if(Pending.bPassed&&!ColdSteelWoodQuality::Apply(Pending.Item,Pending))
     {Notice=TEXT("工艺属性写入失败，工件保留，请重试结算");return false;}
     if(Pending.bPassed&&ColdSteelWoodQuality::Channel(Pending.Item)!=ColdSteelWoodQuality::EChannel::None)
-        Pending.Result+=FString::Printf(TEXT("\n木工评分 %.1f / 100 · %s %+.1f%%"),Score,*ColdSteelWoodQuality::StatLabel(Pending.Item),(ColdSteelWoodQuality::FromScore(Score)-1)*100);
+        Pending.Result+=FString::Printf(TEXT("\n木工评分 %.1f / 100 · %s %+.1f%%"),Score,*ColdSteelWoodQuality::StatLabel(Pending.Item),(ColdSteelWoodQuality::FromJob(Pending)-1)*100);
     WriteCheckpoint(Pending.Mask);
-    if(!M->CommitState(MoveTemp(Next))){Notice=M->ResultMessage()+TEXT(" · 工件保留，请重试结算");return false;}
+    CarpenterApprenticeship::WorkpieceUpdated(Next);
+    const auto* Pawn=NetworkModel?M->RuntimePawn():nullptr;
+    const auto* Owner=Pawn?Pawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
+    if(!M->CommitWorkshopCheckpoint(MoveTemp(Next),Owner?Owner->CampfireGuestSlot():FString()))
+    {Notice=M->ResultMessage()+TEXT(" · 工件保留，请重试结算");return false;}
     return true;
 }
 
@@ -142,7 +156,7 @@ bool UWoodworkingSystem::Resume()
 {
     if(!CanResume())return false;
     if(ColdSteelStationNet::IsClient(this))
-    {if(!ColdSteelStationNet::Request(this,TEXT("wood.resume")))return false;bClaiming=true;Notice=TEXT("等待服务器恢复工件");return true;}
+    {if(!ColdSteelStationNet::Request(this,TEXT("wood.resume"),NAME_None,1,Station()))return false;bClaiming=true;Notice=TEXT("等待服务器恢复工件");return true;}
     Phase=EWoodworkingPhase::Running;bMotorOn=bFeeding=false;StartedAt=FPlatformTime::Seconds();NextCheckpointAt=StartedAt+5;
     CheckDamage();
     if(Phase==EWoodworkingPhase::Running&&((Rules.bCheckConnections&&!Board.ConnectionsIntact())||Remaining()<=0))Evaluate(Remaining()<=0);
@@ -155,13 +169,13 @@ bool UWoodworkingSystem::Suspend()
     EndStroke();FrozenElapsed=Elapsed();bMotorOn=bFeeding=false;
     const bool Saved=SaveCheckpoint();
     if(Phase==EWoodworkingPhase::Running)Phase=EWoodworkingPhase::Preview;
-    if(Saved&&HasPendingJob()&&!Job().bFinished)Notice=TEXT("加工已暂停 · 进度已保留，可继续加工或废弃返还一半材料。");
+    if(Saved&&HasPendingJob()&&!Job().bFinished)Notice=Job().bMaterialsWaived?TEXT("加工已暂停 · 进度已保留，可继续加工；本轮免材料，废弃不返料。"):TEXT("加工已暂停 · 进度已保留，可继续加工或废弃返还一半材料。");
     return Saved;
 }
 void UWoodworkingSystem::NetworkSessionEnded()
 {
     // The owning PlayerState channel is gone. Its pending receipt cannot complete here.
-    bClaiming=false;bOpen=false;FrozenElapsed=Elapsed();bMotorOn=bFeeding=false;
+    BoundStation.Reset();bClaiming=false;bOpen=false;FrozenElapsed=Elapsed();bMotorOn=bFeeding=false;
     Phase=EWoodworkingPhase::Abandoned;Notice=TEXT("联机连接已结束，重新进入工作台后同步工件状态。");
 }
 
@@ -180,6 +194,7 @@ bool UWoodworkingSystem::GetDiscardRefund(TArray<FColdSteelCraftingInput>& Refun
     Refund.Reset();
     if(!HasPendingJob()||Phase==EWoodworkingPhase::Running||bClaiming)
     {Reason=TEXT("请先结束加工并结算工件");return false;}
+    if(Job().bMaterialsWaived){Reason.Reset();return true;}
     TArray<FString> Materials;Job().PaidMaterials.GetKeys(Materials);Materials.Sort();
     for(const auto& Material:Materials)
     {const int64 Count=Job().PaidMaterials.FindRef(Material)/2;if(Count>0)Refund.Add({Material,Count});}
@@ -191,7 +206,7 @@ bool UWoodworkingSystem::Discard()
     TArray<FColdSteelCraftingInput> Refund;if(!GetDiscardRefund(Refund,Notice))return false;
     if(ColdSteelStationNet::IsClient(this))
     {
-        if(!ColdSteelStationNet::Request(this,TEXT("wood.discard")))return false;
+        if(!ColdSteelStationNet::Request(this,TEXT("wood.discard"),NAME_None,1,Station()))return false;
         bClaiming=true;Notice=TEXT("等待服务器返还材料");return true;
     }
     auto* M=Model();if(!M)return false;M->SyncRuntime();auto Next=M->Snapshot();
@@ -201,13 +216,35 @@ bool UWoodworkingSystem::Discard()
         if(Material.Data.IsEmpty()||!ColdSteelInventory::Insert(Next.Items,Material))
         {Notice=TEXT("背包无法容纳全部返还材料，工件保留待处理");return false;}
     }
+    const bool Free=Next.WoodworkingJob.bMaterialsWaived;
+    CarpenterApprenticeship::WorkpieceRemoved(Next,false);
+    const bool RetryLesson=CarpenterApprenticeship::Stage(Next)==CarpenterApprenticeship::EStage::Materials;
     Next.WoodworkingJob={};
     if(!M->CommitState(MoveTemp(Next))){Notice=M->ResultMessage();return false;}
-    Phase=EWoodworkingPhase::Delivered;Notice=TEXT("工件已废弃 · 一半投入材料已返还背包（逐项向下取整）");return true;
+    Phase=EWoodworkingPhase::Delivered;Notice=Free?TEXT("工件已废弃 · 免材料制作，无材料返还"):TEXT("工件已废弃 · 一半投入材料已返还背包（逐项向下取整）");
+    if(RetryLesson)Notice+=TEXT("。木工修炼仍在进行，重新备料制作学徒长杖，达标后领取成品。");
+    return true;
 }
 
-void UWoodworkingSystem::NetworkTransactionFinished(const FString& Operation,bool Success,const FString& Reason)
+void UWoodworkingSystem::AuthorityTransactionFinished(const FString& Operation,bool Success,const FString& Reason)
 {
+    if(Success)return;
+    // WorldAction has restored the committed inventory. Restore the session as
+    // well: a staged start/claim/discard may already have changed its phase.
+    // Keep an unsaved settlement's live board so the player can retry saving it.
+    if(Operation!=TEXT("wood.settle"))
+    {
+        bClaiming=false;bMotorOn=bFeeding=false;
+        if(HasPendingJob())RestoreJob();
+        else {Phase=EWoodworkingPhase::Abandoned;if(bOpen)Select(Selected);}
+    }
+    Notice=Reason;
+}
+
+void UWoodworkingSystem::NetworkTransactionFinished(const FString& Operation,bool Success,const FString& Reason,bool SamePawn)
+{
+    if(!SamePawn)
+    {NetworkSessionEnded();Notice=TEXT("角色已变化 · 工件保留，请重新打开木工台同步状态。");return;}
     bClaiming=false;Notice=Reason;
     if(!Success)return;
     if(Operation==TEXT("wood.start")||Operation==TEXT("wood.resume"))

@@ -5,6 +5,13 @@
 
 namespace ColdSteelStaff
 {
+void ApplyEquipmentDefinition(FJsonObject& Data,const FJsonObject& Definition)
+{
+    for(const TCHAR* Key:{TEXT("id"),TEXT("category"),TEXT("weaponType"),TEXT("isTwoHanded"),TEXT("weaponCategory"),TEXT("equipSlot")})
+        if(const auto Value=Definition.TryGetField(Key))Data.SetField(Key,Value);
+    for(const TCHAR* Key:{TEXT("attack"),TEXT("animation"),TEXT("attackKey"),TEXT("animConfigKey")})
+        if(!Definition.HasField(Key))Data.RemoveField(Key);
+}
 TSharedPtr<FJsonObject> Catalog()
 {
     static const auto Root=[](){FString S;TSharedPtr<FJsonObject> O;

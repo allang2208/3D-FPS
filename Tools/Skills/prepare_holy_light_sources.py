@@ -6,7 +6,7 @@ import subprocess
 import imageio_ffmpeg
 
 ROOT=Path(__file__).resolve().parents[2]
-SOURCE=Path('E:/无尽轮回/长期备份/2026-7-13-1/game-dev/assets/sounds/skills/holy-light-1.mp3')
+SOURCE=Path('F:/FPSGAMEData/ArtProduction/SourceAssets/LegacyGameDev/assets/sounds/skills/holy-light-1.mp3')
 DEST=ROOT/'SourceAssets/HolyLight20260920'
 DEST.mkdir(parents=True,exist_ok=True)
 WAVE=DEST/'S_HolyLightCast.wav'

@@ -80,6 +80,12 @@ void FControls::BlendOffhandKukriCarry(FPoseContext& Out,FCSPose<FCompactPose>& 
     // The authored aim is a straight pistol. Register the actual equipped
     // pistol's native grip so M1911, G18 and revolvers retain their own grasp.
     Targets[0].SetRotation((Targets[0].GetRotation()*SourcePistol.Inverse()*IndependentPistolRotation[0]).GetNormalized());
+    if(!bKukriQuickActive&&PistolHatchetPalmInView.IsSet())
+    {
+        // The body's forward axis is +Y, its screen-right axis is -X.
+        const FQuat ViewToBody=AimFrame*Heading*FQuat(FVector::UpVector,UE_HALF_PI);
+        Targets[1].SetRotation((ViewToBody*PistolHatchetPalmInView.GetValue()).GetNormalized());
+    }
     const FVector Travel=Heading.RotateVector(FVector(0,-4.f*Sprint-2.f*Kick,-10.f*Sprint+Kick)*PoseScale);
     for(int32 Side=0;Side<2;++Side)
         Targets[Side].AddToTranslation(Travel);

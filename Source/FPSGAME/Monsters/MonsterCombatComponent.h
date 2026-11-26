@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "UObject/SoftObjectPath.h"
 #include "../Combat/MonsterToughnessTypes.h"
 #include "MonsterCombatComponent.generated.h"
 class UAnimSequence;
@@ -13,6 +14,7 @@ class FPSGAME_API UMonsterCombatComponent : public UActorComponent
  GENERATED_BODY()
 public:
  UMonsterCombatComponent();
+ static FSoftObjectPath DefaultStunAnimationPath(const FString& Role);
  virtual void BeginPlay() override;
  virtual void EndPlay(const EEndPlayReason::Type Reason) override;
  virtual void TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick) override;
@@ -78,6 +80,8 @@ public:
  void ReceiveDirectedPull(APawn* Attacker,const FVector& Destination,float MaximumDistanceCM);
  /** Formation release: ordinary ranks or a currently broken bar; no hit required. */
  void ReceiveFormationPull(APawn* Attacker,const FVector& Destination,float MaximumDistanceCM);
+ bool ReceiveFalconDraw(APawn* Attacker,const FVector& Destination);
+ void ShowFalconTug(FVector TowardPlayer,FVector HitPoint);
  UFUNCTION(BlueprintCallable,Category="Monster|Knockdown")
  bool ReceiveKnockdown(APawn* Attacker,FVector LaunchVelocity,float DownSeconds=.7f);
  /** Special launch bypasses immunity tags, but still requires zero poise or a broken bar. */
@@ -152,6 +156,12 @@ private:
  float IncomingToughnessBonusBaseDamage=0.f;
  FVector FormationPullCenter=FVector::ZeroVector;
  float FormationPullDistance=0.f,FormationPullAge=0.f;
+ float FormationPullSeconds=.4f,FormationPullWindup=0.f;
+ bool StartFormationPull(APawn* Attacker,const FVector& Destination,float MaximumDistanceCM,bool bFalcon);
+ void TickFalconLean(float Delta);
+ float FalconLeanAge=-1.f,FalconLeanSide=0.f;
+ FVector FalconLeanAxis=FVector::RightVector;
+ FQuat FalconLeanBase=FQuat::Identity,FalconLeanLast=FQuat::Identity;
  void TickFormationPull(float Delta);
 public:
  void InitializeNetworkHitHistory();

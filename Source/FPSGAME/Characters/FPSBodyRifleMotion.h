@@ -5,7 +5,7 @@ namespace FPSBodyRifleMotion
 {
 inline bool UsesSourceBash(const FFPSBodyState& State)
 {
-    return State.Family==TEXT("Rifle")&&State.Weapon==TEXT("ue_svch")
+    return State.Family==TEXT("Rifle")&&(State.Weapon==TEXT("ue_svch")||State.Weapon==TEXT("ue_m24"))
         &&State.Action==EFPSBodyAction::GunBash;
 }
 // These rifle wrists are sampled relative to the native hold, then placed on

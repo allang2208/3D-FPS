@@ -1,4 +1,7 @@
 #include "ColdSteelShopWidget.h"
+#include "ColdSteelTextToolTip.h"
+#include "SColdSteelHorseMarket.h"
+#include "Components/NativeWidgetHost.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelInventoryWidget.h"
 #include "ColdSteelStatusModel.h"
@@ -20,9 +23,6 @@
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
 #include "Engine/GameInstance.h"
-#include "Engine/Texture2D.h"
-#include "ImageUtils.h"
-#include "Misc/Paths.h"
 #include "String/LexFromString.h"
 #include "Widgets/Layout/SDPIScaler.h"
 using namespace ColdSteelInventory;
@@ -64,6 +64,33 @@ int64 ReadQuantity(const UEditableTextBox* Box)
 }
 }
 
+void UColdSteelShopWidget::BuildHorseMarket(UVerticalBox* Body)
+{
+    HorseMarket=WidgetTree->ConstructWidget<UNativeWidgetHost>();
+    auto* MarketSlot=Body->AddChildToVerticalBox(HorseMarket);
+    MarketSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+    MarketSlot->SetPadding(FMargin(8,8));
+    HorseMarket->SetVisibility(ESlateVisibility::Collapsed);
+}
+
+void UColdSteelShopWidget::RefreshHorseMarket(const UColdSteelStatusModel& Status)
+{
+    auto Panel=StaticCastSharedPtr<SColdSteelHorseMarket>(HorseMarket->GetContent());
+    if(!Panel)
+    {
+        SAssignNew(Panel,SColdSteelHorseMarket)
+            .OnSelect(FSimpleDelegate::CreateWeakLambda(this,[this]{if(HUD)HUD->PlayButtonClick();}))
+            .OnDetails(SColdSteelHorseMarket::FOpenHorse::CreateWeakLambda(this,[this](FGuid Id)
+            {
+                if(HUD)HUD->PlayButtonClick();
+                if(HUD && Model && Model->IsStableShop())HUD->OpenMarketMountDetails(Id);
+            }));
+        HorseMarket->SetContent(Panel.ToSharedRef());
+    }
+    Panel->SetStock(Model->HorseOffers(),Status.ProfileView().MountRoster,Model->HorseMarketDay(),
+                    Status.SoulBalance(),Model->IsTradePending());
+}
+
 void UColdSteelShopWidget::NativeOnInitialized()
 {
     Super::NativeOnInitialized();SetIsFocusable(false);
@@ -87,12 +114,14 @@ void UColdSteelShopWidget::NativeOnInitialized()
     HeaderSurface->SetPadding(FMargin(18,12));Body->AddChildToVerticalBox(HeaderSurface);
     auto* HeaderSize=WidgetTree->ConstructWidget<USizeBox>();HeaderSize->SetHeightOverride(36);HeaderSurface->SetContent(HeaderSize);
     auto* Header=WidgetTree->ConstructWidget<UHorizontalBox>();HeaderSize->SetContent(Header);
-    auto* TitleSlot=Header->AddChildToHorizontalBox(ShopText(WidgetTree,TEXT("商店"),20,true));
+    ShopTitle=ShopText(WidgetTree,TEXT("商店"),20,true);
+    auto* TitleSlot=Header->AddChildToHorizontalBox(ShopTitle);
     TitleSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));TitleSlot->SetVerticalAlignment(VAlign_Center);
     Balance=ShopText(WidgetTree,TEXT(""),12,true);Balance->SetColorAndOpacity(ColdSteelUI::HUDGoldLight);
     auto* BalanceSlot=Header->AddChildToHorizontalBox(Balance);BalanceSlot->SetVerticalAlignment(VAlign_Center);BalanceSlot->SetPadding(FMargin(0,0,12,0));
     auto* CloseButton=ShopButton(WidgetTree,TEXT("关闭 · O"));CloseButton->OnClicked.AddDynamic(this,&ThisClass::Close);Header->AddChildToHorizontalBox(CloseButton);
 
+    BuildHorseMarket(Body);
     auto AddSection=[&](bool Sale)
     {
         auto* Area=WidgetTree->ConstructWidget<UBorder>();Area->SetBrushColor(FLinearColor::Transparent);Area->SetPadding(FMargin(0));
@@ -138,15 +167,15 @@ void UColdSteelShopWidget::NativeOnInitialized()
     };
     AddSection(false);
     auto* Divider=WidgetTree->ConstructWidget<UBorder>();Divider->SetBrushColor(ColdSteelUI::Border);Divider->SetPadding(FMargin(0));
-    auto* DividerSize=WidgetTree->ConstructWidget<USizeBox>();DividerSize->SetHeightOverride(1);DividerSize->SetContent(Divider);
-    Body->AddChildToVerticalBox(DividerSize)->SetPadding(FMargin(12,0));
+    SaleDivider=WidgetTree->ConstructWidget<USizeBox>();SaleDivider->SetHeightOverride(1);SaleDivider->SetContent(Divider);
+    Body->AddChildToVerticalBox(SaleDivider)->SetPadding(FMargin(12,0));
     AddSection(true);
-    auto* Footer=WidgetTree->ConstructWidget<UHorizontalBox>();Body->AddChildToVerticalBox(Footer)->SetPadding(FMargin(12,8,12,4));
+    SaleFooter=WidgetTree->ConstructWidget<UHorizontalBox>();Body->AddChildToVerticalBox(SaleFooter)->SetPadding(FMargin(12,8,12,4));
     Total=ShopText(WidgetTree,TEXT(""),14,true);Total->SetColorAndOpacity(ColdSteelUI::HUDGoldLight);Total->SetTextOverflowPolicy(ETextOverflowPolicy::Ellipsis);
-    auto* TotalSlot=Footer->AddChildToHorizontalBox(Total);TotalSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));TotalSlot->SetVerticalAlignment(VAlign_Center);
+    auto* TotalSlot=SaleFooter->AddChildToHorizontalBox(Total);TotalSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));TotalSlot->SetVerticalAlignment(VAlign_Center);
     auto* ClearButton=ShopButton(WidgetTree,TEXT("清空"));ClearButton->OnClicked.AddDynamic(this,&ThisClass::Clear);
-    Footer->AddChildToHorizontalBox(ClearButton)->SetPadding(FMargin(8,0));
-    SellButton=ShopButton(WidgetTree,TEXT("确认出售…"));SellButton->OnClicked.AddDynamic(this,&ThisClass::RequestSell);Footer->AddChildToHorizontalBox(SellButton);
+    SaleFooter->AddChildToHorizontalBox(ClearButton)->SetPadding(FMargin(8,0));
+    SellButton=ShopButton(WidgetTree,TEXT("确认出售…"));SellButton->OnClicked.AddDynamic(this,&ThisClass::RequestSell);SaleFooter->AddChildToHorizontalBox(SellButton);
     Message=ShopText(WidgetTree,TEXT(""),12);Message->SetTextOverflowPolicy(ETextOverflowPolicy::Ellipsis);
     auto* MessageSize=WidgetTree->ConstructWidget<USizeBox>();MessageSize->SetHeightOverride(18);MessageSize->SetContent(Message);
     Body->AddChildToVerticalBox(MessageSize)->SetPadding(FMargin(12,0,12,8));
@@ -176,36 +205,55 @@ TSharedRef<SWidget> UColdSteelShopWidget::RebuildWidget()
 void UColdSteelShopWidget::Configure(UColdSteelHUDWidget* Owner){HUD=Owner;}
 void UColdSteelShopWidget::NativeConstruct(){Super::NativeConstruct();if(Model&&!Changed.IsValid())Changed=Model->OnChanged.AddUObject(this,&ThisClass::Refresh);Refresh();}
 void UColdSteelShopWidget::NativeDestruct(){if(Model&&Changed.IsValid())Model->OnChanged.Remove(Changed);Changed.Reset();Super::NativeDestruct();}
-void UColdSteelShopWidget::ResetSession(){CancelConfirmation();BuyGrid->ResetPage();SaleGrid->ResetPage();BuyQuantity->SetText(FText::FromString(TEXT("1")));Refresh();}
-UTexture2D* UColdSteelShopWidget::IconFor(const FColdSteelItem& Item)
+void UColdSteelShopWidget::ResetSession()
 {
-    const FString Path=Text(Item,TEXT("ue_icon"));if(Path.IsEmpty())return nullptr;
-    if(const auto* Existing=Icons.Find(Path))return Existing->Get();if(Icons.Num()>=256)return nullptr;
-    auto* Texture=FImageUtils::ImportFileAsTexture2D(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/Path);
-    Icons.Add(Path,Texture);return Texture;
+    CancelConfirmation();
+    FString Title=TEXT("商店");
+    if(Model->IsPurchaseOnly())Title=Model->MerchantName();
+    else if(Model->IsArtisanShop())Title=Model->MerchantName()+TEXT("商店");
+    ShopSet(ShopTitle,Title);
+    const bool bPurchaseOnly=Model->IsPurchaseOnly();
+    if(auto Panel=StaticCastSharedPtr<SColdSteelHorseMarket>(HorseMarket->GetContent()))Panel->ResetSelection();
+    const bool Stable=Model->IsStableShop();
+    HorseMarket->SetVisibility(Stable?ESlateVisibility::SelfHitTestInvisible:ESlateVisibility::Collapsed);
+    BuyArea->SetVisibility(Stable?ESlateVisibility::Collapsed:ESlateVisibility::SelfHitTestInvisible);
+    SaleArea->SetVisibility(bPurchaseOnly?ESlateVisibility::Collapsed:ESlateVisibility::Visible);
+    SaleDivider->SetVisibility(bPurchaseOnly?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
+    SaleFooter->SetVisibility(bPurchaseOnly?ESlateVisibility::Collapsed:ESlateVisibility::SelfHitTestInvisible);
+    BuyGrid->ResetPage();SaleGrid->ResetPage();
+    BuyQuantity->SetText(FText::FromString(TEXT("1")));
+    Refresh();
 }
 void UColdSteelShopWidget::Refresh()
 {
     if(!Model||!Model->IsOpen())return;
     const auto* Status=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     ShopSet(Balance,FString::Printf(TEXT("灵魂  %lld"),Status->SoulBalance()));
+    if(Model->IsStableShop())
+    {
+        RefreshHorseMarket(*Status);
+        ShopSet(Message,Model->ResultMessage());ColdSteelToolTip::Set(*Message, FText::FromString(Model->ResultMessage()));
+        return;
+    }
     TArray<FColdSteelShopSaleLine> Stock,Sale;
     for(const auto& Item:Model->Stock())Stock.Add({Item,1,Model->BuyPrice(Item.Definition)});
     for(const auto& Selection:Model->Selection())if(const auto* Item=Status->FindItem(Selection.Id))Sale.Add({*Item,Selection.Count,Model->SellPrice(*Item)});
     BuyGrid->SetItems(Stock);SaleGrid->SetItems(Sale);
     FColdSteelShopQuote Quote;const bool Valid=Model->QuoteSale(Quote);
     const FString Income=FString::Printf(TEXT("预计获得  %lld 灵魂"),Valid?Quote.Total:0);
-    ShopSet(Total,Income);Total->SetToolTipText(FText::FromString(Income));SellButton->SetIsEnabled(Valid);
-    ShopSet(Message,Model->ResultMessage());Message->SetToolTipText(FText::FromString(Model->ResultMessage()));
+    ShopSet(Total,Income);ColdSteelToolTip::Set(*Total, FText::FromString(Income));SellButton->SetIsEnabled(Valid);
+    ShopSet(Message,Model->ResultMessage());ColdSteelToolTip::Set(*Message, FText::FromString(Model->ResultMessage()));
 }
 void UColdSteelShopWidget::GridChanged(bool Sale,bool ResetQuantity)
 {
     auto* Grid=Sale?SaleGrid.Get():BuyGrid.Get();if(!Grid)return;
     auto* Info=Sale?SaleInfo.Get():BuyInfo.Get();auto* Quantity=Sale?SaleQuantity.Get():BuyQuantity.Get();
-    auto* Action=Sale?SaleAction.Get():BuyAction.Get();const auto* Line=Grid->SelectedLine();
-    const FString Description=Line?FString::Printf(TEXT("%s · %lld 灵魂/件"),*Text(Line->Item,TEXT("name")),Line->UnitPrice)
-        :Sale?TEXT("拖入或右键背包物品加入待售"):TEXT("选择商品购买；右键购买 1 件");
-    ShopSet(Info,Description);Info->SetToolTipText(FText::FromString(Description));Action->SetIsEnabled(Line!=nullptr);Quantity->SetIsEnabled(Line!=nullptr);
+    auto* Action=Sale?SaleAction.Get():BuyAction.Get();
+    FString Description;
+    const auto* Line=Grid->SelectedLine(&Description);
+    if(!Line)Description=Sale?TEXT("拖入或右键背包物品加入待售"):TEXT("选择商品购买，右键购买 1 件");
+    ShopSet(Info,Description);Action->SetIsEnabled(Line!=nullptr);
+    Quantity->SetIsEnabled(Line && (Sale || !Model->SellsSingleItems()));
     if(ResetQuantity||(Sale&&!Quantity->HasKeyboardFocus()))Quantity->SetText(FText::FromString(FString::Printf(TEXT("%lld"),Line&&Sale?Line->Count:1)));
     ShopSet(Sale?SalePage.Get():BuyPage.Get(),FString::Printf(TEXT("%d / %d"),Grid->PageNumber(),Grid->PageCount()));
     (Sale?SalePrevious.Get():BuyPrevious.Get())->SetIsEnabled(Grid->PageNumber()>1);
@@ -216,8 +264,9 @@ void UColdSteelShopWidget::BuySelected()
 {
     if(IsConfirming())return;const auto* Line=BuyGrid->SelectedLine();if(!Line)return;
     // Copy the key before Buy publishes OnChanged and repacks the grid.
-    const FString Definition=Line->Item.Definition;const int64 Count=ReadQuantity(BuyQuantity);
-    Model->Buy(Definition,Count>=1&&Count<=99?int32(Count):0);
+    const FString StockItemId=Line->Item.InstanceId;
+    const int64 Count=Model->SellsSingleItems()?1:ReadQuantity(BuyQuantity);
+    Model->Buy(StockItemId,Count>=1&&Count<=99?int32(Count):0);
 }
 void UColdSteelShopWidget::RemoveSelected()
 {
@@ -234,16 +283,18 @@ void UColdSteelShopWidget::PreviousSalePage(){SaleGrid->TurnPage(-1);}
 void UColdSteelShopWidget::NextSalePage(){SaleGrid->TurnPage(1);}
 FReply UColdSteelShopWidget::NativeOnMouseWheel(const FGeometry& G,const FPointerEvent& E)
 {
-    if(IsConfirming())return FReply::Handled();const int32 Direction=E.GetWheelDelta()>0?-1:E.GetWheelDelta()<0?1:0;
+    if(IsConfirming())return FReply::Handled();
+    if(Model && Model->IsStableShop())return Super::NativeOnMouseWheel(G,E);
+    const int32 Direction=E.GetWheelDelta()>0?-1:E.GetWheelDelta()<0?1:0;
     if(BuyArea->GetCachedGeometry().IsUnderLocation(E.GetScreenSpacePosition())){BuyGrid->TurnPage(Direction,true);return FReply::Handled();}
-    if(SaleArea->GetCachedGeometry().IsUnderLocation(E.GetScreenSpacePosition())){SaleGrid->TurnPage(Direction,true);return FReply::Handled();}
+    if(!Model->IsPurchaseOnly()&&SaleArea->GetCachedGeometry().IsUnderLocation(E.GetScreenSpacePosition())){SaleGrid->TurnPage(Direction,true);return FReply::Handled();}
     return Super::NativeOnMouseWheel(G,E);
 }
 void UColdSteelShopWidget::Close(){if(HUD&&HUD->IsShopOpen())HUD->ToggleShop();}
 void UColdSteelShopWidget::Clear(){CancelConfirmation();Model->ClearSale();}
 bool UColdSteelShopWidget::AddToSale(const FString& Id)
 {
-    if(IsConfirming()||!Model||!Model->AddToSale(Id))return false;
+    if(IsConfirming()||!Model||Model->IsPurchaseOnly()||!Model->AddToSale(Id))return false;
     SaleGrid->SelectKey(Id,true);return true;
 }
 bool UColdSteelShopWidget::IsConfirming()const{return Confirmation&&Confirmation->GetVisibility()!=ESlateVisibility::Collapsed;}
@@ -263,7 +314,7 @@ bool UColdSteelShopWidget::HandleItemDrop(UColdSteelItemDrag* Drag,FVector2D Pos
 {
     if(!Drag||!GetCachedGeometry().IsUnderLocation(Position))return false;
     const auto* Status=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    if(!IsConfirming()&&SaleArea->GetCachedGeometry().IsUnderLocation(Position)&&Drag->IsCurrent(Status))AddToSale(Drag->ItemId);
+    if(!Model->IsPurchaseOnly()&&!IsConfirming()&&SaleArea->GetCachedGeometry().IsUnderLocation(Position)&&Drag->IsCurrent(Status))AddToSale(Drag->ItemId);
     return true; // Never let a drop over the shop fall through to world-drop.
 }
 bool UColdSteelShopWidget::NativeOnDragOver(const FGeometry&,const FDragDropEvent&,UDragDropOperation* Op){return Cast<UColdSteelItemDrag>(Op)!=nullptr;}

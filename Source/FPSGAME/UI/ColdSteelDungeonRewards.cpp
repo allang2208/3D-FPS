@@ -1,4 +1,6 @@
 #include "ColdSteelStatusModel.h"
+#include "../FPSGAMECharacter.h"
+#include "../Dungeons/DungeonRoomSubsystem.h"
 #include "ColdSteelCurrency.h"
 #include "ColdSteelWarehouseRules.h"
 #include "Kismet/GameplayStatics.h"
@@ -26,7 +28,7 @@ bool UColdSteelStatusModel::AppendDungeonReward(FColdSteelProfile& State,FName C
         if(!ColdSteelInventory::Insert(State.Items,Item))
         {
             Item.Place=2;Item.Cell=-1;Item.BackpackCell=-1;
-            Item.Map=UGameplayStatics::GetCurrentLevelName(this,true);
+            Item.Map=RuntimePawn()?UDungeonRoomSubsystem::LogicalMap(RuntimePawn()):UGameplayStatics::GetCurrentLevelName(this,true);
             Item.Position=DropPosition+FVector(0,0,12);State.Items.Add(MoveTemp(Item));
         }
     }

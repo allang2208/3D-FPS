@@ -34,3 +34,4 @@ try {
     }
     [ordered]@{packages=$hashes;reused_slots=@('Brass','Thread','Sole')} | ConvertTo-Json -Depth 4 | Set-Content -LiteralPath "$out/materials_installed.json" -Encoding utf8
 } finally {if($held){$guard.ReleaseMutex()};$guard.Dispose()}
+

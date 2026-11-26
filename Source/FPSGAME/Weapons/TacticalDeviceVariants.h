@@ -23,7 +23,7 @@ inline bool SupportsSecondary(const FString& Definition)
     return Definition==TEXT("ue_m4a1") || Definition==TEXT("ue_akm") || Definition==TEXT("ue_qbz191")
         || Definition==TEXT("ue_ash12") || Definition==TEXT("ue_m16a2") || Definition==TEXT("ue_a762")
         || Definition==TEXT("ue_svd") || Definition==TEXT("ue_svch") || Definition==TEXT("ue_pkm_lowpoly") || Definition==TEXT("ue_lmg201")
-        || Definition==TEXT("ue_hk416");
+        || Definition==TEXT("ue_hk416") || Definition==TEXT("ue_saiga12k");
 }
 inline FString Super90MeshPath(const FString& Id)
 {
@@ -33,6 +33,8 @@ inline FString Super90MeshPath(const FString& Id)
 // scale mount transform, including authored emitter and aim-guide sockets.
 inline FString FittedMeshPath(const FString& Family,const FString& Id,bool OppositeSide)
 {
+    if(Family==TEXT("M24"))return TEXT("/Game/Weapons/M24/Tactical20261104/SM_")+Id;
+    if(Family==TEXT("Saiga12K"))return FString::Printf(TEXT("/Game/Weapons/Saiga12K/Detail20261018/Attachments/SM_Saiga12K_%s_%d"),*Id,OppositeSide?2:1);
     if(Family==TEXT("Super90"))return Super90MeshPath(Id);
     if(Family==TEXT("M870"))return M870TacticalAssets::MeshPath(Id);
     return FString::Printf(TEXT("/Game/Weapons/TacticalDevices20260913/DualFit20261008/%s/SM_%s_%d"),*Family,*Id,OppositeSide?2:1);
@@ -41,12 +43,15 @@ inline FString FittedMeshPath(const FString& Family,const FString& Id,bool Oppos
 inline FString MeshVariant(const FString& Id) { return Id==BlessedLaser?FString(TEXT("laser")):Id; }
 inline FString BlessedMeshPath(const FString& Family)
 {
+    if(Family==TEXT("M24"))return FittedMeshPath(Family,BlessedLaser,false);
     if(Family==TEXT("Super90"))return Super90MeshPath(BlessedLaser);
     if(Family==TEXT("M870"))return M870TacticalAssets::MeshPath(BlessedLaser);
     return TEXT("/Game/Weapons/TacticalDevices20260913/BlessedLaser20261006/Models/SM_BlessedLaser_")+Family;
 }
 inline FString FamilyForDefinition(const FString& Definition)
 {
+    if(Definition==TEXT("ue_m24"))return TEXT("M24");
+    if(Definition==TEXT("ue_saiga12k"))return TEXT("Saiga12K");
     if(Definition==TEXT("ue_akm"))return TEXT("AKM");
     if(Definition==TEXT("ue_qbz191"))return TEXT("QBZ191");
     if(Definition==TEXT("ue_m1911"))return TEXT("M1911");

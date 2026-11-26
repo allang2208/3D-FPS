@@ -54,3 +54,4 @@ for slug, angle in [('front',0),('three_quarter',-36),('profile',87),('nape',178
     aim(camera,center)
     s.render.filepath=str(preview/(slug+'.png'))
     bpy.ops.render.render(write_still=True)
+

@@ -7,9 +7,18 @@
 #include "LightningTypes.h"
 #include "ElectricMagicTypes.h"
 #include "HolyLightTypes.h"
+#include "IceArmorTypes.h"
+#include "LightningHasteTypes.h"
 #include "FireMagicTypes.h"
 #include "WhirlwindTypes.h"
+#include "ChainSlashTypes.h"
+#include "LeapStrikeTypes.h"
+#include "ShadowStepTypes.h"
 #include "DashAttackTypes.h"
+#include "HeartPiercingArrowTypes.h"
+#include "MagicArrowRainTypes.h"
+#include "ElementalArrowTypes.h"
+#include "IlluminationArrowTypes.h"
 #include "../Combat/WeaponDamageTypes.h"
 #include "../Combat/MonsterToughnessTypes.h"
 #include "../Weapons/DealerPokerTypes.h"
@@ -46,6 +55,8 @@ struct FQuickCombatCast
 
 struct FColdSteelSkillDefinition
 {
+    FElementalArrowTuning ElementalArrow;
+    FIlluminationArrowTuning IlluminationArrow;
     FName Id = TEXT("rifleMastery");
     FString Name = TEXT("步枪精通");
     FString Description = TEXT("精通步枪的精准射击，每颗子弹都命中要害。");
@@ -56,6 +67,7 @@ struct FColdSteelSkillDefinition
     int32 WisdomPerLevel = 1;
     int32 StrengthPerLevel=0,ConstitutionPerLevel=0,HitExperience=0,MultiHitExperience=0;
     float CooldownReductionPerLevel=0;
+    float CriticalChancePerLevel=0.f;
     float DodgeDistanceCMPerLevel = 10.f, DodgeCostReductionPerLevel = .015f;
     int32 UseExperience = 1, MeleeDodgeExperience = 5, RangedDodgeExperience = 10;
     int32 DexterityPerLevel = 1, ReloadExperience = 5;
@@ -72,7 +84,11 @@ struct FColdSteelSkillDefinition
     float CriticalDamageBase = .50f, CriticalDamagePerLevel = .05f;
     int32 LuckPerLevel = 1, CriticalHitExperience = 1, CriticalKillExperience = 10;
     float HeavyMultiplierBase=2.5f,HeavyMultiplierPerLevel=.1f,HeavyChargeBase=2.f,HeavyChargeReductionPerLevel=.05f;
+    float HeavyChargeStaminaPerSecond=2.f;
     float UppercutStaminaCost=25.f,UppercutCooldownSeconds=8.f;
+    FChainSlashTuning ChainSlash;
+    FLeapStrikeTuning LeapStrike;
+    FShadowStepTuning ShadowStep;
     float UppercutRangeMultiplier=1.25f,UppercutReachGrowthPerLevel=.01f;
     int32 HeavyHit2Experience=5,HeavyKill2Experience=12,HeavyHit5Experience=25,HeavyKill5Experience=60;
     FFireballTuning Fireball;
@@ -80,12 +96,16 @@ struct FColdSteelSkillDefinition
     FLightningTuning Lightning;
     FElectricMagicTuning ElectricMagic;
     FHolyLightTuning HolyLight;
+    FIceArmorTuning IceArmor;
+    FLightningHasteTuning LightningHaste;
     FQuickCombatTuning QuickCombat;
     FWhirlwindTuning Whirlwind;
     FDashAttackTuning DashAttack;
     FFireMagicTuning FireMagic;
     FIceWallTuning IceWall;
     FBlizzardTuning Blizzard;
+    FHeartPiercingArrowTuning HeartPiercingArrow;
+    FMagicArrowRainTuning MagicArrowRain;
 };
 
 struct FColdSteelSkillEffect
@@ -96,6 +116,7 @@ struct FColdSteelSkillEffect
     float HeavyMultiplier=0,HeavyChargeSeconds=0;
     float UppercutReachMultiplier=1.f;
     float CooldownReduction=0;
+    float CriticalChance=0.f;
     float DodgeDistanceCM = 0, DodgeCostReduction = 0;
     int32 Dexterity = 0;
     float ReloadSpeed = 0;
@@ -113,8 +134,18 @@ class UFPSWeaponFXComponent;
 struct FColdSteelSkillShot
 {
     FName MasteryId;
+    uint32 MasteryAttackSerial=0;
+    uint32 GenericMeleeSerial=0;
+    uint64 ForgedGuardAttackKey=0; // Server-accepted action shared by all contacts. Local swings use their snapshot serial.
+    bool bEagleTalonStrike=false; // Captured only at an accepted attack start on authority.
+    // Authored damage phase; only phase zero can consume a prepared first-strike bonus.
+    uint8 MeleeDamagePhase=0;
     /** 命中时用于查询目录开关（枪械默认不造成硬直）。 */
     FString ItemDefinition;
+    // Frozen at launch, including the hand's distinct same-model instance.
+    FString ItemInstance;
+    uint32 FireSequence=0;
+    int32 FiredRounds=1;
     /** 命中形式：决定该次命中按哪条韧性抗性折算削韧。 */
     EMonsterAttackForm AttackForm = EMonsterAttackForm::Impact;
     /**
@@ -126,13 +157,22 @@ struct FColdSteelSkillShot
     float ArmorPenetration=0;
     float ToughnessDamageMultiplier=1;
     float MagicPenetration=0;
+    bool bAuroraBeam=false;
     FWeaponDamageParts DamagePanel;
+    // A combined one-handed dash keeps each blade's physical contribution and
+    // penetration. Captured at launch; reconstructed by the authority, never sent by the client.
+    FWeaponDamageParts PairedDashMainPhysical,PairedDashOffPhysical;
+    float PairedDashOffPenetration=0.f;
     // Captured from the attacking rune sword; authority reconstructs these.
     float TimeSandEchoRatio=0.f,TimeSandEchoDelay=0.f,TimeSandCooldownReward=0.f;
     float HitHealthReturnRatio=0.f,HitManaReturnRatio=0.f;
     // Captured from this Highland sword's material, reconstructed by authority.
     bool bBlackthornCriticalWeakness=false;
     bool bWhitehartCriticalVulnerability=false;
+    bool bGhostScytheContact=false;
+    bool bEmberWedge=false,bRavenWhistle=false;
+    bool bPairedDashOffGhostScythe=false;
+    bool bExecutionerBlade=false,bRingChainPommel=false,bFishtailPommel=false;
     float CriticalChance = 0;
     /** 开火时预掷的暴击样本 [0,1)：同一次射击的多弹丸/穿透目标共用一次判定，
      *  面板暴击率即这一发的真实概率。负数 = 未预掷（近战/快捷进战按接触点各掷）。 */
@@ -142,6 +182,8 @@ struct FColdSteelSkillShot
     bool bMelee = false;
     /** Frozen by the authoritative arrow launch, never inferred again at impact. */
     bool bPerfectBowRelease = false;
+    bool bHeartPiercingArrow = false;
+    int32 BowTargetPenetration = 0;
     /** Installed sniper suppressor: reuse the bow's post-damage alarm deferral. */
     bool bSilentLethalShot = false;
     float FirearmCriticalStunSeconds = 0.f;
@@ -149,6 +191,8 @@ struct FColdSteelSkillShot
     float CriticalDamageBonus = 0;
     /** Guaranteed ammo effects captured on release, independent of later selection. */
     int32 AmmoPoisonStacks = 0, AmmoBleedStacks = 0;
+    /** Direct melee contacts only; rebuilt from the attacker's item on the server. */
+    int32 MeleeHitBleedStacks = 0;
     /** Fired firearm enchantment snapshot. Melee, arrows and spells leave radius zero. */
     float ShatterRadiusCM=0.f, ShatterDamageScale=1.f, BulletSpeedCM=0.f;
     /** Secondary bullets inherit resolved pre-defense damage, never roll crit or bounce again. */
@@ -156,8 +200,11 @@ struct FColdSteelSkillShot
     /** 联机命中上报的攻击语义上下文（本地结构体，ForwardHit 透传进 Report）：
      *  弓=拉弦比 0-1；其余武器族留 0。客户端只报"怎么打的"，不报"打了多少"。 */
     float DamageContext = 0.f;
-    /** 联机上报：低4位=连段；0x10=重击，0x14=上挑，0x20=旋风，0x40=裂斩波，0x80=快速近战。 */
+    /** 联机上报：低4位=连段；0x10=重击，0x14=上挑，0x18=瞬步掠影一段，0x19=瞬步掠影二段，0x20=旋风，0x40=裂斩波，0x80=快速近战。 */
     uint8 AttackMeta = 0;
+    uint32 KukriAttackSerial = 0;
+    uint32 ShadowStepSerial = 0;
+    bool bShadowStepFollowup = false;
     /** Normal combo stage 3; the server derives this from the installed blade. */
     bool bRisingDragonFinisher=false;
     float QuickCombatTigerRoarToughnessBonus=0.f, QuickCombatTigerRoarSeconds=0.f;
@@ -182,16 +229,39 @@ struct FColdSteelSkillShot
     FString DealerSourceInstance;
     DealerPoker::FShot Dealer;
     // Direct blade action identity; shared by every target hit by the same swing.
+    // Server-local payment identity carried by this swing and its child waves.
+    uint64 GalePaymentKey=0;
     uint32 GuardAttackSerial=0;
     FString GuardSourceInstance;
     FString ZhenmoSourceInstance;
     float QuickCombatRuneVulnerability=0, QuickCombatRuneVulnerabilitySeconds=0;
+    /** Warhammer direct hits and its committed slam wave share this rune snapshot. */
+    float BluntRuneVulnerability=0, BluntRuneVulnerabilitySeconds=0;
+    /** Actual attacking hammer's rune/status snapshot, including thrown/recall hits. */
+    FLightningCast HammerLightning;
+    int32 HammerNativeStacks=0;
+    bool bHammerRuneContact=false;
+    /** Electric share of this weapon receipt, excluding ordinary physical hits. */
+    float HammerElectricDamage=0.f;
+    /** Committed charged-heavy continuation; zero for normals, sprint and secondary waves. */
+    FVector ZhenTingForward=FVector::ZeroVector;
+    /** Actual charged-heavy grip snapshot, preserved by delayed JiLei continuations. */
+    bool bHammerStaticField=false;
+    /** Coil's independent lightning-skill snapshot, not the heavy slam damage. */
+    bool bHammerCoil=false;
+    FLightningCast HammerCoilLightning;
     /** Azure Dragon: direct sword contact only; a second point-damage transaction. */
     float AzureDragonPhysicalMultiplier=1.f,AzureDragonMagicDamage=0.f;
+    // Reconstructed from the equipped rune and the server's charged-release receipt.
+    float OathPhysicalMultiplier=1.f;
+    double HeavyReleaseTime=0.;
 };
 
 struct FColdSteelProgressNotice
 {
     FString Title, Detail, Icon;
     float Duration = 2.8f;
+    // game-dev top notice tones (2026-11-15): upgrades/unlocks use the gold 28px level-up format,
+    // everything else (PostNotice) the plate-less 20px info format.
+    bool bUpgrade = false;
 };

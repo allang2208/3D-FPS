@@ -8,8 +8,19 @@ namespace
 {
     int32 Floor16(int32 N){return N>=0?N/16:-int32((-(int64)N+15)/16);}
     FIntVector ChunkOf(FIntVector P){return FIntVector(Floor16(P.X),Floor16(P.Y),Floor16(P.Z));}
-    void Boxes(TSet<FIntVector> Remaining,FVector Offset,FKAggregateGeom& Out)
+    // 残骸/分裂仍按整格盒（掉落碎块用立方体，视觉与碰撞一致地粗粒度）。
+    const TMap<FIntVector,uint8> NoShapes;
+    // 2026-10-15 楔形格：切割格不进盒子合并，单独出凸包（坡面碰撞随视觉斜面走）。
+    void Boxes(TSet<FIntVector> Remaining,FVector Offset,const TMap<FIntVector,uint8>& Shapes,FKAggregateGeom& Out)
     {
+        for(const auto& S:Shapes)
+            if(Remaining.Contains(S.Key))
+            {
+                FKConvexElem Convex;VoxelCut::Corners(S.Value,Convex.VertexData);
+                for(FVector& V:Convex.VertexData)V+=Offset+FVector(S.Key)*20.;
+                if(Convex.VertexData.Num()>=4)Out.ConvexElems.Add(MoveTemp(Convex));
+                Remaining.Remove(S.Key);
+            }
         TArray<FIntVector> Ordered=Remaining.Array();
         Ordered.Sort([](FIntVector A,FIntVector B){return A.Z!=B.Z?A.Z<B.Z:(A.Y!=B.Y?A.Y<B.Y:A.X<B.X);});
         for(FIntVector P:Ordered)
@@ -41,11 +52,31 @@ namespace
 
 TSharedPtr<FVoxelGeometry> VoxelGeometry::Chunk(FIntVector Origin,TMap<FIntVector,int32> Slots,double Radius)
 {
+    TMap<FIntVector,uint8> EmptyShapes;
+    return Chunk(Origin,MoveTemp(Slots),MoveTemp(EmptyShapes),Radius);
+}
+
+TSharedPtr<FVoxelGeometry> VoxelGeometry::Chunk(FIntVector Origin,TMap<FIntVector,int32> Slots,TMap<FIntVector,uint8> Shapes,double Radius)
+{
     auto Result=MakeShared<FVoxelGeometry>();
-    VoxelSurface::Build(Result->Mesh,Origin,16,Radius,[&](FIntVector P){const auto* S=Slots.Find(P);return S?*S:INDEX_NONE;});
+    // 2026-10-19 连续屋面：切割格改为解析棱柱网格（AppendCutCells）。步进场必须把切格
+    // 当空、且不再做粗采样切割——否则会在解析面下方鼓出 4 cm 台阶，把真斜面埋掉。
+    // 切格与整格的交界由步进场补面；切格之间由解析面自己接缝。
+    const auto FieldSlot=[&](FIntVector P)->int32
+    {
+        if(Shapes.Contains(P))return INDEX_NONE;
+        const auto* S=Slots.Find(P);return S?*S:INDEX_NONE;
+    };
+    VoxelSurface::Build(Result->Mesh,Origin,16,Radius,FieldSlot,[](FIntVector){return uint8(0);});
+    VoxelSurface::AppendCutCells(Result->Mesh,Origin,16,
+        [&](FIntVector P){const auto* S=Slots.Find(P);return S?*S:INDEX_NONE;},
+        [&](FIntVector P){const auto* C=Shapes.Find(P);return C?*C:uint8(0);});
     TSet<FIntVector> Occupied;
-    for(const auto& E:Slots){const auto P=E.Key-Origin;if(P.X>=0&&P.Y>=0&&P.Z>=0&&P.X<16&&P.Y<16&&P.Z<16)Occupied.Add(P);}
-    Boxes(MoveTemp(Occupied),FVector::ZeroVector,Result->Collision);return Result;
+    for(const auto& E:Slots){const FIntVector P=E.Key-Origin;if(P.X>=0&&P.Y>=0&&P.Z>=0&&P.X<16&&P.Y<16&&P.Z<16)Occupied.Add(P);}
+    // 盒子合并按块内局部格；切割格同样落本地键。
+    TMap<FIntVector,uint8> LocalShapes;
+    for(const auto& E:Shapes){const FIntVector P=E.Key-Origin;if(P.X>=0&&P.Y>=0&&P.Z>=0&&P.X<16&&P.Y<16&&P.Z<16)LocalShapes.Add(P,E.Value);}
+    Boxes(MoveTemp(Occupied),FVector::ZeroVector,LocalShapes,Result->Collision);return Result;
 }
 
 TSharedPtr<FVoxelGeometry> VoxelGeometry::Batch(TArray<FVoxelChunkSnapshot> Chunks,double Radius)
@@ -54,7 +85,7 @@ TSharedPtr<FVoxelGeometry> VoxelGeometry::Batch(TArray<FVoxelChunkSnapshot> Chun
     auto Result=MakeShared<FVoxelGeometry>();Result->Mesh.EnableAttributes();Result->Mesh.Attributes()->EnableMaterialID();
     for(auto& Input:Chunks)
     {
-        auto Part=Chunk(Input.Origin,MoveTemp(Input.Slots),Radius);
+        auto Part=Chunk(Input.Origin,MoveTemp(Input.Slots),MoveTemp(Input.Shapes),Radius);
         FDynamicMeshEditor Editor(&Result->Mesh);FMeshIndexMappings Maps;const FVector3d Offset(Input.Offset);
         Editor.AppendMesh(&Part->Mesh,Maps,[Offset](int32,const FVector3d& P){return P+Offset;});
         for(auto Box:Part->Collision.BoxElems){Box.Center+=Input.Offset;Result->Collision.BoxElems.Add(Box);}
@@ -77,7 +108,7 @@ TSharedPtr<FVoxelGeometry> VoxelGeometry::Fragment(const TArray<FVoxelDebrisCell
     {
         const auto& V=Pair.Value;TSet<FIntVector> Occupied;
         for(const auto& E:V.Cells)Occupied.Add(E.Key);
-        Boxes(MoveTemp(Occupied),V.Offset,Result->Collision);
+        Boxes(MoveTemp(Occupied),V.Offset,NoShapes,Result->Collision);
         for(FIntVector C:V.Chunks)
         {
             FDynamicMesh3 Part;const FIntVector Origin=C*16;
@@ -121,7 +152,7 @@ TArray<FVoxelFragmentSave> VoxelGeometry::Split(const FVoxelFragmentSave& Source
         {
             auto Piece=Work.Pop();FKAggregateGeom Collision;TMap<FName,int32> Empty;
             for(const auto& V:Volumes(Piece.Cells,Empty))
-            {TSet<FIntVector> Occupied;for(const auto& C:V.Value.Cells)Occupied.Add(C.Key);Boxes(MoveTemp(Occupied),V.Value.Offset,Collision);}
+            {TSet<FIntVector> Occupied;for(const auto& C:V.Value.Cells)Occupied.Add(C.Key);Boxes(MoveTemp(Occupied),V.Value.Offset,NoShapes,Collision);}
             if(Collision.BoxElems.Num()<=FMath::Max(1,MaxShapes)){Result.Add(MoveTemp(Piece));continue;}
             FBox Bounds(ForceInit);for(const auto& C:Piece.Cells)Bounds+=C.Min;
             const FVector Extent=Bounds.GetSize();const int32 Axis=Extent.X>=Extent.Y&&Extent.X>=Extent.Z?0:(Extent.Y>=Extent.Z?1:2);

@@ -136,3 +136,4 @@ def generate(out, *, site_weights=False, wall_flanks=False):
 
 if __name__=='__main__':
     generate(Path(sys.argv[1]))
+

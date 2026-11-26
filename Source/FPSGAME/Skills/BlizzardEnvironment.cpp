@@ -214,17 +214,45 @@ bool Validate(APawn* Caster,float Range,FVector& Point,FVector& Normal,FVector& 
 }
 bool Select(APawn* Caster,float Range,const FVector& View,const FVector& Direction,FVector& Point,FVector& Normal,FVector& Axis,FString& Failure)
 {
-    const FVector Ray=Direction.GetSafeNormal();FHitResult Aim;
-    const bool Hit=Trace(Caster,View,View+Ray*(Range+250.f),Aim,true);
-    if(Hit&&!Aim.bStartPenetrating&&Aim.ImpactNormal.Z>=.45f)
-    {Point=Aim.ImpactPoint;Normal=Aim.ImpactNormal;return Validate(Caster,Range,Point,Normal,Axis,Failure);}
-    // Project down from the near side of the obstruction, inside this room.
-    // No upward search from outside a roof and no snapping through a wall.
-    const float Distance=Hit?float(Aim.Distance):Range;
-    for(float Back:{32.f,72.f,128.f})
+    Failure.Reset();
+    if(!Caster||!Caster->GetWorld()||Range<=0.f||View.ContainsNaN()||Direction.ContainsNaN())return false;
+    const FVector Ray=Direction.GetSafeNormal(),Origin=Caster->GetActorLocation();
+    FVector Bearing=Ray.GetSafeNormal2D();
+    if(Bearing.IsNearlyZero())Bearing=FRotator(0,Caster->GetViewRotation().Yaw,0).Vector();
+    FHitResult Aim;FCollisionQueryParams Query(SCENE_QUERY_STAT(GroundAreaAim),true,Caster);
+    bool Hit=MagicOcclusion::TraceBlocker(Caster->GetWorld(),View,View+Ray*(Range+250.f),Query,Aim,Caster);
+    // A body selects its feet, never an airborne decal or the floor behind it.
+    if(Hit&&Aim.GetActor()&&(Aim.GetActor()->IsA<APawn>()||Aim.GetActor()->FindComponentByClass<UMonsterCombatComponent>()))
     {
-        const FVector Seed=View+Ray*FMath::Max(0.f,Distance-Back);FHitResult Ground;
-        if(!Floor(Caster,Seed,0.f,FMath::Min(Range,1200.f),Ground))continue;
+        FHitResult Feet;
+        if(Floor(Caster,Aim.ImpactPoint,0.f,1200.f,Feet))Aim=Feet;
+        else Hit=false;
+    }
+    const bool Walkable=Hit&&!Aim.bStartPenetrating&&Aim.ImpactNormal.Z>=.45f;
+    if(Walkable&&FVector::Dist2D(Origin,Aim.ImpactPoint)<=Range)
+    {Point=Aim.ImpactPoint;Normal=Aim.ImpactNormal;return Validate(Caster,Range,Point,Normal,Axis,Failure);}
+
+    // Range is the same horizontal radius used by authority. Raising pitch
+    // beyond it keeps this radius; yaw still moves the point around the caster.
+    const float Limit=FMath::Max(0.f,Range-.01f);
+    FVector Seed=Origin+Bearing*Limit;Seed.Z=View.Z;
+    if(Walkable)
+    {
+        // Keep the unobstructed camera ray height when clipping a distant slope.
+        const FVector Offset=(Aim.ImpactPoint-Origin).GetSafeNormal2D()*Limit;
+        const double Fraction=Offset.Size2D()/FMath::Max(1.,FVector::Dist2D(View,Aim.ImpactPoint));
+        Seed=Origin+Offset;Seed.Z=FMath::Lerp(View.Z,Aim.ImpactPoint.Z,FMath::Clamp(Fraction,0.,1.));
+    }
+    else if(Hit&&!Aim.bStartPenetrating&&FMath::Abs(Aim.ImpactNormal.Z)<.45f&&FVector::Dist2D(Origin,Aim.ImpactPoint)<Range)
+        Seed=Aim.ImpactPoint-Ray*32.f;
+    // A clamped point must still be on this side of solid cover. In particular,
+    // looking over a wall or into a ceiling must not project through that room.
+    const FVector Travel=(Seed-View).GetSafeNormal();FHitResult Block;
+    if(Trace(Caster,View,Seed,Block,true))Seed=Block.ImpactPoint-Travel*32.f;
+    for(float Back:{0.f,40.f,96.f})
+    {
+        FHitResult Ground;
+        if(!Floor(Caster,Seed-Bearing*Back,0.f,FMath::Min(Range,1200.f),Ground))continue;
         Point=Ground.ImpactPoint;Normal=Ground.ImpactNormal;
         if(Validate(Caster,Range,Point,Normal,Axis,Failure))return true;
     }

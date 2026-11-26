@@ -16,12 +16,19 @@ class FPSGAME_API UGunAssemblyActionWidget : public UUserWidget
     GENERATED_BODY()
 public:
     void Refresh(const UGunAssemblySystem* System,const FString& Message,int32 Selected,bool Held);
+    float WorkspaceBottom(int32 ViewportHeight);
+    float CalibrationTop(int32 ViewportHeight) const;
     FVector2D Aim=FVector2D(.5,.45),Target=FVector2D(.5,.42);
+    FVector2D InstallTarget=FVector2D::ZeroVector,InstallPart=FVector2D::ZeroVector;
+    FString InstallName;
+    float InstallDistance=0,InstallAngle=0;
+    bool bInstallGuide=false,bInstallReady=false;
     TArray<FVector2D> Markers;
     TArray<FString> Names;
     TArray<bool> Done;
     int32 Highlight=INDEX_NONE;
     bool bCalibration=false,bFinished=false,bInside=false;
+    float CalibrationRadius=.0235f,CalibrationTime=0;
 protected:
     virtual void NativeOnInitialized() override;
     virtual int32 NativePaint(const FPaintArgs&,const FGeometry&,const FSlateRect&,FSlateWindowElementList&,int32,const FWidgetStyle&,bool) const override;
@@ -37,9 +44,14 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTextBlock> TimeLabel;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> TimeValue;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> HitsValue;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> HitsLabel;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> QualityValue;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> BonusBreakdown;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Details;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Hint;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> FollowHint;
+    UPROPERTY(Transient) TObjectPtr<UBorder> FollowNotice;
+    UPROPERTY(Transient) TObjectPtr<USizeBox> FollowNoticeSize;
     UPROPERTY(Transient) TObjectPtr<UBorder> Panel;
     UPROPERTY(Transient) TObjectPtr<UBorder> Content;
     UPROPERTY(Transient) TObjectPtr<UBackgroundBlur> Blur;

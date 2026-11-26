@@ -30,6 +30,9 @@ struct FPKMSoftChain
         double Corridor, TArray<FVector>& Result,
         const FPKMSoftChainSettings& Settings);
     void Reset() { LastTime=-1.; }
+    // Cosmetic hosts that project against their own moving carrier must return
+    // that correction to the particles, otherwise the next frame rebounds.
+    void CommitProjection(const TArray<FVector>& Result, const FTransform& Component);
 private:
     double LastTime=-1.;
     TArray<FVector> Positions, Velocities, PreviousGuide;

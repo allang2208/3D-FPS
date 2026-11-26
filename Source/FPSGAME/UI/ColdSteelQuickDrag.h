@@ -12,6 +12,7 @@ public:
     int32 SourceSlot=INDEX_NONE;
     FName Skill;
     TArray<FColdSteelQuickBinding> Bindings;
+    TArray<FName> MagicBindings;
     TWeakObjectPtr<class UColdSteelHUDWidget> HUD;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelDragVisual> Visual;
     bool IsCurrent() const;

@@ -27,7 +27,7 @@ struct FKukriAttackReceipt
 namespace KukriAttackReceipt
 {
 inline bool SupportedMeta(uint8 Meta)
-{return Meta==0||Meta==0x10||Meta==0x14||Meta==0x16||Meta==0x20||Meta==0x80;}
+{return Meta==0||Meta==0x10||Meta==0x14||Meta==0x16||Meta==0x18||Meta==0x19||Meta==0x20||Meta==0x80;}
 // Same author-time tempo and hand-over as AdvanceAttack; computed once at commit.
 float Seconds(int32 Stage,bool Dual,float AuthorTime,float MainRate,float OffhandRate);
 float Length(int32 Stage,bool Dual);

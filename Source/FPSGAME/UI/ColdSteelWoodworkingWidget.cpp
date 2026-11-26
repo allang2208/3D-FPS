@@ -253,6 +253,7 @@ bool UColdSteelWoodworkingWidget::Configure(AActor* Station,bool PracticeOnly)
     if(PracticeOnly||!Station)return false;
     Workbench=Station;EntryPawn=GetOwningPlayerPawn();
     SawVisual=Station->FindComponentByClass<UWoodworkingSawVisualComponent>();
+    if(Woodworking)Woodworking->SetStation(Station);
     if(!EntryFlow.Open()||!Woodworking||!Woodworking->Open(false)){EndSession();return false;}
     LastRevision=-1;EntryNotice.Reset();return true;
 }
@@ -299,7 +300,7 @@ bool UColdSteelWoodworkingWidget::EnsureStation()
     if(IsWorldMode()&&(!IsValid(WorldView)||!WorldView->Healthy())){CloseConfirmed();return false;}
     const auto* Piece=Cast<AVoxelBuildPrefabActor>(Workbench.Get());const auto* Pawn=GetOwningPlayerPawn();
     const auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
-    if(!Piece||Piece->PrefabId()!=VoxelWoodworkingBenchId||Piece->IsFalling()||!World||!World->HasPrefabAt(Piece->AnchorCell())||!Pawn||!Piece->Body()
+    if(!Piece||Piece->PrefabId()!=VoxelWoodworkingBenchId||Piece->IsFalling()||!World||!World->HasPrefabAt(Piece->AnchorCell())||World->PrefabActorAt(Piece->AnchorCell())!=Piece||!Pawn||!Piece->Body()
         ||Piece->Body()->Bounds.GetBox().ComputeSquaredDistanceToPoint(Pawn->GetActorLocation())>240.f*240.f)
     {CloseConfirmed();return false;}
     return true;

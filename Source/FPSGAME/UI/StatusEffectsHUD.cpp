@@ -20,6 +20,7 @@
 #include "TimerManager.h"
 #include "Widgets/Layout/SDPIScaler.h"
 #include "Rendering/DrawElementTypes.h"
+#include "Rendering/DrawElements.h"
 
 namespace
 {
@@ -27,9 +28,6 @@ constexpr float TileWidth=72.f,TileHeight=82.f,TileGap=8.f,ScrollGutter=6.f;
 // This subtree cancels viewport DPI: use physical px and only convert font px to points.
 FSlateFontInfo UiText(float Pixels){return ColdSteelUI::TextFont(Pixels*.75f);}
 FSlateFontInfo UiNumber(float Pixels,bool Medium=false){return ColdSteelUI::NumberFont(Pixels*.75f,Medium);}
-// Tribute icons retain their existing catalogue glyphs and existing font path.
-FSlateFontInfo TributeIcon(float Pixels)
-{static auto Font=MakeShared<FCompositeFont>(TEXT("Regular"),TEXT("C:/Windows/Fonts/seguiemj.ttf"),EFontHinting::Auto,EFontLoadingPolicy::LazyLoad);return FSlateFontInfo(Font,Pixels*.75f);}
 UCanvasPanelSlot* At(UCanvasPanel* Canvas,UWidget* Widget,FVector2D Position,FVector2D Size)
 {auto* Slot=Canvas->AddChildToCanvas(Widget);Slot->SetPosition(Position);Slot->SetSize(Size);return Slot;}
 void SetText(UTextBlock* Label,const FString& Value)
@@ -49,7 +47,7 @@ void UStatusEffectTile::NativeOnInitialized()
  Surface=WidgetTree->ConstructWidget<UBorder>();WidgetTree->RootWidget=Surface;
  Surface->SetPadding(FMargin(0));Surface->SetVisibility(ESlateVisibility::SelfHitTestInvisible);
  auto* Canvas=WidgetTree->ConstructWidget<UCanvasPanel>();Surface->SetContent(Canvas);
- Icon=WidgetTree->ConstructWidget<UTextBlock>();Icon->SetFont(TributeIcon(30));
+ Icon=WidgetTree->ConstructWidget<UTextBlock>();Icon->SetFont(ColdSteelUI::IconFont(30*.75f));
  Icon->SetJustification(ETextJustify::Center);Icon->SetColorAndOpacity(FLinearColor::White);At(Canvas,Icon,{8,5},{56,36});
  NameText=WidgetTree->ConstructWidget<UTextBlock>();NameText->SetFont(UiText(12));
  NameText->SetColorAndOpacity(ColdSteelUI::TextPrimary);NameText->SetJustification(ETextJustify::Center);
@@ -134,7 +132,14 @@ int32 UStatusEffectTile::NativePaint(const FPaintArgs& Args,const FGeometry& G,c
   const double Now=GetWorld()?GetWorld()->GetTimeSeconds():SampledAt;
   const auto Fill=FMath::Lerp(View.Color,ColdSteelUI::TextPrimary,.25f);
   auto Deep=View.Color*.45f;Deep.A=1.f;
-  Result=ColdSteelUI::PaintResourceMeter(G,Out,Result+1,{5,76},{62,4},ProgressAt(Now),Fill,Deep,ColdSteelUI::Border,Tint);
+  if(View.Type==TEXT("bowCadence"))
+  {
+   TArray<FVector2D> Ring;const float Progress=ProgressAt(Now);
+   for(int32 I=0;I<=64;++I)
+   {const float A=-PI*.5f+2.f*PI*Progress*I/64.f;Ring.Add(FVector2D(27,23)+FVector2D(FMath::Cos(A),FMath::Sin(A))*18.5f);}
+   FSlateDrawElement::MakeLines(Out,++Result,G.ToPaintGeometry(),Ring,ESlateDrawEffect::None,Fill*Tint,true,1.15f);
+  }
+  else Result=ColdSteelUI::PaintResourceMeter(G,Out,Result+1,{5,76},{62,4},ProgressAt(Now),Fill,Deep,ColdSteelUI::Border,Tint);
  }
  return Result;
 }
@@ -287,10 +292,25 @@ FName UStatusEffectsHUD::TooltipType() const{return HoverTile.IsValid()?HoverTil
 FVector2D UStatusEffectsHUD::TooltipPosition() const{return Tooltip?CastChecked<UCanvasPanelSlot>(Tooltip->Slot)->GetPosition():FVector2D::ZeroVector;}
 UStatusEffectTile* UStatusEffectsHUD::TileFor(FName Type) const{for(const auto& Tile:Tiles)if(Tile->View.Type==Type)return Tile;return nullptr;}
 void UStatusEffectsHUDSubsystem::OnWorldBeginPlay(UWorld& W){Super::OnWorldBeginPlay(W);if(W.IsGameWorld()&&W.GetNetMode()!=NM_DedicatedServer)W.GetTimerManager().SetTimer(Timer,this,&ThisClass::EnsureHUD,.25f,true);}
+void UStatusEffectsHUDSubsystem::SetWorldMapOpen(bool bOpen)
+{
+ if(bWorldMapOpen==bOpen)return;
+ bWorldMapOpen=bOpen;
+ if(!HUD)return;
+ HUD->HideTip();
+ // Effects keep their gameplay lifetime while the map hides only their presentation.
+ if(!bOpen)HUD->Refresh();
+ HUD->SetVisibility(bOpen?ESlateVisibility::Collapsed:ESlateVisibility::SelfHitTestInvisible);
+}
 void UStatusEffectsHUDSubsystem::EnsureHUD()
 {
  auto* PC=UGameplayStatics::GetPlayerController(this,0);if(!PC||!PC->IsLocalController())return;
- if(!HUD){HUD=CreateWidget<UStatusEffectsHUD>(PC);HUD->AddToViewport(45);}
+ if(!HUD)
+ {
+  HUD=CreateWidget<UStatusEffectsHUD>(PC);
+  HUD->SetVisibility(bWorldMapOpen?ESlateVisibility::Collapsed:ESlateVisibility::SelfHitTestInvisible);
+  HUD->AddToViewport(45);
+ }
  if(BoundPawn.Get()!=PC->GetPawn()){BoundPawn=PC->GetPawn();HUD->BindPawn(BoundPawn.Get());}
 }
 void UStatusEffectsHUDSubsystem::Deinitialize(){if(GetWorld())GetWorld()->GetTimerManager().ClearTimer(Timer);if(HUD)HUD->RemoveFromParent();HUD=nullptr;BoundPawn.Reset();Super::Deinitialize();}

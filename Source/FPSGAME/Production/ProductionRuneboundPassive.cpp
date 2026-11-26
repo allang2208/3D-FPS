@@ -110,9 +110,11 @@ void UProductionToolComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProper
     DOREPLIFETIME(UProductionToolComponent,ThunderAwayInstance);
     DOREPLIFETIME(UProductionToolComponent,ThunderCatchStartedAt);
     DOREPLIFETIME(UProductionToolComponent,ThrownHammer);
-    DOREPLIFETIME(UProductionToolComponent,bThunderCallCharging);
-    DOREPLIFETIME(UProductionToolComponent,ThunderCallVisualStartedAt);
-    DOREPLIFETIME(UProductionToolComponent,ThunderCallVisualSeconds);
+    // The owning player predicts these visuals; delayed server echoes must not
+    // resurrect a cancelled charge. Rejection RPCs retire the matching input.
+    DOREPLIFETIME_CONDITION(UProductionToolComponent,bThunderCallCharging,COND_SkipOwner);
+    DOREPLIFETIME_CONDITION(UProductionToolComponent,ThunderCallVisualStartedAt,COND_SkipOwner);
+    DOREPLIFETIME_CONDITION(UProductionToolComponent,ThunderCallVisualSeconds,COND_SkipOwner);
 }
 
 double UProductionToolComponent::RuneboundClock() const

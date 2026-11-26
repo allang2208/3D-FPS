@@ -43,7 +43,7 @@ public:
         Scale=FMath::Max(.1f,ColdSteelUI::PixelScale(Owner.Get()));Buttons=ColdSteelUI::ButtonStyle(Scale);
         Frame=ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint,ColdSteelUI::PanelRadius/Scale,ColdSteelUI::Border,1/Scale);
         Fallback=ColdSteelUI::RoundedBrush(ColdSteelUI::GlassFallback,ColdSteelUI::PanelRadius/Scale);
-        Title.Reset();Mode.Reset();Time.Reset();Clearance.Reset();Integrity.Reset();Message.Reset();PrimaryText.Reset();Motor.Reset();
+        Title.Reset();Mode.Reset();Time.Reset();Clearance.Reset();Integrity.Reset();Message.Reset();PrimaryText.Reset();Motor.Reset();TotalBonus.Reset();MaterialBonus.Reset();ProcessingBonus.Reset();
         bBuiltResult=IsResult();bQuoteDirty=true;BuiltJobId=Owner->System()->Job().Id;bBuiltFinished=Owner->System()->Job().bFinished;
         if(Owner->IsProjectMenu())BuildSelection();else BuildWorkshop();
         Canvas->SetBlocked(Owner->IsProjectMenu()||bConfirmClose||bBuiltResult);
@@ -60,7 +60,15 @@ public:
         if(Owner->IsProjectMenu())return;
         const bool Preview=Phase==EWoodworkingPhase::Preview,Running=Phase==EWoodworkingPhase::Running;
         Set(Title,(bBuiltResult?(Phase==EWoodworkingPhase::Failed?FString(TEXT("加工未达标")):FString(TEXT("加工完成"))):S->IsAdjusting()?FString(TEXT("调整木板")):FString(TEXT("正在切割")))+TEXT(" · ")+(P?P->Name:FString()));
-        Set(Mode,FString::Printf(TEXT("材料已投入 · 角度 %.2f°"),FMath::RadiansToDegrees(S->Pose().Angle)));
+        Set(Mode,FString::Printf(TEXT("%s · 角度 %.2f°"),S->Job().bMaterialsWaived?TEXT("免材料制作"):TEXT("材料已投入"),FMath::RadiansToDegrees(S->Pose().Angle)));
+        auto Bonus=[&](TSharedPtr<STextBlock>& Widget,const TCHAR* Caption,double Value)
+        {
+            const int32 Rounded=FMath::RoundToInt(Value*10000.);
+            Set(Widget,FString::Printf(TEXT("%s %+.2f%%"),Caption,Rounded/100.));
+            if(Widget)Widget->SetColorAndOpacity(Rounded>0?ColdSteelUI::Success:Rounded<0?ColdSteelUI::Danger:ColdSteelUI::TextTertiary);
+        };
+        Bonus(TotalBonus,TEXT("当前加成"),S->MaterialBonus()+S->ProcessingBonus());
+        Bonus(MaterialBonus,TEXT("材质"),S->MaterialBonus());Bonus(ProcessingBonus,TEXT("加工"),S->ProcessingBonus());
         const FString Clock=FString::Printf(TEXT("剩余 %.1f 秒"),S->Remaining());
         Set(Time,Clock+(Preview?TEXT(" · 未计时"):S->IsAdjusting()?TEXT(" · 暂停"):TEXT("")));
         const auto Metrics=S->Mask().Metrics();
@@ -82,7 +90,14 @@ private:
     bool IsResult() const {const auto P=Owner->System()->State();return P==EWoodworkingPhase::Complete||P==EWoodworkingPhase::Failed||P==EWoodworkingPhase::Delivered;}
     FVector2D ScreenSize() const {return AvailablePixels.X>100?AvailablePixels:UWidgetLayoutLibrary::GetViewportSize(Owner.Get());}
     TSharedRef<STextBlock> Label(const FString& Text,float Size=14,bool Numeric=false,bool Wrap=false)
-    {return SNew(STextBlock).Text(FText::FromString(Text)).Font(Numeric?GunsmithUI::NumberFont(Size/Scale):GunsmithUI::TextFont(Size/Scale)).ColorAndOpacity(ColdSteelUI::TextPrimary).AutoWrapText(Wrap);}
+    {
+        using ColdSteelUI::ETextWeight;
+        auto Weight=ETextWeight::Regular;
+        if (!Wrap && Size>=20) Weight=ETextWeight::Bold;
+        else if (!Wrap && Size>=16) Weight=ETextWeight::SemiBold;
+        const auto Font=Numeric?GunsmithUI::NumberFont(Size/Scale):ColdSteelUI::TextFont(Size*.75f/Scale,Weight);
+        return SNew(STextBlock).Text(FText::FromString(Text)).Font(Font).ColorAndOpacity(ColdSteelUI::TextPrimary).AutoWrapText(Wrap);
+    }
     TSharedRef<STextBlock> Paragraph(const FString& Text,float Size=14){return Label(Text,Size,false,true);}
     TSharedRef<STextBlock> Dynamic(TSharedPtr<STextBlock>& T,float Size=14,bool Wrap=false){T=Label(TEXT(""),Size,false,Wrap);return T.ToSharedRef();}
     TSharedRef<SWidget> Button(const FString& Text,TFunction<void()> Click,TFunction<bool()> Enabled=[](){return true;})
@@ -136,6 +151,8 @@ private:
             +SHorizontalBox::Slot().AutoWidth()[Button(TEXT("结束并返回"),[this](){Owner->RequestReturnToSelection();})]];
         Top->AddSlot().AutoHeight().Padding(0,6/Scale,0,0)[Dynamic(Mode,12)];
         auto Bottom=SNew(SVerticalBox);
+        Bottom->AddSlot().AutoHeight().Padding(0,0,0,8/Scale)[SNew(SWrapBox).UseAllottedSize(true).InnerSlotPadding(FVector2D(16/Scale,4/Scale))
+            +SWrapBox::Slot()[Dynamic(TotalBonus,16)]+SWrapBox::Slot()[Dynamic(MaterialBonus,14)]+SWrapBox::Slot()[Dynamic(ProcessingBonus,14)]];
         Bottom->AddSlot().AutoHeight().Padding(0,0,0,6/Scale)[SNew(SHorizontalBox)
             +SHorizontalBox::Slot().FillWidth(1)[Dynamic(Clearance)]
             +SHorizontalBox::Slot().FillWidth(1)[Dynamic(Integrity)]];
@@ -180,7 +197,7 @@ private:
     TWeakObjectPtr<UColdSteelStatusModel> Model;FDelegateHandle InventoryHandle;
     TSharedPtr<SWoodworkingCanvas> Canvas;
     FButtonStyle Buttons;FSlateBrush Frame,Fallback;
-    TSharedPtr<STextBlock> Title,Mode,Time,Clearance,Integrity,Message,PrimaryText,Motor;
+    TSharedPtr<STextBlock> Title,Mode,Time,Clearance,Integrity,Message,PrimaryText,Motor,TotalBonus,MaterialBonus,ProcessingBonus;
     FString BuiltJobId;
     bool bBuiltFinished=false;
     FString QuoteReason;

@@ -1,4 +1,5 @@
 #include "SColdSteelMapMarkerEditor.h"
+#include "ColdSteelTextToolTip.h"
 #include "TransitLoadingSubsystem.h"
 #include "Engine/GameInstance.h"
 #include "SColdSteelWorldMap.h"
@@ -60,7 +61,7 @@ void SColdSteelMapMarkerEditor::Construct(const FArguments& Args,APlayerControll
             [SNew(SBorder).BorderImage_Lambda([this,I](){return Draft.ColorIndex==I?&SelectedBrush:FCoreStyle::Get().GetBrush("NoBrush");}).Padding(1)
             [SNew(SBox).WidthOverride(36).HeightOverride(ColdSteelUI::ActionHeight)
                 [SNew(SButton).ButtonStyle(&Button).IsFocusable(true).ContentPadding(0).HAlign(HAlign_Center).VAlign(VAlign_Center)
-                    .ToolTipText(FColdSteelMapMarkers::ColorName(I))
+                    .ToolTip(ColdSteelToolTip::Make(FColdSteelMapMarkers::ColorName(I)))
                     .OnClicked_Lambda([this,I](){Draft.ColorIndex=I;Session->MarkerDraft=Draft;++Session->MarkerUIRevision;return FReply::Handled();})
                     [SNew(STextBlock).Text(FColdSteelMapMarkers::ColorName(I))
                         .Font(ColdSteelUI::TextFont(14*.75f,true)).ColorAndOpacity(FColdSteelMapMarkers::Color(I))]]]];
@@ -231,7 +232,7 @@ void SColdSteelMapMarkerEditor::RebuildList()
                 .BorderImage_Lambda([this,Id](){return Session->SelectedMarker==Id?&SelectedBrush:FCoreStyle::Get().GetBrush("NoBrush");})
             [SNew(SBox).WidthOverride(188).HeightOverride(48)
                 [SNew(SButton).ButtonStyle(&Button).IsFocusable(false).ContentPadding(FMargin(10,4))
-                    .ToolTipText(FText::FromString(M.Label+TEXT(" · ")+Where))
+                    .ToolTip(ColdSteelToolTip::Make(FText::FromString(M.Label+TEXT(" · ")+Where)))
                     .OnClicked_Lambda([this,Id]()
                     {
                         if(const auto* Mark=Session->Markers.Find(Id))

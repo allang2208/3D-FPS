@@ -1,4 +1,4 @@
-$ErrorActionPreference='Stop'
+﻿$ErrorActionPreference='Stop'
 $furnitureProject='D:/FPS3D/FPSGAME'
 $furnitureOut="$furnitureProject/SourceAssets/FurnitureRest20261022/ApartmentFastRest20261024R2"
 $furnitureGate=[Threading.Mutex]::new($false,'Local\CodexUeMcp-Port-8000');$furnitureHeld=$false

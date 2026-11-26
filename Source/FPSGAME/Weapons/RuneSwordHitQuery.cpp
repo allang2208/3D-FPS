@@ -1,4 +1,5 @@
 #include "RuneSwordHitQuery.h"
+#include "../Combat/FPSAttackQuery.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "../Skills/MagicOcclusion.h"
 #include "Engine/World.h"
@@ -11,10 +12,15 @@
 
 namespace
 {
+bool InNormalSlashRange(const FVector& Delta,const FVector& Forward,float Reach)
+{
+    return Delta.SizeSquared()<=FMath::Square(Reach)&&FVector::DotProduct(Delta,Forward)>=0.;
+}
+
 bool RuneSwordWorldOccludes(UWorld* World,AActor* Owner,AActor* Target,const FVector& Eye,const FVector& Point,bool bCleavePawns,
     const FCollisionQueryParams* SectorCover=nullptr,bool bAreaDamage=false,bool bIgnoreFriendlyUnits=false)
 {
-    const FCollisionQueryParams Initial(SCENE_QUERY_STAT(RuneSwordCover),false,Owner);
+    const FFPSAttackQuery Initial(SCENE_QUERY_STAT(RuneSwordCover),false,Owner);
     const FCollisionQueryParams& FirstQuery=SectorCover?*SectorCover:Initial;
     const auto Trace=[&](FHitResult& Hit,const FCollisionQueryParams& Params)
     {
@@ -57,7 +63,7 @@ TArray<FHitResult> RuneSwordCombat::QuerySector(UWorld* World,AActor* Owner,cons
     TArray<FHitResult> Result;
     const auto* Character=Cast<ACharacter>(Owner);
     const float HalfHeight=Character?Character->GetCapsuleComponent()->GetScaledCapsuleHalfHeight():90.f;
-    FCollisionQueryParams Q(SCENE_QUERY_STAT(DashAttackSector),false,Owner);
+    FFPSAttackQuery Q(SCENE_QUERY_STAT(DashAttackSector),false,Owner);
     TArray<FOverlapResult> Overlaps;
     World->OverlapMultiByObjectType(Overlaps,Origin,FQuat::Identity,FCollisionObjectQueryParams::AllDynamicObjects,
         FCollisionShape::MakeBox(FVector(Radius,Radius,HalfHeight)),Q);
@@ -67,7 +73,7 @@ TArray<FHitResult> RuneSwordCombat::QuerySector(UWorld* World,AActor* Owner,cons
     for(const auto& Overlap:Overlaps)
         if(auto* Pawn=Cast<APawn>(Overlap.GetActor()))PawnSet.Add(Pawn);
     const TArray<AActor*> SectorPawns=PawnSet.Array();
-    FCollisionQueryParams SectorCover(SCENE_QUERY_STAT(DashAttackCover),false,Owner);
+    FFPSAttackQuery SectorCover(SCENE_QUERY_STAT(DashAttackCover),false,Owner);
     SectorCover.AddIgnoredActors(SectorPawns);
     TSet<TWeakObjectPtr<AActor>> Found;
     for(const auto& Overlap:Overlaps)
@@ -106,7 +112,7 @@ TArray<FHitResult> RuneSwordCombat::QueryRectangle(UWorld* World,AActor* Owner,c
     const FVector Direction=Forward.GetSafeNormal2D(UE_SMALL_NUMBER,Owner->GetActorForwardVector().GetSafeNormal2D());
     const FQuat Orientation=FRotationMatrix::MakeFromX(Direction).ToQuat();
     const FVector Center=Origin+Direction*(Length*.5f);
-    FCollisionQueryParams Q(SCENE_QUERY_STAT(YanlingRectangle),false,Owner);
+    FFPSAttackQuery Q(SCENE_QUERY_STAT(YanlingRectangle),false,Owner);
     TArray<FOverlapResult> Overlaps;
     World->OverlapMultiByObjectType(Overlaps,Center,Orientation,FCollisionObjectQueryParams::AllObjects,
         FCollisionShape::MakeBox(FVector(Length*.5f,HalfWidth,HalfHeight)),Q);
@@ -114,7 +120,7 @@ TArray<FHitResult> RuneSwordCombat::QueryRectangle(UWorld* World,AActor* Owner,c
     TSet<AActor*> Pawns;
     for(const auto& Overlap:Overlaps)
         if(auto* Pawn=Cast<APawn>(Overlap.GetActor()))Pawns.Add(Pawn);
-    FCollisionQueryParams Cover(SCENE_QUERY_STAT(YanlingRectangleCover),false,Owner);
+    FFPSAttackQuery Cover(SCENE_QUERY_STAT(YanlingRectangleCover),false,Owner);
     Cover.AddIgnoredActors(Pawns.Array());
     TSet<TWeakObjectPtr<AActor>> Found;
     for(const auto& Overlap:Overlaps)
@@ -132,13 +138,45 @@ TArray<FHitResult> RuneSwordCombat::QueryRectangle(UWorld* World,AActor* Owner,c
     return Result;
 }
 
+TArray<FHitResult> RuneSwordCombat::QueryFrontSlash(UWorld* World,AActor* Owner,const FTransform& Aim,
+    float Reach,const TSet<TWeakObjectPtr<AActor>>& AlreadyHit)
+{
+    TArray<FHitResult> Result;
+    if(!World||!Owner||Reach<=0.f)return Result;
+    const FVector Origin=Aim.GetLocation(),Forward=Aim.GetUnitAxis(EAxis::X);
+    FFPSAttackQuery Query(SCENE_QUERY_STAT(SwordFrontSlash),false,Owner);
+    TArray<FOverlapResult> Overlaps;
+    World->OverlapMultiByChannel(Overlaps,Origin,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(Reach),Query);
+    TSet<TWeakObjectPtr<AActor>> Found;
+    for(const FOverlapResult& Overlap:Overlaps)
+    {
+        AActor* Target=Overlap.GetActor();
+        UPrimitiveComponent* Shape=Overlap.GetComponent();
+        if(!IsValid(Target)||!Shape||Target==Owner||!Target->CanBeDamaged()||AlreadyHit.Contains(Target)||Found.Contains(Target))continue;
+        const auto ClosestPoint=[&](const FVector& Probe)
+        {
+            FVector Point;
+            if(Shape->GetClosestPointOnCollision(Probe,Point)<0.f)Point=Shape->Bounds.GetBox().GetClosestPointTo(Probe);
+            return Point;
+        };
+        FVector Point=ClosestPoint(Origin);
+        // A body can straddle the side plane with its nearest point just behind it.
+        if(FVector::DotProduct(Point-Origin,Forward)<0.)Point=ClosestPoint(Origin+Forward*Reach);
+        if(!InNormalSlashRange(Point-Origin,Forward,Reach)||RuneSwordWorldOccludes(World,Owner,Target,Origin,Point,true,nullptr,false,true))continue;
+        FHitResult Hit(Target,Shape,Point,(Origin-Point).GetSafeNormal());
+        Hit.ImpactPoint=Hit.Location=Point;Hit.TraceStart=Origin;Hit.TraceEnd=Point;
+        Found.Add(Target);Result.Add(Hit);
+    }
+    return Result;
+}
+
 TArray<FHitResult> RuneSwordCombat::Query(UWorld* World,AActor* Owner,const FRuneSwordBladeSample& From,
     const FRuneSwordBladeSample& To,float Reach,const TSet<TWeakObjectPtr<AActor>>& AlreadyHit,
     const FRuneSwordTraceSettings& Settings)
 {
     TArray<FHitResult> Result;
     TSet<TWeakObjectPtr<AActor>> Found;
-    FCollisionQueryParams Initial(SCENE_QUERY_STAT(RuneSwordBlade),false,Owner);
+    FFPSAttackQuery Initial(SCENE_QUERY_STAT(RuneSwordBlade),false,Owner);
     Initial.bTraceComplex=Settings.bAreaDamage;
     if(Settings.bCleavePawns)
         for(const auto& Weak:AlreadyHit)if(auto* Actor=Weak.Get();Actor && Actor->IsA<APawn>())Initial.AddIgnoredActor(Actor);
@@ -171,10 +209,9 @@ TArray<FHitResult> RuneSwordCombat::Query(UWorld* World,AActor* Owner,const FRun
                 }
                 if(AlreadyHit.Contains(Target) || Found.Contains(Target) || !Target->CanBeDamaged())continue;
                 const FVector Relative=Hit.ImpactPoint-To.Origin;
-                const float Along=FVector::DotProduct(Relative,To.Forward);
-                if(Relative.SizeSquared()>FMath::Square(Reach) || Along<0.f)continue;
+                if(!InNormalSlashRange(Relative,To.Forward,Reach))continue;
                 if(Settings.ForwardCorridorRadius>0.f &&
-                    (Relative-To.Forward*Along).SizeSquared()>FMath::Square(Settings.ForwardCorridorRadius))continue;
+                    FVector::VectorPlaneProject(Relative,To.Forward).SizeSquared()>FMath::Square(Settings.ForwardCorridorRadius))continue;
                 if(Settings.bAreaDamage?
                     RuneSwordAreaOccludes(World,Owner,Target,To.Origin,Hit.ImpactPoint,Settings.bCleavePawns,nullptr,Settings.bIgnoreFriendlyUnits):
                     RuneSwordWorldOccludes(World,Owner,Target,To.Origin,Hit.ImpactPoint,Settings.bCleavePawns,nullptr,false,Settings.bIgnoreFriendlyUnits))continue;

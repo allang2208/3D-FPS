@@ -1,4 +1,4 @@
-#if WITH_EDITOR
+﻿#if WITH_EDITOR
 #include "FPSBackpackMotionComponent.h"
 #include "FPSPlayerBodyAnimInstance.h"
 #include "Animation/AnimSequence.h"

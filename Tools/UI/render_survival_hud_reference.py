@@ -11,7 +11,7 @@ FONTS=ROOT/'Content/UI/GunsmithWorkbench/Fonts'
 PALETTE=dict(bg='#111111',glass='#1A1A1A',content='#121212',border='#444444',text='#E8E8E8',secondary='#B7B7B7',tertiary='#919191',gold='#C7AA70',health='#BD626D',healthdeep='#763B43',mana='#7194AC',manadeep='#36566E',hunger='#BEA06E',hungerdeep='#75613F',water='#8AAFA8',waterdeep='#466660',san='#AD9BBE',sandeep='#655773',warning='#F0BE71',danger='#FF8193')
 
 def font(px,numeric=False,medium=False):
-    name=('JetBrainsMono-' + ('Medium' if medium else 'Regular') + '.ttf') if numeric else ('NotoSansSC-'+('Medium' if medium else 'Regular')+'.otf')
+    name = 'NotoSansSC-SemiBold.ttf' if medium else 'NotoSansSC-Regular.otf'
     return ImageFont.truetype(str(FONTS/name),px)
 
 def text(draw,pos,label,px=14,color='text',numeric=False,medium=False,right=False):

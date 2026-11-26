@@ -70,8 +70,8 @@ void UColdSteelStatusModel::QueueSkillTreeNotices(const FColdSteelProfile& Befor
     using namespace ColdSteelSkillTree;
     const FTree& Tree = Get();
     if(!Tree.bLoaded || After.SkillTreeVersion < 1) return;
-    // The migration itself is not news: an old save becoming version 1 must not announce 30 skills.
-    const bool bMigrating = Before.SkillTreeVersion < 1;
+    // The migration itself is not news: an old save becoming current tree version must not announce migrated skills.
+    const bool bMigrating = Before.SkillTreeVersion < 2 && After.SkillTreeVersion >= 2 || Before.SkillTreeVersion < 1;
     for(const FNode& N : Tree.Nodes)
     {
         const FColdSteelSkillDefinition& D = DevelopmentSkillDefinition(N.Id);

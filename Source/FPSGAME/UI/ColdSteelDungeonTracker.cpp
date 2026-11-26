@@ -1,4 +1,5 @@
 #include "ColdSteelDungeonTracker.h"
+#include "ColdSteelTextToolTip.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelHUDLayout.h"
 #include "StatusEffectsHUD.h"
@@ -34,7 +35,7 @@ UTextBlock* TrackerText(UWidgetTree* Tree, float Pixels, FLinearColor Color, boo
 
 void SetTrackerText(UTextBlock* Label, const FText& Value, bool Optional = false)
 {
-    if (!Label->GetText().EqualTo(Value)) { Label->SetText(Value); Label->SetToolTipText(Value); }
+    if (!Label->GetText().EqualTo(Value)) { Label->SetText(Value); ColdSteelToolTip::Set(*Label, Value); }
     const auto Visibility = Optional && Value.IsEmpty() ? ESlateVisibility::Collapsed : ESlateVisibility::Visible;
     if (Label->GetVisibility() != Visibility) Label->SetVisibility(Visibility);
 }
@@ -181,10 +182,36 @@ void UColdSteelDungeonTracker::NativeOnInitialized()
     Scroll->AddChild(TaskList);
 }
 
+void UColdSteelDungeonTracker::NativeConstruct()
+{
+    Super::NativeConstruct();
+    if (auto* Tracking = GetWorld()->GetSubsystem<UTaskTrackingSubsystem>())
+        Tracking->OnSelectionChanged.AddUObject(this, &ThisClass::RefreshTracking);
+}
+
+void UColdSteelDungeonTracker::NativeDestruct()
+{
+    if (auto* World = GetWorld())
+        if (auto* Tracking = World->GetSubsystem<UTaskTrackingSubsystem>())
+            Tracking->OnSelectionChanged.RemoveAll(this);
+    Super::NativeDestruct();
+}
+
 TSharedRef<SWidget> UColdSteelDungeonTracker::RebuildWidget()
 {
     return SNew(SDPIScaler).DPIScale_Lambda([this]
     { return 1.f / FMath::Max(.1f, UWidgetLayoutLibrary::GetViewportScale(this)); })[Super::RebuildWidget()];
+}
+
+void UColdSteelDungeonTracker::SetWorldMapOpen(bool bOpen)
+{
+    if (!bOpen)
+    {
+        // Gameplay continues while hidden; restore the latest task snapshot.
+        RefreshTracking();
+        RefreshAge = 0.f;
+    }
+    SetVisibility(bOpen ? ESlateVisibility::Collapsed : ESlateVisibility::SelfHitTestInvisible);
 }
 
 void UColdSteelDungeonTracker::NativeTick(const FGeometry& Geometry, float DeltaTime)
@@ -194,16 +221,24 @@ void UColdSteelDungeonTracker::NativeTick(const FGeometry& Geometry, float Delta
     if (RefreshAge < .2f) return;
     RefreshAge = 0.f;
     RefreshTracking();
-    if (!Cards.IsEmpty()) UpdatePlacement();
 }
 
 void UColdSteelDungeonTracker::RefreshTracking()
 {
     TArray<FTrackedTaskView> Views;
-    if (auto* Tracking = GetWorld()->GetSubsystem<UTaskTrackingSubsystem>()) Tracking->CollectTasks(GetOwningPlayerPawn(), Views);
+    auto* Tracking = GetWorld()->GetSubsystem<UTaskTrackingSubsystem>();
+    const FName Selection = Tracking ? Tracking->SelectedTask() : NAME_None;
+    // A selected line also has a real journal state before acceptance, outside a run, or after a reset.
+    if (Tracking && !Selection.IsNone())
+        Tracking->CollectTasks(GetOwningPlayerPawn(), Views, ETaskViewPurpose::Journal);
+
     TArray<TObjectPtr<UColdSteelTrackedTaskCard>> Next;
-    for (const auto& View : Views)
+    for (auto& View : Views)
     {
+        if (View.Id != Selection) continue;
+        const auto IsActive = [](const FTrackedObjectiveView& Row) { return Row.State == ETrackedObjectiveState::Active; };
+        if (View.Objectives.ContainsByPredicate(IsActive))
+            View.Objectives.RemoveAll([&](const auto& Row) { return !IsActive(Row); });
         const auto* Existing = Cards.FindByPredicate([&View](const auto& Card) { return Card->TaskId() == View.Id; });
         auto* Card = Existing ? Existing->Get() : CreateWidget<UColdSteelTrackedTaskCard>(GetOwningPlayer());
         Card->ApplyView(View);
@@ -213,12 +248,14 @@ void UColdSteelDungeonTracker::RefreshTracking()
     {
         const float PreviousOffset = Scroll->GetScrollOffset();
         TaskList->ClearChildren();
-        for (auto& Card : Next) TaskList->AddChildToVerticalBox(Card)->SetPadding(FMargin(0, 0, 6, 18));
+        for (auto& Card : Next)
+            TaskList->AddChildToVerticalBox(Card)->SetPadding(FMargin(0, 0, 6, 18));
         Cards = MoveTemp(Next);
         Scroll->SetScrollOffset(Cards.IsEmpty() ? 0.f : PreviousOffset);
     }
     const auto ListVisibility = Cards.IsEmpty() ? ESlateVisibility::Collapsed : ESlateVisibility::SelfHitTestInvisible;
     if (ListSize->GetVisibility() != ListVisibility) ListSize->SetVisibility(ListVisibility);
+    if (!Cards.IsEmpty()) UpdatePlacement();
 }
 
 void UColdSteelDungeonTracker::UpdatePlacement()

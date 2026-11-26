@@ -1,74 +1,45 @@
 #include "WeatherViewEffectsComponent.h"
-#include "Weapons/HK416WeaponAssets.h"
-#include "Weapons/LMG201Attachments.h"
-#include "FPSWeatherManager.h"
 #include "FPSGAMECharacter.h"
 #include "WeatherSurfaceComponent.h"
-#include "WeatherPresentationValidation.h"
-#include "Camera/CameraComponent.h"
-#include "Camera/PlayerCameraManager.h"
-#include "Components/PostProcessComponent.h"
+#include "WeaponWeatherStateComponent.h"
+#include "Characters/FPSPlayerBodyComponent.h"
+#include "Weapons/WeaponPresentationMaterials.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
-#include "Materials/MaterialInstance.h"
-#include "Kismet/GameplayStatics.h"
-#include "Engine/GameInstance.h"
-#include "UI/ColdSteelStatusModel.h"
-#include "Weapons/DanWesson715WeaponAssets.h"
-#include "Weapons/RSH12WeaponAssets.h"
-#include "Weapons/DanWesson715FittedParts.h"
-#include "Weapons/M1911WeaponAssets.h"
-#include "Weapons/G18WeaponAssets.h"
-#include "Weapons/PistolGripSurface.h"
-#include "Weapons/ASH12WeaponAssets.h"
-#include "Weapons/PKMLowpolyWeaponAssets.h"
-#include "Weapons/PSO1AttachmentAssets.h"
-#include "Weapons/SVDAttachments.h"
-#include "Weapons/WeaponSurfaceStandard.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
+#include "EngineUtils.h"
 #include "HAL/IConsoleManager.h"
 
-static TAutoConsoleVariable<float> CVarScreenRain(TEXT("fps.ScreenRain"),.75f,TEXT("Screen edge water strength, 0 disables."),ECVF_Scalability);
 static TAutoConsoleVariable<float> CVarWeaponWetness(TEXT("fps.WeaponWetness"),1.f,TEXT("Weapon wet material strength, 0 disables."),ECVF_Scalability);
 
 namespace
 {
+const FName WetnessName(TEXT("WeaponWetness"));
+const FSoftObjectPath RoutingPath(TEXT("/Game/Weather/WeaponWetIndex20261017/DA_WeaponWetIndex.DA_WeaponWetIndex"));
+constexpr int32 MaterialsPerBatch=8;
+constexpr double MaterialCacheSeconds=12.;
+
 UObject* SourceMesh(UMeshComponent* Mesh)
 {
     if(auto* Skel=Cast<USkeletalMeshComponent>(Mesh))return Skel->GetSkinnedAsset();
     if(auto* Static=Cast<UStaticMeshComponent>(Mesh))return Static->GetStaticMesh();
     return nullptr;
 }
-bool IsArmMaterialSlot(FName Slot)
-{
-    const FString Name=Slot.ToString().ToLower();
-    // Imported tool/sword viewmodels combine hands and weapon geometry. Keep
-    // only the physical weapon slots; "Handguard" is still a weapon part.
-    return Name.Contains(TEXT("manny"))||Name==TEXT("hand")||Name==TEXT("hands")
-        ||Name.EndsWith(TEXT("_hand"))||Name.EndsWith(TEXT("_hands"))
-        ||Name.Contains(TEXT("glove"))||Name.Contains(TEXT("sleeve"))||Name==TEXT("skin");
-}
-bool IsMeleeWetnessItem(const FColdSteelItem& Item)
-{
-    // Use the current definition keys without parsing the item's JSON each tick.
-    return Item.Definition==TEXT("ue_rune_sword")||Item.Definition==TEXT("ue_frost_crystal_sword")
-        ||Item.Definition==TEXT("ue_highland_claymore")||Item.Definition==TEXT("ue_apprentice_staff")
-        ||ColdSteelInventory::IsEquippedProductionTool(Item)||Item.Definition==TEXT("tool_shovel");
-}
 void RestoreBinding(FWeatherViewMaterial& Binding)
 {
     auto* Mesh=Binding.Mesh.Get();
     if(Mesh&&Mesh->GetMaterial(Binding.Slot)==Binding.Wet)
-        Mesh->SetMaterial(Binding.Slot,SourceMesh(Mesh)==Binding.MeshAsset.Get()?Binding.Original.Get():nullptr);
+    {
+        // A self-mapped MID is also retained by rune/staff components. Clear its
+        // wet layer when detached instead of leaving the last rainy value alive.
+        if(SourceMesh(Mesh)!=Binding.MeshAsset.Get())Mesh->SetMaterial(Binding.Slot,nullptr);
+        else if(Binding.Original==Binding.Wet)Binding.Wet->SetScalarParameterValue(WetnessName,0.f);
+        else Mesh->SetMaterial(Binding.Slot,Binding.Original.Get());
+    }
 }
-/** The FNames of the weather scalars, so per-frame writes skip FName construction. */
-const FName WetnessName(TEXT("WeaponWetness")),
-    ScreenWetnessName(TEXT("ScreenWetness")), StrengthName(TEXT("RainStrength")), AimName(TEXT("AimProtection"));
 }
-const FName UWeatherViewEffectsComponent::NameWetness=WetnessName;
-const FName UWeatherViewEffectsComponent::NameScreenWetness=ScreenWetnessName;
-const FName UWeatherViewEffectsComponent::NameStrength=StrengthName;
-const FName UWeatherViewEffectsComponent::NameAim=AimName;
 
 UWeatherViewEffectsComponent::UWeatherViewEffectsComponent()
 {
@@ -76,286 +47,218 @@ UWeatherViewEffectsComponent::UWeatherViewEffectsComponent()
     PrimaryComponentTick.TickGroup=TG_PostUpdateWork;
 }
 
-void UWeatherViewEffectsComponent::Initialize(UWeatherPresentationAssets* InAssets)
+void UWeatherViewEffectsComponent::Initialize()
 {
-    Assets=InAssets;
-    if(Assets)
-        if(const auto* RSH12Materials=LoadObject<UWeatherPresentationAssets>(nullptr,RSH12WeaponAssets::WetMaterialsPath))
-            for(const auto& Entry:RSH12Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    // The 715's material-only revision supplies its dry/wet pairs separately
-    // from the shared weather profiles, which may be open in another editor.
-    if(Assets)
-        if(const auto* PistolMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,DanWesson715WeaponAssets::WetMaterialsPath))
-            for(const auto& Entry:PistolMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    if(Assets)
-        if(const auto* PistolParts=LoadObject<UWeatherPresentationAssets>(nullptr,DanWesson715FittedParts::WetMaterials))
-            for(const auto& Entry:PistolParts->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    if(Assets)
-        if(const auto* CompactParts=LoadObject<UWeatherPresentationAssets>(nullptr,DanWesson715FittedParts::CompactWetMaterials))
-            for(const auto& Entry:CompactParts->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    if(Assets)
-        if(const auto* G18Materials=LoadObject<UWeatherPresentationAssets>(nullptr,G18WeaponAssets::WetMaterials))
-            for(const auto& Entry:G18Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    if(Assets)
-        if(const auto* HK416Materials=LoadObject<UWeatherPresentationAssets>(nullptr,HK416WeaponAssets::WetMaterialsPath))
-            for(const auto& Entry:HK416Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    if(Assets)
-        if(const auto* MagazineMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,M1911WeaponAssets::ExtendedMagazineWetMaterials))
-            for(const auto& Entry:MagazineMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    if(Assets)
-        if(const auto* GripSurfaces=LoadObject<UWeatherPresentationAssets>(nullptr,PistolGripSurface::WetMaterialsPath))
-            for(const auto& Entry:GripSurfaces->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    if(Assets)
-        if(const auto* ASH12Materials=LoadObject<UWeatherPresentationAssets>(nullptr,ASH12WeaponAssets::WetMaterialsPath))
-            for(const auto& Entry:ASH12Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    if(Assets)
-        if(const auto* LMGMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,LMG201Attachments::WetMaterialsPath))
-            for(const auto& Entry:LMGMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    if(Assets)
-        if(const auto* PKMMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,PKMLowpolyWeaponAssets::WetMaterialsPath))
-            for(const auto& Entry:PKMMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    if(Assets)
-        if(const auto* PSO1Materials=LoadObject<UWeatherPresentationAssets>(nullptr,PSO1AttachmentAssets::WetMaterialsPath))
-            for(const auto& Entry:PSO1Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    if(Assets)
-        if(const auto* SVDMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,SVDAttachments::WetMaterialsPath))
-            for(const auto& Entry:SVDMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    // Melee originals carry their own wet layer. The dedicated table maps each
-    // asset to itself, preserving rune/guard/crystal parameters when copied to a MID.
-    if(Assets)
-        if(const auto* MeleeMaterials=LoadObject<UWeatherPresentationAssets>(nullptr,TEXT("/Game/Weather/MeleeWetness20261002/DA_MeleeWetMaterials.DA_MeleeWetMaterials")))
-            for(const auto& Entry:MeleeMaterials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    // Extended-magazine seam blending must also survive the wet-material swap.
-    if(Assets)
-        if(const auto* M16Materials=LoadObject<UWeatherPresentationAssets>(nullptr,TEXT("/Game/Weapons/M16A2/UniversalAttachments20260920/DA_M16_AttachmentWetMaterials")))
-            for(const auto& Entry:M16Materials->WetMaterials)Assets->WetMaterials.Add(Entry.Key,Entry.Value);
-    if(Assets)
-    {
-        const TCHAR* Dry[] = {
-            TEXT("/Game/Weapons/ExtMagContinuity20260919/Materials/M_M4_Continuous.M_M4_Continuous"),
-            TEXT("/Game/Weapons/ExtMagContinuity20260919/Materials/M_AKM_Continuous_Graph.M_AKM_Continuous_Graph"),
-            TEXT("/Game/Weapons/ASH12/ExtendedMagazine20260919/Materials/M_ASH12_Continuous_Graph.M_ASH12_Continuous_Graph")};
-        const TCHAR* Wet[] = {
-            TEXT("/Game/Weapons/ExtMagContinuity20260919/Materials/M_M4Wet_Continuous.M_M4Wet_Continuous"),
-            TEXT("/Game/Weapons/ExtMagContinuity20260919/Materials/M_AKMWet_Continuous_Graph.M_AKMWet_Continuous_Graph"),
-            TEXT("/Game/Weapons/ASH12/ExtendedMagazine20260919/Materials/M_ASH12Wet_Continuous_Graph.M_ASH12Wet_Continuous_Graph")};
-        for(int32 I=0;I<3;++I)
-            if(auto* Material=LoadObject<UMaterialInterface>(nullptr,Wet[I]))
-                Assets->WetMaterials.Add(Dry[I],Material);
-    }
-    if(Assets&&Assets->ScreenMaterial)
-    {
-        LensMaterial=UMaterialInstanceDynamic::Create(Assets->ScreenMaterial,this);
-        PostProcess=NewObject<UPostProcessComponent>(GetOwner(),TEXT("RainLensPostProcess"));
-        PostProcess->bUnbound=true;
-        PostProcess->Priority=20.f;
-        PostProcess->BlendWeight=0.f;
-        PostProcess->Settings.WeightedBlendables.Array.Add(FWeightedBlendable(1.f,LensMaterial));
-        PostProcess->RegisterComponent();
-    }
-    // The wet table is keyed by FStrings from the authoring scripts. Re-key it by
-    // object path so BindWeapon never builds a path string again.
-    if(Assets)
-        for(const auto& Entry:Assets->WetMaterials)
-            if(Entry.Value)WetByPath.Add(FName(*Entry.Key),Entry.Value.Get());
-    UE_LOG(LogTemp,Display,TEXT("WeatherPresentation ready screen=%d wetMaterialSources=%d"),LensMaterial!=nullptr,WetByPath.Num());
-    StartWeatherPresentationValidation(Cast<AFPSWeatherManager>(GetOwner()));
+    if(bInitialized||GetNetMode()==NM_DedicatedServer)return;
+    bInitialized=true;
+    // This asset contains soft paths only: loading it never loads weapon textures.
+    RoutingLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(RoutingPath,
+        FStreamableDelegate::CreateUObject(this,&ThisClass::FinishRoutingLoad));
 }
 
-/** One MID per immutable original; reused whenever that material binds again.
-    Only asset-backed originals are pooled: a gunsmith MID is transient and may be
-    destroyed and recreated, so keying on its pointer could later match a recycled
-    address and hand out the wrong instance. */
-UMaterialInstanceDynamic* UWeatherViewEffectsComponent::AcquireWet(UMaterialInterface* Original,UMaterialInterface* Replacement)
+void UWeatherViewEffectsComponent::FinishRoutingLoad()
 {
-    // Self-mapped melee surfaces already contain the wet layer. Keep the same
-    // live MID so staff illumination and animated rune/guard parameters keep
-    // reaching the material whose pointer their components retained.
+    if(!bInitialized)return;
+    Routing=Cast<UWeatherPresentationAssets>(RoutingPath.ResolveObject());
+    if(!Routing)UE_LOG(LogTemp,Error,TEXT("WeaponWetness routing asset missing: %s"),*RoutingPath.ToString());
+    RoutingLoad.Reset();BindCountdown=0.f;
+}
+
+void UWeatherViewEffectsComponent::StartMaterialLoad()
+{
+    if(MaterialLoad||!bInitialized)return;
+    LoadingMaterials.Reset();
+    for(const auto& Path:WantedMaterials)
+        if(!Materials.Contains(Path)&&!FailedMaterials.Contains(Path))
+        {LoadingMaterials.Add(Path);if(LoadingMaterials.Num()>=MaterialsPerBatch)break;}
+    if(LoadingMaterials.IsEmpty())return;
+    MaterialLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(LoadingMaterials,
+        FStreamableDelegate::CreateUObject(this,&ThisClass::FinishMaterialLoad));
+    if(!MaterialLoad)
+    {
+        UE_LOG(LogTemp,Warning,TEXT("WeaponWetness could not request %d materials"),LoadingMaterials.Num());
+        for(const auto& Path:LoadingMaterials)FailedMaterials.Add(Path);
+        LoadingMaterials.Reset();
+    }
+}
+
+void UWeatherViewEffectsComponent::FinishMaterialLoad()
+{
+    if(!bInitialized)return;
+    const double Now=GetWorld()->GetTimeSeconds();
+    for(const auto& Path:LoadingMaterials)
+    {
+        if(auto* Material=Cast<UMaterialInterface>(Path.ResolveObject()))
+        {FWeatherLoadedMaterial Entry;Entry.Material=Material;Entry.LastUsedAt=Now;Materials.Add(Path,Entry);}
+        else {FailedMaterials.Add(Path);UE_LOG(LogTemp,Warning,TEXT("WeaponWetness material unavailable: %s"),*Path.ToString());}
+    }
+    LoadingMaterials.Reset();
+    MaterialLoad.Reset();BindCountdown=0.f;
+}
+
+UMaterialInterface* UWeatherViewEffectsComponent::ResolveWet(UMaterialInterface* Original)
+{
+    UMaterialInterface* Source=Original;
+    while(auto* MID=Cast<UMaterialInstanceDynamic>(Source))
+    {
+        if(!MID->Parent)break;
+        Source=MID->Parent;
+    }
+    if(!Source||!Source->IsAsset())return nullptr;
+    if(RoutingLoad)return nullptr;
+    const FName Path(*Source->GetPathName());
+    if(const auto* Replacement=Routing?Routing->WetMaterialPaths.Find(Path):nullptr)
+    {
+        const FSoftObjectPath Target=Replacement->ToSoftObjectPath();
+        if(Target==FSoftObjectPath(Source))return Source;
+        WantedMaterials.Add(Target);
+        if(auto* Entry=Materials.Find(Target))
+        {Entry->LastUsedAt=GetWorld()->GetTimeSeconds();return Entry->Material;}
+        return nullptr;
+    }
+    // Includes modern weapon masters, authored melee layers and world copies
+    // whose persistent parent is already a wet material. No unrelated catalogs
+    // are needed to drive a layer that is present on the material itself.
+    float ExistingWetness=0.f;
+    if(Source->GetScalarParameterValue(FMaterialParameterInfo(WetnessName),ExistingWetness))return Source;
+    return nullptr;
+}
+
+UMaterialInstanceDynamic* UWeatherViewEffectsComponent::AcquireWet(AFPSGAMECharacter* Pawn,uint8 Hand,
+    UMaterialInterface* Original,UMaterialInterface* Replacement)
+{
+    // Keep live self-wet MIDs so retained rune/staff pointers still animate the
+    // material on the mesh. Copied world equipment uses asset-backed originals.
     if(auto* Dynamic=Cast<UMaterialInstanceDynamic>(Original))
-        if(Dynamic->GetBaseMaterial()==Replacement->GetBaseMaterial())
-        {
-            Dynamic->SetScalarParameterValue(WetnessName,0.f);
-            return Dynamic;
-        }
+        if(Dynamic->GetBaseMaterial()==Replacement->GetBaseMaterial())return Dynamic;
     const bool bPoolable=Original&&Original->IsAsset();
     if(bPoolable)
         for(auto& Shared:SharedWet)
-            if(Shared.Original==Original)
-                return Shared.Wet;
+            if(Shared.Pawn==Pawn&&Shared.Hand==Hand&&Shared.Original==Original)return Shared.Wet;
     auto* Wet=UMaterialInstanceDynamic::Create(Replacement,this);
     if(!Wet)return nullptr;
     Wet->CopyMaterialUniformParameters(Original);
-    Wet->SetScalarParameterValue(WetnessName,0.f);
-    if(bPoolable)SharedWet.Add(FSharedWetMaterial{Original,Wet});
+    if(bPoolable)
+    {
+        FSharedWetMaterial Shared;Shared.Pawn=Pawn;Shared.Hand=Hand;Shared.Original=Original;Shared.Wet=Wet;
+        SharedWet.Add(Shared);
+    }
     return Wet;
 }
 
 void UWeatherViewEffectsComponent::RestoreMaterials()
 {
     for(auto& Binding:Bindings)RestoreBinding(Binding);
-    Bindings.Reset();
+    Bindings.Reset();SharedWet.Reset();LastPushed.Reset();
 }
 
-void UWeatherViewEffectsComponent::BindWeapon(AFPSGAMECharacter* Pawn,bool bScanAll)
+void UWeatherViewEffectsComponent::BindWeapons(bool bScanAll)
 {
-    if(Pawn!=BoundPawn.Get()){RestoreMaterials();BoundPawn=Pawn;}
-    if(!Pawn||!Assets)return;
-    // Cheap prune runs every frame: a gunsmith swap empties override materials, so
-    // a stale binding is detected and repaired on the next tick instead of up to
-    // 200 ms later. The expensive slot scan only runs on demand.
+    if(!bInitialized)return;
     bool bPruned=false;
     for(int32 I=Bindings.Num()-1;I>=0;--I)
     {
         auto& B=Bindings[I];auto* Mesh=B.Mesh.Get();
-        if(!Mesh||SourceMesh(Mesh)!=B.MeshAsset.Get()||Mesh->GetMaterial(B.Slot)!=B.Wet)
-        {RestoreBinding(B);Bindings.RemoveAtSwap(I);bPruned=true;}
+        if(!B.Pawn.IsValid()||!B.State.IsValid()||!Mesh||SourceMesh(Mesh)!=B.MeshAsset.Get()||Mesh->GetMaterial(B.Slot)!=B.Wet)
+        {
+            RestoreBinding(B);LastPushed.Remove(B.Wet.Get());Bindings.RemoveAtSwap(I);bPruned=true;
+        }
     }
     if(!bScanAll&&!bPruned)return;
-    const TInlineComponentArray<UMeshComponent*> Meshes(Pawn);
-    TArray<UMeshComponent*,TInlineAllocator<6>> Roots;
-    for(auto* Mesh:Meshes)
+
+    WantedMaterials.Reset();
+    const double Now=GetWorld()->GetTimeSeconds();
+    for(const auto& B:Bindings)
     {
-        const FName Name=Mesh->GetFName();
-        if(Name==TEXT("AKMViewmodel")||Name==TEXT("RuneSwordViewmodel")
-            ||Name==TEXT("ProductionToolMesh")||Name==TEXT("ProductionToolHands")
-            ||Name==TEXT("StaffV7")||Name==TEXT("StaffAssembly")||Mesh->ComponentHasTag(TEXT("StaffAssembly")))
-            Roots.Add(Mesh);
+        if(auto* Entry=Materials.Find(B.TargetPath))
+        {WantedMaterials.Add(B.TargetPath);Entry->LastUsedAt=Now;}
     }
-    const auto* Body=Pawn->GetMesh();
-    for(auto* Mesh:Meshes)
+
+    TSet<UMeshComponent*> EquippedMeshes;
+    TArray<FFPSWeatherWeaponMesh> Equipment;
+    for(TActorIterator<AFPSGAMECharacter> It(GetWorld());It;++It)
     {
-        if(Mesh->GetFName()==TEXT("StaffV7Arms")||Mesh->GetFName()==TEXT("RuneSwordRift")
-            ||Mesh->ComponentHasTag(TEXT("ModularOutfit")))continue;
-        bool bWeaponMesh=Roots.ContainsByPredicate([Mesh](const auto* Root){return Mesh==Root||Mesh->IsAttachedTo(Root);});
-        // FPSPlayerBodyEquipment creates WorldWeapons/WorldParts without tags.
-        // Their roots attach to a body hand socket; outfits attach to the body
-        // without one. Following that branch includes copied modular parts only.
-        if(!bWeaponMesh&&Body)
+        auto* Pawn=*It;
+        auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>();
+        auto* State=Pawn->FindComponentByClass<UWeaponWeatherStateComponent>();
+        if(!Body||!State)continue;
+        Body->GetWeatherWeaponMeshes(Equipment);
+        for(const auto& Entry:Equipment)
         {
-            const USceneComponent* Branch=Mesh;
-            while(Branch->GetAttachParent()&&Branch->GetAttachParent()!=Body)Branch=Branch->GetAttachParent();
-            const FName Socket=Branch->GetAttachSocketName();
-            bWeaponMesh=Branch->GetAttachParent()==Body&&(Socket==TEXT("hand_r")||Socket==TEXT("hand_l"));
-        }
-        if(!bWeaponMesh)continue;
-        const auto SlotNames=Mesh->GetMaterialSlotNames();
-        for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
-        {
-            if(SlotNames.IsValidIndex(Slot)&&IsArmMaterialSlot(SlotNames[Slot]))continue;
-            if(Bindings.ContainsByPredicate([Mesh,Slot](const auto& B){return B.Mesh==Mesh&&B.Slot==Slot;}))continue;
-            auto* Original=Mesh->GetMaterial(Slot);if(!Original)continue;
-            auto* Source=Original;
-            auto* Replacement=WetByPath.Find(FName(*Source->GetPathName()));
-            // A gunsmith may already have a MID. Preserve its texture/color values.
-            while(!Replacement)
+            auto* Mesh=Entry.Mesh;
+            EquippedMeshes.Add(Mesh);
+            // A weapon can move between hands or be replaced by another copy
+            // without changing its mesh asset. Do not retain the old item's key.
+            for(int32 I=Bindings.Num()-1;I>=0;--I)
+                if(Bindings[I].Mesh==Mesh&&(Bindings[I].Instance!=Entry.Instance||Bindings[I].Hand!=Entry.Hand))
+                {
+                    RestoreBinding(Bindings[I]);LastPushed.Remove(Bindings[I].Wet.Get());Bindings.RemoveAtSwap(I);
+                }
+            const auto SlotNames=Mesh->GetMaterialSlotNames();
+            for(int32 Slot=0;Slot<Mesh->GetNumMaterials();++Slot)
             {
-                auto* MID=Cast<UMaterialInstanceDynamic>(Source);
-                if(!MID||!MID->Parent)break;
-                Source=MID->Parent;
-                Replacement=WetByPath.Find(FName(*Source->GetPathName()));
+                if(SlotNames.IsValidIndex(Slot)&&WeaponPresentationMaterials::IsArmName(SlotNames[Slot].ToString()))continue;
+                if(Bindings.ContainsByPredicate([Mesh,Slot](const auto& B){return B.Mesh==Mesh&&B.Slot==Slot;}))continue;
+                auto* Original=Mesh->GetMaterial(Slot);
+                if(!Original)continue;
+                auto* Target=ResolveWet(Original);
+                if(!Target)continue;
+                auto* Wet=AcquireWet(Pawn,Entry.Hand,Original,Target);
+                if(!Wet)continue;
+                FWeatherViewMaterial B;B.Pawn=Pawn;B.State=State;B.Mesh=Mesh;B.MeshAsset=SourceMesh(Mesh);
+                B.Original=Original;B.Wet=Wet;B.Slot=Slot;B.Hand=Entry.Hand;B.Instance=Entry.Instance;
+                B.TargetPath=FSoftObjectPath(Target);
+                Bindings.Add(B);
+                if(Original!=Wet)Mesh->SetMaterial(Slot,Wet);
+                LastPushed.Remove(Wet);
             }
-            UMaterialInterface* Target=Replacement&&*Replacement?*Replacement:WeaponSurfaceStandard::SelfWetSource(Source);
-            if(!Target)continue;
-            auto* Wet=AcquireWet(Original,Target);
-            if(!Wet)continue;
-            FWeatherViewMaterial B;B.Mesh=Mesh;B.MeshAsset=SourceMesh(Mesh);B.Original=Original;B.Wet=Wet;B.Slot=Slot;B.LastPushed=-1.f;
-            Bindings.Add(B);Mesh->SetMaterial(Slot,Wet);
         }
     }
+    // Restore unequipped sources too: weapons hidden in the inventory must not
+    // accumulate the new held item's wetness through a stale material binding.
+    for(int32 I=Bindings.Num()-1;I>=0;--I)if(!EquippedMeshes.Contains(Bindings[I].Mesh.Get()))
+    {
+        RestoreBinding(Bindings[I]);LastPushed.Remove(Bindings[I].Wet.Get());Bindings.RemoveAtSwap(I);
+    }
+    const auto IsBound=[&](const UMaterialInstanceDynamic* Wet)
+    {return Bindings.ContainsByPredicate([Wet](const auto& B){return B.Wet==Wet;});};
+    SharedWet.RemoveAll([&](const auto& Shared){return !Shared.Pawn.IsValid()||!IsBound(Shared.Wet);});
+    for(auto It=LastPushed.CreateIterator();It;++It)if(!It.Key().IsValid()||!IsBound(It.Key().Get()))It.RemoveCurrent();
+    for(auto It=Materials.CreateIterator();It;++It)
+        if(Now-It.Value().LastUsedAt>MaterialCacheSeconds&&!WantedMaterials.Contains(It.Key()))It.RemoveCurrent();
+    StartMaterialLoad();
 }
 
 void UWeatherViewEffectsComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
     Super::TickComponent(Delta,Type,Tick);
-    auto* Weather=Cast<AFPSWeatherManager>(GetOwner());if(!Weather)return;
-    auto* Pawn=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
     BindCountdown-=Delta;
-    // Full slot scan every 200 ms, or immediately once a binding was pruned.
-    const bool bScan=BindCountdown<=0;
+    const bool bScan=BindCountdown<=0.f;
     if(bScan)BindCountdown=.2f;
-    BindWeapon(Pawn,bScan);
-    const float Rain=Weather->GetEffectiveRainIntensity()*Weather->GetRainExposure();
-    const bool bAiming=Pawn&&Pawn->IsAiming();
-    const auto* Camera=UGameplayStatics::GetPlayerCameraManager(this,0);
-    const float Facing=Camera?FMath::Clamp(.7f+Camera->GetCameraRotation().Vector().Z*.45f,.3f,1.1f):.7f;
-    ScreenWetness=FMath::Clamp(ScreenWetness+Delta*(Rain*.22f*Facing-1.f/32.f),0.f,1.f);
-    FString Key;
-    if(Pawn)
-    {
-        const bool bInventoryWeapon=Pawn->HasInventoryWeapon();
-        if(auto* Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
-        {
-            if(const auto* Tool=Model->ActiveProductionTool())Key=Tool->InstanceId;
-            else if(const auto* Item=Model->Equipped();Item&&(bInventoryWeapon||IsMeleeWetnessItem(*Item)))Key=Item->InstanceId;
-        }
-        if(Key.IsEmpty()&&bInventoryWeapon)Key=Pawn->bUseM4Infima?TEXT("PreviewM4"):TEXT("PreviewAKM");
-    }
-    for(auto& Pair:WeaponWetness)Pair.Value=FMath::Max(0.f,Pair.Value-Delta/120.f);
-    if(!Key.IsEmpty())
-    {
-        float& Value=WeaponWetness.FindOrAdd(Key);
-        Value=FMath::Clamp(Value+Delta*Rain*.065f,0.f,1.f);
-        ActiveWeaponWetness=Value;
-    }
-    else ActiveWeaponWetness=0.f;
-    const bool bVisible=UWeatherSurfaceComponent::GetQuality()>0;
-    const float WeaponStrength=bVisible?FMath::Clamp(CVarWeaponWetness.GetValueOnGameThread(),0.f,1.f):0.f;
-    // Quantised to 1/255 steps: a MID scalar write enqueues a render command that
-    // invalidates the proxy's uniform expression cache (two global waits inside),
-    // so the 120 s drying tail must not push a float every frame.
+    BindWeapons(bScan);
+    const float Strength=UWeatherSurfaceComponent::GetQuality()>0?FMath::Clamp(CVarWeaponWetness.GetValueOnGameThread(),0.f,1.f):0.f;
     constexpr float WetStep=1.f/255.f;
-    const float TargetWetness=FMath::RoundToFloat(ActiveWeaponWetness*WeaponStrength/WetStep)*WetStep;
-    int32 PushedWet=0,SkippedWet=0;
-    for(auto& B:Bindings)if(B.Wet)
+    ActiveWeaponWetness=0.f;
+    for(auto& B:Bindings)
     {
-        if(TargetWetness<=0.f)
-        {
-            if(B.LastPushed<=0.f)continue;          // already dry and reported dry
-            B.Wet->SetScalarParameterValue(WetnessName,0.f);
-            B.LastPushed=0.f;++PushedWet;
-        }
-        else if(FMath::Abs(TargetWetness-B.LastPushed)<WetStep*.5f)
-        {
-            ++SkippedWet;                            // guard absorbed the write
-        }
-        else
-        {
-            B.Wet->SetScalarParameterValue(WetnessName,TargetWetness);
-            B.LastPushed=TargetWetness;++PushedWet;
-        }
-    }
-    if(LensMaterial&&PostProcess)
-    {
-        const float Strength=bVisible?FMath::Clamp(CVarScreenRain.GetValueOnGameThread(),0.f,1.f):0.f;
-        const float AimValue=bAiming?1.f:0.f;
-        if(FMath::Abs(ScreenWetness-LastScreenWetness)>=WetStep*.5f)
-        {LensMaterial->SetScalarParameterValue(ScreenWetnessName,ScreenWetness);LastScreenWetness=ScreenWetness;++PushedWet;}
-        else ++SkippedWet;
-        if(FMath::Abs(Strength-LastStrength)>=1e-3f)
-        {LensMaterial->SetScalarParameterValue(StrengthName,Strength);LastStrength=Strength;++PushedWet;}
-        else ++SkippedWet;
-        if(AimValue!=LastAim)
-        {LensMaterial->SetScalarParameterValue(AimName,AimValue);LastAim=AimValue;++PushedWet;}
-        else ++SkippedWet;
-        const float Weight=ScreenWetness>.001f&&Strength>0.f?1.f:0.f;
-        if(PostProcess->BlendWeight!=Weight)PostProcess->BlendWeight=Weight;
-    }
-    // Per-second write counter (frame-budget-stat-semantics.md section 6): the
-    // settled state must read zero; a sustained rate means a guard is not working.
-    PushedFrame+=PushedWet;SkippedFrame+=SkippedWet;
-    CounterSeconds+=Delta;
-    if(CounterSeconds>=1.f)
-    {
-        if(PushedFrame>0||SkippedFrame>0)
-            UE_LOG(LogTemp,Display,TEXT("WEATHER_WET_WRITES perSec=%d skippedPerSec=%d bindings=%d wet=%.3f screen=%.3f"),
-                PushedFrame,SkippedFrame,Bindings.Num(),ActiveWeaponWetness,ScreenWetness);
-        PushedFrame=0;SkippedFrame=0;CounterSeconds=0.f;
+        auto* State=B.State.Get();
+        if(!State||!B.Wet)continue;
+        const float Value=State->GetWetness(B.Hand,B.Instance);
+        if(B.Hand==0&&B.Pawn.IsValid()&&B.Pawn->IsLocallyControlled())ActiveWeaponWetness=Value;
+        const float Target=FMath::RoundToFloat(Value*Strength/WetStep)*WetStep;
+        const float* Previous=LastPushed.Find(B.Wet.Get());
+        // Cache per actual MID, including zero: shared slots enqueue one render
+        // update, and new/rebound materials receive stable weather immediately.
+        if(!Previous||FMath::Abs(Target-*Previous)>=WetStep*.5f)
+        {B.Wet->SetScalarParameterValue(WetnessName,Target);LastPushed.Add(B.Wet.Get(),Target);}
     }
 }
 
 void UWeatherViewEffectsComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
-    RestoreMaterials();
-    if(PostProcess)PostProcess->DestroyComponent();
+    bInitialized=false;
+    if(RoutingLoad){RoutingLoad->CancelHandle();RoutingLoad.Reset();}
+    if(MaterialLoad){MaterialLoad->CancelHandle();MaterialLoad.Reset();}
+    RestoreMaterials();Materials.Reset();Routing=nullptr;WantedMaterials.Reset();LoadingMaterials.Reset();FailedMaterials.Reset();
     Super::EndPlay(Reason);
 }

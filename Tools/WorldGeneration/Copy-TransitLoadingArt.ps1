@@ -1,4 +1,4 @@
-param([string]$SourceProject='E:\无尽轮回\长期备份\2026-7-13-1\game-dev')
+param([string]$SourceProject='F:\FPSGAMEData\ArtProduction\SourceAssets\LegacyGameDev')
 $ErrorActionPreference='Stop'
 $ProjectRoot=Split-Path (Split-Path $PSScriptRoot -Parent) -Parent
 $TargetDirectory=Join-Path $ProjectRoot 'Content/UI/TransitLoading'

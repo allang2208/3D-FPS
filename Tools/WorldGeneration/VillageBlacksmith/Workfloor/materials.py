@@ -92,3 +92,4 @@ def build():
     for key in ('Coal','Ash'):
         mats[key]=require('/Game/WorldGeneration/VillageTavern/KitchenHearth/M_TavernHearth'+key)
     return mats
+

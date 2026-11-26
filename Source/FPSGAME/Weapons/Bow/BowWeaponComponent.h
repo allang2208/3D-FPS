@@ -5,12 +5,14 @@
 
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "../../Skills/HeartPiercingArrowTypes.h"
 #include "BowWeaponComponent.generated.h"
 
 class ABowArrow;
 class UBowArmsMeshComponent;
 class AFPSGAMECharacter;
 class UBowPartComponent;
+class UBowScopeOptics;
 class UCameraComponent;
 class UAnimSequence;
 class UAudioComponent;
@@ -23,6 +25,7 @@ class UStaticMesh;
 class UStaticMeshComponent;
 struct FColdSteelItem;
 struct FStreamableHandle;
+struct FPhysicalScopeView;
 
 /** 弓的一条时钟上的环节：到达拉弓首帧 → 拉开 → 保持 → 放弦 → 回收；R 可单独搭箭。 */
 UENUM()
@@ -43,8 +46,15 @@ enum class EBowStage : uint8
 
 struct FBowDrawRhythm
 {
+    static constexpr float ReleaseFeedbackSeconds=.15f;
     float Elapsed=0.f,FullDrawSeconds=1.4f,Opacity=1.f;
-    bool bPerfect=false,bReleased=false;
+    float ReleaseAge=0.f;
+    float PerfectWindowSeconds=.20f;
+    bool bPerfect=false,bReleased=false,bSpeedBoosted=false;
+    bool bAutomaticRhythm=false;
+    bool bPiercingAvailable=false,bPiercingReady=false;
+    float PiercingSeconds=3.f;
+    bool bMagicArrowRain=false,bMagicRainValid=false;
 };
 
 /**
@@ -62,6 +72,8 @@ class FPSGAME_API UBowWeaponComponent : public UActorComponent
     friend class UFPSConsumableAuditCommandlet;
     friend class UBowSkillTrainingAuditCommandlet;
     friend class AShotgunWireAuditController;
+    friend class UBowScopeOptics;
+    friend class UBowArmsMeshComponent;
 
 public:
     UBowArmsMeshComponent* ArmsMesh() const;
@@ -76,6 +88,7 @@ public:
     void ShowFeedback(const FString& Message);
 
     UFUNCTION(BlueprintPure, Category="Bow") bool IsEquipped() const { return !InstanceId.IsEmpty(); }
+    const FString& EquippedInstance() const { return InstanceId; }
     UFUNCTION(BlueprintPure, Category="Bow") bool IsBusy() const { return Stage != EBowStage::Ready||CastTransferAlpha>0.f; }
     UFUNCTION(BlueprintPure, Category="Bow") bool IsDrawing() const
     { return Stage == EBowStage::Drawing || Stage == EBowStage::Holding; }
@@ -83,8 +96,14 @@ public:
     /** 0 = 未拉，1 = 拉满；节拍奖励另按同一动作时钟判定。 */
     UFUNCTION(BlueprintPure, Category="Bow") float DrawFraction() const;
     bool GetDrawRhythm(FBowDrawRhythm& Out) const;
-    /** 服务器拒绝射击时清除本机预测的完美节拍加速。 */
-    void ClearPerfectSpeedPending() { bPerfectSpeedPending = false; }
+    bool GetMagicArrowEndpoints(FVector& Tail,FVector& Tip) const;
+    void FinishMagicArrowRainRelease(bool bSuccess);
+    bool HasPerfectDrawSpeedBonus() const;
+    /** 服务器拒绝射击时清除本机预测的加速与成功反馈，不改变放弦动作时钟。 */
+    void ClearPerfectSpeedPending() { bPerfectSpeedPending = false; bLastPerfectRelease = bLastPiercingRelease = false; }
+    FGuid NetworkDrawId() const { return ActiveDrawId; }
+    void ConfirmNetworkDraw(const FString& Weapon,FGuid DrawId,float FullDrawSeconds,bool PerfectSpeed);
+    void ConfirmNetworkRelease(const FString& Weapon,FGuid DrawId,bool Accepted,bool Perfect,bool Piercing);
     UFUNCTION(BlueprintPure, Category="Bow") EBowStage GetStage() const { return Stage; }
     UFUNCTION(BlueprintPure, Category="Bow") int32 ArrowsInPouch() const;
 
@@ -97,15 +116,26 @@ public:
     void BeginNock();
     /** Save the selected arrow type, then nock it; spending still happens only at launch. */
     bool SwitchArrow(const FString& Target);
-    /** 左键松开：拉距不足 50% 缓收弓；达到门槛按当前拉距结算。满拉力竭仍会发射。 */
-    void ReleasePrimaryAttack(bool bAutomatic=false);
+    /** 仅真实松开射箭；拉弓持续耗体，耗尽走缓收弓，保留箭支。 */
+    void ReleasePrimaryAttack();
+    void CancelDrawForExhaustion(bool bMana=false);
     /** 右键：连续 ADS 对位与轻度变焦，不重启当前拉弓动作。 */
     void SetSteadyHeld(bool bHeld) { bSteadyHeld = bHeld && Stage != EBowStage::QuickCombat; }
     bool IsAimHeld() const { return IsEquipped() && bSteadyHeld; }
     float AimAlpha() const { return AimProgress; }
+    float AimShakeScale() const { return FMath::Lerp(1.f, .5f, AimAlpha()); }
+    float AimZoomAlpha() const;
     float AimVerticalFOV(float BaseFOV) const;
+    float OpticalAimVerticalFOV(float BaseFOV) const;
+    float DisplayedScopeMagnification() const { return IsEquipped() && bHasAimSight ? DisplayedOpticalMagnification : 1.f; }
+    bool IsScopeOpticalPresentationEnabled() const;
+    float PhysicalScopeAlpha() const;
+    bool GetPhysicalScopeView(FPhysicalScopeView& Out) const;
+    void UpdateScopeCamera();
+    const UBowScopeOptics* ScopeOptics() const { return Optics; }
     float ScopeMagnification() const { return IsEquipped() && bHasAimSight ? OpticalMagnification : 1.f; }
     bool HasOpticalSight() const { return ScopeMagnification() > 1.f; }
+    bool AdjustScopeMagnification(float Delta);
     /** Camera-right/up slope, shared by the HUD projection and the release ray. */
     float ShotSpread() const;
     bool ShouldShowCrosshair() const;
@@ -122,6 +152,7 @@ public:
     /** 相机局部位移（cm）与旋转（度），由角色叠加到既有镜头反馈上。 */
     void GetCameraMotion(FVector& Location, FRotator& Rotation) const;
 
+    void GetFlameArmorAttachments(struct FFlameArmorAttachmentBuffer& Out) const;
     FString Definition() const { return EquippedDefinition; }
     FString ArrowDefinition() const { return ArrowId; }
 
@@ -171,14 +202,17 @@ private:
     TMap<FName, FSoftObjectPath> PendingPartMeshes, PendingPartMaterials;
     EBowStage Stage = EBowStage::Stowed;
     float Elapsed = -1.f, StageSeconds = 0.f, HoldElapsed = 0.f, VisualTime = 0.f;
-    float FeedbackSeconds = 0.f, HintCountdown = 0.f, ReleaseKick = 0.f;
+    float FeedbackSeconds = 0.f, HintCountdown = 0.f, EndDrawMotionWeight = 0.f;
 
     // 节奏（秒）：作者值由 bows.json 覆盖，参考轨迹按阶段归一化映射到实际片段时长。
-    float NockSeconds = .68f, DrawSeconds = 1.4f, HoldSeconds = 2.2f, ReleaseSeconds = .3f,
+    float StageActionRate=1.f;
+    FHeartPiercingArrowStats PiercingDrawStats;
+    float PerfectWindowSeconds=.20f;
+    float NockSeconds = .68f, DrawSeconds = 1.4f, ReleaseSeconds = .3f,
           RecoverSeconds = .34f;
     // 数值。`critical_chance` / `toughness_multiplier` 缺省即不覆盖射击瞬间的修炼快照。
-    float FullDamage = 69.f, FullSpeedCM = 9800.f, MinSpeedRatio = .35f,
-          GravityCM = 520.f, RangeCM = 3200.f, StaminaCost = 3.f, CriticalChance = -1.f,
+    float FullDamage = 69.f, FullSpeedCM = 10000.f, MinSpeedRatio = .35f,
+          GravityCM = 980.f, RangeCM = 28000.f, StaminaCost = 3.f, CriticalChance = -1.f,
           ToughnessMultiplier = 0.f;
     // 当前暗纹猎弓的几何回落（cm / 度）；新弓体必须提供自己的锚点，不能由包络猜弦侧。
     float LengthCM = 140.f, DepthCM = 38.2f, BowScale = 1.f;
@@ -196,8 +230,9 @@ private:
     FRotator ArmsRotation = FRotator::ZeroRotator;
     bool bUsesArms = false, bArrowNocked = false, bSteadyHeld = false, bTriggerHeld = false,
          bHasRightHandBone = false;
-    /** 完美节拍命中后的下一次拉弓 +25%（本地即时置位；联机另读服务器复制标记）。 */
+    /** 完美节拍命中后的下一次拉弓 +25%（本地预测，由对应射击回执确认）。 */
     bool bPerfectSpeedPending = false;
+    FGuid ActiveDrawId,LastReleasedDrawId;
 
     static const TCHAR* ClipIdle;
     static const TCHAR* ClipDraw;
@@ -221,9 +256,9 @@ private:
     bool LooseArrow(float Ratio,bool bPerfect);
     float DrawElapsed() const;
     void EndNetworkDraw();
-    bool bNetworkDrawActive=false,bLastPerfectRelease=false;
+    bool bNetworkDrawActive=false,bLastPerfectRelease=false,bLastPiercingRelease=false;
     float LastReleaseElapsed=0.f;
-    FVector NockPoint() const;
+    FVector NockPoint(const FVector* SampledHandInMount = nullptr) const;
     FVector ArrowTipPoint() const;
     /** 手动采样手臂片段：Position 是片段内秒数，bLoop 时按秒取模（与采集工具同一口径）。 */
     void PlayClip(const TCHAR* Name, float Position, bool bLoop);
@@ -253,6 +288,7 @@ private:
     void SampleArms();
     float ClipLength(const TCHAR* Name) const;
     /** 与蓄力分开的入场时钟：目标固定为 Draw 首帧，不提前推进拉距。 */
+    float BaseDrawEntrySeconds = .2f;
     float DrawEntrySeconds = .2f;
     void BeginDrawEntry();
 
@@ -281,13 +317,15 @@ private:
     FRotator AimBowRotation = FRotator::ZeroRotator;
     FVector CrouchOffsetCM = FVector(-1.5f, -2.f, -.5f);
     void UpdatePoseLayers();
+    FTransform PoseLayerTransform(const FTransform& Grip, const FTransform& Mount, const FVector& Nock) const;
     /** Rigidly lower/recover the live bow assembly; never layer a fist onto bow_grip. */
     void UpdateDoorPushPresentation();
     /** Animated riser in the unlayered pivot space, shared by aim and geometry. */
     FTransform AnimatedRiserMount() const;
+    FTransform RiserMountFromGrip(FTransform Grip) const;
 
     FVector HipOffsetCM = FVector(0.f, 12.f, -6.f);
-    float HipSpread = .035f, MoveSpreadMax = .04f, AirSpreadMax = .05f;
+    float HipSpread = .04375f, MoveSpreadMax = .04f, AirSpreadMax = .05f;
     float ShotSpreadStep = .012f, SpreadRecovery = .06f, CrouchSpreadScale = .7f;
     float MoveSpread = 0.f, AirSpread = 0.f, ShotBloom = 0.f;
     float HipAimProgress = 0.f;
@@ -296,10 +334,18 @@ private:
     FVector AimSightPointCM = FVector::ZeroVector;
     float AimSightDistanceCM = 78.f;
     bool bHasAimSight = false;
+    bool UsesCompoundOptic() const;
+    float PickupSeatAlpha() const;
+    // Camera-space depth of the point under the reticle for this sampled pose.
+    double CompoundAimDepthCM = 0.;
+    float CompoundNearContactCM = -1.f;
+    void SampleCompoundAimDepth();
+    FVector CompoundSightNock(const FVector& Nock) const;
     float FlexDistribution = 1.15f, StringReturnSeconds = .032f, RingSeconds = .17f, FeedbackScale = 1.f;
     float LetDownPhase = 0.f, LetDownRatio = 0.f;
     float ReleasePulse() const;
     float ReleaseRing() const;
+    float DrawMotionWeight() const;
     // Entry clips carry the new arrow while the string remains unloaded.
     bool bEntryNeedsArrow = false, bChainEntry = false, bNockHasCarryAxis = false;
     float ReleaseFeedbackAge = -1.f;
@@ -314,6 +360,15 @@ private:
     float TurnFollow = 0.f, TurnFollowVelocity = 0.f, PreviousViewYaw = 0.f;
     bool bHaveViewYaw = false;
     void AdvanceLocomotion(float Delta, bool bUsable);
-    // Resolved once on equipment changes; ordinary sights always reset to 1x.
+    // Same equipped instance and optic retain zoom through profile refresh and ADS.
     float OpticalMagnification = 1.f;
+    float DisplayedOpticalMagnification = 1.f;
+    bool bPeakwatchScope = false;
+    UPROPERTY(Transient) TObjectPtr<UBowScopeOptics> Optics;
+    float OpticalMinimum = 1.f, OpticalMaximum = 1.f;
+    FString OpticalSelectionKey;
+    FVector ScopeRingLocationCM = FVector::ZeroVector;
+    FRotator ScopeRingRotation = FRotator::ZeroRotator;
+    float ScopeRingScale = 1.f, ScopeRingDegreesPerPower = 0.f;
+    void UpdateScopeRing();
 };

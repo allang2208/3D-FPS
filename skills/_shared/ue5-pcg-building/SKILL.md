@@ -1,6 +1,6 @@
 ---
 name: ue5-pcg-building
-description: UE5.6-UE5.8 建筑与场景地编。适用于从场景设计图、组件三视图和模型到关卡搭建，也用于模块化建筑、灰盒、PCG 与 Shape Grammar 排布、按地块与种子生成、密度过滤，以及流式高度场地表材质。
+description: UE5 模块化建筑与场景搭建。适用于设计图到建筑灰盒、室内或街区布置、Shape Grammar、通用 PCG 点位与分区生成，以及流式地块的基础地表实现。丘陵与道路主题、森林生态及户外高度图制作归 ue5-landscape-authoring。
 ---
 
 ## 执行约定
@@ -86,8 +86,8 @@ description: UE5.6-UE5.8 建筑与场景地编。适用于从场景设计图、�
 
 ## 丘陵雨林植被与水坑
 
+构建整片丘陵、森林、村边地形或道路主题时，从[户外地编构建](../ue5-landscape-authoring/SKILL.md)进入，定位高度源、生态组件与光雾所有权。
+
 修改雨林专属草、联机生态参数或扩大水坑选址时，读 [雨林植被与局部积水](references/hills-vegetation-and-pools.md)。 原因：「雨林植被与局部积水」记录该任务的专属入口和边界，按主题引用可避免另写一套相互冲突的步骤。
 
 丘陵道路保护、河湖高度连续、树簇与林床关联、扫描岩壁补面，读取 [丘陵道路保护、河湖高度连续、树簇与林床关联、扫描岩壁补面](references/hills-scenery-continuity.md)。
-
-可修复酒馆的房壳、通行碰撞和桌面摆放见[酒馆两态与室内承托](references/reusable-interior-assemblies.md#丘陵酒馆的残破与修复)。

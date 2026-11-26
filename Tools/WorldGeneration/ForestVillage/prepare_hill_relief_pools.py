@@ -161,3 +161,4 @@ def terrain(root,out):
     (out/'relief.json').write_text(json.dumps(stats,indent=2))
 
 if __name__=='__main__':terrain(Path(sys.argv[1]),Path(sys.argv[2]))
+

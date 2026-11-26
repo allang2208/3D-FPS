@@ -85,12 +85,24 @@ void UWeatherSurfaceComponent::Place(FWeatherSurfacePatch& Patch,FIntPoint Cell,
     Patch.Splash->SetWorldLocation(Hit.ImpactPoint+Hit.ImpactNormal*3);
     Patch.Splash->SetWorldRotation(FRotationMatrix::MakeFromZ(Hit.ImpactNormal).Rotator());
 }
+void UWeatherSurfaceComponent::SetReplicatedWetness(float Value)
+{
+    ReplicatedWetness=FMath::Clamp(Value,0.f,1.f);
+    if(!bReceivedWetness)Wetness=ReplicatedWetness;
+    bReceivedWetness=true;
+}
+
 void UWeatherSurfaceComponent::TickComponent(float Dt,ELevelTick TickType,FActorComponentTickFunction* TF)
 {
     Super::TickComponent(Dt,TickType,TF);
     TRACE_CPUPROFILER_EVENT_SCOPE(RainSurfacePool);
     LastTraceCount=0;
-    Wetness=FMath::Clamp(Wetness+(Rain>.04f ? Rain*.035f : -.006f)*Dt,0.f,1.f);
+    if(GetNetMode()==NM_Client)
+    {
+        if(bReceivedWetness)Wetness=FMath::FInterpTo(Wetness,ReplicatedWetness,Dt,8.f);
+    }
+    else Wetness=FMath::Clamp(Wetness+(Rain>.04f ? Rain*.035f : -.006f)*Dt,0.f,1.f);
+    if(GetNetMode()==NM_DedicatedServer)return;
     const int32 Quality=GetQuality();
     if(Quality<=0)
     {

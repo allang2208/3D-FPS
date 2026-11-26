@@ -89,3 +89,4 @@ if __name__=='__main__':
         report['HallRoadR3']=author(True)
         report['JoineryR4']=author(True,True)
     Path(os.environ['TAVERN_INN_BATCH'],'modules.json').write_text(json.dumps(report,indent=2),encoding='utf8')
+

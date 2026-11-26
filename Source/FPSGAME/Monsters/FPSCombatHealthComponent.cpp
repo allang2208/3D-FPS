@@ -1,5 +1,13 @@
 #include "FPSCombatHealthComponent.h"
+#include "../Movement/HorseRiderComponent.h"
+#include "../Movement/StableRidingHorse.h"
+#include "../Weapons/EagleTalonGuardComponent.h"
+#include "UnknownHumanoid.h"
+#include "UnknownSpellCombat.h"
+#include "../Skills/EnemyAttackDamage.h"
 #include "../Weapons/StarMarrowComponent.h"
+#include "../Weapons/RuneSwordComponent.h"
+#include "../Skills/FPSIceArmorComponent.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../Weapons/JingangRuneComponent.h"
@@ -56,8 +64,7 @@ void UFPSCombatHealthComponent::GetLifetimeReplicatedProps(TArray<FLifetimePrope
 }
 void UFPSCombatHealthComponent::OnRep_Health()
 {
-    // M3：客户端侧观察到的权威血量变化（怪物掉血/玩家 HP）。测试期留一条可见日志。
-    UE_LOG(LogTemp, Warning, TEXT("MPTEST Health replicated: %s -> %.1f (dead=%d)"), *GetNameSafe(GetOwner()), Health, IsDead() ? 1 : 0);
+    UE_LOG(LogTemp, Verbose, TEXT("MPTEST Health replicated: %s -> %.1f (dead=%d)"), *GetNameSafe(GetOwner()), Health, IsDead() ? 1 : 0);
     // 联机：服务端判死的本地 pawn 停止本地移动预测——否则死亡窗口内客户端继续走动，
     // 与服务端副本位置硬发散，直到 Respawn 换 pawn 才收束。重生销毁本 pawn，无需恢复。
     if(IsDead())ApplyPlayerDeath();
@@ -67,6 +74,8 @@ void UFPSCombatHealthComponent::ApplyPlayerDeath()
     auto* Character=Cast<ACharacter>(GetOwner());
     if(!Character||bDeathApplied)return;
     bDeathApplied=true;
+    if(auto* Eagle=Character->FindComponentByClass<UEagleTalonGuardComponent>())Eagle->ClearCharge();
+    if(auto* Sword=Character->FindComponentByClass<URuneSwordComponent>())Sword->ClearRingChainProgress();
     // Use the existing priority cancellation path without reapplying a profile
     // snapshot: a stale health snapshot must not revive a confirmed death.
     if(auto* FPS=Cast<AFPSGAMECharacter>(Character))FPS->InterruptActionsForPriority(true);
@@ -81,7 +90,9 @@ void UFPSCombatHealthComponent::BeginPlay()
 {
     Super::BeginPlay();
     SetIsReplicated(true); // M3: 血量/上限走服务器权威复制（拥有者 actor 本身可复制）
-    Health = MaxHealth;
+    // Initial replication can precede BeginPlay on a newly opened actor channel.
+    // Preserve the server's wounded/dead health on late observers.
+    if(GetOwner()->HasAuthority())Health = MaxHealth;
     GetOwner()->OnTakeAnyDamage.AddDynamic(this, &UFPSCombatHealthComponent::OnDamage);
     // 联机权威端才录制位姿历史——rewind 命中校验的唯一消费者是服务端。
     if (GetOwner() && GetOwner()->HasAuthority() && GetWorld() && GetWorld()->GetNetMode() != NM_Standalone)
@@ -156,21 +167,33 @@ float UFPSCombatHealthComponent::DamageAfterArmor(float Damage,const UDamageType
     const bool bMagic=CombatFormulaRuntime::IsMagic(Type)||Charged;
     if(Charged)Damage*=UStarMarrowComponent::DamageMultiplier;
     const auto* Status=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
-    const auto* AttackerStatus=Attacker?Attacker->FindComponentByClass<UCombatStatusFormula>():nullptr;
-    // 联机：远端玩家的防御走影子档案；主机玩家（监听服下 NetShadowProfile 恒空）/单机回退单例。
-    UColdSteelStatusModel* Model=nullptr;
-    if(const auto* NetCharacter=Cast<AFPSGAMECharacter>(GetOwner()))Model=NetCharacter->GetNetShadowProfile();
-    if(!Model&&GetWorld()&&GetWorld()->GetGameInstance())Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    // An unbound guest must never borrow the host's armor or tribute effects.
+    auto* Model=ColdSteelAuthority::ForPawn(Cast<APawn>(GetOwner()));
+    const auto* Unknown=Cast<AUnknownHumanoid>(Attacker);
+    const auto* Snapshot=Unknown?UnknownSpell::ActiveWeapon:nullptr;
+    float WeaponMagic=0.f;
+    if(Model && Unknown && !bMagic && Type && (Type->IsA<UEnemyMeleeDamage>() || Type->IsA<UEnemyRangedDamage>()))
+    {
+        const float MagicShare=Damage*(Snapshot?Snapshot->MagicFraction:Unknown->WeaponMagicFraction());
+        Damage-=MagicShare;
+        WeaponMagic=CoreCombatFormula::Defense(MagicShare,Model->Derived(TEXT("mdef")),true,Snapshot?Snapshot->MagicPenetration:Unknown->Penetration(true),Status?Status->MagicShred():0);
+        if(Status)WeaponMagic=FMath::FloorToFloat(FMath::FloorToFloat(WeaponMagic*Status->MagicVulnerabilityMultiplier())*Status->PetrifiedMagicMultiplier());
+    }
     if(Model&&!(Type&&Type->IsA<UMaggotPoisonDamage>())) // 旧口径：蛆毒直接结算，不过防御
-        Damage=CoreCombatFormula::Defense(Damage,Model->Derived(bMagic?TEXT("mdef"):TEXT("def")),bMagic,0,Status?Status->MagicShred():0,Status?Status->CorrosionMultiplier():1);
+        Damage=CoreCombatFormula::Defense(Damage,Model->Derived(bMagic?TEXT("mdef"):TEXT("def")),bMagic,Snapshot?(bMagic?Snapshot->MagicPenetration:Snapshot->PhysicalPenetration):Unknown?(bMagic&&CombatFormulaRuntime::ActiveMagicHit?CombatFormulaRuntime::ActiveMagicHit->Penetration:Unknown->Penetration(bMagic)):0,Status?Status->MagicShred():0,Status?Status->CorrosionMultiplier():1);
     // 旧链顺序：魔法易伤→石化→感电→无人机易伤→献祭怪物攻击削弱→冻结→来源减伤→标记→圣佑→金刚石上限。
     if(bMagic&&Status)Damage=FMath::FloorToFloat(Damage*Status->MagicVulnerabilityMultiplier());
     if(bMagic&&Status)Damage=FMath::FloorToFloat(Damage*Status->PetrifiedMagicMultiplier());
     if(Type&&Type->IsA<ULightningDamage>()&&Status)Damage=FMath::FloorToFloat(Damage*Status->ElectricMultiplier());
+    if(WeaponMagic>0.f && Status && Status->FrozenRemaining()>0)
+    {
+        Damage=FMath::FloorToFloat(Damage*1.5f);
+    }
+    Damage+=WeaponMagic;
     if(Status)Damage=FMath::FloorToFloat(Damage*Status->DroneDamageMultiplier(Attacker));
     if(Model)if(const auto* AttackerPawn=Cast<APawn>(Attacker);Attacker&&(!AttackerPawn||!AttackerPawn->IsPlayerControlled()))
         Damage=FMath::FloorToFloat(Damage*Model->TributeEffect(TEXT("monsterAtkDownPercent"))); // 旧口径：仅敌方来源攻击触发削弱
-    if(!bMagic&&Status&&Status->FrozenRemaining()>0)Damage=FMath::FloorToFloat(Damage*1.5f);
+    if(WeaponMagic<=0.f&&!bMagic&&Status&&Status->FrozenRemaining()>0)Damage=FMath::FloorToFloat(Damage*1.5f);
     if(AttackerStatus)Damage=FMath::FloorToFloat(Damage*AttackerStatus->OutgoingDamageMultiplier());
     if(Status)Damage=FMath::FloorToFloat(Damage*Status->MarkedMultiplier());
     if(Status)Damage=FMath::FloorToFloat(Damage*Status->FinalMultiplier());
@@ -183,10 +206,7 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
 {
     if (!Actor->HasAuthority() || IsDead() || Damage <= 0.f) return;
     const bool bSurvivalLoss=Type&&Type->IsA<UFPSSurvivalDamage>();
-    // 联机：远端玩家的防御/续命判定走其影子档案，主机/单机回退 GameInstance 单例。
-    UColdSteelStatusModel* Model=nullptr;
-    if(const auto* NetCharacter=Cast<AFPSGAMECharacter>(Actor))Model=NetCharacter->GetNetShadowProfile();
-    if(!Model&&GetWorld()->GetGameInstance())Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    auto* Model=ColdSteelAuthority::ForPawn(Cast<APawn>(Actor));
     // 月影庇护：参战（首次受击）触发短暂无敌，窗口内全部承伤无效（旧 moonstone special）。
     if(Model&&!bSurvivalLoss)
     {
@@ -202,7 +222,13 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
         IsInvulnerable() && (!(Type&&Type->IsA<UCombatDirectDamage>())||UDevelopmentTuningSubsystem::IsPlayerOptionEnabled(Cast<APawn>(Actor),EDevelopmentTuningOption::Invincible)))return;
     AActor* Attacker=Causer?Causer:(Instigator?Instigator->GetPawn():nullptr);
     if(!Actor->IsA<AFPSGAMECharacter>())Damage=DamageAfterArmor(Damage,Type,Attacker);
+    const float AcceptedDamage=FMath::Min(Health,Damage);
+    if(AcceptedDamageReceipt)*AcceptedDamageReceipt=AcceptedDamage;
     Health = FMath::Max(0.f, Health - Damage);
+    if(!bSurvivalLoss && AcceptedDamage>0.f)
+        if(auto* Mount=UHorseRiderComponent::MountOf(Actor))Mount->ShareRiderHealthLoss(AcceptedDamage);
+    if(!bSurvivalLoss)if(auto* Ice=Actor->FindComponentByClass<UFPSIceArmorComponent>())
+        Ice->ObserveAcceptedDamage(Instigator&&Instigator->GetPawn()?Instigator->GetPawn():Attacker,Type,AcceptedDamage);
     // Only accepted damage interrupts focus; dodge, guard and immunity have
     // already rejected their hits. Hunger/dehydration are not weapon impacts.
     if(!bSurvivalLoss)if(auto* Book=Actor->FindComponentByClass<USpellbookComponent>())Book->InterruptFocusFromDamage();
@@ -270,6 +296,7 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
             if(auto* S=Actor->FindComponentByClass<UCombatStatusFormula>())S->PurgeTransient();
             UE_LOG(LogTemp, Display, TEXT("PEACH_REVIVE hp=%.0f ratio=%.2f"), Health, ReviveRatio);
             Actor->ForceNetUpdate();ClientDamageFeedback(Health);ClientPeachRevive();
+            if(Model&&Model->RuntimePawn()==Actor)Model->SyncRuntime();
             return;
         }
         const auto* GS=GetWorld()->GetGameState();
@@ -280,6 +307,9 @@ void UFPSCombatHealthComponent::OnDamage(AActor* Actor, float Damage, const UDam
         Actor->ForceNetUpdate();
         GetWorld()->GetTimerManager().SetTimer(RespawnTimer, this, &UFPSCombatHealthComponent::Respawn, FPSPlayerDeathMotion::RespawnSeconds, false);
     }
+    // Logout may destroy the pawn before PlayerState's next runtime sampling.
+    // Keep the authority profile's final vitals current at the accepted hit.
+    if(Model&&Model->RuntimePawn()==Actor)Model->SyncRuntime();
     if(PC)ClientDamageFeedback(Health);
     if(IsDead())ColdSteelSkills::NotifyKillByOwner(GetWorld()->GetGameInstance(),Instigator,Actor);
 }
@@ -317,7 +347,7 @@ void UFPSCombatHealthComponent::ClientDamageFeedback_Implementation(float Remain
     if(!PC||!PC->IsLocalController())return;
     if(PC->PlayerCameraManager)PC->PlayerCameraManager->StartCameraFade(.3f,0.f,.3f,FLinearColor(.6f,0,0),false,false);
     if(GEngine)GEngine->AddOnScreenDebugMessage(91401,3.f,FColor::Red,
-        FString::Printf(TEXT("HP %.0f / %.0f%s"),RemainingHealth,MaxHealth,RemainingHealth<=0?TEXT(" - Respawning..."):TEXT("")));
+        FString::Printf(TEXT("生命 %.0f / %.0f%s"),RemainingHealth,MaxHealth,RemainingHealth<=0?TEXT(" · 正在复活…"):TEXT("")));
 }
 
 void UFPSCombatHealthComponent::ClientPeachRevive_Implementation()

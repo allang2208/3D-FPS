@@ -1,4 +1,5 @@
 #include "FPSTraversalComponent.h"
+#include "../Skills/LightningHasteSpeed.h"
 #include "FPSTraversalArmsComponent.h"
 #include "FPSTraversalTiming.h"
 #include "../FPSGAMECharacter.h"
@@ -147,7 +148,7 @@ bool UFPSTraversalComponent::BeginTarget(const FFPSTraversalTarget& Target)
     ClipDuration=ActiveClip->GetPlayLength(); Elapsed=0;
     bReturningCamera=false; bReturningWeapon=false; bLastTraversalSucceeded=false;
     WeaponStowWeight=WeaponRaiseElapsed=0.f; WeaponReturnWeight=1.f;
-    PlaybackRate=bVault?GetDefault<UFPSTraversalSettings>()->VaultPlaybackRate:1.f;
+    PlaybackRate=(bVault?GetDefault<UFPSTraversalSettings>()->VaultPlaybackRate:1.f)*LightningHaste::ActionSpeed(C);
     if(Arms)CastChecked<UFPSTraversalArmsComponent>(Arms)->ResetSurfaceContact();
     Contact=bVault?.27f:(bHigh?.74f:.345f); Release=bVault?.58f:(bHigh?2.25f:1.1f);
     // Keep grasp/push timing and the remaining time needed to reach safe footing.

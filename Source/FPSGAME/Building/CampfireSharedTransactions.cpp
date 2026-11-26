@@ -4,6 +4,8 @@
 #include "VoxelBuildWorld.h"
 #include "VoxelBuildPrefabActor.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
+#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
+#include "Engine/World.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Items/FoodSpoilage.h"
 #include "../Development/DevelopmentTuningSubsystem.h"
@@ -107,7 +109,13 @@ FCampfireSharedState UColdSteelSmeltingSystem::CampfireState(const AVoxelBuildWo
 }
 bool UColdSteelSmeltingSystem::IsCampfireSaveBlocked(const AVoxelBuildWorld* W) const
 {
-    return CampfireBlockedWorlds.Contains(const_cast<AVoxelBuildWorld*>(W));
+    if(CampfireBlockedWorlds.Contains(const_cast<AVoxelBuildWorld*>(W)))return true;
+    if(W&&W->HasAuthority()&&W->GetNetMode()!=NM_Standalone)
+    {
+        auto* Shared=W->GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>();
+        return !Shared||!Shared->InitializeAuthority()||Shared->IsBuildingSaveBlocked();
+    }
+    return false;
 }
 void UColdSteelSmeltingSystem::RecoverCampfireJournal(AVoxelBuildWorld* W)
 {

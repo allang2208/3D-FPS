@@ -1,0 +1,28 @@
+{
+  "mode": "Listen",
+  "configured_loss_percent_each_peer": 3,
+  "heavy_cycles": 0,
+  "run": "D:\\FPS3D\\FPSGAME\\Tools\\HatchetThirdPersonReview20261106\\Listen-20261106-163033",
+  "rendered": false,
+  "profile_id": "9e4ba03d-923a-46f3-9e8f-73c82b2062ff",
+  "passed": true,
+  "charge_start_lag_ms": 0,
+  "peer_exits": [
+    {
+      "pid": 49736,
+      "exit_code": 0
+    },
+    {
+      "pid": 54564,
+      "exit_code": 0
+    },
+    {
+      "pid": 58832,
+      "exit_code": 0
+    }
+  ],
+  "head": "jason",
+  "port": 19937,
+  "outfit": "base body; no optional clothing",
+  "configured_lag_ms_each_peer": 60
+}

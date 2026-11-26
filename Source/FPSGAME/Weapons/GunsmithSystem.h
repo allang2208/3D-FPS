@@ -13,7 +13,10 @@ struct FMeleeModifiers
     double Damage=1, AttackSpeed=1, Range=1, Stamina=1, BlockStamina=1, HitReaction=1, BlockReduction=1;
     // Poise damage is separate from the duration of a successful poise break.
     double ToughnessDamage=1, PhysicalArmorPenetration=0;
-    double ComboSecond=1, ComboThird=1;
+    // Guaranteed contact stacks, captured from the attacking weapon only.
+    int32 MeleeHitBleedStacks=0;
+    float PhysicalAttackMultiplier=1.f;
+    double ComboSecond=1, ComboThird=1, NormalAttackStamina=1;
     // Ability cooldowns only; attack cycles and recovery keep their own action clocks.
     double SkillCooldown=1;
     double MartialCooldown=1;
@@ -21,6 +24,10 @@ struct FMeleeModifiers
     double MartialCooldownMultiplier() const {return SkillCooldown*MartialCooldown;}
     double MagicAttack=1;
     double MagicCooldown=1, MagicDamage=1, MagicCost=1, RuneIntelligence=0, RuneWisdom=0;
+    // Orb-specific parts replace the base coefficient; their magic bonus is
+    // applied once to the whole magical projectile, outside its weapon input.
+    double RuneBladeCountAdd=0, RuneBladeDamageMultiplier=0, RuneBladeMagicDamage=1;
+    double RuneBladeCountOverride=0, RuneBladeBlastRadius=0, RuneBladeCooldown=1;
     double InnateErosionMultiplier=1;
     double TimeSandEchoRatio=0,TimeSandEchoDelay=0;
     double HitHealthReturnRatio=0,HitManaReturnRatio=0;
@@ -47,6 +54,7 @@ struct FMeleeModifiers
     double QuickCombatTigerRoarToughnessBonus=0, QuickCombatTigerRoarSeconds=0;
     double QuickCombatPhysicalVulnerabilityBonus=0, QuickCombatPhysicalVulnerabilitySeconds=0;
     bool bQuickCombatAOE=false;
+    bool bQuickCombatUsesWeaponDamage=false;
     double QuickCombatToughnessMultiplier() const {return ToughnessDamage*QuickCombatToughness;}
     // Heavy releases only, including a guard-converted heavy attack.
     double HeavyToughness=1;
@@ -55,9 +63,11 @@ struct FMeleeModifiers
     double KillStaminaMaxRatio=0;
     // 蓄力速度增量相加：0.15 = +15%，基础蓄力时间除以 (1 + 所有增量)。
     double HeavyChargeSpeedBonus=0;
+    double OathHeavyPhysical=1,OathChargeStamina=1;
     // Charged hammer release surcharge; sprint attacks and weapon skills retain their own costs.
     double HeavyReleaseStamina=1;
     double DamageTaken=1, DodgeStamina=1, SprintStamina=1;
+    double PhysicalDefenseMultiplier=1.;
     double DragonSeconds=0, DragonCooldown=0, DragonDamage=1, DragonToughness=0;
     double PhoenixSeconds=0, PhoenixCooldown=0, PhoenixSpeed=1, PhoenixHealRatio=0, PhoenixHealHits=0;
     // Multiplies each attack's final knockback, including skill-added distance.
@@ -98,9 +108,14 @@ struct FGunsmithStats
     // Bow factors are independent from firearm handling and magazine rules.
     struct FBowModifiers
     {
-        double Damage=1,Draw=1,Speed=1,Stamina=1,Nock=1,Hold=1,Sway=1,Spread=1,ADS=1;
+        double Damage=1,Draw=1,Speed=1,Stamina=1,Nock=1,ChargeStamina=1,Sway=1,Spread=1,ADS=1;
+        // Damage adjusts the base formula; ShotDamage scales the complete arrow panel.
+        double ShotDamage=1,PhysicalDamage=1,Range=1,CriticalDamageBonus=0;
         // Additive speed increment; Draw retains the equivalent duration factor.
         double DrawSpeedBonus=0;
+        double RhythmWindowBonus=0;
+        double PiercingDamage=1;
+        double MagicDamage=1, ManaCost=1;
     } Bow;
     FMeleeModifiers Melee;
     FToolModifiers Tool;
@@ -187,6 +202,7 @@ public:
     FString CategoryLabel(const FString& Definition,const FString& Slot) const;
     // Weapon remains the firearm contract used by ammunition and combat callers.
     const FGunsmithWeapon* ModifiableWeapon(const FString& Definition) const;
+    static bool UsesFreePartReceipts(const FString& Definition);
     bool IsMelee(const FString& Definition) const {return MeleeWeapons.Contains(Definition);}
     /** 采集工具（伐木斧、矿镐）：走工具四栏目录，不套用剑类连击／格挡口径。 */
     bool IsTool(const FString& Definition) const {return ToolWeapons.Contains(Definition);}
@@ -204,6 +220,7 @@ public:
     FGunsmithStats CalculateItem(const FColdSteelItem& Item,const FGunsmithParts&) const;
     bool Begin(const FString& Instance);
     bool Select(const FString& Slot,const FString& OptionId);
+    FString OptionLockReason(const FString& Slot,const FString& OptionId) const;
     bool Apply();
     bool CanApply(FString& Reason) const;
     bool PreparePartMaterials(FColdSteelProfile& State,FString& Reason) const;

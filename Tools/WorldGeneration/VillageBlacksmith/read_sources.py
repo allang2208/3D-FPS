@@ -20,7 +20,6 @@ for entry in palette.get_editor_property('components'):
             row['materials']=[str(s.material_interface.get_path_name()) for s in mesh.get_editor_property('static_materials') if s.material_interface]
     entries.append(row)
 for path in ('/Game/WorldGeneration/TemperateHills/OldChapel/Meshes/SM_ChapelPew',
-             '/Game/MilitaryTrench/Assets/3D/Mil_Trench_Bench_Wood_01/StaticMeshes/SM_Mil_Trench_Bench_Wood_01',
              '/Game/UndergroundTunnel/Meshes/Props/SM_WoodCrate01a',
              '/Game/Props/CastingStation20260926/SM_CoolingBarrel'):
     mesh=u.load_asset(path)

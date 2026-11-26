@@ -1,4 +1,5 @@
 #include "GunsmithSystem.h"
+#include "M249WeaponAssets.h"
 #include "FrostSwordRunes.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Engine/GameInstance.h"
@@ -14,16 +15,19 @@ TMap<FString,FWarhammerColumns>& WarhammerColumns(){static TMap<FString,FWarhamm
 
 const TArray<FString>& UGunsmithSystem::Slots(const FString& Definition) const
 {
+    if(Definition==M249WeaponAssets::Definition)return M249WeaponAssets::FactorySlots();
     if(const auto* Columns=WarhammerColumns().Find(Definition))return Columns->Slots;
     return Definition==TEXT("ue_rsh12")?RSHSlotKeys:IsStaff(Definition)?StaffSlotKeys:IsBow(Definition)?BowSlotKeys:IsTool(Definition)?ToolSlotKeys:IsMelee(Definition)?MeleeSlotKeys:SlotKeys;
 }
 const TArray<FString>& UGunsmithSystem::Categories(const FString& Definition) const
 {
+    if(Definition==M249WeaponAssets::Definition)return M249WeaponAssets::FactoryCategories();
     if(const auto* Columns=WarhammerColumns().Find(Definition))return Columns->Names;
     return Definition==TEXT("ue_rsh12")?RSHCategoryNames:IsStaff(Definition)?StaffCategoryNames:IsBow(Definition)?BowCategoryNames:IsTool(Definition)?ToolCategoryNames:IsMelee(Definition)?MeleeCategoryNames:CategoryNames;
 }
 const TArray<FString>& UGunsmithSystem::Defaults(const FString& Definition) const
 {
+    if(Definition==M249WeaponAssets::Definition)return M249WeaponAssets::FactoryDefaults();
     if(const auto* Columns=WarhammerColumns().Find(Definition))return Columns->Defaults;
     return Definition==TEXT("ue_rsh12")?RSHDefaultNames:IsStaff(Definition)?StaffDefaultNames:IsBow(Definition)?BowDefaultNames:IsTool(Definition)?ToolDefaultNames:IsMelee(Definition)?MeleeDefaultNames:DefaultNames;
 }
@@ -31,19 +35,20 @@ const TArray<FString>& UGunsmithSystem::Defaults(const FString& Definition) cons
 void UGunsmithSystem::LoadWarhammerCatalog()
 {
     WarhammerColumns().Reset();
-    for(const TCHAR* CatalogFile:{TEXT("warhammer-gunsmith.json"),TEXT("runebound-warhammer-gunsmith.json"),TEXT("thunder-god-hammer-gunsmith.json")})
+    for(const TCHAR* CatalogFile:{TEXT("warhammer-gunsmith.json"),TEXT("runebound-warhammer-gunsmith.json"),TEXT("thunder-god-hammer-gunsmith.json"),TEXT("kukri-gunsmith.json"),TEXT("tactical-hatchet-gunsmith.json")})
     {
     FString Text;TSharedPtr<FJsonObject> Root;
     if(!FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/CatalogFile))||
         !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Root)||!Root)continue;
     auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();if(!Profile)return;
     const auto Item=Profile->CreateItem(Root->GetStringField(TEXT("weapon")));
-    if(!ColdSteelInventory::IsTwoHandedBlunt(Item))continue;
-    FGunsmithWeapon Weapon;Weapon.Id=Item.Definition;Weapon.Model=TEXT("two_handed_blunt");
+    const bool Kukri=ColdSteelInventory::UsesKukriMoveset(Item);
+    if(!Kukri&&!ColdSteelInventory::IsTwoHandedBlunt(Item))continue;
+    FGunsmithWeapon Weapon;Weapon.Id=Item.Definition;Weapon.Model=Kukri?TEXT("kukri"):TEXT("two_handed_blunt");
     Weapon.Name=ColdSteelInventory::Text(Item,TEXT("name"));Weapon.Source=Root;
     Weapon.Base.Damage=ColdSteelInventory::Number(Item,TEXT("melee_damage"));
-    Weapon.Base.Interval=ColdSteelInventory::Number(Item,TEXT("swing_seconds"));
-    Weapon.Base.Range=ColdSteelInventory::Number(Item,TEXT("combat_reach_cm"))/100.;
+    Weapon.Base.Interval=ColdSteelInventory::Number(Item,Kukri?TEXT("attack_seconds"):TEXT("swing_seconds"));
+    Weapon.Base.Range=ColdSteelInventory::Number(Item,Kukri?TEXT("melee_reach_cm"):TEXT("combat_reach_cm"))/100.;
     auto& Columns=WarhammerColumns().FindOrAdd(Item.Definition);Columns={};
     for(const auto& Value:Root->GetArrayField(TEXT("columns")))
     {
@@ -78,9 +83,19 @@ void UGunsmithSystem::LoadWarhammerCatalog()
                 else if(Library->TryGetArrayField(TEXT("options"),Options))AllOptions.Append(*Options);
             }
         }
+        const TSharedPtr<FJsonObject>* CopyOverrides=nullptr;
+        Column->TryGetObjectField(TEXT("option_copy"),CopyOverrides);
         for(const auto& OptionValue:AllOptions)
         {
-            const auto Data=OptionValue->AsObject();if(!Data)continue;
+            auto Data=OptionValue->AsObject();if(!Data)continue;
+            const TSharedPtr<FJsonObject>* Copy=nullptr;
+            if(CopyOverrides&&(*CopyOverrides)->TryGetObjectField(Data->GetStringField(TEXT("id")),Copy))
+            {
+                // A host can localize shared prose while keeping the source stats and compatibility.
+                Data=MakeShared<FJsonObject>(*Data);
+                for(const TCHAR* KeyName:{TEXT("description"),TEXT("effects"),TEXT("special_effects")})
+                    if(const auto* Field=(*Copy)->Values.Find(KeyName))Data->SetField(KeyName,*Field);
+            }
             if(Excluded.Contains(Data->GetStringField(TEXT("id"))))continue;
             const TArray<TSharedPtr<FJsonValue>>* Compatible=nullptr;
             if(Key==TEXT("blade_material")&&Data->TryGetArrayField(TEXT("weapons"),Compatible)&&!Compatible->IsEmpty()&&
@@ -103,14 +118,28 @@ void UGunsmithSystem::LoadWarhammerCatalog()
                 (*Stats)->TryGetNumberField(TEXT("physical_damage_mult"),Part.Melee.PhysicalDamage);
                 (*Stats)->TryGetNumberField(TEXT("physical_attack_add"),Part.Melee.PhysicalAttackAdd);
                 (*Stats)->TryGetNumberField(TEXT("attack_speed_mult"),Part.Melee.AttackSpeed);
+                (*Stats)->TryGetNumberField(TEXT("range_mult"),Part.Melee.Range);
                 (*Stats)->TryGetNumberField(TEXT("stamina_mult"),Part.Melee.Stamina);
+                (*Stats)->TryGetNumberField(TEXT("kill_stamina_max_ratio"),Part.Melee.KillStaminaMaxRatio);
+                (*Stats)->TryGetNumberField(TEXT("critical_chance_add"),Part.Melee.CriticalChanceAdd);
+                (*Stats)->TryGetNumberField(TEXT("melee_critical_chance_add"),Part.Melee.MeleeCriticalChanceAdd);
+                (*Stats)->TryGetNumberField(TEXT("melee_critical_damage_bonus"),Part.Melee.MeleeCriticalDamageBonus);
+                (*Stats)->TryGetNumberField(TEXT("block_stamina_mult"),Part.Melee.BlockStamina);
                 (*Stats)->TryGetNumberField(TEXT("toughness_damage_mult"),Part.Melee.ToughnessDamage);
+                (*Stats)->TryGetNumberField(TEXT("melee_hit_bleed_stacks"),Part.Melee.MeleeHitBleedStacks);
                 (*Stats)->TryGetNumberField(TEXT("physical_armor_penetration"),Part.Melee.PhysicalArmorPenetration);
                 (*Stats)->TryGetNumberField(TEXT("heavy_charge_speed_bonus"),Part.Melee.HeavyChargeSpeedBonus);
                 (*Stats)->TryGetNumberField(TEXT("heavy_release_stamina_mult"),Part.Melee.HeavyReleaseStamina);
                 (*Stats)->TryGetNumberField(TEXT("heavy_damage_mult"),Part.Melee.HeavyDamage);
+                (*Stats)->TryGetNumberField(TEXT("heavy_toughness_mult"),Part.Melee.HeavyToughness);
+                (*Stats)->TryGetNumberField(TEXT("quick_combat_damage_add"),Part.Melee.QuickCombatDamageAdd);
+                (*Stats)->TryGetBoolField(TEXT("quick_combat_aoe"),Part.Melee.bQuickCombatAOE);
+                (*Stats)->TryGetBoolField(TEXT("quick_combat_weapon_damage"),Part.Melee.bQuickCombatUsesWeaponDamage);
+                (*Stats)->TryGetNumberField(TEXT("quick_combat_knockback_mult"),Part.Melee.QuickCombatKnockback);
+                (*Stats)->TryGetNumberField(TEXT("quick_combat_toughness_mult"),Part.Melee.QuickCombatToughness);
                 (*Stats)->TryGetNumberField(TEXT("skill_cooldown_mult"),Part.Melee.SkillCooldown);
                 (*Stats)->TryGetNumberField(TEXT("martial_cooldown_mult"),Part.Melee.MartialCooldown);
+                (*Stats)->TryGetNumberField(TEXT("martial_damage_mult"),Part.Melee.MartialDamage);
                 (*Stats)->TryGetNumberField(TEXT("magic_cooldown_mult"),Part.Melee.MagicCooldown);
                 (*Stats)->TryGetNumberField(TEXT("magic_damage_mult"),Part.Melee.MagicDamage);
                 (*Stats)->TryGetNumberField(TEXT("rune_intelligence"),Part.Melee.RuneIntelligence);

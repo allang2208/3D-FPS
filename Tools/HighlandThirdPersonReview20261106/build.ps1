@@ -1,4 +1,4 @@
-param([string[]]$Targets=@('FPSGAMEEditor'),[int]$MaximumWaitSeconds=600)
+﻿param([string[]]$Targets=@('FPSGAMEEditor'),[int]$MaximumWaitSeconds=600)
 $ErrorActionPreference='Stop'
 $taskRoot='D:/FPS3D/FPSGAME'
 $taskOutput="$taskRoot/Saved/HighlandThirdPersonReview20261106"

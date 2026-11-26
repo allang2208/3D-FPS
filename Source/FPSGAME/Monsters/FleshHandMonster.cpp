@@ -1,4 +1,7 @@
 #include "FleshHandMonster.h"
+#include "MonsterTargeting.h"
+#include "MonsterDamageBalance.h"
+#include "../Combat/CombatControlImmunity.h"
 #include "GameFramework/GameStateBase.h"
 #include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
@@ -51,7 +54,7 @@ namespace
  TMap<TWeakObjectPtr<UWorld>,TArray<TWeakObjectPtr<AFleshHandMonster>>> SummonedHands;
  bool Alive(const APawn* P)
  {
-  if(!IsValid(P))return false;
+  if(!IsValid(P)||MonsterTargeting::IsDownedArtisan(P))return false;
   const auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();return !H||!H->IsDead();
  }
  bool Attacking(EFleshHandState S){return S==EFleshHandState::Hammer||S==EFleshHandState::Slam||S==EFleshHandState::GrandSlam;}
@@ -60,7 +63,7 @@ namespace
 UFleshHandPushComponent::UFleshHandPushComponent(){PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.bStartWithTickEnabled=false;}
 void UFleshHandPushComponent::Apply(ACharacter* Target,FVector D,float CM)
 {
- if(!Target||CM<=0)return;
+ if(!Target||CM<=0||CombatControl::IsImmune(Target))return;
  auto* C=Target->FindComponentByClass<UFleshHandPushComponent>();
  if(!C){C=NewObject<UFleshHandPushComponent>(Target);Target->AddInstanceComponent(C);C->RegisterComponent();}
  C->Direction=D.GetSafeNormal2D();C->Distance=CM;C->Age=0;C->SetComponentTickEnabled(true);
@@ -68,7 +71,7 @@ void UFleshHandPushComponent::Apply(ACharacter* Target,FVector D,float CM)
 void UFleshHandPushComponent::TickComponent(float Dt,ELevelTick Type,FActorComponentTickFunction* Tick)
 {
  Super::TickComponent(Dt,Type,Tick);auto* C=Cast<ACharacter>(GetOwner());
- if(!C||!Alive(C)){SetComponentTickEnabled(false);return;}
+ if(!C||!Alive(C)||CombatControl::IsImmune(C)){SetComponentTickEnabled(false);return;}
  auto* M=C->GetCharacterMovement();const float Before=Age/.16f;Age=FMath::Min(.16f,Age+Dt);
  const float Step=Distance*(FMath::Square(1-Before)-FMath::Square(1-Age/.16f));
  const FVector Previous=C->GetActorLocation();
@@ -385,10 +388,10 @@ void AFleshHandMonster::MoveBlockedBy(const FHitResult& Hit)
  if(!HasAuthority()||State!=EFleshHandState::ChargeRush||bConsumed||Dead()||GetCharacterMovement()->IsWalkable(Hit))return;
  bConsumed=true; // The swept capsule's first blocking contact consumes this rush.
  bool DamageLanded=false;
- APawn* Victim=Cast<APawn>(Hit.GetActor());
+ APawn* Victim=Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor()));
  if(Alive(Victim)&&Victim->IsPlayerControlled()&&!Status->BlocksMovement())
  {
-  const float Applied=UGameplayStatics::ApplyDamage(Victim,PhysicalAttack*ChargeDamageMultiplier,GetController(),this,UEnemyMeleeDamage::StaticClass());
+  const float Applied=UGameplayStatics::ApplyDamage(Victim,MonsterDamageBalance::Limit(PhysicalAttack*ChargeDamageMultiplier,100.f),GetController(),this,UEnemyMeleeDamage::StaticClass());
   // Parry, stun or death may synchronously interrupt us inside ApplyDamage.
   if(State!=EFleshHandState::ChargeRush||Dead())return;
   DamageLanded=Applied>0;
@@ -496,14 +499,15 @@ void AFleshHandMonster::Impact()
  }
  const float WallMultiplier=Attack==EFleshHandState::Hammer?1.f:Attack==EFleshHandState::Slam?1.5f:2.f;
  if(IceWallCombat::ApplyMelee(this,LockedTarget.Get(),Attack==EFleshHandState::Hammer?HammerRange:SlamRadius,PhysicalAttack*WallMultiplier))return;
- for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+ TArray<APawn*> Victims;
+ MonsterTargeting::GatherAreaOpponents(GetWorld(),GetActorLocation(),Attack==EFleshHandState::Hammer?HammerRange:SlamRadius,Victims);
+ for(APawn* P:Victims)
  {
-  APawn* P=It->Get()?It->Get()->GetPawn().Get():nullptr;
   if(Attack==EFleshHandState::Hammer&&P!=LockedTarget.Get())continue;
   if(!CanReach(P,Attack==EFleshHandState::Hammer?HammerRange:SlamRadius))continue;
   if(Attack==EFleshHandState::Hammer&&FVector::DotProduct(StrikeDirection,(P->GetActorLocation()-GetActorLocation()).GetSafeNormal2D())<.35f)continue;
   const float Multiplier=Attack==EFleshHandState::Hammer?1.f:Attack==EFleshHandState::Slam?1.5f:2.f;
-  const float Applied=UGameplayStatics::ApplyDamage(P,PhysicalAttack*Multiplier,GetController(),this,UEnemyMeleeDamage::StaticClass());
+  const float Applied=UGameplayStatics::ApplyDamage(P,MonsterDamageBalance::Limit(PhysicalAttack*Multiplier,100.f),GetController(),this,UEnemyMeleeDamage::StaticClass());
   if(State!=Attack||Dead())return;
   if(Applied<=0||!Alive(P))continue;
   if(Attack==EFleshHandState::Hammer)UFleshHandPushComponent::Apply(Cast<ACharacter>(P),StrikeDirection,101.25f);
@@ -522,9 +526,11 @@ void AFleshHandMonster::Impact()
 void AFleshHandMonster::ContactDamage()
 {
  if(IceWallCombat::ApplyMelee(this,Target.Get(),150,PhysicalAttack))return;
- for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+ TArray<APawn*> Victims;
+ MonsterTargeting::GatherAreaOpponents(GetWorld(),GetActorLocation(),150.f,Victims);
+ for(APawn* P:Victims)
  {
-  APawn* P=It->Get()?It->Get()->GetPawn().Get():nullptr;if(!CanReach(P,150))continue;
+  if(!CanReach(P,150))continue;
   const FVector D=GetActorTransform().InverseTransformPosition(P->GetActorLocation());bool Touch=false;
   for(const FVector Zone:{FVector(30,0,40.8),FVector(34.8,-31.2,26.4),FVector(34.8,31.2,26.4)})
    Touch|=FVector2D(D.X-Zone.X*1.35,D.Y-Zone.Y*1.35).SizeSquared()<=FMath::Square(Zone.Z*1.35);

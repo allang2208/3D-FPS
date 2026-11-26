@@ -20,6 +20,8 @@ AMutant3::AMutant3(const FObjectInitializer& ObjectInitializer) : Super(ObjectIn
 {
     GetCapsuleComponent()->InitCapsuleSize(34.f, 85.f);
     ConfigureFeralNavigation();
+    // Feral predator takes a stronger bend than the shambling Nurse family.
+    ArcPathing.ArcStrength = .7f; ArcPathing.ArcMidPoints = 4; ArcPathing.LaneOffset = 140.f;
     Tags.Remove(TEXT("NurseZombie")); Tags.Add(TEXT("Mutant3"));
     MaxHealth = 2000.f; AttackDamage = 40.f; WalkSpeed = 560.f;
     AttackRange = 150.f; ContactTime = .13f; ContactEnd = .25f;
@@ -129,6 +131,9 @@ UFatZombieAnimInstance* AMutant3::GetBlendedAnimation()
 
 void AMutant3::StartStateAnimation(UAnimSequence* Clip, bool bLoop)
 {
+    // State and the action record can arrive in either RepNotify order.
+    if (!HasAuthority() && State == ENurseState::Attack && NetworkFeral.Phase != EMutant3FeralPhase::None)
+    { PresentNetworkFeralPhase(); return; }
     if (bLoop)
     {
         if (State == ENurseState::Chase) SetWalkAnimationRate(1.f);

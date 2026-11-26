@@ -7,6 +7,7 @@
 namespace LMG201WeaponAssets
 {
 inline constexpr const TCHAR* Definition=TEXT("ue_lmg201");
+inline bool HasFactoryBipod(const FString& Variant){return Variant.IsEmpty()||Variant==TEXT("false");}
 inline constexpr const TCHAR* MeshPath=TEXT("/Game/Weapons/LMG201/Cover10/SK_LMG201_Cover10.SK_LMG201_Cover10");
 inline constexpr int32 FireVariantCount = 4;
 inline constexpr const TCHAR* ClothBoxId=TEXT("lmg201_cloth_box");

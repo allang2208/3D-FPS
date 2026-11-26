@@ -5,7 +5,14 @@
 #include "../Weapons/Kukri/KukriDashRhythm.h"
 #include "../Weapons/Kukri/KukriQuickRhythm.h"
 #include "../Weapons/Kukri/KukriHeavyRhythm.h"
+#include "../Weapons/Kukri/SwiftFalconHeavy.h"
+#include "../Weapons/Kukri/OffhandBladeDraw.h"
+#include "../Weapons/Kukri/PistolHatchetCarry.h"
+#include "../UI/ColdSteelStatusModel.h"
 #include "../Skills/LightningHasteSpeed.h"
+#include "../Skills/ShadowStepTypes.h"
+#include "../Skills/ShadowStepFeel.h"
+#include "Engine/GameInstance.h"
 #include "Animation/AnimSequence.h"
 #include "FPSPlayerBodyAnimInstance.h"
 #include "FPSPlayerBodyGrip.h"
@@ -35,12 +42,21 @@ void UFPSPlayerBodyComponent::UpdateKukriPresentation()
     for(const auto& Binding:MotionBindings)
     {
         const auto& W=Binding.Definition;
-        if(W.PoseFamily!=TEXT("Kukri")&&W.PoseFamily!=TEXT("OffhandKukri"))continue;
+        if(W.PoseFamily!=TEXT("Kukri")&&W.PoseFamily!=TEXT("KukriDual")&&W.PoseFamily!=TEXT("OffhandKukri"))continue;
         auto* Blade=Binding.Static.Get();if(!Blade)continue;
-        const bool Matching=W.ItemInstance==(W.AttachHand==0?S.WeaponInstance:S.OffhandInstance);
+        // The lone off-hand blade's body identity is the acting weapon even though it hangs on hand_l.
+        const bool Matching=W.bLoneBlade?W.ItemInstance==S.WeaponInstance:
+            W.ItemInstance==(W.AttachHand==0?S.WeaponInstance:S.OffhandInstance);
         FTransform Delta=FTransform::Identity;
-        if(Matching&&Draw&&(W.AttachHand==0||Dual))
+        if(Matching&&S.Family==TEXT("Kukri")&&S.Action==EFPSBodyAction::Equip&&OffhandBladeDraw::IsClip(S.ActionVariant))
+        {
+            const bool Axe=S.ActionVariant==OffhandBladeDraw::Hatchet;
+            if(Dual&&W.AttachHand==1)Delta=OffhandBladeDraw::FlightDelta(Axe,Progress*OffhandBladeDraw::Length(Axe));
+        }
+        else if(Matching&&Draw&&(W.AttachHand==0||Dual))
             Delta=FPSBodyKukriPresentationData::Equip(Kaitlin,Dual,W.AttachHand,Progress);
+        // (Lone blade: the right-hand draw table is authored against the right-hand mount and does not transfer to the built
+        //  left grip; the mirrored left fist plays the draw with the blade kept gripped.)
         else if(Matching&&Uppercut&&W.PoseFamily==TEXT("OffhandKukri"))
             Delta=FPSBodyKukriPresentationData::Uppercut(Kaitlin,Progress);
         else if(Matching&&Dual&&W.AttachHand==0&&S.Action!=EFPSBodyAction::Dead&&
@@ -53,7 +69,8 @@ void UFPSPlayerBodyComponent::UpdateKukriPresentation()
         }
         // Binding.Mount is captured once when equipment is built. Always derive
         // from it, including cancellation, replacement and late replicated state.
-        Blade->SetRelativeTransform(Delta*Binding.Mount);
+        const auto& Mount=Matching&&Uppercut&&Binding.UppercutReverseMount.IsSet()?Binding.UppercutReverseMount.GetValue():Binding.Mount;
+        Blade->SetRelativeTransform(Delta*Mount);
     }
 }
 
@@ -63,6 +80,21 @@ void UFPSPlayerBodyComponent::BuildKukriGrip(const FFPSBodyWeapon& Definition,US
     if(!Body||!Body->GetSkeletalMeshAsset()||!Native||!BodyAnimation)return;
     const auto& Ref=Native->GetRefSkeleton();auto Pose=Ref.GetRefBonePose();
     for(int32 I=0;I<Pose.Num();++I)if(Ref.GetParentIndex(I)>=0)Pose[I]=Pose[I]*Pose[Ref.GetParentIndex(I)];
+    if(Definition.bLoneBlade)
+    {
+        // Lone off-hand blade (main hand empty): the body library is still the single (right-hand) take -- the animation
+        // pipeline mirrors the whole upper body onto the left side -- so the blade sits in the accepted left grip and the
+        // fingers come from that same left fist. Deliberately not bOffhandKukriEquipment: that flag would select the dual
+        // clips instead of the mirrored single library.
+        for(const auto& Bone:FPSBodyKukriDualGripData::Bones)
+            if(const int32 I=Ref.FindBoneIndex(Bone.Name);I!=INDEX_NONE)Pose[I]=Bone.Transform;
+        FFPSBodyGripRig Grip;Grip.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_l"),TEXT("hand_l"));
+        if(!Grip.IsValid())return;
+        const FTransform Mount=FPSBodyKukriDualGripData::BladeInHand*Grip.Mount;
+        Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);BodyAnimation->EquipmentGripHands|=2;
+        Blade.SetRelativeTransform(Mount);
+        return;
+    }
     if(Definition.AttachHand==1)
     {
         // The dual knife uses its accepted forward left grip, independently
@@ -71,10 +103,17 @@ void UFPSPlayerBodyComponent::BuildKukriGrip(const FFPSBodyWeapon& Definition,US
             if(const int32 I=Ref.FindBoneIndex(Bone.Name);I!=INDEX_NONE)Pose[I]=Bone.Transform;
         FFPSBodyGripRig Grip;Grip.Initialize(Ref,Body->GetSkeletalMeshAsset()->GetRefSkeleton(),TEXT("hand_l"),TEXT("hand_l"));
         if(!Grip.IsValid())return;
+        const FTransform Mount=FPSBodyKukriDualGripData::BladeInHand*Grip.Mount;
+        if(Definition.PoseFamily==TEXT("OffhandKukri"))
+        {
+            // This branch is the pistol/hatchet donor. The pistol/kukri uses its own grip.
+            PistolHatchetCarry::FitFingers(Ref,Pose);
+            BodyAnimation->PistolHatchetPalmInView=PistolHatchetCarry::PalmInView(Mount.GetRotation());
+        }
         Grip.Transfer(Pose,BodyAnimation->EquipmentFingers);BodyAnimation->EquipmentGripHands|=2;
         BodyAnimation->bOffhandKukriEquipment=true;
         BodyAnimation->OffhandKukriEquipmentInstance=Definition.ItemInstance;
-        Blade.SetRelativeTransform(FPSBodyKukriDualGripData::BladeInHand*Grip.Mount);
+        Blade.SetRelativeTransform(Mount);
         return;
     }
     // Component-space samples from the accepted native idle, authored once.
@@ -92,7 +131,13 @@ void UFPSPlayerBodyComponent::BuildKukriGrip(const FFPSBodyWeapon& Definition,US
 
 void UFPSPlayerBodyComponent::SampleKukriState(const UKukriWeaponComponent& K,FFPSBodyState& S,float Now) const
 {
-    S.Family=TEXT("Kukri");S.Weapon=TEXT("ue_kukri");
+    S.Family=TEXT("Kukri");S.Weapon=FName(*Character->ActiveInventoryWeaponDefinition);
+    S.bLoneBlade=K.IsLoneOffhand();
+    // The lone off-hand blade is the weapon (the inventory weapon identity is the empty main hand's): name it like the
+    // server's sample does (SampleRemoteAuthorityState, ActiveKukriWeapon), or observers drop every action as a mismatch.
+    if(K.IsLoneOffhand())
+        if(const auto* Model=Character->GetGameInstance()?Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)
+            if(const auto* Item=Model->ActiveKukriWeapon())S.Weapon=FName(*Item->Definition);
     S.Action=EFPSBodyAction::None;S.ActionVariant=K.CurrentClip;
     const float SkillRate=FMath::Max(.05f,LightningHaste::ActionSpeed(Character.Get()));
     // PressStop is the saved impact-envelope length, not a remaining pause.
@@ -130,8 +175,28 @@ void UFPSPlayerBodyComponent::SampleKukriState(const UKukriWeaponComponent& K,FF
                 FMath::Max(.2f,K.HeavyRequiredSeconds-Delay-KukriHeavyRhythm::RaiseEnd/SkillRate);
         S.ActionProgressRate=Rate/KukriHeavyRhythm::ChargeLength;
     }
+    else if(K.bHeavyAttack&&K.bFalconHeavy)
+    {
+        Timed(EFPSBodyAction::HeavyStrike,Length,K.FalconReleaseRate);
+        S.ActionDuration=SwiftFalconHeavy::PlaybackSeconds(Length,K.FalconReleaseRate);
+        S.ActionStartedAt=Now-SwiftFalconHeavy::PlaybackSeconds(K.Elapsed,K.FalconReleaseRate);
+        S.ActionProgressRate=Paused?0.f:SwiftFalconHeavy::PlaybackRate(K.Elapsed,K.FalconReleaseRate)/Length;
+        S.ContactFraction=(K.Shot.MeleeDamagePhase?SwiftFalconHeavy::PullAt:SwiftFalconHeavy::ChopAt)/Length;
+        S.ReleaseFraction=(K.Shot.MeleeDamagePhase?SwiftFalconHeavy::PullOut:SwiftFalconHeavy::ChopOut)/Length;
+    }
+    else if(K.bShadowStep)
+    {
+        S.ActionVariant=K.bShadowStepStage2?ShadowStep::BodyVariantStage2:ShadowStep::BodyVariantStage1;
+        const float ShadowLen=K.bShadowStepStage2?ShadowStep::Stage2Duration:ShadowStep::Stage1Duration;
+        Timed(EFPSBodyAction::HeavyStrike,ShadowLen,SkillRate*ShadowStepFeel::Tempo(K.bShadowStepStage2,K.Elapsed));
+        S.ContactFraction=(K.bShadowStepStage2?ShadowStep::Stage2HitStart:ShadowStep::Stage1HitStart)/ShadowLen;
+        S.ReleaseFraction=(K.bShadowStepStage2?ShadowStep::Stage2HitEnd:ShadowStep::Stage1HitEnd)/ShadowLen;
+    }
     else if(K.bDashAttack)
     {
+        // The pair's first-person chop (DualSprintAttack) is the same sprint attack for the body and observers; the body
+        // picks its own dual variant from the matching off-hand (FPSBodyKukriMotion::DualClip).
+        S.ActionVariant=TEXT("SprintAttack");
         Timed(EFPSBodyAction::HeavyStrike,Length,SkillRate);
         S.ContactFraction=KukriDashRhythm::ContactStart/Length;S.ReleaseFraction=KukriDashRhythm::ContactEnd/Length;
     }

@@ -28,6 +28,8 @@ namespace VoxelGrounding
     };
 
     FCollisionQueryParams Query(UWorld* World,const AActor* Ignore);
+    bool IsFixedBuildingSurface(const FHitResult& Hit);
+    bool ResolveMountingSurface(FHitResult& Hit);
     bool IsSurface(const FHitResult& Hit);
     // Query the rendered terrain's collision triangles, not the continuous
     // terrain generator: their interpolated heights are not interchangeable.

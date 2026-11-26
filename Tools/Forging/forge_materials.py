@@ -54,6 +54,9 @@ def fresh_material(name, translucent=False):
 
 
 def build_material(name, hot=False):
+    if not hot:
+        from forge_guide_material import build_guide_material
+        return build_guide_material(DEST + '/' + name)
     material = fresh_material(name)
     material.set_editor_property('two_sided', not hot)
     material.set_editor_property('used_with_instanced_static_meshes', True)
@@ -73,7 +76,7 @@ def build_material(name, hot=False):
         energy = custom(material, (SOURCE / 'SteelIncandescence.hlsl').read_text(),
                         {'P': position, 'Surface': detail, 'Heat': heat, 'HitPoint': (hit, 'RGB'), 'HitAge': age}, 3)
         base = custom(material, 'return lerp(float3(.082,.071,.058),float3(.016,.019,.022),D.x)*lerp(.8,1.1,D.y);', {'D': detail}, 3)
-        roughness = custom(material, 'return lerp(.54,.89,D.x)+.06*(D.y-.5);', {'D': detail})
+        roughness = custom(material, 'return clamp(lerp(.72,.94,D.x)+.04*(D.y-.5),.70,.96);', {'D': detail})
         metallic = custom(material, 'return lerp(.87,.28,D.x);', {'D': detail})
         normal = custom(material, '''float3 N=normalize(Normal), dx=ddx(World), dy=ddy(World);
 float3 a=cross(dy,N), b=cross(N,dx);float det=dot(dx,a);
@@ -81,11 +84,6 @@ return normalize(abs(det)*N-sign(det)*(ddx(D.z)*a+ddy(D.z)*b));''',
                         {'World': world, 'Normal': node(material, u.MaterialExpressionVertexNormalWS), 'D': detail}, 3)
         material.set_editor_property('tangent_space_normal', False)
         surface(material, {'BASE_COLOR': base, 'ROUGHNESS': roughness, 'METALLIC': metallic, 'EMISSIVE_COLOR': energy, 'NORMAL': normal})
-    else:
-        energy = custom(material, 'return Color * Heat * 3.0;', {'Color': (tint, 'RGB'), 'Heat': heat}, 3)
-        base = custom(material, 'return Color;', {'Color': (tint, 'RGB')}, 3)
-        surface(material, {'BASE_COLOR': base, 'ROUGHNESS': scalar(material, 'Roughness', .76),
-                           'METALLIC': scalar(material, 'Metallic', 0), 'EMISSIVE_COLOR': energy})
     return material
 
 

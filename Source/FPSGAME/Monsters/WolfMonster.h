@@ -11,15 +11,28 @@ class UQuadrupedTemplateAnimInstance;
 class UMonsterCombatComponent;
 class USkeletalMesh;
 class UZombieDogAppearanceComponent;
+class UHillsWildlifeAudio;
+class UWildlifeDistanceActivity;
 
 UENUM(BlueprintType)
-enum class EWolfState : uint8 { Idle, Howl, Chase, Returning, Bite, Pounce, Stagger, Recovery, Dying, Ragdoll };
+enum class EWolfState : uint8 { Idle, Howl, Chase, Returning, Bite, Pounce, Stagger, Recovery, Dying, Ragdoll, Flee };
+
+USTRUCT()
+struct FWildlifeWolfHitPresentation
+{
+    GENERATED_BODY()
+    UPROPERTY() FName Action;
+    UPROPERTY() double StartedAt=0.;
+    UPROPERTY() float Duration=0.f;
+    UPROPERTY() uint32 Revision=0;
+};
 
 /** Ground predator. The shared behavior tree chooses actions; this owns their execution. */
 UCLASS(Blueprintable)
 class FPSGAME_API AWolfMonster : public ACharacter, public IAPS_MoveToInterface
 {
     GENERATED_BODY()
+    friend class AHillsMultiplayerClosure;
 public:
     AWolfMonster(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
     // APS arc shaping: the per-instance lane split spreads a pursuing pack off one line.
@@ -27,6 +40,7 @@ public:
     virtual void GetMoveToParameters_Implementation(float& ArcStrength, int32& NumMidPoints, EAPSArcMidpointMode& MidpointMode, float& LaneOffset) const override;
     virtual void FindCustomPath_Implementation(FVector const& StartLocation, FVector const& EndLocation, TArray<FVector>& OutPath, float ArcStrength, UWorld* World, bool& bUseCustomPath, bool& bFound) const override;
     virtual void OnConstruction(const FTransform& Transform) override;
+    virtual void PostInitializeComponents() override;
     virtual void BeginPlay() override;
     virtual void Tick(float DeltaSeconds) override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
@@ -90,6 +104,11 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf") int32 SuccessfulHits = 0;
 
     bool Dead() const { return State == EWolfState::Dying || State == EWolfState::Ragdoll; }
+    bool IsWildlifeWolf() const { return bWildlifeWolf; }
+    void ResumeWildlifeStateClock();
+    void RememberWildlifeThreat(const FVector& Source);
+    UFUNCTION(NetMulticast, Unreliable) void MulticastWildlifeGunHit(FName Bone, FVector_NetQuantize Point,
+        FVector_NetQuantizeNormal Direction, float Damage);
     virtual bool Busy() const;
     virtual bool CanAttack(APawn* Victim) const;
     /** Range is from the hunter center to the target capsule surface, independent of cooldown. */
@@ -152,12 +171,22 @@ public:
     float ReactionSeconds = 0.f;
     float RecoverySeconds = 0.f;
     FName ReactionAction;
+    // One snapshot carries direction and event identity, including consecutive same-side hits.
+    UPROPERTY(ReplicatedUsing=OnRep_WildlifeHitPresentation) FWildlifeWolfHitPresentation WildlifeHitPresentation;
+    UFUNCTION() void OnRep_WildlifeHitPresentation();
     bool bAttackConsumed = false;
     bool bAttackAnimationStarted = false;
     bool bPounceMovement = false;
     bool bPounceBlocked = false;
     bool bHasAlerted = false;
     bool bPackAlertSent = false;
+    UPROPERTY() TObjectPtr<UHillsWildlifeAudio> WildlifeAudio;
+    UPROPERTY() TObjectPtr<UWildlifeDistanceActivity> DistanceActivity;
+    bool bWildlifeWolf = false;
+    double FleeUntil = -1.;
+    double NextEscapeStep = 0.;
+    FVector WildlifeThreat = FVector::ZeroVector;
+    FVector EscapeStep = FVector::ZeroVector;
 public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Wolf|Death") TObjectPtr<class UMonsterCorpseRagdollComponent> CorpseRagdoll;
 private:

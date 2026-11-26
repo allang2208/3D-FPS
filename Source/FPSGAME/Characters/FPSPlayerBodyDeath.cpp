@@ -1,5 +1,6 @@
 #include "FPSPlayerBodyComponent.h"
 #include "../FPSGAMECharacter.h"
+#include "../Movement/PlayerKnockdownComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Camera/CameraTypes.h"
 #include "Camera/PlayerCameraManager.h"
@@ -56,8 +57,12 @@ bool UFPSPlayerBodyComponent::ApplyDeathCameraView(FMinimalViewInfo& View)
     const float Frame=Phase*(Keys.Num()-1);
     const int32 Index=FMath::Min(FMath::FloorToInt(Frame),Keys.Num()-2);
     const float Alpha=Frame-Index;
-    const FVector Eye=DeathMeshFrame.TransformPosition(FMath::Lerp(Keys[Index].Eye,Keys[Index+1].Eye,Alpha));
+    FVector Eye=DeathMeshFrame.TransformPosition(FMath::Lerp(Keys[Index].Eye,Keys[Index+1].Eye,Alpha));
     const FRotator Turn=FMath::Lerp(Keys[Index].Rotation,Keys[Index+1].Rotation,Alpha);
+    // Died while knocked down: the body stays on the ground, so the eye follows its held knockdown pose.
+    FVector KnockdownEye;FRotator KnockdownView;
+    const bool bKnockdownHold=UPlayerKnockdownComponent::GetDeathHoldView(GetOwner(),KnockdownEye,KnockdownView);
+    if(bKnockdownHold)Eye=KnockdownEye;
     const float Entry=FMath::SmoothStep(0.f,.22f,Age);
     FVector Desired=Eye;
     if(IsThirdPersonViewEnabled())
@@ -71,7 +76,8 @@ bool UFPSPlayerBodyComponent::ApplyDeathCameraView(FMinimalViewInfo& View)
         // Position follows the exact authored head path. Rotation is authored
         // separately with bounded roll/pitch, rather than strapping the eye to
         // every head-bone twitch or turning the view upside down on impact.
-        View.Rotation=FRotator(FMath::Lerp(DeathInitialRotation.Pitch,Turn.Pitch,Entry),
+        View.Rotation=bKnockdownHold?FMath::Lerp(DeathInitialRotation,KnockdownView,Entry):
+            FRotator(FMath::Lerp(DeathInitialRotation.Pitch,Turn.Pitch,Entry),
             DeathInitialRotation.Yaw+Turn.Yaw*Entry,FMath::Lerp(DeathInitialRotation.Roll,Turn.Roll,Entry));
     }
     Desired=FMath::Lerp(DeathInitialLocation,Desired,Entry);

@@ -1,0 +1,27 @@
+{
+  "completed_local": "2026-11-06T17:09:06",
+  "build_succeeded": true,
+  "build_evidence": "build-latest.log",
+  "isolated_checks": 188,
+  "isolated_failures": 0,
+  "wire_passed": true,
+  "wire_cases": 6,
+  "wire_cases_passed": 6,
+  "run": "D:\\FPS3D\\FPSGAME\\Tools\\HatchetThirdPersonReview20261106\\RuneFixtureMigration\\Run-20261106-170536",
+  "changes": [
+    "Fresh fixture weapons use the current frostHawk/bloodWolf suffix catalog and retain their original item data.",
+    "Plain comparison weapon retains base item fields.",
+    "Four catalog compatibility assertions identify fixture setup failures.",
+    "Existing network assertions and gameplay balance are unchanged."
+  ],
+  "scope": "rune component state with isolated profiles; attack RPC validation is isolated",
+  "limitations": [
+    "No rendered multiplayer picture review.",
+    "This rune wire fixture does not exercise inventory upload, enchantment transactions, reconnect or a dedicated server. Prior hatchet wire receipts cover their stated separate scenarios."
+  ],
+  "source_sha256": {
+    "Source/FPSGAME/Development/KukriEnchantAuditFixture.h": "012d366264d6f3ae0fcb8b06591b8e11073f66e05fc425aa9d81f0ef4eb45923",
+    "Source/FPSGAME/Development/KukriRuneWireAudit.cpp": "2586f7552c6650ea88d1348081a56f30c67205223bf9ea616ad032746ed1d47f",
+    "Source/FPSGAME/Multiplayer/KukriRuneAuditCases.cpp": "7ae3ccbfd71566c7268c93893f1184278af18e5d89ef27f872f5ecdc983b8d9f"
+  }
+}

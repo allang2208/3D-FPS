@@ -163,7 +163,7 @@ void ARiftPiercerThrust::ResolveThrust(float Damage,const FColdSteelSkillShot& S
             else if(auto* State=Character->GetPlayerState<AColdSteelPlayerState>())
             {
                 if(auto* Rune=Character->FindComponentByClass<UJingangRuneComponent>())Rune->ConfirmAttack(Target,Applied);
-                FColdSteelNetHitReceipt Receipt;Receipt.Target=Target;Receipt.Applied=Applied;Receipt.bCritical=Result.bCritical;Receipt.bKilled=Result.bKilled;State->ClientConfirmHit(Receipt);
+                FColdSteelNetHitReceipt Receipt;Receipt.Target=Target;Receipt.Applied=Applied;Receipt.MagicApplied=Result.Applied.MagicPortion(Applied);Receipt.bCritical=Result.bCritical;Receipt.bKilled=Result.bKilled;State->ClientConfirmHit(Receipt);
             }
         }
     }

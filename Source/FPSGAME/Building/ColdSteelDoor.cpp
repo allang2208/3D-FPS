@@ -1,4 +1,5 @@
 #include "ColdSteelDoor.h"
+#include "../Dungeons/DungeonRoomSubsystem.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
 #include "ColdSteelSlidingDoor.h"
 #include "ColdSteelRevolvingDoor.h"
@@ -81,9 +82,13 @@ void AColdSteelDoor::MulticastDoorSound_Implementation(bool bOpening)
 void AColdSteelDoor::BeginPlay()
 {
     Super::BeginPlay();
+    // Authored pairs and stall gates swing into the enclosure on both approach sides.
+    if(ActorHasTag(TEXT("Door.OpenInwardOnly"))) SetInwardOnly();
     if(HasAuthority())NetScale=GetActorScale3D();
     else OnRep_Setup();
     AlignGeometry();
+    if(HasAuthority()&&ActorHasTag(TEXT("VillageStable.Assembly")))
+        Leaf->SetCanEverAffectNavigation(!bOpen);
     if(!HasAuthority())OnRep_Swing();
     LogGeometryOnce();
     if (HasAuthority() && bMonsterAccess)
@@ -237,8 +242,9 @@ bool AColdSteelDoor::IsSwingBlocked(float DirectionSign) const
 
 FVector AColdSteelDoor::LeafTestExtent() const
 {
-    return FVector(FMath::Max(1.f,LeafExtentCm.X-2.f),FMath::Max(1.f,LeafExtentCm.Y-2.f),
-        FMath::Max(1.f,LeafExtentCm.Z-4.f));
+    const FVector WorldExtent=LeafExtentCm*Leaf->GetComponentScale().GetAbs();
+    return FVector(FMath::Max(1.,WorldExtent.X-2.),FMath::Max(1.,WorldExtent.Y-2.),
+        FMath::Max(1.,WorldExtent.Z-4.));
 }
 
 bool AColdSteelDoor::LeafOverlapsPawn() const
@@ -266,6 +272,8 @@ void AColdSteelDoor::UpdateLeafPawnCollision()
     if(bBlock&&!bBlockingNow&&LeafOverlapsPawn())bBlock=false;
     if(bBlock!=bBlockingNow)
         Leaf->SetCollisionResponseToChannel(ECC_Pawn,bBlock?ECR_Block:ECR_Ignore);
+    if(HasAuthority()&&ActorHasTag(TEXT("VillageStable.Assembly"))&&Leaf->CanEverAffectNavigation()!=bBlock)
+        Leaf->SetCanEverAffectNavigation(bBlock);
 }
 
 void AColdSteelDoor::LogGeometryOnce()
@@ -325,13 +333,14 @@ bool AColdSteelDoor::OpenDoorFrom(const APawn* InstigatorPawn)
     float PlayerSide=0.f;
     const bool bHasPlayer=TryGetPlayerSideSign(PlayerSide,InstigatorPawn);
     if(bHasPlayer)Preferred=AngleSignForWorldSide(-PlayerSide);
+    if(bInwardOnly)Preferred=AngleSignForWorldSide(1.f);
     // 首选那一侧被实体挡住就改从另一侧开（2026-09-17 第二轮要求）。
     OpenDirection=Preferred;
     bOpenFlipped=false;
     if(IsSwingBlocked(Preferred))
     {
         const float Other=-Preferred;
-        if(!IsSwingBlocked(Other)){OpenDirection=Other;bOpenFlipped=true;}
+        if(!bInwardOnly&&!IsSwingBlocked(Other)){OpenDirection=Other;bOpenFlipped=true;}
         else
         {
             // 两侧摆动空间都被实体挡住：拒绝开门，不穿墙（2026-10-04 用户拍板：
@@ -378,6 +387,12 @@ void AColdSteelDoor::Tick(float DeltaSeconds)
             else CloseDoor();
         }
     }
+    // Native swing doors are woken by the interaction or its replicated state.
+    // A closed leaf still overlapping a pawn must keep polling until it can block.
+    if (GetClass() == StaticClass() && CurrentAngle == TargetAngle &&
+        !(GetNetMode() != NM_Client && HasAuthority() && bOpen && AutoCloseSeconds > 0.f) &&
+        (bOpen || Leaf->GetCollisionResponseToChannel(ECC_Pawn) == ECR_Block))
+        SetActorTickEnabled(false);
 }
 
 void AColdSteelDoor::ApplyAngle(float DeltaSeconds)
@@ -406,6 +421,7 @@ void AColdSteelDoor::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
 
 void AColdSteelDoor::PublishSwing()
 {
+    if (GetClass() == StaticClass()) SetActorTickEnabled(true);
     if(GetNetMode()==NM_Client)return;
     NetSwing.bOpen=bOpen;NetSwing.From=CurrentAngle;NetSwing.To=TargetAngle;
     NetSwing.Direction=OpenDirection;NetSwing.StartedAt=FColdSteelDoorNetState::Now(GetWorld());
@@ -414,7 +430,7 @@ void AColdSteelDoor::PublishSwing()
     if(GetNetMode()!=NM_Client&&!GetIsReplicated())
         for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
             if(auto* PC=It->Get();PC&&!PC->IsLocalController())
-                if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGeneratedDoorSwing(GetName(),NetSwing);
+                if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGeneratedDoorSwing(UDungeonRoomSubsystem::SceneActorKey(this),NetSwing);
 }
 
 void AColdSteelDoor::ApplyNetworkSwing(const FColdSteelDoorNetState& State,bool bSound)
@@ -427,6 +443,7 @@ void AColdSteelDoor::ApplyNetworkSwing(const FColdSteelDoorNetState& State,bool 
 
 void AColdSteelDoor::OnRep_Swing()
 {
+    if (GetClass() == StaticClass()) SetActorTickEnabled(true);
     bOpen=NetSwing.bOpen;TargetAngle=NetSwing.To;OpenDirection=NetSwing.Direction;
     CurrentAngle=NetSwing.Angle(GetWorld());
     ApplyAngle(0.f);UpdateLeafPawnCollision();

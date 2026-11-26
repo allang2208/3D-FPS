@@ -1,4 +1,4 @@
-param([switch]$SkipBuild,[switch]$SkipPresentation)
+﻿param([switch]$SkipBuild,[switch]$SkipPresentation)
 $ErrorActionPreference='Stop'
 $s12WireRoot='D:/FPS3D/FPSGAME'
 $s12WireOutputRoot=Join-Path $s12WireRoot 'SourceAssets/Saiga12KNetwork20261019/Receipts'

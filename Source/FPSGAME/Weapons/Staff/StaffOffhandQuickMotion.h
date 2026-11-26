@@ -2,6 +2,7 @@
 #include "CoreMinimal.h"
 #include "../Kukri/OffhandKukriAuthoredStrike.h"
 #include "../Kukri/OffhandKukriAuthoredUppercut.h"
+#include "../Kukri/OffhandShadowStepMotion.h"
 #include "../Kukri/OffhandAxeQuickMotion.h"
 
 namespace StaffOffhandQuickMotion
@@ -20,6 +21,19 @@ namespace StaffOffhandQuickMotion
     {return T<0.f?1.f-Ease(-Entry*.5f,0.f,T):Ease(Length,Length+Return*.5f,T);}
     inline float UpperEvade(float T)
     {return Ease(-Entry,.12f,T)*(1.f-Ease(.90f,OffhandKukriUpper::Length+Return,T));}
+    inline float ShadowStepEvade(bool bStage2,float T)
+    {
+        if(bStage2)return .85f*(1.f-Ease(.16f,.38f,T)); // Main-hand staff returns 0.12 s early during Stage 2
+        return Ease(-Entry,.10f,T)*(1.f-Ease(.55f,OffhandShadowStepMotion::Stage1Length+Return,T));
+    }
+    inline FVector DonorRightHandShadowStep(bool bStage2,float T)
+    {
+        static const FVector Native=OffhandKukriStrike::Keys[0].Framing.InverseTransformPosition(FVector(21.894,8.746,-10.291));
+        const float MaxT=bStage2?OffhandShadowStepMotion::Stage2Length:OffhandShadowStepMotion::Stage1Length;
+        FVector Wrist,Shoulder,Pole;FQuat Hand;FTransform Frame;
+        OffhandShadowStepMotion::SamplePose(bStage2,FMath::Clamp(T,0.f,MaxT),Wrist,Hand,Shoulder,Pole,Frame);
+        return Frame.TransformPosition(Native);
+    }
     inline FVector DonorRightHand(float T,bool Uppercut=false)
     {
         // SourceAssets/DualPistolKukri20261025/Work/strike/strike_keys.json, key 0:

@@ -1,0 +1,811 @@
+#include "RuneSwordComponent.h"
+#include "EagleTalonGuardComponent.h"
+#include "RavenQuillChargeComponent.h"
+#include "HighlandBreakSweep.h"
+#include "RingChainSweepMotion.h"
+#include "../Characters/FPSPlayerBodyComponent.h"
+#include "HighlandRidgeThrust.h"
+#include "HighlandRidgeGatherComponent.h"
+#include "RuneSwordGuardTuning.h"
+#include "StarMarrowChargeMotion.h"
+#include "../Characters/FPSComponentVisibility.h"
+#include "../Skills/LightningHasteSpeed.h"
+#include "BeiweiSwordTrailComponent.h"
+#include "../Multiplayer/ColdSteelAuthorityContext.h"
+#include "../Multiplayer/ColdSteelGenericMelee.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
+#include "SprintCameraMotion.h"
+#include "TangDaoGuardComponent.h"
+#include "PanChiGuardComponent.h"
+#include "RuneSwordMeshComponent.h"
+#include "RuneSwordWhirlwindFeel.h"
+#include "RuneSwordOverheadFeel.h"
+#include "RuneSwordUppercutMotion.h"
+#include "../Skills/ChainSlashAssets.h"
+#include "RuneSwordInspectFeel.h"
+#include "RuneSwordRisingDragon.h"
+#include "MeleeRuneVisual.h"
+#include "MeleeGuardAssets.h"
+#include "ModularSwordVisual.h"
+#include "../Combat/CombatStatusFormula.h"
+#include "../Monsters/MonsterCombatComponent.h"
+#include "RuneSwordCombatTuning.h"
+#include "MeleeSmallTargetQuery.h"
+#include "../Skills/FPSCastingMeshComponent.h"
+#include "../Skills/QuickCombatPistolMotion.h"
+#include "../Skills/QuickCombatImpactShake.h"
+#include "ColdSteelEnchantmentCombat.h"
+#include "FPSRiftSlashProjectile.h"
+#include "SwordWaveTuning.h"
+#include "GunsmithSystem.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
+#include "NiagaraSystem.h"
+#include "../Skills/ColdSteelSkillRules.h"
+#include "../FPSGAMECharacter.h"
+#include "../FPSGAMEPlayerController.h"
+#include "../UI/ColdSteelStatusModel.h"
+#include "../UI/ColdSteelEnhancementSystem.h"
+#include "../Monsters/FPSCombatHealthComponent.h"
+#include "../Monsters/BoundCongregateCaptureComponent.h"
+#include "../Building/VoxelBuildComponent.h"
+#include "../Movement/FPSCharacterMovementComponent.h"
+#include "Animation/AnimSequence.h"
+#include "WeaponGripProfile.h"
+#include "Camera/CameraComponent.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "Components/SceneComponent.h"
+#include "Components/StaticMeshComponent.h"
+#include "Engine/GameInstance.h"
+#include "Engine/SkeletalMesh.h"
+#include "Engine/StaticMesh.h"
+#include "Engine/World.h"
+#include "GameFramework/PlayerController.h"
+#include "GameFramework/GameStateBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
+#include "Materials/MaterialInstanceDynamic.h"
+#include "Materials/MaterialInterface.h"
+#include "Misc/ScopeExit.h"
+
+void URuneSwordComponent::InitializePresentation()
+{
+    auto* Pawn=Character.Get();
+    if(!Pawn || Viewmodel)return;
+    Camera=Pawn->FindComponentByClass<UCameraComponent>();
+    if(!Camera){SetComponentTickEnabled(false);return;}
+    LoadUppercutAnimations();
+    SlashWaveLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(
+        TArray<FSoftObjectPath>{SlashWaveMeshAsset.ToSoftObjectPath(),SlashWaveMaterialAsset.ToSoftObjectPath(),SlashWaveMotesAsset.ToSoftObjectPath()},
+        FStreamableDelegate::CreateWeakLambda(this,[this]()
+        {
+            SlashWaveMesh=SlashWaveMeshAsset.Get();SlashWaveMaterial=SlashWaveMaterialAsset.Get();SlashWaveMotes=SlashWaveMotesAsset.Get();
+        }));
+    // Enforce the same order for instances serialized with the former group.
+    SetTickGroup(TG_PostPhysics);
+    AddTickPrerequisiteActor(Pawn);
+    AddTickPrerequisiteComponent(Pawn->GetCharacterMovement());
+    // An independent presentation parent keeps airborne motion out of the
+    // authored action transforms and avoids feeding last frame's offset back in.
+    JumpPresentationRoot=NewObject<USceneComponent>(Pawn,TEXT("RuneSwordJumpPresentation"));
+    Pawn->AddInstanceComponent(JumpPresentationRoot);JumpPresentationRoot->SetupAttachment(Camera);
+    JumpPresentationRoot->RegisterComponent();
+    Viewmodel=NewObject<URuneSwordMeshComponent>(Pawn,TEXT("RuneSwordViewmodel"));
+    Pawn->AddInstanceComponent(Viewmodel);Viewmodel->SetupAttachment(JumpPresentationRoot);
+    Viewmodel->SetRelativeRotation(FRotator(0,90,0));
+    Viewmodel->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    Viewmodel->SetCanEverAffectNavigation(false);Viewmodel->SetOnlyOwnerSee(true);
+    Viewmodel->SetCastShadow(false);Viewmodel->bReceivesDecals=false;
+    Viewmodel->VisibilityBasedAnimTickOption=EVisibilityBasedAnimTickOption::AlwaysTickPoseAndRefreshBones;
+    Viewmodel->RegisterComponent();Viewmodel->SetVisibility(false,true);
+    // A single animation clock supplies pose, hit window, and audio timing.
+    Viewmodel->SetComponentTickEnabled(false);
+    RiftVisual=NewObject<UStaticMeshComponent>(Pawn,TEXT("RuneSwordRift"));
+    Pawn->AddInstanceComponent(RiftVisual);
+    RiftVisual->SetMobility(EComponentMobility::Movable);
+    RiftVisual->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    RiftVisual->SetCanEverAffectNavigation(false);RiftVisual->SetOnlyOwnerSee(true);
+    RiftVisual->SetCastShadow(false);RiftVisual->bReceivesDecals=false;
+    RiftVisual->RegisterComponent();RiftVisual->SetVisibility(false);
+    RiftVisual->SetComponentTickEnabled(false);
+}
+
+void URuneSwordComponent::RefreshEquipment(UColdSteelStatusModel* Profile)
+{
+    if(!Profile || !Character.IsValid() || (!Character->HasAuthority()&&!Character->IsLocallyControlled()))return;
+    RefreshRingChain(Profile->ActiveProductionTool()?nullptr:Profile->Equipped());
+    if(auto* Eagle=GetOwner()->FindComponentByClass<UEagleTalonGuardComponent>())
+        Eagle->Equip(Profile);
+    if(auto* Raven=GetOwner()->FindComponentByClass<URavenQuillChargeComponent>())
+        Raven->Equip(Profile->ActiveProductionTool()?nullptr:Profile->Equipped());
+    if(!Viewmodel)InitializePresentation();
+    if(!Viewmodel)return;
+    RefreshToolGuardEquipment(Profile);
+    const auto* Item=Profile->Equipped();
+    const FString NewId=Item && !Profile->ActiveProductionTool() && ColdSteelInventory::IsTwoHandedSword(*Item) ? Item->InstanceId : FString();
+    const bool RingInstalled=!RingChainWeapon.IsEmpty();
+    if(bRingInputInstalled&&!RingInstalled&&(RingPrimaryDownAt>=0.||bCharging))CancelAction();
+    bRingInputInstalled=RingInstalled;
+    RefreshAzureDragon(NewId.IsEmpty()?nullptr:Item,Profile);
+    RefreshBeiwei(NewId.IsEmpty()?nullptr:Item);
+    RefreshChixiao(NewId.IsEmpty()?nullptr:Item);
+    RefreshBroadblade(NewId.IsEmpty()?nullptr:Item);
+    if(!NewId.IsEmpty())
+    {
+        const auto Stats=ColdSteelMelee::Evaluate(*Item,Profile);
+        Damage=Stats.Damage;AttackRate=Stats.AttackRate;Reach=Stats.BaseReach;MeleeModifiers=Stats.Modifiers;
+        // Timing belongs to the installed animation revision. Existing saved
+        // instances can still contain earlier contact-window metadata.
+    }
+    const bool Modular=!NewId.IsEmpty()&&ColdSteelModularSword::Supports(*Item);
+    if(NewId!=InstanceId || NewId.IsEmpty() || MeleeModifiers.ClovenSeconds<=0)ClearClovenCounter();
+    const FString NewMeshPath=NewId.IsEmpty()?FString():(Modular?ColdSteelModularSword::ArmsMesh(*Item):ColdSteelMeleeGuard::Viewmodel(*Item));
+    const FString NewAnimationFolder=NewId.IsEmpty()?FString():ColdSteelModularSword::AnimationFolder(*Item);
+    const bool bSameAnimationFolder=NewId.IsEmpty()||EquippedAnimationFolder==NewAnimationFolder;
+    if(NewId==InstanceId&&NewMeshPath==EquippedMeshPath&&bSameAnimationFolder){RefreshModularSword(NewId.IsEmpty()?nullptr:Item);ColdSteelMeleeRune::Apply(Viewmodel,NewId.IsEmpty()||Modular?FString():ColdSteelMeleeRune::Selected(*Item),Item?Item->Definition:FString());return;}
+    CancelAction();
+    if(NewId!=InstanceId)NetworkHeavyReleaseUntil=-1.;
+    InstanceId=NewId;EquippedMeshPath=NewMeshPath;NextSlash=0;
+    if(StarMarrowMotionLoad)StarMarrowMotionLoad->CancelHandle();StarMarrowMotionLoad.Reset();
+    Viewmodel->SetVisibility(false,true);
+    if(NewId.IsEmpty())
+    {
+        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetGripProfile(nullptr);
+        EquippedAnimationFolder.Reset();RefreshModularSword(nullptr);return;
+    }
+    const FString Folder=NewAnimationFolder;
+    EquippedAnimationFolder=Folder;
+    UWeaponGripProfile* GripProfile=nullptr;
+    if(Folder==TEXT("/Game/Weapons/FrostCrystalSword20260915/Grips20260919/LongGripAnimations"))
+        GripProfile=LoadObject<UWeaponGripProfile>(nullptr,TEXT("/Game/Weapons/AnimationProfiles20261001/Melee/DA_Sword_LongGrip"),nullptr,LOAD_NoWarn);
+    if(GripProfile&&GripProfile->Family!=TEXT("Sword_LongGrip"))GripProfile=nullptr;
+    auto* Mesh=LoadObject<USkeletalMesh>(nullptr,*EquippedMeshPath);
+    if(GripProfile)
+        for(const auto& Layer:GripProfile->Clips)
+            if(!Layer.Retained&&(!Mesh||!Layer.Base||Layer.Base->GetSkeleton()!=Mesh->GetSkeleton()))
+            {GripProfile=nullptr;break;}
+    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetGripProfile(GripProfile);
+    const auto LoadClip=[GripProfile](FName Role,const FString& Path)->UAnimSequence*
+    {
+        if(GripProfile)if(const auto* Layer=GripProfile->FindAction(Role))return Layer->Playback();
+        return LoadObject<UAnimSequence>(nullptr,*Path);
+    };
+    const FString SoundFolder=ColdSteelInventory::Text(*Item,TEXT("animation_folder"));
+    Viewmodel->SetSkeletalMesh(Mesh);Animations.Reset();
+    RefreshModularSword(Item);
+    ColdSteelMeleeRune::Apply(Viewmodel,Modular?FString():ColdSteelMeleeRune::Selected(*Item),Item->Definition);
+    for(const TCHAR* Clip:{TEXT("Idle"),TEXT("Walk"),TEXT("Whirlwind"),TEXT("Equip"),TEXT("Inspect"),TEXT("Overhead"),TEXT("Slash1"),TEXT("Slash2"),TEXT("Thrust"),TEXT("PommelStrike"),TEXT("HeavyCharge"),TEXT("HeavyRelease"),TEXT("Guard"),TEXT("GuardHit"),TEXT("GuardBreak")})
+        Animations.Add(FName(Clip),LoadClip(Clip,Folder+TEXT("/A_RuneSword_")+Clip+(FCString::Strcmp(Clip,TEXT("Whirlwind"))==0?TEXT("V5"):TEXT(""))));
+    for(const TCHAR* Clip:{TEXT("SprintEnter"),TEXT("SprintLoop"),TEXT("SprintExit"),TEXT("SprintOverhead")})
+        Animations.Add(FName(Clip),LoadClip(Clip,Folder+TEXT("/TacticalSprint20260921/A_RuneSword_")+Clip));
+    // 玩家击倒（2026-11-14）：所有双手剑共用；长柄没有专属条目时用普通柄同一条。
+    UAnimSequence* KnockdownClip=LoadObject<UAnimSequence>(nullptr,*(Folder+TEXT("/A_RuneSword_Knockdown")),nullptr,LOAD_NoWarn);
+    if(!KnockdownClip)KnockdownClip=LoadObject<UAnimSequence>(nullptr,TEXT("/Game/Weapons/AzureRunesword20260913/A_RuneSword_Knockdown"),nullptr,LOAD_NoWarn);
+    Animations.Add(TEXT("Knockdown"),KnockdownClip);
+    LoadStarMarrowMotion(Item->Definition,Folder);
+    if(!HasTacticalSprintAnimations())
+        UE_LOG(LogTemp,Warning,TEXT("Sword tactical sprint clips missing in %s; using the previous locomotion pose."),*Folder);
+    SwingSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(*Item,TEXT("swing_sound")));
+    AttackLayerSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/SwordAttack20260914/S_Sword_Attack.S_Sword_Attack"));
+    HitSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(*Item,TEXT("hit_sound")));
+    // Only the fourth hit uses the counterweight impact cue; slash, thrust and the
+    // heavy cuts keep the weapon's own hit_sound.
+    PommelHitSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/WeaponHit20260916/S_MeleeHit_Quick.S_MeleeHit_Quick"));
+    BlockSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/MeleeBlock20260927/S_MeleeBlock_01.S_MeleeBlock_01"));
+    BlockSoundAlternate=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/MeleeBlock20260927/S_MeleeBlock_02.S_MeleeBlock_02"));
+    ParrySound=LoadObject<USoundBase>(nullptr,*(SoundFolder+TEXT("/S_RuneSword_Parry")));
+    InspectAir.PrepareSounds(true);
+    InspectCatchSound=LoadObject<USoundBase>(nullptr,RuneSwordInspectFeel::CatchSoundPath);
+    if(!RiftMaterial||RiftMeshes.IsEmpty())
+    {
+        const FString FXFolder=TEXT("/Game/Weapons/AzureRunesword20260913/WristRiftV3/");
+        auto* Material=LoadObject<UMaterialInterface>(nullptr,*(FXFolder+TEXT("M_RuneRift")));
+        if(Material){RiftMaterial=UMaterialInstanceDynamic::Create(Material,this);RiftVisual->SetMaterial(0,RiftMaterial);}
+        RiftMeshes.Reset();
+        RiftMeshes.Add(LoadObject<UStaticMesh>(nullptr,*(FXFolder+TEXT("SM_RuneRift_Slash1"))));
+        RiftMeshes.Add(LoadObject<UStaticMesh>(nullptr,*(FXFolder+TEXT("SM_RuneRift_Slash2"))));
+        RiftMeshes.Add(LoadObject<UStaticMesh>(nullptr,*(FXFolder+TEXT("SM_RuneRift_Heavy"))));
+        RiftMeshes.Add(LoadObject<UStaticMesh>(nullptr,*(FXFolder+TEXT("SM_RuneRift_Thrust"))));
+        RiftMeshes.Add(LoadObject<UStaticMesh>(nullptr,*(FXFolder+TEXT("SM_RuneRift_Pommel"))));
+        RiftMeshes.Add(LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/AzureRunesword20260913/SprintOverhead20260920/SM_RuneRift_Overhead")));
+    }
+    if(!Mesh || !Animations.FindRef(TEXT("Idle")) || !Animations.FindRef(TEXT("Slash1")) || !Animations.FindRef(TEXT("Slash2")) || !Animations.FindRef(TEXT("Thrust")))
+    {UE_LOG(LogTemp,Error,TEXT("Two-handed sword assets are missing for %s (animation folder %s)."),*Item->Definition,*Folder);return;}
+    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
+    {
+        // Cache the actual mesh/animation family's idle while this rig is hidden.
+        // Long grips keep their own hand spacing; never reuse the previous rig.
+        Arms->ClearWhirlwindEntry();
+        Arms->CacheQuickCombatIdlePose();
+        CurrentClip=NAME_None;
+        SetClip(TEXT("Idle"),true);
+    }
+    bEquipping=true;SetClip(TEXT("Equip"),false);
+    if(!CurrentAnimation){bEquipping=false;SetClip(TEXT("Idle"),true);}
+    ScheduleWalkInspect(false);
+    Viewmodel->SetVisibility(CanPresent(),true);
+}
+
+void URuneSwordComponent::RefreshModularSword(const FColdSteelItem* Item)
+{
+    RefreshRidgeThrust(Item);
+    RefreshRingChainSweep();
+    RefreshOath(Item);
+    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->SetGripClearance(Item);
+    if(!Item||!ColdSteelModularSword::Supports(*Item))
+    {
+        if(ModularSword){ColdSteelModularSword::Clear(ModularSword);Character->RemoveInstanceComponent(ModularSword);ModularSword->DestroyComponent();ModularSword=nullptr;}
+        return;
+    }
+    if(!ModularSword)
+    {
+        ModularSword=NewObject<UStaticMeshComponent>(Character.Get(),TEXT("ModularSwordBlade"));
+        Character->AddInstanceComponent(ModularSword);ModularSword->SetupAttachment(Viewmodel,TEXT("WPN_root"));
+        ModularSword->SetMobility(EComponentMobility::Movable);ModularSword->SetOnlyOwnerSee(true);
+        ModularSword->SetCollisionEnabled(ECollisionEnabled::NoCollision);ModularSword->SetCanEverAffectNavigation(false);
+        ModularSword->SetCastShadow(false);ModularSword->bReceivesDecals=false;
+        ModularSword->SetVisibility(Viewmodel->IsVisible());ModularSword->RegisterComponent();
+    }
+    ModularSword->SetRelativeTransform(ColdSteelModularSword::BoneMount(*Item));
+    // Refit the ordinary surfaces first. Otherwise the end of the skill would
+    // restore the previous loadout over a newly equipped blade, finish or rune.
+    const bool RefitDuringWhirlwind=!WhirlwindDepthStates.IsEmpty()&&
+        !ModularSword->ComponentHasTag(FName(*(TEXT("FrostSwordVisual=")+ColdSteelModularSword::Key(*Item))));
+    if(RefitDuringWhirlwind)RestoreWhirlwindForeground();
+    ColdSteelModularSword::Apply(ModularSword,*Item);
+    if(RefitDuringWhirlwind)ApplyWhirlwindForeground();
+    ModularBladeBase=ColdSteelModularSword::BladePoint(*Item,false);ModularBladeTip=ColdSteelModularSword::BladePoint(*Item,true);
+    // Combat scales the reference sweep by the installed blade's range stat.
+    // Tip-bound visuals use the finished mesh endpoint, including its extra length.
+    ModularTraceTip=ColdSteelModularSword::BladePoint(*Item,true,false);
+}
+
+void URuneSwordComponent::SetClip(FName Name,bool bLoop)
+{
+    if(HighlandBreakSweep::UsesRibbon(CurrentClip) && Name!=CurrentClip && bRiftActive)StopRift();
+    // Keep the displayed supported grip across cancellation as well as normal
+    // endings. Idle/walk can be at any breathing/stride phase when an action starts.
+    const bool bLocomotionTarget=Name==TEXT("Idle")||Name==TEXT("Walk");
+    const bool bReadySource=CurrentClip==TEXT("Idle")||CurrentClip==TEXT("Walk")||CurrentClip==TEXT("Inspect");
+    const bool bWindupTarget=Name==TEXT("Slash1")||Name==TEXT("Slash2")||Name==TEXT("Thrust")||
+        Name==TEXT("PommelStrike")||Name==TEXT("Overhead")||Name==TEXT("Uppercut")||Name==TEXT("ChainSlash")||Name==TEXT("HeavyCharge")||Name==TEXT("Guard")||Name==TEXT("StarMarrowCharge");
+    const bool bChargeWindup=(CurrentClip==TEXT("HeavyCharge")||CurrentClip==HighlandRidgeThrust::Charge||CurrentClip==RingChainSweepMotion::Charge)&&
+        (Name==TEXT("Slash1")||Name==TEXT("Slash2")||Name==TEXT("Thrust"));
+    // Whirlwind owns its entry clock. Heavy release starts dealing damage at
+    // time zero, so it must retain its immediate authored contact pose.
+    const bool bGuardReaction=Name==TEXT("GuardHit")||Name==TEXT("GuardBreak");
+    if(Name==TEXT("HeavyRelease")||Name==TEXT("ChixiaoHeavy")||Name==HighlandRidgeThrust::Release)
+    {
+        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->ClearWhirlwindEntry();
+    }
+    else if(!CurrentClip.IsNone() && Name!=TEXT("Whirlwind") && Name!=CurrentClip &&
+        (Name==HighlandBreakSweep::Clip||Name==RingChainSweepMotion::Charge||Name==HighlandRidgeThrust::Charge||HighlandRidgeThrust::IsRelease(Name)||
+         IsTacticalSprintClip(CurrentClip)||IsTacticalSprintClip(Name)||bLocomotionTarget||bGuardReaction||
+         (bReadySource&&(bWindupTarget||Name==TEXT("Inspect")))||bChargeWindup))
+    {
+        if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
+        {
+            const bool bRidgeHandoff=Name==HighlandRidgeThrust::Charge||HighlandRidgeThrust::IsRelease(Name)||
+                CurrentClip==HighlandRidgeThrust::Charge||HighlandRidgeThrust::IsRelease(CurrentClip);
+            // Sprint, guard and the second slash can end far from the chamber.
+            // Seat both wrists before the authored contact window opens.
+            const float EntrySeconds=HighlandRidgeThrust::IsRelease(Name)?
+                (Name==HighlandRidgeThrust::Finisher?.45f:.72f)*HighlandRidgeThrust::CounterLead/FMath::Max(.01f,SwingRate):.10f;
+            Arms->CaptureLocomotionEntry(EntrySeconds,bRidgeHandoff,bRidgeHandoff);
+            if(Name==HighlandBreakSweep::Clip)Arms->LimitLocomotionEntry(.10f/FMath::Max(.01f,SwingRate));
+            if(Name==HighlandRidgeThrust::Charge)Arms->LimitLocomotionEntry(.08f);
+            // Guard damage/parry is already resolved by gameplay. A short pose
+            // blend also supports hits received before the raise has finished.
+            if(bGuardReaction)Arms->LimitLocomotionEntry(.06f);
+        }
+    }
+    CurrentClip=Name;CurrentAnimation=Animations.FindRef(Name);
+    Elapsed=Name==RingChainSweepMotion::Release?RingChainSweepMotion::Chamber:0.f;SweepHitPause=0.f;
+    if(!CurrentAnimation || !Viewmodel)return;
+    Viewmodel->PlayAnimation(CurrentAnimation,bLoop);Viewmodel->SetPlayRate(0.f);SamplePose(Elapsed);
+    if(Character.IsValid())PreviousAimFrame=Character->GetMeleeAimTransform();
+}
+
+void URuneSwordComponent::SamplePose(float Time)
+{
+    if(!Viewmodel || !CurrentAnimation)return;
+    const bool bQuickPose=bAttacking&&bQuickCombatStrike&&CurrentClip==TEXT("PommelStrike");
+    const float PoseTime=bQuickPose?RuneSwordPommelRhythm::QuickCombatRecoveryPoseTime(Time):Time;
+    if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))
+        Arms->SetQuickCombatRecoveryWeight(bQuickPose?RuneSwordPommelRhythm::QuickCombatIdleWeight(PoseTime):0.f);
+    Viewmodel->SetPosition(PoseTime,false);Viewmodel->TickAnimation(0.f,false);Viewmodel->RefreshBoneTransforms();
+    ColdSteelMeleeRune::UpdatePose(ModularSword?static_cast<UMeshComponent*>(ModularSword.Get()):Viewmodel.Get());
+}
+
+void URuneSwordComponent::BeginInspect()
+{
+    if(!IsEquipped() || IsBusy() || bGuardHeld || !CanUse() || !Viewmodel || !Viewmodel->GetSkeletalMeshAsset())return;
+    if(Character->IsCastBlockingLeftHandAction() || !Animations.FindRef(TEXT("Inspect")))return;
+    // Cosmetic action: its own real-time clock, no attack rate, stamina or hit window.
+    // Inspect is interruptible and does not occupy combat IsBusy.
+    bInspecting=true;bQueuedAttack=false;StopRift();
+    InspectAir.Stop(0.f);
+    ScheduleWalkInspect(true);
+    SetClip(TEXT("Inspect"),false);
+}
+
+void URuneSwordComponent::ScheduleWalkInspect(bool bAfterInspect)
+{
+    WalkInspectDelay=bAfterInspect?FMath::FRandRange(5.f,8.f):FMath::FRandRange(2.f,3.5f);
+}
+
+bool URuneSwordComponent::IsWalkInspectStride() const
+{
+    const auto* Pawn=Character.Get();
+    if(!Pawn)return false;
+    const auto* Movement=Pawn->GetCharacterMovement();
+    return Movement && Movement->IsMovingOnGround()
+        && !Pawn->bWeaponJumpAirborne && !Pawn->IsSliding() && !Pawn->IsDodging() && !Pawn->IsTraversing()
+        && !Pawn->IsSprinting() && Pawn->GetVelocity().SizeSquared2D()>400.f;
+}
+
+bool URuneSwordComponent::ShouldBreakWalkInspect() const
+{
+    const auto* Pawn=Character.Get();
+    return !Pawn || Pawn->IsSprinting() || Pawn->bWeaponJumpAirborne || Pawn->IsSliding()
+        || Pawn->IsDodging() || Pawn->IsTraversing();
+}
+
+void URuneSwordComponent::TickWalkInspect(float Delta)
+{
+    if(RingPrimaryDownAt>=0. || !IsEquipped() || !CanUse() || !Character.IsValid())return;
+    if(bInspecting)
+    {
+        if(ShouldBreakWalkInspect())CancelAction();
+        return;
+    }
+    if(IsBusy() || bGuardHeld || Character->IsCastBlockingLeftHandAction() || !Animations.FindRef(TEXT("Inspect")))return;
+    if(!IsWalkInspectStride())return;
+    if(WalkInspectDelay>8.f)WalkInspectDelay*=0.5f;
+    WalkInspectDelay-=Delta;
+    if(WalkInspectDelay>0.f)return;
+    BeginInspect();
+    if(!bInspecting)WalkInspectDelay=FMath::FRandRange(1.f,2.f);
+}
+
+void URuneSwordComponent::GetCameraMotion(FVector& Location,FRotator& Rotation) const
+{
+    Location=FVector::ZeroVector;Rotation=FRotator::ZeroRotator;
+    if(bChainSlash&&ChainTool.IsValid()){ChainSlashCamera(Location,Rotation);return;}
+    if(!ToolGuardInstance.IsEmpty()){GetGuardCameraMotion(Location,Rotation);return;}
+    if(!IsEquipped())return;
+    if(bChainSlash){ChainSlashCamera(Location,Rotation);return;}
+    if(bWhirlwind)
+    {
+        WhirlwindFeel::Camera(Elapsed,WhirlwindTuning,ImpactAge,ImpactStrength,Location,Rotation);
+        return;
+    }
+    if(GetGuardCameraMotion(Location,Rotation))return;
+    if(!CanUse())return;
+    if(IsStarMarrowChargeMotionPlaying()){StarMarrowChargeMotion::Camera(Elapsed,Location,Rotation);return;}
+    if(CurrentClip==HighlandRidgeThrust::Charge||HighlandRidgeThrust::IsRelease(CurrentClip))
+    {
+        // Use the heavy charge's shoulder load, reduced for the narrow point-on
+        // stance. Its small tremor follows hold time, independently of aim.
+        const bool Drawing=CurrentClip==HighlandRidgeThrust::Charge;
+        const bool Handoff=CurrentClip==HighlandRidgeThrust::Release&&bAttacking;
+        const float Weight=Drawing?1.f:Handoff?1.f-FMath::SmoothStep(0.f,.07f,Elapsed):0.f;
+        if(Weight>0.f)
+        {
+            const float Load=Drawing?(bCharging?HeavyChargeFraction():
+                FMath::Clamp(Elapsed/FMath::Max(.01f,CurrentAnimation?CurrentAnimation->GetPlayLength():1.f),0.f,1.f)):1.f;
+            HighlandRidgeThrust::ChargeStrain(GetWorld()->GetTimeSeconds()-ChargeStartedAt,Load,Location,Rotation);
+            RuneSwordHeavyRhythm::AddChargeCamera(Load,.14f,Location,Rotation);
+            Location*=Weight;Rotation*=Weight;
+        }
+    }
+    else if(bUppercut||IsRisingDragonFinisher())
+    {
+        RuneSwordUppercutMotion::Camera(Elapsed,bLungeStarted,Location,Rotation,bUppercut);
+    }
+    else if((bCharging||bReturningCharge)&&CurrentClip==RingChainSweepMotion::Charge)
+    {
+        const float Load=FMath::SmoothStep(0.f,HighlandBreakSweep::Contact,Elapsed);
+        Location=FVector(-1.5f,2.f,0.f)*Load;
+        Rotation=FRotator(.6f,2.f,1.f)*Load;
+    }
+    else if(bCharging || bReturningCharge)
+    {
+        RuneSwordHeavyRhythm::AddChargeCamera(Elapsed/RuneSwordHeavyRhythm::ChargeSeconds,1.f,Location,Rotation);
+    }
+    else if(bInspecting)
+    {
+        RuneSwordInspectFeel::Camera(Elapsed,Location,Rotation);
+    }
+    else if(bAttacking && bOverheadAttack)
+    {
+        RuneSwordOverheadFeel::Camera(Elapsed,bImpactFeedbackPlayed,ImpactAge,ImpactStrength,Location,Rotation);
+        if(bDashAttack && Elapsed<ContactStart)
+        {
+            const float Gather=FMath::SmoothStep(ContactStart-RuneSwordOverheadRhythm::DashWindupSeconds,ContactStart,Elapsed);
+            Location*=Gather;Rotation*=Gather;
+        }
+        // Dash releases and ordinary sprint chops share this camera profile.
+        // Stage-three combo finishers can reuse it without being sprint attacks.
+        if(bDashAttack || (SwingSkills.AttackMeta&0x0F)!=3)
+        {
+            Location*=SprintCameraMotion::AmplitudeScale;
+            Rotation*=SprintCameraMotion::AmplitudeScale;
+        }
+    }
+    else if(bAttacking && bThrustAttack)
+    {
+        const float ExtensionEnd=RuneSwordThrustRhythm::ExtensionEnd;
+        const FVector LoadLocation(-8.f,1.5f,1.2f),FollowLocation(13.f,-.6f,-3.5f);
+        const FRotator LoadRotation(3.f,1.2f,.8f),FollowRotation(-4.5f,-.7f,-.6f);
+        if(Elapsed<=ContactStart)
+        {
+            const float Gather=FMath::SmoothStep(0.f,RuneSwordThrustRhythm::LoadEnd,Elapsed);
+            Location=LoadLocation*Gather;Rotation=LoadRotation*Gather;
+        }
+        else if(Elapsed<=ExtensionEnd)
+        {
+            const float U=(Elapsed-ContactStart)/(ExtensionEnd-ContactStart);
+            const float Push=FMath::SmoothStep(0.f,1.f,U),Burst=FMath::Square(FMath::Sin(PI*U));
+            Location=FMath::Lerp(LoadLocation,FollowLocation,Push);Location.X+=5.f*Burst;
+            Rotation=FMath::Lerp(LoadRotation,FollowRotation,Push);
+            Rotation.Pitch+=1.8f*Burst*FMath::Sin(U*PI*4.f);
+        }
+        else
+        {
+            float Weight;
+            if(Elapsed<=RuneSwordThrustRhythm::ArrestEnd)
+                Weight=1.f+.08f*FMath::Sin(PI*(Elapsed-ExtensionEnd)/(RuneSwordThrustRhythm::ArrestEnd-ExtensionEnd));
+            else if(Elapsed<=RuneSwordThrustRhythm::ReturnCorner)
+                Weight=FMath::Lerp(1.f,.18f,FMath::SmoothStep(RuneSwordThrustRhythm::ArrestEnd,RuneSwordThrustRhythm::ReturnCorner,Elapsed));
+            else
+                Weight=.18f*(1.f-FMath::SmoothStep(RuneSwordThrustRhythm::ReturnCorner,RuneSwordThrustRhythm::AttackEnd,Elapsed));
+            Location=FollowLocation*Weight;Rotation=FollowRotation*Weight;
+        }
+        if(bLungeStarted)
+        {
+            // One weight shift and one foot plant accompany the real stride.
+            // The actor supplies the metre of forward travel; this is local bob.
+            const float Step=FMath::Clamp((Elapsed-RuneSwordThrustRhythm::LungeStart)/
+                (RuneSwordThrustRhythm::LungeEnd-RuneSwordThrustRhythm::LungeStart),0.f,1.f);
+            const float Lower=FMath::Square(FMath::Sin(PI*Step));
+            Location.Z-=3.5f*Lower;Rotation.Pitch+=1.2f*Lower;
+            const float Landing=FMath::Clamp((Elapsed-RuneSwordThrustRhythm::LungeEnd)/.16f,0.f,1.f);
+            const float Plant=FMath::Square(FMath::Sin(PI*Landing))*(1.f-Landing);
+            Location.Z-=2.4f*Plant;Rotation.Pitch+=.8f*Plant;
+        }
+    }
+    else if(bAttacking && bPommelAttack)
+    {
+        // Slow load, one fast drive, hard stop, then the weight draws back. The
+        // strike uses the same fast-start curve as the pose, so camera and weapon
+        // spend the 0.29 m of counterweight travel together.
+        const float MotionTime=bQuickCombatStrike?RuneSwordPommelRhythm::QuickCombatRecoveryPoseTime(Elapsed):Elapsed;
+        const FVector LoadLocation(-10.f,3.2f,2.1f),FollowLocation(15.f,-.8f,-4.2f);
+        const FRotator LoadRotation(3.2f,-2.4f,-3.1f),FollowRotation(-4.6f,2.6f,4.2f);
+        if(MotionTime<=ContactStart)
+        {
+            const float Gather=FMath::SmoothStep(0.f,RuneSwordPommelRhythm::RaiseEnd,MotionTime);
+            Location=LoadLocation*Gather;Rotation=LoadRotation*Gather;
+        }
+        else if(MotionTime<=RuneSwordPommelRhythm::ExtensionEnd)
+        {
+            const float U=(MotionTime-ContactStart)/(RuneSwordPommelRhythm::ExtensionEnd-ContactStart);
+            const float Push=1.f-FMath::Pow(1.f-U,2.2f),Burst=FMath::Square(FMath::Sin(PI*U));
+            Location=FMath::Lerp(LoadLocation,FollowLocation,Push);Location.X+=7.f*Burst;
+            Rotation=FMath::Lerp(LoadRotation,FollowRotation,Push);
+            Rotation.Pitch+=2.2f*Burst*FMath::Sin(U*PI*4.f);
+            Rotation.Roll+=1.6f*Burst*FMath::Sin(U*PI*5.f);
+        }
+        else
+        {
+            float Weight;
+            if(MotionTime<=RuneSwordPommelRhythm::ArrestEnd)
+                Weight=1.f+.12f*FMath::Sin(PI*(MotionTime-RuneSwordPommelRhythm::ExtensionEnd)/(RuneSwordPommelRhythm::ArrestEnd-RuneSwordPommelRhythm::ExtensionEnd));
+            else if(MotionTime<=RuneSwordPommelRhythm::ReturnCorner)
+                Weight=FMath::Lerp(1.f,.22f,FMath::SmoothStep(RuneSwordPommelRhythm::ArrestEnd,RuneSwordPommelRhythm::ReturnCorner,MotionTime));
+            else
+                Weight=.22f*(1.f-FMath::SmoothStep(RuneSwordPommelRhythm::ReturnCorner,RuneSwordPommelRhythm::AttackEnd,MotionTime));
+            Location=FollowLocation*Weight;Rotation=FollowRotation*Weight;
+        }
+        if(bLungeStarted)
+        {
+            // Same weight shift and foot plant as the thrust, scaled to the short step.
+            const float Step=FMath::Clamp((Elapsed-RuneSwordPommelRhythm::LungeStart)/
+                (RuneSwordPommelRhythm::LungeEnd-RuneSwordPommelRhythm::LungeStart),0.f,1.f);
+            const float Lower=FMath::Square(FMath::Sin(PI*Step));
+            Location.Z-=2.4f*Lower;Rotation.Pitch+=.9f*Lower;
+            const float Landing=FMath::Clamp((Elapsed-RuneSwordPommelRhythm::LungeEnd)/.14f,0.f,1.f);
+            const float Plant=FMath::Square(FMath::Sin(PI*Landing))*(1.f-Landing);
+            Location.Z-=1.8f*Plant;Rotation.Pitch+=.6f*Plant;
+        }
+        if(bQuickCombatStrike)
+        {
+            const float ActionWeight=1.f-RuneSwordPommelRhythm::QuickCombatIdleWeight(MotionTime);
+            Location*=ActionWeight;Rotation*=ActionWeight;
+        }
+    }
+    else if(bAttacking&&bChixiaoHeavy)
+    {
+        ChixiaoCameraMotion(Location,Rotation);
+    }
+    else if(bAttacking && (CurrentClip==HighlandBreakSweep::Clip||CurrentClip==RingChainSweepMotion::Release))
+    {
+        // Camera-local travel follows the same source clock as the blade and its hit sector.
+        const float Load=FMath::SmoothStep(0.f,HighlandBreakSweep::Contact,Elapsed);
+        const float Cut=FMath::SmoothStep(HighlandBreakSweep::Contact,HighlandBreakSweep::Release,Elapsed);
+        const float Return=1.f-FMath::SmoothStep(HighlandBreakSweep::Release,1.08f,Elapsed);
+        Location=FMath::Lerp(FVector(-1.5f,2.f,0.f)*Load,FVector(3.f,-4.f,-1.f),Cut)*Return;
+        Rotation=FMath::Lerp(FRotator(.6f,2.f,1.f)*Load,FRotator(-1.2f,-5.f,-2.f),Cut)*Return;
+    }
+    else if(bAttacking)
+    {
+        const float Direction=CurrentClip==TEXT("Slash2")?1.f:-1.f;
+        const float SourceTime=bHeavyAttack?RuneSwordHeavyRhythm::CameraSourceTime(Elapsed):RuneSwordRhythm::SourceTime(Elapsed);
+        // Authored centimeters/degrees: a committed body turn before the
+        // character's existing camera presentation scale is applied.
+        const float LoadStrength=bHeavyAttack?1.3f:1.f, ReleaseStrength=bHeavyAttack?1.5f:1.f;
+        const FVector LoadLocation=FVector(-10.f,-Direction*6.f,2.4f)*LoadStrength;
+        const FRotator LoadRotation=FRotator(6.f,-Direction*7.f,-Direction*5.f)*LoadStrength;
+        const FVector FollowLocation=FVector(16.f,Direction*11.f,-9.f)*ReleaseStrength;
+        const FRotator FollowRotation=FRotator(-9.f,Direction*12.f,Direction*10.f)*ReleaseStrength;
+        if(Elapsed<=ContactStart)
+        {
+            const float Gather=FMath::SmoothStep(0.f,.40f,SourceTime);
+            Location=LoadLocation*Gather;Rotation=LoadRotation*Gather;
+        }
+        else if(Elapsed<=ContactEnd)
+        {
+            const float U=(Elapsed-ContactStart)/(ContactEnd-ContactStart);
+            const float Across=U*U*(2.f-U);
+            const float Burst=FMath::Square(FMath::Sin(PI*U));
+            Location=FMath::Lerp(LoadLocation,FollowLocation,Across);
+            Location.X+=10.f*Burst*ReleaseStrength;
+            Rotation=FMath::Lerp(LoadRotation,FollowRotation,Across);
+            // A brief directional vibration rides the release; it is silent
+            // during the held load pose and vanishes at the phase boundary.
+            Rotation.Pitch+=1.7f*Burst*FMath::Sin(U*PI*6.f)*ReleaseStrength;
+            Rotation.Roll+=Direction*2.2f*Burst*FMath::Sin(U*PI*4.f)*ReleaseStrength;
+        }
+        else
+        {
+            // Follow the cut, arrest its weight, then draw back with the hands.
+            // A sign-changing spring here fought the accepted diagonal path.
+            float Weight;
+            if(SourceTime<=1.115f)
+                Weight=1.f+.10f*FMath::SmoothStep(1.015f,1.115f,SourceTime);
+            else if(SourceTime<=1.34f)
+                Weight=FMath::Lerp(1.10f,.30f,FMath::SmoothStep(1.115f,1.34f,SourceTime));
+            else
+                Weight=.30f*(1.f-FMath::SmoothStep(1.34f,1.65f,SourceTime));
+            Location=FollowLocation*Weight;Rotation=FollowRotation*Weight;
+        }
+    }
+    // Confirmed contact gives one damped impulse per slash. Multi-target
+    // sweeps keep their damage but cannot stack camera shake indefinitely.
+    const float ImpactSpan=bPommelAttack?.30f:.20f;
+    if(!bUppercut&&!IsRisingDragonFinisher()&&!bOverheadAttack&&!bQuickCombatContactDone&&ImpactAge<ImpactSpan
+        &&(CurrentClip!=HighlandBreakSweep::Clip||bImpactFeedbackPlayed))
+    {
+        // A counterweight lands heavier than a blade pass: longer shake, bigger
+        // axial recoil and a pitch punch on top of it.
+        const float Envelope=1.f-FMath::SmoothStep(0.f,ImpactSpan,ImpactAge);
+        const float Kick=FMath::Exp(-(bPommelAttack?13.f:17.f)*ImpactAge)*FMath::Sin((bPommelAttack?48.f:55.f)*ImpactAge)*Envelope;
+        if(CurrentClip==HighlandBreakSweep::Clip)
+        {
+            // The blade moves left. Contact checks that motion with one lateral
+            // counter-kick; the damped pulse runs in real time during the pose hold.
+            Location+=FVector(-10.f,5.f,-2.f)*Kick*ImpactStrength;
+            Rotation+=FRotator(-5.5f,8.f,4.5f)*Kick*ImpactStrength;
+        }
+        else if(bPommelAttack)
+        {
+            Location+=FVector(-18.f,0.f,2.8f)*Kick*ImpactStrength;
+            Rotation+=FRotator(10.5f,0.f,1.6f)*Kick*ImpactStrength;
+        }
+        else
+        {
+            Location+=(bThrustImpact?FVector(-12.f,0.f,1.4f):FVector(-8.f,ImpactDirection*3.f,2.f))*Kick*ImpactStrength;
+            Rotation+=(bThrustImpact?FRotator(7.f,0.f,.8f):FRotator(6.f,ImpactDirection*2.8f,-ImpactDirection*4.4f))*Kick*ImpactStrength;
+        }
+    }
+    // Scale the sword's directional travel and impact vibration together.
+    // Other camera effects keep their own existing amplitude.
+    constexpr float SwordCameraStrength=1.5f;
+    Location*=SwordCameraStrength;
+    Rotation*=SwordCameraStrength;
+    // Add after the sword-only multiplier so all weapon categories receive
+    // the same impulse, with the shared character comfort scale applied once.
+    if(!bUppercut&&!IsRisingDragonFinisher()&&bQuickCombatContactDone)QuickCombatImpactShake::Add(ImpactAge,Location,Rotation);
+}
+
+void URuneSwordComponent::StartRift(float SourceAge)
+{
+    if(HighlandRidgeThrust::IsRelease(CurrentClip))return;
+    const bool Judgment=bHeavyAttack && OathRiftMaterial && OathState.Phase==2 &&
+        OathState.Weapon==InstanceId && OathAttackSerial!=0 && OathAttackSerial==NetworkBladeSerial;
+    auto* Material=Judgment?OathRiftMaterial.Get():RiftMaterial.Get();
+    if(HighlandBreakSweep::UsesRibbon(CurrentClip))
+    {
+        const bool bLongGrip=EquippedAnimationFolder.EndsWith(TEXT("/LongGripAnimations"));
+        auto* Ribbon=Cast<UStaticMesh>(HighlandBreakSweep::RiftPath(bLongGrip).ResolveObject());
+        if(!RiftVisual || !RiftMaterial || !Ribbon || !Viewmodel)return;
+        RiftVisual->SetStaticMesh(Ribbon);
+        RiftVisual->SetMaterial(0,Material);
+        // Baked in the arms' component space. Keep the advancing edge on the
+        // blade through camera recoil, locomotion and a confirmed-contact hold.
+        RiftVisual->AttachToComponent(Viewmodel,FAttachmentTransformRules::SnapToTargetIncludingScale);
+        RiftFastSeconds=(ContactEnd-ContactStart)/SwingRate;
+        RiftDissolveSeconds=.14f;RiftDriftSpeed=35.f;
+        Material->SetScalarParameterValue(TEXT("RiftStrength"),.105f);
+        Material->SetScalarParameterValue(TEXT("RiftFade"),1.f);
+        RiftAge=0.f;bRiftActive=true;bRiftUppercutReveal=false;bRiftDriftAfterReveal=true;
+        TickRift(0.f);
+        return;
+    }
+    const bool bUppercutRift=bUppercut||IsRisingDragonFinisher();
+    const int32 Index=(bOverheadAttack||bUppercutRift)?5:(bThrustAttack?3:(bPommelAttack?4:(bHeavyAttack?2:(CurrentClip==TEXT("Slash2")?1:0))));
+    // Existing live instances may still have the five original slash ribbons.
+    if((bOverheadAttack||bUppercutRift) && (!RiftMeshes.IsValidIndex(Index) || !RiftMeshes[Index]))
+    {
+        RiftMeshes.SetNum(6);
+        RiftMeshes[Index]=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Weapons/AzureRunesword20260913/SprintOverhead20260920/SM_RuneRift_Overhead"));
+    }
+    if(!RiftVisual || !RiftMaterial || !RiftMeshes.IsValidIndex(Index) || !RiftMeshes[Index])return;
+    RiftVisual->SetStaticMesh(RiftMeshes[Index]);
+    RiftVisual->SetMaterial(0,Material);
+    // The crescent is authored from the same blade trajectory as the contact
+    // animation. Freeze its launch transform in world space so it can drift out.
+    RiftOrigin=Viewmodel->GetComponentTransform();RiftDirection=Camera->GetForwardVector();
+    if(bOverheadAttack)
+    {
+        // Reveal top-to-bottom in the stable aiming plane. Camera kick and the
+        // sprint viewmodel's residual roll must not tilt this into a side slash.
+        const FTransform Aim=Character->GetMeleeAimTransform();
+        RiftOrigin=FTransform(Aim.GetRotation()*FRotator(0,90,0).Quaternion(),Aim.GetLocation());
+        RiftDirection=-Aim.GetUnitAxis(EAxis::Z);
+    }
+    if(bUppercutRift)
+    {
+        // Reuse the normal vertical attack's optical material/ribbon, rolled
+        // around the forward axis so the UV reveal travels bottom-to-top.
+        const FTransform Aim=Character->GetMeleeAimTransform();
+        RiftOrigin=FTransform(Aim.GetRotation()*FQuat(FVector::ForwardVector,PI)*FRotator(0,90,0).Quaternion(),Aim.GetLocation());
+        RiftDirection=Aim.GetUnitAxis(EAxis::Z);
+    }
+    const float FastStart=bUppercutRift?RuneSwordUppercutMotion::RiftStart:ContactStart;
+    const float FastEnd=bUppercutRift?RuneSwordUppercutMotion::RiftEnd:(bOverheadAttack?RuneSwordOverheadFeel::ImpactTime:(bThrustAttack?RuneSwordThrustRhythm::ExtensionEnd:(bPommelAttack?RuneSwordPommelRhythm::ExtensionEnd:ContactEnd)));
+    RiftFastSeconds=(FastEnd-FastStart)/FMath::Max(.01f,SwingRate);
+    RiftDissolveSeconds=bOverheadAttack?.26f:(bThrustAttack?.16f:(bPommelAttack?.14f:(bHeavyAttack?.28f:.20f)));
+    if(Judgment)RiftDissolveSeconds=HighlandOathRune::TrailSeconds;
+    RiftDriftSpeed=bOverheadAttack?95.f:(bThrustAttack?50.f:(bPommelAttack?42.f:(bHeavyAttack?120.f:85.f)));
+    Material->SetScalarParameterValue(TEXT("RiftStrength"),bOverheadAttack?.16f:(bThrustAttack?.10f:(bPommelAttack?.075f:(bHeavyAttack?.14f:.085f))));
+    bRiftUppercutReveal=bUppercutRift;bRiftDriftAfterReveal=bUppercutRift;
+    RiftAge=bUppercutRift?0.f:FMath::Max(0.f,SourceAge/FMath::Max(.01f,SwingRate));bRiftActive=true;
+    RiftVisual->SetVisibility(true);TickRift(0.f);
+}
+
+void URuneSwordComponent::TickRift(float Delta)
+{
+    if(!bRiftActive || !RiftVisual || !RiftMaterial)return;
+    auto* Material=Cast<UMaterialInstanceDynamic>(RiftVisual->GetMaterial(0));
+    if(!Material)return;
+    const bool Judgment=Material==OathRiftMaterial;
+    const bool bSweep=HighlandBreakSweep::UsesRibbon(CurrentClip);
+    if(Judgment||bSweep||bRiftDriftAfterReveal)
+    {
+        const auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();
+        RiftVisual->SetVisibility(!Body||!Body->IsThirdPersonViewEnabled());
+    }
+    if(bSweep && RiftVisual->GetAttachParent()==Viewmodel)
+    {
+        const float Progress=(Elapsed-ContactStart)/(ContactEnd-ContactStart);
+        if(Progress<1.f)
+        {
+            Material->SetScalarParameterValue(TEXT("SweepProgress"),FMath::Max(Progress,0.f));
+            return;
+        }
+        RiftOrigin=RiftVisual->GetComponentTransform();
+        RiftDirection=Camera->GetForwardVector();
+        RiftVisual->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
+        // Only the part of this frame after release belongs to the real-time fade.
+        RiftAge=RiftFastSeconds+FMath::Max(0.f,Elapsed-ContactEnd)/SwingRate;
+        Delta=0.f;
+    }
+    if(bRiftUppercutReveal)
+    {
+        // Uppercut retimes its lunge stride (5.6x slower before SkillLungeEnd).
+        // Drive SweepProgress directly from the blade's source pose so the
+        // spatial-ripple crescent never appears ahead of the rising sword, and
+        // begin real-time upward drift and dissolve only once the stroke finishes.
+        const bool bPlayingUppercut=bUppercut||IsRisingDragonFinisher();
+        if(bPlayingUppercut&&Character.IsValid())
+        {
+            const FTransform Aim=Character->GetMeleeAimTransform();
+            RiftOrigin=FTransform(Aim.GetRotation()*FQuat(FVector::ForwardVector,PI)*FRotator(0,90,0).Quaternion(),Aim.GetLocation());
+            RiftDirection=Aim.GetUnitAxis(EAxis::Z);
+        }
+        const float Progress=bPlayingUppercut?
+            (Elapsed-RuneSwordUppercutMotion::RiftStart)/FMath::Max(.001f,RuneSwordUppercutMotion::RiftEnd-RuneSwordUppercutMotion::RiftStart):1.f;
+        if(bPlayingUppercut&&Progress<1.f)
+        {
+            Material->SetScalarParameterValue(TEXT("SweepProgress"),FMath::Clamp(Progress,0.f,1.f)*1.06f);
+            Material->SetScalarParameterValue(TEXT("RiftFade"),1.f);
+            RiftVisual->SetWorldTransform(RiftOrigin);
+            return;
+        }
+        bRiftUppercutReveal=false;
+        RiftAge=RiftFastSeconds;
+        if(bPlayingUppercut)Delta=0.f;
+    }
+    RiftAge+=Delta;
+    if(RiftAge>=RiftFastSeconds+RiftDissolveSeconds){StopRift();return;}
+    const float Recovery=FMath::Clamp((RiftAge-RiftFastSeconds)/RiftDissolveSeconds,0.f,1.f);
+    const float Fade=1.f-Recovery*Recovery*(3.f-2.f*Recovery);
+    Material->SetScalarParameterValue(TEXT("SweepProgress"),FMath::Clamp(RiftAge/RiftFastSeconds,0.f,1.f)*1.06f);
+    Material->SetScalarParameterValue(TEXT("RiftFade"),Fade);
+    float DriftAge=(bSweep||bRiftDriftAfterReveal)?FMath::Max(0.f,RiftAge-RiftFastSeconds):RiftAge;
+    // Keep the extra afterimage at the end of the original heavy rift travel.
+    if(Judgment)DriftAge=FMath::Min(DriftAge,RiftFastSeconds+.28f);
+    FTransform Pose=RiftOrigin;Pose.AddToTranslation(RiftDirection*(DriftAge*RiftDriftSpeed));
+    RiftVisual->SetWorldTransform(Pose);
+}
+
+void URuneSwordComponent::StopRift()
+{
+    bRiftActive=false;bRiftUppercutReveal=false;bRiftDriftAfterReveal=false;RiftAge=0.f;
+    if(RiftVisual)
+    {
+        RiftVisual->SetVisibility(false);
+        if(RiftVisual->GetAttachParent())RiftVisual->DetachFromComponent(FDetachmentTransformRules::KeepWorldTransform);
+    }
+}
+
+bool URuneSwordComponent::GetFireMagicBladePoints(FVector& Base,FVector& Tip) const
+{
+    if(!IsEquipped()||!Viewmodel||!Viewmodel->IsVisible())return false;
+    if(ModularSword&&!ModularSword->ComponentHasTag(TEXT("SwordTraceFromAnimation")))
+    {Base=ModularSword->GetComponentTransform().TransformPosition(ModularBladeBase);Tip=ModularSword->GetComponentTransform().TransformPosition(ModularBladeTip);}
+    else{Base=Viewmodel->GetSocketLocation(TEXT("Blade_Base"));Tip=Viewmodel->GetSocketLocation(TEXT("Blade_Tip"));}
+    return !Base.Equals(Tip,1.f);
+}
+
+bool URuneSwordComponent::GetEnchantmentBladeAttachment(USceneComponent*& Parent,FName& Socket,FTransform& LocalFrame,float& Length) const
+{
+    if(!IsEquipped()||!Viewmodel||!Viewmodel->IsVisible()||Viewmodel->bHiddenInGame)return false;
+    FVector Base,Tip;FTransform Weapon;
+    if(ModularSword&&ModularSword->GetStaticMesh())
+    {
+        // The rendered blade follows WPN_root even during inspect. Its trace
+        // helpers may be animated independently, so they must not drive VFX.
+        Parent=ModularSword;Socket=NAME_None;Weapon=ModularSword->GetComponentTransform();
+        Base=Weapon.TransformPosition(ModularBladeBase);Tip=Weapon.TransformPosition(ModularBladeTip);
+    }
+    else
+    {
+        const auto* Mesh=Viewmodel->GetSkeletalMeshAsset();if(!Mesh)return false;
+        const auto& Ref=Mesh->GetRefSkeleton();
+        const int32 RootIndex=Ref.FindBoneIndex(TEXT("WPN_root"));
+        const int32 BaseIndex=Ref.FindBoneIndex(TEXT("Blade_Base")),TipIndex=Ref.FindBoneIndex(TEXT("Blade_Tip"));
+        if(RootIndex==INDEX_NONE||BaseIndex==INDEX_NONE||TipIndex==INDEX_NONE)return false;
+        const auto ReferenceComponentPose=[&](int32 Index)
+        {
+            FTransform Result=Ref.GetRefBonePose()[Index];
+            for(int32 I=Ref.GetParentIndex(Index);I!=INDEX_NONE;I=Ref.GetParentIndex(I))Result=Result*Ref.GetRefBonePose()[I];
+            return Result;
+        };
+        // Bind the reference blade endpoints to the same rigid weapon bone as
+        // the skinned sword, rather than sampling separate attack helper tracks.
+        const FTransform ReferenceWeapon=ReferenceComponentPose(RootIndex);
+        Parent=Viewmodel;Socket=TEXT("WPN_root");Weapon=Viewmodel->GetSocketTransform(Socket);
+        Base=Weapon.TransformPosition(ReferenceWeapon.InverseTransformPosition(ReferenceComponentPose(BaseIndex).GetLocation()));
+        Tip=Weapon.TransformPosition(ReferenceWeapon.InverseTransformPosition(ReferenceComponentPose(TipIndex).GetLocation()));
+    }
+    Length=FVector::Distance(Base,Tip);
+    if(Length<1.f)return false;
+    // The sword's local Z runs along the edge; local X supplies a stable roll.
+    const FTransform WorldFrame(FRotationMatrix::MakeFromXZ(Tip-Base,Weapon.GetUnitAxis(EAxis::X)).ToQuat(),Base);
+    LocalFrame=WorldFrame.GetRelativeTransform(Weapon);
+    return true;
+}
+

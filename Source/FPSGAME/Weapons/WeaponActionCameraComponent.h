@@ -12,7 +12,8 @@ enum class EM4CameraAction : uint8
     None, Reload, ReloadEmpty, DrumReload, DrumReloadEmpty, EquipCharge,
     Ash12Reload, Ash12ReloadEmpty, PKMReload, PKMReloadEmpty, PKMEquip,
     LMG201ClothReload, LMG201ClothReloadEmpty, RSH12Reload, RSH12ReloadEmpty,
-    Super90Loader, Super90LoaderEmpty, Super90LoaderCycle
+    Super90Loader, Super90LoaderEmpty, Super90LoaderCycle,
+    M249SideReload, M249SideReloadEmpty
 };
 
 // Local presentation driven by the weapon's source-animation clock.
@@ -49,6 +50,10 @@ public:
     void UpdateSprint(float DeltaSeconds, bool bEnabled, bool bRequested,
         float StridePhase, float MovementWeight);
     void ResetSprint();
+    // Preserve the outgoing equip offset until the next camera composition.
+    // Reload has its own return channel; neither channel may be cleared here.
+    void BeginEquipTransition() { bEquipTransitionPending = true; }
+    float EquipFieldOfView(float CurrentFOV, float TargetFOV, float DeltaSeconds);
     float SprintCameraWeight() const { return SprintBlend * FMath::Clamp(SprintStrength, 0.f, 1.f); }
 
     void Apply(UCameraComponent& Camera, EM4CameraAction Action, float SourceSeconds,
@@ -56,6 +61,13 @@ public:
         TConstArrayView<FWeaponReloadCameraTrack> ReloadTracks={},float DeltaSeconds=0.f);
 
 private:
+    static constexpr float EquipReturnSeconds = .14f;
+    static constexpr float EquipFOVSeconds = .22f;
+    float EquipFOVStart = 0.f, EquipFOVAge = EquipFOVSeconds;
+    FVector EquipAngles = FVector::ZeroVector, EquipPosition = FVector::ZeroVector;
+    FVector EquipReturnAngles = FVector::ZeroVector, EquipReturnPosition = FVector::ZeroVector;
+    float EquipReturnAge = EquipReturnSeconds, PreviousEquipSource = 0.f;
+    bool bEquipWasActive = false, bEquipTransitionPending = false;
     float SprintBlend = 0.f;
     float SprintPhase = 0.f;
     FVector ReloadAngles[2]={FVector::ZeroVector,FVector::ZeroVector};

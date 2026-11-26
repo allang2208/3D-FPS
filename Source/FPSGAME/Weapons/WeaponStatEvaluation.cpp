@@ -1,8 +1,11 @@
 #include "WeaponStatEvaluation.h"
+#include "Bow/BowStats.h"
+#include "../Skills/LightningHasteSpeed.h"
 #include "Super90WeaponAssets.h"
 #include "TubeShotgunAssets.h"
 #include "WeaponDamagePanel.h"
 #include "Bow/BowDamageTuning.h"
+#include "Bow/BowCadenceComponent.h"
 #include "GunsmithSystem.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
@@ -29,16 +32,40 @@ double ColdSteelWeaponStats::Damage(const FColdSteelItem& Item,const UColdSteelS
 
 FWeaponDamageParts ColdSteelWeaponStats::DamageParts(const FColdSteelItem& Item,const UColdSteelStatusModel* Model,double Base)
 {
+    double ShotDamage=1.,PhysicalDamage=1.;
     if(Model&&ColdSteelInventory::IsBow(Item))
-        if(const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())Base*=G->Calculate(Item.Definition,G->Installed(Item)).Bow.Damage;
+        if(const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())
+        {
+            const auto Mods=G->Calculate(Item.Definition,G->Installed(Item)).Bow;
+            Base*=Mods.Damage;ShotDamage=Mods.ShotDamage;PhysicalDamage=Mods.PhysicalDamage;
+        }
     const float Attack=Model?Model->Derived(TEXT("atk")):0;
     const auto* Enhancement=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
-    return ColdSteelWeaponDamage::Evaluate(Item,Model,Enhancement?Enhancement->ProcessedDamage(Item,Base,Attack,-1,Model):Base+Attack*ColdSteelBow::DamageCoefficientScale(Item));
+    auto Parts=ColdSteelWeaponDamage::Evaluate(Item,Model,Enhancement?Enhancement->ProcessedDamage(Item,Base,Attack,-1,Model):Base+Attack*ColdSteelBow::DamageCoefficientScale(Item)).Scaled(ShotDamage);
+    if(const auto* Cadence=UBowCadenceComponent::ForItem(Model,Item))PhysicalDamage*=Cadence->PhysicalMultiplier();
+    Parts.BasePhysical*=PhysicalDamage;Parts.AddedPhysical*=PhysicalDamage;
+    if(Model && Item.Definition==TEXT("bow_frontier_compound"))
+    {
+        const auto* Selected=ColdSteelBow::AuroraRiser(Model,&Item);
+        const auto* Equipped=ColdSteelBow::AuroraRiser(Model,Model->ActiveBow());
+        // Compare the selected riser with the active one even in an uncommitted preview.
+        const double PreviewRatio=(Selected?Selected->Bow.MagicDamage:1.)/(Equipped?Equipped->Bow.MagicDamage:1.);
+        Parts.AddedMagic*=PreviewRatio;
+        if(Selected)
+        {
+            const double Magic=(1.+Model->SetEffect(TEXT("magicDamage")))*PreviewRatio;
+            Parts.BaseMagic+=Parts.BasePhysical*Magic;
+            Parts.AddedMagic+=Parts.AddedPhysical*Magic;
+            Parts.BasePhysical=Parts.AddedPhysical=0.;
+        }
+    }
+    return Parts;
 }
 double ColdSteelWeaponStats::BowDrawSpeedBonus(const FColdSteelItem* Item,const UColdSteelStatusModel* Model)
 {
     if(!Item||!Model||!ColdSteelInventory::IsBow(*Item))return 0.;
     double Bonus=Model->EquipmentBonus(TEXT("bowDrawSpeed"))+Model->DexterousHandsEffect().BowDrawSpeed;
+    if(const auto* Cadence=UBowCadenceComponent::ForItem(Model,*Item))Bonus+=Cadence->SpeedBonus();
     if(const auto* G=Model->GetGameInstance()->GetSubsystem<UGunsmithSystem>())
         Bonus+=G->Calculate(Item->Definition,G->Installed(*Item)).Bow.DrawSpeedBonus;
     if(const auto* Enhancement=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
@@ -58,6 +85,7 @@ double ColdSteelWeaponStats::Interval(const FColdSteelItem* Item,const UColdStee
         // Dexterous Hands, modification, equipment and this bow's enchantment share one speed sum.
         // Nocking and arrow velocity keep their independent clocks.
         Result/=FMath::Max(0.05,1.+BowDrawSpeedBonus(Item,Model));
+        Result/=LightningHaste::ActionSpeed(Model->RuntimePawn());
     }
     if(Item)if(const auto* Enhancement=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         Result*=Enhancement->Effect(*Item,TEXT("attackIntervalMul"),1);
@@ -72,7 +100,7 @@ double ColdSteelWeaponStats::Reload(const FColdSteelItem* Item,const UColdSteelS
     const double Dex=Model->Attribute(TEXT("dex"))+Model->EquipmentBonus(TEXT("dex"))*Model->EffectiveAttributeMultiplier();
     double Speed=1.+FMath::Max(0.,Dex)*DexReloadSpeedPerPoint;
     Speed*=FMath::Max(0.05,Model->ReloadSpeedMultiplier());
-    Speed*=FMath::Max(0.05,1.+Model->EquipmentBonus(TEXT("reloadSpeed")));
+    Speed*=FMath::Max(0.05,1.+Model->EquipmentBonus(TEXT("reloadSpeed"))+Model->SetEffect(TEXT("reloadSpeed")));
     if(Item)if(const auto* Enhancement=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
     {
         Speed*=FMath::Max(0.05,Enhancement->Effect(*Item,TEXT("reloadSpeedPercent"),1));

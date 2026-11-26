@@ -113,10 +113,10 @@
 
 ## 8. 检索记录与预览
 
-- 对照图（此处为三选并排，多角度）：`D:\FPS3D\_sketchfab_goddess\picks.jpg`
+- 对照图（此处为三选并排，多角度）：`D:/FPS3D/FPSGAME/SourceAssets/DungeonGoddessStatue20260922/Research/Candidates/picks.jpg`
 - 全候选缩略图对比：`sheet1.jpg`、`sheet2.jpg`、`sheet3.jpg`
 - 决赛圈多角度：`final_A.jpg`、`final_B.jpg`、`final_C.jpg`
-- 原始检索数据：`_sketchfab_goddess\details.csv`、`finalists.csv`、`_sketchfab_goddess\goddess_names.csv`
+- 原始检索数据：`SourceAssets/DungeonGoddessStatue20260922/Research/Candidates/details.csv`、`finalists.csv`、`SourceAssets/DungeonGoddessStatue20260922/Research/Candidates/goddess_names.csv`
 - 以上均为检索工作产物，未放进仓库，也未下载任何模型本体；模型需登录 Sketchfab 免费账号在各自页面下载（可选 glTF／FBX／OBJ 等转换格式）。
 
 本轮只做检索与看图筛选，未下载模型、未导入 UE、未做验收；最终选用由用户决定。

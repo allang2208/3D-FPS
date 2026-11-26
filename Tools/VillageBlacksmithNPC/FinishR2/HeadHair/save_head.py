@@ -32,3 +32,4 @@ ref,status=G.copy_mesh_from_skeletal_mesh(source,u.DynamicMesh(),u.GeometryScrip
 if status!=u.GeometryScriptOutcomePins.SUCCESS:raise ValueError('R4 bindings unavailable.')
 head=write_skeletal('face.json.gz','SK_Smith_Head',{'SmithMeshyFace':face,'SmithNativeNeck':neck},ref,source)
 (OUT/'saved.json').write_text(json.dumps({'packages':owned,'head':head.get_path_name(),'skeleton':head.skeleton.get_path_name(),'lods':u.get_editor_subsystem(u.SkeletalMeshEditorSubsystem).get_lod_count(head)},indent=2))
+

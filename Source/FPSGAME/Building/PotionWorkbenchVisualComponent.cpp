@@ -6,6 +6,8 @@
 #include "AlchemyWorkbenchLayout.h"
 #include "AlchemyThermometerLayout.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../UI/ColdSteelWorldText.h"
+#include "../WorldGeneration/HillsHerbalistWorkshop.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Components/AudioComponent.h"
@@ -28,6 +30,25 @@ const FSoftObjectPath PlanePath(TEXT("/Engine/BasicShapes/Plane.Plane"));
 const FSoftObjectPath SpherePath(TEXT("/Engine/BasicShapes/Sphere.Sphere"));
 const FSoftObjectPath WaterPath(TEXT("/Game/Props/CastingStation20260926/RealismV5/M_QuenchWater.M_QuenchWater"));
 const FSoftObjectPath TemperatureTextPath(TEXT("/Game/Building/PotionWorkbench20261015/ThermometerV9/M_AlchemyTemperatureText.M_AlchemyTemperatureText"));
+const FName VillageVesselSlots[] = {
+    TEXT("PW_glass"), TEXT("PW_amberglass"), TEXT("PW_clearliquid"),
+    TEXT("PW_redliquid"), TEXT("PW_greenliquid"), TEXT("PW_blueliquid")
+};
+FSoftObjectPath VillageVesselMaterial(FName Slot)
+{
+    const FString Name = TEXT("MI_") + Slot.ToString();
+    return FSoftObjectPath(FString::Printf(TEXT("/Game/Building/PotionWorkbench20261015/V1/HerbalistVessels/%s.%s"), *Name, *Name));
+}
+void ApplyVillageVesselMaterials(UStaticMeshComponent* Bench)
+{
+    for (const FName Slot : VillageVesselSlots)
+    {
+        const int32 Index = Bench->GetMaterialIndex(Slot);
+        if (Index != INDEX_NONE)
+            if (auto* Material = Cast<UMaterialInterface>(VillageVesselMaterial(Slot).ResolveObject()))
+                Bench->SetMaterial(Index, Material);
+    }
+}
 FSoftObjectPath MeshPath(const TCHAR* Name)
 {
     if(FCString::Strcmp(Name,TEXT("Body"))==0)return FSoftObjectPath(TEXT("/Game/Building/PotionWorkbench20261015/ThermometerV9/SM_AlchemyBody.SM_AlchemyBody"));
@@ -54,8 +75,10 @@ void UPotionWorkbenchVisualComponent::Configure(UStaticMeshComponent* Body)
     Original=Body;if(!Body||GetNetMode()==NM_DedicatedServer)return;
     Manual=NewObject<UAlchemyManualComponent>(GetOwner());Manual->SetupAttachment(Original);Manual->RegisterComponent();Manual->Initialize(GetWorld());
     TArray<FSoftObjectPath> Assets;for(auto N:Meshes)Assets.Add(MeshPath(N));Assets.Add(MatPath(TEXT("Liquid")));Assets.Add(MatPath(TEXT("Rune")));
+    if (GetOwner()->IsA<AHillsHerbalistWorkshop>())
+        for (const FName Slot : VillageVesselSlots) Assets.Add(VillageVesselMaterial(Slot));
     Assets.Add(SteamPath);Assets.Add(PlanePath);Assets.Add(SpherePath);Assets.Add(WaterPath);Assets.Add(TemperatureTextPath);
-    Assets.Add(FSoftObjectPath(TEXT("/Engine/EngineFonts/RobotoDistanceField.RobotoDistanceField")));
+    Assets.Emplace(ColdSteelWorldText::Asset);
     for(const TCHAR* N:{TEXT("HeatControl"),TEXT("HeatKnob"),TEXT("ReagentTray"),TEXT("MortarHover"),TEXT("TransferRing"),TEXT("TransferGrain")})Assets.Add(AlchemyInteraction::Asset(*(FString(TEXT("SM_Alchemy"))+N)));
     for(const TCHAR* N:{TEXT("M_AlchemyTransferFluid"),TEXT("M_AlchemyTransferGrain")})Assets.Add(AlchemyInteraction::Asset(N));
     for(const TCHAR* N:{TEXT("M_AlchemyBottlingFlow"),TEXT("M_AlchemyVesselLiquid")})Assets.Add(AlchemyInteraction::BottlingAsset(N));
@@ -82,6 +105,8 @@ void UPotionWorkbenchVisualComponent::Loaded()
 {
     bLoadFinished=true;
     if(!IsValid(Original)||!IsValid(GetOwner()))return;
+    const bool bHerbalistShop = GetOwner()->IsA<AHillsHerbalistWorkshop>();
+    if (bHerbalistShop) ApplyVillageVesselMaterials(Original);
     for(auto N:Meshes)if(!MeshPath(N).ResolveObject())return;
     for(const TCHAR* N:{TEXT("SM_AlchemyHeatControl"),TEXT("SM_AlchemyHeatKnob"),TEXT("SM_AlchemyReagentTray"),TEXT("SM_AlchemyMortarHover"),TEXT("SM_AlchemyTransferRing"),TEXT("SM_AlchemyTransferGrain"),TEXT("M_AlchemyTransferFluid"),TEXT("M_AlchemyTransferGrain")})if(!AlchemyInteraction::Asset(N).ResolveObject())return;
     for(const TCHAR* N:{TEXT("M_AlchemyBottlingFlow"),TEXT("M_AlchemyVesselLiquid")})if(!AlchemyInteraction::BottlingAsset(N).ResolveObject())return;
@@ -95,6 +120,7 @@ void UPotionWorkbenchVisualComponent::Loaded()
         C->SetCollisionEnabled(ECollisionEnabled::NoCollision);C->SetGenerateOverlapEvents(false);C->SetCanEverAffectNavigation(false);
         C->SetMobility(EComponentMobility::Movable);C->SetupAttachment(Original);C->RegisterComponent();Parts.Add(FName(N),C);
     }
+    if (bHerbalistShop) ApplyVillageVesselMaterials(Part(TEXT("Body")));
     for(int32 I=0;I<3;++I)
     {
         auto* C=NewObject<UStaticMeshComponent>(GetOwner());C->SetCollisionEnabled(ECollisionEnabled::NoCollision);C->SetGenerateOverlapEvents(false);C->SetCanEverAffectNavigation(false);
@@ -135,6 +161,7 @@ void UPotionWorkbenchVisualComponent::Loaded()
     GrindAudio=Audio(TEXT("Grind"),FVector(45,-49,100));BoilAudio=Audio(TEXT("Boil"),FVector(225,-106,118));
     CreateInteractionParts();
     TemperatureReadout=NewObject<UTextRenderComponent>(GetOwner());
+    if (auto* Face=Cast<UFont>(FSoftObjectPath(ColdSteelWorldText::Asset).ResolveObject())) TemperatureReadout->SetFont(Face);
     TemperatureReadout->SetupAttachment(Original);
     TemperatureReadout->SetRelativeLocationAndRotation(AlchemyThermometer::ReadoutPosition,AlchemyThermometer::ReadoutRotation);
     TemperatureReadout->SetHorizontalAlignment(EHorizTextAligment::EHTA_Center);

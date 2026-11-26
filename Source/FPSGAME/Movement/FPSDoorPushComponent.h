@@ -19,6 +19,7 @@ public:
     void Advance(float DeltaSeconds);
     void UpdatePresentation();
     bool IsActive() const {return bActive;}
+    bool UsesHandMesh(const UFPSCastingMeshComponent* Mesh) const;
     float GetPresentationWeight() const;
     void Cancel(bool bCompleted=false);
     bool RequestDoorInteraction(AActor* Target);
@@ -43,7 +44,7 @@ private:
     bool Probe(FHitResult& Hit) const;
     bool BeginPush(const FHitResult& Hit);
     void ApplyLoadedHands();
-    bool ServerCanInteract(AActor* Target,bool bSprint,FString* OutReason=nullptr) const;
+    bool ServerCanInteract(AActor* Target,bool bSprint,FString* OutReason=nullptr,FHitResult* OutHit=nullptr) const;
     void AdvanceAuthority(float DeltaSeconds);
     void PlayImpact();
     UFUNCTION(Server,Reliable) void ServerBeginPush(uint16 Sequence,AActor* Target);
@@ -56,6 +57,7 @@ private:
     uint16 LocalSequence=0,ServerSequence=0;
     TWeakObjectPtr<AActor> ServerDoor,PressedDoor;
     float ServerAge=0.f;
+    float ActionRate=1.f,ServerActionRate=1.f;
     double LastServerRequest=-1.;
     /** LastDoor 仍抑制即时连发；一次失败的尝试在 SameDoorRetryAt 之后允许同门重试（>服务端 .2s 节流窗）。 */
     double SameDoorRetryAt=0.;

@@ -8,6 +8,7 @@ tool_dir = str(Path(__file__).resolve().parent)
 if tool_dir not in sys.path:
     sys.path.insert(0, tool_dir)
 from quarry_spoil_surface import apply_weathered_finish
+from import_solid_scans import ensure_solid_scan, merge_cliff_slots
 
 ROOT=Path('D:/FPS3D/FPSGAME')
 TASK=ROOT/'SourceAssets/HillsRiverLake20261117'
@@ -121,13 +122,10 @@ meshes=[]
 for folder,name,uid in scans:
     src=cache/folder/'Extracted'
     mat=scan_material(src,name)
-    solid_r9=DEST+'/Meshes/SM_White'+name+'_SolidR9'
-    solid=ROOT/'SourceAssets/HillsLandscapeRepair20261117/SolidScans'/('SM_White'+name+'_Solid.fbx')
-    if name in ('CliffA','CliffB') and E.does_asset_exist(solid_r9):
-        meshes.append(get(solid_r9))
-    elif name in ('CliffA','CliffB') and solid.exists():
-        mat.set_editor_property('two_sided',False);L.recompile_material(mat);save(mat)
-        meshes.append(import_mesh(solid,'SM_White'+name+'_Solid',mat))
+    if name in ('CliffA', 'CliffB'):
+        mesh, record = ensure_solid_scan(name, mat)
+        meshes.append(mesh)
+        report.setdefault('solid_cliffs', []).append(record)
     else:
         meshes.append(import_mesh(next(src.glob('*.fbx')),'SM_White'+name,mat))
     report['sources'].append({'seller':'Quixel Megascans','url':'https://www.fab.com/listings/'+uid,
@@ -160,7 +158,7 @@ data=get('/Game/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming')
 source=ROOT/'Content/WorldGeneration/TemperateHills/DA_TemperateHillsStreaming.uasset'
 backup=TASK/'Before/DA_TemperateHillsStreaming.uasset'
 if not backup.exists():shutil.copy2(source,backup)
-data.set_editor_property('white_cliff_meshes',meshes)
+data.set_editor_property('white_cliff_meshes',merge_cliff_slots(data.get_editor_property('white_cliff_meshes'),meshes))
 data.set_editor_property('quarry_props',props)
 save(data)
 # Mesh save may mark owned material usage dirty after the initial material save.

@@ -26,6 +26,7 @@ void URiverPilotFXSubsystem::OnWorldBeginPlay(UWorld& InWorld)
         FStreamableDelegate::CreateWeakLambda(this,[this](){PrepareSteamPool();SteamLoad.Reset();}));
     for(ULevel* Level:InWorld.GetLevels())RegisterLevelWater(Level,&InWorld);
     LevelAddedHandle=FWorldDelegates::LevelAddedToWorld.AddUObject(this,&URiverPilotFXSubsystem::RegisterLevelWater);
+    FWorldDelegates::LevelRemovedFromWorld.AddUObject(this,&URiverPilotFXSubsystem::UnregisterLevelWater);
     SplashLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(ImpactTemplate.ToSoftObjectPath(),
         FStreamableDelegate::CreateWeakLambda(this,[this](){PrepareSplashPool(ImpactTemplate.Get());SplashLoad.Reset();}));
 }
@@ -40,6 +41,17 @@ void URiverPilotFXSubsystem::RegisterLevelWater(ULevel* Level,UWorld* World)
         TInlineComponentArray<UStaticMeshComponent*> Meshes(Actor);
         for(auto* Mesh:Meshes)RegisterWaterSurface(Mesh);
     }
+}
+
+void URiverPilotFXSubsystem::UnregisterLevelWater(ULevel* Level,UWorld* World)
+{
+    if(World!=GetWorld())return;
+    StaticSurfaces.RemoveAll([Level](const FRegisteredWaterSurface& Surface)
+    {
+        const auto* Component=Surface.Component.Get();
+        const auto* Owner=Component?Component->GetOwner():nullptr;
+        return !Level||!Owner||Owner->GetLevel()==Level;
+    });
 }
 
 void URiverPilotFXSubsystem::RegisterWaterSurface(UStaticMeshComponent* Component)
@@ -127,6 +139,23 @@ void URiverPilotFXSubsystem::BindRiver(ATemperateHillsWorld* River,TemperateRive
 }
 
 UMaterialInterface* URiverPilotFXSubsystem::GetRiverMaterial() const{return WaterMID.Get();}
+void URiverPilotFXSubsystem::BindForestWater(ATemperateHillsWorld* River,TemperateForestWater::FPlanPtr Plan,UMaterialInterface* Material)
+{
+    if(!River || (OwnerRiver.IsValid() && River!=OwnerRiver.Get()))return;
+    if(!OwnerRiver.IsValid())
+    {
+        if(!River->IsForestVillage() || !Plan || !Material)return;
+        OwnerRiver=River;
+    }
+    ForestWaterPlan=Plan;
+    if(!ForestWaterMID&&Material)
+    {
+        ForestWaterMID=UMaterialInstanceDynamic::Create(Material,this);
+        for(int32 I=0;I<RippleSlots;++I)ForestWaterMID->SetVectorParameterValue(
+            FName(*FString::Printf(TEXT("WaterHit%d"),I)),FLinearColor(0,0,-10000,0));
+    }
+}
+UMaterialInterface* URiverPilotFXSubsystem::GetForestWaterMaterial() const{return ForestWaterMID.Get();}
 
 bool URiverPilotFXSubsystem::FindStaticCrossing(const FVector& Start,const FVector& End,FVector& Position,
     FVector& Normal,UMaterialInstanceDynamic*& Material,float& Scale) const
@@ -168,6 +197,13 @@ bool URiverPilotFXSubsystem::FindWaterCrossing(const FVector& Start,const FVecto
     if(OwnerRiver.IsValid()&&WaterMID&&RiverPlan&&RiverPlan->IntersectWaterSegment(Start,End,
         0.,RiverPlan->Points.Last().Distance,Position,Normal,Along)
         &&OwnerRiver->Height(Position.X,Position.Y)<Position.Z-1.)Material=WaterMID;
+    if(ForestWaterPlan&&ForestWaterMID&&OwnerRiver.IsValid())
+    {
+        FVector PoolPoint;
+        if(ForestWaterPlan->IntersectSegment(Start,Material?Position:End,PoolPoint)
+            &&OwnerRiver->Height(PoolPoint.X,PoolPoint.Y)<PoolPoint.Z-1)
+        {Position=PoolPoint;Normal=FVector::UpVector;Material=ForestWaterMID;Scale=.55f;}
+    }
     const FVector WaterEnd=Material?Position:End;
     Contact.Static=FindStaticCrossing(Start,WaterEnd,Position,Normal,Material,Scale);
     Contact.Position=Position;Contact.Normal=Normal;Contact.Material=Material;Contact.Scale=Scale;
@@ -275,12 +311,14 @@ void URiverPilotFXSubsystem::UnbindRiver(ATemperateHillsWorld* River)
 {
     if(River&&River!=OwnerRiver.Get())return;
     WaterMID=nullptr;RiverPlan.Reset();OwnerRiver.Reset();
+    ForestWaterMID=nullptr;ForestWaterPlan.Reset();
 }
 
 void URiverPilotFXSubsystem::Deinitialize()
 {
     EndNativeOptics();
     FWorldDelegates::LevelAddedToWorld.Remove(LevelAddedHandle);
+    FWorldDelegates::LevelRemovedFromWorld.RemoveAll(this);
     if(SplashLoad){SplashLoad->CancelHandle();SplashLoad.Reset();}
     if(SteamLoad){SteamLoad->CancelHandle();SteamLoad.Reset();}
     for(auto& FX:SteamPool)if(FX)

@@ -111,6 +111,12 @@ bool UDungeonRoomSubsystem::LocalAssemblyReady(FGuid Instance) const
     return Instance.IsValid()&&Instance==LoadedInstance&&Streaming&&Streaming->IsLevelVisible()
         &&G&&G->ActorHasTag(TEXT("DungeonAssembly.Ready"));
 }
+ULevel* UDungeonRoomSubsystem::ReadyDungeonLevel() const
+{
+    // MapLevel checks the run's bound generator directly during position sampling.
+    return RoomState && LoadedInstance.IsValid() && RoomState->Instance==LoadedInstance && Streaming && Streaming->IsLevelVisible()
+        ? Streaming->GetLoadedLevel() : nullptr;
+}
 bool UDungeonRoomSubsystem::QueueEntry(const TArray<AColdSteelPlayerState*>& Players,FString& Reason)
 {
     if(GetWorld()->GetNetMode()==NM_Client||Players.IsEmpty())return false;

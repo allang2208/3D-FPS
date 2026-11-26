@@ -4,6 +4,7 @@
 #include "GameFramework/SaveGame.h"
 #include "CollisionQueryParams.h"
 #include "VoxelBuildTypes.h"
+#include "VoxelBuildUndoHistory.h"
 #include "VoxelBuildWorld.generated.h"
 
 class UVoxelBuildPalette;
@@ -12,6 +13,7 @@ class UMaterialInterface;
 class UPhysicalMaterial;
 class AVoxelCollapseFragment;
 class AVoxelBuildPrefabActor;
+class ATemperateHillsWorld;
 struct FVoxelSupportGraph;
 struct FVoxelBuildRuntime;
 struct FVoxelGeometry;
@@ -26,10 +28,13 @@ public:
     // count to jobs and furnace upgrade level to fuel records; version 8 adds the idle-fire clock;
     // version 9 splits upgrades into three axes; version 10 adds casting queues and output racks.
     // 该默认值是 UHT 字面量，升版本时必须与 VoxelBuildPersistence.h 的 GVoxelBuildSaveVersion 同步。
-    UPROPERTY() int32 Version=14;
+    UPROPERTY() int32 Version=21;
+    UPROPERTY() bool bWorkshopTowerGranted=false;
     UPROPERTY() int32 CellSizeCm=20;
     UPROPERTY() FString WorldKey;
     UPROPERTY() TArray<FVoxelSavedCell> Cells;
+    // v12（2026-10-15 屋顶楔形格）：格子切割形状（VoxelCut 编码），仅记录非 0 条目；
+    // 旧档无此字段＝全部整格，反射读入为空表，语义一致。
     UPROPERTY() TMap<FIntVector,uint8> CellShapes;
     UPROPERTY() TArray<FVoxelFreeVolume> FreeVolumes;
     UPROPERTY() TMap<FVoxelBuildKey,float> Damage;
@@ -50,7 +55,12 @@ UCLASS(BlueprintType)
 class FPSGAME_API AVoxelBuildWorld : public AActor
 {
     GENERATED_BODY()
+    friend class ULargeLambMealAuditCommandlet;
+    friend class UColdSteelPlantingAuditCommandlet;
     friend class AAlchemyManualNetAuditGameMode;
+    friend class AEnhancementEscrowWireGameMode;
+    friend class UColdSteelSharedInventorySubsystem;
+    friend class UTemperateVillageCheckCommandlet;
 public:
     AVoxelBuildWorld();
     AVoxelBuildWorld(FVTableHelper& Helper);
@@ -65,12 +75,12 @@ public:
     static FVector CellCenter(FIntVector Cell);
     static FIntVector ChunkFor(FIntVector Cell);
     bool Initialize(const FString& InWorldKey,UVoxelBuildPalette* InPalette);
+    void TryGrantWorkshopTower();
     bool MakeNetworkSnapshot(TArray<uint8>& Out) const;
     bool ApplyNetworkSnapshot(const TArray<uint8>& Bytes);
     uint64 NetworkRevision=1;
     bool bNetworkTransaction=false;
     bool ExecuteNetworkEdit(const struct FColdSteelInventoryRequest& Request,class UColdSteelStatusModel* Model,FString& Reason);
-    TMap<TWeakObjectPtr<class APlayerState>,TArray<TArray<FVoxelEditCell>>> PlayerHistory;
     /** Test/diagnostic entry: initialise with the default palette and no player controller
         so Tools/Building/audit_voxel_placement.py can reproduce placement reports headless. */
     UFUNCTION(BlueprintCallable,Category="Building|Debug") bool DebugInitialize(const FString& InWorldKey);
@@ -78,6 +88,16 @@ public:
     UFUNCTION(BlueprintPure,Category="Building") int32 BlockCount() const;
     UFUNCTION(BlueprintPure,Category="Building") int32 UnsupportedBlockCount() const;
     UFUNCTION(BlueprintCallable,Category="Building") bool EditCells(const TArray<FIntVector>& Positions,FName Material);
+    /** 诊断（2026-10-16）：当前世界格子里的楔形切割条目数与单格取值（commandlet/验收用）。 */
+    UFUNCTION(BlueprintPure,Category="Building|Debug") int32 DebugCutCount() const {return CellShapes.Num();}
+    UFUNCTION(BlueprintPure,Category="Building|Debug") int32 DebugCutAt(FIntVector Cell) const {return CellShapes.FindRef(Cell);}
+    /** 诊断（2026-10-17）：无 tick 环境（commandlet）里强制同步落盘，供存档字节级验收。 */
+    UFUNCTION(BlueprintCallable,Category="Building|Debug") bool DebugFlushSave();
+    /** 诊断（2026-10-17）：commandlet 里注入 VBX 字节（绕开放置校验），隔离验证序列化/网格链路。 */
+    UFUNCTION(BlueprintCallable,Category="Building|Debug") bool DebugApplySnapshotBytes(const TArray<uint8>& Bytes);
+    /** 带楔形切割的放置（2026-10-15）：Shapes 与 Positions 按下标平行，0=整格。
+     *  拆除（Material 空）时忽略形状。 */
+    UFUNCTION(BlueprintCallable,Category="Building") bool EditCellsShaped(const TArray<FIntVector>& Positions,FName Material,const TArray<uint8>& Shapes);
     /** 撤销 = 拆除最后一批**放置**（不再把拆掉的东西变回来）；拆下来的方块由调用方回收进背包。 */
     UFUNCTION(BlueprintCallable,Category="Building") bool Undo();
     bool Undo(TMap<FName,int32>* OutRemovedBlocks);
@@ -88,17 +108,21 @@ public:
     FGuid CampfireIdentity(FIntVector Cell) const;
     void WriteCampfireState(FIntVector Cell,const struct FCampfireSharedState& State);
     const FString& BuildingWorldKey() const { return WorldKey; }
+    FGuid PrefabInstanceIdentity(FIntVector Cell) const
+    {const auto* Piece=Prefabs.FindByPredicate([Cell](const auto& P){return P.Cell==Cell;});return Piece?Piece->InstanceId:FGuid();}
     UFUNCTION(BlueprintCallable,Category="Building|Structure") void SetAppliedLoad(FName LoadId,FVector ContactPoint,float MassKg);
     UFUNCTION(BlueprintCallable,Category="Building|Damage") void DamageBuilding(FVector Position,float Amount,float RadiusCm=0);
     bool CanPlace(const TArray<FIntVector>& Positions,FName Material,FString& Reason) const;
     FName VolumeMaterialAt(FGuid Volume,FIntVector Cell) const;
     FVector VolumeOrigin(FGuid Volume) const;
-    bool CanPlaceInVolume(FGuid Volume,const TArray<FIntVector>& Positions,FName Material,FString& Reason) const;
-    bool CanPlaceFree(FVector Origin,const TArray<FIntVector>& Positions,FName Material,FString& Reason) const;
-    bool EditVolumeCells(FGuid Volume,const TArray<FIntVector>& Positions,FName Material);
+    bool CanPlaceInVolume(FGuid Volume,const TArray<FIntVector>& Positions,FName Material,FString& Reason,const TArray<uint8>* Shapes=nullptr) const;
+    bool CanPlaceFree(FVector Origin,const TArray<FIntVector>& Positions,FName Material,FString& Reason,const TArray<uint8>* Shapes=nullptr) const;
+    bool EditVolumeCells(FGuid Volume,const TArray<FIntVector>& Positions,FName Material,const TArray<uint8>* Shapes=nullptr);
     bool PlaceFree(FVector Origin,const TArray<FIntVector>& Positions,FName Material);
     bool ResolveGroundPlacement(const FHitResult& Surface,FIntVector Size,bool bSnap,
-        FVector& Origin,TArray<FIntVector>& Positions,FString& Reason) const;
+        FVector& Origin,TArray<FIntVector>& Positions,FString& Reason,
+        /** 非 Box 笔刷的真实格子模板（相对包围盒最小角）；空=按 Size 整盒（旧行为）。 */
+        const TArray<FIntVector>* ShapeTemplate=nullptr) const;
     bool ResolveHit(const FHitResult& Hit,FVoxelBuildKey& Key) const;
     /**
      * 门／窗／柱等**已放置构件**的碰撞面也是体素焊接目标（2026-09-19）：命中构件自身碰撞时，
@@ -114,6 +138,8 @@ public:
     bool IsPrefabCell(FGuid Volume,FIntVector Cell) const;
     /** 世界最小角对应格的六面对面邻居里有构件占格：构件为体素提供支撑锚（2026-09-19）。 */
     bool PrefabSupportAt(FVector WorldMin) const;
+    void OnVillageSupportChanged(const class AVillageDefenseSection& Section);
+    void RefreshReplicatedVillagePiece(AVoxelBuildPrefabActor& Piece);
     /** 瞄准格落在构件占格内时，给出该列"占格顶之上"那一格（仰视门框侧面＝框上砌块的手势，2026-09-19）。 */
     bool PrefabColumnTop(FIntVector Cell,FIntVector& OutTopCell) const;
     bool IsReady() const {return bReady;}
@@ -142,12 +168,15 @@ public:
     /** 过载渐进损伤：按经过时间给过载格累积损伤，损伤满耐久才掉块。 */
     void ApplyOverloadDamage(const TArray<struct FVoxelOverloadCell>& Overload,double Seconds);
     /** Prefabricated pieces (roman column, balustrade, ...) placed on the 20 cm lattice. */
-    UFUNCTION(BlueprintCallable,Category="Building|Prefab") bool PlacePrefab(FName Id,FIntVector Cell,int32 Yaw=0);
+    UFUNCTION(BlueprintCallable,Category="Building|Prefab") bool PlacePrefab(FName Id,FIntVector Cell,int32 Yaw=0,bool bDocked=false,AActor* DockTarget=nullptr,int32 GroundYawDegrees=-1,bool bReplaceWall=false,int64 ExpectedWallSelection=-1);
     UFUNCTION(BlueprintCallable,Category="Building|Prefab") bool RemovePrefab(AActor* Piece);
     UFUNCTION(BlueprintPure,Category="Building|Prefab") int32 PrefabCount() const {return Prefabs.Num();}
     /** 该锚格上是否还有一件**在记录里**的构件（落体件不算：它已离开 Prefabs）。 */
     bool HasPrefabAt(FIntVector Cell) const
-    {return Prefabs.ContainsByPredicate([Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell;});}
+    {return SceneStations.FindRef(Cell).IsValid()||Prefabs.ContainsByPredicate([Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell;});}
+    /** Fixed scene stations are owned by their scene save, never serialized as player construction. */
+    void RegisterSceneStation(AVoxelBuildPrefabActor* Station);
+    void UnregisterSceneStation(AVoxelBuildPrefabActor* Station);
     /**
      * 炉内冶炼（VBX v6，随构件记录同生共死）：任务与燃料都按高炉锚格存。
      * 进度模型＝已积累秒数＋当前燃烧段（UTC ticks），燃料耗尽即停炉；
@@ -157,8 +186,7 @@ public:
     /** 就地结算入口——只应被 UColdSteelSmeltingSystem 的 Settle/AddFuel 使用。 */
     FVoxelSmeltingJob* FindSmeltingMutable(FIntVector Cell);
     /** 该锚格上是一件**在记录里**的高炉（Id 匹配稳定键）。燃料/开炉入口用它把关。 */
-    bool IsFurnaceAt(FIntVector Cell) const
-    {return Prefabs.ContainsByPredicate([Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell&&E.Id==VoxelSmeltingFurnaceId;});}
+    bool IsFurnaceAt(FIntVector Cell) const;
     bool IsCampfireAt(FIntVector Cell) const
     {return Prefabs.ContainsByPredicate([Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell&&E.Id==FName(TEXT("campfire"));});}
     bool IsFuelStationAt(FIntVector Cell) const {return IsFurnaceAt(Cell)||IsCampfireAt(Cell);}
@@ -188,9 +216,12 @@ public:
      *  false=背包放不下，状态保留、拒绝拆除。 */
     bool RefundSmeltingAt(FIntVector Cell,FString& Reason);
     /** bSurfaceBacked：本次瞄准命中了竖直表面（壁挂构件用它代替地面/邻接支撑判定）。 */
-    bool CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString& Reason,bool bSurfaceBacked=false) const;
+    bool CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString& Reason,bool bSurfaceBacked=false,bool bDocked=false,
+        const AActor* DockTarget=nullptr,FTransform* OutPlacementPose=nullptr,int32 GroundYawDegrees=INDEX_NONE,bool bReplaceWall=false,
+        TArray<FVillageGateCut>* OutCuts=nullptr,TArray<FTransform>* PreviewBars=nullptr) const;
+    void ApplyGateCutToWall(class AVillageDefenseSection& Wall) const;
     /** 构件底面下有没有地形（中心＋四角共 5 个探测点，与体素地面锚定同一口径）。 */
-    bool IsPrefabOnGround(FIntVector AnchorCell,FIntVector Footprint) const;
+    bool IsPrefabOnGround(FIntVector AnchorCell,FIntVector Footprint,TSet<FIntVector>* SupportingPieces=nullptr) const;
     /**
      * 构件是否"有着落"（2026-09-18 用户报"拆掉周围方块后窗悬空"）：
      *   ① 底面下有地形（与体素共用同一个地面锚定口径 IsGroundAnchor）；
@@ -199,26 +230,32 @@ public:
      * 三条都不成立就是悬空：放置会被拒绝，已放置的会在附近体素被拆／倒塌后脱落。
      * 大件按格子抽样（实现里有采样上限），超大构件理论上可能漏判一次接触。
      */
-    bool IsPrefabSupported(const FVoxelBuildPrefabInstance& Instance,FIntVector* OutContact=nullptr) const;
+    bool IsPrefabSupported(const FVoxelBuildPrefabInstance& Instance,FIntVector* OutContact=nullptr,
+        TSet<FIntVector>* SupportingPieces=nullptr) const;
     /** 体素改动后：改动点一格以内的构件若失去支撑就脱落（与右键拆除同一条路径，不退还材料）。 */
     void VerifyPrefabSupport(const TArray<FVoxelEditCell>& Edit);
     /**
      * 构件被拆除／脱落后：检查腾出格的六面邻格里的体素节点，原来把构件当支撑锚的全部重判
      * （地面锚定＋构件邻接口径），失去锚定的改判 bAnchor=false 并标脏，交给承重解算按既有流程倒塌。
      */
-    void ReanchorVoxelsAround(const TArray<FIntVector>& VacatedCells);
+    void ReanchorVoxelsAround(const TArray<FIntVector>& VacatedCells,bool bIncludeInterior=false,bool bRestored=false);
+    bool CanBearLoadAt(FIntVector Anchor,FIntVector Cell) const;
+    bool FindWallBacking(const FVoxelBuildPrefabInstance& Piece,FHitResult& Surface) const;
     UPhysicalMaterial* ContactMaterial() const {return StructuralContact;}
     void QueueFragmentDamage(AVoxelCollapseFragment* Fragment,FVector Position,float Amount,float Radius,float Energy);
     void QueueCollapseImpact(AActor* Other,const FHitResult& Hit,float Energy);
 
 private:
+    bool HasVoxelFoundation(const FVoxelBuildKey& Key,const FCollisionQueryParams& GroundParams) const;
     UPROPERTY() TObjectPtr<UVoxelBuildPalette> Palette;
     UPROPERTY() TMap<FVoxelBuildKey,TObjectPtr<UDynamicMeshComponent>> Chunks;
     UPROPERTY() TArray<TObjectPtr<UMaterialInterface>> SurfaceMaterials;
     UPROPERTY() TObjectPtr<UPhysicalMaterial> StructuralContact;
     UPROPERTY() TMap<FGuid,TObjectPtr<AVoxelCollapseFragment>> Fragments;
     UPROPERTY() TMap<FIntVector,TWeakObjectPtr<AActor>> PrefabActors;
+    UPROPERTY(Transient) TMap<FIntVector,TWeakObjectPtr<AVoxelBuildPrefabActor>> SceneStations;
     TMap<FIntVector,FName> Cells;
+    /** 楔形格切割（VoxelCut 编码，仅世界格子；自由体积暂不切割）。与 Cells 同增删。 */
     TMap<FIntVector,uint8> CellShapes;
     TMap<FGuid,FVoxelFreeVolume> FreeVolumes;
     TArray<FVoxelBuildPrefabInstance> Prefabs;
@@ -226,13 +263,12 @@ private:
     TArray<FVoxelSmeltingJob> SmeltingJobs;
     /** 各炉存料（秒）：跨批次保留，拆除时折回木材退库。 */
     TArray<FVoxelFurnaceFuel> Fuels;
-    TSet<FIntVector> PrefabCells;
     /** 自由体积格 → 世界格反查表（2026-10-13 审计修复中危#3）：构件放置校验要用。
      *  CanPlaceAt 的 Overlaps 已保证任意格的世界位置唯一（世界格/各体积格互不重叠），
      *  所以一张以世界格为键的表就无歧义。由 SetCell 增量维护，加载与网络快照路径整表重建。 */
     TSet<FIntVector> FreeVolumeWorldCells;
-    /** 占格 → 所属构件的锚格：支撑判定要区分"这格是别的构件"（含自己的格子）。 */
-    TMap<FIntVector,FIntVector> PrefabCellOwner;
+    /** A flush angled joint can reserve the same lattice cell on behalf of both pieces. */
+    TMultiMap<FIntVector,FIntVector> PrefabCellOwners;
     // 审计 P23（2026-09-21 移除）：原 `TMap<FVoxelBuildKey,bool> AnchorCache` 全目录只有写入
     // 与删除、**没有任何读取**，所以它一条射线都没省下，只是每格多占一个 TMap 条目
     // （键 28B + bool + 哈希槽；2 万格约 0.6 MB）。已确认 AnchorCache 不在任何回归面上：
@@ -241,18 +277,17 @@ private:
     TSet<FVoxelBuildKey> LegacyProtected;
     TSharedPtr<FVoxelSupportGraph> SupportGraph;
     TUniquePtr<FVoxelBuildRuntime> Runtime;
-    TArray<TArray<FVoxelEditCell>> History;
-    /** 最近一次放置的构件（2026-10-13 审计修复中危#5）：体素撤销历史为空时，Ctrl+Z 回落到
-     *  拆除它。单槽、免料放置→免料撤销（无物品流）；手动拆除/脱落即失效（"拆除后不可撤销"
-     *  与体素同一口径）。多人下是全局槽：任何玩家可撤最近放置的构件（按玩家分栈待后续立项）。 */
-    FVoxelBuildPrefabInstance LastPlacedPrefab;
-    bool bHasLastPlacedPrefab=false;
+    FVoxelBuildUndoHistory UndoHistory;
+    APlayerState* UndoPlayer=nullptr; // Scoped only while handling a server build request.
+    bool DismantlePrefab(AActor* Piece,bool bManual);
     TMap<FName,int32> MaterialSlots;
     FString WorldKey,SaveSlot,Message;
     uint64 Revision=0;
     bool bReady=false,bClosing=false;
+    bool bWorkshopTowerGranted=false;
+    FTimerHandle WorkshopTowerRetry;
     bool Commit(const TArray<FVoxelEditCell>& Edit,bool bRemember);
-    bool CanPlaceAt(FVector Origin,const TArray<FIntVector>& Positions,FName Material,FString& Reason) const;
+    bool CanPlaceAt(FVector Origin,const TArray<FIntVector>& Positions,FName Material,FString& Reason,const TArray<uint8>* Shapes=nullptr) const;
     /** CachedParams 由调用方在格循环外构造一次（审计 P3）：本函数会被 CanPlaceAt 逐格调用，
      *  而 VoxelGrounding::Query 每次构造都要遍历全部 Pawn。传 nullptr 时自行构造。 */
     bool ScenePlacementAllowed(FVector Min,FString& Reason,bool* OutAnchor=nullptr,const FCollisionQueryParams* CachedParams=nullptr) const;
@@ -264,7 +299,29 @@ private:
      *  存档/快照里的断键显式传进来，否则已碎裂的接缝会重新连通（详见调用点注释）。 */
     void RefreshSupportGraph(const TSet<FVoxelBrokenBond>* InheritBroken=nullptr);
     AVoxelBuildPrefabActor* SpawnPrefab(const FVoxelBuildPrefabInstance& Instance);
+    mutable TWeakObjectPtr<ATemperateHillsWorld> VillageConstructionWorld;
+    ATemperateHillsWorld* FindVillageConstructionWorld() const;
+    TSet<FGuid> RemovedVillageDefenses;
+    void ForgetSavedDefenseRemovals();
     void RefreshPrefabOccupancy();
+    void AddPrefabOccupancy(const FVoxelBuildPrefabInstance& Instance,TArray<FIntVector>& Scratch);
+    void AddNearbyPrefabOwners(FIntVector Cell,TSet<FIntVector>& Out) const;
+    void DropUnsupportedPrefabs(const TSet<FIntVector>& Candidates);
+    void RemovePrefabOccupancy(FIntVector Anchor,const TArray<FIntVector>& Occupied);
+    void GateWallCells(const FVoxelBuildPrefabInstance& Gate,TArray<FIntVector>& Changed,TArray<TPair<FBox,FTransform>>* RestoredBoxes=nullptr) const;
+    bool CanRestoreGateWalls(FIntVector GateCell,FString& Reason) const;
+    void FillPrefabCells(const FVoxelBuildPrefabInstance& Instance,TArray<FIntVector>& Out) const;
+    TMap<FGuid,FVector2D> CutPlacedWalls;
+    TMap<int32,FVector2D> CutVillageWalls;
+    mutable FName CachedGridRecipe;
+    mutable FTransform CachedGridPose;
+    mutable TOptional<FIntVector> CachedGridMate;
+    mutable TSet<FIntVector> CachedGridWallAnchors;
+    mutable bool bCachedWallReplacement=false;
+    mutable uint64 CachedGridRevision=0;
+    mutable FString CachedGridConflict;
+    mutable TOptional<bool> CachedGridSupport;
+    mutable FIntVector CachedSupportContact=FIntVector::ZeroValue;
     void SetCell(const FVoxelEditCell& Edit,bool bAfter);
     void ApplyChanges(const TArray<FVoxelEditCell>& Edit);
     void RebuildAffected(const TArray<FVoxelEditCell>& Edit);

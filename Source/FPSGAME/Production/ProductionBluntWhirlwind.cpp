@@ -1,4 +1,8 @@
 #include "ProductionToolComponent.h"
+#include "../Weapons/PojunGrip.h"
+#include "../Weapons/ZhufengSecondaryWhirlwind.h"
+#include "../Weapons/RuneSwordOverheadRhythm.h"
+#include "../Movement/FPSCharacterMovementComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../FPSGAMEPlayerController.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -24,7 +28,7 @@
 
 namespace
 {
-bool CanWhirlwind(AFPSGAMECharacter* Pawn,UColdSteelStatusModel* Profile)
+bool CanWhirlwind(AFPSGAMECharacter* Pawn,UColdSteelStatusModel* Profile,bool bContinuing=false)
 {
     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
     const auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
@@ -32,11 +36,12 @@ bool CanWhirlwind(AFPSGAMECharacter* Pawn,UColdSteelStatusModel* Profile)
     const auto* Build=PC?PC->FindComponentByClass<UVoxelBuildComponent>():nullptr;
     const auto* PS=Pawn?Pawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
     const auto* Sword=Pawn?Pawn->FindComponentByClass<URuneSwordComponent>():nullptr;
-    return Pawn&&Item&&ColdSteelInventory::IsTwoHandedBlunt(*Item)&&PC&&
-        (!Sword||!Sword->IsGuarding())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&
+    const auto* Tool=Pawn?Pawn->FindComponentByClass<UProductionToolComponent>():nullptr;
+    return Pawn&&Item&&PojunGrip::UsesHammerMotion(*Item)&&PC&&
+        (!Sword||(!Sword->IsGuarding()&&!Sword->IsPojunChainOccupied()))&&(!Tool||!Tool->IsThunderHammerAway())&&(!PS||!PS->IsQuickCombatExecuting(Pawn))&&
         !Pawn->IsTraversing()&&!Pawn->IsDodging()&&!Pawn->IsSliding()&&!Pawn->IsCastBlockingLeftHandAction()&&
         !UBoundCongregateCaptureComponent::IsCaptured(Pawn)&&(!Health||!Health->IsDead())&&
-        !AFPSGAMEPlayerController::BlocksOngoingActions(PC)&&(!Build||!Build->IsBuilding());
+        !(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):AFPSGAMEPlayerController::BlocksOngoingActions(PC))&&(!Build||!Build->IsBuilding());
 }
 const FSoftObjectPath Whoosh(TEXT("/Game/Weapons/SteelWarhammer20261014/NormalSwingAudioV1/S_Warhammer_NormalSwing.S_Warhammer_NormalSwing"));
 }
@@ -60,7 +65,7 @@ bool UProductionToolComponent::BeginWhirlwind()
 void UProductionToolComponent::ServerBeginBluntWhirlwind_Implementation(uint32 AttackId)
 {
     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
-    if(!CanWhirlwind(Pawn,Profile)||bBluntUppercut||bBluntWhirlwind||bBluntServerCharging||GetWorld()->GetTimeSeconds()<BluntServerReadyAt)
+    if(!CanWhirlwind(Pawn,Profile)||IsLeapStrikeActive()||bBluntUppercut||bBluntWhirlwind||bBluntServerCharging||GetWorld()->GetTimeSeconds()<BluntServerReadyAt)
     {ClientBluntWhirlwindResult(AttackId,false);return;}
     ColdSteelAuthority::FScope Scope(Profile);
     const float StaminaBefore=Profile->Stamina();
@@ -90,20 +95,39 @@ void UProductionToolComponent::StartBluntWhirlwind(UColdSteelStatusModel* Profil
     BluntWhirlwindImpactAge=1.f;BluntWhirlwindImpactStrength=1.f;
     BluntWhirlwindHitCount=BluntWhirlwindKillCount=0;BluntWhirlwindHitActors.Reset();
     BluntWhirlwindInstance=Item->InstanceId;BluntWhirlwindYaw=Character->GetControlRotation().Yaw;
-    BluntWhirlwindCast=Profile->WhirlwindStats();BluntWhirlwindTuning=Profile->MasteryDefinition(TEXT("whirlwind")).Whirlwind;
+    const bool Zhufeng=PojunAttack==PojunGrip::EAttack::Zhufeng;
+    BluntWhirlwindCast=Zhufeng?Profile->ZhufengWhirlwindStats():Profile->WhirlwindStats();
+    BluntWhirlwindTuning=Profile->MasteryDefinition(TEXT("whirlwind")).Whirlwind;
+    if(Zhufeng)BluntWhirlwindTuning=ZhufengSecondaryWhirlwind::Resolve(BluntWhirlwindTuning);
     ApplyToolStats(Item,Profile);
     SetTickGroup(TG_PostPhysics);
-    BluntWhirlwindShot=ColdSteelSkills::Snapshot(Character.Get(),Item);BluntWhirlwindShot.bMelee=true;
+    BluntWhirlwindShot=Zhufeng?AxeStrike:ColdSteelSkills::Snapshot(Character.Get(),Item);BluntWhirlwindShot.bMelee=true;
     BluntWhirlwindShot.AttackMeta|=0x20;BluntWhirlwindShot.WeakpointPercent=0.f;
     const double Total=ToolStats.Damage.Total();
     BluntWhirlwindShot.DamagePanel=ToolStats.Damage.Scaled(Total>0.?BluntWhirlwindCast.Damage/Total:0.);
     BluntWhirlwindShot.ToughnessDamageMultiplier=float(ToolStats.ToughnessDamage);
-    BluntWhirlwindShot.CriticalChance=FMath::Clamp(BluntWhirlwindShot.CriticalChance+float(ToolStats.CriticalChanceAdd),0.f,100.f);
+    if(!Zhufeng)BluntWhirlwindShot.CriticalChance=FMath::Clamp(BluntWhirlwindShot.CriticalChance+float(ToolStats.CriticalChanceAdd),0.f,100.f);
     bQueuedBluntAttack=false;bBluntHeavy=bBluntSprintAttack=false;NextBluntStage=0;
     BluntSprintSeconds=0.f;BluntSprintReadyAt=-100.;
     const auto& T=BluntWhirlwindTuning;
-    BluntServerReadyAt=GetWorld()->GetTimeSeconds()+T.ReadySeconds+T.SpinSeconds+T.RecoverSeconds+T.HitStopBudget;
+    BluntServerReadyAt=GetWorld()->GetTimeSeconds()+(T.ReadySeconds+T.SpinSeconds+T.RecoverSeconds+T.HitStopBudget)/HasteActionRate;
+    if(Zhufeng&&Character->IsSliding())Character->StopSlide(true);
     Character->StopMovementForMeleeSkill();
+    if(Zhufeng)
+    {
+        const float Travel=T.ReadySeconds+T.SpinSeconds;
+        BluntSprintDirection=FRotator(0.f,BluntWhirlwindYaw,0.f).Vector();
+        BluntSprintLungeDistance=Travel*Profile->DashAttackStats().DistanceCM/RuneSwordOverheadRhythm::DashWindupSeconds;
+        BluntServerSprintStartedAt=GetWorld()->GetTimeSeconds();
+        BluntServerSprintMoveUntil=BluntServerSprintStartedAt+Travel/HasteActionRate+.1f;
+        bBluntSprintLungeBlocked=false;
+        if(Character->IsLocallyControlled())
+            if(auto* Move=Cast<UFPSCharacterMovementComponent>(Character->GetCharacterMovement()))
+            {
+                Move->PendingLaunchVelocity.X=Move->PendingLaunchVelocity.Y=0.f;
+                Move->BeginMeleeLungeRequest(EFPSMeleeMove::Dash,BluntSprintDirection,BluntAttackId);
+            }
+    }
     if(Character->IsLocallyControlled())BeginBluntWhirlwindFocus();
 }
 
@@ -121,9 +145,12 @@ void UProductionToolComponent::TickBluntWhirlwind(float Delta)
     auto* Pawn=Character.Get();if(!Pawn)return;
     auto* Profile=Pawn->HasAuthority()?ColdSteelAuthority::ForPawn(Pawn):GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
-    if(!CanWhirlwind(Pawn,Profile)||!Item||Item->InstanceId!=BluntWhirlwindInstance)
+    const bool Zhufeng=PojunAttack==PojunGrip::EAttack::Zhufeng;
+    if(!CanWhirlwind(Pawn,Profile,true)||!Item||Item->InstanceId!=BluntWhirlwindInstance||
+        !PojunAttackStillEquipped(*Item))
     {FinishBluntWhirlwind();return;}
     const auto& T=BluntWhirlwindTuning;
+    Delta*=HasteActionRate;
     const float Pause=FMath::Min(Delta,BluntWhirlwindPause);BluntWhirlwindPause-=Pause;Delta-=Pause;
     if(Delta<=0.f)
     {
@@ -137,17 +164,20 @@ void UProductionToolComponent::TickBluntWhirlwind(float Delta)
     {
         const float Step=FMath::Min(Remaining,1.f/120.f),Before=BluntWhirlwindTime;
         BluntWhirlwindTime+=Step;Remaining-=Step;
+        if(Zhufeng&&Pawn->IsLocallyControlled())AdvanceBluntSprintLunge(Before,BluntWhirlwindTime);
         const float A=WhirlwindFeel::Phase(Before,T),B=WhirlwindFeel::Phase(BluntWhirlwindTime,T);
         FRotator Aim=Pawn->GetControlRotation();Aim.Yaw=BluntWhirlwindYaw+T.TurnDegrees*B;
         Pawn->GetController()->SetControlRotation(Aim);
-        if(Pawn->IsLocallyControlled())
-            if(auto* Sound=Cast<USoundBase>(Whoosh.ResolveObject()))
-                if((A<.035f&&B>=.035f)||(A<.535f&&B>=.535f))UGameplayStatics::PlaySound2D(this,Sound,.7f,B<.5f?.9f:1.05f);
+        if(Pawn->IsLocallyControlled()&&((A<.035f&&B>=.035f)||(!Zhufeng&&A<.535f&&B>=.535f)))
+        {
+            if(bPojunGrip)PlayPojunSwing(B<.5f?.95f:.78f,B<.5f?.9f:1.1f);
+            else if(auto* Sound=Cast<USoundBase>(Whoosh.ResolveObject()))UGameplayStatics::PlaySound2D(this,Sound,.7f,B<.5f?.9f:1.05f);
+        }
         if(Pawn->HasAuthority()&&B>A)SweepBluntWhirlwind(T.TurnDegrees*A,T.TurnDegrees*B);
         if(BluntWhirlwindPause>0.f)break;
     }
     if(!bBluntWhirlwind)return;
-    Pawn->FaceRotation(Pawn->GetControlRotation(),0.f);
+    Pawn->FaceRotation(Zhufeng?FRotator(0.f,BluntWhirlwindYaw,0.f):Pawn->GetControlRotation(),0.f);
     if(BluntWhirlwindTime>=T.ReadySeconds+T.SpinSeconds)TrainBluntWhirlwind();
     if(BluntWhirlwindTime>=End-UE_SMALL_NUMBER)FinishBluntWhirlwind();
 }
@@ -171,10 +201,13 @@ void UProductionToolComponent::SweepBluntWhirlwind(float From,float To)
         BluntWhirlwindHitActors.Add(Target);
         const FVector Direction=(Target->GetActorLocation()-Pawn->GetActorLocation()).GetSafeNormal2D();
         FWeaponDamageResult Result;
-        const float Applied=ColdSteelSkills::ApplyHit(Pawn,Hit,BluntWhirlwindCast.Damage,Direction,BluntWhirlwindShot,&Result);
+        const bool Eligible=ColdSteelSkills::IsMasteryTrainingTarget(Pawn,Target);
+        auto HitShot=BluntWhirlwindShot;HitShot.ExtraMasteryExperience=Eligible&&BluntWhirlwindHitCount==1?Profile->MasteryDefinition(HitShot.MasteryId).MultiHitExperience:0;
+        const float Applied=ColdSteelSkills::ApplyHit(Pawn,Hit,BluntWhirlwindCast.Damage,Direction,HitShot,&Result);
         const bool Killed=Combat&&Combat->IsDead();if(Applied<=0.f&&!Killed)continue;
+        if(HitShot.ItemDefinition==PojunGrip::Weapon)MulticastPojunCutImpact(Hit.ImpactPoint);
         ++Confirmed;
-        if(Combat&&!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))
+        if(Eligible)
         {++BluntWhirlwindHitCount;if(Killed)++BluntWhirlwindKillCount;}
         if(Combat&&!Killed)Combat->ReceiveStun(Pawn,BluntWhirlwindCast.StunSeconds,BluntWhirlwindCast.KnockbackCM);
         Pawn->NotifyConfirmedWeaponHit(Target,Applied,&Result);
@@ -193,7 +226,11 @@ void UProductionToolComponent::TrainBluntWhirlwind()
     if(bBluntWhirlwindTrained)return;bBluntWhirlwindTrained=true;
     if(auto* Pawn=Character.Get();Pawn&&Pawn->HasAuthority())
         if(auto* Profile=ColdSteelAuthority::ForPawn(Pawn))
-        {ColdSteelAuthority::FScope Scope(Profile);Profile->TrainWhirlwind(BluntWhirlwindHitCount,BluntWhirlwindKillCount);}
+        {
+            ColdSteelAuthority::FScope Scope(Profile);
+            if(PojunAttack==PojunGrip::EAttack::Zhufeng)Profile->TrainDashAttack(BluntWhirlwindHitCount,BluntWhirlwindKillCount);
+            else Profile->TrainWhirlwind(BluntWhirlwindHitCount,BluntWhirlwindKillCount);
+        }
 }
 
 void UProductionToolComponent::FinishBluntWhirlwind()
@@ -203,5 +240,10 @@ void UProductionToolComponent::FinishBluntWhirlwind()
     EndBluntWhirlwindFocus();
     if(auto* Arms=Cast<URuneSwordMeshComponent>(Viewmodel))Arms->ClearWhirlwindEntry();
     TrainBluntWhirlwind();BluntWhirlwindHitActors.Reset();BluntServerReadyAt=GetWorld()->GetTimeSeconds();
+    if(PojunAttack==PojunGrip::EAttack::Zhufeng)
+    {
+        PojunAttack=PojunGrip::EAttack::Ordinary;PojunAttackItemData.Reset();bBluntServerSprintAttack=false;
+        if(auto* Move=Cast<UFPSCharacterMovementComponent>(Character->GetCharacterMovement()))Move->CancelHammerSprintMove(BluntAttackId);
+    }
     VisualTime=0.f;NextBluntStage=0;
 }

@@ -2,7 +2,11 @@
 
 用户参考为闭面 armet，采用已生成的 `SourceAssets/SteelArmet20261019/Design/SteelArmet_Concept.png` 作为外观目标。第一版程序化模型被用户明确否定；它未导入、未发布，不是交付母版。
 
-## 当前版本：ReferenceMatchV5
+## 当前修订（2026-10-20）
+
+外部模型已在 V5 基础上进行局部盔顶修形，接入 `CrownRefine20261020`，见 [顶部尖棱与折面](steel-armet-crown-refine-20261020.md)。第一人称独立使用 `FirstPersonWide20261020`，开口高度约 31.8%，见 [第一人称开口拓宽](steel-armet-first-person-wide-20261020.md)。两项修订均已保存并切换配置，实际游戏观感待用户确认。
+
+## V5 基础版本制作记录
 
 针对用户的第一人称截图，重新对照原设计制作，源文件位于 `SourceAssets/SteelArmet20261019/ReferenceMatchV5/`。上一版 Refined 保留为历史版本。
 

@@ -141,7 +141,7 @@ namespace KukriRhythm
         {.290f,.450f,.080f,.20f,85.f},
         {.358f,.470f,.080f,.20f,85.f},
         {.333f,.395f,.095f,.16f,50.f},
-        {.290f,.395f,.100f,.24f,95.f},
+        {.300f,.395f,.100f,.24f,95.f},
         {.040f,.133f,.150f,.32f,120.f},     // heavy: a little above the rune sword's heavy (.14), from the blade entering the top
     };
     inline const TCHAR* RiftMaterial=TEXT("/Game/Weapons/AzureRunesword20260913/WristRiftV3/M_RuneRift.M_RuneRift");
@@ -182,9 +182,26 @@ namespace KukriRhythm
      * V2（2026-10-25，用户：主手、副手上挑出手都再快一些；Work/tempo_plan_upper_v2.py 核对）：翻刀下压 ×1.0（0.13 s）→
      *  蓄力 ×0.90、蓄满前 ×0.70（0.19 s，仍留一拍顿挫）→ 上撩 ×1.70（0.13 → 0.078 s，松手到打击帧 0.05 → 0.029 s）→
      *  收势 ×0.95（0.28 s）→ 画外 ×1.7 → 抬回 ×1.25。整段 1.43 → 1.08 s；突进 120 cm 在 0.115 s 内走完。
+     * V3（2026-11-04，用户：参考双手武器上挑的前置蓄力，节奏匹配到单手；选定出手前 0.7 s，双手剑为 1.0 s）：只放慢出手前的节点，
+     *  出手之后完全不变（Work/tempo_plan_upper_v3.py 核对）：翻刀下压 ×0.75（0.17 s）→ 右下画外蓄力 ×0.35（0.51 s）→
+     *  蓄满前一拍 ×0.20 → 上撩 ×1.70。出手前 0.33 → 0.70 s，整段 1.08 → 1.45 s；突进改在蓄满时起步（UpperLungeStart 0.279），
+     *  仍是 0.115 s、在 0.37 走完，突进后的服务端恢复时长不变。镜头另加双手剑式的蓄势（UpperGather*）：蓄力时向右下低头收拢，
+     *  出手时一起甩回。
      */
-    inline constexpr FTempoKnot UpperTempo[]={{0.f,1.f},{.130f,1.f},{.160f,.90f},{.250f,.90f},{.270f,.70f},{.290f,.70f},
+    inline constexpr FTempoKnot UpperTempo[]={{0.f,.75f},{.120f,.75f},{.150f,.35f},{.250f,.35f},{.270f,.20f},{.290f,.20f},
         {.300f,1.70f},{.430f,1.70f},{.450f,.95f},{.690f,.95f},{.720f,1.70f},{.950f,1.70f},{.990f,1.25f}};
+    /**
+     * 上挑蓄势镜头（V3，双手剑 RuneSwordUppercutMotion 的 Load/LoadTurn 约 0.55 倍）：从起手到出手（作者 0.02-0.30）平滑收拢到
+     * 右下低头（俯仰 -2.6°、偏航 +2.8°、滚转 +0.8°；镜头 -1.2 cm 后、+2.0 cm 右、-1.7 cm 下），出手的 0.30-0.36（约 0.035 s）
+     * 一起甩回，叠在参考上撩曲线之上，甩出的幅度随之加大。
+     */
+    inline constexpr float UpperGatherStart=.02f, UpperGatherFull=.30f, UpperGatherOut=.36f;
+    inline const FRotator UpperGatherTurn(-2.6f,2.8f,.8f);
+    inline const FVector UpperGatherShift(-1.2f,2.0f,-1.7f);
+    inline float UpperGather(float T)
+    {
+        return FMath::SmoothStep(UpperGatherStart,UpperGatherFull,T)*(1.f-FMath::SmoothStep(UpperGatherFull,UpperGatherOut,T));
+    }
     /**
      * 重击出手（技能 heavyStrike，2026-10-24）。V2（用户：出手更快、更有冲击力）：蓄力已经把刀压在肩后，出手直接回砍，
      *  刀从头后翻过 ×1.0（0.03 s）→ 劈过画面 ×1.6（松手后约 0.056 s 刀尖到准星，0.077 s 拳到画面下方，拳峰值约 38 NDC/s，
@@ -203,8 +220,9 @@ namespace KukriRhythm
             if(T<K[I].T)return FMath::Lerp(K[I-1].Rate,K[I].Rate,FMath::SmoothStep(K[I-1].T,K[I].T,T));
         return K[N-1].Rate;
     }
-    /** Uppercut stride start (author s); KukriUppercut.cpp and OffhandKukriUppercut.cpp use the same LungeStart. */
-    inline constexpr float UpperLungeStart=.24f;
+    /** Uppercut stride (author s); KukriUppercut.cpp and OffhandKukriUppercut.cpp use these.  V3: it starts as the charge
+     *  fills (0.279), so on the slowed charge it still takes 0.115 s and ends at 0.37 (Work/tempo_plan_upper_v3.py). */
+    inline constexpr float UpperLungeStart=.279f, UpperLungeEnd=.37f;
     /** Real seconds of the uppercut between author times A and B at action speed 1 (UpperTempo): the server's melee
      *  recovery after the kukri's stride (FPSMeleeMovementNetwork.cpp), not the sword uppercut's longer clock. */
     inline float UpperRealSeconds(float A,float B)
@@ -233,6 +251,9 @@ namespace KukriRhythm
 
     /** 起点在刀身附近的前向区域查询：半径与快速近战同量级，射程取物品 melee_reach_cm。 */
     inline constexpr float QueryRadiusCM=26.f;
+    // 2026-11-03: basic combos only. Narrow the sweep and low-target arc by 20%;
+    // keep item reach and the independent martial-skill queries unchanged.
+    inline constexpr float BasicAttackQueryWidthScale=.8f;
     inline constexpr float DefaultReachCM=150.f;
 
     /** 命中顿帧（真实秒）：动作、命中窗与镜头曲线同时冻结，期间视模细颤。 */
@@ -326,8 +347,12 @@ namespace KukriRhythm
         }
         if(S.CameraMode==3)
         {
-            Rotation=FRotator(SampleCurve(UpperPitch,T)*S.CameraPitchScale,SampleCurve(UpperYaw,T),SampleCurve(UpperRoll,T))*Gain;
+            // The reference upward cut plus the two-handed sword's wind-up gather (V3), released with the cut.
+            const float Load=UpperGather(T);
+            Rotation=FRotator(SampleCurve(UpperPitch,T)*S.CameraPitchScale,SampleCurve(UpperYaw,T),SampleCurve(UpperRoll,T))*Gain+
+                UpperGatherTurn*(Load*CameraScale);
             Fov=SampleCurve(UpperFov,T)*Gain;
+            if(Location)*Location=UpperGatherShift*(Load*CameraScale);
             return;
         }
         const bool bDiag=S.CameraMode==2;

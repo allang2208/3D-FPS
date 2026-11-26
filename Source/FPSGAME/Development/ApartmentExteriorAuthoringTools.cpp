@@ -3,18 +3,65 @@
 #if WITH_EDITOR
 #include "AssetCompilingManager.h"
 #include "AssetRegistry/AssetRegistryModule.h"
+#include "Components/SceneCaptureComponent2D.h"
 #include "Components/SceneCaptureComponentCube.h"
 #include "ContentStreaming.h"
 #include "Engine/TextureCube.h"
+#include "Engine/TextureRenderTarget2D.h"
 #include "Engine/TextureRenderTargetCube.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
+#include "Misc/CoreDelegates.h"
 #include "Misc/PackageName.h"
 #include "RenderingThread.h"
 #include "RHI.h"
+#include "RHICommandList.h"
 #include "ShaderCompiler.h"
 #include "UObject/Package.h"
 #include "UObject/StrongObjectPtr.h"
+#endif
+
+#if WITH_EDITOR
+bool UApartmentExteriorAuthoringTools::RenderCommandletCamera(USceneCaptureComponent2D* Camera, int32 WarmupFrames)
+{
+    UWorld* World = IsValid(Camera) ? Camera->GetWorld() : nullptr;
+    if (!IsRunningCommandlet() || !IsAllowCommandletRendering() || GUsingNullRHI || !World ||
+        World->WorldType != EWorldType::Editor || !World->Scene || !Camera->IsRegistered() ||
+        !Camera->TextureTarget || Camera->TextureTarget->SizeX <= 0 || WarmupFrames < 1)
+        return false;
+
+    FAssetCompilingManager::Get().FinishAllCompilation();
+    if (GShaderCompilingManager) GShaderCompilingManager->FinishAllCompilation();
+    const FVector Eye = Camera->GetComponentLocation();
+    const float Width = Camera->TextureTarget->SizeX;
+    const float HalfFov = .5f * FMath::Clamp(Camera->FOVAngle, 1.f, 179.f);
+    const float FovWidth = Width / FMath::Tan(FMath::DegreesToRadians(HalfFov));
+    TGuardValue<bool> PersistView(Camera->bAlwaysPersistRenderingState, true);
+    auto& Streaming = IStreamingManager::Get();
+    for (int32 Frame = 0; Frame < WarmupFrames; ++Frame)
+    {
+        Streaming.AddViewInformation(Eye, Width, FovWidth, 1.f, true, 0.f, nullptr, World);
+        Streaming.UpdateResourceStreaming(0.f, true);
+        if (Frame + 1 == WarmupFrames) Streaming.BlockTillAllRequestsFinished();
+        // Match the engine's offscreen screenshot frame. Nanite queues GPU page
+        // feedback only when the render thread sees a new GFrameCounterRenderThread.
+        const uint64 CaptureFrame = ++GFrameCounter;
+        ENQUEUE_RENDER_COMMAND(BeginAuthoringCameraFrame)([CaptureFrame](FRHICommandListImmediate&)
+        {
+            GFrameCounterRenderThread = CaptureFrame;
+            ++GFrameNumberRenderThread;
+            FCoreDelegates::OnBeginFrameRT.Broadcast();
+        });
+        Camera->CaptureScene();
+        ENQUEUE_RENDER_COMMAND(EndAuthoringCameraFrame)([](FRHICommandListImmediate& RHICmdList)
+        {
+            FCoreDelegates::OnEndFrameRT.Broadcast();
+            RHICmdList.EndFrame();
+        });
+        FlushRenderingCommands();
+    }
+    return true;
+}
 #endif
 
 UTextureCube* UApartmentExteriorAuthoringTools::BakeCityReflection(UWorld* World,

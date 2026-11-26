@@ -22,6 +22,7 @@ struct FColdSteelIconReadback
     TUniquePtr<FRHIGPUTextureReadback> Staging;
     FString Recipe, Error;
     int32 Width=0, Height=0, Visible=0;
+    int32 SampleScale=1;
     float Exposure=1.f;
     double SubmittedSeconds=0.0, CopyMs=-1.0, ConversionMs=-1.0;
     TArray<FColor> Pixels;
@@ -33,6 +34,11 @@ void UColdSteelWeaponIcons::BeginReadback(const FString& Key)
     auto Packet=MakeShared<FColdSteelIconReadback,ESPMode::ThreadSafe>();
     Packet->Recipe=Key;Packet->Width=Target->SizeX;Packet->Height=Target->SizeY;
     Packet->Exposure=!Queue.IsEmpty()&&Queue[0].Item.Definition==TEXT("ue_m249")?6.f:1.f;
+    if(!Queue.IsEmpty()&&SupersampleBowIcon(Queue[0].Item))
+    {
+        Packet->SampleScale=2;
+        Packet->Exposure=1.65f;
+    }
     TRACE_BOOKMARK(TEXT("Icon.TargetReadback %s %dx%d recipe=%s"),*Target->GetPathName(),Packet->Width,Packet->Height,*Key);
     Packet->SubmittedSeconds=FPlatformTime::Seconds();
     PendingReadback=Packet;
@@ -88,7 +94,7 @@ void UColdSteelWeaponIcons::PollReadback()
             FString::Printf(TEXT("%s copy_render_cpu_ms=%.3f conversion_worker_ms=%.3f elapsed_ms=%.3f"),
                 *Packet->Recipe,Packet->CopyMs,Packet->ConversionMs,(FPlatformTime::Seconds()-Packet->SubmittedSeconds)*1000.0));
         SetWaitState(NAME_None);
-        FinishJob(PublishReadback(Packet->Recipe,Packet->Pixels,Packet->Width,Packet->Height,Packet->Visible));
+        FinishJob(PublishReadback(Packet->Recipe,Packet->Pixels,Packet->Width/Packet->SampleScale,Packet->Height/Packet->SampleScale,Packet->Visible));
         return;
     }
     if(Status==FColdSteelIconReadback::Failed){FailureReason=Packet->Error;FinishJob(false);return;}
@@ -120,16 +126,38 @@ void UColdSteelWeaponIcons::PollReadback()
             if(Packet->Cancelled.Load())return;
             TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Icon_ConvertPixels);
             const double Begin=FPlatformTime::Seconds();
-            TArray<FColor> Pixels;Pixels.SetNumUninitialized(Linear.Num());int32 Visible=0;
-            for(int32 Index=0;Index<Linear.Num();++Index){
-                auto P=Linear[Index].GetFloats();const float Alpha=FMath::Clamp(1.f-P.A,0.f,1.f);
-                if(Alpha>.1f)++Visible;P.A=Alpha;
-                // M249's black steel needs readable midtones in a tiny icon.
-                // A shared RGB shoulder retains its tint and bright brass;
-                // coverage is untouched, and other subjects keep identity gain.
+            const int32 Width=Packet->Width/Packet->SampleScale,Height=Packet->Height/Packet->SampleScale;
+            TArray<FColor> Pixels;Pixels.SetNumUninitialized(Width*Height);int32 Visible=0;
+            auto Store=[&](int32 Index,FLinearColor P,float Alpha){
+                if(Alpha>.1f)++Visible;
                 const float Gain=Packet->Exposure/(1.f+(Packet->Exposure-1.f)*FMath::Max3(P.R,P.G,P.B));
                 P.R*=Gain;P.G*=Gain;P.B*=Gain;
                 auto Color=P.ToFColorSRGB();Color.A=FMath::RoundToInt(Alpha*255);Pixels[Index]=Color;
+            };
+            if(Packet->SampleScale==2)
+            {
+                // Preserve subpixel cable coverage in the transparent PNG and the live Slate texture.
+                for(int32 Y=0;Y<Height;++Y)for(int32 X=0;X<Width;++X)
+                {
+                    const int32 TopLeft=2*Y*Packet->Width+2*X;
+                    FLinearColor Weighted(0,0,0,0);float Coverage=0.f;
+                    for(const int32 Offset:{0,1,Packet->Width,Packet->Width+1})
+                    {
+                        const FLinearColor Sample=Linear[TopLeft+Offset].GetFloats();
+                        const float Alpha=FMath::Clamp(1.f-Sample.A,0.f,1.f);
+                        Coverage+=Alpha;Weighted+=Sample*Alpha;
+                    }
+                    if(Coverage>0.f)Weighted*=1.f/Coverage;
+                    Store(Y*Width+X,Weighted,Coverage*.25f);
+                }
+            }
+            else
+            {
+                for(int32 Index=0;Index<Linear.Num();++Index)
+                {
+                    const FLinearColor Sample=Linear[Index].GetFloats();
+                    Store(Index,Sample,FMath::Clamp(1.f-Sample.A,0.f,1.f));
+                }
             }
             Packet->Pixels=MoveTemp(Pixels);Packet->Visible=Visible;
             Packet->ConversionMs=(FPlatformTime::Seconds()-Begin)*1000.0;
@@ -150,9 +178,9 @@ bool UColdSteelWeaponIcons::PublishReadback(const FString& K,const TArray<FColor
     FMemory::Memcpy(Data,Pixels.GetData(),Pixels.Num()*sizeof(FColor));Mip.BulkData.Unlock();Texture->UpdateResource();
     if(Cache.Num()>=64){FString Old;uint64 Use=MAX_uint64;for(const auto& Pair:Cache)if(Pair.Value.Use<Use){Use=Pair.Value.Use;Old=Pair.Key;}Cache.Remove(Old);Textures.Remove(Old);}
     Textures.Add(K,Texture);auto& E=Cache.Add(K);E.Use=++Serial;E.Brush.SetResourceObject(Texture);E.Brush.ImageSize=FVector2D(Width,Height);E.Brush.DrawAs=ESlateBrushDrawType::Image;
-    // M870 also needs silhouette framing: the equipment card is much wider
-    // than the inventory canvas, so transparent top/bottom margins shrink it.
-    if(!Queue.IsEmpty()&&(ColdSteelStaff::IsStaff(Queue[0].Item)||Queue[0].Item.Definition==TEXT("ue_m870")))
+    // The live brush uses the same silhouette framing as its catalog fallback.
+    if(!Queue.IsEmpty()&&(ColdSteelStaff::IsStaff(Queue[0].Item)||
+        ColdSteelInventory::IsOneHandedMelee(Queue[0].Item)||Queue[0].Item.Definition==TEXT("ue_m870")))
         ColdSteelStaffIcon::FrameVisiblePixels(E.Brush,Pixels.GetData(),Width,Height);
     ++Completed;UE_LOG(LogTemp,Display,TEXT("WeaponIcon: ready key=%s visible=%d renders=%d"),*K,Visible,Completed);return true;
 }

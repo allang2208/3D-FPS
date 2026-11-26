@@ -1,4 +1,4 @@
 #pragma once
 #include "CoreMinimal.h"
-// Native WPN_root units: the imported socket already carries the 100x conversion.
-namespace WarhammerQuickCombat { inline const FVector StrikeLocal(-0.001133285,0.001332839,0.988864064); }
+// V8 shaft-butt surface in native WPN_root metres (socket carries 100x).
+namespace WarhammerQuickCombat { inline const FVector StrikeLocal(-0.000923448,0.001291789,-0.158577383); }

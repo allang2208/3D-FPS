@@ -10,7 +10,7 @@
         {
           "id": "extended_edge",
           "name": "延锋刃",
-          "description": "修长刃形与延展剑尖，保持流畅的切削轮廓。",
+          "description": "延展剑尖 · 修长刃形",
           "effects": [
             {
               "text": "物理伤害+5%",
@@ -35,7 +35,7 @@
         {
           "id": "heavy_spine",
           "name": "重脊刃",
-          "description": "加厚剑脊与宽阔刃面，呈现厚重的钢刃轮廓。",
+          "description": "加厚剑脊 · 宽阔刃面",
           "effects": [
             {
               "text": "基础物理伤害+20%",
@@ -60,7 +60,7 @@
         {
           "id": "feather_edge",
           "name": "轻羽刃",
-          "description": "收窄削薄的轻巧刃形，刃线简洁利落。",
+          "description": "收窄削薄 · 轻巧刃形",
           "effects": [
             {
               "text": "攻击速度+15%",
@@ -177,8 +177,7 @@
             "block_reduction_mult": 0.9
           },
           "special_effects": [
-            "连段变化｜第三段改为冲刺竖劈，对前方矩形区域内的多个目标造成伤害；每个目标每次收尾只结算一次。",
-            "收尾伤害｜第三段伤害提高40%。"
+            "连段变化｜第三段改为冲刺竖劈，对前方矩形区域内的多个目标造成伤害；每个目标每次收尾只结算一次。"
           ]
         },
         {
@@ -215,7 +214,7 @@
           "weapons": [
             "ue_frost_crystal_sword"
           ],
-          "description": "魔晶双手剑限定。长款晶体双刃内嵌三枚星髓晶核，保留原有护手与握柄接口；兼容红魔晶与高能魔晶。",
+          "description": "剑身嵌有三枚星髓晶核。",
           "stats": {
             "range_mult": 1.25,
             "magic_attack_mult": 1.1
@@ -231,9 +230,7 @@
             }
           ],
           "special_effects": [
-            "充能 [G]｜消耗最大魔法值的20%，进入30秒充能状态；当前魔法值不足时无法释放。",
-            "充能增幅｜持续期间造成的攻击伤害+30%，全部转化为魔法伤害，按目标魔法防御结算；覆盖普攻、重击、突刺、快速近战、武技与攻击魔法。",
-            "蓝焰附刃｜充能期间剑身持续燃烧蓝色火焰。持续期间不可重复开启，无额外冷却；到期、切换武器、卸下星髓长锋或死亡时解除。"
+            "充能 [G]｜消耗最大魔法值的20%。接下来30秒，攻击伤害+30%，全部转为魔法伤害。换武器、卸下剑身或死亡时结束。"
           ]
         },
         {
@@ -243,7 +240,7 @@
           "weapons": [
             "ue_frost_crystal_sword"
           ],
-          "description": "魔晶双手剑限定。细长晶刃与连续晶脊，保留原有护手、握柄及配重接口；兼容红魔晶与高能魔晶。",
+          "description": "细长的晶脊贯通剑身。",
           "stats": {
             "range_mult": 1.1,
             "attack_speed_mult": 1.2
@@ -259,10 +256,8 @@
             }
           ],
           "special_effects": [
-            "裂穹突刺｜普通攻击连段第3下突刺出手时，从剑柄连接处至最大攻击距离瞬间形成完整巨剑，同时贯穿沿途目标；前两下挥空也可触发。重击、快速近战与武技不单独触发。",
-            "贯穿长锋｜巨剑长度为当前普通突刺距离的4倍（+300%）；对每个命中目标造成普通第3段突刺200%的伤害和200%的韧性伤害。保留原突刺伤害，每个目标仅结算1次；场景遮挡会截断巨剑。剑形原地残留0.3秒后，用0.22秒消散，残影不重复造成伤害。",
-            "破势升空｜剑气命中无韧性保护的普通怪物或已破韧怪物时将其击飞；本次剑气打破韧性时同样可以击飞。",
-            "晶体共鸣｜剑气保留魔晶附伤及已安装材质的吸血、回蓝效果，按各目标实际造成的伤害分别结算。剑气不积蓄晶能，不递归产生追加攻击。"
+            "裂穹突刺｜普攻第三击放出剑气，贯穿前方4倍突刺距离内的目标，遇障碍停止。前两击挥空也能触发。",
+            "破势升空｜剑气击飞无韧性或已破韧的怪物，本击破韧也能击飞。"
           ]
         },
         {
@@ -592,7 +587,7 @@
           "weapons": [
             "ue_frost_crystal_sword"
           ],
-          "description": "魔晶双手剑专属。原有晶体纹理染为深红，保留晶面与裂纹的细节。",
+          "description": "深红晶面间可见细裂纹。",
           "stats": {
             "physical_damage_mult": 1.1,
             "hit_health_return_ratio": 0.05
@@ -604,8 +599,7 @@
             }
           ],
           "special_effects": [
-            "生命汲取｜使用本武器攻击命中怪物时，按本次实际造成伤害的5%恢复生命值。",
-            "多目标结算｜每个命中目标分别计算并累加恢复量；物理与魔法伤害均计入，溢出目标剩余生命的伤害不计入，恢复不超过自身生命值上限。"
+            "生命汲取｜用本剑击中怪物时，按每个目标实际损失生命的5%恢复自身生命值。"
           ]
         },
         {
@@ -615,7 +609,7 @@
           "weapons": [
             "ue_frost_crystal_sword"
           ],
-          "description": "魔晶双手剑专属。致密青蓝晶面经过精细抛光，晶纹与内光交错，剑脊饱满，薄刃微透，反光清亮。",
+          "description": "青蓝晶刃微透，晶纹从内部发亮。",
           "stats": {
             "magic_damage_mult": 1.1,
             "hit_mana_return_ratio": 0.1
@@ -627,8 +621,7 @@
             }
           ],
           "special_effects": [
-            "魔能回流｜使用本武器攻击命中怪物时，按本次实际造成伤害的10%恢复魔法值。",
-            "多目标结算｜每个命中目标分别计算并累加恢复量；物理与魔法伤害均计入，溢出目标剩余生命的伤害不计入，恢复不超过自身魔法值上限。"
+            "魔能回流｜用本剑击中怪物时，按每个目标实际损失生命的10%恢复自身魔法值。"
           ]
         },
         {
@@ -687,7 +680,7 @@
           "id": "strength_rune",
           "name": "力量符文",
           "tier": "common",
-          "description": "粗壮中轴连接双肩折纹，赤红微光沿短刻纹汇入主印。",
+          "description": "中轴重印 · 赤红微光",
           "appearance": "中轴重印 · 赤红微光",
           "stats": {
             "physical_damage_mult": 1.1
@@ -704,7 +697,7 @@
           "id": "haste_rune",
           "name": "急速符文",
           "tier": "common",
-          "description": "疾风折纹沿剑脊收束，黄色流光向剑尖掠过。",
+          "description": "疾风折纹 · 黄色流光",
           "appearance": "疾风折纹 · 黄色流光",
           "effects": [
             {
@@ -720,7 +713,7 @@
         {
           "id": "resonance_rune",
           "name": "共鸣符文",
-          "description": "银白环纹彼此相连，共鸣微光沿刻纹缓缓明灭。",
+          "description": "银白环纹交叠，微光明灭。",
           "effects": [
             {
               "text": "所有技能冷却-15%",
@@ -731,7 +724,7 @@
             "skill_cooldown_mult": 0.85
           },
           "special_effects": [
-            "冷却结算｜持握本武器时，使用技能按当前冷却缩减计算；不会直接扣减已经开始的剩余冷却。"
+            "冷却结算｜仅影响持剑期间新释放的技能。"
           ]
         },
         {
@@ -766,32 +759,22 @@
           "weapons": [
             "ue_frost_crystal_sword"
           ],
-          "description": "寒晶双手剑专属。冰蓝晶光在刃内聚拢，双重柔光波纹依次扩散。",
-          "effects": [
-            {
-              "text": "精神迸发：寒晶双手剑自带的侵蚀附伤×2：由智力×50%＋精神×50%，提升为智力×100%＋精神×100%的魔法伤害。",
-              "benefit": 1
-            }
-          ],
+          "description": "两道冰蓝光纹沿刃面扩散。",
+          "effects": [],
           "stats": {
             "innate_erosion_mult": 2.0
           },
           "special_effects": [
-            "精神迸发｜寒晶双手剑自带的侵蚀附伤×2：由智力×50%＋精神×50%，提升为智力×100%＋精神×100%的魔法伤害。",
-            "生效范围｜仅强化寒晶双手剑自带的侵蚀，不使其他来源的附加魔法伤害翻倍。"
+            "精神迸发｜本剑固有的侵蚀伤害变为2倍。"
           ]
         },
         {
           "id": "conduction_rune",
           "name": "导魔符文",
-          "description": "银白导魔回路沿金属表面相连，微光循刻纹流动。",
+          "description": "银白符纹沿剑身相连。",
           "effects": [
             {
               "text": "魔法伤害+15%",
-              "benefit": 1
-            },
-            {
-              "text": "剑刃攻击命中施加魔法易伤+10% · 持续10秒",
               "benefit": 1
             }
           ],
@@ -800,7 +783,9 @@
             "rune_vulnerability": 0.1,
             "rune_vulnerability_seconds": 10
           },
-          "special_effects": []
+          "special_effects": [
+            "剑刃易伤｜剑刃命中后，目标受到的魔法伤害+10%，持续10秒。再次命中只刷新时长。"
+          ]
         },
         {
           "id": "golden_glow_rune",
@@ -808,15 +793,48 @@
           "weapons": [
             "ue_rune_sword"
           ],
-          "description": "符文长剑限定强化。剑身原生符文呈鎏金色，伴随柔和呼吸与流光。每次近战攻击命中目标，全部魔法技能冷却额外减少0.5秒（叠加基础0.5秒，每挥一次只结算一次）。",
+          "description": "原生刻纹呈鎏金色。",
           "effects": [
             {
-              "text": "每次攻击命中减少魔法冷却 +0.5 秒（合计 1 秒）",
+              "text": "近战命中使魔法与G飞剑剩余冷却各减少1s，每次挥击触发一次。",
+              "benefit": 1
+            },
+            {
+              "text": "G飞剑造成伤害时，魔法剩余冷却减少1s。",
               "benefit": 1
             }
           ],
+          "special_effects": [
+            "近战回流｜近战命中使魔法与G飞剑剩余冷却各减少1s，每次挥击触发一次。",
+            "飞剑回流｜G飞剑造成伤害时，魔法剩余冷却减少1s。"
+          ],
           "stats": {
             "cooldown_reduce_seconds_per_hit": 0.5
+          }
+        },
+        {
+          "id": "silver_glow_rune",
+          "name": "银色符文强化",
+          "weapons": [
+            "ue_rune_sword"
+          ],
+          "tier": "special",
+          "description": "原生刻纹呈银白色。",
+          "effects": [
+            {
+              "text": "魔法冷却时间-20%",
+              "benefit": 1
+            },
+            {
+              "text": "主动施放魔法后，近战攻击速度+25%，持续10s；再次施法刷新，不叠加。",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "魔法激励｜主动施放魔法后，近战攻击速度+25%，持续10s；再次施法刷新，不叠加。"
+          ],
+          "stats": {
+            "magic_cooldown_mult": 0.8
           }
         },
         {
@@ -841,33 +859,6 @@
             "physical_armor_penetration": 0.2
           },
           "special_effects": []
-        },
-        {
-          "id": "highland_oath_rune",
-          "name": "誓约符文",
-          "tier": "special",
-          "weapons": [
-            "ue_highland_claymore"
-          ],
-          "description": "高地骑士的誓剑刻印，以三重誓环约束蓄积的力量，在完成蓄力的刹那释放裁决。",
-          "effects": [
-            {
-              "text": "重击物理伤害+15%",
-              "benefit": 1
-            },
-            {
-              "text": "重击蓄力持续体力消耗-20%",
-              "benefit": 1
-            }
-          ],
-          "special_effects": [
-            "裁决时刻｜首次蓄满后的0.35秒内释放重击，本次重击物理伤害额外+35%，韧性伤害+50%；首次有效命中返还本次出手实际消耗体力的25%。每次蓄力只触发一次。"
-          ],
-          "stats": {
-            "oath_heavy_physical_mult": 1.15,
-            "oath_charge_stamina_mult": 0.8
-          },
-          "icon": "/Game/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_highland_oath_rune"
         },
         {
           "id": "auspicious_cloud_rune",
@@ -1032,11 +1023,11 @@
         {
           "id": "beiwei_rune",
           "name": "背嵬符文",
-          "tier": "legendary",
+          "tier": "special",
           "weapons": [
             "ue_zhanmadao"
           ],
-          "description": "斩马刀专属传说符文。精忠报国四字以秀雅行书鎏入刀身，笔锋顺着长刃微弧延展，暗金字底间游过暖金光。",
+          "description": "斩马刀专属特殊改造符文。精忠报国四字以秀雅行书鎏入刀身，笔锋顺着长刃微弧延展，暗金字底间游过暖金光。",
           "stats": {
             "martial_damage_mult": 1.5,
             "martial_range_mult": 1.25
@@ -1055,6 +1046,33 @@
             "武技剑气｜释放武技时，金色剑气沿刀刃轨迹展开并渐隐。",
             "生效范围｜伤害与范围加成仅作用于武技，普通攻击与普通连段不受影响。"
           ]
+        },
+        {
+          "id": "highland_oath_rune",
+          "name": "誓约符文",
+          "tier": "special",
+          "weapons": [
+            "ue_highland_claymore"
+          ],
+          "description": "高地骑士的誓剑刻印，以三重誓环约束蓄积的力量，在完成蓄力的刹那释放裁决。",
+          "effects": [
+            {
+              "text": "重击物理伤害+15%",
+              "benefit": 1
+            },
+            {
+              "text": "重击蓄力持续体力消耗-20%",
+              "benefit": 1
+            }
+          ],
+          "special_effects": [
+            "裁决时刻｜首次蓄满后的0.35秒内释放重击，本次重击物理伤害额外+35%，韧性伤害+50%；首次有效命中返还本次出手实际消耗体力的25%。每次蓄力只触发一次。"
+          ],
+          "stats": {
+            "oath_heavy_physical_mult": 1.15,
+            "oath_charge_stamina_mult": 0.8
+          },
+          "icon": "/Game/ColdSteelData/AttachmentIcons20260913/ue_highland_claymore_blade_2_highland_oath_rune"
         },
         {
           "id": "chixiao_rune",
@@ -1132,7 +1150,7 @@
             "ue_zhanmadao",
             "ue_forged_steel_greatsword"
           ],
-          "description": "宽厚护翼向两侧展开，外缘厚实，中央连接握柄。",
+          "description": "厚实的护翼向两侧展开。",
           "effects": [
             {
               "text": "格挡减伤+30%",
@@ -1166,18 +1184,10 @@
             "ue_zhanmadao",
             "ue_forged_steel_greatsword"
           ],
-          "description": "上挑护翼围住握柄前端，内缘形成承刃的弧面。",
+          "description": "护翼上挑，内侧呈弧形。",
           "effects": [
             {
               "text": "弹反判定时间+25%",
-              "benefit": 1
-            },
-            {
-              "text": "激励期间攻击速度+20%",
-              "benefit": 1
-            },
-            {
-              "text": "激励期间体力消耗-20%",
               "benefit": 1
             }
           ],
@@ -1188,7 +1198,7 @@
             "riposte_seconds": 6
           },
           "special_effects": [
-            "反击激励｜成功弹反后，攻击速度+20%、攻击体力消耗-20%，持续6秒；再次弹反刷新持续时间。"
+            "反击激励｜弹反成功后，攻击速度+20%、攻击体力消耗-20%，持续6秒。再次弹反刷新。"
           ]
         },
         {
@@ -1203,7 +1213,7 @@
             "ue_zhanmadao",
             "ue_forged_steel_greatsword"
           ],
-          "description": "收窄的护翼保留简洁轮廓，两端轻巧上扬。",
+          "description": "窄小的护翼微微上扬。",
           "effects": [
             {
               "text": "攻击速度+5%",
@@ -1255,32 +1265,6 @@
             "弹反重击｜成功弹反后4秒内，下一次普攻直接释放免蓄力重击；该击物理伤害+25%、韧性伤害+40%。",
             "消耗规则｜按重击消耗体力，出手即消耗强化，挥空也消耗；最多保留一次，再次弹反刷新。突刺与技能不消耗强化。"
           ]
-        },
-        {
-          "id": "highland_gale_wing",
-          "name": "风誓翼锋护手",
-          "weapons": [
-            "ue_highland_claymore"
-          ],
-          "description": "高地双手剑专属。银钢双翼沿羽脊上扬，翼根的浅金结纹与风誓轻量配重锤相呼应。",
-          "effects": [
-            {
-              "text": "奔跑体力消耗-10%",
-              "benefit": 1
-            },
-            {
-              "text": "攻击体力消耗-20%",
-              "benefit": 1
-            }
-          ],
-          "stats": {
-            "sprint_stamina_mult": 0.9,
-            "stamina_mult": 0.8
-          },
-          "special_effects": [
-            "迅捷｜用此剑或其武技击杀敌人，返还本次攻击实际消耗的体力，含重击蓄力。每招返还一次。击杀后移动速度+25%，持续3秒，再次击杀刷新时间。"
-          ],
-          "appearance": "上扬银翼、香槟金嵌线与冰蓝菱形宝石"
         },
         {
           "id": "xuan_cloud_dragon",
@@ -1413,6 +1397,81 @@
           ]
         },
         {
+          "id": "twin_star_guard",
+          "name": "双曜星环",
+          "tier": "legendary",
+          "description": "符文长剑专属护手。冷银镶边包覆深色锻钢，双翼星晶与中央晶核以细密光路相连。",
+          "weapons": [
+            "ue_rune_sword"
+          ],
+          "effects": [
+            {
+              "text": "魔法伤害+10%",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "magic_damage_mult": 1.1,
+            "rune_blade_count_add": 2,
+            "rune_blade_damage_multiplier": 1.5
+          },
+          "special_effects": [
+            "双曜增列｜G键魔法飞剑+2把，在原有队列左右最外侧各增加1把。",
+            "飞剑强化｜G键飞剑的基础物理伤害倍率提升至1.5×。"
+          ]
+        },
+        {
+          "id": "starfall_nexus_guard",
+          "name": "星陨天枢",
+          "tier": "legendary",
+          "weapons": [
+            "ue_rune_sword"
+          ],
+          "description": "符文长剑专属。冷银护翼承托修长星晶，细金星轨汇入中央晶核。",
+          "effects": [
+            {
+              "text": "G键飞剑冷却时间+25%",
+              "benefit": -1
+            }
+          ],
+          "stats": {
+            "rune_blade_count_override": 1,
+            "rune_blade_damage_multiplier": 8,
+            "rune_blade_blast_radius_cm": 300,
+            "rune_blade_cooldown_mult": 1.25
+          },
+          "special_effects": [
+            "天枢聚剑｜G键只召唤1把大型飞剑，覆盖锻造增加的飞剑数量；召唤与发射操作不变。",
+            "星陨爆破｜飞剑伤害倍率为8×，命中后产生半径3米的魔法爆炸，每个目标只结算一次伤害。"
+          ]
+        },
+        {
+          "id": "highland_gale_wing",
+          "name": "风誓翼锋护手",
+          "weapons": [
+            "ue_highland_claymore"
+          ],
+          "description": "高地双手剑专属。银钢双翼沿羽脊上扬，翼根的浅金结纹与风誓轻量配重锤相呼应。",
+          "effects": [
+            {
+              "text": "奔跑体力消耗-10%",
+              "benefit": 1
+            },
+            {
+              "text": "攻击体力消耗-20%",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "sprint_stamina_mult": 0.9,
+            "stamina_mult": 0.8
+          },
+          "special_effects": [
+            "迅捷｜用此剑或其武技击杀敌人，返还本次攻击实际消耗的体力，含重击蓄力。每招返还一次。击杀后移动速度+25%，持续3秒，再次击杀刷新时间。"
+          ],
+          "appearance": "上扬银翼、香槟金嵌线与冰蓝菱形宝石"
+        },
+        {
           "id": "raven_quill_guard",
           "name": "暮鸦折羽",
           "tier": "special",
@@ -1477,7 +1536,7 @@
         {
           "id": "shock_wrap",
           "name": "吸震缠柄",
-          "description": "防滑织带层叠包覆握区，搭接边平整收束。",
+          "description": "防滑织带层层缠绕握柄。",
           "effects": [
             {
               "text": "体力消耗-15%",
@@ -1497,7 +1556,7 @@
         {
           "id": "swift_grip",
           "name": "速握轻柄",
-          "description": "轻巧握柄收窄外轮廓，保留双手贴合的握区。",
+          "description": "握柄纤细，中段收窄。",
           "effects": [
             {
               "text": "攻击速度+15%",
@@ -1519,14 +1578,14 @@
         {
           "id": "long_twohand",
           "name": "长柄双手",
-          "description": "加长握柄拉开双手握持间距，尾端与配重连续衔接。",
+          "description": "加长的握柄拉开了双手间距。",
           "effects": [
             {
-              "text": "攻击范围+10%",
+              "text": "攻击距离+10%",
               "benefit": 1
             },
             {
-              "text": "伤害+5%",
+              "text": "基础物理伤害+5%",
               "benefit": 1
             },
             {
@@ -1552,7 +1611,7 @@
             "ue_zhanmadao",
             "ue_forged_steel_greatsword"
           ],
-          "description": "贴平钢脊支撑三段皮革握区，金属边缘收进缠革下方。",
+          "description": "贴平钢脊 · 三段人字纹皮革",
           "effects": [
             {
               "text": "重击伤害+20%",
@@ -1585,14 +1644,14 @@
             "ue_zhanmadao",
             "ue_forged_steel_greatsword"
           ],
-          "description": "交错锁纹织带紧密贴合握区，两端以窄环收口。",
+          "description": "锁纹织带交错缠柄。",
           "effects": [
             {
               "text": "格挡受击体力消耗-25%",
               "benefit": 1
             },
             {
-              "text": "格挡减伤倍率 ×1.10",
+              "text": "格挡减伤+10%",
               "benefit": 1
             }
           ],
@@ -1653,14 +1712,14 @@
         {
           "id": "pommel_hardened",
           "name": "硬化配重",
-          "description": "加厚硬化钢质剑首，以宽阔棱面收束柄尾。",
+          "description": "硬钢剑首棱面宽阔。",
           "effects": [
             {
               "text": "重击伤害倍率 +0.25",
               "benefit": 1
             },
             {
-              "text": "所有近战攻击击退距离+10%（含快速近战、旋风及冲刺斩）",
+              "text": "全部攻击击退距离+10%",
               "benefit": 1
             },
             {
@@ -1683,7 +1742,7 @@
         {
           "id": "pommel_runic",
           "name": "符文配重",
-          "description": "苍蓝符文嵌入金属剑首，微光环绕柄尾流转。",
+          "description": "钢制剑首刻有苍蓝符文。",
           "effects": [
             {
               "text": "魔法技能冷却时间-15%",
@@ -1707,7 +1766,7 @@
             "ue_frost_crystal_sword",
             "ue_rune_sword"
           ],
-          "description": "寒晶双手剑与符文长剑限定。银色支架包覆蓝色魔力晶球。",
+          "description": "银架包住一枚蓝色晶球。",
           "effects": [
             {
               "text": "魔法伤害+10%",
@@ -1727,7 +1786,7 @@
         {
           "id": "ballast_hardened",
           "name": "陨星锤首",
-          "description": "厚重陨铁锤首收束柄尾，击打端保留宽阔棱面。",
+          "description": "陨铁锤首厚重，端面宽平。",
           "effects": [
             {
               "text": "快速近战伤害倍率 +0.25",
@@ -1735,10 +1794,6 @@
             },
             {
               "text": "快速近战击退距离+50%",
-              "benefit": 1
-            },
-            {
-              "text": "快速近战变为范围攻击，判定范围不变",
               "benefit": 1
             }
           ],
@@ -1748,7 +1803,7 @@
             "quick_combat_aoe": true
           },
           "special_effects": [
-            "范围攻击｜快速近战可命中原判定范围内的多个目标，每个目标每次出手结算一次；判定距离与宽度不变。"
+            "范围攻击｜快速近战可同时击中范围内的多个目标。"
           ]
         },
         {
@@ -1787,54 +1842,26 @@
           ]
         },
         {
-          "id": "highland_gale_oath",
-          "name": "风誓轻量配重锤",
-          "weapons": [
-            "ue_highland_claymore"
-          ],
-          "description": "高地双手剑专属。镂空盾形银钢剑首饰以编结金边与浅蓝风星。",
-          "effects": [
-            {
-              "text": "奔跑体力消耗-15%",
-              "benefit": 1
-            },
-            {
-              "text": "重击蓄力速度+20%",
-              "benefit": 1
-            }
-          ],
-          "stats": {
-            "sprint_stamina_mult": 0.85,
-            "heavy_charge_speed_bonus": 0.2
-          },
-          "special_effects": []
-        },
-        {
           "id": "ballast_rune",
           "name": "凝碧星核",
           "weapons": [
             "ue_frost_crystal_sword",
             "ue_rune_sword"
           ],
-          "description": "寒晶双手剑与符文长剑限定。银色护架环抱凝碧晶核，星点在晶体内流转。",
-          "effects": [
-            {
-              "text": "快速近战命中施加魔法易伤+15% · 持续15秒",
-              "benefit": 1
-            }
-          ],
+          "description": "银架环抱碧色晶核。",
+          "effects": [],
           "stats": {
             "quick_combat_rune_vulnerability": 0.15,
             "quick_combat_rune_vulnerability_seconds": 15
           },
           "special_effects": [
-            "魔法易伤｜快速近战命中后，目标受到的魔法伤害+15%，持续15秒；重复命中刷新，不叠加。"
+            "魔法易伤｜快速近战命中后，目标受到的魔法伤害+15%，持续15秒。再次命中只刷新时长。"
           ]
         },
         {
           "id": "ballast_magic_orb",
           "name": "疾星配重",
-          "description": "流线金属护架环绕柄尾，镂空窗口贯通配重。",
+          "description": "流线形金属配重，两侧镂空。",
           "effects": [
             {
               "text": "攻击速度+15%",
@@ -1902,6 +1929,29 @@
           ]
         },
         {
+          "id": "highland_gale_oath",
+          "name": "风誓轻量配重锤",
+          "weapons": [
+            "ue_highland_claymore"
+          ],
+          "description": "高地双手剑专属。镂空盾形银钢剑首饰以编结金边与浅蓝风星。",
+          "effects": [
+            {
+              "text": "奔跑体力消耗-15%",
+              "benefit": 1
+            },
+            {
+              "text": "重击蓄力速度+20%",
+              "benefit": 1
+            }
+          ],
+          "stats": {
+            "sprint_stamina_mult": 0.85,
+            "heavy_charge_speed_bonus": 0.2
+          },
+          "special_effects": []
+        },
+        {
           "id": "ring_chain_pommel",
           "name": "环链配重",
           "tier": "special",
@@ -1961,7 +2011,7 @@
       "traits": [
         {
           "icon": "magic",
-          "text": "每次确认命中减少全部技能冷却 0.5 秒；剑身Ⅱ 金色符文再追加 0.5 秒，同一挥只结算一次"
+          "text": "近战确认命中减少魔法及 G 飞剑的剩余冷却 0.5 秒；金色符文再追加 0.5 秒，同一挥只结算一次。不影响武技及其他武器特殊能力"
         },
         {
           "icon": "special",
@@ -1969,7 +2019,7 @@
         },
         {
           "icon": "drawback",
-          "text": "飞剑全部发射或超时后进入 15 秒冷却；击杀可缩短冷却"
+          "text": "飞剑全部发射或超时后进入 15 秒冷却；普通飞剑击杀减少魔法冷却 0.5 秒，金色符文改为每枚命中减少 1 秒。飞剑命中不缩减自身冷却；符文长剑近战命中可以缩减"
         }
       ]
     },

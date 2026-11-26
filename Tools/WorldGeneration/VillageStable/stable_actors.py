@@ -42,8 +42,13 @@ def add_door(actors, name, role, leafmesh, put, x,y,z,yaw,positive,tags,actor=No
     parts['DoorHinge'].set_relative_location(ue.Vector(0,hinge,0),False,True)
     leaf.set_relative_location(ue.Vector(-(bounds.min.x+bounds.max.x)*.5,
                                -hinge-(bounds.min.y+bounds.max.y)*.5,-bounds.min.z),False,True)
-    hinge_x = x-hinge*math.sin(math.radians(yaw))
-    put('HingePintles',hinge_x,y,z,0 if hinge_x<x else 180,solid=False)
+    rad = math.radians(yaw)
+    hinge_x = x - hinge*math.sin(rad)
+    hinge_y = y + hinge*math.cos(rad)
+    pintle_yaw = yaw - 90. if not positive else yaw + 90.
+    if abs((yaw % 180) - 90) < 1e-3:
+        pintle_yaw = 0 if hinge_x < x else 180
+    put('HingePintles',hinge_x,hinge_y,z,pintle_yaw,solid=False)
 
 
 def add_instances(actors, groups, mesh, prefix, tags):

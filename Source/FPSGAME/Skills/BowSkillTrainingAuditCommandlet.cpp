@@ -21,8 +21,19 @@
 #include "Misc/Paths.h"
 #include "Serialization/JsonSerializer.h"
 
+int32 RunUpperBodyContinuityDiagnosis(const FString& Params);
+
 int32 UBowSkillTrainingAuditCommandlet::Main(const FString& Params)
 {
+    if(FParse::Param(*Params,TEXT("CompoundStringReview")))return RunCompoundStringReview(Params);
+    if(FParse::Param(*Params,TEXT("BowPresentationReview")))return RunBowPresentationReview(Params);
+    if(FParse::Param(*Params,TEXT("BowResonanceReview")))return RunBowResonanceReview(Params);
+    if(FParse::Param(*Params,TEXT("ElementalHoldReview")))return RunElementalHoldReview(Params);
+    if(FParse::Param(*Params,TEXT("BowNetworkReview")))return RunBowNetworkReview(Params);
+    if(FParse::Param(*Params,TEXT("MagicArrowRain")))return RunMagicArrowRain(Params);
+    if(FParse::Param(*Params,TEXT("QuiverBelt")))return RunQuiverBelt(Params);
+    if(FParse::Param(*Params,TEXT("UpperBodyContinuity")))return RunUpperBodyContinuityDiagnosis(Params);
+    if(FParse::Param(*Params,TEXT("SparrowPresentation")))return RunSparrowPresentation(Params);
     UE_LOG(LogTemp,Display,TEXT("BOW_SKILL_AUDIT revision=5 (explicit local controller identity)"));
     const FString OriginalCommand=FCommandLine::Get();
     const FString ProfileName=TEXT("BowSkillAudit_")+FGuid::NewGuid().ToString(EGuidFormats::Digits);
@@ -85,7 +96,9 @@ int32 UBowSkillTrainingAuditCommandlet::Main(const FString& Params)
     Fired->Destroy();
     auto SpawnTarget=[&]()
     {
-        auto* Target=World->SpawnActor<ANurseZombie>(FVector(0,5000,500),FRotator::ZeroRotator);
+        const FTransform Transform(FVector(0,5000,500));
+        auto* Target=World->SpawnActorDeferred<ANurseZombie>(ANurseZombie::StaticClass(),Transform,nullptr,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
+        Target->AutoPossessAI=EAutoPossessAI::Disabled;Target->FinishSpawning(Transform);
         // No BeginPlay/rendered animation proxy in this empty commandlet world.
         // Keep the production TakeDamage/kill callbacks, skip the corpse animation owner.
         Target->Knockdown=nullptr;
@@ -159,11 +172,13 @@ int32 UBowSkillTrainingAuditCommandlet::Main(const FString& Params)
     for(const bool Perfect:{false,true})
     {
         Shadow->Current=GuestBaseline;Shadow->RewardedVictims.Reset();PS->LastBowShotAt=-100.;
-        PS->ServerSetBowDraw_Implementation(Remote,Item.InstanceId,true,0.f);
+        const FGuid DrawId=FGuid::NewGuid();
+        PS->ServerSetBowDraw_Implementation(Remote,Item.InstanceId,true,0.f,DrawId);
         const float Release=PS->BowDrawSeconds+.1f;PS->BowDrawStartedAt=World->GetTimeSeconds()-Release;
         FColdSteelInventoryRequest Request;Request.Item=Item.InstanceId;Request.Pawn=Remote;Request.Charge=1.f;
+        Request.BowDrawId=DrawId;
         Request.Eye=Remote->GetPawnViewLocation();Request.Origin=Request.Eye;Request.Direction=Remote->GetBaseAimRotation().Vector();
-        Request.BowReleaseElapsed=Perfect?Release:-1.f;FString Reason;
+        Request.BowReleaseElapsed=Perfect?Release:-1.f;Request.BowChargeElapsed=Release;FString Reason;
         Check(PS->ExecuteBowShot(Request,Shadow,Reason),Perfect?TEXT("authority perfect release"):TEXT("authority ordinary release"),Reason);
         ABowArrow* RemoteArrow=nullptr;for(TActorIterator<ABowArrow> It(World);It;++It)if(It->GetOwner()==Remote&&!It->IsActorBeingDestroyed())RemoteArrow=*It;
         if(RemoteArrow)

@@ -21,6 +21,7 @@ public:
     UFUNCTION(BlueprintCallable, Category="Weapon|AssetBuild")
     static bool RepairSeatTangentBasis(class UStaticMesh* Mesh);
 private:
+    int32 AuditJiLeiIntent(const FString& Params);
     int32 AuditHeavyFormula(const FString& Params);
     int32 AuditZhenTing(const FString& Params);
 };

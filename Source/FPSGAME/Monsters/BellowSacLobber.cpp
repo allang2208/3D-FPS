@@ -1,4 +1,5 @@
 #include "BellowSacLobber.h"
+#include "MonsterTargeting.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "BellowSacProjectile.h"
 #include "QuadrupedAnimationTemplate.h"
@@ -56,7 +57,7 @@ FVector ABellowSacLobber::Muzzle() const
 }
 bool ABellowSacLobber::Visible(APawn* Victim) const
 {
-    if (!IsValid(Victim) || !Victim->IsPlayerControlled()) return false;
+    if (!IsValid(Victim) || !MonsterTargeting::IsOpponentPawn(Victim)) return false;
     const auto* HealthComponent = Victim->FindComponentByClass<UFPSCombatHealthComponent>();
     if (HealthComponent && HealthComponent->IsDead()) return false;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(BellowSight), false, this);
@@ -245,8 +246,12 @@ void ABellowSacLobber::NavigateCombat(AMonsterAIController* AI, APawn* Victim, c
     { AI->StopMovement(); SetLocomotion(false,false); }
     else
     {
-        const float Stop=Clear?PreferredRange:ShoveRange-45.f;
-        if (Victim && FMath::Abs(GetActorLocation().Z-Victim->GetActorLocation().Z)<100.f && GetHorizontalDistanceTo(Victim)<=Stop)
+        // Perception can see over a low obstacle while the actual muzzle is
+        // hidden. Only hold shove distance with the same sight used by attack;
+        // otherwise continue the route around the obstacle / to the noise.
+        const bool AttackSight=Clear||(Victim&&Visible(Victim));
+        const float Stop=Clear?PreferredRange:AttackSight?ShoveRange-45.f:40.f;
+        if (Victim && AttackSight && FMath::Abs(GetActorLocation().Z-Victim->GetActorLocation().Z)<100.f && GetHorizontalDistanceTo(Victim)<=Stop)
         { AI->StopMovement(); SetLocomotion(false,false); }
         else { SetLocomotion(true,false); AI->NavigateTo(LastKnown,Stop); }
     }

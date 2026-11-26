@@ -2,9 +2,16 @@
 #include "ColdSteelHUDLayout.h"
 #include "ColdSteelAmmoReadout.h"
 #include "ColdSteelWorldClock.h"
+#include "ColdSteelMapMarkers.h"
+#include "ColdSteelDungeonMap.h"
+#include "../FPSGAMEPlayerController.h"
 #include "StatusEffectsComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Monsters/MonsterCoreStats.h"
+#include "../NPC/VillageResidentStatus.h"
+#include "../WorldGeneration/VillageDefenseSection.h"
+#include "../WorldGeneration/VillageDefenseStairs.h"
+#include "../WorldGeneration/HighVillageDefense.h"
 #include "Components/Border.h"
 #include "Components/CanvasPanelSlot.h"
 #include "Components/SizeBox.h"
@@ -14,13 +21,36 @@
 #include "Styling/CoreStyle.h"
 #include "GameFramework/PlayerController.h"
 
+bool UColdSteelHUDWidget::ReadHUDTarget(const AFPSGAMECharacter& Player,FMonsterHitFeedback& Out) const
+{
+    if(const auto* Section=FocusedDefense.Get())
+    {
+        Out=FMonsterHitFeedback{};
+        Out.Target=FocusedDefense.Get();
+        if(Section->IsA<AHighVillageGate>())Out.Name=NSLOCTEXT("VillageDefense","HighGate","石城门 · 升降铁闸");
+        else if(Section->IsA<AHighVillageWall>())Out.Name=NSLOCTEXT("VillageDefense","HighWall","石砌高墙");
+        else if(Section->IsA<AVillageDefenseStairs>())Out.Name=NSLOCTEXT("VoxelBuilding","VillageWallStairs","城墙石阶");
+        else Out.Name=Section->IsA<AVillageDefenseGate>()
+            ? NSLOCTEXT("VillageDefense","Gate","村庄城门") : NSLOCTEXT("VillageDefense","Wall","村庄围墙");
+        Out.Health=Section->GetHealth();
+        Out.MaxHealth=Section->GetMaximumHealth();
+        Out.Opacity=1.f;
+        return Out.MaxHealth>0.f;
+    }
+    if(FocusedResident.IsValid() && FocusedResident==ResidentReadout.Target)
+    {Out=ResidentReadout;return true;}
+    return Player.GetMonsterHitFeedback(Out);
+}
+
 void UColdSteelHUDWidget::RefreshHUDTargetDisplay()
 {
     // Use the established HUD 20 Hz read-only refresh. Never scan world actors or
-    // create status components from paint; only read the accepted hit's target.
+    // create status components from paint. Reuse the local interaction focus.
     FMonsterHitFeedback Hit;
+    ResidentReadout={};
+    if(auto* Resident=FocusedResident.Get())VillageResidentStatus::Read(*Resident,ResidentReadout);
     const auto* Player=Cast<AFPSGAMECharacter>(GetOwningPlayerPawn());
-    if(!Player||!Player->GetMonsterHitFeedback(Hit)||!Hit.Target.IsValid())
+    if(!Player||!ReadHUDTarget(*Player,Hit)||!Hit.Target.IsValid())
     {HUDDisplayTarget.Reset();HUDTargetLevel.Reset();HUDTargetEffects.Reset();return;}
     const auto* Target=Hit.Target.Get();
     if(HUDDisplayTarget!=Hit.Target)
@@ -30,10 +60,12 @@ void UColdSteelHUDWidget::RefreshHUDTargetDisplay()
         if(MonsterCoreStats::Get(Target,Stats))HUDTargetLevel=FString::Printf(TEXT(" · Lv.%d"),Stats.Level);
     }
     HUDTargetEffects.Reset();
-    if(!Hit.bKilled)
+    if(!Hit.bKilled && (Hit.Health>0.f || !Hit.FriendlyActivity.IsEmpty()))
         if(const auto* Effects=Target->FindComponentByClass<UStatusEffectsComponent>())
         {
-            const auto Snapshot=Effects->Snapshot();
+            auto Snapshot=Effects->Snapshot();
+            if(FocusedDefense.IsValid())
+                Snapshot.RemoveAll([](const FStatusEffectView& Effect){return Effect.Kind!=TEXT("debuff");});
             for(int32 I=0;I<FMath::Min(6,Snapshot.Num());++I)
             {
                 const auto& Effect=Snapshot[I];
@@ -121,5 +153,56 @@ int32 UColdSteelHUDWidget::PaintHUDNavigation(const FGeometry& G,FSlateWindowEle
     const auto Badge=ColdSteelUI::RoundedBrush(FLinearColor::White,3*U,FLinearColor::Transparent,0);
     FSlateDrawElement::MakeBox(Out,Layer+1,G.ToPaintGeometry(FVector2D(58,25)*U,FSlateLayoutTransform(FVector2D(Center-29*U,Top+46*U))),&Badge,ESlateDrawEffect::None,ColdSteelUI::GlassTint*Tint);
     Text(FString::Printf(TEXT("%03d°"),FMath::RoundToInt(Heading)%360),Center,Top+49*U,MajorFont,ColdSteelUI::HUDGoldLight);
+    if (const auto* Controller=Cast<AFPSGAMEPlayerController>(PC))
+        if (const auto* Markers=Controller->GetMapMarkers(); Markers && PC->GetPawn())
+        {
+            struct FCompassMarker { const FColdSteelMapMarker* Marker; float Delta; double Metres; };
+            TArray<FCompassMarker,TInlineAllocator<FColdSteelMapMarkers::Limit>> Visible;
+            const FVector PlayerPosition=PC->GetPawn()->GetActorLocation();
+            for (const auto& M:Markers->All()) if (Markers->IsActive(M))
+            {
+                const FVector Offset=M.Position-PlayerPosition;
+                const float Bearing=Offset.SizeSquared2D()<1.?Heading:Offset.Rotation().Yaw;
+                Visible.Add({&M,FMath::FindDeltaAngleDegrees(Heading,Bearing),Offset.Size2D()*.01});
+            }
+            Visible.Sort([](const auto& A,const auto& B){return FMath::Abs(A.Delta)<FMath::Abs(B.Delta);});
+            const auto LabelFont=ColdSteelUI::TextFont(12*.75f*U);
+            TArray<FBox2D,TInlineAllocator<FColdSteelMapMarkers::Limit>> Labels;
+            for (const auto& Item:Visible)
+            {
+                const auto& M=*Item.Marker;
+                const auto Color=FColdSteelMapMarkers::Color(M.ColorIndex);
+                const bool bOutside=FMath::Abs(Item.Delta)>60.f;
+                const float X=Center+FMath::Clamp(Item.Delta,-60.f,60.f)/120.f*Width;
+                const float Y=Top+36*U;
+                Line({FVector2D(X,Y-4*U),FVector2D(X+4*U,Y),FVector2D(X,Y+4*U),FVector2D(X-4*U,Y),FVector2D(X,Y-4*U)},Color,1.5f);
+                if (bOutside)
+                {
+                    const float Side=Item.Delta<0?-1.f:1.f;
+                    Line({FVector2D(X-Side*3*U,Y+7*U),FVector2D(X+Side*2*U,Y+11*U),FVector2D(X-Side*3*U,Y+15*U)},Color,1.5f);
+                }
+                // The hit-target card owns the area immediately below the compass during combat.
+                if (HUDDisplayTarget.IsValid()) continue;
+                const FString Name=M.Label+(M.bReadOnly?TEXT(" · ")+M.OwnerName:FString());
+                const FString Distance=FString::Printf(TEXT("%.0f m"),Item.Metres);
+                const FString Details=M.bDungeon?Distance+TEXT(" · ")+FColdSteelDungeonMap::FloorName(M.Floor):Distance;
+                const FString Suffix=TEXT(" · ")+Details;
+                const float Maximum=FMath::Min(210.f*U,Width*.55f);
+                const FString Short=ColdSteelUI::Ellipsize(Name,LabelFont,Maximum-Measure->Measure(Suffix,LabelFont).X,*Measure);
+                const FString Caption=Short.IsEmpty()?ColdSteelUI::Ellipsize(Details,LabelFont,Maximum,*Measure):Short+Suffix;
+                const FVector2D Span=FVector2D(Measure->Measure(Caption,LabelFont))+FVector2D(12,4)*U;
+                const float LabelX=FMath::Clamp(X,Left+float(Span.X*.5),Left+Width-float(Span.X*.5));
+                for (int32 Row=0;Row<3;++Row)
+                {
+                    const FVector2D At(LabelX-Span.X*.5,Top+(76+22*Row)*U);
+                    const FBox2D Rect(At,At+Span);
+                    if (Labels.ContainsByPredicate([&](const auto& Used){return Used.Intersect(Rect.ExpandBy(3.*U));})) continue;
+                    Labels.Add(Rect);
+                    FSlateDrawElement::MakeBox(Out,Layer+1,G.ToPaintGeometry(Span,FSlateLayoutTransform(At)),&Badge,ESlateDrawEffect::None,ColdSteelUI::GlassTint*Tint);
+                    Text(Caption,LabelX,At.Y+2*U,LabelFont,Color);
+                    break;
+                }
+            }
+        }
     return Layer+3;
 }

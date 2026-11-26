@@ -8,7 +8,8 @@ import unreal as ue
 HERE = Path(__file__).resolve().parent
 sys.path[:0] = [str(HERE), str(HERE.parent/'AbandonedVillage'), str(HERE.parent/'VillageBlacksmith')]
 from author_shop import BENCH, CRATE, KIT, require, shell_transform
-from layout_geometry import plot_geometry, rotate
+from layout_geometry import plot_geometry
+from shop_frontages import BAKERY_FLAGS, public_frame
 from shop_staff_light import WICK, configure, apply_embers
 from shop_pendants import BAKERY, hang
 from room_daylight import SHOP_DAYLIGHT, apply_daylight
@@ -30,14 +31,7 @@ def door_walk(place):
     # The public gable looks towards the mill. Its old approach along the main street
     # bends around the south corner; the miller's shorter approach reaches the same landing.
     # Each broad flag is bedded in earth, with irregular smaller pieces at the turns.
-    for x, y, length, width, heading, thickness in [
-        (-31,-35,78,49,8,7), (44,-36,67,45,-7,7), (8,-84,75,54,17,7),
-        (55,-119,59,44,-21,6), (93,-147,60,40,24,6), (148,-146,48,35,-13,6),
-        (207,-131,63,47,24,6), (282,-124,48,36,7,5), (331,-109,61,42,-19,6),
-        (387,-78,70,47,21,7), (415,-20,59,36,-9,6), (426,45,51,34,17,5),
-        (-48,-114,57,35,-21,6), (-87,-174,52,41,14,6), (-126,-237,42,31,-9,5),
-        (-169,-283,37,28,22,5)
-    ]:
+    for x, y, length, width, heading, thickness in BAKERY_FLAGS:
         place('DoorFlags', FLAGS, (x,y,-thickness-2), (length,width,thickness), heading)
 
 
@@ -47,9 +41,8 @@ def install_bakery(actors, plan, kit):
     shape = plot_geometry(house,pieces,plan)
     # Turn the long axis back into the longhouse plot. Put its shopfront on
     # the west gable, with the rear wall clear of the east courtyard dogleg.
-    heading = house[5]-180.
-    dx,dy = rotate(21.,-450.,heading)
-    pos = ue.Vector(shape['center'][0]*100+dx,shape['center'][1]*100+dy,4.)
+    (x,y),heading = public_frame(house,shape)
+    pos = ue.Vector(x*100,y*100,4.)
     current = list(actors.get_all_level_actors())
     site = next((a for a in current if SITE in map(str,a.tags)), None)
     subs = ue.get_engine_subsystem(ue.SubobjectDataSubsystem)
@@ -159,6 +152,8 @@ def install_bakery(actors, plan, kit):
         light.set_mobility(ue.ComponentMobility.MOVABLE)
         light.set_relative_location(ue.Vector(*p),False,True)
         configure(light)
+        if key=='Light2':  # Loft washstand fill. The oven and the counter pendant supply the main shadows.
+            light.set_cast_shadows(False)
         light.set_editor_property('max_draw_distance',2000.)
     for key,comp in tagged.items():
         if key in live_keys:

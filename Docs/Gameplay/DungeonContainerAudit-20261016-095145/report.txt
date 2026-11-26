@@ -1,0 +1,40 @@
+随机地牢容器与未完成项排查
+记录时间：2026-10-16 09:51:45（北京时间）
+
+范围：正式地图保存的生成器目录、搜索池、宝箱、区域遭遇与通关链路。只读排查；未打开 UE、运行游戏或修改生产文件。
+
+结论：280 个已定义普通搜索入口 ID 中，211 个有绑定、69 个无绑定。另有动态床边箱族绑定 1 条；总表 212 条绑定、31 个池、42 种有效目录物品。
+候选入口不是每局实体数；抽屉和柜门分别计入口。
+
+一、缺少战利品的入口
+员工宿舍 StaffDormitory：36（12 个衣柜、6 个书柜、6 个书架、12 个床头入口）。
+更衣淋浴室 StaffChangingShowers：24 个更衣柜。
+员工活动室 StaffRecreation：7（5 个吧台柜、冰箱上下 2 个入口）。
+排水过渡房 Drainage：2（Hospital.Drainage.Tools.Entry、Hospital.Drainage.Tools.Service）。
+以上对象会经原有组装流程成为可搜索容器，但无池绑定时不会生成初始战利品；生活区另有独立通用宝箱，不在这 67 个普通入口中。
+
+二、其他已确认未完成项
+医疗区第三间解剖剧场宝箱 hospital_rear_gallery_treasure：正式地图保存 interaction_enabled=false，原生生成器赋 DungeonTreasure.PendingLoot，尚未启用搜索交互。作者脚本 SourceAssets/ThemeThirdRoomTreasure20261007/treasure.py:15 也明确关闭。
+生活区：当前 FacilityHallEncounter、DungeonRunSubsystem、DungeonThemeEncounter 没有生活区遭遇分派、守寝者生成、区域首领目标、击败状态或闸门绑定；追踪栏落入“探索当前区域”。
+设计附项：早期搜索物品清单的纪念腕表目前无 items.json 条目、也未入池；不影响现有 42 种搜索物。
+
+三、已配置的普通搜索入口
+接待大厅 15/15；分流大厅 14/14。
+货运区 68/68（16 + 45 + 7）。
+医疗区 28/28（10 + 10 + 8），另有动态床边箱族；普通入口与上面的禁用宝箱分开计数。
+焚化区 40/40（9 + 16 + 15）。
+生态区 32/32（9 + 9 + 14）。
+发电区 14/14（4 + 3 + 7，含 2 个服务器柜）。
+
+四、不要误列为未完成
+最终首领合阙、首领目标、最终宝箱解锁、取物后返程的代码链路已经存在。见 FacilityFinalBossEncounter.cpp、DungeonRunFinalBoss.cpp、DungeonBossEncounter.cpp。
+生活区活动室独立宝箱已走通用 dungeon_loot.json，缺的是普通柜子。
+档案区当前没有普通搜索容器或独立遭遇；仅凭缺少配置，不能判断设计上是否要求新增。
+入口红色储物柜属于玩家仓库，不作为漏配战利品箱。
+
+五、证据与限制
+正式地图目录读取自：D:\FPS3D\FPSGAME\Content\__ExternalActors__\GameMaps\L_Dungeon_Randomized\8\N2\KZ839Z5RGFD4Y0908097LH.uasset
+源目录与正式地图保存内容不同：医疗宝箱禁用状态、货运宝箱位置等以正式保存数据为准。
+静态依据：ColdSteelSceneLoot.cpp:83-122；ColdSteelSceneContainer.cpp:143；StaffLivingRoomAssembly.cpp:64；CargoWarehouseContainers.cpp:37；FacilityHallEncounter.cpp:126；DungeonRunSubsystem.cpp:164；AuthoredDungeonGenerator.cpp:1324。
+本次未作运行、视觉、联网或编译测试，不把已有代码和保存配置视为实机验收。
+完整 42 模块清单、280 个搜索入口、69 个缺失 ID、宝箱启用状态及输入文件 SHA-256 见同目录 inventory.json。

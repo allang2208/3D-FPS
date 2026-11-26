@@ -51,6 +51,7 @@ backup.mkdir(parents=True)
 for name in ('DA_TemperateHillsStreaming','PCG_HillsGrass'):
     shutil.copy2(ROOT/'Content/WorldGeneration/TemperateHills'/(name+'.uasset'),backup/(name+'.uasset'))
 EAL.make_directory(DEST)
+runpy.run_path(str(ROOT/'Tools/WorldGeneration/restore_hills_grass_parameters.py'))['restore']()
 master=copy(SOURCE+'/Materials/grassMaterials/MA_Grass',DEST+'/M_TemperateMeadow')
 master.set_editor_property('used_with_instanced_static_meshes',True)
 opacity=LIB.get_material_property_input_node(master,u.MaterialProperty.MP_OPACITY_MASK)
@@ -165,6 +166,8 @@ _bounds=importlib.util.module_from_spec(_bounds_spec)
 _bounds_spec.loader.exec_module(_bounds)
 REPORT['deform_rest_bounds']=_bounds.author(_bounds.collect((master.get_path_name().split('.')[0],),(DEST,)),save)
 graph=load(BASE+'/PCG_HillsGrass')
+region_author=runpy.run_path(str(ROOT/'Tools/WorldGeneration/author_rainforest_region.py'))
+region_author['bind_grass_weight'](graph)
 graph.set_editor_property('hi_gen_grid_size',u.PCGHiGenGrid.GRID16)
 for node in graph.get_editor_property('nodes'):
     settings=node.get_settings()
@@ -182,6 +185,8 @@ save(graph)
 assets=load(BASE+'/DA_TemperateHillsStreaming')
 assets.set_editor_property('grass',cover)
 assets.set_editor_property('grass_accents',accents)
+carpet_author=runpy.run_path(str(ROOT/'Tools/WorldGeneration/build_rainforest_carpet_grass.py'))
+carpet_author['assign_carpet_grass'](assets)
 for name,value in {'grass_spacing_cm':55.0,'grass_coverage':.94,
                    'grass_accent_spacing_cm':180.0,'grass_accent_coverage':.5}.items():
     assets.set_editor_property(name,value)
@@ -199,4 +204,5 @@ for name in ('PN_WindParameters','MaterialFunctions/PN_BendingParameters'):
 REPORT['static_switches']={str(n):LIB.get_material_default_static_switch_parameter_value(master,n)
                            for n in LIB.get_static_switch_parameter_names(master)}
 (OUT/'authoring.json').write_text(json.dumps(REPORT,ensure_ascii=False,indent=2),encoding='utf-8')
+runpy.run_path(str(ROOT/'Tools/WorldGeneration/temperate_render_budget.py'))['apply_palette'](assets)
 u.log('TEMPERATE_GRASS_AUTHORING_COMPLETE')

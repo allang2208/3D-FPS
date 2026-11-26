@@ -2,7 +2,7 @@
 from pathlib import Path
 import json,re,hashlib
 root=Path('D:/FPS3D/FPSGAME')
-source=Path('E:/无尽轮回/长期备份/2026-7-13-1/game-dev')
+source=Path('F:/FPSGAMEData/ArtProduction/SourceAssets/LegacyGameDev')
 js=(source/'src/ui/status-bar.js').read_text(encoding='utf-8')
 items=[]
 for key,icon,name,color,desc in re.findall(r"(\w+): \{ icon: '([^']*)', name: '([^']*)', color: '([^']*)', desc: '([^']*)' \}",js):

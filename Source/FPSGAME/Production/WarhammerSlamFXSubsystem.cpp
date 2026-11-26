@@ -13,7 +13,7 @@
 
 namespace
 {
-    constexpr int32 Capacity=8;
+    constexpr int32 SlamFXCapacity=8;
     constexpr float Lifetime=5.f;
     const FSoftObjectPath PlanePath(TEXT("/Engine/BasicShapes/Plane.Plane"));
     const FSoftObjectPath DustPath(TEXT("/Game/Weapons/SteelWarhammer20261014/SlamFXV2/M_WarhammerDust.M_WarhammerDust"));
@@ -34,8 +34,8 @@ void UWarhammerSlamFXSubsystem::OnWorldBeginPlay(UWorld& World)
     // Resolve only at impact; keep a retained async handle so no slam loads from disk.
     Assets=UAssetManager::GetStreamableManager().RequestAsyncLoad(
         TArray<FSoftObjectPath>{PlanePath,DustPath,RockPath,RockMaterialPath,CrackPath});
-    Impacts.SetNum(Capacity);Dust.SetNum(Capacity);Debris.SetNum(Capacity);
-    Cracks.SetNum(Capacity);CrackMaterials.SetNum(Capacity);
+    Impacts.SetNum(SlamFXCapacity);Dust.SetNum(SlamFXCapacity);Debris.SetNum(SlamFXCapacity);
+    Cracks.SetNum(SlamFXCapacity);CrackMaterials.SetNum(SlamFXCapacity);
 }
 
 bool UWarhammerSlamFXSubsystem::PrepareSlot(int32 Index)

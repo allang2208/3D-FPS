@@ -4,7 +4,7 @@
 namespace ThermalScopeAssets
 {
 inline constexpr const TCHAR* Id=TEXT("thermal_scope");
-inline constexpr const TCHAR* Material=TEXT("/Game/Weapons/ThermalScope20261006/Runtime/M_ThermalScene.M_ThermalScene");
+inline constexpr const TCHAR* Material=TEXT("/Game/Weapons/SharedPhysicalOptics20261030/M_PhysicalThermalScene.M_PhysicalThermalScene");
 inline FString Family(const FString& D)
 {
     if(D==TEXT("ue_hk416"))return TEXT("HK416");

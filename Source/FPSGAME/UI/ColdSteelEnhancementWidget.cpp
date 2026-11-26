@@ -1,4 +1,8 @@
 #include "ColdSteelEnhancementWidget.h"
+#include "ColdSteelTextToolTip.h"
+#include "ColdSteelInventoryWidget.h"
+#include "../Building/EnhancementWorldView.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 #include "SColdSteelArcaneSeal.h"
 #include "ColdSteelWeaponText.h"
 #include "ColdSteelStatusModel.h"
@@ -10,9 +14,11 @@
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/WeaponStatEvaluation.h"
 #include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/Kukri/KukriEnchantment.h"
 #include "../Weapons/AzureDragonReach.h"
 #include "../Weapons/Bow/BowStats.h"
 #include "Engine/GameInstance.h"
+#include "Engine/World.h"
 #include "Engine/Texture2D.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
@@ -52,6 +58,7 @@ void UColdSteelEnhancementWidget::ImportMaterialIcon(const FString& Definition)
     if(auto* Tiles=PendingIconTiles.Find(Definition))
         for(auto& Entry:*Tiles)if(auto Tile=Entry.Pin())Tile->SetVisibility(bReady?EVisibility::Collapsed:EVisibility::HitTestInvisible);
     PendingIconImages.Remove(Definition);PendingIconTiles.Remove(Definition);
+    if(auto* Drag=ActiveBenchDrag.Get();Drag&&Drag->Item.Definition==Definition)RefreshBenchDragVisual();
 }
 UColdSteelEnhancementSystem* UColdSteelEnhancementWidget::System()const{return GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();}
 UColdSteelStatusModel* UColdSteelEnhancementWidget::Profile()const{return GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();}
@@ -61,11 +68,15 @@ void UColdSteelEnhancementWidget::NativeConstruct()
     Super::NativeConstruct();
     if(!ProfileHandle.IsValid())ProfileHandle=Profile()->OnChanged.AddUObject(this,&ThisClass::Refresh);
     if(!IconHandle.IsValid())IconHandle=GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>()->OnReady.AddUObject(this,&ThisClass::OnWeaponIconReady);
+    if(!NetworkHandle.IsValid())NetworkHandle=System()->OnNetworkResult.AddUObject(this,&ThisClass::OnNetworkResult);
     Refresh();
 }
 void UColdSteelEnhancementWidget::NativeDestruct()
 {
-    bClosing=true;++BackgroundRequest;
+    bClosing=true;++BackgroundRequest;PressedBenchItem={};PlacementRequestId.Reset();
+    if(auto* Drag=ActiveBenchDrag.Get())Drag->ReleaseVisual();ActiveBenchDrag.Reset();
+    if(WorldView.IsValid())WorldView->SetItemHovered(false);
+    System()->OnNetworkResult.Remove(NetworkHandle);NetworkHandle.Reset();
     Profile()->OnChanged.Remove(ProfileHandle);ProfileHandle.Reset();
     GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>()->OnReady.Remove(IconHandle);IconHandle.Reset();
     if(WorkbenchPreview)WorkbenchPreview->CloseStandalonePreview();PreviewSurface.Reset();RitualSeal.Reset();
@@ -74,7 +85,9 @@ void UColdSteelEnhancementWidget::NativeDestruct()
 void UColdSteelEnhancementWidget::NativeTick(const FGeometry& Geometry,float Delta)
 {
     Super::NativeTick(Geometry,Delta);UpdateResponsiveLayout();
-    if(WorkbenchPreview)WorkbenchPreview->TickStandalonePreview(Delta,PreviewSurface);
+    if(bWorldMode&&(!WorldView.IsValid()||!WorldView->IsOpen()))
+    {if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer()))PC->CloseEnhancement();return;}
+    if(!bWorldMode&&WorkbenchPreview)WorkbenchPreview->TickStandalonePreview(Delta,PreviewSurface);
     if(FlashOverlay&&FlashUntil>=0)
     {
         const double Remain=FlashUntil-FPlatformTime::Seconds();
@@ -95,7 +108,7 @@ void UColdSteelEnhancementWidget::NativeTick(const FGeometry& Geometry,float Del
         {
             const FString Definition=PendingIcons[0];PendingIcons.RemoveAt(0);
             ImportMaterialIcon(Definition);Imported=true;
-            if(const auto* I=Profile()->FindItem(ItemId);I&&I->Definition==Definition&&!WorkbenchPreview->HasWorkbenchCapture())
+            if(const auto* I=System()->BenchItem();I&&I->Definition==Definition&&(!WorkbenchPreview||!WorkbenchPreview->HasWorkbenchCapture()))
                 if(auto* Brush=MaterialBrushes.Find(Definition))WeaponBrush=**Brush;
         }
         if(Imported)if(auto Slate=GetCachedWidget();Slate.IsValid())Slate->Invalidate(EInvalidateWidgetReason::Paint);
@@ -105,6 +118,7 @@ void UColdSteelEnhancementWidget::OnWeaponIconReady(const FString& Recipe)
 {
     if (!IsVisible()) return;
     auto* Icons = GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>();
+    if(auto* Drag=ActiveBenchDrag.Get();Drag&&Icons->Key(Drag->Item)==Recipe)RefreshBenchDragVisual();
     for (const auto& Pair : ItemImages)
         if (const auto* Item = Profile()->FindItem(Pair.Key); Item && Icons->Supports(*Item) && Icons->Key(*Item) == Recipe)
         {
@@ -122,15 +136,30 @@ void UColdSteelEnhancementWidget::RefreshIcons()
 }
 void UColdSteelEnhancementWidget::SelectItem(const FString& Id)
 {
-    ItemId=Id;Message.Empty();FlashUntil=-1;if(RitualSeal)RitualSeal->SetPulse(-1);if(FlashOverlay)FlashOverlay->SetVisibility(EVisibility::Collapsed);
+    if(System()->Pending())return;
+    PressedBenchItem={};if(WorldView.IsValid())WorldView->SetItemHovered(false);
+    const auto* Stored=System()->BenchItem();
+    if(Stored&&!Id.IsEmpty()&&Stored->InstanceId==Id){Refresh();return;}
+    bProcessingRequest=false;FlashUntil=-1;if(RitualSeal)RitualSeal->SetPulse(-1);if(FlashOverlay)FlashOverlay->SetVisibility(EVisibility::Collapsed);
+    // Retain only this explicit transfer intent, not a generic profile refresh.
+    PlacementRequestId=Id;
+    bLastApplySucceeded=System()->Transfer(Id,Message);
+    if(System()->Pending())bLastApplySucceeded=false;
     if(OverviewScroll)OverviewScroll->ScrollToStart();Refresh();
+    if(!System()->Pending())
+    {
+        const FString PlacedId=MoveTemp(PlacementRequestId);PlacementRequestId.Reset();
+        // Listen-server receipts may have already consumed this ID synchronously.
+        if(bLastApplySucceeded&&!PlacedId.IsEmpty()&&WorldView.IsValid())WorldView->PlayPlacement(PlacedId);
+    }
 }
 void UColdSteelEnhancementWidget::SelectTab(bool Enchant)
 {
+    if(System()->Pending())return;
     bEnchant=Enchant;Message.Empty();FlashUntil=-1;if(RitualSeal)RitualSeal->SetPulse(-1);if(FlashOverlay)FlashOverlay->SetVisibility(EVisibility::Collapsed);
     if(OptionScroll)OptionScroll->ScrollToStart();if(OverviewScroll)OverviewScroll->ScrollToStart();Refresh();
 }
-void UColdSteelEnhancementWidget::SelectScroll(const FString& Id){ScrollId=Id;Message.Empty();Refresh();}
+void UColdSteelEnhancementWidget::SelectScroll(const FString& Id){if(System()->Pending())return;ScrollId=Id;Message.Empty();Refresh();}
 void UColdSteelEnhancementWidget::SetScrollFilter(int32 Filter)
 {
     ScrollFilter=Filter;Message.Empty();
@@ -139,15 +168,29 @@ void UColdSteelEnhancementWidget::SetScrollFilter(int32 Filter)
 bool UColdSteelEnhancementWidget::Confirm()
 {
     const double Now=FPlatformTime::Seconds();if(Now-LastConfirm<.4)return false;LastConfirm=Now;
-    const auto Requested=Preview;
+    if(System()->Pending())return false;
+    if(bWorldMode&&(!WorldView.IsValid()||!WorldView->IsSessionValid()))return false;
+    const auto Requested=Preview;bProcessingRequest=true;
     bLastApplySucceeded=System()->Apply(Requested,Message);
+    if(System()->Pending()){bLastApplySucceeded=false;Message=TEXT("正在等待服务器处理…");Refresh();return true;}
+    // A listen host completes RequestInventoryAction synchronously and its
+    // receipt has already refreshed/flashed/played the ritual. Remote clients
+    // complete later through the same receipt. Only standalone owns this path.
+    if(GetWorld()->GetNetMode()!=NM_Standalone)
+    {
+        if(bProcessingRequest){bProcessingRequest=false;Refresh();}
+        return bLastApplySucceeded;
+    }
+    bProcessingRequest=false;
     if(bLastApplySucceeded)
     {
         FlashUntil=Now+.9;
         if(Requested.ScrollId.IsEmpty())Message=FString::Printf(TEXT("强化完成  +%d → +%d"),int32(Number(Requested.Before,TEXT("enhanceLevel"))),int32(Number(Requested.After,TEXT("enhanceLevel"))));
         else if(const auto* Scroll=System()->Scroll(Requested.ScrollId))Message=TEXT("附魔完成 · ")+Scroll->Name;
     }
-    Refresh();return bLastApplySucceeded;
+    Refresh();
+    if(bLastApplySucceeded&&WorldView.IsValid())WorldView->PlayRitual(!Requested.ScrollId.IsEmpty());
+    return bLastApplySucceeded;
 }
 FReply UColdSteelEnhancementWidget::NativeOnKeyDown(const FGeometry& G,const FKeyEvent& E)
 {
@@ -161,10 +204,11 @@ void UColdSteelEnhancementWidget::Refresh()
     auto* P=Profile();auto* E=System();auto* G=GetGameInstance()->GetSubsystem<UGunsmithSystem>();
     auto* Icons=GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>();
     ItemImages.Reset();Rail->ClearChildren();Inspector->ClearChildren();Options->ClearChildren();ProjectSummary->ClearChildren();Costs->ClearChildren();
-    const auto* I=P->FindItem(ItemId);
-    if(I&&!E->Supports(*I)){ItemId.Empty();I=nullptr;}
-    if(!I)ItemId.Empty();
-    if(ItemId.IsEmpty())for(const auto& Candidate:P->Items())if(E->Supports(Candidate)){ItemId=Candidate.InstanceId;I=P->FindItem(ItemId);break;}
+    // Only the authoritative escrow owns the displayed weapon. Never mirror a
+    // still-equipped instance or optimistically switch before the save receipt.
+    const auto* I=E->BenchItem();
+    ItemId=I?I->InstanceId:FString();
+    if(I&&bWorldMode){GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>()->Request(*I);MaterialIcon(I->Definition);}
     auto Image=[&](const FString& Definition,float Size,const FString& Mark=FString())->TSharedRef<SWidget>{
         const FSlateBrush* Brush=MaterialIcon(Definition);
         const bool bPending=!MaterialBrushes.Contains(Definition); // 缓存未命中=已入泵队列；解析为缺图的空画刷不再登记
@@ -186,7 +230,7 @@ void UColdSteelEnhancementWidget::Refresh()
                 +SOverlay::Slot()[SNew(SScaleBox).Stretch(EStretch::ScaleToFit)[ItemImage]]];
     };
     int32 ItemCount=0,EligibleCount=0;
-    for(const auto& Candidate:P->Items())if(E->Supports(Candidate))
+    if(!bWorldMode)for(const auto& Candidate:P->Items())if(E->Supports(Candidate))
     {
         ++EligibleCount;const FString Id=Candidate.InstanceId,Name=Text(Candidate,TEXT("name"));
         if(!EquipmentSearch.IsEmpty()&&!Name.Contains(EquipmentSearch,ESearchCase::IgnoreCase))continue;
@@ -198,7 +242,7 @@ void UColdSteelEnhancementWidget::Refresh()
         const FString Location=Candidate.Place==1?TEXT("已装备"):TEXT("背包");
         Rail->AddSlot().AutoHeight().Padding(0,0,0,6)
             [SNew(SBox).MinDesiredHeight(76)[SNew(SButton).ButtonStyle(Id==ItemId?&SelectedStyle:&Normal).ContentPadding(8)
-                .ToolTipText(FText::FromString(Name+TEXT(" · ")+Location)).OnClicked_Lambda([this,Id](){SelectItem(Id);return FReply::Handled();})
+                .ToolTip(ColdSteelToolTip::Make(FText::FromString(Name+TEXT(" · ")+Location))).OnClicked_Lambda([this,Id](){SelectItem(Id);return FReply::Handled();})
                 [SNew(SHorizontalBox)
                     +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[SNew(SBox).WidthOverride(48).HeightOverride(48)[SNew(SScaleBox).Stretch(EStretch::ScaleToFit)[ItemImage]]]
                     +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center).Padding(8,0,0,0)
@@ -238,13 +282,14 @@ void UColdSteelEnhancementWidget::Refresh()
     OperationBadge->SetText(FText::FromString(bEnchant?TEXT("符文铭刻 / 附魔"):TEXT("灵魂淬炼 / 强化")));
     OperationBadge->SetColorAndOpacity(RitualTone);
     LevelBadge->SetColorAndOpacity(RitualTone);
-    if(I&&Icons->Supports(*I))WorkbenchPreview->SetStandaloneItem(*I);else WorkbenchPreview->CloseStandalonePreview();
+    if(bWorldMode){if(WorldView.IsValid())WorldView->SetItem(ItemId);}
+    else if(I&&Icons->Supports(*I))WorkbenchPreview->SetStandaloneItem(*I);else WorkbenchPreview->CloseStandalonePreview();
     WeaponBrush=I?*MaterialIcon(I->Definition):*FCoreStyle::Get().GetBrush("NoBrush");
     ResetViewControl->SetEnabled(WorkbenchPreview->HasWorkbenchCapture());AimViewControl->SetEnabled(WorkbenchPreview->CanAimPreview());
     AimViewControl->SetVisibility(WorkbenchPreview->CanAimPreview()?EVisibility::Visible:EVisibility::Collapsed);
     const FString Title=I?Text(*I,TEXT("name")):TEXT("请选择装备");
-    ItemTitle->SetText(FText::FromString(Title));ItemTitle->SetToolTipText(FText::FromString(Title));
-    ItemLevel->SetText(FText::FromString(I?FString::Printf(TEXT("%s · 配件保持不变"),I->Place==1?TEXT("已装备"):TEXT("背包")):TEXT("从左侧选择装备")));
+    ItemTitle->SetText(FText::FromString(Title));ColdSteelToolTip::Set(*ItemTitle, FText::FromString(Title));
+    ItemLevel->SetText(FText::FromString(I?TEXT("工作台暂存 · 已从背包／装备栏移出"):(bWorldMode?TEXT("右键武器放入，或拖到中央魔法阵"):TEXT("从左侧放入装备"))));
     LevelBadge->SetText(FText::FromString(I?FString::Printf(TEXT("+%d"),int32(Number(*I,TEXT("enhanceLevel")))):TEXT("")));
     LevelMax->SetText(FText::FromString(I?FString::Printf(TEXT("/ %d"),E->MaxLevel(*I)):TEXT("")));
     SoulChip->SetText(FText::AsNumber(P->CountMaterial(TEXT("souls"))));
@@ -276,7 +321,7 @@ void UColdSteelEnhancementWidget::Refresh()
     auto Summary=[&](const FString& Text,int32 Size=14,FLinearColor Tone=ColdSteelUI::TextSecondary){
         ProjectSummary->AddSlot().AutoHeight().Padding(0,0,0,6)[SNew(STextBlock).Text(FText::FromString(Text))
             .Font(GunsmithUI::TextFont(Size,Size>=16)).ColorAndOpacity(Tone).AutoWrapText(true)
-            .ToolTipText(FText::FromString(Text))];
+            .ToolTip(ColdSteelToolTip::Make(FText::FromString(Text)))];
     };
     if(I)
     {
@@ -354,68 +399,7 @@ void UColdSteelEnhancementWidget::Refresh()
             Summary(FString::Printf(TEXT("强化等级 +%d → +%d"),int32(Number(*I,TEXT("enhanceLevel"))),int32(Number(After,TEXT("enhanceLevel")))),16,ColdSteelUI::TextPrimary);
             Summary(TEXT("确认后消耗材料并保存"),12,ColdSteelUI::TextTertiary);
         }
-        auto Row=[&](const FString& Name,double Before,double Final,int32 Digits=1,bool LowerBetter=false)
-        {
-            const double Delta=Final-Before;const int32 Benefit=FMath::Abs(Delta)<.001?0:(Delta>0)!=LowerBetter?1:-1;
-            Inspector->AddSlot().AutoHeight().Padding(0,0,0,1)[TableRow(Name,FString::Printf(TEXT("%.*f"),Digits,Before),
-                FString::Printf(TEXT("%.*f"),Digits,Final),Benefit?FString::Printf(TEXT("%+.*f"),Digits,Delta):TEXT("—"),Benefit)];
-        };
-        if(G->Weapon(I->Definition)||ColdSteelInventory::IsTwoHandedSword(*I)||ColdSteelInventory::IsBow(*I))
-        {
-            const auto Stats=G->CalculateItem(*I,G->Installed(*I));
-            const double Base=ColdSteelInventory::IsBow(*I)?Number(*I,TEXT("full_damage"),69):Stats.Damage;
-            Row(TEXT("强化等级"),bCompareBase?0:Number(*I,TEXT("enhanceLevel")),Number(After,TEXT("enhanceLevel")),0);
-            Row(TEXT("附魔伤害 %"),bCompareBase?0:E->Effect(*I,TEXT("damagePercent"))*100,E->Effect(After,TEXT("damagePercent"))*100);
-            Row(TEXT("暴击率 %"),bCompareBase?0:E->Effect(*I,TEXT("critRate"))*100,E->Effect(After,TEXT("critRate"))*100);
-            auto Comparison=*I;
-            if(bCompareBase){TSharedPtr<FJsonObject> Data;if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Comparison.Data),Data)){Data->SetNumberField(TEXT("enhanceLevel"),0);Data->RemoveField(TEXT("_enchantEffects"));FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Comparison.Data));}}
-            const bool Melee=ColdSteelInventory::IsTwoHandedSword(*I);
-            const bool Bow=ColdSteelInventory::IsBow(*I);
-            const float Charge=Bow?ColdSteelBow::DrawDamageMultiplier(1.f):1.f;
-            const auto BeforeDamage=(Melee?ColdSteelMelee::Evaluate(Comparison,P).DamageParts:ColdSteelWeaponStats::DamageParts(Comparison,P,Base)).Scaled(Charge);
-            const auto AfterDamage=(Melee?ColdSteelMelee::Evaluate(After,P).DamageParts:ColdSteelWeaponStats::DamageParts(After,P,Base)).Scaled(Charge);
-            Row(ColdSteelWeaponText::TotalDamage,BeforeDamage.Total(),AfterDamage.Total(),2);
-            Row(ColdSteelWeaponText::BasePhysical,BeforeDamage.BasePhysical,AfterDamage.BasePhysical,2);
-            if(BeforeDamage.AddedPhysical>0||AfterDamage.AddedPhysical>0)Row(ColdSteelWeaponText::AddedPhysical,BeforeDamage.AddedPhysical,AfterDamage.AddedPhysical,2);
-            if(BeforeDamage.AddedMagic>0||AfterDamage.AddedMagic>0)Row(ColdSteelWeaponText::AddedMagic,BeforeDamage.AddedMagic,AfterDamage.AddedMagic,2);
-            if(Bow)Inspector->AddSlot().AutoHeight().Padding(0,6)[Label(ColdSteelWeaponText::BowScope,12,ColdSteelUI::TextSecondary)];
-            // 附魔改攻击间隔（沉重 ×1.35）必须进比较表：越低越好，反向判色；近战取挥砍节奏，枪械/弓取射击间隔。
-            const double BeforeInterval=Melee?ColdSteelMelee::Evaluate(Comparison,P).AttackSeconds:Bow?ColdSteelBow::Evaluate(Comparison,P).Draw:ColdSteelWeaponStats::Interval(&Comparison,P,Stats.Interval);
-            const double AfterInterval=Melee?ColdSteelMelee::Evaluate(After,P).AttackSeconds:Bow?ColdSteelBow::Evaluate(After,P).Draw:ColdSteelWeaponStats::Interval(&After,P,Stats.Interval);
-            Row(TEXT("攻击间隔 ms"),FMath::RoundToDouble(BeforeInterval*1000),FMath::RoundToDouble(AfterInterval*1000),0,true);
-            Row(TEXT("附魔力量"),bCompareBase?0:E->Effect(*I,TEXT("str")),E->Effect(After,TEXT("str")),0);
-            Row(TEXT("附魔精神"),bCompareBase?0:E->Effect(*I,TEXT("wis")),E->Effect(After,TEXT("wis")),0);
-            if(Melee)
-            {
-                const auto BeforeMelee=ColdSteelMelee::Evaluate(Comparison,P);
-                const auto AfterMelee=ColdSteelMelee::Evaluate(After,P);
-                Row(TEXT("重击蓄力速度加成 %"),BeforeMelee.HeavyChargeSpeedBonus*100.,AfterMelee.HeavyChargeSpeedBonus*100.,0);
-                Row(TEXT("重击蓄力时间 s"),BeforeMelee.HeavyChargeSeconds,AfterMelee.HeavyChargeSeconds,2,true);
-            }
-            else if(Bow)
-            {
-                const auto BeforeBow=ColdSteelBow::Evaluate(Comparison,P);
-                const auto AfterBow=ColdSteelBow::Evaluate(After,P);
-                Row(TEXT("拉弓速度加成 %"),BeforeBow.DrawSpeedBonus*100.,AfterBow.DrawSpeedBonus*100.,1);
-                Row(TEXT("拉弓时间 s"),BeforeBow.Draw,AfterBow.Draw,2,true);
-            }
-            Row(TEXT("额外穿透目标"),bCompareBase?0:E->Effect(*I,TEXT("piercingBonus")),E->Effect(After,TEXT("piercingBonus")),0);
-            Row(TEXT("命中叠毒层数"),bCompareBase?0:E->Effect(*I,TEXT("poisonStacks")),E->Effect(After,TEXT("poisonStacks")),0);
-        }
-        else if(I->Definition==TEXT("ue_alchemy_spellbook")||ColdSteelInventory::Text(*I,TEXT("weaponType"))==TEXT("staff"))
-        {
-            auto Comparison=*I;
-            if(bCompareBase){TSharedPtr<FJsonObject> Data;if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Comparison.Data),Data)){Data->SetNumberField(TEXT("enhanceLevel"),0);Data->RemoveField(TEXT("_enchantEffects"));FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Comparison.Data));}}
-            Row(ColdSteelWeaponText::EquipmentMagicAttack,P->ItemMagicAttack(Comparison),P->ItemMagicAttack(After),0);
-            Row(TEXT("强化等级"),bCompareBase?0:Number(*I,TEXT("enhanceLevel")),Number(After,TEXT("enhanceLevel")),0);
-        }
-        else
-        {
-            auto Comparison=*I;
-            if(bCompareBase){TSharedPtr<FJsonObject> Data;if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Comparison.Data),Data)){Data->SetNumberField(TEXT("enhanceLevel"),0);Data->RemoveField(TEXT("_enchantEffects"));FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Comparison.Data));}}
-            Row(TEXT("装备防御"),E->Defense(Comparison),E->Defense(After));
-            Row(TEXT("强化等级"),bCompareBase?0:Number(*I,TEXT("enhanceLevel")),Number(After,TEXT("enhanceLevel")),0);
-        }
+        BuildStatComparison(*I,After);
     }
     else
     {
@@ -424,13 +408,18 @@ void UColdSteelEnhancementWidget::Refresh()
     }
 
     for(const auto& Cost:Preview.Costs)
-        Costs->AddSlot().AutoHeight().Padding(0,0,0,4)[SNew(SHorizontalBox)
-            +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(0,0,6,0)[Image(Cost.Definition,28,Cost.Definition==TEXT("souls")?TEXT("魂"):TEXT(""))]
-            +SHorizontalBox::Slot().FillWidth(1.2f).VAlign(VAlign_Center).Padding(0,0,4,0)[Label(Cost.Name,14,ColdSteelUI::TextSecondary)]
-            +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[Label(FString::Printf(TEXT("%lld / %lld / %s"),Cost.Need,Cost.Have,
-                *(Cost.Have>=Cost.Need?FString::Printf(TEXT("%lld"),Cost.Have-Cost.Need):FString::Printf(TEXT("缺 %lld"),Cost.Need-Cost.Have))),14,
-                Cost.Have>=Cost.Need?ColdSteelUI::TextSecondary:ColdSteelUI::Danger,true)]];
-    if(Preview.Costs.IsEmpty())Costs->AddSlot().AutoHeight()[Label(I?Preview.Reason:TEXT("尚未选择加工项目"),12,ColdSteelUI::TextTertiary)];
+    {
+        const bool Enough=Cost.Have>=Cost.Need;
+        const FString Holding=Enough?FString::Printf(TEXT("持有 %lld"),Cost.Have):
+            FString::Printf(TEXT("持有 %lld · 缺 %lld"),Cost.Have,Cost.Need-Cost.Have);
+        Costs->AddSlot().AutoHeight().Padding(0,3)[SNew(SHorizontalBox)
+            +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)
+                [Label(Cost.Name+FString::Printf(TEXT(" × %lld"),Cost.Need),14,ColdSteelUI::TextPrimary)]
+            +SHorizontalBox::Slot().AutoWidth().Padding(8,0,0,0).VAlign(VAlign_Center)
+                [Label(Holding,12,Enough?ColdSteelUI::TextTertiary:ColdSteelUI::Danger,true)]];
+    }
+    if(Preview.Costs.IsEmpty())Costs->AddSlot().AutoHeight()
+        [Label(I?Preview.Reason:TEXT("放入装备后显示所需材料"),12,ColdSteelUI::TextTertiary)];
 
     if(bEnchant)
     {
@@ -444,7 +433,7 @@ void UColdSteelEnhancementWidget::Refresh()
             const FString Hint=Option.Name+TEXT("\n")+Option.Description+FString::Printf(TEXT("\n卷轴需要 1 / 背包持有 %lld\n魔法粉尘需要 %lld\n%s"),Have,Option.Dust,*State);
             Options->AddSlot().AutoWidth().Padding(0,0,10,0)[SNew(SBox).WidthOverride(280).HeightOverride(154)
                 [SNew(SButton).ButtonStyle(Selected?&SelectedStyle:&Normal).ContentPadding(12).IsEnabled(Compatible)
-                    .ToolTipText(FText::FromString(Hint)).OnClicked_Lambda([this,Id](){SelectScroll(Id);return FReply::Handled();})
+                    .ToolTip(ColdSteelToolTip::Make(FText::FromString(Hint))).OnClicked_Lambda([this,Id](){SelectScroll(Id);return FReply::Handled();})
                     [SNew(SVerticalBox)
                         +SVerticalBox::Slot().AutoHeight()[SNew(SHorizontalBox)
                             +SHorizontalBox::Slot().AutoWidth().Padding(0,0,10,0)[Image(Option.Item,48)]
@@ -454,7 +443,7 @@ void UColdSteelEnhancementWidget::Refresh()
                                 +SVerticalBox::Slot().AutoHeight().Padding(0,4,0,0)[Label(Option.Slot==TEXT("prefix")?TEXT("前缀卷轴"):TEXT("后缀卷轴"),12,ColdSteelUI::TextTertiary)]]]
                         +SVerticalBox::Slot().AutoHeight().Padding(0,6,0,0)[SNew(SBox).HeightOverride(44).Clipping(EWidgetClipping::ClipToBounds)
                             [SNew(STextBlock).Text(FText::FromString(Option.Description)).Font(GunsmithUI::TextFont(14))
-                                .ColorAndOpacity(ColdSteelUI::TextSecondary).AutoWrapText(true).ToolTipText(FText::FromString(Option.Description))]]
+                                .ColorAndOpacity(ColdSteelUI::TextSecondary).AutoWrapText(true).ToolTip(ColdSteelToolTip::Make(FText::FromString(Option.Description)))]]
                         +SVerticalBox::Slot().FillHeight(1).VAlign(VAlign_Bottom)[SNew(SHorizontalBox)
                             +SHorizontalBox::Slot().FillWidth(1)[Label(State,12,Selected?ColdSteelUI::Accent:ColdSteelUI::TextTertiary)]
                             +SHorizontalBox::Slot().AutoWidth().Padding(0,0,6,0)[Label(TEXT("尘"),12,ColdSteelUI::TextTertiary)]
@@ -463,29 +452,15 @@ void UColdSteelEnhancementWidget::Refresh()
                             +SHorizontalBox::Slot().AutoWidth()[Label(FString::Printf(TEXT("%lld"),Have),12,Have?ColdSteelUI::TextSecondary:ColdSteelUI::Warning,true)]]]]];
         }
     }
-    else for(const auto& Cost:Preview.Costs)
-    {
-        auto Amount=[&](const FString& Name,int64 Value,FLinearColor Color)->TSharedRef<SWidget>{
-            return SNew(SHorizontalBox)+SHorizontalBox::Slot().FillWidth(1)[Label(Name,14,ColdSteelUI::TextSecondary)]
-                +SHorizontalBox::Slot().AutoWidth()[Label(FString::Printf(TEXT("%lld"),Value),14,Color,true)];
-        };
-        Options->AddSlot().AutoWidth().Padding(0,0,10,0)[SNew(SBox).WidthOverride(280).HeightOverride(154)
-            [SNew(SBorder).BorderImage(&RowBrush).Padding(12)[SNew(SVerticalBox)
-                +SVerticalBox::Slot().AutoHeight()[SNew(SHorizontalBox)
-                    +SHorizontalBox::Slot().AutoWidth().Padding(0,0,10,0)[Image(Cost.Definition,48,Cost.Definition==TEXT("souls")?TEXT("魂"):TEXT(""))]
-                    +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)[Label(Cost.Name,16,ColdSteelUI::TextPrimary)]]
-                +SVerticalBox::Slot().AutoHeight().Padding(0,8,0,0)[Amount(TEXT("需要"),Cost.Need,ColdSteelUI::TextPrimary)]
-                +SVerticalBox::Slot().AutoHeight().Padding(0,4,0,0)[Amount(TEXT("持有"),Cost.Have,Cost.Have>=Cost.Need?ColdSteelUI::TextSecondary:ColdSteelUI::Warning)]
-                +SVerticalBox::Slot().AutoHeight().Padding(0,6,0,0)[Amount(Cost.Have>=Cost.Need?TEXT("淬炼后剩余"):TEXT("尚缺"),FMath::Abs(Cost.Have-Cost.Need),Cost.Have>=Cost.Need?ColdSteelUI::Success:ColdSteelUI::Danger)]]]];
-    }
-    if((!bEnchant&&Preview.Costs.IsEmpty())||(bEnchant&&HeldScrolls.IsEmpty()))
+    if(bEnchant&&HeldScrolls.IsEmpty())
         Options->AddSlot().AutoWidth()[SNew(SBox).WidthOverride(280).HeightOverride(154)
-            [SNew(SBorder).BorderImage(&RowBrush).Padding(16).VAlign(VAlign_Center)[Label(bEnchant?EmptyScrollReason:Preview.Reason,14,ColdSteelUI::TextSecondary)]]];
+            [SNew(SBorder).BorderImage(&RowBrush).Padding(16).VAlign(VAlign_Center)
+                [Label(EmptyScrollReason,14,ColdSteelUI::TextSecondary)]]];
 
     const FString ConfirmLabel=bEnchant?TEXT("确认附魔"):(I&&Preview.Valid?FString::Printf(TEXT("强化至 +%d"),int32(Number(Preview.After,TEXT("enhanceLevel")))):TEXT("确认强化"));
-    ConfirmText->SetText(FText::FromString(ConfirmLabel));ConfirmControl->SetToolTipText(FText::FromString(ConfirmLabel+TEXT(" · ")+Preview.Reason));ConfirmControl->SetEnabled(Preview.Valid);
+    ConfirmText->SetText(FText::FromString(ConfirmLabel));ColdSteelToolTip::Set(*ConfirmControl, FText::FromString(ConfirmLabel+TEXT(" · ")+Preview.Reason));ConfirmControl->SetEnabled(Preview.Valid&&!System()->Pending());
     Footer->SetText(FText::FromString(Message.IsEmpty()?Preview.Reason:Message));
-    Footer->SetToolTipText(FText::FromString(Message.IsEmpty()?Preview.Reason:Message));
+    ColdSteelToolTip::Set(*Footer, FText::FromString(Message.IsEmpty()?Preview.Reason:Message));
     Footer->SetColorAndOpacity(Message.IsEmpty()?(Preview.Valid?ColdSteelUI::TextSecondary:ColdSteelUI::Warning):(bLastApplySucceeded?ColdSteelUI::Success:ColdSteelUI::Warning));
     FString Outcome=I?Preview.Reason:TEXT("放入装备，唤醒法阵");
     if(I&&!Preview.After.InstanceId.IsEmpty())
@@ -494,7 +469,7 @@ void UColdSteelEnhancementWidget::Refresh()
         else if(const auto* Scroll=E->Scroll(ScrollId))Outcome=(Scroll->Slot==TEXT("prefix")?TEXT("前缀铭刻 · "):TEXT("后缀铭刻 · "))+Scroll->Name;
     }
     if(!Message.IsEmpty())Outcome=Message;
-    OutcomeText->SetText(FText::FromString(Outcome));OutcomeText->SetToolTipText(FText::FromString(Outcome));
+    OutcomeText->SetText(FText::FromString(Outcome));ColdSteelToolTip::Set(*OutcomeText, FText::FromString(Outcome));
     OutcomeText->SetColorAndOpacity(!Message.IsEmpty()&&bLastApplySucceeded?ColdSteelUI::Success:RitualTone);
     if(auto Slate=GetCachedWidget();Slate.IsValid())Slate->Invalidate(EInvalidateWidgetReason::Paint);
 }

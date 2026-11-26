@@ -1,4 +1,5 @@
 #include "SColdSteelWorldMap.h"
+#include "ColdSteelTextToolTip.h"
 #include "ColdSteelWorldMapData.h"
 #include "ColdSteelUIStyle.h"
 #include "SColdSteelMapMarkerEditor.h"
@@ -175,6 +176,7 @@ namespace ColdSteelCartography
         void OnLevelAdded(ULevel* Level,UWorld* World)
         {
             if (!Level || World!=ObservedWorld.Get()) return;
+            Data.NotifyStreamChanged();
             bool bChanged=false;
             for (AActor* Actor:Level->Actors)
                 bChanged|=Data.TrackLandmark(Actor);
@@ -183,7 +185,9 @@ namespace ColdSteelCartography
 
         void OnLevelRemoved(ULevel* Level,UWorld* World)
         {
-            if (Level && World==ObservedWorld.Get() && Data.RemoveLevelLandmarks(Level))
+            if(!Level || World!=ObservedWorld.Get()) return;
+            Data.NotifyStreamChanged();
+            if (Data.RemoveLevelLandmarks(Level))
                 Invalidate(EInvalidateWidgetReason::Paint);
         }
 
@@ -226,12 +230,16 @@ namespace ColdSteelCartography
                 const auto* Run=Data.bDungeon?UDungeonRunSubsystem::Get(PC->GetWorld()):nullptr;
                 const bool bRunReady=Run && Session->DungeonMap.Update(PC);
                 const bool bHasLayout=Data.bDungeon && !Data.bWaitingForDungeon;
-                if (Data.bDungeon!=UDungeonRoomSubsystem::IsDungeonPawn(Pawn) || bRunReady!=bHasLayout ||
+                if (Data.ForestIdentityChanged(Pawn) || Data.bDungeon!=UDungeonRoomSubsystem::IsDungeonPawn(Pawn) || bRunReady!=bHasLayout ||
                     (bRunReady && !Data.RegionKey.EndsWith(TEXT("/")+Run->RunId())) ||
                     (Data.bDungeon && MapLayout!=Session->DungeonMap.LayoutSerial))
                     Reload();
                 if (Data.RefreshLandmarks()) Invalidate(EInvalidateWidgetReason::Paint);
-                if (!Data.IsSampling()) Data.RefreshTerrainIfChanged(Pawn,Session->SurfaceCache);
+                if (!Data.IsSampling() && Data.RefreshTerrainIfChanged(Pawn,Session->SurfaceCache) && !Data.IsSampling())
+                {
+                    BindMapTextures();
+                    Invalidate(EInvalidateWidgetReason::Paint);
+                }
             }
             if (MarkerRevision!=Session->Markers.Revision() || MarkerUIRevision!=Session->MarkerUIRevision)
             {
@@ -485,7 +493,7 @@ namespace ColdSteelCartography
             for (const auto& Poi : Data.Landmarks)
                 if (Poi.Floor==Floor && !Poi.Label.IsEmpty() &&
                     (!Data.bDungeon || (Layer && DungeonMap.IsLandmarkKnown(FVector(Poi.Point,Poi.ActorZ),Floor))))
-                    Mark(Project(Poi.Point,Size),Poi.Label,ColdSteelUI::TextPrimary);
+                    Mark(Project(Poi.Point,Size),Poi.Label,Poi.bSmithLesson?ColdSteelUI::HUDGoldLight:ColdSteelUI::TextPrimary);
             if (Layer) for (const auto& Label : Layer->Labels)
             {
                 FString Caption=Label.Text;
@@ -513,7 +521,7 @@ namespace ColdSteelCartography
             Box(7,{8,Y-26},{Spacing+20,36},ColdSteelUI::GlassTint,White);
             Line(7,{{16,Y-4},{16,Y},{16+Spacing,Y},{16+Spacing,Y-4}},ColdSteelUI::TextPrimary);
             Text({16,Y-22},FString::Printf(TEXT("%g m"),Interval*.01),Number,ColdSteelUI::TextPrimary);
-            if (Data.bWaitingForDungeon || Data.IsSampling())
+            if (Data.bWaitingForForest || Data.bWaitingForDungeon || Data.IsSampling())
                 Text({78,12},Data.bWaitingForDungeon?TEXT("正在获取地牢布局"):TEXT("正在绘制地表"),Font,ColdSteelUI::TextSecondary);
             else if (Data.bSurfaceUnavailable)
                 Text({78,12},TEXT("丘陵底图暂不可用"),Font,ColdSteelUI::TextSecondary);
@@ -560,7 +568,7 @@ namespace ColdSteelCartography
                     [SAssignNew(FloorMenu,SComboButton).ButtonStyle(&Style).IsFocusable(false)
                         .ContentPadding(FMargin(12,0)).VAlign(VAlign_Center)
                         .IsEnabled_Lambda([this](){return Canvas->KnownFloors().Num()>1;})
-                        .ToolTipText(FText::FromString(TEXT("已探索楼层及共享标记所在层；共享标记不会揭开迷雾")))
+                        .ToolTip(ColdSteelToolTip::Make(FText::FromString(TEXT("已探索楼层及共享标记所在层；共享标记不会揭开迷雾"))))
                         .OnGetMenuContent_Lambda([this]() -> TSharedRef<SWidget>
                         {
                             auto Choices=SNew(SVerticalBox);
@@ -600,7 +608,7 @@ namespace ColdSteelCartography
                             + SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)
                             [SNew(SVerticalBox)
                                 + SVerticalBox::Slot().AutoHeight()
-                                    [SNew(STextBlock).Text(Canvas.ToSharedRef(),&SMapCanvas::Title).ToolTipText(Canvas.ToSharedRef(),&SMapCanvas::Title)
+                                    [SNew(STextBlock).Text(Canvas.ToSharedRef(),&SMapCanvas::Title).ToolTip(ColdSteelToolTip::Make(TAttribute<FText>(Canvas.ToSharedRef(),&SMapCanvas::Title)))
                                         .Font(ColdSteelUI::TextFont(20*.75f,true)).OverflowPolicy(ETextOverflowPolicy::Ellipsis).ColorAndOpacity(ColdSteelUI::TextPrimary)]
                                 + SVerticalBox::Slot().AutoHeight().Padding(0,4,0,0)
                                     [SNew(STextBlock).Text_Lambda([this,Session](){return Session->bEditingMarker?FText::FromString(TEXT("编辑标记 · 暂停角色移动")):Canvas->ViewStatus();})

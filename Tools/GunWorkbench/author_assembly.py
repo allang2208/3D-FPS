@@ -79,7 +79,12 @@ bpy.ops.wm.save_as_mainfile(filepath=str(OUT/'M4_AssemblyParts.blend'))
 catalog_path=PROJECT/'Content/ColdSteelData/gun-assembly.json'
 previous=json.loads(catalog_path.read_text(encoding='utf-8-sig')) if catalog_path.exists() else {'recipes':[]}
 recipes=previous.get('recipes',[previous] if 'id' in previous else [])
+import sys
+sys.path.insert(0,str(PROJECT/'Tools/GunWorkbench'))
+from assembly_recipe_policy import preserve_gameplay_recipe
+recipe=preserve_gameplay_recipe(recipe,next((r for r in recipes if r['id']==recipe['id']),None))
 recipes=[r for r in recipes if r['id']!=recipe['id']]
 recipes.insert(0,recipe)
-catalog_path.write_text(json.dumps({'recipes':recipes},ensure_ascii=False,indent=2),encoding='utf-8')
+previous['recipes']=recipes
+catalog_path.write_text(json.dumps(previous,ensure_ascii=False,indent=2),encoding='utf-8')
 print('ASSEMBLY_PARTS_EXPORTED '+json.dumps({'parts':len(created),'gun_size_cm':list((high-low)*100)}))

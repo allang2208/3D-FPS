@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "../Combat/CombatChill.h"
 #include "IceWallTypes.generated.h"
 
 UENUM()
@@ -15,7 +16,7 @@ struct FIceWallTuning
     float HoverDuration=30, RiseSeconds=.08f, RiseHeight=160, DropSeconds=.06f, DropHeight=360;
     float MaxHealth=300, MaxHealthPerLevel=50;
     float Knockback=50, PushDistanceMultiplier=2, ChillRadius=100, ChillInterval=1;
-    float ChillDuration=2.5f, ChillSlow=.035f;
+    float ChillDuration=2.5f, ChillSlow=CombatChill::SlowPerStack;
     int32 ChillStacks=1;
     bool bRequiresStaff=true;
 };
@@ -30,7 +31,7 @@ struct FIceWallCast
     UPROPERTY() float SegmentSpacing=42; UPROPERTY() float HighHeight=260; UPROPERTY() float LowHeight=100; UPROPERTY() float Thickness=62;
     UPROPERTY() float HoverDuration=30; UPROPERTY() float RiseSeconds=.08f; UPROPERTY() float RiseHeight=160; UPROPERTY() float DropSeconds=.06f; UPROPERTY() float DropHeight=360;
     UPROPERTY() float Knockback=75; UPROPERTY() float PushDistanceMultiplier=2;
-    UPROPERTY() float ChillRadius=150; UPROPERTY() float ChillInterval=1; UPROPERTY() float ChillDuration=2.5f; UPROPERTY() float ChillSlow=.035f;
+    UPROPERTY() float ChillRadius=150; UPROPERTY() float ChillInterval=1; UPROPERTY() float ChillDuration=2.5f; UPROPERTY() float ChillSlow=CombatChill::SlowPerStack;
     UPROPERTY() int32 Count=5; UPROPERTY() int32 ChillStacks=1; UPROPERTY() int32 CastHasteStacks=0;
     UPROPERTY() float CastHasteDuration=5;
     UPROPERTY() bool bGrantChain=false;
@@ -62,6 +63,7 @@ struct FIceWallPlacement
     FString Reason;
     UPROPERTY() TArray<FIceWallSection> Sections;
     UPROPERTY() bool bTrimmed=false;
+    UPROPERTY() bool bHostileCaster=false;
     float MinAlong() const { return Sections.IsEmpty()?0.f:Sections[0].MinAlong; }
     float MaxAlong() const { return Sections.IsEmpty()?0.f:Sections.Last().MaxAlong; }
     float Width() const { return MaxAlong()-MinAlong(); }

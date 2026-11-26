@@ -1,9 +1,13 @@
-﻿#include "ColdSteelExpeditionWidget.h"
+#include "ColdSteelExpeditionWidget.h"
 #include "ColdSteelUIStyle.h"
+#include "SExpeditionButton.h"
+#include "Widgets/Images/SImage.h"
+#include "Styling/CoreStyle.h"
 #include "ColdSteelStatusModel.h"
 #include "../FPSGAMEPlayerController.h"
 #include "Engine/GameInstance.h"
 #include "Widgets/Input/SButton.h"
+#include "Widgets/Input/SComboButton.h"
 #include "Widgets/Input/SEditableTextBox.h"
 #include "Widgets/Layout/SBox.h"
 #include "Widgets/Layout/SScrollBox.h"
@@ -38,7 +42,6 @@ void UColdSteelExpeditionWidget::NativeConstruct()
     if (auto* Model = Profile())
         ProfileHandle = Model->OnChanged.AddUObject(this, &ThisClass::RefreshPreparationData);
     RefreshList();
-    RefreshPreparation();
 }
 
 void UColdSteelExpeditionWidget::NativeDestruct()
@@ -59,9 +62,13 @@ void UColdSteelExpeditionWidget::NativeTick(const FGeometry& Geometry, float Del
 FReply UColdSteelExpeditionWidget::NativeOnPreviewKeyDown(const FGeometry& Geometry, const FKeyEvent& Event)
 {
     // Preview catches Esc even while a search field or a tab owns keyboard focus.
-    if (Event.GetKey() == EKeys::Escape) { Close(); return FReply::Handled(); }
-    if (Destinations.Num()>1 && Event.IsControlDown() && Event.GetKey() == EKeys::F && Search.IsValid())
-    { Search->SetText(FText::FromString(Query)); return FReply::Handled().SetUserFocus(Search.ToSharedRef()); }
+    if (Event.GetKey() == EKeys::Escape) { if(DestinationPicker&&DestinationPicker->IsOpen())DestinationPicker->SetIsOpen(false);else Close();return FReply::Handled(); }
+    if(Destinations.Num()>1&&Event.IsControlDown()&&Event.GetKey()==EKeys::F&&DestinationPicker)
+    {
+        DestinationPicker->SetIsOpen(true);
+        if(Search)return FReply::Handled().SetUserFocus(Search.ToSharedRef());
+        return FReply::Handled();
+    }
     return Super::NativeOnPreviewKeyDown(Geometry, Event);
 }
 
@@ -101,18 +108,16 @@ void UColdSteelExpeditionWidget::SelectDestination(FName Id)
 {
     SelectedId = Id;
     Feedback = FText::GetEmpty();
+    RefreshDestinationArtwork();
     RefreshDetail();
-    RefreshPreparation();
     if (DetailScroll) DetailScroll->ScrollToStart();
-    if (LayoutMode == 2) { CompactPage = 1; LayoutMode = -1; UpdateLayout(); }
+    if(DestinationPicker)DestinationPicker->SetIsOpen(false);
 }
 
 void UColdSteelExpeditionWidget::UpdateSelectionStyles()
 {
     for (auto& Button : CatalogButtons) Button.Value->SetButtonStyle(Button.Key == SelectedId ? &SelectedStyle : &NormalStyle);
-    for (int32 Index = 0; Index < FilterButtons.Num(); ++Index) FilterButtons[Index]->SetButtonStyle(bAvailableOnly == (Index == 1) ? &SelectedStyle : &NormalStyle);
-    for (int32 Index = 0; Index < DetailButtons.Num(); ++Index) DetailButtons[Index]->SetButtonStyle(DetailTab == Index ? &SelectedStyle : &NormalStyle);
-    for (int32 Index = 0; Index < CompactButtons.Num(); ++Index) CompactButtons[Index]->SetButtonStyle(CompactPage == Index ? &SelectedStyle : &NormalStyle);
+    for (int32 Index = 0; Index < FilterButtons.Num(); ++Index) FilterButtons[Index]->SetButtonStyle(bAvailableOnly == (Index == 1) ? &MutedStyle : &QuietStyle);
 }
 
 void UColdSteelExpeditionWidget::RefreshList()
@@ -125,8 +130,9 @@ void UColdSteelExpeditionWidget::RefreshList()
         VisibleIds.AddUnique(Entry.Id);
     }
     if (!VisibleIds.Contains(SelectedId)) SelectedId = VisibleIds.IsEmpty() ? NAME_None : VisibleIds[0];
+    RefreshDestinationArtwork();
     Feedback = FText::GetEmpty();
-    if (!CatalogRows) { RefreshDetail(); RefreshPreparation(); return; }
+    if (!CatalogRows) { RefreshDetail(); return; }
     CatalogRows->ClearChildren();
     CatalogButtons.Reset();
     for (const FName Id : VisibleIds)
@@ -136,19 +142,27 @@ void UColdSteelExpeditionWidget::RefreshList()
         const FString Status = Entry->bCanDepart ? TEXT("可出征") : TEXT("待开放");
         TSharedPtr<SButton> Button;
         CatalogRows->AddSlot().AutoHeight().Padding(0, 0, 0, 8)
-        [SAssignNew(Button, SButton).ButtonStyle(SelectedId == Id ? &SelectedStyle : &NormalStyle)
-            .ContentPadding(14).HAlign(HAlign_Fill)
-            .OnClicked_Lambda([this, Id]() { SelectDestination(Id); return FReply::Handled(); })
-            [SNew(SVerticalBox)
+        [SAssignNew(Button, SExpeditionButton).ButtonStyle(SelectedId == Id ? &SelectedStyle : &NormalStyle)
+            .ContentPadding(FMargin(6, 10, 12, 10)).HAlign(HAlign_Fill)
+            .OnClicked_Lambda([this, Id]() {
+                SelectDestination(Id);
+                if(DestinationPicker)return FReply::Handled().SetUserFocus(DestinationPicker.ToSharedRef());
+                return FReply::Handled();
+            })
+            [SNew(SHorizontalBox)
+                +SHorizontalBox::Slot().AutoWidth().Padding(0, 0, 10, 0)[SNew(SBox).WidthOverride(2)
+                    .Visibility_Lambda([this, Id]() { return SelectedId == Id ? EVisibility::HitTestInvisible : EVisibility::Hidden; })
+                    [SNew(SImage).Image(FCoreStyle::Get().GetBrush("WhiteBrush")).ColorAndOpacity(ColdSteelUI::Accent)]]
+                +SHorizontalBox::Slot().FillWidth(1)[SNew(SVerticalBox)
                 +SVerticalBox::Slot().AutoHeight()[Label(Entry->Category, 12, ColdSteelUI::TextTertiary)]
-                +SVerticalBox::Slot().AutoHeight().Padding(0, 8, 0, 12)[Label(Entry->Name, 16, ColdSteelUI::TextPrimary)]
-                +SVerticalBox::Slot().AutoHeight()[Label(Status, 12, Entry->bCanDepart ? ColdSteelUI::Success : ColdSteelUI::TextSecondary)]]];
+                +SVerticalBox::Slot().AutoHeight().Padding(0, 8, 0, 12)[Label(Entry->Name, 16, ColdSteelUI::HUDGold)]
+                +SVerticalBox::Slot().AutoHeight()[Label(Status, 12, Entry->bCanDepart ? ColdSteelUI::Success : ColdSteelUI::TextSecondary)]]]];
         CatalogButtons.Add(Id, Button);
     }
     if (VisibleIds.IsEmpty())
     {
         CatalogRows->AddSlot().AutoHeight().Padding(0, 20)
-            [Label(Destinations.IsEmpty() ? TEXT("暂无目的地") : TEXT("没有符合条件的目的地"), 16, ColdSteelUI::TextSecondary)];
+            [Label(Destinations.IsEmpty() ? TEXT("暂无目的地") : TEXT("没有符合条件的目的地"), 16, ColdSteelUI::HUDGold)];
         CatalogRows->AddSlot().AutoHeight().Padding(0, 0, 0, 12)
             [Label(Destinations.IsEmpty() ? TEXT("新的目的地开放后将在这里显示。") : TEXT("尝试其他名称，或查看全部目的地。"), 12, ColdSteelUI::TextTertiary)];
         if (!Destinations.IsEmpty())
@@ -159,5 +173,4 @@ void UColdSteelExpeditionWidget::RefreshList()
             })];
     }
     RefreshDetail();
-    RefreshPreparation();
 }

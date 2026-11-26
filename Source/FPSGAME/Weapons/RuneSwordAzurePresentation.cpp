@@ -1,0 +1,581 @@
+#include "RuneSwordComponent.h"
+#include "../Characters/FPSComponentVisibility.h"
+#include "AzureDragonClawShake.h"
+#include "AzureDragonEnergyComponent.h"
+#include "AzureDragonStrikeClock.h"
+#include "../FPSGAMECharacter.h"
+#include "../UI/ColdSteelStatusModel.h"
+#include "../UI/ColdSteelEnhancementSystem.h"
+#include "../Monsters/FPSCombatHealthComponent.h"
+#include "../Monsters/MonsterCombatComponent.h"
+#include "Engine/OverlapResult.h"
+#include "Rendering/SkeletalMeshRenderData.h"
+#include "Rendering/SkeletalMeshLODRenderData.h"
+#include "Rendering/SkinWeightVertexBuffer.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "Components/DynamicMeshComponent.h"
+#include "DynamicMesh/DynamicMesh3.h"
+#include "DynamicMesh/DynamicMeshAttributeSet.h"
+#include "Animation/AnimSequence.h"
+#include "Engine/AssetManager.h"
+#include "Engine/GameInstance.h"
+#include "Engine/SkeletalMesh.h"
+#include "Engine/StreamableManager.h"
+#include "Engine/World.h"
+#include "Engine/LocalPlayer.h"
+#include "GameFramework/PlayerController.h"
+#include "Camera/PlayerCameraManager.h"
+#include "SceneView.h"
+#include "Materials/Material.h"
+#include "Materials/MaterialInstanceDynamic.h"
+
+#include "AzureDragonPresentationPrivate.h"
+using namespace AzureDragonPresentation;
+void URuneSwordComponent::TickAzureDragon(float Delta)
+{
+    if(AzureDragonHealth.IsValid()&&AzureDragonHealth->IsDead())
+    {BeginAzureDragonDissolve(DeathDissolveRate);ClearAzureDragonEnergy();bSwingAzureDragon=false;return;}
+    if(AzureDragonActiveUntil>0.f&&GetWorld())
+    {
+        const float Remaining=FMath::Max(0.f,AzureDragonActiveUntil-GetWorld()->GetTimeSeconds());
+        if(AzureDragonEnergyDisplay)AzureDragonEnergyDisplay->SetEnergy(Remaining/AzureDragonSeconds,false,false);
+        if(Remaining<=0.f){BeginAzureDragonDissolve(1.f);AzureDragonActiveUntil=0.f;} // natural expiry
+    }
+}
+
+bool URuneSwordComponent::LocalAzureDragonFrame(FAzureDragonFrame& Out) const
+{
+    // The owner's claws, sampled from this sword's final source time and attack state.
+    Out=FAzureDragonFrame();
+    if(!Character.IsValid()||!GetWorld())return false;
+    const float Now=GetWorld()->GetTimeSeconds();
+    // V10.15: shown while the enchanted sword is held and the window is open, also through menus,
+    // vaulting or building (no longer cut there); a dissolve that has begun plays on without the sword.
+    const bool bLive=bAzureDragonEquipped&&AzureDragonInstance==InstanceId;
+    Out.bActive=bLive&&Now<AzureDragonActiveUntil;
+    // V10.12: the claws strike only on attacks whose hits reach them (slashes, heavy, overhead,
+    // uppercut, rising finisher); thrust, dash, whirlwind and quick combat leave them idling. A heavy
+    // charge held past the tap window draws the coming claw back into its windup.
+    Out.bStriking=bLive&&AzureDragonClawSwing()&&(bAttacking||bUppercut);
+    Out.Held=bLive&&bCharging&&!bAttacking?float(GetWorld()->GetTimeSeconds()-ChargeStartedAt):0.f;
+    Out.bCharging=Out.bActive&&!Out.bStriking&&Out.Held>ClawChargeDelay;
+    Out.DissolveStart=AzureDragonDissolveStart;Out.DissolveRate=AzureDragonDissolveRate;
+    Out.DissolveAge=(Now-AzureDragonDissolveStart)*AzureDragonDissolveRate;
+    Out.bDissolving=!Out.bActive&&AzureDragonDissolveStart>=0.f&&Out.DissolveAge<DissolveSeconds;
+    Out.MoteBudget=MotesPerClaw;
+    if(!Out.bActive&&!Out.bStriking&&!Out.bDissolving)return false;
+    // Horizontal strokes sweep across the front (heavy descends); vertical ones rake down (overhead)
+    // or up (uppercut, rising finisher) through the forward line their hits cover.
+    Out.bVertical=Out.bStriking&&(bOverheadAttack||bUppercut||IsRisingDragonFinisher());
+    Out.bRising=Out.bStriking&&(bUppercut||IsRisingDragonFinisher());
+    Out.bHeavy=Out.bStriking&&bHeavyAttack;
+    // The charge winds up the claw its heavy release will use (measured side once known).
+    const int8* HeavySide=AzureDragonClipSide.Find(TEXT("HeavyRelease"));
+    Out.Claw=Out.bCharging?(HeavySide&&*HeavySide!=0?uint8(*HeavySide>0?1:0):AzureDragonNextClaw):SwingAzureDragonClaw;
+    Out.Source=Elapsed;Out.HitStart=ContactStart;Out.HitEnd=ContactEnd;Out.Rate=SwingRate;
+    Out.Entry=AzureDragonStrikeEntry>=0.f?AzureDragonStrikeEntry:Elapsed;
+    Out.SummonAge=FMath::Max(0.f,Now-AzureDragonSummonedAt); // keeps running through the dissolve
+    return true;
+}
+
+void URuneSwordComponent::SampleAzureDragonNet(uint8& Flags,float& SourceLength,float& Entry,float& ChargeStart,float ServerNow) const
+{
+    // V10.13: the cosmetic part other players need, carried in the owner's body presentation.
+    Flags=0;SourceLength=Entry=ChargeStart=0.f;
+    FAzureDragonFrame Frame;
+    if(!LocalAzureDragonFrame(Frame))return;
+    const uint8 Stroke=Frame.bRising?3:(Frame.bVertical?2:(Frame.bHeavy?1:0));
+    Flags=uint8((Frame.bActive?1:0)|(Frame.bStriking?2:0)|(Frame.Claw?4:0)|(Stroke<<3)|(Frame.bCharging?32:0)
+        |(Frame.bDissolving?64:0)|(Frame.bDissolving&&Frame.DissolveRate>1.f?128:0));
+    if(Frame.bStriking){SourceLength=CurrentAnimation?CurrentAnimation->GetPlayLength():0.f;Entry=FMath::Max(0.f,Frame.Entry);}
+    if(Frame.bCharging)ChargeStart=ServerNow-Frame.Held;
+}
+
+void URuneSwordComponent::PresentAzureDragonRemote(uint8 Flags,float Source,float StrikeContactStart,float StrikeContactEnd,float Entry,float Held)
+{
+    // V10.13: another player's claws on this machine, rebuilt from their replicated body state and
+    // anchored on their pawn; the viewing camera is the local player's.
+    if(!Character.IsValid()||Character->IsLocallyControlled()||GetNetMode()==NM_DedicatedServer)return;
+    const float Now=GetWorld()->GetTimeSeconds();
+    FAzureDragonFrame Frame;
+    Frame.bActive=(Flags&1)!=0;Frame.bStriking=(Flags&2)!=0;Frame.bCharging=Frame.bActive&&(Flags&32)!=0;
+    if(Frame.bActive&&!bAzureDragonRemoteActive)AzureDragonRemoteSummonAt=Now;
+    bAzureDragonRemoteActive=Frame.bActive;
+    // A new stroke (source time restarting) is a new swing for the claw blend.
+    if(Frame.bStriking&&(!bAzureDragonRemoteStriking||Source+.05f<AzureDragonRemoteLastSource))++AzureDragonSwingSerial;
+    bAzureDragonRemoteStriking=Frame.bStriking;AzureDragonRemoteLastSource=Source;
+    // The owner flags its dissolve (bit6, bit7 = faster death dissolve); this machine plays the full
+    // dissolve from when it first saw it.
+    const bool bDissolveFlag=(Flags&64)!=0;
+    if(bDissolveFlag&&!bAzureDragonRemoteDissolving)
+    {AzureDragonRemoteDissolveAt=Now;AzureDragonRemoteDissolveRate=(Flags&128)?DeathDissolveRate:1.f;}
+    if(Frame.bActive)AzureDragonRemoteDissolveAt=-100.f;
+    bAzureDragonRemoteDissolving=bDissolveFlag;
+    Frame.DissolveStart=AzureDragonRemoteDissolveAt;Frame.DissolveRate=AzureDragonRemoteDissolveRate;
+    Frame.DissolveAge=(Now-AzureDragonRemoteDissolveAt)*AzureDragonRemoteDissolveRate;
+    Frame.bDissolving=!Frame.bActive&&AzureDragonRemoteDissolveAt>=0.f&&Frame.DissolveAge<DissolveSeconds;
+    auto* Viewer=GetWorld()->GetFirstPlayerController();
+    if((!Frame.bActive&&!Frame.bStriking&&!Frame.bDissolving)||!Viewer){StopAzureDragon();return;}
+    bAzureDragonRemote=true;
+    if(AzureDragonClaws.Num()!=2){PrepareAzureDragon();return;}
+    const uint8 Stroke=(Flags>>3)&3;
+    Frame.Claw=(Flags&4)?1:0;
+    Frame.bVertical=Frame.bStriking&&Stroke>=2;Frame.bRising=Frame.bStriking&&Stroke==3;Frame.bHeavy=Frame.bStriking&&Stroke==1;
+    Frame.Source=Source;Frame.HitStart=StrikeContactStart;Frame.HitEnd=FMath::Max(StrikeContactStart,StrikeContactEnd);
+    Frame.Entry=Entry;Frame.Held=Held;Frame.SummonAge=Now-AzureDragonRemoteSummonAt;
+    Frame.Eye=Character->GetPawnViewLocation();Frame.Yaw=Character->GetActorRotation().Yaw;
+    Viewer->GetPlayerViewPoint(Frame.ViewEye,Frame.View);
+    // Other players' dust: half the motes, none when far away (the erosion itself still plays).
+    Frame.MoteBudget=FVector::DistSquared(Frame.ViewEye,Frame.Eye)<FMath::Square(RemoteMoteRangeCM)?RemoteMotesPerClaw:0;
+    PresentAzureDragon(Frame);
+}
+
+void URuneSwordComponent::UpdateAzureDragonPose()
+{
+    // Called after the sword has published its final source time and bone pose. Thus low FPS,
+    // accelerated attacks and retimed windups never advance the dragon on an independent clock or
+    // leave it a frame late. Other players' copies are driven by PresentAzureDragonRemote.
+    if(Character.IsValid()&&!Character->IsLocallyControlled())return;
+    auto* PC=Character.IsValid()?Cast<APlayerController>(Character->GetController()):nullptr;
+    FAzureDragonFrame Frame;
+    if(!PC||!LocalAzureDragonFrame(Frame)){StopAzureDragon();return;}
+    if(Frame.bStriking&&AzureDragonStrikeEntry<0.f)AzureDragonStrikeEntry=Frame.Entry=Elapsed;
+    PC->GetPlayerViewPoint(Frame.ViewEye,Frame.View);
+    Frame.Eye=Frame.ViewEye;Frame.Yaw=Frame.View.Yaw;Frame.ShakePC=PC;
+    PresentAzureDragon(Frame);
+}
+
+void URuneSwordComponent::PresentAzureDragon(const FAzureDragonFrame& Frame)
+{
+    if(AzureDragonClaws.Num()!=2||!AzureDragonGrab){StopAzureDragon();return;}
+    const float Now=GetWorld()->GetTimeSeconds();
+    const bool Active=Frame.bActive,Striking=Frame.bStriking,Charging=Frame.bCharging;
+    const auto Pose=Striking?AzureDragonStrikeClock::Sweep(Frame.Source,Frame.HitStart,Frame.HitEnd,Frame.Entry)
+        :(Charging?AzureDragonStrikeClock::Windup(Frame.Held-ClawChargeDelay):AzureDragonStrikeClock::Pose());
+    const bool ContactPose=(Striking||Charging)&&Pose.Visible;
+    if(!Active&&!ContactPose&&!Frame.bDissolving){StopAzureDragon();return;}
+    const float Impact=Pose.Impact; // where the sweep crosses the target (later for late entries)
+    // V10.14 expiry: erosion front progress; the claws stop rendering once it has passed everything.
+    const float DissolveT=Frame.bDissolving?Frame.DissolveAge:0.f;
+    const float Disintegrate=Frame.bDissolving?-FrontLead+FrontSpan*DissolveT/FrontSeconds:-1.f;
+    const float Eroded=FMath::Clamp(DissolveT/FrontSeconds,0.f,1.f);
+    const bool bClawsGone=Frame.bDissolving&&DissolveT>FrontSeconds*1.06f;
+    const bool bVertical=Frame.bVertical,bRising=Frame.bRising;
+    const bool bDescending=(Frame.bHeavy&&!bVertical)||Charging;
+    bAzureDragonShown=true;
+    const FVector Eye=Frame.ViewEye;
+    const FQuat ViewRotation=Frame.View.Quaternion();
+    const FVector Forward=ViewRotation.GetAxisX(),Right=ViewRotation.GetAxisY(),Up=ViewRotation.GetAxisZ();
+    // World-space body anchor: the claws' owner's eye position and yaw only (not pitch), chased with
+    // inertia, so the claws keep their place in front of the body while the view looks around them.
+    const float Dt=GetWorld()->GetDeltaSeconds();
+    const float YawGap=FMath::FindDeltaAngleDegrees(AzureDragonAnchorYaw,Frame.Yaw);
+    if(!bAzureDragonAnchored||FVector::DistSquared(AzureDragonAnchor,Frame.Eye)>FMath::Square(800.f)||FMath::Abs(YawGap)>120.f)
+    {AzureDragonAnchor=Frame.Eye;AzureDragonAnchorYaw=Frame.Yaw;bAzureDragonAnchored=true;}
+    else
+    {
+        AzureDragonAnchor=FMath::VInterpTo(AzureDragonAnchor,Frame.Eye,Dt,AnchorFollowRate);
+        AzureDragonAnchorYaw=FRotator::NormalizeAxis(AzureDragonAnchorYaw+YawGap*(1.f-FMath::Exp(-Dt*AnchorTurnRate)));
+    }
+    const FQuat BodyRotation=FRotator(0.f,AzureDragonAnchorYaw,0.f).Quaternion();
+    const FVector BodyForward=BodyRotation.GetAxisX(),BodyRight=BodyRotation.GetAxisY(),WorldUp=FVector::UpVector;
+    auto Station=[&](float YawDeg,float Distance,float Height)
+    {
+        const float A=FMath::DegreesToRadians(AzureDragonAnchorYaw+YawDeg);
+        return AzureDragonAnchor+FVector(FMath::Cos(A),FMath::Sin(A),0.f)*Distance+WorldUp*Height;
+    };
+    const float SummonAge=Frame.SummonAge;
+    const uint8 AttackingClaw=Frame.Claw;
+    const float Entry=Active?FMath::SmoothStep(0.f,.22f,SummonAge):1.f;
+    const bool Shown=Active||Frame.bDissolving;
+    // The expiry wind: across the view from the owner's left, a little back and rising.
+    const FVector Wind=(BodyRight*.8f-BodyForward*.2f+WorldUp*.3f).GetSafeNormal();
+    FVector DisCenter[2]={FVector::ZeroVector,FVector::ZeroVector},DisAxis[2]={FVector::ZeroVector,FVector::ZeroVector};
+    // Key light for the claw glass: from above-left of the viewer, so the sculpt is always shaded.
+    const FVector KeyDir=(Up*.80f-Right*.45f-Forward*.40f).GetSafeNormal();
+    int32 TrailClaw=INDEX_NONE;float TrailStrength=0.f,TrailSize=1.f;
+    float FlameStrength[2]={0.f,0.f};
+    for(int32 I=0;I<AzureDragonClaws.Num();++I)
+    {
+        const bool ClawStriking=ContactPose&&I==AttackingClaw;
+        const bool Visible=(Shown||ClawStriking)&&!bClawsGone;
+        if(!Visible)
+        {
+            AzureDragonClaws[I]->SetVisibility(false,true);AzureDragonMIDs[I]->SetScalarParameterValue(TEXT("Reveal"),0.f);
+            AzureDragonClawMode[I]=0u;
+            continue;
+        }
+        const float Side=I==0?-1.f:1.f;
+        const float Bob=14.f*FMath::Sin(SummonAge*(I==0?1.6f:1.83f)+I*2.1f);
+        // Idle (V10.10): two great arms either side of the view line forming a "八" that opens ahead:
+        // talons forward and fanned outward (slight lift), forearms angled in toward the player,
+        // palms facing inward toward each other, thumbs up.
+        const FVector IdlePalm=Station(Side*ClawIdleYaw,ClawIdleDistance,ClawIdleHeight+Bob);
+        const float ToeIn=FMath::DegreesToRadians(ClawIdleToeIn);
+        const FVector IdleFinger=(BodyForward*FMath::Cos(ToeIn)-BodyRight*(Side*FMath::Sin(ToeIn))+WorldUp*.12f).GetSafeNormal();
+        const FVector IdleBack=BodyRight*(Side*FMath::Cos(ToeIn))+BodyForward*FMath::Sin(ToeIn);
+        const FQuat IdleRotation=FRotationMatrix::MakeFromXZ(IdleFinger,IdleBack).ToQuat();
+        FVector Palm=IdlePalm;
+        FQuat Rotation=IdleRotation;
+        float Scale=ClawWorldScale;
+        FVector Stretch(1.f,1.f,1.f);
+        float AnimPhase=0.f; // gesture thirds; the talon snap (frame 18) is pinned to the impact
+        if(ClawStriking)
+        {
+            // ~0.6 s stroke on the sword clock. Lead: draw back and hold. Sweep: ease into the target,
+            // quickest where it crosses, then carry through. Recovery: swoop back to the station.
+            const float H0=bDescending?70.f:0.f,H3=bDescending?-110.f:0.f;
+            FVector P[4];
+            for(int32 K=0;K<4;++K)
+                P[K]=bVertical?Station(Side*VerticalKeys[K].Yaw,VerticalKeys[K].Distance,VerticalKeys[bRising?3-K:K].Height)
+                    :Station(Side*SweepKeys[K].Yaw,SweepKeys[K].Distance,SweepKeys[K].Height+FMath::Lerp(H0,H3,K/3.f));
+            const float G=Pose.Phase;
+            const float T=FMath::Clamp(G-1.f,0.f,1.f);
+            float S=0.f;
+            if(G>=1.f)
+            {
+                if(T<Impact)S=.5f*FMath::Pow(T/Impact,1.6f);
+                else S=.5f+.5f*(1.f-FMath::Pow(1.f-(T-Impact)/(1.f-Impact),2.2f));
+            }
+            AnimPhase=G<1.f||G>2.f?G:1.f+(T<Impact?.5f*T/Impact:.5f+.5f*(T-Impact)/(1.f-Impact));
+            const float SR=G<1.f?0.f:(G<=2.f?S:1.f);
+            // Talons reach out from the body, raised in the windup and raking down through the target
+            // (a rising stroke ends talons-up); the palm leads the direction of travel.
+            const FVector SweepPalm=Bezier3(P[0],P[1],P[2],P[3],SR);
+            const FVector Radial=(SweepPalm-AzureDragonAnchor).GetSafeNormal2D();
+            const float Lift=bRising?-.35f+.75f*SR:.40f-.75f*SR;
+            const FVector Finger=(Radial*.85f+WorldUp*Lift).GetSafeNormal();
+            const FVector Travel=Bezier3Tangent(P[0],P[1],P[2],P[3],FMath::Clamp(SR,.02f,.98f));
+            FVector Back=-(Travel-Finger*FVector::DotProduct(Travel,Finger)).GetSafeNormal();
+            if(Back.IsNearlyZero())Back=BodyRight*Side;
+            // Wrist: talons trail while the sweep builds, whip through at impact, settle; the
+            // forearm rolls over across the sweep.
+            float Whip=0.f,Roll=0.f;
+            if(G<1.f){const float A=Ease(G/.8f);Whip=18.f*A;Roll=-18.f*A;}
+            else if(G<=2.f)
+            {
+                Whip=T<Impact?18.f*(1.f-FMath::Square(T/Impact)):-14.f*FMath::Sin(PI*(T-Impact)/(1.f-Impact));
+                Roll=-18.f+36.f*SR;
+            }
+            else Roll=18.f*(1.f-Ease(G-2.f));
+            if(bVertical)Roll*=.4f; // a chop or uppercut keeps the forearm square
+            const FQuat SweepRotation=FRotationMatrix::MakeFromXZ(Finger,Back).ToQuat()*FRotator(Whip,0.f,Side*Roll).Quaternion();
+            if(G<1.f)
+            {
+                // Reach the windup at 80% of the lead and hang there until the sweep releases.
+                const float A=Ease(G/.8f);
+                const FVector Mid=(IdlePalm+P[0])*.5f+WorldUp*60.f-BodyForward*60.f;
+                Palm=Bezier2(IdlePalm,Mid,P[0],A);
+                Rotation=FQuat::Slerp(IdleRotation,SweepRotation,A);
+            }
+            else if(G<=2.f){Palm=SweepPalm;Rotation=SweepRotation;}
+            else
+            {
+                const float E=Ease(G-2.f);
+                const FVector Mid=(P[3]+IdlePalm)*.5f-WorldUp*(bRising?-120.f:140.f)-BodyForward*80.f;
+                Palm=Bezier2(P[3],Mid,IdlePalm,E);
+                Rotation=FQuat::Slerp(SweepRotation,IdleRotation,E);
+            }
+            Rotation.Normalize();
+            // Impact: a short swell along the talons as the sweep crosses the target.
+            const float Punch=G>=1.f&&G<=2.f?FMath::Exp(-FMath::Square((T-Impact)/.10f)):0.f;
+            Scale=ClawWorldScale*(1.f+.10f*Punch);
+            Stretch=FVector(1.f+.06f*Punch,1.f,1.f-.03f*Punch);
+            if(G>=1.f+Impact&&G<=2.f&&!bAzureDragonImpactFired)
+            {
+                bAzureDragonImpactFired=true;AzureDragonImpactTime=Now;
+                if(Frame.ShakePC&&Frame.ShakePC->PlayerCameraManager) // the owner's camera only
+                    Frame.ShakePC->PlayerCameraManager->StartCameraShake(UAzureDragonClawShake::StaticClass(),1.f);
+            }
+            if(G<1.f)bAzureDragonImpactFired=false;
+            // Rift scars are cut only while the talons actually rake (late windup to follow-through);
+            // a held heavy windup cuts nothing.
+            if(Striking)
+            {
+                TrailClaw=I;TrailSize=Scale;
+                TrailStrength=Entry*FMath::SmoothStep(.85f,1.08f,G)*(1.f-FMath::SmoothStep(2.f,2.35f,G));
+            }
+        }
+        // While eroding, the wind carries what is left of the claw downwind.
+        Palm+=Wind*(140.f*Eroded*Eroded);
+        // Whenever this claw changes what it is doing (strike start, cancel, combo hand-over, charge
+        // release), ease from where it was last shown instead of snapping.
+        const uint32 Mode=ClawStriking?(Striking?2u+AzureDragonSwingSerial:1u):0u;
+        const bool bWasShown=AzureDragonClaws[I]->IsVisible();
+        if(Mode!=AzureDragonClawMode[I])
+        {
+            AzureDragonClawMode[I]=Mode;
+            if(bWasShown)
+            {
+                AzureDragonBlendStart[I]=Now;
+                AzureDragonBlendPalm[I]=AzureDragonShownPalm[I];AzureDragonBlendRotation[I]=AzureDragonShownRotation[I];
+            }
+        }
+        const float Blend=bWasShown?Ease((Now-AzureDragonBlendStart[I])/ClawBlendSeconds):1.f;
+        if(Blend<1.f)
+        {
+            Palm=FMath::Lerp(AzureDragonBlendPalm[I],Palm,Blend);
+            Rotation=FQuat::Slerp(AzureDragonBlendRotation[I],Rotation,Blend).GetNormalized();
+        }
+        AzureDragonShownPalm[I]=Palm;AzureDragonShownRotation[I]=Rotation;
+        // One original rig and gesture, with a mirrored left counterpart, placed by its palm.
+        const FVector ClawScale(Scale*Stretch.X,Side*Scale*Stretch.Y,Scale*Stretch.Z);
+        AzureDragonClaws[I]->SetWorldTransform(FTransform(Rotation,Palm-Rotation.RotateVector(ClawPalmLocal*ClawScale),ClawScale));
+        FPSComponentVisibility::SetVisibilityTree(AzureDragonClaws[I],true);
+        // Between rakes each claw breathes through the idle loop on its own clock, restarted when its
+        // rake ends (frame 36 = loop start) so the two flow together without a pop.
+        float AnimTime=AnimPhase/3.f*ClawGestureSeconds;
+        if(ClawStriking||AzureDragonIdleStart[I]<0.f)AzureDragonIdleStart[I]=Now-(ClawStriking?0.f:I*ClawIdleDesync);
+        if(!ClawStriking&&AzureDragonGrab->GetPlayLength()>ClawGestureSeconds+1.f)
+            AnimTime=ClawGestureSeconds+FMath::Fmod(Now-AzureDragonIdleStart[I],ClawIdleLoopSeconds);
+        AzureDragonClaws[I]->SetPosition(AnimTime,false);
+        AzureDragonClaws[I]->TickAnimation(0.f,false);
+        AzureDragonClaws[I]->RefreshBoneTransforms();
+        if(AzureDragonClawDepth.IsValidIndex(I))AzureDragonClawDepth[I]->MarkRenderDynamicDataDirty(); // follow this pose now
+        // Idle claws stay nearly solid (was 0.65) so their structure reads.
+        const float Reveal=Entry*(Shown?(ClawStriking?.9f+.1f*Pose.Reveal:.9f):Pose.Reveal);
+        // Expiry erosion front: tips and the windward side go first (camera-relative like WorldPos,
+        // the axis pre-divided by the claw's span); the motes are born on the same front.
+        AzureDragonMIDs[I]->SetScalarParameterValue(TEXT("Disintegrate"),Disintegrate);
+        if(Frame.bDissolving)
+        {
+            const float Span=.75f*float(2.*AzureDragonMesh->GetBounds().BoxExtent.X)*Scale;
+            DisCenter[I]=AzureDragonClaws[I]->Bounds.Origin;
+            DisAxis[I]=(Wind*.35f-Rotation.GetAxisX()*.65f).GetSafeNormal()/FMath::Max(1.f,Span);
+            const FVector Relative=DisCenter[I]-Eye;
+            AzureDragonMIDs[I]->SetVectorParameterValue(TEXT("DisintegrateCenter"),FLinearColor(Relative.X,Relative.Y,Relative.Z,0.f));
+            AzureDragonMIDs[I]->SetVectorParameterValue(TEXT("DisintegrateAxis"),FLinearColor(DisAxis[I].X,DisAxis[I].Y,DisAxis[I].Z,0.f));
+        }
+        AzureDragonMIDs[I]->SetScalarParameterValue(TEXT("Reveal"),Reveal);
+        AzureDragonMIDs[I]->SetScalarParameterValue(TEXT("Age"),ClawStriking?Frame.Source/FMath::Max(.1f,Frame.Rate):SummonAge);
+        AzureDragonMIDs[I]->SetScalarParameterValue(TEXT("Impact"),ClawStriking?FMath::Exp(-FMath::Max(0.f,Now-AzureDragonImpactTime)*11.f):0.f);
+        AzureDragonMIDs[I]->SetVectorParameterValue(TEXT("KeyDir"),FLinearColor(KeyDir.X,KeyDir.Y,KeyDir.Z,0.f));
+        if(I<2)FlameStrength[I]=Reveal*(1.f-Ease(Eroded/.7f)); // the arm fire dies with the claw
+    }
+    if(!ContactPose)bAzureDragonImpactFired=false;
+    UpdateAzureDragonTrail(AzureDragonAnchor,BodyRotation,Eye,TrailClaw,TrailStrength,TrailSize);
+    UpdateAzureDragonFlames(Eye,ViewRotation,FlameStrength);
+    UpdateAzureDragonDust(Frame,Wind,DisCenter,DisAxis);
+}
+
+void URuneSwordComponent::UpdateAzureDragonFlames(const FVector& Eye,const FQuat& View,const float* ClawStrength)
+{
+    if(!AzureDragonFlames||!AzureDragonFlameMID)return;
+    bool bAny=false;
+    for(int32 I=0;I<2;++I)bAny|=ClawStrength[I]>.01f&&AzureDragonClaws.IsValidIndex(I);
+    if(!bAny){AzureDragonFlames->SetVisibility(false);return;}
+    // One big flame burns where each forearm dissolves: a rolling fire mass with a taller layer of
+    // rising tongues just in front, camera-facing, standing on the arm end and rising along world up.
+    const FVector3f WorldUp(View.UnrotateVector(FVector::UpVector));
+    AzureDragonFlames->SetWorldTransform(FTransform(View,Eye));
+    AzureDragonFlames->GetDynamicMesh()->EditMesh([&](UE::Geometry::FDynamicMesh3& Mesh)
+    {
+        for(int32 I=0;I<2;++I)
+        {
+            const bool bLive=ClawStrength[I]>.01f&&AzureDragonClaws.IsValidIndex(I);
+            const FTransform Claw=bLive?AzureDragonClaws[I]->GetComponentTransform():FTransform::Identity;
+            const float Unit=bLive?float(FMath::Abs(Claw.GetScale3D().X))*ClawStrength[I]:0.f;
+            const FVector3f Base(View.UnrotateVector(Claw.TransformPosition(FVector(-30.f,0.f,-2.f))-Eye));
+            for(int32 Layer=0;Layer<FlameCards;++Layer)
+            {
+                const float Height=(Layer?74.f:56.f)*Unit,Width=(Layer?40.f:52.f)*Unit;
+                const FVector3f Dir=Base.GetSafeNormal();
+                const FVector3f Center=Base+WorldUp*(Height*(Layer?.40f:.32f))-Dir*(Layer?6.f*Unit:0.f);
+                FVector3f Across=FVector3f::CrossProduct(WorldUp,Dir);
+                Across=Across.SizeSquared()>1.e-6f?Across.GetUnsafeNormal():FVector3f(0.f,1.f,0.f);
+                const FVector3f Rise=FVector3f::CrossProduct(Dir,Across);
+                const int32 V=(I*FlameCards+Layer)*4;
+                for(int32 Corner=0;Corner<4;++Corner)
+                    Mesh.SetVertex(V+Corner,FVector3d(Center+Across*(((Corner&1)-.5f)*Width)+Rise*(((Corner>>1)-.5f)*Height)));
+            }
+        }
+    },EDynamicMeshChangeType::DeformationEdit,EDynamicMeshAttributeChangeFlags::VertexPositions);
+    AzureDragonFlameMID->SetScalarParameterValue(TEXT("Age"),FMath::Fmod(GetWorld()->GetTimeSeconds(),600.f));
+    AzureDragonFlames->SetVisibility(true);
+}
+
+void URuneSwordComponent::UpdateAzureDragonDust(const FAzureDragonFrame& Frame,const FVector& Wind,const FVector* Center,const FVector* Axis)
+{
+    if(!AzureDragonDust||!AzureDragonDustMID||AzureDragonClaws.Num()!=2)return;
+    const int32 Budget=FMath::Min(Frame.MoteBudget,MotesPerClaw);
+    if(!Frame.bDissolving||Budget<=0)
+    {
+        if(AzureDragonDust->IsVisible())AzureDragonDust->SetVisibility(false);
+        AzureDragonMoteSeed=-1000.f;
+        return;
+    }
+    const float Age=Frame.DissolveAge,Dt=FMath::Min(GetWorld()->GetDeltaSeconds(),.05f)*Frame.DissolveRate;
+    const FVector Eye=Frame.ViewEye;const FQuat View=Frame.View.Quaternion();
+    const FTransform Claws[2]={AzureDragonClaws[0]->GetComponentTransform(),AzureDragonClaws[1]->GetComponentTransform()};
+    const bool bSeed=AzureDragonMoteSeed!=Frame.DissolveStart;
+    if(bSeed)
+    {
+        // Once per dissolve: a bounded random set of the claws' skinned vertices (CPU copy, kept by
+        // the engine for skeletal meshes; bone segments if absent). Each mote is stored in its claw's
+        // space and born when the erosion front reaches it, wherever the claw has drifted by then.
+        AzureDragonMoteSeed=Frame.DissolveStart;
+        AzureDragonMotes.SetNum(2*MotesPerClaw);
+        FRandomStream Random(int32(Frame.DissolveStart*997.f)^int32(GetUniqueID()));
+        for(int32 I=0;I<2;++I)
+        {
+            USkeletalMeshComponent* Claw=AzureDragonClaws[I];
+            const FSkeletalMeshRenderData* Render=Claw->GetSkeletalMeshRenderData();
+            const FSkeletalMeshLODRenderData* LOD=Render&&Render->LODRenderData.Num()>0?&Render->LODRenderData[0]:nullptr;
+            FSkinWeightVertexBuffer* Weights=LOD?Claw->GetSkinWeightBuffer(0):nullptr;
+            const int32 Vertices=LOD?int32(LOD->StaticVertexBuffers.PositionVertexBuffer.GetNumVertices()):0;
+            const bool bSkinned=Weights&&Vertices>0&&LOD->StaticVertexBuffers.PositionVertexBuffer.GetAllocatedSize()>0
+                &&Weights->GetVertexDataSize()>0&&Weights->GetNumVertices()==uint32(Vertices);
+            TArray<FMatrix44f> RefToLocals;
+            if(bSkinned)Claw->CacheRefToLocalMatrices(RefToLocals);
+            const FReferenceSkeleton& Ref=Claw->GetSkeletalMeshAsset()->GetRefSkeleton();
+            const float Scale=float(FMath::Abs(Claws[I].GetScale3D().X));
+            for(int32 K=0;K<MotesPerClaw;++K)
+            {
+                FAzureDragonMote& Mote=AzureDragonMotes[I*MotesPerClaw+K];
+                FVector World;
+                if(bSkinned)
+                    World=Claws[I].TransformPosition(FVector(USkinnedMeshComponent::GetSkinnedVertexPosition(
+                        Claw,Random.RandRange(0,Vertices-1),*LOD,*Weights,RefToLocals)));
+                else
+                {
+                    const int32 Bone=Random.RandRange(1,FMath::Max(1,Ref.GetNum()-1));
+                    World=FMath::Lerp(Claw->GetBoneTransform(Bone).GetLocation(),
+                        Claw->GetBoneTransform(FMath::Max(0,Ref.GetParentIndex(Bone))).GetLocation(),double(Random.FRand()))
+                        +Random.GetUnitVector()*(Random.FRand()*2.5f*Scale);
+                }
+                Mote=FAzureDragonMote();
+                Mote.Local=Claws[I].InverseTransformPosition(World);
+                const float G=float(FVector::DotProduct(World-Center[I],Axis[I]))+.5f+Random.FRandRange(-.09f,.09f);
+                Mote.Birth=FMath::Clamp((G+FrontLead)/FrontSpan,0.f,1.f)*FrontSeconds;
+                Mote.Life=Random.FRandRange(.75f,1.15f);
+                Mote.Size=Random.FRandRange(12.f,30.f)*Scale/ClawWorldScale; // cm at the standard claw scale
+                Mote.Phase=Random.FRand()*2.f*PI;
+                // Kick off the surface, mostly downwind and up; the wind then takes over.
+                Mote.Velocity=Wind*(WindSpeedCM*Random.FRandRange(.15f,.45f))+Random.GetUnitVector()*Random.FRandRange(40.f,140.f)
+                    +FVector::UpVector*Random.FRandRange(20.f,90.f);
+            }
+        }
+    }
+    const FVector Up=FVector::UpVector,Across=FVector::CrossProduct(Wind,Up).GetSafeNormal();
+    AzureDragonDust->SetWorldTransform(FTransform(View,Eye));
+    AzureDragonDust->GetDynamicMesh()->EditMesh([&](UE::Geometry::FDynamicMesh3& Mesh)
+    {
+        // Camera-local quads (X ahead, Y right, Z up). Unborn and dead motes are collapsed and left
+        // alone, so each frame only moves the motes that are actually flying.
+        const auto Quad=[&](int32 Index,const FVector& Position,float Size)
+        {
+            const FVector3d C(View.UnrotateVector(Position-Eye));const double H=.5*Size;
+            const int32 V=Index*4;
+            Mesh.SetVertex(V,C+FVector3d(0.,-H,-H));Mesh.SetVertex(V+1,C+FVector3d(0.,H,-H));
+            Mesh.SetVertex(V+2,C+FVector3d(0.,-H,H));Mesh.SetVertex(V+3,C+FVector3d(0.,H,H));
+        };
+        for(int32 I=0;I<2;++I)
+            for(int32 K=0;K<MotesPerClaw;++K)
+            {
+                const int32 Index=I*MotesPerClaw+K;
+                FAzureDragonMote& Mote=AzureDragonMotes[Index];
+                if(bSeed){Mote.bDead=K>=Budget;Quad(Index,Claws[I].TransformPosition(Mote.Local),0.f);}
+                if(Mote.bDead||Age<Mote.Birth)continue;
+                if(!Mote.bBorn){Mote.bBorn=true;Mote.Position=Claws[I].TransformPosition(Mote.Local);}
+                const float A=Age-Mote.Birth,U=A/Mote.Life;
+                if(U>=1.f){Mote.bDead=true;Quad(Index,Mote.Position,0.f);continue;}
+                const float Gust=FMath::Sin(A*4.1f+Mote.Phase),Swirl=FMath::Cos(A*3.3f+Mote.Phase*1.7f);
+                Mote.Velocity+=(Wind*WindSpeedCM-Mote.Velocity)*(1.f-FMath::Exp(-Dt*1.6f))
+                    +(Across*Gust+Up*(.55f+.45f*Swirl))*(MoteTurbulence*Dt);
+                Mote.Position+=Mote.Velocity*Dt;
+                Quad(Index,Mote.Position,Mote.Size*FMath::Min(1.f,U*8.f)*FMath::Pow(1.f-U,.8f));
+            }
+    },EDynamicMeshChangeType::DeformationEdit,EDynamicMeshAttributeChangeFlags::VertexPositions);
+    AzureDragonDustMID->SetScalarParameterValue(TEXT("Age"),Age);
+    AzureDragonDustMID->SetScalarParameterValue(TEXT("Fade"),1.f-FMath::SmoothStep(DissolveSeconds-.35f,DissolveSeconds,Age));
+    if(!AzureDragonDust->IsVisible())AzureDragonDust->SetVisibility(true);
+}
+
+void URuneSwordComponent::UpdateAzureDragonTrail(const FVector& Origin,const FQuat& Frame,const FVector& Eye,int32 Claw,float Strength,float Size)
+{
+    if(AzureDragonRiftMeshes.Num()!=2||AzureDragonRiftMIDs.Num()!=2)return;
+    const float Now=GetWorld()->GetTimeSeconds();
+    if(Claw!=INDEX_NONE&&Strength>.05f&&AzureDragonClaws.IsValidIndex(Claw))
+    {
+        // A new rake (or the whirlwind handing over to the other claw) cuts into the older scar set;
+        // the other set keeps holding and dissolving.
+        if(AzureDragonRiftCutting==INDEX_NONE||AzureDragonRifts[AzureDragonRiftCutting].Claw!=uint8(Claw))
+        {
+            AzureDragonRiftCutting=AzureDragonRiftCutting!=INDEX_NONE?1-AzureDragonRiftCutting
+                :(AzureDragonRifts[0].LastCut<=AzureDragonRifts[1].LastCut?0:1);
+            FAzureDragonRift& Fresh=AzureDragonRifts[AzureDragonRiftCutting];
+            Fresh.Path.Reset();Fresh.Width=0.f;Fresh.Claw=uint8(Claw);
+        }
+        FAzureDragonRift& Rift=AzureDragonRifts[AzureDragonRiftCutting];
+        TArray<FAzureDragonTrailSample>& Path=Rift.Path;
+        // Sampled after this frame's pose refresh, in the body frame so the scars travel with the body.
+        FAzureDragonTrailSample Sample;Sample.Time=Now;
+        for(int32 K=0;K<RiftTalons;++K)
+            Sample.Tips[K]=FVector3f(Frame.UnrotateVector(AzureDragonClaws[Claw]->GetBoneLocation(TipBones[K])-Origin));
+        if(!Path.IsEmpty()&&Now-Path.Last().Time<1.e-4f)Path.Last()=Sample;else Path.Add(Sample);
+        if(Path.Num()>RiftPathCap)
+        {
+            // Keep the whole path at half resolution rather than dropping where it began.
+            int32 W=0;
+            for(int32 R=0;R<Path.Num();R+=2)Path[W++]=Path[R];
+            if(Path[W-1].Time<Now)Path[W++]=Sample;
+            Path.SetNum(W,EAllowShrinking::No);
+        }
+        Rift.LastCut=Now;
+        Rift.Width=FMath::Max(Rift.Width,RiftWidth*Size*Strength);
+    }
+    else AzureDragonRiftCutting=INDEX_NONE;
+    const FVector3f CameraLocal(Frame.UnrotateVector(Eye-Origin));
+    for(int32 Slot=0;Slot<2;++Slot)
+    {
+        FAzureDragonRift& Rift=AzureDragonRifts[Slot];
+        UDynamicMeshComponent* Mesh=AzureDragonRiftMeshes[Slot];
+        const TArray<FAzureDragonTrailSample>& Path=Rift.Path;
+        const bool bCutting=Slot==AzureDragonRiftCutting;
+        const float Since=Now-Rift.LastCut;
+        if(Path.Num()<2||(!bCutting&&Since>RiftHold+RiftDissolve))
+        {
+            if(!bCutting){Rift.Path.Reset();Rift.Claw=255;}
+            Mesh->SetVisibility(false);
+            continue;
+        }
+        // Resample each talon's path by arc length: UV.x runs from where the cut began to the talon.
+        FVector3f Centers[RiftTalons][TrailSamples];
+        float Run[RiftPathCap+2];
+        for(int32 K=0;K<RiftTalons;++K)
+        {
+            Run[0]=0.f;
+            for(int32 I=1;I<Path.Num();++I)Run[I]=Run[I-1]+(Path[I].Tips[K]-Path[I-1].Tips[K]).Size();
+            const float Total=Run[Path.Num()-1];
+            int32 J=1;
+            for(int32 S=0;S<TrailSamples;++S)
+            {
+                const float L=Total*S/(TrailSamples-1);
+                while(J<Path.Num()-1&&Run[J]<L)++J;
+                const float A=FMath::Clamp((L-Run[J-1])/FMath::Max(1.e-3f,Run[J]-Run[J-1]),0.f,1.f);
+                Centers[K][S]=FMath::Lerp(Path[J-1].Tips[K],Path[J].Tips[K],A);
+            }
+        }
+        Mesh->SetWorldTransform(FTransform(Frame,Origin));
+        Mesh->GetDynamicMesh()->EditMesh([&](UE::Geometry::FDynamicMesh3& Edit)
+        {
+            for(int32 K=0;K<RiftTalons;++K)
+                for(int32 I=0;I<TrailSamples;++I)
+                {
+                    const FVector3f& C=Centers[K][I];
+                    const FVector3f D=Centers[K][FMath::Min(I+1,TrailSamples-1)]-Centers[K][FMath::Max(I-1,0)];
+                    FVector3f Across=FVector3f::CrossProduct(D,(C-CameraLocal).GetSafeNormal()); // face the camera
+                    Across=Across.SizeSquared()>1.e-6f?Across.GetUnsafeNormal():FVector3f(0.f,0.f,1.f);
+                    // Slit outline: widest mid-path, pointed at both ends; pinky and thumb scars slimmer.
+                    const float Profile=FMath::Pow(FMath::Sin(PI*I/(TrailSamples-1)),.6f);
+                    const FVector3f Half=Across*(.5f*Rift.Width*Profile*(K==0?.8f:(K==4?.7f:1.f)));
+                    const int32 V=(K*TrailSamples+I)*2;
+                    Edit.SetVertex(V,FVector3d(C+Half));Edit.SetVertex(V+1,FVector3d(C-Half));
+                }
+        },EDynamicMeshChangeType::DeformationEdit,EDynamicMeshAttributeChangeFlags::VertexPositions);
+        AzureDragonRiftMIDs[Slot]->SetScalarParameterValue(TEXT("Age"),FMath::Fmod(Now+Slot*7.f,600.f));
+        AzureDragonRiftMIDs[Slot]->SetScalarParameterValue(TEXT("Dissolve"),bCutting?0.f:FMath::Clamp((Since-RiftHold)/RiftDissolve,0.f,1.f));
+        Mesh->SetVisibility(true);
+    }
+}
+

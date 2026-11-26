@@ -1,0 +1,368 @@
+#include "FPSPlayerBodyComponent.h"
+#include "../Weapons/Kukri/GhostScytheMist.h"
+#include "FPSPlayerBodyAnimInstance.h"
+#include "FPSBodyWeaponMeshComponent.h"
+#include "FPSPlayerBodyPoses.h"
+#include "FPSBodySwordMotion.h"
+#include "FPSBodyWarhammerMotion.h"
+#include "FPSBodyRifleMotion.h"
+#include "FPSBodyPistolMotion.h"
+#include "FPSBodyStaffGrip.h"
+#include "../FPSGAMECharacter.h"
+#include "../Production/ProductionToolComponent.h"
+#include "../Items/FPSPotionUseComponent.h"
+#include "../Movement/FPSDoorPushComponent.h"
+#include "../Skills/FPSCastingMeshComponent.h"
+#include "../Skills/FPSFireballComponent.h"
+#include "../Skills/FPSQuickCombatComponent.h"
+#include "../Weapons/WeaponBipodDeploymentComponent.h"
+#include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/Staff/StaffWeaponComponent.h"
+#include "../Weapons/Staff/StaffArmsMeshComponent.h"
+#include "../Weapons/Staff/StaffOffhandMeleeComponent.h"
+#include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
+#include "../Weapons/Spellbook/SpellbookComponent.h"
+#include "../Weapons/Kukri/OffhandKukriComponent.h"
+#include "../Weapons/Super90WeaponAssets.h"
+#include "../Weapons/TubeShotgunAssets.h"
+#include "../Weapons/G18WeaponAssets.h"
+#include "Components/StaticMeshComponent.h"
+#include "Components/PointLightComponent.h"
+#include "Animation/AnimSequence.h"
+#include "Camera/CameraComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
+#include "Engine/World.h"
+#include "Engine/SkeletalMesh.h"
+#include "Engine/StaticMesh.h"
+#include "Materials/MaterialInstanceDynamic.h"
+#include "Rendering/SkeletalMeshRenderData.h"
+
+#include "FPSBodyMotionPrivate.h"
+using namespace FPSBodyMotionPrivate;
+
+namespace
+{
+void ApplyRigSections(UFPSBodyWeaponMeshComponent* Mesh,FFPSBodyMotionBinding& Binding,uint32 Sections)
+{
+    if(Binding.bHasSections&&Binding.LastSections==Sections)return;
+    const auto* Render=Mesh->GetSkeletalMeshAsset()->GetResourceForRendering();if(!Render)return;
+    for(int32 L=0;L<Render->LODRenderData.Num();++L)
+        for(int32 S=0;S<Render->LODRenderData[L].RenderSections.Num();++S)
+        {
+            const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
+            Mesh->ShowMaterialSection(M,S,!Binding.Definition.HiddenMaterials.Contains(M)&&(M>=32||(Sections&(1u<<M))),L);
+        }
+    Binding.bHasSections=true;Binding.LastSections=Sections;
+}
+}
+
+bool UFPSPlayerBodyComponent::HasMatchingMotionRig(int32 Index) const
+{
+    if(!MotionBindings.IsValidIndex(Index)||!DisplayState.Contacts.Rigs.IsValidIndex(Index))return false;
+    const auto& Binding=MotionBindings[Index];const auto& Rig=DisplayState.Contacts.Rigs[Index];
+    const auto& Weapon=Binding.Definition;
+    // Books/tools also have instance identity. Their GunInstance is empty, so
+    // checking only guns let an old same-schema sample drive a replacement item.
+    // A bow attaches to the left hand but still belongs to the main slot.
+    const bool Offhand=Weapon.AttachHand==1&&Weapon.PoseFamily!=TEXT("Bow");
+    const FString& Instance=Offhand?DisplayState.OffhandInstance:DisplayState.WeaponInstance;
+    const FString& Expected=!Weapon.ItemInstance.IsEmpty()?Weapon.ItemInstance:Weapon.GunInstance;
+    return Rig.Valid&&Rig.Schema==Weapon.MotionSchema&&Rig.Bones.Num()==Weapon.MotionBones.Num()
+        &&Rig.Parts.Num()==Binding.Parts.Num()&&(Expected.IsEmpty()||Expected==Instance);
+}
+
+void UFPSPlayerBodyComponent::ApplyMotion(float Delta)
+{
+    if(!BodyAnimation||!GetBodyMesh()||!GetBodyMesh()->GetSkeletalMeshAsset())return;
+    for(auto& Points:BodyAnimation->PistolClearanceInHand)Points.Reset();
+    const auto& Incoming=DisplayState.Contacts;
+    const bool Local=Character.IsValid()&&Character->IsLocallyControlled();
+    const float Alpha=Local||!bMotionSampleValid?1.f:1.f-FMath::Exp(-35.f*Delta);
+    const bool SameChannel=SmoothedContacts.Channel==Incoming.Channel;
+    BodyAnimation->ActionFingerMask=Incoming.Fingers;BodyAnimation->ActionWristMask=Incoming.Wrists;
+    BodyAnimation->bCoupledActionWrists=Incoming.CoupledWrists;
+    if(FPSBodyPistolMotion::UsesPrimaryReload(DisplayState)&&!HasMatchingMotionRig(0))
+    {BodyAnimation->ActionFingerMask=BodyAnimation->ActionWristMask=0;BodyAnimation->bCoupledActionWrists=false;}
+    for(int32 I=0;I<MotionBindings.Num();++I)
+    {
+        const auto& Weapon=MotionBindings[I].Definition;
+        if(!Weapon.bGunPistol||!FPSBodyPistolMotion::OwnsHand(DisplayState,Weapon.AttachHand))continue;
+        // A pistol's palm sample must be accepted with its own gun/parts. Old
+        // snapshots from the other loadout cannot move the freshly fitted hand.
+        const bool ExternalOwnsHand=(DisplayState.ConsumeHands&(1<<Weapon.AttachHand))!=0||
+            (DisplayState.bDual&&!FPSBodyPistolMotion::IsPistolChannel(FPSBodyPistolMotion::HandChannel(DisplayState,Weapon.AttachHand)));
+        if(!ExternalOwnsHand&&!HasMatchingMotionRig(I))
+        {
+            const uint8 OwnedHands=FPSBodyPistolMotion::IsRightSingle(DisplayState)||FPSBodyPistolMotion::HasRightSupport(DisplayState)
+                ?3:uint8(1<<Weapon.AttachHand);
+            BodyAnimation->ActionFingerMask&=~OwnedHands;
+            BodyAnimation->ActionWristMask&=~OwnedHands;
+        }
+        BodyAnimation->bCoupledActionWrists=false;
+        const auto& PistolHand=Weapon.AttachHand==0?DisplayState.RightHand:DisplayState.LeftHand;
+        if(DisplayState.bDual&&Weapon.bGunRevolver&&PistolHand.bReloading&&!ExternalOwnsHand)
+            BodyAnimation->ActionFingerMask&=~(1<<Weapon.AttachHand);
+    }
+    for(int32 Side=0;Side<2;++Side)
+    {
+        auto& H=SmoothedContacts.Hands[Side];const auto& Next=Incoming.Hands[Side];
+        const FName HandChannel=FPSBodyPistolMotion::HandChannel(DisplayState,Side);
+        const bool SameHandChannel=DisplayState.bDual?SmoothedPistolHandChannels[Side]==HandChannel:SameChannel;
+        const uint8 Bit=1<<Side;
+        // Reject stale gun samples before they enter interpolation history.
+        // An unrelated left cast/consume cannot reset a right reload, and an
+        // absolute external wrist must never blend with a relative gun delta.
+        if(BodyAnimation->ActionWristMask&Bit)
+            H.Wrist.Blend(H.Wrist,Next.Wrist,SameHandChannel&&(SmoothedContacts.Wrists&Bit)?Alpha:1.f);
+        if(BodyAnimation->ActionFingerMask&Bit)
+        {
+            const float FingerAlpha=SameHandChannel&&(SmoothedContacts.Fingers&Bit)?Alpha:1.f;
+            for(int32 J=0;J<15;++J)H.Fingers[J]=FQuat::Slerp(H.Fingers[J],Next.Fingers[J],FingerAlpha).GetNormalized();
+        }
+        BodyAnimation->ActionHands[Side]=H.Wrist;
+        SmoothedPistolHandChannels[Side]=HandChannel;
+    }
+    SmoothedContacts.Channel=Incoming.Channel;
+    SmoothedContacts.Wrists=BodyAnimation->ActionWristMask;SmoothedContacts.Fingers=BodyAnimation->ActionFingerMask;bMotionSampleValid=true;
+    // Equipment and pose properties can arrive in either order. Never apply an
+    // old pump's support target to the new gun while its mechanical rig rejects it.
+    const bool RightSupport=FPSBodyPistolMotion::HasRightSupport(DisplayState);
+    const bool SupportReady=Incoming.HasSupportGrip&&HasMatchingMotionRig(0);
+    BodyAnimation->bHasRightGrip=RightSupport&&(SupportReady||bHasBaseRightSupport)&&DisplayState.ConsumeHands==0;
+    if(SupportReady)
+    {
+        SmoothedContacts.SupportGrip.Blend(SmoothedContacts.SupportGrip,Incoming.SupportGrip,SmoothedContacts.HasSupportGrip?Alpha:1.f);
+        if(RightSupport)BodyAnimation->RightGripFromLeft=SmoothedContacts.SupportGrip;
+        else BodyAnimation->LeftGripFromRight=SmoothedContacts.SupportGrip;
+    }
+    else if(RightSupport)BodyAnimation->RightGripFromLeft=BaseRightSupportGrip;
+    else if(SmoothedContacts.HasSupportGrip)BodyAnimation->LeftGripFromRight=BaseSupportGrip;
+    SmoothedContacts.HasSupportGrip=SupportReady;
+    // Ready clips can change their actual support palm for ADS and fitted
+    // foregrips. Capture those contacts while holding, then retain the last
+    // ready contact across reload retrieval and the independent sprint clip.
+    if(SupportReady&&BodyAnimation->UsesNativeSinglePistolSource()&&
+        DisplayState.Action==EFPSBodyAction::None&&!DisplayState.bSprinting&&
+        !DisplayState.RightHand.bReloading&&!DisplayState.LeftHand.bReloading)
+    {
+        BodyAnimation->SinglePistolContact.Ready=SmoothedContacts.SupportGrip;
+        BodyAnimation->SinglePistolContact.bReady=true;
+    }
+    const auto& Ref=GetBodyMesh()->GetSkeletalMeshAsset()->GetRefSkeleton();
+    if(MotionFingerAsset!=GetBodyMesh()->GetSkeletalMeshAsset())
+    {
+        MotionFingerAsset=GetBodyMesh()->GetSkeletalMeshAsset();
+        for(int32 Side=0;Side<2;++Side)
+        {
+            MotionHalfBones[Side].Reset();int32 D=0;
+            for(const TCHAR* Digit:{TEXT("thumb"),TEXT("index"),TEXT("middle"),TEXT("ring"),TEXT("pinky")})
+            {
+                for(int32 J=0;J<3;++J)
+                {
+                    const int32 Bone=Ref.FindBoneIndex(*FString::Printf(TEXT("%s_%02d_%s"),Digit,J+1,Side==0?TEXT("r"):TEXT("l")));
+                    MotionFingerBones[Side][D*3+J]=Bone;
+                    if(Bone!=INDEX_NONE)for(int32 B=Bone+1;B<Ref.GetNum();++B)
+                        if(Ref.GetParentIndex(B)==Bone&&Ref.GetBoneName(B).ToString().Contains(TEXT("_half_")))MotionHalfBones[Side].Emplace(B,Bone);
+                }
+                ++D;
+            }
+        }
+    }
+    // The packet contains the fifteen finger joints, not the palm fan. Retain
+    // the same fitted metacarpals as the accepted per-weapon equipment grip.
+    BodyAnimation->ActionFingers=BodyAnimation->UsesNativeSinglePistolSource()&&BodyAnimation->EquipmentFingers.Num()==Ref.GetNum()
+        ?BodyAnimation->EquipmentFingers:Ref.GetRefBonePose();
+    if(DisplayState.Family==TEXT("Staff")&&(Incoming.Fingers&1)&&
+        (BodyAnimation->EquipmentGripHands&1)&&BodyAnimation->EquipmentFingers.Num()==Ref.GetNum())
+    {
+        // The existing contact packet carries fifteen joints. The staff palm
+        // fan belongs to the equipped native grip and is identical on owner
+        // and remote bodies; preserve it before overlaying those live joints.
+        for(int32 D=1;D<5;++D)
+        {
+            const int32 Finger=MotionFingerBones[0][D*3];
+            if(Finger==INDEX_NONE)continue;
+            const int32 Palm=Ref.GetParentIndex(Finger);
+            if(Palm!=INDEX_NONE)BodyAnimation->ActionFingers[Palm]=BodyAnimation->EquipmentFingers[Palm];
+        }
+    }
+    for(int32 Side=0;Side<2;++Side)if(BodyAnimation->ActionFingerMask&(1<<Side))
+    {
+        for(int32 J=0;J<15;++J)
+        {
+            const int32 Bone=MotionFingerBones[Side][J];if(Bone!=INDEX_NONE)BodyAnimation->ActionFingers[Bone].SetRotation(SmoothedContacts.Hands[Side].Fingers[J]);
+        }
+        for(const auto& Half:MotionHalfBones[Side])
+        {
+            const FQuat Change=Ref.GetRefBonePose()[Half.Value].GetRotation().Inverse()*BodyAnimation->ActionFingers[Half.Value].GetRotation();
+            BodyAnimation->ActionFingers[Half.Key].SetRotation((FQuat::Slerp(FQuat::Identity,Change.Inverse(),.5f)*Ref.GetRefBonePose()[Half.Key].GetRotation()).GetNormalized());
+        }
+    }
+    BodyAnimation->SinglePistolContact.OperationWeight=0.f;
+    const FFPSBodyMotionRig Empty;
+    for(int32 I=0;I<MotionBindings.Num();++I)
+    {
+        auto& Binding=MotionBindings[I];const auto& R=Incoming.Rigs.IsValidIndex(I)?Incoming.Rigs[I]:Empty;
+        if(Binding.Definition.PoseFamily==TEXT("Bow"))continue;
+        auto* Root=Binding.Mesh.IsValid()?static_cast<UPrimitiveComponent*>(Binding.Mesh.Get()):Binding.Static.Get();if(!Root)continue;
+        if(!HasMatchingMotionRig(I))
+        {
+            // Detached reload props are presentation children, not installed
+            // attachments. They must not survive a missing/replaced rig sample.
+            for(const auto& Weak:Binding.Revolver.IncomingRounds)if(auto* Round=Weak.Get())
+            {Round->SetVisibility(false);Round->SetHiddenInGame(true);}
+            if(auto* Loader=Binding.Revolver.Loader.Get())
+            {Loader->SetVisibility(false);Loader->SetHiddenInGame(true);}
+            if(auto* Prop=Binding.ReloadProp.Get())
+            {Prop->SetVisibility(false);Prop->SetHiddenInGame(true);FPSBodyEquipment::ApplyShadowFlags(Prop,false);}
+            if(Binding.Smoothed.Valid)
+            {
+                Root->SetRelativeTransform(Binding.Mount);
+                if(auto* Mesh=Binding.Mesh.Get())
+                {
+                    Mesh->PublishMechanicalPose(Binding.FrozenPose);
+                    if(Binding.bHasSections&&Binding.IncomingFeedSections)
+                        ApplyRigSections(Mesh,Binding,Binding.LastSections&~Binding.IncomingFeedSections);
+                    if(TubeShotgunAssets::MatchesMesh(Binding.Definition.Mesh.ToSoftObjectPath().ToString()))
+                        Super90WeaponAssets::SetLooseShellVisible(Mesh,false);
+                }
+                for(int32 P=0;P<Binding.Parts.Num();++P)if(Binding.Parts[P].IsValid())Binding.Parts[P]->SetRelativeTransform(Binding.FrozenParts[P]);
+                Binding.Smoothed.Valid=false;Binding.bHasSections=false;
+            }
+            for(int32 P=0;P<Binding.Parts.Num();++P)if(auto* Part=Binding.Parts[P].Get())
+            {
+                const bool Show=Root->IsVisible()&&!Root->bHiddenInGame&&Binding.Definition.Parts[P].bVisible;
+                if(Part->IsVisible()!=Show)Part->SetVisibility(Show);
+                if(Part->bHiddenInGame==Show)Part->SetHiddenInGame(!Show);
+                FPSBodyEquipment::ApplyShadowFlags(Part,Show&&ShouldWorldBodyCastShadow());
+            }
+            continue;
+        }
+        auto& Smooth=Binding.Smoothed;
+        if(!Smooth.Valid||Smooth.Bones.Num()!=R.Bones.Num()||Smooth.Parts.Num()!=R.Parts.Num())Smooth=R;
+        else
+        {
+            Smooth.Root.Blend(Smooth.Root,R.Root,Alpha);
+            for(int32 B=0;B<R.Bones.Num();++B)Smooth.Bones[B].Blend(Smooth.Bones[B],R.Bones[B],Alpha);
+            for(int32 P=0;P<R.Parts.Num();++P)Smooth.Parts[P].Blend(Smooth.Parts[P],R.Parts[P],Alpha);
+        }
+        Root->SetRelativeTransform(Smooth.Root);
+        const auto* Tool=GetOwner()->FindComponentByClass<UProductionToolComponent>();
+        // Remote clients have no inventory model for this pawn. Compare the
+        // replicated equipment instance directly with the authoritative throw.
+        const bool Thrown=Tool&&!Tool->ThunderAwayInstance.IsEmpty()&&Binding.Definition.ItemInstance==Tool->ThunderAwayInstance;
+        const bool Visible=R.Visible&&!Thrown&&!IsWorldWeaponStowed(Root)&&!IsWorldBodyPresentationHidden();
+        if(Root->IsVisible()!=Visible)Root->SetVisibility(Visible,Root->ComponentHasTag(GhostScytheMist::HolderTag));
+        if(Root->bHiddenInGame==Visible)Root->SetHiddenInGame(!Visible,Root->ComponentHasTag(GhostScytheMist::HolderTag));
+        if(auto* Prop=Binding.ReloadProp.Get())
+        {
+            const bool Show=Visible&&R.ReloadPropVisible;
+            if(Prop->IsVisible()!=Show)Prop->SetVisibility(Show);
+            if(Prop->bHiddenInGame==Show)Prop->SetHiddenInGame(!Show);
+            FPSBodyEquipment::ApplyShadowFlags(Prop,Show&&ShouldWorldBodyCastShadow());
+        }
+        FPSBodyEquipment::ApplyShadowFlags(Root,Visible&&ShouldWorldBodyCastShadow());
+        if(auto* Mesh=Binding.Mesh.Get())
+        {
+            auto Pose=Binding.FrozenPose;
+            for(int32 B=0;B<R.Bones.Num();++B)if(Pose.IsValidIndex(Binding.Definition.MotionBones[B]))Pose[Binding.Definition.MotionBones[B]]=Smooth.Bones[B];
+            UpdatePistolMagazine(Binding,Pose,Visible);
+            UpdateRevolverReload(Binding,Pose,Visible,Delta);
+            Mesh->PublishMechanicalPose(Pose);
+            if(auto* Prop=Binding.ReloadProp.Get())Prop->MarkRenderDynamicDataDirty();
+            const bool Reloading=DisplayState.Action==EFPSBodyAction::Reload||DisplayState.Action==EFPSBodyAction::ReloadEmpty;
+            ApplyRigSections(Mesh,Binding,Reloading?R.Sections:R.Sections&~Binding.IncomingFeedSections);
+        }
+        for(int32 P=0;P<Binding.Parts.Num();++P)if(auto* Part=Binding.Parts[P].Get())
+        {
+            FTransform PartPose=Smooth.Parts[P];
+            if(Binding.Revolver.HoldWeight>0.f&&Binding.Revolver.PresentedParts.IsValidIndex(P))
+                PartPose=Binding.Revolver.PresentedParts[P];
+            if(Binding.bMagazineOverride&&P==Binding.MagazinePart)PartPose=Binding.MagazinePartPose;
+            else if(DisplayState.bDual&&Binding.Definition.GunDefinition==G18WeaponAssets::Definition&&
+                Binding.Definition.Parts[P].Mesh.ToSoftObjectPath().GetAssetName()==TEXT("SM_G18_Drum50")&&
+                Binding.FrozenParts.IsValidIndex(P)&&Binding.FrozenPose.IsValidIndex(Binding.NativeWeaponRoot)&&Binding.Mesh.IsValid())
+            {
+                // The FPS drum withdraws half a metre behind the firing hand.
+                // Retarget its travel/turn around the real seated gun-root
+                // frame; preserve its source clock, scale and exact insertion.
+                const FTransform Seat=Binding.FrozenParts[P].GetRelativeTransform(
+                    BodyMotionRigidTransform(Binding.FrozenPose[Binding.NativeWeaponRoot]));
+                const FTransform Seated=Seat*BodyMotionRigidTransform(Binding.Mesh->GetSocketTransform(TEXT("WPN_root"),RTS_Component));
+                PartPose.SetLocation(FMath::Lerp(Seated.GetLocation(),PartPose.GetLocation(),.25f));
+                PartPose.SetRotation(FQuat::Slerp(Seated.GetRotation(),PartPose.GetRotation(),.35f).GetNormalized());
+            }
+            // Rigid socket children already follow the published mechanical pose.
+            if(Part->GetAttachSocketName().IsNone())Part->SetRelativeTransform(PartPose);
+            const bool Show=Visible&&R.VisibleParts[P]&&!(Binding.bMagazineOverride&&Binding.bMagazineHidden&&P==Binding.MagazinePart);
+            if(Part->IsVisible()!=Show)Part->SetVisibility(Show);
+            if(Part->bHiddenInGame==Show)Part->SetHiddenInGame(!Show);
+            FPSBodyEquipment::ApplyShadowFlags(Part,Show&&ShouldWorldBodyCastShadow());
+        }
+        if(Binding.Definition.bGunPistol&&(DisplayState.bDual||FPSBodyPistolMotion::IsSingleReload(DisplayState)))
+        {
+            // Value-only contacts for the animation worker. Reuse the actual
+            // accepted mechanical pose and attachment mounts, not camera space
+            // or another gun's dimensions. No runtime vertex/triangle queries.
+            auto& Points=BodyAnimation->PistolClearanceInHand[Binding.Definition.AttachHand];
+            const FTransform ToHand=Root->GetRelativeTransform();
+            if(auto* Mesh=Binding.Mesh.Get();Mesh&&Mesh->DoesSocketExist(TEXT("WPN_root")))
+            {
+                const FTransform GunRoot=Mesh->GetSocketTransform(TEXT("WPN_root"),RTS_Component);
+                Points.Add(ToHand.TransformPosition(GunRoot.GetLocation()));
+                Points.Add(ToHand.TransformPosition(GunRoot.TransformPosition(Binding.Definition.GunMuzzleInRoot.GetLocation())));
+            }
+            for(int32 P=0;P<Binding.Parts.Num();++P)if(const auto* Part=Binding.Parts[P].Get();Part&&Drawn(Part)&&Part->GetStaticMesh())
+            {
+                const FBox Box=Part->GetStaticMesh()->GetBoundingBox();
+                FTransform ClearancePose=Part->GetRelativeTransform();
+                if(DisplayState.bDual&&Binding.Definition.GunDefinition==G18WeaponAssets::Definition&&
+                    Binding.Definition.Parts[P].Mesh.ToSoftObjectPath().GetAssetName()==TEXT("SM_G18_Drum50")&&
+                    Binding.FrozenParts.IsValidIndex(P)&&Binding.FrozenPose.IsValidIndex(Binding.NativeWeaponRoot)&&Binding.Mesh.IsValid())
+                {
+                    // A released magazine cannot pull the holding arm after
+                    // itself. Fit the gun with its seated drum dimensions;
+                    // the separate third-person magazine path is fitted above.
+                    const FTransform Seat=Binding.FrozenParts[P].GetRelativeTransform(
+                        BodyMotionRigidTransform(Binding.FrozenPose[Binding.NativeWeaponRoot]));
+                    ClearancePose=Seat*BodyMotionRigidTransform(Binding.Mesh->GetSocketTransform(TEXT("WPN_root"),RTS_Component));
+                }
+                const FTransform PartToHand=ClearancePose*ToHand;
+                for(int32 Corner=0;Corner<8;++Corner)
+                    Points.Add(PartToHand.TransformPosition(FVector(Corner&1?Box.Max.X:Box.Min.X,Corner&2?Box.Max.Y:Box.Min.Y,Corner&4?Box.Max.Z:Box.Min.Z)));
+            }
+        }
+    }
+    // Mechanical poses are rebased into the owning wrist every sample. Refresh
+    // the measured barrel after publishing that exact pose, including pump/bolt
+    // recovery and each independent pistol. An equipment-time frame alone goes
+    // stale as soon as the first-person gun root moves relative to its palm.
+    for(const auto& Binding:MotionBindings)
+        if(Binding.Definition.PoseFamily==TEXT("Gun"))
+            if(const auto* Mesh=Binding.Mesh.Get())
+            {
+                const auto& Definition=Binding.Definition;
+                FTransform Muzzle=Definition.GunMuzzleInRoot*Mesh->GetSocketTransform(TEXT("WPN_root"),RTS_Component);
+                if(Binding.Parts.IsValidIndex(Definition.MuzzlePart))
+                    if(const auto* Part=Binding.Parts[Definition.MuzzlePart].Get())
+                    {
+                        // Same fitted muzzle attachment and axis as world gun FX.
+                        const FTransform PartInMesh=Part->GetComponentTransform().GetRelativeTransform(Mesh->GetComponentTransform());
+                        Muzzle=FTransform(PartInMesh.TransformVectorNoScale(Definition.MuzzleAxis).Rotation(),
+                            PartInMesh.TransformPosition(Definition.MuzzleTip));
+                    }
+                BodyAnimation->GunAimFrames[Definition.AttachHand]=FPSBodyGunAim::FromMuzzle(Muzzle,Mesh->GetRelativeTransform());
+            }
+    UpdateConsumable(Incoming);
+    UpdateFloatingBook(Incoming,Alpha);
+    if(WorldStaffLight&&LastWorldLight!=Incoming.Light)
+    {
+        LastWorldLight=Incoming.Light;WorldStaffLight->SetIntensity(1000.f*Incoming.Light);
+        for(const auto& Material:WorldStaffMaterials)if(Material)Material->SetScalarParameterValue(TEXT("StaffLightAmount"),3.f*Incoming.Light);
+    }
+    if(WorldStaffLight)
+    {
+        const bool Visible=Incoming.Light>0.f&&(!Local||IsThirdPersonViewEnabled())&&!IsWorldBodyPresentationHidden();
+        if(WorldStaffLight->IsVisible()!=Visible)WorldStaffLight->SetVisibility(Visible);
+    }
+}

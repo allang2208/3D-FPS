@@ -16,6 +16,7 @@ struct FFPSBodyFootSeed
     float GaitPhase=0.f;
     float ReachLimit=0.f;
     bool bValid=false;
+    bool bAuthoredAttackStep=false;
 };
 
 /** Value-only snapshot copied on the game thread, read on the animation worker. */

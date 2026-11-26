@@ -1,4 +1,5 @@
 #include "ThermalTargetSubsystem.h"
+#include "../Building/BronzeTorch.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -122,7 +123,10 @@ void UThermalTargetSubsystem::Refresh()
     for(int32 I=0;I<Targets.Num();++I)
     {
         auto& T=Targets[I];auto* Source=T.Source.Get();
-        const bool Alive=T.Fire?Source->IsActive()&&Source->IsVisible():!T.Combat->IsDead();
+        const auto* Torch = T.Fire ? Cast<ABronzeTorch>(Source->GetOwner()) : nullptr;
+        // The flame emitter can sleep while the physical torch is still burning.
+        const bool Alive = T.Fire ? Source->IsVisible() && (Torch ? Torch->HasBurningFlame() : Source->IsActive())
+                                  : !T.Combat->IsDead();
         if(!Alive||Source->GetOwner()->IsHidden()){Release(T);continue;}
         double Distance=DBL_MAX;
         for(const auto& Camera:Viewers)if(Camera.IsValid())

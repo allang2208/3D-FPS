@@ -1,11 +1,14 @@
 #include "../UI/ColdSteelStatusModel.h"
+#include "../Monsters/UnknownSpellCombat.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../FPSGAMECharacter.h"
-#include "ColdSteelSkillRules.h"
+#include "ColdSteelSpellRewards.h"
+#include "ColdSteelSpellCrafting.h"
+#include "ColdSteelSpellFeedback.h"
 #include "FireMagicDamage.h"
 #include "HolyLightTargets.h"
 #include "Engine/GameInstance.h"
@@ -14,7 +17,7 @@
 const FColdSteelSkillDefinition& UColdSteelStatusModel::FireMagicDefinition(FName Id) const
 {return Id==TEXT("dragonBreath")?DragonBreathSkill:Id==TEXT("flameArmor")?FlameArmorSkill:MeteorSkill;}
 FColdSteelSkillProgress UColdSteelStatusModel::FireMagicProgress(FName Id) const
-{const auto* P=Current.Skills.Find(Id);return P?*P:FColdSteelSkillProgress();}
+{return Current.Skills.FindRef(Id);}
 float UColdSteelStatusModel::FireMagicCooldown(FName Id) const
 {return HasNoAbilityCooldown()?0.f:Id==TEXT("dragonBreath")?Current.DragonBreathCooldown:(Id==TEXT("flameArmor")?Current.FlameArmorCooldown:Current.MeteorCooldown);}
 float UColdSteelStatusModel::FireMagicCooldownDuration(FName Id) const
@@ -27,7 +30,7 @@ FFireMagicCast UColdSteelStatusModel::FireMagicStats(FName Id,int32 AtLevel) con
     const float Growth=float(L-1)/FMath::Max(1,D.MaxLevel-1);
     FFireMagicCast C;C.Skill=Id;C.MagicAttack=Derived(TEXT("matk"));
     const float Intelligence=Attribute(TEXT("int"));
-    // Advanced damage starts at level one; flame armor retains its existing curve.
+    // Advanced damage tuning starts at level one; flame armor keeps its existing curve.
     const int32 DamageLevel=Id==TEXT("flameArmor")?L:L-1;
     C.Damage=FMath::FloorToFloat(T.DamageBase+DamageLevel*T.DamagePerLevel+C.MagicAttack*(T.MagicBase+DamageLevel*T.MagicPerLevel)+Intelligence*(T.IntelligenceBase+DamageLevel*T.IntelligencePerLevel));
     C.AuraDamage=FMath::FloorToFloat(T.AuraDamageBase+DamageLevel*T.AuraDamagePerLevel+C.MagicAttack*(T.AuraMagicBase+DamageLevel*T.AuraMagicPerLevel)+Intelligence*(T.AuraIntelligenceBase+DamageLevel*T.AuraIntelligencePerLevel));
@@ -44,24 +47,21 @@ FFireMagicCast UColdSteelStatusModel::FireMagicStats(FName Id,int32 AtLevel) con
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     C.MagicDamageBonus=(1+SetEffect(TEXT("magicDamage")))*Rune.MagicDamage-1;
     float DamageFactor=1,CooldownReduction=0;
-    const auto* Player=RuntimePawn();
-    const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
-    const int32 Chain=Status?Status->ChainSpellStacks():0;
+    const int32 Chain=ColdSteelSpellCrafting::ChainSpellStacks(RuntimePawn());
     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         {
             auto Craft=[&](const TCHAR* Key){return E->CraftEffect(*Item,Key);};
-            C.CriticalChance+=100*(E->Effect(*Item,TEXT("critRate"))+Craft(TEXT("critChancePercent"))+Craft(TEXT("magicCritPercent")));
-            C.MagicPenetration=E->Effect(*Item,TEXT("magicPenetrationPercent"))+Craft(TEXT("magicPenetrationPercent"));
+            ColdSteelSpellCrafting::ApplyCriticalStats(C,*E,*Item);
             CooldownReduction=Craft(TEXT("magicCooldownPercent"));C.Range*=1+Craft(TEXT("magicRangePercent"));
             C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));
             DamageFactor=(1+Craft(TEXT("magicDamagePercent"))+Craft(TEXT("fireDamagePercent")))*(1+Chain*Craft(TEXT("chainSpellDamagePercent")));
-            C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
-            C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*Item,TEXT("castHasteDuration"),5000)/1000;
+            ColdSteelSpellCrafting::ApplyChainAndCastHaste(C,*E,*Item);
             C.PendantBurnMultiplier=Craft(TEXT("fireBurnDamageMul"));
             C.PendantBurnSeconds=E->CraftEffect(*Item,TEXT("fireBurnDuration"),3000)/1000;
             C.PendantBurnTick=E->CraftEffect(*Item,TEXT("fireBurnTickMs"),500)/1000;
         }
+    C.Range*=float(MagicRangeMultiplier());
     DamageFactor*=MagicImplementMultiplier();C.Damage=FMath::FloorToFloat(C.Damage*DamageFactor);C.AuraDamage=FMath::FloorToFloat(C.AuraDamage*DamageFactor);
     C.ManaCost=SpellManaCost(Id,L);
     C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.SkillCooldown*Rune.MagicCooldown;
@@ -72,6 +72,8 @@ FFireMagicCast UColdSteelStatusModel::FireMagicStats(FName Id,int32 AtLevel) con
 bool UColdSteelStatusModel::BeginFireMagicCast(const FFireMagicCast& Spell)
 {
     if(!FireMagic::IsSkill(Spell.Skill)||FireMagicCooldown(Spell.Skill)>0||!CanSpendMana(Spell.ManaCost))return false;
+    if(Spell.Skill==TEXT("flameArmor"))
+        if(const auto* Pawn=RuntimePawn())if(const auto* Status=Pawn->FindComponentByClass<UCombatStatusFormula>();Status&&Status->IsImmune())return false;
     if(Spell.Skill==TEXT("dragonBreath")&&Current.bDragonBreathReserved)return false;
     if(FireMagicDefinition(Spell.Skill).FireMagic.bRequiresStaff&&!HasEquippedStaff())return false;
     SyncRuntime();auto P=Snapshot();if(!HasInfiniteMana())P.Mana-=Spell.ManaCost;
@@ -85,11 +87,20 @@ bool UColdSteelStatusModel::CommitDragonBreathRelease()
 {
     if(!Current.bDragonBreathReserved)return false;
     SyncRuntime();auto P=Snapshot();P.bDragonBreathReserved=false;P.DragonBreathReservedMana=0;
-    return CommitState(MoveTemp(P));
+    const bool Released=CommitState(MoveTemp(P));
+    if(Released)NotifyMagicReleased();return Released;
 }
 
 bool UColdSteelStatusModel::ApplyFireMagicHit(APawn* Shooter,AActor* Target,const FFireMagicCast& Spell,float Damage,FFireMagicRewards& Batch)
 {
+    if(UnknownSpell::IsCaster(Shooter))
+    {
+        const bool Applied=UnknownSpell::Hit(Shooter,Target,Damage,Spell.CriticalChance,Spell.CriticalDamageBonus,
+            Spell.MagicDamageBonus,Spell.MagicPenetration,UFireMagicDamage::StaticClass());
+        if(Applied&&Spell.PendantBurnMultiplier>0)UCombatStatusFormula::GetOrAdd(Target)->AddBurn(Shooter,Spell.MagicAttack,1,Spell.PendantBurnSeconds,Spell.PendantBurnMultiplier,Spell.PendantBurnTick);
+        if(Applied)++Batch.Hits;
+        return Applied;
+    }
     auto* Combat=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
     if(!Shooter||!Shooter->IsPlayerControlled()||!Shooter->HasAuthority()||Target==Shooter||!Combat||Combat->IsDead()||HolyLightTargets::IsFriendly(Target))return false;
     // Weapon-triggered bonus hits must not claim a weapon mastery kill, recurse
@@ -107,11 +118,10 @@ bool UColdSteelStatusModel::ApplyFireMagicHit(APawn* Shooter,AActor* Target,cons
     if(Spell.PendantBurnMultiplier>0&&!Combat->IsDead())
         UCombatStatusFormula::GetOrAdd(Target)->AddBurn(Shooter,Spell.MagicAttack,1,
             Spell.PendantBurnSeconds,Spell.PendantBurnMultiplier,Spell.PendantBurnTick);
-    if(auto* Player=Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied);
+    ColdSteelSpellFeedback::NotifyHit(Shooter,Target,Applied,*Combat,Critical);
     if(!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))
     {
-        ++Batch.Hits;if(Combat->IsDead())++Batch.Kills;
-        if(Critical){++Batch.CriticalHits;if(Combat->IsDead())++Batch.CriticalKills;}
+        ColdSteelSpellRewards::RecordTrainingHit(Batch,*Combat,Critical);
     }
     return true;
 }
@@ -120,8 +130,8 @@ void UColdSteelStatusModel::FinishFireMagicCast(FName Id,const FFireMagicRewards
 {
     if(!FireMagic::IsSkill(Id)||Batch.Hits<=0)return;
     SyncRuntime();auto P=Snapshot();const auto& D=FireMagicDefinition(Id);const auto& T=D.FireMagic;
-    ColdSteelSkills::AddExperience(P,D,Batch.Hits*T.HitExperience+Batch.Kills*T.KillExperience+(Batch.bMultiHit?T.MultiHitExperience:0)+(Batch.Kills>=2?T.MultiKillExperience:0));
-    ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,Batch.CriticalHits*CriticalStrikeSkill.CriticalHitExperience+Batch.CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
+    ColdSteelSpellRewards::AccumulateHitKillTraining(P,D,T,Batch.Hits,Batch.Kills,Batch.bMultiHit);
+    ColdSteelSpellRewards::AccumulateCriticalTraining(P,CriticalStrikeSkill,Batch.CriticalHits,Batch.CriticalKills);
     // 命中与击杀修炼先落实时档案（StageTraining 内部会在升级时立即写盘）。
     StageTraining(MoveTemp(P));
 }

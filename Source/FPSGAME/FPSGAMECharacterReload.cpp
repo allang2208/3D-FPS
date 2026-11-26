@@ -6,6 +6,7 @@
 #include "Weapons/RSH12WeaponAssets.h"
 #include "Weapons/FPSGunplayAnimInstance.h"
 #include "Weapons/LMG201WeaponAssets.h"
+#include "Weapons/M249SideMagazine.h"
 #include "Weapons/PistolDualWieldComponent.h"
 #include "Monsters/FPSCombatHealthComponent.h"
 #include "Animation/AnimSequence.h"
@@ -33,6 +34,9 @@ float AFPSGAMECharacter::GetCowboyReloadHintOpacity() const
 
 void AFPSGAMECharacter::TryCowboyReload()
 {
+    if(GetNetMode()==NM_Client)return;
+    if(HasAuthority()&&!IsLocallyControlled())
+    {if(auto* PS=GetPlayerState<AColdSteelPlayerState>())PS->PistolCowboyReload();return;}
     if(DualPistols && DualPistols->IsActive())
     {
         DualPistols->TryCowboyReload();
@@ -54,11 +58,15 @@ void AFPSGAMECharacter::TryCowboyReload()
 
 void AFPSGAMECharacter::InitializeReloadStages(bool CycleOnly)
 {
+    if(IsPistolWeapon()&&GetNetMode()==NM_Client)
+        if(auto* PS=GetPlayerState<AColdSteelPlayerState>();!PS||!PS->RequestPistolReload(ActiveInventoryWeapon,PendingAmmoType))
+        {InterruptReload();return;}
     ReloadStages=WeaponReloadStages::ForWeapon(ActiveInventoryWeaponDefinition,bPendingEmptyReload,
         bDrumInstalled,bRevolverSingleReload,RevolverReloadCount);
     if(HasLMG201ClothBox())ReloadStages={LMG201WeaponAssets::ClothEventTime(LMG201WeaponAssets::ClothBoxSeat,bPendingEmptyReload),
         LMG201WeaponAssets::ClothEventTime(LMG201WeaponAssets::ClothBoxSeat,bPendingEmptyReload),
         LMG201WeaponAssets::ClothEventTime(LMG201WeaponAssets::ClothCoverClose,bPendingEmptyReload)};
+    if(HasM249SideMagazine())ReloadStages={M249SideMagazine::Insert,M249SideMagazine::CycleBegin,bPendingEmptyReload?M249SideMagazine::ChargeClosed:M249SideMagazine::Seat};
     bReloadCycleOnly=CycleOnly;
     bReloadAmmoCommitted=CycleOnly;
     ReloadResumeElapsed=0.f;
@@ -89,6 +97,15 @@ bool AFPSGAMECharacter::AdvanceReloadStages()
     auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Profile || !ActiveActionAnimation){InterruptReload();return false;}
     const float Source=ReloadSourceTime(WeaponStateElapsed);
+    if(IsPistolWeapon()&&GetNetMode()==NM_Client)
+    {
+        if(bUseDanWesson715&&bRevolverSingleReload)
+            while(RevolverReloadCommitted<RevolverReloadCount&&Source+1.e-6f>=DanWesson715WeaponAssets::SingleSeatTime(RevolverReloadCommitted,bPendingEmptyReload))
+            {++RevolverReloadCommitted;bReloadAmmoCommitted=true;PendingAmmoType.Reset();PendingAmmoWeapon.Reset();}
+        else if(Source+1.e-6f>=ReloadStages.Insert)
+        {bReloadAmmoCommitted=true;PendingAmmoType.Reset();PendingAmmoWeapon.Reset();}
+        BeginOffhandReloadReturnIfReady(Source);return true;
+    }
     if(bUseDanWesson715 && !bReloadCycleOnly)
     {
         if(!bRevolverCasesCleared && PendingAmmoType.IsEmpty())
@@ -121,7 +138,7 @@ bool AFPSGAMECharacter::AdvanceReloadStages()
     if(!bReloadAmmoCommitted && !(bUseDanWesson715 && bRevolverSingleReload) && Source+1.e-6f>=ReloadStages.Insert)
     {
         const int32 PendingCycle=HasLMG201ClothBox()?2:bPendingEmptyReload || bUseDanWesson715 ? 1
-            : (ActiveInventoryWeaponDefinition==TEXT("ue_pkm_lowpoly")) ? 2 : 0;
+            : (ActiveInventoryWeaponDefinition==TEXT("ue_pkm_lowpoly") || ActiveInventoryWeaponDefinition==TEXT("ue_m249")) ? 2 : 0;
         const bool Inserted=!PendingAmmoType.IsEmpty()
             ? Profile->CommitAmmoSwitch(PendingAmmoWeapon,PendingAmmoType,MagazineCapacity,PendingCycle)
             : Profile->ConsumeAmmo(MagazineCapacity-MagazineAmmo,true,false,PendingCycle)>0;
@@ -137,6 +154,8 @@ bool AFPSGAMECharacter::AdvanceReloadStages()
 
 void AFPSGAMECharacter::InterruptReload()
 {
+    if(IsPistolWeapon()&&GetNetMode()==NM_Client)
+        if(auto* PS=GetPlayerState<AColdSteelPlayerState>())PS->CancelPistolReload(ActiveInventoryWeapon);
     ReturnOffhandAfterReload();
     if(IsOffhandReloadTransition())
     {PendingAmmoType.Reset();PendingAmmoWeapon.Reset();bReloadAfterCasting=bRevolverReloadAfterFire=false;}
@@ -154,6 +173,8 @@ void AFPSGAMECharacter::InterruptReload()
 void AFPSGAMECharacter::ServicePendingReloadCycle()
 {
     if(IsM24Weapon()&&bM24DeferReloadTail)return; // An interrupted reload resumes on R/fire, not on draw.
+    if(IsPistolWeapon()&&GetNetMode()==NM_Client)
+        if(const auto* PS=GetPlayerState<AColdSteelPlayerState>();PS&&PS->IsPistolReloadPending(ActiveInventoryWeapon))return;
     if(IsTubeShotgunWeapon()&&GetNetMode()==NM_Client)
         if(const auto* PS=GetPlayerState<AColdSteelPlayerState>();PS&&PS->IsSuper90ReloadPending())return;
     if(IsDualWieldingPistols() || !bInventoryWeaponReady || IsWeaponBusy() || IsChoosingAmmo()

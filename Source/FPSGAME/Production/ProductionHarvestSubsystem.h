@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Subsystems/WorldSubsystem.h"
+#include "ProductionHarvestAssets.h"
 #include "ProductionHarvestSubsystem.generated.h"
 
 struct FStreamableHandle;
@@ -34,7 +35,7 @@ public:
     void InvalidateStumps(const FProductionResource& Resource);
 private:
     TSharedPtr<FStreamableHandle> WoodLoad,StoneLoad;
-    TSharedPtr<FStreamableHandle> FallLoads[4];
+    TSharedPtr<FStreamableHandle> FallLoads[ProductionHarvestAssets::TreeVariantCount];
     TMap<FString,TWeakObjectPtr<AColdSteelPickup>> Pickups;
     TMap<FString,double> VisibleAfter;
     TArray<TWeakObjectPtr<AProductionBreakEffect>> Effects;

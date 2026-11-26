@@ -1,4 +1,5 @@
 #include "DevelopmentTuningSubsystem.h"
+#include "../Dungeons/DungeonRoomSubsystem.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "Engine/GameInstance.h"
@@ -17,7 +18,7 @@ bool UDevelopmentTuningSubsystem::IsEnabled(EDevelopmentTuningOption Option) con
 {
     if (!GetWorld() || GetWorld()->GetNetMode() == NM_Client) return false;
     if (Option == EDevelopmentTuningOption::InfiniteReserveAmmo && !bReserveAmmoOverride)
-        return UGameplayStatics::GetCurrentLevelName(this, true) == TEXT("DayNight_Lighting");
+        return InfiniteReserveFor(UGameplayStatics::GetPlayerPawn(GetWorld(),0));
     return EnabledOptions.Contains(Option);
 }
 
@@ -33,6 +34,14 @@ bool UDevelopmentTuningSubsystem::IsFreeCrafting(const UColdSteelStatusModel* Mo
     const auto* Tuning=Find(Model);
     // F6 controls the local authoritative player's session, not remote profiles.
     return Tuning&&Tuning->IsEnabled(EDevelopmentTuningOption::FreeCrafting)&&
+        Model==Tuning->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+}
+
+bool UDevelopmentTuningSubsystem::IsFreePlanting(const UColdSteelStatusModel* Model)
+{
+    const auto* Tuning=Find(Model);
+    // Server-owned session flag and host profile identity; never trust request payload flags.
+    return Tuning&&Tuning->IsEnabled(EDevelopmentTuningOption::FreePlanting)&&
         Model==Tuning->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
 }
 
@@ -60,7 +69,7 @@ bool UDevelopmentTuningSubsystem::ShouldOneHitKill(const AActor* Victim, AContro
 
 bool UDevelopmentTuningSubsystem::SetEnabled(EDevelopmentTuningOption Option, bool bEnabled, APlayerController* Player)
 {
-    if (!CanEdit(Player) || uint8(Option) > uint8(EDevelopmentTuningOption::FreeCrafting)) return false;
+    if (!CanEdit(Player) || uint8(Option) > uint8(EDevelopmentTuningOption::FreePlanting)) return false;
     if (Option == EDevelopmentTuningOption::InfiniteReserveAmmo) bReserveAmmoOverride = true;
     if (bEnabled) EnabledOptions.Add(Option);
     else EnabledOptions.Remove(Option);
@@ -87,4 +96,11 @@ void UDevelopmentTuningSubsystem::PublishChange()
 {
     if (auto* Profile = GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()) Profile->RefreshDevelopmentTuning();
     OnChanged.Broadcast();
+}
+
+bool UDevelopmentTuningSubsystem::InfiniteReserveFor(const APawn* Pawn) const
+{
+    if(!GetWorld()||GetWorld()->GetNetMode()==NM_Client)return false;
+    if(bReserveAmmoOverride)return EnabledOptions.Contains(EDevelopmentTuningOption::InfiniteReserveAmmo);
+    return UGameplayStatics::GetCurrentLevelName(this,true)==TEXT("DayNight_Lighting")&&!UDungeonRoomSubsystem::IsDungeonPawn(Pawn);
 }

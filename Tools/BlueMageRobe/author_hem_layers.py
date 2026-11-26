@@ -1,4 +1,4 @@
-"""Continuous foot/calf/low-thigh layers, with a separately deformable upper region.
+"""Complete native legs, with a separately deformable region above the ankle.
 
 No stair-only disks or disappearing calf sections. Source attributes and all
 cross-boundary weights are interpolated at the same edge parameter.
@@ -6,7 +6,7 @@ cross-boundary weights are interpolated at the same edge parameter.
 import json,copy
 from pathlib import Path
 import numpy as np
-P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/BlueMageRobe20261018/HemContinuity20261019';O=R/'Authored';O.mkdir(parents=True,exist_ok=True)
+P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/BlueMageRobe20261018/TurnLegContinuity20261020';O=R/'Authored';O.mkdir(parents=True,exist_ok=True)
 rows=[]
 def blend(a,b,t):
     pairs=sorted(((k,a.get(k,0)*(1-t)+b.get(k,0)*t) for k in a.keys()|b.keys()),key=lambda x:-x[1])[:8]
@@ -16,7 +16,7 @@ for row in json.loads((R/'inputs.json').read_text())['rows']:
     length=float(np.mean([np.linalg.norm(np.array(bones['calf_'+s]['position'])-bones['foot_'+s]['position']) for s in ('l','r')]))
     ankle=max(bones['foot_'+s]['position'][2] for s in ('l','r'))+.15*length
     dims=json.loads((P/'SourceAssets/BlueMageRobe20261018/Authored/Body'/(row['profile']+'.json')).read_text())['cloth_dimensions']
-    top=min(max(bones['calf_'+s]['position'][2] for s in ('l','r'))+.4*length,dims['waist_cm']-6*dims['scale'])
+    top=float(p[:,2].max())  # Record source extent; never truncate the thigh.
     def lower(n):
         while n in bones:
             if n in ('thigh_l','thigh_r'):return True
@@ -26,7 +26,7 @@ for row in json.loads((R/'inputs.json').read_text())['rows']:
     names={n for n in bones if lower(n)}|{'pelvis'}
     mass=[sum(w for n,w in entry.items() if n in names) for entry in d['weights']]
     out={k:copy.deepcopy(d[k]) for k in ('positions','weights','bones','skeleton','material_slots','materials')}
-    out.update(profile=row['key'],binding_source=row['source'],triangles=[],normals=[],uv=[],triangle_materials=[],contract='Continuous robe underlayer: original foot and ankle; full calf plus lower-thigh overlap; no visibility cut or ankle cap; upper region follows the local animated cloth envelope')
+    out.update(profile=row['key'],binding_source=row['source'],triangles=[],normals=[],uv=[],triangle_materials=[],contract='Complete original leg geometry and binding; no upper-leg cut, ankle cap or disappearing sections; rest-space ankle seam with cloth cross-section constraint')
     slots={};edgecache={}
     def slot(m):
         if m not in slots:
@@ -51,12 +51,10 @@ for row in json.loads((R/'inputs.json').read_text())['rows']:
         poly=[(vi,np.asarray(d['uv'][fi][ci]),np.asarray(d['normals'][fi][ci])) for ci,vi in enumerate(face)];m=d['triangle_materials'][fi]
         eligible=row['kind']!='skin' or (sum(mass[v] for v in face)/3>.35 and max(p[face,2])<dims['waist_cm'])
         if not eligible:emit(poly,m);continue
-        poly=cut(poly,top,True)
-        if not poly:continue
         emit(cut(poly,ankle,True),m)
         upper=cut(poly,ankle,False)
         if len(upper)>=3:emit(upper,slot(m))
-    # Discard removed upper-leg vertices, keeping the same shared edge indices.
+    # Remove unused source vertices only; retain every original surface.
     used=sorted({v for tri in out['triangles'] for v in tri});remap={v:i for i,v in enumerate(used)}
     out['positions']=[out['positions'][v] for v in used];out['weights']=[out['weights'][v] for v in used];out['triangles']=[[remap[v] for v in tri] for tri in out['triangles']]
     file=O/(row['key']+'.json');file.write_text(json.dumps(out,separators=(',',':')))

@@ -146,7 +146,8 @@ void UKukriBerserkerVFXComponent::ResolveHands()
     const auto* Main=GetOwner()->FindComponentByClass<UKukriWeaponComponent>();
     const auto* Off=GetOwner()->FindComponentByClass<UOffhandKukriComponent>();
     USkeletalMeshComponent* Right=Main&&Main->IsEquipped()?Main->ArmsMesh():nullptr;
-    USkeletalMeshComponent* Left=Main&&Main->IsDual()?Right:Off&&Off->OwnsLeftHand()?Off->ArmsMesh():nullptr;
+    // The kukri viewmodel carries the left blade too for a pair and for the lone off-hand blade.
+    USkeletalMeshComponent* Left=Main&&(Main->IsDual()||Main->IsLoneOffhand())?Right:Off&&Off->OwnsLeftHand()?Off->ArmsMesh():nullptr;
     if(UsesWorldBody())
     {
         auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();
@@ -223,7 +224,7 @@ void UKukriBerserkerVFXComponent::RefreshWeaponOverlays()
     const auto* Main=GetOwner()->FindComponentByClass<UKukriWeaponComponent>();
     const auto* Off=GetOwner()->FindComponentByClass<UOffhandKukriComponent>();
     UStaticMeshComponent* Roots[]={Main&&Main->IsEquipped()?Main->WeaponMesh():nullptr,
-        Main&&Main->IsDual()?Main->WeaponMesh(true):Off&&Off->IsEquipped()?Off->WeaponMesh():nullptr};
+        Main&&(Main->IsDual()||Main->IsLoneOffhand())?Main->WeaponMesh(true):Off&&Off->IsEquipped()?Off->WeaponMesh():nullptr};
     TArray<UStaticMeshComponent*,TInlineAllocator<16>> Targets;
     if(UsesWorldBody())
     {

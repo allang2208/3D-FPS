@@ -1,6 +1,6 @@
 """Author the arrow mesh and three short cues; restore the selected generated icon."""
 from pathlib import Path
-import math,json,shutil
+import math,json,shutil,runpy
 import numpy as np
 import soundfile as sf
 from scipy.signal import butter,sosfilt,resample_poly
@@ -45,9 +45,10 @@ release=np.zeros(int(.60*RATE));bow=read('Bow.wav');wind=read('swish_3.wav')
 for x,gain,delay in [(bow,1.,0),(wind,.22,int(.012*RATE))]:
     count=min(len(x),len(release)-delay);release[delay:delay+count]+=filt(x[:count],100,'highpass')*gain
 release*=np.exp(-np.arange(len(release))/RATE*3);write('S_ArrowRainRelease',release,.58)
-t=np.arange(int(.32*RATE))/RATE
-burst=np.sin(math.tau*(130*t-65*t*t))*np.exp(-t*22)*.65+filt(rng.normal(size=len(t)),[90,1800],'bandpass')*np.exp(-t*24)*.3
-write('S_ArrowRainBurst',burst,.30)
+# Reuse the normal bow release for descending volleys; keep full rebuilds aligned.
+runpy.run_path(str(ROOT/'SourceAssets/ArrowRainDescentAudio20261109/prepare.py'),run_name='__main__')
+# Preserve the legacy impact generator's random sequence after the removed burst.
+rng.normal(size=int(.32*RATE))
 impact=np.zeros(int(.65*RATE))
 for i in range(14):
     delay=int((i/14*.20+rng.uniform(0,.006))*RATE);t=np.arange(int(.11*RATE))/RATE
@@ -56,5 +57,5 @@ for i in range(14):
 t=np.arange(len(impact))/RATE;impact+=filt(rng.normal(size=len(impact)),[180,2000],'bandpass')*np.exp(-t*8)*.06
 write('S_ArrowRainImpact',impact,.70)
 shutil.copy2(OUT/'magic_arrow_rain_cold_steel.png',ROOT/'Content/ColdSteelData/Skills/magic_arrow_rain_cold_steel.png')
-(OUT/'sources.json').write_text(json.dumps({'icon':'AI generated original; same cold steel reference family','mesh':'Original procedural OBJ, centimeter units, tip at origin, forward +X','sound_sources':['artisticdude / Battle Sound Effects / Bow.wav and swish_3.wav (CC0)','Original synthesized burst and clustered impacts (CC0)'],'audio_sample_rate':RATE,'gameplay_tested':False,'listening_approved':False},ensure_ascii=False,indent=2),encoding='utf-8')
+(OUT/'sources.json').write_text(json.dumps({'icon':'AI generated original; same cold steel reference family','mesh':'Original procedural OBJ, centimeter units, tip at origin, forward +X','sound_sources':['artisticdude / Battle Sound Effects / Bow.wav and swish_3.wav (CC0)','Existing normal bow S_BowVideoDirect_Release for descending volley; inherits donor provenance; 2026-11-09','Original synthesized clustered impacts (CC0)'],'audio_sample_rate':RATE,'gameplay_tested':False,'listening_approved':False},ensure_ascii=False,indent=2),encoding='utf-8')
 print('Arrow Rain editable mesh, single-shot sound sources and icon saved.')

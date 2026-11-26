@@ -1,11 +1,16 @@
 #pragma once
 #include "FPSPlayerBodyTypes.h"
+#include "../Weapons/HighlandRidgeThrust.h"
 
 // Independent world-body authoring, in Manny mesh centimetres (+Y forward).
 // These curves consume gameplay progress; they never change movement or damage.
 namespace FPSBodyPoses
 {
 inline float Smooth(float T){T=FMath::Clamp(T,0.f,1.f);return T*T*(3.f-2.f*T);}
+inline float RidgeRecoveryFraction(const FFPSBodyState& S)
+{
+    return FMath::Min(.9999f,S.ReleaseFraction+HighlandRidgeThrust::HoldSeconds/FMath::Max(.001f,S.ActionDuration));
+}
 inline float Progress(const FFPSBodyState& S,float Clock)
 {
     return S.bHasActionProgress?FMath::Clamp(S.ActionProgress,0.f,1.f):
@@ -77,13 +82,22 @@ inline FTransform RightHand(const FFPSBodyState& S,float T,float Crouch,float Ai
     }
     case EFPSBodyAction::Strike:
     {
-        const bool Reverse=S.ActionVariant==TEXT("Slash2");
+        const bool Reverse=S.ActionVariant==TEXT("Slash2")||S.ActionVariant==TEXT("WarhammerSlash2");
         const FVector A(Reverse?32.f:-42.f,29,138-40*Crouch),B(Reverse?-36.f:31.f,59,111-40*Crouch);
         Target=FMath::Lerp(Rest,FMath::Lerp(A,B,Hit),Edge);
         Turn(FVector::UpVector,(Reverse?-1.f:1.f)*(1.4f*Hit-.5f)*Edge);break;
     }
     case EFPSBodyAction::HeavyStrike:
-        if(Dash(S))
+        if(S.ActionVariant==TEXT("WarhammerUppercut"))
+        {
+            const float Load=Smooth(T/FMath::Max(.01f,S.ContactFraction));
+            const float Rise=Smooth((T-S.ContactFraction)/FMath::Max(.01f,S.ReleaseFraction-S.ContactFraction));
+            const float Return=Smooth((T-S.ReleaseFraction)/FMath::Max(.01f,1.f-S.ReleaseFraction));
+            const FVector Low(-32,38,83-40*Crouch),High(15,49,159-40*Crouch);
+            Target=FMath::Lerp(FMath::Lerp(Rest,FMath::Lerp(Low,High,Rise),Load),Rest,Return);
+            Turn(FVector::ForwardVector,FMath::Lerp(-.55f,.85f,Rise)*Load*(1.f-Return));
+        }
+        else if(Dash(S))
         {
             const float P=DashProgress(S,T),Contact=DashContact(S);
             const float Cut=Smooth(P/Contact),Return=Smooth((P-Contact)/(1.f-Contact));
@@ -107,8 +121,17 @@ inline FTransform RightHand(const FFPSBodyState& S,float T,float Crouch,float Ai
         }
         break;
     case EFPSBodyAction::Thrust:
-        Target=Rest+FVector(0,32,5)*Hit;
-        Turn(FVector::ForwardVector,-.3f*Hit);break;
+    {
+        float Reach=Hit;
+        if(HighlandRidgeThrust::IsRelease(S.ActionVariant))
+        {
+            const float Resume=RidgeRecoveryFraction(S);
+            Reach=Smooth((T-S.ActionEntryFraction)/FMath::Max(.0001f,S.ReleaseFraction-S.ActionEntryFraction))*
+                (1.f-Smooth((T-Resume)/(1.f-Resume)));
+        }
+        Target=Rest+FVector(0,32,5)*Reach;
+        Turn(FVector::ForwardVector,-.3f*Reach);break;
+    }
     case EFPSBodyAction::Pommel:
         Target=Rest+FVector(9,25,23)*Hit;
         Turn(FVector::ForwardVector,1.1f*Hit);break;

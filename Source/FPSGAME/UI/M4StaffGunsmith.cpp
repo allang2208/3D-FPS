@@ -30,7 +30,9 @@ void UM4GunsmithWidget::SyncStandaloneStaffPreview()
 }
 void UM4GunsmithWidget::SetStandaloneStaffItem(const FColdSteelItem& Item)
 {
-    const auto R=ColdSteelStaff::Resolve(Item,&Model()->Draft());const FString Key=Item.InstanceId+TEXT("|")+R.Data;
+    const auto* Smith=Model();
+    const auto* Draft=Smith->IsOpen()&&Smith->Instance()==Item.InstanceId?&Smith->Draft():nullptr;
+    const auto R=ColdSteelStaff::Resolve(Item,Draft);const FString Key=Item.InstanceId+TEXT("|")+R.Data;
     if(BowPreviewInputKey==Key)return;
     if(!StandaloneMelee||!StandaloneMelee->ComponentHasTag(TEXT("StaffAssembly")))
     {

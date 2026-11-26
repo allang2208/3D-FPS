@@ -85,7 +85,7 @@
 | 第一人称 | `FPSGAMECharacter`、Bow/武器组件、现有施法组件 | 独立 staff 输入与状态分支；持握、普攻、施法、奔跑、装备、打断恢复；使用 V7 手臂 |
 | 模型 | `SourceAssets/ApprenticeStaff20260927` | Meshy 图生3D、PBR落盘、游戏网格与LOD、六槽实际接口、握持锚点、导入保存；已生成并导入，见本节上方当前状态 |
 
-`Content/ColdSteelData/source-combat-items.json` 中已经收录旧 weapon20/学徒长杖/apprentice_staff 公式，不表示 `items.json` 已有可装备长杖。`/Game/Monsters/WitchMeshy/Props/SM_Witch_Staff` 是女巫道具，不能充作本次玩家模型。
+旧 `weapon20`/学徒长杖/`apprentice_staff` 公式原在 `Content/ColdSteelData/source-combat-items.json`，2026-10-19 已随旧表移入 `Docs/Archives/legacy-gamedev-combat-items-20261019.json`，不表示 `items.json` 已有可装备长杖。`/Game/Monsters/WitchMeshy/Props/SM_Witch_Staff` 是女巫道具，不能充作本次玩家模型。
 
 原作魔法四系共12个消费者：冰锥/冰墙/暴风雪、火球/陨星/烈焰护甲、闪电/雷暴领域/贯穿雷枪、圣光/圣域/神圣审判。当前 UE 的正式 skills.json 只有其中火球、冰锥、闪电、圣光、陨星、烈焰护甲6个定义。长杖与这6个的完整接入不等于其余6个技能已迁移；追求原作12技能全部玩法等价时，还必须逐项实现剩余技能与动作/VFX，不能只登记效果键就宣称全量完成。
 

@@ -1,11 +1,14 @@
 #include "ColdSteelEnhancementWidget.h"
+#include "ColdSteelTextToolTip.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelEnhancementLayoutMetrics.h"
 #include "GunsmithUIStyle.h"
 #include "M4GunsmithWidget.h"
 #include "SM4PreviewSurface.h"
 #include "SColdSteelArcaneSeal.h"
 #include "../FPSGAMEPlayerController.h"
 #include "Engine/Texture2D.h"
+#include "Blueprint/WidgetLayoutLibrary.h"
 #include "Widgets/Layout/SBackgroundBlur.h"
 #include "Widgets/Layout/SBorder.h"
 #include "Widgets/Layout/SBox.h"
@@ -27,7 +30,7 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::Label(const FString& Text,int32
     return SNew(STextBlock).Text(FText::FromString(Text))
         .Font(Numeric?GunsmithUI::NumberFont(Size):GunsmithUI::TextFont(Size,Size>=16))
         .ColorAndOpacity(Color).AutoWrapText(false).OverflowPolicy(ETextOverflowPolicy::Ellipsis)
-        .ToolTipText(FText::FromString(Text)).Justification(Numeric?ETextJustify::Right:ETextJustify::Left);
+        .ToolTip(ColdSteelToolTip::Make(FText::FromString(Text))).Justification(Numeric?ETextJustify::Right:ETextJustify::Left);
 }
 
 TSharedRef<SButton> UColdSteelEnhancementWidget::Button(const FString& Text,TFunction<void()> Action,bool Primary,bool Selected,bool Enabled)
@@ -37,7 +40,8 @@ TSharedRef<SButton> UColdSteelEnhancementWidget::Button(const FString& Text,TFun
         .OnClicked_Lambda([Action](){Action();return FReply::Handled();})
         [SNew(SBox).MinDesiredHeight(ColdSteelUI::ActionHeight).VAlign(VAlign_Center)
             [SNew(STextBlock).Text(FText::FromString(Text)).Font(GunsmithUI::TextFont(14,true))
-                .ColorAndOpacity(Primary?ColdSteelUI::Gray(22):ColdSteelUI::TextPrimary).Justification(ETextJustify::Center)]];
+                .ColorAndOpacity(Primary?ColdSteelUI::Gray(22):ColdSteelUI::TextPrimary).AutoWrapText(false)
+                .OverflowPolicy(ETextOverflowPolicy::Ellipsis).Justification(ETextJustify::Center)]];
 }
 
 TSharedRef<SWidget> UColdSteelEnhancementWidget::TableRow(const FString& Name,const FString& Before,const FString& After,const FString& Delta,int32 Benefit)const
@@ -49,7 +53,7 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::TableRow(const FString& Name,co
     for(int32 N=0;N<4;++N)
         Cells->AddSlot().FillWidth(Widths[N]).Padding(4,7).VAlign(VAlign_Center)
             [Label(Values[N],14,N>=2?Tone:ColdSteelUI::TextSecondary,N>0)];
-    return SNew(SBorder).BorderImage(&RowBrush).Padding(0).ToolTipText(FText::FromString(Name))[Cells];
+    return SNew(SBorder).BorderImage(&RowBrush).Padding(0).ToolTip(ColdSteelToolTip::Make(FText::FromString(Name)))[Cells];
 }
 
 TSharedRef<SWidget> UColdSteelEnhancementWidget::GlassPanel(TSharedRef<SWidget> Content)
@@ -89,7 +93,7 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
     EquipmentSearchStyle.SetActiveFont(GunsmithUI::TextFont(14));
     Background.SetResourceObject(BackgroundTexture);Background.ImageSize=FVector2D(1672,941);
     Background.DrawAs=BackgroundTexture?ESlateBrushDrawType::Image:ESlateBrushDrawType::NoDrawType;
-    LoadArcaneBackground();
+    if(!bWorldMode)LoadArcaneBackground();
 
     auto ResourceChip=[&](const FString& Definition,const FString& Mark,TSharedPtr<STextBlock>& Text)->TSharedRef<SWidget>
     {
@@ -145,7 +149,7 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
                 +SVerticalBox::Slot().AutoHeight().Padding(0,5,0,0)[SAssignNew(ItemLevel,STextBlock).Font(GunsmithUI::TextFont(12))
                     .ColorAndOpacity(ColdSteelUI::TextSecondary).OverflowPolicy(ETextOverflowPolicy::Ellipsis)]]
             +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[SNew(SVerticalBox)
-                +SVerticalBox::Slot().AutoHeight().HAlign(HAlign_Right)[SAssignNew(LevelBadge,STextBlock).Font(GunsmithUI::NumberFont(28,true))
+                +SVerticalBox::Slot().AutoHeight().HAlign(HAlign_Right)[SAssignNew(LevelBadge,STextBlock).Font(GunsmithUI::NumberFont(24,true))
                     .ColorAndOpacity(ColdSteelUI::Enhanced)]
                 +SVerticalBox::Slot().AutoHeight().HAlign(HAlign_Right)[SAssignNew(LevelMax,STextBlock)
                     .Font(GunsmithUI::TextFont(12)).ColorAndOpacity(ColdSteelUI::TextTertiary)]]]
@@ -192,19 +196,34 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
         ScrollFilterControls[N]=Button(FilterNames[N],[this,N](){SetScrollFilter(N);});
         ScrollFilters->AddSlot().FillWidth(1).Padding(N?2:0,0,N<2?2:0,0)[ScrollFilterControls[N].ToSharedRef()];
     }
-    CenterContent=SNew(SVerticalBox)
+    // Required materials are compact text rows. Only the selectable scroll catalog scrolls.
+    auto MaterialsBody=SNew(SVerticalBox)
+        +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,6)[SNew(STextBlock)
+            .Text_Lambda([this](){return FText::FromString(bEnchant?TEXT("选择卷轴"):TEXT("所需材料"));})
+            .Font(GunsmithUI::TextFont(16,true)).ColorAndOpacity(ColdSteelUI::TextPrimary)]
+        +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[SNew(STextBlock)
+            .Text(FText::FromString(TEXT("仅显示背包持有的卷轴 · 横向滚动选择")))
+            .Font(GunsmithUI::TextFont(12)).ColorAndOpacity(ColdSteelUI::TextTertiary).AutoWrapText(false)
+            .OverflowPolicy(ETextOverflowPolicy::Ellipsis)
+            .Visibility_Lambda([this](){return bEnchant?EVisibility::Visible:EVisibility::Collapsed;})]
+        +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,6)[ScrollFilters.ToSharedRef()]
+        +SVerticalBox::Slot().AutoHeight()[SNew(SBox).HeightOverride(170)
+            .Visibility_Lambda([this](){return bEnchant?EVisibility::Visible:EVisibility::Collapsed;})
+            [SAssignNew(OptionScroll,SScrollBox).Orientation(Orient_Horizontal).ScrollBarThickness(FVector2D(6,6))
+                .ScrollBarAlwaysVisible(false).AllowOverscroll(EAllowOverscroll::No)
+                .ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
+                .WheelScrollMultiplier(2.f).AnimateWheelScrolling(false)
+                +SScrollBox::Slot()[SAssignNew(Options,SHorizontalBox)]]]
+        +SVerticalBox::Slot().AutoHeight().Padding(0,10,0,6)[SNew(STextBlock)
+            .Text(FText::FromString(TEXT("本次消耗"))).Font(GunsmithUI::TextFont(14,true))
+            .ColorAndOpacity(ColdSteelUI::TextPrimary).AutoWrapText(false)
+            .Visibility_Lambda([this](){return bEnchant?EVisibility::Visible:EVisibility::Collapsed;})]
+        +SVerticalBox::Slot().AutoHeight()[SAssignNew(Costs,SVerticalBox)];
+    auto MaterialChoices=GlassPanel(MaterialsBody);
+    if(!bWorldMode)CenterContent=SNew(SVerticalBox)
         +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,10)[OptionHeader]
         +SVerticalBox::Slot().FillHeight(1)[SNew(SBorder).BorderImage(&PanelBrush).Padding(1).Clipping(EWidgetClipping::ClipToBounds)[PreviewSurface.ToSharedRef()]]
-        +SVerticalBox::Slot().AutoHeight().Padding(0,12,0,0)
-            [GlassPanel(SNew(SVerticalBox)
-                +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[SNew(STextBlock)
-                    .Text_Lambda([this](){return FText::FromString(bEnchant?TEXT("选择符文卷轴"):TEXT("淬炼所需材料"));})
-                    .Font(GunsmithUI::TextFont(16,true)).ColorAndOpacity(ColdSteelUI::TextPrimary)]
-                +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[ScrollFilters.ToSharedRef()]
-                +SVerticalBox::Slot().AutoHeight()[SNew(SBox).HeightOverride(170)
-                    [SAssignNew(OptionScroll,SScrollBox).Orientation(Orient_Horizontal).ScrollBarThickness(FVector2D(6,6))
-                        .ScrollBarAlwaysVisible(true).AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::Always)
-                        .WheelScrollMultiplier(2.f).AnimateWheelScrolling(false)+SScrollBox::Slot()[SAssignNew(Options,SHorizontalBox)]]])];
+        +SVerticalBox::Slot().AutoHeight().Padding(0,12,0,0)[MaterialChoices];
 
     CurrentCompare=Button(TEXT("对比当前"),[this](){bCompareBase=false;Refresh();});
     BaseCompare=Button(TEXT("对比基础"),[this](){bCompareBase=true;Refresh();});
@@ -221,7 +240,7 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
         +SVerticalBox::Slot().AutoHeight()[SNew(SBox).HeightOverride_Lambda([this](){return bEnchant?144.f:76.f;})
             [SNew(SScrollBox).ScrollBarThickness(FVector2D(6,6)).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
                 +SScrollBox::Slot()[SAssignNew(ProjectSummary,SVerticalBox)]]]
-        +SVerticalBox::Slot().AutoHeight().Padding(0,12,0,8)[Label(TEXT("属性变化"),16,ColdSteelUI::TextPrimary)]
+        +SVerticalBox::Slot().AutoHeight().Padding(0,12,0,8)[SNew(STextBlock).Text_Lambda([this](){return FText::FromString(bEnchant?TEXT("附魔后数值"):TEXT("强化后数值"));}).Font(GunsmithUI::TextFont(16,true)).ColorAndOpacity(ColdSteelUI::TextPrimary)]
         +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[SNew(SHorizontalBox)
             +SHorizontalBox::Slot().FillWidth(1).Padding(0,0,2,0)[CurrentCompare.ToSharedRef()]
             +SHorizontalBox::Slot().FillWidth(1).Padding(2,0,0,0)[BaseCompare.ToSharedRef()]]
@@ -229,20 +248,103 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
         +SVerticalBox::Slot().FillHeight(1)[SAssignNew(OverviewScroll,SScrollBox).ScrollBarThickness(FVector2D(6,6))
             .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
             +SScrollBox::Slot()[SAssignNew(Inspector,SVerticalBox)]]
-        +SVerticalBox::Slot().AutoHeight().Padding(0,8,0,0)[Label(TEXT("绿色 增强 / 红色 削弱 / 灰色 不变"),12,ColdSteelUI::TextTertiary)]
-        +SVerticalBox::Slot().AutoHeight().Padding(0,14,0,6)[SNew(SHorizontalBox)
-            +SHorizontalBox::Slot().FillWidth(1)[Label(TEXT("消耗汇总"),16,ColdSteelUI::TextPrimary)]
-            +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[Label(TEXT("需要 / 持有 / 余量"),12,ColdSteelUI::TextTertiary)]]
-        +SVerticalBox::Slot().AutoHeight()[SNew(SBox).MaxDesiredHeight(112)
-            [SNew(SScrollBox).ScrollBarThickness(FVector2D(6,6)).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
-                +SScrollBox::Slot()[SAssignNew(Costs,SVerticalBox)]]]
-        +SVerticalBox::Slot().AutoHeight().Padding(0,6,0,0)[SNew(STextBlock)
-            .Text_Lambda([this](){return FText::FromString(bEnchant?TEXT("卷轴：随身背包 · 粉尘：背包与仓库"):TEXT("灵魂：钱包 · 强化石：背包与仓库"));})
-            .Font(GunsmithUI::TextFont(12)).ColorAndOpacity(ColdSteelUI::TextTertiary).OverflowPolicy(ETextOverflowPolicy::Ellipsis)]);
+        +SVerticalBox::Slot().AutoHeight().Padding(0,8,0,0)[Label(TEXT("绿色 增强 / 红色 削弱 / 灰色 不变"),12,ColdSteelUI::TextTertiary)]);
 
     ConfirmControl=Button(TEXT("确认强化"),[this](){Confirm();},true);
     ConfirmControl->SetContent(SNew(SBox).MinDesiredHeight(ColdSteelUI::ActionHeight).VAlign(VAlign_Center)
         [SAssignNew(ConfirmText,STextBlock).Font(GunsmithUI::TextFont(14,true)).ColorAndOpacity(ColdSteelUI::Gray(22)).Justification(ETextJustify::Center)]);
+    if(bWorldMode)
+    {
+        // Real tabletop remains visible. One outer blur owns the entire panel;
+        // internal sections use the shared neutral row surface, never another blur.
+        Stage->ClearChildren();PreviewSurface.Reset();
+        MaterialChoices=SNullWidget::NullWidget;InspectorContent.Reset();RailContent.Reset();
+        auto Section=[&](TSharedRef<SWidget> Content)->TSharedRef<SWidget>
+        {return SNew(SBorder).BorderImage(&RowBrush).Padding(12)[Content];};
+        auto WorldMaterials=Section(MaterialsBody);
+        WorldMaterials->SetVisibility(TAttribute<EVisibility>::CreateLambda([this]()
+            {return bEnchant||!ItemId.IsEmpty()?EVisibility::Visible:EVisibility::Collapsed;}));
+
+        auto WorldDetails=Section(SNew(SVerticalBox)
+            +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[SNew(STextBlock)
+                .Text_Lambda([this](){return FText::FromString(bEnchant?TEXT("附魔项目"):TEXT("强化项目"));})
+                .Font(GunsmithUI::TextFont(16,true)).ColorAndOpacity(ColdSteelUI::TextPrimary)]
+            +SVerticalBox::Slot().AutoHeight()[ProjectSummary.ToSharedRef()]
+            +SVerticalBox::Slot().AutoHeight().Padding(0,12,0,8)[SNew(STextBlock).Text_Lambda([this](){return FText::FromString(bEnchant?TEXT("附魔后数值"):TEXT("强化后数值"));}).Font(GunsmithUI::TextFont(16,true)).ColorAndOpacity(ColdSteelUI::TextPrimary)]
+            +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[SNew(SHorizontalBox)
+                +SHorizontalBox::Slot().FillWidth(1).Padding(0,0,2,0)[CurrentCompare.ToSharedRef()]
+                +SHorizontalBox::Slot().FillWidth(1).Padding(2,0,0,0)[BaseCompare.ToSharedRef()]]
+            +SVerticalBox::Slot().AutoHeight()[TableHeader]
+            +SVerticalBox::Slot().AutoHeight()[Inspector.ToSharedRef()]
+            +SVerticalBox::Slot().AutoHeight().Padding(0,8,0,0)[Label(TEXT("绿色 增强 / 红色 削弱 / 灰色 不变"),12,ColdSteelUI::TextTertiary)]);
+        WorldDetails->SetVisibility(TAttribute<EVisibility>::CreateLambda([this]()
+            {return ItemId.IsEmpty()?EVisibility::Collapsed:EVisibility::Visible;}));
+        // Old fullscreen containers are not attached in world mode.
+        InspectorContent.Reset();RailContent.Reset();
+        auto EscrowCard=Section(SNew(SVerticalBox)
+            +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)
+                [Label(TEXT("工作台暂存"),16,ColdSteelUI::TextPrimary)]
+            +SVerticalBox::Slot().AutoHeight()[StageHeader]
+            +SVerticalBox::Slot().AutoHeight().Padding(0,8,0,0)[SNew(STextBlock)
+                .Text_Lambda([this](){return FText::FromString(ItemId.IsEmpty()
+                    ?TEXT("从背包或装备栏放入武器，开始强化或附魔。")
+                    :TEXT("靠近台上装备即可选中；右键取回，或按住拖回背包。"));})
+                .Font(GunsmithUI::TextFont(12)).ColorAndOpacity(ColdSteelUI::TextSecondary).AutoWrapText(true)]);
+        auto RetrieveControl=Button(TEXT("取回背包"),[this](){SelectItem(TEXT(""));});
+        RetrieveControl->SetEnabled(TAttribute<bool>::CreateLambda([this](){return !ItemId.IsEmpty();}));
+        ColdSteelToolTip::Set(*RetrieveControl, FText::FromString(TEXT("将暂存武器取回背包；空间不足时仍保留在工作台。")));
+        auto WorldBody=SNew(SVerticalBox)
+            +SVerticalBox::Slot().AutoHeight()[EscrowCard]
+            +SVerticalBox::Slot().AutoHeight().Padding(0,12,0,0)[WorldMaterials]
+            +SVerticalBox::Slot().AutoHeight().Padding(0,12,0,0)[WorldDetails];
+        auto Controls=SNew(SVerticalBox)
+            +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,12)[SNew(SHorizontalBox)
+                +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)[Label(TEXT("秘法工作台"),20,ColdSteelUI::TextPrimary)]
+                +SHorizontalBox::Slot().AutoWidth()[Button(TEXT("Esc 返回"),[this](){CastChecked<AFPSGAMEPlayerController>(GetOwningPlayer())->CloseEnhancement();})]]
+            +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,12)[OptionHeader]
+            +SVerticalBox::Slot().FillHeight(1)[SAssignNew(BodyScroll,SScrollBox).ScrollBarThickness(FVector2D(6,6))
+                .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
+                +SScrollBox::Slot()[WorldBody]]
+            +SVerticalBox::Slot().AutoHeight().Padding(0,10,0,0)[SNew(STextBlock)
+                .Text_Lambda([this](){return FText::FromString(ItemId.IsEmpty()
+                    ?TEXT("工作台为空 · 放入后可操作")
+                    :TEXT("武器已暂存 · 关闭面板不会自动取回"));})
+                .Font(GunsmithUI::TextFont(12)).ColorAndOpacity(ColdSteelUI::TextSecondary)
+                .AutoWrapText(false).OverflowPolicy(ETextOverflowPolicy::Ellipsis)
+                .ToolTip(ColdSteelToolTip::Make(FText::FromString(TEXT("暂存武器不占用背包或装备槽。关闭面板后仍保留，重新打开可继续操作或取回。"))))]
+            +SVerticalBox::Slot().AutoHeight().Padding(0,6,0,8)[SAssignNew(Footer,STextBlock)
+                .Font(GunsmithUI::TextFont(12)).ColorAndOpacity(ColdSteelUI::TextSecondary)
+                .AutoWrapText(false).OverflowPolicy(ETextOverflowPolicy::Ellipsis)]
+            +SVerticalBox::Slot().AutoHeight()[SNew(SHorizontalBox)
+                +SHorizontalBox::Slot().FillWidth(1).Padding(0,0,2,0)[RetrieveControl]
+                +SHorizontalBox::Slot().FillWidth(1).Padding(2,0,0,0)[ConfirmControl.ToSharedRef()]];
+        ManagementSurface=GlassPanel(Controls);
+        // Keep a readable 410 px content width at very narrow sizes and scroll
+        // horizontally rather than reducing glyph size or the inventory geometry.
+        return SNew(SDPIScaler).DPIScale_Lambda([this](){return 1.f/ColdSteelUI::PixelScale(this);})
+            [SNew(SOverlay).Visibility(EVisibility::SelfHitTestInvisible)
+                // Only the unobstructed scene receives world-item input; never cover the backpack.
+                +SOverlay::Slot().HAlign(HAlign_Left).VAlign(VAlign_Top)
+                .Padding(TAttribute<FMargin>::CreateLambda([this](){const auto L=FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this));
+                    return FMargin(L.ScenePosition.X,L.ScenePosition.Y,0,0);}))
+                [SNew(SBox)
+                    .WidthOverride_Lambda([this](){return FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this)).SceneSize.X;})
+                    .HeightOverride_Lambda([this](){return FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this)).SceneSize.Y;})
+                    [SNew(SBorder).BorderImage(FCoreStyle::Get().GetBrush("NoBrush")).Padding(0)]]
+                +SOverlay::Slot().HAlign(HAlign_Left).VAlign(VAlign_Top)
+                .Padding(TAttribute<FMargin>::CreateLambda([this](){const auto L=FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this));
+                    return FMargin(L.PanelPosition.X,L.PanelPosition.Y,0,0);}))
+                [SNew(SBox)
+                    .WidthOverride_Lambda([this](){return FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this)).PanelSize.X;})
+                    .HeightOverride_Lambda([this](){return FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this)).PanelSize.Y;})
+                    .Clipping(EWidgetClipping::ClipToBounds)
+                    [SNew(SScrollBox).Orientation(Orient_Horizontal).ScrollBarThickness(FVector2D(6,6))
+                        .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
+                        +SScrollBox::Slot()[SNew(SBox)
+                            .WidthOverride_Lambda([this](){return FMath::Max(410.f,float(FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this)).PanelSize.X));})
+                            .HeightOverride_Lambda([this](){return FMath::Max(1.f,float(FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this)).PanelSize.Y)-6.f);})
+                            [ManagementSurface.ToSharedRef()]]]]];
+    }
     auto FooterContent=SNew(SHorizontalBox)
         +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center).Padding(0,0,12,0)
             [SAssignNew(Footer,STextBlock).Font(GunsmithUI::TextFont(14)).ColorAndOpacity(ColdSteelUI::TextSecondary).OverflowPolicy(ETextOverflowPolicy::Ellipsis)]
@@ -266,7 +368,7 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
 
 void UColdSteelEnhancementWidget::UpdateResponsiveLayout()
 {
-    if(!BodyHost||!RailContent||!CenterContent||!InspectorContent)return;
+    if(bWorldMode||!BodyHost||!RailContent||!CenterContent||!InspectorContent)return;
     FVector2D Size=BodyHost->GetCachedGeometry().GetLocalSize();if(Size.X<100)Size=FVector2D(1500,740);
     const int32 Mode=Size.X<760?3:(Size.X<1240||Size.Y<650)?2:Size.X<1450?1:0;
     if(LayoutMode==Mode)return;

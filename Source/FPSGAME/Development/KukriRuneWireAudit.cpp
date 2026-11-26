@@ -1,4 +1,5 @@
 #include "KukriRuneWireAudit.h"
+#include "KukriEnchantAuditFixture.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Weapons/Kukri/KukriBerserkerComponent.h"
@@ -28,11 +29,10 @@ FColdSteelProfile Seed(UColdSteelStatusModel* Model,const FString& Prefix)
     for(int32 Side=0;Side<2;++Side)
     {
         auto I=Model->CreateItem(TEXT("ue_kukri"));I.Place=1;I.Cell=Side?8:6;I.InstanceId=Prefix+(Side?TEXT("_raven"):TEXT("_wolf"));
-        TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data);
-        if(!Data)Data=MakeShared<FJsonObject>();
-        auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("blade_2"),Side?TEXT("frost_raven_rune"):TEXT("berserker_rune"));
-        Data->SetObjectField(TEXT("gunsmith_parts"),Parts);I.Data.Reset();
-        FJsonSerializer::Serialize(Data,TJsonWriterFactory<>::Create(&I.Data));P.Items.Add(I);
+        const auto* Enchant=Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
+        if(!KukriEnchantAuditFixture::SetSuffix(I,Enchant,Side?TEXT("frostHawk"):TEXT("bloodWolf")))
+        {UE_LOG(LogTemp,Error,TEXT("KUKRI_WIRE_FIXTURE missing or incompatible enchantment suffix"));return P;}
+        P.Items.Add(I);
     }
     return P;
 }

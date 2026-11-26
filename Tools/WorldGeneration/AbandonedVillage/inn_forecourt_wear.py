@@ -38,3 +38,4 @@ def paint(packed, plan):
     for index, target in ((1,ochre),(2,fines)):
         tile[:,:,index] = np.rint(tile[:,:,index]*(1-cover)+255*target*cover).astype('uint8')
     return Image.fromarray(pixels)
+

@@ -1,0 +1,31 @@
+丘陵高度雾交接到 UDS（2026-10-17）
+
+范围
+接续用户确认的丘陵天气迁移收尾，移除旧远景模块与新天气之间的雾颜色重复控制。源码后台制作及 Editor/Game 构建；不启动交互编辑器、游戏或测试，不改怪物数量、战斗规则或全局画质开关。
+
+实现
+1. TemperateHillsBackdrop 不再遍历全世界并改写所有高度雾/大气组件，也不再每 0.25 秒根据自己的昼夜公式重写雾颜色。删除对应弱引用、计时状态及失效 include；远景地形、植被、遮罩制作继续保留。
+2. FPSUDSHillsAtmosphere 在 L_TemperateHills_Initial 的 UDS Actor 开始运行且天气快照就绪后执行一次。重新绑定天空时重置一次性状态；主机和客户端都执行自己的本地表现绑定，不增加 RPC。
+3. 复用 UDS 已配置的 Custom Height Fog Actor；没有显式配置时，只查找丘陵 PersistentLevel 中作者脚本创建的 ExponentialHeightFog_0。不会根据 Actor 遍历顺序接管其它流送层或局部雾对象。该旧 Actor 不存在时沿用 UDS 自身的高度雾组件。
+4. 使用实际读取过的原生 Configure Height Fog with Feature Toggle：它设置 Height Fog Component，并在使用外部雾 Actor 时隐藏 UDS 内置高度雾，避免同时创建另一套控制目标。
+5. 将丘陵晴天的基础密度 .008、基础衰减 .20、最大起雾距离 16000 cm 交给 UDS 配置；只迁移仍等于蓝图默认值的参数，保留已明确调整的 UDS 值。保留体积雾开启、原 Actor 的体积雾距离与消光；没有原 Actor 时使用丘陵作者基线 85000 cm 和消光 1。
+6. 雾颜色、天气密度变化及昼夜变化继续由 UDS 处理。保留远景雾截断距离与天空大气透视比例；不触碰局部河雾/山谷雾的模型和材质。
+7. 没有调用 Static Properties - Height Fog，因为本机蓝图的该函数还会写全局 Lumen/云层 CVar。本次只调用雾目标绑定接口并更新相关组件，未更改全局渲染 CVar、光追或 Lumen 质量。
+
+落盘与边界
+- 源码：Source/FPSGAME/FPSUDSHillsAtmosphere.cpp、FPSUDSBridgeComponent.h/.cpp、WorldGeneration/TemperateHillsBackdrop.cpp。
+- 修改前备份：SourceAssets/HillsWeather20261017/Before。
+- 原生接口只读导出：SourceAssets/HillsWeather20261017/graph-00..03.t3d；派生 txt 方便阅读，不是运行测试结果。
+- 复用当时已经打开的编辑器读取 UDS 蓝图，没有切换/加载丘陵地图，也没有保存或覆盖 UDS/丘陵地图资产。第一轮读取因编辑器已退出而未连上；第二轮实际读取成功但工具打印遇到 GBK 字符错误；第三轮成功导出必要函数，回执 sky-read-03.txt。
+- 本次是运行时原生雾接管，不能说地图中的旧灯光、旧资源已全部删除或完成整图视觉/联机验收。
+- 前一轮仍未覆盖的跨 Pawn 湿度延续、专服局部天气体、共享闪电世界坐标不属于此次雾接管改动，见 weather-upgrade-review-20261017.txt。
+
+构建
+用户保存退出编辑器后完成收尾；没有关闭其他进程或启动游戏。按 UE 5.8 当前组件成员使用 FogInscatteringLuminance / DirectionalInscatteringLuminance，保留工作区已有的对应编译修正。
+最终采用包含本轮最新源码的完整共享构建回执，没有重复触发一轮已完成的 Game 构建：
+- FPSGAME Win64 Development：Succeeded，143.58 秒。成功日志复制到 SourceAssets/HillsWeather20261017/build-game-final.log；原始日志 Saved/BuildGame/build-20261018-000308.log。
+- FPSGAMEEditor Win64 Development：Succeeded，128.49 秒。成功日志复制到 SourceAssets/HillsWeather20261017/build-editor-final.log；原始日志 Saved/BuildEditor/build-20261018-000535.log。
+- 四个本批源码在成功构建后与 source-receipt.json 中保存的 SHA-256 一致。摘要和产物记录为 SourceAssets/HillsWeather20261017/build-receipt.json。
+- FPSGAME.exe：364641280 字节，2026-10-18 00:05:31；UnrealEditor-FPSGAME.dll：33796608 字节，2026-10-18 00:07:43（本机时间）。
+本任务较早的 build-editor.log 记录过 DLL 暂时占用导致的 LNK1104，不是最终结果；其后已有上述成功链接回执。早期 Game 成功日志 build-game.log 同样作为历史记录保留。
+实际丘陵画面、雨天雾表现和主客机效果由用户自行测试。

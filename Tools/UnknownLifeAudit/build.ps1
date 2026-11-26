@@ -1,4 +1,4 @@
-param([string]$Run='r1')
+﻿param([string]$Run='r1')
 $ErrorActionPreference='Stop'
 $root='D:/FPS3D/FPSGAME'
 while(@(Get-CimInstance Win32_Process | Where-Object { $_.Name -eq 'UnrealBuildTool.exe' -or ($_.Name -eq 'dotnet.exe' -and $_.CommandLine -match 'UnrealBuildTool') }).Count){Start-Sleep -Seconds 5}

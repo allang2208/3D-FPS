@@ -1,4 +1,6 @@
 #include "ColdSteelAlchemyWidget.h"
+#include "ColdSteelTextToolTip.h"
+#include "../Development/DevelopmentTuningSubsystem.h"
 #include "ColdSteelAlchemyBookWidget.h"
 #include "ColdSteelGunRecipeOptionWidget.h"
 #include "ColdSteelStatusModel.h"
@@ -186,9 +188,10 @@ void UColdSteelAlchemyWidget::Refresh()
             List+=FString::Printf(TEXT("%s × %lld  "),Name.IsEmpty()?*Item.Definition:*Name,Count);Counts.Remove(Item.Definition);
         }
         RefundSummary=(J.bFinished?TEXT("作废退回一半材料："):TEXT("废弃仅退回未开封材料："))+FString(List.IsEmpty()?TEXT("无"):*List);
-        if(J.bFinished)RefundSummary+=TEXT("\n按每种实际投入材料分别向下取整，不足 1 份不返还；作废后不能领取本炉药水。");
+        if(J.bMaterialsWaived)RefundSummary=TEXT("本炉免材料制作 · 废弃不返料");
+        else if(J.bFinished)RefundSummary+=TEXT("\n按每种实际投入材料分别向下取整，不足 1 份不返还；作废后不能领取本炉药水。");
     }
-    const FString RefundText=RefundSummary+(bConfirmDiscard?TEXT("\n再次点击确认作废并退料。"):TEXT(""));
+    const FString RefundText=RefundSummary+(bConfirmDiscard?(J.bMaterialsWaived?TEXT("\n再次点击确认废弃本炉。"):TEXT("\n再次点击确认作废并退料。")):TEXT(""));
     bMaterialsDirty=false;CachedRecipe=R?R->Id:NAME_None;CachedJob=J.Id;CachedJobRevision=J.Revision;
     Value(Refund,RefundText);
     FString Reason;
@@ -196,7 +199,7 @@ void UColdSteelAlchemyWidget::Refresh()
     const bool Can=!bClose&&!bReturn&&!System->Pending()&&!System->Saving()&&!InventoryPending&&!bPreparing&&ActionReady&&
         (J.bFinished?J.bPassed:System->HasJob()?System->CanResume(Reason):System->CanStart(Selection,Reason));
     FString State=System->Message();
-    if(!System->HasJob()&&bShowEntryReadiness)State=Can?TEXT("配方与材料已就绪，可备料开炉。"):Reason;
+    if(!System->HasJob()&&bShowEntryReadiness)State=Can?(UDevelopmentTuningSubsystem::IsFreeCrafting(Model)?TEXT("免材料制作已开启，可直接备料开炉。"):TEXT("配方与材料已就绪，可备料开炉。")):Reason;
     if(State.IsEmpty())State=TEXT("按手册控制顺序、研磨、火候与搅拌。");
     if(J.bFinished&&!J.Faults.IsEmpty())State+=TEXT("\n工艺偏差：")+FString::Join(J.Faults,TEXT("；"));
     if(bPreparing)State=PreparingJob.IsEmpty()?TEXT("正在准备台面和手部资源，完成后开炉。"):TEXT("正在准备台面，随后继续原批次，不重复扣料。");
@@ -204,10 +207,10 @@ void UColdSteelAlchemyWidget::Refresh()
     if(InventoryPending||System->Pending())State=TEXT("本炉或背包正在同步，请稍候。");
     else if(System->Saving())State=TEXT("本炉保存尚未确认，请稍候。");
     Value(Status,State);
-    Caption(Actions[10],System->Pending()||InventoryPending?TEXT("同步中…"):System->Saving()?TEXT("保存中…"):bPreparing?TEXT("准备中…"):J.bFinished?(J.bPassed?TEXT("领取药水"):TEXT("本炉失败")):System->HasJob()?TEXT("继续本炉"):TEXT("备料开炉"));
-    Actions[10]->SetIsEnabled(Can);Actions[10]->SetToolTipText(FText::FromString(Reason));Actions[12]->SetIsEnabled(System->HasJob()&&!System->Pending()&&!System->Saving()&&!InventoryPending&&!bPreparing&&!bReturn&&!bClose&&ActionReady);
+    Caption(Actions[10],System->Pending()||InventoryPending?TEXT("同步中…"):System->Saving()?TEXT("保存中…"):bPreparing?TEXT("准备中…"):J.bFinished?(J.bPassed?TEXT("领取成品"):TEXT("本炉失败")):System->HasJob()?TEXT("继续本炉"):TEXT("备料开炉"));
+    Actions[10]->SetIsEnabled(Can);ColdSteelToolTip::Set(*Actions[10], FText::FromString(Reason));Actions[12]->SetIsEnabled(System->HasJob()&&!System->Pending()&&!System->Saving()&&!InventoryPending&&!bPreparing&&!bReturn&&!bClose&&ActionReady);
     if(!Can&&!Reason.IsEmpty()&&LocalNotice.IsEmpty())Value(Status,Reason);
-    Caption(Actions[12],bConfirmDiscard?TEXT("确认作废退料"):J.bFinished?TEXT("作废退回一半"):TEXT("废弃本炉"));Actions[12]->SetToolTipText(FText::FromString(RefundText));
+    Caption(Actions[12],bConfirmDiscard?TEXT("确认废弃"):J.bFinished?(J.bPassed?TEXT("废弃成品"):TEXT("废弃本炉")):TEXT("取消本炉"));ColdSteelToolTip::Set(*Actions[12], FText::FromString(RefundText));
     const int32 Current=System->StepIndex();
     if(R&&!R->FreeBrewing&&Current!=ObservedStep&&(Held==31||Held==32||bDragging))Stop();ObservedStep=Current;
     Value(Instruction,System->Saving()?System->Message():System->Bottling()?TEXT("正在舀取、装瓶并放回器具"):System->Observation());
@@ -386,3 +389,4 @@ void UColdSteelAlchemyWidget::EndSession()
     if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer()))if(auto* HUD=PC->GetColdSteelHUD())HUD->SetAlchemyManagement(false);
 }
 void UColdSteelAlchemyWidget::NativeDestruct(){EndSession();Super::NativeDestruct();}
+

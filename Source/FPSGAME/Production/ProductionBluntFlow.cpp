@@ -66,12 +66,15 @@ void UProductionToolComponent::AdvanceBluntChain(float Delta,float End)
     }
     if(!bQueuedBluntAttack||!bContacted)return;
     // Do not start a load the next cut cannot pay for.
-    if(const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-        !Profile||!Profile->CanSpendStamina(float(ToolStats.StaminaCost)))return;
+    const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    if(!Profile||!Profile->CanSpendStamina(float(ToolStats.StaminaCost)))return;
     // Miss: after the follow-through turnaround (stage 2 also after its hand
     // swap back). Hit: once the hit stop has released.
     const int32 Stage=ProductionBluntCombo::SafeStage(BluntStage);
     const float Clip=bHitConfirmed?BluntHitClipTime():BluntClipTime();
     const float At=bHitConfirmed?ProductionBluntComboTiming::HitChainClip[Stage]:ProductionBluntComboTiming::ChainClip[Stage];
-    if(Clip>=At&&End-Elapsed>.06f)StartBluntChain(End-Elapsed);
+    if(Clip<At||End-Elapsed<=.06f)return;
+    if(bPojunGrip&&Stage==1)
+        if(const auto* Item=Profile->ActiveProductionTool();Item&&PojunGrip::Attack(*Item,false,false,2)==PojunGrip::EAttack::Tengyun)return;
+    StartBluntChain(End-Elapsed);
 }

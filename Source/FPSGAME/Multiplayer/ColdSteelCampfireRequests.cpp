@@ -1,7 +1,12 @@
+#include "../UI/ColdSteelEnhancementSystem.h"
 #include "ColdSteelPlayerState.h"
+#include "../Building/ColdSteelPlantingSystem.h"
 #include "../Skills/FPSFireMagicComponent.h"
+#include "../Skills/FPSIceArmorComponent.h"
+#include "../Skills/FPSLightningHasteComponent.h"
 #include "../Skills/FPSElectricMagicComponent.h"
 #include "../Skills/FPSBlizzardComponent.h"
+#include "../Skills/BowSkillLifecycle.h"
 #include "../FPSGAMECharacter.h"
 #include "ColdSteelNetWorldSubsystem.h"
 #include "ColdSteelNetSessionSubsystem.h"
@@ -51,8 +56,11 @@ bool AColdSteelPlayerState::RequestCampfire(AColdSteelCampfire* Fire,uint8 Actio
     if(!ScratchSave)ScratchSave=NewObject<UColdSteelProfileSave>();
     ScratchSave->Profile=M->Snapshot();PendingUpload.Reset();
     const bool Encoded=ColdSteelProfileTransfer::SaveToBlob(ScratchSave,PendingUpload);
+    PendingUploadHeadId=ScratchSave->Profile.PlayerHeadId;PendingUploadHairId=ScratchSave->Profile.PlayerHairId;
+    PendingUploadGunsmithSequence=LocalGunsmithSequence;
     PendingNormBlob=PendingUpload;PendingUploadId=++UploadCounter;NextChunkIndex=0;
     PendingSuper90Revision=Super90AppliedRevision;PendingUploadPawn=PC->GetPawn();
+    PendingPistolAmmoRevision=PistolAppliedAmmoRevision;PendingPistolIntent=PistolControlSequence;
     PendingTotalChunks=FMath::DivideAndRoundUp(PendingUpload.Num(),ProfileChunkSize);
     if(!Encoded||PendingTotalChunks<=0||PendingTotalChunks>ColdSteelProfileTransfer::MaxChunks)
     {
@@ -125,11 +133,19 @@ void AColdSteelPlayerState::PrepareForDisconnect()
     if(!HasAuthority()||bDisconnectPrepared)return;
     if(auto* Session=GetWorld()->GetSubsystem<UColdSteelNetWorldSubsystem>())Session->RememberGuestKeys(BoundProfileId,SessionDoorKeys);
     CancelPendingNetworkCast();
+    SettleSwordUppercut();
+    SettleSwordWhirlwind();
+    ClearKukriAttack();
+    TickPistolAuthority();
+    StopPistolAuthority();
     // Settle confirmed hits before the guest profile is saved or remembered.
     APawn* CastPawn=GetPawn()?GetPawn():ShadowPawn.Get();
-    if(CastPawn)if(auto* Fire=CastPawn->FindComponentByClass<UFPSFireMagicComponent>())Fire->FinishDragonBreathForRemoval();
+    if(CastPawn)if(auto* Fire=CastPawn->FindComponentByClass<UFPSFireMagicComponent>())Fire->FinishFireMagicForRemoval();
+    if(CastPawn)if(auto* Ice=CastPawn->FindComponentByClass<UFPSIceArmorComponent>())Ice->FinishForRemoval();
+    if(CastPawn)if(auto* Ice=CastPawn->FindComponentByClass<UFPSLightningHasteComponent>())Ice->FinishForRemoval();
     if(CastPawn)if(auto* Electric=CastPawn->FindComponentByClass<UFPSElectricMagicComponent>())Electric->FinishDomainForRemoval();
     if(CastPawn)if(auto* Blizzard=CastPawn->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->FinishZonesForRemoval();
+    BowSkillLifecycle::FinishForRemoval(CastPawn);
     const bool Closed=CloseStationSessions();
     // Preserve unfinished paid jobs too when closing cannot complete (e.g. pawn already gone).
     const bool Saved=!ShadowModel||SaveShadowToHostDisk();
@@ -145,6 +161,10 @@ void AColdSteelPlayerState::EndPlay(const EEndPlayReason::Type Reason)
     const auto* OwningPlayer=Cast<APlayerController>(GetOwner());
     if(bWasLocalOwner||(OwningPlayer&&OwningPlayer->IsLocalController())||(!OwningPlayer&&GetNetMode()==NM_Client&&(bCampfirePending||bInventoryRequestPending)))
     {
+        if(PendingInventoryRequest.Mode.StartsWith(TEXT("enhancement.")))
+            if(auto* Enhancement=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr)
+                Enhancement->NetworkFinished(false,TEXT("联机会话已结束，请重连后确认操作结果"));
+        if(auto* Planting=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelPlantingSystem>():nullptr)Planting->NetworkEnded();
         if(auto* Alchemy=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelAlchemySystem>():nullptr)Alchemy->NetworkEnded();
         if(auto* Wood=GetGameInstance()?GetGameInstance()->GetSubsystem<UWoodworkingSystem>():nullptr)Wood->NetworkSessionEnded();
         if(auto* Forge=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelForgingSystem>():nullptr)Forge->NetworkSessionEnded();

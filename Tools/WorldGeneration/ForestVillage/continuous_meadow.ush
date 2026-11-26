@@ -27,3 +27,4 @@ float3 moss=grass*float3(.91,.88,.83);
 GroundColor=lerp(C,lerp(grass,moss,Bank),cover*.96);
 }
 return GroundColor;
+

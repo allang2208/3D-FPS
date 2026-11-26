@@ -39,3 +39,4 @@ sub=u.get_editor_subsystem(u.SkeletalMeshEditorSubsystem)
 if not sub.regenerate_lod(o,sub.get_lod_count(o),True,False):raise ValueError('Workwear LOD generation failed')
 if not u.EditorAssetLibrary.save_loaded_asset(o,False):raise ValueError('Revised outfit package save failed')
 print('SMITH_REVISED_SHIRT_SAVED',o.get_path_name(),flush=True)
+

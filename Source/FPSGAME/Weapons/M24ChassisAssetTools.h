@@ -29,6 +29,10 @@ public:
     UFUNCTION(BlueprintCallable, Category="Weapon|AssetBuild")
     static bool SplitFactoryRearSeat(USkeletalMesh* Mesh,const TArray<FVector>& ComponentFaceCentersCM);
 
+    // Repartition rigid accessory faces between two existing material sections.
+    UFUNCTION(BlueprintCallable, Category="Weapon|AssetBuild")
+    static bool MoveFactoryFaces(USkeletalMesh* Mesh,FName FromSlot,FName ToSlot,const TArray<FVector>& ComponentFaceCentersCM);
+
     // Freeze authored stock LODs and replace only invalid tangent directions.
     UFUNCTION(BlueprintCallable, Category="Weapon|AssetBuild")
     static bool BakeStockTangentBasis(UStaticMesh* Mesh);

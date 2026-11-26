@@ -2,12 +2,13 @@
 #include "FPSPlayerBodyTypes.h"
 #include "Animation/AnimSequence.h"
 #include "../Weapons/HighlandRidgeThrust.h"
+#include "../Weapons/RingChainSweepMotion.h"
 
 namespace FPSBodyHighlandMotion
 {
 inline const FName SweepReady(TEXT("HighlandBreakSweepReady"));
 inline bool IsSweep(FName Variant)
-{return Variant==TEXT("HighlandBreakSweep")||Variant==SweepReady;}
+{return Variant==TEXT("HighlandBreakSweep")||Variant==SweepReady||RingChainSweepMotion::IsPhase(Variant);}
 inline bool IsRidge(const FFPSBodyState& S)
 {return S.ActionVariant==HighlandRidgeThrust::Charge||HighlandRidgeThrust::IsRelease(S.ActionVariant);}
 inline bool IsDash(const FFPSBodyState& S)

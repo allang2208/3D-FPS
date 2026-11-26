@@ -1,7 +1,11 @@
 #include "CombatStatusFormula.h"
+#include "../WorldGeneration/VillageHotOil.h"
+#include "../Monsters/UnknownSpellCombat.h"
+#include "CombatControlImmunity.h"
+#include "../Skills/IlluminationMarkComponent.h"
 #include "AncientBreakingSealComponent.h"
 #include "../Weapons/AncientSealSeat.h"
-#include "../Monsters/M66IncineratorMonster.h"
+#include "../Skills/LightningHasteSpeed.h"
 #include "../Weapons/ColdSteelEnchantmentCombat.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
 #include "../Weapons/ZhenmoRuneComponent.h"
@@ -18,6 +22,7 @@
 #include "../Monsters/WolfMonster.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "../Monsters/MonsterCombatComponent.h"
+#include "../Monsters/M66IncineratorMonster.h"
 #include "../Skills/FireballDamage.h"
 #include "../Movement/PlayerGuardBreakComponent.h"
 #include "../UI/StatusEffectsComponent.h"
@@ -91,6 +96,28 @@ void UCombatStatusFormula::ClearCriticalVulnerability()
     CriticalVulnerabilityStacks=0;CriticalVulnerabilityEndsAt=0.;
     UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("criticalVulnerability"));
 }
+float UCombatStatusFormula::ArmorCorrosionRemaining() const
+{
+    if(!ArmorCorrosionStacks||!GetWorld())return 0.f;
+    return FMath::Max(0.f,float(ArmorCorrosionEndsAt-GetWorld()->GetTimeSeconds()));
+}
+int32 UCombatStatusFormula::ArmorCorrosionCount() const
+{
+    return ArmorCorrosionRemaining()>0.f?ArmorCorrosionStacks:0;
+}
+void UCombatStatusFormula::AddArmorCorrosion(int32 Contacts)
+{
+    if(!GetOwner()->HasAuthority()||!GetWorld()||Contacts<=0||IsImmune())return;
+    ArmorCorrosionStacks=FMath::Min(ArmorCorrosionMaxStacks,ArmorCorrosionCount()+Contacts);
+    ArmorCorrosionEndsAt=GetWorld()->GetTimeSeconds()+ArmorCorrosionDuration;
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("ghostArmorCorrosion"),ArmorCorrosionDuration,ArmorCorrosionStacks);
+}
+void UCombatStatusFormula::ClearArmorCorrosion()
+{
+    ArmorCorrosionStacks=0;
+    ArmorCorrosionEndsAt=0.;
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("ghostArmorCorrosion"));
+}
 void UCombatStatusFormula::AddCorrosion(int32 Stacks,float Seconds,float Reduction)
 {
     if(IsImmune()||Stacks<=0)return;
@@ -150,7 +177,15 @@ float UCombatStatusFormula::PhysicalVulnerabilityMultiplier() const
 }
 void UCombatStatusFormula::AddBleeding(AActor* Source,int32 Stacks)
 {if(!IsImmune()&&Stacks>0){BleedStacks+=Stacks;BleedTime=10;if(BleedTick<=0)BleedTick=1;BleedSource=Source;
-    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("bleed"),BleedTime,BleedStacks);}}
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("bleed"),BleedTime,BleedStacks);
+    EmitBleedingBurst();}}
+void UCombatStatusFormula::GrantMagicInspiration()
+{
+    if(!GetOwner()->HasAuthority())return;
+    MagicInspirationTime=10.f;
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("magicInspiration"),10.f,1);
+    GetOwner()->ForceNetUpdate();
+}
 void UCombatStatusFormula::GrantRiposteGuard(float Seconds,float AttackSpeed,float Stamina)
 {
     if(Seconds<=0)return;
@@ -160,9 +195,29 @@ void UCombatStatusFormula::GrantRiposteGuard(float Seconds,float AttackSpeed,flo
 void UCombatStatusFormula::AddBurn(AActor* Source,float Matk,int32 Stacks,float Seconds,float Multiplier,float TickSeconds)
 {
     if(IsImmune()||Stacks<=0||Seconds<=0||TickSeconds<=0)return;
+    if(UnknownSpell::IsCaster(Source))
+    {
+        // A hostile lava/armor pulse refreshes this caster's burn, rather than
+        // adding an entire new player-strength DoT every half second. Different
+        // monsters still threaten independently; player-applied burns are unchanged.
+        Stacks=1;
+        for(auto& Burn:Burns)if(Burn.Source.Get()==Source)
+        {
+            Burn.Damage=FMath::Max(Burn.Damage,FMath::Max(1.f,FMath::FloorToFloat(Matk*Multiplier)));
+            Burn.Remaining=FMath::Max(Burn.Remaining,Seconds);
+            UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("burn"),Burn.Remaining,Burns.Num());
+            return;
+        }
+    }
     for(int32 I=0;I<Stacks;++I)Burns.Add({Source,FMath::Max(1.f,FMath::FloorToFloat(Matk*Multiplier)),Seconds});
     BurnInterval=TickSeconds;if(BurnTick<=0)BurnTick=BurnInterval;
     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("burn"),Seconds,Burns.Num());
+}
+void UCombatStatusFormula::AddOilBurn(AActor* Source,float MagicAttack)
+{
+    const int32 Before=Burns.Num();
+    AddBurn(Source,MagicAttack,1,5.f);
+    if(Burns.Num()>Before)Burns.Last().bOil=true;
 }
 void UCombatStatusFormula::SetStatusImmune(bool Immune)
 {
@@ -198,7 +253,7 @@ void UCombatStatusFormula::AddStunWithExtension(float BaseSeconds,float ExtraSec
 }
 void UCombatStatusFormula::AddStun(float Seconds)
 {
-    if(IsImmune()||Seconds<=0)return;
+    if(CombatControl::IsImmune(GetOwner())||Seconds<=0)return;
     // 玩家装备的眩晕抵抗按加法叠加，作为 0–100% 的免控概率；
     // 100% 必晕的攻击在 25% 抵抗下仍有 75% 概率生效。
     if(auto* Character=Cast<ACharacter>(GetOwner());Character&&Character->IsPlayerControlled()&&Character->HasAuthority())
@@ -238,7 +293,7 @@ void UCombatStatusFormula::AddStun(float Seconds)
 }
 void UCombatStatusFormula::AddBind(float Seconds)
 {
-    if(IsImmune()||Seconds<=0)return;
+    if(CombatControl::IsImmune(GetOwner())||Seconds<=0)return;
     BindTime=FMath::Max(BindTime,Seconds);
     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("bind"),Seconds);
 }
@@ -247,6 +302,12 @@ void UCombatStatusFormula::AddSlow(float Seconds,float Percent)
     if(IsImmune()||Seconds<=0)return;
     SlowPct=FMath::Max(SlowTime>0?SlowPct:0,FMath::Clamp(Percent,0.f,.95f));SlowTime=FMath::Max(SlowTime,Seconds);
     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("slow"),Seconds);
+}
+void UCombatStatusFormula::AddExhaustion()
+{
+    if(!GetOwner()->HasAuthority()||ExhaustionTime>0.f)return;
+    ExhaustionTime=ExhaustionDuration;
+    UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("exhaustion"),ExhaustionDuration);
 }
 void UCombatStatusFormula::AddCripple(float Seconds)
 {
@@ -269,7 +330,7 @@ void UCombatStatusFormula::AddWeaponHaste(float Seconds,float Percent)
 }
 void UCombatStatusFormula::AddPetrify(float Seconds,float MagicTakenMul)
 {
-    if(IsImmune()||Seconds<=0)return;
+    if(CombatControl::IsImmune(GetOwner())||Seconds<=0)return;
     PetrifyTime=FMath::Max(PetrifyTime,Seconds);PetrifyMul=FMath::Max(1.f,MagicTakenMul);
     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("petrified"),Seconds,1);
     if(auto* Character=Cast<ACharacter>(GetOwner()))
@@ -277,6 +338,8 @@ void UCombatStatusFormula::AddPetrify(float Seconds,float MagicTakenMul)
             if(auto* Lock=Character->FindComponentByClass<UPlayerGuardBreakComponent>()){Lock->Apply(Seconds);return;}
     InterruptOwnerActions(Seconds);
 }
+float UCombatStatusFormula::MarkedMultiplier() const
+{return 1.f+FMath::Max(MarkedTime>0?MarkedValue:0.f,UIlluminationMarkComponent::DamageBonus(GetOwner()));}
 void UCombatStatusFormula::AddMarked(float Seconds,float Value)
 {
     if(IsImmune()||Seconds<=0)return;
@@ -382,13 +445,14 @@ float UCombatStatusFormula::ZhenmoMovementMultiplier() const
 float UCombatStatusFormula::MovementMultiplier()const
 {
     if(FrozenTime>0||StunTime>0||BindTime>0||PetrifyTime>0)return 0.f;
-    float Mul=FMath::Max(.01f,1-ChillStacks*ChillSlow)*(1+.1f*HasteStacks);
+    float Mul=ChillMovementMultiplier()*(1+.1f*HasteStacks);
     if(SlowTime>0)Mul*=FMath::Max(0.f,1-SlowPct);
+    if(ExhaustionTime>0.f)Mul*=ExhaustionMovementMultiplier;
     if(WaxTime>0)Mul*=FMath::Max(0.f,1-WaxPct);
     if(WeaponHasteTime>0)Mul*=WeaponHasteMul;
     if(InspireTime>0)Mul*=InspireSpeed;
     const auto* Book=GetOwner()->FindComponentByClass<USpellbookComponent>();
-    return Mul*ZhenmoMovementMultiplier()*(Book?Book->FocusMovementMultiplier():1.f);
+    return Mul*ZhenmoMovementMultiplier()*(Book?Book->FocusMovementMultiplier():1.f)*LightningHaste::MoveSpeed(GetOwner());
 }
 void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn)
 {
@@ -399,6 +463,7 @@ void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorCompo
     if(ComposureStacks>0&&ComposureCount()==0)ClearComposure();
     if(WeaknessStacks>0&&WeaknessCount()==0)ClearWeakness();
     if(CriticalVulnerabilityStacks>0&&CriticalVulnerabilityCount()==0)ClearCriticalVulnerability();
+    if(ArmorCorrosionStacks>0&&ArmorCorrosionCount()==0)ClearArmorCorrosion();
     const bool WardWas=WardTime>0;ShredTime=FMath::Max(0.f,ShredTime-Delta);WardTime=FMath::Max(0.f,WardTime-Delta);
     if(WardWas&&WardTime<=0)UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(TEXT("holyWard"));
     auto Expire=[&](float& Time,int32& Stacks,FName Name){if(Time<=0)return;Time=FMath::Max(0.f,Time-Delta);if(Time==0){Stacks=0;UStatusEffectsComponent::GetOrCreate(GetOwner())->Remove(Name);}};
@@ -408,6 +473,8 @@ void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorCompo
     ExpireT(StunTime,TEXT("stun"));ExpireT(BindTime,TEXT("bind"));
     ExpireT(PetrifyTime,TEXT("petrified"));ExpireT(InspireTime,TEXT("inspire"));
     ExpireT(SlowTime,TEXT("slow"));ExpireT(WaxTime,TEXT("waxSealSlow"));
+    ExpireT(MagicInspirationTime,TEXT("magicInspiration"));
+    ExpireT(ExhaustionTime,TEXT("exhaustion"));
     ExpireT(WeaponHasteTime,TEXT("weaponHaste"));ExpireT(MarkedTime,TEXT("marked"));
     ExpireT(CamelTime,TEXT("camelFright"));ExpireT(ImmuneTime,TEXT("statusImmune"));
     FrozenTime=FMath::Max(0.f,FrozenTime-Delta);
@@ -436,16 +503,16 @@ void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorCompo
     auto Apply=[&](float Damage,AActor* Source,UClass* DamageClass){
         const auto* Pawn=Cast<APawn>(Source);
         auto Deal=[&](){ return UGameplayStatics::ApplyDamage(GetOwner(),Damage,Pawn?Pawn->GetController():nullptr,Source,DamageClass); };
-        if(auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>())Combat->ApplyHitWithReactionScale(0.f,Deal);else Deal();
+        if(auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>())return Combat->ApplyHitWithReactionScale(0.f,Deal);
+        return Deal();
     };
     auto OwnerHealth=[&](float& Health,float& MaxHealth)
     {Health=0;MaxHealth=0;
-        if(const auto* N=Cast<ANurseZombie>(GetOwner())){Health=N->Health;MaxHealth=N->MaxHealth;}
-        else if(const auto* H=Cast<AHandBrainMonster>(GetOwner())){Health=H->Health;MaxHealth=H->MaxHealth;}
-        else if(const auto* F=Cast<AFleshHandMonster>(GetOwner())){Health=F->Health;MaxHealth=F->MaxHealth;}
-        else if(const auto* M=Cast<APoisonMaggotMonster>(GetOwner())){Health=M->Health;MaxHealth=M->MaxHealth;}
-        else if(const auto* W=Cast<AWolfMonster>(GetOwner())){Health=W->Health;MaxHealth=W->MaxHealth;}
-        else if(const auto* C=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>()){Health=C->Health;MaxHealth=C->MaxHealth;}
+        // Use the same vitals adapter as the monster health bar. The old five
+        // concrete casts returned zero for later monsters and skipped DoT damage.
+        if(const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>())
+        {FText Name;if(Combat->GetVitals(Health,MaxHealth,Name))return;}
+        if(const auto* C=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>()){Health=C->Health;MaxHealth=C->MaxHealth;}
     };
     if(BleedStacks>0)
     {
@@ -453,11 +520,13 @@ void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorCompo
         while(BleedTick<=0)
         {
             float Health=0,MaxHealth=0;OwnerHealth(Health,MaxHealth);
-            if(Health>0)Apply(FMath::Max(1.f,FMath::FloorToFloat(Health*.01f*BleedStacks)),BleedSource.Get(),UCombatDirectDamage::StaticClass());BleedTick+=1;
+            if(Health>0&&Apply(FMath::Max(1.f,FMath::FloorToFloat(Health*.01f*BleedStacks)),BleedSource.Get(),UCombatDirectDamage::StaticClass())>0.f)
+                EmitBleedingBurst();
+            BleedTick+=1;
         }
-        const bool Had=BleedStacks>0;
+        const int32 Before=BleedStacks;
         while(BleedTime<=0&&BleedStacks>0){--BleedStacks;BleedTime+=10;}
-        if(Had)
+        if(BleedStacks!=Before)
         {
             auto* Display=UStatusEffectsComponent::GetOrCreate(GetOwner());
             if(BleedStacks>0)Display->SetTimed(TEXT("bleed"),BleedTime,BleedStacks);else Display->Remove(TEXT("bleed"));
@@ -468,7 +537,19 @@ void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorCompo
         BurnTick-=Delta;for(auto& B:Burns)B.Remaining-=Delta;
         const int32 Before=Burns.Num();Burns.RemoveAll([](const auto& B){return B.Remaining<=0;});
         if(Burns.IsEmpty())BurnTick=0;
-        else while(BurnTick<=0){float Damage=0;AActor* Source=nullptr;for(const auto& B:Burns){Damage+=B.Damage;if(!Source)Source=B.Source.Get();}Apply(Damage,Source,UFireballDamage::StaticClass());BurnTick+=BurnInterval;}
+        else while(BurnTick<=0)
+        {
+            float OtherDamage=0;AActor* OtherSource=nullptr;
+            TMap<TWeakObjectPtr<AActor>,float> OilDamage;
+            for(const auto& B:Burns)
+            {
+                if(B.bOil){OilDamage.FindOrAdd(B.Source)+=B.Damage;continue;}
+                OtherDamage+=B.Damage;if(!OtherSource)OtherSource=B.Source.Get();
+            }
+            if(OtherDamage>0)Apply(OtherDamage,OtherSource,UFireballDamage::StaticClass());
+            for(const auto& Entry:OilDamage)Apply(Entry.Value,Entry.Key.Get(),UVillageOilDamage::StaticClass());
+            BurnTick+=BurnInterval;
+        }
         if(const int32 After=Burns.Num();After!=Before) // 层数变化才重发布；剩余时间由卡片 End 自然倒数
         {
             auto* Display=UStatusEffectsComponent::GetOrCreate(GetOwner());
@@ -492,15 +573,14 @@ void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorCompo
     }
 }
 
-void UCombatStatusFormula::AddChill(int32 Stacks,float Seconds,float SlowPerStack)
+void UCombatStatusFormula::AddChill(int32 Stacks,float Seconds,bool bRefreshDuration)
 {
-    if(IsImmune()||FrozenTime>0||Stacks<=0||Seconds<=0)return;
-    // Mixed spell/pendant stacks retain each contribution to total movement slow.
-    ChillSlow=(ChillSlow*ChillStacks+SlowPerStack*Stacks)/float(ChillStacks+Stacks);
-    ChillStacks+=Stacks;ChillTime+=Seconds;
-    if(ChillStacks>=20)
+    if(!GetOwner()->HasAuthority()||IsImmune()||FrozenTime>0||Stacks<=0||Seconds<=0)return;
+    ChillStacks+=Stacks;ChillTime=bRefreshDuration?FMath::Max(ChillTime,Seconds):ChillTime+Seconds;
+    // Keep the slowing stacks; an immune freeze attempt is not queued for landing.
+    if(ChillStacks>=CombatChill::FreezeThreshold&&!CombatControl::IsImmune(GetOwner()))
     {
-        ChillStacks-=10;FrozenTime=Seconds;
+        ChillStacks-=CombatChill::FreezeCost;FrozenTime=Seconds;
         InterruptOwnerActions(Seconds);
         UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("frozen"),Seconds,1);
     }
@@ -616,6 +696,7 @@ void UCombatStatusFormula::ShowProcTile(FName Type,float Seconds)
 {if(Seconds>0)UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(Type,Seconds,1);}
 void UCombatStatusFormula::PurgeTransient()
 {
+    if(auto* Mark=GetOwner()->FindComponentByClass<UIlluminationMarkComponent>())Mark->Clear();
     if(auto* Guard=GetOwner()->FindComponentByClass<UTangDaoGuardComponent>())Guard->ClearTransient();
     if (auto* Mist = GetOwner()->FindComponentByClass<USlagMistViewComponent>()) Mist->ClearBlindness();
     if(auto* Infection=GetOwner()->FindComponentByClass<UProgressiveInfectionComponent>())Infection->Cure();
@@ -627,17 +708,19 @@ void UCombatStatusFormula::PurgeTransient()
     WeaknessStacks=0;WeaknessEndsAt=0.;
     CriticalVulnerabilityStacks=0;CriticalVulnerabilityEndsAt=0.;
     PhysicalVulnerabilityBonus=0.f;PhysicalVulnerabilityEndsAt=0.;
+    if(ArmorCorrosionStacks>0)ClearArmorCorrosion();
     if(auto* Seal=GetOwner()->FindComponentByClass<UAncientBreakingSealComponent>())Seal->Clear();
     ChillTime=HasteTime=ChainTime=ElectrifiedTime=CorrosionTime=VulnerabilityTime=BleedTime=BurnTick=0;
     FrozenTime=StunTime=BindTime=SlowTime=WaxTime=WeaponHasteTime=PetrifyTime=MarkedTime=InspireTime=0;
+    ExhaustionTime=MagicInspirationTime=0.f;
     CamelTime=ImmuneTime=MineTime=MineTick=RuneVulnerabilityTime=RiposteTime=ShredTime=WardTime=0;
     Ward=1;SlowPct=WaxPct=CamelReduction=0;WeaponHasteMul=InspireSpeed=InspireAtk=1;MarkedValue=.15f;
-    Burns.Empty();BleedSource.Reset();Drones.Empty();
+    Burns.Empty();BleedSource.Reset();BleedSurface.Reset();BleedBone=NAME_None;BleedTick=0;Drones.Empty();
     if(auto* Display=GetOwner()->FindComponentByClass<UStatusEffectsComponent>())
         for(FName Type:{TEXT("chill"),TEXT("frozen"),TEXT("haste"),TEXT("chainSpell"),TEXT("electrified"),TEXT("corrosion"),
-            TEXT("bleed"),TEXT("burn"),TEXT("stun"),TEXT("bind"),TEXT("slow"),TEXT("waxSealSlow"),TEXT("weaponHaste"),
+            TEXT("bleed"),TEXT("burn"),TEXT("stun"),TEXT("bind"),TEXT("slow"),TEXT("exhaustion"),TEXT("waxSealSlow"),TEXT("weaponHaste"),
             TEXT("petrified"),TEXT("marked"),TEXT("inspire"),TEXT("camelFright"),TEXT("weakness"),TEXT("criticalVulnerability"),TEXT("statusImmune"),TEXT("minePoison"),
-            TEXT("droneVulnerability"),TEXT("holyWard"),TEXT("holyRenewal"),TEXT("runeMagicVulnerability"),TEXT("riposteInspiration"),TEXT("tigerRoar"),TEXT("physicalVulnerability")})Display->Remove(Type);
+            TEXT("droneVulnerability"),TEXT("holyWard"),TEXT("holyRenewal"),TEXT("runeMagicVulnerability"),TEXT("riposteInspiration"),TEXT("magicInspiration"),TEXT("tigerRoar"),TEXT("physicalVulnerability")})Display->Remove(Type);
     // In-place revival clears the actual controllers as well as their status
     // clocks. Their existing replication paths release the owning client too.
     if(auto* Fear=GetOwner()->FindComponentByClass<UHandBrainFearComponent>())Fear->Cleanse();
@@ -652,12 +735,13 @@ int32 UCombatStatusFormula::CleanseDebuffs(int32 Count)
     auto Clear=[&](FName Tile){if(Display)Display->Remove(Tile);};
     if(Take())if(auto* Infection=Owner->FindComponentByClass<UProgressiveInfectionComponent>();Infection&&Infection->GetState().bActive){Infection->Cure();++Cleansed;}
     if(Take())if(auto* P=Owner->FindComponentByClass<UMaggotPoisonComponent>();P&&P->Stacks>0){P->ClearPoison();++Cleansed;}
-    if(Take())if(BleedStacks>0){BleedStacks=0;BleedTime=BleedTick=0;BleedSource.Reset();Clear(TEXT("bleed"));++Cleansed;}
+    if(Take())if(BleedStacks>0){BleedStacks=0;BleedTime=BleedTick=0;BleedSource.Reset();BleedSurface.Reset();BleedBone=NAME_None;Clear(TEXT("bleed"));++Cleansed;}
     if(Take())if(auto* F=Owner->FindComponentByClass<UHandBrainFearComponent>();F&&F->Stacks>0){F->Cleanse();++Cleansed;}
     if(Take())if(ChillStacks>0||ChillTime>0){ChillStacks=0;ChillTime=0;Clear(TEXT("chill"));++Cleansed;}
     if(Take())if(auto* P=GetOwner()->FindComponentByClass<UColdSteelPoisonComponent>();P&&P->GetStacks()>0){P->ClearPoison();++Cleansed;}
     if(Take())if(FrozenTime>0){FrozenTime=0;Clear(TEXT("frozen"));++Cleansed;}
     if(Take())if(SlowTime>0){SlowTime=0;SlowPct=0;Clear(TEXT("slow"));++Cleansed;}
+    if(Take())if(ExhaustionTime>0.f){ExhaustionTime=0.f;Clear(TEXT("exhaustion"));++Cleansed;}
     if(Take())if(WaxTime>0){WaxTime=0;WaxPct=0;Clear(TEXT("waxSealSlow"));++Cleansed;}
     if(Take())if(BindTime>0){BindTime=0;Clear(TEXT("bind"));++Cleansed;}
     if(Take())if(VulnerabilityStacks>0){VulnerabilityStacks=0;VulnerabilityTime=0;++Cleansed;}
@@ -668,7 +752,9 @@ int32 UCombatStatusFormula::CleanseDebuffs(int32 Count)
     if(Take()&&TigerRoarRemaining()>0.f){TigerRoarBonus=0.f;TigerRoarEndsAt=0.;Clear(TEXT("tigerRoar"));++Cleansed;}
     if(Take()&&WeaknessCount()>0){ClearWeakness();++Cleansed;}
     if(Take()&&CriticalVulnerabilityCount()>0){ClearCriticalVulnerability();++Cleansed;}
+    if(Take()&&ArmorCorrosionCount()>0){ClearArmorCorrosion();++Cleansed;}
     if(Take()&&PhysicalVulnerabilityRemaining()>0.f){PhysicalVulnerabilityBonus=0.f;PhysicalVulnerabilityEndsAt=0.;Clear(TEXT("physicalVulnerability"));++Cleansed;}
     if(Take()&&BreakingSealRemaining()>0.f){if(auto* Seal=GetOwner()->FindComponentByClass<UAncientBreakingSealComponent>())Seal->Clear();++Cleansed;}
+    if(Take()&&UIlluminationMarkComponent::IsMarked(Owner)){Owner->FindComponentByClass<UIlluminationMarkComponent>()->Clear();++Cleansed;}
     return Cleansed;
 }

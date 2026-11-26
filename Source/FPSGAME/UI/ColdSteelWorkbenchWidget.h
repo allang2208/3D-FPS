@@ -22,6 +22,8 @@ class USizeBox;
 class UTextBlock;
 class UTexture2D;
 class UVerticalBox;
+class UProgressBar;
+class UUniformGridPanel;
 class UVerticalBoxSlot;
 class UHorizontalBoxSlot;
 class UColdSteelHUDWidget;
@@ -77,6 +79,10 @@ protected:
     virtual void NativeDestruct() override;
     virtual void NativeTick(const FGeometry& MyGeometry,float InDeltaTime) override;
     virtual FReply NativeOnMouseButtonDown(const FGeometry& Geometry,const FPointerEvent& Event) override;
+    virtual FReply NativeOnPreviewMouseButtonDown(const FGeometry& Geometry,const FPointerEvent& Event) override;
+    virtual FReply NativeOnMouseMove(const FGeometry& Geometry,const FPointerEvent& Event) override;
+    virtual FReply NativeOnMouseButtonUp(const FGeometry& Geometry,const FPointerEvent& Event) override;
+    virtual void NativeOnMouseCaptureLost(const FCaptureLostEvent& Event) override;
 
 private:
     UFUNCTION() void HandleClose();
@@ -116,6 +122,12 @@ private:
     void UpdatePreviewLayout();
     void RefreshActions();
     void RefreshDataChanged();
+    void SetPlantingMode(bool Enabled);
+    void BuildPlantingBody();
+    void RefreshPlanting();
+    void SelectPlantingSlot(int32 SlotIndex);
+    void HandlePlantingAction();
+    UFUNCTION() void HandlePlantingCropSelected(FString Option,ESelectInfo::Type SelectionType);
 
     UPROPERTY(Transient) TObjectPtr<UColdSteelHUDWidget> HUD;
     UPROPERTY(Transient) TObjectPtr<UColdSteelStatusModel> Model;
@@ -247,6 +259,61 @@ private:
     bool bPreviewStacked=false;
     int64 MaxBatch=0;
     FString CraftReason;
+    bool bPlantingMode=false;
+    int32 PlantingSlot=INDEX_NONE;
+    TArray<int32> PlantingSelectedSlots;
+    int32 PlantingDragStart=INDEX_NONE,PlantingDragEnd=INDEX_NONE,PlantingBatchCount=0;
+    bool bPlantingDragging=false,bPlantingFreeQuoted=false;
+    int32 PlantingHitSlot(FVector2D ScreenPosition,bool ClampToMap=false) const;
+    void UpdatePlantingDrag(int32 SlotIndex);
+    void CancelPlantingDrag();
+    FName PlantingCrop;
+    FGuid PlantingBedContextId;
+    double PlantingNextActionTime=0.;
+    int32 PlantingQuotedStage=-1;
+    uint64 PlantingQuotedSerial=0;
+    UPROPERTY(Transient) TObjectPtr<UWidget> CraftingBodyContent;
+    UPROPERTY(Transient) TObjectPtr<UVerticalBox> PlantingBodyContent;
+    UPROPERTY(Transient) TObjectPtr<UComboBoxString> PlantingChoice;
+    UPROPERTY(Transient) TObjectPtr<USizeBox> PlantingChoiceSize;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PlantingRuleText;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PlantingPlotText;
+    UPROPERTY(Transient) TObjectPtr<UImage> PlantingProductIcon;
+    UPROPERTY(Transient) TObjectPtr<USizeBox> PlantingProductSize;
+    UPROPERTY(Transient) TObjectPtr<UGridPanel> PlantingGrid;
+    UPROPERTY(Transient) TArray<TObjectPtr<UGridSlot>> PlantingGridSlots;
+    UPROPERTY(Transient) TArray<TObjectPtr<UButton>> PlantingSlotButtons;
+    UPROPERTY(Transient) TArray<TObjectPtr<UColdSteelWorkbenchRowProxy>> PlantingProxies;
+    // Planting presentation only: world slots and transactions remain owned by the planting system.
+    struct FPlantingTile
+    {
+        TWeakObjectPtr<UCanvasPanelSlot> Slot,ContentSlot,ProgressSlot;
+        TWeakObjectPtr<UTextBlock> Name,State;
+        TWeakObjectPtr<UImage> Icon;
+        TWeakObjectPtr<USizeBox> IconSize,ProgressSize;
+        TSharedPtr<class SColdSteelPlantingProgress> Progress;
+    };
+    TArray<FPlantingTile> PlantingTiles;
+    struct FPlantingUpcomingRow { TWeakObjectPtr<UHorizontalBox> Row;TWeakObjectPtr<UTextBlock> Name,Time; };
+    TArray<FPlantingUpcomingRow> PlantingUpcomingRows;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PlantingOverview;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PlantingUpcomingEmpty;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PlantingCareNotice;
+    void SetPlantingEffectsEnabled(bool Enabled);
+    TArray<TWeakObjectPtr<UButton>> PlantingCropButtons;
+    TArray<TWeakObjectPtr<UTextBlock>> PlantingCropCounts;
+    TArray<TWeakObjectPtr<USizeBox>> PlantingCropIcons;
+    UPROPERTY(Transient) TObjectPtr<UUniformGridPanel> PlantingCropGrid;
+    UPROPERTY(Transient) TObjectPtr<UGridPanel> PlantingContentLayout;
+    UPROPERTY(Transient) TObjectPtr<UGridSlot> PlantingDetailsSlot;
+    UPROPERTY(Transient) TObjectPtr<USizeBox> PlantingMapSize;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PlantingSummary;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PlantingDetailTitle;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PlantingProductName;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> PlantingProductEmpty;
+    bool bPlantingWasPending=false;
+    void SelectPlantingCrop(int32 CropIndex);
+    void UpdatePlantingLayout();
 };
 
 /** 页签点击代理（冶炼 UColdSteelSmeltingRowProxy 同款小 UObject）：OnClicked 是动态无参委托，
@@ -257,6 +324,7 @@ class UColdSteelWorkbenchRowProxy : public UObject
     GENERATED_BODY()
 public:
     UFUNCTION() void AxisClicked();
+    UFUNCTION() void PlantingClicked();
     TWeakObjectPtr<UColdSteelWorkbenchWidget> Panel;
     int32 Axis=0;
 };

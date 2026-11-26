@@ -1,16 +1,17 @@
 #include "HillsTavernInterior.h"
+#include "VillageInteriorLighting.h"
 
 #include "Components/InstancedStaticMeshComponent.h"
-#include "Components/MaterialBillboardComponent.h"
 #include "Components/PointLightComponent.h"
-#include "Components/SpotLightComponent.h"
 #include "Engine/AssetManager.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/StreamableManager.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
-#include "Materials/MaterialInstanceDynamic.h"
+#include "Materials/MaterialInterface.h"
 #include "Misc/PackageName.h"
+
+const FVector FHillsTavernInterior::RefitCounterOffset(30.,276.,0.);
 
 namespace
 {
@@ -19,7 +20,7 @@ enum class EProp : uint8
 {
     Table, Stool, Counter, Rack, BrokenTable, BrokenStool, BrokenCounter, Cask, TapCask,
     Cup, Jug, Dish, Sherd, Bread, Baguette, Sausage, Chicken, Ribs, Lantern, Timber,
-    Sign, FadedSign, GameBoard, AbandonedBoard, DryingRack, EmptyDryingRack,
+    GameBoard, AbandonedBoard, DryingRack, EmptyDryingRack,
     Screen, DamagedScreen, Hearth, ColdHearth, PrepBench, BrokenPrepBench, WashStand, BrokenWashStand,
     Carrots, Bowl, StewBowl, BrokenBowl, Chopsticks, WoodSpoon, Count
 };
@@ -45,8 +46,6 @@ constexpr FPropModel Models[] = {
     {TEXT("/Game/Items/Consumables/LambRibs20261014/Roasted/SM_RoastedLambRibs"),false},
     {TEXT("/Game/UnrealNormandy/StaticMeshes/SM_Props_Lantern_02A"),false},
     {TEXT("/Game/WorldGeneration/TemperateHills/VillageBlacksmith/ArtPassR2/Meshes/SM_VillageAbandonedTimber"),false},
-    {TEXT("/Game/WorldGeneration/VillageTavern/Sign/SM_TavernSign"),false},
-    {TEXT("/Game/WorldGeneration/VillageTavern/Sign/SM_TavernSignRuined"),false},
     {TEXT("/Game/WorldGeneration/VillageTavern/TableGame/SM_TavernTablesBoard"),false},
     {TEXT("/Game/WorldGeneration/VillageTavern/TableGame/SM_TavernTablesBoardRuined"),false},
     {TEXT("/Game/WorldGeneration/VillageTavern/DryingRack/SM_TavernDryingRack"),false},
@@ -139,31 +138,33 @@ void SeatGroup(TArray<FPlacement>& Out, FVector Center, double GrainYaw,
     }
 }
 
-void FurnishTaproom(TArray<FPlacement>& Out)
+void FurnishTaproom(TArray<FPlacement>& Out, bool bRearRange, bool bRefit)
 {
     // The east rear bay is the kitchen. Keep the entrance and the right end of the bar clear.
     // Pull the aisle-side stool out of the diagonal from the doorway to the middle of the bar.
-    SeatGroup(Out,{-222.,-121.,-2.7},12.,{{63.,80.,-3.3},{169.,82.,-1.2},{276.,79.,-2.1}},{
+    SeatGroup(Out,bRefit ? FVector(-302.,-202.,-2.7) : FVector(-222.,-121.,-2.7),12.,{{63.,80.,-3.3},{169.,82.,-1.2},{276.,79.,-2.1}},{
         {EProp::Jug,{-3.,-1.,0.},114.}, {EProp::Cup,{-8.,37.,0.},-28.},
         {EProp::Cup,{-38.,-14.,0.},145.}, {EProp::Cup,{27.,-24.,0.},215.},
         {EProp::StewBowl,{15.,29.,0.},-14.}, {EProp::WoodSpoon,{30.,24.,0.},67.},
         {EProp::Bowl,{-32.,7.,0.},73.}, {EProp::Chopsticks,{-29.,23.,0.},-9.},
         {EProp::Bread,{3.,-31.,0.},-35.,16.}});
     // Opposing seats face the two players' edges of the open board.
-    SeatGroup(Out,{-408.,119.,-2.1},82.,{{67.,79.,-2.1},{238.,80.,-2.8}},{
+    SeatGroup(Out,bRefit ? FVector(-300.,131.,-2.1) : FVector(-408.,119.,-2.1),82.,{{67.,79.,-2.1},{238.,80.,-2.8}},{
         {EProp::GameBoard,{-2.,0.,0.},-24.}, {EProp::Lantern,{34.,-13.,0.},28.,-26.},
         {EProp::Cup,{-30.,-19.,0.},173.}, {EProp::Cup,{5.,32.,0.},38.}});
-    SeatGroup(Out,{335.,-207.,-1.7},-13.,{{26.,85.,-1.6},{165.,80.,-2.3},{257.,83.,-1.3}},{
+    SeatGroup(Out,bRefit ? FVector(367.,-251.,-1.7) : FVector(335.,-207.,-1.7),-13.,{{26.,85.,-1.6},{165.,80.,-2.3},{257.,83.,-1.3}},{
         {EProp::Jug,{0.,1.,0.},84.}, {EProp::Cup,{18.,35.,0.},18.},
         {EProp::Cup,{16.,-33.,0.},195.}, {EProp::Chicken,{28.,13.,0.},25.,20.5},
         {EProp::Chopsticks,{35.,-6.,0.},-151.}, {EProp::StewBowl,{-32.,9.,0.},-48.},
         {EProp::WoodSpoon,{-29.,26.,0.},165.}, {EProp::Bread,{-7.,-28.,0.},-77.,15.},
         {EProp::Chopsticks,{-26.,-24.,0.},77.}});
-    SeatGroup(Out,{-457.,-213.,-1.2},36.,{{65.,84.,-1.0},{220.,82.,-1.4},{299.,86.,-1.3}},{
+    const FVector StaffTable = bRearRange ? FVector(-280.,543.,-1.2) : FVector(-457.,-213.,-1.2);
+    SeatGroup(Out,bRefit ? FVector(124.,102.,-1.2) : StaffTable,36.,{{65.,84.,-1.0},{220.,82.,-1.4},{299.,86.,-1.3}},{
         {EProp::Lantern,{0.,3.,0.},-8.,-26.}, {EProp::Cup,{-9.,33.,0.},177.},
         {EProp::Cup,{16.,-30.,0.},-55.}, {EProp::Ribs,{13.,27.,0.},18.,23.5},
         {EProp::Chopsticks,{31.,18.,0.},-116.}, {EProp::Bowl,{-25.,-18.,0.},117.},
         {EProp::WoodSpoon,{-34.,-4.,0.},-148.}});
+    const int32 ServiceStart = Out.Num();
     constexpr double CounterFloor = -2.3;
     constexpr double CounterTop = CounterFloor+105.;
     constexpr double RackFloor = -2.6;
@@ -173,7 +174,7 @@ void FurnishTaproom(TArray<FPlacement>& Out)
         {EProp::Counter,{-120.,182.,CounterFloor},-90.}, {EProp::Rack,{-87.,354.,RackFloor},-90.},
         {EProp::Cask,{-285.,342.,-.7},16.}, {EProp::Cask,{-355.,335.,-2.7},-43.},
         {EProp::TapCask,{62.,344.,-2.0},-90.},
-        {EProp::Lantern,{-233.,198.,CounterTop},-14.,-28.}, {EProp::Jug,{-54.,169.,CounterTop},-48.},
+        {EProp::Jug,{-54.,169.,CounterTop},-48.},
         {EProp::Cup,{-34.,191.,CounterTop-.02},-55.}, {EProp::Cup,{-15.,191.,CounterTop-.02},24.},
         {EProp::Baguette,{-186.,196.,CounterTop},8.,34.},
         {EProp::Dish,{-227.,165.,CounterTop},51.}, {EProp::Chicken,{-227.,165.,CounterTop+1.25},74.,21.},
@@ -181,6 +182,7 @@ void FurnishTaproom(TArray<FPlacement>& Out)
         {EProp::Chopsticks,{-211.,192.,CounterTop},81.}
     });
 
+    const int32 RackContentsStart = Out.Num();
     // The upper bay has only 24.3 cm of headroom. The taller pulled jug spouts go a shelf lower.
     Out.Append({
         {EProp::Jug,{-38.,353.,RackFloor+110.85},17.}, {EProp::Jug,{-148.,351.,RackFloor+110.85},-36.},
@@ -191,6 +193,21 @@ void FurnishTaproom(TArray<FPlacement>& Out)
         {EProp::Bowl,{-47.,350.,RackFloor+66.85},32.},
         {EProp::Bowl,{-73.,350.,RackFloor+66.85},-21.}
     });
+    if (bRearRange)
+    {
+        for (int32 Index=ServiceStart; Index<Out.Num(); ++Index)
+        {
+            FPlacement& Piece=Out[Index];
+            if (bRefit && (Piece.Prop == EProp::Rack || Index >= RackContentsStart))
+                Piece.Contact += FVector(-187.,428.,0.); // Blank rear-wall bay between the windows.
+            else if (bRefit && Piece.Prop == EProp::Cask)
+                Piece.Contact += FVector(-174.,421.,0.); // Low barrels fit below the west sill.
+            else if (Piece.Contact.Y > 310.)
+                Piece.Contact.Y += 398.;
+            else if (bRefit)
+                Piece.Contact += FHillsTavernInterior::RefitCounterOffset;
+        }
+    }
 }
 
 void FurnishRuin(TArray<FPlacement>& Out)
@@ -210,18 +227,19 @@ void FurnishRuin(TArray<FPlacement>& Out)
     });
 }
 
-void FurnishKitchen(TArray<FPlacement>& Out, bool bRepaired)
+void FurnishKitchen(TArray<FPlacement>& Out, bool bRepaired, bool bRefit)
 {
     // Room-space pivot on the L-shaped partition. The staff opening is in the west
     // return behind the bar; its south opening has a sill 104 cm above the sole.
     constexpr double ScreenBase = -3.;
     constexpr double PassHeight = ScreenBase + 104.;
+    if (!bRefit) Out.Add({bRepaired ? EProp::Screen : EProp::DamagedScreen,{0.,0.,ScreenBase}});
+    const FVector PrepShift=bRefit ? FVector(20.,277.,0.) : FVector::ZeroVector;
     Out.Append({
-        {bRepaired ? EProp::Screen : EProp::DamagedScreen, {0.,0.,ScreenBase}},
         {bRepaired ? EProp::Hearth : EProp::ColdHearth, {615.,79.,-2.1},180.},
-        {bRepaired ? EProp::PrepBench : EProp::BrokenPrepBench, {337.,335.,-1.3},-90.},
-        {bRepaired ? EProp::WashStand : EProp::BrokenWashStand, {579.,246.,-2.},180.},
-        {bRepaired ? EProp::DryingRack : EProp::EmptyDryingRack, {390.,262.,305.}}
+        {bRepaired ? EProp::PrepBench : EProp::BrokenPrepBench, FVector(337.,335.,-1.3)+PrepShift,-90.},
+        {bRepaired ? EProp::WashStand : EProp::BrokenWashStand, FVector(579.,bRefit ? 624. : 246.,-2.),180.},
+        {bRepaired ? EProp::DryingRack : EProp::EmptyDryingRack, FVector(bRefit ? 432. : 390.,bRefit ? 478. : 262.,305.)}
     });
     if (!bRepaired)
     {
@@ -238,9 +256,9 @@ void FurnishKitchen(TArray<FPlacement>& Out, bool bRepaired)
     // Crockery and stores are reachable from the prep side. The centre of the room
     // remains clear between the staff door, cutting board, hearth and serving ledge.
     constexpr double PantryFloor = -3.4;
+    const int32 PantryStart=Out.Num();
     Out.Append({
         {EProp::Rack,{158.,74.,PantryFloor}},
-        {EProp::Cask,{195.,362.,-1.2},38.},
         {EProp::Dish,{161.,34.,PantryFloor+66.85},18.},
         {EProp::Dish,{161.,34.,PantryFloor+68.60},-7.},
         {EProp::Dish,{161.,34.,PantryFloor+70.35},42.},
@@ -251,11 +269,29 @@ void FurnishKitchen(TArray<FPlacement>& Out, bool bRepaired)
         {EProp::Cup,{162.,134.,PantryFloor+110.85},61.},
         {EProp::Bread,{160.,31.,PantryFloor+110.85},79.,27.},
         {EProp::Baguette,{162.,75.,PantryFloor+110.85},91.,36.},
-        {EProp::Carrots,{337.,335.,89.7},17.,23.},
+    });
+    if (bRefit)
+    {
+        // Turn the entire shelf, including the crockery, toward the prep aisle.
+        const FRotator Turn(0.,-90.,0.);
+        const FVector OldCenter(158.,74.,PantryFloor), NewCenter(499.,782.,PantryFloor);
+        for (int32 I=PantryStart; I<Out.Num(); ++I)
+        {
+            FPlacement& Item=Out[I];
+            Item.Contact=NewCenter+Turn.RotateVector(Item.Contact-OldCenter);
+            Item.Yaw+=Turn.Yaw;
+        }
+    }
+    Out.Add({EProp::Cask,FVector(bRefit ? 175. : 195.,bRefit ? 758. : 362.,-1.2),38.});
+    Out.Add({EProp::Carrots,FVector(337.,335.,89.7)+PrepShift,17.,23.});
+    const int32 PassStart=Out.Num();
+    Out.Append({
         {EProp::Dish,{276.,-35.,PassHeight},12.}, {EProp::Sausage,{276.,-35.,PassHeight+1.25},34.,20.},
         {EProp::StewBowl,{321.,-34.,PassHeight},34.}, {EProp::WoodSpoon,{345.,-38.,PassHeight},12.},
         {EProp::Jug,{370.,-34.,PassHeight},-7.}
     });
+    if (bRefit)
+        for (int32 I=PassStart; I<Out.Num(); ++I) Out[I].Contact+=FVector(-80.,373.,0.);
 }
 
 void LightFixture(AActor& Host, USceneComponent& Root, const FPlacement& Fixture)
@@ -268,103 +304,14 @@ void LightFixture(AActor& Host, USceneComponent& Root, const FPlacement& Fixture
     // The ember bed is recessed in the west-facing firebox, beneath the suspended pot.
     const FVector Offset = bHearth ? FVector(-52.,0.,39.) : FVector(0.,0.,FMath::Abs(Fixture.FitCm)*.44);
     Light->SetRelativeLocation(Fixture.Contact+Offset);
-    Light->SetIntensityUnits(ELightUnits::Lumens);
-    Light->SetIntensity(bHearth ? 24.f : (Fixture.Contact.Z>90. ? 14.f : 10.f));
-    Light->SetTemperature(bHearth ? 1950.f : 2870.f);
-    Light->SetUseTemperature(true);
-    Light->SetSourceRadius(bHearth ? 11.f : 6.f);
-    Light->SetAttenuationRadius(bHearth ? 210.f : 285.f);
-    Light->SetCastShadows(true);
+    UVillageInteriorLighting::Configure(Light);
     Light->MaxDrawDistance=2200.f;
     Light->MaxDistanceFadeRange=450.f;
     Light->RegisterComponent();
 }
 
-const FSoftObjectPath TorchBodyPath(TEXT("/Game/Props/RomanColumn20260915/SM_BronzeTorch.SM_BronzeTorch"));
-const FSoftObjectPath TorchSocketPath(TEXT("/Engine/BasicShapes/Cylinder.Cylinder"));
-const FSoftObjectPath ForgedIronPath(TEXT("/Game/Props/CastingStation20260926/RealismV5/MI_DarkForgedIron.MI_DarkForgedIron"));
-const FSoftObjectPath TorchFlamePath(TEXT("/Game/WorldGeneration/TemperateHills/VillageHerbalist/Lighting/M_HerbalistTorchFlame.M_HerbalistTorchFlame"));
-
-void InstallEntryTorches(AActor& Host, USceneComponent& Root, bool bRepaired)
-{
-    UStaticMesh* Body = Cast<UStaticMesh>(TorchBodyPath.ResolveObject());
-    UStaticMesh* Socket = Cast<UStaticMesh>(TorchSocketPath.ResolveObject());
-    UMaterialInterface* Iron = Cast<UMaterialInterface>(ForgedIronPath.ResolveObject());
-    UMaterialInterface* FlameMaterial = bRepaired ? Cast<UMaterialInterface>(TorchFlamePath.ResolveObject()) : nullptr;
-    if (!Body || !Socket || !Iron) return;
-
-    const auto Mount = [&](UStaticMesh* Mesh, const FTransform& Placement, UMaterialInterface* Finish)
-    {
-        auto* Part = NewObject<UStaticMeshComponent>(&Host);
-        Host.AddInstanceComponent(Part);
-        Part->SetupAttachment(&Root);
-        Part->SetMobility(Root.Mobility);
-        Part->SetStaticMesh(Mesh);
-        if (Finish) Part->SetMaterial(0,Finish);
-        Part->SetRelativeTransform(Placement);
-        Part->SetCollisionProfileName(TEXT("NoCollision"));
-        Part->SetCanEverAffectNavigation(false);
-        Part->LDMaxDrawDistance = 3000.f;
-        Part->RegisterComponent();
-    };
-
-    struct FWallTorch { FVector Wall; double InwardYaw; FVector Aim; float Lumens; float Radius; };
-    // Enter facing +Y: the left turn leads toward +X, between the door and the east dining table.
-    // The front pier survives in the ruin. The adjoining gable bay is rebuilt with the tavern.
-    const FWallTorch Torches[] = {
-        {{197.,-408.,179.},90., {153.,-239.,51.},850.f,445.f},
-        {{629.,-235.,179.},180., {354.,-200.,73.},930.f,485.f}
-    };
-    const int32 NumTorches = bRepaired ? int32(UE_ARRAY_COUNT(Torches)) : 1;
-    for (int32 Index=0; Index<NumTorches; ++Index)
-    {
-        const FWallTorch& Torch = Torches[Index];
-        const FRotator Facing(0.,Torch.InwardYaw,0.);
-        const FTransform BodyPose(Facing,Torch.Wall,FVector(.9));
-        // The bronze shank starts 14.4 cm in front of the pivot. Seat it in an
-        // iron socket that extends back through the uneven inner face of the stone.
-        const FVector Inward = Facing.Vector();
-        Mount(Socket,FTransform(FQuat::FindBetweenNormals(FVector::UpVector,Inward),
-            Torch.Wall+2.*Inward,FVector(.14,.14,.38)),Iron);
-        Mount(Body,BodyPose,bRepaired ? nullptr : Iron);
-        if (!FlameMaterial) continue;
-
-        const FVector FlameCentre = BodyPose.TransformPosition(FVector(50.,0.,62.));
-        auto* Flame = NewObject<UMaterialBillboardComponent>(&Host);
-        Host.AddInstanceComponent(Flame);
-        Flame->SetupAttachment(&Root);
-        Flame->SetMobility(Root.Mobility);
-        Flame->SetRelativeLocation(FlameCentre);
-        Flame->AddElement(FlameMaterial,nullptr,false,25.f,22.f,nullptr);
-        Flame->SetCollisionProfileName(TEXT("NoCollision"));
-        Flame->SetCanEverAffectNavigation(false);
-        Flame->SetCastShadow(false);
-        Flame->LDMaxDrawDistance = 2600.f;
-        Flame->RegisterComponent();
-
-        auto* Light = NewObject<USpotLightComponent>(&Host);
-        Host.AddInstanceComponent(Light);
-        Light->SetupAttachment(&Root);
-        Light->SetMobility(EComponentMobility::Movable);
-        Light->SetRelativeLocationAndRotation(FlameCentre,(Torch.Aim-FlameCentre).Rotation());
-        Light->SetIntensityUnits(ELightUnits::Lumens);
-        Light->SetIntensity(Torch.Lumens);
-        Light->SetUseTemperature(true);
-        Light->SetTemperature(2475.f);
-        Light->SetInnerConeAngle(34.f);
-        Light->SetOuterConeAngle(71.f);
-        Light->SetSourceRadius(4.f);
-        Light->SetSoftSourceRadius(7.f);
-        Light->SetAttenuationRadius(Torch.Radius);
-        Light->SetCastShadows(true);
-        Light->SetSpecularScale(.68f);
-        Light->SetVolumetricScatteringIntensity(.08f);
-        Light->MaxDrawDistance = 2600.f;
-        Light->MaxDistanceFadeRange = 500.f;
-        Light->RegisterComponent();
-    }
-}
-
+const FSoftObjectPath WickPath(TEXT("/Game/WorldGeneration/TemperateHills/ShopLighting/MI_StaffLampWick.MI_StaffLampWick"));
+const FSoftObjectPath EmberPath(TEXT("/Game/WorldGeneration/TemperateHills/ShopLighting/M_StaffHearthEmber.M_StaffHearthEmber"));
 void Install(AActor& Host, USceneComponent& Root, const TArray<FPlacement>& Layout)
 {
     const bool bDedicated = Host.GetNetMode()==NM_DedicatedServer;
@@ -389,13 +336,17 @@ void Install(AActor& Host, USceneComponent& Root, const TArray<FPlacement>& Layo
             Part.SetupAttachment(&Root);
             Part.SetMobility(Root.Mobility);
             Part.SetStaticMesh(Mesh);
+            if (Group.Key==EProp::Stool) Part.ComponentTags.Add(TEXT("VillageTavern.RestStool"));
             if (Group.Key==EProp::Lantern)
             {
-                // The Normandy exterior lantern has a 20,000x emissive multiplier.
-                // Scale its existing flame mask for a tabletop oil lamp and let the furniture cast shadows.
-                if (auto* Wick=Part.CreateDynamicMaterialInstance(0))
-                    Wick->SetScalarParameterValue(TEXT("TS00_Emissive_Multiplier"),15.f);
+                if (auto* Wick = Cast<UMaterialInterface>(WickPath.ResolveObject())) Part.SetMaterial(0, Wick);
                 Part.SetCastShadow(false);
+            }
+            if (Group.Key == EProp::Hearth)
+            {
+                const int32 Slot = Mesh->GetMaterialIndex(TEXT("Ember"));
+                if (Slot != INDEX_NONE)
+                    if (auto* Ember = Cast<UMaterialInterface>(EmberPath.ResolveObject())) Part.SetMaterial(Slot, Ember);
             }
             Part.SetCollisionProfileName(bSolid ? TEXT("BlockAll") : TEXT("NoCollision"));
             if (bSolid) Part.ComponentTags.Add(TEXT("HillsStaticSupport"));
@@ -426,6 +377,7 @@ void Install(AActor& Host, USceneComponent& Root, const TArray<FPlacement>& Layo
 
 void FHillsTavernInterior::AddBlockingMeshPaths(TArray<FSoftObjectPath>& Paths)
 {
+    Paths.AddUnique(EmberPath);
     for (int32 I=0; I<int32(EProp::Count); ++I)
         if (Models[I].bBlocks) Paths.AddUnique(AssetPath(static_cast<EProp>(I)));
 }
@@ -446,12 +398,13 @@ bool FHillsTavernInterior::AreBlockingMeshesLoaded()
 void FHillsTavernInterior::Populate(AActor& Host, USceneComponent& RoomRoot, bool bRepaired)
 {
     TArray<FPlacement> Layout;
-    if (bRepaired) FurnishTaproom(Layout);
+    const bool bRefit=bRepaired && Host.GetOwner() && Host.GetOwner()->ActorHasTag(TEXT("VillageTavern.HallRoadR3"));
+    if (bRepaired)
+    {
+        FurnishTaproom(Layout,Host.GetOwner() && Host.GetOwner()->ActorHasTag(TEXT("VillageTavern.StoneCourt")),bRefit);
+    }
     else FurnishRuin(Layout);
-    FurnishKitchen(Layout,bRepaired);
-    // The measured 85x44 cm panel footprint on this pier has stone at Y=-449..-429.
-    // Leave clearance for displaced stone; the two mounting blocks extend into the pier.
-    Layout.Add({bRepaired ? EProp::Sign : EProp::FadedSign,{202.,-457.,177.},-90.});
+    FurnishKitchen(Layout,bRepaired,bRefit);
     const bool bDedicated = Host.GetNetMode()==NM_DedicatedServer;
     TArray<FPlacement> Blocking, Dressing;
     TArray<FSoftObjectPath> Paths;
@@ -469,15 +422,13 @@ void FHillsTavernInterior::Populate(AActor& Host, USceneComponent& RoomRoot, boo
     // current state's walkable surfaces in the same update as the shell.
     Install(Host,RoomRoot,Blocking);
     if (bDedicated) return;
-    Paths.Append({TorchBodyPath,TorchSocketPath,ForgedIronPath});
-    if (bRepaired) Paths.Add(TorchFlamePath);
+    if (bRepaired) Paths.AddUnique(WickPath);
     // A repair or streamed-level unload can retire this actor while a load is in flight.
     UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,FStreamableDelegate::CreateWeakLambda(&Host,
-        [WeakRoot=TWeakObjectPtr<USceneComponent>(&RoomRoot),Dressing=MoveTemp(Dressing),bRepaired]()
+        [WeakRoot=TWeakObjectPtr<USceneComponent>(&RoomRoot),Dressing=MoveTemp(Dressing)]()
         {
             USceneComponent* Root = WeakRoot.Get();
             if (!Root || !IsValid(Root->GetOwner()) || Root->GetOwner()->IsActorBeingDestroyed()) return;
             Install(*Root->GetOwner(),*Root,Dressing);
-            InstallEntryTorches(*Root->GetOwner(),*Root,bRepaired);
         }));
 }

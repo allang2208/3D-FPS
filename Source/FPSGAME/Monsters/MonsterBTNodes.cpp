@@ -1,9 +1,13 @@
 #include "MonsterBTNodes.h"
+#include "UnknownHumanoid.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
 #include "MonsterAIController.h"
 #include "MonsterCombatComponent.h"
+#include "../WorldGeneration/VillageDefenseSection.h"
+#include "../Dungeons/FacilityHallEncounter.h"
 #include "NightWardenMonster.h"
 #include "HeQueMonster.h"
+#include "HeQueArenaNavigation.h"
 #include "MantisM27Monster.h"
 #include "Mutant3.h"
 #include "WolfMonster.h"
@@ -29,7 +33,8 @@ EBTNodeResult::Type UBTTask_MonsterAction::ExecuteTask(UBehaviorTreeComponent& O
  {
   // M27 rechecks a moving target at execution time. Its accepted attack owns
   // stopping movement; a stale CanAttack fact must not brake a failed swing.
-  if(!Cast<AMantisM27Monster>(AI->GetPawn()))AI->StopMovement();
+  const auto* Unknown=Cast<AUnknownHumanoid>(AI->GetPawn());
+  if(!Cast<AMantisM27Monster>(AI->GetPawn()) && !(Unknown && !Unknown->IsRanged()))AI->StopMovement();
   return AI->Combat()->TryAttack(Cast<APawn>(Owner.GetBlackboardComponent()->GetValueAsObject(TEXT("Target"))))?EBTNodeResult::Succeeded:EBTNodeResult::Failed;
  }
  if(Action==EMonsterAction::Hold)AI->StopMovement();
@@ -50,8 +55,37 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
  }
  if(Action==EMonsterAction::Pursue||Action==EMonsterAction::Return)
  {
-  if(C->IsBusy()||!AI->bDecisionEnabled||!AI->GetPawn()->IsActorTickEnabled()){AI->StopMovement();FinishLatentTask(Owner,EBTNodeResult::Aborted);return;}
+  auto* Unknown=Cast<AUnknownHumanoid>(AI->GetPawn());
+  auto* UnknownTarget=Unknown && B->GetValueAsBool(TEXT("Visible"))?Cast<APawn>(B->GetValueAsObject(TEXT("Target"))):nullptr;
+  const bool MovingAction=Action==EMonsterAction::Pursue && Unknown && !B->GetValueAsBool(TEXT("Returning"))
+   && Unknown->CanPursueDuringAction(Cast<APawn>(B->GetValueAsObject(TEXT("Target"))),UnknownTarget!=nullptr);
+  if((C->IsBusy()&&!MovingAction)||!AI->bDecisionEnabled||!AI->GetPawn()->IsActorTickEnabled())
+  {AI->StopMovement();FinishLatentTask(Owner,EBTNodeResult::Aborted);return;}
   const bool Returning=Action==EMonsterAction::Return;FVector Dest=B->GetValueAsVector(Returning?TEXT("Home"):TEXT("LastKnown"));
+  if(Unknown && !Returning)
+  {
+   if(Unknown->UsesMobileCombatTask())
+   {
+    // Set the current travel/sprint intent before deciding whether this is a
+    // walking shot or a dash to safety. Never stop a valid path just to fire.
+    Unknown->Pursue(*AI,UnknownTarget,Dest);
+    APawn* Candidate=UnknownTarget?UnknownTarget:Unknown->CanActOutOfSight()?
+     Cast<APawn>(B->GetValueAsObject(TEXT("Target"))):nullptr;
+    if(Elapsed>=.1f)
+    {
+     Elapsed=0;
+     if(Candidate&&!Unknown->Busy()&&C->TryAttack(Candidate) &&
+        !Unknown->CanPursueDuringAction(Candidate,UnknownTarget!=nullptr))AI->StopMovement();
+    }
+    return;
+   }
+   // A short weapon can enter reach between perception-service ticks. Use the same
+   // authority attack entry here; its live range, sight and action gates still apply.
+   if(UnknownTarget && !Unknown->IsRanged() && !Unknown->Busy())C->TryAttack(UnknownTarget);
+   Unknown->Pursue(*AI,UnknownTarget,Dest);
+   if(Elapsed>=.25f)FinishLatentTask(Owner,EBTNodeResult::Succeeded);
+   return;
+  }
   if(auto* Lobber=Cast<ABellowSacLobber>(AI->GetPawn());Lobber&&!Returning)
   {
    APawn* Visible=B->GetValueAsBool(TEXT("Visible"))?Cast<APawn>(B->GetValueAsObject(TEXT("Target"))):nullptr;
@@ -61,7 +95,6 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
   }
   if(auto* M27=Cast<AMantisM27Monster>(AI->GetPawn());M27&&M27->bCloaked&&!M27->IsCloakRecoveryReady()&&!Returning)
   {
-   AI->ActiveAction=TEXT("Cloak: retreat / orbit / regenerate");
    M27->NavigateWhileCloaked(AI,Dest);
    if(Elapsed>=.25f)FinishLatentTask(Owner,EBTNodeResult::Succeeded);
    return;
@@ -81,7 +114,16 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
   }
   const FVector Feet=AI->GetPawn()->GetNavAgentLocation();
   const bool SameLevel=FMath::Abs(Dest.Z-Feet.Z)<=50.f;
-  const float Stop=Returning?55.f:(B->GetValueAsBool(TEXT("Visible"))&&SameLevel?C->StopRange():40.f);
+  float Stop=Returning?55.f:(B->GetValueAsBool(TEXT("Visible"))&&SameLevel?C->StopRange():40.f);
+  // Siege goals are already projected onto a stand-off point outside the wall.
+  // Adding the melee stopping range again leaves the attacker out of reach.
+  if(!Returning&&Cast<AVillageDefenseSection>(B->GetValueAsObject(TEXT("Target"))))Stop=15.f;
+  // Only ordinary welcome-hall staff opt in. Attack eligibility, special-species
+  // movement and pursuit of unseen targets continue through their existing paths.
+  if(!Returning&&B->GetValueAsBool(TEXT("Visible"))&&SameLevel)
+   if(auto* Hall=Cast<AFacilityHallEncounter>(AI->GetPawn()->GetOwner()))
+    Hall->GetStaffPursuitGoal(Cast<ACharacter>(AI->GetPawn()),
+     Cast<APawn>(B->GetValueAsObject(TEXT("Target"))),C->StopRange(),Dest,Stop);
   if(auto* HeQue=Cast<AHeQueMonster>(AI->GetPawn());HeQue&&!Returning&&B->GetValueAsBool(TEXT("Visible")))
   {
    APawn* Victim=HeQue->PreferredCombatTarget(Cast<APawn>(B->GetValueAsObject(TEXT("Target"))));
@@ -94,7 +136,13 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
     {AI->ActiveAction=HeQue->IsJumpSlamming()?TEXT("HeQue: jump slam"):HeQue->IsPsychic()?TEXT("HeQue: psychic lament"):HeQue->IsRifting()?TEXT("HeQue: rift pressure"):HeQue->IsClamping()?TEXT("HeQue: heavy clamp"):TEXT("HeQue: kick");FinishLatentTask(Owner,EBTNodeResult::Succeeded);return;}
     if(FMath::Abs(Victim->GetNavAgentLocation().Z-Feet.Z)<=50.f&&HeQue->GetHorizontalDistanceTo(Victim)<=HeQue->StoppingDistance)
     {AI->StopMovement();C->SetLocomotion(false);}
-    else {C->SetLocomotion(true);AI->NavigateTo(Victim->GetNavAgentLocation(),40.f);}
+    else
+    {
+     const FVector Goal=HeQueArenaNavigation::Goal(*HeQue,Victim->GetNavAgentLocation());
+     if(FVector::DistSquared(Feet,Goal)<=FMath::Square(60.f))
+     {AI->NotePursuitAttempt();AI->StopMovement();C->SetLocomotion(false);}
+     else {C->SetLocomotion(true);AI->NavigateTo(Goal,40.f);}
+    }
     if(Elapsed>=.25f)FinishLatentTask(Owner,EBTNodeResult::Succeeded);
     return;
    }
@@ -153,6 +201,7 @@ void UBTTask_MonsterAction::TickTask(UBehaviorTreeComponent& Owner,uint8* Memory
   }
   else if(SameLevel&&FVector::Dist2D(Dest,Feet)<=Stop)
   {
+   if(!Returning&&!B->GetValueAsBool(TEXT("Visible")))AI->NotePursuitAttempt();
    AI->StopMovement();C->SetLocomotion(false);
    if(!Returning&&B->GetValueAsBool(TEXT("Visible")))
    {
@@ -174,7 +223,11 @@ EBTNodeResult::Type UBTTask_MonsterAction::AbortTask(UBehaviorTreeComponent& Own
    B->GetValueAsBool(TEXT("CanAttack"))&&!B->GetValueAsBool(TEXT("Hold"))&&!B->GetValueAsBool(TEXT("Returning"));
   // Keep the path only across this pursuit -> attack handoff. Successful
   // melee/pounce stops it itself; control, return and other aborts still stop.
-  if(!MantisAttackHandoff)AI->StopMovement();
+  const auto* Unknown=Cast<AUnknownHumanoid>(AI->GetPawn());
+  const bool MeleeAttackHandoff=Action==EMonsterAction::Pursue && Unknown && !Unknown->IsRanged() && B &&
+   B->GetValueAsBool(TEXT("CanAttack")) && B->GetValueAsBool(TEXT("Visible")) &&
+   !B->GetValueAsBool(TEXT("Hold")) && !B->GetValueAsBool(TEXT("Returning"));
+  if(!MantisAttackHandoff && !MeleeAttackHandoff)AI->StopMovement();
   if(auto* M09=Cast<AHangingBellM09>(AI->GetPawn()))M09->StopCeiling();
   if(auto* M08=Cast<ALurkerM08Monster>(AI->GetPawn()))M08->StopSurfaceNavigation();
  }

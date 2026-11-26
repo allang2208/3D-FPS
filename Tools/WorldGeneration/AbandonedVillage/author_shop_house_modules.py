@@ -68,13 +68,13 @@ def save_piece(path, dm, materials, collision):
     return dict(asset=path,triangles=dm.get_triangle_count(),materials=[m.get_path_name() for m in materials],collision=collision)
 
 
-def opening_template(door, materials):
+def opening_template(door, materials, placed_materials=None):
     # Measured extents of the whole clear opening on the original meshes. Each
     # corner and each lintel retains its native surface instead of stamping a flat reveal.
     xs = (-146.,-75.,79.,146.) if door else (-146.,-45.,50.,146.)
     zs = (-147.,-132.,93.,147.) if door else (-147.,-32.,91.,147.)
     mesh, mats = read(KIT + ('SM_H_OldWall_Door_00A' if door else 'SM_H_OldWall_Window_00A'))
-    register_slots(mesh,mats,materials)
+    register_slots(mesh,placed_materials if placed_materials is not None else mats,materials)
     cells = []
     for i in range(3):
         for j in range(3):

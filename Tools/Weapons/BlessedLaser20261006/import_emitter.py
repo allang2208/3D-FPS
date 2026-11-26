@@ -147,3 +147,8 @@ for path in ['/Game/Weather/RainVisibility/DA_WeatherPresentation','/Game/Weathe
 report['status']='models_materials_and_weather_bindings_saved'
 receipt.write_text(json.dumps(report,indent=2),encoding='utf-8')
 print('BLESSED_EMITTER_MODELS_SAVED '+json.dumps({'models':len(report['models']),'materials':len(materials),'receipt':str(receipt)}))
+
+# Preserve the saved VIPER-specific aperture, PBR maps and source-normal precision.
+# The helper returns without changes until this revision has actually been saved.
+import runpy as _pv_finish_runpy
+_pv_finish_runpy.run_path(str(Path(u.Paths.project_dir()).resolve()/'Tools/Weapons/pit_viper_surface_finish.py'),run_name='__main__')

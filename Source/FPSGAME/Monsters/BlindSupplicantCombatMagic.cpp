@@ -1,6 +1,9 @@
 #include "BlindSupplicantMonster.h"
+#include "MonsterTargeting.h"
+#include "MonsterSpellAim.h"
 #include "BlindSupplicantAnimInstance.h"
 #include "M07MagicAttack.h"
+#include "MonsterDamageBalance.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCombatTuning.h"
 #include "FPSCombatHealthComponent.h"
@@ -24,55 +27,6 @@ FVector UpperBodyPoint(const APawn* Target)
     return Target->GetActorLocation() + Target->GetActorUpVector() *
         Target->GetSimpleCollisionHalfHeight() * .65f;
 }
-
-bool ClearSegment(const APawn* Caster, const APawn* Target, const FVector& Start, const FVector& End)
-{
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(M07MagicSight), true, Caster);
-    Query.AddIgnoredActor(Target);
-    return !Caster->GetWorld()->LineTraceTestByChannel(Start, End, ECC_Visibility, Query);
-}
-
-FVector ProjectileIntercept(const FVector& Origin, const FVector& TargetPoint,
-    const FVector& TargetVelocity, float SpeedCmS, float RangeCm)
-{
-    // Released M07 projectiles fly straight at a fixed world speed; they do
-    // not inherit the caster's velocity. Solve |R + V*t| = Speed*t once.
-    const double Speed = FMath::Clamp(SpeedCmS, 1.f, 10000.f);
-    const double MaxFlightTime = FMath::Max(1.f, RangeCm) / Speed;
-    const FVector Offset = TargetPoint - Origin;
-    const double VelocitySquared = TargetVelocity.SizeSquared();
-    const double A = VelocitySquared - Speed * Speed;
-    const double B = 2.0 * FVector::DotProduct(Offset, TargetVelocity);
-    const double C = Offset.SizeSquared();
-    if (C <= UE_DOUBLE_SMALL_NUMBER || VelocitySquared <= UE_DOUBLE_SMALL_NUMBER) return TargetPoint;
-
-    double FlightTime = MaxFlightTime + 1.0;
-    const auto ConsiderRoot = [&FlightTime, MaxFlightTime](double Root)
-    {
-        if (Root > 0.0 && Root <= MaxFlightTime && Root < FlightTime) FlightTime = Root;
-    };
-    if (FMath::Abs(A) <= 1.e-6 * FMath::Max(VelocitySquared, Speed * Speed))
-    {
-        if (FMath::Abs(B) > UE_DOUBLE_SMALL_NUMBER) ConsiderRoot(-C / B);
-    }
-    else
-    {
-        const double Discriminant = B * B - 4.0 * A * C;
-        if (Discriminant >= 0.0)
-        {
-            const double Root = FMath::Sqrt(Discriminant);
-            // Stable quadratic roots avoid cancellation for fast approaching targets.
-            const double Q = -.5 * (B + (B >= 0.0 ? Root : -Root));
-            if (FMath::Abs(Q) > UE_DOUBLE_SMALL_NUMBER)
-            {
-                ConsiderRoot(Q / A);
-                ConsiderRoot(C / Q);
-            }
-        }
-    }
-    // No intercept inside the existing flight range: retain a direct shot.
-    return FlightTime <= MaxFlightTime ? TargetPoint + TargetVelocity * FlightTime : TargetPoint;
-}
 }
 
 void ABlindSupplicantMonster::ApplyPlayerSkillCooldownDefaults()
@@ -94,6 +48,7 @@ void ABlindSupplicantMonster::ApplyPlayerSkillCooldownDefaults()
 
 bool ABlindSupplicantMonster::IsLivingPlayer(const APawn* Victim) const
 {
+    if (MonsterTargeting::IsActiveArtisan(Victim)) return true;
     if (!IsValid(Victim) || !Victim->IsPlayerControlled()) return false;
     const auto* Vitals = Victim->FindComponentByClass<UFPSCombatHealthComponent>();
     return Vitals && !Vitals->IsDead();
@@ -105,6 +60,7 @@ bool ABlindSupplicantMonster::HasAttackSight(const APawn* Victim) const
     FHitResult Hit;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(M07AttackSight), false, this);
     Query.AddIgnoredActor(Victim);
+    Query.AddIgnoredActor(MonsterTargeting::ContactBody(Victim));
     return !GetWorld()->LineTraceSingleByChannel(Hit, GetActorLocation() + FVector(0, 0, 60),
         Victim->GetActorLocation(), ECC_Visibility, Query);
 }
@@ -115,7 +71,7 @@ bool ABlindSupplicantMonster::HasMagicSight(const APawn* Victim) const
     // A stable head-height origin avoids sampling the lowered idle hand or
     // oscillating between grounded and floating animation poses in the BT.
     const FVector Origin = GetActorLocation() + GetActorUpVector() * GetSimpleCollisionHalfHeight() * .8f;
-    return M07SpellAim::ClearSegment(this, Victim, Origin, M07SpellAim::UpperBodyPoint(Victim));
+    return MonsterSpellAim::ClearSegment(this, Victim, Origin, M07SpellAim::UpperBodyPoint(Victim));
 }
 
 int32 ABlindSupplicantMonster::ReadyMagicIndex(const APawn* Victim) const
@@ -176,7 +132,8 @@ bool ABlindSupplicantMonster::PrepareAttack(APawn* Victim)
         ActiveAttack = static_cast<EAttack>(static_cast<uint8>(EAttack::Fireball) + ElementIndex);
         AudioAttackKind = 2;
         const float Multipliers[] = {FireballDamageMultiplier, IceColumnDamageMultiplier, LightningDamageMultiplier};
-        AttackDamageSnapshot = MagicAttack * Multipliers[ElementIndex];
+        const float Ceilings[]={72.f,64.f,68.f};
+        AttackDamageSnapshot = MonsterDamageBalance::Limit(MagicAttack * Multipliers[ElementIndex],Ceilings[ElementIndex]);
         ActiveGatherDuration = MagicGatherClip->GetPlayLength();
         ActiveAttackDuration = ActiveGatherDuration + MagicReleaseClip->GetPlayLength();
         const float Cooldowns[] = {FireballCooldown, IceColumnCooldown, LightningCooldown};
@@ -201,6 +158,14 @@ bool ABlindSupplicantMonster::PrepareAttack(APawn* Victim)
         ActiveAttackDuration = AttackClip->GetPlayLength() / ActiveMeleePlaybackRate;
         AttackDamageSnapshot = AttackDamage;
     }
+    NetworkAttack.Kind=static_cast<uint8>(ActiveAttack);
+    NetworkAttack.Clip=IsMagicAttack()?MagicGatherClip:AttackClip;
+    NetworkAttack.Duration=ActiveAttackDuration;
+    NetworkAttack.GatherDuration=ActiveGatherDuration;
+    NetworkAttack.MeleeRate=ActiveMeleePlaybackRate;
+    NetworkAttack.StartedAt=GetWorld()->GetTimeSeconds();
+    NetworkAttack.bChargeStopped=false;
+    ForceNetUpdate();
     return true;
 }
 
@@ -254,7 +219,7 @@ void ABlindSupplicantMonster::UpdateMagicChargePose()
 
 void ABlindSupplicantMonster::BeginMagicCharge()
 {
-    if (!IsMagicAttack() || GetNetMode() == NM_DedicatedServer) return;
+    if (!IsMagicAttack() || GetNetMode() == NM_DedicatedServer || (!HasAuthority() && NetworkAttack.bChargeStopped)) return;
     StopMagicCharge();
     if (auto* System = AM07MagicAttack::ChargeSystem(ActiveMagicElement()))
     {
@@ -293,6 +258,8 @@ void ABlindSupplicantMonster::CancelPendingAttack()
     }
     bMagicCooldownReserved = false;
     bAttackCancelled = true;
+    if (HasAuthority() && !NetworkAttack.bChargeStopped)
+    { NetworkAttack.bChargeStopped=true; ForceNetUpdate(); }
     StopMagicCharge();
 }
 
@@ -321,17 +288,13 @@ void ABlindSupplicantMonster::ReleaseMagic()
     // Use the current target snapshot rather than adding that delay twice.
     // Lightning resolves immediately; only fire/ice need flight-time lead.
     const FVector TargetPoint = M07SpellAim::UpperBodyPoint(Victim);
-    if (!M07SpellAim::ClearSegment(this, Victim, Origin, TargetPoint))
+    if (!MonsterSpellAim::ClearSegment(this, Victim, Origin, TargetPoint))
     { CancelPendingAttack(); return; }
     LockedAimPoint = TargetPoint;
     if (Element != EM07MagicElement::Lightning)
     {
-        LockedAimPoint = M07SpellAim::ProjectileIntercept(Origin, LockedAimPoint, Victim->GetVelocity(),
-            Speeds[Index], Ranges[Index]);
-        // Keep the existing lead shot when its straight segment is clear.
-        // A predicted position behind cover must not override the visible aim.
-        if (!LockedAimPoint.Equals(TargetPoint, .1f) &&
-            !M07SpellAim::ClearSegment(this, Victim, Origin, LockedAimPoint)) LockedAimPoint = TargetPoint;
+        LockedAimPoint = MonsterSpellAim::LaunchAim(this, Victim, Origin, TargetPoint,
+            FMath::Clamp(Speeds[Index], 1.f, 10000.f), FMath::Max(1.f, Ranges[Index]));
     }
     const FTransform Transform((LockedAimPoint - Origin).Rotation(), Origin);
     auto* Spell = GetWorld()->SpawnActorDeferred<AM07MagicAttack>(AM07MagicAttack::StaticClass(), Transform,
@@ -342,6 +305,7 @@ void ABlindSupplicantMonster::ReleaseMagic()
     // The CD reserved at successful gathering start remains; release does not restart it.
     bMagicCooldownReserved = false;
     NextMagicIndex = (Index + 1) % 3;
+    NetworkAttack.bChargeStopped=true; ForceNetUpdate();
     StopMagicCharge();
     Spell->Initialize(this, LockedAimPoint, Element, AttackDamageSnapshot, Ranges[Index], Speeds[Index], Radii[Index]);
     if (IsValid(Spell) && !Spell->IsActorBeingDestroyed()) Spell->FinishSpawning(Transform);
@@ -365,7 +329,7 @@ void ABlindSupplicantMonster::SweepClaw(FVector From, FVector To)
         FCollisionObjectQueryParams(ECC_Pawn), FCollisionShape::MakeCapsule(Radius, Radius + HandToClaw.Size() * .5f), Query);
     for (const FHitResult& Hit : Hits)
     {
-        auto* Victim = Cast<APawn>(Hit.GetActor());
+        auto* Victim = Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor()));
         if (!IsLivingPlayer(Victim)) continue;
         const FVector Delta = Victim->GetActorLocation() - GetActorLocation();
         if (Delta.Size2D() > MonsterCombatTuning::AttackDistance(AttackRange) + Victim->GetSimpleCollisionRadius() ||

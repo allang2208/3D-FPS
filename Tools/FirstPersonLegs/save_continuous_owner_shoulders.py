@@ -52,7 +52,7 @@ def clip(poly,inside):
             result.append(([a[0][i]+t*(b[0][i]-a[0][i]) for i in range(3)],THRESHOLD))
     return result
 
-for item in ['ue_field_sweater','ue_field_sweater_charcoal','ue_chainmail_shirt']:
+for item in ['ue_field_sweater','ue_field_sweater_charcoal','ue_chainmail_shirt','ue_st6_sleeves']:
     path=C['items'][item]['rig_meshes']['Jason']
     if item in saved:
         if saved[item]['source']!=path:raise RuntimeError('Source changed after partial save: '+item)

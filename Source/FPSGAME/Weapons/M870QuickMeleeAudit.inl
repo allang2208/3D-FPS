@@ -30,19 +30,19 @@ Shadow->Current=Base;Shadow->Current.Stamina=100.f;Shadow->Current.bQuickCombatR
 Remote->ApplyColdSteelProfile(Shadow);PS->QuickCombatUntil=0.;PS->QuickCombatServerSequence=PS->QuickCombatRequestSequence=0;
 PS->QuickCombatTargets.Reset();
 const float StaminaBefore=Shadow->Stamina(),Cost=Shadow->QuickCombatStaminaCost();
-PS->ServerQuickCombat_Implementation(100,Remote,.9f,false);
+PS->ServerQuickCombat_Implementation(100,Remote,.9f,false,PS->QuickCombatEquipmentKey());
 const double AcceptedUntil=PS->QuickCombatUntil;
 Check(PS->QuickCombatServerSequence==100&&PS->IsQuickCombatExecuting(Remote)&&FMath::IsNearlyEqual(Shadow->Stamina(),StaminaBefore-Cost),
     TEXT("M870 remote quick melee commits one authority stamina cost"));
-PS->ServerQuickCombat_Implementation(100,Remote,.9f,false);
+PS->ServerQuickCombat_Implementation(100,Remote,.9f,false,PS->QuickCombatEquipmentKey());
 Check(PS->QuickCombatUntil==AcceptedUntil&&FMath::IsNearlyEqual(Shadow->Stamina(),StaminaBefore-Cost),
     TEXT("replayed quick-melee start cannot spend stamina twice"));
 auto* Target=World->SpawnActor<AActor>();
 PS->QuickCombatTargets.Add(Target);
-PS->ServerQuickCombat_Implementation(101,Remote,.9f,false);
+PS->ServerQuickCombat_Implementation(101,Remote,.9f,false,PS->QuickCombatEquipmentKey());
 Check(PS->QuickCombatServerSequence==100&&PS->QuickCombatUntil==AcceptedUntil&&PS->QuickCombatTargets.Contains(Target),
     TEXT("rejected overlapping melee preserves accepted serial deadline and hit deduplication"));
-PS->ServerQuickCombat_Implementation(101,Remote,0.f,true);
+PS->ServerQuickCombat_Implementation(101,Remote,0.f,true,FString());
 Check(PS->QuickCombatUntil==AcceptedUntil,TEXT("rejected action finish cannot cancel the accepted melee"));
 
 const FVector Eye=Remote->GetPawnViewLocation();
@@ -74,17 +74,17 @@ Box->SetCollisionResponseToChannel(ECC_Visibility,ECR_Block);Box->RegisterCompon
 Check(!PS->ValidateHitReport(Report,Remote,Reason,Declared)&&Reason==TEXT("los blocked"),
     TEXT("server rejects an M870 gun-bash contact through a wall"));
 Wall->Destroy();
-PS->ServerQuickCombat_Implementation(100,Remote,0.f,true);
+PS->ServerQuickCombat_Implementation(100,Remote,0.f,true,FString());
 Check(!PS->IsQuickCombatExecuting(Remote)&&!PS->ValidateHitReport(Report,Remote,Reason,Declared),
     TEXT("finished melee cannot submit another contact"));
 const float AfterFinish=Shadow->Stamina();
-PS->ServerQuickCombat_Implementation(101,Remote,.9f,false);
+PS->ServerQuickCombat_Implementation(101,Remote,.9f,false,PS->QuickCombatEquipmentKey());
 Check(!PS->IsQuickCombatExecuting(Remote)&&Shadow->Stamina()==AfterFinish,
     TEXT("previously rejected sequence cannot be replayed after recovery"));
-PS->ServerQuickCombat_Implementation(102,Remote,.9f,false);
+PS->ServerQuickCombat_Implementation(102,Remote,.9f,false,PS->QuickCombatEquipmentKey());
 Check(PS->QuickCombatServerSequence==102&&PS->IsQuickCombatExecuting(Remote),TEXT("new melee starts normally after recovery"));
-PS->ServerQuickCombat_Implementation(102,Remote,0.f,true);
-Shadow->Current.Stamina=0.f;PS->ServerQuickCombat_Implementation(103,Remote,.9f,false);
+PS->ServerQuickCombat_Implementation(102,Remote,0.f,true,FString());
+Shadow->Current.Stamina=0.f;PS->ServerQuickCombat_Implementation(103,Remote,.9f,false,PS->QuickCombatEquipmentKey());
 Check(!PS->IsQuickCombatExecuting(Remote)&&Shadow->Stamina()==0.f,TEXT("insufficient stamina rejects quick melee without committing"));
 
 // The actual client rejection must also release the firearm state/pose on its
@@ -96,14 +96,14 @@ Pawn->WeaponState=EAKMWeaponState::QuickCombat;Pawn->WeaponStateDuration=.9f;
 Pawn->WeaponActionStartedAt=World->GetTimeSeconds();Pawn->ActiveActionAnimation=QuickClip;
 Pawn->NextAllowedShotTime=0.;
 auto* OwnerPS=PC->GetPlayerState<AColdSteelPlayerState>();OwnerPS->QuickCombatSequence=500;
-OwnerPS->QuickCombatPawn=Pawn;OwnerPS->QuickCombatPredictedCosts.Add(500,Cost);
+OwnerPS->QuickCombatPawn=Pawn;OwnerPS->QuickCombatPredictedCosts.Add(500,FVector2f(Cost,0.f));
 OwnerPS->ClientQuickCombatRejected_Implementation(500);Pawn->UpdateWeaponState(.001f);
 Check(Began&&!Quick->IsOccupyingLeftHand()&&Pawn->WeaponState==EAKMWeaponState::Idle&&!Pawn->ActiveActionAnimation
     &&Pawn->NextAllowedShotTime<=World->GetTimeSeconds()+.001,
     TEXT("client melee rejection releases both action ownership and firearm playback"));
 Quick->ConfigureForUnarmedPunch();Model->Current.Stamina=100.f;
 const bool PunchBegan=Quick->BeginAction();
-OwnerPS->QuickCombatPredictedCosts.Add(500,Cost);
+OwnerPS->QuickCombatPredictedCosts.Add(500,FVector2f(Cost,0.f));
 OwnerPS->ClientQuickCombatRejected_Implementation(500);
 Check(PunchBegan&&Quick->IsOccupyingLeftHand()&&Quick->GetStyle()==EQuickCombatStyle::UnarmedPunch,
     TEXT("late gun-melee rejection does not cancel a subsequent ordinary punch"));

@@ -1,4 +1,7 @@
 #include "VoxelBuildIcons.h"
+#include "VillageBuildDefense.h"
+#include "../WorldGeneration/VillageDefenseSection.h"
+#include "../WorldGeneration/HighVillageDefense.h"
 #include "ColdSteelDoor.h"
 #include "ColdSteelWindow.h"
 #include "ColdSteelFountain.h"
@@ -201,7 +204,41 @@ bool UVoxelBuildIcons::Prepare(const FVoxelBuildIconRequest& Request)
     ClearPool();
     TArray<UStaticMeshComponent*> Used;
     const FVector CellCentre(10.f,10.f,10.f);
-    if(Request.Cells.IsEmpty()&&!Request.ActorClass.IsNull())
+    if(Request.PieceId==VillageBuildDefense::WoodGate||Request.PieceId==VillageBuildDefense::StoneGate)
+    {
+        auto AddPart=[this,&Used](UStaticMesh* Part,const FTransform& Pose)
+        {
+            auto* Component=TakePoolComponent();
+            Component->SetStaticMesh(Part);
+            Component->SetWorldTransform(Pose);
+            Component->SetVisibility(true);Component->UpdateComponentToWorld();Used.Add(Component);
+        };
+        if(Request.PieceId==VillageBuildDefense::StoneGate)
+        {
+            auto* Grille=Cast<UStaticMesh>(AHighVillageGate::PlacedGrilleMeshPath().TryLoad());
+            auto* Handle=Cast<UStaticMesh>(AHighVillageGate::ReleaseMeshPath().TryLoad());
+            if(!Mesh||!Grille||!Handle)return false;
+            AddPart(Handle,AHighVillageGate::ReleasePose(false));
+            AddPart(Mesh,FTransform::Identity);
+            AddPart(Grille,FTransform::Identity);
+        }
+        else
+        {
+            constexpr double HingeOffset=AVillageDefenseGate::NarrowHingeOffset;
+            for(const TCHAR* Role:{TEXT("GateNarrow"),TEXT("GateNarrowRight"),TEXT("GateHingeMount"),TEXT("GateHingeMountRight")})
+            {
+                const FString Path=FString::Printf(TEXT("/Game/WorldGeneration/TemperateHills/VillageDefenses/SM_%s.SM_%s"),Role,Role);
+                UStaticMesh* Part=LoadObject<UStaticMesh>(nullptr,*Path);
+                if(!Part)return false;
+                const double HingeX=FCString::Strstr(Role,TEXT("Right"))?HingeOffset:-HingeOffset;
+                AddPart(Part,FTransform(FVector(HingeX,0.,0.)));
+            }
+            auto* PostMesh=Cast<UStaticMesh>(AVillageDefenseGate::PlacedPostMeshPath().TryLoad());
+            if(!PostMesh)return false;
+            for(bool bRight:{false,true})AddPart(PostMesh,AVillageDefenseGate::PlacedPostTransform(bRight));
+        }
+    }
+    else if(Request.Cells.IsEmpty()&&!Request.ActorClass.IsNull()&&!VillageBuildDefense::IsVillageRecipe(Request.PieceId))
     {
         // Assemble in an isolated, non-playing world. No BeginPlay, world tick, audio or FX simulation.
         UClass* Class=Request.ActorClass.LoadSynchronous();
@@ -235,7 +272,10 @@ bool UVoxelBuildIcons::Prepare(const FVoxelBuildIconRequest& Request)
         Component->SetStaticMesh(Mesh);
         if(Surface)Component->SetMaterial(0,Surface);
         Component->SetWorldLocationAndRotation(-Request.PivotOffsetCm,FRotator::ZeroRotator);
-        Component->SetWorldScale3D(FVector(1.f));
+        const FVector Scale=Request.PieceId==VillageBuildDefense::StoneWall
+            ?VillageBuildDefense::Placement(Request.PieceId,FIntVector::ZeroValue,FIntVector::ZeroValue,0).GetScale3D()
+            :FVector::OneVector;
+        Component->SetWorldScale3D(Scale);
         Component->SetVisibility(true);Component->UpdateComponentToWorld();
         Used.Add(Component);
     }

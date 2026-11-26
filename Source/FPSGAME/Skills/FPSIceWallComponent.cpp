@@ -1,4 +1,7 @@
 #include "FPSIceWallComponent.h"
+#include "../Combat/FPSAttackQuery.h"
+#include "../Monsters/UnknownSpellCombat.h"
+#include "PlayerSkillPreparation.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "NetCastUtils.h"
 #include "FPSIceWall.h"
@@ -32,18 +35,20 @@ UFPSIceWallComponent::UFPSIceWallComponent(){PrimaryComponentTick.bCanEverTick=t
 void UFPSIceWallComponent::BeginPlay()
 {
     Super::BeginPlay();AddTickPrerequisiteActor(GetOwner());
-    for(int32 I=1;I<=4;++I)BlockMeshes.Add(LoadObject<UStaticMesh>(nullptr,*FString::Printf(TEXT("/Game/Skills/IceWall/FabIceV3/SM_IceBlock_%02d.SM_IceBlock_%02d"),I,I)));
-    IceMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/IceWall/FabIceV3/M_IceWall.M_IceWall"));
-    PreviewMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/IceWall/BlockV1/M_IceWallPreview.M_IceWallPreview"));
-    BreakFX=LoadObject<UParticleSystem>(nullptr,TEXT("/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact"));
-    BreakSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Skills/IceSpike/S_IceImpact.S_IceImpact"));
-    CastSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Skills/IceWall/BlockV1/S_IceWallCast.S_IceWallCast"));
-    const TArray<FSoftObjectPath> Effects={ColdMistTemplate.ToSoftObjectPath(),LandingTemplate.ToSoftObjectPath()};
-    ColdMistLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Effects,
-        FStreamableDelegate::CreateWeakLambda(this,[this](){ColdMistAsset=ColdMistTemplate.Get();LandingAsset=LandingTemplate.Get();}));
+    PlayerSkillAssets::Defer(GetOwner(),TEXT("iceWall"),FSimpleDelegate::CreateWeakLambda(this,[this]()
+    {
+        BlockMeshes.Reset();
+        for(int32 I=1;I<=4;++I)BlockMeshes.Add(PlayerSkillAssets::Resolve<UStaticMesh>(*FString::Printf(TEXT("/Game/Skills/IceWall/FabIceV3/SM_IceBlock_%02d.SM_IceBlock_%02d"),I,I)));
+        IceMaterial=PlayerSkillAssets::Resolve<UMaterialInterface>(TEXT("/Game/Skills/IceWall/FabIceV3/M_IceWall.M_IceWall"));
+        PreviewMaterial=PlayerSkillAssets::Resolve<UMaterialInterface>(TEXT("/Game/Skills/IceWall/BlockV1/M_IceWallPreview.M_IceWallPreview"));
+        BreakFX=PlayerSkillAssets::Resolve<UParticleSystem>(TEXT("/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact"));
+        BreakSound=PlayerSkillAssets::Resolve<USoundBase>(TEXT("/Game/Skills/IceSpike/S_IceImpact.S_IceImpact"));
+        CastSound=PlayerSkillAssets::Resolve<USoundBase>(TEXT("/Game/Skills/IceWall/BlockV1/S_IceWallCast.S_IceWallCast"));
+        ColdMistAsset=ColdMistTemplate.Get();LandingAsset=LandingTemplate.Get();
+    }),{ColdMistTemplate.ToSoftObjectPath(),LandingTemplate.ToSoftObjectPath()});
 }
 UColdSteelStatusModel* UFPSIceWallComponent::Model() const
-{return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
+{return NetCast::LocalModel(*this);}
 UFPSFireballComponent* UFPSIceWallComponent::Hands() const {return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
 bool UFPSIceWallComponent::InputAvailable(bool bContinuing) const
 {
@@ -108,7 +113,7 @@ void UFPSIceWallComponent::Trigger()
     {
         if(M->IceWallCooldown()>0){Feedback(TEXT("冷却"));return;}
         if(!M->CanSpendMana(M->IceWallStats().ManaCost)){Feedback(TEXT("缺蓝"));return;}
-        if(BlockMeshes.Num()!=4||BlockMeshes.Contains(nullptr)||!IceMaterial||!PreviewMaterial){Feedback(TEXT("缺素材"));return;}
+        if(BlockMeshes.Num()!=4||BlockMeshes.Contains(nullptr)||!IceMaterial||!PreviewMaterial){Feedback(TEXT("魔法素材准备中"));return;}
         bQueuedGather=true;
     }
     ServiceQueue();
@@ -203,7 +208,7 @@ void UFPSIceWallComponent::UpdatePreview()
     auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();if(!Camera)return;
     const auto& C=Seed->Snapshot();FIceWallPlacement P;P.Shape=Shape;
     P.Rotation=FRotator(0,Camera->GetComponentRotation().Yaw,0);
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(IceWallAim),false,GetOwner());Query.AddIgnoredActor(Seed.Get());Query.AddIgnoredActor(Preview.Get());
+    FFPSAttackQuery Query(SCENE_QUERY_STAT(IceWallAim),false,GetOwner());Query.AddIgnoredActor(Seed.Get());Query.AddIgnoredActor(Preview.Get());
     const FVector Eye=Camera->GetComponentLocation();FHitResult Aim,Floor;
     const FVector End=Eye+Camera->GetForwardVector()*C.Range;
     const bool bAim=IceWallPlacement::TraceWithoutCreatures(GetWorld(),Eye,End,Query,Aim);
@@ -254,7 +259,9 @@ void UFPSIceWallComponent::Cancel()
 // ── 联机服务端入口：客人上报放置点→重验→权威墙生成（复制回各端） ──
 bool UFPSIceWallComponent::NetCommitWall(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FIceWallCast& C)
 {
+    if(UnknownSpell::IsCaster(Caster)&&(BlockMeshes.Num()!=4||BlockMeshes.Contains(nullptr)))return false;
     FIceWallPlacement Plan;
+    Plan.bHostileCaster=UnknownSpell::IsCaster(Caster);
     Plan.Location=Req.AimPoint;
     Plan.Shape=Req.Variant==1?EIceWallShape::Low:EIceWallShape::High;
     const FVector Facing=Req.AimNormal.GetSafeNormal2D(SMALL_NUMBER,FVector::ForwardVector);
@@ -270,7 +277,7 @@ bool UFPSIceWallComponent::NetCommitWall(APawn* Caster,const FColdSteelNetCastRe
     Wall->Initialize(this,C,BlockMeshes,IceMaterial,PreviewMaterial,BreakFX,BreakSound,false);
     Wall->Gather(1.f,Plan.Location);
     Wall->Launch(Plan.Location,Plan);
-    Shadow->CommitIceWallRelease();
+    if(!UnknownSpell::IsCaster(Caster))Shadow->CommitIceWallRelease();
     ReleasedWalls.RemoveAll([](const auto& W){return !W.IsValid();});
     if(ReleasedWalls.Num()>=4){if(ReleasedWalls[0].IsValid())ReleasedWalls[0]->Shatter();ReleasedWalls.RemoveAt(0);}
     ReleasedWalls.Add(Wall);

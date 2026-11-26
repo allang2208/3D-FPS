@@ -22,7 +22,8 @@ MORTAR = '/Game/UnrealNormandy/MaterialInstances/MI_Main_Mortar_00A'
 
 
 def room_frame(house, shape):
-    return u.Transform(location=[shape['center'][0]*100., shape['center'][1]*100., 4.],
+    center=shape.get('shell_center',shape['center'])
+    return u.Transform(location=[center[0]*100., center[1]*100., 4.],
                        rotation=u.Rotator(yaw=house[5]-90.))
 
 
@@ -34,6 +35,10 @@ def set_tavern_vision(room, house, shape, plan):
     room.set_editor_property('room_minimum', u.Vector(-450*horizontal+38, -300*horizontal+38, 0))
     room.set_editor_property('room_maximum', u.Vector(450*horizontal-38, 300*horizontal-38, 320))
     apply_daylight(room, TAVERN_DAYLIGHT)
+    if 'inn' in plan['tavern']:
+        room.tags=list(room.tags) if 'VillageTavern.Vision' in map(str,room.tags) else [*room.tags,'VillageTavern.Vision']
+        room.set_editor_property('room_minimum',u.Vector(-704,-405,0))
+        room.set_editor_property('room_maximum',u.Vector(624,808 if plan['tavern']['inn'].get('rear_range_m') else 402,952))
 
 
 def build_tavern(house, pieces, plan, shape):
@@ -219,6 +224,22 @@ def build_tavern(house, pieces, plan, shape):
     from trade_sign_layout import hang_trade
     hang_trade(anchor,frame,'Tavern')
     chimney = attach_chimney(anchor)
+    if 'inn' in plan['tavern']:
+        sys.path.insert(0,str(Path(__file__).resolve().parents[1]/'VillageTavern'/'Inn'))
+        from fit_inn import upgrade
+        upgrade(anchor,plan)
+        if plan['tavern']['inn'].get('rear_range_m'):
+            from stone_court import install
+            install(anchor)
+            if plan['tavern']['inn'].get('hall_road'):
+                from hall_refit import install as lay_out_halls
+                lay_out_halls(anchor)
+                from suite_install import install as fit_suite
+                fit_suite(anchor)
+                from dining_walls import install as use_dining_walls
+                use_dining_walls(anchor)
+                from trough_runoff import install as dress_crib_end
+                dress_crib_end(anchor)
     return dict(house=house[0], states=['Ruined','Repaired'], anchor=SITE_TAG, chimney=chimney,counter_pendant=pendant,
                 footprint_cm=[900*xy_scale,600*xy_scale], centre_m=shape['center'],
                 heading=house[5]-90., shell_instances=sum(map(len,batches.values())))

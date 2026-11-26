@@ -1,9 +1,14 @@
 #include "ColdSteelItemTooltipData.h"
+#include "../Weapons/WoodenTorchItem.h"
 #include "ColdSteelConsumablePresentation.h"
+#include "../Building/ForgingQuality.h"
+#include "../Building/ForgingSystem.h"
+#include "../Building/GunAssemblyQuality.h"
 #include "ColdSteelFoodPresentation.h"
 #include "../Items/FoodSpoilage.h"
 #include "ColdSteelItemRarity.h"
 #include "../Building/WoodworkingQuality.h"
+#include "../Building/WoodworkingSystem.h"
 #include "ColdSteelWeaponText.h"
 #include "ColdSteelStaffModificationUI.h"
 #include "../Combat/CombatItemFormula.h"
@@ -14,6 +19,11 @@
 #include "../Weapons/GunsmithSystem.h"
 #include "../Weapons/FullAutoTrigger.h"
 #include "../Weapons/MeleeWeaponStats.h"
+#include "../Weapons/Kukri/KukriEnchantment.h"
+#include "../Production/RuneboundHammerTuning.h"
+#include "../Production/ThunderHammerTuning.h"
+#include "../Production/WarhammerCombat.h"
+#include "../Weapons/PojunGrip.h"
 #include "../Weapons/ModularSwordVisual.h"
 #include "../Weapons/WeaponStatEvaluation.h"
 #include "../Weapons/Bow/BowStats.h"
@@ -32,16 +42,12 @@
 #include "Misc/Paths.h"
 #include "UObject/UnrealType.h"
 
+#include "ColdSteelTooltipFormatPrivate.h"
+using namespace ColdSteelTooltipPrivate;
+
 namespace
 {
-using J=TSharedPtr<FJsonObject>;
-J Object(const J& O,const TCHAR* Key){const J* V=nullptr;return O&&O->TryGetObjectField(Key,V)?*V:nullptr;}
-FString String(const J& O,const TCHAR* Key,const FString& Default=TEXT("")){FString V;return O&&O->TryGetStringField(Key,V)?V:Default;}
-double Number(const J& O,const TCHAR* Key,double Default=0){double V;return O&&O->TryGetNumberField(Key,V)?V:Default;}
-FString N(double V){FString S=FString::Printf(TEXT("%.2f"),V);while(S.EndsWith(TEXT("0")))S.LeftChopInline(1);if(S.EndsWith(TEXT(".")))S.LeftChopInline(1);return S==TEXT("-0")?TEXT("0"):S;}
-FString Signed(double V,const TCHAR* Unit=TEXT("")){return (V>0?TEXT("+"):TEXT(""))+N(V)+Unit;}
 FString Value(const TSharedPtr<FJsonValue>& V){if(!V)return TEXT("");if(V->Type==EJson::String)return V->AsString();if(V->Type==EJson::Number)return N(V->AsNumber());if(V->Type==EJson::Boolean)return V->AsBool()?TEXT("是"):TEXT("否");return TEXT("");}
-void Row(FColdSteelTooltipCard& C,const FString& Label,const FString& Val,int32 Tone=0){if(!Val.IsEmpty())C.Rows.Add({Label,Val,Tone,false});}
 void DamageRows(FColdSteelTooltipCard& C,const FWeaponDamageParts& D)
 {
     Row(C,ColdSteelWeaponText::TotalDamage,N(D.Total()));
@@ -51,10 +57,15 @@ void DamageRows(FColdSteelTooltipCard& C,const FWeaponDamageParts& D)
 }
 void Section(FColdSteelTooltipCard& C,const FString& Label){C.Rows.Add({Label,TEXT(""),0,true});}
 // 附魔说明用整行宽行：标签折进内容前缘（标签：内容），文字从最左开始，尽量一行读完。
-void Note(FColdSteelTooltipCard& C,const FString& Label,const FString& Val,int32 Tone=0){if(Val.IsEmpty())return;C.Rows.Add({TEXT(""),Label.IsEmpty()?Val:Label+TEXT("：")+Val,Tone});}
-FString Category(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon_ranged"),TEXT("远程武器")},{TEXT("weapon_bow"),TEXT("远程武器")},{TEXT("weapon_melee"),TEXT("近战武器")},{TEXT("weapon_magic"),TEXT("魔法武器")},{TEXT("magic_book"),TEXT("魔法书")},{TEXT("weapon"),TEXT("武器")},{TEXT("tool"),TEXT("生产工具")},{TEXT("armor"),TEXT("防具")},{TEXT("equipment"),TEXT("装备")},{TEXT("accessory"),TEXT("饰品")},{TEXT("consumable"),TEXT("消耗品")},{TEXT("material"),TEXT("材料")},{TEXT("enhancement"),TEXT("强化道具")},{TEXT("tribute"),TEXT("贡品")},{TEXT("gold"),TEXT("灵魂")}};const auto* V=M.Find(K);return V?*V:K;}
-FString EquipSlotLabel(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon"),TEXT("武器槽")},{TEXT("offhand"),TEXT("副手槽")},{TEXT("armor"),TEXT("防具槽")},{TEXT("gloves"),TEXT("手套槽")},{TEXT("pants"),TEXT("裤子槽")},{TEXT("boots"),TEXT("鞋靴槽")},{TEXT("backpack"),TEXT("背包装备槽")}};const auto* V=M.Find(K);return V?*V:K;}
-void Delta(FColdSteelTooltipCard& C,const FString& Label,double V,const TCHAR* Unit,bool Lower=false){if(FMath::Abs(V)>.00001)Row(C,Label,Signed(V,Unit),(V>0)!=Lower?1:-1);}
+// 分类与槽位的英文键必须在目录值域内全部有中文名；新增 category／equipSlot
+// 先在这里补映射，否则浮窗会把内部标识原样显示（浮窗标准第二节）。
+FString Category(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon_ranged"),TEXT("远程武器")},{TEXT("weapon_bow"),TEXT("远程武器")},{TEXT("weapon_melee"),TEXT("近战武器")},{TEXT("weapon_magic"),TEXT("魔法武器")},{TEXT("magic_book"),TEXT("魔法书")},{TEXT("weapon"),TEXT("武器")},{TEXT("tool"),TEXT("生产工具")},{TEXT("armor"),TEXT("防具")},{TEXT("equipment"),TEXT("装备")},{TEXT("accessory"),TEXT("饰品")},{TEXT("consumable"),TEXT("消耗品")},{TEXT("material"),TEXT("材料")},{TEXT("ammo"),TEXT("弹药")},{TEXT("enhancement"),TEXT("强化道具")},{TEXT("tribute"),TEXT("贡品")},{TEXT("currency"),TEXT("货币")},{TEXT("gold"),TEXT("灵魂")}};const auto* V=M.Find(K);return V?*V:K;}
+FString EquipSlotLabel(const FString& K){static const TMap<FString,FString> M={{TEXT("weapon"),TEXT("武器槽")},{TEXT("offhand"),TEXT("副手槽")},{TEXT("armor"),TEXT("防具槽")},{TEXT("helmet"),TEXT("头部槽")},{TEXT("gloves"),TEXT("手套槽")},{TEXT("pants"),TEXT("裤子槽")},{TEXT("boots"),TEXT("鞋靴槽")},{TEXT("backpack"),TEXT("背包装备槽")}};const auto* V=M.Find(K);return V?*V:K;}
+void Delta(FColdSteelTooltipCard& C,const FString& Label,double V,const TCHAR* Unit,bool Lower=false)
+{
+    if(FMath::Abs(V)>.00001)
+        Row(C,Label,Signed(V,FCString::Strcmp(Unit,TEXT("ms"))==0?TEXT(" ms"):Unit),(V>0)!=Lower?1:-1);
+}
 // 附魔只存攻击间隔倍率；玩家口径用射速倍率表达，1/3 与 2 倍都读得懂。
 FString RateMultiplier(double IntervalMultiplier){return IntervalMultiplier>1.?FString::Printf(TEXT("1/%s"),*N(IntervalMultiplier)):N(1./IntervalMultiplier);}
 J Reference(){static J Root;static bool Loaded=false;if(!Loaded){Loaded=true;FString Text;if(FFileHelper::LoadFileToString(Text,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/tooltip-reference.json"))))FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Text),Root);}return Root;}
@@ -62,6 +73,20 @@ J Reference(){static J Root;static bool Loaded=false;if(!Loaded){Loaded=true;FSt
 
 void RefreshColdSteelFoodTooltip(const FColdSteelItem& I,UColdSteelStatusModel* Model,FColdSteelTooltipContent& Out)
 {
+    if(Out.bTorchFuel)
+    {
+        const double Remaining=ColdSteelInventory::TorchFuelRemaining(I);
+        const int32 Rate=Model?Model->TorchBurnRate(I):1;
+        const int32 Seconds=FMath::CeilToInt(Remaining/Rate);
+        Out.FoodProgress=ColdSteelFoodUI::Progress(Remaining,ColdSteelInventory::TorchFuelSeconds);
+        for(auto& R:Out.Summary)if(R.Label==TEXT("剩余燃时"))
+        {
+            R.Value=FString::Printf(TEXT("%02d:%02d"),Seconds/60,Seconds%60);
+            if(Rate>1)R.Value+=FString::Printf(TEXT("  ×%d"),Rate);
+            break;
+        }
+        return;
+    }
     if(Out.FoodLifetimeDays<=0)return;
     const double Remaining=Model?Model->FoodRemainingDays(I):Out.FoodLifetimeDays;
     Out.FoodProgress=ColdSteelFoodUI::Progress(Remaining,Out.FoodLifetimeDays);
@@ -76,13 +101,15 @@ void RefreshColdSteelFoodTooltip(const FColdSteelItem& I,UColdSteelStatusModel* 
     for(auto& Card:Out.Cards)RefreshRows(Card.Rows);
 }
 
-FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UColdSteelStatusModel* Model,UGunsmithSystem* G)
+FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UColdSteelStatusModel* Model,UGunsmithSystem* G,const FString& Location)
 {
     FColdSteelTooltipContent Out;TArray<FColdSteelTooltipRow> ForgeSummary;J O;
     O=CombatItemFormula::Read(I);if(!O)return Out;
     Out.Name=String(O,TEXT("name"),I.Definition);Out.Type=String(O,TEXT("type"),Category(String(O,TEXT("category"))));
     if(ColdSteelInventory::IsBow(I))Out.Type=String(O,TEXT("weaponTypeTag"),TEXT("弓"));
-    Out.Rarity=ColdSteelItemRarity::IsEquipment(*O)?FString():String(O,TEXT("rarity"),TEXT("common"));Out.Level=Number(O,TEXT("level"));Out.Icon=ColdSteelInventory::Text(I,TEXT("ue_icon"));Out.Description=String(O,TEXT("desc"));
+    else if(ColdSteelInventory::IsOneHandedMelee(I))Out.Type=String(O,TEXT("weaponTypeTag"),TEXT("单手近战"));
+    Out.bEquipment=ColdSteelItemRarity::IsEquipment(*O);
+    Out.Rarity=Out.bEquipment?FString():String(O,TEXT("rarity"),TEXT("common"));Out.Level=Number(O,TEXT("level"));Out.Icon=ColdSteelInventory::Text(I,TEXT("ue_icon"));Out.Description=String(O,TEXT("desc"));
     const int32 Enhance=Number(O,TEXT("enhanceLevel"));if(Enhance>0)Out.Enhancement=FString::Printf(TEXT("已强化 +%d"),Enhance);
     // 采集工具的「强化」是外观档位（独立字段 tool_enhance_level），与武器「已强化 +N」
     // 同一位置口径但不同措辞：这里写档位与材质名，不进武器的数值语义。铁铲无目录等级。
@@ -93,54 +120,16 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         const FString MaterialName=ColdSteelToolEnhance::LevelName(ToolLevel);
         Out.Enhancement=FString::Printf(TEXT("强化 Lv.%d"),ToolLevel)+(MaterialName.IsEmpty()?FString():TEXT(" · ")+MaterialName);
     }
+    else if(Out.bEquipment) Out.EnhancementLevel=Enhance;
 
     const double InnateInt=Number(O,TEXT("innate_erosion_intelligence")),InnateWis=Number(O,TEXT("innate_erosion_wisdom"));
     if(InnateInt>0||InnateWis>0)
     {
-        const double Multiplier=G?G->Calculate(I.Definition,G->Installed(I)).Melee.InnateErosionMultiplier:1.;
         auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("武器自带效果 · 侵蚀");C.MinimumWidth=460;
-        Note(C,TEXT("附加魔伤"),TEXT("智力×")+N(InnateInt*100)+TEXT("% + 精神×")+N(InnateWis*100)+TEXT("%"),1);
-        if(Multiplier!=1)Note(C,TEXT("迸发后"),TEXT("智力×")+N(InnateInt*Multiplier*100)+TEXT("% + 精神×")+N(InnateWis*Multiplier*100)+TEXT("%"),1);
-        Note(C,TEXT("结算"),TEXT("随连击·重击倍率放大，按魔防减免；换其他符文仍保留"));
+        Note(C,TEXT(""),TEXT("近战命中附加魔法伤害，受智力和精神影响。"));
     }
 
-    if(const J Forge=Object(O,TEXT("_forgeQuality")))
-    {
-        auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("锻造工艺");C.MinimumWidth=300;
-        Row(C,ColdSteelWeaponText::ForgeQuality,String(Forge,TEXT("label"),TEXT("—")));
-        const double Multiplier=FMath::Clamp(Number(Forge,TEXT("multiplier"),1),.75,1.25);
-        const double Percent=(Multiplier-1)*100;
-        Row(C,ColdSteelWeaponText::ForgeDamageModifier,Signed(Percent,TEXT("%")),Percent>0?1:Percent<0?-1:0);
-        ForgeSummary=C.Rows;
-        Row(C,TEXT("有效命中"),N(Number(Forge,TEXT("hits")))+TEXT(" / ")+N(Number(Forge,TEXT("total"),20)));
-        Row(C,TEXT("工艺倍率"),FString::Printf(TEXT("×%.3f"),Multiplier));
-        Note(C,TEXT("作用"),TEXT("乘于基础伤害，已计入武器总伤害"));
-        Note(C,TEXT("例外"),TEXT("附加伤害按各自公式结算，不乘此倍率"));
-        Note(C,TEXT("说明"),TEXT("工艺品质由本次锻打表现决定，与强化等级独立记录"));
-    }
-    double WoodScore=0;
-    if(ColdSteelWoodQuality::Read(I,WoodScore))
-    {
-        const double Multiplier=ColdSteelWoodQuality::FromScore(WoodScore),Percent=(Multiplier-1)*100;
-        auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("木工工艺");C.MinimumWidth=300;
-        Row(C,TEXT("工艺评分"),N(WoodScore)+TEXT(" / 100"));
-        Row(C,ColdSteelWoodQuality::StatLabel(I),Signed(Percent,TEXT("%")),Percent>0?1:Percent<0?-1:0);
-        ForgeSummary.Append(C.Rows);
-        Row(C,TEXT("工艺倍率"),FString::Printf(TEXT("×%.3f"),Multiplier));
-        Note(C,TEXT("作用"),ColdSteelWoodQuality::Channel(I)==ColdSteelWoodQuality::EChannel::Physical?
-            TEXT("已计入本弓物理伤害；附加魔法伤害不受此修正影响"):
-            TEXT("已计入本件法杖魔法攻击，参与法术伤害计算；挥杖物理伤害不受此修正影响"));
-        Note(C,TEXT("评分规则"),TEXT("50 分无修正，100 分 +25%，最低 -25%；品质随成品保存"));
-    }
-    if(const J Assembly=Object(O,TEXT("_assemblyQuality")))
-    {
-        auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("枪械装配工艺");C.MinimumWidth=300;
-        Row(C,TEXT("装配品质"),String(Assembly,TEXT("label"),TEXT("—")));
-        Row(C,TEXT("工艺评分"),N(Number(Assembly,TEXT("score")))+TEXT(" / 100"));
-        Row(C,TEXT("后坐力降低"),N((1-FMath::Clamp(Number(Assembly,TEXT("recoil"),1),.88,1.))*100)+TEXT("%"),1);
-        Row(C,TEXT("腰射散布降低"),N((1-FMath::Clamp(Number(Assembly,TEXT("spread"),1),.85,1.))*100)+TEXT("%"),1);
-        Note(C,TEXT("作用"),TEXT("已计入实战与合计参数，随本枪保存；更换配件保留"));
-    }
+    ForgeSummary=ColdSteelTooltipPrivate::AppendCraftQuality(I,Model,O,Out);
     const J Enchant=Object(O,TEXT("_enchantData"));const J EE=Object(O,TEXT("_enchantEffects"));
     if(Enchant&&(Object(Enchant,TEXT("prefix"))||Object(Enchant,TEXT("suffix")))){
         auto& C=Out.Cards.AddDefaulted_GetRef();C.Title=TEXT("附魔效果");C.MinimumWidth=300;
@@ -148,6 +137,17 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         const FString Suffix=String(Object(Enchant,TEXT("suffix")),TEXT("name"));if(!Suffix.IsEmpty()){if(!Name.IsEmpty())Name+=TEXT(" · ");Name+=Suffix;}
         Row(C,TEXT("当前词缀"),Name);
         if(EE){Delta(C,TEXT("伤害"),Number(EE,TEXT("damagePercent"))*100,TEXT("%"));
+            Delta(C,TEXT("物理伤害"),Number(EE,TEXT("bloodWolfPhysicalBonus"))*100,TEXT("%"));
+            Delta(C,TEXT("暴击率"),Number(EE,TEXT("frostHawkCriticalChanceAdd")),TEXT("%"));
+            if(KukriEnchantment::Supports(I))
+                for(const TCHAR* Id:{TEXT("bloodWolf"),TEXT("frostHawk")})
+                {
+                    bool Enabled=false;
+                    if(!EE->TryGetBoolField(Id,Enabled)||!Enabled)continue;
+                    const auto* Rules=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;
+                    if(const auto* Rule=Rules?Rules->Scroll(Id):nullptr)
+                    {Section(C,Rule->Name);Note(C,TEXT("效果"),Rule->Description);}
+                }
             if(EE->HasField(TEXT("attackIntervalMul")))Row(C,ColdSteelWeaponText::AttackInterval,TEXT("×")+N(Number(EE,TEXT("attackIntervalMul"))),Number(EE,TEXT("attackIntervalMul"))<1?1:-1);
             Delta(C,TEXT("暴击率"),Number(EE,TEXT("critRate"))*100,TEXT("%"));Delta(C,TEXT("穿透目标"),Number(EE,TEXT("piercingBonus")),TEXT("个"));
             Delta(C,TEXT("力量"),Number(EE,TEXT("str")),TEXT("点"));
@@ -273,8 +273,23 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
                         else Note(C,TEXT(""),Effect);
                     }
                 }
-                else if(P->Effects.IsEmpty())Row(C,TEXT(""),P->Description);
-                else for(const auto& E:P->Effects)Row(C,TEXT(""),E.Key,E.Value);
+                else if(P->Effects.IsEmpty())
+                {
+                    if(P->SpecialEffects.IsEmpty()||(!ColdSteelInventory::IsTwoHandedSword(I)&&!ColdSteelInventory::IsTwoHandedBlunt(I)))
+                        Row(C,TEXT(""),P->Description);
+                }
+                else for(const auto& E:P->Effects)
+                {
+                    if(E.Key.IsEmpty())continue;
+                    Row(C,TEXT(""),E.Key,E.Value);
+                    C.Rows.Last().bInlineStatModifier=true;
+                }
+                if(!G->IsStaff(I.Definition))for(const auto& Effect:P->SpecialEffects)
+                {
+                    FString Title,Body;
+                    if(Effect.Split(TEXT("｜"),&Title,&Body)){Section(C,Title);Note(C,TEXT(""),Body);}
+                    else Note(C,TEXT(""),Effect);
+                }
                 C.Rows.Last().bDashedAfter=true;}
             const auto S=G->CalculateItem(I,Parts),B=G->CalculateItem(I,{});Section(C,TEXT("合计改造数值"));
             if(G->IsStaff(I.Definition))
@@ -303,12 +318,19 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             else if(G->IsBow(I.Definition))
             {
                 Delta(C,ColdSteelWeaponText::BaseDamageModifier,(S.Bow.Damage-1)*100,TEXT("%"));
+                Delta(C,ColdSteelWeaponText::TotalDamage,(S.Bow.ShotDamage-1)*100,TEXT("%"));
+                Delta(C,TEXT("物理伤害"),(S.Bow.PhysicalDamage-1)*100,TEXT("%"));
+                Delta(C,ColdSteelWeaponText::EffectiveRange,(S.Bow.Range-1)*100,TEXT("%"));
+                Delta(C,ColdSteelWeaponText::CriticalBonus,S.Bow.CriticalDamageBonus*100,TEXT("%"));
                 Delta(C,TEXT("拉弓速度"),S.Bow.DrawSpeedBonus*100,TEXT("%"));
+                Delta(C,ColdSteelWeaponText::RhythmWindow,S.Bow.RhythmWindowBonus*100,TEXT("%"));
                 Delta(C,ColdSteelWeaponText::DrawTime,(S.Bow.Draw-1)*100,TEXT("%"),true);
                 Delta(C,ColdSteelWeaponText::NockTime,(S.Bow.Nock-1)*100,TEXT("%"),true);
+                Delta(C,TEXT("玩家魔法伤害"),(S.Bow.MagicDamage-1)*100,TEXT("%"));
+                Delta(C,TEXT("玩家魔法消耗"),(S.Bow.ManaCost-1)*100,TEXT("%"),true);
                 Delta(C,ColdSteelWeaponText::ProjectileSpeed,(S.Bow.Speed-1)*100,TEXT("%"));
                 Delta(C,ColdSteelWeaponText::StaminaCost,(S.Bow.Stamina-1)*100,TEXT("%"),true);
-                Delta(C,ColdSteelWeaponText::HoldTime,(S.Bow.Hold-1)*100,TEXT("%"));
+                Delta(C,ColdSteelWeaponText::BowChargeStamina,(S.Bow.ChargeStamina-1)*100,TEXT("%"),true);
                 Delta(C,ColdSteelWeaponText::Sway,(S.Bow.Sway-1)*100,TEXT("%"),true);
                 Delta(C,ColdSteelWeaponText::HipSpreadMultiplier,(S.Bow.Spread-1)*100,TEXT("%"),true);
                 Delta(C,ColdSteelWeaponText::ADS,(S.Bow.ADS-1)*100,TEXT("%"),true);
@@ -318,8 +340,11 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
                 Delta(C,TEXT("暴击率"),S.Melee.CriticalChanceAdd+S.Melee.MeleeCriticalChanceAdd,TEXT("%"));
                 Delta(C,TEXT("暴击伤害"),S.Melee.MeleeCriticalDamageBonus*100.,TEXT("%"));
                 Delta(C,TEXT("物理伤害"),(S.Melee.PhysicalDamage-1)*100,TEXT("%"));
+                Delta(C,TEXT("物理攻击力"),S.Melee.PhysicalAttackAdd,TEXT(""));
                 Delta(C,ColdSteelWeaponText::BaseDamageModifier,(S.Melee.Damage-1)*100,TEXT("%"));
                 Delta(C,TEXT("全部近战攻击伤害"),(S.Melee.AllAttackDamage-1)*100,TEXT("%"));
+                Delta(C,TEXT("所有技能冷却"),(S.Melee.SkillCooldown-1)*100,TEXT("%"),true);
+                Delta(C,TEXT("武技冷却时间"),(S.Melee.MartialCooldown-1)*100,TEXT("%"),true);
                 Delta(C,TEXT("魔法技能冷却时间"),(S.Melee.MagicCooldown-1)*100,TEXT("%"),true);
                 Delta(C,TEXT("魔法伤害"),(S.Melee.MagicDamage-1)*100,TEXT("%"));
                 Delta(C,ColdSteelWeaponText::MagicCostMultiplier,(S.Melee.MagicCost-1)*100,TEXT("%"),true);
@@ -339,9 +364,12 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
                     Note(C,TEXT("物理易伤"),TEXT("命中后目标受物理伤害 +")+N(S.Melee.QuickCombatPhysicalVulnerabilityBonus*100)+TEXT("%"),1);
                     Note(C,TEXT("持续"),N(S.Melee.QuickCombatPhysicalVulnerabilitySeconds)+TEXT(" 秒 · 重复命中刷新，不叠加"));
                 }
-                Delta(C,ColdSteelWeaponText::RuneVulnerability,S.Melee.RuneVulnerability*100,TEXT("%"));
+                Delta(C,ColdSteelInventory::IsTwoHandedBlunt(I)?TEXT("战锤命中魔法易伤"):ColdSteelWeaponText::RuneVulnerability,S.Melee.RuneVulnerability*100,TEXT("%"));
                 Delta(C,ColdSteelWeaponText::CooldownReducePerHit,S.Melee.CooldownReduceSecondsPerHit,TEXT(" s"));
                 Delta(C,ColdSteelWeaponText::AttackSpeed,(S.Melee.AttackSpeed-1)*100,TEXT("%"));
+                const double RuneAttribute=RuneboundHammer::AttributeMultiplier(I);
+                Delta(C,TEXT("精神"),(RuneAttribute-1.)*100,TEXT("%"));
+                Delta(C,TEXT("智力"),(RuneAttribute-1.)*100,TEXT("%"));
                 Delta(C,ColdSteelWeaponText::AttackDistance,(S.Melee.Range-1)*100,TEXT("%"));
                 Delta(C,ColdSteelWeaponText::StaminaCost,(S.Melee.Stamina-1)*100,TEXT("%"),true);
                 Delta(C,TEXT("造成硬直时间"),(S.Melee.HitReaction-1)*100,TEXT("%"));
@@ -364,6 +392,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             Delta(C,ColdSteelWeaponText::RecoilIndex,S.Recoil-B.Recoil,TEXT(""),true);Delta(C,ColdSteelWeaponText::Stability,S.Handling.Stability-B.Handling.Stability,TEXT(""));
             Delta(C,TEXT("枪械稳定性·回稳90%"),S.Handling.ADSRecoveryMilliseconds()-B.Handling.ADSRecoveryMilliseconds(),TEXT("ms"),true);
             if(B.Spread>0)Delta(C,TEXT("腰射散布"),(S.Spread/B.Spread-1)*100,TEXT("%"),true);
+            Delta(C,TEXT("弹丸散布"),(G->PelletSpreadMultiplier(I.Definition,Parts)-1)*100,TEXT("%"),true);
             Delta(C,TEXT("射程"),S.Range-B.Range,TEXT("m"));Delta(C,ColdSteelWeaponText::ProjectileSpeed,S.Speed-B.Speed,TEXT("m/s"));}}
         if(Craft&&!(Installed&&G->IsStaff(I.Definition))){const auto Config=Object(Object(Reference(),TEXT("craft")),*I.Definition);const auto Options=Object(Config,TEXT("options"));
             for(const auto& P:Craft->Values){const TArray<TSharedPtr<FJsonValue>>* List=nullptr;if(!Options||!Options->TryGetArrayField(FString(*P.Key),List))continue;
@@ -403,7 +432,8 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     const FString WeaponType=String(O,TEXT("weaponTypeTag"),String(O,TEXT("weaponType")));
     Row(Main,TEXT("武器类型"),WeaponType==TEXT("spellbook")?TEXT("魔法书"):WeaponType);Row(Main,TEXT("装备槽位"),EquipSlotLabel(String(O,TEXT("equipSlot"))));
     const J Defense=Object(O,TEXT("defense"));
-    if(ColdSteelInventory::IsTwoHandedSword(I)){
+    const bool HammerMotion=PojunGrip::UsesHammerMotion(I);
+    if(!HammerMotion&&ColdSteelInventory::IsTwoHandedSword(I)){
         Section(Main,ColdSteelWeaponText::CombatParameters);AppendColdSteelTooltipAttackFormula(I,Model,Number(O,TEXT("melee_damage"),55),Main);
         const auto Melee=ColdSteelMelee::Evaluate(I,Model);
         const bool OverheadFinisher=ColdSteelModularSword::UsesOverheadFinisher(I);
@@ -420,6 +450,8 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         Row(Main,TEXT("三连击第二段伤害"),N(Melee.ComboSecondDamage));
         Row(Main,TEXT("三连击第三段伤害"),N(Melee.ComboThirdDamage));
         if(!FMath::IsNearlyEqual(Melee.Modifiers.ComboThirdToughness,1.))Row(Main,RisingDragon?TEXT("第三段升龙韧性伤害倍率"):OverheadFinisher?TEXT("第三段竖劈韧性伤害倍率"):TEXT("第三段突刺韧性伤害倍率"),N(Melee.Modifiers.ThirdThrustToughnessMultiplier())+TEXT("×"));
+        if(Melee.Modifiers.SkillCooldown!=1)Row(Main,TEXT("所有技能冷却倍率"),N(Melee.Modifiers.SkillCooldown)+TEXT("×"));
+        if(Melee.Modifiers.MartialCooldown!=1)Row(Main,TEXT("武技冷却倍率"),N(Melee.Modifiers.MartialCooldown)+TEXT("×"));
         if(Melee.Modifiers.MagicCooldown!=1)Row(Main,TEXT("魔法技能冷却倍率"),N(Melee.Modifiers.MagicCooldown)+TEXT("×"));
         if(Melee.Modifiers.MagicDamage!=1)Row(Main,TEXT("魔法伤害倍率"),N(Melee.Modifiers.MagicDamage)+TEXT("×"));
         if(Melee.Modifiers.CooldownReduceSecondsPerHit>0)Row(Main,ColdSteelWeaponText::CooldownReducePerHit,N(.5f+Melee.Modifiers.CooldownReduceSecondsPerHit)+TEXT(" s / 挥"));
@@ -463,17 +495,64 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         }
         Row(Main,ColdSteelWeaponText::BlockStaminaCost,N(Melee.BlockStamina));
         Row(Main,TEXT("握持"),TEXT("双手 · 占用副手槽"));
-    }else if(ColdSteelInventory::IsTwoHandedBlunt(I)){
+    }else if(HammerMotion){
         const auto Blunt=ColdSteelTool::Evaluate(I,Model);
         Section(Main,ColdSteelWeaponText::CombatParameters);
         AppendColdSteelTooltipAttackFormula(I,Model,Number(O,TEXT("melee_damage"),55),Main);
-        Row(Main,ColdSteelWeaponText::TotalDamage,N(Blunt.Damage.Total()));
+        if(PojunGrip::Installed(I))DamageRows(Main,Blunt.Damage);
+        else Row(Main,ColdSteelWeaponText::TotalDamage,N(Blunt.Damage.Total()));
         Row(Main,ColdSteelWeaponText::AttackInterval,N(FMath::RoundToInt(Blunt.SwingSeconds*1000))+TEXT(" ms"));
         Row(Main,ColdSteelWeaponText::AttackDistance,N(Blunt.CombatReachCM/100)+TEXT(" m"));
         Row(Main,ColdSteelWeaponText::StaminaCost,N(Blunt.StaminaCost));
-        Row(Main,TEXT("命中类型"),TEXT("钝击"));
-        Row(Main,TEXT("握持"),TEXT("双手 · 占用同组主手与副手槽"));
-        Note(Main,TEXT("攻击方式"),TEXT("左键三连击：右上斜挥、左上斜挥、举顶下砸；第三击伤害为普通攻击的 1.25 倍。"));
+        if(I.Definition==ThunderHammer::Definition)
+        {
+            Row(Main,TEXT("蓄满重击·天雷"),TEXT("落点范围物理重击 + ")+N(ThunderHammer::MagicAttackScale*100)+TEXT("% 魔攻"));
+            Row(Main,TEXT("天雷半径"),N(ThunderHammer::RadiusCM/100)+TEXT(" m"));
+            Row(Main,TEXT("天雷眩晕"),N(ThunderHammer::StunSeconds)+TEXT(" s · 普通敌人或破韧目标"));
+        }
+        if(!FMath::IsNearlyEqual(Blunt.HeavyReleaseStaminaCost,Blunt.StaminaCost))
+            Row(Main,TEXT("重击出手体力消耗"),N(Blunt.HeavyReleaseStaminaCost));
+        if(!FMath::IsNearlyEqual(Blunt.ToughnessDamage,1.))Row(Main,ColdSteelWeaponText::ToughnessMultiplier,N(Blunt.ToughnessDamage)+TEXT("×"));
+        if(!FMath::IsNearlyZero(Blunt.HeavyChargeSpeedBonus))Row(Main,TEXT("重击蓄力速度加成"),N(Blunt.HeavyChargeSpeedBonus*100.)+TEXT("%"));
+        if(G){const auto Rune=G->Calculate(I.Definition,Parts).Melee;
+            if(Rune.PhysicalArmorPenetration>0.)Row(Main,TEXT("改造物理防御穿透"),N(Rune.PhysicalArmorPenetration*100.)+TEXT("%"));
+            if(Rune.SkillCooldown!=1)Row(Main,TEXT("所有技能冷却倍率"),N(Rune.SkillCooldown)+TEXT("×"));
+            if(Rune.MartialCooldown!=1)Row(Main,TEXT("武技冷却倍率"),N(Rune.MartialCooldown)+TEXT("×"));}
+        if(PojunGrip::Installed(I))
+        {
+            const bool Chixiao=PojunGrip::Attack(I,true,false,0)==PojunGrip::EAttack::Chixiao;
+            const bool Zhufeng=PojunGrip::Attack(I,false,true,2)==PojunGrip::EAttack::Zhufeng;
+            Row(Main,TEXT("动作模组"),TEXT("双手锤"));
+            Row(Main,TEXT("普攻第三段"),PojunGrip::Attack(I,false,false,2)==PojunGrip::EAttack::Tengyun?TEXT("上挑"):TEXT("竖劈"));
+            if(Chixiao)Row(Main,TEXT("赤霄满蓄重击"),TEXT("普攻首段斜劈 → 上挑"));
+            if(Zhufeng)Row(Main,TEXT("逐风冲刺攻击"),TEXT("向前旋风一周"));
+            Row(Main,TEXT("重击蓄力时间"),N(Blunt.HeavyChargeSeconds)+TEXT(" s"));
+            if(Model&&G)
+            {
+                const auto Mods=G->Calculate(I.Definition,Parts).Melee;
+                Row(Main,TEXT("快速近战距离"),N(Model->QuickCombatStats(-1,&Mods,&I).RangeCM/100.)+TEXT(" m"));
+                Row(Main,Chixiao?TEXT("冲刺震波半径"):TEXT("重击震波半径"),N(WarhammerCombat::ShockwaveRadius(I,Model)/100.)+TEXT(" m"));
+            }
+        }
+        else Row(Main,TEXT("命中类型"),TEXT("钝击"));
+        Row(Main,TEXT("握持"),TEXT("双手 · 占用副手槽"));
+        // Native hammer mechanisms use the same catalog-backed 特殊性质 section
+        // as swords; do not duplicate combo multipliers in the parameter card.
+    }else if(ColdSteelInventory::IsWoodenTorch(I)){
+        Row(Main,TEXT("握持"),TEXT("主手或副手 · 可双持"));
+    }else if(ColdSteelInventory::IsOneHandedMelee(I)){
+        // 单手刀（尼泊尔弯刀）：不进改造目录，但武器浮窗仍按近战口径给出
+        // 直接属性，不给未实现的暴击／格挡字段。距离取 BaseReach——弯刀组件
+        // 直接用 BaseReach 判定，剑类的 SlashReach（×2）不适用。
+        const auto Melee=ColdSteelMelee::Evaluate(I,Model);
+        Section(Main,ColdSteelWeaponText::CombatParameters);
+        AppendColdSteelTooltipAttackFormula(I,Model,Number(O,TEXT("melee_damage"),30),Main);
+        DamageRows(Main,Melee.DamageParts);
+        Row(Main,ColdSteelWeaponText::AttackInterval,N(FMath::RoundToInt(Melee.AttackSeconds*1000))+TEXT(" ms"));
+        Row(Main,ColdSteelWeaponText::AttackDistance,N(Melee.BaseReach/100)+TEXT(" m"));
+        Row(Main,ColdSteelWeaponText::StaminaCost,N(Melee.AttackStamina));
+        Row(Main,TEXT("命中类型"),TEXT("斩击"));
+        Row(Main,TEXT("握持"),TEXT("单手 · 可另持副手"));
     }else if(ColdSteelInventory::IsEquippedProductionTool(I)){
         const bool bPickaxe=I.Definition==TEXT("tool_pickaxe");
         // Same 近战参数 layout as the swords: formula, then total/base/added damage, then
@@ -510,10 +589,10 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             Note(Main,TEXT("采集规则"),TEXT("树木有生命值，按伐木伤害扣血归零才倒；挥砍数随伤害与命中改造变化"));
         }
     }else if(I.Definition==TEXT("tool_shovel")){
-        // 铁铲不进武器槽、没有战斗参数：地形挖/填规则单独成段。数值取目录 dig
+        // 铁铲 2026-10-17 起与斧／镐同权进主手武器槽：挖/填规则单独成段。数值取目录 dig
         // 块（展示口径），与 TemperateHills 挖填实现的 20 cm 层、2 泥土同源。
         Section(Main,TEXT("采集参数"));
-        Row(Main,TEXT("装备方式"),TEXT("按 8 取用 · F7 收起"));
+        Row(Main,TEXT("装备方式"),TEXT("右键装备到主手 · 滚轮/G 切换"));
         const auto Dig=Object(O,TEXT("dig"));
         const auto D=[&](const TCHAR* Key,double Def){return Dig?Number(Dig,Key,Def):Def;};
         const double Layer=D(TEXT("layer_cm"),20),Soil=D(TEXT("soil_per_layer"),2),Footprint=D(TEXT("footprint_cm"),240);
@@ -528,20 +607,18 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         const double Base=Number(O,TEXT("full_damage"),69)*(G?G->Calculate(I.Definition,Parts).Bow.Damage:1.);
         AppendColdSteelTooltipAttackFormula(I,Model,Base,Main);
         DamageRows(Main,BowDamage);
-        if(const double CritBonus=ColdSteelInventory::Number(I,TEXT("critDamageBonus"));CritBonus>0)
+        if(const double CritBonus=Bow.CriticalDamageBonus;CritBonus>0)
             Row(Main,ColdSteelWeaponText::CriticalBonus,TEXT("+")+N(CritBonus*100)+TEXT("%"));
         Row(Main,ColdSteelWeaponText::DrawTime,N(Bow.Draw)+TEXT(" s"));
-        Note(Main,TEXT("完美节拍"),FString::Printf(TEXT("满拉后 %.2f s 内手动松手，下一次拉弓速度 +%.0f%%；力竭自动放箭无加成"),
-            ColdSteelBow::PerfectReleaseWindow,ColdSteelBow::PerfectNextDrawSpeedBonus*100.f));
         Row(Main,TEXT("拉弓速度加成"),N(Bow.DrawSpeedBonus*100.)+TEXT("%"));
         Row(Main,ColdSteelWeaponText::NockTime,N(Bow.Nock)+TEXT(" s"));
         Row(Main,ColdSteelWeaponText::ProjectileSpeed,N(Bow.Speed)+TEXT(" m/s"));
-        Row(Main,ColdSteelWeaponText::FlightLimit,N(Number(O,TEXT("range_cm"),3200)/100)+TEXT(" m"));
+        Row(Main,ColdSteelWeaponText::EffectiveRange,N(Bow.Range)+TEXT(" m"));
         Row(Main,ColdSteelWeaponText::StaminaCost,N(Bow.Stamina));
-        Row(Main,ColdSteelWeaponText::HoldTime,N(Bow.Hold)+TEXT(" s"));
+        Row(Main,ColdSteelWeaponText::BowChargeStamina,N(Bow.ChargeStamina)+TEXT(" /s"));
         Row(Main,ColdSteelWeaponText::Sway,N(Bow.Sway));
         Row(Main,ColdSteelWeaponText::HipSpreadAngle,N(FMath::RadiansToDegrees(FMath::Atan(Bow.Spread)))+TEXT("°"));
-        Row(Main,ColdSteelWeaponText::ADS,N(FMath::RoundToInt(Bow.ADS*1000))+TEXT(" ms"));
+        Row(Main,ColdSteelWeaponText::ADS,N(FMath::RoundToInt(Bow.ADS*1000*(Model?Model->ADSTimeMultiplier():1.)))+TEXT(" ms"));
         if(Model)
         {
             Row(Main,ColdSteelWeaponText::Ammo,Model->AmmoLabel(Model->AmmoDefinitionFor(I)));
@@ -614,7 +691,7 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
             Row(Main,TEXT("含组间隔理论射速"),N(60.*S.BurstCount/Cycle)+TEXT(" 发/分"));
         }
         Row(Main,ColdSteelWeaponText::Reload,N(ColdSteelWeaponStats::Reload(&I,Model,S.Reload))+TEXT(" s"));Row(Main,ColdSteelWeaponText::EmptyReload,N(ColdSteelWeaponStats::Reload(&I,Model,S.EmptyReload))+TEXT(" s"));
-        Row(Main,ColdSteelWeaponText::ADS,N(FMath::RoundToInt(S.ADS*1000))+TEXT(" ms"));Row(Main,ColdSteelWeaponText::RecoilIndex,N(S.Recoil));Row(Main,ColdSteelWeaponText::Stability,N(S.Handling.Stability)+TEXT(" /100"));
+        Row(Main,ColdSteelWeaponText::ADS,N(FMath::RoundToInt(S.ADS*1000*(Model?Model->ADSTimeMultiplier():1.)))+TEXT(" ms"));Row(Main,ColdSteelWeaponText::RecoilIndex,N(S.Recoil));Row(Main,ColdSteelWeaponText::Stability,N(S.Handling.Stability)+TEXT(" /100"));
         if(!FMath::IsNearlyZero(S.EquipSpeedBonus))Row(Main,ColdSteelWeaponText::EquipSpeedBonus,N(S.EquipSpeedBonus*100.)+TEXT("%"));
         Row(Main,TEXT("首发上跳"),FString::Printf(TEXT("%.3f°"),S.Handling.FirstShotDegrees()));
         Row(Main,TEXT("连射上跳/发"),FString::Printf(TEXT("%.3f°"),S.Handling.MaxVerticalDegrees()));
@@ -627,7 +704,9 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         // 稳定型武器的两个专属系数（1 = 参考枪），只在偏离参考值时显示。
         if(S.Handling.SpreadGrowthScale<0.999f)Row(Main,TEXT("连点扩散增速"),N(S.Handling.SpreadGrowthScale*100)+TEXT("%"));
         if(S.Handling.RecoilLoadScale<0.999f)Row(Main,TEXT("移动/滞空后坐"),N(S.Handling.RecoilLoadScale*100)+TEXT("%"));
-        if(const double CritBonus=ColdSteelInventory::Number(I,TEXT("critDamageBonus"));CritBonus>0)
+        if(Weapon->Ammo==TEXT("ammo_12g"))
+            Row(Main,ColdSteelWeaponText::PelletSpreadMultiplier,N(G->PelletSpreadMultiplier(I.Definition,Parts))+TEXT("×"));
+        if(const double CritBonus=ColdSteelInventory::Number(I,TEXT("critDamageBonus"))+S.FirearmCriticalDamageBonus;CritBonus>0)
             Row(Main,ColdSteelWeaponText::CriticalBonus,TEXT("+")+N(CritBonus*100)+TEXT("%"));
         // 武器自带护甲穿透（物品定义 innate_armor_penetration）：与弹种穿透分开显示，
         // 结算时按「改造 + 附魔 + 自带 + 弹种」相加后 clamp 到 100%。
@@ -654,39 +733,40 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
         }
     }
     if(Defense){Section(Main,TEXT("防御参数"));const double Base=Number(Defense,TEXT("base")),Per=Number(Defense,TEXT("perEnhance"));const auto* E=Model?Model->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>():nullptr;Row(Main,TEXT("防御力"),N(E?E->Defense(I):Base+Enhance*Per));Row(Main,TEXT("防御基础"),N(Base));Row(Main,TEXT("每级强化防御"),N(Per));
+        // 魔法防御：只有声明了 magicBase / magicPerEnhance 的装备才出这两行（法师套）。
+        const double MagicBase=Number(Defense,TEXT("magicBase")),MagicPer=Number(Defense,TEXT("magicPerEnhance"));
+        if(MagicBase>0.||MagicPer>0.){Row(Main,TEXT("魔法防御力"),N(E?E->MagicDefense(I):MagicBase+Enhance*MagicPer));Row(Main,TEXT("魔法防御基础"),N(MagicBase));Row(Main,TEXT("每级强化魔法防御"),N(MagicPer));}
         if(Defense->HasField(TEXT("damageReduction")))Row(Main,TEXT("防御减伤"),N(Number(Defense,TEXT("damageReduction"))*100)+TEXT("%"));if(Defense->HasField(TEXT("staminaCost")))Row(Main,TEXT("防御受击体力"),N(Number(Defense,TEXT("staminaCost"))));}
     const J BonusGrowth=Object(O,TEXT("bonusPerEnhance"));
     const double BonusLevel=CombatItemFormula::EquipmentEnhancementLevel(O);
     const J Bonuses=Object(O,TEXT("bonusStats"));if(Bonuses&&!Bonuses->Values.IsEmpty()){
-        Section(Main,TEXT("属性加成"));const TMap<FString,FString> Names={{TEXT("str"),TEXT("力量")},{TEXT("dex"),TEXT("敏捷")},{TEXT("int"),TEXT("智力")},{TEXT("con"),TEXT("体质")},{TEXT("wis"),TEXT("精神")},{TEXT("luck"),TEXT("幸运")},{TEXT("atk"),TEXT("物理攻击")},{TEXT("matk"),TEXT("魔法攻击")},{TEXT("crit"),TEXT("暴击率")},{TEXT("critDamageBonus"),TEXT("暴击伤害")},{TEXT("critRes"),TEXT("暴击抵抗")},{TEXT("stunResist"),TEXT("眩晕抵抗")},{TEXT("meleeDamagePercent"),TEXT("近战物理攻击")},{TEXT("maxHp"),TEXT("最大生命")},{TEXT("maxHpPercent"),TEXT("最大生命")},{TEXT("maxMp"),TEXT("最大魔法")},{TEXT("meleeAttackSpeed"),TEXT("近战攻击速度")},{TEXT("meleeStaminaCost"),TEXT("近战体力消耗")},{TEXT("moveSpeedPercent"),TEXT("移动速度")},{TEXT("reloadSpeed"),TEXT("换弹速度")},{TEXT("bowNockSpeed"),TEXT("搭箭速度")},{TEXT("bowDrawSpeed"),TEXT("拉弓速度")},{TEXT("adsPercent"),TEXT("ADS 瞄准时间")},{TEXT("sprintStaminaCost"),TEXT("奔跑体力消耗")},{TEXT("magicAttackPercent"),TEXT("魔法攻击力")},{TEXT("castRangePercent"),TEXT("施法距离")},{TEXT("castSpeedPercent"),TEXT("施法速度")},{TEXT("magicCooldownPercent"),TEXT("魔法冷却")},{TEXT("magicCostPercent"),TEXT("魔法消耗")}};
-        for(const auto& P:Bonuses->Values){FString Key(*P.Key);if(const auto* Label=Names.Find(Key)){const bool Percent=Key==TEXT("crit")||Key==TEXT("critRes")||Key==TEXT("stunResist")||Key==TEXT("meleeAttackSpeed")||Key==TEXT("meleeStaminaCost")||Key==TEXT("maxHpPercent")||Key==TEXT("meleeDamagePercent")||Key==TEXT("moveSpeedPercent")||Key==TEXT("reloadSpeed")||Key==TEXT("bowNockSpeed")||Key==TEXT("bowDrawSpeed")||Key==TEXT("adsPercent")||Key==TEXT("sprintStaminaCost")||Key==TEXT("magicAttackPercent")||Key==TEXT("castRangePercent")||Key==TEXT("castSpeedPercent")||Key==TEXT("magicCooldownPercent")||Key==TEXT("magicCostPercent");const bool PointPercent=Key==TEXT("crit")||Key==TEXT("critRes")||Key==TEXT("stunResist");const bool Lower=Key==TEXT("meleeStaminaCost")||Key==TEXT("adsPercent")||Key==TEXT("sprintStaminaCost")||Key==TEXT("magicCooldownPercent")||Key==TEXT("magicCostPercent");const double PerLevel=Number(BonusGrowth,*Key),Scale=Percent&&!PointPercent?100.:1.;
+        Section(Main,TEXT("属性加成"));const TMap<FString,FString> Names={{TEXT("str"),TEXT("力量")},{TEXT("dex"),TEXT("敏捷")},{TEXT("int"),TEXT("智力")},{TEXT("con"),TEXT("体质")},{TEXT("wis"),TEXT("精神")},{TEXT("luck"),TEXT("幸运")},{TEXT("atk"),TEXT("物理攻击")},{TEXT("matk"),TEXT("魔法攻击")},{TEXT("crit"),TEXT("暴击率")},{TEXT("critDamageBonus"),TEXT("暴击伤害")},{TEXT("critRes"),TEXT("暴击抵抗")},{TEXT("stunResist"),TEXT("眩晕抵抗")},{TEXT("meleeDamagePercent"),TEXT("近战物理攻击")},{TEXT("maxHp"),TEXT("最大生命")},{TEXT("maxHpPercent"),TEXT("最大生命")},{TEXT("maxMp"),TEXT("最大魔法")},{TEXT("meleeAttackSpeed"),TEXT("近战攻击速度")},{TEXT("meleeStaminaCost"),TEXT("近战体力消耗")},{TEXT("moveSpeedPercent"),TEXT("移动速度")},{TEXT("reloadSpeed"),TEXT("换弹速度")},{TEXT("firearmRecoilPercent"),TEXT("枪械后坐力")},{TEXT("firearmStabilityPercent"),TEXT("枪械稳定性")},{TEXT("bowNockSpeed"),TEXT("搭箭速度")},{TEXT("bowDrawSpeed"),TEXT("拉弓速度")},{TEXT("adsPercent"),TEXT("ADS 瞄准时间")},{TEXT("sprintStaminaCost"),TEXT("奔跑体力消耗")},{TEXT("magicAttackPercent"),TEXT("魔法攻击力")},{TEXT("castRangePercent"),TEXT("施法距离")},{TEXT("castSpeedPercent"),TEXT("施法速度")},{TEXT("magicCooldownPercent"),TEXT("魔法冷却")},{TEXT("magicCostPercent"),TEXT("魔法消耗")}};
+        for(const auto& P:Bonuses->Values){FString Key(*P.Key);if(const auto* Label=Names.Find(Key)){const bool Percent=Key==TEXT("crit")||Key==TEXT("critDamageBonus")||Key==TEXT("critRes")||Key==TEXT("stunResist")||Key==TEXT("meleeAttackSpeed")||Key==TEXT("meleeStaminaCost")||Key==TEXT("maxHpPercent")||Key==TEXT("meleeDamagePercent")||Key==TEXT("moveSpeedPercent")||Key==TEXT("reloadSpeed")||Key==TEXT("firearmRecoilPercent")||Key==TEXT("firearmStabilityPercent")||Key==TEXT("bowNockSpeed")||Key==TEXT("bowDrawSpeed")||Key==TEXT("adsPercent")||Key==TEXT("sprintStaminaCost")||Key==TEXT("magicAttackPercent")||Key==TEXT("castRangePercent")||Key==TEXT("castSpeedPercent")||Key==TEXT("magicCooldownPercent")||Key==TEXT("magicCostPercent");const bool PointPercent=Key==TEXT("crit")||Key==TEXT("critRes")||Key==TEXT("stunResist");const bool Lower=Key==TEXT("firearmRecoilPercent")||Key==TEXT("meleeStaminaCost")||Key==TEXT("adsPercent")||Key==TEXT("sprintStaminaCost")||Key==TEXT("magicCooldownPercent")||Key==TEXT("magicCostPercent");const double PerLevel=Number(BonusGrowth,*Key),Scale=Percent&&!PointPercent?100.:1.;
             Delta(Main,*Label,(P.Value->AsNumber()+PerLevel*BonusLevel)*Scale,Percent?TEXT("%"):TEXT(""),Lower);
             if(PerLevel!=0){Row(Main,TEXT("基础")+*Label,Signed(P.Value->AsNumber()*Scale,Percent?TEXT("%"):TEXT("")));Row(Main,TEXT("每级强化")+*Label,Signed(PerLevel*Scale,Percent?TEXT("%"):TEXT("")));}
         }}
         const double Limit=Number(Object(O,TEXT("enhancement")),TEXT("maxLevel"));
         if(Limit>0)Row(Main,TEXT("强化上限"),FString::Printf(TEXT("+%d"),int32(Limit)));
     }
-    if(O->HasField(TEXT("armorSet"))){Section(Main,TEXT("套装效果"));FString Bonus=String(O,TEXT("setBonusDesc"));if(Bonus.IsEmpty())Bonus=String(Object(O,TEXT("setBonuses")),*String(O,TEXT("armorSet")));Note(Main,TEXT(""),Bonus);}
+    // 套装效果段：摘要区（AddSetBlock）已按 2.24 条给出件数与逐项属性。
+    // 主卡在这里早于摘要完成，所以先算一次并存进 Out.Set：
+    // 摘要随后直接复用这份结果（Owned 只数一遍），同时避免
+    // 「套装效果」段与摘要套装块在 F1 详情里出现两遍。
+    if(O->HasField(TEXT("armorSet")))
+    {
+        Out.bHasSet=ResolveColdSteelTooltipSet(I,Model,Out.Set);
+        if(!Out.bHasSet)
+        {
+            Section(Main,TEXT("套装效果"));
+            FString Bonus=String(O,TEXT("setBonusDesc"));
+            if(Bonus.IsEmpty())Bonus=String(Object(O,TEXT("setBonuses")),*String(O,TEXT("armorSet")));
+            Note(Main,TEXT(""),Bonus);
+        }
+    }
     if(auto Special=Object(O,TEXT("specialAttack"))){Section(Main,TEXT("特殊攻击"));Row(Main,TEXT("伤害类型"),String(Special,TEXT("damageType")));Note(Main,TEXT("公式"),String(Special,TEXT("damageFormula")));for(const auto& F:TArray<TPair<FString,FString>>{{TEXT("duration"),TEXT("持续时间")},{TEXT("cooldown"),TEXT("冷却时间")}})if(Special->HasField(F.Key))Row(Main,F.Value,N(Number(Special,*F.Key))+TEXT("秒"));}
-    if(Cat==TEXT("consumable")){const auto Effect=Object(O,TEXT("useEffect"));if(Effect&&!Effect->Values.IsEmpty()){
-        Section(Main,TEXT("使用效果"));if(Effect->HasField(TEXT("hp")))Row(Main,TEXT("恢复生命"),Signed(Number(Effect,TEXT("hp"))),1);if(Effect->HasField(TEXT("mp")))Row(Main,TEXT("恢复魔法"),Signed(Number(Effect,TEXT("mp"))),1);
-        if(Effect->HasField(TEXT("hydration")))
-        {
-            const double Water=Number(Effect,TEXT("hydration"));
-            Row(Main,Water<0?TEXT("消耗水分"):TEXT("恢复水分"),Signed(Water),Water<0?-1:1);
-        }
-        if(Effect->HasField(TEXT("hunger")))Row(Main,TEXT("恢复饥饿度"),Signed(Number(Effect,TEXT("hunger"))),1);
-        if(Effect->HasField(TEXT("sanity")))Row(Main,TEXT("恢复 SAN"),Signed(Number(Effect,TEXT("sanity"))),1);
-        if(Effect->HasField(TEXT("maxHpPercent")))Row(Main,TEXT("恢复最大生命"),Signed(Number(Effect,TEXT("maxHpPercent")),TEXT("%")),1);if(Effect->HasField(TEXT("maxMpPercent")))Row(Main,TEXT("恢复最大魔法"),Signed(Number(Effect,TEXT("maxMpPercent")),TEXT("%")),1);}
-        if(I.Definition==TEXT("mineral_water"))
-        {
-            const int32 Uses=FMath::Clamp(int32(Number(O,TEXT("remainingUses"),2)),1,2);
-            Row(Main,TEXT("剩余次数"),FString::Printf(TEXT("%d / 2"),Uses));
-            Row(Main,TEXT("瓶内水量"),Uses==2?TEXT("满瓶"):TEXT("半瓶"));
-        }
-        if(I.Definition==TEXT("baguette_bread")||I.Definition==TEXT("bread"))Row(Main,TEXT("食用次数"),TEXT("单次使用"));
-        if(Number(O,TEXT("useDuration"))>0)Row(Main,TEXT("使用时长"),N(Number(O,TEXT("useDuration")))+TEXT("秒"));
-        if(Number(O,TEXT("useCooldown"))>0)Row(Main,TEXT("冷却时间"),N(Number(O,TEXT("useCooldown")))+TEXT("秒"));Note(Main,TEXT("使用方式"),TEXT("右键 / 双击 / Enter / 快捷栏"));}
+
+
+
     if(I.Count>1)Row(Main,TEXT("堆叠数量"),FString::Printf(TEXT("%lld / %lld"),I.Count,I.StackMax));
     if(I.Place==4)Note(Main,TEXT("取出方式"),TEXT("右键 / 双击 / Enter / 拖入背包"));
     // 武器特殊性质取自枪匠目录，而不是物品实例快照：目录每次读盘解析，
@@ -716,7 +796,14 @@ FColdSteelTooltipContent BuildColdSteelItemTooltip(const FColdSteelItem& I,UCold
     {
         RefreshColdSteelFoodTooltip(I,Model,Out);
     }
+    Out.Location=Location;
     CompleteColdSteelTooltipSummary(I,Model,G,Out);
+    if(ColdSteelInventory::IsWoodenTorch(I))
+    {
+        Out.bTorchFuel=true;
+        Out.Summary.Add({TEXT("剩余燃时"),FString()});
+        RefreshColdSteelFoodTooltip(I,Model,Out);
+    }
     if(!ForgeSummary.IsEmpty())
     {
         Out.Summary.Append(MoveTemp(ForgeSummary));

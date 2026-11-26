@@ -36,6 +36,8 @@ bool ClearColumn(UWorld* World,const FIceWallPlacement& P,const FIceWallCast& C,
     {
         auto* A=H.GetActor();auto* Primitive=H.GetComponent();
         if(!Primitive||Primitive->GetCollisionResponseToChannel(ECC_Pawn)!=ECR_Block)continue;
+        if(P.bHostileCaster)
+            if(const auto* Pawn=Cast<APawn>(A);Pawn&&Pawn->IsPlayerControlled())continue;
         if(MonsterOwner(A))continue; // Dead, friendly and hostile monsters never veto formation.
         Reason=Cast<APawn>(A)?TEXT("玩家占位"):TEXT("实体障碍");return false;
     }
@@ -150,7 +152,14 @@ TSet<AActor*> Monsters(UWorld* World,const FIceWallPlacement& P,const FIceWallCa
         const FVector Center=P.Location+P.Rotation.RotateVector(FVector(0,S.Center(),(S.Bottom+S.Top)*.5f));
         const FVector Extent(C.Thickness*.5f+Margin,(S.MaxAlong-S.MinAlong)*.5f+Margin,(S.Top-S.Bottom)*.5f);
         World->OverlapMultiByObjectType(Hits,Center,P.Rotation.Quaternion(),FCollisionObjectQueryParams::AllDynamicObjects,FCollisionShape::MakeBox(Extent),Query);
-        for(const auto& H:Hits)if(auto* A=MonsterOwner(H.GetActor()))Targets.Add(A);
+        for(const auto& H:Hits)
+        {
+            if(P.bHostileCaster)
+            {
+                if(auto* Pawn=Cast<APawn>(H.GetActor());Pawn&&Pawn->IsPlayerControlled())Targets.Add(Pawn);
+            }
+            if(auto* A=MonsterOwner(H.GetActor()))Targets.Add(A);
+        }
     }
     return Targets;
 }

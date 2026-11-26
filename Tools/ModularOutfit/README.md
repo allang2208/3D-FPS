@@ -1,5 +1,9 @@
 # 模块化手部装备制作入口
 
+## 裤装搭配接入（2026-10-22）
+
+新增或重做裤装时，保存普通／靴型网格后运行 `Tools/PantsCompatibility/run.ps1`，为野行上衣生成实际裤腰配对并保留法袍内穿回退。规则与运行字段见 [裤装搭配流程](../../Docs/Characters/pants-compatibility-workflow.md)。只登记新裤子路径不等于完成专用腰部适配；默认仍不启动游戏或测试。
+
 本目录脚本面向 `D:/FPS3D/FPSGAME` 本机 UE 5.8.2 工程，不是带完整素材的独立工具包。执行前按脚本具体输入恢复已许可作者源，并按本次款式设定输出；不要按文件名排序执行整个目录。
 
 当前合同见 [第一人称装备标准](../../skills/ue5-fps-arms-animation/references/first-person-equipment-workflow.md)；完整本机依赖和归档记录见 [发布／恢复说明](../../Docs/Characters/modular-outfit-publication-20260925.md)。

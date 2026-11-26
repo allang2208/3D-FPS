@@ -1,0 +1,47 @@
+#pragma once
+#include "CoreMinimal.h"
+#include "ColdSteelItemInstance.generated.h"
+
+USTRUCT(BlueprintType)
+struct FColdSteelItem
+{
+    GENERATED_BODY()
+    UPROPERTY() FString InstanceId;
+    UPROPERTY() FString Definition;
+    // Full source data (including processing/attachment fields); never stripped on transfer.
+    UPROPERTY() FString Data;
+    UPROPERTY() int64 Count = 1;
+    UPROPERTY() int64 StackMax = 1;
+    UPROPERTY() int32 Width = 1;
+    UPROPERTY() int32 Height = 1;
+    // Bag/warehouse placement orientation: a rotated instance swaps its grid footprint.
+    UPROPERTY() bool bRotated = false;
+    UPROPERTY() int32 Place = 0; // 0 backpack, 1 equipment, 2 world, 4 warehouse (3 is UI hotbar)
+    /** 扩展储物容器归属：""=背包/装备/主仓库（既有语义不变）；非空=某储物箱的独立格空间
+     *  （如 "crate.tier.3"）。物品仍存于同一 Items 数组、沿用 Place 4 与格坐标， occupancy
+     *  按 Container 分域，容量记于 Profile.StoragePages。 */
+    UPROPERTY() FString Container;
+    // Typed escrow: owned pouch rounds represented on an incinerator grid, never ordinary pickup ammo.
+    UPROPERTY() bool bIncineratorAmmo = false;
+    UPROPERTY() int32 Cell = 0;
+    UPROPERTY() int32 BackpackCell = -1;
+    UPROPERTY() FString Map;
+    UPROPERTY() FVector Position = FVector::ZeroVector;
+    UPROPERTY() FRotator WorldRotation = FRotator::ZeroRotator;
+    UPROPERTY() bool bFreshMinedIron = false; // Cleared on first successful pickup, before stacking.
+    UPROPERTY() FGuid HarvestWorldId; // Ground resources belong to one generated world.
+    UPROPERTY() float Cooldown = 0;
+    UPROPERTY() int32 Magazine = 30;
+    UPROPERTY() int32 Reserve = 90;
+    UPROPERTY() FString LoadedAmmoType;
+    // Virtual range rounds are never refunded into the owned ammunition pouch.
+    UPROPERTY() int32 VirtualMagazineAmmo = 0;
+    // Version 0 is a legacy item: start its lifetime on first authority migration.
+    // These tagged fields travel intact through split, transfer and SaveGame replication.
+    UPROPERTY() int32 FoodVersion=0;
+    UPROPERTY() double FoodAgeDays=0.;
+    UPROPERTY() double FoodSampleDay=0.;
+    UPROPERTY() FGuid FoodClockId;
+    // Spent fuel travels with this instance. Old and newly crafted torches start full.
+    UPROPERTY() double TorchBurnedSeconds=0.;
+};

@@ -1,6 +1,8 @@
 #include "FPSPerformanceMetrics.h"
+#include "../Diagnostics/FPSResourceLifecycle.h"
 #include "FPSGpuTraceCapture.h"
 #include "FPSGpuTraceSessionSubsystem.h"
+#include "../WorldGeneration/TemperateVegetationLiveTrace.h"
 
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
@@ -62,6 +64,7 @@ bool UFPSPerformanceMetricsSubsystem::DoesSupportWorldType(EWorldType::Type Type
 void UFPSPerformanceMetricsSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 {
     Super::Initialize(Collection);
+    FPSResourceLifecycle::Record(this, TEXT("World.Initialize"));
     FrameSamples.SetNum(MaxSamples);
     CompletedEvents.SetNum(MaxEvents);
     ActiveEvents.Reserve(16);
@@ -79,6 +82,7 @@ void UFPSPerformanceMetricsSubsystem::Initialize(FSubsystemCollectionBase& Colle
 
 void UFPSPerformanceMetricsSubsystem::Deinitialize()
 {
+    FPSResourceLifecycle::Record(this, TEXT("World.Deinitialize"));
     // Ordinary map travel destroys this World collector, but the GameInstance
     // retains the user's capture and the destination World reattaches it.
     GpuTraceCapture.Reset();
@@ -98,6 +102,7 @@ void UFPSPerformanceMetricsSubsystem::Deinitialize()
     WorstHitches.Empty();
     RenderResourceSamples.Empty();
     PreviousRenderHandles.Empty();
+    PreviousDeformationInputs.Empty();
     Super::Deinitialize();
 }
 
@@ -110,6 +115,7 @@ void UFPSPerformanceMetricsSubsystem::ClearSamples()
     ResetEncounterDiagnostics();
     RenderResourceSamples.Reset();
     PreviousRenderHandles.Reset();
+    PreviousDeformationInputs.Reset();
     RenderResourceWriteIndex = 0;
     RenderResourceSamplesOverwritten = 0;
     NextRenderResourceSampleSeconds = 0.0;
@@ -144,6 +150,7 @@ void UFPSPerformanceMetricsSubsystem::SetRecording(bool bEnabled)
     else
     {
         if (GpuTraceCapture) GpuTraceCapture->RequestStop(TEXT("recording_stopped"));
+        PreviousDeformationInputs.Reset();
         ArchiveCombatWindow(false); InvalidateActiveEvents(); GpuInventoryRequests.Reset();
     }
 }
@@ -155,6 +162,9 @@ void UFPSPerformanceMetricsSubsystem::ToggleGpuTraceCapture()
     if (UGameInstance* GameInstance = GetWorld()->GetGameInstance())
         if (auto* TraceSession = GameInstance->GetSubsystem<UFPSGpuTraceSessionSubsystem>())
             GpuTraceCapture = TraceSession->StartCapture(SessionId, CaptureGeneration);
+#if !UE_BUILD_SHIPPING
+    if (GpuTraceCapture) HillsLiveTrace::StartForGpuCapture(GetWorld(),GpuTraceCapture.ToSharedRef());
+#endif
     NextRenderResourceSampleSeconds = 0.;
 }
 

@@ -8,6 +8,7 @@ class UScrollBox;
 class UHorizontalBox;
 class UButton;
 class UTextBlock;
+class UTexture2D;
 class UVerticalBox;
 class UColdSteelStatusModel;
 /** One read-only inspector shared by inventory, equipment and warehouse. */
@@ -16,7 +17,8 @@ class FPSGAME_API UColdSteelItemTooltip : public UUserWidget
 {
     GENERATED_BODY()
 public:
-    void ShowItem(const FString& Id,FVector2D Anchor,bool Pin,UWidget* Source);
+    explicit UColdSteelItemTooltip(const FObjectInitializer& ObjectInitializer);
+    void ShowItem(const FString& Id,FVector2D Anchor,bool Pin,UWidget* Source,const FColdSteelItemTooltipPreview* Preview=nullptr);
     void Hide(bool Force=false);
     bool IsPinned()const{return bPinned&&IsVisible();}
     const FString& ItemId()const{return InstanceId;}
@@ -45,6 +47,9 @@ private:
     UPROPERTY() TObjectPtr<UButton> Close;
     UPROPERTY() TObjectPtr<UTextBlock> TitleText;
     UPROPERTY() TObjectPtr<UTextBlock> MetaText;
+    UPROPERTY() TObjectPtr<UTextBlock> EnhancementText;
+    UPROPERTY() TObjectPtr<UWidget> EnhancementTarget;
+    UPROPERTY() TObjectPtr<UTexture2D> EffectArrowAtlas;
     UPROPERTY() TObjectPtr<UTextBlock> LocationText;
     UPROPERTY() TObjectPtr<UTextBlock> ScopeText;
     UPROPERTY() TObjectPtr<UTextBlock> FooterText;
@@ -52,6 +57,7 @@ private:
     UPROPERTY() TObjectPtr<UTextBlock> ComparisonText;
     UPROPERTY() TObjectPtr<UTextBlock> MissingIcon;
     UPROPERTY() TObjectPtr<class UImage> Icon;
+    UPROPERTY() TObjectPtr<class UProgressBar> FoodProgressBar;
     UPROPERTY() TObjectPtr<class UColdSteelWeaponIcons> WeaponIcons;
     UPROPERTY() TMap<FString,TObjectPtr<class UTexture2D>> TextureCache;
     UPROPERTY() TMap<FString,TObjectPtr<class UExpandableArea>> Sections;
@@ -59,10 +65,12 @@ private:
     TWeakObjectPtr<UWidget> ReturnFocus;
     FDelegateHandle ChangedHandle,IconHandle;
     FColdSteelTooltipContent Presentation;
+    TOptional<FColdSteelItemTooltipPreview> PreviewInstance;
     FString InstanceId,Signature,IconKey;
     FVector2D At,Size,LastViewport,PlacedAt;
     float Scale=1;
     float WidthPixels=520,SettleSeconds=0;
+    float FoodRefreshSeconds=0;
     TMap<FString,bool> Expanded;
     struct FRowView
     {
@@ -75,14 +83,19 @@ private:
     bool bPinned=false,bHorizontalOverflow=false,bVerticalOverflow=false;
     bool bPlacementLocked=false,bStartDisclosureIntro=false;
     void Refresh();
+    void ProfileChanged();
+    const FColdSteelItem* DisplayedItem() const;
     void BuildCards();
     void FitAndPlace(bool RevealMain);
-    UTextBlock* Text(const FString&,float,const FLinearColor&,bool Numeric=false);
-    void AddRow(UVerticalBox*,const FColdSteelTooltipRow&,int32 Card,int32 Row,bool Compact=false);
+    UTextBlock* Text(const FString&,float,const FLinearColor&,bool bHeading=false);
+    UWidget* AddRow(UVerticalBox*,const FColdSteelTooltipRow&,int32 Card,int32 Row,bool Compact=false);
+    UWidget* WithEffectArrow(UTextBlock* Value,const FColdSteelTooltipRow& Row,float AvailableWidth);
     void AddRule(UVerticalBox*,float Top=10.f,float Bottom=10.f,bool Dashed=false,bool Dark=false);
     void AddCoreGrid(UVerticalBox*);
+    /** 套装进度与凑齐后属性：接在核心数值下面，非套装件不渲染。 */
+    void AddSetBlock(UVerticalBox*);
     void AddDetails(UVerticalBox*);
-    class UExpandableArea* AddSection(UVerticalBox*,const FString& Key,const FString& Title,bool Open);
+    class UExpandableArea* AddSection(UVerticalBox*,const FString& Key,const FString& Title,bool Open,const FString& Note=FString());
     void UpdateRows();
     void RefreshIcon();
     void OnWeaponIconReady(const FString& Recipe);
@@ -91,4 +104,5 @@ private:
     const FColdSteelTooltipRow& RowData(const FRowView&)const;
     UFUNCTION() void ExpansionChanged(class UExpandableArea* Area,bool Open);
     UFUNCTION() void CloseClicked();
+    UFUNCTION() void ShowEnhancementDetails();
 };

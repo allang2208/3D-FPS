@@ -179,3 +179,4 @@ if __name__=='__main__':
     else:
         if '--points-only' not in sys.argv[4:]:leaf_atlas(src)
         prepare(terrain,src,out)
+

@@ -34,7 +34,7 @@ void UStarMarrowComponent::LoadFlames()
 }
 void UStarMarrowComponent::StopFlames()
 {
-    for(auto& FX:FlameFX)if(FX){FX->DeactivateImmediate();FX->SetVisibility(false);}
+    for(auto& FX:FlameFX)if(FX){FX->SetVariableFloat(TEXT("User.Fade"),0.f);FX->DeactivateImmediate();FX->SetVisibility(false);}
     for(auto& History:FlameHistory)History.bValid=false;
 }
 void UStarMarrowComponent::UpdateFlames(float Delta)
@@ -55,15 +55,18 @@ void UStarMarrowComponent::UpdateFlames(float Delta)
     FFlameArmorAttachments Spans;
     if(Detail>0.f&&MatchingWeapon)FlameArmorAttachments::Gather(Player,Spans);
     static const FName StarMarrowBlade(TEXT("SM_FrostSword_Blade_star_marrow"));
+    // Measured modular blades use BladeSurface; SwordEdge is only the skeletal
+    // fallback. Select the sword identity and actual star-marrow mesh instead
+    // of rejecting the current shared attachment label.
     Spans.RemoveAll([](const FFlameArmorAttachment& S)
-    {const auto* Mesh=S.Geometry.Get();return S.Section!=TEXT("SwordEdge")||!Mesh||Mesh->GetFName()!=StarMarrowBlade;});
+    {const auto* Mesh=S.Geometry.Get();return !S.bSword||!Mesh||Mesh->GetFName()!=StarMarrowBlade;});
     const float Fade=FMath::Min(FMath::Clamp((Duration-Remaining())/.18f,0.f,1.f),FMath::Clamp(Remaining()/.45f,0.f,1.f));
     for(int32 Index=0;Index<FlameArmorAttachments::MaxLayers;++Index)
     {
         auto& History=FlameHistory[Index];
         auto* FX=FlameFX.IsValidIndex(Index)?FlameFX[Index].Get():nullptr;
         if(!Spans.IsValidIndex(Index))
-        {if(FX){FX->DeactivateImmediate();FX->SetVisibility(false);}History.bValid=false;continue;}
+        {if(FX){FX->SetVariableFloat(TEXT("User.Fade"),0.f);FX->DeactivateImmediate();FX->SetVisibility(false);}History.bValid=false;continue;}
         const auto& Span=Spans[Index];
         if(!FX)
         {
@@ -82,18 +85,27 @@ void UStarMarrowComponent::UpdateFlames(float Delta)
         const auto PrimitiveType=FirstPerson&&Primitive?Primitive->FirstPersonPrimitiveType:EFirstPersonPrimitiveType::None;
         if(FX->FirstPersonPrimitiveType!=PrimitiveType)FX->SetFirstPersonPrimitiveType(PrimitiveType);
         if(FX->bOnlyOwnerSee!=FirstPerson)FX->SetOnlyOwnerSee(FirstPerson);
+        const double BaseStepSq=History.bValid?FVector::DistSquared(History.Base,Span.Base):0.;
+        const double TipStepSq=History.bValid?FVector::DistSquared(History.Tip,Span.Tip):0.;
+        // Only true discontinuities (new cast, weapon/view swap, re-show, or teleport)
+        // recreate Niagara state; fast swings/dashes clamp wake history instead.
+        const bool LargeMotionStep=BaseStepSq>FMath::Square(180.)||TipStepSq>FMath::Square(240.);
+        const bool TeleportStep=BaseStepSq>FMath::Square(600.)||TipStepSq>FMath::Square(750.);
         const bool Reset=!History.bValid||History.Source!=Span.Source||History.Geometry!=Span.Geometry
-            ||History.EquipmentIdentity!=Span.EquipmentIdentity||FVector::DistSquared(History.Base,Span.Base)>FMath::Square(180.f)
-            ||FVector::DistSquared(History.Tip,Span.Tip)>FMath::Square(240.f);
+            ||History.EquipmentIdentity!=Span.EquipmentIdentity||TeleportStep||!FX->IsActive();
         if(Reset)
         {
-            History.Base=Span.Base;History.Tip=Span.Tip;FX->DeactivateImmediate();
+            History.Base=Span.Base;History.Tip=Span.Tip;
             // Change the cosmetic seed per charge/weapon, never per frame.
-            FX->SetVariableFloat(TEXT("User.VariationSeed"),FMath::Fmod(float(ChargedUntil),1024.f)
+            FX->SetVariableFloat(TEXT("User.VariationSeed"),float(FMath::Fmod(FMath::Max(0.,ChargedUntil),1024.))
                 +float(Span.EquipmentIdentity%997)*.137f+Index*71.3f);
         }
+        else if(LargeMotionStep)
+        {
+            History.Base=Span.Base;History.Tip=Span.Tip;
+        }
         const FVector Axis=(Span.Tip-Span.Base).GetSafeNormal();
-        if(Reset)
+        if(Reset||LargeMotionStep)
         {
             History.BaseFlow=History.TipFlow=FVector::ZeroVector;
         }
@@ -119,9 +131,15 @@ void UStarMarrowComponent::UpdateFlames(float Delta)
         FX->SetVariableFloat(TEXT("User.WeaponSize"),Span.Size);
         FX->SetVariableFloat(TEXT("User.Fade"),Fade*Span.Opacity);FX->SetVariableFloat(TEXT("User.Detail"),Detail);
         FX->SetVariableFloat(TEXT("User.Coverage"),FMath::Clamp(float(FVector::Distance(Span.Base,Span.Tip))/60.f,.3f,1.f));
-        FX->SetVariableFloat(TEXT("User.MotionEnergy"),FMath::Clamp(FMath::Max(History.BaseFlow.Size(),History.TipFlow.Size())/900.,0.,1.));
+        FX->SetVariableFloat(TEXT("User.MotionEnergy"),Reset?0.f:FMath::Clamp(float(FMath::Max(History.BaseFlow.Size(),History.TipFlow.Size())/900.),0.f,1.f));
         FX->SetVariableFloat(TEXT("User.FlameClock"),Duration-Remaining());
-        FX->SetVisibility(true);if(Reset||!FX->IsActive())FX->Activate(true);
+        if(!FX->IsVisible())FX->SetVisibility(true);
+        // WeaponFireballCore spawns once at emitter age zero via SpawnBurst
+        // (TotalSpawnedParticles < 1). Reusing a deactivated component with
+        // Activate(true) retains exhausted burst state and drops the core on
+        // subsequent casts or view swaps; recreate simulation state after
+        // writing fresh parameters.
+        if(Reset)FX->ReinitializeSystem();
         History.Source=Span.Source;History.Geometry=Span.Geometry;History.EquipmentIdentity=Span.EquipmentIdentity;
         History.Base=Span.Base;History.Tip=Span.Tip;History.bValid=true;
     }

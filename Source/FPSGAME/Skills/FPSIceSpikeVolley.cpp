@@ -1,4 +1,8 @@
 #include "FPSIceSpikeVolley.h"
+#include "../Combat/FPSAttackQuery.h"
+#include "../Monsters/MonsterSpellAim.h"
+#include "../Monsters/UnknownSpellCombat.h"
+#include "../Characters/FPSComponentVisibility.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "FPSIceWall.h"
 #include "../Dungeons/WardBreakableGlass.h"
@@ -171,7 +175,6 @@ void AFPSIceSpikeVolley::UpdateHover()
     const float VerticalDrift=FMath::Min(5.5f,VisibleHeight*.24f)*DriftScale;
     const float OverheadHeight=FMath::Max(4.f,VisibleHeight-VerticalDrift-IceSpikeHoverDropCM.GetValueOnGameThread());
     float Grow=FMath::Clamp(Age*Cast.CastSpeed/.95f,0.f,1.f);Grow=Grow*Grow*(3-2*Grow);
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(IceSpikeHover),false,Shooter.Get());Query.AddIgnoredActor(this);
     for(int32 I=0;I<Flights.Num();++I)
     {
         // Even indices take the left wing, so an odd count keeps its extra shard away
@@ -182,16 +185,15 @@ void AFPSIceSpikeVolley::UpdateHover()
         const float DriftY=FMath::PerlinNoise1D(Flight.HoverNoiseSeed.Y+Age*Flight.HoverNoiseRate.Y)*VerticalDrift*Grow;
         // Slot is already a cm offset from the aim axis (position already includes Spacing),
         // so it is added once here; each spike still meanders independently without orbit or spin.
-        FVector Desired=Eye+Forward*ForwardDistance+Right*(Slot+DriftX)+Up*(OverheadHeight+DriftY);
-        FHitResult Cover;
-        if(RangedAttackQuery::SweepSingle(GetWorld(), Shooter.Get(), Cover,Eye,Desired,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(18),Query))Desired=Cover.Location;
+        // Prepared hover ignores world geometry unconditionally so stairs/walls never snag shards.
+        const FVector Desired=Eye+Forward*ForwardDistance+Right*(Slot+DriftX)+Up*(OverheadHeight+DriftY);
         const FVector Previous=Age==0?Desired:Flights[I].Position;
         Flights[I].Position=Desired;
-        auto* Core=Cores[I].Get();Core->SetWorldLocation(Desired);
+        auto* Core=Cores[I].Get();Core->SetWorldLocation(Desired,false,nullptr,ETeleportType::TeleportPhysics);
         FRotator Facing=ViewRotation;Facing.Roll+=I*113.f;
         Core->SetWorldRotation(Facing);
         Core->SetWorldScale3D(FVector::OneVector*FMath::Max(.01f,Grow));
-        Core->SetVisibility(!Camera||FVector::DistSquared(Camera->GetComponentLocation(),Desired)>FMath::Square(35.f),true);
+        FPSComponentVisibility::SetVisibilityTree(Core,true);
         UpdateVapor(I,Previous,Core->IsVisible()?Grow:0.f);
     }
 }
@@ -237,12 +239,16 @@ void AFPSIceSpikeVolley::RefreshAimPreview()
     }
 }
 
-void AFPSIceSpikeVolley::LaunchAt(const FVector& AimPoint)
+void AFPSIceSpikeVolley::LaunchAt(const FVector& AimPoint, const APawn* LeadTarget)
 {
     if(bFinished||bFlying||!Shooter.IsValid())return;
-    PreviewAimPoint=AimPoint;bPreviewLaunchLocked=true;Launch();
+    PreviewAimPoint=AimPoint;bPreviewLaunchLocked=true;LaunchFromHover(LeadTarget);
 }
 void AFPSIceSpikeVolley::Launch()
+{
+    LaunchFromHover(nullptr);
+}
+void AFPSIceSpikeVolley::LaunchFromHover(const APawn* LeadTarget)
 {
     if(bFinished||bFlying||!Shooter.IsValid())return;
     bNetFlying=true; // 先于弹道写入复制，远端第一时间进入飞行表现
@@ -256,13 +262,19 @@ void AFPSIceSpikeVolley::Launch()
     bFlying=true;FlightAge=0;
     for(int32 I=0;I<Flights.Num();++I)
     {
-        // Each shard keeps its own hover offset and flies to the shared aim point, so the volley
-        // converges on what the crosshair covers. Gravity then bends every arc the same way.
         auto& F=Flights[I];
-        const float ToAimDistance=FVector::Distance(AimPoint,F.Position);
-        F.Remaining=FMath::Min(ToAimDistance,Cast.Range);F.bAimEndpoint=ToAimDistance<Cast.Range;
+        const FVector ShardAim = LeadTarget
+            ? MonsterSpellAim::LaunchAim(Shooter.Get(), LeadTarget, F.Position, AimPoint, Cast.Speed, Cast.Range, Cast.Gravity)
+            : AimPoint;
+        const float ToAimDistance=FVector::Distance(ShardAim,F.Position);
+        F.bAimEndpoint=ToAimDistance<Cast.Range;
+        // The compensated direction is speed * intercept time. Shatter at that
+        // time on the actual falling arc, still respecting collision and max range.
+        F.InterceptSeconds = LeadTarget && Cast.Speed>0.f && ToAimDistance>UE_KINDA_SMALL_NUMBER && F.bAimEndpoint
+            ? ToAimDistance/Cast.Speed : 0.f;
+        F.Remaining = F.InterceptSeconds>0.f ? Cast.Range : FMath::Min(ToAimDistance,Cast.Range);
         F.LaunchPosition=F.Position;
-        F.LaunchVelocity=FPSMagicPreview::LaunchVelocity(F.Position,AimPoint,Cast.Speed,Shooter->GetActorForwardVector());
+        F.LaunchVelocity=FPSMagicPreview::LaunchVelocity(F.Position,ShardAim,Cast.Speed,Shooter->GetActorForwardVector());
         F.Direction=F.LaunchVelocity.GetSafeNormal();
         FRotator Facing=F.Direction.Rotation();Facing.Roll=I*113.f;
         Cores[I]->SetWorldLocation(F.Position);Cores[I]->SetWorldRotation(Facing);Cores[I]->SetWorldScale3D(FVector::OneVector);Cores[I]->SetVisibility(true,true);
@@ -303,19 +315,26 @@ void AFPSIceSpikeVolley::Tick(float Delta)
         const FVector Previous=F.Position;
         // Ballistic step: the analytic position comes from the shared launch state, so the drop is
         // frame-rate independent and the preview line reproduces exactly this arc.
+        const float SampleTime=F.InterceptSeconds>0.f?FMath::Min(FlightAge,F.InterceptSeconds):FlightAge;
         const FVector Next=FPSMagicPreview::LimitStep(Previous,
-            F.LaunchPosition+F.LaunchVelocity*FlightAge+.5f*Gravity*FlightAge*FlightAge,F.Remaining);
+            F.LaunchPosition+F.LaunchVelocity*SampleTime+.5f*Gravity*SampleTime*SampleTime,F.Remaining);
         const float Step=FVector::Distance(Previous,Next);const FVector End=Next;
-        F.Direction=(F.LaunchVelocity+Gravity*FlightAge).GetSafeNormal(UE_SMALL_NUMBER,FVector::ForwardVector);
+        F.Direction=(F.LaunchVelocity+Gravity*SampleTime).GetSafeNormal(UE_SMALL_NUMBER,FVector::ForwardVector);
         Trails[I]->SetVariablePosition(TEXT("User.PreviousPosition"),F.Position);
-        FCollisionQueryParams Query(SCENE_QUERY_STAT(IceSpikeFlight),false,Shooter.Get());Query.AddIgnoredActor(this);FHitResult Hit;
+        FFPSAttackQuery Query(SCENE_QUERY_STAT(IceSpikeFlight),false,Shooter.Get());Query.AddIgnoredActor(this);FHitResult Hit;
         // A body that is already down does not consume a spike: the volley converges on one
         // aim point, so the spikes arriving after the kill fly through the corpse and carry
         // on to whatever stands behind it. Walls and live enemies still stop them.
+        auto TraceSpike=[&](const FVector& To)
+        {
+            return UnknownSpell::IsCaster(Shooter.Get())?
+                RangedAttackQuery::TraceToPlayer(GetWorld(),Shooter.Get(),Hit,F.Position,To,18.f,Query):
+                RangedAttackQuery::SweepSingle(GetWorld(),Shooter.Get(),Hit,F.Position,To,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(18),Query);
+        };
         bool bBlocked=false;
         for(int32 Pass=0;Pass<8;++Pass)
         {
-            bBlocked=RangedAttackQuery::SweepSingle(GetWorld(), Shooter.Get(), Hit,F.Position,End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(18),Query);
+            bBlocked=TraceSpike(End);
             if(!bBlocked)break;
             const auto* Blocking=IsValid(Hit.GetActor())?Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>():nullptr;
             if(!Blocking||!Blocking->IsDead())break;
@@ -334,17 +353,18 @@ void AFPSIceSpikeVolley::Tick(float Delta)
                 AActor* Target=Hit.GetActor();
                 if(::Cast<AFPSIceWall>(Target))
                 {if(M)M->ApplyIceSpikeHit(Shooter.Get(),Hit,Cast,Rewards);break;}
-                if(!Target||!Target->FindComponentByClass<UMonsterCombatComponent>()||Settled.Contains(Target))break;
+                if(!Target||(!Target->FindComponentByClass<UMonsterCombatComponent>()&&!UnknownSpell::IsTarget(Shooter.Get(),Target))||Settled.Contains(Target))break;
                 Settled.Add(Target);if(M)M->ApplyIceSpikeHit(Shooter.Get(),Hit,Cast,Rewards);
                 Query.AddIgnoredActor(Target);
             }
-            while(RangedAttackQuery::SweepSingle(GetWorld(), Shooter.Get(), Hit,F.Position,ClusterEnd,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(18),Query));
+            while(TraceSpike(ClusterEnd));
             F.Position=First.Location;Shatter(I,First.ImpactPoint,First.ImpactNormal,true);
         }
         else
         {
             F.Position=End;F.Remaining-=Step;Cores[I]->SetWorldLocation(End);
-            if(F.Remaining<=UE_KINDA_SMALL_NUMBER)Shatter(I,End,-F.Direction,F.bAimEndpoint);
+            if(F.Remaining<=UE_KINDA_SMALL_NUMBER || (F.InterceptSeconds>0.f && FlightAge>=F.InterceptSeconds))
+                Shatter(I,End,-F.Direction,F.bAimEndpoint);
         }
         if(F.bActive)UpdateVapor(I,Previous,1.f);
     }
@@ -466,7 +486,7 @@ void AFPSIceSpikeVolley::NetPresent(float Delta)
         Core->SetWorldLocation(Flights[I].Position);
         FRotator Facing=Flights[I].Direction.Rotation();Facing.Roll+=I*113.f;
         Core->SetWorldRotation(Facing);Core->SetWorldScale3D(FVector::OneVector*FMath::Max(.01f,Scale));
-        Core->SetVisibility(Flights[I].bActive&&(!Camera||FVector::DistSquared(Camera->GetComponentLocation(),Flights[I].Position)>FMath::Square(35.f)),true);
+        FPSComponentVisibility::SetVisibilityTree(Core,Flights[I].bActive&&(!Camera||FVector::DistSquared(Camera->GetComponentLocation(),Flights[I].Position)>FMath::Square(35.f)));
         if(Flights[I].bActive&&I<Trails.Num()&&I<Vapors.Num())
         {
             auto* Trail=Trails[I].Get();auto* Vapor=Vapors[I].Get();

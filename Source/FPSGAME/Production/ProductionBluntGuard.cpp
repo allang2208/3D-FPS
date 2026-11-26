@@ -14,11 +14,12 @@ bool UProductionToolComponent::IsGuardActive() const
 }
 bool UProductionToolComponent::HasAuthorityAttackInFlight() const
 {
-    return IsThunderHammerAway()||bBluntServerCharging||bBluntUppercut||bBluntWhirlwind||
+    return IsPojunChainOccupied()||IsLeapStrikeActive()||IsThunderHammerAway()||bBluntServerCharging||bBluntUppercut||bBluntWhirlwind||
         (GetWorld()&&GetWorld()->GetTimeSeconds()<BluntServerReadyAt);
 }
 bool UProductionToolComponent::CanQueueGuard() const
 {
+    if(IsLeapStrikeActive()||IsPojunChainOccupied())return false;
     if(IsThunderHammerAway()||ThunderCatchAge>=0.f||!IsWarhammerEquipped()||!CanUse()||!HasReadyPresentation()||bBluntUppercut||bBluntWhirlwind
         ||(bBluntSprintAttack&&Elapsed>=0.f)||IsQuickCombatActive())return false;
     for(const TCHAR* Clip:WarhammerGuard::Clips)if(!Motions.FindRef(Clip))return false;

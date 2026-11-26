@@ -1,4 +1,5 @@
 #include "SlagMistViewComponent.h"
+#include "../Combat/CombatControlImmunity.h"
 #include "SlagBlackMist.h"
 #include "FPSCombatHealthComponent.h"
 #include "../Combat/CombatStatusFormula.h"
@@ -73,6 +74,9 @@ void USlagMistViewComponent::TickComponent(float Dt, ELevelTick Type, FActorComp
     const auto* Vitals = GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
     if (!Pawn || !Pawn->IsPlayerControlled() || (Vitals && Vitals->IsDead()))
     { ClearBlindness(); RemoveViewLayer(); SetComponentTickEnabled(false); return; }
+    // Suppress the blindness debuff, while the world smoke and its damage remain.
+    if (CombatControl::IsImmune(Pawn))
+    { ClearBlindness(); RemoveViewLayer(); return; }
     auto* PC = Cast<APlayerController>(Pawn->GetController());
     FVector Eye; FRotator Rotation; Pawn->GetActorEyesViewPoint(Eye, Rotation);
     if (PC && PC->IsLocalController() && PC->PlayerCameraManager)

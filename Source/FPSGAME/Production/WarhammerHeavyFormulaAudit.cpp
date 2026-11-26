@@ -92,10 +92,10 @@ int32 UWarhammerModificationAuditCommandlet::AuditHeavyFormula(const FString& Pa
             if(Level==1||Level==10||Level==20)
             {
                 Tool->CancelUse();Tool->BluntServerReadyAt=0.;Guest->AdoptNetMirror(Seed);
-                Tool->ServerBeginBluntCharge_Implementation(++Request);
+                Tool->ServerBeginBluntCharge_Implementation(++Request,Hammer.InstanceId);
                 Check(Tool->bBluntServerCharging,Label+TEXT(" authority accepted charge"));
                 Tool->BluntServerChargeStartedAt=World->GetTimeSeconds()-Charge-.05;
-                Tool->ServerBeginBluntAttack_Implementation(Request,true,false);
+                Tool->ServerBeginBluntAttack_Implementation(Request,true,false,Hammer.InstanceId);
                 Check(Guest->Stamina()<Seed.Stamina,Label+TEXT(" authority accepted release"));
                 Panel(Tool->AxeStrike.DamagePanel,Stats.Damage.Scaled(Expected),Label+TEXT(" authoritative heavy snapshot"));
                 Tool->CancelUse();Tool->BluntServerReadyAt=0.;
@@ -154,9 +154,9 @@ int32 UWarhammerModificationAuditCommandlet::AuditHeavyFormula(const FString& Pa
         Equal(Stats.HeavyDamageMultiplier,Expected,TEXT("synthetic multiply then flat then martial"));
         Equal(ColdSteelTool::Evaluate(Hammer,Guest,&Parts).HeavyDamageMultiplier,Expected,TEXT("synthetic UI draft agrees"));
         Tool->CancelUse();Tool->BluntServerReadyAt=0.;
-        Tool->ServerBeginBluntCharge_Implementation(++Request);
+        Tool->ServerBeginBluntCharge_Implementation(++Request,Hammer.InstanceId);
         Tool->BluntServerChargeStartedAt=World->GetTimeSeconds()-Stats.HeavyChargeSeconds-.05;
-        Tool->ServerBeginBluntAttack_Implementation(Request,true,false);
+        Tool->ServerBeginBluntAttack_Implementation(Request,true,false,Hammer.InstanceId);
         Check(Tool->bThunderThrowSeat&&Guest->Stamina()<Seed.Stamina,TEXT("GuanLei authority accepts modified heavy release"));
         Panel(Tool->AxeStrike.DamagePanel,Stats.Damage.Scaled(Expected),TEXT("GuanLei authoritative mixed modifier snapshot"));
         Tool->CancelUse();Tool->BluntServerReadyAt=0.;FixturePart->Melee=OriginalModifiers;

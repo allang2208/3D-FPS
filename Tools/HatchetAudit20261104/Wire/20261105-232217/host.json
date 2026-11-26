@@ -1,0 +1,61 @@
+{
+	"passed": true,
+	"cases": [
+		{
+			"case": "late_join_existing_finish",
+			"passed": true,
+			"client": "hand=0 axe_heavy_cleaver/knife_mark_peaks snap=1 root=1 tail=1 good=1; hand=1 axe_folded_arc/knife_mark_wing snap=1 root=1 tail=1 good=1; local=1 totals=2/2/2 | host observer: hand=0 factory/knife_mark_wing snap=1 root=1 tail=1 good=1; hand=1 axe_swift_crescent/knife_mark_knot snap=1 root=1 tail=1 good=1; local=0 totals=2/2/2",
+			"server_host": "hand=0 factory/knife_mark_wing snap=1 root=1 tail=1 good=1; hand=1 axe_swift_crescent/knife_mark_knot snap=1 root=1 tail=1 good=1; local=1 totals=2/2/2",
+			"server_guest": "hand=0 axe_heavy_cleaver/knife_mark_peaks snap=1 root=1 tail=1 good=1; hand=1 axe_folded_arc/knife_mark_wing snap=1 root=1 tail=1 good=1; local=0 totals=2/2/2"
+		},
+		{
+			"case": "finish_only_change",
+			"passed": true,
+			"client": "hand=0 axe_heavy_cleaver/knife_mark_wing snap=1 root=1 tail=1 good=1; hand=1 axe_folded_arc/knife_mark_knot snap=1 root=1 tail=1 good=1; local=1 totals=2/2/2 | host observer: hand=0 factory/knife_mark_knot snap=1 root=1 tail=1 good=1; hand=1 axe_swift_crescent/knife_mark_peaks snap=1 root=1 tail=1 good=1; local=0 totals=2/2/2",
+			"server_host": "hand=0 factory/knife_mark_knot snap=1 root=1 tail=1 good=1; hand=1 axe_swift_crescent/knife_mark_peaks snap=1 root=1 tail=1 good=1; local=1 totals=2/2/2",
+			"server_guest": "hand=0 axe_heavy_cleaver/knife_mark_wing snap=1 root=1 tail=1 good=1; hand=1 axe_folded_arc/knife_mark_knot snap=1 root=1 tail=1 good=1; local=0 totals=2/2/2"
+		},
+		{
+			"case": "native_rune_and_guard_change",
+			"passed": true,
+			"client": "hand=0 hatchet_ghost_scythe/knife_mark_wing snap=1 root=1 tail=1 good=1; hand=1 axe_heavy_cleaver/knife_mark_knot snap=1 root=1 tail=1 good=1; local=1 totals=2/2/2 | host observer: hand=0 hatchet_falcon_edge/knife_mark_peaks snap=1 root=1 tail=1 good=1; hand=1 hatchet_ghost_scythe/knife_mark_peaks snap=1 root=1 tail=1 good=1; local=0 totals=2/2/2",
+			"server_host": "hand=0 hatchet_falcon_edge/knife_mark_peaks snap=1 root=1 tail=1 good=1; hand=1 hatchet_ghost_scythe/knife_mark_peaks snap=1 root=1 tail=1 good=1; local=1 totals=2/2/2",
+			"server_guest": "hand=0 hatchet_ghost_scythe/knife_mark_wing snap=1 root=1 tail=1 good=1; hand=1 axe_heavy_cleaver/knife_mark_knot snap=1 root=1 tail=1 good=1; local=0 totals=2/2/2"
+		},
+		{
+			"case": "factory_finish_restore",
+			"passed": true,
+			"client": "hand=0 axe_heavy_cleaver/factory snap=1 root=1 tail=0 good=1; hand=1 axe_folded_arc/factory snap=1 root=1 tail=0 good=1; local=1 totals=2/2/0 | host observer: hand=0 factory/factory snap=1 root=1 tail=0 good=1; hand=1 axe_swift_crescent/factory snap=1 root=1 tail=0 good=1; local=0 totals=2/2/0",
+			"server_host": "hand=0 factory/factory snap=1 root=1 tail=0 good=1; hand=1 axe_swift_crescent/factory snap=1 root=1 tail=0 good=1; local=1 totals=2/2/0",
+			"server_guest": "hand=0 axe_heavy_cleaver/factory snap=1 root=1 tail=0 good=1; hand=1 axe_folded_arc/factory snap=1 root=1 tail=0 good=1; local=0 totals=2/2/0"
+		},
+		{
+			"case": "unequip",
+			"passed": true,
+			"client": "hand=0 axe_heavy_cleaver/knife_mark_peaks snap=0 root=0 tail=0 good=1; hand=1 axe_folded_arc/knife_mark_wing snap=0 root=0 tail=0 good=1; local=1 totals=0/0/0 | host observer: hand=0 factory/knife_mark_wing snap=0 root=0 tail=0 good=1; hand=1 axe_swift_crescent/knife_mark_knot snap=0 root=0 tail=0 good=1; local=0 totals=0/0/0",
+			"server_host": "hand=0 factory/knife_mark_wing snap=0 root=0 tail=0 good=1; hand=1 axe_swift_crescent/knife_mark_knot snap=0 root=0 tail=0 good=1; local=1 totals=0/0/0",
+			"server_guest": "hand=0 axe_heavy_cleaver/knife_mark_peaks snap=0 root=0 tail=0 good=1; hand=1 axe_folded_arc/knife_mark_wing snap=0 root=0 tail=0 good=1; local=0 totals=0/0/0"
+		},
+		{
+			"case": "reequip",
+			"passed": true,
+			"client": "hand=0 hatchet_falcon_edge/knife_mark_knot snap=1 root=1 tail=1 good=1; hand=1 hatchet_ghost_scythe/knife_mark_peaks snap=1 root=1 tail=1 good=1; local=1 totals=2/2/2 | host observer: hand=0 hatchet_ghost_scythe/knife_mark_peaks snap=1 root=1 tail=1 good=1; hand=1 hatchet_falcon_edge/knife_mark_wing snap=1 root=1 tail=1 good=1; local=0 totals=2/2/2",
+			"server_host": "hand=0 hatchet_ghost_scythe/knife_mark_peaks snap=1 root=1 tail=1 good=1; hand=1 hatchet_falcon_edge/knife_mark_wing snap=1 root=1 tail=1 good=1; local=1 totals=2/2/2",
+			"server_guest": "hand=0 hatchet_falcon_edge/knife_mark_knot snap=1 root=1 tail=1 good=1; hand=1 hatchet_ghost_scythe/knife_mark_peaks snap=1 root=1 tail=1 good=1; local=0 totals=2/2/2"
+		},
+		{
+			"case": "reconnect_retained_equipment",
+			"passed": true,
+			"client": "hand=0 hatchet_falcon_edge/knife_mark_knot snap=1 root=1 tail=1 good=1; hand=1 hatchet_ghost_scythe/knife_mark_peaks snap=1 root=1 tail=1 good=1; local=1 totals=2/2/2 | host observer: hand=0 hatchet_ghost_scythe/knife_mark_peaks snap=1 root=1 tail=1 good=1; hand=1 hatchet_falcon_edge/knife_mark_wing snap=1 root=1 tail=1 good=1; local=0 totals=2/2/2",
+			"server_host": "hand=0 hatchet_ghost_scythe/knife_mark_peaks snap=1 root=1 tail=1 good=1; hand=1 hatchet_falcon_edge/knife_mark_wing snap=1 root=1 tail=1 good=1; local=1 totals=2/2/2",
+			"server_guest": "hand=0 hatchet_falcon_edge/knife_mark_knot snap=1 root=1 tail=1 good=1; hand=1 hatchet_ghost_scythe/knife_mark_peaks snap=1 root=1 tail=1 good=1; local=0 totals=2/2/2"
+		}
+	],
+	"weapon": "ue_tactical_hatchet",
+	"actual_network_transport": true,
+	"rendered": false,
+	"reconnected": true,
+	"scope": "production body equipment capture/replication/OnRep reconstruction over UDP; same retained server-side item instances after reconnect; fixture-seeded inventory, no attack RPC or inventory upload",
+	"lag_ms_per_peer": 60,
+	"loss_percent_per_peer": 3
+}

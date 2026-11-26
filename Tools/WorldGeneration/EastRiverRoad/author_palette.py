@@ -35,3 +35,4 @@ for mesh in floor:
                 (span,2*e.z,o.x,o.y,o.z-e.z,mesh.get_name()))
 Path(__file__).with_name('EastRiverRoadFloorPalette.inl').write_text(
     '// Authored from the imported mesh bounds by author_palette.py\n'+'\n'.join(rows)+'\n')
+

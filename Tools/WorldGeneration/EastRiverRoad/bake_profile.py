@@ -132,3 +132,4 @@ if __name__=='__main__':
     parser=argparse.ArgumentParser()
     for k in ('layout','heightmap','terrain','dest','receipt'):parser.add_argument(k,type=Path)
     bake(**vars(parser.parse_args()))
+

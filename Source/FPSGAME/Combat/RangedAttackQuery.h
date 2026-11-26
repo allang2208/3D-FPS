@@ -21,6 +21,9 @@ FPSGAME_API bool LineTraceTest(UWorld* World, const AActor* Source,
 FPSGAME_API bool SweepSingle(UWorld* World, const AActor* Source, FHitResult& Hit,
     const FVector& Start, const FVector& End, const FQuat& Rotation, ECollisionChannel Channel,
     const FCollisionShape& Shape, const FCollisionQueryParams& Query);
+/** Nearest solid cover or opposing player/artisan capsule, including capsules that ignore Visibility. */
+FPSGAME_API bool TraceToPlayer(UWorld* World,const AActor* Source,FHitResult& Hit,const FVector& Start,const FVector& End,
+    float Radius,const FCollisionQueryParams& Query);
 FPSGAME_API bool SweepMulti(UWorld* World, const AActor* Source, TArray<FHitResult>& Hits,
     const FVector& Start, const FVector& End, const FQuat& Rotation, ECollisionChannel Channel,
     const FCollisionShape& Shape, const FCollisionQueryParams& Query);

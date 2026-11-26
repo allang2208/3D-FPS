@@ -13,7 +13,7 @@ TAutoConsoleVariable<int32> MonsterCaptureVersion(TEXT("fps.Perf.MonsterCaptureV
     TEXT("Version of the opt-in AI and render attribution capture."), ECVF_ReadOnly);
 TWeakObjectPtr<UFPSPerformanceMetricsSubsystem> CaptureMetrics;
 bool bCaptureActive = false, bPreviousRecording = false;
-int32 PreviousSampling = 1, PreviousInventory = 0;
+int32 PreviousSampling = 0, PreviousInventory = 0;
 
 void EndCaptureResources()
 {

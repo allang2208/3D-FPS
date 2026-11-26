@@ -1,3 +1,6 @@
+#include "Saiga12KAttachments.h"
+#include "M24Attachments.h"
+#include "M249WeaponAssets.h"
 #include "LMG201WeaponAssets.h"
 #include "HK416WeaponAssets.h"
 #include "HK416Attachments.h"
@@ -11,9 +14,11 @@
 #include "M16Attachments.h"
 #include "A762WeaponAssets.h"
 #include "AKMSovietCalibration.h"
+#include "Saiga12KWeaponAssets.h"
 #include "AKMAttachmentVisual.h"
 #include "ASH12WeaponAssets.h"
 #include "M16WeaponAssets.h"
+#include "RifleSuppressedAudioAssets.h"
 #include "QBZ191Attachments.h"
 #include "TacticalSuppressorAssets.h"
 #include "DanWesson715FittedParts.h"
@@ -36,8 +41,42 @@
 #include "Camera/CameraComponent.h"
 #include "Sound/SoundBase.h"
 
+bool AFPSGAMECharacter::IsMuzzleSuppressed() const
+{
+    if(MuzzleVariant==SniperSuppressorAssets::Zhiming)
+        return SniperSuppressorAssets::SupportsZhiming(ActiveInventoryWeaponDefinition);
+    return (IsM24Weapon()&&MuzzleVariant==TEXT("m24_factory_suppressor"))||MuzzleVariant==TEXT("true")||MuzzleVariant==TEXT("tactical_suppressor")||MuzzleVariant==TEXT("multi_caliber_suppressor")||((ActiveInventoryWeaponDefinition==TEXT("ue_svd")||ActiveInventoryWeaponDefinition==TEXT("ue_svch"))&&MuzzleVariant==TEXT("sniper_heavy_suppressor"))||(bUseASH12&&MuzzleVariant==TEXT("ash12_tactical_suppressor"))||(IsRSH12Weapon()&&MuzzleVariant==TEXT("rsh12_heavy_suppressor"))||((IsSuper90Weapon()||IsSaiga12KWeapon())&&MuzzleVariant==TEXT("shotgun_suppressor"));
+}
+
 void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
 {
+    if(M249WeaponAssets::Matches(AKMViewmodel)){SetM249Muzzle(Variant);return;}
+    if(IsM24Weapon())
+    {
+        const bool Zhiming=Variant==SniperSuppressorAssets::Zhiming;
+        const bool Enabled=bInventoryWeaponReady&&(Variant==M24Attachments::Suppressor||Zhiming);
+        MuzzleAttachment=M24Attachments::Configure(this,AKMViewmodel,MuzzleAttachment,Variant,Enabled);
+        MuzzleVariant=Enabled?Variant:FString();
+        if(MuzzleAttachment&&MuzzleAttachment->GetStaticMesh())
+        {
+            if(const auto* Tip=MuzzleAttachment->GetStaticMesh()->FindSocket(TEXT("Muzzle")))MuzzleLocalTip=Tip->RelativeLocation;
+            MuzzleLocalAxis=Zhiming?FVector::ForwardVector:FVector(0,-1,0);
+        }
+        return;
+    }
+    if(IsSaiga12KWeapon())
+    {
+        SuppressedFireSound=LoadObject<USoundBase>(nullptr,ShotgunSuppressorAssets::SoundPath);
+        const bool Enabled=bInventoryWeaponReady&&Saiga12KAttachments::SupportsMuzzle(Variant);
+        const FTransform Mount(FRotator(0,90,0),Saiga12KWeaponAssets::Muzzle,FVector(.01f));
+        MuzzleAttachment=Saiga12KAttachments::Configure(this,AKMViewmodel,MuzzleAttachment,Variant,Enabled,Mount);
+        if(!Enabled||!MuzzleAttachment||!MuzzleAttachment->IsVisible()){MuzzleVariant.Reset();return;}
+        MuzzleLocalTip=FVector(Variant==ShotgunDuckbillAssets::Part?ShotgunDuckbillAssets::TipCM:
+            Variant==ShotgunSuppressorAssets::Part?ShotgunSuppressorAssets::TipCM:
+            Variant==ShotgunBirdcageAssets::Part?ShotgunBirdcageAssets::TipCM:ShotgunChokeAssets::TipCM,0,0);
+        if(const auto* Tip=MuzzleAttachment->GetStaticMesh()->FindSocket(TEXT("Muzzle")))MuzzleLocalTip=Tip->RelativeLocation;
+        MuzzleLocalAxis=FVector::ForwardVector;MuzzleVariant=Variant;return;
+    }
     if(IsSuper90Weapon())
     {
         SuppressedFireSound=LoadObject<USoundBase>(nullptr,ShotgunSuppressorAssets::SoundPath);
@@ -87,11 +126,19 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
         MuzzleVariant=Variant;
         return;
     }
-    if(Variant==SniperSuppressorAssets::Part)
+    // M16 owns both its one-shot and four-voice bank. Bind before shared
+    // suppressor early returns so attachment refresh cannot retain another gun.
+    if (bUseM16)
+        SuppressedFireSound=LoadObject<USoundBase>(nullptr,*M16WeaponAssets::SuppressedSoundPath());
+    // Also cover the common suppressor's already-mounted early return.
+    if (const TCHAR* Bank = RifleSuppressedAudioAssets::Bank(ActiveInventoryWeaponDefinition))
+        SuppressedFireSound = LoadObject<USoundBase>(nullptr, *RifleSuppressedAudioAssets::SoundPath(Bank));
+    if(Variant==SniperSuppressorAssets::Part||Variant==SniperSuppressorAssets::Zhiming)
     {
         if(!SniperSuppressorAssets::Supports(ActiveInventoryWeaponDefinition)||!bInventoryWeaponReady)
         {SetGunsmithMuzzle(TEXT("false"));return;}
-        auto* Part=LoadObject<UStaticMesh>(nullptr,SniperSuppressorAssets::MeshPath);
+        const bool Zhiming=Variant==SniperSuppressorAssets::Zhiming;
+        auto* Part=LoadObject<UStaticMesh>(nullptr,Zhiming?SniperSuppressorAssets::ZhimingMesh:SniperSuppressorAssets::MeshPath);
         if(!Part||!AKMViewmodel||!AKMViewmodel->GetSkeletalMeshAsset())return;
         if(!MuzzleAttachment)
         {
@@ -109,11 +156,12 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
         const FVector Up=bSVCH?SVCHWeaponAssets::SightUp:FVector::UpVector;
         // SVD replaces its separate factory muzzle. SVCH's integrated tip is
         // retained inside the exterior collar; neither gun/arm mesh is changed.
-        const FVector Seat=bSVCH?SVCHWeaponAssets::MuzzlePoint-Forward*.012f:SVDAttachments::MuzzleMount;
+        const FVector Seat=bSVCH?SVCHWeaponAssets::MuzzlePoint-Forward*(Zhiming?0.f:.012f):SVDAttachments::MuzzleMount;
         MuzzleAttachment->SetRelativeTransform(FTransform(FRotationMatrix::MakeFromXZ(Forward,Up).ToQuat(),Seat,FVector(.01f)));
         MuzzleAttachment->SetVisibility(true);
         SVDAttachments::FactorySections(AKMViewmodel,TEXT("FactoryMuzzle"),false);
-        MuzzleLocalAxis=FVector::ForwardVector;MuzzleLocalTip=FVector(SniperSuppressorAssets::TipCM,0,0);
+        MuzzleLocalAxis=FVector::ForwardVector;
+        MuzzleLocalTip=Zhiming?FVector::ZeroVector:FVector(SniperSuppressorAssets::TipCM,0,0);
         if(const auto* Tip=Part->FindSocket(TEXT("Muzzle")))MuzzleLocalTip=Tip->RelativeLocation;
         MuzzleVariant=Variant;
         if(!SuppressedFireSound)SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
@@ -244,7 +292,9 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
                 const int32 M=Render->LODRenderData[L].RenderSections[S].MaterialIndex;
                 if ((LMG201WeaponAssets::Matches(AKMViewmodel)&&Rifle->GetMaterials()[M].MaterialSlotName.ToString().StartsWith(TEXT("M_LMG201_FactoryMuzzle"))) || Rifle->GetMaterials()[M].MaterialSlotName==TEXT("M_A762_Flash_Hider") || (bPKM&&Rifle->GetMaterials()[M].MaterialSlotName.ToString().Contains(TEXT("__FactoryMuzzle")))) AKMViewmodel->ShowMaterialSection(M,S,!Enabled,L);
             }
-        SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));return;
+        if (!bSVD && !A762WeaponAssets::Matches(AKMViewmodel))
+            SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/M4MuzzlesV1/S_M4_Suppressed"));
+        return;
     }
     if(bUseQBZ191){
         const bool Enabled=Valid&&bInventoryWeaponReady;
@@ -269,7 +319,7 @@ void AFPSGAMECharacter::SetGunsmithMuzzle(const FString& Variant)
         MuzzleAttachment=AKMAttachment::Configure(this,AKMViewmodel,MuzzleAttachment,*Key,Enabled);
         MuzzleVariant=Enabled?Variant:TEXT("");
         if(Enabled&&MuzzleAttachment){const auto B=MuzzleAttachment->GetStaticMesh()->GetBounds();MuzzleLocalAxis=FVector::RightVector;MuzzleLocalTip=FVector(AKMSoviet::Muzzle.X*100.f,B.Origin.Y+B.BoxExtent.Y,AKMSoviet::Muzzle.Z*100.f);}
-        SuppressedFireSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Weapons/AKM/SuppressedAudio20260921/S_AKM_Suppressed"));return;
+        return;
     }
     const FString Desired=Valid&&bUsingM4Infima&&bInventoryWeaponReady?Variant:TEXT("");
     auto* Rifle=AKMViewmodel->GetSkeletalMeshAsset();if(!Rifle)return;
@@ -332,14 +382,17 @@ FTransform AFPSGAMECharacter::GetNativeMuzzleTransform() const
     }
     else
     {
-        if(bUseM16)Position=AKMViewmodel->GetSocketTransform(M16WeaponAssets::MuzzleMountBone).TransformPosition(FVector(0.f,M16WeaponAssets::FactoryMuzzleLengthCM*.01f,0.f));
+        if(IsM24Weapon())Position=M24Attachments::BareMuzzle(AKMViewmodel);
+        else if(bUseM16)Position=AKMViewmodel->GetSocketTransform(M16WeaponAssets::MuzzleMountBone).TransformPosition(FVector(0.f,M16WeaponAssets::FactoryMuzzleLengthCM*.01f,0.f));
+        else if(IsSaiga12KWeapon())Position=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(Saiga12KWeaponAssets::Muzzle);
         else if(AKMSoviet::Matches(AKMViewmodel))Position=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(AKMSoviet::Muzzle);
         // The SVCh carries its own measured muzzle: the shared WPN_SOCKET_Muzzle bone
         // keeps the SVD's baked position.
         else if(SVCHWeaponAssets::Matches(AKMViewmodel))Position=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformPosition(SVCHWeaponAssets::MuzzlePoint);
         else Position=AKMViewmodel->GetSocketLocation(TEXT("WPN_SOCKET_Muzzle"));
         if(bUseM16)Forward=AKMViewmodel->GetSocketQuaternion(M16WeaponAssets::MuzzleMountBone).GetAxisY();
-        else if(IsPistolWeapon()||IsTubeShotgunWeapon())Forward=(AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight"))-AKMViewmodel->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
+        else if(IsSaiga12KWeapon())Forward=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformVectorNoScale(Saiga12KWeaponAssets::Front-Saiga12KWeaponAssets::Rear).GetSafeNormal();
+        else if(IsM24Weapon()||IsPistolWeapon()||IsTubeShotgunWeapon()||M249WeaponAssets::Matches(AKMViewmodel))Forward=(AKMViewmodel->GetSocketLocation(TEXT("WPN_FrontSight"))-AKMViewmodel->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
         else if(SVCHWeaponAssets::Matches(AKMViewmodel))Forward=AKMViewmodel->GetSocketTransform(TEXT("WPN_root")).TransformVectorNoScale(SVCHWeaponAssets::FrontSight-SVCHWeaponAssets::RearSight).GetSafeNormal();
         else
         {
@@ -351,13 +404,13 @@ FTransform AFPSGAMECharacter::GetNativeMuzzleTransform() const
 }
 float AFPSGAMECharacter::GetShotgunPelletSpreadMultiplier() const
 {
-    return IsTubeShotgunWeapon()?ShotgunPelletSpreadMultiplier:1.f;
+    return IsShotgunWeapon()?ShotgunPelletSpreadMultiplier:1.f;
 }
 bool AFPSGAMECharacter::HasShotgunDuckbill() const
 {
     // Gameplay follows the saved/equipped recipe, including server pawns
     // without loaded cosmetic meshes. Switching/removing the part clears it.
-    return (IsSuper90Weapon())&&bShotgunDuckbillInstalled;
+    return (IsSuper90Weapon()||IsSaiga12KWeapon())&&bShotgunDuckbillInstalled;
 }
 FTransform AFPSGAMECharacter::GetEffectiveMuzzleTransform() const
 {

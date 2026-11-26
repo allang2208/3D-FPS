@@ -23,3 +23,4 @@ try {
     $receipt=[ordered]@{ asset='/Game/Characters/VillageBlacksmithNPC20261118/SK_Smith_Outfit'; sha256=$expected; source_revision='fitted neck, crossing apron straps, short placket and rolled sleeves'; changed_utc=[DateTime]::UtcNow.ToString('o') }
     $receipt | ConvertTo-Json | Set-Content -LiteralPath "$out/workshirt_installed.json" -Encoding utf8
 } finally {if($held){$guard.ReleaseMutex()};$guard.Dispose()}
+

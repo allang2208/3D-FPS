@@ -1,5 +1,8 @@
 #include "FPSElectricMagicComponent.h"
+#include "../Combat/FPSAttackQuery.h"
+#include "../Monsters/UnknownSpellCombat.h"
 #include "../Production/ThunderHammerRunes.h"
+#include "PlayerSkillPreparation.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "FPSFireballComponent.h"
@@ -65,20 +68,23 @@ void UFPSElectricMagicComponent::BeginPlay()
     TArray<FSoftObjectPath> Requests;for(const auto* Path:Paths)Requests.Emplace(Path);
     // Server requests may arrive before this pawn's cosmetic preload finishes.
     Assets.SetNum(Requests.Num());
-    AssetLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Requests,FStreamableDelegate::CreateWeakLambda(this,[this,Requests]()
+    const auto Ready=FSimpleDelegate::CreateWeakLambda(this,[this,Requests]()
     {
         bAssetsReady=true;
         for(int32 I=0;I<Requests.Num();++I){Assets[I]=Requests[I].ResolveObject();bAssetsReady&=Assets[I]!=nullptr;}
         if(GetOwner()->HasAuthority())
         {if(bDomainActive&&!bDomainFading&&!CloudFX)SpawnDomainFX();PlayDomainStartSound();}
         else OnRep_Domain();
-    }));
+    });
+    PlayerSkillAssets::Defer(GetOwner(),TEXT("stormDomain"),Ready,Requests);
+    PlayerSkillAssets::Defer(GetOwner(),TEXT("thunderLance"),Ready,Requests);
 }
 UColdSteelStatusModel* UFPSElectricMagicComponent::Model() const
-{return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
+{return NetCast::LocalModel(*this);}
 UFPSFireballComponent* UFPSElectricMagicComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
 bool UFPSElectricMagicComponent::Enemy(AActor* Actor) const
-{const auto* C=IsValid(Actor)?Actor->FindComponentByClass<UMonsterCombatComponent>():nullptr;return Actor!=GetOwner()&&C&&!C->IsDead()&&!RangedAttackQuery::IsFriendlyUnit(GetOwner(),Actor);}
+{if(UnknownSpell::IsCaster(GetOwner()))return UnknownSpell::IsTarget(GetOwner(),Actor);
+ const auto* C=IsValid(Actor)?Actor->FindComponentByClass<UMonsterCombatComponent>():nullptr;return Actor!=GetOwner()&&C&&!C->IsDead()&&!RangedAttackQuery::IsFriendlyUnit(GetOwner(),Actor);}
 TArray<AActor*> UFPSElectricMagicComponent::Nearby(const FVector& Center,float Radius) const
 {
     TArray<FOverlapResult> Hits;TArray<AActor*> Result;
@@ -417,7 +423,7 @@ void UFPSElectricMagicComponent::Overload(AActor* Origin,const FLightningCast& S
 }
 void UFPSElectricMagicComponent::ApplyStatus(AActor* Target,const FLightningCast& Spell,FElectricMagicRewards& Rewards)
 {
-    auto* C=Target->FindComponentByClass<UMonsterCombatComponent>();if(!C||C->IsDead())return;
+    auto* C=Target->FindComponentByClass<UMonsterCombatComponent>();if((!C||C->IsDead())&&!UnknownSpell::IsTarget(GetOwner(),Target))return;
     auto* S=UCombatStatusFormula::GetOrAdd(Target);if(S->IsImmune())return;
     // Native stun and bell extension are shared by all electric damage hits.
     if(S->AddElectrified(ThunderHammerRunes::Stacks(Spell,Spell.ElectrifyStacks),Spell.ElectrifyDuration,Spell.OverloadStacks,Spell.ElectricBonusPerStack,Spell.OverloadRetainedStacks))Overload(Target,Spell,Rewards);
@@ -484,7 +490,7 @@ void UFPSElectricMagicComponent::FireLanceBody(APawn* P,UColdSteelStatusModel* M
     const float Visual=FMath::Lerp(.55f,1.f,Ratio);
     const FVector Start=CastOrigin();
     const auto Targets=Nearby(Eye+Dir*Spell.Hit.Range*.5f,Spell.Hit.Range*.5f+Spell.HalfWidth+120);
-    FCollisionQueryParams Walls(SCENE_QUERY_STAT(ThunderLanceWalls),true,P);for(auto* T:Targets)Walls.AddIgnoredActor(T);
+    FFPSAttackQuery Walls(SCENE_QUERY_STAT(ThunderLanceWalls),true,P);for(auto* T:Targets)Walls.AddIgnoredActor(T);
     FHitResult EndHit;const bool Blocked=MagicOcclusion::TraceBlocker(GetWorld(),Eye,Eye+Dir*Spell.Hit.Range,Walls,EndHit,P);
     const FVector End=Blocked?EndHit.ImpactPoint:Eye+Dir*Spell.Hit.Range;
     const float Reach=FVector::DotProduct(End-Eye,Dir);
@@ -522,7 +528,7 @@ void UFPSElectricMagicComponent::FireLanceBody(APawn* P,UColdSteelStatusModel* M
     for(const auto& Entry:Ordered)
     {
         auto* T=Entry.Value;if(!Enemy(T))continue;const auto* Status=T->FindComponentByClass<UCombatStatusFormula>();const int32 Stacks=Status?Status->ElectrifiedCount():0;
-        FCollisionQueryParams Direct(SCENE_QUERY_STAT(ThunderLanceWeakpoint),true,P);for(auto* Other:Targets)if(Other!=T)Direct.AddIgnoredActor(Other);
+        FFPSAttackQuery Direct(SCENE_QUERY_STAT(ThunderLanceWeakpoint),true,P);for(auto* Other:Targets)if(Other!=T)Direct.AddIgnoredActor(Other);
         FHitResult BoneHit;const bool DirectContact=RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), BoneHit,Eye,End,ECC_Visibility,Direct)&&BoneHit.GetActor()==T;
         const float Damage=FMath::FloorToFloat(Spell.Hit.Damage*Ratio*Spell.ChargeBonus*(1+Stacks*Spell.StackDamage));
         if(M->ApplyLightningHit(P,T,Eye,Spell.Hit,Damage,Rewards.Hit,true,DirectContact?&BoneHit:nullptr))
@@ -533,6 +539,8 @@ void UFPSElectricMagicComponent::FireLanceBody(APawn* P,UColdSteelStatusModel* M
             SpawnArc(Eye+Dir*Entry.Key,HitPoint,Side,false,1.f,1.1f,false,40.f);
             SpawnBurst(HitPoint,(1+FMath::Min(5,Stacks)*.08f)*Visual);
             if(auto* C=T->FindComponentByClass<UMonsterCombatComponent>();C&&!C->IsDead())C->ReceiveMeleeKnockback(P,Spell.Knockback);
+            if(UnknownSpell::IsTarget(P,T))
+                if(auto* Character=Cast<ACharacter>(T))Character->LaunchCharacter(Dir*Spell.Knockback,false,false);
             ApplyStatus(T,Spell.Hit,Rewards);
         }
     }
@@ -591,13 +599,13 @@ bool UFPSElectricMagicComponent::NetRelease(APawn* Caster,const FColdSteelNetCas
     if(Spell.bRequiresStaff&&!Shadow->HasEquippedStaff())return false;
     if(Req.SkillId==TEXT("stormDomain"))
     {
-        if(!Req.CastId||!Shadow->CommitElectricMagicRelease(Req.SkillId))return false;
+        if(!Req.CastId||(!UnknownSpell::IsCaster(Caster)&&!Shadow->CommitElectricMagicRelease(Req.SkillId)))return false;
         PendingCast=Spell;StartDomain(Spell,Req.CastId,Shadow);
         GrantCastBuffs(Spell.Hit);
         return true;
     }
     // thunderLance：客人上报充能量+视线方向，服务端重算命中链。
-    if((GetNetMode()!=NM_DedicatedServer&&!bAssetsReady)||!Shadow->CommitElectricMagicRelease(Req.SkillId))return false;
+    if((GetNetMode()!=NM_DedicatedServer&&!bAssetsReady)||(!UnknownSpell::IsCaster(Caster)&&!Shadow->CommitElectricMagicRelease(Req.SkillId)))return false;
     const float Charge=FMath::Clamp(Req.Charge,0.f,Spell.MaxCharge);
     const float Ratio=FMath::Clamp(Charge/Spell.MaxCharge,.2f,1.f);
     const FVector Eye=Caster->GetPawnViewLocation();

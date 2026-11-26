@@ -1,4 +1,5 @@
 #include "ColdSteelDetailRow.h"
+#include "ColdSteelTextToolTip.h"
 #include "ColdSteelUIStyle.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Border.h"
@@ -42,7 +43,7 @@ void UColdSteelDetailRow::Configure(const FString& Label, float Scale, bool bNum
     PlusText->SetJustification(ETextJustify::Center);
     PlusButton->SetContent(PlusText);
     Cast<UButtonSlot>(PlusText->Slot)->SetPadding(FMargin(0));
-    PlusButton->SetToolTipText(FText::FromString(TEXT("分配 1 点")+Label));
+    ColdSteelToolTip::Set(*PlusButton, FText::FromString(TEXT("分配 1 点")+Label));
     PlusButton->OnClicked.AddDynamic(this, &ThisClass::HandleAllocate);
     PlusSize=WidgetTree->ConstructWidget<USizeBox>();PlusSize->SetContent(PlusButton);
     Row->AddChildToHorizontalBox(PlusSize)->SetVerticalAlignment(VAlign_Center);

@@ -1,6 +1,5 @@
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelStatusModel.h"
-#include "../Weapons/M249WeaponAssets.h"
 #include "ColdSteelEquipmentIconSource.h"
 #include "TransitLoadingSubsystem.h"
 #include "FPSPerformanceMetrics.h"
@@ -18,8 +17,11 @@
 #include "../FPSGAMECharacter.h"
 #include "../FPSGAMEPlayerController.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "../Weapons/M24Attachments.h"
 #include "../Weapons/RSH12MuzzleAssets.h"
 #include "../Weapons/Super90WeaponAssets.h"
+#include "../Weapons/M24WeaponAssets.h"
+#include "../Weapons/M249WeaponAssets.h"
 #include "../Weapons/Super90SpeedloaderAssets.h"
 #include "../Weapons/WeaponPresentationMaterials.h"
 #include "Animation/AnimSequence.h"
@@ -38,8 +40,10 @@
 #include "Rendering/SkeletalMeshRenderData.h"
 #include "TextureResource.h"
 #include "RenderingThread.h"
+#include "RHIGlobals.h"
 #include "Materials/Material.h"
 #include "MaterialShared.h"
+#include "Misc/App.h"
 #include "Misc/DateTime.h"
 #include "Materials/MaterialRenderProxy.h"
 #include "SceneInterface.h"
@@ -51,7 +55,7 @@
 #include "Serialization/JsonSerializer.h"
 #endif
 
-bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelInventory::IsBow(I)||ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||ColdSteelEquipmentIconMesh(I).IsValid()||(I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_hk416"))||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_lmg201")||I.Definition==TEXT("ue_super90")||I.Definition==TEXT("ue_m870")||(I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_svch"))||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||((I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011"))||(I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")));}
+bool UColdSteelWeaponIcons::Supports(const FColdSteelItem& I) const {return ColdSteelInventory::IsBow(I)||ColdSteelInventory::IsStaff(I)||ColdSteelMeleePreview::Supports(I)||ProductionHarvestAssets::IsIconSubject(I.Definition)||ColdSteelEquipmentIconMesh(I).IsValid()||(I.Definition==TEXT("ue_m4a1")||I.Definition==TEXT("ue_hk416"))||I.Definition==TEXT("ue_akm")||I.Definition==TEXT("ue_a762")||I.Definition==TEXT("ue_lmg201")||I.Definition==TEXT("ue_super90")||I.Definition==TEXT("ue_m870")||I.Definition==TEXT("ue_svd")||I.Definition==TEXT("ue_svch")||I.Definition==TEXT("ue_m24")||I.Definition==TEXT("ue_saiga12k")||I.Definition==TEXT("ue_pkm_lowpoly")||I.Definition==TEXT("ue_m249")||I.Definition==TEXT("ue_qbz191")||I.Definition==TEXT("ue_ash12")||I.Definition==TEXT("ue_m16a2")||((I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011"))||(I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")));}
 FString UColdSteelWeaponIcons::CatalogVariantIcon(const FString& Definition,const TMap<FString,FString>& Installed)
 {
     if(Definition==M249WeaponAssets::Definition&&!M249WeaponAssets::HasFactoryBipod(Installed.FindRef(TEXT("bipod"))))
@@ -66,8 +70,7 @@ FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
     if(ColdSteelStaff::IsStaff(I)){const FGunsmithParts Factory;return I.Definition+TEXT("|")+ColdSteelStaff::Resolve(I,bCatalogExport?&Factory:nullptr).Data;}
     if(ColdSteelInventory::IsBow(I))
     {
-        const FGunsmithParts Factory;
-        return ColdSteelBowAssembly::Key(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ResolveBowVisual(I,bCatalogExport?&Factory:nullptr));
+        return ColdSteelBowAssembly::Key(bCatalogExport?I:GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ResolveBowVisual(I));
     }
     if(ColdSteelModularSword::Supports(I))return I.Definition+TEXT("|")+ColdSteelModularSword::Key(I,nullptr,!bCatalogExport);
     if(ColdSteelMeleePreview::Supports(I))return I.Definition+TEXT("|")+ColdSteelMeleePreview::MeshPath(I)+TEXT("|")+(bCatalogExport?FString():ColdSteelMeleeRune::Selected(I));
@@ -75,23 +78,44 @@ FString UColdSteelWeaponIcons::Key(const FColdSteelItem& I) const
     if(ProductionHarvestAssets::IsIconSubject(I.Definition))return I.Definition;
     // 刚性装备挂件的图标就是佩戴网格本身：键同样是定义。
     if(ColdSteelEquipmentIconMesh(I).IsValid())return I.Definition;
-    const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);TArray<FString> Names;Parts.GetKeys(Names);Names.Sort();
+    const auto Parts=bCatalogExport?(I.Definition==M24WeaponAssets::Definition?M24WeaponAssets::FactoryParts():FGunsmithParts()):GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);TArray<FString> Names;Parts.GetKeys(Names);Names.Sort();
     FString Result=I.Definition;
     if(I.Definition==M870WeaponAssets::Definition)Result+=TEXT("|gun_only=2");
     if(I.Definition==TEXT("ue_rsh12"))Result+=TEXT("|barrel_frame=2|mechanism=1");
     if(I.Definition==TEXT("ue_m249"))Result+=TEXT("|icon_studio=4");
     for(const auto& N:Names)Result+=TEXT("|")+N+TEXT("=")+Parts[N];return Result;
 }
-void UColdSteelWeaponIcons::Request(const FColdSteelItem& I)
+FString UColdSteelWeaponIcons::Request(const FColdSteelItem& I,bool bJustModified)
 {
-    if(!Supports(I))return;
+    if(!Supports(I))return {};
     UFPSPerformanceMetricsSubsystem::CountIconAction(GetGameInstance(),EFPSIconAction::Request);
-    const FString K=Key(I);
-    if(auto* E=Cache.Find(K)){E->Use=++Serial;UFPSPerformanceMetricsSubsystem::CountIconAction(GetGameInstance(),EFPSIconAction::CacheHit);return;}
-    if(Pending.Contains(K)){UFPSPerformanceMetricsSubsystem::CountIconAction(GetGameInstance(),EFPSIconAction::PendingHit);return;}
-    if(Failed.Contains(K)){UFPSPerformanceMetricsSubsystem::CountIconAction(GetGameInstance(),EFPSIconAction::FailedHit);return;}
-    Pending.Add(K);Queue.Add({I,K,FPlatformTime::Seconds()});
+    // Resolve once. A queued job, its cache key and all its meshes must describe the same installation.
+    const bool bBow=ColdSteelInventory::IsBow(I);
+    TOptional<FColdSteelItem> ResolvedBow;
+    if(bBow&&!bCatalogExport)ResolvedBow=GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ResolveBowVisual(I);
+    const FColdSteelItem& Subject=ResolvedBow.IsSet()?ResolvedBow.GetValue():I;
+    const FString K=bBow?ColdSteelBowAssembly::Key(Subject):Key(I);
+    if(auto* E=Cache.Find(K)){E->Use=++Serial;UFPSPerformanceMetricsSubsystem::CountIconAction(GetGameInstance(),EFPSIconAction::CacheHit);return K;}
+    // The shop uses the recipe key to select its catalog PNG even when a live capture cannot run.
+    if (!FApp::CanEverRender() || GUsingNullRHI)
+        return K;
+    if(bJustModified)
+    {
+#if WITH_EDITOR
+        WaitingForMaterialCompile.Remove(K);
+#endif
+        Failed.Remove(K);
+        for(FJob& Job:Queue)
+        {
+            if(Job.Key==K)Job.bJustModified=true;
+            else if(Job.Item.InstanceId==I.InstanceId)Job.bJustModified=false;
+        }
+    }
+    if(Pending.Contains(K)){UFPSPerformanceMetricsSubsystem::CountIconAction(GetGameInstance(),EFPSIconAction::PendingHit);return K;}
+    if(Failed.Contains(K)){UFPSPerformanceMetricsSubsystem::CountIconAction(GetGameInstance(),EFPSIconAction::FailedHit);return K;}
+    Pending.Add(K);Queue.Add({Subject,K,FPlatformTime::Seconds(),0,0.0,bJustModified});
     UFPSPerformanceMetricsSubsystem::CountIconAction(GetGameInstance(),EFPSIconAction::Queued);
+    return K;
 }
 FFPSIconTaskState UColdSteelWeaponIcons::GetPerformanceState() const
 {
@@ -121,7 +145,11 @@ FFPSIconTaskState UColdSteelWeaponIcons::GetPerformanceState() const
 }
 const FSlateBrush* UColdSteelWeaponIcons::Find(const FColdSteelItem& I) const
 {
-    if(auto* E=Cache.Find(Key(I))){E->Use=++Serial;return &E->Brush;}return nullptr;
+    return FindRecipe(Key(I));
+}
+const FSlateBrush* UColdSteelWeaponIcons::FindRecipe(const FString& Recipe) const
+{
+    if(auto* E=Cache.Find(Recipe)){E->Use=++Serial;return &E->Brush;}return nullptr;
 }
 void UColdSteelWeaponIcons::Deinitialize()
 {
@@ -173,7 +201,13 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     if(PrepareStep==0){
     if(!Studio){
         FFPSPerformanceScope StudioScope(bCatalogExport?nullptr:GetGameInstance(),TEXT("Icon.CreateStudio"));
-        Studio=MakeUnique<FColdSteelPreviewScene>(FPreviewScene::ConstructionValues().SetEditor(false).SetCreatePhysicsScene(false).SetTransactional(false).SetForceMipsResident(false).SetLightBrightness(6.f).SetSkyBrightness(1.f));
+        Studio=FColdSteelPreviewScene::TryCreate(FPreviewScene::ConstructionValues().SetEditor(false).SetCreatePhysicsScene(false).SetTransactional(false).SetForceMipsResident(false).SetLightBrightness(6.f).SetSkyBrightness(1.f),FailureReason);
+        if(!Studio)
+        {
+            FailureStage=TEXT("Icon.CreateStudio");
+            UE_LOG(LogTemp,Warning,TEXT("WeaponIcon: %s"),*FailureReason);
+            return false; // FinishJob retains the existing catalog-image fallback and notifies the panel.
+        }
         Studio->SetSkyCubemap(LoadObject<UTextureCube>(nullptr,TEXT("/Game/UI/GunsmithWorkbench/T_StudioEnvironment.T_StudioEnvironment")));
         Studio->DirectionalLight->SetWorldRotation(FRotator(-35,-35,0));
         Studio->DirectionalLight->SetForwardShadingPriority(1);
@@ -192,15 +226,16 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     // shared defaults for the next subject; live and catalog art use this path.
     const bool M249Icon=I.Definition==TEXT("ue_m249");
     Studio->DirectionalLight->SetWorldRotation(M249Icon?FRotator(-18,0,0):FRotator(-35,-35,0));
-    Studio->SetLightBrightness(M249Icon?12.f:6.f);
-    Studio->SetSkyBrightness(M249Icon?6.f:1.f);
+    const bool bCompound=I.Definition==TEXT("bow_frontier_compound");
+    Studio->SetLightBrightness(M249Icon?12.f:(bCompound?8.5f:6.f));
+    Studio->SetSkyBrightness(M249Icon?6.f:(bCompound?2.5f:1.f));
     Studio->UpdateCaptureContents();
     PrepareStep=1;return true;
     }
     if(ColdSteelInventory::IsBow(I)){const bool Ready=PrepareBow(I);PrepareStep=7;return Ready;}
     if(ProductionHarvestAssets::IsIconSubject(I.Definition)){const bool Ready=PrepareMaterial(I);PrepareStep=7;return Ready;}
     if(ColdSteelEquipmentIconMesh(I).IsValid()){const bool Ready=PrepareEquipment(I);PrepareStep=7;return Ready;}
-    if(ColdSteelMeleePreview::Supports(I)){const bool Ready=PrepareMelee(I);PrepareStep=7;return Ready;}
+    if(ColdSteelInventory::IsStaff(I)||ColdSteelMeleePreview::Supports(I)){const bool Ready=PrepareMelee(I);PrepareStep=7;return Ready;}
     if(PrepareStep==1){
     if(!Rig){
         FFPSPerformanceScope RigScope(bCatalogExport?nullptr:GetGameInstance(),TEXT("Icon.CreateRig"));
@@ -240,13 +275,13 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
     Mesh->SetRelativeTransform(FTransform::Identity);Mesh->SetVisibility(true,true);
     if(!Rig->SampleRSH12Presentation(Rig->IdleAnimation)){Mesh->PlayAnimation(Rig->IdleAnimation,false);Mesh->SetPosition(0.f,false);}Mesh->TickAnimation(0.f,false);Mesh->RefreshBoneTransforms();Mesh->UpdateComponentToWorld();
     }
-    const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);
+    const auto Parts=bCatalogExport?(I.Definition==M24WeaponAssets::Definition?M24WeaponAssets::FactoryParts():FGunsmithParts()):GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(I);
     // One fitting per tick; the game-thread component APIs are not thread safe.
-    if(AttachmentStep<10){
-        const TCHAR* Slots[]={TEXT("underbarrel"),TEXT("optic"),TEXT("magazine"),TEXT("muzzle"),TEXT("stock"),TEXT("reargrip"),TEXT("tactical"),TEXT("bipod"),TEXT("reload_device"),TEXT("sights")};
+    if(AttachmentStep<11){
+        const TCHAR* Slots[]={TEXT("underbarrel"),TEXT("optic"),TEXT("magazine"),TEXT("muzzle"),TEXT("stock"),TEXT("reargrip"),TEXT("tactical"),TEXT("bipod"),TEXT("reload_device"),TEXT("bolt"),TEXT("sights")};
         FFPSPerformanceScope FitScope(bCatalogExport?nullptr:GetGameInstance(),TEXT("Icon.AttachmentSlice"),Slots[AttachmentStep]);
         switch(AttachmentStep++){
-        case 0:Rig->SetGunsmithHandstop(Parts.FindRef(TEXT("underbarrel")));break;
+        case 0:Rig->SetGunsmithHandstop(Parts.FindRef(I.Definition==M24WeaponAssets::Definition?TEXT("body"):TEXT("underbarrel")));break;
         case 1:Rig->SetGunsmithOpticVariant(Parts.FindRef(TEXT("optic")));break;
         case 2:Rig->SetGunsmithMagazineAttachment(Parts.FindRef(TEXT("magazine")));break;
         case 3:Rig->SetGunsmithMuzzle(Parts.FindRef(TEXT("muzzle")));break;
@@ -256,6 +291,7 @@ bool UColdSteelWeaponIcons::Prepare(const FColdSteelItem& I)
         case 7:Rig->SetGunsmithBipod(Parts.FindRef(TEXT("bipod")));break;
         case 8:Rig->SetSuper90Speedloader((I.Definition==Super90WeaponAssets::Definition||I.Definition==M870WeaponAssets::Definition)
             &&Parts.FindRef(TEXT("reload_device"))==Super90SpeedloaderAssets::Id);break;
+        case 9:if(I.Definition==M24WeaponAssets::Definition)M24Attachments::SetBoltMaterial(Mesh,Parts.FindRef(TEXT("bolt")));break;
         default:Rig->UpdateFoldingSights(1.f);break;
         }
         return true;
@@ -530,10 +566,12 @@ void UColdSteelWeaponIcons::DeferCurrentJob(double Now)
 void UColdSteelWeaponIcons::Tick(float Delta)
 {
     const double Now=FPlatformTime::Seconds();
+    bool bPanelOpen=true;
     if(!bCatalogExport&&Stage==0)
     {
         const auto* Player=Cast<AFPSGAMEPlayerController>(GetGameInstance()->GetFirstLocalPlayerController());
-        if(!Player||!Player->IsItemIconPanelOpen())
+        bPanelOpen=Player&&Player->IsItemIconPanelOpen();
+        if(!bPanelOpen&&!Queue.ContainsByPredicate([](const FJob& Job){return Job.bJustModified;}))
         {
             if(Capture)
             {
@@ -555,11 +593,10 @@ void UColdSteelWeaponIcons::Tick(float Delta)
             if(const auto* Loading=GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>();
                Loading&&Loading->IsHoldingGameplayInput())
             {SetWaitState(TEXT("ScenePreparation"));return;}
-            const auto* Player=Cast<AFPSGAMEPlayerController>(GetGameInstance()->GetFirstLocalPlayerController());
-            if(!Player||!Player->IsItemIconPanelOpen())
-            {SetWaitState(TEXT("ItemPanelClosed"));return;}
         }
-        const int32 Eligible=Queue.IndexOfByPredicate([Now](const FJob& Job){return Job.RetryAfterSeconds<=Now;});
+        int32 Eligible=Queue.IndexOfByPredicate([Now](const FJob& Job){return Job.bJustModified&&Job.RetryAfterSeconds<=Now;});
+        if(Eligible==INDEX_NONE&&bPanelOpen)
+            Eligible=Queue.IndexOfByPredicate([Now](const FJob& Job){return Job.RetryAfterSeconds<=Now;});
         if(Eligible==INDEX_NONE){SetWaitState(TEXT("RetryCooldown"));return;}
         if(Eligible>0){FJob Next=MoveTemp(Queue[Eligible]);Queue.RemoveAt(Eligible);Queue.Insert(MoveTemp(Next),0);}
     }
@@ -573,7 +610,9 @@ void UColdSteelWeaponIcons::Tick(float Delta)
     // Only yield after this tick has confirmed the blocker: a just-ready recipe should finish.
     const auto YieldForOtherJob=[this,Now](){
         if(Now-AttemptStartSeconds<2.0)return false;
-        for(int32 Index=1;Index<Queue.Num();++Index)if(Queue[Index].RetryAfterSeconds<=Now){DeferCurrentJob(Now);return true;}
+        for(int32 Index=1;Index<Queue.Num();++Index)
+            if(Queue[Index].RetryAfterSeconds<=Now&&(!Queue[0].bJustModified||Queue[Index].bJustModified))
+            {DeferCurrentJob(Now);return true;}
         return false;
     };
     if(Stage==0){
@@ -630,20 +669,28 @@ void UColdSteelWeaponIcons::Tick(float Delta)
 }
 
 #if WITH_EDITOR
-bool UColdSteelWeaponIcons::ExportCatalogIcon(const FString& Definition,const FString& Filename)
+bool UColdSteelWeaponIcons::ExportCatalogIcon(const FString& Definition,const FString& Filename,const FString& BladePart)
 {
     // The commandlet supplies an uninitialized GameInstance solely as an UObject outer.
     // No profile subsystems, gameplay world or player equipment are created.
     bCatalogExport=true;
     FColdSteelItem Item;Item.Definition=Definition;Item.Data=TEXT("{}");
     FString CatalogText;TSharedPtr<FJsonObject> Catalog;
-    for(const TCHAR* CatalogFile:{TEXT("items.json"),TEXT("staffs.json")})
+    for(const TCHAR* CatalogFile:{TEXT("items.json"),TEXT("staffs.json"),TEXT("bows.json")})
     {
         Catalog.Reset();
         if(!FFileHelper::LoadFileToString(CatalogText,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData")/CatalogFile))||
             !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(CatalogText),Catalog)||!Catalog)continue;
         const TSharedPtr<FJsonObject>* Data=nullptr;
-        if(Catalog->TryGetObjectField(Definition,Data)){Item.Data.Reset();FJsonSerializer::Serialize((*Data).ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));break;}
+        if(Catalog->TryGetObjectField(Definition,Data))
+        {
+            if(!BladePart.IsEmpty())
+            {
+                auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("blade_1"),BladePart);
+                (*Data)->SetObjectField(TEXT("gunsmith_parts"),Parts);
+            }
+            Item.Data.Reset();FJsonSerializer::Serialize((*Data).ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));break;
+        }
     }
     Request(Item);Tick(0.f);
     FAssetCompilingManager::Get().FinishAllCompilation();

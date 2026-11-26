@@ -3,49 +3,15 @@
 #include "GameFramework/SaveGame.h"
 #include "../Skills/ColdSteelSkillTypes.h"
 #include "ColdSteelQuickBarTypes.h"
+#include "ColdSteelItemInstance.h"
+#include "../Movement/HorseRosterTypes.h"
 #include "../Dungeon/DungeonTypes.h"
 #include "../Combat/ProgressiveInfectionComponent.h"
 #include "../Survival/FPSSurvivalTypes.h"
+#include "../Building/ColdSteelPlantingTypes.h"
 #include "ColdSteelInventoryTypes.generated.h"
 
-USTRUCT(BlueprintType)
-struct FColdSteelItem
-{
-    GENERATED_BODY()
-    UPROPERTY() FString InstanceId;
-    UPROPERTY() FString Definition;
-    // Full source data (including processing/attachment fields); never stripped on transfer.
-    UPROPERTY() FString Data;
-    UPROPERTY() int64 Count = 1;
-    UPROPERTY() int64 StackMax = 1;
-    UPROPERTY() int32 Width = 1;
-    UPROPERTY() int32 Height = 1;
-    // Bag/warehouse placement orientation: a rotated instance swaps its grid footprint.
-    UPROPERTY() bool bRotated = false;
-    UPROPERTY() int32 Place = 0; // 0 backpack, 1 equipment, 2 world, 4 warehouse (3 is UI hotbar)
-    /** 扩展储物容器归属：""=背包/装备/主仓库（既有语义不变）；非空=某储物箱的独立格空间
-     *  （如 "crate.tier.3"）。物品仍存于同一 Items 数组、沿用 Place 4 与格坐标， occupancy
-     *  按 Container 分域，容量记于 Profile.StoragePages。 */
-    UPROPERTY() FString Container;
-    UPROPERTY() int32 Cell = 0;
-    UPROPERTY() int32 BackpackCell = -1;
-    UPROPERTY() FString Map;
-    UPROPERTY() FVector Position = FVector::ZeroVector;
-    UPROPERTY() FRotator WorldRotation = FRotator::ZeroRotator;
-    UPROPERTY() FGuid HarvestWorldId; // Ground resources belong to one generated world.
-    UPROPERTY() float Cooldown = 0;
-    UPROPERTY() int32 Magazine = 30;
-    UPROPERTY() int32 Reserve = 90;
-    UPROPERTY() FString LoadedAmmoType;
-    // Virtual range rounds are never refunded into the owned ammunition pouch.
-    UPROPERTY() int32 VirtualMagazineAmmo = 0;
-    // Version 0 is a legacy item: start its lifetime on first authority migration.
-    // These tagged fields travel intact through split, transfer and SaveGame replication.
-    UPROPERTY() int32 FoodVersion=0;
-    UPROPERTY() double FoodAgeDays=0.;
-    UPROPERTY() double FoodSampleDay=0.;
-    UPROPERTY() FGuid FoodClockId;
-};
+
 
 /** Catalog row for the F6 development panel: definition id, display name and grouped class. */
 USTRUCT(BlueprintType)
@@ -84,6 +50,14 @@ struct FColdSteelTreeGrowth
     UPROPERTY() bool bStumpCleared = false;
 };
 
+/** Specialization ranks invested in one skill: spec node id -> rank (skill-tree.json "specializations"). */
+USTRUCT()
+struct FColdSteelSkillSpec
+{
+    GENERATED_BODY()
+    UPROPERTY() TMap<FName,int32> Ranks;
+};
+
 USTRUCT()
 struct FColdSteelFormulaBuff
 {
@@ -96,8 +70,11 @@ struct FColdSteelFormulaBuff
     UPROPERTY() FString Rarity;
     UPROPERTY() int32 Battles=0;
     UPROPERTY() bool bTribute=false;
-    // 运行时一次性标记（与旧 _worldPeachReviveUsed 同寿命：重新献祭才刷新）：
-    bool bPeachUsed=false,bMoonshadowUsed=false;
+    // Persistent per-offering identity. Legacy offerings use the invalid GUID until replaced.
+    UPROPERTY() int32 UsageVersion=1;
+    UPROPERTY() FGuid OfferingId;
+    UPROPERTY() bool bPeachUsed=false;
+    UPROPERTY() bool bMoonshadowUsed=false;
 };
 /** 冶炼点击已写入角色档、建筑档可能还没落盘时的对账条。Kind：1投料 2收取 3添燃料 4升级 5拆炉 6队列投料 7部分收取。 */
 USTRUCT()
@@ -125,7 +102,16 @@ struct FColdSteelForgeJob
     UPROPERTY() FName Recipe;
     UPROPERTY() FColdSteelItem Item;
     UPROPERTY() int32 Hits=0;
+    /** A hammer reached the blank. Accuracy still affects quality independently. */
+    UPROPERTY() bool bHammeredBlank=false;
     UPROPERTY() bool bFinished=false;
+    /** Latched at creation; free jobs must not use legacy recipe-based refunds. */
+    UPROPERTY() bool bMaterialsWaived=false;
+    /** Version 0 is an already-paid legacy job; new material-based jobs use version 2. */
+    UPROPERTY() int32 QualityVersion=0;
+    UPROPERTY() FName Metal;
+    UPROPERTY() FString MaterialName;
+    UPROPERTY() double MaterialBonus=0.;
     /** Actual inputs paid at start; empty for legacy jobs that use the recipe fallback. */
     UPROPERTY() TMap<FString,int64> PaidMaterials;
 };
@@ -136,12 +122,17 @@ struct FColdSteelWoodworkingJob
 {
     GENERATED_BODY()
     UPROPERTY() int32 Version=1;
+    // Missing tagged fields in older jobs retain their original score curve.
+    UPROPERTY() int32 QualityVersion=1;
+    UPROPERTY() FName Core;
+    UPROPERTY() double MaterialBonus=0;
     UPROPERTY() FString Id;
     UPROPERTY() FName Pattern;
     UPROPERTY() FName Recipe;
     UPROPERTY() FString Name;
     UPROPERTY() FColdSteelItem Item;
     UPROPERTY() TMap<FString,int64> PaidMaterials;
+    UPROPERTY() bool bMaterialsWaived=false;
     UPROPERTY() bool bFinished=false;
     UPROPERTY() bool bPassed=false;
     UPROPERTY() double Quality=0;
@@ -162,10 +153,18 @@ struct FColdSteelGunAssemblyJob
     UPROPERTY() FName Recipe;
     UPROPERTY() FColdSteelItem Item;
     UPROPERTY() TMap<FString,int64> PaidMaterials;
+    /** Fixed at creation; free workpieces never use legacy recipe-based refunds. */
+    UPROPERTY() bool bMaterialsWaived=false;
+    UPROPERTY() int32 QualityVersion=0;
+    UPROPERTY() FName Metal;
+    UPROPERTY() FString MaterialName;
+    UPROPERTY() double MaterialBonus=0.;
     UPROPERTY() int32 InstalledMask=0;
     // Defaults preserve jobs saved by the original five-part recipe.
     UPROPERTY() int32 PartCount=5;
     UPROPERTY() float CalibrationDuration=5;
+    /** Zero keeps old saves readable; new/resumed workpieces use timed follow rounds. */
+    UPROPERTY() int32 CalibrationVersion=0;
     UPROPERTY() TArray<float> Scores;
     UPROPERTY() TArray<int32> Misses;
     UPROPERTY() float CalibrationSeconds=0;
@@ -187,6 +186,8 @@ struct FColdSteelAlchemyJob
     UPROPERTY() FString Name;
     UPROPERTY() int64 Revision=0;
     UPROPERTY() TArray<FColdSteelItem> Escrow;
+    /** Escrow supplies the brewing tools but is not refundable when waived. */
+    UPROPERTY() bool bMaterialsWaived=false;
     UPROPERTY() TMap<FString,int64> Opened;
     UPROPERTY() TMap<FString,int64> Poured;
     UPROPERTY() TArray<float> Progress;
@@ -212,9 +213,16 @@ struct FColdSteelProfile
     UPROPERTY() FString Class = TEXT("初心者");
     UPROPERTY() int32 Level = 1;
     UPROPERTY() int64 Experience = 0;
+    /** Currency is separate from item stacks; missing tagged fields migrate from legacy gold. */
+    UPROPERTY() int32 SoulCurrencyVersion = 0;
+    UPROPERTY() int64 Souls = 0;
+    /** Cumulative remote-server grants already included in Souls; prevents duplicate mirror rewards. */
+    UPROPERTY() int64 ServerSoulCredits = 0;
+    UPROPERTY() int64 ServerSoulDebits = 0;
     UPROPERTY() int32 Points = 0;
     UPROPERTY() int32 Kills = 0;
     UPROPERTY() int32 ActiveWeaponSlot = 6;
+    UPROPERTY() FStableMountRoster MountRoster;
     UPROPERTY() TMap<FName, int32> Attributes;
     UPROPERTY() TArray<FColdSteelItem> Items;
     /** 储物容器键->容量页数（一页 18x12=216 格）。首次打开对应箱子时按档位登记，
@@ -226,6 +234,9 @@ struct FColdSteelProfile
     UPROPERTY() TArray<FString> HotbarDefinitions;
     UPROPERTY() int32 QuickBarVersion = 0;
     UPROPERTY() TArray<FColdSteelQuickBinding> QuickBindings;
+    UPROPERTY() int32 MagicWheelVersion = 0;
+    UPROPERTY() TArray<FName> MagicWheelSkills;
+    UPROPERTY() int32 SelectedMagicSlot = INDEX_NONE;
     UPROPERTY() float Health = 200;
     UPROPERTY() float Mana = 250;
     /** Cumulative focus-break charges already included in Mana; legacy saves default to zero. */
@@ -250,6 +261,11 @@ struct FColdSteelProfile
     UPROPERTY() int32 EnhancementSupplyVersion = 0;
     UPROPERTY() int32 SkillProgressVersion = 0;
     UPROPERTY() TMap<FName,FColdSteelSkillProgress> Skills;
+    // Skill tree (2026-11-15, Content/ColdSteelData/skill-tree.json). Version 0 = legacy save:
+    // the one-time migration marks every tree skill learned so no existing ability is revoked.
+    UPROPERTY() int32 SkillTreeVersion = 0;
+    UPROPERTY() TArray<FName> LearnedSkills;
+    UPROPERTY() TMap<FName,FColdSteelSkillSpec> SkillSpecs;
     UPROPERTY() TArray<FColdSteelFormulaBuff> FormulaBuffs;
     UPROPERTY() float FireballCooldown = 0;
     // Skill schema v9: total duration captured when this cooldown was committed.
@@ -262,10 +278,28 @@ struct FColdSteelProfile
     UPROPERTY() float LightningCooldownDuration = 0;
     UPROPERTY() float HolyLightCooldown = 0;
     UPROPERTY() float HolyLightCooldownDuration = 0;
+    // Owner martial commits survive an older profile upload or reconnect mirror.
+    UPROPERTY() int64 MartialCooldownRevision = 0;
     UPROPERTY() float WhirlwindCooldown = 0;
     UPROPERTY() float WhirlwindCooldownDuration = 0;
     UPROPERTY() float SwordUppercutCooldown = 0;
     UPROPERTY() float SwordUppercutCooldownDuration = 0;
+    UPROPERTY() float ChainSlashCooldown = 0;
+    UPROPERTY() float ChainSlashCooldownDuration = 0;
+    UPROPERTY() float LeapStrikeCooldown = 0;
+    UPROPERTY() float LeapStrikeCooldownDuration = 0;
+    UPROPERTY() float ShadowStepCooldown = 0;
+    UPROPERTY() float ShadowStepCooldownDuration = 0;
+    // Confirmed network uppercut costs travel with stamina snapshots.
+    UPROPERTY() double UppercutStaminaSpent = 0.;
+    /** Confirmed oath refunds; cumulative so mirror/RPC reordering cannot pay twice. */
+    UPROPERTY() double OathStaminaRestored = 0.;
+    void MergeOathStamina(double Total,double Maximum)
+    {
+        if(!FMath::IsFinite(Total)||Total<=OathStaminaRestored)return;
+        Stamina=float(FMath::Clamp(double(Stamina)+Total-OathStaminaRestored,0.,Maximum));
+        OathStaminaRestored=Total;
+    }
     // Legacy serialized names retained; these now mirror only the live action
     // remaining/duration and are cleared when loading an interrupted session.
     UPROPERTY() float QuickCombatCooldown = 0;
@@ -292,6 +326,10 @@ struct FColdSteelProfile
     UPROPERTY() float MeteorCooldownDuration = 0;
     UPROPERTY() float FlameArmorCooldown = 0;
     UPROPERTY() float FlameArmorCooldownDuration = 0;
+    UPROPERTY() float IceArmorCooldown = 0;
+    UPROPERTY() float LightningHasteCooldown = 0;
+    UPROPERTY() float IceArmorCooldownDuration = 0;
+    UPROPERTY() float LightningHasteCooldownDuration = 0;
     UPROPERTY() float DragonBreathCooldown = 0;
     UPROPERTY() float DragonBreathCooldownDuration = 0;
     UPROPERTY() float DragonBreathReservedMana = 0;
@@ -303,15 +341,26 @@ struct FColdSteelProfile
     // A receipt barrier: old periodic uploads cannot undo a server campfire debit/credit.
     UPROPERTY() int64 CampfireInventoryRevision=0;
     UPROPERTY() TMap<FString,int64> CampfireWorldReceipts;
+    // Personal workbench escrow, absent in legacy v2 saves. Never also present in Items.
+    UPROPERTY() FColdSteelItem EnhancementItem;
     UPROPERTY() FColdSteelForgeJob ForgeJob;
+    // BlacksmithApprenticeship::EStage. Older tagged saves start with the lesson available.
+    UPROPERTY() uint8 BlacksmithApprenticeshipStage=0;
     UPROPERTY() FColdSteelGunAssemblyJob GunAssemblyJob;
     UPROPERTY() FColdSteelWoodworkingJob WoodworkingJob;
+    UPROPERTY() uint8 CarpenterApprenticeshipStage=0;
     UPROPERTY() FColdSteelAlchemyJob AlchemyJob;
     // Skill schema v17: the preparation reserves cooldown, release starts its clock.
     UPROPERTY() float IceWallCooldown = 0;
     UPROPERTY() float IceWallCooldownDuration = 0;
     UPROPERTY() bool bIceWallReserved = false;
     UPROPERTY() float IceWallReservedMana = 0;
+    UPROPERTY() float IlluminationArrowCooldown=0;
+    UPROPERTY() float IlluminationArrowCooldownDuration=0;
+    UPROPERTY() float MagicArrowRainCooldown=0;
+    UPROPERTY() float MagicArrowRainCooldownDuration=0;
+    UPROPERTY() bool bMagicArrowRainReserved=false;
+    UPROPERTY() float MagicArrowRainReservedMana=0;
     UPROPERTY() float BlizzardCooldown = 0;
     UPROPERTY() float BlizzardCooldownDuration = 0;
     UPROPERTY() bool bBlizzardReserved = false;
@@ -324,6 +373,10 @@ struct FColdSteelProfile
     // Empty values in older saves select the player-body catalog defaults.
     UPROPERTY() FName PlayerHeadId;
     UPROPERTY() FName PlayerHairId;
+    /** Stable save identity; PIE copies receive their own identity once. */
+    UPROPERTY() FGuid NetworkProfileId;
+    // Inventory and plants commit in the same checked save; old profiles start empty.
+    UPROPERTY() TArray<FColdSteelCropPlant> PlantingCrops;
 };
 
 UCLASS()
@@ -345,13 +398,51 @@ struct FColdSteelProposal
 
 namespace ColdSteelInventory
 {
+    inline bool IsAlchemySpellbook(const FColdSteelItem& I) { return I.Definition==TEXT("ue_alchemy_spellbook"); }
     inline bool IsDualPistol(const FColdSteelItem& I) { return (I.Definition==TEXT("ue_m1911")||I.Definition==TEXT("ue_g18")||I.Definition==TEXT("ue_pit_viper2011")) || (I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")); }
+    FPSGAME_API int32 Owner(const TArray<FColdSteelItem>& Items, int32 Place, int32 Cell);
+    /**
+     * 主手空置时顶替主武器的那把手枪：只取当前武器组配对的副手槽（6→8，9→11）。
+     * 空武器组不借用另一组的副手；显示与换弹事务必须使用同一组的物品身份。
+     * 配对槽没有手枪、主手有武器或双手工具生效时返回空。
+     * 单枪状态机（开镜、换弹、准星）以它为准，与双持/法杖副手互斥。
+     */
+    inline const FColdSteelItem* LoneOffhandPistol(const FColdSteelProfile& P)
+    {
+        if(Owner(P.Items,1,P.ActiveWeaponSlot)>=0)return nullptr;
+        if(!P.ActiveProductionTool.IsEmpty())return nullptr;
+        const int32 PairedSlot=P.ActiveWeaponSlot==6?8:11;
+        const int32 Index=Owner(P.Items,1,PairedSlot);
+        return Index>=0&&IsDualPistol(P.Items[Index])?&P.Items[Index]:nullptr;
+    }
+    inline bool UsesKukriMoveset(const FColdSteelItem& Item);
+    /**
+     * 主手空置时独自出手的副手弯刀族近战（弯刀、斧头，2026-11-04）：只取当前武器组配对的副手槽（6→8，9→11），
+     * 规则同 LoneOffhandPistol。由左手单持呈现（单持招式镜像到左手），招式、数值与服务端回执都用这把武器。
+     */
+    inline const FColdSteelItem* LoneOffhandBlade(const FColdSteelProfile& P)
+    {
+        if(Owner(P.Items,1,P.ActiveWeaponSlot)>=0)return nullptr;
+        if(!P.ActiveProductionTool.IsEmpty())return nullptr;
+        const int32 Index=Owner(P.Items,1,P.ActiveWeaponSlot==6?8:11);
+        return Index>=0&&UsesKukriMoveset(P.Items[Index])?&P.Items[Index]:nullptr;
+    }
     FPSGAME_API FString Text(const FColdSteelItem& Item, const TCHAR* Key);
     FPSGAME_API double Number(const FColdSteelItem& Item, const TCHAR* Key, double Default = 0);
     FPSGAME_API bool Flag(const FColdSteelItem& Item, const TCHAR* Key);
+    inline bool IsStaff(const FColdSteelItem& Item)
+    {
+        return Text(Item,TEXT("weaponType"))==TEXT("staff");
+    }
+    inline bool HasMeleeCategory(const FColdSteelItem& Item)
+    {
+        return Text(Item,TEXT("category"))==TEXT("weapon_melee") && !IsStaff(Item);
+    }
     inline bool IsEquippedProductionTool(const FColdSteelItem& Item)
     {
-        return Item.Definition==TEXT("tool_axe") || Item.Definition==TEXT("tool_pickaxe");
+        // 2026-10-17 起铁铲与斧／镐同权：装备在主手武器槽使用，不再走 F7 背包覆盖。
+        return Item.Definition==TEXT("tool_axe") || Item.Definition==TEXT("tool_pickaxe") ||
+            Item.Definition==TEXT("tool_shovel");
     }
     inline bool IsTwoHandedBlunt(const FColdSteelItem& Item)
     {
@@ -361,12 +452,31 @@ namespace ColdSteelInventory
     inline bool IsMeleeWeapon(const FColdSteelItem& Item)
     {
         return Item.Definition==TEXT("ue_rune_sword") || IsEquippedProductionTool(Item) ||
-            Text(Item,TEXT("category"))==TEXT("weapon_melee");
+            HasMeleeCategory(Item);
     }
     inline bool IsTwoHandedSword(const FColdSteelItem& Item)
     {
         return Item.Definition==TEXT("ue_rune_sword") ||
             (IsMeleeWeapon(Item) && Text(Item,TEXT("weaponType"))==TEXT("sword") && Flag(Item,TEXT("isTwoHanded")));
+    }
+    // 单手近战武器共享分类，具体外观与动作家族由各物品目录声明。
+    inline bool IsOneHandedMelee(const FColdSteelItem& Item)
+    {
+        return HasMeleeCategory(Item) && !Flag(Item,TEXT("isTwoHanded"));
+    }
+    // Keep animation/execution identity separate from weapon type and item ID.
+    // Legacy kukri saves retain their original ID/type; new weapons opt in explicitly.
+    inline bool UsesKukriMoveset(const FColdSteelItem& Item)
+    {
+        return Item.Definition==TEXT("ue_kukri")||Text(Item,TEXT("weaponType"))==TEXT("kukri")||
+            (IsOneHandedMelee(Item)&&Text(Item,TEXT("melee_animation_family"))==TEXT("kukri"));
+    }
+    // Equipment eligibility for blades; separate from the legacy combat/stat family classifier.
+    inline bool IsOneHandedBlade(const FColdSteelItem& Item)
+    {
+        if(Text(Item,TEXT("category"))!=TEXT("weapon_melee")||Flag(Item,TEXT("isTwoHanded")))return false;
+        const FString Type=Text(Item,TEXT("weaponType"));
+        return UsesKukriMoveset(Item)||Type==TEXT("sword")||Type==TEXT("knife")||Type==TEXT("dagger")||Type==TEXT("saber");
     }
     // 弓是独立类别：不进近战判定，也不进枪械的 definition 白名单，
     // 由 `UProductionToolComponent` 之外的 `UBowWeaponComponent` 接管手上表现。

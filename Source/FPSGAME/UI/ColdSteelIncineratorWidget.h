@@ -21,6 +21,7 @@ public:
     void RequestClose();
     void RequestAmmo(const FString& Ammo,int64 Available,int32 Cell=-1);
     UColdSteelStatusModel* GetModel() const {return Model;}
+    AActor* GetStation() const {return Station.Get();}
     UColdSteelInventoryWidget* InputBoard() const {return Board;}
     const FString& ContainerKey() const {return Container;}
     bool IsInputReady() const {return bInputReady;}

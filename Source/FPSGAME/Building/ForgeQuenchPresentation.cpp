@@ -1,4 +1,5 @@
 #include "ForgeInteraction.h"
+#include "ForgeBlankProfile.h"
 #include "VoxelBuildPrefabActor.h"
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -10,12 +11,10 @@ void AForgeInteraction::PresentQuench(float Age,FTransform& Work,FTransform& Too
     auto Ease=[](float T){return FMath::SmoothStep(0.f,1.f,T);};
     const float Lift=Ease(Age/.55f),Transfer=Ease((Age-.5f)/1.0f);
     const float Dip=Ease((Age-1.5f)/.65f),Raise=Ease((Age-3.95f)/.7f);
-    const FQuat Flat(FVector::UpVector,FMath::DegreesToRadians(WorkYaw));
-    // Near-vertical immersion: the 30 cm blade tip clears the bottom and stays inside the tub.
-    const FVector Above=QuenchSurface+FVector(7.3,0,42);
-    Work.SetLocation(FMath::Lerp(FVector(29,22,91)+FVector(0,0,14)*Lift,Above,Transfer)
-        +FVector(0,0,-30*Dip+27*Raise));
-    Work.SetRotation(FQuat(FVector::YAxisVector,FMath::DegreesToRadians(-76.f*Transfer))*Flat);
+    const FQuat Flat(FVector::UpVector,PI);
+    Work=FTransform(FQuat(FVector::YAxisVector,FMath::DegreesToRadians(-76.f*Transfer))*Flat,
+        FMath::Lerp(FVector(29,22,91)+FVector(0,0,14)*Lift,QuenchSurface+FVector(7.3,0,42),Transfer)
+        +FVector(0,0,-BlankProfile()->QuenchDrop*Dip+27*Raise));
     Tool=HammerFrame(Point(Aim),-1);Tool.AddToTranslation(FVector(-12,-6,-12)*Lift);
 
     // Camera motion precedes contact. Solve arms afterwards against this camera,
@@ -29,8 +28,9 @@ void AForgeInteraction::PresentQuench(float Age,FTransform& Work,FTransform& Too
 
 void AForgeInteraction::UpdateQuenchContact(const FTransform& Work,double Now)
 {
-    const FVector Tip=Work.TransformPosition(FVector(30,0,.475));
-    const FVector Heel=Work.TransformPosition(FVector(-21,0,.475));
+    const auto* Profile=BlankProfile();
+    const FVector Tip=Work.TransformPosition(Profile->QuenchTip);
+    const FVector Heel=Work.TransformPosition(Profile->QuenchHeel);
     QuenchImmersion=0;
     if(Tip.Z<QuenchSurface.Z&&Heel.Z>QuenchSurface.Z)
     {

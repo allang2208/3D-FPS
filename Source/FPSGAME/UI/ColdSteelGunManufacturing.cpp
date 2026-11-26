@@ -62,7 +62,7 @@ void UColdSteelGunAssemblyWidget::UpdateManufacturingNavigation()
 
 void UColdSteelGunAssemblyWidget::SelectManufacturingPage(bool bAmmo)
 {
-    if(!bInputReady||bAmmoPage==bAmmo)return;
+    if(!CanInteract()||bAmmoPage==bAmmo)return;
     bAmmoPage=bAmmo;
     // Switch presentation only: neither changing recipes nor consuming any materials.
     ManufacturingPages->SetActiveWidgetIndex(bAmmo?0:1);

@@ -1,6 +1,7 @@
 #include "VoxelBuildWorld.h"
 #include "VoxelBuildPalette.h"
 #include "VoxelBuildRuntime.h"
+#include "VoxelBuildDebug.h"
 #include "Async/Async.h"
 #include "Components/DynamicMeshComponent.h"
 #include "HAL/IConsoleManager.h"
@@ -74,18 +75,21 @@ void AVoxelBuildWorld::TickMeshes()
         {
             FVoxelChunkSnapshot Input;Input.Origin=Source.Cell*16;
             Input.Offset=VolumeOrigin(Source.Volume)+CellMin(Input.Origin)-CellMin(Key.Cell*16);
-            const auto* Free=FreeVolumes.Find(Source.Volume);const auto* Data=Source.Volume.IsValid()?(Free?&Free->Cells:nullptr):&Cells;
-            bool Occupied=false;
-            auto Add=[&](FIntVector Cell,FName Material)
-            {
-                const auto Local=Cell-Input.Origin;
-                if(Local.X<-1||Local.Y<-1||Local.Z<-1||Local.X>16||Local.Y>16||Local.Z>16)return;
-                if(const auto* Slot=MaterialSlots.Find(Material))
+                const auto* Free=FreeVolumes.Find(Source.Volume);const auto* Data=Source.Volume.IsValid()?(Free?&Free->Cells:nullptr):&Cells;
+                bool Occupied=false;
+                auto Add=[&](FIntVector Cell,FName Material)
                 {
-                    Input.Slots.Add(Cell,*Slot);
-                    Occupied|=Local.X>=0&&Local.Y>=0&&Local.Z>=0&&Local.X<16&&Local.Y<16&&Local.Z<16;
-                }
-            };
+                    const auto Local=Cell-Input.Origin;
+                    if(Local.X<-1||Local.Y<-1||Local.Z<-1||Local.X>16||Local.Y>16||Local.Z>16)return;
+                    if(const auto* Slot=MaterialSlots.Find(Material))
+                    {
+                        Input.Slots.Add(Cell,*Slot);
+                        // 楔形切割随格进网格作业（仅世界格子；自由体积不切割）。
+                        if(!Source.Volume.IsValid())
+                            if(const uint8 Cut=CellShapes.FindRef(Cell))Input.Shapes.Add(Cell,Cut);
+                        Occupied|=Local.X>=0&&Local.Y>=0&&Local.Z>=0&&Local.X<16&&Local.Y<16&&Local.Z<16;
+                    }
+                };
             // Small free volumes are read sparsely; do not scan an 18^3 halo
             // for every individually placed block in a spatial batch.
             if(Data&&Data->Num()<5832)for(const auto& C:*Data)Add(C.Key,C.Value);
@@ -96,6 +100,9 @@ void AVoxelBuildWorld::TickMeshes()
             if(Occupied)Inputs.Add(MoveTemp(Input));else Empty.Add(Source);
         }
         for(const auto& Source:Empty)Runtime->MeshGroups.FindChecked(Key).Remove(Source);
+        if(VoxelBuildDebug::Enabled())
+            for(const auto& In:Inputs)if(!In.Shapes.IsEmpty())
+                UE_LOG(LogTemp,Warning,TEXT("VOXEL_MESHJOB chunk=%d,%d,%d shapes=%d"),Key.Cell.X,Key.Cell.Y,Key.Cell.Z,In.Shapes.Num());
         FVoxelMeshJob Job;Job.Key=Key;Job.Revision=Runtime->MeshRevisions.FindRef(Key);const double Radius=Palette->EdgeRadiusCm;
         Job.Future=Async(EAsyncExecution::ThreadPool,[Inputs=MoveTemp(Inputs),Radius]() mutable
         {return VoxelGeometry::Batch(MoveTemp(Inputs),Radius);});

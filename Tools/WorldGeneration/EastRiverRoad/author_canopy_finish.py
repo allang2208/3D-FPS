@@ -52,3 +52,4 @@ weeds=[u.load_asset('/Game/ForestPathStudy/Scans/rbcuh/rbcuh_tier_1/StaticMeshes
 if not all(weeds):raise RuntimeError('Missing reference understory')
 label.set_editor_property('explicit_assets',trees+weeds)
 save(label)
+

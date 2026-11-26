@@ -21,5 +21,7 @@ private:
     TArray<TWeakObjectPtr<UObject>> Active;
     void UpdateFrozenLODs();
     TArray<TWeakObjectPtr<USkinnedMeshComponent>> FrozenMeshes;
+    TMap<TWeakObjectPtr<USkinnedMeshComponent>,double> FrozenSince;
     FTimerHandle FrozenLODTimer;
+    int32 FrozenCursor=0;
 };

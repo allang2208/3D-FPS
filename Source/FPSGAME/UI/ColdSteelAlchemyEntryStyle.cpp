@@ -13,6 +13,7 @@
 #include "Components/ScrollBox.h"
 #include "Components/SizeBox.h"
 #include "Components/VerticalBoxSlot.h"
+#include "Components/WrapBox.h"
 
 void UColdSteelAlchemyWidget::ScaleEntry()
 {
@@ -23,7 +24,8 @@ void UColdSteelAlchemyWidget::ScaleEntry()
     {B->SetStyle(ColdSteelUI::ButtonStyle(Scale));if(auto* ContentSlot=Cast<UButtonSlot>(B->GetContent()->Slot))ContentSlot->SetPadding(FMargin(12/Scale,4/Scale));}
     for(const auto& W:ButtonSizes)if(auto* Size=W.Get())Size->SetHeightOverride(ColdSteelUI::ActionHeight/Scale);
     EntryCloseSize->SetWidthOverride(ColdSteelUI::ActionHeight/Scale);
-    EntryDiscardSlot->SetPadding(FMargin(ColdSteelUI::ActionGap/Scale,0,0,0));EntryManualSlot->SetPadding(FMargin(ColdSteelUI::ActionGap/Scale,0,0,0));
+    EntryDiscardSlot->SetPadding(FMargin(ColdSteelUI::ActionGap/Scale,0,0,0));EntryManualSlot->SetPadding(FMargin(0));
+    EntryResultMetrics->SetInnerSlotPadding(FVector2D(12/Scale,4/Scale));
     auto ComboStyle=Choice->GetWidgetStyle();auto ComboButton=ComboStyle.ComboButtonStyle;
     ComboButton.SetButtonStyle(ColdSteelUI::ButtonStyle(Scale));
     ComboButton.SetMenuBorderBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(25,252),ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1/Scale));

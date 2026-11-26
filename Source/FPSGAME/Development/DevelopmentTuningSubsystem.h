@@ -25,7 +25,9 @@ enum class EDevelopmentTuningOption : uint8
     /** Hold the third-person observation camera in world space for action viewing. */
     FixedThirdPersonView,
     /** Forge, alchemy and woodworking inputs are supplied for this session. */
-    FreeCrafting
+    FreeCrafting,
+    /** Local authoritative player can plant without seeds; normal growth and yields remain. */
+    FreePlanting
 };
 
 /** Single-player session overrides. These flags are deliberately absent from the profile/save. */
@@ -35,9 +37,11 @@ class FPSGAME_API UDevelopmentTuningSubsystem : public UGameInstanceSubsystem
     GENERATED_BODY()
 public:
     static UDevelopmentTuningSubsystem* Find(const UObject* Context);
+    bool InfiniteReserveFor(const APawn* Pawn) const;
     static bool IsPlayerOptionEnabled(const APawn* Pawn, EDevelopmentTuningOption Option);
     static bool ShouldOneHitKill(const AActor* Victim, AController* DamageInstigator, AActor* DamageCauser);
     static bool IsFreeCrafting(const UColdSteelStatusModel* Model);
+    static bool IsFreePlanting(const UColdSteelStatusModel* Model);
 
     UFUNCTION(BlueprintPure, Category="Development|Tuning") bool IsEnabled(EDevelopmentTuningOption Option) const;
     UFUNCTION(BlueprintPure, Category="Development|Tuning") bool CanEdit(const APlayerController* Player) const;

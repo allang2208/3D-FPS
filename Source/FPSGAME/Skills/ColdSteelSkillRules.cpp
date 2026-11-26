@@ -1,37 +1,38 @@
 #include "ColdSteelSkillRules.h"
-#include "../Monsters/M66IncineratorMonster.h"
-#include "../Monsters/RootCrownRigPreview.h"
-#include "../Monsters/HeQueMonster.h"
-#include "../UI/ColdSteelStatusModel.h"
-#include "../FPSGAMECharacter.h"
-#include "../UI/ColdSteelEnhancementSystem.h"
-#include "../Weapons/MeleeWeaponStats.h"
-#include "../Weapons/WeaponStatEvaluation.h"
-#include "../Weapons/FPSBallisticsComponent.h"
-#include "../Weapons/FPSMeleeLightningComponent.h"
-#include "../Weapons/ColdSteelEnchantmentCombat.h"
-#include "../Weapons/SniperSuppressorAssets.h"
-#include "../Monsters/MonsterDamageAlert.h"
-#include "../Combat/CombatStatusFormula.h"
-#include "../Monsters/HandBrainMonster.h"
-#include "../Monsters/M10Mawcrawler.h"
-#include "../Monsters/HangingBellM09.h"
-#include "../Monsters/VortexCofferM25.h"
-#include "../Monsters/SpiralPillarM14.h"
-#include "../Monsters/BoundCongregate.h"
-#include "../Monsters/HumanoidHitVolumeData.h"
-#include "../Props/FPSPracticeTarget.h"
+#include "../Combat/CombatChill.h"
 #include "Dom/JsonObject.h"
+#include "Serialization/JsonReader.h"
 #include "Serialization/JsonSerializer.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
-#include "Engine/GameInstance.h"
-#include "GameFramework/Pawn.h"
-#include "Kismet/GameplayStatics.h"
 
 FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
 {
     FColdSteelSkillDefinition D;D.Id=Id;
+    if(Id==TEXT("illuminationArrow"))
+    {
+        D.Name=TEXT("照明箭");D.Icon=TEXT("Skills/illumination_arrow_cold_steel.png");D.MaxLevel=20;
+        D.ExperiencePerLevel=300;D.KillExperience=12;D.HitExperience=0;D.CriticalExperience=0;
+        D.Description=TEXT("弓限定主动技能。搭箭后正常拉弓射击，伤害按普通箭计算；沿途扫描标记敌人，直击标记时间翻倍并留下持续照明。红色轮廓高亮、破除螳螂隐身并加深承伤，兼容节拍与穿心箭。");
+    }
+    if(Id==TEXT("elementalArrow"))
+    {
+        D.Name=TEXT("元素箭");D.Icon=TEXT("Skills/elemental_arrow_fire.png");D.MaxLevel=20;
+        D.ExperiencePerLevel=300;D.HitExperience=4;D.KillExperience=10;D.MultiHitExperience=6;
+        D.Description=TEXT("弓限定主动技能，独立修炼至20级。短按搭箭，长按切换火焰／寒冰／闪电；左键拉弓、松手射击，兼容完美节拍与穿心箭。元素箭等级提升原魔法的伤害调用倍率，原魔法等级和当前属性继续影响伤害。持续拉弓消耗体力与魔法；射出蓝耗按元素箭倍率提高，冷却与对应魔法共用。");
+    }
+    if(Id==TEXT("magicArrowRain"))
+    {
+        D.Name=TEXT("魔法箭雨");D.Icon=TEXT("Skills/magic_arrow_rain_cold_steel.png");
+        D.Description=TEXT("弓限定主动魔法，以敏捷为主、智力为辅。激活后搭上绿色附魔箭，长按左键拉弓并以镜头选择地面范围；满蓄后松手，引导箭在上方空爆并降下一次密集箭雨。保持拉弓持续耗体耗蓝，耗尽收弓，不会自动射出。");
+        D.ExperiencePerLevel=300;D.HitExperience=4;D.KillExperience=10;D.MultiHitExperience=6;
+    }
+    if(Id==TEXT("heartPiercingArrow"))
+    {
+        D.Name=TEXT("穿心箭");D.Icon=TEXT("Skills/heart_piercing_arrow_cold_steel.png");
+        D.Description=TEXT("弓限定被动战技。连续拉弓超过 3 秒且满拉后，红色脉冲提示穿心箭就绪，松手射出高伤害、双倍箭速并可贯穿多个目标的箭矢。拉弓持续耗体，耗尽收弓，不自动射箭。");
+        D.ExperiencePerLevel=300;D.HitExperience=4;D.KillExperience=10;D.CriticalExperience=0;
+    }
     if(ElectricMagic::IsSkill(Id))
     {
         const bool bLance=Id==TEXT("thunderLance");
@@ -41,7 +42,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         D.Description=bLance?TEXT("长按绑定键充能，松键发射贯穿雷枪；未满充在收拢准星内散射，100%充能合并为点并保持待释放。"):TEXT("雷云跟随玩家，每0.9秒自动落雷、传导并叠加感电。");
         if(bLance){auto& T=D.ElectricMagic;T.DamageBase=110;T.DamagePerLevel=14;T.MagicBase=1.8f;T.MagicPerLevel=.26f;T.IntelligenceBase=2;T.IntelligencePerLevel=.30f;T.ManaBase=120;T.ManaGrowth=35;T.Cooldown=32;T.CooldownReduction=4;T.RangeBase=900;T.RangePerLevel=15;T.ElectrifyStacks=2;T.ElectrifySeconds=5;T.StunSeconds=0;T.HitExperience=2;T.KillExperience=10;T.MultiHitExperience=8;T.MultiKillExperience=10;}
     }
-    if(Id==TEXT("blizzard")){D.Name=TEXT("暴风雪");D.Description=TEXT("在准星地面召唤持续伤害与寒冷的暴风雪区域。");D.Icon=TEXT("Skills/blizzard_cold_steel.png");}
+    if(Id==TEXT("blizzard")){D.Name=TEXT("暴风雪");D.Description=TEXT("需要装备法杖才能施放的高级寒冰魔法，在准星地面召唤持续伤害与寒冷的暴风雪区域。");D.Icon=TEXT("Skills/blizzard_cold_steel.png");}
     if(Id==TEXT("staffLight"))
     {D.Name=TEXT("水晶照明");D.Description=TEXT("学徒长杖的特殊功能：按 G 切换水晶照明，无冷却、无消耗。抬杖动作只播放一次，照明持续至再次按 G 或卸下法杖。");D.Icon=TEXT("Skills/staff_light_cold_steel.png");return D;}
     if(Id==TEXT("dodge")){D.Name=TEXT("闪避");D.Description=TEXT("短按左 Shift 后松开，朝输入方向快速闪避；无输入时沿朝向。动作期间无敌。");D.Icon=TEXT("Skills/dodge_cold_steel.png");}
@@ -50,7 +51,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     if(Id==TEXT("criticalStrike")){D.Name=TEXT("暴击");D.Description=TEXT("精通暴击之道，每次暴击都能造成更致命的打击。");D.Icon=TEXT("Skills/critical_strike_cold_steel.png");}
     if(Id==TEXT("fireball")){D.Name=TEXT("火球");D.Description=TEXT("按绑定键凝聚火球，再次按键朝准星发射。直击要害必定暴击，普通直击与爆炸波及目标各自随机判定暴击。");D.Icon=TEXT("Skills/fireball_ember_red.png");D.KillExperience=24;}
     if(Id==TEXT("quickCombat")){D.Name=TEXT("快速进战");D.Description=TEXT("按 F 以当前武器快速打击前方单个目标，造成少量伤害并击退，不附加眩晕。完整动作结束即可再次使用；技能成长降低体力消耗。快捷栏倒计时显示本次武器动作的剩余时间。");D.Icon=TEXT("Skills/quick_combat_placeholder.png");}
-    if(Id==TEXT("runeBlades")){D.Name=TEXT("环绕飞剑");D.Description=TEXT("持符文长剑时按 G 唤出 4 把环绕身体的蓝色能量剑，最长驻留 30 秒；期间每按一次 G 随机发射一把朝向准星，命中造成（武器攻击＋魔法攻击）×1.2 的魔法伤害。全部发射或超时后进入 15 秒冷却，飞剑击杀可缩短冷却。");D.Icon=TEXT("Skills/rune_orb_blades_cold_steel.png");}
+    if(Id==TEXT("runeBlades")){D.Name=TEXT("环绕飞剑");D.Description=TEXT("持符文长剑时按 G 唤出 4 把环绕身体的蓝色能量剑，最长驻留 30 秒；期间每按一次 G 随机发射一把朝向准星，命中造成（武器攻击＋魔法攻击）×1.2 的魔法伤害。全部发射或超时后进入 15 秒冷却。普通飞剑击杀减少魔法冷却 0.5 秒；装配金色符文后每枚有效命中减少魔法冷却 1 秒，击杀不重复结算。不影响武技及飞剑自身冷却。");D.Icon=TEXT("Skills/rune_orb_blades_cold_steel.png");}
     FString Json; TSharedPtr<FJsonObject> Root;
     if (!FFileHelper::LoadFileToString(Json, *(FPaths::ProjectContentDir()/TEXT("ColdSteelData/skills.json"))) ||
         !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json), Root) || !Root) return D;
@@ -60,6 +61,87 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     O->TryGetStringField(TEXT("name"), D.Name); O->TryGetStringField(TEXT("description"), D.Description);
     O->TryGetStringField(TEXT("icon"), D.Icon); O->TryGetStringField(TEXT("upgradeSound"), D.UpgradeSound);
     auto Num = [&](const TCHAR* Key, double Default) { double Value=Default; O->TryGetNumberField(Key,Value); return FMath::IsFinite(Value)?Value:Default; };
+    if(Id==TEXT("leapStrike"))
+    {
+        auto& T=D.LeapStrike;
+        T.DamageBase=Num(TEXT("damageMultiplierBase"),T.DamageBase);T.DamageMax=Num(TEXT("damageMultiplierMax"),T.DamageMax);
+        T.CooldownBase=Num(TEXT("cooldownBase"),T.CooldownBase);T.CooldownMin=Num(TEXT("cooldownMin"),T.CooldownMin);
+        T.StaminaBase=Num(TEXT("staminaBase"),T.StaminaBase);T.StaminaMax=Num(TEXT("staminaMax"),T.StaminaMax);
+        T.RadiusBaseCM=Num(TEXT("radiusBaseCM"),T.RadiusBaseCM);T.RadiusMaxCM=Num(TEXT("radiusMaxCM"),T.RadiusMaxCM);
+        T.ReachBaseCM=Num(TEXT("reachBaseCM"),T.ReachBaseCM);T.ReachMaxCM=Num(TEXT("reachMaxCM"),T.ReachMaxCM);
+        T.MultiKillExperience=Num(TEXT("multiKillExperience"),T.MultiKillExperience);
+    }
+    if(Id==TEXT("chainSlash"))
+    {
+        auto& T=D.ChainSlash;
+        T.DamageBase=Num(TEXT("damageMultiplierBase"),T.DamageBase);T.DamageMax=Num(TEXT("damageMultiplierMax"),T.DamageMax);
+        T.CooldownBase=Num(TEXT("cooldownBase"),T.CooldownBase);T.CooldownMin=Num(TEXT("cooldownMin"),T.CooldownMin);
+        T.StaminaBase=Num(TEXT("staminaBase"),T.StaminaBase);T.StaminaMax=Num(TEXT("staminaMax"),T.StaminaMax);
+        T.MultiKillExperience=Num(TEXT("multiKillExperience"),T.MultiKillExperience);
+    }
+    if(Id==TEXT("shadowStepSlash"))
+    {
+        auto& T=D.ShadowStep;
+        T.Stage1DamageBase=Num(TEXT("stage1DamageBase"),T.Stage1DamageBase);T.Stage1DamageMax=Num(TEXT("stage1DamageMax"),T.Stage1DamageMax);
+        T.Stage2DamageBase=Num(TEXT("stage2DamageBase"),T.Stage2DamageBase);T.Stage2DamageMax=Num(TEXT("stage2DamageMax"),T.Stage2DamageMax);
+        T.DualPerHandRatio=FMath::Clamp(float(Num(TEXT("dualPerHandRatio"),T.DualPerHandRatio)),.1f,1.f);
+        T.FollowupBackstabCritBonus=FMath::Clamp(float(Num(TEXT("followupBackstabCritBonus"),T.FollowupBackstabCritBonus)),0.f,100.f);
+        T.FollowupWindowSeconds=FMath::Clamp(float(Num(TEXT("followupWindowSeconds"),T.FollowupWindowSeconds)),.1f,2.f);
+        T.DashDistanceBaseCM=FMath::Clamp(float(Num(TEXT("dashDistanceBaseCM"),T.DashDistanceBaseCM)),100.f,1500.f);
+        T.DashDistanceMaxCM=FMath::Clamp(float(Num(TEXT("dashDistanceMaxCM"),T.DashDistanceMaxCM)),T.DashDistanceBaseCM,1500.f);
+        T.CooldownBase=Num(TEXT("cooldownBase"),T.CooldownBase);T.CooldownMin=Num(TEXT("cooldownMin"),T.CooldownMin);
+        T.StaminaBase=Num(TEXT("staminaBase"),T.StaminaBase);T.StaminaMax=Num(TEXT("staminaMax"),T.StaminaMax);
+        T.ToughnessStage1=Num(TEXT("toughnessStage1"),T.ToughnessStage1);T.ToughnessStage2=Num(TEXT("toughnessStage2"),T.ToughnessStage2);
+        T.MultiKillExperience=Num(TEXT("multiKillExperience"),T.MultiKillExperience);
+    }
+    if(Id==TEXT("illuminationArrow"))
+    {
+        auto& T=D.IlluminationArrow;
+        T.RadiusBase=Num(TEXT("radiusBaseCM"),T.RadiusBase);T.RadiusMax=Num(TEXT("radiusMaxCM"),T.RadiusMax);
+        T.DurationBase=Num(TEXT("durationBase"),T.DurationBase);T.DurationMax=Num(TEXT("durationMax"),T.DurationMax);
+        T.BonusBase=Num(TEXT("damageBonusBase"),T.BonusBase);T.BonusMax=Num(TEXT("damageBonusMax"),T.BonusMax);
+        T.CooldownBase=Num(TEXT("cooldownBase"),T.CooldownBase);T.CooldownMin=Num(TEXT("cooldownMin"),T.CooldownMin);
+        T.ManaCost=Num(TEXT("manaCost"),T.ManaCost);T.ThreeKillExperience=Num(TEXT("threeKillExperience"),T.ThreeKillExperience);
+        T.FiveKillExperience=Num(TEXT("fiveKillExperience"),T.FiveKillExperience);T.SevenKillExperience=Num(TEXT("sevenKillExperience"),T.SevenKillExperience);
+    }
+    if(Id==TEXT("elementalArrow"))
+    {
+        auto& T=D.ElementalArrow;
+        T.FireDamageMultiplier=FMath::Clamp(float(Num(TEXT("fireDamageMultiplier"),T.FireDamageMultiplier)),0.f,20.f);
+        T.IceDamageMultiplier=FMath::Clamp(float(Num(TEXT("iceDamageMultiplier"),T.IceDamageMultiplier)),0.f,20.f);
+        T.LightningDamageMultiplier=FMath::Clamp(float(Num(TEXT("lightningDamageMultiplier"),T.LightningDamageMultiplier)),0.f,20.f);
+        T.FireGrowth=FMath::Clamp(float(Num(TEXT("fireGrowth"),T.FireGrowth)),0.f,2.f);
+        T.FireLateGrowth=FMath::Clamp(float(Num(TEXT("fireLateGrowth"),T.FireLateGrowth)),0.f,2.f);
+        T.ControlGrowth=FMath::Clamp(float(Num(TEXT("controlGrowth"),T.ControlGrowth)),0.f,2.f);
+        T.ControlLateGrowth=FMath::Clamp(float(Num(TEXT("controlLateGrowth"),T.ControlLateGrowth)),0.f,2.f);
+        T.GrowthChangeLevel=FMath::Clamp(int32(Num(TEXT("growthChangeLevel"),T.GrowthChangeLevel)),2,D.MaxLevel);
+        T.ManaCostMultiplier=FMath::Clamp(float(Num(TEXT("manaCostMultiplier"),T.ManaCostMultiplier)),0.f,20.f);
+        T.ManaPerSecond=FMath::Clamp(float(Num(TEXT("manaPerSecond"),T.ManaPerSecond)),0.f,100.f);
+        T.RadiusMultiplier=Num(TEXT("radiusMultiplier"),2);
+        T.ChillSeconds=Num(TEXT("chillSeconds"),5);T.ChillSlow=CombatChill::SlowPerStack;T.StunSeconds=Num(TEXT("stunSeconds"),1.5);
+    }
+    if(Id==TEXT("heartPiercingArrow"))
+    {
+        auto& T=D.HeartPiercingArrow;
+        T.ChargeSeconds=FMath::Max(.1f,float(Num(TEXT("chargeSeconds"),3)));
+        T.DamageBase=Num(TEXT("damageMultiplierBase"),2.5);
+        T.EarlyGrowth=Num(TEXT("damageGrowthEarly"),.1);T.LateGrowth=Num(TEXT("damageGrowthLate"),.15);
+        T.GrowthChangeLevel=FMath::Clamp(int32(Num(TEXT("growthChangeLevel"),8)),1,20);
+        T.SecondPenetrationLevel=FMath::Clamp(int32(Num(TEXT("secondPenetrationLevel"),8)),1,20);
+        T.ThirdPenetrationLevel=FMath::Clamp(int32(Num(TEXT("thirdPenetrationLevel"),16)),T.SecondPenetrationLevel,20);
+        T.SpeedMultiplier=FMath::Max(1.f,float(Num(TEXT("arrowSpeedMultiplier"),2)));
+    }
+    if(Id==TEXT("magicArrowRain"))
+    {
+        auto& T=D.MagicArrowRain;
+        T.ChargeSeconds=Num(TEXT("chargeSeconds"),1.2);T.Radius=Num(TEXT("radiusCM"),400);T.Range=Num(TEXT("rangeCM"),4000);
+        T.BurstHeight=Num(TEXT("burstHeightCM"),600);T.MinimumHeight=Num(TEXT("minimumHeightCM"),220);
+        T.ManaCost=Num(TEXT("manaCost"),20);T.ManaPerSecond=Num(TEXT("manaPerSecond"),3);T.Cooldown=Num(TEXT("cooldownSeconds"),16);
+        T.SeedSpeed=Num(TEXT("seedSpeedCM"),3500);T.ArrowCount=FMath::Clamp(int32(Num(TEXT("arrowCount"),28)),24,32);
+        T.DamageBase=Num(TEXT("damageBase"),T.DamageBase);T.DamagePerLevel=Num(TEXT("damagePerLevel"),T.DamagePerLevel);
+        T.DexterityBase=Num(TEXT("dexterityBase"),T.DexterityBase);T.DexterityPerLevel=Num(TEXT("dexterityPerLevel"),T.DexterityPerLevel);
+        T.IntelligenceBase=Num(TEXT("intelligenceBase"),T.IntelligenceBase);T.IntelligencePerLevel=Num(TEXT("intelligencePerLevel"),T.IntelligencePerLevel);
+    }
     if(Id==TEXT("swordUppercut"))
     {
         D.UppercutStaminaCost=FMath::Max(0.f,float(Num(TEXT("staminaCost"),25)));
@@ -69,11 +151,13 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
     }
     D.HeavyMultiplierBase=Num(TEXT("heavyMultiplierBase"),2.5);D.HeavyMultiplierPerLevel=Num(TEXT("heavyMultiplierPerLevel"),.1);
     D.HeavyChargeBase=Num(TEXT("heavyChargeBase"),2);D.HeavyChargeReductionPerLevel=Num(TEXT("heavyChargeReductionPerLevel"),.05);
+    D.HeavyChargeStaminaPerSecond=FMath::Max(0.f,float(Num(TEXT("heavyChargeStaminaPerSecond"),2)));
     D.HeavyHit2Experience=Num(TEXT("heavyHit2Experience"),5);D.HeavyKill2Experience=Num(TEXT("heavyKill2Experience"),12);
     D.HeavyHit5Experience=Num(TEXT("heavyHit5Experience"),25);D.HeavyKill5Experience=Num(TEXT("heavyKill5Experience"),60);
     D.StrengthPerLevel=Num(TEXT("strengthPerLevel"),0);D.ConstitutionPerLevel=Num(TEXT("constitutionPerLevel"),0);
     D.HitExperience=Num(TEXT("hitExperience"),0);D.MultiHitExperience=Num(TEXT("multiHitExperience"),0);
     D.CooldownReductionPerLevel=Num(TEXT("cooldownReductionPerLevel"),0);
+    D.CriticalChancePerLevel=FMath::Clamp(float(Num(TEXT("criticalChancePerLevel"),0)),0.f,20.f);
     // Version 1's save contract fixes the level cap; tuning accepts positive, bounded coefficients.
     D.ExperiencePerLevel = FMath::Clamp(int32(Num(TEXT("experiencePerLevel"),100)),1,100000);
     D.KillExperience = FMath::Clamp(int32(Num(TEXT("killExperience"),D.KillExperience)),0,10000);
@@ -172,7 +256,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         F.Duration=Num(TEXT("duration"),5);F.DurationGrowth=Num(TEXT("durationGrowth"),5);
         F.Range=Num(TEXT("maxRange"),650);F.UnitsToCM=Num(TEXT("unitsToCM"),1.5);
         F.TickSeconds=FMath::Max(.1f,float(Num(TEXT("tickSeconds"),.5)));
-        F.ChillStacks=Num(TEXT("chillStacks"),1);F.ChillSeconds=Num(TEXT("chillSeconds"),2.5);F.ChillSlow=Num(TEXT("chillSlowPercent"),.035);
+        F.ChillStacks=Num(TEXT("chillStacks"),1);F.ChillSeconds=Num(TEXT("chillSeconds"),2.5);F.ChillSlow=CombatChill::SlowPerStack;
         F.HitExperience=Num(TEXT("hitExperience"),1);F.KillExperience=Num(TEXT("killExperience"),6);
         F.MultiHitExperience=Num(TEXT("multiHitExperience"),5);F.MultiKillExperience=Num(TEXT("multiKillExperience"),10);
     }
@@ -198,8 +282,46 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         F.MaxHealthPerLevel=FMath::Max(0.f,float(Num(TEXT("maxHealthPerLevel"),50)));
         F.Knockback=Num(TEXT("hitKnockback"),50);F.PushDistanceMultiplier=Num(TEXT("pushDistanceMultiplier"),2);
         F.ChillRadius=Num(TEXT("chillRadius"),100);F.ChillInterval=FMath::Max(.1f,float(Num(TEXT("chillInterval"),1)));
-        F.ChillStacks=Num(TEXT("chillStacks"),1);F.ChillDuration=Num(TEXT("chillDuration"),2.5);F.ChillSlow=Num(TEXT("chillSlowPercent"),.035);
+        F.ChillStacks=Num(TEXT("chillStacks"),1);F.ChillDuration=Num(TEXT("chillDuration"),2.5);F.ChillSlow=CombatChill::SlowPerStack;
         F.HitExperience=Num(TEXT("hitExperience"),3);F.KillExperience=Num(TEXT("killExperience"),10);F.MultiHitExperience=Num(TEXT("multiHitExperience"),10);
+    }
+    if(Id==TEXT("lightningHaste"))
+    {
+        auto& T=D.LightningHaste;
+        T.MoveBase=Num(TEXT("moveSpeedBase"),T.MoveBase);T.MovePerLevel=Num(TEXT("moveSpeedPerLevel"),T.MovePerLevel);
+        T.ActionBase=Num(TEXT("actionSpeedBase"),T.ActionBase);T.ActionPerLevel=Num(TEXT("actionSpeedPerLevel"),T.ActionPerLevel);
+        T.DurationBase=Num(TEXT("durationBase"),T.DurationBase);T.DurationPerLevel=Num(TEXT("durationPerLevel"),T.DurationPerLevel);
+        T.ManaBase=Num(TEXT("manaBase"),T.ManaBase);T.ManaPerLevel=Num(TEXT("manaPerLevel"),T.ManaPerLevel);T.Cooldown=Num(TEXT("cooldown"),T.Cooldown);
+        T.CastExperience=Num(TEXT("castExperience"),T.CastExperience);T.KillExperience=Num(TEXT("killExperience"),T.KillExperience);
+        T.Kill6Bonus=Num(TEXT("kill6Bonus"),T.Kill6Bonus);T.Kill11Bonus=Num(TEXT("kill11Bonus"),T.Kill11Bonus);
+    }
+    if(Id==TEXT("iceArmor"))
+    {
+        auto& T=D.IceArmor;
+        T.PhysicalBase=Num(TEXT("physicalDefenseBase"),T.PhysicalBase);
+        T.PhysicalPerLevel=Num(TEXT("physicalDefensePerLevel"),T.PhysicalPerLevel);
+        T.PhysicalMagic=Num(TEXT("physicalDefenseMagicFactor"),T.PhysicalMagic);
+        T.MagicBase=Num(TEXT("magicDefenseBase"),T.MagicBase);
+        T.MagicPerLevel=Num(TEXT("magicDefensePerLevel"),T.MagicPerLevel);
+        T.MagicMagic=Num(TEXT("magicDefenseMagicFactor"),T.MagicMagic);
+        T.DurationBase=Num(TEXT("durationBase"),T.DurationBase);
+        T.DurationGrowth=Num(TEXT("durationGrowth"),T.DurationGrowth);
+        T.ManaBase=Num(TEXT("manaBase"),T.ManaBase);
+        T.ManaPerLevel=Num(TEXT("manaPerLevel"),T.ManaPerLevel);
+        T.Cooldown=Num(TEXT("cooldown"),T.Cooldown);
+        T.CooldownReduction=Num(TEXT("cooldownReduction"),T.CooldownReduction);
+        T.RadiusBase=Num(TEXT("radiusBaseCM"),T.RadiusBase);
+        T.RadiusGrowth=Num(TEXT("radiusGrowthCM"),T.RadiusGrowth);
+        T.PulseSeconds=Num(TEXT("pulseSeconds"),T.PulseSeconds);
+        T.ChillSeconds=Num(TEXT("chillSeconds"),T.ChillSeconds);
+        T.ChillGrowth=Num(TEXT("chillDurationGrowth"),T.ChillGrowth);
+        T.SlowPerStack=CombatChill::SlowPerStack;
+        T.TrainingSourceInterval=Num(TEXT("trainingSourceInterval"),T.TrainingSourceInterval);
+        T.CastExperience=Num(TEXT("castExperience"),T.CastExperience);
+        T.MeleeExperience=Num(TEXT("meleeHitExperience"),T.MeleeExperience);
+        T.RangedExperience=Num(TEXT("rangedHitExperience"),T.RangedExperience);
+        T.ExperienceCap=Num(TEXT("experienceCapPerCast"),T.ExperienceCap);
+        T.PulseSeconds=FMath::Max(.1f,T.PulseSeconds);T.DurationBase=FMath::Max(.1f,T.DurationBase);T.TrainingSourceInterval=FMath::Max(.1f,T.TrainingSourceInterval);
     }
     if(FireMagic::IsSkill(Id))
     {
@@ -292,401 +414,4 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         Q.StaminaReductionPerLevel=FMath::Clamp(float(Num(TEXT("staminaReductionPerLevel"),.02)),0.f,1.f);
     }
     return D;
-}
-bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
-{
-    if (P.SkillProgressVersion >= 22) return false;
-    P.Skills.FindOrAdd(TEXT("dragonBreath"));
-    P.DragonBreathCooldown=P.DragonBreathCooldownDuration=P.DragonBreathReservedMana=0.f;
-    P.bDragonBreathReserved=false;
-    if(P.SkillProgressVersion==21){P.SkillProgressVersion=22;return true;}
-    if (P.SkillProgressVersion < 8)
-    {
-        P.Skills.FindOrAdd(TEXT("rifleMastery"));P.Skills.FindOrAdd(TEXT("dodge"));P.Skills.FindOrAdd(TEXT("dexterousHands"));P.Skills.FindOrAdd(TEXT("pistolMastery"));P.Skills.FindOrAdd(TEXT("criticalStrike"));P.Skills.FindOrAdd(TEXT("fireball"));for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery"))})P.Skills.FindOrAdd(Id);P.Skills.FindOrAdd(TEXT("heavyStrike"));
-    }
-    if(P.SkillProgressVersion<9)
-    {
-    P.FireballCooldownDuration=0.f;
-    if (P.FireballCooldown>0.f)
-    {
-        // Legacy saves have no cast-time level/equipment snapshot. Estimate once
-        // from the saved level, preserving the actual remaining cooldown exactly.
-        const auto Definition=LoadDefinition(TEXT("fireball"));
-        const auto* Progress=P.Skills.Find(TEXT("fireball"));
-        const int32 L=FMath::Clamp(Progress?Progress->Level:1,1,Definition.MaxLevel);
-        const float Growth=float(L-1)/FMath::Max(1,Definition.MaxLevel-1);
-        const float Estimated=FMath::Lerp(Definition.Fireball.Cooldown,Definition.Fireball.MinimumCooldown,Growth);
-        P.FireballCooldownDuration=FMath::Max(P.FireballCooldown,Estimated);
-    }
-    }
-    P.Skills.FindOrAdd(TEXT("iceSpike"));
-    // Version 11 adds quickCombat; the early return above means only <11 reaches here.
-    P.Skills.FindOrAdd(TEXT("quickCombat"));
-    P.Skills.FindOrAdd(TEXT("whirlwind"));
-    P.Skills.FindOrAdd(TEXT("lightningStrike"));
-    P.Skills.FindOrAdd(TEXT("holyLight"));
-    P.Skills.FindOrAdd(TEXT("dashAttack"));
-    P.Skills.FindOrAdd(TEXT("meteor"));P.Skills.FindOrAdd(TEXT("flameArmor"));
-    P.Skills.FindOrAdd(TEXT("iceWall"));
-    P.Skills.FindOrAdd(TEXT("blizzard"));
-    for(FName Id:{FName(TEXT("stormDomain")),FName(TEXT("thunderLance"))}){P.Skills.FindOrAdd(Id);P.ElectricCooldowns.FindOrAdd(Id);P.ElectricCooldownDurations.FindOrAdd(Id);}
-    P.Skills.FindOrAdd(TEXT("swordUppercut"));
-    P.SwordUppercutCooldown=P.SwordUppercutCooldownDuration=0.f;
-    P.SkillProgressVersion=22;
-    return true;
-}
-bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
-{
-    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>22 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
-    if(P.SkillProgressVersion>=22&&(!P.Skills.Contains(TEXT("dragonBreath"))||!FMath::IsFinite(P.DragonBreathCooldown)||
-        !FMath::IsFinite(P.DragonBreathCooldownDuration)||P.DragonBreathCooldown<0||P.DragonBreathCooldownDuration<P.DragonBreathCooldown||
-        P.DragonBreathCooldownDuration>300||!FMath::IsFinite(P.DragonBreathReservedMana)||P.DragonBreathReservedMana<0||
-        (!P.bDragonBreathReserved&&P.DragonBreathReservedMana!=0)))
-    {Reason=TEXT("龙息进度或冷却无效");return false;}
-    if(P.SkillProgressVersion>=21&&(!FMath::IsFinite(P.SwordUppercutCooldown)||P.SwordUppercutCooldown<0.f||!FMath::IsFinite(P.SwordUppercutCooldownDuration)||P.SwordUppercutCooldownDuration<P.SwordUppercutCooldown||P.SwordUppercutCooldownDuration>300.f))
-    {Reason=TEXT("上挑冷却无效");return false;}
-    if(P.SkillProgressVersion>=20&&!P.Skills.Contains(TEXT("swordUppercut"))){Reason=TEXT("上挑进度缺失");return false;}
-    if(P.SkillProgressVersion>=19)
-    {
-        if(P.ElectricCooldowns.Num()>2||P.ElectricCooldownDurations.Num()>2||P.ElectricReservedMana.Num()>2){Reason=TEXT("电系技能存档无效");return false;}
-        for(FName Id:{FName(TEXT("stormDomain")),FName(TEXT("thunderLance"))})
-        {
-            const float R=P.ElectricCooldowns.FindRef(Id),D=P.ElectricCooldownDurations.FindRef(Id);
-            if(!P.Skills.Contains(Id)||!P.ElectricCooldowns.Contains(Id)||!P.ElectricCooldownDurations.Contains(Id)||!FMath::IsFinite(R)||!FMath::IsFinite(D)||R<0||D<R||D>300){Reason=TEXT("电系技能进度或冷却无效");return false;}
-        }
-        for(const auto& R:P.ElectricReservedMana)if(!ElectricMagic::IsSkill(R.Key)||!FMath::IsFinite(R.Value)||R.Value<0){Reason=TEXT("电系未释放蓝耗无效");return false;}
-    }
-    if(P.SkillProgressVersion>=18&&(!P.Skills.Contains(TEXT("blizzard"))||!FMath::IsFinite(P.BlizzardCooldown)||P.BlizzardCooldown<0||!FMath::IsFinite(P.BlizzardCooldownDuration)||P.BlizzardCooldownDuration<P.BlizzardCooldown||P.BlizzardCooldownDuration>300))
-    {Reason=TEXT("暴风雪进度或冷却无效");return false;}
-    if(P.SkillProgressVersion>=18&&(!FMath::IsFinite(P.BlizzardReservedMana)||P.BlizzardReservedMana<0||(!P.bBlizzardReserved&&P.BlizzardReservedMana!=0)))
-    {Reason=TEXT("暴风雪未释放蓝耗无效");return false;}
-    if(P.SkillProgressVersion>=17&&(!P.Skills.Contains(TEXT("iceWall"))||!FMath::IsFinite(P.IceWallCooldown)||P.IceWallCooldown<0||!FMath::IsFinite(P.IceWallCooldownDuration)||P.IceWallCooldownDuration<P.IceWallCooldown||P.IceWallCooldownDuration>300))
-    {Reason=TEXT("冰墙进度或冷却无效");return false;}
-    if(P.SkillProgressVersion>=17&&(!FMath::IsFinite(P.IceWallReservedMana)||P.IceWallReservedMana<0||(!P.bIceWallReserved&&P.IceWallReservedMana!=0)))
-    {Reason=TEXT("冰墙未释放蓝耗无效");return false;}
-    if(P.SkillProgressVersion>=16)
-    {
-        if(!P.Skills.Contains(TEXT("meteor"))||!P.Skills.Contains(TEXT("flameArmor"))) {Reason=TEXT("火系技能进度缺失");return false;}
-        for(const auto Pair:{TPair<float,float>(P.MeteorCooldown,P.MeteorCooldownDuration),TPair<float,float>(P.FlameArmorCooldown,P.FlameArmorCooldownDuration)})
-            if(!FMath::IsFinite(Pair.Key)||!FMath::IsFinite(Pair.Value)||Pair.Key<0||Pair.Value<Pair.Key||Pair.Value>300){Reason=TEXT("火系技能冷却无效");return false;}
-    }
-    if (P.SkillProgressVersion>=1 && !P.Skills.Contains(TEXT("rifleMastery"))) { Reason=TEXT("技能进度缺失"); return false; }
-    if (P.SkillProgressVersion>=2 && !P.Skills.Contains(TEXT("dodge"))) { Reason=TEXT("闪避进度缺失"); return false; }
-    if (P.SkillProgressVersion>=3 && !P.Skills.Contains(TEXT("dexterousHands"))) { Reason=TEXT("巧手进度缺失"); return false; }
-    if (P.SkillProgressVersion>=4 && !P.Skills.Contains(TEXT("pistolMastery"))) { Reason=TEXT("手枪精通进度缺失"); return false; }
-    if (P.SkillProgressVersion>=5 && !P.Skills.Contains(TEXT("criticalStrike"))) { Reason=TEXT("暴击进度缺失"); return false; }
-    if (P.SkillProgressVersion>=6 && (!P.Skills.Contains(TEXT("fireball")) || !FMath::IsFinite(P.FireballCooldown) || P.FireballCooldown<0 || P.FireballCooldown>300)) { Reason=TEXT("火球进度或冷却无效"); return false; }
-    if(P.SkillProgressVersion>=8&&!P.Skills.Contains(TEXT("heavyStrike"))){Reason=TEXT("重击进度缺失");return false;}
-    if(P.SkillProgressVersion>=9&&(!FMath::IsFinite(P.FireballCooldownDuration)||P.FireballCooldownDuration<P.FireballCooldown||P.FireballCooldownDuration>300)){Reason=TEXT("火球冷却总时长无效");return false;}
-    if(P.SkillProgressVersion>=10&&(!P.Skills.Contains(TEXT("iceSpike"))||!FMath::IsFinite(P.IceSpikeCooldown)||P.IceSpikeCooldown<0||!FMath::IsFinite(P.IceSpikeCooldownDuration)||P.IceSpikeCooldownDuration<P.IceSpikeCooldown||P.IceSpikeCooldownDuration>300)){Reason=TEXT("冰锥进度或冷却无效");return false;}
-    if(P.SkillProgressVersion>=11&&!P.Skills.Contains(TEXT("quickCombat"))){Reason=TEXT("快速进战进度缺失");return false;}
-    if(P.SkillProgressVersion>=11&&(!FMath::IsFinite(P.QuickCombatCooldown)||P.QuickCombatCooldown<0||!FMath::IsFinite(P.QuickCombatCooldownDuration)||P.QuickCombatCooldownDuration<P.QuickCombatCooldown||P.QuickCombatCooldownDuration>300)){Reason=TEXT("快速进战冷却无效");return false;}
-    if(P.SkillProgressVersion>=12&&(!P.Skills.Contains(TEXT("whirlwind"))||!FMath::IsFinite(P.WhirlwindCooldown)||P.WhirlwindCooldown<0||!FMath::IsFinite(P.WhirlwindCooldownDuration)||P.WhirlwindCooldownDuration<P.WhirlwindCooldown||P.WhirlwindCooldownDuration>300))
-    {Reason=TEXT("大旋风进度或冷却无效");return false;}
-    if(P.SkillProgressVersion>=13&&(!P.Skills.Contains(TEXT("lightningStrike"))||!FMath::IsFinite(P.LightningCooldown)||P.LightningCooldown<0||!FMath::IsFinite(P.LightningCooldownDuration)||P.LightningCooldownDuration<P.LightningCooldown||P.LightningCooldownDuration>300))
-    {Reason=TEXT("闪电进度或冷却无效");return false;}
-    if(P.SkillProgressVersion>=14&&(!P.Skills.Contains(TEXT("holyLight"))||!FMath::IsFinite(P.HolyLightCooldown)||P.HolyLightCooldown<0||!FMath::IsFinite(P.HolyLightCooldownDuration)||P.HolyLightCooldownDuration<P.HolyLightCooldown||P.HolyLightCooldownDuration>300))
-    {Reason=TEXT("圣光进度或冷却无效");return false;}
-    if(P.SkillProgressVersion>=15&&!P.Skills.Contains(TEXT("dashAttack"))){Reason=TEXT("冲刺攻击进度缺失");return false;}
-    for (const auto& Pair:P.Skills)
-        if (Pair.Key.IsNone() || Pair.Value.Level<1 || Pair.Value.Level>20 || Pair.Value.Experience<0 || Pair.Value.Experience>2000000 || (Pair.Value.Level==20 && Pair.Value.Experience!=0))
-        { Reason=TEXT("技能等级或修炼值无效"); return false; }
-    return true;
-}
-bool ColdSteelSkills::IsRifle(const FColdSteelItem* I)
-{ if(!I)return false;const FString Type=ColdSteelInventory::Text(*I,TEXT("weaponType"));return Type==TEXT("rifle")||Type==TEXT("sniper"); }
-bool ColdSteelSkills::IsPistol(const FColdSteelItem* I)
-{ return I && ColdSteelInventory::Text(*I,TEXT("weaponType"))==TEXT("pistol"); }
-bool ColdSteelSkills::IsCriticalHit(const FHitResult& Hit)
-{
-    if(const auto* HeQue=Cast<AHeQueMonster>(Hit.GetActor()))return HeQue->IsWeakpointHit(Hit);
-    if(const auto* Crown=Cast<ARootCrownRigPreview>(Hit.GetActor()))return Crown->IsWeakpointHit(Hit);
-    if(const auto* M25=Cast<AVortexCofferM25>(Hit.GetActor()))return M25->IsWeakpointHit(Hit);
-    if(const auto* M14=Cast<ASpiralPillarM14>(Hit.GetActor()))return M14->IsWeakpointHit(Hit);
-    if(const auto* M09=Cast<AHangingBellM09>(Hit.GetActor()))return M09->IsWeakpointHit(Hit);
-    if(const auto* M10=Cast<AM10Mawcrawler>(Hit.GetActor()))return M10->IsWeakpointHit(Hit);
-    if(const auto* M66=Cast<AM66IncineratorMonster>(Hit.GetActor()))return M66->IsWeakpointHit(Hit);
-    // 手脑怪要害自定义：只有释放吼叫（Howl）期间命中张开的口部才算弱点；其余时间头部
-    // （cranium）一律不触发要害必暴。随机暴击是角色属性驱动（见 Snapshot 的 crit chance），
-    // 不经此处，所以近战/枪械仍可按概率对其暴击，符合"平时无固定弱点、可被随机暴击"的口径。
-    if(const auto* Brain=Cast<AHandBrainMonster>(Hit.GetActor()))return Brain->IsWeakpointHit(Hit);
-    // 训练靶：命中点落在靶心正面区域即要害（靶心无骨骼，按网格本地坐标判定）。
-    if(const auto* Target=Cast<AFPSPracticeTarget>(Hit.GetActor()))return Target->IsBullseyeHit(Hit);
-    bool bFittedHead = false;
-    if (UHumanoidHitVolumeData::ResolveCriticalHit(Hit, bFittedHead)) return bFittedHead;
-    const FString Bone=Hit.BoneName.ToString();return Bone.Contains(TEXT("head"),ESearchCase::IgnoreCase)||Bone.Equals(TEXT("cranium"),ESearchCase::IgnoreCase);
-}
-FColdSteelSkillEffect ColdSteelSkills::Effect(const FColdSteelSkillDefinition& D, int32 Level)
-{
-    const int32 L=FMath::Clamp(Level,0,D.MaxLevel);
-    if(D.Id==TEXT("dashAttack"))return FColdSteelSkillEffect{};
-    if(D.Id==TEXT("whirlwind")){FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;return E;}
-    if(D.Id==TEXT("swordUppercut"))
-    {
-        FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;
-        E.HeavyMultiplier=D.HeavyMultiplierBase+FMath::Max(0,L-1)*D.HeavyMultiplierPerLevel;
-        E.UppercutReachMultiplier=D.UppercutRangeMultiplier*(1.f+FMath::Max(0,L-1)*D.UppercutReachGrowthPerLevel);
-        return E;
-    }
-    if(D.Id==TEXT("heavyStrike")){FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;E.HeavyMultiplier=D.HeavyMultiplierBase+FMath::Max(0,L-1)*D.HeavyMultiplierPerLevel;E.HeavyChargeSeconds=FMath::Max(.1f,D.HeavyChargeBase-FMath::Max(0,L-1)*D.HeavyChargeReductionPerLevel);return E;}
-    if(D.Id==TEXT("swordMastery")||D.Id==TEXT("machineGunMastery")||D.Id==TEXT("shotgunMastery")||D.Id==TEXT("bowMastery"))
-    {FColdSteelSkillEffect E;E.Strength=L*D.StrengthPerLevel;E.Constitution=L*D.ConstitutionPerLevel;E.Dexterity=L*D.DexterityPerLevel;E.DamagePercent=L*D.DamagePercentPerLevel;E.FlatDamage=L*D.FlatDamagePerLevel;E.CooldownReduction=L*D.CooldownReductionPerLevel;E.MovementMultiplier=D.MovementMultiplier;return E;}
-    if(D.Id==TEXT("criticalStrike")){FColdSteelSkillEffect E;E.CriticalDamageBonus=L>0?D.CriticalDamageBase+L*D.CriticalDamagePerLevel:0.f;E.Luck=L*D.LuckPerLevel;return E;}
-    if(D.Id==TEXT("dodge")){FColdSteelSkillEffect E;E.DodgeDistanceCM=L*D.DodgeDistanceCMPerLevel;E.DodgeCostReduction=L*D.DodgeCostReductionPerLevel;return E;}
-    // 快速进战没有常驻属性收益；主动伤害和体力成长由 QuickCombatStats 计算。
-    if(D.Id==TEXT("quickCombat")){FColdSteelSkillEffect E;return E;}
-    if(D.Id==TEXT("dexterousHands")){FColdSteelSkillEffect E;E.Dexterity=L*D.DexterityPerLevel;E.ReloadSpeed=L*D.ReloadSpeedPerLevel;E.BowDrawSpeed=L*D.BowDrawSpeedPerLevel;return E;}
-    if(D.Id==TEXT("pistolMastery")){FColdSteelSkillEffect E;E.Dexterity=L*D.DexterityPerLevel;E.DamagePercent=L*D.DamagePercentPerLevel;E.FlatDamage=L*D.FlatDamagePerLevel;E.MoveSpeed=L*D.MoveSpeedPerLevel;return E;}
-    FColdSteelSkillEffect E; E.DamagePercent=L*D.DamagePercentPerLevel; E.FlatDamage=L*D.FlatDamagePerLevel;
-    E.WeakpointPercent=L*D.WeakpointPerLevel; E.Wisdom=L*D.WisdomPerLevel; return E;
-}
-int32 ColdSteelSkills::ExperienceRequired(const FColdSteelSkillDefinition& D, int32 L)
-{ return L>=D.MaxLevel?0:FMath::Max(1,L)*D.ExperiencePerLevel; }
-void ColdSteelSkills::AddExperience(FColdSteelProfile& P, const FColdSteelSkillDefinition& D, int32 Amount)
-{
-    auto* Progress=P.Skills.Find(D.Id);
-    if (!Progress || Amount<=0 || Progress->Level>=D.MaxLevel) return;
-    Progress->Experience+=Amount;
-    while (Progress->Level<D.MaxLevel)
-    {
-        const int32 Need=ExperienceRequired(D,Progress->Level); if (Progress->Experience<Need) break;
-        Progress->Experience-=Need; ++Progress->Level;
-    }
-    if (Progress->Level==D.MaxLevel) Progress->Experience=0;
-}
-FString ColdSteelSkills::EffectSummary(const FColdSteelSkillEffect& E)
-{ if(E.HeavyMultiplier>0)return FString::Printf(TEXT("重击 ×%.1f · 蓄力 %.2f 秒 · 力量 +%d"),E.HeavyMultiplier,E.HeavyChargeSeconds,E.Strength);
-if(E.CriticalDamageBonus>0||E.Luck>0)return FString::Printf(TEXT("暴击伤害 +%.0f%%   ·   幸运 +%d"),E.CriticalDamageBonus*100,E.Luck);
-if(E.DodgeDistanceCM>0||E.DodgeCostReduction>0)return FString::Printf(TEXT("闪避距离 +%.1f 米   ·   体力消耗 −%.1f%%"),E.DodgeDistanceCM/100,E.DodgeCostReduction*100);
-if(E.MoveSpeed>0)return FString::Printf(TEXT("手枪伤害 +%.0f%% / +%.0f   ·   敏捷 +%d   ·   持枪移速 +%.0f%%"),E.DamagePercent*100,E.FlatDamage,E.Dexterity,E.MoveSpeed*100);
-if(E.CooldownReduction>0||E.Strength>0||E.Constitution>0)return FString::Printf(TEXT("伤害 +%.0f%% / +%.0f · 属性 +%d%s"),E.DamagePercent*100,E.FlatDamage,E.Strength+E.Constitution+E.Dexterity,E.CooldownReduction>0?*FString::Printf(TEXT(" · 攻速 +%.0f%%"),(1.f/FMath::Max(.05f,1.f-E.CooldownReduction)-1.f)*100):TEXT(""));
-if(E.BowDrawSpeed>0)return FString::Printf(TEXT("敏捷 +%d · 换弹速度 +%.0f%% · 拉弓速度 +%.2f%%"),E.Dexterity,E.ReloadSpeed*100,E.BowDrawSpeed*100);
-if(E.Dexterity>0||E.ReloadSpeed>0)return FString::Printf(TEXT("敏捷 +%d   ·   换弹速度 +%.0f%%"),E.Dexterity,E.ReloadSpeed*100);
-return FString::Printf(TEXT("步枪伤害 +%.0f%% / +%.0f   ·   精神 +%d   ·   要害伤害 +%.0f%%"),E.DamagePercent*100,E.FlatDamage,E.Wisdom,E.WeakpointPercent*100); }
-FColdSteelSkillShot ColdSteelSkills::Snapshot(AActor* Shooter,const FColdSteelItem* Item,bool bFiredRound)
-{
-    FColdSteelSkillShot Shot;
-    if(const FColdSteelItem* Source=Item?Item:nullptr)Shot.ItemDefinition=Source->Definition;
-    // 联机：服务端上远端玩家的数值来源是影子档案，不是 GameInstance 单例（单例是主机的档）。
-    UColdSteelStatusModel* M=nullptr;
-    if(const auto* Character=Cast<AFPSGAMECharacter>(Shooter))M=Character->GetNetShadowProfile();
-    if(!M&&Shooter&&Shooter->GetGameInstance())M=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    if (M)
-    { Shot.bRifle=IsRifle(Item?Item:M->Equipped());Shot.bPistol=IsPistol(Item?Item:M->Equipped()); Shot.WeakpointPercent=Shot.bRifle?M->RifleEffect().WeakpointPercent:0;
-      // 枪械自带的要害伤害加成（物品定义 innate_weakpoint_percent，M1911 = 120%）：
-      // 与步枪精通同一个要害乘区，非步枪武器靠这一项获得要害收益。
-      if(const auto* I=Item?Item:M->Equipped())Shot.WeakpointPercent+=float(ColdSteelInventory::Number(*I,TEXT("innate_weakpoint_percent")));
-      Shot.CriticalDamageBonus=M->CriticalStrikeEffect().CriticalDamageBonus; }
-    if(M)
-    {
-        Shot.CriticalChance=M->Derived(TEXT("crit"));Shot.MasteryId=M->WeaponMastery(Item?Item:M->Equipped());
-        if(const auto* I=Item?Item:M->Equipped())if(auto* E=Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
-        {
-            Shot.CriticalChance+=100*E->Effect(*I,TEXT("critRate"));
-            Shot.ArmorPenetration=E->CraftEffect(*I,TEXT("armorPenetrationPercent"))+E->Effect(*I,TEXT("armorPenetrationPercent"));
-            // 武器自带护甲穿透（物品定义 innate_armor_penetration，Pit Viper 2011 = 25%）：
-            // 与改造/附魔/弹种穿透同一路相加，最终在步枪兵分支里 clamp 到 [0,1]。
-            Shot.ArmorPenetration+=float(ColdSteelInventory::Number(*I,TEXT("innate_armor_penetration")));
-            Shot.MagicPenetration=E->CraftEffect(*I,TEXT("magicPenetrationPercent"))+E->Effect(*I,TEXT("magicPenetrationPercent"));
-        }
-        if(const auto* I=Item?Item:M->Equipped())
-        {
-            if(bFiredRound)
-            {
-                Shot.ArmorPenetration=FMath::Clamp(Shot.ArmorPenetration+M->AmmoArmorPenetration(*I),0.f,1.f);
-                if(const auto* Ammo=M->AmmoType(M->AmmoDefinitionFor(*I)))
-                {Shot.AmmoPoisonStacks=Ammo->PoisonStacks;Shot.AmmoBleedStacks=Ammo->BleedStacks;}
-            }
-            if(Shot.ItemDefinition.IsEmpty())Shot.ItemDefinition=I->Definition;
-            const auto Wager=ColdSteelCombat::BigBlind(Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>(),I);
-            if(Wager.Enabled)
-            {Shot.WagerCriticalBonusPerStack=Wager.CriticalBonusPerStack;Shot.WagerSeconds=Wager.Seconds;Shot.WagerMaxStacks=Wager.MaxStacks;}
-            const auto Calm=ColdSteelCombat::Calm(Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>(),I);
-            if(Calm.Enabled)
-            {
-                Shot.ComposureStabilityPerStack=Calm.StabilityPerStack;
-                Shot.ComposureRecoilReductionPerStack=Calm.RecoilReductionPerStack;
-                Shot.ComposureSeconds=Calm.Seconds;Shot.ComposureMaxStacks=Calm.MaxStacks;
-            }
-            Shot.bMelee=ColdSteelInventory::IsMeleeWeapon(*I);
-            // 武器自带的暴击伤害加成（items 定义 critDamageBonus，SVD=0.5）与暴击技能倍率相加后，
-            // 在 ColdSteelSkillModel 里只乘一次（要害或随机暴击同一击不叠加）。
-            Shot.CriticalDamageBonus+=FMath::Max(0.,ColdSteelInventory::Number(*I,TEXT("critDamageBonus")));
-            // 近战默认按锐器折算削韧（配重锤等钝击动作由攻击端覆盖）；其余按冲击。
-            Shot.AttackForm=Shot.bMelee?EMonsterAttackForm::Blade:EMonsterAttackForm::Impact;
-            if(Shot.bMelee)
-            {
-                const auto Melee=ColdSteelMelee::Evaluate(*I,M);
-                Shot.DamagePanel=Melee.DamageParts;
-                if(I->Definition==TEXT("ue_highland_claymore"))
-                    if(const auto* Gunsmith=Shooter->GetGameInstance()->GetSubsystem<UGunsmithSystem>())
-                    {
-                        const FString Material=Gunsmith->Installed(*I).FindRef(TEXT("blade_material"));
-                        Shot.bBlackthornCriticalWeakness=Material==TEXT("blackthorn_steel");
-                        Shot.bWhitehartCriticalVulnerability=Material==TEXT("whitehart_mithril");
-                    }
-                if(I->Definition==TEXT("ue_frost_crystal_sword"))
-                {
-                    Shot.HitHealthReturnRatio=float(Melee.Modifiers.HitHealthReturnRatio);
-                    Shot.HitManaReturnRatio=float(Melee.Modifiers.HitManaReturnRatio);
-                }
-                if(I->Definition==TEXT("ue_rune_sword"))
-                {
-                    Shot.TimeSandEchoRatio=float(Melee.Modifiers.TimeSandEchoRatio);
-                    Shot.TimeSandEchoDelay=float(Melee.Modifiers.TimeSandEchoDelay);
-                    Shot.TimeSandCooldownReward=.5f+float(Melee.Modifiers.CooldownReduceSecondsPerHit);
-                }
-                // Captured from this attack's item on both client and authority;
-                // never exported to the character's global spell critical stats.
-                Shot.CriticalChance+=float(Melee.Modifiers.MeleeCriticalChanceAdd);
-                Shot.CriticalDamageBonus+=float(Melee.Modifiers.MeleeCriticalDamageBonus);
-                // Equipped passive crit is already included by Derived(crit).
-                if(Melee.Modifiers.ZhenmoSeconds>0.)Shot.ZhenmoSourceInstance=I->InstanceId;
-                Shot.ArmorPenetration=FMath::Clamp(Shot.ArmorPenetration+float(Melee.Modifiers.PhysicalArmorPenetration),0.f,1.f);
-                Shot.ToughnessDamageMultiplier=Melee.Modifiers.ToughnessDamage;
-                Shot.QuickCombatTigerRoarToughnessBonus=Melee.Modifiers.QuickCombatTigerRoarToughnessBonus;
-                Shot.QuickCombatTigerRoarSeconds=Melee.Modifiers.QuickCombatTigerRoarSeconds;
-                Shot.QuickCombatPhysicalVulnerabilityBonus=Melee.Modifiers.QuickCombatPhysicalVulnerabilityBonus;
-                Shot.QuickCombatPhysicalVulnerabilitySeconds=Melee.Modifiers.QuickCombatPhysicalVulnerabilitySeconds;
-                Shot.QuickCombatRuneVulnerability=Melee.Modifiers.QuickCombatRuneVulnerability;
-                Shot.QuickCombatRuneVulnerabilitySeconds=Melee.Modifiers.QuickCombatRuneVulnerabilitySeconds;
-                if(const auto* E=Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();E&&!bFiredRound)
-                {
-                    if(E->Effect(*I,TEXT("electrifiedMelee"))>0.)
-                    {
-                        Shot.ElectrifiedRadiusCM=E->Effect(*I,TEXT("electrifiedRadiusM"))*100.;
-                        Shot.ElectrifiedMinLevel=int32(E->Effect(*I,TEXT("electrifiedMinLevel")));
-                    }
-                    const float Speed=E->Effect(*I,TEXT("berserkSpeedPerStack"));
-                    const float Period=E->Effect(*I,TEXT("berserkDecaySeconds"));
-                    const int32 Limit=int32(E->Effect(*I,TEXT("berserkMaxStacks")));
-                    if(E->Effect(*I,TEXT("berserkMelee"))>0.&&Speed>0.f&&Period>0.f&&Limit>0)
-                    {Shot.BerserkSourceInstance=I->InstanceId;Shot.BerserkSpeedPerStack=Speed;Shot.BerserkDecaySeconds=Period;Shot.BerserkMaxStacks=Limit;}
-                }
-            }
-            else if(ColdSteelInventory::IsBow(*I))
-                Shot.DamagePanel=ColdSteelWeaponStats::DamageParts(*I,M,ColdSteelInventory::Number(*I,TEXT("full_damage"),69));
-            else if(const auto* G=Shooter->GetGameInstance()->GetSubsystem<UGunsmithSystem>();G&&G->Weapon(I->Definition))
-            {
-                const auto Installed=G->Installed(*I);
-                const auto Stats=G->Calculate(I->Definition,Installed);
-                if(bFiredRound)
-                {
-                    Shot.CriticalDamageBonus+=float(Stats.FirearmCriticalDamageBonus);
-                    Shot.FirearmCriticalStunSeconds=float(Stats.CriticalStunSeconds);
-                }
-                Shot.bSilentLethalShot=bFiredRound&&SniperSuppressorAssets::Supports(I->Definition)
-                    &&Installed.FindRef(TEXT("muzzle"))==SniperSuppressorAssets::Part;
-                Shot.DamagePanel=ColdSteelWeaponStats::DamageParts(*I,M,Stats.Damage);
-                if(bFiredRound&&!G->IsMelee(I->Definition)&&!G->IsTool(I->Definition)&&!G->IsStaff(I->Definition)&&!G->IsBow(I->Definition))
-                    if(const auto* E=Shooter->GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
-                    {
-                        const double Radius=E->Effect(*I,TEXT("shatterRadiusM"));
-                        const double Scale=E->Effect(*I,TEXT("shatterDamageScale"));
-                        if(E->Effect(*I,TEXT("shatterBullet"))>0.&&Radius>0.&&Scale>0.)
-                        {Shot.ShatterRadiusCM=Radius*100.;Shot.ShatterDamageScale=Scale;Shot.BulletSpeedCM=Stats.Speed*100.;}
-                    }
-            }
-        }
-    }
-    return Shot;
-}
-ColdSteelSkills::FColdSteelNetHitForward& ColdSteelSkills::NetHitForward()
-{
-    static FColdSteelNetHitForward Instance=nullptr;
-    return Instance;
-}
-void ColdSteelSkills::AwardKillByOwner(UGameInstance* GameInstance,AController* Instigator,AActor* Victim,int64 ExperienceReward)
-{
-    if(!GameInstance)return;
-    UColdSteelStatusModel* Model=GameInstance->GetSubsystem<UColdSteelStatusModel>();
-    if(const auto* Killer=Cast<AFPSGAMECharacter>(Instigator?Instigator->GetPawn():nullptr))
-        if(auto* Shadow=Killer->GetNetShadowProfile())Model=Shadow; // M3: 远端玩家的击杀记到影子档案
-    if(Model)Model->AwardKill(Victim,ExperienceReward);
-}
-void ColdSteelSkills::NotifyKillByOwner(UGameInstance* GameInstance,AController* Instigator,AActor* Victim)
-{
-    if(!GameInstance||!Victim||!Victim->HasAuthority())return;
-    const auto* Killer=Cast<AFPSGAMECharacter>(Instigator?Instigator->GetPawn():nullptr);
-    if(!Killer||Killer==Victim)return;
-    UColdSteelStatusModel* Model=Killer->GetNetShadowProfile();
-    if(!Model)Model=GameInstance->GetSubsystem<UColdSteelStatusModel>();
-    if(Model)Model->ApplyKillStaminaRecovery(Victim);
-}
-void ColdSteelSkills::GrantBerserkOnWeaponHit(AActor* Shooter,const FColdSteelSkillShot& Shot)
-{
-    if(!Shooter||!Shooter->HasAuthority()||!Shot.bMelee||Shot.BerserkSourceInstance.IsEmpty()
-        ||Shot.BerserkSpeedPerStack<=0.f||Shot.BerserkDecaySeconds<=0.f||Shot.BerserkMaxStacks<=0)return;
-    UColdSteelStatusModel* Model=nullptr;
-    if(const auto* Player=Cast<AFPSGAMECharacter>(Shooter))Model=Player->GetNetShadowProfile();
-    if(!Model&&Shooter->GetGameInstance())Model=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    const auto* Held=Model?Model->ActiveProductionTool():nullptr;
-    if(!Held&&Model)Held=Model->Equipped();
-    if(!Held||Held->InstanceId!=Shot.BerserkSourceInstance)return;
-    if(auto* Status=UCombatStatusFormula::GetOrAdd(Shooter))
-        Status->AddBerserk(Shot.BerserkSpeedPerStack,Shot.BerserkDecaySeconds,Shot.BerserkMaxStacks);
-}
-float ColdSteelSkills::ApplyHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result)
-{
-    // M3 联机：客户端命不本地结算，转发权威服务器（枪械/近战/法术共用此汇入点）。
-    if(Shooter&&!Shooter->HasAuthority()&&NetHitForward()&&NetHitForward()(Shooter,Hit,Damage,Direction,Shot))return 0.f;
-    if(Result)*Result={};
-    // Same scope used by BowArrow: defer this victim's group alarm until the
-    // actual damage/death result. A surviving victim still broadcasts normally.
-    // Leave an existing outer bow scope intact when this shot has no modifier.
-    TOptional<MonsterDamageAlert::FScopedSilentShot> SilentShot;
-    if(Shot.bSilentLethalShot&&!Shot.bRicochet)SilentShot.Emplace(Hit.GetActor());
-    // 联机：服务端结算远端玩家命中时用影子档案（GetNetShadowProfile），主机/单机回退单例。
-    UColdSteelStatusModel* M=nullptr;
-    if(const auto* Character=Cast<AFPSGAMECharacter>(Shooter))M=Character->GetNetShadowProfile();
-    if(!M&&Shooter&&Shooter->GetGameInstance())M=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    if (M)
-    {
-        // Detached restraint health is not a full monster contact. This also
-        // keeps delayed/invalid part reports out of torso damage and procs.
-        if(ABoundCongregate::IsTentaclePart(Hit))
-            return M->ApplySkillWeaponHit(Shooter,Hit,Damage,Direction,Shot,Result);
-        // Capture eligibility before the original victim dies. This common fired-shot
-        // path covers flying, hitscan, blocked-muzzle and either dual-wield hand.
-        const bool bShatter=Shooter->HasAuthority()&&!Shot.bRicochet&&Shot.ShatterRadiusCM>0.f
-            &&UFPSBallisticsComponent::IsShatterEnemy(Hit.GetActor(),Shooter);
-        FWeaponDamageResult Receipt;
-        const bool bElectrified=Shot.bMelee&&Shot.ElectrifiedRadiusCM>0.f&&Shot.ElectrifiedMinLevel>0
-            &&Shooter->HasAuthority()&&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
-        const bool bBerserk=Shot.bMelee&&Shot.BerserkMaxStacks>0&&Damage>0.f
-            &&Shooter->HasAuthority()&&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
-        const bool bCrystal=Shot.ItemDefinition==TEXT("ue_frost_crystal_sword")&&Shot.bMelee&&!Shot.bRicochet
-            &&(Shot.HitHealthReturnRatio>0.f||Shot.HitManaReturnRatio>0.f)&&Shooter->HasAuthority()
-            &&UFPSMeleeLightningComponent::IsEnemy(Hit.GetActor(),Shooter);
-        float CrystalHealth=0.f,CrystalMaxHealth=0.f;FText CrystalName;
-        if(bCrystal)if(const auto* Combat=Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>())
-            Combat->GetVitals(CrystalHealth,CrystalMaxHealth,CrystalName);
-        const float Applied=M->ApplySkillWeaponHit(Shooter,Hit,Damage,Direction,Shot,Result?Result:&Receipt);
-        // Every actual enemy contact contributes; overkill cannot restore resources.
-        if(bCrystal&&CrystalHealth>0.f&&Applied>0.f)
-        {
-            float Remaining=0.f;
-            if(IsValid(Hit.GetActor()))
-                if(const auto* Combat=Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>())
-                    Combat->GetVitals(Remaining,CrystalMaxHealth,CrystalName);
-            const float Effective=FMath::Min(Applied,FMath::Clamp(CrystalHealth-Remaining,0.f,CrystalHealth));
-            M->RestoreMagicCrystalResources(Shooter,Effective*Shot.HitHealthReturnRatio,Effective*Shot.HitManaReturnRatio);
-        }
-        if(bBerserk)GrantBerserkOnWeaponHit(Shooter,Shot);
-        if(bElectrified&&Damage>0.f)
-            if(auto* Lightning=Shooter->FindComponentByClass<UFPSMeleeLightningComponent>())
-            {
-                // One roll for a nonlethal melee contact. A direct melee kill
-                // bypasses the roll; later lightning kill fan-out never rolls.
-                const bool bMeleeKill=Result?Result->bKilled:Receipt.bKilled;
-                if(bMeleeKill||FMath::FRand()<.25f)
-                    Lightning->QueueDischarge(Hit,Shot.ElectrifiedRadiusCM,Shot.ElectrifiedMinLevel);
-            }
-        if(bShatter)
-            if(auto* Ballistics=Shot.BulletSource.IsValid()?Shot.BulletSource.Get():Shooter->FindComponentByClass<UFPSBallisticsComponent>())
-                Ballistics->QueueShatter(Hit,Shot,Result?*Result:Receipt);
-        return Applied;
-    }
-    const auto* Pawn=Cast<APawn>(Shooter);
-    return UGameplayStatics::ApplyPointDamage(Hit.GetActor(),Damage,Direction,Hit,Pawn?Pawn->GetController():nullptr,Shooter,nullptr);
 }

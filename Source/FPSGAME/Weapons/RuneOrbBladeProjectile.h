@@ -13,6 +13,8 @@ class USceneComponent;
 class UStaticMesh;
 class UStaticMeshComponent;
 class UMaterialInterface;
+class USoundBase;
+class UStarfallBladeImpactComponent;
 
 UCLASS()
 class FPSGAME_API ARuneOrbBlade : public AActor
@@ -22,6 +24,7 @@ public:
     ARuneOrbBlade();
     void Setup(URuneOrbBladesComponent* InSource, APawn* InOwner, float InDamage, UStaticMesh* Mesh);
     void Launch(const FVector& TargetPoint);
+    float CollisionRadiusCM() const { return NetworkBlastRadius>0.f?HitRadius*1.6f:HitRadius; }
     void StartFade();
     bool IsFlying() const { return bFlying; }
     bool IsFinished() const { return bFinished; }
@@ -32,21 +35,29 @@ public:
 private:
     UPROPERTY(ReplicatedUsing=OnRep_Visual) TObjectPtr<UStaticMesh> NetworkMesh;
     UPROPERTY(ReplicatedUsing=OnRep_Visual) uint8 NetworkPhase=0;
+    UPROPERTY(ReplicatedUsing=OnRep_Visual) float NetworkBlastRadius=0.f;
     UFUNCTION() void OnRep_Visual();
     UFUNCTION(NetMulticast,Reliable) void MulticastImpact(const FHitResult& Hit);
     void ApplyHit(const FHitResult& Hit);
+    void DamageTarget(const FHitResult& Hit,bool bDirectHit);
+    void ApplyBlast(const FHitResult& DirectHit);
 
     UPROPERTY(VisibleAnywhere) TObjectPtr<USceneComponent> Root;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> Blade;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UStaticMeshComponent> Wake;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UInstancedStaticMeshComponent> ImpactWisps;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UPointLightComponent> Light;
+    UPROPERTY(VisibleAnywhere) TObjectPtr<UStarfallBladeImpactComponent> StarfallImpact;
     UPROPERTY() TObjectPtr<UStaticMesh> ShardMesh;
     UPROPERTY() TObjectPtr<UMaterialInterface> ShardMaterial;
+    UPROPERTY() TObjectPtr<UMaterialInterface> StarfallShardMaterial;
+    UPROPERTY() TObjectPtr<USoundBase> StarfallImpactSound;
     TWeakObjectPtr<URuneOrbBladesComponent> Source;
     TWeakObjectPtr<APawn> Shooter;
     FVector Velocity = FVector::ZeroVector;
     float Damage = 0.f;
+    float MagicCooldownReduction = 0.f;
+    float GuardMagicMultiplier = 1.f;
     float Distance = 0.f;
     float MaxDistance = Range;
     int32 VulnerabilityStacks = 0;

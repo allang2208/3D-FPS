@@ -4,6 +4,7 @@
 #include "DevelopmentSpawnComponent.generated.h"
 
 class ACharacter;
+class ADevelopmentEnvironmentObject;
 class APlayerController;
 class ANavigationData;
 class UNavigationSystemV1;
@@ -16,6 +17,8 @@ struct FDevelopmentMonsterEntry
     UPROPERTY(EditAnywhere, BlueprintReadWrite) FText Name;
     UPROPERTY(EditAnywhere, BlueprintReadWrite) TSoftClassPtr<ACharacter> CharacterClass;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, meta=(ClampMin="1", Units="cm")) float FootprintRadius = 50.f;
+    UPROPERTY() FName WeaponGroup;
+    UPROPERTY() int32 SpawnLevel = 0;
 };
 
 /** Owns the developer spawn catalogue and only the instances created through it. */
@@ -27,9 +30,13 @@ public:
     UDevelopmentSpawnComponent();
     UPROPERTY(EditAnywhere, Category="Development") TArray<FDevelopmentMonsterEntry> Monsters;
     const TArray<FDevelopmentMonsterEntry>& GetMonsters() const { return Monsters; }
+    bool IsAvailableInWorld(const FDevelopmentMonsterEntry& Entry) const;
     int32 SpawnInFront(FName Id, int32 Count, float DistanceMeters, FText& Result);
     int32 ClearSpawned();
     int32 GetSpawnedCount() const;
+    int32 SpawnEnvironment(FName Id, int32 Count, float DistanceMeters, FText& Result);
+    int32 ClearEnvironment();
+    int32 GetEnvironmentCount() const;
 protected:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 private:
@@ -37,4 +44,5 @@ private:
         float Footprint, int32 Attempt, const UNavigationSystemV1* Navigation,
         const ANavigationData* NavData, FVector& Location, FRotator& Facing) const;
     TArray<TWeakObjectPtr<ACharacter>> Spawned;
+    TArray<TWeakObjectPtr<ADevelopmentEnvironmentObject>> EnvironmentObjects;
 };

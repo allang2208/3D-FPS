@@ -1,4 +1,5 @@
 #include "HangingBellM09.h"
+#include "MonsterTargeting.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "M09ResonanceDamage.h"
@@ -194,6 +195,7 @@ void AHangingBellM09::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutL
 {
  Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(AHangingBellM09,Health);DOREPLIFETIME(AHangingBellM09,State);
  DOREPLIFETIME(AHangingBellM09,MaxHealth);
+ DOREPLIFETIME(AHangingBellM09,Rank);
  DOREPLIFETIME(AHangingBellM09,GripTargets);DOREPLIFETIME(AHangingBellM09,GripRotations);
  DOREPLIFETIME(AHangingBellM09,StateStartedAt);DOREPLIFETIME(AHangingBellM09,LockedAim);
  DOREPLIFETIME(AHangingBellM09,StaggerReleaseSide);DOREPLIFETIME(AHangingBellM09,ReactionSeconds);
@@ -292,13 +294,16 @@ void AHangingBellM09::NavigateCeiling(FVector Destination,bool Returning)
  // Let the current grip land without immediately beginning another step.
  // CanAttack waits for both grips; continuous travel otherwise starves it.
  if(!Returning&&SelectAttack(Target.Get())!=EM09State::Idle){StopCeiling();return;}
- DesiredYaw=(Destination-GetActorLocation()).Rotation().Yaw;
+ if(!Returning)if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->NotePursuitAttempt();
  if(PathAge>=.65f&&(Path.IsEmpty()||FVector::DistSquared2D(Destination,LastDestination)>FMath::Square(90.f)))
  {
   PathAge=0;LastDestination=Destination;
   if(!IsValid(Route)||!Route->FindPath(this,Destination,Path))
    AM09CeilingRoute::FindLocalPath(this,Destination,Path);
  }
+ // Face the current roof corridor while detouring; facing the player through
+ // a roof gap made sideways travel fight the alternating grip placement.
+ DesiredYaw=(Path.IsEmpty()?Destination-GetActorLocation():Path[0]-CeilingCenter()).Rotation().Yaw;
  SetLocomotion(!Path.IsEmpty()||FMath::Abs(FMath::FindDeltaAngleDegrees(GetActorRotation().Yaw,DesiredYaw))>4.f,Returning);
 }
 void AHangingBellM09::UpdateCeilingAnimationRate()
@@ -471,7 +476,7 @@ bool AHangingBellM09::HasResonanceSight(const APawn* P,FVector Origin) const
 }
 void AHangingBellM09::Deal(APawn* P,float Damage,bool Magic,FVector Point)
 {
- if(!HasAuthority()||Dead()||!IsValid(P)||!P->IsPlayerControlled())return;
+ if(!HasAuthority()||Dead()||!IsValid(P)||!MonsterTargeting::IsOpponentPawn(P))return;
  FHitResult H;H.ImpactPoint=H.Location=Point;const FVector D=(P->GetActorLocation()-Eye()).GetSafeNormal();
  UGameplayStatics::ApplyPointDamage(P,Damage,D,H,GetController(),this,Magic?UStatusMagicDamage::StaticClass():UEnemyMeleeDamage::StaticClass());
 }
@@ -480,14 +485,16 @@ void AHangingBellM09::SweepContact(FVector From,FVector To,float Radius,float Da
  TArray<FHitResult> Hits;FCollisionQueryParams Q(SCENE_QUERY_STAT(M09OrganStrike),false,this);
  GetWorld()->SweepMultiByChannel(Hits,From,To,FQuat::Identity,ECC_Pawn,FCollisionShape::MakeSphere(Radius),Q);
  for(const auto& H:Hits)
-  if(auto* P=Cast<APawn>(H.GetActor());P&&P->IsPlayerControlled()&&!HitVictims.Contains(P)&&HasAttackSight(P))
+  if(auto* P=Cast<APawn>(MonsterTargeting::DamageRecipient(H.GetActor()));P&&MonsterTargeting::IsOpponentPawn(P)&&!HitVictims.Contains(P)&&HasAttackSight(P))
   {HitVictims.Add(P);Deal(P,Damage,false,H.ImpactPoint);if(Dead()||State==EM09State::Stagger)return;}
 }
 void AHangingBellM09::ResonancePulse()
 {
  // One server-side damage application per player per pulse. Cover is traced from
  // the same locked torso origin that drives the visible shock wave.
- for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)if(auto* PC=It->Get())if(APawn* P=PC->GetPawn())
+ TArray<APawn*> Victims;
+ MonsterTargeting::GatherAreaOpponents(GetWorld(),ResonanceOrigin,ResonanceRange,Victims);
+ for(APawn* P:Victims)
  {
   if(auto* H=P->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead())continue;
   const FVector Point=P->GetActorLocation()+FVector(0,0,35),D=Point-ResonanceOrigin;

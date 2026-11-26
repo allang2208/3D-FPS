@@ -1,8 +1,11 @@
 #include "../Monsters/BoundCongregateCaptureComponent.h"
+#include "../Skills/LightningHasteSpeed.h"
+#include "EagleTalonGuardComponent.h"
 #include "RuneSwordComponent.h"
 #include "TangDaoGuardComponent.h"
 #include "RuneSwordMeshComponent.h"
 #include "RuneSwordWhirlwindFeel.h"
+#include "ZhufengSecondaryWhirlwind.h"
 #include "ModularSwordVisual.h"
 #include "../FPSGAMECharacter.h"
 #include "../Movement/FPSCharacterMovementComponent.h"
@@ -67,8 +70,9 @@ bool URuneSwordComponent::BeginWhirlwind(bool FromZhufengDash)
         Animations.Add(TEXT("Whirlwind"),LoadObject<UAnimSequence>(nullptr,*ClipPath));
     if(!Animations.FindRef(TEXT("Whirlwind")))
     {UE_LOG(LogTemp,Warning,TEXT("[Whirlwind] 大旋风动画缺失，未扣除体力或冷却"));return false;}
-    const FWhirlwindCast Cast=Profile->WhirlwindStats();
+    const FWhirlwindCast Cast=FromZhufengDash?Profile->ZhufengWhirlwindStats():Profile->WhirlwindStats();
     const bool RuneSwordCooldown=Item->Definition==TEXT("ue_rune_sword");
+    const float BeforeStamina=Profile->Stamina();
     const bool Remote=Character->GetNetMode()==NM_Client;
     const FVector Direction=Character->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D();
     if(Remote)
@@ -81,6 +85,7 @@ bool URuneSwordComponent::BeginWhirlwind(bool FromZhufengDash)
     bZhufengWhirlwind=FromZhufengDash;
     if(bZhufengWhirlwind)
     {
+        WhirlwindTuning=ZhufengSecondaryWhirlwind::Resolve(WhirlwindTuning);
         ZhufengSpeed=Profile->DashAttackStats().DistanceCM/RuneSwordOverheadRhythm::DashWindupSeconds;
         ZhufengDirection=Character->GetMeleeAimTransform().GetUnitAxis(EAxis::X).GetSafeNormal2D();
         bLungeBlocked=false;DashSprintSeconds=0.f;
@@ -88,15 +93,21 @@ bool URuneSwordComponent::BeginWhirlwind(bool FromZhufengDash)
         WhirlwindTuning.HitStopSeconds=WhirlwindTuning.HitStopBudget=0.f;
         if(Character->IsSliding())Character->StopSlide(true);
     }
-    SwingRate=1.f; // Skill phase durations are independent of weapon attack speed.
+    SwingRate=LightningHaste::ActionSpeed(GetOwner()); // Skill phase durations are independent of weapon attack speed.
     bWhirlwind=true;bWhirlwindTrainingPending=true;bSwingCuePlayed=false;
     WhirlwindHits=WhirlwindKills=0;WhirlwindPause=WhirlwindPauseSpent=0.f;
     ImpactAge=1.f;ImpactStrength=1.f;
     WhirlwindYaw=Character->GetControlRotation().Yaw;
     HitActors.Reset();SwingSkills=ColdSteelSkills::Snapshot(Character.Get());
+    SwingSkills.bEagleTalonStrike=UEagleTalonGuardComponent::Commit(GetOwner(),InstanceId);
+    if(!Remote && HasGaleGuard(Profile->Equipped()))
+    {
+        SwingSkills.GalePaymentKey=GaleWing::Key(GaleWing::EAttack::Whirlwind,++LocalGaleSkillSerial);
+        RecordGalePayment(SwingSkills.GalePaymentKey,InstanceId,BeforeStamina-Profile->Stamina());
+    }
     CaptureAzureDragonAttack(Profile);
     UTangDaoGuardComponent::StampBladeAttack(Character.Get(),SwingSkills);
-    SwingSkills.WeakpointPercent=0;SwingSkills.AttackForm=EMonsterAttackForm::Blade;SwingSkills.AttackMeta|=0x20;SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison; // 0x20=旋风斩：服务端按 WhirlwindStats 技能面板复算
+    SwingSkills.WeakpointPercent=0;SwingSkills.AttackForm=EMonsterAttackForm::Blade;SwingSkills.AttackMeta|=0x20;SwingPoison=ColdSteelCombat::Snapshot(Character.Get()).Poison; // 0x20=群体旋风：服务端按已提交的主动/次级快照结算。
     SwingHitReactionMultiplier=MeleeModifiers.HitReaction;
     // 旋风斩属剑刃攻击：导魔符文易伤通道照常挂载；金色强化按确认命中缩减CD（整个旋风只触发一次）。
     SwingRuneVulnerability=MeleeModifiers.RuneVulnerability;SwingRuneVulnerabilitySeconds=MeleeModifiers.RuneVulnerabilitySeconds;
@@ -187,9 +198,12 @@ void URuneSwordComponent::TickWhirlwind(float Delta)
         }
         // A lighter second blade pass makes both turns audible without adding
         // a second windup, damage pulse or wall-clock timer.
-        if(BeforePhase<.535f&&Phase>=.535f&&SwingSound)
+        if(!bZhufengWhirlwind&&BeforePhase<.535f&&Phase>=.535f&&SwingSound)
             UGameplayStatics::PlaySound2D(this,SwingSound,.78f,1.10f);
-        if(Phase>BeforePhase)SweepWhirlwind(T.TurnDegrees*BeforePhase,T.TurnDegrees*Phase);
+        if(Phase>BeforePhase)
+        {
+            SweepWhirlwind(T.TurnDegrees*BeforePhase,T.TurnDegrees*Phase);
+        }
         if(Elapsed>=T.ReadySeconds+T.SpinSeconds)FinishWhirlwindTraining();
         if(WhirlwindPause>0.f||Elapsed>=End-UE_SMALL_NUMBER)break;
     }
@@ -235,7 +249,7 @@ void URuneSwordComponent::SweepWhirlwind(float FromDegrees,float ToDegrees)
         auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
         if(Combat&&Combat->IsDead())continue;
         HitActors.Add(Target);
-        const bool Eligible=Combat&&!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining"));
+        const bool Eligible=ColdSteelSkills::IsMasteryTrainingTarget(Pawn,Target);
         auto Shot=SwingSkills;
         if(Eligible&&WhirlwindHits==1)
             Shot.ExtraMasteryExperience=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->MasteryDefinition(TEXT("swordMastery")).MultiHitExperience;
@@ -265,7 +279,7 @@ void URuneSwordComponent::SweepWhirlwind(float FromDegrees,float ToDegrees)
         if(SwingCooldownReduceSeconds>0.f&&!bSwingCooldownReduced)
         {
             bSwingCooldownReduced=true;
-            if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->ReduceAllAbilityCooldowns(SwingCooldownReduceSeconds);
+            if(auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Profile->ReduceRuneSwordHitCooldowns(SwingCooldownReduceSeconds);
         }
         const float Hold=FMath::Min(WhirlwindTuning.HitStopSeconds,WhirlwindTuning.HitStopBudget-WhirlwindPauseSpent);
         WhirlwindPause=FMath::Max(0.f,Hold);WhirlwindPauseSpent+=WhirlwindPause;

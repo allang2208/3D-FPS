@@ -51,6 +51,17 @@ struct FFPSBodyHandState
     UPROPERTY(BlueprintReadOnly) float Progress = 0.f;
     UPROPERTY(BlueprintReadOnly) float LastShotAt = -100.f;
     UPROPERTY() float ProgressRate = 0.f;
+    // Progress is already warped by the native reload. Convert it back to
+    // source seconds without guessing normal versus empty clip durations.
+    UPROPERTY() float ReloadSourceLength = 0.f;
+    UPROPERTY() float ReloadStartedAt = -100.f;
+    UPROPERTY() bool bRevolver = false;
+    UPROPERTY() bool bSpeedloaderReload = false;
+    UPROPERTY() bool bDiscardReloadRounds = false;
+    UPROPERTY() uint8 ReloadStart = 0;
+    UPROPERTY() uint8 ReloadCount = 0;
+    UPROPERTY() uint8 LiveRounds = 0;
+    UPROPERTY() uint8 Cartridges = 0;
 };
 
 /** Final owner-traced laser endpoint; observers never choose a second aim ray. */
@@ -84,12 +95,18 @@ struct FFPSBodyState
     UPROPERTY(BlueprintReadOnly) float LastShotAt = -100.f;
     UPROPERTY(BlueprintReadOnly) float AimPitch = 0.f;
     UPROPERTY(BlueprintReadOnly) float AimYaw = 0.f;
+    // Final gameplay sight endpoint, sampled by the owner. Observers must not
+    // choose another surface from their smoothed pawn eye or local collision.
+    UPROPERTY() FVector_NetQuantize GunAimTarget=FVector::ZeroVector;
+    UPROPERTY() bool bHasGunAimTarget=false;
     UPROPERTY(BlueprintReadOnly) bool bAiming = false;
     UPROPERTY(BlueprintReadOnly) bool bSprinting = false;
     UPROPERTY(BlueprintReadOnly) bool bCrouched = false;
     UPROPERTY(BlueprintReadOnly) bool bSliding = false;
     UPROPERTY(BlueprintReadOnly) bool bDual = false;
     UPROPERTY(BlueprintReadOnly) bool bOffhandPistol = false;
+    // 主手空置、副手弯刀/斧头单独出手（2026-11-10）：身体把右手的单持全套镜像到左手，刀挂左手。
+    UPROPERTY(BlueprintReadOnly) bool bLoneBlade = false;
     UPROPERTY(BlueprintReadOnly) FName ActionVariant;
     // Source-normalized progress preserves hit pauses and nonuniform playback.
     UPROPERTY(BlueprintReadOnly) bool bHasActionProgress = false;
@@ -121,6 +138,9 @@ struct FFPSBodyState
     // Bounded interpolation between cosmetic snapshots; never used for gameplay.
     UPROPERTY() float PresentationSampledAt = 0.f;
     UPROPERTY() float ActionProgressRate = 0.f;
+    // Only Cast uses ReleaseFraction as a moving palm value. Other actions
+    // use it as a fixed timing threshold and must never extrapolate it.
+    UPROPERTY() float CastPalmProgressRate = 0.f;
     UPROPERTY() float MotionSampledAt = 0.f;
     UPROPERTY() float MotionProgressRate = 0.f;
     // Cosmetic bow sampling; asset names are resolved only against server equipment.
@@ -128,9 +148,11 @@ struct FFPSBodyState
     UPROPERTY() float BowClipTime = 0.f;
     UPROPERTY() float BowClipRate = 0.f;
     UPROPERTY() float BowClipLength = 0.f;
+    UPROPERTY() float BowScopeRingRoll = 0.f;
     UPROPERTY() bool bBowClipLooping = false;
     UPROPERTY() FVector BowNock = FVector::ZeroVector;
     UPROPERTY() bool bBowArrow = false;
+    UPROPERTY() uint8 BowMagic = 0;
     UPROPERTY() bool bBowTakingArrow = false;
     UPROPERTY() float BowSeat = 1.f;
     UPROPERTY() float BowStringContact = 0.f;
@@ -147,12 +169,18 @@ struct FFPSBodyState
     UPROPERTY() bool bUppercutLungeBlocked=false;
     // Signed gameplay turns; the world body reverses them on the same clock.
     UPROPERTY() float WhirlwindTurns=-2.f;
+    // Swept skill travel does not set locomotion velocity. Drive the normal gait explicitly.
+    UPROPERTY() float ZhufengForwardSpeed=0.f;
+    UPROPERTY() float ZhufengForwardYaw=0.f;
     // Azure Dragon claws (cosmetic, see URuneSwordComponent::SampleAzureDragonNet): flags, strike clip
     // length and entry (source seconds), heavy charge start (server clock).
     UPROPERTY() uint8 AzureFlags=0;
     UPROPERTY() float AzureSourceLength=0.f;
     UPROPERTY() float AzureEntryTime=0.f;
     UPROPERTY() float AzureChargeStartedAt=0.f;
+    UPROPERTY() bool bBeiweiMartial=false;
+    UPROPERTY() bool bChixiaoHeavyTrail=false;
+    UPROPERTY() bool bZhufengWhirlwindTrail=false;
 };
 
 USTRUCT()
@@ -176,8 +204,8 @@ struct FFPSBodyAttachment
     // Persistent material references omit MID parameters. Carry the selected
     // blade finish independently of whether an active rune is installed.
     UPROPERTY() uint8 BladeFinishMode=0;
-    UPROPERTY() uint32 BladeFinishSeed=0;
     UPROPERTY() bool bBladeFinishGuardRoot=false;
+    UPROPERTY() uint32 BladeFinishSeed=0;
     UPROPERTY() FVector RuneDimensions=FVector(12,10,63);
     UPROPERTY() FVector BeiweiBladeBase=FVector::ZeroVector;
     UPROPERTY() FVector BeiweiBladeTip=FVector::ZeroVector;
@@ -224,6 +252,11 @@ struct FFPSBodyWeapon
     UPROPERTY() TSoftObjectPtr<class UStaticMesh> StaticMesh;
     UPROPERTY() FTransform StaticGrip = FTransform::Identity;
     UPROPERTY() FName PoseFamily;
+    // 主手空、副手弯刀/斧头单独出手：刀挂 hand_l，姿势在动画末尾整体镜像（FLoneBladeMirrorLayer）。
+    UPROPERTY() bool bLoneBlade=false;
+    // Tool edge endpoints in WPN_root space, shared with the first-person FX.
+    UPROPERTY() FVector ToolEdgeBase=FVector::ZeroVector;
+    UPROPERTY() FVector ToolEdgeTip=FVector::ZeroVector;
     UPROPERTY() uint8 AttachHand = 0;
     UPROPERTY() TSoftObjectPtr<class UWeaponGripProfile> GripProfile;
     UPROPERTY() int32 StaffVariant = 0;

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "../Skills/ColdSteelSkillTypes.h"
@@ -9,6 +9,7 @@ struct FColdSteelItem;
 struct FFPSFlyingRound
 {
     FVector Position,Direction,LaunchOrigin;
+    FVector TracerMuzzle=FVector::ZeroVector;
     float Speed=0,Remaining=0,Damage=0;
     float TraveledCM=0,EffectiveRangeCM=0;
     double Timestamp=0;
@@ -35,7 +36,11 @@ class FPSGAME_API UFPSBallisticsComponent : public UActorComponent
     GENERATED_BODY()
 public:
     UFPSBallisticsComponent();
-    void Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM=0,const FColdSteelItem* ShotItem=nullptr,bool bConverged=false,bool bCosmeticOnly=false);
+    void Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM=0,const FColdSteelItem* ShotItem=nullptr,bool bConverged=false,bool bCosmeticOnly=false,uint32 FireSequence=0,int32 FiredRounds=1);
+    static float ScaledBulletSpeed(float SpeedCM);
+    /** FlightSpeed is resolved by the server once per shot. Remote copies only draw the round. */
+    void LaunchHostile(FVector Start,FVector Direction,float FlightSpeed,float RangeCM,float EffectiveRange,float Damage,
+        float CriticalRoll,APawn* MissedTarget,UFPSWeaponFXComponent* TracerFX,const FVector& VisualMuzzle);
     static bool IsShatterEnemy(AActor* Target,AActor* Shooter);
     /** Enqueue children outside the active round array; no recursive Launch/JSON reads. */
     void QueueShatter(const FHitResult& Hit,const FColdSteelSkillShot& Shot,const FWeaponDamageResult& Receipt);
@@ -45,6 +50,9 @@ public:
     FVector LastLaunchStart=FVector::ZeroVector;
     FVector LastImpactPoint=FVector::ZeroVector;
 private:
+    friend class UShotgunAttachmentAuditCommandlet;
+    friend class AShotgunWireAuditController;
+    friend class AShotgunWireAuditGameMode;
     TArray<FFPSFlyingRound> Rounds;
     TArray<FFPSFlyingRound> PendingShatterRounds;
     int32 NextRoundId=0;

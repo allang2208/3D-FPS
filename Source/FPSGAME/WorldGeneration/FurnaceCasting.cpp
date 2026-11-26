@@ -190,7 +190,7 @@ void UFluidPresentationSubsystem::UpdateFurnaceTap(FFurnaceSmoke& Entry,AVoxelBu
     {
         auto* Smelt=GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelSmeltingSystem>():nullptr;
         const FColdSteelSmeltingRecipe* Recipe=(Job&&Smelt)?Smelt->Find(Job->Recipe):nullptr;
-        auto* Mesh=Cast<UStaticMesh>(FSoftObjectPath(TEXT("/Game/Items/Smelting/Ingot/SM_Ingot.SM_Ingot")).ResolveObject());
+        auto* Mesh=Recipe?Cast<UStaticMesh>(ProductionHarvestAssets::PickupMesh(Recipe->Output,0).ResolveObject()):nullptr;
         auto* Material=Recipe?Cast<UMaterialInterface>(ProductionHarvestAssets::PickupMaterial(Recipe->Output).ResolveObject()):nullptr;
         if(Mesh&&Material)
         {

@@ -3,7 +3,7 @@
 
 namespace UppercutStaminaReceipt
 {
-// Shared confirmed sword-martial ledger (uppercut and whirlwind). Keep the
+// Shared confirmed melee ledger (uppercut, whirlwind and kukri combo/dash). Keep the
 // persisted field name for existing saves. RPC/mirror order cannot charge twice.
 inline void Merge(FColdSteelProfile& Profile,double Total)
 {

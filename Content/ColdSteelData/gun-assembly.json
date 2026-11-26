@@ -3,20 +3,29 @@
     {
       "id": "assemble_m4",
       "output": "ue_m4a1",
-      "inputs": [{"item": "ironIngot", "count": 12}, {"item": "copperIngot", "count": 4}, {"item": "wood", "count": 2}, {"item": "search_assembly_component_box", "count": 1}],
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
       "camera": [
-        24,
+        20,
         0,
-        181
+        215
       ],
       "look_at": [
-        82,
+        75,
         0,
-        96
+        99
       ],
       "position_tolerance_cm": 5,
       "angle_tolerance_deg": 18,
-      "calibration_seconds": 5,
+      "calibration_seconds": 34.0,
       "parts": [
         {
           "id": "handguard",
@@ -134,25 +143,53 @@
         76.7185287475586,
         3.6731317043304443,
         100.52719116210938
-      ]
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 12
+        },
+        {
+          "item": "copperIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "metal_count": 12
     },
     {
       "id": "assemble_akm",
       "output": "ue_akm",
-      "inputs": [{"item": "ironIngot", "count": 12}, {"item": "copperIngot", "count": 4}, {"item": "wood", "count": 4}, {"item": "search_assembly_component_box", "count": 1}],
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 4
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
       "camera": [
         20,
         0,
-        198
+        215
       ],
       "look_at": [
-        82,
+        75,
         0,
         99
       ],
       "position_tolerance_cm": 5,
       "angle_tolerance_deg": 18,
-      "calibration_seconds": 5,
+      "calibration_seconds": 34.0,
       "parts": [
         {
           "id": "stock",
@@ -248,25 +285,53 @@
         74.29801177978516,
         -9.916646957397461,
         100.32278442382812
-      ]
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 12
+        },
+        {
+          "item": "copperIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 4
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "metal_count": 12
     },
     {
       "id": "assemble_qbz191",
       "output": "ue_qbz191",
-      "inputs": [{"item": "ironIngot", "count": 14}, {"item": "copperIngot", "count": 5}, {"item": "wood", "count": 2}, {"item": "search_assembly_component_box", "count": 2}],
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
       "camera": [
         20,
         0,
-        198
+        215
       ],
       "look_at": [
-        82,
+        75,
         0,
         99
       ],
       "position_tolerance_cm": 5,
       "angle_tolerance_deg": 18,
-      "calibration_seconds": 5,
+      "calibration_seconds": 34.0,
       "parts": [
         {
           "id": "stock",
@@ -384,25 +449,53 @@
         75.87136840820312,
         -6.085703372955322,
         100.81532287597656
-      ]
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 14
+        },
+        {
+          "item": "copperIngot",
+          "count": 5
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
+      "metal_count": 14
     },
     {
       "id": "assemble_m1911",
       "output": "ue_m1911",
-      "inputs": [{"item": "ironIngot", "count": 6}, {"item": "copperIngot", "count": 2}, {"item": "wood", "count": 1}, {"item": "search_assembly_component_box", "count": 1}],
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 1
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
       "camera": [
         20,
         0,
-        198
+        215
       ],
       "look_at": [
-        82,
+        75,
         0,
         99
       ],
       "position_tolerance_cm": 4,
       "angle_tolerance_deg": 18,
-      "calibration_seconds": 4,
+      "calibration_seconds": 34.0,
       "parts": [
         {
           "id": "slide",
@@ -520,25 +613,53 @@
         82.30559539794922,
         0.05608461797237396,
         98.6199722290039
-      ]
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 6
+        },
+        {
+          "item": "copperIngot",
+          "count": 2
+        },
+        {
+          "item": "wood",
+          "count": 1
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "metal_count": 6
     },
     {
       "id": "assemble_dan_wesson715",
       "output": "ue_dan_wesson715",
-      "inputs": [{"item": "ironIngot", "count": 8}, {"item": "copperIngot", "count": 3}, {"item": "wood", "count": 2}, {"item": "search_assembly_component_box", "count": 1}],
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
       "camera": [
         20,
         0,
-        198
+        215
       ],
       "look_at": [
-        82,
+        75,
         0,
         99
       ],
       "position_tolerance_cm": 4,
       "angle_tolerance_deg": 18,
-      "calibration_seconds": 4.5,
+      "calibration_seconds": 34.0,
       "parts": [
         {
           "id": "cylinder",
@@ -634,25 +755,57 @@
         78.97293853759766,
         -2.8529052734375,
         98.84375
-      ]
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 8
+        },
+        {
+          "item": "copperIngot",
+          "count": 3
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "metal_count": 8
     },
     {
       "id": "assemble_ash12",
       "output": "ue_ash12",
-      "inputs": [{"item": "ironIngot", "count": 18}, {"item": "copperIngot", "count": 6}, {"item": "wood", "count": 2}, {"item": "search_assembly_component_box", "count": 2}, {"item": "search_precision_mechanism", "count": 1}],
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 1
+        }
+      ],
       "camera": [
         20,
         0,
-        198
+        215
       ],
       "look_at": [
-        82,
+        75,
         0,
         99
       ],
       "position_tolerance_cm": 5,
       "angle_tolerance_deg": 18,
-      "calibration_seconds": 6,
+      "calibration_seconds": 34.0,
       "parts": [
         {
           "id": "front",
@@ -748,25 +901,57 @@
         77.9607925415039,
         2.984003782272339,
         100.17227935791016
-      ]
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 18
+        },
+        {
+          "item": "copperIngot",
+          "count": 6
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 1
+        }
+      ],
+      "metal_count": 18
     },
     {
       "id": "assemble_m16a2",
       "output": "ue_m16a2",
-      "inputs": [{"item": "ironIngot", "count": 14}, {"item": "copperIngot", "count": 4}, {"item": "wood", "count": 2}, {"item": "search_assembly_component_box", "count": 1}],
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
       "camera": [
         20,
         0,
-        198
+        215
       ],
       "look_at": [
-        82,
+        75,
         0,
         99
       ],
       "position_tolerance_cm": 5,
       "angle_tolerance_deg": 18,
-      "calibration_seconds": 5,
+      "calibration_seconds": 34.0,
       "parts": [
         {
           "id": "handguard",
@@ -884,25 +1069,53 @@
         75.94213104248047,
         -12.265422821044922,
         100.91175842285156
-      ]
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 14
+        },
+        {
+          "item": "copperIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "metal_count": 14
     },
     {
       "id": "assemble_a762",
       "output": "ue_a762",
-      "inputs": [{"item": "ironIngot", "count": 16}, {"item": "copperIngot", "count": 5}, {"item": "wood", "count": 3}, {"item": "search_assembly_component_box", "count": 2}],
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 3
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
       "camera": [
         20,
         0,
-        198
+        215
       ],
       "look_at": [
-        82,
+        75,
         0,
         99
       ],
       "position_tolerance_cm": 5,
       "angle_tolerance_deg": 18,
-      "calibration_seconds": 5.5,
+      "calibration_seconds": 34.0,
       "parts": [
         {
           "id": "handguard",
@@ -1020,25 +1233,57 @@
         74.86112976074219,
         -6.591376781463623,
         99.36614990234375
-      ]
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 16
+        },
+        {
+          "item": "copperIngot",
+          "count": 5
+        },
+        {
+          "item": "wood",
+          "count": 3
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
+      "metal_count": 16
     },
     {
       "id": "assemble_svd",
       "output": "ue_svd",
-      "inputs": [{"item": "ironIngot", "count": 18}, {"item": "copperIngot", "count": 6}, {"item": "wood", "count": 4}, {"item": "search_assembly_component_box", "count": 2}, {"item": "search_precision_mechanism", "count": 1}],
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 4
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 1
+        }
+      ],
       "camera": [
         20,
         0,
-        198
+        215
       ],
       "look_at": [
-        82,
+        75,
         0,
         99
       ],
       "position_tolerance_cm": 5,
       "angle_tolerance_deg": 18,
-      "calibration_seconds": 6,
+      "calibration_seconds": 34.0,
       "parts": [
         {
           "id": "stock",
@@ -1156,25 +1401,386 @@
         84.35829162597656,
         -6.32239294052124,
         100.2419204711914
-      ]
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 18
+        },
+        {
+          "item": "copperIngot",
+          "count": 6
+        },
+        {
+          "item": "wood",
+          "count": 4
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 1
+        }
+      ],
+      "metal_count": 18
     },
     {
-      "id": "assemble_pkm_lowpoly",
-      "output": "ue_pkm_lowpoly",
-      "inputs": [{"item": "ironIngot", "count": 24}, {"item": "copperIngot", "count": 8}, {"item": "wood", "count": 4}, {"item": "search_assembly_component_box", "count": 3}, {"item": "search_precision_mechanism", "count": 2}],
+      "id": "assemble_m249",
+      "output": "ue_m249",
+      "inputs": [
+        {
+          "item": "ironIngot",
+          "count": 5
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 3
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 2
+        }
+      ],
       "camera": [
         20,
         0,
-        198
+        215
       ],
       "look_at": [
-        82,
+        75,
         0,
         99
       ],
       "position_tolerance_cm": 5,
       "angle_tolerance_deg": 18,
-      "calibration_seconds": 7,
+      "calibration_seconds": 34,
+      "parts": [
+        {
+          "id": "barrel",
+          "name": "原厂枪管",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_barrel",
+          "target": [
+            87.0177686214447,
+            -16.945780813694,
+            107.32612013816833
+          ],
+          "extent": [
+            5.512511730194092,
+            14.844582974910736,
+            3.3641040325164795
+          ],
+          "loose": [
+            45.0,
+            -53.44890605018293,
+            98.76410403251649
+          ],
+          "angle": -12,
+          "radius": 7.012511730194092
+        },
+        {
+          "id": "muzzle",
+          "name": "原厂枪口",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_muzzle",
+          "target": [
+            85.7594221830368,
+            -38.61893117427826,
+            107.20090866088867
+          ],
+          "extent": [
+            1.4589637517929077,
+            7.555696368217468,
+            1.3527393341064453
+          ],
+          "loose": [
+            45.0,
+            4.815397409177879,
+            96.75273933410645
+          ],
+          "angle": 20,
+          "radius": 3.5
+        },
+        {
+          "id": "stock",
+          "name": "原厂枪托",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_stock",
+          "target": [
+            81.29107654094696,
+            37.1864840388298,
+            107.11806416511536
+          ],
+          "extent": [
+            6.699511408805847,
+            12.180565297603607,
+            1.9236981868743896
+          ],
+          "loose": [
+            45.0,
+            -20.283113449666416,
+            97.3236981868744
+          ],
+          "angle": -15,
+          "radius": 8.199511408805847
+        },
+        {
+          "id": "cover",
+          "name": "机匣盖",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_cover",
+          "target": [
+            88.78864347934723,
+            13.948023319244385,
+            106.40100836753845
+          ],
+          "extent": [
+            2.9375463724136353,
+            12.962448596954346,
+            4.00734543800354
+          ],
+          "loose": [
+            120.0,
+            -22.930264186857567,
+            99.40734543800355
+          ],
+          "angle": 38,
+          "radius": 4.437546372413635
+        },
+        {
+          "id": "magnifier",
+          "name": "原厂后置倍镜",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_magnifier",
+          "target": [
+            94.53285038471222,
+            7.711406052112579,
+            106.41489624977112
+          ],
+          "extent": [
+            3.260931372642517,
+            5.709488689899445,
+            2.838820219039917
+          ],
+          "loose": [
+            120.0,
+            22.635992431453353,
+            98.23882021903992
+          ],
+          "angle": 22,
+          "radius": 4.760931372642517
+        },
+        {
+          "id": "box",
+          "name": "原厂弹箱",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_box",
+          "target": [
+            73.38216304779053,
+            5.726118385791779,
+            106.3236653804779
+          ],
+          "extent": [
+            7.175946235656738,
+            3.1565651297569275,
+            9.323662519454956
+          ],
+          "loose": [
+            45.0,
+            63.89565373215889,
+            104.72366251945496
+          ],
+          "angle": -18,
+          "radius": 4.6565651297569275
+        },
+        {
+          "id": "bipod",
+          "name": "原厂脚架",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_bipod",
+          "target": [
+            79.08994257450104,
+            -35.204702615737915,
+            106.92107081413269
+          ],
+          "extent": [
+            5.730214715003967,
+            14.162349700927734,
+            3.4878313541412354
+          ],
+          "loose": [
+            120.0,
+            -54.08340918359402,
+            98.88783135414124
+          ],
+          "angle": 30,
+          "radius": 7.230214715003967
+        },
+        {
+          "id": "handguard",
+          "name": "原厂护木",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_handguard",
+          "target": [
+            79.28979992866516,
+            -9.322196245193481,
+            106.7164421081543
+          ],
+          "extent": [
+            2.818399667739868,
+            9.127408266067505,
+            3.835475444793701
+          ],
+          "loose": [
+            120.0,
+            2.606749570786379,
+            99.2354754447937
+          ],
+          "angle": -12,
+          "radius": 4.318399667739868
+        },
+        {
+          "id": "reargrip",
+          "name": "原厂后握把",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_reargrip",
+          "target": [
+            73.00449013710022,
+            19.765838235616684,
+            106.98508620262146
+          ],
+          "extent": [
+            4.92212176322937,
+            4.315870255231857,
+            1.4901578426361084
+          ],
+          "loose": [
+            45.0,
+            49.23334316177604,
+            96.89015784263611
+          ],
+          "angle": -15,
+          "radius": 5.815870255231857
+        },
+        {
+          "id": "trigger",
+          "name": "原厂扳机",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_trigger",
+          "target": [
+            77.32356190681458,
+            13.6453315615654,
+            106.99679255485535
+          ],
+          "extent": [
+            2.0079612731933594,
+            1.2453094124794006,
+            0.5489528179168701
+          ],
+          "loose": [
+            120.0,
+            66.99592955092592,
+            95.94895281791688
+          ],
+          "angle": 38,
+          "radius": 3.5
+        },
+        {
+          "id": "handle",
+          "name": "原厂拉机柄",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_handle",
+          "target": [
+            82.83619582653046,
+            4.931952804327011,
+            109.23806428909302
+          ],
+          "extent": [
+            1.5667110681533813,
+            4.678120464086533,
+            0.6486415863037109
+          ],
+          "loose": [
+            45.0,
+            21.338802582913353,
+            96.04864158630372
+          ],
+          "angle": 22,
+          "radius": 3.5
+        },
+        {
+          "id": "tray",
+          "name": "供弹托盘",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_tray",
+          "target": [
+            85.16591489315033,
+            6.093981117010117,
+            110.2559506893158
+          ],
+          "extent": [
+            1.3023525476455688,
+            4.585697501897812,
+            3.7696659564971924
+          ],
+          "loose": [
+            45.0,
+            35.02688720386912,
+            99.1696659564972
+          ],
+          "angle": -18,
+          "radius": 3.5
+        },
+        {
+          "id": "carry",
+          "name": "原厂提把",
+          "mesh": "/Game/Weapons/M249/Assembly/SM_M249_carry",
+          "target": [
+            89.13701176643372,
+            -5.014854669570923,
+            109.67243313789368
+          ],
+          "extent": [
+            5.427438020706177,
+            4.464027285575867,
+            4.503971338272095
+          ],
+          "loose": [
+            120.0,
+            39.73098459827716,
+            99.9039713382721
+          ],
+          "angle": 30,
+          "radius": 5.964027285575867
+        }
+      ],
+      "body_mesh": "/Game/Weapons/M249/Assembly/SM_M249_body",
+      "body_position": [
+        79.65398728847504,
+        3.49276065826416,
+        105.84561824798584
+      ]
+    },
+    {
+      "id": "assemble_pkm_lowpoly",
+      "output": "ue_pkm_lowpoly",
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 4
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 3
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 2
+        }
+      ],
+      "camera": [
+        20,
+        0,
+        215
+      ],
+      "look_at": [
+        75,
+        0,
+        99
+      ],
+      "position_tolerance_cm": 5,
+      "angle_tolerance_deg": 18,
+      "calibration_seconds": 34.0,
       "parts": [
         {
           "id": "stock",
@@ -1292,25 +1898,61 @@
         76.78726959228516,
         -11.40915298461914,
         108.42691802978516
-      ]
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 24
+        },
+        {
+          "item": "copperIngot",
+          "count": 8
+        },
+        {
+          "item": "wood",
+          "count": 4
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 3
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 2
+        }
+      ],
+      "metal_count": 24
     },
     {
       "id": "assemble_lmg201",
       "output": "ue_lmg201",
-      "inputs": [{"item": "ironIngot", "count": 26}, {"item": "copperIngot", "count": 8}, {"item": "wood", "count": 3}, {"item": "search_assembly_component_box", "count": 3}, {"item": "search_precision_mechanism", "count": 2}],
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 3
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 3
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 2
+        }
+      ],
       "camera": [
         20,
         0,
-        198
+        215
       ],
       "look_at": [
-        82,
+        75,
         0,
         99
       ],
       "position_tolerance_cm": 5,
       "angle_tolerance_deg": 18,
-      "calibration_seconds": 7,
+      "calibration_seconds": 34.0,
       "parts": [
         {
           "id": "handguard",
@@ -1450,20 +2092,35 @@
         74.93731689453125,
         -13.092811584472656,
         107.10296630859375
-      ]
-    },
-    {
-      "id": "assemble_m870",
-      "output": "ue_m870",
-      "inputs": [
+      ],
+      "legacy_inputs": [
         {
           "item": "ironIngot",
-          "count": 16
+          "count": 26
         },
         {
           "item": "copperIngot",
-          "count": 5
+          "count": 8
         },
+        {
+          "item": "wood",
+          "count": 3
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 3
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 2
+        }
+      ],
+      "metal_count": 26
+    },
+    {
+      "id": "assemble_hk416",
+      "output": "ue_hk416",
+      "inputs": [
         {
           "item": "wood",
           "count": 2
@@ -1485,7 +2142,791 @@
       ],
       "position_tolerance_cm": 5,
       "angle_tolerance_deg": 18,
-      "calibration_seconds": 5.5,
+      "calibration_seconds": 34.0,
+      "parts": [
+        {
+          "id": "stock",
+          "name": "枪托",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/hk416/SM_GA_hk416_stock",
+          "target": [
+            79.32989501953125,
+            26.402559280395508,
+            100.93449401855469
+          ],
+          "extent": [
+            7.381927967071533,
+            11.375316619873047,
+            1.8362373113632202
+          ],
+          "loose": [
+            57,
+            -9.190693423121672,
+            97.13623731136322
+          ],
+          "angle": 35,
+          "radius": 8.881927967071533
+        },
+        {
+          "id": "grip",
+          "name": "握把",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/hk416/SM_GA_hk416_grip",
+          "target": [
+            85.63148498535156,
+            12.691821098327637,
+            100.93451690673828
+          ],
+          "extent": [
+            5.589765548706055,
+            4.043709754943848,
+            1.3585090637207031
+          ],
+          "loose": [
+            57,
+            16.05221380035656,
+            96.6585090637207
+          ],
+          "angle": -40,
+          "radius": 5.543709754943848
+        },
+        {
+          "id": "magazine",
+          "name": "弹匣",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/hk416/SM_GA_hk416_magazine",
+          "target": [
+            86.08325958251953,
+            -2.1381876468658447,
+            101.021484375
+          ],
+          "extent": [
+            10.343045234680176,
+            4.556856155395508,
+            1.306268572807312
+          ],
+          "loose": [
+            110,
+            5.8092601986447345,
+            96.60626857280731
+          ],
+          "angle": -55,
+          "radius": 6.056856155395508
+        },
+        {
+          "id": "muzzle",
+          "name": "枪口件",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/hk416/SM_GA_hk416_muzzle",
+          "target": [
+            74.88922119140625,
+            -35.60079574584961,
+            100.93455505371094
+          ],
+          "extent": [
+            1.1059999465942383,
+            2.1770806312561035,
+            1.0678499937057495
+          ],
+          "loose": [
+            110,
+            24.333899267434568,
+            96.36784999370575
+          ],
+          "angle": 30,
+          "radius": 3.5
+        },
+        {
+          "id": "bolt",
+          "name": "枪机组件",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/hk416/SM_GA_hk416_bolt",
+          "target": [
+            73.68426513671875,
+            4.349001884460449,
+            101.04022216796875
+          ],
+          "extent": [
+            1.8213659524917603,
+            9.842597007751465,
+            2.166616916656494
+          ],
+          "loose": [
+            110,
+            -18.52463906878983,
+            97.46661691665649
+          ],
+          "angle": -45,
+          "radius": 3.5
+        }
+      ],
+      "body_mesh": "/Game/Building/GunAssemblyCompletion20261015/hk416/SM_GA_hk416_body",
+      "body_position": [
+        75.57374572753906,
+        -8.549412727355957,
+        100.54130554199219
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 14
+        },
+        {
+          "item": "copperIngot",
+          "count": 5
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
+      "metal_count": 14
+    },
+    {
+      "id": "assemble_super90",
+      "output": "ue_super90",
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
+      "camera": [
+        20,
+        0,
+        215
+      ],
+      "look_at": [
+        75,
+        0,
+        99
+      ],
+      "position_tolerance_cm": 5,
+      "angle_tolerance_deg": 18,
+      "calibration_seconds": 34.0,
+      "parts": [
+        {
+          "id": "stock",
+          "name": "枪托",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/super90/SM_GA_super90_stock",
+          "target": [
+            80.12268829345703,
+            32.68581008911133,
+            99.21475982666016
+          ],
+          "extent": [
+            8.351286888122559,
+            17.133047103881836,
+            2.2147536277770996
+          ],
+          "loose": [
+            110,
+            -12.348131383595401,
+            97.5147536277771
+          ],
+          "angle": -15,
+          "radius": 9.851286888122559
+        },
+        {
+          "id": "grip",
+          "name": "握把",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/super90/SM_GA_super90_grip",
+          "target": [
+            77.99639892578125,
+            19.93379020690918,
+            99.1956558227539
+          ],
+          "extent": [
+            5.829420566558838,
+            3.984200954437256,
+            1.4615774154663086
+          ],
+          "loose": [
+            57,
+            25.941380286426728,
+            96.7615774154663
+          ],
+          "angle": -40,
+          "radius": 5.484200954437256
+        },
+        {
+          "id": "barrel",
+          "name": "枪管组件",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/super90/SM_GA_super90_barrel",
+          "target": [
+            86.75867462158203,
+            -26.634811401367188,
+            99.19564819335938
+          ],
+          "extent": [
+            4.0465087890625,
+            23.184043884277344,
+            1.7188042402267456
+          ],
+          "loose": [
+            57,
+            -9.299154313251897,
+            97.01880424022674
+          ],
+          "angle": 15,
+          "radius": 5.5465087890625
+        },
+        {
+          "id": "bolt",
+          "name": "枪机组件",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/super90/SM_GA_super90_bolt",
+          "target": [
+            88.1911849975586,
+            0.3237783908843994,
+            100.55107879638672
+          ],
+          "extent": [
+            1.3219356536865234,
+            5.760934352874756,
+            2.4287195205688477
+          ],
+          "loose": [
+            110,
+            17.01267672079954,
+            97.72871952056884
+          ],
+          "angle": 30,
+          "radius": 3.5
+        },
+        {
+          "id": "trigger",
+          "name": "扳机",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/super90/SM_GA_super90_trigger",
+          "target": [
+            82.61316680908203,
+            13.886770248413086,
+            99.1956558227539
+          ],
+          "extent": [
+            1.3356208801269531,
+            1.0657817125320435,
+            0.25839805603027344
+          ],
+          "loose": [
+            110,
+            29.36080810439494,
+            95.55839805603027
+          ],
+          "angle": -45,
+          "radius": 3.5
+        }
+      ],
+      "body_mesh": "/Game/Building/GunAssemblyCompletion20261015/super90/SM_GA_super90_body",
+      "body_position": [
+        86.48468780517578,
+        -15.003427505493164,
+        99.95549774169922
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 16
+        },
+        {
+          "item": "copperIngot",
+          "count": 5
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
+      "metal_count": 16
+    },
+    {
+      "id": "assemble_g18",
+      "output": "ue_g18",
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 1
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "camera": [
+        20,
+        0,
+        215
+      ],
+      "look_at": [
+        75,
+        0,
+        99
+      ],
+      "position_tolerance_cm": 4,
+      "angle_tolerance_deg": 18,
+      "calibration_seconds": 34.0,
+      "parts": [
+        {
+          "id": "slide",
+          "name": "套筒",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/g18/SM_GA_g18_slide",
+          "target": [
+            75.82833099365234,
+            -0.8033010959625244,
+            98.47185516357422
+          ],
+          "extent": [
+            1.7212152481079102,
+            9.240772247314453,
+            1.206400990486145
+          ],
+          "loose": [
+            57,
+            -4.086247362218778,
+            96.50640099048614
+          ],
+          "angle": 35,
+          "radius": 3.5
+        },
+        {
+          "id": "barrel",
+          "name": "枪管",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/g18/SM_GA_g18_barrel",
+          "target": [
+            75.65010833740234,
+            -4.512150764465332,
+            98.47176361083984
+          ],
+          "extent": [
+            1.1314183473587036,
+            5.7305145263671875,
+            0.7764428853988647
+          ],
+          "loose": [
+            110,
+            -10.486134538918403,
+            96.07644288539886
+          ],
+          "angle": 40,
+          "radius": 3.5
+        },
+        {
+          "id": "magazine",
+          "name": "弹匣",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/g18/SM_GA_g18_magazine",
+          "target": [
+            82.72444152832031,
+            5.124302387237549,
+            98.47177124023438
+          ],
+          "extent": [
+            7.168445110321045,
+            3.685800075531006,
+            1.3061672449111938
+          ],
+          "loose": [
+            110,
+            7.617090504190362,
+            96.60616724491119
+          ],
+          "angle": -55,
+          "radius": 5.185800075531006
+        },
+        {
+          "id": "trigger",
+          "name": "扳机",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/g18/SM_GA_g18_trigger",
+          "target": [
+            79.56987762451172,
+            0.543464720249176,
+            98.47176361083984
+          ],
+          "extent": [
+            1.1371612548828125,
+            1.175100326538086,
+            0.3891170024871826
+          ],
+          "loose": [
+            57,
+            11.056845985399432,
+            95.68911700248718
+          ],
+          "angle": -30,
+          "radius": 3.5
+        }
+      ],
+      "body_mesh": "/Game/Building/GunAssemblyCompletion20261015/g18/SM_GA_g18_body",
+      "body_position": [
+        80.97523498535156,
+        0.02054944634437561,
+        98.4893798828125
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 6
+        },
+        {
+          "item": "copperIngot",
+          "count": 3
+        },
+        {
+          "item": "wood",
+          "count": 1
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "metal_count": 6
+    },
+    {
+      "id": "assemble_pit_viper2011",
+      "output": "ue_pit_viper2011",
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 1
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "camera": [
+        20,
+        0,
+        215
+      ],
+      "look_at": [
+        75,
+        0,
+        99
+      ],
+      "position_tolerance_cm": 4,
+      "angle_tolerance_deg": 18,
+      "calibration_seconds": 34.0,
+      "parts": [
+        {
+          "id": "slide",
+          "name": "套筒",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/pit_viper2011/SM_GA_pit_viper2011_slide",
+          "target": [
+            76.37232208251953,
+            -1.3212475776672363,
+            98.6507797241211
+          ],
+          "extent": [
+            2.1100878715515137,
+            9.537108421325684,
+            1.1658698320388794
+          ],
+          "loose": [
+            57,
+            -9.863105903741825,
+            96.46586983203888
+          ],
+          "angle": 35,
+          "radius": 3.6100878715515137
+        },
+        {
+          "id": "barrel",
+          "name": "枪管",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/pit_viper2011/SM_GA_pit_viper2011_barrel",
+          "target": [
+            76.41764831542969,
+            -4.764892101287842,
+            98.65076446533203
+          ],
+          "extent": [
+            2.0048232078552246,
+            6.335788249969482,
+            1.1930674314498901
+          ],
+          "loose": [
+            110,
+            -9.819741826631567,
+            96.49306743144989
+          ],
+          "angle": 40,
+          "radius": 3.5048232078552246
+        },
+        {
+          "id": "magazine",
+          "name": "弹匣",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/pit_viper2011/SM_GA_pit_viper2011_magazine",
+          "target": [
+            83.0802230834961,
+            5.833835124969482,
+            98.65078735351562
+          ],
+          "extent": [
+            6.535783290863037,
+            3.4275145530700684,
+            1.508188247680664
+          ],
+          "loose": [
+            110,
+            8.642170899288997,
+            96.80818824768066
+          ],
+          "angle": -55,
+          "radius": 4.927514553070068
+        },
+        {
+          "id": "hammer",
+          "name": "击锤",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/pit_viper2011/SM_GA_pit_viper2011_hammer",
+          "target": [
+            77.07550811767578,
+            8.003744125366211,
+            98.65078735351562
+          ],
+          "extent": [
+            1.8623262643814087,
+            1.189138412475586,
+            1.0208278894424438
+          ],
+          "loose": [
+            57,
+            16.924757239418142,
+            96.32082788944244
+          ],
+          "angle": -30,
+          "radius": 3.5
+        },
+        {
+          "id": "trigger",
+          "name": "扳机",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/pit_viper2011/SM_GA_pit_viper2011_trigger",
+          "target": [
+            80.08781433105469,
+            3.8140640258789062,
+            98.6507797241211
+          ],
+          "extent": [
+            1.1493504047393799,
+            2.9548652172088623,
+            1.2445032596588135
+          ],
+          "loose": [
+            57,
+            7.061651335676315,
+            96.54450325965881
+          ],
+          "angle": 45,
+          "radius": 3.5
+        }
+      ],
+      "body_mesh": "/Game/Building/GunAssemblyCompletion20261015/pit_viper2011/SM_GA_pit_viper2011_body",
+      "body_position": [
+        82.96954345703125,
+        0.15227347612380981,
+        98.71097564697266
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 8
+        },
+        {
+          "item": "copperIngot",
+          "count": 3
+        },
+        {
+          "item": "wood",
+          "count": 1
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 1
+        }
+      ],
+      "metal_count": 8
+    },
+    {
+      "id": "assemble_rsh12",
+      "output": "ue_rsh12",
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 1
+        }
+      ],
+      "camera": [
+        20,
+        0,
+        215
+      ],
+      "look_at": [
+        75,
+        0,
+        99
+      ],
+      "position_tolerance_cm": 4,
+      "angle_tolerance_deg": 18,
+      "calibration_seconds": 34.0,
+      "parts": [
+        {
+          "id": "cylinder",
+          "name": "弹巢组件",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/rsh12/SM_GA_rsh12_cylinder",
+          "target": [
+            78.64414978027344,
+            3.020697832107544,
+            99.52479553222656
+          ],
+          "extent": [
+            2.764350175857544,
+            6.52712345123291,
+            2.5247960090637207
+          ],
+          "loose": [
+            57,
+            -4.275950262546768,
+            97.82479600906372
+          ],
+          "angle": 35,
+          "radius": 4.264350175857544
+        },
+        {
+          "id": "grip",
+          "name": "握把",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/rsh12/SM_GA_rsh12_grip",
+          "target": [
+            84.76902770996094,
+            13.063979148864746,
+            99.513427734375
+          ],
+          "extent": [
+            5.388516426086426,
+            4.129176139831543,
+            1.5293419361114502
+          ],
+          "loose": [
+            110,
+            -4.926350843784535,
+            96.82934193611145
+          ],
+          "angle": 40,
+          "radius": 5.629176139831543
+        },
+        {
+          "id": "trigger",
+          "name": "扳机",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/rsh12/SM_GA_rsh12_trigger",
+          "target": [
+            82.8750228881836,
+            7.239967346191406,
+            99.51342010498047
+          ],
+          "extent": [
+            1.6614526510238647,
+            0.7234745025634766,
+            0.42127668857574463
+          ],
+          "loose": [
+            57,
+            9.432272641098816,
+            95.72127668857574
+          ],
+          "angle": 55,
+          "radius": 3.5
+        },
+        {
+          "id": "hammer",
+          "name": "击锤",
+          "mesh": "/Game/Building/GunAssemblyCompletion20261015/rsh12/SM_GA_rsh12_hammer",
+          "target": [
+            77.11433410644531,
+            10.797368049621582,
+            99.50743103027344
+          ],
+          "extent": [
+            1.6946583986282349,
+            1.823297142982483,
+            0.5697071552276611
+          ],
+          "loose": [
+            110,
+            9.126804029858173,
+            95.86970715522766
+          ],
+          "angle": 30,
+          "radius": 3.5
+        }
+      ],
+      "body_mesh": "/Game/Building/GunAssemblyCompletion20261015/rsh12/SM_GA_rsh12_body",
+      "body_position": [
+        81.85041809082031,
+        0.0,
+        99.51343536376953
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 12
+        },
+        {
+          "item": "copperIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 1
+        }
+      ],
+      "metal_count": 12
+    },
+    {
+      "id": "assemble_m870",
+      "output": "ue_m870",
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
+      "camera": [
+        20,
+        0,
+        215
+      ],
+      "look_at": [
+        75,
+        0,
+        99
+      ],
+      "position_tolerance_cm": 5,
+      "angle_tolerance_deg": 18,
+      "calibration_seconds": 34.0,
       "parts": [
         {
           "id": "barrel",
@@ -1603,7 +3044,363 @@
         86.64048767089844,
         -13.815442085266113,
         99.18894958496094
-      ]
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 16
+        },
+        {
+          "item": "copperIngot",
+          "count": 5
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
+      "metal_count": 16
+    },
+    {
+      "id": "assemble_saiga12k",
+      "output": "ue_saiga12k",
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
+      "camera": [
+        20,
+        0,
+        215
+      ],
+      "look_at": [
+        75,
+        0,
+        99
+      ],
+      "position_tolerance_cm": 5,
+      "angle_tolerance_deg": 18,
+      "calibration_seconds": 34.0,
+      "parts": [
+        {
+          "id": "stock",
+          "name": "枪托",
+          "mesh": "/Game/Building/GunAssemblyExpansion20261025/saiga12k/SM_GA_saiga12k_stock",
+          "target": [
+            78.86087799072266,
+            33.65397644042969,
+            99.18101501464844
+          ],
+          "extent": [
+            4.970303058624268,
+            11.462567329406738,
+            1.146024465560913
+          ],
+          "loose": [
+            110,
+            7.761971248478236,
+            96.44602446556091
+          ],
+          "angle": -35,
+          "radius": 6.470303058624268
+        },
+        {
+          "id": "grip",
+          "name": "握把",
+          "mesh": "/Game/Building/GunAssemblyExpansion20261025/saiga12k/SM_GA_saiga12k_grip",
+          "target": [
+            83.01005554199219,
+            18.563133239746094,
+            99.18102264404297
+          ],
+          "extent": [
+            5.033755302429199,
+            3.3350751399993896,
+            1.0735511779785156
+          ],
+          "loose": [
+            110,
+            30.792856742088574,
+            96.37355117797851
+          ],
+          "angle": 40,
+          "radius": 4.83507513999939
+        },
+        {
+          "id": "magazine",
+          "name": "弹匣",
+          "mesh": "/Game/Building/GunAssemblyExpansion20261025/saiga12k/SM_GA_saiga12k_magazine",
+          "target": [
+            86.11880493164062,
+            6.249375820159912,
+            99.17558288574219
+          ],
+          "extent": [
+            8.562538146972656,
+            6.408390522003174,
+            1.1400073766708374
+          ],
+          "loose": [
+            57,
+            23.562033360608588,
+            96.44000737667083
+          ],
+          "angle": 55,
+          "radius": 7.908390522003174
+        },
+        {
+          "id": "bolt",
+          "name": "枪机组件",
+          "mesh": "/Game/Building/GunAssemblyExpansion20261025/saiga12k/SM_GA_saiga12k_bolt",
+          "target": [
+            78.10076141357422,
+            0.14423206448554993,
+            99.25184631347656
+          ],
+          "extent": [
+            2.3189992904663086,
+            13.409126281738281,
+            2.2518396377563477
+          ],
+          "loose": [
+            110,
+            -23.030885493610338,
+            97.55183963775634
+          ],
+          "angle": -15,
+          "radius": 3.8189992904663086
+        },
+        {
+          "id": "barrel",
+          "name": "枪管组件",
+          "mesh": "/Game/Building/GunAssemblyExpansion20261025/saiga12k/SM_GA_saiga12k_barrel",
+          "target": [
+            74.80048370361328,
+            -23.657440185546875,
+            99.18102264404297
+          ],
+          "extent": [
+            1.2910008430480957,
+            21.45909881591797,
+            1.0868936777114868
+          ],
+          "loose": [
+            57,
+            -13.189722425751526,
+            96.38689367771148
+          ],
+          "angle": 15,
+          "radius": 3.5
+        }
+      ],
+      "body_mesh": "/Game/Building/GunAssemblyExpansion20261025/saiga12k/SM_GA_saiga12k_body",
+      "body_position": [
+        75.35606384277344,
+        -0.8658409118652344,
+        98.9593276977539
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 18
+        },
+        {
+          "item": "copperIngot",
+          "count": 0
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        }
+      ],
+      "metal_count": 18
+    },
+    {
+      "id": "assemble_svch",
+      "output": "ue_svch",
+      "inputs": [
+        {
+          "item": "wood",
+          "count": 3
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 1
+        }
+      ],
+      "camera": [
+        20,
+        0,
+        215
+      ],
+      "look_at": [
+        75,
+        0,
+        99
+      ],
+      "position_tolerance_cm": 5,
+      "angle_tolerance_deg": 18,
+      "calibration_seconds": 34.0,
+      "parts": [
+        {
+          "id": "stock",
+          "name": "枪托",
+          "mesh": "/Game/Building/GunAssemblyExpansion20261025/svch/SM_GA_svch_stock",
+          "target": [
+            81.22431945800781,
+            34.885459899902344,
+            99.3749008178711
+          ],
+          "extent": [
+            6.272611141204834,
+            9.561331748962402,
+            2.1745710372924805
+          ],
+          "loose": [
+            110,
+            -17.46004996109216,
+            97.47457103729248
+          ],
+          "angle": -35,
+          "radius": 7.772611141204834
+        },
+        {
+          "id": "magazine",
+          "name": "弹匣",
+          "mesh": "/Game/Building/GunAssemblyExpansion20261025/svch/SM_GA_svch_magazine",
+          "target": [
+            86.00514221191406,
+            7.234729766845703,
+            99.97783660888672
+          ],
+          "extent": [
+            6.966841220855713,
+            4.513111591339111,
+            1.8742889165878296
+          ],
+          "loose": [
+            110,
+            20.95461308322742,
+            97.17428891658783
+          ],
+          "angle": 40,
+          "radius": 6.013111591339111
+        },
+        {
+          "id": "bolt",
+          "name": "拉机组件",
+          "mesh": "/Game/Building/GunAssemblyExpansion20261025/svch/SM_GA_svch_bolt",
+          "target": [
+            82.0907211303711,
+            13.300018310546875,
+            101.89924621582031
+          ],
+          "extent": [
+            1.6945600509643555,
+            5.468328475952148,
+            3.325000286102295
+          ],
+          "loose": [
+            110,
+            3.4945631221352613,
+            98.62500028610229
+          ],
+          "angle": -55,
+          "radius": 3.5
+        },
+        {
+          "id": "barrel",
+          "name": "枪管组件",
+          "mesh": "/Game/Building/GunAssemblyExpansion20261025/svch/SM_GA_svch_barrel",
+          "target": [
+            77.79090118408203,
+            -21.835233688354492,
+            99.25458526611328
+          ],
+          "extent": [
+            3.1038403511047363,
+            22.61155128479004,
+            2.2371621131896973
+          ],
+          "loose": [
+            57,
+            -4.0047225708510865,
+            97.5371621131897
+          ],
+          "angle": 15,
+          "radius": 4.603840351104736
+        },
+        {
+          "id": "trigger",
+          "name": "扳机",
+          "mesh": "/Game/Building/GunAssemblyExpansion20261025/svch/SM_GA_svch_trigger",
+          "target": [
+            82.95455932617188,
+            16.12784767150879,
+            99.5514144897461
+          ],
+          "extent": [
+            1.3160645961761475,
+            0.8119344711303711,
+            0.4624485969543457
+          ],
+          "loose": [
+            57,
+            25.14441435426206,
+            95.76244859695434
+          ],
+          "angle": 45,
+          "radius": 3.5
+        }
+      ],
+      "body_mesh": "/Game/Building/GunAssemblyExpansion20261025/svch/SM_GA_svch_body",
+      "body_position": [
+        81.22099304199219,
+        0.1854538917541504,
+        99.37126922607422
+      ],
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 20
+        },
+        {
+          "item": "copperIngot",
+          "count": 0
+        },
+        {
+          "item": "wood",
+          "count": 3
+        },
+        {
+          "item": "search_assembly_component_box",
+          "count": 2
+        },
+        {
+          "item": "search_precision_mechanism",
+          "count": 1
+        }
+      ],
+      "metal_count": 20
     }
-  ]
+  ],
+  "_comment": "枪械工艺 V2：固定基础材料 + metal_count 个所选金属锭。金属保底共用 forging-recipes.json；伤害加成=材质保底+装配评分/100*15%，最高25%。legacy_inputs仅用于旧工件返料。"
 }

@@ -1,4 +1,5 @@
 #include "M24ScopeDrawing.h"
+#include "ColdSteelUIStyle.h"
 #include "Engine/LocalPlayer.h"
 #include "Engine/GameViewportClient.h"
 #include "GameFramework/PlayerController.h"
@@ -120,7 +121,7 @@ void M24ScopeDrawing::PaintReticle(FSlateWindowElementList& Out, int32 Layer, co
     if (HasScale && FMath::Min(OneMil.X, OneMil.Y) >= 3.5f * Pixel)
     {
         const float S = FMath::Min(Size.X, Size.Y) / 900.f;
-        auto Font = FCoreStyle::GetDefaultFontStyle("Regular", FMath::Max(7, FMath::RoundToInt(8.f * S)));
+        auto Font = ColdSteelUI::NumberFont(FMath::Max(7, FMath::RoundToInt(8.f * S)));
         Font.OutlineSettings.OutlineSize = 1;
         Font.OutlineSettings.OutlineColor = FLinearColor(.80f, .82f, .80f, .30f * Alpha);
         static const TCHAR* Labels[] = {TEXT("5"), TEXT("10"), TEXT("15"), TEXT("20")};

@@ -1,4 +1,6 @@
 #include "MantisM27Monster.h"
+#include "MonsterTargeting.h"
+#include "MonsterDamageBalance.h"
 #include "FatZombieAnimInstance.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterCombatTuning.h"
@@ -25,6 +27,7 @@ bool AMantisM27Monster::HasAttackSight(const APawn* Victim) const
     FHitResult Hit;
     FCollisionQueryParams Query(SCENE_QUERY_STAT(M27PounceSight), false, this);
     Query.AddIgnoredActor(Victim);
+    Query.AddIgnoredActor(MonsterTargeting::ContactBody(Victim));
     return !GetWorld()->LineTraceSingleByChannel(Hit, GetActorLocation()+FVector(0,0,25), Victim->GetActorLocation(), ECC_Visibility, Query);
 }
 
@@ -282,7 +285,7 @@ void AMantisM27Monster::CancelPounce()
 float AMantisM27Monster::ApplyMeleeDamage(APawn* Victim)
 {
     const FVector Contact = Victim->GetActorLocation();
-    const float Applied = UGameplayStatics::ApplyDamage(Victim, AttackDamage*ActiveAttackDamageScale, GetController(), this, UMantisM27MeleeDamage::StaticClass());
+    const float Applied = UGameplayStatics::ApplyDamage(Victim, MonsterDamageBalance::Limit(AttackDamage*ActiveAttackDamageScale,100.f), GetController(), this, UMantisM27MeleeDamage::StaticClass());
     if (Applied > 0.f) MulticastMantisContact(Contact, ServerClock(), (++MantisContactAudioIndex & 1) != 0);
     return Applied;
 }
@@ -305,8 +308,8 @@ void AMantisM27Monster::PounceImpact(const FVector& LandingPoint)
     bool PlayedContact = false;
     for (const auto& Hit : Hits)
     {
-        APawn* Victim = Cast<APawn>(Hit.GetActor());
-        if (!IsValid(Victim) || !Victim->IsPlayerControlled() || Contacted.Contains(Victim)) continue;
+        APawn* Victim = Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor()));
+        if (!IsValid(Victim) || !MonsterTargeting::IsOpponentPawn(Victim) || Contacted.Contains(Victim)) continue;
         Contacted.Add(Victim);
         float VictimRadius, VictimHeight;
         Victim->GetSimpleCollisionCylinder(VictimRadius, VictimHeight);
@@ -321,7 +324,7 @@ void AMantisM27Monster::PounceImpact(const FVector& LandingPoint)
         if (!Inside && FMath::PointDistToSegmentSquared(Planar, FVector::ZeroVector, Left) > FMath::Square(VictimRadius) &&
             FMath::PointDistToSegmentSquared(Planar, FVector::ZeroVector, Right) > FMath::Square(VictimRadius)) continue;
         if (!HasAttackSight(Victim)) continue;
-        const float Applied = UGameplayStatics::ApplyDamage(Victim, AttackDamage*PounceDamageScale*ActiveAttackDamageScale,
+        const float Applied = UGameplayStatics::ApplyDamage(Victim, MonsterDamageBalance::Limit(AttackDamage*PounceDamageScale*ActiveAttackDamageScale,100.f),
             GetController(), this, UMantisM27PounceDamage::StaticClass());
         if (Applied > 0.f)
         {

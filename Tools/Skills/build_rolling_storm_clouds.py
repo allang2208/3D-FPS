@@ -200,6 +200,9 @@ def blizzard(mat):
     REPORT['blizzard_source'] = source.get_path_name()
     REPORT['blizzard_cloud_emitters'] = names
     REPORT['blizzard_height_interpolation'] = 'bilinear stairs; separate decks; physical ceiling clamp'
+    # Preserve the accepted StormDomain renderers as well as its cloud graphs.
+    # Blizzard only adds room/ceiling placement; do not replace source alignment
+    # or UV bindings with the rejected 2026-11-15 visibility recipe.
     persist(system)
 
 

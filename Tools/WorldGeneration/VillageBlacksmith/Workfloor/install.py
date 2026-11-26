@@ -112,3 +112,4 @@ for package in published:
 receipt=dict(level=level,map_before=before,map_after=digest(level_file),backup=str(backup),changes=changes,
              models=models,packages=published,source=str(source.resolve()),gameplay_tested=False)
 write(batch/'install.json',receipt)
+

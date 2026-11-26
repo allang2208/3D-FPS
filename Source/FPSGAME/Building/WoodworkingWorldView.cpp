@@ -1,6 +1,7 @@
 #include "WoodworkingWorldView.h"
 #include "WorkstationViewRestore.h"
 #include "WoodworkingStockGeometry.h"
+#include "WoodworkingStockSurface.h"
 #include "WoodworkingSystem.h"
 #include "Async/Async.h"
 #include "Camera/CameraComponent.h"
@@ -30,21 +31,7 @@ constexpr double StockBottom=ColdSteelWoodworking::FDeviceGeometry::StockBottom,
 using FMesh=UE::Geometry::FDynamicMesh3;
 const FSoftObjectPath WoodworkingCutGuidePath(TEXT("/Game/Building/WoodworkingSawHighlight20261013/M_SawCutGuide.M_SawCutGuide"));
 void PrepareMesh(FMesh& Mesh){Mesh.EnableAttributes();Mesh.Attributes()->EnablePrimaryColors();}
-void Quad(FMesh& Mesh,FVector3d A,FVector3d B,FVector3d C,FVector3d D,FVector3f Normal,FVector4f Color,double UVScale)
-{
-    // Match UE front-face winding (clockwise), as in VoxelSurfaceMesher::Emit.
-    if(FVector3d::DotProduct(FVector3d::CrossProduct(B-A,C-A),FVector3d(Normal))>0)Swap(B,D);
-    auto* Normals=Mesh.Attributes()->PrimaryNormals();auto* UVs=Mesh.Attributes()->PrimaryUV();auto* Colors=Mesh.Attributes()->PrimaryColors();
-    const int32 Start=Mesh.VertexCount();
-    for(const FVector3d P:{A,B,C,D})
-    {
-        Mesh.AppendVertex(P);Normals->AppendElement(Normal);UVs->AppendElement(FVector2f(float(P.X/UVScale),float(P.Y/UVScale)));Colors->AppendElement(Color);
-    }
-    for(const auto Indices:{UE::Geometry::FIndex3i(Start,Start+1,Start+2),UE::Geometry::FIndex3i(Start,Start+2,Start+3)})
-    {
-        const int32 ID=Mesh.AppendTriangle(Indices);Normals->SetTriangle(ID,Indices);UVs->SetTriangle(ID,Indices);Colors->SetTriangle(ID,Indices);
-    }
-}
+using WoodworkingStockSurface::Quad;
 TSharedPtr<FWoodworkingWorldMesh,ESPMode::ThreadSafe> BuildStock(TArray<uint8> Wood,TArray<uint8> Target,TArray<uint8> Damage,int32 W,int32 H,double Units,uint64 Epoch,int32 Revision,bool Review=false)
 {
     auto Result=MakeShared<FWoodworkingWorldMesh,ESPMode::ThreadSafe>();Result->Epoch=Epoch;Result->Revision=Revision;
@@ -52,30 +39,30 @@ TSharedPtr<FWoodworkingWorldMesh,ESPMode::ThreadSafe> BuildStock(TArray<uint8> W
     const auto Guide=WoodworkingStockGeometry::Plan(Target.GetData(),Target.Num(),W,H);
     const auto Hurt=WoodworkingStockGeometry::Plan(Damage.GetData(),Damage.Num(),W,H);
     TArray<uint8> Remaining;Remaining.Init(0,W*H);
-    if(Review)for(int32 I=0;I<Remaining.Num();++I)Remaining[I]=Wood[I]&&!Target[I];
+    for(int32 I=0;I<Remaining.Num();++I)Remaining[I]=Wood[I]&&!Target[I];
     const auto Excess=WoodworkingStockGeometry::Plan(Remaining.GetData(),Remaining.Num(),W,H);
-    if(!Plan.Valid||!Guide.Valid||!Hurt.Valid||Plan.Faces.size()*2+Plan.Edges.size()+Guide.Edges.size()+Hurt.Faces.size()+Excess.Faces.size()>WoodworkingStockGeometry::MaximumQuads)return Result;
+    if(!Plan.Valid||!Guide.Valid||!Hurt.Valid||!Excess.Valid)return Result;
+    const int32 MarkQuads=int32(Guide.Edges.size()*2+Hurt.Faces.size()+Excess.Faces.size());
     PrepareMesh(Result->Stock);PrepareMesh(Result->Marks);
     auto P=[&](double X,double Y,double Z){return FVector3d((X-W*.5)*Units,-(Y-H*.5)*Units,Z);};
-    const FVector4f Face(.48f,.28f,.125f,1),Cut(.64f,.40f,.21f,1),Ink(.84f,.88f,.85f,.9f),Red(.72f,.075f,.045f,.32f);
+    const FVector4f Ink(.86f,.89f,.79f,.98f),Backing(.018f,.014f,.009f,.98f),Red(.88f,.055f,.035f,.42f);
     auto FaceRect=[&](FMesh& Mesh,double X0,double Y0,double X1,double Y1,double Z,FVector3f N,FVector4f Color)
     {Quad(Mesh,P(X0,Y0,Z),P(X1,Y0,Z),P(X1,Y1,Z),P(X0,Y1,Z),N,Color,40);};
-    for(const auto& R:Plan.Faces)
-    {
-        FaceRect(Result->Stock,R.X0,R.Y0,R.X1,R.Y1,StockThickness,FVector3f(0,0,1),Face);
-        FaceRect(Result->Stock,R.X0,R.Y0,R.X1,R.Y1,0,FVector3f(0,0,-1),Face);
-    }
-    for(const auto& E:Plan.Edges)
-        Quad(Result->Stock,P(E.X0,E.Y0,0),P(E.X1,E.Y1,0),P(E.X1,E.Y1,StockThickness),P(E.X0,E.Y0,StockThickness),FVector3f(float(E.NX),float(-E.NY),0),Cut,40);
-    // Board-local chalk outline uses the same authoritative target cells as scoring.
-    for(const auto& E:Guide.Edges)
-    {
-        const double DX=E.X1-E.X0,DY=E.Y1-E.Y0,Length=FMath::Sqrt(DX*DX+DY*DY),NX=-DY/Length*.4,NY=DX/Length*.4;
-        Quad(Result->Marks,P(E.X0+NX,E.Y0+NY,StockThickness+.035),P(E.X1+NX,E.Y1+NY,StockThickness+.035),P(E.X1-NX,E.Y1-NY,StockThickness+.035),P(E.X0-NX,E.Y0-NY,StockThickness+.035),FVector3f(0,0,1),Ink,40);
-    }
-    // Damage is a translucent location marker over missing target cells, not replacement wood.
+    if(!WoodworkingStockSurface::Build(Result->Stock,Wood,W,H,Units,StockThickness,Plan,WoodworkingStockGeometry::MaximumQuads-MarkQuads))return Result;
+    // Draw translucent fills before all dark backing and then all chalk strokes.
+    // This also keeps neighboring contour segments from painting over each other.
     for(const auto& R:Hurt.Faces)FaceRect(Result->Marks,R.X0,R.Y0,R.X1,R.Y1,StockThickness+.02,FVector3f(0,0,1),Red);
-    for(const auto& R:Excess.Faces)FaceRect(Result->Marks,R.X0,R.Y0,R.X1,R.Y1,StockThickness+.025,FVector3f(0,0,1),FVector4f(.85f,.53f,.12f,.35f));
+    // Coverage below .25 is reserved for the material's sparse waste hatching.
+    for(const auto& R:Excess.Faces)FaceRect(Result->Marks,R.X0,R.Y0,R.X1,R.Y1,StockThickness+.025,FVector3f(0,0,1),FVector4f(.76f,.43f,.10f,Review?.24f:.18f));
+    auto Stroke=[&](const WoodworkingStockGeometry::FEdge& E,double HalfWidth,double Z,FVector4f Color)
+    {
+        const double DX=E.X1-E.X0,DY=E.Y1-E.Y0,Length=FMath::Sqrt(DX*DX+DY*DY),NX=-DY/Length,NY=DX/Length;
+        Quad(Result->Marks,P(E.X0+NX*HalfWidth,E.Y0+NY*HalfWidth,Z),P(E.X1+NX*HalfWidth,E.Y1+NY*HalfWidth,Z),
+            P(E.X1-NX*HalfWidth,E.Y1-NY*HalfWidth,Z),P(E.X0-NX*HalfWidth,E.Y0-NY*HalfWidth,Z),FVector3f(0,0,1),Color,40);
+    };
+    // Board-local chalk outline uses the same authoritative target cells as scoring.
+    for(const auto& E:Guide.Edges)Stroke(E,1.05,StockThickness+.04,Backing);
+    for(const auto& E:Guide.Edges)Stroke(E,.45,StockThickness+.05,Ink);
     Result->Valid=true;return Result;
 }
 }
@@ -99,13 +86,14 @@ AWoodworkingWorldView::AWoodworkingWorldView()
     Markings->SetCastShadow(false);
     SawGuide->SetCastShadow(false);
     Effects->SetCastShadow(false);Chips.Reserve(32);
-    StockMaterial=TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Building/WoodworkingWorld20261009/M_WoodworkingStock.M_WoodworkingStock")));
-    MarkMaterial=TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Building/WoodworkingWorld20261009/M_WoodworkingMarks.M_WoodworkingMarks")));
+    StockMaterial=TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Building/WoodworkingSurfaceV2_20261026/M_WoodworkingStockV2.M_WoodworkingStockV2")));
+    MarkMaterial=TSoftObjectPtr<UMaterialInterface>(FSoftObjectPath(TEXT("/Game/Building/WoodworkingSurfaceV2_20261026/M_WoodworkingMarksV2.M_WoodworkingMarksV2")));
 }
 bool AWoodworkingWorldView::Prepare(APlayerController* Player,UStaticMeshComponent* Station,UWoodworkingSystem* InSystem)
 {
     if(!Player||!Player->IsLocalController()||!Station||!InSystem||!Station->DoesSocketExist(TEXT("WoodworkingSawPivot")))return false;
     PC=Player;Workbench=Station;System=InSystem;SetOwner(Player);
+    if(const auto* Core=InSystem->FindCore(InSystem->Core()))StockMaterial=TSoftObjectPtr<UMaterialInterface>(Core->Material);
     SetActorTransform(Station->GetComponentTransform());AttachToComponent(Station,FAttachmentTransformRules::KeepWorldTransform);
     SawOrigin=Station->GetSocketTransform(TEXT("WoodworkingSawPivot"),RTS_Component).GetLocation();
     // Share the actual blade's socket and local axes, without a separate screen-space projection.
@@ -317,7 +305,7 @@ void AWoodworkingWorldView::UpdateEffects(float DeltaSeconds)
     for(const auto& Chip:Chips)
     {
         const FVector3d P(Chip.Position);const double Size=FMath::Clamp((.5-Chip.Age)*3,0.05,0.6);
-        Quad(Mesh,P+FVector3d(-Size,-.18,0),P+FVector3d(Size,-.18,0),P+FVector3d(Size,.18,.12),P+FVector3d(-Size,.18,.12),FVector3f(0,0,1),FVector4f(.72f,.46f,.23f,1),40);
+        Quad(Mesh,P+FVector3d(-Size,-.18,0),P+FVector3d(Size,-.18,0),P+FVector3d(Size,.18,.12),P+FVector3d(-Size,.18,.12),FVector3f(0,0,1),FVector4f(0,1,0,1),40);
     }
     Effects->SetMesh(MoveTemp(Mesh));Effects->SetVisibility(true);
 }

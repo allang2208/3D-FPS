@@ -1,7 +1,7 @@
-﻿param([string]$Plugin='E:/FPSGAMEAssetCache/TacticalMagazineBeltReview20261024/PluginBuild01/HostProject/Plugins/TacticalBeltReview/TacticalBeltReview.uplugin')
+﻿param([string]$Plugin='F:/FPSGAMEData/ArtReviews/TacticalMagazineBelt20261024/Plugin/TacticalBeltReview/TacticalBeltReview.uplugin')
 $ErrorActionPreference='Stop'
 $beltProject='D:/FPS3D/FPSGAME';$beltStamp=Get-Date -Format 'yyyyMMdd-HHmmss';$beltPort=19949
-$beltReviewRoot=Join-Path $beltProject ('SourceAssets/TacticalMagazineBelt20261024/Review20261024/Network_'+$beltStamp)
+$beltReviewRoot=Join-Path 'F:/FPSGAMEData/ArtReviews/TacticalMagazineBelt20261024' ('Network_'+$beltStamp)
 New-Item -ItemType Directory -Path (Join-Path $beltReviewRoot 'results') -Force | Out-Null
 $beltPeers=[Collections.Generic.List[Diagnostics.Process]]::new();$beltRows=@()
 function Set-BeltPhase([int]$Phase,[string]$ExitRole='') {

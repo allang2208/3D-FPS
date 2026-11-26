@@ -60,6 +60,7 @@ def label(name, text, pos, color):
     actor.set_actor_location(unreal.Vector(*pos), False, True)
     actor.set_actor_rotation(unreal.Rotator(pitch=0, yaw=180, roll=0), True)
     component = actor.get_component_by_class(unreal.TextRenderComponent)
+    component.set_font(unreal.load_asset('/Game/UI/GunsmithWorkbench/WorldText/F_ColdSteelWorldText'))
     component.set_text(text)
     component.set_world_size(23)
     component.set_text_render_color(unreal.Color(*color, 255))

@@ -1,4 +1,5 @@
 #include "FPSGAMEGameMode.h"
+#include "Dungeons/DungeonRoomSubsystem.h"
 #include "FPSGAMECharacter.h"
 #include "FPSGAMEPlayerController.h"
 #include "Multiplayer/ColdSteelPlayerState.h"
@@ -49,9 +50,50 @@ void AFPSGAMEGameMode::PreLogin(const FString& Options,const FString& Address,co
     Super::PreLogin(Options,Address,UniqueId,ErrorMessage);
 }
 
+AActor* AFPSGAMEGameMode::ChoosePlayerStart_Implementation(AController* Player)
+{
+    AActor* Start = Super::ChoosePlayerStart_Implementation(Player);
+    if (Start || UGameplayStatics::GetCurrentLevelName(this, true) != TEXT("L_ForestPathForest"))
+    {
+        return Start;
+    }
+
+    // The engine falls back to the world origin if its collision query rejects every start.
+    // On this map the trail is over 250 metres away. Use a surveyed trail slot for that fallback.
+    static const FName TrailTag(TEXT("ForestPathEntrance"));
+    double BestClearance = -1.;
+    for (TActorIterator<APlayerStart> It(GetWorld()); It; ++It)
+    {
+        if (It->PlayerStartTag != TrailTag) continue;
+        double Clearance = TNumericLimits<double>::Max();
+        for (auto Controllers = GetWorld()->GetPlayerControllerIterator(); Controllers; ++Controllers)
+        {
+            const APlayerController* Other = Controllers->Get();
+            if (Other && Other != Player && Other->GetPawn())
+            {
+                Clearance = FMath::Min(Clearance, FVector::DistSquared(It->GetActorLocation(), Other->GetPawn()->GetActorLocation()));
+            }
+        }
+        if (Clearance > BestClearance)
+        {
+            Start = *It;
+            BestClearance = Clearance;
+        }
+    }
+    return Start;
+}
+
 void AFPSGAMEGameMode::RestartPlayer(AController* NewPlayer)
 {
     const FString Map = UGameplayStatics::GetCurrentLevelName(this, true);
+    if(auto* Room=UDungeonRoomSubsystem::Get(GetWorld()))
+        if(auto* PS=NewPlayer?NewPlayer->GetPlayerState<AColdSteelPlayerState>():nullptr;PS&&PS->bInDungeonRoom)
+        {
+            if(NewPlayer->GetPawn())return;
+            FTransform Spawn;
+            if(Room->FindSpawn(true,nullptr,Spawn))RestartPlayerAtTransform(NewPlayer,Spawn);
+            return;
+        }
     // The dungeon is deliberately NOT on this list: FindSafeSpawn probes from +500 cm
     // above each PlayerStart, which starts inside the dungeon's floor-1 ceiling slab,
     // so every probe is rejected as initially penetrating and no pawn spawns.
@@ -85,6 +127,7 @@ void AFPSGAMEGameMode::SpawnAfterStreaming(TWeakObjectPtr<AController> Player)
     const FString Map = UGameplayStatics::GetCurrentLevelName(this, true);
     for (TActorIterator<APlayerStart> It(GetWorld()); It; ++It)
     {
+        if(UDungeonRoomSubsystem::Supports(GetWorld())&&UDungeonRoomSubsystem::IsDungeonActor(*It))continue;
         FVector Safe;
         if (!USceneSpawnValidation::FindSafeSpawn(this, It->GetActorLocation(), Safe)) continue;
         // Evaluate after runtime collision is created, not just in the editor.
@@ -109,7 +152,7 @@ void AFPSGAMEGameMode::SpawnAfterStreaming(TWeakObjectPtr<AController> Player)
     PendingSceneSpawns.Remove(Player);
     // Never let GameMode's no-start fallback place a character at world origin.
     UE_LOG(LogTemp, Error, TEXT("SceneSpawn: Spawn blocked in %s; no safe start. No pawn spawned."), *Map);
-    if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 20.f, FColor::Red, TEXT("No safe spawn found. Return to editor and check PlayerStart/collision."));
+    if (GEngine) GEngine->AddOnScreenDebugMessage(-1, 20.f, FColor::Red, TEXT("未找到安全出生点，请检查 PlayerStart 和周围的碰撞。"));
 }
 
 void AFPSGAMEGameMode::BeginPlay()

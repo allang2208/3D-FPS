@@ -5,7 +5,6 @@ from pathlib import Path
 import unreal as u
 
 KIT='/Game/WorldGeneration/TemperateHills/VillageBlacksmith/ArtPassR2/Meshes/SM_Village'
-BENCH='/Game/MilitaryTrench/Assets/3D/Mil_Trench_Bench_Wood_01/StaticMeshes/SM_Mil_Trench_Bench_Wood_01'
 CRATE='/Game/UndergroundTunnel/Meshes/Props/SM_WoodCrate01a'
 BARREL='/Game/Props/CastingStation20260926/SM_CoolingBarrel'
 
@@ -65,7 +64,6 @@ def _build_shop_legacy(house,pieces,base,geometry):
         (KIT+'OakShelf',277,135,0,90,1),
         (KIT+'OakTable',230,-220,0,90,.85),
         (KIT+'OakStool',140,-220,0,12,1),
-        (BENCH,-285,80,0,90,1),
         (CRATE,-250,280,0,-4,.58),
         (BARREL,280,-310,0,0,1)]:
         add('Common',path,standing(house,path,x,y,z,yaw,scale))
@@ -131,7 +129,7 @@ def furnish_home(house,pieces,geometry,scale,group):
         dx,dy=center[0]-entry[0],center[1]-entry[1]
         t=min(1,max(0,((p[0]-entry[0])*dx+(p[1]-entry[1])*dy)/max(1,dx*dx+dy*dy)))
         return math.hypot(p[0]-entry[0]-t*dx,p[1]-entry[1]-t*dy)
-    for path,scale_factor in [(KIT+'TimberBed',1),(KIT+'OakTable',1),(KIT+'OakShelf',.8),(BENCH,1),(CRATE,.55)]:
+    for path,scale_factor in [(KIT+'TimberBed',1),(KIT+'OakTable',1),(KIT+'OakShelf',.8),(CRATE,.55)]:
         b=require(path).get_bounding_box();span=b.max-b.min
         sx,sy=span.x*scale_factor,span.y*scale_factor
         candidates=[]

@@ -256,6 +256,9 @@ def height_object(mat, texture):
     return expr
 
 
+import runpy
+cache = runpy.run_path(str(ROOT/'Tools/WorldGeneration/temperate_ground_cache.py'))
+
 def build_base(mat):
     """Layered hill ground. Returns the four nodes to feed the material outputs."""
     world = node(mat, u.MaterialExpressionWorldPosition)
@@ -267,6 +270,7 @@ def build_base(mat):
     camera = node(mat, u.MaterialExpressionCameraPositionWS)
     view = node(mat, u.MaterialExpressionCameraVectorWS)
     wetness = scalar(mat, 'Wetness', 0.0, desc='Weather- and time-of-day driven surface wetness.')
+    wetness = cache['cache_zero'](mat,wetness)
 
     # ---- family weights: slope plus two patch fields, all in world space ----
     patch, patch_v = noise('a', 0.0000405)
@@ -309,6 +313,7 @@ return float4(grass,soil,gravel,dry)/max(grass+soil+gravel+dry,0.0001);
                          desc='Fine grain detail is at full strength inside this distance.')
     detail_fade_curve = custom(mat, 'return 1.0-smoothstep(F*100.0,F*230.0,D);',
                                {'F': detail_fade, 'D': cam_dist}, 1)
+    detail_fade_curve = cache['cache_zero'](mat,detail_fade_curve)
     # The river bank runs its own relief march on the same surface; suppress the hill
     # march there (vertex colour R is the bank mask) so the two never stack.
     relief_amount = custom(mat,
@@ -332,6 +337,7 @@ float4 hw=W*saturate((heights-Bias)*Contrast+1.0);
 float h=dot(hw,heights)/max(dot(hw,float4(1,1,1,1)),.0001);
 gap=1.0-h-ray;
 '''
+    relief_amount = cache['cache_zero'](mat, relief_amount)
     uv_base = custom(mat, '''
 float2 base=P.xy/(B*100.0);
 float2 dx=ddx(P.xy),dy=ddy(P.xy);
@@ -490,7 +496,7 @@ return smoothstep(.14,.78,saturate(1.0-Alpha))*saturate(Coverage)
 float fade=(1.0-smoothstep(350.0,1000.0,length(Camera-P)))*smoothstep(.15,.38,V.z);
 return UV-V.xy/max(V.z,.2)*(H.b-.5)*Depth*fade*Mask/(max(T,.1)*100.0);
 ''', {'UV':base_uv, 'H':height, 'Camera':s['camera'], 'P':s['world'], 'V':s['view'],
-       'T':tiling, 'Mask':forest, 'Depth':scalar(mat,'ForestLitterReliefCm',1.9)}, 2,
+       'T':tiling, 'Mask':forest, 'Depth':cache['cache_zero'](mat,scalar(mat,'ForestLitterReliefCm',1.9))}, 2,
        desc='ForestLitterShallowRelief')
     ca = sample(mat, load(FOREST_DIR + '/T_ForestFloor_BaseColor'), uv, forest, base_uv, variation)
     normal_sample = sample(mat, load(FOREST_DIR + '/T_ForestFloor_Normal'), uv, forest, base_uv, variation)
@@ -598,7 +604,7 @@ if(ray>previousRay && fineSteps>1)
 float hit=lerp(previousRay,ray,saturate(previousGap/max(previousGap-gap,.0001)));
 return base-travel*hit;
 ''', {'P': world, 'Camera': camera, 'V': view, 'M': mask, 'Blend': blend,
-       'HeightCm': scalar(mat, 'PebbleReliefDepthCm', 5.0),
+       'HeightCm': cache['cache_zero'](mat,scalar(mat, 'PebbleReliefDepthCm', 5.0)),
        'Steps': scalar(mat, 'PebbleReliefSteps', 12.0),
        'Refine': scalar(mat, 'PebbleReliefRefineSteps', 3.0),
        'H0': height_objects[0], 'H1': height_objects[1]}, 2)
@@ -652,11 +658,14 @@ def rebuild(path, with_bank):
     import importlib.util
     wet_spec = importlib.util.spec_from_file_location('hills_wet_materials', ROOT/'Tools/WorldGeneration/forest_wet_materials.py')
     wet = importlib.util.module_from_spec(wet_spec); wet_spec.loader.exec_module(wet)
+    import runpy
+    runpy.run_path(str(ROOT/'Tools/WorldGeneration/temperate_ground_cache.py'))['write_dry_surface'](mat,outputs)
     outputs = wet.apply_ground(mat, outputs)
     for name in ('BASE_COLOR', 'NORMAL', 'ROUGHNESS', 'AMBIENT_OCCLUSION'):
         prop(outputs[name], name)
+    village_plan = json.loads((ROOT/'SourceAssets/TemperateHillsVillage/layout.json').read_text(encoding='utf-8'))
+    runpy.run_path(str(ROOT/'Tools/WorldGeneration/AbandonedVillage/terrain_road_layer.py'))['add_to_ground'](mat, village_plan)
     if with_bank:
-        import runpy
         runpy.run_path(str(ROOT/'Tools/WorldGeneration/WhiteCliffs/quarry_slope_finish.py'))['install'](mat)
     compile_errors = LIB.recompile_material(mat)
     if compile_errors:

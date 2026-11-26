@@ -1,0 +1,26 @@
+{
+  "arguments": [
+    "\"D:/FPS3D/FPSGAME/FPSGAME.uproject\"",
+    "\"127.0.0.1:19981\"",
+    "-game",
+    "-nullrhi",
+    "-nosound",
+    "-unattended",
+    "-nosplash",
+    "-NoLiveCoding",
+    "-SwordFinishWireAudit",
+    "-HatchetRuneWireAudit",
+    "-AssetGatherAll=false",
+    "-ini:Engine:[/Script/Engine.PhysicsSettings]:DefaultGravityZ=0.0",
+    "-ini:Engine:[/Script/PythonScriptPlugin.PythonScriptPluginSettings]:bRemoteExecution=False",
+    "-ini:EditorPerProjectUserSettings:[/Script/ModelContextProtocolEngine.ModelContextProtocolSettings]:bAutoStartServer=False",
+    "-ColdSteelProfile=SwordFinishWireAudit_20261105-232217_rejoin",
+    "-port=19981",
+    "-UserDir=\"D:\\FPS3D\\FPSGAME\\Tools\\HatchetAudit20261104\\Wire\\20261105-232217/rejoin/\"",
+    "-SwordFinishWireOutput=\"D:\\FPS3D\\FPSGAME\\Tools\\HatchetAudit20261104\\Wire\\20261105-232217/rejoin.json\"",
+    "-abslog=\"D:\\FPS3D\\FPSGAME\\Tools\\HatchetAudit20261104\\Wire\\20261105-232217/rejoin.log\"",
+    "-ExecCmds=\"fps.body.AsyncPreload 0,t.MaxFPS 30\""
+  ],
+  "role": "rejoin",
+  "pid": 102704
+}

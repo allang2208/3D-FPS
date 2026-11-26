@@ -1,4 +1,5 @@
 #include "FPSIceArmorComponent.h"
+#include "../Monsters/UnknownSpellCombat.h"
 #include "FPSFireballComponent.h"
 #include "PlayerSkillPreparation.h"
 #include "NetCastUtils.h"
@@ -30,7 +31,7 @@
 UFPSIceArmorComponent::UFPSIceArmorComponent()
 {PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.TickGroup=TG_PostUpdateWork;SetIsReplicatedByDefault(true);}
 UColdSteelStatusModel* UFPSIceArmorComponent::Model() const
-{return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
+{return NetCast::LocalModel(*this);}
 UFPSFireballComponent* UFPSIceArmorComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
 double UFPSIceArmorComponent::Clock() const
 {return GetWorld()->GetGameState()?GetWorld()->GetGameState()->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();}
@@ -119,6 +120,7 @@ void UFPSIceArmorComponent::Start(const FIceArmorCast& Spell,uint32 CastId,UCold
     End(true);ClearVisuals();PulseClock=0;TrainingSources.Reset();Experience=Spell.CastExperience;
     if(GetOwner()->HasAuthority())
     {
+        if(OwnerModel)OwnerModel->NotifyMagicReleased();
         RewardModel=OwnerModel;State.Cast=Spell;State.CastId=CastId;++State.Serial;State.StartedAt=Clock();State.bActive=true;GetOwner()->ForceNetUpdate();
     }
     else {Prediction.Cast=Spell;Prediction.CastId=CastId;Prediction.StartedAt=Clock();Prediction.bActive=true;bAwaiting=true;}
@@ -160,17 +162,22 @@ void UFPSIceArmorComponent::RefreshStatus()
 }
 void UFPSIceArmorComponent::Pulse()
 {
-    auto* P=Cast<AFPSGAMECharacter>(GetOwner());if(!P||!P->HasAuthority())return;
+    auto* P=Cast<ACharacter>(GetOwner());if(!P||!P->HasAuthority())return;
     const auto& C=State.Cast;const FVector Feet=P->GetActorLocation()-FVector(0,0,P->GetCapsuleComponent()->GetScaledCapsuleHalfHeight()-5);
     for(AActor* Target:FireMagic::GroundTargets(P,Feet,FVector::UpVector,C.Radius))
-        UCombatStatusFormula::GetOrAdd(Target)->AddChill(1,C.ChillSeconds,C.SlowPerStack,true);
+        UCombatStatusFormula::GetOrAdd(Target)->AddChill(1,C.ChillSeconds,true);
 }
 void UFPSIceArmorComponent::ObserveAcceptedDamage(AActor* Source,const UDamageType* Type,float Damage)
 {
     if(!GetOwner()->HasAuthority()||Remaining()<=0||Damage<=0||!IsValid(Source)||Source==GetOwner()||!Type)return;
-    auto* Combat=Source->FindComponentByClass<UMonsterCombatComponent>();if(!Combat||HolyLightTargets::IsFriendly(Source))return;
-    const bool Melee=Type->IsA<UEnemyMeleeDamage>();
-    const bool Ranged=Type->IsA<UEnemyRangedDamage>()||(CombatFormulaRuntime::IsMagic(Type)&&!Type->IsA<UStatusMagicDamage>()&&!Type->IsA<UCorrosivePusDamage>());
+    auto* Combat=Source->FindComponentByClass<UMonsterCombatComponent>();
+    const bool HostileArmor=UnknownSpell::IsCaster(GetOwner());
+    if(HostileArmor?!UnknownSpell::IsTarget(GetOwner(),Source):(!Combat||HolyLightTargets::IsFriendly(Source)))return;
+    const auto* WeaponHit=CombatFormulaRuntime::ActiveWeaponHit;
+    const bool PlayerWeapon=HostileArmor&&WeaponHit&&WeaponHit->Target==GetOwner();
+    const bool Melee=Type->IsA<UEnemyMeleeDamage>()||(PlayerWeapon&&WeaponHit->bMelee);
+    const bool Ranged=Type->IsA<UEnemyRangedDamage>()||(PlayerWeapon&&!WeaponHit->bMelee)||
+        (CombatFormulaRuntime::IsMagic(Type)&&!Type->IsA<UStatusMagicDamage>()&&!Type->IsA<UCorrosivePusDamage>());
     if(!Melee&&!Ranged)return;const auto& C=State.Cast;
     if(Clock()-Impact.At>=.08||Impact.CastSerial!=State.Serial)
     {
@@ -179,7 +186,8 @@ void UFPSIceArmorComponent::ObserveAcceptedDamage(AActor* Source,const UDamageTy
         Impact.LocalDirection=GetOwner()->GetActorTransform().InverseTransformVectorNoScale(Direction);
         OnRep_Impact();GetOwner()->ForceNetUpdate();
     }
-    if(Melee&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Source)->AddChill(1,C.ChillSeconds,C.SlowPerStack,true);
+    if(Melee&&(HostileArmor||!Combat->IsDead()))UCombatStatusFormula::GetOrAdd(Source)->AddChill(1,C.ChillSeconds,true);
+    if(HostileArmor)return; // The monster has no player skill-training transaction.
     if(Source->ActorHasTag(TEXT("Summoned"))||Source->ActorHasTag(TEXT("NoSkillTraining"))||Experience>=C.ExperienceCap)return;
     const double Now=Clock();const TWeakObjectPtr<AActor> Key=Source;
     if(const auto* Last=TrainingSources.Find(Key);Last&&Now-*Last<C.TrainingSourceInterval)return;

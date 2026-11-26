@@ -215,24 +215,25 @@ void ReloadPKM(float Time, float End, TConstArrayView<float> Contacts,
 void EquipPKM(float Time, float End, FPose& Follow, FPose& Impacts)
 {
     // EquipCharge31: open left hand catches at .39 s; the .90 s clip lowers
-    // into support at .64 s and settles by .86 s. Map M4's equip amplitudes
-    // and contact responses to these beats; there is no PKM equip bolt pull.
+    // into support at .64 s and settles by .86 s. These are soft support-hand
+    // contacts, not bolt releases. Keep the source beats, with a quiet head
+    // follow instead of the old M4 charge impulses (also used by M249).
     const float ClockScale = End / .90f;
     const FKey Keys[] = {
         {0.f, {}, {}},
-        {.16f * ClockScale, {-.32f, -.18f, -.55f}, {-.12f, 0.f, -.10f}},
-        {.30f * ClockScale, {.65f, -.32f, -.90f}, {-.35f, .08f, .18f}},
-        {.39f * ClockScale, {1.25f, -.40f, -1.10f}, {-.65f, .12f, .28f}},
-        {.64f * ClockScale, {-.75f, .24f, .65f}, {.10f, -.08f, -.12f}},
-        {.77f * ClockScale, {-.14f, .04f, .14f}, {}},
+        {.16f * ClockScale, {-.07f, -.03f, -.10f}, {-.03f, 0.f, -.025f}},
+        {.30f * ClockScale, {.13f, -.055f, -.16f}, {-.08f, .015f, .035f}},
+        {.39f * ClockScale, {.22f, -.07f, -.20f}, {-.12f, .02f, .055f}},
+        {.64f * ClockScale, {-.12f, .04f, .10f}, {.02f, -.015f, -.025f}},
+        {.77f * ClockScale, {-.035f, .008f, .025f}, {}},
         {.86f * ClockScale, {}, {}},
         {End, {}, {}}
     };
     Follow = Curve(Keys, Time);
     Impact(Impacts, Time, .39f * ClockScale, .22f * ClockScale,
-        {1.20f, -.30f, -.85f}, {-.48f, 0.f, .12f});
+        {.10f, -.025f, -.07f}, {-.055f, 0.f, .018f});
     Impact(Impacts, Time, .64f * ClockScale, .26f * ClockScale,
-        {-2.25f, .32f, 1.20f}, {.38f, 0.f, -.38f});
+        {-.15f, .025f, .08f}, {.045f, 0.f, -.04f});
 }
 
 void ReloadRSH12(float Time, float End, TConstArrayView<float> Contacts,
@@ -290,7 +291,7 @@ FVector Super90Reference(const FVector3f (&Keys)[N], float Time)
 }
 
 void Super90Loader(float Time, float End, bool bEmpty, bool bCycle, float HorizontalFOV,
-    FPose& Follow, FPose& Impacts)
+    TConstArrayView<float> Contacts, FPose& Follow, FPose& Impacts)
 {
     // Keep the measured background framing at its recorded amplitude. Contact
     // feedback below uses the same strength path as the other long guns.
@@ -346,13 +347,37 @@ void Super90Loader(float Time, float End, bool bEmpty, bool bCycle, float Horizo
     }
 }
 
+void ReloadM249Side(float Time,float End,TConstArrayView<float> Contacts,bool Empty,FPose& Follow,FPose& Impacts)
+{
+    // Side magazines have three feed contacts followed by four independent
+    // charging-handle contacts. Keep RC1 as the sole contact impulse owner.
+    Reload(Time,End,Contacts,false,false,false,Follow,Impacts);
+    if(!Empty || Contacts.Num()<7)return;
+    const float Pull=Contacts[3],Rear=Contacts[4],Push=Contacts[5],Closed=Contacts[6];
+    const FKey Keys[] = {
+        {0.f,{},{}},
+        {Pull-.18f,{},{}},
+        {Pull,{.35f,-.08f,-.12f},{-.08f,.02f,.04f}},
+        {Rear,{1.65f,-.16f,-.30f},{-.28f,.06f,.12f}},
+        {Push,{1.45f,-.12f,-.22f},{-.24f,.04f,.10f}},
+        {Closed,{-.60f,.10f,.16f},{.15f,-.02f,-.07f}},
+        {Closed+.16f,{.12f,-.02f,-.03f},{-.03f,0.f,.015f}},
+        {FMath::Min(Closed+.40f,End-.02f),{},{}},
+        {End,{},{}}
+    };
+    const FPose Charge=Curve(Keys,Time);
+    Follow.Angles+=Charge.Angles;Follow.Position+=Charge.Position;
+}
+
 void Authored(EM4CameraAction Action,float Time,float End,TConstArrayView<float> Contacts,float FOV,FPose& Follow,FPose& Impacts)
 {
     if(Action==EM4CameraAction::None)return;
     if(Action==EM4CameraAction::Super90Loader||Action==EM4CameraAction::Super90LoaderEmpty||Action==EM4CameraAction::Super90LoaderCycle)
-        Super90Loader(Time,End,Action!=EM4CameraAction::Super90Loader,Action==EM4CameraAction::Super90LoaderCycle,FOV,Follow,Impacts);
+        Super90Loader(Time,End,Action!=EM4CameraAction::Super90Loader,Action==EM4CameraAction::Super90LoaderCycle,FOV,Contacts,Follow,Impacts);
     else if(Action==EM4CameraAction::RSH12Reload||Action==EM4CameraAction::RSH12ReloadEmpty)
         ReloadRSH12(Time,End,Contacts,Action==EM4CameraAction::RSH12ReloadEmpty,Follow,Impacts);
+    else if(Action==EM4CameraAction::M249SideReload||Action==EM4CameraAction::M249SideReloadEmpty)
+        ReloadM249Side(Time,End,Contacts,Action==EM4CameraAction::M249SideReloadEmpty,Follow,Impacts);
     else if(Action==EM4CameraAction::PKMEquip)EquipPKM(Time,End,Follow,Impacts);
     else if(Action==EM4CameraAction::PKMReload||Action==EM4CameraAction::PKMReloadEmpty)
         ReloadPKM(Time,End,Contacts,Action==EM4CameraAction::PKMReloadEmpty,Follow,Impacts);
@@ -371,11 +396,12 @@ FPose StandardReload(const FWeaponReloadCameraTrack& Track,float FOV)
     Authored(Track.FollowAction,Track.Time,Track.End,Track.FollowContacts,FOV,Follow,IgnoredImpacts);
     const bool Reference=Track.FollowAction==EM4CameraAction::Super90Loader||Track.FollowAction==EM4CameraAction::Super90LoaderEmpty;
     const float FollowGain=Reference?1.f/.45f:WeaponReloadCamera::FollowScale;
-    Follow.Angles*=FollowGain;Follow.Position*=FollowGain;
+    Follow.Angles*=FollowGain*Track.FollowScale;Follow.Position*=FollowGain*Track.FollowScale;
     for(const auto& Contact:Track.Contacts)
     {
         const auto Beat=WeaponReloadCamera::Beat(Contact.Kind);
-        Impact(Contacts,Track.Time,Contact.Time,FMath::Min(Beat.Seconds,Track.End-Contact.Time),Beat.Angles,Beat.Position);
+        Impact(Contacts,Track.Time,Contact.Time,FMath::Min(Beat.Seconds,Track.End-Contact.Time),
+            Beat.Angles*Track.ContactScale,Beat.Position*Track.ContactScale);
         if(Track.FollowAction==EM4CameraAction::None)
         {
             // Gentle preparation/settling around real contact, quiet while retrieving.
@@ -420,7 +446,11 @@ void UWeaponActionCameraComponent::UpdateSprint(float DeltaSeconds, bool bEnable
 {
     if (!bEnabled)
     {
-        ResetSprint();
+        // Switching retires the sprint pose immediately, but dropping its eye
+        // offset in one frame makes the next weapon (including 201) lurch.
+        // Hold the outgoing phase and release only the rendered amplitude.
+        SprintBlend *= FMath::Exp(-18.f * FMath::Max(DeltaSeconds, 0.f));
+        if (SprintBlend < .0001f) ResetSprint();
         return;
     }
     const float Target = bRequested ? FMath::Clamp(MovementWeight, 0.f, 1.f) : 0.f;
@@ -430,6 +460,21 @@ void UWeaponActionCameraComponent::UpdateSprint(float DeltaSeconds, bool bEnable
     // The footstep clock continues through walk/run reversals. Fade amplitude
     // without restarting the wave when sprint is pressed or released.
     SprintPhase = StridePhase;
+}
+
+float UWeaponActionCameraComponent::EquipFieldOfView(float CurrentFOV, float TargetFOV, float DeltaSeconds)
+{
+    if (bEquipTransitionPending)
+    {
+        // ADS belongs to the outgoing weapon; its pose can retire immediately,
+        // but the rendered FOV must leave the actual last view continuously.
+        // A second switch captures the in-flight FOV instead of the old target.
+        EquipFOVStart = CurrentFOV;
+        EquipFOVAge = 0.f;
+    }
+    else EquipFOVAge = FMath::Min(EquipFOVSeconds, EquipFOVAge + FMath::Max(0.f, DeltaSeconds));
+    const float Result = FMath::Lerp(EquipFOVStart, TargetFOV, FMath::SmoothStep(0.f, EquipFOVSeconds, EquipFOVAge));
+    return Result;
 }
 
 void UWeaponActionCameraComponent::Apply(UCameraComponent& Camera, EM4CameraAction Action,
@@ -457,6 +502,25 @@ void UWeaponActionCameraComponent::Apply(UCameraComponent& Camera, EM4CameraActi
     const float ImpactScale = FMath::Clamp(ImpactStrength, 0.f, 2.f);
     FVector Angles = (Follow.Angles * FollowScale + Impacts.Angles * ImpactScale) * Weight;
     FVector Position = (Follow.Position * FollowScale + Impacts.Position * ImpactScale) * Weight;
+    const bool bEquip = Action == EM4CameraAction::PKMEquip || Action == EM4CameraAction::EquipCharge;
+    const bool bEquipHandoff = bEquipTransitionPending || (bEquipWasActive && (!bEquip || SourceSeconds < PreviousEquipSource));
+    if (bEquipHandoff)
+    {
+        // Keep the last rendered equip pose at the handoff, even when the
+        // same clip restarts. Blend its difference from the incoming pose out
+        // on a real-time clock; source rate changes must not replay contacts.
+        EquipReturnAngles = EquipAngles - (bEquip ? Angles : FVector::ZeroVector);
+        EquipReturnPosition = EquipPosition - (bEquip ? Position : FVector::ZeroVector);
+        EquipReturnAge = 0.f;
+    }
+    else EquipReturnAge = FMath::Min(EquipReturnSeconds, EquipReturnAge + FMath::Max(0.f, DeltaSeconds));
+    const float EquipPresence = 1.f - FMath::SmoothStep(0.f, EquipReturnSeconds, EquipReturnAge);
+    const FVector ReturnAngles = EquipReturnAngles * EquipPresence;
+    const FVector ReturnPosition = EquipReturnPosition * EquipPresence;
+    EquipAngles = (bEquip ? Angles : FVector::ZeroVector) + ReturnAngles;
+    EquipPosition = (bEquip ? Position : FVector::ZeroVector) + ReturnPosition;
+    Angles += ReturnAngles; Position += ReturnPosition;
+    bEquipWasActive = bEquip; PreviousEquipSource = SourceSeconds; bEquipTransitionPending = false;
     FVector ReloadSumAngles=FVector::ZeroVector,ReloadSumPosition=FVector::ZeroVector;
     float ContributingHands=0.f;
     for(int32 Side=0;Side<2;++Side)

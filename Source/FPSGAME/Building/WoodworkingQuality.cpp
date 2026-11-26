@@ -20,30 +20,47 @@ EChannel Channel(const FColdSteelItem& Item)
 }
 double FromScore(double Score)
 {return FMath::IsFinite(Score)?.75+.005*FMath::Clamp(Score,0.,100.):1.;}
+double SkillBonus(double Score){return FMath::IsFinite(Score)?FMath::Clamp(Score,0.,100.)*MaxSkillBonus/100.:0.;}
+double FromJob(const FColdSteelWoodworkingJob& Job)
+{return Job.QualityVersion>=Version?1.+FMath::Clamp(Job.MaterialBonus,0.,MaxMaterialBonus)+SkillBonus(Job.Quality):FromScore(Job.Quality);}
+bool UsesMaterials(const FColdSteelItem& Item)
+{
+    const auto Data=ColdSteelItemData::Read(Item.Data);const TSharedPtr<FJsonObject>* Q=nullptr;double V=0;
+    return Data&&Data->TryGetObjectField(Field,Q)&&Q&&*Q&&(*Q)->TryGetNumberField(TEXT("version"),V)&&V==Version;
+}
+double MaterialBonus(const FColdSteelItem& Item)
+{
+    const auto Data=ColdSteelItemData::Read(Item.Data);const TSharedPtr<FJsonObject>* Q=nullptr;double Bonus=0;
+    if(!UsesMaterials(Item)||!Data->TryGetObjectField(Field,Q)||!Q||!*Q||!(*Q)->TryGetNumberField(TEXT("materialBonus"),Bonus)||!FMath::IsFinite(Bonus))return 0;
+    return FMath::Clamp(Bonus,0.,MaxMaterialBonus);
+}
 bool Read(const FColdSteelItem& Item,double& Score)
 {
     const auto Data=ColdSteelItemData::Read(Item.Data);const TSharedPtr<FJsonObject>* Q=nullptr;
     if(!Data||!Data->TryGetObjectField(Field,Q)||!Q||!*Q)return false;
-    double Version=0;FString Stat;
-    return (*Q)->TryGetNumberField(TEXT("version"),Version)&&Version==1
+    double StoredVersion=0;FString Stat;
+    return (*Q)->TryGetNumberField(TEXT("version"),StoredVersion)&&(StoredVersion==1||StoredVersion==ColdSteelWoodQuality::Version)
         &&(*Q)->TryGetNumberField(TEXT("score"),Score)&&FMath::IsFinite(Score)&&Score>=0&&Score<=100
         &&(*Q)->TryGetStringField(TEXT("stat"),Stat)&&Channel(Item)!=EChannel::None&&Stat==ChannelKey(Channel(Item));
 }
 double Multiplier(const FColdSteelItem& Item,EChannel Expected)
-{double Score=0;return Channel(Item)==Expected&&Read(Item,Score)?FromScore(Score):1.;}
+{double Score=0;if(Channel(Item)!=Expected||!Read(Item,Score))return 1.;return UsesMaterials(Item)?1.+MaterialBonus(Item)+SkillBonus(Score):FromScore(Score);}
 FString StatLabel(const FColdSteelItem& Item)
 {return Channel(Item)==EChannel::Physical?TEXT("物理伤害修正"):TEXT("法杖魔攻修正");}
-bool Apply(FColdSteelItem& Item,double Score)
+bool Apply(FColdSteelItem& Item,double Score,double Bonus,FName Core,int32 QualityVersion)
 {
     const auto Stat=Channel(Item);if(Stat==EChannel::None)return true; // Legacy component workpieces remain claimable.
-    if(!FMath::IsFinite(Score))return false;
+    if(!FMath::IsFinite(Score)||!FMath::IsFinite(Bonus)||(QualityVersion!=1&&QualityVersion!=Version))return false;
     TSharedPtr<FJsonObject> Data;
     if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data)return false;
     auto Q=MakeShared<FJsonObject>();Score=FMath::Clamp(Score,0.,100.);
-    Q->SetNumberField(TEXT("version"),1);Q->SetNumberField(TEXT("score"),Score);
-    Q->SetNumberField(TEXT("multiplier"),FromScore(Score));Q->SetStringField(TEXT("stat"),ChannelKey(Stat));
+    Q->SetNumberField(TEXT("version"),QualityVersion);Q->SetNumberField(TEXT("score"),Score);
+    if(QualityVersion>=Version){Q->SetNumberField(TEXT("materialBonus"),FMath::Clamp(Bonus,0.,MaxMaterialBonus));Q->SetStringField(TEXT("core"),Core.ToString());}
+    Q->SetNumberField(TEXT("multiplier"),QualityVersion>=Version?1.+FMath::Clamp(Bonus,0.,MaxMaterialBonus)+SkillBonus(Score):FromScore(Score));Q->SetStringField(TEXT("stat"),ChannelKey(Stat));
     Data->SetObjectField(Field,Q);Write(Item,Data);return true;
 }
+bool Apply(FColdSteelItem& Item,const FColdSteelWoodworkingJob& Job)
+{return Apply(Item,Job.Quality,Job.MaterialBonus,Job.Core,Job.QualityVersion);}
 void PreserveAuthoritative(TArray<FColdSteelItem>& Incoming,const TArray<FColdSteelItem>& Authority)
 {
     TMap<FString,const FColdSteelItem*> ById;ById.Reserve(Authority.Num());

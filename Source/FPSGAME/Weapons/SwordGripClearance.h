@@ -4,6 +4,8 @@
 class USkeletalMeshComponent;
 class USkeletalMesh;
 
+enum class ESwordGripMode : uint8 { Adaptive, Held, HeldAuthoredArms };
+
 struct FSwordGripFit
 {
     FVector Offset[2]={FVector::ZeroVector,FVector::ZeroVector};
@@ -19,7 +21,7 @@ struct FSwordGripClearance
 {
     bool Configure(const FSwordGripFit& InFit);
     void CaptureIdle(USkeletalMeshComponent& Mesh);
-    void Apply(USkeletalMeshComponent& Mesh);
+    void Apply(USkeletalMeshComponent& Mesh,ESwordGripMode Mode);
 private:
     FSwordGripFit Fit;
     TWeakObjectPtr<USkeletalMesh> ReferenceMesh;

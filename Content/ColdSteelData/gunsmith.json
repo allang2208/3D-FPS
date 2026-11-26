@@ -3353,18 +3353,18 @@
         "variants": {
           "pit_viper_vip_scales": {
             "mesh": "/Game/Weapons/PitViper2011/VipGrip20261002/SM_PitViper2011_VipViperGrip",
-            "material": "/Game/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_ViperQuiet"
+            "material": "/Game/Weapons/PitViper2011/SurfaceRepair20261030/Materials/M_PV2011_R30_Grip_viper"
           },
           "pistol_grip_granular": {
-            "material": "/Game/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_pistol_grip_granular",
+            "material": "/Game/Weapons/PitViper2011/SurfaceRepair20261030/Materials/M_PV2011_R30_Grip_granular",
             "mesh": "/Game/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_GripSurface"
           },
           "pistol_grip_diamond": {
-            "material": "/Game/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_pistol_grip_diamond",
+            "material": "/Game/Weapons/PitViper2011/SurfaceRepair20261030/Materials/M_PV2011_R30_Grip_diamond",
             "mesh": "/Game/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_GripSurface"
           },
           "pistol_grip_quickdot": {
-            "material": "/Game/Weapons/PitViper2011/SurfaceRefine20261003/Materials/M_PV2011_pistol_grip_quickdot",
+            "material": "/Game/Weapons/PitViper2011/SurfaceRepair20261030/Materials/M_PV2011_R30_Grip_quickdot",
             "mesh": "/Game/Weapons/PitViper2011/Attachments20261002/SM_PitViper2011_GripSurface"
           }
         },
@@ -4164,7 +4164,7 @@
         },
         {
           "icon": "neutral",
-          "text": "瞄具、枪口、后握把、扳机、战术挂件与装填装置全部可改造"
+          "text": "瞄具、枪口、握把防滑纹、扳机、战术挂件与装填装置全部可改造"
         }
       ]
     },
@@ -4766,7 +4766,7 @@
         },
         {
           "icon": "neutral",
-          "text": "瞄具、枪口、握把防滑纹、握把本体、扳机、战术挂件、前握把与装填装置全部可改造"
+          "text": "瞄具、枪口、握把防滑纹、扳机、战术挂件、前握把、装填装置与握把本体全部可改造"
         },
         {
           "icon": "neutral",
@@ -8436,19 +8436,7 @@
       "traits": [
         {
           "icon": "drawback",
-          "text": "机枪类持械：移动速度降低 33%，收起武器后恢复"
-        },
-        {
-          "icon": "mechanic",
-          "text": "弹链供弹：100 发弹箱，按住扳机连续射击，射击间隔 92 ms"
-        },
-        {
-          "icon": "drawback",
-          "text": "开镜耗时 450 ms，抬枪与转火都偏慢；腰射散布大于步枪"
-        },
-        {
-          "icon": "neutral",
-          "text": "瞄具、枪口、后握把、枪托、战术挂件Ⅰ、战术挂件Ⅱ、前握把与脚架全部可改造"
+          "text": "持握机枪时，移动速度−33%；收起武器或切换至非机枪武器后恢复。"
         }
       ],
       "options": {
@@ -9185,20 +9173,8 @@
       },
       "traits": [
         {
-          "icon": "mechanic",
-          "text": "全自动射击，使用5.8毫米弹药；原厂40发弹药箱，可改装125发布料弹药箱。"
-        },
-        {
-          "icon": "mechanic",
-          "text": "原厂双脚架支持在适合的支撑面架设，也可整体卸下。"
-        },
-        {
           "icon": "drawback",
-          "text": "装备机枪时移动速度降低33%。"
-        },
-        {
-          "icon": "neutral",
-          "text": "瞄具、枪口、弹匣、后握把、枪托、战术挂件Ⅰ、战术挂件Ⅱ、前握把与脚架全部可改造"
+          "text": "持握机枪时，移动速度−33%；收起武器或切换至非机枪武器后恢复。"
         }
       ],
       "options": {
@@ -9898,7 +9874,7 @@
           {
             "id": "false",
             "name": "原厂弹匣",
-            "description": "30 发标准弹匣，使用原装弹匣换弹动作。",
+            "description": "原厂弹匣，使用原装弹匣与换弹动作。",
             "effects": [],
             "stats": {},
             "special_effects": []
@@ -12011,6 +11987,773 @@
         {
           "icon": "special",
           "text": "管式弹仓逐发补弹，开火或瞄准可在当前入弹完成后结束装填。"
+        },
+        {
+          "icon": "neutral",
+          "text": "瞄具、枪口、弹匣、枪托、扳机、战术挂件、前握把与装填装置全部可改造"
+        }
+      ]
+    },
+    {
+      "id": "ue_svch",
+      "model": "SVCH",
+      "name": "SVCh",
+      "toughness_damage": true,
+      "allowed": [
+        "optic",
+        "muzzle",
+        "underbarrel",
+        "tactical",
+        "tactical_secondary",
+        "stock",
+        "magazine"
+      ],
+      "base": {
+        "ammo_item_id": "ammo_pkm_762x54r",
+        "mag_size": 10,
+        "ads_smooth": 11.5,
+        "recoil": 118,
+        "camera_shake": 102,
+        "spread_mult": 4.6,
+        "fire_interval": 0.3,
+        "reload_time": 3.2,
+        "empty_reload_time": 4.3,
+        "damage": 640,
+        "bullet_speed": 545,
+        "effective_range": 320,
+        "stability_mult": 1.18
+      },
+      "options": {
+        "optic": [
+          {
+            "id": "false",
+            "name": "原厂机械瞄具",
+            "description": "恢复 SVCh 导轨上的原厂折叠机械瞄具，使用无放大的机械瞄准。",
+            "effects": [],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "holographic",
+            "name": "全息瞄准镜",
+            "description": "1×环形分划全息瞄准镜；安装在 SVD 顶部导轨。",
+            "effects": [
+              {
+                "text": "1×全息瞄具；开镜耗时不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "panoramic_red_dot",
+            "name": "全景薄框红点瞄具",
+            "description": "1×宽视窗薄框红点，石墨色阳极氧化壳体、独立镀膜镜片和亮度按键。",
+            "effects": [
+              {
+                "text": "1×红点瞄具；开镜耗时不变",
+                "benefit": 0
+              }
+            ],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "prism_scope_2x",
+            "name": "紧凑型二倍棱镜瞄具",
+            "description": "固定 2× 放大，短镜筒、镀膜镜片与红色点芯和四根短十字刻线，配窄导轨底座。",
+            "effects": [
+              {
+                "text": "开镜耗时+5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05
+            },
+            "special_effects": []
+          },
+          {
+            "id": "lpvo_1_6x",
+            "name": "1–6× 低倍可变瞄准镜",
+            "description": "长镜筒、双环悬臂座与倍率拨杆。",
+            "effects": [
+              {
+                "text": "开镜耗时+10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1
+            },
+            "special_effects": [
+              "变倍瞄准｜瞄准时使用鼠标滚轮调节1–6×倍率，每格0.5×。"
+            ]
+          },
+          {
+            "id": "eoth_holographic",
+            "name": "EOTH全息瞄准镜",
+            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
+            "effects": [
+              {
+                "text": "开镜耗时-5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05
+            },
+            "special_effects": []
+          },
+          {
+            "id": "kv_scope_4x",
+            "name": "KV 战术瞄准镜",
+            "description": "长目镜筒、独立调节鼓与双脚导轨座，采用青白点芯和下方短线。",
+            "effects": [
+              {
+                "text": "开镜耗时+10%",
+                "benefit": -1
+              },
+              {
+                "text": "枪械稳定性+5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1,
+              "stability_mult": 1.05
+            },
+            "special_effects": [
+              "变倍瞄准｜瞄准时使用鼠标滚轮切换1×、2×、4×三档倍率。"
+            ]
+          }
+        ],
+        "muzzle": [
+          {
+            "id": "false",
+            "name": "原厂消焰器",
+            "description": "使用 SVD 原厂长消焰器。",
+            "effects": [],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "true",
+            "name": "消音器",
+            "description": "筒式消音器通过尾部接座连接枪口。",
+            "effects": [
+              {
+                "text": "后坐力-10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+10%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度-15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1,
+              "bullet_speed_mult": 0.85
+            },
+            "special_effects": [
+              "消音｜降低枪声与枪口火光。"
+            ]
+          },
+          {
+            "id": "tactical_suppressor",
+            "name": "战术消音器",
+            "description": "精细斜纹战术消音器。",
+            "effects": [
+              {
+                "text": "后坐力-25%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+25%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度-20%",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时+5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.75,
+              "stability_mult": 1.25,
+              "bullet_speed_mult": 0.8,
+              "ads_percent": 0.05
+            },
+            "special_effects": [
+              "消音｜降低枪声与枪口火光。"
+            ]
+          },
+          {
+            "id": "brake",
+            "name": "枪口制退器",
+            "description": "三组侧孔制退结构。",
+            "effects": [
+              {
+                "text": "后坐力-15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+15%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时+10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15,
+              "ads_percent": 0.1
+            },
+            "special_effects": []
+          },
+          {
+            "id": "titanium_brake",
+            "name": "钛金制退器",
+            "description": "钛金嵌边围住侧向排气孔，金属切面层次分明。",
+            "effects": [
+              {
+                "text": "后坐力-30%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+20%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时+15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.7,
+              "stability_mult": 1.2,
+              "ads_percent": 0.15
+            },
+            "special_effects": []
+          },
+          {
+            "id": "multi_caliber_suppressor",
+            "name": "多口径消音器",
+            "description": "长筒外壳配开放式管口，尾端接环贴合枪管。",
+            "effects": [
+              {
+                "text": "开镜耗时+5%",
+                "benefit": -1
+              },
+              {
+                "text": "子弹速度-15%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力-20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布-10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "bullet_speed_mult": 0.85,
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.9
+            },
+            "special_effects": [
+              "消音｜降低枪声与枪口火光。"
+            ]
+          },
+          {
+            "id": "sniper_heavy_suppressor",
+            "name": "大口径狙击消音器",
+            "description": "狙击枪专用长筒消音器，采用哑黑金属外壳、圆润端缘和紧凑尾环，抑制枪声与枪口火光。",
+            "effects": [
+              {
+                "text": "子弹速度-25%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力-40%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+30%",
+                "benefit": 1
+              }
+            ],
+            "special_effects": [
+              "消音｜降低枪声与枪口火光。",
+              "隐蔽击杀｜首发命中直接击杀目标时，不会引起其他怪物警觉；未击杀目标仍会发出警报。"
+            ],
+            "stats": {
+              "bullet_speed_mult": 0.75,
+              "recoil_mult": 0.6,
+              "stability_mult": 1.3
+            }
+          },
+          {
+            "id": "sniper_zhiming",
+            "name": "止鸣",
+            "description": "哑黑筒身两端饰有宽环带，双斜杠引出一道暗金声纹，收在镂空的紫芯菱标上。",
+            "effects": [
+              {
+                "text": "暴击伤害+15%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力-30%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+20%",
+                "benefit": 1
+              },
+              {
+                "text": "子弹速度-10%",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时+10%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.7,
+              "stability_mult": 1.2,
+              "bullet_speed_mult": 0.9,
+              "ads_percent": 0.1,
+              "crit_damage_bonus": 0.15,
+              "critical_stun_seconds": 0.25
+            },
+            "special_effects": [
+              "消音｜降低开火声与枪口火光。",
+              "止鸣｜子弹暴击命中时，使目标眩晕0.25秒。"
+            ]
+          }
+        ],
+        "underbarrel": [
+          {
+            "id": "false",
+            "name": "原厂护木握持",
+            "description": "卸下前握把和底部安装座，恢复 SVD 原厂护木握姿。",
+            "effects": [],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "canted_foregrip",
+            "name": "45°侧倾握把",
+            "description": "向枪身左下方侧倾，左手外侧包握。",
+            "effects": [
+              {
+                "text": "后坐力-15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性-15%",
+                "benefit": -1
+              },
+              {
+                "text": "腰射随机散布-20%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.85,
+              "stability_mult": 0.85,
+              "hip_spread_mult": 0.8
+            },
+            "special_effects": []
+          },
+          {
+            "id": "tactical_vertical_foregrip",
+            "name": "战术垂直握把",
+            "description": "收颈式聚合物前握把，带侧面凹区与横向防滑纹，金属夹座适配护木下导轨。",
+            "effects": [
+              {
+                "text": "开镜耗时-25%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.25
+            },
+            "special_effects": []
+          },
+          {
+            "id": "vertical_foregrip",
+            "name": "垂直握把",
+            "description": "直筒式前握把，四指环握与拇指对握。",
+            "effects": [
+              {
+                "text": "开镜耗时+5%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力-10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.05,
+              "recoil_mult": 0.9,
+              "stability_mult": 1.1
+            },
+            "special_effects": []
+          },
+          {
+            "id": "prism_handstop",
+            "name": "棱镜阻手器",
+            "description": "棱面短阻手器，带防滑纹理，安装于 SVD 护木下方。",
+            "effects": [
+              {
+                "text": "开镜耗时-10%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力-5%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+25%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布-5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.1,
+              "recoil_mult": 0.95,
+              "stability_mult": 1.25,
+              "hip_spread_mult": 0.95
+            },
+            "special_effects": []
+          },
+          {
+            "id": "angled_foregrip",
+            "name": "共振二代前握把",
+            "description": "紧凑镂空前握把，食指、中指和无名指穿孔抓握，拇指与小拇指在外侧贴合，沿用 SVD 金属与防滑材质。",
+            "effects": [
+              {
+                "text": "开镜耗时+10%",
+                "benefit": -1
+              },
+              {
+                "text": "后坐力-15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+15%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": 0.1,
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15
+            },
+            "special_effects": []
+          }
+        ],
+        "tactical": [
+          {
+            "id": "false",
+            "name": "无战术挂件",
+            "description": "卸下战术配件，关闭照明和激光。",
+            "effects": [],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "laser",
+            "name": "红色激光镭射",
+            "description": "紧凑激光发射器固定于枪身导轨，投出红色光束。",
+            "effects": [
+              {
+                "text": "腰射随机散布-50%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时-20%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "hip_spread_mult": 0.5,
+              "ads_percent": -0.2
+            },
+            "special_effects": [
+              "激光指示｜射程80米；腰射沿发射器方向，开镜时汇聚准星，遇遮挡截断。"
+            ]
+          },
+          {
+            "id": "flashlight",
+            "name": "战术手电筒",
+            "description": "导轨式手电筒配金属外壳与前置透镜。",
+            "effects": [
+              {
+                "text": "提供前向照明",
+                "benefit": 0
+              }
+            ],
+            "stats": {},
+            "special_effects": [
+              "照明｜持枪时提供前向照明，遮挡物会投下阴影；收起武器或卸下手电时关闭。"
+            ]
+          }
+        ],
+        "stock": [
+          {
+            "id": "false",
+            "name": "SVCH 原装枪托",
+            "description": "恢复 SVCH 原装后托、贴腮面与肩垫。",
+            "effects": [],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "skeleton",
+            "name": "骨架枪托",
+            "description": "镂空骨架枪托，通过 SVD 专用连接杆、机匣座和锁紧环装配。",
+            "effects": [
+              {
+                "text": "开镜耗时-20%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力+15%",
+                "benefit": -1
+              },
+              {
+                "text": "枪械稳定性+10%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.2,
+              "recoil_mult": 1.15,
+              "stability_mult": 1.1
+            },
+            "special_effects": []
+          },
+          {
+            "id": "core_stock",
+            "name": "镂空轻型枪托",
+            "description": "独立镂空枪托，安装于 SVD 专用后托连接杆，保留原厂后握把。",
+            "effects": [
+              {
+                "text": "后坐力-10%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+5%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.9,
+              "stability_mult": 1.05
+            },
+            "special_effects": []
+          },
+          {
+            "id": "qr_performance",
+            "name": "高性能后托",
+            "description": "带贴腮面、镂空斜撑和橡胶肩垫的枪托，使用 SVD 专用连接杆。",
+            "effects": [
+              {
+                "text": "后坐力-20%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布-30%",
+                "benefit": 1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.8,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 0.7
+            },
+            "special_effects": []
+          },
+          {
+            "id": "tactical_telescopic",
+            "name": "战术伸缩枪托",
+            "description": "带伸缩套筒与锁止结构的战术枪托，通过 SVD 专用连接杆装配。",
+            "effects": [
+              {
+                "text": "开镜耗时-5%",
+                "benefit": 1
+              },
+              {
+                "text": "后坐力-15%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+15%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布+25%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "ads_percent": -0.05,
+              "recoil_mult": 0.85,
+              "stability_mult": 1.15,
+              "hip_spread_mult": 1.25
+            },
+            "special_effects": []
+          },
+          {
+            "id": "legendary_adjustable_tactical_stock",
+            "name": "可调式战术后托",
+            "description": "连续贴腮与镂空托架搭配宽橡胶肩垫，前端采用独立接座，配有贴腮和长度调节结构。",
+            "effects": [
+              {
+                "text": "后坐力-35%",
+                "benefit": 1
+              },
+              {
+                "text": "枪械稳定性+30%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时-10%",
+                "benefit": 1
+              },
+              {
+                "text": "腰射随机散布+15%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "recoil_mult": 0.65,
+              "stability_mult": 1.3,
+              "ads_percent": -0.1,
+              "hip_spread_mult": 1.15
+            },
+            "special_effects": []
+          },
+          {
+            "id": "sniper_skeleton_stock",
+            "name": "骨架狙击枪托",
+            "description": "镂空金属托架配可调贴腮板、调节轮与橡胶肩垫，按各枪型连接端独立适配。",
+            "stats": {
+              "recoil_mult": 0.85,
+              "stability_mult": 1.2,
+              "ads_percent": 0.05
+            },
+            "effects": [
+              {
+                "text": "后坐力-15%",
+                "benefit": 1
+              },
+              {
+                "text": "稳定性+20%",
+                "benefit": 1
+              },
+              {
+                "text": "开镜耗时+5%",
+                "benefit": -1
+              }
+            ],
+            "special_effects": []
+          }
+        ],
+        "magazine": [
+          {
+            "id": "false",
+            "name": "原厂弹匣",
+            "description": "恢复 SVD 原厂短弹匣及其内壁与底板。",
+            "effects": [],
+            "stats": {},
+            "special_effects": []
+          },
+          {
+            "id": "ext_mag",
+            "name": "扩容弹匣",
+            "description": "沿 SVD 原厂冲压壳体延长，保留入枪接口、口部内腔、抓握区域与独立底板。",
+            "effects": [
+              {
+                "text": "弹匣容量增加10发",
+                "benefit": 1
+              },
+              {
+                "text": "装填耗时更长",
+                "benefit": -1
+              },
+              {
+                "text": "开镜耗时+5%",
+                "benefit": -1
+              }
+            ],
+            "stats": {
+              "mag_delta": 10,
+              "reload_mult": 1.25,
+              "ads_percent": 0.05
+            },
+            "special_effects": []
+          }
+        ]
+      },
+      "traits": [
+        {
+          "icon": "mechanic",
+          "text": "半自动；每次扣扳机发射一发，射击间隔约 300 ms，十发弹匣供弹"
+        },
+        {
+          "icon": "mechanic",
+          "text": "直吹导气；连发后坐回升快，开镜后视角抖动小于同口径长后坐枪型"
+        },
+        {
+          "icon": "special",
+          "text": "有效射程 320 米，弹速 545 m/s，命中时按物理减伤结算"
+        },
+        {
+          "icon": "drawback",
+          "text": "没有连发模式，腰射散布偏大，弹匣容量小，连续交火需要换弹间隙"
+        },
+        {
+          "icon": "neutral",
+          "text": "瞄具、枪口、弹匣、枪托、战术挂件Ⅰ、战术挂件Ⅱ与前握把全部可改造"
+        },
+        {
+          "icon": "special",
+          "text": "狙击枪暴击加成与暴击技能加成相加后单次结算。"
         }
       ]
     },
@@ -12658,7 +13401,7 @@
           },
           {
             "id": "saiga12k_drum20",
-            "name": "12k 大弹鼓",
+            "name": "大弹鼓",
             "description": "12K专属。朝向枪口的封闭圆鼓，黑色枪钢与聚合物防护圈结合，暗金环线嵌入分层端盖。",
             "effects": [
               {
@@ -12744,772 +13487,13 @@
         {
           "icon": "drawback",
           "text": "散射弹丸随距离展开，需要控制射击距离与后坐。"
-        }
-      ],
-      "inherit_common_options": true
-    },
-    {
-      "id": "ue_svch",
-      "model": "SVCH",
-      "name": "SVCh",
-      "toughness_damage": true,
-      "allowed": [
-        "optic",
-        "muzzle",
-        "underbarrel",
-        "tactical",
-        "tactical_secondary",
-        "stock",
-        "magazine"
-      ],
-      "base": {
-        "ammo_item_id": "ammo_pkm_762x54r",
-        "mag_size": 10,
-        "ads_smooth": 11.5,
-        "recoil": 118,
-        "camera_shake": 102,
-        "spread_mult": 4.6,
-        "fire_interval": 0.3,
-        "reload_time": 3.2,
-        "empty_reload_time": 4.3,
-        "damage": 640,
-        "bullet_speed": 545,
-        "effective_range": 320,
-        "stability_mult": 1.18
-      },
-      "options": {
-        "optic": [
-          {
-            "id": "false",
-            "name": "原厂机械瞄具",
-            "description": "恢复 SVCh 导轨上的原厂折叠机械瞄具，使用无放大的机械瞄准。",
-            "effects": [],
-            "stats": {},
-            "special_effects": []
-          },
-          {
-            "id": "holographic",
-            "name": "全息瞄准镜",
-            "description": "1×环形分划全息瞄准镜；安装在 SVD 顶部导轨。",
-            "effects": [
-              {
-                "text": "1×全息瞄具；开镜耗时不变",
-                "benefit": 0
-              }
-            ],
-            "stats": {},
-            "special_effects": []
-          },
-          {
-            "id": "panoramic_red_dot",
-            "name": "全景薄框红点瞄具",
-            "description": "1×宽视窗薄框红点，石墨色阳极氧化壳体、独立镀膜镜片和亮度按键。",
-            "effects": [
-              {
-                "text": "1×红点瞄具；开镜耗时不变",
-                "benefit": 0
-              }
-            ],
-            "stats": {},
-            "special_effects": []
-          },
-          {
-            "id": "prism_scope_2x",
-            "name": "紧凑型二倍棱镜瞄具",
-            "description": "固定 2× 放大，短镜筒、镀膜镜片与红色点芯和四根短十字刻线，配窄导轨底座。",
-            "effects": [
-              {
-                "text": "开镜耗时+5%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "ads_percent": 0.05
-            },
-            "special_effects": []
-          },
-          {
-            "id": "lpvo_1_6x",
-            "name": "1–6× 低倍可变瞄准镜",
-            "description": "长镜筒、双环悬臂座与倍率拨杆。",
-            "effects": [
-              {
-                "text": "开镜耗时+10%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "ads_percent": 0.1
-            },
-            "special_effects": [
-              "变倍瞄准｜瞄准时使用鼠标滚轮调节1–6×倍率，每格0.5×。"
-            ]
-          },
-          {
-            "id": "eoth_holographic",
-            "name": "EOTH全息瞄准镜",
-            "description": "封闭护罩内置环形分划与透光镜片，配合适配安装座连接枪械。",
-            "effects": [
-              {
-                "text": "开镜耗时-5%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "ads_percent": -0.05
-            },
-            "special_effects": []
-          },
-          {
-            "id": "kv_scope_4x",
-            "name": "KV 战术瞄准镜",
-            "description": "长目镜筒、独立调节鼓与双脚导轨座，采用青白点芯和下方短线。",
-            "effects": [
-              {
-                "text": "开镜耗时+10%",
-                "benefit": -1
-              },
-              {
-                "text": "枪械稳定性+5%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "ads_percent": 0.1,
-              "stability_mult": 1.05
-            },
-            "special_effects": [
-              "变倍瞄准｜瞄准时使用鼠标滚轮切换1×、2×、4×三档倍率。"
-            ]
-          }
-        ],
-        "muzzle": [
-          {
-            "id": "false",
-            "name": "原厂消焰器",
-            "description": "使用 SVD 原厂长消焰器。",
-            "effects": [],
-            "stats": {},
-            "special_effects": []
-          },
-          {
-            "id": "true",
-            "name": "消音器",
-            "description": "筒式消音器通过尾部接座连接枪口。",
-            "effects": [
-              {
-                "text": "后坐力-10%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性+10%",
-                "benefit": 1
-              },
-              {
-                "text": "子弹速度-15%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.9,
-              "stability_mult": 1.1,
-              "bullet_speed_mult": 0.85
-            },
-            "special_effects": [
-              "消音｜降低枪声与枪口火光。"
-            ]
-          },
-          {
-            "id": "tactical_suppressor",
-            "name": "战术消音器",
-            "description": "精细斜纹战术消音器。",
-            "effects": [
-              {
-                "text": "后坐力-25%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性+25%",
-                "benefit": 1
-              },
-              {
-                "text": "子弹速度-20%",
-                "benefit": -1
-              },
-              {
-                "text": "开镜耗时+5%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.75,
-              "stability_mult": 1.25,
-              "bullet_speed_mult": 0.8,
-              "ads_percent": 0.05
-            },
-            "special_effects": [
-              "消音｜降低枪声与枪口火光。"
-            ]
-          },
-          {
-            "id": "brake",
-            "name": "枪口制退器",
-            "description": "三组侧孔制退结构。",
-            "effects": [
-              {
-                "text": "后坐力-15%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性+15%",
-                "benefit": 1
-              },
-              {
-                "text": "开镜耗时+10%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.85,
-              "stability_mult": 1.15,
-              "ads_percent": 0.1
-            },
-            "special_effects": []
-          },
-          {
-            "id": "titanium_brake",
-            "name": "钛金制退器",
-            "description": "钛金嵌边围住侧向排气孔，金属切面层次分明。",
-            "effects": [
-              {
-                "text": "后坐力-30%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性+20%",
-                "benefit": 1
-              },
-              {
-                "text": "开镜耗时+15%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.7,
-              "stability_mult": 1.2,
-              "ads_percent": 0.15
-            },
-            "special_effects": []
-          },
-          {
-            "id": "multi_caliber_suppressor",
-            "name": "多口径消音器",
-            "description": "长筒外壳配开放式管口，尾端接环贴合枪管。",
-            "effects": [
-              {
-                "text": "开镜耗时+5%",
-                "benefit": -1
-              },
-              {
-                "text": "子弹速度-15%",
-                "benefit": -1
-              },
-              {
-                "text": "后坐力-20%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性+15%",
-                "benefit": 1
-              },
-              {
-                "text": "腰射随机散布-10%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "ads_percent": 0.05,
-              "bullet_speed_mult": 0.85,
-              "recoil_mult": 0.8,
-              "stability_mult": 1.15,
-              "hip_spread_mult": 0.9
-            },
-            "special_effects": [
-              "消音｜降低枪声与枪口火光。"
-            ]
-          },
-          {
-            "id": "sniper_heavy_suppressor",
-            "name": "大口径狙击消音器",
-            "description": "狙击枪专用长筒消音器，采用哑黑金属外壳、圆润端缘和紧凑尾环，抑制枪声与枪口火光。",
-            "effects": [
-              {
-                "text": "子弹速度-25%",
-                "benefit": -1
-              },
-              {
-                "text": "后坐力-40%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性+30%",
-                "benefit": 1
-              }
-            ],
-            "special_effects": [
-              "消音｜降低枪声与枪口火光。",
-              "隐蔽击杀｜首发命中直接击杀目标时，不会引起其他怪物警觉；未击杀目标仍会发出警报。"
-            ],
-            "stats": {
-              "bullet_speed_mult": 0.75,
-              "recoil_mult": 0.6,
-              "stability_mult": 1.3
-            }
-          },
-          {
-            "id": "sniper_zhiming",
-            "name": "止鸣",
-            "description": "哑黑筒身两端饰有宽环带，双斜杠引出一道暗金声纹，收在镂空的紫芯菱标上。",
-            "effects": [
-              {
-                "text": "暴击伤害+15%",
-                "benefit": 1
-              },
-              {
-                "text": "后坐力-30%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性+20%",
-                "benefit": 1
-              },
-              {
-                "text": "子弹速度-10%",
-                "benefit": -1
-              },
-              {
-                "text": "开镜耗时+10%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.7,
-              "stability_mult": 1.2,
-              "bullet_speed_mult": 0.9,
-              "ads_percent": 0.1,
-              "crit_damage_bonus": 0.15,
-              "critical_stun_seconds": 0.25
-            },
-            "special_effects": [
-              "消音｜降低开火声与枪口火光。",
-              "止鸣｜子弹暴击命中时，使目标眩晕0.25秒。"
-            ]
-          }
-        ],
-        "underbarrel": [
-          {
-            "id": "false",
-            "name": "原厂护木握持",
-            "description": "卸下前握把和底部安装座，恢复 SVD 原厂护木握姿。",
-            "effects": [],
-            "stats": {},
-            "special_effects": []
-          },
-          {
-            "id": "canted_foregrip",
-            "name": "45°侧倾握把",
-            "description": "向枪身左下方侧倾，左手外侧包握。",
-            "effects": [
-              {
-                "text": "后坐力-15%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性-15%",
-                "benefit": -1
-              },
-              {
-                "text": "腰射随机散布-20%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.85,
-              "stability_mult": 0.85,
-              "hip_spread_mult": 0.8
-            },
-            "special_effects": []
-          },
-          {
-            "id": "tactical_vertical_foregrip",
-            "name": "战术垂直握把",
-            "description": "收颈式聚合物前握把，带侧面凹区与横向防滑纹，金属夹座适配护木下导轨。",
-            "effects": [
-              {
-                "text": "开镜耗时-25%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "ads_percent": -0.25
-            },
-            "special_effects": []
-          },
-          {
-            "id": "vertical_foregrip",
-            "name": "垂直握把",
-            "description": "直筒式前握把，四指环握与拇指对握。",
-            "effects": [
-              {
-                "text": "开镜耗时+5%",
-                "benefit": -1
-              },
-              {
-                "text": "后坐力-10%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性+10%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "ads_percent": 0.05,
-              "recoil_mult": 0.9,
-              "stability_mult": 1.1
-            },
-            "special_effects": []
-          },
-          {
-            "id": "prism_handstop",
-            "name": "棱镜阻手器",
-            "description": "棱面短阻手器，带防滑纹理，安装于 SVD 护木下方。",
-            "effects": [
-              {
-                "text": "开镜耗时-10%",
-                "benefit": 1
-              },
-              {
-                "text": "后坐力-5%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性+25%",
-                "benefit": 1
-              },
-              {
-                "text": "腰射随机散布-5%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "ads_percent": -0.1,
-              "recoil_mult": 0.95,
-              "stability_mult": 1.25,
-              "hip_spread_mult": 0.95
-            },
-            "special_effects": []
-          },
-          {
-            "id": "angled_foregrip",
-            "name": "共振二代前握把",
-            "description": "紧凑镂空前握把，食指、中指和无名指穿孔抓握，拇指与小拇指在外侧贴合，沿用 SVD 金属与防滑材质。",
-            "effects": [
-              {
-                "text": "开镜耗时+10%",
-                "benefit": -1
-              },
-              {
-                "text": "后坐力-15%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性+15%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "ads_percent": 0.1,
-              "recoil_mult": 0.85,
-              "stability_mult": 1.15
-            },
-            "special_effects": []
-          }
-        ],
-        "tactical": [
-          {
-            "id": "false",
-            "name": "无战术挂件",
-            "description": "卸下战术配件，关闭照明和激光。",
-            "effects": [],
-            "stats": {},
-            "special_effects": []
-          },
-          {
-            "id": "laser",
-            "name": "红色激光镭射",
-            "description": "紧凑激光发射器固定于枪身导轨，投出红色光束。",
-            "effects": [
-              {
-                "text": "腰射随机散布-50%",
-                "benefit": 1
-              },
-              {
-                "text": "开镜耗时-20%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "hip_spread_mult": 0.5,
-              "ads_percent": -0.2
-            },
-            "special_effects": [
-              "激光指示｜射程80米；腰射沿发射器方向，开镜时汇聚准星，遇遮挡截断。"
-            ]
-          },
-          {
-            "id": "flashlight",
-            "name": "战术手电筒",
-            "description": "导轨式手电筒配金属外壳与前置透镜。",
-            "effects": [
-              {
-                "text": "提供前向照明",
-                "benefit": 0
-              }
-            ],
-            "stats": {},
-            "special_effects": [
-              "照明｜持枪时提供前向照明，遮挡物会投下阴影；收起武器或卸下手电时关闭。"
-            ]
-          }
-        ],
-        "stock": [
-          {
-            "id": "false",
-            "name": "原厂镂空枪托",
-            "description": "恢复 SVD 原厂镂空肩托、贴腮板与尾垫，保留原厂后握把。",
-            "effects": [],
-            "stats": {},
-            "special_effects": []
-          },
-          {
-            "id": "skeleton",
-            "name": "骨架枪托",
-            "description": "镂空骨架枪托，通过 SVD 专用连接杆、机匣座和锁紧环装配。",
-            "effects": [
-              {
-                "text": "开镜耗时-20%",
-                "benefit": 1
-              },
-              {
-                "text": "后坐力+15%",
-                "benefit": -1
-              },
-              {
-                "text": "枪械稳定性+10%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "ads_percent": -0.2,
-              "recoil_mult": 1.15,
-              "stability_mult": 1.1
-            },
-            "special_effects": []
-          },
-          {
-            "id": "core_stock",
-            "name": "镂空轻型枪托",
-            "description": "独立镂空枪托，安装于 SVD 专用后托连接杆，保留原厂后握把。",
-            "effects": [
-              {
-                "text": "后坐力-10%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性+5%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.9,
-              "stability_mult": 1.05
-            },
-            "special_effects": []
-          },
-          {
-            "id": "qr_performance",
-            "name": "高性能后托",
-            "description": "带贴腮面、镂空斜撑和橡胶肩垫的枪托，使用 SVD 专用连接杆。",
-            "effects": [
-              {
-                "text": "后坐力-20%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性+15%",
-                "benefit": 1
-              },
-              {
-                "text": "腰射随机散布-30%",
-                "benefit": 1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.8,
-              "stability_mult": 1.15,
-              "hip_spread_mult": 0.7
-            },
-            "special_effects": []
-          },
-          {
-            "id": "tactical_telescopic",
-            "name": "战术伸缩枪托",
-            "description": "带伸缩套筒与锁止结构的战术枪托，通过 SVD 专用连接杆装配。",
-            "effects": [
-              {
-                "text": "开镜耗时-5%",
-                "benefit": 1
-              },
-              {
-                "text": "后坐力-15%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性+15%",
-                "benefit": 1
-              },
-              {
-                "text": "腰射随机散布+25%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "ads_percent": -0.05,
-              "recoil_mult": 0.85,
-              "stability_mult": 1.15,
-              "hip_spread_mult": 1.25
-            },
-            "special_effects": []
-          },
-          {
-            "id": "legendary_adjustable_tactical_stock",
-            "name": "可调式战术后托",
-            "description": "连续贴腮与镂空托架搭配宽橡胶肩垫，前端采用独立接座，配有贴腮和长度调节结构。",
-            "effects": [
-              {
-                "text": "后坐力-35%",
-                "benefit": 1
-              },
-              {
-                "text": "枪械稳定性+30%",
-                "benefit": 1
-              },
-              {
-                "text": "开镜耗时-10%",
-                "benefit": 1
-              },
-              {
-                "text": "腰射随机散布+15%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "recoil_mult": 0.65,
-              "stability_mult": 1.3,
-              "ads_percent": -0.1,
-              "hip_spread_mult": 1.15
-            },
-            "special_effects": []
-          },
-          {
-            "id": "sniper_skeleton_stock",
-            "name": "骨架狙击枪托",
-            "description": "镂空金属托架配可调贴腮板、调节轮与橡胶肩垫，按各枪型连接端独立适配。",
-            "stats": {
-              "recoil_mult": 0.85,
-              "stability_mult": 1.2,
-              "ads_percent": 0.05
-            },
-            "effects": [
-              {
-                "text": "后坐力-15%",
-                "benefit": 1
-              },
-              {
-                "text": "稳定性+20%",
-                "benefit": 1
-              },
-              {
-                "text": "开镜耗时+5%",
-                "benefit": -1
-              }
-            ],
-            "special_effects": []
-          }
-        ],
-        "magazine": [
-          {
-            "id": "false",
-            "name": "原厂弹匣",
-            "description": "恢复 SVD 原厂短弹匣及其内壁与底板。",
-            "effects": [],
-            "stats": {},
-            "special_effects": []
-          },
-          {
-            "id": "ext_mag",
-            "name": "扩容弹匣",
-            "description": "沿 SVD 原厂冲压壳体延长，保留入枪接口、口部内腔、抓握区域与独立底板。",
-            "effects": [
-              {
-                "text": "弹匣容量增加10发",
-                "benefit": 1
-              },
-              {
-                "text": "装填耗时更长",
-                "benefit": -1
-              },
-              {
-                "text": "开镜耗时+5%",
-                "benefit": -1
-              }
-            ],
-            "stats": {
-              "mag_delta": 10,
-              "reload_mult": 1.25,
-              "ads_percent": 0.05
-            },
-            "special_effects": []
-          }
-        ]
-      },
-      "traits": [
-        {
-          "icon": "mechanic",
-          "text": "半自动；每次扣扳机发射一发，射击间隔约 300 ms，十发弹匣供弹"
-        },
-        {
-          "icon": "mechanic",
-          "text": "直吹导气；连发后坐回升快，开镜后视角抖动小于同口径长后坐枪型"
-        },
-        {
-          "icon": "special",
-          "text": "有效射程 320 米，弹速 545 m/s，命中时按物理减伤结算"
-        },
-        {
-          "icon": "drawback",
-          "text": "没有连发模式，腰射散布偏大，弹匣容量小，连续交火需要换弹间隙"
         },
         {
           "icon": "neutral",
-          "text": "瞄具、枪口、弹匣、枪托、前握把、战术挂件（战术挂件二）与前照门保险均可改造"
-        },
-        {
-          "icon": "special",
-          "text": "狙击枪暴击加成与暴击技能加成相加后单次结算。"
+          "text": "瞄具、枪口、弹匣、后握把、枪托、战术挂件Ⅰ、战术挂件Ⅱ与前握把全部可改造"
         }
-      ]
+      ],
+      "inherit_common_options": true
     },
     {
       "id": "ue_m24",
@@ -14174,6 +14158,33 @@
         },
         "special_effects": [
           "激光指示｜射程80米；腰射沿发射器方向，开镜时汇聚准星，遇遮挡截断。"
+        ]
+      }
+    ]
+  },
+  "lmg_options": {
+    "underbarrel": [
+      {
+        "id": "lmg_stability_foregrip",
+        "name": "机枪稳固握把",
+        "description": "加宽防滑握面配合封闭式安装座，适配轻机枪下导轨，便于稳定托持和持续压枪。",
+        "effects": [
+          {
+            "text": "后坐力-15%",
+            "benefit": 1
+          },
+          {
+            "text": "枪械稳定性+15%",
+            "benefit": 1
+          }
+        ],
+        "stats": {
+          "recoil_mult": 0.85,
+          "stability_mult": 1.15
+        },
+        "special_effects": [
+          "持续射击｜从首发起，额外加成随连续开火时间线性提高。1.5秒时，握把的后坐力减幅从15%提高至30%，枪械稳定性额外+15点。停火立即清零。",
+          "轻机枪专属｜适用于 M249、201 和 PKM，占用前握把槽。"
         ]
       }
     ]

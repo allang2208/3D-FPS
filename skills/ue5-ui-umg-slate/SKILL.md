@@ -6,13 +6,11 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 
 ---
 
+# 共用规则入口
+
 **第一条（FPSGAME）　文件位置与引用路径。** 从当前工程的[制作目录与功能索引](../../Docs/Production/README.md)和[存储规则第 4.1 节](../../WORKFLOW.md#41-存储分配与文件操作边界)查找对应功能。先确定制作源、正式资产和输出目录，再创建或引入文件。工程 Content 资产用 `/Game/...` 包名引用，制作脚本从工程根或已配置的制作源根解析相对路径。交付时在同一功能条目登记实际位置、引用及备份状态。
 
 - **2026-10-27 优先规则**：浮窗、改造栏与数值交付统一写 `暴击率+10%`、`暴击伤害+10%`，不用中文百分比单位；按[百分比显示规则](references/percentage-display.md)执行，覆盖旧显示写法，保留实际公式。 为什么：统一显示单位可避免将倍率、百分比加成和百分点误读为不同的实际数值。
-
-
-
-# 共用规则入口
 
 共用流程读取仓库发布快照：[ue5-ui-umg-slate](../_shared/ue5-ui-umg-slate/SKILL.md)，不要叠加旧镜像流程。 为什么：共用流程只维护一个来源，避免工程镜像与个人版本给出相互冲突的步骤。
 
@@ -34,7 +32,7 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 
 - 世界工作台拖动卡片、场景命中坐标及四位置种植布局，读取 [工作台拖动与四位置种植](references/world-workbench-drag-and-four-plots.md)。 为什么：「工作台拖动与四位置种植」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
-- 全屏技能树（P）、game-dev 科技树网格连线的 C++ 移植与 game-dev 金色顶部提示，读取 [技能树与子专精](../ue5-skill-magic-workflow/references/skill-tree-and-specializations.md) 与 接入规划（本机资料：`Docs/UI/skill-tree-plan-20261115.md`，不随本次发布）。 为什么：「技能树与子专精」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
+- 全屏技能树（P）、game-dev 科技树网格连线的 C++ 移植与 game-dev 金色顶部提示，读取 [技能树与子专精](../ue5-skill-magic-workflow/references/skill-tree-and-specializations.md) 与 [接入规划](../../Docs/UI/skill-tree-plan-20261115.md)。 为什么：「技能树与子专精」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
 地图系统的实景底图、输入焦点和冷钢标记表现，读取 [实景底图、地图输入与标记表现](references/world-map-navigation.md)。
 

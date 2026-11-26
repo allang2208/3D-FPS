@@ -62,7 +62,11 @@ namespace ColdSteelHillsMap
         auto& Mesh = Image->Mesh;
         Mesh.EnableAttributes();
         auto& Attr = *Mesh.Attributes();
-        Attr.SetNumUVLayers(3);
+        const bool HasSlope=Source.River&&Source.River->QuarryLakeSlope.IntersectsCell(
+            Source.Bounds.Min.X,Source.Bounds.Min.Y,Source.Bounds.GetSize().X);
+        const int32 NumGroundUVs=HasSlope?4:3;
+        Attr.SetNumUVLayers(NumGroundUVs);
+        auto* SlopeDrainage=HasSlope?Attr.GetUVLayer(3):nullptr;
         Attr.EnablePrimaryColors();
         const double Step = Source.Bounds.GetSize().X/Cells;
         for (int32 Row=0; Row<Stride; ++Row)
@@ -81,7 +85,7 @@ namespace ColdSteelHillsMap
             const UE::Geometry::FIndex3i Indices(A,B,C);
             Attr.PrimaryNormals()->SetTriangle(Id,Indices);
             Attr.PrimaryColors()->SetTriangle(Id,Indices);
-            for (int32 UV=0; UV<3; ++UV) Attr.GetUVLayer(UV)->SetTriangle(Id,Indices);
+            for (int32 UV=0; UV<NumGroundUVs; ++UV) Attr.GetUVLayer(UV)->SetTriangle(Id,Indices);
         };
         for (int32 Row=0; Row<Stride; ++Row)
         {
@@ -98,7 +102,8 @@ namespace ColdSteelHillsMap
                 const auto Bank = Source.River ? Source.River->Sample(P.X,P.Y) : TemperateRiver::FSample();
                 auto Layers = TemperateHillsGround::Layers(P.X,P.Y,P.Z,Normal,Source.Seed,Bank,
                     Source.River?Source.River->RainforestWeight(P.X,P.Y):0.,
-                    Source.River ? Source.River->Ecology : TemperateEcology::FProfile{});
+                    Source.River ? Source.River->Ecology : TemperateEcology::FProfile{},
+                    Source.River&&Source.River->bVillageRainforest,Source.Village,Source.River.Get());
                 Layers.Habitat.Y = TemperateHillsGround::SurfaceMoisture((N+S+E+W)*.25,
                     P.Z,Step,Layers.Habitat.X,Source.Water,P.X,P.Y);
                 Attr.PrimaryNormals()->AppendElement(FVector3f(Normal));
@@ -106,6 +111,7 @@ namespace ColdSteelHillsMap
                 Attr.GetUVLayer(0)->AppendElement(Layers.UV);
                 Attr.GetUVLayer(1)->AppendElement(Layers.Habitat);
                 Attr.GetUVLayer(2)->AppendElement(Layers.Upland);
+                if(SlopeDrainage)SlopeDrainage->AppendElement(Layers.SlopeDrainage);
                 if (Row && Col)
                 {
                     Tri(I-Stride-1,I-1,I-Stride);

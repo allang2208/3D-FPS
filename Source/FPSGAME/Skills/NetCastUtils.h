@@ -1,6 +1,9 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "../Monsters/UnknownSpellCombat.h"
 #include "Engine/GameInstance.h"
+#include "Engine/World.h"
+#include "Components/ActorComponent.h"
 #include "GameFramework/PlayerController.h"
 #include "../FPSGAMECharacter.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
@@ -12,6 +15,22 @@
  */
 namespace NetCast
 {
+// Component-local selection keeps its original GI fallback; authority requests
+// continue to use AuthorityModel and its remote-player shadow profile.
+inline UColdSteelStatusModel* LocalModel(const UActorComponent& Component)
+{
+    return UnknownSpell::IsCaster(Component.GetOwner())?
+        UnknownSpell::Model(Cast<APawn>(Component.GetOwner())):
+        (Component.GetWorld()&&Component.GetWorld()->GetGameInstance()?
+            Component.GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr);
+}
+
+// Receipt owners keep revision checks and clock reads; preserve the float subtraction.
+inline float RemainingCooldown(float Cooldown,double ServerAt,double Now)
+{
+    return FMath::Max(0.f,Cooldown-float(FMath::Max(0.,Now-ServerAt)));
+}
+
 inline AColdSteelPlayerState* StateFor(const APawn* Pawn)
 {
     const auto* PC = Pawn ? Cast<APlayerController>(Pawn->GetController()) : nullptr;
@@ -37,6 +56,7 @@ inline uint32 Send(AActor* Owner, FName SkillId, uint8 Phase,
 /** 服务端上远端 pawn 的权威模型（影子档）；主机/本地回退 GI 单例。 */
 inline UColdSteelStatusModel* AuthorityModel(APawn* Pawn, UGameInstance* GI)
 {
+    if (UnknownSpell::IsCaster(Pawn)) return UnknownSpell::Model(Pawn);
     if (auto* Character = Cast<AFPSGAMECharacter>(Pawn))
         if (auto* Shadow = Character->GetNetShadowProfile()) return Shadow;
     return GI ? GI->GetSubsystem<UColdSteelStatusModel>() : nullptr;

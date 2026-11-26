@@ -1,6 +1,9 @@
 # 当前 UE5 UI 与库存
 
 - [消耗品浮窗标准（食物／饮料／药水，2026-10-18）](../Items/consumable-tooltip-standard-20261018.md)
+- [怪物伤害跳字（屏幕空间池化，2026-10-17）](damage-numbers-plan-20261017.md)
+- [食物腐败条改为剩余鲜度（2026-10-17）](food-spoilage-bar-remaining-20261017.md)
+- [经验到账提示（屏幕中心准星下方 +N 经验，2026-10-17）](experience-gain-feed-plan-20261017.md)
 - [商店买卖面板与快捷键（2026-10-13）](shop-panel-plan-20261013.md)
 
 - [任务与目标标准工作流](../../TASK-WORKFLOW.md)

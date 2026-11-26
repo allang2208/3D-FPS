@@ -1,0 +1,122 @@
+{
+  "passed": true,
+  "errors": [],
+  "columns": {
+    "blade_1": [
+      "hatchet_ghost_scythe",
+      "hatchet_falcon_edge",
+      "axe_swift_crescent",
+      "axe_heavy_cleaver",
+      "axe_folded_arc"
+    ],
+    "blade_2": [
+      "knife_mark_wing",
+      "knife_mark_knot",
+      "knife_mark_peaks"
+    ],
+    "grip": [
+      "hatchet_grip_long",
+      "hatchet_grip_agile",
+      "knife_grip_checkered",
+      "knife_grip_leather",
+      "knife_grip_laminate"
+    ],
+    "pommel": [
+      "knife_pommel_steel",
+      "knife_pommel_faceted",
+      "knife_pommel_ringed",
+      "knife_pommel_chenheng",
+      "knife_pommel_yangu"
+    ],
+    "lanyard": [
+      "knife_lanyard_braid",
+      "knife_lanyard_tassel",
+      "knife_lanyard_tag"
+    ]
+  },
+  "icons": [
+    {
+      "key": "blade_1_axe_swift_crescent",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "142bd71182da0fa6e069d6e24910f606447e21290d9670b787ac4e69efccfea6"
+    },
+    {
+      "key": "blade_1_axe_heavy_cleaver",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "10402186248edfe939e372f45d2d10013aa2030bbe0ceeafccbb1ceaf7812471"
+    },
+    {
+      "key": "blade_1_axe_folded_arc",
+      "size": [
+        1254,
+        1254
+      ],
+      "sha256": "31b29f638f58e833f247911db8a9283cb7613e420b8e52438d9c00df1eef924a"
+    }
+  ],
+  "comparison": {
+    "weaponType": {
+      "ue_kukri": "kukri",
+      "ue_tactical_hatchet": "hatchet"
+    },
+    "weaponTypeTag": {
+      "ue_kukri": "单手近战武器",
+      "ue_tactical_hatchet": "单手近战武器"
+    },
+    "attack_seconds": {
+      "ue_kukri": 0.8,
+      "ue_tactical_hatchet": 1.05
+    },
+    "melee_reach_cm": {
+      "ue_kukri": 220,
+      "ue_tactical_hatchet": 220
+    },
+    "base_stamina": {
+      "ue_kukri": 7.5,
+      "ue_tactical_hatchet": 10
+    }
+  },
+  "formulas": {
+    "ue_kukri": {
+      "source": "KUKRI_ONEHAND_DEX_STR_20261020",
+      "base": 24,
+      "enhanceFlat": 2.95,
+      "attrs": [
+        {
+          "key": "dex",
+          "base": 2.7,
+          "perEnhance": 0.53
+        },
+        {
+          "key": "str",
+          "base": 2.1,
+          "perEnhance": 0.42
+        }
+      ]
+    },
+    "ue_tactical_hatchet": {
+      "source": "TACTICAL_HATCHET_STR_DEX_20261102",
+      "base": 32,
+      "enhanceFlat": 4,
+      "attrs": [
+        {
+          "key": "str",
+          "base": 3.4,
+          "perEnhance": 0.68
+        },
+        {
+          "key": "dex",
+          "base": 3,
+          "perEnhance": 0.6
+        }
+      ]
+    }
+  },
+  "base_registration_preserves_runes": true
+}

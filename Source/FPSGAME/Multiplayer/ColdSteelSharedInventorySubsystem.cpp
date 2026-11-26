@@ -1,11 +1,17 @@
 #include "ColdSteelSharedInventorySubsystem.h"
+#include "../WorldGeneration/ForestVillageMap.h"
+#include "../Tasks/BlacksmithApprenticeship.h"
+#include "../Monsters/WildlifeSubsystem.h"
 #include "ColdSteelPlayerState.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelPickup.h"
+#include "../Items/FoodSpoilage.h"
 #include "../Production/ProductionHarvestSubsystem.h"
+#include "../Production/ProductionToolComponent.h"
 #include "../UI/ColdSteelWorldInteraction.h"
 #include "../FPSGAMECharacter.h"
 #include "../Dungeons/DungeonRunSubsystem.h"
+#include "../Dungeons/DungeonRoomSubsystem.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
 #include "EngineUtils.h"
 #include "Engine/GameInstance.h"
@@ -13,14 +19,59 @@
 #include "Kismet/GameplayStatics.h"
 #include "Misc/Crc.h"
 #include "HAL/IConsoleManager.h"
+#include "TimerManager.h"
 using namespace ColdSteelInventory;
 
 namespace
 {
 bool UsesChangedSharedFootprint(const FColdSteelItem& Item)
 {
-    return Item.Definition==TEXT("alchemy_compound_stabilizer")||Item.Definition==TEXT("ue_tactical_magazine_belt")
+    return Item.Definition==TEXT("ue_tactical_hatchet")||Item.Definition==TEXT("alchemy_compound_stabilizer")||Item.Definition==TEXT("ue_tactical_magazine_belt")
         ||Item.Definition==TEXT("ue_melee_combat_belt")||Item.Definition==TEXT("ue_arcane_conduit_belt");
+}
+// Rebase using the old world's durable clock checkpoint before changing domains.
+// Ordinary clock advancement changes no item fields and does not cause a disk write.
+bool SettleSharedFoodData(FColdSteelSharedInventoryData& Data,const UColdSteelStatusModel* Model,
+    const FFoodClockSample& Now,TArray<FString>& ChangedContainers,bool& Changed,FString& Reason)
+{
+    Changed=false;Reason.Reset();ChangedContainers.Reset();
+    if(!Now.Id.IsValid())
+    {
+        bool HasFood=Data.Drops.ContainsByPredicate([](const auto& I){return ColdSteelFood::LifetimeDays(I)>0.;});
+        for(const auto& Pair:Data.Containers)
+            HasFood|=Pair.Value.Items.ContainsByPredicate([](const auto& I){return ColdSteelFood::LifetimeDays(I)>0.;});
+        if(HasFood)Reason=TEXT("食物时钟尚未就绪，请稍后重试");
+        return !HasFood;
+    }
+    const FFoodClockSample Previous{Data.FoodClockId,Data.FoodClockDay};
+    auto Rebase=[&](TArray<FColdSteelItem>& Items)
+    {
+        bool Result=false;
+        for(auto& Item:Items)
+        {
+            if(ColdSteelFood::LifetimeDays(Item)<=0.)continue;
+            if(Previous.Id.IsValid()&&Item.FoodClockId==Previous.Id
+                &&(Previous.Id!=Now.Id||Now.Day<Previous.Day))
+            {ColdSteelFood::Stamp(Item,Now,ColdSteelFood::AgeDays(Item,Previous));Result=true;}
+            else Result|=ColdSteelFood::Rebase(Item,Now);
+        }
+        return Result;
+    };
+    Changed|=Rebase(Data.Drops);
+    Changed|=ColdSteelFood::SettleLoose(Data.Drops,Model,Now,Reason);
+    if(!Reason.IsEmpty())return false;
+    for(auto& Pair:Data.Containers)
+    {
+        auto& Container=Pair.Value;
+        bool ContainerChanged=Rebase(Container.Items);
+        ContainerChanged|=ColdSteelFood::SettleGrid(Container.Items,Model,Now,Reason);
+        if(!Reason.IsEmpty())return false;
+        if(!ContainerChanged)continue;
+        if(Container.Revision==MAX_int64){Reason=TEXT("容器版本已达上限，保留原有食物");return false;}
+        ++Container.Revision;Changed=true;ChangedContainers.Add(Pair.Key);
+    }
+    Data.FoodVersion=1;Data.FoodClockId=Now.Id;Data.FoodClockDay=Now.Day;
+    return true;
 }
 }
 
@@ -32,7 +83,11 @@ bool UColdSteelSharedInventorySubsystem::ShouldCreateSubsystem(UObject* Outer) c
 void UColdSteelSharedInventorySubsystem::OnWorldBeginPlay(UWorld& World)
 {
     Super::OnWorldBeginPlay(World);
-    if(World.GetNetMode()!=NM_Standalone&&World.GetNetMode()!=NM_Client)InitializeAuthority();
+    if(World.GetNetMode()!=NM_Standalone&&World.GetNetMode()!=NM_Client)
+    {
+        InitializeAuthority();
+        World.GetTimerManager().SetTimer(FoodSpoilageTimer,this,&ThisClass::TickFoodSpoilage,5.f,true);
+    }
 }
 bool UColdSteelSharedInventorySubsystem::InitializeAuthority()
 {
@@ -46,13 +101,27 @@ bool UColdSteelSharedInventorySubsystem::InitializeAuthority()
         if(!Run||!Run->IsRunActive())return false;
         RunKey=Run->RunId();
     }
-    if(Map==TEXT("L_TemperateHills_Initial"))
+    if(ForestVillageMap::HasVillage(Map))
     {ATemperateHillsWorld* Hills=nullptr;for(TActorIterator<ATemperateHillsWorld> It(GetWorld());It;++It){Hills=*It;break;}
      if(!Hills||!Hills->WorldId.IsValid())return false;RunKey=Hills->WorldId.ToString(EGuidFormats::Digits);}
     bInitialized=true;
     auto* Host=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!Host){bBlocked=true;return false;}
     SaveSlot=FString::Printf(TEXT("%s_Shared_%08x"),*Host->ProfileSlot(),FCrc::StrCrc32(*(Map+RunKey)));
+    const FString FoodJournalSlot=SaveSlot+TEXT("_FoodTransaction");
+    if(UGameplayStatics::DoesSaveGameExist(FoodJournalSlot,0))
+    {
+        const auto* Food=Cast<UColdSteelSharedFoodJournal>(UGameplayStatics::LoadGameFromSlot(FoodJournalSlot,0));
+        // The two commit paths are mutually exclusive. Preserve unexpected
+        // overlapping evidence instead of choosing an arbitrary winner.
+        if(!Food||Food->Version!=1||Food->WorldKey!=SaveSlot
+            ||UGameplayStatics::DoesSaveGameExist(SaveSlot+TEXT("_Transaction"),0))
+        {bBlocked=true;return false;}
+        // Redo is a complete world snapshot, so it can also restore a damaged
+        // main slot after an interrupted write. Replaying it grants no player items.
+        if(!SaveWorld(Food->After)||!UGameplayStatics::DeleteGameInSlot(FoodJournalSlot,0))
+        {bBlocked=true;return false;}
+    }
     if(UGameplayStatics::DoesSaveGameExist(SaveSlot,0))
     {
         const auto* Save=Cast<UColdSteelSharedInventorySave>(UGameplayStatics::LoadGameFromSlot(SaveSlot,0));
@@ -82,27 +151,94 @@ bool UColdSteelSharedInventorySubsystem::InitializeAuthority()
     }
     // Recover transactions first, then migrate the authoritative world snapshot
     // before spawning replicated pickup actors. No player inventory is changed here.
-    auto Migrated=Current;bool DropsChanged=false;FString MigrationReason;
+    auto Migrated=Current;bool InventoryChanged=false;FString MigrationReason;
+    const auto RetiredQuartz=[](const FColdSteelItem& Item){return Item.Definition==TEXT("quartz");};
+    InventoryChanged|=Migrated.Drops.RemoveAll(RetiredQuartz)>0;
+    if(UDungeonRoomSubsystem::Supports(GetWorld()))
+    {
+        // A fresh hub session cannot resume the previous streamed dungeon instance.
+        InventoryChanged|=Migrated.Drops.RemoveAll([](const FColdSteelItem& I){return I.Map==TEXT("L_Dungeon_Randomized");})>0;
+        for(auto It=Migrated.Containers.CreateIterator();It;++It)
+            if(It.Key().Contains(TEXT(".Run."))&&(It.Key().StartsWith(TEXT("DungeonChest."))||It.Key().StartsWith(TEXT("SceneSearch.L_Dungeon_Randomized."))))
+            {It.RemoveCurrent();InventoryChanged=true;}
+    }
+    for(auto& Entry:Migrated.Containers)
+        if(Entry.Value.Items.RemoveAll(RetiredQuartz)>0){++Entry.Value.Revision;InventoryChanged=true;}
     for(auto& Item:Migrated.Drops)
     {
         if(!UsesChangedSharedFootprint(Item))continue;
         bool ItemChanged=false;
         if(!MigrateAuthoredItemFootprint(Item,ItemChanged,MigrationReason))
         {UE_LOG(LogTemp,Warning,TEXT("Shared drop migration failed: %s"),*MigrationReason);bBlocked=true;return false;}
-        DropsChanged|=ItemChanged;
+        InventoryChanged|=ItemChanged;
     }
-    if(DropsChanged)
+    if(InventoryChanged)
     {
         if(!SaveWorld(Migrated)){bBlocked=true;return false;}
         Current=MoveTemp(Migrated);
     }
+    FString FoodReason;
+    if(!SettleFoodSpoilage(FoodReason))return false;
     RefreshDropActors();
     return true;
 }
 bool UColdSteelSharedInventorySubsystem::SaveWorld(const FColdSteelSharedInventoryData& Data)
 {
     auto* Save=NewObject<UColdSteelSharedInventorySave>();Save->Data=Data;
+    const auto Now=ColdSteelFood::Clock(this);
+    if(Now.Id.IsValid()&&(!Data.FoodClockId.IsValid()||(Data.FoodClockId==Now.Id&&Now.Day>=Data.FoodClockDay)))
+    {Save->Data.FoodVersion=1;Save->Data.FoodClockId=Now.Id;Save->Data.FoodClockDay=Now.Day;}
     return UGameplayStatics::SaveGameToSlot(Save,SaveSlot,0);
+}
+bool UColdSteelSharedInventorySubsystem::SettleFoodSpoilage(FString& Reason)
+{
+    Reason.Reset();
+    if(!InitializeAuthority()||bCommitting)return false;
+    const auto* Model=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    if(!Model)return false;
+    const auto Now=ColdSteelFood::Clock(this);
+    const auto NeedsSettlement=[&](const FColdSteelItem& Item)
+    {
+        return ColdSteelFood::LifetimeDays(Item)>0.&&(!Now.Id.IsValid()||Item.FoodVersion==0
+            ||Item.FoodClockId!=Now.Id||(Current.FoodClockId==Now.Id&&Now.Day<Current.FoodClockDay)
+            ||ColdSteelFood::IsExpired(Item,Now));
+    };
+    bool Needs=Current.Drops.ContainsByPredicate(NeedsSettlement);
+    for(const auto& Pair:Current.Containers)Needs|=Pair.Value.Items.ContainsByPredicate(NeedsSettlement);
+    if(!Needs)
+    {
+        // Do not clone the large shared Building/Harvest snapshot every timer pass.
+        if(Now.Id.IsValid())
+        {Current.FoodVersion=1;Current.FoodClockId=Now.Id;Current.FoodClockDay=Now.Day;}
+        return true;
+    }
+    TGuardValue<bool> Guard(bCommitting,true);
+    CaptureDropTransforms();auto After=Current;
+    bool Changed=false;TArray<FString> ChangedContainers;
+    if(!SettleSharedFoodData(After,Model,Now,ChangedContainers,Changed,Reason))return false;
+    if(Changed)
+    {
+        auto* Journal=NewObject<UColdSteelSharedFoodJournal>();Journal->WorldKey=SaveSlot;Journal->After=After;
+        const FString FoodJournalSlot=SaveSlot+TEXT("_FoodTransaction");
+        if(!UGameplayStatics::SaveGameToSlot(Journal,FoodJournalSlot,0)||!SaveWorld(After)
+            ||!UGameplayStatics::DeleteGameInSlot(FoodJournalSlot,0))
+        {
+            // A failed write can have reached disk. The complete redo snapshot
+            // survives; no live item/actor changes until the commit is confirmed.
+            bBlocked=true;Reason=TEXT("腐败转换保存未确认，已保留原物品并暂停共享交易");return false;
+        }
+    }
+    Current=MoveTemp(After);
+    if(!Changed)return true;
+    RefreshDropActors();
+    for(const auto& Key:ChangedContainers)
+        if(const auto* Target=FoodContainerAnchors.Find(Key);Target&&Target->IsValid())
+            for(TActorIterator<AColdSteelPlayerState> It(GetWorld());It;++It)It->ClientContainerInvalidated(Target->Get());
+    return true;
+}
+void UColdSteelSharedInventorySubsystem::TickFoodSpoilage()
+{
+    FString Reason;SettleFoodSpoilage(Reason);
 }
 void UColdSteelSharedInventorySubsystem::CaptureDropTransforms()
 {
@@ -131,7 +267,17 @@ bool UColdSteelSharedInventorySubsystem::Commit(UColdSteelStatusModel* Model,ACo
 {
     if(!InitializeAuthority()||bCommitting||!Model||Model->HasUnconfirmedTransactionSave()||!Model->RuntimePawn()||!Model->RuntimePawn()->HasAuthority())
     {Reason=TEXT("共享库存尚未就绪或保存待恢复");return false;}
+    // A denied hand/equipment action must not create a recovery journal.
+    if(const auto* Tool=Model->RuntimePawn()->FindComponentByClass<UProductionToolComponent>();
+        Tool&&!Tool->ValidateThunderEquipmentChange(Model->Snapshot(),Profile,Reason))return false;
     TGuardValue<bool> Guard(bCommitting,true);
+    const auto Now=ColdSteelFood::Clock(this);
+    ColdSteelFood::RebaseProfile(Profile,Now);
+    FString FoodReason;
+    ColdSteelFood::SettleGrid(Profile.Items,Model,Now,FoodReason);
+    if(!FoodReason.IsEmpty()){Reason=FoodReason;return false;}
+    bool FoodChanged=false;TArray<FString> ChangedContainers;
+    if(!SettleSharedFoodData(After,Model,Now,ChangedContainers,FoodChanged,FoodReason)){Reason=FoodReason;return false;}
     const FString PlayerSlot=Guest?Guest->CampfireGuestSlot():Model->ProfileSlot();
     if(PlayerSlot.IsEmpty()||Profile.CampfireInventoryRevision==MAX_int64)return false;
     auto* Journal=NewObject<UColdSteelSharedInventoryJournal>();
@@ -149,14 +295,32 @@ bool UColdSteelSharedInventorySubsystem::Commit(UColdSteelStatusModel* Model,ACo
     Current=MoveTemp(After);
     bBlocked=!SaveWorld(Current)||!UGameplayStatics::DeleteGameInSlot(JournalSlot,0);
     RefreshDropActors();
+    for(const auto& Key:ChangedContainers)
+        if(const auto* Target=FoodContainerAnchors.Find(Key);Target&&Target->IsValid())
+            for(TActorIterator<AColdSteelPlayerState> It(GetWorld());It;++It)It->ClientContainerInvalidated(Target->Get());
     if(bBlocked)Reason=TEXT("物品已记账，共享世界保存待恢复");
     return true;
 }
+bool UColdSteelSharedInventorySubsystem::AddWorldDrops(const TArray<FColdSteelItem>& Items)
+{
+    if (!InitializeAuthority() || bCommitting || Items.IsEmpty()) return false;
+    TGuardValue<bool> Guard(bCommitting, true);
+    CaptureDropTransforms();
+    auto After = Current;
+    After.Drops.Append(Items);
+    if (!SaveWorld(After)) return false;
+    Current = MoveTemp(After);
+    RefreshDropActors();
+    return true;
+}
+
 bool UColdSteelSharedInventorySubsystem::ImportPlayerDrops(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest)
 {
     if(!Model||bCommitting||!InitializeAuthority())return false;
-    const FString Map=UGameplayStatics::GetCurrentLevelName(this,true);
+    FString FoodReason;if(!SettleFoodSpoilage(FoodReason))return false;
+    const FString Map=Model->RuntimePawn()?UDungeonRoomSubsystem::LogicalMap(Model->RuntimePawn()):UGameplayStatics::GetCurrentLevelName(this,true);
     Model->SyncRuntime();auto Profile=Model->Snapshot();
+    ColdSteelFood::RebaseProfile(Profile,ColdSteelFood::Clock(this));
     CaptureDropTransforms();auto After=Current;
     for(int32 I=Profile.Items.Num()-1;I>=0;--I)
     {
@@ -171,7 +335,9 @@ bool UColdSteelSharedInventorySubsystem::ImportPlayerDrops(UColdSteelStatusModel
 bool UColdSteelSharedInventorySubsystem::Drop(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest,const FString& Id,FString& Reason)
 {
     if(!Model||!Model->RuntimePawn()||!InitializeAuthority())return false;
+    if(!SettleFoodSpoilage(Reason))return false;
     Model->SyncRuntime();auto Profile=Model->Snapshot();
+    ColdSteelFood::RebaseProfile(Profile,ColdSteelFood::Clock(this));
     const int32 Index=Profile.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id;});
     if(Index<0)return false;
     auto Item=Profile.Items[Index];
@@ -193,7 +359,7 @@ bool UColdSteelSharedInventorySubsystem::Drop(UColdSteelStatusModel* Model,ACold
     if(!FindGround(Candidate)&&!FindGround(Origin)){Reason=TEXT("附近没有可放置物品的地面");return false;}
     Profile.Items.RemoveAt(Index);
     Item.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);Item.Place=2;Item.Container.Reset();
-    Item.Map=UGameplayStatics::GetCurrentLevelName(this,true);Item.Position=Ground.ImpactPoint;
+    Item.Map=UDungeonRoomSubsystem::LogicalMap(Pawn);Item.Position=Ground.ImpactPoint;
     Item.Position.Z=FMath::Max(Ground.ImpactPoint.Z+60.f,Origin.Z+15.f);
     Item.WorldRotation=FRotator(5,Pawn->GetActorRotation().Yaw,-65);
     Model->StampProductionDrop(Item);
@@ -205,18 +371,21 @@ bool UColdSteelSharedInventorySubsystem::Drop(UColdSteelStatusModel* Model,ACold
 bool UColdSteelSharedInventorySubsystem::Pickup(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest,AColdSteelPickup* Actor,bool Nearby,FString& Reason)
 {
     if(!Model||!Model->RuntimePawn()||!InitializeAuthority()||!IsValid(Actor)||!Actor->IsSharedPickup())return false;
+    if(!SettleFoodSpoilage(Reason)||!IsValid(Actor))return false;
     auto* Pawn=Model->RuntimePawn();
     const auto* Registered=DropActors.Find(Actor->ItemId);
     if(!Registered||Registered->Get()!=Actor)return false;
     if(!Nearby&&!Actor->CanInteract(Pawn)){Reason=TEXT("物品不可达");return false;}
     if(Nearby&&!ColdSteelWorldInteraction::CanReachPickup(GetWorld(),Pawn,Actor,Actor->GetActorLocation()))return false;
-    Model->SyncRuntime();auto Profile=Model->Snapshot();CaptureDropTransforms();auto After=Current;
+    Model->SyncRuntime();auto Profile=Model->Snapshot();
+    ColdSteelFood::RebaseProfile(Profile,ColdSteelFood::Clock(this));
+    CaptureDropTransforms();auto After=Current;
     const int32 Index=After.Drops.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Actor->ItemId;});
     if(Index<0)return false;
     auto Item=After.Drops[Index];bool FootprintChanged=false;
     if(UsesChangedSharedFootprint(Item)&&!MigrateAuthoredItemFootprint(Item,FootprintChanged,Reason))return false;
     const bool Added=Model->AmmoType(Item.Definition)?Model->AddAmmoToState(Profile,Item.Definition,Item.Count)
-        :ColdSteelInventory::Insert(Profile.Items,Item);
+        :BlacksmithApprenticeship::InsertPickup(Profile,Item);
     if(!Added){Reason=TEXT("背包已满，物品留在地面");return false;}
     After.Drops.RemoveAt(Index);Reason=TEXT("已拾取物品");
     return Commit(Model,Guest,MoveTemp(Profile),MoveTemp(After),Reason);
@@ -224,9 +393,11 @@ bool UColdSteelSharedInventorySubsystem::Pickup(UColdSteelStatusModel* Model,ACo
 bool UColdSteelSharedInventorySubsystem::PickupNearby(UColdSteelStatusModel* Model,AColdSteelPlayerState* Guest,FString& Reason)
 {
     if(!Model||!Model->RuntimePawn()||!InitializeAuthority())return false;
+    if(!SettleFoodSpoilage(Reason))return false;
     const auto* Setting=IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Pickup.AreaRadiusCm"));
     const float Radius=Setting?Setting->GetFloat():500.f;
     auto* Pawn=Model->RuntimePawn();Model->SyncRuntime();auto Profile=Model->Snapshot();
+    ColdSteelFood::RebaseProfile(Profile,ColdSteelFood::Clock(this));
     CaptureDropTransforms();auto After=Current;int32 Taken=0;
     for(int32 Index=After.Drops.Num()-1;Index>=0;--Index)
     {
@@ -238,7 +409,7 @@ bool UColdSteelSharedInventorySubsystem::PickupNearby(UColdSteelStatusModel* Mod
         if(UsesChangedSharedFootprint(Item)&&!MigrateAuthoredItemFootprint(Item,FootprintChanged,MigrationReason))continue;
         auto Trial=Profile;
         const bool Added=Model->AmmoType(Item.Definition)?Model->AddAmmoToState(Trial,Item.Definition,Item.Count)
-            :ColdSteelInventory::Insert(Trial.Items,Item);
+            :BlacksmithApprenticeship::InsertPickup(Trial,Item);
         if(!Added)continue;
         Profile=MoveTemp(Trial);After.Drops.RemoveAt(Index);++Taken;
     }
@@ -249,11 +420,34 @@ bool UColdSteelSharedInventorySubsystem::PickupNearby(UColdSteelStatusModel* Mod
 bool UColdSteelSharedInventorySubsystem::FlushForTravel()
 {
     if(bBlocked||bCommitting)return false;
+    if(!UWildlifeSubsystem::FlushPendingLoot(GetWorld()))return false;
     if(!bInitialized)return true;
+    FString Reason;if(!SettleFoodSpoilage(Reason))return false;
     CaptureDropTransforms();return !SaveSlot.IsEmpty()&&SaveWorld(Current);
 }
 void UColdSteelSharedInventorySubsystem::Deinitialize()
 {
+    GetWorld()->GetTimerManager().ClearTimer(FoodSpoilageTimer);
     if(bInitialized&&!bBlocked&&!SaveSlot.IsEmpty()){CaptureDropTransforms();SaveWorld(Current);}
-    DropActors.Reset();Super::Deinitialize();
+    DropActors.Reset();FoodContainerAnchors.Reset();Super::Deinitialize();
+}
+
+
+bool UColdSteelSharedInventorySubsystem::RetireDungeonInventory(const FString& RunId)
+{
+    if(!bInitialized)return true;
+    if(bBlocked||bCommitting||!UDungeonRoomSubsystem::Supports(GetWorld()))return false;
+    CaptureDropTransforms();auto After=Current;
+    bool Changed=After.Drops.RemoveAll([](const FColdSteelItem& Item){return Item.Map==TEXT("L_Dungeon_Randomized");})>0;
+    const FString Suffix=TEXT(".Run.")+RunId;
+    for(auto It=After.Containers.CreateIterator();It;++It)
+        if(!RunId.IsEmpty()&&It.Key().EndsWith(Suffix)
+            &&(It.Key().StartsWith(TEXT("DungeonChest."))||It.Key().StartsWith(TEXT("SceneSearch.L_Dungeon_Randomized."))))
+        {It.RemoveCurrent();Changed=true;}
+    if(!Changed)return true;
+    if(!SaveWorld(After))return false;
+    Current=MoveTemp(After);RefreshDropActors();
+    for(auto It=FoodContainerAnchors.CreateIterator();It;++It)
+        if(!It.Value().IsValid()||UDungeonRoomSubsystem::IsDungeonActor(It.Value().Get()))It.RemoveCurrent();
+    return true;
 }

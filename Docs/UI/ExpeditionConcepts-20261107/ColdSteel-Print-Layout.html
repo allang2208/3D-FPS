@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>地下设施 · 出征排版对照</title>
+<style>
+@font-face{font-family:Facility;src:url("../../../Content/UI/GunsmithWorkbench/Fonts/NotoSansSC-Regular.otf") format("opentype");font-weight:400}
+@font-face{font-family:Facility;src:url("../../../Content/UI/GunsmithWorkbench/Fonts/NotoSansSC-Medium.otf") format("opentype");font-weight:500}
+@font-face{font-family:Readout;src:url("../../../Content/UI/GunsmithWorkbench/Fonts/JetBrainsMono-Regular.ttf") format("truetype")}
+:root{color-scheme:dark;font-family:Facility,"Microsoft YaHei",sans-serif;color:#e8e8e8;background:#101010}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:grid;align-content:center;justify-items:center;gap:12px}
+button,select{font:inherit}
+button,select,summary{cursor:pointer}
+button:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid #d6d6d6;outline-offset:4px}
+.frame{position:relative;overflow:hidden}
+.screen{position:absolute;left:0;top:0;width:1672px;height:941px;transform-origin:0 0;isolation:isolate;overflow:hidden}
+.original{position:absolute;inset:0;width:100%;height:100%}
+.brief{position:absolute;left:21px;top:91px;bottom:103px;width:558px;background:linear-gradient(90deg,#181818 0%,#181818 92%,rgba(24,24,24,.96) 93%,rgba(24,24,24,0) 100%)}
+.brief::before{content:"";position:absolute;inset:0 45px 0 0;background:linear-gradient(150deg,rgba(255,255,255,.012),transparent 55%);pointer-events:none}
+.destination,.loadout{position:absolute;left:46px;width:441px}
+.destination{top:131px}
+h1,h2,p,dl,dd{margin:0}
+h1{font-size:36px;line-height:1.36;letter-spacing:.035em;font-weight:500}
+.objective{margin-top:30px;font-size:24px;line-height:1.55;font-weight:500;letter-spacing:.01em}
+.route{color:#b7b7b7;font-size:19px;line-height:1.65;margin-top:13px;white-space:nowrap}
+.loadout{bottom:46px;border-top:1px solid #424242;padding-top:17px}
+details>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;min-height:38px;font-size:20px;font-weight:500;user-select:none}
+details>summary::-webkit-details-marker{display:none}
+.toggle{display:inline-flex;gap:10px;align-items:center;color:#b7b7b7;font-size:17px;font-weight:400}
+.toggle::before{content:"展开详情"}
+.toggle::after{content:"";width:7px;height:7px;border-right:1.5px solid;border-bottom:1.5px solid;transform:translateY(-2px) rotate(45deg)}
+details[open] .toggle::before{content:"收起详情"}
+details[open] .toggle::after{transform:translateY(2px) rotate(225deg)}
+.overview{display:flex;align-items:center;gap:13px;color:#b7b7b7;margin-top:11px;font-size:19px;white-space:nowrap}
+.overview i{color:#797979;font-size:15px;font-style:normal}
+.number{font-family:Readout,Consolas,monospace;font-variant-numeric:tabular-nums}
+.detail-list{margin-top:8px;display:grid;grid-template-columns:1fr 1fr;gap:8px 30px;padding:8px 0 3px}
+.detail-list div{display:flex;justify-content:space-between;align-items:baseline;font-size:17px;gap:8px}
+.detail-list dt{color:#b7b7b7}
+.detail-list dd{font-size:16px}
+.alert{font-size:18px;margin-top:10px;color:#dcaa69}
+[hidden]{display:none!important}
+.review{display:flex;align-items:center;justify-content:center;flex-wrap:wrap;gap:12px 17px;min-height:37px;font-size:13px;color:#b7b7b7}
+.pair{display:inline-flex;border:1px solid #454545;border-radius:6px;overflow:hidden}
+.review button,.review select{background:#1a1a1a;color:#b7b7b7;border:0;padding:6px 12px}
+.review button[aria-pressed=true]{background:#353535;color:#eee}
+.review select{border:1px solid #454545;border-radius:5px;margin-left:6px}
+.export{display:block;background:#101010}
+.export .review{display:none}
+</style>
+<main class="frame" aria-label="地下设施出征参考图">
+  <div class="screen">
+    <img class="original" src="ColdSteel-Architectural-Print.png" alt="出征概览。地下设施的网门位于大厅尽头，右侧破墙透入一道光。底部为进入条件、整理装备和确认出征。">
+    <section class="brief" aria-label="新版任务简报">
+      <header class="destination">
+        <h1>地下设施</h1>
+        <p class="objective">清理任意一路与数据档案中心，<br>即可进入首领区域。</p>
+        <p class="route">六个主题随机配成三路，每路两个主题。</p>
+      </header>
+      <div class="loadout">
+        <details>
+          <summary><span>行前准备</span><span class="toggle"></span></summary>
+          <dl class="detail-list">
+            <div><dt>生命</dt><dd class="number">100 / 100</dd></div>
+            <div><dt>魔法</dt><dd class="number">80 / 80</dd></div>
+            <div><dt>魔法恢复品</dt><dd class="number">2</dd></div>
+            <div><dt>主背包空格</dt><dd class="number" id="space">16 / 32</dd></div>
+          </dl>
+        </details>
+        <p class="overview"><span class="number">AKM</span><i>·</i><span>备弹 <bdi class="number" id="ammo">120</bdi></span><i>·</i><span>生命恢复品 <bdi class="number">3</bdi></span></p>
+        <p class="alert" role="status" hidden></p>
+      </div>
+    </section>
+  </div>
+</main>
+<nav class="review" aria-label="设计稿对照">
+  <div class="pair"><button id="before" type="button" aria-pressed="false">原稿</button><button id="after" type="button" aria-pressed="true">新版</button></div>
+  <label>行装示例<select id="scenario"><option value="ready">准备齐全</option><option value="ammo">当前弹种无备弹</option><option value="bag">主背包已满</option></select></label>
+</nav>
+<script>
+const get = selector => document.querySelector(selector);
+const frame = get(".frame");
+const screen = get(".screen");
+const before = get("#before");
+const after = get("#after");
+const scenario = get("#scenario");
+const exporting = new URLSearchParams(location.search).has("export");
+document.body.classList.toggle("export",exporting);
+function fit(){
+  const controls = exporting ? 0 : get(".review").offsetHeight + 24;
+  const scale = Math.min(innerWidth / 1672, Math.max(1,innerHeight - controls) / 941);
+  frame.style.width = (1672 * scale) + "px";
+  frame.style.height = (941 * scale) + "px";
+  screen.style.transform = "scale(" + scale + ")";
+}
+function selectVersion(original){
+  get(".brief").hidden = original;
+  before.setAttribute("aria-pressed",String(original));
+  after.setAttribute("aria-pressed",String(!original));
+  scenario.disabled = original;
+}
+before.addEventListener("click",() => selectVersion(true));
+after.addEventListener("click",() => selectVersion(false));
+scenario.addEventListener("change",() => {
+  const state = scenario.value;
+  get("#ammo").textContent = state === "ammo" ? "0" : "120";
+  get("#space").textContent = state === "bag" ? "0 / 32" : "16 / 32";
+  const alert = get(".alert");
+  alert.textContent = state === "ammo" ? "当前弹种没有备弹" : state === "bag" ? "主背包已满" : "";
+  alert.hidden = !alert.textContent;
+});
+addEventListener("resize",fit);
+fit();
+</script>
+</html>

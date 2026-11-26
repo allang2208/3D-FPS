@@ -135,3 +135,4 @@ camdata.ortho_scale=.49
 s.render.resolution_x=860;s.render.resolution_y=820
 s.render.filepath=str(base/'Smith_fitted_portrait.png')
 bpy.ops.render.render(write_still=True)
+

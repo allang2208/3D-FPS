@@ -47,5 +47,5 @@ private:
     void Settle(FTimeSandEchoMark& Mark);
     void Present();
     UFUNCTION() void OnRep_Marks();
-    UFUNCTION(Client,Reliable) void ClientEchoDamage(AActor* Target,float Damage,bool Critical,bool Killed);
+    UFUNCTION(Client,Reliable) void ClientEchoDamage(AActor* Target,float Damage,bool Critical,bool Killed,float MagicApplied);
 };

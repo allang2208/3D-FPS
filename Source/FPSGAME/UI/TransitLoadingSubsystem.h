@@ -13,7 +13,9 @@ class APlayerController;
 class AActor;
 class ACharacter;
 class FGameResourcePreparation;
+class FPlayerSkillPreparation;
 class SWidget;
+struct FSoftObjectPath;
 struct FStartupLoadingView;
 
 /** Owns the transition UI across map teardown and the destination's preparation phase. */
@@ -31,15 +33,18 @@ public:
     virtual UWorld* GetTickableGameObjectWorld() const override { return GetWorld(); }
 
     void BeginTransition(const FString& Map, FSimpleDelegate OnCancel = FSimpleDelegate());
+    void BeginRoomTransition(FSimpleDelegate OnCancel);
+    void FinishRoomTransition();
     void UpdatePreparation(const FText& Status, float Progress);
-    void BeginDungeonPreparation();
     void BeginHillsPreparation();
+    void BeginDungeonPreparation();
     /** Register generated actors after their current assembly job completes. */
     void QueueDungeonResourceWarmup(AActor* Actor);
     void CompletePreparation();
     void FailPreparation(const FText& Reason);
     void CancelTransition();
-    void RetainBiomeResources(const TArray<TSharedPtr<FStreamableHandle>>& Handles,bool bAllBatchesLoaded=true);
+    void RetainBiomeResources(const TArray<TSharedPtr<FStreamableHandle>>& Handles,bool bAllBatchesLoaded);
+    void QueueSkillAssets(AActor* Owner,FName Skill,FSimpleDelegate Ready,const TArray<FSoftObjectPath>& ExtraPaths);
     void ShowStartupMenu(APlayerController* Controller);
     bool IsCompletePreloadSelected() const { return bCompletePreload; }
     /** True while the loading overlay still owns game input (not during fade-out). */
@@ -49,6 +54,9 @@ public:
     bool OwnsPlayerCursor() const { return IsHoldingGameplayInput(); }
     /** Restore GameOnly after preparation; a pending complete-preload phase keeps input. */
     void ReleaseToGameplay();
+    /** Read input routing without changing focus, capture, pause or input locks. */
+    UFUNCTION(BlueprintCallable, Category="Debug")
+    FString GetInputRoutingState() const;
 
 private:
     void BeforeMap(const FWorldContext& Context,const FString& Map);
@@ -72,12 +80,14 @@ private:
     bool bOwnsCurrentMapLoad = false;
     bool bDestinationLoaded = false;
     bool bDungeon=false;
+    bool bRoomTransition=false;
     bool bHills = false;
     bool bPreviousIgnoreInput = false;
     bool bPreviousCursor = false;
     void ChooseLoadingMode(bool Complete);
     void RemoveStartupMenu();
     void MenuApplyNick();
+    void MenuApplyPassword();
     void MenuHostRoom();
     void MenuJoinByAddress(FString Address);
     void MenuQuitGame();
@@ -85,11 +95,8 @@ private:
     void ApplyLoadingBudget();
     void RestoreLoadingBudget();
     void FinishPreparation();
-    bool PrepareEditorNiagara();
-#if WITH_EDITOR
-    TSharedPtr<FStreamableHandle> EntryNiagaraLoad;
-    bool bEntryNiagaraCompileRequested = false;
-#endif
+    TSharedPtr<FPlayerSkillPreparation> SkillPreparation;
+    bool bSkillPreparationStarted = false;
     void HoldPreparedPlayer();
     void ReleasePreparedPlayer();
     void RetryResources();

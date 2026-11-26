@@ -157,7 +157,13 @@ def export(name,objects):
         for mod in list(ob.modifiers):bpy.ops.object.modifier_apply(modifier=mod.name)
         ob.select_set(True)
     bpy.context.view_layer.objects.active=objects[0];bpy.ops.object.join();o=bpy.context.object;o.name=name
-    bpy.ops.object.mode_set(mode='EDIT');bpy.ops.mesh.select_all(action='SELECT');bpy.ops.uv.smart_project(angle_limit=1.15,island_margin=.025);bpy.ops.object.mode_set(mode='OBJECT')
+    if name=='SM_ForgeRing':
+        uv=o.data.uv_layers.new(name='UVMap')
+        for loop in o.data.loops:
+            p=o.data.vertices[loop.vertex_index].co
+            uv.data[loop.index].uv=(.5+p.x/.037,.5+p.y/.037)
+    else:
+        bpy.ops.object.mode_set(mode='EDIT');bpy.ops.mesh.select_all(action='SELECT');bpy.ops.uv.smart_project(angle_limit=1.15,island_margin=.025);bpy.ops.object.mode_set(mode='OBJECT')
     color=o.data.color_attributes.new(name='Wear',type='FLOAT_COLOR',domain='CORNER')
     for poly in o.data.polygons:
         wear=.8 if o.data.materials[poly.material_index].name=='StruckFace' else .08
@@ -198,12 +204,10 @@ for stage in range(3):
     faces=[tuple(reversed(range(5))),tuple(range(30,35))]
     faces.extend((i*5+j,i*5+(j+1)%5,(i+1)*5+(j+1)%5,(i+1)*5+j) for i in range(6) for j in range(5))
     o=mesh('Blank',pts,faces,'HotBlank');bevel(o,.07);export('SM_ForgeBlank'+str(stage),[o])
-# A true open ring, not an opaque square or decal: world-space heat/aim guide.
-p=[];f=[]
-for rad in (1.65,1.85):
-    for j in range(48):p.append((rad*math.cos(j*math.tau/48),rad*math.sin(j*math.tau/48),0))
-for j in range(48):f.append((j,(j+1)%48,48+(j+1)%48,48+j))
-export('SM_ForgeRing',[mesh('Heat ring',p,f,'Guide')])
+# Shader-shaped circular guide with a dark backing, opaque outlines and center.
+# Explicit square UVs retain the exact 1.85 cm scoring radius; corners are clear.
+p=[(-1.85,-1.85,0),(1.85,-1.85,0),(1.85,1.85,0),(-1.85,1.85,0)]
+export('SM_ForgeRing',[mesh('Heat ring',p,[(0,1,2,3)],'Guide')])
 export('SM_ForgeSpark',[box('Hot scale',(0,0,0),(.6,.075,.075),'Guide',.01)])
 
 # Editable native V7 skin/rig alongside the tool, with the authored gripping hands.

@@ -1,0 +1,42 @@
+{
+  "version": 1,
+  "core_count": 1,
+  "cores": [
+    {
+      "item": "wood_core_plain",
+      "name": "原木芯",
+      "damage_bonus": 0,
+      "material": "/Game/Items/WoodCores20261026/MI_WoodCore_Plain.MI_WoodCore_Plain"
+    },
+    {
+      "item": "wood_core_iron",
+      "name": "铁木芯",
+      "damage_bonus": 0.02,
+      "material": "/Game/Items/WoodCores20261026/MI_WoodCore_Iron.MI_WoodCore_Iron"
+    },
+    {
+      "item": "wood_core_redgrain",
+      "name": "赤纹木芯",
+      "damage_bonus": 0.04,
+      "material": "/Game/Items/CraftingMaterialTiers20261026/MI_WoodCore_Redgrain.MI_WoodCore_Redgrain"
+    },
+    {
+      "item": "wood_core_ancient",
+      "name": "古树木芯",
+      "damage_bonus": 0.06,
+      "material": "/Game/Items/WoodCores20261026/MI_WoodCore_Ancient.MI_WoodCore_Ancient"
+    },
+    {
+      "item": "wood_core_ebony",
+      "name": "乌檀木芯",
+      "damage_bonus": 0.08,
+      "material": "/Game/Items/CraftingMaterialTiers20261026/MI_WoodCore_Ebony.MI_WoodCore_Ebony"
+    },
+    {
+      "item": "wood_core_spirit",
+      "name": "灵纹木芯",
+      "damage_bonus": 0.1,
+      "material": "/Game/Items/WoodCores20261026/MI_WoodCore_Spirit.MI_WoodCore_Spirit"
+    }
+  ]
+}

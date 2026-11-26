@@ -1,0 +1,26 @@
+﻿{
+    "pid":  27344,
+    "arguments":  [
+                      "\"D:/FPS3D/FPSGAME/FPSGAME.uproject\"",
+                      "\"/Engine/Maps/Entry?game=/Script/FPSGAME.SwordFinishWireGameMode?listen\"",
+                      "-game",
+                      "-nullrhi",
+                      "-nosound",
+                      "-unattended",
+                      "-nosplash",
+                      "-NoLiveCoding",
+                      "-SwordFinishWireAudit",
+                      "-HatchetRuneWireAudit",
+                      "-AssetGatherAll=false",
+                      "-ini:Engine:[/Script/Engine.PhysicsSettings]:DefaultGravityZ=0.0",
+                      "-ini:Engine:[/Script/PythonScriptPlugin.PythonScriptPluginSettings]:bRemoteExecution=False",
+                      "-ini:EditorPerProjectUserSettings:[/Script/ModelContextProtocolEngine.ModelContextProtocolSettings]:bAutoStartServer=False",
+                      "-ColdSteelProfile=SwordFinishWireAudit_20261104-154517_host",
+                      "-port=19981",
+                      "-UserDir=\"D:\\FPS3D\\FPSGAME\\Tools\\HatchetAudit20261104\\Wire\\20261104-154517/host/\"",
+                      "-SwordFinishWireOutput=\"D:\\FPS3D\\FPSGAME\\Tools\\HatchetAudit20261104\\Wire\\20261104-154517/host.json\"",
+                      "-abslog=\"D:\\FPS3D\\FPSGAME\\Tools\\HatchetAudit20261104\\Wire\\20261104-154517/host.log\"",
+                      "-ExecCmds=\"fps.body.AsyncPreload 0,t.MaxFPS 30\""
+                  ],
+    "role":  "host"
+}

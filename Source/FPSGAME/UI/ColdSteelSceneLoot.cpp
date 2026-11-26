@@ -3,6 +3,7 @@
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelWarehouseRules.h"
 #include "../Dungeons/DungeonRunSubsystem.h"
+#include "../Dungeons/DungeonRoomSubsystem.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
 #include "Misc/Crc.h"
@@ -118,7 +119,7 @@ const FString* BoundPool(const FString& ContainerId)
 
 bool ColdSteelSceneLoot::IsBound(const AColdSteelSceneContainer* Container)
 {
-    return IsValid(Container)&&UGameplayStatics::GetCurrentLevelName(Container,true)==TEXT("L_Dungeon_Randomized")
+    return IsValid(Container)&&UDungeonRoomSubsystem::IsDungeonActor(Container)
         &&BoundPool(Container->ContainerId)!=nullptr;
 }
 FName ColdSteelSceneLoot::Claim(const FString& ContainerId)

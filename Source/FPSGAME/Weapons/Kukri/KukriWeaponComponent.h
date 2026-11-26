@@ -3,7 +3,10 @@
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
 #include "../../Skills/ColdSteelSkillTypes.h"
+#include "../../Skills/ShadowStepTypes.h"
 #include "../../Skills/WhirlwindTypes.h"
+#include "KukriModuleVisual.h"
+#include "KukriPairedHeavyHit.h"
 #include "KukriWeaponComponent.generated.h"
 
 class AFPSGAMECharacter;
@@ -20,7 +23,7 @@ class UPrimitiveComponent;
 namespace KukriRhythm{struct FStrike;}
 
 /** Which skill rift (KukriSkillRift.cpp) is showing / built in the skill rift mesh. */
-enum class EKukriSkillRift : uint8 { None, Dash, Whirlwind };
+enum class EKukriSkillRift : uint8 { None, Dash, Whirlwind, ShadowStep1, ShadowStep2 };
 
 /**
  * 尼泊尔弯刀：单手近战（主手，副手可空或持枪／魔法书）。
@@ -44,12 +47,25 @@ public:
     void RefreshEquipment(UColdSteelStatusModel* Profile);
     UFUNCTION(BlueprintPure, Category="Kukri") bool IsEquipped() const { return !InstanceId.IsEmpty(); }
     bool IsDual() const { return IsEquipped()&&bDual; }
-    UFUNCTION(BlueprintPure, Category="Kukri") bool IsBusy() const { return bAttacking||bEquipping||bDashAttack||bQuickCombat||bUppercut||bHeavyCharging||bHeavyAttack||bWhirlwind; }
+    /** Main hand empty: the off-hand kukri / hatchet acts alone in the left hand, the single moveset mirrored
+     *  (UColdSteelStatusModel::ActiveKukriWeapon, the right arm hidden). */
+    bool IsLoneOffhand() const { return IsEquipped()&&bLoneOffhand; }
+    UFUNCTION(BlueprintPure, Category="Kukri") bool IsBusy() const { return bAttacking||bEquipping||bDashAttack||bQuickCombat||bUppercut||bHeavyCharging||bHeavyAttack||bWhirlwind||bShadowStep; }
     bool IsEquipping() const { return bEquipping; }
     bool IsAttacking() const { return bAttacking; }
+    bool IsPendantAttackActive(const FString& Weapon) const
+    {
+        if(bStaffOffhandWhirlwind&&bWhirlwind&&Weapon==Shot.ItemInstance)return true;
+        if(Weapon==InstanceId)return bAttacking||bDashAttack||bQuickCombat||bUppercut||bHeavyAttack||bWhirlwind||bShadowStep;
+        return Weapon==OffhandInstanceId&&((bAttacking&&(bDualSweep||bDualThrust))||bDashAttack||(bHeavyAttack&&bDualHeavy)||(bShadowStep&&bDualShadowStep));
+    }
     void BeginPrimaryAttack();
     void CancelAction();
+    uint32 NetworkAttackSerial() const { return (bAttacking||bDashAttack)?Shot.KukriAttackSerial:0; }
+    void RejectNetworkAttack(uint32 Serial);
     UKukriArmsMeshComponent* ArmsMesh() const { return Viewmodel; }
+    /** Root of this hand's visible modular knife, for temporary cosmetic layers. */
+    UStaticMeshComponent* WeaponMesh(bool Offhand=false) const { return Offhand?OffhandBlade.Get():Blade.Get(); }
     /** 挥刀镜头曲线 + 命中抖动（相对相机）；FovDelta 为垂直视场增量（度）。供角色相机更新读取。 */
     void GetCameraMotion(FVector& Location,FRotator& Rotation,float& FovDelta) const;
     /** 冲刺攻击（被动技能 dashAttack，KukriDashAttack.cpp）：地面连续奔跑就绪后左键双手跳劈。 */
@@ -74,15 +90,51 @@ public:
     bool IsHeavyAttackActive() const { return bHeavyAttack; }
     /** Server receipt for heavy hit reports (ColdSteelPlayerState hit validation), as URuneSwordComponent's. */
     bool IsNetworkHeavyReleaseWindowOpen(const FString& Weapon) const;
-    bool ConsumeNetworkHeavyChargeForRelease(const FString& Weapon);
+    bool IsNetworkFalconHeavyRelease(const FString& Weapon) const { return bServerFalconRelease && IsNetworkHeavyReleaseWindowOpen(Weapon); }
+    uint32 GetNetworkHeavyReleaseSerial() const {return NetworkHeavyReleaseSerial;}
+    bool ConsumeNetworkHeavyChargeForRelease(const FString& Weapon,uint8 Phase=0,double HitStamp=0.);
+    bool IsNetworkHeavyTargetNew(const FString& Weapon,AActor* Target,uint8 Phase=0) const;
+    void RecordNetworkHeavyTarget(const FString& Weapon,AActor* Target,uint8 Phase=0);
+    void ConfirmFalconHook(const FColdSteelSkillShot& BladeShot,const FHitResult& Contact);
+    UFUNCTION(NetMulticast,Unreliable) void MulticastBladeTargetFX(const FHitResult& Hit);
+    static bool PublishBladeHit(AActor* Attacker,const FHitResult& Hit,const FColdSteelSkillShot& Outcome);
+    void PresentOwnerBladeHit(const FHitResult& Hit,uint32 Swing,uint8 Phase);
+    void PresentBladeScenery(const FHitResult& Hit);
     /** 大旋风（主动技能 whirlwind，KukriWhirlwind.cpp）：单手持刀两圈旋转横扫，快捷栏释放；空字符串 = 可释放。 */
     FString WhirlwindStatusText() const;
     bool BeginWhirlwind();
     bool IsWhirlwindActive() const { return bWhirlwind; }
+    /** 瞬步掠影斩（单手终极武技 shadowStepSlash，KukriShadowStep.cpp）：单持／左手单持／双持穿身疾斩 + 命中解锁二段反手追斩。 */
+    FString ShadowStepStatusText() const;
+    bool BeginShadowStep();
+    bool IsShadowStepActive() const { return bShadowStep; }
+    bool IsShadowStepFollowupActive() const { return bShadowStep&&bShadowStepStage2; }
+    bool IsShadowStepDashLocked() const { return bShadowStep&&!bShadowStepStage2&&Elapsed<ShadowStep::Stage1DashEnd+.04f; }
+    bool TryTriggerShadowStepFollowup();
+    void GrantShadowStepFollowupWindow(uint32 Sequence,float WindowSeconds);
+    float ShadowStepFollowupRemaining() const { return (bShadowStep&&!bShadowStepStage2&&bShadowStepFollowupUnlocked)?FMath::Max(0.f,ShadowStepFollowupTimer):0.f; }
+    void PublishStaffWhirlwindBlade(const FTransform& DisplayedBlade);
+    /** Owner-view yaw correction; independent of controller/world-body rotation and camera shake strength. */
+    float GetWhirlwindFirstPersonYawOffset() const;
 private:
+    friend class UFPSPlayerBodyComponent;
+    friend class UKukriNetworkAuditCommandlet;
+    friend class UFPSConsumableAuditCommandlet;
+    friend class USwiftFalconMotionAuditCommandlet;
+    void ResetFalconHooks();
+    void DrawFalconHooks();
+    UFUNCTION(Server,Reliable) void ServerDrawFalconHooks(double ChargeStarted);
+    UFUNCTION(NetMulticast,Reliable) void MulticastFalconMark(uint8 Hand,AActor* Target,FVector_NetQuantize10 Point,FName Bone,const FString& Weapon,float HoldSeconds,bool bLeftHand);
+    UFUNCTION(NetMulticast,Reliable) void MulticastFalconDraw(uint8 ValidHands,uint8 TugHands,bool bShared,float SecondsToSnap);
+    UFUNCTION(NetMulticast,Reliable) void MulticastClearFalconHooks();
+    TWeakObjectPtr<AActor> FalconHookTargets[2];
+    TWeakObjectPtr<class USwiftFalconHookVisual> FalconHookVisuals[2];
+    bool bFalconHooksDrawn=false;
+    double FalconChargeKey=0.;
+    FTimerHandle FalconDrawTimer;
     void TickWhirlwind(float Delta);
     void SweepWhirlwind(float FromDegrees,float ToDegrees);
-    void FinishWhirlwind();
+    void FinishWhirlwind(bool Interrupted=true);
     void FinishWhirlwindTraining();
     void GetWhirlwindCameraMotion(FVector& Location,FRotator& Rotation,float& FovDelta) const;
     void BeginWhirlwindFocus();
@@ -92,8 +144,21 @@ private:
     bool PrepareSkillRift();
     void StartDashRift();
     void StartWhirlwindRift();
+    void StartShadowStepRift(bool bStage2,bool bDualCast);
+    void UpdateWhirlwindRiftPose(const FTransform& Knife);
     void TickSkillRift(float Delta);
     void StopSkillRift();
+    void AdvanceShadowStep(float Delta);
+    void AdvanceShadowStepDash(float From,float To);
+    void TraceShadowStepBlade(const FTransform& From,const FTransform& To,bool bOffhand);
+    void ConfirmShadowStepImpact(const FHitResult& Hit,bool bWorld,bool bHeavy=false);
+    void ArriveShadowStepStrike();
+    void QueueShadowStepFX(const FHitResult& Hit,bool bWorld);
+    void FinishShadowStep(bool bTrain);
+    bool CanCancelShadowStepRecovery() const;
+    void GetShadowStepCameraMotion(FVector& Location,FRotator& Rotation,float& FovDelta) const;
+    FRotator ShadowStepViewmodelKick() const;
+    FVector ShadowStepViewmodelOffset() const;
     bool CanBeginHeavyCharge() const;
     void BeginHeavyCharge();
     void SetHeavyCharging(bool bCharging,bool bRelease);
@@ -102,10 +167,14 @@ private:
     void AdvanceHeavyCharge(float Delta);
     void AdvanceHeavy(float Delta);
     void FinishHeavy(bool bTrain);
+    void CountHeavyVictim(AActor* Target,bool Killed);
+    void FlushPairedHeavyContacts(bool EndWindow);
+    TMap<TWeakObjectPtr<AActor>,FKukriHeavyContacts> PairedHeavyContacts;
     void TickServerHeavyCharge();
     bool PayServerHeavyRelease();
     /** Normal left click (the combo), from a press or from a tap / short charge release. */
     void StartComboClick();
+    void FinishNetworkAttack(bool Cancelled=false);
     UFUNCTION(Server,Reliable) void ServerSetKukriHeavyCharge(const FString& Weapon,bool bCharging,bool bRelease,bool BothBlades,double ClientStartedAt);
     UFUNCTION(Client,Reliable) void ClientCancelKukriHeavyCharge(const FString& Weapon);
     void AdvanceUppercut(float Delta);
@@ -120,6 +189,10 @@ private:
     void TickDashReadiness(float Delta);
     void AdvanceDashAttack(float Delta);
     void DashContact();
+    void SampleSkillBladeWall(const FTransform& From,const FTransform& To,const FVector& Base,const FVector& Tip,int32 Beat);
+    void TrackWhirlwindWall(const FTransform& BladePose);
+    int32 LastSkillWallBeat=INDEX_NONE;
+    FVector WhirlwindWallBase=FVector::ZeroVector,WhirlwindWallTip=FVector::ZeroVector;
     void ConfirmDashImpact(const FHitResult& Hit);
     void FinishDashAttack();
     void GetDashCameraMotion(FVector& Location,FRotator& Rotation,float& FovDelta) const;
@@ -139,7 +212,10 @@ private:
     /** Impact moment (KukriStrike.cpp, KukriRhythm::Strikes): camera accent + miss stop, deferred hit cues, contact FX. */
     void ArriveStrike();
     void QueueContactFX(const FHitResult& Hit,bool bWorld);
-    void SpawnContactFX(const FHitResult& Hit,bool bWorld) const;
+    void SpawnContactFX(const FHitResult& Hit,bool bWorld);
+    UFUNCTION(Server,Unreliable) void ServerBladeScenery(FVector_NetQuantize10 Point,FVector_NetQuantizeNormal Normal);
+    UFUNCTION(NetMulticast,Unreliable) void MulticastBladeScenery(const FHitResult& Hit);
+    double LastServerScenery=-1.;
     FVector StrikeViewmodelOffset() const;
     /** Impact-moment profile of the current swing: the stage's Strikes row, the dual thrust's or the dual heavy's. */
     const KukriRhythm::FStrike& StrikeProfile() const;
@@ -148,8 +224,13 @@ private:
     const KukriRhythm::FSwing& SwingProfile() const;
     const KukriRhythm::FRift& RiftProfile() const;
     bool IsHatchetChop() const;
-    /** Two hatchets: the double thrust's clock plays both hatchets chopping down together (HatchetDualChopRhythm.h). */
+    /** Hatchets on the double thrust's clock: two hatchets chop down together (HatchetDualChopRhythm.h), or the hatchet hand of
+     *  a hatchet + kukri pair chops while the kukri thrusts (HatchetPairRhythm.h). */
     bool IsHatchetDualChop() const;
+    /** Camera of a pair chop: the dual chop's curve, half and half with the double thrust's when only one hand chops. */
+    void PairChopCamera(float T,FRotator& Rotation,float& Fov,FVector* Location=nullptr) const;
+    /** The pair's draw: DualEquip, or each hand's own weapon's toss when a hatchet is in the pair. */
+    FName DualEquipClip() const;
     /** Swing camera of InStage at author time T (the hatchet chop's curve on its stage, KukriRhythm::SwingCamera otherwise). */
     void StageSwingCamera(int32 InStage,float T,FRotator& Rotation,float& Fov,FVector* Location=nullptr) const;
     void ResetStrike();
@@ -162,7 +243,7 @@ private:
      *  back.  Returns true when it owns the clip this frame. */
     bool TickReadyRun(float Delta);
     /** Dual kukri (SourceAssets/DualKukriIdle20261025): off-hand slot of the active set, second blade on hand_l. */
-    void RefreshOffhand(UColdSteelStatusModel* Profile);
+    void RefreshOffhand(UColdSteelStatusModel* Profile,bool DrawNewOffhand=false);
     void UpdateOffhandBlade();
     /** Dual run: the right kukri turns into the reference sprint's reverse grip with the arm's blend into the run, and back
      *  out of it (before the pose is sampled). */
@@ -182,6 +263,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<UKukriArmsMeshComponent> Viewmodel;
     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> Blade;
     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> OffhandBlade;     // dual kukri: second assembly on hand_l
+    FKukriModuleVisual MainModules,OffhandModules;
     UPROPERTY(Transient) TMap<FName,TObjectPtr<UAnimSequence>> Animations;
     UPROPERTY(Transient) TObjectPtr<UAnimSequence> CurrentAnimation;
     UPROPERTY(Transient) TObjectPtr<USoundBase> SwingSound;
@@ -201,9 +283,17 @@ private:
     FString InstanceId;
     FString OffhandInstanceId;  // dual kukri: the off-hand kukri of the active weapon set (empty = single)
     bool bDual=false;
+    // Lone off-hand blade: InstanceId is the off-hand slot's item; the viewmodel mirrors the right arm onto the left and
+    // hides the right, OffhandBlade (hand_l) shows the weapon, BladeFrame() reads it, view cues are mirrored.
+    bool bLoneOffhand=false;
     bool bHatchetChop=false;    // main item is the hatchet and its chop clip loaded: combo stage 3 plays HatchetAttack3
     bool bHatchetReadyRun=false;  // main item is the hatchet and the ready-run clips loaded: a ready dual sprint shows them
     bool bDualHatchet=false;      // both hands hold hatchets (the dual sprints' own variants apply)
+    // Which hand of the pair holds a hatchet (RefreshOffhand): each hand plays its own weapon's variants (HatchetPairRhythm.h).
+    bool bMainHatchet=false, bOffhandHatchet=false;
+    // This double thrust's chopping hands (fixed at the swing start): both = HatchetDualAttack3, one = a hatchet + kukri pair.
+    bool bChopRight=false, bChopLeft=false;
+    uint8 RiftChopSides=0;        // the rift ribbon built for these chopping hands (1 right, 2 left)
     // Sprint-ready run set (HatchetReadyRhythm.h): 0 none, 1 enter, 2 loop, 3 exit.
     int32 ReadyRunPhase=0;
     bool bDualChop=false;       // this double thrust is two hatchets: it plays HatchetDualAttack3 (fixed at the swing start)
@@ -222,6 +312,7 @@ private:
     FName CurrentClip;
     float Elapsed=0.f;          // author seconds on the current clip
     bool bAttacking=false, bEquipping=false, bQueued=false;
+    bool bPendingOffhandDraw=false;
     bool bSwingPlayed=false, bImpactConfirmed=false, bWallHit=false;
     bool bTossPlayed=false, bCatchPlayed=false;
     bool bOffhandTossPlayed=false, bOffhandCatchPlayed=false;   // dual draw: the left hand's toss / catch cues
@@ -251,6 +342,7 @@ private:
     FVector RiftDirection=FVector::ForwardVector;
     float RiftAge=0.f, RiftFadeAge=-1.f;
     int32 RiftStage=INDEX_NONE;          // stage whose ribbon is in RiftVisual
+    int8 RiftFalconPhase=-1;
     bool bRiftMirrored=false;            // RiftVisual holds the ribbon mirrored left-right (the dual sweep's left blade)
     bool bRiftDual=false;                // RiftVisual holds the dual heavy's two crossing crescents (KukriRhythm::DualHeavyRift)
     bool bRiftChop=false;                // RiftVisual holds the hatchet chop's crescent (HatchetChopRhythm::Ribbon)
@@ -263,6 +355,9 @@ private:
     // Dual heavy (both kukris, KukriHeavyRhythm::DualCharge* / KukriRhythm::DualHeavy*): fixed at the charge start; the release
     // traces both blades in one window (the left with OffhandHitActors / PreviousOffhandBlade, as the dual thrust).
     bool bDualHeavy=false;
+    bool bFalconHeavy=false;
+    float FalconReleaseRate=1.f;
+    TSet<TWeakObjectPtr<AActor>> HeavyTrainedTargets;
     FString HeavyOffhandWeapon;
     bool DualHeavyReady() const;
     int32 HeavyHits=0, HeavyKills=0;      // unique mastery-training victims of the release (TrainHeavyStrike tiers)
@@ -270,12 +365,18 @@ private:
     float HeavyRequiredSeconds=2.f, HeavyMultiplier=1.f;
     // Server side of a remote owner's charge (the stamina bill and the release receipt; the server has no viewmodel).
     bool bServerHeavyCharging=false;
+    uint32 NetworkHeavyReleaseSerial=0;
+    TSet<TWeakObjectPtr<AActor>> NetworkHeavyTargets[2][2]; // [phase][hand]
+    bool bServerFalconRelease=false;
+    double ServerFalconReleasedAt=-1.;
+    float ServerFalconRate=1.f;
     FString ServerHeavyWeapon,ServerHeavyOffhandWeapon;
     double ServerHeavyStartedAt=-1., ServerHeavyRequired=2., NetworkHeavyReleaseUntil=-1.;
     double ServerHeavyReceivedAt=-1., ServerHeavyLastStartedAt=-1.;
     bool bRiftActive=false, bRiftStarted=false;
     // Sprint attack: frozen at release (damage/range/arc/knockback from DashAttackStats), training counted per cast.
     bool bDashAttack=false, bDashTrainingPending=false;
+    bool bDualDash=false;   // this sprint attack is the pair's two-handed chop down (KukriDualDashRhythm.h, fixed at its start)
     float DashSprintSeconds=0.f, DashRangeCM=0.f, DashArcDegrees=60.f, DashKnockbackCM=0.f;
     int32 DashHits=0, DashKills=0;
     FVector DashDirection=FVector::ZeroVector;
@@ -284,6 +385,7 @@ private:
     FQuickCombatCast QuickCast;
     // Whirlwind: stats and tuning frozen at the cast; one hit per target; the hit-stop pauses turn, sweep, pose and camera.
     bool bWhirlwind=false, bWhirlwindTrainingPending=false, bWhirlwindSwingPlayed=false, bWhirlwindFocusActive=false;
+    bool bStaffOffhandWhirlwind=false;
     FWhirlwindCast WhirlwindCast;
     FWhirlwindTuning WhirlwindTuning;
     float WhirlwindYaw=0.f, WhirlwindPause=0.f, WhirlwindPauseSpent=0.f, WhirlwindReaction=1.f;
@@ -295,7 +397,27 @@ private:
     TArray<FKukriWhirlwindDepth> WhirlwindDepth;
     // Skill rift: frozen in world space at its start (the dash crescent rides with the dash while it unfolds).
     EKukriSkillRift SkillRift=EKukriSkillRift::None, SkillRiftMesh=EKukriSkillRift::None;
+    bool bSkillRiftMirrored=false;    // the built dash crescent is the lone off-hand blade's mirror image
+    bool bSkillRiftDual=false;        // ...or the pair's two crescents (KukriDualDashRhythm)
     FTransform SkillRiftOrigin;
     FVector SkillRiftDirection=FVector::ZeroVector, SkillRiftPawnLocation=FVector::ZeroVector;
     float SkillRiftAge=0.f, SkillRiftFadeAge=-1.f;
+    // ShadowStepSlash (瞬步掠影斩): Stage 1 pass-through dash + 30° slash, Stage 2 zero-displacement backhand follow-up.
+    bool bShadowStep=false, bShadowStepStage2=false, bDualShadowStep=false;
+    bool bShadowStepTrainingPending=false, bShadowStepDashStarted=false, bShadowStepDashBlocked=false, bShadowStepDashDepenetrated=false;
+    bool bShadowStepFollowupUnlocked=false, bShadowStepFollowupUsed=false;
+    bool bShadowStepDashWhooshPlayed=false, bShadowStepRightSwingPlayed=false, bShadowStepLeftSwingPlayed=false;
+    bool bShadowStepRiftStarted=false;
+    bool bShadowStepStrikeDone=false, bShadowStepPendingFlesh=false, bShadowStepPendingWall=false, bShadowStepHeavyImpact=false;
+    FHitResult ShadowStepPendingFleshHit, ShadowStepPendingWallHit;
+    TArray<FKukriPendingFX> ShadowStepPendingFX;
+    float ShadowStepPressStop=0.f;
+    uint32 ShadowStepSerial=0;
+    int32 ShadowStepKills=0;
+    float ShadowStepFollowupTimer=0.f;
+    float ShadowStepStage1Damage=0.f, ShadowStepStage2Damage=0.f;
+    float OffhandShadowStepStage1Damage=0.f, OffhandShadowStepStage2Damage=0.f;
+    FShadowStepCast ShadowStepCast;
+    FVector ShadowStepDirection=FVector::ZeroVector;
+    FVector ShadowStepDashStartLocation=FVector::ZeroVector;
 };

@@ -9,12 +9,16 @@
 #include "NiagaraComponent.h"
 #include "NiagaraSystem.h"
 #include "Net/UnrealNetwork.h"
+#include "GameFramework/GameStateBase.h"
+#include "Engine/World.h"
 
 namespace
 {
     using namespace UE::Geometry;
     constexpr float FadeInSeconds=.24f;
     constexpr float MinimumFadeOutSeconds=.75f;
+    double HolyClock(const UWorld* World)
+    {return World->GetGameState()?World->GetGameState()->GetServerWorldTimeSeconds():World->GetTimeSeconds();}
     void Vertex(FDynamicMesh3& Mesh,const FVector3d& Position,const FVector3f& Normal,const FVector2f& UV)
     {Mesh.AppendVertex(Position);Mesh.Attributes()->PrimaryNormals()->AppendElement(Normal);Mesh.Attributes()->PrimaryUV()->AppendElement(UV);}
     void Triangle(FDynamicMesh3& Mesh,int32 A,int32 B,int32 C)
@@ -58,13 +62,17 @@ void AFPSHolyLightEffect::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(AFPSHolyLightEffect,NetTarget);
     DOREPLIFETIME(AFPSHolyLightEffect,NetSpell);
+    DOREPLIFETIME(AFPSHolyLightEffect,NetStartedAt);
 }
 void AFPSHolyLightEffect::InitializeLight(AActor* Target,UNiagaraSystem* System,const FHolyLightCast& Spell)
 {
-    FollowTarget=Target;Settings=Spell;Age=0;
-    if(HasAuthority()){NetTarget=Target;NetSpell=Spell;} // 远端副本按 NetSpell 重演同款光柱
+    FollowTarget=Target;Settings=Spell;
+    if(HasAuthority()){NetTarget=Target;NetSpell=Spell;NetStartedAt=HolyClock(GetWorld());}
+    Age=FMath::Max(0.,HolyClock(GetWorld())-NetStartedAt);
     // The longer visual tail does not change the spell's contact or gameplay clock.
     Settings.Fade=FMath::Max(Settings.Fade,MinimumFadeOutSeconds);
+    SetLifeSpan(FMath::Max(.01f,Settings.Duration+Settings.Fade-Age+.1f));
+    if(GetNetMode()==NM_DedicatedServer){SetActorTickEnabled(false);return;}
     if(auto* Capsule=Target->FindComponentByClass<UCapsuleComponent>())FootOffset=-Capsule->GetScaledCapsuleHalfHeight();
     else {FVector Origin,Extent;Target->GetActorBounds(true,Origin,Extent);FootOffset=Origin.Z-Extent.Z-Target->GetActorLocation().Z;}
     SetActorLocation(Target->GetActorLocation()+FVector(0,0,FootOffset));
@@ -91,11 +99,11 @@ void AFPSHolyLightEffect::InitializeLight(AActor* Target,UNiagaraSystem* System,
     Motes->SetVariableFloat(TEXT("User.Progress"),0);Motes->SetVariableFloat(TEXT("User._Brightness"),0);
     Motes->SetVariableFloat(TEXT("User._Size"),1);Motes->SetVariableFloat(TEXT("User.Extent"),10);Motes->SetVariableFloat(TEXT("User.Tall"),1);
     Light->SetIntensity(0);
-    Motes->Activate(true);SetLifeSpan(Settings.Duration+Settings.Fade+.1f);
+    Motes->Activate(true);
 }
 void AFPSHolyLightEffect::NetInit()
 {
-    if(bNetInit||!NetTarget||NetSpell.Duration<=0)return;
+    if(bNetInit||!NetTarget||NetSpell.Duration<=0||NetStartedAt<0.)return;
     auto* System=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/HolyLight/NS_HolyLightMotes.NS_HolyLightMotes"));
     if(!System)return;
     InitializeLight(NetTarget,System,NetSpell);
@@ -105,7 +113,8 @@ void AFPSHolyLightEffect::Tick(float Delta)
 {
     Super::Tick(Delta);
     if(!HasAuthority()&&!bNetInit){NetInit();if(!bNetInit)return;}
-    Age+=Delta;
+    // A newly relevant effect joins the server's fade, never a fresh full cast.
+    Age=FMath::Max(0.,HolyClock(GetWorld())-NetStartedAt);
     if(FollowTarget.IsValid())SetActorLocation(FollowTarget->GetActorLocation()+FVector(0,0,FootOffset));
     const float FadeIn=FMath::SmoothStep(0.f,FadeInSeconds,Age);
     const float FadeOut=1-FMath::SmoothStep(Settings.Duration,Settings.Duration+Settings.Fade,Age);

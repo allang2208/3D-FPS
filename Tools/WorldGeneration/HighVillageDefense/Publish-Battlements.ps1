@@ -1,4 +1,4 @@
-param([string]$Run = (Join-Path 'F:/FPSGAMEData/ArtProduction/VillageBattlementFit' (Get-Date -Format 'yyyyMMdd-HHmmss-fff')),
+﻿param([string]$Run = (Join-Path 'F:/FPSGAMEData/ArtProduction/VillageBattlementFit' (Get-Date -Format 'yyyyMMdd-HHmmss-fff')),
       [switch]$PublishSaved)
 $ErrorActionPreference = 'Stop'
 $project = (Resolve-Path "$PSScriptRoot/../../..").Path

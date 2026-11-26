@@ -3,21 +3,21 @@
 用户要求：为 `ue_hardknuckle_gloves`（硬壳战术手套）与 `ue_st6_sleeves`（ST6 战术上衣）设置防御数值与效果，浮窗沿用其他装备的写法；同时给出后续装备可复用的取值标准。
 
 > 修正记录（同日）：第一版把 `bonusStats` 写进 items.json，并新造了 `adsTimePercent` 这个名字。实际上——
-> 1. 装备的战斗/手感数值既有权威表是 `Content/ColdSteelData/source-combat-items.json`（`ue_field_gloves`: meleeAttackSpeed/reloadSpeed/bowDrawSpeed；`ue_steel_gauntlets`: −10%；各套装的 defense/armorSet 也在这里），运行时由 `CombatItemFormula::Read` 对缺失字段做覆盖，所以 field gloves 的 +10% 换弹今天就是从这张表生效的。
+> 1. 装备的战斗/手感数值现役覆盖表是 `Content/ColdSteelData/source-combat-items.json`（`ue_field_gloves`: meleeAttackSpeed/reloadSpeed/bowDrawSpeed；`ue_steel_gauntlets`: −10%；另有 `ue_field_gloves_black`、`ue_hardknuckle_gloves`、`ue_st6_sleeves`）。2026-10-19 该表已收缩为这 5 条，旧套装的 defense/armorSet 等 274 条移入 `Docs/Archives/legacy-gamedev-combat-items-20261019.json`。运行时仍由 `CombatItemFormula::Read` 对缺失字段做覆盖，所以 field gloves 的 +10% 换弹从这张表生效。
 > 2. ADS 瞄准时间（开镜耗时）本来就是武器属性：`FGunsmithStats::ADS`（秒），配件写 `ads_percent`（时间百分比，负值更快）/`ads_seconds`，弓写 `ads_mult`，面板与浮窗直接显示它。
 > 本次已把两件装备的 `bonusStats` 移到权威表，并把装备层键名改成与既有语义一一对应的 `adsPercent`（等价于配件 `ads_percent`），不再新造概念。
 
 ## 结算机制（先确认，避免写“只显示不生效”的字段）
 
-- 数值分层：**items.json** 管物品身份与 `defense`（与 `ue_field_gloves` 同惯例）；**source-combat-items.json** 管装备 `bonusStats`/`armorSet` 等战斗数值，`CombatItemFormula::Read` 只补齐实例里缺失的顶层字段——所以同名键在两处都有时，实例快照（items.json 创建时写入）优先。
+- 数值分层：**items.json** 管物品身份与 `defense`（与 `ue_field_gloves` 同惯例）；**source-combat-items.json** 只管现役 `bonusStats`（旧 `armorSet`/旧套装数值已归档），`CombatItemFormula::Read` 只补齐实例里缺失的顶层字段——所以同名键在两处都有时，实例快照（items.json 创建时写入）优先。
 - 装备防御：`UColdSteelEnhancementSystem::Defense` = `floor(base + perEnhance × enhanceLevel)`，强化上限 `ArmorMax=10`。
 - 角色防御：`UColdSteelStatusModel::Derived("def")` 把所有 `Place==1` 装备的防御相加（手套、铠甲、鞋靴等都算），再乘武器工艺 `defensePercent`；角色自身还有 `floor(Con×1.5 + Str×0.3)` 的基础防御。
 - 伤害减免：`CoreCombatFormula::Defense` = `max(Damage × (1 − Def/(Def+60)), Damage×10%)`。
-- `bonusStats` 真实生效键：`str/dex/int/con/wis/luck`、`maxHp/maxMp`、`atk/matk/crit`、`meleeAttackSpeed`、`meleeStaminaCost`、`moveSpeedPercent`、`reloadSpeed`、`bowDrawSpeed`、`adsPercent`、`sprintStaminaCost`；百分比键用小数（`0.05` = 5%）。
+- `bonusStats` 真实生效键：`str/dex/int/con/wis/luck`、`maxHp/maxMp`、`atk/matk/crit`、`meleeAttackSpeed`、`meleeStaminaCost`、`moveSpeedPercent`、`reloadSpeed`、`bowDrawSpeed`、`adsPercent`、`sprintStaminaCost`；2026-10-19 蓝魔法师套新增 `magicAttackPercent`、`castRangePercent`、`castSpeedPercent`、`magicCooldownPercent`、`magicCostPercent`（消费端见 [蓝魔法师五件套](blue-mage-set-values-20261019.md)）。百分比键用小数（`0.05` = 5%），冷却/消耗类负值表示更短/更省。
 - `adsPercent`：装备层对既有 ADS 属性的修正，语义＝配件 `ads_percent`（时间百分比，**负值更快**）。`UColdSteelStatusModel::ADSTimeMultiplier()` 返回 `clamp(1+bonus, 0.5, 1.5)`；枪械在 `FPSGAMECharacterProfile.cpp` 乘进 `ADSInDuration`，弓在 `BowWeaponComponent::RefreshEquipment` 乘进 `AimInSeconds/AimOutSeconds`，武器浮窗的「开镜耗时」同乘该倍率，三处一致。
 - `sprintStaminaCost`：`SprintStaminaPerSecond()` 乘 `max(0, 1+bonus)`；角色面板「奔跑 X/秒」与真实消耗同步。
 - `defense.damageReduction`、`defense.staminaCost` 只在盾牌与浮窗上出现，普通护甲没有消费端，本次不写。
-- `armorSet` 生效需要槽位 1 头盔 + 7 铠甲 + 13 鞋靴三件同 ID（`UColdSteelStatusModel::ArmorSet`），手套不参与；当前没有配套头盔/鞋靴，因此不写不生效的套装。
+- `armorSet` 生效需要槽位 1 头盔 + 7 铠甲 + 13 鞋靴三件同 ID（`UColdSteelStatusModel::ArmorSet`），手套不参与。蓝魔法师五件套是显式例外：五件都带 `armorSet: blue_mage`，另由 `BlueMageSetComplete()` 检查手套（3）和裤子（15），见 [蓝魔法师五件套](blue-mage-set-values-20261019.md)。
 - 旧存档：`ColdSteelProfileRuntime` 对 `defense`/`bonusStats` 做目录权威同步；本轮另加一次性清理——这两件实例里若残留早期 `bonusStats` 会挡住覆盖层，清掉后按 `source-combat-items` 读取。
 
 ## 权威表里的防御曲线（取值依据）
@@ -51,7 +51,7 @@
 
 1. `defense` 写在 items.json（与既有 `ue_*` 装备一致）；`perEnhance` 小件 1、胸甲类 2；强化上限 10。
 2. 战斗/手感 `bonusStats` 写在 `source-combat-items.json` 对应 ID 下，键只从上文真实键里选，1–2 条为宜，百分比用小数，负值表示“更快/更省”。
-3. 套装：先备齐头盔+铠甲+鞋靴三件同 `armorSet` ID，再到 `SetEffect` 注册该 ID 的效果。
+3. 套装：先备齐头盔+铠甲+鞋靴三件同 `armorSet` ID，再到 `SetEffect` 注册该 ID 的效果；五件套另加类似 `BlueMageSetComplete()` 的件数检查，不要改 `ArmorSet()` 的三槽语义。
 4. 不要用 `defense.damageReduction` / `defense.staminaCost` 表达普通护甲效果；盾牌的这些字段另有消费端。
 5. 描述 `desc` 只写外观与用法，不重复数值。
 

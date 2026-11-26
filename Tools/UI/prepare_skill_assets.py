@@ -8,7 +8,7 @@ import wave
 import imageio_ffmpeg
 
 PROJECT = Path(__file__).resolve().parents[2]
-SOURCE = Path(r"E:/无尽轮回/长期备份/2026-7-13-1/game-dev")
+SOURCE = Path(r"F:/FPSGAMEData/ArtProduction/SourceAssets/LegacyGameDev")
 ORIGINALS = PROJECT / "SourceAssets/Skills20260913"
 RUNTIME = PROJECT / "Content/ColdSteelData/Skills"
 
@@ -29,7 +29,7 @@ def main():
     with wave.open(str(wav), "rb") as data:
         metadata = {"sampleRate": data.getframerate(), "channels": data.getnchannels(),
                     "bits": data.getsampwidth() * 8, "durationSeconds": data.getnframes()/data.getframerate()}
-    manifest = {"sourceProject": str(SOURCE), "sourceConfig": "data/audio-config.json:uiCues.playerUpgrade",
+    manifest = {"sourceProject": 'E:/无尽轮回/长期备份/2026-7-13-1/game-dev', "inputRoot": str(SOURCE), "sourceConfig": "data/audio-config.json:uiCues.playerUpgrade",
                 "usage": "Reuse from the user's existing project; no new redistribution license asserted. Source binaries stay local.",
                 "icon": {"source": str(icon), "sha256": digest(icon), "runtime": "Skills/rifle_mastery.png", "operation": "unchanged copy"},
                 "audio": {"source": str(sound), "sourceSha256": digest(sound), "runtime": "Skills/player_upgrade.wav", "sha256": digest(wav), **metadata}}

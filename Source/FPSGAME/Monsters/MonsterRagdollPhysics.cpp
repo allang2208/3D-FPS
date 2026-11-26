@@ -19,6 +19,7 @@ namespace MonsterRagdollPhysics
 void RetireCorpseTicks(USkeletalMeshComponent* Mesh)
 {
     Mesh->SuspendClothingSimulation();
+    Mesh->bPerBoneMotionBlur=false;
     Mesh->SetComponentTickEnabled(false);
     auto* Owner = Mesh->GetOwner();
     Owner->SetActorTickEnabled(false);

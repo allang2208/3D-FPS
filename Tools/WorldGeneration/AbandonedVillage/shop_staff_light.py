@@ -21,3 +21,4 @@ def apply_embers(component):
             if not ember:
                 raise RuntimeError('Missing '+EMBER)
             component.set_material(slot,ember)
+

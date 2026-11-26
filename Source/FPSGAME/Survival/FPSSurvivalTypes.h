@@ -23,6 +23,16 @@ struct FFPSSurvivalState
     static constexpr float FountainBlessingDuration=720.f;
     /** Remaining gameplay seconds; survives travel/save, offline time is not consumed. */
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Survival") float FountainBlessingSeconds=0.f;
+    // Food buffs and debuffs default to ten gameplay minutes unless explicitly specified.
+    static constexpr float DefaultFoodEffectDuration=600.f;
+    static constexpr float SausageRecoveryDuration=DefaultFoodEffectDuration;
+    static constexpr float SausageRecoveryRateMultiplier=1.05f;
+    /** Same lifecycle as fountain blessing: gameplay seconds, saved across travel, reset on respawn. */
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Survival") float SausageRecoverySeconds=0.f;
+    static constexpr float LargeLambMealDuration=DefaultFoodEffectDuration;
+    static constexpr float LargeLambMaximumMultiplier=1.1f;
+    static constexpr float LargeLambRecoveryMultiplier=1.05f;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Survival") float LargeLambMealSeconds=0.f;
 };
 
 /** Physiological loss uses the existing death/respawn path, bypassing combat avoidance. */

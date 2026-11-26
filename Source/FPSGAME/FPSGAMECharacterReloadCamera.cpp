@@ -1,4 +1,5 @@
 #include "FPSGAMECharacter.h"
+#include "Weapons/M249SideMagazine.h"
 #include "Weapons/WeaponActionCameraComponent.h"
 #include "Weapons/PistolDualWieldComponent.h"
 #include "Weapons/DanWesson715WeaponAssets.h"
@@ -7,6 +8,7 @@
 #include "Weapons/PKMLowpolyWeaponAssets.h"
 #include "Weapons/Super90WeaponAssets.h"
 #include "Weapons/M870WeaponAssets.h"
+#include "Weapons/M24WeaponAssets.h"
 #include "Weapons/Super90SpeedloaderAssets.h"
 #include "Skills/FPSCastingMeshComponent.h"
 #include "Animation/AnimSequence.h"
@@ -48,16 +50,59 @@ void AFPSGAMECharacter::BuildReloadCameraTracks(FWeaponReloadCameraTracks& Track
 {
     Tracks.Reset();
     if(!IsLocallyControlled()||bGunsmithInspection||IsTraversing())return;
+    if(bInventoryWeaponReady&&IsM24Weapon()&&!IsReloading()
+        &&IsRevolverFireActionPlaying()&&!IsCastBlockingLeftHandAction())
+    {
+        // Use the same absolute source clock as the M24's bolt and audio.
+        // This only feeds the existing additive camera layer; viewmodel roots stay fixed.
+        auto& Track=Tracks.AddDefaulted_GetRef();
+        Track.Time=ActionStartPosition+float(GetWorld()->GetTimeSeconds()-LastShotWorldTime)*ActionPlayRate;
+        Track.End=ActiveActionAnimation->GetPlayLength();
+        Track.Add(M24WeaponAssets::BoltLift,E::BoltLift);
+        Track.Add(M24WeaponAssets::BoltPull,E::BoltPull);
+        Track.Add(M24WeaponAssets::BoltPush,E::BoltPush);
+        Track.Add(M24WeaponAssets::BoltClosed,E::BoltLock);
+    }
     if(bInventoryWeaponReady&&IsReloading()&&ActiveActionAnimation&&!HasOffhandPistol())
     {
         auto& Track=Tracks.AddDefaulted_GetRef();
         Track.Time=ReloadSourceTime(WeaponStateElapsed);Track.End=ReloadSourceTime(WeaponStateDuration);
         Track.Begin=bReloadCycleOnly?ReloadSourceTime(ReloadResumeElapsed):0.f;
         Track.FamilyScale=IsPistolWeapon()?WeaponReloadCamera::PistolScale:
-            (IsTubeShotgunWeapon()||bUseASH12||IsRSH12Weapon()||PKMLowpolyWeaponAssets::Matches(AKMViewmodel)||LMG201WeaponAssets::Matches(AKMViewmodel))
+            (IsTubeShotgunWeapon()||bUseASH12||IsRSH12Weapon()||PKMLowpolyWeaponAssets::SharesFeedMotion(AKMViewmodel)||LMG201WeaponAssets::Matches(AKMViewmodel))
                 ?WeaponReloadCamera::HeavyScale:WeaponReloadCamera::RifleScale;
         if(IsRSH12Weapon())Track.FamilyScale=WeaponReloadCamera::RifleScale;
-        if(IsTubeShotgunWeapon())
+        if(M249WeaponAssets::Matches(AKMViewmodel))
+        {
+            // RC1 preparation and settling, retaining its shared output limits.
+            Track.FollowScale=2.1f;Track.ContactScale=1.2f;
+        }
+        if(HasM249SideMagazine())
+        {
+            const bool Extended=MagazineAttachmentId==TEXT("m249_side_mag_45");
+            Track.FollowScale=Extended?1.95f:1.8f;Track.ContactScale=Extended?1.2f:1.15f;
+            Track.Add(M249SideMagazine::Out,E::MagazineOut);
+            Track.Add(M249SideMagazine::Insert,E::Insert);Track.Add(M249SideMagazine::Seat,E::Seat);
+            if(bPendingEmptyReload)
+            {
+                Track.Add(M249SideMagazine::ChargePull,E::Pull);Track.Add(M249SideMagazine::ChargeRear,E::BoltLock);
+                Track.Add(M249SideMagazine::ChargePush,E::BoltPush);Track.Add(M249SideMagazine::ChargeClosed,E::Release);
+            }
+        }
+        else if(IsM24Weapon())
+        {
+            Track.Add(M24WeaponAssets::MagazineOut,E::MagazineOut);
+            Track.Add(M24WeaponAssets::MagazineInsert,E::Insert);
+            Track.Add(M24WeaponAssets::MagazineSeat,E::Seat);
+            if(bPendingEmptyReload)
+            {
+                Track.Add(M24WeaponAssets::ChargeLift,E::BoltLift);
+                Track.Add(M24WeaponAssets::ChargePull,E::BoltPull);
+                Track.Add(M24WeaponAssets::ChargePush,E::BoltPush);
+                Track.Add(M24WeaponAssets::ChargeRelease,E::BoltLock);
+            }
+        }
+        else if(IsTubeShotgunWeapon())
         {
             using namespace Super90WeaponAssets;
             if(bSuper90SpeedReload)
@@ -88,7 +133,7 @@ void AFPSGAMECharacter::BuildReloadCameraTracks(FWeaponReloadCameraTracks& Track
             // its separate authored early case-drop contact below.
             Cylinder(Track,bPendingEmptyReload,bRevolverSingleReload,RevolverReloadCount,ReloadStages.Ready,false);
         }
-        else if(HasLMG201ClothBox()||PKMLowpolyWeaponAssets::Matches(AKMViewmodel))
+        else if(HasLMG201ClothBox()||PKMLowpolyWeaponAssets::SharesFeedMotion(AKMViewmodel))
         {
             const auto& C=MechanicalCueTimes;
             const bool Cloth=HasLMG201ClothBox();

@@ -1,9 +1,72 @@
 {
-  "_comment": "剑类共用当前 SM_ForgeBlank0/1/2 剑胚及 sword_blank.points；mold 只显示所选成品。新增剑配方无需复制剑胚或打击点。",
+  "_comment": "锻造版本2：按配方消耗固定材料，另按 metal_count 消耗一种所选金属锭。铁0%、铜2%、钢4%、银6%、铂金8%、金10%；每次有效命中+0.75个百分点，20次最高+15%，总上限+25%。legacy_inputs仅用于缺少支付快照的旧档返料。枪械装配共用此金属目录。",
   "sword_blank": {
-    "points": [[0.496,0.13],[0.499,0.20],[0.496,0.27],[0.500,0.34],[0.497,0.41],[0.501,0.48],[0.496,0.55],[0.500,0.62]]
+    "points": [
+      [
+        0.496,
+        0.13
+      ],
+      [
+        0.499,
+        0.2
+      ],
+      [
+        0.496,
+        0.27
+      ],
+      [
+        0.5,
+        0.34
+      ],
+      [
+        0.497,
+        0.41
+      ],
+      [
+        0.501,
+        0.48
+      ],
+      [
+        0.496,
+        0.55
+      ],
+      [
+        0.5,
+        0.62
+      ]
+    ]
   },
   "recipes": [
+    {
+      "id": "forge_highland_claymore",
+      "output": "ue_highland_claymore",
+      "inputs": [
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        },
+        {
+          "item": "wood",
+          "count": 2
+        }
+      ],
+      "mold": "Icons/ue_highland_claymore.png",
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 8
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        }
+      ],
+      "metal_count": 8
+    },
     {
       "id": "forge_forged_steel_greatsword",
       "output": "ue_forged_steel_greatsword",
@@ -17,22 +80,304 @@
       "metal_count": 3
     },
     {
-      "id": "forge_highland_claymore",
-      "output": "ue_highland_claymore",
-      "inputs": [{"item": "ironIngot", "count": 8}, {"item": "wood", "count": 2}, {"item": "search_forging_alloy_blank", "count": 1}],
-      "mold": "Icons/ue_highland_claymore.png"
-    },
-    {
       "id": "forge_rune_sword",
       "output": "ue_rune_sword",
-      "inputs": [{"item": "ironIngot", "count": 8}, {"item": "silverIngot", "count": 4}, {"item": "wood", "count": 2}, {"item": "magic_dust", "count": 6}, {"item": "search_forging_alloy_blank", "count": 2}],
-      "mold": "Icons/ue_rune_sword.png"
+      "inputs": [
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 2
+        },
+        {
+          "item": "wood",
+          "count": 2
+        }
+      ],
+      "mold": "Icons/ue_rune_sword.png",
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 8
+        },
+        {
+          "item": "silverIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "magic_dust",
+          "count": 6
+        },
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 2
+        }
+      ],
+      "metal_count": 8
     },
     {
       "id": "forge_frost_crystal_sword",
       "output": "ue_frost_crystal_sword",
-      "inputs": [{"item": "ironIngot", "count": 6}, {"item": "silverIngot", "count": 4}, {"item": "wood", "count": 2}, {"item": "quartz", "count": 8}, {"item": "magic_dust", "count": 8}, {"item": "search_forging_alloy_blank", "count": 2}],
-      "mold": "Icons/ue_frost_crystal_sword.png"
+      "inputs": [
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 2
+        },
+        {
+          "item": "wood",
+          "count": 2
+        }
+      ],
+      "mold": "Icons/ue_frost_crystal_sword.png",
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 6
+        },
+        {
+          "item": "silverIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "magic_dust",
+          "count": 8
+        },
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 2
+        }
+      ],
+      "metal_count": 8
+    },
+    {
+      "id": "forge_tang_dao",
+      "output": "ue_tang_dao",
+      "blank": "tang_dao",
+      "inputs": [
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        },
+        {
+          "item": "wood",
+          "count": 2
+        }
+      ],
+      "mold": "Icons/ue_tang_dao.png",
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 8
+        },
+        {
+          "item": "wood",
+          "count": 2
+        },
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        }
+      ],
+      "metal_count": 6
+    },
+    {
+      "id": "forge_steel_warhammer",
+      "output": "ue_steel_warhammer",
+      "blank": "warhammer",
+      "inputs": [
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        },
+        {
+          "item": "wood",
+          "count": 3
+        }
+      ],
+      "mold": "Icons/ue_steel_warhammer.png",
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 12
+        },
+        {
+          "item": "wood",
+          "count": 3
+        },
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        }
+      ],
+      "metal_count": 12
+    },
+    {
+      "id": "forge_kukri",
+      "output": "ue_kukri",
+      "blank": "single_handed",
+      "inputs": [
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        },
+        {
+          "item": "wood",
+          "count": 1
+        }
+      ],
+      "mold": "Icons/ue_kukri.png",
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 1
+        },
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        }
+      ],
+      "metal_count": 4
+    },
+    {
+      "id": "forge_xuanchi_zhenyue",
+      "output": "ue_xuanchi_zhenyue",
+      "blank": "sword",
+      "inputs": [
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 2
+        },
+        {
+          "item": "wood",
+          "count": 3
+        }
+      ],
+      "mold": "Icons/ue_xuanchi_zhenyue.png",
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 10
+        },
+        {
+          "item": "silverIngot",
+          "count": 2
+        },
+        {
+          "item": "wood",
+          "count": 3
+        },
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 2
+        }
+      ],
+      "metal_count": 10
+    },
+    {
+      "id": "forge_zhanmadao",
+      "output": "ue_zhanmadao",
+      "blank": "tang_dao",
+      "inputs": [
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        },
+        {
+          "item": "wood",
+          "count": 3
+        }
+      ],
+      "mold": "Icons/ue_zhanmadao.png",
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 10
+        },
+        {
+          "item": "wood",
+          "count": 3
+        },
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 1
+        }
+      ],
+      "metal_count": 10
+    },
+    {
+      "id": "forge_runebound_warhammer",
+      "output": "ue_runebound_warhammer",
+      "blank": "warhammer",
+      "inputs": [
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 2
+        },
+        {
+          "item": "wood",
+          "count": 3
+        }
+      ],
+      "mold": "Icons/ue_runebound_warhammer.png",
+      "legacy_inputs": [
+        {
+          "item": "ironIngot",
+          "count": 12
+        },
+        {
+          "item": "silverIngot",
+          "count": 4
+        },
+        {
+          "item": "wood",
+          "count": 3
+        },
+        {
+          "item": "magic_dust",
+          "count": 6
+        },
+        {
+          "item": "search_forging_alloy_blank",
+          "count": 2
+        }
+      ],
+      "metal_count": 12
+    }
+  ],
+  "metals": [
+    {
+      "item": "ironIngot",
+      "damage_bonus": 0.0
+    },
+    {
+      "item": "copperIngot",
+      "damage_bonus": 0.02
+    },
+    {
+      "item": "steelIngot",
+      "damage_bonus": 0.04
+    },
+    {
+      "item": "silverIngot",
+      "damage_bonus": 0.06
+    },
+    {
+      "item": "platinumIngot",
+      "damage_bonus": 0.08
+    },
+    {
+      "item": "goldIngot",
+      "damage_bonus": 0.1
     }
   ]
 }

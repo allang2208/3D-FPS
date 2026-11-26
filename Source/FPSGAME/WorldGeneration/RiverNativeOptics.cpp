@@ -73,6 +73,13 @@ bool URiverPilotFXSubsystem::FindNativeImmersion(const FVector& View,FFluidWater
             NearestDepth=Depth;Found=true;
         }
     }
+    if(ForestWaterPlan&&ForestWaterMID&&OwnerRiver.IsValid())
+    {
+        const auto Pool=ForestWaterPlan->Sample(View.X,View.Y);const double Depth=Pool.WaterZ-View.Z;
+        if(Pool.Wet&&Depth>0&&Depth<NearestDepth&&View.Z>OwnerRiver->Height(View.X,View.Y))
+        {Contact.Position=FVector(View.X,View.Y,Pool.WaterZ);Contact.Normal=FVector::UpVector;
+            Contact.Material=ForestWaterMID;Contact.Depth=Depth;Contact.Static=false;NearestDepth=Depth;Found=true;}
+    }
     for(const auto& Surface:StaticSurfaces)
     {
         const auto* Component=Surface.Component.Get();
@@ -136,6 +143,7 @@ void URiverPilotFXSubsystem::UpdateNativeOptics()
             Material->SetScalarParameterValue(TEXT("NativeCausticDaylight"),NativeDaylight);
         };
         Apply(WaterMID);
+        Apply(ForestWaterMID);
         StaticSurfaces.RemoveAll([](const auto& S){return !S.Component.IsValid();});
         for(const auto& Surface:StaticSurfaces)
             if(Surface.ImmersionDepthCm>0&&Surface.Component->Bounds.GetBox().ComputeSquaredDistanceToPoint(Eye)<FMath::Square(9500.f))

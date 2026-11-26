@@ -1,4 +1,4 @@
-param([string]$EngineRoot='E:/Program Files (x86)/UE_5.8', [switch]$DiningFinishOnly, [switch]$ServiceCounterOnly)
+﻿param([string]$EngineRoot='E:/Program Files (x86)/UE_5.8', [switch]$DiningFinishOnly, [switch]$ServiceCounterOnly)
 $ErrorActionPreference='Stop'
 $root=[IO.Path]::GetFullPath((Join-Path $PSScriptRoot '../../../..'))
 $stage=Join-Path $env:TEMP ('FPSGAME-TavernFurniture-'+[Guid]::NewGuid().ToString('N'))

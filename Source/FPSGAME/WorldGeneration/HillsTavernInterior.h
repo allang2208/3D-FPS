@@ -10,5 +10,6 @@ struct FHillsTavernInterior
     static void AddBlockingMeshPaths(TArray<FSoftObjectPath>& Paths);
     static bool AreBlockingMeshesLoaded();
     // Room space is centred on the finished floor, with the street on the -Y side.
+    static const FVector RefitCounterOffset;
     static void Populate(AActor& Host, USceneComponent& RoomRoot, bool bRepaired);
 };

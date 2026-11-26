@@ -17,7 +17,9 @@ struct FColdSteelEnhanceQuote
     FColdSteelItem Before,After;
     TArray<FColdSteelEnhanceCost> Costs;
 };
-/** Single-player processing transactions, persisted in the existing item instance JSON. */
+DECLARE_MULTICAST_DELEGATE_TwoParams(FColdSteelEnhancementNetworkResult,bool,const FString&);
+
+/** Processing uses the existing inventory transaction and instance JSON. */
 UCLASS()
 class FPSGAME_API UColdSteelEnhancementSystem : public UGameInstanceSubsystem
 {
@@ -25,15 +27,26 @@ class FPSGAME_API UColdSteelEnhancementSystem : public UGameInstanceSubsystem
 public:
     virtual void Initialize(FSubsystemCollectionBase&) override;
     bool Supports(const FColdSteelItem&) const;
+    static void PreserveAuthoritative(TArray<FColdSteelItem>& Incoming,const TArray<FColdSteelItem>& Authority);
     bool CanEnchant(const FColdSteelItem&,const FColdSteelEnchantOption&) const;
     int32 MaxLevel(const FColdSteelItem&) const;
     FColdSteelEnhanceQuote Quote(const FString& ItemId,const FString& ScrollId=TEXT("")) const;
+    const FColdSteelItem* BenchItem() const;
+    bool Transfer(const FString& ItemId,FString& Message);
+    bool TransferAuthority(const FString& ItemId,const FString& ExpectedBenchId,FString& Message);
     bool Apply(const FColdSteelEnhanceQuote& Quote,FString& Message);
+    /** Called only inside the validated workstation authority transaction. */
+    bool ApplyAuthority(const FColdSteelEnhanceQuote& Quote,FString& Message);
+    FColdSteelEnhancementNetworkResult OnNetworkResult;
+    bool Pending() const;
+    void NetworkFinished(bool Success,const FString& Message);
     // Negative override uses the instance's installed melee parts; previews pass their draft multiplier.
     double ProcessedDamage(const FColdSteelItem&,double WeaponBase,double CharacterAttack,double MeleeDamageMultiplier=-1,const UColdSteelStatusModel* Profile=nullptr) const;
     TSharedPtr<const FJsonObject> AttackFormula(const FColdSteelItem&) const;
     double AttackFormulaAttribute(const FColdSteelItem&,FName Key,const UColdSteelStatusModel* Profile=nullptr) const;
     double Defense(const FColdSteelItem&) const;
+    /** 装备魔法防御（`defense.magicBase` / `magicPerEnhance`）；未声明返回 0。 */
+    double MagicDefense(const FColdSteelItem&) const;
     double Effect(const FColdSteelItem&,const TCHAR* Key,double Default=0) const;
     double CraftEffect(const FColdSteelItem&,const TCHAR* Key,double Default=0) const;
     FString Affix(const FColdSteelItem&,const TCHAR* Slot) const;
@@ -48,4 +61,6 @@ private:
     int64 BaseSouls=100,Stones=1;
     double Growth=1.5,Increase=.05;
     bool Ready=false;
+    bool bNetworkPending=false,bLastNetworkSuccess=false;
+    FString LastNetworkMessage;
 };

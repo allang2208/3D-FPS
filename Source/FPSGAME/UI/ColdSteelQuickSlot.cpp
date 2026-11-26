@@ -1,12 +1,23 @@
 #include "ColdSteelQuickSlot.h"
+#include "ColdSteelTextToolTip.h"
+#include "../Weapons/Bow/BowStats.h"
+#include "../Weapons/PojunGrip.h"
 #include "../Skills/FPSFireMagicComponent.h"
+#include "../Skills/FPSIceArmorComponent.h"
+#include "../Skills/FPSLightningHasteComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/Kukri/KukriWeaponComponent.h"
+#include "../Weapons/Kukri/OffhandKukriComponent.h"
+#include "../Weapons/Staff/StaffOffhandMeleeComponent.h"
+#include "../Production/ProductionToolComponent.h"
 #include "../Weapons/RuneOrbBladesComponent.h"
 #include "../Weapons/StarMarrowComponent.h"
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
+#include "../Skills/FPSMagicArrowRainComponent.h"
+#include "../Skills/FPSElementalArrowComponent.h"
+#include "../Skills/FPSIlluminationArrowComponent.h"
 #include "ColdSteelQuickDrag.h"
 #include "ColdSteelInventoryWidget.h"
 #include "ColdSteelUIStyle.h"
@@ -107,10 +118,11 @@ void UColdSteelQuickSlot::NativeTick(const FGeometry& Geometry,float DeltaTime)
     if(Gold!=bGoldHighlighted){bGoldHighlighted=Gold;if(const auto Widget=GetCachedWidget())Widget->Invalidate(EInvalidateWidgetReason::Paint);}
     BlinkElapsed=FMath::Fmod(BlinkElapsed+DeltaTime,ColdSteelQuickSlotFX::KeyPeriod);
     if(Key)Key->SetRenderOpacity(ColdSteelQuickSlotFX::KeyOpacity(BlinkElapsed));
-    if(FlashElapsed<ColdSteelQuickSlotFX::FlashDuration)
+    if(FlashElapsed<ActiveFlashDuration)
     {
-        FlashElapsed=FMath::Min(ColdSteelQuickSlotFX::FlashDuration,FlashElapsed+DeltaTime);
-        ReadyFlash->SetRenderOpacity(ColdSteelQuickSlotFX::FlashOpacity(FlashElapsed));
+        FlashElapsed=FMath::Min(ActiveFlashDuration,FlashElapsed+DeltaTime);
+        ReadyFlash->SetRenderOpacity(FlashStrength*ColdSteelQuickSlotFX::FlashOpacity(
+            FlashElapsed*ColdSteelQuickSlotFX::FlashDuration/ActiveFlashDuration));
     }
     if(CooldownTransitionElapsed<ColdSteelQuickSlotFX::MaskTransition)
     {
@@ -132,6 +144,16 @@ void UColdSteelQuickSlot::NativeTick(const FGeometry& Geometry,float DeltaTime)
         else if(Displayed.Skill==TEXT("fireball"))
         {
             if(const auto* Ability=Player->FindComponentByClass<UFPSFireballComponent>())
+            {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
+        }
+        else if(Displayed.Skill==TEXT("lightningHaste"))
+        {
+            if(const auto* Ability=Player->FindComponentByClass<UFPSLightningHasteComponent>())
+            {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
+        }
+        else if(Displayed.Skill==TEXT("iceArmor"))
+        {
+            if(const auto* Ability=Player->FindComponentByClass<UFPSIceArmorComponent>())
             {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
         }
         else if(Displayed.Skill==TEXT("iceSpike"))
@@ -191,16 +213,20 @@ void UColdSteelQuickSlot::Refresh()
     }();
     const auto* Item=Model->ResolveQuickItem(Index);
     const FString WaterIcon=Item&&Item->Definition==TEXT("mineral_water")?ColdSteelInventory::Text(*Item,TEXT("ue_icon")):FString();
+    const auto* ElementAbility=GetOwningPlayerPawn()?GetOwningPlayerPawn()->FindComponentByClass<UFPSElementalArrowComponent>():nullptr;
+    const EArrowElement SelectedElement=ElementAbility?ElementAbility->Selected():EArrowElement::Fire;
+    const FString ElementIcon=Binding.Skill==TEXT("elementalArrow")?ElementalArrow::Icon(SelectedElement):FString();
     const bool ChargeSlot=Binding.Skill==TEXT("starMarrowCharge");
     auto* ChargeIcon=ChargeSlot&&StarCharge?StarCharge->ShortcutIcon():nullptr;
-    const bool BindingChanged=!bLoaded||!(Binding==Displayed)||WaterIcon!=DisplayedWaterIcon
+    const bool BindingChanged=!bLoaded||!(Binding==Displayed)||WaterIcon!=DisplayedWaterIcon||ElementIcon!=DisplayedElementIcon
         ||(ChargeSlot&&Texture.Get()!=ChargeIcon);
     if(BindingChanged)
     {
-        bLoaded=true;Displayed=Binding;DisplayedWaterIcon=WaterIcon;FString Path,Name;
+        bLoaded=true;Displayed=Binding;DisplayedWaterIcon=WaterIcon;DisplayedElementIcon=ElementIcon;FString Path,Name;
         if(const auto* D=Model->QuickSkillDefinition(Binding.Skill)){Path=D->Icon;Name=D->Name;}
         else if(!Binding.ItemDefinition.IsEmpty())
         {const auto Template=Item?*Item:Model->CreateItem(Binding.ItemDefinition);Path=ColdSteelInventory::Text(Template,TEXT("ue_icon"));Name=ColdSteelInventory::Text(Template,TEXT("name"));}
+        if(!ElementIcon.IsEmpty()){Path=ElementIcon;Name=FString(TEXT("元素箭 · "))+ElementalArrow::Name(SelectedElement);}
         Texture=ChargeIcon;
         if(ChargeSlot){Path.Reset();Name=TEXT("充能");}
         if(!Path.IsEmpty())
@@ -214,19 +240,66 @@ void UColdSteelQuickSlot::Refresh()
         FallbackIcon->SetVisibility(!Texture&&!Binding.IsEmpty()?ESlateVisibility::HitTestInvisible:ESlateVisibility::Hidden);
         FallbackIcon->SetText(FText::FromString(ChargeSlot?TEXT("充"):TEXT("?")));
         const FString KeyText=FixedSkill.IsNone()?ColdSteelQuickBar::KeyLabel(Index):FixedKeyLabel;
-        SetToolTipText(FText::FromString(FixedSkill.IsNone()?(Binding.IsEmpty()?FString::Printf(TEXT("%s · 拖入主动技能或消耗品"),*KeyText):
-            FString::Printf(TEXT("%s · %s\n拖到空槽移动，拖到其他内容交换；拖出快捷栏解绑"),*Name,*KeyText)):
-            Binding.Skill==TEXT("staffLight")?FString::Printf(TEXT("%s · %s\n按 G 开启／关闭照明；无冷却、无消耗"),*KeyText,*Name):
-            FString::Printf(TEXT("%s · %s\n按 %s 直接触发；冷却结束后可用"),*KeyText,*Name,*KeyText)));
-        if(ChargeSlot)SetToolTipText(FText::FromString(FString::Printf(
-            TEXT("G · 充能\n消耗最大魔法值的 %.0f%%，持续 %.0f s。\n伤害+%.0f%%，全部伤害转为魔法伤害。\n充能结束后可再次使用。"),
-            UStarMarrowComponent::ManaFraction*100.f,UStarMarrowComponent::Duration,
-            (UStarMarrowComponent::DamageMultiplier-1.)*100.)));
+        FString Hint;
+        if(ChargeSlot)
+            Hint=FString::Printf(TEXT("G · 充能\n消耗最大魔法值的 %.0f%%，持续 %.0f s。\n伤害+%.0f%%，全部伤害转为魔法伤害。\n充能结束后可再次使用。"),
+                UStarMarrowComponent::ManaFraction*100.f,UStarMarrowComponent::Duration,(UStarMarrowComponent::DamageMultiplier-1.)*100.);
+        else if(Binding.Skill==TEXT("elementalArrow"))
+            Hint=FString::Printf(TEXT("%s · %s\n短按搭箭／取消；长按 0.3 秒切换元素，冷却中仍可打开圆盘。\n三元素分别冷却，只与对应原魔法共用冷却；选中冷却元素后，待就绪短按搭箭。"),*KeyText,*Name);
+        else if(FixedSkill.IsNone())
+            Hint=Binding.IsEmpty()?FString::Printf(TEXT("%s · 拖入主动技能或消耗品"),*KeyText):
+                FString::Printf(TEXT("%s · %s\n拖到空槽移动，拖到其他内容交换；拖出快捷栏解绑"),*Name,*KeyText);
+        else if(Binding.Skill==TEXT("staffLight"))
+            Hint=FString::Printf(TEXT("%s · %s\n按 G 开启／关闭照明；无冷却、无消耗"),*KeyText,*Name);
+        else
+            Hint=FString::Printf(TEXT("%s · %s\n按 %s 直接触发；冷却结束后可用"),*KeyText,*Name,*KeyText);
+        ColdSteelToolTip::Set(*this,FText::FromString(Hint));
     }
     FString Message;float Fraction=0,Remaining=0;bool Dim=false;
     bGoldPrepared=false;
     Count->SetText(FText::GetEmpty());
-    if(FireMagic::IsSkill(Binding.Skill))
+    if(Binding.Skill==TEXT("illuminationArrow"))
+    {
+        const auto* P=GetOwningPlayerPawn();const auto* Ability=P?P->FindComponentByClass<UFPSIlluminationArrowComponent>():nullptr;
+        Remaining=Model->IlluminationArrowCooldown();Fraction=Remaining/FMath::Max(.1f,Model->IlluminationArrowCooldownDuration());
+        if(Ability){Message=Ability->StatusText();bGoldPrepared=Ability->IsPrepared();}
+        Dim=!Model->ActiveBow()||(!bGoldPrepared&&!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill)));
+        if(!Model->ActiveBow())Message=TEXT("需要装备弓");
+    }
+    else if(Binding.Skill==TEXT("elementalArrow"))
+    {
+        Remaining=Model->ElementalArrowCooldown(SelectedElement);
+        Fraction=Remaining/FMath::Max(.1f,Model->ElementalArrowCooldownDuration(SelectedElement));
+        FString Why;const bool CanPrepare=Model->CanPrepareElementalArrow(SelectedElement,Why);
+        // Keep the selection shortcut available; only the mask shows this element's CD.
+        Dim=!Model->ActiveBow()||!Model->CanBindQuickSkill(TEXT("elementalArrow"));
+        if(ElementAbility){Message=ElementAbility->StatusText();bGoldPrepared=ElementAbility->IsPrepared();}
+        if(!CanPrepare&&!bGoldPrepared)Message=Remaining>0?TEXT("长按切换"):Why;
+    }
+    else if(Binding.Skill==TEXT("magicArrowRain"))
+    {
+        const auto* P=GetOwningPlayerPawn();const auto* Ability=P?P->FindComponentByClass<UFPSMagicArrowRainComponent>():nullptr;
+        Remaining=Model->MagicArrowRainCooldown();
+        Fraction=Remaining/FMath::Max(.1f,Model->MagicArrowRainCooldownDuration());
+        if(Ability){Message=Ability->StatusText();bGoldPrepared=Ability->IsPrepared();}
+        Dim=!Model->ActiveBow()||(!bGoldPrepared&&!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill)));
+        if(!Model->ActiveBow())Message=TEXT("需要装备弓");
+    }
+    else if(Binding.Skill==TEXT("lightningHaste"))
+    {
+        const auto* Player=GetOwningPlayerPawn();const auto* A=Player?Player->FindComponentByClass<UFPSLightningHasteComponent>():nullptr;
+        if(A){Message=A->StatusText();Fraction=A->CooldownFraction();if(A->Remaining()>0)Count->SetText(FText::FromString(FString::Printf(TEXT("%.0fs"),FMath::CeilToFloat(A->Remaining()))));}
+        if(Fraction>0&&!(A&&A->IsHandOccupiedNotice()))Remaining=Model->LightningHasteCooldown();
+        Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill));
+    }
+    else if(Binding.Skill==TEXT("iceArmor"))
+    {
+        const auto* Player=GetOwningPlayerPawn();const auto* A=Player?Player->FindComponentByClass<UFPSIceArmorComponent>():nullptr;
+        if(A){Message=A->StatusText();Fraction=A->CooldownFraction();if(A->Remaining()>0)Count->SetText(FText::FromString(FString::Printf(TEXT("%.0fs"),FMath::CeilToFloat(A->Remaining()))));}
+        if(Fraction>0&&!(A&&A->IsHandOccupiedNotice()))Remaining=Model->IceArmorCooldown();
+        Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill));
+    }
+    else if(FireMagic::IsSkill(Binding.Skill))
     {
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSFireMagicComponent>():nullptr;
         if(Ability)
@@ -254,6 +327,8 @@ void UColdSteelQuickSlot::Refresh()
         if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();}
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->BlizzardCooldown();
         Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill))&&(!Ability||!Ability->HasUnreleasedCast());
+        if(Model->BlizzardDefinition().Blizzard.bRequiresStaff&&!Model->HasEquippedStaff())
+        {Dim=true;bGoldPrepared=false;Remaining=0;Message=TEXT("需要法杖");}
     }
     else if(Binding.Skill==TEXT("iceWall"))
     {
@@ -301,36 +376,96 @@ void UColdSteelQuickSlot::Refresh()
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->HolyLightCooldown();
         Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill));
     }
+    else if(Binding.Skill==TEXT("leapStrike"))
+    {
+        Remaining=Model->LeapStrikeCooldown();
+        const float Duration=Model->LeapStrikeCooldownDuration();
+        Fraction=Duration>0.f?Remaining/Duration:0.f;
+        const auto* Player=GetOwningPlayerPawn();
+        const auto* Tool=Player?Player->FindComponentByClass<UProductionToolComponent>():nullptr;
+        Message=Tool?Tool->LeapStrikeStatusText():TEXT("需双手锤");Dim=!Message.IsEmpty();
+    }
+    else if(Binding.Skill==TEXT("chainSlash"))
+    {
+        Remaining=Model->ChainSlashCooldown();
+        const float Duration=Model->ChainSlashCooldownDuration();
+        Fraction=Duration>0.f?Remaining/Duration:0.f;
+        const auto* Player=GetOwningPlayerPawn();
+        const auto* Sword=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;
+        Message=Sword?Sword->ChainSlashStatusText():TEXT("需双手剑");
+        Dim=!Message.IsEmpty();
+    }
+    else if(Binding.Skill==TEXT("shadowStepSlash"))
+    {
+        Remaining=Model->ShadowStepCooldown();
+        const float Duration=Model->ShadowStepCooldownDuration();
+        Fraction=Duration>0.f?Remaining/Duration:0.f;
+        const auto* Player=GetOwningPlayerPawn();
+        const auto* Kukri=Player?Player->FindComponentByClass<UKukriWeaponComponent>():nullptr;
+        const auto* Offhand=Player?Player->FindComponentByClass<UOffhandKukriComponent>():nullptr;
+        const bool bKukriHeld=Kukri&&Kukri->IsEquipped();
+        const bool bOffhandHeld=!bKukriHeld&&Offhand&&(Offhand->IsEquipped()||UStaffOffhandMeleeComponent::IsEquippedOn(Player));
+        const float FollowRem=bKukriHeld?Kukri->ShadowStepFollowupRemaining():bOffhandHeld?Offhand->ShadowStepFollowupRemaining():0.f;
+        if(FollowRem>0.f)
+        {
+            bGoldPrepared=true;Remaining=0.f;Fraction=0.f;
+            Message=TEXT("追斩");
+            Count->SetText(FText::FromString(FString::Printf(TEXT("%.1fs"),FollowRem)));
+            Dim=false;
+        }
+        else
+        {
+            Message=bKukriHeld?Kukri->ShadowStepStatusText():bOffhandHeld?Offhand->ShadowStepStatusText():TEXT("需单手刀斧");
+            Dim=!Message.IsEmpty();
+        }
+    }
     else if(Binding.Skill==TEXT("swordUppercut"))
     {
         Remaining=Model->SwordUppercutCooldown();
         const float Duration=Model->SwordUppercutCooldownDuration();
         Fraction=Duration>0.f?Remaining/Duration:0.f;
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;
-        Message=Ability?Ability->UppercutStatusText():TEXT("需要持剑");
+        const auto* HammerItem=Model->ActiveProductionTool();
+        const auto* Tool=Player?Player->FindComponentByClass<UProductionToolComponent>():nullptr;
+        const auto* Kukri=Player?Player->FindComponentByClass<UKukriWeaponComponent>():nullptr;
+        const auto* Offhand=Player?Player->FindComponentByClass<UOffhandKukriComponent>():nullptr;
+        Message=HammerItem&&PojunGrip::UsesHammerMotion(*HammerItem)&&Tool?
+            Tool->UppercutStatusText():Kukri&&Kukri->IsEquipped()?Kukri->UppercutStatusText():
+            Offhand&&(Offhand->IsEquipped()||UStaffOffhandMeleeComponent::IsEquippedOn(Player))?Offhand->UppercutStatusText():
+            Ability?Ability->UppercutStatusText():TEXT("需近战");
         Dim=!Message.IsEmpty();
     }
     else if(Binding.Skill==TEXT("heavyStrike"))
     {
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;
-        Dim=!Ability||!Ability->IsEquipped()||!Model->CanSpendStamina(Model->StaminaSettings().MeleeCost);
-        if(!Ability||!Ability->IsEquipped())Message=TEXT("需近战");
-        else if(Ability->HeavyChargeFraction()>0)Message=FString::Printf(TEXT("%.0f%%"),Ability->HeavyChargeFraction()*100);
-        else if(Ability->IsBusy())Message=TEXT("动作中");
+        // The kukri's heavy strike (KukriHeavy.cpp): same stamina gate and charge readout as the sword's.
+        const auto* Kukri=Player?Player->FindComponentByClass<UKukriWeaponComponent>():nullptr;
+        const float Charge=Kukri&&Kukri->IsEquipped()?Kukri->HeavyChargeFraction():Ability?Ability->HeavyChargeFraction():0.f;
+        const bool bBusy=Kukri&&Kukri->IsEquipped()?Kukri->IsBusy():Ability&&Ability->IsBusy();
+        const bool bMelee=(Kukri&&Kukri->IsEquipped())||(Ability&&Ability->IsEquipped());
+        Dim=!bMelee||!Model->CanSpendStamina(ColdSteelMelee::HeavyReleaseStamina(Model->Equipped(),Model));
+        if(!bMelee)Message=TEXT("需近战");
+        else if(Charge>0)Message=FString::Printf(TEXT("%.0f%%"),Charge*100);
+        else if(bBusy)Message=TEXT("动作中");
     }
     else if(Binding.Skill==TEXT("whirlwind"))
     {
         const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<URuneSwordComponent>():nullptr;
+        const auto* Tool=Player?Player->FindComponentByClass<UProductionToolComponent>():nullptr;
+        const auto* HammerItem=Model->ActiveProductionTool();
+        const bool Hammer=Tool&&Tool->IsEquipped()&&HammerItem&&PojunGrip::UsesHammerMotion(*HammerItem);
         Remaining=Model->WhirlwindCooldown();
         Fraction=Model->WhirlwindCooldownDuration()>0?Remaining/Model->WhirlwindCooldownDuration():0.f;
         const auto* Kukri=Player?Player->FindComponentByClass<UKukriWeaponComponent>():nullptr;
-        const bool KukriHeld=Kukri&&Kukri->IsEquipped();
-        const bool Melee=KukriHeld||(Ability&&Ability->IsEquipped());
-        const bool Busy=KukriHeld?Kukri->IsBusy():Ability&&Ability->IsBusy();
+        const auto* StaffPair=Player?Player->FindComponentByClass<UStaffOffhandMeleeComponent>():nullptr;
+        const bool StaffBlade=StaffPair&&StaffPair->IsEquipped();
+        const bool KukriHeld=!Hammer&&Kukri&&(Kukri->IsEquipped()||StaffBlade);
+        const bool Melee=Hammer||KukriHeld||(Ability&&Ability->IsEquipped());
+        const bool Busy=Hammer?Tool->IsBusy():KukriHeld?(Kukri->IsBusy()||(StaffBlade&&!StaffPair->CanWhirlwind())):Ability&&Ability->IsBusy();
         const bool Enough=Model->CanSpendStamina(Model->WhirlwindStats().StaminaCost);
         Dim=!Melee||!Enough||Remaining>0||Busy;
         if(!Melee)Message=TEXT("需近战");
-        else if(KukriHeld?Kukri->IsWhirlwindActive():Ability&&Ability->IsWhirlwindActive())Message=TEXT("旋风");
+        else if(Hammer?Tool->IsWhirlwindActive():KukriHeld?Kukri->IsWhirlwindActive():Ability&&Ability->IsWhirlwindActive())Message=TEXT("旋风");
         else if(!Enough)Message=TEXT("体力不足");
         else if(Busy)Message=TEXT("动作中");
     }
@@ -345,9 +480,12 @@ void UColdSteelQuickSlot::Refresh()
         Remaining=Model->QuickCombatCooldown();
         const float Duration=Model->QuickCombatCooldownDuration();
         Fraction=Duration>0.f?Remaining/Duration:0.f;
-        const bool Enough=Model->CanSpendStamina(Model->QuickCombatStaminaCost());
-        Dim=Remaining>0.f||!Enough;
-        if(!Enough)Message=TEXT("体力不足");
+        const float Cost=Model->QuickCombatStaminaCost();
+        const bool EnoughStamina=Model->CanSpendStamina(Cost);
+        const bool EnoughMana=!ColdSteelBow::AuroraRiser(Model,Model->ActiveBow())||Model->CanSpendMana(Model->AdjustedManaCost(Cost));
+        Dim=Remaining>0.f||!EnoughStamina||!EnoughMana;
+        if(!EnoughStamina)Message=TEXT("体力不足");
+        else if(!EnoughMana)Message=TEXT("魔法不足");
     }
     else if(Binding.Skill==TEXT("staffLight"))
     {
@@ -394,20 +532,39 @@ void UColdSteelQuickSlot::Refresh()
     if(Remaining>0)Message=FString::Printf(TEXT("%.1f"),Remaining);
     State->SetFont(Remaining>0?ColdSteelUI::NumberFont(9/ColdSteelUI::PixelScale(this),true):ColdSteelUI::TextFont(9/ColdSteelUI::PixelScale(this)));
     State->SetText(FText::FromString(Message));
+    // Explicit receipts distinguish a successful reduction from normal countdown,
+    // passive cooldown acceleration, and a slot/element being rebound.
+    const FName CooldownSkill=Binding.Skill==TEXT("elementalArrow")?ElementalArrow::Spell(SelectedElement):Binding.Skill;
+    uint32 ReductionRevision=Model->CooldownReductionRevision(CooldownSkill);
+    if(Binding.Skill==TEXT("runeBlades"))
+    {
+        const auto* Player=GetOwningPlayerPawn();
+        const auto* Blades=Player?Player->FindComponentByClass<URuneOrbBladesComponent>():nullptr;
+        ReductionRevision=Blades?Blades->CooldownReductionRevision():0;
+    }
+    const bool Reduced=!BindingChanged&&ReductionRevision!=LastCooldownReductionRevision;
+    const bool Finished=!BindingChanged&&CooldownFraction>0.f&&Fraction<=0.f;
+    LastCooldownReductionRevision=ReductionRevision;
     if(BindingChanged)
     {
         CooldownFraction=DisplayedCooldownFraction=CooldownTransitionFrom=Fraction;
         CooldownTransitionElapsed=ColdSteelQuickSlotFX::MaskTransition;
-        FlashElapsed=ColdSteelQuickSlotFX::FlashDuration;ReadyFlash->SetRenderOpacity(0);
+        ActiveFlashDuration=ColdSteelQuickSlotFX::FlashDuration;FlashStrength=1.f;
+        FlashElapsed=ActiveFlashDuration;ReadyFlash->SetRenderOpacity(0);
         CooldownMask->SetFraction(Fraction);
     }
     else if(Fraction!=CooldownFraction)
     {
-        if(CooldownFraction>0&&Fraction<=0)
-        {
-            FlashElapsed=0;ReadyFlash->SetRenderOpacity(ColdSteelQuickSlotFX::FlashOpacity(0));
-        }
         CooldownTransitionFrom=DisplayedCooldownFraction;CooldownFraction=Fraction;CooldownTransitionElapsed=0;
+    }
+    if(Finished||Reduced)
+    {
+        // Completion retains the stronger 0.6 s flash. A hit reduction uses the
+        // same white eased pulse, shorter and softer; events coalesce per refresh.
+        ActiveFlashDuration=Finished?ColdSteelQuickSlotFX::FlashDuration:.24f;
+        FlashStrength=Finished?1.f:.55f;
+        FlashElapsed=0.f;
+        ReadyFlash->SetRenderOpacity(FlashStrength*ColdSteelQuickSlotFX::FlashOpacity(0.f));
     }
     // Availability darkening is separate from CD; the black mask carries cooling.
     Icon->SetColorAndOpacity(Dim?FLinearColor(.55f,.55f,.55f,1):FLinearColor::White);

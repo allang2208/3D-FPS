@@ -7,23 +7,17 @@
  *  cosmetic action. */
 namespace RuneSwordInspectFeel
 {
-    // R3 (user: R2 too fast/stiff, sounds thin): heavier whooshes, a gauntlet knock when the hanging blade lands
-    // in the web, and a layered thud + plate rattle when the fist closes. Pitches below 1 give the weight.
-    inline const TCHAR* WhipSoundPath=TEXT("/Game/FreeGameSoundsVol1/SFX/Sword_Swing_Heavy/Sword_Swing_Heavy_01.Sword_Swing_Heavy_01");
-    inline const TCHAR* SnapSoundPath=TEXT("/Game/FreeGameSoundsVol1/SFX/Sword_Swing_Overhead/Sword_Swing_Overhead_01.Sword_Swing_Overhead_01");
-    inline const TCHAR* GripSoundPath=TEXT("/Game/FreeGameSoundsVol1/SFX/Armor_Plate_Movement/Armor_Plate_Movement_01.Armor_Plate_Movement_01");
+    inline const TCHAR* CatchSoundPath=TEXT("/Game/Weapons/ThunderGodHammer20261028/RecallAudioV1/S_GuanLei_RecallCatch.S_GuanLei_RecallCatch");
     // Cues and camera are written on a motion clock that the clip plays at 1/Tempo (R5 played 0.8x).
     inline constexpr float Tempo=1.f;
     // R6b hybrid on V82's timetable (InspectReverseV85/author_inspect_r6.py cue_clip_s): the fist opens at 0.40 s;
     // the hilt settles on V82's open palm about 0.53 s; the drive home starts about 0.70 s; the fist closes at 0.82 s.
-    namespace Motion { inline constexpr float Whip=.414f, Land=.528f, Snap=.701f, Catch=.822f; }
-    inline constexpr float WhipCue=Motion::Whip*Tempo, LandCue=Motion::Land*Tempo, SnapCue=Motion::Snap*Tempo,
-        CatchAt=Motion::Catch*Tempo;
-    inline constexpr float WhipVolume=.55f, WhipPitch=.90f;
-    inline constexpr float LandVolume=.22f, LandPitch=.86f;
-    inline constexpr float SnapVolume=.60f, SnapPitch=.86f;
-    inline constexpr float CatchVolume=.50f, CatchPitch=.74f;
-    inline constexpr float CatchRattleVolume=.40f, CatchRattlePitch=.94f;
+    namespace Motion { inline constexpr float Whip=.414f, Land=.528f, Catch=.822f; }
+    // Angular speed maxima from the shipped R6b turn and its smaller drive home.
+    inline constexpr float TurnPeak=.4833f*Tempo, ReturnPeak=.7333f*Tempo;
+    // Inspect audio is limited to the two imported air takes and the final catch.
+    inline constexpr float CatchAt=Motion::Catch*Tempo;
+    inline constexpr float CatchVolume=1.f, CatchPitch=1.f;
 
     /** Weight loads in the windup, a small dip when the blade lands in the web, and one slow damped nod when
      *  the fist takes the sword's weight. */

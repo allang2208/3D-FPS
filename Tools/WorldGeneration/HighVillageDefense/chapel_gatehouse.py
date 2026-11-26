@@ -611,3 +611,4 @@ if __name__=='__main__':
             wrought_grille(west)
     if not frames_only:
         release_handle()
+

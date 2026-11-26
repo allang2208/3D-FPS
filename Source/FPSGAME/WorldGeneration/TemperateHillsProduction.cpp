@@ -1,4 +1,10 @@
 #include "TemperateHillsWorld.h"
+#include "ForestVillageRegion.h"
+#include "ForestVillageRelief.h"
+#include "TemperateHillsStreamingPrivate.h"
+#include "EastRiverRoad.h"
+#include "TemperateIronOutcrops.h"
+#include "TemperateVegetationPlacement.h"
 #include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../Production/ProductionResource.h"
@@ -13,6 +19,7 @@
 #include "Components/DynamicMeshComponent.h"
 #include "Engine/GameInstance.h"
 #include "Engine/StaticMesh.h"
+#include "Engine/SkeletalMesh.h"
 #include "Kismet/GameplayStatics.h"
 #include "PCGComponent.h"
 #include "Sound/SoundBase.h"
@@ -44,6 +51,7 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
     if (!Component) return false;
     if (const auto* TerrainMesh=Cast<UDynamicMeshComponent>(Component);TerrainMesh && Terrain.Contains(TerrainMesh))
     {
+        if(!bTerrainDestructionEnabled){Reason=TEXT("地形破坏已暂停，暂不可铲取表土");return false;}
         const FVector P=Hit.ImpactPoint;
         if (Hit.ImpactNormal.Z<.65 || (RiverPlan && RiverPlan->Sample(P.X,P.Y).Wet>.05))
         { Reason=TEXT("陡坡或河床不可铲取表土"); return false; }
@@ -59,6 +67,20 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
     const auto* MeshComponent=Cast<UStaticMeshComponent>(Component);
     if (!MeshComponent || !MeshComponent->GetStaticMesh()) return false;
     const bool Tree=MeshComponent->GetOwner()==this && MeshComponent->GetStaticMesh()==Assets->TrunkCollisionMesh.Get();
+    // Fallen wood can be small enough to pass the stone radius gate. It remains
+    // scenery, never a stone/ore source just because it shares the rock PCG layer.
+    if(!Tree)
+    {
+        if(MeshComponent->GetStaticMesh()==Assets->RainforestBankBoulder.Get())
+        {Reason=TEXT("长满苔藓的岩石");return false;}
+        const auto IsWoodDressing=[&](const TArray<TSoftObjectPtr<UStaticMesh>>& List)
+        { return List.ContainsByPredicate([&](const auto& Mesh){return Mesh.Get()==MeshComponent->GetStaticMesh();}); };
+        if(MeshComponent->ComponentHasTag(TEXT("HillsWhiteCliffs"))||
+            IsWoodDressing(Assets->WhiteCliffMeshes)||IsWoodDressing(Assets->QuarryProps))
+        {Reason=TEXT("采石场遗迹");return false;}
+        if(IsWoodDressing(Assets->FallenLogs)||IsWoodDressing(Assets->ForestRoots))
+        {Reason=TEXT("林地枯木，请寻找可砍伐的树木");return false;}
+    }
     const int32 Layer=Tree?0:1;
     FTransform Transform=MeshComponent->GetComponentTransform();
     if (const auto* ISM=Cast<UInstancedStaticMeshComponent>(Component))
@@ -105,7 +127,7 @@ bool ATemperateHillsWorld::ResolveProductionResource(const FHitResult& Hit,FProd
         if (Tree) { Resource.Name=TEXT("树木"); Resource.Rewards.Add(TEXT("wood"),4); Resource.MaxHealth=ProductionTreeHealth::MaxHealth(Resource); }
         else
         {
-            const FString Ore=RockOreDefinition(Candidate.Key,
+            const FString Ore=TemperateIronOutcrops::IsVeinRock(Candidate.CandidateId)?FString(TEXT("iron_ore")):RockOreDefinition(Candidate.Key,
                 FVector2D(Candidate.Transform.GetLocation()));
             Resource.Name=Ore==TEXT("iron_ore")?TEXT("含铁岩块"):Ore==TEXT("copper_ore")?TEXT("含铜岩块"):
                 Ore==TEXT("silver_ore")?TEXT("含银岩块"):Ore==TEXT("gold_ore")?TEXT("含金岩块"):TEXT("石块");
@@ -201,11 +223,16 @@ void ATemperateHillsWorld::GetHarvestedStumps(const FBox& Bounds,TArray<FTempera
     // No second stump save schema, and no tree/PCG regeneration on each chop.
     // 2026-09-28：树桩可能带偏移（被砍的树不在候选点基点上，最多 ±6.5 m）——枚举各扩
     // 一格，入盒判定与扎根高度都用偏移后的桩位。
+    const auto* ForestRegion=IsForestVillage()&&Streaming?Streaming->ForestRegion.Get():nullptr;
     for(int32 Y=FMath::FloorToInt(Bounds.Min.Y/1200)-1;Y<=FMath::FloorToInt(Bounds.Max.Y/1200)+1;++Y)
     for(int32 X=FMath::FloorToInt(Bounds.Min.X/1200)-1;X<=FMath::FloorToInt(Bounds.Max.X/1200)+1;++X)
+    for(const auto Address:EastRiverRoad::TreeKeys(*this,X,Y))
     {
+        if(ForestRegion && !ForestRegion->HarvestTreeSite(Address))continue;
+        const uint64 Candidate=(uint64(uint32(Address.X))<<32)|uint32(Address.Y);
+        if(!IsProductionDepleted(0,Candidate))continue;
         FTemperatePlacement P;
-        if(!TreeCandidate(X,Y,P)||!IsProductionDepleted(0,P.CandidateId))continue;
+        if(!TreeCandidate(Address.X,Address.Y,P))continue;
         const FString Id=ProductionResourceId(0,P.CandidateId);
         const float Scale=Profile?Profile->TreeStumpScale(Id):1;
         if(Scale<=.01f)continue;
@@ -213,9 +240,40 @@ void ATemperateHillsWorld::GetHarvestedStumps(const FBox& Bounds,TArray<FTempera
         const double SX=P.Transform.GetLocation().X+Offset.X,SY=P.Transform.GetLocation().Y+Offset.Y;
         if(!Bounds.IsInsideXY(FVector(SX,SY,P.Transform.GetLocation().Z)))continue;
         P.Transform.SetScale3D(P.Transform.GetScale3D()*Scale);
+        if(ForestRegion && Offset.IsNearlyZero()){Out.Add(P);continue;} // Exact authored first-generation root.
         P.Transform.SetLocation(FVector(SX,SY,Height(SX,SY)-10));
+        // Reconstruct the same root frame as the standing/regrown tree, so a
+        // harvest does not raise the stump back to the former fixed -10 cm.
+        const auto* Mesh=Cast<USkeletalMesh>(P.Mesh.ResolveObject());
+        if(!Mesh||!FitVegetationPlacement(P,Mesh->GetImportedBounds().GetBox(),ETemperatePlantKind::Tree))continue;
         Out.Add(P);
     }
+}
+
+bool ATemperateHillsWorld::ForestSaplingPlacement(uint64 CandidateId,FVector2D& Offset,FVector2D Stump,FTemperatePlacement& Out) const
+{
+    const auto* Region=Streaming?Streaming->ForestRegion.Get():nullptr;
+    if(!Region || !ForestTreeCandidate(int32(CandidateId>>32),int32(uint32(CandidateId)),Out))return false;
+    const auto* Mesh=Cast<USkeletalMesh>(Out.Mesh.ResolveObject());
+    if(!Mesh)return false;
+    const FVector2D Base(Out.Transform.GetLocation());
+    const FVector2D TownMin=FVector2D(Region->GetSettlementMinM())*100.;
+    const FBox2D Town(TownMin,TownMin+FVector2D(ForestVillageRelief::Columns-1,ForestVillageRelief::Rows-1)*100.);
+    const double InitialAngle=FMath::Atan2(Offset.Y,Offset.X);
+    const double InitialRadius=FMath::Clamp(Offset.Size(),280.,650.);
+    const auto Box=Mesh->GetImportedBounds().GetBox();
+    for(int32 I=0;I<17;++I)
+    {
+        // Preserve an existing viable save position. Try alternate bearings and radii only on rejection.
+        const double Angle=InitialAngle+2.3999632297*I;
+        const double Radius=I==0?InitialRadius:FMath::Lerp(280.,650.,(I%5)*.25);
+        const FVector2D Trial=I==0?Offset:FVector2D(FMath::Cos(Angle),FMath::Sin(Angle))*Radius;
+        const FVector2D At=Base+Trial;
+        if((Trial-Stump).SizeSquared()<FMath::Square(180.) || Town.ComputeSquaredDistanceToPoint(At)<FMath::Square(80.))continue;
+        Out.Transform.SetLocation(FVector(At,Height(At.X,At.Y)));
+        if(FitVegetationPlacement(Out,Box,ETemperatePlantKind::Tree)){Offset=Trial;return true;}
+    }
+    return false;
 }
 
 void ATemperateHillsWorld::GetRegrowingTrees(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const
@@ -224,19 +282,43 @@ void ATemperateHillsWorld::GetRegrowingTrees(const FBox& Bounds,TArray<FTemperat
     if(!Profile)return;
     // 2026-09-28 用户规则：幼树不长在原桩位，而在生长记录的随机偏移处（半径 2.8–6.5 m）；
     // 枚举各扩一格，入盒判定与扎根高度都用偏移后的树位，缩放仍绕根（原 10 cm 嵌入按比例）。
+    const auto* ForestRegion=IsForestVillage()&&Streaming?Streaming->ForestRegion.Get():nullptr;
     for(int32 Y=FMath::FloorToInt(Bounds.Min.Y/1200)-1;Y<=FMath::FloorToInt(Bounds.Max.Y/1200)+1;++Y)
     for(int32 X=FMath::FloorToInt(Bounds.Min.X/1200)-1;X<=FMath::FloorToInt(Bounds.Max.X/1200)+1;++X)
+    for(const auto Address:EastRiverRoad::TreeKeys(*this,X,Y))
     {
-        FTemperatePlacement P;if(!TreeCandidate(X,Y,P))continue;
-        const FString Id=ProductionResourceId(0,P.CandidateId);
+        if(ForestRegion && !ForestRegion->HarvestTreeSite(Address))continue;
+        // Most nearby cells have never been harvested. Avoid running terrain
+        // support probes for all of them during the existing one-second update.
+        const uint64 Candidate=(uint64(uint32(Address.X))<<32)|uint32(Address.Y);
+        const FString Id=ProductionResourceId(0,Candidate);
         if(!Profile->HasTreeGrowth(Id))continue;
         const float Scale=Profile->TreeGrowthScale(Id);if(Scale<=0)continue;
-        const FVector2D Offset=Profile->TreeSaplingOffset(Id);
-        const double SX=P.Transform.GetLocation().X+Offset.X,SY=P.Transform.GetLocation().Y+Offset.Y;
-        if(SX<Bounds.Min.X||SX>=Bounds.Max.X||SY<Bounds.Min.Y||SY>=Bounds.Max.Y)continue;
+        FTemperatePlacement P;
+        FVector2D Offset=Profile->TreeSaplingOffset(Id);
+        if(ForestRegion)
+        {
+            if(!ForestSaplingPlacement(Candidate,Offset,Profile->TreeStumpOffset(Id),P))continue;
+            const FVector At=P.Transform.GetLocation();
+            if(At.X<Bounds.Min.X||At.X>=Bounds.Max.X||At.Y<Bounds.Min.Y||At.Y>=Bounds.Max.Y)continue;
+        }
+        else
+        {
+            if(!TreeCandidate(Address.X,Address.Y,P))continue;
+            const FVector2D At=FVector2D(P.Transform.GetLocation())+Offset;
+            if(At.X<Bounds.Min.X||At.X>=Bounds.Max.X||At.Y<Bounds.Min.Y||At.Y>=Bounds.Max.Y)continue;
+            P.Transform.SetLocation(FVector(At,Height(At.X,At.Y)-10));
+            const auto* Tree=Cast<USkeletalMesh>(P.Mesh.ResolveObject());
+            if(!Tree||!FitVegetationPlacement(P,Tree->GetImportedBounds().GetBox(),ETemperatePlantKind::Tree))continue;
+        }
+        const auto* Mesh=CastChecked<USkeletalMesh>(P.Mesh.ResolveObject());
+        // Establish support with the mature root footprint, then grow about
+        // that fixed root. Otherwise an increasing probe radius can switch a
+        // living sapling from accepted to rejected partway through its growth.
+        const FVector LocalRoot(0,0,Mesh->GetImportedBounds().GetBox().Min.Z);
+        const FVector Root=P.Transform.TransformPosition(LocalRoot);
         P.Transform.SetScale3D(P.Transform.GetScale3D()*Scale);
-        P.Transform.SetLocation(FVector(SX,SY,Height(SX,SY)-10));
-        P.Transform.AddToTranslation(FVector(0,0,10*(1-Scale)));
+        P.Transform.SetLocation(Root-P.Transform.TransformVector(LocalRoot));
         Out.Add(P);
     }
 }

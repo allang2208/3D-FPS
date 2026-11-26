@@ -33,6 +33,7 @@ void AFPSGAMECharacter::InitializeFoldingSights()
             auto* Head=NewObject<UStaticMeshComponent>(this);
             Head->SetStaticMesh(Part);Head->SetCollisionEnabled(ECollisionEnabled::NoCollision);Head->SetCastShadow(false);Head->bReceivesDecals=false;
             Head->SetVisibility(bShowSights);
+            Head->SetOnlyOwnerSee(AKMViewmodel->bOnlyOwnerSee);Head->SetOwnerNoSee(AKMViewmodel->bOwnerNoSee);
             Head->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));Head->RegisterComponent();
             const FTransform Mount(FQuat::Identity,LMG201WeaponAssets::Matches(AKMViewmodel)?LMG201WeaponAssets::SightHinges[I]:A762WeaponAssets::SightHinges[I],FVector(.01f));
             Head->SetRelativeTransform(Mount);FoldingSightHeads.Add(Head);FoldingSightMounts.Add(Mount);
@@ -54,6 +55,7 @@ void AFPSGAMECharacter::InitializeFoldingSights()
         auto* Head=NewObject<UStaticMeshComponent>(this);
         Head->SetStaticMesh(Part);Head->SetCollisionEnabled(ECollisionEnabled::NoCollision);Head->SetCastShadow(false);Head->bReceivesDecals=false;
         Head->SetVisibility(bShowSights);
+        Head->SetOnlyOwnerSee(AKMViewmodel->bOnlyOwnerSee);Head->SetOwnerNoSee(AKMViewmodel->bOwnerNoSee);
         Head->SetupAttachment(AKMViewmodel,TEXT("WPN_root"));Head->RegisterComponent();
         // QBZ head vertices are centimetres relative to their own hinge in the
         // WPN_root frame. That private bone uses metres, as do its optic mounts.

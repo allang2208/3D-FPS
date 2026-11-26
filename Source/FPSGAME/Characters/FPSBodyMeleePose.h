@@ -1,5 +1,7 @@
 #pragma once
 #include "FPSPlayerBodyPoses.h"
+#include "../Production/WarhammerHeavyMotion.h"
+#include "../Production/ProductionBluntCombo.h"
 
 /** Body effort accompanying the existing weapon's source clock. No gameplay/root motion. */
 namespace FPSBodyMelee
@@ -25,6 +27,34 @@ inline FPose Sample(const FFPSBodyState& S,float T)
 {
     using namespace FPSBodyPoses;
     FPose P;if(!Active(S))return P;
+    if(S.ActionVariant==TEXT("ZhufengWhirlwind"))return P;
+    if(S.ActionVariant==TEXT("WarhammerSlash1")||S.ActionVariant==TEXT("WarhammerSlash2")||S.ActionVariant==TEXT("WarhammerSlash3"))
+    {
+        const bool Hit=S.Action==EFPSBodyAction::ToolRecover;
+        const float Side=S.ActionVariant==TEXT("WarhammerSlash1")?1.f:S.ActionVariant==TEXT("WarhammerSlash2")?-1.f:0.f;
+        const float Time=T*(Hit?ProductionBluntCombo::HitRecoverSeconds:ProductionBluntCombo::SwingSeconds);
+        float Load,Follow;ProductionBluntCombo::Effort(Time,Hit,Load,Follow,Side>0.f?0:Side<0.f?1:2);
+        Load*=S.ActionWeight;Follow*=S.ActionWeight;
+        P.ChestYaw=Side*(-25.f*Load+29.f*Follow);
+        P.HipYaw=Side*(-8.f*Load+11.f*Follow);
+        P.ChestPitch=(Side==0.f?9.f:5.f)*Load-(Side==0.f?23.f:12.f)*Follow;
+        P.ChestRoll=Side*(-2.f*Load+4.f*Follow);
+        P.Pelvis=FVector(-Side*2,-3,-2)*Load+FVector(Side*3,5,-5)*Follow;
+        P.Feet[Side<0.f?1:0]=FVector(0,10,0)*Follow;
+        return P;
+    }
+    if(S.ActionVariant==TEXT("WarhammerSlam")||S.ActionVariant==TEXT("WarhammerSprintSlam"))
+    {
+        const float Time=T*WarhammerHeavy::Duration;
+        const float W=WarhammerHeavy::BodyWeight(Time)*S.ActionWeight;
+        const float Load=(1.f-FMath::SmoothStep(0.f,WarhammerHeavy::Contact,Time))*S.ActionWeight;
+        // Manny +Y forward: negative mesh-X pitch folds the chest at the waist.
+        // Retain the planted legs; pelvis drop is supported by the existing leg IK.
+        P.ChestPitch=7.f*Load-WarhammerHeavy::WaistBendDegrees*W;
+        P.ChestYaw=-24.f*Load;P.HipYaw=-9.f*Load;
+        P.Pelvis=FVector(3,-5,-5)*Load+FVector(0,6,-14)*W;
+        return P;
+    }
     if(S.Action==EFPSBodyAction::Charge)
     {
         const float W=Smooth(T/.8f)*S.ActionWeight;
@@ -72,7 +102,7 @@ inline FPose Sample(const FFPSBodyState& S,float T)
         P.ChestPitch=4.f*Load-8.f*Follow;P.ChestRoll=Side*4.f*Follow;
         P.Pelvis=FVector(Side*4,5,-4)*Drive;Lead=Side>0.f?0:1;
     }
-    else if(S.ActionVariant==TEXT("Uppercut"))
+    else if(S.ActionVariant==TEXT("Uppercut")||S.ActionVariant==TEXT("WarhammerUppercut"))
     {
         P.ChestPitch=-12.f*Load+6.f*Follow;P.ChestYaw=-18.f*Load+20.f*Follow;
         P.HipYaw=P.ChestYaw*.3f;P.Pelvis=FVector(0,4,-9)*Load;

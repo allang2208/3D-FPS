@@ -1,4 +1,5 @@
 #include "WardBreakableGlass.h"
+#include "DungeonRoomSubsystem.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
 #include "GameFramework/PlayerController.h"
 #include "Net/UnrealNetwork.h"
@@ -59,7 +60,7 @@ bool UWardBreakableGlass::BreakAt(const FVector& HitPoint,const FVector& Directi
     GetOwner()->ForceNetUpdate();OnRep_Broken();
     if(!GetOwner()->GetIsReplicated())for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
         if(auto* PC=It->Get();PC&&!PC->IsLocalController())
-            if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGlassBroken(GetOwner()->GetName(),BreakPoint,BreakDirection);
+            if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGlassBroken(UDungeonRoomSubsystem::SceneActorKey(GetOwner()),BreakPoint,BreakDirection);
     return true;
 }
 void UWardBreakableGlass::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
@@ -200,6 +201,13 @@ AWardGlassBurst::AWardGlassBurst()
     Audio->AttenuationOverrides.FalloffDistance=2500.f;
 }
 
+UNiagaraSystem* AWardGlassBurst::ResolveImpactSystem(const UWardBreakableGlass* Pane)
+{
+    UNiagaraSystem* System=Pane->ImpactParticles;
+    return !System || System->GetFName()==TEXT("NS_Impact_Glass")
+        ? GetDefault<AWardGlassBurst>()->Glints->GetAsset() : System;
+}
+
 void AWardGlassBurst::Play(const UWardBreakableGlass* Pane,const FVector& HitPoint,const FVector& ShotDirection)
 {
     GetWorldTimerManager().ClearTimer(ReleaseTimer);
@@ -231,9 +239,7 @@ void AWardGlassBurst::Play(const UWardBreakableGlass* Pane,const FVector& HitPoi
     Material->SetVectorParameterValue(TEXT("HitPoint"),FLinearColor(HitPoint));
     Material->SetVectorParameterValue(TEXT("ShotDirection"),FLinearColor(ShotDirection.GetSafeNormal()));
     SetActorHiddenInGame(false);
-    UNiagaraSystem* ImpactSystem=Pane->ImpactParticles;
-    if(!ImpactSystem || ImpactSystem->GetFName()==TEXT("NS_Impact_Glass"))
-        ImpactSystem=GetDefault<AWardGlassBurst>()->Glints->GetAsset();
+    UNiagaraSystem* ImpactSystem=ResolveImpactSystem(Pane);
     if(ImpactSystem)
     {
         // The shared gun-impact system contains an emitter-source crack sprite:

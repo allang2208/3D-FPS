@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Components/ActorComponent.h"
+#include "Engine/NetSerialization.h"
 #include "../Combat/ProgressiveInfectionComponent.h"
 #include "FPSStatusReplicationComponent.generated.h"
 
@@ -45,10 +46,12 @@ struct FFPSStatusNetState
     UPROPERTY() double VulnerabilityTime=0.;
     UPROPERTY() double BleedTime=0.;
     UPROPERTY() double RuneVulnerabilityTime=0.;
+    UPROPERTY() double MagicInspirationTime=0.;
     UPROPERTY() double RiposteTime=0.;
     UPROPERTY() double StunTime=0.;
     UPROPERTY() double BindTime=0.;
     UPROPERTY() double SlowTime=0.;
+    UPROPERTY() double ExhaustionTime=0.;
     UPROPERTY() double WaxTime=0.;
     UPROPERTY() double WeaponHasteTime=0.;
     UPROPERTY() double PetrifyTime=0.;
@@ -64,8 +67,8 @@ struct FFPSStatusNetState
     UPROPERTY() double ComposureEndsAt=0.;
     UPROPERTY() double WeaknessEndsAt=0.;
     UPROPERTY() double CriticalVulnerabilityEndsAt=0.;
+    UPROPERTY() double ArmorCorrosionEndsAt=0.;
     UPROPERTY() float ElectrifiedBonus=0.f;
-    UPROPERTY() float ChillSlow=0.f;
     UPROPERTY() float CorrosionDuration=0.f;
     UPROPERTY() float CorrosionReduction=0.f;
     UPROPERTY() float Shred=0.f;
@@ -103,6 +106,7 @@ struct FFPSStatusNetState
     UPROPERTY() int32 ComposureStacks=0;
     UPROPERTY() int32 WeaknessStacks=0;
     UPROPERTY() int32 CriticalVulnerabilityStacks=0;
+    UPROPERTY() int32 ArmorCorrosionStacks=0;
 };
 
 /** One small relevant-actor replica; existing components remain gameplay owners. */
@@ -112,12 +116,18 @@ class FPSGAME_API UFPSStatusReplicationComponent : public UActorComponent
     GENERATED_BODY()
 public:
     UFPSStatusReplicationComponent();
+    /** Dormant village pieces publish effect changes, with the same deadlines used by NPCs. */
+    static void BindWorldTargetEffects(class UStatusEffectsComponent& Effects);
+    /** Cosmetic pulse only; DoT damage remains server-owned by CombatStatusFormula. */
+    UFUNCTION(NetMulticast,Unreliable) void MulticastBleedingBurst(FVector_NetQuantize Position,FVector_NetQuantizeNormal Normal,int32 Stacks);
     virtual void TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick) override;
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 private:
     UPROPERTY(ReplicatedUsing=OnRep_State) FFPSStatusNetState State;
     UFUNCTION() void OnRep_State();
     void ApplyState(bool bPublishDisplay);
+    void CaptureAuthorityState();
+    void PublishWorldTargetEffects();
     double ServerTime() const;
 
 };

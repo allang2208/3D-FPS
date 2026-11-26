@@ -18,17 +18,17 @@ def build():
     master = u.load_asset(folder+'M_ForestReferenceMesh') if lib.does_asset_exist(folder+'M_ForestReferenceMesh') else lib.duplicate_asset(donor.get_base_material().get_path_name(), folder+'M_ForestReferenceMesh')
     if not master:
         raise RuntimeError('Reference master destination must be empty')
-
+    
     def node(kind, x, y):
         return ed.create_material_expression(master, kind, x, y)
-
+    
     def inputs(expr):
         return dict(zip(map(str, ed.get_material_expression_input_names(expr)), ed.get_inputs_for_material_expression(master, expr)))
-
+    
     def wire(src, output, dst, pin):
         if not ed.connect_material_expressions(src, output, dst, pin):
             raise RuntimeError(f'{src.get_name()}.{output} -> {dst.get_name()}.{pin}')
-
+    
     original = list(ed.get_material_expressions(master))
     call = next(n for n in original if str(n.get_editor_property('desc')) == 'R4 wild grass surface')
     uv = node(u.MaterialExpressionTextureCoordinate, -3100, 2000)
@@ -49,7 +49,7 @@ def build():
             wire(combined,'',n,'Alpha')
         if isinstance(n,u.MaterialExpressionMultiply) and pins.get('A') == call and pins.get('B') == call:
             wire(combined,'',n,'A')
-
+    
     for layer in [n for n in original if isinstance(n,u.MaterialExpressionLandscapeLayerBlend)]:
         pins = inputs(layer)
         scalar = str(layer.get_editor_property('desc')) == 'Forest floor painted relief'

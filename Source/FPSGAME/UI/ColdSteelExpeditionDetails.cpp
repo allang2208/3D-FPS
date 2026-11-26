@@ -7,7 +7,9 @@
 #include "ImageCore.h"
 #include "ImageUtils.h"
 #include "Misc/Paths.h"
+#include "Misc/ScopeExit.h"
 #include "Widgets/SBoxPanel.h"
+#include "Widgets/SNullWidget.h"
 #include "Widgets/SOverlay.h"
 #include "Widgets/SToolTip.h"
 #include "Widgets/Images/SImage.h"
@@ -19,57 +21,125 @@
 
 TSharedRef<SWidget> UColdSteelExpeditionWidget::Section(const FString& Title,const FString& Text)
 {
-    return SNew(SBorder).BorderImage(&HeroBrush).Padding(16)
-        [SNew(SVerticalBox)
-            +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[Label(Title,16,ColdSteelUI::TextPrimary)]
-            +SVerticalBox::Slot().AutoHeight()[Label(Text,14,ColdSteelUI::TextSecondary)]];
+    return SNew(SVerticalBox)
+            +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[Label(Title,16,ColdSteelUI::HUDGold)]
+            +SVerticalBox::Slot().AutoHeight()[Label(Text,14,ColdSteelUI::TextPrimary)];
 }
 
 void UColdSteelExpeditionWidget::RefreshDetail()
 {
     UpdateSelectionStyles();
     if(!DetailRows)return;
+    if(bStackOverview)PreparationRows.Reset();
+    ON_SCOPE_EXIT
+    {
+        if(bStackOverview)DetailRows->AddSlot().AutoHeight().Padding(0,18,0,0)[BuildPreparation()];
+        RefreshPreparation();
+    };
     DetailRows->ClearChildren();
     const auto* Entry=Selection();
     if(!Entry)
     {
-        DetailRows->AddSlot().AutoHeight()[Section(TEXT("尚未选择目的地"),TEXT("从左侧选择目的地，查看路线、奖励与出征规则。"))];
+        DetailRows->AddSlot().AutoHeight()[Section(TEXT("尚未选择目的地"),TEXT("选择目的地后可查看路线、奖励与出征规则。"))];
         return;
     }
     if(DetailTab==1){AddRewards();return;}
     if(DetailTab==2)
     {
-        DetailRows->AddSlot().AutoHeight().Padding(0,0,0,12)[Label(TEXT("出征规则"),16,ColdSteelUI::TextPrimary)];
+        DetailRows->AddSlot().AutoHeight().Padding(0,0,0,12)[Label(TEXT("出征规则"),16,ColdSteelUI::HUDGold)];
         for(const auto& Rule:Entry->Rules)
             DetailRows->AddSlot().AutoHeight().Padding(0,0,0,10)[Section(Rule.Title,Rule.Text)];
         if(Entry->Rules.IsEmpty())DetailRows->AddSlot().AutoHeight()[Section(TEXT("暂无规则情报"),TEXT("此目的地尚未提供详细规则。"))];
         return;
     }
-    DetailRows->AddSlot().AutoHeight().Padding(0,0,0,16)[Label(Entry->Description,14,ColdSteelUI::TextSecondary)];
-    TArray<FColdSteelExpeditionSection> Facts={{TEXT("探索规模"),Entry->Scale},{TEXT("威胁情报"),Entry->Threat}};
-    if(!Entry->RecommendedLevel.IsEmpty())Facts.Add({TEXT("推荐等级"),Entry->RecommendedLevel});
-    auto Grid=SNew(SGridPanel);
-    const int32 Columns=bSingleColumnFacts?1:2;
-    for(int32 I=0;I<Facts.Num();++I)
+    auto Brief = SNew(SVerticalBox);
+    if (!Entry->Completion.IsEmpty())
     {
-        Grid->SetColumnFill(I%Columns,1.f);
-        Grid->AddSlot(I%Columns,I/Columns).Padding(0,0,I%Columns+1<Columns?8:0,8)[Section(Facts[I].Title,Facts[I].Text)];
+        Brief->AddSlot().AutoHeight().Padding(0, 0, 0, 8)[Label(TEXT("通关目标"), 12, ColdSteelUI::HUDGold)];
+        Brief->AddSlot().AutoHeight().Padding(0, 0, 0, 10)[Label(Entry->Completion, 20, ColdSteelUI::TextPrimary)];
     }
-    DetailRows->AddSlot().AutoHeight()[Grid];
+    if (!Entry->Description.IsEmpty())
+        Brief->AddSlot().AutoHeight()[Label(Entry->Description, 14, ColdSteelUI::TextSecondary)];
+
+    auto BriefCard = SNew(SBorder).BorderImage(&HeroBrush).Padding(16, 12)
+        [SNew(SBox).MinDesiredHeight(68).VAlign(VAlign_Center)[Brief]];
+    if(Brief->NumSlots()>0)DetailRows->AddSlot().AutoHeight().Padding(0,0,0,16)[BriefCard];
+    TArray<FColdSteelExpeditionSection> Facts;
+    if (!Entry->Scale.IsEmpty()) Facts.Add({TEXT("探索规模"), Entry->Scale});
+    if (!Entry->Threat.IsEmpty()) Facts.Add({TEXT("威胁情报"), Entry->Threat});
+    if (!Entry->RecommendedLevel.IsEmpty()) Facts.Add({TEXT("推荐等级"), Entry->RecommendedLevel});
+    if (!Facts.IsEmpty())
+    {
+        auto FactGrid = SNew(SGridPanel);
+        for (int32 Index = 0; Index < Facts.Num(); ++Index)
+        {
+            const int32 Column = bSingleColumnFacts ? 0 : 2 * Index;
+            const int32 RowIndex = bSingleColumnFacts ? 2 * Index : 0;
+            if (Index > 0)
+            {
+                if (bSingleColumnFacts) FactGrid->AddSlot(0, RowIndex - 1)[Divider()];
+                else FactGrid->AddSlot(Column - 1, 0)[Divider(Orient_Vertical)];
+            }
+            FactGrid->SetColumnFill(Column, 1.f);
+            FactGrid->AddSlot(Column, RowIndex).Padding(16, 8)
+                [SNew(SVerticalBox)
+                    +SVerticalBox::Slot().AutoHeight()[Label(Facts[Index].Title, 12, ColdSteelUI::HUDGold)]
+                    +SVerticalBox::Slot().AutoHeight().Padding(0, 3, 0, 0)[Label(Facts[Index].Text, 14, ColdSteelUI::TextPrimary)]];
+        }
+        DetailRows->AddSlot().AutoHeight().Padding(0, 0, 0, 12)[Card(FactGrid, 1)];
+    }
     if(!Entry->Routes.IsEmpty())
     {
-        DetailRows->AddSlot().AutoHeight().Padding(0,12,0,6)[Label(TEXT("路线情报"),16,ColdSteelUI::TextPrimary)];
-        DetailRows->AddSlot().AutoHeight().Padding(0,0,0,12)
-            [Label(TEXT("每条路线：随机设施房 1–2 间 → 主题房 3 间 → 随机设施房 1–2 间"),14,ColdSteelUI::TextSecondary)];
-        for(const auto& Route:Entry->Routes)
-            DetailRows->AddSlot().AutoHeight().Padding(0,0,0,8)[Section(Route.Title,Route.Text)];
-        DetailRows->AddSlot().AutoHeight().Padding(0,4,0,12)
-            [Label(TEXT("路线顺序固定，过渡房与空间布局随机。此处为结构情报，不是本局地图。"),12,ColdSteelUI::TextTertiary)];
+        DetailRows->AddSlot().AutoHeight().Padding(0,0,0,12)[Label(TEXT("路线情报"),16,ColdSteelUI::HUDGold)];
+        const int32 Columns=FMath::Min(CardColumns,Entry->Routes.Num());
+        auto RouteGrid=SNew(SGridPanel);
+        for(int32 Index=0;Index<Entry->Routes.Num();++Index)
+        {
+            const int32 Column=Index%Columns;
+            const auto& Route=Entry->Routes[Index];
+            RouteGrid->SetColumnFill(Column,1.f);
+            auto Summary=SNew(SVerticalBox)
+                +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,10)[Label(Route.Title,16,ColdSteelUI::HUDGold)]
+                +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,10)[Divider()]
+                +SVerticalBox::Slot().AutoHeight()[Label(Route.Text,14,ColdSteelUI::TextPrimary)];
+            RouteGrid->AddSlot(Column,Index/Columns)
+                .Padding(Column>0?4.f:0.f,0,Column+1<Columns?4.f:0.f,8.f)
+                [Card(Summary,16)];
+        }
+        // Route cards follow their content height; the overview no longer stretches room steps.
+        DetailRows->AddSlot().AutoHeight()[RouteGrid];
+        DetailRows->AddSlot().AutoHeight().Padding(0,0,0,16)
+            [Label(TEXT("所列为沿途可搜索的主要奖励类别，实际获得以探索结果为准。"),12,ColdSteelUI::TextTertiary)];
     }
-    if(!Entry->Completion.IsEmpty())DetailRows->AddSlot().AutoHeight().Padding(0,0,0,10)
-        [Section(TEXT("共同目标 · 数据档案中心 → 首领区域"),Entry->Completion)];
-    if(Entry->bDungeonLoot)DetailRows->AddSlot().AutoHeight()
-        [Label(TEXT("全图 18–25 间主要房间；选择一路通关约经过 8–11 间。包含公共前段、档案中心与首领房，不含连接走廊、前厅及奖励侧室。"),12,ColdSteelUI::TextTertiary)];
+    if(!Entry->MonsterIntel.IsEmpty())
+    {
+        auto IntelRows=SNew(SVerticalBox);
+        for(int32 Index=0;Index<Entry->MonsterIntel.Num();++Index)
+        {
+            if(Index>0)IntelRows->AddSlot().AutoHeight()[Divider()];
+            const auto& Intel=Entry->MonsterIntel[Index];
+            TSharedRef<SWidget> Content=SNullWidget::NullWidget;
+            if(bSingleColumnFacts)
+                Content=Section(Intel.Title,Intel.Text);
+            else
+                Content=SNew(SHorizontalBox)
+                    +SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center).Padding(0,0,20,0)
+                        [SNew(SBox).WidthOverride(116)[Label(Intel.Title,16,ColdSteelUI::HUDGold,false,false)]]
+                    +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)[Label(Intel.Text,14,ColdSteelUI::TextPrimary)];
+            IntelRows->AddSlot().FillHeight(1).VAlign(VAlign_Center)
+                [SNew(SBox).MinDesiredHeight(54).VAlign(VAlign_Center).Padding(FMargin(0,10))[Content]];
+        }
+        auto IntelCard=SNew(SVerticalBox)
+            +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[Label(TEXT("怪物情况"),16,ColdSteelUI::HUDGold)]
+            +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,12)
+                [Label(TEXT("已知大类与活动迹象"),12,ColdSteelUI::TextTertiary)]
+            +SVerticalBox::Slot().AutoHeight()[Divider()]
+            +SVerticalBox::Slot().FillHeight(1)[IntelRows]
+            +SVerticalBox::Slot().AutoHeight().Padding(0,12,0,0)
+                [Label(TEXT("各区域遭遇不同，具体种类与数量以本次探索为准。"),12,ColdSteelUI::TextTertiary)];
+        if(bStackOverview)DetailRows->AddSlot().AutoHeight()[Card(IntelCard,16)];
+        else DetailRows->AddSlot().FillHeight(1)[Card(IntelCard,16)];
+    }
 }
 
 void UColdSteelExpeditionWidget::BuildRewardPreview()
@@ -188,16 +258,16 @@ void UColdSteelExpeditionWidget::AddRewards()
         auto Grid=SNew(SGridPanel);int32 Count=0;
         for(auto& Reward:RewardPreview)if(Reward.Group==Group)
         {
-            const int32 Column=Count%RewardColumns;
+            const int32 Column=Count%CardColumns;
             Grid->SetColumnFill(Column,1.f);
-            Grid->AddSlot(Column,Count/RewardColumns).Padding(0,0,Column+1<RewardColumns?8:0,8)[RewardCard(Reward)];++Count;
+            Grid->AddSlot(Column,Count/CardColumns).Padding(0,0,Column+1<CardColumns?8:0,8)[RewardCard(Reward)];++Count;
         }
         if(!Count)continue;
-        DetailRows->AddSlot().AutoHeight().Padding(0,8,0,10)[Label(Groups[Group],16,ColdSteelUI::TextPrimary)];
+        DetailRows->AddSlot().AutoHeight().Padding(0,8,0,10)[Label(Groups[Group],16,ColdSteelUI::HUDGold)];
         DetailRows->AddSlot().AutoHeight()[Grid];
     }
     if(RewardPreview.IsEmpty())DetailRows->AddSlot().AutoHeight()[Section(TEXT("奖励情报暂不可用"),TEXT("未能读取奖励目录。出征不会因此扣除额外物品。"))];
     else DetailRows->AddSlot().AutoHeight().Padding(0,12,0,0)
-        [Section(TEXT("首领后的最终宝箱"),FString::Printf(TEXT("击败首领后开放奖励区。最终宝箱使用最高档掉落池，抽中物品的基础数量按 %g 倍发放；不是获得所有候选物品。"),FColdSteelDungeonLoot::FinalQuantityMultiplier()))];
+        [Section(TEXT("首领后的最终宝箱"),FString::Printf(TEXT("击败首领后开放奖励区。最终宝箱使用最高档掉落池，普通补给的基础数量按 %g 倍发放。额外必得强化石 2–4 个、魔法粉尘 100–160；材料不叠加数量倍率。"),FColdSteelDungeonLoot::FinalQuantityMultiplier()))];
     LoadNextRewardIcon();
 }

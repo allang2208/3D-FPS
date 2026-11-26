@@ -25,6 +25,7 @@
 #include "Engine/SkeletalMesh.h"
 #include "Engine/World.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/GameStateBase.h"
 #include "GameFramework/PlayerController.h"
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundBase.h"
@@ -120,7 +121,12 @@ void ASpiralPillarM14::BeginPlay()
 {
     CastChecked<UMonsterCharacterMovementComponent>(GetCharacterMovement())->ConfigureWideBodyStairs(125.f,300.f);
     Super::BeginPlay();ApplyVisual();Home=GetActorLocation();PreviousYaw=GetActorRotation().Yaw;
-    if(HasAuthority()){MaxHealth*=float(MonsterCoreStats::HealthMultiplier());Health=MaxHealth;}
+    if(HasAuthority())
+    {
+        MaxHealth*=float(MonsterCoreStats::HealthMultiplier());Health=MaxHealth;
+        PlaybackState.State=State;PlaybackState.StartedAt=GetWorld()->GetTimeSeconds();++PlaybackState.Serial;
+    }
+    else {State=PlaybackState.State;StateSeconds=NetworkStateAge();}
     GetCharacterMovement()->MaxWalkSpeed=WalkSpeed;
     GetMesh()->AddTickPrerequisiteActor(this);GetMesh()->AddTickPrerequisiteComponent(Combat);
     if(GetNetMode()!=NM_DedicatedServer)
@@ -128,15 +134,27 @@ void ASpiralPillarM14::BeginPlay()
         if(CrawlVoice)CrawlVoice->SetSound(CrawlSound);
         UpdateLoopAudio();
     }
+    PresentedStateSerial=PlaybackState.Serial;
     PresentState();if(auto* AI=Cast<AMonsterAIController>(GetController()))AI->UpdateKnowledge();
 }
 void ASpiralPillarM14::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
-    DOREPLIFETIME(ASpiralPillarM14,State);DOREPLIFETIME(ASpiralPillarM14,Health);
+    DOREPLIFETIME(ASpiralPillarM14,PlaybackState);DOREPLIFETIME(ASpiralPillarM14,Health);
     DOREPLIFETIME(ASpiralPillarM14,MaxHealth);
 }
-void ASpiralPillarM14::OnRep_State(){StateSeconds=0.f;PresentState();}
+float ASpiralPillarM14::NetworkStateAge() const
+{
+    if(const auto* GS=GetWorld()->GetGameState())
+        return FMath::Max(0.f,float(GS->GetServerWorldTimeSeconds()-PlaybackState.StartedAt));
+    return StateSeconds; // A late GameState clock is picked up by the next presentation tick.
+}
+void ASpiralPillarM14::OnRep_State()
+{
+    State=PlaybackState.State;StateSeconds=NetworkStateAge();
+    if(!HasActorBegunPlay()||PresentedStateSerial==PlaybackState.Serial)return;
+    PresentedStateSerial=PlaybackState.Serial;PresentState();
+}
 void ASpiralPillarM14::Play(UAnimSequence* Clip,bool Loop,bool Clock,float Blend)
 {
     if(auto* Anim=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))Anim->TransitionTo(Clip,Loop,Clock,Blend);
@@ -147,6 +165,9 @@ void ASpiralPillarM14::Sample(float Seconds)
 }
 void ASpiralPillarM14::PresentState()
 {
+    // Joining an already-released spit must not replay its contact sound. Normal
+    // playback consumes the release once even if server-clock correction crosses it twice.
+    bSpitAudioConsumed=!HasAuthority()&&State==EM14State::Spit&&StateSeconds>=SpitReleaseSeconds;
     // One-shots ride the replicated state edges; the same call runs on the
     // authority via SetState, so listen servers stay covered.
     if(GetNetMode()!=NM_DedicatedServer)
@@ -162,7 +183,8 @@ void ASpiralPillarM14::PresentState()
         case EM14State::Dying: Cue=DeathSound;At=GetMesh()->GetSocketLocation(TEXT("spine_01"));break;
         default:break;
         }
-        if(Cue)UGameplayStatics::PlaySoundAtLocation(this,Cue,At,Volume,1.f,0.f,OneShotAttenuation(2400.f));
+        if(Cue&&StateSeconds<Cue->GetDuration())
+            UGameplayStatics::PlaySoundAtLocation(this,Cue,At,Volume,1.f,StateSeconds,OneShotAttenuation(2400.f));
     }
     const bool Moving=State==EM14State::Crawl||State==EM14State::Returning;
     GetCharacterMovement()->bOrientRotationToMovement=Moving;
@@ -177,12 +199,17 @@ void ASpiralPillarM14::PresentState()
     if(!SoftDeathMorphTargets.IsEmpty()&&(State==EM14State::Dying||State==EM14State::Corpse))
     {
         GetMesh()->SetBoundsScale(2.75f);
-        ApplySoftDeath(State==EM14State::Corpse?MAX_flt:0.f);
+        ApplySoftDeath(State==EM14State::Corpse?MAX_flt:StateSeconds);
     }
     if(State==EM14State::Corpse)return;
     if(State==EM14State::Stagger){StartHitPresentation();return;}
     Play(Moving?MoveClip.Get():IsAttacking()?AttackClip(State):State==EM14State::Dying?DeathClip.Get():IdleClip.Get(),
         Moving||State==EM14State::Idle,IsAttacking()||State==EM14State::Dying,State==EM14State::Dying?.42f:.16f);
+    if(IsAttacking()||State==EM14State::Dying)
+    {
+        const UAnimSequence* Clip=IsAttacking()?AttackClip(State):DeathClip.Get();
+        Sample(Clip?FMath::Min(StateSeconds,Clip->GetPlayLength()):StateSeconds);
+    }
     if(State==EM14State::Dying)
     {
         GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -191,7 +218,10 @@ void ASpiralPillarM14::PresentState()
 }
 void ASpiralPillarM14::SetState(EM14State Next)
 {
+    if(!HasAuthority())return;
     State=Next;StateSeconds=0.f;
+    PlaybackState.State=Next;PlaybackState.StartedAt=GetWorld()->GetTimeSeconds();++PlaybackState.Serial;
+    PresentedStateSerial=PlaybackState.Serial;
     if(HasAuthority()&&Next!=EM14State::Crawl&&Next!=EM14State::Returning)GetCharacterMovement()->StopMovementImmediately();
     PresentState();ForceNetUpdate();
 }
@@ -256,7 +286,9 @@ void ASpiralPillarM14::BiteContact()
 }
 void ASpiralPillarM14::Tick(float Dt)
 {
-    Super::Tick(Dt);StateSeconds+=Dt;
+    Super::Tick(Dt);
+    if(HasAuthority())StateSeconds+=Dt;
+    else StateSeconds=NetworkStateAge();
     UpdateLoopAudio();
     if((State==EM14State::Dying||State==EM14State::Corpse)&&SoftBodyDeath->IsActive())
     {

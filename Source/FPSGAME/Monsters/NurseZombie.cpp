@@ -1,4 +1,11 @@
 #include "NurseZombie.h"
+#include "MonsterTargeting.h"
+#include "../WorldGeneration/HillsNightRaidSubsystem.h"
+#include "../WorldGeneration/VillageDefenseCombat.h"
+#include "../WorldGeneration/VillageDefenseSection.h"
+#include "../WorldGeneration/ChapelShrine.h"
+#include "GameFramework/GameStateBase.h"
+#include "../Multiplayer/FPSStatusReplicationComponent.h"
 #include "FatZombieAnimInstance.h"
 #include "Net/UnrealNetwork.h"
 #include "MonsterReactionTiming.h"
@@ -43,10 +50,12 @@ bool UsesFacelessStaffTransitions(const AActor* Actor)
 {
     return Actor->ActorHasTag(TEXT("FacelessResearcher")) ||
         Actor->ActorHasTag(TEXT("FacelessReceptionist")) ||
-        Actor->ActorHasTag(TEXT("FacelessSecurity"));
+        Actor->ActorHasTag(TEXT("FacelessSecurity")) ||
+        Actor->ActorHasTag(TEXT("CargoPorter")) ||
+        Actor->ActorHasTag(TEXT("CargoTechnician"));
 }
 // M-01 humanoid staff share NurseZombie defaults; role tags bias vitals within
-// ?20% so each posting reads differently without a per-variant class.
+// ±20% so each posting reads differently without a per-variant class.
 struct FStaffVitalBias { const TCHAR* Tag; float HealthMul, DamageMul, WalkSpeed; };
 static const FStaffVitalBias StaffVitalBiases[] =
 {
@@ -64,7 +73,7 @@ ANurseZombie::ANurseZombie(const FObjectInitializer& ObjectInitializer)
         .SetDefaultSubobjectClass<UMonsterIdleBreathingMeshComponent>(ACharacter::MeshComponentName))
 {
     PrimaryActorTick.bCanEverTick = true;
-    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));
+    Combat=CreateDefaultSubobject<UMonsterCombatComponent>(TEXT("CombatExecution"));CreateDefaultSubobject<UFPSStatusReplicationComponent>(TEXT("NetworkCombatStatus"));
     Knockdown=CreateDefaultSubobject<UHumanoidKnockdownComponent>(TEXT("HumanoidKnockdown"));
     AIControllerClass=AMonsterAIController::StaticClass();AutoPossessAI=EAutoPossessAI::PlacedInWorldOrSpawned;
     GetCapsuleComponent()->InitCapsuleSize(34.f, 92.f);
@@ -102,6 +111,18 @@ ANurseZombie::ANurseZombie(const FObjectInitializer& ObjectInitializer)
     }
 }
 
+void ANurseZombie::GetMoveToParameters_Implementation(float& ArcStrength, int32& NumMidPoints,
+    EAPSArcMidpointMode& MidpointMode, float& LaneOffset) const
+{
+    MonsterArcPathing::FillMoveParameters(this, ArcPathing, ArcStrength, NumMidPoints, MidpointMode, LaneOffset);
+}
+
+void ANurseZombie::FindCustomPath_Implementation(FVector const& StartLocation, FVector const& EndLocation,
+    TArray<FVector>& OutPath, float ArcStrength, UWorld* World, bool& bUseCustomPath, bool& bFound) const
+{
+    MonsterArcPathing::IgnoreCustomPath(StartLocation, EndLocation, OutPath, ArcStrength, World, bUseCustomPath, bFound);
+}
+
 void ANurseZombie::PrepareDeferredAllocation()
 {
     TInlineComponentArray<UActorComponent*> Components(this);
@@ -137,8 +158,9 @@ void ANurseZombie::BeginPlay()
     if (!ActorHasTag(TEXT("StaffLivingEmployee")))
         for (const FStaffVitalBias& Bias : StaffVitalBiases)
             if (ActorHasTag(Bias.Tag)) { MaxHealth*=Bias.HealthMul; AttackDamage*=Bias.DamageMul; WalkSpeed=Bias.WalkSpeed; break; }
-    // ?????????MonsterCoreStats::HealthMultiplier??????/???/?????/????????????????    MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());
-    Health = MaxHealth;
+    // 全局成长层（MonsterCoreStats::HealthMultiplier）：护士/胖子/突变体3/巫婆共用此初始化点。
+    if(HasAuthority()){MaxHealth*=static_cast<float>(MonsterCoreStats::HealthMultiplier());
+    Health = MaxHealth;}
     if (VisualMesh) GetMesh()->SetSkeletalMeshAsset(VisualMesh);
     if(BodyVoice&&NurseIdleSound)BodyVoice->SetSound(NurseIdleSound);
     GetCharacterMovement()->MaxWalkSpeed = WalkSpeed;
@@ -148,21 +170,24 @@ void ANurseZombie::BeginPlay()
         SetActorTickEnabled(false);
         return;
     }
-    SetState(ENurseState::Idle);
+    SetState(HasAuthority()?ENurseState::Idle:State);
     UE_LOG(LogTemp, Display, TEXT("NURSE_READY %s location=%s attack=%.3f health=%.1f/%.1f damage=%.1f"), *GetName(), *GetActorLocation().ToString(), AttackClip->GetPlayLength(), Health, MaxHealth, AttackDamage);
 }
 
 void ANurseZombie::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
-    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);DOREPLIFETIME(ANurseZombie,NetworkStateStarted);
+    DOREPLIFETIME(ANurseZombie,Health);DOREPLIFETIME(ANurseZombie,MaxHealth);
     DOREPLIFETIME(ANurseZombie, State);
 }
 void ANurseZombie::OnRep_State()
 {
-    // ????????etState ??????????????????????????????????    if(!HasAuthority())SetState(State);
+    // 远端副本：SetState 本身是表现内聚的（动画/移动标志），直接重放。
+    if(!HasAuthority()){SetState(State);if(State==ENurseState::Dead){GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);StartDeathPresentation();}}
 }
 void ANurseZombie::SetState(ENurseState NewState)
 {
+    if(HasAuthority())NetworkStateStarted=GetWorld()->GetTimeSeconds();
     State = NewState;
     StateTime = 0.f;
     UAnimSequence* Clip = State == ENurseState::Chase ? WalkClip : State == ENurseState::Attack ? AttackClip : IdleClip;
@@ -310,19 +335,24 @@ bool ANurseZombie::CanSee(const AActor* Actor) const
     FHitResult Hit;
     FCollisionQueryParams Params(SCENE_QUERY_STAT(NurseSight), false, this);
     Params.AddIgnoredActor(Actor);
-    return !GetWorld()->LineTraceSingleByChannel(Hit, GetActorLocation()+FVector(0,0,35), Actor->GetActorLocation(), ECC_Visibility, Params);
+    Params.AddIgnoredActor(MonsterTargeting::ContactBody(Cast<APawn>(Actor)));
+    const FVector Aim=VillageDefenseCombat::Aim(Actor,GetActorLocation());
+    return !GetWorld()->LineTraceSingleByChannel(Hit, GetActorLocation()+FVector(0,0,35), Aim, ECC_Visibility, Params);
 }
 
 void ANurseZombie::TryMelee()
 {
-    if (bAttackConsumed || !Target.IsValid()) return;
-    if(IceWallCombat::ApplyMelee(this,Target.Get(),MonsterCombatTuning::AttackDistance(AttackRange),AttackDamage,.55f))
+    if (bAttackConsumed || !Target.IsValid() || MonsterTargeting::IsDownedArtisan(Target.Get())) return;
+    APawn* Victim=Target.Get();
+    if(auto* Wall=VillageDefenseCombat::Blocking(this,Victim))Victim=Wall;
+    if(IceWallCombat::ApplyMelee(this,Victim,MonsterCombatTuning::AttackDistance(AttackRange),AttackDamage,.55f))
     {bAttackConsumed=true;return;}
-    const FVector Offset = Target->GetActorLocation() - GetActorLocation();
+    const FVector Aim=VillageDefenseCombat::Aim(Victim,GetActorLocation());
+    const FVector Offset = Aim - GetActorLocation();
     if (Offset.Size2D() > MonsterCombatTuning::AttackDistance(AttackRange) || FMath::Abs(Offset.Z) > 90.f ||
-        FVector::DotProduct(GetActorForwardVector(),Offset.GetSafeNormal2D()) < .55f || !CanSee(Target.Get())) return;
+        FVector::DotProduct(GetActorForwardVector(),Offset.GetSafeNormal2D()) < .55f || !CanSee(Victim)) return;
     bAttackConsumed = true;
-    ApplyMeleeDamage(Target.Get());
+    ApplyMeleeDamage(Victim);
     ++SuccessfulHits;
     UE_LOG(LogTemp, Display, TEXT("NURSE_MELEE time=%.3f hit=%d"),StateTime,SuccessfulHits);
 }
@@ -347,7 +377,16 @@ void ANurseZombie::Tick(float DeltaSeconds)
         }
     }
     else AudioStepClock=0.f;
-    if (!HasAuthority() || State == ENurseState::Dead || (Knockdown && Knockdown->IsControlling())) return;
+    if(!HasAuthority())
+    {
+        const auto* GS=GetWorld()->GetGameState();const double Now=GS?GS->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds();
+        StateTime=FMath::Max(0.,Now-NetworkStateStarted);
+        if(Knockdown&&Knockdown->IsControlling())return;
+        if(State==ENurseState::Attack)SetAttackAnimationTime(FMath::Min(StateTime,GetAttackDuration()));
+        else if(State==ENurseState::Chase)SetWalkAnimationRate(FMath::Clamp(GetVelocity().Size2D()/26.f,.15f,3.5f));
+        return;
+    }
+    if (State == ENurseState::Dead || (Knockdown && Knockdown->IsControlling())) return;
     const float Previous = StateTime;
     StateTime += DeltaSeconds;
     Cooldown = FMath::Max(0.f,Cooldown-DeltaSeconds);
@@ -416,9 +455,9 @@ float ANurseZombie::TakeDamage(float Damage, const FDamageEvent& Event, AControl
         SetLifeSpan(CorpseSeconds);
         UE_LOG(LogTemp, Display, TEXT("NURSE_KILLED %s"),*GetName());
         ColdSteelSkills::NotifyKillByOwner(GetGameInstance(),EventInstigator,this);
-        if(auto* PlayerController=Cast<APlayerController>(EventInstigator))
-            if(PlayerController->IsLocalController()&&GetGameInstance())
-                GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->AwardKill(this,ExperienceReward);
+        ColdSteelSkills::AwardKillByOwner(GetGameInstance(),EventInstigator,this,ExperienceReward);
+        if(ActorHasTag(TEXT("HillsNightRaider")))
+            if(auto* Raid=GetWorld()->GetSubsystem<UHillsNightRaidSubsystem>())Raid->Checkpoint();
     }
     const FName Bone = Event.IsOfType(FPointDamageEvent::ClassID)
         ? static_cast<const FPointDamageEvent&>(Event).HitInfo.BoneName : NAME_None;
@@ -488,3 +527,4 @@ bool ANurseZombie::FindTestSpawn(UObject* WorldContextObject,FVector Origin,FRot
         }
     return false;
 }
+

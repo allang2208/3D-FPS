@@ -64,11 +64,14 @@ namespace ColdSteelFrostRunes
     // Shared by catalog normalization, saved items and every sword visual.
     inline FString Upgrade(const FString& Weapon,const FString& Rune)
     {
+        if(Rune==TEXT("highland_oath_rune")&&Weapon!=TEXT("ue_highland_claymore"))return {};
         if(IsThunderExclusive(Rune)&&Weapon!=ThunderGodHammer)return {};
+        // Retired modifications: Blood Wolf and Frost Hawk now require suffix scrolls.
+        if(Rune==TEXT("berserker_rune")||Rune==TEXT("frost_raven_rune"))return {};
         if(IsWarhammer(Weapon)&&!IsWarhammerRune(Weapon,Rune))return {};
         if((Rune==Beiwei||IsZhanmadaoLegendary(Rune))&&Weapon!=Zhanmadao)return {};
         if((Rune==Zhenmo||Rune==Jingang)&&Weapon!=XuanChi)return {};
-        if(Rune==TEXT("golden_glow_rune")&&Weapon!=TEXT("ue_rune_sword"))return {};
+        if((Rune==TEXT("golden_glow_rune")||Rune==TEXT("silver_glow_rune"))&&Weapon!=TEXT("ue_rune_sword"))return {};
         if((Rune==AuspiciousCloud||Rune==Mountain)&&!SupportsEasternRunes(Weapon))return {};
         // Preserve the player's installed upgrade when erosion becomes innate.
         return Weapon==Definition&&Rune==TEXT("erosion_rune")?FString(SpiritBurst):Rune;

@@ -63,6 +63,15 @@ void USwordTasselMeshComponent::Configure(const TSharedPtr<FJsonObject>& Spec)
     SetComponentTickEnabled(Game);
 }
 
+FVector USwordTasselMeshComponent::DeformedPoint(const FVector& LocalPoint,int32 Segment) const
+{
+    const FTransform Frame=GetComponentTransform();
+    if(!bInitialized||!Rest.IsValidIndex(Segment+1)||!Position.IsValidIndex(Segment+1))return Frame.TransformPosition(LocalPoint);
+    const FVector Direction=Frame.InverseTransformVectorNoScale(Position[Segment+1]-Position[Segment]).GetSafeNormal();
+    const FQuat Q=FQuat::FindBetweenNormals((Rest[Segment+1]-Rest[Segment]).GetSafeNormal(),Direction);
+    return Frame.TransformPosition(Q.RotateVector(LocalPoint-Rest[Segment])+Frame.InverseTransformPosition(Position[Segment]));
+}
+
 void USwordTasselMeshComponent::Publish()
 {
     const FTransform Frame=GetComponentTransform();

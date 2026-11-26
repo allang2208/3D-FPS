@@ -49,7 +49,7 @@ def atlas(name,normal=False):
     return tex
 
 
-def material(name,weights,impressions,interior):
+def material(name,weights,impressions,interior,extent_cm=(3600.,4400.)):
     path=DEST+'/'+name
     mat=(load(path) if LIB.does_asset_exist(path) else
          TOOLS.create_asset(name,DEST,ue.Material,ue.MaterialFactoryNew()))
@@ -106,8 +106,9 @@ def material(name,weights,impressions,interior):
         # Its one placed instance is centred on village (4400,3950) cm.
         uv=op(ue.MaterialExpressionAdd,op(mul,uv,pair(180/3600,-180/4400)),
               pair(1700/3600,(3950-300+180)/4400))
-    tiled=op(mul,uv,pair(3600/145,4400/145))
-    stone_uv=op(mul,uv,pair(3600/108,4400/108))
+    span_x,span_y=extent_cm
+    tiled=op(mul,uv,pair(span_x/145.,span_y/145.))
+    stone_uv=op(mul,uv,pair(span_x/108.,span_y/108.))
     weights=sample(weights,uv)
     gravel=(weights,'G');wet=(weights,'B')
     earth='/Game/WorldGeneration/TemperateHills/OldChapel/Textures/Surfaces/T_ChapelEarth_'
@@ -146,3 +147,10 @@ def author():
     relief=atlas('StableImprintsDX',True)
     material('M_StableYardSoil',weights,relief,False)
     material('M_StableStallFloor',weights,relief,True)
+
+
+def author_west_paddock():
+    LIB.make_directory(DEST)
+    weights=atlas('StableWestPaddockWeights')
+    relief=atlas('StableWestPaddockImprintsDX',True)
+    material('M_StableWestPaddockSoil',weights,relief,False,extent_cm=(2300.,1500.))

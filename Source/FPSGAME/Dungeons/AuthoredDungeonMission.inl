@@ -201,6 +201,11 @@ void BindMainMissions(const FSocket& Start)
 
 bool MissionAllowsLoop(int32 A,int32 B)const
 {
+    // Facility maintenance links remain physically locked until BOTH complete
+    // endpoint routes have defeated their regional objectives. They are return
+    // paths, never an unlocked bypass of an authored three-room sequence.
+    if(bPairedFacility)return Pieces[A].Route.StartsWith(TEXT("Route"))&&Pieces[B].Route.StartsWith(TEXT("Route"))
+        &&!Pieces[A].Route.Contains(TEXT("_"))&&!Pieces[B].Route.Contains(TEXT("_"));
     if(!bMissionEnabled)return true;
     for(const auto& E:MissionEdges)if(E.bOptional&&
         ((E.From==Pieces[A].MissionId&&E.To==Pieces[B].MissionId)||(E.From==Pieces[B].MissionId&&E.To==Pieces[A].MissionId)))return true;
@@ -403,8 +408,11 @@ bool FinalizeMissionLayout(const FSocket& Start)
         return false;
     }
     const auto Base=Pieces;
-    AddRouteLoops(Start);
-    if(!MeasureMissionBudget()){Pieces=Base;LoopConnections.Reset();MeasureMissionBudget();}
+    const auto BaseEdges=MissionEdges;
+    // The bank contains mandatory placements. Optional links are drawn anew
+    // from each actual run seed after replay, not baked into every bank entry.
+    if(!(IsRunningCommandlet()&&FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutBake"))))AddRouteLoops(Start);
+    if(!MeasureMissionBudget()){Pieces=Base;MissionEdges=BaseEdges;LoopConnections.Reset();MeasureMissionBudget();}
     for(auto& Edge:MissionEdges)
     {
         Edge.bRealized=!Edge.bOptional;

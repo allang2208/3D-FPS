@@ -18,7 +18,11 @@ for column in gunsmith['columns']:
     columns[column['key']]=[o['id'] for o in options]
     for option in options:
         require(option['id'] in catalog['slots'][column['key']],'Missing module/surface: '+option['id'])
-        if column['key']=='blade_2':require(len(catalog['slots']['blade_2'][option['id']]['surface_materials'])==5,'Incomplete rune head coverage')
+        if column['key']=='blade_2':
+            surfaces=catalog['slots']['blade_2'][option['id']]['surface_materials']
+            for head,spec in catalog['slots']['blade_1'].items():
+                mapped=set(spec['material_slot_names']).intersection(surfaces)
+                require(len(mapped)==1,'Missing or ambiguous rune-bearing surface: '+head+'/'+option['id'])
 require('blade_2' not in catalog['module_slots'],'Surface rune erroneously adds physical mesh')
 for name in ('ue_kukri','ue_tactical_hatchet'):
     require(bool(items.get(name)),'Missing item '+name)

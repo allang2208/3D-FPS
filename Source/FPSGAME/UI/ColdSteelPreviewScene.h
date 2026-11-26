@@ -7,6 +7,8 @@
 class FColdSteelPreviewScene final : public FPreviewScene
 {
 public:
+    /** Validate world-subsystem CDOs before FPreviewScene enters engine initialization. */
+    static TUniquePtr<FColdSteelPreviewScene> TryCreate(ConstructionValues Values, FString& Failure);
     explicit FColdSteelPreviewScene(ConstructionValues Values);
     virtual void AddComponent(UActorComponent* Component, const FTransform& Transform, bool bAttachToRoot = false) override;
     virtual void RemoveComponent(UActorComponent* Component) override;

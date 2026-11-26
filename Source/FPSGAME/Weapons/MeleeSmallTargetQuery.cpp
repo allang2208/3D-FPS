@@ -1,9 +1,12 @@
 #include "MeleeSmallTargetQuery.h"
+#include "../Combat/FPSAttackQuery.h"
 #include "../Skills/FPSIceWall.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "../Monsters/FleshHandMonster.h"
 #include "../Monsters/MonsterCombatComponent.h"
+#include "../Monsters/WildlifeAnimal.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "Engine/OverlapResult.h"
 #include "Engine/World.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
@@ -35,13 +38,13 @@ TArray<FHitResult> MeleeSmallTargets::QueryLowSector(UWorld* World,ACharacter* O
     const FVector Origin(Aim.GetLocation().X,Aim.GetLocation().Y,FeetZ+50.f);
     const FVector Forward=FRotator(0.f,Aim.Rotator().Yaw,0.f).Vector();
     const float MinDot=FMath::Cos(FMath::DegreesToRadians(FMath::Clamp(ArcDegrees,1.f,LowArcDegrees)*.5f));
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(MeleeLowOverlap),false,Owner);
+    FFPSAttackQuery Query(SCENE_QUERY_STAT(MeleeLowOverlap),false,Owner);
     FCollisionObjectQueryParams Objects;Objects.AddObjectTypesToQuery(ECC_Pawn);
     TArray<FOverlapResult> Overlaps;
     World->OverlapMultiByObjectType(Overlaps,Origin,FQuat::Identity,Objects,
         FCollisionShape::MakeBox(FVector(Range,Range,100.f)),Query);
     TArray<AFleshHandMonster*> Candidates;
-    FCollisionQueryParams Cover(SCENE_QUERY_STAT(MeleeLowCover),false,Owner);
+    FFPSAttackQuery Cover(SCENE_QUERY_STAT(MeleeLowCover),false,Owner);
     for(const auto& Overlap:Overlaps)
     {
         // Cleaving ignores nearby bodies once, without per-target retry traces.
@@ -81,15 +84,34 @@ TArray<FHitResult> MeleeSmallTargets::QueryLowSector(UWorld* World,ACharacter* O
     return Result;
 }
 
+bool MeleeSmallTargets::BladeScenery(UWorld* World,AActor* Owner,const FVector& Start,const FVector& End,FHitResult& Hit)
+{
+    if(!World||!Owner)return false;
+    FFPSAttackQuery Query(SCENE_QUERY_STAT(BladeSceneryFX),false,Owner);
+    Query.bReturnPhysicalMaterial=true;Query.bReturnFaceIndex=true;
+    if(!World->SweepSingleByChannel(Hit,Start,End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(2.5f),Query))return false;
+    const auto* Actor=Hit.GetActor();
+    return IsValid(Actor)&&!Actor->IsA<APawn>()&&!Actor->FindComponentByClass<UMonsterCombatComponent>()
+        &&!Actor->ActorHasTag(TEXT("Friendly"))&&!Actor->IsOwnedBy(Owner)&&!Actor->IsAttachedTo(Owner);
+}
+
 bool MeleeSmallTargets::QueryQuickContact(UWorld* World,ACharacter* Owner,const FTransform& Aim,
     const FVector& Start,float Reach,float Radius,FHitResult& OutHit)
 {
     TRACE_CPUPROFILER_EVENT_SCOPE(Melee_QuickContact);
     if(!World||!Owner||Reach<=0.f)return false;
     const FVector End=Start+Aim.GetUnitAxis(EAxis::X)*Reach;
-    FCollisionQueryParams Params(SCENE_QUERY_STAT(QuickMeleeContact),false,Owner);
+    FFPSAttackQuery Params(SCENE_QUERY_STAT(QuickMeleeContact),false,Owner);
+    Params.bReturnPhysicalMaterial=true;
     const auto Shape=FCollisionShape::MakeSphere(Radius);
     bool bHit=World->SweepSingleByChannel(OutHit,Start,End,FQuat::Identity,ECC_Pawn,Shape,Params);
+    while (bHit)
+    {
+        const auto* Animal = Cast<AColdSteelAnimal>(OutHit.GetActor());
+        if (!Animal || OutHit.GetComponent() != Animal->GetCapsuleComponent()) break;
+        Params.AddIgnoredComponent(Animal->GetCapsuleComponent());
+        bHit = World->SweepSingleByChannel(OutHit,Start,End,FQuat::Identity,ECC_Pawn,Shape,Params);
+    }
     // An opening leaf temporarily ignores Pawn for anti-crush. Attacks still
     // strike its intact glass through the same visibility channel as bullets.
     FHitResult GlassHit;
@@ -105,9 +127,11 @@ bool MeleeSmallTargets::QueryQuickContact(UWorld* World,ACharacter* Owner,const 
     {
         if(bHit&&Hit.Time>OutHit.Time)break;
         auto* Hand=LivingSmallHand(Hit.GetActor());
-        if(!Hand||Hit.GetComponent()!=Hand->GetCapsuleComponent())continue;
+        const auto* Animal = Cast<AColdSteelAnimal>(Hit.GetActor());
+        const bool bAnimalBody = Animal && !Animal->IsDead() && Hit.GetComponent() == Animal->GetMesh();
+        if(!bAnimalBody && (!Hand||Hit.GetComponent()!=Hand->GetCapsuleComponent()))continue;
         if(CoverCandidates++>=MaxCoverCandidates)break;
-        FCollisionQueryParams Cover=Params;Cover.AddIgnoredActor(Hand);
+        FCollisionQueryParams Cover=Params;Cover.AddIgnoredActor(Hit.GetActor());
         if(Covered(World,Start,Hit.ImpactPoint,Cover)||Covered(World,Aim.GetLocation(),Hit.ImpactPoint,Cover))continue;
         OutHit=Hit;bHit=true;break;
     }
@@ -126,12 +150,18 @@ bool MeleeSmallTargets::QueryQuickContact(UWorld* World,ACharacter* Owner,const 
 TArray<FHitResult> MeleeSmallTargets::QueryQuickAreaContacts(UWorld* World,ACharacter* Owner,
     const FTransform& Aim,const FVector& Start,float Reach,float Radius)
 {
+    return QueryQuickAreaContacts(World,Owner,Aim,Start,Reach,Radius,LowArcDegrees);
+}
+
+TArray<FHitResult> MeleeSmallTargets::QueryQuickAreaContacts(UWorld* World,ACharacter* Owner,
+    const FTransform& Aim,const FVector& Start,float Reach,float Radius,float LowTargetArcDegrees)
+{
     TRACE_CPUPROFILER_EVENT_SCOPE(Melee_QuickAreaContact);
     TArray<FHitResult> Result;
     if(!World||!Owner||Reach<=0.f)return Result;
     const FVector End=Start+Aim.GetUnitAxis(EAxis::X)*Reach;
     const auto Shape=FCollisionShape::MakeSphere(Radius);
-    FCollisionQueryParams Params(SCENE_QUERY_STAT(QuickMeleeAreaContact),false,Owner);
+    FFPSAttackQuery Params(SCENE_QUERY_STAT(QuickMeleeAreaContact),false,Owner);
     FCollisionObjectQueryParams Objects;Objects.AddObjectTypesToQuery(ECC_Pawn);
     TArray<FHitResult> Contacts;
     World->SweepMultiByObjectType(Contacts,Start,End,FQuat::Identity,Objects,Shape,Params);
@@ -149,6 +179,7 @@ TArray<FHitResult> MeleeSmallTargets::QueryQuickAreaContacts(UWorld* World,AChar
     {
         if(bBlocked&&Hit.Time>Blocker.Time)break;
         auto* Target=Hit.GetActor();
+        if (const auto* Animal = Cast<AColdSteelAnimal>(Target); Animal && Hit.GetComponent() != Animal->GetMesh()) continue;
         auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
         if(!Combat||Combat->IsDead()||!Target->CanBeDamaged()||Seen.Contains(Target))continue;
         if(const auto* Hand=LivingSmallHand(Target);Hand&&Hit.GetComponent()!=Hand->GetCapsuleComponent())continue;
@@ -157,7 +188,7 @@ TArray<FHitResult> MeleeSmallTargets::QueryQuickAreaContacts(UWorld* World,AChar
         if(Covered(World,Start,Hit.ImpactPoint,TargetCover)||Covered(World,Aim.GetLocation(),Hit.ImpactPoint,TargetCover))continue;
         Result.Add(Hit);
     }
-    // Preserve the existing fallback condition and its range/arc; no new explosion radius.
-    if(Result.IsEmpty())Result=QueryLowSector(World,Owner,Aim,Reach,{},true);
+    // Preserve the fallback condition and distance; the caller may narrow its arc.
+    if(Result.IsEmpty())Result=QueryLowSector(World,Owner,Aim,Reach,{},true,LowTargetArcDegrees);
     return Result;
 }

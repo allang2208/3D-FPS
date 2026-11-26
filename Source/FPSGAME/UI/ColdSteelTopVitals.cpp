@@ -6,6 +6,7 @@
 #include "ColdSteelWorldClock.h"
 #include "../FPSWeatherManager.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
+#include "../Skills/FPSIceArmorComponent.h"
 #include "../Survival/FPSSurvivalComponent.h"
 #include "HAL/IConsoleManager.h"
 #include "Blueprint/WidgetTree.h"
@@ -123,7 +124,7 @@ void UColdSteelHUDWidget::UpdateTopHUDLayout(const FGeometry& Geometry)
         auto* Card=TopResourceCards[I].Get();Card->SetPadding(FMargin(6/S,4/S));Card->SetBrush(ColdSteelUI::RoundedBrush(FLinearColor::Transparent,8/S,FLinearColor::Transparent,0));
         auto* CardSlot=Cast<UGridSlot>(Card->Slot);CardSlot->SetRow(I);CardSlot->SetColumn(1);CardSlot->SetPadding(FMargin(12/S,0,0,I==0?6/S:0));
         CardSlot->SetHorizontalAlignment(HAlign_Fill);CardSlot->SetVerticalAlignment(VAlign_Fill);
-        TopMeterSizes[I]->SetHeightOverride(10/S);Cast<UVerticalBoxSlot>(TopMeterSizes[I]->Slot)->SetPadding(FMargin(0,6/S,0,0));
+        TopMeterSizes[I]->SetHeightOverride(13/S);Cast<UVerticalBoxSlot>(TopMeterSizes[I]->Slot)->SetPadding(FMargin(0,5/S,0,0));
     }
     for(auto* Value:{TopHealthValue.Get(),TopManaValue.Get()})Cast<UHorizontalBoxSlot>(Value->Slot)->SetPadding(FMargin(8/S,0,0,0));
     auto* LevelSlot=Cast<UGridSlot>(TopLevelSize->Slot);LevelSlot->SetRow(0);LevelSlot->SetColumn(0);LevelSlot->SetRowSpan(2);LevelSlot->SetHorizontalAlignment(HAlign_Left);LevelSlot->SetVerticalAlignment(VAlign_Center);
@@ -159,16 +160,46 @@ void UColdSteelHUDWidget::RefreshTopVitals()
 {
     if(!TopHealthMeter||!TopManaMeter||!TopLevelValue)return;
     if(!StatusModel&&GetGameInstance())StatusModel=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    auto Update=[](UColdSteelResourceMeter* Meter,UTextBlock* Label,float Value,float Maximum,bool Mana){
+    auto Update=[](UColdSteelResourceMeter* Meter,UTextBlock* Label,float Value,float Maximum,bool Mana,float Shield=0.f,float PendingCost=0.f){
         const bool Valid=FMath::IsFinite(Value)&&FMath::IsFinite(Maximum)&&Maximum>0;
         const float Current=Valid?FMath::Clamp(Value,0.f,Maximum):0.f;
-        const float Ratio=Valid?Current/Maximum:0.f;Meter->SetValue(Ratio,Mana);
-        const FText Text=FText::FromString(Valid?FString::Printf(TEXT("%.0f / %.0f"),Current,Maximum):TEXT("— / —"));if(!Label->GetText().EqualTo(Text))Label->SetText(Text);
+        const float Ratio=Valid?Current/Maximum:0.f;
+        Meter->SetMaxPoints(Maximum);
+        Meter->SetValue(Ratio,Mana);
+        if(Mana)
+        {
+            Meter->SetPendingCostRatio(Valid&&PendingCost>0.f?(PendingCost/Maximum):0.f);
+        }
+        else
+        {
+            Meter->SetShieldRatio(Valid&&Shield>0.f?(Shield/Maximum):0.f);
+        }
+        FString TextStr;
+        if(!Mana&&Shield>0.f)
+        {
+            TextStr=Valid?FString::Printf(TEXT("%.0f / %.0f (+%.0f)"),Current,Maximum,Shield):TEXT("— / —");
+        }
+        else
+        {
+            TextStr=Valid?FString::Printf(TEXT("%.0f / %.0f"),Current,Maximum):TEXT("— / —");
+        }
+        const FText Text=FText::FromString(TextStr);if(!Label->GetText().EqualTo(Text))Label->SetText(Text);
         Label->SetColorAndOpacity(!Mana&&Valid&&Ratio<=.25f?ColdSteelUI::Danger:ColdSteelUI::TextPrimary);
     };
     const auto* Pawn=GetOwningPlayerPawn();const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
-    Update(TopHealthMeter,TopHealthValue,Health?Health->Health:0,Health?Health->MaxHealth:0,false);
-    Update(TopManaMeter,TopManaValue,StatusModel?StatusModel->Mana():0,StatusModel?StatusModel->Derived(TEXT("maxMp")):0,true);
+    float CurrentShield=ActiveOvershieldAmount;
+    if(Pawn&&CurrentShield<=0.f)
+    {
+        if(const auto* IceArmor=Pawn->FindComponentByClass<UFPSIceArmorComponent>())
+        {
+            if(IceArmor->Remaining()>0.f)
+            {
+                CurrentShield=FMath::Max(50.f,IceArmor->DefenseBonus(false)*2.f);
+            }
+        }
+    }
+    Update(TopHealthMeter,TopHealthValue,Health?Health->Health:0,Health?Health->MaxHealth:0,false,CurrentShield);
+    Update(TopManaMeter,TopManaValue,StatusModel?StatusModel->Mana():0,StatusModel?StatusModel->Derived(TEXT("maxMp")):0,true,0.f,PendingSpellManaCost);
     const FText Level=FText::FromString(StatusModel?FString::FromInt(StatusModel->Level):TEXT("—"));if(!TopLevelValue->GetText().EqualTo(Level))TopLevelValue->SetText(Level);
     const auto* Survival=Pawn?Pawn->FindComponentByClass<UFPSSurvivalComponent>():nullptr;
     const auto State=Survival?Survival->GetState():FFPSSurvivalState{};
@@ -190,4 +221,26 @@ void UColdSteelHUDWidget::RefreshTopVitals()
     const FText WarningText=FText::FromString(Warning);if(!SurvivalWarning->GetText().EqualTo(WarningText))SurvivalWarning->SetText(WarningText);
     SurvivalWarning->SetColorAndOpacity(State.IsDeprived()||State.IsSanityDepleted()?ColdSteelUI::Danger:ColdSteelUI::Warning);
     SurvivalWarning->SetVisibility(Warning.IsEmpty()?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
+}
+
+void UColdSteelHUDWidget::SetPendingSpellManaCost(float Cost)
+{
+    PendingSpellManaCost = FMath::Max(0.f, Cost);
+    if (TopManaMeter)
+    {
+        const float MaxMp = StatusModel ? StatusModel->Derived(TEXT("maxMp")) : 0.f;
+        TopManaMeter->SetPendingCostRatio(MaxMp > 0.f ? (PendingSpellManaCost / MaxMp) : 0.f);
+    }
+}
+
+void UColdSteelHUDWidget::SetActiveOvershieldAmount(float Amount)
+{
+    ActiveOvershieldAmount = FMath::Max(0.f, Amount);
+    if (TopHealthMeter)
+    {
+        const auto* Pawn = GetOwningPlayerPawn();
+        const auto* Health = Pawn ? Pawn->FindComponentByClass<UFPSCombatHealthComponent>() : nullptr;
+        const float MaxHp = Health ? Health->MaxHealth : 100.f;
+        TopHealthMeter->SetShieldRatio(MaxHp > 0.f ? (ActiveOvershieldAmount / MaxHp) : 0.f);
+    }
 }

@@ -96,6 +96,39 @@ bool ConfigureThemedRoutes(int32 Seed,const JObject& Catalog)
     for(int32 I=0;I<Cores.Num();++I)Order.Add(I);
     for(int32 I=Order.Num()-1;I>0;--I)Order.Swap(I,Draw.RandRange(0,I));
     if(bPairedFacility&&Cores.Num()!=6){CompactFailure=TEXT("双主题三路线需要六个主题");return false;}
+    if(bPairedFacility)
+    {
+        // Design weights: staff=1, mantis/bell/bellow=2, crawler/spiral/slag=2.5,
+        // objective lord=8. Add authored vertical traversal and station pressure.
+        // These are balancing estimates, not measured clear times. Risk modifiers stay separate.
+        auto Population=[&](int32 Core)
+        {
+            const FString Id=Cores[Core]->AsObject()->GetStringField(TEXT("id"));
+            return Id==TEXT("medical")?40.5+7.*2.+2.*2.+8.+3.:
+                Id==TEXT("staff_living")?25.+4.*2.+2.*2.5+8.+2.:
+                Id==TEXT("freight")?14.+7.*2.5+4.*2.+8.+8.:
+                Id==TEXT("treatment")?14.+6.*2.5+2.*2.+8.+3.:
+                Id==TEXT("ecology")?14.+6.*2.5+8.+3.:14.+6.*2.+8.+6.;
+        };
+        struct FPairing {TArray<int32> Order;double Spread;};
+        TArray<FPairing> Options;double Best=DBL_MAX;
+        for(int32 Partner=1;Partner<6;++Partner)
+        {
+            TArray<int32> Remaining;
+            for(int32 I=1;I<6;++I)if(I!=Partner)Remaining.Add(Order[I]);
+            for(int32 Second=1;Second<4;++Second)
+            {
+                TArray<int32> Candidate{Order[0],Order[Partner],Remaining[0],Remaining[Second]};
+                for(int32 I=1;I<4;++I)if(I!=Second)Candidate.Add(Remaining[I]);
+                double Min=DBL_MAX,Max=0.;
+                for(int32 Pair=0;Pair<3;++Pair)
+                {const double Count=Population(Candidate[Pair*2])+Population(Candidate[Pair*2+1]);Min=FMath::Min(Min,Count);Max=FMath::Max(Max,Count);}
+                Best=FMath::Min(Best,Max-Min);Options.Add({MoveTemp(Candidate),Max-Min});
+            }
+        }
+        Options.RemoveAll([Best](const FPairing& Pair){return Pair.Spread>Best+6.;});
+        Order=Options[Draw.RandRange(0,Options.Num()-1)].Order;
+    }
     // Exhaustive pairing fixtures exist only in the explicit layout-only probe.
     // Runtime draws remain seed-driven and are never replaced during retries.
     if(bLayoutProbe&&bPairedFacility)
@@ -174,8 +207,8 @@ bool ConfigureThemedRoutes(int32 Seed,const JObject& Catalog)
         if(!SelectFacilityArrangement(0))return false;
     }
     for(const auto& V:(*Rules)->GetArrayField(TEXT("forward_only")))ForwardOnlyModules.Add(Find(V->AsString()));
-    // Cross-route shortcuts would bypass mandatory room pairs and freight gates.
-    LoopGoal=0;TopologyRecipe=bPairedFacility?TEXT("facility_three_paired_theme_routes"):TEXT("three_fixed_theme_routes");
+    LoopGoal=bPairedFacility?1:0;
+    TopologyRecipe=bPairedFacility?TEXT("facility_three_paired_theme_routes"):TEXT("three_fixed_theme_routes");
     return true;
 }
 

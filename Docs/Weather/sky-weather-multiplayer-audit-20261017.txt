@@ -1,0 +1,81 @@
+天空与天气：联机代码排查（2026-10-17）
+
+状态说明：本文保留修复前的排查证据。用户随后授权修复，当前结果及剩余升级项见同目录 sky-weather-network-fixes-20261017.txt；不要把下文全部条目当成当前仍未处理。
+
+范围与证据口径
+用户反馈此前输入失效已不再出现，本次只排查最近的天空/天气系统，重点为联机。
+本轮只读取源码、配置、既有资产导出和日志；没有启动 UE、PIE、联机实例、commandlet 或测试，没有修改运行代码、地图、材质或画质参数。
+当前实现是 AFPSWeatherManager + UFPSUDSBridgeComponent + Ultra Dynamic Sky / Weather。既有 probe13.json 的 UDS Version 为 9.7。
+资产导出来自 10 月 17 日已有工作，并非本轮重新读取当前地图。特别是 probe13.json 读取的是 UDS DemoMap；不能把其中的实例属性当作当前 DayNight_Lighting 地图实例的实测值。
+最新已有日志记录 DayNight_Lighting 的 sky/weather bound、2160 秒日长及晴天天气提交；它不能证明主客机、晚加入或换图正确。
+
+覆盖清单
+路径 | 已阅读的入口 | 本轮结论
+管理器创建 | FPSGAMEGameMode.cpp:73-89 | GameMode 复用已有管理器，否则生成；管理器默认复制且 AlwaysRelevant。
+服务器时钟/天气 | FPSWeatherManager.cpp:73-102、291-339 | 服务端推进自然日、选择天气；约每 0.5 秒发布日历/天气快照。
+客户端日历 | FPSWeatherManager.cpp:314-339 | 用 GameState 的服务器时间推算当前日历，未在客户端重新随机排天气。
+生存/食物 | Survival/FPSSurvivalComponent.cpp:100-128、Items/FoodSpoilageClock.cpp | 读取服务端自然时间；客户端不结算食物腐败。没有把客户端 NaturalDayProgress 未复制误报为故障。
+UDS/UDW 查找/生成 | FPSUDSBridgeComponent.cpp:116-175 | 缺少网络角色分工；内景过滤晚于同步加载及场景遍历。
+UDS/UDW 驱动 | FPSUDSBridgeComponent.cpp:178-259、277-422 | 各端写时间、调用天气过渡、写风向；没有明确排除 UDS/UDW 自带复制。
+晚加入湿润 | FPSWeatherManager.h:26-37、WeatherSurfaceComponent.cpp:88-119 | 项目地表湿度没有初始同步或历史恢复。
+天气控制入口 | UI/WeatherControlWidget.cpp:170-202、UI/DevelopmentPanelWidget.cpp:431-458 | 客机仍可点击，管理器拒绝写入，时间按钮仍报告成功。
+演员重绑定/失败回退 | FPSUDSBridgeComponent.cpp:152-171、178-259、319-396 | 新演员不重置已提交状态；回退路径直接跳到目标值。
+换图 | Multiplayer/ColdSteelTeamTravel.cpp:205-206、FPSGAMEGameMode.cpp、FPSWeatherManager.cpp:43-62 | 有整队 ServerTravel；没有天气日历/过渡的跨 World 交接，进入目标地图重新初始化。
+局部遮蔽/武器湿润 | FPSWeatherManager.cpp:248-289、WeatherViewEffectsComponent.cpp:220-269 | 按本端 0 号玩家相机/武器计算，适合当前单本地玩家；未覆盖分屏。
+风与项目特效 | FPSWeatherManager.h:162、FPSUDSBridgeComponent.cpp:399-406、WorldGeneration/FluidPresentationSubsystem.cpp:127 | 项目风向量仍是常量，UDW 预设风强独立变化。
+闪电 | FPSWeatherManager.cpp:341-345、FPSUDSBridgeComponent.cpp:369-379 | 原项目闪电复制处理已空置；新桥仅切换 UDW 闪电开关，实际事件一致性待核对 UDW 蓝图路径。
+打包 | Config/DefaultGame.ini:333-337、现有地图导出 | 主地图在 Cook 列表并放置 UDS/UDW；不能仅凭没有 AlwaysCook 目录认定资源漏包。预设完整依赖闭包未读取。
+资产/真实联机 | 既有 verify_uds_in_map.json、probe13.json、官方 9.7 文档 | 无本轮运行时资产回读、双端测试、晚加入测试、专用服务器或打包跨机证据。
+
+优先级 P1：室外天空生成和同步的网络权限尚未统一（代码缺口确定，实际重复演员尚未复现）
+FPSUDSBridgeComponent.cpp:150-165 在所有网络角色上执行 SpawnActor，没有 HasAuthority/NM_Client 分支。天气管理器复制到客机时，天空/天气演员通道不保证已同时到达；若此时本地查找未命中，客机会自行生成，之后服务端复制演员仍可到达。
+既有 DemoMap 导出中 UDS 和 UDW 的 bReplicates 均为 True，UDS 的 Replicate Time Of Day To Clients=True。迁移脚本没有将这些演员改为明确的纯本地表现对象。当前目标地图实例的上述值未做本轮回读，因此把“双份演员”列为高风险场景，不当成已经观察到的现象。
+另一个确定的写入重叠是 TickComponent 在客机同样调用 ApplyClock / ApplyWeatherState：项目根据 NetworkWeather 校准本地 UDS 并重新发起 Change Weather，同时 UDS/UDW 本身也有时间/天气过渡复制。可能出现两条到达时间不同的状态更新互相覆盖或重启过渡，晚加入与换图更容易暴露。
+这不是两套都在自行推进的时钟：桥已关闭 UDS Animate Time Of Day 并将 Time Speed 置零；问题是仍存在两条网络校准/表现写入路径。
+建议保留管理器作为玩法权威，室外 UDS/UDW 只由服务器生成；天气改变由服务器提交给 UDW，客户端通过 UDW 已有复制表现，HUD/生存仍读取管理器。时间表现也选择唯一校准通道。若改成纯本地表现演员，则必须完整停用其自带复制并补齐过渡/晚加入状态，不宜只加一条客户端 Spawn 禁令就宣称闭环。
+
+优先级 P2：晚加入玩家拿不到已积累的地表湿度（源码确定）
+WeatherSurfaceComponent.h 的 Wetness 初值为 0；cpp:93 只按本地经历的降雨/干燥时长积分。
+NetworkWeather 只传天气类型、日历、待降雨状态等，没有当前湿度或足以重建湿度的历史。OnRep_Weather 只切状态，不能恢复湿润积累。
+具体例子：房主刚经历暴雨，转晴时地表仍湿；此时加入的客机从 0 开始且只会继续干燥，因此同一时刻房主地面湿、客机地面干。丘陵 GroundMID 明确读取这条项目湿度（TemperateHillsWorld.cpp:687-690），项目 MPC 也使用它；结论不依赖 UDW 自身材质是否正确同步。
+建议由服务器发布湿度锚点和采样时间，客户端只做插值/确定性推进；保留每位玩家独立的室内遮蔽，不能把房主遮蔽值复制给全员。
+
+优先级 P2：室内地图也加载天空资源并持续遍历演员（源码确定，耗时未测）
+FPSUDSBridgeComponent.cpp:125/136 的 LoadObject<UClass> 和两次 TActorIterator，发生在 147-150 行的室外地图判断之前。
+GameMode 在地牢等地图也生成天气管理器，桥 BeginPlay 立即 ResolveActors；室内无 UDS/UDW 时，TickComponent 持续进入 ResolveActors，内部仅以 1 秒为间隔节流，因此每秒重复两遍全场景演员查找。
+首次同步加载可能触发蓝图及依赖加载；大量地牢演员时遍历也属于持续额外 CPU 工作。没有新采样，不能把它认定为既有 F6 中活怪 GPU 高耗时的根因。
+建议在解析/加载前确定本地图的天空表现需求；无天空的内景只保留管理器时钟和玩法数据。需要支持后来流送的天空时，使用明确的演员注册/流送事件，不长期扫描全场景。
+
+优先级 P2：客机按钮会无效或报告虚假成功（源码确定）
+FPSWeatherManager.cpp:128、140、150 明确拒绝 NM_Client 上的时间/天气修改，这个权威保护本身正确。
+WeatherControlWidget.cpp:173 仅判断是否有管理器就启用按钮；196-202 行直接调用本地管理器，没有 Server RPC 或权限提示。
+DevelopmentPanelWidget.cpp:447-458 同样直接调用 AdvanceGameTime，然后无条件显示“世界时间前推 1 小时”的成功提示。客机实际时间没有改变。
+建议若只允许房主调节，则客机按钮禁用并说明“由房主控制”；若产品要求客机也能调节，则通过其拥有的 PlayerController 发起经服务端权限校验的请求，并按服务端回执显示结果。
+
+优先级 P2：天空/天气演员替换后，当前天气可能不再提交（源码确定，条件分支）
+BindWeatherReflection 更新演员和反射句柄，但没有重置 LastDrivenState；ApplyWeatherState:324 只在天气枚举改变时提交预设。
+当原演员失效、后来绑定新演员且天气仍为同一类型时，新演员可能保持默认天气直到下一次天气切换。重新绑定天空时 LastDrivenClockUnits 也没有重置，暂停/固定时间下可能跳过首次校准。
+此外 bTriedAutoSpawn 一旦置 true 不再重试；168-171 行“下次重试缺失对象”的注释没有实际生成代码。
+建议仅在演员身份变化时清空已提交缓存、重新提交完整状态；创建成功与尝试创建分开记录，不每次绑定都盲目重启过渡。
+
+优先级 P2：无预设时的回退实际没有天气渐变（源码确定，条件分支）
+ApplyWeatherState:338 先调用 ApplyStateTargets，后者 388-395 行立即写入所有目标雨/云/雾/风值；343 行以后所谓插值再读取时，已经等于目标。
+预设加载失败或弱引用失效时，备用路径会瞬间改变天气，无法保留原有渐变。并且 RainIntensity 参数未被使用。
+建议回退只设置目标，用统一过渡起点/起始时间推进；UDW 属性应通过其有效的 Manual Weather State 接口驱动，不能只写可能被其更新函数覆盖的最终输出字段。
+
+其他发现与待确认项（不当作已复现故障）
+1. 反射调用参数：CallChangeWeather:415-422 使用手写 UObject* + float 参数块，没有按 UFunction 的 ParmsSize、FProperty 类型/偏移构造。既有探针只证明 Python 能调用，不证明 C++ 参数块与当前蓝图 ABI 匹配。需要读取该函数真实参数布局，再使用反射字段赋值；尚无证据确认本地参数为 float 还是 double，也没有据此宣布发生内存越界或崩溃。
+2. 闪电旧通道：NetworkLightning 只有声明/复制/空 OnRep，没有服务器更新事件；注释声称仍更新峰值时序，但函数没有实现。若完全交给 UDW，应删除失效通道并明确其联机保证；实际闪电方向/时刻是否统一需读取 UDW 蓝图及当前实例的 Replicate Lightning Direction，不凭 DemoMap 的 False 就断言正式地图必然不同步。
+3. 风：WeatherWind 固定为 (120,40,0)，UDW 的风强随预设在 2 到 10 间变化。项目烟雾等消费者仍读固定向量，因此两套风强没有统一口径。当前属于表现一致性缺口，不是客户端越权。
+4. 跨地图日历：当前每个 World 重新建立天气/日历，三个室外场景固定从 09:00 开始，没有天气快照跨 ServerTravel 的交接。如果设计要求统一世界时间，需要增加房间级连续状态；若场景各自独立，应明确这一规则，不能先擅自改变玩法。
+5. 专用服务器：桥和 WeaponWetEffects 没有 NM_DedicatedServer 初始化过滤，ViewEffects::Initialize 仍会同步加载武器湿润材质目录。当前项目主要联机边界是监听服务器；专用服务器视觉资源剥离尚未覆盖。
+6. 退役残留：OldDayNightActor、PresetLibrary、LastAppliedWindSign、bSkyClockConnected 已无实际用途；旧 SurfaceEffects 渲染池 Initialize 无调用，但湿度积分仍被地面/MPC 使用，不能整组件删除。技能中旧“当前仅单机”和旧天空时钟说明已落后于源码，不应据其判定项目完全没有天气复制。
+
+建议实施顺序
+先统一室外演员生成与状态写入权限；接着补晚加入湿度/过渡状态；随后隔离内景天空初始化，修正客机控制反馈和演员重绑定；最后清理废弃闪电通道及旧字段。
+反射参数布局应在继续改天气提交路径之前确认，不依赖猜测扩大改动。保留现有画质、怪物数量和战斗规则。
+本报告为代码排查结果，没有把任何问题标成“已修复”。真正主客机、晚加入、掉线重连、换图及音画表现仍由后续用户运行确认。
+
+外部依据
+Ultra Dynamic Sky 9.7 官方文档：https://www.ultradynamicsky.com/Documentation/V9/9-7
+与本报告相关的契约：UDS 自带时间/日期复制；UDW 自带天气与过渡来源复制；Manual Weather State 是手动控制入口。以上仅用于解释桥接边界，不替代当前项目蓝图/地图的实测。

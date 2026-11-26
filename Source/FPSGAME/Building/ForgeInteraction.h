@@ -18,6 +18,7 @@ class UStaticMesh;
 class USoundBase;
 struct FStreamableHandle;
 struct FInputKeyEventArgs;
+struct FColdSteelForgeBlank;
 
 /** Local, station-anchored presentation. ForgingSystem remains the inventory/quality authority. */
 UCLASS()
@@ -28,7 +29,7 @@ public:
     AForgeInteraction();
     void Prepare(APlayerController* Player,AVoxelBuildPrefabActor* Station,UColdSteelHUDWidget* InHUD);
     bool Ready(FString& Reason) const;
-    bool Start(FName Recipe,FString& Reason);
+    bool Start(FName Recipe,FString& Reason,FName Metal=FName(TEXT("ironIngot")));
     void Enter();
     bool IsRunning() const {return bRunning;}
     bool HandleInput(const FInputKeyEventArgs& Event);
@@ -50,6 +51,9 @@ private:
     void UpdateQuenchContact(const FTransform& Work,double Now);
     void RestoreQuenchWater();
     FVector Point(const FVector2D& UV) const;
+    FVector AimPoint(const FVector2D& PlaneUV,bool* OnBlank=nullptr) const;
+    bool BlankSurface(const FVector2D& UV,FVector& Surface) const;
+    const FColdSteelForgeBlank* BlankProfile() const;
     FTransform HammerFrame(const FVector& Hit,double Age) const;
     FTransform TongFrame(const FTransform& BlankTransform) const;
     void RestorePlayer();
@@ -85,7 +89,10 @@ private:
     TWeakObjectPtr<AActor> PreviousView;
     TWeakObjectPtr<APawn> WorkingPawn;
     TWeakObjectPtr<UColdSteelHUDWidget> HUD;
+    // Cursor rays are stored on the fixed anvil plane, independently of blank height.
     FVector2D Aim=FVector2D(.5,.375),StrikeAim;
+    FVector StrikeSurface=FVector::ZeroVector;
+    bool bStrikeOnBlank=false;
     FVector SparkOrigin;
     FString LoadError;
     double StrikeAt=-100,FinishAt=-1,LastFeedback=-100;
@@ -97,6 +104,11 @@ private:
     FVector ElbowPole=FVector(32,-10,-29);
     float WorkYaw=180,QuenchPitch=-62;
     int32 StrikeIndex=INDEX_NONE,BlankStage=INDEX_NONE;
+    FName SelectedBlank=TEXT("sword");
+    FName PendingRecipe,PendingMetal;
+    bool bWaitingForJob=false,bStartSent=false;
+    double EnteredAt=0;
+    TMap<FName,int32> BlankMeshOffsets;
     bool bReady=false,bRunning=false,bContact=false,bHeldInput=false,bHidPawn=false,bLastHit=false,bReturning=false;
     UPROPERTY(Transient) TObjectPtr<UColdSteelForgingSystem> System;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UCameraComponent> Camera;

@@ -1,5 +1,6 @@
 #include "ProductionTreeFallPlan.h"
 #include "ProductionResource.h"
+#include "../Development/DevelopmentEnvironmentObject.h"
 #include "ProductionHarvestAssets.h"
 #include "ProductionTreeCutProfile.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
@@ -30,7 +31,22 @@ FProductionTreeFallPlan FProductionTreeFallPlan::Make(const FProductionResource&
     const float Scale=Resource.Transform.GetScale3D().Z;
     const float Height=(Plan.LocalHeight-CutHeight)*Scale;
     Plan.FallSeconds=FMath::Clamp(1.3f+.25f*FMath::Sqrt(Height/100.f),1.8f,3.f);
-    auto* World=Resource.World.Get();if(!World)return Plan;
+    auto* World = Resource.World.Get();
+    if (!World)
+    {
+        if (const auto* Object = Resource.DevelopmentObject.Get())
+        {
+            auto ContactPoint = [&](float Fraction)
+            {
+                const FVector At = Plan.Pivot + Plan.Direction * (Height * Fraction);
+                FHitResult Floor;
+                return Object->FindGround(At, Floor) ? Floor.ImpactPoint : FVector(At.X, At.Y, Resource.Transform.GetLocation().Z);
+            };
+            Plan.TrunkContact = ContactPoint(.35f);
+            Plan.CrownContact = ContactPoint(.9f);
+        }
+        return Plan;
+    }
     // Refine first crown contact and final trunk support separately, once per fall.
     auto Contact=[&](float Degrees,bool Crown,FVector& Point)
     {

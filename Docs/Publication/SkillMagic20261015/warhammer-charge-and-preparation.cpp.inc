@@ -91,3 +91,4 @@ bool UWarhammerSlamFXSubsystem::PrepareBackground()
     }
     return true;
 }
+

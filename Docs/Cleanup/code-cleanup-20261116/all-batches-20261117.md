@@ -253,4 +253,4 @@ final-resume2 最终回执：退出码 6，UBT 1868.73 秒，1195 个计划动�
 - 原 48 项：累计 35 项拆分完成，13 项按数据合同、反射合同或复杂度明确保留；C04 / C06、K01–K03、H / R 差异也全部给出处置结论。没有悬空的待实施批次，也未把保留项计作已删除。
 - 没有新增功能、运行测试、lint、额外静态检查、运行验收、编辑器或游戏启动。源码和必要构建产物已落盘，行为与运行效果由用户自行测试。
 
-[最终构建回执](all-batches-20261117/build-final-resume3-20261118-101539.json)；最终 Editor 构建日志（本机资料：`Saved/BuildEditor/cleanup-all-final-resume3-20261118-101539.log`，不随本次发布）。
+[最终构建回执](all-batches-20261117/build-final-resume3-20261118-101539.json)；[最终 Editor 构建日志](../../../Saved/BuildEditor/cleanup-all-final-resume3-20261118-101539.log)。

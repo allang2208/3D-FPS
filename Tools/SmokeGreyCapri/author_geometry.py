@@ -1,5 +1,5 @@
 """Tailor mid-calf cotton trousers and transfer Jason weights on donor triangles."""
-import importlib.util,json,math
+import importlib.util,json,math,sys
 from pathlib import Path
 import bpy,bmesh
 import numpy as np
@@ -45,10 +45,10 @@ def binding(p,side):
     pairs=sorted(result.items(),key=lambda x:(-x[1],x[0]))[:8];total=sum(w for _,w in pairs)
     return [[int(bi),w/total] for bi,w in pairs if w>1e-7]
 
+sys.path.insert(0,str(P/'Tools/SmokeGreyCapri'))
+from waist_fit import fitted_torso
 def torso(z,t,offset=0):
-    rx=np.interp(z,[80,85,90,95,100.2],[18.3,18.7,18.3,17.7,17.1])+offset
-    ry=np.interp(z,[80,85,90,95,100.2],[13.8,14.4,14.2,13.7,12.7])+offset
-    return np.array([rx*math.sin(t),.8+ry*math.cos(t),z])
+    return fitted_torso(z,t,offset)
 
 def leg(z,t,side,offset=0):
     sign=1 if side=='l' else -1;hs=[30,40,47.35,58,67,72]
@@ -218,7 +218,7 @@ for ob in g.objects:
         data['normals'].append([[float(mesh.corner_normals[i].vector.x),float(-mesh.corner_normals[i].vector.y),float(mesh.corner_normals[i].vector.z)] for i in t.loops])
         data['triangle_materials'].append(int(ob['material_slot']));count+=1
     data['parts'].append(dict(name=ob.name,first_vertex=start,vertices=len(points),triangles=count,material=int(ob['material_slot'])))
-data.update(source=native['source'],skeleton=native['skeleton'],bones=bones,contract='SmokeGreyCapri20261004 CrotchSeamFix20261005: native Jason; UE cm; mid-calf hem 30cm; welded continuous waist/seat/legs; paired crotch weights blend to same-side thigh over 6cm; per-corner UV and normals')
+data.update(source=native['source'],skeleton=native['skeleton'],bones=bones,contract='SmokeGreyCapri20261004 CrotchSeamFix20261005 NativeWaistFit20261018: native Jason; UE cm; mid-calf hem 30cm; welded continuous waist/seat/legs; paired crotch weights blend to same-side thigh over 6cm; per-corner UV and normals')
 (R/'Jason_SmokeGreyCapri_Garment.json').write_text(json.dumps(data,separators=(',',':')),encoding='utf-8')
 (R/'native_reference.json').write_text(json.dumps(native,separators=(',',':')),encoding='utf-8')
 (R/'production.json').write_text(json.dumps(dict(vertices=len(data['positions']),triangles=len(data['triangles']),parts=len(data['parts']),hem_height_cm=30,matching_shirt='ue_field_sweater_charcoal',revision='CrotchSeamFix20261005',crotch_construction='welded continuous shell; identical centre seam binding with bilateral 6cm falloff',runtime_tested=False),indent=2),encoding='utf-8')

@@ -113,6 +113,7 @@ private:
     void RecenterWindow(const FVector& GroundPosition);
     /** Flush everything queued since the last tick into the current read RT. */
     void DrainPendingStamps();
+    bool ArePassShadersReady() const;
     /** CPU-only lifetime bookkeeping; shader evaluates recovery continuously. */
     void UpdateFade(float DeltaTime);
     /** Read / write sides of the ping-pong pair. A pass never samples the target it writes. */

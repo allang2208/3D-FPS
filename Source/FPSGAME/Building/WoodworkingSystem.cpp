@@ -1,4 +1,8 @@
 #include "WoodworkingSystem.h"
+#include "VoxelBuildPrefabActor.h"
+#include "VoxelBuildWorld.h"
+#include "../Tasks/CarpenterApprenticeship.h"
+#include "../Development/DevelopmentTuningSubsystem.h"
 #include "../Multiplayer/ColdSteelStationNetwork.h"
 #include "WoodworkingQuality.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -86,6 +90,7 @@ void UWoodworkingSystem::Load()
     using Device=ColdSteelWoodworking::FDeviceGeometry;
     const double Height=Device::StockBottom+Device::StockThickness-Device::SawHeight;
     SawRules.ContactLength=2*FMath::Sqrt(Device::BladeRadius*Device::BladeRadius-Height*Height)/SawRules.CentimetersPerPixel;
+    if(!LoadCores())return;
     Catalog=MoveTemp(Parsed);ConfigError.Reset();Selected=Catalog[0].Id;
 }
 const FWoodworkingPattern* UWoodworkingSystem::Pattern() const
@@ -131,9 +136,12 @@ bool UWoodworkingSystem::CanStart(bool Practice,FString& Reason) const
     const auto* Recipe=Craft?Craft->Find(Pattern()->CraftRecipe):nullptr;
     if(!Recipe){Reason=TEXT("制作配方未配置，暂不消耗材料或发放成品");return false;}
     const auto* M=Model();if(!M||M->CreateItem(Recipe->Output,Recipe->OutputCount).Data.IsEmpty())return false;
-    for(const auto& Input:Recipe->Inputs)if(M->CountMaterial(Input.Item)<Input.Count)
+    TArray<FColdSteelCraftingInput> Inputs;
+    if(!InputsFor(Inputs)){Reason=TEXT("请选择可用木芯");return false;}
+    const bool Free=UDevelopmentTuningSubsystem::IsFreeCrafting(M);
+    if(!Free)for(const auto& Input:Inputs)if(M->CountMaterial(Input.Item)<Input.Count)
     {Reason=FString::Printf(TEXT("缺少 %lld 个%s"),Input.Count-M->CountMaterial(Input.Item),*ColdSteelInventory::Text(M->CreateItem(Input.Item),TEXT("name")));return false;}
-    Reason=TEXT("材料充足 · 开始加工时投入材料");return true;
+    Reason=Free?TEXT("免材料制作 · 可直接开始加工"):TEXT("材料充足 · 开始加工时投入材料");return true;
 }
 bool UWoodworkingSystem::Start(bool Practice)
 {return StartMode(Practice?EWoodworkingMode::Practice:EWoodworkingMode::Craft);}
@@ -145,7 +153,7 @@ bool UWoodworkingSystem::StartMode(EWoodworkingMode Mode)
     if(!CanStart(false,Notice))return false;
     if(ColdSteelStationNet::IsClient(this))
     {
-        if(!ColdSteelStationNet::Request(this,TEXT("wood.start"),Selected))return false;
+        if(!ColdSteelStationNet::Request(this,TEXT("wood.start"),Selected,1,Station(),FIntVector::ZeroValue,Core()))return false;
         bClaiming=true;Notice=TEXT("等待服务器投入材料");return true;
     }
     if(!PayForJob())return false;
@@ -161,6 +169,16 @@ double UWoodworkingSystem::Elapsed() const
 double UWoodworkingSystem::Remaining() const {return FMath::Max(0.0,Rules.Seconds-Elapsed());}
 void UWoodworkingSystem::Tick(float)
 {
+    if(!BoundStation.IsExplicitlyNull()&&!ColdSteelStationNet::IsClient(this))
+    {
+        const auto* Piece=Cast<AVoxelBuildPrefabActor>(Station());
+        const auto* Building=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
+        if(!Building||Piece->PrefabId()!=VoxelWoodworkingBenchId||Piece->IsFalling()||Building->PrefabActorAt(Piece->AnchorCell())!=Piece)
+        {
+            NetworkUnavailable(TEXT("木工工作台已不可用，加工已暂停"));
+            return;
+        }
+    }
     AdvanceClock();
     if(Phase==EWoodworkingPhase::Running&&HasPendingJob()&&!ColdSteelStationNet::IsClient(this)&&FPlatformTime::Seconds()>=NextCheckpointAt)
     {NextCheckpointAt=FPlatformTime::Seconds()+5;SaveCheckpoint();}
@@ -307,14 +325,15 @@ bool UWoodworkingSystem::Claim()
 {
     if(!bOpen||!HasPendingJob()||!Job().bFinished||!Job().bPassed||bClaiming)return false;
     if(ColdSteelStationNet::IsClient(this))
-    {if(!ColdSteelStationNet::Request(this,TEXT("wood.claim")))return false;bClaiming=true;Notice=TEXT("等待服务器结算");return false;}
+    {if(!ColdSteelStationNet::Request(this,TEXT("wood.claim"),NAME_None,1,Station()))return false;bClaiming=true;Notice=TEXT("等待服务器结算");return false;}
     TGuardValue<bool> Guard(bClaiming,true);
     auto* M=Model();if(!M)return false;M->SyncRuntime();auto Next=M->Snapshot();
     // Apply from the authoritative saved score, including an older unclaimed finished job.
     // Replacing quality metadata never multiplies the stored base stats a second time.
-    if(!ColdSteelWoodQuality::Apply(Next.WoodworkingJob.Item,Next.WoodworkingJob.Quality))
+    if(!ColdSteelWoodQuality::Apply(Next.WoodworkingJob.Item,Next.WoodworkingJob))
     {Notice=TEXT("成品工艺属性不可读，工件保留待领");return false;}
     if(!ColdSteelInventory::Insert(Next.Items,Next.WoodworkingJob.Item)){Notice=TEXT("背包空间不足，成品保留待领");return false;}
+    CarpenterApprenticeship::WorkpieceRemoved(Next,true);
     Next.WoodworkingJob={};
     if(!M->CommitState(MoveTemp(Next))){Notice=M->ResultMessage();return false;}
     Phase=EWoodworkingPhase::Delivered;Notice=TEXT("成品已放入背包 · 本次制作已结算");return true;
@@ -338,15 +357,18 @@ FString UWoodworkingSystem::RecipeSummary() const
 {
     const auto* P=Pattern();const auto* Craft=GetGameInstance()->GetSubsystem<UColdSteelCraftingSystem>();
     const auto* Recipe=P&&Craft?Craft->Find(P->CraftRecipe):nullptr;
-    const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    const auto* Model=this->Model();
     if(!Recipe||!Model)return TEXT("正式制作配方暂不可用");
-    FString Text=TEXT("材料来源 · 背包 + 主仓库\n");
-    for(const auto& Input:Recipe->Inputs)
+    const bool Free=HasPendingJob()?Job().bMaterialsWaived:UDevelopmentTuningSubsystem::IsFreeCrafting(Model);
+    FString Text=Free?TEXT("免材料制作 · 本次不扣料\n"):TEXT("材料来源 · 背包 + 主仓库\n");
+    TArray<FColdSteelCraftingInput> Inputs;InputsFor(Inputs);
+    for(const auto& Input:Inputs)
     {
         const FString Name=ColdSteelInventory::Text(Model->CreateItem(Input.Item),TEXT("name"));
-        Text+=FString::Printf(TEXT("%s    %lld / %lld\n"),*Name,Model->CountMaterial(Input.Item),Input.Count);
+        Text+=FString::Printf(TEXT("%s    %lld / %lld\n"),*Name,Model->CountMaterial(Input.Item),Free?int64(0):Input.Count);
     }
-    Text+=FString::Printf(TEXT("产出 · %s × %lld\n开始加工时投入材料；完成后领取成品或废弃返还一半。"),*ColdSteelInventory::Text(Model->CreateItem(Recipe->Output),TEXT("name")),Recipe->OutputCount);
+    Text+=FString::Printf(TEXT("产出 · %s × %lld\n"),*ColdSteelInventory::Text(Model->CreateItem(Recipe->Output),TEXT("name")),Recipe->OutputCount);
+    Text+=Free?TEXT("完成后领取成品；免费工件废弃不返料。"):TEXT("开始加工时投入材料；完成后领取成品或废弃返还一半。");
     return Text;
 }
 FString UWoodworkingSystem::ResultSummary() const
@@ -362,7 +384,7 @@ FString UWoodworkingSystem::ResultSummary() const
 }
 
 UWoodworkingSystem* UWoodworkingSystem::CreateNetworkSession(UColdSteelStatusModel* InModel)
-{auto* S=NewObject<UWoodworkingSystem>(GetGameInstance());S->Rules=Rules;S->SawRules=SawRules;S->Catalog=Catalog;S->ConfigError=ConfigError;S->NetworkModel=InModel;return S;}
+{auto* S=NewObject<UWoodworkingSystem>(GetGameInstance());S->Rules=Rules;S->SawRules=SawRules;S->Catalog=Catalog;S->CoreCatalog=CoreCatalog;S->SelectedCore=SelectedCore;S->ConfigError=ConfigError;S->NetworkModel=InModel;return S;}
 void UWoodworkingSystem::NetworkDelivered(bool Success)
 {bClaiming=false;if(Success){Phase=EWoodworkingPhase::Delivered;Notice=TEXT("成品已放入背包");}else Notice=TEXT("服务器未完成结算，请查看加工状态后重试");}
 
@@ -406,4 +428,7 @@ bool UWoodworkingSystem::ApplyNetworkState(const UColdSteelWoodNetState* S)
 }
 
 void UWoodworkingSystem::NetworkUnavailable(const FString& Reason)
-{Close();Notice=Reason;}
+{
+    FrozenElapsed=Elapsed();bMotorOn=false;
+    Close();BoundStation.Reset();Notice=Reason;
+}

@@ -1,0 +1,75 @@
+{
+  "status": "implemented_built_assets_saved_user_testing_pending",
+  "runtime_installed": true,
+  "delivery": {
+    "editor_build": "succeeded",
+    "build_log": "Saved/HighlandOathRune20261106/build.log",
+    "asset_receipt": "SourceAssets/HighlandOathRune20261106/saved-assets.json",
+    "source_and_usage": "SourceAssets/HighlandOathRune20261106/README.md",
+    "saved_asset_count": 9,
+    "gui_editor_started": false,
+    "gameplay_tested": false,
+    "multiplayer_tested": false
+  },
+  "id": "highland_oath_rune",
+  "name": "誓约符文",
+  "tier": "special",
+  "weapon": "ue_highland_claymore",
+  "slot": "blade_2",
+  "identity": "高地双手剑专属；以满蓄后的精准释放奖励重击节奏。",
+  "references": {
+    "catalog": "Content/ColdSteelData/melee-gunsmith.json",
+    "wild_rune": "高地现有路线：攻击韧性伤害+30%，物理防御穿透+20%。新方案不重复增加穿透。",
+    "beiwei_rune": "斩马刀现有路线：全部武技伤害+50%，武技判定范围+25%。新方案限定实际蓄力重击和释放时机。",
+    "strength_rune": "通用物理伤害+10%；新方案以重击专精和蓄力消耗区分。"
+  },
+  "passives": {
+    "heavy_physical_damage_multiplier": 1.15,
+    "charge_stamina_drain_multiplier": 0.8,
+    "display": ["重击物理伤害+15%", "蓄力期间体力消耗-20%"],
+    "scope": "伤害被动只强化重击的物理部分；体力被动只影响蓄力期间的持续消耗，不降低出手体力费用。"
+  },
+  "special": {
+    "name": "裁决时刻",
+    "trigger": "本次实际蓄力首次达到100%后，在0.35秒内释放重击。",
+    "release_window_seconds": 0.35,
+    "perfect_heavy_physical_multiplier": 1.35,
+    "perfect_heavy_toughness_multiplier": 1.5,
+    "first_valid_hit_release_stamina_refund_ratio": 0.25,
+    "stacking": "裁决的物理和削韧倍率分别乘在该次重击对应结果上；不复制命中、不增加第二段伤害。",
+    "refund": "裁决重击首次造成有效伤害时返还本次实际支付的出手体力的25%；群体命中只返还一次，不超过最大体力。",
+    "missed_window": "超过窗口仍可正常释放重击并享受常驻被动；无额外惩罚，也不重复开启窗口。",
+    "clear": ["取消蓄力", "换武器", "卸下符文", "死亡", "释放完成"]
+  },
+  "compatibility": {
+    "highland_ridge_piercer": "裁决作用于实际蓄满后释放的强化突刺；保留原80%附加物理穿透，不再追加穿透。",
+    "highland_broadblade": "裁决作用于蓄力重击本身；之后鼠标左键触发的横扫不继承裁决。",
+    "excluded": ["普攻第三段", "冲刺攻击", "重击后的横扫", "未经历实际满蓄的反击", "格挡反伤", "派生剑气的重复触发"]
+  },
+  "visual": {
+    "concept_image": "SourceAssets/HighlandOathRune20261106/Concept/OathRuneAndJudgmentV1.png",
+    "concept_prompt": "Docs/Weapons/highland-oath-rune-visual-prompt-20261106.txt",
+    "generation": "Built-in image_gen; concept only, not an engine capture or imported VFX asset.",
+    "style": "西式骑士誓约纹章",
+    "motif": "中央竖剑穿过三枚未闭合的誓约环，左右采用对称盾翼；不用汉字、篆印或东方阵法。",
+    "colors": "剑身誓印常态为蓝色，就绪与释放为亮蓝色；图标保留灰阶，HUD 裁决提示保留金白。",
+    "charge": "三枚蓝色环随蓄力进度依次亮起；满蓄时闭合并短鸣，亮蓝色维持裁决窗口，超时退回常态蓝色。",
+    "release": "精准释放时细光沿刃身向剑尖收束，首次命中碎成短促银金光片；不增加大面积爆炸遮挡视野。",
+    "icon": "仅核心竖剑与三环浮雕，使用既有标准金属框与灰白图标规范。"
+  },
+  "judgment_window_cue": {
+    "duration_seconds": 0.35,
+    "hud": "准心外围四枚短金白括号，细白内缘与深色外描边；保留中心瞄准点和透明留白，提示直径约为视口高度的8%。",
+    "opening": "满蓄当帧括号向内闭合一次，外扩细光脉冲持续0.06秒，并播放一声清亮的短促金属鸣音。",
+    "active": "括号稳定亮起，不连续频闪；分段金色弧环按剩余时间线性缩短，文字显示裁决就绪。数值为辅助，主要靠形状和弧环识别。",
+    "expiry": "达到0.35秒即移除金色括号、倒计时弧环和就绪文字，恢复普通准心；剑身转为常态蓝色，仍允许正常重击。",
+    "perfect_release": "窗口内释放时锁定成功状态，提示短暂变为裁决；三重光环沿剑刃收束到剑尖，命中出现细碎银金光片与低沉金属冲击声。",
+    "clock_contract": "HUD倒计时、剑身亮蓝就绪状态及裁决资格共用首次真实满蓄时间；不按动画百分比单独计时，过期视觉不能继续暗示可触发。",
+    "scope": "仅为本次特效设计规格，尚未制作 Niagara、音效资源或运行时 HUD。"
+  },
+  "future_implementation_contract": {
+    "timing": "使用真实蓄力进度和首次满蓄时间，不使用动画帧号或显示条百分比。",
+    "authority": "服务端复算满蓄时刻、释放窗口及实际支付体力；每次重击唯一ID，客户端只负责提示和表现。",
+    "scope": "本文件仅为机制与数值提案；尚未添加运行时目录、模型、图标、材质或战斗逻辑。"
+  }
+}

@@ -1,6 +1,8 @@
 #include "RangedAttackQuery.h"
+#include "../Movement/StableRidingHorse.h"
 #include "../FPSGAMECharacter.h"
 #include "../Monsters/MonsterCombatComponent.h"
+#include "../Monsters/MonsterTargeting.h"
 #include "Components/PrimitiveComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/Controller.h"
@@ -16,6 +18,7 @@ const AActor* AttachedUnit(const AActor* Actor)
     for (const AActor* Part = Actor; IsValid(Part); Part = Part->GetAttachParentActor())
     {
         if (Part->ActorHasTag(TEXT("DefenseStructure"))) return nullptr;
+        if (const auto* Mount=Cast<AStableRidingHorse>(Part); Mount&&IsValid(Mount->GetRider())) return Mount->GetRider();
         if (Part->IsA<APawn>() || Part->FindComponentByClass<UMonsterCombatComponent>()) return Part;
     }
     return nullptr;
@@ -36,6 +39,7 @@ int32 Side(const AActor* Unit)
     if (Unit->IsA<AFPSGAMECharacter>() || (Pawn && Pawn->IsPlayerControlled())
         || Unit->ActorHasTag(TEXT("Player")) || Unit->ActorHasTag(TEXT("Friendly"))
         || Unit->ActorHasTag(TEXT("Companion"))) return 1;
+    if (Unit->ActorHasTag(TEXT("Wildlife"))) return 0;
     if (Unit->FindComponentByClass<UMonsterCombatComponent>() || Unit->ActorHasTag(TEXT("Enemy"))) return 2;
     // Enemy-created small hands also carry Summoned for lifetime/reward rules.
     // That tag must not override their monster side and make player shots skip them.
@@ -45,7 +49,10 @@ int32 Side(const AActor* Unit)
 
 bool SkipFriendly(const AActor* Source, const FHitResult& Hit, FCollisionQueryParams& Query)
 {
-    if (!RangedAttackQuery::IsFriendlyUnit(Source, Hit.GetActor())) return false;
+    const auto* Mount=Cast<AStableRidingHorse>(Hit.GetActor());
+    const auto* Rider=Mount?Mount->GetRider():nullptr;
+    if (!(Rider && Query.GetIgnoredSourceObjects().Contains(Rider->GetUniqueID())) &&
+        !RangedAttackQuery::IsFriendlyUnit(Source, Hit.GetActor())) return false;
     // Ignoring the hit actor removes all its body shapes. Attached child actors
     // are classified when encountered; no world-wide actor scans are needed.
     Query.AddIgnoredActor(Hit.GetActor());
@@ -90,6 +97,32 @@ bool RangedAttackQuery::SweepSingle(UWorld* World, const AActor* Source, FHitRes
     while (World->SweepSingleByChannel(Hit, Start, End, Rotation, Channel, Shape, Filter))
         if (!SkipFriendly(Source, Hit, Filter)) return true;
     return false;
+}
+
+bool RangedAttackQuery::TraceToPlayer(UWorld* World,const AActor* Source,FHitResult& Hit,const FVector& Start,const FVector& End,
+    float Radius,const FCollisionQueryParams& Query)
+{
+    const bool Sweep=Radius>0.f;
+    bool Found=Sweep ? SweepSingle(World,Source,Hit,Start,End,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(Radius),Query)
+        : LineTraceSingle(World,Source,Hit,Start,End,ECC_Visibility,Query);
+    TArray<FHitResult> Pawns;
+    const FCollisionObjectQueryParams Objects(ECC_Pawn);
+    if(Sweep)World->SweepMultiByObjectType(Pawns,Start,End,FQuat::Identity,Objects,FCollisionShape::MakeSphere(Radius),Query);
+    else World->LineTraceMultiByObjectType(Pawns,Start,End,Objects,Query);
+    for(const auto& Contact:Pawns)
+    {
+        const auto* Player=Cast<APawn>(Contact.GetActor());
+        if(!Player || Contact.GetComponent()!=Player->GetRootComponent())continue;
+        if(!Player->IsPlayerControlled() && !MonsterTargeting::IsActiveArtisan(Player))continue;
+        if(IsFriendlyUnit(Source,Player))continue;
+        if(!Found || Contact.Time<Hit.Time)
+        {
+            Hit=Contact;
+            Hit.bBlockingHit=true;
+            Found=true;
+        }
+    }
+    return Found;
 }
 
 bool RangedAttackQuery::SweepMulti(UWorld* World, const AActor* Source, TArray<FHitResult>& Hits,

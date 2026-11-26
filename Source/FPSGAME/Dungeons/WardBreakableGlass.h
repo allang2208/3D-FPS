@@ -70,6 +70,8 @@ class FPSGAME_API AWardGlassBurst : public AActor
     GENERATED_BODY()
 public:
     AWardGlassBurst();
+    /** Shared by entry preparation and the actual break, including the legacy fallback. */
+    static UNiagaraSystem* ResolveImpactSystem(const UWardBreakableGlass* Pane);
     void Play(const UWardBreakableGlass* Pane,const FVector& HitPoint,const FVector& ShotDirection);
 private:
     void Park();

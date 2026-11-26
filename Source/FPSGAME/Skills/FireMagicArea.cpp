@@ -1,4 +1,6 @@
 #include "FireMagicArea.h"
+#include "GameFramework/PlayerController.h"
+#include "../Monsters/UnknownSpellCombat.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "MagicOcclusion.h"
 #include "HolyLightTargets.h"
@@ -35,16 +37,26 @@ FVector FireMagic::GroundPoint(const AActor* Target,float* BodyRadius)
 TArray<AActor*> FireMagic::GroundTargets(APawn* Shooter,const FVector& Center,const FVector& Normal,float Radius)
 {
     TArray<AActor*> Targets;if(!Shooter||!Shooter->GetWorld())return Targets;
-    for(TActorIterator<AActor> It(Shooter->GetWorld());It;++It)
+    auto InArea=[&](AActor* Target)
     {
-        AActor* Target=*It;auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
-        if(Target==Shooter||!Combat||Combat->IsDead()||RangedAttackQuery::IsFriendlyUnit(Shooter,Target))continue;
         float BodyRadius=0.f;const FVector Feet=GroundPoint(Target,&BodyRadius);
         const FVector Offset=Feet-Center;const float Height=FVector::DotProduct(Offset,Normal);
-        if(FMath::Abs(Height)>GroundBand||(Offset-Normal*Height).SizeSquared()>FMath::Square(Radius+BodyRadius))continue;
+        if(FMath::Abs(Height)>GroundBand||(Offset-Normal*Height).SizeSquared()>FMath::Square(Radius+BodyRadius))return;
         FCollisionQueryParams Query(SCENE_QUERY_STAT(FireMagicAreaSight),false,Shooter);Query.AddIgnoredActor(Target);
-        if(!MagicOcclusion::HasExposure(Shooter->GetWorld(),Target,Center+Normal*35,Query,Shooter))continue;
+        if(!MagicOcclusion::HasExposure(Shooter->GetWorld(),Target,Center+Normal*35,Query,Shooter))return;
         Targets.Add(Target);
+    };
+    if(UnknownSpell::IsCaster(Shooter))
+    {
+        for(auto It=Shooter->GetWorld()->GetPlayerControllerIterator();It;++It)
+            if(const auto* PC=It->Get())
+                if(auto* Pawn=PC->GetPawn().Get();UnknownSpell::IsTarget(Shooter,Pawn))InArea(Pawn);
+    }
+    else for(TActorIterator<AActor> It(Shooter->GetWorld());It;++It)
+    {
+        AActor* Target=*It;
+        const auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
+        if(Target!=Shooter&&Combat&&!Combat->IsDead()&&!RangedAttackQuery::IsFriendlyUnit(Shooter,Target))InArea(Target);
     }
     return Targets;
 }

@@ -22,6 +22,9 @@ namespace ColdSteelModularSword
     TSharedPtr<FJsonObject> HangingDynamics(const UStaticMesh* Mesh);
     void ResetCatalogCache();
     bool Supports(const FColdSteelItem& Item);
+#if WITH_EDITOR
+    TArray<FString> CatalogBladeOptions(const FColdSteelItem& Item);
+#endif
     FString ArmsMesh(const FColdSteelItem& Item);
     FString AnimationFolder(const FColdSteelItem& Item);
     FSwordGripFit GripClearance(const FColdSteelItem& Item);
@@ -32,8 +35,9 @@ namespace ColdSteelModularSword
     void GatherVisualResources(const FColdSteelItem& Item,TArray<FSoftObjectPath>& Out,const FGunsmithParts* Draft=nullptr);
     FString Key(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr,bool IncludeRune=true);
     uint8 BladeFinishMode(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
-    bool IsBladeFinishCarrier(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
     uint32 BladeFinishSeed(const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
+    bool UsesBladeSeatMask(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item);
+    bool IsBladeFinishCarrier(const UStaticMeshComponent* Mesh,const FColdSteelItem& Item,const FGunsmithParts* Draft=nullptr);
     void ApplyBladeFinish(UStaticMeshComponent* Mesh,uint8 Mode,bool GuardRoot,uint32 FinishSeed=0);
     // Colored glass transmission needs an alpha-coverage adapter in UI captures.
     bool ApplyGlassPreview(UStaticMeshComponent* Blade);
@@ -42,6 +46,7 @@ namespace ColdSteelModularSword
     TArray<UStaticMeshComponent*> Components(UStaticMeshComponent* Blade);
     FBox LocalBounds(UStaticMeshComponent* Blade);
     FTransform BoneMount(const FColdSteelItem& Item);
+    TOptional<FVector> PommelContact(UStaticMeshComponent* Blade,const FColdSteelItem& Item);
     FString Appearance(const FColdSteelItem& Item,const FString& Slot,const FString& Option);
-    FVector BladePoint(const FColdSteelItem& Item,bool Tip);
+    FVector BladePoint(const FColdSteelItem& Item,bool Tip,bool bVisual=true);
 }

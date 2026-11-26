@@ -1,33 +1,52 @@
 #include "FPSGAMEPlayerController.h"
-#include "Building/ApartmentDeviceControl.h"
-#include "Movement/FPSFurnitureRestComponent.h"
+#include "NPC/VillageMasterArtisan.h"
+#include "Dungeons/DungeonRoomSubsystem.h"
 #include "UI/ColdSteelWoodworkingWidget.h"
+#include "Skills/FPSElementalArrowComponent.h"
+#include "Movement/FPSFurnitureRestComponent.h"
+#include "Movement/HorseRiderComponent.h"
+#include "Movement/StableHorseMarket.h"
+#include "Movement/StableRidingHorse.h"
+#include "Production/ProductionToolComponent.h"
 #include "UI/ColdSteelAlchemyWidget.h"
 #include "UI/ColdSteelQuickBarTypes.h"
 #include "UI/TransitLoadingSubsystem.h"
 #include "Dungeons/DungeonRunSubsystem.h"
+#include "Dungeons/HeQuePumpControl.h"
 #include "SceneTestPortal.h"
 #include "EngineUtils.h"
 #include "FPSGAMECharacter.h"
 #include "Building/VoxelBuildComponent.h"
 #include "Building/VoxelBuildAudit.h"
 #include "Building/ColdSteelDoorInteraction.h"
+#include "Building/ApartmentDeviceControl.h"
 #include "Movement/FPSDoorPushComponent.h"
 
 #include "UI/ColdSteelHUDWidget.h"
 #include "UI/ColdSteelGameMenuWidget.h"
 #include "UI/LPVOScopeWidget.h"
-#include "Blueprint/WidgetBlueprintLibrary.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "UI/ColdSteelPickup.h"
+#include "UI/ColdSteelDamageNumberSubsystem.h"
 #include "Weapons/Bow/BowArrow.h"
 #include "UI/ColdSteelWorldInteraction.h"
+#include "WorldGeneration/HighVillageDefense.h"
+#include "Monsters/FPSCombatHealthComponent.h"
+#include "NPC/ChapelNun.h"
+#include "NPC/VillageArtisanMerchant.h"
+#include "NPC/VillageHerbalist.h"
+#include "NPC/VillageMillKeeper.h"
+#include "WorldGeneration/VillageGunshopServices.h"
+#include "NPC/ResidentConversation.h"
+#include "NPC/ChapelDialogueComponent.h"
 #include "UI/ColdSteelWarehouseChest.h"
 #include "UI/ColdSteelSceneContainer.h"
 #include "UI/ColdSteelCrateChest.h"
 #include "Props/FPSPracticeTarget.h"
 #include "Kismet/GameplayStatics.h"
 #include "Engine/GameInstance.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
 #include "Engine/GameViewportClient.h"
 #include "EngineUtils.h"
 #include "UI/WeatherControlWidget.h"
@@ -51,6 +70,9 @@ namespace
         TEXT("Z 键一键拾取的作用半径（cm）。"));
 }
 #include "InputKeyEventArgs.h"
+#include "WorldGeneration/VillageSiegeControl.h"
+#include "WorldGeneration/VillageHotOil.h"
+#include "WorldGeneration/VillageOilCarry.h"
 #include "InputCoreTypes.h"
 #include "Misc/CommandLine.h"
 #include "Misc/Paths.h"
@@ -67,6 +89,14 @@ void RunMagicScrollAudit(AFPSGAMEPlayerController* PC);
 void RunLootGlowAudit(AFPSGAMEPlayerController* PC);
 void RunIncineratorUIAudit(AFPSGAMEPlayerController* PC);
 
+void AFPSGAMEPlayerController::UpdateHiddenComponents(const FVector& ViewLocation,TSet<FPrimitiveComponentId>& HiddenComponents)
+{
+    Super::UpdateHiddenComponents(ViewLocation,HiddenComponents);
+    if(const APawn* Viewer=GetPawn())
+        if(const auto* Carry=Viewer->FindComponentByClass<UVillageOilCarry>())Carry->HideFirstPersonEquipment(GetViewTarget(),HiddenComponents);
+    if(SiegeControl)SiegeControl->AddHiddenOperatorComponents(GetViewTarget(),HiddenComponents);
+}
+
 void AFPSGAMEPlayerController::UpdateRotation(float DeltaTime)
 {
     FRotator RestLook;
@@ -78,11 +108,19 @@ void AFPSGAMEPlayerController::UpdateRotation(float DeltaTime)
         SetControlRotation(RestLook);
         return;
     }
+    if(auto* Tool=GetPawn()?GetPawn()->FindComponentByClass<UProductionToolComponent>():nullptr)
+    {
+        const FRotator Current=GetControlRotation();
+        FRotator Desired=Current+RotationInput;
+        if(Tool->ClampLeapStrikeView(Desired))RotationInput=(Desired-Current).GetNormalized();
+    }
     Super::UpdateRotation(DeltaTime);
 }
 
 AFPSGAMEPlayerController::AFPSGAMEPlayerController()
 {
+    SiegeControl=CreateDefaultSubobject<UVillageSiegeControl>(TEXT("SiegeControl"));
+    ChapelDialogue=CreateDefaultSubobject<UChapelDialogueComponent>(TEXT("ChapelDialogue"));
     VoxelBuilder=CreateDefaultSubobject<UVoxelBuildComponent>(TEXT("VoxelBuilder"));
     DevelopmentSpawner=CreateDefaultSubobject<UDevelopmentSpawnComponent>(TEXT("DevelopmentSpawner"));
     bShowMouseCursor = false;
@@ -146,6 +184,7 @@ void AFPSGAMEPlayerController::SpawnHubTestChest()
  *  浮出伤害数字并在头顶牌滚动 DPS。与 SpawnHubTestChest 同一出生点锚、同贴地方式。 */
 void AFPSGAMEPlayerController::SpawnHubPracticeTarget()
 {
+    if(!HasAuthority())return; // 训练靶由服务器生成并复制；客户端本地生成会得到第二个无伤害的靶。
     for (TActorIterator<AFPSPracticeTarget> It(GetWorld()); It; ++It)
         if (It->ActorHasTag(TEXT("GodSpace.PracticeTarget"))) return; // 本局已生成过
 
@@ -171,25 +210,20 @@ void AFPSGAMEPlayerController::SpawnHubPracticeTarget()
     if (Target) Target->Tags.Add(TEXT("GodSpace.PracticeTarget"));
 }
 
+void AFPSGAMEPlayerController::ClientPracticeHit_Implementation(AActor* Target,FVector Point,float Damage,bool bBullseye,float MagicApplied)
+{
+    if(!Target||Damage<=0.f)return;
+    if(auto* GI=GetGameInstance())
+        if(auto* Numbers=GI->GetSubsystem<UColdSteelDamageNumberSubsystem>())
+            Numbers->PushDamageNumber(Target,this,Point,Damage,bBullseye,false,bBullseye||Damage>=80.f,false,MagicApplied);
+}
+
 void AFPSGAMEPlayerController::BeginPlay()
 {
     Super::BeginPlay();
-    // 主神空间驻留 BGM：原项目 audio-config 的 bgm.main（main 场景＝主神空间，罗马庭院），
-    // 沿用其 music 声道 0.6 音量。SoundWave 已设循环；组件随控制器存活、换图销毁，
-    // 因此只在 Hub（DayNight_Lighting）内自动循环，去 hills/地牢自动停止。
-    if (UGameplayStatics::GetCurrentLevelName(this, true) == TEXT("DayNight_Lighting"))
-    {
-        if (auto* Sound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Audio/GodSpaceBGM20261002/S_RomanCourtyard.S_RomanCourtyard")))
-        {
-            HubMusic = NewObject<UAudioComponent>(this);
-            HubMusic->SetSound(Sound);
-            HubMusic->SetVolumeMultiplier(.6f);
-            HubMusic->bAutoDestroy = false;
-            HubMusic->Play();
-        }
-        SpawnHubTestChest();
-        SpawnHubPracticeTarget();
-    }
+    RefreshRegionMusic();
+    if(UGameplayStatics::GetCurrentLevelName(this,true)==TEXT("DayNight_Lighting"))
+    {SpawnHubTestChest();SpawnHubPracticeTarget();}
     // 建筑系统验收：-VoxelBuildAudit（材质表 / 过载曲线 / 体素块目录 / 放置-撤销-拆除闭环 / 存档落盘）
     if(UVoxelBuildAudit::Requested())
     {
@@ -251,6 +285,8 @@ void AFPSGAMEPlayerController::BeginPlay()
     GameMenu = CreateWidget<UColdSteelGameMenuWidget>(this, UColdSteelGameMenuWidget::StaticClass());
     if (GameMenu) GameMenu->AddToPlayerScreen(90);
     ScopeOverlay=CreateWidget<ULPVOScopeWidget>(this,ULPVOScopeWidget::StaticClass());
+    // All opaque scope surrounds stay below the combat HUD: damage numbers,
+    // target health, player status, hotbar and weapon readouts remain readable.
     if(ScopeOverlay){ScopeOverlay->SetVisibility(ESlateVisibility::HitTestInvisible);ScopeOverlay->AddToPlayerScreen(10);}
     if (ColdSteelHUD)
     {
@@ -397,9 +433,24 @@ void AFPSGAMEPlayerController::SetupInputComponent()
 
 bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
 {
+    if(GetPawn())if(auto* Oil=GetPawn()->FindComponentByClass<UVillageOilCarry>();Oil && Oil->HandleInput(Params))return true;
+    if(SiegeControl && SiegeControl->HandleInput(Params))return true;
+    if(Params.Key==EKeys::E && Params.Event==IE_Released && GetPawn())
+        if(auto* Ride=GetPawn()->FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->ReleaseUse())return true;
+    if(Params.Key==EKeys::E && Params.Event==IE_Released && ChapelDialogue && ChapelDialogue->ReleaseFirstAid())
+        return true;
+    if(ChapelDialogue&&ChapelDialogue->IsOpen())
+        return Params.Event==IE_Released?Super::InputKey(Params):true;
     if (IsGameMenuOpen())
     {
-        if (Params.Event == IE_Pressed && Params.Key == EKeys::Escape) GameMenu->GoBack();
+        if (GameMenu->IsWorldMapOpen())
+        {
+            if (GameMenu->HandleMapShortcut(Params.Key,Params.Event==IE_Pressed)) return true;
+            if (GameMenu->IsMapMovementKey(Params.Key) ||
+                (Params.Event==IE_Released && IsInputKeyDown(Params.Key)))
+                return Super::InputKey(Params);
+        }
+        else if (Params.Event==IE_Pressed && Params.Key==EKeys::Escape) GameMenu->GoBack();
         return true;
     }
     // Action handlers own inspection interruption. Raw keys and look/move axes
@@ -430,8 +481,19 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
     if(ColdSteelHUD&&ColdSteelHUD->HandleWorldForgeInput(Params))return true;
     if (ExpeditionPanel)
     {
-        if (Params.Event == IE_Pressed && Params.Key == EKeys::Escape) CloseExpedition();
+        if(Params.Event==IE_Pressed)
+        {
+            if(bExpeditionEquipmentOpen&&ColdSteelHUD&&(Params.Key==EKeys::Escape||Params.Key==EKeys::Tab))ColdSteelHUD->ToggleInventory();
+            else if(Params.Key==EKeys::Escape)CloseExpedition();
+        }
         return true;
+    }
+    if(auto* E=GetPawn()?GetPawn()->FindComponentByClass<UFPSElementalArrowComponent>():nullptr)
+    {
+        const int32 Slot=ColdSteelQuickBar::KeyIndex(Params.Key);
+        if(Params.Event==IE_Released&&E->KeyReleased(Slot))return true;
+        if(Params.Event==IE_Repeat&&E->OwnsKey(Slot))return true;
+        if(E->IsWheelOpen()&&Slot>=0)return true;
     }
     if(auto* AmmoPawn=Cast<AFPSGAMECharacter>(GetPawn());AmmoPawn&&AmmoPawn->IsAmmoWheelOpen())
     {
@@ -439,11 +501,18 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         if(Params.Key==EKeys::MouseScrollUp||Params.Key==EKeys::MouseScrollDown)AmmoPawn->CancelAmmoSelection();
         // 手别由鼠标所在圆盘决定（双持弹两个盘），点击只吞掉，避免选弹时开火。
         if(Params.Key==EKeys::LeftMouseButton||Params.Key==EKeys::RightMouseButton)return true;
+        if(AmmoPawn->IsMagicWheelOpen()&&ColdSteelQuickBar::KeyIndex(Params.Key)>=0)return true;
     }
     if(ColdSteelHUD&&ColdSteelHUD->IsQuickDragging())
     {
         if(Params.Event==IE_Pressed&&Params.Key==EKeys::Escape)ColdSteelHUD->CancelQuickDrag();
         return Params.Event==IE_Released?Super::InputKey(Params):true;
+    }
+    // The survey cursor places into the world. Route it before the HUD's ordinary
+    // visible-cursor filter, and leave unrelated keys with the builder while surveying.
+    if(VoxelBuilder && VoxelBuilder->IsVillageCameraPlacing())
+    {
+        if(VoxelBuilder->HandleInput(Params,false))return true;
     }
     // UI has already received this event; do not forward unhandled cursor clicks to gameplay.
     if (bShowMouseCursor && Params.Key.IsMouseButton() && Params.Event != IE_Released) return true;
@@ -467,6 +536,11 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         return true;
     }
     if(Params.Event==IE_Pressed&&Params.Key==EKeys::J){OpenGunsmith();return true;}
+    if (Params.Key == EKeys::M)
+    {
+        if (Params.Event == IE_Pressed) OpenWorldMap();
+        return true;
+    }
     if ((Params.Event == IE_Pressed || Params.Event == IE_Repeat) && ColdSteelHUD &&
         ColdSteelHUD->HandlePanelShortcut(Params.Key, Params.Event == IE_Repeat))
     {
@@ -501,20 +575,59 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         {
             if(auto* C=Cast<AFPSGAMECharacter>(GetPawn()))C->InterruptWeaponInspection();
         };
-        // Number keys belong to the mixed quick bar. Keep tools on their own chord.
-        if(Params.Key==EKeys::F7)
-        {
-            if(IsInputKeyDown(EKeys::LeftShift)||IsInputKeyDown(EKeys::RightShift))Profile->SelectProductionTool(TEXT("tool_shovel"));
-            else Profile->StowProductionTool();
-            return true;
-        }
+        // 铁铲 2026-10-17 与斧／镐同权：装备到主手武器槽后经滚轮/G 使用；
+        // F7 召出与收起整组删除，背包覆盖选择由 NormalizeProductionState 清理。
+        if(Params.Key==EKeys::F7)return false;
         // G 已让位给符文长剑·环绕飞剑（角色 BindAction "RuneBlades"），武器轮换只留滚轮。
         if(Params.Key==EKeys::MouseScrollUp || Params.Key==EKeys::MouseScrollDown)
         {Profile->CycleWeapon();return true;}
         if(Params.Key==EKeys::E&&GetPawn())
         {
-            if(auto* Rest=GetPawn()->FindComponentByClass<UFPSFurnitureRestComponent>();Rest&&Rest->Interact())return true;
-            auto* Target=ColdSteelWorldInteraction::TraceTarget(this);
+            auto* Rest=GetPawn()->FindComponentByClass<UFPSFurnitureRestComponent>();
+            if(Rest && UFPSFurnitureRestComponent::IsResting(GetPawn()) && Rest->Interact()) return true;
+            const auto Focus=ColdSteelWorldInteraction::TraceUseTargets(this);
+            auto* Target=Focus.Target;
+            if(StableHorseMarket::IsSeller(Target) && ColdSteelHUD)
+            {InterruptInspection();ColdSteelHUD->OpenStableShop(Target);return true;}
+            if(auto* Ride=GetPawn()->FindComponentByClass<UHorseRiderComponent>();Ride&&Ride->PressUse(Cast<AStableRidingHorse>(Target)))return true;
+            if(auto* Section=Focus.RepairTarget())
+            {
+                RequestVillageRepair(Section);
+                return true;
+            }
+            if(auto* Kettle=Cast<AVillageOilKettle>(Target))
+            {
+                if(!IsInBuildMode())if(auto* Carry=GetPawn()->FindComponentByClass<UVillageOilCarry>())Carry->Take(Kettle);
+                return true;
+            }
+            if(auto* Siege=Cast<AVillageSiegeEngine>(Target))
+            {
+                if(!IsInBuildMode() && Siege->CanOperate() && !Siege->IsOccupied())
+                {
+                    InterruptInspection();
+                    SiegeControl->ServerEnter(Siege,GetPawn());
+                }
+                return true;
+            }
+            if(Focus.GateUse==EHighGateUse::Repair ||
+                (Focus.GateUse==EHighGateUse::Release && CastChecked<AHighVillageGate>(Target)->GetHealth()<=0.f))
+                return true;
+            if(auto* Artisan=Cast<AVillageArtisanMerchant>(Target); Artisan && ResidentConversation::IsSpeakerDowned(Artisan))
+            {
+                InterruptInspection();
+                ChapelDialogue->BeginFirstAid(Artisan);
+                return true;
+            }
+            if(auto* Master=Cast<AVillageMasterArtisan>(Target)){InterruptInspection();ChapelDialogue->OpenMerchant(Master);return true;}
+            if(auto* Miller=Cast<AVillageMillKeeper>(Target)){InterruptInspection();ChapelDialogue->OpenMerchant(Miller);return true;}
+            if(Rest&&Rest->Interact())return true;
+            if(auto* Nun=Cast<AChapelNun>(Target)){InterruptInspection();ChapelDialogue->Open(Nun);return true;}
+            if(auto* Herbalist=Cast<AVillageHerbalist>(Target)){InterruptInspection();ChapelDialogue->OpenHerbalist(Herbalist);return true;}
+            if(auto* Artisan=Cast<AVillageArtisanMerchant>(Target)){InterruptInspection();ChapelDialogue->OpenArtisan(Artisan);return true;}
+            if(auto* Counter=Cast<AVillageGunshopCounter>(Target);Counter && ColdSteelHUD)
+            {InterruptInspection();ColdSteelHUD->OpenGunshop(Counter);return true;}
+            if(auto* Pump=Cast<AHeQuePumpControl>(Target))
+            {InterruptInspection();ServerUseHeQuePump(Pump);return true;}
             if(auto* Control=Cast<AApartmentDeviceControl>(Target))
             {InterruptInspection();ServerUseApartmentControl(Control);return true;}
             if(ColdSteelWorldInteraction::IsExpeditionAltar(Target)){OpenExpedition();return true;}
@@ -533,6 +646,7 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
             {ColdSteelHUD->OpenSmelting(Target);return true;}
             // 工作台：E 同时打开背包与制作面板（格式复刻冶炼面板，制作内容后续设计；
             // Docs/UI/workbench-panel-plan-20260924.md）。与高炉判定并列、互斥同贴位。
+            if(ColdSteelWorldInteraction::IsEnhancementBench(Target)){OpenEnhancement(Target);return true;}
             if(ColdSteelWorldInteraction::IsAlchemyBench(Target)){OpenAlchemy(Target);return true;}
             if(ColdSteelWorldInteraction::IsWoodworkingBench(Target)){OpenWoodworking(Target);return true;}
             if(ColdSteelWorldInteraction::IsWorkbench(Target)&&ColdSteelHUD)
@@ -549,7 +663,17 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
                     return true;
                 }
             }
-            // Nearby portals receive E through their existing input component before a bound skill.
+            if (Focus.CounterResident && ChapelDialogue->CanStartConversation(Focus.CounterResident))
+            {
+                const auto* Guest = Cast<AFPSGAMECharacter>(GetPawn());
+                if (Guest && !Guest->IsAmmoWheelOpen())
+                {
+                    InterruptInspection();
+                    ChapelDialogue->OpenMerchant(Focus.CounterResident);
+                    return true;
+                }
+            }
+            // Proximity-only portals receive E once aimed interactions have had their turn.
             for(TActorIterator<ASceneTestPortal> It(GetWorld());It;++It)if(It->IsWithinInteractionRange(GetPawn())){InterruptInspection();return Super::InputKey(Params);}
         }
         // Z: one key picks up every drop around the player (blocks, equipment, materials). Ctrl+Z is
@@ -560,6 +684,8 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         if(QuickIndex>=0)
         {
             const auto Binding=Profile->QuickBinding(QuickIndex);
+            if(Binding.Skill==TEXT("elementalArrow"))
+                if(auto* E=GetPawn()?GetPawn()->FindComponentByClass<UFPSElementalArrowComponent>():nullptr){InterruptInspection();E->KeyPressed(QuickIndex);return true;}
             // Dodge shares the locomotion policy even when triggered by a skill slot.
             if(!Binding.IsEmpty()&&Binding.Skill!=TEXT("dodge"))InterruptInspection();
             if(Profile->BeginSpellAimPreview(QuickIndex))return true;
@@ -572,7 +698,7 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
 void AFPSGAMEPlayerController::PlayerTick(float DeltaTime)
 {
     Super::PlayerTick(DeltaTime);
-    if(IsLocalController()&&!IsGameMenuOpen()&&!AlchemyPanel&&!WoodworkingPanel&&!ExpeditionPanel&&!GunsmithPanel&&!EnhancementPanel
+    if(IsLocalController()&&!(ChapelDialogue&&ChapelDialogue->IsOpen())&&!IsGameMenuOpen()&&!AlchemyPanel&&!WoodworkingPanel&&!ExpeditionPanel&&!GunsmithPanel&&!EnhancementPanel
         &&(!ColdSteelHUD||(!ColdSteelHUD->IsWorldForging()&&!ColdSteelHUD->IsGunAssembly()))
         &&(!WeatherPanel||!WeatherPanel->IsPanelOpen())
         &&(!ColdSteelHUD||!ColdSteelHUD->IsInventoryOpen()))
@@ -590,21 +716,9 @@ void AFPSGAMEPlayerController::PlayerTick(float DeltaTime)
                 Loading->ReleaseToGameplay();
         }
     }
-    const auto* ScopeCharacter=Cast<AFPSGAMECharacter>(GetPawn());
-    const bool Hide=IsLocalController()&&!bShowMouseCursor&&ScopeCharacter&&ScopeCharacter->GetScopePresentationAlpha()>.5f;
-    if(Hide==bScopePanelsHidden)return;
-    bScopePanelsHidden=Hide;
-    if(Hide){
-        TArray<UUserWidget*> Panels;
-        UWidgetBlueprintLibrary::GetAllWidgetsOfClass(this,Panels,UUserWidget::StaticClass(),true);
-        for(auto* Panel:Panels)if(Panel!=ScopeOverlay&&Panel->GetOwningPlayer()==this){
-            ScopePanelVisibility.Add(Panel,static_cast<uint8>(Panel->GetVisibility()));
-            Panel->SetVisibility(ESlateVisibility::Hidden);
-        }
-    }else{
-        for(const auto& Entry:ScopePanelVisibility)if(Entry.Key.IsValid())Entry.Key->SetVisibility(static_cast<ESlateVisibility>(Entry.Value));
-        ScopePanelVisibility.Reset();
-    }
+    // ADS changes only the optical presentation. Each panel retains its own
+    // visibility lifecycle (inventory, menus, death, wheel and loading states).
+    // Never blanket-hide/restore top-level widgets when the scope changes.
 }
 
 void AFPSGAMEPlayerController::ToggleInventory()
@@ -635,16 +749,18 @@ bool AFPSGAMEPlayerController::IsCursorOnlyInteraction() const
 bool AFPSGAMEPlayerController::BlocksOngoingActions(const APlayerController* Player)
 {
     if(!Player || Player->IsMoveInputIgnored() || Player->IsLookInputIgnored())return true;
-    if(UFPSFurnitureRestComponent::IsResting(Player->GetPawn()))return true;
+    if(UFPSFurnitureRestComponent::IsResting(Player->GetPawn())||UHorseRiderComponent::UsesSaddleHands(Player->GetPawn()))return true;
     const auto* FPSPlayer=Cast<AFPSGAMEPlayerController>(Player);
-    return Player->bShowMouseCursor && (!FPSPlayer || !FPSPlayer->IsCursorOnlyInteraction());
+    return (FPSPlayer && FPSPlayer->SiegeControl && FPSPlayer->SiegeControl->Active()) ||
+        (Player->bShowMouseCursor && (!FPSPlayer || !FPSPlayer->IsCursorOnlyInteraction()));
 }
 
 bool AFPSGAMEPlayerController::IsActionPreservingPanelOpen() const
 {
+    if (GameMenu && GameMenu->IsWorldMapOpen()) return true;
     if(IsGameMenuOpen()||AlchemyPanel||WoodworkingPanel)return false;
     if(ColdSteelHUD&&(ColdSteelHUD->IsWorldForging()||ColdSteelHUD->IsGunAssembly()))return false;
-    return (ColdSteelHUD&&ColdSteelHUD->IsInventoryOpen())||GunsmithPanel||EnhancementPanel||ExpeditionPanel||
+    return (ColdSteelHUD&&(ColdSteelHUD->IsInventoryOpen()||ColdSteelHUD->IsSkillTreeOpen()))||GunsmithPanel||EnhancementPanel||ExpeditionPanel||
         (WeatherPanel&&WeatherPanel->IsPanelOpen());
 }
 
@@ -658,7 +774,7 @@ bool AFPSGAMEPlayerController::BlocksActionContinuation(const APlayerController*
 
 void AFPSGAMEPlayerController::ToggleTimelineInteraction()
 {
-    if (IsGameMenuOpen()) return;
+    if (IsGameMenuOpen() || (ChapelDialogue && ChapelDialogue->IsOpen())) return;
     if(ColdSteelHUD&&(ColdSteelHUD->IsWorldForging()||ColdSteelHUD->IsGunAssembly()))return;
     if (AlchemyPanel || WoodworkingPanel || GunsmithPanel || EnhancementPanel || ExpeditionPanel) return;
     if (WeatherPanel && WeatherPanel->IsPanelOpen()) return;
@@ -713,7 +829,115 @@ void AFPSGAMEPlayerController::CaptureInventoryAudit(const FString& Filename, in
     FScreenshotRequest::RequestScreenshot(Directory / Filename, true, false);
 }
 
+bool AFPSGAMEPlayerController::IsInBuildMode() const
+{
+    return VoxelBuilder && VoxelBuilder->IsBuilding();
+}
+
+void AFPSGAMEPlayerController::RequestVillageRepair(AVillageDefenseSection* Section)
+{
+    APawn* Payer=GetPawn();
+    if (!IsValid(Section) || !Section->NeedsRepair() || !Payer || bShowMouseCursor || BlocksOngoingActions(this)) return;
+    auto* RepairCharacter=Cast<AFPSGAMECharacter>(Payer);
+    if (RepairCharacter && RepairCharacter->IsAmmoWheelOpen()) return;
+    const auto* Health=Payer->FindComponentByClass<UFPSCombatHealthComponent>();
+    if (Health && Health->IsDead()) return;
+    if (VillageRepairPawn.Get()!=Payer)
+    {
+        PendingVillageRepairs.Reset();
+        RecentlyRepairedSection.Reset();
+        VillageRepairPawn=Payer;
+    }
+    if (PendingVillageRepairs.FindKey(Section) ||
+        (RecentlyRepairedSection.Get()==Section && FPlatformTime::Seconds()<RepairedSectionRetryTime)) return;
+    // The prompt's cached enemy sample can lag the server when a hostile dies or moves away.
+    if (RepairCharacter && !Section->HasNearbyRepairEnemy(Payer)) RepairCharacter->InterruptWeaponInspection();
+    const uint32 RequestId=++VillageRepairRequestId;
+    PendingVillageRepairs.Add(RequestId,Section);
+    ServerRepairVillageDefense(Section,Payer,RequestId);
+}
+
+void AFPSGAMEPlayerController::ServerRepairVillageDefense_Implementation(AVillageDefenseSection* Section,APawn* RequestPawn,uint32 RequestId)
+{
+    APawn* Payer=GetPawn();
+    if (!IsValid(Section) || !IsValid(Payer) || Payer!=RequestPawn || Section->GetWorld()!=GetWorld() || BlocksOngoingActions(this))
+    {
+        ClientVillageRepairResult(RequestId,false,FText::GetEmpty());
+        return;
+    }
+    if (const auto* Health=Payer->FindComponentByClass<UFPSCombatHealthComponent>(); Health && Health->IsDead())
+    {
+        ClientVillageRepairResult(RequestId,false,FText::GetEmpty());
+        return;
+    }
+    if (!Section->NeedsRepair())
+    {
+        // Another player or an earlier request may have repaired it before replication arrived.
+        ClientVillageRepairResult(RequestId,false,FText::GetEmpty());
+        return;
+    }
+    if (ColdSteelWorldInteraction::TraceUseTargets(this).RepairTarget()!=Section)
+    {
+        ClientVillageRepairResult(RequestId,false,FText::FromString(TEXT("请靠近并对准尚未修复的缺口。")));
+        return;
+    }
+    FText Reason;
+    const bool bRepaired=Section->TryRepair(Payer,Reason);
+    if (bRepaired)
+        Reason=FText::Format(NSLOCTEXT("VillageDefense","RepairPaid","已消耗 {0} 灵魂。"),FText::AsNumber(Section->GetRepairSoulCost()));
+    ClientVillageRepairResult(RequestId,bRepaired,Reason);
+}
+
+void AFPSGAMEPlayerController::ClientVillageRepairResult_Implementation(uint32 RequestId,bool bRepaired,const FText& Message)
+{
+    TWeakObjectPtr<AVillageDefenseSection> Section;
+    if (!PendingVillageRepairs.RemoveAndCopyValue(RequestId,Section) || !Section.IsValid() ||
+        Section->GetWorld()!=GetWorld() || !VillageRepairPawn.IsValid() || VillageRepairPawn.Get()!=GetPawn()) return;
+    if (bRepaired && Section->NeedsRepair())
+    {
+        // The receipt can beat health replication. A fresh collapse can also coalesce with that update.
+        RecentlyRepairedSection=Section;
+        RepairedSectionRetryTime=FPlatformTime::Seconds()+0.75;
+    }
+    if (Message.IsEmpty()) return;
+    if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
+        Model->PostNotice(bRepaired?TEXT("城防已修复"):TEXT("无法修复"),Message.ToString());
+}
+
 void AFPSGAMEPlayerController::ServerUseApartmentControl_Implementation(AApartmentDeviceControl* Control)
 {
     if(IsValid(Control))Control->ToggleFrom(this);
+}
+
+void AFPSGAMEPlayerController::ServerUseHeQuePump_Implementation(AHeQuePumpControl* Control)
+{if(IsValid(Control))Control->ActivateFrom(this);}
+
+
+void AFPSGAMEPlayerController::RefreshRegionMusic()
+{
+    if(!IsLocalController()||GetNetMode()==NM_DedicatedServer)return;
+    const FString Level=UGameplayStatics::GetCurrentLevelName(this,true);
+    FString Path;
+    if(UDungeonRoomSubsystem::IsDungeonPawn(GetPawn()) || Level==TEXT("L_Dungeon_Randomized"))
+        Path=TEXT("/Game/Audio/DungeonBGM20261017/S_DungeonEcho.S_DungeonEcho");
+    else if(Level==TEXT("L_TemperateHills_Initial") || Level==TEXT("L_ForestPathVillage"))
+        Path=TEXT("/Game/Audio/HillsDesertBGM/S_HillsDesert.S_HillsDesert");
+    else if(Level==TEXT("DayNight_Lighting"))
+        Path=TEXT("/Game/Audio/GodSpaceBGM20261002/S_RomanCourtyard.S_RomanCourtyard");
+    if(Path==RegionMusicPath)return;
+    RegionMusicPath=Path;const uint32 Serial=++RegionMusicSerial;
+    if(HubMusic)HubMusic->Stop();
+    if(Path.IsEmpty())return;
+    if(!HubMusic)
+    {
+        HubMusic=NewObject<UAudioComponent>(this);HubMusic->bAutoActivate=false;HubMusic->bAutoDestroy=false;
+        HubMusic->bStopWhenOwnerDestroyed=true;HubMusic->bAllowSpatialization=false;HubMusic->RegisterComponent();
+    }
+    HubMusic->SetVolumeMultiplier(.6f*HubMusicUserVolume);
+    const FSoftObjectPath MusicPath(Path);
+    UAssetManager::GetStreamableManager().RequestAsyncLoad(MusicPath,FStreamableDelegate::CreateWeakLambda(this,[this,MusicPath,Serial]()
+    {
+        if(!HasActorBegunPlay()||RegionMusicSerial!=Serial||!IsValid(HubMusic))return;
+        if(auto* Sound=Cast<USoundBase>(MusicPath.ResolveObject())){HubMusic->SetSound(Sound);HubMusic->FadeIn(1.5f,1.f);}
+    }));
 }

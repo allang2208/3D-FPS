@@ -12,6 +12,8 @@
 
 棕色款在 `Content/ColdSteelData/source-combat-items.json` 的基础防御由 4 改为 2，每级强化的防御增量由 1 改为 0.5；强化后的最终防御继续沿用现有向下取整规则。黑色款仍为基础 4、每级 1。棕色款 `meleeAttackSpeed`、`reloadSpeed` 均由 0.05 改为 0.10；黑色款仍各为 0.05。沿用现有近战攻速、换弹速度与提示栏读取路径，不改变枪械射速。目录由进程缓存，已运行的游戏／编辑器需要重新启动才能加载新数值。
 
+> 2026-10-19 复核：`items.json` 里两款手套的 `defense` 都是 base 4、无 `perEnhance`，按实例优先，运行时防御为 4 且当前不可强化；source 里的 2/+0.5 与 4/+1 没有进入结算。`meleeAttackSpeed/reloadSpeed=0.10`（棕色）与 0.05（黑色）仍由 source 的 `bonusStats` 生效。
+
 两张背包图标改用 `render_field_glove_icons.py` 独立出图：当前棕色露指拾取 Blend 与黑色全指拾取 Blend，竖直正交、透明背景、320×320、轮廓居中、主轴填满 91%。棕色本体色来自当前皮革扫描；黑色染色值直接读取 UE 材质作者脚本中的参数，使用 Standard 视图变换与最多两轮曝光修正。生产校准记录的轮廓填充为 91.25%；棕色中心为 (0.5, 0.4984)，黑色中心为 (0.5, 0.5)。原棕色图标的斜视取景和严重过曝已替换。
 
 目录沿用 `Icons/ModularOutfit20260924/ue_field_gloves_fingerless.png` 与 `ue_field_gloves_black.png`。这是运行时读取的最终 PNG，不需要另导入 UE Texture。`save_fingerless_hunt_sources.py` 后续导出模型会调用独立出图器，避免恢复旧图；本次未重导拾取模型或穿戴网格。修改前图、图标编辑场景、出图日志及回执在 `SourceAssets/ModularOutfit20260927/GloveBalanceIcons/`。本次没有启动 UE 或运行游戏测试。

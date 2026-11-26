@@ -1,5 +1,6 @@
 #include "../UI/ColdSteelStatusModel.h"
 #include "ColdSteelSpellCrafting.h"
+#include "../Weapons/Bow/BowStats.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Combat/CombatItemFormula.h"
 #include "../Combat/ResourceCostFormula.h"
@@ -22,12 +23,21 @@ float UColdSteelStatusModel::SpellManaCost(FName Id,int32 AtLevel,bool bApplyFoc
     else if(Id==TEXT("iceSpike"))Cost=D->IceSpike.ManaCost+(L-1)*D->IceSpike.ManaCostPerLevel;
     else if(Id==TEXT("iceWall"))Cost=D->IceWall.ManaCost;
     else if(Id==TEXT("blizzard"))Cost=D->Blizzard.ManaCost;
+    else if(Id==TEXT("illuminationArrow"))Cost=D->IlluminationArrow.ManaCost;
+    else if(Id==TEXT("magicArrowRain"))Cost=D->MagicArrowRain.ManaCost;
     else if(Id==TEXT("lightningStrike"))Cost=D->Lightning.ManaCost;
     else if(Id==TEXT("holyLight"))Cost=D->HolyLight.ManaCost;
+    else if(Id==TEXT("iceArmor"))Cost=D->IceArmor.ManaBase+(L-1)*D->IceArmor.ManaPerLevel;
+    else if(Id==TEXT("lightningHaste"))Cost=D->LightningHaste.ManaBase+(L-1)*D->LightningHaste.ManaPerLevel;
     else if(FireMagic::IsSkill(Id))Cost=D->FireMagic.ManaBase+FMath::FloorToFloat(Growth*D->FireMagic.ManaGrowth);
     else if(ElectricMagic::IsSkill(Id))Cost=D->ElectricMagic.ManaBase+FMath::FloorToFloat(Growth*D->ElectricMagic.ManaGrowth);
     else return 0.f;
 
+    return AdjustedManaCost(Cost,bApplyFocus);
+}
+
+float UColdSteelStatusModel::AdjustedManaCost(float Cost,bool bApplyFocus) const
+{
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     double StaffCost=0.,ChainCost=0.;
     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
@@ -56,7 +66,8 @@ float UColdSteelStatusModel::SpellManaCost(FName Id,int32 AtLevel,bool bApplyFoc
     // Crafting, chain status, runes and focus are separate multiplier zones.
     // Keep fractional mana and apply the 20% base-cost floor after focus too.
     const double Equipment=1.+EquipmentBonus(TEXT("magicCostPercent"));
-    const double Multiplier=Equipment*FMath::Max(0.,1.+StaffCost)
+    const auto* Aurora=ColdSteelBow::AuroraRiser(this,ActiveBow());
+    const double Multiplier=(Aurora?Aurora->Bow.ManaCost:1.)*Equipment*FMath::Max(0.,1.+StaffCost)
         *FMath::Max(0.,1.+ChainCost)*FMath::Max(0.,double(Rune.MagicCost))
         *FMath::Max(0.,FocusCost);
     return float(ColdSteelResourceCost::Apply(Cost,Multiplier));

@@ -1,4 +1,5 @@
 #include "FluidPresentationSubsystem.h"
+#include "WeatherRainGust.h"
 #include "RiverPilotFXSubsystem.h"
 #include "../FPSWeatherManager.h"
 #include "../Building/VoxelBuildPrefabActor.h"
@@ -45,7 +46,7 @@ void UFluidPresentationSubsystem::OnWorldBeginPlay(UWorld& World)
         FStreamableDelegate::CreateWeakLambda(this,[this](){FurnaceAsset=FurnaceTemplate.Get();FurnaceLoad.Reset();}));
     IncineratorSoundLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(IncineratorSoundTemplate.ToSoftObjectPath(),
         FStreamableDelegate::CreateWeakLambda(this,[this](){IncineratorSound=IncineratorSoundTemplate.Get();IncineratorSoundLoad.Reset();}));
-    // 出铁口熔融金属流＋凝固锭：一次请求把 NS 与 SM_Ingot、四个 MI_<def>Ingot 全部预载到内存，
+    // 出铁口熔融金属流＋凝固锭：一次异步请求预载各类锭的实际网格与材质，
     // 首次完成上升沿前就绪；仍是异步软引用，缺资产时静默跳过（零回归锚点：没有同步 LoadObject）。
     {
         TArray<FSoftObjectPath> Wants;
@@ -53,9 +54,11 @@ void UFluidPresentationSubsystem::OnWorldBeginPlay(UWorld& World)
         Wants.Add(CastingTemplate.ToSoftObjectPath());
         Wants.Add(FSoftObjectPath(TEXT("/Game/Fluids/FurnaceCasting20260926/M_CastingStreamBuffered.M_CastingStreamBuffered")));
         Wants.Add(FSoftObjectPath(TEXT("/Game/Fluids/FurnaceCasting20260926/M_CastingPoolBuffered.M_CastingPoolBuffered")));
-        Wants.Add(FSoftObjectPath(TEXT("/Game/Items/Smelting/Ingot/SM_Ingot.SM_Ingot")));
-        for(const TCHAR* Def:{TEXT("ironIngot"),TEXT("copperIngot"),TEXT("silverIngot"),TEXT("goldIngot")})
-            Wants.Add(FSoftObjectPath(FString::Printf(TEXT("/Game/Items/Smelting/Ingot/MI_%s.MI_%s"),Def,Def)));
+        for(const TCHAR* Def:{TEXT("ironIngot"),TEXT("copperIngot"),TEXT("steelIngot"),TEXT("silverIngot"),TEXT("platinumIngot"),TEXT("goldIngot")})
+        {
+            Wants.AddUnique(ProductionHarvestAssets::PickupMesh(Def,0));
+            Wants.AddUnique(ProductionHarvestAssets::PickupMaterial(Def));
+        }
         TapMeshLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Wants,
             FStreamableDelegate::CreateWeakLambda(this,[this](){TapAsset=TapTemplate.Get();}));
     }
@@ -134,6 +137,11 @@ FVector UFluidPresentationSubsystem::WindAt(const FVector& Position,float* OutSh
 
 void UFluidPresentationSubsystem::ConfigureSmoke(UNiagaraComponent* FX,int32 Requested,bool bWet)
 {
+    ConfigureSmoke(FX, Requested, bWet, true);
+}
+
+void UFluidPresentationSubsystem::ConfigureSmoke(UNiagaraComponent* FX,int32 Requested,bool bWet,bool bTrackContacts)
+{
     if(!FX)return;
     const FVector Position=FX->GetComponentLocation();
     const int32 Count=AllocateDetail(Position,Requested,true);
@@ -142,7 +150,7 @@ void UFluidPresentationSubsystem::ConfigureSmoke(UNiagaraComponent* FX,int32 Req
     FX->SetVariableVec3(TEXT("User.Wind"),FX->GetComponentTransform().InverseTransformVector(WindAt(Position)));
     Smoke.RemoveAll([FX](const FSmoke& S){return !S.FX.IsValid()||S.FX.Get()==FX;});
     for(int32 I=0;I<5;++I)FX->SetVariableVec4(FName(*FString::Printf(TEXT("User.SmokePlane%d"),I)),FVector4(0,0,0,0));
-    if(Smoke.Num()<32)
+    if(bTrackContacts && Smoke.Num()<32)
     {
         FSmoke Entry;Entry.FX=FX;Entry.Expires=GetWorld()->GetTimeSeconds()+4.;
         Smoke.Add(Entry);UpdateSmokeGeometry(Smoke.Last(),5);
@@ -183,6 +191,7 @@ void UFluidPresentationSubsystem::UpdateWalker(FWalker& Walker)
 
 void UFluidPresentationSubsystem::Tick(float Delta)
 {
+    if(bOilBudgetDirty)FlushOilFireBudget();
     UpdateClock+=Delta;WindClock+=Delta;FurnaceClock+=Delta;
     if(UpdateClock<.025f)return;UpdateClock=0;
     bHasView=false;
@@ -203,6 +212,7 @@ void UFluidPresentationSubsystem::Tick(float Delta)
     if(WindClock>=.2f)
     {
         WindClock=0;const double Now=GetWorld()->GetTimeSeconds();
+        UpdateVillageHearths();
         Smoke.RemoveAll([Now](const FSmoke& S){return !S.FX.IsValid()||Now>=S.Expires||!S.FX->IsActive();});
         for(auto& S:Smoke)if(auto* FX=S.FX.Get())
         {
@@ -219,8 +229,10 @@ void UFluidPresentationSubsystem::Tick(float Delta)
 
 void UFluidPresentationSubsystem::Deinitialize()
 {
+    OilFires.Reset();
     bReady=false;
     Campfires.Reset();
+    VillageHearths.Reset();
     if(GetWorld())GetWorld()->RemoveOnActorSpawnedHandler(SpawnHandle);
     FWorldDelegates::LevelAddedToWorld.Remove(LevelHandle);
     if(ColdLoad){ColdLoad->CancelHandle();ColdLoad.Reset();}
@@ -336,8 +348,13 @@ static FVector RainGust(double T,float R)
 {
     const float t=float(T);
     const float Ang=t*0.55f+3.f*sin(t*0.23f)+1.7f*sin(t*0.41f+2.1f);
-    const float Mag=FMath::Max(20.f,60.f+45.f*sin(t*0.83f+1.3f)+30.f*sin(t*1.7f+0.4f));
+    const float Mag=WeatherRainGust::Magnitude(t);
     return FVector(FMath::Cos(Ang),FMath::Sin(Ang),0.12f*sin(t*0.9f))*Mag*R;
+}
+
+const AFPSWeatherManager* UFluidPresentationSubsystem::WeatherSource() const
+{
+    return Weather.Get();
 }
 
 FVector UFluidPresentationSubsystem::WindWithGustAt(const FVector& Position)
@@ -346,11 +363,25 @@ FVector UFluidPresentationSubsystem::WindWithGustAt(const FVector& Position)
     {
         GustFrame=GFrameCounter;
         const float Rain=Weather.IsValid()?FMath::Clamp(Weather->GetEffectiveRainIntensity(),0.f,1.f):0.f;
-        SharedRainGust=Rain>.01f?RainGust(GetWorld()->GetTimeSeconds(),Rain):FVector::ZeroVector;
+        SharedRainGust=Rain>.01f?RainGust(WeatherRainGust::SampleTime(*GetWorld()),Rain):FVector::ZeroVector;
     }
     float ShelterFactor=1.f;
     const FVector BaseWind=WindAt(Position,&ShelterFactor);
     return (BaseWind+SharedRainGust*ShelterFactor).GetClampedToMaxSize(260.f);
+}
+
+void UFluidPresentationSubsystem::UpdateSmokeView(FFurnaceSmoke& Entry, const FVector& Mouth,
+    float Radius, float FullRange, float MaxRange)
+{
+    auto* FX = Entry.FX.Get();
+    const auto Detail = FireViews.Classify(*GetWorld(), Mouth, Radius, Radius * .18f, FullRange, MaxRange,
+        FX, Entry.Detail == EFireParticleDetail::Full);
+    if (Detail != Entry.Detail) Entry.NextConfigure = 0.;
+    Entry.Detail = Detail;
+    if (Detail != EFireParticleDetail::Off) return;
+    if (FX && FX->IsActive()) FX->DeactivateImmediate();
+    Entry.Rate = 0.f;
+    Entry.LastFeed = -100.;
 }
 
 void UFluidPresentationSubsystem::UpdateFurnaceSmoke()
@@ -383,8 +414,8 @@ void UFluidPresentationSubsystem::UpdateFurnaceSmoke()
                 bool Seen=false;for(const auto& E:Furnaces)if(E.Piece.Get()==Piece){Seen=true;break;}
                 const bool Incinerator=Piece->PrefabId()==VoxelIncineratorId;
                 const bool Eligible=Incinerator?
-                    (bHasView&&Piece->IncinerationRemaining()>0.&&IncineratorCount<32
-                        &&FVector::DistSquared(Piece->GetActorLocation(),Eye)<FMath::Square(5300.f)):FurnaceCount<32;
+                    (Piece->IncinerationRemaining()>0.&&IncineratorCount<32
+                        &&FireViews.NearestDistanceSquared(*GetWorld(),Piece->GetActorLocation())<FMath::Square(5300.f)):FurnaceCount<32;
                 if(!Seen&&Eligible)
                 {
                     FFurnaceSmoke Entry;Entry.Piece=Piece;Entry.LastSeen=Now;Furnaces.Add(Entry);
@@ -402,7 +433,6 @@ void UFluidPresentationSubsystem::UpdateFurnaceSmoke()
     {
         auto* Piece=E.Piece.Get();if(!Piece)continue;
         if(Piece->PrefabId()==VoxelIncineratorId){UpdateIncinerator(E,Now,Alive,Rain);continue;}
-        if(!bHasView)continue;
         auto* Build=Cast<AVoxelBuildWorld>(Piece->GetOwner());
         auto* Body=Piece->Body();
         const FIntVector Cell=Piece->AnchorCell();
@@ -412,9 +442,6 @@ void UFluidPresentationSubsystem::UpdateFurnaceSmoke()
         // （旧版取世界 AABB 顶面中心：XY 偏口心 18cm、旋转后错位、且高于凸缘——"不匹配出口"根因。）
         const FVector Mouth=Body?Body->GetComponentTransform().TransformPosition(FVector(-18.f,0.f,208.f))
             :Piece->GetActorLocation()+FVector(0,0,208.f);
-        bool bWorking=Build&&Body&&Body->IsRegistered()&&!Piece->IsFalling()
-            &&((Build->FindSmelting(Cell)&&!Build->FindSmelting(Cell)->Recipe.IsNone())||Build->FuelAt(Cell)>0.);
-        if(bWorking)bWorking=FVector::DistSquared(Mouth,Eye)<=FMath::Square(8500.f);
         const float dt=FMath::Clamp(float(Now-E.LastSeen),0.f,.5f);E.LastSeen=Now;
         // —— v5 状态驱动（Docs/Fluids/furnace-smoke-optimization-plan-20260925.md §2）——
         // 全部在既有 5Hz 同拍内算完：无新遍历、无新容器、无分配、无字符串拼接（参数名是编译期常量）。
@@ -425,11 +452,29 @@ void UFluidPresentationSubsystem::UpdateFurnaceSmoke()
         // Casting must run even when the six smoke slots are full or smoke is not loaded.
         const bool bTapDone=Build&&Smelt&&Smelt->IsDone(Build,Cell);
         UpdateFurnaceTap(E,Build,Job,Body,Mouth,bTapDone,Now);
-        const bool bJobBurning=Job&&Job->BurnStartTicks>0&&Build->FuelAt(Cell)>0.;
+        const double Fuel = Build ? Build->FuelAt(Cell) : 0.;
+        const bool bWorking = Body && Body->IsRegistered() && !Piece->IsFalling() && ((Job && !Job->Recipe.IsNone()) || Fuel > 0.);
+        if (!bWorking && (!E.FX.IsValid() || (!E.FX->IsActive() && E.Rate == 0.f)))
+        {
+            E.Detail = EFireParticleDetail::Off;
+            E.LastProgress = Job ? Job->ProgressSeconds : -1.;
+            E.PuffAt = 0.;
+            continue;
+        }
+        const bool bResuming = E.Detail == EFireParticleDetail::Off;
+        UpdateSmokeView(E, Mouth, 1050.f, 3500.f, 8500.f);
+        if (E.Detail == EFireParticleDetail::Off)
+        {
+            E.LastProgress = Job ? Job->ProgressSeconds : -1.;
+            E.PuffAt = 0.;
+            continue;
+        }
+        const bool bFull = E.Detail == EFireParticleDetail::Full;
+        const bool bJobBurning=Job&&Job->BurnStartTicks>0&&Fuel>0.;
         // Heat：在炼任务∧燃料燃烧中=1（恒等锚点）；仅燃料火种=.25；有任务但燃料耗尽段＝批量档与燃烧状态合成。
         float Heat=0.f;
         if(bJobBurning)Heat=1.f;
-        else if(Build&&Build->FuelAt(Cell)>0.)Heat=.25f;
+        else if(Fuel>0.)Heat=.25f;
         if(Job&&!Job->Recipe.IsNone()&&!bJobBurning)
         {   // 燃料耗尽段：批量越大余热越足（.55..1.0），再按燃烧状态降档合成
             const int64 Batch=FMath::Clamp(Job->BatchCount,(int64)1,(int64)5);
@@ -439,7 +484,7 @@ void UFluidPresentationSubsystem::UpdateFurnaceSmoke()
         Heat=FMath::Clamp(Heat,0.f,1.f);
         // 升档即时（点火/投料马上变浓），降档限速：断供/熄火时火力档沿既有 5Hz 拍平滑回落，
         // 不在资产端出现"啪"地掉档。anchors 不受影响（升档路径 Heat 直接取值，恒等锚点仍是 1）。
-        E.Heat=Heat>E.Heat?Heat:FMath::FInterpConstantTo(E.Heat,Heat,dt,2.5f);
+        E.Heat=(bResuming || Heat>E.Heat)?Heat:FMath::FInterpConstantTo(E.Heat,Heat,dt,2.5f);
         Heat=E.Heat;   // 写进 User.Heat 的是限速后的档位（升档逐式不变，锚点仍为 1）
         // Ignition：now−max(BurnStartTicks,FireStartTicks) 归一化 4s；熄火段不写（资产端沿用断供曲线）。
         // 取“较新的有效者”＝当前燃烧段或火种段的实际起点；两者都无效时不覆盖上一拍值（写 Heat 已足够表达）。
@@ -486,7 +531,7 @@ void UFluidPresentationSubsystem::UpdateFurnaceSmoke()
         else if(E.PuffAt>0.)E.PuffAt=0.;   // 1.2s 到期即归零，不留给下一批误判
         // L1Gate：距 Eye<3500cm 且画质≥中（与 AllocateDetail 同一画质来源 Scalability::GetQualityLevels().EffectsQuality）。
         const float L1Gate=(Scalability::GetQualityLevels().EffectsQuality>=1
-            &&FVector::DistSquared(Mouth,Eye)<=FMath::Square(3500.f))?1.f:0.f;
+            &&bFull)?1.f:0.f;
         if(!E.FX.IsValid())
         {
             if(!bWorking||!FurnaceAsset)continue;
@@ -502,15 +547,15 @@ void UFluidPresentationSubsystem::UpdateFurnaceSmoke()
             Piece->AddInstanceComponent(FX);
             FX->SetAutoActivate(false);FX->SetAutoDestroy(false);FX->SetAsset(FurnaceAsset);
             FX->SetCastShadow(false);FX->SetCanEverAffectNavigation(false);FX->RegisterComponent();
-            E.FX=FX;++Alive;
+            E.FX=FX;E.NextConfigure=0.;++Alive;
         }
         auto* FX=E.FX.Get();if(!FX)continue;
         FX->SetWorldLocation(Mouth);
-        const float Target=bWorking?MaxRate:0.f;
+        const float Target=bWorking ? (bFull ? MaxRate : MaxRate * .5f) : 0.f;
         E.Rate=FMath::FInterpConstantTo(E.Rate,Target,dt,bWorking?18.f:6.f);   // 起烟≈0.7s 到位，停燃≈2.2s 缓断
         if(E.Rate<.05f)E.Rate=0.f;
         if(bWorking&&Now>=E.NextConfigure)
-        {   ConfigureSmoke(FX,16);E.NextConfigure=Now+2.5;
+        {   ConfigureSmoke(FX,16,false,bFull);E.NextConfigure=Now+2.5;
             for(FSmoke& S:Smoke)if(S.FX.Get()==FX)S.bOwnWind=true; }   // 风场由此路接管（见下），共享风扫不再覆写
         FX->SetVariableFloat(TEXT("User.SpawnRate"),E.Rate);
         // v3 接管风场：基风（含屋檐遮蔽衰减）＋雨天随机方向低频阵风；User.Rainfall 同拍 5Hz 写，
@@ -520,8 +565,8 @@ void UFluidPresentationSubsystem::UpdateFurnaceSmoke()
         FX->SetVariableFloat(TEXT("User.Rainfall"),Rain);
         // v5 状态驱动：连续火力／点火年龄／整批脉冲／内芯层距离画质门（参数名均为编译期常量，热路径无字符串拼接）。
         FX->SetVariableFloat(TEXT("User.Heat"),Heat);
-        if(bHaveIgnition)FX->SetVariableFloat(TEXT("User.Ignition"),Ignition);   // 熄火段不写＝资产端沿用断供曲线
-        FX->SetVariableFloat(TEXT("User.Puff"),Puff);
+        if(bHaveIgnition || !bFull)FX->SetVariableFloat(TEXT("User.Ignition"),bFull ? Ignition : 1.f);   // 熄火段不写＝资产端沿用断供曲线
+        FX->SetVariableFloat(TEXT("User.Puff"),bFull ? Puff : 0.f);
         FX->SetVariableFloat(TEXT("User.L1Gate"),L1Gate);
         if(E.Rate>0.f)
         {

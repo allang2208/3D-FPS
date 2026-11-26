@@ -15,4 +15,8 @@ private:
     void CacheReferencePose();
     TWeakObjectPtr<USkeletalMesh> CachedMesh;
     TArray<FTransform> RefComponent,RefLocal;
+    struct FMirrorBone {int32 Left,Right;FQuat LeftBasis,RightBasis;};
+    TArray<FMirrorBone> MirrorBones;
+    TArray<FTransform> QuickSupportSource,QuickSupportTarget;
+    int32 RightTwist01=INDEX_NONE,RightTwist02=INDEX_NONE;
 };

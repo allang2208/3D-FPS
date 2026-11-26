@@ -1,11 +1,14 @@
-#include "../Dungeon/DungeonLayout.h"
+#include "ColdSteelSpellRewards.h"
+#include "../Weapons/Bow/EclipseBowMark.h"
+#include "ColdSteelSpellCrafting.h"
+#include "ColdSteelSpellFeedback.h"
+#include "../Monsters/UnknownSpellCombat.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "FPSIceWall.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Weapons/MeleeWeaponStats.h"
-#include "../Combat/CombatItemFormula.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../FPSGAMECharacter.h"
@@ -14,10 +17,9 @@
 #include "FPSMagicPreview.h"
 #include "Engine/GameInstance.h"
 #include "Kismet/GameplayStatics.h"
-#include "Dom/JsonObject.h"
 
 FColdSteelSkillProgress UColdSteelStatusModel::IceSpikeProgress() const
-{const auto* P=Current.Skills.Find(IceSpikeSkill.Id);return P?*P:FColdSteelSkillProgress();}
+{return Current.Skills.FindRef(IceSpikeSkill.Id);}
 
 FIceSpikeCast UColdSteelStatusModel::IceSpikeStats(int32 AtLevel) const
 {
@@ -37,34 +39,30 @@ FIceSpikeCast UColdSteelStatusModel::IceSpikeStats(int32 AtLevel) const
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     C.MagicDamageBonus=(1+SetEffect(TEXT("magicDamage")))*Rune.MagicDamage-1;
     double DamageFactor=1,CooldownReduction=0;
-    const auto* Player=RuntimePawn();
-    const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
-    const int32 Chain=Status?Status->ChainSpellStacks():0;
+    const int32 Chain=ColdSteelSpellCrafting::ChainSpellStacks(RuntimePawn());
     // Only the active staff contributes spell crafting. The immutable cast survives weapon swaps.
     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         {
             auto Craft=[&](const TCHAR* Key){return E->CraftEffect(*Item,Key);};
             C.Count+=int32(Craft(TEXT("iceSpikeCountDelta")));
-            C.CriticalChance+=100*(E->Effect(*Item,TEXT("critRate"))+Craft(TEXT("critChancePercent"))+Craft(TEXT("magicCritPercent")));
-            C.MagicPenetration=E->Effect(*Item,TEXT("magicPenetrationPercent"))+Craft(TEXT("magicPenetrationPercent"));
+            ColdSteelSpellCrafting::ApplyCriticalStats(C,*E,*Item);
             CooldownReduction=Craft(TEXT("magicCooldownPercent"));
             C.Range*=1+Craft(TEXT("magicRangePercent"));C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));
             DamageFactor+=Craft(TEXT("magicDamagePercent"));
-            C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
-            C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*Item,TEXT("castHasteDuration"),5000)/1000;
-            C.ChillSlow=Craft(TEXT("iceChillSlowPercent"));C.ChillDuration=E->CraftEffect(*Item,TEXT("iceChillDuration"),3000)/1000;
-            const auto Data=CombatItemFormula::ReadOnly(*Item);const TSharedPtr<FJsonObject>* Effects=nullptr;FString Specialty;
-            if(Data&&Data->TryGetObjectField(TEXT("_craftEffects"),Effects)&&(*Effects)->TryGetStringField(TEXT("staffSpecialty"),Specialty)&&Specialty==TEXT("ice"))
+            ColdSteelSpellCrafting::ApplyChainAndCastHaste(C,*E,*Item);
+            C.ChillSlow=Craft(TEXT("iceChillSlowPercent"))>0?CombatChill::SlowPerStack:0.f;C.ChillDuration=E->CraftEffect(*Item,TEXT("iceChillDuration"),3000)/1000;
+            if(ColdSteelSpellCrafting::HasStaffSpecialty(*Item,TEXT("ice")))
                 DamageFactor+=Craft(TEXT("iceDamagePercent"));
             DamageFactor*=1+Chain*Craft(TEXT("chainSpellDamagePercent"));
         }
+    C.Range*=float(MagicRangeMultiplier());
     C.Count=FMath::Max(1,C.Count);
     // The wand hook multiplies every magic spell, so the two spells stay on one damage factor.
     C.Damage=FMath::FloorToFloat(FMath::FloorToDouble(C.DamageBase+C.MagicContribution)*DamageFactor*MagicImplementMultiplier());
     C.ManaCost=SpellManaCost(TEXT("iceSpike"),L);
-    C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));
-    C.Cooldown*=Rune.SkillCooldown*Rune.MagicCooldown;
+    ColdSteelSpellCrafting::ApplyCooldownMultipliers(C.Cooldown,CooldownReduction,SetEffect(TEXT("cooldown")),
+        Rune.SkillCooldown*Rune.MagicCooldown);
     ApplySpellCastSpeed(C.CastSpeed);
     return C;
 }
@@ -78,8 +76,16 @@ bool UColdSteelStatusModel::BeginIceSpikeCast(const FIceSpikeCast& Cast)
     P.IceSpikeCooldownDuration=P.IceSpikeCooldown;return CommitState(P);
 }
 
-void UColdSteelStatusModel::ApplyIceSpikeHit(APawn* Shooter,const FHitResult& Hit,const FIceSpikeCast& Cast,FIceSpikeRewards& Batch)
+void UColdSteelStatusModel::ApplyIceSpikeHit(APawn* Shooter,const FHitResult& Hit,const FIceSpikeCast& Cast,FIceSpikeRewards& Batch,FEclipseBowShot* EclipseShot)
 {
+    if(UnknownSpell::IsCaster(Shooter))
+    {
+        const bool Applied=UnknownSpell::Hit(Shooter,Hit.GetActor(),Cast.Damage,Cast.CriticalChance,Cast.CriticalDamageBonus,
+            Cast.MagicDamageBonus,Cast.MagicPenetration,UIceSpikeDamage::StaticClass(),ColdSteelSkills::IsCriticalHit(Hit));
+        if(Applied&&Cast.ChillSlow>0)UCombatStatusFormula::GetOrAdd(Hit.GetActor())->AddChill(1,Cast.ChillDuration,Cast.bRefreshChillDuration);
+        if(Applied)++Batch.Hits;
+        return;
+    }
     AActor* Target=Hit.GetActor();
     if(auto* Wall=::Cast<AFPSIceWall>(Target);Wall&&Shooter&&Shooter->IsPlayerControlled()&&Shooter->HasAuthority())
     {
@@ -93,26 +99,26 @@ void UColdSteelStatusModel::ApplyIceSpikeHit(APawn* Shooter,const FHitResult& Hi
     const CombatFormulaRuntime::MagicHit Context{Cast.CriticalChance,Cast.CriticalDamageBonus,Cast.MagicPenetration,Cast.MagicDamageBonus,&Critical,ColdSteelSkills::IsCriticalHit(Hit)};
     TGuardValue<const CombatFormulaRuntime::MagicHit*> MagicScope(CombatFormulaRuntime::ActiveMagicHit,&Context);
     StarMarrow::FHitRecovery CrystalRecovery(Shooter,Target,Cast.StarMarrow);
+    FEclipseBowImpact EclipseImpact(EclipseShot, Target);
     const float Applied=UGameplayStatics::ApplyPointDamage(Target,Cast.Damage,(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal(),Hit,Shooter->GetController(),Shooter,UIceSpikeDamage::StaticClass());
+    EclipseImpact.Confirm(Applied);
     CrystalRecovery.Finish(Applied);
-    for(const auto& K:Rewards.Kills)Batch.KillRewards.FindOrAdd(K.Key)=K.Value;
+    Batch.KillRewards.Append(Rewards.Kills);
     if(Applied<=0)return;
-    if(Cast.ChillSlow>0&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Target)->AddChill(1,Cast.ChillDuration,Cast.ChillSlow);
-    if(auto* Player=::Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied);
+    if(Cast.ChillSlow>0&&!Combat->IsDead())UCombatStatusFormula::GetOrAdd(Target)->AddChill(1,Cast.ChillDuration,Cast.bRefreshChillDuration);
+    ColdSteelSpellFeedback::NotifyHit(Shooter,Target,Applied,*Combat,Critical);
     if(Target->ActorHasTag(TEXT("Summoned"))||Target->ActorHasTag(TEXT("NoSkillTraining")))return;
-    ++Batch.Hits;if(Combat->IsDead())++Batch.Kills;
-    if(Critical){++Batch.CriticalHits;if(Combat->IsDead())++Batch.CriticalKills;}
+    ColdSteelSpellRewards::RecordTrainingHit(Batch,*Combat,Critical);
 }
 
-void UColdSteelStatusModel::FinishIceSpikeCast(const FIceSpikeRewards& Batch)
+void UColdSteelStatusModel::FinishIceSpikeCast(const FIceSpikeRewards& Batch,bool bElementalArrow)
 {
-    if(!Current.bIceSpikeReserved)return;
-    SyncRuntime();auto P=Snapshot();P.bIceSpikeReserved=false;
+    if(!bElementalArrow&&!Current.bIceSpikeReserved)return;
+    SyncRuntime();auto P=Snapshot();if(!bElementalArrow)P.bIceSpikeReserved=false;
+    if(bElementalArrow)StageElementalArrowTraining(P,Batch.Hits,Batch.Kills);
     const auto& T=IceSpikeSkill.IceSpike;
-    ColdSteelSkills::AddExperience(P,IceSpikeSkill,Batch.Hits*T.HitExperience+Batch.Kills*T.KillExperience+(Batch.Hits>=2?T.MultiHitExperience:0)+(Batch.Kills>=2?T.MultiKillExperience:0));
-    ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,Batch.CriticalHits*CriticalStrikeSkill.CriticalHitExperience+Batch.CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
-    for(const auto& K:Batch.KillRewards){if(!DungeonLayout::RecordKill(P.DungeonRun,K.Key.Get()))continue;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(K.Value*TributeEffect(TEXT("expPercent")));}
-    while(P.Level<10000){const int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
-    if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
+    ColdSteelSpellRewards::AccumulateHitKillTraining(P,IceSpikeSkill,T,Batch.Hits,Batch.Kills,Batch.Hits>=2);
+    ColdSteelSpellRewards::AccumulateCriticalTraining(P,CriticalStrikeSkill,Batch.CriticalHits,Batch.CriticalKills);
+    ColdSteelSpellRewards::AccumulateKillExperience(P,Batch.KillRewards,*this);
     if(StageTraining(MoveTemp(P)))for(const auto& K:Batch.KillRewards)RewardedVictims.Add(K.Key);
 }

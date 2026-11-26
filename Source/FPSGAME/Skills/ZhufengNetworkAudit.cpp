@@ -50,15 +50,15 @@ int32 USkillNetworkAuditCommandlet::RunZhufengAudit(const FString& Params)
     Seed.UppercutStaminaSpent=0;Seed.DungeonRun={};Seed.NetworkProfileId=FGuid::NewGuid();
     for(auto& Skill:Seed.Skills){Skill.Value.Level=1;Skill.Value.Experience=0;}
     auto Item=Host->CreateItem(TEXT("ue_zhanmadao"));Item.Place=1;Item.Cell=6;
-    const auto SetBlade=[](FColdSteelItem& I,const FString& Blade,const FString& Rune=FString())
+    const auto SetRune=[](FColdSteelItem& I,const FString& Rune)
     {
         TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data);
         if(!Data)Data=MakeShared<FJsonObject>();
-        auto Parts=MakeShared<FJsonObject>();Parts->SetStringField(TEXT("blade_1"),Blade);
+        auto Parts=MakeShared<FJsonObject>();
         if(!Rune.IsEmpty())Parts->SetStringField(TEXT("blade_2"),Rune);
         Data->SetObjectField(TEXT("gunsmith_parts"),Parts);I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));
     };
-    auto Factory=Item;SetBlade(Factory,TEXT("false"));SetBlade(Item,TEXT("zhufeng"));Seed.Items={Item};
+    auto Factory=Item;SetRune(Factory,FString());SetRune(Item,TEXT("zhufeng_rune"));Seed.Items={Item};
     auto* Shadow=Host->CreateShadowModel(Seed);
     if(!Shadow){UE_LOG(LogTemp,Error,TEXT("ZHUFENG_AUDIT fixture profile rejected: %s"),*Host->ResultMessage());return 2;}
     auto* PC=World->SpawnActor<ASkillAuditRemoteController>();auto* PS=World->SpawnActor<AColdSteelPlayerState>();
@@ -89,9 +89,9 @@ int32 USkillNetworkAuditCommandlet::RunZhufengAudit(const FString& Params)
     Check(FMath::IsNearlyEqual(Cast.RadiusCM,FactoryCast.RadiusCM*1.2f),TEXT("Zhufeng radius includes 20 percent range"));
     Check(FMath::IsNearlyEqual(Stats.DamageParts.BasePhysical+Stats.DamageParts.AddedPhysical,
         (FactoryStats.DamageParts.BasePhysical+FactoryStats.DamageParts.AddedPhysical)*1.1),TEXT("Zhufeng physical channel gains 10 percent"));
-    auto Beiwei=Item;SetBlade(Beiwei,TEXT("zhufeng"),TEXT("beiwei_rune"));Shadow->Current.Items={Beiwei};const auto Gold=Shadow->WhirlwindStats();
-    Check(FMath::IsNearlyEqual(Gold.Damage,Cast.Damage*1.5f)&&FMath::IsNearlyEqual(Gold.RadiusCM,Cast.RadiusCM*1.25f),TEXT("Beiwei multiplies the upgraded whirlwind damage and radius once"));
-    auto Red=Item;SetBlade(Red,TEXT("chixiao"));const auto RedStats=ColdSteelMelee::Evaluate(Red,Shadow);
+    auto Beiwei=Item;SetRune(Beiwei,TEXT("beiwei_rune"));Shadow->Current.Items={Beiwei};const auto Gold=Shadow->WhirlwindStats();
+    Check(FMath::IsNearlyEqual(Gold.Damage,FactoryCast.Damage*1.5f)&&FMath::IsNearlyEqual(Gold.RadiusCM,FactoryCast.RadiusCM*1.25f),TEXT("Replacing Zhufeng with Beiwei applies only the Beiwei bonuses"));
+    auto Red=Item;SetRune(Red,TEXT("chixiao_rune"));const auto RedStats=ColdSteelMelee::Evaluate(Red,Shadow);
     Check(FMath::IsNearlyEqual(RedStats.Modifiers.PhysicalDamage,1.1)&&FMath::IsNearlyEqual(RedStats.Modifiers.AttackSpeed,1.15)&&RedStats.Modifiers.WhirlwindDamageAdd==0,
         TEXT("Chixiao retains physical and speed passives without Zhufeng bonus"));
     Reset();uint32 Serial=0;
@@ -105,10 +105,10 @@ int32 USkillNetworkAuditCommandlet::RunZhufengAudit(const FString& Params)
     Movement.MeleeRequest.Direction=FVector::ForwardVector;Movement.MeleeRequest.Distance=20;
     const FVector BeforePending=Pawn->GetActorLocation();Move->ProcessMeleeNetworkMove(Movement,true);
     Check(Pawn->GetActorLocation().Equals(BeforePending)&&Move->LastServerMeleeSequence==0,TEXT("movement arriving before cast waits without permanently rejecting sequence"));
-    Charge();const float Cost=Shadow->WhirlwindStats().StaminaCost;
+    Charge();const float Cost=Shadow->DashAttackStats().StaminaCost;
     PS->ServerSwordWhirlwind_Implementation(++Serial,Pawn,Item.InstanceId,true,11,FVector::ForwardVector,false);
-    Check(PS->WhirlwindActiveSequence==Serial&&FMath::IsNearlyEqual(Shadow->Stamina(),Base.Stamina-Cost)&&Shadow->WhirlwindCooldown()>0,
-        TEXT("Zhufeng guest commits whirlwind cost and cooldown on authority"));
+    Check(PS->WhirlwindActiveSequence==Serial&&FMath::IsNearlyEqual(Shadow->Stamina(),Base.Stamina-Cost)&&Shadow->WhirlwindCooldown()==0,
+        TEXT("Zhufeng guest pays dash cost without starting manual whirlwind cooldown"));
     Check(Host->Stamina()==HostStamina,TEXT("guest cast does not charge the host"));
     PS->ServerSwordWhirlwind_Implementation(Serial,Pawn,Item.InstanceId,true,11,FVector::ForwardVector,false);
     Check(FMath::IsNearlyEqual(Shadow->Stamina(),Base.Stamina-Cost)&&FMath::IsNearlyEqual(Shadow->Current.UppercutStaminaSpent,double(Cost)),TEXT("duplicate start pays exactly once"));
@@ -169,8 +169,10 @@ int32 USkillNetworkAuditCommandlet::RunZhufengAudit(const FString& Params)
     PS->ServerReportHit_Implementation(Hit);Check(Targets.Last()->Health==LastHP,TEXT("late hit after finish is rejected"));
     const float CD=Shadow->WhirlwindCooldown();PS->ServerMartialCooldowns_Implementation(Pawn,999,0,0,0,0,World->GetTimeSeconds());
     Check(Shadow->WhirlwindCooldown()==CD,TEXT("owner cooldown publication cannot clear authority whirlwind cooldown"));
-    Charge();PS->ServerSwordWhirlwind_Implementation(++Serial,Pawn,Item.InstanceId,true,12,FVector::ForwardVector,false);
-    Check(!PS->WhirlwindActiveSequence&&FMath::IsNearlyEqual(Shadow->Stamina(),Base.Stamina-Cost),TEXT("cooldown rejects repeat cast without spending again"));
+    Reset();Shadow->Current.WhirlwindCooldown=6.f;Charge();
+    PS->ServerSwordWhirlwind_Implementation(++Serial,Pawn,Item.InstanceId,true,12,FVector::ForwardVector,false);
+    Check(PS->WhirlwindActiveSequence==Serial&&FMath::IsNearlyEqual(Shadow->Stamina(),Base.Stamina-Cost)&&Shadow->WhirlwindCooldown()==6.f,
+        TEXT("charged dash remains usable during manual whirlwind cooldown and preserves its duration"));
     Reset();Charge();Shadow->Current.Stamina=Cost-1;
     PS->ServerSwordWhirlwind_Implementation(++Serial,Pawn,Item.InstanceId,true,13,FVector::ForwardVector,false);
     Check(!PS->WhirlwindActiveSequence&&Shadow->Stamina()==Cost-1,TEXT("insufficient authority stamina rejects cast"));

@@ -1,6 +1,11 @@
 #include "FPSPlayerBodyComponent.h"
-#include "FPSBodyConsumeMotion.h"
+#include "FPSBodyHighlandMotion.h"
+#include "FPSBodyWarhammerMotion.h"
 #include "FPSBodyKukriMotion.h"
+#include "FPSBodyConsumeMotion.h"
+#include "../Skills/ChainSlashMotion.h"
+#include "../Skills/LeapStrikeMotion.h"
+#include "../Skills/ShadowStepTypes.h"
 #include "../FPSGAMECharacter.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -21,23 +26,42 @@ bool IsTransition(const FFPSBodyState& A,const FFPSBodyState& B)
             ||X.Sections!=Y.Sections||X.VisibleParts!=Y.VisibleParts)return true;
     }
     return A.Weapon!=B.Weapon||A.Family!=B.Family||A.Action!=B.Action||A.ActionVariant!=B.ActionVariant||A.Motion!=B.Motion
+        ||(A.Action==EFPSBodyAction::Cast&&A.ActionStartedAt!=B.ActionStartedAt)
         ||A.Contacts.Channel!=B.Contacts.Channel||A.Contacts.ConsumableSerial!=B.Contacts.ConsumableSerial
         ||A.Contacts.DiscardFlags!=B.Contacts.DiscardFlags
         ||A.ConsumeHands!=B.ConsumeHands||A.bConsumeWeaponsHidden!=B.bConsumeWeaponsHidden
         ||A.OffhandReloadPhase!=B.OffhandReloadPhase
         ||A.bOffhandReloadReturnFromReload!=B.bOffhandReloadReturnFromReload
-        ||A.BowClip!=B.BowClip||A.bBowClipLooping!=B.bBowClipLooping||A.bBowArrow!=B.bBowArrow||A.bBowTakingArrow!=B.bBowTakingArrow
+        ||A.BowClip!=B.BowClip||A.bBowClipLooping!=B.bBowClipLooping||A.bBowArrow!=B.bBowArrow||A.bBowTakingArrow!=B.bBowTakingArrow||A.BowMagic!=B.BowMagic
         ||((A.BowCastTransfer>0.f)!=(B.BowCastTransfer>0.f))||((A.BowCastTransfer>=1.f)!=(B.BowCastTransfer>=1.f))
         ||((A.BowCastTransferRate<0.f)!=(B.BowCastTransferRate<0.f))
         ||A.bBowTwoHandConsume!=B.bBowTwoHandConsume
         ||((A.BowStowWeight>=1.f-UE_KINDA_SMALL_NUMBER)!=(B.BowStowWeight>=1.f-UE_KINDA_SMALL_NUMBER))
         ||((A.BowClipRate<0.f)!=(B.BowClipRate<0.f))||(A.BowStringContact>0.f)!=(B.BowStringContact>0.f)
+        // A 45 ms bow contact stop can fall between periodic pose snapshots.
+        // Send both stop and resume as reliable edges, without treating every
+        // small draw-rate change as a transition.
+        ||(A.BowClip==TEXT("QuickCombat")&&B.BowClip==A.BowClip
+            &&FMath::IsNearlyZero(A.BowClipRate)!=FMath::IsNearlyZero(B.BowClipRate))
         ||(FPSBodyKukriMotion::HasExecutorClock(A)&&FPSBodyKukriMotion::HasExecutorClock(B)
+            &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
+        ||(FPSBodyHighlandMotion::IsSweep(A.ActionVariant)&&FPSBodyHighlandMotion::IsSweep(B.ActionVariant)
+            &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
+        ||(ChainSlashMotion::IsVariant(A.ActionVariant)&&A.ActionVariant==B.ActionVariant
+            &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
+        ||(LeapStrike::IsBodyVariant(A.ActionVariant)&&A.ActionVariant==B.ActionVariant
+            &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
+        ||(ShadowStep::IsBodyVariant(A.ActionVariant)&&A.ActionVariant==B.ActionVariant
+            &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
+        ||(FPSBodyWarhammerMotion::UsesQuickMeleeWrists(A)&&B.Action==A.Action&&B.ActionVariant==A.ActionVariant
             &&FMath::IsNearlyZero(A.ActionProgressRate)!=FMath::IsNearlyZero(B.ActionProgressRate))
         ||A.bHasHandholds!=B.bHasHandholds||A.bDual!=B.bDual||A.bOffhandPistol!=B.bOffhandPistol
         ||A.RightHand.bReloading!=B.RightHand.bReloading||A.LeftHand.bReloading!=B.LeftHand.bReloading
+        ||(A.RightHand.bReloading&&!FMath::IsNearlyEqual(A.RightHand.ReloadStartedAt,B.RightHand.ReloadStartedAt,.01f))
+        ||(A.LeftHand.bReloading&&!FMath::IsNearlyEqual(A.LeftHand.ReloadStartedAt,B.LeftHand.ReloadStartedAt,.01f))
         ||A.RightHand.bEquipping!=B.RightHand.bEquipping||A.LeftHand.bEquipping!=B.LeftHand.bEquipping
-        ||A.AzureFlags!=B.AzureFlags
+        ||A.AzureFlags!=B.AzureFlags||A.bBeiweiMartial!=B.bBeiweiMartial||A.bChixiaoHeavyTrail!=B.bChixiaoHeavyTrail
+        ||A.bZhufengWhirlwindTrail!=B.bZhufengWhirlwindTrail
         ||A.Contacts.FloatingBook!=B.Contacts.FloatingBook
         ||(A.bHasActionProgress&&A.Action!=EFPSBodyAction::Guard&&A.ActionProgress+.08f<B.ActionProgress)
         ||(A.Motion!=EFPSBodyMotion::Ground&&A.MotionProgress+.08f<B.MotionProgress)
@@ -57,6 +81,7 @@ void UFPSPlayerBodyComponent::SendBodyPresentation(float Delta)
     using namespace FPSBodyNetwork;
     const float Now=ServerClock();
     CaptureLaserPresentation();
+    CaptureGunAimPresentation();
     const bool Edge=!bHasLocalPresentation||IsTransition(DisplayState,PreviousLocalPresentation);
     const bool Shot=bHasLocalPresentation&&(DisplayState.LastShotAt>PreviousLocalPresentation.LastShotAt
         ||DisplayState.RightHand.LastShotAt>PreviousLocalPresentation.RightHand.LastShotAt
@@ -69,15 +94,23 @@ void UFPSPlayerBodyComponent::SendBodyPresentation(float Delta)
         if(DisplayState.bBowTwoHandConsume&&P.bBowTwoHandConsume)
             DisplayState.BowStowRate=Rate(DisplayState.BowStowWeight,P.BowStowWeight,Delta);
         if(DisplayState.Action==P.Action&&DisplayState.ActionVariant==P.ActionVariant
+            &&(DisplayState.Action!=EFPSBodyAction::Cast||DisplayState.ActionStartedAt==P.ActionStartedAt)
             &&(DisplayState.Action==EFPSBodyAction::Guard||DisplayState.ActionProgress+.08f>=P.ActionProgress))
-            // Preserve the executor rate at hit-stop and resume transitions.
-            if(!FPSBodyKukriMotion::HasExecutorClock(DisplayState)&&DisplayState.Action!=EFPSBodyAction::Consume)
+        {
+            // The knife executor supplies its exact haste / hit-stop rate.
+            // Finite differencing would advance a just-paused contact remotely.
+            if(!FPSBodyKukriMotion::HasExecutorClock(DisplayState)&&!FPSBodyHighlandMotion::IsSweep(DisplayState.ActionVariant)&&!ChainSlashMotion::IsVariant(DisplayState.ActionVariant)&&!LeapStrike::IsBodyVariant(DisplayState.ActionVariant)&&!ShadowStep::IsBodyVariant(DisplayState.ActionVariant)&&DisplayState.Action!=EFPSBodyAction::Consume
+                &&!FPSBodyWarhammerMotion::UsesQuickMeleeWrists(DisplayState))
                 DisplayState.ActionProgressRate=Rate(DisplayState.ActionProgress,P.ActionProgress,Delta);
+            if(DisplayState.Action==EFPSBodyAction::Cast&&DisplayState.Contacts.Channel!=TEXT("StaffCast"))
+                DisplayState.CastPalmProgressRate=Rate(DisplayState.ReleaseFraction,P.ReleaseFraction,Delta);
+        }
         if(DisplayState.Motion==P.Motion&&DisplayState.MotionProgress+.08f>=P.MotionProgress)
             DisplayState.MotionProgressRate=Rate(DisplayState.MotionProgress,P.MotionProgress,Delta);
         const auto HandRate=[&](FFPSBodyHandState& Hand,const FFPSBodyHandState& Before)
         {
-            if(Hand.bReloading==Before.bReloading&&Hand.bEquipping==Before.bEquipping&&Hand.Progress+.08f>=Before.Progress)
+            if(Hand.bReloading==Before.bReloading&&Hand.bEquipping==Before.bEquipping&&Hand.Progress+.08f>=Before.Progress
+                &&(!Hand.bReloading||FMath::IsNearlyEqual(Hand.ReloadStartedAt,Before.ReloadStartedAt,.01f)))
                 Hand.ProgressRate=Rate(Hand.Progress,Before.Progress,Delta);
         };
         HandRate(DisplayState.RightHand,P.RightHand);HandRate(DisplayState.LeftHand,P.LeftHand);
@@ -97,7 +130,8 @@ void UFPSPlayerBodyComponent::SendBodyPresentation(float Delta)
             ||DisplayState.Family==TEXT("Bow")||Now-DisplayState.LastShotAt<.15f;
         // Melee downswings now last ~0.15 s: sample the release and contact
         // densely so other players see the arc and impact, not two endpoints.
-        const bool MeleeRelease=(DisplayState.Action==EFPSBodyAction::Strike||DisplayState.Action==EFPSBodyAction::HeavyStrike)
+        const bool MeleeRelease=(DisplayState.Action==EFPSBodyAction::Strike||DisplayState.Action==EFPSBodyAction::HeavyStrike||
+            (DisplayState.Family==TEXT("Kukri")&&DisplayState.Action==EFPSBodyAction::Thrust))
             &&DisplayState.bHasActionProgress&&DisplayState.ActionProgress>=DisplayState.ContactFraction-.09f
             &&DisplayState.ActionProgress<=DisplayState.ContactFraction+.04f;
         PresentationSendCountdown=MeleeRelease?.016f:Active?.04f:.08f;
@@ -125,6 +159,7 @@ void UFPSPlayerBodyComponent::AcceptBodyPresentation(const FFPSBodyState& Incomi
     const float Now=ServerClock();
     FFPSBodyState Next=Incoming;
     SanitizeLaserPresentation(Next);
+    SanitizeGunAimPresentation(Next);
     Next.LastShotAt=FMath::IsFinite(Next.LastShotAt)?FMath::Clamp(Next.LastShotAt,Now-10.f,Now):-100.f;
     if(!Next.Contacts.IsSane())Next.Contacts=FFPSBodyMotionSample();
     Next.Contacts.Light=FMath::Clamp(Next.Contacts.Light,0.f,1.f);
@@ -147,6 +182,7 @@ void UFPSPlayerBodyComponent::AcceptBodyPresentation(const FFPSBodyState& Incomi
     Next.BowClipTime=FMath::IsFinite(Next.BowClipTime)?FMath::Clamp(Next.BowClipTime,0.f,60.f):0.f;
     // A 0.14..0.22 s let-down can traverse the authored Draw faster than 8x.
     Next.BowClipRate=FMath::IsFinite(Next.BowClipRate)?FMath::Clamp(Next.BowClipRate,-32.f,32.f):0.f;
+    Next.BowScopeRingRoll=FMath::IsFinite(Next.BowScopeRingRoll)?FRotator::NormalizeAxis(Next.BowScopeRingRoll):0.f;
     Next.BowClipLength=FMath::IsFinite(Next.BowClipLength)?FMath::Clamp(Next.BowClipLength,0.f,60.f):0.f;
     Next.bBowClipLooping&=Next.BowClipLength>SMALL_NUMBER;
     Next.BowSeat=Unit(Next.BowSeat,1.f);
@@ -160,10 +196,13 @@ void UFPSPlayerBodyComponent::AcceptBodyPresentation(const FFPSBodyState& Incomi
     Next.ActionEntryFraction=FMath::Clamp(Unit(Next.ActionEntryFraction),0.f,Unit(Next.ContactFraction,.5f));
     Next.ContactFraction=Unit(Next.ContactFraction,.5f);Next.ReleaseFraction=Unit(Next.ReleaseFraction,.8f);
     Next.WhirlwindTurns=FMath::IsFinite(Next.WhirlwindTurns)?FMath::Clamp(Next.WhirlwindTurns,-8.f,8.f):-2.f;
+    Next.ZhufengForwardSpeed=FMath::IsFinite(Next.ZhufengForwardSpeed)?FMath::Clamp(Next.ZhufengForwardSpeed,0.f,1200.f):0.f;
+    Next.ZhufengForwardYaw=FMath::IsFinite(Next.ZhufengForwardYaw)?FRotator::NormalizeAxis(Next.ZhufengForwardYaw):0.f;
     Next.AzureSourceLength=FMath::IsFinite(Next.AzureSourceLength)?FMath::Clamp(Next.AzureSourceLength,0.f,10.f):0.f;
     Next.AzureEntryTime=FMath::IsFinite(Next.AzureEntryTime)?FMath::Clamp(Next.AzureEntryTime,0.f,Next.AzureSourceLength):0.f;
     Next.AzureChargeStartedAt=FMath::IsFinite(Next.AzureChargeStartedAt)?FMath::Clamp(Next.AzureChargeStartedAt,Now-30.f,Now):Now;
     Next.ActionProgressRate=SafeRate(Next.ActionProgressRate);Next.MotionProgressRate=SafeRate(Next.MotionProgressRate);
+    Next.CastPalmProgressRate=Next.Action==EFPSBodyAction::Cast&&Next.Contacts.Channel!=TEXT("StaffCast")?SafeRate(Next.CastPalmProgressRate):0.f;
     Next.MotionProgress=Unit(Next.MotionProgress);Next.MotionContact=Unit(Next.MotionContact,.25f);
     Next.MotionRelease=FMath::Max(Next.MotionContact,Unit(Next.MotionRelease,.75f));
     Next.MotionHandContact=Unit(Next.MotionHandContact);
@@ -172,6 +211,10 @@ void UFPSPlayerBodyComponent::AcceptBodyPresentation(const FFPSBodyState& Incomi
     {
         Hand->Progress=Unit(Hand->Progress);Hand->ProgressRate=SafeRate(Hand->ProgressRate);
         Hand->LastShotAt=FMath::IsFinite(Hand->LastShotAt)?FMath::Clamp(Hand->LastShotAt,Now-10.f,Now):-100.f;
+        Hand->ReloadSourceLength=Hand->bReloading&&FMath::IsFinite(Hand->ReloadSourceLength)?FMath::Clamp(Hand->ReloadSourceLength,0.f,30.f):0.f;
+        Hand->ReloadStart=FMath::Min<uint8>(Hand->ReloadStart,6);Hand->ReloadCount=FMath::Min<uint8>(Hand->ReloadCount,6);
+        Hand->LiveRounds=FMath::Min<uint8>(Hand->LiveRounds,6);Hand->Cartridges=FMath::Min<uint8>(Hand->Cartridges,6);
+        Hand->ReloadStartedAt=Hand->bReloading&&FMath::IsFinite(Hand->ReloadStartedAt)?FMath::Min(Hand->ReloadStartedAt,Now):-100.f;
     }
     const bool Traversing=Next.Motion==EFPSBodyMotion::Vault||Next.Motion==EFPSBodyMotion::Mantle;
     Next.bHasHandholds&=Traversing&&!Next.RightHandhold.ContainsNaN()&&!Next.LeftHandhold.ContainsNaN()
@@ -198,7 +241,10 @@ void UFPSPlayerBodyComponent::AdvanceBodyPresentation(FFPSBodyState& State,float
     State.BowCastTransfer=FMath::Clamp(State.BowCastTransfer+State.BowCastTransferRate*Age,0.f,1.f);
     State.BowStowWeight=FMath::Clamp(State.BowStowWeight+State.BowStowRate*Age,0.f,1.f);
     if(State.bBowClipLooping&&State.BowClipLength>SMALL_NUMBER)State.BowClipTime=FMath::Fmod(State.BowClipTime,State.BowClipLength);
-    if(State.bHasActionProgress&&State.Action!=EFPSBodyAction::Consume)State.ActionProgress=FMath::Clamp(State.ActionProgress+State.ActionProgressRate*Age,0.f,1.f);
+    if(State.bHasActionProgress&&State.Action!=EFPSBodyAction::Consume)
+        State.ActionProgress=FMath::Clamp(State.ActionProgress+State.ActionProgressRate*Age,0.f,1.f);
+    if(State.Action==EFPSBodyAction::Cast&&State.Contacts.Channel!=TEXT("StaffCast"))
+        State.ReleaseFraction=FMath::Clamp(State.ReleaseFraction+State.CastPalmProgressRate*Age,0.f,1.f);
     State.RightHand.Progress=FMath::Clamp(State.RightHand.Progress+State.RightHand.ProgressRate*Age,0.f,1.f);
     State.LeftHand.Progress=FMath::Clamp(State.LeftHand.Progress+State.LeftHand.ProgressRate*Age,0.f,1.f);
     State.MotionProgress=FMath::Clamp(State.MotionProgress+State.MotionProgressRate*FMath::Clamp(Now-State.MotionSampledAt,0.f,.12f),0.f,1.f);

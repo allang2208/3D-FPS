@@ -6,7 +6,7 @@
  #include "Misc/Parse.h"
 +#include "Misc/ScopeExit.h"
  #include "Serialization/JsonSerializer.h"
-
+ 
  namespace FPSBodyNetwork { bool IsTransition(const FFPSBodyState& A,const FFPSBodyState& B); }
 @@ -33,6 +34,11 @@
      FCommandLine::Set(*(TEXT("KukriNetworkAudit -ColdSteelProfile=")+Slot));

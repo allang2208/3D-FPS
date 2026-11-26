@@ -129,7 +129,11 @@ void AddRouteLoops(const FSocket& Start)
             if(--CompactBudget<0||(CancelRequested&&CancelRequested->Load()))break;
             Pieces.SetNum(Before);
             if(PlaceRoutePolyline(A,B,Route,Link.Points,ShortLinkLimit,ShortLinkLimit)&&CompleteSocketGraph(Start))
-            {LoopConnections.Add({C.A,C.B,Link.Length});Connected=true;break;}
+            {
+                LoopConnections.Add({C.A,C.B,Link.Length});
+                if(bPairedFacility)MissionEdges.Add({Pieces[C.A].MissionId,Pieces[C.B].MissionId,TEXT("cleared_route_return"),true,true});
+                Connected=true;break;
+            }
         }
         if(!Connected){Pieces.SetNum(Before);Pieces[C.A].Side=-1;Pieces[C.B].Side=-1;}
     }

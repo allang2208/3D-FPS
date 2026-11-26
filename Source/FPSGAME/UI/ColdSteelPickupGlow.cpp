@@ -26,29 +26,10 @@ void AColdSteelPickup::BuildLootGlow(const FColdSteelItem& Item)
     {
         // Only numeric enhancement controls equipment loot beams. Tool material
         // levels, crafting quality and enchantments are separate progression.
-        struct FEnhancementLootTier
-        {
-            int32 MinimumLevel;
-            const TCHAR* ColorKey;
-            float Height,BeamIntensity,CenterIntensity;
-        };
-        const FEnhancementLootTier Tiers[]={
-            {0,TEXT("common"),90.f,7.f,5.f},
-            {1,TEXT("uncommon"),105.f,7.4f,5.2f},
-            {4,TEXT("rare"),120.f,7.8f,5.4f},
-            {7,TEXT("epic"),135.f,8.2f,5.6f},
-            {10,TEXT("mythic"),150.f,8.6f,5.8f},
-            {13,TEXT("legendary"),165.f,9.f,6.f}
-        };
-        const FEnhancementLootTier* Selected=&Tiers[0];
-        for(const auto& Tier:Tiers)
-        {
-            if(Enhancement<Tier.MinimumLevel)break;
-            Selected=&Tier;
-        }
+        const auto& Tier=ColdSteelItemRarity::EnhancementLootTier(Enhancement);
         // Color keys are palette references, never an equipment rarity value.
-        Color=LootColorForRarity(Selected->ColorKey);Height=Selected->Height;
-        BeamIntensity=Selected->BeamIntensity;CenterIntensity=Selected->CenterIntensity;
+        Color=LootColorForRarity(Tier.ColorKey);Height=Tier.Height;
+        BeamIntensity=Tier.BeamIntensity;CenterIntensity=Tier.CenterIntensity;
     }
     else
     {

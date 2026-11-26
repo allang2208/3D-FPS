@@ -1,18 +1,21 @@
 #include "../UI/ColdSteelStatusModel.h"
+#include "../Monsters/UnknownSpellCombat.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Combat/CombatFormulaRuntime.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../FPSGAMECharacter.h"
-#include "ColdSteelSkillRules.h"
+#include "ColdSteelSpellRewards.h"
+#include "ColdSteelSpellCrafting.h"
+#include "ColdSteelSpellFeedback.h"
 #include "BlizzardDamage.h"
 #include "HolyLightTargets.h"
 #include "Engine/GameInstance.h"
 #include "Kismet/GameplayStatics.h"
 
 FColdSteelSkillProgress UColdSteelStatusModel::BlizzardProgress() const
-{const auto* P=Current.Skills.Find(TEXT("blizzard"));return P?*P:FColdSteelSkillProgress();}
+{return Current.Skills.FindRef(TEXT("blizzard"));}
 float UColdSteelStatusModel::BlizzardCooldown() const{return HasNoAbilityCooldown()?0.f:Current.BlizzardCooldown;}
 float UColdSteelStatusModel::BlizzardCooldownDuration() const{return Current.BlizzardCooldownDuration;}
 FBlizzardCast UColdSteelStatusModel::BlizzardStats(int32 AtLevel) const
@@ -20,8 +23,9 @@ FBlizzardCast UColdSteelStatusModel::BlizzardStats(int32 AtLevel) const
     const auto& D=BlizzardSkill;const auto& T=D.Blizzard;
     const int32 L=FMath::Clamp(AtLevel<0?BlizzardProgress().Level:AtLevel,1,D.MaxLevel);
     const float Growth=float(L-1)/FMath::Max(1,D.MaxLevel-1);
+    const int32 DamageLevel=L-1;
     FBlizzardCast C;
-    C.Damage=FMath::FloorToFloat(T.DamageBase+L*T.DamagePerLevel+Derived(TEXT("matk"))*(T.MagicBase+L*T.MagicPerLevel)+Attribute(TEXT("int"))*(T.IntelligenceBase+L*T.IntelligencePerLevel));
+    C.Damage=FMath::FloorToFloat(T.DamageBase+DamageLevel*T.DamagePerLevel+Derived(TEXT("matk"))*(T.MagicBase+DamageLevel*T.MagicPerLevel)+Attribute(TEXT("int"))*(T.IntelligenceBase+DamageLevel*T.IntelligencePerLevel));
     C.RadiusX=(T.RadiusXBase+L*T.RadiusXPerLevel)*T.UnitsToCM;
     C.RadiusY=(T.RadiusYBase+L*T.RadiusYPerLevel)*T.UnitsToCM;
     C.Range=T.Range*T.UnitsToCM;
@@ -31,24 +35,21 @@ FBlizzardCast UColdSteelStatusModel::BlizzardStats(int32 AtLevel) const
     C.CriticalChance=Derived(TEXT("crit"));C.CriticalDamageBonus=CriticalStrikeEffect().CriticalDamageBonus;
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     C.MagicDamageBonus=(1+SetEffect(TEXT("magicDamage")))*Rune.MagicDamage-1;
-    const auto* Player=RuntimePawn();
-    const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
-    const int32 Chain=Status?Status->ChainSpellStacks():0;
+    const int32 Chain=ColdSteelSpellCrafting::ChainSpellStacks(RuntimePawn());
     float DamageFactor=MagicImplementMultiplier(),CooldownReduction=0;
     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         {
             auto Craft=[&](const TCHAR* Key){return E->CraftEffect(*Item,Key);};
-            C.CriticalChance+=100*(E->Effect(*Item,TEXT("critRate"))+Craft(TEXT("critChancePercent"))+Craft(TEXT("magicCritPercent")));
-            C.MagicPenetration=E->Effect(*Item,TEXT("magicPenetrationPercent"))+Craft(TEXT("magicPenetrationPercent"));
+            ColdSteelSpellCrafting::ApplyCriticalStats(C,*E,*Item);
             CooldownReduction=Craft(TEXT("magicCooldownPercent"));C.Range*=1+Craft(TEXT("magicRangePercent"));
             C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));
             DamageFactor*=(1+Craft(TEXT("magicDamagePercent"))+Craft(TEXT("iceDamagePercent")))*(1+Chain*Craft(TEXT("chainSpellDamagePercent")));
-            C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
-            C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*Item,TEXT("castHasteDuration"),5000)/1000;
-            C.PendantChillSlow=Craft(TEXT("iceChillSlowPercent"));
+            ColdSteelSpellCrafting::ApplyChainAndCastHaste(C,*E,*Item);
+            C.PendantChillSlow=Craft(TEXT("iceChillSlowPercent"))>0?CombatChill::SlowPerStack:0.f;
             C.PendantChillSeconds=E->CraftEffect(*Item,TEXT("iceChillDuration"),3000)/1000;
         }
+    C.Range*=float(MagicRangeMultiplier());
     C.Damage=FMath::FloorToFloat(C.Damage*DamageFactor);
     C.ManaCost=SpellManaCost(TEXT("blizzard"),L);
     C.Cooldown=FMath::Clamp(C.Cooldown*float(FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown")))))*float(Rune.SkillCooldown*Rune.MagicCooldown),0.f,300.f);
@@ -68,10 +69,19 @@ bool UColdSteelStatusModel::CommitBlizzardRelease()
 {
     if(!Current.bBlizzardReserved)return false;
     SyncRuntime();auto P=Snapshot();P.bBlizzardReserved=false;P.BlizzardReservedMana=0;
-    return CommitState(MoveTemp(P));
+    const bool Released=CommitState(MoveTemp(P));
+    if(Released)NotifyMagicReleased();return Released;
 }
 bool UColdSteelStatusModel::ApplyBlizzardHit(APawn* Shooter,AActor* Target,const FBlizzardCast& Spell,FBlizzardRewards& Batch)
 {
+    if(UnknownSpell::IsCaster(Shooter))
+    {
+        const bool Applied=UnknownSpell::Hit(Shooter,Target,Spell.Damage,Spell.CriticalChance,Spell.CriticalDamageBonus,
+            Spell.MagicDamageBonus,Spell.MagicPenetration,UBlizzardDamage::StaticClass());
+        if(Applied)UCombatStatusFormula::GetOrAdd(Target)->AddChill(Spell.ChillStacks,Spell.ChillSeconds);
+        if(Applied)++Batch.Hits;
+        return Applied;
+    }
     auto* Combat=IsValid(Target)?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
     if(!Shooter||!Shooter->IsPlayerControlled()||!Shooter->HasAuthority()||Target==Shooter||!Combat||Combat->IsDead()||HolyLightTargets::IsFriendly(Target))return false;
     TGuardValue<FTrainingHit*> TrainingScope(ActiveTrainingHit,nullptr);
@@ -83,14 +93,13 @@ bool UColdSteelStatusModel::ApplyBlizzardHit(APawn* Shooter,AActor* Target,const
     if(Applied<=0)return false;
     if(!Combat->IsDead())if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))
     {
-        Status->AddChill(Spell.ChillStacks,Spell.ChillSeconds,Spell.ChillSlow);
-        if(Spell.PendantChillSlow>0)Status->AddChill(1,Spell.PendantChillSeconds,Spell.PendantChillSlow);
+        Status->AddChill(Spell.ChillStacks,Spell.ChillSeconds);
+        if(Spell.PendantChillSlow>0)Status->AddChill(1,Spell.PendantChillSeconds);
     }
-    if(auto* Player=Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied);
+    ColdSteelSpellFeedback::NotifyHit(Shooter,Target,Applied,*Combat,Critical);
     if(!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))
     {
-        ++Batch.Hits;if(Combat->IsDead())++Batch.Kills;
-        if(Critical){++Batch.CriticalHits;if(Combat->IsDead())++Batch.CriticalKills;}
+        ColdSteelSpellRewards::RecordTrainingHit(Batch,*Combat,Critical);
     }
     return true;
 }
@@ -98,7 +107,7 @@ void UColdSteelStatusModel::FinishBlizzardCast(const FBlizzardRewards& Batch)
 {
     if(Batch.Hits<=0)return;
     SyncRuntime();auto P=Snapshot();const auto& T=BlizzardSkill.Blizzard;
-    ColdSteelSkills::AddExperience(P,BlizzardSkill,Batch.Hits*T.HitExperience+Batch.Kills*T.KillExperience+(Batch.bMultiHit?T.MultiHitExperience:0)+(Batch.Kills>=2?T.MultiKillExperience:0));
-    ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,Batch.CriticalHits*CriticalStrikeSkill.CriticalHitExperience+Batch.CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
+    ColdSteelSpellRewards::AccumulateHitKillTraining(P,BlizzardSkill,T,Batch.Hits,Batch.Kills,Batch.bMultiHit);
+    ColdSteelSpellRewards::AccumulateCriticalTraining(P,CriticalStrikeSkill,Batch.CriticalHits,Batch.CriticalKills);
     StageTraining(MoveTemp(P));
 }

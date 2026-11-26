@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "M249WeaponAssets.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -27,6 +28,10 @@ inline bool Matches(const USkeletalMeshComponent* Mesh)
 {
     return Mesh && Mesh->GetSkeletalMeshAsset() && Mesh->GetSkeletalMeshAsset()->GetPathName().StartsWith(TEXT("/Game/Weapons/PKMLowpoly20260922/"));
 }
+inline bool SharesFeedMotion(const USkeletalMeshComponent* Mesh)
+{
+    return M249WeaponAssets::Matches(Mesh) || Matches(Mesh);
+}
 inline FString AnimationPath(const TCHAR* Clip)
 {
     return FString::Printf(TEXT("/Game/Weapons/PKMLowpoly20260922/Animations/A_PKM_%s.A_PKM_%s"), Clip, Clip);
@@ -52,9 +57,9 @@ inline void RemoveBipod(AActor* Owner)
 void ConfigureBipod(AActor* Owner, USkeletalMeshComponent* Weapon, bool Enabled);
 // Animated props move at their authored size. Hidden parked duplicates never
 // participate in item framing or appear during the action-to-idle handoff.
-inline void SetSections(USkeletalMeshComponent* Mesh, bool Reloading, bool Empty, float SourceTime, int32 Rounds)
+inline void SetSections(USkeletalMeshComponent* Mesh, bool Reloading, bool Empty, float SourceTime, int32 Rounds, bool FeedEnabled=true)
 {
-    if (!Matches(Mesh)) return;
+    if (!SharesFeedMotion(Mesh)) return;
     const auto* Asset=Mesh->GetSkeletalMeshAsset();
     const auto* Render=Asset->GetResourceForRendering();
     if (!Render) return;
@@ -68,6 +73,7 @@ inline void SetSections(USkeletalMeshComponent* Mesh, bool Reloading, bool Empty
             else if (Name.Contains(TEXT("__OldBox"))) Visible=!Reloading || SourceTime<ReloadEventTime(3.2f,Empty);
             else if (Name.Contains(TEXT("__OldBelt"))) Visible=Rounds>0 && (!Reloading || (!Empty && SourceTime<ReloadEventTime(3.2f,Empty)));
             else continue;
+            Visible=Visible&&FeedEnabled;
             if (Mesh->IsMaterialSectionShown(M,L)!=Visible) Mesh->ShowMaterialSection(M,S,Visible,L);
         }
 }

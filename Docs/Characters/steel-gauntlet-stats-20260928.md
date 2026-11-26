@@ -12,6 +12,8 @@
 
 `Content/ColdSteelData/source-combat-items.json` 是这三项数值的来源。`CombatItemFormula::Read/ReadOnly` 为没有数值字段的既有物品实例补齐目录默认值，因此之前制作阶段生成的钢甲护手无需删掉重领。没有改写玩家存档。
 
+> 2026-10-19 复核：`items.json` 现在也定义了 `defense.base=16`。按“实例字段优先”，运行时防御是 16 而不是本节的 20；source 里的 20/+0 只作为历史值保留。换弹/拉弓仍由 source 的 `bonusStats` 生效。
+
 `Source/FPSGAME/Weapons/WeaponStatEvaluation.cpp` 的弓分支读取装备拉弓速度；弓运行时、物品提示、改造面板共用该公式。`ColdSteelItemTooltipData.cpp`、`ColdSteelItemTooltipSummary.cpp` 增加拉弓速度百分比显示；防御和换弹速度沿用已有显示。
 
 本次未修改模型、材质、贴图、装备图标、动画、`items.json` 外观描述或模型导入器，保留用户另一会话完成的金属材质。

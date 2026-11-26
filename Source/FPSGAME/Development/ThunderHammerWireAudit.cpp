@@ -167,7 +167,7 @@ void AThunderHammerWireController::Tick(float Delta)
     const bool Intent=Current>=9&&Current<=11;
     const bool Heavy=Throw||Current==5||Current==7||Current==8||Intent;
     if(Heavy&&!ChargeSent&&Age>2.)
-    {ChargeSent=true;Tool->BluntAttackId=100+Current;Tool->ServerBeginBluntCharge(100+Current);}
+    {ChargeSent=true;Tool->BluntAttackId=100+Current;Tool->ServerBeginBluntCharge(100+Current,TEXT("wire_thor"));}
     if((Current==5||Current==11)&&!HoldSent&&Age>2.5)
     {HoldSent=true;Tool->ServerConfirmThunderCall(100+Current);}
     if(Heavy&&!Released&&Age>(Intent?3.5:5.0))
@@ -176,7 +176,7 @@ void AThunderHammerWireController::Tick(float Delta)
         if(Current==5)Tool->ServerReleaseThunderCall(100+Current,FVector(1000,0,0));
         else if(Current==11)
         {Tool->ServerCancelBluntAttack(100+Current);Tool->ServerConfirmThunderCall(100+Current);}
-        else Tool->ServerBeginBluntAttack(100+Current,true,false);
+        else Tool->ServerBeginBluntAttack(100+Current,true,false,TEXT("wire_thor"));
     }
     bool OK=false;
     if(Throw)OK=Age>8.&&Tool->ThrownHammer&&Tool->ThrownHammer->IsGrounded()&&Tool->IsThunderHammerAway()&&Waves.Num()==4;

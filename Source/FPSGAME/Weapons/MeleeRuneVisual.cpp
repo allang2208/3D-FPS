@@ -1,4 +1,5 @@
 #include "MeleeRuneVisual.h"
+#include "../UI/ColdSteelItemReadCache.h"
 #include "Misc/Paths.h"
 #include "FrostSwordRunes.h"
 #include "ZhanmadaoRuneInlay.h"
@@ -69,8 +70,8 @@ UMaterialInterface* FactoryMaterial(UMeshComponent* Mesh,int32 Slot)
 
 FString ColdSteelMeleeRune::Selected(const FColdSteelItem& Item)
 {
-    TSharedPtr<FJsonObject> Data;
-    if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data)return {};
+    const auto Data=ColdSteelItemData::Read(Item.Data);
+    if(!Data)return {};
     const TSharedPtr<FJsonObject>* Parts=nullptr;FString Rune;
     if(Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts))
     {

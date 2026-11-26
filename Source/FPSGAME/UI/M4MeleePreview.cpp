@@ -6,6 +6,7 @@
 #include "Engine/GameInstance.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SceneCaptureComponent2D.h"
+#include "../Weapons/Kukri/GhostScytheMist.h"
 #include "Components/DirectionalLightComponent.h"
 #include "Engine/TextureRenderTarget2D.h"
 
@@ -61,7 +62,7 @@ void UM4GunsmithWidget::SetStandaloneMeleeItem(const FColdSteelItem& Item)
 
 void UM4GunsmithWidget::SyncStandaloneMeleePreview()
 {
-    if(IsStaffWorkbench()){SyncStandaloneStaffPreview();return;}
+    if(StandaloneMelee&&StandaloneMelee->ComponentHasTag(TEXT("StaffAssembly"))){SyncStandaloneStaffPreview();return;}
     if(!Capture||!StandaloneMelee||!StandaloneMelee->GetStaticMesh())return;
     const auto* Item=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()->FindItem(Model()->Instance());
     if(Item&&Model()->IsOpen()&&StandaloneKey.StartsWith(Item->InstanceId+TEXT("|")))
@@ -80,6 +81,7 @@ void UM4GunsmithWidget::SyncStandaloneMeleePreview()
     for(auto* Part:ColdSteelModularSword::Components(StandaloneMelee))
         if(ColdSteelMeleeRune::UpdatePose(Part,RuneTime))PreviewMotion=FMath::Max(PreviewMotion,.25f);
     Capture->ShowOnlyComponents.Reset();for(auto* Part:ColdSteelModularSword::Components(StandaloneMelee))Capture->ShowOnlyComponent(Part);
+    if(auto* Mist=GhostScytheMist::Find(StandaloneMelee)){Capture->ShowOnlyComponent(Mist);PreviewMotion=FMath::Max(PreviewMotion,.25f);}
     Capture->SetWorldTransform(FTransform::Identity);Capture->ProjectionType=ECameraProjectionMode::Orthographic;
     const float Aspect=float(PreviewTarget->SizeX)/FMath::Max(1,PreviewTarget->SizeY);
     // Keep the viewing scale steady while orbiting the blade.

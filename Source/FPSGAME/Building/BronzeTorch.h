@@ -34,7 +34,7 @@ class FPSGAME_API ABronzeTorch : public AActor
     GENERATED_BODY()
 
 public:
-    ABronzeTorch();
+    ABronzeTorch(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
     virtual void Tick(float DeltaSeconds) override;
 
     /** 手动点火/熄灭；会同时关闭自动模式，避免下一帧被时钟改回去。 */
@@ -45,6 +45,12 @@ public:
     UFUNCTION(BlueprintCallable, Category="Torch")
     void SetAutomaticIgnition(bool bEnabled);
 
+    /** Configure a placed scene fixture without changing the shared torch defaults. */
+    void EnableExteriorClockSleep() { bExteriorClockSleep = true; }
+    void ConfigureSceneLight(float Lumens,float RadiusCm,bool bShadows);
+    void SetSceneSpecularScale(float Scale);
+    void ConfigureShopInterior(UNiagaraSystem* InteriorFlame);
+
     UFUNCTION(BlueprintPure, Category="Torch")
     float GetIgnitionAmount() const { return IgnitionAmount; }
 
@@ -54,12 +60,16 @@ public:
     UFUNCTION(BlueprintPure, Category="Torch")
     bool IsAutomaticIgnition() const { return bAutomaticIgnition; }
 
+    bool HasBurningFlame() const;
+    bool IsExteriorClockFixture() const { return bExteriorClockSleep; }
+
     /** 当前是否落在点火窗口内（黄昏/夜晚）。时钟不可用时返回 bStartLit。 */
     UFUNCTION(BlueprintPure, Category="Torch")
     bool ShouldBeLitNow() const;
 
 protected:
     virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     virtual void OnConstruction(const FTransform& Transform) override;
 
     UPROPERTY(VisibleAnywhere, Category="Torch")
@@ -149,6 +159,20 @@ protected:
     bool bLogStateChanges = true;
 
 private:
+    bool bExteriorClockSleep = false;
+    bool bDistantFixture = false;
+    float NearbyTickInterval = 0.f;
+    double NextRangeCheck = 0.;
+    bool bClockDormant = false;
+    bool bFlameInView = false;
+    bool bFullFlame = true;
+    double NextFlameViewAt = -1.;
+    void UpdateBurningFlame();
+    double WokeAt = -1.;
+    FTimerHandle DormantClockTimer;
+    void UpdateDormantClock();
+    void PollDormantClock();
+    float SceneSpecularScale = .6f;
     UPROPERTY(VisibleAnywhere, Category="Torch|Clock")
     bool bAutomaticIgnition = true;
 

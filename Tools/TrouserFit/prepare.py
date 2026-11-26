@@ -14,6 +14,7 @@ def read(p):return json.loads(p.read_text(encoding='utf-8-sig'))
 def write(p,d):p.parent.mkdir(parents=True,exist_ok=True);p.write_text(json.dumps(d,ensure_ascii=False,indent=2),encoding='utf-8')
 def source_for(item,path):
     stem=path.split('.')[-1].removeprefix('SK_')
+    if item=='ue_st6_tactical_pants' and '/ST6LowerDetail20261024/' in path:return P/'SourceAssets/ST6LowerDetail20261024/Authored'/(stem+'.json')
     if item=='ue_st6_tactical_pants':return P/'SourceAssets/ST6LowerSet20261018'/(stem+'.json')
     if item=='ue_smoke_grey_capri':return P/'SourceAssets/SmokeGreyCapri20261004'/('Jason_SmokeGreyCapri'+('_HighBootsFit' if 'HighBootsFit' in stem else '')+'.json')
     if item=='ue_leather_pants':return P/'SourceAssets/BrownLeatherSet20261004'/(stem+'.json')

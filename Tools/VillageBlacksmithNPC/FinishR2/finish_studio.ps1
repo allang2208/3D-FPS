@@ -41,3 +41,4 @@ try{
     }
     $installed|ConvertTo-Json|Set-Content "$out/studio_materials_installed.json" -Encoding utf8
 }finally{if($held){$guard.ReleaseMutex()};$guard.Dispose()}
+

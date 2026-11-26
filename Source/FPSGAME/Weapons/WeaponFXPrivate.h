@@ -1,0 +1,85 @@
+#pragma once
+#include "CoreMinimal.h"
+#include "HAL/IConsoleManager.h"
+namespace WeaponFX
+{
+    enum : uint8 { FlashCore, FlashTongue, Smoke, Spark, Casing, Dust };
+    inline const FLinearColor Flame(1.0f, 0.42f, 0.075f);
+    inline const FLinearColor HotCore(1.0f, 0.76f, 0.27f);
+    inline constexpr double SmokePeriod = 0.16;
+    inline constexpr float SmokeMaxLifetime = 1.25f;
+    inline constexpr float HeatThreshold = 0.10f;
+    inline constexpr float HeatCoolingRate = 0.28f;
+    inline constexpr float SmokeDrag = 1.3f;
+    inline constexpr float StreamMaxLifetime = 1.30f;
+    // Tracer streaks (see Docs/Weapons/tracer-upgrade-plan-20260921.md).
+    // The visible dash is clamped to a per-class window instead of "one frame of
+    // travel", which used to make it frame-rate dependent and full of gaps.
+    // Gap-free criterion: the per-frame step (speed * 100 / fps cm) must stay below the
+    // max length, otherwise the path turns into dots. At 350 m/s that is 1167 cm at 30 fps,
+    // 583 cm at 60 fps and 243 cm at 144 fps, so the rifle window covers every rate; the
+    // dash still reads as a beam sweeping past instead of a pellet (Docs/Weapons/
+    // ballistic-feel-options-20260921.md).
+    inline constexpr float TracerRifleLengthCM = 800.f;
+    inline constexpr float TracerRifleMaxCM = 1800.f;
+    inline constexpr float TracerPistolLengthCM = 400.f;
+    inline constexpr float TracerPistolMaxCM = 1300.f;  // 30 fps 下 420 m/s 手枪仍差 100 cm 覆盖
+    inline constexpr float TracerMinDiameterCM = 1.6f;
+    // World-space caps: they only bind far away (screen width is constant), where the old
+    // 5 cm cap crushed a 60 m streak down to under one pixel.
+    inline constexpr float TracerDiameterMaxCM = 28.f;
+    inline constexpr float TracerScopedDiameterMaxCM = 12.f;
+    // Emission multiplies an additive colour and the shader pushes the core towards white,
+    // so a high value clipped every channel and read as pale: 7.5 is why the streak was not
+    // vivid. Lower emission with a saturated tint keeps red high and green/blue low.
+    inline constexpr float TracerEmission = 2.6f;
+    inline constexpr FLinearColor TracerTint = FLinearColor(1.f,.30f,.03f);
+    inline constexpr float TracerFlashSeconds = 0.05f; // 瞬时段（无弹丸飞行）只做短暂淡出
+
+    // Author the helix in centimetres, head at zero. The material reveals only
+    // the travelled portion; neither pitch nor cross section stretches per frame.
+    inline constexpr int32 SpiralSegmentsPerTurn = 24;
+    inline constexpr int32 SpiralMaxSegments = 768;
+    inline constexpr int32 SpiralRingSides = 8;
+    inline constexpr float TrailLocalNear = -50.f;
+    inline constexpr float TrailLocalFar = 50.f;
+}
+namespace WeaponFXRuntime
+{
+extern TAutoConsoleVariable<float> ScopeWorldScaleExponent;
+extern TAutoConsoleVariable<float> ScopeWorldScaleMax;
+extern TAutoConsoleVariable<float> ScopeWorldForwardCM;
+extern TAutoConsoleVariable<float> SmokeIntensity;
+extern TAutoConsoleVariable<float> TracerLengthScale;
+extern TAutoConsoleVariable<float> TracerLingerSeconds;
+extern TAutoConsoleVariable<float> TracerWidthPixels;
+extern TAutoConsoleVariable<float> TracerEmissionScale;
+extern TAutoConsoleVariable<FString> TracerTintSetting;
+extern TAutoConsoleVariable<float> TracerHaloWidth;
+extern TAutoConsoleVariable<float> TracerHaloEmission;
+extern TAutoConsoleVariable<float> TracerLightLumens;
+extern TAutoConsoleVariable<float> TracerLightRadiusCM;
+extern TAutoConsoleVariable<float> TracerConvergedWidth;
+extern TAutoConsoleVariable<FString> TracerConvergedTint;
+extern TAutoConsoleVariable<float> TracerConvergedEmission;
+extern TAutoConsoleVariable<float> TracerConvergedHaloScale;
+extern TAutoConsoleVariable<int32> TracerConvergedSpiral;
+extern TAutoConsoleVariable<float> TracerConvergedSpiralTurns;
+extern TAutoConsoleVariable<float> TracerConvergedSpiralRadiusCM;
+extern TAutoConsoleVariable<float> TracerConvergedSpiralThicknessCM;
+extern TAutoConsoleVariable<float> TracerConvergedSpiralEmission;
+extern TAutoConsoleVariable<float> TracerConvergedSpiralSpin;
+extern TAutoConsoleVariable<float> TracerConvergedLightScale;
+extern TAutoConsoleVariable<float> TracerConvergedMaxWidthCM;
+extern TAutoConsoleVariable<int32> TracerTrailOn;
+extern TAutoConsoleVariable<float> TracerTrailLingerSeconds;
+extern TAutoConsoleVariable<float> TracerTrailFadeSeconds;
+extern TAutoConsoleVariable<float> TracerTrailNearFadeCM;
+extern TAutoConsoleVariable<float> TracerTrailWidth;
+extern TAutoConsoleVariable<float> TracerTrailEmission;
+extern TAutoConsoleVariable<float> TracerTrailMaxWidthCM;
+extern TAutoConsoleVariable<float> TracerTrailMaxLengthCM;
+extern TAutoConsoleVariable<float> TracerTrailFadePower;
+extern TAutoConsoleVariable<int32> TracerDiag;
+bool ParseTracerTint(const FString& Text,FLinearColor& Out);
+}

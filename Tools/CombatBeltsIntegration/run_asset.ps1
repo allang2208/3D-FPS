@@ -1,4 +1,4 @@
-param([string]$Script='save_assets.py',[string]$ReceiptName=('beltAsset-'+(Get-Date -Format 'yyyyMMdd-HHmmss')),[switch]$EndPlayAuthorized)
+﻿param([string]$Script='save_assets.py',[string]$ReceiptName=('beltAsset-'+(Get-Date -Format 'yyyyMMdd-HHmmss')),[switch]$EndPlayAuthorized)
 $ErrorActionPreference='Stop'
 $beltAssetProject='D:/FPS3D/FPSGAME'
 $beltAssetLogs=Join-Path $beltAssetProject 'SourceAssets/CombatBeltsIntegration20261025/Logs'

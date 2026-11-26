@@ -1,4 +1,5 @@
 #include "M25BiteComponent.h"
+#include "MonsterTargeting.h"
 #include "VortexCofferM25.h"
 #include "MonsterCombatComponent.h"
 #include "MonsterAIController.h"
@@ -45,6 +46,7 @@ void UM25BiteComponent::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
 
 bool UM25BiteComponent::LivingPlayer(const APawn* Victim) const
 {
+    if (MonsterTargeting::IsActiveArtisan(Victim)) return true;
     if (!IsValid(Victim) || !Victim->IsPlayerControlled() || Victim->IsActorBeingDestroyed()) return false;
     const auto* Health = Victim->FindComponentByClass<UFPSCombatHealthComponent>();
     return Health && !Health->IsDead();
@@ -172,7 +174,7 @@ void UM25BiteComponent::Contact()
     {
         const auto* Part = Hit.GetComponent();
         const auto* Pawn = Cast<APawn>(Hit.GetActor());
-        const bool PlayerBody = Pawn && Pawn->IsPlayerControlled() && Part == Pawn->GetRootComponent();
+        const bool PlayerBody = Pawn && MonsterTargeting::IsOpponentPawn(Pawn) && Part == Pawn->GetRootComponent();
         if (!PlayerBody) continue;
         if (!First || Hit.Time < First->Time) First = &Hit;
     }

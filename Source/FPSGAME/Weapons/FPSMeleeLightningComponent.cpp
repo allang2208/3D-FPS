@@ -1,4 +1,5 @@
 #include "FPSMeleeLightningComponent.h"
+#include "../Combat/FPSAttackQuery.h"
 #include "../Production/ThunderHammerRunes.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
@@ -56,7 +57,7 @@ void UFPSMeleeLightningComponent::BeginPlay()
 bool UFPSMeleeLightningComponent::IsEnemy(AActor* Target,AActor* Owner)
 {
     if(!IsValid(Target)||Target==Owner||Target->IsActorBeingDestroyed()||!Target->CanBeDamaged()
-        ||Target->ActorHasTag(TEXT("Friendly"))||Target->ActorHasTag(TEXT("Companion"))||Target->ActorHasTag(TEXT("Player"))
+        ||Target->ActorHasTag(TEXT("Friendly"))||Target->ActorHasTag(TEXT("Companion"))||Target->ActorHasTag(TEXT("Player"))||Target->ActorHasTag(TEXT("Wildlife"))
         ||RangedAttackQuery::IsFriendlyUnit(Owner,Target))return false;
     if(const auto* Pawn=Cast<APawn>(Target);Pawn&&Pawn->IsPlayerControlled())return false;
     const auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
@@ -106,7 +107,7 @@ void UFPSMeleeLightningComponent::Gather(const FWave& Wave,TArray<AActor*>& Out)
     TArray<FOverlapResult> Overlaps;
     GetWorld()->OverlapMultiByObjectType(Overlaps,Wave.Start,FQuat::Identity,
         Wave.Chain->bSkillChain?FCollisionObjectQueryParams(FCollisionObjectQueryParams::AllDynamicObjects):FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeSphere(Radius),Query);
-    FCollisionQueryParams Sight(SCENE_QUERY_STAT(ElectrifiedMeleeSight),true,GetOwner());
+    FFPSAttackQuery Sight(SCENE_QUERY_STAT(ElectrifiedMeleeSight),true,GetOwner());
     if(Wave.Origin.IsValid())Sight.AddIgnoredActor(Wave.Origin.Get());
     for(const auto& Previous:Wave.Chain->Visited)if(Previous.IsValid())Sight.AddIgnoredActor(Previous.Get());
     // Body geometry does not hide other fan-out targets; level geometry does.

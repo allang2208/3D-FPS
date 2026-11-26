@@ -1,8 +1,12 @@
 #include "ProductionToolComponent.h"
+#include "../Weapons/PojunGrip.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundBase.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "../FPSGAMECharacter.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../Skills/ColdSteelSkillRules.h"
+#include "../Weapons/RuneSwordHitQuery.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Engine/World.h"
@@ -42,17 +46,19 @@ bool UProductionToolComponent::TraceAxeContact(FProductionResource& Resource,FHi
     Reason=FString::Printf(TEXT("瞄准%s（%.1f 米内）或近身敌人（%.1f 米内）"),
         Kind==TEXT("pickaxe")?TEXT("独立岩块或矿石"):TEXT("树干"),AxeHarvestReach/100,AxeCombatReach/100);
 
+    if(Kind==TEXT("warhammer"))Reason=TEXT("双手战锤 · 左键三连击");
+
     auto Classify=[&](const FHitResult& Candidate,FProductionResource& Tree,bool& bEnemy)
     {
         bEnemy=IsAxeEnemy(Candidate.GetActor(),Pawn);
         const FVector Delta=Candidate.ImpactPoint-Start;
-        const float Limit=bEnemy?AxeCombatReach:AxeHarvestReach;
+        const float Limit=(bEnemy || Kind==TEXT("warhammer"))?AxeCombatReach:AxeHarvestReach;
         // Swept volume adds width only; its front cap does not extend reach.
         if(FVector::DotProduct(Delta,Forward)<0 || Delta.SizeSquared()>FMath::Square(Limit))return false;
         if(bEnemy || Cast<UWardBreakableGlass>(Candidate.GetComponent()))return true;
+        if(Kind==TEXT("warhammer"))return false;
         FString TreeReason;
-        for(TActorIterator<ATemperateHillsWorld> It(World);It;++It)
-            if(It->ResolveProductionResource(Candidate,Tree,TreeReason))return Tree.RequiredTool==Kind;
+        if(FProductionResource::ResolveHit(World,Candidate,Tree,TreeReason))return Tree.RequiredTool==Kind;
         if(!TreeReason.IsEmpty())Reason=TreeReason;
         return false;
     };
@@ -125,7 +131,57 @@ bool UProductionToolComponent::TraceAxeContact(FProductionResource& Resource,FHi
     return bFound;
 }
 
+bool UProductionToolComponent::PredictBluntEnemyContact() const
+{
+    auto* Pawn=Character.Get();if(!Pawn||!GetWorld())return false;
+    const bool Pofeng=!bBluntHeavy&&BluntStage==2&&ToolStats.PofengFinisherMultiplier.IsSet();
+    for(const auto& Hit:BluntContactHits(Pofeng))
+        if(IsAxeEnemy(Hit.GetActor(),Pawn))return true;
+    return false;
+}
+
+void UProductionToolComponent::MulticastPojunCutImpact_Implementation(FVector_NetQuantize Location)
+{
+    if(GetNetMode()==NM_DedicatedServer)return;
+    if(auto* Sound=LoadObject<USoundBase>(nullptr,PojunGrip::SwordHit))
+        UGameplayStatics::PlaySoundAtLocation(this,Sound,Location,.75f);
+}
+
 bool UProductionToolComponent::ResolveAxeEnemyContact(const FHitResult& Hit)
+{
+    auto* Pawn=Character.Get();auto* Target=Hit.GetActor();
+    if(!Pawn || !IsAxeEnemy(Target,Pawn))return false;
+    auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
+    FWeaponDamageResult Result;
+    auto ContactShot=AxeStrike;ContactShot.ToughnessDamageMultiplier*=FinalTollToughnessMultiplier(ContactShot,Target);
+    const float Applied=ColdSteelSkills::ApplyHit(Pawn,Hit,ContactShot.DamagePanel.Total(),
+        (Hit.TraceEnd-Hit.TraceStart).GetSafeNormal(),ContactShot,&Result);
+    const bool bConfirmed=Applied>0.f || Combat->IsDead();
+    if(bConfirmed)
+    {
+        if(ContactShot.ItemDefinition==PojunGrip::Weapon)MulticastPojunCutImpact(Hit.ImpactPoint);
+        Pawn->NotifyConfirmedWeaponHit(Target,Applied,&Result);
+        Feedback=Kind==TEXT("warhammer")?TEXT("战锤命中敌人"):Kind==TEXT("pickaxe")?TEXT("镐头命中敌人"):TEXT("斧刃命中敌人");FeedbackSeconds=1.2f;
+    }
+    // The existing confirmed-hit clock supplies hit stop, pry/recover and shake.
+    // Enemy contacts do not call harvest commits, spawn wood dust or play wood audio.
+    return bConfirmed;
+}
+bool UProductionToolComponent::TraceShovelEnemyContact(FHitResult& Hit) const
+{
+    // Same combat trace family as the axe/pickaxe: the melee aim transform and
+    // the shovel's evaluated combat reach - never the long dig-ray.
+    auto* Pawn=Character.Get();
+    if(!Pawn||!Camera)return false;
+    const FTransform Aim=Pawn->GetMeleeAimTransform();
+    const FVector Start=Aim.GetLocation(),Forward=Aim.GetUnitAxis(EAxis::X);
+    const float CombatReach=FMath::Max(float(ToolStats.CombatReachCM),100.f);
+    FCollisionQueryParams Q(SCENE_QUERY_STAT(ProductionShovel),false,Pawn);
+    return GetWorld()->LineTraceSingleByChannel(Hit,Start,Start+Forward*CombatReach,ECC_Visibility,Q)
+        && IsAxeEnemy(Hit.GetActor(),Pawn);
+}
+
+bool UProductionToolComponent::ResolveShovelEnemyContact(const FHitResult& Hit)
 {
     auto* Pawn=Character.Get();auto* Target=Hit.GetActor();
     if(!Pawn || !IsAxeEnemy(Target,Pawn))return false;
@@ -137,9 +193,7 @@ bool UProductionToolComponent::ResolveAxeEnemyContact(const FHitResult& Hit)
     if(bConfirmed)
     {
         Pawn->NotifyConfirmedWeaponHit(Target,Applied,&Result);
-        Feedback=Kind==TEXT("pickaxe")?TEXT("镐头命中敌人"):TEXT("斧刃命中敌人");FeedbackSeconds=1.2f;
+        Feedback=TEXT("铲头命中敌人");FeedbackSeconds=1.2f;
     }
-    // The existing confirmed-hit clock supplies hit stop, pry/recover and shake.
-    // Enemy contacts do not call harvest commits, spawn wood dust or play wood audio.
     return bConfirmed;
 }

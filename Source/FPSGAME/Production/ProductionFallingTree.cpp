@@ -1,4 +1,5 @@
 #include "ProductionFallingTree.h"
+#include "../WorldGeneration/EastRiverRoad.h"
 #include "Net/UnrealNetwork.h"
 #include "GameFramework/GameStateBase.h"
 #include "Components/InstancedSkinnedMeshComponent.h"
@@ -134,13 +135,16 @@ void AProductionFallingTree::InitializeFall(const FProductionResource& Resource,
     // "原树网格 + 材质遮罩"路径（那套材质已从备份恢复原状，不含径向裁剪）。
     // 板根裙边：几何路径由 M_CutUpperMotion 的径向裁剪（同式 saturate(step(T,P.z)+step(len,R))）
     // 裁掉；原树路径的 M_FallingPoplar 保持出厂原样（无裁剪参数，设参为无害空操作）。
-    const bool bUseSourceMesh=CVarTreeFallUseSourceMesh.GetValueOnGameThread()!=0;
+    const bool bRoadHornbeam=EastRiverRoad::CanopyForm(Resource.Mesh)!=INDEX_NONE;
+    const bool bUseSourceMesh=bRoadHornbeam||CVarTreeFallUseSourceMesh.GetValueOnGameThread()!=0;
     const bool bCutAtStump=CVarTreeFallCutAtStump.GetValueOnGameThread()!=0;
     const float MaskHeight=bCutAtStump?Plan.CutHeight:-1000.f;
     // 截断时启用板根径向裁剪；不截断时半径放到 1e5、带顶 0（遮罩 saturate(1+..) 恒 1，等于不裁）。
     const int32 ClampVariant=FMath::Clamp(Variant,0,3);
-    const float ClampRadius=bCutAtStump?CutClampRadiusCm[ClampVariant]:100000.f;
-    const float FlareBandTop=bCutAtStump?FlareBandTopCm[ClampVariant]:0.f;
+    // Poplar's measured root-flare/inner-wall masks must not cut beech geometry.
+    const bool bPoplar=Variant>=0&&Variant<4;
+    const float ClampRadius=bCutAtStump&&bPoplar?CutClampRadiusCm[ClampVariant]:100000.f;
+    const float FlareBandTop=bCutAtStump&&bPoplar?FlareBandTopCm[ClampVariant]:0.f;
     USkeletalMesh* SourceTreeMesh=bUseSourceMesh?Cast<USkeletalMesh>(Resource.Mesh.ResolveObject()):nullptr;
     if(!SourceTreeMesh)
         SourceTreeMesh=Cast<USkeletalMesh>(ProductionHarvestAssets::FallingMesh(Variant).ResolveObject());
@@ -152,7 +156,7 @@ void AProductionFallingTree::InitializeFall(const FProductionResource& Resource,
     for(int32 Index=0;Index<Tree->GetNumMaterials();++Index)
     {
         UMaterialInterface* Source=Tree->GetMaterial(Index);
-        if(bUseSourceMesh)
+        if(bUseSourceMesh&&!bRoadHornbeam)
         {
             // 原树网格的槽是站立树的 MI_BlackPoplarPCG_*（没有切口遮罩）。换成上一代倒树材质
             // M_FallingPoplar 的实例：它带 step(H,P.z) 遮罩，且 Harvest* 参数名与下面设置的完全一致。
@@ -160,19 +164,20 @@ void AProductionFallingTree::InitializeFall(const FProductionResource& Resource,
                 ?Tree->GetMaterialSlotNames()[Index].ToString():FString();
             const bool bFoliage=Slot.Contains(TEXT("Foliage"));
             if(UMaterialInterface* Cut=Cast<UMaterialInterface>(
-                ProductionHarvestAssets::FallingMaterial(bFoliage?1:0).TryLoad()))
+                ProductionHarvestAssets::FallingMaterial(bFoliage?1:0,Variant).ResolveObject()))
                 Source=Cut;
         }
         if(auto* MID=Source?UMaterialInstanceDynamic::Create(Source,this):nullptr)
         {
             MID->SetScalarParameterValue(TEXT("HarvestCutHeight"),MaskHeight);
+            MID->SetScalarParameterValue(TEXT("HarvestGeometricCut"),bUseSourceMesh?0.f:1.f);
             MID->SetScalarParameterValue(TEXT("HarvestTreeHeight"),Plan.LocalHeight);
             MID->SetScalarParameterValue(TEXT("HarvestCutRadius"),ClampRadius);
             MID->SetScalarParameterValue(TEXT("HarvestFlareTop"),FlareBandTop);
             // 内壁舌头方位角掩码（材质无这些参数时为无害空操作；C 变体 W=0 关闭）
             MID->SetScalarParameterValue(TEXT("HarvestStubYaw"),StubYawDeg[ClampVariant]);
-            MID->SetScalarParameterValue(TEXT("HarvestStubYawTol"),StubYawTolDeg[ClampVariant]);
-            MID->SetScalarParameterValue(TEXT("HarvestStubZMax"),StubZMaxCm[ClampVariant]);
+            MID->SetScalarParameterValue(TEXT("HarvestStubYawTol"),bPoplar?StubYawTolDeg[ClampVariant]:0.f);
+            MID->SetScalarParameterValue(TEXT("HarvestStubZMax"),bPoplar?StubZMaxCm[ClampVariant]:0.f);
             Tree->SetMaterial(Index,MID);Materials.Add(MID);
         }
     }
@@ -215,13 +220,10 @@ void AProductionFallingTree::InitializeFall(const FProductionResource& Resource,
             *GetNameSafe(CutCap->GetStaticMesh()),*SlotInfo);
         // 与源树对比：源树此刻已在场景里加载，用 FindObject 取，不触发同步加载。
         // 走原树网格时 falling 与 source 会相同，此时另行报告重制版网格（仅当它已被加载）。
-        const TCHAR Letter=static_cast<TCHAR>(TEXT('A')+FMath::Clamp(Variant,0,3));
         LogNaniteAssemblyDiag(TEXT("falling"),Tree->GetSkeletalMeshAsset());
-        const FString SourcePath=FString::Printf(
-            TEXT("/Game/WorldGeneration/TemperateHills/SK_BlackPoplarPCG_%c.SK_BlackPoplarPCG_%c"),Letter,Letter);
+        const FString SourcePath=Resource.Mesh.ToString();
         LogNaniteAssemblyDiag(TEXT("source"),FindObject<USkeletalMesh>(nullptr,*SourcePath));
-        const FString AuthoredPath=FString::Printf(
-            TEXT("/Game/Items/HarvestTimber/SK_CutUpper_%c.SK_CutUpper_%c"),Letter,Letter);
+        const FString AuthoredPath=ProductionHarvestAssets::FallingMesh(Variant).ToString();
         if(const USkeletalMesh* Authored=FindObject<USkeletalMesh>(nullptr,*AuthoredPath))
             LogNaniteAssemblyDiag(TEXT("authored"),Authored);
     }

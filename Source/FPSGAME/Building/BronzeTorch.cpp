@@ -1,4 +1,8 @@
 #include "BronzeTorch.h"
+#include "../Weapons/Staff/StaffIlluminationProfile.h"
+#include "../WorldGeneration/VillageInteriorLighting.h"
+#include "../WorldGeneration/VillagePresentationView.h"
+#include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "../Weapons/ThermalTargetSubsystem.h"
 
 #include "../FPSWeatherManager.h"
@@ -8,6 +12,7 @@
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
+#include "TimerManager.h"
 #include "Materials/MaterialInterface.h"
 #include "NiagaraComponent.h"
 #include "NiagaraSystem.h"
@@ -29,7 +34,7 @@ namespace
     constexpr float ClockRefreshSeconds = 0.2f;
 }
 
-ABronzeTorch::ABronzeTorch()
+ABronzeTorch::ABronzeTorch(const FObjectInitializer& ObjectInitializer) : Super(ObjectInitializer)
 {
     PrimaryActorTick.bCanEverTick = true;
     PrimaryActorTick.TickInterval = 0.0f;
@@ -88,7 +93,12 @@ void ABronzeTorch::OnConstruction(const FTransform& Transform)
 void ABronzeTorch::BeginPlay()
 {
     Super::BeginPlay();
-    UThermalTargetSubsystem::RegisterFire(TorchFlame,FVector(12,12,32),FVector(0,0,20));
+    if (bClockDormant) SetActorTickEnabled(true);
+    bClockDormant = false;
+    WokeAt = -1.;
+    NextFlameViewAt = -1.;
+    ClockRefreshCountdown = 0.f;
+    if (bEnableFlame && FlameSystem) UThermalTargetSubsystem::RegisterFire(TorchFlame,FVector(12,12,32),FVector(0,0,20));
     // Migrate the old authored defaults on already placed/saved torches too.
     // Keep deliberately customized values; do not rewrite the user's world save.
     if (FMath::IsNearlyEqual(LightLumens, 600.0f)) LightLumens = 350.0f;
@@ -133,7 +143,7 @@ void ABronzeTorch::ApplyComponentOffsets()
         // Give the flame a finite source; keep sharp glints and fog halos subdued.
         TorchLight->SetSourceRadius(6.0f);
         TorchLight->SetSoftSourceRadius(8.0f);
-        TorchLight->SetSpecularScale(0.6f);
+        TorchLight->SetSpecularScale(SceneSpecularScale);
         TorchLight->SetVolumetricScatteringIntensity(0.08f);
     }
 }
@@ -192,6 +202,30 @@ void ABronzeTorch::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
 
+    const double Now = GetWorld()->GetTimeSeconds();
+    if (bExteriorClockSleep && TorchLight && Now >= NextRangeCheck)
+    {
+        NextRangeCheck = Now + .6;
+        bool HasView = false;
+        const double Range = VillagePresentationView::Distance(*GetWorld(), GetActorLocation(), 0., &HasView);
+        const double LightRange = TorchLight->MaxDrawDistance;
+        const double FlameRange = bEnableFlame && TorchFlame ? TorchFlame->LDMaxDrawDistance : 0.;
+        const double FarRange = FMath::Max(LightRange, FlameRange);
+        const bool Distant = HasView && LightRange > 0. && Range > FarRange + (bDistantFixture ? 0. : 500.);
+        if (Distant != bDistantFixture)
+        {
+            if (Distant) NearbyTickInterval = GetActorTickInterval();
+            bDistantFixture = Distant;
+            SetActorTickInterval(Distant ? FMath::Max(NearbyTickInterval, .6f) : NearbyTickInterval);
+        }
+    }
+
+    // A tick interval can include the time spent disabled. Only integrate time since ignition resumed.
+    if (WokeAt >= 0.)
+    {
+        DeltaSeconds = FMath::Min(DeltaSeconds, float(FMath::Max(0., double(GetWorld()->GetTimeSeconds()) - WokeAt)));
+        WokeAt = -1.;
+    }
     RefreshClock(DeltaSeconds);
 
     const bool bTargetLit = ShouldBeLitNow();
@@ -215,6 +249,83 @@ void ABronzeTorch::Tick(float DeltaSeconds)
         UE_LOG(LogTemp, Display, TEXT("TORCH_STATE label=%s lit=%d hour=%.2f clock=%d"),
             *GetName(), bLitNow ? 1 : 0, CachedHour, bCachedClockValid ? 1 : 0);
     }
+    if (bExteriorClockSleep && !bTargetLit && IgnitionAmount == 0.f)
+    {
+        bClockDormant = true;
+        SetActorTickEnabled(false);
+        UpdateDormantClock();
+    }
+}
+
+void ABronzeTorch::UpdateDormantClock()
+{
+    if (!bClockDormant) return;
+    FTimerManager& Timers = GetWorldTimerManager();
+    if (ShouldBeLitNow())
+    {
+        Timers.ClearTimer(DormantClockTimer);
+        bClockDormant = false;
+        WokeAt = GetWorld()->GetTimeSeconds();
+        SetActorTickEnabled(true);
+    }
+    else if (!bAutomaticIgnition)
+    {
+        Timers.ClearTimer(DormantClockTimer);
+    }
+    else if (!Timers.TimerExists(DormantClockTimer))
+    {
+        Timers.SetTimer(DormantClockTimer, this, &ThisClass::PollDormantClock, ClockRefreshSeconds, true);
+    }
+}
+
+void ABronzeTorch::PollDormantClock()
+{
+    RefreshClock(ClockRefreshSeconds);
+    if (ShouldBeLitNow()) UpdateDormantClock();
+}
+
+void ABronzeTorch::EndPlay(const EEndPlayReason::Type Reason)
+{
+    GetWorldTimerManager().ClearTimer(DormantClockTimer);
+    Super::EndPlay(Reason);
+}
+
+bool ABronzeTorch::HasBurningFlame() const
+{
+    return bEnableFlame && IgnitionAmount > .001f && TorchFlame && TorchFlame->GetAsset();
+}
+
+void ABronzeTorch::UpdateBurningFlame()
+{
+    UWorld* World = GetWorld();
+    const double Now = World->GetTimeSeconds();
+    if (Now >= NextFlameViewAt)
+    {
+        NextFlameViewAt = Now + .1;
+        auto* Fluid = World->GetSubsystem<UFluidPresentationSubsystem>();
+        const float Range = TorchFlame->LDMaxDrawDistance > 0.f ? TorchFlame->LDMaxDrawDistance : 6000.f;
+        const auto Detail = Fluid ? Fluid->FireViews.Classify(*World, TorchFlame->GetComponentLocation(),
+            90.f, 25.f, FMath::Min(2200.f, Range), Range, TorchFlame, bFullFlame) : EFireParticleDetail::Full;
+        bFlameInView = Detail != EFireParticleDetail::Off;
+        if (bFlameInView && bFullFlame != (Detail == EFireParticleDetail::Full))
+        {
+            bFullFlame = Detail == EFireParticleDetail::Full;
+            for (const auto& Emitter : TorchFlame->GetAsset()->GetEmitterHandles())
+            {
+                const FName Name = Emitter.GetName();
+                if (Emitter.GetIsEnabled() && (Name == TEXT("NE_Flame_02") || Name == TEXT("NE_Ashes") || Name == TEXT("NE_Heat")))
+                    TorchFlame->SetEmitterEnable(Name, bFullFlame);
+            }
+        }
+    }
+    const float Scale = FlameScale * FMath::Lerp(FlameIgnitionScaleFloor, 1.f, IgnitionAmount);
+    if (TorchFlame->GetRelativeScale3D() != FVector(Scale))
+        TorchFlame->SetRelativeScale3D(FVector(Scale));
+    if (bFlameInView)
+    {
+        if (!TorchFlame->IsActive()) TorchFlame->Activate(true);
+    }
+    else if (TorchFlame->IsActive()) TorchFlame->DeactivateImmediate();
 }
 
 void ABronzeTorch::ApplyVisuals(float DeltaSeconds)
@@ -223,14 +334,9 @@ void ABronzeTorch::ApplyVisuals(float DeltaSeconds)
 
     if (TorchFlame)
     {
-        if (bEnableFlame && bIgnited)
+        if (HasBurningFlame() && GetNetMode() != NM_DedicatedServer)
         {
-            const float Scale = FlameScale * FMath::Lerp(FlameIgnitionScaleFloor, 1.0f, IgnitionAmount);
-            TorchFlame->SetRelativeScale3D(FVector(Scale));
-            if (!TorchFlame->IsActive())
-            {
-                TorchFlame->Activate(true);
-            }
+            UpdateBurningFlame();
         }
         else if (TorchFlame->IsActive())
         {
@@ -246,7 +352,7 @@ void ABronzeTorch::ApplyVisuals(float DeltaSeconds)
             const float Flicker = 1.0f + FlickerAmplitude *
                 (0.7f * FMath::Sin(FlickerPhase) + 0.3f * FMath::Sin(0.63f * FlickerPhase + 1.3f));
             TorchLight->SetVisibility(true);
-            TorchLight->SetIntensity(LightLumens * IgnitionAmount * Flicker);
+            TorchLight->SetIntensity(LightLumens * IgnitionAmount * (bDistantFixture ? 1.f : Flicker));
         }
         else
         {
@@ -260,6 +366,38 @@ void ABronzeTorch::SetLit(bool bLit)
 {
     bAutomaticIgnition = false;
     bLitOverride = bLit;
+    UpdateDormantClock();
+}
+
+void ABronzeTorch::ConfigureSceneLight(float Lumens,float RadiusCm,bool bShadows)
+{
+    LightLumens=Lumens;LightRadiusCm=RadiusCm;bLightCastsShadows=bShadows;
+    TorchLight->SetAttenuationRadius(LightRadiusCm);
+    TorchLight->SetCastShadows(bLightCastsShadows);
+    TorchLight->SetIntensity(LightLumens*IgnitionAmount);
+}
+
+void ABronzeTorch::ConfigureShopInterior(UNiagaraSystem* InteriorFlame)
+{
+    LightColor = UVillageInteriorLighting::GlowTint();
+    LightLumens = UVillageInteriorLighting::FullLumens();
+    LightRadiusCm = UStaffIlluminationProfile::RadiusCm;
+    bLightCastsShadows = true;
+    SceneSpecularScale = 1.f;
+    FlickerAmplitude = 0.f;
+    UVillageInteriorLighting::Configure(TorchLight, IgnitionAmount);
+    if (InteriorFlame)
+    {
+        FlameSystem = InteriorFlame;
+        TorchFlame->SetAsset(FlameSystem);
+        NextFlameViewAt = -1.;
+    }
+}
+
+void ABronzeTorch::SetSceneSpecularScale(float Scale)
+{
+    SceneSpecularScale = Scale;
+    TorchLight->SetSpecularScale(Scale);
 }
 
 void ABronzeTorch::SetAutomaticIgnition(bool bEnabled)
@@ -270,4 +408,5 @@ void ABronzeTorch::SetAutomaticIgnition(bool bEnabled)
         ClockRefreshCountdown = 0.0f;
         RefreshClock(0.0f);
     }
+    UpdateDormantClock();
 }

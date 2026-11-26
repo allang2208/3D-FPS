@@ -1,4 +1,5 @@
 #include "KukriWeaponComponent.h"
+#include "KukriDecisiveComponent.h"
 #include "KukriArmsMeshComponent.h"
 #include "KukriRhythm.h"
 #include "../MeleeWeaponStats.h"
@@ -31,7 +32,8 @@
 namespace
 {
 const FName KukriUppercutClip(TEXT("Uppercut"));
-constexpr float LungeStart=.24f, LungeEnd=.37f, LungeCM=120.f;   // author s; <= the sword uppercut's 150 cm server budget
+// author s (KukriRhythm, V3: the stride starts as the charge fills); <= the sword uppercut's 150 cm server budget
+constexpr float LungeStart=KukriRhythm::UpperLungeStart, LungeEnd=KukriRhythm::UpperLungeEnd, LungeCM=120.f;
 
 UColdSteelStatusModel* KukriUppercutProfile(const UWorld* World)
 {
@@ -59,7 +61,7 @@ bool UKukriWeaponComponent::BeginUppercut()
     auto* P=Pawn();
     if(!P||UBoundCongregateCaptureComponent::IsCaptured(P)||!UppercutStatusText().IsEmpty())return false;
     auto* Profile=KukriUppercutProfile(GetWorld());
-    const auto* Item=Profile?Profile->Equipped():nullptr;
+    const auto* Item=Profile?Profile->ActiveKukriWeapon():nullptr;
     if(!Item||Item->InstanceId!=InstanceId||Profile->ActiveProductionTool())return false;
     // Snapshot at the start: damage, reach and skill tier stay fixed for this cast (the cost is paid at the release).
     const auto Stats=ColdSteelMelee::Evaluate(*Item,Profile);
@@ -110,7 +112,7 @@ void UKukriWeaponComponent::AdvanceUppercut(float Delta)
 {
     auto* P=Pawn();
     auto* Profile=KukriUppercutProfile(GetWorld());
-    const auto* Item=Profile?Profile->Equipped():nullptr;
+    const auto* Item=Profile?Profile->ActiveKukriWeapon():nullptr;
     if(!P||!Item||Item->InstanceId!=InstanceId){CancelAction();return;}
     const auto& S=KukriRhythm::Swings[Stage];
     const float Rate=FMath::Max(.05f,LightningHaste::ActionSpeed(P));
@@ -141,6 +143,7 @@ void UKukriWeaponComponent::AdvanceUppercut(float Delta)
             if(!Profile->CommitSwordUppercutRelease()){CancelAction();return;}
             if(!bUppercut)return;
             bUppercutReleased=bUppercutTrainingPending=true;
+            if(auto* Pendant=P->FindComponentByClass<UKukriDecisiveComponent>())Pendant->BeginLocal(Shot,true);
         }
         AdvanceUppercutLunge(Before,Elapsed);
         SamplePose(Elapsed);
@@ -157,7 +160,7 @@ void UKukriWeaponComponent::AdvanceUppercut(float Delta)
             TraceBlade(PreviousBlade,Now);
         PreviousBlade=Now;bHavePreviousBlade=true;
         if(StrikeAt>0.f&&!bStrikeDone&&Elapsed>=StrikeAt-UE_KINDA_SMALL_NUMBER)ArriveStrike();
-        if(!bRiftStarted&&Elapsed>=RiftAt-UE_KINDA_SMALL_NUMBER){bRiftStarted=true;StartRift();}
+        if(bUppercutReleased&&!bRiftStarted&&Elapsed>=RiftAt-UE_KINDA_SMALL_NUMBER){bRiftStarted=true;StartRift();}
         if(bUppercutTrainingPending&&Elapsed>=S.ContactEnd-UE_KINDA_SMALL_NUMBER)FinishUppercut(true);
         if(Elapsed>=Length-UE_KINDA_SMALL_NUMBER)
         {

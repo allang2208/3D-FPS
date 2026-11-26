@@ -19,6 +19,7 @@
 #include "Misc/CommandLine.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
+#include "Misc/ScopeExit.h"
 #include "Misc/Parse.h"
 
 // Explicitly invoked development check; uses an isolated profile and no game save.
@@ -29,6 +30,11 @@ int32 RunSharedTwoHandFinishAudit(const FString& Params)
     FCommandLine::Set(*(TEXT("SwordBladeFinishAudit -ColdSteelProfile=")+Profile));
     auto* GI=NewObject<UGameInstance>(GEngine);GI->AddToRoot();GI->InitializeStandalone(TEXT("SharedFinishAuditWorld"));
     auto* World=GI->GetWorld();auto* Host=GI->GetSubsystem<UColdSteelStatusModel>();auto* G=GI->GetSubsystem<UGunsmithSystem>();
+    ON_SCOPE_EXIT {
+        GI->Shutdown();
+        if(World){GEngine->DestroyWorldContext(World);World->DestroyWorld(false);}
+        GI->RemoveFromRoot();FCommandLine::Set(*Original);
+    };
     if(!World||!Host||!G||!Host->IsAudit()||Host->ProfileSlot()!=TEXT("ColdSteel_")+Profile)return 2;
     int32 Checks=0,Failures=0,Cases=0;TArray<TSharedPtr<FJsonValue>> Errors,Weapons;
     const auto Check=[&](bool Pass,const FString& Label)
@@ -40,6 +46,8 @@ int32 RunSharedTwoHandFinishAudit(const FString& Params)
         TEXT("ue_tang_dao"),TEXT("ue_xuanchi_zhenyue"),TEXT("ue_zhanmadao"),TEXT("ue_forged_steel_greatsword"),TEXT("ue_steel_warhammer"),TEXT("ue_runebound_warhammer"),TEXT("ue_thunder_god_hammer")};
     const TArray<FString> Common={TEXT("false"),TEXT("folded_steel"),TEXT("dark_iron"),TEXT("mithril"),TEXT("damascus_steel"),TEXT("meteoric_iron")};
     const auto Scalar=[](UMaterialInterface* M,const TCHAR* Name,float& V){return M&&M->GetScalarParameterValue(FMaterialParameterInfo(Name),V);};
+    const bool SabersOnly=FParse::Param(*Params,TEXT("SabersOnly"));
+    const bool ForgedOnly=FParse::Param(*Params,TEXT("ForgedOnly"));
     const auto CheckRune=[&](UStaticMeshComponent* Mesh,const FString& Label,const FString& ExpectedMask)
     {
         int32 Active=0;
@@ -68,6 +76,9 @@ int32 RunSharedTwoHandFinishAudit(const FString& Params)
     };
     for(const auto& Definition:Definitions)
     {
+        const bool Forged=Definition==TEXT("ue_forged_steel_greatsword");
+        if(ForgedOnly&&!Forged)continue;
+        if(SabersOnly&&Definition!=TEXT("ue_tang_dao")&&Definition!=ColdSteelFrostRunes::Zhanmadao)continue;
         auto Item=Host->CreateItem(Definition);const bool Hammer=ColdSteelInventory::IsTwoHandedBlunt(Item),RuneSword=Definition==TEXT("ue_rune_sword");
         const FString PartSlot=Hammer?TEXT("hammer_heads"):TEXT("blade_1"),RuneSlot=ColdSteelFrostRunes::Slot(Definition);
         const auto* Catalog=G->ModifiableWeapon(Definition);Check(Catalog!=nullptr,Definition+TEXT(" workbench catalog"));if(!Catalog)continue;
@@ -130,7 +141,7 @@ int32 RunSharedTwoHandFinishAudit(const FString& Params)
             }
             Check(Correct,Definition+TEXT(" material stat aggregation ")+Common[Index]);
         }
-        TArray<FString> Guards={TEXT("false")};if(RuneSword){Guards.Reset();for(const auto& O:Catalog->Options.FindChecked(TEXT("guard")))Guards.Add(O.Id);}
+        TArray<FString> Guards={TEXT("false")};if(RuneSword||Forged){Guards.Reset();for(const auto& O:Catalog->Options.FindChecked(TEXT("guard")))Guards.Add(O.Id);}
         const int32 Start=Cases;
         for(const auto& Part:*Parts)for(const auto& Guard:Guards)
         {
@@ -147,7 +158,7 @@ int32 RunSharedTwoHandFinishAudit(const FString& Params)
                 const FString Label=Definition+TEXT("/")+Part.Id+TEXT("/")+Guard+TEXT("/")+Rune.Id+TEXT("/")+Finish;
                 TSharedPtr<FJsonObject> Data;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data);
                 auto Installed=MakeShared<FJsonObject>();Installed->SetStringField(PartSlot,Part.Id);Installed->SetStringField(RuneSlot,Rune.Id);
-                Installed->SetStringField(TEXT("blade_material"),Finish);if(RuneSword)Installed->SetStringField(TEXT("guard"),Guard);
+                Installed->SetStringField(TEXT("blade_material"),Finish);if(RuneSword||Forged)Installed->SetStringField(TEXT("guard"),Guard);
                 Data->SetObjectField(TEXT("gunsmith_parts"),Installed);Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));++Cases;
                 Check(G->Installed(Item).FindRef(TEXT("blade_material"))==(Mode?Finish:FString()),Label+TEXT(" normalize"));
                 Check(ColdSteelModularSword::BladeFinishMode(Item)==Mode,Label+TEXT(" mode"));
@@ -156,7 +167,7 @@ int32 RunSharedTwoHandFinishAudit(const FString& Params)
                 for(auto* Source:ColdSteelModularSword::Components(Root))
                 {
                     const bool Carrier=ColdSteelModularSword::IsBladeFinishCarrier(Source,Item);
-                    const bool GuardRoot=RuneSword&&Source->ComponentHasTag(TEXT("SwordSlot=guard"));
+                    const bool GuardRoot=(RuneSword||Forged)&&Source->ComponentHasTag(TEXT("SwordSlot=guard"));
                     FName Slot;for(const auto& Tag:Source->ComponentTags)if(Tag.ToString().StartsWith(TEXT("SwordSlot="))){Slot=Tag;break;}
                     const FString SurfaceLabel=Label+TEXT("/")+Slot.ToString();
                     LocalRunes+=CheckRune(Source,SurfaceLabel+TEXT(" local"),ExpectedMask);
@@ -167,6 +178,12 @@ int32 RunSharedTwoHandFinishAudit(const FString& Params)
                     {
                         float Value=0.f;if(!Scalar(Source->GetMaterial(Index),TEXT("BladeFinishMode"),Value))continue;
                         ++Surfaces;Check(FMath::IsNearlyEqual(Value,float(Carrier?Mode:0)),SurfaceLabel+TEXT(" local finish and ornament scope"));
+                        if(Forged&&Carrier)
+                        {
+                            float RootMask=-1.f;
+                            Check(Scalar(Source->GetMaterial(Index),TEXT("BladeFinishGuardRoot"),RootMask)&&RootMask==float(GuardRoot),SurfaceLabel+TEXT(" blade and seat scope"));
+                            if(GuardRoot)Check(Source->GetStaticMesh()->GetName().EndsWith(TEXT("_ExecutionerSeat"))==(Part.Id==TEXT("executioner_blade")),SurfaceLabel+TEXT(" fitted seat"));
+                        }
                     }
                     if(Carrier){++Carriers;Check(Surfaces>0,SurfaceLabel+TEXT(" finish capable"));}
                     if(!Carrier&&Description.RuneDefinition.IsEmpty())continue;
@@ -199,7 +216,7 @@ int32 RunSharedTwoHandFinishAudit(const FString& Params)
                     Actor->RemoveInstanceComponent(Remote);Remote->DestroyComponent();
                 }
                 const bool HasRune=Rune.Id!=TEXT("false")||Definition==TEXT("ue_frost_crystal_sword");
-                const bool GuardUsesFinish=RuneSword||(Highland&&Part.Id==TEXT("highland_broadblade"));
+                const bool GuardUsesFinish=RuneSword||Forged||(Highland&&Part.Id==TEXT("highland_broadblade"));
                 Check(Carriers==(GuardUsesFinish?2:1),Label+TEXT(" carrier count"));
                 Check((LocalRunes>0)==HasRune,Label+TEXT(" selected rune mounted"));
                 Check(LocalRunes==ObserverRunes,Label+TEXT(" observer rune parity"));
@@ -217,5 +234,5 @@ int32 RunSharedTwoHandFinishAudit(const FString& Params)
     FString Output=FPaths::ProjectSavedDir()/TEXT("SharedTwoHandFinishAudit.json");FParse::Value(*Params,TEXT("Output="),Output);
     FString Json;FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&Json));FFileHelper::SaveStringToFile(Json,*Output);
     UE_LOG(LogTemp,Display,TEXT("SHARED_FINISH_AUDIT cases=%d checks=%d failures=%d report=%s"),Cases,Checks,Failures,*Output);
-    GI->Shutdown();GI->RemoveFromRoot();FCommandLine::Set(*Original);return Failures?1:0;
+    return Failures?1:0;
 }

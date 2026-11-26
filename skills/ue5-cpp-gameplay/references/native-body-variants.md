@@ -24,4 +24,6 @@
 
 ## 铁匠与木匠共用 Jason R4
 
-详见[共用技能发布快照](../../_shared/ue5-cpp-gameplay/references/native-body-variants.md#铁匠与木匠共用-jason-r4)。
+- R4 保留 Jason 的原生骨架。肩部与肱二头肌分别有左右形态 `R4_Shoulder_l/r` 和 `R4_Biceps_l/r`，由身体网格专属后处理动画蓝图随上臂、前臂姿态驱动。制作铁匠身体时用 `BodyOutfit/save.py` 从 R4 母版复制 `SK_Smith_Body` 及后处理图 `ABP_Smith_R4_Correctives`。修改肩袖或上臂衣料时要给抬臂和屈肘后的体积留量。
+- 铁匠、木匠均从 `FVillageArtisanAppearance::Paths` 加载同一个 `SK_Smith_Body` 和 `A_Smith_StandingBreath`。各自的 Resident 只提供头部、工装的软路径。身体独立播放动画，两个从件以身体作 Leader Pose。待所需网格和待机就绪后一起显隐；呼吸起始相位取服务器时间对动作时长的余数，交谈转向取当前本地交谈者。
+- 独立 R4 母版、工匠运行网格和玩家原版身体有各自的资产路径。调整某一张脸或一件工装时更换该角色的部件；同款体型或姿态形变维护在两位工匠共用的身体上。

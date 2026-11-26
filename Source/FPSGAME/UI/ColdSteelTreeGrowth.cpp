@@ -50,6 +50,11 @@ float UColdSteelStatusModel::StumpHealthRatio(const FString& Id) const
     return G?FMath::Clamp(G->StumpHealthRatio,0.f,1.f):1.f;
 }
 
+void UColdSteelStatusModel::SetMirroredTreeGrowthDay(double Day)
+{
+    if (GetWorld() && GetWorld()->GetNetMode()==NM_Client && Day>=0.) Current.TreeGrowthDay=Day;
+}
+
 void UColdSteelStatusModel::TickTreeGrowthClock(float Delta)
 {
     if(!GetWorld() || GetWorld()->GetNetMode()==NM_Client || Delta<=0)return;

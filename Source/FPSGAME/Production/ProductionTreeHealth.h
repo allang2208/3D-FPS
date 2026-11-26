@@ -22,7 +22,7 @@ struct FProductionToolStats;
  */
 namespace ProductionTreeHealth
 {
-    /** 树种基础生命（下标＝`ProductionHarvestAssets::TreeVariant`，A–D）。出厂伐木斧约 3–5 挥；改这里调平衡。 */
+    /** 树种基础生命（TreeVariant：黑杨 0–3，山毛榉 4–7）。 */
     FPSGAME_API double BaseHealth(int32 Variant);
     /** 树木生命上限（≥1，已含尺寸系数与整体倍率）。非树木资源不会调用本函数。 */
     FPSGAME_API double MaxHealth(const FProductionResource& Resource);

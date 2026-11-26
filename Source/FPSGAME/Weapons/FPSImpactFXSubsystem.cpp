@@ -7,6 +7,8 @@
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Components/DecalComponent.h"
 #include "Components/AudioComponent.h"
+#include "Components/SkeletalMeshComponent.h"
+#include "GameFramework/Character.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
@@ -24,8 +26,9 @@ namespace FPSImpact
     static TAutoConsoleVariable<float> MaxDistance(TEXT("fps.Impact.MaxDistance"), 12000.f, TEXT("Impact FX cull distance in cm, adjusted for optics."));
     static TAutoConsoleVariable<float> DetailDistance(TEXT("fps.Impact.DetailDistance"), 2500.f, TEXT("Full impact detail distance in cm."));
     static TAutoConsoleVariable<float> BurstsPerSecond(TEXT("fps.Impact.BurstsPerSecond"), 40.f, TEXT("World-wide cosmetic impact rate; no effect on damage."));
-    constexpr int32 Starts[] = {0,48,72,104,128,224,228};
-    constexpr int32 Counts[] = {48,24,32,24,96,4,4};
+    constexpr int32 TorchGroup=9;
+    constexpr int32 Starts[] = {0,48,72,104,128,224,228,232,264,424};
+    constexpr int32 Counts[] = {48,24,32,24,96,4,4,32,160,192};
     constexpr const TCHAR* Names[] = {TEXT("Metal"),TEXT("Wood"),TEXT("Stone"),TEXT("Dirt"),TEXT("Glass"),TEXT("Flesh")};
     EFPSImpactSurface FromName(const FString& Name)
     {
@@ -70,6 +73,11 @@ UFPSImpactFXSubsystem::UFPSImpactFXSubsystem()
     ParticleMaterials.Add(GroundWave.Object);
     ConstructorHelpers::FObjectFinder<UMaterialInterface> SacWave(TEXT("/Game/Monsters/BellowSacLobber/V04/FX/M_BellowPressureWave.M_BellowPressureWave"));
     ParticleMaterials.Add(SacWave.Object);
+    ConstructorHelpers::FObjectFinder<UMaterialInterface> BleedMist(TEXT("/Game/Combat/Bleeding20261027/M_BleedBurstMist.M_BleedBurstMist"));
+    ConstructorHelpers::FObjectFinder<UMaterialInterface> BleedDrop(TEXT("/Game/Combat/Bleeding20261027/M_BleedBurstDrop.M_BleedBurstDrop"));
+    ParticleMaterials.Add(BleedMist.Object);ParticleMaterials.Add(BleedDrop.Object);
+    ParticleMaterials.Add(ParticleMaterials[0].Get()); // torch showers share the spark material, with their own slots
+    static_assert(FPSImpact::Counts[FPSImpact::TorchGroup]==TorchSparkSlots);
     ConstructorHelpers::FObjectFinder<USoundBase> Flight(TEXT("/Game/Monsters/BellowSacLobber/V04/Audio/S_BellowFlight.S_BellowFlight"));
     ConstructorHelpers::FObjectFinder<USoundBase> Fuse(TEXT("/Game/Monsters/BellowSacLobber/V04/Audio/S_BellowFuse.S_BellowFuse"));
     ConstructorHelpers::FObjectFinder<USoundBase> Rupture(TEXT("/Game/Monsters/BellowSacLobber/V04/Audio/S_BellowRupture.S_BellowRupture"));
@@ -135,6 +143,9 @@ void UFPSImpactFXSubsystem::OnWorldBeginPlay(UWorld& InWorld)
         Decal->SetMobility(EComponentMobility::Movable);
         Decal->SetVisibility(false);
         Decal->SetFadeScreenSize(.002f);
+        // Seed one existing idle slot per surface for entry PSO preparation.
+        // AddDecal still assigns the actual hit's material before showing it.
+        if(DecalMaterials.IsValidIndex(I))Decal->SetDecalMaterial(DecalMaterials[I]);
         Decal->RegisterComponentWithWorld(&InWorld);
         Decals.Add(Decal);
     }
@@ -218,7 +229,7 @@ EFPSImpactSurface UFPSImpactFXSubsystem::SurfaceForObject(const UObject* Object)
     return Result;
 }
 
-EFPSImpactSurface UFPSImpactFXSubsystem::ResolveSurface(const FHitResult& Hit)
+EFPSImpactSurface UFPSImpactFXSubsystem::ResolveSurface(const FHitResult& Hit,bool bBodyContact)
 {
     const UPrimitiveComponent* Component = Hit.GetComponent();
     const AActor* Actor = Hit.GetActor();
@@ -235,7 +246,7 @@ EFPSImpactSurface UFPSImpactFXSubsystem::ResolveSurface(const FHitResult& Hit)
         const auto Surface = SurfaceForObject(Hit.PhysMaterial.Get());
         if (Surface != EFPSImpactSurface::Unknown) return Surface;
     }
-    if (Cast<APawn>(Actor)) return EFPSImpactSurface::Flesh;
+    if (bBodyContact || Cast<APawn>(Actor)) return EFPSImpactSurface::Flesh;
     // A merged building mesh has many materials and a shared physics material.
     // Resolve the struck cell instead of treating slot zero as the whole wall.
     if (const auto* Building = Cast<AVoxelBuildWorld>(Actor))
@@ -270,6 +281,31 @@ EFPSImpactSurface UFPSImpactFXSubsystem::ResolveSurface(const FHitResult& Hit)
 
 void UFPSImpactFXSubsystem::SpawnImpact(const FHitResult& Hit, UCameraComponent* ViewCamera, bool bPlaySound, bool bDecal)
 {
+    RenderContact(Hit,ViewCamera,bPlaySound,bDecal,EContactKind::Standard);
+}
+
+void UFPSImpactFXSubsystem::SpawnBladeContact(const FHitResult& Hit,UCameraComponent* ViewCamera,bool bWorld)
+{
+    if(!IsValid(ViewCamera))return;
+    // Melee overlaps and sector contacts need not be blocking hits to the collision system.
+    FHitResult Contact=Hit;
+    Contact.bBlockingHit=true;
+    if(Contact.ImpactNormal.IsNearlyZero())
+        Contact.ImpactNormal=(ViewCamera->GetComponentLocation()-Contact.ImpactPoint).GetSafeNormal(SMALL_NUMBER,FVector::UpVector);
+    RenderContact(Contact,ViewCamera,false,false,bWorld?EContactKind::BladeScenery:EContactKind::BladeBody);
+}
+
+void UFPSImpactFXSubsystem::SpawnTorchEmbers(const FVector& Point,const FVector& Normal,UCameraComponent* ViewCamera)
+{
+    FHitResult Contact;
+    Contact.bBlockingHit=true;
+    Contact.ImpactPoint=Point;
+    Contact.ImpactNormal=Normal;
+    RenderContact(Contact,ViewCamera,false,false,EContactKind::Torch);
+}
+
+void UFPSImpactFXSubsystem::RenderContact(const FHitResult& Hit,UCameraComponent* ViewCamera,bool bPlaySound,bool bDecal,EContactKind Kind)
+{
     if (!bReady || !Hit.bBlockingHit || !IsValid(ViewCamera)) return;
     // Whole-pane break owns its burst/audio. Do not leave a floating bullet decal
     // on glass whose collision and visible surface were just removed by damage.
@@ -294,32 +330,136 @@ void UFPSImpactFXSubsystem::SpawnImpact(const FHitResult& Hit, UCameraComponent*
     RecentHits[RecentCursor]={Hit.Component,Hit.ImpactPoint,Now};
     RecentCursor=(RecentCursor+1)%UE_ARRAY_COUNT(RecentHits);
     ++FrameBursts; BurstTokens-=1.f; Camera=ViewCamera;
-    const auto Surface=ResolveSurface(Hit);
+    if(Kind==EContactKind::Torch)
+    {
+        const FVector Normal=Hit.ImpactNormal.GetSafeNormal(SMALL_NUMBER,FVector::UpVector);
+        const bool Near=ApparentDistance<FMath::Min(1600.f,FPSImpact::DetailDistance.GetValueOnGameThread());
+        const int32 Count=Near?FMath::RandRange(72,90):ApparentDistance<3600.f?32:10;
+        const FVector Fan=FMath::VRandCone(Normal,.46f);
+        const FVector Drift=FVector::VectorPlaneProject(Fan,Normal)*28.f+FVector::UpVector*16.f;
+        bool ChipsAvailable=true, SparksAvailable=true;
+        for(int32 I=0;I<Count && ActiveParticles<MaxActiveParticles && (ChipsAvailable||SparksAvailable);++I)
+        {
+            const auto Type=I%11==0?ETorchDebris::Char:I%4==0?ETorchDebris::Streak:ETorchDebris::Spark;
+            // Both spark shapes share slots. A full group cannot free a slot during this burst.
+            bool& Available=Type==ETorchDebris::Char?ChipsAvailable:SparksAvailable;
+            if(!Available)continue;
+            const FVector Offset=FVector::VectorPlaneProject(FMath::VRand(),Normal)*FMath::FRandRange(0.f,3.5f);
+            Available=AddTorchDebris(Type,Hit.ImpactPoint+Normal*2.f+Offset,Fan,Drift,Normal);
+        }
+        return;
+    }
+    const auto Surface=ResolveSurface(Hit,Kind==EContactKind::BladeBody);
+    static const bool TraceLegend=FParse::Param(FCommandLine::Get(),TEXT("KukriCombatWireAudit"));
+    if(TraceLegend&&Kind!=EContactKind::Standard)
+        UE_LOG(LogTemp,Display,TEXT("HATCHET_WIRE_SURFACE body=%d surface=%d actor=%s near_actor=%d"),Kind==EContactKind::BladeBody,int32(Surface),*GetNameSafe(Hit.GetActor()),
+            Hit.GetActor()&&FVector::DistSquared(Hit.ImpactPoint,Hit.GetActor()->GetActorLocation())<FMath::Square(110.));
     const bool Full=ApparentDistance<FMath::Max(0.f,FPSImpact::DetailDistance.GetValueOnGameThread());
     const bool Far=ApparentDistance>6000.f;
     const FVector Normal=Hit.ImpactNormal.GetSafeNormal(SMALL_NUMBER,FVector::UpVector);
     if (Surface==EFPSImpactSurface::Flesh)
     {
+        // A gameplay sweep can start inside a movement capsule. Place the visible cut on the
+        // victim's nearby physics surface without altering the hit submitted for damage.
+        FHitResult CutHit;
+        const bool Cut=Kind==EContactKind::BladeBody;
+        if(Cut)
+        {
+            CutHit=Hit;
+            const FVector Outward=(ViewCamera->GetComponentLocation()-Hit.ImpactPoint).GetSafeNormal(SMALL_NUMBER,Normal);
+            const auto* Victim=Cast<ACharacter>(Hit.GetActor());
+            auto* Skin=Victim?Victim->GetMesh():nullptr;
+            FHitResult SurfaceHit;
+            FCollisionQueryParams Query(SCENE_QUERY_STAT(BladeBloodSurface),false);
+            if(Skin&&Skin->LineTraceComponent(SurfaceHit,Hit.ImpactPoint+Outward*35.f,Hit.ImpactPoint-Outward*35.f,Query))
+            {
+                CutHit.ImpactPoint=SurfaceHit.ImpactPoint;
+                CutHit.ImpactNormal=SurfaceHit.ImpactNormal;
+            }
+            else if(Hit.bStartPenetrating && Hit.GetComponent())
+            {
+                FVector Point;
+                if(Hit.GetComponent()->GetClosestPointOnCollision(Hit.ImpactPoint+Outward*(Hit.GetComponent()->Bounds.SphereRadius*2.+5.),Point)>0.f)
+                {CutHit.ImpactPoint=Point;CutHit.ImpactNormal=Outward;}
+            }
+        }
+        const FHitResult& Flesh=Cut?CutHit:Hit;
+        const FVector SkinNormal=Flesh.ImpactNormal.GetSafeNormal(SMALL_NUMBER,Normal);
         FHitResult Ground;
-        const bool bLanding=Distance<4500.f && FindBloodLanding(Hit,ViewCamera,Now,Ground);
-        AddFleshBurst(Hit,Normal,Full,Far,bLanding?&Ground:nullptr);
-        if (bLanding) AddBloodStain(Ground,Hit.ImpactPoint,Now);
+        const bool bLanding=Distance<4500.f && FindBloodLanding(Flesh,ViewCamera,Now,Ground);
+        const FVector Incoming=(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal(SMALL_NUMBER,-Normal);
+        const FVector Axis=Cut?(SkinNormal*.76f+FVector::VectorPlaneProject(Incoming,SkinNormal)*.65f).GetSafeNormal(SMALL_NUMBER,SkinNormal):
+            (Normal*.72f-Incoming*.28f).GetSafeNormal(SMALL_NUMBER,Normal);
+        AddFleshBurst(Flesh,SkinNormal,Axis,Cut,Full,Far,bLanding?&Ground:nullptr);
+        if (bLanding) AddBloodStain(Ground,Flesh.ImpactPoint,Now);
         if(Full&&Distance<2500.f)
         {
-            const FVector Incoming=(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal(SMALL_NUMBER,-Normal);
-            AddBloodWall(Hit,(Normal*.72f-Incoming*.28f).GetSafeNormal(),ViewCamera,Now);
+            AddBloodWall(Flesh,Axis,ViewCamera,Now);
         }
         if (bPlaySound) PlayImpactSound(Hit.ImpactPoint,Surface,Distance,Now);
         return;
     }
     const FVector Position=Hit.ImpactPoint+Normal*1.2f;
-    const int32 SparkCount=Surface==EFPSImpactSurface::Metal?(Full?5:Far?1:2):0;
+    int32 SparkCount=Surface==EFPSImpactSurface::Metal?(Full?5:Far?1:2):0;
+    if(Kind!=EContactKind::Standard)
+    {
+        if(Surface==EFPSImpactSurface::Metal)SparkCount=Full?8:Far?1:3;
+        else if(Surface==EFPSImpactSurface::Stone)SparkCount=Full?3:1;
+    }
     const int32 ChipCount=Surface==EFPSImpactSurface::Flesh?0:(Full?2:Far?0:1);
     for(int32 I=0;I<SparkCount;++I)AddParticle(0,Position,Normal,Surface,1.f);
     AddParticle(1,Position,Normal,Surface,Far?1.25f:1.f);
     for(int32 I=0;I<ChipCount;++I)AddParticle(2,Position,Normal,Surface,1.f);
     if (bDecal && ApparentDistance<3000.f) AddDecal(Hit,Surface,Now);
     if (bPlaySound) PlayImpactSound(Hit.ImpactPoint,Surface,Distance,Now);
+}
+
+void UFPSImpactFXSubsystem::ShedTorchEmbers(const FVector& Point,const FVector& Airflow,UCameraComponent* ViewCamera)
+{
+    if(!bReady||!IsValid(ViewCamera)||ActiveParticles>=MaxActiveParticles-32)return;
+    const FVector To=Point-ViewCamera->GetComponentLocation();
+    if(To.SizeSquared()>FMath::Square(1500.)||FVector::DotProduct(To,ViewCamera->GetForwardVector())<0.)return;
+    Camera=ViewCamera;
+    const FVector Drift=Airflow.GetClampedToMaxSize(95.);
+    const FVector Axis=(FVector::UpVector*85.+Drift*.55).GetSafeNormal();
+    const int32 Count=FMath::FRand()<.28f?2:1;
+    for(int32 I=0;I<Count;++I)
+        AddTorchDebris(FMath::FRand()<.24f?ETorchDebris::Char:ETorchDebris::Spark,Point+FMath::VRand()*2.2f,Axis,Drift,FVector::ZeroVector);
+}
+
+bool UFPSImpactFXSubsystem::AddTorchDebris(ETorchDebris Type,const FVector& Point,const FVector& Axis,const FVector& Drift,const FVector& SurfaceNormal)
+{
+    if(ActiveParticles>=MaxActiveParticles)return false;
+    const bool Char=Type==ETorchDebris::Char,Streak=Type==ETorchDebris::Streak,Impact=!SurfaceNormal.IsZero();
+    const int32 Group=Char?2:FPSImpact::TorchGroup;
+    const int32 Count=FPSImpact::Counts[Group],Start=FPSImpact::Starts[Group];
+    for(int32 I=0;I<Count;++I)
+    {
+        const int32 Index=Char?I:(TorchSparkCursor+I)%Count;
+        auto& P=Particles[Start+Index];
+        if(P.Life>0.f)continue;
+        if(!Char)TorchSparkCursor=(Index+1)%Count;
+        P=FParticle();
+        P.Born=GetWorld()->GetTimeSeconds();P.Position=Point;
+        const FVector Direction=FMath::VRandCone(Axis,Impact?(Streak?.65f:1.25f):.47f);
+        const float Speed=Impact?(Streak?FMath::FRandRange(245.f,395.f):FMath::FRandRange(72.f,220.f)):FMath::FRandRange(32.f,69.f);
+        P.Velocity=Direction*Speed+FVector::UpVector*(Impact?27.f:17.f);
+        P.EmberDrag=Streak?2.3f:FMath::FRandRange(1.6f,3.0f);
+        P.EmberDrift=Drift;
+        P.Gravity=Streak?-215.f:Char?FMath::FRandRange(-88.f,-34.f):FMath::FRandRange(-30.f,22.f);
+        if(!Impact)P.EmberDrift.Z+=Char?18.f:31.f;
+        P.Life=Streak?FMath::FRandRange(.30f,.55f):Char?FMath::FRandRange(.8f,1.55f):FMath::FRandRange(.54f,1.32f);
+        const float Width=(Impact?1.f:.63f)*FMath::FRandRange(.8f,1.55f);
+        P.Size=FVector(Width,Width*(Char?1.65f:Streak?6.f:FMath::FRandRange(1.3f,2.4f)),Char?Width*.17f:1.f);
+        P.Color=Char?FLinearColor(.23f,.071f,.023f):FLinearColor(1.f,FMath::FRandRange(.42f,.87f),Streak?.16f:.055f);
+        P.Opacity=1.f;P.Variation=FMath::FRand();
+        P.Rotation=FRotator(P.Variation*160.f,0,0);
+        P.Spin=FRotator(170.f+220.f*P.Variation,105.f,220.f-400.f*P.Variation);
+        P.bHasLandingPlane=Impact;P.LandingPoint=Point-SurfaceNormal*2.f;P.LandingNormal=SurfaceNormal;
+        ++ActiveParticles;
+        return true;
+    }
+    return false;
 }
 
 void UFPSImpactFXSubsystem::AddParticle(int32 Group,const FVector& Position,const FVector& Normal,EFPSImpactSurface Surface,float DetailScale)
@@ -332,8 +472,9 @@ void UFPSImpactFXSubsystem::AddParticle(int32 Group,const FVector& Position,cons
     if(Slot==INDEX_NONE)return; // Full pool drops cosmetic detail; never allocates.
     auto& P=Particles[Slot];P=FParticle();
     P.Position=Position;P.Born=Now;
-    P.Color=FPSImpact::DustColors[static_cast<uint8>(Surface)];
     FVector Side=FMath::VRand();Side=FVector::VectorPlaneProject(Side,Normal);
+
+    P.Color=FPSImpact::DustColors[static_cast<uint8>(Surface)];
     P.Velocity=Normal*FMath::FRandRange(Group==0?180.f:35.f,Group==0?420.f:100.f)+Side*(Group==0?115.f:45.f);
     P.Rotation=FRotator(FMath::FRandRange(-180.f,180.f),FMath::FRandRange(-180.f,180.f),FMath::FRandRange(-180.f,180.f));
     if(Group==0){P.Life=FMath::FRandRange(.12f,.24f);P.Gravity=-450.f;P.Size=FVector(.65f,FMath::FRandRange(3.f,6.f),1.f);P.Color=FLinearColor(1.f,.56f,.12f);P.Opacity=.95f;}
@@ -348,13 +489,9 @@ void UFPSImpactFXSubsystem::AddParticle(int32 Group,const FVector& Position,cons
     ++ActiveParticles;
 }
 
-void UFPSImpactFXSubsystem::AddFleshBurst(const FHitResult& Hit,const FVector& Normal,bool Full,bool Far,const FHitResult* Ground)
+void UFPSImpactFXSubsystem::AddFleshBurst(const FHitResult& Hit,const FVector& Normal,const FVector& Axis,bool bCut,bool Full,bool Far,const FHitResult* Ground)
 {
     const double Now=GetWorld()->GetTimeSeconds();
-    const FVector Incoming=(Hit.TraceEnd-Hit.TraceStart).GetSafeNormal(SMALL_NUMBER,-Normal);
-    // Entry spray leaves the actual struck surface. Bias glancing hits toward
-    // the incoming bullet, rather than tying a red cloud to the camera or bone.
-    const FVector Axis=(Normal*.72f-Incoming*.28f).GetSafeNormal(SMALL_NUMBER,Normal);
     for(int32 Group=3;Group<=4;++Group)
     {
         const int32 Requested=Group==3?(Full?3:Far?1:2):(Far?1:Full?11:6);
@@ -370,7 +507,7 @@ void UFPSImpactFXSubsystem::AddFleshBurst(const FHitResult& Hit,const FVector& N
             P.Position=Hit.ImpactPoint+Normal*2.f;
             P.Rotation.Roll=BloodRandom.FRandRange(-180.f,180.f);
             P.Variation=BloodRandom.FRand();
-            const FVector Direction=BloodRandom.VRandCone(Axis,FMath::DegreesToRadians(Group==3?36.f:48.f));
+            const FVector Direction=BloodRandom.VRandCone(Axis,FMath::DegreesToRadians(Group==3?36.f:(bCut?24.f:48.f)));
             if(Group==3)
             {
                 P.Position+=FVector::VectorPlaneProject(Direction,Normal)*3.f;
@@ -383,6 +520,7 @@ void UFPSImpactFXSubsystem::AddFleshBurst(const FHitResult& Hit,const FVector& N
             else
             {
                 P.Velocity=Direction*BloodRandom.FRandRange(150.f,290.f)+FVector(0,0,24.f);
+                if(bCut)P.Velocity*=1.22f;
                 P.Life=BloodRandom.FRandRange(.60f,.88f);P.Gravity=-980.f;
                 P.Size=FVector(BloodRandom.FRandRange(1.6f,2.9f),BloodRandom.FRandRange(5.f,9.f),1.f);
                 P.Color=FLinearColor(BloodRandom.FRandRange(.23f,.36f),.006f,.004f);
@@ -391,7 +529,7 @@ void UFPSImpactFXSubsystem::AddFleshBurst(const FHitResult& Hit,const FVector& N
                 {
                     P.LandingPoint=Ground->ImpactPoint;P.LandingNormal=Ground->ImpactNormal;
                     P.bHasLandingPlane=true;
-                    if(Added<4)
+                    if(Added<4 && (!bCut||Added>=2))
                     {
                         // A few heavier drops connect the airborne burst to its
                         // queried landing point. Solve the same analytic motion
@@ -589,10 +727,17 @@ void UFPSImpactFXSubsystem::Tick(float DeltaTime)
             }
             const float Life=Age/P.Life;
             // Analytic non-colliding motion: no raycasts/Chaos bodies per fragment.
-            const float Drag=Group==3?6.f:Group==4?1.6f:Group==1?5.f:0.f;
+            const bool bMist=Group==3||Group==7,bDrop=Group==4||Group==8;
+            const float Drag=bMist?6.f:bDrop?1.6f:Group==1?5.f:P.EmberDrag;
             const float Damping=Drag>0.f?FMath::Exp(-Drag*Age):1.f;
             const float Travel=Drag>0.f?(1.f-Damping)/Drag:Age;
-            const FVector Position=P.Position+P.Velocity*Travel+FVector(0,0,P.Gravity*.5f*Age*Age);
+            FVector Position=P.Position+P.Velocity*Travel+FVector(0,0,P.Gravity*.5f*Age*Age);
+            if(P.EmberDrag>0.f)
+            {
+                // Drag transfers the fragment from its launch velocity to the moving air.
+                const float Phase=P.Variation*2.f*PI;
+                Position+=P.EmberDrift*(Age-Travel)+FVector(FMath::Sin(Phase+5.f*Age),FMath::Cos(Phase+3.7f*Age),0.)*(3.f*Age);
+            }
             if(P.bHasLandingPlane && FVector::DotProduct(Position-P.LandingPoint,P.LandingNormal)<.3f)
             {
                 P.Life=0.f;--ActiveParticles;Transforms[Group][Local].SetScale3D(FVector::ZeroVector);
@@ -603,22 +748,29 @@ void UFPSImpactFXSubsystem::Tick(float DeltaTime)
             if(Group!=2 && Group!=5 && Group!=6)
             {
                 const FVector Facing=(Eye-Position).GetSafeNormal();
-                Rotation=(Group==0 || Group==4)?FRotationMatrix::MakeFromZY(Facing,Velocity).ToQuat()
+                Rotation=(Group==0 || Group==FPSImpact::TorchGroup || bDrop)?FRotationMatrix::MakeFromZY(Facing,Velocity+P.EmberDrift*(1.f-Damping)).ToQuat()
                     :FRotationMatrix::MakeFromZ(Facing).ToQuat()*FQuat(FVector::UpVector,FMath::DegreesToRadians(P.Rotation.Roll));
             }
-            const float SizeScale=Group==1?.65f+Life*1.5f:Group==3?.70f+Life*1.25f:1.f;
+            const float SizeScale=Group==1?.65f+Life*1.5f:bMist?.70f+Life*1.25f:1.f;
             FVector Size=P.Size*SizeScale;
-            if(Group==4)
+            if(P.EmberDrag>0.f)
+            {
+                Size*=1.f-.78f*FMath::SmoothStep(.42f,1.f,Life);
+                if(Group==FPSImpact::TorchGroup)Size.Y*=FMath::Lerp(1.f,.62f,Life);
+            }
+            if(bDrop)
             {
                 const float Stretch=FMath::Clamp(float(Velocity.Size())/240.f,.55f,1.6f);
                 Size.Y*=Stretch*FMath::Lerp(1.f,.40f,Life);
                 Size.X*=FMath::InvSqrt(Stretch);
             }
             Transforms[Group][Local]=FTransform(Rotation,Position,Size/100.f);
-            float Fade=Group==4?1.f-FMath::SmoothStep(.78f,1.f,Life):Group==2?1.f-FMath::SmoothStep(.5f,1.f,Life):FMath::Square(1.f-Life);
-            if(Group==3)Fade=FMath::SmoothStep(0.f,.035f,Life)*(1.f-FMath::SmoothStep(.20f,1.f,Life));
-            const float NearFade=Group>=3?FMath::SmoothStep(12.f,45.f,static_cast<float>(FVector::Dist(Eye,Position))):1.f;
-            const float Data[]={P.Color.R,P.Color.G,P.Color.B,P.Opacity*Fade*NearFade,Life,P.Variation};
+            float Fade=bDrop?1.f-FMath::SmoothStep(.78f,1.f,Life):Group==2?1.f-FMath::SmoothStep(.5f,1.f,Life):FMath::Square(1.f-Life);
+            if(bMist)Fade=FMath::SmoothStep(0.f,.035f,Life)*(1.f-FMath::SmoothStep(.20f,1.f,Life));
+            if(P.EmberDrag>0.f)Fade=1.f-FMath::SmoothStep(.26f,1.f,Life);
+            const float NearFade=Group>=3&&Group!=FPSImpact::TorchGroup?FMath::SmoothStep(12.f,45.f,static_cast<float>(FVector::Dist(Eye,Position))):1.f;
+            const float Cooling=P.EmberDrag>0.f?1.f-.80f*Life:1.f;
+            const float Data[]={P.Color.R,P.Color.G*Cooling,P.Color.B*Cooling*Cooling,P.Opacity*Fade*NearFade,Life,P.Variation};
             Renderers[Group]->SetCustomData(Local,MakeArrayView(Data,Group>=3?6:4),false);
         }
         if(Dirty)Renderers[Group]->BatchUpdateInstancesTransforms(0,Transforms[Group],false,true,true);

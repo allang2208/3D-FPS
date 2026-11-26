@@ -6,7 +6,7 @@ import subprocess
 import imageio_ffmpeg
 
 ROOT=Path(__file__).resolve().parents[2]
-SOURCE=Path('E:/无尽轮回/长期备份/2026-7-13-1/game-dev/assets/sounds/skills')
+SOURCE=Path('F:/FPSGAMEData/ArtProduction/SourceAssets/LegacyGameDev/assets/sounds/skills')
 DEST=ROOT/'SourceAssets/Lightning20260920'
 DEST.mkdir(parents=True,exist_ok=True)
 records=[]

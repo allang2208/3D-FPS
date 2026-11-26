@@ -49,3 +49,4 @@ try{
     }
     [ordered]@{head=$receipt.head;skeleton=$receipt.skeleton;lods=$receipt.lods;files=$files;utc=[DateTime]::UtcNow.ToString('o')} | ConvertTo-Json -Depth 5 | Set-Content "$work/installed.json" -Encoding utf8
 }finally{if($held){$lock.ReleaseMutex()};$lock.Dispose()}
+

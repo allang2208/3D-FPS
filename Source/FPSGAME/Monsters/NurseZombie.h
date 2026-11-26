@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "Engine/NetSerialization.h"
 #include "MonsterCoreStats.h"
 #include "MonsterArcPathing.h"
 #include "NurseZombie.generated.h"
@@ -18,6 +19,8 @@ class FPSGAME_API ANurseZombie : public ACharacter, public IAPS_MoveToInterface
 {
     GENERATED_BODY()
 public:
+    /** Called only before native registration on an unfinished deferred spawn. */
+    void PrepareDeferredAllocation();
     ANurseZombie(const FObjectInitializer& ObjectInitializer = FObjectInitializer::Get());
     // APS arc shaping on the Nurse nav data; subclasses tune or disable it through ArcPathing.
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Pathing") FMonsterArcPathingTuning ArcPathing;
@@ -28,18 +31,19 @@ public:
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Nurse|Combat") TObjectPtr<class UMonsterCombatComponent> Combat;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="Nurse|Combat") TObjectPtr<class UHumanoidKnockdownComponent> Knockdown;
     virtual void OnConstruction(const FTransform& Transform) override;
-    void PrepareDeferredAllocation();
     virtual void BeginPlay() override;
+    virtual bool IsNetRelevantFor(const AActor* RealViewer,const AActor* ViewTarget,const FVector& SrcLocation) const override;
     virtual void Tick(float DeltaSeconds) override;
     virtual float TakeDamage(float Damage, const FDamageEvent& Event, AController* EventInstigator, AActor* Causer) override;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Animation") TObjectPtr<UAnimSequence> IdleClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Animation") TObjectPtr<USkeletalMesh> VisualMesh;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Animation") TObjectPtr<UAnimSequence> WalkClip;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Animation") TObjectPtr<UAnimSequence> AttackClip;
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float MaxHealth = 250.f;
+    UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float MaxHealth = 250.f;
     // Source: tutorial-runtime.json enemyXp.zombie[0]. Tunable per encounter.
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Rewards") int32 ExperienceReward = 241;
-    // ??????????????enemy-config ????????????/????????? MonsterCoreStats????    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Rewards") int32 Level = 3;
+    // 配置等级与品阶（原 enemy-config 口径；奖励按等级/品阶核算，见 MonsterCoreStats）。
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Rewards") int32 Level = 3;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Rewards") EMonsterRank Rank = EMonsterRank::Normal;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float AttackDamage = 22.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float AggroRadius = 1200.f;
@@ -49,7 +53,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float RecoveryTime = .8f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float WalkSpeed = 90.f;
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Nurse|Combat") float CorpseSeconds = 15.f;
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") float Health = 250.f;
+    UPROPERTY(Replicated, VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") float Health = 250.f;
     // Shared HumanoidAudioV1 palette (CC0 OpenGameArt mixes); all NurseZombie
     // subclasses and M-01 staff BPs inherit the same fields and playback edges.
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Nurse|Audio") TObjectPtr<USoundBase> NurseIdleSound;
@@ -61,7 +65,7 @@ public:
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Nurse|Audio") TObjectPtr<USoundBase> StepSoundA;
     UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Nurse|Audio") TObjectPtr<USoundBase> StepSoundB;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Audio") TObjectPtr<UAudioComponent> BodyVoice;
-    /** ??????????????OnRep ??? SetState ?????????/????????*/
+    /** 复制给远端：客户端 OnRep 重放 SetState 驱动同款动画/表现切换。 */
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat", ReplicatedUsing=OnRep_State) ENurseState State = ENurseState::Idle;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") int32 SuccessfulHits = 0;
     UPROPERTY(Transient, VisibleAnywhere, BlueprintReadOnly, Category="Nurse|Combat") FVector SpawnPosition;
@@ -71,6 +75,9 @@ public:
     UFUNCTION(BlueprintCallable, Category="Nurse|Placement", meta=(WorldContext="WorldContextObject"))
     static bool FindTestSpawn(UObject* WorldContextObject, FVector Origin, FRotator Facing, float PreferredDistance, float Side, FVector& Location);
 protected:
+    UFUNCTION(NetMulticast, Unreliable)
+    void MulticastPounceLanding(FVector_NetQuantize Location, FVector_NetQuantizeNormal Normal,
+        FVector_NetQuantizeNormal Forward, float Radius, float Angle, bool bPlaySound, double StartedAt);
     void CancelAttackForLocomotion();
     virtual void StartDeathPresentation();
     virtual void StartHitPresentation(UAnimSequence* Clip, float Duration);
@@ -88,6 +95,7 @@ protected:
 private:
     TArray<TWeakObjectPtr<UActorComponent>> DeferredRegistration;
     void SetState(ENurseState NewState);
+    UPROPERTY(Replicated) double NetworkStateStarted=0.;
  UFUNCTION() void OnRep_State();
     bool CanSee(const AActor* Actor) const;
     void TryMelee();
@@ -105,3 +113,4 @@ private:
     float StaggerSeconds = .25f;
     bool bAttackConsumed = false;
 };
+

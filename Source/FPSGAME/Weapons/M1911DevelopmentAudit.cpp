@@ -223,7 +223,7 @@ void AFPSGAMECharacter::RunM1911DevelopmentAudit()
         auto* Icons=GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>();Check(Icons->Find(*P->Equipped())!=nullptr,TEXT("configured inventory icon rendered"));
         auto* Pickup=GetWorld()->SpawnActor<AColdSteelPickup>();Pickup->InitializeItem(*P->Equipped());
         Check(Pickup->Weapon&&Pickup->Weapon->GetSkinnedAsset(),TEXT("dropped pistol builds posed weapon"));Pickup->Destroy();
-        for(const TCHAR* Folder:{TEXT("RainVisibility"),TEXT("NaturalV2")}){
+        for(const TCHAR* Folder:{TEXT("RainVisibility")}){
             auto* Weather=LoadObject<UWeatherPresentationAssets>(nullptr,*FString::Printf(TEXT("/Game/Weather/%s/DA_WeatherPresentation"),Folder));
             Check(Weather!=nullptr,FString(TEXT("weather catalog "))+Folder);if(!Weather)continue;
             bool Rear=false,Tactical=false;

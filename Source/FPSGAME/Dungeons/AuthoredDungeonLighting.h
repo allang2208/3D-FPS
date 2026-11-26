@@ -8,6 +8,7 @@ class UPrimitiveComponent;
 namespace AuthoredDungeonLighting
 {
     bool IsOptimizationEnabled();
+    float AdvanceVisibility(float Alpha, bool bWanted, float DeltaSeconds);
 }
 
 struct FAuthoredDungeonLight

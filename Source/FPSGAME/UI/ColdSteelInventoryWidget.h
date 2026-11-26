@@ -122,6 +122,7 @@ private:
     void LoadIcons();
     void OnWeaponIconReady(const FString& Recipe);
     void RefreshPresentation();
+    bool RefreshFoodPresentation();
     void ClearDragPreview();
     void ApplyProposalPreview(const FColdSteelProposal& Proposal,const FString& MovingId);
     FIntPoint PendingFootprint(const FColdSteelItem& Item,const UColdSteelItemDrag& Drag)const;
@@ -133,11 +134,13 @@ private:
     // MeleeArt 标记近战武器与采集工具：它们的立绘是竖直的，装备栏图区是横长条，
     // 绘制时按枪的口径横放。在 RefreshPresentation 里从已解析的 JSON 算一次，
     // 避免每帧 NativePaint 再读一遍 Item.Data。
-    struct FItemPresentation {FString Name,Rarity,CatalogVariant;int32 Enhancement=0;int32 ToolEnhanceLevel=0;bool Crafted=false,Enchanted=false;bool MeleeArt=false,StaffArt=false;};
+    struct FItemPresentation {FString Name,Rarity,CatalogVariant,IconRecipe;FLinearColor BagColor=FLinearColor::White;int32 Enhancement=0;int32 ToolEnhanceLevel=0;bool Crafted=false,Enchanted=false;bool MeleeArt=false,StaffArt=false,OneHandedMeleeArt=false;double SpoilDays=0;float SpoilProgress=0;};
     TMap<FString,FItemPresentation> Presentation;
     int32 HoverPlace=-1,PointerCell=-1;
     bool bSortHovered=false;
     bool bCompSortHovered=false;
     bool bProcessingAnimated=false;
+    bool bFoodVisible=false;
+    float FoodRefreshSeconds=0;
     float GlintSeconds=0;
 };

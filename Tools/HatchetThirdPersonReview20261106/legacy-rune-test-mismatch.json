@@ -1,0 +1,30 @@
+{
+  "passed": 164,
+  "failed": 20,
+  "failures": [
+    "two frost knives share one component state",
+    "passive adds twenty percentage points to this knife",
+    "seven area actions charge seven times",
+    "eighth action activates sixteen seconds without chilling",
+    "next action receives toughness plus thirty five percent",
+    "dual contact applies four chill stacks and twenty percent slow",
+    "same area action chills a second victim independently",
+    "twenty chill consumes ten stacks and freezes four seconds",
+    "frozen target rejects chill and active hits do not extend or precharge",
+    "mixed rune offhand charges frost independently",
+    "berserker repeated area contacts charge once per action",
+    "twelfth berserker action starts twenty seconds",
+    "mixed dual knives preserve separate stamina costs",
+    "mixed normal and heavy bill only the non-berserker half",
+    "berserker quick hit uppercut and whirlwind are free",
+    "berserker damage stays on its knife",
+    "berserker speed scales this knife interval",
+    "active berserker heals actual damage share without extending or precharging",
+    "berserker movement bonus is fifteen percent",
+    "two berserker knives share charge free dash and non-stacking movement"
+  ],
+  "cause": "Legacy fixture installs frost_raven_rune/berserker_rune in gunsmith_parts.blade_2; current components use KukriEnchantment with _enchantEffects.frostHawk/bloodWolf. These fixtures do not activate the effects under test.",
+  "source_fixture": "Source/FPSGAME/Multiplayer/KukriRuneAuditCases.cpp",
+  "current_gate": "Source/FPSGAME/Weapons/Kukri/KukriEnchantment.h",
+  "gameplay_changed_to_satisfy_legacy_test": false
+}

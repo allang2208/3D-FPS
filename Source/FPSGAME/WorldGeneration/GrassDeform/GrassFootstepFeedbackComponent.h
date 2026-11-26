@@ -277,6 +277,7 @@ private:
     /** Resolved config + assets. */
     UPROPERTY(Transient)
     TObjectPtr<UGrassFootstepFeedbackConfig> ResolvedConfig;
+    TSharedPtr<struct FStreamableHandle> FootstepPreload;
 
     UPROPERTY(Transient)
     TObjectPtr<UNiagaraSystem> PuffSystemAsset;

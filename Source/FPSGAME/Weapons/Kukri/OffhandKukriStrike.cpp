@@ -1,11 +1,19 @@
 #include "OffhandKukriComponent.h"
+#include "KukriWeaponComponent.h"
+#include "KukriDecisiveComponent.h"
 #include "OffhandKukriAuthoredPose.h"
 #include "OffhandKukriAuthoredStrike.h"
 #include "OffhandKukriAuthoredUppercut.h"
+#include "OffhandShadowStepMotion.h"
+#include "OffhandAxeQuickMotion.h"
+#include "OffhandQuickClearance.h"
 #include "OffhandKukriThrust.h"
 #include "KukriRhythm.h"
 #include "KukriQuickRhythm.h"
+#include "../Staff/StaffOffhandMeleeComponent.h"
+#include "../Staff/StaffOffhandQuickMotion.h"
 #include "../FPSImpactFXSubsystem.h"
+#include "../ModularSwordVisual.h"
 #include "../MeleeSmallTargetQuery.h"
 #include "../MeleeWeaponStats.h"
 #include "../../Combat/CombatStatusFormula.h"
@@ -16,6 +24,7 @@
 #include "../../Skills/QuickCombatPistolMotion.h"
 #include "../../Skills/QuickCombatImpactShake.h"
 #include "../../FPSGAMECharacter.h"
+#include "../../FPSGAMEPlayerController.h"
 #include "../../UI/ColdSteelStatusModel.h"
 #include "../../UI/ColdSteelInventoryTypes.h"
 #include "../../Monsters/MonsterCombatComponent.h"
@@ -31,7 +40,8 @@
 #include "SceneInterface.h"
 #include "Sound/SoundBase.h"
 
-// Quick melee (F) for the pistol + offhand kukri pair: one left-hand thrust (BV1hQnh6hEio file
+// Quick melee (F) for mixed pistol/staff + offhand blade pairs. Hatchets sample the native
+// left hand of PairAttack3KH; other blades retain one left-hand thrust (BV1hQnh6hEio file
 // 40.33-41.00 s: the hold swings out, the left arm drives the reversed blade into the screen centre,
 // the pistol comes back up; authored pose/camera keys in OffhandKukriAuthoredStrike.h).
 // Same skill contract as the other quick-melee weapons (KukriQuickCombat.cpp): CommitQuickCombatCast
@@ -56,28 +66,55 @@ constexpr float ThrustHitStopScale=1.6f, ThrustImpactScale=1.3f, ThrustMissKick=
 bool UOffhandKukriComponent::CanQuickCombat() const
 {
     const auto* P=Cast<AFPSGAMECharacter>(GetOwner());
-    return bEquipped&&P&&OwnsLeftHand()&&RightWeight>.95f&&!P->IsSprinting()&&!P->IsAiming()&&!bQuickCombat&&!bUppercut;
+    const auto* Pair=P?P->FindComponentByClass<UStaffOffhandMeleeComponent>():nullptr;
+    if(Pair&&Pair->IsEquipped())
+        return Pair->CanQuickCombat()&&!bQuickCombat&&!bUppercut&&!bShadowStep&&P->CanStartQuickCombatPriority();
+    // Presentation is allowed to yield to reload, inspection and consumables.
+    // F first interrupts those actions; ADS, sprint and a fading stance cannot
+    // choose a different weapon or require the knife hand to be visible already.
+    return bEquipped&&P&&P->HasInventoryWeapon()&&P->IsPistolWeapon()&&!P->HasOffhandPistol()&&
+        Arms&&Arms->GetSkeletalMeshAsset()&&Blade&&Blade->GetStaticMesh()&&
+        (!bDrawHatchet||UsesNativeAxe())&&!bQuickCombat&&!bUppercut&&!bShadowStep&&P->CanStartQuickCombatPriority();
 }
+
+float UOffhandKukriComponent::GetQuickCombatLength() const
+{return bHatchetQuickCombat?OffhandAxeQuickMotion::Length:OffhandKukriStrike::Length;}
+
+float UOffhandKukriComponent::GetQuickCombatContact() const
+{return bHatchetQuickCombat?OffhandAxeQuickMotion::ContactAt:OffhandKukriStrike::Contacts[0];}
+
+float UOffhandKukriComponent::GetQuickCombatRelease() const
+{return bHatchetQuickCombat?OffhandAxeQuickMotion::ReleaseAt:.32f;}
 
 bool UOffhandKukriComponent::BeginQuickCombat()
 {
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());
-    if(!P||!P->CanStartQuickCombatPriority()||!CanQuickCombat())return false;
+    if(!P||!CanQuickCombat())return false;
+    auto* StaffPair=P->FindComponentByClass<UStaffOffhandMeleeComponent>();
+    if(StaffPair&&!StaffPair->IsEquipped())StaffPair=nullptr;
+    if(StaffPair)StaffPair->CaptureActionEntry();
     // Equipment stows, casts and the pistol's own actions yield to F (priority interrupt).
     P->InterruptActionsForPriority(false);
-    if(!CanQuickCombat())return false;
+    if(StaffPair?!StaffPair->OwnsLeftHand():!OwnsLeftHand())return false;
     auto* Profile=Model.Get();
     const auto State=Profile?Profile->Snapshot():FColdSteelProfile();
     const auto* Item=Profile?Profile->Equipped(State.ActiveWeaponSlot==6?8:11):nullptr;
-    if(!Item||!IsOffhandKukri(*Item)||Profile->ActiveProductionTool())return false;
+    if(!Item||!(StaffPair?ColdSteelInventory::IsOneHandedBlade(*Item):IsOffhandKukri(*Item))||Profile->ActiveProductionTool())return false;
     const float Rate=FMath::Max(.05f,LightningHaste::ActionSpeed(P));
-    // The skill cost is paid once; F stays reserved until the thrust is back on the stance.
-    if(!Profile->CommitQuickCombatCast(OffhandKukriStrike::Length/Rate))return false;
+    const bool Hatchet=ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("hatchet");
+    if(Hatchet&&!(StaffPair?StaffPair->HasNativeChop():UsesNativeAxe()))return false;
+    const float Length=Hatchet?OffhandAxeQuickMotion::Length:OffhandKukriStrike::Length;
+    const bool SwitchStaffRig=StaffPair&&!Hatchet;
+    const float Total=Length+(SwitchStaffRig?StaffOffhandQuickMotion::Entry+StaffOffhandQuickMotion::Return:0.f);
+    // The skill cost is paid once; F stays reserved through the selected action's recovery.
+    if(!Profile->CommitQuickCombatCast(Total/Rate))return false;
+    QuickActionRate=Rate;
     QuickCast=Profile->QuickCombatStats();
     // 200 % of the blade's physical panel plus the quick-melee skill's own damage; the authority
     // recomputes the same number from the declared off-hand item (OffhandKukriThrust.h).
     StrikeDamage=OffhandKukriThrust::Damage(*Item,Profile);
     QuickShot=ColdSteelSkills::Snapshot(P,Item);
+    CaptureContactEdge(*Item);
     QuickShot.bRifle=false;QuickShot.bPistol=false;QuickShot.WeakpointPercent=0;
     // A blade thrust: blade toughness conversion (the authority uses the same form for this pair).
     QuickShot.AttackForm=EMonsterAttackForm::Blade;QuickShot.bMeleeStrike=true;
@@ -85,12 +122,39 @@ bool UOffhandKukriComponent::BeginQuickCombat()
     QuickShot.ToughnessDamageMultiplier=QuickCast.ToughnessMultiplier;
     SwingSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(*Item,TEXT("swing_sound")));
     HitSound=LoadObject<USoundBase>(nullptr,*ColdSteelInventory::Text(*Item,TEXT("hit_sound")));
-    WhooshSound=LoadObject<USoundBase>(nullptr,KukriRhythm::StabWhoosh);
+    // A downward chop uses the equipped axe swing, without the thrust-only stab layer.
+    WhooshSound=Hatchet?nullptr:LoadObject<USoundBase>(nullptr,KukriRhythm::StabWhoosh);
     ThudSounds.Reset();
     for(const TCHAR* Path:KukriRhythm::StabThud)if(auto* Thud=LoadObject<USoundBase>(nullptr,Path))ThudSounds.Add(Thud);
     bQuickCombat=true;bImpactConfirmed=bWallHit=bQuickKillPending=false;
-    QuickElapsed=0.f;QuickHitStop=0.f;QuickImpactAge=-1.f;QuickStrikeAge=-1.f;QuickImpactKick=0.f;
+    bStaffQuickCombat=StaffPair!=nullptr;
+    bHatchetQuickCombat=Hatchet;
+    if(Hatchet){StopUpperRift();bUpperRiftStarted=false;PrepareQuickRift();}
+    QuickEndTime=Length+(SwitchStaffRig?StaffOffhandQuickMotion::Return:0.f);
+    QuickTotalDuration=Total;
+    if(auto* Pendant=P->FindComponentByClass<UKukriDecisiveComponent>())Pendant->BeginLocal(QuickShot,true);
+    // The accepted strike owns the hands immediately, including the first frame
+    // after reload, consumable stow or draw recovery. Discard the interrupted
+    // stance-entry and native reload-arm transitions before sampling either rig.
+    EntryAge=-1.f;bWasPresenting=true;NativeReloadEnteredAt=-1.;
+    if(Hatchet){DrawTime=-1.f;PendingDraw=EDrawEntry::None;}
+    RightWeight=1.f;AimWeight=0.f;bHold=false;
+    if(!StaffPair&&Arms)
+        QuickNativePistolHand=OffhandKukriPose::HipFraming.InverseTransformPosition(Arms->RightHandInCamera);
+    QuickElapsed=SwitchStaffRig?-StaffOffhandQuickMotion::Entry:0.f;
+    if(Hatchet&&!StaffPair)
+    {
+        AxeArms->CaptureLeftEntry(OffhandAxeQuickMotion::Entry,-OffhandAxeQuickMotion::EntryLead/OffhandAxeQuickMotion::Entry);
+        AxeArms->SetRelativeLocation(FVector::ZeroVector);
+        AxeIdleAge=0.f;
+    }
+    if(StaffPair)StaffPair->BeginActionPresentation(false,Hatchet);
+    QuickHitStop=0.f;QuickImpactAge=-1.f;QuickStrikeAge=-1.f;QuickImpactKick=0.f;
     QuickSwingsPlayed=QuickContactsDone=QuickMasteryHits=0;QuickHitActors.Reset();
+    P->ExitSprintForWeapon();
+    // The interrupt clears ADS/fire input and returns the gun state to Idle.
+    // Release the previous reload/fire/inspect clip for SingleNode rigs too.
+    P->ResumeWeaponPose();
     Profile->TrainQuickCombat(Profile->QuickCombatDefinition().UseExperience);
     BeginStrikeFocus();
     return true;
@@ -99,7 +163,15 @@ bool UOffhandKukriComponent::BeginQuickCombat()
 void UOffhandKukriComponent::AdvanceQuickCombat(float Delta)
 {
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());
-    const float Rate=FMath::Max(.05f,LightningHaste::ActionSpeed(P));
+    auto* StaffPair=bStaffQuickCombat&&P?P->FindComponentByClass<UStaffOffhandMeleeComponent>():nullptr;
+    if(bStaffQuickCombat&&(!StaffPair||!StaffPair->OwnsLeftHand()||
+        AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(P->GetController()))))
+    {CancelQuickCombat();return;}
+    // Keep the accepted action clock through haste expiry and recovery. The
+    // authority window and third-person timeline use this same committed rate.
+    const float Rate=QuickActionRate;
+    const float SwingAt=bHatchetQuickCombat?OffhandAxeQuickMotion::SwingAt:OffhandKukriStrike::Swings[0];
+    const float ContactAt=GetQuickCombatContact();
     // The impact rattle and the contact accent are real time; the hit-stop freezes the author clock.
     if(QuickImpactAge>=0.f)QuickImpactAge+=Delta;
     if(QuickStrikeAge>=0.f)QuickStrikeAge+=Delta;
@@ -115,33 +187,35 @@ void UOffhandKukriComponent::AdvanceQuickCombat(float Delta)
         }
         float Step=FMath::Min(Remaining*Rate,1.f/120.f);
         if(QuickSwingsPlayed<OffhandKukriStrike::SlashCount&&
-            QuickElapsed<OffhandKukriStrike::Swings[QuickSwingsPlayed]-UE_KINDA_SMALL_NUMBER)
-            Step=FMath::Min(Step,OffhandKukriStrike::Swings[QuickSwingsPlayed]-QuickElapsed);
+            QuickElapsed<SwingAt-UE_KINDA_SMALL_NUMBER)
+            Step=FMath::Min(Step,SwingAt-QuickElapsed);
         if(QuickContactsDone<OffhandKukriStrike::SlashCount&&
-            QuickElapsed<OffhandKukriStrike::Contacts[QuickContactsDone]-UE_KINDA_SMALL_NUMBER)
-            Step=FMath::Min(Step,OffhandKukriStrike::Contacts[QuickContactsDone]-QuickElapsed);
-        if(QuickElapsed<OffhandKukriStrike::Length-UE_KINDA_SMALL_NUMBER)
-            Step=FMath::Min(Step,OffhandKukriStrike::Length-QuickElapsed);
+            QuickElapsed<ContactAt-UE_KINDA_SMALL_NUMBER)
+            Step=FMath::Min(Step,ContactAt-QuickElapsed);
+        if(QuickElapsed<QuickEndTime-UE_KINDA_SMALL_NUMBER)
+            Step=FMath::Min(Step,QuickEndTime-QuickElapsed);
         Step=FMath::Max(Step,1e-4f);
         const float Before=QuickElapsed;
-        QuickElapsed=FMath::Min(OffhandKukriStrike::Length,QuickElapsed+Step);
+        QuickElapsed=FMath::Min(QuickEndTime,QuickElapsed+Step);
+        if(StaffPair)StaffPair->SetActionTime(QuickElapsed);
         Remaining=FMath::Max(0.f,Remaining-(QuickElapsed-Before)/Rate);
         while(QuickSwingsPlayed<OffhandKukriStrike::SlashCount&&
-            QuickElapsed>=OffhandKukriStrike::Swings[QuickSwingsPlayed]-UE_KINDA_SMALL_NUMBER)
+            QuickElapsed>=SwingAt-UE_KINDA_SMALL_NUMBER)
         {
             // The stab whoosh under the swing: the drive-in is the fastest move of the action.
             if(WhooshSound)UGameplayStatics::PlaySound2D(this,WhooshSound,KukriRhythm::StabWhooshVolume,1.05f);
             if(SwingSound)UGameplayStatics::PlaySound2D(this,SwingSound,
-                KukriQuickRhythm::SwingVolume,KukriQuickRhythm::SwingPitch*(1.f+.06f*QuickSwingsPlayed));
+                KukriQuickRhythm::SwingVolume,bHatchetQuickCombat?HatchetChopRhythm::Swing.SwingPitch:
+                    KukriQuickRhythm::SwingPitch*(1.f+.06f*QuickSwingsPlayed));
             ++QuickSwingsPlayed;
         }
         while(QuickContactsDone<OffhandKukriStrike::SlashCount&&
-            QuickElapsed>=OffhandKukriStrike::Contacts[QuickContactsDone]-UE_KINDA_SMALL_NUMBER)
+            QuickElapsed>=ContactAt-UE_KINDA_SMALL_NUMBER)
         {
             ++QuickContactsDone;bImpactConfirmed=false;bWallHit=false;
             QuickContact();
         }
-        if(QuickElapsed>=OffhandKukriStrike::Length-UE_KINDA_SMALL_NUMBER)
+        if(QuickElapsed>=QuickEndTime-UE_KINDA_SMALL_NUMBER)
         {
             bQuickCombat=false;QuickHitActors.Reset();
             FinishQuickCombat();
@@ -149,9 +223,9 @@ void UOffhandKukriComponent::AdvanceQuickCombat(float Delta)
     }
     if(!bQuickCombat)return;
     if(Model.IsValid())
-        Model->UpdateQuickCombatAction((OffhandKukriStrike::Length-QuickElapsed)/Rate+QuickHitStop,
-            OffhandKukriStrike::Length/Rate);
-    UpdateStrikeFocus(OffhandKukriStrike::SampleCurve(OffhandKukriStrike::CameraBlur,QuickElapsed));
+        Model->UpdateQuickCombatAction((QuickEndTime-QuickElapsed)/Rate+QuickHitStop,QuickTotalDuration/Rate);
+    UpdateStrikeFocus(bHatchetQuickCombat?.75f*FMath::SmoothStep(.30f,.35f,QuickElapsed)*(1.f-FMath::SmoothStep(.40f,.59f,QuickElapsed)):
+        OffhandKukriStrike::SampleCurve(OffhandKukriStrike::CameraBlur,QuickElapsed));
 }
 
 void UOffhandKukriComponent::QuickContact()
@@ -170,16 +244,23 @@ void UOffhandKukriComponent::QuickContact()
     const FTransform Aim=P->GetMeleeAimTransform();
     const FVector Direction=Aim.GetUnitAxis(EAxis::X);
     // The blade lane is read from this contact key frame directly (the visible mesh is a tick behind).
-    FVector Wrist,Shoulder,Pole;FQuat Hand;FTransform Framing;
-    OffhandKukriStrike::SamplePose(QuickElapsed,Wrist,Hand,Shoulder,Pole,Framing);
-    const FVector HandPos=Arms?Arms->RightHandInCamera:FVector::ZeroVector;
-    const FTransform HandFrame(Hand,HandPos+Wrist);
-    // FTransform composes left to right (A*B applies A first): blade -> hand (camera space) -> world.
-    const FTransform BladeFrame=OffhandKukriPose::KukriInHand*HandFrame*Camera->GetComponentTransform();
-    const FVector BladePoint=BladeFrame.TransformPosition(KukriRhythm::BladeMid);
+    auto* StaffPair=bStaffQuickCombat?P->FindComponentByClass<UStaffOffhandMeleeComponent>():nullptr;
+    FTransform BladeFrame;
+    if(bHatchetQuickCombat)
+        BladeFrame=StaffPair?StaffPair->SampleHatchetBlade(QuickElapsed):SampleAxeBlade(QuickElapsed,true);
+    else if(StaffPair)
+        BladeFrame=StaffPair->ActionBladeInCamera(QuickElapsed)*Camera->GetComponentTransform();
+    else
+    {
+        FVector Wrist,Shoulder,Pole;FQuat Hand;FTransform Framing;
+        OffhandKukriStrike::SamplePose(QuickElapsed,Wrist,Hand,Shoulder,Pole,Framing);
+        const FTransform HandFrame(Hand,Framing.TransformPosition(QuickNativePistolHand)+Wrist);
+        BladeFrame=OffhandKukriPose::KukriInHand*HandFrame*Camera->GetComponentTransform();
+    }
+    const FVector BladePoint=BladeFrame.TransformPosition(bHatchetQuickCombat?(ContactBase+ContactTip)*.5f:KukriRhythm::BladeMid);
     const FVector Origin=BladePoint-Direction*FMath::Max(0.f,FVector::DotProduct(BladePoint-Aim.GetLocation(),Direction));
     // Targets use the skill's rangeCM like every F; scenery only answers where the blade really reaches.
-    const float TipDepth=FVector::DotProduct(BladeFrame.TransformPosition(KukriRhythm::BladeTip)-Aim.GetLocation(),Direction);
+    const float TipDepth=FVector::DotProduct(BladeFrame.TransformPosition(ContactTip)-Aim.GetLocation(),Direction);
     const float Radius=QuickCombatPistolMotion::QueryRadiusCM*float(ColdSteelMelee::EquippedModifiers(Profile).MartialRange);
     TArray<FHitResult> Hits;
     if(QuickCast.bAreaHit)Hits=MeleeSmallTargets::QueryQuickAreaContacts(World,P,Aim,Origin,QuickCast.RangeCM,Radius);
@@ -192,8 +273,8 @@ void UOffhandKukriComponent::QuickContact()
     // hit-stop and the hit cue need a confirmed damage contact.
     QuickImpactAge=0.f;QuickStrikeAge=0.f;
     QuickImpactKick=KukriRhythm::ImpactKick*KukriQuickRhythm::ImpactScale*ThrustImpactScale*ThrustMissKick;
-    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 接触 武器=副手弯刀 第%d记 起点=%s 方向=%s 距离=%.0f AOE=%d 接触数=%d"),
-        QuickContactsDone,*Origin.ToCompactString(),*Direction.ToCompactString(),QuickCast.RangeCM,
+    UE_LOG(LogTemp,Log,TEXT("[QuickCombat] 接触 武器=%s 第%d记 起点=%s 方向=%s 距离=%.0f AOE=%d 接触数=%d"),
+        bHatchetQuickCombat?TEXT("副手斧头下劈"):TEXT("副手弯刀"),QuickContactsDone,*Origin.ToCompactString(),*Direction.ToCompactString(),QuickCast.RangeCM,
         QuickCast.bAreaHit?1:0,Hits.Num());
     for(const FHitResult& Hit:Hits)
     {
@@ -213,6 +294,7 @@ void UOffhandKukriComponent::QuickContact()
         if(Combat->IsDead())continue;
         const bool Eligible=ColdSteelSkills::IsMasteryTrainingTarget(P,Target);
         auto HitShot=QuickShot;
+        HitShot.MeleeDamagePhase=uint8(FMath::Max(0,QuickContactsDone-1));
         HitShot.ExtraMasteryExperience=Eligible&&QuickMasteryHits==1?Profile->MasteryDefinition(QuickShot.MasteryId).MultiHitExperience:0;
         FWeaponDamageResult Receipt;
         const float Applied=ColdSteelSkills::ApplyHit(P,Hit,StrikeDamage,Direction,HitShot,&Receipt);
@@ -220,12 +302,19 @@ void UOffhandKukriComponent::QuickContact()
         if(Applied<=0.f&&!bKilled)continue;
         if(Eligible)++QuickMasteryHits;
         ConfirmQuickImpact(Hit,false);
+        if(P->HasAuthority())SpawnContactFX(Hit,false);
         P->NotifyConfirmedWeaponHit(Target,Applied,&Receipt,false);
         // Pure push after the damage, no stun reaction (the skill's knockback).
         Combat->ReceiveMeleeKnockback(P,QuickCast.KnockbackCM);
         if(P->HasAuthority()&&!bKilled&&QuickCast.BleedChance>0.f&&FMath::FRand()<QuickCast.BleedChance)
             if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddBleeding(P,1);
         if(Eligible&&bKilled)bQuickKillPending=true;
+    }
+    if(QuickCast.bAreaHit&&!bWallHit)
+    {
+        FHitResult Surface;
+        if(MeleeSmallTargets::BladeScenery(World,P,Origin,BladeFrame.TransformPosition(ContactTip),Surface))
+            SpawnContactFX(Surface,true);
     }
     if(!bImpactConfirmed&&!bWallHit)QuickHitStop=FMath::Max(QuickHitStop,ThrustMissStop);
     // Resample the camera now so the impulse shows on this frame even after the character's update.
@@ -246,30 +335,44 @@ void UOffhandKukriComponent::ConfirmQuickImpact(const FHitResult& Hit,bool bWorl
         return;
     }
     bImpactConfirmed=true;QuickImpactAge=0.f;
-    QuickHitStop=KukriRhythm::FleshStopSeconds*ThrustHitStopScale;
+    QuickHitStop=KukriRhythm::FleshStopSeconds*(bHatchetQuickCombat?HatchetChopRhythm::Swing.HitStopScale:ThrustHitStopScale);
     QuickImpactKick=KukriRhythm::ImpactKick*KukriQuickRhythm::ImpactScale*ThrustImpactScale;
     if(HitSound)UGameplayStatics::PlaySoundAtLocation(this,HitSound,Hit.ImpactPoint,1.f,.9f);
     if(ThudSounds.Num())
         UGameplayStatics::PlaySoundAtLocation(this,ThudSounds[FMath::RandRange(0,ThudSounds.Num()-1)],Hit.ImpactPoint,
             KukriRhythm::StabThudVolume,KukriRhythm::StabThudPitch*KukriQuickRhythm::ThudPitchScale);
-    SpawnContactFX(Hit,false);
+}
+
+void UOffhandKukriComponent::CaptureContactEdge(const FColdSteelItem& Item)
+{
+    const bool Modular=ColdSteelModularSword::Supports(Item);
+    ContactBase=Modular?ColdSteelModularSword::BladePoint(Item,false):KukriRhythm::BladeRoot;
+    ContactTip=Modular?ColdSteelModularSword::BladePoint(Item,true):KukriRhythm::BladeTip;
 }
 
 void UOffhandKukriComponent::SpawnContactFX(const FHitResult& Hit,bool bWorld) const
 {
     auto* FX=GetWorld()?GetWorld()->GetSubsystem<UFPSImpactFXSubsystem>():nullptr;
-    if(!FX||!Camera.IsValid())return;
-    // Melee query hits are cosmetic input here: the subsystem only draws blocking hits, and the
-    // flourish plays its own hit / wall cue, so no bullet impact sound and no bullet-hole decal.
-    FHitResult Contact=Hit;Contact.bBlockingHit=true;
-    if(Contact.ImpactNormal.IsNearlyZero())
-        if(const auto* P=Cast<AFPSGAMECharacter>(GetOwner()))
-            Contact.ImpactNormal=-P->GetMeleeAimTransform().GetUnitAxis(EAxis::X);
-    FX->SpawnImpact(Contact,Camera.Get(),false,false);
+    if(FX)FX->SpawnBladeContact(Hit,Camera.Get(),bWorld);
+    if(bWorld)if(auto* BladeFX=GetOwner()->FindComponentByClass<UKukriWeaponComponent>())BladeFX->PresentBladeScenery(Hit);
 }
 
 void UOffhandKukriComponent::FinishQuickCombat()
 {
+    if(bStaffQuickCombat)
+        if(auto* Pair=GetOwner()->FindComponentByClass<UStaffOffhandMeleeComponent>())
+            Pair->EndActionPresentation(QuickElapsed<QuickEndTime-UE_KINDA_SMALL_NUMBER);
+    if(bHatchetQuickCombat)
+    {
+        const bool Interrupted=QuickElapsed<QuickEndTime-UE_KINDA_SMALL_NUMBER;
+        if(!bStaffQuickCombat&&AxeArms)
+        {
+            if(Interrupted)AxeArms->CaptureLeftEntry(.12f);
+            else AxeArms->ClearEntry();
+        }
+        if(Interrupted)StopUpperRift();
+    }
+    bStaffQuickCombat=false;bHatchetQuickCombat=false;
     auto* Profile=Model.Get();
     if(Profile)
     {
@@ -294,7 +397,8 @@ bool UOffhandKukriComponent::GetStrikeFraming(FTransform& Out) const
     FVector Wrist,Shoulder,Pole;FQuat Hand;
     if(bQuickCombat)
     {
-        OffhandKukriStrike::SamplePose(QuickElapsed,Wrist,Hand,Shoulder,Pole,Out);
+        Out=OffhandQuickClearance::PistolFrame(OffhandKukriPose::HipFraming,
+            QuickElapsed/GetQuickCombatLength(),bHatchetQuickCombat);
         return true;
     }
     if(bUppercut)
@@ -302,17 +406,23 @@ bool UOffhandKukriComponent::GetStrikeFraming(FTransform& Out) const
         OffhandKukriUpper::SamplePose(UppercutElapsed,Wrist,Hand,Shoulder,Pole,Out);
         return true;
     }
+    if(bShadowStep)
+    {
+        const float MaxT=bShadowStepStage2?OffhandShadowStepMotion::Stage2Length:OffhandShadowStepMotion::Stage1Length;
+        OffhandShadowStepMotion::SamplePose(bShadowStepStage2,FMath::Clamp(ShadowStepElapsed,0.f,MaxT),Wrist,Hand,Shoulder,Pole,Out);
+        return true;
+    }
     return false;
 }
 
 void UOffhandKukriComponent::GetCameraMotion(FVector& Location,FRotator& Rotation,float& FovDelta) const
 {
+    if(bShadowStep){GetShadowStepCameraMotion(Location,Rotation,FovDelta);return;}
     if(bUppercut)
     {
-        // The stage-3 reference curve mirrored: a left-hand cut carries the view the other way.
-        KukriRhythm::SwingCamera(KukriRhythm::UppercutStage,UppercutElapsed,Rotation,FovDelta);
-        Rotation.Yaw=-Rotation.Yaw;Rotation.Roll=-Rotation.Roll;
-        Location=FVector::ZeroVector;
+        // The stage-3 reference curve mirrored: a left-hand cut carries the view the other way (its wind-up gather too).
+        KukriRhythm::SwingCamera(KukriRhythm::UppercutStage,UppercutElapsed,Rotation,FovDelta,&Location);
+        Rotation.Yaw=-Rotation.Yaw;Rotation.Roll=-Rotation.Roll;Location.Y=-Location.Y;
         if(UppercutImpactAge>=0.f)
         {
             const float Shake=KukriRhythm::HitShake(UppercutImpactAge)*UppercutImpactKick;
@@ -333,9 +443,16 @@ void UOffhandKukriComponent::GetCameraMotion(FVector& Location,FRotator& Rotatio
     if(!bQuickCombat)return;
     // Same author clock as the arm keys: the hit-stop freezes the curve with the pose.
     float BlurStrength=0.f;
-    OffhandKukriStrike::Camera(QuickElapsed,Rotation,FovDelta,BlurStrength);
-    Rotation*=ThrustCameraScale;FovDelta*=ThrustCameraScale;
-    Location=FVector::ZeroVector;
+    if(bHatchetQuickCombat)
+    {
+        HatchetDualChopRhythm::Camera(QuickElapsed*OffhandAxeQuickMotion::ClipRate,Rotation,FovDelta,&Location);
+    }
+    else
+    {
+        OffhandKukriStrike::Camera(QuickElapsed,Rotation,FovDelta,BlurStrength);
+        Rotation*=ThrustCameraScale;FovDelta*=ThrustCameraScale;
+        Location=FVector::ZeroVector;
+    }
     if(QuickImpactAge>=0.f)
     {
         const float Shake=KukriRhythm::HitShake(QuickImpactAge)*QuickImpactKick;
@@ -345,6 +462,14 @@ void UOffhandKukriComponent::GetCameraMotion(FVector& Location,FRotator& Rotatio
     }
     if(QuickStrikeAge>=0.f)
     {
+        if(bHatchetQuickCombat)
+        {
+            const auto& K=HatchetChopRhythm::Strike;
+            const float E=KukriRhythm::StrikeEnvelope(QuickStrikeAge);
+            Rotation.Pitch+=K.AccentPitch*E;Rotation.Yaw-=K.AccentYaw*E;
+            Location.X+=K.AccentPushCM*E;FovDelta+=K.AccentFov*E;
+            return;
+        }
         // Real-time contact accent on the contact frame: the view nods into the thrust, pushes forward
         // and widens, plus a share of the shared quick-melee impulse.
         const float E=KukriRhythm::StrikeEnvelope(QuickStrikeAge)*ThrustAccentScale;
@@ -372,8 +497,15 @@ void UOffhandKukriComponent::BeginStrikeFocus()
             FocusMaterial=UMaterialInstanceDynamic::Create(Material,this);
     TArray<USceneComponent*> Parts;
     if(P&&P->AKMViewmodel){P->AKMViewmodel->GetChildrenComponents(true,Parts);Parts.Add(P->AKMViewmodel);}
-    if(Arms)Parts.Add(Arms);
-    if(Blade)Parts.Add(Blade);
+    if(bStaffQuickCombat)
+    {
+        // Both native arm sources, staff modules, blade and outfit followers stay sharp through the handoff.
+        TArray<USceneComponent*> StaffParts;Camera->GetChildrenComponents(true,StaffParts);
+        for(auto* Part:StaffParts)Parts.AddUnique(Part);
+    }
+    if(Arms)Parts.AddUnique(Arms);
+    if(bHatchetQuickCombat&&AxeArms)Parts.AddUnique(AxeArms);
+    if(Blade)Parts.AddUnique(Blade);
     for(auto* Part:Parts)
         if(auto* Primitive=Cast<UPrimitiveComponent>(Part))
         {

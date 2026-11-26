@@ -52,6 +52,8 @@ public:
     void PrepareBuildPreview() {AlignGeometry();}
     /** Reuse the production hinge/interaction with a separately owned shared frame. */
     void ConfigureStandaloneLeaf(UStaticMesh* Mesh,bool bPositiveHinge,float OpeningSeconds,float ClosingDelay);
+    /** A rebated chapel entrance swings into the nave (local +X) from either side. */
+    void SetInwardOnly() { bInwardOnly=true; }
     /** Opt in only for generated medical doors; player-built doors keep their existing policy. */
     void EnableMonsterAccess() { bMonsterAccess=true; }
 
@@ -128,6 +130,7 @@ protected:
     UPROPERTY(ReplicatedUsing=OnRep_Setup) FVector NetScale=FVector::OneVector;
     UPROPERTY(ReplicatedUsing=OnRep_Setup) FColdSteelDoorLeafConfig NetLeaf;
 private:
+    bool bInwardOnly=false;
     bool bMonsterAccess=false;
     UPROPERTY(Transient) TObjectPtr<UBoxComponent> MonsterAccessZone;
     bool HasLivingMonsterAtDoor() const;

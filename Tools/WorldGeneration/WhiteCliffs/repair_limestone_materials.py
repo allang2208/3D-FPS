@@ -77,10 +77,9 @@ for name in ('CliffA', 'CliffB', 'LimestoneSpoil'):
     elif not L.connect_material_property(clamp, '', u.MaterialProperty.MP_BASE_COLOR):
         raise RuntimeError('Cannot connect limestone base color')
     mat.set_editor_property('used_with_instanced_static_meshes', True)
-    # Original scans are open faces; the closed R8 replacements use proper
-    # outward-facing back geometry and no longer need two-sided rasterization.
-    two_sided = not E.does_asset_exist(
-        '/Game/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_White' + name + '_Solid')
+    # Both closed scan revisions have outward-facing backs. Open scans still need both sides.
+    mesh_prefix = '/Game/WorldGeneration/TemperateHills/WhiteCliffs/Meshes/SM_White' + name
+    two_sided = not any(E.does_asset_exist(mesh_prefix + suffix) for suffix in ('_SolidR9', '_Solid'))
     mat.set_editor_property('two_sided', two_sided)
     apply_weathered_finish(mat)
     errors = L.recompile_material(mat)

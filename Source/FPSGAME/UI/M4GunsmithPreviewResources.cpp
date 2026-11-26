@@ -10,6 +10,7 @@
 #include "Components/SkyLightComponent.h"
 #include "../Weapons/LMG201WeaponAssets.h"
 #include "../Weapons/PitViper2011WeaponAssets.h"
+#include "../Weapons/Saiga12KWeaponAssets.h"
 #include "Components/SceneCaptureComponent2D.h"
 #include "Engine/Texture2D.h"
 #include "Materials/MaterialInterface.h"
@@ -68,27 +69,28 @@ void UM4GunsmithWidget::CapturePreview()
                         bSharedSwordGrip|=Grip->GetMaterialIndex(TEXT("M_SharedGrip_Leather"))!=INDEX_NONE;
             }
     }
-    bool bGraphite201=false,bPitViper2011=false;
+    bool bGraphite201=false,bPitViper2011=false,bSaiga12K=false;
     for(const auto& Pair:StudioCopies)
         if(Pair.Key.IsValid()&&Pair.Value&&Pair.Value->IsVisible())
             if(auto* Skinned=Cast<USkeletalMeshComponent>(Pair.Value))
             {
                 bGraphite201|=LMG201WeaponAssets::Matches(Skinned);
                 bPitViper2011|=PitViper2011WeaponAssets::Matches(Skinned);
+                bSaiga12K|=Saiga12KWeaponAssets::Matches(Skinned);
             }
     // Recalculate family-specific levels when the same widget changes weapons.
     // A restrained Pit Viper fill preserves contrast between its WS black
     // coating, copper barrel and polymer grip in the compact studio framing.
-    const float KeyLevel=bPitViper2011?2.2f:bGraphite201?2.5f:6.f;
-    const float FillLevel=bPitViper2011?.5f:bGraphite201?.65f:3.f;
-    const float SkyLevel=bPitViper2011?.25f:bGraphite201?.28f:1.f;
+    const float KeyLevel=bPitViper2011?2.2f:(bGraphite201||bSaiga12K)?2.5f:6.f;
+    const float FillLevel=bPitViper2011?.5f:(bGraphite201||bSaiga12K)?.65f:3.f;
+    const float SkyLevel=bPitViper2011?.25f:(bGraphite201||bSaiga12K)?.28f:1.f;
     if(!FMath::IsNearlyEqual(Studio->DirectionalLight->Intensity,KeyLevel))Studio->SetLightBrightness(KeyLevel);
     if(StudioFill&&!FMath::IsNearlyEqual(StudioFill->Intensity,FillLevel))StudioFill->SetIntensity(FillLevel);
     if(!FMath::IsNearlyEqual(Studio->SkyLight->Intensity,SkyLevel))Studio->SetSkyBrightness(SkyLevel);
-    // The broad XuanChi blade and pale silk highlights clip under the default
-    // studio softboxes. Preserve the authored PBR colors with a lower light flux.
+    // The XuanChi blade also uses this softbox calibration with its stock grip.
     const bool bXuanChi=StandaloneMelee&&StandaloneKey.Contains(TEXT("|ue_xuanchi_zhenyue|"));
-    GunsmithPreviewLighting::Update(*Capture,LightBounds,bGraphite201||bPitViper2011,(bXuanChi||bSharedSwordGrip)?.025f:1.f);
+    const float SoftboxIntensityScale=(bXuanChi||bSharedSwordGrip)?.025f:bSaiga12K?.55f:1.f;
+    GunsmithPreviewLighting::Update(*Capture,LightBounds,bGraphite201||bPitViper2011||bSaiga12K,SoftboxIntensityScale);
     PreviewCoverageCapture->ShowOnlyComponents=Capture->ShowOnlyComponents;
     PreviewCoverageCapture->SetWorldTransform(Capture->GetComponentTransform());
     PreviewCoverageCapture->ProjectionType=Capture->ProjectionType;

@@ -1,4 +1,6 @@
 #include "VoxelBuildPrefabActor.h"
+#include "VoxelBuildWorld.h"
+#include "VillageBuildDefense.h"
 #include "Net/UnrealNetwork.h"
 #include "ColdSteelCampfire.h"
 #include "CastingToolRackComponent.h"
@@ -13,6 +15,9 @@
 AVoxelBuildPrefabActor::AVoxelBuildPrefabActor()
 {
     bReplicates=true;SetReplicateMovement(true);
+    // The wrapper carries its attached building. Byte precision merges neighbouring 1-degree turns.
+    GetReplicatedMovement_Mutable().RotationQuantizationLevel=ERotatorQuantization::ShortComponents;
+    GetReplicatedMovement_Mutable().LocationQuantizationLevel=EVectorQuantization::RoundTwoDecimals;
     PrimaryActorTick.bCanEverTick=false;
     // Actor movement replication follows the simulated root, including detached prefabs.
     MeshComponent=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PrefabMesh"));
@@ -45,7 +50,21 @@ double AVoxelBuildPrefabActor::IncinerationRemaining() const
     if(GetNetMode()==NM_Client&&!State)return 0.;
     return FMath::Clamp(IncinerationEndTime-(State?State->GetServerWorldTimeSeconds():GetWorld()->GetTimeSeconds()),0.,8.);
 }
-void AVoxelBuildPrefabActor::OnRep_Configuration(){if(!Id.IsNone())Configure(Id,Cell,QuarterTurns,NetMesh,NetSurface,nullptr);OnRep_Falling();}
+void AVoxelBuildPrefabActor::OnRep_Owner()
+{
+    Super::OnRep_Owner();
+    if(auto* Building=Cast<AVoxelBuildWorld>(GetOwner()))Building->RefreshReplicatedVillagePiece(*this);
+}
+
+void AVoxelBuildPrefabActor::OnRep_Configuration()
+{
+    // The attached masonry inherits its carrier's scale; spawn quantization rounds 1.25 to 1.3.
+    if(Id==VillageBuildDefense::StoneWall)SetActorScale3D(VillageBuildDefense::PlacementScale(Id));
+    // A reset scene station still has its authored body, but its tool rack or
+    // spinning saw must be detached on clients when the replicated id clears.
+    if(!Id.IsNone()||NetMesh)Configure(Id,Cell,QuarterTurns,NetMesh,NetSurface,nullptr);
+    OnRep_Falling();
+}
 FIntVector AVoxelBuildPrefabActor::RotatedFootprint(FIntVector Footprint,int32 QuarterTurns)
 {
     const int32 Turns=((QuarterTurns%4)+4)%4;
@@ -133,6 +152,7 @@ bool AVoxelBuildPrefabActor::BeginFall(UStaticMesh* FallbackMesh,float LifeSecon
 
 void AVoxelBuildPrefabActor::OnRep_Falling()
 {
+    if(auto* Building=Cast<AVoxelBuildWorld>(GetOwner()))Building->RefreshReplicatedVillagePiece(*this);
     if(!bFalling||!MeshComponent)return;
     Tags.AddUnique(TEXT("VoxelDetached"));
     if(NetMesh)MeshComponent->SetStaticMesh(NetMesh);

@@ -1,4 +1,5 @@
 #include "ColdSteelSceneContainer.h"
+#include "../Dungeons/DungeonRoomSubsystem.h"
 
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelWorldInteraction.h"
@@ -47,7 +48,7 @@ void AColdSteelSceneContainer::BeginPlay()
     ClosedDoorRotation=DoorHinge->GetRelativeRotation();
     ClosedMovingPartLocation=DoorHinge->GetRelativeLocation();
     // Preserve this legacy key for old private contents and authored door poses.
-    FString MapName=GetWorld()->GetMapName();
+    FString MapName=UDungeonRoomSubsystem::LogicalMap(this);
     MapName.RemoveFromStart(GetWorld()->StreamingLevelsPrefix);
     RuntimeStorageKey=TEXT("SceneSearch.")+MapName+TEXT(".")
         +(ContainerId.IsEmpty()?GetName():ContainerId);
@@ -91,7 +92,7 @@ void AColdSteelSceneContainer::BeginPlay()
 
 FString AColdSteelSceneContainer::StorageKey() const
 {
-    if(ColdSteelSceneLoot::IsBound(this))
+    if(ColdSteelSceneLoot::IsBound(this)||UDungeonRoomSubsystem::IsDungeonActor(this))
         if(const auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&Run->IsRunActive())
             return RuntimeStorageKey+TEXT(".Run.")+Run->RunId();
     return RuntimeStorageKey;
@@ -119,10 +120,15 @@ FString AColdSteelSceneContainer::GetPromptLabel() const
     return Caption+(bOpening?(bClosingReusableDoor?TEXT(" · 关闭中"):TEXT(" · 开启中")):bSearched?TEXT(" · 再次查看"):TEXT(" · 搜寻"));
 }
 
+bool AColdSteelSceneContainer::IsAvailableForSearch() const
+{
+    return GetActorEnableCollision() && (Body->IsQueryCollisionEnabled() || Door->IsQueryCollisionEnabled());
+}
+
 bool AColdSteelSceneContainer::IsWithinPanelReach(const APlayerController* Controller) const
 {
     const APawn* Pawn=Controller?Controller->GetPawn().Get():nullptr;
-    return Pawn&&Pawn->GetWorld()==GetWorld()
+    return IsAvailableForSearch()&&Pawn&&Pawn->GetWorld()==GetWorld()
         &&FVector::Dist(Pawn->GetActorLocation(),GetActorLocation()+FVector(0,0,70))<=240.f;
 }
 
@@ -243,7 +249,7 @@ void AColdSteelSceneContainer::OpenSharedVisual(bool bInstant)
     if(GetNetMode()!=NM_Client&&GetNetMode()!=NM_Standalone&&!GetIsReplicated())
         for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
             if(auto* PC=It->Get();PC&&!PC->IsLocalController())
-                if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGeneratedContainerOpened(GetName());
+                if(auto* PS=PC->GetPlayerState<AColdSteelPlayerState>())PS->ClientGeneratedContainerOpened(UDungeonRoomSubsystem::SceneActorKey(this));
 }
 void AColdSteelSceneContainer::OnRep_Searched()
 {

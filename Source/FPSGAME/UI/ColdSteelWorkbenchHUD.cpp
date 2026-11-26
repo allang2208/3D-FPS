@@ -1,6 +1,7 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelWorkbenchWidget.h"
 #include "ColdSteelIncineratorWidget.h"
+#include "ColdSteelIncineratorStorage.h"
 #include "ColdSteelGunAssemblyWidget.h"
 #include "../Building/GunAssemblySystem.h"
 #include "Engine/GameInstance.h"
@@ -42,8 +43,11 @@ void UColdSteelHUDWidget::OpenWorkbench(AActor* Workbench)
 {
     auto* Piece=Cast<AVoxelBuildPrefabActor>(Workbench);
     auto* World=Piece?Cast<AVoxelBuildWorld>(Piece->GetOwner()):nullptr;
-    if(!Piece||(Piece->PrefabId()!=VoxelWorkbenchId&&Piece->PrefabId()!=VoxelGunWorkbenchId&&Piece->PrefabId()!=VoxelIncineratorId)
+    if(!Piece||(Piece->PrefabId()!=VoxelWorkbenchId&&Piece->PrefabId()!=VoxelGunWorkbenchId&&Piece->PrefabId()!=VoxelIncineratorId&&Piece->PrefabId()!=FName(TEXT("planting_bed")))
         ||Piece->IsFalling()||!World||!World->HasPrefabAt(Piece->AnchorCell()))return;
+    if(Piece->PrefabId()==VoxelIncineratorId
+        &&(World->IncineratorContainerAt(Piece->AnchorCell()).IsEmpty()
+           ||!ColdSteelIncineratorStorage::CanReachStation(GetOwningPlayerPawn(),Piece,false)))return;
     CloseShop();
     if(GunAssemblyInteraction){auto* Previous=GunAssemblyInteraction.Get();GunAssemblyInteraction=nullptr;if(Previous->IsRunning())Previous->Stop(false);Previous->Destroy();}
     GunWorkbenchStation.Reset();
@@ -62,6 +66,7 @@ void UColdSteelHUDWidget::OpenWorkbench(AActor* Workbench)
     WorkbenchWidget->SetInputReady(false);
     if(Piece->PrefabId()==VoxelGunWorkbenchId)
     {
+        GetGameInstance()->GetSubsystem<UGunAssemblySystem>()->SetStation(Piece);
         GunWorkbenchStation=Piece;GunAssemblyInteraction=GetWorld()->SpawnActor<AGunAssemblyInteraction>();
         if(GunAssemblyInteraction)GunAssemblyInteraction->Prepare(GetOwningPlayer(),Piece,this);
     }
@@ -130,7 +135,18 @@ bool UColdSteelHUDWidget::CanStartGunAssembly(FString& Reason) const
 bool UColdSteelHUDWidget::StartGunAssembly(FString& Reason)
 {
     if(!bWorkbenchOpen||!GunAssemblyInteraction||!GunAssemblyInteraction->Start(Reason))return false;
+    if(GetWorld()->GetNetMode()==NM_Client)
+    {PendingGunAssemblyStart=GunAssemblyInteraction;return true;}
     bWorkbenchOpen=false;bWorkbenchRiding=true;SetInventoryOpen(false);GunAssemblyInteraction->Enter();return true;
+}
+AActor* UColdSteelHUDWidget::GunAssemblyStation() const{return GunWorkbenchStation.Get();}
+void UColdSteelHUDWidget::GunAssemblyStartFinished(bool bSuccess)
+{
+    auto* Pending=PendingGunAssemblyStart.Get();PendingGunAssemblyStart.Reset();
+    if(!bSuccess||!Pending||Pending!=GunAssemblyInteraction||!bWorkbenchOpen||!bGunWorkbenchPanel)return;
+    auto* System=GetGameInstance()->GetSubsystem<UGunAssemblySystem>();FString Reason;
+    if(!System->CanResume(Reason)||!Pending->Ready(Reason))return;
+    bWorkbenchOpen=false;bWorkbenchRiding=true;SetInventoryOpen(false);Pending->Enter();
 }
 bool UColdSteelHUDWidget::IsGunAssembly() const
 {return GunAssemblyInteraction&&GunAssemblyInteraction->IsRunning();}

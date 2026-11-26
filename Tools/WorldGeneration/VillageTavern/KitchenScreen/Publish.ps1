@@ -70,3 +70,4 @@ if loaded: raise RuntimeError('Active editor holds kitchen screen packages: '+st
     foreach($file in $files){[IO.File]::Copy($file.FullName,(Join-Path $target $file.Name),$true)}
     Write-Output ("Saved "+($names -join ', ')+" to "+$target)
 }finally{if($held){$gate.ReleaseMutex()};$gate.Dispose()}
+

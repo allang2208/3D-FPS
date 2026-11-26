@@ -18,9 +18,9 @@ public:
     {
         if(const auto* Found=Entries.Find(Key))return *Found;
         const auto Value=Parse();
-        constexpr int32 Capacity=128;
-        if(Order.Num()<Capacity)Order.Add(Key);
-        else {Entries.Remove(Order[Next]);Order[Next]=Key;Next=(Next+1)%Capacity;}
+        constexpr int32 CacheCapacity=128;
+        if(Order.Num()<CacheCapacity)Order.Add(Key);
+        else {Entries.Remove(Order[Next]);Order[Next]=Key;Next=(Next+1)%CacheCapacity;}
         Entries.Add(Key,Value);
         return Value;
     }

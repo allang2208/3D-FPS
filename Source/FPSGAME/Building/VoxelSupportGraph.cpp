@@ -20,7 +20,7 @@ void FVoxelSupportGraph::NearInto(const FVector& Min,TArray<FVoxelBuildKey>& Out
         if(const auto* List=Buckets.Find(C+FIntVector(X,Y,Z)))for(const auto& Key:*List)Out.Add(Key);
 }
 
-bool FVoxelSupportGraph::Contact(const FVector& A,const FVector& B,FVoxelContact& R)
+bool FVoxelSupportGraph::Contact(const FVector& A,const FVector& B,FVoxelContact& R,uint8 CutA,uint8 CutB)
 {
     for(int32 Axis=0;Axis<3;++Axis)
     {
@@ -34,7 +34,32 @@ bool FVoxelSupportGraph::Contact(const FVector& A,const FVector& B,FVoxelContact
         R.Center=(A+B)*.5+FVector(10);R.Center[U]=LoU+W*.5;R.Center[V]=LoV+H*.5;
         R.Width=W*.01;R.Height=H*.01;R.Area=R.Width*R.Height;return true;
     }
-    return false;
+    // 2026-10-22 屋面楔形接缝：同向 pattern0 楔形格沿坡向只共棱不共面（一层薄壳）。
+    // 这条共面坡棱是单层坡唯一的结构搭接，按 20×20 cm 的整条搭接带计入，不再用
+    // 20×5 的窄条（窄条悬挑时弯曲应力会大 16 倍，正是 45° 坡放置后直接垮塌的原因）。
+    // 续坡的宽度轴对齐与接缝位置由 VoxelBuildComponent::UpdateTarget 负责；这里只
+    // 保证同坡面、同坡向、相邻的顶格能建出这条边。重力方向仍由坡面法线的法向/切向
+    // 分解参与压缩/剪切校核。
+    if(!CutA||!CutB)return false;
+    if(VoxelCut::Pattern(CutA)!=0||VoxelCut::Pattern(CutB)!=0)return false;
+    const uint8 Dir=VoxelCut::Dir(CutA);
+    if(Dir!=VoxelCut::Dir(CutB))return false;
+    const int32 Axis=Dir<=2?0:1,Other=Axis==0?1:0;
+    const double Sign=(Dir==1||Dir==3)?1.:-1.;
+    const bool bALow=B[2]>A[2];
+    const FVector& Low=bALow?A:B;
+    const FVector& High=bALow?B:A;
+    const double Run=(High[Axis]-Low[Axis])*Sign;
+    if(FMath::Abs(Run-20.)>.2||FMath::Abs(High[2]-Low[2]-20.)>.2)return false;
+    if(FMath::Abs(High[Other]-Low[Other])>.2)return false;
+    // 共享棱在低格的高端；法线取坡面法线（只用于承力方向，不参与地面锚定）。
+    R.Normal=Axis==0?FVector(-Sign*.70710678,0.,.70710678):FVector(0.,-Sign*.70710678,.70710678);
+    R.Center=Low;
+    R.Center[Axis]+=Sign>0?20.:0.;
+    R.Center[Other]+=10.;
+    R.Center.Z+=20.;
+    R.Width=.2;R.Height=.2;R.Area=R.Width*R.Height;
+    return true;
 }
 
 TArray<FVoxelBuildKey> FVoxelSupportGraph::Within(FVector Point,float Radius) const
@@ -55,8 +80,8 @@ void FVoxelSupportGraph::Add(const FVoxelSupportNode& Node)
     if(Nodes.Contains(Node.Key))Remove(Node.Key);
     for(const auto& Other:Near(Node.Min))
     {
-        FVoxelContact C;
-        if(!Broken.Contains({Other,Node.Key})&&Contact(Nodes.FindChecked(Other).Min,Node.Min,C))
+        FVoxelContact C;const auto& OtherNode=Nodes.FindChecked(Other);
+        if(!Broken.Contains({Other,Node.Key})&&Contact(OtherNode.Min,Node.Min,C,OtherNode.Cut,Node.Cut))
         {Edges.FindOrAdd(Other).Add(Node.Key);Edges.FindOrAdd(Node.Key).Add(Other);}
     }
     Nodes.Add(Node.Key,Node);Buckets.FindOrAdd(Bucket(Node.Min)).Add(Node.Key);
@@ -158,7 +183,8 @@ FVoxelStressResult VoxelStress::Solve(FVoxelStressInput Input)
                 AddBond(Key,Key,{N.Min+FVector(10,10,0),FVector(0,0,-1),.04,.2,.2},true);
             if(const auto* Next=Graph.Edges.Find(Key))for(const auto& Other:*Next)
                 if(Indices.FindChecked(Key)<Indices.FindChecked(Other))
-                {FVoxelContact C;if(FVoxelSupportGraph::Contact(N.Min,Graph.Nodes.FindChecked(Other).Min,C))AddBond(Key,Other,C,false);}
+                {FVoxelContact C;const auto& OtherNode=Graph.Nodes.FindChecked(Other);
+                 if(FVoxelSupportGraph::Contact(N.Min,OtherNode.Min,C,N.Cut,OtherNode.Cut))AddBond(Key,Other,C,false);}
         }
         TArray<FPSBlastForce> Forces;Forces.SetNumZeroed(Bonds.Num());
         const bool Converged=FPSBlastSolve(Nodes.GetData(),Nodes.Num(),Bonds.GetData(),Bonds.Num(),Input.Iterations,Forces.GetData());

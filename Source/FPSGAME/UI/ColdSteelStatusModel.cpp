@@ -1,12 +1,14 @@
-#include "../Combat/ResourceCostFormula.h"
 #include "ColdSteelStatusModel.h"
+#include "../Skills/FPSIceArmorComponent.h"
 #include "../Weapons/JingangRuneComponent.h"
 #include "../Weapons/MeleeWeaponStats.h"
+#include "../Production/RuneboundHammerTuning.h"
 #include "ColdSteelEnhancementSystem.h"
 #include "Engine/GameInstance.h"
 #include "../Combat/CoreCombatFormula.h"
 #include "Dom/JsonObject.h"
 #include "../Combat/CombatItemFormula.h"
+#include "../Combat/ResourceCostFormula.h"
 #include "Serialization/JsonSerializer.h"
 #include "../FPSGAMECharacter.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
@@ -60,7 +62,7 @@ double UColdSteelStatusModel::Attribute(FName Key) const
         +(Key==TEXT("wis")?RifleEffect().Wisdom:0)
         +(Key==TEXT("dex")?DexterousHandsEffect().Dexterity+PistolEffect().Dexterity+MasteryEffect(TEXT("bowMastery")).Dexterity:0)
         +(Key==TEXT("luck")?CriticalStrikeEffect().Luck:0);
-    return Base*EffectiveAttributeMultiplier();
+    return Base*EffectiveAttributeMultiplier()*RuneboundHammer::AttributeMultiplier(Current,Key);
 }
 double UColdSteelStatusModel::EffectiveAttributeMultiplier() const
 {return InfectionAttributeMultiplier()*Current.Survival.AttributeMultiplier();}
@@ -120,19 +122,26 @@ float UColdSteelStatusModel::Derived(FName Key) const
         Total(TEXT("con")),Total(TEXT("wis")),Total(TEXT("luck"))};
     const auto S=CoreCombatFormula::Player(A,Level);
     const double AttributeScale=EffectiveAttributeMultiplier();
-    auto Raw=A;Raw.Str-=(MasteryEffect(TEXT("machineGunMastery")).Strength+MasteryEffect(TEXT("heavyStrike")).Strength+MasteryEffect(TEXT("swordUppercut")).Strength+MasteryEffect(TEXT("whirlwind")).Strength)*AttributeScale;Raw.Con-=MasteryEffect(TEXT("shotgunMastery")).Constitution*AttributeScale;Raw.Dex-=(DexterousHandsEffect().Dexterity+PistolEffect().Dexterity+MasteryEffect(TEXT("bowMastery")).Dexterity)*AttributeScale;Raw.Wis-=RifleEffect().Wisdom*AttributeScale;Raw.Luck-=CriticalStrikeEffect().Luck*AttributeScale;
+    auto Raw=A;Raw.Str-=(MasteryEffect(TEXT("machineGunMastery")).Strength+MasteryEffect(TEXT("heavyStrike")).Strength+MasteryEffect(TEXT("swordUppercut")).Strength+MasteryEffect(TEXT("whirlwind")).Strength)*AttributeScale;Raw.Con-=MasteryEffect(TEXT("shotgunMastery")).Constitution*AttributeScale;Raw.Dex-=(DexterousHandsEffect().Dexterity+PistolEffect().Dexterity+MasteryEffect(TEXT("bowMastery")).Dexterity)*AttributeScale;Raw.Wis-=RifleEffect().Wisdom*AttributeScale*RuneboundHammer::AttributeMultiplier(Current,TEXT("wis"));Raw.Luck-=CriticalStrikeEffect().Luck*AttributeScale;
     const auto Resources=CoreCombatFormula::Player(Raw,Level);
     const auto* Jingang=(Key==TEXT("def")||Key==TEXT("mdef")||Key==TEXT("aspd"))?UJingangRuneComponent::From(this):nullptr;
     const float JingangDefense=Jingang?Jingang->DefenseMultiplier():1.f;
-    if (Key == TEXT("atk")) return AdjustCombatStat(Key,S.Atk+CoreCombatFormula::Round(EquipmentBonus(Key)));
-    if (Key == TEXT("def")) {float Equipment=0;if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())for(const auto& Item:Current.Items)if(Item.Place==1&&(ColdSteelInventory::Text(Item,TEXT("weaponType"))!=TEXT("shield")||Item.Cell==(Current.ActiveWeaponSlot==6?8:11)))Equipment+=E->Defense(Item);double Value=S.Def+Equipment;if(const auto* I=Equipped())if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())Value=std::floor(Value*(1+E->CraftEffect(*I,TEXT("defensePercent"))));return AdjustCombatStat(Key,Value)*JingangDefense;}
-    if (Key == TEXT("matk")) return AdjustCombatStat(Key,S.Matk+CoreCombatFormula::Round(EquipmentBonus(Key))+EquipmentMagicAttack());
-    if (Key == TEXT("mdef")) return AdjustCombatStat(Key,S.Mdef)*JingangDefense;
+    const auto* IceArmor=(Key==TEXT("def")||Key==TEXT("mdef"))&&RuntimePawn()?RuntimePawn()->FindComponentByClass<UFPSIceArmorComponent>():nullptr;
+    const float IceDefense=IceArmor?IceArmor->DefenseBonus(Key==TEXT("mdef")):0.f;
+    if (Key == TEXT("atk"))
+    {
+        const auto Melee=ColdSteelMelee::EquippedModifiers(this);
+        const double Attack=AdjustCombatStat(Key,S.Atk+CoreCombatFormula::Round(EquipmentBonus(Key)))*RuneboundHammer::AttackMultiplier(Current);
+        return (Attack+Melee.PhysicalAttackAdd)*Melee.PhysicalAttackMultiplier;
+    }
+    if (Key == TEXT("def")) {float Equipment=0;if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())for(const auto& Item:Current.Items)if(Item.Place==1&&(ColdSteelInventory::Text(Item,TEXT("weaponType"))!=TEXT("shield")||Item.Cell==(Current.ActiveWeaponSlot==6?8:11)))Equipment+=E->Defense(Item);double Value=S.Def+Equipment;if(const auto* I=Equipped())if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())Value=std::floor(Value*(1+E->CraftEffect(*I,TEXT("defensePercent"))));return (AdjustCombatStat(Key,Value)*JingangDefense+IceDefense)*ColdSteelMelee::EquippedModifiers(this).PhysicalDefenseMultiplier;}
+    if (Key == TEXT("matk")) return AdjustCombatStat(Key,S.Matk+CoreCombatFormula::Round(EquipmentBonus(Key))+EquipmentMagicAttack())*RuneboundHammer::AttackMultiplier(Current);
+    if (Key == TEXT("mdef")) {float Equipment=0;if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())for(const auto& Item:Current.Items)if(Item.Place==1&&(ColdSteelInventory::Text(Item,TEXT("weaponType"))!=TEXT("shield")||Item.Cell==(Current.ActiveWeaponSlot==6?8:11)))Equipment+=E->MagicDefense(Item);return AdjustCombatStat(Key,S.Mdef+Equipment)*JingangDefense+IceDefense;}
     if (Key == TEXT("critRes")) return S.CritRes+CoreCombatFormula::Round(EquipmentBonus(Key));
     if (Key == TEXT("crit")) return AdjustCombatStat(Key,S.Crit+CoreCombatFormula::Round(EquipmentBonus(Key)))+ColdSteelMelee::EquippedModifiers(this).CriticalChanceAdd;
     if (Key == TEXT("speed")) return std::floor(S.Speed*CombatMoveMultiplier());
     if (Key == TEXT("mpRegen")) return Resources.MpRegen*TributeEffect(TEXT("mpRegenPercent"))*(1+DungeonEffect(TEXT("mpRegenPercent"))/100.);
-    if (Key == TEXT("aspd")) return S.AttackSpeed*(1.+EquipmentBonus(TEXT("meleeAttackSpeed")))*BerserkAttackSpeedMultiplier()*(Jingang?Jingang->AttackSpeedMultiplier():1.f);
+    if (Key == TEXT("aspd")) return S.AttackSpeed*(1.+EquipmentBonus(TEXT("meleeAttackSpeed")))*BerserkAttackSpeedMultiplier()*MagicInspirationAttackSpeedMultiplier()*(Jingang?Jingang->AttackSpeedMultiplier():1.f);
     if (Key == TEXT("staminaRegen")) return Resources.StaminaRegen*SetEffect(Key)*TributeEffect(TEXT("staminaRegenPercent"))*(1+DungeonEffect(TEXT("staminaRegenPercent"))/100.);
     return 0;
 }

@@ -29,13 +29,18 @@ void Initialize(USkeletalMeshComponent* Garment,USkeletalMeshComponent* PoseSour
 void Update(USkeletalMeshComponent* Garment,float DeltaSeconds)
 {
     if(!Garment||!Garment->ComponentHasTag(RobeTag))return;
-    const auto* Pawn=Cast<APawn>(Garment->GetOwner());
-    const bool Local=Pawn&&Pawn->IsLocallyControlled();
-    const bool Visible=Garment->IsVisible()&&!Garment->bHiddenInGame&&!(Local&&Garment->bOwnerNoSee);
     float DistanceSquared=MAX_flt;
     if(const auto* World=Garment->GetWorld())
         if(const auto* PC=World->GetFirstPlayerController();PC&&PC->PlayerCameraManager)
             DistanceSquared=FVector::DistSquared(PC->PlayerCameraManager->GetCameraLocation(),Garment->GetComponentLocation());
+    UpdateAtDistance(Garment,DeltaSeconds,DistanceSquared);
+}
+void UpdateAtDistance(USkeletalMeshComponent* Garment,float DeltaSeconds,float DistanceSquared)
+{
+    if(!Garment||!Garment->ComponentHasTag(RobeTag))return;
+    const auto* Pawn=Cast<APawn>(Garment->GetOwner());
+    const bool Local=Pawn&&Pawn->IsLocallyControlled();
+    const bool Visible=Garment->IsVisible()&&!Garment->bHiddenInGame&&!(Local&&Garment->bOwnerNoSee);
     const bool Suspended=Garment->IsClothingSimulationSuspended();
     const float Radius=Suspended?1800.f:2200.f;
     const bool Simulate=Visible&&DistanceSquared<Radius*Radius;

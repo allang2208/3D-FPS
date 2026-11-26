@@ -1,4 +1,10 @@
 #include "FPSFireballComponent.h"
+#include "../Combat/FPSAttackQuery.h"
+#include "NetCastUtils.h"
+#include "../Monsters/UnknownHumanoid.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
+#include "PlayerSkillPreparation.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
@@ -14,6 +20,8 @@
 #include "FPSLightningComponent.h"
 #include "FPSElectricMagicComponent.h"
 #include "FPSHolyLightComponent.h"
+#include "FPSIceArmorComponent.h"
+#include "FPSLightningHasteComponent.h"
 #include "FPSFireMagicComponent.h"
 #include "../Weapons/RuneOrbBladesComponent.h"
 #include "FPSCastingMeshComponent.h"
@@ -22,9 +30,7 @@
 #include "../Movement/FPSTraversalRules.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
-#include "../Monsters/FPSCombatHealthComponent.h"
 #include "Camera/CameraComponent.h"
-#include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "GameFramework/PlayerController.h"
 #include "NiagaraSystem.h"
@@ -45,10 +51,22 @@ void UFPSFireballComponent::BeginPlay()
 {
     Super::BeginPlay();
     AddTickPrerequisiteActor(GetOwner());
+    if(GetOwner()->IsA<AUnknownHumanoid>())
+    {
+        SetComponentTickEnabled(false);
+        TArray<FSoftObjectPath> Paths{CoreAsset.ToSoftObjectPath(),TrailAsset.ToSoftObjectPath(),ExplosionAsset.ToSoftObjectPath(),ShockwaveAsset.ToSoftObjectPath(),ImpactSoundAsset.ToSoftObjectPath()};
+        UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,FStreamableDelegate::CreateWeakLambda(this,[this]()
+        {
+            Core=CoreAsset.Get();Trail=TrailAsset.Get();Explosion=ExplosionAsset.Get();Shockwave=ShockwaveAsset.Get();ImpactSound=ImpactSoundAsset.Get();
+        }));
+        return;
+    }
     PoseSettings.Load();PowerFistSettings.Load();
-    // Load once with the player, before the first input.
-    Core=CoreAsset.LoadSynchronous();Trail=TrailAsset.LoadSynchronous();Explosion=ExplosionAsset.LoadSynchronous();
-    Shockwave=ShockwaveAsset.LoadSynchronous();ImpactSound=ImpactSoundAsset.LoadSynchronous();
+    PlayerSkillAssets::Defer(GetOwner(),TEXT("fireball"),FSimpleDelegate::CreateWeakLambda(this,[this]()
+    {
+        Core=CoreAsset.Get();Trail=TrailAsset.Get();Explosion=ExplosionAsset.Get();
+        Shockwave=ShockwaveAsset.Get();ImpactSound=ImpactSoundAsset.Get();
+    }),{CoreAsset.ToSoftObjectPath(),TrailAsset.ToSoftObjectPath(),ExplosionAsset.ToSoftObjectPath(),ShockwaveAsset.ToSoftObjectPath(),ImpactSoundAsset.ToSoftObjectPath()});
     if(auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>())
     {
         FallbackHands=NewObject<UFPSCastingMeshComponent>(GetOwner(),TEXT("CastingFallbackLeftArm"));
@@ -62,7 +80,7 @@ void UFPSFireballComponent::BeginPlay()
     }
 }
 UColdSteelStatusModel* UFPSFireballComponent::Model() const
-{ return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr; }
+{ return NetCast::LocalModel(*this); }
 bool UFPSFireballComponent::IsPrepared() const { return Active.IsValid()&&!Active->IsFlying(); }
 bool UFPSFireballComponent::IsFlying() const { return Active.IsValid()&&Active->IsFlying(); }
 bool UFPSFireballComponent::HasOtherPreparedSpell(const UActorComponent* Requester) const
@@ -156,7 +174,12 @@ FFireballArmMotion UFPSFireballComponent::SampleHandMotion(const FQuat& HandCorr
 }
 FVector UFPSFireballComponent::HeldOrbPosition() const
 {
-    const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();if(!Camera)return GetOwner()->GetActorLocation();
+    const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();
+    if(!Camera)
+    {
+        if(GetOwner()->IsA<AUnknownHumanoid>())return GetOwner()->GetActorLocation()+GetOwner()->GetActorForwardVector()*48.f+FVector(0,0,49);
+        return GetOwner()->GetActorLocation();
+    }
     if(bStaffOrb)
     {
         FVector Focus=StaffOrbHover;
@@ -270,7 +293,7 @@ void UFPSFireballComponent::Trigger()
     if(bQueuedCast)return;
     if(P->FireballCooldown()>0){Feedback(TEXT("冷却"));return;}
     if(!P->CanSpendMana(P->FireballStats().ManaCost)){Feedback(TEXT("缺蓝"));return;}
-    if(!Core||!Trail||!Explosion||!Shockwave){Feedback(TEXT("缺素材"));return;}
+    if(!Core||!Trail||!Explosion||!Shockwave){Feedback(TEXT("魔法素材准备中"));return;}
     // Do not charge MP or interrupt an existing left-hand action while waiting.
     bQueuedCast=true;TryBeginQueuedCast();
 }
@@ -302,11 +325,8 @@ void UFPSFireballComponent::TryBeginQueuedCast()
         LastMessage.Reset();MessageUntil=0;
         return;
     }
-    auto* Camera=Player->FindComponentByClass<UCameraComponent>();if(!Camera)return;
-    const FVector Eye=Camera->GetComponentLocation();FVector Position=AFPSFireballProjectile::HoverPosition(Player);
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(FireballPrepare),false,Player);FHitResult Wall;
-    if(RangedAttackQuery::SweepSingle(GetWorld(), GetOwner(), Wall,Eye,Position,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(14),Query))Position=Wall.Location;
-    if(FVector::Distance(Eye,Position)<35){Feedback(TEXT("受阻"));return;}
+    if(!Player->FindComponentByClass<UCameraComponent>())return;
+    const FVector Position=AFPSFireballProjectile::HoverPosition(Player);
     FActorSpawnParameters Spawn;Spawn.Owner=Player;Spawn.Instigator=Player;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     auto* Ball=GetWorld()->SpawnActor<AFPSFireballProjectile>(Position,FRotator::ZeroRotator,Spawn);
     if(!Ball)return;
@@ -359,6 +379,7 @@ void UFPSFireballComponent::LaunchAtContact()
     }
     if(!IsPrepared())return;
     Active->Launch();
+    if(auto* M=Model())M->NotifyMagicReleased();
     bLaunchCommitted=true;bQueuedLaunch=false;
 }
 void UFPSFireballComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Tick)
@@ -504,6 +525,8 @@ void UFPSFireballComponent::InterruptForPriority()
     FName Unreleased=NAME_None;
     if(auto* Electric=GetOwner()->FindComponentByClass<UFPSElectricMagicComponent>();Electric&&!Electric->UnreleasedSkill().IsNone())Unreleased=Electric->UnreleasedSkill();
     else if(auto* Holy=GetOwner()->FindComponentByClass<UFPSHolyLightComponent>();Holy&&Holy->HasUnreleasedCast())Unreleased=TEXT("holyLight");
+    else if(auto* IceArmor=GetOwner()->FindComponentByClass<UFPSIceArmorComponent>();IceArmor&&IceArmor->HasUnreleasedCast())Unreleased=TEXT("iceArmor");
+    else if(auto* LightningHaste=GetOwner()->FindComponentByClass<UFPSLightningHasteComponent>();LightningHaste&&LightningHaste->HasUnreleasedCast())Unreleased=TEXT("lightningHaste");
     else if(auto* Lightning=GetOwner()->FindComponentByClass<UFPSLightningComponent>();Lightning&&Lightning->HasUnreleasedCast())Unreleased=TEXT("lightning");
     else if(auto* FireMagic=GetOwner()->FindComponentByClass<UFPSFireMagicComponent>();FireMagic&&!FireMagic->UnreleasedSkill().IsNone())Unreleased=FireMagic->UnreleasedSkill();
     else if(Refund>0.f&&!Spell)Unreleased=TEXT("fireball");
@@ -517,6 +540,8 @@ void UFPSFireballComponent::InterruptForPriority()
     if(auto* Lightning=GetOwner()->FindComponentByClass<UFPSLightningComponent>())Lightning->InterruptPending();
     if(auto* Electric=GetOwner()->FindComponentByClass<UFPSElectricMagicComponent>())Electric->CancelPending(false);
     if(auto* HolyLight=GetOwner()->FindComponentByClass<UFPSHolyLightComponent>())HolyLight->InterruptPending();
+    if(auto* IceArmor=GetOwner()->FindComponentByClass<UFPSIceArmorComponent>())IceArmor->Cancel();
+    if(auto* LightningHaste=GetOwner()->FindComponentByClass<UFPSLightningHasteComponent>())LightningHaste->Cancel();
     if(auto* FireMagic=GetOwner()->FindComponentByClass<UFPSFireMagicComponent>())FireMagic->CancelPending();
     if(auto* Blizzard=GetOwner()->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->InterruptPending(Spell==Blizzard&&PendingContact);
     if(auto* Blades=GetOwner()->FindComponentByClass<URuneOrbBladesComponent>())Blades->InterruptPending(Spell==Blades&&Gathering);
@@ -554,7 +579,7 @@ AFPSFireballProjectile* UFPSFireballComponent::SpawnOrbForCast(APawn* Caster,con
 }
 void UFPSFireballComponent::AttachPresentationAssets(AFPSFireballProjectile* Ball) const
 {
-    if(Ball)Ball->SetPresentationAssets(Core,Trail,Explosion,Shockwave,ImpactSound);
+    if(Ball&&Core&&Trail&&Explosion&&Shockwave)Ball->SetPresentationAssets(Core,Trail,Explosion,Shockwave,ImpactSound);
 }
 void UFPSFireballComponent::AdoptNetOrb(AFPSFireballProjectile* Ball)
 {

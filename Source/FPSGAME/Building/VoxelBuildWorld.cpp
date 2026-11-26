@@ -1,13 +1,17 @@
 #include "VoxelBuildWorld.h"
+#include "VillageFurnaceKeys.h"
+#include "ColdSteelPlantingSystem.h"
 #include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
 #include "ColdSteelCampfire.h"
 #include "VoxelBuildDebug.h"
 #include "VoxelBuildPalette.h"
 #include "VoxelBuildRuntime.h"
+#include "Misc/FileHelper.h"
 #include "VoxelBuildPersistence.h"
 #include "VoxelCollapseFragment.h"
 #include "VoxelBuildPrefabActor.h"
 #include "VoxelBuildGrounding.h"
+#include "VillageBuildDefense.h"
 #include "SmeltingSystem.h"
 #include "Engine/GameInstance.h"
 
@@ -21,6 +25,12 @@
 
 // Keep construction cleanup of the runtime pointer where its type is complete.
 AVoxelBuildWorld::AVoxelBuildWorld(FVTableHelper& Helper) : Super(Helper) {}
+
+bool AVoxelBuildWorld::DebugFlushSave()
+{
+    TickPersistence(true);
+    return !Runtime->bSaveFailed;
+}
 
 // TEMPORARY placement diagnostics for the 2026-09-16 "cannot build above 2 m" report.
 // The on-screen message already says why; this records the same reason plus the cell so the
@@ -181,6 +191,7 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
             TSet<FName> MissingMaterials;
             int32 Total() const {return Cells+VolumeCells+Fragments;}
         };
+        bWorkshopTowerGranted=LoadedData->bWorkshopTowerGranted;
         FLoadSkips Skips;
         for(const auto& Cell:LoadedData->Cells)
         {
@@ -188,6 +199,9 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
             if(!MaterialSlots.Contains(Cell.Material)){++Skips.Cells;Skips.MissingMaterials.Add(Cell.Material);continue;}
             Cells.Add(Cell.Position,Cell.Material);
         }
+        // v12 楔形切割：只收落位成功的世界格条目（跳过的格不残留形状）。
+        for(const auto& Entry:LoadedData->CellShapes)
+            if(Cells.Contains(Entry.Key)&&Entry.Value)CellShapes.Add(Entry.Key,Entry.Value);
         for(const auto& Volume:LoadedData->FreeVolumes)
         {
             // 体积元数据本身无效（Id 重复/原点 NaN）仍按整份拒绝：那是结构性问题，
@@ -231,6 +245,7 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
         // 的审计 C8 口径一致；老档（v≤4）此段为空＝没有炉子在炼。
         auto IsFurnaceCell=[&](const FIntVector& Cell)
         {
+            if (VillageFurnaceKeys::Contains(Cell)) return true;
             const FVoxelBuildPrefabInstance* Piece=Prefabs.FindByPredicate(
                 [Cell](const FVoxelBuildPrefabInstance& E){return E.Cell==Cell;});
             return Piece&&(Piece->Id==VoxelSmeltingFurnaceId||Piece->Id==FName(TEXT("campfire")));
@@ -301,15 +316,17 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
     // 审计 P17 原意图（只解一次连通性）保留；断键改为随图重建继承（2026-10-13 联机审计 B1：
     // 原先在重建前对尚未创建的 SupportGraph 调 Break——首次加载即空指针解引用，且图重建
     // 不继承 Broken，两条路都让断键从未生效，已碎裂的接缝会被重新连通）。
+    // Recreate the masonry and its saved health before asking which voxels rest on it.
+    for(const FVoxelBuildPrefabInstance& Piece:Prefabs)
+        if(VillageBuildDefense::IsVillageRecipe(Piece.Id))SpawnPrefab(Piece);
     RefreshSupportGraph(LoadedData?&LoadedData->BrokenBonds:nullptr);
     if(LoadedData&&LoadedData->Version<3)for(const auto& E:SupportGraph->Nodes)LegacyProtected.Add(E.Key);
     TArray<FVoxelEditCell> Loaded;for(const auto& E:Cells)Loaded.Add({E.Key,NAME_None,E.Value,{}});
     for(const auto& V:FreeVolumes)for(const auto& E:V.Value.Cells)Loaded.Add({E.Key,NAME_None,E.Value,V.Key});
     RebuildAffected(Loaded);bReady=true;
     for(const auto& E:SupportGraph->Nodes)if(!LegacyProtected.Contains(E.Key))Runtime->DirtySupport.Add(E.Key);
-    for(const FVoxelBuildPrefabInstance& Piece:Prefabs)SpawnPrefab(Piece);
-    // 占格表必须在支持图之前刷新：构件如今为贴靠它的体素提供支撑锚（2026-09-19），
-    // RefreshSupportGraph 里的锚定判定要读 PrefabCells。
+    for(const FVoxelBuildPrefabInstance& Piece:Prefabs)
+        if(!VillageBuildDefense::IsVillageRecipe(Piece.Id))SpawnPrefab(Piece);
     if(LoadedData)
     {
         TSet<FGuid> SeenFragments;
@@ -332,6 +349,7 @@ bool AVoxelBuildWorld::Initialize(const FString& InWorldKey,UVoxelBuildPalette* 
         if(auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>())Shared->RestoreBuilding(this);
     for(const auto& Pair:PrefabActors)if(const auto* Piece=Cast<AVoxelBuildPrefabActor>(Pair.Value.Get()))
         if(auto* Fire=Cast<AColdSteelCampfire>(Piece->Logic()))Fire->PublishSharedState(true);
+    TryGrantWorkshopTower();
     return true;
 }
 
@@ -352,10 +370,15 @@ bool AVoxelBuildWorld::DebugInitialize(const FString& InWorldKey)
         UE_LOG(LogTemp,Warning,TEXT("VOXEL_AUDIT debug initialize key=%s ok=%d message=%s"),*InWorldKey,bOk?1:0,*Message);
     return bOk;
 }
+bool AVoxelBuildWorld::DebugApplySnapshotBytes(const TArray<uint8>& Bytes)
+{return ApplyNetworkSnapshot(Bytes);}
+
 bool AVoxelBuildWorld::EditCells(const TArray<FIntVector>& Positions,FName Material)
 {return EditVolumeCells({},Positions,Material);}
+bool AVoxelBuildWorld::EditCellsShaped(const TArray<FIntVector>& Positions,FName Material,const TArray<uint8>& Shapes)
+{return EditVolumeCells({},Positions,Material,Material.IsNone()?nullptr:&Shapes);}
 
-bool AVoxelBuildWorld::CanPlaceInVolume(FGuid Volume,const TArray<FIntVector>& Positions,FName Material,FString& Reason) const
+bool AVoxelBuildWorld::CanPlaceInVolume(FGuid Volume,const TArray<FIntVector>& Positions,FName Material,FString& Reason,const TArray<uint8>* Shapes) const
 {
     if(Volume.IsValid()&&!FreeVolumes.Contains(Volume)){Reason=TEXT("目标建筑已改变");return false;}
     for(const auto& Cell:Positions)
@@ -364,11 +387,11 @@ bool AVoxelBuildWorld::CanPlaceInVolume(FGuid Volume,const TArray<FIntVector>& P
         // 历史缺陷：自由体积的本地格直接查世界占格表（只有坐标巧合时才会拦住）。
         if(IsPrefabCell(Volume,Cell)){Reason=TEXT("该位置已有构件");return false;}
     }
-    return CanPlaceAt(VolumeOrigin(Volume),Positions,Material,Reason);
+    return CanPlaceAt(VolumeOrigin(Volume),Positions,Material,Reason,Shapes);
 }
-bool AVoxelBuildWorld::CanPlaceFree(FVector Origin,const TArray<FIntVector>& Positions,FName Material,FString& Reason) const
+bool AVoxelBuildWorld::CanPlaceFree(FVector Origin,const TArray<FIntVector>& Positions,FName Material,FString& Reason,const TArray<uint8>* Shapes) const
 {
-    return CanPlaceAt(Origin,Positions,Material,Reason);
+    return CanPlaceAt(Origin,Positions,Material,Reason,Shapes);
 }
 
 void AVoxelBuildWorld::RefreshSupportGraph(const TSet<FVoxelBrokenBond>* InheritBroken)
@@ -383,7 +406,12 @@ void AVoxelBuildWorld::RefreshSupportGraph(const TSet<FVoxelBrokenBond>* Inherit
     {
         const FVoxelBuildKey Key{Volume,Cell};const FVector Min=VolumeOrigin(Volume)+CellMin(Cell);
         const auto* Definition=Palette->Find(Material);
-        SupportGraph->Add({Key,Min,false,Definition&&Definition->bSupportsWeight,Material,Palette->Physical(Material),CellDamage.FindRef(Key)});
+        FVoxelSupportNode Node;
+        Node.Key=Key;Node.Min=Min;Node.bAnchor=false;Node.bBearing=Definition&&Definition->bSupportsWeight;
+        Node.Material=Material;Node.Physics=Palette->Physical(Material);Node.Damage=CellDamage.FindRef(Key);
+        // 楔形切割只在主世界格（自由体积目前不写 CellShapes）。
+        Node.Cut=Volume.IsValid()?0:CellShapes.FindRef(Cell);
+        SupportGraph->Add(Node);
     };
     for(const auto& E:Cells)Add({},E.Key,E.Value);
     for(const auto& V:FreeVolumes)for(const auto& E:V.Value.Cells)Add(V.Key,E.Key,E.Value);
@@ -398,21 +426,26 @@ void AVoxelBuildWorld::RefreshSupportGraph(const TSet<FVoxelBrokenBond>* Inherit
     // 本来一次射线都不省（非底格全 Covered），只在病态列上"省"且省出错——直接逐格判定。
     const FCollisionQueryParams GroundParams=VoxelGrounding::Query(GetWorld(),this);
     for(auto& E:SupportGraph->Nodes)
-    {
-        bool Covered=false;
-        if(const auto* Edges=SupportGraph->Edges.Find(E.Key))for(const auto& Other:*Edges)
-        {
-            FVoxelContact Contact;const auto& Below=SupportGraph->Nodes.FindChecked(Other);
-            if(FVoxelSupportGraph::Contact(E.Value.Min,Below.Min,Contact)&&Contact.Normal.Z<-.5&&Contact.Area>.0399){Covered=true;break;}
-        }
-        // 支撑锚（2026-09-19）：地面锚定之外，面对面贴着已放置构件（门／窗／柱）也算有着落——
-        // 以前贴窗框侧面砌的块没有地基路径，整条被"缺少与地基相连的接触面"拒绝。
-        E.Value.bAnchor=Covered?false:(PrefabSupportAt(E.Value.Min)||IsGroundAnchor(E.Value.Min,&GroundParams));
-    }
+        E.Value.bAnchor=HasVoxelFoundation(E.Key,GroundParams);
     SupportGraph->SolveConnectivity();
 }
 
-bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Positions,FName Material,FString& Reason) const
+bool AVoxelBuildWorld::HasVoxelFoundation(const FVoxelBuildKey& Key,const FCollisionQueryParams& GroundParams) const
+{
+    const FVector Min=SupportGraph->Nodes.FindChecked(Key).Min;
+    // A direct side contact on the masonry still holds a column with another voxel below it.
+    if(PrefabSupportAt(Min))return true;
+    if(const auto* Edges=SupportGraph->Edges.Find(Key))
+        for(const auto& Other:*Edges)
+        {
+            FVoxelContact Contact;
+            const FVector OtherMin=SupportGraph->Nodes.FindChecked(Other).Min;
+            if(FVoxelSupportGraph::Contact(Min,OtherMin,Contact)&&Contact.Normal.Z<-.5&&Contact.Area>.0399)return false;
+        }
+    return IsGroundAnchor(Min,&GroundParams);
+}
+
+bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Positions,FName Material,FString& Reason,const TArray<uint8>* Shapes) const
 {
     if(!bReady||!SupportGraph){Reason=Message;return false;}
     const auto* Definition=Palette->Find(Material);
@@ -424,9 +457,13 @@ bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Posit
     // 审计 W1（2026-09-23）：ScenePlacementAllowed 内部的 Sample 也改用这份共享 Params——
     // 原实现即使传了 CachedParams 也会在锚定采样处重新 Query 一遍，白付 N 次全 Actor 遍历。
     FVoxelSupportGraph Draft;const FGuid DraftId=FGuid::NewGuid();TSet<FIntVector> Seen;
-    for(const auto& Cell:Positions)
+    for(int32 Index=0;Index<Positions.Num();++Index)
     {
+        const FIntVector& Cell=Positions[Index];
         if(Seen.Contains(Cell))continue;Seen.Add(Cell);
+        // 形状按下标与 Positions 平行（FillBrush/ShapeCuts 的真源）；单层 45° 坡的楔形格
+        // 要进 Draft 才能和上一段坡格建出坡棱接缝，否则预览/提交仍报"缺少与地基相连的接触面"。
+        const uint8 Shape=Shapes&&Index<Shapes->Num()?(*Shapes)[Index]:0;
         const FVector Min=Origin+CellMin(Cell);
         if(SupportGraph->Overlaps(Min)){Reason=TEXT("位置与已有建筑重叠");LogPlacementReject(TEXT("overlap"),{FGuid(),Cell},Min,Reason);return false;}
         bool Anchored=false;
@@ -438,9 +475,12 @@ bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Posit
         {
             const auto& Existing=SupportGraph->Nodes.FindChecked(Key);FVoxelContact Contact;
             if(Existing.bBearing&&SupportGraph->Supported.Contains(Key)&&!Runtime->PendingCells.Contains(Key)
-                &&FVoxelSupportGraph::Contact(Existing.Min,Min,Contact))Anchored=true;
+                &&FVoxelSupportGraph::Contact(Existing.Min,Min,Contact,Existing.Cut,Shape))Anchored=true;
         }
-        Draft.Add({{DraftId,Cell},Min,Anchored,Definition->bSupportsWeight});
+        FVoxelSupportNode Node;
+        Node.Key.Volume=DraftId;Node.Key.Cell=Cell;Node.Min=Min;Node.bAnchor=Anchored;Node.bBearing=Definition->bSupportsWeight;
+        Node.Material=Material;Node.Physics=Palette->Physical(Material);Node.Cut=Shape;
+        Draft.Add(Node);
     }
     Draft.SolveConnectivity();
     if(Draft.Supported.Num()!=Draft.Nodes.Num())
@@ -449,11 +489,14 @@ bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Posit
         const TArray<FIntVector> ProbeList=Seen.Array();
         const FIntVector Probe=ProbeList.IsEmpty()?FIntVector::ZeroValue:ProbeList[0];
         const FVector Min=Origin+CellMin(Probe);
+        uint8 ProbeShape=0;
+        if(Shapes)for(int32 I=0;I<Positions.Num();++I)
+            if(Positions[I]==Probe&&I<Shapes->Num()){ProbeShape=(*Shapes)[I];break;}
         FString NeighbourState;
         for(const auto& Key:SupportGraph->Near(Min))
         {
             const auto& Existing=SupportGraph->Nodes.FindChecked(Key);FVoxelContact Contact;
-            const bool bContact=FVoxelSupportGraph::Contact(Existing.Min,Min,Contact);
+            const bool bContact=FVoxelSupportGraph::Contact(Existing.Min,Min,Contact,Existing.Cut,ProbeShape);
             NeighbourState+=FString::Printf(TEXT(" [%d,%d,%d anchor=%d bearing=%d supported=%d pending=%d contact=%d]"),
                 Key.Cell.X,Key.Cell.Y,Key.Cell.Z,Existing.bAnchor?1:0,Existing.bBearing?1:0,
                 SupportGraph->Supported.Contains(Key)?1:0,Runtime->PendingCells.Contains(Key)?1:0,bContact?1:0);
@@ -468,18 +511,31 @@ bool AVoxelBuildWorld::CanPlaceAt(FVector Origin,const TArray<FIntVector>& Posit
     return true;
 }
 
-bool AVoxelBuildWorld::EditVolumeCells(FGuid Volume,const TArray<FIntVector>& Positions,FName Material)
+bool AVoxelBuildWorld::EditVolumeCells(FGuid Volume,const TArray<FIntVector>& Positions,FName Material,const TArray<uint8>* Shapes)
 {
     if(!bReady||GetNetMode()==NM_Client)return false;
     if(Volume.IsValid()&&!FreeVolumes.Contains(Volume)){Message=TEXT("目标建筑已改变");return false;}
-    if(!Material.IsNone()&&!CanPlaceInVolume(Volume,Positions,Material,Message))return false;
+    if(!Material.IsNone()&&!CanPlaceInVolume(Volume,Positions,Material,Message,Shapes))return false;
     TArray<FVoxelEditCell> Edit;TSet<FIntVector> Seen;
-    for(const auto& P:Positions)
+    for(int32 Index=0;Index<Positions.Num();++Index)
     {
+        const FIntVector& P=Positions[Index];
         if(Seen.Contains(P))continue;Seen.Add(P);
-        const FName Before=VolumeMaterialAt(Volume,P);if(Before!=Material)Edit.Add({P,Before,Material,Volume});
+        const FName Before=VolumeMaterialAt(Volume,P);
+        if(Before==Material)continue;
+        FVoxelEditCell E{P,Before,Material,Volume};
+        // 楔形切割只对世界格子生效（自由体积仍整格）；拆除（After 空）形状自然清零。
+        if(Shapes&&!Volume.IsValid()&&Index<Shapes->Num())E.ShapeAfter=(*Shapes)[Index];
+        Edit.Add(E);
     }
     if(Edit.IsEmpty()){Message=TEXT("没有可拆除的体素方块");return false;}
+    if(Shapes)
+    {
+        int32 NZ=0;for(const auto& E:Edit)if(E.ShapeAfter)++NZ;
+        const FString Line=FString::Printf(TEXT("world editcells shapes_in=%d edit_nz=%d edit_n=%d build=%s %s\n"),
+            Shapes->Num(),NZ,Edit.Num(),TEXT(__DATE__),TEXT(__TIME__));
+        FFileHelper::SaveStringToFile(Line,*(FPaths::ProjectSavedDir()/TEXT("voxel_commit_trace.txt")),FFileHelper::EEncodingOptions::AutoDetect,&IFileManager::Get(),FILEWRITE_Append);
+    }
     return Commit(Edit,true);
 }
 
@@ -533,6 +589,12 @@ void AVoxelBuildWorld::SetCell(const FVoxelEditCell& E,bool bAfter)
     const FName Material=bAfter?E.After:E.Before;
     auto& Target=E.Volume.IsValid()?FreeVolumes.FindChecked(E.Volume).Cells:Cells;
     if(Material.IsNone())Target.Remove(E.Position);else Target.Add(E.Position,Material);
+    // 楔形切割随格同写（撤销/回滚用 bAfter=false 取 ShapeBefore；拆除路径两值皆 0）。
+    if(!E.Volume.IsValid())
+    {
+        const uint8 Shape=bAfter?E.ShapeAfter:E.ShapeBefore;
+        if(Shape)CellShapes.Add(E.Position,Shape);else CellShapes.Remove(E.Position);
+    }
     // 自由体积格的世界格反查表随格增删同步（2026-10-13 中危#3：构件放置校验查这张表）。
     if(E.Volume.IsValid())
     {
@@ -545,13 +607,7 @@ void AVoxelBuildWorld::ApplyChanges(const TArray<FVoxelEditCell>& Edit)
 {
     // A removed/replaced cell is no longer the instance recorded in any player's undo batch.
     // Compare edit keys, not only materials: another player may rebuild the same material here.
-    TSet<FVoxelBuildKey> Touched;for(const auto& E:Edit)Touched.Add({E.Volume,E.Position});
-    const auto Invalidate=[&](TArray<TArray<FVoxelEditCell>>& Batches)
-    {
-        for(auto& Batch:Batches)Batch.RemoveAll([&](const FVoxelEditCell& E){return Touched.Contains({E.Volume,E.Position});});
-        Batches.RemoveAll([](const auto& Batch){return Batch.IsEmpty();});
-    };
-    Invalidate(History);for(auto& Entry:PlayerHistory)Invalidate(Entry.Value);
+    UndoHistory.InvalidateCells(Edit);
     // 审计 W1（2026-09-23）：地面锚定的查询参数提到格循环外构造一次。IsGroundAnchor 每次内部
     // 都要做一次全 Pawn 遍历 + 5 条射线；拆一面 500 格的墙原来就是 500 次重复 Query。
     const FCollisionQueryParams GroundParams=VoxelGrounding::Query(GetWorld(),this);
@@ -572,7 +628,11 @@ void AVoxelBuildWorld::ApplyChanges(const TArray<FVoxelEditCell>& Edit)
             const FVector Min=VolumeOrigin(E.Volume)+CellMin(E.Position);
             const bool Anchor=IsGroundAnchor(Min,&GroundParams)||PrefabSupportAt(Min);   // 贴靠构件也算地基（2026-09-19）
             const auto* Definition=Palette->Find(E.After);
-            SupportGraph->Add({Key,Min,Anchor,Definition&&Definition->bSupportsWeight,E.After,Palette->Physical(E.After)});
+            FVoxelSupportNode Node;
+            Node.Key=Key;Node.Min=Min;Node.bAnchor=Anchor;Node.bBearing=Definition&&Definition->bSupportsWeight;
+            Node.Material=E.After;Node.Physics=Palette->Physical(E.After);
+            Node.Cut=E.Volume.IsValid()?0:CellShapes.FindRef(E.Position);
+            SupportGraph->Add(Node);
             // Connectivity remains provisional until the worker publishes stresses.
             bool Supported=Anchor;
             if(const auto* Edges=SupportGraph->Edges.Find(Key))for(const auto& Neighbor:*Edges)
@@ -603,67 +663,17 @@ bool AVoxelBuildWorld::Commit(const TArray<FVoxelEditCell>& Edit,bool bRemember)
         // 这一批里含拆除（After 为空），历史整段清空，避免"拆掉 → 撤销复原 → 方块白得"的刷取路径。
         bool bAnyRemoval=false;TArray<FVoxelEditCell> Added;
         for(const FVoxelEditCell& E:Edit){if(E.After.IsNone())bAnyRemoval=true;else Added.Add(E);}
-        if(bAnyRemoval)History.Reset();
-        else if(!Added.IsEmpty()){History.Add(MoveTemp(Added));if(History.Num()>32)History.RemoveAt(0);}
+        if(bAnyRemoval)UndoHistory.For(UndoPlayer).Reset();
+        else if(!Added.IsEmpty())UndoHistory.Remember(UndoPlayer,{MakeShared<TArray<FVoxelEditCell>>(MoveTemp(Added)),{},FIntVector::ZeroValue});
     }
     Message=FString::Printf(TEXT("已修改 %d 格 · 正在计算承重并保存"),Edit.Num());return true;
-}
-
-bool AVoxelBuildWorld::Undo()
-{
-    return Undo(nullptr);
-}
-
-bool AVoxelBuildWorld::Undo(TMap<FName,int32>* OutRemovedBlocks)
-{
-    if(!bReady||History.IsEmpty())
-    {
-        // 2026-10-13 审计修复（中危#5）：体素历史空时回落到构件撤销——拆除最近一次放置的构件。
-        // 校验"还是那一件"（同格、同 Id、同朝向、记录仍在、非落体）后才走 RemovePrefab：
-        // 它自带熔炉退料/焚化炉暂存拒拆等保护，撤销语义与手动右键完全一致。
-        if(bHasLastPlacedPrefab)
-        {
-            const FVoxelBuildPrefabInstance Recent=LastPlacedPrefab;
-            bHasLastPlacedPrefab=false;
-            AVoxelBuildPrefabActor* Piece=PrefabActorAt(Recent.Cell);
-            const bool bStillCurrent=Piece&&!Piece->IsFalling()&&Piece->PrefabId()==Recent.Id
-                &&Piece->Yaw()==Recent.Yaw&&HasPrefabAt(Recent.Cell);
-            if(bStillCurrent&&RemovePrefab(Piece))
-            {Message=TEXT("已撤销最近放置的构件");return true;}
-        }
-        Message=TEXT("没有可撤销的建造");return false;
-    }
-    // 撤销 = 拆除最后一批放置（方块交回调用方回收），而不是恢复之前拆掉的东西。
-    const TArray<FVoxelEditCell> Batch=History.Last();History.Pop();
-    TArray<FVoxelEditCell> Reverse;TMap<FName,int32> Removed;
-    // 审计 W5（2026-09-23）：批次里被破坏/塌掉的格原来静默跳过，提示语却仍写"已拆除最近一批"——
-    // 玩家以为全撤了。现在计数并写明差额。
-    int32 Missing=0;
-    for(const FVoxelEditCell& E:Batch)
-    {
-        if(E.After.IsNone())continue;
-        const FName Existing=VolumeMaterialAt(E.Volume,E.Position);
-        if(Existing.IsNone()){++Missing;continue;}
-        Removed.FindOrAdd(Existing)++;
-        Reverse.Add({E.Position,Existing,NAME_None,E.Volume});
-    }
-    if(Reverse.IsEmpty()){Message=TEXT("没有可撤销的建造");return false;}
-    // 审计 W6（2026-09-23）：Commit(bRemember=false) 会无条件清掉上一批的保护窗口、又不给
-    // 撤销批次设新窗口——前一批尚未结算完的新件会在无保护状态下被后续解算判负。这里把撤销
-    // 本身当作一次"新事件"：它只拆不建，FreshCells 留空即语义正确（没有新件需要保护），
-    // 但 FreshAt 必须刷新，让旧窗口的到期判定从此刻重新计时，而不是被这次提交提前掐断。
-    if(!Commit(Reverse,false)){Message=TEXT("撤销失败 · 结构未改变");return false;}
-    Runtime->FreshAt=GetWorld()->GetTimeSeconds();
-    if(OutRemovedBlocks)*OutRemovedBlocks=MoveTemp(Removed);
-    Message=Missing>0?FString::Printf(TEXT("已拆除最近一批建造 · %d 格"),Reverse.Num())
-        +FString::Printf(TEXT(" · 其中 %d 格已不存在"),Missing)
-        :FString(TEXT("已拆除最近一批建造"));
-    return true;
 }
 
 void AVoxelBuildWorld::Tick(float Delta)
 {
     Super::Tick(Delta);if(!bReady||bClosing)return;
+    if(auto* Game=GetGameInstance())
+        if(auto* Planting=Game->GetSubsystem<UColdSteelPlantingSystem>())Planting->UpdateWorld(this,Delta);
     if(!HasAuthority()){TickMeshes();TickFragments();return;}
     for(const auto& E:Fragments)if(IsValid(E.Value))E.Value->SampleVelocity();
     TickDamage();TickMeshes();TickFragments();TickStructure();TickPersistence();TickSmelting(Delta);
@@ -714,92 +724,3 @@ void AVoxelBuildWorld::EndPlay(const EEndPlayReason::Type Reason)
     Super::EndPlay(Reason);
 }
 
-namespace
-{
-    // One joint described for the player: which stress term governs it, how full it is and where it is.
-    FString JointSummary(const FVoxelBondStress& Bond,bool bWithStress)
-    {
-        if(!Bond.bValid||Bond.Ratio<=0)return FString();
-        const TCHAR* Kind=Bond.Kind==EVoxelBondStress::Compression?TEXT("抗压"):
-            Bond.Kind==EVoxelBondStress::Shear?TEXT("抗剪"):TEXT("抗拉·弯");
-        if(!bWithStress)return FString::Printf(TEXT("%s %.0f%% · 格(%d,%d,%d)"),
-            Kind,Bond.Ratio*100.,Bond.A.Cell.X,Bond.A.Cell.Y,Bond.A.Cell.Z);
-        return FString::Printf(TEXT("\n最弱接缝 %s %.0f/%.0f kPa · %.0f%% · 格(%d,%d,%d)"),
-            Kind,Bond.StressPa/1000.,Bond.LimitPa/1000.,Bond.Ratio*100.,
-            Bond.A.Cell.X,Bond.A.Cell.Y,Bond.A.Cell.Z);
-    }
-}
-
-const FString& AVoxelBuildWorld::SaveSlotName() const
-{
-    return SaveSlot;
-}
-
-void AVoxelBuildWorld::SolverStats(float& OutSeconds,int32& OutNodes,int32& OutBoundary) const
-{
-    OutSeconds=Runtime->LastSolveSeconds;OutNodes=Runtime->LastSolveNodes;OutBoundary=Runtime->LastSolveBoundary;
-}
-
-bool AVoxelBuildWorld::LastSolveWasFull() const
-{
-    return Runtime->bGatherFullSolve;
-}
-
-uint64 AVoxelBuildWorld::StatusFingerprint() const
-{
-    // 审计 U1（2026-09-23）：StructureStatus 的过渡态分支不随 Revision 变化，UI 生产端签名
-    // 需要这些内部标志才能避免"过渡期状态行冻结"。每个分支一个位；顺序与 StructureStatus
-    // 的判定顺序一致。纯位打包，零分配。
-    uint64 Bits=0;
-    if(Runtime->bSaveFailed)Bits|=1;
-    else if(Runtime->bFreshRolledBack)Bits|=2;
-    else if(!Runtime->PendingFragments.IsEmpty()||!Runtime->Activation.IsEmpty())Bits|=4;
-    else if(Runtime->Stress.IsValid()||!Runtime->DirtySupport.IsEmpty()||!Runtime->GatherQueue.IsEmpty())Bits|=8;
-    else if(Runtime->bStressApproximate)Bits|=16;
-    else if(!LegacyProtected.IsEmpty())Bits|=32;
-    else Bits|=(Runtime->bSaveDirty||Runtime->SaveJob.IsValid()?64:128);
-    return Bits;
-}
-
-float AVoxelBuildWorld::WeakestJointRatio() const
-{
-    return Runtime->WorstBond.bValid?Runtime->WorstBond.Ratio:0.f;
-}
-
-FString AVoxelBuildWorld::WeakestJointSummary() const
-{
-    return JointSummary(Runtime->WorstBond,false);
-}
-
-FString AVoxelBuildWorld::StructureStatus() const
-{
-    if(Runtime->bSaveFailed)return TEXT("保存失败 · 建筑仍在内存中，将重试");
-    if(Runtime->bFreshRolledBack)
-        return FString(TEXT("新建部分承重不足，已倒塌 · 原有结构未受影响"))+JointSummary(Runtime->FailureBond,true);
-    if(!Runtime->PendingFragments.IsEmpty()||!Runtime->Activation.IsEmpty())
-        return FString::Printf(TEXT("倒塌处理中 · 活动物理块 %d"),Runtime->AwakeBodies);
-    if(Runtime->Stress.IsValid()||!Runtime->DirtySupport.IsEmpty()||!Runtime->GatherQueue.IsEmpty())return TEXT("正在计算承重");
-    if(Runtime->bStressApproximate)return TEXT("结构求解未收敛 · 未应用估算破坏");
-    if(!LegacyProtected.IsEmpty())return TEXT("旧建筑保留 · 编辑或破坏后计算承重");
-    // 2026-10-13 联机审计 B6：客户端不解算不落盘，末分支原来恒显"承重已更新"误导玩家。
-    return (Runtime->bSaveDirty||Runtime->SaveJob.IsValid()?FString(TEXT("正在保存")):
-        HasAuthority()?FString(TEXT("承重已更新")):FString(TEXT("结构已与主机同步")))
-        +JointSummary(Runtime->WorstBond,true)
-        +SolverSummary();
-}
-
-FString AVoxelBuildWorld::SolverSummary() const
-{
-    if(Runtime->LastSolveNodes<=0)return FString();
-    // 求解规模/耗时直接写进状态行：既是给玩家的"这块多大、算得多快"的反馈，也是性能优化的基线读数。
-    // 审计 C10：bGatherFullSolve 只表示"这次没按 SolveRegionHops 裁剪"，**不等于收满了整块结构**。
-    // 结构超过 MaxSolveNodes 时收集会停在上限、其余邻居被记为边界，但状态行仍写"全量"——
-    // 2 万节点的建筑会在 4096 节点时声称全量。这里按"有没有边界节点"来区分是否真的收全。
-    if(!Runtime->bGatherFullSolve)
-        return FString::Printf(TEXT("\n求解 %.1f ms · %d 节点（局部 + %d 边界）"),Runtime->LastSolveSeconds*1000.f,
-            Runtime->LastSolveNodes,Runtime->LastSolveBoundary);
-    return Runtime->LastSolveBoundary>0
-        ?FString::Printf(TEXT("\n求解 %.1f ms · %d 节点（全量·已达上限，%d 格按边界处理）"),
-            Runtime->LastSolveSeconds*1000.f,Runtime->LastSolveNodes,Runtime->LastSolveBoundary)
-        :FString::Printf(TEXT("\n求解 %.1f ms · %d 节点（全量）"),Runtime->LastSolveSeconds*1000.f,Runtime->LastSolveNodes);
-}

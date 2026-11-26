@@ -3,6 +3,10 @@
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Combat/CombatStatusFormula.h"
+#include "../Monsters/MonsterCoreStats.h"
+#include "Components/CapsuleComponent.h"
+#include "Engine/OverlapResult.h"
+#include "Engine/World.h"
 #include "Engine/ScopedMovementUpdate.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/Controller.h"
@@ -101,6 +105,87 @@ FVector UFPSCharacterMovementComponent::ApplyMeleeLungeStep(const FVector& Direc
         Remaining-=StepDistance;
         const float Travel=FVector::DotProduct(UpdatedComponent->GetComponentLocation()-StepStart,Forward);
         if(Hit.bBlockingHit || Travel+.01f<StepDistance)break;
+    }
+    return UpdatedComponent->GetComponentLocation()-Start;
+}
+
+FVector UFPSCharacterMovementComponent::ApplyShadowStepDashStep(const FVector& Direction,float DistanceCM,bool bFinishDepenetrate)
+{
+    if(!CharacterOwner || !UpdatedComponent || (!CharacterOwner->HasAuthority()&&!CharacterOwner->IsLocallyControlled()) ||
+        !IsMovingOnGround() || IsDodging() || !CurrentFloor.IsWalkableFloor())
+        return FVector::ZeroVector;
+    const auto* Controller=CharacterOwner->GetController();
+    if(!Controller || AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Controller)))return FVector::ZeroVector;
+
+    auto* Capsule=CharacterOwner->GetCapsuleComponent();
+    const FVector Forward=Direction.GetSafeNormal2D();
+    const FVector Start=UpdatedComponent->GetComponentLocation();
+    TArray<AActor*,TInlineAllocator<16>> TempIgnored;
+    if(Capsule && DistanceCM>0.f && !Forward.IsNearlyZero() && GetWorld())
+    {
+        const float HalfH=Capsule->GetScaledCapsuleHalfHeight();
+        const float Rad=Capsule->GetScaledCapsuleRadius();
+        const FVector Mid=Start+Forward*(DistanceCM*.5f);
+        const FVector Extent(DistanceCM*.5f+Rad+80.f,DistanceCM*.5f+Rad+80.f,HalfH+80.f);
+        TArray<FOverlapResult> Overlaps;
+        FCollisionQueryParams Q(SCENE_QUERY_STAT(ShadowStepPassThrough),false,CharacterOwner);
+        if(GetWorld()->OverlapMultiByChannel(Overlaps,Mid,FQuat::Identity,ECC_Pawn,FCollisionShape::MakeBox(Extent),Q))
+        {
+            for(const auto& O:Overlaps)
+            {
+                AActor* Other=O.GetActor();
+                if(!IsValid(Other)||Other==CharacterOwner||!Cast<APawn>(Other))continue;
+                FMonsterCoreStats Stats;
+                // Stop cleanly before Lord/Boss capsules so the dash never clips into giant bosses.
+                if(MonsterCoreStats::Get(Other,Stats)&&(Stats.Rank==EMonsterRank::Lord||Stats.Rank==EMonsterRank::Boss))continue;
+                if(!Capsule->MoveIgnoreActors.Contains(Other))
+                {
+                    Capsule->IgnoreActorWhenMoving(Other,true);
+                    TempIgnored.Add(Other);
+                }
+            }
+        }
+    }
+
+    FVector Displaced=FVector::ZeroVector;
+    if(DistanceCM>0.f && !Forward.IsNearlyZero())
+    {
+        Displaced=ApplyMeleeLungeStep(Forward,DistanceCM);
+    }
+
+    if(Capsule)
+        for(AActor* Ignored:TempIgnored)
+            if(IsValid(Ignored))Capsule->IgnoreActorWhenMoving(Ignored,false);
+
+    // Safe post-dash depenetration: if the dash finishes overlapping any pawn capsule, nudge cleanly outside.
+    if(bFinishDepenetrate && Capsule && GetWorld())
+    {
+        const float HalfH=Capsule->GetScaledCapsuleHalfHeight();
+        const float Rad=Capsule->GetScaledCapsuleRadius();
+        TArray<FOverlapResult> Overlaps;
+        FCollisionQueryParams Q(SCENE_QUERY_STAT(ShadowStepDepenetrate),false,CharacterOwner);
+        if(GetWorld()->OverlapMultiByChannel(Overlaps,UpdatedComponent->GetComponentLocation(),FQuat::Identity,
+            ECC_Pawn,FCollisionShape::MakeCapsule(Rad+4.f,HalfH),Q))
+        {
+            for(const auto& O:Overlaps)
+            {
+                const auto* OtherPawn=Cast<APawn>(O.GetActor());
+                if(!IsValid(OtherPawn)||OtherPawn==CharacterOwner)continue;
+                const FVector MyLoc=UpdatedComponent->GetComponentLocation();
+                const FVector OtherLoc=OtherPawn->GetActorLocation();
+                FVector Push=(MyLoc-OtherLoc).GetSafeNormal2D();
+                if(Push.IsNearlyZero())Push=Forward.IsNearlyZero()?CharacterOwner->GetActorForwardVector().GetSafeNormal2D():Forward;
+                float OtherRad=42.f;
+                if(const auto* OtherCap=OtherPawn->FindComponentByClass<UCapsuleComponent>())OtherRad=OtherCap->GetScaledCapsuleRadius();
+                const float Dist2D=FVector::Dist2D(MyLoc,OtherLoc);
+                const float Need=FMath::Max(0.f,Rad+OtherRad+10.f-Dist2D);
+                if(Need>1.f)
+                {
+                    const FVector Moved=ApplyMeleeLungeStep(Push,Need);
+                    if(Moved.Size2D()<Need*.5f && !Forward.IsNearlyZero())ApplyMeleeLungeStep(-Forward,Need);
+                }
+            }
+        }
     }
     return UpdatedComponent->GetComponentLocation()-Start;
 }

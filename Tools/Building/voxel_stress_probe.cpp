@@ -18,8 +18,12 @@ const FMaterial Materials[] = {
     { 150.0,  700000.0, 260000.0, 120000.0 },  // wood  (keep in sync with UVoxelBuildPalette::Physical())
     { 650.0, 6000000.0, 900000.0, 300000.0 },  // stone
     { 650.0, 6000000.0, 900000.0, 300000.0 },  // marble
+    // 2026-10-14 roof trio (asset-override values, see add_voxel_roofs_20261014.py)
+    {  90.0,  500000.0, 110000.0,  90000.0 },  // thatch
+    { 500.0, 4800000.0, 420000.0, 240000.0 },  // roof_tile
+    { 500.0, 5200000.0, 420000.0, 240000.0 },  // roof_slate
 };
-const char* Names[] = { "wood", "stone", "marble" };
+const char* Names[] = { "wood", "stone", "marble", "thatch", "roof_tile", "roof_slate" };
 
 void ReportSpan(const FMaterial& Material, int SpanCells, double ExtraLoadKg)
 {
@@ -33,7 +37,7 @@ int main()
 {
     printf("Contract: every material holds a 2.0 m clear span with a 100 kg player mid-span,\n");
     printf("and fails before roughly 3-4 m. TensionPa is the knob; re-check after any change.\n");
-    for (int Index = 0; Index < 3; ++Index)
+    for (int Index = 0; Index < 6; ++Index)
     {
         const FMaterial& Material = Materials[Index];
         printf("\n=== %s  density=%.0f kg/m3  comp=%.0f tens=%.0f shear=%.0f (%.2f kg/cell)\n",

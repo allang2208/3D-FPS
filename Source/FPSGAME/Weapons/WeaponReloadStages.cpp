@@ -4,8 +4,10 @@
 #include "ASH12WeaponAssets.h"
 #include "SVDWeaponAssets.h"
 #include "SVCHWeaponAssets.h"
+#include "M24WeaponAssets.h"
 #include "M16WeaponAssets.h"
 #include "PKMLowpolyWeaponAssets.h"
+#include "M249WeaponAssets.h"
 #include "../UI/ColdSteelInventoryTypes.h"
 #include "Dom/JsonObject.h"
 #include "Serialization/JsonSerializer.h"
@@ -25,17 +27,22 @@ FWeaponReloadStages WeaponReloadStages::ForWeapon(const FString& Definition, boo
         const float Scale = Empty ? EmptyReload / NormalReload : 1.f;
         return {Seat * Scale, 2.68f * Scale, Close * Scale};
     }
+    if (Definition == M24WeaponAssets::Definition)
+        return {M24WeaponAssets::MagazineSeat,M24WeaponAssets::ChargeStart,Empty?M24WeaponAssets::ChargeRelease:M24WeaponAssets::MagazineSeat};
     if (Definition == SVDWeaponAssets::Definition)
         return {SVDWeaponAssets::MagazineInsert,SVDWeaponAssets::ChargeStart,Empty?SVDWeaponAssets::ChargeRelease:SVDWeaponAssets::MagazineInsert};
     if (Definition == SVCHWeaponAssets::Definition)
         return {SVCHWeaponAssets::MagazineInsert,SVCHWeaponAssets::ChargeStart,Empty?SVCHWeaponAssets::ChargeRelease:SVCHWeaponAssets::MagazineInsert};
     if (Definition == TEXT("ue_m1911") || Definition == TEXT("ue_g18") || Definition == TEXT("ue_pit_viper2011")) return {126.f/120.f, 164.f/120.f, Empty ? 192.f/120.f : 126.f/120.f};
-    if (Definition == TEXT("ue_akm") || Definition == TEXT("ue_a762") || Definition == TEXT("ue_lmg201"))
+    if (Definition == TEXT("ue_akm") || Definition == TEXT("ue_saiga12k") || Definition == TEXT("ue_a762") || Definition == TEXT("ue_lmg201"))
         return {220.f/120.f, 270.f/120.f, Empty ? 350.f/120.f : 220.f/120.f};
     if (Definition == TEXT("ue_qbz191"))
         return {76.f/60.f, 126.f/60.f, Empty ? 151.f/60.f : 76.f/60.f};
     if (Definition == TEXT("ue_ash12"))
         return {ASH12WeaponAssets::MagazineInsert, 1.91f, Empty ? ASH12WeaponAssets::ChargeRelease : ASH12WeaponAssets::MagazineInsert};
+    if (Definition==M249WeaponAssets::Definition)
+        return {PKMLowpolyWeaponAssets::ReloadEventTime(4.35f,Empty),
+            PKMLowpolyWeaponAssets::ReloadEventTime(5.1f,Empty), Empty?M249ReloadTiming::ChargeClosed:5.72f};
     if (Definition == TEXT("ue_pkm_lowpoly"))
         return {PKMLowpolyWeaponAssets::ReloadEventTime(4.35f,Empty),
             PKMLowpolyWeaponAssets::ReloadEventTime(5.1f,Empty),

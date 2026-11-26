@@ -1,4 +1,8 @@
 #include "AuthoredDungeonGenerator.h"
+#include "RandomShrine.h"
+#include "DungeonRoomSubsystem.h"
+#include "Net/UnrealNetwork.h"
+#include "../Diagnostics/FPSResourceLifecycle.h"
 #include "Templates/Atomic.h"
 #include "../WorldGeneration/RiverPilotFXSubsystem.h"
 #include "DungeonPusChannel.h"
@@ -39,6 +43,7 @@
 #include "Materials/MaterialInterface.h"
 #include "Materials/Material.h"
 #include "Materials/MaterialInstanceDynamic.h"
+#include "NiagaraSystem.h"
 #include "Components/DecalComponent.h"
 #include "Engine/DecalActor.h"
 #include "Misc/DateTime.h"
@@ -46,6 +51,11 @@
 #include "TimerManager.h"
 #include "DungeonBossEncounter.h"
 #include "FacilityHallEncounter.h"
+#include "DungeonMonsterRenderPreparation.h"
+#include "DungeonGlassRenderPreparation.h"
+#include "../Weapons/FPSImpactFXSubsystem.h"
+#include "../UI/ColdSteelPickupStudio.h"
+#include "../UI/FPSPerformanceMetrics.h"
 #include "DungeonRoomGate.h"
 #include "WardRoomAssembly.h"
 #include "StaffLivingRoomAssembly.h"
@@ -54,17 +64,16 @@
 #include "DungeonWallArt.h"
 #include "DungeonRunSubsystem.h"
 #include "AuthoredDungeonRoomScenes.h"
-#include "../Monsters/HandBrainMonster.h"
 #include "../SceneTestPortal.h"
 #include "NavigationSystem.h"
 #include "NavMesh/NavMeshBoundsVolume.h"
 #include "Components/BrushComponent.h"
 #include "EngineUtils.h"
+#include <queue>
 #include "AuthoredDungeonWallStains.inl"
 #include "AuthoredDungeonDressing.inl"
 #include "AuthoredDungeonDressingGeometry.inl"
 #include "AuthoredDungeonDressingTests.inl"
-#include <queue>
 
 namespace AuthoredDungeon
 {
@@ -242,6 +251,7 @@ struct FPlan
     #include "AuthoredDungeonSplitLevels.inl"
     #include "AuthoredDungeonJointRouting.inl"
     #include "AuthoredDungeonLayoutBank.inl"
+    #include "AuthoredDungeonNetworkPlan.inl"
     bool BuildOpen(int32 Seed,const FSocket& Start,double Deadline)
     {
         constexpr int32 OpenTries=48;
@@ -297,9 +307,10 @@ struct FPlan
         // One independent chance per ordinary room. The completed route graph reserves its space first.
         for(int32 Owner=0;Owner<MainPieces;++Owner)
         {
+            if(bPairedFacility&&TreasureCount>=2)break;
             const int32 ParentModule=Pieces[Owner].Module;
             if(!Combat.Contains(ParentModule)||Modules[ParentModule].SideSockets.IsEmpty())continue;
-            const bool bTryTreasure=SideRandom.FRand()<TreasureChance;
+            const bool bTryTreasure=SideRandom.FRand()<(bPairedFacility?FMath::Max(.5,TreasureChance):TreasureChance);
             if(Pieces[Owner].Side>=0||!bTryTreasure)continue;
             TArray<int32> Choices;for(int32 I=0;I<Modules[ParentModule].SideSockets.Num();++I)if(SideAvailable(Owner,I))Choices.Add(I);
             for(int32 I=Choices.Num()-1;I>0;--I)Choices.Swap(I,SideRandom.RandRange(0,I));
@@ -332,27 +343,50 @@ FTransform Local(const JObject& P)
 
 struct FAuthoredDungeonBuildState
 {
-    struct FJob { FName Stage; TFunction<void()> Run; };
+    struct FInstanceBatch
+    {
+        TWeakObjectPtr<UInstancedStaticMeshComponent> Component;
+        TArray<FTransform> Transforms;
+    };
+    struct FJob
+    {
+        FName Stage;
+        TFunction<void()> Run;
+        TArray<int32> Resources;
+        int32 ReadyCursor=0;
+    };
     struct FResourceBatch
     {
-        TArray<FString> Paths;
+        TArray<int32> Resources;
         TSharedPtr<FStreamableHandle> Handle;
         double StartedAt = 0;
+        int32 AdoptCursor=0;
     };
     AuthoredDungeon::FPlan Plan;
     AuthoredDungeon::JObject Catalog;
     TArray<FJob> Jobs;
     TMap<FString,UObject*> Assets; // Retained by generator's GenerationResources during assembly.
+    FDungeonMonsterRenderPreparation MonsterRendering;
+    FDungeonGlassRenderPreparation GlassRendering;
+    TSet<FString> SelectedMonsterClasses;
     TMap<FString,TWeakObjectPtr<UInstancedStaticMeshComponent>> InstanceGroups;
     TMap<FString,int32> InstanceCandidates;
+    TArray<FInstanceBatch> InstanceBatches;
+    TMap<UInstancedStaticMeshComponent*,int32> InstanceBatchIndices;
+    int32 FullInstanceBatch=INDEX_NONE,InstanceFlushCursor=0,PendingInstances=0,InstanceBatchSubmissions=0;
+    bool bFlushingInstances=false;
+    FName InstancePhase;
     TMap<int32,TWeakObjectPtr<AActor>> FinalRewardChests;
     TMap<FName,double> PhaseMs;
+    DungeonWallStains::FPreparation WallStains;
     DungeonDressing::FPlacementScene DressingScene;
     TMap<FString,int32> DressingRejections;
     int32 DressingCandidates=0,DressingSkipped=0;
     int32 Seed=0,Cursor=0,Parts=0,Instances=0,InstanceComponents=0,StaticFallbacks=0,Hazards=0,Props=0,DressingProps=0,Lights=0,AssetResolutions=0,Slices=0;
     int32 PhysicsActorCursor=0,PhysicsStatesCreated=0,RetireCursor=0,RevealCursor=0;
+    int32 WarmupActorCursor=0;
     TWeakObjectPtr<AActor> PhysicsRefreshActor;
+    double PhysicsWaitStartedAt=0;
     FText LoadingStatus;
     double StartedAt=FPlatformTime::Seconds(),FinishedAt=0,PlanMs=0,PeakSliceMs=0;
     FString Error;
@@ -360,12 +394,18 @@ struct FAuthoredDungeonBuildState
     TArray<TObjectPtr<AActor>> PreviousActors;
     TArray<FAuthoredDungeonLightModule> NextLights;
     TArray<FAuthoredDungeonRenderGroup> NextRenderGroups;
+    TArray<FFacilityAtmosphereSite> NextAtmosphereSites;
     TMap<UPrimitiveComponent*, int32> RenderGroupByComponent;
     TArray<FString> ResourcePaths;
+    TArray<int32> ResourceLoadOrder;
+    TArray<bool> ResourceReady;
     TArray<FResourceBatch> ResourceBatches;
     int32 ResourceCursor=0,ResourcesCompleted=0,PreviousResourceCount=0;
+    int32 JobsWhileLoading=0,ResourceWaitSlices=0;
+    double LastBudgetMs=0;
     bool bStaging=false,bCommitted=false,bNavigationRequested=false;
     double NavigationRequestedAt=0;
+    FString CatalogHash;
     bool bPlanning=true,bPlanSucceeded=false,bRuntime=false,bCompleted=false;
     TAtomic<int32> SearchAttempt{0};
     TAtomic<int32> SearchAttemptLimit{1};
@@ -375,7 +415,11 @@ struct FAuthoredDungeonBuildState
 namespace
 {
 TAutoConsoleVariable<float> DungeonBuildBudget(TEXT("fps.Dungeon.Generation.BudgetMs"),3.f,
-    TEXT("Game-thread assembly budget per frame, milliseconds. One indivisible mesh/physics registration may exceed it."));
+    TEXT("Shared resource/assembly budget without a standalone loading overlay, milliseconds. One indivisible mesh/physics registration may exceed it."));
+TAutoConsoleVariable<float> DungeonLoadingBuildBudget(TEXT("fps.Dungeon.Generation.LoadingBudgetMs"),8.f,
+    TEXT("Shared resource/assembly budget while a standalone loading overlay holds input, milliseconds. Clamped to 0.25-16 ms."));
+TAutoConsoleVariable<int32> DungeonLoadingResourceBatches(TEXT("fps.Dungeon.Generation.LoadingResourceBatches"),4,
+    TEXT("Maximum in-flight resource batches behind the standalone loading overlay (1-8). Other contexts retain two batches."));
 TAutoConsoleVariable<int32> DungeonInstancing(TEXT("fps.Dungeon.Instancing"),1,
     TEXT("Instance repeated rigid Nanite meshes in spatial groups on next generation. Non-Nanite meshes retain individual components for Lumen."));
 TAutoConsoleVariable<int32> DungeonDressingEnabled(TEXT("fps.Dungeon.Dressing"),1,
@@ -389,6 +433,13 @@ FSoftObjectPath GenerationAssetPath(const FString& Path)
     return FSoftObjectPath(ObjectPath);
 }
 
+bool PartIsFluid(const AuthoredDungeon::JObject& Part)
+{
+    bool Fluid=false;
+    Part->TryGetBoolField(TEXT("fluid"),Fluid);
+    return Fluid;
+}
+
 bool PartAffectsNavigation(const AuthoredDungeon::JObject& Part)
 {
     const FString Path=Part->GetStringField(TEXT("mesh"));
@@ -396,7 +447,7 @@ bool PartAffectsNavigation(const AuthoredDungeon::JObject& Part)
     // repeats the same wall at enormous cost; keep their physical/ballistic collision untouched.
     bool Affects=!Path.EndsWith(TEXT("_Tiles"))&&!Path.EndsWith(TEXT("_Fixtures"));
     Part->TryGetBoolField(TEXT("affects_navigation"),Affects);
-    return Affects&&!Part->GetBoolField(TEXT("fluid"))&&Part->GetBoolField(TEXT("collision"));
+    return Affects&&!PartIsFluid(Part)&&Part->GetBoolField(TEXT("collision"));
 }
 
 FString InstanceKey(const AuthoredDungeon::JObject& Part,const AuthoredDungeon::FPlaced& Piece,bool bOptimizeLights)
@@ -417,7 +468,20 @@ FString InstanceKey(const AuthoredDungeon::JObject& Part,const AuthoredDungeon::
 UTransitLoadingSubsystem* DungeonLoading(const AActor* Actor)
 {
     const UWorld* World=Actor->GetWorld();
+    if(UDungeonRoomSubsystem::Supports(World))return nullptr;
     return World&&World->IsGameWorld()&&World->GetGameInstance()?World->GetGameInstance()->GetSubsystem<UTransitLoadingSubsystem>():nullptr;
+}
+
+bool UseDungeonLoadingBudget(const AActor* Actor)
+{
+    const auto* Loading=DungeonLoading(Actor);
+    return Actor->GetWorld()->GetNetMode()==NM_Standalone&&Loading&&Loading->IsHoldingGameplayInput();
+}
+
+double DungeonGenerationBudgetSeconds(bool bLoading)
+{
+    return FMath::Clamp(double(bLoading?DungeonLoadingBuildBudget.GetValueOnGameThread():
+        DungeonBuildBudget.GetValueOnGameThread()),.25,16.)/1000.;
 }
 
 FText AssemblyStatus(FName Stage)
@@ -433,6 +497,7 @@ FText AssemblyStatus(FName Stage)
 
 AAuthoredDungeonGenerator::AAuthoredDungeonGenerator()
 {
+    bReplicates=true;bAlwaysRelevant=true;
     PrimaryActorTick.bCanEverTick=true;PrimaryActorTick.bStartWithTickEnabled=false;
     PrimaryActorTick.TickGroup=TG_PrePhysics;
     SetRootComponent(CreateDefaultSubobject<USceneComponent>(TEXT("DungeonRoot")));
@@ -450,13 +515,14 @@ void AAuthoredDungeonGenerator::PreSave(FObjectPreSaveContext SaveContext)
 #endif
 void AAuthoredDungeonGenerator::ClearGenerated()
 {
+    Atmosphere.Reset();
     ResetRoomLighting();LightModules.Reset();RenderGroups.Reset();
     for(AActor* A:GeneratedActors)if(IsValid(A))A->Destroy();GeneratedActors.Reset();
 }
 void AAuthoredDungeonGenerator::GeneratePreview(){Generate(PreviewSeed);}
 void AAuthoredDungeonGenerator::BeginPlay()
 {
-    Super::BeginPlay();if(GetNetMode()==NM_Client)return;
+    Super::BeginPlay();if(GetNetMode()==NM_Client){OnRep_NetworkRun();return;}
     // The background map installer authors the entrance floor before a run
     // exists. Retire that floor with the previous assembly once the new one is ready.
     for(TActorIterator<AActor> It(GetWorld());It;++It)
@@ -466,16 +532,65 @@ void AAuthoredDungeonGenerator::BeginPlay()
     const int32 Seed=Option?FCString::Atoi(Option):bRandomizeOnEntry?int32(FDateTime::UtcNow().GetTicks()&0x7fffffff):PreviewSeed;
     Generate(Seed);
 }
+void AAuthoredDungeonGenerator::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+    Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+    DOREPLIFETIME(AAuthoredDungeonGenerator,NetworkRunId);
+    DOREPLIFETIME(AAuthoredDungeonGenerator,NetworkSeed);
+    DOREPLIFETIME(AAuthoredDungeonGenerator,NetworkFailure);
+    DOREPLIFETIME(AAuthoredDungeonGenerator,SharedProgress);
+}
+void AAuthoredDungeonGenerator::OnRep_NetworkRun()
+{
+    if(!HasActorBegunPlay()||GetNetMode()!=NM_Client||NetworkRunId.IsEmpty())return;
+    if(!NetworkFailure.IsEmpty())
+    {
+        CancelAssembly();Tags.AddUnique(TEXT("DungeonAssembly.Failed"));HoldPlayers();
+        if(auto* Loading=DungeonLoading(this))Loading->FailPreparation(FText::FromString(NetworkFailure));
+        return;
+    }
+    if(RequestedNetworkRunId==NetworkRunId)return;
+    CancelAssembly();RequestedNetworkRunId=NetworkRunId;bWaitingNetworkLayout=true;
+    Tags.Remove(TEXT("DungeonAssembly.Ready"));Tags.Remove(TEXT("DungeonAssembly.Failed"));
+    if(auto* Loading=DungeonLoading(this))Loading->BeginDungeonPreparation();
+    HoldPlayers();SetActorTickEnabled(true);
+}
+bool AAuthoredDungeonGenerator::AcceptNetworkLayout(const FString& RunId,int32 Seed,const TArray<FString>& Parts)
+{
+    if(!HasActorBegunPlay()||GetNetMode()!=NM_Client||RunId!=NetworkRunId||Seed!=NetworkSeed||!NetworkFailure.IsEmpty())return false;
+    if(AcceptedNetworkRunId==RunId)return true;
+    if(Parts.IsEmpty()||Parts.Num()>128)return false;
+    int32 Length=0;for(const auto& Part:Parts){if(Part.Len()>32768)return false;Length+=Part.Len();}
+    if(Length<=0||Length>2*1024*1024)return false;
+    OnRep_NetworkRun();PendingNetworkLayout.Reserve(Length);
+    for(const auto& Part:Parts)PendingNetworkLayout+=Part;
+    AcceptedNetworkRunId=RunId;bWaitingNetworkLayout=false;
+    Generate(Seed);return true;
+}
+
+void AAuthoredDungeonGenerator::OnRep_SharedProgress()
+{
+    if(auto* Run=UDungeonRunSubsystem::Get(GetWorld()))Run->ApplySharedProgress(SharedProgress);
+}
 void AAuthoredDungeonGenerator::Generate(int32 Seed)
 {
     using namespace AuthoredDungeon;
-    CancelAssembly();
+    if(GetWorld()->IsGameWorld()&&HasAuthority())
+    {
+        NetworkSeed=Seed;NetworkRunId=FGuid::NewGuid().ToString(EGuidFormats::Digits);
+        NetworkFailure.Reset();SharedProgress={};ForceNetUpdate();
+    }
+    CancelAssembly();NetworkActorCounts.Reset();
     Tags.Remove(TEXT("DungeonAssembly.Ready"));Tags.Remove(TEXT("DungeonAssembly.Failed"));
     BuildState=MakeShared<FAuthoredDungeonBuildState,ESPMode::ThreadSafe>();
     auto State=BuildState;State->Seed=Seed;State->bRuntime=GetWorld()->IsGameWorld();
     State->PreviousResourceCount=GenerationResources.Num();
     if(State->bRuntime)
     {
+        UFPSPerformanceMetricsSubsystem::RecordMarker(this,TEXT("Dungeon.ResourcePreparationBegin"),FString::FromInt(Seed),true);
+        UFPSPerformanceMetricsSubsystem::RequestGpuResourceInventory(this,TEXT("Dungeon resource preparation begin"));
+        if(auto* Instance=GetGameInstance())
+            Instance->GetSubsystem<UColdSteelPickupStudio>()->ReleaseIdleRigs(true);
         if(auto* Loading=DungeonLoading(this))Loading->BeginDungeonPreparation();
         HoldPlayers();SetActorTickEnabled(true);
     }
@@ -484,8 +599,11 @@ void AAuthoredDungeonGenerator::Generate(int32 Seed)
     if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(ModuleCatalogJson),Catalog)||!Catalog)
     {State->Error=TEXT("地牢目录无法读取");State->bPlanning=false;PumpAssembly(true);return;}
     State->Catalog=Catalog;
+    const FTCHARToUTF8 CatalogBytes(*ModuleCatalogJson);uint8 CatalogDigest[20];
+    FSHA1::HashBuffer(CatalogBytes.Get(),CatalogBytes.Length(),CatalogDigest);
+    State->CatalogHash=BytesToHex(CatalogDigest,20).ToLower();
     FPlan& Plan=State->Plan;
-    Plan.bLayoutProbe=IsRunningCommandlet()&&FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutProbe"));
+    Plan.bLayoutProbe=IsRunningCommandlet()&&(FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutProbe"))||FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutBake")));
     Plan.MinRooms=FMath::Max(1,int32(Catalog->GetNumberField(TEXT("min_rooms"))));
     Plan.MaxRooms=FMath::Max(Plan.MinRooms,int32(Catalog->GetNumberField(TEXT("max_rooms"))));
     Plan.GroupLinks=FMath::Max(1,int32(Catalog->GetNumberField(TEXT("group_links"))));
@@ -569,20 +687,31 @@ void AAuthoredDungeonGenerator::Generate(int32 Seed)
     Plan.SearchProgress=&State->SearchAttempt;
     Plan.SearchProgressLimit=&State->SearchAttemptLimit;
     Plan.CancelRequested=&State->CancelRequested;
-    auto PlanWork=[State,Start]()
+    const bool bClientReplay=GetNetMode()==NM_Client;
+    FString NetworkLayout=bClientReplay?MoveTemp(PendingNetworkLayout):FString();
+    auto PlanWork=[State,Start,bClientReplay,NetworkLayout=MoveTemp(NetworkLayout)]()
     {
         TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Dungeon_LayoutSearch);
         const double Begin=FPlatformTime::Seconds();
-        State->Plan.PlanningDeadline=Begin+12.;
+        // Offline production of the fallback placement bank may spend longer
+        // constructing each entry. Gameplay retains its existing 12 s bound.
+        const bool bBakingLayout=IsRunningCommandlet()&&FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutBake"));
+        State->Plan.PlanningDeadline=Begin+(bBakingLayout?90.:12.);
         State->Plan.ConfigureTopology(State->Seed);
         if(!State->Plan.ConfigureThemedRoutes(State->Seed,State->Catalog))
         {State->bPlanSucceeded=false;State->PlanMs=(FPlatformTime::Seconds()-Begin)*1000.;return;}
         State->Plan.ConfigureMission(State->Seed,State->Catalog);
+        if(bClientReplay)
+        {
+            State->bPlanSucceeded=State->Plan.ReadNetworkLayout(NetworkLayout,State->CatalogHash,Start);
+            if(!State->bPlanSucceeded&&State->Plan.CompactFailure.IsEmpty())State->Plan.CompactFailure=TEXT("服务器布局清单无法装配");
+            State->PlanMs=(FPlatformTime::Seconds()-Begin)*1000.;return;
+        }
         State->bPlanSucceeded=State->Plan.Build(State->Seed,Start);
         if(State->bPlanSucceeded)
         {
             if(!State->Plan.bMissionEnabled)State->Plan.AddRouteLoops(Start);
-            State->Plan.AddTreasureRooms(State->Seed);
+            if(!bBakingLayout)State->Plan.AddTreasureRooms(State->Seed);
             State->Plan.BindRewardMissions(Start);
             State->bPlanSucceeded=State->Plan.CompleteSocketGraph(Start);
         }
@@ -610,7 +739,7 @@ void AAuthoredDungeonGenerator::Generate(int32 Seed)
 #if WITH_EDITOR
         // Explicit commandlet-only repro: exercise the production planner and
         // catalog without spawning geometry, touching saves, or trusting headless physics.
-        if(IsRunningCommandlet()&&FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutProbe")))
+        if(IsRunningCommandlet()&&(FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutProbe"))||FParse::Param(FCommandLine::Get(),TEXT("DungeonLayoutBake"))))
         {
             auto Report=MakeShared<FJsonObject>();
             Report->SetNumberField(TEXT("seed"),Seed);
@@ -730,18 +859,20 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     // Editor preview also retains the previous geometry until staging succeeds.
     const bool bOptimizeLights=AuthoredDungeonLighting::IsOptimizationEnabled();
     bLightingOptimizationApplied=bOptimizeLights;
+    const FVector Offset=RuntimeOffset();
     auto& StagedLightModules=State->NextLights;
     StagedLightModules.SetNum(Plan.Pieces.Num()+1);
-    StagedLightModules.Last().Cells.Add(Plan.Reserved); // Include existing start lights in the room scheduler at runtime.
+    StagedLightModules.Last().Cells.Add(Plan.Reserved.ShiftBy(Offset)); // Include existing start lights in the room scheduler at runtime.
     for(int32 I=0;I<Plan.Pieces.Num();++I)
     {
         StagedLightModules[I].Cells=Plan.Pieces[I].Cells;
+        for(FBox& Cell:StagedLightModules[I].Cells)Cell=Cell.ShiftBy(Offset);
         const FString& Id=Plan.Modules[Plan.Pieces[I].Module].Id;
         StagedLightModules[I].bConnector=Id==TEXT("Transit")||Id==TEXT("Threshold")||Id==TEXT("TreasureLink")||Id==TEXT("RouteElbow")||Id==TEXT("BossApproach")||Id==TEXT("StairDrop1080")||Plan.IsThemeRamp(Plan.Pieces[I].Module);
     }
     auto ConnectLights=[&](int32 From,int32 To,FVector Door)
     {
-        const FVector Center=Door+FVector(0,0,180);
+        const FVector Center=Door+Offset+FVector(0,0,180);
         const FVector Extent(200,200,180); // Encloses the authored door opening in either orientation.
         StagedLightModules[From].Portals.Add({To,Center,Extent});
         StagedLightModules[To].Portals.Add({From,Center,Extent});
@@ -758,6 +889,19 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     for(int32 I=0;I<Plan.Pieces.Num();++I)
         SceneModules.Add(StationWorkshopAssembly::Compose(CargoWarehouseContainers::Compose(StaffLivingRoomAssembly::Compose(DungeonRoomScenes::Compose(Plan.Modules[Plan.Pieces[I].Module].Data,Seed,I,PreviousSceneRecipes,PreviousSceneStates),Seed,I),Seed,I),Seed,I));
     JObject Graph=MakeShared<FJsonObject>();Graph->SetNumberField(TEXT("seed"),Seed);
+    Graph->SetNumberField(TEXT("network_plan_version"),1);
+    Graph->SetStringField(TEXT("catalog_sha1"),State->CatalogHash);
+    Graph->SetNumberField(TEXT("split_after"),Plan.SplitAfter);
+    Graph->SetBoolField(TEXT("theme_bridges_enabled"),Plan.bThemeBridgeSearch);
+    TArray<TSharedPtr<FJsonValue>> PlanCounts,LoopLinks;
+    for(int32 Count:Plan.Counts)PlanCounts.Add(MakeShared<FJsonValueNumber>(Count));
+    for(const auto& Link:Plan.LoopConnections)
+    {
+        auto Row=MakeShared<FJsonObject>();Row->SetNumberField(TEXT("from"),Link.From);
+        Row->SetNumberField(TEXT("to"),Link.To);Row->SetNumberField(TEXT("length"),Link.Length);
+        LoopLinks.Add(MakeShared<FJsonValueObject>(Row));
+    }
+    Graph->SetArrayField(TEXT("plan_counts"),PlanCounts);Graph->SetArrayField(TEXT("loop_connections"),LoopLinks);
     Graph->SetStringField(TEXT("layout_solver"),Plan.LayoutSolver);
     Graph->SetNumberField(TEXT("generator_version"),Plan.bPairedFacility?9:Plan.bThemedRoutes?8:5);
     if(Plan.bThemedRoutes)
@@ -837,6 +981,10 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
         const auto& P=Plan.Pieces[I];JObject N=MakeShared<FJsonObject>();N->SetNumberField(TEXT("id"),I);N->SetStringField(TEXT("module"),Plan.Modules[P.Module].Id);N->SetStringField(TEXT("route"),P.Route);N->SetArrayField(TEXT("origin"),JsonVector(P.Transform.GetLocation()));N->SetNumberField(TEXT("yaw"),P.Transform.Rotator().Yaw);
         Nodes.Add(MakeShared<FJsonValueObject>(N));
         N->SetArrayField(TEXT("scale"),JsonVector(P.Transform.GetScale3D()));
+        N->SetNumberField(TEXT("side_index"),P.Side);
+        TArray<TSharedPtr<FJsonValue>> ActivePorts;
+        for(int32 Port:P.ActivePorts)ActivePorts.Add(MakeShared<FJsonValueNumber>(Port));
+        N->SetArrayField(TEXT("active_ports"),ActivePorts);
         N->SetStringField(TEXT("mission_id"),P.MissionId);N->SetStringField(TEXT("encounter_role"),P.EncounterRole);
         if(P.bThemeBridge)
         {
@@ -856,7 +1004,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
         SceneModules[I]->TryGetStringField(TEXT("scene_state_id"),SceneState);
         N->SetStringField(TEXT("scene_recipe_id"),SceneRecipe);N->SetStringField(TEXT("scene_state_id"),SceneState);
         TArray<TSharedPtr<FJsonValue>> Open;for(int32 Port:Plan.OpenPorts(I))Open.Add(MakeShared<FJsonValueNumber>(Port));N->SetArrayField(TEXT("open_ports"),Open);
-        N->SetNumberField(TEXT("floor"),FMath::RoundToInt((P.Transform.GetLocation().Z-Vec(Catalog,TEXT("start_position")).Z)/540.));
+        N->SetNumberField(TEXT("floor"),FDungeonRunNode::FloorAtElevation(P.Transform.GetLocation().Z,Vec(Catalog,TEXT("start_position")).Z));
         N->SetArrayField(TEXT("volume_min"),JsonVector(P.Bounds.Min));N->SetArrayField(TEXT("volume_max"),JsonVector(P.Bounds.Max));
         N->SetNumberField(TEXT("progression_depth"),P.MissionDepth>=0?P.MissionDepth:ProgressionDepths[I]==MAX_int32?0:ProgressionDepths[I]);
         TArray<TSharedPtr<FJsonValue>> CellValues;
@@ -876,6 +1024,40 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             WalkCells.Add(MakeShared<FJsonValueObject>(Cell));
         }
         N->SetArrayField(TEXT("walk_cells"),WalkCells);
+        // Route targets are authored, not random spawn positions. Prefer the
+        // main aisle; add combat anchors only for distinct floors (B1/balconies).
+        TArray<FVector> NavigationAnchors;
+        const auto& Module=Plan.Modules[P.Module];
+        const TArray<TSharedPtr<FJsonValue>>* Polyline=nullptr;
+        if(Module.Data->TryGetArrayField(TEXT("walk_polyline"),Polyline))
+            for(int32 Point=0;Point<Polyline->Num();++Point)
+            {
+                const auto& V=(*Polyline)[Point]->AsArray();if(V.Num()!=3)continue;
+                const FVector Local(V[0]->AsNumber(),V[1]->AsNumber(),V[2]->AsNumber());
+                if(Point>0)
+                {
+                    const auto& Previous=(*Polyline)[Point-1]->AsArray();
+                    if(Previous.Num()==3)NavigationAnchors.Add((Local+FVector(Previous[0]->AsNumber(),Previous[1]->AsNumber(),Previous[2]->AsNumber()))*.5);
+                }
+                NavigationAnchors.Add(Local);
+            }
+        if(NavigationAnchors.IsEmpty())
+            for(const auto& Port:Module.Ports)NavigationAnchors.Add(Port.P-Port.N*300.);
+        const TArray<TSharedPtr<FJsonValue>>* Anchors=nullptr;
+        const auto MainAnchors=NavigationAnchors;
+        if(Module.Data->TryGetArrayField(TEXT("anchors"),Anchors))for(const auto& Value:*Anchors)
+        {
+            const auto Anchor=Value->AsObject();const FString AnchorRole=Anchor->GetStringField(TEXT("role"));
+            if(AnchorRole==TEXT("boss_arena_center")||AnchorRole==TEXT("boss_spawn")||AnchorRole.StartsWith(TEXT("boss_ground_")))NavigationAnchors.Insert(Vec(Anchor,TEXT("position")),0);
+            else if(AnchorRole==TEXT("encounter")||AnchorRole.EndsWith(TEXT("combat")))
+            {
+                const FVector Local=Vec(Anchor,TEXT("position"));
+                if(!MainAnchors.ContainsByPredicate([&](const FVector& Main){return FMath::Abs(Main.Z-Local.Z)<150.;}))NavigationAnchors.Add(Local);
+            }
+        }
+        TArray<TSharedPtr<FJsonValue>> NavigationJson;
+        for(const FVector& Anchor:NavigationAnchors)NavigationJson.Add(MakeShared<FJsonValueArray>(JsonVector(P.Transform.TransformPosition(Anchor))));
+        N->SetArrayField(TEXT("navigation_anchors"),NavigationJson);
         if(P.LinkTurns>=0){N->SetNumberField(TEXT("entry_link_turns"),P.LinkTurns);N->SetNumberField(TEXT("entry_link_cm"),P.LinkLength);}
         if(P.Side>=0)N->SetStringField(TEXT("side_socket"),Plan.Modules[P.Module].SideSockets[P.Side].Data->GetStringField(TEXT("id")));
         for(int32 J=0;J<I;++J)for(int32 A:Plan.OpenPorts(I))for(int32 B:Plan.OpenPorts(J))
@@ -897,28 +1079,105 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     Graph->SetNumberField(TEXT("final_reward_rooms"),Plan.bBossTerminal&&Plan.BossRoom>=0&&
         Plan.Modules[Plan.BossRoom].Data->HasField(TEXT("reward_exit"))?1:0);
     Graph->SetArrayField(TEXT("nodes"),Nodes);Graph->SetArrayField(TEXT("connections"),Edges);State->PendingManifest.Empty();FJsonSerializer::Serialize(Graph.ToSharedRef(),TJsonWriterFactory<>::Create(&State->PendingManifest));
-    TSet<FString> QueuedAssets;
-    auto QueueAsset=[this,State,&QueuedAssets](const FString& Path)
+    TMap<FString,int32> QueuedAssets;
+    TSet<FIntPoint> ConnectedMarkPorts;
+    for(const auto& EdgeValue:Edges)
     {
-        if(Path.IsEmpty()||QueuedAssets.Contains(Path))return;
-        QueuedAssets.Add(Path);
-        if(State->bRuntime)State->ResourcePaths.Add(Path);
-        else State->Jobs.Add({TEXT("Dungeon.Resources"),[this,Path](){ResolveGenerationAsset(Path);}});
+        const auto Edge=EdgeValue->AsObject();
+        ConnectedMarkPorts.Add(FIntPoint(Edge->GetIntegerField(TEXT("from")),Edge->GetIntegerField(TEXT("from_port"))));
+        ConnectedMarkPorts.Add(FIntPoint(Edge->GetIntegerField(TEXT("to")),Edge->GetIntegerField(TEXT("to_port"))));
+    }
+    for(int32 Port:Plan.OpenPorts(EntryNode))
+        if(Plan.Socket(EntryNode,Port).P.Equals(EntrySocket.P,1.f))ConnectedMarkPorts.Add(FIntPoint(EntryNode,Port));
+    TArray<int32> PendingJobResources;
+    auto QueueAsset=[this,State,&QueuedAssets,&PendingJobResources](const FString& Path)
+    {
+        if(Path.IsEmpty())return;
+        const int32* Existing=QueuedAssets.Find(Path);
+        const int32 Resource=Existing?*Existing:State->ResourcePaths.Num();
+        if(!Existing)
+        {
+            QueuedAssets.Add(Path,Resource);
+            if(State->bRuntime)State->ResourcePaths.Add(Path);
+            else State->Jobs.Add({TEXT("Dungeon.Resources"),[this,Path](){ResolveGenerationAsset(Path);}});
+        }
+        // A shared asset must remain a dependency of every job using it.
+        if(State->bRuntime)PendingJobResources.AddUnique(Resource);
+    };
+    auto QueueJob=[State,&PendingJobResources](FAuthoredDungeonBuildState::FJob Job)
+    {
+        Job.Resources=MoveTemp(PendingJobResources);
+        State->Jobs.Add(MoveTemp(Job));
     };
     // The fixed shrine uses a separate gameplay stream after the layout commits.
     // Preload its pool in the normal budgeted resource stage, never on interaction.
+    TArray<FSoftObjectPath> SharedShrinePaths;RandomShrine::AddMeshPaths(SharedShrinePaths);
+    for(const auto& Path:SharedShrinePaths)QueueAsset(Path.ToString());
     const TSharedPtr<FJsonObject>* Shrine=nullptr;
     const TArray<TSharedPtr<FJsonValue>>* Statues=nullptr;
     if(Catalog->TryGetObjectField(TEXT("start_shrine"),Shrine)&&(*Shrine)->TryGetArrayField(TEXT("statues"),Statues))
         for(const auto& Statue:*Statues)QueueAsset(Statue->AsObject()->GetStringField(TEXT("mesh")));
+    // Delayed shrine dependencies are required at commit, not by the first mesh.
     if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
         {return AFacilityHallEncounter::IsHall(Plan.Modules[Piece.Module].Id);}))
     {
-        for(const FString& Path:AFacilityHallEncounter::PreparationAssetPaths())QueueAsset(Path);
+        for(const FString& Path:AFacilityHallEncounter::SelectedMonsterClassPaths(State->Seed))State->SelectedMonsterClasses.Add(Path);
+        for(const FString& Path:AFacilityHallEncounter::PreparationAssetPaths(State->Seed))QueueAsset(Path);
         for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
     }
+    if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
+        {return AFacilityHallEncounter::IsMedical(Plan.Modules[Piece.Module].Id);}))
+    {
+        for(const FString& Path:AFacilityHallEncounter::MedicalMonsterClassPaths())
+        {State->SelectedMonsterClasses.Add(Path);QueueAsset(Path);}
+        for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
+    }
+    if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
+        {return AFacilityHallEncounter::IsFreight(Plan.Modules[Piece.Module].Id);}))
+    {
+        for(const FString& Path:AFacilityHallEncounter::FreightMonsterClassPaths())
+        {State->SelectedMonsterClasses.Add(Path);QueueAsset(Path);}
+        for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
+    }
+    if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
+        {return AFacilityHallEncounter::IsEcology(Plan.Modules[Piece.Module].Id);}))
+    {
+        for(const FString& Path:AFacilityHallEncounter::EcologyMonsterClassPaths())
+        {State->SelectedMonsterClasses.Add(Path);QueueAsset(Path);}
+        for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
+    }
+    if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
+        {return AFacilityHallEncounter::IsPower(Plan.Modules[Piece.Module].Id);}))
+    {
+        for(const FString& Path:AFacilityHallEncounter::PowerMonsterClassPaths())
+        {State->SelectedMonsterClasses.Add(Path);QueueAsset(Path);}
+        for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
+    }
+    if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
+        {return AFacilityHallEncounter::IsIncineration(Plan.Modules[Piece.Module].Id);}))
+    {
+        for(const FString& Path:AFacilityHallEncounter::IncinerationMonsterClassPaths())
+        {State->SelectedMonsterClasses.Add(Path);QueueAsset(Path);}
+        for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
+    }
+    if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
+        {return AFacilityHallEncounter::IsStaffLiving(Plan.Modules[Piece.Module].Id);}))
+    {
+        for(const FString& Path:AFacilityHallEncounter::StaffLivingMonsterClassPaths())
+        {State->SelectedMonsterClasses.Add(Path);QueueAsset(Path);}
+        for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
+    }
+    if(State->bRuntime&&Plan.Pieces.ContainsByPredicate([&Plan](const FPlaced& Piece)
+        {return AFacilityHallEncounter::IsFinalBossRoom(Plan.Modules[Piece.Module].Id);}))
+    {
+        for(const FString& Path:AFacilityHallEncounter::FinalBossClassPaths())
+        {State->SelectedMonsterClasses.Add(Path);QueueAsset(Path);}
+        QueueAsset(TEXT("/Game/Dungeons/IndustrialV1/Meshes/SM_ValveWheel.SM_ValveWheel"));
+        for(const FString& Path:ADungeonRoomGate::AssetPaths())QueueAsset(Path);
+    }
+    PendingJobResources.Reset();
     bool RequireNavigation=false;Catalog->TryGetBoolField(TEXT("navigation_required"),RequireNavigation);
-    if(RequireNavigation)State->Jobs.Add({TEXT("Dungeon.Resources"),[this,State]()
+    if(RequireNavigation&&GetNetMode()!=NM_Client)State->Jobs.Add({TEXT("Dungeon.Resources"),[this,State]()
     {
         bool Found=false;for(TActorIterator<ANavMeshBoundsVolume> It(GetWorld());It;++It)Found|=It->ActorHasTag(TEXT("DungeonRouteNavigation"));
         if(!Found||!FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld()))State->Error=TEXT("地牢导航模板缺失，保留原布局");
@@ -927,9 +1186,43 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     const bool bDressRooms=DungeonDressingEnabled.GetValueOnGameThread()!=0;
     // Surface selection has its own seed stream; changing wall art never reroutes the dungeon.
     TMap<FString,int32> PreviousSurfaceChoices;
+    auto QueueAtmosphere=[this,State,&QueueAsset,&QueueJob](const JObject& Data,const TCHAR* Key,const FTransform& Transform,int32 Module)
+    {
+        if(GetNetMode()==NM_DedicatedServer)return;
+        const TArray<TSharedPtr<FJsonValue>>* Sites=nullptr;
+        if(!Data->TryGetArrayField(Key,Sites))return;
+        for(const auto& Value:*Sites)
+        {
+            const JObject Spec=Value->AsObject();
+            const bool bVolume=Spec->GetIntegerField(TEXT("kind"))==0;
+            if(bVolume)
+            {
+                QueueAsset(Spec->GetStringField(TEXT("mesh")));
+                QueueAsset(Spec->GetStringField(TEXT("material")));
+            }
+            else QueueAsset(Spec->GetStringField(TEXT("system")));
+            QueueJob({TEXT("Dungeon.Atmosphere"),[this,State,Spec,Transform,Module]()
+            {
+                const bool bVolume=Spec->GetIntegerField(TEXT("kind"))==0;
+                UNiagaraSystem* System=nullptr;UStaticMesh* Mesh=nullptr;UMaterialInterface* Material=nullptr;
+                if(bVolume)
+                {
+                    Mesh=Cast<UStaticMesh>(ResolveGenerationAsset(Spec->GetStringField(TEXT("mesh"))));
+                    Material=Cast<UMaterialInterface>(ResolveGenerationAsset(Spec->GetStringField(TEXT("material"))));
+                }
+                else System=Cast<UNiagaraSystem>(ResolveGenerationAsset(Spec->GetStringField(TEXT("system"))));
+                if(bVolume?(!Mesh||!Material):!System){State->Error=TEXT("设施环境特效资源缺失");return;}
+                State->NextAtmosphereSites.Add(FFacilityAtmosphereSite::FromJson(Spec,Transform,Module,System,Mesh,Material));
+            }});
+        }
+    };
+    QueueAtmosphere(Catalog,TEXT("fixed_atmosphere_sites"),FTransform(Offset),Plan.Pieces.Num());
     for(int32 Index=0;Index<Plan.Pieces.Num();++Index)
     {
-        const FPlaced& Piece=Plan.Pieces[Index];const JObject D=SceneModules[Index];
+        FPlaced Piece=Plan.Pieces[Index];const JObject D=SceneModules[Index];
+        Piece.Transform.AddToTranslation(Offset);Piece.Bounds=Piece.Bounds.ShiftBy(Offset);
+        for(FBox& Cell:Piece.Cells)Cell=Cell.ShiftBy(Offset);
+        QueueAtmosphere(D,TEXT("atmosphere_sites"),Piece.Transform,Index);
         TArray<TSharedPtr<FJsonValue>> Parts=D->GetArrayField(TEXT("parts"));
         if(Piece.Side>=0)
         {
@@ -965,14 +1258,14 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             QueueAsset(Part->GetStringField(TEXT("mesh")));
             for(const auto& M:Part->GetArrayField(TEXT("materials")))QueueAsset(M->AsString());
             const FString Key=InstanceKey(Part,Piece,bOptimizeLights);
-            if(!Part->GetBoolField(TEXT("fluid"))&&!Part->HasField(TEXT("half_size")))++State->InstanceCandidates.FindOrAdd(Key);
+            if(!PartIsFluid(Part)&&!Part->HasField(TEXT("half_size")))++State->InstanceCandidates.FindOrAdd(Key);
             const FName Stage=Dressing?TEXT("Dungeon.Dressing"):Part->GetBoolField(TEXT("collision"))?TEXT("Dungeon.MeshCollision"):TEXT("Dungeon.MeshVisuals");
-            State->Jobs.Add({Stage,[this,State,Part,Piece,Index,Params,bOptimizeLights,Key,Dressing,bDressRooms,D]()
+            QueueJob({Stage,[this,State,Part,Piece,Index,Params,bOptimizeLights,Key,Dressing,bDressRooms,D]()
             {
             auto* Mesh=Cast<UStaticMesh>(ResolveGenerationAsset(Part->GetStringField(TEXT("mesh"))));
             if(!Mesh){State->Error=TEXT("地牢网格无法载入：")+Part->GetStringField(TEXT("mesh"));return;}
             FTransform T=Local(Part)*Piece.Transform;
-            const bool Hazard=Part->HasField(TEXT("half_size")),Fluid=Part->GetBoolField(TEXT("fluid"));
+            const bool Hazard=Part->HasField(TEXT("half_size")),Fluid=PartIsFluid(Part);
             if(Dressing)
             {
                 ++State->DressingCandidates;FString Reason;
@@ -994,7 +1287,10 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             {
                 if(auto* Existing=State->InstanceGroups.FindRef(Key).Get())
                 {
-                    Existing->AddInstance(T,true);
+                    const int32 BatchIndex=State->InstanceBatchIndices.FindChecked(Existing);
+                    auto& Batch=State->InstanceBatches[BatchIndex];
+                    Batch.Transforms.Add(T);++State->PendingInstances;
+                    if(Batch.Transforms.Num()>=32)State->FullInstanceBatch=BatchIndex;
                     Existing->ComponentTags.AddUnique(FName(*FString::Printf(TEXT("DungeonModule.%d.%s"),Index,*State->Plan.Modules[Piece.Module].Id)));
                     if(const int32* Group=State->RenderGroupByComponent.Find(Existing))
                         State->NextRenderGroups[*Group].Modules.AddUnique(Index);
@@ -1024,7 +1320,8 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
                 A=S;C=S->GetStaticMeshComponent();if(!Fluid)++State->StaticFallbacks;
             }
             OwnGenerated(A,Index);
-            if(bHallDoor)A->Tags.Add(FName(*(TEXT("DungeonHallDoor.")+Part->GetStringField(TEXT("fixture_id")))));
+            if(bHallDoor)A->Tags.Add(FName(*((State->Plan.Modules[Piece.Module].Id==TEXT("AbandonedTransitStation")
+                ? TEXT("DungeonFreightDoor.") : TEXT("DungeonHallDoor."))+Part->GetStringField(TEXT("fixture_id")))));
             if(bGuardrailDrop)A->Tags.Add(TEXT("Traversal.GuardrailDrop"));
             FString WardFrame;
             if(Part->TryGetStringField(TEXT("ward_frame"),WardFrame))
@@ -1064,7 +1361,11 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             if(bInstance)
             {
                 auto* Instances=CastChecked<UInstancedStaticMeshComponent>(C);
-                Instances->AddInstance(T,true);
+                Instances->PreAllocateInstancesMemory(State->InstanceCandidates.FindRef(Key));
+                const int32 BatchIndex=State->InstanceBatches.AddDefaulted();
+                State->InstanceBatches[BatchIndex].Component=Instances;
+                State->InstanceBatches[BatchIndex].Transforms.Add(T);
+                State->InstanceBatchIndices.Add(Instances,BatchIndex);++State->PendingInstances;
                 Instances->ComponentTags.Add(FName(*FString::Printf(TEXT("DungeonModule.%d.%s"),Index,*State->Plan.Modules[Piece.Module].Id)));
                 State->InstanceGroups.Add(Key,Instances);++State->Instances;++State->InstanceComponents;
             }
@@ -1087,10 +1388,18 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
         const TArray<TSharedPtr<FJsonValue>>* WardAssets=nullptr;
         if(D->TryGetArrayField(TEXT("runtime_assets"),WardAssets))
             for(const auto& V:*WardAssets)QueueAsset(V->AsString());
+        const TArray<int32> WardResources=MoveTemp(PendingJobResources);
         const TArray<TSharedPtr<FJsonValue>>* WardActors=nullptr;
         if(D->TryGetArrayField(TEXT("runtime_actors"),WardActors))for(int32 WI=0;WI<WardActors->Num();++WI)
         {
+            // Runtime constructors/scatterers can also use the module's shared pool.
+            PendingJobResources=WardResources;
             const JObject Spec=(*WardActors)[WI]->AsObject();
+            // Decorative portal labels only belong to sockets actually used by this layout.
+            // Closed branches keep their wall and must never receive a misleading arrow.
+            double MarkedPort=0;
+            if(Spec->TryGetNumberField(TEXT("requires_open_port"),MarkedPort)
+                &&!ConnectedMarkPorts.Contains(FIntPoint(Index,int32(MarkedPort))))continue;
             // Queue every asset-valued field in the selected runtime specification,
             // including panes, debris, audio and standalone door leaves.
             TFunction<void(const TSharedPtr<FJsonValue>&)> QueueSpecAssets;
@@ -1116,7 +1425,8 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
                 }
             }
             auto Spawned=MakeShared<TWeakObjectPtr<AActor>>();
-            State->Jobs.Add({TEXT("Dungeon.WardActors"),[this,State,Spec,Piece,Index,Spawned]()
+            const bool bMonsterDoors=AFacilityHallEncounter::IsMedical(Plan.Modules[Piece.Module].Id);
+            QueueJob({TEXT("Dungeon.WardActors"),[this,State,Spec,Piece,Index,Spawned,bMonsterDoors]()
             {
                 AActor* Frame=nullptr;FString FrameId;
                 if(Spec->TryGetStringField(TEXT("frame_id"),FrameId))
@@ -1127,7 +1437,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
                 }
                 AActor* Actor=WardRoomAssembly::Spawn(GetWorld(),this,Spec,Piece.Transform,Frame,
                     FName(*FString::Printf(TEXT("WardBlood.%d"),Index)),
-                    [this](const FString& Path){return ResolveGenerationAsset(Path);});
+                    [this](const FString& Path){return ResolveGenerationAsset(Path);},bMonsterDoors);
                 if(!Actor){State->Error=TEXT("病区交互组件创建失败");return;}
                 OwnGenerated(Actor,Index);*Spawned=Actor;
             }});
@@ -1136,12 +1446,13 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             {
                 const int32 ScatterSeed=int32(HashCombineFast(uint32(Seed)^0x57415244u,HashCombineFast(uint32(Index),uint32(WI))));
                 const bool bFurniture=Type==TEXT("beds");
-                State->Jobs.Add({Type==TEXT("beds")?FName(TEXT("Dungeon.WardFurniture")):FName(TEXT("Dungeon.WardBlood")),
+                QueueJob({Type==TEXT("beds")?FName(TEXT("Dungeon.WardFurniture")):FName(TEXT("Dungeon.WardBlood")),
                     [State,Spawned,ScatterSeed,bFurniture]()
                     {
                         if(AActor* Actor=Spawned->Get())
                         {
                             WardRoomAssembly::Populate(Actor,ScatterSeed);
+                            if(auto* Loading=DungeonLoading(Actor))Loading->QueueDungeonResourceWarmup(Actor);
                             // This actor's initial physics pass preceded scattering.
                             // Process its populated components before the next job.
                             if(bFurniture)State->PhysicsRefreshActor=Actor;
@@ -1155,7 +1466,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             const JObject Prop=V->AsObject();QueueAsset(Prop->GetStringField(TEXT("skeletal_mesh")));QueueAsset(Prop->GetStringField(TEXT("closed_animation")));
             FString OpeningPath;if(Prop->TryGetStringField(TEXT("opening_animation"),OpeningPath))QueueAsset(OpeningPath);
             for(const auto& M:Prop->GetObjectField(TEXT("material_overrides"))->Values)QueueAsset(M.Value->AsString());
-            State->Jobs.Add({TEXT("Dungeon.Props"),[this,State,Prop,Piece,Index,Params]()
+            QueueJob({TEXT("Dungeon.Props"),[this,State,Prop,Piece,Index,Params]()
             {
             auto* Mesh=Cast<USkeletalMesh>(ResolveGenerationAsset(Prop->GetStringField(TEXT("skeletal_mesh"))));
             if(!Mesh){State->Error=TEXT("宝箱骨骼网格无法载入");return;}
@@ -1166,11 +1477,16 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             const FString ChestRoom=Piece.MissionId.IsEmpty()?FString::Printf(TEXT("Node%d"),Index):Piece.MissionId;
             A->Tags.Add(FName(*FString::Printf(TEXT("DungeonChestClaim.%s.%s.%d.%d.%d"),*ChestRoom,
                 *ChestRole,FMath::RoundToInt(ChestLocal.X),FMath::RoundToInt(ChestLocal.Y),FMath::RoundToInt(ChestLocal.Z))));
-            A->Tags.Add(TEXT("DungeonTreasureChest"));A->Tags.Add(TEXT("FutureTreasureLoot"));
+            // Authored shells can reserve a treasure location before its loot
+            // design is ready. Only active chests enter the shared loot path.
+            bool bInteractionEnabled=true;Prop->TryGetBoolField(TEXT("interaction_enabled"),bInteractionEnabled);
+            A->Tags.Add(bInteractionEnabled?TEXT("DungeonTreasureChest"):TEXT("DungeonTreasure.PendingLoot"));
+            A->Tags.Add(TEXT("FutureTreasureLoot"));
             FString PropRole;
             if(Prop->TryGetStringField(TEXT("role"),PropRole)&&PropRole==TEXT("final_reward_chest"))
             {
                 A->Tags.Add(TEXT("DungeonFinalTreasure"));A->Tags.Add(TEXT("DungeonReward.Locked"));
+                A->Tags.Remove(TEXT("DungeonTreasure.PendingLoot"));A->Tags.AddUnique(TEXT("DungeonTreasureChest"));
                 State->FinalRewardChests.Add(Index,A);
             }
             auto* C=A->GetSkeletalMeshComponent();C->SetSkeletalMeshAsset(Mesh);C->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -1192,27 +1508,27 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             ++State->Props;
             }});
         }
-        if(D->HasTypedField<EJson::Object>(TEXT("boss_encounter")))
+        if(D->HasTypedField<EJson::Object>(TEXT("terminal_fixtures"))||D->HasTypedField<EJson::Object>(TEXT("boss_encounter")))
         {
-            const JObject Encounter=D->GetObjectField(TEXT("boss_encounter"));
-            QueueAsset(Encounter->GetStringField(TEXT("class")));QueueAsset(Encounter->GetStringField(TEXT("gate_material")));
+            // Legacy catalogs may retain the old HandBrain recipe. Geometry
+            // stays authored; the final encounter now always prepares HeQue.
+            const JObject Fixtures=D->GetObjectField(D->HasTypedField<EJson::Object>(TEXT("terminal_fixtures"))?TEXT("terminal_fixtures"):TEXT("boss_encounter"));
+            QueueAsset(Fixtures->GetStringField(TEXT("gate_material")));
             const JObject Reward=D->HasTypedField<EJson::Object>(TEXT("reward_exit"))?D->GetObjectField(TEXT("reward_exit")):nullptr;
             if(Reward)
             {
                 QueueAsset(Reward->GetStringField(TEXT("leaf_mesh")));
                 for(const auto& Asset:Reward->GetArrayField(TEXT("return_assets")))QueueAsset(Asset->AsString());
             }
-            State->Jobs.Add({TEXT("Dungeon.BossEncounter"),[this,State,Encounter,Reward,Piece,Index]()
+            QueueJob({TEXT("Dungeon.TerminalFixtures"),[this,State,Fixtures,Reward,Piece,Index]()
             {
-                auto* Class=Cast<UClass>(ResolveGenerationAsset(Encounter->GetStringField(TEXT("class"))));
-                if(!Class||!Class->IsChildOf(AHandBrainMonster::StaticClass())){State->Error=TEXT("地牢首领类无法载入");return;}
+                // Walk supports and reward fixtures consume shared progression;
+                // the room encounter owns the actual HeQue spawn and death.
                 auto* E=GetWorld()->SpawnActorDeferred<ADungeonBossEncounter>(ADungeonBossEncounter::StaticClass(),Piece.Transform,this,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
-                if(!E){State->Error=TEXT("首领入场控制器创建失败");return;}
-                E->BossClass=Class;E->SpawnPoint=Vec(Encounter,TEXT("spawn"));
-                E->ArenaMin=Vec(Encounter,TEXT("arena_min"));E->ArenaMax=Vec(Encounter,TEXT("arena_max"));
-                E->DoorPoint=Vec(Encounter,TEXT("door"));
-                const auto& Size=Encounter->GetArrayField(TEXT("door_size"));E->DoorSize=FVector2D(Size[0]->AsNumber(),Size[1]->AsNumber());
-                E->GateMaterial=Cast<UMaterialInterface>(ResolveGenerationAsset(Encounter->GetStringField(TEXT("gate_material"))));
+                if(!E){State->Error=TEXT("终点步行支撑创建失败");return;}
+                E->DoorPoint=Vec(Fixtures,TEXT("door"));
+                const auto& Size=Fixtures->GetArrayField(TEXT("door_size"));E->DoorSize=FVector2D(Size[0]->AsNumber(),Size[1]->AsNumber());
+                E->GateMaterial=Cast<UMaterialInterface>(ResolveGenerationAsset(Fixtures->GetStringField(TEXT("gate_material"))));
                 if(Reward)
                 {
                     auto* Leaf=Cast<UStaticMesh>(ResolveGenerationAsset(Reward->GetStringField(TEXT("leaf_mesh"))));
@@ -1223,8 +1539,8 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
                     const FTransform ReturnTransform=Local(Return)*Piece.Transform;
                     auto* Portal=GetWorld()->SpawnActorDeferred<ASceneTestPortal>(ASceneTestPortal::StaticClass(),ReturnTransform,this,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
                     if(!Portal){E->Destroy();State->Error=TEXT("最终宝箱房返程入口创建失败");return;}
-                    Portal->Tags.Add(TEXT("DungeonReward.Locked"));Portal->Tags.Add(TEXT("DungeonFinalReturn"));
-                    Portal->Configure(Return->GetStringField(TEXT("destination")),TEXT("RETURN TO BASE"),FString(),FColor(130,230,195));
+                    Portal->Tags.Add(TEXT("DungeonFinalReturn"));
+                    Portal->Configure(Return->GetStringField(TEXT("destination")),TEXT("返回基地"),FString(),FColor(130,230,195));
                     Portal->FinishSpawning(ReturnTransform);OwnGenerated(Portal,Index);
                     E->ConfigureRewardExit(Leaf,Vec(Reward,TEXT("door_position")),Vec(Reward,TEXT("door_travel")),
                         Vec(Reward,TEXT("door_clear_size")),Chest,Portal);
@@ -1244,7 +1560,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
             const bool BossHall=Plan.Modules[Piece.Module].Id==TEXT("BossPumpHall");
             FString LightRole=Corridor?TEXT("corridor"):Brightest.Find(LightIndex)<2?TEXT("key"):TEXT("fill");
             L->TryGetStringField(TEXT("role"),LightRole);
-            State->Jobs.Add({TEXT("Dungeon.Lights"),[this,State,L,Piece,Index,Params,bOptimizeLights,Corridor,BossHall,LightRole]()
+            QueueJob({TEXT("Dungeon.Lights"),[this,State,L,Piece,Index,Params,bOptimizeLights,Corridor,BossHall,LightRole]()
             {
             const bool Fill=LightRole==TEXT("fill");
             FString Type=(Fill||Corridor)?TEXT("spot"):TEXT("point");L->TryGetStringField(TEXT("type"),Type);
@@ -1339,7 +1655,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
         }
         for(const auto& V:D->GetArrayField(TEXT("anchors")))
         {
-            const JObject P=V->AsObject();State->Jobs.Add({TEXT("Dungeon.Anchors"),[this,State,P,Piece,Index,Params]()
+            const JObject P=V->AsObject();QueueJob({TEXT("Dungeon.Anchors"),[this,State,P,Piece,Index,Params]()
             {
                 auto* A=GetWorld()->SpawnActor<ATargetPoint>(Piece.Transform.TransformPosition(Vec(P,TEXT("position"))),Piece.Transform.Rotator(),Params);
                 if(!A){State->Error=TEXT("地牢定位点创建失败");return;}
@@ -1351,7 +1667,7 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
     if(bDressRooms) State->Jobs.Add({TEXT("Dungeon.DressingScene"),[this,State]()
     {
         FBox Bounds(ForceInit);for(const auto& Piece:State->Plan.Pieces) Bounds+=Piece.Bounds;
-        State->DressingScene.AddPlacedActors(GetWorld(),this,Bounds);
+        State->DressingScene.AddPlacedActors(GetWorld(),this,Bounds.ShiftBy(RuntimeOffset()));
     }});
     // Build every module's collidable structure first. Each actor's physics is drained
     // by PumpAssembly before the next job; dressing still sees all geometry/fixed props.
@@ -1371,11 +1687,30 @@ void AAuthoredDungeonGenerator::PrepareAssembly()
         };
         return Rank(A.Stage)<Rank(B.Stage);
     });
+    // Match requests to the existing dependency-safe assembly order. Later decor
+    // and delayed-use assets must not occupy every slot ahead of the first shell.
+    State->ResourceReady.Init(false,State->ResourcePaths.Num());
+    TArray<bool> Scheduled;
+    Scheduled.Init(false,State->ResourcePaths.Num());
+    for(const auto& Job:State->Jobs)for(int32 Resource:Job.Resources)
+        if(!Scheduled[Resource]){Scheduled[Resource]=true;State->ResourceLoadOrder.Add(Resource);}
+    for(int32 Resource=0;Resource<State->ResourcePaths.Num();++Resource)
+        if(!Scheduled[Resource])State->ResourceLoadOrder.Add(Resource);
     State->PhaseMs.Add(TEXT("Dungeon.PrepareJobs"),(FPlatformTime::Seconds()-PrepareStarted)*1000.);
 }
 
 void AAuthoredDungeonGenerator::OwnGenerated(AActor* Actor,int32 ModuleIndex)
 {
+    if (Actor && BuildState->bRuntime && GetNetMode()!=NM_DedicatedServer && FApp::CanEverRender())
+        BuildState->GlassRendering.Add(Actor->FindComponentByClass<UWardBreakableGlass>());
+    if(Actor&&GetWorld()->IsGameWorld())
+    {
+        const FString Key=FString::Printf(TEXT("DGN_%d_%s_%08x"),ModuleIndex,*Actor->GetClass()->GetName(),FCrc::StrCrc32(*Actor->GetActorTransform().ToString()));
+        const FString Name=FString::Printf(TEXT("%s_%d"),*Key,NetworkActorCounts.FindOrAdd(Key)++);
+        Actor->Rename(*Name,nullptr,REN_DontCreateRedirectors|REN_NonTransactional);
+        Actor->SetReplicates(false);Actor->SetNetAddressable();
+    }
+
     Actor->SetActorHiddenInGame(true);Actor->SetActorEnableCollision(false);
     GeneratedActors.Add(Actor);Actor->Tags.Add(TEXT("DungeonRouteGenerated"));
     if(!BuildState->Plan.Pieces.IsValidIndex(ModuleIndex))
@@ -1406,19 +1741,21 @@ UObject* AAuthoredDungeonGenerator::ResolveGenerationAsset(const FString& Path)
     BuildState->Assets.Add(Path,Asset);++BuildState->AssetResolutions;
     if(Asset)GenerationResources.Add(Asset);
     else BuildState->Error=TEXT("地牢资源无法载入：")+Path;
+    if (Asset && BuildState->bRuntime && GetNetMode() != NM_DedicatedServer &&
+        BuildState->SelectedMonsterClasses.Contains(Path))
+        BuildState->MonsterRendering.AddClass(Cast<UClass>(Asset));
     return Asset;
 }
 
-bool AAuthoredDungeonGenerator::PumpGenerationResources()
+bool AAuthoredDungeonGenerator::PumpGenerationResources(double Deadline,int32 MaxInFlight)
 {
     auto& State=*BuildState;
     if(!State.bRuntime||State.ResourcesCompleted==State.ResourcePaths.Num())return true;
     DungeonPerformance::FScope Scope(this,TEXT("Dungeon.Resources"));
     const double Begin=FPlatformTime::Seconds();
-    const double Budget=FMath::Clamp(double(DungeonBuildBudget.GetValueOnGameThread()),.25,16.)/1000.;
     // Poll bounded handles; no callback can retain a canceled generation or write
     // into a newer run. UObject adoption and component creation stay on the game thread.
-    for(int32 I=State.ResourceBatches.Num()-1;I>=0;--I)
+    for(int32 I=0;I<State.ResourceBatches.Num()&&State.Error.IsEmpty()&&FPlatformTime::Seconds()<Deadline;)
     {
         auto& Batch=State.ResourceBatches[I];
         if(Batch.Handle->WasCanceled())
@@ -1426,55 +1763,85 @@ bool AAuthoredDungeonGenerator::PumpGenerationResources()
         if(!Batch.Handle->HasLoadCompleted())
         {
             if(FPlatformTime::Seconds()-Batch.StartedAt>120.)
-                State.Error=TEXT("地牢资源加载超时：")+Batch.Paths[0];
+                State.Error=TEXT("地牢资源加载超时：")+State.ResourcePaths[Batch.Resources[0]];
+            ++I;
             continue;
         }
-        for(const FString& Path:Batch.Paths)
+        while(Batch.AdoptCursor<Batch.Resources.Num()&&FPlatformTime::Seconds()<Deadline)
         {
-            if(!ResolveGenerationAsset(Path))break;
+            const int32 Resource=Batch.Resources[Batch.AdoptCursor];
+            UObject* Asset=ResolveGenerationAsset(State.ResourcePaths[Resource]);
+            if(!Asset)break;
+            // Package loading can finish before editor derived-data work. Do not
+            // release gameplay while the prepared meshes are compiling.
+            const auto* StaticMesh=Cast<UStaticMesh>(Asset);
+            const auto* SkeletalMesh=Cast<USkeletalMesh>(Asset);
+            const bool bAssetCompiling=(StaticMesh&&StaticMesh->IsCompiling())||(SkeletalMesh&&SkeletalMesh->IsCompiling());
+            if(bAssetCompiling)
+            {
+                if(FPlatformTime::Seconds()-Batch.StartedAt>120.)
+                    State.Error=TEXT("地牢资源编译等待超时：")+State.ResourcePaths[Resource];
+                break; // Retain the handle and let compilation advance next frame.
+            }
+            State.ResourceReady[Resource]=true;
+            ++Batch.AdoptCursor;
             ++State.ResourcesCompleted;
         }
-        Batch.Handle->ReleaseHandle();
-        State.ResourceBatches.RemoveAtSwap(I);
-        if(!State.Error.IsEmpty()||FPlatformTime::Seconds()-Begin>=Budget)break;
+        if(Batch.AdoptCursor==Batch.Resources.Num())
+        {
+            Batch.Handle->ReleaseHandle();
+            State.ResourceBatches.RemoveAt(I);
+        }
+        else ++I; // Keep the handle until every object is protected by GenerationResources.
+        if(!State.Error.IsEmpty())break;
     }
-    constexpr int32 BatchSize=32,MaxInFlight=2;
-    while(State.Error.IsEmpty()&&State.ResourceCursor<State.ResourcePaths.Num()
-        &&State.ResourceBatches.Num()<MaxInFlight&&FPlatformTime::Seconds()-Begin<Budget)
+    constexpr int32 BatchSize=32;
+    while(State.Error.IsEmpty()&&State.ResourceCursor<State.ResourceLoadOrder.Num()
+        &&State.ResourceBatches.Num()<MaxInFlight&&FPlatformTime::Seconds()<Deadline)
     {
         FAuthoredDungeonBuildState::FResourceBatch Batch;
         FStreamableAsyncLoadParams Params;
-        for(int32 I=0;I<BatchSize&&State.ResourceCursor<State.ResourcePaths.Num();++I)
+        for(int32 I=0;I<BatchSize&&State.ResourceCursor<State.ResourceLoadOrder.Num();++I)
         {
-            const FString& Path=State.ResourcePaths[State.ResourceCursor++];
-            Batch.Paths.Add(Path);Params.TargetsToStream.Add(GenerationAssetPath(Path));
+            const int32 Resource=State.ResourceLoadOrder[State.ResourceCursor++];
+            Batch.Resources.Add(Resource);Params.TargetsToStream.Add(GenerationAssetPath(State.ResourcePaths[Resource]));
         }
         Params.bUseJustInTimeAsyncLoader=true;
         Batch.StartedAt=FPlatformTime::Seconds();
         Batch.Handle=UAssetManager::GetStreamableManager().RequestAsyncLoad(MoveTemp(Params),TEXT("Dungeon.SelectedRun"));
         if(!Batch.Handle)
-        {State.Error=TEXT("地牢资源请求失败：")+Batch.Paths[0];break;}
+        {State.Error=TEXT("地牢资源请求失败：")+State.ResourcePaths[Batch.Resources[0]];break;}
         State.ResourceBatches.Add(MoveTemp(Batch));
     }
     State.PhaseMs.FindOrAdd(TEXT("Dungeon.Resources"))+=(FPlatformTime::Seconds()-Begin)*1000.;
-    const bool bReady=State.ResourcesCompleted==State.ResourcePaths.Num();
-    if(!bReady&&State.Error.IsEmpty())
-        if(auto* Loading=DungeonLoading(this))Loading->UpdatePreparation(
-            FText::FromString(FString::Printf(TEXT("正在异步载入地牢资源（%d/%d）…"),State.ResourcesCompleted,State.ResourcePaths.Num())),
-            .1f+.12f*float(State.ResourcesCompleted)/FMath::Max(1,State.ResourcePaths.Num()));
-    return bReady||!State.Error.IsEmpty();
+    return State.ResourcesCompleted==State.ResourcePaths.Num();
 }
 
 void AAuthoredDungeonGenerator::CancelGenerationResources()
 {
     if(!BuildState)return;
+    FPSResourceLifecycle::Record(this,TEXT("Dungeon.BeforeCancelRequests"),{
+        {TEXT("resource_batches"),BuildState->ResourceBatches.Num()},
+        {TEXT("monster_dependency_handles"),BuildState->MonsterRendering.DependencyLoads.Num()},
+        {TEXT("generation_resource_references"),GenerationResources.Num()}});
     for(auto& Batch:BuildState->ResourceBatches)
         if(Batch.Handle)Batch.Handle->CancelHandle();
     BuildState->ResourceBatches.Reset();
+    BuildState->MonsterRendering.CancelDependencyLoads();
+    FPSResourceLifecycle::Record(this,TEXT("Dungeon.AfterCancelRequests"),{
+        {TEXT("resource_batches"),BuildState->ResourceBatches.Num()},
+        {TEXT("monster_dependency_handles"),BuildState->MonsterRendering.DependencyLoads.Num()},
+        {TEXT("generation_resource_references"),GenerationResources.Num()}});
+}
+
+FVector AAuthoredDungeonGenerator::RuntimeOffset() const
+{
+    return UDungeonRoomSubsystem::IsDungeonActor(this)&&UDungeonRoomSubsystem::Supports(GetWorld())?UDungeonRoomSubsystem::DungeonOffset():FVector::ZeroVector;
 }
 
 void AAuthoredDungeonGenerator::HoldPlayers()
 {
+    if(UDungeonRoomSubsystem::Supports(GetWorld()))return;
     for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
     {
         auto* PC=It->Get();auto* Character=PC?Cast<ACharacter>(PC->GetPawn()):nullptr;
@@ -1496,6 +1863,12 @@ void AAuthoredDungeonGenerator::ReleasePlayers()
 void AAuthoredDungeonGenerator::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
+    if(bWaitingNetworkLayout)
+    {
+        HoldPlayers();
+        if(auto* Loading=DungeonLoading(this))Loading->UpdatePreparation(FText::FromString(TEXT("正在接收服务器地牢布局…")),.02f);
+        return;
+    }
     if(!BuildState)return;
     HoldPlayers();
     if(BuildState->bPlanning)
@@ -1517,25 +1890,42 @@ void AAuthoredDungeonGenerator::PumpAssembly(bool bSynchronous)
 {
     if(!BuildState||BuildState->bPlanning)return;
     auto* State=BuildState.Get();
-    if(State->Error.IsEmpty()&&!PumpGenerationResources())return;
+    const double Start=FPlatformTime::Seconds();
+    const bool bLoadingBudget=UseDungeonLoadingBudget(this);
+    const double Budget=DungeonGenerationBudgetSeconds(bLoadingBudget);
+    State->LastBudgetMs=Budget*1000.;
+    const int32 InitialResourcesCompleted=State->ResourcesCompleted;
+    // Resource adoption shares the slice instead of adding a second full budget.
+    // Reserve most of the slice for ready jobs, while I/O continues asynchronously.
+    const int32 MaxInFlight=bLoadingBudget?FMath::Clamp(DungeonLoadingResourceBatches.GetValueOnGameThread(),1,8):2;
+    const bool bPackagesReady=State->Error.IsEmpty()&&PumpGenerationResources(Start+Budget*.25,MaxInFlight);
+    // Share the existing loading slice; poll only this encounter's PSOs, never
+    // block the game thread or wait for unrelated editor/global compilation.
+    const bool bMonsterRenderingReady=State->MonsterRendering.Pump(Start+Budget*.35,State->Error);
+    const bool bGlassRenderingReady=State->GlassRendering.Pump(Start+Budget*.45,State->Error);
+    auto* ImpactFX=State->bRuntime&&GetNetMode()!=NM_DedicatedServer&&FApp::CanEverRender()
+        ? GetWorld()->GetSubsystem<UFPSImpactFXSubsystem>() : nullptr;
+    const bool bImpactRenderingReady=!ImpactFX||ImpactFX->PumpRenderPreparation(Start+Budget*.55,State->Error);
+    const bool bResourcesReady=bPackagesReady&&bMonsterRenderingReady&&bGlassRenderingReady&&bImpactRenderingReady;
+    bool bWaitingResources=false;
     const int32 InitialJobCursor=State->Cursor,InitialPhysicsCursor=State->PhysicsActorCursor;
+    const int32 InitialInstanceBatches=State->InstanceBatchSubmissions;
     const bool bInitialPhysicsRefresh=State->PhysicsRefreshActor.IsValid();
     if(State->Error.IsEmpty())
     {
         TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Dungeon_AssemblySlice);
         DungeonPerformance::FScope SliceScope(this,TEXT("Dungeon.AssemblySlice"));
-        const double Start=FPlatformTime::Seconds();
-        const double Budget=FMath::Clamp(double(DungeonBuildBudget.GetValueOnGameThread()),.25,16.)/1000.;
-        do
+        while(State->Error.IsEmpty()&&(bSynchronous||FPlatformTime::Seconds()-Start<Budget))
         {
-            // Complete the newly configured actor before starting another job. Keeping
+            // Complete the newly configured actor/batch before starting another job. Keeping
             // this cursor under the assembly budget avoids a whole-dungeon physics spike
-            // at commit. Existing ISM groups already have a physics state when AddInstance
-            // appends another instance, so UE creates that instance's body with the job.
+            // at commit. ISM appends are submitted in bounded batches; the first
+            // nonempty batch creates the component's initial physics state here.
             if(State->bStaging&&(State->PhysicsRefreshActor.IsValid()||State->PhysicsActorCursor<GeneratedActors.Num()))
             {
                 const double PhysicsStart=FPlatformTime::Seconds();
                 bool bPendingPhysics=false;
+                FString PendingPhysicsName;
                 const bool bRefreshing=State->PhysicsRefreshActor.IsValid();
                 {
                     DungeonPerformance::FScope PhysicsScope(this,TEXT("Dungeon.PhysicsActivation"));
@@ -1547,7 +1937,8 @@ void AAuthoredDungeonGenerator::PumpAssembly(bool bSynchronous)
                         for(UPrimitiveComponent* Primitive:Primitives)
                         {
                             if(!Primitive->IsRegistered()||!Primitive->IsCollisionEnabled())continue;
-                            if(Primitive->IsAsyncCreatePhysicsStateRunning()){bPendingPhysics=true;continue;}
+                            if(Primitive->IsCompiling()||Primitive->IsAsyncCreatePhysicsStateRunning())
+                            {bPendingPhysics=true;PendingPhysicsName=Primitive->GetPathName();continue;}
                             // Empty scatter components are valid before Populate (and
                             // after a zero-result draw); there is no body to create yet.
                             // Populated ISMs and all ordinary colliders remain required.
@@ -1558,9 +1949,15 @@ void AAuthoredDungeonGenerator::PumpAssembly(bool bSynchronous)
                             if(!Primitive->IsPhysicsStateCreated())
                             {
                                 Primitive->CreatePhysicsState(false);
-                                if(Primitive->IsAsyncCreatePhysicsStateRunning()){bPendingPhysics=true;continue;}
+                                if(Primitive->IsCompiling()||Primitive->IsAsyncCreatePhysicsStateRunning())
+                                {bPendingPhysics=true;PendingPhysicsName=Primitive->GetPathName();continue;}
                                 if(!Primitive->IsPhysicsStateCreated())
                                 {
+                                    const auto* StaticComponent=Cast<UStaticMeshComponent>(Primitive);
+                                    UE_LOG(LogTemp,Error,TEXT("AuthoredDungeon collider unavailable: component=%s class=%s mesh=%s profile=%s"),
+                                        *Primitive->GetPathName(),*Primitive->GetClass()->GetName(),
+                                        StaticComponent?*GetPathNameSafe(StaticComponent->GetStaticMesh()):TEXT("<non-static>"),
+                                        *Primitive->GetCollisionProfileName().ToString());
                                     State->Error=TEXT("地牢碰撞体创建失败：")+Primitive->GetPathName();
                                     break;
                                 }
@@ -1570,12 +1967,59 @@ void AAuthoredDungeonGenerator::PumpAssembly(bool bSynchronous)
                     }
                 }
                 State->PhaseMs.FindOrAdd(TEXT("Dungeon.PhysicsActivation"))+=(FPlatformTime::Seconds()-PhysicsStart)*1000.;
-                if(bPendingPhysics||!State->Error.IsEmpty())break;
+                if(!State->Error.IsEmpty())break;
+                if(bPendingPhysics)
+                {
+                    if(State->PhysicsWaitStartedAt==0)State->PhysicsWaitStartedAt=FPlatformTime::Seconds();
+                    else if(FPlatformTime::Seconds()-State->PhysicsWaitStartedAt>120.)
+                        State->Error=TEXT("地牢碰撞准备等待超时：")+PendingPhysicsName;
+                    State->LoadingStatus=FText::FromString(TEXT("正在等待地牢网格与碰撞就绪…"));
+                    break;
+                }
+                State->PhysicsWaitStartedAt=0;
                 if(bRefreshing)State->PhysicsRefreshActor.Reset();else ++State->PhysicsActorCursor;
                 continue;
             }
+            if(State->FullInstanceBatch!=INDEX_NONE||State->bFlushingInstances)
+            {
+                int32 BatchIndex=State->FullInstanceBatch;
+                State->FullInstanceBatch=INDEX_NONE;
+                if(BatchIndex==INDEX_NONE)
+                {
+                    if(State->InstanceFlushCursor>=State->InstanceBatches.Num())
+                    {State->bFlushingInstances=false;continue;}
+                    BatchIndex=State->InstanceFlushCursor++;
+                }
+                auto& Batch=State->InstanceBatches[BatchIndex];
+                if(Batch.Transforms.IsEmpty())continue;
+                const double BatchStart=FPlatformTime::Seconds();
+                if(auto* Instances=Batch.Component.Get())
+                {
+                    DungeonPerformance::FScope InstanceScope(this,TEXT("Dungeon.InstanceBatch"));
+                    // One navigation notification per batch; retain navigation and
+                    // all per-instance collision before dependent actor/scatter jobs.
+                    Instances->AddInstances(Batch.Transforms,false,true,true);
+                    State->PhysicsRefreshActor=Instances->GetOwner();
+                    ++State->InstanceBatchSubmissions;
+                }
+                else State->Error=TEXT("地牢实例组在批量提交前失效");
+                State->PendingInstances-=Batch.Transforms.Num();Batch.Transforms.Reset();
+                State->PhaseMs.FindOrAdd(TEXT("Dungeon.InstanceBatch"))+=(FPlatformTime::Seconds()-BatchStart)*1000.;
+                continue;
+            }
+            const FName NextPhase=State->Jobs.IsValidIndex(State->Cursor)?State->Jobs[State->Cursor].Stage:NAME_None;
+            if(NextPhase!=State->InstancePhase)
+            {
+                State->InstancePhase=NextPhase;
+                if(State->PendingInstances>0)
+                {State->bFlushingInstances=true;State->InstanceFlushCursor=0;continue;}
+            }
             if(!State->Jobs.IsValidIndex(State->Cursor))break;
             auto& Job=State->Jobs[State->Cursor];
+            while(Job.ReadyCursor<Job.Resources.Num()&&State->ResourceReady[Job.Resources[Job.ReadyCursor]])
+                ++Job.ReadyCursor;
+            if(Job.ReadyCursor<Job.Resources.Num())
+            {bWaitingResources=true;++State->ResourceWaitSlices;break;}
             if(!State->bStaging&&Job.Stage!=TEXT("Dungeon.Resources"))
             {State->PreviousActors=MoveTemp(GeneratedActors);GeneratedActors.Reset();State->bStaging=true;}
             State->LoadingStatus=AssemblyStatus(Job.Stage);
@@ -1585,8 +2029,14 @@ void AAuthoredDungeonGenerator::PumpAssembly(bool bSynchronous)
                 Job.Run();
             }
             State->PhaseMs.FindOrAdd(Job.Stage)+=(FPlatformTime::Seconds()-JobStart)*1000.;
+            if(!bResourcesReady)++State->JobsWhileLoading;
             Job.Run=nullptr;++State->Cursor;
-        }while(State->Error.IsEmpty()&&(bSynchronous||FPlatformTime::Seconds()-Start<Budget));
+            // OwnGenerated runs before component setup; publish only after the
+            // complete job so warmup cannot read half-configured materials.
+            if(auto* Loading=DungeonLoading(this);Loading&&State->bStaging)
+                while(State->WarmupActorCursor<GeneratedActors.Num())
+                    Loading->QueueDungeonResourceWarmup(GeneratedActors[State->WarmupActorCursor++]);
+        }
         ++State->Slices;State->PeakSliceMs=FMath::Max(State->PeakSliceMs,(FPlatformTime::Seconds()-Start)*1000.);
     }
     if(!State->Error.IsEmpty())
@@ -1595,21 +2045,35 @@ void AAuthoredDungeonGenerator::PumpAssembly(bool bSynchronous)
         RollbackAssembly();Tags.AddUnique(TEXT("DungeonAssembly.Failed"));
         State->FinishedAt=FPlatformTime::Seconds();SetActorTickEnabled(false);
         UE_LOG(LogTemp,Error,TEXT("AuthoredDungeon: %s"),*State->Error);
+        if(HasAuthority()){NetworkFailure=State->Error;ForceNetUpdate();}
         if(auto* Loading=DungeonLoading(this))Loading->FailPreparation(FText::FromString(State->Error+TEXT("；可取消并返回主场景。")));
         return;
     }
-    if(State->Cursor>=State->Jobs.Num()&&State->PhysicsActorCursor>=GeneratedActors.Num()&&!State->PhysicsRefreshActor.IsValid())
+    if(bResourcesReady&&State->GlassRendering.IsReady()&&State->Cursor>=State->Jobs.Num()&&State->PendingInstances==0&&
+        State->PhysicsActorCursor>=GeneratedActors.Num()&&!State->PhysicsRefreshActor.IsValid())
     {
         // Give commit its own frame budget instead of adding it to the final build slice.
-        if(!bSynchronous&&(State->Cursor!=InitialJobCursor||State->PhysicsActorCursor!=InitialPhysicsCursor||bInitialPhysicsRefresh))
+        if(!bSynchronous&&(State->Cursor!=InitialJobCursor||State->PhysicsActorCursor!=InitialPhysicsCursor||
+            bInitialPhysicsRefresh||State->ResourcesCompleted!=InitialResourcesCompleted||
+            State->InstanceBatchSubmissions!=InitialInstanceBatches))
         {
             if(auto* Loading=DungeonLoading(this))Loading->UpdatePreparation(FText::FromString(TEXT("正在切换至新的地牢布局…")),.88f);
             return;
         }
         FinishAssembly(bSynchronous);return;
     }
+    if(bWaitingResources||State->LoadingStatus.IsEmpty()||(!bResourcesReady&&State->Cursor>=State->Jobs.Num()))
+        State->LoadingStatus=FText::FromString(FString::Printf(TEXT("正在异步准备地牢资源（%d/%d）…"),
+            State->ResourcesCompleted,State->ResourcePaths.Num()));
+    if (bPackagesReady && !bMonsterRenderingReady)
+        State->LoadingStatus=FText::FromString(TEXT("正在准备怪物渲染资源…"));
+    else if (bPackagesReady && !bGlassRenderingReady)
+        State->LoadingStatus=FText::FromString(TEXT("正在准备玻璃破碎效果…"));
+    else if (bPackagesReady && !bImpactRenderingReady)
+        State->LoadingStatus=FText::FromString(TEXT("正在准备战斗命中效果…"));
+    const float ResourceProgress=bResourcesReady?1.f:float(State->ResourcesCompleted)/FMath::Max(1,State->ResourcePaths.Num());
     if(auto* Loading=DungeonLoading(this))Loading->UpdatePreparation(State->LoadingStatus,
-        .22f+.66f*float(State->Cursor)/FMath::Max(1,State->Jobs.Num()));
+        .1f+.12f*ResourceProgress+.66f*float(State->Cursor)/FMath::Max(1,State->Jobs.Num()));
 }
 
 void AAuthoredDungeonGenerator::FinishAssembly(bool bSynchronous)
@@ -1619,7 +2083,7 @@ void AAuthoredDungeonGenerator::FinishAssembly(bool bSynchronous)
     auto* State=BuildState.Get();
     auto RecordFinalize=[State,FinalizeStarted]()
     {State->PhaseMs.FindOrAdd(TEXT("Dungeon.Finalize"))+=(FPlatformTime::Seconds()-FinalizeStarted)*1000.;};
-    const double Budget=FMath::Clamp(double(DungeonBuildBudget.GetValueOnGameThread()),.25,16.)/1000.;
+    const double Budget=DungeonGenerationBudgetSeconds(UseDungeonLoadingBudget(this));
     auto OutOfTime=[bSynchronous,FinalizeStarted,Budget]()
     {return !bSynchronous&&FPlatformTime::Seconds()-FinalizeStarted>=Budget;};
     if(!State->bCommitted)
@@ -1628,9 +2092,11 @@ void AAuthoredDungeonGenerator::FinishAssembly(bool bSynchronous)
         // From the first retirement onwards the new layout owns the scene; rolling back
         // to a partially destroyed old layout is no longer possible.
         ResetRoomLighting();
+        if(State->bRuntime)if(auto* Runs=UDungeonRunSubsystem::Get(GetWorld()))Runs->UnbindDungeon();
         State->bCommitted=true;
         LightModules=MoveTemp(State->NextLights);
         RenderGroups=MoveTemp(State->NextRenderGroups);
+        Atmosphere.Install(this,MoveTemp(State->NextAtmosphereSites));
         RoomHideCursor=0;
     }
     // Destroying the saved preview and revealing thousands of new components can also
@@ -1663,6 +2129,7 @@ void AAuthoredDungeonGenerator::FinishAssembly(bool bSynchronous)
         }
     }
     bool RequireNavigation=false;State->Catalog->TryGetBoolField(TEXT("navigation_required"),RequireNavigation);
+    RequireNavigation&=GetNetMode()!=NM_Client;
     if(RequireNavigation&&!State->bNavigationRequested)
     {
         ANavMeshBoundsVolume* Volume=nullptr;
@@ -1670,7 +2137,7 @@ void AAuthoredDungeonGenerator::FinishAssembly(bool bSynchronous)
         auto* Nav=FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());
         if(!Volume||!Nav){State->Error=TEXT("地牢导航模板缺失，不能启用战斗场景");RecordFinalize();PumpAssembly(false);return;}
         FBox Bounds=State->Plan.Reserved;for(const auto& Piece:State->Plan.Pieces)Bounds+=Piece.Bounds;
-        Bounds=Bounds.ExpandBy(FVector(250,250,350));
+        Bounds=Bounds.ShiftBy(RuntimeOffset()).ExpandBy(FVector(250,250,350));
         // Saved template brush has a 100 cm cube; transform updates work in cooked games too.
         Volume->GetBrushComponent()->SetMobility(EComponentMobility::Movable);
         Volume->SetActorLocation(Bounds.GetCenter());Volume->SetActorScale3D(Bounds.GetSize()/100.);
@@ -1687,26 +2154,52 @@ void AAuthoredDungeonGenerator::FinishAssembly(bool bSynchronous)
             return;
         }
     }
+    {
+        const double StainsStarted=FPlatformTime::Seconds();
+        DungeonPerformance::FScope StainsScope(this,TEXT("Dungeon.WallStains"));
+        const bool bStainsReady=State->WallStains.Pump(GetWorld(),State->Seed,
+            bSynchronous?TNumericLimits<double>::Max():FinalizeStarted+Budget);
+        State->PhaseMs.FindOrAdd(TEXT("Dungeon.WallStains"))+=(FPlatformTime::Seconds()-StainsStarted)*1000.;
+        if(!bStainsReady)
+        {
+            if(auto* Loading=DungeonLoading(this))Loading->UpdatePreparation(FText::FromString(TEXT("正在完成墙面细节…")),.985f);
+            RecordFinalize();return;
+        }
+    }
     GeneratedSeed=State->Seed;LayoutDescription=State->PendingDescription;LayoutManifestJson=State->PendingManifest;
-    DungeonWallStains::Apply(GetWorld(),GeneratedSeed);
-    // 运行状态服务：绑定新布局（解析清单/目录、建图、重置档案运行态）。必须先于导演武装。
+    // Bind layout, shrine and the two explicitly enabled facility hall encounters.
     if(State->bRuntime)
-        if(auto* Runs=UDungeonRunSubsystem::Get(GetWorld()))Runs->BindCompletedDungeon(this);
+    {
+        auto* Runs=UDungeonRunSubsystem::Get(GetWorld());
+        if(!Runs||!Runs->BindCompletedDungeon(this))
+        {
+            State->Error=TEXT("地牢遭遇配置不完整，已撤销区域封门；请取消并返回主场景");
+            RecordFinalize();PumpAssembly(false);return;
+        }
+    }
     Tags.AddUnique(TEXT("DungeonAssembly.Ready"));Tags.Remove(TEXT("DungeonAssembly.Failed"));
     BuildState->bCompleted=true;BuildState->FinishedAt=FPlatformTime::Seconds();
     RecordFinalize();
     LastGenerationMetricsJson=GetGenerationMetricsJson();
     DungeonPerformance::FMarker::Record(this,TEXT("Dungeon.Ready"),LayoutDescription);
+    UFPSPerformanceMetricsSubsystem::RecordMarker(this,TEXT("Dungeon.ResourcePreparationReady"),LayoutDescription,true);
+    UFPSPerformanceMetricsSubsystem::RequestGpuResourceInventory(this,TEXT("Dungeon ready before gameplay"));
     UE_LOG(LogTemp,Display,TEXT("AuthoredDungeon: %s; %d instances in %d groups; CPU preparation %s"),
         *LayoutDescription,BuildState->Instances,BuildState->InstanceComponents,*LastGenerationMetricsJson);
     // Preserve this run's delayed shrine/animation dependencies; the unused catalog
     // stays soft. Retire the previous run's cache only after successful commit.
     GenerationResources.Reset();
     for(const auto& Asset:State->Assets)if(Asset.Value)GenerationResources.Add(Asset.Value);
+    State->MonsterRendering.RetainDependencies(GenerationResources);
+    State->GlassRendering.RetainDependencies(GenerationResources);
+    FPSResourceLifecycle::Record(this,TEXT("Dungeon.Ready"),{
+        {TEXT("seed"),GeneratedSeed}, {TEXT("generation_resource_references"),GenerationResources.Num()},
+        {TEXT("generated_actors"),GeneratedActors.Num()},
+        {TEXT("monster_render_templates"),State->MonsterRendering.Components.Num()},
+        {TEXT("glass_fragment_templates"),State->GlassRendering.Fragments.Num()}});
     BuildState.Reset();SetActorTickEnabled(false);
     GeneratedActors.RemoveAll([](const TObjectPtr<AActor>& Actor){return !IsValid(Actor);});
     for(AActor* Actor:GeneratedActors)if(auto* Hazard=Cast<ADungeonPusChannel>(Actor))Hazard->ActivateDamage();
-    for(AActor* Actor:GeneratedActors)if(auto* Encounter=Cast<ADungeonBossEncounter>(Actor))Encounter->ActivateEncounter();
     StartRoomLighting();ReleasePlayers();
     if(auto* Loading=DungeonLoading(this))
     {
@@ -1729,7 +2222,10 @@ void AAuthoredDungeonGenerator::CancelAssembly()
     CancelGenerationResources();
     ++GenerationSerial;RollbackAssembly();
     if(BuildState&&!BuildState->bCommitted)GenerationResources.SetNum(FMath::Min(GenerationResources.Num(),BuildState->PreviousResourceCount));
-    BuildState.Reset();SetActorTickEnabled(false);ReleasePlayers();
+    BuildState.Reset();bWaitingNetworkLayout=false;SetActorTickEnabled(false);ReleasePlayers();
+    FPSResourceLifecycle::Record(this,TEXT("Dungeon.AfterCancelAssembly"),{
+        {TEXT("generation_resource_references"),GenerationResources.Num()},
+        {TEXT("generated_actors"),GeneratedActors.Num()}});
 }
 
 FString AAuthoredDungeonGenerator::GetGenerationMetricsJson() const
@@ -1739,18 +2235,24 @@ FString AAuthoredDungeonGenerator::GetGenerationMetricsJson() const
     Report->SetStringField(TEXT("generator"),GetPathName());Report->SetNumberField(TEXT("seed"),S.Seed);
     Report->SetStringField(TEXT("status"),S.bPlanning?TEXT("planning"):!S.Error.IsEmpty()?TEXT("failed"):S.bCompleted?TEXT("ready"):TEXT("assembling"));
     Report->SetStringField(TEXT("error"),S.Error);
-    Report->SetStringField(TEXT("contract"),TEXT("CPU preparation for this generation. Layout search runs on a worker in game worlds. Stage values are inclusive synchronous game-thread wall times, not additive with AssemblySlice/Finalize, GPU timings or measured FPS improvements. MeshCollision covers collidable mesh setup; PhysicsActivation covers staged actor body creation. Teardown/Reveal are also time sliced before navigation and player release. A single indivisible job can exceed BudgetMs. Planning data is not read until worker completion."));
+    Report->SetStringField(TEXT("contract"),TEXT("CPU preparation for this generation. Layout search runs on a worker in game worlds. Resources overlap dependency-ready assembly jobs within one game-thread budget; peak_slice_ms includes resource adoption and assembly. Stage values are inclusive synchronous game-thread wall times, not additive with AssemblySlice/Finalize, GPU timings or measured FPS improvements. MeshCollision covers collidable mesh setup; PhysicsActivation covers staged actor body creation. Teardown/Reveal are also time sliced before navigation and player release. A single indivisible job can exceed the selected budget. Planning data is not read until worker completion."));
     Report->SetNumberField(TEXT("elapsed_ms"),((S.FinishedAt>0?S.FinishedAt:FPlatformTime::Seconds())-S.StartedAt)*1000.);
     // The worker mutates only Plan, PlanMs and bPlanSucceeded. Do not inspect those while it runs.
     if(S.bPlanning){Report->SetField(TEXT("layout_worker_ms"),MakeShared<FJsonValueNull>());Report->SetField(TEXT("modules"),MakeShared<FJsonValueNull>());}
     else {Report->SetNumberField(TEXT("layout_worker_ms"),S.PlanMs);Report->SetNumberField(TEXT("modules"),S.Plan.Pieces.Num());Report->SetNumberField(TEXT("treasure_rooms"),S.Plan.TreasureCount);}
     Report->SetBoolField(TEXT("time_sliced"),S.bRuntime);Report->SetNumberField(TEXT("budget_ms"),DungeonBuildBudget.GetValueOnGameThread());
+    Report->SetNumberField(TEXT("loading_budget_ms"),DungeonLoadingBuildBudget.GetValueOnGameThread());
+    Report->SetNumberField(TEXT("last_slice_budget_ms"),S.LastBudgetMs);
+    Report->SetNumberField(TEXT("loading_resource_batches"),FMath::Clamp(DungeonLoadingResourceBatches.GetValueOnGameThread(),1,8));
     Report->SetNumberField(TEXT("jobs_completed"),S.Cursor);Report->SetNumberField(TEXT("jobs_total"),S.Jobs.Num());
     Report->SetNumberField(TEXT("assembly_slices"),S.Slices);Report->SetNumberField(TEXT("peak_slice_ms"),S.PeakSliceMs);
     Report->SetNumberField(TEXT("unique_assets_resolved"),S.AssetResolutions);Report->SetNumberField(TEXT("parts"),S.Parts);
     Report->SetNumberField(TEXT("async_assets_requested"),S.ResourcePaths.Num());
     Report->SetNumberField(TEXT("async_assets_completed"),S.ResourcesCompleted);
+    Report->SetNumberField(TEXT("jobs_while_resources_pending"),S.JobsWhileLoading);
+    Report->SetNumberField(TEXT("resource_dependency_wait_slices"),S.ResourceWaitSlices);
     Report->SetNumberField(TEXT("instanced_parts"),S.Instances);Report->SetNumberField(TEXT("instance_components"),S.InstanceComponents);
+    Report->SetNumberField(TEXT("instance_batch_submissions"),S.InstanceBatchSubmissions);
     Report->SetNumberField(TEXT("physics_states_created_during_assembly"),S.PhysicsStatesCreated);
     Report->SetNumberField(TEXT("physics_actors_prepared"),S.PhysicsActorCursor);
     Report->SetNumberField(TEXT("individual_rigid_parts"),S.StaticFallbacks);Report->SetNumberField(TEXT("hazards"),S.Hazards);
@@ -1765,5 +2267,14 @@ FString AAuthoredDungeonGenerator::GetGenerationMetricsJson() const
     Report->SetObjectField(TEXT("dressing_rejections"),DressingReasons);
     auto Phases=MakeShared<FJsonObject>();for(const auto& P:S.PhaseMs)Phases->SetNumberField(P.Key.ToString(),P.Value);
     Report->SetObjectField(TEXT("game_thread_phases_ms"),Phases);
+    Report->SetNumberField(TEXT("monster_pso_components"),S.MonsterRendering.Components.Num());
+    Report->SetBoolField(TEXT("monster_render_warmup_enabled"),FApp::CanEverRender());
+    Report->SetBoolField(TEXT("monster_component_pso_precaching_enabled"),IsComponentPSOPrecachingEnabled());
+    Report->SetStringField(TEXT("monster_component_pso_status"),IsComponentPSOPrecachingEnabled()
+        ?TEXT("enabled"):GIsEditor?TEXT("disabled_in_editor"):TEXT("disabled_or_nonrendering"));
+    Report->SetStringField(TEXT("monster_pso_counter_contract"),TEXT("Template/component counts are preparation attempts, not proof of compiled PSOs. Same-instance raster warmup is reported by the hall preparation pool."));
+    Report->SetNumberField(TEXT("monster_pso_classes_submitted"),S.MonsterRendering.SubmitCursor);
+    Report->SetNumberField(TEXT("monster_pso_classes_requested"),S.MonsterRendering.Classes.Num());
+    Report->SetNumberField(TEXT("monster_soft_dependencies_requested"),S.MonsterRendering.DependencyPathsRequested);
     FString Json;FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&Json));return Json;
 }

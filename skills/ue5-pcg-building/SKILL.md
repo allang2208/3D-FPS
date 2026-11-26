@@ -1,6 +1,6 @@
 ---
 name: ue5-pcg-building
-description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow for modular buildings, blockouts, facade rules, runtime generation, and layered terrain ground materials. Use when requests involve Procedural Content Generation (PCG), Shape Grammar, lot-based building spawn, deterministic random seeds, density/filter pipelines, converting designer constraints into reusable PCG graphs, or the detail/layering of a streamed non-Landscape ground surface.
+description: UE5 模块化建筑与场景搭建。适用于设计图到建筑灰盒、室内或街区布置、Shape Grammar、通用 PCG 点位与分区生成，以及流式地块的基础地表实现。丘陵与道路主题、森林生态及户外高度图制作归 ue5-landscape-authoring。
 ---
 
 # 共用规则入口
@@ -35,6 +35,8 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 
 ## 丘陵雨林植被与水坑
 
+构建整片丘陵、森林、村边地形或道路主题时，从[户外地编构建](../ue5-landscape-authoring/SKILL.md)进入，定位高度源、生态组件与光雾所有权。
+
 修改雨林专属草、联机生态参数或扩大水坑选址时，读 [雨林植被与局部积水](references/hills-vegetation-and-pools.md)。 为什么：「雨林植被与局部积水」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
 丘陵道路保护、河湖高度连续、树簇与林床关联、扫描岩壁补面，读取 [丘陵道路保护、河湖高度连续、树簇与林床关联、扫描岩壁补面](references/hills-scenery-continuity.md)。
@@ -42,3 +44,7 @@ description: UE5.6-UE5.8 PCG generation and runtime-heightfield ground workflow 
 可修复酒馆的房壳、通行碰撞和桌面摆放见[酒馆两态与室内承托](references/reusable-interior-assemblies.md#丘陵酒馆的残破与修复)。
 
 丘陵铁匠铺的铁砧侧光与炉膛火光见[铁匠铺照明](references/fixture-lighting-standard.md#铁匠铺的铁砧与炉膛)。木工驱动水晶、草药铺瓶身与药液、店铺同机位对照见[店铺工作台近景](references/reusable-interior-assemblies.md#村庄店铺的工作台近景)。
+
+## 丘陵村防的玩家建造件
+
+[石砌高塔楼的制作源、UE 包和恢复版本](../../Docs/Production/README.md#hills-high-watchtower)与高城门共用墙材、压顶和铺地。城墙步道和塔楼两侧门槛的本地标高均为 360 cm。调整塔身尺寸时，同步调整模型门槛和 `VillageWallStairs.cpp` 的对接点，以实际步道的世界位置和朝向对齐。自由放置与吸附放置都沿用建筑系统的精确变换存档。

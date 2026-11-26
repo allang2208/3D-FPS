@@ -62,9 +62,9 @@ void FControls::BlendHammerCast(FPoseContext& Out,FCSPose<FCompactPose>& Pose)
     if(ActionWristMask&2)GoalHand=ActionHands[1].GetRotation();
     else
     {
-        const FVector Fingers=Release?Up*.967+Front*.25:Front*.94-Left*.22+Up*.20;
+        const FVector FingerDirection=Release?Up*.967+Front*.25:Front*.94-Left*.22+Up*.20;
         const FVector Palm=Release?Front*.968-Up*.25:Up*.98-Front*.20;
-        GoalHand=(FRotationMatrix::MakeFromXZ(Fingers,Palm).ToQuat()*HammerCastPalmCorrection).GetNormalized();
+        GoalHand=(FRotationMatrix::MakeFromXZ(FingerDirection,Palm).ToQuat()*HammerCastPalmCorrection).GetNormalized();
     }
     if(Recover){Goal=CarryHand.GetLocation();GoalPole=CarryLower.GetLocation();GoalHand=CarryHand.GetRotation();}
     const double Arc=FMath::Sin(PI*double(Travel))*Size;

@@ -1,6 +1,19 @@
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelWarehouseRules.h"
 #include "Serialization/JsonSerializer.h"
+#include "HAL/IConsoleManager.h"
+#include "Engine/World.h"
+#include "Engine/GameInstance.h"
+
+#if !UE_BUILD_SHIPPING
+static FAutoConsoleCommandWithWorld GDevEnhancementSupply(
+    TEXT("fps.DevGrantEnhancementMaterials"),TEXT("Explicit one-time development material supply (standalone only)."),
+    FConsoleCommandWithWorldDelegate::CreateLambda([](UWorld* World)
+    {
+        if(!World||!World->IsGameWorld()||World->GetNetMode()!=NM_Standalone||!World->GetGameInstance())return;
+        if(auto* Model=World->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Model->GrantEnhancementMaterials();
+    }));
+#endif
 
 bool UColdSteelStatusModel::GrantEnhancementMaterials()
 {

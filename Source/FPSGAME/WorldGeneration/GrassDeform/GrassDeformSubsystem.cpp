@@ -695,3 +695,4 @@ void UGrassDeformSubsystem::Tick(float DeltaTime)
 // parameter still points at the read side; FlipReadSide() then swaps them and rebinds the RT on
 // the grass materials. One flip per pass keeps the two sides consistent.
 // ---------------------------------------------------------------------------------------------
+

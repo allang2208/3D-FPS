@@ -16,12 +16,22 @@ public:
 };
 
 UCLASS()
+class AKukriWireMetalWall : public AActor
+{
+    GENERATED_BODY()
+public:
+    AKukriWireMetalWall();
+};
+UCLASS()
 class AKukriCombatWireState : public AColdSteelPlayerState
 {
     GENERATED_BODY()
 public:
     virtual void ServerReportHit_Implementation(const FColdSteelNetHitReport& Report) override;
+    virtual void ServerReportPairedHeavyHit_Implementation(const FColdSteelNetHitReport& First,const FColdSteelNetHitReport& Second) override;
     FColdSteelNetHitReport LastContact;
+    FColdSteelNetHitReport LastPairedContact;
+    bool LastWasPaired=false;
     int32 Reports=0;
 };
 UCLASS()
@@ -37,11 +47,13 @@ public:
     UFUNCTION(Client,Reliable) void ClientGo(int32 Case);
     UFUNCTION(Server,Reliable) void ServerDone(int32 Case,bool OK,int32 Count,double Spent);
     UFUNCTION(Client,Reliable) void ClientReplay(const FColdSteelNetHitReport& Report);
+    UFUNCTION(Client,Reliable) void ClientReplayPaired(const FColdSteelNetHitReport& First,const FColdSteelNetHitReport& Second);
     UFUNCTION(Client,Reliable) void ClientExit();
     UFUNCTION(Client,Reliable) void ClientCheckReplacement(AFPSGAMECharacter* NewPawn,double Spent);
     UFUNCTION(Server,Reliable) void ServerReplacementReady(bool Passed);
     int32 Finished=0;
     bool Ready=false,Done=false,Completed=false;
+    bool bWatchOnly=false;
     int32 Inputs=0;
     double ClientSpent=0.;
     bool ReplacementReady=false;
@@ -61,12 +73,16 @@ class AKukriCombatWireGameMode : public AGameModeBase
 public:
     AKukriCombatWireGameMode();
     virtual void BeginPlay() override;
+    virtual FString InitNewPlayer(APlayerController* Player,const FUniqueNetIdRepl& Id,const FString& Options,const FString& Portal) override;
     virtual void PostLogin(APlayerController* Player) override;
     virtual void Logout(AController* Player) override;
     virtual void Tick(float Delta) override;
     UFUNCTION() void CountDamage(AActor* Actor,float Damage,const UDamageType* Type,AController* DamageController,AActor* Causer);
 private:
     UPROPERTY() TObjectPtr<AKukriCombatWireController> Guest;
+    UPROPERTY() TObjectPtr<AKukriCombatWireController> Watcher;
+    UPROPERTY() TObjectPtr<ANurseZombie> SecondTarget;
+    bool bViewerPlaced=false,bReplayedPull=false;
     UPROPERTY() TObjectPtr<ANurseZombie> Target;
     TArray<TSharedPtr<class FJsonValue>> Rows;
     int32 Prepared=-1,Contacts=0,ObservedFrames=0,RiftFrames=0,LeftRiftFrames=0;
@@ -79,3 +95,9 @@ private:
     UPROPERTY() TObjectPtr<class ACameraActor> CaptureCamera;
     TSet<FString> Captures;
 };
+
+class ANurseZombie;
+namespace KukriCombatWire
+{
+    ANurseZombie* SpawnTarget(UWorld* World,const FVector& Location);
+}

@@ -1,7 +1,9 @@
 #pragma once
+struct FKukriPairedHeavyHit;
 #include "ColdSteelSkillTypes.h"
 struct FColdSteelProfile;
 struct FColdSteelItem;
+class UColdSteelStatusModel;
 namespace ColdSteelSkills
 {
     FPSGAME_API FColdSteelSkillDefinition LoadDefinition(FName Id=TEXT("rifleMastery"));
@@ -10,13 +12,18 @@ namespace ColdSteelSkills
     FPSGAME_API bool IsRifle(const FColdSteelItem* Item);
     FPSGAME_API bool IsPistol(const FColdSteelItem* Item);
     FPSGAME_API bool IsCriticalHit(const FHitResult& Hit);
+    inline bool IsTwoHandedSubMastery(FName Id){return Id==TEXT("swordMastery")||Id==TEXT("bluntMastery");}
+    inline bool IsMeleeMastery(FName Id){return Id==TEXT("twoHandedMastery")||Id==TEXT("oneHandedMastery")||Id==TEXT("swordMastery")||Id==TEXT("bluntMastery");}
+    FPSGAME_API bool IsMasteryTrainingTarget(AActor* Shooter,AActor* Target);
     FPSGAME_API FColdSteelSkillEffect Effect(const FColdSteelSkillDefinition& Definition, int32 Level);
     FPSGAME_API int32 ExperienceRequired(const FColdSteelSkillDefinition& Definition, int32 Level);
     FPSGAME_API void AddExperience(FColdSteelProfile& Profile, const FColdSteelSkillDefinition& Definition, int32 Amount);
     FPSGAME_API FString EffectSummary(const FColdSteelSkillEffect& Effect);
     // Ammo effects apply only to fired rounds, never to a rifle-stock/pistol melee strike.
     FPSGAME_API FColdSteelSkillShot Snapshot(AActor* Shooter,const FColdSteelItem* Item=nullptr,bool bFiredRound=false);
-    FPSGAME_API float ApplyHit(AActor* Shooter, const FHitResult& Hit, float Damage, const FVector& Direction, const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result=nullptr);
+    FPSGAME_API FColdSteelSkillShot StaffQuickStrike(const UColdSteelStatusModel& Profile,const FColdSteelItem* Torch);
+    FPSGAME_API void CapturePairedDash(FColdSteelSkillShot& Shot,AActor* Shooter,const UColdSteelStatusModel* Profile);
+    FPSGAME_API float ApplyHit(AActor* Shooter, const FHitResult& Hit, float Damage, const FVector& Direction, const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result=nullptr,FKukriPairedHeavyHit* PairedHeavy=nullptr);
     // Called once after a confirmed enemy contact, including weapon-specific magic attacks.
     FPSGAME_API void GrantBerserkOnWeaponHit(AActor* Shooter,const FColdSteelSkillShot& Shot);
     // M3 联机：客户端（非权威射手）命中不本地结算，由插件注册的转发函数送权威服务器。返回 true=已转发。

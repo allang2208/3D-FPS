@@ -38,6 +38,7 @@ void UFPSIceArmorComponent::UpdateOutfit()
     OutfitProfiles[2]=Profile(Pants)*3+Profile(Boots);
     bHideThigh=Shirt.Contains(TEXT("robe"))||Shirt.Contains(TEXT("coat"));bHideBack=false;
     const auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();auto* Leader=Body?Body->GetBodyMesh():nullptr;
+    if(!Leader)if(const auto* Character=Cast<ACharacter>(GetOwner()))Leader=Character->GetMesh();
     TArray<USkeletalMeshComponent*> Parts;GetOwner()->GetComponents(Parts);
     for(auto* Part:Parts)if(Part!=Leader&&Part->GetAttachParent()==Leader&&Part->GetSkeletalMeshAsset()&&Part->IsVisible())
         if(Part->GetSkeletalMeshAsset()->GetName().Contains(TEXT("Backpack"))){bHideBack=true;break;}
@@ -59,21 +60,23 @@ void UFPSIceArmorComponent::OnRep_Impact()
 void UFPSIceArmorComponent::UpdateVisuals(float Delta)
 {
     if(GetNetMode()==NM_DedicatedServer)return;
-    auto* P=Cast<AFPSGAMECharacter>(GetOwner());if(!P)return;
+    auto* P=Cast<ACharacter>(GetOwner());if(!P)return;
+    const auto* Player=Cast<AFPSGAMECharacter>(P);
     const auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();if(Health&&Health->IsDead()){ClearVisuals();return;}
     const double Now=Clock();const bool Active=Remaining()>0;
     if(Active){bVisualWasActive=true;EndingAt=-1;VisualStartedAt=View().StartedAt;VisualEndAt=View().StartedAt+View().Cast.Duration;VisualPulseSeconds=FMath::Max(.1f,View().Cast.PulseSeconds);}
     else if(bVisualWasActive){bVisualWasActive=false;EndingAt=Now;EmitChips(P->GetActorForwardVector(),12);}
     if(!Active&&(EndingAt<0||Now-EndingAt>.6)){ClearVisuals();return;}
     const auto* Body=P->FindComponentByClass<UFPSPlayerBodyComponent>();auto* Leader=Body?Body->GetBodyMesh():nullptr;
-    const bool First=P->IsLocallyControlled()&&(!Body||!Body->IsThirdPersonViewEnabled()),WorldVisible=!First&&Leader&&Leader->IsVisible()&&!Leader->bHiddenInGame;
+    if(!Leader)Leader=P->GetMesh();
+    const bool First=Player&&P->IsLocallyControlled()&&(!Body||!Body->IsThirdPersonViewEnabled()),WorldVisible=!First&&Leader&&Leader->IsVisible()&&!Leader->bHiddenInGame;
     if(First!=bLastFirstPerson){for(auto& C:ChipParticles)C.At=-100;bLastFirstPerson=First;}
     if(Now>=NextOutfitAt)UpdateOutfit();
     if(Now>=NextDetailAt)
     {
         NextDetailAt=Now+.25;
         if(auto* Fluid=GetWorld()->GetSubsystem<UFluidPresentationSubsystem>())
-        {VisualDetail=float(Fluid->AllocateDetail(P->GetActorLocation(),8,P->IsLocallyControlled()))/8;VisualWind=Fluid->WindAt(P->GetActorLocation())*.08;}
+        {VisualDetail=float(Fluid->AllocateDetail(P->GetActorLocation(),8,First))/8;VisualWind=Fluid->WindAt(P->GetActorLocation())*.08;}
     }
     const float Age=FMath::Max(0.,Now-VisualStartedAt),Dissolve=EndingAt>=0?FMath::Clamp(float((Now-EndingAt)/.55),0.f,1.f):0.f,Growth=FMath::Clamp(Age/.7f,0.f,1.f);
     const float PulsePhase=FMath::Clamp(FMath::Fmod(Age,VisualPulseSeconds)/.36f,0.f,1.f);
@@ -88,7 +91,7 @@ void UFPSIceArmorComponent::UpdateVisuals(float Delta)
         MID->SetScalarParameterValue(TEXT("Pulse"),Pulse*.35f);MID->SetScalarParameterValue(TEXT("PulsePhase"),PulsePhase);MID->SetScalarParameterValue(TEXT("Impact"),Hit);MID->SetVectorParameterValue(TEXT("HitPosition"),FLinearColor(HitPoint));
     }
     if(ArmorMID){ArmorMID->SetScalarParameterValue(TEXT("HideBack"),bHideBack?1:0);ArmorMID->SetScalarParameterValue(TEXT("HideThigh"),bHideThigh?1:0);}
-    if(First&&P->FirstPersonCamera&&LensMesh&&LensMID)
+    if(First&&Player->FirstPersonCamera&&LensMesh&&LensMID)
     {
         if(!Lens)
         {
@@ -99,19 +102,19 @@ void UFPSIceArmorComponent::UpdateVisuals(float Delta)
             Lens->SetCollisionEnabled(ECollisionEnabled::NoCollision);Lens->SetGenerateOverlapEvents(false);Lens->SetCastShadow(false);
             Lens->SetVisibleInRayTracing(false);Lens->SetCanEverAffectNavigation(false);Lens->SetOnlyOwnerSee(true);Lens->SetOwnerNoSee(false);
             Lens->SetFirstPersonPrimitiveType(EFirstPersonPrimitiveType::None);Lens->SetTranslucentSortPriority(100);Lens->RegisterComponent();
-            PreviousCameraRotation=P->FirstPersonCamera->GetComponentRotation();LensSway=FRotator::ZeroRotator;
+            PreviousCameraRotation=Player->FirstPersonCamera->GetComponentRotation();LensSway=FRotator::ZeroRotator;
         }
         int32 W=1920,H=1080;const auto* PC=Cast<APlayerController>(P->GetController());if(PC)PC->GetViewportSize(W,H);
         const auto* Manager=PC?PC->PlayerCameraManager.Get():nullptr;const bool FinalPOV=Manager&&PC->GetViewTarget()==P;
-        const FVector Eye=FinalPOV?Manager->GetCameraLocation():P->FirstPersonCamera->GetComponentLocation();
-        const FRotator Rotation=FinalPOV?Manager->GetCameraRotation():P->FirstPersonCamera->GetComponentRotation();
-        const float FOV=FinalPOV?Manager->GetFOVAngle():P->FirstPersonCamera->FieldOfView,Distance=42.f;
+        const FVector Eye=FinalPOV?Manager->GetCameraLocation():Player->FirstPersonCamera->GetComponentLocation();
+        const FRotator Rotation=FinalPOV?Manager->GetCameraRotation():Player->FirstPersonCamera->GetComponentRotation();
+        const float FOV=FinalPOV?Manager->GetFOVAngle():Player->FirstPersonCamera->FieldOfView,Distance=42.f;
         FMinimalViewInfo View;if(FinalPOV)View=Manager->GetCameraCacheView();
-        else {View.AspectRatio=P->FirstPersonCamera->AspectRatio;View.bConstrainAspectRatio=P->FirstPersonCamera->bConstrainAspectRatio;View.AspectRatioAxisConstraint=P->FirstPersonCamera->AspectRatioAxisConstraint;}
+        else {View.AspectRatio=Player->FirstPersonCamera->AspectRatio;View.bConstrainAspectRatio=Player->FirstPersonCamera->bConstrainAspectRatio;View.AspectRatioAxisConstraint=Player->FirstPersonCamera->AspectRatioAxisConstraint;}
         View.FOV=FMath::Clamp(FOV,1.f,170.f);
         FSceneViewProjectionData Projection;const FIntRect ViewRect(0,0,FMath::Max(1,W),FMath::Max(1,H));Projection.SetViewRectangle(ViewRect);
         // Use the engine projection: this player's camera maintains vertical FOV.
-        FMinimalViewInfo::CalculateProjectionMatrixGivenViewRectangle(View,P->FirstPersonCamera->AspectRatioAxisConstraint,ViewRect,Projection);
+        FMinimalViewInfo::CalculateProjectionMatrixGivenViewRectangle(View,Player->FirstPersonCamera->AspectRatioAxisConstraint,ViewRect,Projection);
         const float HalfWidth=Distance/float(Projection.ProjectionMatrix.M[0][0]),HalfHeight=Distance/float(Projection.ProjectionMatrix.M[1][1]),Aspect=HalfWidth/HalfHeight;
         const FRotator Motion=(PreviousCameraRotation-Rotation).GetNormalized();PreviousCameraRotation=Rotation;
         if(Delta>0)LensSway=FMath::RInterpTo(LensSway,FRotator(FMath::Clamp(Motion.Pitch*.055,-.12,.12),FMath::Clamp(Motion.Yaw*.055,-.12,.12),0),Delta,18);

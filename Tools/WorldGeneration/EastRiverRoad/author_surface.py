@@ -133,3 +133,4 @@ for layer in 'ABC':
         ed.set_material_instance_static_switch_parameter_value(mi,key+' '+layer,val)
 ed.update_material_instance(mi)
 save(mi)
+

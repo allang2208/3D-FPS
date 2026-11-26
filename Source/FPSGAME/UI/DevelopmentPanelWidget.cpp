@@ -1,4 +1,5 @@
 #include "DevelopmentPanelWidget.h"
+#include "../Skills/ColdSteelSkillTree.h"
 #include "DevelopmentListOptionWidget.h"
 #include "DevelopmentItemPicker.h"
 #include "ColdSteelUIStyle.h"
@@ -6,7 +7,9 @@
 #include "../FPSGAMEPlayerController.h"
 #include "../FPSGAMECharacter.h"
 #include "../FPSWeatherManager.h"
+#include "../WorldGeneration/TemperateHillsWorld.h"
 #include "../Development/DevelopmentSpawnComponent.h"
+#include "../Development/DevelopmentEnvironmentObject.h"
 #include "Engine/GameInstance.h"
 #include "EngineUtils.h"
 #include "Blueprint/WidgetTree.h"
@@ -89,15 +92,17 @@ void UDevelopmentPanelWidget::NativeOnInitialized()
     Stack->AddChildToVerticalBox(Tabs)->SetPadding(FMargin(0,0,0,14));
     WeatherTab = CreatePanelButton(TEXT("天气环境"), TEXT("DevelopmentWeatherTab"));
     MonsterTab = CreatePanelButton(TEXT("怪物生成"), TEXT("DevelopmentMonsterTab"));
+    EnvironmentTab = CreatePanelButton(TEXT("环境生成"), TEXT("DevelopmentEnvironmentTab"));
     TuningTab = CreatePanelButton(TEXT("基本调参"), TEXT("DevelopmentTuningTab"));
     PerformanceTab = CreatePanelButton(TEXT("性能监测"), TEXT("DevelopmentPerformanceTab"));
-    for (auto* Button : {TuningTab.Get(), WeatherTab.Get(), MonsterTab.Get(), PerformanceTab.Get()})
+    for (auto* Button : {TuningTab.Get(), WeatherTab.Get(), MonsterTab.Get(), EnvironmentTab.Get(), PerformanceTab.Get()})
     {
         if (auto* Label = Cast<UTextBlock>(Button->GetContent())) Label->SetAutoWrapText(false);
         auto* TabSlot = Tabs->AddChildToHorizontalBox(Button); TabSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill)); TabSlot->SetPadding(FMargin(2,0));
     }
     WeatherTab->OnClicked.AddDynamic(this, &ThisClass::WeatherClicked);
     MonsterTab->OnClicked.AddDynamic(this, &ThisClass::MonstersClicked);
+    EnvironmentTab->OnClicked.AddDynamic(this, &ThisClass::EnvironmentClicked);
     TuningTab->OnClicked.AddDynamic(this, &ThisClass::TuningClicked);
     PerformanceTab->OnClicked.AddDynamic(this, &ThisClass::PerformanceClicked);
     auto* Scroll = WidgetTree->ConstructWidget<UScrollBox>();
@@ -107,23 +112,32 @@ void UDevelopmentPanelWidget::NativeOnInitialized()
     auto* WeatherPage = WidgetTree->ConstructWidget<UVerticalBox>(); Pages->AddChild(WeatherPage);
     BuildWeatherContent(WeatherPage);
 
-    auto* MonsterPage = WidgetTree->ConstructWidget<UVerticalBox>(); Pages->AddChild(MonsterPage);
-    auto Label = [this, MonsterPage](const TCHAR* Caption)
+    auto* SpawnPage = WidgetTree->ConstructWidget<UVerticalBox>(); Pages->AddChild(SpawnPage);
+    auto Label = [this, SpawnPage](const TCHAR* Caption)
     {
-        MonsterPage->AddChildToVerticalBox(CreatePanelText(Caption, 16, ColdSteelUI::TextPrimary))->SetPadding(FMargin(0,12,0,6));
+        auto* Text = CreatePanelText(Caption, 16, ColdSteelUI::TextPrimary);
+        SpawnPage->AddChildToVerticalBox(Text)->SetPadding(FMargin(0,12,0,6));
+        return Text;
     };
     // 三组选项条与「基本调参」页同级：统一 36px 操作高度，宽度在 NativeTick 按实测内容宽度对齐。
-    const auto AddOptionRow = [this, MonsterPage](UWidget* Control)
+    const auto AddOptionRow = [this, SpawnPage](UWidget* Control)
     {
         auto* Box = WidgetTree->ConstructWidget<USizeBox>();
         Box->SetContent(Control);
-        MonsterPage->AddChildToVerticalBox(Box);
+        SpawnPage->AddChildToVerticalBox(Box);
     };
-    Label(TEXT("怪物类型"));
-    MonsterChoice = WidgetTree->ConstructWidget<UComboBoxString>();
-    MonsterChoice->OnGenerateWidgetEvent.BindDynamic(this, &ThisClass::GenerateMonsterOption);
-    MonsterChoice->OnSelectionChanged.AddDynamic(this, &ThisClass::MonsterSelected);
-    AddOptionRow(MonsterChoice);
+    SpawnCategory = Label(TEXT("怪物类型"));
+    SpawnChoice = WidgetTree->ConstructWidget<UComboBoxString>();
+    SpawnChoice->OnGenerateWidgetEvent.BindDynamic(this, &ThisClass::GenerateSpawnOption);
+    SpawnChoice->OnSelectionChanged.AddDynamic(this, &ThisClass::SpawnChoiceSelected);
+    AddOptionRow(SpawnChoice);
+    UnknownLevelLabel=Label(TEXT("未知等级"));
+    UnknownLevelChoice=WidgetTree->ConstructWidget<UComboBoxString>();
+    UnknownLevelChoice->OnGenerateWidgetEvent.BindDynamic(this,&ThisClass::GenerateSpawnOption);
+    for(const int32 Level : {10,20,30}) UnknownLevelChoice->AddOption(FString::Printf(TEXT("%d级"),Level));
+    UnknownLevelChoice->SetSelectedIndex(0);
+    UnknownLevelChoice->OnSelectionChanged.AddDynamic(this,&ThisClass::UnknownLevelSelected);
+    AddOptionRow(UnknownLevelChoice);
     Label(TEXT("生成数量"));
     CountBox = WidgetTree->ConstructWidget<USpinBox>();
     CountBox->SetMinValue(1); CountBox->SetMaxValue(10); CountBox->SetMinSliderValue(1); CountBox->SetMaxSliderValue(10);
@@ -135,10 +149,11 @@ void UDevelopmentPanelWidget::NativeOnInitialized()
     DistanceBox->SetDelta(.5f); DistanceBox->SetMinFractionalDigits(1); DistanceBox->SetMaxFractionalDigits(1); DistanceBox->SetValue(5);
     AddOptionRow(DistanceBox);
     SpawnCount = CreatePanelText(TEXT("本面板生成的怪物：0"), 14, ColdSteelUI::TextSecondary);
-    MonsterPage->AddChildToVerticalBox(SpawnCount)->SetPadding(FMargin(0,16,0,10));
+    SpawnPage->AddChildToVerticalBox(SpawnCount)->SetPadding(FMargin(0,16,0,10));
     SpawnStatus = CreatePanelText(TEXT("选择怪物后点击生成。怪物出现在玩家朝向的前方，并面向玩家。"), 14, ColdSteelUI::TextPrimary);
-    MonsterPage->AddChildToVerticalBox(SpawnStatus)->SetPadding(FMargin(0,0,0,14));
-    MonsterPage->AddChildToVerticalBox(CreatePanelText(TEXT("场景持续运行，怪物按原有行为活动。空间不足时只生成能放下的数量；清除按钮只影响本面板生成的怪物。"), 12, ColdSteelUI::TextSecondary));
+    SpawnPage->AddChildToVerticalBox(SpawnStatus)->SetPadding(FMargin(0,0,0,14));
+    SpawnHelp = CreatePanelText(TEXT("清除范围仅限本面板生成的怪物。"), 12, ColdSteelUI::TextSecondary);
+    SpawnPage->AddChildToVerticalBox(SpawnHelp);
 
     auto* TuningPage = WidgetTree->ConstructWidget<UVerticalBox>(); Pages->AddChild(TuningPage);
     BuildTuningPage(TuningPage);
@@ -155,15 +170,15 @@ void UDevelopmentPanelWidget::NativeOnInitialized()
     SpawnButton = AddButton(Actions, TEXT("在玩家前方生成"), TEXT("DevelopmentSpawn"));
     ClearButton = AddButton(Actions, TEXT("清除本面板生成的怪物"), TEXT("DevelopmentClear"));
     SpawnButton->OnClicked.AddDynamic(this, &ThisClass::SpawnClicked);
-    ClearButton->OnClicked.AddDynamic(this, &ThisClass::ClearMonstersClicked);
+    ClearButton->OnClicked.AddDynamic(this, &ThisClass::ClearSpawnedClicked);
     CloseButton = AddButton(Stack, TEXT("返回游戏  ·  F6 / Esc"), TEXT("DevelopmentClose"));
     CloseButton->OnClicked.AddDynamic(this, &ThisClass::CloseDeveloper);
-    PopulateMonsters(); PopulateItems(); PopulateSkills();
+    PopulateSpawnChoices(); PopulateItems(); PopulateSkills();
     SetPage(2); UpdateLayout(); RefreshFeatures();
     Panel->SetVisibility(ESlateVisibility::Collapsed);
 }
 
-UWidget* UDevelopmentPanelWidget::GenerateMonsterOption(FString Item)
+UWidget* UDevelopmentPanelWidget::GenerateSpawnOption(FString Item)
 {
     // 怪物与技能下拉共用正文档选项；物品目录使用带类别标题的专用下拉。
     return GenerateListOption(Item);
@@ -267,22 +282,43 @@ void UDevelopmentPanelWidget::PopulateSkills()
     SelectedSkill = SkillIds[Pick];
 }
 
-void UDevelopmentPanelWidget::PopulateMonsters()
+void UDevelopmentPanelWidget::PopulateSpawnChoices()
 {
-    const FName Previous = SelectedMonster;
-    MonsterIds.Reset(); MonsterChoice->ClearOptions();
-    if (const auto* Spawner = ResolveSpawner())
+    FName& Selected = bEnvironmentForm ? SelectedEnvironment : SelectedMonster;
+    const FName Previous = Selected;
+    FName PreviousChoice=Previous;
+    if(!bEnvironmentForm) if(const auto* Spawner=ResolveSpawner())
+        for(const auto& Entry : Spawner->GetMonsters()) if(Entry.Id==Previous && Entry.SpawnLevel>0)
+        { PreviousChoice=FName(*(TEXT("Unknown")+Entry.WeaponGroup.ToString())); break; }
+    SpawnChoiceIds.Reset(); SpawnChoice->ClearOptions();
+    if (bEnvironmentForm)
+    {
+        for (const auto& Entry : ADevelopmentEnvironmentObject::Catalogue())
+        { SpawnChoiceIds.Add(Entry.Id); SpawnChoice->AddOption(Entry.Name); }
+    }
+    else if (const auto* Spawner = ResolveSpawner())
         for (const auto& Entry : Spawner->GetMonsters())
-        { MonsterIds.Add(Entry.Id); MonsterChoice->AddOption(Entry.Name.ToString()); }
-    const int32 Index = MonsterIds.IndexOfByKey(Previous);
-    if (!MonsterIds.IsEmpty()) MonsterChoice->SetSelectedIndex(Index == INDEX_NONE ? 0 : Index);
-    else SelectedMonster = NAME_None;
-    MonsterChoice->SetIsEnabled(!MonsterIds.IsEmpty());
+        {
+            if (!Spawner->IsAvailableInWorld(Entry)) continue;
+            if(Entry.SpawnLevel>0)
+            {
+                if(Entry.SpawnLevel!=10)continue;
+                SpawnChoiceIds.Add(FName(*(TEXT("Unknown")+Entry.WeaponGroup.ToString())));
+                SpawnChoice->AddOption(Entry.Name.ToString().LeftChop(FString(TEXT(" · 10级")).Len()));
+            }
+            else { SpawnChoiceIds.Add(Entry.Id); SpawnChoice->AddOption(Entry.Name.ToString()); }
+        }
+    const int32 Index = SpawnChoiceIds.IndexOfByKey(PreviousChoice);
+    if (!SpawnChoiceIds.IsEmpty()) SpawnChoice->SetSelectedIndex(Index == INDEX_NONE ? 0 : Index);
+    else Selected = NAME_None;
+    SpawnChoice->SetIsEnabled(!SpawnChoiceIds.IsEmpty());
+    RefreshSpawnSelection();
 }
 
 void UDevelopmentPanelWidget::SetPanelOpen(bool bOpen)
 {
     if (!bOpen && ItemChoice) ItemChoice->CloseMenu();
+    if (!bOpen && QuestChoice) QuestChoice->CloseMenu();
     Super::SetPanelOpen(bOpen);
     // 基础实现直接折叠面板；抽屉收回顾动画由 TickDrawer 驱动，动画期间保持可见。
     if (bOpen || DrawerProgress > KINDA_SMALL_NUMBER)
@@ -294,7 +330,7 @@ void UDevelopmentPanelWidget::SetPanelOpen(bool bOpen)
     {
         // 让位在收回动画播完后由 TickDrawer 复位，与背包装备的恢复时机一致。
         if (auto* HUD = ResolveHUD()) { HUD->SetExternalDrawerOpen(true); bHudYielded = true; }
-        PopulateMonsters(); PopulateItems(); PopulateSkills();
+        PopulateSpawnChoices(); PopulateItems(); PopulateSkills();
         UpdateLayout(); RefreshStatus(); RefreshTuning(); RefreshFeatures();
     }
 }
@@ -302,16 +338,33 @@ void UDevelopmentPanelWidget::SetPanelOpen(bool bOpen)
 void UDevelopmentPanelWidget::SetPage(int32 Index)
 {
     if (ActivePage != Index && ItemChoice) ItemChoice->CloseMenu();
+    if (ActivePage != Index && QuestChoice) QuestChoice->CloseMenu();
     if (ActivePage != Index && Index == 3) PerformanceNextUpdate = 0.0;
     ActivePage = Index;
-    Pages->SetActiveWidgetIndex(Index);
-    SpawnActions->SetVisibility(Index == 1 ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
+    // The two spawn tabs share the quantity/distance form and keep separate selections.
+    const bool bSpawnTab = Index == 1 || Index == 4;
+    if (bSpawnTab && bEnvironmentForm != (Index == 4))
+    {
+        bEnvironmentForm = Index == 4;
+        SpawnCategory->SetText(FText::FromString(bEnvironmentForm ? TEXT("环境物体类型") : TEXT("怪物类型")));
+        SpawnStatus->SetColorAndOpacity(ColdSteelUI::TextPrimary);
+        SpawnStatus->SetText(FText::FromString(bEnvironmentForm ? TEXT("用矿镐开采矿脉，用伐木斧砍树。")
+            : TEXT("选择怪物后点击生成。怪物出现在玩家朝向的前方，并面向玩家。")));
+        SpawnHelp->SetText(FText::FromString(bEnvironmentForm ? TEXT("单机或主机可生成。清除范围仅限本面板生成的环境物体。")
+            : TEXT("清除范围仅限本面板生成的怪物。")));
+        if (auto* Text = Cast<UTextBlock>(ClearButton->GetContent()))
+            Text->SetText(FText::FromString(bEnvironmentForm ? TEXT("清除本面板生成的环境物体") : TEXT("清除本面板生成的怪物")));
+        PopulateSpawnChoices();
+    }
+    Pages->SetActiveWidgetIndex(Index == 4 ? 1 : Index);
+    SpawnActions->SetVisibility(bSpawnTab ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
     TuningActions->SetVisibility(Index == 2 ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
     const float Scale = ColdSteelUI::PixelScale(this);
     auto Selected = ColdSteelUI::ButtonStyle(1.f / Scale);
     Selected.SetNormal(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover, ColdSteelUI::ButtonRadius / Scale, ColdSteelUI::Accent));
     WeatherTab->SetStyle(Index == 0 ? Selected : ColdSteelUI::ButtonStyle(1.f / Scale));
     MonsterTab->SetStyle(Index == 1 ? Selected : ColdSteelUI::ButtonStyle(1.f / Scale));
+    EnvironmentTab->SetStyle(Index == 4 ? Selected : ColdSteelUI::ButtonStyle(1.f / Scale));
     TuningTab->SetStyle(Index == 2 ? Selected : ColdSteelUI::ButtonStyle(1.f / Scale));
     if (PerformanceTab) PerformanceTab->SetStyle(Index == 3 ? Selected : ColdSteelUI::ButtonStyle(1.f / Scale));
     RefreshStatus();
@@ -329,10 +382,11 @@ void UDevelopmentPanelWidget::RefreshStatus()
     if (bTuningAvailable != (Tuning && Tuning->CanEdit(GetOwningPlayer()))) RefreshTuning();
     if (!SpawnCount) return;
     const auto* Spawner = ResolveSpawner();
-    const int32 Live = Spawner ? Spawner->GetSpawnedCount() : 0;
-    SpawnCount->SetText(FText::FromString(FString::Printf(TEXT("本面板生成的怪物：%d"), Live)));
+    const int32 Live = Spawner ? (bEnvironmentForm ? Spawner->GetEnvironmentCount() : Spawner->GetSpawnedCount()) : 0;
+    SpawnCount->SetText(FText::FromString(FString::Printf(TEXT("本面板生成的%s：%d"), bEnvironmentForm ? TEXT("环境物体") : TEXT("怪物"), Live)));
     const auto* Player = GetOwningPlayer();
-    SpawnButton->SetIsEnabled(Spawner && Player && Player->GetPawn() && Player->HasAuthority() && !SelectedMonster.IsNone());
+    SpawnButton->SetIsEnabled(Spawner && Player && Player->GetPawn() && Player->HasAuthority()
+        && !(bEnvironmentForm ? SelectedEnvironment : SelectedMonster).IsNone());
     ClearButton->SetIsEnabled(Live > 0);
 }
 
@@ -341,28 +395,49 @@ void UDevelopmentPanelWidget::SpawnClicked()
     if (auto* Spawner = ResolveSpawner())
     {
         FText Result;
-        const int32 Created = Spawner->SpawnInFront(SelectedMonster, FMath::RoundToInt(CountBox->GetValue()), DistanceBox->GetValue(), Result);
+        const int32 Count = FMath::RoundToInt(CountBox->GetValue());
+        const float Distance = DistanceBox->GetValue();
+        const int32 Created = bEnvironmentForm ? Spawner->SpawnEnvironment(SelectedEnvironment, Count, Distance, Result)
+            : Spawner->SpawnInFront(SelectedMonster, Count, Distance, Result);
         SpawnStatus->SetText(Result);
         SpawnStatus->SetColorAndOpacity(Created > 0 ? ColdSteelUI::Success : ColdSteelUI::Warning);
     }
     RefreshStatus();
 }
 
-void UDevelopmentPanelWidget::ClearMonstersClicked()
+void UDevelopmentPanelWidget::ClearSpawnedClicked()
 {
     if (auto* Spawner = ResolveSpawner())
     {
-        const int32 Count = Spawner->ClearSpawned();
-        SpawnStatus->SetText(FText::FromString(FString::Printf(TEXT("已清除本面板生成的 %d 只怪物"), Count)));
+        const int32 Count = bEnvironmentForm ? Spawner->ClearEnvironment() : Spawner->ClearSpawned();
+        SpawnStatus->SetText(FText::FromString(FString::Printf(TEXT("已清除本面板生成的 %d %s"), Count,
+            bEnvironmentForm ? TEXT("个环境物体") : TEXT("只怪物"))));
         SpawnStatus->SetColorAndOpacity(ColdSteelUI::TextSecondary);
     }
     RefreshStatus();
 }
 
-void UDevelopmentPanelWidget::MonsterSelected(FString Name, ESelectInfo::Type Type)
+void UDevelopmentPanelWidget::SpawnChoiceSelected(FString Name, ESelectInfo::Type Type)
 {
-    const int32 Index = MonsterChoice->GetSelectedIndex();
-    SelectedMonster = MonsterIds.IsValidIndex(Index) ? MonsterIds[Index] : NAME_None;
+    RefreshSpawnSelection();
+}
+void UDevelopmentPanelWidget::UnknownLevelSelected(FString Name,ESelectInfo::Type Type)
+{
+    RefreshSpawnSelection();
+}
+void UDevelopmentPanelWidget::RefreshSpawnSelection()
+{
+    const int32 Index = SpawnChoice->GetSelectedIndex();
+    FName& Selected = bEnvironmentForm ? SelectedEnvironment : SelectedMonster;
+    Selected = SpawnChoiceIds.IsValidIndex(Index) ? SpawnChoiceIds[Index] : NAME_None;
+    const bool bUnknown=!bEnvironmentForm && Selected.ToString().StartsWith(TEXT("Unknown"));
+    if(UnknownLevelChoice)
+    {
+        const auto LevelChoiceVisibility=bUnknown?ESlateVisibility::Visible:ESlateVisibility::Collapsed;
+        UnknownLevelLabel->SetVisibility(LevelChoiceVisibility);
+        UnknownLevelChoice->GetParent()->SetVisibility(LevelChoiceVisibility);
+        if(bUnknown) Selected=FName(*FString::Printf(TEXT("%s%d"),*Selected.ToString(),10*(1+UnknownLevelChoice->GetSelectedIndex())));
+    }
     if (SpawnButton) RefreshStatus();
 }
 
@@ -414,12 +489,39 @@ void UDevelopmentPanelWidget::RefreshFeatures()
         SkillHelp->SetColorAndOpacity(Model ? ColdSteelUI::TextSecondary : ColdSteelUI::Warning);
     }
     if (GenerateItemButton) GenerateItemButton->SetIsEnabled(bUsable && !SelectedItemDefinition.IsEmpty() && !ItemOptions.IsEmpty());
+    if (ResetQuestButton) ResetQuestButton->SetIsEnabled(bUsable && Model->RuntimePawn() == Player->GetPawn() && !Model->IsStagingNetworkContainer());
     if (GrantLevelButton) GrantLevelButton->SetIsEnabled(bUsable);
     const bool bSkillReady = bUsable && !SelectedSkill.IsNone() && Model &&
         Model->MasteryProgress(SelectedSkill).Level < Model->DevelopmentSkillDefinition(SelectedSkill).MaxLevel;
     if (RaiseSkillButton) RaiseSkillButton->SetIsEnabled(bSkillReady);
     if (MaxSkillButton) MaxSkillButton->SetIsEnabled(bSkillReady);
+    if (ResetSpecButton) ResetSpecButton->SetIsEnabled(bUsable && !SelectedSkill.IsNone() && ColdSteelSkillTree::SpecPointsSpent(Model->ProfileView(), SelectedSkill) > 0);
+    if (ResetAllSpecsButton) ResetAllSpecsButton->SetIsEnabled(bUsable && Model && !Model->ProfileView().SkillSpecs.IsEmpty());
+    if (ResetVillageButton) ResetVillageButton->SetIsEnabled(Player && Player->IsLocalController() && Player->HasAuthority());
     RefreshTimeHelp();
+}
+
+void UDevelopmentPanelWidget::ResetVillageUpgradesClicked()
+{
+    const auto* Player = GetOwningPlayer();
+    FText Message;
+    bool bReset = false;
+    if (!Player || !Player->IsLocalController() || !Player->HasAuthority())
+        Message = FText::FromString(TEXT("联机村庄升级由房主重置。"));
+    else
+    {
+        TActorIterator<ATemperateHillsWorld> Hills(Player->GetWorld());
+        if (!Hills)
+            Message = FText::FromString(TEXT("请进入丘陵世界后重置村庄升级。"));
+        else
+        {
+            bReset = Hills->ResetVillageUpgrades(Message);
+            if (bReset)
+                Message = FText::FromString(TEXT("村庄升级已重置。围墙和已修复的建筑均已恢复为破败形态。"));
+        }
+    }
+    VillageResetHelp->SetText(Message);
+    VillageResetHelp->SetColorAndOpacity(bReset ? ColdSteelUI::Success : ColdSteelUI::Warning);
 }
 
 AFPSWeatherManager* UDevelopmentPanelWidget::ResolveWeatherClock() const
@@ -441,18 +543,20 @@ void UDevelopmentPanelWidget::RefreshTimeHelp()
         return;
     }
     const int32 Minutes = FMath::FloorToInt(Manager->NormalizedDayTime * 1440.0f) % 1440;
-    TimeHelp->SetText(FText::FromString(FString::Printf(TEXT("现在 %02d:%02d · %s"),
+    TimeHelp->SetText(FText::FromString(FString::Printf(TEXT("现在 %02d:%02d · %s%s"),
         Minutes / 60, Minutes % 60,
-        Manager->IsSkyClockConnected() ? TEXT("天空时钟") : TEXT("场景时钟"))));
+        Manager->IsSkyClockConnected() ? TEXT("UDS 天空时钟") : TEXT("本地时钟"),
+        Manager->HasAuthority()?TEXT(""):TEXT(" · 由房主控制"))));
     TimeHelp->SetColorAndOpacity(ColdSteelUI::TextSecondary);
-    if (AdvanceHourButton) AdvanceHourButton->SetIsEnabled(true);
+    if (AdvanceHourButton) AdvanceHourButton->SetIsEnabled(Manager->HasAuthority());
 }
 
 void UDevelopmentPanelWidget::AdvanceHourClicked()
 {
     auto* Manager = ResolveWeatherClock();
     if (!Manager) { SetFeatureMessage(TEXT("当前场景未找到天气系统"), ColdSteelUI::Warning); return; }
-    // 一小时 = 1/24 天；天空时钟驱动的关卡由管理器去推那个 SunHeight（0..2400）。
+    if (!Manager->HasAuthority()) { SetFeatureMessage(TEXT("联机时间由房主控制"), ColdSteelUI::Warning); return; }
+    // 一小时 = 1/24 天；管理器推自己的时钟（0..2400），UDS 表现层经桥跟随。
     Manager->AdvanceGameTime(1.0f);
     RefreshFeatures();
     const int32 Minutes = FMath::FloorToInt(Manager->NormalizedDayTime * 1440.0f) % 1440;
@@ -497,6 +601,27 @@ void UDevelopmentPanelWidget::RaiseSkillClicked()
     RefreshFeatures();
 }
 
+void UDevelopmentPanelWidget::ResetSkillSpecClicked()
+{
+    auto* Model = ResolveModel();
+    if (!Model || SelectedSkill.IsNone()) { SetFeatureMessage(TEXT("请选择要重置专精的技能"), ColdSteelUI::Warning); return; }
+    const FString Name = Model->DevelopmentSkillDefinition(SelectedSkill).Name;
+    const int32 Refunded = Model->ResetSpecs(SelectedSkill);
+    if (Refunded > 0) SetFeatureMessage(FString::Printf(TEXT("已重置%s专精 · 返还 %d 点"), *Name, Refunded), ColdSteelUI::Success);
+    else SetFeatureMessage(Refunded == 0 ? FString::Printf(TEXT("%s 没有已投入的专精"), *Name) : FString::Printf(TEXT("重置失败：%s"), *Model->ResultMessage()), ColdSteelUI::Warning);
+    RefreshFeatures();
+}
+
+void UDevelopmentPanelWidget::ResetAllSpecsClicked()
+{
+    auto* Model = ResolveModel();
+    if (!Model) return;
+    const int32 Refunded = Model->ResetSpecs(NAME_None);
+    if (Refunded > 0) SetFeatureMessage(FString::Printf(TEXT("已重置全部技能专精 · 返还 %d 点"), Refunded), ColdSteelUI::Success);
+    else SetFeatureMessage(Refunded == 0 ? FString(TEXT("没有已投入的专精")) : FString::Printf(TEXT("重置失败：%s"), *Model->ResultMessage()), ColdSteelUI::Warning);
+    RefreshFeatures();
+}
+
 void UDevelopmentPanelWidget::MaxSkillClicked()
 {
     auto* Model = ResolveModel();
@@ -529,8 +654,10 @@ void UDevelopmentPanelWidget::UpdateLayout()
     RefreshPanelTypography();
     UpdateTuningLayout(FMath::Max(1.f, Width - 36.f), Scale);
     UpdateFeatureLayout(FMath::Max(1.f, Width - 36.f), Scale);
-    StyleChoice(MonsterChoice, Scale);
+    StyleChoice(SpawnChoice, Scale);
+    StyleChoice(UnknownLevelChoice, Scale);
     if (ItemChoice) ItemChoice->SetPixelScale(Scale);
+    if (QuestChoice) QuestChoice->SetPixelScale(Scale);
     StyleChoice(SkillChoice, Scale);
     UpdatePerformanceLayout(Scale);
     for (auto* Spin : {CountBox.Get(), DistanceBox.Get(), ItemCountBox.Get()}) StyleCount(Spin, Scale);
@@ -552,8 +679,8 @@ void UDevelopmentPanelWidget::StyleChoice(UComboBoxString* Combo, float Scale)
 void UDevelopmentPanelWidget::StyleCount(USpinBox* Spin, float Scale)
 {
     if (!Spin) return;
-    // 数值框与选项条同档：数值 14px，不再使用表外的 10.5px。
-    Spin->SetFont(ColdSteelUI::NumberFont(14.f / Scale));
+    // Match the adjacent 14 px option labels; Slate expects points.
+    Spin->SetFont(ColdSteelUI::NumberFont(14.f * .75f / Scale));
     Spin->SetForegroundColor(ColdSteelUI::TextPrimary);
     auto Style = Spin->GetWidgetStyle();
     Style.SetBackgroundBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content, ColdSteelUI::ButtonRadius / Scale));
@@ -601,7 +728,7 @@ void UDevelopmentPanelWidget::NativeTick(const FGeometry& Geometry, float DeltaS
     if (RowWidth > 1.f)
     {
         const float RowHeight = ColdSteelUI::ActionHeight / ColdSteelUI::PixelScale(this);
-        const UWidget* const Controls[] = {MonsterChoice.Get(), CountBox.Get(), DistanceBox.Get()};
+        const UWidget* const Controls[] = {SpawnChoice.Get(), UnknownLevelChoice.Get(), CountBox.Get(), DistanceBox.Get()};
         for (const UWidget* Control : Controls) ApplyOptionRowSize(Control, RowWidth, RowHeight);
     }
     // 性能页只在它自己可见时刷新：扫描要遍历世界，没必要在别的页面上白跑。
@@ -612,10 +739,19 @@ void UDevelopmentPanelWidget::OpenDeveloper() { if (auto* Player = GetOwningPlay
 void UDevelopmentPanelWidget::CloseDeveloper() { SetPanelOpen(false); }
 void UDevelopmentPanelWidget::WeatherClicked() { SetPage(0); }
 void UDevelopmentPanelWidget::MonstersClicked() { SetPage(1); }
+void UDevelopmentPanelWidget::EnvironmentClicked() { SetPage(4); }
 void UDevelopmentPanelWidget::TuningClicked() { SetPage(2); }
 FReply UDevelopmentPanelWidget::NativeOnKeyDown(const FGeometry& Geometry, const FKeyEvent& Event)
 {
     if (IsPanelOpen() && (Event.GetKey() == EKeys::F6 || Event.GetKey() == EKeys::Escape))
     { SetPanelOpen(false); return FReply::Handled(); }
+    // 玩家击倒测试键 Y（2026-11-15）：面板开着时（例如刚在这里切到第三人称）也能直接触发。
+    // 走角色已有的服务端测试 RPC，联机客户端同样由服务端开始。
+#if !UE_BUILD_SHIPPING
+    if (IsPanelOpen() && Event.GetKey() == EKeys::Y && !Event.IsRepeat())
+        if (APawn* Pawn = GetOwningPlayerPawn())
+            if (UFunction* Test = Pawn->FindFunction(TEXT("ServerTestKnockdown")))
+            { Pawn->ProcessEvent(Test, nullptr); return FReply::Handled(); }
+#endif
     return UUserWidget::NativeOnKeyDown(Geometry, Event);
 }

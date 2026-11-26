@@ -186,6 +186,11 @@ def apply_native_water(mat, profile):
     wire(caustics, volume, 'ColorScaleBehindWater')
     E.set_metadata_tag(mat, 'NativeWater.Profile', profile)
     E.set_metadata_tag(mat, 'NativeWater.Revision', '20260926')
+    if river:
+        import importlib.util
+        spec=importlib.util.spec_from_file_location('hills_wet_materials',ROOT/'Tools/WorldGeneration/forest_wet_materials.py')
+        wet=importlib.util.module_from_spec(spec);spec.loader.exec_module(wet)
+        wet.apply_water(mat)
 
 
 def author():

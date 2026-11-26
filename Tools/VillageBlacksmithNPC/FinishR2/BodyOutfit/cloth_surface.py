@@ -144,3 +144,4 @@ def ray_dist(segments,origin,direction):
     hit=(cross[:,0]<0)!=(cross[:,1]<0);v=rel[hit];c=cross[hit]
     distance=(v[:,0]+(v[:,1]-v[:,0])*(-c[:,0]/(c[:,1]-c[:,0]))[:,None])@direction
     return distance[distance>0]
+

@@ -858,7 +858,7 @@ R21 初次导入的动画目录误写为 `Speedloader21261007`，因此上述初
 
 ## 刀剑精通与钝器精通（2026-10-19）
 
-刀剑保留 `swordMastery` 进度键，钝器新增 `bluntMastery`，通过 Profile v25 补项。两枚图标的生成提示、当前源与实际保存记录位于 `SourceAssets/MeleeMasteries20261019`；刀剑最终使用 V2 并列长剑／唐刀构图。运行 `Tools/UI/prepare_cold_steel_skill_icons.py` 从本机 Selected 恢复 PNG，再通过 `Tools/Skills/import_melee_mastery_icons.py` 保存 `/Game/ColdSteelData/Skills/blade_mastery_cold_steel` 与 `blunt_mastery_cold_steel`。两枚 Texture2D 已后台实际保存，构建与未测试边界见 精通接入记录（本机资料：`Docs/Skills/melee-masteries-20261019.md`，不随本次发布）。旧扭曲图按 `retired-icon.json` 归档，不再作为运行图源。
+刀剑保留 `swordMastery` 进度键，钝器新增 `bluntMastery`，通过 Profile v25 补项。两枚图标的生成提示、当前源与实际保存记录位于 `SourceAssets/MeleeMasteries20261019`；刀剑最终使用 V2 并列长剑／唐刀构图。运行 `Tools/UI/prepare_cold_steel_skill_icons.py` 从本机 Selected 恢复 PNG，再通过 `Tools/Skills/import_melee_mastery_icons.py` 保存 `/Game/ColdSteelData/Skills/blade_mastery_cold_steel` 与 `blunt_mastery_cold_steel`。两枚 Texture2D 已后台实际保存，构建与未测试边界见 [精通接入记录](Skills/melee-masteries-20261019.md)。旧扭曲图按 `retired-icon.json` 归档，不再作为运行图源。
 
 ## ST6、法师套装与钢盔（2026-10-20）
 

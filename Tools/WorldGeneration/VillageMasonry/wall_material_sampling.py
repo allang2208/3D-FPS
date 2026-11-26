@@ -106,3 +106,4 @@ def share_relief_height(fn, texture_set):
         if call != producer:
             wire(producer, RESULT, call, OFFSET)
     L.update_material_function(texture_set)
+

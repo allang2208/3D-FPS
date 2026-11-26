@@ -1,4 +1,5 @@
 #include "RootCrownRigPreview.h"
+#include "MonsterTargeting.h"
 #include "RootCrownSlashTiming.h"
 #include "RootCrownNeedleProjectile.h"
 #include "RootCrownNeedleOutlets.h"
@@ -35,7 +36,7 @@ FVector ARootCrownRigPreview::NeedleMuzzle(int32 Wave) const
 bool ARootCrownRigPreview::CanNeedle(APawn* Victim) const
 {
     if(Busy() || !NeedleClip || !NeedleMesh || !NeedleMaterial || ActionClock()<NextNeedleAt ||
-        !GetCharacterMovement()->IsMovingOnGround() || !IsValid(Victim) || !Victim->IsPlayerControlled())return false;
+        !GetCharacterMovement()->IsMovingOnGround() || !IsValid(Victim) || !MonsterTargeting::IsOpponentPawn(Victim))return false;
     const auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();if(Vitals&&Vitals->IsDead())return false;
     const FVector Delta=Victim->GetActorLocation()-GetActorLocation();
     if(Delta.Size2D()<NeedleMinRange || Delta.Size()>NeedleMaxRange ||

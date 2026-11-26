@@ -10,6 +10,7 @@
 #include "Engine/World.h"
 #include "Engine/StaticMesh.h"
 #include "Materials/MaterialInterface.h"
+#include "Engine/Texture.h"
 #include "NiagaraSystem.h"
 #include "Sound/SoundBase.h"
 #include "Sound/AmbientSound.h"
@@ -193,15 +194,34 @@ AActor* WardRoomAssembly::Spawn(UWorld* World,AActor* Owner,const J& S,
         Exposure->bUnbound=false;Exposure->Priority=S->GetNumberField(TEXT("priority"));
         Exposure->BlendRadius=S->GetNumberField(TEXT("blend_radius"));Exposure->BlendWeight=1.f;
         auto& P=Exposure->Settings;
-        P.bOverride_AutoExposureMinBrightness=P.bOverride_AutoExposureMaxBrightness=P.bOverride_AutoExposureBias=true;
-        P.AutoExposureMinBrightness=P.AutoExposureMaxBrightness=S->GetNumberField(TEXT("exposure_ev"));
-        P.AutoExposureBias=S->GetNumberField(TEXT("exposure_bias"));
-        P.bOverride_IndirectLightingIntensity=true;P.IndirectLightingIntensity=S->GetNumberField(TEXT("indirect_intensity"));
-        const float Sat=S->GetNumberField(TEXT("saturation")),Contrast=S->GetNumberField(TEXT("contrast"));
-        P.bOverride_ColorSaturation=P.bOverride_ColorContrast=true;
-        P.ColorSaturation=FVector4(Sat,Sat,Sat,1);P.ColorContrast=FVector4(Contrast,Contrast,Contrast,1);
-        P.bOverride_VignetteIntensity=P.bOverride_BloomIntensity=true;
-        P.VignetteIntensity=S->GetNumberField(TEXT("vignette"));P.BloomIntensity=S->GetNumberField(TEXT("bloom"));
+        // Every field is optional so a grade-only room volume keeps the global auto exposure.
+        double Value=0;
+        if(S->TryGetNumberField(TEXT("exposure_ev"),Value))
+        {P.bOverride_AutoExposureMinBrightness=P.bOverride_AutoExposureMaxBrightness=true;P.AutoExposureMinBrightness=P.AutoExposureMaxBrightness=Value;}
+        if(S->TryGetNumberField(TEXT("exposure_bias"),Value)){P.bOverride_AutoExposureBias=true;P.AutoExposureBias=Value;}
+        if(S->TryGetNumberField(TEXT("indirect_intensity"),Value)){P.bOverride_IndirectLightingIntensity=true;P.IndirectLightingIntensity=Value;}
+        if(S->TryGetNumberField(TEXT("saturation"),Value)){P.bOverride_ColorSaturation=true;P.ColorSaturation=FVector4(Value,Value,Value,1);}
+        if(S->TryGetNumberField(TEXT("contrast"),Value)){P.bOverride_ColorContrast=true;P.ColorContrast=FVector4(Value,Value,Value,1);}
+        if(S->TryGetNumberField(TEXT("vignette"),Value)){P.bOverride_VignetteIntensity=true;P.VignetteIntensity=Value;}
+        if(S->TryGetNumberField(TEXT("bloom"),Value)){P.bOverride_BloomIntensity=true;P.BloomIntensity=Value;}
+        auto Vec4=[&S](const TCHAR* Key,FVector4& Out)
+        {
+            const TArray<TSharedPtr<FJsonValue>>* V=nullptr;
+            if(!S->TryGetArrayField(Key,V)||V->Num()<4)return false;
+            Out=FVector4((*V)[0]->AsNumber(),(*V)[1]->AsNumber(),(*V)[2]->AsNumber(),(*V)[3]->AsNumber());return true;
+        };
+        if(Vec4(TEXT("saturation_midtones"),P.ColorSaturationMidtones))P.bOverride_ColorSaturationMidtones=true;
+        if(Vec4(TEXT("offset_shadows"),P.ColorOffsetShadows))P.bOverride_ColorOffsetShadows=true;
+        FString Lut;
+        if(S->TryGetStringField(TEXT("color_grading_lut"),Lut))
+            if(auto* Texture=Cast<UTexture>(Resolve(Lut)))
+            {
+                P.bOverride_ColorGradingLUT=P.bOverride_ColorGradingIntensity=true;P.ColorGradingLUT=Texture;
+                P.ColorGradingIntensity=1.f;if(S->TryGetNumberField(TEXT("color_grading_intensity"),Value))P.ColorGradingIntensity=Value;
+            }
+        if(S->TryGetNumberField(TEXT("film_grain"),Value)){P.bOverride_FilmGrainIntensity=true;P.FilmGrainIntensity=Value;}
+        if(S->TryGetNumberField(TEXT("local_exposure_shadow_contrast"),Value))
+        {P.bOverride_LocalExposureShadowContrastScale=true;P.LocalExposureShadowContrastScale=Value;}
         Exposure->RegisterComponent();
     }
     if(Pane)

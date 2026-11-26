@@ -198,3 +198,4 @@ def dress_forecourt(world,plan,kit):
         c.set_cull_distances(*( (4400,6400) if role in ('bank','hazel') else (2300,3800) ))
         c.add_instances(instances,False,True,False)
     return {role:len(items) for role,items in rows.items()}
+

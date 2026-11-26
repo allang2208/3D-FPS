@@ -38,3 +38,4 @@ def publish(stage, project):
         finally:tmp.unlink(missing_ok=True)
     (stage/'published.json').write_text(json.dumps(entries,indent=2))
 if __name__=='__main__':publish(*(Path(arg) for arg in sys.argv[1:]))
+

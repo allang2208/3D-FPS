@@ -1,0 +1,10 @@
+from pathlib import Path
+code=Path('D:/FPS3D/FPSGAME/Tools/ChapelNun/save_head_quality.py').read_text(encoding='utf-8-sig')
+exec(compile(code.split('mats=[face_material')[0],'<head quality materials>','exec'))
+mat=load(DEST+'/Materials/M_Nun_EyeSurface');L.delete_all_material_expressions(mat)
+mat.set_editor_property('use_material_attributes',False);mat.set_editor_property('shading_model',u.MaterialShadingModel.MSM_UNLIT)
+normal=node(mat,u.MaterialExpressionVertexNormalWS)
+scale=node(mat,u.MaterialExpressionMultiply,const_b=.5);wire(normal,scale,'A')
+bias=node(mat,u.MaterialExpressionAdd,const_b=.5);wire(scale,bias,'A');prop(bias,'',u.MaterialProperty.MP_EMISSIVE_COLOR)
+L.recompile_material(mat);save(mat)
+print('EYE_NORMAL_DIAGNOSTIC_SAVED',flush=True)

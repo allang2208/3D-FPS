@@ -1,0 +1,12 @@
+#pragma once
+#include "Commandlets/Commandlet.h"
+#include "HumanoidHitVolumeAuditCommandlet.generated.h"
+
+/** Read-only comparison of imported, posed humanoid surfaces and weapon queries. */
+UCLASS()
+class UHumanoidHitVolumeAuditCommandlet : public UCommandlet
+{
+    GENERATED_BODY()
+public:
+    virtual int32 Main(const FString& Params) override;
+};

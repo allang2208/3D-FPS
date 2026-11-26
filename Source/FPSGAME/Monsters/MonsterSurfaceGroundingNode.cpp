@@ -1,8 +1,8 @@
 #include "MonsterSurfaceGroundingNode.h"
 #include "HeQueMonster.h"
-#include "M66IncineratorMonster.h"
-#include "RootCrownRigPreview.h"
 #include "MonsterGroundSupport.h"
+#include "RootCrownRigPreview.h"
+#include "M66IncineratorMonster.h"
 #include "BlindSupplicantMonster.h"
 #include "MantisM27Monster.h"
 #include "SpiralPillarM14.h"
@@ -28,7 +28,8 @@ void FMonsterSurfaceGroundingNode::Configure(const ACharacter* Owner)
     else if (Owner->IsA<ASpiralPillarM14>()) Rig=ERig::RootFan;
     else if (Owner->IsA<AHeQueMonster>() || Owner->IsA<AM66IncineratorMonster>() || Owner->IsA<ABlindSupplicantMonster>() || Owner->IsA<AMantisM27Monster>() ||
         Owner->ActorHasTag(TEXT("FacelessReceptionist")) || Owner->ActorHasTag(TEXT("FacelessSecurity")) ||
-        Owner->ActorHasTag(TEXT("FacelessResearcher"))) Rig=ERig::Biped;
+        Owner->ActorHasTag(TEXT("FacelessResearcher")) || Owner->ActorHasTag(TEXT("CargoPorter")) ||
+        Owner->ActorHasTag(TEXT("CargoTechnician"))) Rig=ERig::Biped;
     else return;
     const int32 Count=Rig==ERig::Tripod?3:Rig==ERig::Biped?2:Rig==ERig::RootFan?8:32;
     Limbs.SetNum(Count);

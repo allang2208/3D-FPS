@@ -47,7 +47,7 @@ float UTimeSandEchoComponent::Clock() const
 void UTimeSandEchoComponent::Configure(const UColdSteelStatusModel* Profile)
 {
     const auto* Item=Profile?Profile->Equipped():nullptr;
-    if(Item&&Item->Definition==TEXT("ue_rune_sword")&&ColdSteelMelee::EquippedModifiers(Profile).TimeSandEchoRatio>0.)LoadVisual();
+    if(Item&&Item->Definition==TEXT("ue_rune_sword")&&ColdSteelMelee::ItemModifiers(Item,Profile).TimeSandEchoRatio>0.)LoadVisual();
 }
 void UTimeSandEchoComponent::LoadVisual()
 {
@@ -102,9 +102,10 @@ void UTimeSandEchoComponent::Settle(FTimeSandEchoMark& M)
         Profile->ReduceRuneSwordHitCooldowns(M.CooldownReward);
     }
     // Cosmetic feedback only: bypass weapon on-hit/lifesteal hooks entirely.
-    ClientEchoDamage(Target,Applied,M.bCritical,Killed);
+    const auto& Parts=Receipt.bResolved?Receipt.Mitigated:M.Damage;
+    ClientEchoDamage(Target,Applied,M.bCritical,Killed,Parts.LimitedTo(Applied).MagicPortion(Applied));
 }
-void UTimeSandEchoComponent::ClientEchoDamage_Implementation(AActor* Target,float Damage,bool Critical,bool Killed)
+void UTimeSandEchoComponent::ClientEchoDamage_Implementation(AActor* Target,float Damage,bool Critical,bool Killed,float MagicApplied)
 {
     auto* Pawn=Cast<APawn>(GetOwner());auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
     if(!PC||!PC->IsLocalController()||(Damage<=0.f&&!Killed))return;
@@ -114,7 +115,7 @@ void UTimeSandEchoComponent::ClientEchoDamage_Implementation(AActor* Target,floa
         UGameplayStatics::PlaySound2D(this,Sound,1.f,1.f);
     if(!Target)return; // A lethal target can disappear before the receipt arrives.
     if(auto* Numbers=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelDamageNumberSubsystem>())
-        Numbers->PushDamageNumber(Target,PC,UColdSteelDamageNumberSubsystem::TargetTopAnchor(Target),Damage,Critical,Killed,Damage>=80.f,true);
+        Numbers->PushDamageNumber(Target,PC,UColdSteelDamageNumberSubsystem::TargetTopAnchor(Target),Damage,Critical,Killed,Damage>=80.f,true,MagicApplied);
 }
 void UTimeSandEchoComponent::OnRep_Marks()
 {

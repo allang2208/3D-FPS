@@ -6,6 +6,7 @@
 #include "GameFramework/Volume.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
+#include "CoreGlobals.h"
 AM09CeilingRoute::AM09CeilingRoute()
 {
  PrimaryActorTick.bCanEverTick=false;
@@ -58,7 +59,10 @@ bool AM09CeilingRoute::ClearSegment(UWorld* W,FVector A,FVector B,const AActor* 
 {
  // Hanging travel ignores the body's terrain volume. Only continuity of the
  // overhead surface constrains the route, including beams and roof steps.
- const int32 N=FMath::Clamp(FMath::CeilToInt(FVector::Distance(A,B)/35.f),1,16);
+ const int32 N=FMath::Max(1,FMath::CeilToInt(FVector::Distance(A,B)/35.f));
+ // Never increase the sampling gap on long authored links: a missing roof
+ // between sparse samples is not a connected support route.
+ if(N>128)return false;
  FVector Contact;
  for(int32 I=0;I<=N;++I)if(!FindSupport(W,FMath::Lerp(A,B,float(I)/N),Ignore,Contact))return false;
  return true;
@@ -90,8 +94,49 @@ bool AM09CeilingRoute::FindLocalPath(const AHangingBellM09* M,FVector Destinatio
  const FVector Start=M->CeilingCenter(),Delta=(Destination-Start)*FVector(1,1,0);
  if(Delta.SizeSquared()<FMath::Square(8.f))return false;
  const FVector Near=Start+Delta.GetClampedToMaxSize(150.f);FVector End;
- if(!FindSupport(M->GetWorld(),Near,M,End)||!ClearSegment(M->GetWorld(),Start,End,M))return false;
- Out.Add(End);return true;
+ if(FindSupport(M->GetWorld(),Near,M,End)&&ClearSegment(M->GetWorld(),Start,End,M))
+ {Out.Add(End);return true;}
+ // Hills roofs have no authored ceiling graph. Search the connected underside
+ // around a notch instead of retrying the same unsupported straight step.
+ // Keep the original terrain-volume-ignoring contract: only real roof support
+ // constrains travel. No ground MoveTo, flight or cross-gap teleport is added.
+ static uint64 Frame=MAX_uint64;static uint8 Searches=0;
+ if(Frame!=GFrameCounter){Frame=GFrameCounter;Searches=0;}
+ if(Searches>=2)return false;++Searches;
+ struct FNode {FVector Point;float Cost,Remaining;int32 Parent;bool Closed=false;};
+ TArray<FNode> Nodes;Nodes.Reserve(64);
+ Nodes.Add({Start,0.f,float(Delta.Size()),INDEX_NONE});
+ int32 Best=INDEX_NONE;float BestDistance=Delta.Size();
+ for(int32 Iteration=0;Iteration<24&&Nodes.Num()<64;++Iteration)
+ {
+  int32 At=INDEX_NONE;float Score=FLT_MAX;
+  for(int32 I=0;I<Nodes.Num();++I)
+   if(!Nodes[I].Closed&&Nodes[I].Cost+Nodes[I].Remaining<Score)
+   {At=I;Score=Nodes[I].Cost+Nodes[I].Remaining;}
+  if(At==INDEX_NONE)break;
+  Nodes[At].Closed=true;
+  const FVector Current=Nodes[At].Point;
+  const FVector Forward=(Destination-Current).GetSafeNormal2D();
+  for(int32 Direction=0;Direction<8&&Nodes.Num()<64;++Direction)
+  {
+   const FVector Probe=Current+Forward.RotateAngleAxis(Direction*45.f,FVector::UpVector)
+       *FMath::Clamp(Nodes[At].Remaining,35.f,120.f);
+   FVector Contact;
+   if(FVector::DistSquared2D(Probe,Start)>FMath::Square(600.f)
+       ||!FindSupport(M->GetWorld(),Probe,M,Contact))continue;
+   bool Duplicate=false;
+   for(const auto& Node:Nodes)
+    if(FVector::DistSquared(Node.Point,Contact)<FMath::Square(45.f)){Duplicate=true;break;}
+   if(Duplicate||!ClearSegment(M->GetWorld(),Current,Contact,M))continue;
+   const float Distance=FVector::Dist2D(Contact,Destination);
+   const int32 Added=Nodes.Add({Contact,Nodes[At].Cost+float(FVector::Distance(Current,Contact)),Distance,At});
+   if(Distance<BestDistance-5.f){Best=Added;BestDistance=Distance;}
+  }
+  if(BestDistance<35.f)break;
+ }
+ if(Best==INDEX_NONE)return false;
+ for(int32 At=Best;At>0;At=Nodes[At].Parent)Out.Insert(Nodes[At].Point,0);
+ return !Out.IsEmpty();
 }
 bool AM09CeilingRoute::FindPath(const AHangingBellM09* M,FVector Destination,TArray<FVector>& Out) const
 {

@@ -8,6 +8,7 @@ namespace VillagePresentationView
 {
     // Distance at a 90 degree horizontal field of view, including the physical scope.
     double Distance(UWorld& World, const FVector& Center, double Radius = 0., bool* HasView = nullptr);
+    bool ClosestEye(UWorld& World,const FVector& Center,double Radius,FVector& Eye,double& FovScale);
     struct FCanopyView
     {
         TArray<FVector4d, TInlineAllocator<2>> EyesAndScales;

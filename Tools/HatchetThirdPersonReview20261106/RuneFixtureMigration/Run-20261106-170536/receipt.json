@@ -1,0 +1,12 @@
+{
+  "wire_scope": "rune component state with isolated profiles; attack RPC validation is isolated",
+  "wire_passed": true,
+  "isolated_failures": 0,
+  "rendered": false,
+  "loss_percent_each_peer": 3,
+  "lag_ms_each_peer": 60,
+  "reconnect_tested": false,
+  "transport": "UDP listen host and client",
+  "directory": "D:\\FPS3D\\FPSGAME\\Tools\\HatchetThirdPersonReview20261106\\RuneFixtureMigration\\Run-20261106-170536",
+  "isolated_checks": 188
+}

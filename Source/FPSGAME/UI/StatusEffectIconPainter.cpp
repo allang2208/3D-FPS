@@ -1,6 +1,8 @@
 #include "StatusEffectIconPainter.h"
+#include "HAL/PlatformTime.h"
 #include "StatusEffectsComponent.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelCadenceBadge.h"
 #include "Rendering/DrawElementTypes.h"
 
 namespace
@@ -9,20 +11,26 @@ enum class EGlyph : uint8
 {
     Dragon, Phoenix, Shield, Drop, Skull, Eye, Spiral, Reticle, Diamond, Star, Hourglass,
     Snow, Flame, Chain, Stride, Leaf, Flask, Lightning, Stone, Ledger, Pick, Mountain,
-    Wave, Antlers, Music, Root, Armor, Lotus, Taiji, Crystal, Cloud, Arrow, Bone, Fang, Sun
+    Wave, Antlers, Music, Root, Armor, Lotus, Taiji, Crystal, Cloud, Arrow, Bone, Fang, Sun, Cadence, Relentless, GaleWing
 };
 struct FIcon { EGlyph Glyph; uint8 Variant=0; };
 FIcon ResolveIcon(const FStatusEffectView& V)
 {
     // Explicit identities: related effects share an engraved motif with different secondary marks.
     static const TMap<FName,FIcon> Icons={
+        {TEXT("galeSwiftness"),{EGlyph::GaleWing,0}},
+        {TEXT("bowCadence"),{EGlyph::Cadence,0}},
+        {TEXT("kukriRelentlessMain"),{EGlyph::Relentless,0}}, {TEXT("kukriRelentlessOffhand"),{EGlyph::Relentless,0}},
         {TEXT("tangDragonMight"),{EGlyph::Dragon,0}}, {TEXT("tangPhoenixDance"),{EGlyph::Phoenix,0}},
         {TEXT("physicalVulnerability"),{EGlyph::Armor,1}}, {TEXT("breakingSeal"),{EGlyph::Armor,2}}, {TEXT("tigerRoar"),{EGlyph::Fang,1}},
+        {TEXT("criticalVulnerability"),{EGlyph::Reticle,4}},
+        {TEXT("ghostArmorCorrosion"),{EGlyph::Armor,2}},
         {TEXT("fountainBlessing"),{EGlyph::Drop,0}}, {TEXT("sanityCollapse"),{EGlyph::Eye,1}},
         {TEXT("composure"),{EGlyph::Reticle,0}}, {TEXT("wager"),{EGlyph::Diamond,0}},
         {TEXT("berserk"),{EGlyph::Fang,0}}, {TEXT("blind"),{EGlyph::Eye,2}},
         {TEXT("stun"),{EGlyph::Spiral,0}}, {TEXT("poison"),{EGlyph::Skull,0}},
         {TEXT("minePoison"),{EGlyph::Cloud,1}}, {TEXT("slow"),{EGlyph::Stride,1}},
+        {TEXT("exhaustion"),{EGlyph::Stride,2}},
         {TEXT("waxSealSlow"),{EGlyph::Flame,2}}, {TEXT("buff"),{EGlyph::Star,0}},
         {TEXT("shield"),{EGlyph::Shield,0}}, {TEXT("bleed"),{EGlyph::Drop,1}},
         {TEXT("corrosion"),{EGlyph::Flask,1}}, {TEXT("magicVulnerability"),{EGlyph::Crystal,1}},
@@ -32,12 +40,13 @@ FIcon ResolveIcon(const FStatusEffectView& V)
         {TEXT("holyWard"),{EGlyph::Shield,1}}, {TEXT("chainSpell"),{EGlyph::Chain,0}},
         {TEXT("weaponHaste"),{EGlyph::Arrow,0}}, {TEXT("chill"),{EGlyph::Snow,0}},
         {TEXT("burn"),{EGlyph::Flame,0}}, {TEXT("frozen"),{EGlyph::Crystal,0}},
-        {TEXT("petrified"),{EGlyph::Stone,1}}, {TEXT("flameArmor"),{EGlyph::Armor,2}}, {TEXT("iceArmor"),{EGlyph::Armor,4}},
+        {TEXT("petrified"),{EGlyph::Stone,1}}, {TEXT("flameArmor"),{EGlyph::Armor,2}}, {TEXT("iceArmor"),{EGlyph::Armor,4}}, {TEXT("lightningHaste"),{EGlyph::Lightning,0}},
         {TEXT("riposteInspiration"),{EGlyph::Arrow,1}}, {TEXT("runeMagicVulnerability"),{EGlyph::Crystal,2}},
         {TEXT("electrified"),{EGlyph::Lightning,0}}, {TEXT("haste"),{EGlyph::Stride,0}},
         {TEXT("inspire"),{EGlyph::Sun,2}}, {TEXT("statusImmune"),{EGlyph::Shield,2}},
+        {TEXT("leapControlImmune"),{EGlyph::Shield,1}},
         {TEXT("bind"),{EGlyph::Chain,1}}, {TEXT("marked"),{EGlyph::Reticle,1}},
-        {TEXT("camelFright"),{EGlyph::Fang,2}}, {TEXT("magicResistanceShred"),{EGlyph::Diamond,1}},
+        {TEXT("camelFright"),{EGlyph::Fang,2}}, {TEXT("weakness"),{EGlyph::Fang,3}}, {TEXT("magicResistanceShred"),{EGlyph::Diamond,1}},
         {TEXT("ginsengHeal"),{EGlyph::Root,0}}, {TEXT("foremanDebtMark"),{EGlyph::Ledger,1}},
         {TEXT("minersGratitude"),{EGlyph::Pick,0}}, {TEXT("minersCadence"),{EGlyph::Pick,1}},
         {TEXT("deepShaftEcho"),{EGlyph::Spiral,1}}, {TEXT("reedLament"),{EGlyph::Leaf,1}},
@@ -84,6 +93,9 @@ FIcon ResolveIcon(const FStatusEffectView& V)
 int32 ColdSteelUI::PaintStatusEffectIcon(const FGeometry& G,FSlateWindowElementList& Out,
     int32 Layer,FVector2D Offset,float Size,const FStatusEffectView& View,const FLinearColor& Tint)
 {
+    if(View.Type==TEXT("bowCadence"))
+        return ColdSteelCadenceBadge::Paint(G,Out,Layer,Offset,Size,Tint,View.Stacks,
+            1.f,0.f,View.Stacks>=5?.5f+.5f*FMath::Sin(float(FPlatformTime::Seconds()*4.)):0.f,false);
     const float S=Size/32.f;
     const auto Icon=ResolveIcon(View);
     const auto Plate=RoundedBrush(FLinearColor::White,5*S,FLinearColor::Transparent,0);
@@ -150,6 +162,13 @@ int32 ColdSteelUI::PaintStatusEffectIcon(const FGeometry& G,FSlateWindowElementL
     case EGlyph::Chain:
         Line({{7,20},{5,16},{5,11},{10,6},{15,6},{19,10},{19,14},{14,19},{10,19}});
         Line({{13,18},{13,22},{17,26},{22,26},{27,21},{27,16},{23,12},{20,12}});AccentLine({{11,21},{21,11}});break;
+    case EGlyph::GaleWing:
+        Line({{8,23},{10,17},{14,13},{20,11},{27,5},{25,12},{21,16},{24,15},{19,21},{13,23},{8,23}});
+        AccentLine({{7,26},{12,20},{18,16},{23,11}});
+        AccentLine({{5,15},{11,15}});AccentLine({{4,19},{8,19}});break;
+    case EGlyph::Relentless:
+        Line({{13,3},{19,3},{19,7},{25,11},{24,23},{16,29},{8,23},{7,11},{13,7},{13,3}});
+        for(int32 I=0;I<4;++I){const float Y=10.f+I*3.5f;AccentLine({{10,Y},{16,Y+3},{22,Y}});}break;
     case EGlyph::Stride:
         Line({{10,5},{15,6},{15,14},{12,19},{16,23},{15,26},{5,26},{5,23},{9,15},{10,5}});
         AccentLine({{21,8},{27,12},{21,16}});Line({{20,22},{27,22}});break;

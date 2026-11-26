@@ -54,12 +54,14 @@ int32 UFurnitureRestAuditCommandlet::Main(const FString& Params)
     const auto BodyData=Read(DataDir/TEXT("player_body.json"));
     const auto MainData=Read(DataDir/TEXT("furniture_rest.json"));
     const auto ApartmentData=Read(DataDir/TEXT("apartment_furniture_rest.json"));
-    if(!BodyData||!MainData||!ApartmentData)return 2;
+    const auto VillageData=Read(DataDir/TEXT("village_furniture_rest.json"));
+    if(!BodyData||!MainData||!ApartmentData||!VillageData)return 2;
+    const bool VillageOnly=FParse::Param(*Params,TEXT("VillageOnly"));
     TMap<FString,TSharedPtr<FJsonObject>> Types,Timing;
     TArray<TSharedPtr<FJsonValue>> Profiles;
-    for(const auto& Library:{MainData,ApartmentData})
+    for(const auto& Library:{MainData,ApartmentData,VillageData})
     {
-        Profiles.Append(Library->GetArrayField(TEXT("furniture")));
+        if(VillageOnly==(Library==VillageData))Profiles.Append(Library->GetArrayField(TEXT("furniture")));
         for(const auto& P:Library->GetObjectField(TEXT("types"))->Values)Types.Add(FString(*P.Key),P.Value->AsObject());
         for(const auto& P:Library->GetObjectField(TEXT("clips"))->Values)Timing.Add(FString(*P.Key),P.Value->AsObject());
     }
@@ -95,8 +97,11 @@ int32 UFurnitureRestAuditCommandlet::Main(const FString& Params)
         FActorSpawnParameters Spawn;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
         auto* Pawn=World->SpawnActor<AFurnitureRestAuditPawn>(FVector(3000,3000,100),FRotator::ZeroRotator,Spawn);
         PC->Possess(Pawn);Pawn->DispatchBeginPlay();
-        Pawn->GetMesh()->SetSkeletalMeshAsset(Jason);Pawn->GetMesh()->SetAnimInstanceClass(UFPSPlayerBodyAnimInstance::StaticClass());
-        if(auto* Anim=Cast<UFPSPlayerBodyAnimInstance>(Pawn->GetMesh()->GetAnimInstance()))Anim->Clips=JasonClips;
+        if(!VillageOnly)
+        {
+            Pawn->GetMesh()->SetSkeletalMeshAsset(Jason);Pawn->GetMesh()->SetAnimInstanceClass(UFPSPlayerBodyAnimInstance::StaticClass());
+            if(auto* Anim=Cast<UFPSPlayerBodyAnimInstance>(Pawn->GetMesh()->GetAnimInstance()))Anim->Clips=JasonClips;
+        }
         for(auto* C:Pawn->GetComponents())if(C)C->SetComponentTickEnabled(false);
         return Pawn;
     };
@@ -121,6 +126,9 @@ int32 UFurnitureRestAuditCommandlet::Main(const FString& Params)
 #endif
         auto* Furniture=World->SpawnActor<AStaticMeshActor>();auto* Component=Furniture->GetStaticMeshComponent();
         Component->SetMobility(EComponentMobility::Movable);Component->SetStaticMesh(Mesh);Component->SetCollisionProfileName(TEXT("BlockAll"));
+        const TArray<TSharedPtr<FJsonValue>>* Tags=nullptr;
+        if(Profile->TryGetArrayField(TEXT("fitted_component_tags"),Tags)&&!Tags->IsEmpty())
+            Component->ComponentTags.Add(FName(*(*Tags)[0]->AsString()));
         const FVector Scale=Profile->HasTypedField<EJson::Array>(TEXT("scale"))?Vec(Profile->GetArrayField(TEXT("scale"))):FVector::OneVector;
         Furniture->SetActorScale3D(Scale);
         int32 SlotIndex=0;
@@ -137,12 +145,17 @@ int32 UFurnitureRestAuditCommandlet::Main(const FString& Params)
             {
                 P->SetActorLocation(Anchor+Entry+Entry.GetSafeNormal2D()*25.f+FVector(0,0,P->GetCapsuleComponent()->GetScaledCapsuleHalfHeight()+2.f));
                 P->SetActorRotation(Facing);P->GetCharacterMovement()->SetMovementMode(MOVE_Walking);
-                const FVector AimPoint=Seat+(Type->GetBoolField(TEXT("lying"))?Entry.GetSafeNormal2D()*65.f:FVector::ZeroVector);
+                const FVector AimPoint=Slot->HasTypedField<EJson::Array>(TEXT("focus"))?
+                    Furniture->GetActorTransform().TransformPosition(Vec(Slot->GetArrayField(TEXT("focus")))):
+                    Seat+(Type->GetBoolField(TEXT("lying"))?Entry.GetSafeNormal2D()*65.f:FVector::ZeroVector);
                 C->SetControlRotation((AimPoint-P->GetMeleeAimTransform().GetLocation()).Rotation());
             };
             Other->SetActorLocation(FVector(3000,3000,100));Place(Pawn,PC);Health->Health=Health->MaxHealth;
             auto Saved=Survival->GetState();Saved.Sanity=20.f;Survival->RestoreState(Saved);
-            const bool Focused=Rest->Interact();const bool Entered=Focused&&State->Phase==1;
+            // Dispatch the same receiver that handles a remote player's interaction.
+            // The audit controller deliberately has no local camera or UI.
+            Rest->ProcessEvent(Rest->FindFunctionChecked(TEXT("ServerInteract")),nullptr);
+            const bool Entered=State->Phase==1;
             Check(Entered&&State->Kind==FName(Kind),TEXT("actual_entry_authoritative_eye ")+Label);
             if(!Entered)
             {
@@ -151,13 +164,22 @@ int32 UFurnitureRestAuditCommandlet::Main(const FString& Params)
                 World->LineTraceSingleByChannel(Hit,Eye,Eye+PC->GetControlRotation().Vector()*250.f,ECC_Visibility,Q);
                 FHitResult Ground;World->LineTraceSingleByChannel(Ground,Anchor+Entry+FVector(0,0,100),Anchor+Entry-FVector(0,0,220),ECC_Visibility,Q);
                 UE_LOG(LogTemp,Display,TEXT("FURNITURE_FIXTURE_DIAG %s focused=%d hit=%s ground=%s eye=%s seat=%s physics=%d ground_mode=%d clips=%d controller=%d"),
-                    *Label,Focused,*GetNameSafe(Hit.GetComponent()),*GetNameSafe(Ground.GetComponent()),*Eye.ToString(),*Seat.ToString(),Component->IsPhysicsStateCreated(),
+                    *Label,Entered,*GetNameSafe(Hit.GetComponent()),*GetNameSafe(Ground.GetComponent()),*Eye.ToString(),*Seat.ToString(),Component->IsPhysicsStateCreated(),
                     Pawn->GetCharacterMovement()->IsMovingOnGround(),Cast<UFPSPlayerBodyAnimInstance>(Pawn->GetMesh()->GetAnimInstance())?1:0,Pawn->GetController()!=nullptr);
                 ++SlotIndex;continue;
             }
             ++SlotsChecked;
             SanityStep();Check(FMath::IsNearlyEqual(Survival->GetState().Sanity,20.f,.01f),TEXT("no_san_during_entry ")+Label);
-            Place(Other,OtherPC);OtherRest->Interact();Check(!OtherRest->IsResting(),TEXT("occupied_slot_rejected ")+Label);
+            Place(Other,OtherPC);OtherRest->ProcessEvent(OtherRest->FindFunctionChecked(TEXT("ServerInteract")),nullptr);
+            if(OtherRest->IsResting())
+            {
+                auto* OtherState=StateField->ContainerPtrToValuePtr<FFurnitureRestState>(OtherRest);
+                bool AutoSelect=false;Profile->TryGetBoolField(TEXT("auto_select_free_slot"),AutoSelect);
+                Check(AutoSelect&&OtherState->SlotIndex!=State->SlotIndex,TEXT("distinct_occupied_slots ")+Label);
+                for(int32 I=0;I<2;++I){OtherState->Started-=20.f;OtherRest->TickComponent(.01f,LEVELTICK_All,nullptr);}
+                OtherRest->RequestLeave();OtherState->Started-=20.f;OtherRest->TickComponent(.01f,LEVELTICK_All,nullptr);
+            }
+            else Check(true,TEXT("occupied_slot_rejected ")+Label);
             Other->SetActorLocation(FVector(3000,3000,100));
             Elapse(.61f);Elapse(float(Timing.FindChecked(TEXT("Rest.")+Kind+TEXT(".Enter"))->GetNumberField(TEXT("duration")))+.01f);
             Check(State->Phase==3,TEXT("settled_idle ")+Label);

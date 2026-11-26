@@ -4,6 +4,7 @@
 #include "../FPSGAMECharacter.h"
 #include "GameFramework/PlayerController.h"
 #include "Engine/Texture2D.h"
+#include "Materials/MaterialInterface.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/AssetManager.h"
@@ -29,6 +30,7 @@ FVector Vector(const TSharedPtr<FJsonObject>& Root,const TCHAR* Key,const FVecto
 }
 void UFPSPlayerBodyComponent::ClearHeadEquipment()
 {
+    bHeadEquipmentReady=true;
     ++HeadEquipmentRequest;
     if(HeadEquipmentLoad){HeadEquipmentLoad->CancelHandle();HeadEquipmentLoad.Reset();}
     if(HeadEquipment){HeadEquipment->DestroyComponent();HeadEquipment=nullptr;}
@@ -48,10 +50,12 @@ void UFPSPlayerBodyComponent::UpdateHeadEquipment(FName Definition)
     const FName Head=ResolveAppearance(AppliedAppearance).HeadId;
     const auto Recipe=Object(Object(Configuration,TEXT("head_equipment")),Definition.ToString());
     const auto Fit=Object(Object(Recipe,TEXT("fits")),Head.ToString());
-    if(!Recipe||!Fit){ClearHeadEquipment();UpdateAppearanceVisibility();return;}
+    if(!Recipe||!Fit)
+    {ClearHeadEquipment();bHeadEquipmentReady=!Recipe;UpdateAppearanceVisibility();return;}
     const bool bLocalOwner=Character.IsValid()&&Character->IsLocallyControlled();
     const FString Key=Definition.ToString()+TEXT("|")+Head.ToString()+(bLocalOwner?TEXT("|owner"):TEXT("|world"));
     if(Key==HeadEquipmentKey)return;
+    bHeadEquipmentReady=false;
     if(HelmetVisor){HelmetVisor->RemoveFromParent();HelmetVisor=nullptr;}
     HeadEquipmentKey=Key;const uint32 Request=++HeadEquipmentRequest;
     if(HeadEquipmentLoad){HeadEquipmentLoad->CancelHandle();HeadEquipmentLoad.Reset();}
@@ -96,13 +100,13 @@ void UFPSPlayerBodyComponent::UpdateHeadEquipment(FName Definition)
         if(!VisorPath.IsEmpty()&&Character.IsValid()&&Character->IsLocallyControlled())
         {
             auto* PC=Cast<APlayerController>(Character->GetController());
-            auto* Texture=Cast<UTexture2D>(FSoftObjectPath(VisorPath).ResolveObject());
-            if(PC&&Texture)
+            auto* Surface=FSoftObjectPath(VisorPath).ResolveObject();
+            if(PC&&Surface&&(Surface->IsA<UTexture2D>()||Surface->IsA<UMaterialInterface>()))
             {
                 HelmetVisor=CreateWidget<UFPSHelmetVisorWidget>(PC);
-                if(HelmetVisor){HelmetVisor->Configure(this,Texture);HelmetVisor->AddToPlayerScreen(15);}
+                if(HelmetVisor){HelmetVisor->Configure(this,Surface);HelmetVisor->AddToPlayerScreen(15);}
             }
         }
-        HeadEquipmentLoad.Reset();UpdateAppearanceVisibility();
+        HeadEquipmentLoad.Reset();bHeadEquipmentReady=true;UpdateAppearanceVisibility();
     }));
 }

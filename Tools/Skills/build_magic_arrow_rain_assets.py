@@ -76,6 +76,10 @@ def import_sources(metal):
         if not isinstance(sound,u.SoundWave):raise RuntimeError('Audio import '+name)
         sound.set_editor_property('volume',1.);sound.set_editor_property('pitch',1.);sound.set_editor_property('looping',False)
         sound.set_editor_property('loading_behavior',u.SoundWaveLoadingBehavior.FORCE_INLINE);sound.set_sound_asset_compression_type(u.SoundAssetCompressionType.PCM);finish(sound)
+        if name=='S_ArrowRainBurst':
+            import runpy
+            runpy.run_path(str(ROOT/'SourceAssets/ArrowRainDescentAudio20261109/install.py'))['configure'](sound)
+            finish(sound)
     att=u.load_asset(DEST+'/ATT_ArrowRain') if EAL.does_asset_exist(DEST+'/ATT_ArrowRain') else TOOLS.create_asset('ATT_ArrowRain',DEST,u.SoundAttenuation,u.SoundAttenuationFactory())
     settings=att.get_editor_property('attenuation');settings.set_editor_property('attenuation_shape_extents',u.Vector(450,0,0));settings.set_editor_property('falloff_distance',4000.);settings.set_editor_property('attenuate',True);settings.set_editor_property('spatialize',True);att.set_editor_property('attenuation',settings);finish(att)
 def smoke(name,impact):

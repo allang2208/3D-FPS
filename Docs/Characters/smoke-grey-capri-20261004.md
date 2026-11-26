@@ -1,5 +1,7 @@
 # 烟灰七分裤
 
+2026-10-18 更新：用户指出腰围过宽，已改为按原生身体不对称腰背截面拟合，普通／高筒靴版同步，保留腰部皮肤补片和连续裆缝。当前 `CapriTailored` 资产、重制入口与保存状态见 [ST6 裤靴与七分裤腰围调整](st6-lower-set-and-capri-waist-20261018.md)。下文保留初版制作记录。
+
 配套现有炭灰短袖 T 恤 `ue_field_sweater_charcoal`，以 `SourceAssets/SmokeGreyCapri20261004/Concept/smoke-grey-capri-v1.png` 为款式参考。新物品 ID 为 `ue_smoke_grey_capri`，装备裤装槽 15。制作按用户要求后台进行，不启动编辑器、游戏或运行验收。
 
 ## 模型与材料

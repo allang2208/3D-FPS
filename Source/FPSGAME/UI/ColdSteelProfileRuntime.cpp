@@ -1,16 +1,28 @@
+#include "../Movement/StableHorseGear.h"
 #include "../Weapons/MagicCrystalMana.h"
+#include "../Skills/ColdSteelSkillTree.h"
 #include "../Dungeon/DungeonLayout.h"
 #include "../Weapons/JingangRuneComponent.h"
+#include "../Production/ProductionToolComponent.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelProfilePersistence.h"
+#include "ColdSteelIncineratorStorage.h"
+#include "../Skills/FPSMagicArrowRainComponent.h"
+#include "../Skills/FPSElementalArrowComponent.h"
+#include "ColdSteelContainerSearchSubsystem.h"
+#include "GameFramework/PlayerController.h"
 #include "ColdSteelProfileRecovery.h"
 #include "../Items/FoodSpoilage.h"
 #include "../Items/CampfireFoodCatalog.h"
+#include "ColdSteelCurrency.h"
 #include "ColdSteelItemRarity.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "../Weapons/WeaponReloadStages.h"
 #include "../Weapons/PistolDualWieldComponent.h"
 #include "../Weapons/RuneOrbBladesComponent.h"
 #include "../Skills/ColdSteelSkillRules.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
+#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
 #include "ColdSteelPickup.h"
 #include "../FPSGAMECharacter.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
@@ -26,6 +38,7 @@
 #include "Misc/CommandLine.h"
 #include "Misc/Parse.h"
 #include "Engine/GameInstance.h"
+#include "Engine/Engine.h"
 #include "Engine/World.h"
 #include "HAL/IConsoleManager.h"
 #include "EngineUtils.h"
@@ -33,22 +46,22 @@
 #include "../Weapons/FrostSwordRunes.h"
 #include "Misc/SecureHash.h"
 
-// 定时自动存档周期（秒）。战斗与修行增量先落在内存档案里（StageTraining），由这个时钟统一写盘：
-// 旧口径是「待写盘时每 1 秒补一次」加「无条件每 5 秒一次」，战斗中几乎每秒都在写约 100 KB 的存档、
-// 回读校验、再反序列化校验一遍，全部在游戏线程上。物品、装备、强化、仓库、弹药换装这类玩家主动
-// 事务以及升级、退出仍然立即写盘，最多只会丢一个周期的战斗收益。0 表示关闭定时存档。
-static TAutoConsoleVariable<float> SaveAutosaveSeconds(TEXT("fps.Save.AutosaveSeconds"),300.f,
-    TEXT("Seconds between periodic checked autosaves. Combat and training progress is applied to the live profile immediately and lands on this clock. Inventory, equipment, enhancement, warehouse and ammo-switch transactions, level-ups and exit still save immediately. 0 disables the periodic save."),
-    ECVF_Default);
 
 using namespace ColdSteelInventory;
-namespace
+namespace ColdSteelProfilePersistence
 {
-void RefreshSniperTuning(FColdSteelProfile& State,const TMap<FString,FString>& Definitions)
+// Catalog-owned tuning must also reach guest shadows and returned loot. Local
+// disk migration alone leaves old sniper/machine-gun copies on stale mastery,
+// movement and crit rules after reconnect or an inventory mirror.
+void RefreshWeaponTuning(FColdSteelProfile& State,const TMap<FString,FString>& Definitions)
 {
     for(auto& Item:State.Items)
     {
-        if(Item.Definition!=TEXT("ue_svd")&&Item.Definition!=TEXT("ue_svch"))continue;
+        // 枪械的类别、暴击与非枪械的固有要害/穿甲都按目录调校；旧实例缺项时读 0，
+        // 会把 M1911 的要害特化、Viper 的穿甲和狙击的弱点收益整段吞掉。
+        if(Item.Definition!=TEXT("ue_svd")&&Item.Definition!=TEXT("ue_svch")&&Item.Definition!=TEXT("ue_m24")
+            &&Item.Definition!=TEXT("ue_m1911")&&Item.Definition!=TEXT("ue_pit_viper2011")
+            &&Item.Definition!=TEXT("ue_m249")&&Item.Definition!=TEXT("ue_pkm_lowpoly")&&Item.Definition!=TEXT("ue_lmg201"))continue;
         const auto* Definition=Definitions.Find(Item.Definition);if(!Definition)continue;
         TSharedPtr<FJsonObject> Data,Catalog;
         if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data
@@ -60,7 +73,7 @@ void RefreshSniperTuning(FColdSteelProfile& State,const TMap<FString,FString>& D
             if(Catalog->TryGetStringField(Field,Value)&&(!Data->TryGetStringField(Field,Old)||Old!=Value))
             {Data->SetStringField(Field,Value);Changed=true;}
         }
-        for(const TCHAR* Field:{TEXT("critDamageBonus")})
+        for(const TCHAR* Field:{TEXT("critDamageBonus"),TEXT("innate_weakpoint_percent"),TEXT("innate_armor_penetration")})
         {
             double Value=0.,Old=0.;
             if(Catalog->TryGetNumberField(Field,Value)&&(!Data->TryGetNumberField(Field,Old)||Old!=Value))
@@ -104,34 +117,29 @@ void RefreshBeltTuning(FColdSteelProfile& State,const TMap<FString,FString>& Def
         if(Changed){Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));}
     }
 }
-void StoreRevolverCaseCount(FColdSteelItem& Item, int32 Count)
+bool IsRetiredItem(const FString& Id)
 {
-    TSharedPtr<FJsonObject> Data;
-    if (!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data), Data) || !Data) return;
-    Data->SetNumberField(TEXT("revolver_case_count"), Count);
-    Item.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&Item.Data));
-}
-bool IsRetiredWeapon(const FString& Id)
-{
-    static const TSet<FString> Retired = {TEXT("fps_akm"),TEXT("fps_hk416"),TEXT("fps_m16"),TEXT("fps_akm_classic"),TEXT("fps_qbz191"),TEXT("fps_p9"),TEXT("ue_pkm"),TEXT("ue_pkm_a"),TEXT("ammo_762x54r")};
+    static const TSet<FString> Retired = {TEXT("fps_akm"),TEXT("fps_hk416"),TEXT("fps_m16"),TEXT("fps_akm_classic"),TEXT("fps_qbz191"),TEXT("fps_p9"),TEXT("ue_pkm"),TEXT("ue_pkm_a"),TEXT("ammo_762x54r"),TEXT("quartz")};
     return Retired.Contains(Id);
 }
-bool RemoveRetiredWeapons(FColdSteelProfile& P)
+bool RemoveRetiredItems(FColdSteelProfile& P)
 {
     const int32 ActiveIndex=Owner(P.Items,1,P.ActiveWeaponSlot);
-    const bool RemovedActiveWeapon=ActiveIndex>=0&&IsRetiredWeapon(P.Items[ActiveIndex].Definition);
+    const bool RemovedActiveWeapon=ActiveIndex>=0&&IsRetiredItem(P.Items[ActiveIndex].Definition);
     TSet<FString> Removed;
-    for (const auto& I : P.Items) if (IsRetiredWeapon(I.Definition)) Removed.Add(I.InstanceId);
-    bool Changed = P.Items.RemoveAll([](const auto& I){ return IsRetiredWeapon(I.Definition); }) > 0;
-    Changed |= P.ArmoryReceived.RemoveAll([](const FString& Id){ return IsRetiredWeapon(Id); }) > 0;
+    for (const auto& I : P.Items) if (IsRetiredItem(I.Definition)) Removed.Add(I.InstanceId);
+    bool Changed = P.Items.RemoveAll([](const auto& I){ return IsRetiredItem(I.Definition); }) > 0;
+    Changed |= P.ArmoryReceived.RemoveAll([](const FString& Id){ return IsRetiredItem(Id); }) > 0;
+    // Retired quartz must not block discarding a previously paid frost-sword job.
+    Changed |= P.ForgeJob.PaidMaterials.Remove(TEXT("quartz")) > 0;
     for (int32 N=0; N<P.Hotbar.Num(); ++N) {
-        if (Removed.Contains(P.Hotbar[N]) || (P.HotbarDefinitions.IsValidIndex(N) && IsRetiredWeapon(P.HotbarDefinitions[N]))) {
+        if (Removed.Contains(P.Hotbar[N]) || (P.HotbarDefinitions.IsValidIndex(N) && IsRetiredItem(P.HotbarDefinitions[N]))) {
             P.Hotbar[N].Reset(); if (P.HotbarDefinitions.IsValidIndex(N)) P.HotbarDefinitions[N].Reset(); Changed=true;
         }
     }
     // Clear the selected PKM family from saved quick bindings and its ammo pouch.
     for (auto& Binding : P.QuickBindings) {
-        if (Removed.Contains(Binding.ItemId) || IsRetiredWeapon(Binding.ItemDefinition)) {
+        if (Removed.Contains(Binding.ItemId) || IsRetiredItem(Binding.ItemDefinition)) {
             Binding = FColdSteelQuickBinding(); Changed = true;
         }
     }
@@ -153,6 +161,20 @@ UColdSteelProfileSave* ReadCheckedProfile(const FString& Slot)
     return Cast<UColdSteelProfileSave>(UGameplayStatics::LoadGameFromMemory(Bytes));
 }
 }
+using namespace ColdSteelProfilePersistence;
+
+// The save keeps only level plus the remainder inside that level. Add each
+// crossed threshold back so the HUD reports the experience actually awarded,
+// not the remainder left after a level-up.
+int64 UColdSteelStatusModel::GainedCharacterExperience(const FColdSteelProfile& After) const
+{
+    int64 Gained=After.Experience-Current.Experience;
+    for(int32 L=Current.Level;L<After.Level;++L)
+        Gained+=(20ll+L*20ll+int64(L)*L*12)*8;
+    return FMath::Max<int64>(0,Gained);
+}
+
+
 void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
 {
     Super::Initialize(Collection);
@@ -169,13 +191,15 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
     HolyLightSkill=ColdSteelSkills::LoadDefinition(TEXT("holyLight"));
     MeteorSkill=ColdSteelSkills::LoadDefinition(TEXT("meteor"));
     FlameArmorSkill=ColdSteelSkills::LoadDefinition(TEXT("flameArmor"));
+    IceArmorSkill=ColdSteelSkills::LoadDefinition(TEXT("iceArmor"));
+    LightningHasteSkill=ColdSteelSkills::LoadDefinition(TEXT("lightningHaste"));
     DragonBreathSkill=ColdSteelSkills::LoadDefinition(TEXT("dragonBreath"));
     DodgeSkill=ColdSteelSkills::LoadDefinition(TEXT("dodge"));LoadStaminaTuning();
     DexterousHandsSkill=ColdSteelSkills::LoadDefinition(TEXT("dexterousHands"));
     QuickCombatSkill=ColdSteelSkills::LoadDefinition(TEXT("quickCombat"));
     RuneBladesSkill=ColdSteelSkills::LoadDefinition(TEXT("runeBlades"));
     StaffLightSkill=ColdSteelSkills::LoadDefinition(TEXT("staffLight"));
-    ColdSteelSkills::Migrate(Current);
+    ColdSteelSkills::Migrate(Current);ColdSteelSkillTree::Migrate(Current);
     FString Json; TSharedPtr<FJsonObject> Root;
     if(FFileHelper::LoadFileToString(Json,*(FPaths::ProjectContentDir()/TEXT("ColdSteelData/items.json")))&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Json),Root))
         for(const auto& Pair:Root->Values){FString Data;FJsonSerializer::Serialize(Pair.Value->AsObject().ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Data));Definitions.Add(FString(*Pair.Key),Data);}
@@ -192,22 +216,50 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
         if(!Requested.IsEmpty()&&Requested.Len()<64&&!Requested.Contains(TEXT("/"))&&!Requested.Contains(TEXT("\\"))&&!Requested.Contains(TEXT("..")))SaveSlot=TEXT("ColdSteel_")+Requested;
         else bPersistenceBlocked=true;
     } else if(bAudit)SaveSlot=TEXT("ColdSteel_AuditSession");
+    // Every PIE GameInstance gets its own durable sandbox, even when all
+    // windows share one process/command line. Seed once without writing the source.
+    if(const FWorldContext* Context=GetGameInstance()->GetWorldContext();Context&&Context->WorldType==EWorldType::PIE)
+    {
+        const FString SourceSlot=SaveSlot;
+        SaveSlot+=FString::Printf(TEXT("_PIE_%d"),Context->PIEInstance);
+        const bool HasSandbox=UGameplayStatics::DoesSaveGameExist(SaveSlot+TEXT("_A"),0)
+            ||UGameplayStatics::DoesSaveGameExist(SaveSlot+TEXT("_B"),0);
+        if(!HasSandbox)
+        {
+            bool HasSource=false,Seeded=false;
+            const FGuid SandboxIdentity=FGuid::NewGuid();
+            for(const TCHAR* S:{TEXT("_A"),TEXT("_B")})
+            {
+                const FString From=SourceSlot+S,To=SaveSlot+S;
+                HasSource|=UGameplayStatics::DoesSaveGameExist(From,0);
+                auto* Source=ReadCheckedProfile(From);if(!Source)continue;
+                Source->Profile.NetworkProfileId=SandboxIdentity;
+                TArray<uint8> Bytes;
+                if(UGameplayStatics::SaveGameToMemory(Source,Bytes)&&UGameplayStatics::SaveDataToSlot(Bytes,To,0)
+                    &&FFileHelper::SaveStringToFile(HashBytes(Bytes),*ChecksumPath(To)))Seeded=true;
+            }
+            if(HasSource&&!Seeded){bPersistenceBlocked=true;Message=TEXT("测试档案复制失败，原存档未修改");return;}
+        }
+        UE_LOG(LogTemp,Display,TEXT("NET_PROFILE_SANDBOX instance=%d slot=%s"),Context->PIEInstance,*SaveSlot);
+    }
     for(FName Key:{FName("str"),FName("dex"),FName("intt"),FName("con"),FName("wis"),FName("luck")})Current.Attributes.Add(Key,10);
+    Current.NetworkProfileId=FGuid::NewGuid();
     Current.Hotbar.SetNum(4);Current.HotbarDefinitions.SetNum(4);Current.WarehouseLayoutVersion=1;NormalizeStamina(Current);Publish(Current);
     const bool Exists=UGameplayStatics::DoesSaveGameExist(SaveSlot+TEXT("_A"),0)||UGameplayStatics::DoesSaveGameExist(SaveSlot+TEXT("_B"),0);
-    if(Exists){if(ReloadProfile()){GrantStartingArmory();if(!bAudit)GrantEnhancementMaterials();}return;}
+    if(Exists){if(ReloadProfile()){GrantStartingArmory();}return;}
     auto Seed=Snapshot();auto Weapon=CreateItem(TEXT("ue_m4a1"));Weapon.Place=1;Weapon.Cell=6;Seed.Items.Add(Weapon);
-    for(const auto& Pair:TArray<TPair<FString,int64>>{{TEXT("hp_potion"),5},{TEXT("mp_potion"),3},{TEXT("gold"),200},{TEXT("ammo_556"),90},{TEXT("ammo_762"),90},{TEXT("ammo_127"),60}}) {
+    Seed.Souls=200;Seed.SoulCurrencyVersion=1;
+    for(const auto& Pair:TArray<TPair<FString,int64>>{{TEXT("hp_potion"),5},{TEXT("mp_potion"),3},{TEXT("ammo_556"),90},{TEXT("ammo_762"),90},{TEXT("ammo_127"),60}}) {
         if(AmmoType(Pair.Key)){AddAmmoToState(Seed,Pair.Key,Pair.Value);continue;}
         auto I=CreateItem(Pair.Key,Pair.Value); if(!I.Data.IsEmpty())Insert(Seed.Items,I);
     }
     for(int32 Index=0;Index<2;++Index){const FString Def=Index==0?TEXT("hp_potion"):TEXT("mp_potion");for(const auto& I:Seed.Items)if(I.Definition==Def){Seed.Hotbar[Index]=I.InstanceId;Seed.HotbarDefinitions[Index]=Def;break;}}
-    if(CommitState(Seed)){GrantStartingArmory();if(!bAudit)GrantEnhancementMaterials();}
+    if(CommitState(Seed)){GrantStartingArmory();}
 }
 void UColdSteelStatusModel::Deinitialize(){SaveNow();Super::Deinitialize();}
 FColdSteelProfile UColdSteelStatusModel::Snapshot() const {auto P=Current;P.Name=CharacterName;P.Class=CharacterClass;P.Level=Level;P.Points=AttributePoints;P.Attributes=Attributes;return P;}
 void UColdSteelStatusModel::Publish(const FColdSteelProfile& P){Current=P;CharacterName=P.Name;CharacterClass=P.Class;Level=P.Level;AttributePoints=P.Points;Attributes=P.Attributes;bTrainingDirty=false;TrainingFlushAccumulator=0.f;OnStaminaChanged.Broadcast();}
-UColdSteelStatusModel* UColdSteelStatusModel::CreateShadowModel(const FColdSteelProfile& GuestProfile)
+UColdSteelStatusModel* UColdSteelStatusModel::CreateEquipmentModel(const FColdSteelProfile& Profile)
 {
     UColdSteelStatusModel* Shadow=NewObject<UColdSteelStatusModel>(GetGameInstance()); // 子系统类 ClassWithin=UGameInstance：Outer 必须是 GameInstance，TransientPackage 会撞 UObjectGlobals 断言
     // 只读目录状态整体复制：物品定义、武器弹药分组、弹药目录、体力调参、技能定义（全字段随本实例目录走）。
@@ -230,47 +282,101 @@ UColdSteelStatusModel* UColdSteelStatusModel::CreateShadowModel(const FColdSteel
     Shadow->HolyLightSkill=HolyLightSkill;
     Shadow->MeteorSkill=MeteorSkill;
     Shadow->FlameArmorSkill=FlameArmorSkill;
+    Shadow->IceArmorSkill=IceArmorSkill;
+    Shadow->LightningHasteSkill=LightningHasteSkill;
     Shadow->DragonBreathSkill=DragonBreathSkill;
     Shadow->QuickCombatSkill=QuickCombatSkill;
     Shadow->RuneBladesSkill=RuneBladesSkill;
     Shadow->StaffLightSkill=StaffLightSkill;
-    auto Migrated=GuestProfile;
-    RefreshSniperTuning(Migrated,Definitions);
+    Shadow->Publish(Profile);
+    Shadow->bPersistenceBlocked=true;
+    Shadow->bNetShadowProfile=true;
+    return Shadow;
+}
+UColdSteelStatusModel* UColdSteelStatusModel::CreateShadowModel(const FColdSteelProfile& GuestProfile)
+{
+    auto Migrated=GuestProfile;bool CurrencyChanged=false;FString CurrencyReason;
+    RefreshWeaponTuning(Migrated,Definitions);
     RefreshBeltTuning(Migrated,Definitions);
+    NormalizeStaffState(Migrated);
+    RemoveRetiredItems(Migrated);
+    if(!ColdSteelCurrency::Normalize(Migrated,CurrencyChanged,CurrencyReason))return nullptr;
     ColdSteelItemRarity::Normalize(Migrated.Items);
     ColdSteelProfileRecovery::InterruptedSpells(Migrated,float(ResourceMaximum(Migrated,true)));
     bool FootprintChanged=false;FString FootprintReason;
     if(!MigrateAuthoredGridFootprints(Migrated,FootprintChanged,FootprintReason))
     {Message=FootprintReason;return nullptr;}
     ColdSteelFood::RebaseProfile(Migrated,ColdSteelFood::Clock(this));
-    Shadow->Publish(Migrated);
-    Shadow->bPersistenceBlocked=true;
-    Shadow->bNetShadowProfile=true;
-    return Shadow;
+    return CreateEquipmentModel(Migrated);
 }
-void UColdSteelStatusModel::AdoptNetMirror(const FColdSteelProfile& External)
+void UColdSteelStatusModel::AdoptNetMirror(const FColdSteelProfile& External,bool AnnounceGains)
 {
-    auto Migrated=External;
-    RefreshSniperTuning(Migrated,Definitions);
+    auto Migrated=External;bool CurrencyChanged=false;FString CurrencyReason;
+    if(GetWorld() && GetWorld()->GetNetMode()==NM_Client && Migrated.NetworkProfileId==Current.NetworkProfileId &&
+        Current.MountRoster.Revision>Migrated.MountRoster.Revision)
+    {
+        auto NewerRoster=Current.MountRoster;
+        if(Migrated.CampfireInventoryRevision>=Current.CampfireInventoryRevision)
+            StableHorseGear::CopyEquipment(NewerRoster,Migrated.MountRoster);
+        Migrated.MountRoster=MoveTemp(NewerRoster);
+    }
+    RefreshWeaponTuning(Migrated,Definitions);
     RefreshBeltTuning(Migrated,Definitions);
+    NormalizeStaffState(Migrated);
     if(GetWorld()&&GetWorld()->GetNetMode()==NM_Client&&Migrated.FoodClockId==Current.FoodClockId)
         Migrated.FoodClockDay=FMath::Max(Migrated.FoodClockDay,Current.FoodClockDay);
+    RemoveRetiredItems(Migrated);
+    if(!ColdSteelCurrency::Normalize(Migrated,CurrencyChanged,CurrencyReason)){Message=CurrencyReason;return;}
     ColdSteelItemRarity::Normalize(Migrated.Items);
+    if(Migrated.CampfireInventoryRevision>Current.CampfireInventoryRevision)
+    {
+        // Reconnection may restore a committed destruction through a full mirror
+        // with no surviving request/receipt. Retire bindings only for exact
+        // instances removed by that newer authority inventory.
+        TSet<FString> Removed;
+        for(const auto& Item:Current.Items)
+            if(!Item.Container.StartsWith(TEXT("NetView."))&&!Migrated.Items.ContainsByPredicate([&](const auto& I){return I.InstanceId==Item.InstanceId;}))
+                Removed.Add(Item.InstanceId);
+        for(auto& Binding:Migrated.QuickBindings)if(Removed.Contains(Binding.ItemId))Binding=FColdSteelQuickBinding();
+        for(int32 N=0;N<Migrated.Hotbar.Num();++N)if(Removed.Contains(Migrated.Hotbar[N]))
+        {Migrated.Hotbar[N].Reset();if(Migrated.HotbarDefinitions.IsValidIndex(N))Migrated.HotbarDefinitions[N].Reset();}
+        if(Removed.Contains(Migrated.ActiveProductionTool))Migrated.ActiveProductionTool.Reset();
+    }
     Migrated.MergeStarMarrowSpend(Current.StarMarrowManaSpent);
+    Migrated.MergeOathStamina(Current.OathStaminaRestored,StaminaMaximum(Migrated,StaminaTuning));
     if(Migrated.MagicCrystalManaRestored<Current.MagicCrystalManaRestored)
         MagicCrystalMana::Merge(Migrated,Current.MagicCrystalManaRestored,float(ResourceMaximum(Migrated,true)));
+    if(AnnounceGains)QueueAcquisitionNotices(Current,Migrated);
     Publish(Migrated);
 }
 bool UColdSteelStatusModel::CommitState(FColdSteelProfile State)
 {
-    return PersistState(MoveTemp(State),true);
+    auto* Pawn=RuntimePawn();
+    auto* Search=!bStagingNetworkContainer&&Pawn&&Pawn->GetNetMode()==NM_Standalone?Pawn->GetWorld()->GetSubsystem<UColdSteelContainerSearchSubsystem>():nullptr;
+    auto* PC=Pawn?Cast<APlayerController>(Pawn->GetController()):nullptr;
+    if(Search&&!Search->IsActive(PC))Search=nullptr;
+    if(Search&&!Search->ValidateChange(PC,Current.Items,State.Items,Message))return false;
+    // Only successful inventory commits teach the depositor about newly inserted items.
+    TArray<FColdSteelItem> Before;if(Search)Before=Current.Items;
+    if(!PersistState(MoveTemp(State),true))return false;
+    if(Search)Search->ObserveChange(PC,Before,Current.Items);
+    return true;
 }
-bool UColdSteelStatusModel::SetPlayerAppearance(FName HeadId,FName HairId)
+bool UColdSteelStatusModel::CommitWorkshopCheckpoint(FColdSteelProfile State,const FString& GuestSlot)
 {
-    if(Current.PlayerHeadId==HeadId&&Current.PlayerHairId==HairId)return true;
-    auto Next=Snapshot();Next.PlayerHeadId=HeadId;Next.PlayerHairId=HairId;
-    // A cosmetic change must not re-equip weapons or interrupt an active action.
-    return PersistState(MoveTemp(Next),false);
+    // Lesson acceptance and autonomous workpiece settlement share this path.
+    // A staged workstation request owns its final journaled save and rollback.
+    if(!bNetShadowProfile||IsStagingNetworkContainer())return CommitState(MoveTemp(State));
+    auto* Pawn=RuntimePawn();
+    const auto* Owner=Pawn?Pawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
+    if(!Owner||Owner->GetShadowModel()!=this||GuestSlot.IsEmpty()||Owner->CampfireGuestSlot()!=GuestSlot)
+    {
+        Message=TEXT("客机工坊档案尚未就绪，请稍后再试。");
+        return false;
+    }
+    TGuardValue<FString> SlotGuard(CampfireGuestSaveSlot,GuestSlot);
+    TGuardValue<bool> TransactionGuard(bSavingTransaction,true);
+    return CommitState(MoveTemp(State));
 }
 bool UColdSteelStatusModel::CommitCampfireState(FColdSteelProfile State,const FString& WorldKey,const FString& GuestSlot)
 {
@@ -301,8 +407,10 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
         if(!AuthorityPawn||!AuthorityPawn->HasAuthority())return false;
     }
     else if(bPersistenceBlocked||(GetWorld()&&GetWorld()->GetNetMode()==NM_DedicatedServer)){Message=TEXT("当前玩家数据不可写入");return false;}
-    RemoveRetiredWeapons(State);
-    RefreshSniperTuning(State,Definitions);
+    bool CurrencyChanged=false;FString CurrencyReason;
+    if(!ColdSteelCurrency::Normalize(State,CurrencyChanged,CurrencyReason)){Message=CurrencyReason;return false;}
+    RemoveRetiredItems(State);
+    RefreshWeaponTuning(State,Definitions);
     RefreshBeltTuning(State,Definitions);
     bool AmmoChanged=false;
     if(!NormalizeAmmo(State,AmmoChanged)){Message=TEXT("弹药数据迁移失败，原存档保留");return false;}
@@ -311,9 +419,10 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
     if(!GetWorld()||GetWorld()->GetNetMode()!=NM_Client)
         ColdSteelFood::RebaseProfile(State,ColdSteelFood::Clock(this));
     ColdSteelItemRarity::Normalize(State.Items);
-    // Equipment has the highest action priority. Only a successfully published
-    // equipment change interrupts the outgoing action in ApplyColdSteelProfile.
+    // Equipment normally has highest priority. Thunder recall/catch reserves
+    // the hands until its receipt; reject before saving or interrupting poses.
     ColdSteelSkills::Migrate(State);
+    ColdSteelSkillTree::Migrate(State);
     ColdSteelQuickBar::Migrate(State);
     ColdSteelQuickBar::MirrorLegacy(State);
     NormalizeStamina(State);
@@ -323,11 +432,16 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
     State.Mana=FMath::Clamp(double(State.Mana)+ResourceMaximum(State,true)-ResourceMaximum(Current,true),0.,ResourceMaximum(State,true));
     if(!ColdSteelWarehouse::MigrateLayout(State)){Message=TEXT("仓库布局迁移失败，原存档保留");return false;}
     FString Reason;if(!Validate(State,Reason)){Message=Reason;return false;}
+    auto* Tool=RuntimePawn()?RuntimePawn()->FindComponentByClass<UProductionToolComponent>():nullptr;
+    if(Tool&&!Tool->ValidateThunderEquipmentChange(Current,State,Message))return false;
+    if(bStagingNetworkContainer){Publish(State);return true;}
     if(bAudit&&AuditFailNextSave){AuditFailNextSave=false;Message=TEXT("验收注入：保存失败，操作未提交");return false;}
     State.Version=2;
     State.Generation=Current.Generation+1;
     if(bNetShadowProfile)
     {
+        const bool SendSmithLesson=State.BlacksmithApprenticeshipStage!=Current.BlacksmithApprenticeshipStage;
+        const bool SendCarpenterLesson=State.CarpenterApprenticeshipStage!=Current.CarpenterApprenticeshipStage;
         if(!CampfireGuestSaveSlot.IsEmpty())
         {
             auto* Saved=NewObject<UColdSteelProfileSave>();Saved->Profile=State;StripNetworkContainerView(Saved->Profile);
@@ -335,10 +449,22 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
             {bTransactionSaveUnconfirmed|=bSavingTransaction;Message=TEXT("客机交易写入未确认，已保留原存档等待恢复");return false;}
         }
         Publish(State);
+        if(!CampfireGuestSaveSlot.IsEmpty()&&(SendSmithLesson||SendCarpenterLesson))
+        {
+            auto* Pawn=RuntimePawn();
+            auto* Owner=Pawn?Pawn->GetPlayerState<AColdSteelPlayerState>():nullptr;
+            if(Owner&&Owner->GetShadowModel()==this)
+            {
+                if(SendSmithLesson)Owner->ClientBlacksmithLesson(Current.NetworkProfileId,Current.BlacksmithApprenticeshipStage);
+                if(SendCarpenterLesson)Owner->ClientCarpenterLesson(Current.NetworkProfileId,Current.CarpenterApprenticeshipStage);
+            }
+        }
+        if(Tool)Tool->CommitThunderEquipmentChange(Current);
         if(bApplyPawn)ApplyToPawn();
         OnChanged.Broadcast();return true;
     }
     auto* Save=Cast<UColdSteelProfileSave>(UGameplayStatics::CreateSaveGameObject(UColdSteelProfileSave::StaticClass()));Save->Profile=State;
+    StripNetworkContainerView(Save->Profile);
     const FString Slot=SaveSlot+(State.Generation%2?TEXT("_A"):TEXT("_B"));
     if(!UGameplayStatics::SaveGameToSlot(Save,Slot,0)){bTransactionSaveUnconfirmed|=bSavingTransaction;Message=TEXT("保存失败，操作未提交");return false;}
     TArray<uint8> Written;
@@ -346,7 +472,9 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
     auto* Verify=ReadCheckedProfile(Slot);
     if(!Verify||Verify->Profile.Generation!=State.Generation||!Validate(Verify->Profile,Reason)){bTransactionSaveUnconfirmed|=bSavingTransaction;Message=TEXT("存档写入校验失败，操作未提交");return false;}
     QueueProgressNotices(Current,State);
+    QueueAcquisitionNotices(Current,State);
     Publish(State);Message=TEXT("已保存");
+    if(Tool)Tool->CommitThunderEquipmentChange(Current);
     if(bApplyPawn)ApplyToPawn();
     OnChanged.Broadcast();return true;
 }
@@ -365,6 +493,8 @@ bool UColdSteelStatusModel::PersistState(FColdSteelProfile State,bool bApplyPawn
 // transaction - that is the stutter this staging removed.
 bool UColdSteelStatusModel::StageTraining(FColdSteelProfile&& State)
 {
+    const int64 GainedExperience=GainedCharacterExperience(State);
+    const FGuid LeveledHorse=CreditPresentMountExperience(State,GainedExperience);
     bool bLeveled=false;
     for(const auto& Pair:State.Skills)
     {
@@ -372,1064 +502,34 @@ bool UColdSteelStatusModel::StageTraining(FColdSteelProfile&& State)
         if(!Before||Pair.Value.Level>Before->Level){bLeveled=true;break;}
     }
     bLeveled|=State.Level>Current.Level;
-    Current=MoveTemp(State);
     // A level-up owns a progress notice plus derived stat changes, so it keeps
-    // the immediate checked transaction. Ordinary hit experience does not.
+    // the immediate checked transaction. Keep Current as the before-state and
+    // persist the reward directly: Snapshot() still carries the old public Level
+    // and AttributePoints until Publish(), and would discard the earned level.
     if(bLeveled)
     {
-        if(PersistState(Snapshot(),true))return true;
-        // A rejected save keeps the staged training queued for the next autosave.
-        bTrainingDirty=true;TrainingFlushAccumulator=0.f;return false;
+        if(PersistState(State,true)){ApplyCommittedMountLevel(LeveledHorse);QueueExperienceNotice(GainedExperience);return true;}
+        // The reward is still accepted in memory when disk persistence fails.
+        // Publish the public mirrors as well, so a later snapshot cannot roll it
+        // back; callers must also mark these kills rewarded to prevent duplicates.
+        NormalizeStamina(State);
+        if(State.Health>0)State.Health=FMath::Clamp(double(State.Health)+ResourceMaximum(State,false)-ResourceMaximum(Current,false),0.,ResourceMaximum(State,false));
+        State.Mana=FMath::Clamp(double(State.Mana)+ResourceMaximum(State,true)-ResourceMaximum(Current,true),0.,ResourceMaximum(State,true));
+        QueueProgressNotices(Current,State);
+        QueueAcquisitionNotices(Current,State);
+        Publish(State);
+        ApplyCommittedMountLevel(LeveledHorse);
+        bTrainingDirty=true;TrainingFlushAccumulator=0.f;
+        QueueExperienceNotice(GainedExperience);
+        ApplyToPawn();OnChanged.Broadcast();return true;
     }
+    Current=MoveTemp(State);
+    ApplyCommittedMountLevel(LeveledHorse);
+    QueueExperienceNotice(GainedExperience);
     bTrainingDirty=true;TrainingFlushAccumulator=0.f;
     // Coalesced panel refresh: readings already come from the live profile, so
     // the sheet does not need to rebuild once per bullet.
     const double Now=GetWorld()?GetWorld()->GetTimeSeconds():0.;
     if(Now-LastTrainingPublish>=.15){LastTrainingPublish=Now;OnChanged.Broadcast();}
     return true;
-}
-bool UColdSteelStatusModel::ReloadProfile()
-{
-    UColdSteelProfileSave* Best=nullptr;FString Reason;bool BestFootprintMigrated=false;
-    for(const TCHAR* S:{TEXT("_A"),TEXT("_B")})
-    {
-        auto* Save=ReadCheckedProfile(SaveSlot+S);if(!Save)continue;
-        bool FootprintMigrated=false;
-        // Wood changed from 1x1 to 1x2 on 2026-09-24. The old loader
-        // rejected both slots before reaching its later wood migration.
-        if(!MigrateLegacyWoodFootprints(Save->Profile,FootprintMigrated,Reason))
-        {UE_LOG(LogTemp,Warning,TEXT("ColdSteel profile %s%s rejected: %s"),*SaveSlot,S,*Reason);continue;}
-        // 2026-10-01 作者占格回填：卷轴 1x1→1x2 竖直、金属锭 1x1→2x1 横放；
-        // 迁移把当前 grid_w/grid_h 写回每个旧实例的 Data 快照。
-        const bool InitialLayoutMigrated=FootprintMigrated;
-        if(!MigrateAuthoredGridFootprints(Save->Profile,FootprintMigrated,Reason))
-        {UE_LOG(LogTemp,Warning,TEXT("ColdSteel profile %s%s rejected: %s"),*SaveSlot,S,*Reason);continue;}
-        FootprintMigrated|=InitialLayoutMigrated;
-        if(!Best||Save->Profile.Generation>Best->Profile.Generation)
-        {Best=Save;BestFootprintMigrated=FootprintMigrated;}
-    }
-    if(!Best){bPersistenceBlocked=true;Message=TEXT("两个存档版本均不可读取，已保留原文件");return false;}
-    auto Clean=Best->Profile;
-    int64 RecoveredGroundAmmo=0;
-    for(const auto& Item:Clean.Items)if(Item.Place==2&&AmmoType(Item.Definition))RecoveredGroundAmmo+=Item.Count;
-    bool AmmoMigrated=false;
-    if(!NormalizeAmmo(Clean,AmmoMigrated)){bPersistenceBlocked=true;Message=TEXT("弹药迁移失败，原存档保留");return false;}
-    const bool Migrated=Clean.WarehouseLayoutVersion==0;
-    if(!ColdSteelWarehouse::MigrateLayout(Clean)){bPersistenceBlocked=true;Message=TEXT("仓库布局迁移失败，原存档保留");return false;}
-    const bool SkillsMigrated=ColdSteelSkills::Migrate(Clean);
-    const bool QuickBarMigrated=ColdSteelQuickBar::Migrate(Clean);
-    const bool StaminaMigrated=NormalizeStamina(Clean);
-    Clean.Survival.Normalize();
-    const bool Interrupted=ColdSteelProfileRecovery::InterruptedSpells(Clean,float(ResourceMaximum(Clean,true)));
-    bool Removed=RemoveRetiredWeapons(Clean)||Migrated||SkillsMigrated||QuickBarMigrated||StaminaMigrated||Interrupted||AmmoMigrated||BestFootprintMigrated;
-    // Refresh authorized material rarity and scroll presentation on existing instances.
-    for(auto& I:Clean.Items)
-    {
-        // The hardknuckle gloves and ST6 sleeves switched from an icon display
-        // mesh to catalog PNGs; without the refresh their stored instances keep
-        // routing through the mesh path and render blank.
-        if(I.Definition==TEXT("ue_alchemy_spellbook")||I.Definition==TEXT("ue_hardknuckle_gloves")||I.Definition==TEXT("ue_st6_sleeves")||
-            I.Definition==TEXT("ue_st6_tactical_helmet")||I.Definition==TEXT("ue_st6_tactical_pants")||
-            I.Definition==TEXT("ue_st6_tactical_boots")||I.Definition==TEXT("ue_field_hat")||
-            I.Definition==TEXT("ue_work_jacket")||I.Definition==TEXT("ue_cargo_pants")||
-            I.Definition==TEXT("ue_boots")||I.Definition==TEXT("ue_original_gloves"))
-        {
-            // Refresh definition-owned presentation and balance fields; retain instance enhancement.
-            const FString* Catalog=Definitions.Find(I.Definition);
-            TSharedPtr<FJsonObject> Data,Defaults;
-            if(Catalog&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)&&Data&&
-                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Catalog),Defaults)&&Defaults)
-            {
-                bool Updated=false;
-                for(const TCHAR* Key:{TEXT("ue_icon"),TEXT("ue_equipment_icon_mesh"),TEXT("armorSet"),TEXT("setName"),TEXT("setBonusDesc")})
-                {
-                    FString Value,Old;Data->TryGetStringField(Key,Old);
-                    if(Defaults->TryGetStringField(Key,Value)&&Value!=Old)
-                    {Data->SetStringField(Key,Value);Updated=true;}
-                }
-                for(const TCHAR* Key:{TEXT("ue_icon_pitch"),TEXT("ue_icon_yaw"),TEXT("ue_icon_roll")})
-                {
-                    double Value=0,Old=0;
-                    if(Defaults->TryGetNumberField(Key,Value)&&(!Data->TryGetNumberField(Key,Old)||Value!=Old))
-                    {Data->SetNumberField(Key,Value);Updated=true;}
-                }
-                // Existing ST6 instances follow the upgraded catalog appearance,
-                // including equipment kept in storage or on the ground.
-                if(I.Definition==TEXT("ue_st6_tactical_helmet")||I.Definition==TEXT("ue_st6_tactical_pants")||
-                    I.Definition==TEXT("ue_st6_tactical_boots")||I.Definition==TEXT("ue_field_hat")||
-                    I.Definition==TEXT("ue_work_jacket"))
-                    for(const TCHAR* Key:{TEXT("world_mesh"),TEXT("world_material")})
-                    {
-                        FString Value,Old;Data->TryGetStringField(Key,Old);
-                        if(Defaults->TryGetStringField(Key,Value)&&Value!=Old)
-                        {Data->SetStringField(Key,Value);Updated=true;}
-                    }
-                double Revision=0,OldRevision=0;
-                Data->TryGetNumberField(TEXT("spellbookStatsRevision"),OldRevision);
-                if(Defaults->TryGetNumberField(TEXT("spellbookStatsRevision"),Revision)&&OldRevision<Revision)
-                {
-                    for(const TCHAR* Key:{TEXT("matkFormula"),TEXT("focusEffects"),TEXT("spellbookStatsRevision")})
-                        if(const auto* Value=Defaults->Values.Find(Key))Data->SetField(Key,*Value);
-                    Updated=true;
-                }
-                if(Updated)
-                {I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
-            }
-        }
-        if(I.Definition==TEXT("wood"))
-        {
-            const FIntPoint Size=ColdSteelInventory::Footprint(I);
-            if(I.Width!=Size.X||I.Height!=Size.Y){I.Width=Size.X;I.Height=Size.Y;Removed=true;}
-            const FString* Catalog=Definitions.Find(I.Definition);
-            TSharedPtr<FJsonObject> Data,Defaults;
-            if(Catalog&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)&&Data&&
-                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Catalog),Defaults)&&Defaults)
-            {
-                FString Icon,Old;Defaults->TryGetStringField(TEXT("ue_icon"),Icon);Data->TryGetStringField(TEXT("ue_icon"),Old);
-                if(!Icon.IsEmpty()&&Icon!=Old){Data->SetStringField(TEXT("ue_icon"),Icon);I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
-            }
-        }
-        if(I.Definition==ColdSteelFrostRunes::Definition)
-        {
-            const FString* Definition=Definitions.Find(I.Definition);
-            TSharedPtr<FJsonObject> Data,Defaults;
-            if(Definition&&FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)&&Data&&
-                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),Defaults)&&Defaults)
-            {
-                bool Updated=false;
-                for(const TCHAR* Key:{TEXT("innate_erosion_intelligence"),TEXT("innate_erosion_wisdom")})
-                {
-                    double Value=0,Old=0;
-                    if(Defaults->TryGetNumberField(Key,Value)&&(!Data->TryGetNumberField(Key,Old)||Old!=Value))
-                    {Data->SetNumberField(Key,Value);Updated=true;}
-                }
-                FString Description,OldDescription;Data->TryGetStringField(TEXT("desc"),OldDescription);
-                if(Defaults->TryGetStringField(TEXT("desc"),Description)&&Description!=OldDescription)
-                {Data->SetStringField(TEXT("desc"),Description);Updated=true;}
-                if(Updated){I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
-            }
-        }
-        // Remove legacy gold selections outside the rune sword, and retain the
-        // frost erosion-to-spirit migration through the existing A/B save commit.
-        if(I.Definition!=TEXT("ue_rune_sword"))
-        {
-            TSharedPtr<FJsonObject> Data;const TSharedPtr<FJsonObject>* Parts=nullptr;FString Rune;
-            if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),Data)&&Data&&
-                Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts))
-            {
-                (*Parts)->TryGetStringField(TEXT("blade_2"),Rune);
-                FString Blade;
-                const TCHAR* LegacyRune=I.Definition==ColdSteelFrostRunes::Zhanmadao&&(*Parts)->TryGetStringField(TEXT("blade_1"),Blade)?
-                    ColdSteelFrostRunes::LegacyBladeRune(I.Definition,Blade):nullptr;
-                const FString Replacement=LegacyRune?FString(LegacyRune):ColdSteelFrostRunes::Upgrade(I.Definition,Rune);
-                if(LegacyRune||Replacement!=Rune)
-                {
-                    if(LegacyRune)(*Parts)->RemoveField(TEXT("blade_1"));
-                    if(Replacement.IsEmpty())(*Parts)->RemoveField(TEXT("blade_2"));
-                    else (*Parts)->SetStringField(TEXT("blade_2"),Replacement);
-                    I.Data.Reset();FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
-                }
-            }
-        }
-        // 武器归类以目录为准：PKM 从步枪改判机枪后，旧存档实例仍带着
-        // weaponType:"rifle"，会让持械移速与专精结算继续走步枪分支。
-        // 只同步目录里真实存在的 weaponType，且只在不同才写回。
-        if(const FString* CatalogDefinition=Definitions.Find(I.Definition))
-        {
-            TSharedPtr<FJsonObject> CatalogData,ItemData;
-            FString CatalogType,StoredType;
-            if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*CatalogDefinition),CatalogData)&&CatalogData&&
-                CatalogData->TryGetStringField(TEXT("weaponType"),CatalogType)&&!CatalogType.IsEmpty()&&
-                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData&&
-                ItemData->TryGetStringField(TEXT("weaponType"),StoredType)&&StoredType!=CatalogType)
-            {
-                ItemData->SetStringField(TEXT("weaponType"),CatalogType);
-                I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
-            }
-            // Zhenyue's base reach is catalog tuning, not an instance upgrade.
-            // Assign the current value so loading repeatedly never compounds it.
-            if(I.Definition==TEXT("ue_xuanchi_zhenyue")&&CatalogData&&
-                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
-            {
-                double CatalogReach=0.,StoredReach=0.;
-                if(CatalogData->TryGetNumberField(TEXT("melee_reach_cm"),CatalogReach)&&
-                    (!ItemData->TryGetNumberField(TEXT("melee_reach_cm"),StoredReach)||StoredReach!=CatalogReach))
-                {
-                    ItemData->SetNumberField(TEXT("melee_reach_cm"),CatalogReach);
-                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
-                }
-            }
-            // 条目说明同样以目录为准。物品实例存的是创建当时的目录快照，
-            // 所以只改 items.json 时，已经持有的武器仍显示旧介绍
-            // （实测：旧文案在 ColdSteelPlayer_A.sav 里各命中 1-2 处，新文案 0 处）。
-            // 只同步纯展示文本，不碰数值、改造件或附魔数据。
-            // 实例里没有该字段时也要补上：否则战斗目录的补全逻辑会继续留着旧值。
-            FString CatalogDesc,CatalogName;
-            if(CatalogData->TryGetStringField(TEXT("desc"),CatalogDesc)&&!CatalogDesc.IsEmpty())
-            {
-                FString StoredDesc;
-                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
-                    &&ItemData&&ItemData->TryGetStringField(TEXT("desc"),StoredDesc);
-                if(!bHasStored||StoredDesc!=CatalogDesc)
-                {
-                    if(!ItemData)ItemData=MakeShared<FJsonObject>();
-                    ItemData->SetStringField(TEXT("desc"),CatalogDesc);
-                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
-                }
-            }
-            if(CatalogData->TryGetStringField(TEXT("name"),CatalogName)&&!CatalogName.IsEmpty())
-            {
-                FString StoredName;
-                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
-                    &&ItemData&&ItemData->TryGetStringField(TEXT("name"),StoredName);
-                if(!bHasStored||StoredName!=CatalogName)
-                {
-                    if(!ItemData)ItemData=MakeShared<FJsonObject>();
-                    ItemData->SetStringField(TEXT("name"),CatalogName);
-                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
-                }
-            }
-            // 武器类型标签与铁铲 dig 块同为纯展示字段：目录补齐后旧实例也要跟上，
-            // 否则浮窗的「武器类型」「采集参数」对老存档仍是旧口径。
-            FString CatalogTag;
-            if(CatalogData->TryGetStringField(TEXT("weaponTypeTag"),CatalogTag)&&!CatalogTag.IsEmpty())
-            {
-                FString StoredTag;
-                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
-                    &&ItemData&&ItemData->TryGetStringField(TEXT("weaponTypeTag"),StoredTag);
-                if(!bHasStored||StoredTag!=CatalogTag)
-                {
-                    if(!ItemData)ItemData=MakeShared<FJsonObject>();
-                    ItemData->SetStringField(TEXT("weaponTypeTag"),CatalogTag);
-                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
-                }
-            }
-            const TSharedPtr<FJsonObject>* CatalogDig=nullptr;
-            if(CatalogData->TryGetObjectField(TEXT("dig"),CatalogDig)&&*CatalogDig)
-            {
-                const TSharedPtr<FJsonObject>* StoredDig=nullptr;
-                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
-                    &&ItemData&&ItemData->TryGetObjectField(TEXT("dig"),StoredDig)&&*StoredDig;
-                FString CatalogDigText;
-                FJsonSerializer::Serialize(CatalogDig->ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&CatalogDigText));
-                FString StoredDigText;
-                if(bHasStored)FJsonSerializer::Serialize(StoredDig->ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&StoredDigText));
-                if(!bHasStored||StoredDigText!=CatalogDigText)
-                {
-                    // 深拷贝后再挂到实例上：目录 JSON 是全实例共享的静态对象，
-                    // 直接 SetObjectField 会把实例和目录绑到同一个对象上。
-                    TSharedPtr<FJsonObject> DigCopy;
-                    if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(CatalogDigText),DigCopy)&&DigCopy)
-                    {
-                        if(!ItemData)ItemData=MakeShared<FJsonObject>();
-                        ItemData->SetObjectField(TEXT("dig"),DigCopy);
-                        I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
-                    }
-                }
-            }
-            // defense/bonusStats 与 weaponTypeTag 同类：目录权威数值，实例自身
-            // 从不演化（强化走实例的 enhanceLevel，两者只存基础值），所以老存档
-            // 里先于数值上表的装备实例也照目录补齐。
-            for(const TCHAR* NumericKey:{TEXT("defense"),TEXT("bonusStats"),TEXT("bonusPerEnhance"),TEXT("enhancement")})
-            {
-                const TSharedPtr<FJsonObject>* CatalogNumeric=nullptr;
-                if(!CatalogData->TryGetObjectField(NumericKey,CatalogNumeric)||!*CatalogNumeric)continue;
-                const TSharedPtr<FJsonObject>* StoredNumeric=nullptr;
-                const bool bHasStored=FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)
-                    &&ItemData&&ItemData->TryGetObjectField(NumericKey,StoredNumeric)&&*StoredNumeric;
-                FString CatalogText;
-                FJsonSerializer::Serialize((*CatalogNumeric).ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&CatalogText));
-                FString StoredText;
-                if(bHasStored)FJsonSerializer::Serialize((*StoredNumeric).ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&StoredText));
-                if(!bHasStored||StoredText!=CatalogText)
-                {
-                    TSharedPtr<FJsonObject> NumericCopy;
-                    if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(CatalogText),NumericCopy)&&NumericCopy)
-                    {
-                        if(!ItemData)ItemData=MakeShared<FJsonObject>();
-                        ItemData->SetObjectField(NumericKey,NumericCopy);
-                        I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
-                    }
-                }
-            }
-            // 硬壳手套/ST6 的换弹、ADS、奔跑体力等数值按既有约定放在
-            // source-combat-items 覆盖层；实例里若残留早期 items.json 写入的
-            // bonusStats 会挡住覆盖层，清掉后按覆盖层读取。
-            if((I.Definition==TEXT("ue_hardknuckle_gloves")||I.Definition==TEXT("ue_st6_sleeves"))&&
-                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData&&
-                ItemData->HasField(TEXT("bonusStats")))
-            {
-                ItemData->RemoveField(TEXT("bonusStats"));
-                I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
-            }
-            // Existing modular gloves retain their original catalog snapshot.
-            // Refresh appearance when loading, including gloves left on the
-            // ground, while keeping instance stats and equipment state intact.
-            if((I.Definition==TEXT("ue_field_gloves")||I.Definition==TEXT("ue_original_gloves"))&&CatalogData&&
-                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
-            {
-                bool AppearanceUpdated=false;
-                for(const TCHAR* Key:{TEXT("ue_icon"),TEXT("world_mesh"),TEXT("world_material")})
-                {
-                    FString CurrentValue,CatalogValue;
-                    ItemData->TryGetStringField(Key,CurrentValue);
-                    if(CatalogData->TryGetStringField(Key,CatalogValue)&&!CatalogValue.IsEmpty()&&CurrentValue!=CatalogValue)
-                    {
-                        ItemData->SetStringField(Key,CatalogValue);
-                        AppearanceUpdated=true;
-                    }
-                }
-                if(AppearanceUpdated)
-                {
-                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
-                }
-            }
-            // Previously acquired wildlife meat gains its completed presentation without
-            // recreating the item or resetting its natural-day freshness clock.
-            if((I.Definition==TEXT("raw_venison")||I.Definition==TEXT("raw_boar_meat")||I.Definition==TEXT("raw_fox_meat"))&&CatalogData&&
-                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
-            {
-                bool Updated=false;
-                for(const TCHAR* Key:{TEXT("ue_icon"),TEXT("world_mesh"),TEXT("desc")})
-                {
-                    FString StoredValue,CatalogValue;ItemData->TryGetStringField(Key,StoredValue);
-                    if(CatalogData->TryGetStringField(Key,CatalogValue)&&!CatalogValue.IsEmpty()&&StoredValue!=CatalogValue)
-                    {ItemData->SetStringField(Key,CatalogValue);Updated=true;}
-                }
-                if(ItemData->HasField(TEXT("artPending"))){ItemData->RemoveField(TEXT("artPending"));Updated=true;}
-                if(Updated){I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
-            }
-            // Reference-remodeled server props keep their inventory identity and footprint.
-            if((I.Definition==TEXT("search_graphics_card")||I.Definition==TEXT("search_ram_module")||
-                I.Definition==TEXT("search_ssd"))&&CatalogData&&
-                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
-            {
-                bool AppearanceUpdated=false;
-                for(const TCHAR* Key:{TEXT("icon"),TEXT("ue_icon"),TEXT("world_mesh"),TEXT("desc")})
-                {
-                    FString StoredValue,CatalogValue;
-                    ItemData->TryGetStringField(Key,StoredValue);
-                    if(CatalogData->TryGetStringField(Key,CatalogValue)&&!CatalogValue.IsEmpty()&&StoredValue!=CatalogValue)
-                    {
-                        ItemData->SetStringField(Key,CatalogValue);
-                        AppearanceUpdated=true;
-                    }
-                }
-                if(AppearanceUpdated)
-                {
-                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
-                }
-            }
-            // Animated consumable effects and display timings follow the catalog
-            // for existing stacks too. Keep instance identity, quantity and place.
-            if(UFPSPotionUseComponent::IsAnimatedConsumable(I.Definition)&&CatalogData&&
-                FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
-            {
-                bool PotionUpdated=false;
-                for(const TCHAR* Key:{TEXT("useEffect"),TEXT("buffs"),TEXT("stats"),TEXT("useDuration")})
-                {
-                    const auto* CatalogValue=CatalogData->Values.Find(Key);
-                    const auto* StoredValue=ItemData->Values.Find(Key);
-                    if(CatalogValue&&CatalogValue->IsValid()&&
-                        (!StoredValue||!StoredValue->IsValid()||!FJsonValue::CompareEqual(**StoredValue,**CatalogValue)))
-                    {
-                        ItemData->SetField(Key,*CatalogValue);
-                        PotionUpdated=true;
-                    }
-                }
-                // These two consumables now use the green catalog tier, including saved stacks.
-                if(I.Definition==TEXT("soda_can")||I.Definition==TEXT("baguette_bread"))
-                {
-                    FString CatalogRarity;
-                    if(CatalogData->TryGetStringField(TEXT("rarity"),CatalogRarity)&&!CatalogRarity.IsEmpty())
-                        for(const TCHAR* Key:{TEXT("rarity"),TEXT("grade")})
-                        {
-                            if(FCString::Strcmp(Key,TEXT("grade"))==0&&!ItemData->HasField(Key))continue;
-                            FString StoredRarity;
-                            if(!ItemData->TryGetStringField(Key,StoredRarity)||StoredRarity!=CatalogRarity)
-                            {ItemData->SetStringField(Key,CatalogRarity);PotionUpdated=true;}
-                        }
-                }
-                if(PotionUpdated)
-                {
-                    I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
-                }
-            }
-            // 背包容积字段同为目录权威：实例 Data 是创建时快照，目录补/调
-            // bagExtraCells 与夹层尺寸后，已持有背包需跟上才能扩出横列。
-            // 这里只同步纯容量字段，不碰占格(grid_w/h)、身份与放置状态；
-            // 若扩行造成既有占用越界，交给本节末尾的占格校验统一处理。
-            FString CatalogEquipSlot;
-            if(CatalogData&&CatalogData->TryGetStringField(TEXT("equipSlot"),CatalogEquipSlot)&&CatalogEquipSlot==TEXT("backpack"))
-            {
-                if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),ItemData)&&ItemData)
-                {
-                    bool BagUpdated=false;
-                    for(const TCHAR* Key:{TEXT("bagExtraCells"),TEXT("bagCompartmentCells"),TEXT("bagCompartmentColumns"),TEXT("bagCompartmentRows")})
-                    {
-                        double CatalogValue=0,StoredValue=0;
-                        const bool bHasCatalog=CatalogData->TryGetNumberField(Key,CatalogValue);
-                        const bool bHasStored=ItemData->TryGetNumberField(Key,StoredValue);
-                        if(bHasCatalog&&(!bHasStored||StoredValue!=CatalogValue))
-                        {ItemData->SetNumberField(Key,CatalogValue);BagUpdated=true;}
-                    }
-                    if(BagUpdated)
-                    {
-                        I.Data.Reset();FJsonSerializer::Serialize(ItemData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;
-                    }
-                }
-            }
-        }
-        const bool Material=I.Definition==TEXT("enhancement_stone")||I.Definition==TEXT("magic_dust");
-        const bool Scroll=I.Definition.StartsWith(TEXT("enchant_scroll_"));
-        if(!Material&&!Scroll)continue;
-        const FString* Definition=Definitions.Find(I.Definition);if(!Definition)continue;
-        TSharedPtr<FJsonObject> CurrentData,DefinitionData;
-        if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),CurrentData)||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),DefinitionData))continue;
-        bool Updated=false;
-        // Old instances retain their own count and enchantment payload; only
-        // synchronize the scroll's classification with the current catalog.
-        if(Scroll)for(const TCHAR* Key:{TEXT("category"),TEXT("type")})
-        {
-            FString CatalogValue,StoredValue;CurrentData->TryGetStringField(Key,StoredValue);
-            if(DefinitionData->TryGetStringField(Key,CatalogValue)&&!CatalogValue.IsEmpty()&&StoredValue!=CatalogValue)
-            {CurrentData->SetStringField(Key,CatalogValue);Updated=true;}
-        }
-        for(const TCHAR* Key:{TEXT("icon"),TEXT("ue_icon"),TEXT("rarity"),TEXT("grade")})
-        {
-            if(Material&&FString(Key)!=TEXT("rarity")&&FString(Key)!=TEXT("grade"))continue;
-            if(!Material&&FString(Key)==TEXT("grade"))continue;
-            FString NewIcon,OldIcon;CurrentData->TryGetStringField(Key,OldIcon);
-            if(DefinitionData->TryGetStringField(Key,NewIcon)&&!NewIcon.IsEmpty()&&OldIcon!=NewIcon){CurrentData->SetStringField(Key,NewIcon);Updated=true;}
-        }
-        if(Updated){I.Data.Empty();FJsonSerializer::Serialize(CurrentData.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));Removed=true;}
-    }
-    Removed = NormalizeBowState(Clean) || Removed;
-    NormalizeProductionState(Clean);
-    NormalizeStaffState(Clean);
-    Removed = ColdSteelItemRarity::Normalize(Clean.Items) || Removed;
-    const auto Previous=Snapshot();bPersistenceBlocked=false;
-    // Commit through the checked A/B transaction; never reset the player's save.
-    if(Removed){Publish(Best->Profile);if(!CommitState(Clean)){Publish(Previous);bPersistenceBlocked=true;return false;}}
-    else Publish(Clean);
-    ApplyToPawn();
-    if(CurrentPawn.IsValid())UProgressiveInfectionComponent::GetOrAdd(CurrentPawn.Get())->Restore(Current.Infection);
-    RefreshDrops();OnChanged.Broadcast();
-    if(RecoveredGroundAmmo>0)PostNotice(TEXT("旧版地面弹药已回收"),FString::Printf(TEXT("%lld 发已计入弹药袋"),RecoveredGroundAmmo));
-    return true;
-}
-bool UColdSteelStatusModel::SaveNow()
-{
-    SyncRuntime();
-    // Saving captures the live weapon; it is not an equipment command. Keep the
-    // checked transaction and UI publication without reapplying the pawn to itself.
-    return PersistState(Snapshot(),false);
-}
-int64 UColdSteelStatusModel::MaxExperience()const{return(20ll+Level*20ll+int64(Level)*Level*12)*8;}
-bool UColdSteelStatusModel::GainExperience(int64 Amount)
-{
-    if(Amount<=0||Amount>1000000000000ll)return false;SyncRuntime();auto P=Snapshot();P.Experience+=FMath::FloorToInt64(Amount*TributeEffect(TEXT("expPercent")));
-    while(P.Level<10000){int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
-    if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
-    return CommitState(P);
-}
-bool UColdSteelStatusModel::AwardKill(AActor* Victim,int64 Reward)
-{
-    ApplyKillStaminaRecovery(Victim);
-    if(!Victim||RewardedVictims.Contains(Victim)||Reward<=0||Reward>1000000000)return false;
-    if(ActiveFireballRewards && ActiveFireballRewards->Victim==Victim){ActiveFireballRewards->Kills.FindOrAdd(Victim)=Reward;return true;}
-    SyncRuntime();auto P=Snapshot();if(!DungeonLayout::RecordKill(P.DungeonRun,Victim))return false;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);
-    // 2026-09-23 迁移原 exp-system.js/goldDrop：经验按玩家与怪物配置等级的压级/越级倍率
-    // ×阶级经验乘区（elite2/lord4/boss20，2026-09-29 起接入结算，未注册目标恒 1），
-    // 金币按 等级×4+随机1..10、全局×.5、rank elite2/lord3。
-    const int64 Granted=FMath::FloorToInt64(MonsterCoreStats::ScaleKillExperience(Victim,Level,Reward)*TributeEffect(TEXT("expPercent")));
-    // 诊断（2026-09-29"杀怪零经验"排查）：逐杀打印基础/到账/等级差/当前进度，
-    // 下次实测若仍见零经验，本行可直接定位是压级、满级钳制还是提交被拒。
-    UE_LOG(LogTemp,Display,TEXT("EXP_KILL victim=%s base=%lld granted=%lld playerLv=%d tribute=%.2f exp=%lld/need=%lld"),*Victim->GetName(),Reward,Granted,Level,TributeEffect(TEXT("expPercent")),P.Experience,MaxExperience());
-    P.Experience+=Granted;
-    if(const int64 Gold=MonsterCoreStats::RollKillGold(Victim))
-    {
-        auto Item=CreateItem(TEXT("gold"),Gold);
-        if(!Item.Data.IsEmpty()&&!ColdSteelInventory::Insert(P.Items,Item))
-        {
-            Item.Place=2;Item.Cell=-1;Item.BackpackCell=-1;
-            Item.Map=UGameplayStatics::GetCurrentLevelName(this,true);
-            Item.Position=Victim->GetActorLocation()+FVector(0,0,12);
-            P.Items.Add(MoveTemp(Item));
-        }
-    }
-    if(ActiveTrainingHit && ActiveTrainingHit->Victim==Victim && ActiveTrainingHit->bEligible)
-    {
-        ActiveTrainingHit->bKillAttempted=true;
-        if(!ActiveTrainingHit->SkillId.IsNone())
-        {
-            const auto& Skill=MasteryDefinition(ActiveTrainingHit->SkillId);
-            ColdSteelSkills::AddExperience(P,Skill,Skill.KillExperience+Skill.HitExperience+ActiveTrainingHit->ExtraExperience+(ActiveTrainingHit->bCritical?Skill.CriticalExperience:0));
-        }
-        if(ActiveTrainingHit->bCritical)ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,CriticalStrikeSkill.CriticalHitExperience+CriticalStrikeSkill.CriticalKillExperience);
-        if(ActiveTrainingHit->bMelee)ColdSteelSkills::AddExperience(P,DexterousHandsSkill,DexterousHandsSkill.MeleeKillExperience+DexterousHandsSkill.MeleeHitExperience);
-        if(ActiveTrainingHit->bPerfectBowHit)ColdSteelSkills::AddExperience(P,DexterousHandsSkill,DexterousHandsSkill.PerfectBowHitExperience+DexterousHandsSkill.PerfectBowKillExperience);
-    }
-    while(P.Level<10000){int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
-    if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
-    // 击杀奖励先落在实时档案里，写盘交给定时自动存档；升级仍走即时带校验事务。
-    if(!StageTraining(MoveTemp(P)))return false;RewardedVictims.Add(Victim);
-    // 白玉/人参献祭：击杀后 1 秒内回复 maxHp×(killHpHealPercent-1) 与 maxMp×(killMpHealPercent-1)。
-    if(const double HpRatio=TributeEffect(TEXT("killHpHealPercent"))-1;HpRatio>0)
-        if(auto* H=CurrentPawn.Get()?CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr)if(!H->IsDead())
-        {KillProcHp+=H->MaxHealth*HpRatio;KillProcTime=1;if(auto* S=UCombatStatusFormula::GetOrAdd(CurrentPawn.Get()))S->ShowProcTile(TEXT("marbleHeal"),1);}
-    if(const double MpRatio=TributeEffect(TEXT("killMpHealPercent"))-1;MpRatio>0)
-        if(CurrentPawn.IsValid()){KillProcMp+=Derived(TEXT("maxMp"))*MpRatio;KillProcTime=1;if(auto* S=UCombatStatusFormula::GetOrAdd(CurrentPawn.Get()))S->ShowProcTile(TEXT("ginsengHeal"),1);}
-    return true;
-}
-const FColdSteelItem* UColdSteelStatusModel::FindItem(const FString& Id)const{return Current.Items.FindByPredicate([&](const auto& I){return I.InstanceId==Id;});}
-const FColdSteelItem* UColdSteelStatusModel::Equipped(int32 S)const{int32 N=Owner(Current.Items,1,S<0?Current.ActiveWeaponSlot:S);return N>=0?&Current.Items[N]:nullptr;}
-bool UColdSteelStatusModel::HasEquippedStaff() const
-{const auto* Item=Equipped();return Item&&!ActiveProductionTool()&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff");}
-bool UColdSteelStatusModel::CycleWeapon()
-{
-    if(!Current.ActiveProductionTool.IsEmpty())return StowProductionTool();
-    SyncRuntime();auto P=Snapshot();
-    // Cycle the two equipment loadouts even when the destination has no weapon.
-    // CommitState saves the selected slot and applies the existing unarmed path.
-    P.ActiveWeaponSlot=P.ActiveWeaponSlot==6?9:6;
-    return CommitState(P);
-}
-FColdSteelItem UColdSteelStatusModel::CreateItem(const FString& Def,int64 Count)const
-{
-    FColdSteelItem I;I.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);I.Definition=Def;I.Count=Count;
-    if(const FString* Data=Definitions.Find(Def))I.Data=*Data;
-    ColdSteelItemRarity::Normalize(I);
-    I.LoadedAmmoType=AmmoGroupFor(I);
-    I.Magazine=(IsMeleeWeapon(I)||IsBow(I))?0:Number(I,TEXT("gunsmith_base_mag"),30);
-    if(IsMeleeWeapon(I)||IsBow(I))I.Reserve=0;
-    I.StackMax=Number(I,TEXT("maxStack"),Number(I,TEXT("stack_max"),1));
-    if(Def==TEXT("reforge_ticket"))I.StackMax=9999;
-    if(Text(I,TEXT("category"))==TEXT("gold"))I.StackMax=9007199254740991ll;
-    const auto Size=Footprint(I);I.Width=Size.X;I.Height=Size.Y;
-    if(ColdSteelFood::LifetimeDays(I)>0.)ColdSteelFood::Stamp(I,ColdSteelFood::Clock(this));
-    return I;
-}
-FColdSteelProposal UColdSteelStatusModel::ProposeMove(const FString& Id,int32 Place,int32 Cell,int32 Orientation)const{const auto* I=FindItem(Id);if(Place==ColdSteelCompartment::Place||(I&&I->Place==ColdSteelCompartment::Place&&Place!=ColdSteelWarehouse::Place))return ProposeCompartment(Id,Place,Cell,Orientation);if(Place==4||(I&&I->Place==4))return ProposeWarehouse(Id,Place,Cell,Orientation);auto P=ColdSteelInventory::Move(Current.Items,Id,Place,Cell,Orientation);P.Revision=Current.Generation;return P;}
-bool UColdSteelStatusModel::CommitProposal(const FColdSteelProposal& R){if(!R.bValid){Message=R.Reason;return false;}if(R.Revision!=Current.Generation){Message=TEXT("物品已变化，请重新拖动");return false;}auto P=Snapshot();P.Items=R.Items;if(R.ActiveWeaponSlot>=0){P.ActiveWeaponSlot=R.ActiveWeaponSlot;P.ActiveProductionTool.Reset();}return CommitState(P);}
-bool UColdSteelStatusModel::SanitizeNetworkItem(FColdSteelItem& Item) const
-{
-    // Guest uploads are not a trusted item factory. Every instance must be
-    // representable by this host's catalog, and catalogue-owned numeric fields
-    // are clamped here before any game rule reads Data.
-    const FString* CatalogJson=Definitions.Find(Item.Definition);
-    if(!CatalogJson||CatalogJson->IsEmpty())return false;
-    TSharedPtr<FJsonObject> Catalog;
-    if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*CatalogJson),Catalog)||!Catalog)return false;
-    if(Item.InstanceId.IsEmpty()||Item.InstanceId.Len()>128)return false;
-    if(Item.Data.IsEmpty()||Item.Data.Len()>65536)return false;
-    TSharedPtr<FJsonObject> Data;
-    if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(Item.Data),Data)||!Data)return false;
-
-    double CatalogMax=1.;
-    if(!Catalog->TryGetNumberField(TEXT("maxStack"),CatalogMax))
-        if(!Catalog->TryGetNumberField(TEXT("stack_max"),CatalogMax))CatalogMax=1.;
-    int64 MaxStack=int64(FMath::Clamp(CatalogMax,1.,1000000.));
-    if(Item.Definition==TEXT("reforge_ticket"))MaxStack=FMath::Max<int64>(MaxStack,9999);
-    if(ColdSteelCurrency::IsCurrency(Item.Definition))MaxStack=FMath::Max<int64>(MaxStack,1000000000ll);
-    bool Changed=false;
-    // NetView.* keys are host-side projections, never guest inventory state.
-    if(Item.Container.StartsWith(TEXT("NetView."))){Item.Container.Reset();Changed=true;}
-    if(Item.StackMax<1||Item.StackMax>MaxStack){Item.StackMax=MaxStack;Changed=true;}
-    if(Item.Count<1||Item.Count>Item.StackMax){Item.Count=FMath::Clamp<int64>(Item.Count,1,Item.StackMax);Changed=true;}
-    if(MaxStack<=1)Item.Count=1;
-
-    // StackMax is also serialized inside Data and CreateItem reads it there.
-    double DataMax=0.;
-    if(Data->TryGetNumberField(TEXT("maxStack"),DataMax)&&DataMax>MaxStack)
-    {Data->SetNumberField(TEXT("maxStack"),double(MaxStack));Changed=true;}
-    if(Data->TryGetNumberField(TEXT("stack_max"),DataMax)&&DataMax>MaxStack)
-    {Data->SetNumberField(TEXT("stack_max"),double(MaxStack));Changed=true;}
-
-    auto ClampField=[&](const TCHAR* Key,double AbsMax,double CatalogMultiplier,double CatalogBonus)
-    {
-        double Value=0.;
-        if(!Data->TryGetNumberField(Key,Value))return;
-        double CatalogValue=0.;
-        const bool bCatalog=Catalog->TryGetNumberField(Key,CatalogValue);
-        const double Limit=bCatalog?FMath::Max(CatalogValue*CatalogMultiplier,CatalogValue+CatalogBonus):AbsMax;
-        if(Value<0.||Value>Limit)
-        {
-            Data->SetNumberField(Key,bCatalog?FMath::Max(0.,CatalogValue):FMath::Min(AbsMax,FMath::Max(0.,Value)));
-            Changed=true;
-        }
-    };
-    // Client-editable combat numbers. The server recomputes damage from the
-    // shadow model, but melee/ranged formulas still read these instance fields.
-    ClampField(TEXT("melee_damage"),20000.,4.,50.);
-    ClampField(TEXT("melee_reach_cm"),600.,4.,50.);
-    ClampField(TEXT("ranged_damage"),20000.,4.,50.);
-    ClampField(TEXT("damage"),20000.,4.,50.);
-    ClampField(TEXT("attack"),20000.,4.,50.);
-    ClampField(TEXT("crit"),100.,2.,10.);
-    ClampField(TEXT("critDamageBonus"),10.,4.,2.);
-    ClampField(TEXT("critical_chance"),1.,1.,0.);
-    ClampField(TEXT("fire_interval"),2.,2.,0.);
-    ClampField(TEXT("projectile_speed"),100000.,4.,1000.);
-    ClampField(TEXT("magazine"),1000.,4.,20.);
-    ClampField(TEXT("grid_w"),32.,1.,0.);
-    ClampField(TEXT("grid_h"),32.,1.,0.);
-    // Melee base damage/reach are catalogue tuning, not per-instance upgrade
-    // data. Enhancement/quality/parts are applied by their own systems later.
-    if(IsBow(Item))
-    {
-        // Bow draw speed and base damage are catalogue tuning; a forged
-        // draw_seconds/full_damage would otherwise bypass the server's draw
-        // session check and inflate arrow damage.
-        double CatalogValue=0.;
-        for(const TCHAR* Key:{TEXT("damage"),TEXT("full_damage"),TEXT("draw_seconds"),TEXT("nock_seconds"),
-            TEXT("hold_seconds"),TEXT("full_speed_cm"),TEXT("stamina_cost"),TEXT("sway_amplitude_cm"),
-            TEXT("bow_hip_spread"),TEXT("bow_ads_in_seconds")})
-        {
-            if(!Catalog->TryGetNumberField(Key,CatalogValue))continue;
-            double Stored=0.;
-            if(!Data->TryGetNumberField(Key,Stored)||Stored!=CatalogValue)
-            {Data->SetNumberField(Key,CatalogValue);Changed=true;}
-        }
-    }
-    if(!IsMeleeWeapon(Item)&&!IsBow(Item))
-    {
-        // Firearm/staff handling times and ranges are catalogue tuning; a
-        // forged zero reload or huge range would bypass server-side pacing.
-        double CatalogValue=0.;
-        for(const TCHAR* Key:{TEXT("damage"),TEXT("reload"),TEXT("empty_reload"),TEXT("effective_range"),
-            TEXT("bullet_speed"),TEXT("attack_interval"),TEXT("capacity")})
-        {
-            if(!Catalog->TryGetNumberField(Key,CatalogValue))continue;
-            double Stored=0.;
-            if(!Data->TryGetNumberField(Key,Stored)||Stored!=CatalogValue)
-            {Data->SetNumberField(Key,CatalogValue);Changed=true;}
-        }
-    }
-    if(IsMeleeWeapon(Item))
-    {
-        double CatalogValue=0.;
-        if(Catalog->TryGetNumberField(TEXT("melee_damage"),CatalogValue))
-        {Data->SetNumberField(TEXT("melee_damage"),CatalogValue);Changed=true;}
-        if(Catalog->TryGetNumberField(TEXT("melee_reach_cm"),CatalogValue))
-        {Data->SetNumberField(TEXT("melee_reach_cm"),CatalogValue);Changed=true;}
-        // Attack cadence and guard economy are catalogue tuning as well.
-        for(const TCHAR* Key:{TEXT("attack_seconds"),TEXT("swing_seconds"),TEXT("contact_seconds"),
-            TEXT("melee_stamina"),TEXT("block_stamina"),TEXT("block_reduction")})
-        {
-            if(!Catalog->TryGetNumberField(Key,CatalogValue))continue;
-            double Stored=0.;
-            if(!Data->TryGetNumberField(Key,Stored)||Stored!=CatalogValue)
-            {Data->SetNumberField(Key,CatalogValue);Changed=true;}
-        }
-    }
-
-    // Capacity must stay in the same envelope as the catalogue weapon.
-    double CatalogMag=30.;
-    if(!Catalog->TryGetNumberField(TEXT("gunsmith_base_mag"),CatalogMag)||CatalogMag<=0.)
-        if(!Catalog->TryGetNumberField(TEXT("capacity"),CatalogMag)||CatalogMag<=0.)CatalogMag=30.;
-    const int32 MaxMagazine=FMath::Clamp(int32(FMath::Max(1.,CatalogMag*4.)),1,1000);
-    if(!IsMeleeWeapon(Item)&&!IsBow(Item))
-    {
-        if(Item.Magazine<0||Item.Magazine>MaxMagazine){Item.Magazine=FMath::Clamp(Item.Magazine,0,MaxMagazine);Changed=true;}
-        if(Item.VirtualMagazineAmmo<0||Item.VirtualMagazineAmmo>Item.Magazine)
-        {Item.VirtualMagazineAmmo=FMath::Clamp(Item.VirtualMagazineAmmo,0,Item.Magazine);Changed=true;}
-    }
-    else if(Item.Magazine!=0){Item.Magazine=0;Changed=true;}
-    // Never let a client shrink a catalogue item's footprint to create free
-    // inventory space. Larger variants are allowed, smaller-than-catalogue is not.
-    int32 Width=FMath::Max(1,Item.Width);
-    int32 Height=FMath::Max(1,Item.Height);
-    double GridValue=0.;
-    if(Data->TryGetNumberField(TEXT("grid_w"),GridValue))Width=FMath::Max(Width,int32(GridValue));
-    if(Data->TryGetNumberField(TEXT("grid_h"),GridValue))Height=FMath::Max(Height,int32(GridValue));
-    double CatalogGrid=0.;
-    if(Catalog->TryGetNumberField(TEXT("grid_w"),CatalogGrid))Width=FMath::Max(Width,int32(CatalogGrid));
-    if(Catalog->TryGetNumberField(TEXT("grid_h"),CatalogGrid))Height=FMath::Max(Height,int32(CatalogGrid));
-    Item.Width=FMath::Clamp(Width,1,ColdSteelWarehouse::Columns);
-    Item.Height=FMath::Clamp(Height,1,ColdSteelWarehouse::Rows);
-    Data->SetNumberField(TEXT("grid_w"),Item.Width);
-    Data->SetNumberField(TEXT("grid_h"),Item.Height);
-    Changed=true;
-    if(Changed)
-    {
-        Item.Data.Reset();
-        FJsonSerializer::Serialize(Data.ToSharedRef(),TJsonWriterFactory<TCHAR,TCondensedJsonPrintPolicy<TCHAR>>::Create(&Item.Data));
-    }
-    return !Item.Data.IsEmpty();
-}
-bool UColdSteelStatusModel::MoveItem(const FString& Id,int32 Place,int32 Cell,int32 Orientation)
-{
-    SyncRuntime();
-    // 与 TransferWarehouse 同口径：拖拽把储物箱里的弹药物品放进背包/夹层＝转弹药池。
-    if(const FColdSteelItem* Prev=FindItem(Id);(Place==0||Place==ColdSteelCompartment::Place)&&Prev&&Prev->Place==ColdSteelWarehouse::Place&&!Prev->Container.IsEmpty()&&AmmoType(Prev->Definition))
-        return ConvertChestAmmoToPool(Id);
-    return CommitProposal(ProposeMove(Id,Place,Cell,Orientation));
-}
-bool UColdSteelStatusModel::AddItem(const FString& Def,int64 Count){if(AmmoType(Def))return GrantAmmo(Def,Count);if(Count<=0||Count>9007199254740991ll||!Definitions.Contains(Def))return false;SyncRuntime();auto P=Snapshot();if(!Insert(P.Items,CreateItem(Def,Count))){Message=TEXT("背包空间不足");return false;}return CommitState(P);}
-bool UColdSteelStatusModel::Split(const FString& Id,int64 Count)
-{
-    SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});
-    if(!I||(I->Place!=0&&I->Place!=4&&I->Place!=ColdSteelCompartment::Place)||Count<=0||Count>=I->Count||Text(*I,TEXT("category"))==TEXT("gold"))return false;
-    // 仓库层拆分的容量/起点都按当前会话容器算，非本容器的堆叠不能借道（见 ProposeCompartment 同口径）。
-    if(I->Place==4&&I->Container!=ActiveContainer)return false;
-    auto Part=*I;Part.InstanceId=FGuid::NewGuid().ToString(EGuidFormats::Digits);Part.Count=Count;int32 Cell=-1;
-    const FIntPoint CompGrid=I->Place==ColdSteelCompartment::Place?CompartmentGrid(P.Items):FIntPoint::ZeroValue;
-    const int32 Capacity=I->Place==4?OpenStorageCapacity():I->Place==ColdSteelCompartment::Place?CompGrid.X*CompGrid.Y:BagRows(P.Items)*18; // 储物箱按自身会话容量找空位
-    const int32 Start=I->Place==4?(I->Cell/ColdSteelWarehouse::CellsPerPage)*ColdSteelWarehouse::CellsPerPage:0;
-    for(int32 N=0;N<Capacity;++N){const int32 C=(Start+N)%Capacity;if(I->Place==4?ColdSteelWarehouse::Fits(P.Items,Part,C,Capacity):I->Place==ColdSteelCompartment::Place?ColdSteelCompartment::Fits(P.Items,Part,C,CompGrid):Fits(P.Items,Part,C)){Cell=C;break;}}
-    if(Cell<0){Message=TEXT("没有连续空间拆分，原数量保留");return false;}
-    I->Count-=Count;Part.Cell=Cell;P.Items.Add(Part);if(!CommitState(P))return false;
-    if(Part.Place==4&&WarehousePage!=Cell/ColdSteelWarehouse::CellsPerPage){WarehousePage=Cell/ColdSteelWarehouse::CellsPerPage;Message=TEXT("已拆分，并切换到新堆叠所在页");OnChanged.Broadcast();}
-    return true;
-}
-bool UColdSteelStatusModel::Sort()
-{
-    SyncRuntime();auto P=Snapshot();TArray<FColdSteelItem> Bag;for(const auto& I:P.Items)if(I.Place==0)Bag.Add(I);P.Items.RemoveAll([](const auto& I){return I.Place==0;});
-    Bag.Sort([](const auto&A,const auto&B){if(A.Width*A.Height!=B.Width*B.Height)return A.Width*A.Height>B.Width*B.Height;return Text(A,TEXT("category"))+Text(A,TEXT("name"))+A.InstanceId<Text(B,TEXT("category"))+Text(B,TEXT("name"))+B.InstanceId;});
-    // Sort preserves stack instances (the source pack contract does not merge them).
-    const int32 BagCells=BagRows(P.Items)*18;
-    for(auto I:Bag){int32 C=-1;for(int32 N=0;N<BagCells;++N)if(Fits(P.Items,I,N)){C=N;break;}if(C<0){Message=TEXT("无法整理，原布局保留");return false;}I.Cell=C;P.Items.Add(I);}return CommitState(P);
-}
-bool UColdSteelStatusModel::SortCompartment()
-{
-    SyncRuntime();auto P=Snapshot();TArray<FColdSteelItem> Stored;
-    for(const auto& I:P.Items)if(I.Place==ColdSteelCompartment::Place)Stored.Add(I);
-    if(Stored.IsEmpty()){Message=TEXT("夹层没有可整理的物品");return false;}
-    P.Items.RemoveAll([](const auto& I){return I.Place==ColdSteelCompartment::Place;});
-    // Sort preserves stack instances (the source pack contract does not merge them).
-    Stored.Sort([](const auto&A,const auto&B){if(A.Width*A.Height!=B.Width*B.Height)return A.Width*A.Height>B.Width*B.Height;return Text(A,TEXT("category"))+Text(A,TEXT("name"))+A.InstanceId<Text(B,TEXT("category"))+Text(B,TEXT("name"))+B.InstanceId;});
-    const FIntPoint CompGrid=CompartmentGrid(P.Items);const int32 Capacity=CompGrid.X*CompGrid.Y;
-    for(auto I:Stored){int32 C=-1;for(int32 N=0;N<Capacity;++N)if(ColdSteelCompartment::Fits(P.Items,I,N,CompGrid)){C=N;break;}if(C<0){Message=TEXT("无法整理，原布局保留");return false;}I.Cell=C;P.Items.Add(I);}return CommitState(P);
-}
-bool UColdSteelStatusModel::BindHotbar(int32 Index,const FString& Id){return Index>=0&&Index<4&&BindQuickItem(Index+ColdSteelQuickBar::ItemOffset,Id);}
-bool UColdSteelStatusModel::SwapHotbar(int32 A,int32 B){return A>=0&&A<4&&B>=0&&B<4&&SwapQuickBindings(A+ColdSteelQuickBar::ItemOffset,B+ColdSteelQuickBar::ItemOffset);}
-const FColdSteelItem* UColdSteelStatusModel::ResolveHotbar(int32 Index)const{return Index>=0&&Index<4?ResolveQuickItem(Index+ColdSteelQuickBar::ItemOffset):nullptr;}
-bool UColdSteelStatusModel::UseHotbar(int32 Index){return Index>=0&&Index<4&&UseQuickBinding(Index+ColdSteelQuickBar::ItemOffset);}
-bool UColdSteelStatusModel::UseItem(const FString& Id)
-{
-    if(const auto* Tool=FindItem(Id);Tool&&Text(*Tool,TEXT("category"))==TEXT("tool"))return ToggleProductionTool(Id);
-    return UseConsumableAtContact(Id,false);
-}
-bool UColdSteelStatusModel::UseConsumableAtContact(const FString& Id,bool bPotionContact)
-{
-    SettleFoodSpoilage(true);
-    SyncRuntime();auto P=Snapshot();int32 N=P.Items.IndexOfByPredicate([&](const auto& I){return I.InstanceId==Id;});if(N<0||(P.Items[N].Place!=0&&P.Items[N].Place!=ColdSteelCompartment::Place))return false;
-    if(P.Items[N].Definition==TEXT("spoiled_food")||ColdSteelFood::IsExpired(P.Items[N],ColdSteelFood::Clock(this)))
-    {Message=TEXT("食物已腐败，不能食用");return false;}
-    auto& I=P.Items[N];if(I.Cooldown>0){Message=TEXT("物品冷却中");return false;}
-    if(CampfireFood::Contains(I.Definition)&&!CampfireFood::Cooked(I.Definition)){Message=TEXT("生肉需要先在篝火烤熟");return false;}
-    TSharedPtr<FJsonObject> O;FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),O);const TSharedPtr<FJsonObject>* Effect=nullptr;
-    TSharedPtr<FJsonObject> CookedFood;
-    if(CampfireFood::Cooked(I.Definition))
-    {
-        // The owner submits only the instance ID. Resolve this recipe's food
-        // effect from this process's catalog, never an uploaded instance payload.
-        const FString* Definition=Definitions.Find(I.Definition);
-        if(!Definition||!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),CookedFood)||!CookedFood)return false;
-        O=CookedFood;
-    }
-    if(!O||!O->TryGetObjectField(TEXT("useEffect"),Effect)||!CurrentPawn.IsValid()){Message=TEXT("该物品当前无法使用");return false;}
-    auto Num=[&](const TCHAR* K){double V=0;(*Effect)->TryGetNumberField(K,V);return V;};
-    auto* Health=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>();if(!Health||Health->IsDead())return false;
-    const float HP=Num(TEXT("hp"))+Health->MaxHealth*Num(TEXT("maxHpPercent"))*.01;
-    const float MP=Num(TEXT("mp"))+Derived(TEXT("maxMp"))*Num(TEXT("maxMpPercent"))*.01;
-    const float Water=Num(TEXT("hydration"));
-    const float Food=Num(TEXT("hunger"))+P.Survival.MaxHunger*Num(TEXT("maxHungerPercent"))*.01;
-    const float Sanity=Num(TEXT("sanity"));
-    if((HP<=0||P.Health>=Health->MaxHealth)&&(MP<=0||Mana()>=Derived(TEXT("maxMp")))&&
-        (Water<=0||P.Survival.Hydration>=P.Survival.MaxHydration)&&
-        (Food<=0||P.Survival.Hunger>=P.Survival.MaxHunger)&&
-        (Sanity<=0||P.Survival.Sanity>=P.Survival.MaxSanity)){Message=TEXT("当前资源已满或效果不可用");return false;}
-    if(!bPotionContact&&UFPSPotionUseComponent::IsAnimatedConsumable(I.Definition))
-    {
-        auto* Potion=CurrentPawn->FindComponentByClass<UFPSPotionUseComponent>();
-        return Potion&&Potion->TryBegin(Id,I.Definition);
-    }
-    if(CurrentPawn->GetNetMode()==NM_Client)
-    {
-        auto* State=CurrentPawn->GetPlayerState<AColdSteelPlayerState>();
-        return State&&State->RequestInventoryAction(EColdSteelInventoryAction::Consume,Id);
-    }
-    P.Health=FMath::Clamp(P.Health+FMath::Max(0.f,HP),0.f,Health->MaxHealth);P.Mana=FMath::Clamp(P.Mana+FMath::Max(0.f,MP),0.f,Derived(TEXT("maxMp")));
-    // Food's hydration cost is part of the same successful use transaction.
-    P.Survival.Hydration=FMath::Clamp(P.Survival.Hydration+Water,0.f,P.Survival.MaxHydration);
-    P.Survival.Hunger=FMath::Clamp(P.Survival.Hunger+FMath::Max(0.f,Food),0.f,P.Survival.MaxHunger);
-    P.Survival.Sanity=FMath::Clamp(P.Survival.Sanity+Sanity,0.f,P.Survival.MaxSanity);
-    if(!P.Survival.IsDeprived())P.Survival.DeprivationSeconds=0.f;
-    I.Cooldown=Number(I,TEXT("useCooldown"));
-    if(I.Definition==TEXT("mineral_water"))
-    {
-        const int32 Uses=FMath::Clamp(int32(Number(I,TEXT("remainingUses"),2)),1,2)-1;
-        if(Uses>0)
-        {
-            O->SetNumberField(TEXT("remainingUses"),Uses);
-            O->SetStringField(TEXT("ue_icon"),Text(I,TEXT("half_icon")));
-            I.Data.Reset();FJsonSerializer::Serialize(O.ToSharedRef(),TJsonWriterFactory<>::Create(&I.Data));
-        }
-        else if(--I.Count<=0)P.Items.RemoveAt(N);
-    }
-    else if(--I.Count<=0)P.Items.RemoveAt(N);
-    if(CurrentPawn->GetNetMode()!=NM_Standalone)
-    {
-        const auto* State=CurrentPawn->GetPlayerState<AColdSteelPlayerState>();
-        const FString GuestSlot=bNetShadowProfile&&State?State->CampfireGuestSlot():FString();
-        return CommitCampfireState(P,TEXT("Inventory"),GuestSlot);
-    }
-    return CommitState(P);
-}
-bool UColdSteelStatusModel::DefaultAction(const FString& Id)
-{
-    const auto* Found=FindItem(Id);if(!Found)return false;const auto I=*Found;
-    if(I.Place==4)return TransferWarehouse(Id,0);
-    if(bWarehouseOpen&&(I.Place==0||I.Place==1||I.Place==ColdSteelCompartment::Place))return TransferWarehouse(Id,4);
-    if(I.Place==1)return MoveItem(Id,0,-1);
-    if(Text(I,TEXT("category"))==TEXT("consumable")||(Text(I,TEXT("category"))==TEXT("tool")&&!IsEquippedProductionTool(I)))return UseItem(Id);
-    if(Text(I,TEXT("category"))==TEXT("enhancement"))
-    {
-        Message=I.Definition.StartsWith(TEXT("enchant_scroll_"))?TEXT("附魔卷轴请在强化台的附魔页使用"):TEXT("强化道具请在强化台使用");
-        return false;
-    }
-    for(int32 S=0;S<SlotNames().Num();++S)if(CanEquip(I,S)&&!Equipped(S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
-    for(int32 S=0;S<SlotNames().Num();++S)if(CanEquip(I,S)&&!Locked(Current.Items,S))return MoveItem(Id,1,S);
-    Message=TEXT("该物品不能穿戴或使用");return false;
-}
-void UColdSteelStatusModel::SyncRuntime()
-{
-    SettleFoodSpoilage();
-    if(!CurrentPawn.IsValid() || CurrentPawn->IsResolvingActionInterrupt())return;
-    const auto* Dual=CurrentPawn->FindComponentByClass<UPistolDualWieldComponent>();
-    const bool DualActive=Dual && Dual->IsActive();
-    if(DualActive)Dual->SyncInventory(Current.Items);
-    if(auto* H=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>())Current.Health=H->Health;
-    if(const auto* Survival=CurrentPawn->FindComponentByClass<UFPSSurvivalComponent>())Current.Survival=Survival->GetState();
-    if(const auto* Infection=CurrentPawn->FindComponentByClass<UProgressiveInfectionComponent>())Current.Infection=Infection->GetState();
-    // Dual hand counters are authoritative even inside a synchronous hit/reward
-    // callback, before the character's main-hand display cache has been updated.
-    if(!DualActive)for(auto& I:Current.Items)if(I.Place==1&&I.Cell==Current.ActiveWeaponSlot&&!IsMeleeWeapon(I))
-    {
-        I.VirtualMagazineAmmo=FMath::Clamp(I.VirtualMagazineAmmo-FMath::Max(0,I.Magazine-CurrentPawn->GetMagazineAmmo()),0,CurrentPawn->GetMagazineAmmo());
-        I.Magazine=CurrentPawn->GetMagazineAmmo();
-        if((I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")) && Number(I,TEXT("revolver_case_count"),-1)!=CurrentPawn->GetRevolverCaseCount())
-        {
-            StoreRevolverCaseCount(I,CurrentPawn->GetRevolverCaseCount());
-        }
-    }
-    for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(auto* I=Current.Items.FindByPredicate([&](const auto& V){return V.InstanceId==It->ItemId&&V.Place==2;})){I->Position=It->GetActorLocation();I->WorldRotation=It->GetActorRotation();}
-}
-void UColdSteelStatusModel::ApplyToPawn(){if(CurrentPawn.IsValid())CurrentPawn->ApplyColdSteelProfile(this);}
-void UColdSteelStatusModel::AttachPawn(AFPSGAMECharacter* Pawn)
-{
-    CurrentPawn=Pawn;
-    const bool bRespawning=Current.Health<=0.f;
-    if(Current.Health<=0){Current.Infection=FInfectionState{};Current.Health=Derived(TEXT("maxHp"));Current.Stamina=MaxStamina();Current.StaminaRecoveryDelay=0;Current.bSprintExhausted=false;}
-    // Death respawn starts each resource at 60; travel/save keep the remaining resources.
-    if(bRespawning)
-    {
-        Current.Survival=FFPSSurvivalState{};
-        Current.Survival.Hunger=Current.Survival.Hydration=Current.Survival.Sanity=60.f;
-    }
-    ApplyToPawn();
-    if(Pawn)UProgressiveInfectionComponent::GetOrAdd(Pawn)->Restore(Current.Infection);
-    RefreshDrops();OnStaminaChanged.Broadcast();
-}
-void UColdSteelStatusModel::ReduceAllAbilityCooldowns(float Seconds)
-{
-    if(Seconds<=0.f)return;
-    for(auto& Pair:Current.ElectricCooldowns)Pair.Value=FMath::Max(0.f,Pair.Value-Seconds);
-    // Mirrors the TickRuntime decrement: reserved casts have not started their clock
-    // yet, so only running cooldowns shrink (2D rune-sword contract, 0.5 s per event).
-    if(!Current.bFireballReserved)Current.FireballCooldown=FMath::Max(0.f,Current.FireballCooldown-Seconds);
-    if(!Current.bIceSpikeReserved)Current.IceSpikeCooldown=FMath::Max(0.f,Current.IceSpikeCooldown-Seconds);
-    if(!Current.bIceWallReserved)Current.IceWallCooldown=FMath::Max(0.f,Current.IceWallCooldown-Seconds);
-    if(!Current.bBlizzardReserved)Current.BlizzardCooldown=FMath::Max(0.f,Current.BlizzardCooldown-Seconds);
-    Current.LightningCooldown=FMath::Max(0.f,Current.LightningCooldown-Seconds);
-    Current.HolyLightCooldown=FMath::Max(0.f,Current.HolyLightCooldown-Seconds);
-    Current.MeteorCooldown=FMath::Max(0.f,Current.MeteorCooldown-Seconds);
-    Current.FlameArmorCooldown=FMath::Max(0.f,Current.FlameArmorCooldown-Seconds);
-    if(!Current.bDragonBreathReserved)Current.DragonBreathCooldown=FMath::Max(0.f,Current.DragonBreathCooldown-Seconds);
-    // Quick combat is an animation cycle; cooldown reduction never skips recovery.
-    Current.WhirlwindCooldown=FMath::Max(0.f,Current.WhirlwindCooldown-Seconds);
-    Current.SwordUppercutCooldown=FMath::Max(0.f,Current.SwordUppercutCooldown-Seconds);
-    if(CurrentPawn.IsValid())
-        if(auto* Blades=CurrentPawn->FindComponentByClass<URuneOrbBladesComponent>())Blades->ReduceCooldown(Seconds);
-}
-
-void UColdSteelStatusModel::TickRuntime(float Delta,AFPSGAMECharacter* Pawn)
-{
-    if(Pawn!=CurrentPawn.Get())return;for(auto& I:Current.Items)I.Cooldown=FMath::Max(0.f,I.Cooldown-Delta);
-    for(auto& Pair:Current.ElectricCooldowns)Pair.Value=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Pair.Value-Delta);
-    if(HasNoAbilityCooldown())Current.FireballCooldown=0.f;
-    else if(!Current.bFireballReserved)Current.FireballCooldown=FMath::Max(0.f,Current.FireballCooldown-Delta);
-    if(HasNoAbilityCooldown())Current.IceSpikeCooldown=0.f;
-    else if(!Current.bIceSpikeReserved)Current.IceSpikeCooldown=FMath::Max(0.f,Current.IceSpikeCooldown-Delta);
-    if(HasNoAbilityCooldown())Current.BlizzardCooldown=0.f;
-    else if(!Current.bBlizzardReserved)Current.BlizzardCooldown=FMath::Max(0.f,Current.BlizzardCooldown-Delta);
-    if(HasNoAbilityCooldown())Current.IceWallCooldown=0.f;
-    else if(!Current.bIceWallReserved)Current.IceWallCooldown=FMath::Max(0.f,Current.IceWallCooldown-Delta);
-    Current.LightningCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.LightningCooldown-Delta);
-    Current.HolyLightCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.HolyLightCooldown-Delta);
-    Current.MeteorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.MeteorCooldown-Delta);
-    Current.FlameArmorCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.FlameArmorCooldown-Delta);
-    if(!Current.bDragonBreathReserved)Current.DragonBreathCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.DragonBreathCooldown-Delta);
-    // Quick-combat HUD timing is published by the actual weapon action clock,
-    // including attack-speed retiming and hit stops, independently of CD cheats.
-    if(HasNoAbilityCooldown())Current.WhirlwindCooldown=0.f;
-    else Current.WhirlwindCooldown=FMath::Max(0.f,Current.WhirlwindCooldown-Delta);
-    Current.SwordUppercutCooldown=HasNoAbilityCooldown()?0.f:FMath::Max(0.f,Current.SwordUppercutCooldown-Delta);
-    // Dynamic cooldown reduction stops on unequip and never shortens an attack recovery.
-    if(const auto* Rune=UJingangRuneComponent::From(this))
-        ReduceAllAbilityCooldowns(Delta*(1.f/Rune->CooldownMultiplier()-1.f));
-    TickFormulaBuffs(Delta);
-    TickStamina(Delta,Pawn);
-    if(Delta>0)if(auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&!Health->IsDead()){
-        Current.Mana=FMath::Clamp(Current.Mana+Derived(TEXT("mpRegen"))*Delta,0.f,Derived(TEXT("maxMp")));
-        Health->Health=FMath::Min(Health->MaxHealth,Health->Health+Derived(TEXT("hpRegen"))*Delta);Current.Health=Health->Health;
-        // 白玉/人参击杀回复：KillProc* 按 1 秒窗口折算成每秒量，窗口内步进结清。
-        if(KillProcTime>0){const float Step=FMath::Min(Delta,KillProcTime);KillProcTime-=Step;
-            Health->Health=FMath::Min(Health->MaxHealth,Health->Health+KillProcHp*Step);Current.Health=Health->Health;
-            Current.Mana=FMath::Clamp(Current.Mana+KillProcMp*Step,0.f,Derived(TEXT("maxMp")));}
-    }
-    TickTreeGrowthClock(Delta);
-    if(const auto* Survival=Pawn->FindComponentByClass<UFPSSurvivalComponent>())
-    {
-        const auto Next=Survival->GetState();
-        if(Current.Survival.Hunger!=Next.Hunger||Current.Survival.Hydration!=Next.Hydration||Current.Survival.Sanity!=Next.Sanity||Current.Survival.DeprivationSeconds!=Next.DeprivationSeconds||Current.Survival.FountainBlessingSeconds!=Next.FountainBlessingSeconds)
-        {SetSurvivalState(Next,Pawn);}
-    }
-    // 修行经验与击杀奖励已经落在实时档案里（StageTraining），这里只负责把「有未写盘增量」的档案
-    // 按可配置周期落盘一次；没有增量就不空写。旧口径的 1 秒补写与无条件 5 秒写盘见文件顶部的说明。
-    const float AutosaveSeconds=SaveAutosaveSeconds.GetValueOnGameThread();
-    if(AutosaveSeconds>0.f)
-    {
-        SaveAccumulator+=Delta;
-        if(SaveAccumulator>=AutosaveSeconds){SaveAccumulator=0;if(bTrainingDirty)SaveNow();}
-    }
-}
-FString UColdSteelStatusModel::AmmoDefinition()const{const auto* I=Equipped();return I?AmmoDefinitionFor(*I):FString();}
-int32 UColdSteelStatusModel::AmmoCount()const{return Equipped()?int32(FMath::Min<int64>(PouchCount(AmmoDefinition()),MAX_int32)):0;}
-int32 UColdSteelStatusModel::ConsumeAmmo(int32 Requested, bool bCompletedReload, bool bReloadStep, int32 NeedsCycle)
-{
-    if(Requested<=0||!CurrentPawn.IsValid()||!Equipped()||!CurrentPawn->HasInventoryWeapon())return 0;
-    SyncRuntime();Requested=FMath::Min(Requested,CurrentPawn->GetMagazineCapacity()-CurrentPawn->GetMagazineAmmo());if(Requested<=0)return 0;
-    // Each range insertion may refill without creating inventory stacks. Only
-    // the last insertion grants training, in the same successful save as ammo.
-    const bool Infinite=(bCompletedReload||bReloadStep)&&CurrentPawn->HasInfiniteReserveAmmo();
-    auto P=Snapshot();FString Def=AmmoDefinition();
-    const int32 Taken=Infinite?Requested:int32(FMath::Min<int64>(Requested,P.AmmoPouch.FindRef(Def)));
-    if(!Infinite)P.AmmoPouch.FindOrAdd(Def)-=Taken;
-    for(auto& I:P.Items)if(I.Place==1&&I.Cell==P.ActiveWeaponSlot)
-    {
-        I.Magazine+=Taken;
-        if(Taken>0 && !WeaponReloadStages::SetNeedsCycle(I,NeedsCycle))return 0;
-        if(Infinite)I.VirtualMagazineAmmo+=Taken;
-        if((I.Definition==TEXT("ue_dan_wesson715")||I.Definition==TEXT("ue_rsh12")))
-        {
-            StoreRevolverCaseCount(I,bReloadStep?FMath::Max(I.Magazine,CurrentPawn->GetRevolverCaseCount()):I.Magazine);
-        }
-    }
-    if(Taken>0&&bCompletedReload)ColdSteelSkills::AddExperience(P,DexterousHandsSkill,DexterousHandsSkill.ReloadExperience);
-    return Taken>0&&CommitState(P)?Taken:0;
-}
-bool UColdSteelStatusModel::ClearRevolverSpentCases(bool bDiscardLiveRounds)
-{
-    if (!CurrentPawn.IsValid() || !CurrentPawn->HasInventoryWeapon() || !Equipped()
-        || (Equipped()->Definition != TEXT("ue_dan_wesson715") && Equipped()->Definition != TEXT("ue_rsh12"))) return false;
-    const int32 RetainedRounds = bDiscardLiveRounds ? 0 : CurrentPawn->GetMagazineAmmo();
-    if (CurrentPawn->GetRevolverCaseCount() == RetainedRounds
-        && CurrentPawn->GetMagazineAmmo() == RetainedRounds) return true;
-    SyncRuntime();
-    auto P = Snapshot();
-    for (auto& I : P.Items) if (I.Place == 1 && I.Cell == P.ActiveWeaponSlot)
-    {
-        // A speedloader discards live rounds at extraction. Save the loss with
-        // the cleared cases; do not refund reserves or grant reload experience.
-        if (bDiscardLiveRounds) I.Magazine = 0;
-        I.VirtualMagazineAmmo=FMath::Min(I.VirtualMagazineAmmo,I.Magazine);
-        StoreRevolverCaseCount(I, I.Magazine);
-        return CommitState(P);
-    }
-    return false;
-}
-bool UColdSteelStatusModel::Drop(const FString& Id)
-{
-    if(!CurrentPawn.IsValid())return false;SyncRuntime();auto P=Snapshot();auto* I=P.Items.FindByPredicate([&](const auto& V){return V.InstanceId==Id;});
-    if(!I||(I->Place>2&&I->Place!=ColdSteelCompartment::Place&&!(I->Place==4&&bWarehouseOpen)))return false;
-    // 仓库层物品只能动当前打开会话的容器：面板开着不代表关着的箱子/别的箱子能被倒出。
-    if(I->Place==4&&I->Container!=ActiveContainer)return false;
-    if(I->Place==1&&I->Cell==14)
-        // 背包本体落到地面会让夹层与扩展格失去宿主（存档校验会整档拒绝），先清空才允许丢弃。
-        for(const auto& V:P.Items)
-        {
-            if(V.Place==ColdSteelCompartment::Place){Message=TEXT("夹层还有物品，先清空再丢弃背包");return false;}
-            if(V.Place==0&&V.Cell+(V.Height-1)*18+V.Width-1>=4*18){Message=TEXT("扩展背包格里还有物品，先腾出后再丢弃背包");return false;}
-        }
-    const FVector Origin=CurrentPawn->GetActorLocation();
-    FVector Candidate=Origin+CurrentPawn->GetActorForwardVector()*120;
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(InventoryGroundDrop),false,CurrentPawn.Get());
-    FHitResult Obstacle,Ground;
-    if(GetWorld()->SweepSingleByChannel(Obstacle,Origin,Candidate,FQuat::Identity,ECC_Visibility,FCollisionShape::MakeSphere(45),Query))Candidate=Obstacle.Location-CurrentPawn->GetActorForwardVector()*2;
-    auto FindGround=[&](FVector At){return GetWorld()->LineTraceSingleByChannel(Ground,At+FVector(0,0,40),At-FVector(0,0,500),ECC_Visibility,Query)&&Ground.ImpactNormal.Z>=.5f&&FVector::Dist(Origin,Ground.ImpactPoint)<=230;};
-    if(!FindGround(Candidate)&&!FindGround(Origin)){Message=TEXT("附近没有可放置物品的地面");return false;}
-    // Release above the ground; the rigid body resolves the fall and landing.
-    I->Place=2;I->Map=UGameplayStatics::GetCurrentLevelName(this,true);I->Position=Ground.ImpactPoint;I->Position.Z=FMath::Max(Ground.ImpactPoint.Z+60,Origin.Z+15);
-    I->WorldRotation=FRotator(5,CurrentPawn->GetActorRotation().Yaw,-65);
-    StampProductionDrop(*I);
-    const double Begin=FPlatformTime::Seconds();if(!CommitState(P))return false;const double Saved=FPlatformTime::Seconds();RefreshDrops();
-    if(bAudit)UE_LOG(LogTemp,Display,TEXT("DropTiming: save %.3f ms spawn %.3f ms"),(Saved-Begin)*1000,(FPlatformTime::Seconds()-Saved)*1000);return true;
-}
-bool UColdSteelStatusModel::Pickup(const FString& Id)
-{
-    if(!CurrentPawn.IsValid())return false;
-    AColdSteelPickup* Target=nullptr;for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It)if(It->ItemId==Id&&It->CanInteract(CurrentPawn.Get())){Target=*It;break;}
-    if(!Target)return false;SyncRuntime();auto P=Snapshot();int32 N=P.Items.IndexOfByPredicate([&](const auto&I){return I.InstanceId==Id&&I.Place==2;});
-    if(N<0||P.Items[N].Map!=UGameplayStatics::GetCurrentLevelName(this,true)||FVector::Dist(CurrentPawn->GetActorLocation(),P.Items[N].Position)>250)return false;
-    auto I=P.Items[N];P.Items.RemoveAt(N);if(AmmoType(I.Definition)){if(!AddAmmoToState(P,I.Definition,I.Count))return false;}else if(!Insert(P.Items,I)){Message=TEXT("背包已满，物品留在地面");return false;}if(!CommitState(P))return false;RefreshDrops();return true;
-}
-void UColdSteelStatusModel::RefreshDrops()
-{
-    if(!GetWorld()||!CurrentPawn.IsValid())return;TSet<FString> Existing;
-    for(TActorIterator<AColdSteelPickup> It(GetWorld());It;++It){const auto* I=FindItem(It->ItemId);if(!I||I->Place!=2)It->Destroy();else Existing.Add(It->ItemId);}
-    const FString Map=UGameplayStatics::GetCurrentLevelName(this,true);
-    // Harvest drops stream independently with a world GUID, range and spawn budget.
-    for(const auto& I:Current.Items)if(I.Place==2&&!I.HarvestWorldId.IsValid()&&I.Map==Map&&!Existing.Contains(I.InstanceId)){FActorSpawnParameters Spawn;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;auto* A=GetWorld()->SpawnActor<AColdSteelPickup>(I.Position,I.WorldRotation,Spawn);if(A)A->InitializeItem(I);}
-}
-
-void UColdSteelStatusModel::ReduceMagicCooldowns(float Seconds,bool bNotifyReduction)
-{
-    if(Seconds<=0.f)return;
-    auto Reduce=[&](float& Remaining,FName Skill)
-    {
-        const float Before=Remaining;
-        Remaining=FMath::Max(0.f,Remaining-Seconds);
-        if(bNotifyReduction&&Remaining<Before)++CooldownReductionRevisions.FindOrAdd(Skill);
-    };
-    for(auto& Pair:Current.ElectricCooldowns)
-        if(!Current.ElectricReservedMana.Contains(Pair.Key))Reduce(Pair.Value,Pair.Key);
-    // Reserved casts have not started their clock. Only running magic clocks
-    // emit feedback; the G weapon clock is added only by the melee-hit entry.
-    if(!Current.bFireballReserved)Reduce(Current.FireballCooldown,TEXT("fireball"));
-    if(!Current.bIceSpikeReserved)Reduce(Current.IceSpikeCooldown,TEXT("iceSpike"));
-    if(!Current.bIceWallReserved)Reduce(Current.IceWallCooldown,TEXT("iceWall"));
-    if(!Current.bBlizzardReserved)Reduce(Current.BlizzardCooldown,TEXT("blizzard"));
-    Reduce(Current.LightningCooldown,TEXT("lightningStrike"));
-    Reduce(Current.HolyLightCooldown,TEXT("holyLight"));
-    Reduce(Current.MeteorCooldown,TEXT("meteor"));
-    Reduce(Current.FlameArmorCooldown,TEXT("flameArmor"));
-    if(!Current.bDragonBreathReserved)Reduce(Current.DragonBreathCooldown,TEXT("dragonBreath"));
-}
-
-void UColdSteelStatusModel::ReduceRuneSwordHitCooldowns(float Seconds)
-{
-    if(Seconds<=0.f||!CurrentPawn.IsValid())return;
-    // Remote melee rewards are confirmed once by the existing attack serial
-    // gates on the server, then delivered to the owning player's HUD.
-    if(CurrentPawn->GetNetMode()==NM_Client)return;
-    ReduceMagicCooldowns(Seconds);
-    if(auto* Blades=CurrentPawn->FindComponentByClass<URuneOrbBladesComponent>())
-    {
-        Blades->ReduceCooldown(Seconds,true);
-        if(!CurrentPawn->IsLocallyControlled())
-            Blades->ClientMeleeCooldownReward(Seconds,Blades->CooldownRemaining());
-    }
 }

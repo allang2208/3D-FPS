@@ -1,4 +1,5 @@
 #include "BoundCongregate.h"
+#include "MonsterTargeting.h"
 #include "BoundCongregateMeleeTiming.h"
 #include "FPSCombatHealthComponent.h"
 #include "../Skills/EnemyAttackDamage.h"
@@ -142,16 +143,17 @@ void ABoundCongregate::FlurryContact(int32 Beat,float PlaybackTime)
             FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeBox(FVector(Radius,Radius,GroundDamageHeight*.5f+20.f)),Q);
         for(const auto& Overlap:Overlaps)
         {
-            auto* Victim=Cast<APawn>(Overlap.GetActor());
-            if(!IsValid(Victim)||!Victim->IsPlayerControlled()||Damaged.Contains(Victim))continue;
+            auto* Victim=Cast<APawn>(MonsterTargeting::DamageRecipient(Overlap.GetActor()));
+            if(!IsValid(Victim)||!MonsterTargeting::IsOpponentPawn(Victim)||Damaged.Contains(Victim))continue;
             const auto* VictimHealth=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
             if(VictimHealth&&VictimHealth->IsDead())continue;
-            float R=0,H=0;Victim->GetSimpleCollisionCylinder(R,H);
-            const FVector Center=Victim->GetActorLocation();
+            const auto* ContactPawn=MonsterTargeting::ContactBody(Victim);
+            float R=0,H=0;ContactPawn->GetSimpleCollisionCylinder(R,H);
+            const FVector Center=ContactPawn->GetActorLocation();
             const float FeetZ=Center.Z-H;
             if(FVector::DistSquared2D(Origin,Center)>FMath::Square(Radius+R)||
                 FeetZ-Origin.Z>GroundDamageHeight||FeetZ-Origin.Z< -25.f)continue;
-            FCollisionQueryParams Sight=Q;Sight.AddIgnoredActor(Victim);
+            FCollisionQueryParams Sight=Q;Sight.AddIgnoredActor(Victim);Sight.AddIgnoredActor(ContactPawn);
             const FVector Contact(Center.X,Center.Y,FeetZ+FMath::Min(H,45.f));
             FHitResult Block;
             if(GetWorld()->LineTraceSingleByChannel(Block,Origin+FVector(0,0,15),Contact,ECC_Visibility,Sight))

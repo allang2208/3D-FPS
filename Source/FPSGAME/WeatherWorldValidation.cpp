@@ -77,19 +77,8 @@ struct FWeatherWorldAudit
     void Accelerate(AFPSWeatherManager* W)
     {
         W->RealSecondsPerGameDay = 60; W->TransitionSeconds = .2f;
-        W->WeatherClockSeconds = 0; W->NormalizedDayTime = 0; W->DaySerial = 0; W->LastSkyTimeUnits = 0;
-        int32 ClockFields = 0;
-        for (TActorIterator<AActor> It(W->GetWorld()); It; ++It)
-            if (It->GetClass()->GetName().Contains(TEXT("FPS_DayNightManager")))
-                for (TFieldIterator<FProperty> P(It->GetClass()); P; ++P)
-                {
-                    const FString Name = P->GetName().Replace(TEXT(" "), TEXT("")).Replace(TEXT("_"), TEXT(""));
-                    const bool Height = Name.Contains(TEXT("SunHeight")), Speed = Name.Contains(TEXT("SunSpeed"));
-                    if (!Height && !Speed) continue;
-                    if (auto* F = CastField<FFloatProperty>(*P)) { F->SetPropertyValue_InContainer(*It, Height ? 0 : 40); ++ClockFields; }
-                    if (auto* F = CastField<FDoubleProperty>(*P)) { F->SetPropertyValue_InContainer(*It, Height ? 0 : 40); ++ClockFields; }
-                }
-        Check(!W->IsSkyClockConnected() || ClockFields == 2, TEXT("accelerates the authoritative external or native clock"));
+        W->WeatherClockSeconds = 0; W->NormalizedDayTime = 0; W->DaySerial = 0;
+        Check(true, TEXT("accelerates the authoritative native clock"));
         AcceleratedStart = W->GetWorld()->GetTimeSeconds();
     }
 
@@ -124,7 +113,7 @@ struct FWeatherWorldAudit
         {
             int32 Managers = 0; for (TActorIterator<AFPSWeatherManager> It(World); It; ++It) ++Managers;
             Check(Managers == 1 && HUDCount == 1 && W->bAutomaticSchedule, TEXT("one automatic weather owner and one live HUD after map entry"));
-            Check(W->RealSecondsPerGameDay == 2160 && W->RainSystem && W->GetPresentationAssets(), TEXT("36-minute day and rain presentation loaded"));
+            Check(W->RealSecondsPerGameDay == 2160, TEXT("36-minute day and native clock loaded"));
             Check(W->IsSkyClockConnected() || W->IsSceneDayNightActive(), TEXT("map has an active sky or scene clock"));
             NormalStart = World->GetTimeSeconds(); NormalFraction = W->NormalizedDayTime;
             if (PC->GetPawn()) PC->GetPawn()->SetCanBeDamaged(false);

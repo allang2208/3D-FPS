@@ -1,0 +1,357 @@
+废弃设施：新记录确认热点缓冲的非本地内存放置
+2026-10-29
+
+结论
+这次补上了前几轮缺失的逐资源 WDDM 证据：
+1. 一个普通 DEFAULT 32 MiB 父堆，包含三份已对应到具体怪物的 Morph 输出，以及
+   十份 SkinCachePositions、四份 SkinCacheTangents，在采集开始和结束 rundown 中
+   都报告于该适配器的非本地内存段。它不是误建的 UPLOAD/READBACK 堆。
+2. 另一个包含毛发插值/变形缓冲的 32 MiB 堆，在记录内部从本地段迁出；随后同次
+   记录的 Hair 范围从约 2.12 ms/帧增至 7.78 ms/帧。
+3. 本次 34 次生成中 29 次命中准备实例，但随后仍持续低帧。下一步应转向热缓冲的
+   父堆驻留/优先级及本地工作集管理；继续增加刷怪池不能解决已存在角色的慢访问。
+
+已证实的是资源放置和迁移机制，并获得同次时间关联；还没有通过定向修正对照证明
+全部帧损失由此产生，也没有证明操作系统/驱动的哪条策略导致了最初降级。
+不把“发现异常机制”写成“已经修复”，不把两个非等价运行的差值写成优化收益。
+
+执行与输入
+用户自行启动原工程、录制、导出；本轮只离线读取与分析，没有打开 UE、控制游戏、
+启动新采集、修改游戏/引擎源码或配置、构建、运行测试。原始文件未覆盖。
+输入：Saved/PerformanceReports/gpu-1948CFF7454069EA7ABEACB4AF772C8E/
+研究产物：Saved/DungeonGpuResearch20261029/
+工具：已有 xperf 解码现存 ETL；UnrealInsights -NoUI 导出现存 utrace；Python 统计。
+
+一、这次记录可用
+- manifest v6，performance schema 16，PID 24672，process_elevated=true。
+- WDDM/UE 均开启成功，文件均 finalized，stop_reason=F6_export。
+- ETL 为顺序文件，364118016 字节；未碰硬限制，丢事件和丢缓冲计数均为 0。
+- manifest 录制区间：北京时间 10:05:47.520–10:06:04.299，约 16.778 秒。
+- ETL 头区间：UTC 02:05:47.4243344–02:06:04.3662271，约 16.942 秒。
+- 所选 ETL 主集事件覆盖 0.003853–16.916660 秒，不再是旧循环文件仅剩尾段。
+- F6 最后 10.013970 秒完整位于采集内，194 个帧边界样本，无后台/暂停帧。
+- 生命周期中记录 engine_version=5.8.3-58210709+++UE5+Release-5.8。
+- 场景：PIE / D3D12，2552x1218，地牢种子 1511094032，143 个模块。
+
+跨域时钟
+用三条 Panel.Snapshot 与 FPS_Performance_Snapshot 的同一作用域对应；时长差仅约
+0.003 ms，推得 platform_seconds - Insights_seconds = 16778930.9480408。
+F6 窗口对应 Insights 1029.825292–1039.839262 秒。
+ETL 起点比 manifest capture_start UTC 早约 0.095666 秒。UTC 锚点仅毫秒精度，
+跨 ETL/Insights 对齐保留约毫秒级误差，不用于声称微秒级因果。
+
+二、刷怪准备与持续低帧是两个层次
+同次记录保留的战斗窗口：
+  触发前 3 秒     80.86 FPS，GPU 发布值均值 10.94 ms
+  触发后 0–5 秒   57.50 FPS，GPU 发布值均值 15.17 ms
+  触发后 5–10 秒  23.66 FPS，GPU 发布值均值 41.02 ms
+  触发后 10–20 秒 22.70 FPS，GPU 发布值均值 42.52 ms
+  最后 10 秒      19.37 FPS，GPU 发布值均值 49.95 ms，Game 20.69 ms
+
+34 次 SpawnActivated 中，29 次 prepared=1；准备池历史峰值 14。
+37 次 SpawnAttempt 包含重试，均值 1.783 ms，P95 2.845 ms，最大 17.844 ms。
+最后一次激活早于最后 10 秒窗口起点 13.912 秒。
+末窗 19 次资源快照均为 33 只活怪，准备实例 0；持续慢帧不在生成函数内部。
+以上线程/GPU 发布值存在各自延迟，不能逐行相加或当作同帧归因。
+
+末窗 DXGI 本地预算余量 283.70–837.38 MiB，均值 466.31 MiB；254 次历史快照中
+没有 over_budget_bytes>0。CPU 可用物理内存约 1725.92–2345.30 MiB。
+这说明“当前没有超预算”不能替代逐堆位置判断，不能据此排除非本地访问。
+
+三、具体 Morph/SkinCache 父堆证据链
+adapter = 0xffffde05ed0e7000
+ID3D12Heap = 0x1cb0ed11900
+hKMAllocation = 0x4001c3c0
+hVidMmGlobalAlloc = 0xffff940f70d20960
+hVidMmAlloc = 0xffffde06142115b0
+Type=DEFAULT(1)，Size=33554432，Priority=0x78000000(NORMAL)。
+
+三个 Morph 输出，current/previous 可能别名，不能算成六份：
+- BP_FacelessResearcher_C_8.CharacterMesh0，native 0x1cde29631b0，2874992 字节；
+- BP_FacelessReceptionist_C_7.CharacterMesh0，native 0x1cc9ce06710，3890640 字节；
+- BP_FacelessResearcher_C_9.CharacterMesh0，native 0x1cc445f1270，2874992 字节。
+
+链路为 buffers.jsonl 原生资源身份 → D3D12 Resource.pHeap → Heap.hKMAllocation
+→ 同 PID DeviceAllocation.hThunkAllocation → VidMm 全局分配/进程分配
+→ ReportCommittedAllocation.ulSegmentId → 同 adapter ReportSegment。
+上述资源宽度与观察一致，GPU VA 观察稳定，无本轮 Resource Start/Stop；堆和内核
+分配也有一致的开始/结束 rundown，未见本轮创建/销毁边界。
+
+该堆在 ETL 0.033165 秒和 16.896578 秒的 ReportCommittedAllocation 都为 segment 3。
+同适配器 ReportSegment：segment 2 的 MemorySegmentGroup=0、Flags=0x92c10；
+segment 3 的 MemorySegmentGroup=1、Flags=0x101194（含 NonLocalBudgetGroup）。
+因此它被报告为非本地，而其余七个稳定 Morph 输出父堆在两个端点均为本地 segment 2。
+总计 19 个稳定 Morph 输出关联到八个 32 MiB 父堆；父堆为共享空间，不能按每个输出
+重复计算整堆内存。
+
+这个非本地堆还含十份 SkinCachePositions、四份 SkinCacheTangents；17 个稳定子资源
+宽度合计 33027264 字节。只有上述三个 Morph 有直接组件身份，其他缓冲不能仅凭
+名字分配给某只怪。原始名称也不是逐 dispatch 的绑定元数据。
+
+ETL 2.203014–2.204636 秒有同一全局分配的三条 MigrateAllocation Info、一条
+Status=0xc0000001 的 Stop，随后 segment 3 SysmemUncommit / Evict / segment 3
+SysmemCommit / PageIn。它不支持“这次成功搬回了本地显存”的说法。
+端点报告不是逐页全时段驻留图；但已不再只是总显存使用量或 UE resident 标志。
+
+四、同次记录内的毛发迁移与范围变化
+父堆 0x1ca52f440d0，全局分配 0xffff940f4739caa0，32 MiB，NORMAL。
+开始 endpoint=local segment 2，结束 endpoint=nonlocal segment 3。
+含 Hair.StrandsInterpolation_CurveInterpolationBuffer、毛发变形位置/切线及其他共享缓冲。
+ETL 5.689629 秒 PagingOpVirtualTransfer：SourceSegmentId=2，DestinationSegmentId=0，
+TransferSize=33554432；随后 Evict，5.691677 秒 SysmemCommit segment 3，5.692223 秒 PageIn。
+这是从本地显存到系统内存的直接迁移事件，segment 0 的语义按 WDDM 官方文档解释。
+
+同次、按 ETL 时钟选择完整 GPU Graphics 帧的范围均值：
+  窗口             帧数    Frame     MorphUpdate    Hair    HairInterpolation
+  0.3–5.3 秒       113     43.875      15.136       2.116       1.677 ms
+  5.9–8.0 秒        42     48.337      15.130       7.784       6.683 ms
+  12.5–16.5 秒      80     49.902      14.859       6.148       5.037 ms
+说明：视角/毛发活动可能变化，范围含同步/执行空隙；这为同次时间关联，不能把差值
+全记作迁移净损失，也不是修复前后的收益。
+
+另外两个热堆：
+- 0x1ca44b56840 / 0xffff940f8fe55620，含七份 SkinCachePositions、四份 Tangents；
+  10.836099 秒发生 32 MiB 本地→系统迁移，随后在 segment 3 提交。
+- 0x1ca49de1740 / 0xffff940f94f8f560，含毛发缓冲；开始非本地、结束本地，
+  12.211976 秒有 32 MiB SourceSegmentId=0→DestinationSegmentId=2 的迁移。
+四个已列出的热堆优先级均为 NORMAL。
+
+五、GPU/CPU 范围与剩余边界
+最后窗口内 193 个完整 Graphics Frame，均值 51.586 ms：
+  MorphUpdate                         14.882 ms/帧
+    MorphUpdateNormalize               8.925 ms/帧
+  GPUSkinCache_UpdateSkinningBatches    8.742 ms/帧
+    SkinCacheDispatch                  3.391 ms/帧
+  Hair                                 7.774 ms/帧
+  ShadowDepths                         4.281 ms/帧
+  RayTracingDynamicGeometry            2.790 ms/帧
+  BasePass                             1.856 ms/帧
+父子范围不能相加，范围跨度不等于纯硬件计算。
+
+192/193 帧各有三次 >=1 ms Normalize，另一帧两次；长事件中位 2.6875 ms，
+短事件中位 0.0072 ms。数量与三个已观察非本地 Morph 输出相符，但没有逐派发资源
+绑定元数据，不能将“数量相符”写成三个 dispatch 与三个资源已逐一证明。
+本次末窗只看到一次 CreateDescriptorHeap，3.1092 ms，无法解释持续的约 50 ms 帧。
+最大的 GPU Frame 为 165.753 ms，其中 Hair scope=123.392 ms；标准导出没有
+GPUWork 交集，不能把这个孤立峰值全部算成毛发 shader 计算。
+全系统 AllocationFault/分页计数不直接归给游戏，不以回调线程 PID 代替资源拥有者。
+
+六、下一步的具体方向
+1. 优先处理已证实的热点可写缓冲父堆驻留，覆盖 Morph、SkinCache、相关 Hair 输出。
+   以有上限、可关闭、按有效生命周期释放的父堆优先级/分池修正作为首个候选；
+   不把整个工程所有资源统一提到最高优先级，不把放大刷怪准备池作为本问题修复。
+2. 本机 D3D12PoolAllocator.cpp:144 起只对 BVH 初始访问的 GPU-only 池显式提 HIGH；
+   D3D12TransientResourceAllocator.cpp:75 已给 transient heap 提 HIGH。
+   D3D12Adapter.cpp:2258 为 SetResidencyPriority 的实际实现。这些是下一步源码入口；
+   NORMAL 热池与其他高优先级池的竞争值得定向处理，但源码路径本身不是完整根因证明。
+3. 工程目前使用的公共 ID3D12DynamicRHI 接口可取 resource，不能直接取 placed resource
+   的父堆。实现必须在正确 RHI/分配层获得真实父堆；不能用 ETL 历史地址当运行指针，
+   不能对 placed 子资源直接套 MakeResident，也不能靠私有结构偏移补丁。
+4. 同时按实际拥有者减少当前场景不需要的常驻资源，为本地工作集留下余量；应先拿到
+   可释放拥有者，再修改生命周期，不机械删除资源或强制每帧 GC。已修过的备用武器
+   候选持有、准备队列、退出释放不重复当作新修复。
+5. 用户目前无需重录、改驱动或降画质。修正有明确可切换构建后，再由用户做一次同
+   场景/同负载的开关对照：同时看热堆是否回到本地、Morph/Hair 范围及帧时间。
+   若只位置改变而耗时不变，再定向补硬件执行/等待证据；不先扩大通用采集。
+
+产物
+- decode_etl.py：主集、--supplement、--placement 三种只读解码。
+- analyze_etl.py / allocation-attribution.json：Morph 身份、父堆、内核分配与事件。
+- placement.py / placement-attribution.json：稳定资源、父堆及端点 segment 关联。
+- summarize.py / capture-summary.json：战斗前后、F6 末窗、GPU/CPU 包含范围。
+- timeline.py / paging-gpu-timeline.json：同次迁移与 GPU 窗口、长 Normalize 分布。
+- gpu-events.csv、cpu-events.csv、threads.csv、timers.csv、export.txt、insights.log。
+- etl-selected*.jsonl.gz、etl-decode*-summary.json、etl-statistics.txt。
+
+官方语义参考（本轮查阅）
+https://learn.microsoft.com/en-us/windows/win32/api/dxgi1_4/ne-dxgi1_4-dxgi_memory_segment_group
+https://learn.microsoft.com/en-us/windows-hardware/drivers/display/gpu-segments
+https://learn.microsoft.com/en-us/windows-hardware/drivers/ddi/d3dkmddi/ns-d3dkmddi-_dxgk_segmentflags
+https://learn.microsoft.com/en-us/windows/win32/direct3d12/residency
+https://learn.microsoft.com/en-us/windows/win32/api/d3d12/ne-d3d12-d3d12_residency_priority
+https://learn.microsoft.com/en-us/windows/win32/api/d3d12/nf-d3d12-id3d12device1-setresidencypriority
+
+七、2026-10-29 定向修正接入（用户要求继续优化）
+源码：Plugins/FPSDeformationResidency/；工程显式启用该 Runtime 插件。
+状态：源码已接入，FPSGAMEEditor 与 FPSGAME 的 Win64 Development 后台构建均成功；
+尚未启动编辑器/游戏，未执行运行测试，尚无修正后的性能收益结论。
+
+- 游戏/PIE 世界维护角色候选，出生与流送事件增量登记；每 0.5 秒取实际已注册、
+  可显示组件的 Morph 当前/前帧输出、SkinCache 缓存几何和 Strands/Guides 毛发缓冲。
+  不做每帧全局 RHI 资源扫描、不扩充刷怪准备池、不修改画质、怪物数量或战斗逻辑。
+- RenderThread 只保留缓冲引用，随后在有序 RHI 命令中，使用本机 UE 5.8 的真实
+  FD3D12Buffer/Resource/Heap 类型取得父堆。只接管 DEFAULT、非 transient、
+  buffer-only、单堆不超过 64 MiB 的已存在父堆；已 HIGH 的堆不接管。
+  旧记录中四个已定位问题堆的 Flags=192(0xc0)，均符合 buffer-only 条件。
+- 按父堆去重，进程总保护预算 512 MiB，使用 HIGH 而非 MAXIMUM；保持引擎
+  SetResidencyPriority 使用的缓存 GUID 与 size-group 规则一致。多 PIE 世界共享
+  同堆时按世界租用计数，最后一个使用者释放才恢复旧优先级。
+- 不调用 MakeResident/Evict，不等待 GPU、不新增 GPU 分配、不复制缓冲内容。
+  半秒周期可能短暂延后旧父堆 COM 引用释放；不存在永久角色/资产引用。
+- GetCachedGeometry 使用单独的空 FRDGBuilder。UE 5.8 的 AddAsyncComputeWait
+  在此图中没有 SkinCache TaskData，直接返回；空图不插入蒙皮等待/计算 pass。
+- 此补丁覆盖 raster 缓存几何；后续复查补入独立 RT LOD 有效 geometry segment 的
+  当前顶点缓冲。独立 RT 前帧/切线、Hair Cards/Meshes 等未另行穷举；Morph 共堆的
+  资源随同父堆得到保护。插件不宣称穷尽所有 GPU 热资源。
+- 私有父堆桥和优先级缓存契约限定 UE 5.8，升级引擎时须重新接入并构建。
+
+开关与记录
+  fps.GPU.DeformationResidency 1       默认开启
+  fps.GPU.DeformationResidency 0       下一次半秒更新撤销本模块保护
+  fps.GPU.DeformationResidency.Status  日志输出当前堆数/总量/预算跳过/成功/恢复/失败数
+每次真正提升优先级时日志记录父堆地址、大小、原/新优先级，用于与同次 WDDM 关联。
+优先级是 WDDM 策略提示，不保证立即迁回本地显存；关闭保护也不保证立即重现慢态。
+正式开关对照应从各自新进程开始，保持种子/视角/怪物负载/分辨率一致。
+
+下一步分工
+用户：构建交付后，用原采集入口重新运行同场景，复现刷怪后持续状态并 F6 导出。
+助手：先关联新日志里的真实受保护父堆与新 WDDM 位置/迁移，再比较 Morph/Hair/
+GPU 帧时间；若优先级已生效而热堆仍非本地，继续处理实际工作集拥有者/分配池。
+若热堆已本地而耗时未改善，转向该 dispatch 的硬件执行/等待证据；不先重复调刷怪池。
+
+构建入口：Tools/Performance/build_deformation_residency.ps1
+本机引擎当前 FabToolset 源码存在，但安装版 UE5Rules.dll 缺少其 ModuleRules，普通
+Editor 构建在规则阶段失败。当前构建使用临时参数 -DisablePlugin=Fab 绕过该编辑器
+插件，未修改 Fab/AllToolsets 配置、引擎安装或运行中的进程。日志与回执位于
+Saved/DeformationResidencyBuild20261029/。游戏目标不使用该绕过参数，正常构建成功。
+最终 Editor 构建包含 GetID3D12DynamicRHI 对 RHI validation 包装的兼容处理。
+
+交付产物
+- Plugins/FPSDeformationResidency/Binaries/Win64/UnrealEditor-FPSDeformationResidency.dll
+- Binaries/Win64/UnrealEditor-FPSGAME.dll
+- Binaries/Win64/FPSGAME.exe（运行时模块静态接入）
+- Saved/DeformationResidencyBuild20261029/build-FPSGAMEEditor.json 与 build-FPSGAME.json
+  均记录 exit_code=0、runtime_tested=false、editor_started=false。
+构建只证明本轮源码/链接产物完成；卡顿解决与否继续待用户同场景记录。
+
+八、2026-10-29 用户要求自查后的补正
+本节针对第七节实现复查；检查范围包括收集覆盖、世界生命周期、线程顺序、预算
+取舍、关闭开销及源码交付。未启动 UE、未运行游戏或重新采集性能。
+
+已修正
+1. 移除 Actor::IsHidden 提前排除：隐藏但仍投影的组件也可能执行变形，现在按
+   ShouldRender 或 CastShadow+bCastHiddenShadow 判断；补上有效动态蒙皮数据判断。
+2. 收集独立 RT LOD 的有效 geometry segment 当前 SkinCache 顶点缓冲；没有触发
+   BLAS 创建、SkinCache dispatch、额外 GPU 分配或等待。
+3. 开关关闭后停止角色收集及流送关卡遍历；重新开启才全量登记一次。维护周期改为
+   真实时间且允许暂停时 tick，避免暂停/慢动作使撤销保护不能按半秒周期生效。
+   非 Pawn 延迟生成时保留候选到初始化完成，避免 FinishSpawning 添加的网格漏收。
+4. 512 MiB 总上限不变，预算从先到先占改为 Morph > Skin > Hair；同类优先保留
+   已保护堆，再用稳定键排序，避免遍历顺序变化造成反复提升/恢复。按实际父堆
+   去重，多世界共享堆只计一次且不被另一个世界抢占。旧记录中 17 个普通 32 MiB
+   缓冲父堆合计 544 MiB，说明需要预算取舍；这不等于本补丁运行时已采集到 544 MiB。
+   日志新增各类预算跳过数，便于判断真正遗漏还是预算不够。
+5. 修正 .gitignore 对本插件全部忽略的问题，只放行描述文件和 Source；Binaries/
+   Intermediate/ 仍保持忽略。未替其他工作提交、暂存或修改配置。
+
+检查依据与结果
+- 本机 RHICommandList.h 的 AllowParallelTranslate 明确禁止 immediate list 并行
+  翻译；本模块更新、释放和状态输出都走 immediate list，按序访问租用表。
+- Native 桥按真实父堆计费，排除 transient/纹理混合/上传/回读/超大堆；原已 HIGH
+  的外部堆不占本模块预算。共享租用在扫除无主项前续期，避免误恢复新近重新使用项。
+- Tools/Performance/deformation_residency_budget_test.cpp 直接使用运行时预算函数，
+  经 MSVC /W4 /WX 编译，测试通过：后到 Morph 替换 Hair、512 MiB 上限、顺序稳定、
+  共享世界预留、边界值、1 万组随机输入。未复制另一份策略作自证。
+- 最终 FPSGAMEEditor 与 FPSGAME Win64 Development 后台构建均成功，包含本节
+  全部修正。回执位于 Saved/DeformationResidencyReview20261029/ 下的
+  build-FPSGAMEEditor.receipt.json 与 build-FPSGAME.receipt.json，exit_code 均为 0，
+  runtime_tested/editor_started 均为 false。第七节旧成功回执代表复查前版本。
+- 构建脚本另将回执文件名改为 .receipt.json，避免覆盖 UBT 自动生成的同名 JSON
+  日志；本轮 Game 完成回执已另存到该新路径。Editor 仍仅使用前述 Fab 构建绕过。
+
+仍需实机确认
+优先级提示是否改变这台机器的实际本地驻留和 GPU 耗时；预算不足时被跳过的毛发
+堆是否仍为主要瓶颈。只靠源码检查、预算测试或构建，不能宣称刷怪卡顿已经解决。
+
+九、用户反馈基本流畅后的收尾复查（2026-10-29）
+用户明确反馈“排查以后基本比较流畅了”。这是本机体验结果；当前没有修正后新的
+F6/UE/WDDM 完整包，不能量化提升百分比或证明每个热堆已迁回本地显存。
+
+本次只读依据
+- Saved/Logs/FPSGAME.log（16:56:40 正常关闭）已保存在
+  Saved/DeformationResidencyFollowup20261029/FPSGAME-before-followup.log。
+- 本日志有 48 条成功 Protect 事件，记录最大保护总量 512 MiB，其中 5 条提升事件
+  在提升后达到 512 MiB；这不是 48 个同时存活堆，也不代表 5 次拒绝准入。
+- 16:37:27 至 16:38:06 的提升日志触及上限；16:38:11 地牢世界退出，16:39:52
+  下一世界第一次提升从 total=32 MiB 开始，说明旧世界的保护计费已释放。未见
+  SetResidencyPriority failed；无手工 Status 输出，不能反推其他 API 失败数为零。
+- 启动日志显示 D3DDebug 和 D3D12GPUValidation 均为 off，未发现这两项诊断开销
+  被遗留开启。没有改纹理池、PSO、光追、Lumen、毛发画质或刷怪参数。
+
+本次小调整
+1. 当前候选中已没有有效 Mesh/HairGroup 时，撤销本世界保护一次并返回，不再每
+   半秒构造空 RDG 图、提交空的 RHI 更新；正常有角色时的收集和预算策略不变。
+2. 补上此前缺少的预算自动记录：仅分类跳过数变化时输出，每世界最多每 5 秒
+   一条；包含 Morph/Skin/Hair、保护总量、候选数和失败计数，恢复后也记录零跳过。
+   仅达到 512 MiB 而没有拒绝时不报预算压力，避免把“用满”和“不够”混为一谈。
+3. 释放世界时输出恢复数、剩余全进程保护量和失败计数，并清除该世界的预算记录；
+   手工 Status 不再显示已退出世界遗留的候选/跳过计数。
+
+后续取舍
+- 保留 512 MiB 上限和 Morph > Skin > Hair 顺序。当前体验改善且没有分类拒绝证据，
+  不扩大保护范围或预算，不引入分池/强制驻留，也不从保护总量推算实际显存占用。
+- 先正常游玩。若仍出现明显卡顿，再按触发点区分首次生成、持续战斗、过门/换装，
+  用现有 F6 记录该次窗口；新预算日志会帮助判断是否需要追加保护或转查其他瓶颈。
+- 本轮 FPSGAMEEditor 与 FPSGAME Win64 Development 后台构建均成功，回执位于
+  Saved/DeformationResidencyFollowup20261029/build-FPSGAMEEditor.receipt.json 与
+  build-FPSGAME.receipt.json，exit_code 均为 0；未启动 UE/游戏、未运行性能采集。
+  本轮小调整的运行效果由用户后续正常游玩确认，不与上述已认可版本混写。
+
+十、所有区域改为进入通道开始刷怪（2026-10-29 用户明确要求）
+适用：欢迎区、医疗、货运、生态、供能、焚化、生活区、最终首领。沿各区域统一
+DungeonThemeEncounter 接入，保留服务器权威及原共享刷怪队列。
+
+- 欢迎区以 FacilityEntrancePassage 为真实激活通道；祭坛固定起点仍只做可选准备。
+- 其他区域从真实边界门的相邻节点遍历连接通道，遇到房间/岔路厅即停止；进入该
+  通道的实际 cells 就激活该区域，不用隔墙直线距离，也不穿过上一房去触发下一支路。
+- 激活只锁存一次，并提交各房已有首批编成；不会在通道里另外创建一批怪物。
+  调度器新增对真实通道中的活玩家放行，原每次一个、帧间预算、导航/落点、失败
+  退避仍保留。离开相关通道/区域后沿用短暂宽限与暂停准入，不持续刷远处区域。
+- 开始刷怪和封门分离：玩家完整进入区域后才沿原防夹/队友准入规则落闸；目标
+  已在通道阶段被击败时正常开放，不会随后补锁。AI 区域边界与索敌逻辑未扩大。
+- 后续分组、第二波、地下层进入条件不提前；货运增援时钟仍从实际区域进入后启动。
+  不改怪物总量、等级、掉落、随机流定义、显存保护上限及画质。
+
+源码：DungeonThemeEncounter.h/.cpp、FacilitySpawnNavigation.cpp、FacilityHallEncounter.cpp。
+修改前源文件保存在 Saved/DungeonPassageActivation20261029/before/。
+个人与工程镜像的 area-spawn-preparation 技能参考已同步上述触发规则。
+源码路径覆盖：监听服务器/专用服务器沿原活玩家遍历触发；客户端不建立刷怪拥有者；
+分路玩家各自触发相连区域，迟到玩家沿原单向门准入；目标完成仍维护残余波次，
+换图销毁区域与准备队列。以上为实现范围，未进行主客机或游戏运行测试。
+最终状态：用户保存关闭编辑器后，FPSGAMEEditor 与 FPSGAME 的 Win64 Development
+后台构建均成功；基础 DLL 与游戏 EXE 已更新。回执在
+Saved/DungeonPassageActivation20261029/build-FPSGAMEEditor.receipt.json 和
+build-FPSGAME.receipt.json，exit_code 均为 0。
+没有主动启动或停止 UE，没有运行游戏测试；实际通道触发与联机体验由用户确认。
+首轮完整构建遇到 Weapons/M24Attachments.cpp:22 的 C2445：条件表达式两分支为
+UMaterialInterface* 与 TObjectPtr。仅给原材质分支加 .Get()，保持原材质选择行为；
+原文件与失败日志已保存在同批 before/ 与 first-build/，没有改动 M24 的其他逻辑。
+
+十一、两厅普通职员的间距与通路（2026-10-29）
+用户在两厅检查建议后要求继续；本批落实首选的出生间距、近战接近点与通路避让。
+
+- 仅接待／中转大厅普通职员槽位，按实际槽位排除护士基类中的精英。鼓囊、精英、
+  其他主题及各特殊移动不接管；通道激活、完整首波、第二波阈值、数量与奖励不变。
+- 普通怪初始出生采用胶囊半径之和再加 70 cm 间距，既有胶囊／地面／连通检查
+  保留。服务门增援在原门内等待上一只走开；不取消名额、不挪到厅中强制生成。
+- 在 Run 的既有目录解析中仅缓存两厅 scene_keep_clear，初始化时加入真实连接门、
+  检修门、HallStairCorner20261010 楼梯合同的梯段／平台。局部坐标随房间旋转，
+  高度分层，作为出生和主动选点的停留排除区；没有增加导航障碍，穿越仍然允许。
+- 同层可见目标在 10 m 内时，普通职员选择分散的近身点或外侧接近点；两厅共享
+  活怪占位与一秒站位预约，换目标失效、死亡忽略、换图随遭遇清理。
+  预约只影响行走目标，不限制同时攻击，不改攻击范围、冷却、伤害、索敌或追击记忆。
+- 没有安全候选时继续原追击，避免门边或角落成为敌人停机点。该回退意味着狭窄
+  位置仍可能聚集，不宣称杜绝所有拥堵。闲逛选点同样避开预留区和其他活怪。
+- 复用 BT 节奏与已有导航缓存／MoveTo 节流：每只约 0.65–0.75 s 更新，单帧最多
+  两只更新，每只最多四次导航投影；不新增 Tick、定时器或全世界 Actor 扫描。
+- 本批无资产修改；尚未实施容器连续搜寻、空箱提示、第二波预警或灯光／掉落改动。
+
+源码：新增 Dungeons/FacilityHallTraffic.cpp；接入 FacilityHallEncounter.h/.cpp、
+DungeonThemeEncounter.h、DungeonRunSubsystem.h/.cpp、Monsters/MonsterBTNodes.cpp、
+MonsterWander.cpp。修改前快照：Saved/HallCrowd20261029/Before/。
+个人与仓库 facility-spawn-routing 技能参考同步了上述边界。
+构建状态：等待现有共享构建释放后，FPSGAMEEditor 与 FPSGAME 的 Win64 Development
+后台构建均成功（exit_code=0）；基础 DLL 与游戏 EXE 已更新。Game 构建耗时 500.24 s。
+日志与逐目标回执：Saved/HallCrowd20261029/Build/。
+没有启动 UE、运行游戏、联机或性能测试。由用户体验入口增援、楼梯追击与近身围攻；
+构建成功不表示已测得拥堵或帧率改善。

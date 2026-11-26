@@ -6,10 +6,9 @@
 // UFPSPlayerBodyComponent::CaptureEquipment()/RebuildWeapons() pull in, plus the
 // body mesh and the 60 clips listed in Content/ColdSteelData/player_body.json.
 //
-// Those call sites need the asset synchronously, so this does not restructure
-// them. Instead it requests the same asset set through FStreamableManager before
-// the character begins play, which turns the later synchronous load into a cache
-// hit and takes the disk wait out of the frame.
+// Weapon/body bootstrap paths keep their existing behavior. Carried equipment
+// has a replaceable async scope; legacy outfit swaps also request their recipe
+// asynchronously before replacing the old visible assembly.
 //
 // Speculative literal-registry candidates are opt-in: the registry also contains
 // mutually exclusive fallback meshes, which must not all be pinned by default.
@@ -34,19 +33,35 @@ public:
     /** Requests every asset path in the set; already-resident paths are skipped. */
     void RequestAssets(const TSet<FSoftObjectPath>& Paths);
 
+    /** Keep the actual native pawn bootstrap resident for subsequent joins/respawns.
+     * Called before the saved equipment replaces these temporary defaults. */
+    void RetainSpawnAssets(class AActor* Character);
+
     /** Diagnostics: what has been requested and how much has landed. */
-    int32 GetRequestedCount() const { return RequestedPaths.Num(); }
+    int32 GetRequestedCount() const { return RequestedPaths.Num() + InventoryPaths.Num(); }
     int32 GetLoadedCount() const { return LoadedCount; }
 
 private:
+    UPROPERTY() TArray<TObjectPtr<UObject>> SpawnAssets;
+    TSet<TWeakObjectPtr<UClass>> CapturedSpawnClasses;
     void KickoffOnce();
     void OnTick(float DeltaTime);
     void CollectFromStatusModel();
+    void UpdateLoadedCount();
+    void RecordResourceState(const TCHAR* Phase) const;
 
     TSet<FSoftObjectPath> RequestedPaths;
     TArray<TSharedPtr<FStreamableHandle>> Handles;
-    /** Definitions already resolved from the inventory; resolved at most once. */
-    TSet<FString> ScannedDefinitions;
+    // Fixed body/default references are separate from the replaceable carried set.
+    TSet<FSoftObjectPath> InventoryPaths;
+    TSharedPtr<FStreamableHandle> InventoryHandle, PendingInventoryHandle;
+    TSharedPtr<class FJsonObject> BodyConfig;
+    TWeakObjectPtr<class UColdSteelStatusModel> StatusModel;
+    TWeakObjectPtr<UWorld> InventoryWorld;
+    FDelegateHandle InventoryChangedHandle;
+    uint64 InventoryRequestGeneration = 0;
+    double NextInventoryRefreshSeconds = 0.;
+    bool bInventoryDirty = true;
     FTSTicker::FDelegateHandle TickHandle;
     int32 LoadedCount = 0;
     bool bKickedOff = false;

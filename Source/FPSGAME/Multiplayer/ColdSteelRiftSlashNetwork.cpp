@@ -1,4 +1,6 @@
 #include "ColdSteelPlayerState.h"
+#include "../Weapons/EagleTalonGuardComponent.h"
+#include "../Weapons/StarMarrowComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
@@ -24,10 +26,19 @@ void AColdSteelPlayerState::ServerReleaseRiftSlash_Implementation(uint32 Sequenc
     const auto* Enchant=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
     if(!Item||Item->InstanceId!=Weapon||!ColdSteelInventory::IsMeleeWeapon(*Item)||!Sword||!Enchant
         ||Enchant->Effect(*Item,TEXT("riftSlash"))<=0.||FVector::DistSquared(Origin,Pawn->GetPawnViewLocation())>FMath::Square(250.f))return;
+    // A rift wave is the child of a committed heavy release. Without this
+    // receipt the RPC is a free ranged attack with only a 0.75 s cooldown.
+    if(!Sword->IsNetworkHeavyReleaseWindowOpen(Weapon)
+        &&!Sword->ConsumeNetworkHeavyChargeForRelease(Weapon,0.,GuardSerial))return;
+    if(Item->Definition==TEXT("ue_forged_steel_greatsword")&&GuardSerial!=Sword->ForgedHeavyReleaseSerial())return;
     const auto Flight=SwordWaveTuning::RiftFlight(Enchant,Item);
     if(Flight.RangeCM<=0.f||Flight.SpeedCM<=0.f)return;
     auto Shot=ColdSteelSkills::Snapshot(Pawn,Item,false);
     Shot.AttackMeta=0x50;Shot.bMelee=true;Shot.bRifle=false;Shot.bPistol=false;
+    if(Sword->HasGaleGuard(Item))
+        Shot.GalePaymentKey=GaleWing::Key(GaleWing::EAttack::Heavy,GuardSerial);
+    Shot.ForgedGuardAttackKey=UEagleTalonGuardComponent::AttackKey(EEagleStrike::Heavy,GuardSerial);
+    Shot.bEagleTalonStrike=UEagleTalonGuardComponent::WasEmpowered(Pawn,Weapon,EEagleStrike::Heavy,GuardSerial);
     Shot.GuardAttackSerial=GuardSerial;Shot.GuardSourceInstance=Item->InstanceId;
     Shot.ToughnessDamageMultiplier*=ColdSteelMelee::Evaluate(*Item,ShadowModel).Modifiers.HeavyToughness;
     if(bClovenCounter&&!Sword->ApplyNetworkClovenAttack(Shot))return;

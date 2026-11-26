@@ -10,12 +10,21 @@ inline void MartialCooldowns(FColdSteelProfile& Into,const FColdSteelProfile& Fr
     const bool Newer=From.MartialCooldownRevision>Into.MartialCooldownRevision;
     const float Whirlwind=FMath::Max(0.f,From.WhirlwindCooldown-Age);
     const float Uppercut=FMath::Max(0.f,From.SwordUppercutCooldown-Age);
+    const float ChainSlash=FMath::Max(0.f,From.ChainSlashCooldown-Age);
+    const float LeapStrike=FMath::Max(0.f,From.LeapStrikeCooldown-Age);
+    const float ShadowStep=FMath::Max(0.f,From.ShadowStepCooldown-Age);
+    Into.ChainSlashCooldown=Newer?ChainSlash:FMath::Min(Into.ChainSlashCooldown,ChainSlash);
+    Into.LeapStrikeCooldown=Newer?LeapStrike:FMath::Min(Into.LeapStrikeCooldown,LeapStrike);
+    Into.ShadowStepCooldown=Newer?ShadowStep:FMath::Min(Into.ShadowStepCooldown,ShadowStep);
     Into.WhirlwindCooldown=Newer?Whirlwind:FMath::Min(Into.WhirlwindCooldown,Whirlwind);
     Into.SwordUppercutCooldown=Newer?Uppercut:FMath::Min(Into.SwordUppercutCooldown,Uppercut);
     if(Newer)
     {
         Into.WhirlwindCooldownDuration=From.WhirlwindCooldownDuration;
         Into.SwordUppercutCooldownDuration=From.SwordUppercutCooldownDuration;
+        Into.ChainSlashCooldownDuration=From.ChainSlashCooldownDuration;
+        Into.LeapStrikeCooldownDuration=From.LeapStrikeCooldownDuration;
+        Into.ShadowStepCooldownDuration=From.ShadowStepCooldownDuration;
         Into.MartialCooldownRevision=From.MartialCooldownRevision;
     }
 }
@@ -30,6 +39,8 @@ inline void NetworkSpells(FColdSteelProfile& Into,const FColdSteelProfile& From,
     Into.HolyLightCooldown=Remaining(From.HolyLightCooldown);Into.HolyLightCooldownDuration=From.HolyLightCooldownDuration;
     Into.MeteorCooldown=Remaining(From.MeteorCooldown);Into.MeteorCooldownDuration=From.MeteorCooldownDuration;
     Into.FlameArmorCooldown=Remaining(From.FlameArmorCooldown);Into.FlameArmorCooldownDuration=From.FlameArmorCooldownDuration;
+    Into.IceArmorCooldown=Remaining(From.IceArmorCooldown);Into.IceArmorCooldownDuration=From.IceArmorCooldownDuration;
+    Into.LightningHasteCooldown=Remaining(From.LightningHasteCooldown);Into.LightningHasteCooldownDuration=From.LightningHasteCooldownDuration;
     Into.DragonBreathCooldown=Remaining(From.DragonBreathCooldown,From.bDragonBreathReserved);Into.DragonBreathCooldownDuration=From.DragonBreathCooldownDuration;
     Into.IceWallCooldown=Remaining(From.IceWallCooldown,From.bIceWallReserved);Into.IceWallCooldownDuration=From.IceWallCooldownDuration;
     Into.BlizzardCooldown=Remaining(From.BlizzardCooldown,From.bBlizzardReserved);Into.BlizzardCooldownDuration=From.BlizzardCooldownDuration;
@@ -41,6 +52,11 @@ inline void NetworkSpells(FColdSteelProfile& Into,const FColdSteelProfile& From,
     Into.DragonBreathReservedMana=From.DragonBreathReservedMana;
     Into.IceWallReservedMana=From.IceWallReservedMana;
     Into.BlizzardReservedMana=From.BlizzardReservedMana;
+    Into.IlluminationArrowCooldown=Remaining(From.IlluminationArrowCooldown);
+    Into.IlluminationArrowCooldownDuration=From.IlluminationArrowCooldownDuration;
+    Into.MagicArrowRainCooldown=Remaining(From.MagicArrowRainCooldown);
+    Into.MagicArrowRainCooldownDuration=From.MagicArrowRainCooldownDuration;
+    Into.bMagicArrowRainReserved=From.bMagicArrowRainReserved;Into.MagicArrowRainReservedMana=From.MagicArrowRainReservedMana;
     Into.ElectricCooldowns=From.ElectricCooldowns;Into.ElectricCooldownDurations=From.ElectricCooldownDurations;
     Into.ElectricReservedMana=From.ElectricReservedMana;
     for(auto& Pair:Into.ElectricCooldowns)Pair.Value=Remaining(Pair.Value,Into.ElectricReservedMana.Contains(Pair.Key));
@@ -57,6 +73,9 @@ inline bool InterruptedSpells(FColdSteelProfile& Clean,float MaxMana)
         Clean.IceWallCooldown=Clean.IceWallCooldownDuration=0;
     }
     Clean.IceWallReservedMana=0;
+    const bool AbandonedRain=Clean.bMagicArrowRainReserved;
+    if(AbandonedRain)Clean.Mana=FMath::Min(MaxMana,Clean.Mana+Clean.MagicArrowRainReservedMana);
+    Clean.bMagicArrowRainReserved=false;Clean.MagicArrowRainReservedMana=0;
     const bool AbandonedBlizzard=Clean.bBlizzardReserved;Clean.bBlizzardReserved=false;
     if(AbandonedBlizzard)
     {
@@ -80,7 +99,7 @@ inline bool InterruptedSpells(FColdSteelProfile& Clean,float MaxMana)
     Clean.bDragonBreathReserved=false;Clean.DragonBreathReservedMana=0;
     const bool AbandonedQuick=Clean.bQuickCombatReserved||Clean.QuickCombatCooldown>0.f||Clean.QuickCombatCooldownDuration>0.f;
     Clean.bQuickCombatReserved=false;Clean.QuickCombatCooldown=Clean.QuickCombatCooldownDuration=0.f;
-    return AbandonedFireball||AbandonedIce||AbandonedIceWall||AbandonedBlizzard||AbandonedElectric||AbandonedDragon||AbandonedQuick;
+    return AbandonedRain||AbandonedFireball||AbandonedIce||AbandonedIceWall||AbandonedBlizzard||AbandonedElectric||AbandonedDragon||AbandonedQuick;
 }
 
 inline void AlchemyProgress(FColdSteelProfile& Into,const FColdSteelProfile& Other)
@@ -98,6 +117,7 @@ inline void StationProgress(FColdSteelProfile& Into,const FColdSteelProfile& Oth
     {
         if(PreviousForge.bFinished&&!Forge.bFinished)Forge=PreviousForge;
         Forge.Hits=FMath::Max(Forge.Hits,PreviousForge.Hits);
+        Forge.bHammeredBlank|=PreviousForge.bHammeredBlank;
     }
     auto& Assembly=Into.GunAssemblyJob;const auto& PreviousAssembly=Other.GunAssemblyJob;
     if(!Assembly.Id.IsEmpty()&&Assembly.Id==PreviousAssembly.Id)
@@ -109,7 +129,7 @@ inline void StationProgress(FColdSteelProfile& Into,const FColdSteelProfile& Oth
         Assembly.InstalledMask|=PreviousAssembly.InstalledMask;
         for(int32 I=0;I<Assembly.Misses.Num();++I)if(PreviousAssembly.Misses.IsValidIndex(I))
             Assembly.Misses[I]=FMath::Max(Assembly.Misses[I],PreviousAssembly.Misses[I]);
-        if(PreviousAssembly.CalibrationTime>Assembly.CalibrationTime)
+        if(PreviousAssembly.CalibrationVersion==Assembly.CalibrationVersion&&PreviousAssembly.CalibrationTime>Assembly.CalibrationTime)
         {
             Assembly.CalibrationSeconds=PreviousAssembly.CalibrationSeconds;
             Assembly.CalibrationTime=PreviousAssembly.CalibrationTime;

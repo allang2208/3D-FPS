@@ -2,8 +2,9 @@
 
 Fills the gaps the V04 cue set left: idle bell shimmer + travel hand-over-hand
 crawl loops, a real death arc (detune -> tear -> fall -> floor clang) and
-membrane-textured swing/claw/stagger upgrades. No sampled third-party audio.
-Outputs 48000 Hz mono 16-bit PCM to AudioV01/Audio.
+membrane-textured swing/claw/stagger upgrades. Idle now uses the user-approved
+qubodup Ghost breath CC0 master (2026-10-18); all other roles remain synthesized.
+Outputs 48000 Hz mono PCM to AudioV01/Audio (Idle: 24-bit, other roles: 16-bit).
 """
 import json, wave
 import numpy as np
@@ -92,7 +93,7 @@ def save(name, y, seconds):
 manifest = {}
 BELL = ((1.0, .26, 4.5), (1.47, .17, 6.2), (2.19, .08, 7.8), (3.38, .04, 11.0))
 
-# --- S_M09_Idle: 3.6 s bell-body shimmer + membrane breath loop ----------------
+# Retain the old idle RNG draws so rebuilding does not change other role sounds.
 dur, xf = 3.6, .8
 t = np.arange(int(round((dur + xf) * SR))) / SR
 shimmer = np.zeros(len(t))
@@ -103,7 +104,9 @@ breath = band(noise(dur + xf), 170, 680) * (.5 + .5 * np.sin(2 * np.pi * .28 * t
 y = loopify(shimmer + lowp(breath, 900), xf)
 creak = lowp(chirp(.38, 240, 165, .5), 900) * np.exp(-np.arange(int(.38 * SR)) / SR * 5)
 place(y, creak, .9, .16); place(y, creak * .8, 2.5, .12)
-manifest['S_M09_Idle'] = save('S_M09_Idle', norm(fade(y, .01, .01), .30), dur)
+import runpy
+approved_idle = runpy.run_path(str(OUT.parent.parent / 'HangingBellIdleGhostBreath20261018/prepare_idle.py'))
+manifest['S_M09_Idle'] = approved_idle['build_idle']()
 
 # --- S_M09_Travel: 2.4 s hand-over-hand ceiling crawl loop ---------------------
 dur, xf = 2.4, .5
@@ -211,7 +214,7 @@ place(y, lowp(relax, 800), .55, .3)
 manifest['S_M09_RingDown'] = save('S_M09_RingDown', norm(fade(y, .002, .6), .42), dur)
 
 (OUT / 'Records' / 'audio_source.json').write_text(json.dumps({
-    'pipeline': 'Original local procedural synthesis; no sampled third-party audio',
+    'pipeline': 'Idle: user-approved qubodup Ghost breath (CC0); other roles: original local membrane-chime synthesis.',
     'voice': 'M09 membrane-chime family shared with Resonance V07 (modal 1/1.47/2.19/3.38 stack + pitch relaxation)',
     'sample_rate': SR,
     'outputs': manifest,

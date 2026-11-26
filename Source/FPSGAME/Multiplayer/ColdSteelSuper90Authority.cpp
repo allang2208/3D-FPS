@@ -1,4 +1,5 @@
 #include "ColdSteelPlayerState.h"
+#include "../Combat/FPSAttackQuery.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -114,7 +115,7 @@ void AColdSteelPlayerState::ServerSuper90Shot_Implementation(uint32 Sequence,con
         ||FVector::DistSquared(Eye,Pawn->GetPawnViewLocation())>FMath::Square(150.f)
         ||FVector::DistSquared(Muzzle,Eye)>FMath::Square(200.f)
         ||FVector::DotProduct(Direction,Pawn->GetBaseAimRotation().Vector())<FMath::Cos(FMath::DegreesToRadians(25.f));
-    if(BadGeometry||!Gun||Gun->Magazine<=0||WeaponReloadStages::NeedsCycle(*Gun)||Super90Reload.Active
+    if(BadGeometry||HasAuthorityConsumableReservation(SourcePawn)||!Gun||Gun->Magazine<=0||WeaponReloadStages::NeedsCycle(*Gun)||Super90Reload.Active
         ||Pawn->IsTraversing()
         ||!FMath::IsFinite(FiredAt)||FiredAt<Now-.9||FiredAt>Now+.1||FiredAt+1.e-4<Super90NextFireTime)
     {SendSuper90Ammo(true);return;}
@@ -138,7 +139,7 @@ void AColdSteelPlayerState::ServerSuper90Shot_Implementation(uint32 Sequence,con
     const bool Suppressed=Pawn->IsMuzzleSuppressed();
     const auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>();
     auto* WorldFX=GetNetMode()==NM_DedicatedServer?nullptr:Body?Body->GetRemoteGunFX():nullptr;
-    FCollisionQueryParams Params(SCENE_QUERY_STAT(Super90Authority),true,Pawn);FHitResult Obstruction;
+    FFPSAttackQuery Params(SCENE_QUERY_STAT(Super90Authority),true,Pawn);FHitResult Obstruction;
     // Never start a server projectile on the far side of nearby cover.
     const bool Blocked=RangedAttackQuery::LineTraceSingle(GetWorld(), Pawn, Obstruction,Eye,Muzzle,ECC_Visibility,Params);
     const FVector Start=Blocked?FVector(Eye):FVector(Muzzle);
@@ -164,6 +165,7 @@ void AColdSteelPlayerState::ServerSuper90Shot_Implementation(uint32 Sequence,con
     {Item->Magazine-=Spent;Item->VirtualMagazineAmmo=FMath::Max(0,Item->VirtualMagazineAmmo-Spent);}
     ShadowModel->AdoptNetMirror(State);Pawn->MagazineAmmo=FMath::Max(0,FiredWeapon.Magazine-Spent);
     Super90LastFireTime=FiredAt;Super90NextFireTime=FiredAt+Pawn->EffectiveFireInterval();
+    RecordAuthorityShotRecovery(Pawn,FMath::Max(0.,Super90NextFireTime-Now));
     if(Pawn->IsM870Weapon())
     {
         M870AuthorityShotSequence=Sequence;M870AuthorityShotWeapon=Weapon;M870AuthorityShotPawn=Pawn;

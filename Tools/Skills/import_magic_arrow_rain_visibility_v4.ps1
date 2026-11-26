@@ -1,4 +1,4 @@
-$ErrorActionPreference='Stop'
+﻿$ErrorActionPreference='Stop'
 $visibilityRoot='D:/FPS3D/FPSGAME'
 $visibilityOut="$visibilityRoot/Saved/MagicArrowRain20261026/VisibilityV4"
 [IO.Directory]::CreateDirectory($visibilityOut) | Out-Null

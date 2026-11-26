@@ -141,6 +141,26 @@
           0.0
         ],
         "interface": "azure_hilt_v1"
+      },
+      "twin_star_guard": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/TwinStarGuard20261030/MeshyV3/SM_RuneSword_Guard_TwinStar_MeshyV3B.SM_RuneSword_Guard_TwinStar_MeshyV3B",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "azure_hilt_v1",
+        "appearance": "Meshy 双曜星环 · 镶金银翼与星晶"
+      },
+      "starfall_nexus_guard": {
+        "mesh": "/Game/Weapons/AzureRunesword20260913/StarfallGuard20261030/MeshyV2/SM_RuneSword_Guard_Starfall_MeshyV2.SM_RuneSword_Guard_Starfall_MeshyV2",
+        "location_cm": [
+          0,
+          0,
+          0
+        ],
+        "interface": "azure_hilt_v1",
+        "appearance": "Meshy 星陨天枢 · 银翼金纹与长菱星晶"
       }
     },
     "grip": {

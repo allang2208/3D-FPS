@@ -1,0 +1,70 @@
+diff --git a/Source/FPSGAME/Characters/FPSPlayerBodyKukri.cpp b/Source/FPSGAME/Characters/FPSPlayerBodyKukri.cpp
+index 14d3431a..703ce2f9 100644
+--- a/Source/FPSGAME/Characters/FPSPlayerBodyKukri.cpp
++++ b/Source/FPSGAME/Characters/FPSPlayerBodyKukri.cpp
+@@ -5,7 +5,11 @@
+ #include "../Weapons/Kukri/KukriDashRhythm.h"
+ #include "../Weapons/Kukri/KukriQuickRhythm.h"
+ #include "../Weapons/Kukri/KukriHeavyRhythm.h"
++#include "../Weapons/Kukri/SwiftFalconHeavy.h"
++#include "../Weapons/Kukri/OffhandBladeDraw.h"
++#include "../UI/ColdSteelStatusModel.h"
+ #include "../Skills/LightningHasteSpeed.h"
++#include "Engine/GameInstance.h"
+ #include "Animation/AnimSequence.h"
+ #include "FPSPlayerBodyAnimInstance.h"
+ #include "FPSPlayerBodyGrip.h"
+@@ -35,11 +39,16 @@ void UFPSPlayerBodyComponent::UpdateKukriPresentation()
+     for(const auto& Binding:MotionBindings)
+     {
+         const auto& W=Binding.Definition;
+-        if(W.PoseFamily!=TEXT("Kukri")&&W.PoseFamily!=TEXT("OffhandKukri"))continue;
++        if(W.PoseFamily!=TEXT("Kukri")&&W.PoseFamily!=TEXT("KukriDual")&&W.PoseFamily!=TEXT("OffhandKukri"))continue;
+         auto* Blade=Binding.Static.Get();if(!Blade)continue;
+         const bool Matching=W.ItemInstance==(W.AttachHand==0?S.WeaponInstance:S.OffhandInstance);
+         FTransform Delta=FTransform::Identity;
+-        if(Matching&&Draw&&(W.AttachHand==0||Dual))
++        if(Matching&&S.Family==TEXT("Kukri")&&S.Action==EFPSBodyAction::Equip&&OffhandBladeDraw::IsClip(S.ActionVariant))
++        {
++            const bool Axe=S.ActionVariant==OffhandBladeDraw::Hatchet;
++            if(Dual&&W.AttachHand==1)Delta=OffhandBladeDraw::FlightDelta(Axe,Progress*OffhandBladeDraw::Length(Axe));
++        }
++        else if(Matching&&Draw&&(W.AttachHand==0||Dual))
+             Delta=FPSBodyKukriPresentationData::Equip(Kaitlin,Dual,W.AttachHand,Progress);
+         else if(Matching&&Uppercut&&W.PoseFamily==TEXT("OffhandKukri"))
+             Delta=FPSBodyKukriPresentationData::Uppercut(Kaitlin,Progress);
+@@ -92,7 +101,12 @@ void UFPSPlayerBodyComponent::BuildKukriGrip(const FFPSBodyWeapon& Definition,US
+ 
+ void UFPSPlayerBodyComponent::SampleKukriState(const UKukriWeaponComponent& K,FFPSBodyState& S,float Now) const
+ {
+-    S.Family=TEXT("Kukri");S.Weapon=TEXT("ue_kukri");
++    S.Family=TEXT("Kukri");S.Weapon=FName(*Character->ActiveInventoryWeaponDefinition);
++    // The lone off-hand blade is the weapon (the inventory weapon identity is the empty main hand's): name it like the
++    // server's sample does (SampleRemoteAuthorityState, ActiveKukriWeapon), or observers drop every action as a mismatch.
++    if(K.IsLoneOffhand())
++        if(const auto* Model=Character->GetGameInstance()?Character->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)
++            if(const auto* Item=Model->ActiveKukriWeapon())S.Weapon=FName(*Item->Definition);
+     S.Action=EFPSBodyAction::None;S.ActionVariant=K.CurrentClip;
+     const float SkillRate=FMath::Max(.05f,LightningHaste::ActionSpeed(Character.Get()));
+     // PressStop is the saved impact-envelope length, not a remaining pause.
+@@ -130,8 +144,20 @@ void UFPSPlayerBodyComponent::SampleKukriState(const UKukriWeaponComponent& K,FF
+                 FMath::Max(.2f,K.HeavyRequiredSeconds-Delay-KukriHeavyRhythm::RaiseEnd/SkillRate);
+         S.ActionProgressRate=Rate/KukriHeavyRhythm::ChargeLength;
+     }
++    else if(K.bHeavyAttack&&K.bFalconHeavy)
++    {
++        Timed(EFPSBodyAction::HeavyStrike,Length,K.FalconReleaseRate);
++        S.ActionDuration=SwiftFalconHeavy::PlaybackSeconds(Length,K.FalconReleaseRate);
++        S.ActionStartedAt=Now-SwiftFalconHeavy::PlaybackSeconds(K.Elapsed,K.FalconReleaseRate);
++        S.ActionProgressRate=Paused?0.f:SwiftFalconHeavy::PlaybackRate(K.Elapsed,K.FalconReleaseRate)/Length;
++        S.ContactFraction=(K.Shot.MeleeDamagePhase?SwiftFalconHeavy::PullAt:SwiftFalconHeavy::ChopAt)/Length;
++        S.ReleaseFraction=(K.Shot.MeleeDamagePhase?SwiftFalconHeavy::PullOut:SwiftFalconHeavy::ChopOut)/Length;
++    }
+     else if(K.bDashAttack)
+     {
++        // The pair's first-person chop (DualSprintAttack) is the same sprint attack for the body and observers; the body
++        // picks its own dual variant from the matching off-hand (FPSBodyKukriMotion::DualClip).
++        S.ActionVariant=TEXT("SprintAttack");
+         Timed(EFPSBodyAction::HeavyStrike,Length,SkillRate);
+         S.ContactFraction=KukriDashRhythm::ContactStart/Length;S.ReleaseFraction=KukriDashRhythm::ContactEnd/Length;
+     }

@@ -45,7 +45,12 @@ TSharedPtr<FJsonObject> Catalog()
 FColdSteelProfile Seed(UColdSteelStatusModel* Model,bool Host)
 {
     auto State=Model->Snapshot();State.Items.Reset();State.ActiveWeaponSlot=6;State.ActiveProductionTool.Reset();State.DungeonRun={};
-    State.Stamina=150;State.bSprintExhausted=false;for(auto& S:State.Skills)S.Value.Level=1;
+    State.Stamina=150;State.bSprintExhausted=false;
+    for(FName Skill:{FName(TEXT("whirlwind")),FName(TEXT("heavyStrike"))})
+    {
+        State.LearnedSkills.AddUnique(Skill);
+        State.Skills.FindOrAdd(Skill).Level=1;
+    }
     auto Item=Model->CreateItem(TEXT("ue_highland_claymore"));Item.Place=1;Item.Cell=6;Item.InstanceId=Identity(Host);State.Items.Add(Item);
     return State;
 }
@@ -135,11 +140,16 @@ bool Check(AFPSGAMECharacter* Pawn,int32 Phase,bool Host,FString& Details)
             ++WorldParts;Good&=M->GetStaticMesh()&&M->GetStaticMesh()->GetPathName()==Expected;
             if(Blade)
             {
-                bool Gold=false;
+                bool Gold=false,NativeOathMatches=false;
                 for(int32 I=0;I<M->GetNumMaterials();++I)
+                {
                     if(auto* Overlay=M->GetOverlayMaterial(true,I))
                         Gold|=Overlay->GetBaseMaterial()->GetName()==TEXT("M_SilverRuneSurface_HighlandOath");
-                Good&=Gold==Oath(Phase);
+                    float NativeOath=0.f;
+                    if(auto* Surface=M->GetMaterial(I);Surface&&Surface->GetScalarParameterValue(FMaterialParameterInfo(TEXT("NativeOath")),NativeOath))
+                        NativeOathMatches|=FMath::IsNearlyEqual(NativeOath,Oath(Phase)?1.f:0.f);
+                }
+                Good&=Gold==Oath(Phase)&&(!Ridge(Phase)||NativeOathMatches);
             }
         }
     }

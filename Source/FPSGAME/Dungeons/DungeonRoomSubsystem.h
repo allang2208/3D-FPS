@@ -53,10 +53,12 @@ public:
     void CancelEntry(AColdSteelPlayerState* Player,FGuid Token);
     void ApplyInstance(ADungeonRoomState* State);
     bool LocalAssemblyReady(FGuid Instance) const;
+    ULevel* ReadyDungeonLevel() const;
     bool FindSpawn(bool Dungeon,APawn* Pawn,FTransform& Out) const;
     void RefreshPresentation();
 
 private:
+    friend class UColdSteelDungeonFogCheckCommandlet;
     struct FEntry
     {
         TWeakObjectPtr<AColdSteelPlayerState> Player;

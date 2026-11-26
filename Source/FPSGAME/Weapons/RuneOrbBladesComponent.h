@@ -1,7 +1,7 @@
 // Rune sword special attack: orbiting energy blades (ported from the 2D project's
 // rune-sword-system.js). G activates four blades around the player for up to 30 s;
 // every further G press launches one at the crosshair. Blades deal magic damage
-// (weapon attack + magic attack) x 1.2; kills shorten running ability cooldowns,
+// (weapon attack + magic attack) x 1.2; kills shorten running magic cooldowns,
 // mirroring the 2D contract (the orbit cooldown starts only after the orbit ends).
 #pragma once
 #include "CoreMinimal.h"
@@ -32,8 +32,11 @@ public:
     // The orbit ends when the sword is stowed or swapped, exactly like the 2D weapon switch.
     void EndOrbit();
     void InterruptPending(bool bGathering);
-    // Blade kills trim all running ability cooldowns through the shared profile path.
-    void NotifyBladeResult(bool bKilled);
+    // Gold confirms every damaging hit; ordinary blades retain their kill reward, magic only.
+    void NotifyBladeResult(bool bKilled,float HitReduction);
+    float BladeMagicCooldownReduction() const{return ActiveHitReduction;}
+    float BladeGuardMagicMultiplier() const{return ActiveGuardMagicMultiplier;}
+    float BladeBlastRadius() const{return ActiveBlastRadius;}
     void ReduceCooldown(float Seconds,bool bNotifyReduction=false)
     {
         const float Before=Cooldown;
@@ -48,9 +51,12 @@ public:
     // HUD and trigger share the active main-hand check, including production tools.
     bool SwordEquipped() const;
     int32 AvailableBladeCount() const;
+    // Normal play stays centered; the fixed observation camera projects the
+    // character's actual aim instead of suggesting that its frozen center aims.
+    bool GetAimReticlePosition(FVector2D& NormalizedPosition) const;
     UFUNCTION(Server,Reliable) void ServerOrbitIntent(uint8 Phase,int32 Slot,FVector_NetQuantize Target);
     UFUNCTION(Client,Reliable) void ClientOrbitRejected(float Remaining,float Duration);
-    UFUNCTION(Client,Reliable) void ClientBladeKill();
+    UFUNCTION(Client,Reliable) void ClientBladeMagicCooldown(float Seconds);
 
 private:
     UColdSteelStatusModel* Profile() const;
@@ -68,18 +74,21 @@ private:
     bool CanUse() const;
     bool NoAbilityCooldown() const;
     bool ViewBasis(FVector& Eye, FVector& Forward, FVector& Right, FVector& Up, float& TanVertical) const;
+    bool ResolveAimTarget(const FVector& LaunchOrigin,FVector& Target,FVector* ContactNormal=nullptr) const;
     // Shared left-hand spell gesture (the fireball's): raise-and-gather on summon,
     // release push on launch. Requests queue until the hand is free.
     UFPSFireballComponent* Hands() const;
     void ServiceGestureQueue();
-    static float BladeDamage(const UColdSteelStatusModel* Profile);
+    static float BladeDamage(const UColdSteelStatusModel* Profile,double Coefficient,double GuardMagicMultiplier);
 
     // Plain runtime bookkeeping: weak refs only, the blades themselves are world actors.
     TArray<FBladeSlot> Slots;
     UPROPERTY(Transient) TObjectPtr<UStaticMesh> BladeMesh;
+    UPROPERTY(Transient) TObjectPtr<UStaticMesh> StarfallBladeMesh;
+    UPROPERTY(Transient) TObjectPtr<UStaticMesh> ActiveBladeMesh;
     float Elapsed = 0.f;
     float Cooldown = 0.f;
-    uint32 CooldownReductionSerial=0;
+    uint32 CooldownReductionSerial = 0;
     // Captured at summon so stowing the sword cannot change this cast's cooldown.
     float CooldownDuration = BaseCooldownDuration;
     bool bActive = false;
@@ -106,5 +115,9 @@ private:
     // target's magic vulnerability. Zero until an affix carrying the key exists.
     int32 ActiveBladeCount = BaseBladeCount;
     float ActiveRangeCM = 1600.f;
+    float ActiveHitReduction = 0.f;
+    float ActiveGuardMagicMultiplier = 1.f;
+    float ActiveBlastRadius = 0.f;
+    float ActiveForwardDistance = ForwardDistance;
     int32 VulnerabilityStacks = 0;
 };

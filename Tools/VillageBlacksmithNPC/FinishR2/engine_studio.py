@@ -74,3 +74,4 @@ for slug in ('portrait','workwear'):
     u.RenderingLibrary.export_render_target(world,target,str(review),'ue_'+stage+'_'+slug+'.png')
     rows.append({'camera':slug,'width_cm':cc.ortho_width,'world_camera_cm':loc.to_tuple(),'direction':direction.to_tuple()})
 (review/('ue_'+stage+'.json')).write_text(json.dumps({'meshes':[c.get_skeletal_mesh_asset().get_path_name() for c in components],'bindings':bindings,'shots':rows,'engine':u.SystemLibrary.get_engine_version(),'pose_time':0},indent=2))
+

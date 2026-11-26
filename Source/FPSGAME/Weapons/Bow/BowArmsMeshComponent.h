@@ -5,6 +5,7 @@
 #include "BowArmsMeshComponent.generated.h"
 
 class UAnimSequence;
+class UBowWeaponComponent;
 
 /** Bow-only local-pose handoff. Contact markers are children of their hands. */
 UCLASS()
@@ -12,6 +13,7 @@ class FPSGAME_API UBowArmsMeshComponent : public UFPSCastingMeshComponent
 {
     GENERATED_BODY()
 public:
+    TWeakObjectPtr<UBowWeaponComponent> PresentationOwner;
     float CastTransfer=0.f;
     void CaptureLeftReturn(float Seconds);
     void ClearLeftReturn() { LeftReturnPose.Reset(); }
@@ -25,8 +27,15 @@ public:
     /** Speed-driven loops share one phase; the action pose remains the base. */
     void SetLocomotion(UAnimSequence* Walk, UAnimSequence* Run, float Phase,
         float Weight, float Sprint, bool bKeepBraceContact, const FVector& Brace);
+    /** Fit the shared draw to a bow's physical brace/anchor without copying clips. */
+    void SetContactFit(bool bEnabled, const FVector& ReferenceBrace, const FVector& ReferenceDraw,
+        const FVector& TargetBrace, const FVector& TargetDraw);
+    void SetContactFitWeight(float Weight) { ContactFitWeight=FMath::Clamp(Weight,0.f,1.f); }
     virtual void FinalizeBoneTransform() override;
 private:
+    void KeepSupportShoulderBelowView();
+    TWeakObjectPtr<USkeletalMesh> SupportArmMesh;
+    TArray<int32> SupportArmBones;
     TArray<FTransform> LeftReturnPose;
     TArray<int32> LeftReturnBones;
     TWeakObjectPtr<USkeletalMesh> LeftReturnMesh;
@@ -49,4 +58,10 @@ private:
     FVector BraceContact = FVector::ZeroVector;
     void BlendLocomotion();
     void PreserveBraceContact();
+    void FitSharedContact();
+    void MoveRightContact(const FVector& Offset);
+    bool bContactFit=false;
+    float ContactFitWeight=0.f;
+    FVector ContactReferenceBrace=FVector::ZeroVector,ContactReferenceDraw=FVector::ZeroVector;
+    FVector ContactBraceDelta=FVector::ZeroVector,ContactDrawDelta=FVector::ZeroVector;
 };

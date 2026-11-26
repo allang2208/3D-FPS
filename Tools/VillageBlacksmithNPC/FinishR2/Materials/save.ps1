@@ -25,3 +25,4 @@ $env:UE_SKIP_UBT_SDK_SETUP='1'
 & 'E:/Program Files (x86)/UE_5.8/Engine/Binaries/Win64/UnrealEditor-Cmd.exe' "$studio/SmithSurface.uproject" -run=pythonscript "-script=$PSScriptRoot/save_materials.py" -unattended -nop4 -nosplash -nosound -NullRHI "-LocalDataCachePath=D:/FPS3D/DerivedDataCache" "-abslog=$out/surface_save.log" *> "$out/surface_console.log"
 if ($LASTEXITCODE -ne 0) { throw "Surface import exited $LASTEXITCODE" }
 & "$PSScriptRoot/publish.ps1"
+

@@ -1,4 +1,5 @@
 #include "MonsterCoreStats.h"
+#include "UnknownHumanoid.h"
 #include "HeQueMonster.h"
 #include "RootCrownRigPreview.h"
 #include "M66IncineratorMonster.h"
@@ -13,6 +14,7 @@
 #include "PoisonMaggotMonster.h"
 #include "HundredEyedSlagMonster.h"
 #include "WolfMonster.h"
+#include "WildlifeAnimal.h"
 #include "InfectedDogMonster.h"
 #include "../Combat/ProgressiveInfectionComponent.h"
 #include "FatZombie.h"
@@ -54,7 +56,12 @@ bool Get(const AActor* Target,FMonsterCoreStats& Out)
     FMonsterCoreStats S;bool bKnown=false;
     auto Fill=[&](int32 Def,int32 Mdef,int32 CritRes,double Weight,int32 Level,EMonsterRank Rank,EMonsterToughnessClass TClass)
     {S.Def=Def;S.Mdef=Mdef;S.CritRes=CritRes;S.AttrWeight=Weight;S.Level=Level;S.Rank=Rank;S.ToughnessClass=TClass;bKnown=true;};
-    if(const auto* HeQue=Cast<AHeQueMonster>(Target))Fill(45,35,25,10.,HeQue->Level,HeQue->Rank,EMonsterToughnessClass::Colossal);
+    if(const auto* Unknown=Cast<AUnknownHumanoid>(Target))
+    {
+        if(Unknown->HasAnyFlags(RF_ClassDefaultObject))return false;
+        Unknown->CoreStats(S);bKnown=true;
+    }
+    else if(const auto* HeQue=Cast<AHeQueMonster>(Target))Fill(45,35,25,10.,HeQue->Level,HeQue->Rank,EMonsterToughnessClass::Colossal);
     else if(const auto* M66=Cast<AM66IncineratorMonster>(Target))Fill(45,35,25,10.,M66->Level,M66->Rank,EMonsterToughnessClass::Colossal);
     else if(const auto* Crown=Cast<ARootCrownRigPreview>(Target))Fill(45,30,25,10.,Crown->Level,Crown->Rank,EMonsterToughnessClass::Colossal);
     else if(const auto* BC=Cast<ABoundCongregate>(Target))Fill(BC->PhysicalDefense,BC->MagicDefense,25,10.,BC->Level,BC->Rank,EMonsterToughnessClass::Colossal);
@@ -75,6 +82,12 @@ bool Get(const AActor* Target,FMonsterCoreStats& Out)
     // defenses (24/14/12) were previously shadowed by the wolf row's 12/8/5.
     else if(const auto* M08=Cast<ALurkerM08Monster>(Target)){Fill(FMath::RoundToInt(M08->PhysicalDefense),FMath::RoundToInt(M08->MagicDefense),FMath::RoundToInt(M08->CriticalResistance),6.5,M08->Level,M08->Rank,EMonsterToughnessClass::Canine);}
     else if(const auto* W=Cast<AWolfMonster>(Target)){Fill(12,8,5,5.06,W->Level>0?W->Level:5,W->Rank,EMonsterToughnessClass::Canine);} // {16,28,3,5,6,8}
+    // Wildlife reads its own row so defence, level and experience stay in one data file.
+    else if(const auto* WL=Cast<AColdSteelAnimal>(Target))
+    {
+        const FWildlifeSpecies* Row=WL->Species();
+        if(Row)Fill(FMath::RoundToInt(Row->PhysicalDefense),FMath::RoundToInt(Row->MagicDefense),5,6.0,Row->Level,EMonsterRank::Normal,EMonsterToughnessClass::Light);
+    }
     else if(const auto* F=Cast<AFatZombie>(Target)){Fill(35,4,20,4.6,F->Level>0?F->Level:4,F->Rank,EMonsterToughnessClass::Heavy);} // {18,6,3,20,3,5}
     else if(const auto* U=Cast<AMutant3>(Target)){Fill(75,13,40,11.84,U->Level>0?U->Level:9,U->Rank,EMonsterToughnessClass::Heavy);} // {50,30,5,40,10,6}
     else if(const auto* C=Cast<AWitchMonster>(Target)){Fill(55,55,33,11.02,C->Level>0?C->Level:8,C->Rank,EMonsterToughnessClass::Caster);} // {20,15,30,33,25,13} mdef 字段覆盖 55

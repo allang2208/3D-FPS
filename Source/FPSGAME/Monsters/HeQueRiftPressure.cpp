@@ -1,4 +1,5 @@
 #include "HeQueMonster.h"
+#include "MonsterTargeting.h"
 #include "HeQueRiftTiming.h"
 #include "MonsterAIController.h"
 #include "FPSCombatHealthComponent.h"
@@ -41,7 +42,7 @@ bool AHeQueMonster::HasRiftSight(const APawn* Victim) const
 bool AHeQueMonster::CanRift(APawn* Victim) const
 {
     if(Busy()||Rift.Active||SweepBlocked()||!RiftClip||!PressureMesh||!PressureMaterial||ActionClock()<NextRiftAt||
-        !IsValid(Victim)||!Victim->IsPlayerControlled())return false;
+        !IsValid(Victim)||!MonsterTargeting::IsOpponentPawn(Victim))return false;
     const auto* HealthComponent=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
     if(HealthComponent&&HealthComponent->IsDead())return false;
     const FVector Delta=Victim->GetActorLocation()-GetActorLocation();
@@ -104,7 +105,7 @@ void AHeQueMonster::AdvancePressure(int32 Index,float Age)
         for(const auto& Hit:Hits)
         {
             const auto* Component=Hit.GetComponent();const auto* Pawn=Cast<APawn>(Hit.GetActor());
-            const bool PlayerBody=Pawn&&Pawn->IsPlayerControlled()&&Component==Pawn->GetRootComponent();
+            const bool PlayerBody=Pawn&&MonsterTargeting::IsOpponentPawn(Pawn)&&Component==Pawn->GetRootComponent();
             if(!Component||(!PlayerBody&&Component->GetCollisionResponseToChannel(ECC_Visibility)!=ECR_Block&&Component->GetCollisionResponseToChannel(ECC_Pawn)!=ECR_Block))continue;
             if(!Found||Hit.Time<First.Time){First=Hit;Found=true;}
         }
@@ -114,9 +115,9 @@ void AHeQueMonster::AdvancePressure(int32 Index,float Age)
         Stop=FMath::Lerp(PressureTravel[Index],EndDistance,First.Time);
         Packet.ImpactPoint=First.ImpactPoint;Packet.ImpactNormal=First.ImpactNormal.GetSafeNormal();
         Packet.HitWorld=!Cast<APawn>(First.GetActor());ForceNetUpdate();
-        AActor* Victim=First.GetActor();const auto* Player=Cast<APawn>(Victim);
+        AActor* Victim=MonsterTargeting::DamageRecipient(First.GetActor());const auto* Player=Cast<APawn>(Victim);
         const auto* Vitals=IsValid(Victim)?Victim->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
-        if(IsValid(Victim)&&((Player&&Player->IsPlayerControlled())||Victim->IsA<AFPSIceWall>())&&(!Vitals||(!Vitals->IsDead()&&!Vitals->IsInvulnerable())))
+        if(IsValid(Victim)&&((Player&&MonsterTargeting::IsOpponentPawn(Player))||Victim->IsA<AFPSIceWall>())&&(!Vitals||(!Vitals->IsDead()&&!Vitals->IsInvulnerable())))
             UGameplayStatics::ApplyPointDamage(Victim,RiftDamage,Rift.Direction,First,GetController(),this,UEnemyRangedDamage::StaticClass());
     }
     PressureTravel[Index]=EndDistance;

@@ -4,6 +4,7 @@
 #include "VoxelBuildIcons.h"
 #include "VoxelBuildWidget.generated.h"
 
+namespace VillageBuildDefense { enum class ETier : uint8; }
 class UBackgroundBlur;
 class UBorder;
 class UButton;
@@ -77,6 +78,7 @@ public:
     void SetContent(const TArray<FVoxelBuildPanelCard>& Materials,const TArray<FVoxelBuildPanelCard>& Shapes,
         const TArray<FVoxelBuildPanelCard>& Components);
     void SetSelection(FName Material,FName Component,int32 ShapeMode);
+    void SetVillageConstructionTier(VillageBuildDefense::ETier Tier);
     void SetDrawerOpen(bool Open);
     void Pick(FName Id,bool bComponent,int32 ShapeMode=INDEX_NONE);
     /** Expands or collapses one material row's 其他构造 submenu. */
@@ -119,15 +121,17 @@ private:
     UPROPERTY() TObjectPtr<UBorder> GlassTintPanel;
     UPROPERTY() TObjectPtr<UBorder> HeaderPanel;
     UPROPERTY() TObjectPtr<USizeBox> HeaderSize;
+    UPROPERTY() TObjectPtr<class UHorizontalBox> HeaderHints;
+    UPROPERTY() TObjectPtr<UTextBlock> PickHint;
+    UPROPERTY() TObjectPtr<UTextBlock> VoxelHint;
     UPROPERTY() TObjectPtr<UCanvasPanelSlot> PanelSlot;
-    UPROPERTY() TObjectPtr<UTextBlock> Title;
     UPROPERTY() TObjectPtr<UTextBlock> Selection;
     UPROPERTY() TObjectPtr<UTextBlock> Status;
     UPROPERTY() TObjectPtr<UTextBlock> Structure;
     UPROPERTY() TObjectPtr<UTextBlock> Risk;
-    UPROPERTY() TObjectPtr<UTextBlock> Controls;
     UPROPERTY() TObjectPtr<UButton> MaterialTab;
     UPROPERTY() TObjectPtr<UButton> ComponentTab;
+    UPROPERTY() TObjectPtr<UButton> VillageTab;
     UPROPERTY() TObjectPtr<UScrollBox> Scroll;
     UPROPERTY() TObjectPtr<UVerticalBox> CardList;
     UPROPERTY() TArray<TObjectPtr<UVoxelBuildCardProxy>> CardProxies;
@@ -145,7 +149,7 @@ private:
     /** 当前这张浮窗第一次显示的时间；跟随一小段时间后自动钉住。 */
     float TooltipShownAtSeconds=-1.f;
     /** 页签文字：字重随选中态在 RefreshCategory 里按当前 Scale 设置，不走 Text() 的 DPI 托管。 */
-    TWeakObjectPtr<UTextBlock> MaterialTabLabel,ComponentTabLabel;
+    TWeakObjectPtr<UTextBlock> MaterialTabLabel,ComponentTabLabel,VillageTabLabel;
     TArray<FLabel> Labels;
     TArray<FCard> Cards;
     /** Visible rows in list order; ShowTooltip reads the same index as Cards. */
@@ -158,13 +162,16 @@ private:
     FString LastState;
     FVector2D LastViewport=FVector2D::ZeroVector;
     float LastScale=0,DrawerProgress=0,DrawerWidth=0;
-    bool bDrawerOpen=false,bComponentCategory=false,bCardsDirty=true,bSelectionDirty=true;
+    enum class ECategory : uint8 { Materials, Other, Village };
+    ECategory Category=ECategory::Materials;
+    VillageBuildDefense::ETier VillageTier{};
+    bool bDrawerOpen=false,bCardsDirty=true,bSelectionDirty=true;
     /** 卡片重建后需要把新的缩略图键集合交给图标子系统（正在显示的键不参与回收）。 */
     bool bIconPinsDirty=true;
     /** HUD 让位是否已置位：打开即置位，收回动画播完或销毁时复位。 */
     bool bHudYielded=false;
     UTextBlock* Text(const FString& Caption,float Pixels,bool Numeric=false,bool Medium=false,bool bTrack=true);
-    UButton* Tab(const FString& Caption,bool bComponents);
+    UButton* Tab(const FString& Caption);
     class UVoxelBuildComponent* Builder() const;
     class UColdSteelHUDWidget* ResolveHUD() const;
     /** 指针是否落在目标控件几何内（Margin 为附加余量，控件局部单位）。 */
@@ -182,9 +189,11 @@ private:
     /** 把当前卡片的缩略图键交给图标子系统，声明它们是「正在显示、不参与回收」。 */
     void RefreshIconPins();
     void RebuildCards();
+    void RefreshCardsIfNeeded();
     void RefreshSelection();
     void RefreshCategory();
     void RefreshLayout();
     UFUNCTION() void ShowMaterialCategory();
     UFUNCTION() void ShowComponentCategory();
+    UFUNCTION() void ShowVillageCategory();
 };

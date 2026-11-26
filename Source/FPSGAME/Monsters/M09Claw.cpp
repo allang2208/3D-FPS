@@ -1,4 +1,5 @@
 #include "HangingBellM09.h"
+#include "MonsterTargeting.h"
 #include "M09ClawParameters.h"
 #include "FPSCombatHealthComponent.h"
 #include "Components/SkeletalMeshComponent.h"
@@ -64,7 +65,7 @@ void AHangingBellM09::SweepClawContact(int32 Side,bool ResetPrevious)
  for(const FHitResult& Hit:Hits)
  {
   APawn* Victim=Cast<APawn>(Hit.GetActor());
-  if(!IsValid(Victim)||!Victim->IsPlayerControlled()||HitVictims.Contains(Victim))continue;
+  if(!IsValid(Victim)||!MonsterTargeting::IsOpponentPawn(Victim)||HitVictims.Contains(Victim))continue;
   if(auto* HealthComponent=Victim->FindComponentByClass<UFPSCombatHealthComponent>();HealthComponent&&HealthComponent->IsDead())continue;
   if(!HasAttackSight(Victim))continue;
   const FVector Point=Hit.bStartPenetrating?Center:Hit.ImpactPoint;

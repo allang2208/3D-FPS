@@ -91,7 +91,7 @@ def anchor(mat,name,key):
     tag=TAG+key
     n=next((n for n in L.get_material_expressions(mat) if str(n.get_editor_property('desc'))==tag),None)
     source=output(mat,name)
-    if n and str(source[0].get_editor_property('desc')).startswith(TAG):return n
+    if n and str(source[0].get_editor_property('desc')).startswith((TAG,'OldChapel.')):return n
     n=n or node(mat,u.MaterialExpressionReroute,key);wire(source,n,'Input');return n
 
 def apply_grass(mat):
@@ -211,6 +211,10 @@ return normalize(lerp(Base,wetTangent,Mask));
         wire(spec,anchor_pin,'Input');spec=anchor_pin
     # UE's dielectric specular scalar of .25 corresponds to water F0 near .02.
     new['SPECULAR']=custom(mat,'GroundSpecular','return lerp(Dry,.25,Mask);',{'Dry':spec,'Mask':mask})
+    if mat.get_path_name().split('.')[0]=='/Game/WorldGeneration/TemperateHills/PebbleShore/M_PebbleShoreGround':
+        import runpy
+        chapel=runpy.run_path(str(Path(__file__).with_name('OldChapel')/'chapel_ground_materials.py'))
+        new=chapel['road_layer'](mat,new)
     if outputs:
         return {**outputs,**new}
     for name,value in new.items():connect(mat,name,value)
@@ -303,20 +307,26 @@ return lerp(distant,Scan.rgb*wet,Mask);
         'AMBIENT_OCCLUSION':custom(mat,'UplandAO','return lerp(Base,lerp(1.,Packed.r,.82),Mask);',
             {'Base':base['AMBIENT_OCCLUSION'],'Packed':packed,'Mask':mask})}
 
-def rainforest_floor(mat,base,p,weather,habitat,vertex,normal):
-    """Living grass and moss on land. Wet hollows expose the jungle litter scan.
-
-    Reuse shared wrap samplers and branch before fetching outside the pocket.
-    All three maps share translated stochastic tiles; normals are never rotated.
-    """
-    gate=custom(mat,'MossCoverage','''
-// UV1.x is written by the terrain using the saved seed and trail exclusion.
-// The land cover does not depend on a weather actor publishing an MPC first.
-return smoothstep(0,.90,Habitat.x)*smoothstep(.72,.88,N.z)*(1-smoothstep(.12,.80,Bank.r));
-''',{'Habitat':habitat,'N':normal,'Bank':vertex})
-    hollow=custom(mat,'CarpetWetHollow','return smoothstep(.64,1.,Habitat.y)*lerp(.42,1.,saturate(Weather.x));',
-        {'Habitat':habitat,'Weather':weather})
-    uv=custom(mat,'MossUV','return P.xy/100.0+float2(.317,.739);',{'P':p},2)
+def rainforest_samples(mat,uv,gate,hollow,habitat,vertex):
+    # A shared world-space mask controls all three scans. Tile hashes offset
+    # texture coordinates only; a single triangle cannot invent a moss island.
+    field=''
+    for name,coords in [('a','UV*.060'),('b','float2(.8*UV.x-.6*UV.y,.6*UV.x+.8*UV.y)*.175+13.4')]:
+        field+=f'''
+float2 {name}Q={coords}, {name}I=floor({name}Q), {name}F=frac({name}Q);
+{name}F={name}F*{name}F*(3.-2.*{name}F);
+uint4 {name}X=asuint(int({name}I.x))+uint4(0u,1u,0u,1u);
+uint4 {name}Y=asuint(int({name}I.y))+uint4(0u,0u,1u,1u);
+uint4 {name}Hash=({name}X*0x9e3779b9u)^({name}Y*0x85ebca6bu);
+{name}Hash^={name}Hash>>16u; {name}Hash*=0x7feb352du;
+{name}Hash^={name}Hash>>15u; {name}Hash*=0x846ca68bu;
+{name}Hash^={name}Hash>>16u;
+float4 {name}H=float4({name}Hash&0x00ffffffu)*(1./16777216.);
+float {name}V=lerp(lerp({name}H.x,{name}H.y,{name}F.x),lerp({name}H.z,{name}H.w,{name}F.x),{name}F.y);
+'''
+    stand=custom(mat,'MossStand',field+'''
+return smoothstep(.54,.74,.70*aV+.30*bV+.10*saturate(1.-Alpha)+.08*saturate(Habitat.y));
+''',{'UV':uv,'Alpha':(vertex,'A'),'Habitat':habitat})
     def texture_object(family,prefix,suffix,sampler):
         texture=u.load_asset(prefix+suffix)
         if not texture:raise RuntimeError('Missing rainforest scan '+prefix+suffix)
@@ -339,34 +349,48 @@ if(f.x+f.y<=1)
 {id0=cell;id1=cell+float2(1,0);id2=cell+float2(0,1);w=float3(1-f.x-f.y,f.x,f.y);}
 else
 {id0=cell+1;id1=cell+float2(0,1);id2=cell+float2(1,0);w=float3(f.x+f.y-1,1-f.x,1-f.y);}
-w=w*w;w=w*w;w/=max(dot(w,float3(1,1,1)),.00001);
+w=w*w;w/=max(dot(w,float3(1,1,1)),.00001);
 float4 result=0;
 '''
-        # Select one physical scan per lattice vertex. Neighbouring triangles
-        # share that vertex. The same three fetches blend moss and leaf litter.
+        # Preserve the scan scales. Only mixed habitat samples need both scans.
         for i in range(3):
             code+=f'''
 {{
     float2 id=id{i};
     float2 offset=frac(sin(float2(dot(id,float2(127.1,311.7)),dot(id,float2(269.5,183.3))))*43758.5453);
-    float mossChance=.18+.06*sin(dot(id,float2(.19,.27)));
-    float4 texel;
-    [branch] if(offset.x<mossChance)
-    {{
-        texel=Texture2DSampleGrad(Tex,GetMaterialSharedSampler(TexSampler,Material.Wrap_WorldGroupSettings),UV+offset*8,gx,gy);
-    }}
-    else
-        texel=Texture2DSampleGrad(Carpet,GetMaterialSharedSampler(CarpetSampler,Material.Wrap_WorldGroupSettings),UV*.5+offset*8,gx*.5,gy*.5);
+    float4 carpet=0,moss=0;
+    [branch] if(Stand<1.)
+        carpet=Texture2DSampleGrad(Carpet,GetMaterialSharedSampler(CarpetSampler,Material.Wrap_WorldGroupSettings),UV*.5+offset*8,gx*.5,gy*.5);
+    [branch] if(Stand>0.)
+        moss=Texture2DSampleGrad(Tex,GetMaterialSharedSampler(TexSampler,Material.Wrap_WorldGroupSettings),UV+offset*8,gx,gy);
+    float4 texel=lerp(carpet,moss,Stand);
     [branch] if(WetHollow>.01)
         texel=lerp(texel,Texture2DSampleGrad(Jungle,GetMaterialSharedSampler(JungleSampler,Material.Wrap_WorldGroupSettings),UV*.5+offset*8,gx*.5,gy*.5),WetHollow*.89);
     result+=w[{i}]*{'UnpackNormalMap(texel)' if is_normal else 'texel'};
 }}
 '''
         code+=('return float4(normalize(result.xyz),1);' if is_normal else 'return result;')
-        return custom(mat,'MossSample'+suffix,code,{'Tex':tex,'Jungle':jungle,'Carpet':carpet,'UV':uv,'Gate':gate,'WetHollow':hollow},4)
+        return custom(mat,'MossSample'+suffix,code,{'Tex':tex,'Jungle':jungle,'Carpet':carpet,'UV':uv,'Gate':gate,'WetHollow':hollow,'Stand':stand},4)
     color=sample('BaseColor',u.MaterialSamplerType.SAMPLERTYPE_COLOR)
     n=sample('Normal',u.MaterialSamplerType.SAMPLERTYPE_NORMAL,True)
     packed=sample('ARH',u.MaterialSamplerType.SAMPLERTYPE_MASKS)
+    return color,n,packed
+
+def rainforest_floor(mat,base,p,weather,habitat,vertex,normal):
+    """Living grass and moss on land. Wet hollows expose the jungle litter scan.
+
+    Reuse shared wrap samplers and branch before fetching outside the pocket.
+    All three maps share translated stochastic tiles; normals are never rotated.
+    """
+    gate=custom(mat,'MossCoverage','''
+// UV1.x is written by the terrain using the saved seed and trail exclusion.
+// The land cover does not depend on a weather actor publishing an MPC first.
+return smoothstep(0,.90,Habitat.x)*smoothstep(.72,.88,N.z)*(1-smoothstep(.12,.80,Bank.r));
+''',{'Habitat':habitat,'N':normal,'Bank':vertex})
+    hollow=custom(mat,'CarpetWetHollow','return smoothstep(.64,1.,Habitat.y)*lerp(.42,1.,saturate(Weather.x));',
+        {'Habitat':habitat,'Weather':weather})
+    uv=custom(mat,'MossUV','return P.xy/100.0+float2(.317,.739);',{'P':p},2)
+    color,n,packed=rainforest_samples(mat,uv,gate,hollow,habitat,vertex)
     mask=custom(mat,'MossBlend','''
 // Height breaks up only the boundary: the interior fully replaces pale dry soil.
 return saturate(Gate+Gate*(1-Gate)*(Packed.b-.5)*1.6);

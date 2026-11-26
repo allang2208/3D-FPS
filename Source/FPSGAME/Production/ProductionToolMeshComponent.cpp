@@ -11,7 +11,7 @@ void UProductionToolMeshComponent::FinalizeBoneTransform()
     {
         const auto& Ref=Asset->GetRefSkeleton();const TArray<FTransform> Source=Pose;
         // Authored hammer-head bottom marker in the unchanged native WPN frame.
-        const FVector Head=Source[Weapon].TransformPosition(WarhammerHeavy::HeadMarker);
+        const FVector Head=Source[Weapon].TransformPosition(FloorMarker);
         const FVector Target=GetComponentTransform().InverseTransformPosition(FloorPoint);
         const FVector Delta=(Target-Head)*FMath::Clamp(FloorWeight,0.f,1.f);
         for(int32 I=0;I<Pose.Num();++I)

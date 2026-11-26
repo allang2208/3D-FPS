@@ -1,9 +1,13 @@
 #include "ColdSteelGunAssemblyWidget.h"
+#include "ColdSteelTextToolTip.h"
+#include "../Development/DevelopmentTuningSubsystem.h"
 #include "ColdSteelGunRecipeOptionWidget.h"
+#include "DevelopmentItemPicker.h"
 #include "ColdSteelForgeBoard.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelCraftingResultStyle.h"
 #include "ColdSteelItemTooltipData.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "GunsmithUIStyle.h"
@@ -32,6 +36,7 @@
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
 #include "Components/WidgetSwitcher.h"
+#include "Components/WrapBox.h"
 #include "ImageUtils.h"
 #include "Misc/Paths.h"
 #include "Styling/SlateTypes.h"
@@ -41,13 +46,26 @@ namespace ColdSteelAssemblyPresentation
 {
 void SetText(UTextBlock* Widget,const FString& Value)
 {if(Widget&&Widget->GetText().ToString()!=Value)Widget->SetText(FText::FromString(Value));}
+using ColdSteelCraftingResultStyle::SetBonus;
+using ColdSteelCraftingResultStyle::ScoreColor;
 }
 void UColdSteelGunAssemblyWidget::OpenStation()
-{Notice.Reset();AmmoNotice.Reset();bMaterialsDirty=true;bAmmoDirty=true;SelectedRecipe=System->Recipe().Id;if(!bAmmoPage)LoadMold();Refresh();}
+{
+    Notice.Reset();AmmoNotice.Reset();bMaterialsDirty=true;bAmmoDirty=true;SelectedRecipe=System->Recipe().Id;
+    if(System->Job().bFinished)
+    {
+        bAmmoPage=false;ManufacturingPages->SetActiveWidgetIndex(1);ManufacturingActions->SetActiveWidgetIndex(1);
+        Scroll->ScrollToStart();UpdateManufacturingNavigation();
+    }
+    if(!bAmmoPage)LoadMold();Refresh();
+}
+bool UColdSteelGunAssemblyWidget::CanInteract() const
+{return bInputReady&&Model&&!Model->IsCampfireInventoryPending();}
 void UColdSteelGunAssemblyWidget::SetInputReady(bool bReady)
 {
     if(bInputReady==bReady)return;
     bInputReady=bReady;bAmmoDirty=true;
+    if(!bReady){RecipeChoice->CloseMenu();AmmoChoice->CloseMenu();}
     AmmoPageButton->SetIsEnabled(bReady);GunPageButton->SetIsEnabled(bReady);Refresh();
 }
 void UColdSteelGunAssemblyWidget::LoadMold()
@@ -61,21 +79,32 @@ void UColdSteelGunAssemblyWidget::LoadMold()
 void UColdSteelGunAssemblyWidget::Refresh()
 {
     using ColdSteelAssemblyPresentation::SetText;
+    const bool Pending=Model&&Model->IsCampfireInventoryPending();
+    if(Pending!=bTransactionPending)
+    {
+        bTransactionPending=Pending;bMaterialsDirty=bAmmoDirty=true;
+        if(Pending){RecipeChoice->CloseMenu();AmmoChoice->CloseMenu();}
+    }
+    AmmoPageButton->SetIsEnabled(CanInteract());GunPageButton->SetIsEnabled(CanInteract());
     if(bAmmoPage){RefreshAmmoCard();return;}
     if(!System||!Model||!ActionButton)return;
     const auto& R=System->Recipe();const auto& J=System->Job();const bool Paid=!J.Id.IsEmpty();
+    const bool Free=Paid?J.bMaterialsWaived:UDevelopmentTuningSubsystem::IsFreeCrafting(Model);
     if(SelectedRecipe!=R.Id){SelectedRecipe=R.Id;bMaterialsDirty=true;LoadMold();}
     if(bMaterialsDirty)
     {
         bMaterialsDirty=false;RefreshProductPreview();
         const int32 Index=System->Catalog().IndexOfByPredicate([&R](const auto& Row){return Row.Id==R.Id;});
-        if(RecipeChoice->GetSelectedIndex()!=Index)RecipeChoice->SetSelectedIndex(Index);
-        SetText(RecipeTitle,R.Id.IsNone()?TEXT("配方未就绪"):FString::Printf(TEXT("%d / %d · %s"),Index+1,System->Catalog().Num(),*System->ProductName()));
-        TArray<FColdSteelCraftingInput> Inputs=R.Inputs;
+        RecipeChoice->SetSelectedOption(R.Id.ToString());
+        const int32 MetalIndex=System->Metals().IndexOfByPredicate([this](const auto& M){return M.Item==System->Metal();});
+        if(MetalChoice->GetSelectedIndex()!=MetalIndex)MetalChoice->SetSelectedIndex(MetalIndex);
+        SetText(RecipeTitle,R.Id.IsNone()?TEXT("旧工件 · ")+System->ProductName():FString::Printf(TEXT("%d / %d · %s"),Index+1,System->Catalog().Num(),*System->ProductName()));
+        TArray<FColdSteelCraftingInput> Inputs;if(!Paid)System->InputsFor(Inputs);
         if(Paid){Inputs.Reset();TMap<FString,int64> PaidMaterials;System->GetPaidMaterials(PaidMaterials);for(const auto& Pair:PaidMaterials)Inputs.Add({Pair.Key,Pair.Value});Inputs.Sort([](const auto& A,const auto& B){return A.Item<B.Item;});}
         EnsureMaterialRows(Inputs.Num());
-        SetText(MaterialQuantityHeader.Get(),Paid?TEXT("已投入"):TEXT("持有 / 需要"));
-        SetText(MaterialSource.Get(),Paid?TEXT("本工件材料已支付 · 继续操作不重复扣除"):TEXT("材料来源 · 背包 + 主仓库"));
+        SetText(Materials,Free?TEXT("免材料制作"):Paid?TEXT("本轮已投入材料"):TEXT("所需材料"));
+        SetText(MaterialQuantityHeader.Get(),Paid?TEXT("已投入"):Free?TEXT("持有 / 本次消耗"):TEXT("持有 / 需要"));
+        SetText(MaterialSource.Get(),Free?TEXT("本轮不扣材料 · 免费工件废弃不返料"):Paid?TEXT("本工件材料已支付 · 继续操作不重复扣除"):TEXT("材料来源 · 背包 + 主仓库"));
         for(int32 I=0;I<MaterialRows.Num();++I)
         {
             auto& Row=MaterialRows[I];const bool Visible=Inputs.IsValidIndex(I);
@@ -83,44 +112,60 @@ void UColdSteelGunAssemblyWidget::Refresh()
             if(!Visible)continue;
             const auto& Cost=Inputs[I];const int64 Owned=Paid?Cost.Count:Model->CountMaterial(Cost.Item);
             SetText(Row.Name.Get(),ColdSteelInventory::Text(Model->CreateItem(Cost.Item),TEXT("name")));
-            SetText(Row.Owned.Get(),FString::Printf(TEXT("%lld"),Owned));SetText(Row.Required.Get(),FString::Printf(TEXT("%lld"),Cost.Count));
-            Row.Owned->SetColorAndOpacity(Owned>=Cost.Count?ColdSteelUI::Success:ColdSteelUI::Danger);
+            SetText(Row.Owned.Get(),FString::Printf(TEXT("%lld"),Owned));SetText(Row.Required.Get(),FString::Printf(TEXT("%lld"),Free?int64(0):Cost.Count));
+            Row.Owned->SetColorAndOpacity(Free||Owned>=Cost.Count?ColdSteelUI::Success:ColdSteelUI::Danger);
             Row.Separator->SetVisibility(Paid?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
             Row.Required->SetVisibility(Paid?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
-            SetText(Row.State.Get(),Paid?TEXT("已投入"):Owned>=Cost.Count?TEXT("充足"):TEXT("不足"));
+            SetText(Row.State.Get(),Free?TEXT("免消耗"):Paid?TEXT("已投入"):Owned>=Cost.Count?TEXT("充足"):TEXT("不足"));
         }
         TArray<FColdSteelCraftingInput> Refund;FString RefundReason;
         bCanDiscard=System->GetDiscardRefund(Refund,RefundReason);
-        if(bCanDiscard)
+        if(bCanDiscard&&RefundReason.IsEmpty())
         {
             TArray<FString> Returned;
             for(const auto& In:Refund)Returned.Add(FString::Printf(TEXT("%s × %lld"),*ColdSteelInventory::Text(Model->CreateItem(In.Item),TEXT("name")),In.Count));
-            RefundReason=Returned.IsEmpty()?TEXT("废弃返还：无（各项材料折半不足 1 个）")
+            RefundReason=J.bMaterialsWaived?TEXT("本轮免材料制作 · 废弃不返料"):Returned.IsEmpty()?TEXT("废弃返还：无（各项材料折半不足 1 个）")
                 :TEXT("废弃返还至背包：")+FString::Join(Returned,TEXT("、"));
         }
         SetText(RefundPreview,RefundReason);
     }
     const bool Active=HUD&&HUD->IsGunAssembly();
-    RefundPreview->SetVisibility(Paid&&J.bFinished&&!Active?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+    RefundPreview->SetVisibility(Paid&&!Active?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
     const float Duration=Paid?J.CalibrationDuration:R.CalibrationDuration;
-    SetText(Stage,J.bFinished?TEXT("组装完成 · ")+System->QualityName(J.Quality):!Paid?TEXT("准备组装"):System->Assembled()?TEXT("持稳校准"):TEXT("组件装配"));
-    SetText(Stats,FString::Printf(TEXT("%d / %d    ·    %.1f / %.1f 秒    ·    %s"),System->InstalledCount(),R.Parts.Num(),J.CalibrationSeconds,Duration,
-        J.bFinished?*FString::Printf(TEXT("%.0f 分"),J.Quality):TEXT("待完成")));
+    const float CalibrationProgress=J.CalibrationVersion>=GunAssemblyCalibration::FirstRoundsVersion?J.CalibrationTime:J.CalibrationSeconds;
+    SetText(Stage,J.bFinished?TEXT("交付成品 · ")+System->QualityName(J.Quality):!Paid?TEXT("准备组装"):System->Assembled()?TEXT("五组跟随校准"):TEXT("组件装配"));
+    SetText(Stats,FString::Printf(TEXT("%d / %d    ·    %.1f / %.1f 秒    ·    "),System->InstalledCount(),Paid?J.PartCount:R.Parts.Num(),CalibrationProgress,Duration));
+    SetText(ScoreValue,J.bFinished?FString::Printf(TEXT("%.0f 分"),J.Quality):TEXT("待完成"));
+    const FLinearColor QualityColor=ColdSteelAssemblyPresentation::ScoreColor(J.Quality);
+    Stage->SetColorAndOpacity(J.bFinished?QualityColor:ColdSteelUI::TextPrimary);
+    ScoreValue->SetColorAndOpacity(J.bFinished?QualityColor:ColdSteelUI::TextTertiary);
     FString Parts;
     for(int32 I=0;I<R.Parts.Num();++I){if(!Parts.IsEmpty())Parts+=TEXT("   ·   ");Parts+=(System->Installed(I)?TEXT("✓ "):TEXT("○ "))+R.Parts[I].Name;}
     SetText(PartsLabel,Parts);
-    SetText(StatLegend,J.bFinished?System->BenefitText(J.Quality):TEXT("拖动对位 → 全部安装 → 持稳校准 → 领取成品"));
-    Timer->SetPercent(J.bFinished?1.f:Paid?(System->InstalledCount()+J.CalibrationSeconds/FMath::Max(.01f,Duration))/FMath::Max(1,R.Parts.Num()+1):0.f);
-    FString Why;const bool Can=J.bFinished||(HUD&&HUD->CanStartGunAssembly(Why)&&(Paid||System->CanStart(Why)));
-    ActionButton->SetIsEnabled(bInputReady&&Can);
-    DiscardButton->SetIsEnabled(bInputReady&&Paid&&J.bFinished&&!Active&&bCanDiscard);
-    RecipeChoice->SetIsEnabled(bInputReady&&!Paid&&System->Catalog().Num()>1);
-    SetText(ActionLabel,J.bFinished?TEXT("领取成品"):Paid?TEXT("继续组装"):TEXT("投入材料并开始"));
-    SetText(Status,!Notice.IsEmpty()?Notice:!Can?Why:J.bFinished?TEXT("领取成品，或废弃返还一半材料；背包需有足够空间。"):Paid?TEXT("离开保留工件与进度 · 可随时继续"):TEXT("每轮制作一把 · 成品不附带弹药"));
+    StatLegend->SetVisibility(Paid?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
+    BonusBreakdownRow->SetVisibility(Paid?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+    if(Paid)
+    {
+        const double Material=System->MaterialBonus(),Assembly=ColdSteelAssemblyQuality::SkillBonus(System->Score());
+        ColdSteelAssemblyPresentation::SetBonus(DamageBonusValue,TEXT("伤害"),Material+Assembly);
+        ColdSteelAssemblyPresentation::SetBonus(MaterialBonusValue,TEXT("材质"),Material);
+        ColdSteelAssemblyPresentation::SetBonus(AssemblyBonusValue,TEXT("装配"),Assembly);
+    }
+    else SetText(StatLegend,FString::Printf(TEXT("材质保底 +%.2f%% → 满分伤害 +%.2f%%"),System->MaterialBonus()*100,(System->MaterialBonus()+ColdSteelAssemblyQuality::MaxSkillBonus)*100));
+    Timer->SetFillColorAndOpacity(J.bFinished?QualityColor:ColdSteelUI::Accent);
+    Timer->SetPercent(J.bFinished?1.f:Paid?(System->InstalledCount()+CalibrationProgress/FMath::Max(.01f,Duration))/FMath::Max(1,J.PartCount+1):0.f);
+    FString Why;const bool Can=J.bFinished||(HUD&&HUD->CanStartGunAssembly(Why)&&(Paid?System->CanResume(Why):System->CanStart(Why)));
+    ActionButton->SetIsEnabled(CanInteract()&&Can);
+    DiscardButton->SetIsEnabled(CanInteract()&&Paid&&!Active&&bCanDiscard);
+    RecipeChoice->SetIsEnabled(CanInteract()&&!Paid&&System->Catalog().Num()>1);
+    MetalChoice->SetIsEnabled(CanInteract()&&!Paid&&System->Metals().Num()>1);
+    SetText(DiscardLabel,J.bFinished?TEXT("废弃成品"):TEXT("取消工件"));
+    SetText(ActionLabel,J.bFinished?TEXT("领取成品"):Paid?TEXT("继续组装"):Free?TEXT("免材料开始组装"):TEXT("投入材料并开始"));
+    SetText(Status,Pending?TEXT("等待服务器确认…"):!Notice.IsEmpty()?Notice:!Can?Why:J.bFinished?(Free?TEXT("可领取成品或直接废弃；本轮免材料，废弃不返料。"):TEXT("领取成品，或废弃返还一半材料；背包需有足够空间。")):Paid?TEXT("离开保留工件与进度 · 可随时继续或取消"):Free?TEXT("免材料制作 · 完成组装与校准后领取 · 成品不附带弹药"):TEXT("每轮制作一把 · 成品不附带弹药"));
 }
 void UColdSteelGunAssemblyWidget::HandleAction()
 {
-    if(!bInputReady||bAmmoPage||!System||!HUD)return;
+    if(!CanInteract()||bAmmoPage||!System||!HUD)return;
     Notice.Reset();
     if(System->Job().bFinished)
     {if(System->Claim(Notice))HUD->SelectGunAssemblyRecipe(System->Recipe().Id);}
@@ -129,18 +174,24 @@ void UColdSteelGunAssemblyWidget::HandleAction()
 }
 void UColdSteelGunAssemblyWidget::HandleDiscard()
 {
-    if(!bInputReady||bAmmoPage||!System||!HUD||HUD->IsGunAssembly())return;
-    const FName RecipeId=System->Recipe().Id;
+    if(!CanInteract()||bAmmoPage||!System||!HUD||HUD->IsGunAssembly())return;
     Notice.Reset();
-    if(System->Discard(Notice))HUD->SelectGunAssemblyRecipe(RecipeId);
+    if(System->Discard(Notice)&&GetWorld()->GetNetMode()!=NM_Client)HUD->SelectGunAssemblyRecipe(System->Recipe().Id);
     bMaterialsDirty=true;SetKeyboardFocus();Refresh();
 }
 void UColdSteelGunAssemblyWidget::HandleClose(){if(HUD)HUD->CloseWorkbench();}
-void UColdSteelGunAssemblyWidget::HandleRecipeSelected(FString Option,ESelectInfo::Type SelectionType)
+void UColdSteelGunAssemblyWidget::HandleMetalSelected(FString Option,ESelectInfo::Type SelectionType)
 {
-    if(SelectionType==ESelectInfo::Direct||bAmmoPage||!System)return;
-    const int32 Index=RecipeChoice->GetSelectedIndex();const auto& Recipes=System->Catalog();
-    if(bInputReady&&Recipes.IsValidIndex(Index)&&HUD&&HUD->SelectGunAssemblyRecipe(Recipes[Index].Id))Notice.Reset();
+    if(SelectionType==ESelectInfo::Direct||!System)return;
+    const int32 Index=MetalChoice->GetSelectedIndex();
+    if(CanInteract()&&!bAmmoPage&&System->Metals().IsValidIndex(Index)&&System->SelectMetal(System->Metals()[Index].Item))Notice.Reset();
+    bMaterialsDirty=true;Refresh();SetKeyboardFocus();
+}
+void UColdSteelGunAssemblyWidget::HandleRecipeSelected(const FString& RecipeId)
+{
+    if(!System)return;
+    if(CanInteract()&&!bAmmoPage&&HUD&&HUD->SelectGunAssemblyRecipe(FName(*RecipeId)))Notice.Reset();
+    else RecipeChoice->SetSelectedOption(System->Recipe().Id.ToString());
     bMaterialsDirty=true;LoadMold();Refresh();
 }
 FReply UColdSteelGunAssemblyWidget::NativeOnMouseButtonDown(const FGeometry& Geometry,const FPointerEvent& Event)
@@ -238,14 +289,34 @@ void UColdSteelGunAssemblyWidget::NativeOnInitialized()
     auto* RecipeCard=Card(Content);
     auto* RecipeCaption=Text(TEXT("配方 · 工件"),12);RecipeCaption->SetColorAndOpacity(ColdSteelUI::TextTertiary);Space(RecipeCard->AddChildToVerticalBox(RecipeCaption),FMargin(0,0,0,4));
     RecipeTitle=Text(TEXT("—"),16,false,true);Space(RecipeCard->AddChildToVerticalBox(RecipeTitle),FMargin(0,0,0,8));
-    RecipeChoice=WidgetTree->ConstructWidget<UComboBoxString>();
-    RecipeChoice->OnGenerateWidgetEvent.BindDynamic(this,&ThisClass::GenerateRecipeOption);
+    RecipeChoice=WidgetTree->ConstructWidget<UDevelopmentItemPicker>();
+    RecipeChoice->SetPhysicalFontSizes(true);
+    TArray<FColdSteelCatalogEntry> RecipeOptions;
     for(const auto& Recipe:System->Catalog())
-        RecipeChoice->AddOption(ColdSteelInventory::Text(Model->CreateItem(Recipe.Output),TEXT("name")));
+    {
+        const auto Item=Model->CreateItem(Recipe.Output);FColdSteelCatalogEntry Entry;
+        Entry.Definition=Recipe.Id.ToString();Entry.Name=ColdSteelInventory::Text(Item,TEXT("name"));
+        Entry.Group=ColdSteelInventory::Text(Item,TEXT("weaponTypeTag"));if(Entry.Group.IsEmpty())Entry.Group=TEXT("其他枪械");
+        Entry.GroupOrder=Entry.Group==TEXT("手枪")?0:Entry.Group==TEXT("左轮手枪")?1:Entry.Group==TEXT("突击步枪")?2:
+            Entry.Group==TEXT("霰弹枪")?3:Entry.Group==TEXT("狙击步枪")?4:Entry.Group==TEXT("轻机枪")?5:6;
+        RecipeOptions.Add(MoveTemp(Entry));
+    }
+    RecipeOptions.StableSort([](const auto& A,const auto& B){return A.GroupOrder==B.GroupOrder?A.Group<B.Group:A.GroupOrder<B.GroupOrder;});
+    RecipeChoice->SetOptions(RecipeOptions,System->Recipe().Id.ToString(),true);
     RecipeChoice->OnSelectionChanged.AddDynamic(this,&ThisClass::HandleRecipeSelected);
-    RecipeChoice->SetToolTipText(FText::FromString(TEXT("选择枪械配方；当前工件领取后可以更换。")));
+    ColdSteelToolTip::Set(*RecipeChoice, FText::FromString(TEXT("按枪械类别选择配方；当前工件领取或取消后可以更换。")));
     auto* ChoiceSize=WidgetTree->ConstructWidget<USizeBox>();ChoiceSize->SetContent(RecipeChoice);ButtonSizes.Add(ChoiceSize);
     Space(RecipeCard->AddChildToVerticalBox(ChoiceSize),FMargin(0,0,0,8));
+    auto* MetalCaption=Text(TEXT("金属材质 · 决定伤害保底"),12);MetalCaption->SetColorAndOpacity(ColdSteelUI::TextTertiary);
+    Space(RecipeCard->AddChildToVerticalBox(MetalCaption),FMargin(0,0,0,4));
+    MetalChoice=WidgetTree->ConstructWidget<UComboBoxString>();
+    MetalChoice->OnGenerateWidgetEvent.BindDynamic(this,&ThisClass::GenerateRecipeOption);
+    for(const auto& Metal:System->Metals())MetalChoice->AddOption(FString::Printf(TEXT("%s · 保底 +%.0f%%"),
+        *ColdSteelInventory::Text(Model->CreateItem(Metal.Item.ToString()),TEXT("name")),Metal.Bonus*100));
+    MetalChoice->OnSelectionChanged.AddDynamic(this,&ThisClass::HandleMetalSelected);
+    ColdSteelToolTip::Set(*MetalChoice, FText::FromString(TEXT("开始时锁定所选金属和保底；装配与校准最高再增加 15% 伤害。")));
+    auto* MetalSize=WidgetTree->ConstructWidget<USizeBox>();MetalSize->SetContent(MetalChoice);ButtonSizes.Add(MetalSize);
+    Space(RecipeCard->AddChildToVerticalBox(MetalSize),FMargin(0,0,0,8));
     Materials=Text(TEXT("所需材料"),14,false,true);Space(RecipeCard->AddChildToVerticalBox(Materials),FMargin(0,0,0,4));
     auto* Source=Text(TEXT("材料来源 · 背包 + 主仓库"),12);Source->SetColorAndOpacity(ColdSteelUI::TextTertiary);MaterialSource=Source;
     Space(RecipeCard->AddChildToVerticalBox(Source),FMargin(0,0,0,4));
@@ -255,12 +326,17 @@ void UColdSteelGunAssemblyWidget::NativeOnInitialized()
     for(auto* Label:{NameHeader,QuantityHeader,StateHeader}){Label->SetColorAndOpacity(ColdSteelUI::TextSecondary);Label->SetAutoWrapText(false);}
     AddMaterialCell(NameHeader,0,0);AddMaterialCell(QuantityHeader,0,1);AddMaterialCell(StateHeader,0,2);
     int32 MaterialRowCount=0;
-    for(const auto& Recipe:System->Catalog())MaterialRowCount=FMath::Max(MaterialRowCount,Recipe.Inputs.Num());
+    for(const auto& Recipe:System->Catalog())MaterialRowCount=FMath::Max(MaterialRowCount,Recipe.Inputs.Num()+1);
     EnsureMaterialRows(MaterialRowCount);
     auto* StateCard=Card(Content);
     Stage=Text(TEXT("准备组装"),16,false,true);Space(StateCard->AddChildToVerticalBox(Stage),FMargin(0,0,0,8));
-    Stats=Text(TEXT(""),16,true);Space(StateCard->AddChildToVerticalBox(Stats),FMargin(0,0,0,4));
-    StatLegend=Text(TEXT("已装组件   /   持稳校准   /   工艺评分"),12);StatLegend->SetColorAndOpacity(ColdSteelUI::TextTertiary);StateCard->AddChildToVerticalBox(StatLegend);
+    auto* StatsRow=WidgetTree->ConstructWidget<UHorizontalBox>();Space(StateCard->AddChildToVerticalBox(StatsRow),FMargin(0,0,0,4));
+    Stats=Text(TEXT(""),16,true);StatsRow->AddChildToHorizontalBox(Stats)->SetVerticalAlignment(VAlign_Center);
+    ScoreValue=Text(TEXT("待完成"),16,true);StatsRow->AddChildToHorizontalBox(ScoreValue)->SetVerticalAlignment(VAlign_Center);
+    StatLegend=Text(TEXT("已装组件   /   校准进度   /   工艺评分"),12);StatLegend->SetColorAndOpacity(ColdSteelUI::TextTertiary);StateCard->AddChildToVerticalBox(StatLegend);
+    BonusBreakdownRow=WidgetTree->ConstructWidget<UWrapBox>();StateCard->AddChildToVerticalBox(BonusBreakdownRow);
+    DamageBonusValue=Text(TEXT(""),12);MaterialBonusValue=Text(TEXT(""),12);AssemblyBonusValue=Text(TEXT(""),12);
+    for(UTextBlock* Value:{DamageBonusValue.Get(),MaterialBonusValue.Get(),AssemblyBonusValue.Get()})BonusBreakdownRow->AddChildToWrapBox(Value);
     PartsLabel=Text(TEXT(""),12);PartsLabel->SetAutoWrapText(true);PartsLabel->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(StateCard->AddChildToVerticalBox(PartsLabel),FMargin(0,8,0,0));
     RefundPreview=Text(TEXT(""),12);RefundPreview->SetAutoWrapText(true);RefundPreview->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(StateCard->AddChildToVerticalBox(RefundPreview),FMargin(0,8,0,0));
     Timer=WidgetTree->ConstructWidget<UProgressBar>();Timer->SetFillColorAndOpacity(ColdSteelUI::Accent);
@@ -284,8 +360,8 @@ void UColdSteelGunAssemblyWidget::NativeOnInitialized()
     PreviewScope=Text(TEXT(""),12);PreviewScope->SetAutoWrapText(true);PreviewScope->SetColorAndOpacity(ColdSteelUI::TextTertiary);
     Space(ParameterContent->AddChildToVerticalBox(PreviewScope),FMargin(0,12,0,0));
     auto* Instructions=Card(Content);Space(Instructions->AddChildToVerticalBox(Text(TEXT("操作说明"),16,false,true)),FMargin(0,0,0,8));
-    auto* DragHelp=Text(TEXT("按住左键拿取组件，拖到枪身轮廓；滚轮或 Q / R 调整朝向，松开左键安装。"),14);DragHelp->SetAutoWrapText(true);Space(Instructions->AddChildToVerticalBox(DragHelp),FMargin(0,0,0,8));
-    auto* Help=Text(TEXT("Tab 选择下一件 · 右键放回 · 全部装好后按住左键持稳校准 · Esc 保存并返回\n成品可领取或直接废弃。废弃返还一半投入材料至背包，每种材料的零头向下取整。"),12);Help->SetAutoWrapText(true);
+    auto* DragHelp=Text(TEXT("按住左键拿取组件，对准明亮安装圈；长按 Q / E 连续旋转，滚轮微调，松开左键安装。"),14);DragHelp->SetAutoWrapText(true);Space(Instructions->AddChildToVerticalBox(DragHelp),FMargin(0,0,0,8));
+    auto* Help=Text(TEXT("Tab 选择下一件 · 长按 Q / E 旋转 · 滚轮微调 · 右键放回\n装好后校准 34 秒：准备 1 秒，5 组各跟随 5 秒，组间休息 2 秒。按住左键跟随变径圆圈；出圈或松开仍计时。结束自动进入交付，Esc 保存并返回。\n废弃返还一半实际材料，逐项向下取整；免材料工件不返料。"),12);Help->SetAutoWrapText(true);
     Help->SetColorAndOpacity(ColdSteelUI::TextSecondary);Instructions->AddChildToVerticalBox(Help);
     Footer=WidgetTree->ConstructWidget<UBorder>();Footer->SetBrushColor(ColdSteelUI::HeaderTint);Stack->AddChildToVerticalBox(Footer);
     ManufacturingActions=WidgetTree->ConstructWidget<UWidgetSwitcher>();Footer->SetContent(ManufacturingActions);
@@ -297,8 +373,8 @@ void UColdSteelGunAssemblyWidget::NativeOnInitialized()
     auto* Actions=WidgetTree->ConstructWidget<UHorizontalBox>();Foot->AddChildToVerticalBox(Actions);
     UTextBlock* NewActionLabel=nullptr;ActionButton=Button(TEXT("开始组装"),NewActionLabel);ActionLabel=NewActionLabel;ActionButton->OnClicked.AddDynamic(this,&ThisClass::HandleAction);
     auto* ActionSize=WidgetTree->ConstructWidget<USizeBox>();ActionSize->SetContent(ActionButton);ButtonSizes.Add(ActionSize);Actions->AddChildToHorizontalBox(ActionSize)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-    UTextBlock* DiscardLabel=nullptr;DiscardButton=Button(TEXT("废弃 · 返还一半"),DiscardLabel);DiscardButton->OnClicked.AddDynamic(this,&ThisClass::HandleDiscard);
-    DiscardButton->SetToolTipText(FText::FromString(TEXT("直接废弃未领取的成品，返还一半投入材料至背包（逐项向下取整）。背包空间不足时保留成品。")));
+    UTextBlock* NewDiscardLabel=nullptr;DiscardButton=Button(TEXT("取消工件"),NewDiscardLabel);DiscardLabel=NewDiscardLabel;DiscardButton->OnClicked.AddDynamic(this,&ThisClass::HandleDiscard);
+    ColdSteelToolTip::Set(*DiscardButton, FText::FromString(TEXT("取消工件或废弃未领取成品，按上方预览返还一半实际投入材料；免材料工件不返料。背包放不下返料时保留工件。")));
     auto* DiscardSize=WidgetTree->ConstructWidget<USizeBox>();DiscardSize->SetContent(DiscardButton);ButtonSizes.Add(DiscardSize);DiscardActionSlot=Actions->AddChildToHorizontalBox(DiscardSize);DiscardActionSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     UpdateScale();LoadMold();Refresh();
 }
@@ -306,11 +382,26 @@ void UColdSteelGunAssemblyWidget::NativeOnInitialized()
 void UColdSteelGunAssemblyWidget::NativeConstruct()
 {
     Super::NativeConstruct();if(Model&&!ChangedHandle.IsValid())ChangedHandle=Model->OnChanged.AddWeakLambda(this,[this]{bMaterialsDirty=true;bAmmoDirty=true;});
+    if(System&&!AssemblyResultHandle.IsValid())AssemblyResultHandle=System->OnNetworkResult.AddWeakLambda(this,[this](const FString& Mode,bool Success,const FString& Reason)
+    {
+        Notice=Reason;bMaterialsDirty=bAmmoDirty=true;
+        if(HUD&&(Mode==TEXT("assembly.start")||Mode==TEXT("assembly.resume")))HUD->GunAssemblyStartFinished(Success);
+        if(Success&&HUD&&(Mode==TEXT("assembly.claim")||Mode==TEXT("assembly.discard")))HUD->SelectGunAssemblyRecipe(System->Recipe().Id);
+        Refresh();
+    });
+    if(Crafting&&!AmmoResultHandle.IsValid())AmmoResultHandle=Crafting->OnNetworkResult.AddWeakLambda(this,[this](FName Recipe,bool Success,const FString& Reason)
+    {
+        if(!Crafting->IsAmmoRecipe(Recipe))return;
+        AmmoNotice=Reason;bAmmoDirty=bMaterialsDirty=true;Refresh();
+    });
 }
 
 void UColdSteelGunAssemblyWidget::NativeDestruct()
 {
     if(Model&&ChangedHandle.IsValid()){Model->OnChanged.Remove(ChangedHandle);ChangedHandle.Reset();}
+    if(System&&AssemblyResultHandle.IsValid()){System->OnNetworkResult.Remove(AssemblyResultHandle);AssemblyResultHandle.Reset();}
+    if(Crafting&&AmmoResultHandle.IsValid()){Crafting->OnNetworkResult.Remove(AmmoResultHandle);AmmoResultHandle.Reset();}
+    if(RecipeChoice)RecipeChoice->CloseMenu();if(AmmoChoice)AmmoChoice->CloseMenu();
     Super::NativeDestruct();
 }
 
@@ -320,11 +411,19 @@ void UColdSteelGunAssemblyWidget::RefreshProductPreview()
     const auto* Recipe=&System->Recipe();
     const auto& Job=System->Job();
     const bool HasJob=!Job.Id.IsEmpty();
-    const FColdSteelItem Item=HasJob?Job.Item:Recipe?Model->CreateItem(Recipe->Output):FColdSteelItem{};
+    FColdSteelItem Item=HasJob?Job.Item:Recipe?Model->CreateItem(Recipe->Output):FColdSteelItem{};
+    if(HasJob)ColdSteelAssemblyQuality::Apply(Item,Job);
+    else if(const auto* Metal=System->FindMetal(System->Metal()))
+    {
+        FColdSteelGunAssemblyJob Preview;Preview.QualityVersion=ColdSteelAssemblyQuality::Version;
+        Preview.Metal=Metal->Item;Preview.MaterialBonus=Metal->Bonus;
+        Preview.MaterialName=ColdSteelInventory::Text(Model->CreateItem(Metal->Item.ToString()),TEXT("name"));
+        ColdSteelAssemblyQuality::Apply(Item,Preview);
+    }
     const auto Data=Item.Data.IsEmpty()?FColdSteelTooltipContent{}:
         BuildColdSteelItemTooltip(Item,Model,GetGameInstance()->GetSubsystem<UGunsmithSystem>());
     SetText(PreviewName,Data.Name.IsEmpty()?TEXT("暂无成品参数"):Data.Name);
-    SetText(PreviewStage,HasJob&&Job.bFinished?TEXT("成品实际参数 · 已计装配品质"):TEXT("配方基础参数 · 未计装配品质"));
+    SetText(PreviewStage,HasJob?(Job.bFinished?TEXT("成品实际参数 · 已计工艺伤害"):TEXT("当前工件参数 · 已计工艺伤害")):TEXT("材质保底参数 · 未计装配提升"));
     SetText(PreviewScope,Data.ValueScope);
     while(PreviewRows.Num()<Data.Summary.Num())
     {
@@ -352,31 +451,31 @@ void UColdSteelGunAssemblyWidget::RefreshProductPreview()
 void UColdSteelGunAssemblyWidget::UpdateScale()
 {
     const float NewScale=ColdSteelUI::PixelScale(this);if(FMath::IsNearlyEqual(Scale,NewScale,.001f))return;Scale=FMath::Max(.1f,NewScale);
+    BonusBreakdownRow->SetInnerSlotPadding(FVector2D(12/Scale,4/Scale));
     for(const auto& L:Labels)if(auto* T=L.Widget.Get())T->SetFont(L.Numeric?GunsmithUI::NumberFont(L.Pixels/Scale,L.Medium):GunsmithUI::TextFont(L.Pixels/Scale,L.Medium));
     for(const auto& Option:RecipeOptionWidgets)if(auto* Widget=Option.Get())Widget->SetPixelScale(Scale);
     for(const auto& W:Buttons)if(auto* B=W.Get()){B->SetStyle(ColdSteelUI::ButtonStyle(Scale));if(auto* ButtonSlot=Cast<UButtonSlot>(B->GetContent()->Slot))ButtonSlot->SetPadding(FMargin(12/Scale,4/Scale));}
     for(const auto& W:ButtonSizes)if(auto* S=W.Get())S->SetHeightOverride(ColdSteelUI::ActionHeight/Scale);
     CloseSize->SetWidthOverride(ColdSteelUI::ActionHeight/Scale);
     DiscardActionSlot->SetPadding(FMargin(ColdSteelUI::ActionGap/Scale,0,0,0));
-    auto ComboStyle=RecipeChoice->GetWidgetStyle();auto ComboButton=ComboStyle.ComboButtonStyle;
+    RecipeChoice->SetPixelScale(Scale);AmmoChoice->SetPixelScale(Scale);
+    auto ComboStyle=MetalChoice->GetWidgetStyle();auto ComboButton=ComboStyle.ComboButtonStyle;
     ComboButton.SetButtonStyle(ColdSteelUI::ButtonStyle(Scale));
     ComboButton.SetMenuBorderBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(25,252),ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1/Scale));
     ComboButton.DownArrowImage.ImageSize=FVector2D(8/Scale,8/Scale);
     ComboButton.SetDownArrowPadding(FMargin(4/Scale,0,0,0));ComboButton.SetShadowOffset(FVector2D::ZeroVector);
-    ComboStyle.SetComboButtonStyle(ComboButton);RecipeChoice->SetWidgetStyle(ComboStyle);
-    RecipeChoice->SetContentPadding(FMargin(22/Scale,4/Scale,10/Scale,4/Scale));
-    RecipeChoice->SetMaxListHeight(240/Scale);
-    auto ItemStyle=RecipeChoice->GetItemStyle();
+    ComboStyle.SetComboButtonStyle(ComboButton);
+    auto ItemStyle=MetalChoice->GetItemStyle();
     ItemStyle.SetEvenRowBackgroundBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content,ColdSteelUI::ButtonRadius/Scale));
     ItemStyle.SetOddRowBackgroundBrush(ItemStyle.EvenRowBackgroundBrush);
     ItemStyle.SetEvenRowBackgroundHoveredBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover,ColdSteelUI::ButtonRadius/Scale));
     ItemStyle.SetOddRowBackgroundHoveredBrush(ItemStyle.EvenRowBackgroundHoveredBrush);
     ItemStyle.SetActiveBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover,ColdSteelUI::ButtonRadius/Scale,ColdSteelUI::Accent,1/Scale));
-    ItemStyle.SetInactiveBrush(ItemStyle.ActiveBrush);RecipeChoice->SetItemStyle(ItemStyle);
-    if(AmmoChoice)
+    ItemStyle.SetInactiveBrush(ItemStyle.ActiveBrush);
+    for(auto* Choice:{MetalChoice.Get()})if(Choice)
     {
-        AmmoChoice->SetWidgetStyle(ComboStyle);AmmoChoice->SetItemStyle(ItemStyle);
-        AmmoChoice->SetContentPadding(FMargin(22/Scale,4/Scale,10/Scale,4/Scale));AmmoChoice->SetMaxListHeight(240/Scale);
+        Choice->SetWidgetStyle(ComboStyle);Choice->SetItemStyle(ItemStyle);
+        Choice->SetContentPadding(FMargin(22/Scale,4/Scale,10/Scale,4/Scale));Choice->SetMaxListHeight(240/Scale);
     }
     // Symmetric padding keeps the two visible halves equally wide.
     if(auto* LeftSlot=Cast<UHorizontalBoxSlot>(Board->Slot))LeftSlot->SetPadding(FMargin(0,0,4/Scale,0));

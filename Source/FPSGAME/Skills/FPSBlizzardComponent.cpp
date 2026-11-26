@@ -1,4 +1,6 @@
 #include "FPSBlizzardComponent.h"
+#include "../Monsters/UnknownSpellCombat.h"
+#include "PlayerSkillPreparation.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "FPSBlizzardZone.h"
 #include "BlizzardEnvironment.h"
@@ -35,19 +37,21 @@ void UFPSBlizzardComponent::BeginPlay()
     if(auto* Sword=GetOwner()->FindComponentByClass<URuneSwordComponent>())AddTickPrerequisiteComponent(Sword);
     const TCHAR* const* Paths=AFPSBlizzardZone::ZoneAssetPaths(); // 与远端副本自载共用同一张清单
     TArray<FSoftObjectPath> Requests;for(int32 I=0;I<AFPSBlizzardZone::AssetCount;++I)Requests.Emplace(Paths[I]);
-    AssetLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Requests,FStreamableDelegate::CreateWeakLambda(this,[this,Requests]()
+    PlayerSkillAssets::Defer(GetOwner(),TEXT("blizzard"),FSimpleDelegate::CreateWeakLambda(this,[this,Requests]()
     {
+        Assets.Reset();
         for(const auto& Path:Requests)Assets.Add(Path.ResolveObject());
-        bAssetsReady=Assets.Num()==AFPSBlizzardZone::AssetCount&&Assets[11]&&Assets[12]&&AFPSBlizzardZone::HasBasicAssets(Assets);
-    }));
+        bAssetsReady=AFPSBlizzardZone::HasBasicAssets(Assets)&&Assets[11]&&Assets[12];
+    }),Requests);
 }
 UColdSteelStatusModel* UFPSBlizzardComponent::Model() const
-{return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
+{return NetCast::LocalModel(*this);}
 UFPSFireballComponent* UFPSBlizzardComponent::Hands() const{return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
-bool UFPSBlizzardComponent::InputAvailable() const
+bool UFPSBlizzardComponent::InputAvailable(bool bContinuing) const
 {
     const auto* P=Cast<AFPSGAMECharacter>(GetOwner());const auto* PC=P?Cast<APlayerController>(P->GetController()):nullptr;
-    if(!PC||PC->bShowMouseCursor||PC->IsMoveInputIgnored()||PC->IsLookInputIgnored()||AFPSGAMEPlayerController::BlocksOngoingActions(PC)||P->IsChoosingAmmo())return false;
+    if(!PC||P->IsChoosingAmmo()||(bContinuing?AFPSGAMEPlayerController::BlocksActionContinuation(PC):
+        (PC->bShowMouseCursor||AFPSGAMEPlayerController::BlocksOngoingActions(PC))))return false;
     const auto* Builder=PC->FindComponentByClass<UVoxelBuildComponent>();return !Builder||!Builder->IsBuilding();
 }
 void UFPSBlizzardComponent::Feedback(const FString& Text){Message=Text;MessageUntil=GetWorld()->GetTimeSeconds()+1.6;}
@@ -98,6 +102,8 @@ void UFPSBlizzardComponent::Trigger()
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();
     if(!P||!M||!P->IsLocallyControlled()||!InputAvailable())return;
     if(const auto* Health=P->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
+    if(M->BlizzardDefinition().Blizzard.bRequiresStaff&&!M->HasEquippedStaff())
+    {CancelPending();Feedback(TEXT("需要法杖"));return;}
     if(const auto* H=Hands();H&&H->HasOtherPreparedSpell(this))
     {bQueued=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
     if(P->IsSpellHandHeld()){bQueued=false;HandNotice.Show(GetWorld()->GetTimeSeconds());return;}
@@ -117,6 +123,8 @@ void UFPSBlizzardComponent::ServiceQueue()
     if(bNetAwaitingRelease||bNetAwaitingCancel)return;
     if(!bQueued&&!bReleaseRequested)return;
     auto* P=Cast<AFPSGAMECharacter>(GetOwner());auto* M=Model();auto* H=Hands();if(!P||!M||!H)return;
+    if((bCommitted?CastSnapshot.bRequiresStaff:M->BlizzardDefinition().Blizzard.bRequiresStaff)&&!M->HasEquippedStaff())
+    {CancelPending();Feedback(TEXT("需要法杖"));return;}
     if(H->HasOtherPreparedSpell(this)){bQueued=bReleaseRequested=false;Feedback(TEXT("先释放已积蓄魔法"));return;}
     if(!InputAvailable()){SuspendPreview();return;}
     if(P->IsSpellHandHeld()){bQueued=bReleaseRequested=false;HandNotice.Show(GetWorld()->GetTimeSeconds());return;}
@@ -148,7 +156,9 @@ void UFPSBlizzardComponent::ReleaseAtContact()
 {
     if(!bCommitted||!bGathered||!bReleaseRequested||bNetAwaitingRelease)return;
     auto* P=Cast<APawn>(GetOwner());auto* M=Model();
-    if(!P||!M||!InputAvailable()||(CastSnapshot.bRequiresStaff&&!M->HasEquippedStaff()))
+    if(M&&CastSnapshot.bRequiresStaff&&!M->HasEquippedStaff())
+    {CancelPending();Feedback(TEXT("需要法杖"));return;}
+    if(!P||!M||!InputAvailable(true))
     {bReleaseRequested=false;Feedback(TEXT("当前无法施法"));return;}
     FString Failure;
     if(!ValidateGround(P,CastSnapshot,LockedPoint,LockedNormal,LockedAxis,Failure))
@@ -201,7 +211,9 @@ void UFPSBlizzardComponent::CancelPending()
 }
 bool UFPSBlizzardComponent::ValidateGround(APawn* Caster,const FBlizzardCast& Spell,FVector& Point,FVector& Normal,FVector& Axis,FString& Failure) const
 {
-    return BlizzardEnvironment::Validate(Caster,Spell.Range,Point,Normal,Axis,Failure);
+    // The preview clips to the exact range; the submitted point is quantized
+    // to centimetres. Match Meteor/JiLei/ArrowRain's 2 cm network allowance.
+    return BlizzardEnvironment::Validate(Caster,Spell.Range+2.f,Point,Normal,Axis,Failure);
 }
 // ── 联机服务端入口：客人上报落点→重验→权威暴风雪区生成（复制回各端） ──
 bool UFPSBlizzardComponent::NetCommitZone(APawn* Caster,const FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FBlizzardCast& Spell)
@@ -213,7 +225,7 @@ bool UFPSBlizzardComponent::NetCommitZone(APawn* Caster,const FColdSteelNetCastR
     FString Failure;if(!ValidateGround(Caster,Spell,Point,Normal,Axis,Failure))return false;
     FActorSpawnParameters Params;Params.Owner=Caster;Params.Instigator=Caster;Params.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     auto* Zone=GetWorld()->SpawnActor<AFPSBlizzardZone>(Point,FRotator::ZeroRotator,Params);
-    if(!Zone||!Zone->InitializeZone(Caster,Spell,Point,Normal,Axis,Assets)||!Shadow->CommitBlizzardRelease())
+    if(!Zone||!Zone->InitializeZone(Caster,Spell,Point,Normal,Axis,Assets)||(!UnknownSpell::IsCaster(Caster)&&!Shadow->CommitBlizzardRelease()))
     {if(Zone)Zone->Destroy();return false;}
     Zones.Add(Zone);Zone->ActivateZone();
     if(auto* Status=UCombatStatusFormula::GetOrAdd(Caster))
@@ -275,9 +287,21 @@ void UFPSBlizzardComponent::RefreshPreview()
     AimDecal->SetHiddenInGame(false);
     if(AimMID)
     {
-        TArray<FVector> Cells;
-        BlizzardEnvironment::BuildCells(Cast<APawn>(GetOwner()),LockedPoint,LockedAxis,CastSnapshot.RadiusX,CastSnapshot.RadiusY,Cells);
-        BlizzardEnvironment::MaterialCells(AimMID,LockedPoint,LockedAxis,CastSnapshot.RadiusX,CastSnapshot.RadiusY,Cells);
+        // The circle must move every frame. Only the 25-cell room footprint is
+        // sampled at 5 Hz; its local mask is reused between environment samples.
+        if(PreviewAge<=0.f||PreviewAge>=.2f)
+        {
+            TArray<FVector> Cells;
+            BlizzardEnvironment::BuildCells(Cast<APawn>(GetOwner()),LockedPoint,LockedAxis,CastSnapshot.RadiusX,CastSnapshot.RadiusY,Cells);
+            BlizzardEnvironment::MaterialCells(AimMID,LockedPoint,LockedAxis,CastSnapshot.RadiusX,CastSnapshot.RadiusY,Cells);
+            PreviewAge=UE_SMALL_NUMBER;
+        }
+        else
+        {
+            AimMID->SetVectorParameterValue(TEXT("RoomCenter"),FLinearColor(LockedPoint));
+            AimMID->SetVectorParameterValue(TEXT("RoomSide"),FLinearColor(LockedAxis));
+            AimMID->SetVectorParameterValue(TEXT("RoomForward"),FLinearColor(FVector::CrossProduct(FVector::UpVector,LockedAxis)));
+        }
         AimMID->SetScalarParameterValue(TEXT("Fade"),1.f);
     }
 }
@@ -335,12 +359,17 @@ void UFPSBlizzardComponent::TickComponent(float Delta,ELevelTick Type,FActorComp
     Super::TickComponent(Delta,Type,Tick);Zones.RemoveAll([](const auto& Z){return !Z.IsValid();});
     const auto* Health=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();
     if(Health&&Health->IsDead()){CancelPending();ClearZones();return;}
-    if(!InputAvailable())SuspendPreview();else ServiceQueue();
+    if((bQueued||bCommitted)&&!bNetAwaitingRelease)
+        if(const auto* M=Model();M&&(bCommitted?CastSnapshot.bRequiresStaff:M->BlizzardDefinition().Blizzard.bRequiresStaff)&&!M->HasEquippedStaff())
+        {CancelPending();Feedback(TEXT("需要法杖"));return;}
+    if(!InputAvailable(true))SuspendPreview();
+    else if(InputAvailable())ServiceQueue();
+    else {bQueued=false;SetAimPreview(false);}
     if(bCommitted&&!bNetAwaitingRelease)
     {
         UpdateGatherCloud();
         if(bGathered){PreparedAge+=Delta;if(PreparedAge>=30.f){CancelPending();Feedback(TEXT("凝聚到期"));return;}}
-        if(bAimPreview){PreviewAge+=Delta;if(PreviewAge>=.2f){PreviewAge=0;RefreshPreview();}}
+        if(bAimPreview){PreviewAge+=Delta;RefreshPreview();}
     }
 }
 void UFPSBlizzardComponent::EndPlay(EEndPlayReason::Type Reason)

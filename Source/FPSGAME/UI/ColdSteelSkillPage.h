@@ -19,6 +19,8 @@ public:
     bool GoBack();
     void SetHUD(class UColdSteelHUDWidget* Owner);
     void SetLayoutWidth(float Pixels);
+    /** Skill tree right column (2026-11-17): one skill's detail without list, back button or header row. */
+    void ShowEmbeddedDetail(FName Id,float Width);
 protected:
     virtual TSharedRef<SWidget> RebuildWidget() override;
     virtual void ReleaseSlateResources(bool bReleaseChildren) override;
@@ -39,6 +41,13 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTexture2D> PistolIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> CriticalIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> FireballIconTexture;
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> IceArmorIconTexture;
+    UPROPERTY(Transient) TObjectPtr<UTexture2D> LightningHasteIconTexture;
+    TSharedPtr<SButton> MagicArrowRainDetailButton,ElementalArrowDetailButton,IlluminationArrowDetailButton;
+    TSharedPtr<SButton> IceArmorDetailButton;
+    TSharedPtr<SButton> LightningHasteDetailButton;
+    FSlateBrush IceArmorIconBrush;
+    FSlateBrush LightningHasteIconBrush;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> IceSpikeIconTexture;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> LightningIconTexture;
     TSharedPtr<SButton> LightningDetailButton;
@@ -67,11 +76,14 @@ private:
     float PageWidth=720;
     int32 Category=0;
     bool bDetail=false;
+    bool bEmbedded=false;
     TSharedRef<SWidget> BuildPage();
     TSharedRef<SWidget> Overview(bool bCompact,FName Id);
     TSharedRef<SWidget> EffectRow(const FString& Caption,int32 Index);
     TSharedRef<SWidget> TrainingCard();
     TSharedRef<SWidget> Paragraph(const FString& Value,float Pixels,const FLinearColor& Color,float Width) const;
+    /** Rules / formula prose: Paragraph on the full page, collapsed when embedded in the skill tree. */
+    TSharedRef<SWidget> Note(const FString& Value,float Pixels,const FLinearColor& Color,float Width) const;
     TSharedRef<SWidget> Label(const FString& Value,float Pixels,const FLinearColor& Color,bool bNumeric=false) const;
     FString EffectValue(int32 Index,bool bNext) const;
     FReply SelectCategory(int32 Index);
@@ -95,5 +107,5 @@ private:
     TMap<FName,TSharedPtr<SButton>> ElectricDetailButtons;
     UPROPERTY(Transient) TObjectPtr<UTexture2D> UppercutIconTexture;
     FSlateBrush UppercutIconBrush;
-    TSharedPtr<SButton> UppercutDetailButton;
+    TSharedPtr<SButton> UppercutDetailButton,ChainSlashDetailButton,LeapStrikeDetailButton,ShadowStepDetailButton;
 };

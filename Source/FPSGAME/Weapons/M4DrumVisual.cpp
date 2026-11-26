@@ -14,6 +14,11 @@
 #include "LMG201WeaponAssets.h"
 #include "Super90TubeMagazineAssets.h"
 #include "M870TubeMagazineAssets.h"
+#include "M24Attachments.h"
+#include "M249SideMagazine.h"
+#include "M249WeaponAssets.h"
+#include "PKMLowpolyWeaponAssets.h"
+#include "Saiga12KMagazineAssets.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
@@ -59,6 +64,28 @@ bool AFPSGAMECharacter::HasLMG201ClothBox() const
 
 void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
 {
+    if(M249WeaponAssets::Matches(AKMViewmodel))
+    {
+        LargeDrum=M249SideMagazine::Configure(this,AKMViewmodel,LargeDrum,Id,bInventoryWeaponReady&&M249SideMagazine::Supports(Id));
+        MagazineAttachmentId=LargeDrum?Id:FString();
+        bDrumVisual=bDrumReleasedDuringReload=bDrumMagazineHidden=false;
+        if(LargeDrum)DrumMount=LargeDrum->GetRelativeTransform();
+        PKMLowpolyWeaponAssets::SetSections(AKMViewmodel,false,false,0.f,MagazineAmmo,!HasM249SideMagazine());
+        return;
+    }
+    M249SideMagazine::RemovePort(this);
+    if(IsM24Weapon())
+    {
+        const bool Extended=bInventoryWeaponReady&&Id==M24Attachments::ExtendedMagazine;
+        LargeDrum=M24Attachments::Configure(this,AKMViewmodel,LargeDrum,Id,Extended);
+        const bool Present=Extended&&LargeDrum&&LargeDrum->GetStaticMesh()
+            &&LargeDrum->GetStaticMesh()->GetPathName().StartsWith(M24Attachments::MeshPath(Id));
+        MagazineAttachmentId=Present?Id:FString();
+        bDrumVisual=bDrumReleasedDuringReload=bDrumMagazineHidden=false;
+        M24Attachments::FactoryMagazineSections(AKMViewmodel,!Present);
+        if(LargeDrum){DrumMount=LargeDrum->GetRelativeTransform();LargeDrum->SetVisibility(Present&&AKMViewmodel->IsVisible());}
+        return;
+    }
     if (SVCHWeaponAssets::Matches(AKMViewmodel))
     {
         const bool Extended = Id == TEXT("ext_mag");
@@ -68,7 +95,20 @@ void AFPSGAMECharacter::SetGunsmithMagazineAttachment(const FString& Id)
         if (LargeDrum) DrumMount = LargeDrum->GetRelativeTransform();
         return;
     }
-
+    if(IsSaiga12KWeapon())
+    {
+        const bool Drum=bInventoryWeaponReady&&Id==Saiga12KMagazineAssets::DrumPart;
+        const bool Extended=bInventoryWeaponReady&&Id==Saiga12KMagazineAssets::Part;
+        if(MagazineAttachmentId!=Id||!Drum)bDrumReleasedDuringReload=bDrumMagazineHidden=false;
+        LargeDrum=Saiga12KMagazineAssets::Configure(this,AKMViewmodel,LargeDrum,
+            Id,Drum||Extended);
+        const bool Present=(Drum||Extended)&&LargeDrum&&LargeDrum->GetStaticMesh()&&LargeDrum->IsVisible();
+        MagazineAttachmentId=Present?Id:FString();
+        bDrumVisual=Drum&&Present;
+        if(LargeDrum)DrumMount=LargeDrum->GetRelativeTransform();
+        if(LargeDrum)LargeDrum->SetVisibility(Present&&(!Drum||!bDrumMagazineHidden));
+        return;
+    }
     if(IsM870Weapon())
     {
         LargeDrum=M870TubeMagazineAssets::Configure(this,AKMViewmodel,LargeDrum,
@@ -282,7 +322,28 @@ bool AFPSGAMECharacter::ValidateDrumAttachment() const
 void AFPSGAMECharacter::UpdateDrumDropVisual()
 {
     if(!LargeDrum)return;
-
+    if(HasM249SideMagazine())
+    {
+        const float Source=IsReloading()?ReloadSourceTime(WeaponStateElapsed):0.f;
+        const bool Parked=IsReloading()&&Source>=M249SideMagazine::HiddenBegin&&Source<M249SideMagazine::HiddenEnd;
+        LargeDrum->SetVisibility(bInventoryWeaponReady&&AKMViewmodel->IsVisible()&&!Parked);
+        bDrumReleasedDuringReload=bDrumMagazineHidden=false;
+        return;
+    }
+    if(IsM24Weapon())
+    {
+        bDrumReleasedDuringReload=bDrumMagazineHidden=false;
+        LargeDrum->SetVisibility(bInventoryWeaponReady&&AKMViewmodel->IsVisible()&&MagazineAttachmentId==M24Attachments::ExtendedMagazine);
+        return;
+    }
+    // The lone pistol's magazine belongs to its left rig. The retained main
+    // attachment must not be re-enabled by the generic ext_mag branch below.
+    if(IsLoneOffhandPistol())
+    {
+        LargeDrum->SetVisibility(false);
+        bDrumReleasedDuringReload=bDrumMagazineHidden=false;
+        return;
+    }
     if (SVCHWeaponAssets::Matches(AKMViewmodel))
     {
         // Standard and extended shells both ride the accepted magazine-bone
@@ -291,7 +352,11 @@ void AFPSGAMECharacter::UpdateDrumDropVisual()
         LargeDrum->SetVisibility(bInventoryWeaponReady && AKMViewmodel->IsVisible() && SVCHMagazineAssets::IsFitted(LargeDrum));
         return;
     }
-
+    if(IsSaiga12KWeapon()&&MagazineAttachmentId==Saiga12KMagazineAssets::Part)
+    {
+        bDrumReleasedDuringReload=false;bDrumMagazineHidden=false;
+        LargeDrum->SetVisibility(bInventoryWeaponReady);return;
+    }
     if((IsSuper90Weapon()&&MagazineAttachmentId==Super90TubeMagazineAssets::Part)
         ||(IsM870Weapon()&&MagazineAttachmentId==M870TubeMagazineAssets::Part))
     {
@@ -313,7 +378,7 @@ void AFPSGAMECharacter::UpdateDrumDropVisual()
     const float Frame=ReloadSourceTime(WeaponStateElapsed)*60.0f;
     // AKM skips the hand-pull: release from the seated socket at source frame
     // 36 / 120 Hz, while the left hand travels outside the drum to its pickup.
-    const bool NativeFreeDrop=AKMSoviet::Matches(AKMViewmodel)||A762WeaponAssets::Matches(AKMViewmodel)||LMG201WeaponAssets::Matches(AKMViewmodel);
+    const bool NativeFreeDrop=AKMSoviet::Matches(AKMViewmodel)||IsSaiga12KWeapon()||A762WeaponAssets::Matches(AKMViewmodel)||LMG201WeaponAssets::Matches(AKMViewmodel);
     const float Release=bUseQBZ191?36.f:NativeFreeDrop?18.f:(bPendingEmptyReload?14.0f:18.0f);
     const float Pickup=bUseQBZ191?49.f:NativeFreeDrop?56.f:(bPendingEmptyReload?31.0f:36.0f);
     if(Frame>=Release&&!bDrumReleasedDuringReload)

@@ -1,4 +1,5 @@
 #include "ColdSteelAlchemyWidget.h"
+#include "ColdSteelTextToolTip.h"
 #include "ColdSteelForgeBoard.h"
 #include "ColdSteelUIStyle.h"
 #include "Blueprint/WidgetTree.h"
@@ -19,6 +20,7 @@
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
+#include "Components/WrapBox.h"
 
 void UColdSteelAlchemyWidget::EntrySpace(UVerticalBoxSlot* RowSlot,FMargin RowPadding)
 {EntrySpacings.Add({RowSlot,RowPadding});}
@@ -82,7 +84,7 @@ void UColdSteelAlchemyWidget::BuildEntry()
     EntryRecipeTitle=Text(TEXT("—"),16,false,false,true);EntrySpace(RecipeCard->AddChildToVerticalBox(EntryRecipeTitle),FMargin(0,0,0,8));
     Choice=WidgetTree->ConstructWidget<UComboBoxString>();Choice->OnGenerateWidgetEvent.BindDynamic(this,&ThisClass::Option);
     Choice->OnSelectionChanged.AddDynamic(this,&ThisClass::Select);
-    Choice->SetToolTipText(FText::FromString(TEXT("选择炼药配方；当前批次需领取或作废后才能更换。")));
+    ColdSteelToolTip::Set(*Choice, FText::FromString(TEXT("选择炼药配方；当前批次需领取或作废后才能更换。")));
     auto* ChoiceSize=WidgetTree->ConstructWidget<USizeBox>();ChoiceSize->SetContent(Choice);ButtonSizes.Add(ChoiceSize);
     EntrySpace(RecipeCard->AddChildToVerticalBox(ChoiceSize),FMargin(0,0,0,8));
     Materials=Text(TEXT("所需材料"),14,false,false,true);EntrySpace(RecipeCard->AddChildToVerticalBox(Materials),FMargin(0,0,0,4));
@@ -95,7 +97,12 @@ void UColdSteelAlchemyWidget::BuildEntry()
     auto* StateCard=EntryCard(Content);
     EntryStage=Text(TEXT("选择配方 · 准备炼药"),16,false,false,true);EntrySpace(StateCard->AddChildToVerticalBox(EntryStage),FMargin(0,0,0,8));
     EntryStats=Text(TEXT(""),16,false,true);EntrySpace(StateCard->AddChildToVerticalBox(EntryStats),FMargin(0,0,0,4));
+    EntryResultMetrics=WidgetTree->ConstructWidget<UWrapBox>();EntrySpace(StateCard->AddChildToVerticalBox(EntryResultMetrics),FMargin(0,0,0,4));
+    EntryScoreValue=Text(TEXT(""),16,false,true);EntryOutputValue=Text(TEXT(""),16,false,true);EntryFaultValue=Text(TEXT(""),16,false,true);
+    for(UTextBlock* Value:{EntryOutputValue.Get(),EntryFaultValue.Get(),EntryScoreValue.Get()})EntryResultMetrics->AddChildToWrapBox(Value);
     EntryLegend=Text(TEXT("基础产量   /   精制加成   /   装瓶上限"),12);EntryLegend->SetColorAndOpacity(ColdSteelUI::TextTertiary);StateCard->AddChildToVerticalBox(EntryLegend);
+    EntryYieldDelta=Text(TEXT(""),12);StateCard->AddChildToVerticalBox(EntryYieldDelta);
+    ColdSteelToolTip::Set(*EntryYieldDelta, FText::FromString(TEXT("产量修正 = 实际成品数量 / 本炉配方基础产量 − 1。工艺影响产量，不改变单瓶药效。")));
     Refund=Text(TEXT(""),12,true);Refund->SetColorAndOpacity(ColdSteelUI::TextSecondary);EntrySpace(StateCard->AddChildToVerticalBox(Refund),FMargin(0,8,0,0));
     EntryTimer=WidgetTree->ConstructWidget<UProgressBar>();EntryTimer->SetFillColorAndOpacity(ColdSteelUI::Accent);
     EntryTimerSize=WidgetTree->ConstructWidget<USizeBox>();EntryTimerSize->SetContent(EntryTimer);EntrySpace(StateCard->AddChildToVerticalBox(EntryTimerSize),FMargin(0,8,0,0));
@@ -118,18 +125,20 @@ void UColdSteelAlchemyWidget::BuildEntry()
     EntrySpace(Instructions->AddChildToVerticalBox(Help),FMargin(0,0,0,8));
     auto* Rule=Text(TEXT("翻阅配方手册决定用料、火候与搅拌，观察药液和温度计判断时机。点击量瓶舀取并装瓶。"),12,true);
     Rule->SetColorAndOpacity(ColdSteelUI::TextSecondary);EntrySpace(Instructions->AddChildToVerticalBox(Rule),FMargin(0,0,0,8));
-    auto* Exit=Text(TEXT("开炉时扣除材料。离台收火暂存，可继续本炉；未完成时作废退还未开封材料，完成后作废返还一半材料（逐项向下取整）。"),12,true);
+    auto* Exit=Text(TEXT("普通制作在开炉时扣料；免材料制作不扣料、不返料。离台收火暂存，可继续本炉；实际投入材料在未完成时退还未开封部分，完成后作废返还一半（逐项向下取整）。"),12,true);
     Exit->SetColorAndOpacity(ColdSteelUI::TextTertiary);Instructions->AddChildToVerticalBox(Exit);
     EntryFooter=WidgetTree->ConstructWidget<UBorder>();EntryFooter->SetBrushColor(ColdSteelUI::HeaderTint);Stack->AddChildToVerticalBox(EntryFooter);
     auto* Foot=WidgetTree->ConstructWidget<UVerticalBox>();EntryFooter->SetContent(Foot);
     Status=Text(TEXT(""),14,true);Status->SetColorAndOpacity(ColdSteelUI::TextSecondary);EntrySpace(Foot->AddChildToVerticalBox(Status),FMargin(0,0,0,8));
     auto* ActionsRow=WidgetTree->ConstructWidget<UHorizontalBox>();Foot->AddChildToVerticalBox(ActionsRow);
-    auto AddAction=[&](const TCHAR* Label,int32 Id)
+    auto AddAction=[&](UHorizontalBox* Row,const TCHAR* Label,int32 Id)
     {
         auto* Size=WidgetTree->ConstructWidget<USizeBox>();Size->SetContent(Button(Label,Id));ButtonSizes.Add(Size);
-        auto* ActionSlot=ActionsRow->AddChildToHorizontalBox(Size);ActionSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));return ActionSlot;
+        auto* ActionSlot=Row->AddChildToHorizontalBox(Size);ActionSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));return ActionSlot;
     };
-    AddAction(TEXT("备料开炉"),10);EntryDiscardSlot=AddAction(TEXT("作废退料"),12);EntryManualSlot=AddAction(TEXT("配方手册"),11);
+    AddAction(ActionsRow,TEXT("备料开炉"),10);EntryDiscardSlot=AddAction(ActionsRow,TEXT("废弃成品"),12);
+    auto* Utilities=WidgetTree->ConstructWidget<UHorizontalBox>();EntrySpace(Foot->AddChildToVerticalBox(Utilities),FMargin(0,ColdSteelUI::ActionGap,0,0));
+    EntryManualSlot=AddAction(Utilities,TEXT("配方手册"),11);
     ScaleEntry();
 }
 bool UColdSteelAlchemyWidget::ContainsManagement(FVector2D ScreenPosition) const

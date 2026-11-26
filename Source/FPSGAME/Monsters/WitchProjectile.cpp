@@ -1,4 +1,6 @@
 #include "WitchProjectile.h"
+#include "MonsterTargeting.h"
+#include "MonsterDamageBalance.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "GameFramework/PlayerController.h"
 #include "Net/UnrealNetwork.h"
@@ -246,11 +248,12 @@ float AWitchProjectile::PoolBoundary(const FVector& Position) const
 void AWitchProjectile::Pulse()
 {
     if (!Shooter.IsValid()) return;
-    for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
+    TArray<APawn*> Victims;
+    MonsterTargeting::GatherAreaOpponents(GetWorld(),GetActorLocation(),PoolRadius+50.f,Victims);
+    for (APawn* Player : Victims)
     {
-        APawn* Player = It->IsValid() ? It->Get()->GetPawn() : nullptr;
-        auto* Health = Player ? Player->FindComponentByClass<UFPSCombatHealthComponent>() : nullptr;
-        if (!Health || Health->IsDead() || Health->IsInvulnerable()) continue;
+        auto* Health = Player->FindComponentByClass<UFPSCombatHealthComponent>();
+        if (Health ? (Health->IsDead() || Health->IsInvulnerable()) : !MonsterTargeting::IsActiveArtisan(Player)) continue;
         const FVector Feet = Player->GetActorLocation() - FVector(0,0,Player->GetSimpleCollisionHalfHeight());
         const float Boundary=PoolBoundary(Feet);
         if (Boundary<=.001f || FVector::DistSquared2D(Feet, GetActorLocation()) > FMath::Square(PoolRadius*Boundary)
@@ -258,12 +261,13 @@ void AWitchProjectile::Pulse()
         FHitResult Wall; FCollisionQueryParams Query(SCENE_QUERY_STAT(WitchPoisonOcclusion), false, this);
         Query.AddIgnoredActor(Shooter.Get()); Query.AddIgnoredActor(Player);
         if (RangedAttackQuery::LineTraceSingle(GetWorld(), Shooter.Get(), Wall, GetActorLocation() + FVector(0,0,15), Feet + FVector(0,0,15), ECC_Visibility, Query)) continue;
-        const float Applied = UGameplayStatics::ApplyDamage(Player, HitDamage, Shooter->GetController(), Shooter.Get(), UWitchMagicDamage::StaticClass());
-        if (Applied > 0 && !Health->IsDead())
+        // Pool pulses every .5 s for 6 s; it must not repeat the whole projectile hit.
+        const float Applied = UGameplayStatics::ApplyDamage(Player, MonsterDamageBalance::Limit(HitDamage*.25f,16.f), Shooter->GetController(), Shooter.Get(), UWitchMagicDamage::StaticClass());
+        if (Applied > 0 && Health && !Health->IsDead())
         {
             auto* Poison = Player->FindComponentByClass<UColdSteelPoisonComponent>();
             if (!Poison) { Poison = NewObject<UColdSteelPoisonComponent>(Player); Player->AddInstanceComponent(Poison); Poison->RegisterComponent(); }
-            Poison->AddStacks(Shooter.Get(), 1);
+            if(Poison->GetStacks()<3)Poison->AddStacks(Shooter.Get(),1);
         }
     }
 }
@@ -329,7 +333,7 @@ void AWitchProjectile::Tick(float Delta)
     for (const auto& Hit : Contacts)
     {
         const auto* Part = Hit.GetComponent(); const auto* Pawn = Cast<APawn>(Hit.GetActor());
-        const bool Player = Pawn && Pawn->IsPlayerControlled() && Part == Pawn->GetRootComponent();
+        const bool Player = Pawn && MonsterTargeting::IsOpponentPawn(Pawn) && Part == Pawn->GetRootComponent();
         if (Part && (Player || Part->GetCollisionResponseToChannel(ECC_Visibility) == ECR_Block)
             && (!First || Hit.Time < First->Time)) First = &Hit;
     }
@@ -352,7 +356,7 @@ void AWitchProjectile::Tick(float Delta)
         {
             UpdateLiquidVisual(Delta * First->Time, Start, First->Location);
             MulticastImpact(*First,Velocity,false);
-            if (auto* Pawn = Cast<APawn>(First->GetActor())) if (Pawn->IsPlayerControlled())
+            if (auto* Pawn = Cast<APawn>(MonsterTargeting::DamageRecipient(First->GetActor()))) if (MonsterTargeting::IsOpponentPawn(Pawn))
                 UGameplayStatics::ApplyDamage(Pawn, HitDamage, Shooter->GetController(), Shooter.Get(), UWitchMagicDamage::StaticClass());
             Destroy();
         }

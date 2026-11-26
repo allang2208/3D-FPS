@@ -42,7 +42,7 @@ void UColdSteelHUDWidget::TickResourceBarAnimations()
 
     FMonsterHitFeedback Hit;
     const auto* Character = Cast<AFPSGAMECharacter>(Pawn);
-    if (Character && Character->GetMonsterHitFeedback(Hit))
+    if (Character && ReadHUDTarget(*Character,Hit))
     {
         const bool bNewTarget = HUDMeterTarget != Hit.Target;
         HUDMeterTarget = Hit.Target;

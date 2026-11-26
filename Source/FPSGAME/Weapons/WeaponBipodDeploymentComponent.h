@@ -65,8 +65,9 @@ protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
 public:
-    // Search around the level weapon pose, independent of the crosshair's pitch.
+    // Extra vertical travel to lower onto a ledge, or rise from a crouch.
     UPROPERTY(EditAnywhere, Category="Weapon|Bipod|Placement", meta=(ClampMin="1")) float MaximumHeightSnap=60.f;
+    UPROPERTY(EditAnywhere, Category="Weapon|Bipod|Placement", meta=(ClampMin="0")) float StanceAdjustment=65.f;
     UPROPERTY(EditAnywhere, Category="Weapon|Bipod|Placement", meta=(ClampMin="0")) float ForwardSearch=20.f;
     UPROPERTY(EditAnywhere, Category="Weapon|Bipod|Placement", meta=(ClampMin="0",ClampMax="45")) float MaximumSlopeDegrees=24.f;
     UPROPERTY(EditAnywhere, Category="Weapon|Bipod|Placement", meta=(ClampMin="1")) float MaximumCameraReach=60.f;
@@ -79,10 +80,12 @@ public:
     UPROPERTY(EditAnywhere, Category="Weapon|Bipod|Handling", meta=(ClampMin="0.1",ClampMax="1")) float MountedSpreadScale=.55f;
 private:
     friend struct FM24BipodValidation;
+    friend class AWeaponEquipWireController;
     struct FSupport
     {
         FVector Feet[2]={FVector::ZeroVector,FVector::ZeroVector};
         FVector Anchor=FVector::ZeroVector;
+        float MountYaw=0.f;
         TWeakObjectPtr<UPrimitiveComponent> Components[2];
         FTransform Transforms[2];
     };
@@ -94,7 +97,7 @@ private:
     bool SupportStillValid(bool bProbeSurface) const;
     bool ClearPlacement(const FVector& Eye,const FVector& Delta,const FVector& Hinge,const FVector& Forward,
         bool bCheckWeapon=true) const;
-    void ClampAim() const;
+    void ClampAim();
     // 架设两拍反馈：起手播 BeltLift，落位播 BeltSeat 并起枪身衰减抖。
     void FireDeployCue(bool bSeat);
     TWeakObjectPtr<AFPSGAMECharacter> Character;
@@ -104,6 +107,7 @@ private:
     FVector PawnAnchor=FVector::ZeroVector;
     FRotator InitialAim=FRotator::ZeroRotator;
     float EntryAimPitch=0.f;
+    float EntryYawOffset=0.f;
     float Blend=0.f;
     float SettleClock=-1.f;
     bool bSeatFired=false;
@@ -113,6 +117,7 @@ private:
     bool bCandidate=false;
     float HandlingBlend() const;
     bool IsM24() const;
+    bool HasHandDeployment() const;
     float TransitionDuration(bool bDeploy) const;
     float PlacementBlend() const;
     bool AuthorityEligible(bool bContinuing = false) const;

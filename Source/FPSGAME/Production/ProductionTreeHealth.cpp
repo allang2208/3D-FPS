@@ -11,7 +11,8 @@ namespace
      * （武器公式 ≈12 ＋ 角色物攻 ≈10 ＝ 22/挥）砍 A 树 3 挥、D 树 5 挥，
      * 与旧的「三次有效命中」手感接近；尺寸系数与改造再在其上浮动。
      */
-    constexpr double BaseHealthByVariant[4]={60.,72.,84.,96.};
+    // Retain poplar balance; beech A/B are mature, C/D younger forms.
+    constexpr double BaseHealthByVariant[ProductionHarvestAssets::TreeVariantCount]={60.,72.,84.,96.,84.,96.,60.,48.};
     /** 候选点缩放区间（`ATemperateHillsWorld::TreeCandidate`）与对应的生命系数区间。 */
     constexpr double PlacementScaleMin=.68,PlacementScaleMax=1.08;
     constexpr double SizeHealthMin=.85,SizeHealthMax=1.25;
@@ -34,7 +35,7 @@ namespace
 
 double ProductionTreeHealth::BaseHealth(int32 Variant)
 {
-    return BaseHealthByVariant[Variant>=0&&Variant<4?Variant:0];
+    return BaseHealthByVariant[Variant>=0&&Variant<ProductionHarvestAssets::TreeVariantCount?Variant:0];
 }
 
 double ProductionTreeHealth::HealthScale()
@@ -44,7 +45,7 @@ double ProductionTreeHealth::HealthScale()
 
 double ProductionTreeHealth::MaxHealth(const FProductionResource& Resource)
 {
-    // 未知树种（含以后新增的第五种）按 A 树结算，不因为目录没登记就变成砍不动。
+    // Unknown variants use the original A-tree health; poplar and beech are explicit above.
     double Health=BaseHealth(ProductionHarvestAssets::TreeVariant(Resource.Mesh));
     const double Size=FMath::Abs(Resource.Transform.GetScale3D().Z);
     const double T=FMath::Clamp((Size-PlacementScaleMin)/(PlacementScaleMax-PlacementScaleMin),0.,1.);

@@ -22,7 +22,7 @@
 ## 1. 参考与证据
 
 - 主参考：用户自录《三角洲行动》M1014 配快速装填器的换弹视频，`C:/Users/allan/Videos/NVIDIA/Delta Force/Delta Force 2026.10.09 - 09.55.46.01.mp4`。2560×1440、60 FPS、7.83 s；弹量从 000 跳到 007，因此是**空仓**换弹。仅作动作参考，不提取游戏模型或动画。
-- 本机分析帧：`D:/FPS3D/test/super90_df_ref/`。其中 `frames60/` 为 470 帧原始帧，`overview/` 为分段拼图和局部放大。这些文件不发布。
+- 本机分析帧：`D:/FPS3D/FPSGAME/SourceAssets/Super90LoaderR12_20261009/Reference/DeltaForce/`。其中 `frames60/` 为 470 帧原始帧，`overview/` 为分段拼图和局部放大。这些文件不发布。
 - 真实结构参考：Arredondo 装弹口漏斗（M2 款可装 M4），以及 TEC Loader 的管体＋带推杆握柄、内侧导轨、漏斗入口“喉口”倒角。开槽管＋穿槽推杆握柄的结构参考专利 US4509284A。
 - 缺口：没有非空仓片段。普通换弹的收尾由空仓片段去掉拉机柄段推导；用户以后补录的话只用于微调，不阻塞制作。
 

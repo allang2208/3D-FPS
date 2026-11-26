@@ -28,9 +28,11 @@
 #include "Engine/World.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/PlayerController.h"
+#include "GameFramework/GameStateBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "Net/UnrealNetwork.h"
 #include "Sound/SoundAttenuation.h"
+#include "Sound/SoundBase.h"
 
 AM10Mawcrawler::AM10Mawcrawler(const FObjectInitializer& Initializer)
     : Super(Initializer.SetDefaultSubobjectClass<UM10MovementComponent>(CharacterMovementComponentName)
@@ -115,8 +117,34 @@ void AM10Mawcrawler::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLi
     DOREPLIFETIME(AM10Mawcrawler,HowlStartedAt);
     DOREPLIFETIME(AM10Mawcrawler,RearGasStartedAt);
     DOREPLIFETIME(AM10Mawcrawler,ThreatSerial);
+    DOREPLIFETIME(AM10Mawcrawler,BiteStartedAt);
 }
 void AM10Mawcrawler::OnRep_State(){StateSeconds=0.f;PresentState();}
+void AM10Mawcrawler::OnRep_BiteStartedAt()
+{
+    // State and clock RepNotifies can run in either order. Presentation is idempotent.
+    if(State==EM10State::Bite)PresentBite();
+}
+void AM10Mawcrawler::PresentBite()
+{
+    if(!HasActorBegunPlay()||BiteStartedAt<0.)return;
+    const auto* GameState=GetWorld()->GetGameState();
+    if(!HasAuthority()&&!GameState)return; // Tick resumes once the server clock is available.
+    const double Now=HasAuthority()?GetWorld()->GetTimeSeconds():GameState->GetServerWorldTimeSeconds();
+    StateSeconds=FMath::Max(0.f,float(Now-BiteStartedAt));
+    const float Duration=BiteClip?BiteClip->GetPlayLength():1.5f;
+    auto* Anim=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance());
+    if(!Anim)return;
+    if(PresentedBiteStartedAt!=BiteStartedAt)
+    {
+        PresentedBiteStartedAt=BiteStartedAt;
+        Anim->TransitionTo(BiteClip,false,true,.15f);
+        // Late relevance/joins seek into the sound instead of replaying its windup.
+        if(GetNetMode()!=NM_DedicatedServer&&BiteSound&&StateSeconds<Duration&&StateSeconds<BiteSound->GetDuration())
+            UGameplayStatics::PlaySoundAtLocation(this,BiteSound,Mouth(),1.f,1.f,StateSeconds,OneShotAttenuation(1600.f));
+    }
+    Anim->SetCombatTime(FMath::Min(StateSeconds,Duration));
+}
 void AM10Mawcrawler::Play(UAnimSequence* Clip,bool Loop,bool ExternalClock,float Blend)
 {
     if(auto* Anim=Cast<UFatZombieAnimInstance>(GetMesh()->GetAnimInstance()))Anim->TransitionTo(Clip,Loop,ExternalClock,Blend);
@@ -134,19 +162,18 @@ void AM10Mawcrawler::PresentState()
     UpdateLoopAudio();
     if((State==EM10State::Dying||State==EM10State::Corpse)&&CorpseRagdoll->TryStartSoftDeath(GetMesh()))return;
     if(State==EM10State::Corpse)return;
+    if(State==EM10State::Bite){PresentBite();return;}
     // State-driven one-shots play on every client from the replicated state.
     if(GetNetMode()!=NM_DedicatedServer)
     {
-        if(State==EM10State::Bite&&BiteSound)
-            UGameplayStatics::PlaySoundAtLocation(this,BiteSound,Mouth(),1.f,1.f,0.f,OneShotAttenuation(1600.f));
-        else if(State==EM10State::Stagger&&HitSound)
+        if(State==EM10State::Stagger&&HitSound)
             UGameplayStatics::PlaySoundAtLocation(this,HitSound,GetMesh()->GetSocketLocation(TEXT("body_front")),.9f,1.f,0.f,OneShotAttenuation(1200.f));
         else if(State==EM10State::Dying&&DeathSound)
             UGameplayStatics::PlaySoundAtLocation(this,DeathSound,GetMesh()->GetSocketLocation(TEXT("body_front")),1.f,1.f,0.f,OneShotAttenuation(1800.f));
     }
     if(State==EM10State::Stagger){StartHitPresentation();return;}
-    Play(Moving?MoveClip:State==EM10State::Bite?BiteClip:State==EM10State::Howl?HowlClip:State==EM10State::RearGas?RearGasClip:State==EM10State::Dying?DeathClip:IdleClip,
-        Moving||State==EM10State::Idle,State==EM10State::Bite||State==EM10State::Dying||State==EM10State::Howl||State==EM10State::RearGas);
+    Play(Moving?MoveClip:State==EM10State::Howl?HowlClip:State==EM10State::RearGas?RearGasClip:State==EM10State::Dying?DeathClip:IdleClip,
+        Moving||State==EM10State::Idle,State==EM10State::Dying||State==EM10State::Howl||State==EM10State::RearGas);
     if(State==EM10State::Dying)
     {
         GetCharacterMovement()->DisableMovement();GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -155,6 +182,7 @@ void AM10Mawcrawler::PresentState()
 void AM10Mawcrawler::SetState(EM10State NewState)
 {
     State=NewState;StateSeconds=0.f;
+    if(HasAuthority()&&State==EM10State::Bite)BiteStartedAt=GetWorld()->GetTimeSeconds();
     if(NewState!=EM10State::Crawl&&NewState!=EM10State::Returning&&HasAuthority())GetCharacterMovement()->StopMovementImmediately();
     PresentState();ForceNetUpdate();
 }
@@ -255,8 +283,8 @@ void AM10Mawcrawler::Tick(float Dt)
     if(State==EM10State::Bite)
     {
         const float Duration=BiteClip?BiteClip->GetPlayLength():1.5f;
+        PresentBite();
         if(HasAuthority())AdvanceBiteLunge(StateSeconds);
-        Sample(FMath::Min(StateSeconds,Duration));
         if(HasAuthority())
         {
             SetActorRotation(FRotator(0,LockedYaw,0));

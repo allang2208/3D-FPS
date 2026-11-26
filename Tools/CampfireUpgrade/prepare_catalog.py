@@ -41,7 +41,7 @@ for row in ROWS:
     items[row['cooked']]=cooked
     rid='roast_'+row['raw'].removeprefix('raw_')
     entry={'id':rid,'enabled':True,'input':{'item':row['raw'],'count':1},'output':{'item':row['cooked'],'count':1},'seconds':row['seconds'],
-        'presentation':{'rawMesh':asset(row['key'],'Raw'),'cookedMesh':asset(row['key'],'Roasted'),'motionProfile':'roasted_sausage','spitAnchor':[0,-.16,.12]}}
+        'presentation':{'rawMesh':asset(row['key'],'Raw'),'cookedMesh':asset(row['key'],'Roasted'),'motionProfile':row['cooked'],'spitAnchor':[0,-.16,.12]}}
     recipes['recipes']=[r for r in recipes['recipes'] if r['id']!=rid]+[entry]
 for family,anchor in [('ChickenLeg',None),('LambRibs',[0,-.6,2.3]),('Sausage',None),('LargeLamb',[0,-4,2.7])]:
     cooked={'ChickenLeg':'roasted_chicken_leg','LambRibs':'roasted_lamb_ribs','Sausage':'roasted_sausage','LargeLamb':'roasted_large_lamb'}[family]

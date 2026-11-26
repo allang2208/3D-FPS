@@ -29,6 +29,6 @@ Manny 独特 UV 拉伸，不能把扫描颗粒烘到 UV0。用 rest-pose 三平�
 
 皮革构建 `build_field_glove_leather.py`，磨损遮罩 `bake_field_glove_wear.py`。图标 `render_field_glove_icons.py` / `export_hunt_glove_presentation.py`；猎装俯视看不出垫时用 `render_hunt_glove_icon_tilt.py`。库存图标 PNG 按仓库忽略规则留本机。
 
-防御与 5% 近战攻速 / 5% 换弹写在 `source-combat-items.json` 的 `bonusStats`。近战攻速走 `EquipmentBonus("meleeAttackSpeed")`，换弹走独立的 `reloadSpeed` 乘区，不能合成一个敏捷值。目录 `name`/`desc` 是实例快照，旧存档要进一次游玩才同步。
+防御以 `items.json` 为准（source 表里的 `defense` 会被实例快照挡住）；5% 近战攻速 / 5% 换弹写在 `source-combat-items.json` 的 `bonusStats`。近战攻速走 `EquipmentBonus("meleeAttackSpeed")`，换弹走独立的 `reloadSpeed` 乘区，不能合成一个敏捷值。目录 `name`/`desc` 是实例快照，旧存档要进一次游玩才同步。
 
 确认退役的皮革中间验证与一次性 MCP 日志按清单在本机 `trash/field-glove-superseded-20260925/`；公开记录 `Docs/Characters/field-glove-retired-manifest-20260925.json`。保留 `verify-v7.json`、`ue-cmd-v7.log`、猎装正式 Blend 与各 profile 回执。 原因：最终回执与作者源承担恢复和追溯职责，退役日志不能替代它们。

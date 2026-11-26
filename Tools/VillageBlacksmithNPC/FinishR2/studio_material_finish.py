@@ -44,3 +44,4 @@ for tail in ['BodyOutfit/Materials/M_Smith_Apron','HeadParts/M_Smith_NativeNeck'
     if not u.EditorAssetLibrary.save_loaded_asset(mat,False):raise ValueError(tail)
     results.append(tail)
 (out/'studio_materials_saved.json').write_text(json.dumps(results,indent=2))
+

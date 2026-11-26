@@ -5,6 +5,8 @@
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/PrimitiveComponent.h"
+#include "Components/DynamicMeshComponent.h"
+#include "Materials/MaterialInstanceDynamic.h"
 #include "Materials/MaterialInterface.h"
 #include "PhysicalMaterials/PhysicalMaterial.h"
 #include "PhysicsEngine/PhysicsSettings.h"
@@ -16,6 +18,27 @@
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "EngineUtils.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
+
+namespace
+{
+// Physical pools already receive CharacterWater. Thin rain film shares the
+// terrain MID across streamed chunks, so a ring also crosses chunk boundaries.
+void StampRainFilm(const ATemperateHillsWorld* Hills,const FHitResult& Floor,const FVector& Foot)
+{
+    if(!Hills||Floor.GetActor()!=Hills)return;
+    const auto* Ground=Cast<UDynamicMeshComponent>(Floor.GetComponent());
+    auto* Material=Ground?Cast<UMaterialInstanceDynamic>(Ground->GetMaterial(0)):nullptr;
+    if(!Material||Material->K2_GetScalarParameterValue(TEXT("Wetness"))<.07f)return;
+    static const FName Slots[]={TEXT("RainforestStep0"),TEXT("RainforestStep1"),TEXT("RainforestStep2")};
+    int32 Oldest=0;float Time=FLT_MAX;
+    for(int32 I=0;I<UE_ARRAY_COUNT(Slots);++I)
+    {
+        const float Previous=Material->K2_GetVectorParameterValue(Slots[I]).B;
+        if(Previous<Time){Oldest=I;Time=Previous;}
+    }
+    Material->SetVectorParameterValue(Slots[Oldest],FLinearColor(Foot.X,Foot.Y,Hills->GetWorld()->GetTimeSeconds(),1));
+}
+}
 
 UFPSFootstepAudioComponent::UFPSFootstepAudioComponent()
 {
@@ -160,6 +183,7 @@ void UFPSFootstepAudioComponent::TickComponent(float Dt,ELevelTick Type,FActorCo
         Water->CharacterWater(WaterContact,Move->Velocity,FMath::Abs(LastVerticalSpeed),true);
     if(Landed)
     {
+        if(!Wet)StampRainFilm(Hills.Get(),Move->CurrentFloor.HitResult,Feet);
         Play(Wet?FName(TEXT("Water")):GroundBank(Move->CurrentFloor.HitResult),Feet,1.15f);
         Distance=0;
     }
@@ -177,6 +201,8 @@ void UFPSFootstepAudioComponent::TickComponent(float Dt,ELevelTick Type,FActorCo
                 const FVector Foot=Feet+Pawn->GetActorRightVector()*(bAlternateStep?11.f:-11.f);
                 if(Water->SampleWater(Foot,180.f,FootContact))Water->CharacterWater(FootContact,Move->Velocity,0,true);
             }
+            else if(Grounded)
+                StampRainFilm(Hills.Get(),Move->CurrentFloor.HitResult,Feet+Pawn->GetActorRightVector()*(bAlternateStep?11.f:-11.f));
             const float Gain=Pawn->bIsCrouched?.42f:FMath::GetMappedRangeValueClamped(FVector2D(100,650),FVector2D(.65,1.15),Speed);
             if(Wet||Move->IsSwimming())
             {

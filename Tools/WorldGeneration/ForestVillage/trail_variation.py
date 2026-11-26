@@ -47,3 +47,4 @@ def road_paint(xy, along, index, x, y, distance, seed):
     wear = .5+.5*np.sin(station*.29+1.7*np.sin(.079*station)+lateral*.63)
     center = (1.-fade(.15,1.05,abs(lateral-.28*np.sin(.12*station))))
     return edge*(1.-.18*center*wear-.13*(1.-edge)*wear)
+

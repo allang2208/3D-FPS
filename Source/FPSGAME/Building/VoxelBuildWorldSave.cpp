@@ -1,6 +1,7 @@
 #include "VoxelBuildWorld.h"
 #include "VoxelBuildRuntime.h"
 #include "VoxelBuildPersistence.h"
+#include "VoxelBuildDebug.h"
 #include "VoxelCollapseFragment.h"
 #include "Async/Async.h"
 
@@ -65,9 +66,12 @@ UVoxelBuildSave* AVoxelBuildWorld::MakeSnapshot() const
 {
     auto* Data=NewObject<UVoxelBuildSave>();Data->WorldKey=WorldKey;Data->Cells.Reserve(Cells.Num());
     for(const auto& E:Cells){auto& C=Data->Cells.AddDefaulted_GetRef();C.Position=E.Key;C.Material=E.Value;}
-    for(const auto& E:FreeVolumes)if(!E.Value.Cells.IsEmpty())Data->FreeVolumes.Add(E.Value);
     Data->CellShapes=CellShapes;
+    if(VoxelBuildDebug::Enabled()&&!CellShapes.IsEmpty())
+        UE_LOG(LogTemp,Warning,TEXT("VOXEL_SNAPSHOT cells=%d shapes=%d"),Data->Cells.Num(),CellShapes.Num());
+    for(const auto& E:FreeVolumes)if(!E.Value.Cells.IsEmpty())Data->FreeVolumes.Add(E.Value);
     Data->Prefabs=Prefabs;
+    Data->bWorkshopTowerGranted=bWorkshopTowerGranted;
     Data->Smelting=SmeltingJobs;
     Data->Fuel=Fuels;
     Data->Damage=CellDamage;Data->LegacyProtected=LegacyProtected;
@@ -94,11 +98,16 @@ void AVoxelBuildWorld::TickPersistence(bool bFlush)
         if(!Runtime->SaveJob.IsReady())return;
         Runtime->bSaveFailed=!Runtime->SaveJob.Get();Runtime->SaveJob=TFuture<bool>();
         if(Runtime->bSaveFailed){Runtime->bSaveDirty=true;Runtime->SaveAt=GetWorld()->GetTimeSeconds()+5;}
+        else if(!Runtime->bSaveDirty)ForgetSavedDefenseRemovals();
     }
     if(bFlush)
     {
         Runtime->bSaveFailed=!VoxelPersistence::Write(SaveSlot,VoxelPersistence::Take(MakeSnapshot()));
-        if(Runtime->bSaveFailed)UE_LOG(LogTemp,Error,TEXT("Voxel structure save failed at world shutdown: %s"),*SaveSlot);
+        if(Runtime->bSaveFailed)
+        {
+            UE_LOG(LogTemp,Error,TEXT("Voxel structure save failed at world shutdown: %s"),*SaveSlot);
+        }
+        else ForgetSavedDefenseRemovals();
         return;
     }
     if(!Runtime->bSaveDirty||GetWorld()->GetTimeSeconds()<Runtime->SaveAt)return;

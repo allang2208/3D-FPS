@@ -21,7 +21,8 @@ namespace LurkerSurfaceRoute
     bool GroundGuide(UWorld* World, const AActor* Owner, const FLurkerSurfacePoint& Start,
         FVector Goal, float Radius, FVector& Guide);
     bool Build(UWorld* World, const AActor* Owner, const FLurkerSurfacePoint& Start, FVector Goal,
-        float Radius, const TArray<FVector>& Recent, TArray<FLurkerSurfacePoint>& Out);
+        float Radius, const TArray<FVector>& Recent, TArray<FLurkerSurfacePoint>& Out,
+        const FVector* BlockedPoint=nullptr);
     FVector Arc(FVector Start, FVector End, FVector Outward, float Height, float Alpha);
     bool ClearArc(UWorld* World, const AActor* Owner, FVector Start, FVector End, FVector Outward, float Height, float Radius);
 }

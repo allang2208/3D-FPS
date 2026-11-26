@@ -44,6 +44,13 @@ FWeaponHandling FWeaponHandling::WithStabilityMultiplier(double Multiplier) cons
     return R;
 }
 
+FWeaponHandling FWeaponHandling::WithStabilityPoints(float AddedPoints) const
+{
+    FWeaponHandling Result = *this;
+    ApplyStabilityScore(Result, Stability + AddedPoints);
+    return Result;
+}
+
 FVector2D FWeaponHandling::Pattern(int32 ShotIndex)
 {
     static const FVector2D Points[] = {

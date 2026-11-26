@@ -46,3 +46,4 @@ if not u.EditorAssetLibrary.save_loaded_asset(target,False):raise RuntimeError('
 report={'asset':target.get_path_name(),'skeleton':target.skeleton.get_path_name(),'lod_count':lod_count,'authored_triangles':len(triangles),'materials':[m.get_path_name() for m in mats]}
 (out/'mesh_saved.json').write_text(json.dumps(report,indent=2))
 print('SMITH_PATTERN_R2_SAVED',target.get_path_name(),lod_count,flush=True)
+

@@ -85,7 +85,9 @@ public:
  virtual void OnWorldBeginPlay(UWorld& World) override;
  virtual void Deinitialize() override;
  UStatusEffectsHUD* GetHUD() const {return HUD;}
+ void SetWorldMapOpen(bool bOpen);
 private:
  void EnsureHUD();FTimerHandle Timer;TWeakObjectPtr<APawn> BoundPawn;
+ bool bWorldMapOpen=false;
  UPROPERTY(Transient) TObjectPtr<UStatusEffectsHUD> HUD;
 };

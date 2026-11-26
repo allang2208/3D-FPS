@@ -666,6 +666,200 @@
           "M_Kukri_LanyardTag_PhysicsV1": "/Game/Weapons/Kukri20261020/Refinement20261027/Materials/M_Kukri_LanyardTag_PhysicsV1.M_Kukri_LanyardTag_PhysicsV1"
         },
         "physics": "SwordTasselMeshComponent: bounded gravity, inertia, damping and length constraints"
+      },
+      "kukri_lanyard_relentless": {
+        "mesh": "/Game/Weapons/Kukri20261020/PendantPrecision20261030/Relentless/SM_Kukri_RelentlessPendant.SM_Kukri_RelentlessPendant",
+        "location_cm": [
+          0.6662091,
+          0,
+          -1.9326787
+        ],
+        "parent_slot": "pommel",
+        "appearance": "十级暗钢叠片嵌入古铜边框，短编绳与闭合转环连接柄尾；细缝随连续命中逐层亮起。",
+        "guides_cm": [
+          [
+            0.06238,
+            0.05977,
+            -1.8
+          ],
+          [
+            0.25478,
+            0.0311,
+            -2.3
+          ],
+          [
+            0.99087,
+            -0.08793,
+            -2.8
+          ],
+          [
+            1.68086944,
+            -0.24228667,
+            -3.0
+          ],
+          [
+            2.06035455,
+            -0.46932895,
+            -3.2
+          ],
+          [
+            2.57074,
+            -0.65608,
+            -3.4
+          ],
+          [
+            2.76604,
+            -0.72759,
+            -8.5
+          ],
+          [
+            2.76604,
+            -0.72759,
+            -8.6
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          1,
+          0.6,
+          0.35,
+          0.1,
+          0.1,
+          0.1
+        ],
+        "collision_capsules_cm": [
+          [
+            -2.4,
+            0,
+            -0.5,
+            2.1,
+            0,
+            -0.5,
+            0.72
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 4.6,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.1,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8,
+        "material_slot_names": [
+          "M_Kukri_RelentlessPendant"
+        ],
+        "materials": {
+          "M_Kukri_RelentlessPendant": "/Game/Weapons/Kukri20261020/PendantPrecision20261030/Relentless/M_Kukri_RelentlessPendant.M_Kukri_RelentlessPendant"
+        },
+        "physics": "SwordTasselMeshComponent: gravity, inertia, damping, constrained short cord and rigid pendant; full-stack light follows guide 5",
+        "binding_revision": "connected-rigid-terminal-v2"
+      },
+      "kukri_lanyard_decisive": {
+        "mesh": "/Game/Weapons/Kukri20261020/PendantPrecision20261030/Decisive/SM_Kukri_DecisivePendant.SM_Kukri_DecisivePendant",
+        "location_cm": [
+          0.6662091,
+          0,
+          -1.9326787
+        ],
+        "parent_slot": "pommel",
+        "appearance": "菱形暗钢框嵌有旧银棱边，中央托爪扣住烟紫晶核；短编绳与闭环连接柄尾。",
+        "guides_cm": [
+          [
+            0.06238,
+            0.05977,
+            -1.8
+          ],
+          [
+            0.25478,
+            0.0311,
+            -2.3
+          ],
+          [
+            0.99087,
+            -0.08793,
+            -2.8
+          ],
+          [
+            1.68086944,
+            -0.24228667,
+            -3.0
+          ],
+          [
+            2.06035455,
+            -0.46932895,
+            -3.2
+          ],
+          [
+            2.57074,
+            -0.65608,
+            -3.4
+          ],
+          [
+            2.76604,
+            -0.72759,
+            -8.5
+          ],
+          [
+            2.76604,
+            -0.72759,
+            -8.6
+          ]
+        ],
+        "inverse_masses": [
+          0,
+          1,
+          1,
+          0.6,
+          0.35,
+          0.12,
+          0.12,
+          0.12
+        ],
+        "collision_capsules_cm": [
+          [
+            -2.4,
+            0,
+            -0.5,
+            2.1,
+            0,
+            -0.5,
+            0.72
+          ],
+          [
+            -0.3,
+            0,
+            2.4,
+            -0.3,
+            0,
+            13,
+            1.55
+          ]
+        ],
+        "damping_per_second": 4.6,
+        "heavy_damping_per_second": 5.5,
+        "particle_radius_cm": 0.12,
+        "skin_uv_channel": 2,
+        "fixed_above_z_cm": -1.8,
+        "material_slot_names": [
+          "M_Kukri_DecisivePendant",
+          "M_Kukri_DecisiveCrystal",
+          "M_Kukri_DecisiveFlash"
+        ],
+        "materials": {
+          "M_Kukri_DecisivePendant": "/Game/Weapons/Kukri20261020/PendantPrecision20261030/Decisive/M_Kukri_DecisivePendant.M_Kukri_DecisivePendant",
+          "M_Kukri_DecisiveCrystal": "/Game/Weapons/Kukri20261020/PendantPrecision20261030/Decisive/M_Kukri_DecisiveCrystal.M_Kukri_DecisiveCrystal",
+          "M_Kukri_DecisiveFlash": "/Game/Weapons/Kukri20261020/PendantPrecision20261030/Decisive/M_Kukri_DecisiveFlash.M_Kukri_DecisiveFlash"
+        },
+        "physics": "Eight-guide gravity/inertia chain, constrained cord, rigid open frame and crystal; glow follows WPO guide 5",
+        "binding_revision": "connected-rigid-terminal-v2"
       }
     },
     "blade_2": {
@@ -704,28 +898,30 @@
           "M_Kukri_Hunter": "/Game/Weapons/Kukri20261020/HunterBlade20261027/Runes/Materials/MI_KukriMark_Hunter_RunePeaks.MI_KukriMark_Hunter_RunePeaks",
           "M_Kukri_Canine": "/Game/Weapons/Kukri20261020/CanineBlade20261027/Runes/Materials/MI_KukriMark_Canine_RunePeaks.MI_KukriMark_Canine_RunePeaks"
         }
-      },
-      "berserker_rune": {
-        "appearance": "血红狼首与獠牙纹样沿刀面自然展开，细长血痕连接下缘，纹路带有微弱呼吸红光。",
-        "surface_materials": {
-          "M_Kukri": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_Factory.MI_Berserker_Factory",
-          "M_Kukri_Swift": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_Swift.MI_Berserker_Swift",
-          "M_Kukri_HeavyBack": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_HeavyBack.MI_Berserker_HeavyBack",
-          "M_Kukri_FoldedBalanced": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_FoldedBalanced.MI_Berserker_FoldedBalanced",
-          "M_Kukri_Hunter": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_Hunter.MI_Berserker_Hunter",
-          "M_Kukri_Canine": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_Canine.MI_Berserker_Canine"
-        }
-      },
-      "frost_raven_rune": {
-        "appearance": "冰蓝鸟首与层叠羽纹沿刀面展开，细密刻线和镂空纹路交织成霜光。",
-        "surface_materials": {
-          "M_Kukri": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Factory.MI_FrostRaven_Factory",
-          "M_Kukri_Swift": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Swift.MI_FrostRaven_Swift",
-          "M_Kukri_HeavyBack": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_HeavyBack.MI_FrostRaven_HeavyBack",
-          "M_Kukri_FoldedBalanced": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_FoldedBalanced.MI_FrostRaven_FoldedBalanced",
-          "M_Kukri_Hunter": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Hunter.MI_FrostRaven_Hunter",
-          "M_Kukri_Canine": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Canine.MI_FrostRaven_Canine"
-        }
+      }
+    }
+  },
+  "enchantment_surfaces": {
+    "bloodWolf": {
+      "appearance": "血红狼首与獠牙纹样沿刀面自然展开，细长血痕连接下缘，纹路带有微弱呼吸红光。",
+      "surface_materials": {
+        "M_Kukri": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_Factory.MI_Berserker_Factory",
+        "M_Kukri_Swift": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_Swift.MI_Berserker_Swift",
+        "M_Kukri_HeavyBack": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_HeavyBack.MI_Berserker_HeavyBack",
+        "M_Kukri_FoldedBalanced": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_FoldedBalanced.MI_Berserker_FoldedBalanced",
+        "M_Kukri_Hunter": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_Hunter.MI_Berserker_Hunter",
+        "M_Kukri_Canine": "/Game/Weapons/Kukri20261020/Berserker20261028/Materials/MI_Berserker_Canine.MI_Berserker_Canine"
+      }
+    },
+    "frostHawk": {
+      "appearance": "冰蓝鸟首与层叠羽纹沿刀面展开，细密刻线和镂空纹路交织成霜光。",
+      "surface_materials": {
+        "M_Kukri": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Factory.MI_FrostRaven_Factory",
+        "M_Kukri_Swift": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Swift.MI_FrostRaven_Swift",
+        "M_Kukri_HeavyBack": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_HeavyBack.MI_FrostRaven_HeavyBack",
+        "M_Kukri_FoldedBalanced": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_FoldedBalanced.MI_FrostRaven_FoldedBalanced",
+        "M_Kukri_Hunter": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Hunter.MI_FrostRaven_Hunter",
+        "M_Kukri_Canine": "/Game/Weapons/Kukri20261020/FrostRaven20261028/Materials/MI_FrostRaven_Canine.MI_FrostRaven_Canine"
       }
     }
   },

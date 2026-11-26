@@ -71,7 +71,7 @@ PKM 原先没有任何自己的开火声：`InitializeWeaponVisuals()` 统一走
 - 不再获得步枪精通的 **智慧 +1/级** 与 **要害伤害 +1%/级**（用户指定机枪按力量+精神成长，不是要害流）。
 - 不再获得步枪精通的换弹/固定伤分支；机枪精通有独立的伤害分支。
 
-`source-combat-items.json` 的 `PKM.attackFormula` 保留了原型历史值（base 7 / str 0.3+0.045 / wis 0.25+0.04），
+`source-combat-items.json` 旧表的 `weapon6.attackFormula` 是 PKM 原型历史值（base 7 / str 0.3+0.045 / wis 0.25+0.04）；2026-10-19 已随旧表移入 `Docs/Archives/legacy-gamedev-combat-items-20261019.json`，
 它**不参与运行时**：`ColdSteelEnhancementSystem::AttackFormula` 先查 `combat-weapon-formulas.json`，
 按 `Item.Definition`（`ue_pkm_lowpoly`）命中新条目后直接返回。历史资料按归档决策保留，不清洗。
 

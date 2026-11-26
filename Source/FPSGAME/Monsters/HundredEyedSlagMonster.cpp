@@ -1,4 +1,5 @@
 #include "HundredEyedSlagMonster.h"
+#include "MonsterTargeting.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "GameFramework/GameStateBase.h"
 #include "../Multiplayer/FPSStatusReplicationComponent.h"
@@ -328,7 +329,7 @@ bool AHundredEyedSlagMonster::StartAttack(APawn* Victim)
 }
 void AHundredEyedSlagMonster::DamageVictim(APawn* Victim, bool Magic)
 {
-    if (!IsValid(Victim) || !Victim->IsPlayerControlled() || HitVictims.Contains(Victim) || !CanSee(Victim)) return;
+    if (!IsValid(Victim) || !MonsterTargeting::IsOpponentPawn(Victim) || HitVictims.Contains(Victim) || !CanSee(Victim)) return;
     const auto* Vitals = Victim->FindComponentByClass<UFPSCombatHealthComponent>();
     if (Vitals && Vitals->IsDead()) return;
     if (!Magic && (State == ESlagState::Sweep || State == ESlagState::Slam))

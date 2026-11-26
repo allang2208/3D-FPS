@@ -1,7 +1,5 @@
-#include "../Weapons/MeleeWeaponStats.h"
-#include "../Weapons/MeleeWeaponStats.h"
-#include "../Weapons/MeleeWeaponStats.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../Skills/LightningHasteSpeed.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Building/WoodworkingQuality.h"
 #include "../UI/StatusEffectsComponent.h"
@@ -12,8 +10,10 @@
 #include "Misc/Paths.h"
 #include "Serialization/JsonSerializer.h"
 #include "CoreCombatFormula.h"
+#include "../Weapons/Bow/BowStats.h"
 #include "CombatItemFormula.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
+#include "../Weapons/MeleeWeaponStats.h"
 #include "../Weapons/Spellbook/SpellbookFocusMana.h"
 #include "../Dungeons/DungeonRunSubsystem.h"
 namespace
@@ -45,8 +45,34 @@ bool WorkwearComplete(const UColdSteelStatusModel& Model)
 FString UColdSteelStatusModel::ArmorSet()const
 {
     FString Set;
-    for(int32 Slot:{1,7,13}){const auto* I=Equipped(Slot);if(!I)return {};FString Id;const auto Data=Read(I);if(Data)Data->TryGetStringField(TEXT("armorSet"),Id);if(Id.IsEmpty()||(!Set.IsEmpty()&&Id!=Set))return {};Set=Id;}
+    for(int32 Slot:{1,7,13}){const auto* I=Equipped(Slot);if(!I)return {};FString Id;const auto Data=CombatItemFormula::ReadOnly(*I);if(Data)Data->TryGetStringField(TEXT("armorSet"),Id);if(Id.IsEmpty()||(!Set.IsEmpty()&&Id!=Set))return {};Set=Id;}
     return Set;
+}
+bool UColdSteelStatusModel::BlueMageSetComplete()const
+{
+    // The common 3-piece check covers helmet/armor/boots; the blue mage set also needs gloves and pants.
+    if(ArmorSet()!=TEXT("blue_mage"))return false;
+    for(int32 Slot:{3,15})
+    {
+        const auto* I=Equipped(Slot);if(!I)return false;
+        FString Id;const auto Data=CombatItemFormula::ReadOnly(*I);
+        if(Data)Data->TryGetStringField(TEXT("armorSet"),Id);
+        if(Id!=TEXT("blue_mage"))return false;
+    }
+    return true;
+}
+bool UColdSteelStatusModel::SteelChainmailSetComplete()const
+{
+    // Heavy set: the common 3-piece check covers helmet/armor/boots, plus gloves and pants.
+    if(ArmorSet()!=TEXT("steel_chainmail"))return false;
+    for(int32 Slot:{3,15})
+    {
+        const auto* I=Equipped(Slot);if(!I)return false;
+        FString Id;const auto Data=CombatItemFormula::ReadOnly(*I);
+        if(Data)Data->TryGetStringField(TEXT("armorSet"),Id);
+        if(Id!=TEXT("steel_chainmail"))return false;
+    }
+    return true;
 }
 bool UColdSteelStatusModel::RangerFieldSetComplete()const
 {
@@ -58,6 +84,21 @@ bool UColdSteelStatusModel::RangerFieldSetComplete()const
         FString Id;const auto Data=CombatItemFormula::ReadOnly(*I);
         if(Data)Data->TryGetStringField(TEXT("armorSet"),Id);
         if(Id!=TEXT("ranger_field"))return false;
+    }
+    return true;
+}
+bool UColdSteelStatusModel::St6TacticalSetComplete()const
+{
+    // Firearm-handling set: the common 3-piece check covers helmet/armor/boots,
+    // plus gloves and pants. Helmet is a data-only placeholder for now, so this
+    // stays false until a real helmet exists; nothing in SetEffect fires before that.
+    if(ArmorSet()!=TEXT("st6_tactical"))return false;
+    for(int32 Slot:{3,15})
+    {
+        const auto* I=Equipped(Slot);if(!I)return false;
+        FString Id;const auto Data=CombatItemFormula::ReadOnly(*I);
+        if(Data)Data->TryGetStringField(TEXT("armorSet"),Id);
+        if(Id!=TEXT("st6_tactical"))return false;
     }
     return true;
 }
@@ -87,12 +128,28 @@ double UColdSteelStatusModel::SetEffect(FName Key)const
         const double Equipment=FMath::Max(.1,1.+EquipmentBonus(TEXT("magicCooldownPercent")));
         return 1.-(1.-Reduction)*Equipment;
     }
-    if(Key==TEXT("magicDamage")){if(S==TEXT("robe"))return .18;if(S==TEXT("eclipse"))return .25;if(S==TEXT("lunar"))return .30;if(S==TEXT("oracle_robe"))return .35;}
+    if(Key==TEXT("magicDamage"))
+    {
+        double Armor=1.;
+        if(S==TEXT("robe"))Armor=1.18;
+        else if(S==TEXT("eclipse"))Armor=1.25;
+        else if(S==TEXT("lunar"))Armor=1.30;
+        else if(S==TEXT("oracle_robe"))Armor=1.35;
+        const auto* Aurora=ColdSteelBow::AuroraRiser(this,ActiveBow());
+        return Armor*(Aurora?Aurora->Bow.MagicDamage:1.)-1.;
+    }
     if(Key==TEXT("atk")){if(S==TEXT("stellar"))return .10;if(S==TEXT("holy"))return .15;}
     if(Key==TEXT("crit")){if(RangerFieldSetComplete())return 10;if(S==TEXT("stellar"))return 15;if(S==TEXT("holy"))return 20;}
     if(Key==TEXT("critDamage"))return RangerFieldSetComplete()?.25:0;
-    if(Key==TEXT("defense"))return RangerFieldSetComplete()?.05:0;
     if(Key==TEXT("staminaRegen"))return S==TEXT("flowing")?1.12:1;
+    if(Key==TEXT("castRange"))return BlueMageSetComplete()?.50:0;
+    if(Key==TEXT("magicAttack"))return BlueMageSetComplete()?.10:0;
+    if(Key==TEXT("defense"))return SteelChainmailSetComplete()?.15:(RangerFieldSetComplete()?.05:0);
+    // ST6 战术套：枪械手感三件套，全部走既有消费端，不新造字段。
+    // 换弹/开镜为「速度」语义（正值更快、负值更快），奔跑体力为消耗（负值更省）。
+    if(Key==TEXT("reloadSpeed"))return St6TacticalSetComplete()?.15:0;
+    if(Key==TEXT("adsPercent"))return St6TacticalSetComplete()?-.10:0;
+    if(Key==TEXT("sprintStaminaCost"))return St6TacticalSetComplete()?-.15:0;
     return 0;
 }
 double UColdSteelStatusModel::TributeEffect(FName Key)const
@@ -164,16 +221,22 @@ double UColdSteelStatusModel::DungeonEffect(FName Key)const
 }
 double UColdSteelStatusModel::AdjustCombatStat(FName Key,double Value)const
 {
-    if(Key==TEXT("matk"))Value=std::floor(Value*ColdSteelMelee::EquippedModifiers(this).MagicAttack);
-    if(Key==TEXT("matk"))Value=std::floor(Value*ColdSteelMelee::EquippedModifiers(this).MagicAttack);
-    if(Key==TEXT("matk"))Value=std::floor(Value*ColdSteelMelee::EquippedModifiers(this).MagicAttack);
     if(Key==TEXT("atk"))Value=std::floor(Value*(1+SetEffect(TEXT("atk"))));
     if(Key==TEXT("crit"))Value+=SetEffect(TEXT("crit"));
-    if(Key==TEXT("def")&&ArmorSet()==TEXT("modern_tactical"))Value=std::floor(Value*(1+SetEffect(TEXT("defense"))));
+    if(Key==TEXT("matk"))
+    {
+        const double WeaponMagicAttack=ColdSteelMelee::EquippedModifiers(this).MagicAttack;
+        Value=std::floor(Value*(1.+EquipmentBonus(TEXT("magicAttackPercent"))+SetEffect(TEXT("magicAttack")))*WeaponMagicAttack);
+    }
+    if(Key==TEXT("def"))Value=std::floor(Value*(1+SetEffect(TEXT("defense"))));
     const FName Percent(*(Key.ToString()+TEXT("Percent")));
     if(Key==TEXT("atk")||Key==TEXT("matk")||Key==TEXT("def")||Key==TEXT("mdef"))Value=std::floor(Value*(1+DungeonEffect(Percent)/100.));
     if(Key==TEXT("atk")||Key==TEXT("matk")||Key==TEXT("def")||Key==TEXT("mdef")||Key==TEXT("crit"))Value=std::floor(Value*TributeEffect(Percent));
     return Value;
+}
+double UColdSteelStatusModel::MagicRangeMultiplier()const
+{
+    return FMath::Max(.1,1.+EquipmentBonus(TEXT("castRangePercent"))+SetEffect(TEXT("castRange")));
 }
 double UColdSteelStatusModel::ItemMagicAttack(const FColdSteelItem& Item)const
 {
@@ -199,6 +262,8 @@ double UColdSteelStatusModel::EquipmentMagicAttack()const
 }
 void UColdSteelStatusModel::ApplySpellCastSpeed(float& CastSpeed)const
 {
+    CastSpeed*=LightningHaste::ActionSpeed(RuntimePawn());
+    CastSpeed*=float(FMath::Max(.1,1.+EquipmentBonus(TEXT("castSpeedPercent"))));
     const auto* Book=ActiveSpellbook();if(!Book)return;
     const auto* Pawn=RuntimePawn();
     const auto* Focus=Pawn?Pawn->FindComponentByClass<USpellbookComponent>():nullptr;

@@ -53,13 +53,16 @@ bool GroundGuide(UWorld* World, const AActor* Owner, const FLurkerSurfacePoint& 
     const auto* Pawn = Cast<APawn>(Owner);
     auto* Nav = FNavigationSystem::GetCurrent<UNavigationSystemV1>(World);
     if (!Pawn || !Nav) return false;
-    const FVector Feet = Start.Center - FVector::UpVector * (Radius + 3.f);
+    const FVector Feet = Start.Center - Start.Normal * (Radius + 3.f);
     const FVector GoalFeet = Goal - FVector::UpVector * (Radius + 3.f);
     const auto& Agent = Pawn->GetNavAgentPropertiesRef();
     const auto* Data = Nav->GetNavDataForProps(Agent, Feet);
-    FNavLocation Projected;
-    if (!Data || !Nav->ProjectPointToNavigation(GoalFeet, Projected, FVector(100, 100, 70), Data)) return false;
-    FPathFindingQuery Query(Pawn, *Data, Feet, Projected.Location, Data->GetDefaultQueryFilter());
+    FNavLocation Projected, Origin;
+    if (!Data || Data->GetConfig().AgentRadius+KINDA_SMALL_NUMBER<Agent.AgentRadius
+        || Data->GetConfig().AgentHeight+KINDA_SMALL_NUMBER<Agent.AgentHeight
+        || !Nav->ProjectPointToNavigation(Feet,Origin,FVector(60,60,70),Data)
+        || !Nav->ProjectPointToNavigation(GoalFeet, Projected, FVector(100, 100, 70), Data)) return false;
+    FPathFindingQuery Query(Pawn, *Data, Origin.Location, Projected.Location, Data->GetDefaultQueryFilter());
     Query.SetAllowPartialPaths(false);
     const FPathFindingResult Path = Nav->FindPathSync(Agent, Query);
     if (!Path.IsSuccessful() || !Path.Path.IsValid() || Path.Path->IsPartial()) return false;
@@ -77,7 +80,7 @@ bool GroundGuide(UWorld* World, const AActor* Owner, const FLurkerSurfacePoint& 
 }
 
 bool Build(UWorld* World, const AActor* Owner, const FLurkerSurfacePoint& Start, FVector Goal,
-    float Radius, const TArray<FVector>& Recent, TArray<FLurkerSurfacePoint>& Out)
+    float Radius, const TArray<FVector>& Recent, TArray<FLurkerSurfacePoint>& Out,const FVector* BlockedPoint)
 {
     Out.Reset();
     struct FNode
@@ -129,6 +132,7 @@ bool Build(UWorld* World, const AActor* Owner, const FLurkerSurfacePoint& Start,
                 Found = Support(World, Owner, OverLip, OverLip - Direction * (Stride + Radius + 30.f), Radius, Next);
             }
             if (!Found || FVector::DistSquared(Current.Center, Next.Center) < FMath::Square(18.f)) continue;
+            if (BlockedPoint && FVector::DistSquared(Next.Center,*BlockedPoint)<FMath::Square(60.f)) continue;
             bool Duplicate = false;
             for (const FNode& Node : Nodes)
                 if (FVector::DistSquared(Node.Point.Center, Next.Center) < FMath::Square(48.f)
@@ -140,6 +144,8 @@ bool Build(UWorld* World, const AActor* Owner, const FLurkerSurfacePoint& Start,
                 if (FVector::DotProduct(Current.Normal, Next.Normal) > .8f) continue;
                 const FVector A = Current.Center + Next.Normal * (Radius + 12.f);
                 const FVector B = Next.Center + Current.Normal * (Radius + 12.f);
+                if (BlockedPoint && (FVector::DistSquared(A,*BlockedPoint)<FMath::Square(60.f)
+                    || FVector::DistSquared(B,*BlockedPoint)<FMath::Square(60.f))) continue;
                 if (!Segment(World, Owner, Current.Center, A, Radius) || !Segment(World, Owner, A, B, Radius)
                     || !Segment(World, Owner, B, Next.Center, Radius)) continue;
                 Candidate.Bridge.Add({A, Current.Normal}); Candidate.Bridge.Add({B, Next.Normal});

@@ -47,6 +47,7 @@ void UGunsmithSystem::LoadMeleeCatalog()
             const auto Data=Entry->AsObject();FGunsmithOption Part;
             Part.Id=Data->GetStringField(TEXT("id"));Part.Name=Data->GetStringField(TEXT("name"));
             Part.Description=Data->GetStringField(TEXT("description"));
+            if(Key==TEXT("blade_material"))Part.Appearance=Part.Description;
             Part.ReadSpecialEffects(Data);
             const TArray<TSharedPtr<FJsonValue>>* Compatible=nullptr;
             if(Data->TryGetArrayField(TEXT("weapons"),Compatible))for(const auto& Id:*Compatible)Part.CompatibleWeapons.Add(Id->AsString());
@@ -55,15 +56,19 @@ void UGunsmithSystem::LoadMeleeCatalog()
             const auto Stats=Data->GetObjectField(TEXT("stats"));
             Stats->TryGetNumberField(TEXT("damage_mult"),Part.Melee.Damage);
             Stats->TryGetNumberField(TEXT("physical_damage_mult"),Part.Melee.PhysicalDamage);
+            Stats->TryGetNumberField(TEXT("physical_attack_mult"),Part.Melee.PhysicalAttackMultiplier);
+            Stats->TryGetNumberField(TEXT("melee_hit_bleed_stacks"),Part.Melee.MeleeHitBleedStacks);
             Stats->TryGetNumberField(TEXT("attack_speed_mult"),Part.Melee.AttackSpeed);
             Stats->TryGetNumberField(TEXT("range_mult"),Part.Melee.Range);
             Stats->TryGetNumberField(TEXT("stamina_mult"),Part.Melee.Stamina);
+            Stats->TryGetNumberField(TEXT("normal_attack_stamina_mult"),Part.Melee.NormalAttackStamina);
             Stats->TryGetNumberField(TEXT("kill_stamina_max_ratio"),Part.Melee.KillStaminaMaxRatio);
             Stats->TryGetNumberField(TEXT("hit_reaction_mult"),Part.Melee.HitReaction);
             Stats->TryGetNumberField(TEXT("toughness_damage_mult"),Part.Melee.ToughnessDamage);
             Stats->TryGetNumberField(TEXT("physical_armor_penetration"),Part.Melee.PhysicalArmorPenetration);
             Stats->TryGetNumberField(TEXT("block_reduction_mult"),Part.Melee.BlockReduction);
             Stats->TryGetNumberField(TEXT("block_stamina_mult"),Part.Melee.BlockStamina);
+            Stats->TryGetNumberField(TEXT("physical_defense_mult"),Part.Melee.PhysicalDefenseMultiplier);
             Stats->TryGetNumberField(TEXT("damage_taken_mult"),Part.Melee.DamageTaken);
             Stats->TryGetNumberField(TEXT("dodge_stamina_mult"),Part.Melee.DodgeStamina);
             Stats->TryGetNumberField(TEXT("sprint_stamina_mult"),Part.Melee.SprintStamina);
@@ -86,12 +91,22 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("magic_cooldown_mult"),Part.Melee.MagicCooldown);
             Stats->TryGetNumberField(TEXT("cooldown_reduce_seconds_per_hit"),Part.Melee.CooldownReduceSecondsPerHit);
             Stats->TryGetNumberField(TEXT("magic_damage_mult"),Part.Melee.MagicDamage);
+            Stats->TryGetNumberField(TEXT("magic_attack_mult"),Part.Melee.MagicAttack);
+            Stats->TryGetNumberField(TEXT("rune_blade_count_add"),Part.Melee.RuneBladeCountAdd);
+            Stats->TryGetNumberField(TEXT("rune_blade_damage_multiplier"),Part.Melee.RuneBladeDamageMultiplier);
+            Stats->TryGetNumberField(TEXT("rune_blade_count_override"),Part.Melee.RuneBladeCountOverride);
+            Stats->TryGetNumberField(TEXT("rune_blade_blast_radius_cm"),Part.Melee.RuneBladeBlastRadius);
+            Stats->TryGetNumberField(TEXT("rune_blade_cooldown_mult"),Part.Melee.RuneBladeCooldown);
+            if(Part.Melee.RuneBladeDamageMultiplier>0)
+                Part.Melee.RuneBladeMagicDamage=Part.Melee.MagicDamage;
             Stats->TryGetNumberField(TEXT("magic_cost_mult"),Part.Melee.MagicCost);
             Stats->TryGetNumberField(TEXT("heavy_damage_mult"),Part.Melee.HeavyDamage);
             Stats->TryGetNumberField(TEXT("heavy_toughness_mult"),Part.Melee.HeavyToughness);
             Stats->TryGetNumberField(TEXT("heavy_damage_add"),Part.Melee.HeavyDamageAdd);
             Stats->TryGetNumberField(TEXT("whirlwind_damage_add"),Part.Melee.WhirlwindDamageAdd);
             Stats->TryGetNumberField(TEXT("heavy_charge_speed_bonus"),Part.Melee.HeavyChargeSpeedBonus);
+            Stats->TryGetNumberField(TEXT("oath_heavy_physical_mult"),Part.Melee.OathHeavyPhysical);
+            Stats->TryGetNumberField(TEXT("oath_charge_stamina_mult"),Part.Melee.OathChargeStamina);
             Stats->TryGetNumberField(TEXT("physical_attack_add"),Part.Melee.PhysicalAttackAdd);
             Stats->TryGetNumberField(TEXT("knockback_mult"),Part.Melee.Knockback);
             Stats->TryGetNumberField(TEXT("all_attack_knockback_mult"),Part.Melee.AllAttackKnockback);
@@ -111,6 +126,10 @@ void UGunsmithSystem::LoadMeleeCatalog()
             Stats->TryGetNumberField(TEXT("rune_intelligence"),Part.Melee.RuneIntelligence);
             Stats->TryGetNumberField(TEXT("rune_wisdom"),Part.Melee.RuneWisdom);
             Stats->TryGetNumberField(TEXT("innate_erosion_mult"),Part.Melee.InnateErosionMultiplier);
+            Stats->TryGetNumberField(TEXT("time_sand_echo_ratio"),Part.Melee.TimeSandEchoRatio);
+            Stats->TryGetNumberField(TEXT("time_sand_echo_delay"),Part.Melee.TimeSandEchoDelay);
+            Stats->TryGetNumberField(TEXT("hit_health_return_ratio"),Part.Melee.HitHealthReturnRatio);
+            Stats->TryGetNumberField(TEXT("hit_mana_return_ratio"),Part.Melee.HitManaReturnRatio);
             Stats->TryGetNumberField(TEXT("rune_vulnerability"),Part.Melee.RuneVulnerability);
             Stats->TryGetNumberField(TEXT("rune_vulnerability_seconds"),Part.Melee.RuneVulnerabilitySeconds);
             Stats->TryGetNumberField(TEXT("parry_window_mult"),Part.Melee.ParryWindow);
@@ -158,7 +177,7 @@ void UGunsmithSystem::LoadMeleeCatalog()
         for(auto& Column:Weapon.Options)Column.Value.RemoveAll([&](const FGunsmithOption& Part){return !Part.CompatibleWeapons.IsEmpty()&&!Part.CompatibleWeapons.Contains(Id);});
         if(Id==ColdSteelFrostRunes::Definition)
             if(auto* Runes=Weapon.Options.Find(TEXT("blade_2"));Runes&&!Runes->IsEmpty())
-                (*Runes)[0].Description=TEXT("寒晶自带紫色侵蚀裂纹，近战附加智力与精神转化的魔法伤害；其他符文改造仍保留此效果。");
+                (*Runes)[0].Description=TEXT("更换符文仍保留剑身自带的侵蚀效果。");
         Weapon.Base.Damage=ColdSteelInventory::Number(Item,TEXT("melee_damage"),55);
         Weapon.Base.Interval=ColdSteelInventory::Number(Item,TEXT("attack_seconds"),RuneSwordRhythm::AttackEnd);
         Weapon.Base.Range=ColdSteelInventory::Number(Item,TEXT("melee_reach_cm"),180)/100.;

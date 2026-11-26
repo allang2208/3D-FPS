@@ -130,7 +130,7 @@ void AVoxelBuildWorld::TickDamage()
         }
         if(Changed)
         {
-            History.Reset();MarkSaveDirty();
+            UndoHistory.ClearVoxelBatches(UndoPlayer);MarkSaveDirty();
             if(Request.bStatic)
             {
                 if(!Removed.IsEmpty())ApplyChanges(Removed);

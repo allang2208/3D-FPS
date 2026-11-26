@@ -29,7 +29,7 @@ private:
     FString ItemId;
     float Scale=1;
     bool bConfirmDrop=false;
-    UTextBlock* Label(const FString& Text);
+    UTextBlock* Label(const FString& Text, bool bHeading=false);
     class UButton* Button(const FString& Text);
     UFUNCTION() void Use();
     UFUNCTION() void Split();

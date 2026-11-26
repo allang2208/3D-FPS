@@ -1,4 +1,6 @@
 #include "FPSIceSpikeComponent.h"
+#include "../Monsters/UnknownSpellCombat.h"
+#include "PlayerSkillPreparation.h"
 #include "../Monsters/BoundCongregateCaptureComponent.h"
 #include "FPSIceSpikeVolley.h"
 #include "FPSFireballComponent.h"
@@ -22,21 +24,25 @@ UFPSIceSpikeComponent::UFPSIceSpikeComponent(){PrimaryComponentTick.bCanEverTick
 void UFPSIceSpikeComponent::BeginPlay()
 {
     Super::BeginPlay();AddTickPrerequisiteActor(GetOwner());
+    PlayerSkillAssets::Defer(GetOwner(),TEXT("iceSpike"),FSimpleDelegate::CreateWeakLambda(this,[this]()
+    {
+    SpikeMeshes.Reset();
     for(int32 I=1;I<=3;++I)
     {
         const FString Path=FString::Printf(TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_%02d.SM_IceSpike_%02d"),I,I);
-        SpikeMeshes.Add(LoadObject<UStaticMesh>(nullptr,*Path));
+        SpikeMeshes.Add(PlayerSkillAssets::Resolve<UStaticMesh>(*Path));
     }
-    ShardMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Skills/IceSpike/SM_IceShard.SM_IceShard"));
-    IceMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/M_IceHeart.M_IceHeart"));
-    IceShellMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/M_IceShell.M_IceShell"));
-    ImpactFX=LoadObject<UParticleSystem>(nullptr,TEXT("/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact"));
-    ImpactSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Skills/IceSpike/S_IceImpact.S_IceImpact"));
-    Motes=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/NS_FrostCrystals.NS_FrostCrystals"));
-    ColdMist=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/NS_ColdMist.NS_ColdMist"));
+    ShardMesh=PlayerSkillAssets::Resolve<UStaticMesh>(TEXT("/Game/Skills/IceSpike/SM_IceShard.SM_IceShard"));
+    IceMaterial=PlayerSkillAssets::Resolve<UMaterialInterface>(TEXT("/Game/Skills/IceSpike/FrostV2/M_IceHeart.M_IceHeart"));
+    IceShellMaterial=PlayerSkillAssets::Resolve<UMaterialInterface>(TEXT("/Game/Skills/IceSpike/FrostV2/M_IceShell.M_IceShell"));
+    ImpactFX=PlayerSkillAssets::Resolve<UParticleSystem>(TEXT("/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact"));
+    ImpactSound=PlayerSkillAssets::Resolve<USoundBase>(TEXT("/Game/Skills/IceSpike/S_IceImpact.S_IceImpact"));
+    Motes=PlayerSkillAssets::Resolve<UNiagaraSystem>(TEXT("/Game/Skills/IceSpike/FrostV2/NS_FrostCrystals.NS_FrostCrystals"));
+    ColdMist=PlayerSkillAssets::Resolve<UNiagaraSystem>(TEXT("/Game/Skills/IceSpike/FrostV2/NS_ColdMist.NS_ColdMist"));
+    }));
 }
 UColdSteelStatusModel* UFPSIceSpikeComponent::Model() const
-{return GetWorld()&&GetWorld()->GetGameInstance()?GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;}
+{return NetCast::LocalModel(*this);}
 UFPSFireballComponent* UFPSIceSpikeComponent::Hands() const {return GetOwner()->FindComponentByClass<UFPSFireballComponent>();}
 bool UFPSIceSpikeComponent::IsPrepared() const {return (Active.IsValid()&&!Active->IsFlying())||bNetExpect;}
 int32 UFPSIceSpikeComponent::ActiveCount() const {return Active.IsValid()?Active->RemainingCount():0;}
@@ -91,7 +97,7 @@ void UFPSIceSpikeComponent::Trigger()
     {
         if(M->IceSpikeCooldown()>0){Feedback(TEXT("冷却"));return;}
         if(!M->CanSpendMana(M->IceSpikeStats().ManaCost)){Feedback(TEXT("缺蓝"));return;}
-        if(SpikeMeshes.Num()!=3||SpikeMeshes.Contains(nullptr)||!ShardMesh||!IceMaterial||!IceShellMaterial||!ImpactFX||!ColdMist){Feedback(TEXT("缺素材"));return;}
+        if(SpikeMeshes.Num()!=3||SpikeMeshes.Contains(nullptr)||!ShardMesh||!IceMaterial||!IceShellMaterial||!ImpactFX||!ColdMist){Feedback(TEXT("魔法素材准备中"));return;}
         bQueuedGather=true;
     }
     ServiceQueue();
@@ -150,6 +156,7 @@ void UFPSIceSpikeComponent::LaunchAtContact()
         return;
     }
     Active->Launch();
+    if(auto* M=Model())M->NotifyMagicReleased();
 }
 void UFPSIceSpikeComponent::VolleyFinished(AFPSIceSpikeVolley* Volley)
 {if(Active.Get()!=Volley)return;Active.Reset();bQueuedRelease=false;bAimPreview=false;if(auto* H=Hands())H->CancelSpellGesture(this);}

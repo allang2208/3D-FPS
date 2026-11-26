@@ -3,16 +3,22 @@
 #include "FPSBodyWeaponMeshComponent.h"
 #include "FPSPlayerBodyPoses.h"
 #include "FPSBodyBowMotion.h"
+#include "../Weapons/PhysicalScopeView.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
+#include "../Weapons/Bow/BowMountainEchoComponent.h"
+#include "../Weapons/Bow/BowCadenceComponent.h"
 #include "../Weapons/Bow/BowArmsMeshComponent.h"
 #include "../Weapons/Bow/BowPartComponent.h"
 #include "../Weapons/Bow/BowFlexMeshComponent.h"
 #include "../Skills/FPSFireballComponent.h"
+#include "../Skills/FPSQuickCombatComponent.h"
+#include "../Skills/BowHeldMagicVisual.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "Animation/AnimSequence.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/SkeletalMesh.h"
+#include "Engine/StaticMesh.h"
 #include "Materials/MaterialInstanceDynamic.h"
 
 void UFPSPlayerBodyComponent::CaptureBow(const UBowWeaponComponent& Source,FFPSBodyWeapon& Out) const
@@ -36,11 +42,24 @@ void UFPSPlayerBodyComponent::CaptureBow(const UBowWeaponComponent& Source,FFPSB
     {
         const auto* Part=Source.Part(Slot);if(!Part)return;
         FFPSBodyAttachment Spec;Spec.Slot=Slot;Spec.Mesh=Part->PartMesh;
-        const UMeshComponent* Visual=Part->FlexVisual?static_cast<const UMeshComponent*>(Part->FlexVisual.Get()):Part->Visual.Get();
-        if(Part->FlexVisual)Spec.SkeletalMesh=Cast<USkeletalMesh>(Part->FlexVisual->GetSkinnedAsset());
-        Spec.RelativeTransform=Slot==TEXT("riser")?FTransform(FQuat::Identity,Source.GripTrimCM,FVector(Source.BowScale)):Part->GetRelativeTransform();
-        if(Visual)for(auto* Material:Visual->GetMaterials())
+        const UMeshComponent* Visual=Part->Visual.Get();
+        if(Part->FlexVisual&&Part->FlexVisual->GetSkinnedAsset())
         {
+            Spec.SkeletalMesh=Cast<USkeletalMesh>(Part->FlexVisual->GetSkinnedAsset());
+            Visual=Part->FlexVisual;
+        }
+        else if(!Part->PartMesh&&Part->RodCount()>0)
+        {
+            // A procedural string carries its material on the two live rods.
+            Visual=Part->RodVisual(0);
+        }
+        Spec.RelativeTransform=Slot==TEXT("riser")?FTransform(FQuat::Identity,Source.GripTrimCM,FVector(Source.BowScale)):Part->GetRelativeTransform();
+        // Zoom is a cosmetic pose, not a new equipment description on every
+        // wheel step. Keep the stable mount and carry its roll in body state.
+        if(Slot==TEXT("sight_zoom"))Spec.RelativeTransform.SetRotation(Source.ScopeRingRotation.Quaternion());
+        if(Visual)for(int32 Index=0;Index<Visual->GetNumMaterials();++Index)
+        {
+            auto* Material=PhysicalScopeMaterials::ForWorldEquipment(Visual,Index,Visual->GetMaterial(Index));
             while(const auto* Dynamic=Cast<UMaterialInstanceDynamic>(Material))Material=Dynamic->Parent;
             Spec.Materials.Add(Material);
         }
@@ -79,7 +98,9 @@ void UFPSPlayerBodyComponent::SampleBowState(const UBowWeaponComponent& Bow,FFPS
     State.bBowClipLooping=Bow.bCurrentClipLoops;State.BowClipRate=State.bBowClipLooping?1.f:0.f;
     // Send the executor's clock on the first packet too. A frame-difference
     // estimate is zero on clip changes and can retain a forward rate on cancel.
-    const auto Rate=[&](float Seconds){return State.BowClipLength/FMath::Max(.001f,Seconds);};
+    // Equipment already shortened Seconds; stage haste advances Elapsed again.
+    // Remote extrapolation must include both, just like the owner's phase clock.
+    const auto Rate=[&](float Seconds){return State.BowClipLength/FMath::Max(.001f,Seconds)*Bow.StageActionRate;};
     switch(Bow.Stage)
     {
     case EBowStage::Drawing:State.BowClipRate=Rate(Bow.DrawSeconds);break;
@@ -92,14 +113,20 @@ void UFPSPlayerBodyComponent::SampleBowState(const UBowWeaponComponent& Bow,FFPS
     case EBowStage::Nocking:State.BowClipRate=Rate(Bow.NockSeconds);break;
     case EBowStage::DrawEntry:State.BowClipRate=State.BowClip==TEXT("Draw")?0.f:Rate(Bow.DrawEntrySeconds);break;
     case EBowStage::Equip:State.BowClipRate=Rate(Bow.EquipSeconds);break;
-    case EBowStage::QuickCombat:State.BowClipRate=1.f;break;
+    case EBowStage::QuickCombat:
+        State.BowClipRate=Character.IsValid()&&Character->QuickCombatPistol
+            ?Character->QuickCombatPistol->GetBowSourcePlaybackRate():0.f;
+        break;
     default:break;
     }
     State.BowNock=Bow.NockPoint();State.bAiming=Bow.IsAimHeld();
+    State.BowScopeRingRoll=FRotator::NormalizeAxis(Bow.ScopeRingRotation.Roll+
+        (Bow.DisplayedScopeMagnification()-Bow.OpticalMinimum)*Bow.ScopeRingDegreesPerPower);
     const bool Entry=Bow.Stage==EBowStage::DrawEntry&&Bow.bEntryNeedsArrow;
     const float Phase=Entry?Bow.Elapsed/FMath::Max(.001f,Bow.DrawEntrySeconds):Bow.Elapsed/FMath::Max(.001f,Bow.NockSeconds);
     State.bBowTakingArrow=(Bow.Stage==EBowStage::Nocking||Entry)&&Phase>=.34f;
     State.bBowArrow=Bow.Stage!=EBowStage::QuickCombat&&(Bow.bArrowNocked||State.bBowTakingArrow);
+    State.BowMagic=UBowHeldMagicVisual::KindFor(Character.Get());
     const float Seat=Entry?.9f:Bow.NockContactFraction;
     State.BowSeat=FMath::SmoothStep(0.f,1.f,(Phase-Seat)/FMath::Max(.001f,1.f-Seat));
     State.bBowCarryAxis=Entry?FName(Bow.DrawEntryClip())!=FName(TEXT("Draw")):Bow.bNockHasCarryAxis;
@@ -125,6 +152,7 @@ void UFPSPlayerBodyComponent::SampleBowState(const UBowWeaponComponent& Bow,FFPS
 
 void UFPSPlayerBodyComponent::ClearBow()
 {
+    if(WorldBowMagic){WorldBowMagic->Clear();WorldBowMagic->DestroyComponent();WorldBowMagic=nullptr;}
     for(int32 I=WorldBowParts.Num()-1;I>=0;--I)if(auto* Part=WorldBowParts[I].Get())
     {
         TArray<USceneComponent*> Children;Part->GetChildrenComponents(false,Children);
@@ -237,6 +265,8 @@ void UFPSPlayerBodyComponent::UpdateBow()
     const auto Find=[&](FName Slot)->UBowPartComponent*
     {for(auto Part:WorldBowParts)if(Part&&Part->SlotName==Slot)return Part;return nullptr;};
     auto* Riser=Find(TEXT("riser"));if(!Riser)return;
+    if(auto* Ring=Find(TEXT("sight_zoom")))
+    {auto Rotation=Ring->GetRelativeRotation();Rotation.Roll=DisplayState.BowScopeRingRoll;Ring->SetRelativeRotation(Rotation);}
     // Match AnimatedRiserMount: marker position/rotation, authored centimetre
     // scale and camera-axis trim. Imported marker scale must not scale the bow.
     FTransform RiserInRig=BowRig->GetSocketTransform(TEXT("bow_grip"),RTS_Component);
@@ -253,7 +283,14 @@ void UFPSPlayerBodyComponent::UpdateBow()
     FVector Upper=BowSettings.UpperTip,Lower=BowSettings.LowerTip;
     Riser->ApplyStringLoad(Nock,BowSettings.Brace,BowSettings.FlexDistribution);Riser->FlexTips(Upper,Lower);
     if(auto* String=Find(TEXT("string")))
-    {String->SetPartVisible(true);String->StretchRod(0,Upper,Nock,BowSettings.StringRadius);String->StretchRod(1,Lower,Nock,BowSettings.StringRadius);}
+    {
+        String->SetPartVisible(true);
+        const auto* Echo=GetOwner()->FindComponentByClass<UBowMountainEchoComponent>();
+        const auto* Cadence=GetOwner()->FindComponentByClass<UBowCadenceComponent>();
+        const int32 Charges=Cadence&&Cadence->IsEquippedFor(BowItemInstance)?Cadence->ChargesFor(BowItemInstance):Echo?Echo->ChargesFor(BowItemInstance):0;
+        if(!String->PoseString(Upper,Nock,Lower,Charges))
+        {String->StretchRod(0,Upper,Nock,BowSettings.StringRadius);String->StretchRod(1,Lower,Nock,BowSettings.StringRadius);}
+    }
     if(auto* Arrow=Find(TEXT("arrow")))
     {
         Arrow->SetPartVisible(DisplayState.bBowArrow);
@@ -328,14 +365,26 @@ void UFPSPlayerBodyComponent::UpdateNativeBowContacts()
         // Preserve the actually displayed draw on release. Use the source's
         // rebound fraction, so partial draws and remote interpolation cannot
         // jump the string to a different hand pose before it returns to brace.
-        const double Draw=(NativeBowHeldSourceNock-BowSettings.Brace).Size();
-        const double Remaining=Draw>.1?FMath::Clamp((DisplayState.BowNock-BowSettings.Brace).Size()/Draw,0.,1.):0.;
-        Nock=FMath::Lerp(BowSettings.Brace,NativeBowHeldNock,Remaining);
+        const FVector SourceDraw=NativeBowHeldSourceNock-BowSettings.Brace;
+        const FVector NativeDraw=NativeBowHeldNock-BowSettings.Brace;
+        if(SourceDraw.SizeSquared()>.01 && !NativeDraw.IsNearlyZero())
+        {
+            const FVector Travel=DisplayState.BowNock-BowSettings.Brace;
+            const double Along=FVector::DotProduct(Travel,SourceDraw)/SourceDraw.SizeSquared();
+            const FQuat Align=FQuat::FindBetweenNormals(SourceDraw.GetSafeNormal(),NativeDraw.GetSafeNormal());
+            Nock=BowSettings.Brace + NativeDraw*Along + Align.RotateVector(Travel-SourceDraw*Along);
+        }
     }
     FVector Upper=BowSettings.UpperTip,Lower=BowSettings.LowerTip;
     Riser->ApplyStringLoad(Nock,BowSettings.Brace,BowSettings.FlexDistribution);Riser->FlexTips(Upper,Lower);
     if(auto* String=Find(TEXT("string")))
-    {String->StretchRod(0,Upper,Nock,BowSettings.StringRadius);String->StretchRod(1,Lower,Nock,BowSettings.StringRadius);}
+    {
+        const auto* Echo=GetOwner()->FindComponentByClass<UBowMountainEchoComponent>();
+        const auto* Cadence=GetOwner()->FindComponentByClass<UBowCadenceComponent>();
+        const int32 Charges=Cadence&&Cadence->IsEquippedFor(BowItemInstance)?Cadence->ChargesFor(BowItemInstance):Echo?Echo->ChargesFor(BowItemInstance):0;
+        if(!String->PoseString(Upper,Nock,Lower,Charges))
+        {String->StretchRod(0,Upper,Nock,BowSettings.StringRadius);String->StretchRod(1,Lower,Nock,BowSettings.StringRadius);}
+    }
     if(auto* Arrow=Find(TEXT("arrow"));Arrow&&DisplayState.bBowArrow)
     {
         FVector Tail=Nock,Axis=(BowSettings.ArrowRest-Nock).GetSafeNormal();
@@ -358,7 +407,7 @@ void UFPSPlayerBodyComponent::UpdateBowVisibility(bool HideOwner)
         ||DisplayState.Action==EFPSBodyAction::DoorPush||DisplayState.Family!=TEXT("Bow")||BowItemInstance!=DisplayState.WeaponInstance;
     for(auto Part:WorldBowParts)if(Part)
     {
-        const bool Hidden=Stowed||FPSPlayerBodyWorldBodyHidden();
+        const bool Hidden=Stowed||IsWorldBodyPresentationHidden();
         if(Part->bHiddenInGame!=Hidden)Part->SetHiddenInGame(Hidden,true);
         // Each slot owns its direct render pieces. The riser also parents the
         // other slots, whose arrow/string visibility must not be overridden here.
@@ -373,4 +422,5 @@ void UFPSPlayerBodyComponent::UpdateBowVisibility(bool HideOwner)
             FPSBodyEquipment::ApplyShadowFlags(Primitive,CastPartShadow);
         }
     }
+    UpdateBowMagic();
 }

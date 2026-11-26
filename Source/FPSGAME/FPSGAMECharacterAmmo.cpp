@@ -2,6 +2,7 @@
 #include "Items/FPSPotionUseComponent.h"
 #include "FPSGAMEPlayerController.h"
 #include "UI/ColdSteelAmmoWheel.h"
+#include "UI/ColdSteelMagicWheel.h"
 #include "UI/ColdSteelStatusModel.h"
 #include "Weapons/PistolDualWieldComponent.h"
 #include "Weapons/Bow/BowWeaponComponent.h"
@@ -12,6 +13,10 @@
 #include "GameFramework/PlayerInput.h"
 #include "InputCoreTypes.h"
 #include "Skills/FPSIceWallComponent.h"
+#include "Skills/FPSElementalArrowComponent.h"
+
+bool AFPSGAMECharacter::IsElementArrowWheelOpen() const
+{const auto* E=FindComponentByClass<UFPSElementalArrowComponent>();return E&&E->IsWheelOpen();}
 
 namespace
 {
@@ -38,9 +43,15 @@ void AFPSGAMECharacter::ReloadInputPressed()
     if(bReloadInputHeld||IsAmmoWheelOpen())return;
     const auto* PC=Cast<APlayerController>(Controller);
     if(!PC||PC->bShowMouseCursor||AFPSGAMEPlayerController::BlocksOngoingActions(PC))return;
-    if(auto* IceWall=FindComponentByClass<UFPSIceWallComponent>();IceWall&&IceWall->ToggleShape())return;
     auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    const auto* Gun=Model?Model->Equipped():nullptr;
+    if(Model&&Model->HasEquippedStaff())
+    {
+        if(IsSwitchingWeapon()||IsTraversing()||IsWeaponBusy()||IsSpellGestureBlocking())return;
+        bSelectingMagic=true;bReloadInputHeld=true;ReloadInputStarted=GetWorld()->GetTimeSeconds();
+        AmmoSelectionWeapon=Model->Equipped()->InstanceId;return;
+    }
+    if(auto* IceWall=FindComponentByClass<UFPSIceWallComponent>();IceWall&&IceWall->ToggleShape())return;
+    const auto* Gun=Model?Model->ActiveFirearm():nullptr;
     if(Model&&DualPistols&&DualPistols->IsOffhandOnly())Gun=Model->FindItem(DualPistols->Hand(1).Item.InstanceId);
     const auto* Off=Model&&IsDualWieldingPistols()?Model->Equipped(Gun&&Gun->Cell==6?8:11):nullptr;
     const bool bBow = Bow && Bow->IsEquipped() && Model && Model->ActiveBow();
@@ -56,15 +67,36 @@ void AFPSGAMECharacter::ReloadInputPressed()
 }
 void AFPSGAMECharacter::UpdateAmmoSelection()
 {
+    if(IsElementArrowWheelOpen())return; // The elemental ability owns this wheel and its cancellation.
     if(!IsChoosingAmmo())return;
     const auto* PC=Cast<APlayerController>(Controller);
     const auto* Health=FindComponentByClass<UFPSCombatHealthComponent>();
-    const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+    auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     const bool Focused=!FSlateApplication::IsInitialized()||FSlateApplication::Get().IsActive();
+    if(bSelectingMagic)
+    {
+        if(!PC||PC->bShowMouseCursor||AFPSGAMEPlayerController::BlocksOngoingActions(PC)||!Focused||
+            (Health&&Health->IsDead())||IsTraversing()||IsSwitchingWeapon()||IsWeaponBusy()||IsSpellGestureBlocking()||
+            !Model||!Model->HasEquippedStaff()||Model->Equipped()->InstanceId!=AmmoSelectionWeapon)
+        {CancelAmmoSelection();return;}
+        if(bReloadInputHeld&&!MagicWheel&&GetWorld()->GetTimeSeconds()-ReloadInputStarted>=.30)
+        {
+            // The wheel consumes shortcut key-up events as well as mouse buttons.
+            // Clear both input sources before taking ownership so a Q/E/X preview cannot stick.
+            Model->CancelSpellAimPreview();
+            // Busy guards already exclude attacks. FireReleased also cancels spellbook focus;
+            // selecting a staff spell must keep that independent offhand state and its bonuses.
+            AimReleased();if(DualPistols)DualPistols->CancelInputs();
+            MagicWheel=CreateWidget<UColdSteelMagicWheel>(Cast<APlayerController>(Controller));
+            if(MagicWheel){MagicWheel->Configure(nullptr);MagicWheel->AddToViewport(45);}
+            else CancelAmmoSelection();
+        }
+        return;
+    }
     if(!PC||PC->bShowMouseCursor||AFPSGAMEPlayerController::BlocksOngoingActions(PC)||!Focused||
         (Health&&Health->IsDead())||IsTraversing()||IsWeaponBusy()||IsCastBlockingLeftHandAction()||
         (Bow&&Bow->IsEquipped()&&Bow->IsBusy())||
-        !Model||!Model->Equipped()||(Model->Equipped()->InstanceId!=AmmoSelectionWeapon
+        !Model||(!Model->ActiveFirearm()&&!HasOffhandPistol())||(Model->ActiveFirearm()&&Model->ActiveFirearm()->InstanceId!=AmmoSelectionWeapon
             && !(HasOffhandPistol()&&DualPistols->Hand(1).Item.InstanceId==AmmoSelectionWeapon)))
     {CancelAmmoSelection();return;}
     if(bReloadInputHeld&&!AmmoWheel&&GetWorld()->GetTimeSeconds()-ReloadInputStarted>=.30)
@@ -86,12 +118,27 @@ void AFPSGAMECharacter::UpdateAmmoSelection()
 }
 void AFPSGAMECharacter::MoveAmmoPointer(FVector2D Delta)
 {
+    if(auto* E=FindComponentByClass<UFPSElementalArrowComponent>())E->MovePointer(Delta*MouseAxisToScreenPixels(Cast<APlayerController>(Controller)));
     // 轴值 → 屏幕像素；轮盘内部再按 fps.AmmoWheel.PixelsPerRadius 换算成半径比例。
     // MouseY 的 Scale=-1 已体现在传入值里，这里只换算单位，不翻转方向。
     if(AmmoWheel)AmmoWheel->MovePointer(Delta*MouseAxisToScreenPixels(Cast<APlayerController>(Controller)));
+    if(MagicWheel)MagicWheel->MovePointer(Delta*MouseAxisToScreenPixels(Cast<APlayerController>(Controller)));
 }
 void AFPSGAMECharacter::ReloadInputReleased()
 {
+    if(bSelectingMagic)
+    {
+        const bool WasOpen=MagicWheel!=nullptr;
+        const int32 Target=MagicWheel?MagicWheel->SelectedSlot():INDEX_NONE;
+        const bool CommitSelection=MagicWheel&&(Target>=0||MagicWheel->ClearsSelection());
+        auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+        const bool SameStaff=Model&&Model->HasEquippedStaff()&&Model->Equipped()->InstanceId==AmmoSelectionWeapon;
+        CancelAmmoSelection();
+        if(!SameStaff)return;
+        if(WasOpen){if(CommitSelection)Model->SelectMagic(Target);}
+        else if(auto* IceWall=FindComponentByClass<UFPSIceWallComponent>();!IceWall||!IceWall->ToggleShape())ReloadPressed();
+        return;
+    }
     if(AmmoWheel)
     {
         const FString Id=AmmoWheel->WeaponId(),Target=AmmoWheel->SelectedAmmo();
@@ -102,8 +149,10 @@ void AFPSGAMECharacter::ReloadInputReleased()
 }
 void AFPSGAMECharacter::CancelAmmoSelection()
 {
-    bReloadInputHeld=false;AmmoSelectionWeapon.Reset();LookInput=FVector2D::ZeroVector;
+    if(auto* E=FindComponentByClass<UFPSElementalArrowComponent>())E->CancelSelection();
+    bReloadInputHeld=false;bSelectingMagic=false;AmmoSelectionWeapon.Reset();LookInput=FVector2D::ZeroVector;
     if(AmmoWheel){AmmoWheel->RemoveFromParent();AmmoWheel=nullptr;}
+    if(MagicWheel){MagicWheel->RemoveFromParent();MagicWheel=nullptr;}
 }
 bool AFPSGAMECharacter::StartAmmoSwitch(const FString& WeaponId,const FString& Target)
 {

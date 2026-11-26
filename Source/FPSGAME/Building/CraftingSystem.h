@@ -5,6 +5,7 @@
 
 class UColdSteelStatusModel;
 struct FColdSteelProfile;
+DECLARE_MULTICAST_DELEGATE_ThreeParams(FColdSteelCraftNetworkResult,FName,bool,const FString&);
 
 /** One input material line from Content/ColdSteelData/crafting-recipes.json.
  *  item 为 items.json 与 production_tools.json 合并目录的稳定定义 id。 */
@@ -37,12 +38,14 @@ public:
     virtual void Initialize(FSubsystemCollectionBase& Collection) override;
     const TArray<FColdSteelCraftingRecipe>& Catalog() const {return Recipes;}
     const TArray<FColdSteelCraftingRecipe>& AmmoCatalog() const {return AmmoRecipes;}
+    bool IsAmmoRecipe(FName Id) const;
+    FColdSteelCraftNetworkResult OnNetworkResult;
     const FColdSteelCraftingRecipe* Find(FName Id) const;
     /** 可制作份数＝min(各输入 持有÷单份需)，兜底封顶 99；持有口径＝CountMaterial（背包＋主仓库）。 */
     int64 MaxCraftable(const UColdSteelStatusModel* Model,const FColdSteelCraftingRecipe& R) const;
     /** 即时制造：单事务内逐输入全有或全无扣除＋发放产物；任一环节失败都不提交、不扣任何东西并写原因。 */
-    bool Craft(const FColdSteelCraftingRecipe& R,int64 Batch,FString& Reason);
-    bool Craft(FName Recipe,int64 Batch,FString& Reason);
+    bool Craft(const FColdSteelCraftingRecipe& R,int64 Batch,FString& Reason,AActor* Station=nullptr);
+    bool Craft(FName Recipe,int64 Batch,FString& Reason,AActor* Station=nullptr);
     /** Read-only quote using the same material deduction and output placement as Craft. */
     bool CanCraft(const FColdSteelCraftingRecipe& R,int64 Batch,FString& Reason) const;
 private:

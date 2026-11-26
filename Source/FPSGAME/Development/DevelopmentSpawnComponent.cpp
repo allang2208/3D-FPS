@@ -1,4 +1,7 @@
 #include "DevelopmentSpawnComponent.h"
+#include "../Monsters/UnknownHumanoid.h"
+#include "../Monsters/WildlifeAnimal.h"
+#include "../Monsters/WildlifeSubsystem.h"
 #include "../Monsters/HangingBellM09.h"
 #include "../Monsters/LurkerM08Monster.h"
 #include "../Monsters/M09CeilingRoute.h"
@@ -32,11 +35,20 @@ UDevelopmentSpawnComponent::UDevelopmentSpawnComponent()
     Add(TEXT("HandBrain"), TEXT("手脑"), TEXT("/Game/Monsters/HandBrain/BP_HandBrain.BP_HandBrain_C"), 125.f);
     Add(TEXT("PoisonMaggot"), TEXT("毒蛆"), TEXT("/Game/Monsters/PoisonMaggot/BP_PoisonMaggot.BP_PoisonMaggot_C"), 120.f);
     Add(TEXT("Wolf"), TEXT("野狼"), TEXT("/Game/Monsters/Wolf/BP_WolfMonster.BP_WolfMonster_C"), 100.f);
+    // Ambient wildlife: data comes from Content/ColdSteelData/wildlife.json.
+    Add(TEXT("WildlifeDeerDoe"), TEXT("母鹿（野生）"), TEXT("/Game/Monsters/Wildlife/DeerDoe/BP_WL_DeerDoe.BP_WL_DeerDoe_C"), 60.f);
+    Add(TEXT("WildlifeDeerStag"), TEXT("公鹿（野生）"), TEXT("/Game/Monsters/Wildlife/DeerStag/BP_WL_DeerStag.BP_WL_DeerStag_C"), 70.f);
+    Add(TEXT("WildlifeBoar"), TEXT("野猪（野生）"), TEXT("/Game/Monsters/Wildlife/Pig/BP_WL_Pig.BP_WL_Pig_C"), 70.f);
+    Add(TEXT("WildlifeFox"), TEXT("狐狸（野生）"), TEXT("/Game/Monsters/Wildlife/Fox/BP_WL_Fox.BP_WL_Fox_C"), 45.f);
+    Add(TEXT("WildlifeCrow"), TEXT("乌鸦（野生）"), TEXT("/Game/Monsters/Wildlife/Crow/BP_WL_Crow.BP_WL_Crow_C"), 30.f);
     Add(TEXT("ZombieDog"), TEXT("僵尸犬"), TEXT("/Game/Monsters/ZombieDog/V1/BP_ZombieDog.BP_ZombieDog_C"), 100.f);
     Add(TEXT("InfectedDog"), TEXT("感染犬"), TEXT("/Game/Monsters/InfectedDog/BP_InfectedDog.BP_InfectedDog_C"), 100.f);
     Add(TEXT("FacelessSecurity"), TEXT("安保员 M-01"), TEXT("/Game/Monsters/FacelessSecurity/BP_FacelessSecurity.BP_FacelessSecurity_C"), 44.f);
     Add(TEXT("FacelessReceptionist"), TEXT("接待员 M-01"), TEXT("/Game/Monsters/FacelessReceptionist/BP_FacelessReceptionist.BP_FacelessReceptionist_C"), 44.f);
     Add(TEXT("FacelessResearcher"), TEXT("研究员 M-01"), TEXT("/Game/Monsters/FacelessResearcher/BP_FacelessResearcher.BP_FacelessResearcher_C"), 44.f);
+    Add(TEXT("LivingStaffMale"), TEXT("男性员工 M-01"), TEXT("/Game/Monsters/StaffLiving/BP_LivingStaffMale.BP_LivingStaffMale_C"), 44.f);
+    Add(TEXT("LivingStaffFemaleA"), TEXT("女性员工A M-01"), TEXT("/Game/Monsters/StaffLiving/BP_LivingStaffFemaleA.BP_LivingStaffFemaleA_C"), 44.f);
+    Add(TEXT("LivingStaffFemaleB"), TEXT("女性员工B M-01"), TEXT("/Game/Monsters/StaffLiving/BP_LivingStaffFemaleB.BP_LivingStaffFemaleB_C"), 44.f);
     Add(TEXT("EcologyGardener"), TEXT("园艺师 M-01"), TEXT("/Game/Monsters/EcologyGardener/BP_EcologyGardener.BP_EcologyGardener_C"), 44.f);
     Add(TEXT("CargoPorter"), TEXT("搬运工 M-01"), TEXT("/Game/Monsters/CargoPorter/BP_CargoPorter.BP_CargoPorter_C"), 44.f);
     Add(TEXT("CargoTechnician"), TEXT("技术员 M-01"), TEXT("/Game/Monsters/CargoTechnician/BP_CargoTechnician.BP_CargoTechnician_C"), 44.f);
@@ -54,6 +66,17 @@ UDevelopmentSpawnComponent::UDevelopmentSpawnComponent()
     Add(TEXT("RootCrownRig"), TEXT("根冠 M-34"), TEXT("/Game/Monsters/RootCrown/BP_RootCrownRigPreview.BP_RootCrownRigPreview_C"), 225.f);
     Add(TEXT("IncineratorBossM66Rig"), TEXT("焚骸 M-35（拢灰指扫）"), TEXT("/Game/Monsters/IncineratorBossM66/BP_M66RigPreview.BP_M66RigPreview_C"), 225.f);
     Add(TEXT("HeQue"), TEXT("合阙 M-36（重夹／碾扫／压鸣／恸鸣／跃砸）"), TEXT("/Game/Monsters/HeQue/BP_HeQue.BP_HeQue_C"), 225.f);
+    const TCHAR* Groups[] = {TEXT("Melee"), TEXT("Gun"), TEXT("Magic"), TEXT("Bow")};
+    const TCHAR* Names[] = {TEXT("近战"), TEXT("枪械"), TEXT("魔法"), TEXT("弓手")};
+    for (int32 Group=0; Group<UE_ARRAY_COUNT(Groups); ++Group)
+        for (int32 Level : {10,20,30})
+        {
+            const FString Id=FString::Printf(TEXT("Unknown%s%d"),Groups[Group],Level);
+            const FString Label=FString::Printf(TEXT("未知 · %s · %d级"),Names[Group],Level);
+            Add(*Id,*Label,TEXT("/Script/FPSGAME.UnknownHumanoid"),44.f);
+            Monsters.Last().WeaponGroup=FName(Groups[Group]);
+            Monsters.Last().SpawnLevel=Level;
+        }
 }
 
 bool UDevelopmentSpawnComponent::FindLocation(APlayerController* Player, const ACharacter* Defaults,
@@ -85,24 +108,40 @@ bool UDevelopmentSpawnComponent::FindLocation(APlayerController* Player, const A
     // A physically empty floor is not necessarily covered by this body's navmesh.
     // Keep placement on the selected spot; do not warp to a distant nav polygon.
     FNavLocation Navigable;
-    if (!Defaults->IsA<ALurkerM08Monster>() && (!Navigation || !NavData ||
+    // Wildlife steers without a navmesh, so placement only needs solid ground.
+    const bool bNavFree = Defaults->IsA<ALurkerM08Monster>() || Defaults->ActorHasTag(TEXT("Wildlife"));
+    if (!bNavFree && (!Navigation || !NavData ||
         !Navigation->ProjectPointToNavigation(Ground.ImpactPoint, Navigable, FVector(10,10,80), NavData)
         || FVector::DistSquared2D(Navigable.Location, Ground.ImpactPoint) > FMath::Square(10.f))) return false;
-    Location = Ground.ImpactPoint + FVector(0,0,HalfHeight + 3.f);
+    const bool Hills=UWildlifeSubsystem::IsWildlifeMap(GetWorld());
+    // Fit the upright capsule to the slope's tangent plane. A broad capsule
+    // placed with its bottom at the centre sample otherwise starts in the hill.
+    const float SlopeLift=Hills?Radius*(1.f/Ground.ImpactNormal.Z-1.f):0.f;
+    Location = Ground.ImpactPoint + FVector(0,0,HalfHeight + 3.f + SlopeLift);
     if (GetWorld()->OverlapBlockingTestByChannel(Location, FQuat::Identity, ECC_Pawn,
         FCollisionShape::MakeCapsule(Radius + 2.f, HalfHeight), Query)) return false;
     for (const FVector Offset : { Forward * Footprint, -Forward * Footprint, Right * Footprint, -Right * Footprint })
     {
         FHitResult Edge;
-        const FVector Probe = Ground.ImpactPoint + Offset;
+        FVector Probe = Ground.ImpactPoint + Offset;
+        if(Hills)Probe.Z-=FVector::DotProduct(Ground.ImpactNormal,Offset)/Ground.ImpactNormal.Z;
         if (!GetWorld()->LineTraceSingleByChannel(Edge, Probe + FVector(0,0,60), Probe - FVector(0,0,80), ECC_Pawn, Query)
-            || Edge.ImpactNormal.Z < MinSlope || FMath::Abs(Edge.ImpactPoint.Z - Ground.ImpactPoint.Z) > 35.f
+            || Edge.ImpactNormal.Z < MinSlope || FMath::Abs(Edge.ImpactPoint.Z - Probe.Z) > 35.f
             || (Edge.GetActor() && Edge.GetActor()->IsA<APawn>())) return false;
     }
     FHitResult Obstacle;
     if (GetWorld()->LineTraceSingleByChannel(Obstacle, View, Location, ECC_Visibility, Query)) return false;
     Facing = FRotator(0, (Pawn->GetActorLocation() - Location).Rotation().Yaw, 0);
     return true;
+}
+
+bool UDevelopmentSpawnComponent::IsAvailableInWorld(const FDevelopmentMonsterEntry& Entry) const
+{
+    const bool Hills=UWildlifeSubsystem::IsWildlifeMap(GetWorld());
+    // Hills has no matching ceiling habitat. Use the same map policy for the
+    // F6 catalogue and the authority spawn request; indoor maps retain M09.
+    if(Hills&&Entry.Id==TEXT("HangingBellM09"))return false;
+    return Hills || !UWildlifeSubsystem::IsCatalogClass(Entry.CharacterClass.ToSoftObjectPath());
 }
 
 int32 UDevelopmentSpawnComponent::SpawnInFront(FName Id, int32 Count, float DistanceMeters, FText& Result)
@@ -112,6 +151,12 @@ int32 UDevelopmentSpawnComponent::SpawnInFront(FName Id, int32 Count, float Dist
     if (!Player->HasAuthority()) { Result = FText::FromString(TEXT("当前连接没有怪物生成权限")); return 0; }
     const auto* Entry = Monsters.FindByPredicate([Id](const auto& Item) { return Item.Id == Id; });
     if (!Entry) { Result = FText::FromString(TEXT("请先选择怪物")); return 0; }
+    if (!IsAvailableInWorld(*Entry))
+    {
+        Result=FText::FromString(Entry->Id==TEXT("HangingBellM09")
+            ? TEXT("丘陵区域不生成悬钟，缺少匹配的天花板环境") : TEXT("野生动物仅能在温带丘陵生成"));
+        return 0;
+    }
     UClass* Class = Entry->CharacterClass.LoadSynchronous();
     if (!Class || Class->HasAnyClassFlags(CLASS_Abstract)) { Result = FText::FromString(TEXT("该怪物的角色资源尚未准备好")); return 0; }
     if(Class->IsChildOf(AHangingBellM09::StaticClass()))
@@ -145,6 +190,7 @@ int32 UDevelopmentSpawnComponent::SpawnInFront(FName Id, int32 Count, float Dist
     }
     const auto* Defaults = Class->GetDefaultObject<ACharacter>();
     const bool bSurfaceCrawler = Defaults->IsA<ALurkerM08Monster>();
+    const bool bNavFree = bSurfaceCrawler || Defaults->ActorHasTag(TEXT("Wildlife"));
     const auto* Capsule = Defaults->GetCapsuleComponent();
     const auto* Movement = Defaults->GetCharacterMovement();
     FNavAgentProperties Agent = Movement->GetNavAgentPropertiesRef();
@@ -157,12 +203,12 @@ int32 UDevelopmentSpawnComponent::SpawnInFront(FName Id, int32 Count, float Dist
         : FMath::Max(Agent.AgentHeight, Capsule->GetScaledCapsuleHalfHeight() * 2.f);
     const auto* Navigation = FNavigationSystem::GetCurrent<UNavigationSystemV1>(GetWorld());
     const ANavigationData* NavData = Navigation ? Navigation->GetNavDataForProps(Agent) : nullptr;
-    if (!NavData && !bSurfaceCrawler)
+    if (!NavData && !bNavFree)
     {
         Result = FText::FromString(TEXT("当前场景尚未接入怪物导航，暂时无法生成"));
         return 0;
     }
-    if (!bSurfaceCrawler && (NavData->GetConfig().AgentRadius + KINDA_SMALL_NUMBER < Agent.AgentRadius
+    if (!bNavFree && (NavData->GetConfig().AgentRadius + KINDA_SMALL_NUMBER < Agent.AgentRadius
         || NavData->GetConfig().AgentHeight + KINDA_SMALL_NUMBER < Agent.AgentHeight))
     {
         Result = FText::FromString(FString::Printf(TEXT("当前场景尚未接入%s所需的导航规格"), *Entry->Name.ToString()));
@@ -171,19 +217,49 @@ int32 UDevelopmentSpawnComponent::SpawnInFront(FName Id, int32 Count, float Dist
     Count = FMath::Clamp(Count, 1, 10);
     const float Distance = FMath::Clamp(DistanceMeters, 3.f, 15.f) * 100.f;
     int32 Created = 0;
+    TArray<AColdSteelAnimal*> WildlifeGroup;
+    auto* Wildlife = GetWorld()->GetSubsystem<UWildlifeSubsystem>();
+    const bool bPlacingWildlife = Wildlife && UWildlifeSubsystem::IsCatalogClass(Entry->CharacterClass.ToSoftObjectPath());
+    bool bWildlifeSiteRejected = false;
     Spawned.RemoveAll([](const auto& Item) { return !Item.IsValid(); });
     for (int32 Attempt = 0; Attempt < 25 && Created < Count; ++Attempt)
     {
         FVector At; FRotator Rotation;
         if (!FindLocation(Player, Defaults, Distance, Entry->FootprintRadius, Attempt, Navigation, NavData, At, Rotation)) continue;
+        if (bPlacingWildlife && !Wildlife->AllowsSpawnAt(At, Capsule->GetScaledCapsuleRadius()))
+        {
+            bWildlifeSiteRejected = true;
+            continue;
+        }
         FActorSpawnParameters Params;
         Params.Owner = Player;
         Params.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::DontSpawnIfColliding;
+        Params.bDeferConstruction = Entry->SpawnLevel>0;
         if (auto* Monster = GetWorld()->SpawnActor<ACharacter>(Class, At, Rotation, Params))
         {
+            if (auto* Unknown=Cast<AUnknownHumanoid>(Monster); Unknown && Params.bDeferConstruction)
+            {
+                const auto Role=Entry->WeaponGroup==TEXT("Bow") ? EUnknownRole::Bow : Entry->WeaponGroup==TEXT("Magic") ? EUnknownRole::Magic :
+                    Entry->WeaponGroup==TEXT("Gun") ? EUnknownRole::Gun : EUnknownRole::Melee;
+                if (!Unknown->Configure(Role,Entry->SpawnLevel))
+                {
+                    Unknown->Destroy();
+                    Result=FText::FromString(TEXT("未知的装备档案生成失败，请查看武器与套装目录"));
+                    if (!Created) return 0;
+                    break;
+                }
+                Unknown->FinishSpawning(FTransform(Rotation,At));
+            }
             Monster->Tags.AddUnique(TEXT("DevelopmentSpawned"));
             Spawned.Add(Monster); ++Created;
+            if (auto* Animal = Cast<AColdSteelAnimal>(Monster)) WildlifeGroup.Add(Animal);
         }
+    }
+    if (Wildlife) Wildlife->RegisterHillsGroup(WildlifeGroup);
+    if (Created == 0 && bWildlifeSiteRejected)
+    {
+        Result = FText::FromString(TEXT("请选择村庄范围外已加载的丘陵地面生成野生动物"));
+        return 0;
     }
     const bool bNavigationBuilding = !bSurfaceCrawler && Created == 0 && UNavigationSystemV1::IsNavigationBeingBuiltOrLocked(GetWorld());
     Result = FText::FromString(Created == 0
@@ -213,6 +289,8 @@ int32 UDevelopmentSpawnComponent::ClearSpawned()
 
 void UDevelopmentSpawnComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    if (Reason == EEndPlayReason::Destroyed) ClearEnvironment();
+    EnvironmentObjects.Reset();
     Spawned.Reset();
     Super::EndPlay(Reason);
 }

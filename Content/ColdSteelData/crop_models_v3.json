@@ -1,0 +1,1551 @@
+{
+  "schema_version": 1,
+  "model_version": "V3",
+  "asset_root": "/Game/Props/Crops/V3",
+  "integration_scope": "asset_library_mapping_and_standalone_and_multiplayer_planting",
+  "gameplay_consumer_implemented": true,
+  "growth_mode": "discrete_mesh_swap",
+  "units": "centimeters",
+  "root_origin_cm": [
+    0,
+    0,
+    0
+  ],
+  "selection_rule": "Choose variant once per planted seed; persist it with per-instance transform and tint; do not reroll on growth/load.",
+  "suggested_instance_scale_range": [
+    0.9,
+    1.1
+  ],
+  "suggested_yaw_degrees": [
+    0,
+    360
+  ],
+  "position_jitter_rule": "Bound by planting cell and mature clearance; root Z remains soil surface.",
+  "tint_scope": "Foliage only; multiply albedo in engine material instance, preserve fruit ripeness colours.",
+  "visible_fruit_count_is_cosmetic": true,
+  "source_manifest": "SourceAssets/CropsV3_20261022/Source/variant_manifest.json",
+  "crops": {
+    "carrot": {
+      "item_definition_id": "carrot",
+      "variants": {
+        "A": {
+          "stable_seed": 63,
+          "foliage_tint": [
+            1,
+            1,
+            1
+          ],
+          "stages": {
+            "1": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VA_Stage1.SM_Carrot_VA_Stage1",
+            "2": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VA_Stage2.SM_Carrot_VA_Stage2",
+            "3": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VA_Stage3.SM_Carrot_VA_Stage3"
+          }
+        },
+        "B": {
+          "stable_seed": 164,
+          "foliage_tint": [
+            0.96,
+            1.02,
+            0.96
+          ],
+          "stages": {
+            "1": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VB_Stage1.SM_Carrot_VB_Stage1",
+            "2": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VB_Stage2.SM_Carrot_VB_Stage2",
+            "3": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VB_Stage3.SM_Carrot_VB_Stage3"
+          }
+        },
+        "C": {
+          "stable_seed": 370,
+          "foliage_tint": [
+            1.03,
+            0.98,
+            0.94
+          ],
+          "stages": {
+            "1": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VC_Stage1.SM_Carrot_VC_Stage1",
+            "2": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VC_Stage2.SM_Carrot_VC_Stage2",
+            "3": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VC_Stage3.SM_Carrot_VC_Stage3"
+          }
+        }
+      }
+    },
+    "potato": {
+      "item_definition_id": "potato",
+      "variants": {
+        "A": {
+          "stable_seed": 47,
+          "foliage_tint": [
+            1,
+            1,
+            1
+          ],
+          "stages": {
+            "1": "/Game/Props/Crops/V3/Meshes/SM_Potato_VA_Stage1.SM_Potato_VA_Stage1",
+            "2": "/Game/Props/Crops/V3/Meshes/SM_Potato_VA_Stage2.SM_Potato_VA_Stage2",
+            "3": "/Game/Props/Crops/V3/Meshes/SM_Potato_VA_Stage3.SM_Potato_VA_Stage3"
+          }
+        },
+        "B": {
+          "stable_seed": 148,
+          "foliage_tint": [
+            0.96,
+            1.02,
+            0.96
+          ],
+          "stages": {
+            "1": "/Game/Props/Crops/V3/Meshes/SM_Potato_VB_Stage1.SM_Potato_VB_Stage1",
+            "2": "/Game/Props/Crops/V3/Meshes/SM_Potato_VB_Stage2.SM_Potato_VB_Stage2",
+            "3": "/Game/Props/Crops/V3/Meshes/SM_Potato_VB_Stage3.SM_Potato_VB_Stage3"
+          }
+        },
+        "C": {
+          "stable_seed": 354,
+          "foliage_tint": [
+            1.03,
+            0.98,
+            0.94
+          ],
+          "stages": {
+            "1": "/Game/Props/Crops/V3/Meshes/SM_Potato_VC_Stage1.SM_Potato_VC_Stage1",
+            "2": "/Game/Props/Crops/V3/Meshes/SM_Potato_VC_Stage2.SM_Potato_VC_Stage2",
+            "3": "/Game/Props/Crops/V3/Meshes/SM_Potato_VC_Stage3.SM_Potato_VC_Stage3"
+          }
+        }
+      }
+    },
+    "tomato": {
+      "item_definition_id": "tomato",
+      "variants": {
+        "A": {
+          "stable_seed": 31,
+          "foliage_tint": [
+            1,
+            1,
+            1
+          ],
+          "stages": {
+            "1": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VA_Stage1.SM_Tomato_VA_Stage1",
+            "2": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VA_Stage2.SM_Tomato_VA_Stage2",
+            "3": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VA_Stage3.SM_Tomato_VA_Stage3"
+          }
+        },
+        "B": {
+          "stable_seed": 132,
+          "foliage_tint": [
+            0.96,
+            1.02,
+            0.96
+          ],
+          "stages": {
+            "1": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VB_Stage1.SM_Tomato_VB_Stage1",
+            "2": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VB_Stage2.SM_Tomato_VB_Stage2",
+            "3": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VB_Stage3.SM_Tomato_VB_Stage3"
+          }
+        },
+        "C": {
+          "stable_seed": 338,
+          "foliage_tint": [
+            1.03,
+            0.98,
+            0.94
+          ],
+          "stages": {
+            "1": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VC_Stage1.SM_Tomato_VC_Stage1",
+            "2": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VC_Stage2.SM_Tomato_VC_Stage2",
+            "3": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VC_Stage3.SM_Tomato_VC_Stage3"
+          }
+        }
+      }
+    },
+    "wheat": {
+      "item_definition_id": "wheat",
+      "variants": {
+        "A": {
+          "stable_seed": 91,
+          "foliage_tint": [
+            1,
+            1,
+            1
+          ],
+          "stages": {
+            "1": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VA_Stage1.SM_Wheat_VA_Stage1",
+            "2": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VA_Stage2.SM_Wheat_VA_Stage2",
+            "3": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VA_Stage3.SM_Wheat_VA_Stage3"
+          }
+        },
+        "B": {
+          "stable_seed": 192,
+          "foliage_tint": [
+            0.96,
+            1.02,
+            0.96
+          ],
+          "stages": {
+            "1": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VB_Stage1.SM_Wheat_VB_Stage1",
+            "2": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VB_Stage2.SM_Wheat_VB_Stage2",
+            "3": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VB_Stage3.SM_Wheat_VB_Stage3"
+          }
+        },
+        "C": {
+          "stable_seed": 398,
+          "foliage_tint": [
+            1.03,
+            0.98,
+            0.94
+          ],
+          "stages": {
+            "1": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VC_Stage1.SM_Wheat_VC_Stage1",
+            "2": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VC_Stage2.SM_Wheat_VC_Stage2",
+            "3": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VC_Stage3.SM_Wheat_VC_Stage3"
+          }
+        }
+      }
+    }
+  },
+  "assets": [
+    {
+      "id": "Carrot_VA_Stage1",
+      "crop": "carrot",
+      "variant": "A",
+      "stage": 1,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VA_Stage1.SM_Carrot_VA_Stage1",
+      "dimensions_cm": [
+        6.690906047821045,
+        6.579506874084473,
+        7.405866622924805
+      ],
+      "triangles_per_lod": [
+        1302,
+        585,
+        234
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VA.MI_Crops_Leaf_VA"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VA.MI_Crops_YoungLeaf_VA"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Carrot_VA_Stage2",
+      "crop": "carrot",
+      "variant": "A",
+      "stage": 2,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VA_Stage2.SM_Carrot_VA_Stage2",
+      "dimensions_cm": [
+        23.422425270080566,
+        21.554851531982422,
+        22.432430267333984
+      ],
+      "triangles_per_lod": [
+        6420,
+        2889,
+        1155
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VA.MI_Crops_Leaf_VA"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VA.MI_Crops_YoungLeaf_VA"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Carrot_VA_Stage3",
+      "crop": "carrot",
+      "variant": "A",
+      "stage": 3,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VA_Stage3.SM_Carrot_VA_Stage3",
+      "dimensions_cm": [
+        40.52160930633545,
+        38.2687873840332,
+        61.23875713348389
+      ],
+      "triangles_per_lod": [
+        11888,
+        5349,
+        2139
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VA.MI_Crops_Leaf_VA"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VA.MI_Crops_YoungLeaf_VA"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "CarrotRoot",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_CarrotRoot.M_Crops_CarrotRoot"
+        }
+      ]
+    },
+    {
+      "id": "Carrot_VB_Stage1",
+      "crop": "carrot",
+      "variant": "B",
+      "stage": 1,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VB_Stage1.SM_Carrot_VB_Stage1",
+      "dimensions_cm": [
+        6.287015199661255,
+        6.601239204406738,
+        6.235447749495506
+      ],
+      "triangles_per_lod": [
+        1302,
+        585,
+        234
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VB.MI_Crops_Leaf_VB"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VB.MI_Crops_YoungLeaf_VB"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Carrot_VB_Stage2",
+      "crop": "carrot",
+      "variant": "B",
+      "stage": 2,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VB_Stage2.SM_Carrot_VB_Stage2",
+      "dimensions_cm": [
+        22.03292417526245,
+        22.084846019744873,
+        20.526901245117188
+      ],
+      "triangles_per_lod": [
+        5350,
+        2407,
+        963
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VB.MI_Crops_Leaf_VB"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VB.MI_Crops_YoungLeaf_VB"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Carrot_VB_Stage3",
+      "crop": "carrot",
+      "variant": "B",
+      "stage": 3,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VB_Stage3.SM_Carrot_VB_Stage3",
+      "dimensions_cm": [
+        37.82364273071289,
+        40.42897605895996,
+        53.66133499145508
+      ],
+      "triangles_per_lod": [
+        10490,
+        4720,
+        1888
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VB.MI_Crops_Leaf_VB"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VB.MI_Crops_YoungLeaf_VB"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "CarrotRoot",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_CarrotRoot.M_Crops_CarrotRoot"
+        }
+      ]
+    },
+    {
+      "id": "Carrot_VC_Stage1",
+      "crop": "carrot",
+      "variant": "C",
+      "stage": 1,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VC_Stage1.SM_Carrot_VC_Stage1",
+      "dimensions_cm": [
+        7.0427024364471436,
+        6.436736822128296,
+        7.482220694422722
+      ],
+      "triangles_per_lod": [
+        1302,
+        585,
+        234
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VC.MI_Crops_Leaf_VC"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VC.MI_Crops_YoungLeaf_VC"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Carrot_VC_Stage2",
+      "crop": "carrot",
+      "variant": "C",
+      "stage": 2,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VC_Stage2.SM_Carrot_VC_Stage2",
+      "dimensions_cm": [
+        24.450207710266113,
+        22.1156005859375,
+        23.452898025512695
+      ],
+      "triangles_per_lod": [
+        7490,
+        3370,
+        1348
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VC.MI_Crops_Leaf_VC"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VC.MI_Crops_YoungLeaf_VC"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Carrot_VC_Stage3",
+      "crop": "carrot",
+      "variant": "C",
+      "stage": 3,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Carrot_VC_Stage3.SM_Carrot_VC_Stage3",
+      "dimensions_cm": [
+        42.5548210144043,
+        38.34367752075195,
+        62.648956298828125
+      ],
+      "triangles_per_lod": [
+        13286,
+        5978,
+        2391
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VC.MI_Crops_Leaf_VC"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VC.MI_Crops_YoungLeaf_VC"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "CarrotRoot",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_CarrotRoot.M_Crops_CarrotRoot"
+        }
+      ]
+    },
+    {
+      "id": "Potato_VA_Stage1",
+      "crop": "potato",
+      "variant": "A",
+      "stage": 1,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Potato_VA_Stage1.SM_Potato_VA_Stage1",
+      "dimensions_cm": [
+        11.12562608718872,
+        8.328637599945068,
+        9.223294019699097
+      ],
+      "triangles_per_lod": [
+        504,
+        226,
+        90
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VA.MI_Crops_YoungLeaf_VA"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Potato_VA_Stage2",
+      "crop": "potato",
+      "variant": "A",
+      "stage": 2,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Potato_VA_Stage2.SM_Potato_VA_Stage2",
+      "dimensions_cm": [
+        33.4754524230957,
+        34.34471130371094,
+        23.527938842773438
+      ],
+      "triangles_per_lod": [
+        10372,
+        4667,
+        1865
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VA.MI_Crops_Leaf_VA"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VA.MI_Crops_YoungLeaf_VA"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Potato_VA_Stage3",
+      "crop": "potato",
+      "variant": "A",
+      "stage": 3,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Potato_VA_Stage3.SM_Potato_VA_Stage3",
+      "dimensions_cm": [
+        47.760498046875,
+        56.6104736328125,
+        45.43925094604492
+      ],
+      "triangles_per_lod": [
+        19842,
+        8927,
+        3571
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VA.MI_Crops_Leaf_VA"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VA.MI_Crops_YoungLeaf_VA"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "Flower",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Flower.M_Crops_Flower"
+        },
+        {
+          "name": "PotatoFlower",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_PotatoFlower.M_Crops_PotatoFlower"
+        }
+      ]
+    },
+    {
+      "id": "Potato_VB_Stage1",
+      "crop": "potato",
+      "variant": "B",
+      "stage": 1,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Potato_VB_Stage1.SM_Potato_VB_Stage1",
+      "dimensions_cm": [
+        9.949826002120972,
+        8.506327629089355,
+        8.778950929641724
+      ],
+      "triangles_per_lod": [
+        504,
+        225,
+        90
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VB.MI_Crops_YoungLeaf_VB"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Potato_VB_Stage2",
+      "crop": "potato",
+      "variant": "B",
+      "stage": 2,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Potato_VB_Stage2.SM_Potato_VB_Stage2",
+      "dimensions_cm": [
+        30.275447845458984,
+        28.58179473876953,
+        21.844757080078125
+      ],
+      "triangles_per_lod": [
+        6844,
+        3079,
+        1231
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VB.MI_Crops_Leaf_VB"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VB.MI_Crops_YoungLeaf_VB"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Potato_VB_Stage3",
+      "crop": "potato",
+      "variant": "B",
+      "stage": 3,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Potato_VB_Stage3.SM_Potato_VB_Stage3",
+      "dimensions_cm": [
+        47.58018112182617,
+        51.80450439453125,
+        41.80145876854658
+      ],
+      "triangles_per_lod": [
+        14856,
+        6684,
+        2674
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VB.MI_Crops_Leaf_VB"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VB.MI_Crops_YoungLeaf_VB"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "Flower",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Flower.M_Crops_Flower"
+        },
+        {
+          "name": "PotatoFlower",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_PotatoFlower.M_Crops_PotatoFlower"
+        }
+      ]
+    },
+    {
+      "id": "Potato_VC_Stage1",
+      "crop": "potato",
+      "variant": "C",
+      "stage": 1,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Potato_VC_Stage1.SM_Potato_VC_Stage1",
+      "dimensions_cm": [
+        10.432882308959961,
+        8.236228108406067,
+        9.927172422409058
+      ],
+      "triangles_per_lod": [
+        504,
+        226,
+        90
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VC.MI_Crops_YoungLeaf_VC"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Potato_VC_Stage2",
+      "crop": "potato",
+      "variant": "C",
+      "stage": 2,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Potato_VC_Stage2.SM_Potato_VC_Stage2",
+      "dimensions_cm": [
+        31.07168674468994,
+        30.69328212738037,
+        26.73663752526045
+      ],
+      "triangles_per_lod": [
+        13240,
+        5958,
+        2383
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VC.MI_Crops_Leaf_VC"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VC.MI_Crops_YoungLeaf_VC"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Potato_VC_Stage3",
+      "crop": "potato",
+      "variant": "C",
+      "stage": 3,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Potato_VC_Stage3.SM_Potato_VC_Stage3",
+      "dimensions_cm": [
+        50.732866287231445,
+        49.34570503234863,
+        48.16923292726278
+      ],
+      "triangles_per_lod": [
+        24738,
+        11131,
+        4451
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VC.MI_Crops_Leaf_VC"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VC.MI_Crops_YoungLeaf_VC"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "Flower",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Flower.M_Crops_Flower"
+        },
+        {
+          "name": "PotatoFlower",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_PotatoFlower.M_Crops_PotatoFlower"
+        }
+      ]
+    },
+    {
+      "id": "Tomato_VA_Stage1",
+      "crop": "tomato",
+      "variant": "A",
+      "stage": 1,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VA_Stage1.SM_Tomato_VA_Stage1",
+      "dimensions_cm": [
+        9.960091829299927,
+        11.732030630111694,
+        12.894433975219727
+      ],
+      "triangles_per_lod": [
+        608,
+        273,
+        109
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VA.MI_Crops_YoungLeaf_VA"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Tomato_VA_Stage2",
+      "crop": "tomato",
+      "variant": "A",
+      "stage": 2,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VA_Stage2.SM_Tomato_VA_Stage2",
+      "dimensions_cm": [
+        34.26501655578613,
+        34.506433963775635,
+        55.01302719116211
+      ],
+      "triangles_per_lod": [
+        7740,
+        3483,
+        1393
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VA.MI_Crops_Leaf_VA"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VA.MI_Crops_YoungLeaf_VA"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "StakeWood",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_StakeWood.M_Crops_StakeWood"
+        },
+        {
+          "name": "Flower",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Flower.M_Crops_Flower"
+        },
+        {
+          "name": "Tie",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Tie.M_Crops_Tie"
+        }
+      ]
+    },
+    {
+      "id": "Tomato_VA_Stage3",
+      "crop": "tomato",
+      "variant": "A",
+      "stage": 3,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VA_Stage3.SM_Tomato_VA_Stage3",
+      "dimensions_cm": [
+        51.03610420227051,
+        52.78148651123047,
+        96.00785827636719
+      ],
+      "triangles_per_lod": [
+        19694,
+        8862,
+        3544
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VA.MI_Crops_Leaf_VA"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VA.MI_Crops_YoungLeaf_VA"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "TomatoRipe",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_TomatoRipe.M_Crops_TomatoRipe"
+        },
+        {
+          "name": "TomatoGreen",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_TomatoGreen.M_Crops_TomatoGreen"
+        },
+        {
+          "name": "StakeWood",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_StakeWood.M_Crops_StakeWood"
+        },
+        {
+          "name": "Tie",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Tie.M_Crops_Tie"
+        }
+      ]
+    },
+    {
+      "id": "Tomato_VB_Stage1",
+      "crop": "tomato",
+      "variant": "B",
+      "stage": 1,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VB_Stage1.SM_Tomato_VB_Stage1",
+      "dimensions_cm": [
+        9.505533695220947,
+        11.984345436096191,
+        11.780417442321777
+      ],
+      "triangles_per_lod": [
+        608,
+        273,
+        109
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VB.MI_Crops_YoungLeaf_VB"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Tomato_VB_Stage2",
+      "crop": "tomato",
+      "variant": "B",
+      "stage": 2,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VB_Stage2.SM_Tomato_VB_Stage2",
+      "dimensions_cm": [
+        33.57820510864258,
+        36.94866943359375,
+        50.611982345581055
+      ],
+      "triangles_per_lod": [
+        6692,
+        3010,
+        1204
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VB.MI_Crops_Leaf_VB"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VB.MI_Crops_YoungLeaf_VB"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "StakeWood",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_StakeWood.M_Crops_StakeWood"
+        },
+        {
+          "name": "Flower",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Flower.M_Crops_Flower"
+        },
+        {
+          "name": "Tie",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Tie.M_Crops_Tie"
+        }
+      ]
+    },
+    {
+      "id": "Tomato_VB_Stage3",
+      "crop": "tomato",
+      "variant": "B",
+      "stage": 3,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VB_Stage3.SM_Tomato_VB_Stage3",
+      "dimensions_cm": [
+        50.36481857299805,
+        55.30615043640137,
+        88.3268723487854
+      ],
+      "triangles_per_lod": [
+        16258,
+        7316,
+        2926
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VB.MI_Crops_Leaf_VB"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VB.MI_Crops_YoungLeaf_VB"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "TomatoRipe",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_TomatoRipe.M_Crops_TomatoRipe"
+        },
+        {
+          "name": "StakeWood",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_StakeWood.M_Crops_StakeWood"
+        },
+        {
+          "name": "Tie",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Tie.M_Crops_Tie"
+        }
+      ]
+    },
+    {
+      "id": "Tomato_VC_Stage1",
+      "crop": "tomato",
+      "variant": "C",
+      "stage": 1,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VC_Stage1.SM_Tomato_VC_Stage1",
+      "dimensions_cm": [
+        10.447166442871094,
+        9.81296420097351,
+        13.661626815795898
+      ],
+      "triangles_per_lod": [
+        608,
+        273,
+        109
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VC.MI_Crops_YoungLeaf_VC"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        }
+      ]
+    },
+    {
+      "id": "Tomato_VC_Stage2",
+      "crop": "tomato",
+      "variant": "C",
+      "stage": 2,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VC_Stage2.SM_Tomato_VC_Stage2",
+      "dimensions_cm": [
+        35.975029945373535,
+        30.172677040100098,
+        58.31380486488342
+      ],
+      "triangles_per_lod": [
+        9200,
+        4139,
+        1656
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VC.MI_Crops_Leaf_VC"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VC.MI_Crops_YoungLeaf_VC"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "StakeWood",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_StakeWood.M_Crops_StakeWood"
+        },
+        {
+          "name": "Flower",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Flower.M_Crops_Flower"
+        },
+        {
+          "name": "Tie",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Tie.M_Crops_Tie"
+        }
+      ]
+    },
+    {
+      "id": "Tomato_VC_Stage3",
+      "crop": "tomato",
+      "variant": "C",
+      "stage": 3,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Tomato_VC_Stage3.SM_Tomato_VC_Stage3",
+      "dimensions_cm": [
+        58.76626968383789,
+        46.78133201599121,
+        101.76791834831238
+      ],
+      "triangles_per_lod": [
+        24248,
+        10911,
+        4363
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Leaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_Leaf_VC.MI_Crops_Leaf_VC"
+        },
+        {
+          "name": "YoungLeaf",
+          "material": "/Game/Props/Crops/V3/Materials/MI_Crops_YoungLeaf_VC.MI_Crops_YoungLeaf_VC"
+        },
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "TomatoRipe",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_TomatoRipe.M_Crops_TomatoRipe"
+        },
+        {
+          "name": "TomatoGreen",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_TomatoGreen.M_Crops_TomatoGreen"
+        },
+        {
+          "name": "StakeWood",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_StakeWood.M_Crops_StakeWood"
+        },
+        {
+          "name": "Tie",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Tie.M_Crops_Tie"
+        }
+      ]
+    },
+    {
+      "id": "Wheat_VA_Stage1",
+      "crop": "wheat",
+      "variant": "A",
+      "stage": 1,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VA_Stage1.SM_Wheat_VA_Stage1",
+      "dimensions_cm": [
+        7.699387550354004,
+        8.174835681915283,
+        10.305620193481445
+      ],
+      "triangles_per_lod": [
+        372,
+        166,
+        66
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "WheatStemGreen",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_WheatStemGreen.M_Crops_WheatStemGreen"
+        }
+      ]
+    },
+    {
+      "id": "Wheat_VA_Stage2",
+      "crop": "wheat",
+      "variant": "A",
+      "stage": 2,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VA_Stage2.SM_Wheat_VA_Stage2",
+      "dimensions_cm": [
+        32.94112205505371,
+        26.80798053741455,
+        53.17114268243313
+      ],
+      "triangles_per_lod": [
+        17090,
+        7690,
+        3076
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "WheatStemGreen",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_WheatStemGreen.M_Crops_WheatStemGreen"
+        }
+      ]
+    },
+    {
+      "id": "Wheat_VA_Stage3",
+      "crop": "wheat",
+      "variant": "A",
+      "stage": 3,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VA_Stage3.SM_Wheat_VA_Stage3",
+      "dimensions_cm": [
+        53.55045509338379,
+        59.75331497192383,
+        90.22609953582287
+      ],
+      "triangles_per_lod": [
+        23926,
+        10765,
+        4306
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "WheatStemGold",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_WheatStemGold.M_Crops_WheatStemGold"
+        }
+      ]
+    },
+    {
+      "id": "Wheat_VB_Stage1",
+      "crop": "wheat",
+      "variant": "B",
+      "stage": 1,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VB_Stage1.SM_Wheat_VB_Stage1",
+      "dimensions_cm": [
+        7.542297601699829,
+        8.690453052520752,
+        10.856697481125593
+      ],
+      "triangles_per_lod": [
+        372,
+        167,
+        66
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "WheatStemGreen",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_WheatStemGreen.M_Crops_WheatStemGreen"
+        }
+      ]
+    },
+    {
+      "id": "Wheat_VB_Stage2",
+      "crop": "wheat",
+      "variant": "B",
+      "stage": 2,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VB_Stage2.SM_Wheat_VB_Stage2",
+      "dimensions_cm": [
+        24.897205352783203,
+        28.42662811279297,
+        45.60569536872208
+      ],
+      "triangles_per_lod": [
+        13672,
+        6151,
+        2459
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "WheatStemGreen",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_WheatStemGreen.M_Crops_WheatStemGreen"
+        }
+      ]
+    },
+    {
+      "id": "Wheat_VB_Stage3",
+      "crop": "wheat",
+      "variant": "B",
+      "stage": 3,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VB_Stage3.SM_Wheat_VB_Stage3",
+      "dimensions_cm": [
+        45.74588394165039,
+        46.19034385681152,
+        77.46167723834515
+      ],
+      "triangles_per_lod": [
+        20508,
+        9228,
+        3691
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "WheatStemGold",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_WheatStemGold.M_Crops_WheatStemGold"
+        }
+      ]
+    },
+    {
+      "id": "Wheat_VC_Stage1",
+      "crop": "wheat",
+      "variant": "C",
+      "stage": 1,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VC_Stage1.SM_Wheat_VC_Stage1",
+      "dimensions_cm": [
+        9.62001895904541,
+        7.563791632652283,
+        12.632792472839355
+      ],
+      "triangles_per_lod": [
+        372,
+        167,
+        66
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "WheatStemGreen",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_WheatStemGreen.M_Crops_WheatStemGreen"
+        }
+      ]
+    },
+    {
+      "id": "Wheat_VC_Stage2",
+      "crop": "wheat",
+      "variant": "C",
+      "stage": 2,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VC_Stage2.SM_Wheat_VC_Stage2",
+      "dimensions_cm": [
+        37.54668998718262,
+        30.403433799743652,
+        60.22190201282501
+      ],
+      "triangles_per_lod": [
+        23926,
+        10766,
+        4306
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "WheatStemGreen",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_WheatStemGreen.M_Crops_WheatStemGreen"
+        }
+      ]
+    },
+    {
+      "id": "Wheat_VC_Stage3",
+      "crop": "wheat",
+      "variant": "C",
+      "stage": 3,
+      "mesh": "/Game/Props/Crops/V3/Meshes/SM_Wheat_VC_Stage3.SM_Wheat_VC_Stage3",
+      "dimensions_cm": [
+        61.16570281982422,
+        49.398433685302734,
+        96.48496646434069
+      ],
+      "triangles_per_lod": [
+        30762,
+        13841,
+        5537
+      ],
+      "lod_screen_sizes": [
+        1.0,
+        0.44999998807907104,
+        0.18000000715255737
+      ],
+      "materials": [
+        {
+          "name": "Stem",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_Stem.M_Crops_Stem"
+        },
+        {
+          "name": "WheatStemGold",
+          "material": "/Game/Props/Crops/V3/Materials/M_Crops_WheatStemGold.M_Crops_WheatStemGold"
+        }
+      ]
+    }
+  ],
+  "gameplay_consumer": "UColdSteelPlantingSystem",
+  "planting_rules": "Content/ColdSteelData/planting_rules.json",
+  "gameplay_network_implemented": true,
+  "gameplay_network_runtime_verified": false
+}

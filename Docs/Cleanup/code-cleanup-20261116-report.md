@@ -195,7 +195,7 @@
 
 本次构建同时包含第 2 批已落盘修改；这是当前共享工程的 Editor 目标构建结果，不是隔离只编译三个文件的结论。第 1 批源码接入与必要构建已收尾，未运行测试、lint、审计工具、UE 编辑器、PIE 或 Commandlet，也未另构建 Game/打包目标。构建中的 UI/Weapons 数值转换和 API 弃用警告属于本批范围之外，未为处理它们修改其他模块。
 
-构建日志：build-20261117-000403.log（本机资料：`Saved/BuildEditor/build-20261117-000403.log`，不随本次发布）；结果记录：[build-receipt.json](code-cleanup-20261116/batch-01-spell-rewards/build-receipt.json)。编译成功不代表运行验收，运行效果由用户测试。
+构建日志：[build-20261117-000403.log](../../Saved/BuildEditor/build-20261117-000403.log)；结果记录：[build-receipt.json](code-cleanup-20261116/batch-01-spell-rewards/build-receipt.json)。编译成功不代表运行验收，运行效果由用户测试。
 
 三个已有文件均以本批开始时的工作区内容为基线，保留已有未提交修改及文件换行格式；没有改动暂存区、提交或推送。精确路径、前后行数、字节数和 SHA-256 见 [第 1 批源码清单](code-cleanup-20261116/batch-01-spell-rewards/source-manifest.json)。原件存放在同目录的三个 `*.before.txt`，仅用于按片段恢复本批修改。
 
@@ -232,7 +232,7 @@
 
 2026-11-17 09:37 续办时，编辑器和已有构建进程已退出，执行同一脚本完成后台 `FPSGAMEEditor Win64 Development` 构建，退出码 0、Result: Succeeded。UBT 返回 Target is up to date，0 个动作，总耗时 8.77 秒。本批构建收尾已完成，但本次没有重新链接或生成 DLL。未运行测试、lint、审计工具、PIE 或 Commandlet，未启动编辑器或游戏。
 
-精确前后尺寸、行数、SHA-256 与原件路径见 [第 3 批源码清单](code-cleanup-20261116/batch-03-rendercore/source-manifest.json)。[原构建门禁回执](code-cleanup-20261116/batch-03-rendercore/build-receipt.json)保留历史尝试；最终状态见[构建收尾回执](code-cleanup-20261116/build-completion-20261117.json)和本次构建日志（本机资料：`Saved/BuildEditor/build-20261117-093750.log`，不随本次发布）。改前文件来自当时工作区，已有未提交内容和换行格式保留；没有暂存、提交或推送。
+精确前后尺寸、行数、SHA-256 与原件路径见 [第 3 批源码清单](code-cleanup-20261116/batch-03-rendercore/source-manifest.json)。[原构建门禁回执](code-cleanup-20261116/batch-03-rendercore/build-receipt.json)保留历史尝试；最终状态见[构建收尾回执](code-cleanup-20261116/build-completion-20261117.json)和[本次构建日志](../../Saved/BuildEditor/build-20261117-093750.log)。改前文件来自当时工作区，已有未提交内容和换行格式保留；没有暂存、提交或推送。
 
 ## 10. 第 4 批：食品恢复计时去重（已完成）
 
@@ -255,7 +255,7 @@
 
 源码落盘后的首次 `Tools/Build/Build-Editor.ps1` 调用被第 19 行的活动编辑器门禁中止，退出码 1，UBT 未启动。2026-11-17 09:37 占用释放后，第 3、4 批共用一次后台 Editor 构建收尾：退出码 0、Succeeded、Target is up to date，0 个编译/链接动作，总耗时 8.77 秒。未关闭、重启或终止编辑器，未执行 Live Coding，也未运行测试、lint、审计工具、PIE 或 Commandlet。
 
-源码前后行数、尺寸、SHA-256 和工作区原件位置见 [第 4 批源码清单](code-cleanup-20261116/batch-04-survival/source-manifest.json)；首次门禁结果保留于[历史构建回执](code-cleanup-20261116/batch-04-survival/build-receipt.json)，最终结果见[构建收尾回执](code-cleanup-20261116/build-completion-20261117.json)和本次日志（本机资料：`Saved/BuildEditor/build-20261117-093750.log`，不随本次发布）。已有未提交修改和文件换行格式保留，没有暂存、提交或推送。
+源码前后行数、尺寸、SHA-256 和工作区原件位置见 [第 4 批源码清单](code-cleanup-20261116/batch-04-survival/source-manifest.json)；首次门禁结果保留于[历史构建回执](code-cleanup-20261116/batch-04-survival/build-receipt.json)，最终结果见[构建收尾回执](code-cleanup-20261116/build-completion-20261117.json)和[本次日志](../../Saved/BuildEditor/build-20261117-093750.log)。已有未提交修改和文件换行格式保留，没有暂存、提交或推送。
 
 此前续办时曾观察到 FPSGAME 编辑器 PID 1992 和另一项 Game 目标构建；当时保持现场。最终收尾是在这些进程退出后执行原 Editor 构建脚本，没有借用另一项构建结果，也未另行构建 Game 目标。
 
@@ -299,7 +299,7 @@
 
 源码已落盘，执行原 `Tools/Build/Build-Editor.ps1` 进行必要后台构建。脚本先等待已有 Build.bat 释放，随后 `FPSGAMEEditor Win64 Development` 返回 Succeeded，退出码 0，共 8 个动作，UBT 耗时 17.78 秒。四个修改入口均重新编译；未改源码的 IceWall 因包含同一公共头文件也重新编译，随后完成 `UnrealEditor-FPSGAME.lib`、`UnrealEditor-FPSGAME.dll` 链接和目标元数据写入。这是共享工程的增量构建，没有为清理额外复制工程或改动其他模块。
 
-本次日志：build-20261117-094719.log（本机资料：`Saved/BuildEditor/build-20261117-094719.log`，不随本次发布）；结果记录：[第 5 批构建回执](code-cleanup-20261116/batch-05-critical-training/build-receipt.json)。没有终止占用进程，没有启动编辑器或游戏；未运行测试、lint、审计工具、PIE 或 Commandlet。运行效果交由用户测试。
+本次日志：[build-20261117-094719.log](../../Saved/BuildEditor/build-20261117-094719.log)；结果记录：[第 5 批构建回执](code-cleanup-20261116/batch-05-critical-training/build-receipt.json)。没有终止占用进程，没有启动编辑器或游戏；未运行测试、lint、审计工具、PIE 或 Commandlet。运行效果交由用户测试。
 
 修改前原件、逐文件行数、字节数与 SHA-256 见[第 5 批源码清单](code-cleanup-20261116/batch-05-critical-training/source-manifest.json)，恢复快照为同目录五个 `*.before.txt`。操作保留原文件换行和已有工作区内容，没有暂存、提交或推送。
 
@@ -332,7 +332,7 @@
 
 执行现有 `Tools/Build/Build-Editor.ps1`，`FPSGAMEEditor Win64 Development` 返回 Succeeded，退出码 0，共 6 个动作，UBT 耗时 17.86 秒。三个修改文件均编译完成，随后链接 `UnrealEditor-FPSGAME.lib`、`UnrealEditor-FPSGAME.dll` 并写入目标元数据。结果为共享工程的增量构建，未修改其他模块源码来完成本批。
 
-本次日志：build-20261117-095310.log（本机资料：`Saved/BuildEditor/build-20261117-095310.log`，不随本次发布）；结果记录：[第 6 批构建回执](code-cleanup-20261116/batch-06-critical-training/build-receipt.json)。未新增功能，未启动编辑器或游戏，未运行测试、lint、审计工具、PIE 或 Commandlet，运行效果交由用户测试。
+本次日志：[build-20261117-095310.log](../../Saved/BuildEditor/build-20261117-095310.log)；结果记录：[第 6 批构建回执](code-cleanup-20261116/batch-06-critical-training/build-receipt.json)。未新增功能，未启动编辑器或游戏，未运行测试、lint、审计工具、PIE 或 Commandlet，运行效果交由用户测试。
 
 ## 14. 第 7 批：命中与多目标修炼公式去重（已完成）
 
@@ -369,9 +369,9 @@ FireMagic、Blizzard、ElectricMagic 在转移最后一个直接 `ColdSteelSkill
 
 本批随后执行独立的 `FPSGAME Win64 Development` 后台编译，返回 Succeeded，退出码 0，10 个动作，UBT 耗时 55.51 秒。五个修改入口及同头文件的三个未修改消费者（HolyLight、IceWall、MagicArrowRain）均重新编译，随后链接 `Binaries/Win64/FPSGAME.exe` 并写入 Game 目标元数据。该次使用共享工程和现有 Game 目标，没有修改构建配置或复制工程。
 
-Game 日志：cleanup-batch07-20261117-103707.log（本机资料：`Saved/BuildGame/cleanup-batch07-20261117-103707.log`，不随本次发布）；结果记录：[第 7 批 Game 构建回执](code-cleanup-20261116/batch-07-hit-kill-training/build-receipt.json)。该次结束时无界面 UE 进程仍运行，因此当时仅交付 Game 构建结果，未干预占用进程。
+Game 日志：[cleanup-batch07-20261117-103707.log](../../Saved/BuildGame/cleanup-batch07-20261117-103707.log)；结果记录：[第 7 批 Game 构建回执](code-cleanup-20261116/batch-07-hit-kill-training/build-receipt.json)。该次结束时无界面 UE 进程仍运行，因此当时仅交付 Game 构建结果，未干预占用进程。
 
-2026-11-17 10:52 第八批收尾时占用已释放，原 `Tools/Build/Build-Editor.ps1` 成功执行，包含本批五个模型入口的重新编译和 Editor DLL 链接；原 Editor 待执行项现已完成。以[第八批 Editor 构建回执](code-cleanup-20261116/batch-08-hit-training-calculation/build-receipt.json)和日志（本机资料：`Saved/BuildEditor/build-20261117-105258.log`，不随本次发布）作为新增证据，原阻塞记录及 Game 回执保留历史状态。
+2026-11-17 10:52 第八批收尾时占用已释放，原 `Tools/Build/Build-Editor.ps1` 成功执行，包含本批五个模型入口的重新编译和 Editor DLL 链接；原 Editor 待执行项现已完成。以[第八批 Editor 构建回执](code-cleanup-20261116/batch-08-hit-training-calculation/build-receipt.json)和[日志](../../Saved/BuildEditor/build-20261117-105258.log)作为新增证据，原阻塞记录及 Game 回执保留历史状态。
 
 源码及 Game/Editor 必要构建均已收尾。未终止进程、未发送跨对话协调消息、未启动编辑器或游戏，未新增功能、未运行测试、lint、审计工具、PIE 或 Commandlet，运行效果交由用户测试。
 
@@ -405,7 +405,7 @@ Game 日志：cleanup-batch07-20261117-103707.log（本机资料：`Saved/BuildG
 
 执行原 `Tools/Build/Build-Editor.ps1`，`FPSGAMEEditor Win64 Development` 返回 Succeeded，退出码 0，12 个动作，UBT 耗时 17.44 秒。三个本批模型和六个共用头文件的其他消费者均重新编译，随后完成 `UnrealEditor-FPSGAME.lib`、`UnrealEditor-FPSGAME.dll` 链接与目标元数据写入。此次共享工程增量构建也完成第七批此前待执行的 Editor 构建；本批没有另行构建 Game 目标。
 
-本次日志：build-20261117-105258.log（本机资料：`Saved/BuildEditor/build-20261117-105258.log`，不随本次发布）；结果记录：[第 8 批构建回执](code-cleanup-20261116/batch-08-hit-training-calculation/build-receipt.json)。本批未修改 Skills 以外业务源码、配置或资产，未新增功能、未终止占用进程、未启动编辑器或游戏，未运行测试、lint、审计工具、PIE 或 Commandlet，运行效果交由用户测试。
+本次日志：[build-20261117-105258.log](../../Saved/BuildEditor/build-20261117-105258.log)；结果记录：[第 8 批构建回执](code-cleanup-20261116/batch-08-hit-training-calculation/build-receipt.json)。本批未修改 Skills 以外业务源码、配置或资产，未新增功能、未终止占用进程、未启动编辑器或游戏，未运行测试、lint、审计工具、PIE 或 Commandlet，运行效果交由用户测试。
 
 ## 16. 第 9 批：技能进度读取去重（已完成）
 
@@ -439,7 +439,7 @@ Game 日志：cleanup-batch07-20261117-103707.log（本机资料：`Saved/BuildG
 
 执行原 `Tools/Build/Build-Editor.ps1`，`FPSGAMEEditor Win64 Development` 返回 Succeeded，退出码 0，11 个动作，UBT 耗时 20.39 秒。八个修改文件均编译完成，随后链接 `UnrealEditor-FPSGAME.lib`、`UnrealEditor-FPSGAME.dll` 并写入目标元数据。本次为共享工程增量构建，没有另行构建 Game 目标。
 
-本次日志：build-20261117-122414.log（本机资料：`Saved/BuildEditor/build-20261117-122414.log`，不随本次发布）；结果记录：[第 9 批构建回执](code-cleanup-20261116/batch-09-progress-lookup/build-receipt.json)。源码修改均位于 Skills，未新增 helper、功能、缓存或公开接口；火球独立经验缩放、超长文件、疑似死代码、其他模块和资产未动。未启动编辑器或游戏，未运行测试、lint、审计工具、PIE 或 Commandlet，运行效果交由用户测试。
+本次日志：[build-20261117-122414.log](../../Saved/BuildEditor/build-20261117-122414.log)；结果记录：[第 9 批构建回执](code-cleanup-20261116/batch-09-progress-lookup/build-receipt.json)。源码修改均位于 Skills，未新增 helper、功能、缓存或公开接口；火球独立经验缩放、超长文件、疑似死代码、其他模块和资产未动。未启动编辑器或游戏，未运行测试、lint、审计工具、PIE 或 Commandlet，运行效果交由用户测试。
 
 ## 17. 第 10 批：命中批次计数去重（已完成）
 
@@ -473,7 +473,7 @@ Game 日志：cleanup-batch07-20261117-103707.log（本机资料：`Saved/BuildG
 
 执行原 `Tools/Build/Build-Editor.ps1`，`FPSGAMEEditor Win64 Development` 返回 Succeeded，退出码 0，12 个动作，UBT 耗时 20.26 秒。五个本批模型和四个共用头文件的其他消费者均重新编译，随后完成 `UnrealEditor-FPSGAME.lib`、`UnrealEditor-FPSGAME.dll` 链接与目标元数据写入。本次为共享工程增量构建，没有另行构建 Game 目标。
 
-本次日志：build-20261117-135808.log（本机资料：`Saved/BuildEditor/build-20261117-135808.log`，不随本次发布）；结果记录：[第 10 批构建回执](code-cleanup-20261116/batch-10-hit-counters/build-receipt.json)。本批源码只修改 Skills 内六个文件，没有新增功能、公开接口或状态。火球独立经验缩放、超过 800 行文件、疑似死代码、其他模块和资产未动。未终止占用进程，未启动编辑器或游戏，未运行测试、lint、审计工具、PIE 或 Commandlet；构建结果不代表运行效果，交由用户测试。
+本次日志：[build-20261117-135808.log](../../Saved/BuildEditor/build-20261117-135808.log)；结果记录：[第 10 批构建回执](code-cleanup-20261116/batch-10-hit-counters/build-receipt.json)。本批源码只修改 Skills 内六个文件，没有新增功能、公开接口或状态。火球独立经验缩放、超过 800 行文件、疑似死代码、其他模块和资产未动。未终止占用进程，未启动编辑器或游戏，未运行测试、lint、审计工具、PIE 或 Commandlet；构建结果不代表运行效果，交由用户测试。
 
 ## 18. 第 11 批：命中反馈与奖励表合并去重（已完成）
 
@@ -506,7 +506,7 @@ Game 日志：cleanup-batch07-20261117-103707.log（本机资料：`Saved/BuildG
 
 提交构建前读取当前构建进程占用，没有占用才执行原 `Tools/Build/Build-Editor.ps1`。`FPSGAMEEditor Win64 Development` 返回 Succeeded，退出码 0，9 个动作，UBT 耗时 17.35 秒。六个模型均重新编译，随后完成 `UnrealEditor-FPSGAME.lib`、`UnrealEditor-FPSGAME.dll` 链接与目标元数据写入。本次为共享工程增量构建，没有另行构建 Game 目标。
 
-本次日志：build-20261117-140401.log（本机资料：`Saved/BuildEditor/build-20261117-140401.log`，不随本次发布）；结果记录：[第 11 批构建回执](code-cleanup-20261116/batch-11-hit-feedback/build-receipt.json)。源码改动全部位于 Skills，没有新增功能、反射接口或状态。火球独立经验缩放、超过 800 行文件、疑似死代码、其他模块和资产未动。未终止进程，未启动编辑器或游戏，未运行测试、lint、审计工具、PIE 或 Commandlet；构建成功不代表运行效果，交由用户测试。
+本次日志：[build-20261117-140401.log](../../Saved/BuildEditor/build-20261117-140401.log)；结果记录：[第 11 批构建回执](code-cleanup-20261116/batch-11-hit-feedback/build-receipt.json)。源码改动全部位于 Skills，没有新增功能、反射接口或状态。火球独立经验缩放、超过 800 行文件、疑似死代码、其他模块和资产未动。未终止进程，未启动编辑器或游戏，未运行测试、lint、审计工具、PIE 或 Commandlet；构建成功不代表运行效果，交由用户测试。
 
 ## 19. 第 12 批：法杖公共词条读取去重（源码与 Game/Editor 构建完成）
 
@@ -541,7 +541,7 @@ Game 日志：cleanup-batch07-20261117-103707.log（本机资料：`Saved/BuildG
 
 确认当时没有运行 FPSGAME 可执行文件后，改为独立 `FPSGAME Win64 Development` 后台构建，返回 Succeeded、退出码 0，8 个动作，UBT 耗时 52.81 秒。六个修改模型均编译，随后链接 `Binaries/Win64/FPSGAME.exe` 并写入目标元数据。该 Game 构建不替换已加载的 Editor DLL，也没有启动游戏。当时 Game 构建结束后，项目编辑器 PID 52092 仍在运行，因此未再次提交 Editor 构建。2026-11-17 17:17 共享构建和项目模块占用退出后，本批与第 13–15 批统一完成 Editor 构建收尾，独立 UBT 调用返回 Succeeded、目标已是最新，0 个动作；最终回执见第 24 节，原占用与 Game 记录保留。
 
-本次日志：cleanup-batch12-20261117-151403.log（本机资料：`Saved/BuildGame/cleanup-batch12-20261117-151403.log`，不随本次发布）；结果记录：[第 12 批构建回执](code-cleanup-20261116/batch-12-staff-crafting/build-receipt.json)。源码改动全部位于 Skills，没有新增功能、反射接口、缓存或状态。火球独立经验缩放、超过 800 行文件、疑似死代码、其他模块和资产未动。未终止进程，未启动编辑器或游戏，未运行测试、lint、审计工具、PIE 或 Commandlet；Game 与后续 Editor 构建分别留存证据，均不代表运行效果已验证，交由用户测试。
+本次日志：[cleanup-batch12-20261117-151403.log](../../Saved/BuildGame/cleanup-batch12-20261117-151403.log)；结果记录：[第 12 批构建回执](code-cleanup-20261116/batch-12-staff-crafting/build-receipt.json)。源码改动全部位于 Skills，没有新增功能、反射接口、缓存或状态。火球独立经验缩放、超过 800 行文件、疑似死代码、其他模块和资产未动。未终止进程，未启动编辑器或游戏，未运行测试、lint、审计工具、PIE 或 Commandlet；Game 与后续 Editor 构建分别留存证据，均不代表运行效果已验证，交由用户测试。
 
 ## 20. 后续批次统一清单（源码与 Editor 构建已完成）
 
@@ -627,7 +627,7 @@ Game 日志：cleanup-batch07-20261117-103707.log（本机资料：`Saved/BuildG
 
 三批源码原件、行数/字节数及散列已分别记录于第 21–23 节链接。所有编辑基于修改时的工作区内容，保留原换行与并行修改，没有暂存、提交、推送、清理中间产物或删除生产文件。
 
-此前一次统一构建开始时未发现其他编译器或项目编辑器，原 `Tools/Build/Build-Editor.ps1` 启动 Editor 构建。日志为 build-20261117-152948.log（本机资料：`Saved/BuildEditor/build-20261117-152948.log`，不随本次发布），计划 48 个动作；UHT 没有写入生成文件，返回输出完成到 21/48 后长时间没有新进度。本会话仅对自己的 exec 会话发送 Ctrl+C，中止这一轮构建，未报告成功。之后观察到另一轮共享 Editor 构建（日志 `build-20261117-153534.log`）已取得引擎锁，因此等待，不抢锁、不终止其他构建、不向其他对话协调。一次对原残留编译器的身份保护判断未匹配，没有执行强制终止。[本轮构建尝试记录](code-cleanup-20261116/remaining-batches-build-attempt-20261117.json) 保留具体状态。
+此前一次统一构建开始时未发现其他编译器或项目编辑器，原 `Tools/Build/Build-Editor.ps1` 启动 Editor 构建。日志为 [build-20261117-152948.log](../../Saved/BuildEditor/build-20261117-152948.log)，计划 48 个动作；UHT 没有写入生成文件，返回输出完成到 21/48 后长时间没有新进度。本会话仅对自己的 exec 会话发送 Ctrl+C，中止这一轮构建，未报告成功。之后观察到另一轮共享 Editor 构建（日志 `build-20261117-153534.log`）已取得引擎锁，因此等待，不抢锁、不终止其他构建、不向其他对话协调。一次对原残留编译器的身份保护判断未匹配，没有执行强制终止。[本轮构建尝试记录](code-cleanup-20261116/remaining-batches-build-attempt-20261117.json) 保留具体状态。
 
 上一次续办结束时，后续源码批次已完成，但 Editor 构建尚未收尾；当时没有在另一轮共享构建期间重试，只结束了本会话的被动等待进程，原残留编译器随后已不存在，没有强制停止进程。上述为历史状态，原尝试记录保留；最终结果以下述本次收尾为准。其余保留项已按第 20 节列明原因，不是遗漏的待清理批次。
 
@@ -1022,7 +1022,7 @@ C32 已完成：本 cpp 的匿名命名空间新增 SkillCombatModel(AActor*)，
 
 C32 源码与构建均完成，R13 保留差异不变。本批只有一个 Skills 源码文件变更，没有新增功能、测试、lint、额外静态检查或运行验收；未启动编辑器/游戏、未终止其他进程、未跨对话协调，也未暂存、提交或推送。运行效果由用户测试。
 
-第 22 批 Editor 构建日志（本机资料：`Saved/BuildEditor/cleanup-batch22-20261117-234952.log`，不随本次发布）；[构建回执](code-cleanup-20261116/batch-22-combat-model/build-receipt.json)。此前 Skills 外长文件、C04 及行为/复杂度保留项没有因此计为完成。
+[第 22 批 Editor 构建日志](../../Saved/BuildEditor/cleanup-batch22-20261117-234952.log)；[构建回执](code-cleanup-20261116/batch-22-combat-model/build-receipt.json)。此前 Skills 外长文件、C04 及行为/复杂度保留项没有因此计为完成。
 
 
 ## 33. 剩余批次统一清理（用户追加全部批次）
@@ -1039,7 +1039,7 @@ C32 源码与构建均完成，R13 保留差异不变。本批只有一个 Skill
 
 第 23–31 批最终 Editor 收尾已完成：等待共享构建退出后，最终回执为 **Succeeded、退出码 0，UBT 16.46 秒、4 个动作**，包含 DLL 链接与目标元数据写入。前序失败和生成头随共享工作区更新的经过完整保留在统一记录；本轮未终止其他进程，未启动编辑器/游戏，也未运行测试。所有可按本轮标准实施的批次已完成，保留项均有具体理由，运行效果由用户自行测试。
 
-[最终构建回执](code-cleanup-20261116/all-batches-20261117/build-final-resume3-20261118-101539.json)；最终构建日志（本机资料：`Saved/BuildEditor/cleanup-all-final-resume3-20261118-101539.log`，不随本次发布）。
+[最终构建回执](code-cleanup-20261116/all-batches-20261117/build-final-resume3-20261118-101539.json)；[最终构建日志](../../Saved/BuildEditor/cleanup-all-final-resume3-20261118-101539.log)。
 
 ## 34. 个人技能维护源、引用与领域规则收尾（已完成）
 

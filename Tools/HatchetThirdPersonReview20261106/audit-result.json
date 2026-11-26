@@ -1,0 +1,415 @@
+{
+  "created_local": "2026-11-06T16:51:13",
+  "scope": "Third-person hatchet combo3 chop, heavy chop and Falcon pullback; first-person restoration retained",
+  "focused_wire_passed": true,
+  "build": "FPSGAMEEditor Win64 Development succeeded; build-latest.log",
+  "fixed": {
+    "issue": "Observer could miss the first melee ribbons because the shared material was still loading",
+    "change": "Load the shared material during existing synchronous observer equipment preparation; hold a transient strong reference for the equipped lifetime",
+    "cold_start_before": {
+      "run": "Listen-20261106-163312",
+      "single_combo_damage_contacts": 3,
+      "rift_frames": 0
+    },
+    "cold_start_after": {
+      "run": "Listen-20261106-164507",
+      "single_combo_damage_contacts": 3,
+      "rift_frames": 33
+    }
+  },
+  "fixture_changes": [
+    "Probe clock stability for each case after equipment changes",
+    "Optional KukriWireNoOutfit excludes clothing load from focused weapon checks",
+    "Begin/hit rejection reasons only under existing KukriHeavyNetTrace flag; authority acceptance rules unchanged"
+  ],
+  "network_runs": [
+    {
+      "directory": "Listen-20261106-163033",
+      "scope": "Falcon; listen host observes guest; before trail preload fix",
+      "passed": true,
+      "case_count": 6,
+      "cases_passed": 6,
+      "combat": [
+        {
+          "case": "single/combo123",
+          "server_pull_cm": 0,
+          "second_target_pull_cm": 0,
+          "phase0_damage_events": 3,
+          "phase1_damage_events": 0,
+          "paid_heavy_releases": 0,
+          "passed": true,
+          "damage_contacts": 3,
+          "expected_contacts": 3,
+          "ledger_matches": true,
+          "rift_frames": 41,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "single/heavy",
+          "server_pull_cm": 47,
+          "second_target_pull_cm": 0,
+          "phase0_damage_events": 1,
+          "phase1_damage_events": 1,
+          "paid_heavy_releases": 1,
+          "passed": true,
+          "damage_contacts": 2,
+          "expected_contacts": 2,
+          "ledger_matches": true,
+          "rift_frames": 20,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "dual/heavy",
+          "server_pull_cm": 53.37907028198242,
+          "second_target_pull_cm": 53.37907028198242,
+          "phase0_damage_events": 2,
+          "phase1_damage_events": 2,
+          "paid_heavy_releases": 1,
+          "passed": true,
+          "damage_contacts": 4,
+          "expected_contacts": 4,
+          "ledger_matches": true,
+          "rift_frames": 38,
+          "left_rift_frames": 19
+        },
+        {
+          "case": "single/quick",
+          "server_pull_cm": 0,
+          "second_target_pull_cm": 0,
+          "phase0_damage_events": 0,
+          "phase1_damage_events": 0,
+          "paid_heavy_releases": 0,
+          "passed": true,
+          "damage_contacts": 0,
+          "expected_contacts": 0,
+          "ledger_matches": true,
+          "rift_frames": 0,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "pawn_replacement_owner_and_authority_rebound",
+          "passed": true
+        },
+        {
+          "case": "same_profile_reconnect",
+          "passed": true
+        }
+      ],
+      "all_peer_exits_zero": true,
+      "rendered": false,
+      "lag_ms_each_peer": 60,
+      "loss_percent_each_peer": 3
+    },
+    {
+      "directory": "Listen-20261106-164507",
+      "scope": "Base hatchet; cold start; Kaitlin; after trail preload fix",
+      "passed": true,
+      "case_count": 14,
+      "cases_passed": 14,
+      "combat": [
+        {
+          "case": "single/combo123",
+          "passed": true,
+          "damage_contacts": 3,
+          "expected_contacts": 3,
+          "ledger_matches": true,
+          "rift_frames": 33,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "single/heavy",
+          "passed": true,
+          "damage_contacts": 1,
+          "expected_contacts": 1,
+          "ledger_matches": true,
+          "rift_frames": 13,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "single/uppercut",
+          "passed": true,
+          "damage_contacts": 1,
+          "expected_contacts": 1,
+          "ledger_matches": true,
+          "rift_frames": 21,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "single/whirlwind",
+          "passed": true,
+          "damage_contacts": 1,
+          "expected_contacts": 1,
+          "ledger_matches": true,
+          "rift_frames": 24,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "single/quick",
+          "passed": true,
+          "damage_contacts": 1,
+          "expected_contacts": 1,
+          "ledger_matches": true,
+          "rift_frames": 0,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "single/dash",
+          "passed": true,
+          "damage_contacts": 1,
+          "expected_contacts": 1,
+          "ledger_matches": true,
+          "rift_frames": 12,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "dual/combo123",
+          "passed": true,
+          "damage_contacts": 6,
+          "expected_contacts": 6,
+          "ledger_matches": true,
+          "rift_frames": 68,
+          "left_rift_frames": 34
+        },
+        {
+          "case": "dual/heavy",
+          "passed": true,
+          "damage_contacts": 1,
+          "expected_contacts": 1,
+          "ledger_matches": true,
+          "rift_frames": 24,
+          "left_rift_frames": 12
+        },
+        {
+          "case": "dual/uppercut",
+          "passed": true,
+          "damage_contacts": 1,
+          "expected_contacts": 1,
+          "ledger_matches": true,
+          "rift_frames": 23,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "dual/whirlwind",
+          "passed": true,
+          "damage_contacts": 1,
+          "expected_contacts": 1,
+          "ledger_matches": true,
+          "rift_frames": 40,
+          "left_rift_frames": 20
+        },
+        {
+          "case": "dual/quick",
+          "passed": true,
+          "damage_contacts": 1,
+          "expected_contacts": 1,
+          "ledger_matches": true,
+          "rift_frames": 0,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "dual/dash",
+          "passed": true,
+          "damage_contacts": 1,
+          "expected_contacts": 1,
+          "ledger_matches": true,
+          "rift_frames": 24,
+          "left_rift_frames": 12
+        },
+        {
+          "case": "pawn_replacement_owner_and_authority_rebound",
+          "passed": true
+        },
+        {
+          "case": "same_profile_reconnect",
+          "passed": true
+        }
+      ],
+      "all_peer_exits_zero": true,
+      "rendered": false,
+      "lag_ms_each_peer": 60,
+      "loss_percent_each_peer": 3
+    },
+    {
+      "directory": "Dedicated-20261106-164813",
+      "scope": "Falcon; dedicated authority; Jason; after trail preload fix",
+      "passed": true,
+      "case_count": 6,
+      "cases_passed": 6,
+      "combat": [
+        {
+          "case": "single/combo123",
+          "server_pull_cm": 0,
+          "second_target_pull_cm": 0,
+          "phase0_damage_events": 3,
+          "phase1_damage_events": 0,
+          "paid_heavy_releases": 0,
+          "passed": true,
+          "damage_contacts": 3,
+          "expected_contacts": 3,
+          "ledger_matches": true,
+          "rift_frames": 0,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "single/heavy",
+          "server_pull_cm": 47,
+          "second_target_pull_cm": 0,
+          "phase0_damage_events": 1,
+          "phase1_damage_events": 1,
+          "paid_heavy_releases": 1,
+          "passed": true,
+          "damage_contacts": 2,
+          "expected_contacts": 2,
+          "ledger_matches": true,
+          "rift_frames": 0,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "dual/heavy",
+          "server_pull_cm": 53.37907028198242,
+          "second_target_pull_cm": 53.37907028198242,
+          "phase0_damage_events": 2,
+          "phase1_damage_events": 2,
+          "paid_heavy_releases": 1,
+          "passed": true,
+          "damage_contacts": 4,
+          "expected_contacts": 4,
+          "ledger_matches": true,
+          "rift_frames": 0,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "single/quick",
+          "server_pull_cm": 0,
+          "second_target_pull_cm": 0,
+          "phase0_damage_events": 0,
+          "phase1_damage_events": 0,
+          "paid_heavy_releases": 0,
+          "passed": true,
+          "damage_contacts": 0,
+          "expected_contacts": 0,
+          "ledger_matches": true,
+          "rift_frames": 0,
+          "left_rift_frames": 0
+        },
+        {
+          "case": "pawn_replacement_owner_and_authority_rebound",
+          "passed": true
+        },
+        {
+          "case": "same_profile_reconnect",
+          "passed": true
+        }
+      ],
+      "all_peer_exits_zero": true,
+      "rendered": false,
+      "lag_ms_each_peer": 60,
+      "loss_percent_each_peer": 3
+    }
+  ],
+  "falcon_motion_check": {
+    "checks": 52,
+    "failed": 0,
+    "evidence": "falcon-clock.txt",
+    "scope": "Isolated action-clock/hitstop tests; separate from real network runs"
+  },
+  "assets": {
+    "checks": [
+      {
+        "body": "Jason",
+        "role": "DualCharge",
+        "path": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconDualCharge",
+        "reference_matches": true,
+        "hash_matches": true
+      },
+      {
+        "body": "Jason",
+        "role": "Combo3",
+        "path": "/Game/Weapons/TacticalHatchet20261101/DualChopRepair20261106/Jason/A_HatchetDualCombo3",
+        "reference_matches": true,
+        "hash_matches": true
+      },
+      {
+        "body": "Kaitlin",
+        "role": "DualCharge",
+        "path": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconDualCharge",
+        "reference_matches": true,
+        "hash_matches": true
+      },
+      {
+        "body": "Kaitlin",
+        "role": "Combo3",
+        "path": "/Game/Weapons/TacticalHatchet20261101/DualChopRepair20261106/Kaitlin/A_HatchetDualCombo3",
+        "reference_matches": true,
+        "hash_matches": true
+      },
+      {
+        "body": "Jason",
+        "role": "Release",
+        "path": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconRelease",
+        "reference_matches": true,
+        "hash_matches": true
+      },
+      {
+        "body": "Jason",
+        "role": "DualRelease",
+        "path": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Jason/A_FalconDualRelease",
+        "reference_matches": true,
+        "hash_matches": true
+      },
+      {
+        "body": "Kaitlin",
+        "role": "Release",
+        "path": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconRelease",
+        "reference_matches": true,
+        "hash_matches": true
+      },
+      {
+        "body": "Kaitlin",
+        "role": "DualRelease",
+        "path": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Kaitlin/A_FalconDualRelease",
+        "reference_matches": true,
+        "hash_matches": true
+      },
+      {
+        "first_person": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Arms/A_FalconDualCharge",
+        "original_hash_matches": true
+      },
+      {
+        "first_person": "/Game/Weapons/TacticalHatchet20261101/SwiftFalconHeavy/Arms/A_FalconDualRelease",
+        "original_hash_matches": true
+      }
+    ],
+    "retired_first_person_header_has_no_consumer": true
+  },
+  "prior_saved_body_surface_review": "../../SourceAssets/HatchetDualChopRepair20261106/PullAnatomy/SelfReview/review-result.json",
+  "broad_native_check": {
+    "passed": 188,
+    "failed": 0,
+    "overall_passed": true,
+    "evidence": "RuneFixtureMigration/Run-20261106-170536/isolated.json"
+  },
+  "limits": [
+    "Headless multiplayer checked replicated state, event routing and authoritative outcomes; no rendered live multiplayer picture review in this audit."
+  ],
+  "source_sha256": {
+    "Characters/FPSPlayerBodyComponent.h": "9ec0fda36e73a8bf6c3fa2e7a419909dc5ce2c4b2532a95c7e99a6872e15678e",
+    "Characters/FPSPlayerBodyEquipment.cpp": "83bdc150c5f8bfb2a70e42030a865b3662ca0115f6b8de1ef60947b018572692",
+    "Multiplayer/ColdSteelKukriAuthority.cpp": "a85f45a2e9fa59e3b485a7483c70b67dd857df3f4ac3a1bade1dcc0eb0aaf603",
+    "Development/KukriCombatWireAudit.cpp": "895724860eb8b19c761356b1a5fb2a673b32d9c210132b53922dc53dbce48c23"
+  },
+  "previous_broad_native_check": {
+    "passed": 164,
+    "failed": 20,
+    "overall_passed": false,
+    "reason": "Legacy fixture installs frost_raven_rune/berserker_rune in gunsmith_parts.blade_2; current components use KukriEnchantment with _enchantEffects.frostHawk/bloodWolf. These fixtures do not activate the effects under test.",
+    "evidence": "legacy-rune-test-mismatch.json"
+  },
+  "rune_fixture_followup": {
+    "completed": true,
+    "evidence": "RuneFixtureMigration/result.json",
+    "wire_cases_passed": 6,
+    "wire_cases": 6
+  },
+  "updated_local": "2026-11-06T17:09:06"
+}

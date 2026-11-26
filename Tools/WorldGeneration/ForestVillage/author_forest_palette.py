@@ -25,3 +25,4 @@ expected=json.loads((src/'variation.json').read_text())
 if len(counts)!=expected['granite_meshes'] or sum(counts.values())!=expected['granite_sites']:raise RuntimeError('Incomplete baked granite '+str(counts))
 if not u.EditorLoadingAndSavingUtils.save_map(world,target):raise RuntimeError('Map save failed')
 (batch/'baked.json').write_text(json.dumps(dict(map=target,trees=trees,granite=counts,layout=expected),indent=2))
+

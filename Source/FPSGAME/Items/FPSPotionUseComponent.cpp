@@ -1,9 +1,9 @@
 #include "FPSPotionUseComponent.h"
-#include "../Production/ProductionToolComponent.h"
-#include "../Skills/LightningHasteSpeed.h"
+#include "../Weapons/WoodenTorchComponent.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "CampfireFoodCatalog.h"
+#include "../Skills/LightningHasteSpeed.h"
 #include "PotionVisuals.h"
 #include "../FPSGAMECharacter.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
@@ -14,7 +14,11 @@
 #include "../Movement/FPSTraversalRules.h"
 #include "../Weapons/Bow/BowWeaponComponent.h"
 #include "../Weapons/Bow/BowArmsMeshComponent.h"
+#include "../Weapons/Kukri/OffhandKukriComponent.h"
+#include "../Weapons/Staff/StaffOffhandMeleeComponent.h"
+#include "../Weapons/Kukri/KukriWeaponComponent.h"
 #include "../Weapons/PistolDualWieldComponent.h"
+#include "../Production/ProductionToolComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -141,6 +145,7 @@ bool UFPSPotionUseComponent::HandlePrimaryPress()
     bOwnsPrimaryRelease = bActive || IsReturningBow();
     if (!bOwnsPrimaryRelease) return false;
     if (!bActive || bReturningFromMeal || !(bFood || bWater || bSoda)) return true;
+    if (const auto* Torch=GetOwner()->FindComponentByClass<UWoodenTorchComponent>(); Torch && (Torch->HoldsLeft() || Torch->HoldsRight())) return true;
 
     if (!bStowOffhand || bWaitingForBow)
     {

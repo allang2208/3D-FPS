@@ -1,0 +1,59 @@
+#pragma once
+#include "ColdSteelUIStyle.h"
+#include "Brushes/SlateDynamicImageBrush.h"
+#include "Widgets/Input/SEditableTextBox.h"
+#include "Styling/CoreStyle.h"
+
+// Layout/art originate in game-dev scene-manager.js and panel-theme-backpack.css.
+// MoviePlayer map handoff follows the architecture described by AsyncLoadingScreen (MIT).
+// Independent project implementation; no plugin code or vendor assets are embedded.
+struct FTransitLoadingView
+{
+    FText Title;
+    FText Status;
+    float Progress = 0;
+    float Opacity = 1;
+    bool CancelRequested = false;
+    bool RetryRequested = false;
+    bool RetryAvailable = false;
+    bool ReturnToMenu = false;
+    double Start = 0;
+    FSlateBrush Panel = ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint,10,ColdSteelUI::Border,1);
+    FButtonStyle Button = ColdSteelUI::ButtonStyle();
+    TSharedPtr<FSlateDynamicImageBrush> Background;
+};
+
+struct FStartupLoadingView
+{
+    int32 RequestedMode = -1;
+    int32 PreviousMode = 0;
+    int32 Page = 0; // 0 主界面 1 进入方式 2 联机终端 3 操作说明 4 设置
+    FString Nick;
+    FString Password;
+    FString StatusLine;
+    bool bStatusError = false;
+    TArray<FString> RecentHosts;
+    TSharedPtr<SEditableTextBox> NickBox;
+    TSharedPtr<SEditableTextBox> PasswordBox;
+    TSharedPtr<SEditableTextBox> AddressBox;
+    TSharedPtr<FSlateDynamicImageBrush> Background;
+    FSlateBrush Panel = ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint,10,ColdSteelUI::Border,1);
+    FSlateBrush InputBg = ColdSteelUI::RoundedBrush(ColdSteelUI::Content,6,ColdSteelUI::Border,1);
+    FSlateBrush InfoCard = ColdSteelUI::RoundedBrush(FLinearColor(0.03f,0.04f,0.05f,0.55f),8,ColdSteelUI::Border,1);
+    FButtonStyle Button = ColdSteelUI::ButtonStyle();
+    FButtonStyle Primary = ColdSteelUI::ButtonStyle();
+    FEditableTextBoxStyle InputStyle = FCoreStyle::Get().GetWidgetStyle<FEditableTextBoxStyle>(TEXT("NormalEditableTextBox"));
+    FStartupLoadingView()
+    {
+        Primary.Normal = ColdSteelUI::RoundedBrush(ColdSteelUI::Accent,ColdSteelUI::ButtonRadius,FLinearColor::Transparent,0);
+        Primary.Hovered = ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(238),ColdSteelUI::ButtonRadius,FLinearColor::Transparent,0);
+        Primary.Pressed = ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(196),ColdSteelUI::ButtonRadius,FLinearColor::Transparent,0);
+        Primary.Disabled = ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonDisabled,ColdSteelUI::ButtonRadius,FLinearColor::Transparent,0);
+        InputStyle.BackgroundImageNormal = InputBg;
+        InputStyle.BackgroundImageHovered = InputBg;
+        InputStyle.BackgroundImageFocused = InputBg;
+        InputStyle.BackgroundImageReadOnly = InputBg;
+        InputStyle.ForegroundColor = FSlateColor(ColdSteelUI::TextPrimary);
+        InputStyle.SetFont(ColdSteelUI::TextFont(12));
+    }
+};

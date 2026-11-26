@@ -1,4 +1,6 @@
 #include "G18WeaponAssets.h"
+#include "../Combat/FPSAttackQuery.h"
+#include "../Skills/LightningHasteSpeed.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "RSH12WeaponAssets.h"
 #include "PitViper2011WeaponAssets.h"
@@ -6,6 +8,7 @@
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "DualPistolReloadTiming.h"
 #include "../FPSGAMECharacter.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "ColdSteelEnchantmentCombat.h"
@@ -43,7 +46,10 @@ float UPistolDualWieldComponent::SharedConeSpread() const
 
 void UPistolDualWieldComponent::TryFire(int32 Index)
 {
+    if(Index==1&&IsMeleePairBlocked())return;
     auto& H=Hands[Index];const double Now=GetWorld()->GetTimeSeconds();
+    if(GetNetMode()==NM_Client)
+        if(const auto* PS=Player->GetPlayerState<AColdSteelPlayerState>();!PS||!PS->IsPistolServerReady(H.Item.InstanceId)||PS->IsPistolReloadPending(H.Item.InstanceId))return;
     if((!H.Pending && !H.Automatic) || !H.Held || !InputAvailable() || (IsEquipping() && H.Item.Definition!=G18WeaponAssets::Definition && H.Item.Definition!=PitViper2011WeaponAssets::Definition) || Player->IsAmmoWheelOpen() || H.Reloading || Player->IsSprinting()
         || Now<Player->SprintFireUnlockTime || Now<H.NextShot || (Index==1 && Player->IsCastBlockingLeftHandAction()))return;
     H.Pending=false;
@@ -57,31 +63,35 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
     const FVector Eye=Player->FirstPersonCamera->GetComponentLocation();
     // Both hands shoot the averaged akimbo cone, the same value the reticle shows.
     const float Spread=SharedConeSpread();
-    const FVector Direction=FMath::VRandCone(SightDirection(),Spread);
+    const FVector Direction=Player->IsLoneLeftHandRig()?Player->ComputeShotDirection():FMath::VRandCone(SightDirection(),Spread);
     const FTransform ShotMuzzle=H.FX->ShotTransform();
     const FVector Muzzle=ShotMuzzle.GetLocation()+ShotMuzzle.GetRotation().GetAxisX()*2.f;
     const float Range=FMath::Max(10000.f,float(H.Stats.Range)*300.f);
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(DualPistolShot),true,Player);Query.bReturnPhysicalMaterial=true;Query.bReturnFaceIndex=true;
+    FFPSAttackQuery Query(SCENE_QUERY_STAT(DualPistolShot),true,Player);Query.bReturnPhysicalMaterial=true;Query.bReturnFaceIndex=true;
     FHitResult Sight,Blocked;
     const bool AimHit=RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Sight,Eye,Eye+Direction*Range,ECC_Visibility,Query);
     const FVector Target=AimHit?Sight.ImpactPoint:Eye+Direction*Range;
     const bool MuzzleBlocked=RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Blocked,Eye,Muzzle,ECC_Visibility,Query);
     --H.Rounds;H.Item.Magazine=H.Rounds;
-    const double ShotInterval=FMath::Max(.001,H.Stats.Interval);
+    const float ActionSpeed=LightningHaste::ActionSpeed(GetOwner());
+    const double ShotInterval=FMath::Max(.001,H.Stats.Interval)/ActionSpeed;
     H.NextShot=H.Automatic
         ? (Now-H.NextShot>.15?Now:H.NextShot)+ShotInterval : Now+ShotInterval;
     H.Pattern=Now-H.LastShot>.4?0:FMath::Min(H.Pattern+1,FWeaponHandling::PatternCount-1);H.LastShot=Now;
     const float FireRate=H.Item.Definition==RSH12WeaponAssets::Definition && H.Clips.FindRef(TEXT("fire"))
-        ?H.Clips.FindRef(TEXT("fire"))->GetPlayLength()/float(ShotInterval):1.f;
+        ?H.Clips.FindRef(TEXT("fire"))->GetPlayLength()/float(ShotInterval):ActionSpeed;
     StartAction(Index,!H.Revolver && H.Rounds==0?TEXT("fire_last"):TEXT("fire"),FireRate);
     if(H.Item.Definition==RSH12WeaponAssets::Definition && H.Action)
         H.NextShot=Now+FMath::Max(ShotInterval,double(H.Action->GetPlayLength()/FireRate));
-    if(!bOffhandOnly){Player->MagazineAmmo=Hands[0].Rounds;Player->RevolverCaseCount=Hands[0].Cases;}
+    if(!bOffhandOnly || Player->IsLoneLeftHandRig())
+    {const auto& Active=Hands[bOffhandOnly?1:0];Player->MagazineAmmo=Active.Rounds;Player->RevolverCaseCount=Active.Cases;}
     // A blocked-muzzle hit may award XP and commit the profile synchronously.
     // Publish the consumed round before entering that callback, from the hand
     // counters, without saving or resetting either hand's action clock.
     Profile->SyncRuntime();
     ++Player->ShotsFired;Player->LastShotWorldTime=Now;
+    if(!Player->HasAuthority())if(auto* PS=Player->GetPlayerState<AColdSteelPlayerState>())
+        PS->RequestPistolShot(uint32(Player->ShotsFired),H.Item.InstanceId,Profile->Snapshot().ActiveWeaponSlot,1);
     if(MuzzleBlocked)
     {
         if(Blocked.GetActor())
@@ -89,6 +99,8 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
             const float Damage=float(H.Stats.Damage)*WeaponDamageFalloff::Multiplier(FVector::Distance(Muzzle,Blocked.ImpactPoint),float(H.Stats.Range)*100.f);
             FWeaponDamageResult DamageResult;
             auto Shot=ColdSteelSkills::Snapshot(Player,&H.Item,true);
+            Shot.FireSequence=uint32(Player->ShotsFired);
+            Shot.FiredRounds=1;
             Shot.BulletSource=H.Ballistics;
             Shot.BulletFX=H.FX;
             const float Applied=ColdSteelSkills::ApplyHit(Player,Blocked,Damage,Direction,Shot,&DamageResult);
@@ -97,7 +109,7 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
         }
         H.FX->OnImpact(Blocked);
     }
-    else H.Ballistics->Launch(Muzzle,(Target-Muzzle).GetSafeNormal(),float(H.Stats.Speed)*100.f,Range,float(H.Stats.Damage),H.FX,Player->CriticalHitSound,float(H.Stats.Range)*100.f,&H.Item);
+    else H.Ballistics->Launch(Muzzle,(Target-Muzzle).GetSafeNormal(),float(H.Stats.Speed)*100.f,Range,float(H.Stats.Damage),H.FX,Player->CriticalHitSound,float(H.Stats.Range)*100.f,&H.Item,false,false,uint32(Player->ShotsFired),1);
     H.FX->OnShotAtMuzzle(false,ShotMuzzle);
     USoundBase* Sound=H.Suppressed?H.Sounds.FindRef(TEXT("Suppressed")):nullptr;
     if(!Sound)Sound=H.Sounds.FindRef(TEXT("Fire"));
@@ -137,7 +149,8 @@ void UPistolDualWieldComponent::TryFire(int32 Index)
     // bloom, the same input its spread used for this shot.
     const float DualRecoilLoad=1.f+FMath::Clamp((H.Bloom+Player->MoveSpread+Player->AirSpread)/DualPistolSpread::RecoilLoadScale,0.f,2.f)*.7f;
     Player->ApplyDualWieldShotFeedback(Index,H.Revolver,FeedbackHandling,H.Pattern,float(H.Stats.Interval),DualRecoilLoad);
-    H.Bloom=FMath::Min(DualPistolSpread::BloomMax,H.Bloom+DualPistolSpread::BloomPerShot);
+    const bool Lone=Player->IsLoneLeftHandRig();
+    H.Bloom=FMath::Min(Lone?.018f:DualPistolSpread::BloomMax,H.Bloom+(Lone?.003f:DualPistolSpread::BloomPerShot));
     if(H.Rounds==0 && (InfiniteReserve(Index)||Reserve(Index)>0))H.ReloadQueued=true;
 }
 
@@ -153,13 +166,18 @@ bool UPistolDualWieldComponent::SwitchAmmo(const FString& WeaponId,const FString
     {
         auto& H=Hands[Index];if(H.Reloading || (H.Item.Definition==RSH12WeaponAssets::Definition && H.Action && H.Action==H.Clips.FindRef(TEXT("fire"))) || (Index==1&&Player->IsCastBlockingLeftHandAction()))return false;
         CancelInputs();StopAction(Index);H.PendingAmmoType=AmmoType;BeginReload(Index);
-        if(!H.Reloading)H.PendingAmmoType.Reset();return H.Reloading;
+        const bool Deferred=IsMeleePair()&&H.ReloadQueued;
+        if(!H.Reloading&&!Deferred)H.PendingAmmoType.Reset();return H.Reloading||Deferred;
     }
     return false;
 }
 void UPistolDualWieldComponent::BeginReload(int32 Index)
 {
     auto& H=Hands[Index];
+    if(Index==1&&IsMeleePairBlocked()){H.ReloadQueued=true;return;}
+    if(GetNetMode()==NM_Client)
+        if(const auto* PS=Player->GetPlayerState<AColdSteelPlayerState>();!PS||!PS->IsPistolServerReady(H.Item.InstanceId)||PS->IsPistolReloadPending(H.Item.InstanceId))return;
+    if(!InputAvailable()){H.ReloadQueued=true;return;}
     const bool Switching=!H.PendingAmmoType.IsEmpty();
     const bool ResumeCycle=!Switching && WeaponReloadStages::NeedsCycle(H.Item);
     if(H.Reloading)return;
@@ -172,7 +190,9 @@ void UPistolDualWieldComponent::BeginReload(int32 Index)
     const int32 Available=Switching?int32(FMath::Min<int64>(H.Stats.Capacity,Profile->PouchCount(H.PendingAmmoType))):InfiniteReserve(Index)?H.Stats.Capacity:Reserve(Index);
     H.ReloadCount=FMath::Min(H.Stats.Capacity-H.ReloadStart,Available);
     if(ResumeCycle)H.ReloadCount=1;
-    H.Seated=0;H.CasesCleared=Switching||ResumeCycle||!H.Revolver || (H.Rounds>0 && !H.Speedloader);
+    // A partly loaded DW715 still contains spent cases. Do not pre-mark them
+    // cleared: that skips the ejection transaction before the first new round.
+    H.Seated=0;H.CasesCleared=Switching||ResumeCycle||!H.Revolver;
     H.ReloadCasesReleased=ResumeCycle || !H.Revolver;
     if(H.Item.Definition==RSH12WeaponAssets::Definition && !Switching && !ResumeCycle)
         H.CasesCleared=false;
@@ -188,7 +208,7 @@ void UPistolDualWieldComponent::BeginReload(int32 Index)
     const float Modified=float(UseEmpty?H.Stats.EmptyReload:H.Stats.Reload);
     // Preserve the +33% total cost. SampleActionTime shapes only the opening
     // throw; mechanics, cues and ammo commits all consume its source time.
-    const float Duration=FMath::Max(.05f,Modified)*DualPistolReload::TimeScale;
+    const float Duration=FMath::Max(.05f,Modified)*(Player->IsLoneLeftHandRig()?1.f:DualPistolReload::TimeScale);
     StartAction(Index,Clip,Base/Duration);
     H.Reloading=H.Action!=nullptr;
     H.ReloadCameraBegin=0.f;
@@ -201,11 +221,16 @@ void UPistolDualWieldComponent::BeginReload(int32 Index)
         H.ReloadCameraBegin=Stages.CycleBegin;
         H.ActionStarted-=ReloadSecondsAtSource(Index,Stages.CycleBegin);
     }
+    if(H.Reloading&&GetNetMode()==NM_Client)
+        if(auto* PS=Player->GetPlayerState<AColdSteelPlayerState>();!PS||!PS->RequestPistolReload(H.Item.InstanceId,H.PendingAmmoType))StopAction(Index,false);
 }
 
 bool UPistolDualWieldComponent::CommitReloadInsertion(int32 Index,int32 Count,bool Completed)
 {
     auto& H=Hands[Index];
+    // The owner keeps the authored contact clock. Inventory changes arrive
+    // through the authority receipt, never a second local pouch transaction.
+    if(GetNetMode()==NM_Client){H.PendingAmmoType.Reset();H.CasesCleared=true;return true;}
     const bool NeedsCycle=H.Revolver || H.ReloadStart==0;
     const bool Inserted=!H.PendingAmmoType.IsEmpty()
         ? Profile->CommitAmmoSwitch(H.Item.InstanceId,H.PendingAmmoType,H.Stats.Capacity,NeedsCycle,Count,Completed)
@@ -216,6 +241,7 @@ bool UPistolDualWieldComponent::CommitReloadInsertion(int32 Index,int32 Count,bo
 
 bool UPistolDualWieldComponent::CompleteReloadMechanism(int32 Index,float Source)
 {
+    if(GetNetMode()==NM_Client)return true;
     auto& H=Hands[Index];
     const auto Stages=WeaponReloadStages::ForWeapon(H.Item.Definition,H.ReloadStart==0 || H.ReloadSpeedloader,
         false,H.Revolver&&!H.ReloadSpeedloader,H.ReloadCount);
@@ -240,7 +266,7 @@ void UPistolDualWieldComponent::Cue(int32 Index,const FString& Name,float At,flo
 float UPistolDualWieldComponent::ReloadSecondsAtSource(int32 Index,float Source) const
 {
     const auto& H=Hands[Index];
-    const float Linear=DualPistolReloadTiming::LinearSourceTime(Source,H.Revolver,H.ReloadSpeedloader);
+    const float Linear=bTwoHandedLone?Source:DualPistolReloadTiming::LinearSourceTime(Source,H.Revolver,H.ReloadSpeedloader);
     return Linear/FMath::Max(.001f,H.SourceLength)*H.Action->GetPlayLength()/FMath::Max(.001f,H.ActionRate);
 }
 
@@ -265,14 +291,14 @@ void UPistolDualWieldComponent::AdvanceReload(int32 Index,float Previous)
     using namespace DanWesson715WeaponAssets;
     const bool RSH=H.Item.Definition==RSH12WeaponAssets::Definition;
     const float EjectAt=H.ReloadSpeedloader?Eject/NormalReload*3.85f:
-        RSH?(H.ReloadStart==0?Eject:Open+.06f):EmptyCaseClear;
+        H.ReloadStart==0?(RSH?Eject:EmptyCaseClear):Open+.06f;
     if(RSH && !H.ReloadCasesReleased && Source>=EjectAt)
     {
         if(!ReleaseReloadCases(Index,EjectAt)){StopAction(Index);return;}
     }
     else if(!H.CasesCleared && Source>=EjectAt)
     {
-        if(!Profile->EjectDualPistolCases(H.Item.InstanceId,H.ReloadSpeedloader)){StopAction(Index);return;}
+        if(GetNetMode()!=NM_Client&&!Profile->EjectDualPistolCases(H.Item.InstanceId,H.ReloadSpeedloader)){StopAction(Index);return;}
         H.CasesCleared=true;
     }
     if(H.ReloadSpeedloader)
@@ -344,7 +370,7 @@ bool UPistolDualWieldComponent::ReleaseReloadCases(int32 Index,float ReleaseSour
     const FVector Bore=H.Mesh->GetSocketQuaternion(TEXT("WPN_Cylinder")).RotateVector(
         FVector(-.0871535167f,-.0000020575f,.9961948395f));
     H.ActionTime=Now;
-    if(!H.CasesCleared && !Profile->EjectDualPistolCases(H.Item.InstanceId,H.ReloadSpeedloader))
+    if(!H.CasesCleared && GetNetMode()!=NM_Client && !Profile->EjectDualPistolCases(H.Item.InstanceId,H.ReloadSpeedloader))
     {Pose(Index,0.f);return false;}
     H.CasesCleared=true;H.ReloadCasesReleased=true;
     for(int32 Chamber=First;Chamber<Count;++Chamber)
@@ -353,8 +379,10 @@ bool UPistolDualWieldComponent::ReleaseReloadCases(int32 Index,float ReleaseSour
         if(Meshes.IsValidIndex(Chamber) && Meshes[Chamber] && H.FX)
         {
             const FVector Velocity=Player->GetVelocity()-Bore*32.f+FVector(0,0,-18.f);
-            H.FX->OnReloadCartridge(Meshes[Chamber],Frames[Chamber-First],Velocity,Age);
-            if(auto* Body=Player->FindComponentByClass<UFPSPlayerBodyComponent>())
+            auto* Body=Player->FindComponentByClass<UFPSPlayerBodyComponent>();
+            if(!(Player->IsDualWieldingPistols()&&Body&&Body->IsThirdPersonViewEnabled()))
+                H.FX->OnReloadCartridge(Meshes[Chamber],Frames[Chamber-First],Velocity,Age);
+            if(Body)
                 Body->ReportGunCartridge(Index,Meshes[Chamber],Frames[Chamber-First],Velocity,Age);
         }
     }

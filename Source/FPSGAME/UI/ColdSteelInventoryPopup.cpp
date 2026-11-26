@@ -1,4 +1,5 @@
 #include "ColdSteelInventoryPopup.h"
+#include "ColdSteelTextToolTip.h"
 #include "ColdSteelInventoryWidget.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
@@ -22,9 +23,11 @@
 #include "Components/Button.h"
 #include "String/LexFromString.h"
 using namespace ColdSteelInventory;
-UTextBlock* UColdSteelInventoryPopup::Label(const FString& Text)
+UTextBlock* UColdSteelInventoryPopup::Label(const FString& Text, bool bHeading)
 {
-    auto* T=WidgetTree->ConstructWidget<UTextBlock>();T->SetText(FText::FromString(Text));T->SetFont(GunsmithUI::TextFont(14/Scale));T->SetColorAndOpacity(GunsmithUI::Text);T->SetAutoWrapText(false);T->SetTextOverflowPolicy(ETextOverflowPolicy::Ellipsis);T->SetToolTipText(FText::FromString(Text));T->SetVisibility(ESlateVisibility::HitTestInvisible);return T;
+    auto* T=WidgetTree->ConstructWidget<UTextBlock>();T->SetText(FText::FromString(Text));
+    T->SetFont(ColdSteelUI::TextFont(14.f*.75f/Scale,bHeading?ColdSteelUI::ETextWeight::SemiBold:ColdSteelUI::ETextWeight::Regular));
+    T->SetColorAndOpacity(GunsmithUI::Text);T->SetAutoWrapText(false);T->SetTextOverflowPolicy(ETextOverflowPolicy::Ellipsis);ColdSteelToolTip::Set(*T, FText::FromString(Text));T->SetVisibility(ESlateVisibility::HitTestInvisible);return T;
 }
 UButton* UColdSteelInventoryPopup::Button(const FString& Text)
 {
@@ -42,13 +45,13 @@ void UColdSteelInventoryPopup::Open(UColdSteelInventoryWidget* Board,UColdSteelS
     PopupSlot->SetPosition(FVector2D(FMath::Clamp(At.X,8./Scale,FMath::Max(8./Scale,Size.X-328/Scale)),FMath::Clamp(At.Y,8./Scale,FMath::Max(8./Scale,Size.Y-(Height+8)/Scale))));PopupSlot->SetSize(FVector2D(320,Height)/Scale);
     auto* Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetScrollbarThickness(FVector2D(5/Scale));Surface->SetContent(Scroll);
     Stack=WidgetTree->ConstructWidget<UVerticalBox>();Scroll->AddChild(Stack);
-    Stack->AddChildToVerticalBox(Label(Text(*I,TEXT("name"))));
-    if(!SplitOnly){const FString DepositLabel=FString::Printf(TEXT("存入%s"),Model->ActiveStorageCaption.IsEmpty()?TEXT("仓库"):*Model->ActiveStorageCaption);const bool Shop=Board->TooltipHUD()&&Board->TooltipHUD()->IsShopOpen();Button(Shop?FString(TEXT("加入待售栏")):I->Place==4?FString(TEXT("取出到背包")):(Model->bWarehouseOpen||Model->bIncineratorOpen)?DepositLabel:I->Place==1?FString(TEXT("卸下装备")):FString(TEXT("使用 / 穿戴")))->OnClicked.AddDynamic(this,&ThisClass::Use);
+    Stack->AddChildToVerticalBox(Label(Text(*I,TEXT("name")),true));
+    if(!SplitOnly){const FString DepositLabel=FString::Printf(TEXT("存入%s"),Model->ActiveStorageCaption.IsEmpty()?TEXT("仓库"):*Model->ActiveStorageCaption);const bool Shop=Board->TooltipHUD()&&Board->TooltipHUD()->CanOfferShopSale();Button(Shop?FString(TEXT("加入待售栏")):I->Place==4?FString(TEXT("取出到背包")):(Model->bWarehouseOpen||Model->bIncineratorOpen)?DepositLabel:I->Place==1?FString(TEXT("卸下装备")):FString(TEXT("使用 / 穿戴")))->OnClicked.AddDynamic(this,&ThisClass::Use);
         if((I->Place==0||I->Place==4||I->Place==ColdSteelCompartment::Place)&&I->Count>1&&Text(*I,TEXT("category"))!=TEXT("gold"))Button(TEXT("拆分数量…"))->OnClicked.AddDynamic(this,&ThisClass::Split);
         Button(TEXT("查看详情"))->OnClicked.AddDynamic(this,&ThisClass::Details);
         auto* D=Button(TEXT("丢下物品…"));DropCaption=Cast<UTextBlock>(D->GetContent());D->OnClicked.AddDynamic(this,&ThisClass::Drop);
         if(GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ModifiableWeapon(I->Definition))Button(I->Place==4?TEXT("取出并改造"):TEXT("改造武器"))->OnClicked.AddDynamic(this,&ThisClass::OpenGunsmith);
-        if(GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>()->Supports(*I))Button(I->Place==4?TEXT("取出并强化 / 附魔"):TEXT("强化 / 附魔"))->OnClicked.AddDynamic(this,&ThisClass::OpenEnhancement);
+        if(GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>()->Supports(*I))Button(Cast<AFPSGAMEPlayerController>(GetOwningPlayer())&&Cast<AFPSGAMEPlayerController>(GetOwningPlayer())->IsEnhancementOpen()?TEXT("放到魔法阵"):TEXT("强化 / 附魔"))->OnClicked.AddDynamic(this,&ThisClass::OpenEnhancement);
         Button(Board->bWarehouse?TEXT("整理仓库"):TEXT("整理背包"))->OnClicked.AddDynamic(this,&ThisClass::SortBag);
         Button(TEXT("保存物品"))->OnClicked.AddDynamic(this,&ThisClass::SaveBag);
     }
@@ -59,7 +62,7 @@ void UColdSteelInventoryPopup::Open(UColdSteelInventoryWidget* Board,UColdSteelS
 void UColdSteelInventoryPopup::Split()
 {
     const auto* I=Model->FindItem(ItemId);if(!I||(I->Place!=0&&I->Place!=4&&I->Place!=ColdSteelCompartment::Place)||I->Count<2||Text(*I,TEXT("category"))==TEXT("gold")){Message->SetText(FText::FromString(TEXT("此物品无法拆分")));return;}
-    Stack->ClearChildren();Stack->AddChildToVerticalBox(Label(TEXT("拆分 · ")+Text(*I,TEXT("name"))));
+    Stack->ClearChildren();Stack->AddChildToVerticalBox(Label(TEXT("拆分 · ")+Text(*I,TEXT("name")),true));
     Stack->AddChildToVerticalBox(Label(FString::Printf(TEXT("输入数量 1～%lld"),I->Count-1)));
     Quantity=WidgetTree->ConstructWidget<UEditableTextBox>();Quantity->SetText(FText::FromString(FString::Printf(TEXT("%lld"),FMath::Max<int64>(1,I->Count/2))));auto EditStyle=Quantity->GetWidgetStyle();EditStyle.TextStyle.SetFont(GunsmithUI::NumberFont(16/Scale));EditStyle.SetForegroundColor(GunsmithUI::Text);EditStyle.SetFocusedForegroundColor(GunsmithUI::Text);
     EditStyle.SetBackgroundImageNormal(ColdSteelUI::RoundedBrush(GunsmithUI::Gray(16),5/Scale,GunsmithUI::Edge));EditStyle.SetBackgroundImageHovered(ColdSteelUI::RoundedBrush(GunsmithUI::Gray(24),5/Scale,GunsmithUI::Silver));EditStyle.SetBackgroundImageFocused(ColdSteelUI::RoundedBrush(GunsmithUI::Gray(24),5/Scale,GunsmithUI::Silver));
@@ -72,10 +75,17 @@ void UColdSteelInventoryPopup::ConfirmSplit()
     if(!I||!Value.IsNumeric()||Value.Contains(TEXT("."))||!LexTryParseString(Count,*Value)||Count<1||Count>=I->Count){Message->SetText(FText::FromString(TEXT("请输入小于当前堆叠数量的正整数")));return;}
     if(Model->Split(ItemId,Count))Close();else Message->SetText(FText::FromString(Model->ResultMessage()));
 }
-void UColdSteelInventoryPopup::Use(){if(OwnerBoard.IsValid())if(auto* HUD=OwnerBoard->TooltipHUD();HUD&&HUD->IsShopOpen()){HUD->AddShopSaleItem(ItemId);Close();return;}if(Model->DefaultAction(ItemId))Close();else Message->SetText(FText::FromString(Model->ResultMessage()));}
+void UColdSteelInventoryPopup::Use(){if(OwnerBoard.IsValid())if(auto* HUD=OwnerBoard->TooltipHUD();HUD&&HUD->CanOfferShopSale()){HUD->AddShopSaleItem(ItemId);Close();return;}if(Model->DefaultAction(ItemId))Close();else Message->SetText(FText::FromString(Model->ResultMessage()));}
 void UColdSteelInventoryPopup::Drop(){if(!bConfirmDrop){bConfirmDrop=true;DropCaption->SetText(FText::FromString(TEXT("确认丢下整组物品")));return;}if(Model->Drop(ItemId))Close();else Message->SetText(FText::FromString(Model->ResultMessage()));}
 void UColdSteelInventoryPopup::OpenGunsmith(){if(const auto* I=Model->FindItem(ItemId);I&&I->Place==4&&!Model->TransferWarehouse(ItemId,0)){Message->SetText(FText::FromString(Model->ResultMessage()));return;}if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer())){Close(false);PC->OpenGunsmith(ItemId);}}
-void UColdSteelInventoryPopup::OpenEnhancement(){if(const auto* I=Model->FindItem(ItemId);I&&I->Place==4&&!Model->TransferWarehouse(ItemId,0)){Message->SetText(FText::FromString(Model->ResultMessage()));return;}if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer())){const FString Id=ItemId;Close(false);PC->OpenEnhancement(Id);}}
+void UColdSteelInventoryPopup::OpenEnhancement()
+{
+    if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer()))
+    {
+        if(PC->OpenEnhancement(ItemId))Close(false);
+        else Message->SetText(FText::FromString(TEXT("请先靠近并打开强化／附魔工作台")));
+    }
+}
 void UColdSteelInventoryPopup::Details(){Close(false);if(OwnerBoard.IsValid()){OwnerBoard->SelectItem(ItemId);OwnerBoard->PerformAction(4);}}
 void UColdSteelInventoryPopup::SortBag(){if(OwnerBoard.IsValid()&&OwnerBoard->bWarehouse?Model->SortWarehouse(TEXT("category")):Model->Sort())Close();else Message->SetText(FText::FromString(Model->ResultMessage()));}
 void UColdSteelInventoryPopup::SaveBag(){if(Model->SaveNow())Close();else Message->SetText(FText::FromString(Model->ResultMessage()));}
@@ -97,6 +107,6 @@ FReply UColdSteelInventoryPopup::NativeOnMouseButtonDown(const FGeometry&,const 
 FReply UColdSteelInventoryPopup::NativeOnPreviewKeyDown(const FGeometry& G,const FKeyEvent& E)
 {
     if(E.GetKey()==EKeys::Escape){Close();return FReply::Handled();}
-    if((E.GetKey()==EKeys::Tab||E.GetKey()==EKeys::CapsLock||E.GetKey()==EKeys::P||E.GetKey()==EKeys::O)&&OwnerBoard.IsValid())if(auto* HUD=OwnerBoard->TooltipHUD()){HUD->HandlePanelShortcut(E.GetKey(),E.IsRepeat());return FReply::Handled();}
+    if((E.GetKey()==EKeys::Tab||E.GetKey()==EKeys::CapsLock||E.GetKey()==EKeys::P||E.GetKey()==EKeys::U||E.GetKey()==EKeys::O||E.GetKey()==EKeys::I)&&OwnerBoard.IsValid())if(auto* HUD=OwnerBoard->TooltipHUD()){HUD->HandlePanelShortcut(E.GetKey(),E.IsRepeat());return FReply::Handled();}
     return Super::NativeOnPreviewKeyDown(G,E);
 }

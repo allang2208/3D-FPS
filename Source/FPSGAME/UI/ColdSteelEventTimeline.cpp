@@ -1,4 +1,5 @@
 #include "ColdSteelHUDWidget.h"
+#include "ColdSteelTextToolTip.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelHUDLayout.h"
 #include "Blueprint/WidgetTree.h"
@@ -288,7 +289,7 @@ void UColdSteelHUDWidget::UpdateEventTimelineFilterButtons()
 void UColdSteelHUDWidget::SetEventTimelineCompact(bool Compact)
 {
     bTimelineCompact=Compact;
-    if(TimelineToggleButton)TimelineToggleButton->SetToolTipText(FText::FromString(Compact?TEXT("展开事件进度详情"):TEXT("收起事件进度详情")));
+    if(TimelineToggleButton)ColdSteelToolTip::Set(*TimelineToggleButton, FText::FromString(Compact?TEXT("展开事件进度详情"):TEXT("收起事件进度详情")));
     if(Compact){bTimelineDetailsOpen=false;TimelineDetailMotion=0;if(TimelinePopover)TimelinePopover->SetVisibility(ESlateVisibility::Collapsed);}
     if(TimelineExpandedContent && !Compact){TimelineExpandedContent->SetVisibility(ESlateVisibility::SelfHitTestInvisible);TimelineExpandedContent->ForceLayoutPrepass();}
     UpdateEventTimelineLayout();

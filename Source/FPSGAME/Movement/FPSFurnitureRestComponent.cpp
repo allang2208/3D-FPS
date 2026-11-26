@@ -17,20 +17,29 @@
 #include "Engine/StreamableManager.h"
 #include "Materials/MaterialInterface.h"
 #include "Engine/World.h"
-#include "EngineUtils.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "GameFramework/GameStateBase.h"
 #include "GameFramework/PlayerController.h"
+#include "GameFramework/PlayerState.h"
 #include "Net/UnrealNetwork.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "Serialization/JsonSerializer.h"
 #include "Dom/JsonObject.h"
 
+DEFINE_LOG_CATEGORY_STATIC(LogFurnitureRest,Log,All);
+
 namespace FurnitureRest
 {
 struct FSlot { FVector Seat,Focus; float Yaw=90.f; FName Kind; FString Label; bool bMirror=false; };
-struct FProfile { FString Caption; TArray<FSlot> Slots; FVector Scale=FVector::OneVector; bool bAutoSelectFreeSlot=false; };
+struct FProfile
+{
+    FString Caption;
+    TArray<FSlot> Slots;
+    FVector Scale=FVector::OneVector;
+    TArray<FName> FittedComponentTags;
+    bool bAutoSelectFreeSlot=false, bBackless=false, bEitherBedSide=false;
+};
 struct FClip { float Duration=1.f; TArray<FVector> Eyes; TArray<float> Pitches,Yaws; };
 struct FType { float SurfaceHeight=0.f,EntryYaw=0.f; FVector EntryOffset=FVector::ZeroVector; bool bLying=false; };
 FVector EntryOffset(const FType& Type,bool bMirror)
@@ -41,10 +50,12 @@ struct FLibrary
     TMap<FString,FProfile> Profiles;
     TMap<FName,FClip> Clips;
     TMap<FName,FType> Types;
+    TArray<TWeakObjectPtr<UFPSFurnitureRestComponent>> Occupants;
     FLibrary()
     {
         Load(TEXT("furniture_rest.json"));
         Load(TEXT("apartment_furniture_rest.json"));
+        Load(TEXT("village_furniture_rest.json"));
     }
     void Load(const TCHAR* File)
     {
@@ -65,6 +76,11 @@ struct FLibrary
             const auto O=Value->AsObject();FProfile P;P.Caption=O->GetStringField(TEXT("caption"));
             if(O->HasTypedField<EJson::Array>(TEXT("scale")))P.Scale=Vec(O->GetArrayField(TEXT("scale")));
             O->TryGetBoolField(TEXT("auto_select_free_slot"),P.bAutoSelectFreeSlot);
+            O->TryGetBoolField(TEXT("backless"),P.bBackless);
+            O->TryGetBoolField(TEXT("either_bed_side"),P.bEitherBedSide);
+            const TArray<TSharedPtr<FJsonValue>>* Tags=nullptr;
+            if(O->TryGetArrayField(TEXT("fitted_component_tags"),Tags))
+                for(const auto& Tag:*Tags)P.FittedComponentTags.Add(FName(*Tag->AsString()));
             for(const auto& V:O->GetArrayField(TEXT("slots")))
             {
                 const auto S=V->AsObject();FSlot Slot;Slot.Seat=Vec(S->GetArrayField(TEXT("seat")));Slot.Focus=Slot.Seat;
@@ -83,7 +99,7 @@ struct FLibrary
         }
     }
 };
-const FLibrary& Library(UWorld* World)
+FLibrary& Library(UWorld* World)
 {
     // A new play world must read the newly published timing and entry anchors.
     // Keep file reads out of focus/camera ticks and do not change an active rest.
@@ -139,21 +155,6 @@ float UFPSFurnitureRestComponent::PhaseDuration() const
     if(State.Phase==1)return .6f;
     return FurnitureRest::Duration(GetWorld(),State.Kind,State.Phase==4?TEXT("Exit"):State.Phase==3?TEXT("Idle"):TEXT("Enter"));
 }
-bool UFPSFurnitureRestComponent::IsSlotOccupied(const UStaticMeshComponent* Mesh,int32 Instance,int32 Slot,const FVector& Location) const
-{
-    for(TActorIterator<AFPSGAMECharacter> It(GetWorld());It;++It)
-    {
-        if(*It==GetOwner()||It->IsActorBeingDestroyed())continue;
-        const auto* Other=It->FindComponentByClass<UFPSFurnitureRestComponent>();
-        if(!Other||!Other->IsResting()||Other->State.SlotIndex==INDEX_NONE)continue;
-        if(GetOwner()->HasAuthority())
-        {
-            if(Other->ActiveMesh.Get()==Mesh&&Other->ActiveInstance==Instance&&Other->State.SlotIndex==Slot)return true;
-        }
-        else if(Other->State.SlotIndex==Slot&&Other->State.SlotLocation.Equals(Location,1.f))return true;
-    }
-    return false;
-}
 bool UFPSFurnitureRestComponent::ResolveFocus(FHitResult& Hit,FTransform& Transform,int32& Slot,FName& Kind,FVector& Seat,float& Yaw,bool& bOccupied) const
 {
     bOccupied=false;
@@ -171,17 +172,49 @@ bool UFPSFurnitureRestComponent::ResolveFocus(FHitResult& Hit,FTransform& Transf
     if(!Profile)return false;
     Transform=Mesh->GetComponentTransform();
     if(const auto* Instances=Cast<UInstancedStaticMeshComponent>(Mesh))
+    {
         if(Hit.Item<0||!Instances->GetInstanceTransform(Hit.Item,Transform,true))return false;
+    }
+    else Hit.Item=INDEX_NONE; // Only instanced meshes use the collision item as a furniture identity.
     // Fallen/scattered furniture is scenery, never an upside-down rest anchor.
     if(FVector::DotProduct(Transform.GetUnitAxis(EAxis::Z),FVector::UpVector)<.96f)return false;
     // Furniture size is explicit in its profile; the pawn and bone lengths stay native.
-    if(!Transform.GetScale3D().Equals(Profile->Scale,.02f))return false;
+    if(Profile->FittedComponentTags.IsEmpty())
+    {
+        if(!Transform.GetScale3D().Equals(Profile->Scale,.02f))return false;
+    }
+    else if(Transform.GetScale3D().GetMin()<=0. ||
+        !Profile->FittedComponentTags.ContainsByPredicate([Mesh](FName Tag){return Mesh->ComponentHasTag(Tag);}))return false;
     float Best=TNumericLimits<float>::Max(),BestFree=Best;Slot=INDEX_NONE;int32 FreeSlot=INDEX_NONE;
+    TBitArray<TInlineAllocator<1>> Occupied(false,Profile->Slots.Num());
+    const bool bAuthority=GetOwner()->HasAuthority();
+    const auto RecordOccupied=[&](const UFPSFurnitureRestComponent* Other)
+    {
+        if(!Other||Other==this||!Other->IsResting())return;
+        const int32 Index=Other->State.SlotIndex;
+        if(!Profile->Slots.IsValidIndex(Index))return;
+        if(bAuthority)
+        {
+            if(Other->ActiveMesh.Get()==Mesh&&Other->ActiveInstance==Hit.Item)Occupied[Index]=true;
+        }
+        else if(Other->State.SlotLocation.Equals(Transform.TransformPosition(Profile->Slots[Index].Focus),1.f))Occupied[Index]=true;
+    };
+    if(bAuthority)
+    {
+        for(const auto& Occupant:FurnitureRest::Library(GetWorld()).Occupants)
+            RecordOccupied(Occupant.Get());
+    }
+    else if(const auto* GameState=GetWorld()->GetGameState())
+    {
+        for(const APlayerState* Player:GameState->PlayerArray)
+            if(const auto* OtherPawn=Player?Player->GetPawn():nullptr)
+                RecordOccupied(OtherPawn->FindComponentByClass<UFPSFurnitureRestComponent>());
+    }
     for(int32 I=0;I<Profile->Slots.Num();++I)
     {
         const auto& S=Profile->Slots[I];const FVector P=Transform.TransformPosition(S.Focus);
         const float Distance=FVector::DistSquared(P,Hit.ImpactPoint);
-        const bool Taken=IsSlotOccupied(Mesh,Hit.Item,I,P);
+        const bool Taken=Occupied[I];
         if(Distance<Best){Best=Distance;Slot=I;bOccupied=Taken;}
         if(!Taken&&Distance<BestFree){BestFree=Distance;FreeSlot=I;}
     }
@@ -194,7 +227,12 @@ void UFPSFurnitureRestComponent::ClearFocus()
 {
     FocusMesh.Reset();FocusInstance=FocusSlot=INDEX_NONE;
     CachedPrompt.Reset();LastFocusTime=-1.;
-    if(Outline)Outline->SetVisibility(false);
+    if(Outline && Outline->GetStaticMesh())
+    {
+        Outline->SetVisibility(false);
+        Outline->EmptyOverrideMaterials();
+        Outline->SetStaticMesh(nullptr);
+    }
 }
 FString UFPSFurnitureRestComponent::UpdateFocus(bool bAllowed)
 {
@@ -225,6 +263,7 @@ FString UFPSFurnitureRestComponent::UpdateFocus(bool bAllowed)
             Outline->SetCustomDepthStencilValue(201);Outline->SetRenderCustomDepth(true);
             Outline->RegisterComponent();
         }
+        Outline->EmptyOverrideMaterials();
         Outline->SetStaticMesh(Mesh->GetStaticMesh());
         for(int32 I=0;I<Mesh->GetNumMaterials();++I)Outline->SetMaterial(I,Mesh->GetMaterial(I));
         Outline->SetWorldTransform(T);
@@ -241,6 +280,13 @@ bool UFPSFurnitureRestComponent::Interact()
     FHitResult Hit;FTransform T;int32 Slot;FName Kind;FVector Seat;float Yaw;bool bOccupied;
     if(!ResolveFocus(Hit,T,Slot,Kind,Seat,Yaw,bOccupied))return false;
     if(bOccupied)return true;
+    // Each initiating player owns presentation readiness. A listen server can
+    // legitimately have the remote player's full-body animation unloaded.
+    const auto* Body=Character->FindComponentByClass<UFPSPlayerBodyComponent>();
+    const auto* Anim=Body&&Body->GetBodyMesh()?Cast<UFPSPlayerBodyAnimInstance>(Body->GetBodyMesh()->GetAnimInstance()):nullptr;
+    if(!Anim)return true;
+    for(const TCHAR* Phase:{TEXT("Enter"),TEXT("Idle"),TEXT("Exit")})
+        if(!Anim->Clips.FindRef(FurnitureRest::ClipKey(Kind,Phase)))return true;
     if(GetOwner()->HasAuthority())StartRest();else ServerInteract();
     return true;
 }
@@ -253,21 +299,26 @@ bool UFPSFurnitureRestComponent::ExitClear(const FVector& Position) const
     return !GetWorld()->OverlapBlockingTestByChannel(Position,FQuat::Identity,ECC_Pawn,
         FCollisionShape::MakeCapsule(Cap->GetScaledCapsuleRadius(),Cap->GetScaledCapsuleHalfHeight()),Q);
 }
-bool UFPSFurnitureRestComponent::FindExit(const FTransform& Root,FVector& Exit,FName Kind,bool bMirror) const
+bool UFPSFurnitureRestComponent::FindExit(const FTransform& Root,FVector& Exit,FName Kind,bool bMirror,bool bFitted) const
 {
     const auto* Cap=Character->GetCapsuleComponent();const float H=Cap->GetScaledCapsuleHalfHeight();
     FCollisionQueryParams Q(SCENE_QUERY_STAT(FurnitureRestFloor),false,GetOwner());
     const auto* Type=FurnitureRest::Library(GetWorld()).Types.Find(Kind);if(!Type)return false;
     // The animation ends at its authored entry point; validate that destination.
-    TArray<FVector> Candidates={Root.TransformPosition(FurnitureRest::EntryOffset(*Type,bMirror))};
-    for(const FVector& Candidate:Candidates)
+    const FVector Candidate=Root.TransformPosition(FurnitureRest::EntryOffset(*Type,bMirror));
+    FHitResult Floor;
+    const float Up=bFitted?34.f:100.f, Down=bFitted?38.f:220.f;
+    if(!GetWorld()->LineTraceSingleByChannel(Floor,Candidate+FVector(0,0,Up),Candidate-FVector(0,0,Down),ECC_Visibility,Q)
+        ||Floor.ImpactNormal.Z<.7f)return false;
+    // A standing spot on the other side of a wall or a table is not a usable transfer.
+    if(bFitted)
     {
-        FHitResult Floor;
-        if(!GetWorld()->LineTraceSingleByChannel(Floor,Candidate+FVector(0,0,100),Candidate-FVector(0,0,220),ECC_Visibility,Q)||Floor.ImpactNormal.Z<.7f)continue;
-        const FVector P=Floor.ImpactPoint+FVector(0,0,H+2.f);
-        if(ExitClear(P)){Exit=P;return true;}
+        const FVector Clearance(0,0,Type->bLying?98.:68.);
+        if(GetWorld()->LineTraceTestByChannel(Root.GetLocation()+Clearance,Candidate+Clearance,ECC_Visibility,Q))return false;
     }
-    return false;
+    const FVector P=Floor.ImpactPoint+FVector(0,0,H+2.f);
+    if(!ExitClear(P))return false;
+    Exit=P;return true;
 }
 void UFPSFurnitureRestComponent::StartRest()
 {
@@ -275,28 +326,52 @@ void UFPSFurnitureRestComponent::StartRest()
     auto* Pawn=Character.Get();const auto* PC=Cast<APlayerController>(Pawn->GetController());
     const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
     if(!PC||AFPSGAMEPlayerController::BlocksOngoingActions(PC)||(Health&&Health->IsDead())||
-        !Pawn->GetCharacterMovement()->IsMovingOnGround()||Pawn->IsTraversing()||Pawn->bIsCrouched)return;
+        !Pawn->GetCharacterMovement()->IsMovingOnGround()||Pawn->IsTraversing()||Pawn->bIsCrouched)
+    {UE_LOG(LogFurnitureRest,Verbose,TEXT("Start denied pawn=%s controller=%d blocked=%d dead=%d grounded=%d traversal=%d crouched=%d"),*Pawn->GetName(),PC!=nullptr,PC&&AFPSGAMEPlayerController::BlocksOngoingActions(PC),Health&&Health->IsDead(),Pawn->GetCharacterMovement()->IsMovingOnGround(),Pawn->IsTraversing(),Pawn->bIsCrouched);return;}
     FHitResult Hit;FTransform T;int32 Slot;FName Kind;FVector Seat;float Yaw;bool bOccupied;
-    if(!ResolveFocus(Hit,T,Slot,Kind,Seat,Yaw,bOccupied)||bOccupied)return;
+    if(!ResolveFocus(Hit,T,Slot,Kind,Seat,Yaw,bOccupied)||bOccupied)
+    {UE_LOG(LogFurnitureRest,Verbose,TEXT("Start denied pawn=%s focus/occupied=%d"),*Pawn->GetName(),bOccupied);return;}
     const auto* TargetMesh=CastChecked<UStaticMeshComponent>(Hit.GetComponent());
-    const auto& Selected=FurnitureRest::Library(GetWorld()).Profiles.FindChecked(TargetMesh->GetStaticMesh()->GetPathName()).Slots[Slot];
-    // The ordinary body preload owns all rest sequences too. Never start an empty pose.
-    const auto* Body=Pawn->FindComponentByClass<UFPSPlayerBodyComponent>();
-    const auto* Anim=Body&&Body->GetBodyMesh()?Cast<UFPSPlayerBodyAnimInstance>(Body->GetBodyMesh()->GetAnimInstance()):nullptr;
-    if(GetNetMode()!=NM_DedicatedServer)
-    {
-        if(!Anim)return;
-        for(const TCHAR* Phase:{TEXT("Enter"),TEXT("Idle"),TEXT("Exit")})
-            if(!Anim->Clips.FindRef(FurnitureRest::ClipKey(Kind,Phase)))return;
-    }
+    const auto& Profile=FurnitureRest::Library(GetWorld()).Profiles.FindChecked(TargetMesh->GetStaticMesh()->GetPathName());
+    const auto& Selected=Profile.Slots[Slot];
     const auto* Type=FurnitureRest::Library(GetWorld()).Types.Find(Kind);if(!Type)return;
     const FVector Anchor=Seat-FVector(0,0,Type->SurfaceHeight);
     SavedTransform=Pawn->GetActorTransform();
     FFurnitureRestState Next;Next.Kind=Kind;Next.Root=FTransform(FRotator(0,Yaw,0),Anchor);
     Next.SlotIndex=Slot;Next.SlotLocation=T.TransformPosition(Selected.Focus);Next.bMirror=Selected.bMirror;
-    if(!FindExit(Next.Root,Next.Exit,Kind,Next.bMirror))return;
-    Next.GroundZ=Next.Exit.Z-Pawn->GetCapsuleComponent()->GetScaledCapsuleHalfHeight()-2.f;
+    const bool bFitted=!Profile.FittedComponentTags.IsEmpty();
     const float HalfHeight=Pawn->GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
+    FCollisionQueryParams Route(SCENE_QUERY_STAT(FurnitureRestApproach),false,Pawn);
+    const auto TryRoute=[&](float Facing,bool bMirror)
+    {
+        const FTransform Root(FRotator(0,Facing,0),Anchor);
+        FVector Exit;
+        if(!FindExit(Root,Exit,Kind,bMirror,bFitted))return false;
+        if(!Type->bLying&&GetWorld()->SweepTestByChannel(Pawn->GetActorLocation(),Exit,FQuat::Identity,ECC_Pawn,
+            FCollisionShape::MakeCapsule(Pawn->GetCapsuleComponent()->GetScaledCapsuleRadius(),HalfHeight-2.f),Route))return false;
+        Next.Root=Root;Next.Exit=Exit;Next.bMirror=bMirror;return true;
+    };
+    bool bFound=false;
+    if(Profile.bEitherBedSide)
+    {
+        const auto Entry=[&](bool bMirror){return Next.Root.TransformPosition(FurnitureRest::EntryOffset(*Type,bMirror));};
+        const bool bNearMirror=FVector::DistSquared2D(Pawn->GetActorLocation(),Entry(true))<FVector::DistSquared2D(Pawn->GetActorLocation(),Entry(false));
+        bFound=TryRoute(Yaw,bNearMirror)||TryRoute(Yaw,!bNearMirror);
+    }
+    else if(Profile.bBackless)
+    {
+        // Try the installed orientation, then the two open sides of the table.
+        const float ApproachYaw=(Pawn->GetActorLocation()-Seat).Rotation().Yaw;
+        const float Side=FMath::FindDeltaAngleDegrees(Yaw,ApproachYaw)>=0.f?1.f:-1.f;
+        for(float Offset:{0.f,60.f*Side,-60.f*Side,90.f*Side,-90.f*Side})
+            if(TryRoute(Yaw+Offset,false)){bFound=true;break;}
+        if(!bFound)bFound=TryRoute(ApproachYaw,false);
+    }
+    else bFound=TryRoute(Yaw,Selected.bMirror);
+    if(!bFound)return;
+    Next.GroundZ=Next.Exit.Z-Pawn->GetCapsuleComponent()->GetScaledCapsuleHalfHeight()-2.f;
+    if(bFitted&&!Type->bLying)
+        Next.SeatFloorCorrection=FMath::Clamp(float(Anchor.Z-Next.GroundZ),-10.f,10.f);
     if(Type->bLying)
     {
         // The focus trace already validates reach and visibility, and FindExit
@@ -306,16 +381,13 @@ void UFPSFurnitureRestComponent::StartRest()
     }
     else
     {
-        FHitResult Block;FCollisionQueryParams Route(SCENE_QUERY_STAT(FurnitureRestApproach),false,Pawn);
-        if(GetWorld()->SweepSingleByChannel(Block,Pawn->GetActorLocation(),Next.Exit,FQuat::Identity,ECC_Pawn,
-            FCollisionShape::MakeCapsule(Pawn->GetCapsuleComponent()->GetScaledCapsuleRadius(),HalfHeight-2.f),Route))return;
         Next.Approach=FTransform(Pawn->GetActorRotation(),Pawn->GetActorLocation()-FVector(0,0,HalfHeight));
     }
-    State=Next;ActiveMesh=Cast<UStaticMeshComponent>(Hit.GetComponent());ActiveInstance=Hit.Item;ActiveTransform=T;
+    State=Next;ActiveMesh=Cast<UStaticMeshComponent>(Hit.GetComponent());ActiveInstance=Hit.Item;ActiveTransform=T;bActiveFitted=bFitted;
+    FurnitureRest::Library(GetWorld()).Occupants.AddUnique(this);
     LastHealth=Health?Health->Health:0.f;
-    UE_LOG(LogTemp,Display,TEXT("FurnitureRest: mesh=%s kind=%s enter=%s direct_bed_align=%d"),
-        *GetNameSafe(ActiveMesh->GetStaticMesh()),*Kind.ToString(),
-        *GetPathNameSafe(Anim?Anim->Clips.FindRef(FurnitureRest::ClipKey(Kind,TEXT("Enter"))).Get():nullptr),Type->bLying);
+    UE_LOG(LogTemp,Display,TEXT("FurnitureRest: mesh=%s kind=%s slot=%d direct_bed_align=%d"),
+        *GetNameSafe(ActiveMesh->GetStaticMesh()),*Kind.ToString(),Slot,Type->bLying);
     SetPhase(1);
 }
 void UFPSFurnitureRestComponent::SetPhase(uint8 Phase)
@@ -327,7 +399,7 @@ void UFPSFurnitureRestComponent::ServerLeave_Implementation()
     if(!IsResting()||State.Phase==4)return;
     // E during entry waits until the seated pose, avoiding a pose discontinuity.
     if(State.Phase!=3)return;
-    FVector Exit;if(!FindExit(State.Root,Exit,State.Kind,State.bMirror))return;
+    FVector Exit;if(!FindExit(State.Root,Exit,State.Kind,State.bMirror,bActiveFitted))return;
     State.Exit=Exit;SetPhase(4);
 }
 void UFPSFurnitureRestComponent::OnRep_State(){ApplyState();}
@@ -370,6 +442,7 @@ void UFPSFurnitureRestComponent::ApplyState()
 void UFPSFurnitureRestComponent::FinishRest()
 {
     if(!Character.IsValid())return;
+    FurnitureRest::Library(GetWorld()).Occupants.RemoveSingleSwap(this);
     Character->SetActorLocation(State.Exit,false,nullptr,ETeleportType::TeleportPhysics);
     SetPhase(0);ActiveMesh.Reset();
 }
@@ -380,7 +453,7 @@ void UFPSFurnitureRestComponent::TickComponent(float Delta,ELevelTick Type,FActo
     if(GetOwner()->HasAuthority())
     {
         const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
-        bool Gone=!ActiveMesh.IsValid();
+        bool Gone=!ActiveMesh.IsValid()||!ActiveMesh->IsQueryCollisionEnabled()||!ActiveMesh->GetOwner()->GetActorEnableCollision();
         if(!Gone)
         {
             FTransform Current=ActiveMesh->GetComponentTransform();
@@ -398,7 +471,7 @@ void UFPSFurnitureRestComponent::TickComponent(float Delta,ELevelTick Type,FActo
         {
             if(State.Phase==4)
             {
-                if(!ExitClear(State.Exit)&&!FindExit(State.Root,State.Exit,State.Kind,State.bMirror)){SetPhase(3);return;}
+                if(!ExitClear(State.Exit)&&!FindExit(State.Root,State.Exit,State.Kind,State.bMirror,bActiveFitted)){SetPhase(3);return;}
                 FinishRest();return;
             }
             SetPhase(State.Phase+1);
@@ -475,11 +548,15 @@ void UFPSFurnitureRestComponent::ApplyCamera(FMinimalViewInfo& View)
 }
 float UFPSFurnitureRestComponent::FootDrop() const
 {
-    // V2 clips already solve planted feet against each furniture's measured floor.
-    return 0.f;
+    // Fit the existing ankle IK to the shop's stool height without moving the pelvis.
+    if(!IsResting()||FMath::IsNearlyZero(State.SeatFloorCorrection))return 0.f;
+    const float Blend=State.Phase==1?FurnitureRest::Ease((Clock()-State.Started)/.6f):1.f;
+    return State.SeatFloorCorrection*Blend;
 }
 void UFPSFurnitureRestComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
+    if(IsResting()&&GetOwner()->HasAuthority())
+        FurnitureRest::Library(GetWorld()).Occupants.RemoveSingleSwap(this);
     State.Phase=0;ApplyState();ClearFocus();if(Outline)Outline->DestroyComponent();
     if(OutlineLoad)OutlineLoad->CancelHandle();
     if(OutlineMaterial&&Character.IsValid()&&Character->FirstPersonCamera)

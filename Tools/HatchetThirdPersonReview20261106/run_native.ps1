@@ -1,4 +1,4 @@
-$ErrorActionPreference='Stop'
+﻿$ErrorActionPreference='Stop'
 $project='D:\FPS3D\FPSGAME'
 $exe='E:\Program Files (x86)\UE_5.8\Engine\Binaries\Win64\UnrealEditor-Cmd.exe'
 $gate=[Threading.Mutex]::new($false,'Local\CodexUeMcp-Port-8000');$held=$false

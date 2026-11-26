@@ -32,6 +32,7 @@ public:
     /** 尝试开窗：返回 false 表示被拒（两侧摆动空间都被实体挡住时不开，与门同一口径）。 */
     virtual bool OpenWindowFrom(const APawn* InstigatorPawn);
     void ToggleWindowFrom(const APawn* InstigatorPawn);
+    void SetRepairAvailable(bool bAvailable);
 
     UFUNCTION(BlueprintCallable, Category="Window") void ToggleWindow();
     UFUNCTION(BlueprintCallable, Category="Window") void OpenWindow();
@@ -41,6 +42,14 @@ public:
     void Configure(UMaterialInterface* Surface);
     /** Also inherited by double doors; uses the same assembly as BeginPlay. */
     void PrepareBuildPreview() {AlignGeometry();}
+
+    /** Asset-authored hinges: preserve physical pivots and independent material slots. */
+    UPROPERTY(EditAnywhere, Category="Window|Authored") bool bUseAuthoredHinges=false;
+    UPROPERTY(EditAnywhere, Category="Window|Authored") FVector AuthoredLeftHinge=FVector::ZeroVector;
+    UPROPERTY(EditAnywhere, Category="Window|Authored") FVector AuthoredRightHinge=FVector::ZeroVector;
+    /** 0 retains the building-kit bidirectional policy; +/-1 fixes the opening side. */
+    UPROPERTY(EditAnywhere, Category="Window|Authored", meta=(ClampMin="-1",ClampMax="1")) int32 FixedSwingDirection=0;
+    UFUNCTION(CallInEditor, Category="Window") void RefreshAuthoredGeometry() {AlignGeometry();}
 
 protected:
     virtual void BeginPlay() override;

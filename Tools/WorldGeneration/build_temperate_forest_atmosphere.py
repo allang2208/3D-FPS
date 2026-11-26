@@ -182,8 +182,13 @@ def main():
     mpc.set_editor_property('vector_parameters',parameters);save(mpc)
     factory=u.new_object(u.load_class(None,'/Script/DynamicWindEditor.DynamicWindDataFactory'))
     provider=asset('DA_ForestDynamicWind',u.DynamicWindData,factory);save(provider)
+    bounds=runpy.run_path(str(PROJECT/'Tools/WorldGeneration/temperate_wind_bounds.py'))
     for role in ('trees','forest_saplings','forest_ferns'):
-        for soft in da.get_editor_property(role):plant_profile(load(soft.get_path_name()),role)
+        for soft in da.get_editor_property(role):
+            mesh=load(soft.get_path_name());plant_profile(mesh,role)
+            # Preserve motion bounds when rebuilding the wind setup.
+            backup(mesh)
+            if bounds['apply_bounds'](mesh)['changed']:save(mesh)
     for name in ('PCG_BlackPoplar','PCG_HillsShrubs'):
         graph=load(BASE+'/'+name);backup(graph)
         for node in graph.get_editor_property('nodes'):

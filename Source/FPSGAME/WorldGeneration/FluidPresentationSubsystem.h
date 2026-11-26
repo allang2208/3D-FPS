@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Subsystems/WorldSubsystem.h"
+#include "FireParticleView.h"
 #include "FluidPresentationSubsystem.generated.h"
 
 class AFPSWeatherManager;
@@ -33,16 +34,28 @@ public:
     FVector WindAt(const FVector& Position,float* OutShelter=nullptr);   // OutShelter＝屋檐遮蔽系数（阵风同系数缩放，防雨天下风向不一致）
     /** Furnace smoke and hanging tools share the same weather gust and roof attenuation. */
     FVector WindWithGustAt(const FVector& Position);
+    const AFPSWeatherManager* WeatherSource() const;
     void ConfigureSmoke(UNiagaraComponent* FX,int32 Requested,bool bWet=false);
+    void SetVillageHearthLit(UNiagaraComponent* Effect, bool bLit);
     bool ReserveGeometryQueries(int32 Count,bool bHazard=false);
     bool MoveMist(FVector& Position,FVector& Velocity,const FVector& Previous,float Radius);
     void EmitColdImpact(const FVector& Position,const FVector& Normal);
     void RegisterWaterBody(UPrimitiveComponent* Body);
+    FFireParticleViews FireViews;
+    void SetOilFireDemand(UNiagaraComponent* Fire,float LowRate,float HighRate);
     void RegisterCampfire(AColdSteelCampfire* Fire);
     void UnregisterCampfire(AColdSteelCampfire* Fire);
 protected:
     virtual bool DoesSupportWorldType(EWorldType::Type Type) const override;
 private:
+    struct FOilFireAllocation
+    {
+        FVector2f Demand=FVector2f::ZeroVector;
+        FVector2f Applied=FVector2f::ZeroVector;
+    };
+    TMap<TWeakObjectPtr<UNiagaraComponent>,FOilFireAllocation> OilFires;
+    bool bOilBudgetDirty=false;
+    void FlushOilFireBudget();
     struct FWalker
     {
         TWeakObjectPtr<ACharacter> Character;
@@ -65,6 +78,7 @@ private:
         TWeakObjectPtr<class UAudioComponent> IncineratorAudio;
         bool bIncineratorAudible=false;
         float Rate=0;
+        EFireParticleDetail Detail = EFireParticleDetail::Off;
         double LastSeen=0,NextConfigure=0,LastFeed=-100;
         /** 上一拍任务累计进度（秒）；-1＝还没有有效读数。跨越整批边界时写 User.Puff，无新事件系统。 */
         double LastProgress=-1;
@@ -137,6 +151,8 @@ private:
     void PrepareColdPool();
     void UpdateWaterBody(FWaterBody& Entry);
     void UpdateFurnaceSmoke();
+    void ConfigureSmoke(UNiagaraComponent* FX,int32 Requested,bool bWet,bool bTrackContacts);
+    void UpdateSmokeView(FFurnaceSmoke& Entry, const FVector& Mouth, float Radius, float FullRange, float MaxRange);
     void UpdateIncinerator(FFurnaceSmoke& Entry,double Now,int32& Alive,float Rain);
     /** 出铁口熔融金属流与凝固锭（2026-09-25）：完成上升沿触发，全部在既有 5Hz 拍内，只读玩法数据。 */
     void UpdateFurnaceTap(FFurnaceSmoke& Entry,AVoxelBuildWorld* Build,const FVoxelSmeltingJob* Job,
@@ -155,4 +171,11 @@ private:
     FVector SharedRainGust=FVector::ZeroVector;
     TArray<TWeakObjectPtr<AColdSteelCampfire>> Campfires;
     void UpdateCampfires();
+    struct FVillageHearth
+    {
+        TWeakObjectPtr<UNiagaraComponent> Effect;
+        bool bFull = true;
+    };
+    TArray<FVillageHearth> VillageHearths;
+    void UpdateVillageHearths();
 };

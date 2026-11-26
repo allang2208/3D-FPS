@@ -180,3 +180,4 @@ def upgrade(site,plan):
         light.set_cast_shadows(False)
     site.tags=[*site.tags,TAG]
     return dict(furnishings=count,room_doors=len(DOORS),guest_floor=GUEST,owner_floor=OWNER)
+

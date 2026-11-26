@@ -67,3 +67,4 @@ def install(src=None,*,reuse_surface=False):
         shade=next(n for n in nodes if n.get_editor_property('desc')=='R26 continuous ground cover')
         root=next(n for n in nodes if isinstance(n,u.MaterialExpressionMakeMaterialAttributes) and art.inputs(m,n).get('BaseColor')==shade)
         configure(m,shade,root);art.compile_mat(m)
+

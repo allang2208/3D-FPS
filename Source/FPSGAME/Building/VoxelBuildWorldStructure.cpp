@@ -52,7 +52,7 @@ void AVoxelBuildWorld::ApplyOverloadDamage(const TArray<FVoxelOverloadCell>& Ove
         Runtime->NodeEpoch.Add(Entry.Key,Revision+1);
         bChanged=true;
     }
-    if(!Removed.IsEmpty()){History.Reset();ApplyChanges(Removed);}
+    if(!Removed.IsEmpty()){UndoHistory.ClearVoxelBatches(UndoPlayer);ApplyChanges(Removed);}
     // 审计 C9：累加中的损伤以前没有置脏——只有"损伤满耐久→摧毁"走 ApplyChanges 才落盘，
     // 所以"被打伤但没打掉"的格其损伤值只靠 EndPlay 的无条件 flush 才写得下去（崩溃即丢失）。
     // 对照伤害路径 VoxelBuildWorldDamage.cpp 是有 MarkSaveDirty() 的。
@@ -126,7 +126,7 @@ void AVoxelBuildWorld::TickStructure()
             Runtime->NodeEpoch.Add(Bond.A,Revision+1);Runtime->NodeEpoch.Add(Bond.B,Revision+1);bBroke=true;
         }
         if(bBroke)
-        {++Revision;History.Reset();MarkSaveDirty();Runtime->NextIterations=256;}
+        {++Revision;UndoHistory.ClearVoxelBatches(UndoPlayer);MarkSaveDirty();Runtime->NextIterations=256;}
         for(auto& Island:Result.Detached)
         {
             bool Pending=false;for(const auto& Node:Island)Pending|=Runtime->PendingCells.Contains(Node.Key);
@@ -144,7 +144,7 @@ void AVoxelBuildWorld::TickStructure()
             for(const auto& Node:Island)
             {State.Cells.Add({Node.Key,Node.Min-Origin,Node.Material,Node.Damage});Keys.Add(Node.Key);}
             // Fresh-window islands are the failed placement falling off, not a structural collapse.
-            EnqueueFragment(MoveTemp(State),MoveTemp(Keys),{},bProtecting);History.Reset();
+            EnqueueFragment(MoveTemp(State),MoveTemp(Keys),{},bProtecting);UndoHistory.ClearVoxelBatches(UndoPlayer);
         }
         if(bHeldBack)
         {
@@ -169,9 +169,9 @@ void AVoxelBuildWorld::TickStructure()
             Runtime->FailureBond=Result.WorstBond;
             UE_LOG(LogTemp,Warning,TEXT("VOXEL_FRESH rollback batch=%d rolled=%d"),
                 Runtime->FreshCells.Num(),Rollback.Num());
-            Runtime->bFreshRolledBack=true;History.Reset();
+            Runtime->bFreshRolledBack=true;UndoHistory.ClearVoxelBatches(UndoPlayer);
         }
-        else if(!Crushed.IsEmpty()){History.Reset();ApplyChanges(Crushed);}
+        else if(!Crushed.IsEmpty()){UndoHistory.ClearVoxelBatches(UndoPlayer);ApplyChanges(Crushed);}
         // The batch is settled once one converged solve comes back completely clean: nothing was held
         // back and nothing about the new part failed. Until then every result stays filtered, because a
         // break or a crush can only show up on the solve that follows the one that caused it.

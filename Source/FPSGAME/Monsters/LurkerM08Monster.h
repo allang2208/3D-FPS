@@ -9,6 +9,15 @@
 class USoundAttenuation;
 
 USTRUCT()
+struct FLurkerTraversalTimeline
+{
+    GENERATED_BODY()
+    // A negative start is the persistent stop state. Every new jump has a distinct start.
+    UPROPERTY() double ServerStart = -1.;
+    UPROPERTY() float FlightSeconds = .6f;
+};
+
+USTRUCT()
 struct FLurkerM08RimInfluence
 {
     GENERATED_BODY()
@@ -79,10 +88,14 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="M08|Traversal") float SurfaceTurnSpeed = 240.f;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category="M08|Traversal") FVector SurfaceNormal = FVector::UpVector;
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category="M08|Traversal") bool bSurfaceAttached = false;
-    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Replicated, Category="M08|Traversal") bool bTraversalJump = false;
-    UPROPERTY(Replicated) float TraversalClock = 0.f;
-    UPROPERTY(Replicated) float TraversalFlightSeconds = .6f;
+    UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Transient, Category="M08|Traversal") bool bTraversalJump = false;
+    float TraversalClock = 0.f;
+    float TraversalFlightSeconds = .6f;
 private:
+    UPROPERTY(ReplicatedUsing=OnRep_TraversalTimeline) FLurkerTraversalTimeline TraversalTimeline;
+    UFUNCTION() void OnRep_TraversalTimeline();
+    void EndTraversalJump();
+    void TickRemoteTraversal(float DeltaSeconds);
     bool AttachNear(FVector Normal, float Reach = 120.f);
     void DetachSurface();
     void TickSurface(float DeltaSeconds);
@@ -96,6 +109,8 @@ private:
     FVector SurfaceGoal = FVector::ZeroVector, InitialHomeSupport = FVector::ZeroVector;
     TArray<FLurkerSurfacePoint> SurfacePath;
     TArray<FVector> RecentSupports;
+    FVector BlockedSurfacePoint=FVector::ZeroVector;
+    double AvoidSurfacePointUntil=0.;
     TWeakObjectPtr<APawn> SurfaceVictim;
     float RouteAge = 10.f, SupportAge = 0.f, StuckSeconds = 0.f, JumpCooldown = 0.f;
     FVector JumpStart = FVector::ZeroVector, JumpEnd = FVector::ZeroVector, JumpOutward = FVector::ZeroVector;

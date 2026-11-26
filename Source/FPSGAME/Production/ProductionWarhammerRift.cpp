@@ -1,5 +1,9 @@
 #include "ProductionToolComponent.h"
 #include "ProductionBluntCombo.h"
+#include "../Skills/ChainSlashAssets.h"
+#include "../Weapons/BeiweiSwordTrailComponent.h"
+#include "../Weapons/RuneSwordPommelRhythm.h"
+#include "../Characters/FPSPlayerBodyComponent.h"
 #include "WarhammerUppercutMotion.h"
 #include "WarhammerQuickCombatMotion.h"
 #include "../FPSGAMECharacter.h"
@@ -40,19 +44,55 @@ UE::Geometry::FDynamicMesh3 MakeWarhammerRiftRibbon()
 }
 }
 
-void UProductionToolComponent::FeedWarhammerRift(FName Clip,float SourceSeconds)
+bool UProductionToolComponent::ChixiaoTrailActive() const
+{
+    if(!bBluntUppercut||PojunAttack!=PojunGrip::EAttack::Chixiao)return false;
+    if(PojunSlashTime>=0.f)return PojunSlashTime>=PojunChixiao::Release;
+    return BluntUppercutTime>=WarhammerUppercutMotion::StrikeStart&&BluntUppercutTime<=WarhammerUppercutMotion::StrikeFinish;
+}
+
+bool UProductionToolComponent::ZhufengTrailActive() const
+{
+    return bPojunZhufengRune&&bBluntWhirlwind&&BluntWhirlwindTime>=BluntWhirlwindTuning.ReadySeconds&&
+        BluntWhirlwindTime<=BluntWhirlwindTuning.ReadySeconds+BluntWhirlwindTuning.SpinSeconds;
+}
+
+void UProductionToolComponent::UpdatePojunRuneTrail(bool Present)
+{
+    if(!PojunRuneTrail)return;
+    const auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>();
+    if(!Present||!bPojunGrip||!Viewmodel||!Viewmodel->IsVisible()||(Body&&Body->IsThirdPersonViewEnabled()))
+    {
+        PojunRuneTrail->Clear();
+        return;
+    }
+    const bool Crimson=ChixiaoTrailActive(),Cyan=ZhufengTrailActive();
+    if(!(Crimson||Cyan))
+    {
+        PojunRuneTrail->Feed(FVector::ZeroVector,FVector::ZeroVector,false);
+        return;
+    }
+    const FTransform Frame=Viewmodel->GetSocketTransform(TEXT("WPN_root"));
+    PojunRuneTrail->Feed(Frame.TransformPosition(PojunBladeBase),Frame.TransformPosition(PojunBladeTip),true,
+        Crimson?ESwordTrailPalette::Crimson:ESwordTrailPalette::Cyan);
+}
+
+void UProductionToolComponent::FeedWarhammerRift(FName Clip,float SourceSeconds,int32 ChainStage,float ChainContact)
 {
     if(Kind!=TEXT("warhammer")||!Character.IsValid()||!Character->IsLocallyControlled()||!CanPresent())return;
+    if((bBluntUppercut&&PojunAttack==PojunGrip::EAttack::Chixiao)||(bBluntWhirlwind&&bPojunZhufengRune))return;
     auto* Head=WarhammerRiftHead.Get();
     if(!Viewmodel||!Viewmodel->IsVisible()||Viewmodel->bHiddenInGame)return;
-    const bool ModularHead=Head&&Head->GetStaticMesh()&&Head->IsVisible()&&!Head->bHiddenInGame;
+    const bool Pommel=bPojunGrip&&Clip==TEXT("QuickCombat")&&IsQuickCombatActive();
+    const bool SocketMarkers=ChainStage!=INDEX_NONE||Pommel;
+    const bool ModularHead=!SocketMarkers&&Head&&Head->GetStaticMesh()&&Head->IsVisible()&&!Head->bHiddenInGame;
     if(ModularHead)Head->UpdateComponentToWorld();
     FTransform Frame=ModularHead?Head->GetComponentTransform():Viewmodel->GetSocketTransform(TEXT("WPN_root"));
     // Native WPN_root coordinates are metres with the imported 100x scale.
     if(!ModularHead)Frame.SetScale3D(Frame.GetScale3D()/100.f);
     int32 Key=INDEX_NONE;float Start=0.f,End=0.f,Clock=SourceSeconds,Strength=.095f;bool Crossed=false;
     if(Clip==TEXT("Uppercut")&&bBluntUppercut)
-    {Key=10;Start=1.f;End=1.125f;Strength=.13f;}
+    {Key=10;Start=WarhammerUppercutMotion::LoadedSource;End=RuneSwordUppercutMotion::Finish;Strength=.13f;}
     else if(Clip==TEXT("Whirlwind")&&bBluntWhirlwind)
     {
         Clock=BluntWhirlwindTime;Start=BluntWhirlwindTuning.ReadySeconds;
@@ -60,8 +100,12 @@ void UProductionToolComponent::FeedWarhammerRift(FName Clip,float SourceSeconds)
         const float Turn=(Clock-Start)/FMath::Max(.01f,BluntWhirlwindTuning.SpinSeconds)*BluntWhirlwindTuning.TurnDegrees/360.f;
         Key=20+FMath::Max(0,FMath::FloorToInt(Turn));
     }
-    else if(Clip==TEXT("QuickCombat")&&IsQuickCombatActive())
-    {Key=30;Start=.09f;End=.175f;Strength=.085f;Crossed=true;}
+    else if(PojunSlashTime>=0.f&&Clip==ProductionBluntCombo::Swing(PojunChixiao::OpeningStage))
+    {Key=PojunChixiao::OpeningStage;Start=PojunChixiao::Release;End=ProductionBluntCombo::Turn(PojunChixiao::OpeningStage);}
+    else if(ChainStage!=INDEX_NONE)
+    {Key=60+ChainStage;Start=ChainContact-ChainSlash::RibbonLead;End=ChainContact+ChainSlash::RibbonTail;}
+    else if(Clip==TEXT("QuickCombat")&&IsQuickCombatActive()&&(!Pommel||PojunStrikeLocal.IsSet()))
+    {Key=30;Start=bConicalSeat?.09f:WarhammerQuickCombat::Prepare;End=bConicalSeat?.175f:WarhammerQuickCombat::Follow;Strength=.085f;Crossed=true;}
     else if(Clip==TEXT("ActiveHitRecover")&&!bBluntHeavy&&bHitConfirmed&&Elapsed>=0.f)
     {Key=BluntStage;Clock=ProductionBluntCombo::ContactSeconds+SourceSeconds;Start=ProductionBluntCombo::ContactSeconds;End=Start+.04f;}
     else if(Clip==TEXT("ActiveSwing")&&Elapsed>=0.f)
@@ -111,10 +155,13 @@ void UProductionToolComponent::FeedWarhammerRift(FName Clip,float SourceSeconds)
         }
         auto& Trail=WarhammerRiftTrails[WarhammerRiftActive];
         const FBox Bounds=ModularHead?Head->GetStaticMesh()->GetBoundingBox():FBox(FVector(-17,-6,84),FVector(17,6,106));
-        const FVector C=Bounds.GetCenter(),E=Bounds.GetExtent();
-        const float Span=FMath::Max(8.f,E.Z+3.f);
-        const FVector Inner=C-FVector(0,0,Span),Outer=C+FVector(0,0,Span);
-        const FVector Across=FVector(FMath::Max(6.f,E.X*.65f),0,0);
+        const FVector E=Bounds.GetExtent();
+        // Frame above is in centimetres. The dao markers use the socket's native metre coordinates.
+        const FVector C=Pommel?PojunStrikeLocal.GetValue()*100.:Bounds.GetCenter();
+        const float Span=Pommel?RuneSwordPommelRhythm::HeadRadius:FMath::Max(8.f,E.Z+3.f);
+        const FVector Inner=ChainStage!=INDEX_NONE?PojunBladeBase*100.:C-FVector(0,0,Span);
+        const FVector Outer=ChainStage!=INDEX_NONE?PojunBladeTip*100.:C+FVector(0,0,Span);
+        const FVector Across=FVector(Pommel?Span:FMath::Max(6.f,E.X*.65f),0,0);
         const float Step=Same?FMath::Clamp(Clock-WarhammerRiftPreviousSeconds,.00001f,10.f):1.f;
         const float From=Same?FMath::Clamp((Start-WarhammerRiftPreviousSeconds)/Step,0.f,1.f):1.f;
         const float To=Same?FMath::Clamp((End-WarhammerRiftPreviousSeconds)/Step,0.f,1.f):1.f;
@@ -139,14 +186,21 @@ void UProductionToolComponent::FeedWarhammerRift(FName Clip,float SourceSeconds)
 
 void UProductionToolComponent::TickWarhammerRifts(float Delta,bool Present)
 {
+    if(bPojunGrip&&Present)
+        if(const auto* Body=GetOwner()->FindComponentByClass<UFPSPlayerBodyComponent>())
+            Present=!Body->IsThirdPersonViewEnabled();
     if(!Present||Kind!=TEXT("warhammer")){ClearWarhammerRifts();return;}
     WarhammerRiftHeadRefresh-=Delta;
     if(WarhammerRiftHeadRefresh<=0.f||!WarhammerRiftHead.IsValid())
     {
         WarhammerRiftHeadRefresh=.25f;WarhammerRiftHead.Reset();
-        TInlineComponentArray<UStaticMeshComponent*> Parts(GetOwner());
-        for(auto* Part:Parts)if(Part->ComponentHasTag(TEXT("SwordSlot=hammer_heads"))&&Part->GetStaticMesh()&&Part->IsVisible()&&!Part->bHiddenInGame&&!Part->bOwnerNoSee)
-            {WarhammerRiftHead=Part;break;}
+        if(bPojunGrip)WarhammerRiftHead=ToolMesh.Get();
+        else
+        {
+            TInlineComponentArray<UStaticMeshComponent*> Parts(GetOwner());
+            for(auto* Part:Parts)if(Part->ComponentHasTag(TEXT("SwordSlot=hammer_heads"))&&Part->GetStaticMesh()&&Part->IsVisible()&&!Part->bHiddenInGame&&!Part->bOwnerNoSee)
+                {WarhammerRiftHead=Part;break;}
+        }
     }
     for(int32 Slot=0;Slot<WarhammerRiftMeshes.Num();++Slot)
     {

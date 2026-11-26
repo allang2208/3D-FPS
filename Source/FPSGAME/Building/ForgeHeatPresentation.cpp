@@ -1,4 +1,5 @@
 #include "ForgeInteraction.h"
+#include "ForgeBlankProfile.h"
 #include "Camera/CameraComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -57,13 +58,14 @@ void AForgeInteraction::UpdateThermalEffects(float DeltaTime,float Heat,const FT
     BlankMaterial->SetScalarParameterValue(TEXT("ImpactAge"),HitAge);
     VeilMaterial->SetScalarParameterValue(TEXT("Heat"),Heat);
     VeilMaterial->SetScalarParameterValue(TEXT("ImpactPulse"),Pulse);
-    const FVector Center=Work.TransformPosition(FVector(0,0,8));
+    const auto* Profile=BlankProfile();
+    const FVector Center=Work.TransformPosition(Profile->HeatCenter);
     FVector Along=Work.GetRotation().RotateVector(FVector::XAxisVector);
     if(((Along^FVector::UpVector)|(Camera->GetRelativeLocation()-Center))<0)Along*=-1;
     const FQuat VeilFacing=FRotationMatrix::MakeFromXY(Along,FVector::UpVector).ToQuat();
-    HeatVeil->SetRelativeTransform(FTransform(VeilFacing,Center,FVector(.65,.22,1)));
+    HeatVeil->SetRelativeTransform(FTransform(VeilFacing,Center,Profile->VeilScale));
     HeatVeil->SetVisibility(Heat>.05f&&QuenchImmersion<=0);
-    HotLight->SetRelativeLocation(Work.TransformPosition(FVector(0,0,4)));
+    HotLight->SetRelativeLocation(Work.TransformPosition(Profile->HeatCenter-FVector(0,0,4)));
     HotLight->SetIntensity(Heat*25.f+Pulse*95.f);
 
     const float FinishAge=FinishAt>=0?float(Now-FinishAt):-1.f;
@@ -85,7 +87,11 @@ void AForgeInteraction::UpdateThermalEffects(float DeltaTime,float Heat,const FT
             P.Age=0;P.Lifetime=VisualRandom.FRandRange(bSteam?1.6f:1.15f,bSteam?2.4f:1.7f);P.Seed=VisualRandom.FRand();
             P.Opacity=bSteam?.72f*SteamStrength:.085f;P.Size=bSteam?VisualRandom.FRandRange(13.f,19.f):9.f;
             const float Angle=VisualRandom.FRandRange(0.f,2*PI),Radius=VisualRandom.FRandRange(0.f,4.f);
-            P.Position=bSteam?SteamOrigin+FVector(FMath::Cos(Angle)*Radius,FMath::Sin(Angle)*Radius,1):Work.TransformPosition(FVector(VisualRandom.FRandRange(-19.f,25.f),0,2));
+            const double SampleX=VisualRandom.FRandRange(Profile->HeatSpan.X,Profile->HeatSpan.Y);
+            // The hammer eye is open; emit from its outer cheek instead of inside the hole.
+            const double SampleY=Profile->EyeRadius.Y>0?Profile->EyeRadius.Y+1:Profile->CenterY(SampleX,FMath::Max(0,BlankStage));
+            double SurfaceZ=0;Profile->SurfaceHeight(SampleX,SampleY,FMath::Max(0,BlankStage),SurfaceZ);
+            P.Position=bSteam?SteamOrigin+FVector(FMath::Cos(Angle)*Radius,FMath::Sin(Angle)*Radius,1):Work.TransformPosition(FVector(SampleX,SampleY,SurfaceZ+1));
             if(!bSteam&&HitAge<.2f){P.Position=SparkOrigin+FVector(0,0,1);P.Opacity=.16f;}
             P.Velocity=FVector(VisualRandom.FRandRange(-5.f,5.f),VisualRandom.FRandRange(-4.f,4.f),bSteam?VisualRandom.FRandRange(24.f,39.f):9.f);
         }

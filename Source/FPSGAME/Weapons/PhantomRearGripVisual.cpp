@@ -1,3 +1,7 @@
+#include "Saiga12KAttachments.h"
+#include "M24Attachments.h"
+#include "SniperSkeletonStock.h"
+#include "WeaponGripProfile.h"
 #include "HK416Attachments.h"
 #include "Super90RearGripAssets.h"
 #include "M870FurnitureAssets.h"
@@ -7,6 +11,7 @@
 #include "../FPSGAMECharacter.h"
 #include "A762Attachments.h"
 #include "PKMAttachments.h"
+#include "M249Attachments.h"
 #include "M16Attachments.h"
 #include "AKMSovietCalibration.h"
 #include "DanWesson715FittedParts.h"
@@ -27,8 +32,58 @@ bool IsFactoryRearGrip(const FName& Slot)
 }
 }
 
+UWeaponGripProfile* AFPSGAMECharacter::M24MeleeHandProfile(UWeaponGripProfile* SharedGrip) const
+{
+    const bool Extended = MagazineAttachmentId == M24Attachments::ExtendedMagazine;
+    auto* Carbon = WeaponGripProfiles.FindRef(SniperSkeletonStock::M24CarbonMeleeSlot(Extended)).Get();
+    return Carbon && SharedGrip && Carbon->Family == SharedGrip->Family ? Carbon : SharedGrip;
+}
+
 void AFPSGAMECharacter::SetGunsmithRearGrip(const FString& Variant, const FGunsmithWeapon* Weapon, const FString& GripBody)
 {
+    if(M249WeaponAssets::Matches(AKMViewmodel))
+    {
+        RearGripAttachment=M249Attachments::Configure(this,AKMViewmodel,RearGripAttachment,Variant,bInventoryWeaponReady&&M249Attachments::IsRearGrip(Variant));
+        M249Attachments::FactorySection(AKMViewmodel,TEXT("M249_Factory_RearGrip"),!RearGripAttachment);
+        return;
+    }
+    if(IsM24Weapon())
+    {
+        // The body is assembled first for equipped, preview and pickup rigs.
+        // A direct skeleton stock still needs its default grip when locked.
+        const FString GripVariant=PrismHandstop?Variant:FString();
+        for (const bool Extended : {false, true})
+            WeaponGripProfiles.Remove(SniperSkeletonStock::M24CarbonMeleeSlot(Extended));
+        if(bInventoryWeaponReady&&SniperSkeletonStock::UsesM24DirectStock(StockAttachment))
+        {
+            RearGripAttachment=SniperSkeletonStock::ConfigureM24Grip(this,AKMViewmodel,RearGripAttachment,GripVariant);
+            TMap<TObjectPtr<UAnimSequence>,TObjectPtr<UAnimSequence>> Unused;
+            for(const bool Extended:{false,true})
+            {
+                const FName Family=SniperSkeletonStock::M24GripFamily(RearGripAttachment,Extended);
+                if(!WeaponGripProfiles.Contains(Family))InitializeWeaponGripFamily(Family,Unused);
+                if (StockAttachment->GetStaticMesh()->GetPathName().StartsWith(SniperSkeletonStock::M24CarbonMeshPrefix))
+                {
+                    auto* Carbon = LoadObject<UWeaponGripProfile>(nullptr, *SniperSkeletonStock::M24CarbonMeleePath(Family));
+                    if (Carbon && Carbon->Family == Family)
+                        WeaponGripProfiles.Add(SniperSkeletonStock::M24CarbonMeleeSlot(Extended), Carbon);
+                }
+            }
+            return;
+        }
+        // Factory furniture retains its fitted skins; the skeleton-stock
+        // assembly above replaces the complete independent pistol-grip mesh.
+        if(RearGripAttachment)RearGripAttachment->EmptyOverrideMaterials();
+        RearGripAttachment=M24Attachments::Configure(this,AKMViewmodel,RearGripAttachment,
+            GripVariant,bInventoryWeaponReady&&M24Attachments::IsRearGrip(GripVariant));
+        return;
+    }
+    if(IsSaiga12KWeapon())
+    {
+        RearGripAttachment=Saiga12KAttachments::Configure(this,AKMViewmodel,RearGripAttachment,Variant,bInventoryWeaponReady&&Saiga12KAttachments::SupportsRearGrip(Variant));
+        Saiga12KAttachments::FactorySection(AKMViewmodel,TEXT("Saiga12K_RearGrip"),!(RearGripAttachment&&RearGripAttachment->IsVisible()));
+        return;
+    }
     if(IsM870Weapon())
     {
         auto* Stock=StockAttachment.Get();auto* Grip=RearGripAttachment.Get();

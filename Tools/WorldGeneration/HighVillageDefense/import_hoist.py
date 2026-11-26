@@ -149,3 +149,4 @@ for z,w,d,h in ((-18,20,12,5),(-24,25,14,8),(-29,21,12,3)):
 for x in (-7,7):
     weight.box((x,0,-24),(2.2,15,14))
 weight.save("SM_HoistWeight",material)
+

@@ -13,3 +13,7 @@
 - 水／汽水／药水和喷泉补水复用随机吞咽音池；持续饮水每次重新抽取，间隔包含所选片段长度，避免重叠。食物播放一次完整吞咽音，可自然延续到收手；取消、下次使用及销毁停止旧播放。
 
 当前生产配方位于 `SourceAssets/{MineralWater,Baguette,Bread,ConsumableAudio,SodaCan}20261003`；当前数值与本机内容恢复顺序见 `Docs/UI/survival-consumables-publication-20261003.md`。只写导入脚本不等于已保存资产；构建结果与用户游戏测试分别报告。
+
+## 食物限时效果默认（2026-10-15）
+
+用户要求：所有现有和未来食物限时增益／减益，无特殊说明时统一为 600 秒。沿用 `FFPSSurvivalState::DefaultFoodEffectDuration`，同名刷新、不累积；不改强度、即时恢复／扣除或进食时长。非食物效果保持自己的时长。当前仅香肠滋养与大份烤羊排属于食物限时效果。详见 `Docs/Survival/food-duration-and-daily-consumption-20261015.md`。

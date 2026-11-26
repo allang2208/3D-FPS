@@ -47,6 +47,12 @@ bool UMonsterCombatComponent::IsImmobileReaction() const
     return Status && (Status->IsFrozen() || Status->IsPetrified());
 }
 
+FSoftObjectPath UMonsterCombatComponent::DefaultStunAnimationPath(const FString& Role)
+{
+    const FString Name=TEXT("A_")+Role+TEXT("_Dizzy");
+    return FSoftObjectPath(TEXT("/Game/Monsters/HumanoidStun/")+Role+TEXT("/")+Name+TEXT(".")+Name);
+}
+
 void UMonsterCombatComponent::LoadHumanoidStun()
 {
     const auto* N=Cast<ANurseZombie>(GetOwner());
@@ -56,8 +62,11 @@ void UMonsterCombatComponent::LoadHumanoidStun()
         N->ActorHasTag(TEXT("Mutant3"))?TEXT("Mutant3"):N->ActorHasTag(TEXT("FatZombie"))?TEXT("FatZombie"):TEXT("Nurse");
     if(!DizzyClip)
     {
-        const FString Name=TEXT("A_")+Role+TEXT("_Dizzy");
-        DizzyClip=LoadObject<UAnimSequence>(nullptr,*(TEXT("/Game/Monsters/HumanoidStun/")+Role+TEXT("/")+Name+TEXT(".")+Name));
+        const FSoftObjectPath Path=DefaultStunAnimationPath(Role);
+        DizzyClip=Cast<UAnimSequence>(Path.ResolveObject());
+        // Prepared areas retain this asset before actors enter play. Preserve
+        // the fallback for standalone subjects without an area preparation step.
+        if(!DizzyClip)DizzyClip=LoadObject<UAnimSequence>(nullptr,*Path.ToString());
     }
     if(DizzyClip && DizzyClip->GetSkeleton()!=N->GetMesh()->GetSkeletalMeshAsset()->GetSkeleton())DizzyClip=nullptr;
 }

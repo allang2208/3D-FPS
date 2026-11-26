@@ -1,4 +1,5 @@
 #include "BellowSacProjectile.h"
+#include "MonsterTargeting.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "FPSCombatHealthComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -71,8 +72,9 @@ float ABellowSacProjectile::FuseProgress() const
 bool ABellowSacProjectile::ExposureTo(APawn* Player,float& Distance) const
 {
     if (!Player) { Distance=BIG_NUMBER; return false; }
-    FVector Closest=Player->GetActorLocation();
-    if (auto* Shape=Cast<UPrimitiveComponent>(Player->GetRootComponent()))
+    const auto* ContactPawn=MonsterTargeting::ContactBody(Player);
+    FVector Closest=ContactPawn->GetActorLocation();
+    if (auto* Shape=Cast<UPrimitiveComponent>(ContactPawn->GetRootComponent()))
         Shape->GetClosestPointOnCollision(GetActorLocation(),Closest);
     Distance=FVector::Dist(GetActorLocation(),Closest);
     FCollisionQueryParams Query(SCENE_QUERY_STAT(BellowSacExposure),false,this);
@@ -115,7 +117,7 @@ bool ABellowSacProjectile::Sweep(UWorld* World, const AActor* Ignore, const AAct
     {
         const auto* Component = Contact.GetComponent();
         const auto* Pawn = Cast<APawn>(Contact.GetActor());
-        const bool PlayerBody = Pawn && Pawn->IsPlayerControlled() && Component == Pawn->GetRootComponent();
+        const bool PlayerBody = Pawn && MonsterTargeting::IsOpponentPawn(Pawn) && Component == Pawn->GetRootComponent();
         if (!Component || (!PlayerBody && Component->GetCollisionResponseToChannel(ECC_Visibility) != ECR_Block)) continue;
         if (!Found || Contact.Time < Hit.Time) { Hit = Contact; Found = true; }
     }
@@ -153,11 +155,12 @@ void ABellowSacProjectile::Rupture()
     if (BurstAt >= 0.) return;
     BurstAt = Clock(); ForceNetUpdate(); SetLifeSpan(1.f);
     // One receipt per player; direct contact never adds a second damage event.
-    for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
+    TArray<APawn*> Victims;
+    MonsterTargeting::GatherAreaOpponents(GetWorld(),GetActorLocation(),BlastRadius,Victims);
+    for (APawn* Player : Victims)
     {
-        APawn* Player = It->Get() ? It->Get()->GetPawn() : nullptr;
-        const auto* Health = Player ? Player->FindComponentByClass<UFPSCombatHealthComponent>() : nullptr;
-        if (!Health || Health->IsDead()) continue;
+        const auto* Health = Player->FindComponentByClass<UFPSCombatHealthComponent>();
+        if (Health ? Health->IsDead() : !MonsterTargeting::IsActiveArtisan(Player)) continue;
         float Distance=0.f;
         if (!ExposureTo(Player,Distance) || Distance>BlastRadius) continue;
         const float Falloff = FMath::Lerp(1.f, .3f, FMath::Clamp(Distance / BlastRadius, 0.f, 1.f));

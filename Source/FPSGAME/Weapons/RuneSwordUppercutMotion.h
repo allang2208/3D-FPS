@@ -7,12 +7,18 @@ namespace RuneSwordUppercutMotion
 {
     inline constexpr int32 SampleRate=120;
     inline constexpr int32 ReleaseFrame=120;
+    inline constexpr int32 RiftStartFrame=123;
     inline constexpr int32 StrokeEndFrame=129;
+    inline constexpr int32 RiftEndFrame=131;
     inline constexpr int32 FinishFrame=135;
     inline constexpr int32 RecoveryStartFrame=152;
     inline constexpr int32 EndFrame=246;
     inline constexpr float ReleaseStart=float(ReleaseFrame)/SampleRate;
+    // The blade tip stays below the vertical rift ribbon until frame 123 and
+    // clears the top of the ribbon at frame 131 (both standard and long grips).
+    inline constexpr float RiftStart=float(RiftStartFrame)/SampleRate;
     inline constexpr float StrokeEnd=float(StrokeEndFrame)/SampleRate;
+    inline constexpr float RiftEnd=float(RiftEndFrame)/SampleRate;
     inline constexpr float Finish=float(FinishFrame)/SampleRate;
     inline constexpr float RecoveryStart=float(RecoveryStartFrame)/SampleRate;
     inline constexpr float End=float(EndFrame)/SampleRate;

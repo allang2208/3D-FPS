@@ -44,6 +44,7 @@ def text(label,pos,rotation=180,size=24):
  a=ES.spawn_actor_from_class(u.TextRenderActor,u.Vector(*pos),u.Rotator(0,rotation,0))
  a.set_actor_label('Sign_'+label.split('\n')[0])
  c=a.get_component_by_class(u.TextRenderComponent)
+ c.set_font(u.load_asset('/Game/UI/GunsmithWorkbench/WorldText/F_ColdSteelWorldText'))
  c.set_text(label);c.set_world_size(size);c.set_horizontal_alignment(u.HorizTextAligment.EHTA_CENTER)
  c.set_text_render_color(u.Color(180,230,240,255))
  return a
@@ -94,7 +95,6 @@ for x,y,z in [(-650,-350,385),(150,450,385),(650,-350,385),(-500,1200,325),(500,
 start=ES.spawn_actor_from_class(u.PlayerStart,u.Vector(-750,-100,100),u.Rotator(0,0,0));start.set_actor_label('M09_PlayerStart')
 portal=ES.spawn_actor_from_class(u.SceneTestPortal,u.Vector(-850,-620,0),u.Rotator(0,0,0))
 portal.set_actor_label('M09_ReturnToHub');u.HangingBellM09.configure_return_portal(portal)
-portal.get_component_by_class(u.TextRenderComponent).set_text('RETURN TO HUB\n[E] within 2 m')
 # Save only this authored level and its newly authored materials.
 if not u.EditorLoadingAndSavingUtils.save_map(world,MAP):raise RuntimeError('M09 map save failed')
 pending=[p for p in u.EditorLoadingAndSavingUtils.get_dirty_content_packages() if p.get_path_name().startswith('/Game/Tests/HangingBellM09/') or p.get_path_name().startswith(DEST)]

@@ -1,6 +1,7 @@
 #include "VoxelBuildGrounding.h"
 #include "VoxelBuildWorld.h"
 #include "VoxelCollapseFragment.h"
+#include "../WorldGeneration/VillageDefenseSection.h"
 #include "Components/CapsuleComponent.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
@@ -15,16 +16,41 @@ bool VoxelGrounding::FFootprint::Contains(const UPrimitiveComponent* Component) 
 FCollisionQueryParams VoxelGrounding::Query(UWorld* World,const AActor* Ignore)
 {
     FCollisionQueryParams Params(SCENE_QUERY_STAT(VoxelGrounding),true,Ignore);
-    for(TActorIterator<APawn> It(World);It;++It)Params.AddIgnoredActor(*It);
+    for(TActorIterator<APawn> It(World);It;++It)
+        if(!It->IsA<AVillageDefenseSection>())Params.AddIgnoredActor(*It);
     return Params;
+}
+
+bool VoxelGrounding::IsFixedBuildingSurface(const FHitResult& Hit)
+{
+    const auto* Component=Hit.GetComponent();
+    if(!Component||Component->IsSimulatingPhysics())return false;
+    if(!Cast<APawn>(Hit.GetActor()))return true;
+    return Cast<AVillageDefenseSection>(Hit.GetActor())&&Component->ComponentHasTag(TEXT("Traversal.FixedStructure"));
 }
 
 bool VoxelGrounding::IsSurface(const FHitResult& Hit)
 {
-    const auto* Component=Hit.GetComponent();
-    return Hit.bBlockingHit&&Component&&Hit.ImpactNormal.Z>=MinimumNormalZ
-        &&!Component->IsSimulatingPhysics()&&!Cast<APawn>(Hit.GetActor())
+    return Hit.bBlockingHit&&Hit.ImpactNormal.Z>=MinimumNormalZ&&IsFixedBuildingSurface(Hit)
         &&!Cast<AVoxelBuildWorld>(Hit.GetActor())&&!Cast<AVoxelCollapseFragment>(Hit.GetActor());
+}
+
+bool VoxelGrounding::ResolveMountingSurface(FHitResult& Hit)
+{
+    if(!IsFixedBuildingSurface(Hit))return false;
+    if(Cast<AVillageDefenseSection>(Hit.GetActor()))
+    {
+        // A chipped ashlar can give the reticle a steep triangle normal on a vertical wall.
+        // Use the structural face on that same piece, keeping actors behind it occluded.
+        FHitResult Structural;
+        if(Hit.GetComponent()->LineTraceComponent(Structural,Hit.TraceStart,Hit.TraceEnd,
+            FCollisionQueryParams(SCENE_QUERY_STAT(VillageMountPlane),false)))
+        {
+            if(FVector::DistSquared(Structural.ImpactPoint,Hit.ImpactPoint)>FMath::Square(40.))return false;
+            Hit=Structural;
+        }
+    }
+    return FMath::Abs(Hit.ImpactNormal.Z)<=.5;
 }
 
 bool VoxelGrounding::Sample(UWorld* World,FVector Min,double Top,double Bottom,
@@ -48,15 +74,22 @@ bool VoxelGrounding::Sample(UWorld* World,FVector Min,double Top,double Bottom,
 }
 
 bool AVoxelBuildWorld::ResolveGroundPlacement(const FHitResult& Surface,FIntVector Size,bool bSnap,
-    FVector& Origin,TArray<FIntVector>& Positions,FString& Reason) const
+    FVector& Origin,TArray<FIntVector>& Positions,FString& Reason,const TArray<FIntVector>* ShapeTemplate) const
 {
     using namespace VoxelGrounding;
     FIntVector Base=ToCell(Surface.ImpactPoint);Base.X-=Size.X/2;Base.Y-=Size.Y/2;
     Origin=bSnap?FVector::ZeroVector:Surface.ImpactPoint-FVector(Size.X*10,Size.Y*10,0);
     if(!bSnap)Base=FIntVector::ZeroValue;
+    // 2026-10-15：坡/山墙/金字塔等非 Box 笔刷按真实格子模板填充（对角壳/实心三角），
+    // 否则地面放坡会落成 Size 整盒砖墩。模板保持传入顺序（切割字节按同序平行）。
     auto Fill=[&]()
     {
         Positions.Reset();
+        if(ShapeTemplate)
+        {
+            for(const FIntVector& C:*ShapeTemplate)Positions.Add(Base+C);
+            return;
+        }
         for(int32 Z=0;Z<Size.Z;++Z)for(int32 Y=0;Y<Size.Y;++Y)for(int32 X=0;X<Size.X;++X)
             Positions.Add(Base+FIntVector(X,Y,Z));
     };
@@ -80,9 +113,13 @@ bool AVoxelBuildWorld::ResolveGroundPlacement(const FHitResult& Surface,FIntVect
     else Origin.Z=Highest;
     Fill();
     const double BaseHeight=Origin.Z+Base.Z*CellSizeCm;
+    // 模板笔刷只给有格子的列下地基（避免模板外多出孤柱）。
+    TSet<FIntPoint> OccupiedColumns;
+    if(ShapeTemplate)for(const FIntVector& C:*ShapeTemplate)OccupiedColumns.Add(FIntPoint(C.X,C.Y));
     TArray<FIntVector> Foundations;int32 Deepest=0;
     for(int32 Y=0;Y<Size.Y;++Y)for(int32 X=0;X<Size.X;++X)
     {
+        if(OccupiedColumns.Num()&&!OccupiedColumns.Contains(FIntPoint(X,Y)))continue;
         const int32 Bottom=FMath::Min(0,FMath::FloorToInt((Samples[X+Y*Size.X].Low+ContactToleranceCm-BaseHeight)/CellSizeCm));
         if(Bottom < -MaxFoundationLayers)
         {Reason=TEXT("地基需要超过 1.2 米 · 请分级搭建或换到更平缓的位置");return false;}

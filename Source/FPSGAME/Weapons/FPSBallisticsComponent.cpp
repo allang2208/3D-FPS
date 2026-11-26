@@ -1,4 +1,6 @@
 #include "FPSBallisticsComponent.h"
+#include "../Combat/FPSAttackQuery.h"
+#include "../Monsters/UnknownHumanoid.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "WeaponDamageFalloff.h"
 #include "../Skills/ColdSteelSkillRules.h"
@@ -24,15 +26,20 @@ static TAutoConsoleVariable<int32> CVarTracerEvery(TEXT("fps.Tracer.Every"),1,
 
 UFPSBallisticsComponent::UFPSBallisticsComponent()
 {PrimaryComponentTick.bCanEverTick=true;PrimaryComponentTick.bStartWithTickEnabled=false;}
-void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM,const FColdSteelItem* ShotItem,bool bConverged,bool bCosmeticOnly)
+float UFPSBallisticsComponent::ScaledBulletSpeed(float SpeedCM)
+{
+    return SpeedCM*FMath::Clamp(CVarBulletSpeedScale.GetValueOnGameThread(),.05f,10.f);
+}
+void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM,const FColdSteelItem* ShotItem,bool bConverged,bool bCosmeticOnly,uint32 FireSequence,int32 FiredRounds)
 {
     if(!GetWorld()||!FMath::IsFinite(SpeedCM)||SpeedCM<=0||RangeCM<=0||Direction.IsNearlyZero())return;
     LastLaunchStart=Start;
     WeaponFX=FX;HeadshotSound=Headshot;
-    const float SpeedScale=FMath::Clamp(CVarBulletSpeedScale.GetValueOnGameThread(),.05f,10.f);
     const int32 TracerInterval=FMath::Max(1,CVarTracerEvery.GetValueOnGameThread());
     const auto Effects=ColdSteelCombat::Snapshot(GetOwner(),ShotItem);
-    FFPSFlyingRound Round;Round.Id=NextRoundId++;Round.Training=ColdSteelSkills::Snapshot(GetOwner(),ShotItem,true);Round.Position=Start;Round.Direction=Direction.GetSafeNormal();Round.Speed=SpeedCM*SpeedScale;Round.Remaining=RangeCM;Round.Damage=Damage;Round.Timestamp=GetWorld()->GetTimeSeconds();Round.Piercing=Effects.Piercing;Round.Poison=Effects.Poison;Rounds.Add(MoveTemp(Round));
+    FFPSFlyingRound Round;Round.Id=NextRoundId++;Round.Training=ColdSteelSkills::Snapshot(GetOwner(),ShotItem,true);Round.Position=Start;Round.Direction=Direction.GetSafeNormal();Round.Speed=ScaledBulletSpeed(SpeedCM);Round.Remaining=RangeCM;Round.Damage=Damage;Round.Timestamp=GetWorld()->GetTimeSeconds();Round.Piercing=Effects.Piercing;Round.Poison=Effects.Poison;Rounds.Add(MoveTemp(Round));
+    Rounds.Last().Training.FireSequence=FireSequence;
+    Rounds.Last().Training.FiredRounds=FMath::Max(1,FiredRounds);
     Rounds.Last().EffectiveRangeCM=EffectiveRangeCM;
     Rounds.Last().Training.BulletSource=this;
     Rounds.Last().Training.BulletFX=FX;
@@ -49,11 +56,32 @@ void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float Speed
     Rounds.Last().bCosmeticOnly=bCosmeticOnly;
     SetComponentTickEnabled(true);
 }
+void UFPSBallisticsComponent::LaunchHostile(FVector Start,FVector Direction,float FlightSpeed,float RangeCM,float EffectiveRange,float Damage,
+    float CriticalRoll,APawn* MissedTarget,UFPSWeaponFXComponent* TracerFX,const FVector& VisualMuzzle)
+{
+    const bool Cosmetic=!GetOwner()->HasAuthority();
+    if((Cosmetic && !TracerFX) || Direction.IsNearlyZero() || FlightSpeed<=0 || RangeCM<=0)return;
+    auto& Round=Rounds.AddDefaulted_GetRef();
+    Round.Id=NextRoundId++;
+    Round.Position=Round.LaunchOrigin=Start;
+    Round.Direction=Direction.GetSafeNormal();
+    Round.Remaining=RangeCM;
+    Round.EffectiveRangeCM=EffectiveRange;
+    Round.Damage=Cosmetic?0.f:Damage;
+    Round.bCosmeticOnly=Cosmetic;
+    Round.Speed=FlightSpeed;
+    Round.Training.BulletFX=TracerFX;
+    Round.TracerMuzzle=VisualMuzzle;
+    Round.Training.CriticalRoll=CriticalRoll;
+    if(MissedTarget)Round.HitActors.Add(MissedTarget);
+    Round.Timestamp=GetWorld()->GetTimeSeconds();
+    SetComponentTickEnabled(true);
+}
 void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorComponentTickFunction* Fn)
 {
     Super::TickComponent(Delta,Type,Fn);
     const double Now=GetWorld()->GetTimeSeconds();
-    const auto* Pawn=Cast<APawn>(GetOwner());
+    auto* Unknown=Cast<AUnknownHumanoid>(GetOwner());
     auto* RiverFX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>();
     auto* ShatterFX=GetWorld()->GetSubsystem<UFPSShatterFXSubsystem>();
     for(int32 I=Rounds.Num()-1;I>=0;--I)
@@ -66,10 +94,11 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
         R.Timestamp=Now;if(Distance<=0)continue;
         const FVector Start=R.Position;
         const FVector End=R.Position+R.Direction*Distance;FHitResult Hit;
-        FCollisionQueryParams Params(SCENE_QUERY_STAT(FlyingRound),true,GetOwner());Params.bReturnPhysicalMaterial=true;Params.bReturnFaceIndex=true;
+        FFPSAttackQuery Params(SCENE_QUERY_STAT(FlyingRound),true,GetOwner());Params.bReturnPhysicalMaterial=true;Params.bReturnFaceIndex=true;
         for(const auto& A:R.HitActors)if(A.IsValid())Params.AddIgnoredActor(A.Get());
         bool Stopped=false;
-        while(RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Hit,R.Position,End,ECC_Visibility,Params))
+        while(Unknown ? RangedAttackQuery::TraceToPlayer(GetWorld(),Unknown,Hit,R.Position,End,0.f,Params) :
+            RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Hit,R.Position,End,ECC_Visibility,Params))
         {
             // Each shatter child belongs to one selected enemy. Other bodies,
             // including allies and corpses, neither take its damage nor steal it.
@@ -85,21 +114,21 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
                 // Network hit reports require the launch origin, not the last
                 // frame's short sweep segment, to reproduce full-range falloff.
                 Hit.TraceStart=R.LaunchOrigin;
-                const float Applied = ColdSteelSkills::ApplyHit(GetOwner(),Hit,HitDamage,R.Direction,R.Training,&DamageResult);
+                const float Applied = Unknown ? Unknown->HitWithRound(Hit,HitDamage,R.Direction,R.Training.CriticalRoll) : ColdSteelSkills::ApplyHit(GetOwner(),Hit,HitDamage,R.Direction,R.Training,&DamageResult);
                 if(auto* Shooter=Cast<AFPSGAMECharacter>(GetOwner()))
                 {
                     Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true,false);
                     if(Shooter->HasAuthority()&&!Shooter->IsLocallyControlled())
                         if(auto* PS=Shooter->GetPlayerState<AColdSteelPlayerState>())
                         {
-                            FColdSteelNetHitReceipt Receipt;Receipt.bFirearm=true;Receipt.Target=Hit.GetActor();Receipt.Applied=Applied;
+                            FColdSteelNetHitReceipt Receipt;Receipt.bFirearm=true;Receipt.Target=Hit.GetActor();Receipt.Applied=Applied;Receipt.MagicApplied=DamageResult.Applied.MagicPortion(Applied);
                             Receipt.bCritical=DamageResult.bCritical;Receipt.bKilled=DamageResult.bKilled;
                             PS->ClientConfirmHit(Receipt);
                         }
                 }
             }
-            if(!R.bCosmeticOnly)ColdSteelCombat::OnHit(Hit,GetOwner(),R.Poison);
-            if(RoundFX&&(!RiverFX||!RiverFX->IsSubmergedRiverbed(Hit)))RoundFX->OnImpact(Hit);
+            if(!Unknown&&!R.bCosmeticOnly)ColdSteelCombat::OnHit(Hit,GetOwner(),R.Poison);
+            if(!Unknown&&RoundFX&&(!RiverFX||!RiverFX->IsSubmergedRiverbed(Hit)))RoundFX->OnImpact(Hit);
             if(R.Training.bRicochet&&ShatterFX)
                 ShatterFX->Burst(Hit.ImpactPoint,Hit.ImpactNormal,EShatterBurst::Arrival);
             if(!R.bCosmeticOnly&&!R.Training.bRicochet&&HeadshotSound&&ColdSteelSkills::IsCriticalHit(Hit))UGameplayStatics::PlaySound2D(this,HeadshotSound,.630957f);
@@ -113,7 +142,8 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
         {
             if(ShatterFX)ShatterFX->Trace(this,R.Id,Start,Reached,Stopped||R.Remaining<=Distance);
         }
-        else if(RoundFX&&R.bShowTracer)RoundFX->OnTracerSegment(R.Id,Start,Reached,R.bConverged);
+        else if(RoundFX&&R.bShowTracer)
+            RoundFX->OnTracerSegment(R.Id,Start,Reached,R.bConverged,Unknown?&R.TracerMuzzle:nullptr);
         if(Stopped){Rounds.RemoveAtSwap(I);continue;}
         R.Position=End;R.Remaining-=Distance;R.TraveledCM+=Distance;
         if(R.Remaining<=KINDA_SMALL_NUMBER)Rounds.RemoveAtSwap(I);

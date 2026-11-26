@@ -1,5 +1,6 @@
 // 2026-09-16: Z 键范围拾取、残骸转体素块、以及屏幕上方的通用提示栏。
 #include "ColdSteelStatusModel.h"
+#include "../Tasks/BlacksmithApprenticeship.h"
 #include "ColdSteelCurrency.h"
 #include "ColdSteelInventoryTypes.h"
 #include "../FPSGAMECharacter.h"
@@ -47,7 +48,30 @@ void UColdSteelStatusModel::PostNotice(const FString& Title,const FString& Detai
     FColdSteelProgressNotice Notice;
     Notice.Title=Title;Notice.Detail=Detail;Notice.Icon=Icon;
     Notice.Duration=FMath::Max(.8f,Duration);
-    ProgressNotices.Add(MoveTemp(Notice));
+    // A hidden HUD or a map load must not replay old interaction failures afterwards.
+    const auto OnOneLine=[](FString& Line)
+    {
+        Line.ReplaceInline(TEXT("\r\n"),TEXT(" · "));
+        Line.ReplaceInline(TEXT("\n"),TEXT(" · "));
+        Line.ReplaceInline(TEXT("\r"),TEXT(" · "));
+    };
+    OnOneLine(Notice.Title);
+    OnOneLine(Notice.Detail);
+    InteractionNoticeExpiresAt=FPlatformTime::Seconds()+Notice.Duration;
+    PendingInteractionNotice=MoveTemp(Notice);
+}
+
+bool UColdSteelStatusModel::TakeInteractionNotice(FColdSteelProgressNotice& Out)
+{
+    if(!PendingInteractionNotice.IsSet())return false;
+    const double Remaining=InteractionNoticeExpiresAt-FPlatformTime::Seconds();
+    if(Remaining>0.)
+    {
+        Out=MoveTemp(PendingInteractionNotice.GetValue());
+        Out.Duration=static_cast<float>(Remaining);
+    }
+    PendingInteractionNotice.Reset();
+    return Remaining>0.;
 }
 
 bool UColdSteelStatusModel::GrantWorldBlocks(const TMap<FString,int64>& Blocks,const FVector& Position)
@@ -133,10 +157,18 @@ int32 UColdSteelStatusModel::PickupNearby(float RadiusCm)
         if(FVector::DistSquared(Origin,Entry.Position)>RadiusSq)continue;
         // 隔墙/隔层不吸：只有"玩家能走过去"的物品才算在范围内（<=40 cm 的障碍可迈过）。
         if(!ReachableOnFoot(GetWorld(),CurrentPawn.Get(),Entry.Position))continue;
-        P.Items.RemoveAt(Index);--Index;
-        if(AmmoType(Entry.Definition)?AddAmmoToState(P,Entry.Definition,Entry.Count):Insert(P.Items,Entry)){++Moved;continue;}
-        // No room for this one: it stays on the ground exactly where it was.
-        P.Items.Insert(Entry,Index+1);++Left;
+        P.Items.RemoveAt(Index);
+        const bool PickedUp = AmmoType(Entry.Definition) ? AddAmmoToState(P,Entry.Definition,Entry.Count)
+            : BlacksmithApprenticeship::InsertPickup(P,Entry);
+        if (PickedUp)
+        {
+            ++Moved;
+            --Index;
+            continue;
+        }
+        // Restore the failed stack and continue with the next ground item.
+        P.Items.Insert(Entry,Index);
+        ++Left;
     }
     if(Moved>0)
     {

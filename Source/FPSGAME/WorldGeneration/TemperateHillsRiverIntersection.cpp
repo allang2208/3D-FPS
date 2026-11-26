@@ -5,6 +5,7 @@ namespace TemperateRiver
 bool FPlan::IntersectWaterSegment(const FVector& Start,const FVector& End,double AlongMin,double AlongMax,
     FVector& Position,FVector& Normal,double& Along) const
 {
+    if(bRiverLake)return IntersectRiverLake(Start,End,Position,Normal,Along);
     const FVector Ray=End-Start;
     if(Ray.IsNearlyZero())return false;
     // Same 64 m spatial buckets as river generation. A round is clipped to its

@@ -1,6 +1,25 @@
 {
   "rig": "Jason",
   "shirts": {
+    "ue_modern_kevlar_vest": {
+      "mode": "tuck",
+      "producer": "Tools/ModernTacticalSet/patrol_shirt_world_waists.py",
+      "source_root": "SourceAssets/ModernTacticalSet20261113/PatrolShirtR2",
+      "requires_native_waist_refresh": true,
+      "outer_slots": {
+        "Jason": [
+          0,
+          1,
+          4
+        ],
+        "Owner_Jason": [
+          0,
+          1,
+          4
+        ]
+      },
+      "outer_carrier_preserved": true
+    },
     "ue_work_jacket": {"mode": "outer_jacket_with_inner_tuck", "producer": "Tools/WorkwearSet/run.ps1", "outer_slots": {"Jason": [0, 1], "Owner_Jason": [0, 1]}, "source_root": "SourceAssets/WorkwearSet20261024", "requires_native_waist_refresh": true},
     "ue_field_sweater": {"mode": "existing_tuck", "producer": "Tools/PantsCompatibility/run.ps1", "outer_slots": {"Jason": [0, 1], "Owner_Jason": [0, 1]}},
     "ue_blue_mage_robe": {"mode": "robe_underlayer", "producer": "Tools/BlueMageRobe"},

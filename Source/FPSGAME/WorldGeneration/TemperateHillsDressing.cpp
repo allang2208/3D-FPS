@@ -1,5 +1,6 @@
 #include "TemperateHillsWorld.h"
 #include "TemperateHillsSurface.h"
+#include "TemperateForestHabitat.h"
 #include "Engine/StaticMesh.h"
 
 // Forest-floor deadwood and hillside cliffs ride the rock PCG layer (Layer 1) so
@@ -9,12 +10,40 @@
 // harvestable stones: 0x2000.. deadwood tiles, 0x1000.. cliff tiles, 0x4000..
 // already marks river stones. Mining stays safe through the existing resolver —
 // ResolveProductionResource matches a candidate by position plus mesh path, and
-// every piece here is either larger than the 500 cm instance-radius reject or
-// resolves as generic stone for small snag-sized logs.
+// the production resolver explicitly excludes FallenLogs/ForestRoots from ore.
 void ATemperateHillsWorld::GetForestFloorPlacements(const FBox& Bounds,TArray<FTemperatePlacement>& Out) const
 {
-    if(!Assets||(Assets->FallenLogs.IsEmpty()&&Assets->ForestRoots.IsEmpty()))return;
+    if(!Assets)return;
     using namespace TemperateHillsSurface;
+    if(ForestWaterPlan&&Assets->RainforestBankBoulder.IsValid())
+    {
+        for(int32 I=0;I<ForestWaterPlan->Pools.Num();++I)
+        {
+            const auto& Pool=ForestWaterPlan->Pools[I];
+            if(!Pool.Bounds.ExpandBy(350.).Intersect(FBox2D(FVector2D(Bounds.Min),FVector2D(Bounds.Max))))continue;
+            const FVector2D Center=Pool.Bounds.GetCenter();
+            const uint32 K=Key(I,0,uint32(Seed),2537);
+            const double Angle=I==0?-.68:Unit(K+1)*2*PI;
+            const FVector2D Dir(FMath::Cos(Angle),FMath::Sin(Angle));
+            const double Reach=Pool.Bounds.GetExtent().Size()+250.;
+            // Approach from dry land. Irregular/concave pool outlines do not
+            // necessarily contain their bounding-box centre.
+            for(double R=Reach;R>=0;R-=40.)
+            {
+                const FVector2D Edge=Center+Dir*R;
+                if(!ForestWaterPlan->Sample(Edge.X,Edge.Y).Wet)continue;
+                const FVector2D At=Edge+Dir*75.;
+                if(At.X<Bounds.Min.X||At.X>=Bounds.Max.X||At.Y<Bounds.Min.Y||At.Y>=Bounds.Max.Y||
+                    PathDistance(At.X,At.Y)<420||SurfaceNormal(At.X,At.Y).Z<.88)break;
+                FTemperatePlacement P;
+                P.Mesh=Assets->RainforestBankBoulder.ToSoftObjectPath();P.Key=K;
+                P.Transform=FTransform(FRotator(0,Unit(K+2)*360.,0),FVector(At,Height(At.X,At.Y)),FVector(.78+Unit(K+3)*.36));
+                P.CandidateId=0x3000000000000000ULL|uint64(I);
+                Out.Add(P);break;
+            }
+        }
+    }
+    if(Assets->FallenLogs.IsEmpty()&&Assets->ForestRoots.IsEmpty())return;
     const double Coverage=FMath::Clamp(Assets->ForestFloorCoverage,0.f,1.f);
     const double Half=SizeMeters*50-500;
     const FVector2D Start(GetStartLocation());
@@ -38,19 +67,40 @@ void ATemperateHillsWorld::GetForestFloorPlacements(const FBox& Bounds,TArray<FT
         // Under-canopy gate plus a small clearing chance: logs also sit where a
         // tree fell out of a gap, but never in open meadow density.
         const double Forest=ForestWeight(X,Y);
-        if(Unit(K+3)>Coverage*(.08+.92*Smooth(Forest/.5)))continue;
+        const double Region=RainforestWeight(X,Y);
+        const auto Site=TemperateForestHabitat::Upland(N,Forest,TemperateForestHabitat::Moisture(X,Y,Seed,Region, EcologyProfile()),Region, EcologyProfile());
+        const double Deadwood=Coverage*(.08+.92*Smooth(Forest/.5))*
+            (1.+.48*Site.Shelter-.68*Site.Meadow-.52*Site.Stony);
+        if(Unit(K+3)>Deadwood)continue;
         // Roots are the rarer member of the family.
         const bool Root=!Assets->ForestRoots.IsEmpty()&&(Assets->FallenLogs.IsEmpty()||Unit(K+6)<.30);
         const auto& Mesh=(Root?Assets->ForestRoots:Assets->FallenLogs)[K%(Root?Assets->ForestRoots:Assets->FallenLogs).Num()];
         const UStaticMesh* Loaded=Mesh.Get();
         if(!Loaded)continue;
         const FBox Box=Loaded->GetBoundingBox();
-        const double Scale=.85+Unit(K+7)*.45;
+        // The source pack includes an 18 m log. Normalize the selected mesh to
+        // a modest 2.8-6.2 m fallen trunk instead of scattering giant set pieces.
+        const double LongSide=FMath::Max(Box.GetSize().X,Box.GetSize().Y);
+        const double Scale=Root?(.65+Unit(K+7)*.30):(280+Unit(K+7)*340)/FMath::Max(1.0,LongSide);
         const FQuat Rotation=FQuat(N,Unit(K+4)*2*PI)*FQuat::FindBetweenNormals(FVector::UpVector,N);
-        // Sink the base so contact shadows do not float above the canopy litter.
-        const FVector Location=FVector(X,Y,Height(X,Y)-(Box.Min.Z+8)*Scale);
+        // Fit both ends and the middle to the generated surface. Reject a log
+        // bridging a hollow, road or river instead of balancing it on one pivot.
+        const FVector Center(Box.GetCenter().X,Box.GetCenter().Y,Box.Min.Z);
+        const FVector Axis=Box.GetSize().X>Box.GetSize().Y?FVector(1,0,0):FVector(0,1,0);
+        double Low=DBL_MAX,High=-DBL_MAX;
+        bool Supported=true;
+        for(int32 I=-1;I<=1;++I)
+        {
+            const FVector Offset=Rotation.RotateVector((Center+Axis*(I*LongSide*.36))*Scale);
+            const double PX=X+Offset.X,PY=Y+Offset.Y;
+            if(FMath::Abs(PX)>Half||FMath::Abs(PY)>Half||PathDistance(PX,PY)<450||
+                (RiverPlan&&RiverPlan->Sample(PX,PY).Bank>.08)){Supported=false;break;}
+            const double Support=Height(PX,PY)-Offset.Z;
+            Low=FMath::Min(Low,Support);High=FMath::Max(High,Support);
+        }
+        if(!Supported||High-Low>42)continue;
+        const FVector Location(X,Y,(Low+High)*.5-6);
         const uint64 CandidateId=((uint64(uint32(GX))<<32)|uint32(GY))^0x2000000000000000ULL;
-        if(IsProductionDepleted(1,CandidateId))continue;
         FTemperatePlacement& P=Out.Emplace_GetRef();
         P.Transform=FTransform(Rotation,Location,FVector(Scale));
         P.Mesh=Mesh.ToSoftObjectPath();P.Key=K;
@@ -78,7 +128,7 @@ void ATemperateHillsWorld::GetCliffPlacements(const FBox& Bounds,TArray<FTempera
         if(FVector2D::DistSquared(FVector2D(X,Y),Start)<2600.0*2600.0)continue;
         if(PathDistance(X,Y)<1200)continue;
         const auto Bank=RiverPlan?RiverPlan->Sample(X,Y):TemperateRiver::FSample();
-        if(Bank.Bank>.02)continue;
+        if(Bank.Bank>.02 || Bank.CliffWeight>.25)continue;
         const FVector N=SurfaceNormal(X,Y);
         // Steep-enough-to-need-a-face band: below ~38 deg a wall is pointless,
         // above ~66 deg the heightfield never produces real cliffs anyway.
@@ -104,7 +154,6 @@ void ATemperateHillsWorld::GetCliffPlacements(const FBox& Bounds,TArray<FTempera
         // slope instead of resting on it like a prop.
         const FVector Location=FVector(X,Y,Height(X,Y)-(Box.Min.Z)*Scale-Size.Z*Scale*.14);
         const uint64 CandidateId=((uint64(uint32(GX))<<32)|uint32(GY))^0x1000000000000000ULL;
-        if(IsProductionDepleted(1,CandidateId))continue;
         FTemperatePlacement& P=Out.Emplace_GetRef();
         P.Transform=FTransform(FRotator(0,FMath::RadiansToDegrees(Yaw),0),Location,FVector(Scale));
         P.Mesh=Mesh.ToSoftObjectPath();P.Key=K;

@@ -45,3 +45,4 @@ def install():
     (batch/'baked.json').write_text(json.dumps(dict(meshes=counts,total=sum(counts.values()),points_m=points),indent=2))
 
 if __name__=='__main__':install()
+

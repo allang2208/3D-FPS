@@ -1,4 +1,7 @@
 #include "ColdSteelPickup.h"
+#include "../Weapons/Bow/BowAssembly.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
 #include "ColdSteelWorldInteraction.h"
 #include "ColdSteelUIStyle.h"
 #include "Blueprint/WidgetTree.h"
@@ -69,10 +72,57 @@ void AColdSteelPickup::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME_CONDITION(AColdSteelPickup,SharedItem,COND_InitialOnly);
 }
-bool AColdSteelPickup::CanInteract(const APawn* Pawn)const{return !ItemId.IsEmpty()&&IsValid(Pawn)&&FVector::DistSquared(Pawn->GetActorLocation(),GetActorLocation())<=FMath::Square(250.f)&&ColdSteelWorldInteraction::IsFocused(Pawn,this);}
+bool AColdSteelPickup::CanInteract(const APawn* Pawn)const{return !bWorkbenchDisplay&&!ItemId.IsEmpty()&&IsValid(Pawn)&&FVector::DistSquared(Pawn->GetActorLocation(),GetActorLocation())<=FMath::Square(250.f)&&ColdSteelWorldInteraction::IsFocused(Pawn,this);}
 void AColdSteelPickup::Tick(float Delta)
 {
     Super::Tick(Delta);auto* PC=UGameplayStatics::GetPlayerController(this,0);
     if(bProductionMaterial)TickProductionMaterial(Delta);
     FaceLootBeam(PC);
+}
+
+
+bool AColdSteelPickup::IsWorkbenchDisplayReady() const
+{
+    if(!bWorkbenchDisplay||(StaffLoad.IsValid()&&!StaffLoad->HasLoadCompleted())
+        ||(ProductionToolLoad.IsValid()&&!ProductionToolLoad->HasLoadCompleted()))return false;
+    if(Weapon->IsVisible()&&Weapon->GetSkinnedAsset())return true;
+    if(Mesh->IsVisible()&&Mesh->GetStaticMesh())return true;
+    // Skeletal bow risers live under a deliberately empty static assembly root.
+    // Readiness must recognize the actual rendered children, not that root only.
+    TArray<USceneComponent*> Parts;Mesh->GetChildrenComponents(true,Parts);
+    for(auto* Part:Parts)
+    {
+        if(auto* Static=Cast<UStaticMeshComponent>(Part);Static&&Static->IsVisible()&&Static->GetStaticMesh())return true;
+        if(auto* Skin=Cast<USkinnedMeshComponent>(Part);Skin&&Skin->IsVisible()&&Skin->GetSkinnedAsset())return true;
+    }
+    return false;
+}
+bool AColdSteelPickup::InitializeWorkbenchDisplay(const FColdSteelItem& Item)
+{
+    bWorkbenchDisplay=true;ItemId=Item.InstanceId;SetReplicates(false);
+    SetActorEnableCollision(false);SetActorTickEnabled(false);
+    Body->SetSimulatePhysics(false);Body->SetEnableGravity(false);
+    Body->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    LootFXRoot->SetVisibility(false,true);PromptCaption.Reset();
+    bool Built=false;
+    const bool Gun=BuildWeapon(Item);
+    if(Gun)Built=true;
+    else if(ColdSteelInventory::IsBow(Item))
+    {
+        Mesh->SetRelativeScale3D(FVector(1));
+        TArray<FSoftObjectPath> Paths;ColdSteelBowAssembly::GatherResources(Item,Paths);
+        Mesh->SetStaticMesh(nullptr);Body->SetBoxExtent(FVector(8,8,60));
+        StaffLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,FStreamableDelegate::CreateWeakLambda(this,[this,Item]()
+        {
+            if(!bWorkbenchDisplay||ItemId!=Item.InstanceId||!ColdSteelBowAssembly::Apply(Mesh,Item))return;
+            const FBox B=ColdSteelBowAssembly::LocalBounds(Mesh);Mesh->SetRelativeLocation(-B.GetCenter());
+            Body->SetBoxExtent(B.GetExtent().ComponentMax(FVector(1)));Mesh->SetVisibility(true,true);
+        }));
+        Built=StaffLoad.IsValid();
+    }
+    else Built=BuildProductionTool(Item)||BuildConsumable(Item);
+    Mesh->SetVisibility(Built&&!Gun,true);
+    Weapon->SetVisibility(Built&&Gun);
+    if(!Built)SetActorHiddenInGame(true);
+    return Built;
 }

@@ -31,6 +31,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<UTextBlock> TimeValue;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> HitsValue;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> QualityValue;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> BonusBreakdown;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> Hint;
     UPROPERTY(Transient) TObjectPtr<UBorder> Panel;
     UPROPERTY(Transient) TObjectPtr<UBorder> Content;
@@ -40,5 +41,6 @@ private:
     UPROPERTY(Transient) TObjectPtr<UProgressBar> Timer;
     UPROPERTY(Transient) TObjectPtr<UVerticalBoxSlot> HeadingSlot;
     UPROPERTY(Transient) TObjectPtr<UVerticalBoxSlot> TimerSlot;
+    UPROPERTY(Transient) TObjectPtr<UVerticalBoxSlot> BonusSlot;
     UPROPERTY(Transient) TObjectPtr<UVerticalBoxSlot> HintSlot;
 };

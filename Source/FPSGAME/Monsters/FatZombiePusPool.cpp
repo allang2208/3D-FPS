@@ -1,4 +1,5 @@
 #include "FatZombiePusPool.h"
+#include "MonsterTargeting.h"
 #include "Net/UnrealNetwork.h"
 #include "GameFramework/GameStateBase.h"
 #include "FPSCombatHealthComponent.h"
@@ -126,7 +127,8 @@ void AFatZombiePusPool::Tick(float DeltaSeconds)
 
 bool AFatZombiePusPool::IsHostile(const APawn* Target) const
 {
-    if (!IsValid(Target) || Target == SourcePawn.Get() || !Target->CanBeDamaged()) return false;
+    if (!IsValid(Target) || Target == SourcePawn.Get() || !Target->CanBeDamaged() ||
+        MonsterTargeting::IsDownedArtisan(Target)) return false;
     if (const auto* Health = Target->FindComponentByClass<UFPSCombatHealthComponent>(); Health && Health->IsDead()) return false;
     if (const auto* Combat = Target->FindComponentByClass<UMonsterCombatComponent>(); Combat && Combat->IsDead()) return false;
     const uint8 OtherTeam = TeamOf(Target);
@@ -151,10 +153,10 @@ void AFatZombiePusPool::PulseDamage()
     TSet<APawn*> Visited;
     for (const auto& Contact : Contacts)
     {
-        auto* Target = Cast<APawn>(Contact.GetActor());
+        auto* Target = Cast<APawn>(MonsterTargeting::DamageRecipient(Contact.GetActor()));
         if (!Target || Visited.Contains(Target)) continue;
         Visited.Add(Target); // Multiple limbs and multiple splashes still mean one hit per pool/pulse.
-        if (!IsHostile(Target) || !TouchesGround(Target, Spread)) continue;
+        if (!IsHostile(Target) || !TouchesGround(MonsterTargeting::ContactBody(Target), Spread)) continue;
         if (UGameplayStatics::ApplyDamage(Target, Tuning.Damage, DamageInstigator.Get(), this, UCorrosivePusDamage::StaticClass()) > 0.f) ++SuccessfulHits;
     }
     if ((DamagePulses+1)*Tuning.Interval > Tuning.Duration+KINDA_SMALL_NUMBER) GetWorldTimerManager().ClearTimer(DamageTimer);

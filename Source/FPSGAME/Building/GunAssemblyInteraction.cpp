@@ -1,6 +1,7 @@
 #include "GunAssemblyInteraction.h"
 #include "WorkstationViewRestore.h"
 #include "GunAssemblySystem.h"
+#include "Misc/Crc.h"
 #include "ForgeArmsMeshComponent.h"
 #include "VoxelBuildPrefabActor.h"
 #include "VoxelBuildWorld.h"
@@ -10,6 +11,7 @@
 #include "../UI/GunAssemblyActionWidget.h"
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Components/AudioComponent.h"
 #include "Engine/AssetManager.h"
 #include "Engine/StreamableManager.h"
 #include "Engine/SkeletalMesh.h"
@@ -20,6 +22,9 @@
 #include "Kismet/GameplayStatics.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Sound/SoundBase.h"
+#include "Sound/SoundCue.h"
+#include "Sound/SoundNodeWavePlayer.h"
+#include "Sound/SoundWave.h"
 #include "Misc/FileHelper.h"
 #include "Misc/Paths.h"
 #include "Dom/JsonObject.h"
@@ -32,6 +37,8 @@ namespace
 const FString GAArms=TEXT("/Game/Characters/ModularOutfit20260924/BarePalmV7/M4/SK_M4_BareArmsV7");
 const FString GAGhost=TEXT("/Game/Building/GunWorkbench20260927/Assembly/M_AssemblyGhost");
 const FString GASound=TEXT("/Game/Weapons/M4HK416Audio/S_HK416_MagSeat");
+const FString GACalibrationSound=TEXT("/Game/Weapons/PKMLowpoly20260922/ChargeAudio35/S_PKM_ChargePullMove");
+constexpr float GARotationStep=5.f,GARotationHoldDelay=.18f,GARotationSpeed=120.f;
 FSoftObjectPath GAPath(const FString& P){return FSoftObjectPath(P+TEXT(".")+FPaths::GetCleanFilename(P));}
 template<class T>T* GAResolve(const FString& P){return Cast<T>(GAPath(P).ResolveObject());}
 FVector GAVector(const TArray<TSharedPtr<FJsonValue>>& V){return FVector(V[0]->AsNumber(),V[1]->AsNumber(),V[2]->AsNumber());}
@@ -41,8 +48,14 @@ FQuat GAQuat(const TArray<TSharedPtr<FJsonValue>>& V){return FQuat(V[0]->AsNumbe
 AGunAssemblyInteraction::AGunAssemblyInteraction()
 {
     PrimaryActorTick.bCanEverTick=true;PrimaryActorTick.bStartWithTickEnabled=false;
+    PrimaryActorTick.bTickEvenWhenPaused=true;
     RootComponent=CreateDefaultSubobject<USceneComponent>(TEXT("GunWorkbenchFrame"));
+    CalibrationAudio=CreateDefaultSubobject<UAudioComponent>(TEXT("CalibrationFeedback"));CalibrationAudio->SetupAttachment(RootComponent);
+    CalibrationAudio->bAutoActivate=false;CalibrationAudio->bAutoDestroy=false;CalibrationAudio->bStopWhenOwnerDestroyed=true;
+    CalibrationAudio->bAllowSpatialization=false;CalibrationAudio->bIsUISound=false;CalibrationAudio->bCanPlayMultipleInstances=false;
+    CalibrationAudio->SetVolumeMultiplier(.14f);CalibrationAudio->SetPitchMultiplier(.85f);
     Camera=CreateDefaultSubobject<UCameraComponent>(TEXT("AssemblyCamera"));Camera->SetupAttachment(RootComponent);Camera->FieldOfView=65;
+    Camera->bOverrideAspectRatioAxisConstraint=true;Camera->SetAspectRatioAxisConstraint(AspectRatio_MaintainXFOV);
     Body=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("FixedReceiver"));Body->SetupAttachment(RootComponent);Body->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     Ghost=CreateDefaultSubobject<UStaticMeshComponent>(TEXT("TargetOutline"));Ghost->SetupAttachment(RootComponent);Ghost->SetCollisionEnabled(ECollisionEnabled::NoCollision);Ghost->SetCastShadow(false);Ghost->SetVisibility(false);
     Arms=CreateDefaultSubobject<UForgeArmsMeshComponent>(TEXT("V7AssemblyHands"));Arms->SetupAttachment(RootComponent);Arms->SetCollisionEnabled(ECollisionEnabled::NoCollision);Arms->SetCastShadow(false);Arms->SetComponentTickEnabled(false);Arms->bReceivesDecals=false;
@@ -52,11 +65,11 @@ void AGunAssemblyInteraction::Prepare(APlayerController* Player,AVoxelBuildPrefa
 {
     PC=Player;Station=Table;HUD=OwnerHUD;SetOwner(Player);SetActorTransform(Table->Body()->GetComponentTransform());
     System=GetGameInstance()->GetSubsystem<UGunAssemblySystem>();const auto& R=System->Recipe();
-    if(R.Id.IsNone()){Error=TEXT("当前工件的拼装配方未就绪");return;}
+    if(R.Id.IsNone()){Error=TEXT("当前工件的配方不可用，可在管理面板取消工件并查看返料");return;}
     if(!System->Job().Id.IsEmpty()&&System->Job().PartCount!=R.Parts.Num())
-    {Error=TEXT("工件组件与配方不一致，请恢复原配方配置");return;}
+    {Error=TEXT("工件组件与配方不一致，可在管理面板取消工件并查看返料");return;}
     Camera->SetRelativeLocation(R.Camera);Camera->SetRelativeRotation((R.LookAt-R.Camera).Rotation());
-    TArray<FSoftObjectPath> Assets={GAPath(R.BodyMesh),GAPath(GAArms),GAPath(GAGhost),GAPath(GASound)};
+    TArray<FSoftObjectPath> Assets={GAPath(R.BodyMesh),GAPath(GAArms),GAPath(GAGhost),GAPath(GASound),GAPath(GACalibrationSound)};
     for(const auto& P:R.Parts)Assets.Add(GAPath(P.Mesh));
     Load=UAssetManager::GetStreamableManager().RequestAsyncLoad(Assets,FStreamableDelegate::CreateUObject(this,&ThisClass::AssetsLoaded));
 }
@@ -73,8 +86,59 @@ void AGunAssemblyInteraction::AssetsLoaded()
         C->SetStaticMesh(Mesh);C->SetMobility(EComponentMobility::Movable);C->SetCollisionEnabled(ECollisionEnabled::NoCollision);C->RegisterComponent();Parts.Add(C);
         Positions.Add(R.Parts[I].Loose);Angles.Add(R.Parts[I].Angle);
     }
-    ContactSound=GAResolve<USoundBase>(GASound);SetupHands();
+    ContactSound=GAResolve<USoundBase>(GASound);SetupHands();CacheWorkspace();
+    if(auto* Wave=GAResolve<USoundWave>(GACalibrationSound))
+    {
+        // Instance-local loop: do not change the waveform or its use by the original gun.
+        CalibrationLoop=NewObject<USoundCue>(this,NAME_None,RF_Transient);
+        CalibrationLoop->SoundClassObject=Wave->SoundClassObject;CalibrationLoop->VolumeMultiplier=1.f;
+        auto* Player=NewObject<USoundNodeWavePlayer>(CalibrationLoop,NAME_None,RF_Transient);
+        Player->SetSoundWave(Wave);Player->bLooping=true;CalibrationLoop->FirstNode=Player;
+        CalibrationLoop->Duration=INDEFINITELY_LOOPING_DURATION;CalibrationAudio->SetSound(CalibrationLoop);
+    }
     bReady=bHandsReady&&!Parts.IsEmpty()&&Parts.Num()==R.Parts.Num();if(!bReady)Error=TEXT("装配抓握资源未就绪");
+}
+void AGunAssemblyInteraction::CacheWorkspace()
+{
+    const auto& R=System->Recipe();Workspace=FBox(ForceInit);DragBounds=FBox(ForceInit);
+    Workspace+=Body->GetStaticMesh()->GetBoundingBox().ShiftBy(R.BodyPosition);
+    for(int32 I=0;I<R.Parts.Num();++I)
+    {
+        const auto& Part=R.Parts[I];const FBox MeshBox=Parts[I]->GetStaticMesh()->GetBoundingBox();
+        // Reserve the part's full rotation envelope, including off-centre source meshes.
+        const FVector E=MeshBox.GetExtent()+MeshBox.GetCenter().GetAbs();
+        const double Radius=FVector2D(E.X,E.Y).Size();const FVector Extent(Radius,Radius,E.Z);
+        for(const FVector& Position:{Part.Loose,Part.Target})
+        {Workspace+=FBox(Position-Extent,Position+Extent);DragBounds+=Position;}
+    }
+    Workspace=Workspace.ExpandBy(4.);DragBounds=DragBounds.ExpandBy(FMath::Max(12.f,R.PositionTolerance*2));
+}
+void AGunAssemblyInteraction::FrameWorkspace()
+{
+    if(!PC.IsValid()||!Workspace.IsValid||Dragged!=INDEX_NONE||Snapping!=INDEX_NONE)return;
+    int32 W=0,H=0;PC->GetViewportSize(W,H);if(W<=0||H<=0||FramedViewport==FIntPoint(W,H))return;
+    FramedViewport=FIntPoint(W,H);WorkspaceBottom=Prompt?Prompt->WorkspaceBottom(H):.6f;
+    const auto& R=System->Recipe();const FVector Forward=(R.LookAt-R.Camera).GetSafeNormal();
+    const FRotator ViewRotation=Forward.Rotation();
+    const FVector Right=ViewRotation.RotateVector(FVector::RightVector),Up=ViewRotation.RotateVector(FVector::UpVector);
+    const double TanX=FMath::Tan(FMath::DegreesToRadians(Camera->FieldOfView*.5)),TanY=TanX*H/W;
+    const double CentreY=(.08+WorkspaceBottom)*.5;double Distance=FMath::Max(20.,(R.Camera-R.LookAt).Size());
+    FVector Eye=R.Camera;
+    // Fit once on entry/resize; the camera never follows a dragged part or a new install step.
+    for(int32 Attempt=0;Attempt<64;++Attempt)
+    {
+        const FVector Focus=Workspace.GetCenter()-Up*((1.-2.*CentreY)*Distance*TanY);
+        Eye=Focus-Forward*Distance;bool Fits=true;
+        for(int32 Corner=0;Corner<8;++Corner)
+        {
+            const FVector V=FVector(Corner&1?Workspace.Max.X:Workspace.Min.X,Corner&2?Workspace.Max.Y:Workspace.Min.Y,Corner&4?Workspace.Max.Z:Workspace.Min.Z)-Eye;
+            const double Depth=V|Forward;if(Depth<=1.){Fits=false;break;}
+            const double X=.5+(V|Right)/(2.*Depth*TanX),Y=.5-(V|Up)/(2.*Depth*TanY);
+            if(X<.06||X>.94||Y<.08||Y>WorkspaceBottom){Fits=false;break;}
+        }
+        if(Fits)break;Distance*=1.12;
+    }
+    Camera->SetRelativeLocation(Eye);Camera->SetRelativeRotation(ViewRotation);
 }
 bool AGunAssemblyInteraction::Ready(FString& Reason) const
 {
@@ -87,8 +151,7 @@ bool AGunAssemblyInteraction::Start(FString& Reason)
 {
     if(!Ready(Reason))return false;
     if(System->Job().Id.IsEmpty())return System->Start(Reason);
-    if(System->Job().Recipe!=System->Recipe().Id){Reason=TEXT("工件配方不匹配");return false;}
-    return true;
+    return System->Resume(Reason);
 }
 void AGunAssemblyInteraction::Enter()
 {
@@ -101,9 +164,11 @@ void AGunAssemblyInteraction::Enter()
     if(WorkingPawn.IsValid()&&!Player->HiddenActors.Contains(WorkingPawn.Get())){Player->HiddenActors.Add(WorkingPawn.Get());bHiddenPawn=true;}
     for(int32 I=0;I<Parts.Num();++I)
     {if(System->Installed(I)){Positions[I]=System->Recipe().Parts[I].Target;Angles[I]=0;}else ResetLoose(I);}
-    HandPosition=FVector(43,27,110);Clock=0;FinishAt=System->Job().bFinished?0:-1;
-    SetActorHiddenInGame(false);SetActorTickEnabled(true);Present(0);Player->SetViewTargetWithBlend(this,.35f,VTBlend_Cubic);
+    HandPosition=FVector(43,27,110);Clock=FinishRetryAt=0;
+    CalibrationClock=System->Job().CalibrationTime;CalibrationSeed=FCrc::StrCrc32(*System->Job().Id);
     Prompt=CreateWidget<UGunAssemblyActionWidget>(Player);Prompt->AddToViewport(80);
+    Prompt->Refresh(System,FString(),INDEX_NONE,false);FrameWorkspace();
+    SetActorHiddenInGame(false);SetActorTickEnabled(true);Present(0);Player->SetViewTargetWithBlend(this,.35f,VTBlend_Cubic);
 }
 bool AGunAssemblyInteraction::CursorOnPlane(float Height,FVector& Local) const
 {
@@ -117,6 +182,23 @@ bool AGunAssemblyInteraction::CursorOnPlane(float Height,FVector& Local) const
 bool AGunAssemblyInteraction::HandleInput(const FInputKeyEventArgs& E)
 {
     if(!bRunning)return false;
+    if(E.Key==EKeys::Q||E.Key==EKeys::E)
+    {
+        bool& Held=E.Key==EKeys::Q?bRotateLeft:bRotateRight;
+        if(E.Event==IE_Released){Held=false;RotationDelayRemaining=GARotationHoldDelay;}
+        else if(E.Event==IE_Pressed&&Dragged!=INDEX_NONE)
+        {
+            Held=true;RotationDelayRemaining=GARotationHoldDelay;
+            if(bRotateLeft!=bRotateRight)Angles[Dragged]=FMath::UnwindDegrees(Angles[Dragged]+(bRotateRight?GARotationStep:-GARotationStep));
+        }
+        return true; // Tick owns held rotation; OS keyboard repeat never adds duplicate steps.
+    }
+    if(E.Key==EKeys::MouseScrollUp||E.Key==EKeys::MouseScrollDown)
+    {
+        if(Dragged!=INDEX_NONE&&(E.Event==IE_Pressed||E.Event==IE_Repeat))
+            Angles[Dragged]=FMath::UnwindDegrees(Angles[Dragged]+(E.Key==EKeys::MouseScrollUp?GARotationStep:-GARotationStep));
+        return true;
+    }
     if(E.Key==EKeys::MouseX||E.Key==EKeys::MouseY)
     {
         int32 W=1,H=1;PC->GetViewportSize(W,H);
@@ -139,23 +221,23 @@ bool AGunAssemblyInteraction::HandleInput(const FInputKeyEventArgs& E)
             bHeld=true;
             if(!System->Assembled()&&Hovered!=INDEX_NONE&&!System->Installed(Hovered))
             {
-                Dragged=Hovered;FVector P;if(CursorOnPlane(Positions[Dragged].Z,P))DragOffset=Positions[Dragged]-P;
-                PlayContact(.85f);Feedback=System->Recipe().Parts[Dragged].Name+TEXT(" · 拖向安装轮廓");FeedbackUntil=Clock+2;
+                Dragged=Hovered;FVector P;DragOffset=FVector::ZeroVector;
+                if(CursorOnPlane(System->Recipe().Parts[Dragged].Target.Z,P))DragOffset=Positions[Dragged]-P;
+                DragOffset.Z=0;
+                PlayContact(.85f);Feedback=System->Recipe().Parts[Dragged].Name+TEXT(" · 将零件圆心拖到明亮安装圈，旋转至 0°");FeedbackUntil=Clock+2;
             }
         }
-        if(Dragged!=INDEX_NONE)
-        {
-            if(E.Key==EKeys::MouseScrollUp||E.Key==EKeys::R)Angles[Dragged]=FMath::UnwindDegrees(Angles[Dragged]+5);
-            if(E.Key==EKeys::MouseScrollDown||E.Key==EKeys::Q)Angles[Dragged]=FMath::UnwindDegrees(Angles[Dragged]-5);
-        }
     }
-    if(E.Key==EKeys::LeftMouseButton&&E.Event==IE_Released){bHeld=false;if(Dragged!=INDEX_NONE)Drop();}
+    if(E.Key==EKeys::LeftMouseButton&&E.Event==IE_Released){bHeld=false;UpdateCalibrationAudio(false,0.f);if(Dragged!=INDEX_NONE)Drop();}
     return true; // No fire, movement, hotbar or menu key can pass into gameplay.
 }
+void AGunAssemblyInteraction::ClearRotationInput()
+{bRotateLeft=bRotateRight=false;RotationDelayRemaining=0;}
 void AGunAssemblyInteraction::ResetLoose(int32 I)
-{Positions[I]=System->Recipe().Parts[I].Loose;Angles[I]=System->Recipe().Parts[I].Angle;}
+{ClearRotationInput();Positions[I]=System->Recipe().Parts[I].Loose;Angles[I]=System->Recipe().Parts[I].Angle;}
 void AGunAssemblyInteraction::Drop()
 {
+    ClearRotationInput();
     const int32 I=Dragged;Dragged=INDEX_NONE;const auto& P=System->Recipe().Parts[I];
     const float Distance=FVector2D(Positions[I]-P.Target).Size();
     if(System->Install(I,Distance,FMath::UnwindDegrees(Angles[I]),Feedback))
@@ -172,8 +254,8 @@ void AGunAssemblyInteraction::Tick(float Dt)
     auto* VP=GetWorld()->GetGameViewport();
     const bool Focused=VP&&VP->Viewport&&VP->Viewport->HasFocus()&&!GetWorld()->IsPaused();
     if(!Focused)
-    {bHeld=false;if(Dragged!=INDEX_NONE){ResetLoose(Dragged);Dragged=INDEX_NONE;}Ghost->SetVisibility(false);return;}
-    Clock+=Dt;
+    {bHeld=false;StopCalibrationAudio();ClearRotationInput();if(Dragged!=INDEX_NONE){ResetLoose(Dragged);Dragged=INDEX_NONE;}Ghost->SetVisibility(false);return;}
+    Clock+=Dt;FrameWorkspace();
     if(Snapping!=INDEX_NONE)
     {
         SnapTime+=Dt;const float A=FMath::SmoothStep(0.f,1.f,FMath::Clamp(SnapTime/.32f,0.f,1.f));
@@ -183,9 +265,15 @@ void AGunAssemblyInteraction::Tick(float Dt)
     }
     if(Dragged!=INDEX_NONE)
     {
+        if(bRotateLeft!=bRotateRight)
+        {
+            const float Step=FMath::Clamp(Dt,0.f,.1f),Wait=FMath::Min(Step,RotationDelayRemaining);
+            RotationDelayRemaining-=Wait;
+            Angles[Dragged]=FMath::UnwindDegrees(Angles[Dragged]+(bRotateRight?1.f:-1.f)*GARotationSpeed*(Step-Wait));
+        }
         FVector P;const auto& Part=System->Recipe().Parts[Dragged];
-        const float Height=Part.Target.Z+3;
-        if(CursorOnPlane(Height,P)){P+=DragOffset;Positions[Dragged]=FVector(FMath::Clamp(P.X,53.,113.),FMath::Clamp(P.Y,-60.,60.),Height);}
+        const float Height=Part.Target.Z;
+        if(CursorOnPlane(Height,P)){P+=DragOffset;Positions[Dragged]=FVector(FMath::Clamp(P.X,DragBounds.Min.X,DragBounds.Max.X),FMath::Clamp(P.Y,DragBounds.Min.Y,DragBounds.Max.Y),Height);}
     }
     Hovered=INDEX_NONE;double Best=MAX_dbl;
     if(Dragged==INDEX_NONE&&!System->Assembled())for(int32 I=0;I<Parts.Num();++I)if(!System->Installed(I))
@@ -195,27 +283,54 @@ void AGunAssemblyInteraction::Tick(float Dt)
         const double Metric=FMath::Square(D.X/FMath::Max(3.5,R.Extent.X+1.5))+FMath::Square(D.Y/FMath::Max(3.5,R.Extent.Y+1.5));
         if(Metric<=1.35&&Metric<Best){Best=Metric;Hovered=I;}
     }
-    const float T=System->Job().CalibrationTime;
-    CalibrationTarget=FVector2D(.5+.105*FMath::Sin(T*.9),.40+.065*FMath::Sin(T*1.3+.4));
+    if(System->Job().bFinished){PlayContact(.95f);Stop(true);return;}
+    const float T=GetNetMode()==NM_Client?FMath::Max(CalibrationClock,System->Job().CalibrationTime):System->Job().CalibrationTime;
     int32 W=1,H=1;PC->GetViewportSize(W,H);
-    const float CalibrationError=((Aim-CalibrationTarget)*FVector2D(W,H)).Size()/(FMath::Min(W,H)*.047f);
-    if(System->Assembled()&&!System->Job().bFinished&&Snapping==INDEX_NONE&&bHeld)
+    const float Radius=GunAssemblyCalibration::Radius(T,CalibrationSeed);
+    // Reserve the top instruction banner as well as the bottom panel, including the largest ring.
+    const float Top=Prompt?Prompt->CalibrationTop(H):.08f;
+    const float RadiusY=Radius*FMath::Min(W,H)/FMath::Max(1,H);
+    const float Travel=FMath::Min(.05f,FMath::Max(0.f,(WorkspaceBottom-Top)*.5f-RadiusY-.01f));
+    CalibrationTarget=FVector2D(.5+.105*FMath::Sin(T*.9),(Top+WorkspaceBottom)*.5f+Travel*FMath::Sin(T*1.3+.4));
+    const float CalibrationError=((Aim-CalibrationTarget)*FVector2D(W,H)).Size()/FMath::Max(1.f,FMath::Min(W,H)*Radius);
+    const bool Inside=System->Assembled()&&Snapping==INDEX_NONE&&bHeld&&CalibrationError<=1&&GunAssemblyCalibration::Following(T);
+    UpdateCalibrationAudio(Inside,Dt);
+    if(System->Assembled()&&Snapping==INDEX_NONE)
     {
-        System->Calibrate(Dt,CalibrationError);
-        if(System->Job().CalibrationSeconds>=System->Job().CalibrationDuration&&System->Finish(Feedback))
-        {FinishAt=Clock;PlayContact(.95f);}else if(System->Job().CalibrationSeconds>=System->Job().CalibrationDuration){bHeld=false;FeedbackUntil=Clock+5;}
+        System->Calibrate(Dt,bHeld?CalibrationError:2.f);
+        // Smooth the owner HUD between authoritative 4 Hz snapshots, without predicting the result.
+        CalibrationClock=FMath::Min(FMath::Min(GunAssemblyCalibration::Duration,System->Job().CalibrationTime+.35f),T+FMath::Clamp(Dt,0.f,.25f));
+        if(GunAssemblyCalibration::Complete(System->Job().CalibrationTime)&&Clock>=FinishRetryAt)
+        {
+            System->Finish(Feedback);bHeld=false;FeedbackUntil=Clock+5;FinishRetryAt=Clock+2;
+        }
     }
+    if(System->Job().bFinished){PlayContact(.95f);Stop(true);return;}
     Present(Dt);
     if(Prompt)
     {
-        Prompt->Aim=Aim;Prompt->Target=CalibrationTarget;Prompt->bInside=bHeld&&CalibrationError<=1;
+        Prompt->Aim=Aim;Prompt->Target=CalibrationTarget;Prompt->CalibrationRadius=Radius;Prompt->CalibrationTime=T;
+        Prompt->bInside=Inside;
         Prompt->Markers.Reset();Prompt->Names.Reset();Prompt->Done.Reset();
         for(int32 I=0;I<Parts.Num();++I)
         {FVector2D P;PC->ProjectWorldLocationToScreen(GetActorTransform().TransformPosition(Positions[I]),P);Prompt->Markers.Add(P/FVector2D(W,H));Prompt->Names.Add(System->Recipe().Parts[I].Name);Prompt->Done.Add(System->Installed(I));}
-        RefreshClock+=Dt;if(RefreshClock>=.05f){RefreshClock=0;Prompt->Refresh(System,Clock<FeedbackUntil?Feedback:FString(),Dragged!=INDEX_NONE?Dragged:Hovered,bHeld);}
+        int32 Guide=Dragged!=INDEX_NONE?Dragged:Hovered;
+        if(Guide==INDEX_NONE)for(int32 I=0;I<Parts.Num();++I)if(!System->Installed(I)){Guide=I;break;}
+        Prompt->bInstallGuide=false;
+        if(Guide!=INDEX_NONE&&!System->Installed(Guide))
+        {
+            const auto& Part=System->Recipe().Parts[Guide];FVector2D Screen;
+            if(PC->ProjectWorldLocationToScreen(GetActorTransform().TransformPosition(Part.Target),Screen))
+            {
+                Prompt->bInstallGuide=true;Prompt->InstallTarget=Screen/FVector2D(W,H);Prompt->InstallPart=Prompt->Markers[Guide];
+                Prompt->InstallName=Part.Name;Prompt->InstallDistance=FVector2D(Positions[Guide]-Part.Target).Size();
+                Prompt->InstallAngle=FMath::UnwindDegrees(Angles[Guide]);
+                Prompt->bInstallReady=Prompt->InstallDistance<=System->Recipe().PositionTolerance&&FMath::Abs(Prompt->InstallAngle)<=System->Recipe().AngleTolerance;
+            }
+        }
+        RefreshClock+=Dt;if(RefreshClock>=.05f){RefreshClock=0;Prompt->Refresh(System,Clock<FeedbackUntil?Feedback:FString(),Guide,bHeld);}
         Prompt->InvalidateLayoutAndVolatility();
     }
-    if(FinishAt>=0&&Clock-FinishAt>4.5f)Stop(true);
 }
 void AGunAssemblyInteraction::Present(float Dt)
 {
@@ -232,9 +347,25 @@ void AGunAssemblyInteraction::Present(float Dt)
 }
 void AGunAssemblyInteraction::PlayContact(float Pitch)
 {if(ContactSound)UGameplayStatics::PlaySound2D(this,ContactSound,.32f,Pitch);}
+void AGunAssemblyInteraction::UpdateCalibrationAudio(bool bSuccessful,float DeltaTime)
+{
+    CalibrationSuccessTime=bSuccessful?FMath::Min(.12f,CalibrationSuccessTime+FMath::Max(0.f,DeltaTime)):0.f;
+    const bool Wanted=CalibrationLoop&&CalibrationSuccessTime>=.12f;
+    if(Wanted==bCalibrationAudioWanted)return;
+    bCalibrationAudioWanted=Wanted;
+    // The confirmation delay exceeds the fade-out, so rapid boundary crossings never stack sounds.
+    if(Wanted)CalibrationAudio->FadeIn(.04f,1.f);
+    else if(CalibrationAudio->IsPlaying())CalibrationAudio->FadeOut(.04f,0.f);
+}
+void AGunAssemblyInteraction::StopCalibrationAudio()
+{
+    CalibrationSuccessTime=0.f;bCalibrationAudioWanted=false;
+    if(CalibrationAudio)CalibrationAudio->Stop();
+}
 void AGunAssemblyInteraction::RestorePlayer()
 {
     ColdSteelWorkstationView::Restore(PC.Get(),this,WorkingPawn.Get(),PreviousView.Get(),.25f);
+    StopCalibrationAudio();
     if(auto* Player=PC.Get())
     {
         if(bInputLocked){Player->SetIgnoreMoveInput(false);Player->SetIgnoreLookInput(false);bInputLocked=false;Player->FlushPressedKeys();}
@@ -245,7 +376,8 @@ void AGunAssemblyInteraction::RestorePlayer()
 }
 void AGunAssemblyInteraction::Stop(bool bReturnPanel)
 {
-    if(!bRunning)return;bRunning=false;bHeld=false;Dragged=INDEX_NONE;
+    if(!bRunning)return;bRunning=false;bHeld=false;Dragged=INDEX_NONE;ClearRotationInput();
+    StopCalibrationAudio();
     FString Why;if(System&&!System->Pause(Why))Feedback=Why;
     SetActorTickEnabled(false);RestorePlayer();SetActorHiddenInGame(true);
     if(auto* OwnerHUD=HUD.Get())OwnerHUD->CompleteGunAssembly(this,bReturnPanel&&Station.IsValid()&&!Station->IsFalling());
@@ -253,6 +385,7 @@ void AGunAssemblyInteraction::Stop(bool bReturnPanel)
 }
 void AGunAssemblyInteraction::EndPlay(const EEndPlayReason::Type Reason)
 {
+    StopCalibrationAudio();
     if(bRunning){bRunning=false;FString Why;if(System)System->Pause(Why);RestorePlayer();}
     if(Load.IsValid())Load->CancelHandle();Super::EndPlay(Reason);
 }

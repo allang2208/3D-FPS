@@ -1,5 +1,7 @@
 #include "AuthoredDungeonLighting.h"
 #include "AuthoredDungeonGenerator.h"
+#include "DungeonRunSubsystem.h"
+#include "../Diagnostics/FPSResourceLifecycle.h"
 
 #include "Components/PointLightComponent.h"
 #include "Components/PrimitiveComponent.h"
@@ -25,29 +27,41 @@ static TAutoConsoleVariable<int32> RoomCulling(
     TEXT("Fade generated and preserved start-area local lights by room/portal candidates. 0 keeps all room lights enabled."));
 static TAutoConsoleVariable<int32> GeometryCulling(
     TEXT("fps.Dungeon.Rendering.RoomCulling"), 1,
-    TEXT("Standalone only: hide distant generated static render groups outside room/portal candidates. Collision and gameplay remain active."));
+    TEXT("Local-view rendering: hide distant generated static render groups outside room/portal candidates. Collision and gameplay remain active."));
 static TAutoConsoleVariable<float> GeometryKeepDistance(
     TEXT("fps.Dungeon.Rendering.KeepDistanceCm"), 3000.f,
     TEXT("Always retain geometry in rooms within this distance of the viewer, including off-screen shadow/reflection surroundings."));
 
 bool IsOptimizationEnabled() { return Optimize.GetValueOnGameThread() != 0; }
+float AdvanceVisibility(float Alpha, bool bWanted, float DeltaSeconds)
+{
+    return FMath::FInterpConstantTo(Alpha, bWanted ? 1.f : 0.f, DeltaSeconds, bWanted ? 1.f / .35f : 1.f / .8f);
+}
 }
 
 void AAuthoredDungeonGenerator::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {
+    FPSResourceLifecycle::Record(this,TEXT("Dungeon.BeforeEndPlay"),{
+        {TEXT("generation_resource_references"),GenerationResources.Num()},
+        {TEXT("render_groups"),RenderGroups.Num()}});
+    if(auto* Run=UDungeonRunSubsystem::Get(GetWorld());Run&&Run->IsBoundTo(this))Run->UnbindDungeon();
     CancelAssembly();
+    Atmosphere.Reset();
     ResetRoomLighting();
     LightModules.Reset();
     RenderGroups.Reset();GenerationResources.Reset();
+    FPSResourceLifecycle::Record(this,TEXT("Dungeon.AfterEndPlay"),{
+        {TEXT("generation_resource_references"),GenerationResources.Num()},
+        {TEXT("render_groups"),RenderGroups.Num()}});
     Super::EndPlay(EndPlayReason);
 }
 
 void AAuthoredDungeonGenerator::StartRoomLighting()
 {
-    if (!GetWorld()->IsGameWorld() || GetNetMode() != NM_Standalone) return;
+    if (!GetWorld()->IsGameWorld() || GetNetMode() == NM_DedicatedServer) return;
     if (LightModules.IsEmpty()) return;
     auto& Start = LightModules.Last();
-    // Only adopt standalone local lights inside the reserved start; never edit the level asset.
+    // Adopt this peer's local lights inside the reserved start; never edit the level asset.
     // Generated actors already belong to their own modules.
     for (TActorIterator<ALight> It(GetWorld()); It; ++It)
     {
@@ -109,9 +123,14 @@ void AAuthoredDungeonGenerator::UpdateRoomLighting()
     FVector ViewPosition=FVector::ZeroVector;
     bool bHasView=false;
 
-    APlayerController* Viewer = GetWorld()->GetFirstPlayerController();
-    // A one-view policy cannot safely control global visibility in split screen.
-    const bool bSingleView=GetWorld()->GetNumPlayerControllers()==1;
+    APlayerController* Viewer=nullptr;
+    int32 LocalViews=0;
+    for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
+        if(auto* PC=It->Get();PC&&PC->IsLocalController()&&PC->GetLocalPlayer())
+        {Viewer=PC;++LocalViews;}
+    // Remote players do not contribute to this machine's rendered view. Keep
+    // the conservative all-visible fallback for genuine local split screen.
+    const bool bSingleView=LocalViews==1;
     if (Viewer && Viewer->GetViewTarget() && bSingleView && (bCullLights||bCullGeometry))
     {
         FVector Eye;
@@ -205,12 +224,13 @@ void AAuthoredDungeonGenerator::UpdateRoomLighting()
             if (!Light) continue;
             const float Target = bKeep ? 1.f : 0.f;
             if (State.Alpha == Target) continue;
-            State.Alpha = FMath::FInterpConstantTo(State.Alpha, Target, Delta, bKeep ? 1.f / .35f : 1.f / .8f);
+            State.Alpha = AuthoredDungeonLighting::AdvanceVisibility(State.Alpha, bKeep, Delta);
             Light->SetIntensity(State.FullIntensity * FMath::SmoothStep(0.f, 1.f, State.Alpha));
             Light->SetVisibility(State.Alpha > 0.f);
         }
     }
     UpdateRoomRendering(Wanted,bHasView?&ViewPosition:nullptr,Now);
+    Atmosphere.Update(this,Wanted,Now,Delta);
 }
 
 void AAuthoredDungeonGenerator::ResetRoomRendering()

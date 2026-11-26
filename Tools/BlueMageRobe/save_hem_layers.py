@@ -2,7 +2,7 @@
 import json,hashlib,gc,sys,importlib.util
 from pathlib import Path
 import unreal as u
-P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/BlueMageRobe20261018/HemContinuity20261019';DEST='/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/HemContinuity20261019'
+P=Path('D:/FPS3D/FPSGAME');R=P/'SourceAssets/BlueMageRobe20261018/TurnLegContinuity20261020';DEST='/Game/Characters/ModularOutfit20260924/BlueMageRobe20261018/TurnLegContinuity20261020'
 sys.path.insert(0,str(P/'Tools/BlueMageRobe'));import save_assets as shared
 import hem_materials
 E=u.EditorAssetLibrary;A=u.AssetToolsHelpers.get_asset_tools();G=u.GeometryScript_AssetUtils;S=u.get_editor_subsystem(u.SkeletalMeshEditorSubsystem)
@@ -20,6 +20,23 @@ def main():
         if not row['hidden_source_triangles']:
             receipt['underlayers'][row['original']]=row['source'];record();continue
         file=Path(row['authored']);raw=file.read_bytes();sha=hashlib.sha256(raw+hem_materials.REV.encode()).hexdigest();name='SK_'+row['key']+'_RobeHem';folder=DEST+'/'+row['profile'];path=folder+'/'+name;asset=u.load_asset(path)
+        if row['kind'] in ('pants','shoes') and (not asset or E.get_metadata_tag(asset,'RobeHemSourceSHA')!=sha):
+            # Every surface on these parts is lower-body geometry. The shader
+            # already pins the rest-space ankle/foot, so no geometric seam or
+            # LOD rebuild is needed: keep the complete native mesh verbatim.
+            source=u.load_asset(row['source'])
+            if not source:raise RuntimeError('Missing complete lower equipment '+row['source'])
+            asset=asset or A.duplicate_asset(name,folder,source)
+            slots=list(asset.get_editor_property('materials'))
+            original_slots=list(source.get_editor_property('materials'))
+            for i,slot in enumerate(slots):
+                slot.set_editor_property('material_interface',hem_materials.make(original_slots[i].material_interface))
+                slot.set_editor_property('material_slot_name','RobeStairHidden_'+str(i))
+            asset.set_editor_property('materials',slots)
+            asset.set_editor_property('physics_asset',None)
+            E.set_metadata_tag(asset,'RobeHemSourceSHA',sha)
+            E.set_metadata_tag(asset,'SourceContract','Complete native lower equipment; original geometry, binding and LODs; rest-space ankle seam in material only')
+            save(asset);del source,slots,original_slots
         if not asset or E.get_metadata_tag(asset,'RobeHemSourceSHA')!=sha:
             d=json.loads(raw);source=u.load_asset(row['source']);native,status=G.copy_mesh_from_skeletal_mesh(source,u.DynamicMesh(),u.GeometryScriptCopyMeshFromAssetOptions(),u.GeometryScriptMeshReadLOD())
             if status!=u.GeometryScriptOutcomePins.SUCCESS:raise RuntimeError('Source binding unavailable '+row['key'])

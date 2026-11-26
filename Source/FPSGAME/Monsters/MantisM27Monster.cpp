@@ -1,4 +1,5 @@
 #include "MantisM27Monster.h"
+#include "MonsterTargeting.h"
 #include "AIController.h"
 #include "FatZombieAnimInstance.h"
 #include "HumanoidKnockdownComponent.h"
@@ -187,13 +188,13 @@ void AMantisM27Monster::SweepBlade(const FVector (&From)[3], const FVector (&To)
             FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeCapsule(BladeHitRadius,Span.Size()*.5f+BladeHitRadius),Query);
         for (const auto& Hit : Hits)
         {
-            if (TryScytheHit(Cast<APawn>(Hit.GetActor()))) return;
+            if (TryScytheHit(Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor())))) return;
         }
     }
 }
 bool AMantisM27Monster::TryScytheHit(APawn* Victim)
 {
-    if (bContactConsumed || !IsValid(Victim) || !Victim->IsPlayerControlled()) return false;
+    if (bContactConsumed || !IsValid(Victim) || !MonsterTargeting::IsOpponentPawn(Victim)) return false;
     const float Reach = MonsterCombatTuning::AttackDistance(AttackRange);
     const float VictimRadius = Victim->GetSimpleCollisionRadius();
     if (!CanMeleeFrom(Victim, GetActorLocation(), Reach+VictimRadius)) return false;
@@ -221,7 +222,7 @@ void AMantisM27Monster::SweepMeleeEnvelope()
     GetWorld()->OverlapMultiByObjectType(Hits,GetActorLocation(),FQuat::Identity,
         FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeBox(FVector(Reach,Reach,110.f)),Query);
     for (const auto& Hit : Hits)
-        if (TryScytheHit(Cast<APawn>(Hit.GetActor()))) return;
+        if (TryScytheHit(Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor())))) return;
 }
 void AMantisM27Monster::ProcessAttackContact(float Previous, float Current)
 {

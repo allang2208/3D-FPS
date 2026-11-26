@@ -1,4 +1,7 @@
 #include "DungeonBossEncounter.h"
+#include "DungeonRunSubsystem.h"
+#include "Engine/World.h"
+#include "TimerManager.h"
 #include "Components/BoxComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -46,7 +49,7 @@ ADungeonBossEncounter::ADungeonBossEncounter()
         Surface->ComponentTags.Add(TEXT("DungeonBossWalkSurface"));
     };
 #include "DungeonBossWalkSurfaces.inl"
-    PrimaryActorTick.bCanEverTick=false;
+    PrimaryActorTick.bCanEverTick=true;PrimaryActorTick.bStartWithTickEnabled=false;
     Tags.Add(TEXT("DungeonTerminalFixtures"));
 }
 
@@ -68,13 +71,52 @@ void ADungeonBossEncounter::OnConstruction(const FTransform& Transform)
 void ADungeonBossEncounter::ConfigureRewardExit(UStaticMesh* LeafMesh,const FVector& Position,
     const FVector& Travel,const FVector& ClearSize,AActor* Chest,ASceneTestPortal* ReturnPortal)
 {
-    // Preserve travel and walkable structure without pretending the old boss was killed.
-    // The reward chest remains locked until new gameplay rules are authored.
+    RewardChest=Chest;RewardPortal=ReturnPortal;RewardClosed=Position;RewardTravel=Travel;
+    RewardOpenAlpha=0.f;bRewardReleased=false;
     RewardGate->SetStaticMesh(LeafMesh);
-    RewardGate->SetRelativeLocation(Position+Travel);
-    RewardGateCollision->SetRelativeLocation(Position+Travel+FVector(0,0,ClearSize.Z*.5));
+    RewardGate->SetRelativeLocation(Position);
+    RewardGateCollision->SetRelativeLocation(Position+FVector(0,0,ClearSize.Z*.5));
     RewardGateCollision->SetBoxExtent(ClearSize*.5);
-    RewardGateCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    RewardGateCollision->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
     if(Chest)Chest->Tags.AddUnique(TEXT("DungeonReward.Locked"));
-    if(ReturnPortal)ReturnPortal->Tags.Remove(TEXT("DungeonReward.Locked"));
+    if(ReturnPortal)ReturnPortal->Tags.AddUnique(TEXT("DungeonReward.Locked"));
+}
+
+void ADungeonBossEncounter::BeginPlay()
+{
+    Super::BeginPlay();
+    GetWorldTimerManager().SetTimer(ProgressTimer,this,&ADungeonBossEncounter::UpdateFinalProgress,.1f,true);
+}
+
+void ADungeonBossEncounter::UpdateFinalProgress()
+{
+    const auto* Run=UDungeonRunSubsystem::Get(GetWorld());
+    if(!Run||!Run->IsRunActive())return;
+    // Generated fixtures exist locally on each peer. Read only the shared
+    // server outcome; never infer a kill from a missing local monster.
+    if(!bRewardReleased&&Run->IsFinalBossDefeated())
+    {
+        bRewardReleased=true;SetActorTickEnabled(true);
+        if(RewardChest.IsValid())RewardChest->Tags.Remove(TEXT("DungeonReward.Locked"));
+    }
+    if(Run->CanUseFinalReturn())
+    {
+        if(RewardPortal.IsValid())RewardPortal->Tags.Remove(TEXT("DungeonReward.Locked"));
+        GetWorldTimerManager().ClearTimer(ProgressTimer);
+    }
+}
+
+void ADungeonBossEncounter::Tick(float Dt)
+{
+    Super::Tick(Dt);
+    if(!bRewardReleased){SetActorTickEnabled(false);return;}
+    RewardOpenAlpha=FMath::FInterpConstantTo(RewardOpenAlpha,1.f,Dt,1.f/.9f);
+    RewardGate->SetRelativeLocation(RewardClosed+RewardTravel*FMath::SmoothStep(0.f,1.f,RewardOpenAlpha));
+    if(RewardOpenAlpha>=1.f)
+    {RewardGateCollision->SetCollisionEnabled(ECollisionEnabled::NoCollision);SetActorTickEnabled(false);}
+}
+
+void ADungeonBossEncounter::EndPlay(const EEndPlayReason::Type Reason)
+{
+    GetWorldTimerManager().ClearTimer(ProgressTimer);Super::EndPlay(Reason);
 }

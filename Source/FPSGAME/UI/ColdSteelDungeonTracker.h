@@ -63,12 +63,15 @@ class FPSGAME_API UColdSteelDungeonTracker : public UUserWidget
     GENERATED_BODY()
 public:
     void SetBottomBoundaryPixels(float Value){BottomBoundaryPixels=Value;RefreshAge=.2f;}
+    void SetWorldMapOpen(bool bOpen);
+    void RefreshTracking();
 protected:
     virtual void NativeOnInitialized() override;
+    virtual void NativeConstruct() override;
+    virtual void NativeDestruct() override;
     virtual TSharedRef<SWidget> RebuildWidget() override;
     virtual void NativeTick(const FGeometry& Geometry, float DeltaTime) override;
 private:
-    void RefreshTracking();
     void UpdatePlacement();
     UPROPERTY(Transient) TObjectPtr<UCanvasPanel> Root;
     UPROPERTY(Transient) TObjectPtr<UCanvasPanelSlot> ListSlot;

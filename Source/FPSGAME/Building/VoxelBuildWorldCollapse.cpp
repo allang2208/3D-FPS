@@ -37,7 +37,7 @@ void AVoxelBuildWorld::RemoveFragment(AVoxelCollapseFragment* Fragment)
     if(!IsValid(Fragment))return;
     Fragments.Remove(Fragment->Id());
     Fragment->Destroy();
-    History.Reset();
+    UndoHistory.ClearVoxelBatches(UndoPlayer);
     MarkSaveDirty();
 }
 

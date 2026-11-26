@@ -1,9 +1,12 @@
 #pragma once
+struct FKukriPairedHeavyHit;
 #include "CoreMinimal.h"
 #include "Subsystems/GameInstanceSubsystem.h"
 #include "ColdSteelInventoryTypes.h"
 #include "ColdSteelWarehouseRules.h"
 #include "ColdSteelAmmoTypes.h"
+#include "ColdSteelAcquisitionNotice.h"
+#include "ColdSteelMagicReadout.h"
 #include "../Movement/FPSStaminaTuning.h"
 #include "ColdSteelStatusModel.generated.h"
 
@@ -21,8 +24,11 @@ UCLASS()
 class FPSGAME_API UColdSteelStatusModel : public UGameInstanceSubsystem
 {
     GENERATED_BODY()
-    friend class ASkillWireAuditController;
-    friend class ASkillWireAuditGameMode;
+    friend class UBowSkillTrainingAuditCommandlet;
+    friend class UShovelEquipAuditCommandlet;
+    friend class ULargeLambMealAuditCommandlet;
+    friend class UFoodSpoilageAuditCommandlet;
+    friend class UWoodworkingAuditCommandlet;
 public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Character") FString CharacterName = TEXT("轮回者");
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Character") FString CharacterClass = TEXT("初心者");
@@ -36,25 +42,55 @@ public:
     bool TrainSwordUppercut(int32 Hits,int32 Kills);
     bool CommitSwordUppercutRelease();
     float SwordUppercutCooldown() const;
+    float SwordUppercutCooldownSeconds() const;
     float SwordUppercutStaminaCost() const;
     float SwordUppercutCooldownDuration() const { return Current.SwordUppercutCooldownDuration; }
     FWhirlwindCast WhirlwindStats(int32 AtLevel=-1) const;
+    FChainSlashCast ChainSlashStats(int32 AtLevel=-1) const;
+    float ChainSlashCooldown() const { return HasNoAbilityCooldown()?0.f:Current.ChainSlashCooldown; }
+    float ChainSlashCooldownDuration() const { return Current.ChainSlashCooldownDuration; }
+    bool CommitChainSlashCast(const FChainSlashCast& Cast);
+    void ApplyChainSlashReceipt(double TotalSpent,float Cooldown,float Duration,int64 Revision,double ServerAt);
+    void TrainChainSlash(int32 Kills);
+    FLeapStrikeCast LeapStrikeStats(int32 AtLevel=-1) const;
+    FLeapStrikeCast LeapStrikeBaseStats(int32 AtLevel=-1) const;
+    float LeapStrikeCooldown() const { return HasNoAbilityCooldown()?0.f:Current.LeapStrikeCooldown; }
+    float LeapStrikeCooldownDuration() const { return Current.LeapStrikeCooldownDuration; }
+    bool CommitLeapStrikeCast(const FLeapStrikeCast& Cast);
+    void ApplyLeapStrikeReceipt(double TotalSpent,float Cooldown,float Duration,int64 Revision,double ServerAt);
+    void TrainLeapStrike(int32 Kills);
+    FShadowStepCast ShadowStepStats(int32 AtLevel=-1) const;
+    float ShadowStepCooldown() const { return HasNoAbilityCooldown()?0.f:Current.ShadowStepCooldown; }
+    float ShadowStepCooldownDuration() const { return Current.ShadowStepCooldownDuration; }
+    bool CommitShadowStepCast(const FShadowStepCast& Cast);
+    void ApplyShadowStepReceipt(double TotalSpent,float Cooldown,float Duration,int64 Revision,double ServerAt);
+    void TrainShadowStep(int32 Kills);
+    FWhirlwindCast ZhufengWhirlwindStats() const;
     float WhirlwindCooldown() const;
     float WhirlwindCooldownDuration() const { return Current.WhirlwindCooldownDuration; }
-    bool CommitWhirlwindCast(const FWhirlwindCast& Cast);
+    bool CommitWhirlwindCast(const FWhirlwindCast& Cast,bool FromZhufengDash=false);
     void TrainWhirlwind(int32 Hits,int32 Kills);
     FDashAttackCast DashAttackStats(int32 AtLevel=-1) const;
     void TrainDashAttack(int32 Hits,int32 Kills);
     FName WeaponMastery(const FColdSteelItem* Item) const;
+    float MeleeMasteryIntervalMultiplier(const FColdSteelItem& Item) const;
     FString ArmorSet() const;
-    double SetEffect(FName Key) const;
+    bool BlueMageSetComplete() const;
+    bool SteelChainmailSetComplete() const;
     bool RangerFieldSetComplete() const;
+    /** ST6 战术五件套（枪械手感）。头盔目前是数据占位，凑齐前恒为 false。 */
+    bool St6TacticalSetComplete() const;
+    double SetEffect(FName Key) const;
+    double MagicRangeMultiplier() const;
     double AdjustCombatStat(FName Key,double Value) const;
     double EquipmentMagicAttack() const;
     double ItemMagicAttack(const FColdSteelItem& Item) const;
     const FColdSteelItem* ActiveSpellbook() const;
+    FColdSteelStaffManaReadout StaffManaReadout(const class AFPSGAMECharacter* Pawn) const;
+    FColdSteelSpellbookReadout SpellbookReadout(const class AFPSGAMECharacter* Pawn) const;
     void ApplySpellCastSpeed(float& CastSpeed) const;
     /** Current spell cost only; shared with cast stats, without damage/attribute evaluation. */
+    float AdjustedManaCost(float BaseCost,bool bApplyFocus=false) const;
     float SpellManaCost(FName Id,int32 AtLevel=-1,bool bApplyFocus=true) const;
     float SpellbookFocusMovementMultiplier() const;
     bool ApplySpellbookFocusBreak();
@@ -93,17 +129,28 @@ public:
     UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Character") TMap<FName, int32> Attributes;
     FColdSteelStatusChanged OnChanged;
     FColdSteelStatusChanged OnStaminaChanged;
+    void SetAcquisitionFeedEnabled(bool Enabled);
+    void ResetAcquisitionNotices();
+    bool PopAcquisitionNotice(FColdSteelAcquisitionNotice& Out,const FString& MatchKey=FString());
+    uint32 AcquisitionNoticeEpoch() const { return AcquisitionEpoch; }
     UFUNCTION(BlueprintPure, Category="Stamina") float Stamina() const { return Current.Stamina; }
     UFUNCTION(BlueprintPure, Category="Stamina") float MaxStamina() const;
     UFUNCTION(BlueprintPure, Category="Stamina") float StaminaRecoveryRate() const;
+    float FoodStaminaRecoveryMultiplier() const;
+    float FoodStaminaMaximumMultiplier() const;
     UFUNCTION(BlueprintPure, Category="Stamina") bool CanSprint() const;
     bool CanSpendStamina(float Amount) const;
     bool SpendStamina(float Amount);
     // Cost producers apply this once; SpendStamina and network receipts take final costs.
     float ActionStaminaMultiplier() const;
+    float HeavyChargeStaminaPerSecond() const;
     void DelayStaminaRecovery();
     // Called on an attributed death, independently of experience/gold eligibility.
     void ApplyKillStaminaRecovery(AActor* Victim);
+    void RestoreCombatStamina(float Amount);
+    double ConfirmedMartialStaminaSpent() const { return Current.UppercutStaminaSpent; }
+    double RefundOathStamina(float Amount);
+    void ApplyOathRefundReceipt(double Total);
     float StaminaRecoveryWait() const { return Current.StaminaRecoveryDelay; }
     FColdSteelMeleeStaminaReadout MeleeStaminaReadout(const class AFPSGAMECharacter* Pawn) const;
     bool SprintExhausted() const { return Current.bSprintExhausted; }
@@ -113,6 +160,8 @@ public:
     FColdSteelSkillEffect DodgeEffect(int32 AtLevel=-1) const;
     float DodgeStaminaCost(int32 AtLevel=-1) const;
     float SprintStaminaPerSecond() const;
+    /** 装备 ADS 时间倍率：adsPercent 为负时缩短开镜耗时，枪械与弓共用；对齐配件 ads_percent 语义。 */
+    double ADSTimeMultiplier() const;
     class AFPSGAMECharacter* RuntimePawn() const;
     bool TrainDodge(int32 Amount);
     /** 巧手通用修炼入口（近战命中/击杀走命中事务，翻越与消耗品等一次性动作用本入口）。 */
@@ -125,8 +174,10 @@ public:
     const FColdSteelSkillDefinition& QuickCombatDefinition() const { return QuickCombatSkill; }
     UFUNCTION(BlueprintPure, Category="Skills") FColdSteelSkillProgress QuickCombatProgress() const;
     // Preview overrides isolate a workbench item's parts from the equipped weapon.
-    FQuickCombatCast QuickCombatStats(int32 AtLevel=-1,const FMeleeModifiers* PreviewModifiers=nullptr) const;
-    float QuickCombatStaminaCost(int32 AtLevel=-1,const FMeleeModifiers* PreviewModifiers=nullptr) const;
+    FQuickCombatCast QuickCombatStats(int32 AtLevel=-1,const FMeleeModifiers* PreviewModifiers=nullptr,const FColdSteelItem* PreviewWeapon=nullptr,
+        const TMap<FString,FString>* PreviewParts=nullptr) const;
+    bool SpendQuickCombatResources(float StaminaCost,float& ManaPaid);
+    float QuickCombatStaminaCost(int32 AtLevel=-1,const FMeleeModifiers* PreviewModifiers=nullptr,const FColdSteelItem* PreviewWeapon=nullptr,const TMap<FString,FString>* PreviewParts=nullptr) const;
     /** 快捷栏沿用 CD 接口，数值仅表示当前武器动作周期，不是技能冷却。 */
     float QuickCombatCooldown() const;
     float QuickCombatCooldownDuration() const { return Current.QuickCombatCooldownDuration; }
@@ -168,8 +219,8 @@ public:
     float LightningCooldown() const { return HasNoAbilityCooldown()?0.f:Current.LightningCooldown; }
     float LightningCooldownDuration() const { return Current.LightningCooldownDuration; }
     bool BeginLightningCast(const FLightningCast& Cast);
-    bool ApplyLightningHit(APawn* Shooter,AActor* Target,const FVector& Origin,const FLightningCast& Cast,float Damage,FLightningRewards& Rewards,bool bTrain=true,const FHitResult* DirectHit=nullptr);
-    void FinishLightningCast(const FLightningRewards& Rewards);
+    bool ApplyLightningHit(APawn* Shooter,AActor* Target,const FVector& Origin,const FLightningCast& Cast,float Damage,FLightningRewards& Rewards,bool bTrain=true,const FHitResult* DirectHit=nullptr,struct FEclipseBowShot* EclipseShot=nullptr);
+    void FinishLightningCast(const FLightningRewards& Rewards,bool bElementalArrow=false);
     const FColdSteelSkillDefinition& HolyLightDefinition() const { return HolyLightSkill; }
     FColdSteelSkillProgress HolyLightProgress() const;
     FHolyLightCast HolyLightStats(int32 AtLevel=-1) const;
@@ -190,6 +241,25 @@ public:
     const FColdSteelSkillDefinition& BlizzardDefinition() const { return BlizzardSkill; }
     FColdSteelSkillProgress BlizzardProgress() const;
     FBlizzardCast BlizzardStats(int32 AtLevel=-1) const;
+    FIlluminationArrowCast IlluminationArrowStats(int32 AtLevel=-1) const;
+    float IlluminationArrowCooldown() const;
+    float IlluminationArrowCooldownDuration() const;
+    bool CanPrepareIlluminationArrow(FString& Reason) const;
+    void StageIlluminationArrowCost(FColdSteelProfile& Profile,const FIlluminationArrowCast& Cast,float StaminaCost=0.f) const;
+    void TrainIlluminationArrow(int32 Experience);
+    FElementalArrowCast ElementalArrowStats(EArrowElement Element,int32 AtLevel=-1) const;
+    void StageElementalArrowTraining(FColdSteelProfile& Profile,int32 Hits,int32 Kills) const;
+    float ElementalArrowCooldown(EArrowElement Element) const;
+    float ElementalArrowCooldownDuration(EArrowElement Element) const;
+    bool CanPrepareElementalArrow(EArrowElement Element,FString& Reason) const;
+    void StageElementalArrowCost(FColdSteelProfile& Profile,const FElementalArrowCast& Cast,float BowStaminaCost=0.f) const;
+    FMagicArrowRainCast MagicArrowRainStats(int32 AtLevel=-1) const;
+    float MagicArrowRainCooldown() const;
+    float MagicArrowRainCooldownDuration() const;
+    bool BeginMagicArrowRain(const FMagicArrowRainCast& Cast);
+    bool ReleaseMagicArrowRain(const FMagicArrowRainCast& Cast,bool bSpendArrow);
+    void CancelMagicArrowRain();
+    void ApplyMagicArrowRain(APawn* Shooter,const FVector& Ground,const FVector& Burst,const FMagicArrowRainCast& Cast);
     float BlizzardCooldown() const;
     float BlizzardCooldownDuration() const;
     bool BeginBlizzardCast(const FBlizzardCast& Spell);
@@ -201,10 +271,12 @@ public:
     float IceSpikeCooldown() const { return HasNoAbilityCooldown()?0.f:Current.IceSpikeCooldown; }
     float IceSpikeCooldownDuration() const { return Current.IceSpikeCooldownDuration; }
     bool BeginIceSpikeCast(const FIceSpikeCast& Cast);
-    void ApplyIceSpikeHit(APawn* Shooter,const FHitResult& Hit,const FIceSpikeCast& Cast,FIceSpikeRewards& Rewards);
-    void FinishIceSpikeCast(const FIceSpikeRewards& Rewards);
+    void ApplyIceSpikeHit(APawn* Shooter,const FHitResult& Hit,const FIceSpikeCast& Cast,FIceSpikeRewards& Rewards,struct FEclipseBowShot* EclipseShot=nullptr);
+    void FinishIceSpikeCast(const FIceSpikeRewards& Rewards,bool bElementalArrow=false);
     FColdSteelSkillProgress FireballProgress() const;
-    FFireballCast FireballStats(int32 AtLevel=-1) const;
+    FFireballCast FireballStats(int32 AtLevel=-1,bool bApplySpecs=true) const;
+    /** Elemental arrow mana cost incl. the 节能 specialization; shared by cast, prepare and hold checks. */
+    float ElementalArrowManaCost(float SpellCost) const;
     /**
      * Wand hook: the spell multiplier carried by the equipped wand's item data
      * (`wandSpellMultiplier`, 1 = unchanged). No wand exists yet, so every spell
@@ -226,9 +298,14 @@ public:
     /** 手势已扣蓝并起冷却，但法术没有放出时退回。Skill 为空则只退蓝。 */
     bool RefundUnreleasedCast(float PaidMana, FName Skill);
     void FinishFireballCast();
-    void ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit=nullptr);
-    float ApplySkillWeaponHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result=nullptr);
+    void ApplyFireballExplosion(APawn* Shooter,const FVector& Center,const FFireballCast& Cast,const FHitResult* DirectHit=nullptr,bool bElementalArrow=false,struct FEclipseBowShot* EclipseShot=nullptr);
+    float ApplySkillWeaponHit(AActor* Shooter,const FHitResult& Hit,float Damage,const FVector& Direction,const FColdSteelSkillShot& Shot,FWeaponDamageResult* Result=nullptr,FKukriPairedHeavyHit* PairedHeavy=nullptr);
     bool PopProgressNotice(FColdSteelProgressNotice& Out);
+    bool TakeInteractionNotice(FColdSteelProgressNotice& Out);
+    /** 角色经验到账飘字队列：只服务 HUD，不写入档案；批量击杀在 StageTraining 合并。 */
+    void QueueExperienceNotice(int64 Amount);
+    bool TakeExperienceNotice(int64& OutAmount);
+    void ResetExperienceNotices();
     virtual void Initialize(FSubsystemCollectionBase& Collection) override;
     virtual void Deinitialize() override;
     double Attribute(FName Key) const;
@@ -252,8 +329,30 @@ public:
     UFUNCTION(BlueprintCallable, Category="Development") bool RaiseSkillLevel(FName Id,int32 Count=1);
     /** 开发面板：把指定技能直接提升到满级。 */
     UFUNCTION(BlueprintCallable, Category="Development") bool MaxSkillLevel(FName Id);
+    // ---- 技能树（2026-11-15，Content/ColdSteelData/skill-tree.json） ----
+    /** 不在技能树中的技能始终为已习得。 */
+    bool IsSkillLearned(FName Id) const;
+    bool CanLearnSkill(FName Id, FString* Reason=nullptr) const;
+    /** 条件满足后免费习得，走存档事务并推送顶部提示。 */
+    bool LearnSkill(FName Id);
+    int32 SpecRank(FName Skill, FName Node) const;
+    int32 SpecPointsFree(FName Skill) const;
+    bool CanInvestSpec(FName Skill, FName Node, FString* Reason=nullptr) const;
+    bool InvestSpec(FName Skill, FName Node);
+    /** 开发面板：返还该技能（或全部，Skill 为 None）的专精点，不改等级与修炼值。返回返还点数，-1 表示失败。 */
+    int32 ResetSpecs(FName Skill);
+    /** 专精数值：已实现节点按 PerRank × 等级累加。 */
+    float SpecStat(FName Skill, const TCHAR* Stat) const;
+    /** 火焰元素箭按比例继承的火球专精数值。 */
+    float InheritedFireSpecStat(const TCHAR* Stat) const;
+    const FColdSteelProfile& ProfileView() const { return Current; }
     /** 开发面板：当前加载的物品目录（定义 id、名称与归纳类别），供分类下拉使用。 */
     const TArray<FColdSteelCatalogEntry>& ItemCatalog() const;
+    /**
+     * 全量物品定义（定义 id → 目录 JSON 文本）。只读：调用方不得改写。
+     * 浮窗统计套装件数要用它遍历目录，因此不能走 ItemCatalog（那是开发面板的归纳视图）。
+     */
+    const TMap<FString,FString>& ItemDefinitions() const { return Definitions; }
     int64 MaxExperience() const;
     int64 Experience() const { return Current.Experience; }
     int32 Kills() const { return Current.Kills; }
@@ -261,6 +360,13 @@ public:
     const TArray<FColdSteelItem>& Items() const { return Current.Items; }
     const FColdSteelItem* FindItem(const FString& Id) const;
     const FColdSteelItem* Equipped(int32 Slot=-1) const;
+    int32 ActiveOffhandSlot() const { return Current.ActiveWeaponSlot==6 ? 8 : 11; }
+    int32 TorchBurnRate(const FColdSteelItem& Item) const;
+    /** 当前驱动单枪状态机的枪械：主手装备；主手空置时是顶替它的副手手枪（见 LoneOffhandPistol）。 */
+    const FColdSteelItem* ActiveFirearm() const;
+    /** 弯刀族招式（UKukriWeaponComponent 与其服务端回执）出手的武器：主手装备；主手空置时是独自出手的副手弯刀/斧头
+     *  （见 LoneOffhandBlade）。主手有物品时与 Equipped() 相同。 */
+    const FColdSteelItem* ActiveKukriWeapon() const;
     bool HasEquippedStaff() const;
     UFUNCTION(BlueprintCallable, Category="Inventory") bool CycleWeapon();
     const FColdSteelItem* ResolveHotbar(int32 Index) const;
@@ -276,6 +382,18 @@ public:
     bool SwapQuickBindings(int32 From,int32 To);
     bool ClearQuickBinding(int32 Index);
     bool UseQuickBinding(int32 Index);
+    bool UseQuickSkill(FName Skill);
+    const TArray<FName>& MagicBindings() const { return Current.MagicWheelSkills; }
+    int32 SelectedMagicSlot() const { return Current.SelectedMagicSlot; }
+    FName SelectedMagicSkill() const;
+    float MagicCooldownRemaining(FName Skill) const;
+    bool CanBindMagic(FName Skill) const;
+    bool BindMagic(int32 Index,FName Skill);
+    bool ClearMagic(int32 Index);
+    bool SelectMagic(int32 Index);
+    bool PressStaffMagic();
+    void ReleaseStaffMagic();
+    void CancelStaffMagic();
     /**
      * Magic hold-to-preview: a press while the bound projectile hovers starts the red
      * trajectory preview instead of firing, and the matching release fires it. A quick tap
@@ -283,6 +401,7 @@ public:
      * projectile (timeout, death, loadout change).
      */
     bool BeginSpellAimPreview(int32 Index);
+    bool BeginSpellAimPreviewForSkill(FName Skill,int32 InputSource);
     bool EndSpellAimPreview(int32 Index);
     /** Clears any held preview, e.g. when a menu opens and the key release will not arrive. */
     void CancelSpellAimPreview();
@@ -310,6 +429,8 @@ public:
         const FString& ContainerKey,int32 Pages,bool bHubTest=false);
     /** 该领取标记在当前运行里是否已发放过（重复开箱不重 roll，只开面板）。 */
     bool HasDungeonClaim(FName Claim) const { return Current.DungeonRun.Claimed.Contains(Claim); }
+    /** Stage a facility search result and its claim together; caller owns the durable commit. */
+    bool AppendSceneSearchLoot(FColdSteelProfile& State,const class AColdSteelSceneContainer* Scene,FString& Reason) const;
     /** 测试箱专用：领取标记在案但容器已空＝清除标记，下次开箱重新 roll。 */
     bool ReleaseHubTestClaimIfEmpty(const FString& ContainerKey,FName Claim);
     /** 弹药物品离开储物箱进背包＝按拾取口径转弹药池（MoveItem/TransferWarehouse 共用）。 */
@@ -330,7 +451,7 @@ public:
     int32 PickupNearby(float RadiusCm);
     /** 残骸转体素块：把一组方块物品放到世界坐标，一次事务。 */
     bool GrantWorldBlocks(const TMap<FString,int64>& Blocks,const FVector& Position);
-    /** 提示栏：屏幕上方的进度提示队列（升级提示用的同一位置），供各系统播报信息。 */
+    /** 普通交互共用一个即时反馈位置，新的结果覆盖尚未显示的旧结果。 */
     void PostNotice(const FString& Title,const FString& Detail=FString(),const FString& Icon=FString(),float Duration=2.8f);
     bool DefaultAction(const FString& Id);
     FColdSteelProposal ProposeWarehouse(const FString& Id,int32 Place,int32 Cell=-1,int32 Orientation=-1) const;
@@ -370,11 +491,12 @@ public:
     float StumpHealthRatio(const FString& Id) const;
     bool IsTreeMature(const FString& Id) const;
     void TickTreeGrowthClock(float Delta);
-    bool CommitHarvestStrike(const struct FProductionResource& Target,bool& Depleted);
+    void SetMirroredTreeGrowthDay(double Day);
+    bool CommitHarvestStrike(struct FProductionResource& Target,bool& Depleted);
     /** 树木专用结算：一次挥砍按伐木伤害扣生命值，归零的那一挥才走倒树事务。 */
-    bool CommitTreeStrike(const struct FProductionResource& Target,const struct FProductionToolStats& ToolStats,bool& Depleted);
+    bool CommitTreeStrike(struct FProductionResource& Target,const struct FProductionToolStats& ToolStats,bool& Depleted);
     /** 岩块专用结算（2026-09-30 与树木统一为伤害驱动）：一次挥砍按采集伤害扣岩块生命，归零才碎。 */
-    bool CommitRockStrike(const struct FProductionResource& Target,const struct FProductionToolStats& ToolStats,bool& Depleted);
+    bool CommitRockStrike(struct FProductionResource& Target,const struct FProductionToolStats& ToolStats,bool& Depleted);
     /** 树桩专用结算（2026-09-28）：扣树桩生命，劈尽的那一挥掉一块木材并关闭桩记录；不触树倒。 */
     bool CommitStumpStrike(const struct FProductionResource& Target,const struct FProductionToolStats& ToolStats,bool& Depleted);
     bool AddWarehouseItem(const FColdSteelItem& Item,int32 Preferred=-1);
@@ -384,6 +506,9 @@ public:
     int64 CountWarehouseMaterial(TFunctionRef<bool(const FColdSteelItem&)> Predicate) const;
     int64 ConsumeWarehouseMaterial(TFunctionRef<bool(const FColdSteelItem&)> Predicate,int64 Amount);
     int64 CountMaterial(const FString& Definition) const;
+    int64 SoulBalance() const { return Current.Souls; }
+    bool GrantSouls(int64 Amount);
+    bool SpendSouls(int64 Amount);
     bool ConsumeMaterial(const FString& Definition,int64 Amount);
     int32 WarehouseCapacity() const { return Current.WarehousePages*ColdSteelWarehouse::CellsPerPage; }
     /** ---- 当前储物会话 ----：同一套仓库面板既服务档案主仓库，也服务储物箱 Actor。
@@ -398,14 +523,20 @@ public:
     bool InOpenStorage(const FColdSteelItem& Item) const { return Item.Place==ColdSteelWarehouse::Place&&Item.Container==ActiveContainer; }
     int32 WarehousePage = 0;
     bool bWarehouseOpen = false;
+    bool bIncineratorOpen = false;
     bool SaveNow();
     bool ReloadProfile();
     void AttachPawn(class AFPSGAMECharacter* Pawn);
     void TickRuntime(float Delta,class AFPSGAMECharacter* Pawn);
-    /** 2D 符文长剑合同：近战出手/飞剑击杀把全部技能冷却各减 Seconds（保留 reserved 语义）。 */
-    void ReduceAllAbilityCooldowns(float Seconds);
+    /** Rune rewards shorten running magic cooldowns only; reserved casts and martial clocks stay separate. */
     void ReduceMagicCooldowns(float Seconds,bool bNotifyReduction=true);
+    /** Confirmed rune-sword melee hit: magic clocks plus the G blade clock only. */
     void ReduceRuneSwordHitCooldowns(float Seconds);
+    uint32 CooldownReductionRevision(FName Skill) const { return CooldownReductionRevisions.FindRef(Skill); }
+    void ReduceAllAbilityCooldowns(float Seconds);
+    void NotifyMagicReleased();
+    float MagicInspirationAttackSpeedMultiplier() const;
+    void SyncMartialCooldowns(bool Immediate=false);
     void SyncRuntime();
     FString AmmoDefinitionFor(const FColdSteelItem& Item) const;
     const TArray<FColdSteelAmmoType>& AmmoCatalog() const { return AmmoTypes; }
@@ -422,8 +553,8 @@ public:
     bool CommitAmmoSwitch(const FString& WeaponId,const FString& Target,int32 Capacity,
         int32 NeedsCycle=0,int32 LoadLimit=MAX_int32,bool Completed=true);
     bool CompleteWeaponReloadCycle(const FString& WeaponId);
-    void MarkM24CycleInterrupted(const FString& WeaponId,bool Interrupted=true,bool CasingPending=false);
     void MarkM870PumpInterrupted(const FString& WeaponId);
+    void MarkM24CycleInterrupted(const FString& WeaponId,bool Interrupted=true,bool CasingPending=false);
     float AmmoDamageMultiplier(const FColdSteelItem& Item) const;
     float AmmoArmorPenetration(const FColdSteelItem& Item) const;
     int32 AmmoProjectileCount(const FColdSteelItem& Item,int32 DefaultCount=1) const;
@@ -454,8 +585,19 @@ public:
     /** M2 联机：为远端玩家创建影子档案模型——只读目录状态从本实例整体复制，档案以传入值发布；
      *  影子永不写盘（bPersistenceBlocked），持久化由联机会话显式处理。 */
     UColdSteelStatusModel* CreateShadowModel(const FColdSteelProfile& GuestProfile);
+    /** Independent combat sheet constructed from current catalog equipment. */
+    UColdSteelStatusModel* CreateEquipmentModel(const FColdSteelProfile& Profile);
     /** M2 联机：把外部档案灌进本模型（只发布不落盘）——客户端收权威镜像回写、影子收上行快照都用它。 */
-    void AdoptNetMirror(const FColdSteelProfile& External);
+    void AdoptNetMirror(const FColdSteelProfile& External,bool AnnounceGains=false);
+    bool ApplyNetworkInventoryReply(const class UColdSteelInventoryReply* Reply,APawn* ExpectedPawn);
+    static void StripNetworkContainerView(FColdSteelProfile& Profile);
+    bool HasNetworkContainerView() const;
+    /** True while a shared transaction owns staging and the eventual durable commit. */
+    bool IsStagingNetworkContainer() const { return bStagingNetworkContainer; }
+    bool RequestContainerOperation(uint8 Action,const FString& Item=FString(),int32 Place=0,int32 Cell=-1,int32 Orientation=-1,int64 Count=0,const FString& Mode=FString());
+    void ApplyNetworkContainerView(const class UColdSteelInventoryReply* Reply,AActor* Anchor);
+    const FColdSteelItem& EnhancementItem() const {return Current.EnhancementItem;}
+    bool CommitEnhancementState(FColdSteelProfile State);
     const FColdSteelForgeJob& ForgeJob() const {return Current.ForgeJob;}
     const FColdSteelGunAssemblyJob& GunAssemblyJob() const {return Current.GunAssemblyJob;}
     const FColdSteelWoodworkingJob& WoodworkingJob() const {return Current.WoodworkingJob;}
@@ -466,8 +608,15 @@ public:
     int64 InventoryRevision() const {return Current.CampfireInventoryRevision;}
     void StageGunCalibration(const FString& JobId,float Held,float Time,float Error);
     // Hit feedback cannot run the synchronous checked-save transaction every click.
-    void StageForgeHit(const FString& JobId,int32 Hits);
+    void StageForgeContact(const FString& JobId,bool bHit);
+    bool CommitWorkshopCheckpoint(FColdSteelProfile State,const FString& GuestSlot);
     bool CommitState(FColdSteelProfile State);
+    bool CommitMountRoster(FStableMountRoster Roster);
+    bool ChangeMountGear(FGuid HorseId,int32 Slot,const FString& ItemId,bool Equip,FString& Reason);
+    bool GiveMountPotion(FGuid HorseId,const FString& ItemId,FString& Reason);
+    void StageMountCondition(const FStableMountRecord& Horse);
+    void ReceiveMountRoster(FGuid Profile,const FStableMountRoster& Roster);
+    bool LearnHolyLightFromTrainer(class AActor* Trainer);
     /** Narrow durable write used by campfire escrow; guest slots belong to PlayerState. */
     bool CommitCampfireState(FColdSteelProfile State,const FString& WorldKey,const FString& GuestSlot=FString());
     bool IsCampfireInventoryPending() const {return bCampfireInventoryPending;}
@@ -477,6 +626,19 @@ public:
     bool AuditFailNextSave = false;
     FString ProfileSlot() const { return SaveSlot; }
     const FColdSteelSkillDefinition& FireMagicDefinition(FName Id) const;
+    const FColdSteelSkillDefinition& IceArmorDefinition() const{return IceArmorSkill;}
+    FIceArmorCast IceArmorStats(int32 AtLevel=-1) const;
+    float IceArmorCooldown() const{return HasNoAbilityCooldown()?0.f:Current.IceArmorCooldown;}
+    float IceArmorCooldownDuration() const{return Current.IceArmorCooldownDuration;}
+    bool BeginIceArmorCast(const FIceArmorCast& Spell);
+    void FinishIceArmorTraining(int32 Experience);
+    const FColdSteelSkillDefinition& LightningHasteDefinition() const{return LightningHasteSkill;}
+    FLightningHasteCast LightningHasteStats(int32 AtLevel=-1) const;
+    float LightningHasteCooldown() const{return HasNoAbilityCooldown()?0.f:Current.LightningHasteCooldown;}
+    float LightningHasteCooldownDuration() const{return Current.LightningHasteCooldownDuration;}
+    bool BeginLightningHasteCast(const FLightningHasteCast& Spell);
+    void CommitLightningHasteCast(const FLightningHasteCast& Spell);
+    void FinishLightningHasteTraining(int32 Experience);
     bool CommitDragonBreathRelease();
     FColdSteelSkillProgress FireMagicProgress(FName Id) const;
     FFireMagicCast FireMagicStats(FName Id,int32 AtLevel=-1) const;
@@ -486,8 +648,21 @@ public:
     bool ApplyFireMagicHit(APawn* Shooter,AActor* Target,const FFireMagicCast& Spell,float Damage,FFireMagicRewards& Rewards);
     void FinishFireMagicCast(FName Id,const FFireMagicRewards& Rewards);
 private:
+    TWeakObjectPtr<AActor> NetworkContainerAnchor;
+    friend class UColdSteelAcquisitionAuditCommandlet;
+    int64 NetworkContainerRevision=0;
+    bool bStagingNetworkContainer=false;
     friend class UShotgunAmmoIconDiagnosisCommandlet;
     friend class UFPSPotionUseComponent;
+    friend class AColdSteelPlayerState;
+    friend class USkillNetworkAuditCommandlet;
+    friend class UMonsterNetworkHitAuditCommandlet;
+    friend class UShotgunAttachmentAuditCommandlet;
+    friend class AShotgunWireAuditController;
+    friend class AShotgunWireAuditGameMode;
+    friend class ASkillWireAuditController;
+    friend class ASkillWireAuditGameMode;
+    friend class UColdSteelSharedInventorySubsystem;
     bool UseConsumableAtContact(const FString& Id,bool bPotionContact);
     TArray<FColdSteelAmmoType> AmmoTypes;
     UPROPERTY(Transient) TMap<FString,TObjectPtr<UTexture2D>> AmmoIconTextures;
@@ -497,12 +672,14 @@ private:
     bool NormalizeAmmo(FColdSteelProfile& State,bool& Changed) const;
     /** Quick slot whose ice spike preview is currently held, INDEX_NONE when none. */
     int32 AimPreviewIndex = INDEX_NONE;
+    TWeakObjectPtr<AFPSGAMECharacter> AimPreviewPawn;
+    FName AimPreviewSkill;
     FColdSteelStaminaTuning StaminaTuning;
     FColdSteelSkillDefinition DodgeSkill;
     FColdSteelSkillDefinition DexterousHandsSkill;
     void LoadStaminaTuning();
     bool NormalizeStamina(FColdSteelProfile& State) const;
-    void TickStamina(float Delta, class AFPSGAMECharacter* Pawn);
+    bool TickStamina(float Delta, class AFPSGAMECharacter* Pawn,float BowSkillManaPerSecond=0.f);
     FColdSteelSkillDefinition RifleSkill;
     FColdSteelSkillDefinition PistolSkill;
     FColdSteelSkillDefinition CriticalStrikeSkill;
@@ -517,10 +694,20 @@ private:
     struct FFireballRewards { TMap<TWeakObjectPtr<AActor>,int64> Kills; AActor* Victim=nullptr; };
     FFireballRewards* ActiveFireballRewards=nullptr;
     TArray<FColdSteelProgressNotice> ProgressNotices;
-    struct FTrainingHit { AActor* Victim=nullptr; FName SkillId; int32 ExtraExperience=0; bool bEligible=false,bCritical=false,bKillAttempted=false,bMelee=false,bPerfectBowHit=false; };
+    TOptional<FColdSteelProgressNotice> PendingInteractionNotice;
+    double InteractionNoticeExpiresAt=0.;
+    TArray<int64> ExperienceNotices;
+    TArray<FColdSteelAcquisitionNotice> AcquisitionNotices;
+    bool bAcquisitionFeedEnabled=false;
+    uint32 AcquisitionEpoch=0;
+    void QueueAcquisitionNotices(const FColdSteelProfile& Before,const FColdSteelProfile& After);
+    void EnqueueAcquisition(FColdSteelAcquisitionNotice Notice);
+    struct FTrainingHit { AActor* Victim=nullptr; FName SkillId; int32 ExtraExperience=0; bool bEligible=false,bCritical=false,bKillAttempted=false,bMelee=false,bPerfectBowHit=false,bHeartPiercingArrow=false; };
     FTrainingHit* ActiveTrainingHit=nullptr;
     void QueueProgressNotices(const FColdSteelProfile& Before,const FColdSteelProfile& After);
+    void QueueSkillTreeNotices(const FColdSteelProfile& Before,const FColdSteelProfile& After);
     FColdSteelProfile Current;
+    // Presentation receipts only; not saved and never advanced by ordinary ticking.
     TMap<FName,uint32> CooldownReductionRevisions;
     TMap<FString,FString> Definitions;
     // 开发面板目录：首次读取时按 items.json 的类别归纳并排序，之后只读复用。
@@ -547,6 +734,11 @@ private:
     // 进度型事务（命中修炼、击杀奖励、闪避与技能修炼）走这里：实时档案立即更新，
     // 带校验的 A/B 存档交给定时自动存档（fps.Save.AutosaveSeconds）统一写盘。
     bool StageTraining(FColdSteelProfile&& State);
+    int64 GainedCharacterExperience(const FColdSteelProfile& After) const;
+    FGuid CreditPresentMountExperience(FColdSteelProfile& State,int64 Amount) const;
+    void ApplyCommittedMountLevel(FGuid HorseId) const;
+    void SettleBurnedTorches();
+    double NextTorchSettlement=0.;
     bool bTrainingDirty = false;
     bool bSettlingFood=false;
     double NextFoodSettlement=0.;
@@ -561,7 +753,7 @@ private:
     // 弓目录与生产工具同一口径：Content/ColdSteelData/bows.json 按 definition 合并进 Definitions。
     void LoadBowDefinitions();
     void LoadStaffDefinitions();
-    void NormalizeStaffState(FColdSteelProfile& State) const;
+    bool NormalizeStaffState(FColdSteelProfile& State) const;
     bool NormalizeBowState(FColdSteelProfile& State) const;
     void NormalizeProductionState(FColdSteelProfile& State) const;
     /** 落地一份收获；`ToolStats` 提供采集产出倍率与额外产出几率（未改造时为出厂口径）。 */
@@ -569,6 +761,8 @@ private:
     void StampProductionDrop(FColdSteelItem& Item) const;
     friend class AColdSteelPickup;
     FColdSteelSkillDefinition MeteorSkill,FlameArmorSkill,DragonBreathSkill;
+    FColdSteelSkillDefinition IceArmorSkill;
+    FColdSteelSkillDefinition LightningHasteSkill;
     FColdSteelSkillDefinition IceWallSkill;
     FColdSteelSkillDefinition BlizzardSkill;
     TSet<TWeakObjectPtr<AActor>> KillStaminaVictims;

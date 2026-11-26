@@ -27,6 +27,7 @@ public:
     void SetDeploymentContacts(const FVector& A,const FVector& B,float Weight);
     // M24's hand clip drives the two folding hinges, in source seconds.
     void SetM24DeploymentTime(float Seconds);
+    void SetM249DeploymentWeight(float Weight);
     // 架设期间把两腿固定在默认下垂姿态：不随枪旋转解算、不做摆动动力学，允许穿模。
     void SetLegsFrozen(bool bFrozen);
     virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;

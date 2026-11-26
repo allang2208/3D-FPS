@@ -30,7 +30,7 @@ bool AM10PoisonGas::ShouldEmit() const
     const auto* Monster=Cast<AM10Mawcrawler>(GetOwner());
     return IsValid(Monster)&&!Monster->Dead()&&Monster->State==EM10State::RearGas;
 }
-void AM10PoisonGas::GetEmissionSources(FVector (&Origins)[3],FVector& Drift) const
+void AM10PoisonGas::GetEmissionSources(FVector (&Origins)[4],FVector& Drift) const
 {
     const auto* Monster=Cast<AM10Mawcrawler>(GetOwner());
     for(int32 I=0;I<3;++I)Origins[I]=Monster?Monster->RearGasOutlet(I):GetActorLocation();
@@ -43,8 +43,9 @@ void AM10PoisonGas::GetEmissionSources(FVector (&Origins)[3],FVector& Drift) con
     for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
         if(const auto* PC=It->Get())Query.AddIgnoredActor(PC->GetPawn());
     float Fraction=1.f;
-    for(const FVector& Origin:Origins)
+    for(int32 I=0;I<GetEmissionSourceCount();++I)
     {
+        const FVector& Origin=Origins[I];
         FHitResult Hit;
         if(RangedAttackQuery::LineTraceSingle(GetWorld(), GetOwner(), Hit,Origin,Origin+Drift*Lifetime+FVector(0,0,.45f*Lifetime*Lifetime),ECC_Visibility,Query))
             Fraction=FMath::Min(Fraction,FMath::Max(0.f,Hit.Time-.04f));

@@ -137,3 +137,4 @@ if stage=='after':
     scene.render.filepath=str(review/'after_portrait.png')
     scene['preview_note']='Village blacksmith R2. The J_MM_Idle pose, lighting and review cameras are shared with R1.'
     bpy.ops.wm.save_as_mainfile(filepath=str(finish/'VillageBlacksmith_R4_FinishR2.blend'),relative_remap=True)
+

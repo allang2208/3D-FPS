@@ -1,4 +1,5 @@
 #include "M4GunsmithWidget.h"
+#include "ColdSteelTextToolTip.h"
 #include "ColdSteelUIStyle.h"
 #include "GunsmithUIStyle.h"
 #include "SMeleePartIcon.h"
@@ -109,7 +110,7 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildEnhanceCard(int32 Level)
             [SNew(SBorder).Padding(2).BorderImage(&OptionFrameBrush).BorderBackgroundColor_Lambda(Frame)
                 [SNew(SButton).ButtonStyle(&NormalButton).ContentPadding(FMargin(10,8))
                     .IsEnabled(bSelectable)
-                    .ToolTipText(FText::FromString(Name+TEXT("  Lv.")+FString::FromInt(Level)+TEXT("\n")+Description))
+                    .ToolTip(ColdSteelToolTip::Make(FText::FromString(Name+TEXT("  Lv.")+FString::FromInt(Level)+TEXT("\n")+Description)))
                     .OnClicked_Lambda([this,Level](){ChooseEnhanceLevel(Level);return FReply::Handled();})
                     [SNew(SVerticalBox)
                         +SVerticalBox::Slot().AutoHeight()

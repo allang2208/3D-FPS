@@ -1,4 +1,5 @@
 #include "FPSRiftSlashProjectile.h"
+#include "../Combat/FPSAttackQuery.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
 #include "Engine/AssetManager.h"
@@ -108,7 +109,7 @@ void AFPSRiftSlashProjectile::Advance(float Distance)
 {
     if(bFinished||Distance<=0.f)return;
     const FVector Start=GetActorLocation(),End=Start+Direction*Distance;
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(RiftSlashFlight),false,GetOwner());Query.AddIgnoredActor(this);
+    FFPSAttackQuery Query(SCENE_QUERY_STAT(RiftSlashFlight),false,GetOwner());Query.AddIgnoredActor(this);
     TArray<FHitResult> Contacts;
     float WallTime=1.f;bool bWall=false;
     // Channel queries return only as far as their first blocking component.
@@ -151,7 +152,7 @@ void AFPSRiftSlashProjectile::Advance(float Distance)
                 else if(auto* PS=Character->GetPlayerState<AColdSteelPlayerState>())
                 {
                     if(auto* Rune=Character->FindComponentByClass<UJingangRuneComponent>())Rune->ConfirmAttack(Target,Applied);
-                    FColdSteelNetHitReceipt Receipt;Receipt.Target=Target;Receipt.Applied=Applied;Receipt.bCritical=DamageResult.bCritical;Receipt.bKilled=DamageResult.bKilled;PS->ClientConfirmHit(Receipt);
+                    FColdSteelNetHitReceipt Receipt;Receipt.Target=Target;Receipt.Applied=Applied;Receipt.MagicApplied=DamageResult.Applied.MagicPortion(Applied);Receipt.bCritical=DamageResult.bCritical;Receipt.bKilled=DamageResult.bKilled;PS->ClientConfirmHit(Receipt);
                 }
             }
         }

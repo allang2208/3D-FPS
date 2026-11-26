@@ -32,7 +32,9 @@ for key,x,y,depth,width,height,title,color in rows:
  unreal.MaterialEditingLibrary.set_material_instance_parent(m,mat);unreal.MaterialEditingLibrary.set_material_instance_vector_parameter_value(m,'Tint',unreal.LinearColor(*color,1));unreal.EditorAssetLibrary.save_loaded_asset(m);c.set_material(0,m)
  t=actors.get(label+'_Sign') or api.spawn_actor_from_class(unreal.TextRenderActor,unreal.Vector())
  t.set_actor_label(label+'_Sign');t.set_folder_path('Traversal Test Course');t.set_actor_location(unreal.Vector(origin.x+x-depth/2-2,origin.y+y,height*.55),False,False);t.set_actor_rotation(unreal.Rotator(pitch=0,yaw=180,roll=0),False)
- text=t.get_component_by_class(unreal.TextRenderComponent);text.set_text(title);text.set_world_size(20);text.set_horizontal_alignment(unreal.HorizTextAligment.EHTA_CENTER);text.set_text_render_color(unreal.Color(255,255,240,255));text.set_collision_enabled(unreal.CollisionEnabled.NO_COLLISION)
+ text=t.get_component_by_class(unreal.TextRenderComponent)
+ text.set_font(unreal.load_asset('/Game/UI/GunsmithWorkbench/WorldText/F_ColdSteelWorldText'))
+ text.set_text(title);text.set_world_size(20);text.set_horizontal_alignment(unreal.HorizTextAligment.EHTA_CENTER);text.set_text_render_color(unreal.Color(255,255,240,255));text.set_collision_enabled(unreal.CollisionEnabled.NO_COLLISION)
  center,ext=a.get_actor_bounds(False);assert abs(ext.z*2-height)<.1 and abs(center.z-ext.z)<.1
  report.append(dict(actor=label,height_cm=height,depth_cm=depth,width_cm=width,position=[center.x,center.y,center.z]))
 assert level.save_current_level(),'Could not save initial map'

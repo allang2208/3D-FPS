@@ -349,3 +349,42 @@
 详见 [局部密林与资产缺口](hills-rainforest-pocket-20261111.md)。`FPSGAMEEditor Win64 Development` 于 2026-11-11 11:52:11 后台构建成功，退出码 0，模块已链接落盘。本轮没有 BiomeCore、额外生成系统、地图／材质／模型保存，没有 computer use 或游戏／画面／性能验收。源码备份、参考资料、正式调色板读取记录和构建回执位于 `SourceAssets/HillsRainforestPocket20261111`。
 
 用户随后要求后台检查和视频水体兼容性对照：2026-11-11 12:06 的无界面 commandlet 已读取正式地图生成器、48 个植被模型及材质槽、实际地表／河流材质和 5 项 UDS 雨水资源，最终退出码 0。检查确认现有河流可继续复用，但地表积水、随降雨变化的水面雨滴法线尚未接入，12 个草材质仍为 `MeadowDryness=0.92` 的旱草设置。后续应优先做局部湿草、地表浅积水和河面雨滴联动；不能将本轮密度调整称为已实现视频雨林水体效果。详见同文新增检查章节，证据位于 `SourceAssets/HillsRainforestCheck20261111`。本次没有运行游戏／GPU 验收，也没有改写地图或材质。
+
+## 2026-11-13：植被加载延迟与风动裁剪
+
+用户报告树木仍闪动、草地长时间不出现。本次读取现有游戏日志与本机 UE 5.8 源码：旧日志中 `HILLS_READY` 为 16.39 秒，草地层到 28.22 秒才激活，进入后约 11.83 秒尚未开始草地生成。原流程串行加载实体、林下、草地，且后两批必须等待玩家进入。原生 PCG 调度优先级为网格尺寸加上 0～1 的策略分值，64 m 树木网格优先于 16 m 草地；只调整朝向权重不能解决跨层排队。
+
+现已改为：
+
+- 三批可玩植被异步预载；树木／岩石在实体资源就绪后激活，灌木／草地等三批邻域资源及网格编译全部就绪后激活（11 月 14 日复查修正）。快速进入只延后薄雾、远景资源。缺失的必需植被资源明确报错，不默认为已经就绪。
+- 出生附近 16 m 范围内四层植被全部生成后放开输入，使用 PCG 实际生成源位置判定。完整预载继续包含原有纹理／PSO 准备。
+- 运行中每 0.25 秒检查最近未完成的生成圈，以 16 m 步长开放下一圈。树木上限 250 m、岩石 180 m、灌木 130 m、草地 80 m；可见／淡出距离保持原值。PCG 已入队的工作不能撤回，因此采用小步扩圈限制积压，不能承诺固定毫秒内全部完成。
+- 回收距离始终保持各层原最大生成距离的 1.3 倍（树 325 m、岩石 234 m、灌木 169 m、草地 104 m）。缩小新任务的生成圈不会缩小回收圈，也不调用图刷新销毁现有实例。
+- 并行生成名额由 2 改为 8，PCG 帧预算仍为 2 ms；草地保持每条 2 m 的确定性工作单元，单次执行在引擎剩余预算与 0.5 ms 软限额内继续处理。单个工作单元不可抢占，预算并非硬实时承诺。取消对引擎分区池容量的临时改写，避免容量变更触发全池清理。
+
+本机 `UDynamicWindData::HasAnimationBounds()` 返回 false，实例裁剪读取骨骼网格 `GetBounds()`。活动的 8 个主树、4 个幼树、4 个蕨类此前 XY 扩展均为 0。本次给 16 个网格增加横向余量 `max(原始高度×0.12, XY最大半径×0.25)`，保留 Z 边界及风动高度归一化。种植尺寸和根部继续用原始几何边界。此余量是对已确认裁剪风险的修正，尚无移动视角／暴雨实测，不能据此宣称所有闪动原因都已消除。
+
+资产已由后台 NullRHI commandlet 保存，回执为 `SourceAssets/HillsVegetationStreaming20261113/wind-bounds.json`，日志为 `Saved/Logs/HillsVegetationWindBounds20261113.log`，标记 `HILLS_WIND_BOUNDS_SAVED meshes=16 saved=16`。修复前源码和资产备份位于同目录 `Before`。未运行游戏、画面或帧率测试。
+
+公开实现参考：
+
+- [CARLA LargeMapManager](https://github.com/carla-simulator/carla/blob/ue5-dev/Unreal/CarlaUnreal/Plugins/Carla/Source/Carla/MapGen/LargeMapManager.cpp)：按关注角色位置维护地图块加载状态，区分地图块加载与 Actor 激活／休眠；本工程继续复用自己的高度场与 PCG，不引入 CARLA 地图管线。
+- [Voxel Plugin 的 VoxelWorld](https://github.com/VoxelPlugin/VoxelPluginFreeLegacy/blob/master/Source/Voxel/Private/VoxelWorld.cpp)：分别管理渲染、LOD 和带任务优先级配置的线程池，可参考有界任务及分层职责；未引入第二套体素地形。
+- [Epic PCG Generation Modes](https://dev.epicgames.com/documentation/en-us/unreal-engine/using-pcg-generation-modes-in-unreal-engine)：生成半径、回收倍率、并发名额与帧预算的公开接口说明。具体优先级和队列行为以本机 5.8 源码为准。
+
+2026-11-13 23:54 的 `FPSGAME Win64 Development` 构建完成，后续本轮 UBT 请求确认目标最新并返回 `Result: Succeeded`（`Saved/Logs/HillsVegetationGameBuild20261113.log`）。编辑器目标首次链接因已有后台渲染进程占用 `UnrealEditor-FPSGAME.dll` 返回 LNK1104；该进程自行结束后完成最终链接，`Saved/Logs/HillsVegetationEditorBuild20261113.log` 记录 `Result: Succeeded`，退出码 0。两个目标均已落盘，未启动游戏验收。
+
+### 2026-11-14 用户要求复查
+
+源码复查发现上一版独立激活条件漏掉跨层资源依赖：`PrepareVegetationCell` 同时读取树木、岩石、灌木、蕨类及低草模型边界，而异步批次可以乱序完成。若草地批次先完成，缺失的邻居模型会被跳过，生成的避让结果也会随加载顺序改变。现已保留并行预载，但只有三批邻域资源全部就绪才激活灌木／草地；树木和岩石仍可在实体批次完成后先开始。
+
+新增限定参数 `-HillsVegetationCheck` 才可运行的 `fps.Test.HillsVegetationStreaming` 检查，覆盖入口 16 m、静止扩展到 80 m、转身保留 PCG 执行源、雨林落点 32 m 草地生成和 16 个网格的风动边界读回。启动器 `Tools/WorldGeneration/Start-VegetationStreamingCheck.ps1` 复制原生 DLL 和存档，记录 DLL SHA256，使用独立 UserDir；Content／Plugins 为只读用途的 junction，禁止递归清理宿主时进入这些链接。运行结果以对应 `Saved/VegetationStreamingCheck/<批次>/check.log` 的 `VEGETATION_CHECK` 标记为准，入口脚本与构建本身不算运行通过。
+
+本轮构建与验证记录：
+
+- 首次构建从 00:17 开始等待共享 UBT 锁，未停止其他任务的构建。续跑日志为 `Saved/Logs/HillsVegetationCheckResume20261114.log`。
+- 检查入口及依赖修正分别完成独立 MSVC 编译，日志在 `Saved/VegetationStreamingCompile20261114/compile.log` 和 `streaming-compile.log`。这是当时源文件的编译结果，不是完整模块链接或运行通过。
+- 完整构建期间，共享的 `UnknownHumanoid.h`（00:51:37）和 `TemperateHillsWorld.h`（00:52:04，后续至 00:55:57）被更新；对应 UHT 生成代码仍使用先前行号，出现 `GENERATED_BODY` C4430／C2143。保留这些并行改动，只结束了本任务失效的构建。
+- 重试 `HillsVegetationCheckEditorRetry20261114.log` 再次等待共享编译锁，且 `TemperateHillsStreaming.cpp` 在 00:55:57 也有并行更新。随后取得锁并重新执行 UHT（188.49 秒、写出 3 个生成文件），但又记录 `Monsters/UnknownHumanoidBow.cpp(1): Expected UnknownHumanoidBow.h to be first header included`。未修改该并行制作中的怪物文件；本任务已结束自己的重试构建进程及其子进程，保留源码与日志。依赖修正仍在 `NeighborhoodAssetsReady` 条件中。
+
+本轮尚未完成正式 DLL／游戏目标链接、独立资产读回或场景运行检查，未启动检查用游戏。因此没有新的加载秒数、截图或闪动消除结论；上一轮 11 月 13 日成功构建不能替代本轮验证。后续应在共享源码停止变更后重新构建，再运行上述隔离检查。

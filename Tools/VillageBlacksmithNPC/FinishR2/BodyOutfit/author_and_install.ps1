@@ -45,3 +45,4 @@ try{
     $receipt | Add-Member NoteProperty previous_hash $baseline
     $receipt | ConvertTo-Json -Depth 5 | Set-Content -LiteralPath "$out/mesh_installed.json" -Encoding UTF8
 }finally{if($held){$guard.ReleaseMutex()};$guard.Dispose()}
+

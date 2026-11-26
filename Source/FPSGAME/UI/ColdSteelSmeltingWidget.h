@@ -39,6 +39,7 @@ UCLASS()
 class FPSGAME_API UColdSteelSmeltingWidget : public UUserWidget
 {
     GENERATED_BODY()
+    friend class ULargeLambMealAuditCommandlet;
 public:
     void Configure(UColdSteelHUDWidget* Owner);
     /** 指向一座已放置的高炉（20 cm 建造格锚格）；换炉子时清选择与状态行。 */

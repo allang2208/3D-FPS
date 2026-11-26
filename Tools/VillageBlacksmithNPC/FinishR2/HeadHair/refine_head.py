@@ -225,3 +225,4 @@ def main():
     (OUT/'sculpt.json').write_text(json.dumps({'original_mesh':'../../HeadHair/face.json.gz','crown_affected_vertices':int(sum(mask>.02)),'crown_peak_reduction_cm':round(float(-min(amount)),3),'eye_rise_cm':[round(float(max(lid[up[:,0]<0])),3),round(float(max(lid[up[:,0]>0])),3)],'triangles':len(alltri),'uses_original_uv_weights':True},indent=2))
     projection(OUT,'eye_landmarks_after')
 if __name__=='__main__':main()
+

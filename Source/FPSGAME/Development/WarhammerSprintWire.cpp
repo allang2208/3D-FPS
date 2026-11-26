@@ -48,7 +48,7 @@ void ARuneboundReviewController::TickSprint(float Delta)
         ServerPhase(1,Move->Velocity.Size2D()>50.f&&AuditPawn->GetActorLocation().X>300.f);
         AuditPawn->ConsumeMovementInputVector();Move->StopMovementImmediately();Move->bWantsToSprint=false;
         Tool->BluntAttackId=8101;Tool->bBluntHeavy=Tool->bBluntSprintAttack=true;Tool->Elapsed=0.f;
-        Tool->ServerBeginBluntAttack(8101,false,true);Tool->ServerBeginBluntAttack(8101,false,true);
+        Tool->ServerBeginBluntAttack(8101,false,true,Tool->EquippedId);Tool->ServerBeginBluntAttack(8101,false,true,Tool->EquippedId);
         Move->BeginMeleeLungeRequest(EFPSMeleeMove::Dash,FVector::ForwardVector,8101);
         SprintOrigin=AuditPawn->GetActorLocation();SprintAge=0.f;Started=Now;Stage=1;return;
     }

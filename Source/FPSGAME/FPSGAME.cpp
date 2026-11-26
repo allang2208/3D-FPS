@@ -4,6 +4,8 @@
 
 #include "Diagnostics/FPSLoadHitchProbe.h"
 #include "Diagnostics/FPSNiagaraSceneLifecycle.h"
+#include "Diagnostics/FPSGameSceneLifecycle.h"
+#include "WorldGeneration/TemperateHillsCompatibility.h"
 
 #include "Containers/Ticker.h"
 #include "Modules/ModuleManager.h"
@@ -25,6 +27,7 @@ public:
     virtual void StartupModule() override
     {
         FDefaultGameModuleImpl::StartupModule();
+        TemperateHillsCompatibility::Register();
 
         // NOTE: no shader directory registration here on purpose.
         //
@@ -44,12 +47,14 @@ public:
         // <ProjectDir>/Shaders/ClearwaterWaves.ush; see Tools/Fluids/clearwater_generate_nodes.py.
         FFPSLoadHitchProbe::Startup();
         FFPSNiagaraSceneLifecycle::Startup();
+        FFPSGameSceneLifecycle::Startup();
         GLoadHitchTicker = FTSTicker::GetCoreTicker().AddTicker(
             FTickerDelegate::CreateStatic(&TickLoadHitchProbe));
     }
 
     virtual void ShutdownModule() override
     {
+        FFPSGameSceneLifecycle::Shutdown();
         FFPSNiagaraSceneLifecycle::Shutdown();
         if (GLoadHitchTicker.IsValid())
         {

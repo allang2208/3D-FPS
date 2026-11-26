@@ -1,7 +1,7 @@
 from pathlib import Path
 from PIL import Image,ImageDraw
 import json,hashlib,shutil
-src=Path('E:/无尽轮回/长期备份/2026-7-13-1/game-dev')
+src=Path('F:/FPSGAMEData/ArtProduction/SourceAssets/LegacyGameDev')
 out=Path('D:/FPS3D/FPSGAME/SourceAssets/PoisonMaggot20260911/reference')
 cfg=json.loads((src/'data/enemy-config.json').read_text(encoding='utf-8'))['poisonMaggot']
 (out/'source_config.json').write_text(json.dumps(cfg,ensure_ascii=False,indent=2),encoding='utf-8')

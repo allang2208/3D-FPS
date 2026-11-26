@@ -42,3 +42,4 @@ OutRough=lerp(clamp(pack.g,.38,.97),.43,wet);
 OutAO=pack.r;
 float3 forest=Texture2DSampleGrad(FloorC,GetMaterialSharedSampler(FloorCSampler,Material.Wrap_WorldGroupSettings),uv,gx,gy).rgb;
 return forest*lerp(1.,.71,wet);
+

@@ -18,7 +18,9 @@ struct FColdSteelQuickBinding
 struct FColdSteelProfile;
 namespace ColdSteelQuickBar
 {
-    constexpr int32 Count=13, ItemOffset=3, LegacyCount=7, Version=2;
+    // 2026-11-17: Q/E/X retired. Slots 0..ItemOffset-1 stay in the 13-slot save layout but are unused;
+    // version 3 moves their old bindings to the first free number slot (1-0).
+    constexpr int32 Count=13, ItemOffset=3, LegacyCount=7, Version=3;
     bool Migrate(FColdSteelProfile& Profile);
     void MirrorLegacy(FColdSteelProfile& Profile);
     bool Validate(const FColdSteelProfile& Profile,FString& Reason);

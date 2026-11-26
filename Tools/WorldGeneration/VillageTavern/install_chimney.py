@@ -11,6 +11,8 @@ PARTS = (
 
 
 def attach_chimney(site):
+    if 'VillageTavern.ThreeStoreyInn' in map(str,site.tags):
+        return {'repaired_mouth_z_cm':1394.9,'existing_cook_hearth_contact':[615.,79.,-2.1]}
     subs = u.get_engine_subsystem(u.SubobjectDataSubsystem)
     handles = u.SubobjectDataBlueprintFunctionLibrary
     parent = subs.k2_gather_subobject_data_for_instance(site)[0]

@@ -1,7 +1,10 @@
 #include "FPSQuickCombatComponent.h"
+#include "../Weapons/PojunGrip.h"
 #include "ColdSteelSkillRules.h"
 #include "../Production/ProductionToolComponent.h"
 #include "../Production/WarhammerQuickCombatMotion.h"
+#include "../Production/WarhammerConicalThrustMotion.h"
+#include "../Production/ConicalHammerSeat.h"
 #include "../FPSGAMECharacter.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Weapons/MeleeSmallTargetQuery.h"
@@ -12,19 +15,21 @@
 #include "Kismet/GameplayStatics.h"
 #include "Sound/SoundBase.h"
 
-void UFPSQuickCombatComponent::ConfigureForWarhammer()
+void UFPSQuickCombatComponent::ConfigureForWarhammer(bool bHeadThrust)
 {
     Style=EQuickCombatStyle::Warhammer;
-    ClipLength=AttackEnd=WarhammerQuickCombat::Length;
-    ReleaseEnd=.035f;CockEnd=WarhammerQuickCombat::Prepare;
-    ContactTime=WarhammerQuickCombat::Contact;FollowEnd=WarhammerQuickCombat::Follow;
+    bWarhammerHeadThrust=bHeadThrust;
+    ClipLength=AttackEnd=bHeadThrust?WarhammerConicalThrust::Length:WarhammerQuickCombat::Length;
+    ReleaseEnd=.035f;CockEnd=bHeadThrust?WarhammerConicalThrust::Prepare:WarhammerQuickCombat::Prepare;
+    ContactTime=bHeadThrust?WarhammerConicalThrust::Contact:WarhammerQuickCombat::Contact;
+    FollowEnd=bHeadThrust?WarhammerConicalThrust::Follow:WarhammerQuickCombat::Follow;
 }
 
 void UFPSQuickCombatComponent::ContactWarhammer(AFPSGAMECharacter* Player,UColdSteelStatusModel* Profile)
 {
     auto* Tool=Player->FindComponentByClass<UProductionToolComponent>();
     const auto* Item=Profile->ActiveProductionTool();
-    if(!Tool||!Tool->IsQuickCombatActive()||!Item||!ColdSteelInventory::IsTwoHandedBlunt(*Item))return;
+    if(!Tool||!Tool->IsQuickCombatActive()||!Item||!PojunGrip::UsesHammerMotion(*Item))return;
     if(auto* Capture=Player->FindComponentByClass<UBoundCongregateCaptureComponent>();Capture&&Capture->HitRestraintWithQuickMelee())
     {
         ImpactAge=0.f;ImpactStrength=1.f;Player->RefreshQuickCombatCamera();
@@ -41,6 +46,7 @@ void UFPSQuickCombatComponent::ContactWarhammer(AFPSGAMECharacter* Player,UColdS
     const float HeadAdvance=FVector::DotProduct(HeadContact-Aim.GetLocation(),Direction);
     const FVector Origin=HeadContact-Direction*FMath::Max(0.f,HeadAdvance);
     auto Shot=ColdSteelSkills::Snapshot(Player,Item,false);
+    if(ConicalHammerSeat::Installed(Item))ConicalHammerSeat::PrepareQuickDamage(Shot.DamagePanel);
     Shot.bMelee=true;Shot.bMeleeStrike=true;Shot.bRifle=Shot.bPistol=false;
     Shot.AttackForm=EMonsterAttackForm::Blunt;Shot.AttackMeta=0x80;Shot.WeakpointPercent=0.f;
     Shot.ToughnessDamageMultiplier=Stats.ToughnessMultiplier;
@@ -51,8 +57,8 @@ void UFPSQuickCombatComponent::ContactWarhammer(AFPSGAMECharacter* Player,UColdS
         FHitResult Hit;
         if(MeleeSmallTargets::QueryQuickContact(GetWorld(),Player,Aim,Origin,Stats.RangeCM,WarhammerQuickCombat::QueryRadiusCM,Hit))Hits.Add(Hit);
     }
-    ImpactAge=0.f;Player->RefreshQuickCombatCamera();
-    TSet<TWeakObjectPtr<AActor>> Seen;
+    ImpactAge=0.f;
+    TSet<TWeakObjectPtr<AActor>> Seen;int32 MasteryHits=0;
     for(const auto& Hit:Hits)
     {
         AActor* Target=Hit.GetActor();
@@ -61,17 +67,23 @@ void UFPSQuickCombatComponent::ContactWarhammer(AFPSGAMECharacter* Player,UColdS
         if(UWardBreakableGlass::BreakHit(Hit,Direction)){ImpactStrength=1.f;continue;}
         auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>();
         if(!Combat||Combat->IsDead())continue;
+        // Owner-side resistance follows valid physical contact. A client's
+        // ApplyHit forwards damage and returns zero while authority resolves it.
+        ImpactStrength=1.f;
         FWeaponDamageResult Result;
-        const float Applied=ColdSteelSkills::ApplyHit(Player,Hit,Stats.Damage,Direction,Shot,&Result);
+        const bool Eligible=ColdSteelSkills::IsMasteryTrainingTarget(Player,Target);
+        auto HitShot=Shot;HitShot.ExtraMasteryExperience=Eligible&&MasteryHits==1?Profile->MasteryDefinition(Shot.MasteryId).MultiHitExperience:0;
+        const float Applied=ColdSteelSkills::ApplyHit(Player,Hit,Stats.Damage,Direction,HitShot,&Result);
+        if(Eligible&&(Applied>0.f||Result.bKilled))++MasteryHits;
         const bool Killed=Combat->IsDead();
         if(Applied<=0.f&&!Killed)continue;
-        ImpactStrength=1.f;
         Player->NotifyConfirmedWeaponHit(Target,Applied,&Result,false);
         Combat->ReceiveMeleeKnockback(Player,Stats.KnockbackCM);
         if(Player->HasAuthority()&&!Killed&&Stats.BleedChance>0.f&&FMath::FRand()<Stats.BleedChance)
             if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddBleeding(Player,1);
         if(Killed&&!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))bKillPending=true;
     }
-    // The sword's quick-strike cue is emitted once at release by AdvanceAction.
-    // Keep the ordinary confirmed-hit feedback, without stacking this cue again.
+    // Sample the contact frame with the actual hit strength, including for
+    // client-owned pommel strikes whose damage is settled on the server.
+    Player->RefreshQuickCombatCamera();
 }

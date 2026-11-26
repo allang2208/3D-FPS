@@ -1,9 +1,22 @@
 #include "BowArrow.h"
+#include "AuroraBeamVisual.h"
+#include "EclipseBowMark.h"
+#include "../../Combat/FPSAttackQuery.h"
+#include "../../Monsters/UnknownHumanoid.h"
+#include "BowMountainEchoComponent.h"
+#include "../WeaponDamageFalloff.h"
+#include "Components/MaterialBillboardComponent.h"
+#include "Curves/CurveFloat.h"
+#include "Materials/MaterialInstanceDynamic.h"
+#include "../FPSMeleeLightningComponent.h"
 #include "../../Combat/RangedAttackQuery.h"
 #include "../../Dungeons/WardBreakableGlass.h"
 #include "../../FPSGAMECharacter.h"
 #include "../../Skills/ColdSteelSkillRules.h"
+#include "../../Skills/FPSFireMagicComponent.h"
 #include "../../Monsters/MonsterDamageAlert.h"
+#include "../../Monsters/MonsterCombatComponent.h"
+#include "../../Props/FPSPracticeTarget.h"
 #include "../../UI/ColdSteelStatusModel.h"
 #include "../../UI/ColdSteelWorldInteraction.h"
 #include "Components/CapsuleComponent.h"
@@ -14,6 +27,7 @@
 #include "Engine/World.h"
 #include "Engine/GameInstance.h"
 #include "GameFramework/PlayerController.h"
+#include "GameFramework/GameStateBase.h"
 #include "Kismet/GameplayStatics.h"
 #include "TimerManager.h"
 #include "../../Monsters/FPSCombatHealthComponent.h"
@@ -26,10 +40,17 @@ ABowArrow::ABowArrow()
     bReplicates=true;SetReplicateMovement(true);SetNetUpdateFrequency(30.f);
     Root = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
     SetRootComponent(Root);
+    FlightVisual = CreateDefaultSubobject<USceneComponent>(TEXT("FlightVisual"));
+    FlightVisual->SetupAttachment(Root);
     Shaft = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Shaft"));
-    Shaft->SetupAttachment(Root);
+    Shaft->SetupAttachment(FlightVisual);
     Head = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Head"));
-    Head->SetupAttachment(Root);
+    Head->SetupAttachment(FlightVisual);
+    FlightGlow = CreateDefaultSubobject<UMaterialBillboardComponent>(TEXT("FlightGlow"));
+    FlightGlow->SetupAttachment(FlightVisual);
+    FlightGlow->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    FlightGlow->SetCanEverAffectNavigation(false);
+    FlightGlow->SetCastShadow(false);
     RecoveryShape = CreateDefaultSubobject<UCapsuleComponent>(TEXT("RecoveryShape"));
     RecoveryShape->SetupAttachment(Root);
     RecoveryShape->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -67,12 +88,23 @@ void ABowArrow::Configure(float InDamage, float InSpeed, float InGravityCM, floa
     Damage = FMath::Max(1.f, InDamage);
     Speed = FMath::Max(600.f, InSpeed);
     GravityCM = FMath::Max(0.f, InGravityCM);
-    MaxDistanceCM = FMath::Max(400.f, InRangeCM);
+    EffectiveRangeCM = FMath::Max(400.f, InRangeCM);
+    if (HasAuthority()) SetNetCullDistanceSquared(FMath::Square(EffectiveRangeCM * 3.f));
     Shot = InShot;
+    EclipseShot = HasAuthority() ? FEclipseBowShot::Capture(GetInstigator()) : nullptr;
+    RemainingPenetrations=Shot.bHeartPiercingArrow?FMath::Clamp(Shot.BowTargetPenetration,0,3):0;
+    HitTargets.Reset();
     AmmoId = InAmmoId;
     bRecoverable = bInRecoverable;
     if(HasAuthority())
-    {Presentation.Shaft=InShaftMesh;Presentation.Head=InHeadMesh;Presentation.Ammo=InAmmoId;Presentation.Radius=InRadiusCM;Presentation.Length=InLengthCM;ForceNetUpdate();}
+    {
+        Presentation.bAuroraBeam=Shot.bAuroraBeam;
+        if(Shot.bAuroraBeam)Presentation.AuroraOrigin=GetActorLocation();
+        Presentation.FlightStartServerTime=GetWorld()->GetTimeSeconds();
+        Presentation.Shaft=InShaftMesh;Presentation.Head=InHeadMesh;Presentation.Ammo=InAmmoId;Presentation.Radius=InRadiusCM;Presentation.Length=InLengthCM;
+        const auto* Fire=GetInstigator()?GetInstigator()->FindComponentByClass<UFPSFireMagicComponent>():nullptr;
+        Presentation.bFlameArmor=!Shot.bAuroraBeam&&Fire&&Fire->ArmorRemaining()>0.f;ForceNetUpdate();
+    }
     RecoverySeconds = FMath::Clamp(InRecoverySeconds, 8.f, 300.f);
     if (const auto* Profile = GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
         RecoveryCaption = FString::Printf(TEXT("拾回 %s ×1"), *Profile->AmmoLabel(AmmoId));
@@ -84,6 +116,23 @@ void ABowArrow::Configure(float InDamage, float InSpeed, float InGravityCM, floa
     RecoveryShape->SetCapsuleSize(FMath::Max(2.f, Radius), Length * .5f);
     CollisionRadiusCM = FMath::Clamp(Radius * 1.2f, .25f, 2.f);
     Velocity = GetActorForwardVector() * Speed;
+    if (!Presentation.bAuroraBeam && GetNetMode() != NM_DedicatedServer && FlightGlow->Elements.IsEmpty())
+    {
+        if (auto* Base = LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Items/LootFX/M_LootCenter.M_LootCenter")))
+        {
+            auto* Glow = UMaterialInstanceDynamic::Create(Base,FlightGlow);
+            Glow->SetVectorParameterValue(TEXT("LootColor"),FLinearColor(1.f,.72f,.22f));
+            Glow->SetScalarParameterValue(TEXT("Intensity"),5.f);
+            // Keep the nock small up close and legible at bow ranges, including inside a scope.
+            auto* Size = NewObject<UCurveFloat>(FlightGlow);
+            Size->FloatCurve.AddKey(0.f,.025f);
+            Size->FloatCurve.AddKey(30000.f,.45f);
+            Size->FloatCurve.AddKey(70000.f,1.f);
+            FlightGlow->AddElement(Glow,nullptr,false,100.f,100.f,Size);
+        }
+    }
+    FlightGlow->SetRelativeLocation(FVector(-Length,0,0));
+    FlightGlow->SetVisibility(!Presentation.bAuroraBeam && !bStuck && !MountainContact.bHit);
 
     // 占位箭：引擎圆柱做箭杆、引擎圆锥做箭头；两者局部 +Z 沿箭身，转 90° 俯仰对到 Actor +X。
     auto* ShaftMesh = InShaftMesh ? InShaftMesh : LoadObject<UStaticMesh>(nullptr,
@@ -108,6 +157,7 @@ void ABowArrow::Configure(float InDamage, float InSpeed, float InGravityCM, floa
         const FVector Centre = Axis * FVector::DotProduct(Bounds.Origin, Axis);
         Shaft->SetRelativeLocation(FVector(-Length * .5f, 0.f, 0.f) - Rotation.RotateVector(Centre * Scale));
         Head->SetVisibility(false);
+        UpdateAuroraBeam();
         return;
     }
     Shaft->SetRelativeRotation(FRotator(90.f, 0.f, 0.f));
@@ -117,95 +167,266 @@ void ABowArrow::Configure(float InDamage, float InSpeed, float InGravityCM, floa
     Head->SetRelativeRotation(FRotator(90.f, 0.f, 0.f));
     Head->SetRelativeLocation(FVector(-HeadLength * .5f, 0.f, 0.f));
     Head->SetRelativeScale3D(FVector(Radius * 2.1f / 50.f, Radius * 2.1f / 50.f, HeadLength / 100.f));
+    UpdateAuroraBeam();
+}
+
+void ABowArrow::RefreshFlightTick()
+{
+    const bool bFlightEffects = Presentation.bAuroraBeam || Presentation.bIllumination || Presentation.bFlameArmor || ElementalArrow::IsElement(Presentation.Element);
+    SetActorTickEnabled(!bStuck && !bEchoPending && !MountainContact.bHit && (HasAuthority() || bFlightSettling || bFlightEffects));
+}
+
+void ABowArrow::UpdateFlightSettle()
+{
+    if (!bFlightSettling || GetNetMode() == NM_DedicatedServer) return;
+    const AGameStateBase* State = GetWorld()->GetGameState();
+    const double Now = State ? State->GetServerWorldTimeSeconds() : GetWorld()->GetTimeSeconds();
+    const float Age = FMath::Max(0.f, float(Now - Presentation.FlightStartServerTime));
+    constexpr float SettleSeconds = .16f;
+    if (Age >= SettleSeconds || bStuck || MountainContact.bHit)
+    {
+        FlightVisual->SetRelativeRotation(FQuat::Identity);
+        bFlightSettling = false;
+        RefreshFlightTick();
+        return;
+    }
+    const float Envelope = FMath::Exp(-13.f * Age) * (1.f - FMath::SmoothStep(.11f, SettleSeconds, Age));
+    // Actor origin and visual pivot are the arrow tip. The shaft, fletching
+    // and nock glow settle as a unit while the sweep remains at the tip.
+    FlightVisual->SetRelativeRotation(FRotator(.60f * FMath::Sin(51.f * Age),
+        1.75f * FMath::Sin(75.f * Age), 0.f) * Envelope);
 }
 
 void ABowArrow::Tick(float Delta)
 {
     Super::Tick(Delta);
-    if(!HasAuthority())return;
+    if(bEchoPending||MountainContact.bHit)return;
+    UpdateFlightSettle();
+    if(!HasAuthority()){UpdateAuroraBeam();UpdateFlameVisual(Delta);UpdateElementVisual(Delta);UpdateIlluminationVisual(Delta);return;}
     Delta = FMath::Max(0.f, Delta);
-    Age += Delta;
     if (bStuck) return;
-    if (Delta <= 0.f || Velocity.IsNearlyZero()) return;
-    float Remaining = FMath::Min(Delta, 8.f);
+    if (Delta <= 0.f || Speed <= 0.f) return;
+    float Remaining = Delta;
     FVector Previous = GetActorLocation();
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(BowArrow), true, GetInstigator());
-    Query.AddIgnoredActor(this);
-    FHitResult Hit;
     while (Remaining > KINDA_SMALL_NUMBER)
     {
-        const float Dt = FMath::Min3(Remaining, 1.f / 120.f, StepCM / FMath::Max(1.f, float(Velocity.Size())));
-        const FVector Acceleration(0.f, 0.f, -GravityCM);
-        FVector Displacement = Velocity * Dt + Acceleration * (.5f * Dt * Dt);
-        const float Available = FMath::Max(0.f, MaxDistanceCM - TravelledCM);
-        if (Displacement.Size() > Available) Displacement = Displacement.GetSafeNormal() * Available;
-        const FVector Next = Previous + Displacement;
-        Velocity += Acceleration * Dt;
+        const float TimeUntilDrop = FMath::Max(0.f, (EffectiveRangeCM - TravelledCM) / Speed);
+        // A single swept segment covers straight flight. Only curvature needs substeps.
+        const float Dt = FMath::Min(Remaining, FMath::Max(TimeUntilDrop, 1.f / 120.f));
+        // The crossing substep contains a straight interval followed by a falling interval.
+        const float FlatTime = FMath::Min(TimeUntilDrop, Dt);
+        const float FallTime = Dt - FlatTime;
+        const FVector Gravity(0., 0., -GravityCM);
+        const FVector Next = Previous + Velocity * Dt + Gravity * (.5f * FallTime * FallTime);
+        Velocity += Gravity * FallTime;
         SetActorRotation(Velocity.Rotation());
-        const bool Blocked = RangedAttackQuery::SweepSingle(GetWorld(), GetInstigator(), Hit, Previous, Next, FQuat::Identity,
-            ECC_Visibility, FCollisionShape::MakeSphere(CollisionRadiusCM), Query);
-        TravelledCM += Displacement.Size() * (Blocked ? Hit.Time : 1.f);
-        if (Blocked)
-        {
-            ApplyHit(Hit);
-            return;
-        }
+        float Distance=0.f;
+        const bool bContinue=AdvanceSegment(Previous,Next,Distance);
+        TravelledCM+=Distance;
+        if(!bContinue)return;
         Previous = Next;
         Remaining -= Dt;
-        if (TravelledCM >= MaxDistanceCM)
-        {
-            Destroy();
-            return;
-        }
     }
     SetActorLocation(Previous);
-    if (TravelledCM >= MaxDistanceCM || Age > 8.f) Destroy();
+    UpdateAuroraBeam();
+    if (!CheckStillInWorld()) return;
+    UpdateFlameVisual(Delta);
+    UpdateElementVisual(Delta);
+    UpdateIlluminationVisual(Delta);
 }
 
 void ABowArrow::ResolveLaunchObstruction(const FVector& CameraOrigin)
 {
-    FHitResult Hit;
-    FCollisionQueryParams Query(SCENE_QUERY_STAT(BowLaunch), true, GetInstigator());
-    Query.AddIgnoredActor(this);
-    if (RangedAttackQuery::SweepSingle(GetWorld(), GetInstigator(), Hit, CameraOrigin, GetActorLocation(), FQuat::Identity,
-        ECC_Visibility, FCollisionShape::MakeSphere(CollisionRadiusCM), Query)) ApplyHit(Hit);
+    if(Presentation.bIllumination)LastIlluminationScan=CameraOrigin;
+    float Distance=0.f;
+    AdvanceSegment(CameraOrigin,GetActorLocation(),Distance);
 }
 
-void ABowArrow::ApplyHit(const FHitResult& Hit)
+bool ABowArrow::AdvanceSegment(const FVector& Start,const FVector& End,float& Distance)
 {
-    SetActorLocation(Hit.ImpactPoint + Velocity.GetSafeNormal() * 2.f);
-    // Continue flight through the removed pane instead of pinning an arrow in empty air.
-    if(UWardBreakableGlass::BreakHit(Hit,Velocity.GetSafeNormal()))return;
-    if (!bResolved)
+    FHitResult Hit;
+    FFPSAttackQuery Query(SCENE_QUERY_STAT(BowArrow),true,GetInstigator());
+    Query.AddIgnoredActor(this);
+    for(const auto& Target:HitTargets)if(Target.IsValid())Query.AddIgnoredActor(Target.Get());
+    // Re-query the complete segment after each penetrated target. Moving the
+    // start beyond a body could skip a thin wall or an adjacent second target.
+    while(RangedAttackQuery::SweepSingle(GetWorld(),GetInstigator(),Hit,Start,End,FQuat::Identity,
+        ECC_Visibility,FCollisionShape::MakeSphere(CollisionRadiusCM),Query))
     {
-        bResolved = true;
-        auto* Target = Hit.GetActor();
+        Distance=FVector::Distance(Start,Hit.Location);
+        auto* Target=Hit.GetActor();
+        auto* Component=Hit.GetComponent();
+        ScanIllumination(Hit.Location,true);
+        if(!ApplyHit(Hit,TravelledCM+Distance))return false;
+        if(Target&&HitTargets.Contains(Target))Query.AddIgnoredActor(Target);
+        else if(Component)Query.AddIgnoredComponent(Component); // Broken pane only; its wall still blocks.
+    }
+    Distance=FVector::Distance(Start,End);
+    ScanIllumination(End,false);
+    return true;
+}
+
+bool ABowArrow::ApplyHit(const FHitResult& Hit,float ContactDistanceCM)
+{
+    if(bResolved||bStuck)return false;
+    const auto BurstAtPassThrough=[&]()
+    {
+        if(!Presentation.bAuroraBeam)return;
+        FAuroraBeamContact Contact;
+        Contact.At=AuroraBeamVisual::Clock(GetWorld());
+        Contact.Point=Hit.ImpactPoint;
+        Contact.Normal=Hit.ImpactNormal;
+        MulticastAuroraPierce(Contact);
+    };
+    // Continue flight through the removed pane instead of pinning an arrow in empty air.
+    if(UWardBreakableGlass::BreakHit(Hit,Velocity.GetSafeNormal()))
+    {
+        if(Presentation.bMountainEcho){FinishMountainEchoHit(Hit);return false;}
+        BurstAtPassThrough();
+        return true;
+    }
+    auto* Target=Hit.GetActor();
+    if(Target&&HitTargets.Contains(Target))return true;
+    ApplyIlluminationImpact(Hit);
+    const auto* Combat=Target?Target->FindComponentByClass<UMonsterCombatComponent>():nullptr;
+    const auto* Health=Target?Target->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
+    // Practice targets receive point damage without monster/health components.
+    // They must also earn resonance and provide the original hit's crit receipt.
+    const bool bEchoPracticeTarget=IsValid(Target)&&Target->IsA<AFPSPracticeTarget>()&&
+        Target->CanBeDamaged()&&!Target->IsActorBeingDestroyed();
+    const bool bEchoEligible=bEchoPracticeTarget||
+        (((Combat&&!Combat->IsDead())||(Health&&!Health->IsDead()))&&
+        UFPSMeleeLightningComponent::IsEnemy(Target,GetInstigator()));
+    // Capture life before damage: a lethal arrow may still pass through its victim.
+    const bool bCanPierce=RemainingPenetrations>0&&((Combat&&!Combat->IsDead())||(Health&&!Health->IsDead()));
+    if(Target)
+    {
+        HitTargets.Add(Target);
         auto* Pawn = Cast<APawn>(GetInstigator());
         const FVector Direction = Velocity.GetSafeNormal();
         if (Target)
         {
+            const float RangeScale=WeaponDamageFalloff::Multiplier(ContactDistanceCM,EffectiveRangeCM);
+            const float ContactDamage=Damage*RangeScale;
             FWeaponDamageResult Result;
             float Applied = 0.f;
             {
                 // Bow release/impact never reports a hearing stimulus. Keep
                 // the local audio, and resolve group alarms only after death.
                 const MonsterDamageAlert::FScopedSilentShot SilentShot(Target);
-                Applied = ColdSteelSkills::ApplyHit(Pawn, Hit, Damage, Direction, Shot, &Result);
+                FEclipseBowImpact EclipseImpact(EclipseShot.Get(), Target);
+                // Illumination uses this ordinary-arrow damage snapshot and shared
+                // armour/critical/status calculation, with no extra skill damage.
+                if (auto* Unknown=Cast<AUnknownHumanoid>(Pawn)) Applied=Unknown->HitWithArrow(Hit,ContactDamage,Direction,Shot);
+                else Applied = Presentation.bMountainEcho?ApplyEchoHit(Hit,RangeScale,Result):ColdSteelSkills::ApplyHit(Pawn, Hit, ContactDamage, Direction, Shot, &Result);
+                EclipseImpact.Confirm(Applied);
+            }
+            if(!Presentation.bMountainEcho&&bEchoEligible)
+            {
+                if(MountainImpact&&!MountainImpact->bRecorded)
+                {
+                    // Store the pre-falloff receipt so the echo uses its own impact distance once.
+                    MountainImpact->Physical=Result.BeforeDefense.Scaled(1.f/RangeScale);
+                    if(!Shot.bAuroraBeam)MountainImpact->Physical.BaseMagic=MountainImpact->Physical.AddedMagic=0;
+                    MountainImpact->bCritical=Result.bCritical;MountainImpact->bRecorded=true;
+                }
+                if(bMountainGain)
+                {
+                    bMountainGain=false;
+                    if(MountainSource.IsValid())MountainSource->ConfirmHit(MountainEpoch);
+                }
             }
             if (auto* Character = Cast<AFPSGAMECharacter>(Pawn))
             {
                 Character->NotifyConfirmedWeaponHit(Target, Applied, &Result, true,false);
                 if(HasAuthority()&&!Character->IsLocallyControlled())if(auto* PS=Character->GetPlayerState<AColdSteelPlayerState>())
-                {FColdSteelNetHitReceipt Receipt;Receipt.bFirearm=true;Receipt.Target=Target;Receipt.Applied=Applied;Receipt.bCritical=Result.bCritical;Receipt.bKilled=Result.bKilled;PS->ClientConfirmHit(Receipt);}
+                {FColdSteelNetHitReceipt Receipt;Receipt.bFirearm=true;Receipt.Target=Target;Receipt.Applied=Applied;Receipt.MagicApplied=Result.Applied.MagicPortion(Applied);Receipt.bCritical=Result.bCritical;Receipt.bKilled=Result.bKilled;PS->ClientConfirmHit(Receipt);}
             }
         }
     }
+    BurstElement(Hit);
+    if(Presentation.bMountainEcho){FinishMountainEchoHit(Hit);return false;}
+    if(bCanPierce)
+    {
+        BurstAtPassThrough();
+        --RemainingPenetrations;
+        return true;
+    }
+    bResolved=true;
+    SetActorLocation(Hit.ImpactPoint+Velocity.GetSafeNormal()*2.f);
     FinishStuck(Hit);
+    return false;
+}
+
+void ABowArrow::MulticastAuroraPierce_Implementation(const FAuroraBeamContact& Contact)
+{
+    if(GetNetMode()==NM_DedicatedServer||AuroraBeamVisual::Clock(GetWorld())-Contact.At>.55)return;
+    if(!AuroraBeam.IsValid())AuroraBeam=AAuroraBeamVisual::Open(this,Contact.Point);
+    if(AuroraBeam.IsValid())
+    {
+        AuroraBeam->Burst(Contact);
+        if(bAuroraFinished)AuroraBeam->Release();
+    }
+}
+
+void ABowArrow::RecordAuroraContact(const FHitResult& Hit)
+{
+    if(!Presentation.bAuroraBeam||AuroraContact.At>=0.)return;
+    AuroraContact.At=AuroraBeamVisual::Clock(GetWorld());
+    AuroraContact.Point=Hit.ImpactPoint;
+    AuroraContact.Normal=Hit.ImpactNormal;
+    // On a near-wall release the initial camera-to-tip sweep can find a wall
+    // behind the muzzle. Keep the visual entirely on the shooter's side.
+    if(TravelledCM==0.f&&FVector::DotProduct(Hit.ImpactPoint-FVector(Presentation.AuroraOrigin),Velocity)<0.)
+        Presentation.AuroraOrigin=Hit.ImpactPoint;
+    UpdateAuroraBeam();
+    ForceNetUpdate();
+}
+
+void ABowArrow::OnRep_AuroraContact()
+{
+    UpdateAuroraBeam();
+}
+
+void ABowArrow::UpdateAuroraBeam()
+{
+    if(!Presentation.bAuroraBeam||GetNetMode()==NM_DedicatedServer)return;
+    Shaft->SetVisibility(false);
+    Head->SetVisibility(false);
+    FlightGlow->SetVisibility(false);
+    if(bAuroraFinished||bEchoPending)return;
+    const double Now=AuroraBeamVisual::Clock(GetWorld());
+    const bool Hit=AuroraContact.At>=0.;
+    if(Hit&&Now-AuroraContact.At>.55)
+    {
+        if(AuroraBeam.IsValid())AuroraBeam->Release();
+        bAuroraFinished=true;
+        return;
+    }
+    if(!Hit&&(bStuck||MountainContact.bHit||Now<Presentation.FlightStartServerTime))return;
+    const FVector Start=Presentation.AuroraOrigin;
+    if(!Hit&&GetActorLocation().Equals(Start,.05))return;
+    if(!AuroraBeam.IsValid())AuroraBeam=AAuroraBeamVisual::Open(this,Start);
+    if(!AuroraBeam.IsValid())return;
+    if(Hit)
+    {
+        AuroraBeam->Finish(0,Start,Presentation.FlightStartServerTime,AuroraContact);
+        AuroraBeam->Release();
+        bAuroraFinished=true;
+    }
+    else AuroraBeam->Trace(0,Start,Presentation.FlightStartServerTime,GetActorLocation(),Now);
 }
 
 void ABowArrow::FinishStuck(const FHitResult& Hit)
 {
     bStuck = true;
+    RecordAuroraContact(Hit);
+    FlightVisual->SetRelativeRotation(FQuat::Identity);
+    bFlightSettling = false;
+    FlightGlow->SetVisibility(false);
+    UpdateIlluminationVisual(0);
+    UpdateElementVisual(0);
+    StopFlameVisual();
     Velocity = FVector::ZeroVector;
     SetActorTickEnabled(false);
     // Even an infinite-reserve arrow can be gathered out of the world. Only
@@ -226,7 +447,11 @@ void ABowArrow::FinishStuck(const FHitResult& Hit)
 
 void ABowArrow::EndPlay(const EEndPlayReason::Type Reason)
 {
+    if(AuroraBeam.IsValid())AuroraBeam->Release();
+    GetWorldTimerManager().ClearTimer(EchoDelay);
+    ReleaseMountainEchoVisual();
     GetWorldTimerManager().ClearTimer(RecoveryTimer);
+    StopFlameVisual();
     Super::EndPlay(Reason);
 }
 
@@ -329,6 +554,7 @@ bool ABowArrow::RecoverIntoPouch(APawn* Pawn)
     {
         bRecoverable = true;
         bStuck = true;
+    FlightGlow->SetVisibility(false);
         Profile->PostNotice(TEXT("箭支未拾回"), Profile->ResultMessage());
         return false;
     }
@@ -341,18 +567,27 @@ void ABowArrow::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetim
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME_CONDITION(ABowArrow,Presentation,COND_InitialOnly);
     DOREPLIFETIME(ABowArrow,bStuck);DOREPLIFETIME(ABowArrow,bRecoverable);
+    DOREPLIFETIME(ABowArrow,bElementBurst);
+    DOREPLIFETIME(ABowArrow,bEchoPending);
+    DOREPLIFETIME(ABowArrow,MountainContact);
+    DOREPLIFETIME(ABowArrow,AuroraContact);
 }
 void ABowArrow::OnRep_Presentation()
 {
+    bFlightSettling = !bStuck && !MountainContact.bHit;
     Configure(1,600,0,400,FColdSteelSkillShot{},Presentation.Shaft,Presentation.Head,
         Presentation.Radius,Presentation.Length,Presentation.Ammo,bRecoverable,120);
-    OnRep_Stuck();
+    ApplyEchoPresentation();OnRep_Stuck();OnRep_EchoPending();OnRep_MountainContact();
 }
 void ABowArrow::OnRep_Stuck()
 {
+    UpdateAuroraBeam();
     if(HasAuthority())return;
     SetActorEnableCollision(bStuck);
     RecoveryShape->SetCollisionEnabled(bStuck&&bRecoverable?ECollisionEnabled::QueryOnly:ECollisionEnabled::NoCollision);
     AutoRecovery->SetCollisionEnabled(bStuck?ECollisionEnabled::QueryOnly:ECollisionEnabled::NoCollision);
-    SetActorTickEnabled(false);
+    if(bStuck){FlightGlow->SetVisibility(false);StopFlameVisual();}
+    if(bStuck){UpdateElementVisual(0);UpdateIlluminationVisual(0);}
+    if (bStuck) { FlightVisual->SetRelativeRotation(FQuat::Identity); bFlightSettling=false; }
+    RefreshFlightTick();
 }

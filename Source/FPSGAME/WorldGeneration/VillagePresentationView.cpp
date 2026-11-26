@@ -64,6 +64,21 @@ bool VillagePresentationView::FCanopyView::Update(UWorld& World, bool& bDisconti
     return bChanged;
 }
 
+bool VillagePresentationView::ClosestEye(UWorld& World,const FVector& Center,double Radius,FVector& Eye,double& FovScale)
+{
+    double Best=MAX_dbl;
+    for(const auto& View:LocalViews(World))
+    {
+        const FVector Offset=Center-View.Eye;
+        const double Range=Offset.Size();
+        const double Power=(View.Forward|Offset)>.80*Range-Radius?View.ScopePower:1.;
+        const double Scale=View.FovScale/Power;
+        if(Range*Scale>=Best)continue;
+        Best=Range*Scale;Eye=View.Eye;FovScale=Scale;
+    }
+    return Best<MAX_dbl;
+}
+
 double VillagePresentationView::Distance(UWorld& World, const FVector& Center, double Radius, bool* HasView)
 {
     const auto& Views = LocalViews(World);

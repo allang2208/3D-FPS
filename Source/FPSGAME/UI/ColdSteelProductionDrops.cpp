@@ -1,5 +1,8 @@
 #include "ColdSteelStatusModel.h"
+#include "../FPSGAMECharacter.h"
+#include "../Dungeons/DungeonRoomSubsystem.h"
 #include "../Production/ProductionResource.h"
+#include "../Development/DevelopmentEnvironmentObject.h"
 #include "../Production/ProductionHarvestAssets.h"
 #include "../Production/ProductionToolStats.h"
 #include "../Production/ProductionTreeFallPlan.h"
@@ -9,7 +12,9 @@
 
 bool UColdSteelStatusModel::StageProductionDrops(FColdSteelProfile& State,const FProductionResource& Target,TArray<FString>& Ids,const FProductionToolStats& ToolStats)
 {
-    auto* World=Target.World.Get();if(!World||!World->WorldId.IsValid())return false;
+    auto* World = Target.World.Get();
+    const auto* DevelopmentObject = Target.DevelopmentObject.Get();
+    if (!DevelopmentObject && (!World || !World->WorldId.IsValid())) return false;
     FVector Forward=Target.Direction;Forward.Z=0;if(!Forward.Normalize())Forward=FVector::ForwardVector;
     const FVector Side=FVector::CrossProduct(FVector::UpVector,Forward);
     // 树桩（bStump）没有倒树轴向：不做倒树计划，掉落像岩块那样绕目标散落。
@@ -30,19 +35,37 @@ bool UColdSteelStatusModel::StageProductionDrops(FColdSteelProfile& State,const 
             {
                 auto Item=CreateItem(Definition,Definition==TEXT("wood")?1:Amount);
                 if(Item.Data.IsEmpty()){Message=TEXT("材料目录缺失，原资源保留");return false;}
+                Item.bFreshMinedIron = World && !DevelopmentObject && Target.Layer==1 && Definition==TEXT("iron_ore");
                 FVector Position=Target.Transform.GetLocation();
                 if(bTreeFall)Position=Fall.Pivot+FallenAxis*(90+Index*95)+Side*Random.FRandRange(-22,22);
                 else Position+=FVector(Random.FRandRange(-65,65),Random.FRandRange(-65,65),0);
-                FVector Normal=World->SurfaceNormal(Position.X,Position.Y);
-                if(Normal.Z<.65f){Position=Target.Transform.GetLocation()+Side*(Index*35);Normal=World->SurfaceNormal(Position.X,Position.Y);}
-                Position.Z=World->Height(Position.X,Position.Y)+(bTreeFall?28:45);
+                FVector Normal;
+                if (DevelopmentObject)
+                {
+                    FHitResult Floor;
+                    if (!DevelopmentObject->FindGround(Position, Floor)
+                        && !DevelopmentObject->FindGround(Target.Transform.GetLocation(), Floor))
+                    { Message=TEXT("附近没有可放置掉落物的地面"); return false; }
+                    Position = Floor.ImpactPoint;
+                    Normal = Floor.ImpactNormal;
+                    StampProductionDrop(Item);
+                }
+                else
+                {
+                    Normal=World->SurfaceNormal(Position.X,Position.Y);
+                    if(Normal.Z<.65f){Position=Target.Transform.GetLocation()+Side*(Index*35);Normal=World->SurfaceNormal(Position.X,Position.Y);}
+                    Position.Z=World->Height(Position.X,Position.Y);
+                    Item.HarvestWorldId=World->WorldId;
+                }
+                Position.Z += bTreeFall ? 28 : 45;
                 // New logs are authored along local +X, with complete end caps.
                 const float YawSpread=bTreeFall?9.f:(Target.bStump?40.f:180.f);
                 const float Yaw=Forward.Rotation().Yaw+Random.FRandRange(-YawSpread,YawSpread);
                 Item.WorldRotation=(FQuat::FindBetweenNormals(FVector::UpVector,Normal)*FRotator(0,Yaw,0).Quaternion()).Rotator();
-                Item.Place=2;Item.Cell=-1;Item.Position=Position;Item.HarvestWorldId=World->WorldId;
-                Item.Map=UGameplayStatics::GetCurrentLevelName(this,true);
-                Ids.Add(Item.InstanceId);State.Items.Add(MoveTemp(Item));++Index;
+                Item.Place=2;Item.Cell=-1;Item.Position=Position;
+                Item.Map=RuntimePawn()?UDungeonRoomSubsystem::LogicalMap(RuntimePawn()):UGameplayStatics::GetCurrentLevelName(this,true);
+                if (Item.HarvestWorldId.IsValid() || GetWorld()->GetNetMode()!=NM_Standalone) Ids.Add(Item.InstanceId);
+                State.Items.Add(MoveTemp(Item));++Index;
             }
         }
         return true;

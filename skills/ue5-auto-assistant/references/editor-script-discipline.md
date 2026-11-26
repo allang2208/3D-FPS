@@ -43,6 +43,11 @@
 纪律：**任何关键写入都要在同一个脚本里读回校验**，并把读回值写进回执 JSON。
 校验不通过就报失败，不能把"调用没抛错"当成生效。 原因：编辑器调用可能返回失败或只修改临时值，保存回执必须对应实际完成的写入。
 
+结构体数组同理（2026-10-22 尼泊尔弯刀实测）：`get_editor_property('static_materials')` 返回的数组里，
+每个元素都是副本。`for m in mats: m.set_editor_property('material_interface', mat)` 不会改到原数组，
+写回后材质槽仍是 `WorldGridMaterial`（游戏里显示成白色格子）。给静态网格赋材质用 `mesh.set_material(i, mat)`，再用 `mesh.get_material(i)` 读回；
+要改其他字段，就新建 `unreal.StaticMaterial(...)`，整组赋回去。
+
 ## 4. 幂等：给自己产出的 actor 打标签，重建前先删自己的
 
 生成大量 actor 的脚本要：

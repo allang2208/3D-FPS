@@ -49,6 +49,61 @@ struct FColdSteelMeterTransition
     }
 };
 
+/** Trailing ghost bar transition for damage/cost lag. */
+struct FColdSteelGhostTransition
+{
+    float GhostValue = 0.f;
+    float From = 0.f;
+    float To = 0.f;
+    double DelayUntil = 0.;
+    double StartedAt = 0.;
+    float Duration = 0.f;
+    bool bInitialized = false;
+
+    void SetTarget(float Next, float CurrentReal, double Now, bool bSnap = false)
+    {
+        const float TargetVal = FMath::IsFinite(Next) ? FMath::Clamp(Next, 0.f, 1.f) : 0.f;
+        if (!bInitialized || bSnap)
+        {
+            GhostValue = From = To = TargetVal;
+            DelayUntil = StartedAt = Now;
+            Duration = 0.f;
+            bInitialized = true;
+            return;
+        }
+        if (TargetVal < To)
+        {
+            // Value dropped: hold ghost bar at current visual position for 0.22s, then smoothly ease down
+            From = ValueAt(Now);
+            To = TargetVal;
+            DelayUntil = Now + 0.22;
+            StartedAt = DelayUntil;
+            Duration = 0.38f;
+        }
+        else if (TargetVal > To)
+        {
+            // Value increased (heal/recovery): snap ghost immediately up so it doesn't trail behind
+            From = To = GhostValue = TargetVal;
+            DelayUntil = StartedAt = Now;
+            Duration = 0.f;
+        }
+    }
+
+    bool IsAnimating(double Now) const
+    {
+        return Now < DelayUntil || (Duration > 0.f && Now < StartedAt + Duration);
+    }
+
+    float ValueAt(double Now) const
+    {
+        if (Now < DelayUntil) return From;
+        if (Duration <= 0.f || Now >= StartedAt + Duration) return To;
+        const float T = FMath::Clamp(float((Now - StartedAt) / Duration), 0.f, 1.f);
+        const float R = 1.f - T;
+        return FMath::Lerp(From, To, 1.f - R * R * R);
+    }
+};
+
 class FSlateWindowElementList;
 struct FGeometry;
 
@@ -58,5 +113,6 @@ namespace ColdSteelUI
     FPSGAME_API int32 PaintResourceMeter(const FGeometry& Geometry, FSlateWindowElementList& Out,
         int32 Layer, FVector2D Offset, FVector2D Size, float DisplayRatio,
         const FLinearColor& Fill, const FLinearColor& Deep, const FLinearColor& BorderColor,
-        const FLinearColor& Tint);
+        const FLinearColor& Tint, float GhostRatio = -1.f, const FLinearColor& GhostColor = FLinearColor::Transparent,
+        float PendingCostRatio = 0.f, float ShieldRatio = 0.f, float TickSpacingRatio = 0.f);
 }

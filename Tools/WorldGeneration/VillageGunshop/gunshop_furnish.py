@@ -100,9 +100,7 @@ def build_furnishings(place):
     place('ChangeBowl', POTS+'Dish', counter_point(63.,-8.), (14,14,2.6), 0)
     place('CounterStool', TIMBER+'OakStool', (-72,579,0), (34,34,48), -17, True)
 
-    # A quiet front bay overlooks the street. The wall shop display begins beyond the window.
-    place('WaitingBench', '/Game/MilitaryTrench/Assets/3D/Mil_Trench_Bench_Wood_01/StaticMeshes/SM_Mil_Trench_Bench_Wood_01',
-          (259,53,0), WAITING_BENCH_SIZE, 0, True)
+    # A quiet front bay overlooks the street (broken SM_Mil_Trench_Bench_Wood_01 retired across project).
     for y in BOARDS:
         authored('PerforatedDisplayBoard', 'PerforatedBoard', (BOARD_X,y,114.), 90.)
     authored('OpticsMounts', 'OpticsMounts', (BOARD_X,BOARDS[0],114.), 90.)

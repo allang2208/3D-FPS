@@ -41,6 +41,10 @@ for weapon in manifest:
 catalog_path=P/'Content/ColdSteelData/gun-assembly.json'
 existing=json.loads(catalog_path.read_text(encoding='utf-8-sig'))
 current=existing.get('recipes',[existing] if 'id' in existing else [])
+import sys
+sys.path.insert(0,str(P/'Tools/GunWorkbench'))
+from assembly_recipe_policy import preserve_gameplay_recipe
+recipes=[preserve_gameplay_recipe(r,next((old for old in current if old['id']==r['id']),None)) for r in recipes]
 new_ids={r['id'] for r in recipes}
 conflicts=[r['id'] for r in current if r['id'] in new_ids and r not in recipes]
 if conflicts:raise RuntimeError('Other recipe edits found; preserved catalog: '+str(conflicts))
@@ -48,7 +52,8 @@ backup=ROOT/'Before';backup.mkdir(exist_ok=True)
 if not (backup/'gun-assembly.json').exists():shutil.copy2(catalog_path,backup/'gun-assembly.json')
 current=[r for r in current if r['id'] not in new_ids]+recipes
 pending=catalog_path.with_name('gun-assembly.catalog-20260928.tmp')
-pending.write_text(json.dumps({'recipes':current},ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+existing['recipes']=current
+pending.write_text(json.dumps(existing,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
 os.replace(pending,catalog_path)
 receipt.update({'recipes_published':True,'new_recipes':[r['id'] for r in recipes],'catalog_recipe_count':len(current),
     'completed_at':datetime.datetime.now().isoformat()});record()

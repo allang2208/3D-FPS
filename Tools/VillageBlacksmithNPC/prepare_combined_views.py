@@ -42,3 +42,4 @@ for name, im, points in views:
     tile=Image.new('RGB',(1024,1024),(174,173,170))
     tile.paste(cut,((1024-size[0])//2,60),m)
     tile.save(OUT/(name+'.png'))
+

@@ -9,4 +9,5 @@ class UKukriNetworkAuditCommandlet : public UCommandlet
 public:
     virtual int32 Main(const FString& Params) override;
     void CheckRunes(class AColdSteelPlayerState* PS,class AFPSGAMECharacter* Pawn,TFunctionRef<void(bool,const TCHAR*)> Check);
+    void CheckHeavyClock(class AColdSteelPlayerState* PS,class AFPSGAMECharacter* Pawn,TFunctionRef<void(bool,const TCHAR*)> Check);
 };

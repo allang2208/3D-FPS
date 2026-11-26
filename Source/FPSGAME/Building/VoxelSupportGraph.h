@@ -13,6 +13,8 @@ struct FVoxelSupportNode
     FVoxelPhysicalMaterial Physics;
     float Damage=0;
     float AddedMassKg=0;
+    // 2026-10-19 单层 45° 屋面：楔形切割编码（VoxelCut），供支撑图补"共面坡棱"承重边。
+    uint8 Cut=0;
 };
 
 struct FVoxelContact
@@ -42,7 +44,7 @@ struct FVoxelSupportGraph
      */
     void NearInto(const FVector& Min,TArray<FVoxelBuildKey>& Out) const;
     TArray<FVoxelBuildKey> Within(FVector Point,float Radius) const;
-    static bool Contact(const FVector& A,const FVector& B,FVoxelContact& Result);
+    static bool Contact(const FVector& A,const FVector& B,FVoxelContact& Result,uint8 CutA=0,uint8 CutB=0);
 private:
     TMap<FIntVector,TSet<FVoxelBuildKey>> Buckets;
 };

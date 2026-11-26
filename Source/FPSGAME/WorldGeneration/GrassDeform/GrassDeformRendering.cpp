@@ -13,10 +13,41 @@
 #include "Materials/MaterialInterface.h"
 #include "Materials/MaterialParameterCollection.h"
 #include "Materials/MaterialParameterCollectionInstance.h"
+#include "MaterialShared.h"
+#if WITH_EDITOR
+#include "ShaderCore.h"
+#endif
+#include "RHIGlobals.h"
 #include "Misc/Paths.h"
 #include "Scalability.h"   // Scalability::DefaultQualityLevel, the permissive fallback when the cvar is unresolved
 
 #include "GrassDeformParamsPrivate.h"
+bool UGrassDeformSubsystem::ArePassShadersReady() const
+{
+#if WITH_EDITOR
+    // Canvas waits on completeness, including shader jobs that have not been
+    // submitted yet. Prime the four pass materials together and keep pending
+    // stamps until the editor has published their maps.
+    bool bReady = true;
+    for (auto* Material : {StampMaterial.Get(), StampTimeMaterial.Get(), RecenterMaterial.Get(), RecenterTimeMaterial.Get()})
+    {
+        if (!Material) return false;
+        UMaterialInterface::IterateOverActiveFeatureLevels([&](ERHIFeatureLevel::Type Level)
+        {
+            auto* Resource = Material->GetMaterialResource(GetFeatureLevelShaderPlatform_Checked(Level));
+            if (Resource && !Resource->IsGameThreadShaderMapComplete())
+            {
+                Resource->SubmitCompileJobs_GameThread(EShaderCompileJobPriority::Normal);
+                bReady = false;
+            }
+        });
+    }
+    return bReady;
+#else
+    return true;
+#endif
+}
+
 UTextureRenderTarget2D* UGrassDeformSubsystem::GetReadTarget() const
 {
     return RenderTargets[ReadIndex];
@@ -36,6 +67,9 @@ void UGrassDeformSubsystem::FlipReadSide()
 void UGrassDeformSubsystem::DrainPendingStamps()
 {
     if (Pending.Num() == 0) return;
+    // Canvas otherwise finishes pending shader maps synchronously (108 ms in
+    // the entry trace). Keep the bounded stamp queue until compilation finishes.
+    if (!ArePassShadersReady()) return;
 
     UWorld* World = GetWorld();
     UMaterialInstanceDynamic* Material = StampMaterial;
@@ -127,6 +161,7 @@ void UGrassDeformSubsystem::UpdateFade(float DeltaTime)
 
 void UGrassDeformSubsystem::RecenterWindow(const FVector& GroundPosition)
 {
+    if (!ArePassShadersReady()) return;
     // An integer texel shift is a copy, not another blur of the persistent trail.
     // 400 cm is 85.333 texels at 1024/48m; repeated fractional shifts smeared directions.
     const float TexelCm = GrassDeformTuning::WindowSizeCm / FMath::Max(ActiveRTSize, 1);

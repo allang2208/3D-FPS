@@ -54,7 +54,7 @@ void UColdSteelHUDWidget::RunWarehouseAudit()
     {
         auto P=M->Snapshot();P.Items.Empty();
         auto Mountain=M->CreateItem(TEXT("ue_mountain_backpack"));
-        auto Stone=M->CreateItem(TEXT("stone"),50);Stone.Cell=0;
+        auto Stone=M->CreateItem(TEXT("stone"),50);Stone.Cell=9;
         P.Items={Mountain,Stone};
         Check(M->CommitState(P),TEXT("mountain bag fixture committed"));
         Check(M->MoveItem(Mountain.InstanceId,1,14),TEXT("mountain bag equips to slot 14"));
@@ -66,7 +66,41 @@ void UColdSteelHUDWidget::RunWarehouseAudit()
             Eq?Number(*Eq,TEXT("bagExtraCells")):-1.0,BagRows(M->Items()),CompGrid.X,CompGrid.Y);
         Check(BagRows(M->Items())==5,TEXT("equipped mountain bag adds one bag row"));
         Check(CompGrid==FIntPoint(5,6),TEXT("mountain bag compartment is 5x6"));
+        // 夹层右键/双击共用 DefaultAction：穿戴必须与背包格同权，不能只对 Place 0 生效。
+        auto CompGloves=M->CreateItem(TEXT("ue_hardknuckle_gloves"));CompGloves.Place=ColdSteelCompartment::Place;CompGloves.Cell=0;
+        auto WithGloves=M->Snapshot();WithGloves.Items.Add(CompGloves);
+        Check(M->CommitState(WithGloves),TEXT("compartment gear fixture committed"));
+        Check(M->DefaultAction(CompGloves.InstanceId)&&M->FindItem(CompGloves.InstanceId)->Place==1,TEXT("compartment default action equips gear"));
+        // 生产工具在 DefaultAction 里走装备槽循环直达主手；快捷栏 UseItem→
+        // ToggleProductionTool 的“已装备”分支过去只按 Definition 判断（不看 Place），
+        // 会把夹层工具误判成已装备而拒绝。两条路径都必须能从 Place 5 装备。
+        // 必须在槽14背包仍装备时测试，否则 Place 5 没有宿主，提交就会被校验拒绝。
+        auto Tool=M->CreateItem(TEXT("tool_axe"));
+        Check(Tool.Width==1&&Tool.Height==3,TEXT("production tool catalog is loaded"));
+        Tool.Place=ColdSteelCompartment::Place;Tool.Cell=0;
+        auto WithTool=M->Snapshot();WithTool.Items.Add(Tool);
+        Check(M->CommitState(WithTool),TEXT("compartment tool fixture committed"));
+        const bool ToolAction=M->DefaultAction(Tool.InstanceId);
+        const auto* EquippedTool=M->FindItem(Tool.InstanceId);
+        Check(ToolAction&&EquippedTool&&EquippedTool->Place==1
+            &&(EquippedTool->Cell==6||EquippedTool->Cell==9),TEXT("compartment default action equips a production tool"));
+        // 快捷栏绑定工具时走 UseItem→ToggleProductionTool，不经过 DefaultAction 的装备槽循环；
+        // 其“已装备”分支过去只按 Definition 判断，会把夹层工具误判成已装备后拒绝。
+        Check(M->MoveItem(Tool.InstanceId,ColdSteelCompartment::Place,0),TEXT("production tool returns to the compartment"));
+        const bool QuickToolAction=M->UseItem(Tool.InstanceId);
+        const auto* QuickTool=M->FindItem(Tool.InstanceId);
+        Check(QuickToolAction&&QuickTool&&QuickTool->Place==1
+            &&(QuickTool->Cell==6||QuickTool->Cell==9),TEXT("compartment tool quick use equips it"));
+        // 背包满时自动卸下应兜底到夹层；卸下宿主背包时夹层物品应自动搬回背包。
+        auto FullBag=M->Snapshot();
+        for(int32 C=0;C<BagRows(FullBag.Items)*18;++C)
+            if(Owner(FullBag.Items,0,C)==INDEX_NONE){auto Filler=M->CreateItem(TEXT("stone"));Filler.Cell=C;FullBag.Items.Add(Filler);}
+        Check(M->CommitState(FullBag),TEXT("full bag fixture committed"));
+        Check(M->DefaultAction(CompGloves.InstanceId)&&M->FindItem(CompGloves.InstanceId)->Place==ColdSteelCompartment::Place,TEXT("full bag unequip falls back to the compartment"));
+        auto CleanBag=M->Snapshot();CleanBag.Items.RemoveAll([](const auto& I){return I.Definition==TEXT("stone");});
+        Check(M->CommitState(CleanBag),TEXT("full bag fixture cleared"));
         Check(M->MoveItem(Mountain.InstanceId,0,-1)&&BagRows(M->Items())==4,TEXT("unequipping restores four rows"));
+        Check(M->FindItem(CompGloves.InstanceId)&&M->FindItem(CompGloves.InstanceId)->Place==0,TEXT("unequipping the host bag evacuates its compartment"));
         UE_LOG(LogTemp,Display,TEXT("WarehouseAudit: COMPLETE checks=%d failures=%d"),R->Checks,R->Failures);
         GetOwningPlayer()->ConsoleCommand(TEXT("quit"));return;
     }

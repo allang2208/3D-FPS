@@ -30,3 +30,4 @@ def prepare(source):
     Image.fromarray(np.rint(atlas.clip(0,1)*255.).astype('u1')).save(grass/'T_HillsTrailField.png')
 
 if __name__=='__main__':prepare(Path(sys.argv[1]))
+

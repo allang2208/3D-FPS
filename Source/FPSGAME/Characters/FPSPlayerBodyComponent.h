@@ -11,13 +11,19 @@
 #include "FPSPlayerReactionCamera.h"
 #include "FPSPlayerBodyComponent.generated.h"
 
+struct FFPSWeatherWeaponMesh
+{
+    class UMeshComponent* Mesh=nullptr;
+    uint8 Hand=0;
+    FString Instance;
+};
+
 /** World-space body and equipment, separate from the camera's existing viewmodels. */
 UCLASS(ClassGroup=(Player), meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UFPSPlayerBodyComponent : public UActorComponent
 {
     GENERATED_BODY()
 public:
-    bool HasBowForPresentation() const { return DisplayState.Family == TEXT("Bow"); }
     UFPSPlayerBodyComponent();
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
@@ -25,7 +31,9 @@ public:
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out) const override;
 
     UFUNCTION(BlueprintPure, Category="Player Body") FFPSBodyState GetBodyState() const { return DisplayState; }
+    const FFPSBodyState& CurrentBodyState() const { return DisplayState; }
     const FString& DisplayedWeaponInstance() const { return DisplayState.WeaponInstance; }
+    bool HasBowForPresentation() const { return DisplayState.Family == TEXT("Bow"); }
     /** Future authoritative combat adapters publish here; this is deliberately not a client RPC. */
     UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Player Body")
     void SetAuthoritativeState(const FFPSBodyState& State);
@@ -41,7 +49,8 @@ public:
     class USkeletalMeshComponent* GetFirstPersonLowerBodyMesh() const { return FirstPersonLowerBody.Get(); }
     /** Stable anatomical eye offset; evaluated once with the camera, reused by melee aiming. */
     void ApplyOwnerCameraOffset(FVector& Eye);
-    FVector GetOwnerCameraOffset() const { return OwnerCameraOffset; }
+    FVector GetGameplayCameraOffset(const FVector& Eye) const;
+    float GetOwnerCameraForward() const { return OwnerCameraForward; }
     /** Applies `fps.body.WorldBody` to the body, world weapon, attachment and outfit
      *  components. Safe to call every visibility refresh; only changed flags are set. */
     void ApplyWorldBodyVisibility();
@@ -49,6 +58,8 @@ public:
      *  第一人称下这些网格看不见（OwnerNoSee + bCastHiddenShadow），
      *  却仍在为阴影贴图渲染一遍深度。 */
     void ApplyWorldBodyShadow();
+    /** Isolate the owner's warhammer hands from the hidden body's VSM shadow. */
+    bool UsesWarhammerFirstPersonPass() const;
     /** Local F6 view only; keeps the first-person camera as the gameplay aim anchor. */
     bool IsThirdPersonViewEnabled() const;
     bool ShouldShowHelmetVisor() const;
@@ -60,6 +71,9 @@ public:
     bool ResolveWorldWeaponFrame(const class USkeletalMeshComponent* Source,const class USceneComponent* SourceAnchor,
         const FTransform& SourceFrame,FTransform& WorldFrame) const;
     void ApplyCameraView(struct FMinimalViewInfo& View);
+    void RestoreCloseCameraClearance();
+    void UpdateCloseCameraClearance(float Delta);
+    void ConstrainCloseCameraPoint(FVector& WorldPoint) const;
     void ApplyReactionCamera(float Delta,struct FMinimalViewInfo& View);
     void ApplyInteractionView(FVector& Eye, FRotator& View) const;
     void RefreshViewMode();
@@ -74,6 +88,10 @@ public:
     void ReportM24BoltEject();
     void ReportGunCartridge(uint8 Hand,class UStaticMesh* Mesh,const FTransform& Frame,const FVector& Velocity,float Age);
     class UFPSWeaponFXComponent* GetRemoteGunFX() const {return RemoteGunFX;}
+    /** Sample visible replicated equipment, including independently posed offhand weapons. */
+    void GetFlameArmorAttachments(struct FFlameArmorAttachmentBuffer& Out) const;
+    /** Existing equipped sources/copies only, with their actual hand and item identity. */
+    void GetWeatherWeaponMeshes(TArray<FFPSWeatherWeaponMesh>& Out,bool bWorldOnly=false) const;
     /** Per-rig consume gate, including both lowering and recovery transitions. */
     bool ConsumableStowsTacticalEffects(uint8 Rig) const;
     bool ResolveLaserSample(uint8 Rig,uint8 Part,uint32 Schema,FFPSBodyLaserSample& Out) const;
@@ -81,15 +99,18 @@ public:
     bool PresentConsumableDiscard(class UStaticMeshComponent* Source,const FVector& Velocity,float Lifetime);
     /** Only catalog IDs are accepted. Persists the owning player's choice. */
     UFUNCTION(BlueprintCallable, Category="Player Body") bool SetHeadAndHair(FName HeadId,FName HairId);
-
     /** Switch the complete authored body through the existing appearance save transaction. */
     UFUNCTION(BlueprintCallable, Category="Player Body") bool SetBodyType(FName BodyId);
     UFUNCTION(BlueprintPure, Category="Player Body") FName GetBodyType() const;
     bool CanUseBodyType(FName BodyId) const;
-    bool IsAppearanceLoading() const { return AppearanceLoad.IsValid(); }
+    bool IsAppearanceLoading() const { return bInitialAppearancePending||AppearanceLoad.IsValid(); }
+    bool IsWorldBodyPresentationHidden() const;
     bool SampleFurnitureEye(FName Clip,float Seconds,FVector& Eye) const;
 
 private:
+    friend class ULeapStrikeAuditCommandlet;
+    friend class UWeaponEquipCameraAuditCommandlet;
+    friend class AWeaponEquipWireController;
     struct FFurnitureEyeTrack { float Duration=0.f; TArray<FVector> Eyes; };
     TMap<FName,FFurnitureEyeTrack> FurnitureEyeTracks;
     void InitializeFurnitureCamera();
@@ -97,6 +118,9 @@ private:
     friend class AShotgunWireAuditController;
     friend class AShotgunWireAuditGameMode;
     friend class UShotgunAttachmentAuditCommandlet;
+    friend class USkillNetworkAuditCommandlet;
+    friend class UKukriNetworkAuditCommandlet;
+    friend class UWarhammerNetworkAuditCommandlet;
     UPROPERTY(ReplicatedUsing=OnRep_BodyState) FFPSBodyState ReplicatedState;
     UPROPERTY(ReplicatedUsing=OnRep_WorkstationIdle) bool bWorkstationIdle=false;
     TWeakObjectPtr<AActor> WorkstationView;
@@ -111,6 +135,16 @@ private:
     UPROPERTY(Transient) TObjectPtr<class UFPSPlayerBodyAnimInstance> BodyAnimation;
     UPROPERTY(Transient) TArray<TObjectPtr<class USkeletalMeshComponent>> WorldWeapons;
     UPROPERTY(Transient) TArray<TObjectPtr<class USkeletalMeshComponent>> WorldReloadProps;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UStaticMesh>> WorldPistolMagazineAssets;
+    UPROPERTY(Transient) TArray<TObjectPtr<class UStaticMesh>> WorldRevolverAssets;
+    TArray<TWeakObjectPtr<class AActor>> DroppedRevolverCases;
+    void PrepareRevolverReload(FFPSBodyMotionBinding& Binding);
+    void UpdateRevolverReload(FFPSBodyMotionBinding& Binding,TArray<FTransform>& Pose,bool bVisible,float Delta);
+    void DropRevolverCase(class UStaticMesh* Geometry,const FTransform& Frame,const FVector& Direction);
+    TArray<TWeakObjectPtr<class AActor>> DroppedPistolMagazines;
+    void PreparePistolMagazine(FFPSBodyMotionBinding& Binding);
+    void UpdatePistolMagazine(FFPSBodyMotionBinding& Binding,TArray<FTransform>& Pose,bool bVisible);
+    void DropPistolMagazine(FFPSBodyMotionBinding& Binding,const FTransform& MagazineFrame,const FVector& ExitDirection);
     UPROPERTY(Transient) TArray<TObjectPtr<class UTacticalDeviceComponent>> WorldTacticalDevices;
     UPROPERTY(Transient) TObjectPtr<class UFPSWeaponFXComponent> RemoteGunFX;
     UPROPERTY(Transient) FFPSRemoteGunHand RemoteGunHands[2];
@@ -139,6 +173,7 @@ private:
     UPROPERTY(Transient) TArray<TObjectPtr<class UStaticMeshComponent>> WorldParts;
     // Includes the weapon and every copied part; array indices can change when an asset is absent.
     TMap<TWeakObjectPtr<class UPrimitiveComponent>, uint8> WorldEquipmentHands;
+    FString WorldWeatherInstances[2];
     UPROPERTY(Transient) TArray<TObjectPtr<class USkeletalMeshComponent>> OutfitMeshes;
     // 刚性装备件（背包等静态网格按骨骼 socket 挂载），随 OutfitMeshes 同批重建/显隐。
     UPROPERTY(Transient) TArray<TObjectPtr<class UStaticMeshComponent>> OutfitStaticMeshes;
@@ -168,11 +203,27 @@ private:
     float ServerClock() const;
     void InitializeBody(bool bRefreshAppearance=true);
     FFPSBodyState SampleLocalState() const;
+    void SampleKukriState(const class UKukriWeaponComponent& Kukri,FFPSBodyState& State,float Now) const;
+    void BuildKukriGrip(const FFPSBodyWeapon& Definition,class UStaticMeshComponent& Blade);
     /** 服务端：为非本机控制的远端 pawn 组装权威身体态——服务端可信事实
      *  （CMC 意图位/装备/瞄准俯仰）+ 客户端汇报的离散动作。 */
     FFPSBodyState SampleRemoteAuthorityState() const;
     /** Other players' Azure Dragon claws on this machine, from the replicated presentation. */
     void PresentRemoteAzureDragon();
+    void PresentBeiweiTrail();
+    void PresentSwordSweepRift();
+    UPROPERTY(Transient) TObjectPtr<class UBeiweiSwordTrailComponent> WorldSweepTrail;
+    TWeakObjectPtr<class UStaticMeshComponent> PreviousSweepBlade;
+    FTransform PreviousSweepPose=FTransform::Identity;
+    FName PreviousSweepVariant;
+    float PreviousSweepProgress=0.f;
+    double PreviousSweepTime=-1.;
+    void PresentRidgeGather();
+    void PresentOathRune();
+    UPROPERTY(Transient) TObjectPtr<class UOathJudgmentVisualComponent> WorldOathVisual;
+    UPROPERTY(Transient) TObjectPtr<class UHighlandRidgeGatherComponent> WorldRidgeGather;
+    UPROPERTY(Transient) TObjectPtr<class UBeiweiSwordTrailComponent> BeiweiWorldTrail;
+    FString BeiweiWorldInstance;
     EFPSBodyAction ReportedAction = EFPSBodyAction::None;
     FName ReportedActionVariant;
     float ReportedActionStartedAt = -100.f;
@@ -194,6 +245,8 @@ private:
     UFUNCTION(Server, Unreliable) void ServerBodySnapshot(const FFPSBodyState& State, uint32 Sequence);
     void SendBodyPresentation(float Delta);
     void CaptureLaserPresentation();
+    void CaptureGunAimPresentation();
+    void SanitizeGunAimPresentation(FFPSBodyState& State) const;
     void SanitizeLaserPresentation(FFPSBodyState& State) const;
     void AcceptBodyPresentation(const FFPSBodyState& State, uint32 Sequence);
     static void AdvanceBodyPresentation(FFPSBodyState& State, float Now);
@@ -217,6 +270,24 @@ private:
     TSharedPtr<struct FStreamableHandle> AppearanceLoad;
     FFPSBodyAppearance AppliedAppearance;
     uint32 AppearanceRequest = 0;
+    // The complete fallback stays visible while the real assembly is prepared.
+    UPROPERTY() TObjectPtr<class USkeletalMesh> InitialAppearanceFallbackAsset;
+    UPROPERTY(Transient) TObjectPtr<class UFPSBodyWeaponMeshComponent> InitialAppearanceFallback;
+    TWeakObjectPtr<class USkeletalMesh> FallbackPoseSource;
+    TArray<int32> FallbackBoneMap;
+    TArray<FQuat> FallbackBindCorrections;
+    TArray<FTransform> FallbackPose;
+    bool bInitialAppearancePending = false;
+    bool bInitialHeadPoseReady = false;
+    bool bInitialOutfitReady = false;
+    bool bHeadEquipmentReady = false;
+    bool bAppearanceLoadFailed = false;
+    FDelegateHandle InitialHeadPoseHandle;
+    void InitializeAppearanceFallback();
+    void UpdateAppearanceFallbackVisibility();
+    void UpdateAppearanceFallbackPose();
+    void OnInitialHeadPoseReady();
+    void FinishInitialAppearance();
     UFUNCTION() void OnRep_Appearance();
     FFPSBodyAppearance ResolveAppearance(FFPSBodyAppearance Appearance) const;
     void RefreshAppearance(class UColdSteelStatusModel* Profile);
@@ -240,6 +311,8 @@ private:
     void UpdateNativeBowContacts();
     void ClearBow();
     void UpdateBowVisibility(bool HideOwner);
+    void UpdateBowMagic();
+    UPROPERTY(Transient) TObjectPtr<class UBowHeldMagicVisual> WorldBowMagic;
     UPROPERTY(Transient) TObjectPtr<class USkeletalMeshComponent> BowRig;
     UPROPERTY(Transient) TArray<TObjectPtr<class UBowPartComponent>> WorldBowParts;
     UPROPERTY(Transient) TMap<FName,TObjectPtr<class UAnimSequence>> BowClips;
@@ -251,9 +324,6 @@ private:
     FString BowItemInstance;
     FVector NativeBowHeldNock=FVector::ZeroVector,NativeBowHeldSourceNock=FVector::ZeroVector;
     bool bHasNativeBowHeldNock=false;
-    // Keep the observer trail ready for the whole equipped lifetime, including
-    // after traversal clears its transient ribbon history.
-    UPROPERTY(Transient) TObjectPtr<class UMaterialInterface> WorldKukriRiftMaterial;
     TArray<FFPSBodyMotionBinding> MotionBindings;
     TMap<TWeakObjectPtr<class UPrimitiveComponent>,int32> MotionEquipmentIndices;
     TArray<FFPSBodyMotionMap> MotionMaps;
@@ -281,11 +351,20 @@ private:
     void ClearMotion();
     void OnBodyPoseFinalized();
     void UpdateSwordGripMount();
+    void UpdateKukriPresentation();
+    void UpdateObserverKukriRifts();
+    TSharedPtr<struct FFPSBodyKukriRifts> ObserverKukriRifts;
+    // Keep the observer trail ready for the whole equipped lifetime, including
+    // after traversal clears its transient ribbon history.
+    UPROPERTY(Transient) TObjectPtr<class UMaterialInterface> WorldKukriRiftMaterial;
     FDelegateHandle BodyPoseFinalizedHandle;
     uint8 QueuedWorldDiscards=0;
     bool bPendingBottleDrop=false,bQueuedBottleDrop=false;
     FFPSBodyMotionSample SmoothedContacts;
+    FName SmoothedPistolHandChannels[2];
     FTransform BaseSupportGrip=FTransform::Identity;
+    FTransform BaseRightSupportGrip=FTransform::Identity;
+    bool bHasBaseRightSupport=false;
     bool bMotionSampleValid=false;
     FName WorldConsumable;
     uint16 WorldConsumableSerial=0;
@@ -308,10 +387,14 @@ private:
 
     UPROPERTY(Transient) TObjectPtr<class USkeletalMeshComponent> FirstPersonLowerBody;
     bool bLowerBodyRequested=false;
+    bool bRideEyeOccluded=false;
+    FVector CloseCameraClearanceOffset=FVector::ZeroVector;
+    FVector AppliedCloseCameraOffset=FVector::ZeroVector;
     void InitializeFirstPersonLowerBody();
     void UpdateFirstPersonLowerBodyVisibility();
     bool ShouldShowFirstPersonLowerBody() const;
     FVector OwnerCameraOffset=FVector::ZeroVector;
+    FVector CalculateAnatomicalCameraOffset(const FVector& Eye) const;
     float OwnerCameraForward=56.f;
     float OwnerCameraCrouchForward=62.f;
     float OwnerCameraLookDownForward=12.f;

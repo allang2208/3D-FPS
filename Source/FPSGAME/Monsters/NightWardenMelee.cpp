@@ -1,4 +1,5 @@
 #include "NightWardenMonster.h"
+#include "MonsterTargeting.h"
 #include "MonsterAIController.h"
 #include "MonsterCombatComponent.h"
 #include "FPSCombatHealthComponent.h"
@@ -15,7 +16,7 @@ namespace
 {
 bool WardenLivingPlayer(const APawn* Pawn)
 {
-    if (!IsValid(Pawn) || !Pawn->IsPlayerControlled()) return false;
+    if (!IsValid(Pawn) || !MonsterTargeting::IsOpponentPawn(Pawn)) return false;
     const auto* Health = Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
     return !Health || !Health->IsDead();
 }
@@ -149,14 +150,14 @@ void ANightWardenMonster::SweepAttack(float FromTime, float ToTime)
             FCollisionObjectQueryParams(ECC_Pawn), FCollisionShape::MakeCapsule(Radius, Radius + Axis.Size()*.5), Query);
         for (const FHitResult& Hit : Hits)
         {
-            auto* Player = Cast<APawn>(Hit.GetActor());
+            auto* Player = Cast<APawn>(MonsterTargeting::DamageRecipient(Hit.GetActor()));
             if (!WardenLivingPlayer(Player) || HitPlayers.Contains(Player)) continue;
             const FVector Delta = Player->GetActorLocation() - GetActorLocation();
             if (Delta.Size2D() > AttackRange + Player->GetSimpleCollisionRadius() + Radius ||
                 FVector::DotProduct(Delta.GetSafeNormal2D(), GetActorForwardVector()) < .05f || !HasAttackSight(Player)) continue;
             // The actual palm must also have a clear contact line; a long arm
             // cannot damage through a pillar merely because the chest sees past it.
-            FCollisionQueryParams ContactQuery(Query); ContactQuery.AddIgnoredActor(Player);
+            FCollisionQueryParams ContactQuery(Query); ContactQuery.AddIgnoredActor(Player);ContactQuery.AddIgnoredActor(MonsterTargeting::ContactBody(Player));
             const FVector ContactPoint = Hit.bStartPenetrating ? Player->GetActorLocation() : FVector(Hit.ImpactPoint);
             if (GetWorld()->LineTraceTestByChannel(NextB, ContactPoint, ECC_Visibility, ContactQuery)) continue;
             HitPlayers.Add(Player);

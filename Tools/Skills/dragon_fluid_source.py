@@ -29,7 +29,7 @@ def build_sources(system):
     ray=f'clamp(int(floor(({yaw}/max(.01,User.HalfAngle)+1)*4+.5)),0,8)'
     limit='User.Ray8'
     for i in reversed(range(8)):limit=f'(({ray}=={i})?User.Ray{i}:{limit})'
-    speed='(1450+clamp(User.Range,500,1500)*.75)'
+    speed='(1450+max(User.Range,500)*.75)'
     assignments(system,en,'ParticleSpawnScript',{
         'Particles.JetOrigin':(POSITION,'User.Origin'),
         'Particles.JetDirection':(VEC3,direction),
@@ -38,7 +38,7 @@ def build_sources(system):
         'Particles.JetLimit':(FLOAT,f'min(User.Range,{limit})'),
         'Particles.JetSpeed':(FLOAT,speed),
         'Particles.JetCore':(FLOAT,f'({seed}<.7)?1:.55'),
-        'Particles.Lifetime':(FLOAT,f'clamp(min(User.Range,{limit})/{speed}+.08,.06,.8)'),
+        'Particles.Lifetime':(FLOAT,f'max(min(User.Range,{limit})/{speed}+.08,.06)'),
         'Particles.Position':(POSITION,'User.Origin'),
         'Particles.Velocity':(VEC3,f'{direction}*{speed}'),
         'Particles.Color':(COLOR,'float4(1,1,1,1)'),

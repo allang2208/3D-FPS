@@ -1,6 +1,8 @@
 #include "ColdSteelStatusModel.h"
+#include "../Weapons/PojunGrip.h"
 #include "ColdSteelWarehouseRules.h"
 #include "../Production/ProductionResource.h"
+#include "TimerManager.h"
 #include "../Production/ProductionToolComponent.h"
 #include "../Production/ProductionToolStats.h"
 #include "../Production/ProductionHarvestSubsystem.h"
@@ -28,13 +30,13 @@ void UColdSteelStatusModel::LoadProductionDefinitions()
 
 const FColdSteelItem* UColdSteelStatusModel::ActiveProductionTool() const
 {
-    // Only the shovel overrides the selected weapon from the backpack. Axe and
-    // pickaxe are held through the active main-hand equipment slot.
-    const auto* Override = FindItem(Current.ActiveProductionTool);
-    if(Override && !ColdSteelInventory::IsEquippedProductionTool(*Override) && Override->Place==0 &&
-        ColdSteelInventory::Text(*Override,TEXT("category"))==TEXT("tool"))return Override;
+    // 2026-10-17 起铁铲与斧／镐同权：所有生产工具都经主手装备槽持有。这里只保留
+    // ActiveProductionTool 字段的历史读侧清理——覆盖项如今恒无效，装槽工具直接
+    // 从 Equipped() 走；字段残留在 NormalizeProductionState 归零。
     const auto* Item=Equipped();
-    return Item && ColdSteelInventory::IsEquippedProductionTool(*Item) ? Item : nullptr;
+    // The shared two-hand motion executor also carries blunt weapons; they keep
+    // their weapon identity and never enter production resource settlement.
+    return Item && (ColdSteelInventory::IsEquippedProductionTool(*Item) || PojunGrip::UsesHammerMotion(*Item)) ? Item : nullptr;
 }
 
 void UColdSteelStatusModel::NormalizeProductionState(FColdSteelProfile& P) const
@@ -44,23 +46,29 @@ void UColdSteelStatusModel::NormalizeProductionState(FColdSteelProfile& P) const
     // placement and harvesting progress stay intact.
     for(auto& I:P.Items)
     {
-        if(I.Definition!=TEXT("tool_axe")&&I.Definition!=TEXT("tool_pickaxe"))continue;
+        if(I.Definition!=TEXT("tool_axe")&&I.Definition!=TEXT("tool_pickaxe")&&I.Definition!=TEXT("tool_shovel")&&!ColdSteelInventory::IsTwoHandedBlunt(I))continue;
         const FString* Definition=Definitions.Find(I.Definition);if(!Definition)continue;
         TSharedPtr<FJsonObject> SavedData,VisualData;
         if(!FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),SavedData)||
            !FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(*Definition),VisualData))continue;
         bool Changed=false;
+        const auto SyncCatalogField = [&](const TCHAR* Key)
+        {
+            const auto* Value=VisualData->Values.Find(Key);if(!Value)return;
+            const auto* OldValue=SavedData->Values.Find(Key);
+            if(OldValue&&FJsonValue::CompareEqual(**OldValue,**Value))return;
+            SavedData->SetField(Key,*Value);Changed=true;
+        };
         for(const TCHAR* Key:{TEXT("tool_mesh"),TEXT("tool_scale"),TEXT("mount_pitch"),TEXT("mount_yaw"),TEXT("mount_roll"),
-            TEXT("tool_viewmodel"),TEXT("tool_animation_prefix"),TEXT("tool_swing_sound"),
-            TEXT("swing_seconds"),TEXT("contact_seconds"),TEXT("desc"),TEXT("melee_damage"),
+            TEXT("tool_viewmodel"),TEXT("tool_animation_prefix"),TEXT("tool_swing_sound"),TEXT("tool_kind"),TEXT("viewmodel_mesh"),TEXT("world_mesh"),
+            TEXT("attack_seconds"),TEXT("swing_seconds"),TEXT("contact_seconds"),TEXT("desc"),TEXT("melee_damage"),
+            TEXT("combat_arc_degrees"),TEXT("heavy_charge_seconds"),TEXT("heavy_damage_multiplier"),TEXT("heavy_wave_radius_cm"),
             TEXT("combat_reach_cm"),TEXT("combat_sweep_radius_cm"),TEXT("harvest_reach_cm"),TEXT("harvest_sweep_radius_cm"),
             TEXT("grid_w"),TEXT("grid_h"),TEXT("ue_icon"),TEXT("weaponType"),TEXT("weaponTypeTag"),TEXT("equipSlot"),TEXT("isTwoHanded")})
         {
-            const auto* Value=VisualData->Values.Find(Key);if(!Value)continue;
-            const auto* OldValue=SavedData->Values.Find(Key);
-            if(OldValue&&FJsonValue::CompareEqual(**OldValue,**Value))continue;
-            SavedData->SetField(Key,*Value);Changed=true;
+            SyncCatalogField(Key);
         }
+        if(I.Definition==TEXT("tool_pickaxe")||I.Definition==TEXT("tool_axe"))SyncCatalogField(TEXT("price"));
         if(Changed)
         {
             I.Data.Reset();
@@ -73,6 +81,8 @@ void UColdSteelStatusModel::NormalizeProductionState(FColdSteelProfile& P) const
     }
     const auto* Item = P.Items.FindByPredicate([&](const auto& I){return I.InstanceId == P.ActiveProductionTool && I.Place == 0;});
     // Discard legacy backpack selections without relocating either tool.
+    // 铁铲装备化（2026-10-17）后，所有 Place==0 的覆盖选择都属历史路径：铲子
+    // 也不例外（IsEquippedProductionTool 已含 tool_shovel），读到即清，不搬格。
     if (!Item || ColdSteelInventory::IsEquippedProductionTool(*Item) || ColdSteelInventory::Text(*Item,TEXT("category")) != TEXT("tool")) P.ActiveProductionTool.Reset();
 }
 
@@ -88,7 +98,7 @@ bool UColdSteelStatusModel::GrantProductionTools()
         if (!ColdSteelInventory::Insert(P.Items, Item))
         {
             if (!ColdSteelWarehouse::Insert(P.Items,Item,WarehouseCapacity()))
-            { Message=TEXT("背包和仓库空间不足，腾出空间后按 8 领取工具；伐木斧与矿镐需在背包装备"); return false; }
+            { Message=TEXT("背包和仓库空间不足，腾出空间后重进存档领取工具；三件生产工具都需在背包右键装备到主手"); return false; }
         }
     }
     P.ProductionSupplyVersion = 1;
@@ -98,16 +108,29 @@ bool UColdSteelStatusModel::GrantProductionTools()
 bool UColdSteelStatusModel::ToggleProductionTool(const FString& InstanceId)
 {
     const auto* Item=FindItem(InstanceId);
-    if(Item && ColdSteelInventory::IsEquippedProductionTool(*Item))
+    if(Item && ColdSteelInventory::IsEquippedProductionTool(*Item) && Item->Place==1)
     {
-        if(Item->Place!=1 || (Item->Cell!=6 && Item->Cell!=9))
+        if(Item->Cell!=6 && Item->Cell!=9)
         {Message=TEXT("请先在背包右键装备此工具，或将它拖入主手武器槽");return false;}
         return MoveItem(InstanceId,1,Item->Cell);
     }
-    if (!Item || Item->Place != 0 || ColdSteelInventory::Text(*Item,TEXT("category")) != TEXT("tool")) return false;
-    SyncRuntime(); auto P=Snapshot();
-    P.ActiveProductionTool = P.ActiveProductionTool == InstanceId ? FString() : InstanceId;
-    return CommitState(MoveTemp(P));
+    // 未装备的工具：快捷栏等直接调用 UseItem 的路径会到这里（DefaultAction 对
+    // 三种生产工具本身会直接走装备槽循环）。旧实现只改 ActiveProductionTool，
+    // 而该字段自 2026-10-17 工具装备化后已不再参与读取（ActiveProductionTool()
+    // 只看装备槽），且分支只接受 Place 0，夹层里的工具会静默失败。工具与装备
+    // 同权，直接装备到主手槽；来源 0/5 都由 MoveItem/ProposeMove 正确路由
+    // （5 → Compartment::Transfer）。
+    if (!Item || (Item->Place!=0&&Item->Place!=ColdSteelInventory::ColdSteelCompartment::Place)
+        || ColdSteelInventory::Text(*Item,TEXT("category"))!=TEXT("tool")) return false;
+    // 与 DefaultAction 的装备槽顺序保持一致：先找空手，再允许替换。
+    for(int32 S=0;S<ColdSteelInventory::SlotNames().Num();++S)
+        if(ColdSteelInventory::CanEquip(*Item,S)&&!Equipped(S)&&!ColdSteelInventory::Locked(Current.Items,S))
+            return MoveItem(InstanceId,1,S);
+    for(int32 S=0;S<ColdSteelInventory::SlotNames().Num();++S)
+        if(ColdSteelInventory::CanEquip(*Item,S)&&!ColdSteelInventory::Locked(Current.Items,S))
+            return MoveItem(InstanceId,1,S);
+    Message=TEXT("没有可用的主手槽，先卸下当前武器");
+    return false;
 }
 
 bool UColdSteelStatusModel::SelectProductionTool(const FString& Definition)
@@ -117,10 +140,12 @@ bool UColdSteelStatusModel::SelectProductionTool(const FString& Definition)
         if(CurrentPawn.IsValid())if(auto* Tools=CurrentPawn->FindComponentByClass<UProductionToolComponent>())Tools->ShowFeedback(Message);
         return false;
     };
-    if(Definition==TEXT("tool_axe") || Definition==TEXT("tool_pickaxe"))
+    // 2026-10-17 起铁铲同权：三种生产工具统一走「装备在主手槽」的切换分支。
+    // 旧的背包覆盖选择（F7 铲子）已由 NormalizeProductionState 清退役。
+    if(Definition==TEXT("tool_axe") || Definition==TEXT("tool_pickaxe") || Definition==TEXT("tool_shovel"))
     {
         const auto* EquippedTool=Current.Items.FindByPredicate([&](const auto& I){return I.Definition==Definition && I.Place==1 && (I.Cell==6 || I.Cell==9);});
-        if(!EquippedTool){Message=TEXT("请先在背包右键装备此工具，再用 G 或滚轮切换武器");return ReportFailure();}
+        if(!EquippedTool){Message=TEXT("请先在背包右键装备此工具，再用滚轮切换武器");return ReportFailure();}
         return ToggleProductionTool(EquippedTool->InstanceId) || ReportFailure();
     }
     if (!GrantProductionTools()) return ReportFailure();
@@ -221,7 +246,15 @@ void RegisterTreeGrowth(FColdSteelProfile& P,const FProductionResource& Target)
     const uint32 SeedB=uint32(Target.CandidateId>>32);
     FRandomStream Stream(int32(SeedA^(SeedB*0x2545F491u)^(uint32(Growth.Generation)*747796405u)));
     FVector2D Offset=FVector2D::ZeroVector;
-    if(const auto* World=Target.World.Get())
+    if(const auto* Forest=Target.World.Get();Forest && Forest->IsForestVillage())
+    {
+        FTemperatePlacement Fitted;
+        if(Previous)Forest->ForestSaplingPlacement(Target.CandidateId,Growth.StumpOffset,Previous->StumpOffset,Fitted);
+        const double Angle=Stream.FRandRange(0.f,float(2*PI));
+        Offset=FVector2D(FMath::Cos(Angle),FMath::Sin(Angle))*Stream.FRandRange(280.f,650.f);
+        Forest->ForestSaplingPlacement(Target.CandidateId,Offset,Growth.StumpOffset,Fitted);
+    }
+    else if(const auto* World=Target.World.Get())
     {
         const double Half=World->SizeMeters*50-1000;
         for(int32 Attempt=0;Attempt<5;++Attempt)
@@ -241,11 +274,11 @@ void RegisterTreeGrowth(FColdSteelProfile& P,const FProductionResource& Target)
 }
 }
 
-bool UColdSteelStatusModel::CommitHarvestStrike(const FProductionResource& Target, bool& Depleted)
+bool UColdSteelStatusModel::CommitHarvestStrike(FProductionResource& Target, bool& Depleted)
 {
     Depleted=false;
     const auto* Tool=ActiveProductionTool();
-    if (!Target.World.IsValid() || Target.Id.IsEmpty() || !Tool) return false;
+    if ((!Target.World.IsValid() && !Target.DevelopmentObject.IsValid()) || Target.Id.IsEmpty() || !Tool) return false;
     // 幼树成熟门禁只约束整树目标；树桩是独立目标，任何时候都能劈（2026-09-28）。
     if(Target.Layer==0 && !Target.bStump && HasTreeGrowth(Target.Id) && !IsTreeMature(Target.Id))
     { Message=TEXT("树木正在生长，成熟后才能再次砍伐");return false; }
@@ -291,18 +324,23 @@ bool UColdSteelStatusModel::CommitHarvestStrike(const FProductionResource& Targe
  * 明确不做的事：不给树加 Actor、Tick、血条控件或每帧查询；不加暴击与随机浮动，
  * 提示栏的「还需 N 挥」就是真实挥砍数。
  */
-bool UColdSteelStatusModel::CommitTreeStrike(const FProductionResource& Target,const FProductionToolStats& ToolStats,bool& Depleted)
+bool UColdSteelStatusModel::CommitTreeStrike(FProductionResource& Target,const FProductionToolStats& ToolStats,bool& Depleted)
 {
     Depleted=false;
     const double Damage=ProductionTreeHealth::StrikeDamage(ToolStats);
-    const float Before=FMath::Clamp(TreeHealthRatio(Target.Id),0.f,1.f);
+    const bool bTemporary = Target.DevelopmentObject.IsValid();
+    const float Before=FMath::Clamp(bTemporary ? Target.DevelopmentHealthRatio : TreeHealthRatio(Target.Id),0.f,1.f);
     if(Before<=0.f){Message=TEXT("此处资源已经采尽");return false;}
     const double Remaining=double(Before)*Target.MaxHealth-Damage;
     SyncRuntime(); auto P=Snapshot();
     if(Remaining>0.)
     {
-        P.TreeHealth.Add(Target.Id,float(Remaining/Target.MaxHealth));
-        if(!CommitState(MoveTemp(P)))return false;
+        if (bTemporary) Target.DevelopmentHealthRatio = float(Remaining/Target.MaxHealth);
+        else
+        {
+            P.TreeHealth.Add(Target.Id,float(Remaining/Target.MaxHealth));
+            if(!CommitState(MoveTemp(P)))return false;
+        }
         Message=FString::Printf(TEXT("%s  %d / %d · 还需 %d 挥"),*Target.Name,FMath::CeilToInt(Remaining),
             FMath::CeilToInt(Target.MaxHealth),ProductionTreeHealth::SwingsToFell(Remaining,Damage));
         return true;
@@ -318,13 +356,23 @@ bool UColdSteelStatusModel::CommitTreeStrike(const FProductionResource& Target,c
     if(!StageProductionDrops(P,Target,Drops,ToolStats))return false;
     // 生命归零与采尽命中数一起写：世界的 IsProductionDepleted、树桩重建与 PCG 补生
     // 仍按命中数口径读 HarvestProgress，树木成长期的 TreeGrowth 也照旧登记。
-    P.TreeHealth.Add(Target.Id,0.f);
-    P.HarvestProgress.Add(Target.Id,FProductionResource::RequiredHits);
-    RegisterTreeGrowth(P,Target);
+    if (!bTemporary)
+    {
+        P.TreeHealth.Add(Target.Id,0.f);
+        P.HarvestProgress.Add(Target.Id,FProductionResource::RequiredHits);
+        RegisterTreeGrowth(P,Target);
+    }
     // Depletion and every ground pickup are one profile transaction, before visuals.
     if(!CommitState(MoveTemp(P)))return false;
     Depleted=true;
-    if(!Drops.IsEmpty())Harvest->DelayDrops(Drops,FProductionTreeFallPlan::Make(Target).ReleaseSeconds());
+    const float DropDelay = FProductionTreeFallPlan::Make(Target).ReleaseSeconds();
+    if (!Drops.IsEmpty()) Harvest->DelayDrops(Drops,DropDelay);
+    else if (bTemporary)
+    {
+        // Outside generated terrain the inventory model presents ordinary map pickups.
+        FTimerHandle Timer;
+        GetWorld()->GetTimerManager().SetTimer(Timer,this,&UColdSteelStatusModel::RefreshDrops,DropDelay,false);
+    }
     Message=TEXT("树木正在倒下，落地后对准木材按 E 拾取");
     return true;
 }
@@ -336,18 +384,23 @@ bool UColdSteelStatusModel::CommitTreeStrike(const FProductionResource& Target,c
  * 与树一样：不给岩块加 Actor、Tick、血条控件，不做暴击与随机浮动，
  * 提示栏的「还需 N 击」就是真实挥击数。
  */
-bool UColdSteelStatusModel::CommitRockStrike(const FProductionResource& Target,const FProductionToolStats& ToolStats,bool& Depleted)
+bool UColdSteelStatusModel::CommitRockStrike(FProductionResource& Target,const FProductionToolStats& ToolStats,bool& Depleted)
 {
     Depleted=false;
     const double Damage=ProductionTreeHealth::StrikeDamage(ToolStats);
-    const float Before=FMath::Clamp(RockHealthRatio(Target.Id),0.f,1.f);
+    const bool bTemporary = Target.DevelopmentObject.IsValid();
+    const float Before=FMath::Clamp(bTemporary ? Target.DevelopmentHealthRatio : RockHealthRatio(Target.Id),0.f,1.f);
     if(Before<=0.f){Message=TEXT("此处资源已经采尽");return false;}
     const double Remaining=double(Before)*Target.MaxHealth-Damage;
     SyncRuntime(); auto P=Snapshot();
     if(Remaining>0.)
     {
-        P.RockHealth.Add(Target.Id,float(Remaining/Target.MaxHealth));
-        if(!CommitState(MoveTemp(P)))return false;
+        if (bTemporary) Target.DevelopmentHealthRatio = float(Remaining/Target.MaxHealth);
+        else
+        {
+            P.RockHealth.Add(Target.Id,float(Remaining/Target.MaxHealth));
+            if(!CommitState(MoveTemp(P)))return false;
+        }
         Message=FString::Printf(TEXT("%s  %d / %d · 还需 %d 击"),*Target.Name,FMath::CeilToInt(Remaining),
             FMath::CeilToInt(Target.MaxHealth),ProductionTreeHealth::SwingsToFell(Remaining,Damage));
         return true;
@@ -361,11 +414,15 @@ bool UColdSteelStatusModel::CommitRockStrike(const FProductionResource& Target,c
     if(!StageProductionDrops(P,Target,Drops,ToolStats))return false;
     // 生命归零与采尽标记一起写：世界的 IsProductionDepleted 已按 RockHealth 判采尽，
     // 采尽标记（HarvestProgress）保留给旧档兼容读取。
-    P.RockHealth.Add(Target.Id,0.f);
-    P.HarvestProgress.Add(Target.Id,FProductionResource::RequiredHits);
+    if (!bTemporary)
+    {
+        P.RockHealth.Add(Target.Id,0.f);
+        P.HarvestProgress.Add(Target.Id,FProductionResource::RequiredHits);
+    }
     if(!CommitState(MoveTemp(P)))return false;
     Depleted=true;
-    if(!Drops.IsEmpty())Harvest->DelayDrops(Drops,.25f);
+    if (!Drops.IsEmpty()) Harvest->DelayDrops(Drops,.25f);
+    else if (bTemporary) RefreshDrops();
     Message=TEXT("岩石已破碎，对准石材或矿石按 E 拾取");
     return true;
 }

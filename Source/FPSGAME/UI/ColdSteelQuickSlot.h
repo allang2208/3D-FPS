@@ -32,6 +32,9 @@ private:
     FColdSteelQuickBinding Displayed;
     float BlinkElapsed=0.f;
     float FlashElapsed=.6f;
+    float ActiveFlashDuration=.6f;
+    float FlashStrength=1.f;
+    uint32 LastCooldownReductionRevision=0;
     float CooldownFraction=0.f;
     float DisplayedCooldownFraction=0.f;
     float CooldownTransitionFrom=0.f;
@@ -46,6 +49,6 @@ private:
     UPROPERTY(Transient) TObjectPtr<class UImage> ReadyFlash;
     UPROPERTY(Transient) TObjectPtr<class UTexture2D> Texture;
     UPROPERTY(Transient) TMap<FString,TObjectPtr<UTexture2D>> Textures;
-    FString DisplayedWaterIcon;
+    FString DisplayedWaterIcon,DisplayedElementIcon;
     float DisplayScale=0.f;
 };

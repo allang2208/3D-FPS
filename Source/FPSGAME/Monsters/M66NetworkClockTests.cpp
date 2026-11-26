@@ -43,7 +43,7 @@ bool FM66NetworkClockTest::RunTest(const FString&)
     TestTrue(TEXT("corrected timestamp resamples without a new serial"),FMath::IsNearlyEqual(Monster->SweepAge(),1.f,.001f));
     Attack->StartedAt=101.;TestEqual(TEXT("future timestamp is clamped"),Monster->SweepAge(),0.f);
     Monster->SwapRoles();Attack->StartedAt=99.;
-    Monster->Status->AddChill(20,2.f,.05f);
+    Monster->Status->AddChill(20,2.f);
     TestFalse(TEXT("freeze immediately cancels outstanding damage inside callback"),Attack->Active);
     TestTrue(TEXT("freeze publishes a controlled reaction"),Monster->Controlled());
     const uint32 FrozenSerial=Monster->SweepSerial();

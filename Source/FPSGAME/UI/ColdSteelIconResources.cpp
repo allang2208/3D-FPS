@@ -1,7 +1,15 @@
+#include "../Weapons/Saiga12KAttachments.h"
+#include "../Weapons/Saiga12KMagazineAssets.h"
 #include "../Weapons/LMG201WeaponAssets.h"
+#include "../Weapons/LMG201Attachments.h"
+#include "../Weapons/M249WeaponAssets.h"
+#include "../Weapons/M249OpticAssets.h"
+#include "../Weapons/M249Attachments.h"
+#include "../Weapons/M249SideMagazine.h"
 #include "../Weapons/HK416WeaponAssets.h"
 #include "../Weapons/AR416Furniture.h"
 #include "../Weapons/LegendaryTacticalStock.h"
+#include "../Weapons/SniperSkeletonStock.h"
 #include "../Weapons/CommonHK416Parts.h"
 #include "../Weapons/ThermalScopeAssets.h"
 #include "../Weapons/KVScopeAssets.h"
@@ -29,6 +37,12 @@
 #include "../Weapons/ASH12WeaponAssets.h"
 #include "../Weapons/SVDWeaponAssets.h"
 #include "../Weapons/SVCHWeaponAssets.h"
+#include "../Weapons/M24WeaponAssets.h"
+#include "../Weapons/M24Attachments.h"
+#include "../Weapons/M24Bipod.h"
+#include "../Weapons/M249Bipod.h"
+#include "../Weapons/M249BipodAnimation.h"
+#include "../Weapons/Saiga12KWeaponAssets.h"
 #include "../Weapons/SVDAttachments.h"
 #include "../Weapons/M1911WeaponAssets.h"
 #include "../Weapons/G18WeaponAssets.h"
@@ -92,9 +106,7 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
     }
     else if(ColdSteelInventory::IsBow(Item))
     {
-        const FGunsmithParts Factory;
-        const auto Resolved=GetGameInstance()->GetSubsystem<UGunsmithSystem>()->ResolveBowVisual(Item,bCatalogExport?&Factory:nullptr);
-        ColdSteelBowAssembly::GatherResources(Resolved,RequiredResources);
+        ColdSteelBowAssembly::GatherResources(Item,RequiredResources);
         for(const auto& Ref:RequiredResources)Paths.AddUnique(Ref);
     }
     else if(ProductionHarvestAssets::IsIconSubject(D))
@@ -113,7 +125,7 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         if(ColdSteelModularSword::Supports(Item))
         {
             const FGunsmithParts Factory;
-            ColdSteelModularSword::GatherVisualResources(Item,RequiredResources,bCatalogExport?&Factory:nullptr);
+            ColdSteelModularSword::GatherVisualResources(Item,RequiredResources,bCatalogExport&&!ColdSteelMeleePreview::HasBladeCatalogIcons(D)?&Factory:nullptr);
             for(const auto& Ref:RequiredResources)Paths.AddUnique(Ref);
         }
         else Add(ColdSteelMeleePreview::MeshPath(Item),true);
@@ -155,7 +167,13 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
         else if(D==TEXT("ue_svd")){Add(SVDWeaponAssets::MeshPath,true);Add(SVDWeaponAssets::AnimationPath(TEXT("idle")),true);}
         // The SVCh renders its icon from the same shared-Manny idle the SVD uses,
         // so it needs the same preloaded pair.
+        else if(D==TEXT("ue_m24"))
+        {
+            Add(M24WeaponAssets::MeshPath,true);Add(M24WeaponAssets::AnimationPath(TEXT("idle")),true);
+            Add(M24WeaponAssets::SupportGripProfile,true);Add(M24WeaponAssets::ExtendedMagazineProfile,true);
+        }
         else if(D==TEXT("ue_svch")){Add(SVCHWeaponAssets::MeshPath,true);Add(SVDWeaponAssets::AnimationPath(TEXT("idle")),true);}
+        else if(D==TEXT("ue_saiga12k")){Add(Saiga12KWeaponAssets::MeshPath,true);Add(Saiga12KWeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_lmg201"))
         {
             Add(LMG201WeaponAssets::MeshPath,true);Add(LMG201WeaponAssets::AnimationPath(TEXT("idle")),true);
@@ -163,6 +181,7 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             for(const TCHAR* Name:{TEXT("BipodBase"),TEXT("BipodLegA"),TEXT("BipodLegB")})Add(LMG201WeaponAssets::PartPath(Name),true);
         }
         else if(D==TEXT("ue_a762")){Add(A762WeaponAssets::MeshPath,true);Add(A762WeaponAssets::AnimationPath(TEXT("idle")),true);for(int32 I=0;I<2;++I)Add(A762WeaponAssets::SightPath(I));}
+        else if(D==M249WeaponAssets::Definition){Add(M249WeaponAssets::MeshPath,true);Add(M249WeaponAssets::AnimationPath(TEXT("idle")),true);Add(LMGStabilityGrip::HandguardProfile,true);Add(M249Attachments::ProfilePath(TEXT("base")),true);}
         else if(D==TEXT("ue_pkm_lowpoly")){Add(PKMLowpolyWeaponAssets::MeshPath,true);Add(PKMLowpolyWeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_m16a2")){Add(M16WeaponAssets::MeshPath,true);Add(M16WeaponAssets::AnimationPath(TEXT("idle")),true);}
         else if(D==TEXT("ue_ash12")){Add(ASH12WeaponAssets::MeshPath,true);Add(ASH12WeaponAssets::AnimationPath(TEXT("idle")),true);}
@@ -188,18 +207,113 @@ void UColdSteelWeaponIcons::BeginResourceLoad(const FColdSteelItem& Item)
             Add(TEXT("/Game/Weapons/AKMIntegration/SovietFab/RearGrip20260913/SK_AKM_MannyNative"),true);
             Add(TEXT("/Game/Weapons/AKMIntegration/SourceMatched/A_AKM_idle"),true);
         }
-        const auto Parts=bCatalogExport?FGunsmithParts():GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(Item);
+        const auto Parts=bCatalogExport?(D==M24WeaponAssets::Definition?M24WeaponAssets::FactoryParts():FGunsmithParts()):GetGameInstance()->GetSubsystem<UGunsmithSystem>()->Installed(Item);
+        if(D==M249WeaponAssets::Definition&&M249WeaponAssets::HasFactoryBipod(Parts.FindRef(TEXT("bipod"))))
+        {
+            Add(M249Bipod::Base,true);Add(M249Bipod::LegA,true);Add(M249Bipod::LegB,true);
+            Add(M249BipodAnimation::Profile,true);
+        }
+        if(D==M24WeaponAssets::Definition&&!Parts.Contains(TEXT("optic")))Add(M24Attachments::MeshPath(M24Attachments::IronSight),true);
+        if(D==M24WeaponAssets::Definition)
+            Add(M24Attachments::MeshPath(Parts.FindRef(TEXT("body"))==M24Attachments::AdvancedAction?
+                TEXT("m24_rail_seat_advanced"):TEXT("m24_rail_seat_native")),true);
         const FString Family=D==TEXT("ue_akm")?TEXT("AKM"):D==TEXT("ue_qbz191")?TEXT("QBZ191"):D==TEXT("ue_ash12")?TEXT("ASH12"):TEXT("M4");
         for(const auto& Part:Parts)
         {
             FString Key=Part.Value;
+            if(Part.Key==TEXT("underbarrel")&&Key==LMGStabilityGrip::Id&&LMGStabilityGrip::Supports(D))
+            {
+                Add(LMGStabilityGrip::MeshPath(D),true);
+                if(D!=M249WeaponAssets::Definition)
+                {
+                    Add(LMGStabilityGrip::ProfilePath(D),true);
+                    // The shared component is first configured by its host's
+                    // upright-grip route before receiving the fitted mesh.
+                    Add(D==TEXT("ue_lmg201")?LMG201Attachments::MeshPath(TEXT("vertical")):PKMAttachments::MeshPath(TEXT("vertical")),true);
+                }
+                continue;
+            }
+            if(D==M249WeaponAssets::Definition)
+            {
+                if(Part.Key==TEXT("optic")&&M249OpticAssets::Supports(Key))
+                {
+                    Add(M249OpticAssets::MeshPath(Key),true);
+                    const FString Moving=M249OpticAssets::MovingPart(Key);
+                    if(!Moving.IsEmpty())Add(M249OpticAssets::MeshPath(Moving),true);
+                    if(M249OpticAssets::NeedsRail(Key))Add(M249OpticAssets::Rail,true);
+                }
+                else if(Part.Key==TEXT("magazine")&&M249SideMagazine::Supports(Key))
+                {
+                    Add(M249SideMagazine::MeshPath(Key),true);Add(M249SideMagazine::PortMesh,true);
+                }
+                else if(M249Attachments::Supports(Part.Key,Key))
+                {
+                    Add(M249Attachments::MeshPath(Key),true);
+                    if(Part.Key==TEXT("underbarrel"))Add(M249Attachments::ProfilePath(FName(*M249Attachments::ForegripFamily(Key))),true);
+                }
+                continue;
+            }
+            if(Part.Key==TEXT("stock")&&SniperSkeletonStock::IsReplacement(D,Key))
+            {
+                Add(SniperSkeletonStock::MeshPath(D,Parts.FindRef(TEXT("body"))==M24Attachments::AdvancedAction,Key),true);
+                if(D==TEXT("ue_m24"))
+                {
+                    Add(SniperSkeletonStock::M24GripMeshPath(Parts.FindRef(TEXT("reargrip"))),true);
+                    Add(SniperSkeletonStock::M24ProfilePath(SniperSkeletonStock::M24GripFamilyForVariant(Parts.FindRef(TEXT("reargrip")),false)),true);
+                    Add(SniperSkeletonStock::M24ProfilePath(SniperSkeletonStock::M24GripFamilyForVariant(Parts.FindRef(TEXT("reargrip")),true)),true);
+                    if (Key == SniperSkeletonStock::M24CarbonId)
+                        for (const bool Extended : {false, true})
+                            Add(SniperSkeletonStock::M24CarbonMeleePath(SniperSkeletonStock::M24GripFamilyForVariant(Parts.FindRef(TEXT("reargrip")),Extended)),true);
+                    if(Parts.FindRef(TEXT("body"))==M24Attachments::AdvancedAction)Add(SniperSkeletonStock::M24FrontMeshPath(),true);
+                }
+                continue;
+            }
+            if(D==TEXT("ue_m24"))
+            {
+                if(Part.Key==TacticalDeviceVariants::PrimarySlot&&(TacticalDeviceVariants::IsLaser(Key)||Key==TEXT("flashlight")))
+                    Add(TacticalDeviceVariants::FittedMeshPath(TEXT("M24"),Key,false),true);
+                if(Part.Key==TEXT("reargrip")&&SniperSkeletonStock::IsReplacement(D,Parts.FindRef(TEXT("stock"))))continue;
+                if(Part.Key==TEXT("bolt")&&Key==M24Attachments::CarbonBolt)Add(M24Attachments::CarbonBoltMaterial,true);
+                if(Key==M24Bipod::Id){Add(M24Bipod::Base,true);Add(M24Bipod::LegA,true);Add(M24Bipod::LegB,true);Add(M24Bipod::Profile,true);}
+                if(Part.Key==TEXT("optic"))Key=M24Attachments::OpticPart(Key);
+                if(M24Attachments::IsPart(Key))Add(M24Attachments::MeshPath(Key),true);
+                if(Part.Key==TEXT("optic"))
+                {
+                    const FString Moving=M24Attachments::MovingOpticPart(Key);
+                    if(!Moving.IsEmpty())Add(M24Attachments::MeshPath(Moving),true);
+                }
+                continue;
+            }
             if(Part.Key==TEXT("optic")&&Key==KVScopeAssets::Id)
             {
                 Add(KVScopeAssets::MeshPath(D),true);Add(KVScopeAssets::SeatPath(D),true);
                 // Native installation first configures the host LPVO interface.
                 Key=TEXT("lpvo_1_6x");
             }
-
+            if(D==TEXT("ue_saiga12k"))
+            {
+                if(Key.IsEmpty()||Key==TEXT("false"))continue;
+                if(TacticalDeviceVariants::IsSlot(Part.Key))
+                    Add(TacticalDeviceVariants::FittedMeshPath(TEXT("Saiga12K"),Key,Part.Key==TEXT("tactical_secondary")),true);
+                else if(Part.Key==TEXT("underbarrel"))
+                {
+                    const FString Grip=Saiga12KAttachments::ForegripFamily(Key);
+                    if(!Grip.IsEmpty())
+                    {
+                        Add(Saiga12KAttachments::MeshPath(Grip),true);
+                        Add(Saiga12KAttachments::ProfilePath(FName(Grip==TEXT("tactical_vertical")?TEXT("vertical"):*Grip)),true);
+                    }
+                }
+                else if(Part.Key==TEXT("magazine")&&Key==Saiga12KMagazineAssets::Part)Add(Saiga12KMagazineAssets::MeshPath,true);
+                else if(Part.Key!=TEXT("magazine"))Add(Saiga12KAttachments::MeshPath(Key),true);
+                if(Part.Key==TEXT("optic")&&Saiga12KAttachments::SupportsOptic(Key))
+                {
+                    Add(Saiga12KAttachments::MeshPath(TEXT("OpticSeat_")+Key),true);
+                    if(Key==TEXT("lpvo_1_6x"))Add(Saiga12KAttachments::MeshPath(TEXT("lpvo_ring")),true);
+                    if(Key==TEXT("thermal_scope"))Add(Saiga12KAttachments::MeshPath(TEXT("thermal_selector")),true);
+                }
+                continue;
+            }
             if(D==TEXT("ue_m870")&&Part.Key==TEXT("stock"))
             {
                 const FString Stock=Parts.FindRef(TEXT("stock"));

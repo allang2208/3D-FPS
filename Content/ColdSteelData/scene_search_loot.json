@@ -117,6 +117,22 @@
         {
           "id": "search_laminated_strip",
           "weight": 5
+        },
+        {
+          "id": "wood_core_iron",
+          "weight": 8
+        },
+        {
+          "id": "wood_core_ancient",
+          "weight": 2
+        },
+        {
+          "id": "steelIngot",
+          "weight": 5
+        },
+        {
+          "id": "wood_core_redgrain",
+          "weight": 4
         }
       ]
     },
@@ -193,6 +209,22 @@
         {
           "id": "search_laminated_strip",
           "weight": 5
+        },
+        {
+          "id": "wood_core_iron",
+          "weight": 8
+        },
+        {
+          "id": "wood_core_ancient",
+          "weight": 2
+        },
+        {
+          "id": "steelIngot",
+          "weight": 5
+        },
+        {
+          "id": "wood_core_redgrain",
+          "weight": 4
         }
       ]
     },
@@ -237,6 +269,26 @@
         {
           "id": "search_cordless_impact_wrench",
           "weight": 1
+        },
+        {
+          "id": "wood_core_iron",
+          "weight": 8
+        },
+        {
+          "id": "wood_core_ancient",
+          "weight": 2
+        },
+        {
+          "id": "steelIngot",
+          "weight": 5
+        },
+        {
+          "id": "wood_core_redgrain",
+          "weight": 4
+        },
+        {
+          "id": "wood_core_ebony",
+          "weight": 1
         }
       ]
     },
@@ -276,6 +328,14 @@
         },
         {
           "id": "search_precision_tool_kit",
+          "weight": 3
+        },
+        {
+          "id": "wood_core_iron",
+          "weight": 5
+        },
+        {
+          "id": "wood_core_redgrain",
           "weight": 3
         }
       ]
@@ -377,6 +437,10 @@
         {
           "id": "search_compute_accelerator",
           "weight": 50
+        },
+        {
+          "id": "platinumIngot",
+          "weight": 2
         }
       ]
     },
@@ -481,6 +545,10 @@
         {
           "id": "search_energy_storage_cell",
           "weight": 3
+        },
+        {
+          "id": "platinumIngot",
+          "weight": 2
         }
       ]
     },
@@ -701,6 +769,10 @@
         {
           "id": "search_cordless_impact_wrench",
           "weight": 2
+        },
+        {
+          "id": "platinumIngot",
+          "weight": 2
         }
       ]
     },
@@ -825,6 +897,10 @@
         {
           "id": "alchemy_silverleaf_essence",
           "weight": 15
+        },
+        {
+          "id": "wood_core_ebony",
+          "weight": 1
         }
       ]
     },

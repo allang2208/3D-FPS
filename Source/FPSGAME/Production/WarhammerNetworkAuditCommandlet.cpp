@@ -4,6 +4,7 @@
 #include "WarhammerGuardMotion.h"
 #include "WarhammerCombat.h"
 #include "../Weapons/RuneSwordComponent.h"
+#include "../Weapons/RuneSwordGuardTuning.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
@@ -68,7 +69,16 @@ int32 UWarhammerNetworkAuditCommandlet::Main(const FString& Params)
         Tool->Kind=TEXT("warhammer");Tool->EquippedId=Hammer.InstanceId;
         Tool->BluntServerReadyAt=0.;PS->QuickCombatUntil=0.;PS->QuickCombatTargets.Reset();
     };
-    const auto Raise=[&](){Guard->ServerSetSwordGuard_Implementation(Hammer.InstanceId,true,++Serial);};
+    // Separate requests in simulated time, as the real raise/lower animations
+    // do. A zero-time fixture otherwise mistakes the anti-parry-spam gate for
+    // attack/guard failures after a valid lower request.
+    const auto ReadyForRaise=[&]()
+    {
+        const float Remaining=RuneSwordGuardTuning::RaiseSeconds+RuneSwordGuardTuning::LowerSeconds
+            -float(World->GetTimeSeconds()-Guard->NetworkGuardLoweredAt);
+        if(Remaining>=0.f)World->Tick(LEVELTICK_TimeOnly,Remaining+.01f);
+    };
+    const auto Raise=[&](){ReadyForRaise();Guard->ServerSetSwordGuard_Implementation(Hammer.InstanceId,true,++Serial);};
     Reset();
     Check(Pawn->HasAuthority()&&!Pawn->IsLocallyControlled()&&ColdSteelAuthority::ForPawn(Pawn)==Shadow,TEXT("guest authority resolves own shadow"));
     const auto Stats=ColdSteelTool::Evaluate(Hammer,Shadow);
@@ -97,13 +107,15 @@ int32 UWarhammerNetworkAuditCommandlet::Main(const FString& Params)
     Guard->ServerSetSwordGuard_Implementation(Hammer.InstanceId,false,Serial);
     Guard->ServerSetSwordGuard_Implementation(Hammer.InstanceId,true,Serial);
     Check(!Guard->IsGuarding(),TEXT("old raise cannot reopen released intent"));
+    Guard->ServerSetSwordGuard_Implementation(Hammer.InstanceId,true,++Serial);
+    Check(!Guard->IsGuarding(),TEXT("fresh raise cannot bypass the raise-lower cooldown"));
     const uint32 Old=Serial;Raise();Guard->ServerSetSwordGuard_Implementation(Hammer.InstanceId,false,Old);
     Check(Guard->IsGuarding(),TEXT("old release cannot lower newer guard"));
 
     Reset();Raise();const float Before=Shadow->Stamina();
-    Tool->ServerBeginBluntCharge_Implementation(40);
+    Tool->ServerBeginBluntCharge_Implementation(40,Hammer.InstanceId);
     Check(!Tool->bBluntServerCharging&&Shadow->Stamina()==Before,TEXT("guard excludes authoritative heavy charge"));
-    Tool->ServerBeginBluntAttack_Implementation(41,false,false);
+    Tool->ServerBeginBluntAttack_Implementation(41,false,false,Hammer.InstanceId);
     Check(Shadow->Stamina()==Before&&!World->GetTimerManager().IsTimerActive(Tool->BluntContactTimer),TEXT("guard excludes authoritative ordinary attack"));
     Tool->ServerBeginBluntUppercut_Implementation(42);
     Check(!Tool->bBluntUppercut&&Shadow->Stamina()==Before,TEXT("guard excludes authoritative uppercut"));
@@ -115,7 +127,7 @@ int32 UWarhammerNetworkAuditCommandlet::Main(const FString& Params)
     Check(!Guard->IsGuarding(),TEXT("uppercut excludes server guard"));
     Tool->bBluntUppercut=false;Reset();Tool->bBluntWhirlwind=true;Raise();
     Check(!Guard->IsGuarding(),TEXT("whirlwind excludes server guard"));
-    Tool->bBluntWhirlwind=false;Reset();Tool->ServerBeginBluntAttack_Implementation(44,false,false);Raise();
+    Tool->bBluntWhirlwind=false;Reset();Tool->ServerBeginBluntAttack_Implementation(44,false,false,Hammer.InstanceId);Raise();
     Check(!Guard->IsGuarding()&&Tool->HasAuthorityAttackInFlight(),TEXT("ordinary attack and recovery exclude server guard"));
     Tool->ServerCancelBluntAttack_Implementation(44);Raise();
     Check(Guard->IsGuarding(),TEXT("cancelled attack releases the guard gate"));
@@ -134,23 +146,35 @@ int32 UWarhammerNetworkAuditCommandlet::Main(const FString& Params)
     Guard->ReceiveGuardResult(Hammer.InstanceId,2,0.f,World->GetTimeSeconds(),Serial);
     Check(Guard->ToolGuardAge==.4f&&Guard->bGuardBreakPose,TEXT("break receipt does not restart replicated break animation"));
 
-    Reset();Raise();PS->ServerQuickCombat_Implementation(1,Pawn,.72f,false);
+    Reset();Raise();PS->ServerQuickCombat_Implementation(1,Pawn,.72f,false,PS->QuickCombatEquipmentKey());
     Check(PS->IsQuickCombatExecuting(Pawn)&&!Guard->IsGuarding(),TEXT("quick melee priority clears authoritative guard"));
     Check(Host->Stamina()==HostStamina&&Guard->ToolGuardInstance==Hammer.InstanceId,
         TEXT("guest quick interruption preserves host resources and guest equipment"));
     Raise();Check(!Guard->IsGuarding(),TEXT("quick melee excludes server guard during action"));
-    PS->ServerQuickCombat_Implementation(1,Pawn,0.f,true);Raise();
+    PS->ServerQuickCombat_Implementation(1,Pawn,0.f,true,FString());Raise();
     Check(Guard->IsGuarding(),TEXT("guard resumes after quick melee completion"));
-    Reset();Tool->ServerBeginBluntAttack_Implementation(45,false,false);PS->ServerQuickCombat_Implementation(2,Pawn,.72f,false);
+    Reset();Tool->ServerBeginBluntAttack_Implementation(45,false,false,Hammer.InstanceId);PS->ServerQuickCombat_Implementation(2,Pawn,.72f,false,PS->QuickCombatEquipmentKey());
     Check(PS->IsQuickCombatExecuting(Pawn)&&!World->GetTimerManager().IsTimerActive(Tool->BluntContactTimer),
         TEXT("quick melee cancels prior authoritative hammer contact"));
-    PS->ServerQuickCombat_Implementation(2,Pawn,0.f,true);
+    PS->ServerQuickCombat_Implementation(2,Pawn,0.f,true,FString());
+    Reset();
+    const float BeforeSwap=Shadow->Stamina();
+    const FString OldWeapon=TEXT("previously-equipped-hammer");
+    Tool->ServerBeginBluntCharge_Implementation(90,OldWeapon);
+    Check(!Tool->bBluntServerCharging,TEXT("delayed charge for another hammer cannot start"));
+    Tool->ServerBeginBluntCharge_Implementation(91,Hammer.InstanceId);
+    Tool->ServerBeginBluntAttack_Implementation(92,false,false,OldWeapon);
+    Check(Tool->bBluntServerCharging&&Tool->BluntServerAttackId==91&&Shadow->Stamina()==BeforeSwap&&
+        !World->GetTimerManager().IsTimerActive(Tool->BluntContactTimer),TEXT("stale swing preserves current charge and stamina"));
+    Tool->ServerCancelBluntAttack_Implementation(91);
+    PS->ServerQuickCombat_Implementation(3,Pawn,.72f,false,OldWeapon);
+    Check(!PS->IsQuickCombatExecuting(Pawn)&&Shadow->Stamina()==BeforeSwap,TEXT("quick melee for previous equipment cannot spend or start"));
     Reset();auto Low=Seed;Low.Stamina=5.f;Shadow->AdoptNetMirror(Low);Raise();Guard->GuardStartedAt=-10.;
     Guard->ResolveGuardDamage(100.f,GetDefault<UDamageType>(),nullptr,nullptr);
     auto* Broken=Pawn->FindComponentByClass<UPlayerGuardBreakComponent>();
     Check(Broken&&Broken->IsActive()&&Shadow->Stamina()==0.f&&!Guard->IsGuarding(),TEXT("insufficient guest stamina causes independent guard break"));
     Check(PC->IsMoveInputIgnored()&&PC->IsLookInputIgnored(),TEXT("authoritative break locks movement and look"));
-    Shadow->AdoptNetMirror(Seed);PS->ServerQuickCombat_Implementation(3,Pawn,.72f,false);
+    Shadow->AdoptNetMirror(Seed);PS->ServerQuickCombat_Implementation(3,Pawn,.72f,false,PS->QuickCombatEquipmentKey());
     Check(!PS->IsQuickCombatExecuting(Pawn)&&Shadow->Stamina()==100.f,TEXT("quick melee cannot bypass guard break lock"));
     Raise();Check(!Guard->IsGuarding(),TEXT("guard cannot restart during break lock"));
     if(Broken)Broken->ClearTransient();Raise();
@@ -160,7 +184,7 @@ int32 UWarhammerNetworkAuditCommandlet::Main(const FString& Params)
     Reset();auto SwordSeed=Seed;auto Sword=Host->CreateItem(TEXT("ue_rune_sword"));Sword.Place=1;Sword.Cell=6;SwordSeed.Items={Sword};
     Shadow->AdoptNetMirror(SwordSeed);Guard->RefreshToolGuardEquipment(Shadow);Guard->InstanceId=Sword.InstanceId;
     Guard->MeleeModifiers=ColdSteelMelee::Evaluate(Sword,Shadow).Modifiers;Tool->Kind.Reset();Tool->EquippedId.Reset();
-    Guard->ServerSetSwordGuard_Implementation(Sword.InstanceId,true,++Serial);Guard->GuardStartedAt=-10.;
+    ReadyForRaise();Guard->ServerSetSwordGuard_Implementation(Sword.InstanceId,true,++Serial);Guard->GuardStartedAt=-10.;
     Check(Guard->ResolveGuardDamage(100.f,GetDefault<UDamageType>(),nullptr,nullptr)==50.f&&Shadow->Stamina()==80.f,
         TEXT("shared sword normal block remains unchanged"));
     Reset();Raise();auto Empty=Seed;Empty.Items.Reset();Shadow->AdoptNetMirror(Empty);Guard->TickNetworkGuard();

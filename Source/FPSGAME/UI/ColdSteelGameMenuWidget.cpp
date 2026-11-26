@@ -1,4 +1,10 @@
 #include "ColdSteelGameMenuWidget.h"
+#include "../Monsters/WildlifeSubsystem.h"
+#include "../Multiplayer/ColdSteelSharedInventorySubsystem.h"
+#include "SColdSteelWorldMap.h"
+#include "../Dungeons/DungeonRoomSubsystem.h"
+#include "../Dungeons/DungeonRunSubsystem.h"
+#include "TimerManager.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelStatusModel.h"
 #include "../FPSGAMEPlayerController.h"
@@ -39,10 +45,10 @@ namespace
         Settings->SaveSettings();
     }
     TSharedRef<STextBlock> Label(const FString& Value, float Pixels = 14.f,
-        FLinearColor Color = ColdSteelUI::TextPrimary, bool Number = false)
+        FLinearColor Color = ColdSteelUI::TextPrimary, bool Number = false, bool Emphasized = false)
     {
         return SNew(STextBlock).Text(Text(Value)).AutoWrapText(false)
-            .Font(Number ? ColdSteelUI::NumberFont(Pixels * .75f) : ColdSteelUI::TextFont(Pixels * .75f))
+            .Font(Number ? ColdSteelUI::NumberFont(Pixels * .75f, Emphasized) : ColdSteelUI::TextFont(Pixels * .75f, Emphasized))
             .ColorAndOpacity(Color);
     }
 }
@@ -50,6 +56,11 @@ namespace
 void UColdSteelGameMenuWidget::NativeOnInitialized()
 {
     Super::NativeOnInitialized();
+    if (GetOwningPlayer())
+    {
+        FTimerHandle Timer;
+        GetWorld()->GetTimerManager().SetTimer(Timer,this,&UColdSteelGameMenuWidget::RecordDungeonPosition,.1f,true);
+    }
     SetIsFocusable(true);
     SetNavigationRuleBase(EUINavigation::Next, EUINavigationRule::Wrap);
     SetNavigationRuleBase(EUINavigation::Previous, EUINavigationRule::Wrap);
@@ -103,7 +114,7 @@ TSharedRef<SWidget> UColdSteelGameMenuWidget::RebuildWidget()
                 .OnClicked_Lambda([this]() { if (auto* PC=GetOwningPlayer<AFPSGAMEPlayerController>()) PC->OpenGameMenu(); return FReply::Handled(); })
                 [
                     SNew(SHorizontalBox)
-                    + SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)[Label(TEXT("菜单"),14,ColdSteelUI::HUDGoldLight)]
+                    + SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)[Label(TEXT("菜单"),14,ColdSteelUI::HUDGoldLight,false,true)]
                     + SHorizontalBox::Slot().AutoWidth().VAlign(VAlign_Center)[Label(TEXT("Esc"),14,ColdSteelUI::TextSecondary,true)]
                 ]
             ]
@@ -162,6 +173,10 @@ TSharedRef<SWidget> UColdSteelGameMenuWidget::RebuildWidget()
                     ]
                 ]
             ]
+        ]
+        + SOverlay::Slot().Padding(12)
+        [
+            SAssignNew(MapHost,SBox).Visibility(EVisibility::Collapsed)
         ];
     BuildPage();
     // Match the buff HUD's physical-pixel placement rather than applying DPI twice.
@@ -183,7 +198,7 @@ TSharedRef<SWidget> UColdSteelGameMenuWidget::Action(const FString& Caption, TFu
 
 void UColdSteelGameMenuWidget::AddSection(const FString& Caption)
 {
-    Body->AddSlot().AutoHeight().Padding(4,12,4,8)[Label(Caption,14,ColdSteelUI::HUDGoldLight)];
+    Body->AddSlot().AutoHeight().Padding(4,12,4,8)[Label(Caption,14,ColdSteelUI::HUDGoldLight,false,true)];
 }
 
 void UColdSteelGameMenuWidget::AddSlider(const FString& Caption, float Min, float Max, TAttribute<float> Value,
@@ -233,7 +248,7 @@ void UColdSteelGameMenuWidget::BuildPage()
         AddSection(TEXT("声音"));
         AddSlider(TEXT("总音量"),0,1,TAttribute<float>::CreateLambda([this]() { return MasterVolume; }),
             [this](float V) { MasterVolume=V; },TAttribute<FText>::CreateLambda([this]() { return Text(FString::Printf(TEXT("%d%%"),FMath::RoundToInt(MasterVolume*100))); }));
-        AddSlider(TEXT("主神空间音乐"),0,1,TAttribute<float>::CreateLambda([this]() { return MusicVolume; }),
+        AddSlider(TEXT("背景音乐"),0,1,TAttribute<float>::CreateLambda([this]() { return MusicVolume; }),
             [this](float V) { MusicVolume=V; },TAttribute<FText>::CreateLambda([this]() { return Text(FString::Printf(TEXT("%d%%"),FMath::RoundToInt(MusicVolume*100))); }));
         AddSection(TEXT("操作"));
         AddSlider(TEXT("鼠标灵敏度"),.25f,3.f,TAttribute<float>::CreateLambda([this]() { return MouseScale; }),
@@ -281,19 +296,20 @@ void UColdSteelGameMenuWidget::BuildPage()
         KeyRow(TEXT("鼠标左键 / 右键"),TEXT("攻击 / 瞄准（随装备变化）"));
         KeyRow(TEXT("R / 长按 R"),TEXT("换弹 / 选择弹药")); KeyRow(TEXT("滚轮"),TEXT("切换武器 / 调节可变倍镜"));
         KeyRow(TEXT("F / L"),TEXT("快速近战 / 检视武器"));
-        KeyRow(TEXT("Q E X / 1～0"),TEXT("技能与消耗品快捷槽"));
+        KeyRow(TEXT("1～0"),TEXT("技能与消耗品快捷槽"));
         KeyRow(TEXT("G"),TEXT("长剑特殊攻击 / 法杖特殊功能"));
-        KeyRow(TEXT("Shift+F7 / F7"),TEXT("取出铁铲 / 收起工具"));
+        KeyRow(TEXT("滚轮 / G"),TEXT("切换武器（铁铲装备在主手后同样经滚轮切换）"));
         AddSection(TEXT("交互与界面"));
         KeyRow(TEXT("E / Z"),TEXT("交互 / 拾取附近掉落")); KeyRow(TEXT("Tab"),TEXT("背包"));
         KeyRow(TEXT("Caps / P / N"),TEXT("人物状态 / 技能 / 图鉴")); KeyRow(TEXT("J / K"),TEXT("改造台 / 强化台"));
+        KeyRow(TEXT("M"),TEXT("打开或关闭区域地图"));
         KeyRow(TEXT("Left Alt"),TEXT("显示或收起交互光标")); KeyRow(TEXT("Esc"),TEXT("关闭当前界面 / 打开菜单"));
         Add(Label(TEXT("技能与快捷物品以底部栏显示的绑定为准。"),12,ColdSteelUI::TextTertiary));
         Add(Action(TEXT("返回菜单"),[this]() { GoBack(); },TEXT("Esc")));
     }
     else
     {
-        Add(Label(TEXT("确定退出游戏？"),18));
+        Add(Label(TEXT("确定退出游戏？"),18,ColdSteelUI::TextPrimary,false,true));
         Add(Label(GetWorld()->GetNetMode()==NM_Standalone?TEXT("退出前保存角色与建筑进度。 "):TEXT("将离开当前联机会话。"),14,ColdSteelUI::TextSecondary));
         if (!QuitError.IsEmpty()) Add(Label(QuitError,14,ColdSteelUI::Danger));
         Add(Action(TEXT("取消，返回菜单"),[this]() { SetPage(EPage::Main); },TEXT("Esc")));
@@ -348,11 +364,59 @@ void UColdSteelGameMenuWidget::ShowMenu()
 
 void UColdSteelGameMenuWidget::HideMenu()
 {
+    if (bMapOpen && MapHost)
+    {
+        MapHost->SetContent(SNullWidget::NullWidget);
+        MapHost->SetVisibility(EVisibility::Collapsed);
+        SetIsFocusable(true);
+        MapMovementKeys.Reset();
+    }
+    bMapOpen=false;
     SaveSettings(); bOpen=false;
+}
+
+void UColdSteelGameMenuWidget::RecordDungeonPosition()
+{
+    auto* Player=GetOwningPlayer();
+    if (!Player || !Player->IsLocalController()) return;
+    if (!MapSession) MapSession=MakeShared<FColdSteelWorldMapSession>();
+    const bool bReady=MapSession->DungeonMap.Update(Player);
+    MapSession->Markers.Update(Player,MapSession->DungeonMap,bReady);
+}
+
+const FColdSteelMapMarkers* UColdSteelGameMenuWidget::GetMapMarkers() const
+{
+    return MapSession ? &MapSession->Markers : nullptr;
+}
+
+void UColdSteelGameMenuWidget::ShowWorldMap()
+{
+    if (!MapHost || !GetOwningPlayer()) return;
+    if (!MapSession) MapSession=MakeShared<FColdSteelWorldMapSession>();
+    RecordDungeonPosition();
+    bMapOpen=true;
+    // Map buttons and canvas use the pointer. Keep keyboard focus on the game
+    // viewport even after a click, so a held movement key never loses its release.
+    SetIsFocusable(false);
+    if (const auto* Input=GetOwningPlayer()->PlayerInput.Get())
+    {
+        for (const FName Axis : {FName(TEXT("MoveForward")),FName(TEXT("MoveRight"))})
+            for (const auto& Binding : Input->GetKeysForAxis(Axis)) MapMovementKeys.Add(Binding.Key);
+        for (const FName Action : {FName(TEXT("Jump")),FName(TEXT("Sprint")),FName(TEXT("Slide"))})
+            for (const auto& Binding : Input->GetKeysForAction(Action)) MapMovementKeys.Add(Binding.Key);
+    }
+    MapHost->SetContent(MakeColdSteelWorldMap(GetOwningPlayer(),MapSession.ToSharedRef(),
+        FSimpleDelegate::CreateUObject(this,&UColdSteelGameMenuWidget::GoBack)));
+    MapHost->SetVisibility(EVisibility::Visible);
 }
 
 void UColdSteelGameMenuWidget::GoBack()
 {
+    if (bMapOpen)
+    {
+        if (auto* PC=GetOwningPlayer<AFPSGAMEPlayerController>()) PC->CloseGameMenu();
+        return;
+    }
     if (!bOpen) return;
     if (Page!=EPage::Main) SetPage(EPage::Main);
     else if (auto* PC=GetOwningPlayer<AFPSGAMEPlayerController>()) PC->CloseGameMenu();
@@ -361,9 +425,12 @@ void UColdSteelGameMenuWidget::GoBack()
 void UColdSteelGameMenuWidget::ConfirmQuit()
 {
     SaveSettings();
-    bool Saved=true;
+    bool Saved=UWildlifeSubsystem::FlushPendingLoot(GetWorld());
+    if (GetWorld()->GetNetMode()!=NM_Client)
+        if (auto* Shared=GetWorld()->GetSubsystem<UColdSteelSharedInventorySubsystem>())
+            Saved=Shared->FlushForTravel()&&Saved;
     // The local profile owns its disk copy in both standalone and network play.
-    if (auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()) Saved=Profile->SaveNow();
+    if (auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>()) Saved=Profile->SaveNow()&&Saved;
     if (GetWorld()->GetNetMode()==NM_Standalone)
     {
         for (TActorIterator<AVoxelBuildWorld> It(GetWorld()); It; ++It)
@@ -373,13 +440,31 @@ void UColdSteelGameMenuWidget::ConfirmQuit()
     UKismetSystemLibrary::QuitGame(this,GetOwningPlayer(),EQuitPreference::Quit,false);
 }
 
+bool UColdSteelGameMenuWidget::HandleMapShortcut(FKey Key, bool bPressed)
+{
+    if (!bMapOpen || (MapSession && MapSession->bEditingMarker)) return false;
+    if (Key==EKeys::M || Key==EKeys::Escape)
+    {
+        if (bPressed) GoBack();
+        return true;
+    }
+    if (Key==EKeys::Delete)
+    {
+        if (bPressed && MapSession) MapSession->Markers.Remove(MapSession->SelectedMarker);
+        return true;
+    }
+    return false;
+}
+
 FReply UColdSteelGameMenuWidget::NativeOnPreviewKeyDown(const FGeometry& Geometry,const FKeyEvent& Event)
 {
+    if (HandleMapShortcut(Event.GetKey(),!Event.IsRepeat())) return FReply::Handled();
     if (bOpen && Event.GetKey()==EKeys::Escape) { if (!Event.IsRepeat()) GoBack(); return FReply::Handled(); }
     return Super::NativeOnPreviewKeyDown(Geometry,Event);
 }
 
 void UColdSteelGameMenuWidget::ReleaseSlateResources(bool bReleaseChildren)
 {
+    MapHost.Reset();
     Super::ReleaseSlateResources(bReleaseChildren); Body.Reset(); DefaultFocus.Reset(); VerticalScroll.Reset(); HorizontalScroll.Reset();
 }

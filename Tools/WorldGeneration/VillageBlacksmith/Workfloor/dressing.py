@@ -87,3 +87,4 @@ def apply(house,station):
         part.set_hidden_in_game(True)
     return dict(revision='SmithWorkfloorR1',bindings=changed,barrel_center_cm=BARREL_CENTER,
                 additions=[p for p,_,_ in placements])
+

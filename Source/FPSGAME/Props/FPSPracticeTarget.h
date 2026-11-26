@@ -6,6 +6,7 @@
 class UStaticMeshComponent;
 class UTextRenderComponent;
 class UStaticMesh;
+class AController;
 
 USTRUCT()
 struct FPracticeTargetNetStats
@@ -30,6 +31,7 @@ class FPSGAME_API AFPSPracticeTarget : public AActor
     GENERATED_BODY()
 public:
     AFPSPracticeTarget();
+    virtual float TakeDamage(float Damage, const FDamageEvent& Event, AController* InstigatorController, AActor* Causer) override;
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     /** 清空累计/窗口统计与浮空数字。 */
     void ResetSession();
@@ -45,11 +47,10 @@ private:
     UFUNCTION() void OnRadialDamage(AActor* DamagedActor,float Damage,const UDamageType* DamageType,FVector Origin,const FHitResult& HitInfo,class AController* InstigatedBy,AActor* DamageCauser);
     UFUNCTION() void OnAnyDamage(AActor* DamagedActor,float Damage,const UDamageType* DamageType,class AController* InstigatedBy,AActor* DamageCauser);
     bool IsBullseyeLocation(const FVector& WorldPoint) const;
-    void RecordHit(float Damage,const FVector& Point,bool bBullseye,bool bRock=false);
-    UFUNCTION(NetMulticast,Unreliable) void MulticastPracticeHit(float Damage,FVector Point,bool bBullseye,bool bRock);
+    void RecordHit(float Damage,const FVector& Point,bool bBullseye,bool bRock=false,class AController* HitInstigator=nullptr,const UDamageType* Type=nullptr);
+    UFUNCTION(NetMulticast,Unreliable) void MulticastPracticeHit(float Damage,FVector Point,bool bRock);
     UPROPERTY(ReplicatedUsing=OnRep_Statistics) FPracticeTargetNetStats Statistics;
     UFUNCTION() void OnRep_Statistics();
-    void SpawnDamageText(float Damage,const FVector& Point,bool bBullseye);
     void UpdateSign();
     void FaceCamera(USceneComponent* Component) const;
 
@@ -60,17 +61,13 @@ private:
     UPROPERTY(EditAnywhere,Category="PracticeTarget") TObjectPtr<UStaticMesh> MeshOverride;
     UPROPERTY(EditAnywhere,Category="PracticeTarget") float WindowSeconds=5.f;
     UPROPERTY(EditAnywhere,Category="PracticeTarget") float IdleResetSeconds=4.f;
-    UPROPERTY(EditAnywhere,Category="PracticeTarget") int32 MaxFloatingTexts=24;
-    UPROPERTY(EditAnywhere,Category="PracticeTarget") float FloatingLifeSeconds=1.1f;
     /** 靶心暴击区（与 build_mesh.py 几何同步：靶心圆盘 r=9 占 x 7.8..9.0，面心 y=0/z=150）。 */
     UPROPERTY(EditAnywhere,Category="PracticeTarget") float BullseyeCenterZ=150.f;
     UPROPERTY(EditAnywhere,Category="PracticeTarget") float BullseyeRadius=10.5f;
     UPROPERTY(EditAnywhere,Category="PracticeTarget") float BullseyeMinX=7.f;
 
     struct FPracticeHit { double Time; float Damage; };
-    struct FFloatingText { TObjectPtr<UTextRenderComponent> Text; FVector Base; double SpawnTime; float Drift; };
     TArray<FPracticeHit> RecentHits;
-    TArray<FFloatingText> Floating;
     double SessionStart=-1.;
     double LastHitTime=-1.;
     float TotalDamage=0.f;
@@ -79,5 +76,5 @@ private:
     float RockPhase=0.f;
     float RockSign=1.f;
     float SignAccum=0.f;
-    uint64 LastTypedDamageFrame=0;
+    bool bTypedDamageHandled=false;
 };

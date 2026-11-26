@@ -1,5 +1,6 @@
 #include "RuneSwordComponent.h"
 #include "HighlandBreakSweep.h"
+#include "RingChainSweepMotion.h"
 #include "HighlandRidgeThrust.h"
 #include "SwordGripClearance.h"
 #include "../FPSGAMECharacter.h"
@@ -20,6 +21,37 @@ FSoftObjectPath SweepPath(bool LongGrip,bool FromReady)
     if(FromReady)Name+=TEXT("_FromReady");
     return FSoftObjectPath(TEXT("/Game/Weapons/HighlandClaymore20260922/BreakSweep20261104/")+Name+TEXT(".")+Name);
 }
+}
+
+void URuneSwordComponent::RefreshRingChainSweep()
+{
+    using namespace RingChainSweepMotion;
+    if(!Character.IsValid()||!Character->IsLocallyControlled())return;
+    if(!bRingInputInstalled)RingSweepLoad.Reset();
+    if(bRingInputInstalled==Animations.Contains(Charge))return;
+    if(IsPhase(CurrentClip))CancelAction();
+    if(!bRingInputInstalled)
+    {
+        Animations.Remove(Charge);Animations.Remove(Release);
+        return;
+    }
+    Animations.Add(Charge,nullptr);
+    const FString Weapon=InstanceId,Folder=EquippedAnimationFolder;
+    const bool LongGrip=Folder.EndsWith(TEXT("/LongGripAnimations"));
+    const auto Path=SweepPath(LongGrip,true);
+    const TArray<FSoftObjectPath> Assets{Path,HighlandBreakSweep::RiftPath(LongGrip)};
+    RingSweepLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Assets,FStreamableDelegate::CreateWeakLambda(this,[this,Weapon,Folder,Path]()
+    {
+        if(InstanceId!=Weapon||EquippedAnimationFolder!=Folder||!Animations.Contains(Charge))return;
+        auto* Sequence=Cast<UAnimSequence>(Path.ResolveObject());
+        const auto* Mesh=Viewmodel?Viewmodel->GetSkeletalMeshAsset():nullptr;
+        if(Sequence&&Mesh&&Sequence->GetSkeleton()==Mesh->GetSkeleton())
+        {
+            Animations.Add(Charge,Sequence);
+            Animations.Add(Release,Sequence);
+        }
+        else UE_LOG(LogTemp,Error,TEXT("Ring-chain sweep motion unavailable: %s"),*Path.ToString());
+    }));
 }
 
 void URuneSwordComponent::RefreshBroadblade(const FColdSteelItem* Item)
@@ -57,10 +89,11 @@ ESwordGripMode URuneSwordComponent::GripMode() const
 {
     // The charge and its matching release keep both hands on their idle
     // grip stations as the wrists turn. Share the same fit at button-up.
-    if(CurrentClip==HighlandRidgeThrust::Charge||HighlandRidgeThrust::IsRelease(CurrentClip))
+    if(bChainSlash||CurrentClip==HighlandRidgeThrust::Charge||HighlandRidgeThrust::IsRelease(CurrentClip))
         return ESwordGripMode::HeldAuthoredArms;
     if(bBroadbladeInstalled && (CurrentClip==TEXT("HeavyCharge") || CurrentClip==TEXT("HeavyRelease") ||
         CurrentClip==HighlandBreakSweep::Clip))return ESwordGripMode::Held;
+    if(RingChainSweepMotion::IsPhase(CurrentClip))return ESwordGripMode::Held;
     return ESwordGripMode::Adaptive;
 }
 
@@ -113,8 +146,15 @@ bool URuneSwordComponent::CommitBroadbladeSweep(const FString& Weapon,uint32 Ser
     if(!Serial || !Character.IsValid() || !Character->HasAuthority() || !Item || Item->InstanceId!=Weapon ||
         Model->ActiveProductionTool() || !HighlandBreakSweep::Installed(GetWorld()->GetGameInstance()->GetSubsystem<UGunsmithSystem>(),Item))return false;
     if(Serial==SweepServerSerial)return Now<SweepServerHitUntil;
+    if(SweepReceivedSerial&&int32(Serial-SweepReceivedSerial)<=0)return false;
+    SweepReceivedSerial=Serial;
+    // Preserve old accepted contacts. The first claim, including the lazy
+    // contact path, must obey the same hand reservation as an explicit start.
+    if(Character->IsCastBlockingLeftHandAction())return false;
     if(int32(Serial-SweepServerSerial)<=0 || Now>=SweepReadyUntil)return false;
+    const float Before=Model->Stamina();
     if(!Model->SpendStamina(ColdSteelMelee::AttackStamina(Item,Model)))return false;
+    RecordGalePayment(GaleWing::Key(GaleWing::EAttack::Sweep,Serial),Weapon,Before-Model->Stamina());
     SweepReadyUntil=0.;
     SweepServerSerial=Serial;
     SweepServerHitUntil=Now+1.0;
@@ -139,6 +179,24 @@ bool URuneSwordComponent::AcceptBroadbladeContact(const FString& Weapon,uint32 S
     if(!Hits.ContainsByPredicate([Target](const FHitResult& Hit){return Hit.GetActor()==Target;}))return false;
     SweepServerTargets.Add(Target);
     return true;
+}
+
+bool URuneSwordComponent::AcceptRingChainSweepContact(const FString& Weapon,uint32 Serial,AActor* Target,bool bAzureClaw)
+{
+    if(!IsValid(Target)||!Serial||Serial!=RingSweepReleaseSerial||!HasRingChain(Weapon)
+        ||!IsNetworkHeavyReleaseWindowOpen(Weapon)||RingSweepTargets.Contains(Target))return false;
+    auto* Model=ColdSteelAuthority::ForPawn(Character.Get());
+    const auto* Item=Model?Model->Equipped():nullptr;
+    if(!Item||Item->InstanceId!=Weapon)return false;
+    const auto Stats=ColdSteelMelee::Evaluate(*Item,Model);
+    float Radius=float(Stats.SlashReach*Stats.Modifiers.MartialRange);
+    if(bAzureClaw)Radius=FMath::Max(Radius,AzureDragonReach::ClawReachCM);
+    const FVector Forward=Character->GetBaseAimRotation().Vector().GetSafeNormal2D(UE_SMALL_NUMBER,
+        Character->GetActorForwardVector().GetSafeNormal2D());
+    const auto Hits=RuneSwordCombat::QuerySector(GetWorld(),Character.Get(),Character->GetActorLocation(),
+        Forward,Radius,HighlandBreakSweep::ArcDegrees,RingSweepTargets);
+    if(!Hits.ContainsByPredicate([Target](const FHitResult& Hit){return Hit.GetActor()==Target;}))return false;
+    RingSweepTargets.Add(Target);return true;
 }
 
 void URuneSwordComponent::ClientBroadbladeImpact_Implementation(const FString& Weapon,uint32 Serial)

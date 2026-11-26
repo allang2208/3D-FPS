@@ -1,0 +1,16 @@
+{
+  "guest_cap_and_expiry": true,
+  "host": {
+    "metal_wall": 1,
+    "flesh": 5
+  },
+  "client": {
+    "metal_wall": 1,
+    "accepted_body_hits": 5.0,
+    "flesh": 5
+  },
+  "viewer": {
+    "metal_wall": 1,
+    "flesh": 5
+  }
+}

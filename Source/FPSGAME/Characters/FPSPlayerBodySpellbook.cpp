@@ -32,7 +32,7 @@ void UFPSPlayerBodyComponent::UpdateFloatingBook(const FFPSBodyMotionSample& Sam
         }
         WorldFloatingBook=NewObject<UFPSBodyWeaponMeshComponent>(Character.Get(),TEXT("BodyFloatingSpellbook"));
         Character->AddInstanceComponent(WorldFloatingBook);
-        WorldFloatingBook->SetupAttachment(GetBodyMesh());
+        WorldFloatingBook->SetupAttachment(GetBodyMesh(),TEXT("hand_l"));
         WorldFloatingBook->SetCollisionEnabled(ECollisionEnabled::NoCollision);
         WorldFloatingBook->SetCanEverAffectNavigation(false);
         WorldFloatingBook->SetSkeletalMesh(Mesh);
@@ -41,7 +41,12 @@ void UFPSPlayerBodyComponent::UpdateFloatingBook(const FFPSBodyMotionSample& Sam
         WorldFloatingBook->SetComponentTickEnabled(false);
     }
     if(!WorldFloatingBook)return;
-    const bool Show=Sample.FloatingBook&&!FPSPlayerBodyWorldBodyHidden()
+    if(WorldFloatingBook->GetAttachSocketName()!=TEXT("hand_l"))
+    {
+        WorldFloatingBook->AttachToComponent(GetBodyMesh(),FAttachmentTransformRules::SnapToTargetNotIncludingScale,TEXT("hand_l"));
+        SmoothedBookPose.Reset();
+    }
+    const bool Show=Sample.FloatingBook&&!IsWorldBodyPresentationHidden()
         &&Sample.BookPose.Num()==WorldFloatingBook->GetSkeletalMeshAsset()->GetRefSkeleton().GetNum();
     FPSBodyEquipment::ApplyOwnerVisibilityFlags(WorldFloatingBook,false,!IsThirdPersonViewEnabled());
     FPSBodyEquipment::ApplyShadowFlags(WorldFloatingBook,Show&&ShouldWorldBodyCastShadow());

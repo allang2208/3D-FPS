@@ -38,6 +38,13 @@ try:
                           ('S_M09_Claw', False), ('S_M09_Stagger', False),
                           ('S_M09_Alert', False), ('S_M09_RingDown', False)]:
         path = DEST + '/' + name
+        if name == 'S_M09_Idle':
+            # Rebuilds must keep the approved Ghost breath source and loop settings.
+            import runpy
+            approved_idle = runpy.run_path(str(ROOT.parent.parent / 'HangingBellIdleGhostBreath20261018/import_idle.py'))
+            sound = approved_idle['install']()
+            report['saved'].append(sound.get_path_name()); receipt()
+            continue
         sound = owned(path)
         if sound is None:
             task = u.AssetImportTask(); task.filename = str(ROOT / 'Audio' / (name + '.wav'))

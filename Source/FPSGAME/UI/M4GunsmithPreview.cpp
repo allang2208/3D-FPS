@@ -16,6 +16,7 @@
 #include "Engine/World.h"
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "../Weapons/Kukri/GhostScytheMist.h"
 #include "Components/DirectionalLightComponent.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine/StaticMesh.h"
@@ -279,7 +280,9 @@ void UM4GunsmithWidget::NativeTick(const FGeometry& Geometry,float Delta)
 }
 void UM4GunsmithWidget::TickCapture(float Delta)
 {
-    if(Studio)Studio->GetWorld()->Tick(LEVELTICK_TimeOnly,Delta);
+    // The studio owns this clock. TimeOnly never ticks Niagara components.
+    if(Studio)Studio->GetWorld()->Tick(StandaloneMelee&&StandaloneMelee->ComponentHasTag(GhostScytheMist::HolderTag)
+        ?LEVELTICK_All:LEVELTICK_TimeOnly,Delta);
     CaptureAccumulator+=Delta;PreviewMotion=FMath::Max(0.f,PreviewMotion-Delta);
     UpdatePreviewStreaming(Delta);
     if(PreviewTarget&&PreviewSurface)

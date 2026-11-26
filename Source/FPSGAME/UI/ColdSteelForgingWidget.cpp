@@ -1,9 +1,13 @@
 #include "ColdSteelForgingWidget.h"
+#include "ColdSteelTextToolTip.h"
+#include "../Development/DevelopmentTuningSubsystem.h"
 #include "ColdSteelForgeBoard.h"
 #include "ColdSteelGunRecipeOptionWidget.h"
+#include "DevelopmentItemPicker.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelCraftingResultStyle.h"
 #include "ColdSteelItemTooltipData.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "GunsmithUIStyle.h"
@@ -30,6 +34,7 @@
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
+#include "Components/WrapBox.h"
 #include "ImageUtils.h"
 #include "Misc/Paths.h"
 #include "Styling/SlateTypes.h"
@@ -121,14 +126,43 @@ void UColdSteelForgingWidget::NativeOnInitialized()
     auto* RecipeCard=Card(Content);
     auto* RecipeCaption=Text(TEXT("配方 · 工件"),12);RecipeCaption->SetColorAndOpacity(ColdSteelUI::TextTertiary);Space(RecipeCard->AddChildToVerticalBox(RecipeCaption),FMargin(0,0,0,4));
     RecipeTitle=Text(TEXT("—"),16,false,true);Space(RecipeCard->AddChildToVerticalBox(RecipeTitle),FMargin(0,0,0,8));
-    RecipeChoice=WidgetTree->ConstructWidget<UComboBoxString>();
-    RecipeChoice->OnGenerateWidgetEvent.BindDynamic(this,&ThisClass::GenerateRecipeOption);
+    RecipeChoice=WidgetTree->ConstructWidget<UDevelopmentItemPicker>();
+    RecipeChoice->SetPhysicalFontSizes(true);
+    TArray<FColdSteelCatalogEntry> RecipeOptions;
     for(const auto& Recipe:System->Catalog())
-        RecipeChoice->AddOption(ColdSteelInventory::Text(Model->CreateItem(Recipe.Output),TEXT("name")));
+    {
+        const auto Item=Model->CreateItem(Recipe.Output);
+        FColdSteelCatalogEntry Entry;
+        // The visible order is grouped; callbacks must retain the actual recipe ID.
+        Entry.Definition=Recipe.Id.ToString();
+        Entry.Name=ColdSteelInventory::Text(Item,TEXT("name"));
+        Entry.Group=Recipe.Blank==TEXT("warhammer")?TEXT("双手锤"):ColdSteelInventory::Text(Item,TEXT("weaponTypeTag"));
+        if(Entry.Group.IsEmpty())Entry.Group=TEXT("其他武器");
+        Entry.GroupOrder=Entry.Group==TEXT("双手剑")?0:Entry.Group==TEXT("双手锤")?1:
+            Entry.Group==TEXT("双手刀")?2:Entry.Group==TEXT("单手刀")?3:4;
+        RecipeOptions.Add(MoveTemp(Entry));
+    }
+    RecipeOptions.StableSort([](const auto& A,const auto& B)
+    {
+        if(A.GroupOrder!=B.GroupOrder)return A.GroupOrder<B.GroupOrder;
+        return A.Group<B.Group;
+    });
+    RecipeChoice->SetOptions(RecipeOptions,SelectedRecipe.ToString(),true);
     RecipeChoice->OnSelectionChanged.AddDynamic(this,&ThisClass::HandleRecipeSelected);
-    RecipeChoice->SetToolTipText(FText::FromString(TEXT("选择锻造配方；当前工件需领取或废弃后才能更换。")));
+    ColdSteelToolTip::Set(*RecipeChoice, FText::FromString(TEXT("选择锻造配方；当前工件需领取或废弃后才能更换。")));
     auto* ChoiceSize=WidgetTree->ConstructWidget<USizeBox>();ChoiceSize->SetContent(RecipeChoice);ButtonSizes.Add(ChoiceSize);
     Space(RecipeCard->AddChildToVerticalBox(ChoiceSize),FMargin(0,0,0,8));
+    auto* MetalCaption=Text(TEXT("金属材质 · 决定伤害保底"),12);MetalCaption->SetColorAndOpacity(ColdSteelUI::TextTertiary);
+    Space(RecipeCard->AddChildToVerticalBox(MetalCaption),FMargin(0,0,0,4));
+    MetalChoice=WidgetTree->ConstructWidget<UComboBoxString>();
+    MetalChoice->OnGenerateWidgetEvent.BindDynamic(this,&ThisClass::GenerateRecipeOption);
+    for(const auto& Metal:System->Metals())
+        MetalChoice->AddOption(FString::Printf(TEXT("%s · 保底 +%.0f%%"),
+            *ColdSteelInventory::Text(Model->CreateItem(Metal.Item.ToString()),TEXT("name")),Metal.Bonus*100));
+    MetalChoice->OnSelectionChanged.AddDynamic(this,&ThisClass::HandleMetalSelected);
+    ColdSteelToolTip::Set(*MetalChoice, FText::FromString(TEXT("每轮选择一种金属锭；开始后锁定材质与保底加成，不能中途更换。")));
+    auto* MetalSize=WidgetTree->ConstructWidget<USizeBox>();MetalSize->SetContent(MetalChoice);ButtonSizes.Add(MetalSize);
+    Space(RecipeCard->AddChildToVerticalBox(MetalSize),FMargin(0,0,0,8));
     Materials=Text(TEXT("所需材料"),14,false,true);Space(RecipeCard->AddChildToVerticalBox(Materials),FMargin(0,0,0,4));
     auto* Source=Text(TEXT("材料来源 · 背包 + 主仓库"),12);Source->SetColorAndOpacity(ColdSteelUI::TextTertiary);MaterialSource=Source;
     Space(RecipeCard->AddChildToVerticalBox(Source),FMargin(0,0,0,4));
@@ -138,16 +172,23 @@ void UColdSteelForgingWidget::NativeOnInitialized()
     for(auto* Label:{NameHeader,QuantityHeader,StateHeader}){Label->SetColorAndOpacity(ColdSteelUI::TextSecondary);Label->SetAutoWrapText(false);}
     AddMaterialCell(NameHeader,0,0);AddMaterialCell(QuantityHeader,0,1);AddMaterialCell(StateHeader,0,2);
     int32 MaterialRowCount=0;
-    for(const auto& Recipe:System->Catalog())MaterialRowCount=FMath::Max(MaterialRowCount,Recipe.Inputs.Num());
+    for(const auto& Recipe:System->Catalog())MaterialRowCount=FMath::Max(MaterialRowCount,Recipe.Inputs.Num()+1);
     EnsureMaterialRows(MaterialRowCount);
     auto* StateCard=Card(Content);
     Stage=Text(TEXT("准备锻造"),16,false,true);Space(StateCard->AddChildToVerticalBox(Stage),FMargin(0,0,0,8));
-    Stats=Text(TEXT(""),16,true);Space(StateCard->AddChildToVerticalBox(Stats),FMargin(0,0,0,4));
+    ResultMetrics=WidgetTree->ConstructWidget<UWrapBox>();Space(StateCard->AddChildToVerticalBox(ResultMetrics),FMargin(0,0,0,4));
+    Stats=Text(TEXT(""),16,true);ResultMetrics->AddChildToWrapBox(Stats);
+    ScoreValue=Text(TEXT(""),16,true);ResultMetrics->AddChildToWrapBox(ScoreValue);
+    ColdSteelToolTip::Set(*ScoreValue, FText::FromString(TEXT("工艺评分 = 有效命中 / 20 × 100；材质保底单独计算。")));
     StatLegend=Text(TEXT("剩余时间   /   有效命中   /   工艺伤害"),12);StatLegend->SetColorAndOpacity(ColdSteelUI::TextTertiary);StateCard->AddChildToVerticalBox(StatLegend);
+    BonusBreakdown=Text(TEXT(""),12);BonusBreakdown->SetColorAndOpacity(ColdSteelUI::TextTertiary);StateCard->AddChildToVerticalBox(BonusBreakdown);
+    BonusBreakdownRow=WidgetTree->ConstructWidget<UWrapBox>();StateCard->AddChildToVerticalBox(BonusBreakdownRow);
+    DamageBonusValue=Text(TEXT(""),12);MaterialBonusValue=Text(TEXT(""),12);HitBonusValue=Text(TEXT(""),12);
+    for(UTextBlock* Value:{DamageBonusValue.Get(),MaterialBonusValue.Get(),HitBonusValue.Get()})BonusBreakdownRow->AddChildToWrapBox(Value);
     RefundPreview=Text(TEXT(""),12);RefundPreview->SetAutoWrapText(true);RefundPreview->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(StateCard->AddChildToVerticalBox(RefundPreview),FMargin(0,8,0,0));
     Timer=WidgetTree->ConstructWidget<UProgressBar>();Timer->SetFillColorAndOpacity(ColdSteelUI::Accent);
     TimerSize=WidgetTree->ConstructWidget<USizeBox>();TimerSize->SetContent(Timer);Space(StateCard->AddChildToVerticalBox(TimerSize),FMargin(0,8,0,0));
-    auto* PreviewCaption=Text(TEXT("成品预览 · 剑类共用剑胚"),14,false,true);Space(Content->AddChildToVerticalBox(PreviewCaption),FMargin(0,4,0,8));
+    auto* PreviewCaption=Text(TEXT("成品预览 · 按配方使用对应工胚"),14,false,true);Space(Content->AddChildToVerticalBox(PreviewCaption),FMargin(0,4,0,8));
     BoardSize=WidgetTree->ConstructWidget<USizeBox>();
     auto* PreviewColumns=WidgetTree->ConstructWidget<UHorizontalBox>();BoardSize->SetContent(PreviewColumns);
     Space(Content->AddChildToVerticalBox(BoardSize),FMargin(0,0,0,8));
@@ -167,19 +208,20 @@ void UColdSteelForgingWidget::NativeOnInitialized()
     Space(ParameterContent->AddChildToVerticalBox(PreviewScope),FMargin(0,12,0,0));
     auto* Instructions=Card(Content);Space(Instructions->AddChildToVerticalBox(Text(TEXT("操作说明"),16,false,true)),FMargin(0,0,0,8));
     auto* Help=Text(TEXT("光圈与命中范围随时间缩小，直到消失。移动鼠标对准后左键落锤，出锤时锁定大小，锤头接触时判定。"),14);Help->SetAutoWrapText(true);Space(Instructions->AddChildToVerticalBox(Help),FMargin(0,0,0,8));
-    auto* Rule=Text(FString::Printf(TEXT("每轮 20 处光圈 · 单处随机停留 %.1f～%.1f 秒，出锤后锁定至接触\n落锤后随机间隔 %.2f～%.2f 秒，且等待回锤完成 · 10 次命中为基础品质\n伤害浮动 −25%% ～ ＋25%%"),System->HitWindowMin,System->HitWindowMax,System->TargetGapMin,System->TargetGapMax),12);Rule->SetAutoWrapText(true);Rule->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(Instructions->AddChildToVerticalBox(Rule),FMargin(0,0,0,8));
-    auto* Exit=Text(TEXT("开始时扣除材料。中途返回按当前命中数结算；成品可领取或直接废弃。废弃返还一半材料至背包，每种材料的零头向下取整。"),12);Exit->SetAutoWrapText(true);Exit->SetColorAndOpacity(ColdSteelUI::TextTertiary);Instructions->AddChildToVerticalBox(Exit);
+    auto* Rule=Text(FString::Printf(TEXT("每轮 %d 处光圈 · 单处停留 %.1f～%.1f 秒，出锤时锁定大小\n回锤后间隔 %.2f～%.2f 秒 · 每次有效命中 +%.2f%%，命中最多 +%.0f%%\n材质保底与命中提升相加 · 金锭满命中最高 +%.0f%% · 失误不扣保底"),System->TargetCount,System->HitWindowMin,System->HitWindowMax,System->TargetGapMin,System->TargetGapMax,ColdSteelForgeQuality::BonusPerHit*100,ColdSteelForgeQuality::MaxHitBonus*100,(ColdSteelForgeQuality::MaxMaterialBonus+ColdSteelForgeQuality::MaxHitBonus)*100),12);Rule->SetAutoWrapText(true);Rule->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(Instructions->AddChildToVerticalBox(Rule),FMargin(0,0,0,8));
+    auto* Exit=Text(TEXT("普通制作在开始时扣料；免材料制作不扣料、不返料。中途返回按当前命中数结算；成品可领取或废弃。实际投入材料按每种一半返还，零头向下取整。"),12);Exit->SetAutoWrapText(true);Exit->SetColorAndOpacity(ColdSteelUI::TextTertiary);Instructions->AddChildToVerticalBox(Exit);
     Footer=WidgetTree->ConstructWidget<UBorder>();Footer->SetBrushColor(ColdSteelUI::HeaderTint);Stack->AddChildToVerticalBox(Footer);
     auto* Foot=WidgetTree->ConstructWidget<UVerticalBox>();Footer->SetContent(Foot);
     Status=Text(TEXT(""),14);Status->SetAutoWrapText(true);Status->SetColorAndOpacity(ColdSteelUI::TextSecondary);Space(Foot->AddChildToVerticalBox(Status),FMargin(0,0,0,8));
     auto* Actions=WidgetTree->ConstructWidget<UHorizontalBox>();Foot->AddChildToVerticalBox(Actions);
     UTextBlock* NewActionLabel=nullptr;ActionButton=Button(TEXT("开始锻造"),NewActionLabel);ActionLabel=NewActionLabel;ActionButton->OnClicked.AddDynamic(this,&ThisClass::HandleAction);
     auto* ActionSize=WidgetTree->ConstructWidget<USizeBox>();ActionSize->SetContent(ActionButton);ButtonSizes.Add(ActionSize);Actions->AddChildToHorizontalBox(ActionSize)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-    UTextBlock* DiscardLabel=nullptr;DiscardButton=Button(TEXT("废弃 · 返还一半"),DiscardLabel);DiscardButton->OnClicked.AddDynamic(this,&ThisClass::HandleDiscard);
-    DiscardButton->SetToolTipText(FText::FromString(TEXT("直接废弃未领取的成品，返还一半投入材料至背包（逐项向下取整）。背包空间不足时保留成品。")));
+    UTextBlock* DiscardLabel=nullptr;DiscardButton=Button(TEXT("废弃成品"),DiscardLabel);DiscardButton->OnClicked.AddDynamic(this,&ThisClass::HandleDiscard);
+    ColdSteelToolTip::Set(*DiscardButton, FText::FromString(TEXT("废弃未领取的成品；实际返还见本轮材料说明。免材料制作不返料；背包空间不足时保留成品。")));
     auto* DiscardSize=WidgetTree->ConstructWidget<USizeBox>();DiscardSize->SetContent(DiscardButton);ButtonSizes.Add(DiscardSize);DiscardActionSlot=Actions->AddChildToHorizontalBox(DiscardSize);DiscardActionSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     UTextBlock* SmeltLabel=nullptr;SmeltingButton=Button(TEXT("冶炼队列 / 领锭"),SmeltLabel);SmeltingButton->OnClicked.AddDynamic(this,&ThisClass::HandleSmelting);
-    auto* SmeltSize=WidgetTree->ConstructWidget<USizeBox>();SmeltSize->SetContent(SmeltingButton);ButtonSizes.Add(SmeltSize);SecondaryActionSlot=Actions->AddChildToHorizontalBox(SmeltSize);SecondaryActionSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+    auto* Utilities=WidgetTree->ConstructWidget<UHorizontalBox>();Space(Foot->AddChildToVerticalBox(Utilities),FMargin(0,ColdSteelUI::ActionGap,0,0));
+    auto* SmeltSize=WidgetTree->ConstructWidget<USizeBox>();SmeltSize->SetContent(SmeltingButton);ButtonSizes.Add(SmeltSize);SecondaryActionSlot=Utilities->AddChildToHorizontalBox(SmeltSize);SecondaryActionSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     UpdateScale();LoadMold();Refresh();
 }
 void UColdSteelForgingWidget::NativeConstruct()
@@ -188,19 +230,26 @@ void UColdSteelForgingWidget::NativeConstruct()
 }
 void UColdSteelForgingWidget::NativeDestruct()
 {
+    if(RecipeChoice)RecipeChoice->CloseMenu();
     if(Model&&ChangedHandle.IsValid()){Model->OnChanged.Remove(ChangedHandle);ChangedHandle.Reset();}
     Super::NativeDestruct();
 }
 void UColdSteelForgingWidget::SetStation(AVoxelBuildWorld* InWorld,FIntVector InCell)
 {
-    World=InWorld;Cell=InCell;Notice.Reset();bMaterialsDirty=true;
+    World=InWorld;Cell=InCell;Notice.Reset();bEntryError=false;bMaterialsDirty=true;
     if(System&&!System->Active()&&!System->Job().Id.IsEmpty()&&!System->Job().bFinished)System->Finish(Notice);
     if(System&&!System->Job().Id.IsEmpty())SelectedRecipe=System->Job().Recipe;
     LoadMold();Refresh();
 }
+void UColdSteelForgingWidget::ShowEntryError(const FString& Reason)
+{
+    Notice=Reason;bEntryError=true;Refresh();
+}
 void UColdSteelForgingWidget::SetInputReady(bool bReady)
 {
-    if(bInputReady==bReady)return;bInputReady=bReady;if(Board)Board->SetIsEnabled(bReady);Refresh();
+    if(bInputReady==bReady)return;
+    if(!bReady&&RecipeChoice)RecipeChoice->CloseMenu();
+    bInputReady=bReady;if(Board)Board->SetIsEnabled(bReady);Refresh();
 }
 void UColdSteelForgingWidget::LoadMold()
 {
@@ -214,11 +263,19 @@ void UColdSteelForgingWidget::RefreshProductPreview()
     const auto* Recipe=System->Find(SelectedRecipe);
     const auto& Job=System->Job();
     const bool HasJob=!Job.Id.IsEmpty();
-    const FColdSteelItem Item=HasJob?Job.Item:Recipe?Model->CreateItem(Recipe->Output):FColdSteelItem{};
+    FColdSteelItem Item=HasJob?Job.Item:Recipe?Model->CreateItem(Recipe->Output):FColdSteelItem{};
+    if(HasJob)ColdSteelForgeQuality::Apply(Item,Job);
+    else if(const auto* Metal=System->FindMetal(SelectedMetal))
+    {
+        FColdSteelForgeJob Preview;Preview.QualityVersion=ColdSteelForgeQuality::Version;
+        Preview.Metal=Metal->Item;Preview.MaterialBonus=Metal->Bonus;
+        Preview.MaterialName=ColdSteelInventory::Text(Model->CreateItem(Metal->Item.ToString()),TEXT("name"));
+        ColdSteelForgeQuality::Apply(Item,Preview);
+    }
     const auto Data=Item.Data.IsEmpty()?FColdSteelTooltipContent{}:
         BuildColdSteelItemTooltip(Item,Model,GetGameInstance()->GetSubsystem<UGunsmithSystem>());
     SetText(PreviewName,Data.Name.IsEmpty()?TEXT("暂无成品参数"):Data.Name);
-    SetText(PreviewStage,HasJob&&Job.bFinished?TEXT("成品实际参数 · 已计锻造品质"):TEXT("配方基础参数 · 未计锻造品质"));
+    SetText(PreviewStage,HasJob?(Job.bFinished?TEXT("成品实际参数 · 已计锻造加成"):TEXT("工件当前参数 · 已计锻造加成")):TEXT("材质保底参数 · 未计命中提升"));
     SetText(PreviewScope,Data.ValueScope);
     while(PreviewRows.Num()<Data.Summary.Num())
     {
@@ -250,23 +307,28 @@ void UColdSteelForgingWidget::UpdateScale()
     for(const auto& Option:RecipeOptionWidgets)if(auto* Widget=Option.Get())Widget->SetPixelScale(Scale);
     for(const auto& W:Buttons)if(auto* B=W.Get()){B->SetStyle(ColdSteelUI::ButtonStyle(Scale));if(auto* ButtonSlot=Cast<UButtonSlot>(B->GetContent()->Slot))ButtonSlot->SetPadding(FMargin(12/Scale,4/Scale));}
     for(const auto& W:ButtonSizes)if(auto* S=W.Get())S->SetHeightOverride(ColdSteelUI::ActionHeight/Scale);
-    CloseSize->SetWidthOverride(ColdSteelUI::ActionHeight/Scale);SecondaryActionSlot->SetPadding(FMargin(ColdSteelUI::ActionGap/Scale,0,0,0));
+    CloseSize->SetWidthOverride(ColdSteelUI::ActionHeight/Scale);SecondaryActionSlot->SetPadding(FMargin(0));
+    ResultMetrics->SetInnerSlotPadding(FVector2D(12/Scale,4/Scale));BonusBreakdownRow->SetInnerSlotPadding(FVector2D(12/Scale,4/Scale));
     DiscardActionSlot->SetPadding(FMargin(ColdSteelUI::ActionGap/Scale,0,0,0));
-    auto ComboStyle=RecipeChoice->GetWidgetStyle();auto ComboButton=ComboStyle.ComboButtonStyle;
+    RecipeChoice->SetPixelScale(Scale);
+    {
+    auto* Choice=MetalChoice.Get();
+    auto ComboStyle=Choice->GetWidgetStyle();auto ComboButton=ComboStyle.ComboButtonStyle;
     ComboButton.SetButtonStyle(ColdSteelUI::ButtonStyle(Scale));
     ComboButton.SetMenuBorderBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Gray(25,252),ColdSteelUI::CardRadius/Scale,ColdSteelUI::Border,1/Scale));
     ComboButton.DownArrowImage.ImageSize=FVector2D(8/Scale,8/Scale);
     ComboButton.SetDownArrowPadding(FMargin(4/Scale,0,0,0));ComboButton.SetShadowOffset(FVector2D::ZeroVector);
-    ComboStyle.SetComboButtonStyle(ComboButton);RecipeChoice->SetWidgetStyle(ComboStyle);
-    RecipeChoice->SetContentPadding(FMargin(22/Scale,4/Scale,10/Scale,4/Scale));
-    RecipeChoice->SetMaxListHeight(240/Scale);
-    auto ItemStyle=RecipeChoice->GetItemStyle();
+    ComboStyle.SetComboButtonStyle(ComboButton);Choice->SetWidgetStyle(ComboStyle);
+    Choice->SetContentPadding(FMargin(22/Scale,4/Scale,10/Scale,4/Scale));
+    Choice->SetMaxListHeight(240/Scale);
+    auto ItemStyle=Choice->GetItemStyle();
     ItemStyle.SetEvenRowBackgroundBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Content,ColdSteelUI::ButtonRadius/Scale));
     ItemStyle.SetOddRowBackgroundBrush(ItemStyle.EvenRowBackgroundBrush);
     ItemStyle.SetEvenRowBackgroundHoveredBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover,ColdSteelUI::ButtonRadius/Scale));
     ItemStyle.SetOddRowBackgroundHoveredBrush(ItemStyle.EvenRowBackgroundHoveredBrush);
     ItemStyle.SetActiveBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::ButtonHover,ColdSteelUI::ButtonRadius/Scale,ColdSteelUI::Accent,1/Scale));
-    ItemStyle.SetInactiveBrush(ItemStyle.ActiveBrush);RecipeChoice->SetItemStyle(ItemStyle);
+    ItemStyle.SetInactiveBrush(ItemStyle.ActiveBrush);Choice->SetItemStyle(ItemStyle);
+    }
     // Symmetric padding keeps the two visible halves equally wide.
     if(auto* LeftSlot=Cast<UHorizontalBoxSlot>(Board->Slot))LeftSlot->SetPadding(FMargin(0,0,4/Scale,0));
     PreviewParameterSlot->SetPadding(FMargin(4/Scale,0,0,0));
@@ -298,16 +360,22 @@ void UColdSteelForgingWidget::Refresh()
     using ColdSteelForgePresentation::SetText;
     if(!System||!Model||!ActionButton)return;
     const auto& Job=System->Job();const bool Pending=!Job.Id.IsEmpty(),Active=System->Active();
+    const bool Free=Pending?Job.bMaterialsWaived:UDevelopmentTuningSubsystem::IsFreeCrafting(Model);
     if(Pending&&SelectedRecipe!=Job.Recipe)
     {SelectedRecipe=Job.Recipe;bMaterialsDirty=true;LoadMold();}
+    if(Pending&&Job.QualityVersion>=ColdSteelForgeQuality::Version&&SelectedMetal!=Job.Metal)
+    {SelectedMetal=Job.Metal;bMaterialsDirty=true;}
     const auto* Recipe=System->Find(SelectedRecipe);
+    const auto* Metal=System->FindMetal(SelectedMetal);
+    const bool Legacy=Pending&&Job.QualityVersion<ColdSteelForgeQuality::Version;
     if(bMaterialsDirty)
     {
         RefreshProductPreview();
-        const int32 Index=System->Catalog().IndexOfByPredicate([this](const auto& R){return R.Id==SelectedRecipe;});
-        if(RecipeChoice->GetSelectedIndex()!=Index)RecipeChoice->SetSelectedIndex(Index);
-        SetText(RecipeTitle,Recipe?FString::Printf(TEXT("%d / %d · %s"),Index+1,System->Catalog().Num(),
-            *ColdSteelInventory::Text(Model->CreateItem(Recipe->Output),TEXT("name"))):TEXT("配方未就绪"));
+        RecipeChoice->SetSelectedOption(SelectedRecipe.ToString());
+        const int32 MetalIndex=Legacy?INDEX_NONE:System->Metals().IndexOfByPredicate([this](const auto& M){return M.Item==SelectedMetal;});
+        if(MetalChoice->GetSelectedIndex()!=MetalIndex)MetalChoice->SetSelectedIndex(MetalIndex);
+        SelectedMetalName=Pending?Job.MaterialName:Metal?ColdSteelInventory::Text(Model->CreateItem(Metal->Item.ToString()),TEXT("name")):TEXT("未选择");
+        SetText(RecipeTitle,Recipe?FString::Printf(TEXT("配方选择 · %d 款"),System->Catalog().Num()):TEXT("配方未就绪"));
         TArray<FColdSteelCraftingInput> DisplayInputs;
         bool bPaidAvailable=true;
         if(Pending)
@@ -319,11 +387,11 @@ void UColdSteelForgingWidget::Refresh()
             TArray<FString> Definitions;Paid.GetKeys(Definitions);Definitions.Sort();
             for(const auto& Definition:Definitions)DisplayInputs.Add({Definition,Paid[Definition]});
         }
-        else if(Recipe)DisplayInputs=Recipe->Inputs;
-        SetText(Materials,Pending?TEXT("本轮已投入材料"):TEXT("所需材料"));
-        SetText(MaterialSource.Get(),Pending?(bPaidAvailable?TEXT("本轮材料已扣除"):TEXT("投入材料记录不可用"))
+        else if(Recipe)System->InputsFor(SelectedRecipe,SelectedMetal,DisplayInputs);
+        SetText(Materials,Free?TEXT("免材料制作"):Pending?TEXT("本轮已投入材料"):TEXT("所需材料"));
+        SetText(MaterialSource.Get(),Free?TEXT("本轮不扣材料 · 免费工件废弃不返料"):Pending?(bPaidAvailable?TEXT("本轮材料已扣除"):TEXT("投入材料记录不可用"))
             :Recipe?TEXT("材料来源 · 背包 + 主仓库"):TEXT("暂无可用配方"));
-        SetText(MaterialQuantityHeader.Get(),Pending?TEXT("已投入数量"):TEXT("持有 / 需要"));
+        SetText(MaterialQuantityHeader.Get(),Pending?TEXT("已投入数量"):Free?TEXT("持有 / 本次消耗"):TEXT("持有 / 需要"));
         EnsureMaterialRows(DisplayInputs.Num());
         for(int32 MaterialIndex=0;MaterialIndex<MaterialRows.Num();++MaterialIndex)
         {
@@ -335,68 +403,100 @@ void UColdSteelForgingWidget::Refresh()
             const auto& Input=DisplayInputs[MaterialIndex];const int64 Owned=Pending?Input.Count:Model->CountMaterial(Input.Item);
             SetText(Row.Name.Get(),ColdSteelInventory::Text(Model->CreateItem(Input.Item),TEXT("name")));
             SetText(Row.Owned.Get(),FString::Printf(TEXT("%lld"),Owned));
-            SetText(Row.Required.Get(),FString::Printf(TEXT("%lld"),Input.Count));
+            SetText(Row.Required.Get(),FString::Printf(TEXT("%lld"),Free?int64(0):Input.Count));
             Row.Separator->SetVisibility(Pending?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
             Row.Required->SetVisibility(Pending?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
-            const bool bEnough=Owned>=Input.Count;
+            const bool bEnough=Free||Owned>=Input.Count;
             const FLinearColor QuantityColor=Pending?ColdSteelUI::TextPrimary:bEnough?ColdSteelUI::Success:ColdSteelUI::Danger;
             Row.Owned->SetColorAndOpacity(QuantityColor);
-            SetText(Row.State.Get(),Pending?TEXT("已投入"):bEnough?TEXT("已满足"):FString::Printf(TEXT("缺 %lld"),Input.Count-Owned));
+            SetText(Row.State.Get(),Free?TEXT("免消耗"):Pending?TEXT("已投入"):bEnough?TEXT("已满足"):FString::Printf(TEXT("缺 %lld"),Input.Count-Owned));
             Row.State->SetColorAndOpacity(Pending?ColdSteelUI::TextSecondary:QuantityColor);
         }
-        bCanStart=System->CanStart(SelectedRecipe,StartReason);
+        bCanStart=System->CanStart(SelectedRecipe,StartReason,SelectedMetal);
         TArray<FColdSteelCraftingInput> Refund;FString RefundReason;
         bCanDiscard=System->GetDiscardRefund(Refund,RefundReason);
         if(bCanDiscard)
         {
             TArray<FString> Returned;
             for(const auto& In:Refund)Returned.Add(FString::Printf(TEXT("%s × %lld"),*ColdSteelInventory::Text(Model->CreateItem(In.Item),TEXT("name")),In.Count));
-            RefundReason=Returned.IsEmpty()?TEXT("废弃返还：无（各项材料折半不足 1 个）")
+            RefundReason=Job.bMaterialsWaived?TEXT("本轮免材料制作 · 废弃不返料"):Returned.IsEmpty()?TEXT("废弃返还：无（各项材料折半不足 1 个）")
                 :TEXT("废弃返还至背包：")+FString::Join(Returned,TEXT("、"));
         }
         SetText(RefundPreview,RefundReason);bMaterialsDirty=false;
     }
     RefundPreview->SetVisibility(Pending&&Job.bFinished&&!Active?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
-    const int32 Hits=Pending?Job.Hits:0;const double Percent=(System->Multiplier(Hits)-1)*100;
+    const int32 Hits=Pending?Job.Hits:0;
+    const double Base=Pending?Job.MaterialBonus:Metal?Metal->Bonus:0.;
+    const bool Finished=Pending&&Job.bFinished&&!Active;
+    const float Score=100.f*Hits/System->TargetCount;
+    const FLinearColor QualityColor=ColdSteelCraftingResultStyle::ScoreColor(Score);
+    Stage->SetColorAndOpacity(Finished?QualityColor:ColdSteelUI::TextPrimary);
+    ScoreValue->SetVisibility(Pending?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+    SetText(ScoreValue,Finished?FString::Printf(TEXT("%.0f 分"),Score):TEXT("待完成"));
+    ScoreValue->SetColorAndOpacity(Finished?QualityColor:ColdSteelUI::TextTertiary);
+    BonusBreakdown->SetVisibility(Legacy?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+    SetText(BonusBreakdown,TEXT("旧工件 · 保留原投入与品质结算规则"));
+    BonusBreakdownRow->SetVisibility(Pending?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
+    MaterialBonusValue->SetVisibility(Legacy?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
+    HitBonusValue->SetVisibility(Legacy?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
+    if(Pending)
+    {
+        ColdSteelCraftingResultStyle::SetBonus(DamageBonusValue,TEXT("伤害"),System->Multiplier(Job)-1);
+        ColdSteelCraftingResultStyle::SetBonus(MaterialBonusValue,TEXT("材质"),Base);
+        ColdSteelCraftingResultStyle::SetBonus(HitBonusValue,TEXT("命中"),ColdSteelForgeQuality::HitBonus(Hits));
+    }
     if(Active)
     {
         const double T=System->Elapsed();SetText(Stage,T<0?FString::Printf(TEXT("准备 · %d"),FMath::CeilToInt(-T)):TEXT("锻打中"));
-        SetText(Stats,FString::Printf(TEXT("%02d / 20   |   %02d / 20   |   %+.1f%%"),System->ResolvedTargets(),Hits,Percent));
+        SetText(Stats,FString::Printf(TEXT("光圈 %02d / 20   ·   命中 %02d / 20"),System->ResolvedTargets(),Hits));
         Timer->SetPercent(float(System->ResolvedTargets())/System->TargetCount);
     }
     else
     {
-        SetText(Stage,Pending?(Job.bFinished?TEXT("锻造完成 · ")+System->Quality(Hits):TEXT("工件待结算")):TEXT("选择工件 · 准备锻造"));
-        SetText(Stats,Pending?FString::Printf(TEXT("%02d / 20   |   %+.1f%%"),Hits,Percent):TEXT("2.5 s   |   20 处   |   −25% ～ ＋25%"));Timer->SetPercent(Pending?float(Hits)/20.f:0.f);
+        SetText(Stage,Pending?(Job.bFinished?TEXT("交付成品 · ")+System->Quality(Hits):TEXT("工件待结算")):TEXT("选择工件 · 准备锻造"));
+        SetText(Stats,Pending?FString::Printf(TEXT("命中 %02d / 20"),Hits):
+            FString::Printf(TEXT("+%.2f%%  →  +%.2f%%"),Base*100,(Base+ColdSteelForgeQuality::MaxHitBonus)*100));Timer->SetPercent(Finished?1.f:0.f);
     }
-    SetText(StatLegend,Active?TEXT("已处理光圈   /   有效命中   /   工艺伤害"):Pending?TEXT("有效命中   /   工艺伤害"):TEXT("单点停留   /   光圈总数   /   伤害范围"));
-    Stats->SetColorAndOpacity(!Pending?ColdSteelUI::TextSecondary:Percent>0?ColdSteelUI::Success:Percent<0?ColdSteelUI::Danger:ColdSteelUI::TextPrimary);
+    SetText(StatLegend,TEXT("材质保底 → 满命中上限 · 锻造伤害加成"));
+    StatLegend->SetVisibility(Pending?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible);
+    Stats->SetColorAndOpacity(Pending?ColdSteelUI::TextPrimary:ColdSteelUI::TextSecondary);
+    Timer->SetFillColorAndOpacity(Finished?QualityColor:ColdSteelUI::Accent);
     SetText(ActionLabel,Active?TEXT("锻打进行中"):Pending?(Job.bFinished?TEXT("领取成品"):TEXT("重试结算")):TEXT("开始锻造"));
     FString Reason;bool Can=false;
     if(!Active&&!Pending){Can=bCanStart;Reason=StartReason;FString ReadyReason;if(!HUD||!HUD->CanStartWorldForging(ReadyReason)){Can=false;Reason=ReadyReason;}}
-    else if(Pending&&!Active){Can=true;Reason=Job.bFinished?TEXT("领取成品，或废弃返还一半材料；背包需有足够空间。"):TEXT("工件尚未结算，请重试结算。");}
-    else Reason=TEXT("锤头接触热区时计分；每次命中增加 2.5% 工艺伤害。");
+    else if(Pending&&!Active){Can=true;Reason=Job.bFinished?(Free?TEXT("可领取成品或直接废弃；本轮免材料，废弃不返料。"):TEXT("领取成品，或废弃返还一半材料；背包需有足够空间。")):TEXT("工件尚未结算，请重试结算。");}
+    else Reason=TEXT("锤头接触热区时计分；每次有效命中增加 0.75% 伤害加成。");
     ActionButton->SetIsEnabled(bInputReady&&Can);
     const bool bCanChoose=bInputReady&&!Active&&!Pending&&System->Catalog().Num()>1;
+    if(!bCanChoose&&RecipeChoice->GetIsEnabled())RecipeChoice->CloseMenu();
     RecipeChoice->SetIsEnabled(bCanChoose);
+    MetalChoice->SetIsEnabled(bInputReady&&!Active&&!Pending&&System->Metals().Num()>1);
     DiscardButton->SetIsEnabled(bInputReady&&Pending&&Job.bFinished&&!Active&&bCanDiscard);
     FIntVector Furnace;const bool Linked=World.IsValid()&&World->FindCastingFurnace(Cell,Furnace);
     SmeltingButton->SetIsEnabled(bInputReady&&Linked&&!Active);
-    SetText(Status,!System->Error().IsEmpty()?System->Error():!Notice.IsEmpty()?Notice:Reason);
+    const FString Message=bEntryError?Notice:!System->Error().IsEmpty()?System->Error():!Notice.IsEmpty()?Notice:Reason;
+    SetText(Status,Message);
+    Status->SetColorAndOpacity(bEntryError?ColdSteelUI::Danger:ColdSteelUI::TextSecondary);
+    ColdSteelToolTip::Set(*ActionButton, FText::FromString(Message));
 }
 void UColdSteelForgingWidget::HandleAction()
 {
     if(!bInputReady||!System||System->Active())return;
-    Notice.Reset();
+    Notice.Reset();bEntryError=false;
     if(!System->Job().Id.IsEmpty()){if(System->Job().bFinished)System->Claim(Notice);else System->Finish(Notice);}
-    else if(HUD&&HUD->StartWorldForging(SelectedRecipe,Notice)){Notice.Reset();bMaterialsDirty=true;Refresh();return;}
+    else
+    {
+        if(HUD&&HUD->StartWorldForging(SelectedRecipe,Notice,SelectedMetal)){Notice.Reset();bMaterialsDirty=true;Refresh();return;}
+        if(Notice.IsEmpty())Notice=TEXT("锻造入口尚未就绪，请重新打开铸造面板");
+        bEntryError=true;
+    }
     bMaterialsDirty=true;SetKeyboardFocus();Refresh();
 }
 void UColdSteelForgingWidget::HandleClose(){if(HUD)HUD->CloseForging();}
 void UColdSteelForgingWidget::HandleDiscard()
 {
     if(!bInputReady||!System||System->Active())return;
-    Notice.Reset();System->Discard(Notice);
+    Notice.Reset();bEntryError=false;System->Discard(Notice);
     bMaterialsDirty=true;SetKeyboardFocus();Refresh();
 }
 void UColdSteelForgingWidget::HandleSmelting(){if(HUD&&!System->Active())HUD->OpenForgingSmelting();}
@@ -411,17 +511,27 @@ UWidget* UColdSteelForgingWidget::GenerateRecipeOption(FString Option)
     RecipeOptionWidgets.Add(Widget);
     return Widget;
 }
-void UColdSteelForgingWidget::HandleRecipeSelected(FString Option,ESelectInfo::Type SelectionType)
+void UColdSteelForgingWidget::HandleRecipeSelected(const FString& RecipeId)
+{
+    if(!System)return;
+    const FName RequestedRecipe(*RecipeId);
+    if(!bInputReady||System->Active()||!System->Job().Id.IsEmpty()||!System->Find(RequestedRecipe))
+    {
+        RecipeChoice->SetSelectedOption(SelectedRecipe.ToString());return;
+    }
+    if(SelectedRecipe==RequestedRecipe)return;
+    SelectedRecipe=RequestedRecipe;Notice.Reset();bEntryError=false;bMaterialsDirty=true;
+    LoadMold();Refresh();SetKeyboardFocus();
+}
+void UColdSteelForgingWidget::HandleMetalSelected(FString Option,ESelectInfo::Type SelectionType)
 {
     if(SelectionType==ESelectInfo::Direct||!System)return;
-    const auto& Catalog=System->Catalog();
-    const int32 Index=RecipeChoice->GetSelectedIndex();
-    if(!bInputReady||System->Active()||!System->Job().Id.IsEmpty()||!Catalog.IsValidIndex(Index))
+    const auto& Metals=System->Metals();const int32 Index=MetalChoice->GetSelectedIndex();
+    if(!bInputReady||System->Active()||!System->Job().Id.IsEmpty()||!Metals.IsValidIndex(Index))
     {
-        RecipeChoice->SetSelectedIndex(Catalog.IndexOfByPredicate([this](const auto& R){return R.Id==SelectedRecipe;}));return;
+        MetalChoice->SetSelectedIndex(Metals.IndexOfByPredicate([this](const auto& M){return M.Item==SelectedMetal;}));return;
     }
-    if(SelectedRecipe==Catalog[Index].Id)return;
-    SelectedRecipe=Catalog[Index].Id;Notice.Reset();bMaterialsDirty=true;
-    LoadMold();Refresh();SetKeyboardFocus();
+    if(SelectedMetal==Metals[Index].Item)return;
+    SelectedMetal=Metals[Index].Item;Notice.Reset();bEntryError=false;bMaterialsDirty=true;Refresh();SetKeyboardFocus();
 }
 FReply UColdSteelForgingWidget::NativeOnMouseButtonDown(const FGeometry&,const FPointerEvent&){return FReply::Handled();}

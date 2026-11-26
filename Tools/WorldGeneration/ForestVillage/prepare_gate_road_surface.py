@@ -87,3 +87,4 @@ if __name__=='__main__':
     directory,roads=map(Path,sys.argv[1:])
     weights(directory,roads)
     palette(directory)
+

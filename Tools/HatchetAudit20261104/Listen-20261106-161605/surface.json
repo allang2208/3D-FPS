@@ -1,0 +1,11 @@
+{
+  "host": {
+    "flesh": 9,
+    "metal_wall": 0
+  },
+  "client": {
+    "flesh": 9,
+    "metal_wall": 1,
+    "accepted_body_hits": 9.0
+  }
+}

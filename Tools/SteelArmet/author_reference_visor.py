@@ -3,11 +3,18 @@
 Camera-space artwork has the concept's approximately 8.5:1 aperture. It is not
 the external helmet placed on a gameplay camera; the output is straight-alpha.
 """
-import bpy, math, json, bisect
+import bpy, math, json, bisect, argparse, sys
 from pathlib import Path
 from mathutils import Vector
 
-R=Path('D:/FPS3D/FPSGAME/SourceAssets/SteelArmet20261019/ReferenceMatchV5')
+SOURCE=Path('D:/FPS3D/FPSGAME/SourceAssets/SteelArmet20261019/ReferenceMatchV5')
+parser=argparse.ArgumentParser()
+parser.add_argument('--output',type=Path,default=SOURCE)
+parser.add_argument('--vertical-padding',type=float,default=0.)
+parser.add_argument('--production-only',action='store_true')
+args=parser.parse_args(sys.argv[sys.argv.index('--')+1:] if '--' in sys.argv else [])
+R=args.output
+padding=args.vertical_padding
 for folder in ('Exports','Renders','Textures'):(R/folder).mkdir(parents=True,exist_ok=True)
 bpy.ops.wm.read_factory_settings(use_empty=True)
 bpy.context.preferences.filepaths.save_version=0
@@ -20,7 +27,7 @@ def surface(name,family,normal_strength,tint=.47):
     scale.inputs['Scale'].default_value=1 if family=='Steel' else 2
     links.new(coord.outputs['UV'],scale.inputs[0])
     for ch in ('BaseColor','Normal','ORM'):
-        t=nodes.new('ShaderNodeTexImage');t.image=bpy.data.images.load(str(R/'Textures'/f'T_Armet_{family}_{ch}.png'));links.new(scale.outputs[0],t.inputs['Vector'])
+        t=nodes.new('ShaderNodeTexImage');t.image=bpy.data.images.load(str(SOURCE/'Textures'/f'T_Armet_{family}_{ch}.png'));links.new(scale.outputs[0],t.inputs['Vector'])
         if ch=='BaseColor':
             # The interior steel is darkened by use; recessed leather fades into
             # the enclosed helmet rather than ending at a visible oval border.
@@ -31,7 +38,7 @@ def surface(name,family,normal_strength,tint=.47):
                 p.inputs['Specular IOR Level'].default_value=.18
                 pos=nodes.new('ShaderNodeNewGeometry');xyz=nodes.new('ShaderNodeSeparateXYZ');links.new(pos.outputs['Position'],xyz.inputs[0])
                 factors=[]
-                for axis,start,end in [('Z',.30,1.02),('X',1.40,1.79)]:
+                for axis,start,end in [('Z',.30+padding,1.02+padding),('X',1.40,1.79)]:
                     absolute=nodes.new('ShaderNodeMath');absolute.operation='ABSOLUTE';links.new(xyz.outputs[axis],absolute.inputs[0])
                     fade=nodes.new('ShaderNodeMapRange');fade.clamp=True;fade.inputs['From Min'].default_value=start;fade.inputs['From Max'].default_value=end;fade.inputs['To Min'].default_value=1;fade.inputs['To Max'].default_value=.015
                     links.new(absolute.outputs[0],fade.inputs['Value']);factors.append(fade)
@@ -69,6 +76,10 @@ curves=[
     [(-1.60,-.07),(-1.60,-.023),(-1.60,.023),(-1.60,.07)],
     [(-1.60,.07),(-1.60,.14),(-1.535,.176264286),(-1.40,.178)]
 ]
+# Move the upper/lower contours away from the aim ray. Rebuild the same
+# offset wall/bevel/liner profiles around them, retaining their thickness.
+# The straight side walls bridge the enlarged opening at the original width.
+curves=[[(x,z+math.copysign(padding,z)) for x,z in row] for row in curves]
 arc=[]
 for row in curves:
     p=[Vector(x) for x in row]
@@ -148,11 +159,11 @@ for i in range(1,len(contour)):
 # Two seams/rivets on the lower cheek liner echo the reference's construction.
 for side in (-1,1):
     x=side*.90
-    cord('Lower liner panel joint',[(x,-.015,-.405),(x+side*.035,-.012,-.58),(x+side*.065,.005,-1.35)],.006,seam)
+    cord('Lower liner panel joint',[(x,-.015,-.405-padding),(x+side*.035,-.012,-.58-padding),(x+side*.065,.005,-1.35-padding)],.006,seam)
     for dx in (-.018,.018):
         for z in (-.47,-.52,-.57,-.62,-.67,-.72,-.77,-.82):
-            cord('Panel seam stitch',[(x+dx,-.02,z),(x+dx,-.021,z-.015)],.0016,thread)
-    bpy.ops.mesh.primitive_uv_sphere_add(segments=32,ring_count=16,radius=1,location=(x,-.035,-.435))
+            cord('Panel seam stitch',[(x+dx,-.02,z-padding),(x+dx,-.021,z-.015-padding)],.0016,thread)
+    bpy.ops.mesh.primitive_uv_sphere_add(segments=32,ring_count=16,radius=1,location=(x,-.035,-.435-padding))
     ob=bpy.context.object;ob.name='Peened liner fastening';ob.scale=(.018,.008,.018);ob.data.materials.append(steel)
     bpy.ops.object.transform_apply(location=False,rotation=False,scale=True);uv(ob)
     for p in ob.data.polygons:p.use_smooth=True
@@ -175,7 +186,8 @@ bpy.ops.file.pack_all();bpy.ops.wm.save_as_mainfile(filepath=str(R/'Exports/Stee
 S.render.filepath=str(R/'Textures/T_SteelArmet_Visor.png');bpy.ops.render.render(write_still=True)
 # The second render is an honest neutral-background presentation of the model;
 # production transparency is kept in the first render, not faked with a scene.
-S.render.film_transparent=False;S.render.resolution_x=1536;S.render.resolution_y=864;S.cycles.samples=64
-S.render.filepath=str(R/'Renders/SteelArmet_Interior.png');bpy.ops.render.render(write_still=True)
-(R/'visor.json').write_text(json.dumps(dict(completed=True,source='Exports/SteelArmet_Interior.blend',texture='Textures/T_SteelArmet_Visor.png',clear_center_height_fraction=.198,clear_max_width_fraction=.90,resolution=[3072,1728],projection='normalized viewport; no change to gameplay FOV or shot rays',composition_layer=15,lighting='baked interior daylight; no realtime parallax',runtime_tested=False),indent=2))
+if not args.production_only:
+    S.render.film_transparent=False;S.render.resolution_x=1536;S.render.resolution_y=864;S.cycles.samples=64
+    S.render.filepath=str(R/'Renders/SteelArmet_Interior.png');bpy.ops.render.render(write_still=True)
+(R/'visor.json').write_text(json.dumps(dict(completed=True,source='Exports/SteelArmet_Interior.blend',texture='Textures/T_SteelArmet_Visor.png',clear_center_height_fraction=.198+padding,clear_max_width_fraction=.90,upper_extension_fraction=padding/2,lower_extension_fraction=padding/2,resolution=[3072,1728],projection='normalized viewport; no change to gameplay FOV or shot rays',composition_layer=15,lighting='baked interior daylight; no realtime parallax',runtime_tested=False),indent=2))
 print('REFERENCE_ARMET_VISOR_AUTHORED',flush=True)

@@ -2,11 +2,18 @@
 #include "CoreMinimal.h"
 
 class ATemperateHillsWorld;
+class ADevelopmentEnvironmentObject;
+struct FHitResult;
+class UWorld;
 
 /** Seeded resource identity; never persist a PCG instance index. */
 struct FProductionResource
 {
     TWeakObjectPtr<ATemperateHillsWorld> World;
+    TWeakObjectPtr<ADevelopmentEnvironmentObject> DevelopmentObject;
+    float DevelopmentHealthRatio = 1.f;
+    static bool ResolveHit(UWorld* Scene, const FHitResult& Hit, FProductionResource& Out, FString& Reason);
+    void ApplySuccessfulStrike(const FHitResult& Hit, bool bDepleted) const;
     FString Id;
     FString Name;
     FString RequiredTool;

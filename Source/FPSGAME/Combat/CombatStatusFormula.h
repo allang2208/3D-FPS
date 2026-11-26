@@ -1,5 +1,6 @@
 #pragma once
 #include "CoreMinimal.h"
+#include "CombatChill.h"
 #include "Components/ActorComponent.h"
 #include "GameFramework/DamageType.h"
 #include "CombatStatusFormula.generated.h"
@@ -12,6 +13,7 @@ UCLASS()
 class FPSGAME_API UStatusMagicDamage : public UDamageType { GENERATED_BODY() };
 
 class UZhenmoRuneComponent;
+class UPrimitiveComponent;
 /** Target-owned temporary reductions; seconds in UE, milliseconds in gamedev. */
 UCLASS(ClassGroup=(Combat),meta=(BlueprintSpawnableComponent))
 class FPSGAME_API UCombatStatusFormula : public UActorComponent
@@ -19,6 +21,10 @@ class FPSGAME_API UCombatStatusFormula : public UActorComponent
     GENERATED_BODY()
 public:
     UCombatStatusFormula();
+    void AddExhaustion();
+    float ExhaustionRemaining() const { return ExhaustionTime; }
+    static constexpr float ExhaustionDuration=5.f;
+    static constexpr float ExhaustionMovementMultiplier=.5f;
     UFUNCTION(BlueprintCallable) static UCombatStatusFormula* GetOrAdd(AActor* Target);
     /** Resolve an attack actor back to its owning combatant (projectiles/hazards included). */
     static const UCombatStatusFormula* ForDamageSource(const AActor* Source);
@@ -37,6 +43,11 @@ public:
     static constexpr float CriticalVulnerabilityDuration=8.f;
     static constexpr int32 CriticalVulnerabilityMaxStacks=5;
     UFUNCTION(BlueprintCallable) void AddCorrosion(int32 Stacks=1,float Seconds=5,float ReductionPerStack=.05f);
+    void AddArmorCorrosion(int32 Contacts);
+    int32 ArmorCorrosionCount() const;
+    float ArmorCorrosionRemaining() const;
+    static constexpr float ArmorCorrosionDuration=8.f;
+    static constexpr int32 ArmorCorrosionMaxStacks=12;
     UFUNCTION(BlueprintCallable) void AddMagicResistanceShred(float Ratio,float Seconds);
     UFUNCTION(BlueprintCallable) void AddHolyWard(float Multiplier,float Seconds);
     UFUNCTION(BlueprintCallable) void AddMagicVulnerability(int32 Stacks=1);
@@ -54,10 +65,14 @@ public:
     float PhysicalVulnerabilityRemaining() const;
     float PhysicalVulnerabilityMultiplier() const;
     float BreakingSealRemaining() const;
+    void GrantMagicInspiration();
+    float MagicInspirationAttackSpeed() const{return MagicInspirationTime>0.f?1.25f:1.f;}
     void GrantRiposteGuard(float Seconds,float AttackSpeed,float Stamina);
     float RiposteAttackSpeed()const{return RiposteTime>0?RiposteSpeed:1;}
     float RiposteStaminaMultiplier()const{return RiposteTime>0?RiposteStamina:1;}
     UFUNCTION(BlueprintCallable) void AddBleeding(AActor* Source,int32 Stacks=1);
+    void AddBleedingHit(AActor* Source,int32 Stacks,const FHitResult& Hit);
+    void AddOilBurn(AActor* Source,float MagicAttack);
     UFUNCTION(BlueprintCallable) void AddBurn(AActor* Source,float MagicAttack,int32 Stacks=1,float Seconds=3,float DamageMultiplier=.5f,float TickSeconds=.5f);
     UFUNCTION(BlueprintCallable) void SetStatusImmune(bool Immune);
     bool IsImmune()const{return bImmune||ImmuneTime>0;}
@@ -105,7 +120,11 @@ public:
     bool IsMinePoisoned()const{return MineTime>0;}
     /** 眩晕/束缚/冻结/石化封锁闪避与位移（施法攻击不受此闸影响）。 */
     bool BlocksMovement()const{return FrozenTime>0||StunTime>0||BindTime>0||PetrifyTime>0;}
-    void AddChill(int32 Stacks,float Seconds,float SlowPerStack);
+    /** Fixed -5% per stack for every source; duration mode remains source-owned. */
+    void AddChill(int32 Stacks,float Seconds,bool bRefreshDuration=false);
+    int32 ChillCount() const{return ChillTime>0.f?ChillStacks:0;}
+    float ChillRemaining() const{return FMath::Max(0.f,ChillTime);}
+    float ChillMovementMultiplier() const{return CombatChill::MovementMultiplier(ChillCount());}
     void AddHaste(int32 Stacks,float Seconds);
     /** 狂暴：命中只加层，首次获得后按固定周期减层，不刷新倒计时。 */
     void AddBerserk(float SpeedPerStack,float DecaySeconds,int32 StackLimit);
@@ -132,11 +151,11 @@ public:
     int32 ChainSpellStacks()const{return ChainTime>0?ChainStacks:0;}
     float MovementMultiplier()const;
     float FrozenRemaining()const{return FrozenTime;}
-    float CorrosionMultiplier()const{return FMath::Max(0.f,1-CorrosionStacks*CorrosionReduction);}
+    double CorrosionMultiplier()const{return FMath::Max(0.f,1-CorrosionStacks*CorrosionReduction)*(100-5*ArmorCorrosionCount())/100.;}
     float MagicShred()const{return ShredTime>0?Shred:0;}
     float FinalMultiplier()const{return WardTime>0?Ward:1;}
     /** 标记承伤乘区（所有伤害类型）。 */
-    float MarkedMultiplier()const{return MarkedTime>0?1+MarkedValue:1;}
+    float MarkedMultiplier() const;
     /** 石化承伤乘区（魔法/电系）。 */
     float PetrifiedMagicMultiplier()const{return PetrifyTime>0?PetrifyMul:1;}
     /** 骆驼惊吓：本实体作为攻击方的输出折减。 */
@@ -160,13 +179,16 @@ private:
     int32 WeaknessStacks=0;
     double WeaknessEndsAt=0.;
     void ClearCriticalVulnerability();
+    void ClearArmorCorrosion();
+    int32 ArmorCorrosionStacks=0;
+    double ArmorCorrosionEndsAt=0.;
     int32 CriticalVulnerabilityStacks=0;
     double CriticalVulnerabilityEndsAt=0.;
     float NetworkZhenmoMovement=1.f;
     int32 ElectrifiedStacks=0;
     float ElectrifiedTime=0,ElectrifiedBonus=.03f;
     int32 ChillStacks=0,HasteStacks=0,ChainStacks=0;
-    float ChillTime=0,ChillSlow=.05f,FrozenTime=0,HasteTime=0,ChainTime=0;
+    float ChillTime=0,FrozenTime=0,HasteTime=0,ChainTime=0;
     int32 CorrosionStacks=0;
     float CorrosionTime=0,CorrosionDuration=5,CorrosionReduction=.05f;
     float ShredTime=0,Shred=0,WardTime=0,Ward=1;
@@ -177,12 +199,19 @@ private:
     double TigerRoarEndsAt=0.;
     float PhysicalVulnerabilityBonus=0.f;
     double PhysicalVulnerabilityEndsAt=0.;
+    float MagicInspirationTime=0.f;
     float RiposteTime=0,RiposteSpeed=1,RiposteStamina=1;
     TWeakObjectPtr<AActor> BleedSource;
-    struct FBurn {TWeakObjectPtr<AActor> Source;float Damage=0,Remaining=0;};
+    TWeakObjectPtr<UPrimitiveComponent> BleedSurface;
+    FName BleedBone;
+    FVector BleedLocalPoint=FVector::ZeroVector,BleedLocalNormal=FVector::ForwardVector;
+    double LastBleedBurstAt=-10.;
+    void EmitBleedingBurst();
+    struct FBurn {TWeakObjectPtr<AActor> Source;float Damage=0,Remaining=0;bool bOil=false;};
     TArray<FBurn> Burns;
     // gamedev 迁移字段（单位秒）：
     float StunTime=0,BindTime=0,SlowTime=0,SlowPct=0,WaxTime=0,WaxPct=0;
+    float ExhaustionTime=0.f;
     float WeaponHasteTime=0,WeaponHasteMul=1;
     float PetrifyTime=0,PetrifyMul=1.5f;
     float MarkedTime=0,MarkedValue=.15f;

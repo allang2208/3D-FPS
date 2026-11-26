@@ -48,6 +48,7 @@ int32 URuneSwordAuditCommandlet::AuditHighlandNetwork(const FString& Params)
     };
     auto Seed=Host->Snapshot();Seed.Items.Reset();Seed.ActiveWeaponSlot=6;Seed.ActiveProductionTool.Reset();
     Seed.Stamina=100;Seed.bSprintExhausted=false;for(auto& S:Seed.Skills)S.Value.Level=1;
+    Seed.LearnedSkills.AddUnique(TEXT("heavyStrike"));Seed.Skills.FindOrAdd(TEXT("heavyStrike")).Level=1;
     auto Item=Host->CreateItem(TEXT("ue_highland_claymore"));Item.Place=1;Item.Cell=6;
     const auto Configure=[&](bool Gale)
     {
@@ -312,6 +313,17 @@ int32 URuneSwordAuditCommandlet::AuditHighlandNetwork(const FString& Params)
         const uint64 Other=GaleWing::Key(GaleWing::EAttack::Chain,83);
         Sword->RecordGalePayment(Other,Item.InstanceId,0.f);
         Check(!Sword->HasGalePayment(Other,Item.InstanceId),TEXT("Gale pommel without wing guard cannot grant the kill effect"));
+    }
+    {
+        Item=Host->CreateItem(TEXT("ue_forged_steel_greatsword"));
+        Item.Place=1;Item.Cell=6;Seed.Items={Item};Sword->InstanceId=Item.InstanceId;
+        Reset();Start(10.);Advance(Sword->ServerHeavyRequiredSeconds);
+        const bool Released=Sword->ConsumeNetworkHeavyChargeForRelease(Item.InstanceId,World->GetTimeSeconds(),93);
+        const auto* Captured=Sword->ForgedHeavyContactItem(Item.InstanceId,93,Pawn);
+        Check(Released&&Captured&&Captured->Data==Item.Data,TEXT("forged heavy retains its release item and serial"));
+        Sword->RecordForgedHeavyTarget(Pawn);
+        Check(!Sword->ForgedHeavyContactItem(Item.InstanceId,93,Pawn)&&!Sword->ForgedHeavyContactItem(Item.InstanceId,92,PC)
+            &&Sword->ForgedHeavyContactItem(Item.InstanceId,93,PC),TEXT("one forged heavy settles each distinct target once"));
     }
     FString Output;FParse::Value(*Params,TEXT("Output="),Output);auto Result=MakeShared<FJsonObject>();
     Result->SetArrayField(TEXT("checks"),Rows);Result->SetNumberField(TEXT("failures"),Failures);

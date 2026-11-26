@@ -28,6 +28,7 @@ struct FProductionToolStats
     double HeavyReleaseStaminaCost=10;
     /** Final heavy multiplier: character skill, multiplicative/flat parts, then martial damage. */
     double HeavyDamageMultiplier=1.;
+    TOptional<double> PofengFinisherMultiplier;
     /** Warhammer charge clock is independent of its ordinary attack-rate clock. */
     double HeavyChargeSpeedBonus=0, HeavyChargeSeconds=2;
     double HarvestReachCM=320, HarvestRadiusCM=0, CombatReachCM=180, CombatRadiusCM=0;
@@ -40,7 +41,7 @@ struct FProductionToolStats
 namespace ColdSteelTool
 {
     bool Supports(const FColdSteelItem& Item);
-    FProductionToolStats Evaluate(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile,const FGunsmithParts* Preview=nullptr);
+    FProductionToolStats Evaluate(const FColdSteelItem& Item,const UColdSteelStatusModel* Profile,const FGunsmithParts* Preview=nullptr,const FMeleeModifiers* BluntOverride=nullptr);
     /** 当前手持工具的实值；没有工具时返回出厂默认。 */
     FProductionToolStats EvaluateActive(const UColdSteelStatusModel* Profile,const FGunsmithParts* Preview=nullptr);
     /** 采集产出 = 出厂数量 × 产出倍率，四舍五入，最少 1。 */

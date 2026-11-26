@@ -18,6 +18,7 @@ for relative in ['Content/WorldGeneration/TemperateHills/AbandonedVillage/L_Aban
 sys.path.insert(0,str(ROOT/'Tools/WorldGeneration/AbandonedVillage'))
 sys.path.insert(0,str(ROOT/'Tools/WorldGeneration/VillageBlacksmith'))
 from layout_geometry import house_geometry
+from room_daylight import SHOP_DAYLIGHT, apply_daylight
 from author_shop import build_shop
 plan=json.loads((SRC/'layout.json').read_text(encoding='utf-8'))
 kit=json.loads((SRC/'house-pieces.json').read_text(encoding='utf-8'))
@@ -43,8 +44,7 @@ for actor in actors.get_all_level_actors():
         actor.modify();actor.set_actor_transform(base,False,False)
         actor.set_editor_property('room_minimum',u.Vector(*geometry['room_min']))
         actor.set_editor_property('room_maximum',u.Vector(*geometry['room_max']))
-        actor.set_editor_property('additional_dark_adaptation_stops',3.25)
-        actor.set_editor_property('exposure_compensation',.8)
+        apply_daylight(actor, SHOP_DAYLIGHT['01'])
 # Clear only loose ground dressing that overlaps the expanded house, apron or chimney foot.
 clearings=[dict(center=geometry['center'],half=geometry['half'],yaw=house[5])]+[r for r in plan['service_clearings'] if r['owner']=='BlacksmithLoftR3']
 removed=[]

@@ -1,4 +1,5 @@
 #include "ColdSteelHUDWidget.h"
+#include "../FPSGAMEPlayerController.h"
 #include "ColdSteelQuickDrag.h"
 #include "ColdSteelInventoryWidget.h"
 #include "ColdSteelWarehouseWidget.h"
@@ -17,7 +18,7 @@ using namespace ColdSteelInventory;
 
 void UColdSteelHUDWidget::BeginInventoryDrag(UColdSteelItemDrag* Drag)
 {
-    if(!Drag||!bInventoryOpen||bStatusTabActive||!InventoryPanel)return;
+    if(!Drag||!bInventoryOpen||bStatusTabActive||bQuestTabActive||bMountTabActive||!InventoryPanel)return;
     InventoryDrag=Drag;
     if(!InventoryDragActivationHandle.IsValid())InventoryDragActivationHandle=FSlateApplication::Get().OnApplicationActivationStateChanged().AddUObject(this,&ThisClass::HandleInventoryDragActivation);
     const auto PanelGeometry=InventoryPanel->GetCachedGeometry();
@@ -49,12 +50,12 @@ void UColdSteelHUDWidget::UpdateInventoryDrag(UColdSteelItemDrag* Drag,FVector2D
 {
     if(InventoryDrag.Get()!=Drag||!bInventoryOpen)return;
     const bool OverWarehouse=bWarehouseOpen&&WarehouseWidget&&WarehouseWidget->GetCachedGeometry().IsUnderLocation(Position);
-    const bool OverShop=bShopOpen&&ShopWidget&&ShopWidget->GetCachedGeometry().IsUnderLocation(Position);
+    const bool OverShop=(ViewedMount.IsValid() && MountDetailsDrawer && MountDetailsDrawer->GetCachedGeometry().IsUnderLocation(Position)) || (bShopOpen&&ShopWidget&&ShopWidget->GetCachedGeometry().IsUnderLocation(Position));
     const bool OverIncinerator=bWorkbenchOpen&&bIncineratorPanel&&IncineratorWidget&&IncineratorWidget->GetCachedGeometry().IsUnderLocation(Position);
     const bool Outside=!InventoryDragBounds.ContainsPoint(Position)&&!OverWarehouse&&!OverIncinerator&&!OverShop;
     if(Outside!=bInventoryDragOutside){
         bInventoryDragOutside=Outside;
-        const bool Hide=Outside&&!bWarehouseOpen&&!(bWorkbenchOpen&&bIncineratorPanel);
+        const bool Hide=Outside&&!bEnhancementManagement&&!bWarehouseOpen&&!(bWorkbenchOpen&&bIncineratorPanel);
         InventoryPanel->SetRenderOpacity(Hide?0.f:1.f);
         InventoryPanel->SetVisibility(Hide?ESlateVisibility::Hidden:ESlateVisibility::Visible);
         InventoryBackdrop->SetRenderOpacity(Hide?0.f:DrawerProgress);
@@ -94,7 +95,12 @@ bool UColdSteelHUDWidget::NativeOnDragOver(const FGeometry& Geometry,const FDrag
 
 bool UColdSteelHUDWidget::NativeOnDrop(const FGeometry& Geometry,const FDragDropEvent& Event,UDragDropOperation* Operation)
 {
-    if(auto* Quick=Cast<UColdSteelQuickDrag>(Operation))return DropQuickDrag(Quick,QuickBarDropIndex(Event.GetScreenSpacePosition()));
+    if(auto* Quick=Cast<UColdSteelQuickDrag>(Operation))
+    {
+        if(bMagicConfigurationOpen&&MagicConfigurationPanel&&MagicConfigurationPanel->GetCachedGeometry().IsUnderLocation(Event.GetScreenSpacePosition()))
+            return DropMagicDrag(Quick,INDEX_NONE);
+        return DropQuickDrag(Quick,QuickBarDropIndex(Event.GetScreenSpacePosition()));
+    }
     auto* Drag=Cast<UColdSteelItemDrag>(Operation);
     if(!Drag||InventoryDrag.Get()!=Drag)return Super::NativeOnDrop(Geometry,Event,Operation);
     const auto* CurrentModel=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
@@ -103,8 +109,14 @@ bool UColdSteelHUDWidget::NativeOnDrop(const FGeometry& Geometry,const FDragDrop
         EndInventoryDrag();return true;
     }
     // Re-evaluate on release: stale instances or a failed save cannot bind a shortcut.
+    if(HandleMountDetailDrop(Drag,Event.GetScreenSpacePosition())){EndInventoryDrag();return true;}
     if(bShopOpen&&ShopWidget&&ShopWidget->HandleItemDrop(Drag,Event.GetScreenSpacePosition())){EndInventoryDrag();return true;}
     UpdateInventoryDrag(Drag,Event.GetScreenSpacePosition());
+    if(bEnhancementManagement&&bInventoryDragOutside)
+    {
+        if(auto* PC=Cast<AFPSGAMEPlayerController>(GetOwningPlayer()))PC->HandleEnhancementItemDrop(Drag,Event.GetScreenSpacePosition());
+        EndInventoryDrag();return true; // A missed ritual drop cancels selection; never creates world loot.
+    }
     const int32 Target=HotbarDropIndex(Event.GetScreenSpacePosition());
     if(Target<0&&!bInventoryDragOutside&&Drag->SourceBoard.IsValid()){
         // A rapid return-and-release may still route through last frame's backdrop.

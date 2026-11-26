@@ -1,6 +1,7 @@
 #pragma once
 #include "CoreMinimal.h"
 #include "Blueprint/UserWidget.h"
+#include "ColdSteelPreviewScene.h"
 #include "../Building/AlchemyTypes.h"
 #include "../Building/AlchemyManualView.h"
 #include "ColdSteelAlchemyBookWidget.generated.h"

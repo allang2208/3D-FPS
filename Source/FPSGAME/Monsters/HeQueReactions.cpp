@@ -53,6 +53,14 @@ void AHeQueMonster::ExtendControl(float Seconds)
     if(!HasAuthority()||Dead())return;
     ControlUntil=FMath::Max(ControlUntil,ActionClock()+FMath::Max(0.f,Seconds));Reaction.EndsAt=ControlUntil;ForceNetUpdate();
 }
+void AHeQueMonster::ReceivePumpRelease()
+{
+    if(!HasAuthority()||Dead())return;
+    PumpVulnerableUntil=ActionClock()+6.;
+    InterruptAttack(2.5f);
+    SetReaction(EHeQueReaction::Stunned);
+    ForceNetUpdate();
+}
 bool AHeQueMonster::StartLaunch(APawn* Attacker,const FVector& Velocity,float HoldSeconds)
 {
     if(!HasAuthority()||Dead()||IsActorBeingDestroyed()||!Combat->CanReceiveLaunchOrKnockdown())return false;
@@ -198,7 +206,8 @@ float AHeQueMonster::TakeDamage(float Damage,const FDamageEvent& Event,AControll
 {
     if(!HasAuthority()||Dead()||!CanBeDamaged()||Damage<=0.f||!FMath::IsFinite(Damage))return 0.f;
     const float Reduced=CombatFormulaRuntime::MitigateMonster(this,Damage,Event.DamageTypeClass?Event.DamageTypeClass->GetDefaultObject<UDamageType>():nullptr,Causer);
-    const float Applied=UDevelopmentTuningSubsystem::ShouldOneHitKill(this,EventInstigator,Causer)?Health:FMath::Min(Health,Reduced);
+    const float PumpMultiplier=ActionClock()<PumpVulnerableUntil?1.25f:1.f;
+    const float Applied=UDevelopmentTuningSubsystem::ShouldOneHitKill(this,EventInstigator,Causer)?Health:FMath::Min(Health,Reduced*PumpMultiplier);
     if(Applied<=0.f)return 0.f;
     FHitResult Hit;FVector Direction=FVector::ZeroVector;Event.GetBestHitInfo(this,Causer,Hit,Direction);
     if(Direction.IsNearlyZero())Direction=IsValid(Causer)?GetActorLocation()-Causer->GetActorLocation():-GetActorForwardVector();

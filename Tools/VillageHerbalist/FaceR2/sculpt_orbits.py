@@ -151,3 +151,4 @@ if ready:
     info["fbx_sha256"]=hashlib.sha256(output.read_bytes()).hexdigest()
     (dest/"mesh-ready.json").write_text(json.dumps(info,indent=2))
 print(json.dumps(info))
+

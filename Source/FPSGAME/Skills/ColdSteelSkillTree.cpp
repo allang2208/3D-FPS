@@ -166,16 +166,35 @@ bool CanLearn(const FColdSteelProfile& P, FName Skill, FString* Reason)
 
 bool Migrate(FColdSteelProfile& P)
 {
-    if(P.SkillTreeVersion >= 1 || !Get().bLoaded) return false;
-    const bool bFresh = IsFreshProfile(P);
-    for(const auto& N : Get().Nodes)
-        if(!bFresh || (N.Id!=TEXT("holyLight")&&N.Requires.IsEmpty())) P.LearnedSkills.AddUnique(N.Id);
-    P.SkillTreeVersion = 1;
+    if(P.SkillTreeVersion >= 2 || !Get().bLoaded) return false;
+    if(P.SkillTreeVersion < 1)
+    {
+        const bool bFresh = IsFreshProfile(P);
+        for(const auto& N : Get().Nodes)
+            if(!bFresh || (N.Id!=TEXT("holyLight")&&N.Requires.IsEmpty())) P.LearnedSkills.AddUnique(N.Id);
+    }
+    // v1 -> v2 (2026-11-25): melee tree split into twoHandedMastery + oneHandedMastery roots.
+    // Legacy saves that already learned or trained swordMastery/bluntMastery receive
+    // twoHandedMastery Lv = Clamp(Max(swordLv, bluntLv), 1, 3) so sub-masteries stay valid.
+    P.LearnedSkills.AddUnique(TEXT("twoHandedMastery"));
+    P.LearnedSkills.AddUnique(TEXT("oneHandedMastery"));
+    const auto* Sword = P.Skills.Find(TEXT("swordMastery"));
+    const auto* Blunt = P.Skills.Find(TEXT("bluntMastery"));
+    const bool bHadTwoHanded = P.LearnedSkills.Contains(TEXT("swordMastery")) || P.LearnedSkills.Contains(TEXT("bluntMastery"))
+        || (Sword && (Sword->Level > 1 || Sword->Experience > 0))
+        || (Blunt && (Blunt->Level > 1 || Blunt->Experience > 0));
+    if(bHadTwoHanded)
+    {
+        const int32 MaxSub = FMath::Max(Sword ? Sword->Level : 1, Blunt ? Blunt->Level : 1);
+        auto& TwoHand = P.Skills.FindOrAdd(TEXT("twoHandedMastery"));
+        TwoHand.Level = FMath::Max(TwoHand.Level, FMath::Clamp(MaxSub, 1, 3));
+    }
+    P.SkillTreeVersion = 2;
     return true;
 }
 bool Validate(const FColdSteelProfile& P, FString& Reason)
 {
-    if(P.SkillTreeVersion < 0 || P.SkillTreeVersion > 1 || P.LearnedSkills.Num() > 128 || P.SkillSpecs.Num() > 64) { Reason = TEXT("技能树存档无效"); return false; }
+    if(P.SkillTreeVersion < 0 || P.SkillTreeVersion > 2 || P.LearnedSkills.Num() > 128 || P.SkillSpecs.Num() > 64) { Reason = TEXT("技能树存档无效"); return false; }
     for(const auto& Pair : P.SkillSpecs)
     {
         const FSpec* S = FindSpec(Pair.Key);
@@ -197,7 +216,8 @@ void Sanitize(FColdSteelProfile& P)
 {
     if(!Get().bLoaded) return;
     if(P.SkillTreeVersion < 1) return; // legacy upload: migrated by the shadow's next persist
-    P.SkillTreeVersion = 1;
+    if(P.SkillTreeVersion == 1) Migrate(P);
+    P.SkillTreeVersion = 2;
     // A skill that already has training beyond Lv1 counts as learned (same rule as the migration).
     // Otherwise keep it only if every requirement is met; repeat until stable because learning chains.
     TArray<FName> Claimed = MoveTemp(P.LearnedSkills); P.LearnedSkills.Reset();

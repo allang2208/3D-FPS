@@ -1,6 +1,7 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelInventoryWidget.h"
 #include "ColdSteelInventoryPopup.h"
+#include "ColdSteelUIStyle.h"
 #include "ColdSteelStatusModel.h"
 #include "Blueprint/WidgetTree.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
@@ -47,13 +48,24 @@ void UColdSteelHUDWidget::RunInventoryGlassAudit()
         case 0:{Board->CancelInteraction();Scroll->ScrollToStart();Safe();const auto Blur=StaticCastSharedPtr<SBackgroundBlur>(InventoryBlur->GetCachedWidget());const auto* Allow=IConsoleManager::Get().FindConsoleVariable(TEXT("Slate.AllowBackgroundBlurWidgets"));
             UE_LOG(LogTemp,Display,TEXT("InventoryGlassRender: allow=%d fallback=%d strength=%.1f opacity=%.2f"),Allow?Allow->GetInt():-1,Blur->IsUsingLowQualityFallbackBrush(),InventoryBlur->GetBlurStrength(),InventoryBlur->GetRenderOpacity());
             Check(Allow&&Allow->GetInt()!=0&&!Blur->IsUsingLowQualityFallbackBrush()&&InventoryBlur->GetBlurStrength()>=5&&InventoryBlur->GetCachedGeometry().GetLocalSize().X<Root.GetLocalSize().X,TEXT("real blur stays within the glass drawer"));
-            Check(InventoryTitleText->GetFont().CompositeFont->DefaultTypeface.Fonts[0].Font.GetFontFilename().EndsWith(TEXT("NotoSansSC-Medium.otf")),TEXT("drawer title uses project Noto medium font"));break;
+            const auto& TitleFont = InventoryTitleText->GetFont();
+            const auto Expected = ColdSteelUI::TextFont(TitleFont.Size, true);
+            Check(TitleFont.CompositeFont == Expected.CompositeFont && TitleFont.TypefaceFontName == Expected.TypefaceFontName,
+                TEXT("drawer title uses the emphasized UI typeface"));break;
         }
         case 1:Shot(TEXT("overview-1920"));break;
         case 2:Board->SelectItem(Run->Gun);Board->OpenItemMenu(Root.LocalToAbsolute(Root.GetLocalSize()-FVector2D(4,4)),false);break;
         case 3:PopupInside();Shot(TEXT("item-menu"));break;
         case 4:Board->ItemMenu->Close();Board->SelectItem(Run->Potion);Board->OpenItemMenu(Root.LocalToAbsolute(Root.GetLocalSize()-FVector2D(4,4)),true);break;
-        case 5:PopupInside();Check(Board->ItemMenu->Quantity&&Board->ItemMenu->Quantity->GetWidgetStyle().TextStyle.Font.CompositeFont->DefaultTypeface.Fonts[0].Font.GetFontFilename().EndsWith(TEXT("JetBrainsMono-Regular.ttf")),TEXT("split quantity uses project numeric font"));Shot(TEXT("split-menu"));break;
+        case 5:{
+            PopupInside();
+            const auto Expected = ColdSteelUI::NumberFont(12);
+            const auto* Quantity = Board->ItemMenu->Quantity.Get();
+            Check(Quantity && Quantity->GetWidgetStyle().TextStyle.Font.CompositeFont == Expected.CompositeFont
+                && Quantity->GetWidgetStyle().TextStyle.Font.TypefaceFontName == Expected.TypefaceFontName,
+                TEXT("split quantity uses the regular numeric typeface"));
+            Shot(TEXT("split-menu"));break;
+        }
         case 6:Board->CancelInteraction();GetOwningPlayer()->ConsoleCommand(TEXT("r.SetRes 1280x720w"));break;
         case 7:Safe();Scroll->ScrollToStart();Shot(TEXT("overview-1280"));break;
         case 8:GetOwningPlayer()->ConsoleCommand(TEXT("r.SetRes 960x540w"));break;

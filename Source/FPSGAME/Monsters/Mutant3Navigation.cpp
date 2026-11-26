@@ -16,6 +16,7 @@ bool AMonsterAIController::NavigateFeralTo(FVector Destination, float Acceptance
     auto* Mantis = Cast<AMantisM27Monster>(GetPawn());
     auto* Hunter = Cast<ACharacter>(GetPawn());
     if (!Hunter || (!Mutant && !Mantis && (!Canine || !Canine->bUsePredictiveHunting))) return false;
+    NotePursuitAttempt();
     const bool LiveMantisPursuit = Mantis && IsValid(VisibleTarget);
     // The knowledge service retains evidence, not a fresh moving goal. Follow
     // the current feet position and keep the existing nav projection/obstacle

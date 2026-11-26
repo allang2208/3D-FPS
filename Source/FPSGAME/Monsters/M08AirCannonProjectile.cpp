@@ -1,4 +1,5 @@
 #include "M08AirCannonProjectile.h"
+#include "MonsterTargeting.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "LurkerM08Monster.h"
 #include "FPSCombatHealthComponent.h"
@@ -65,7 +66,7 @@ void AM08AirCannonProjectile::Impact(const FHitResult& Hit)
 {
     bSpent = true; ImpactAge = 0.f; SetActorLocation(Hit.Location);
     SetLifeSpan(.24f); ForceNetUpdate();
-    AActor* Actor = Hit.GetActor();
+    AActor* Actor = MonsterTargeting::DamageRecipient(Hit.GetActor());
     if (const auto* Pawn = Cast<APawn>(Actor); Pawn && Pawn->IsPlayerControlled())
     {
         auto* Health = Actor->FindComponentByClass<UFPSCombatHealthComponent>();
@@ -80,7 +81,7 @@ void AM08AirCannonProjectile::Impact(const FHitResult& Hit)
                 if (auto* Status = UCombatStatusFormula::GetOrAdd(Actor)) Status->AddStun(StunSeconds);
         }
     }
-    else if (Actor && Actor->IsA<AFPSIceWall>())
+    else if (MonsterTargeting::IsActiveArtisan(Cast<APawn>(Actor)) || (Actor && Actor->IsA<AFPSIceWall>()))
         UGameplayStatics::ApplyPointDamage(Actor, Damage, Velocity.GetSafeNormal(), Hit,
             Shooter->GetController(), Shooter.Get(), UEnemyRangedDamage::StaticClass());
 }

@@ -20,14 +20,14 @@ void AProductionFallingTree::OnRep_Fall()
     // Remove this standing instance immediately; the durable harvest snapshot
     // independently prevents streamed cells from reconstructing it later.
     for(TObjectIterator<UInstancedSkinnedMeshComponent> It;It;++It)
-        if(It->GetWorld()==GetWorld()&&It->GetSkinnedAsset()&&It->GetSkinnedAsset()->GetPathName()==NetFall.Mesh.ToString())
+        if(It->GetWorld()==GetWorld()&&!It->ComponentHasTag(TEXT("HarvestRegrowth"))&&It->GetSkinnedAsset()&&It->GetSkinnedAsset()->GetPathName()==NetFall.Mesh.ToString())
             for(int32 N=It->GetInstanceCount()-1;N>=0;--N)
             {
                 const auto Id=It->GetInstanceId(N);FTransform T;
                 if(It->GetInstanceTransform(Id,T,true)&&FVector::DistSquared(T.GetLocation(),NetFall.Transform.GetLocation())<4.)It->RemoveInstance(Id);
             }
     for(TObjectIterator<UInstancedStaticMeshComponent> It;It;++It)
-        if(It->GetWorld()==GetWorld()&&It->GetOwner()&&It->GetOwner()->IsA<ATemperateHillsWorld>()&&!It->ComponentHasTag(TEXT("HarvestStump")))
+        if(It->GetWorld()==GetWorld()&&It->ComponentHasTag(TEXT("HillsStandingTrunk")))
             for(int32 N=It->GetInstanceCount()-1;N>=0;--N)
             {
                 FTransform T;

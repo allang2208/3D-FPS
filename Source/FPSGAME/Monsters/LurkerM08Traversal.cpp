@@ -7,6 +7,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/World.h"
 #include "GameFramework/CharacterMovementComponent.h"
+#include "GameFramework/GameStateBase.h"
 #include "Math/RotationMatrix.h"
 #include "Net/UnrealNetwork.h"
 
@@ -27,9 +28,7 @@ void ALurkerM08Monster::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Ou
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(ALurkerM08Monster, SurfaceNormal);
     DOREPLIFETIME(ALurkerM08Monster, bSurfaceAttached);
-    DOREPLIFETIME(ALurkerM08Monster, bTraversalJump);
-    DOREPLIFETIME(ALurkerM08Monster, TraversalClock);
-    DOREPLIFETIME(ALurkerM08Monster, TraversalFlightSeconds);
+    DOREPLIFETIME(ALurkerM08Monster, TraversalTimeline);
     DOREPLIFETIME(ALurkerM08Monster, AirCannon);
 }
 bool ALurkerM08Monster::AttachNear(FVector Normal, float Reach)
@@ -70,6 +69,7 @@ void ALurkerM08Monster::NavigateSurface(FVector Destination, bool bReturning, AP
     if (ChangedIntent)
     {
         RecentSupports.Reset(); SurfacePath.Reset(); bHasSurfacePlan = false; RouteAge = 10.f;
+        AvoidSurfacePointUntil=0.;
     }
     else if (bHasSurfacePlan && RouteAge >= .45f
         && FVector::DistSquared(Goal, PlannedSurfaceGoal) > FMath::Square(100.f))
@@ -78,6 +78,8 @@ void ALurkerM08Monster::NavigateSurface(FVector Destination, bool bReturning, AP
     const bool Reached = VisibleTarget && !bReturning ? CanBiteFrom(VisibleTarget, GetActorLocation(), BiteTriggerRange - 25.f)
         : FVector::DistSquared(GetActorLocation(), Goal) < FMath::Square(60.f);
     bWantsSurfaceMove = !Reached;
+    if (!Reached && !bReturning)
+        if (auto* AI = Cast<AMonsterAIController>(GetController())) AI->NotePursuitAttempt();
     if (Reached)
     {
         StopSurfaceNavigation();
@@ -140,14 +142,14 @@ void ALurkerM08Monster::Tick(float Dt)
         Movement->bOrientRotationToMovement = false;
         if (Dead())
         {
-            bWantsSurfaceMove = bSurfaceAttached = bTraversalJump = false; SurfacePath.Reset();
+            bWantsSurfaceMove = bSurfaceAttached = false; EndTraversalJump(); SurfacePath.Reset();
             // Preserve the current wall/ceiling death pose for the shared world-gravity ragdoll handoff.
             return;
         }
         if (Combat->IsControlled() || State == EWolfState::Stagger)
         {
             if (bTraversalJump || (bSurfaceAttached && SurfaceNormal.Z < .65f))
-            { bTraversalJump = false; DetachSurface(); }
+            { EndTraversalJump(); DetachSurface(); UpdateJumpPose(); }
             StopSurfaceNavigation();
         }
         else if (bTraversalJump) TickTraversalJump(Dt);
@@ -173,7 +175,7 @@ void ALurkerM08Monster::Tick(float Dt)
         Anim->ManualSpeed = HasAuthority() && State == EWolfState::Pounce
             ? FVector::Distance(Before, GetActorLocation()) / FMath::Max(.001f, Dt) : GetVelocity().Size();
     }
-    if (!HasAuthority()) UpdateJumpPose();
+    if (!HasAuthority()) TickRemoteTraversal(Dt);
 }
 void ALurkerM08Monster::TickSurface(float Dt)
 {
@@ -196,7 +198,8 @@ void ALurkerM08Monster::TickSurface(float Dt)
         if ((FMath::Abs(SurfaceGoal.Z - GetActorLocation().Z) > 100.f || StuckSeconds > .45f) && BeginTraversalJump()) return;
         FVector Guide = SurfaceGoal;
         LurkerSurfaceRoute::GroundGuide(GetWorld(), this, {GetActorLocation(), SurfaceNormal}, SurfaceGoal, BodyRadius(), Guide);
-        LurkerSurfaceRoute::Build(GetWorld(), this, {GetActorLocation(), SurfaceNormal}, Guide, BodyRadius(), RecentSupports, SurfacePath);
+        const FVector* Blocked=GetWorld()->GetTimeSeconds()<AvoidSurfacePointUntil?&BlockedSurfacePoint:nullptr;
+        LurkerSurfaceRoute::Build(GetWorld(), this, {GetActorLocation(), SurfaceNormal}, Guide, BodyRadius(), RecentSupports, SurfacePath,Blocked);
         if (SurfacePath.IsEmpty() && BeginTraversalJump()) return;
     }
     if (SurfacePath.IsEmpty())
@@ -219,7 +222,13 @@ void ALurkerM08Monster::TickSurface(float Dt)
     const FVector BlendedNormal = FMath::VInterpNormalRotationTo(SurfaceNormal, Next.Normal, Dt, SurfaceTurnSpeed);
     SurfaceNormal = BlendedNormal.GetSafeNormal();
     OrientToSurface(Delta, SurfaceNormal, Dt);
-    if (Hit.bBlockingHit) { SurfacePath.Reset(); RouteAge = FMath::Max(RouteAge, .65f); return; }
+    if (Hit.bBlockingHit)
+    {
+        // A late collider can invalidate a previously clear edge. Remember it
+        // briefly so replanning chooses another edge instead of pushing it again.
+        BlockedSurfacePoint=Next.Center;AvoidSurfacePointUntil=GetWorld()->GetTimeSeconds()+2.;
+        SurfacePath.Reset(); RouteAge = FMath::Max(RouteAge, .65f); return;
+    }
     if (FVector::DistSquared(GetActorLocation(), Next.Center) < FMath::Square(5.f))
     {
         SurfaceNormal = Next.Normal;
@@ -258,6 +267,8 @@ bool ALurkerM08Monster::BeginTraversalJump()
                 JumpStart = Start; JumpEnd = Landing.Center; JumpLandingNormal = Landing.Normal; JumpOutward = Outward;
                 JumpArcHeight = Height; TraversalFlightSeconds = FMath::Clamp(FVector::Distance(Start, JumpEnd) / 760.f + .16f, .44f, 1.05f);
                 TraversalClock = 0.f; bTraversalJump = true; JumpCooldown = 1.6f;
+                TraversalTimeline.ServerStart = GetWorld()->GetTimeSeconds();
+                TraversalTimeline.FlightSeconds = TraversalFlightSeconds;
                 SurfacePath.Reset(); bWantsSurfaceMove = false;
                 GetCharacterMovement()->SetMovementMode(MOVE_Custom, 9);
                 UpdateJumpPose(); ForceNetUpdate(); return true;
@@ -265,6 +276,37 @@ bool ALurkerM08Monster::BeginTraversalJump()
         }
     }
     return false;
+}
+void ALurkerM08Monster::EndTraversalJump()
+{
+    bTraversalJump = false;
+    if (HasAuthority() && TraversalTimeline.ServerStart >= 0.)
+    {
+        TraversalTimeline.ServerStart = -1.;
+        ForceNetUpdate();
+    }
+}
+void ALurkerM08Monster::OnRep_TraversalTimeline()
+{
+    bTraversalJump = TraversalTimeline.ServerStart >= 0. && !Dead();
+    TraversalFlightSeconds = TraversalTimeline.FlightSeconds;
+    TraversalClock = 0.f;
+}
+void ALurkerM08Monster::TickRemoteTraversal(float Dt)
+{
+    if (bTraversalJump)
+    {
+        // Sample every local frame. A late relevance update joins the current phase.
+        // Never restart or reverse a clip because a time-sync sample arrived late.
+        TraversalClock += FMath::Max(0.f, Dt);
+        if (const auto* GS = GetWorld()->GetGameState())
+            TraversalClock = FMath::Max(TraversalClock, float(GS->GetServerWorldTimeSeconds() - TraversalTimeline.ServerStart));
+        if (Dead() || TraversalClock >= .24f + TraversalFlightSeconds + .76f) bTraversalJump = false;
+        // The wolf and air-cannon clocks own these actions. RepNotifies can arrive
+        // in either order; do not overwrite their poses with an old jump sample.
+        if (bTraversalJump && (Super::Busy() || Combat->IsControlled() || AirCannon.bActive)) return;
+    }
+    UpdateJumpPose();
 }
 void ALurkerM08Monster::UpdateJumpPose()
 {
@@ -294,18 +336,18 @@ void ALurkerM08Monster::TickTraversalJump(float Dt)
         FHitResult Hit; GetCharacterMovement()->SafeMoveUpdatedComponent(Wanted - GetActorLocation(), GetActorQuat(), true, Hit);
         if (Hit.bBlockingHit)
         {
-            bTraversalJump = false; DetachSurface(); UpdateJumpPose(); return;
+            EndTraversalJump(); DetachSurface(); UpdateJumpPose(); return;
         }
     }
     OrientToSurface(JumpEnd - JumpStart, TraversalClock < .24f ? SurfaceNormal : FVector::UpVector, Dt);
     if (TraversalClock >= FlightEnd && !bSurfaceAttached)
     {
-        if (!AttachNear(JumpLandingNormal, BodyRadius() + 24.f)) { bTraversalJump = false; DetachSurface(); UpdateJumpPose(); return; }
+        if (!AttachNear(JumpLandingNormal, BodyRadius() + 24.f)) { EndTraversalJump(); DetachSurface(); UpdateJumpPose(); return; }
     }
     UpdateJumpPose();
     if (TraversalClock >= FlightEnd + .76f)
     {
-        bTraversalJump = false; UpdateJumpPose(); RouteAge = 10.f; ForceNetUpdate();
+        EndTraversalJump(); UpdateJumpPose(); RouteAge = 10.f;
         if (auto* AI = Cast<AMonsterAIController>(GetController())) AI->UpdateKnowledge();
     }
 }

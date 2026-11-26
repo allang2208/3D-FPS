@@ -13,6 +13,7 @@
 #include "GripPoseLayer.h"
 #include "WeaponGripProfile.h"
 #include "WeaponGripProfileNode.h"
+#include "WeaponArmIdleHandoffNode.h"
 #include "Super90SupportArmNode.h"
 
 // Apply cartridge visibility after blending so a partially loaded cylinder
@@ -154,6 +155,7 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
     FAnimNode_TwoWayBlend SprintBlend;
     FAnimNode_TwoWayBlend AimBlend;
     FAnimNode_TwoWayBlend ActionBlend;
+    FWeaponArmIdleHandoffNode ArmIdleHandoff;
     FDW715CartridgePose CartridgePose;
     FAnimNode_SequenceEvaluator_Standalone DualAimReference;
     FWeaponGripProfileNode DualAimReferenceProfile;
@@ -184,7 +186,9 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
         ActionGrip.Source.SetLinkNode(&Action);
         ActionProfile.Source.SetLinkNode(&ActionGrip);
         ActionBlend.B.SetLinkNode(&ActionProfile);
-        CartridgePose.Source.SetLinkNode(&ActionBlend);
+        ArmIdleHandoff.Source.SetLinkNode(&ActionBlend);
+        ArmIdleHandoff.Reference.SetLinkNode(&IdleProfile);
+        CartridgePose.Source.SetLinkNode(&ArmIdleHandoff);
         DualAim.Source.SetLinkNode(&CartridgePose);
         DualAimReferenceProfile.Source.SetLinkNode(&DualAimReference);
         DualAim.Reference.SetLinkNode(&DualAimReferenceProfile);
@@ -197,7 +201,7 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
     virtual void GetCustomNodes(TArray<FAnimNode_Base*>& Nodes) override
     {
         Nodes.Append({&Idle, &Sprint, &SprintLoop, &SprintMotionBlend, &SprintBlend, &Aim, &Action, &AimBlend, &ActionBlend, &CartridgePose, &DualAimReference, &DualAimReferenceProfile, &DualAim, &SteelGauntletPose, &Super90SupportArm, &LoneLeftHandMirror,
-            &IdleGrip, &SprintGrip, &AimGrip, &ActionGrip,
+            &ArmIdleHandoff, &IdleGrip, &SprintGrip, &AimGrip, &ActionGrip,
             &IdleProfile, &AimProfile, &ActionProfile, &SprintProfile, &SprintLoopProfile});
     }
     virtual void PreUpdate(UAnimInstance* Instance, float DeltaSeconds) override
@@ -252,6 +256,7 @@ struct FFPSGunplayAnimProxy : FAnimInstanceProxy
         Action.SetExplicitTime(Data->ActionTime);
         AimBlend.Alpha = Data->AimAlpha;
         ActionBlend.Alpha = Data->ActionClip ? Data->ActionAlpha : 0.0f;
+        ArmIdleHandoff.Alpha=Data->ArmIdleHandoffAlpha;
         const auto Grip = [](FGripPoseLayerNode& Node, bool bEnabled, UAnimSequence* Base, UAnimSequence* Family, UAnimSequence* Clip)
         {
             Node.bEnabled = bEnabled && Base && Family;

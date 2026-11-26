@@ -5,10 +5,31 @@
 void UFPSBodyWeaponMeshComponent::PublishMechanicalPose(const TArray<FTransform>& Pose)
 {
     if(Pose.Num()!=GetEditableComponentSpaceTransforms().Num())return;
+    const auto* Asset=GetSkeletalMeshAsset();
+    const bool Eligible=Asset&&!Asset->IsCompiling()&&!IsComponentTickEnabled()&&!IsRunningParallelEvaluation()
+        &&!LeaderPoseComponent.IsValid()&&GetCollisionEnabled()==ECollisionEnabled::NoCollision
+        &&!IsSimulatingPhysics()&&GetClothingSimulationInstances().IsEmpty()
+        &&GetMeshDeformerInstances().DeformerInstances.IsEmpty()&&Asset->GetMorphTargets().IsEmpty()
+        &&!GetExternalMorphSetsArray().ContainsByPredicate([](const auto& Sets){return !Sets.IsEmpty();})
+        &&!IsRenderStateDirty()&&GetMeshObject()!=nullptr;
+    bool Same=Eligible&&LastPublishedMesh.Get()==Asset&&LastPublishedObject==GetMeshObject()
+        &&LastPublishedLOD==GetPredictedLODLevel()&&LastPublishedRevision==GetBoneTransformRevisionNumber();
+    if(Same)
+    {
+        const auto& Current=GetComponentSpaceTransforms();Same=Current.Num()==Pose.Num();
+        for(int32 I=0;Same&&I<Pose.Num();++I)Same=Pose[I].Equals(Current[I],0.);
+    }
+    if(Same&&bPoseHistorySettled){++UnchangedPoseSkipCount;return;}
+    // Submit one equal pose on a later frame before reusing it, so previous-pose
+    // velocity history settles. Never quantize transforms or skip moving poses.
+    bPoseHistorySettled=Same&&LastPublishedFrame!=GFrameCounter;
     GetEditableComponentSpaceTransforms()=Pose;
     bNeedToFlipSpaceBaseBuffers=true;
     Super::FinalizeBoneTransform();
     UpdateChildTransforms();MarkRenderDynamicDataDirty();
+    LastPublishedMesh=GetSkeletalMeshAsset();LastPublishedObject=GetMeshObject();
+    LastPublishedRevision=GetBoneTransformRevisionNumber();LastPublishedFrame=GFrameCounter;
+    LastPublishedLOD=GetPredictedLODLevel();
 }
 void UFPSBodyWeaponMeshComponent::CaptureHoldTransition(float Seconds)
 {

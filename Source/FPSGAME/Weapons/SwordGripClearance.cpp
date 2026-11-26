@@ -56,9 +56,10 @@ void FSwordGripClearance::CaptureIdle(USkeletalMeshComponent& Mesh)
     }
 }
 
-void FSwordGripClearance::Apply(USkeletalMeshComponent& Mesh)
+void FSwordGripClearance::Apply(USkeletalMeshComponent& Mesh,ESwordGripMode Mode)
 {
     if(Fit.IsEmpty()||ReferenceMesh.Get()!=Mesh.GetSkeletalMeshAsset())return;
+    const bool HoldPair=Mode!=ESwordGripMode::Adaptive;
     auto& Pose=Mesh.GetEditableComponentSpaceTransforms();
     if(!Pose.IsValidIndex(Weapon)||Pose.Num()!=Parents.Num())return;
     double Weights[2]={0.,0.};
@@ -68,6 +69,7 @@ void FSwordGripClearance::Apply(USkeletalMeshComponent& Mesh)
         const double Distance=FVector::Distance(Relative.GetLocation(),Grip[Side].GetLocation());
         const double Angle=FMath::RadiansToDegrees(Relative.GetRotation().AngularDistance(Grip[Side].GetRotation()));
         Weights[Side]=Contact(Distance,1.2,6.)*Contact(Angle,12.,50.);
+        if(HoldPair)Weights[Side]=1.;
     }
     if(Weights[0]<=UE_SMALL_NUMBER&&Weights[1]<=UE_SMALL_NUMBER)return;
     Source=Pose;
@@ -76,29 +78,70 @@ void FSwordGripClearance::Apply(USkeletalMeshComponent& Mesh)
         const double Weight=Weights[Side];
         if(Weight<=UE_SMALL_NUMBER||!Pose.IsValidIndex(Upper[Side])||!Pose.IsValidIndex(Lower[Side]))continue;
         const int32 U=Upper[Side],L=Lower[Side],H=Hand[Side];
-        const FVector A=Source[U].GetLocation(),E=Source[L].GetLocation(),OldH=Source[H].GetLocation();
-        const double UpperLength=(E-A).Size(),LowerLength=(OldH-E).Size();
+        const FVector OldA=Source[U].GetLocation(),E=Source[L].GetLocation(),OldH=Source[H].GetLocation();
+        const double UpperLength=(E-OldA).Size(),LowerLength=(OldH-E).Size();
         const FQuat WQ=Source[Weapon].GetRotation();
+        FQuat HandleTurn=FQuat::Identity;
+        if(HoldPair)
+        {
+            const FVector Rest=Grip[Side].GetLocation();
+            const FVector Now=Source[H].GetRelativeTransform(Source[Weapon]).GetLocation();
+            HandleTurn=FQuat(FVector::UpVector,FMath::FindDeltaAngleRadians(FMath::Atan2(Rest.Y,Rest.X),FMath::Atan2(Now.Y,Now.X)));
+        }
         const FQuat Roll=FQuat::Slerp(FQuat::Identity,Fit.Rotation[Side],Weight).GetNormalized();
-        const FVector Local=WQ.UnrotateVector(OldH-Source[Weapon].GetLocation());
+        const FVector Local=HoldPair?Grip[Side].GetLocation()*Source[Weapon].GetScale3D():
+            WQ.UnrotateVector(OldH-Source[Weapon].GetLocation());
         const FVector Pivot(0.,0.,Local.Z);
-        FVector Goal=Source[Weapon].GetLocation()+WQ.RotateVector(Pivot+Roll.RotateVector(Local-Pivot)+Fit.Offset[Side]*Weight);
-        const FQuat HandQ=(WQ*Roll*WQ.Inverse()*Source[H].GetRotation()).GetNormalized();
+        // Keep each accepted grasp attached to its authored side of the handle.
+        // The support wrist must not inherit the leading hand's different roll.
+        FVector Offset=Fit.Offset[Side]*Weight;
+        // The Highland pommel shoulder rises into the little finger as the
+        // two-hand grasp rolls. Give it 1.5 mm here, easing to zero at idle.
+        if(HoldPair && Side==1)
+            Offset.Z+=.15*FMath::SmoothStep(0.,FMath::DegreesToRadians(30.),HandleTurn.AngularDistance(FQuat::Identity));
+        FVector Goal=Source[Weapon].GetLocation()+(WQ*HandleTurn).RotateVector(Pivot+Roll.RotateVector(Local-Pivot)+Offset);
+        const FQuat HandQ=HoldPair?(WQ*HandleTurn*Roll*Grip[Side].GetRotation()).GetNormalized():
+            (WQ*Roll*WQ.Inverse()*Source[H].GetRotation()).GetNormalized();
         // Preserve actual segment lengths and shoulder support at extreme poses.
-        const FVector Reach=Goal-A;const double Limit=(UpperLength+LowerLength)*.98;
-        if(Reach.Size()>Limit)Goal=A+Reach.GetSafeNormal()*Limit;
-        FVector NewE,NewH;
-        AnimationCore::SolveTwoBoneIK(A,E,OldH,E,Goal,NewE,NewH,UpperLength,LowerLength,false,1.,1.);
-        const FQuat UQ=(Plane(NewE-A,NewH-NewE)*Plane(E-A,OldH-E).Inverse()*Source[U].GetRotation()).GetNormalized();
-        const FQuat LQ=(Plane(NewH-NewE,NewE-A)*Plane(OldH-E,E-A).Inverse()*Source[L].GetRotation()).GetNormalized();
+        FVector A,NewE,NewH;
+        FQuat UQ,LQ;
+        if(Mode==ESwordGripMode::HeldAuthoredArms)
+        {
+            // These tracks already solve the shoulder, elbow, wrist and twist
+            // stations. Carry their complete frame through the hilt fitting.
+            // Solving the elbow plane again at full reach can reverse its side.
+            const FQuat Delta=(HandQ*Source[H].GetRotation().Inverse()).GetNormalized();
+            const auto FitPoint=[&](const FVector& Point){return Goal+Delta.RotateVector(Point-OldH);};
+            A=FitPoint(OldA);NewE=FitPoint(E);NewH=Goal;
+            UQ=Delta*Source[U].GetRotation();LQ=Delta*Source[L].GetRotation();
+            const int32 Clavicle=Parents[U];
+            if(Clavicle!=INDEX_NONE)
+            {
+                Pose[Clavicle].SetLocation(FitPoint(Source[Clavicle].GetLocation()));
+                Pose[Clavicle].SetRotation((Delta*Source[Clavicle].GetRotation()).GetNormalized());
+            }
+        }
+        else
+        {
+            const FVector Reach=Goal-OldA;const double Limit=(UpperLength+LowerLength)*.98;
+            const FVector Shift=HoldPair?Reach.GetSafeNormal()*FMath::Max(0.,Reach.Size()-Limit):FVector::ZeroVector;
+            A=OldA+Shift;
+            if(!HoldPair && Reach.Size()>Limit)Goal=A+Reach.GetSafeNormal()*Limit;
+            AnimationCore::SolveTwoBoneIK(A,E+Shift,OldH+Shift,E+Shift,Goal,NewE,NewH,UpperLength,LowerLength,false,1.,1.);
+            UQ=(Plane(NewE-A,NewH-NewE)*Plane(E-OldA,OldH-E).Inverse()*Source[U].GetRotation()).GetNormalized();
+            LQ=(Plane(NewH-NewE,NewE-A)*Plane(OldH-E,E-OldA).Inverse()*Source[L].GetRotation()).GetNormalized();
+            if(HoldPair && Parents[U]!=INDEX_NONE)Pose[Parents[U]].AddToTranslation(Shift);
+        }
         for(int32 I=0;I<Pose.Num();++I)if(Arm[I]==Side)
         {
-            if(I==U)Pose[I].SetRotation(UQ);
+            if(I==U){Pose[I].SetLocation(A);Pose[I].SetRotation(UQ);}
             else if(I==L){Pose[I].SetLocation(NewE);Pose[I].SetRotation(LQ);}
             else if(I==H){Pose[I]=Source[I];Pose[I].SetLocation(NewH);Pose[I].SetRotation(HandQ);}
             else if(Parents[I]!=INDEX_NONE)
             {
                 FTransform Relative=Source[I].GetRelativeTransform(Source[Parents[I]]);
+                if(HoldPair && Mesh.GetSkeletalMeshAsset()->GetRefSkeleton().BoneIsChildOf(I,H))
+                    Relative.SetRotation(IdleLocal[I]);
                 // Leave authored finger gestures alone as they leave the resting grasp.
                 if(!DigitDelta[I].IsIdentity())
                 {

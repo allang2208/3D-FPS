@@ -18,4 +18,12 @@ class UBowSkillTrainingAuditCommandlet : public UCommandlet
     GENERATED_BODY()
 public:
     virtual int32 Main(const FString& Params) override;
+    int32 RunSparrowPresentation(const FString& Params);
+    int32 RunQuiverBelt(const FString& Params);
+    int32 RunMagicArrowRain(const FString& Params);
+    int32 RunBowNetworkReview(const FString& Params);
+    int32 RunElementalHoldReview(const FString& Params);
+    int32 RunBowResonanceReview(const FString& Params);
+    int32 RunBowPresentationReview(const FString& Params);
+    int32 RunCompoundStringReview(const FString& Params);
 };

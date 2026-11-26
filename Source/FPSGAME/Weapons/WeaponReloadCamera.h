@@ -4,7 +4,8 @@
 enum class EM4CameraAction : uint8;
 enum class EReloadCameraContact : uint8
 {
-    MagazineOut,Insert,Seat,Pull,Release,CoverOpen,Belt,CoverClose,CylinderOpen,Eject,Round,CylinderClose
+    MagazineOut,Insert,Seat,Pull,Release,CoverOpen,Belt,CoverClose,CylinderOpen,Eject,Round,CylinderClose,
+    BoltLift,BoltPull,BoltPush,BoltLock
 };
 struct FReloadCameraContact
 {
@@ -14,6 +15,7 @@ struct FReloadCameraContact
 struct FWeaponReloadCameraTrack
 {
     float Time=0.f,End=0.f,Begin=0.f,FamilyScale=1.f;
+    float FollowScale=1.f,ContactScale=1.f;
     int32 Hand=0;
     EM4CameraAction FollowAction=static_cast<EM4CameraAction>(0);
     TArray<float,TInlineAllocator<12>> FollowContacts;
@@ -47,6 +49,11 @@ namespace WeaponReloadCamera
         case EReloadCameraContact::Eject:return {{-.5f,-.06f,-.1f},{-.10f,.03f,-.08f},.18f};
         case EReloadCameraContact::Round:return {{.45f,.02f,-.08f},{-.07f,0.f,.06f},.16f};
         case EReloadCameraContact::CylinderClose:return {{1.1f,-.08f,-.45f},{-.12f,.06f,.12f},.22f};
+        // Manual bolt contacts: small view rotation, no camera translation.
+        case EReloadCameraContact::BoltLift:return {{.22f,.08f,.18f},{},.16f};
+        case EReloadCameraContact::BoltPull:return {{.42f,-.06f,-.10f},{},.20f};
+        case EReloadCameraContact::BoltPush:return {{-.32f,.04f,.08f},{},.18f};
+        case EReloadCameraContact::BoltLock:return {{-.60f,.06f,-.22f},{},.20f};
         }
         return {{},{},.2f};
     }

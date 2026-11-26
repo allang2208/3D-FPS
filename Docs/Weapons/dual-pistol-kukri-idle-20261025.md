@@ -93,6 +93,12 @@
 - **力度：** 拳加速入点（33 ms 内 11 cm，再 17 ms 内 7 cm 到过冲点），接触即停（顿帧）后回弹 5 cm；突刺专用打击参数（`OffhandKukriStrike.cpp`，不动主手 `KukriQuickRhythm`）：参考镜头曲线 ×1.3、接触点头/前推/放宽 ×1.7、共享快速近战冲击 0.35 → 0.6、肉体顿帧 0.098 → 0.12 s、命中冲击 ×1.3、挥空顿帧 0.03 → 0.045 s 且冲击 ×1.5；扫入时叠加刺击破风声。伤害与合同不变。
 - **构建/验收：** Editor 61.6 s、Game 38.3 s 均 `Succeeded`（`Saved/BuildEditor/build-kukrithrust3-editor.log` / `-game.log`），重编 `OffhandKukriStrike.cpp`、`OffhandKukriComponent.cpp`，无新警告。未启动 UE、未测试。预览 `Work/strike/thrust_sheet.jpg`（关键帧 + 补间）。
 
+## 发布记录（2026-10-26）
+
+- 提交 `e0a86866`（`origin/main`，`git ls-remote` 回读一致），在 `10dcaa19` 之上快进推送。临时索引精确暂存 78 个路径：副手弯刀组件与生成键表、`KukriRhythm.h`、`items.json`（仅 `ue_kukri.attack_seconds`）、`KukriWeaponComponent.cpp`（仅注释）、本记录与 `kukri-20261020.md`、发布包 `Docs/Publication/DualPistolKukri20261025`（20 份补丁）、作者源脚本与键表、两份新 SKILL 参考及入口。
+- 未入库：共享宿主源码（只发补丁）、Fab 弯刀几何（`kukri_mesh.npz`、`*_camera.npz`）、`.blend`、渲染图、`Work/` 其他输出。废案移入本地 `trash/dual-pistol-kukri-20261026/`（含 `MANIFEST.md` 散列）。
+- `git diff --check` 只在补丁文件的 CRLF 载荷行报尾随空白/末尾空行，属补丁格式本身（与此前补丁包一致）。
+
 ## R11：本段工作复查（联机重点）
 
 - **修复——弯刀上挑突进后的服务端硬直：** `AuthorizeMeleeMove` 对所有上挑突进都按双手剑上挑算硬直（约 1.28 s）。弯刀上挑 V2 提速后从突进起到动作结束只剩约 0.83 s，期间之后约 0.4 s 内接冲刺斩，客户端已经能出手、服务端却驳回突进位移（`ClientRejectMeleeMove`）。现对弯刀上挑（主手、副手）改用弯刀自身节奏积分（`KukriRhythm::UpperRealSeconds`），补丁已重生成。

@@ -1,6 +1,9 @@
 #include "FPSCastingMeshComponent.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/Spellbook/SpellbookComponent.h"
+#include "../Weapons/Kukri/OffhandKukriComponent.h"
+#include "../Weapons/Staff/StaffOffhandMeleeComponent.h"
+#include "../Weapons/WoodenTorchComponent.h"
 #include "../Items/FPSPotionUseComponent.h"
 #include "../Movement/FPSDoorPushComponent.h"
 #include "FPSFireballComponent.h"
@@ -43,7 +46,12 @@ void UFPSCastingMeshComponent::FinalizeBoneTransform()
 {
     auto* Book=GetOwner()?GetOwner()->FindComponentByClass<USpellbookComponent>():nullptr;
     const auto* Consumable=GetOwner()?GetOwner()->FindComponentByClass<UFPSPotionUseComponent>():nullptr;
-    const bool OtherLeftRig=Book&&Book->ArmsMesh()!=this&&Book->OwnsLeftHand()&&!(Consumable&&Consumable->IsTwoHanded());
+    auto* OffhandKukri=GetOwner()?GetOwner()->FindComponentByClass<UOffhandKukriComponent>():nullptr;
+    const auto* StaffBlade=GetOwner()?GetOwner()->FindComponentByClass<UStaffOffhandMeleeComponent>():nullptr;
+    const auto* Torch=GetOwner()?GetOwner()->FindComponentByClass<UWoodenTorchComponent>():nullptr;
+    const bool OtherLeftRig=((Torch&&Torch->ShowsLeft(this))||(Book&&Book->ArmsMesh()!=this&&Book->OwnsLeftHand())||
+        (OffhandKukri&&OffhandKukri->ArmsMesh()!=this&&OffhandKukri->OwnsLeftHand())||
+        (StaffBlade&&StaffBlade->ArmsMesh()!=this&&StaffBlade->OwnsLeftHand()))&&!(Consumable&&Consumable->IsTwoHanded());
     const bool ApplyLeft=bApplyLeftHandCast&&!OtherLeftRig;
     auto* Magic=ApplyLeft&&GetOwner()?GetOwner()->FindComponentByClass<UFPSFireballComponent>():nullptr;
     const bool bCastActive=Magic&&Magic->IsOccupyingLeftHand();
@@ -54,9 +62,11 @@ void UFPSCastingMeshComponent::FinalizeBoneTransform()
     CarryHandleDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
     OutgoingBeltDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
     LMG201BeltDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
+    M249BeltDynamics.Apply(*this, GetEditableComponentSpaceTransforms());
     // Compose the paired pistol arm before consumable / door overlays. Their
     // native ownership must remain the final writer during two-handed actions.
     if(Book)Book->ApplyPistolRightArm(*this,GetEditableComponentSpaceTransforms());
+    if(OffhandKukri)OffhandKukri->ApplyPistolRightArm(*this,GetEditableComponentSpaceTransforms());
     if(ApplyLeft&&IsVisible()&&!bHiddenInGame&&GetOwner())
         if(auto* Potion=GetOwner()->FindComponentByClass<UFPSPotionUseComponent>();Potion&&Potion->IsActive())Potion->ApplyHandPose(*this);
     if(ApplyLeft&&IsVisible()&&!bHiddenInGame&&GetOwner())
@@ -79,7 +89,8 @@ void UFPSCastingMeshComponent::FinalizeBoneTransform()
 void UFPSCastingMeshComponent::ApplyOffhandReloadExit()
 {
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
-    if(!Pawn||Pawn->AKMViewmodel.Get()!=this||!Pawn->HasOffhandSpellbook()||!Pawn->IsOffhandReloadActive())
+    const auto* Torch=Pawn&&Pawn->IsOffhandReloadActive()?Pawn->FindComponentByClass<UWoodenTorchComponent>():nullptr;
+    if(!Pawn||Pawn->AKMViewmodel.Get()!=this||!(Pawn->HasOffhandSpellbook()||UOffhandKukriComponent::IsEquippedOn(Pawn)||(Torch&&Torch->HoldsLeft()))||!Pawn->IsOffhandReloadActive())
     {OffhandReloadExitCameraPose.Reset();return;}
     const auto* Camera=Pawn->FirstPersonCamera.Get();if(!Camera)return;
     if(PoseMesh.Get()!=GetSkeletalMeshAsset())CacheCastSkeleton();
@@ -349,6 +360,11 @@ bool UFPSCastingMeshComponent::GetRifleStockMeleeProbe(FVector& OutOrigin,bool b
     const int32 RootIndex=GetBoneIndex(TEXT("WPN_root"));
     if(bM4StockPoint)
     {
+        if(DoesSocketExist(TEXT("WPN_StockContact")))
+        {
+            OutOrigin=GetSocketLocation(TEXT("WPN_StockContact"));
+            return true;
+        }
         if(RootIndex==INDEX_NONE)return false;
         const FTransform Root=GetSocketTransform(FName(TEXT("WPN_root")),RTS_World);
         OutOrigin=Root.GetLocation()+Root.TransformVectorNoScale(

@@ -9,8 +9,9 @@
 void UFPSIceArmorComponent::EmitChips(const FVector& Direction,int32 Count)
 {
     if(GetNetMode()==NM_DedicatedServer||!ChipMesh||!ChipMaterial||VisualDetail<=0)return;
-    auto* P=Cast<AFPSGAMECharacter>(GetOwner());if(!P)return;
-    const auto* Body=P->FindComponentByClass<UFPSPlayerBodyComponent>();const bool First=P->IsLocallyControlled()&&(!Body||!Body->IsThirdPersonViewEnabled());
+    auto* P=Cast<ACharacter>(GetOwner());if(!P)return;
+    const auto* Player=Cast<AFPSGAMECharacter>(P);
+    const auto* Body=P->FindComponentByClass<UFPSPlayerBodyComponent>();const bool First=Player&&P->IsLocallyControlled()&&(!Body||!Body->IsThirdPersonViewEnabled());
     if(!Chips)
     {
         Chips=NewObject<UInstancedStaticMeshComponent>(P,NAME_None,RF_Transient);P->AddInstanceComponent(Chips);Chips->SetupAttachment(P->GetRootComponent());
@@ -22,9 +23,9 @@ void UFPSIceArmorComponent::EmitChips(const FVector& Direction,int32 Count)
     bLastFirstPerson=First;Chips->SetOnlyOwnerSee(First);
     FVector Origin=(Body&&Body->GetBodyMesh()?Body->GetBodyMesh()->GetSocketLocation(TEXT("spine_05")):P->GetActorLocation()+FVector(0,0,35))+Direction*22;
     FVector Push=Direction;
-    if(First&&P->FirstPersonCamera)
+    if(First&&Player->FirstPersonCamera)
     {
-        const auto* Camera=P->FirstPersonCamera.Get();const float Side=FVector::DotProduct(Direction,Camera->GetRightVector())>=0?1.f:-1.f;
+        const auto* Camera=Player->FirstPersonCamera.Get();const float Side=FVector::DotProduct(Direction,Camera->GetRightVector())>=0?1.f:-1.f;
         const float Width=42*FMath::Tan(FMath::DegreesToRadians(Camera->FieldOfView)*.5f);
         Origin=Camera->GetComponentLocation()+Camera->GetForwardVector()*42+Camera->GetRightVector()*Width*.91f*Side-Camera->GetUpVector()*8;
         Push=Camera->GetRightVector()*Side;
@@ -37,9 +38,9 @@ void UFPSIceArmorComponent::EmitChips(const FVector& Direction,int32 Count)
         FVector FragmentPush=Push;
         if(Count>=12)
         {
-            if(First&&P->FirstPersonCamera)
+            if(First&&Player->FirstPersonCamera)
             {
-                const auto* Camera=P->FirstPersonCamera.Get();const float Side=I%2?1.f:-1.f;
+                const auto* Camera=Player->FirstPersonCamera.Get();const float Side=I%2?1.f:-1.f;
                 const float Width=42*FMath::Tan(FMath::DegreesToRadians(Camera->FieldOfView)*.5f);
                 C.Start=Camera->GetComponentLocation()+Camera->GetForwardVector()*42+Camera->GetRightVector()*Width*.91*Side+Camera->GetUpVector()*Random.FRandRange(-14,14);
                 FragmentPush=Camera->GetRightVector()*Side;

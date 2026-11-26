@@ -1,4 +1,5 @@
 #include "ColdSteelStationNetwork.h"
+#include "../UI/ColdSteelEnhancementSystem.h"
 #include "ColdSteelPlayerState.h"
 #include "../UI/ColdSteelProfileRecovery.h"
 #include "ColdSteelAuthorityContext.h"
@@ -6,6 +7,7 @@
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelWorldInteraction.h"
 #include "../Building/ForgingSystem.h"
+#include "../Building/FPSForgeWorkComponent.h"
 #include "../Building/GunAssemblySystem.h"
 #include "../Building/WoodworkingSystem.h"
 #include "../Building/AlchemySystem.h"
@@ -34,10 +36,15 @@ FString StationInputJobId(const UColdSteelStatusModel* Model,FName Kind)
 ColdSteelStationNet::FInputScope::FInputScope():Root(InputDepth++==0){}
 ColdSteelStationNet::FInputScope::~FInputScope(){--InputDepth;}
 bool ColdSteelStationNet::IsClient(const UObject* C){return C&&C->GetWorld()&&C->GetWorld()->GetNetMode()==NM_Client;}
-bool ColdSteelStationNet::Request(const UObject* C,const FString& Mode,FName Recipe,int64 Count,AActor* Target,FIntVector Cell)
+bool ColdSteelStationNet::Request(const UObject* C,const FString& Mode,FName Recipe,int64 Count,AActor* Target,FIntVector Cell,FName ForgeMetal)
 {
     auto* PC=UGameplayStatics::GetPlayerController(C,0);auto* PS=PC?PC->GetPlayerState<AColdSteelPlayerState>():nullptr;
     if(!PS)return false;FColdSteelInventoryRequest R;R.Action=EColdSteelInventoryAction::Workstation;R.Mode=Mode;R.Definition=Recipe;R.Count=Count;R.Target=Target;R.Anchor=Cell;
+    if(Mode==TEXT("forge.start")||Mode==TEXT("assembly.start")||Mode==TEXT("wood.start"))R.Item=ForgeMetal.ToString();
+    if(Mode.StartsWith(TEXT("forge."))&&Mode!=TEXT("forge.start"))
+        if(const auto* M=ColdSteelAuthority::Model(C))R.Item=M->ForgeJob().Id;
+    if(Mode.StartsWith(TEXT("assembly."))&&Mode!=TEXT("assembly.start"))
+        if(const auto* M=ColdSteelAuthority::Model(C))R.Item=M->GunAssemblyJob().Id;
     if(Mode.StartsWith(TEXT("alchemy."))&&Mode!=TEXT("alchemy.start"))
         if(const auto* M=ColdSteelAuthority::Model(C))R.Item=M->AlchemyJob().Id;
     if(Mode.StartsWith(TEXT("wood."))&&Mode!=TEXT("wood.start"))
@@ -48,23 +55,40 @@ void ColdSteelStationNet::Input(const UObject* C,FName System,uint8 Op,FName Rec
 {
     if(!IsClient(C))return;auto* PC=UGameplayStatics::GetPlayerController(C,0);
     if(auto* PS=PC?PC->GetPlayerState<AColdSteelPlayerState>():nullptr)
+    {
+        if(System==TEXT("wood")&&Op==0)
+        {
+            const auto* Wood=Cast<UWoodworkingSystem>(C);
+            if(Wood)PS->ServerOpenWoodworking(PC->GetPawn(),Wood->Job().Id,Wood->Station(),++PS->WoodInputSerial);
+            return;
+        }
         PS->ServerStationInput(PC->GetPawn(),StationInputJobId(ColdSteelAuthority::ForPawn(PC->GetPawn()),System),System,Op,Recipe,Index,A,B,System==TEXT("wood")?++PS->WoodInputSerial:System==TEXT("alchemy")?++PS->AlchemyInputSerial:0);
+    }
 }
-bool AColdSteelPlayerState::StationReach(FName Kind) const
+bool AColdSteelPlayerState::StationReach(FName Kind,AActor* Target) const
 {
     const auto* Pawn=GetPawn();const auto* Health=Pawn?Pawn->FindComponentByClass<UFPSCombatHealthComponent>():nullptr;
     if(!Pawn||!Health||Health->IsDead())return false;
-    for(TActorIterator<AVoxelBuildPrefabActor> It(GetWorld());It;++It)
+    const auto Reachable=[&](const AVoxelBuildPrefabActor* Piece)
     {
-        const auto* Piece=*It;const auto* World=Cast<AVoxelBuildWorld>(Piece->GetOwner());
-        if(Piece->IsFalling()||!World||!World->HasPrefabAt(Piece->AnchorCell()))continue;
-        const bool Matches=Kind==TEXT("forge")?ColdSteelWorldInteraction::IsForgingStation(Piece):Kind==TEXT("wood")?ColdSteelWorldInteraction::IsWoodworkingBench(Piece):ColdSteelWorldInteraction::IsWorkbench(Piece);
-        if(!Matches)continue;
+        if(!IsValid(Piece)||Piece->GetWorld()!=GetWorld())return false;
+        const auto* World=Cast<AVoxelBuildWorld>(Piece->GetOwner());
+        if(Piece->IsFalling()||!World||!World->HasPrefabAt(Piece->AnchorCell()))return false;
+        const bool Matches=Kind==TEXT("forge")?ColdSteelWorldInteraction::IsForgingStation(Piece):
+            Kind==TEXT("wood")?ColdSteelWorldInteraction::IsWoodworkingBench(Piece):
+            Kind==TEXT("enhancement")?ColdSteelWorldInteraction::IsEnhancementBench(Piece):
+            (Kind==TEXT("assembly")||Kind==TEXT("ammo"))?Piece->PrefabId()==VoxelGunWorkbenchId:
+            Kind==TEXT("craft")&&Piece->PrefabId()==VoxelWorkbenchId;
+        if(!Matches)return false;
+        if((Kind==TEXT("enhancement")||Kind==TEXT("forge")||Kind==TEXT("wood"))&&World->PrefabActorAt(Piece->AnchorCell())!=Piece)return false;
         const FVector Near=Piece->GetComponentsBoundingBox(true).GetClosestPointTo(Pawn->GetPawnViewLocation());
-        if(FVector::DistSquared(Near,Pawn->GetPawnViewLocation())>FMath::Square(500.f))continue;
+        if(FVector::DistSquared(Near,Pawn->GetPawnViewLocation())>FMath::Square(Kind==TEXT("enhancement")?300.f:500.f))return false;
         FHitResult Hit;FCollisionQueryParams Q(SCENE_QUERY_STAT(WorkstationReach),false,Pawn);
-        if(!GetWorld()->LineTraceSingleByChannel(Hit,Pawn->GetPawnViewLocation(),Near,ECC_Visibility,Q)||Hit.GetActor()==Piece)return true;
-    }
+        return !GetWorld()->LineTraceSingleByChannel(Hit,Pawn->GetPawnViewLocation(),Near,ECC_Visibility,Q)||Hit.GetActor()==Piece;
+    };
+    if(Target)return Reachable(Cast<AVoxelBuildPrefabActor>(Target));
+    for(TActorIterator<AVoxelBuildPrefabActor> It(GetWorld());It;++It)
+        if(Reachable(*It))return true;
     return false;
 }
 void AColdSteelPlayerState::InitializeStations(UColdSteelStatusModel* M)
@@ -84,12 +108,35 @@ bool AColdSteelPlayerState::ExecuteWorldAction(const FColdSteelInventoryRequest&
     const bool Success=Shared&&PC&&Shared->WorldAction(M,PC->IsLocalController()?nullptr:this,R,Reason);
     if(R.Action==EColdSteelInventoryAction::Workstation&&R.Mode.StartsWith(TEXT("alchemy."))&&GuestAlchemy)
         GuestAlchemy->AuthorityTransactionFinished(Success,Reason);
+    if(R.Action==EColdSteelInventoryAction::Workstation&&R.Mode.StartsWith(TEXT("wood."))&&GuestWood)
+        GuestWood->AuthorityTransactionFinished(R.Mode,Success,Reason);
     return Success;
 }
 bool AColdSteelPlayerState::ExecuteStation(const FColdSteelInventoryRequest& R,UColdSteelStatusModel* M,FString& Reason)
 {
-    InitializeStations(M);const FString& Mode=R.Mode;bool Ok=false;
+    const FString& Mode=R.Mode;bool Ok=false;
     ColdSteelAuthority::FScope Context(M);
+    if(Mode.StartsWith(TEXT("enhancement.")))
+    {
+        if(!R.Target||R.Item.IsEmpty()||R.Item.Len()>128||R.ExpectedBenchId.Len()>128||R.Definition.ToString().Len()>128||!StationReach(TEXT("enhancement"),R.Target))
+        {Reason=TEXT("奥术工作台已移除或不可触及，请重新靠近");return false;}
+        auto* Enhancement=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>();
+        if(!Enhancement){Reason=TEXT("奥术工作台暂时不可用");return false;}
+        if(Mode==TEXT("enhancement.place"))
+            return Enhancement->TransferAuthority(R.Item,R.ExpectedBenchId,Reason);
+        const auto* Item=Enhancement->BenchItem();
+        if(!Item||Item->InstanceId!=R.Item)
+        {Reason=TEXT("工作台暂存武器已变化，请同步后重试");return false;}
+        if(Mode==TEXT("enhancement.retrieve"))
+            return Enhancement->TransferAuthority(FString(),R.Item,Reason);
+        if(Mode!=TEXT("enhancement.apply")){Reason=TEXT("未知奥术工作台操作");return false;}
+        if(!Enhancement->Supports(*Item)||int64(ColdSteelInventory::Number(*Item,TEXT("enhanceLevel")))!=R.Count)
+        {Reason=TEXT("武器已变化，请重新选择");return false;}
+        const FString Scroll=R.Definition.IsNone()?FString():R.Definition.ToString();
+        const auto Quote=Enhancement->Quote(R.Item,Scroll);
+        return Enhancement->ApplyAuthority(Quote,Reason);
+    }
+    InitializeStations(M);
     if(Mode.StartsWith(TEXT("alchemy.")))
     {
         if(Mode!=TEXT("alchemy.start")&&(R.Item.IsEmpty()||R.Item!=M->AlchemyJob().Id))
@@ -98,27 +145,47 @@ bool AColdSteelPlayerState::ExecuteStation(const FColdSteelInventoryRequest& R,U
     }
     else if(Mode.StartsWith(TEXT("forge.")))
     {
-        if(!StationReach(TEXT("forge"))){Reason=TEXT("请靠近铸造台");return false;}
-        if(Mode==TEXT("forge.start"))Ok=GuestForge->Start(R.Definition,Reason);
+        if(Mode!=TEXT("forge.start")&&(R.Item.IsEmpty()||R.Item!=M->ForgeJob().Id))
+        {Reason=TEXT("锻造工件已变化，请同步后重试");return false;}
+        auto* Work=GetPawn()?GetPawn()->FindComponentByClass<UFPSForgeWorkComponent>():nullptr;
+        if(!R.Target||(Work&&Work->IsWorking()&&Work->Station()!=R.Target.Get())||!StationReach(TEXT("forge"),R.Target.Get()))
+        {Reason=TEXT("铸造台已不可用，请重新靠近并打开");return false;}
+        if(Mode==TEXT("forge.start"))
+        {
+            if(!Work||!Work->IsAligned()||!R.Target||Work->Station()!=R.Target.Get())
+            {Reason=TEXT("请先在这张铸造台旁就位");return false;}
+            Ok=GuestForge->Start(R.Definition,Reason,FName(*R.Item),R.Target.Get());
+            if(Ok)Work->BindJob(GuestForge);
+        }
         else if(Mode==TEXT("forge.finish"))Ok=GuestForge->Finish(Reason);
         else if(Mode==TEXT("forge.claim"))Ok=GuestForge->Claim(Reason);
         else if(Mode==TEXT("forge.discard"))Ok=GuestForge->Discard(Reason);
     }
     else if(Mode.StartsWith(TEXT("assembly.")))
     {
-        if(!StationReach(TEXT("assembly"))){Reason=TEXT("请靠近枪械工作台");return false;}
-        if(Mode==TEXT("assembly.start")){GuestAssembly->SelectRecipe(R.Definition);Ok=GuestAssembly->Start(Reason);CalibrationAt=GetWorld()->GetTimeSeconds();}
+        if(!R.Target||!StationReach(TEXT("assembly"),R.Target)){Reason=TEXT("枪械工作台不可用或距离过远，请重新靠近并打开");return false;}
+        if(Mode!=TEXT("assembly.start")&&(R.Item.IsEmpty()||R.Item!=M->GunAssemblyJob().Id))
+        {Reason=TEXT("枪械工件已变化，请同步后重试");return false;}
+        GuestAssembly->SetStation(R.Target);
+        if(Mode==TEXT("assembly.start"))
+        {
+            if(!GuestAssembly->SelectRecipe(R.Definition)||!GuestAssembly->SelectMetal(FName(*R.Item)))
+            {Reason=TEXT("请先处理已有工件，并选择可用配方与金属锭");return false;}
+            Ok=GuestAssembly->Start(Reason);CalibrationAt=GetWorld()->GetTimeSeconds();
+        }
+        else if(Mode==TEXT("assembly.resume")){Ok=GuestAssembly->Resume(Reason);CalibrationAt=GetWorld()->GetTimeSeconds();}
         else if(Mode==TEXT("assembly.finish"))Ok=GuestAssembly->Finish(Reason);
         else if(Mode==TEXT("assembly.claim"))Ok=GuestAssembly->Claim(Reason);
         else if(Mode==TEXT("assembly.discard"))Ok=GuestAssembly->Discard(Reason);
     }
     else if(Mode.StartsWith(TEXT("wood.")))
     {
-        if(!StationReach(TEXT("wood"))){Reason=TEXT("请靠近木工工作台");return false;}
+        if(!R.Target||GuestWood->Station()!=R.Target.Get()||!StationReach(TEXT("wood"),R.Target.Get()))
+        {Reason=TEXT("木工工作台已不可用，请重新靠近并打开");return false;}
         if(Mode!=TEXT("wood.start")&&(R.Item.IsEmpty()||R.Item!=M->WoodworkingJob().Id))
         {Reason=TEXT("木工工件已变化，请同步后重试");return false;}
         if(Mode==TEXT("wood.start"))
-        {if(!GuestWood->NetworkOpen())GuestWood->Open(false);if(GuestWood->Select(R.Definition))Ok=GuestWood->StartMode(EWoodworkingMode::Craft);}
+        {if(!GuestWood->NetworkOpen())GuestWood->Open(false);if(GuestWood->Select(R.Definition)&&GuestWood->SelectCore(FName(*R.Item)))Ok=GuestWood->StartMode(EWoodworkingMode::Craft);}
         else if(Mode==TEXT("wood.resume"))
         {if(!GuestWood->NetworkOpen())GuestWood->Open(false);Ok=GuestWood->Resume();}
         else if(Mode==TEXT("wood.claim"))Ok=GuestWood->Claim();
@@ -127,7 +194,13 @@ bool AColdSteelPlayerState::ExecuteStation(const FColdSteelInventoryRequest& R,U
         Reason=GuestWood->Message();
     }
     else if(Mode==TEXT("craft"))
-    {if(!StationReach(TEXT("craft")))return false;Ok=GetGameInstance()->GetSubsystem<UColdSteelCraftingSystem>()->Craft(R.Definition,R.Count,Reason);}
+    {
+        auto* Crafting=GetGameInstance()->GetSubsystem<UColdSteelCraftingSystem>();
+        const bool Ammo=Crafting->IsAmmoRecipe(R.Definition);
+        if((Ammo&&!R.Target)||!StationReach(Ammo?FName(TEXT("ammo")):FName(TEXT("craft")),R.Target))
+        {Reason=Ammo?TEXT("请靠近并打开有效的枪械工作台"):TEXT("请靠近普通工作台");return false;}
+        Ok=Crafting->Craft(R.Definition,R.Count,Reason,R.Target);
+    }
     else if(Mode.StartsWith(TEXT("smelt.")))
     {
         auto* W=Cast<AVoxelBuildWorld>(R.Target);auto* Piece=W?W->PrefabActorAt(R.Anchor):nullptr;
@@ -140,6 +213,16 @@ bool AColdSteelPlayerState::ExecuteStation(const FColdSteelInventoryRequest& R,U
         else if(Mode==TEXT("smelt.upgrade"))Ok=Smelt->UpgradeFurnace(W,R.Anchor,Reason,int32(R.Count));
     }
     bStationDirty=true;if(Mode.StartsWith(TEXT("wood.")))bWoodDirty=true;return Ok;
+}
+void AColdSteelPlayerState::ServerOpenWoodworking_Implementation(APawn* InputPawn,const FString& JobId,AActor* Station,uint32 Sequence)
+{
+    auto* M=ColdSteelAuthority::ForPawn(GetPawn());
+    if(M&&InputPawn&&InputPawn==GetPawn()&&JobId==M->WoodworkingJob().Id&&Sequence&&static_cast<int32>(Sequence-WoodAuthoritySequence)>0)
+    {
+        InitializeStations(M);
+        GuestWood->SetStation(Station);
+    }
+    ServerStationInput_Implementation(InputPawn,JobId,TEXT("wood"),0,NAME_None,0,FVector2D::ZeroVector,FVector2D::ZeroVector,Sequence);
 }
 void AColdSteelPlayerState::ServerStationInput_Implementation(APawn* InputPawn,const FString& JobId,FName System,uint8 Op,FName Recipe,int32 Index,FVector2D A,FVector2D B,uint32 Sequence)
 {
@@ -167,14 +250,17 @@ void AColdSteelPlayerState::ServerStationInput_Implementation(APawn* InputPawn,c
         const bool Saved=Paused&&SaveShadowToHostDisk();
         bStationDirty=true;bServerDirty=!Saved;return;
     }
-    if(!StationReach(System))
+    AActor* Station=System==TEXT("assembly")?GuestAssembly->Station():System==TEXT("wood")?GuestWood->Station():nullptr;
+    if(((System==TEXT("assembly")||System==TEXT("wood"))&&!Station)||!StationReach(System,Station))
     {
         if(System==TEXT("wood"))GuestWood->NetworkUnavailable(TEXT("已离开木工工作台或角色无法操作，本次加工已停止"));
         return;
     }
     if(System==TEXT("forge"))
     {
-        if(Op==0)GuestForge->BeginStrike(Index,FMath::Clamp(A.X,0.,2.),FMath::Clamp(A.Y,0.,3.));
+        auto* Work=GetPawn()?GetPawn()->FindComponentByClass<UFPSForgeWorkComponent>():nullptr;
+        if(!Work||!Work->IsWorking()||!StationReach(TEXT("forge"),Work->Station()))return;
+        if(Op==0)GuestForge->BeginStrike(Index,FMath::Clamp(A.X,0.,2.),FMath::Clamp(A.Y,0.,3.),B);
         if(Op==1&&B.X>0&&B.Y>0&&B.X<=.25&&B.Y<=.25)GuestForge->Strike(Index,A,B);
     }
     else if(System==TEXT("assembly"))
@@ -183,7 +269,7 @@ void AColdSteelPlayerState::ServerStationInput_Implementation(APawn* InputPawn,c
         if(Op==1)
         {
             const double Now=GetWorld()->GetTimeSeconds();float Dt=float(FMath::Clamp(FMath::Min(A.X,Now-CalibrationAt),0.,.25));CalibrationAt=Now;
-            while(Dt>0){const float Step=FMath::Min(Dt,.05f);GuestAssembly->Calibrate(Step,float(A.Y));Dt-=Step;}
+            while(Dt>0){const float Step=FMath::Min(Dt,.05f);GuestAssembly->Calibrate(Step,float(A.Y),float(B.X));Dt-=Step;}
         }
     }
     else if(System==TEXT("wood"))
@@ -207,8 +293,12 @@ void AColdSteelPlayerState::TickStations(float Delta)
     if(!HasAuthority()||(!GuestForge&&!GuestAssembly))return;
     auto* PC=Cast<APlayerController>(GetOwner());if(!PC||PC->IsLocalController())return;
     const double Now=GetWorld()->GetRealTimeSeconds();if(Now<StationPublishAt)return;StationPublishAt=Now+.25;
-    if(GuestForge&&GuestForge->Active()&&!StationReach(TEXT("forge")))
-    {FString Reason;GuestForge->Finish(Reason);bStationDirty=true;bServerDirty=true;}
+    if(GuestForge&&GuestForge->Active())
+    {
+        const auto* Work=GetPawn()?GetPawn()->FindComponentByClass<UFPSForgeWorkComponent>():nullptr;
+        if(!Work||!Work->Station()||!StationReach(TEXT("forge"),Work->Station()))
+        {FString Reason;GuestForge->Finish(Reason);bStationDirty=true;bServerDirty=true;}
+    }
     if(GuestAlchemy&&(GuestAlchemy->Active()||GuestAlchemy->Job().Id!=LastAlchemyStateId||GuestAlchemy->Job().Revision!=LastAlchemyStateRevision||bAlchemyWasActive||GuestAlchemy->Saving()!=bAlchemyWasSaving))
     {
         ClientAlchemyState(GuestAlchemy->NetworkState(),GetPawn());LastAlchemyStateId=GuestAlchemy->Job().Id;
@@ -220,6 +310,7 @@ void AColdSteelPlayerState::TickStations(float Delta)
     if(GuestAssembly)
     {
         const auto& Job=GuestAssembly->Job();Assembly.Id=Job.Id;Assembly.InstalledMask=Job.InstalledMask;
+        Assembly.CalibrationVersion=Job.CalibrationVersion;
         Assembly.Scores=Job.Scores;Assembly.Misses=Job.Misses;Assembly.CalibrationSeconds=Job.CalibrationSeconds;
         Assembly.CalibrationTime=Job.CalibrationTime;Assembly.CalibrationError=Job.CalibrationError;
         Assembly.Quality=Job.Quality;Assembly.Finished=Job.bFinished;
@@ -232,8 +323,12 @@ void AColdSteelPlayerState::ClientStationState_Implementation(const FColdSteelFo
     if(!SourcePawn||SourcePawn!=GetPawn())return;
     auto* M=ColdSteelAuthority::Model(this);if(!M)return;
     const auto Previous=M->Snapshot();auto P=Previous;
-    if(P.ForgeJob.Id==Forge.JobId){P.ForgeJob.Hits=Forge.Hits;P.ForgeJob.bFinished=Forge.Finished;}
-    if(P.GunAssemblyJob.Id==Assembly.Id)
+    if(P.ForgeJob.Id==Forge.JobId)
+    {
+        P.ForgeJob.Hits=Forge.Hits;P.ForgeJob.bFinished=Forge.Finished;
+        P.ForgeJob.bHammeredBlank|=Forge.bHammeredBlank;
+    }
+    if(P.GunAssemblyJob.Id==Assembly.Id&&P.GunAssemblyJob.CalibrationVersion==Assembly.CalibrationVersion)
     {
         auto& Job=P.GunAssemblyJob;Job.InstalledMask=Assembly.InstalledMask;Job.Scores=Assembly.Scores;Job.Misses=Assembly.Misses;
         Job.CalibrationSeconds=Assembly.CalibrationSeconds;Job.CalibrationTime=Assembly.CalibrationTime;

@@ -1,9 +1,11 @@
-#include "../Dungeon/DungeonLayout.h"
+#include "ColdSteelSpellRewards.h"
+#include "ColdSteelSpellCrafting.h"
+#include "ColdSteelSpellFeedback.h"
+#include "../Monsters/UnknownSpellCombat.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Dungeons/WardBreakableGlass.h"
 #include "../UI/ColdSteelEnhancementSystem.h"
 #include "../Combat/CombatFormulaRuntime.h"
-#include "../Combat/CombatItemFormula.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Weapons/MeleeWeaponStats.h"
 #include "../Monsters/MonsterCombatComponent.h"
@@ -15,10 +17,9 @@
 #include "Components/PrimitiveComponent.h"
 #include "Engine/GameInstance.h"
 #include "Kismet/GameplayStatics.h"
-#include "Dom/JsonObject.h"
 
 FColdSteelSkillProgress UColdSteelStatusModel::HolyLightProgress() const
-{const auto* P=Current.Skills.Find(HolyLightSkill.Id);return P?*P:FColdSteelSkillProgress();}
+{return Current.Skills.FindRef(HolyLightSkill.Id);}
 
 FHolyLightCast UColdSteelStatusModel::HolyLightStats(int32 AtLevel) const
 {
@@ -37,31 +38,28 @@ FHolyLightCast UColdSteelStatusModel::HolyLightStats(int32 AtLevel) const
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     C.MagicDamageBonus=(1+SetEffect(TEXT("magicDamage")))*Rune.MagicDamage-1;
     double DamageFactor=1,HealFactor=1,CooldownReduction=0;
-    const auto* Player=RuntimePawn();
-    const auto* Status=Player?Player->FindComponentByClass<UCombatStatusFormula>():nullptr;
-    const int32 Chain=Status?Status->ChainSpellStacks():0;
+    const int32 Chain=ColdSteelSpellCrafting::ChainSpellStacks(RuntimePawn());
     if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         {
             auto Craft=[&](const TCHAR* Key){return E->CraftEffect(*Item,Key);};
-            C.CriticalChance+=100*(E->Effect(*Item,TEXT("critRate"))+Craft(TEXT("critChancePercent"))+Craft(TEXT("magicCritPercent")));
-            C.MagicPenetration=E->Effect(*Item,TEXT("magicPenetrationPercent"))+Craft(TEXT("magicPenetrationPercent"));
+            ColdSteelSpellCrafting::ApplyCriticalStats(C,*E,*Item);
             CooldownReduction=Craft(TEXT("magicCooldownPercent"));C.Range*=1+Craft(TEXT("magicRangePercent"));C.AimRadius*=1+Craft(TEXT("magicRangePercent"));
             C.CastSpeed=FMath::Max(.1f,float(1+Craft(TEXT("castSpeedPercent"))));
             DamageFactor=(1+Craft(TEXT("magicDamagePercent")))*(1+Chain*Craft(TEXT("chainSpellDamagePercent")));
-            C.bGrantChain=Craft(TEXT("chainSpellDamagePercent"))!=0;
-            C.CastHasteStacks=Craft(TEXT("castHasteStacks"));C.CastHasteDuration=E->CraftEffect(*Item,TEXT("castHasteDuration"),5000)/1000;
+            ColdSteelSpellCrafting::ApplyChainAndCastHaste(C,*E,*Item);
             C.RenewalStacks=Craft(TEXT("holyLightHoTStacks"));C.RenewalSeconds=E->CraftEffect(*Item,TEXT("holyLightHoTSeconds"),3);
             C.HealHasteStacks=Craft(TEXT("lightHasteStacks"));C.HealHasteSeconds=E->CraftEffect(*Item,TEXT("lightHasteDuration"),5000)/1000;
-            const auto Data=CombatItemFormula::ReadOnly(*Item);const TSharedPtr<FJsonObject>* Effects=nullptr;FString Specialty;
-            if(Data&&Data->TryGetObjectField(TEXT("_craftEffects"),Effects)&&(*Effects)->TryGetStringField(TEXT("staffSpecialty"),Specialty)&&Specialty==TEXT("light"))
+            if(ColdSteelSpellCrafting::HasStaffSpecialty(*Item,TEXT("light")))
                 HealFactor+=Craft(TEXT("lightHealPercent"));
         }
+    C.Range*=float(MagicRangeMultiplier());
     // Light healing never inherits damage-only, chain damage or critical modifiers.
     C.Healing=FMath::FloorToFloat(Base*HealFactor);
     C.Damage=FMath::FloorToFloat(Base*DamageFactor*MagicImplementMultiplier());
     C.ManaCost=SpellManaCost(TEXT("holyLight"),L);
-    C.Cooldown*=FMath::Max(.2,double(1-CooldownReduction)*(1-SetEffect(TEXT("cooldown"))));C.Cooldown*=Rune.SkillCooldown*Rune.MagicCooldown;
+    ColdSteelSpellCrafting::ApplyCooldownMultipliers(C.Cooldown,CooldownReduction,SetEffect(TEXT("cooldown")),
+        Rune.SkillCooldown*Rune.MagicCooldown);
     ApplySpellCastSpeed(C.CastSpeed);
     return C;
 }
@@ -77,6 +75,14 @@ bool UColdSteelStatusModel::BeginHolyLightCast(const FHolyLightCast& Spell)
 
 bool UColdSteelStatusModel::ApplyHolyLightHit(APawn* Shooter,AActor* Target,const FVector& Origin,const FHolyLightCast& Spell,float Damage,FHolyLightRewards& Batch,bool bTrain)
 {
+    if(UnknownSpell::IsCaster(Shooter))
+    {
+        const bool Applied=UnknownSpell::Hit(Shooter,Target,Damage,Spell.CriticalChance,Spell.CriticalDamageBonus,
+            Spell.MagicDamageBonus,Spell.MagicPenetration,UHolyLightDamage::StaticClass());
+        
+        if(Applied)++Batch.Hits;
+        return Applied;
+    }
     if(Shooter && Shooter->HasAuthority() && Damage>0)
         if(auto* Pane=UWardBreakableGlass::IntactPane(Target))
         {Pane->BreakAt(Pane->GetComponentLocation(),Pane->GetComponentLocation()-Origin);return false;}
@@ -93,13 +99,12 @@ bool UColdSteelStatusModel::ApplyHolyLightHit(APawn* Shooter,AActor* Target,cons
     StarMarrow::FHitRecovery CrystalRecovery(Shooter,Target,Spell.StarMarrow);
     const float Applied=UGameplayStatics::ApplyPointDamage(Target,FMath::FloorToFloat(Damage*(HolyLightTargets::IsZombie(Target)?Spell.ZombieMultiplier:1.f)),(End-Origin).GetSafeNormal(),Hit,Shooter->GetController(),Shooter,UHolyLightDamage::StaticClass());
     CrystalRecovery.Finish(Applied);
-    for(const auto& K:Rewards.Kills)Batch.KillRewards.FindOrAdd(K.Key)=K.Value;
+    Batch.KillRewards.Append(Rewards.Kills);
     if(Applied<=0)return false;
-    if(auto* Player=Cast<AFPSGAMECharacter>(Shooter))Player->NotifyConfirmedWeaponHit(Target,Applied);
+    ColdSteelSpellFeedback::NotifyHit(Shooter,Target,Applied,*Combat,Critical);
     if(bTrain&&!Target->ActorHasTag(TEXT("Summoned"))&&!Target->ActorHasTag(TEXT("NoSkillTraining")))
     {
-        ++Batch.Hits;if(Combat->IsDead())++Batch.Kills;
-        if(Critical){++Batch.CriticalHits;if(Combat->IsDead())++Batch.CriticalKills;}
+        ColdSteelSpellRewards::RecordTrainingHit(Batch,*Combat,Critical);
     }
     return true;
 }
@@ -108,10 +113,8 @@ void UColdSteelStatusModel::FinishHolyLightCast(const FHolyLightRewards& Batch)
 {
     SyncRuntime();auto P=Snapshot();const auto& T=HolyLightSkill.HolyLight;
     ColdSteelSkills::AddExperience(P,HolyLightSkill,Batch.Hits*T.HitExperience+Batch.Kills*T.KillExperience);
-    ColdSteelSkills::AddExperience(P,CriticalStrikeSkill,Batch.CriticalHits*CriticalStrikeSkill.CriticalHitExperience+Batch.CriticalKills*CriticalStrikeSkill.CriticalKillExperience);
-    for(const auto& K:Batch.KillRewards){if(!DungeonLayout::RecordKill(P.DungeonRun,K.Key.Get()))continue;P.Kills=FMath::Min(P.Kills+1,MAX_int32-1);P.Experience+=FMath::FloorToInt64(K.Value*TributeEffect(TEXT("expPercent")));}
-    while(P.Level<10000){const int64 Need=(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8;if(P.Experience<Need)break;P.Experience-=Need;++P.Level;P.Points=FMath::Min(P.Points+3,1000000);}
-    if(P.Level==10000)P.Experience=FMath::Min(P.Experience,(20ll+P.Level*20ll+int64(P.Level)*P.Level*12)*8-1);
+    ColdSteelSpellRewards::AccumulateCriticalTraining(P,CriticalStrikeSkill,Batch.CriticalHits,Batch.CriticalKills);
+    ColdSteelSpellRewards::AccumulateKillExperience(P,Batch.KillRewards,*this);
     if(StageTraining(MoveTemp(P)))for(const auto& K:Batch.KillRewards)RewardedVictims.Add(K.Key);
 }
 

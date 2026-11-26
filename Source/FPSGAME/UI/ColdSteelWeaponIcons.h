@@ -26,18 +26,19 @@ public:
     bool Supports(const FColdSteelItem& Item) const;
     FString Key(const FColdSteelItem& Item) const;
     static FString CatalogVariantIcon(const FString& Definition,const TMap<FString,FString>& Installed);
-    void Request(const FColdSteelItem& Item);
+    FString Request(const FColdSteelItem& Item,bool bJustModified=false);
     const FSlateBrush* Find(const FColdSteelItem& Item) const;
+    const FSlateBrush* FindRecipe(const FString& Recipe) const;
     FColdSteelWeaponIconReady OnReady;
     int32 RenderCount() const {return Completed;}
     bool IsIdle() const {return Queue.IsEmpty();}
     FFPSIconTaskState GetPerformanceState() const;
 #if WITH_EDITOR
     /** Author a base catalog PNG with the same assembly and materials as live inventory icons. */
-    bool ExportCatalogIcon(const FString& Definition,const FString& Filename);
+    bool ExportCatalogIcon(const FString& Definition,const FString& Filename,const FString& BladePart=FString());
 #endif
 private:
-    struct FJob {FColdSteelItem Item;FString Key;double RequestedSeconds=0.0;int32 DeferredAttempts=0;double RetryAfterSeconds=0.0;};
+    struct FJob {FColdSteelItem Item;FString Key;double RequestedSeconds=0.0;int32 DeferredAttempts=0;double RetryAfterSeconds=0.0;bool bJustModified=false;};
     struct FEntry {FSlateBrush Brush;uint64 Use=0;};
     struct FPreparedBounds {FBox Icon{ForceInit};FBox Pickup{ForceInit};};
     TMap<FString,FPreparedBounds> PreparedBoundsCache;
@@ -97,6 +98,7 @@ private:
     void ReleaseIdleStudioResources();
     bool PrepareMelee(const FColdSteelItem& Item);
     bool PrepareBow(const FColdSteelItem& Item);
+    static bool SupersampleBowIcon(const FColdSteelItem& Item) { return Item.Definition==TEXT("bow_frontier_compound"); }
     bool PrepareMaterial(const FColdSteelItem& Item);
     bool PrepareEquipment(const FColdSteelItem& Item);
     void BeginReadback(const FString& Key);

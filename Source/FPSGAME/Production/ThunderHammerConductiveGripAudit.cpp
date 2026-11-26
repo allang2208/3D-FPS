@@ -100,10 +100,10 @@ int32 UWarhammerNetworkAuditCommandlet::AuditConductiveGrips(const FString& Para
     const bool WasClient=GIsClient;GIsClient=true;Driver->SetWorld(World);World->SetNetDriver(Driver);
     Check(World->GetNetMode()==NM_ListenServer,TEXT("listen-server execution mode"));
     uint32 Attack=100;
-    ResetLocal(ThunderHammerCoil::Grip,true);Tool->BluntAttackId=++Attack;Tool->ServerBeginBluntCharge_Implementation(Attack);
+    ResetLocal(ThunderHammerCoil::Grip,true);Tool->BluntAttackId=++Attack;Tool->ServerBeginBluntCharge_Implementation(Attack,Item.InstanceId);
     Tool->BluntServerChargeStartedAt=-100.;Tool->BeginUse();
     Check(Lightning->Waves.Num()==1,FString::Printf(TEXT("listen host prediction and authority release only one coil bolt (actual %d, throw %d, call %d)"),Lightning->Waves.Num(),Tool->bThunderThrowSeat,Tool->bThunderCallSeat));
-    Tool->ServerBeginBluntAttack_Implementation(Attack,true,false);
+    Tool->ServerBeginBluntAttack_Implementation(Attack,true,false,Item.InstanceId);
     Check(Lightning->Waves.Num()==1,TEXT("duplicate charged release cannot repeat coil proc"));
     ResetLocal(ThunderHammerCoil::Grip,true);Tool->BluntAttackId=++Attack;Tool->bBluntServerCharging=false;Tool->BeginUse();
     Check(Lightning->Waves.IsEmpty(),TEXT("rejected host release cannot proc from prediction"));
@@ -111,7 +111,7 @@ int32 UWarhammerNetworkAuditCommandlet::AuditConductiveGrips(const FString& Para
     EnemySpawn.CustomPreSpawnInitialization=[](AActor* A){CastChecked<ACharacter>(A)->AutoPossessAI=EAutoPossessAI::Disabled;};
     auto* Target=World->SpawnActor<ANurseZombie>(FVector(500,0,100),FRotator::ZeroRotator,EnemySpawn);
     Target->Health=Target->MaxHealth=100000.f;
-    ResetLocal(ThunderHammerStaticField::Grip,true);Tool->BluntAttackId=++Attack;Tool->ServerBeginBluntCharge_Implementation(Attack);
+    ResetLocal(ThunderHammerStaticField::Grip,true);Tool->BluntAttackId=++Attack;Tool->ServerBeginBluntCharge_Implementation(Attack,Item.InstanceId);
     Tool->BluntServerChargeStartedAt=-100.;Tool->BeginUse();
     auto* Status=UCombatStatusFormula::GetOrAdd(Target);
     Check(Status->ElectrifiedCount()==2,TEXT("listen host adds two stacks once, not four"));
@@ -125,8 +125,8 @@ int32 UWarhammerNetworkAuditCommandlet::AuditConductiveGrips(const FString& Para
     auto* GuestTool=GuestPawn->FindComponentByClass<UProductionToolComponent>();GuestTool->Character=GuestPawn;GuestTool->Kind=TEXT("warhammer");GuestTool->EquippedId=Item.InstanceId;
     auto* GuestLightning=GuestPawn->FindComponentByClass<UFPSMeleeLightningComponent>();
     Seed.Skills.FindOrAdd(Host->LightningDefinition().Id).Level=17;Equip(Guest,ThunderHammerCoil::Grip);
-    const auto HostBefore=Host->Snapshot();GuestTool->ServerBeginBluntCharge_Implementation(++Attack);GuestTool->BluntServerChargeStartedAt=-100.;
-    GuestTool->ServerBeginBluntAttack_Implementation(Attack,true,false);
+    const auto HostBefore=Host->Snapshot();GuestTool->ServerBeginBluntCharge_Implementation(++Attack,Item.InstanceId);GuestTool->BluntServerChargeStartedAt=-100.;
+    GuestTool->ServerBeginBluntAttack_Implementation(Attack,true,false,Item.InstanceId);
     Check(ColdSteelAuthority::ForPawn(GuestPawn)==Guest,TEXT("remote authority resolves guest shadow profile"));
     Check(GuestLightning->Waves.Num()==1,TEXT("guest heavy queues one authoritative bolt"));
     Check(Guest->LightningProgress().Level==17&&FMath::IsNearlyEqual(GuestTool->AxeStrike.HammerCoilLightning.Damage,Guest->LightningStats(17,false).Damage),TEXT("guest coil uses own level seventeen damage snapshot"));

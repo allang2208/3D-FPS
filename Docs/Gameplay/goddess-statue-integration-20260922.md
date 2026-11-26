@@ -17,7 +17,7 @@
 ## 2. 下载通道（两个坑）
 
 1. **鉴权头格式**：Sketchfab Data API v3 只认 `Authorization: Token <裸 token>`；带 `api:` 前缀或改 `Bearer` 都返回 401。`/v3/models/{uid}/download` 返回 `source/glb/gltf/usdz` 的预签名 S3 链接，**300 秒有效**。
-2. **必须显式走系统代理**：本机 WinINET 代理为 `127.0.0.1:7897`，但 `curl` 不读 WinINET 设置。实测**直连 20–36 KB/s、走代理 1.5–10.2 MB/s（约 22–300 倍）**；185 MB 的 source 包走代理 19 秒完成。下载脚本 `D:\FPS3D\_sketchfab_goddess\fetch_diana.ps1`（`-x http://127.0.0.1:7897`）。
+2. **必须显式走系统代理**：本机 WinINET 代理为 `127.0.0.1:7897`，但 `curl` 不读 WinINET 设置。实测**直连 20–36 KB/s、走代理 1.5–10.2 MB/s（约 22–300 倍）**；185 MB 的 source 包走代理 19 秒完成。下载脚本 `D:/FPS3D/FPSGAME/SourceAssets/DungeonGoddessStatue20260922/Scripts/fetch_diana.ps1`（`-x http://127.0.0.1:7897`）。
 
 导入用的是 source 包里的原始 OBJ 与 8192² 原图，不是 glb 内嵌的 1.32 MB 压缩贴图。
 

@@ -1,4 +1,5 @@
 #include "HeQueMonster.h"
+#include "MonsterTargeting.h"
 #include "HeQueSweepTiming.h"
 #include "MonsterAIController.h"
 #include "FPSCombatHealthComponent.h"
@@ -42,7 +43,7 @@ bool AHeQueMonster::DesiredCombatFacing(float& Yaw) const
 bool AHeQueMonster::CanSweep(APawn* Victim) const
 {
     if(Busy()||SweepBlocked()||!SweepClip||SweepFrames.Num()<2||ActionClock()<NextSweepAt||
-        !IsValid(Victim)||!Victim->IsPlayerControlled())return false;
+        !IsValid(Victim)||!MonsterTargeting::IsOpponentPawn(Victim))return false;
     const auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
     if(Vitals&&Vitals->IsDead())return false;
     const FVector Delta=Victim->GetActorLocation()-GetActorLocation();
@@ -155,15 +156,15 @@ void AHeQueMonster::MeleeContact(const TArray<FHeQueSweepFrame>& Frames,int32 In
         for(const auto& Hit:Hits)
         {
             if(!Active())return;
-            AActor* Victim=Hit.GetActor();APawn* Player=Cast<APawn>(Victim);
+            AActor* Victim=MonsterTargeting::DamageRecipient(Hit.GetActor());APawn* Player=Cast<APawn>(Victim);
             if(!IsValid(Victim)||Victims.Contains(Victim)||
-                (!(Player&&Player->IsPlayerControlled()&&Hit.GetComponent()==Player->GetRootComponent())&&!Victim->IsA<AFPSIceWall>()))continue;
+                (!(Player&&MonsterTargeting::IsOpponentPawn(Player)&&Hit.GetComponent()==Hit.GetActor()->GetRootComponent())&&!Victim->IsA<AFPSIceWall>()))continue;
             const auto* Vitals=Victim->FindComponentByClass<UFPSCombatHealthComponent>();
             if(Vitals&&(Vitals->IsDead()||Vitals->IsInvulnerable()))continue;
             if(!bClamp&&FVector::DotProduct(Victim->GetActorLocation()-GetActorLocation(),GetActorForwardVector())<0.f)continue;
             FHitResult Block;
             const FVector CoverPoint=!bClamp&&Player?Player->GetActorLocation():FVector(Hit.ImpactPoint);
-            if(GetWorld()->LineTraceSingleByChannel(Block,GetNavAgentLocation()+FVector(0,0,100),CoverPoint,ECC_Visibility,Occlusion)&&Block.GetActor()!=Victim)continue;
+            if(GetWorld()->LineTraceSingleByChannel(Block,GetNavAgentLocation()+FVector(0,0,100),CoverPoint,ECC_Visibility,Occlusion)&&MonsterTargeting::DamageRecipient(Block.GetActor())!=Victim)continue;
             Victims.Add(Victim);
             const FVector Direction=bClamp?(To-From).GetSafeNormal():GetActorForwardVector();
             const float Before=Vitals?Vitals->Health:0.f;

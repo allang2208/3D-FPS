@@ -40,8 +40,8 @@ void AFPSGAMEPlayerController::RunGunsmithWorkbenchAudit()
         Check(GunsmithPanel->CategoryButtons.Num()==9&&GunsmithPanel->CategoryTextures.Num()==9&&GunsmithPanel->CategoryMaterials.Num()==9,TEXT("all nine generated category icons use packaged UI materials"));
         Check(GunsmithPanel->GlassLayers.Num()==3&&GunsmithPanel->PanelBrush.TintColor.GetSpecifiedColor().A<.85f,TEXT("three real blur panels have translucent tint"));
         for(const auto& Blur:GunsmithPanel->GlassLayers)Check(!Blur->IsUsingLowQualityFallbackBrush(),TEXT("glass uses real blur render path"));
-        for(const TCHAR* Font:{TEXT("NotoSansSC-Regular.otf"),TEXT("NotoSansSC-Medium.otf"),TEXT("JetBrainsMono-Regular.ttf"),TEXT("JetBrainsMono-Medium.ttf")})
-            Check(IFileManager::Get().FileExists(*(FPaths::ProjectContentDir()/TEXT("UI/GunsmithWorkbench/Fonts")/Font)),TEXT("project font exists independently of Windows installed faces"));
+        for(const TCHAR* Font:{TEXT("NotoSansSC-Regular.otf"),TEXT("NotoSansSC-SemiBold.ttf"),TEXT("NotoSansSC-Bold.otf")})
+            Check(IFileManager::Get().FileExists(*(FPaths::ProjectContentDir()/TEXT("UI/GunsmithWorkbench/Fonts")/Font)),TEXT("shared UI font weight is present in project content"));
         // The catalog is the reference: the panel must follow it rather than a
         // frozen snapshot, so retuning gunsmith.json cannot stale this audit.
         const auto Factory=G->Calculate(G->Definition(),FGunsmithParts());

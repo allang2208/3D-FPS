@@ -1,4 +1,4 @@
-param([ValidateSet('Listen','Dedicated')][string]$Mode='Listen',[switch]$Render,[ValidateSet('jason','kaitlin')][string]$Head='jason',[switch]$Hitch,[ValidateRange(0,8)][int]$HeavyCycles=0,[ValidateRange(0,800)][int]$ChargeLagMs=0,[ValidateSet('','Falcon','Ghost')][string]$Legend='',[switch]$Viewer,[switch]$SplitTargets)
+﻿param([ValidateSet('Listen','Dedicated')][string]$Mode='Listen',[switch]$Render,[ValidateSet('jason','kaitlin')][string]$Head='jason',[switch]$Hitch,[ValidateRange(0,8)][int]$HeavyCycles=0,[ValidateRange(0,800)][int]$ChargeLagMs=0,[ValidateSet('','Falcon','Ghost')][string]$Legend='',[switch]$Viewer,[switch]$SplitTargets)
 $ErrorActionPreference='Stop'
 $project='D:\FPS3D\FPSGAME'
 $exe='E:\Program Files (x86)\UE_5.8\Engine\Binaries\Win64\UnrealEditor-Cmd.exe'

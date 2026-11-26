@@ -28,6 +28,9 @@ protected:
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 private:
+    friend class AFPSGAMECharacter;
+    // Stack-scoped by TakeDamage; nested damage callbacks keep their own receipt.
+    float* AcceptedDamageReceipt=nullptr;
     UPROPERTY(Replicated) float DeathStartedAt=-1.f;
     UPROPERTY(Replicated) bool bDeathFromCrouch=false;
     bool bDeathApplied=false;

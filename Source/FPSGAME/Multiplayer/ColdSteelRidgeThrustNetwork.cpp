@@ -13,7 +13,7 @@ void AColdSteelPlayerState::ServerBeginRidgeStrike_Implementation(APawn* ActionP
     using namespace HighlandRidgeThrust;
     auto* Pawn=Cast<AFPSGAMECharacter>(GetPawn());
     const auto* Item=ShadowModel&&!ShadowModel->ActiveProductionTool()?ShadowModel->Equipped():nullptr;
-    if(!Pawn||Pawn!=ActionPawn||!Serial||!Installed(GetGameInstance()->GetSubsystem<UGunsmithSystem>(),Item)||
+    if(!Pawn||Pawn!=ActionPawn||HasAuthorityConsumableReservation(Pawn)||!Serial||!Installed(GetGameInstance()->GetSubsystem<UGunsmithSystem>(),Item)||
         Item->InstanceId!=Weapon||(Meta!=1&&Meta!=2&&!IsStrikeMeta(Meta)&&!IsHeavyMeta(Meta)))return;
     auto* Sword=Pawn->FindComponentByClass<URuneSwordComponent>();if(!Sword)return;
     const double Now=GetWorld()->GetTimeSeconds();

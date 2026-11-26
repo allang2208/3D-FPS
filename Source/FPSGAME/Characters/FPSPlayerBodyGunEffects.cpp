@@ -6,6 +6,7 @@
 #include "../Weapons/Super90WeaponAssets.h"
 #include "../Weapons/TubeShotgunAssets.h"
 #include "../Weapons/PKMLowpolyWeaponAssets.h"
+#include "../Weapons/M249WeaponAssets.h"
 #include "../Weapons/LMG201WeaponAssets.h"
 #include "../Weapons/M24WeaponAssets.h"
 #include "../Weapons/SVDWeaponAssets.h"
@@ -28,7 +29,7 @@ bool UFPSPlayerBodyComponent::CurrentGun(uint8 Hand,FFPSBodyWeapon& W) const
         if(Hand==0&&Character->DualPistols->IsOffhandOnly())return false;
         W.Source=Character->DualPistols->Hand(Hand).Mesh;
     }
-    else if(Hand==0&&Character->HasInventoryWeapon())W.Source=Character->AKMViewmodel;
+    else if(Character->HasInventoryWeapon()&&(Hand==0||Character->IsLoneOffhandPistol()))W.Source=Character->AKMViewmodel;
     else return false;
     const bool Dual=Character->DualPistols&&Character->DualPistols->IsActive();
     const FString& Instance=Dual?Character->DualPistols->Hand(Hand).Item.InstanceId:Character->ActiveInventoryWeapon;
@@ -56,7 +57,9 @@ void UFPSPlayerBodyComponent::DescribeGun(FFPSBodyWeapon& W) const
         const auto& Candidate=C->DualPistols->Hand(W.AttachHand);
         if(Candidate.Mesh==Source)H=&Candidate;
     }
-    if(!H&&(W.AttachHand!=0||!C->HasInventoryWeapon()||Source!=C->AKMViewmodel))return;
+    // The lone offhand pistol rides the shared main-hand scan on the left wrist.
+    const bool LoneLeft=W.AttachHand==1&&C->IsLoneOffhandPistol();
+    if(!H&&(!C->HasInventoryWeapon()||Source!=C->AKMViewmodel||(W.AttachHand!=0&&!LoneLeft)))return;
     W.GunInstance=H?H->Item.InstanceId:C->ActiveInventoryWeapon;
     W.GunDefinition=FName(*(H?H->Item.Definition:C->ActiveInventoryWeaponDefinition));
     W.bGunPistol=H||C->IsPistolWeapon();W.bGunRevolver=H?H->Revolver:C->bUseDanWesson715;
@@ -89,7 +92,7 @@ void UFPSPlayerBodyComponent::DescribeGun(FFPSBodyWeapon& W) const
         AddBank(C->RifleFireVariants);AddBank(C->RifleSuppressedVariants);AddBank(C->RevolverSpeedloaderSounds);AddBank(C->Super90LoaderSounds);
         // These contact cuts are normally loaded when reloading starts. Publish their
         // trusted paths at equip time so observers can prepare them asynchronously.
-        if(W.GunDefinition==FName(PKMLowpolyWeaponAssets::Definition)||W.GunDefinition==FName(LMG201WeaponAssets::Definition))
+        if(W.GunDefinition==FName(PKMLowpolyWeaponAssets::Definition)||W.GunDefinition==FName(M249WeaponAssets::Definition)||W.GunDefinition==FName(LMG201WeaponAssets::Definition))
             for(const TCHAR* Cue:{TEXT("CoverOpen"),TEXT("BeltLift"),TEXT("BoxOut"),TEXT("BoxInsert"),TEXT("BeltSeat"),TEXT("CoverClose"),TEXT("ChargePullMove"),TEXT("ChargeRearStop"),TEXT("ChargePushMove"),TEXT("ChargeFrontStop")})
             {
                 const FString Path=FString(Cue).StartsWith(TEXT("Charge"))?PKMLowpolyWeaponAssets::ChargeSoundPath(Cue):PKMLowpolyWeaponAssets::ReloadSoundPath(Cue);
@@ -102,7 +105,9 @@ void UFPSPlayerBodyComponent::DescribeGun(FFPSBodyWeapon& W) const
 
 void UFPSPlayerBodyComponent::ReportGunShot(uint8 Hand,USoundBase* Sound,float Volume,float Pitch,bool Aiming)
 {
-    FFPSGunEvent E;E.Hand=Hand;E.Sound=Sound;E.Volume=Volume;E.Pitch=Pitch;E.bAiming=Aiming;SendGunEvent(E);
+    FFPSGunEvent E;E.Hand=Hand;E.Sound=Sound;E.Volume=Volume;E.Pitch=Pitch;E.bAiming=Aiming;
+    if(Character.IsValid()&&Character->IsM24Weapon())E.PumpRate=Character->M24CyclePlayRate();
+    SendGunEvent(E);
 }
 void UFPSPlayerBodyComponent::ReportGunMechanical(uint8 Hand,USoundBase* Sound,float Volume,float StartTime)
 {
@@ -155,8 +160,7 @@ bool UFPSPlayerBodyComponent::AcceptGunEvent(FFPSGunEvent& E)
         if(Valid)Received=E.Sequence;return Valid;
     }
     if(E.Kind!=EFPSGunEvent::Shot&&E.Kind!=EFPSGunEvent::Mechanical)return false;
-    // Both M24 banks are preloaded. Choose from the current server loadout if
-    // a suppressor change and its first shot arrived on different channels.
+    // Equipment publication and the shot can arrive on different actor channels.
     if(E.Kind==EFPSGunEvent::Shot&&W.GunDefinition==M24WeaponAssets::Definition)
         E.Sound=W.bGunSuppressed?W.GunSuppressedSound:W.GunFireSound;
     else if(E.Kind==EFPSGunEvent::Shot&&(W.GunDefinition==SVDWeaponAssets::Definition||W.GunDefinition==SVCHWeaponAssets::Definition))
@@ -167,6 +171,8 @@ bool UFPSPlayerBodyComponent::AcceptGunEvent(FFPSGunEvent& E)
     }
     if(!E.Sound.IsNull()&&!W.GunSounds.Contains(E.Sound))return false;
     if(E.Kind==EFPSGunEvent::Shot&&TubeShotgunAssets::Supports(W.GunDefinition))return false;
+    if(E.Kind==EFPSGunEvent::Shot&&Character.IsValid()&&Character->IsM24Weapon())
+        E.PumpRate=Character->M24CyclePlayRate();
     Received=E.Sequence;return true;
 }
 void UFPSPlayerBodyComponent::RelayGunEvent(const FFPSGunEvent& Event)
@@ -282,6 +288,9 @@ bool UFPSPlayerBodyComponent::PresentGunEvent(const FFPSGunEvent& E,float Age)
         }
         if(E.Kind==EFPSGunEvent::Cartridge)
         {
+            // Dual revolver world reload owns its stable cylinder release.
+            // The FPS event would duplicate it using the old throwing frame.
+            if(DisplayState.bDual&&B.Revolver.bPrepared)return true;
             if(!B.Definition.GunCartridges.Contains(E.Cartridge))return true;
             auto* Geometry=E.Cartridge.Get();if(!Geometry)return false;
             const auto Root=Mesh->GetSocketTransform(TEXT("WPN_root"));

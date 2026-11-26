@@ -42,24 +42,8 @@ def materials():
     return [io.constant('M_Capri_Gunmetal',(.065,.073,.075),.57,1),fabrics[0],fabrics[0],io.constant('M_Capri_Thread',(.067,.070,.062),.88,0),fabrics[1],skin]
 
 def main(reuse_materials=False):
-    if '-run=' not in u.SystemLibrary.get_command_line().lower():
-        level=u.get_editor_subsystem(u.LevelEditorSubsystem)
-        if level and level.is_in_play_in_editor():raise RuntimeError('Cannot author capri assets during play')
-    mats=[io.load(path) for path in json.loads((R/'saved_assets.json').read_text())['materials']] if reuse_materials else materials()
-    saved={'materials':[m.get_path_name() for m in mats]}
-    for key,name in [('pants','Jason_SmokeGreyCapri'),('pants_high','Jason_SmokeGreyCapri_HighBootsFit')]:
-        data=json.loads((R/(name+'.json')).read_text());mesh=io.save_skeletal(data,'SK_'+name,mats)
-        E.set_metadata_tag(mesh,'EquipmentDefinition','ue_smoke_grey_capri');shared.save(mesh);saved[key]=mesh.get_path_name()
-    # Clothing-only meshes: never show severed body parts in an equipment icon.
-    garment=json.loads((R/'Jason_SmokeGreyCapri_Garment.json').read_text());source=io.load(garment['source']);native=io.copy(source)
-    for kind in ['icon','pickup']:
-        dm=shared.dynamic(garment,native)
-        if kind=='icon':
-            io.T.rotate_mesh(dm,u.Rotator(pitch=0,yaw=180,roll=0));path=DEST+'/Icons/SM_SmokeGreyCapri_Display'
-        else:
-            points=garment['positions'];center=[(min(p[i] for p in points)+max(p[i] for p in points))*.5 for i in range(3)]
-            io.T.translate_mesh(dm,u.Vector(*[-v for v in center]));io.T.rotate_mesh(dm,u.Rotator(pitch=0,yaw=0,roll=-90));path=DEST+'/Pickups/SM_SmokeGreyCapri'
-        saved['pants_'+kind]=shared.static(dm,path,mats[:5])
-    (R/'saved_assets.json').write_text(json.dumps(saved,indent=2),encoding='utf-8')
-    print('CAPRI_NATIVE_ASSETS_SAVED',flush=True)
+    # NativeWaistFit20261018: save to the current, fitted capri package family.
+    spec=importlib.util.spec_from_file_location('st6_current_capri_io',str(P/'Tools/ST6LowerSet/save_assets.py'))
+    current=importlib.util.module_from_spec(spec);spec.loader.exec_module(current)
+    current.save_capri()
 if __name__=='__main__':main()

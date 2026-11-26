@@ -25,6 +25,10 @@ public:
     UFPSImpactFXSubsystem();
     /** bPlaySound/bDecal: melee contacts (kukri stab) bring their own hit cue and leave no bullet-hole decal. */
     void SpawnImpact(const FHitResult& Hit, UCameraComponent* ViewCamera, bool bPlaySound = true, bool bDecal = true);
+    void SpawnBladeContact(const FHitResult& Hit,UCameraComponent* ViewCamera,bool bWorld);
+    void SpawnTorchEmbers(const FVector& Point,const FVector& Normal,UCameraComponent* ViewCamera);
+    void ShedTorchEmbers(const FVector& Point,const FVector& Airflow,UCameraComponent* ViewCamera);
+    void SpawnBleedingBurst(const FVector& Position,const FVector& Normal,int32 Stacks,AActor* BleedingActor);
     void ClearImpactDecalsForComponent(const UPrimitiveComponent* Component);
     void SpawnPounceLanding(const FHitResult& Ground, const FVector& Forward, float Radius, float Angle, UCameraComponent* ViewCamera, const AActor* Source, bool bPlaySound = true);
     void SpawnSlagSlam(const FHitResult& Ground, const FVector& Forward, float Radius, UCameraComponent* ViewCamera, const AActor* Source);
@@ -33,6 +37,8 @@ public:
     USoundBase* SacFlightCue() const { return SacFlightSound.Get(); }
     USoundBase* SacFuseCue() const { return SacFuseSound.Get(); }
     static float SacAudioGain();
+    /** Called by entry loading; prepares existing impact pools without spawning a hit. */
+    bool PumpRenderPreparation(double Deadline,FString& Error);
     virtual void OnWorldBeginPlay(UWorld& InWorld) override;
     virtual void Deinitialize() override;
     virtual void Tick(float DeltaTime) override;
@@ -49,9 +55,12 @@ private:
     static constexpr int32 BloodDropSlots = 96;
     static constexpr int32 GroundWaveSlots = 4;
     static constexpr int32 PressureWaveSlots = 4;
-    static constexpr int32 MaxActiveParticles = 192;
-    static constexpr int32 ParticleSlots = SparkSlots + DustSlots + ChipSlots + BloodMistSlots + BloodDropSlots + GroundWaveSlots + PressureWaveSlots;
-    static constexpr int32 ParticleGroups = 7;
+    static constexpr int32 BleedMistSlots = 32;
+    static constexpr int32 BleedDropSlots = 160;
+    static constexpr int32 MaxActiveParticles = 384;
+    static constexpr int32 TorchSparkSlots=192;
+    static constexpr int32 ParticleSlots = SparkSlots + DustSlots + ChipSlots + BloodMistSlots + BloodDropSlots + GroundWaveSlots + PressureWaveSlots + BleedMistSlots + BleedDropSlots + TorchSparkSlots;
+    static constexpr int32 ParticleGroups = 10;
     static constexpr int32 DecalSlots = 24;
     static constexpr int32 BloodDecalSlots = 48;
     static constexpr int32 VoiceSlots = 6;
@@ -63,6 +72,8 @@ private:
         FLinearColor Color = FLinearColor::White;
         double Born = 0.;
         float Life = 0.f, Gravity = 0.f, Opacity = 0.f, Variation = 0.f;
+        float EmberDrag = 0.f;
+        FVector EmberDrift=FVector::ZeroVector;
         FVector LandingPoint = FVector::ZeroVector, LandingNormal = FVector::UpVector;
         bool bHasLandingPlane = false;
     };
@@ -72,11 +83,16 @@ private:
         FVector Position = FVector::ZeroVector;
         double Time = -10.;
     };
-    EFPSImpactSurface ResolveSurface(const FHitResult& Hit);
+    enum class EContactKind : uint8 { Standard, BladeBody, BladeScenery, Torch };
+    void RenderContact(const FHitResult& Hit,UCameraComponent* ViewCamera,bool bPlaySound,bool bDecal,EContactKind Kind);
+    EFPSImpactSurface ResolveSurface(const FHitResult& Hit,bool bBodyContact);
     EFPSImpactSurface SurfaceForObject(const UObject* Object);
     void AddParticle(int32 Group, const FVector& Position, const FVector& Normal,
         EFPSImpactSurface Surface, float DetailScale);
-    void AddFleshBurst(const FHitResult& Hit, const FVector& Normal, bool Full, bool Far, const FHitResult* Ground);
+    enum class ETorchDebris : uint8 { Spark, Streak, Char };
+    bool AddTorchDebris(ETorchDebris Type,const FVector& Point,const FVector& Axis,const FVector& Drift,const FVector& SurfaceNormal);
+    int32 TorchSparkCursor=0;
+    void AddFleshBurst(const FHitResult& Hit,const FVector& Normal,const FVector& Axis,bool bCut,bool Full,bool Far,const FHitResult* Ground);
     bool FindBloodLanding(const FHitResult& Hit, UCameraComponent* ViewCamera, double Now, FHitResult& Ground);
     void AddBloodWall(const FHitResult& Hit,const FVector& Axis,UCameraComponent* View,double Now);
     void AddBloodStain(const FHitResult& Ground, const FVector& Origin, double Now);
@@ -125,4 +141,7 @@ UPROPERTY() TArray<TObjectPtr<USoundBase>> Sounds;
     int32 LastSoundVariant[6] = {-1,-1,-1,-1,-1,-1};
     float BurstTokens = 8.f;
     bool bReady = false;
+    int32 PreparationCursor = 0;
+    double PreparationWaitStarted = 0.;
+    bool bPreparationSubmitted = false, bRenderPreparationReady = false;
 };

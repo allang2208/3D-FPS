@@ -1,9 +1,11 @@
 #include "KukriWeaponComponent.h"
+#include "KukriDecisiveComponent.h"
 #include "KukriArmsMeshComponent.h"
 #include "KukriRhythm.h"
 #include "KukriQuickRhythm.h"
 #include "../MeleeSmallTargetQuery.h"
 #include "../MeleeWeaponStats.h"
+#include "../PistolDualWieldComponent.h"
 #include "../../Combat/CombatStatusFormula.h"
 #include "../../Combat/WeaponDamageTypes.h"
 #include "../../Dungeons/WardBreakableGlass.h"
@@ -43,10 +45,17 @@ bool UKukriWeaponComponent::BeginQuickCombat()
     if(!P||!P->CanStartQuickCombatPriority())return false;
     if(!IsEquipped()||!Viewmodel||!Viewmodel->GetSkeletalMeshAsset()||!Animations.FindRef(KukriQuickClip))return false;
     // A swing or sprint attack in progress yields to F (priority interrupt), the draw does not (CanStartQuickCombatPriority).
+    auto* Offhand=P->FindComponentByClass<UPistolDualWieldComponent>();
+    const bool PreserveTrigger=Offhand&&Offhand->IsMeleePair();
+    const bool TriggerHeld=PreserveTrigger&&Offhand->Hand(1).Held;
+    const bool TriggerPending=PreserveTrigger&&Offhand->Hand(1).Pending;
+    const bool ResumeReload=Offhand&&Offhand->IsMeleePair()&&(Offhand->Hand(1).Reloading||Offhand->Hand(1).ReloadQueued);
+    const FString ReloadAmmo=ResumeReload?Offhand->Hand(1).PendingAmmoType:FString();
     P->InterruptActionsForPriority(false);
+    if(ResumeReload)Offhand->QueueMeleeReload(ReloadAmmo);
     if(!CanUse()||IsBusy())return false;
     auto* Profile=KukriQuickProfile(GetWorld());
-    const auto* Item=Profile?Profile->Equipped():nullptr;
+    const auto* Item=Profile?Profile->ActiveKukriWeapon():nullptr;
     if(!Item||Item->InstanceId!=InstanceId||Profile->ActiveProductionTool())return false;
     const float Rate=FMath::Max(.05f,LightningHaste::ActionSpeed(P));
     // The skill cost replaces the swing cost and is paid once; F stays reserved until the strike is back on the stance.
@@ -60,11 +69,13 @@ bool UKukriWeaponComponent::BeginQuickCombat()
     Shot.AttackMeta|=0x80;
     Shot.ToughnessDamageMultiplier=QuickCast.ToughnessMultiplier;
     bQuickCombat=true;bQuickContactDone=false;bQuickKillPending=false;
+    if(auto* Pendant=P->FindComponentByClass<UKukriDecisiveComponent>())Pendant->BeginLocal(Shot,true);
     bSwingPlayed=bImpactConfirmed=bWallHit=false;HitActors.Reset();HitStop=0.f;ImpactAge=-1.f;
     ResetStrike();StrikeAge=-1.f;CameraCarryAge=-1.f;
     // The swing combo starts over after the quick melee.
     NextStage=0;LastAttackEnd=-1.;
     SetClip(KukriQuickClip,false,KukriRhythm::EntryBlendSeconds);
+    if(PreserveTrigger)Offhand->RestoreMeleeTrigger(TriggerHeld,TriggerPending);
     Profile->TrainQuickCombat(Profile->QuickCombatDefinition().UseExperience);
     return true;
 }
@@ -164,12 +175,18 @@ void UKukriWeaponComponent::QuickContact()
         if(Applied<=0.f&&!bKilled)continue;
         if(Eligible)++MasteryHits;
         ConfirmQuickImpact(Hit,false);
+        if(P->HasAuthority())SpawnContactFX(Hit,false);
         P->NotifyConfirmedWeaponHit(Target,Applied,&Receipt,false);
         // Pure push after the damage, no stun reaction (the skill's knockback).
         Combat->ReceiveMeleeKnockback(P,QuickCast.KnockbackCM);
         if(P->HasAuthority()&&!bKilled&&QuickCast.BleedChance>0.f&&FMath::FRand()<QuickCast.BleedChance)
             if(auto* Status=UCombatStatusFormula::GetOrAdd(Target))Status->AddBleeding(P,1);
         if(Eligible&&bKilled)bQuickKillPending=true;
+    }
+    if(!bWallHit)
+    {
+        FHitResult Surface;
+        if(MeleeSmallTargets::BladeScenery(World,P,Origin,Pommel,Surface))SpawnContactFX(Surface,true);
     }
     // A miss still stops dead on the contact frame, briefly.
     if(!bImpactConfirmed&&!bWallHit)HitStop=FMath::Max(HitStop,KukriQuickRhythm::MissStop);
@@ -196,7 +213,6 @@ void UKukriWeaponComponent::ConfirmQuickImpact(const FHitResult& Hit,bool bWorld
     if(StabThudSounds.Num())
         UGameplayStatics::PlaySoundAtLocation(this,StabThudSounds[FMath::RandRange(0,StabThudSounds.Num()-1)],Hit.ImpactPoint,
             KukriRhythm::StabThudVolume,KukriRhythm::StabThudPitch*KukriQuickRhythm::ThudPitchScale);
-    SpawnContactFX(Hit,false);
 }
 
 void UKukriWeaponComponent::FinishQuickCombat()

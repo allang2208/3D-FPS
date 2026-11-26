@@ -10,7 +10,7 @@ if not icon.is_file():
     raise FileNotFoundError('Restore the generated Cold Steel ice-wall icon: '+str(icon))
 runtime = ROOT/'Content/ColdSteelData/Skills';runtime.mkdir(parents=True, exist_ok=True)
 shutil.copy2(icon, runtime/'ice_wall_cold_steel.png')
-source = Path('E:/无尽轮回/长期备份/2026-7-13-1/game-dev/assets/sounds/skills/icewall.mp3')
+source = Path('F:/FPSGAMEData/ArtProduction/SourceAssets/LegacyGameDev/assets/sounds/skills/icewall.mp3')
 if source.exists():
     shutil.copy2(source, SRC/'icewall.mp3')
     import imageio_ffmpeg

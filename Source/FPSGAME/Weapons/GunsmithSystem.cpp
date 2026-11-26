@@ -1,5 +1,10 @@
 #include "GunsmithSystem.h"
+#include "Bow/BowPartReceipt.h"
+#include "WoodenTorchItem.h"
+#include "LMGStabilityGrip.h"
 #include "FullAutoTrigger.h"
+#include "M24Attachments.h"
+#include "M24ReloadTiming.h"
 #include "TacticalDeviceVariants.h"
 #include "G18WeaponAssets.h"
 #include "PitViper2011WeaponAssets.h"
@@ -16,6 +21,8 @@
 #include "Super90SpeedloaderAssets.h"
 #include "Animation/AnimSequence.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "../UI/ColdSteelWeaponIcons.h"
+#include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../UI/ColdSteelItemReadCache.h"
 #include "../Production/ProductionToolEnhance.h"
 #include "../FPSGAMECharacter.h"
@@ -29,6 +36,18 @@ namespace {
 double Num(const TSharedPtr<FJsonObject>& O,const TCHAR* K,double Default=0){double V=Default;O->TryGetNumberField(K,V);return V;}
 TArray<FString> Strings(const TSharedPtr<FJsonObject>& O,const TCHAR* K){TArray<FString> R;for(const auto& V:O->GetArrayField(K))R.Add(V->AsString());return R;}
 FString Part(const FGunsmithParts& P,const FString& S){const FString* V=P.Find(S);return V?*V:TEXT("false");}
+bool RequiresM24AdvancedAction(const FString& Slot,const FString& Id)
+{
+    if(Id.IsEmpty()||Id==TEXT("false"))return false;
+    if(Slot==TEXT("stock"))return Id!=M24Attachments::CheekRest;
+    return Slot==TEXT("reargrip")||Slot==TacticalDeviceVariants::PrimarySlot;
+}
+bool HasRetiredHandmadeBowBody(const FColdSteelItem& Item)
+{
+    if(!ColdSteelInventory::IsBow(Item))return false;
+    const auto Data=ColdSteelItemData::Read(Item.Data);const TSharedPtr<FJsonObject>* Parts=nullptr;FString Riser;
+    return Data&&Data->TryGetObjectField(TEXT("gunsmith_parts"),Parts)&&(*Parts)->TryGetStringField(TEXT("riser"),Riser)&&Riser==TEXT("woodcrafted_heavy");
+}
 }
 bool UGunsmithSystem::HasUnsupportedForegrip(const FColdSteelItem& Item) const
 {
@@ -37,19 +56,13 @@ bool UGunsmithSystem::HasUnsupportedForegrip(const FColdSteelItem& Item) const
     const auto* Main=Model?Model->Equipped():nullptr;
     const auto* Off=Main?Model->Equipped(Main->Cell==6?8:11):nullptr;
     if(!Main||!Off||Model->ActiveProductionTool()||!ColdSteelInventory::IsDualPistol(*Off))return false;
-    const bool Dual=ColdSteelInventory::IsDualPistol(*Main)||ColdSteelStaff::IsStaff(*Main);
+    const bool Dual=ColdSteelInventory::IsDualPistol(*Main)||ColdSteelInventory::UsesStaffMelee(*Main);
     return Dual&&(Item.InstanceId==Main->InstanceId||Item.InstanceId==Off->InstanceId);
 }
 FGunsmithStats UGunsmithSystem::CalculateItem(const FColdSteelItem& Item,const FGunsmithParts& Parts) const
 {
-    auto S=Calculate(Item.Definition,Parts,HasUnsupportedForegrip(Item));
-    const auto O=ColdSteelItemData::Read(Item.Data);const TSharedPtr<FJsonObject>* Q=nullptr;
-    if(!Weapon(Item.Definition)||!O||!O->TryGetObjectField(TEXT("_assemblyQuality"),Q)||!Q||!*Q)return S;
-    const double Recoil=FMath::Clamp(Num(*Q,TEXT("recoil"),1),.88,1.);
-    const double Spread=FMath::Clamp(Num(*Q,TEXT("spread"),1),.85,1.);
-    S.Recoil*=Recoil;S.RecoilMultiplier*=Recoil;
-    S.Handling.RecoilIndex=S.Recoil;S.Handling.RecoilScale*=Recoil;S.Spread*=Spread;
-    return S;
+    // Assembly quality now enters ProcessedDamage alongside forging; it no longer changes handling.
+    return Calculate(Item.Definition,Parts,HasUnsupportedForegrip(Item));
 }
 void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
 {
@@ -72,14 +85,38 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
         O->TryGetBoolField(TEXT("toughness_range_limited"),W.bToughnessRangeLimited);
         // Common numeric parts apply to every catalog weapon, including future entries.
         const TSharedPtr<FJsonObject>* Common=nullptr;
-        if(Catalog->TryGetObjectField(TEXT("common_options"),Common))
+        bool InheritCommonOptions=true;
+        O->TryGetBoolField(TEXT("inherit_common_options"),InheritCommonOptions);
+        if((InheritCommonOptions||W.Id==TEXT("ue_m24"))&&Catalog->TryGetObjectField(TEXT("common_options"),Common))
         {
             auto Options=O->GetObjectField(TEXT("options"));
             for(const auto& Slot:(*Common)->Values)
             {
+                // M24 opts into common tactical devices through its advanced chassis.
+                if(!InheritCommonOptions&&Slot.Key!=TacticalDeviceVariants::PrimarySlot)continue;
                 W.Allowed.AddUnique(FString(*Slot.Key));
                 TArray<TSharedPtr<FJsonValue>> Merged;
                 const TArray<TSharedPtr<FJsonValue>>* Existing=nullptr;
+                if(Options->TryGetArrayField(Slot.Key,Existing))Merged=*Existing;
+                for(const auto& Entry:Slot.Value->AsArray())
+                {
+                    const FString Id=Entry->AsObject()->GetStringField(TEXT("id"));
+                    if(!Merged.ContainsByPredicate([&](const auto& V){return V->AsObject()->GetStringField(TEXT("id"))==Id;}))Merged.Add(Entry);
+                }
+                Options->SetArrayField(Slot.Key,Merged);
+            }
+        }
+        // Class-exclusive shared parts use one authoritative option definition.
+        // M249 deliberately opts out of the unrestricted common catalog.
+        const TSharedPtr<FJsonObject>* LMGParts=nullptr;
+        if(LMGStabilityGrip::Supports(W.Id)&&Catalog->TryGetObjectField(TEXT("lmg_options"),LMGParts))
+        {
+            auto Options=O->GetObjectField(TEXT("options"));
+            for(const auto& Slot:(*LMGParts)->Values)
+            {
+                W.Allowed.AddUnique(FString(*Slot.Key));
+                const TArray<TSharedPtr<FJsonValue>>* Existing=nullptr;
+                TArray<TSharedPtr<FJsonValue>> Merged;
                 if(Options->TryGetArrayField(Slot.Key,Existing))Merged=*Existing;
                 for(const auto& Entry:Slot.Value->AsArray())
                 {
@@ -135,6 +172,8 @@ void UGunsmithSystem::Initialize(FSubsystemCollectionBase& Collection)
                 A.ReadSpecialEffects(P);
                 const auto T=P->GetObjectField(TEXT("stats"));A.ADS=Num(T,TEXT("ads_percent"));A.Recoil=Num(T,TEXT("recoil_mult"),1);A.Shake=Num(T,TEXT("shake_mult"),1);A.Stability=Num(T,TEXT("stability_mult"),1);
                 A.EquipSpeedBonus=Num(T,TEXT("equip_speed_bonus"));
+                A.FirearmCriticalDamageBonus=Num(T,TEXT("crit_damage_bonus"));
+                A.CriticalStunSeconds=Num(T,TEXT("critical_stun_seconds"));
                 A.ADSSeconds=Num(T,TEXT("ads_seconds"));A.Speed=Num(T,TEXT("bullet_speed_mult"),1);A.Interval=Num(T,TEXT("fire_interval_mult"),1);A.Spread=Num(T,TEXT("hip_spread_mult"),1);A.Range=Num(T,TEXT("range_mult"),1);A.Reload=Num(T,TEXT("reload_mult"),1);A.EmptyReload=Num(T,TEXT("empty_reload_mult"),A.Reload);A.Magazine=Num(T,TEXT("mag_delta"));Options.Add(A);
             }W.Options.Add(FString(*S.Key),Options);
         }Weapons.Add(W.Id,W);
@@ -149,6 +188,7 @@ void UGunsmithSystem::Deinitialize(){Close();Super::Deinitialize();}
 const FGunsmithWeapon* UGunsmithSystem::Weapon(const FString& D)const{return Weapons.Find(D);}
 FString UGunsmithSystem::CategoryLabel(const FString& Definition,const FString& Slot) const
 {
+    if(Definition==TEXT("ue_m24")&&Slot==TEXT("stock"))return TEXT("枪托");
     if(Slot==TacticalDeviceVariants::PrimarySlot&&TacticalDeviceVariants::SupportsSecondary(Definition))return TEXT("战术挂件Ⅰ");
     if(Slot==TEXT("reargrip") && PistolGripSurface::Supports(Weapon(Definition)))return TEXT("握把防滑纹");
     const int32 Index=Slots(Definition).IndexOfByKey(Slot);
@@ -180,16 +220,23 @@ FGunsmithParts UGunsmithSystem::Normalize(const FString& D,const FGunsmithParts&
         }
         FString Id=(Slot==TEXT("blade_2")||(ColdSteelFrostRunes::IsWarhammer(D)&&Slot==TEXT("rune")))?
             ColdSteelFrostRunes::Upgrade(D,P.Value):P.Value;
+        // M24's named iron sight and its no-optic option use the same assembly.
+        if(D==TEXT("ue_m24")&&Slot==TEXT("optic")&&Id==TEXT("m24_palma_iron"))Id=TEXT("none");
         if(D==RSH12WeaponAssets::Definition && Slot==TEXT("optic"))Id=RSH12OpticAssets::Upgrade(Id);
         if(Slot==TEXT("stock")&&Id==TEXT("true"))Id=TEXT("compact");
+        if(IsBow(D)&&Slot==TEXT("riser")&&Id==TEXT("woodcrafted_heavy"))Id=TEXT("heavy_limb");
         if(Id!=TEXT("false")&&Option(D,Slot,Id))Result.Add(Slot,Id);
     }
     if(D==ColdSteelFrostRunes::Zhanmadao)
         if(const TCHAR* Rune=ColdSteelFrostRunes::LegacyBladeRune(D,Input.FindRef(TEXT("blade_1"))))
             Result.Add(TEXT("blade_2"),Rune);
-    // Named factory parts are real options with stats. Resolve legacy empty /
-    // false factory slots through the catalog, preserving every installed
-    // replacement. Only weapons explicitly declaring defaults opt into this.
+    // Remove locked upgrades before filling the vacated slots with their catalog defaults.
+    if(D==TEXT("ue_m24")&&!M24Attachments::AdvancedInterfacesUnlocked(Result))
+    {
+        for(auto It=Result.CreateIterator();It;++It)
+            if(RequiresM24AdvancedAction(It.Key(),It.Value()))It.RemoveCurrent();
+    }
+    // Named factory parts are real options with stats.
     const auto* W=ModifiableWeapon(D);
     const TSharedPtr<FJsonObject>* Factory=nullptr;
     if(W && W->Source && W->Source->TryGetObjectField(TEXT("default_parts"),Factory))
@@ -205,8 +252,8 @@ FGunsmithParts UGunsmithSystem::Normalize(const FString& D,const FGunsmithParts&
 FGunsmithParts UGunsmithSystem::Installed(const FColdSteelItem& I)const
 {
     if(IsStaff(I.Definition))return Normalize(I.Definition,ColdSteelStaff::Installed(I));
-    FGunsmithParts P;TSharedPtr<FJsonObject> O;const TSharedPtr<FJsonObject>* Parts=nullptr;
-    if(FJsonSerializer::Deserialize(TJsonReaderFactory<>::Create(I.Data),O)&&O->TryGetObjectField(TEXT("gunsmith_parts"),Parts))for(const auto& Pair:(*Parts)->Values){FString Value;if(Pair.Value->Type==EJson::Boolean)Value=Pair.Value->AsBool()?TEXT("true"):TEXT("false");else if(Pair.Value->Type==EJson::String)Value=Pair.Value->AsString();P.Add(FString(*Pair.Key),Value);}
+    FGunsmithParts P;const auto O=ColdSteelItemData::Read(I.Data);const TSharedPtr<FJsonObject>* Parts=nullptr;
+    if(O&&O->TryGetObjectField(TEXT("gunsmith_parts"),Parts))for(const auto& Pair:(*Parts)->Values){FString Value;if(Pair.Value->Type==EJson::Boolean)Value=Pair.Value->AsBool()?TEXT("true"):TEXT("false");else if(Pair.Value->Type==EJson::String)Value=Pair.Value->AsString();P.Add(FString(*Pair.Key),Value);}
     return Normalize(I.Definition,P);
 }
 double UGunsmithSystem::PelletSpreadMultiplier(const FString& D,const FGunsmithParts& P) const
@@ -237,13 +284,19 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
         {
             const auto& M=Option(D,Pair.Key,Pair.Value)->Bow;
             R.Bow.Damage*=M.Damage;R.Bow.Speed*=M.Speed;R.Bow.Stamina*=M.Stamina;
+            R.Bow.ShotDamage*=M.ShotDamage;R.Bow.PhysicalDamage*=M.PhysicalDamage;R.Bow.Range*=M.Range;R.Bow.CriticalDamageBonus+=M.CriticalDamageBonus;
             // Legacy draw_mult is a duration factor: /0.8 means +25% speed.
             R.Bow.DrawSpeedBonus+=M.DrawSpeedBonus+1./FMath::Max(.05,M.Draw)-1.;
-            R.Bow.Nock*=M.Nock;R.Bow.Hold*=M.Hold;R.Bow.Sway*=M.Sway;R.Bow.Spread*=M.Spread;R.Bow.ADS*=M.ADS;
+            R.Bow.RhythmWindowBonus+=M.RhythmWindowBonus;
+            R.Bow.Nock*=M.Nock;R.Bow.ChargeStamina*=M.ChargeStamina;R.Bow.Sway*=M.Sway;R.Bow.Spread*=M.Spread;R.Bow.ADS*=M.ADS;
+            R.Bow.PiercingDamage*=M.PiercingDamage;
+            R.Bow.MagicDamage*=M.MagicDamage;
+            R.Bow.ManaCost*=M.ManaCost;
             ++R.ActiveParts;
         }
         R.Bow.Draw=1./FMath::Max(.05,1.+R.Bow.DrawSpeedBonus);
         R.Damage*=R.Bow.Damage;R.Interval*=R.Bow.Draw;R.Speed*=R.Bow.Speed;R.ADS*=R.Bow.ADS;
+        R.Damage*=R.Bow.ShotDamage*R.Bow.PhysicalDamage;R.Range*=R.Bow.Range;
         return R;
     }
     if(IsMelee(D))
@@ -252,6 +305,8 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
         {
             const auto& M=Option(D,Pair.Key,Pair.Value)->Melee;
             R.Melee.Damage*=M.Damage;R.Melee.PhysicalDamage*=M.PhysicalDamage;R.Melee.AttackSpeed*=M.AttackSpeed;R.Melee.Range*=M.Range;
+            R.Melee.NormalAttackStamina*=M.NormalAttackStamina;
+            R.Melee.PhysicalDefenseMultiplier*=M.PhysicalDefenseMultiplier;
             R.Melee.Stamina*=M.Stamina;R.Melee.BlockStamina*=M.BlockStamina;R.Melee.HitReaction*=M.HitReaction;R.Melee.BlockReduction*=M.BlockReduction;
             R.Melee.KillStaminaMaxRatio=FMath::Clamp(R.Melee.KillStaminaMaxRatio+M.KillStaminaMaxRatio,0.,1.);
             R.Melee.ToughnessDamage*=M.ToughnessDamage;
@@ -260,7 +315,14 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.ComboThirdToughness*=M.ComboThirdToughness;
             R.Melee.SkillCooldown*=M.SkillCooldown;
             R.Melee.MartialCooldown*=M.MartialCooldown;
+            R.Melee.MartialDamage*=M.MartialDamage;R.Melee.MartialRange*=M.MartialRange;
             R.Melee.MagicCooldown*=M.MagicCooldown;R.Melee.MagicDamage*=M.MagicDamage;R.Melee.MagicAttack*=M.MagicAttack;
+            R.Melee.RuneBladeCountAdd+=M.RuneBladeCountAdd;
+            R.Melee.RuneBladeDamageMultiplier=FMath::Max(R.Melee.RuneBladeDamageMultiplier,M.RuneBladeDamageMultiplier);
+            R.Melee.RuneBladeMagicDamage*=M.RuneBladeMagicDamage;
+            R.Melee.RuneBladeCountOverride=FMath::Max(R.Melee.RuneBladeCountOverride,M.RuneBladeCountOverride);
+            R.Melee.RuneBladeBlastRadius=FMath::Max(R.Melee.RuneBladeBlastRadius,M.RuneBladeBlastRadius);
+            R.Melee.RuneBladeCooldown*=M.RuneBladeCooldown;
             R.Melee.MagicCost*=M.MagicCost;
             R.Melee.HeavyDamage*=M.HeavyDamage;R.Melee.Knockback*=M.Knockback;
             R.Melee.AllAttackKnockback*=M.AllAttackKnockback;
@@ -286,8 +348,12 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.PanChiPullCM=FMath::Max(R.Melee.PanChiPullCM,M.PanChiPullCM);
 
             R.Melee.HeavyDamageAdd+=M.HeavyDamageAdd;
+            R.Melee.WhirlwindDamageAdd+=M.WhirlwindDamageAdd;
             R.Melee.HeavyChargeSpeedBonus+=M.HeavyChargeSpeedBonus;
+            R.Melee.OathHeavyPhysical*=M.OathHeavyPhysical;
+            R.Melee.OathChargeStamina*=M.OathChargeStamina;
             R.Melee.PhysicalAttackAdd+=M.PhysicalAttackAdd;
+            R.Melee.PhysicalAttackMultiplier*=M.PhysicalAttackMultiplier;
             R.Melee.HeavyReleaseStamina*=M.HeavyReleaseStamina;
             R.Melee.HeavyToughness*=M.HeavyToughness;
             R.Melee.CooldownReduceSecondsPerHit+=M.CooldownReduceSecondsPerHit;
@@ -296,6 +362,7 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.QuickCombatRange*=M.QuickCombatRange;
             R.Melee.QuickCombatToughness*=M.QuickCombatToughness;
             R.Melee.QuickCombatBleedChance=FMath::Max(R.Melee.QuickCombatBleedChance,M.QuickCombatBleedChance);
+            R.Melee.MeleeHitBleedStacks+=M.MeleeHitBleedStacks;
             R.Melee.QuickCombatRuneVulnerability=FMath::Max(R.Melee.QuickCombatRuneVulnerability,M.QuickCombatRuneVulnerability);
             R.Melee.QuickCombatRuneVulnerabilitySeconds=FMath::Max(R.Melee.QuickCombatRuneVulnerabilitySeconds,M.QuickCombatRuneVulnerabilitySeconds);
             R.Melee.QuickCombatTigerRoarToughnessBonus=FMath::Max(R.Melee.QuickCombatTigerRoarToughnessBonus,M.QuickCombatTigerRoarToughnessBonus);
@@ -303,6 +370,7 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             R.Melee.QuickCombatPhysicalVulnerabilityBonus=FMath::Max(R.Melee.QuickCombatPhysicalVulnerabilityBonus,M.QuickCombatPhysicalVulnerabilityBonus);
             R.Melee.QuickCombatPhysicalVulnerabilitySeconds=FMath::Max(R.Melee.QuickCombatPhysicalVulnerabilitySeconds,M.QuickCombatPhysicalVulnerabilitySeconds);
             R.Melee.bQuickCombatAOE|=M.bQuickCombatAOE;
+            R.Melee.bQuickCombatUsesWeaponDamage|=M.bQuickCombatUsesWeaponDamage;
             R.Melee.RuneIntelligence+=M.RuneIntelligence;R.Melee.RuneWisdom+=M.RuneWisdom;
             R.Melee.InnateErosionMultiplier*=M.InnateErosionMultiplier;
             R.Melee.TimeSandEchoRatio=FMath::Max(R.Melee.TimeSandEchoRatio,M.TimeSandEchoRatio);
@@ -369,7 +437,10 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
         NormalizedParts.FindRef(TacticalDeviceVariants::PrimarySlot),NormalizedParts.FindRef(TacticalDeviceVariants::SecondarySlot));
     for(const auto& Pair:NormalizedParts)
     {
+        if(D==TEXT("ue_m24")&&Pair.Value==TEXT("none"))continue;
         auto A=*Option(D,Pair.Key,Pair.Value);
+        if(D==M24WeaponAssets::Definition&&(Pair.Key==TEXT("stock")||Pair.Key==TEXT("bolt")))
+            R.M24BoltDurationScale*=FMath::Max(.01,A.Interval);
         // Installed geometry still counts, but only the strongest laser supplies
         // its entire modifier set. Removing it automatically activates the other.
         if(TacticalDeviceVariants::IsSlot(Pair.Key)&&TacticalDeviceVariants::IsLaser(Pair.Value)&&Pair.Key!=ActiveLaser)
@@ -386,6 +457,8 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
             A.EquipSpeedBonus=FMath::Min(0.,A.EquipSpeedBonus);
         }
         R.EquipSpeedBonus+=A.EquipSpeedBonus;
+        R.FirearmCriticalDamageBonus+=A.FirearmCriticalDamageBonus;
+        R.CriticalStunSeconds=FMath::Max(R.CriticalStunSeconds,A.CriticalStunSeconds);
         R.ADSPercent+=A.ADS;R.ADSSeconds+=A.ADSSeconds;R.RecoilMultiplier*=A.Recoil;R.ShakeMultiplier*=A.Shake;R.StabilityMultiplier*=A.Stability;R.Capacity+=A.Magazine;R.Interval*=A.Interval;R.Reload*=A.Reload;R.EmptyReload*=A.EmptyReload;R.Speed*=A.Speed;R.Range*=A.Range;R.Spread*=A.Spread;++R.ActiveParts;
     }
     if(D==TEXT("ue_m4a1")&&Part(Normalize(D,P),TEXT("magazine"))==TEXT("large_drum"))
@@ -393,6 +466,9 @@ FGunsmithStats UGunsmithSystem::Calculate(const FString& D,const FGunsmithParts&
     // 空仓换弹系数只改实际时长，不动 W->Base.EmptyReload（动画原长）；
     // 角色端按 ClipLength/实际时长 求播放速率，动作与音效一起加速。
     R.EmptyReload*=FMath::Clamp(R.EmptyReloadMult,.2,3.);
+    if(D==M24WeaponAssets::Definition)
+        R.EmptyReload*=M24ReloadTiming::EmptyPacedFrames(M24ReloadTiming::EmptySourceFrames,float(R.M24BoltDurationScale))
+            /(M24ReloadTiming::EmptySourceFrames+M24ReloadTiming::ExtraMagazineFrames);
     R.BurstDelay*=R.Interval/FMath::Max(.001,W->Base.Interval);
     R.ADS=FMath::Max(.001,R.ADS*(1+R.ADSPercent)+R.ADSSeconds);
     R.Handling=FWeaponHandling::FromIndices(R.Recoil*R.RecoilMultiplier,R.Shake*R.ShakeMultiplier,R.StabilityMultiplier);
@@ -407,12 +483,33 @@ bool UGunsmithSystem::Begin(const FString& Id)
     InstanceId=Id;DefinitionId=I->Definition;Original=Installed(*I);Preview=Original;bOpen=true;DraftEnhanceLevelValue=0;
     Status=TEXT("选择配件预览，应用后保存");OnChanged.Broadcast();return true;
 }
+FString UGunsmithSystem::OptionLockReason(const FString& Slot,const FString& Id) const
+{
+    if(DefinitionId==TEXT("ue_m24")&&RequiresM24AdvancedAction(Slot,Id)
+        &&!M24Attachments::AdvancedInterfacesUnlocked(Preview))return TEXT("需先安装先进枪机系统");
+    return FString();
+}
 bool UGunsmithSystem::Select(const FString& Slot,const FString& Id)
 {
     if(!bOpen||!Option(DefinitionId,Slot,Id))return false;
+    const FString Locked=OptionLockReason(Slot,Id);
+    if(!Locked.IsEmpty()){Status=Locked;OnChanged.Broadcast();return false;}
     if(Part(Preview,Slot)==Id)return true;
+    TArray<FString> RemovedParts;
+    if(DefinitionId==TEXT("ue_m24")&&Slot==TEXT("body")&&Id==TEXT("false"))
+    {
+        for(const FString& Key:Slots(DefinitionId))
+        {
+            const FString* Value=Preview.Find(Key);
+            if(Value&&RequiresM24AdvancedAction(Key,*Value))
+                if(const auto* Removed=Option(DefinitionId,Key,*Value))RemovedParts.Add(Removed->Name);
+        }
+    }
     if(Id==TEXT("false"))Preview.Remove(Slot);else Preview.Add(Slot,Id);
-    Status=TEXT("预览已更新，应用后保存");OnChanged.Broadcast();return true;
+    if(DefinitionId==TEXT("ue_m24"))Preview=Normalize(DefinitionId,Preview);
+    Status=RemovedParts.IsEmpty()?TEXT("预览已更新，应用后保存")
+        :FString::Printf(TEXT("已换回原厂枪身，并卸下%s。应用后保存"),*FString::Join(RemovedParts,TEXT("、")));
+    OnChanged.Broadcast();return true;
 }
 int32 UGunsmithSystem::CurrentEnhanceLevel()const
 {
@@ -458,7 +555,7 @@ bool UGunsmithSystem::CanApply(FString& Reason)const
     }
     if(IsBow(DefinitionId))
     {
-        bool MaterialChange=false;
+        bool MaterialChange=HasRetiredHandmadeBowBody(*I);
         for(const auto& Slot:Slots(DefinitionId))if(Part(Original,Slot)!=Part(Preview,Slot))
         {
             const auto* Old=Option(DefinitionId,Slot,Part(Original,Slot));const auto* New=Option(DefinitionId,Slot,Part(Preview,Slot));
@@ -471,6 +568,10 @@ bool UGunsmithSystem::CanApply(FString& Reason)const
 bool UGunsmithSystem::PreparePartMaterials(FColdSteelProfile& State,FString& Reason) const
 {
     auto* Profile=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();TMap<FString,int64> Delta;
+    // A retired handmade body behaves as the standard heavy body. Return its
+    // two paid limbs on the next successful Apply, atomically with the new parts.
+    if(const auto* Item=State.Items.FindByPredicate([&](const auto& I){return I.InstanceId==InstanceId;});Item&&HasRetiredHandmadeBowBody(*Item))
+        Delta.FindOrAdd(TEXT("woodworked_bow_limb"))+=2;
     for(const auto& Slot:Slots(DefinitionId))if(Part(Original,Slot)!=Part(Preview,Slot))
     {
         const auto* Old=Option(DefinitionId,Slot,Part(Original,Slot));const auto* New=Option(DefinitionId,Slot,Part(Preview,Slot));
@@ -500,6 +601,12 @@ FString UGunsmithSystem::ApplyFeedback()const
     if(Pending()>0&&!CanApply(Reason))return Reason;
     return Status;
 }
+bool UGunsmithSystem::UsesFreePartReceipts(const FString& Definition)
+{
+    return Definition==TEXT("ue_forged_steel_greatsword")||Definition==TEXT("ue_thunder_god_hammer")
+        ||Definition==TEXT("ue_kukri")||Definition==TEXT("ue_tactical_hatchet")||LMGStabilityGrip::Supports(Definition);
+}
+
 bool UGunsmithSystem::Apply()
 {
     if(!CanApply(Status))return false;
@@ -523,6 +630,18 @@ bool UGunsmithSystem::Apply()
     // Staff customization follows the same free apply/save transaction as firearms.
     if(IsStaff(DefinitionId))I=ColdSteelStaff::Resolve(I);
     if(!Profile->CommitState(State)){Status=Profile->ResultMessage();return false;}
+    // Thunder parts are free owner customizations. Material-consuming weapon
+    // recipes retain their inventory transaction flow.
+    const bool bInventoryBlade=DefinitionId==TEXT("ue_kukri")||DefinitionId==TEXT("ue_tactical_hatchet");
+    if((bInventoryBlade||DefinitionId==TEXT("ue_m249")||DefinitionId==TEXT("bow_frontier_compound"))&&!Original.OrderIndependentCompareEqual(Preview))
+        if(const auto* Committed=Profile->FindItem(InstanceId))
+            if(auto* Icons=GetGameInstance()->GetSubsystem<UColdSteelWeaponIcons>())Icons->Request(*Committed,true);
+    TSet<FString> BowSlots;
+    if(IsBow(DefinitionId))for(const FString& Slot:Slots(DefinitionId))
+        if(BowPartReceipt::CanMerge(*this,DefinitionId,Slot,Part(Original,Slot),Part(Preview,Slot)))BowSlots.Add(Slot);
+    if(!BowSlots.IsEmpty()||UsesFreePartReceipts(DefinitionId))
+        if(auto* Pawn=Profile->RuntimePawn())
+            if(auto* PS=Pawn->GetPlayerState<AColdSteelPlayerState>())PS->NotifyGunsmithApplied(InstanceId,BowSlots);
     Original=Preview;DraftEnhanceLevelValue=0;Status=TEXT("已应用改造并保存");OnChanged.Broadcast();return true;
 }
 void UGunsmithSystem::Undo(){Preview=Original;DraftEnhanceLevelValue=0;Status=TEXT("已撤销预览");OnChanged.Broadcast();}

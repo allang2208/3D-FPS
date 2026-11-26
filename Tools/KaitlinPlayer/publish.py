@@ -27,6 +27,18 @@ current_modular = json.loads(modular_before.decode('utf-8-sig'))
 source_body = read(WORK / 'FitInputs/player_body.json')
 source_modular = read(WORK / 'FitInputs/modular_outfits.json')
 world = read(WORK / 'WorldGarments/saved_assets.json')
+# Preserve the saved female neck repair when a full variant recipe is rebuilt
+# from the earlier garment receipts. New pairs use the same hook at save time.
+collar_publication = PROJECT / 'SourceAssets/ST6FemaleCollar20261108/published.json'
+if collar_publication.exists():
+    collar = read(collar_publication)
+    if collar.get('status') == 'saved_and_integrated':
+        world = {source: collar['mesh_map'].get(asset, asset) for source, asset in world.items()}
+# The original world-garment receipt predates the removal of both hood shells.
+# Override only that exact garment. The owner's cropped robe has its own fit.
+back_repair = read(PROJECT / 'SourceAssets/KaitlinBackReview20261117/saved.json')
+world = {source: back_repair['asset'] if asset == back_repair['source'] else asset
+         for source, asset in world.items()}
 view_skin = read(WORK / 'ViewSkin/saved_assets.json')
 new_body = read(WORK / 'Body/saved_asset.json')['mesh']
 native_skin = source_modular['profiles'][source_body['body_mesh']]['native_bare_skin']

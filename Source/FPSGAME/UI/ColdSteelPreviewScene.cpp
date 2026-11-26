@@ -9,7 +9,34 @@
 #include "FXSystem.h"
 #include "RendererInterface.h"
 #include "SceneInterface.h"
+#include "Subsystems/WorldSubsystem.h"
+#include "UObject/UObjectHash.h"
 #include "ProfilingDebugging/CpuProfilerTrace.h"
+
+TUniquePtr<FColdSteelPreviewScene> FColdSteelPreviewScene::TryCreate(ConstructionValues Values, FString& Failure)
+{
+    Failure.Reset();
+    // UE 5.8 initializes subsystem CDOs before ShouldCreateSubsystem can reject
+    // preview worlds. A stale CDO after class reinstancing asserts inside the
+    // base constructor, so this check must happen before allocating the scene.
+    TArray<UClass*> Classes;
+    GetDerivedClasses(UWorldSubsystem::StaticClass(), Classes, true);
+    for (UClass* Class : Classes)
+    {
+        // Match the engine's eligibility filter; retired reinstanced classes are
+        // ignored only when the engine also ignores them.
+        if (Class->HasAllClassFlags(CLASS_Abstract) || Class->GetAuthoritativeClass() != Class) continue;
+        const UObject* Defaults = Class->GetDefaultObject(); // Deliberately untyped: inspect before casting.
+        if (!Defaults || !Defaults->IsA<UWorldSubsystem>() || !Defaults->IsA(Class))
+        {
+            Failure = FString::Printf(TEXT("Preview world subsystem CDO mismatch: class=%s default=%s default_class=%s. Restart the editor after a regular build; using catalog icons for this session."),
+                *Class->GetPathName(), *GetPathNameSafe(Defaults),
+                Defaults ? *Defaults->GetClass()->GetPathName() : TEXT("None"));
+            return nullptr;
+        }
+    }
+    return MakeUnique<FColdSteelPreviewScene>(Values);
+}
 
 FColdSteelPreviewScene::FColdSteelPreviewScene(ConstructionValues Values) : FPreviewScene(Values)
 {

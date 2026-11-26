@@ -53,7 +53,9 @@ bool UWarhammerModificationAuditCommandlet::RepairSeatTangentBasis(UStaticMesh* 
 {
 #if WITH_EDITOR
     if(!Mesh||(!Mesh->GetPathName().StartsWith(TEXT("/Game/Weapons/ThunderGodHammer20261028/GuanLeiClosedCrownV12/"))&&
-        !Mesh->GetPathName().StartsWith(TEXT("/Game/Weapons/ThunderGodHammer20261028/JiLeiInlaidLightningV14/"))))return false;
+        !Mesh->GetPathName().StartsWith(TEXT("/Game/Weapons/ThunderGodHammer20261028/JiLeiInlaidLightningV14/"))&&
+        !Mesh->GetPathName().StartsWith(TEXT("/Game/Weapons/ThunderGodHammer20261028/CommonSeatsStructuralV7/"))&&
+        !Mesh->GetPathName().StartsWith(TEXT("/Game/Weapons/ThunderGodHammer20261028/LightSeatWindowFixV8/"))))return false;
     FStaticMeshCompilingManager::Get().FinishCompilation({Mesh});
     const auto* Source=Mesh->GetMeshDescription(0);if(!Source)return false;
     FMeshDescription Description=*Source;
@@ -85,6 +87,7 @@ bool UWarhammerModificationAuditCommandlet::RepairSeatTangentBasis(UStaticMesh* 
 
 int32 UWarhammerModificationAuditCommandlet::Main(const FString& Params)
 {
+    if(FParse::Param(*Params,TEXT("JiLeiIntent")))return AuditJiLeiIntent(Params);
     if(FParse::Param(*Params,TEXT("ZhenTing")))return AuditZhenTing(Params);
     if(FParse::Param(*Params,TEXT("HeavyFormula")))return AuditHeavyFormula(Params);
     FString Definition=TEXT("ue_steel_warhammer");
@@ -115,7 +118,8 @@ int32 UWarhammerModificationAuditCommandlet::Main(const FString& Params)
             auto* OtherMesh=NewObject<UStaticMesh>(GetTransientPackage(),TEXT("StormLifecycleOtherWeapon"));
             for(const TCHAR* Name:{TEXT("Warhammer_StormDrive_Lifecycle"),
                 TEXT("SM_ThunderGodHammer_head_mount_ji_lei_seat"),
-                TEXT("SM_ThunderGodHammer_head_mount_ji_lei_seat_V14")})
+                TEXT("SM_ThunderGodHammer_head_mount_ji_lei_seat_V14"),
+                TEXT("SM_ThunderGodHammer_head_mount_ji_lei_seat_V15")})
             {
                 auto* Asset=NewObject<UStaticMesh>(GetTransientPackage(),Name);
                 auto* Seat=NewObject<UStaticMeshComponent>(Pawn);Pawn->AddInstanceComponent(Seat);
@@ -211,7 +215,7 @@ int32 UWarhammerModificationAuditCommandlet::Main(const FString& Params)
             Check(Geometry.Num()==6,TEXT("six-module remote recipe ")+Part.Id,Geometry.Num(),6);
             bool Loaded=true;for(const auto& Module:Geometry)Loaded&=LoadObject<UStaticMesh>(nullptr,*Module.Mesh)!=nullptr;
             Check(Loaded,TEXT("every selected module loads ")+Part.Id);
-            if(Part.Id==TEXT("guan_lei_seat")||Part.Id==TEXT("ji_lei_seat"))
+            if(Column.Key==TEXT("head_mount"))
             {
                 for(const auto& Module:Geometry)if(Module.Mesh.Contains(TEXT("head_mount_")+Part.Id))
                 {
@@ -228,9 +232,12 @@ int32 UWarhammerModificationAuditCommandlet::Main(const FString& Params)
                             for(const FVector3f Axis:{FVector3f(Buffer.VertexTangentX(V)),Buffer.VertexTangentY(V),FVector3f(Buffer.VertexTangentZ(V))})
                             {const bool Bad=Axis.ContainsNaN()||Axis.SizeSquared()<.9f;Axes[Index++]+=Bad;Invalid+=Bad;}
                         }
+#if WITH_EDITORONLY_DATA
+                        const auto& Nanite=Mesh->GetNaniteSettings();
                         UE_LOG(LogTemp,Display,TEXT("GUANLEI_TANGENTS mesh=%s vertices=%u invalid_x=%d invalid_y=%d invalid_z=%d nanite=%d explicit=%d target=%d percent=%f error=%f"),
-                            *Mesh->GetPathName(),Buffer.GetNumVertices(),Axes[0],Axes[1],Axes[2],Mesh->NaniteSettings.bEnabled,Mesh->NaniteSettings.bExplicitTangents,
-                            int32(Mesh->NaniteSettings.FallbackTarget),Mesh->NaniteSettings.FallbackPercentTriangles,Mesh->NaniteSettings.FallbackRelativeError);
+                            *Mesh->GetPathName(),Buffer.GetNumVertices(),Axes[0],Axes[1],Axes[2],Nanite.bEnabled,Nanite.bExplicitTangents,
+                            int32(Nanite.FallbackTarget),Nanite.FallbackPercentTriangles,Nanite.FallbackRelativeError);
+#endif
                         Check(Invalid==0,TEXT("built seat render tangents are finite and normalized ")+Part.Id,Invalid,0);
                     }
                 }
@@ -369,9 +376,9 @@ int32 UWarhammerModificationAuditCommandlet::Main(const FString& Params)
     const auto Attack=[&](uint32 Id,bool Heavy,bool Sprint)
     {
         Tool->CancelUse();Tool->BluntServerReadyAt=0.;Guest->AdoptNetMirror(GuestSeed);
-        if(Heavy){Tool->ServerBeginBluntCharge_Implementation(Id);Tool->BluntServerChargeStartedAt=World->GetTimeSeconds()-Stats.HeavyChargeSeconds-.05;}
+        if(Heavy){Tool->ServerBeginBluntCharge_Implementation(Id,Hammer.InstanceId);Tool->BluntServerChargeStartedAt=World->GetTimeSeconds()-Stats.HeavyChargeSeconds-.05;}
         if(Sprint){Tool->BluntSprintInstance=Hammer.InstanceId;Tool->BluntSprintReadyAt=World->GetTimeSeconds();}
-        const float Before=Guest->Stamina();Tool->ServerBeginBluntAttack_Implementation(Id,Heavy,Sprint);
+        const float Before=Guest->Stamina();Tool->ServerBeginBluntAttack_Implementation(Id,Heavy,Sprint,Hammer.InstanceId);
         const double Expected=Heavy?Stats.HeavyReleaseStaminaCost:Stats.StaminaCost;
         Check(Near(Before-Guest->Stamina(),Expected),Sprint?TEXT("guest sprint charged once without heavy surcharge"):Heavy?TEXT("guest charged heavy cost"):TEXT("guest normal cost"),Before-Guest->Stamina(),Expected);
         Check(Near(Tool->AxeStrike.ArmorPenetration,.15),TEXT("authority strike includes pointed-head penetration"),Tool->AxeStrike.ArmorPenetration,.15);

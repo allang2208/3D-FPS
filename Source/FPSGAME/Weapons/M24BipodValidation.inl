@@ -39,7 +39,9 @@ struct FM24BipodValidation
             B->SetWorldLocationAndRotation(Center,Rotation);B->RegisterComponent();return B;
         };
         const FVector A=P->GetRestFootWorld(0),B=P->GetRestFootWorld(1);const double Top=(A.Z+B.Z)*.5;
-        auto* Table=Box(FVector(70,0,Top-5),FVector(100,80,5));
+        // The occlusion case below covers the whole tabletop. A ledge on the
+        // player's own side of the screen would now be valid nearby support.
+        auto* Table=Box(FVector(100,0,Top-5),FVector(60,80,5));
         UWeaponBipodDeploymentComponent::FSupport Support;
         Check(TEXT("valid broad static surface"),D->FindSupport(*P,Support));
         const FTransform LevelRig=P->GetComponentTransform();
@@ -58,6 +60,25 @@ struct FM24BipodValidation
         D->Support=Support;Check(TEXT("retained support"),D->SupportStillValid(true));
         Table->SetCollisionEnabled(ECollisionEnabled::NoCollision);
         Check(TEXT("removed support is rejected"),!D->SupportStillValid(true)&&!D->FindSupport(*P,Support));
+        // The village wall sill sits 33 cm above the walk and is 46 cm deep.
+        // Place it beside the pawn where the forward-only search cannot find it.
+        const double WalkZ=C->GetCapsuleComponent()->GetComponentLocation().Z-C->GetCapsuleComponent()->GetScaledCapsuleHalfHeight();
+        auto* Sill=Box(FVector(0,-70,WalkZ+12),FVector(35,23,21));
+        for(const FRotator& Aim:{FRotator(0,-90,0),FRotator(70,0,0),FRotator(-70,90,0)})
+        {
+            const FQuat View=Aim.Quaternion();
+            PC->SetControlRotation(Aim);C->FirstPersonCamera->SetWorldRotation(Aim);
+            P->SetWorldTransform(FTransform(View*Q,Eye+View.RotateVector(Hinge-Eye)-(View*Q).RotateVector(M24Bipod::Hinge)));
+            const bool Found=D->FindSupport(*P,Support);
+            Check(TEXT("village sill is available from the front, side and rear"),Found&&D->HasSupportHint(*P)
+                &&FMath::IsNearlyEqual(Support.Feet[0].Z,WalkZ+33.12,.02));
+            FWeaponBipodNetState SillMount;SillMount.FeetA=Support.Feet[0];SillMount.FeetB=Support.Feet[1];
+            SillMount.Anchor=Support.Anchor;SillMount.Aim.Yaw=Support.MountYaw;
+            Check(TEXT("authority accepts the same sill independently of incoming view"),Found&&D->ResolveServerSupport(SillMount,Support));
+        }
+        Sill->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        PC->SetControlRotation(FRotator::ZeroRotator);C->FirstPersonCamera->SetWorldRotation(FRotator::ZeroRotator);
+        P->SetWorldTransform(LevelRig);
         Table->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
         auto* Block=Box(Hinge+FVector(50,0,3.1),FVector(3,50,30));
         Check(TEXT("long barrel obstruction"),!D->ClearPlacement(Eye,FVector::ZeroVector,Hinge,FVector::ForwardVector));
@@ -70,7 +91,13 @@ struct FM24BipodValidation
         Check(TEXT("occluded contacts cannot mount"),!D->FindSupport(*P,Support)&&!D->HasSupportHint(*P));
         Check(TEXT("authority rejects occluded contacts"),!D->ResolveServerSupport(Obstructed,Support));
         Screen->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-        Check(TEXT("camera correction obstruction"),!D->ClearPlacement(Eye,FVector(0,0,Top-Eye.Z),Hinge,FVector::ForwardVector));
+        // The support table is ahead of the player. Test camera travel with a
+        // blocker on the actual correction path, then verify the clear control.
+        const FVector Correction(0,0,-20);
+        auto* CameraBlock=Box(Eye+Correction*.5,FVector(8,8,2));
+        Check(TEXT("camera correction obstruction"),!D->ClearPlacement(Eye,Correction,Hinge,FVector::ForwardVector,false));
+        CameraBlock->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        Check(TEXT("unobstructed camera correction"),D->ClearPlacement(Eye,Correction,Hinge,FVector::ForwardVector,false));
         Table->SetCollisionEnabled(ECollisionEnabled::NoCollision);
         auto* Sole=Box(A-FVector(0,0,1),FVector(1.5,1.5,1));
         Check(TEXT("single foot cannot mount"),!D->FindSupport(*P,Support));Sole->SetCollisionEnabled(ECollisionEnabled::NoCollision);
@@ -127,10 +154,10 @@ struct FM24BipodValidation
         }
         D->RestoreCameraOffset();PC->SetControlRotation(FRotator::ZeroRotator);
         C->FirstPersonCamera->SetWorldLocationAndRotation(Eye,FRotator::ZeroRotator);P->SetWorldTransform(RestFrame);
-        auto* CameraBlock=Box(Eye,FVector(6));D->ApplyPresentation();D->ApplyPresentation(true);
+        auto* ReturnCameraBlock=Box(Eye,FVector(6));D->ApplyPresentation();D->ApplyPresentation(true);
         Check(TEXT("blocked camera correction preserves mount and bonus"),D->IsDeployed()
             &&FMath::IsNearlyEqual(D->RecoilMultiplier(),.34f,1.e-5f)&&D->AppliedCameraOffset.IsNearlyZero());
-        CameraBlock->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+        ReturnCameraBlock->SetCollisionEnabled(ECollisionEnabled::NoCollision);
         Report->SetNumberField(TEXT("mounted_recoil"),D->RecoilMultiplier());Report->SetNumberField(TEXT("mounted_weight"),D->HandlingBlend());
         Report->SetNumberField(TEXT("world_time"),World->GetTimeSeconds());Report->SetBoolField(TEXT("is_local"),C->IsLocallyControlled());
         D->bRequested=false;D->NetDeployment.bActive=false;
@@ -183,11 +210,13 @@ struct FM24BipodValidation
         D->ServerRelease_Implementation(20);Check(TEXT("stale cancellation does not rewind authority generation"),D->NetDeployment.Sequence==21);
         D->NetDeployment.Sequence=65535;D->ServerRelease_Implementation(0);
         Check(TEXT("authority cancellation handles sequence wrap"),D->NetDeployment.Sequence==0&&!D->NetDeployment.bActive);
-        for(const FString& Definition:{FString(M24WeaponAssets::Definition),FString(PKMLowpolyWeaponAssets::Definition),FString(LMG201WeaponAssets::Definition)})
+        for(const FString& Definition:{FString(M24WeaponAssets::Definition),FString(PKMLowpolyWeaponAssets::Definition),FString(LMG201WeaponAssets::Definition),FString(M249WeaponAssets::Definition)})
         {
             const FString Installed=Definition==M24WeaponAssets::Definition?M24Bipod::Id:Definition==PKMLowpolyWeaponAssets::Definition?TEXT("pkm_bipod"):TEXT("false");
             Check(TEXT("authority recognizes installed bipod"),BipodPartInstalled(Definition,Installed));
-            Check(TEXT("authority rejects removed or missing bipod"),!BipodPartInstalled(Definition,TEXT("lmg201_no_bipod"))&&!BipodPartInstalled(Definition,TEXT("none"))&&!BipodPartInstalled(Definition,TEXT("")));
+            const bool FactoryInstalled=Definition==LMG201WeaponAssets::Definition||Definition==M249WeaponAssets::Definition;
+            Check(TEXT("sparse factory recipe matches the equipped assembly"),BipodPartInstalled(Definition,FString())==FactoryInstalled);
+            Check(TEXT("authority rejects removed bipod"),!BipodPartInstalled(Definition,TEXT("lmg201_no_bipod"))&&!BipodPartInstalled(Definition,TEXT("m249_no_bipod"))&&!BipodPartInstalled(Definition,TEXT("none")));
         }
         Report->SetNumberField(TEXT("failures"),Failed);Report->SetArrayField(TEXT("cases"),Cases);
         FString Text;FJsonSerializer::Serialize(Report,TJsonWriterFactory<>::Create(&Text));FFileHelper::SaveStringToFile(Text,*Args[0]);

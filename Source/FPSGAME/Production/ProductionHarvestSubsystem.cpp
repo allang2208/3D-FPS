@@ -127,7 +127,10 @@ void UProductionHarvestSubsystem::Tick(float Delta)
     {
         if(Pickups.Contains(Candidate.Id))continue;
         const auto* Item=Profile->FindItem(Candidate.Id);if(!Item)continue;
-        const bool Wood=Item->Definition==TEXT("wood");Prepare(Wood);if(!Ready(Wood))continue;
+        if(ProductionHarvestAssets::IsMaterial(Item->Definition))
+        {
+            const bool Wood=Item->Definition==TEXT("wood");Prepare(Wood);if(!Ready(Wood))continue;
+        }
         FActorSpawnParameters Spawn;Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
         if(auto* Pickup=GetWorld()->SpawnActor<AColdSteelPickup>(Item->Position,Item->WorldRotation,Spawn))
         {Pickup->InitializeItem(*Item);Pickups.Add(Candidate.Id,Pickup);}
@@ -156,12 +159,12 @@ void UProductionHarvestSubsystem::UpdateStumps(const FVector& Eye,double Now)
     const FIntPoint Cell(FMath::FloorToInt(Eye.X/800),FMath::FloorToInt(Eye.Y/800));
     // Growth changes the stump while the player stands still as well.
     Prepare(true);
-    // Four small meshes cut from the four source trees. No hidden full-tree mesh.
-    for(int32 Variant=0;Variant<4;++Variant)
+    // Small source-matched stumps for each registered poplar and beech form.
+    for(int32 Variant=0;Variant<ProductionHarvestAssets::TreeVariantCount;++Variant)
         if(!ProductionHarvestAssets::Stump(Variant).ResolveObject())return;
     if(Stumps.IsEmpty())
     {
-        for(int32 Variant=0;Variant<4;++Variant)
+        for(int32 Variant=0;Variant<ProductionHarvestAssets::TreeVariantCount;++Variant)
         {
             auto* Component=NewObject<UInstancedStaticMeshComponent>(Hills.Get(),FName(*FString::Printf(TEXT("OriginalStumps_%d"),Variant)));
             Hills->AddInstanceComponent(Component);
@@ -178,9 +181,9 @@ void UProductionHarvestSubsystem::UpdateStumps(const FVector& Eye,double Now)
     Places.RemoveAll([&](const auto& P){return ProductionHarvestAssets::TreeVariant(P.Mesh)==INDEX_NONE||ProductionObservers::Distance(Observers,P.Transform.GetLocation())>FMath::Square(6400.f);});
     Places.Sort([&](const auto& A,const auto& B){return ProductionObservers::Distance(Observers,A.Transform.GetLocation())<ProductionObservers::Distance(Observers,B.Transform.GetLocation());});
     if(Places.Num()>64*Observers.Num())Places.SetNum(64*Observers.Num());
-    TArray<FTransform> Groups[4];
+    TArray<FTransform> Groups[ProductionHarvestAssets::TreeVariantCount];
     for(const auto& Place:Places)Groups[ProductionHarvestAssets::TreeVariant(Place.Mesh)].Add(Place.Transform);
-    for(int32 Variant=0;Variant<4;++Variant)
+    for(int32 Variant=0;Variant<ProductionHarvestAssets::TreeVariantCount;++Variant)
     {Stumps[Variant]->ClearInstances();Stumps[Variant]->AddInstances(Groups[Variant],false,true,false);}
     UpdateStumpTrunks(Places);
     StumpCell=Cell;bStumpsDirty=false;

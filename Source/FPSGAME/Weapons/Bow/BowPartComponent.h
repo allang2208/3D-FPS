@@ -44,10 +44,11 @@ public:
      * 有细杆时它同时是细杆的素材（弦上箭），为空则回落引擎圆柱占位。
      */
     void SetMesh(UStaticMesh* Mesh);
-    void SetSkeletalMesh(USkeletalMesh* Mesh);
+    void SetSkeletalMesh(USkeletalMesh* Mesh, bool bFitBeamToCams = false);
     bool HasMesh() const;
     void ApplyStringLoad(const FVector& NockCM,const FVector& BraceCM,float Distribution,float RingDegrees=0.f);
     bool FlexTips(FVector& Upper,FVector& Lower) const;
+    bool PoseString(const FVector& Upper,const FVector& Nock,const FVector& Lower,int32 Charges=0);
     UStaticMesh* GetMesh() const { return PartMesh; }
 
     /** 加一条程序化细杆，返回句柄（`StretchRod` 用）。条数由数据表 `bow_part_<槽名>_rods` 决定。 */
@@ -77,5 +78,8 @@ private:
     /** 占位细杆素材（引擎圆柱：高 100 cm、半径 50 cm）。 */
     UPROPERTY(Transient) TObjectPtr<UStaticMesh> RodMesh;
     bool bPartVisible = false;
+    int32 StringCharges=INDEX_NONE;
+    int32 BeamFilamentSlot = INDEX_NONE;
+    void RestoreBeamFilament();
     UPROPERTY(Transient) TObjectPtr<UBowFlexMeshComponent> FlexVisual;
 };

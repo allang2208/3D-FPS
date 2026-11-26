@@ -41,7 +41,7 @@ def tessellate(poly,step):
     pieces=shapely.polygons(points[tr])
     keep=shapely.covered_by(pieces,poly.buffer(.000005))
     f=tr[keep]
-    # Preserve all constrained edges around the perforations and outline.
+    # Preserve all constrained edges around the perforations and outline. 
     # Insert any genuine sliver missed by the free Delaunay triangulation.
     lost=poly.difference(shapely.union_all(pieces[keep]))
     rest=[g for g in shapely.get_parts(lost) if g.area>1.e-7]

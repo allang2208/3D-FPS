@@ -1,4 +1,7 @@
 #include "ProductionToolComponent.h"
+#include "../Movement/HorseRiderComponent.h"
+#include "../Weapons/PojunGrip.h"
+#include "../FPSGAMEPlayerController.h"
 #include "../FPSGAMECharacter.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -29,7 +32,7 @@ void UProductionToolComponent::AdvanceBluntSprintReadiness(float Delta)
     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
     const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();
     const bool Local=Pawn->IsLocallyControlled();
-    const bool Eligible=Item&&ColdSteelInventory::IsTwoHandedBlunt(*Item)&&!Pawn->IsTraversing()&&
+    const bool Eligible=Item&&PojunGrip::UsesHammerMotion(*Item)&&PojunGrip::CanSprintAttack(*Item,Profile)&&!Pawn->IsTraversing()&&
         !Pawn->IsDodging()&&!Pawn->IsCastBlockingLeftHandAction()&&(!Health||!Health->IsDead())&&
         (Local?(!IsBusy()&&CanUse()):(!bBluntServerCharging&&World->GetTimeSeconds()>=BluntServerReadyAt));
     if(Local&&Kind==TEXT("warhammer")&&BluntSprintTrace.GetValueOnGameThread()!=0&&Pawn->bSprintHeld)
@@ -54,8 +57,8 @@ void UProductionToolComponent::AdvanceBluntSprintReadiness(float Delta)
     const float Required=ReadySeconds(Profile);
     const auto* Move=CastChecked<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement());
     const bool SprintIntent=Local?(Pawn->bSprintHeld&&Pawn->IsSprinting()):Move->bWantsToSprint;
-    const bool GroundSprint=SprintIntent&&!Pawn->IsSliding()&&
-        Move->IsMovingOnGround()&&Pawn->GetVelocity().SizeSquared2D()>2500.f;
+    const bool GroundSprint=UHorseRiderComponent::IsCantering(Pawn) || (SprintIntent&&!Pawn->IsSliding()&&
+        Move->IsMovingOnGround()&&Pawn->GetVelocity().SizeSquared2D()>2500.f);
     // CMC transmits actual sprint locomotion, not the local Shift key. Airborne
     // moves clear that flag, so retain only a previously earned readiness there.
     const bool Carry=(!Local||Pawn->bSprintHeld)&&BluntSprintSeconds>=Required&&
@@ -68,14 +71,15 @@ void UProductionToolComponent::AdvanceBluntSprintReadiness(float Delta)
 float UProductionToolComponent::DashReadyFraction() const
 {
     const auto* Pawn=Character.Get();
-    if(Kind!=TEXT("warhammer")||!IsEquipped()||IsBusy()||!Pawn||!Pawn->bSprintHeld||!CanUse()||
+    if(Kind!=TEXT("warhammer")||!IsEquipped()||IsBusy()||!Pawn||(!Pawn->bSprintHeld&&!UHorseRiderComponent::IsCantering(Pawn))||!CanUse()||
         Pawn->IsDodging()||Pawn->IsCastBlockingLeftHandAction())return 0.f;
     const auto* Profile=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    if(!Profile)return 0.f;
+    const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
+    if(!Item||!PojunGrip::CanSprintAttack(*Item,Profile))return 0.f;
     const auto* Move=Pawn->GetCharacterMovement();const float Required=ReadySeconds(Profile);
     const bool Carry=BluntSprintSeconds>=Required&&(Pawn->IsSliding()||Move->IsFalling()||
         Pawn->bWeaponJumpAirborne||!Move->PendingLaunchVelocity.IsZero());
-    if(!Carry&&(!Pawn->IsSprinting()||!Move->IsMovingOnGround()||Pawn->GetVelocity().SizeSquared2D()<=2500.f))return 0.f;
+    if(!Carry&&!UHorseRiderComponent::IsCantering(Pawn)&&(!Pawn->IsSprinting()||!Move->IsMovingOnGround()||Pawn->GetVelocity().SizeSquared2D()<=2500.f))return 0.f;
     return FMath::Clamp(BluntSprintSeconds/Required,0.f,1.f);
 }
 
@@ -92,6 +96,11 @@ bool UProductionToolComponent::TryBeginSprintAttack()
     const float Distance=Profile->DashAttackStats().DistanceCM;
     bBluntSprintAttack=true;NextBluntStage=2;
     BeginUse();
+    if(PojunAttack==PojunGrip::EAttack::Zhufeng)
+    {
+        Pawn->ExitSprintForWeapon();
+        return true;
+    }
     if(Elapsed<0.f){bBluntSprintAttack=bBluntHeavy=false;return false;}
     if(Pawn->IsSliding())Pawn->StopSlide(true);
     Pawn->ExitSprintForWeapon();
@@ -115,10 +124,15 @@ bool UProductionToolComponent::GetCommittedSprintMovement(uint32 AttackId,FVecto
         World->GetTimeSeconds()>BluntServerSprintMoveUntil)return false;
     const auto* Profile=ColdSteelAuthority::ForPawn(Pawn);
     const auto* Item=Profile?Profile->ActiveProductionTool():nullptr;
-    if(!Item||!ColdSteelInventory::IsTwoHandedBlunt(*Item)||Item->InstanceId!=BluntServerInstance)return false;
+    if(!Item||!PojunGrip::UsesHammerMotion(*Item)||Item->InstanceId!=BluntServerInstance)return false;
     DistanceCM=BluntSprintLungeDistance;
     Direction=BluntSprintDirection;
-    LimitCM=DistanceCM*FMath::SmoothStep(0.f,WarhammerSprint::LiftSeconds/HasteActionRate,
+    if(PojunAttack==PojunGrip::EAttack::Zhufeng)
+    {
+        const float Travel=BluntWhirlwindTuning.ReadySeconds+BluntWhirlwindTuning.SpinSeconds;
+        LimitCM=DistanceCM*FMath::Clamp((BluntWhirlwindTime+.05f*HasteActionRate)/Travel,0.f,1.f);
+    }
+    else LimitCM=DistanceCM*FMath::SmoothStep(0.f,WarhammerSprint::LiftSeconds/HasteActionRate,
         float(World->GetTimeSeconds()-BluntServerSprintStartedAt)+.05f);
     RecoverySeconds=FMath::Max(.01f,float(BluntServerReadyAt-World->GetTimeSeconds()));
     return true;
@@ -126,9 +140,12 @@ bool UProductionToolComponent::GetCommittedSprintMovement(uint32 AttackId,FVecto
 
 void UProductionToolComponent::AdvanceBluntSprintLunge(float FromTime,float ToTime)
 {
-    if(!bBluntSprintAttack)return;
-    const float Lift=BluntLiftSeconds();
-    const float Distance=BluntSprintLungeDistance*(FMath::SmoothStep(0.f,Lift,ToTime)-FMath::SmoothStep(0.f,Lift,FromTime));
+    const bool Zhufeng=PojunAttack==PojunGrip::EAttack::Zhufeng;
+    if(!bBluntSprintAttack&&!Zhufeng)return;
+    const float Lift=Zhufeng?BluntWhirlwindTuning.ReadySeconds+BluntWhirlwindTuning.SpinSeconds:BluntLiftSeconds();
+    const float Distance=BluntSprintLungeDistance*(Zhufeng?
+        (FMath::Min(ToTime,Lift)-FMath::Min(FromTime,Lift))/Lift:
+        FMath::SmoothStep(0.f,Lift,ToTime)-FMath::SmoothStep(0.f,Lift,FromTime));
     auto* Pawn=Character.Get();auto* Move=Pawn?Cast<UFPSCharacterMovementComponent>(Pawn->GetCharacterMovement()):nullptr;
     if(!bBluntSprintLungeBlocked&&Distance>0.f)
     {
@@ -140,7 +157,7 @@ void UProductionToolComponent::AdvanceBluntSprintLunge(float FromTime,float ToTi
             if(Move->IsFalling())
             {
                 const auto* Controller=Pawn->GetController();
-                if(!Controller||Controller->IsMoveInputIgnored())bBluntSprintLungeBlocked=true;
+                if(AFPSGAMEPlayerController::BlocksActionContinuation(Cast<APlayerController>(Controller)))bBluntSprintLungeBlocked=true;
                 else
                 {
                     const FVector Before=Pawn->GetActorLocation();FHitResult Hit;
@@ -157,7 +174,7 @@ void UProductionToolComponent::AdvanceBluntSprintLunge(float FromTime,float ToTi
     }
     // Include native airborne momentum and network corrections, not just the
     // explicit step. The planted floor stops following once contact occurs.
-    UpdateBluntSprintAnchor(!bContacted);
+    if(!Zhufeng)UpdateBluntSprintAnchor(!bContacted);
 }
 
 void UProductionToolComponent::UpdateBluntSprintAnchor(bool bUpdateFloor)

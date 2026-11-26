@@ -22,6 +22,21 @@ bool ColdSteelItemRarity::IsEquipment(const FColdSteelItem& Item)
     return Data&&IsEquipment(*Data);
 }
 
+const ColdSteelItemRarity::FEnhancementLootTier& ColdSteelItemRarity::EnhancementLootTier(int32 Level)
+{
+    static constexpr FEnhancementLootTier Tiers[] = {
+        {0,  TEXT("common"),     90.f, 7.f,  5.f},
+        {1,  TEXT("uncommon"),  105.f, 7.4f, 5.2f},
+        {4,  TEXT("rare"),      120.f, 7.8f, 5.4f},
+        {7,  TEXT("epic"),      135.f, 8.2f, 5.6f},
+        {10, TEXT("mythic"),    150.f, 8.6f, 5.8f},
+        {13, TEXT("legendary"), 165.f, 9.f,  6.f}
+    };
+    for (int32 Index = UE_ARRAY_COUNT(Tiers) - 1; Index > 0; --Index)
+        if (Level >= Tiers[Index].MinimumLevel) return Tiers[Index];
+    return Tiers[0];
+}
+
 bool ColdSteelItemRarity::Normalize(FColdSteelItem& Item)
 {
     const auto Existing=ColdSteelItemData::Read(Item.Data);

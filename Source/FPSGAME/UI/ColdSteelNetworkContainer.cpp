@@ -1,4 +1,5 @@
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelContainerSearchSubsystem.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
 #include "../FPSGAMECharacter.h"
 #include "../FPSGAMEPlayerController.h"
@@ -31,6 +32,8 @@ void UColdSteelStatusModel::ApplyNetworkContainerView(const UColdSteelInventoryR
     if(!Reply||!Reply->bContainerView||!IsValid(Anchor)||!CurrentPawn.IsValid())return;
     if(const auto* Health=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     if(FVector::DistSquared(CurrentPawn->GetActorLocation(),Anchor->GetActorLocation()+FVector(0,0,70))>FMath::Square(250.f))return;
+    if(auto* Search=GetWorld()->GetSubsystem<UColdSteelContainerSearchSubsystem>())
+        Search->ApplyView(Cast<APlayerController>(CurrentPawn->GetController()),Anchor,*Reply);
     auto State=Snapshot();StripNetworkContainerView(State);
     const FString ViewKey=TEXT("NetView.")+Reply->ContainerKey;
     State.StoragePages.Add(ViewKey,Reply->ContainerPages);

@@ -185,3 +185,4 @@ if __name__=='__main__':
             child.hide_render=True
     bpy.ops.wm.save_as_mainfile(filepath=str(out/'SmithWorkfloor.blend'))
     (out/'models.json').write_text(json.dumps(rows,indent=2),encoding='utf-8')
+

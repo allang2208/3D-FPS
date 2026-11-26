@@ -3,7 +3,6 @@
 #include "../FPSGAMEPlayerController.h"
 #include "../FPSWeatherManager.h"
 #include "Blueprint/WidgetTree.h"
-#include "Components/AudioComponent.h"
 #include "Components/Button.h"
 #include "Components/DirectionalLightComponent.h"
 #include "EngineUtils.h"
@@ -12,7 +11,6 @@
 #include "Misc/CommandLine.h"
 #include "Misc/Paths.h"
 #include "Misc/Parse.h"
-#include "NiagaraComponent.h"
 #include "TimerManager.h"
 #include "UnrealClient.h"
 
@@ -70,19 +68,7 @@ namespace
                 const float Expected[] = {0, 0, .35f, .68f, 1};
                 Check(static_cast<int32>(Weather->CurrentState) == Phase && !Weather->bAutomaticSchedule, TEXT("manual preset persists"));
                 Check(FMath::IsNearlyEqual(Weather->GetEffectiveRainIntensity(), Expected[Phase], .015f), TEXT("rain intensity reaches preset"));
-                Check(Weather->RainSystem && Weather->SplashSystem && Weather->LightRainSound && Weather->RainSound && Weather->HeavyRainSound && Weather->ThunderSounds.Num() > 0, TEXT("weather assets loaded"));
-                for (UNiagaraComponent* FX : TInlineComponentArray<UNiagaraComponent*>(Weather.Get()))
-                {
-                    bool Valid = false;
-                    const float Rate = FX->GetVariableFloat(TEXT("User.SpawnRate"), Valid);
-                    // Surface/roof pools legitimately stay inactive where no receiving surface exists.
-                    const bool bCameraRain=FX->GetFName()==TEXT("CameraRain");
-                    Check(Valid && (Phase <= 1 ? Rate < .1f : (bCameraRain ? Rate > 0 : Rate >= 0)), TEXT("Niagara receives rain rate"));
-                    UE_LOG(LogTemp, Display, TEXT("WeatherPanelAudit: phase=%d %s rate=%.3f active=%d"), Phase, *FX->GetName(), Rate, FX->IsActive());
-                }
-                if (Phase <= 1)
-                    for (UAudioComponent* Audio : TInlineComponentArray<UAudioComponent*>(Weather.Get()))
-                        Check(!Audio->IsPlaying(), TEXT("dry weather has no rain or thunder audio"));
+                Check(Weather->WeatherParameters && Weather->IsWeatherPresentationConnected(), TEXT("weather parameters and UDW presentation connected"));
                 Check(Weather->IsSkyClockConnected() || Weather->IsSceneDayNightActive(), TEXT("scene lighting connected"));
                 if (FParse::Param(FCommandLine::Get(), TEXT("WeatherPanelCapture")))
                 {

@@ -55,7 +55,15 @@ void UPotionWorkbenchVisualComponent::UpdateIngredients()
         }
     }
     for(const auto& C:IngredientParts)C->SetVisibility(IsValid(State.Operator)&&C->GetStaticMesh()!=nullptr);
-    for(const auto& C:IngredientCaps)C->SetVisibility(IsValid(State.Operator)&&C->GetStaticMesh()!=nullptr);
+    for(int32 I=0;I<IngredientCaps.Num();++I)
+    {
+        auto* C=IngredientCaps[I].Get();
+        if(!C)continue;
+        // The poured container's cap carries a long extraction pipette. Keep it
+        // out of the parked pose; AnimateIngredients owns its opening visibility.
+        const bool Parked=State.Tool==uint8(EAlchemyOp::Pour)&&I==State.Ingredient;
+        C->SetVisibility(IsValid(State.Operator)&&C->GetStaticMesh()!=nullptr&&!Parked);
+    }
 }
 FTransform UPotionWorkbenchVisualComponent::StirFrame() const
 {

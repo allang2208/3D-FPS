@@ -10,17 +10,21 @@ void AColdSteelPlayerState::TickWoodNetwork()
 {
     const auto* PC=Cast<APlayerController>(GetOwner());
     if(!HasAuthority()||!PC||PC->IsLocalController()||!GuestWood)return;
-    auto* Connection=PC->GetNetConnection();if(!Connection||!Connection->IsNetReady())return;
     const double Now=GetWorld()->GetRealTimeSeconds();
-    if(WoodOutgoing.IsEmpty()&&Now>=WoodPublishAt&&(bWoodDirty||GuestWood->IsTickable()))
+    if(Now>=WoodPublishAt)
     {
         WoodPublishAt=Now+.5;
-        if(GuestWood->NetworkOpen()&&!StationReach(TEXT("wood")))
+        if(GuestWood->NetworkOpen()&&(!GuestWood->Station()||!StationReach(TEXT("wood"),GuestWood->Station())))
+        {
             GuestWood->NetworkUnavailable(TEXT("已离开木工工作台或角色无法操作，本次加工已停止"));
-        if(ColdSteelProfileTransfer::SaveToBlob(GuestWood->NetworkState(),WoodOutgoing))
+            bWoodDirty=true;
+        }
+        if(WoodOutgoing.IsEmpty()&&(bWoodDirty||GuestWood->IsTickable())&&
+            ColdSteelProfileTransfer::SaveToBlob(GuestWood->NetworkState(),WoodOutgoing))
         {WoodChunk=0;++WoodTransfer;WoodOutgoingAck=WoodAuthoritySequence;WoodOutgoingPawn=GetPawn();bWoodDirty=GuestWood->IsTickable();}
     }
     if(WoodOutgoing.IsEmpty()||!InventoryReplyOutgoing.IsEmpty())return;
+    auto* Connection=PC->GetNetConnection();if(!Connection||!Connection->IsNetReady())return;
     const double Rate=FMath::Min(8192.,double(Connection->CurrentNetSpeed)*.1);
     if(Rate<=0||Now<WoodSendAt)return;
     const int32 Total=FMath::DivideAndRoundUp(WoodOutgoing.Num(),1024),Offset=WoodChunk*1024;

@@ -464,6 +464,10 @@ void UColdSteelMonsterPortraits::FinishJob(bool bSuccess)
     WaitStartSeconds = 0.0;
     // 广播刚结束的 Key：监听方据此决定是否重建当前详情，成与不成都要通知。
     OnReady.Broadcast(Finished);
+    // The displayed portraits are independent cached textures. Once callbacks
+    // have had a chance to queue another subject, an empty queue needs no capture
+    // target or renderer, even while the codex page itself remains open.
+    if(Queue.IsEmpty())TeardownStudio();
 }
 
 void UColdSteelMonsterPortraits::DeferCurrentJob(double Now)
