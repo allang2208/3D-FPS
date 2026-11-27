@@ -1,4 +1,5 @@
 #include "FPSIceWall.h"
+#include "FPSFrostSurfaceMesh.h"
 #include "../Monsters/UnknownSpellCombat.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "FPSIceWallComponent.h"
@@ -8,7 +9,9 @@
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../WorldGeneration/FluidPresentationSubsystem.h"
 #include "Components/BoxComponent.h"
+#include "Components/DynamicMeshComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
+#include "Components/PointLightComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Engine/GameInstance.h"
 #include "Engine/World.h"
@@ -66,18 +69,23 @@ void AFPSIceWall::Initialize(UFPSIceWallComponent* Ability,const FIceWallCast& C
     AddTickPrerequisiteComponent(Ability);
     MaxHealth=FMath::Max(1.f,Cast.MaxHealth);Health=0;
     State=bGhost?EState::Preview:EState::Seed;
-    if(bGhost)GhostMaterial=UMaterialInstanceDynamic::Create(Preview,this);
-    for(int32 I=0;I<Meshes.Num();++I)
+    if(GetNetMode()!=NM_DedicatedServer)
     {
-        auto* Mesh=NewObject<UInstancedStaticMeshComponent>(this);
-        AddInstanceComponent(Mesh);Mesh->SetupAttachment(Scene);Mesh->SetStaticMesh(Meshes[I]);
-        Mesh->SetMaterial(0,bGhost?static_cast<UMaterialInterface*>(GhostMaterial.Get()):Ice);
-        Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);Mesh->SetCanEverAffectNavigation(false);
-        Mesh->SetCastShadow(!bGhost);Mesh->bReceivesDecals=false;Mesh->RegisterComponent();Blocks.Add(Mesh);
+        if(bGhost)GhostMaterial=UMaterialInstanceDynamic::Create(Preview,this);
+        else if(Ice)WallMaterial=UMaterialInstanceDynamic::Create(Ice,this);
+        UMaterialInterface* ActiveMat=bGhost?static_cast<UMaterialInterface*>(GhostMaterial.Get()):(WallMaterial?static_cast<UMaterialInterface*>(WallMaterial.Get()):Ice);
+        for(int32 I=0;I<Meshes.Num();++I)
+        {
+            auto* Mesh=NewObject<UInstancedStaticMeshComponent>(this);
+            AddInstanceComponent(Mesh);Mesh->SetupAttachment(Scene);Mesh->SetStaticMesh(Meshes[I]);
+            Mesh->SetMaterial(0,ActiveMat);
+            Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);Mesh->SetCanEverAffectNavigation(false);
+            Mesh->SetCastShadow(!bGhost);Mesh->bReceivesDecals=false;Mesh->RegisterComponent();Blocks.Add(Mesh);
+        }
+        if(!bGhost&&!Blocks.IsEmpty())
+            Blocks[0]->AddInstance(FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.24f)));
     }
-    if(!bGhost)
-        Blocks[0]->AddInstance(FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.24f)));
-    else SetActorTickEnabled(false);
+    if(bGhost)SetActorTickEnabled(false);
 }
 
 void AFPSIceWall::Gather(float Fraction,const FVector& Origin)
@@ -100,6 +108,7 @@ void AFPSIceWall::Gather(float Fraction,const FVector& Origin)
 
 void AFPSIceWall::BuildLayout(EIceWallShape Shape)
 {
+    if(Blocks.IsEmpty())return;
     TArray<FIceWallSection> Sections=Plan.Sections;
     if(Sections.IsEmpty())
     {
@@ -127,11 +136,19 @@ void AFPSIceWall::BuildLayout(EIceWallShape Shape)
         for(int32 Piece=0;Piece<Pieces;++Piece)
         {
             const float PieceHeight=Height*HeightWeights[Piece]/TotalHeightWeight;
-            const float Depth=Tuning.Thickness+Random.FRandRange(0,1.5f);
-            const FVector Center(0,S.Center(),Bottom+PieceHeight*.5f);
+            const float Depth=Tuning.Thickness+Random.FRandRange(0,2.2f);
+            const bool bTopLow=Shape==EIceWallShape::Low&&Piece==Pieces-1;
+            const float DepthStagger=bTopLow?0.f:Random.FRandRange(-1.6f,1.6f);
+            const FVector Center(DepthStagger,S.Center(),Bottom+PieceHeight*.5f);
+            // Organic glacial slab orientation: alternate 180-deg face flips + subtle angular variation
+            // while keeping Low-wall top slabs level for machine-gun bipod seating and tight interlocking seams.
+            const float YawFlip=(Random.RandRange(0,1)?180.f:0.f)+Random.FRandRange(-1.8f,1.8f);
+            const float TiltPitch=bTopLow?0.f:Random.FRandRange(-1.2f,1.2f);
+            const float TiltRoll=bTopLow?0.f:Random.FRandRange(-1.1f,1.1f);
+            const FQuat SlabRot=FRotator(TiltPitch,YawFlip,TiltRoll).Quaternion();
             // Upright, stepped columns sink into the sampled patch instead of
             // floating over its lower edge. Low cover follows local ground height.
-            Blocks[Random.RandRange(0,Blocks.Num()-1)]->AddInstance(FTransform(FQuat::Identity,Center,FVector((Depth+.5f)/100,(Span+1.8f)/100,(PieceHeight+.5f)/100)));
+            Blocks[Random.RandRange(0,Blocks.Num()-1)]->AddInstance(FTransform(SlabRot,Center,FVector((Depth+1.4f)/100,(Span+3.4f)/100,(PieceHeight+1.2f)/100)));
             Bottom+=PieceHeight;
         }
     }
@@ -211,12 +228,14 @@ void AFPSIceWall::Land()
     ShakeNearbyPlayers();
     EnableTerrainBarriers();
     Health=MaxHealth;SetCanBeDamaged(true);
-    State=EState::Solid;Age=0;AuraAge=0;SetActorTickInterval(.1f);
+    State=EState::Solid;Age=0;AuraAge=0;bSettledTickRate=false;SetActorTickInterval(0.f);
+    ActivateSolidVisuals();
     if(HasAuthority()){NetState=uint8(EState::Solid);NetStateAge=0;NetStateAt=GetWorld()->GetTimeSeconds();NetHealth=Health;}
 }
 
 void AFPSIceWall::EmitLandingFX()
 {
+    if(GetNetMode()==NM_DedicatedServer)return;
     auto* System=Component.IsValid()?Component->LandingSystem():nullptr;
     if(!System)return;
     auto* FX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(this,System,Plan.Location+FVector(0,0,4),
@@ -343,7 +362,7 @@ bool AFPSIceWall::IsSolid() const { return State==EState::Solid; }
 
 void AFPSIceWall::UpdateColdMist(float Delta)
 {
-    if(State==EState::Preview||State==EState::Shattered||IsActorBeingDestroyed())return;
+    if(GetNetMode()==NM_DedicatedServer||State==EState::Preview||State==EState::Shattered||IsActorBeingDestroyed())return;
     const bool bNewMist=!ColdMist;
     if(bNewMist)
     {
@@ -406,11 +425,148 @@ void AFPSIceWall::UpdateColdMist(float Delta)
     if(bNewMist){if(bWall)IceWallPlacement::SetEffectProfile(ColdMist,Plan);ColdMist->Activate(true);}
 }
 
+void AFPSIceWall::ActivateSolidVisuals()
+{
+    if(bSolidVisualsActive||GetNetMode()==NM_DedicatedServer)return;
+    bSolidVisualsActive=true;
+    const float MidAlong=(Plan.MinAlong()+Plan.MaxAlong())*.5f;
+    const float MidGroundZ=IceWallPlacement::GroundAt(Plan,0.f,MidAlong);
+    const FVector WallFwd=Plan.Rotation.Vector();
+    const FVector WallRight=Plan.Rotation.RotateVector(FVector::RightVector);
+
+    // 1) Dynamic glacial shader parameters: ground-contact rime height + bottom-up freeze wave.
+    if(WallMaterial)
+    {
+        WallMaterial->SetScalarParameterValue(TEXT("BaseFrostZ"),float(Plan.Location.Z)+Plan.GroundMin());
+        WallMaterial->SetScalarParameterValue(TEXT("FreezeProgress"),Age>=.45f?1.f:0.f);
+        WallMaterial->SetScalarParameterValue(TEXT("DamageCrack"),FMath::Clamp(1.f-Health/FMath::Max(1.f,MaxHealth),0.f,1.f));
+    }
+
+    // 2) Continuous terrain-conforming frozen ground collar (reusing M_FrostSurfaceSheet — immune to decal truncation).
+    UMaterialInterface* SheetMat=Component.IsValid()?Component->FrostSheetMaterialAsset():nullptr;
+    if(!SheetMat)SheetMat=LoadObject<UMaterialInterface>(nullptr,FrostSurfaceMesh::SheetMaterialPath);
+    if(SheetMat)
+    {
+        const FVector FrostCenter=Plan.Location+WallRight*MidAlong+FVector(0,0,MidGroundZ);
+        const float RadiusX=Tuning.Thickness*.5f+205.f;
+        const float RadiusY=Plan.Width()*.5f+165.f;
+        FrostSurface=FrostSurfaceMesh::BuildConformingDisc(this,Scene,GetInstigator(),FrostCenter,WallFwd,
+            RadiusX,RadiusY,SheetMat,FrostSurfaceMID,36,7,true,3.6f);
+        if(FrostSurfaceMID)
+        {
+            const float InitReveal=Age>=.45f?1.15f:.14f;
+            FrostSurfaceMID->SetScalarParameterValue(TEXT("RevealRadius"),InitReveal);
+            FrostSurfaceMID->SetScalarParameterValue(TEXT("FrostDensity"),.86f);
+            FrostSurfaceMID->SetScalarParameterValue(TEXT("EmissiveBoost"),Age>=.65f?.08f:.95f);
+            FrostSurfaceMID->SetScalarParameterValue(TEXT("Fade"),1.f);
+        }
+    }
+
+    // 3) Drifting crystalline frost sparkles along the wall (feathered NS_FrostCrystalsV2 using M_AbsoluteZeroIceDust).
+    UNiagaraSystem* CrystalSys=Component.IsValid()?Component->FrostCrystalsSystem():nullptr;
+    if(!CrystalSys)CrystalSys=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/NS_FrostCrystalsV2.NS_FrostCrystalsV2"));
+    if(CrystalSys)
+    {
+        FrostCrystals=NewObject<UNiagaraComponent>(this);AddInstanceComponent(FrostCrystals);
+        FrostCrystals->SetupAttachment(Scene);FrostCrystals->SetAbsolute(false,true,true);
+        FrostCrystals->SetAsset(CrystalSys);FrostCrystals->SetAutoActivate(false);
+        FrostCrystals->SetCastShadow(false);FrostCrystals->SetCanEverAffectNavigation(false);
+        FrostCrystals->RegisterComponent();
+        const float SweepZ=MidGroundZ+Tuning.Height(Plan.Shape)*(Plan.Shape==EIceWallShape::Low?.35f:.55f);
+        const FVector StartPt=Plan.Location+WallRight*MidAlong+FVector(0,0,SweepZ);
+        FrostCrystals->SetWorldLocation(StartPt);
+        FrostCrystals->SetVariablePosition(TEXT("User.PreviousPosition"),StartPt);
+        FrostCrystals->SetVariablePosition(TEXT("User.CurrentPosition"),StartPt);
+        FrostCrystals->SetVariableVec3(TEXT("User.FlightDirection"),WallFwd);
+        FrostCrystals->SetVariableVec3(TEXT("User.Side"),WallRight);
+        FrostCrystals->SetVariableVec3(TEXT("User.Up"),FVector::UpVector);
+        FrostCrystals->SetVariableFloat(TEXT("User.Flight"),.35f);
+        FrostCrystals->SetVariableFloat(TEXT("User.Strength"),1.f);
+        const float R=FMath::Max(FMath::Abs(Plan.MinAlong()),FMath::Abs(Plan.MaxAlong()))+160.f;
+        FrostCrystals->SetSystemFixedBounds(FBox(FVector(-R,-R,Plan.Bottom()-120.f),FVector(R,R,Plan.Top()+120.f)));
+        FrostCrystals->Activate(true);
+    }
+
+    // 5) Subtle shadow-free glacial rim glow so carved ice facets read clearly in shadow and night.
+    WallLight=NewObject<UPointLightComponent>(this);AddInstanceComponent(WallLight);
+    WallLight->SetupAttachment(Scene);
+    WallLight->SetRelativeLocation(FVector(0.f,MidAlong,MidGroundZ+Tuning.Height(Plan.Shape)*.45f));
+    WallLight->SetLightColor(FLinearColor(.34f,.78f,1.f));
+    WallLight->SetIntensity(Age>=.55f?1500.f:5800.f);
+    WallLight->SetAttenuationRadius(FMath::Clamp(Plan.Width()*.85f,360.f,750.f));
+    WallLight->SetCastShadows(false);
+    WallLight->RegisterComponent();
+}
+
+void AFPSIceWall::UpdateSolidVisuals(float Delta)
+{
+    if(!bSolidVisualsActive||GetNetMode()==NM_DedicatedServer)return;
+    const float FreezeAlpha=FMath::Clamp(Age/.45f,0.f,1.f);
+    const float DamageAlpha=FMath::Clamp(1.f-Health/FMath::Max(1.f,MaxHealth),0.f,1.f);
+    const float EndFade=Tuning.Duration>1.4f&&Age>Tuning.Duration-1.2f?FMath::Clamp((Tuning.Duration-Age)/1.2f,0.f,1.f):1.f;
+
+    if(WallMaterial)
+    {
+        WallMaterial->SetScalarParameterValue(TEXT("FreezeProgress"),FreezeAlpha);
+        WallMaterial->SetScalarParameterValue(TEXT("DamageCrack"),DamageAlpha);
+    }
+    if(FrostSurface&&FrostSurfaceMID)
+    {
+        const float Reveal=FMath::Lerp(.14f,1.15f,FMath::InterpEaseOut(0.f,1.f,FreezeAlpha,2.2f));
+        const float Emissive=FMath::Lerp(.95f,.08f,FMath::Clamp(Age/.65f,0.f,1.f));
+        FrostSurfaceMID->SetScalarParameterValue(TEXT("RevealRadius"),Reveal);
+        FrostSurfaceMID->SetScalarParameterValue(TEXT("EmissiveBoost"),Emissive);
+        FrostSurfaceMID->SetScalarParameterValue(TEXT("Fade"),EndFade);
+        FrostSurface->SetVisibility(EndFade>.01f);
+    }
+    if(FrostCrystals)
+    {
+        const FVector WallFwd=Plan.Rotation.Vector();
+        const FVector WallRight=Plan.Rotation.RotateVector(FVector::RightVector);
+        const float PrevPhase=CrystalSweepPhase;
+        CrystalSweepPhase+=Delta*1.9f;
+        const auto SampleAt=[&](float Phase)
+        {
+            const float U=.5f+.46f*FMath::Sin(Phase);
+            const float Along=FMath::Lerp(Plan.MinAlong(),Plan.MaxAlong(),U);
+            const float Side=((FMath::FloorToInt(Phase/PI)&1)==0?1.f:-1.f)*(Tuning.Thickness*.5f+14.f);
+            const float ZFrac=Plan.Shape==EIceWallShape::Low?(.22f+.18f*FMath::Abs(FMath::Cos(Phase*1.7f))):(.25f+.55f*FMath::Abs(FMath::Cos(Phase*1.7f)));
+            const float Z=IceWallPlacement::GroundAt(Plan,Side,Along)+Tuning.Height(Plan.Shape)*ZFrac;
+            return Plan.Location+WallFwd*Side+WallRight*Along+FVector(0,0,Z);
+        };
+        const FVector PrevPt=SampleAt(PrevPhase);
+        const FVector CurrPt=SampleAt(CrystalSweepPhase);
+        FrostCrystals->SetWorldLocation(CurrPt);
+        FrostCrystals->SetVariablePosition(TEXT("User.PreviousPosition"),PrevPt);
+        FrostCrystals->SetVariablePosition(TEXT("User.CurrentPosition"),CurrPt);
+        FrostCrystals->SetVariableFloat(TEXT("User.Strength"),EndFade);
+    }
+    if(WallLight)
+    {
+        const float FlashT=FMath::Clamp(Age/.55f,0.f,1.f);
+        WallLight->SetIntensity(FMath::Lerp(5800.f,1500.f,FlashT*FlashT)*EndFade);
+    }
+    if(Age>=.68f&&!bSettledTickRate)
+    {
+        bSettledTickRate=true;
+        SetActorTickInterval(.1f);
+    }
+}
+
+void AFPSIceWall::ClearSolidVisuals()
+{
+    bSolidVisualsActive=false;
+    if(FrostSurface){FrostSurface->DestroyComponent();FrostSurface=nullptr;FrostSurfaceMID=nullptr;}
+    if(FrostCrystals){FrostCrystals->DestroyComponent();FrostCrystals=nullptr;}
+    if(WallLight){WallLight->DestroyComponent();WallLight=nullptr;}
+}
+
 float AFPSIceWall::TakeDamage(float Damage,const FDamageEvent& Event,AController* EventInstigator,AActor* Causer)
 {
     if(!HasAuthority()||!IsSolid()||!CanBeDamaged()||Damage<=0||!FMath::IsFinite(Damage))return 0;
     const float Applied=FMath::Min(Health,Damage);
     Health-=Applied;NetHealth=Health;ForceNetUpdate();
+    if(WallMaterial)WallMaterial->SetScalarParameterValue(TEXT("DamageCrack"),FMath::Clamp(1.f-Health/FMath::Max(1.f,MaxHealth),0.f,1.f));
     Super::TakeDamage(Applied,Event,EventInstigator,Causer);
     if(Health<=0)Shatter();
     return Applied;
@@ -449,6 +605,7 @@ void AFPSIceWall::Tick(float Delta)
             AuraAge=FMath::Fmod(AuraAge,Tuning.ChillInterval);
             if(auto* M=ColdSteelAuthority::ForPawn(GetInstigator()))M->ApplyIceWallChill(GetInstigator(),Plan,Tuning);
         }
+        UpdateSolidVisuals(Delta);
     }
     UpdateColdMist(Delta);
 }
@@ -460,8 +617,9 @@ void AFPSIceWall::Shatter()
     SetCanBeDamaged(false);SetActorTickEnabled(false);
     Barrier->SetCollisionEnabled(ECollisionEnabled::NoCollision);Barrier->SetCanEverAffectNavigation(false);
     for(const auto& Box:TerrainBarriers){Box->SetCollisionEnabled(ECollisionEnabled::NoCollision);Box->SetCanEverAffectNavigation(false);}
+    ClearSolidVisuals();
     RestoreMonsterIgnores();
-    if(Previous!=EState::Preview)
+    if(GetNetMode()!=NM_DedicatedServer&&Previous!=EState::Preview)
     {
         if(BreakSound)UGameplayStatics::PlaySoundAtLocation(this,BreakSound,GetActorLocation(),.65f);
         if(BreakFX)
@@ -500,7 +658,10 @@ void AFPSIceWall::NetInit()
         Inst->SetCastShadow(true);Inst->bReceivesDecals=false;Inst->RegisterComponent();Blocks.Add(Inst);
     }
     if(auto* Ice=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/IceWall/FabIceV3/M_IceWall.M_IceWall")))
-        for(const auto& Inst:Blocks)Inst->SetMaterial(0,Ice);
+    {
+        WallMaterial=UMaterialInstanceDynamic::Create(Ice,this);
+        for(const auto& Inst:Blocks)Inst->SetMaterial(0,WallMaterial?static_cast<UMaterialInterface*>(WallMaterial.Get()):Ice);
+    }
     BreakFX=LoadObject<UParticleSystem>(nullptr,TEXT("/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact"));
     BreakSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Skills/IceSpike/S_IceImpact.S_IceImpact"));
     Tuning=NetTuning;Plan=NetPlan;Component=NetComponent;ReleaseOrigin=NetReleaseOrigin;
@@ -529,6 +690,7 @@ void AFPSIceWall::OnRep_State()
     else if(S==EState::Solid)NetLanded();
     else if(S==EState::Shattered)
     {
+        ClearSolidVisuals();
         for(const auto& Mesh:Blocks)Mesh->SetVisibility(false,true);
         Barrier->SetCollisionEnabled(ECollisionEnabled::NoCollision);Barrier->SetCanEverAffectNavigation(false);
         for(const auto& Box:TerrainBarriers){Box->SetCollisionEnabled(ECollisionEnabled::NoCollision);Box->SetCanEverAffectNavigation(false);}
@@ -549,7 +711,10 @@ void AFPSIceWall::OnRep_State()
     }
 }
 void AFPSIceWall::OnRep_Health()
-{Health=NetHealth;}
+{
+    Health=NetHealth;
+    if(WallMaterial)WallMaterial->SetScalarParameterValue(TEXT("DamageCrack"),FMath::Clamp(1.f-Health/FMath::Max(1.f,MaxHealth),0.f,1.f));
+}
 
 void AFPSIceWall::NetLanded()
 {
@@ -557,7 +722,10 @@ void AFPSIceWall::NetLanded()
     // Opening an old wall's channel must not replay its impact or camera shake.
     if(Age<.75f){EmitLandingFX();ShakeNearbyPlayers();}
     EnableTerrainBarriers();
-    Health=NetHealth>0?NetHealth:MaxHealth;SetActorTickInterval(.1f);
+    Health=NetHealth>0?NetHealth:MaxHealth;
+    bSettledTickRate=Age>=.68f;
+    SetActorTickInterval(bSettledTickRate?.1f:0.f);
+    ActivateSolidVisuals();
     if(ColdMist){ColdMist->SetVariableFloat(TEXT("User.WallPhase"),1.f);}
     UpdateColdMist(0);
 }
@@ -566,7 +734,11 @@ void AFPSIceWall::NetTick(float Delta)
     if(!bNetInit){NetInit();if(!bNetInit)return;}
     Age=FMath::Max(Age,NetworkAge());AuraAge+=Delta;
     // 升降位姿由 ReplicateMovement 搬运；这里只管冷气持续发射与到期兜底。
-    if(State==EState::Solid&&Age>=Tuning.Duration+2.f){Destroy();return;} // 服务端销毁超时兜底
+    if(State==EState::Solid)
+    {
+        if(Age>=Tuning.Duration+2.f){Destroy();return;} // 服务端销毁超时兜底
+        UpdateSolidVisuals(Delta);
+    }
     UpdateColdMist(Delta);
 }
 float AFPSIceWall::NetworkAge() const
@@ -576,6 +748,7 @@ float AFPSIceWall::NetworkAge() const
 }
 void AFPSIceWall::EndPlay(EEndPlayReason::Type Reason)
 {
+    ClearSolidVisuals();
     if(ColdMist){ColdMist->DestroyComponent();ColdMist=nullptr;}
     Barrier->SetCollisionEnabled(ECollisionEnabled::NoCollision);Barrier->SetCanEverAffectNavigation(false);
     for(const auto& Box:TerrainBarriers){Box->SetCollisionEnabled(ECollisionEnabled::NoCollision);Box->SetCanEverAffectNavigation(false);}

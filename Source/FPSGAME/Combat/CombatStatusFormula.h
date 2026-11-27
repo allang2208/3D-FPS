@@ -122,6 +122,8 @@ public:
     bool BlocksMovement()const{return FrozenTime>0||StunTime>0||BindTime>0||PetrifyTime>0;}
     /** Fixed -5% per stack for every source; duration mode remains source-owned. */
     void AddChill(int32 Stacks,float Seconds,bool bRefreshDuration=false);
+    /** Shatter hook: breaks Frozen first; otherwise consumes up to ChillCost chill stacks. */
+    void ConsumeFrostForShatter(int32 ChillCost);
     int32 ChillCount() const{return ChillTime>0.f?ChillStacks:0;}
     float ChillRemaining() const{return FMath::Max(0.f,ChillTime);}
     float ChillMovementMultiplier() const{return CombatChill::MovementMultiplier(ChillCount());}

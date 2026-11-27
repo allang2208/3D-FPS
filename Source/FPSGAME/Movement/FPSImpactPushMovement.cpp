@@ -3,6 +3,7 @@
 #include "../Characters/FPSPlayerBodyComponent.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Combat/CombatControlImmunity.h"
+#include "../Skills/FPSAbsoluteZeroComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "GameFramework/Character.h"
 #include "GameFramework/GameStateBase.h"
@@ -32,6 +33,11 @@ void UFPSCharacterMovementComponent::ApplyImpactPush(const FVector& Direction,fl
     if(!CharacterOwner||!CharacterOwner->HasAuthority()||!FMath::IsFinite(DistanceCM)||DistanceCM<=0.f
         ||Direction.ContainsNaN()||Direction.GetSafeNormal2D().IsNearlyZero())return;
     if(CombatControl::IsImmune(CharacterOwner))return;
+    if(const auto* AZ=CharacterOwner->FindComponentByClass<UFPSAbsoluteZeroComponent>();AZ&&AZ->HasLightStaggerResistance())
+    {
+        if(DistanceCM<180.f)return;
+        DistanceCM*=.35f;
+    }
     StartImpactPush(Direction,DistanceCM,0.f);
     // The owner starts the same source; native root-motion corrections reconcile
     // its elapsed time and position. Simulated proxies use replicated movement.

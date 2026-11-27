@@ -13,6 +13,7 @@
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../Monsters/PoisonMaggotMonster.h"
 #include "../Skills/EnemyAttackDamage.h"
+#include "../Skills/FPSAbsoluteZeroComponent.h"
 #include "../Weapons/RuneSwordComponent.h"
 #include "../Weapons/TangDaoGuardComponent.h"
 #include "../Weapons/PanChiGuardComponent.h"
@@ -126,6 +127,7 @@ float AFPSGAMECharacter::TakeDamage(float DamageAmount, const FDamageEvent& Dama
     }
     // Independent multiplier after existing armor, status and block reductions.
     if(const auto* Guard=FindComponentByClass<UTangDaoGuardComponent>())DamageAmount*=Guard->DamageTakenMultiplier();
+    if(const auto* Nova=FindComponentByClass<UFPSAbsoluteZeroComponent>())DamageAmount*=Nova->ChannelDamageTakenMultiplier();
     if(DebugInvincible)return 0.f;
     // A parry returns zero to the attack caller before damage events or its
     // on-hit status effects are emitted. Armor has already been applied once.

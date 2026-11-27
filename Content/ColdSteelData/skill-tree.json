@@ -183,6 +183,26 @@
         }
       ]
     },
+    "absoluteZero": {
+      "branch": "ice",
+      "lane": 0,
+      "column": 3,
+      "kind": "magic",
+      "active": true,
+      "requires": [
+        {
+          "skill": "blizzard",
+          "level": 10
+        },
+        {
+          "anyOf": [
+            "iceArmor",
+            "iceWall"
+          ],
+          "level": 6
+        }
+      ]
+    },
     "lightningStrike": {
       "branch": "storm",
       "lane": 0,

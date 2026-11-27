@@ -26,6 +26,7 @@ public:
     float LanceSpreadTangent() const{return FMath::Tan(FMath::DegreesToRadians(6.f))*(1.f-LanceChargeFraction());}
     FVector2D LanceCrosshairExtent(FVector2D LocalSize) const;
     bool HasQueuedAction() const{return !QueuedSkill.IsNone();}
+    bool IsThunderLancePending() const{return QueuedSkill==TEXT("thunderLance")||CommittedSkill==TEXT("thunderLance");}
     FName UnreleasedSkill() const{return CommittedSkill;}
     float DomainRemaining() const{return bDomainActive&&!bDomainFading?FMath::Max(0.f,DomainCast.Duration-DomainAge):0.f;}
     FString StatusText(FName Skill) const;
@@ -48,6 +49,7 @@ protected:
 private:
     UPROPERTY(Transient) TArray<TObjectPtr<UObject>> Assets;
     UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> CloudFX;
+    UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> VolumeCloudFX;
     UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> ChargeFX;
     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> ChargeCircle;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> ChargeCircleMaterial;
@@ -58,10 +60,11 @@ private:
     // 发射瞬间的定向冲击盘面（虹膜网格沿瞄准轴放大淡出）。
     UPROPERTY(Transient) TObjectPtr<UStaticMeshComponent> MuzzleIris;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> MuzzleIrisMID;
-    float MuzzleFlashAge=0,MuzzleFlashScale=1;
+    float MuzzleFlashAge=0,MuzzleFlashScale=1,ChargeColorSeed=0;
     double NextChargeArc=0;
     TSharedPtr<FStreamableHandle> AssetLoad;
     TArray<TWeakObjectPtr<AFPSLightningArc>> Arcs;
+    TArray<TWeakObjectPtr<AFPSLightningArc>> CloudArcs;
     TArray<TWeakObjectPtr<UNiagaraComponent>> Bursts;
     FElectricMagicCast PendingCast,DomainCast;
     FElectricMagicRewards DomainRewards;
@@ -73,10 +76,14 @@ private:
     FString Message;
     double MessageUntil=0;
     float ChargeAge=0,DomainAge=0,DomainVisualAge=0,NextStrike=0;
-    float CloudTop=330.f,CloudThickness=110.f,CloudRadiusX=0.f,CloudRadiusY=0.f,NextCloudProbe=0.f;
+    float CloudTop=220.f,CloudThickness=96.f,CloudRadiusX=0.f,CloudRadiusY=0.f,NextCloudProbe=0.f,NextCloudArc=0.f;
     double CloudCeilingZ=TNumericLimits<double>::Max();
     FVector CloudProbePosition=FVector::ZeroVector;
+    FVector CloudFlashPos[2]={FVector::ZeroVector,FVector::ZeroVector};
+    float CloudFlashPulse[2]={0.f,0.f};
+    int32 NextCloudFlashSlot=0,VolumeCloudResolution=0;
     bool bAssetsReady=false,bChargeAtContact=false,bDomainActive=false,bDomainFading=false;
+    bool bVolumeCloudRunning=false,bVolumeCloudWarmed=false;
     FFPSLeftHandNotice HandNotice;
     UColdSteelStatusModel* Model() const;
     UFPSFireballComponent* Hands() const;
@@ -111,6 +118,14 @@ private:
     /** 雷云 FX——本地激活与服务端激活共用（远端靠复制态重演）。 */
     void SpawnDomainFX();
     void UpdateDomainCloud(float Delta,bool bForce=false);
+    void UpdateDomainCloudArcs();
+    void ClearCloudArcs();
+    bool ShouldUseVolumeCloud() const;
+    bool IsVolumeCloudReady() const;
+    void ConfigureVolumeCloud(UNiagaraComponent* FX,float BaseVisualRadius,int32 Resolution) const;
+    void PrepareVolumeCloud();
+    void ReleaseVolumeCloud(bool bDestroy);
+    void PulseCloudFlash(const FVector& WorldPos,float Intensity=1.f);
     FVector DomainStrikeOrigin(AActor* Target) const;
     // ── 联机：雷云激活态复制（远端副本看云；电弧/雷枪柱经 AFPSLightningArc 复制）──
     UPROPERTY(ReplicatedUsing=OnRep_Domain) FStormDomainState NetDomain;

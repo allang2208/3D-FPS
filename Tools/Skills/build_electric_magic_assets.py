@@ -89,7 +89,7 @@ def sprite(system,name,material,rate=None,burst=None,life=.7,position='float3(0,
     assignments(system,name,'ParticleUpdateScript',{'Particles.Position':(POSITION,moving),'Particles.SpriteSize':(VEC2,size),'Particles.Color':(COLOR,f'({color})*float4(1,1,1,saturate(Particles.NormalizedAge*12)*saturate((1-Particles.NormalizedAge)*3))'),'Particles.SubImageIndex':(FLOAT,'0')})
 
 def cloud(filament,spark):
-    from build_storm_domain_cloud import build_cloud
+    from build_storm_domain_v3 import build_cloud
     return build_cloud(filament,spark)
 
 def beam():
@@ -143,7 +143,7 @@ def main():
     cloud(filament,spark);beam();charge(spark,filament,ring);impact(spark,filament,ring);audio()
     from build_thunder_lance_circle import build_circle
     CREATED.append(build_circle().get_path_name())
-    receipt={'saved_assets':list(CREATED),'cloud_source':'/Game/UnrealNormandy/Materials/M_Master_StormCloud','cloud_owned_parent':'/Game/Skills/ElectricMagic/StormDomainV2/MI_StormDomainCloud','cloud_runtime':'/Game/Skills/ElectricMagic/StormDomainV2/NS_StormDomainCloud','beam_source':'SourceAssets/ThunderLanceFlux20261001','beam_runtime':'/Game/Skills/ElectricMagic/ThunderFluxV3',
+    receipt={'saved_assets':list(CREATED),'cloud_source':'/Game/Skills/Blizzard/ChargedV3/M_BlizzardStormCloud','cloud_owned_parent':'/Game/Skills/ElectricMagic/StormDomainV3/MI_StormDomainCloud','cloud_runtime':'/Game/Skills/ElectricMagic/StormDomainV3/NS_StormDomainCloud','beam_source':'SourceAssets/ThunderLanceFlux20261001','beam_runtime':'/Game/Skills/ElectricMagic/ThunderFluxV3',
              'sounds_original':['game-dev/public/assets/sounds/skills/lightning-1.mp3','game-dev/public/assets/sounds/skills/lightning-2.mp3'],
              'cloud_core_particles':48,'charge_particles_approx_max':40,'impact_particles':43,'max_local_arc_actors':48,'max_local_impact_systems':24,'max_audio_voices':6,
              'gameplay_tested':False,'rendered':False,'audio_played':False}

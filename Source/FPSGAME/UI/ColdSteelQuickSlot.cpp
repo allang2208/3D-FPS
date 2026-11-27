@@ -28,6 +28,7 @@
 #include "../Skills/FPSIceSpikeComponent.h"
 #include "../Skills/FPSIceWallComponent.h"
 #include "../Skills/FPSBlizzardComponent.h"
+#include "../Skills/FPSAbsoluteZeroComponent.h"
 #include "../Skills/FPSLightningComponent.h"
 #include "../Skills/FPSElectricMagicComponent.h"
 #include "../Skills/FPSHolyLightComponent.h"
@@ -170,6 +171,11 @@ void UColdSteelQuickSlot::NativeTick(const FGeometry& Geometry,float DeltaTime)
         else if(Displayed.Skill==TEXT("blizzard"))
         {
             if(const auto* Ability=Player->FindComponentByClass<UFPSBlizzardComponent>())
+            {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
+        }
+        else if(Displayed.Skill==TEXT("absoluteZero"))
+        {
+            if(const auto* Ability=Player->FindComponentByClass<UFPSAbsoluteZeroComponent>())
             {Notice=Ability->IsHandOccupiedNotice();NoticeAlpha=Ability->HandNoticeAlpha();NoticeRise=Ability->HandNoticeRise();}
         }
         else if(ElectricMagic::IsSkill(Displayed.Skill))
@@ -329,6 +335,15 @@ void UColdSteelQuickSlot::Refresh()
         if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->BlizzardCooldown();
         Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill))&&(!Ability||!Ability->HasUnreleasedCast());
         if(Model->BlizzardDefinition().Blizzard.bRequiresStaff&&!Model->HasEquippedStaff())
+        {Dim=true;bGoldPrepared=false;Remaining=0;Message=TEXT("需要法杖");}
+    }
+    else if(Binding.Skill==TEXT("absoluteZero"))
+    {
+        const auto* Player=GetOwningPlayerPawn();const auto* Ability=Player?Player->FindComponentByClass<UFPSAbsoluteZeroComponent>():nullptr;
+        if(Ability){Message=Ability->StatusText();Fraction=Ability->CooldownFraction();bGoldPrepared=Ability->IsChanneling();}
+        if(Fraction>0&&!(Ability&&Ability->IsHandOccupiedNotice()))Remaining=Model->AbsoluteZeroCooldown();
+        Dim=!Model->CanSpendMana(Model->SpellManaCost(Binding.Skill))&&(!Ability||!Ability->HasUnreleasedCast());
+        if(Model->AbsoluteZeroDefinition().AbsoluteZero.bRequiresStaff&&!Model->HasEquippedStaff())
         {Dim=true;bGoldPrepared=false;Remaining=0;Message=TEXT("需要法杖");}
     }
     else if(Binding.Skill==TEXT("iceWall"))

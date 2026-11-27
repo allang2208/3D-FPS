@@ -99,6 +99,7 @@ void AFPSGAMECharacter::InterruptActionsForPriority(bool bWeaponSwitch)
         InterruptReload();
         if(HasOffhandPistol())DualPistols->InterruptActions();
         CancelAmmoSelection();
+        if(IsLocallyControlled()&&Profile)Profile->CancelSpellAimPreview();
         FireReleased();AimReleased();
         bReloadAfterCasting=bRevolverReloadAfterFire=bPistolShotPending=false;
         bPendingEmptyReload=bReloadAmmoCommitted=bReloadCycleOnly=false;

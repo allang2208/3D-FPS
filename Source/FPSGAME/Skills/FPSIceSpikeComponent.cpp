@@ -33,11 +33,11 @@ void UFPSIceSpikeComponent::BeginPlay()
         SpikeMeshes.Add(PlayerSkillAssets::Resolve<UStaticMesh>(*Path));
     }
     ShardMesh=PlayerSkillAssets::Resolve<UStaticMesh>(TEXT("/Game/Skills/IceSpike/SM_IceShard.SM_IceShard"));
-    IceMaterial=PlayerSkillAssets::Resolve<UMaterialInterface>(TEXT("/Game/Skills/IceSpike/FrostV2/M_IceHeart.M_IceHeart"));
-    IceShellMaterial=PlayerSkillAssets::Resolve<UMaterialInterface>(TEXT("/Game/Skills/IceSpike/FrostV2/M_IceShell.M_IceShell"));
+    IceMaterial=PlayerSkillAssets::Resolve<UMaterialInterface>(TEXT("/Game/Skills/IceSpike/FrostV2/M_IceSpikeHeartV3.M_IceSpikeHeartV3"));
+    IceShellMaterial=PlayerSkillAssets::Resolve<UMaterialInterface>(TEXT("/Game/Skills/IceSpike/FrostV2/M_IceSpikeShellV3.M_IceSpikeShellV3"));
     ImpactFX=PlayerSkillAssets::Resolve<UParticleSystem>(TEXT("/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact"));
     ImpactSound=PlayerSkillAssets::Resolve<USoundBase>(TEXT("/Game/Skills/IceSpike/S_IceImpact.S_IceImpact"));
-    Motes=PlayerSkillAssets::Resolve<UNiagaraSystem>(TEXT("/Game/Skills/IceSpike/FrostV2/NS_FrostCrystals.NS_FrostCrystals"));
+    Motes=PlayerSkillAssets::Resolve<UNiagaraSystem>(TEXT("/Game/Skills/IceSpike/FrostV2/NS_FrostCrystalsV2.NS_FrostCrystalsV2"));
     ColdMist=PlayerSkillAssets::Resolve<UNiagaraSystem>(TEXT("/Game/Skills/IceSpike/FrostV2/NS_ColdMist.NS_ColdMist"));
     }));
 }
@@ -152,7 +152,9 @@ void UFPSIceSpikeComponent::LaunchAtContact()
     // 联机客人：发射意图上报——服务端权威齐射按上报瞄准点起飞，本地不驱动弹道。
     if(GetWorld()->GetNetMode()==NM_Client)
     {
-        NetCast::Send(GetOwner(),TEXT("iceSpike"),1,FPSMagicPreview::AimPoint(Cast<APawn>(GetOwner()),Active.Get()));
+        auto* Pawn=Cast<APawn>(GetOwner());
+        const FVector AimPoint=Active.IsValid()?Active->CommittedAimPoint(Pawn):FPSMagicPreview::AimPoint(Pawn,nullptr);
+        NetCast::Send(GetOwner(),TEXT("iceSpike"),1,AimPoint);
         return;
     }
     Active->Launch();
@@ -167,13 +169,13 @@ void UFPSIceSpikeComponent::SetAimPreview(bool bActive)
     const auto* H=Hands();
     const bool bCastInProgress=H&&H->IsSpellGesture(this)&&(H->GetHandPhase()==EFireballHandPhase::Raising
         ||H->GetHandPhase()==EFireballHandPhase::ReadyingRelease||H->GetHandPhase()==EFireballHandPhase::Releasing);
-    if(bActive&&(!IsPrepared()||bQueuedRelease||bCastInProgress))return;
+    if(bActive&&(!Active.IsValid()||!IsPrepared()||bQueuedRelease||bCastInProgress))return;
     bAimPreview=bActive;
     if(auto* V=Active.Get())V->SetAimPreviewActive(bAimPreview);
 }
 void UFPSIceSpikeComponent::ReleaseAimPreview()
 {
-    if(!bAimPreview||!IsPrepared())return;
+    if(!bAimPreview||!Active.IsValid()||!IsPrepared()){bAimPreview=false;return;}
     Active->CommitAimPreview();bAimPreview=false;
     Trigger();
     const auto* H=Hands();

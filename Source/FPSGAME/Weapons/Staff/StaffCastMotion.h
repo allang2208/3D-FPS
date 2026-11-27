@@ -10,6 +10,9 @@ struct FStaffCastPose
     // keys: primary smash or charge flow selected by the active staff action.
     static constexpr int32 ArmPoseCount=11;
     float ArmWeights[ArmPoseCount]={1,0,0,0,0,0};
+    // V30 continuous 60 Hz primary swing curve sample (PrimaryWeight=0 disables).
+    float PrimaryPhase=-1.f;
+    float PrimaryWeight=0.f;
 };
 
 namespace StaffCastMotion
@@ -51,6 +54,10 @@ namespace StaffCastMotion
             FMath::Lerp(A.Contact.GetLocation(),B.Contact.GetLocation(),Alpha));
         P.Shoulder=FMath::Lerp(A.Shoulder,B.Shoulder,Alpha);P.Elbow=FMath::Lerp(A.Elbow,B.Elbow,Alpha);
         for(int32 I=0;I<FStaffCastPose::ArmPoseCount;++I)P.ArmWeights[I]=FMath::Lerp(A.ArmWeights[I],B.ArmWeights[I],Alpha);
+        P.PrimaryWeight=FMath::Lerp(A.PrimaryWeight,B.PrimaryWeight,Alpha);
+        P.PrimaryPhase=A.PrimaryWeight>0.f&&B.PrimaryWeight>0.f
+            ?FMath::Lerp(A.PrimaryPhase,B.PrimaryPhase,Alpha)
+            :(B.PrimaryWeight>0.f?B.PrimaryPhase:A.PrimaryPhase);
         return P;
     }
     inline FStaffCastPose Raise(const FStaffCastPose& Entry,float T)
@@ -89,4 +96,91 @@ namespace StaffCastMotion
     {return P.Contact.TransformPosition(FVector(0,0,48));}
     inline FVector Focus(const FStaffCastPose& P)
     {return Tip(P)+FVector(16,0,0);}
+
+    // Dedicated Absolute Zero staff animation: vertical upright lift (0..86% channel)
+    // with mounting cryo tremor -> rapid vertical ground slam (86..100%) -> heavy
+    // ground-thud hit-stop & smooth return to carry (0..0.44 s post-detonation).
+    inline constexpr float AbsoluteZeroSlamStart=.86f;
+    inline constexpr float AbsoluteZeroSlamHold=.12f;
+    inline constexpr float AbsoluteZeroSlamRecoverSeconds=.44f;
+
+    inline FStaffCastPose AbsoluteZeroLiftedPose()
+    {
+        return Pose(FVector(42,15,5),FVector(.11f,-.04f,.993f),
+            FVector(3,21,-18),FVector(21,34,-17),1);
+    }
+    inline FStaffCastPose AbsoluteZeroSlammedPose()
+    {
+        return Pose(FVector(47,13,-24),FVector(.16f,-.04f,.986f),
+            FVector(6,20,-27),FVector(25,33,-38),4);
+    }
+    inline FStaffCastPose AbsoluteZeroChannel(const FStaffCastPose& Entry,float Alpha,float Age)
+    {
+        Alpha=FMath::Clamp(Alpha,0.f,1.f);
+        const auto Lifted=AbsoluteZeroLiftedPose();
+        if(Alpha<AbsoluteZeroSlamStart)
+        {
+            const float LiftT=FMath::Clamp(Alpha/.24f,0.f,1.f);
+            auto P=Blend(Entry,Lifted,Ease(LiftT));
+            const float HoldT=FMath::Clamp((Alpha-.24f)/FMath::Max(.01f,AbsoluteZeroSlamStart-.24f),0.f,1.f);
+            // Draw slightly higher with rising cryo tremor before slamming down.
+            const float PeakLift=3.6f*Ease(HoldT);
+            const float Tremor=HoldT*HoldT;
+            const FVector Jitter(FMath::Sin(Age*43.f)*.24f*Tremor,FMath::Cos(Age*37.f)*.28f*Tremor,PeakLift+FMath::Sin(Age*53.f)*.34f*Tremor);
+            P.Contact.AddToTranslation(Jitter);
+            P.Shoulder+=Jitter*.45f;P.Elbow+=Jitter*.75f;
+            return P;
+        }
+        auto Peak=Lifted;
+        Peak.Contact.AddToTranslation(FVector(0,0,3.6f));
+        Peak.Shoulder+=FVector(0,0,1.6f);Peak.Elbow+=FVector(0,0,2.7f);
+        const float SlamT=FMath::Clamp((Alpha-AbsoluteZeroSlamStart)/FMath::Max(.01f,1.f-AbsoluteZeroSlamStart),0.f,1.f);
+        // Accelerating vertical drive straight into the earth at exact detonation (Alpha=1).
+        const float Plunge=FMath::Pow(SlamT,1.85f);
+        return Blend(Peak,AbsoluteZeroSlammedPose(),Plunge);
+    }
+    inline FStaffCastPose AbsoluteZeroRecover(const FStaffCastPose& Current,float SlamAge)
+    {
+        auto Slammed=AbsoluteZeroSlammedPose();
+        if(SlamAge<AbsoluteZeroSlamHold)
+        {
+            const float Rattle=FMath::Sin(SlamAge*62.f)*FMath::Exp(-SlamAge*18.f);
+            const FVector Shift(0.f,Rattle*.25f,Rattle*1.45f);
+            Slammed.Contact.AddToTranslation(Shift);Slammed.Shoulder+=Shift*.4f;Slammed.Elbow+=Shift*.7f;
+            return Slammed;
+        }
+        const float RecT=FMath::Clamp((SlamAge-AbsoluteZeroSlamHold)/FMath::Max(.01f,AbsoluteZeroSlamRecoverSeconds-AbsoluteZeroSlamHold),0.f,1.f);
+        return Recover(Slammed,Current,RecT);
+    }
+    inline void AbsoluteZeroCamera(bool bChanneling,float Alpha,float SlamAge,FVector& OutLoc,FRotator& OutRot,float* OutFov)
+    {
+        OutLoc=FVector::ZeroVector;OutRot=FRotator::ZeroRotator;if(OutFov)*OutFov=0.f;
+        if(bChanneling)
+        {
+            Alpha=FMath::Clamp(Alpha,0.f,1.f);
+            if(Alpha<AbsoluteZeroSlamStart)
+            {
+                const float T=Ease(Alpha/AbsoluteZeroSlamStart);
+                OutLoc=FVector(-.6f*T,0.f,.85f*T);
+                OutRot=FRotator(1.35f*T,0.f,-.35f*T);
+                if(OutFov)*OutFov=-2.4f*T;
+            }
+            else
+            {
+                const float S=FMath::Pow(FMath::Clamp((Alpha-AbsoluteZeroSlamStart)/FMath::Max(.01f,1.f-AbsoluteZeroSlamStart),0.f,1.f),1.7f);
+                OutLoc=FMath::Lerp(FVector(-.6f,0.f,.85f),FVector(.9f,0.f,-2.1f),S);
+                OutRot=FRotator(FMath::Lerp(1.35f,-2.6f,S),0.f,FMath::Lerp(-.35f,.55f,S));
+                if(OutFov)*OutFov=FMath::Lerp(-2.4f,1.2f,S);
+            }
+            return;
+        }
+        if(SlamAge>=0.f&&SlamAge<.36f)
+        {
+            const float Decay=FMath::Exp(-SlamAge*10.5f);
+            const float Wave=FMath::Cos(SlamAge*25.f)*Decay;
+            OutLoc=FVector(.65f*Decay,0.f,-1.85f*Wave);
+            OutRot=FRotator(-2.8f*Wave,0.f,.45f*Wave);
+            if(OutFov)*OutFov=3.4f*FMath::Exp(-SlamAge*9.f);
+        }
+    }
 }

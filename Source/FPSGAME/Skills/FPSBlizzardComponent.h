@@ -26,6 +26,7 @@ public:
     void ReleaseAimPreview();
     bool IsAimPreviewActive() const{return bAimPreview;}
     bool IsPrepared() const{return bCommitted&&bGathered&&!bReleaseRequested;}
+    bool HasPreparedCast() const{return bCommitted;}
     bool HasQueuedAction() const{return bQueued||bReleaseRequested;}
     bool HasUnreleasedCast() const{return bCommitted||bNetAwaitingCancel;}
     FString StatusText() const;

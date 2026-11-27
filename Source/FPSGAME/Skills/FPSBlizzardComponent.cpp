@@ -148,7 +148,7 @@ void UFPSBlizzardComponent::ServiceQueue()
         if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;bNetPrepared=false;NetCast::Send(P,TEXT("blizzard"),0);}
         return;
     }
-    if(bReleaseRequested&&bCommitted&&bGathered&&(GetWorld()->GetNetMode()!=NM_Client||bNetPrepared))
+    if(bReleaseRequested&&bCommitted&&bGathered&&!H->IsSpellGesture(this)&&(GetWorld()->GetNetMode()!=NM_Client||bNetPrepared))
         H->TryBeginSpellGesture(this,true,CastSnapshot.CastSpeed,FSimpleDelegate::CreateUObject(this,&ThisClass::ReleaseAtContact));
 }
 void UFPSBlizzardComponent::Gathered(){if(bCommitted){bGathered=true;PreparedAge=0;}}

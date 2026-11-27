@@ -43,6 +43,7 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         if(bLance){auto& T=D.ElectricMagic;T.DamageBase=110;T.DamagePerLevel=14;T.MagicBase=1.8f;T.MagicPerLevel=.26f;T.IntelligenceBase=2;T.IntelligencePerLevel=.30f;T.ManaBase=120;T.ManaGrowth=35;T.Cooldown=32;T.CooldownReduction=4;T.RangeBase=900;T.RangePerLevel=15;T.ElectrifyStacks=2;T.ElectrifySeconds=5;T.StunSeconds=0;T.HitExperience=2;T.KillExperience=10;T.MultiHitExperience=8;T.MultiKillExperience=10;}
     }
     if(Id==TEXT("blizzard")){D.Name=TEXT("暴风雪");D.Description=TEXT("需要装备法杖才能施放的高级寒冰魔法，在准星地面召唤持续伤害与寒冷的暴风雪区域。");D.Icon=TEXT("Skills/blizzard_cold_steel.png");}
+    if(Id==TEXT("absoluteZero")){D.Name=TEXT("绝对零度");D.Description=TEXT("仅装备法杖时可施放的终极寒冰魔法，原地蓄寒后向四周爆发极寒环浪，引爆冻结目标并震碎己方冰墙化作碎冰弹幕。");D.Icon=TEXT("Skills/absolute_zero_cold_steel.png");D.ExperiencePerLevel=150;}
     if(Id==TEXT("staffLight"))
     {D.Name=TEXT("水晶照明");D.Description=TEXT("学徒长杖的特殊功能：按 G 切换水晶照明，无冷却、无消耗。抬杖动作只播放一次，照明持续至再次按 G 或卸下法杖。");D.Icon=TEXT("Skills/staff_light_cold_steel.png");return D;}
     if(Id==TEXT("dodge")){D.Name=TEXT("闪避");D.Description=TEXT("短按左 Shift 后松开，朝输入方向快速闪避；无输入时沿朝向。动作期间无敌。");D.Icon=TEXT("Skills/dodge_cold_steel.png");}
@@ -259,6 +260,49 @@ FColdSteelSkillDefinition ColdSteelSkills::LoadDefinition(FName Id)
         F.ChillStacks=Num(TEXT("chillStacks"),1);F.ChillSeconds=Num(TEXT("chillSeconds"),2.5);F.ChillSlow=CombatChill::SlowPerStack;
         F.HitExperience=Num(TEXT("hitExperience"),1);F.KillExperience=Num(TEXT("killExperience"),6);
         F.MultiHitExperience=Num(TEXT("multiHitExperience"),5);F.MultiKillExperience=Num(TEXT("multiKillExperience"),10);
+    }
+    if(Id==TEXT("absoluteZero"))
+    {
+        auto& F=D.AbsoluteZero;
+        O->TryGetBoolField(TEXT("requiresStaff"),F.bRequiresStaff);
+        F.DamageBase=Num(TEXT("damageBase"),F.DamageBase);F.DamagePerLevel=Num(TEXT("damagePerLevel"),F.DamagePerLevel);
+        F.MagicBase=Num(TEXT("magicBase"),F.MagicBase);F.MagicPerLevel=Num(TEXT("magicPerLevel"),F.MagicPerLevel);
+        F.ShatterDamageBase=Num(TEXT("shatterDamageBase"),F.ShatterDamageBase);F.ShatterDamagePerLevel=Num(TEXT("shatterDamagePerLevel"),F.ShatterDamagePerLevel);
+        F.ShatterMagicBase=Num(TEXT("shatterMagicBase"),F.ShatterMagicBase);F.ShatterMagicPerLevel=Num(TEXT("shatterMagicPerLevel"),F.ShatterMagicPerLevel);
+        F.WallShardDamageBase=Num(TEXT("wallShardDamageBase"),F.WallShardDamageBase);F.WallShardDamagePerLevel=Num(TEXT("wallShardDamagePerLevel"),F.WallShardDamagePerLevel);
+        F.WallShardMagicBase=Num(TEXT("wallShardMagicBase"),F.WallShardMagicBase);F.WallShardMagicPerLevel=Num(TEXT("wallShardMagicPerLevel"),F.WallShardMagicPerLevel);
+        F.RadiusBaseCM=FMath::Clamp(float(Num(TEXT("radiusBaseCM"),F.RadiusBaseCM)),200.f,4000.f);
+        F.RadiusPerLevelCM=FMath::Clamp(float(Num(TEXT("radiusPerLevelCM"),F.RadiusPerLevelCM)),0.f,200.f);
+        F.InnerRadiusCM=FMath::Clamp(float(Num(TEXT("innerRadiusCM"),F.InnerRadiusCM)),100.f,F.RadiusBaseCM);
+        F.ManaBase=FMath::Max(0.f,float(Num(TEXT("manaBase"),F.ManaBase)));F.ManaPerLevel=FMath::Max(0.f,float(Num(TEXT("manaPerLevel"),F.ManaPerLevel)));
+        F.Cooldown=FMath::Clamp(float(Num(TEXT("cooldown"),F.Cooldown)),1.f,300.f);
+        F.CooldownReduction=FMath::Clamp(float(Num(TEXT("cooldownReduction"),F.CooldownReduction)),0.f,F.Cooldown-1.f);
+        F.ChannelSeconds=FMath::Clamp(float(Num(TEXT("channelSeconds"),F.ChannelSeconds)),.15f,3.f);
+        F.ArmorChannelSeconds=FMath::Clamp(float(Num(TEXT("armorChannelSeconds"),F.ArmorChannelSeconds)),.15f,F.ChannelSeconds);
+        F.ChannelDamageReduction=FMath::Clamp(float(Num(TEXT("channelDamageReduction"),F.ChannelDamageReduction)),0.f,.8f);
+        F.ArmorChannelDamageReduction=FMath::Clamp(float(Num(TEXT("armorChannelDamageReduction"),F.ArmorChannelDamageReduction)),F.ChannelDamageReduction,.85f);
+        F.ExpandSeconds=FMath::Clamp(float(Num(TEXT("expandSeconds"),F.ExpandSeconds)),.1f,2.f);
+        F.KnockbackBaseCM=FMath::Clamp(float(Num(TEXT("knockbackBaseCM"),F.KnockbackBaseCM)),0.f,1500.f);
+        F.KnockbackMaxCM=FMath::Clamp(float(Num(TEXT("knockbackMaxCM"),F.KnockbackMaxCM)),F.KnockbackBaseCM,1500.f);
+        F.ToughnessDamage=FMath::Clamp(float(Num(TEXT("toughnessDamage"),F.ToughnessDamage)),0.f,2000.f);
+        F.InnerChillStacks=FMath::Clamp(int32(Num(TEXT("innerChillStacks"),F.InnerChillStacks)),1,30);
+        F.OuterChillStacks=FMath::Clamp(int32(Num(TEXT("outerChillStacks"),F.OuterChillStacks)),1,30);
+        F.ChillSeconds=FMath::Clamp(float(Num(TEXT("chillSeconds"),F.ChillSeconds)),.5f,20.f);
+        F.ChillBonusPerStack=FMath::Clamp(float(Num(TEXT("chillBonusPerStack"),F.ChillBonusPerStack)),0.f,.25f);
+        F.ChillBonusCap=FMath::Clamp(float(Num(TEXT("chillBonusCap"),F.ChillBonusCap)),0.f,3.f);
+        F.ShatterChillThreshold=FMath::Clamp(int32(Num(TEXT("shatterChillThreshold"),F.ShatterChillThreshold)),1,20);
+        F.MaxDetonatedWalls=FMath::Clamp(int32(Num(TEXT("maxDetonatedWalls"),F.MaxDetonatedWalls)),0,4);
+        F.MaxShardsPerWall=FMath::Clamp(int32(Num(TEXT("maxShardsPerWall"),F.MaxShardsPerWall)),1,36);
+        F.MaxFullShardsPerTarget=FMath::Clamp(int32(Num(TEXT("maxFullShardsPerTarget"),F.MaxFullShardsPerTarget)),1,24);
+        F.OverflowShardScale=FMath::Clamp(float(Num(TEXT("overflowShardScale"),F.OverflowShardScale)),0.f,1.f);
+        F.WallShardRangeCM=FMath::Clamp(float(Num(TEXT("wallShardRangeCM"),F.WallShardRangeCM)),300.f,4000.f);
+        F.WallShardSpeedCM=FMath::Clamp(float(Num(TEXT("wallShardSpeedCM"),F.WallShardSpeedCM)),600.f,6000.f);
+        F.WallShardConeDegrees=FMath::Clamp(float(Num(TEXT("wallShardConeDegrees"),F.WallShardConeDegrees)),5.f,75.f);
+        F.HitExperience=FMath::Clamp(int32(Num(TEXT("hitExperience"),F.HitExperience)),0,10000);
+        F.KillExperience=FMath::Clamp(int32(Num(TEXT("killExperience"),F.KillExperience)),0,10000);
+        F.MultiHitExperience=FMath::Clamp(int32(Num(TEXT("multiHitExperience"),F.MultiHitExperience)),0,10000);
+        F.MultiKillExperience=FMath::Clamp(int32(Num(TEXT("multiKillExperience"),F.MultiKillExperience)),0,10000);
+        F.WallComboExperience=FMath::Clamp(int32(Num(TEXT("wallComboExperience"),F.WallComboExperience)),0,10000);
     }
     if(Id==TEXT("iceWall"))
     {

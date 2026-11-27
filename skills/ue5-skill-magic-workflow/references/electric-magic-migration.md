@@ -1,6 +1,19 @@
 # 雷暴领域与贯穿雷枪（2026-10-01）
 
-## 翻卷乌云 RollingV1（2026-10-12）
+## 雷暴领域 3D 体积云 StormDomainV4 与雷枪 2K 视差法阵 V3（2026-11-26/27 当前版本）
+
+- **雷暴领域分级体积云（`StormDomainV4`）**：替代 V3 静态云片贴片感。**Tier 1（本地玩家且 EffectsQuality ≥ Medium）** 复用 UE5 原生 `Grid3D_Gas_SimpleParticleSource` + `NiagaraVolumeRenderer`（`64/80/96` 分辨率、`Compensate For Actor Motion` + `Max Streak Samples=1` 防拉丝、`Strength=0` 后台非阻塞预热驻留），产出 `/Game/Skills/ElectricMagic/StormDomainV4/NS_StormDomainVolume` 并叠加 `NS_StormDomainSmoke`（`User.WispOnly=1`）云缘烟缕；**Tier 2（低画质 / 远端玩家 / 预热期即时兜底）** 使用 Mantaflow 8×8 翻滚烟雾 `NS_StormDomainSmoke`（`User.WispOnly=0`）。双槽 `User.FlashPos/FlashPulse` + `FlashPos2/FlashPulse2` 将云附分叉闪电与落雷实时注入体素 `Temperature` 通道与烟雾次表面紫蓝散射。作者入口 `Tools/Skills/build_storm_domain_v4.py`（V3 回退包与 `build_storm_domain_v3.py` 只读留存）。
+- **贯穿雷枪 2K 矢量视差法阵（`ArcaneCirclesV3`）**：`ChargeCircle` 居中锚定准星前 `66 cm`（`0.70→0.78×`）、`ChargeIris` 沿视线前推 `+16 cm`（`82 cm`）并按实测 `SM_ThunderLanceIris` 单位半径 `1.0 cm` 缩放至 `46.5→52.0 cm`，形成双层 3D 全息视差且严格保持中心 `r < 0.562` 零遮挡；`M_ThunderLanceCircle` / `M_ThunderLanceIris` 采样 2048×2048 4 通道线性 BC7 贴图 `/Game/Skills/ElectricMagic/ThunderLanceV2/T_ThunderLanceArcaneV3`（`never_stream=True`），支持三层正反独立旋转、径向分带随层辉光、`ColorSeed` 蓝/紫/青随机游走及 `MuzzleIrisMID` 同色相炮口激波。作者入口 `Tools/Skills/generate_arcane_circle_textures_v3.py`、`author_arcane_circles_v3_20261127.py`（外环粒子依赖 `author_arcane_circles_v2_20261127.py`）；完整规范见 [arcane-circle-and-frost-vfx.md](arcane-circle-and-frost-vfx.md)。未实机测试。
+
+## 雷暴领域厚云 StormDomainV3（2026-11-26，回退基底）
+
+用户反馈原 `RollingV1` 雷电领域乌云呈破碎中空。根因四项：① 沿用枪口烟 Mantaflow 图集 `T_MuzzleSmokeMantaflowV14` 且半径仅 `0.42–0.68×`，云团稀碎；② `CustomAlignment` 未重绑 `SpriteAlignmentBinding`（仍指失效的 `Particles.ShapeLocation.ShapeVector`），且竖直锁轴在玩家抬头仰视头顶正上方时被侧视裁薄成空洞；③ `sqrt(b)` 径向分布把粒子推向外圈，天顶覆盖仅 4 层；④ `SystemState Loop Duration` 仍继承爆炸模板的 `5.0 s`。
+
+本轮参考 2026-11-15 用户选定的暴风雪 B 版厚云 `ChargedV3`（Normandy `M_BlizzardStormCloud`/`MI_BlizzardStormCloud`），在独立目录 `/Game/Skills/ElectricMagic/StormDomainV3` 新建 `M_StormDomainCloud`、`MI_StormDomainCloud`（`Opacity=1.65`、`Fade=12`、`DistanceFade=8/18 cm`、`Emissive_Multiplier=0.015`）、`NS_StormDomainCloud` 与局部空间闪电拷贝 `NS_StormCloudArc`（复刻已认可的 `/Game/Skills/Lightning/NS_LightningChain` 并绑定 `User.BladeSpline`、`require_current_frame_data=True`）：
+- **紧凑视觉范围（与战斗半径解耦）**：`FPSElectricMagicComponent` 将视觉云半径与 2026-10-19 翻倍后的落雷半径（`6.84–11.4 m`）解耦为 `BaseVisualRadius = Clamp(DomainCast.Radius * 0.36, 180, 340)` cm，配合收紧后的四层 49 核云片（`14+15+12+8`，宽度 `0.66–1.08×`、`spread=0.44–0.60`、天顶偏置 `pow(b, 0.85/0.72/0.70/0.65)`），实际外观直径由 `16–27 m` 收紧至 **`4.6 m`（1 级）–`6.4 m`（20 级）**，天顶仍保持 26 层致密重叠无中空；权威落雷伤害半径保持不变。
+- **云上附着闪电复用闪电魔法**：淘汰旧平面 2D `CloudDischarges` 丝片，在各观察客户端由 `UpdateDomainCloudArcs()` + `AFPSLightningArc::InitializeCloudArc()` 以 `0.055–0.115 s` 高频在云底／云缘生成局部非复制、随角色 XYZ 跟随且不随镜头偏航旋转的 `NS_StormCloudArc`（主电弧 + 70% 分叉支弧 + 45% 对侧同步闪烁，同屏上限 16、常驻 4–7 道、0 动态光源），并保留紫蓝调 `FallingElectricSparks`（16/s）。`Unaligned + FaceCamera` 面向、`CalculateBoundsMode=Dynamic`、系统周期 `max(.6,User.StormDuration+.6)`、头顶锚定与室内压薄（`6–96 cm`）保持生效。作者入口 `Tools/Skills/build_storm_domain_v3.py`（全量作者 `build_electric_magic_assets.py::cloud` 同步切换）；`FPSElectricMagicComponent.cpp`、`FPSStormDomainNetwork.cpp`、`FPSLightningArc.*` 与 `PlayerSkillAssets.cpp` 已接入，原 `RollingV1`/`StormDomainV2`/`ChargedV3` 只读留存。本条覆盖下文历史表述；未实机测试。
+
+## 翻卷乌云 RollingV1（2026-10-12，历史）
 
 雷暴、暴风雪区域云与近手凝聚云的运行引用改为 `/Game/Skills/StormClouds/RollingV1` 三个独立 Niagara，当前作者 `Tools/Skills/build_rolling_storm_clouds.py`；制作和实际保存状态见 `Docs/Skills/rolling-storm-clouds-20261012.md`。参考百目 SmokeVisibilityFixV21／沉匣毒雾共用的 Mantaflow 密度图集，独立时间循环密集帧，采用深灰／冷灰配色，保留怪物源资产。
 

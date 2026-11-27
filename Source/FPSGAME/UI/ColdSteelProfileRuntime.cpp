@@ -185,6 +185,7 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
     IceSpikeSkill=ColdSteelSkills::LoadDefinition(TEXT("iceSpike"));
     IceWallSkill=ColdSteelSkills::LoadDefinition(TEXT("iceWall"));
     BlizzardSkill=ColdSteelSkills::LoadDefinition(TEXT("blizzard"));
+    AbsoluteZeroSkill=ColdSteelSkills::LoadDefinition(TEXT("absoluteZero"));
     LightningSkill=ColdSteelSkills::LoadDefinition(TEXT("lightningStrike"));
     StormDomainSkill=ColdSteelSkills::LoadDefinition(TEXT("stormDomain"));
     ThunderLanceSkill=ColdSteelSkills::LoadDefinition(TEXT("thunderLance"));
@@ -276,6 +277,7 @@ UColdSteelStatusModel* UColdSteelStatusModel::CreateEquipmentModel(const FColdSt
     Shadow->IceSpikeSkill=IceSpikeSkill;
     Shadow->IceWallSkill=IceWallSkill;
     Shadow->BlizzardSkill=BlizzardSkill;
+    Shadow->AbsoluteZeroSkill=AbsoluteZeroSkill;
     Shadow->LightningSkill=LightningSkill;
     Shadow->StormDomainSkill=StormDomainSkill;
     Shadow->ThunderLanceSkill=ThunderLanceSkill;

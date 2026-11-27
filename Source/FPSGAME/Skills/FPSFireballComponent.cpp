@@ -17,6 +17,7 @@
 #include "FPSIceSpikeComponent.h"
 #include "FPSIceWallComponent.h"
 #include "FPSBlizzardComponent.h"
+#include "FPSAbsoluteZeroComponent.h"
 #include "FPSLightningComponent.h"
 #include "FPSElectricMagicComponent.h"
 #include "FPSHolyLightComponent.h"
@@ -85,11 +86,12 @@ bool UFPSFireballComponent::IsPrepared() const { return Active.IsValid()&&!Activ
 bool UFPSFireballComponent::IsFlying() const { return Active.IsValid()&&Active->IsFlying(); }
 bool UFPSFireballComponent::HasOtherPreparedSpell(const UActorComponent* Requester) const
 {
-    if(Requester!=this&&IsPrepared())return true;
+    if(Requester!=this&&HasPreparedCast())return true;
     const auto* Owner=GetOwner();if(!Owner)return false;
     if(const auto* Ice=Owner->FindComponentByClass<UFPSIceSpikeComponent>();Ice&&Requester!=Ice&&Ice->IsPrepared())return true;
     if(const auto* Wall=Owner->FindComponentByClass<UFPSIceWallComponent>();Wall&&Requester!=Wall&&Wall->HasUnreleasedCast())return true;
     if(const auto* Blizzard=Owner->FindComponentByClass<UFPSBlizzardComponent>();Blizzard&&Requester!=Blizzard&&Blizzard->HasUnreleasedCast())return true;
+    if(const auto* AbsoluteZero=Owner->FindComponentByClass<UFPSAbsoluteZeroComponent>();AbsoluteZero&&Requester!=AbsoluteZero&&AbsoluteZero->HasUnreleasedCast())return true;
     if(const auto* Electric=Owner->FindComponentByClass<UFPSElectricMagicComponent>();Electric&&Requester!=Electric&&Electric->IsCharging())return true;
     return false;
 }
@@ -373,7 +375,8 @@ void UFPSFireballComponent::LaunchAtContact()
     // 联机客人：发射意图上报——服务端权威球按上报瞄准点起飞，本地不驱动弹道。
     if(GetWorld()->GetNetMode()==NM_Client)
     {
-        SendNetCast(1,FPSMagicPreview::AimPoint(Player,Active.Get()));
+        const FVector AimPoint=Active.IsValid()?Active->CommittedAimPoint(Player):FPSMagicPreview::AimPoint(Player,nullptr);
+        SendNetCast(1,AimPoint);
         bLaunchCommitted=true;bQueuedLaunch=false;bNetExpectOrb=false;
         return;
     }
@@ -544,6 +547,7 @@ void UFPSFireballComponent::InterruptForPriority()
     if(auto* LightningHaste=GetOwner()->FindComponentByClass<UFPSLightningHasteComponent>())LightningHaste->Cancel();
     if(auto* FireMagic=GetOwner()->FindComponentByClass<UFPSFireMagicComponent>())FireMagic->CancelPending();
     if(auto* Blizzard=GetOwner()->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->InterruptPending(Spell==Blizzard&&PendingContact);
+    if(auto* AbsoluteZero=GetOwner()->FindComponentByClass<UFPSAbsoluteZeroComponent>())AbsoluteZero->InterruptPending(Spell==AbsoluteZero||AbsoluteZero->IsChanneling());
     if(auto* Blades=GetOwner()->FindComponentByClass<URuneOrbBladesComponent>())Blades->InterruptPending(Spell==Blades&&Gathering);
     if(!Spell && PendingContact && (IsPrepared()||bNetExpectOrb)){ReleaseOrb();Feedback(TEXT("施法中断"));}
     bLaunchCommitted=false;
@@ -585,6 +589,7 @@ void UFPSFireballComponent::AdoptNetOrb(AFPSFireballProjectile* Ball)
 {
     if(!Ball||Active.Get()==Ball)return;
     Active=Ball;bNetExpectOrb=false;
+    if(bAimPreview)Ball->SetAimPreviewActive(true);
 }
 void UFPSFireballComponent::NetCastRejected(uint8 Phase,uint8 /*Code*/)
 {

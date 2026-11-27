@@ -44,6 +44,8 @@ void UFPSIceWallComponent::BeginPlay()
         BreakFX=PlayerSkillAssets::Resolve<UParticleSystem>(TEXT("/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact"));
         BreakSound=PlayerSkillAssets::Resolve<USoundBase>(TEXT("/Game/Skills/IceSpike/S_IceImpact.S_IceImpact"));
         CastSound=PlayerSkillAssets::Resolve<USoundBase>(TEXT("/Game/Skills/IceWall/BlockV1/S_IceWallCast.S_IceWallCast"));
+        FrostSheetMaterial=PlayerSkillAssets::Resolve<UMaterialInterface>(TEXT("/Game/Skills/AbsoluteZero/M_FrostSurfaceSheet.M_FrostSurfaceSheet"));
+        FrostCrystalsAsset=PlayerSkillAssets::Resolve<UNiagaraSystem>(TEXT("/Game/Skills/IceSpike/FrostV2/NS_FrostCrystalsV2.NS_FrostCrystalsV2"));
         ColdMistAsset=ColdMistTemplate.Get();LandingAsset=LandingTemplate.Get();
     }),{ColdMistTemplate.ToSoftObjectPath(),LandingTemplate.ToSoftObjectPath()});
 }
@@ -147,7 +149,7 @@ void UFPSIceWallComponent::ServiceQueue()
         // 联机客人：种子/预览是本地表现壳；权威墙等 Phase1 上报后由服务端生成。
         if(GetWorld()->GetNetMode()==NM_Client){bNetPaid=true;NetPaidAt=GetWorld()->GetTimeSeconds();NetCast::Send(P,TEXT("iceWall"),0);}
     }
-    if(bReleaseRequested&&Seed.IsValid())
+    if(bReleaseRequested&&Seed.IsValid()&&!H->IsSpellGesture(this))
         H->TryBeginSpellGesture(this,true,Seed->Snapshot().CastSpeed,FSimpleDelegate::CreateUObject(this,&ThisClass::LaunchAtContact));
 }
 void UFPSIceWallComponent::Gathered(){if(Seed.IsValid()){bGathered=true;PreparedAge=0;PreviewAge=1;}}
@@ -334,6 +336,7 @@ void UFPSIceWallComponent::EndPlay(EEndPlayReason::Type Reason)
     if(ColdMistLoad){ColdMistLoad->CancelHandle();ColdMistLoad.Reset();}
     Cancel();
     for(auto W:ReleasedWalls)if(W.IsValid())W->Destroy();ReleasedWalls.Reset();
-    ColdMistAsset=nullptr;LandingAsset=nullptr;
+    ColdMistAsset=nullptr;LandingAsset=nullptr;FrostCrystalsAsset=nullptr;
+    FrostSheetMaterial=nullptr;
     Super::EndPlay(Reason);
 }

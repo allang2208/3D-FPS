@@ -37,8 +37,11 @@ public:
     float HandNoticeRise() const;
     bool ValidatePlacement(const FIceWallPlacement& Placement,const FIceWallCast& Cast,FString& Reason) const;
     void WallEnded(AFPSIceWall* Wall);
+    const TArray<TWeakObjectPtr<AFPSIceWall>>& ActiveWalls() const { return ReleasedWalls; }
     UNiagaraSystem* ColdMistSystem() const { return ColdMistAsset.Get(); }
     UNiagaraSystem* LandingSystem() const { return LandingAsset.Get(); }
+    UNiagaraSystem* FrostCrystalsSystem() const { return FrostCrystalsAsset.Get(); }
+    UMaterialInterface* FrostSheetMaterialAsset() const { return FrostSheetMaterial.Get(); }
     // ── 联机 ──
     bool NetCommitWall(APawn* Caster,const struct FColdSteelNetCastRequest& Req,UColdSteelStatusModel* Shadow,const FIceWallCast& C);
     void NetCastRejected(uint8 Phase,uint8 Code);
@@ -85,4 +88,6 @@ private:
     UPROPERTY() TSoftObjectPtr<UNiagaraSystem> LandingTemplate=TSoftObjectPtr<UNiagaraSystem>(
         FSoftObjectPath(TEXT("/Game/Skills/IceWall/TerrainV1/NS_IceWallLanding.NS_IceWallLanding")));
     UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> LandingAsset;
+    UPROPERTY(Transient) TObjectPtr<UNiagaraSystem> FrostCrystalsAsset;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> FrostSheetMaterial;
 };

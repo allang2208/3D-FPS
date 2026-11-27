@@ -4,36 +4,40 @@
 
 bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
 {
-    if (P.SkillProgressVersion >= 33) return false;
+    if (P.SkillProgressVersion >= 34) return false;
+    P.AbsoluteZeroCooldown=P.AbsoluteZeroCooldownDuration=P.AbsoluteZeroReservedMana=0.f;
+    P.bAbsoluteZeroReserved=false;
+    P.Skills.FindOrAdd(TEXT("absoluteZero"));
+    if(P.SkillProgressVersion==33){P.SkillProgressVersion=34;return true;}
     P.ShadowStepCooldown=P.ShadowStepCooldownDuration=0.f;
     P.Skills.FindOrAdd(TEXT("twoHandedMastery"));
     P.Skills.FindOrAdd(TEXT("oneHandedMastery"));
     P.Skills.FindOrAdd(TEXT("shadowStepSlash"));
-    if(P.SkillProgressVersion==32){P.SkillProgressVersion=33;return true;}
+    if(P.SkillProgressVersion==32){P.SkillProgressVersion=34;return true;}
     P.LeapStrikeCooldown=P.LeapStrikeCooldownDuration=0.f;
     P.Skills.FindOrAdd(TEXT("leapStrike"));
-    if(P.SkillProgressVersion==31){P.SkillProgressVersion=33;return true;}
-    if(P.SkillProgressVersion==30){P.SkillProgressVersion=33;return true;}
+    if(P.SkillProgressVersion==31){P.SkillProgressVersion=34;return true;}
+    if(P.SkillProgressVersion==30){P.SkillProgressVersion=34;return true;}
     P.Skills.FindOrAdd(TEXT("chainSlash"));
-    if(P.SkillProgressVersion==29){P.SkillProgressVersion=33;return true;}
+    if(P.SkillProgressVersion==29){P.SkillProgressVersion=34;return true;}
     P.Skills.FindOrAdd(TEXT("illuminationArrow"));
-    if(P.SkillProgressVersion==28){P.SkillProgressVersion=33;return true;}
+    if(P.SkillProgressVersion==28){P.SkillProgressVersion=34;return true;}
     P.Skills.FindOrAdd(TEXT("elementalArrow"));
-    if(P.SkillProgressVersion==27){P.SkillProgressVersion=33;return true;}
+    if(P.SkillProgressVersion==27){P.SkillProgressVersion=34;return true;}
     P.Skills.FindOrAdd(TEXT("magicArrowRain"));
-    if(P.SkillProgressVersion==26){P.SkillProgressVersion=33;return true;}
+    if(P.SkillProgressVersion==26){P.SkillProgressVersion=34;return true;}
     P.Skills.FindOrAdd(TEXT("heartPiercingArrow"));
-    if(P.SkillProgressVersion==25){P.SkillProgressVersion=33;return true;}
+    if(P.SkillProgressVersion==25){P.SkillProgressVersion=34;return true;}
     P.Skills.FindOrAdd(TEXT("bluntMastery"));
-    if(P.SkillProgressVersion==24){P.SkillProgressVersion=33;return true;}
+    if(P.SkillProgressVersion==24){P.SkillProgressVersion=34;return true;}
     P.Skills.FindOrAdd(TEXT("lightningHaste"));P.LightningHasteCooldown=P.LightningHasteCooldownDuration=0;
-    if(P.SkillProgressVersion==23){P.SkillProgressVersion=33;return true;}
+    if(P.SkillProgressVersion==23){P.SkillProgressVersion=34;return true;}
     P.Skills.FindOrAdd(TEXT("iceArmor"));P.IceArmorCooldown=P.IceArmorCooldownDuration=0;
-    if(P.SkillProgressVersion==22){P.SkillProgressVersion=33;return true;}
+    if(P.SkillProgressVersion==22){P.SkillProgressVersion=34;return true;}
     P.Skills.FindOrAdd(TEXT("dragonBreath"));
     P.DragonBreathCooldown=P.DragonBreathCooldownDuration=P.DragonBreathReservedMana=0.f;
     P.bDragonBreathReserved=false;
-    if(P.SkillProgressVersion==21){P.SkillProgressVersion=33;return true;}
+    if(P.SkillProgressVersion==21){P.SkillProgressVersion=34;return true;}
     if (P.SkillProgressVersion < 8)
     {
         P.Skills.FindOrAdd(TEXT("rifleMastery"));P.Skills.FindOrAdd(TEXT("dodge"));P.Skills.FindOrAdd(TEXT("dexterousHands"));P.Skills.FindOrAdd(TEXT("pistolMastery"));P.Skills.FindOrAdd(TEXT("criticalStrike"));P.Skills.FindOrAdd(TEXT("fireball"));for(FName Id:{FName(TEXT("swordMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery"))})P.Skills.FindOrAdd(Id);P.Skills.FindOrAdd(TEXT("heavyStrike"));
@@ -66,12 +70,17 @@ bool ColdSteelSkills::Migrate(FColdSteelProfile& P)
     for(FName Id:{FName(TEXT("stormDomain")),FName(TEXT("thunderLance"))}){P.Skills.FindOrAdd(Id);P.ElectricCooldowns.FindOrAdd(Id);P.ElectricCooldownDurations.FindOrAdd(Id);}
     P.Skills.FindOrAdd(TEXT("swordUppercut"));
     P.SwordUppercutCooldown=P.SwordUppercutCooldownDuration=0.f;
-    P.SkillProgressVersion=33;
+    P.SkillProgressVersion=34;
     return true;
 }
 bool ColdSteelSkills::Validate(const FColdSteelProfile& P, FString& Reason)
 {
-    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>33 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
+    if (P.SkillProgressVersion<0 || P.SkillProgressVersion>34 || P.Skills.Num()>128) { Reason=TEXT("技能存档版本或数量无效"); return false; }
+    if(P.SkillProgressVersion>=34&&(!P.Skills.Contains(TEXT("absoluteZero"))||!FMath::IsFinite(P.AbsoluteZeroCooldown)||
+        !FMath::IsFinite(P.AbsoluteZeroCooldownDuration)||P.AbsoluteZeroCooldown<0||P.AbsoluteZeroCooldownDuration<P.AbsoluteZeroCooldown||
+        P.AbsoluteZeroCooldownDuration>300||!FMath::IsFinite(P.AbsoluteZeroReservedMana)||P.AbsoluteZeroReservedMana<0||
+        (!P.bAbsoluteZeroReserved&&P.AbsoluteZeroReservedMana!=0)))
+    {Reason=TEXT("绝对零度进度或冷却无效");return false;}
     if(P.SkillProgressVersion>=33&&(!P.Skills.Contains(TEXT("twoHandedMastery"))||!P.Skills.Contains(TEXT("oneHandedMastery"))||
         !P.Skills.Contains(TEXT("shadowStepSlash"))||!FMath::IsFinite(P.ShadowStepCooldown)||!FMath::IsFinite(P.ShadowStepCooldownDuration)||
         P.ShadowStepCooldown<0||P.ShadowStepCooldownDuration<P.ShadowStepCooldown||P.ShadowStepCooldownDuration>300))

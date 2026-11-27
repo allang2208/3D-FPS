@@ -1,12 +1,18 @@
 #include "ColdSteelMagicQuickCast.h"
 #include "ColdSteelStatusModel.h"
+#include "../FPSGAMECharacter.h"
+#include "../Skills/FPSFireballComponent.h"
+#include "../Skills/FPSIceSpikeComponent.h"
+#include "../Skills/FPSIceWallComponent.h"
+#include "../Skills/FPSBlizzardComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 namespace ColdSteelMagicQuickCast
 {
 bool IsMagic(FName Skill)
 {
     return ElectricMagic::IsSkill(Skill)||FireMagic::IsSkill(Skill)||Skill==TEXT("fireball")||
-        Skill==TEXT("iceSpike")||Skill==TEXT("iceWall")||Skill==TEXT("blizzard")||
+        Skill==TEXT("iceSpike")||Skill==TEXT("iceWall")||Skill==TEXT("blizzard")||Skill==TEXT("absoluteZero")||
         Skill==TEXT("holyLight")||Skill==TEXT("lightningHaste")||Skill==TEXT("iceArmor")||Skill==TEXT("lightningStrike");
 }
 bool Migrate(FColdSteelProfile& Profile)
@@ -44,6 +50,7 @@ float UColdSteelStatusModel::MagicCooldownRemaining(FName Skill) const
     if(Skill==TEXT("iceSpike"))return IceSpikeCooldown();
     if(Skill==TEXT("iceWall"))return IceWallCooldown();
     if(Skill==TEXT("blizzard"))return BlizzardCooldown();
+    if(Skill==TEXT("absoluteZero"))return AbsoluteZeroCooldown();
     if(Skill==TEXT("holyLight"))return HolyLightCooldown();
     if(Skill==TEXT("iceArmor"))return IceArmorCooldown();
     if(Skill==TEXT("lightningHaste"))return LightningHasteCooldown();
@@ -75,17 +82,37 @@ bool UColdSteelStatusModel::ClearMagic(int32 Index)
 bool UColdSteelStatusModel::SelectMagic(int32 Index)
 {
     if(Index!=INDEX_NONE&&(!Current.MagicWheelSkills.IsValidIndex(Index)||!CanBindMagic(Current.MagicWheelSkills[Index])))return false;
+    if(Index!=INDEX_NONE)PrioritizeSkillAssets(Current.MagicWheelSkills[Index]);
     if(Current.SelectedMagicSlot==Index)return true;
     SyncRuntime();auto Profile=Snapshot();Profile.SelectedMagicSlot=Index;
     return CommitState(Profile);
 }
 bool UColdSteelStatusModel::PressStaffMagic()
 {
-    const FName Skill=SelectedMagicSkill();
-    if(!HasEquippedStaff()||!CanBindMagic(Skill))return false;
+    if(!HasEquippedStaff())return false;
+    const FName Prepared=PreparedStaffMagicSkill();
+    const FName Skill=!Prepared.IsNone()?Prepared:SelectedMagicSkill();
+    if(Skill.IsNone()||!CanBindMagic(Skill))return false;
+    PrioritizeSkillAssets(Skill);
     return BeginSpellAimPreviewForSkill(Skill,ColdSteelMagicQuickCast::StaffInput)||UseQuickSkill(Skill);
 }
 void UColdSteelStatusModel::ReleaseStaffMagic()
 {EndSpellAimPreview(ColdSteelMagicQuickCast::StaffInput);}
 void UColdSteelStatusModel::CancelStaffMagic()
-{if(AimPreviewIndex==ColdSteelMagicQuickCast::StaffInput)CancelSpellAimPreview();}
+{CancelOwnedAimPreview(ColdSteelMagicQuickCast::StaffInput);}
+FName UColdSteelStatusModel::PreparedStaffMagicSkill() const
+{
+    if(!HasEquippedStaff())return NAME_None;
+    const auto* Player=RuntimePawn();
+    if(!Player)Player=Cast<AFPSGAMECharacter>(UGameplayStatics::GetPlayerPawn(this,0));
+    if(!Player)return NAME_None;
+    if(const auto* Fireball=Player->FindComponentByClass<UFPSFireballComponent>();Fireball&&Fireball->HasPreparedCast())
+        return TEXT("fireball");
+    if(const auto* IceSpike=Player->FindComponentByClass<UFPSIceSpikeComponent>();IceSpike&&IceSpike->IsPrepared())
+        return TEXT("iceSpike");
+    if(const auto* IceWall=Player->FindComponentByClass<UFPSIceWallComponent>();IceWall&&IceWall->HasUnreleasedCast())
+        return TEXT("iceWall");
+    if(const auto* Blizzard=Player->FindComponentByClass<UFPSBlizzardComponent>();Blizzard&&Blizzard->HasPreparedCast())
+        return TEXT("blizzard");
+    return NAME_None;
+}

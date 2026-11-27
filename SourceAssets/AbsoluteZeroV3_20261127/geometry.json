@@ -1,0 +1,102 @@
+[
+  {
+    "mesh": "SM_AZ_GlacierSpire_01",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AbsoluteZeroV3_20261127\\SM_AZ_GlacierSpire_01.fbx",
+    "vertices": 778,
+    "triangles": 1524,
+    "bounds_m": {
+      "x": [
+        -0.302,
+        0.3033
+      ],
+      "y": [
+        -0.3065,
+        0.2546
+      ],
+      "z": [
+        -0.15,
+        1.0
+      ]
+    },
+    "vcol_mean": {
+      "R_edge_frost": 0.268,
+      "G_root_frost": 0.51,
+      "B_cavity": 0.195
+    }
+  },
+  {
+    "mesh": "SM_AZ_GlacierSpire_02",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AbsoluteZeroV3_20261127\\SM_AZ_GlacierSpire_02.fbx",
+    "vertices": 765,
+    "triangles": 1498,
+    "bounds_m": {
+      "x": [
+        -0.2526,
+        0.3306
+      ],
+      "y": [
+        -0.2746,
+        0.2635
+      ],
+      "z": [
+        -0.15,
+        1.0
+      ]
+    },
+    "vcol_mean": {
+      "R_edge_frost": 0.275,
+      "G_root_frost": 0.527,
+      "B_cavity": 0.194
+    }
+  },
+  {
+    "mesh": "SM_AZ_GlacierSpire_03",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AbsoluteZeroV3_20261127\\SM_AZ_GlacierSpire_03.fbx",
+    "vertices": 1001,
+    "triangles": 1962,
+    "bounds_m": {
+      "x": [
+        -0.3534,
+        0.3743
+      ],
+      "y": [
+        -0.3007,
+        0.2522
+      ],
+      "z": [
+        -0.15,
+        1.0
+      ]
+    },
+    "vcol_mean": {
+      "R_edge_frost": 0.258,
+      "G_root_frost": 0.522,
+      "B_cavity": 0.183
+    }
+  },
+  {
+    "mesh": "SM_AZ_IceFangCluster",
+    "fbx": "D:\\FPS3D\\FPSGAME\\SourceAssets\\AbsoluteZeroV3_20261127\\SM_AZ_IceFangCluster.fbx",
+    "vertices": 868,
+    "triangles": 1700,
+    "bounds_m": {
+      "x": [
+        -0.2749,
+        0.3242
+      ],
+      "y": [
+        -0.3854,
+        0.3518
+      ],
+      "z": [
+        -0.15,
+        1.0
+      ]
+    },
+    "vcol_mean": {
+      "R_edge_frost": 0.265,
+      "G_root_frost": 0.535,
+      "B_cavity": 0.209
+    }
+  }
+]

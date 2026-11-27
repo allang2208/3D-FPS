@@ -32,6 +32,7 @@ public:
     void SetAimPreviewActive(bool bActive);
     /** Key release commits the aim target; the orb follows until gesture contact. */
     void CommitAimPreview();
+    FVector CommittedAimPoint(APawn* FallbackPawn);
     bool IsAimPreviewActive() const {return bAimPreview;}
     static FVector HoverPosition(APawn* Caster);
     virtual void Tick(float Delta) override;
@@ -54,6 +55,8 @@ private:
     FFireballCast Cast;
     /** 联机：FFireballCast 非 USTRUCT，客户副本只需表现/弹道相关的这几个字段。 */
     UPROPERTY(Replicated) float NetHoverDuration=30.f;
+    UPROPERTY(Replicated) float NetSpeed=1600.f;
+    UPROPERTY(Replicated) float NetDropDelay=0.f;
     UPROPERTY(Replicated) float NetGravity=400.f;
     UPROPERTY(Replicated) float NetRange=1800.f;
     UPROPERTY(Replicated) float NetRadius=200.f;

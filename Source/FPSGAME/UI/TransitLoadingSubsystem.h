@@ -45,6 +45,7 @@ public:
     void CancelTransition();
     void RetainBiomeResources(const TArray<TSharedPtr<FStreamableHandle>>& Handles,bool bAllBatchesLoaded);
     void QueueSkillAssets(AActor* Owner,FName Skill,FSimpleDelegate Ready,const TArray<FSoftObjectPath>& ExtraPaths);
+    void PrioritizeSkillAssets(FName Skill);
     void ShowStartupMenu(APlayerController* Controller);
     bool IsCompletePreloadSelected() const { return bCompletePreload; }
     /** True while the loading overlay still owns game input (not during fade-out). */

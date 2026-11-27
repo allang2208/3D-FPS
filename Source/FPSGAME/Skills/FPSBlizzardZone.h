@@ -5,6 +5,7 @@
 #include "FPSBlizzardZone.generated.h"
 class UNiagaraComponent;
 class UDecalComponent;
+class UDynamicMeshComponent;
 class UMaterialInstanceDynamic;
 class UInstancedStaticMeshComponent;
 class USoundBase;
@@ -34,7 +35,7 @@ public:
     void ActivateZone();
     void FinishForRemoval();
     /** 组件预热、技能预载与远端副本共用同一张清单。 */
-    static constexpr int32 AssetCount=16;
+    static constexpr int32 AssetCount=17;
     static const TCHAR* const* ZoneAssetPaths();
     static bool HasBasicAssets(const TArray<TObjectPtr<UObject>>& Assets);
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
@@ -43,6 +44,8 @@ protected:
     virtual void EndPlay(EEndPlayReason::Type Reason) override;
 private:
     UPROPERTY(Transient) TArray<FBlizzardVisualLayer> VisualLayers;
+    UPROPERTY(Transient) TObjectPtr<UDynamicMeshComponent> FrostSurface;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> FrostSurfaceMID;
     TArray<FVector> CloudRoomCells;
     UPROPERTY(Transient) TObjectPtr<UInstancedStaticMeshComponent> Hail;
     UPROPERTY(Transient) TObjectPtr<UInstancedStaticMeshComponent> Spikes;

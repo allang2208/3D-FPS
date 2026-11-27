@@ -23,6 +23,8 @@ public:
     /** 雷枪柱：悬钟射线同款交叉 ribbon + 首尾虹膜光斑；环绕闪电由组件侧电弧承载。 */
     void InitializeColumn(UStaticMesh* RibbonMesh,UStaticMesh* IrisMesh,UMaterialInterface* BeamMaterial,UMaterialInterface* IrisMaterial,const FVector& Start,const FVector& End,const FLightningCast& Spell,float ChargeRatio=1.f,float WidthScale=1.f);
     void InitializeBladeArc(UNiagaraSystem* System,USceneComponent* BladeAnchor,float Length,int32 Seed);
+    /** 雷云附着闪电：复刻闪电魔法 NS_LightningChain，本地非复制挂接云底，随角色 XYZ 同步移动且不随镜头偏航旋转。 */
+    void InitializeCloudArc(UNiagaraSystem* System,USceneComponent* CloudAnchor,const FVector& LocalStart,const FVector& LocalEnd,const FLightningCast& Spell,float Width=.55f,float Brightness=52.f,bool bDetail=true,float DownBow=0.f);
     float BladeFlash() const;
     void SetBladeLightVisible(bool bVisible);
     virtual void Tick(float Delta) override;

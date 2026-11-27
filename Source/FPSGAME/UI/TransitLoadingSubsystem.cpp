@@ -628,6 +628,11 @@ void UTransitLoadingSubsystem::QueueSkillAssets(AActor* Owner,FName Skill,FSimpl
     SkillPreparation->RegisterConsumer(Owner,Skill,Ready,ExtraPaths);
 }
 
+void UTransitLoadingSubsystem::PrioritizeSkillAssets(FName Skill)
+{
+    if(SkillPreparation&&!Skill.IsNone())SkillPreparation->PrioritizeSkill(Skill);
+}
+
 void UTransitLoadingSubsystem::RetainBiomeResources(const TArray<TSharedPtr<FStreamableHandle>>& Handles,bool bAllBatchesLoaded)
 {
     // Keep the previous visit's dressing until the new visit replaces those

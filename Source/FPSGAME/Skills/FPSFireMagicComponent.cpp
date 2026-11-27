@@ -157,6 +157,7 @@ bool UFPSFireMagicComponent::PrepareCastRequest(FName Skill,FFireMagicCast& Spel
     if(const auto* H=Hands();H&&H->HasOtherPreparedSpell(this))
     {QueuedSkill=NAME_None;Feedback(Skill,TEXT("先释放已积蓄魔法"));return false;}
     if(Player->IsSpellHandHeld()){RejectHeldHand(Skill);return false;}
+    if(bRequireCastAssets&&Skill==TEXT("dragonBreath")&&!IsDragonBreathVisualReady()){Feedback(Skill,TEXT("火焰准备中"));return false;}
     if(bRequireCastAssets&&(!CastSound||(Skill!=TEXT("dragonBreath")&&(Skill==TEXT("meteor")?!bMeteorAssetsReady:(!AuraSystem||!WeaponSystem||!SparkSystem))))){Feedback(Skill,TEXT("素材准备中"));return false;}
     Spell=M->FireMagicStats(Skill);FString Failure;
     if(!Allowed(Spell,Failure)){Feedback(Skill,Failure);return false;}
@@ -283,7 +284,7 @@ void UFPSFireMagicComponent::ServiceQueue()
     if(QueuedSkill==TEXT("dragonBreath"))
     {
         if(PC->bShowMouseCursor){QueuedSkill=NAME_None;return;}
-        if(!IsDragonBreathVisualReady())return; // No gesture, mana or cooldown yet.
+        if(!IsDragonBreathVisualReady()){QueuedSkill=NAME_None;Feedback(TEXT("dragonBreath"),TEXT("火焰准备中"));return;}
     }
     const bool bPushGesture=Spell.Skill!=TEXT("flameArmor");
     if(!H->TryBeginSpellGesture(this,bPushGesture,Spell.CastSpeed,FSimpleDelegate::CreateUObject(this,&ThisClass::ReleaseAtContact)))return;
@@ -675,8 +676,8 @@ void UFPSFireMagicComponent::TickComponent(float Delta,ELevelTick Type,FActorCom
     {if(!CommittedSkill.IsNone())if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,CommittedSkill);ClearEffects();return;}
     if(!CommittedSkill.IsNone()&&(!Hands()||!Hands()->IsSpellGesture(this)))
     {
-        if(CommittedSkill==TEXT("flameArmor"))CancelPending();
-        if(CommittedSkill==TEXT("dragonBreath"))
+        if(CommittedSkill==TEXT("flameArmor")||CommittedSkill==TEXT("meteor"))CancelPending();
+        else if(CommittedSkill==TEXT("dragonBreath"))
         {
             if(auto* M=Model())M->RefundUnreleasedCast(Hands()?Hands()->TakeGesturePayment():0.f,CommittedSkill);
             RequestDragonStop();

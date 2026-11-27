@@ -1,0 +1,34 @@
+{
+  "revision": "StormDomainV4_VolumetricTiered_20261126",
+  "dest": "/Game/Skills/ElectricMagic/StormDomainV4",
+  "tier1_volume_system": "/Game/Skills/ElectricMagic/StormDomainV4/NS_StormDomainVolume.NS_StormDomainVolume",
+  "tier1_volume_material": "/Game/Skills/ElectricMagic/StormDomainV4/MI_StormDomainVolume.MI_StormDomainVolume",
+  "tier2_and_wisp_smoke_system": "/Game/Skills/ElectricMagic/StormDomainV4/NS_StormDomainSmoke.NS_StormDomainSmoke",
+  "tier2_and_wisp_smoke_material": "/Game/Skills/ElectricMagic/StormDomainV4/M_StormDomainSmoke.M_StormDomainSmoke",
+  "reused_smoke_atlas": "/Game/Weapons/GunplayFX/T_MuzzleSmokeMantaflowV14",
+  "reused_cloud_lightning_arc": "/Game/Skills/ElectricMagic/StormDomainV3/NS_StormCloudArc",
+  "reused_spark_material": "/Game/Skills/ElectricMagic/M_ElectricSpark",
+  "saved_assets": [
+    "/Game/Skills/ElectricMagic/StormDomainV4/M_StormDomainVolume.M_StormDomainVolume",
+    "/Game/Skills/ElectricMagic/StormDomainV4/MI_StormDomainVolume.MI_StormDomainVolume",
+    "/Game/Skills/ElectricMagic/StormDomainV4/NS_StormDomainVolume.NS_StormDomainVolume",
+    "/Game/Skills/ElectricMagic/StormDomainV4/M_StormDomainSmoke.M_StormDomainSmoke",
+    "/Game/Skills/ElectricMagic/StormDomainV4/NS_StormDomainSmoke.NS_StormDomainSmoke"
+  ],
+  "sha256": {
+    "M_StormDomainVolume.uasset": "5173e71f76a4cefaa610d93ee54edcf4a030071112692a6112e5738591adae4d",
+    "MI_StormDomainVolume.uasset": "e771dc575df610e0687bf021a79c20cc83ac25cfdbbd432cc8e9e47f5b888f57",
+    "NS_StormDomainVolume.uasset": "42ef45b103719b15afb48f0d15ad68edcf35b163a9c1a58482fe142655553e35",
+    "M_StormDomainSmoke.uasset": "d22d8fc7b7f4ada540bdfdd578720742b2b7e822e683e7293fc1bed061c076e7",
+    "NS_StormDomainSmoke.uasset": "6a0a0e036b252088ef4b8c2a17cbbc08ef65b2c99664ec6efa860df3b99cceb6"
+  },
+  "features": [
+    "Tier1 Grid3D_Gas 3D volumetric billowing storm cloud (Medium=64, High=80, Epic=96)",
+    "Tier1 + Tier2 real-time dual-slot internal lightning scatter (User.FlashPos/FlashPulse + FlashPos2/FlashPulse2)",
+    "Tier1 companion rim wisps + Tier2 full Mantaflow 8x8 continuous rolling smoke (User.WispOnly)",
+    "Non-blocking background warmup with instant Tier2 fallback during warmup",
+    "Reused NS_StormCloudArc high-frequency branching cloud lightning"
+  ],
+  "gameplay_tested": false,
+  "rendered": false
+}

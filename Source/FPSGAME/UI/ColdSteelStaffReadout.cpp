@@ -1,6 +1,18 @@
 #include "ColdSteelAmmoReadout.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
+#include "../FPSGAMECharacter.h"
+#include "../Skills/FPSFireballComponent.h"
+#include "../Skills/FPSIceSpikeComponent.h"
+#include "../Skills/FPSIceWallComponent.h"
+#include "../Skills/FPSBlizzardComponent.h"
+#include "../Skills/FPSAbsoluteZeroComponent.h"
+#include "../Skills/FPSFireMagicComponent.h"
+#include "../Skills/FPSElectricMagicComponent.h"
+#include "../Skills/FPSHolyLightComponent.h"
+#include "../Skills/FPSIceArmorComponent.h"
+#include "../Skills/FPSLightningHasteComponent.h"
+#include "../Skills/FPSLightningComponent.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/HorizontalBox.h"
 #include "Components/HorizontalBoxSlot.h"
@@ -18,6 +30,45 @@ namespace ColdSteelStaffReadoutUI
 void Set(UTextBlock* Block,const FString& Value)
 {
     if(Block->GetText().ToString()!=Value)Block->SetText(FText::FromString(Value));
+}
+bool IsNumericCooldownText(const FString& Value)
+{
+    if(Value.IsEmpty())return false;
+    bool bHasDigit=false;
+    for(const TCHAR Ch:Value)
+    {
+        if(FChar::IsDigit(Ch)){bHasDigit=true;continue;}
+        if(Ch==TEXT('.'))continue;
+        return false;
+    }
+    return bHasDigit;
+}
+FString SkillStatusText(const AFPSGAMECharacter* Character,FName Skill)
+{
+    if(!Character||Skill.IsNone())return FString();
+    if(Skill==TEXT("fireball")){if(const auto* A=Character->FindComponentByClass<UFPSFireballComponent>())return A->StatusText();}
+    else if(Skill==TEXT("iceSpike")){if(const auto* A=Character->FindComponentByClass<UFPSIceSpikeComponent>())return A->StatusText();}
+    else if(Skill==TEXT("iceWall")){if(const auto* A=Character->FindComponentByClass<UFPSIceWallComponent>())return A->StatusText();}
+    else if(Skill==TEXT("blizzard")){if(const auto* A=Character->FindComponentByClass<UFPSBlizzardComponent>())return A->StatusText();}
+    else if(Skill==TEXT("absoluteZero")){if(const auto* A=Character->FindComponentByClass<UFPSAbsoluteZeroComponent>())return A->StatusText();}
+    else if(FireMagic::IsSkill(Skill)){if(const auto* A=Character->FindComponentByClass<UFPSFireMagicComponent>())return A->StatusText(Skill);}
+    else if(ElectricMagic::IsSkill(Skill)){if(const auto* A=Character->FindComponentByClass<UFPSElectricMagicComponent>())return A->StatusText(Skill);}
+    else if(Skill==TEXT("holyLight")){if(const auto* A=Character->FindComponentByClass<UFPSHolyLightComponent>())return A->StatusText();}
+    else if(Skill==TEXT("iceArmor")){if(const auto* A=Character->FindComponentByClass<UFPSIceArmorComponent>())return A->StatusText();}
+    else if(Skill==TEXT("lightningHaste")){if(const auto* A=Character->FindComponentByClass<UFPSLightningHasteComponent>())return A->StatusText();}
+    else if(Skill==TEXT("lightningStrike")){if(const auto* A=Character->FindComponentByClass<UFPSLightningComponent>())return A->StatusText();}
+    return FString();
+}
+bool IsPositiveStatus(const FString& Status)
+{
+    return Status.StartsWith(TEXT("凝聚"))||Status.StartsWith(TEXT("发射"))||Status.StartsWith(TEXT("齐射"))
+        ||Status.StartsWith(TEXT("释放"))||Status.StartsWith(TEXT("施法"))||Status.StartsWith(TEXT("等待"))
+        ||Status.StartsWith(TEXT("选择落点"))||Status.StartsWith(TEXT("充能"))||Status.StartsWith(TEXT("已充能"))
+        ||Status.StartsWith(TEXT("蓄寒"))||Status.StartsWith(TEXT("冰甲"))||Status.StartsWith(TEXT("焰甲"))
+        ||Status.StartsWith(TEXT("迅捷"))||Status.StartsWith(TEXT("雷云"))||Status.StartsWith(TEXT("喷吐"))
+        ||Status.StartsWith(TEXT("高墙"))||Status.StartsWith(TEXT("矮墙"))||Status.StartsWith(TEXT("引雷"))
+        ||Status.StartsWith(TEXT("凝结"))||Status.StartsWith(TEXT("飞行"))||Status.StartsWith(TEXT("收手"))
+        ||Status.StartsWith(TEXT("圣光"))||Status.StartsWith(TEXT("已积蓄"));
 }
 }
 
@@ -48,9 +99,15 @@ void UColdSteelAmmoReadout::BuildStaffMagicReadout(UVerticalBox* Parent)
     StaffMagicIcon=WidgetTree->ConstructWidget<UImage>();
     StaffMagicRow->AddChildToHorizontalBox(StaffMagicIcon)->SetVerticalAlignment(VAlign_Center);
     StaffMagicIcon->SetVisibility(ESlateVisibility::Collapsed);
+    auto* NameColumn=WidgetTree->ConstructWidget<UVerticalBox>();
     StaffMagicName=WidgetTree->ConstructWidget<UTextBlock>();StaffMagicName->SetAutoWrapText(false);
     StaffMagicName->SetText(FText::FromString(TEXT("未选择魔法")));StaffMagicName->SetColorAndOpacity(ColdSteelUI::TextPrimary);
-    auto* NameSlot=StaffMagicRow->AddChildToHorizontalBox(StaffMagicName);
+    NameColumn->AddChildToVerticalBox(StaffMagicName);
+    StaffMagicStatus=WidgetTree->ConstructWidget<UTextBlock>();StaffMagicStatus->SetAutoWrapText(false);
+    StaffMagicStatus->SetColorAndOpacity(ColdSteelUI::Warning);
+    StaffMagicStatus->SetVisibility(ESlateVisibility::Collapsed);
+    NameColumn->AddChildToVerticalBox(StaffMagicStatus);
+    auto* NameSlot=StaffMagicRow->AddChildToHorizontalBox(NameColumn);
     NameSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));NameSlot->SetVerticalAlignment(VAlign_Center);
     auto* CooldownColumn=WidgetTree->ConstructWidget<UVerticalBox>();
     StaffMagicRow->AddChildToHorizontalBox(CooldownColumn)->SetVerticalAlignment(VAlign_Center);
@@ -68,11 +125,15 @@ void UColdSteelAmmoReadout::UpdateStaffMagicLayout(float Scale)
 {
     StaffMagicIcon->SetDesiredSizeOverride(FVector2D(36.f/Scale));
     StaffMagicName->SetFont(ColdSteelUI::TextFont(16*.75f/Scale,true));
+    if(StaffMagicStatus)StaffMagicStatus->SetFont(ColdSteelUI::TextFont(12*.75f/Scale));
     StaffMagicCooldownLabel->SetFont(ColdSteelUI::TextFont(12*.75f/Scale));
     StaffMagicCooldown->SetFont(ColdSteelUI::NumberFont(20*.75f/Scale));
     Cast<UVerticalBoxSlot>(StaffMagicRow->Slot)->SetPadding(FMargin(0,12/Scale,0,0));
     Cast<UHorizontalBoxSlot>(StaffMagicIcon->Slot)->SetPadding(FMargin(0,0,8/Scale,0));
-    Cast<UHorizontalBoxSlot>(StaffMagicName->Slot)->SetPadding(FMargin(0,0,12/Scale,0));
+    if(auto* NameBoxSlot=StaffMagicName->GetParent()?Cast<UHorizontalBoxSlot>(StaffMagicName->GetParent()->Slot):nullptr)
+        NameBoxSlot->SetPadding(FMargin(0,0,12/Scale,0));
+    if(StaffMagicStatus)if(auto* StatusSlot=Cast<UVerticalBoxSlot>(StaffMagicStatus->Slot))
+        StatusSlot->SetPadding(FMargin(0,2/Scale,0,0));
     Cast<UVerticalBoxSlot>(StaffMagicCooldown->Slot)->SetPadding(FMargin(0,2/Scale,0,0));
 }
 
@@ -125,14 +186,35 @@ void UColdSteelAmmoReadout::PresentStaff(const FColdSteelItem& Staff,const UCold
     const auto Readout=Model.StaffManaReadout(Character);
     const FName SelectedSkill=Model.SelectedMagicSkill();
     const auto* Definition=Model.QuickSkillDefinition(SelectedSkill);
+    const FName PreparedSkill=Model.PreparedStaffMagicSkill();
+    const auto* PreparedDef=PreparedSkill.IsNone()?nullptr:Model.QuickSkillDefinition(PreparedSkill);
     const float Remaining=FMath::Max(0.f,Model.MagicCooldownRemaining(SelectedSkill));
     SetTextIfChanged(StaffMagicName,Definition?Definition->Name:TEXT("未选择魔法"));
+    if(StaffMagicStatus)
+    {
+        FString LiveStatus=Definition?ColdSteelStaffReadoutUI::SkillStatusText(Character,SelectedSkill):FString();
+        if(ColdSteelStaffReadoutUI::IsNumericCooldownText(LiveStatus))LiveStatus.Reset();
+        if(LiveStatus.IsEmpty()&&PreparedDef&&PreparedSkill!=SelectedSkill)
+            LiveStatus=FString::Printf(TEXT("已积蓄：%s · 左键释放"),*PreparedDef->Name);
+        const ESlateVisibility StatusVis=LiveStatus.IsEmpty()?ESlateVisibility::Collapsed:ESlateVisibility::HitTestInvisible;
+        if(StaffMagicStatus->GetVisibility()!=StatusVis)StaffMagicStatus->SetVisibility(StatusVis);
+        if(!LiveStatus.IsEmpty())
+        {
+            SetTextIfChanged(StaffMagicStatus,LiveStatus);
+            const bool bPositive=ColdSteelStaffReadoutUI::IsPositiveStatus(LiveStatus);
+            SetColorIfChanged(StaffMagicStatus,bPositive?ColdSteelUI::HUDGold:ColdSteelUI::Warning);
+        }
+    }
     SetTextIfChanged(StaffMagicCooldown,Definition?FString::Printf(TEXT("%.1f s"),FMath::CeilToDouble(double(Remaining)*10.)/10.):TEXT("—"));
     SetColorIfChanged(StaffMagicCooldown,Remaining>0.f?ColdSteelUI::Warning:ColdSteelUI::TextSecondary);
     UpdateStaffMagicIcon(Definition?SelectedSkill:NAME_None,Definition?Definition->Icon:FString());
     SetReserveStatusText(false);
     SetTextIfChanged(Weapon,(bHasOffhand?FString(TEXT("主手 · ")):FString())+ColdSteelInventory::Text(Staff,TEXT("name")));
-    SetTextIfChanged(Calibre,SelectedSkill.IsNone()?TEXT("左键挥杖 · 长按 R 选择魔法"):TEXT("左键施法 · 长按 R 切换魔法"));
+    const FString Hint=PreparedDef
+        ?(SelectedSkill.IsNone()?FString::Printf(TEXT("左键释放：%s · 长按 R 选择魔法"),*PreparedDef->Name)
+            :FString::Printf(TEXT("左键释放：%s · 长按 R 切换魔法"),*PreparedDef->Name))
+        :(SelectedSkill.IsNone()?TEXT("左键挥杖 · 长按 R 选择魔法"):TEXT("左键施法 · 长按 R 切换魔法"));
+    SetTextIfChanged(Calibre,Hint);
     SetTextIfChanged(MagazineLabel,TEXT("魔法"));SetTextIfChanged(ReserveLabel,TEXT("每秒恢复"));
     SetTextIfChanged(Current,Readout.bInfinite?TEXT("∞ / ∞"):FString::Printf(TEXT("%.0f / %.0f"),FMath::FloorToDouble(Readout.Current),Readout.Maximum));
     SetColorIfChanged(Current,Readout.bInfinite?ColdSteelUI::TextPrimary:Readout.Current<=0.f?ColdSteelUI::Danger:

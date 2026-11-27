@@ -6,6 +6,7 @@
 #include "../Skills/FPSLightningHasteComponent.h"
 #include "../Skills/FPSElectricMagicComponent.h"
 #include "../Skills/FPSBlizzardComponent.h"
+#include "../Skills/FPSAbsoluteZeroComponent.h"
 #include "../Skills/BowSkillLifecycle.h"
 #include "../FPSGAMECharacter.h"
 #include "ColdSteelNetWorldSubsystem.h"
@@ -145,6 +146,7 @@ void AColdSteelPlayerState::PrepareForDisconnect()
     if(CastPawn)if(auto* Ice=CastPawn->FindComponentByClass<UFPSLightningHasteComponent>())Ice->FinishForRemoval();
     if(CastPawn)if(auto* Electric=CastPawn->FindComponentByClass<UFPSElectricMagicComponent>())Electric->FinishDomainForRemoval();
     if(CastPawn)if(auto* Blizzard=CastPawn->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->FinishZonesForRemoval();
+    if(CastPawn)if(auto* AZ=CastPawn->FindComponentByClass<UFPSAbsoluteZeroComponent>())AZ->FinishNovasForRemoval();
     BowSkillLifecycle::FinishForRemoval(CastPawn);
     const bool Closed=CloseStationSessions();
     // Preserve unfinished paid jobs too when closing cannot complete (e.g. pawn already gone).

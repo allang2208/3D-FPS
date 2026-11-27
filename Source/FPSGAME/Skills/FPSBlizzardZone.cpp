@@ -1,4 +1,5 @@
 #include "FPSBlizzardZone.h"
+#include "FPSFrostSurfaceMesh.h"
 #include "../Monsters/UnknownSpellCombat.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "BlizzardEnvironment.h"
@@ -11,6 +12,7 @@
 #include "Components/SceneComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/DecalComponent.h"
+#include "Components/DynamicMeshComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/OverlapResult.h"
@@ -43,7 +45,8 @@ const TCHAR* const* AFPSBlizzardZone::ZoneAssetPaths()
         TEXT("/Game/Skills/StormClouds/RollingV1/NS_BlizzardGatherCloud.NS_BlizzardGatherCloud"),
         TEXT("/Game/Skills/Blizzard/IndoorV5/M_BlizzardAimPreview.M_BlizzardAimPreview"),
         TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_02.SM_IceSpike_02"),TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_03.SM_IceSpike_03"),
-        TEXT("/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact")};
+        TEXT("/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact"),
+        FrostSurfaceMesh::SheetMaterialPath};
     return Paths;
 }
 bool AFPSBlizzardZone::HasBasicAssets(const TArray<TObjectPtr<UObject>>& Assets)
@@ -109,15 +112,30 @@ bool AFPSBlizzardZone::InitializeZone(APawn* Shooter,const FBlizzardCast& Spell,
         return FX;
     };
     VisualLayers.SetNum(BlizzardEnvironment::MaxLayers);
+    if(FrostSurface){FrostSurface->DestroyComponent();FrostSurface=nullptr;FrostSurfaceMID=nullptr;}
     for(auto& Layer:VisualLayers)
     {
         Layer.Cloud=MakeFX(0);Layer.Snow=MakeFX(1);Layer.Mist=MakeFX(2);
         Layer.Frost=NewObject<UDecalComponent>(this);Layer.Frost->SetupAttachment(RootComponent);Layer.Frost->RegisterComponent();
         Layer.Frost->SetWorldLocation(Center+SurfaceNormal*8);Layer.Frost->SetWorldRotation(FRotationMatrix::MakeFromXZ(-SurfaceNormal,AxisY).Rotator());
         Layer.Frost->DecalSize=FVector(BlizzardEnvironment::VerticalReach(CastSnapshot.RadiusY)*2.f+100,CastSnapshot.RadiusX,CastSnapshot.RadiusY);
+        Layer.Frost->SetSortOrder(25);
         Layer.Frost->SetDecalMaterial(Cast<UMaterialInterface>(Assets[7]));Layer.FrostMaterial=Layer.Frost->CreateDynamicMaterialInstance();
         Layer.Frost->SetVisibility(false);
     }
+    if(Assets.IsValidIndex(16))
+        if(auto* SheetMat=Cast<UMaterialInterface>(Assets[16]))
+        {
+            FrostSurface=FrostSurfaceMesh::BuildConformingDisc(this,RootComponent,Shooter,Center,AxisX,CastSnapshot.RadiusX,CastSnapshot.RadiusY,SheetMat,FrostSurfaceMID,56,14,true,3.8f);
+            if(FrostSurfaceMID)
+            {
+                FrostSurfaceMID->SetScalarParameterValue(TEXT("RevealRadius"),1.25f);
+                FrostSurfaceMID->SetScalarParameterValue(TEXT("FrostDensity"),.82f);
+                FrostSurfaceMID->SetScalarParameterValue(TEXT("EmissiveBoost"),.08f);
+                FrostSurfaceMID->SetScalarParameterValue(TEXT("Fade"),0.f);
+            }
+            if(FrostSurface)FrostSurface->SetVisibility(false);
+        }
     auto MakeMesh=[&](const FString& Name,int32 MeshIndex,int32 MaterialIndex,int32 Count)
     {
         auto* Mesh=NewObject<UInstancedStaticMeshComponent>(this,FName(*Name));AddInstanceComponent(Mesh);Mesh->SetupAttachment(RootComponent);Mesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);Mesh->SetGenerateOverlapEvents(false);
@@ -308,7 +326,7 @@ void AFPSBlizzardZone::UpdatePresentation(float Delta)
             Layer.bActive=Active;
             for(auto* FX:{Layer.Cloud.Get(),Layer.Snow.Get(),Layer.Mist.Get()})if(FX)
             {if(Active&&!bFinished)FX->Activate(true);else FX->DeactivateImmediate();}
-            if(Layer.Frost)Layer.Frost->SetVisibility(Active);
+            if(Layer.Frost)Layer.Frost->SetVisibility(Active&&(L>0||!FrostSurface));
         }
     }
     bRoomGridDirty=false;
@@ -324,6 +342,12 @@ void AFPSBlizzardZone::UpdatePresentation(float Delta)
         for(auto& Layer:VisualLayers)
             for(auto* FX:{Layer.Cloud.Get(),Layer.Snow.Get(),Layer.Mist.Get()})if(FX)
             {FX->SetVariableVec3(TEXT("User.Wind"),StormWind);FX->SetVariableFloat(TEXT("User.DetailReduction"),1-Detail);}
+    }
+    if(FrostSurface)
+    {
+        const float SheetFade=Fade*(.96f+.04f*FMath::Sin(Age*2.f));
+        if(FrostSurfaceMID)FrostSurfaceMID->SetScalarParameterValue(TEXT("Fade"),SheetFade);
+        FrostSurface->SetVisibility(SheetFade>.005f);
     }
     for(auto& Layer:VisualLayers)if(Layer.bActive)
     {
@@ -449,6 +473,7 @@ void AFPSBlizzardZone::EndPlay(EEndPlayReason::Type Reason)
     // Disconnect/travel settle before saving; destruction is an idempotent fallback.
     // Finish retains the existing policy of discarding the batch on caster death.
     FinishForRemoval();
+    if(FrostSurface){FrostSurface->DestroyComponent();FrostSurface=nullptr;FrostSurfaceMID=nullptr;}
     for(auto& Layer:VisualLayers)
         for(auto* FX:{Layer.Cloud.Get(),Layer.Snow.Get(),Layer.Mist.Get()})if(FX)FX->DestroyComponent();
     for(UParticleSystemComponent* FX:ShatterPool)if(FX)FX->DestroyComponent();

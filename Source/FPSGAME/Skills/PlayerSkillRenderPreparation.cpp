@@ -68,9 +68,10 @@ bool FPlayerSkillRenderPreparation::Tick(UObject* Asset,UWorld* World,bool bAllo
     }
     if(auto* System=Cast<UNiagaraSystem>(Asset))
     {
-        // Dragon Breath owns a real, reusable volume on the caster. Never
+        // Dragon Breath and StormDomainV4 own real, reusable volumes on the caster. Never
         // allocate a second fluid grid as a generic preparation representative.
-        if(System->GetPathName().Contains(TEXT("/DragonBreath20261013/")))return true;
+        if(System->GetPathName().Contains(TEXT("/DragonBreath20261013/"))||
+            System->GetPathName().Contains(TEXT("/StormDomainV4/NS_StormDomainVolume")))return true;
         if(!AssetPreparation.PollScripts(System))return false;
         if(!bAllowRepresentative){SkipCurrent();bDeferred=true;return true;}
         auto* FX=Cast<UNiagaraComponent>(CurrentComponent.Get());

@@ -37,6 +37,7 @@ public:
     UFPSFireballComponent();
     UFUNCTION(BlueprintCallable,Category="Skills") void Trigger();
     bool IsPrepared() const;
+    bool HasPreparedCast() const { return IsPrepared() || bNetExpectOrb; }
     bool IsFlying() const;
     // A held spell reserves magic casting independently of the physical hand.
     // Its own release remains available; launched effects do not reserve casting.

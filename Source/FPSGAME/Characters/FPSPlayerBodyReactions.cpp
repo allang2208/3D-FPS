@@ -2,6 +2,7 @@
 #include "../FPSGAMECharacter.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../Movement/PlayerGuardBreakComponent.h"
+#include "../Skills/FPSAbsoluteZeroComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "Engine/World.h"
 #include "Camera/CameraTypes.h"
@@ -22,17 +23,26 @@ void UFPSPlayerBodyComponent::RecordAcceptedHit(AActor* Attacker,float Damage,fl
     FVector Direction=Attacker?(GetOwner()->GetActorLocation()-Attacker->GetActorLocation()).GetSafeNormal2D():FVector::ZeroVector;
     if(Direction.IsNearlyZero())Direction=-GetOwner()->GetActorForwardVector();
     ++Reactions.HitSerial;Reactions.HitAt=ServerClock();Reactions.HitDirection=Direction;
-    Reactions.HitStrength=FMath::Clamp(.3f+Damage/FMath::Max(1.f,MaxHealth)*2.f,.3f,1.f);
+    float Strength=FMath::Clamp(.3f+Damage/FMath::Max(1.f,MaxHealth)*2.f,.3f,1.f);
+    if(const auto* AZ=GetOwner()->FindComponentByClass<UFPSAbsoluteZeroComponent>();AZ&&AZ->HasLightStaggerResistance())
+        Strength*=.25f;
+    Reactions.HitStrength=Strength;
     GetOwner()->ForceNetUpdate();
 }
 
 void UFPSPlayerBodyComponent::RecordKnockback(const FVector& Direction,float Distance,float Duration)
 {
     if(!GetOwner()->HasAuthority()||Distance<=.1f||Direction.ContainsNaN())return;
+    float PushScale=1.f;
+    if(const auto* AZ=GetOwner()->FindComponentByClass<UFPSAbsoluteZeroComponent>();AZ&&AZ->HasLightStaggerResistance())
+    {
+        if(Distance<180.f)return;
+        PushScale=.30f;
+    }
     ++Reactions.PushSerial;Reactions.PushAt=ServerClock();
     Reactions.PushDirection=Direction.GetSafeNormal2D();
     Reactions.PushSeconds=FMath::Clamp(Duration+.32f,.4f,1.25f);
-    Reactions.PushStrength=FMath::Clamp(Distance/120.f,.25f,1.f);
+    Reactions.PushStrength=FMath::Clamp(Distance/120.f,.25f,1.f)*PushScale;
     GetOwner()->ForceNetUpdate();
 }
 

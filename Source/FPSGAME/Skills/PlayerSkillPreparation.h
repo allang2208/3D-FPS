@@ -24,6 +24,7 @@ public:
     ~FPlayerSkillPreparation();
     void Begin(UColdSteelStatusModel& Model);
     void RegisterConsumer(AActor* Owner,FName Skill,FSimpleDelegate Ready,const TArray<FSoftObjectPath>& ExtraPaths);
+    void PrioritizeSkill(FName Skill);
     void Tick();
     void Cancel();
     bool IsReady() const { return bStarted && !bRefreshRequested && !bEquipmentCheckPending && Cursor == Jobs.Num()

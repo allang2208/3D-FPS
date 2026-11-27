@@ -77,6 +77,7 @@ class FPSGAME_API AFPSGAMECharacter : public ACharacter
     friend class USpellbookComponent;
     friend class UOffhandKukriComponent;
     friend class UFPSElectricMagicComponent;
+    friend class UFPSAbsoluteZeroComponent;
     friend struct FStaffLocomotion;
 
 public:

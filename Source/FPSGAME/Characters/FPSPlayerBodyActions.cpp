@@ -16,6 +16,7 @@
 #include "../Movement/FPSCharacterMovementComponent.h"
 #include "../Movement/FPSTraversalComponent.h"
 #include "../Skills/FPSFireballComponent.h"
+#include "../Skills/FPSAbsoluteZeroComponent.h"
 #include "../Skills/FPSQuickCombatComponent.h"
 #include "../Weapons/DualPistolQuickCombatMotion.h"
 #include "../Weapons/Unarmed/FPSUnarmedIdleComponent.h"
@@ -203,6 +204,25 @@ FFPSBodyState UFPSPlayerBodyComponent::SampleLocalState() const
         case EFireballHandPhase::Releasing:State.ActionVariant=TEXT("Release");break;
         case EFireballHandPhase::Recovering:State.ActionVariant=TEXT("Recover");break;
         default:State.ActionVariant=TEXT("Hold");break;
+        }
+    }
+    // Dedicated third-person & multiplayer observer vertical lift -> ground-slam staff pose for Absolute Zero.
+    if(const auto* AbsoluteZero=Pawn->FindComponentByClass<UFPSAbsoluteZeroComponent>();AbsoluteZero&&AbsoluteZero->IsChanneling())
+    {
+        const float Alpha=AbsoluteZero->ChannelAlpha();
+        State.Action=EFPSBodyAction::Cast;State.bHasActionProgress=true;State.ActionDuration=0.f;
+        State.ContactFraction=StaffCastMotion::ContactSeconds/StaffCastMotion::SwingSeconds;
+        if(Alpha<StaffCastMotion::AbsoluteZeroSlamStart)
+        {
+            State.ActionVariant=TEXT("Gather");
+            State.ActionProgress=FMath::Clamp(Alpha/StaffCastMotion::AbsoluteZeroSlamStart,0.f,1.f);
+            State.ReleaseFraction=0.f;
+        }
+        else
+        {
+            State.ActionVariant=TEXT("Release");
+            State.ActionProgress=FMath::Clamp((Alpha-StaffCastMotion::AbsoluteZeroSlamStart)/FMath::Max(.01f,1.f-StaffCastMotion::AbsoluteZeroSlamStart),0.f,1.f);
+            State.ReleaseFraction=State.ActionProgress;
         }
     }
     if(State.bSliding)

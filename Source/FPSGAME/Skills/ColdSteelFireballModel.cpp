@@ -161,6 +161,7 @@ bool UColdSteelStatusModel::RefundUnreleasedCast(float PaidMana,FName Skill)
     if(PaidMana<=0.f&&Skill.IsNone())return true;
     SyncRuntime();auto P=Snapshot();
     if(Skill==TEXT("blizzard"))PaidMana=P.bBlizzardReserved?P.BlizzardReservedMana:0.f;
+    if(Skill==TEXT("absoluteZero"))PaidMana=P.bAbsoluteZeroReserved?P.AbsoluteZeroReservedMana:0.f;
     if(Skill==TEXT("dragonBreath"))PaidMana=P.bDragonBreathReserved?P.DragonBreathReservedMana:0.f;
     if(ElectricMagic::IsSkill(Skill))PaidMana=P.ElectricReservedMana.FindRef(Skill);
     if(Skill==TEXT("iceWall"))PaidMana=P.bIceWallReserved?P.IceWallReservedMana:0.f;
@@ -176,6 +177,7 @@ bool UColdSteelStatusModel::RefundUnreleasedCast(float PaidMana,FName Skill)
     else if(Skill==TEXT("dragonBreath")){P.bDragonBreathReserved=false;P.DragonBreathReservedMana=0;Clear(P.DragonBreathCooldown,P.DragonBreathCooldownDuration);}
     else if(Skill==TEXT("fireball")){P.bFireballReserved=false;Clear(P.FireballCooldown,P.FireballCooldownDuration);}
     else if(Skill==TEXT("blizzard")){P.bBlizzardReserved=false;P.BlizzardReservedMana=0;Clear(P.BlizzardCooldown,P.BlizzardCooldownDuration);}
+    else if(Skill==TEXT("absoluteZero")){P.bAbsoluteZeroReserved=false;P.AbsoluteZeroReservedMana=0;Clear(P.AbsoluteZeroCooldown,P.AbsoluteZeroCooldownDuration);}
     else if(Skill==TEXT("iceSpike"))Clear(P.IceSpikeCooldown,P.IceSpikeCooldownDuration);
     else if(Skill==TEXT("iceWall")){P.bIceWallReserved=false;P.IceWallReservedMana=0;Clear(P.IceWallCooldown,P.IceWallCooldownDuration);}
     return CommitState(MoveTemp(P));

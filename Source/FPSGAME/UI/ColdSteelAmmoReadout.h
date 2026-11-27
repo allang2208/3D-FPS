@@ -65,6 +65,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<class UHorizontalBox> StaffMagicRow;
     UPROPERTY(Transient) TObjectPtr<class UImage> StaffMagicIcon;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> StaffMagicName;
+    UPROPERTY(Transient) TObjectPtr<UTextBlock> StaffMagicStatus;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> StaffMagicCooldownLabel;
     UPROPERTY(Transient) TObjectPtr<UTextBlock> StaffMagicCooldown;
     UPROPERTY(Transient) TMap<FName,TObjectPtr<UTexture2D>> StaffMagicIcons;

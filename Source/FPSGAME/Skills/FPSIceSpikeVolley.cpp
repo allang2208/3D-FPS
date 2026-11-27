@@ -62,6 +62,7 @@ void AFPSIceSpikeVolley::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
     DOREPLIFETIME(AFPSIceSpikeVolley,NetCastSpeed);
     DOREPLIFETIME(AFPSIceSpikeVolley,NetSpeed);
     DOREPLIFETIME(AFPSIceSpikeVolley,NetGravity);
+    DOREPLIFETIME(AFPSIceSpikeVolley,NetRange);
     DOREPLIFETIME(AFPSIceSpikeVolley,NetHoverDuration);
     DOREPLIFETIME(AFPSIceSpikeVolley,NetPos);
     DOREPLIFETIME(AFPSIceSpikeVolley,NetDir);
@@ -72,7 +73,7 @@ void AFPSIceSpikeVolley::Prepare(UFPSIceSpikeComponent* InSource,APawn* InShoote
     Source=InSource;Shooter=InShooter;Cast=Snapshot;ShardMesh=Shard;IceMaterial=Material;ImpactFX=FX;ImpactSound=Sound;
     // 联机：服务端把表现所需的最小口径写进复制态——远端副本据此自建壳。
     NetShooter=InShooter;NetSource=InSource;NetCount=Snapshot.Count;
-    NetCastSpeed=Snapshot.CastSpeed;NetSpeed=Snapshot.Speed;NetGravity=Snapshot.Gravity;NetHoverDuration=Snapshot.HoverDuration;
+    NetCastSpeed=Snapshot.CastSpeed;NetSpeed=Snapshot.Speed;NetGravity=Snapshot.Gravity;NetRange=Snapshot.Range;NetHoverDuration=Snapshot.HoverDuration;
     for(int32 I=0;I<Snapshot.Count&&I<32;++I)NetAlive|=1u<<I;
     AddTickPrerequisiteActor(InShooter);AddTickPrerequisiteComponent(InSource);
     if(auto* Hands=InShooter->FindComponentByClass<UFPSFireballComponent>())AddTickPrerequisiteComponent(Hands);
@@ -212,6 +213,17 @@ void AFPSIceSpikeVolley::CommitAimPreview()
     if(PreviewPoints.IsEmpty())RefreshAimPreview();
     SetAimPreviewActive(false);
     bPreviewLaunchLocked=true;
+}
+
+FVector AFPSIceSpikeVolley::CommittedAimPoint(APawn* FallbackPawn)
+{
+    if(bPreviewLaunchLocked)
+    {
+        const FVector Locked=PreviewAimPoint;
+        bPreviewLaunchLocked=false;
+        return Locked;
+    }
+    return FPSMagicPreview::AimPoint(Shooter.IsValid()?Shooter.Get():FallbackPawn,this);
 }
 
 void AFPSIceSpikeVolley::RefreshAimPreview()
@@ -416,16 +428,16 @@ void AFPSIceSpikeVolley::ResolveNetInit()
     TArray<TObjectPtr<UStaticMesh>> Meshes;
     for(int32 I=1;I<=3;++I)Meshes.Add(LoadObject<UStaticMesh>(nullptr,*FString::Printf(TEXT("/Game/Skills/IceSpike/FrostV2/SM_IceSpike_%02d.SM_IceSpike_%02d"),I,I)));
     ShardMesh=LoadObject<UStaticMesh>(nullptr,TEXT("/Game/Skills/IceSpike/SM_IceShard.SM_IceShard"));
-    IceMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/M_IceHeart.M_IceHeart"));
-    auto* ShellMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/M_IceShell.M_IceShell"));
+    IceMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/M_IceSpikeHeartV3.M_IceSpikeHeartV3"));
+    auto* ShellMaterial=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/M_IceSpikeShellV3.M_IceSpikeShellV3"));
     ImpactFX=LoadObject<UParticleSystem>(nullptr,TEXT("/Game/Skills/IceSpike/P_IceSpikeImpact.P_IceSpikeImpact"));
     ImpactSound=LoadObject<USoundBase>(nullptr,TEXT("/Game/Skills/IceSpike/S_IceImpact.S_IceImpact"));
-    auto* MotesAsset=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/NS_FrostCrystals.NS_FrostCrystals"));
+    auto* MotesAsset=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/NS_FrostCrystalsV2.NS_FrostCrystalsV2"));
     auto* ColdMistAsset=LoadObject<UNiagaraSystem>(nullptr,TEXT("/Game/Skills/IceSpike/FrostV2/NS_ColdMist.NS_ColdMist"));
     if(Meshes.Contains(nullptr)||!ShardMesh||!IceMaterial||!ShellMaterial||!MotesAsset||!ColdMistAsset)return;
 
     Shooter=NetShooter;Source=NetSource;NetAliveLocal=NetAlive;
-    Cast.Count=NetCount;Cast.CastSpeed=NetCastSpeed;Cast.Speed=NetSpeed;Cast.Gravity=NetGravity;Cast.HoverDuration=NetHoverDuration;
+    Cast.Count=NetCount;Cast.CastSpeed=NetCastSpeed;Cast.Speed=NetSpeed;Cast.Gravity=NetGravity;Cast.Range=NetRange;Cast.HoverDuration=NetHoverDuration;
     Flights.SetNum(NetCount);
     for(int32 I=0;I<NetCount;++I)
     {

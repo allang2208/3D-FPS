@@ -44,14 +44,17 @@ inline void NetworkSpells(FColdSteelProfile& Into,const FColdSteelProfile& From,
     Into.DragonBreathCooldown=Remaining(From.DragonBreathCooldown,From.bDragonBreathReserved);Into.DragonBreathCooldownDuration=From.DragonBreathCooldownDuration;
     Into.IceWallCooldown=Remaining(From.IceWallCooldown,From.bIceWallReserved);Into.IceWallCooldownDuration=From.IceWallCooldownDuration;
     Into.BlizzardCooldown=Remaining(From.BlizzardCooldown,From.bBlizzardReserved);Into.BlizzardCooldownDuration=From.BlizzardCooldownDuration;
+    Into.AbsoluteZeroCooldown=Remaining(From.AbsoluteZeroCooldown,From.bAbsoluteZeroReserved);Into.AbsoluteZeroCooldownDuration=From.AbsoluteZeroCooldownDuration;
     Into.bFireballReserved=From.bFireballReserved;
     Into.bIceSpikeReserved=From.bIceSpikeReserved;
     Into.bDragonBreathReserved=From.bDragonBreathReserved;
     Into.bIceWallReserved=From.bIceWallReserved;
     Into.bBlizzardReserved=From.bBlizzardReserved;
+    Into.bAbsoluteZeroReserved=From.bAbsoluteZeroReserved;
     Into.DragonBreathReservedMana=From.DragonBreathReservedMana;
     Into.IceWallReservedMana=From.IceWallReservedMana;
     Into.BlizzardReservedMana=From.BlizzardReservedMana;
+    Into.AbsoluteZeroReservedMana=From.AbsoluteZeroReservedMana;
     Into.IlluminationArrowCooldown=Remaining(From.IlluminationArrowCooldown);
     Into.IlluminationArrowCooldownDuration=From.IlluminationArrowCooldownDuration;
     Into.MagicArrowRainCooldown=Remaining(From.MagicArrowRainCooldown);
@@ -83,6 +86,13 @@ inline bool InterruptedSpells(FColdSteelProfile& Clean,float MaxMana)
         Clean.BlizzardCooldown=Clean.BlizzardCooldownDuration=0;
     }
     Clean.BlizzardReservedMana=0;
+    const bool AbandonedAbsoluteZero=Clean.bAbsoluteZeroReserved;Clean.bAbsoluteZeroReserved=false;
+    if(AbandonedAbsoluteZero)
+    {
+        Clean.Mana=FMath::Min(MaxMana,Clean.Mana+Clean.AbsoluteZeroReservedMana);
+        Clean.AbsoluteZeroCooldown=Clean.AbsoluteZeroCooldownDuration=0;
+    }
+    Clean.AbsoluteZeroReservedMana=0;
     const bool AbandonedElectric=!Clean.ElectricReservedMana.IsEmpty();
     for(const auto& Reserved:Clean.ElectricReservedMana)
     {
@@ -99,7 +109,7 @@ inline bool InterruptedSpells(FColdSteelProfile& Clean,float MaxMana)
     Clean.bDragonBreathReserved=false;Clean.DragonBreathReservedMana=0;
     const bool AbandonedQuick=Clean.bQuickCombatReserved||Clean.QuickCombatCooldown>0.f||Clean.QuickCombatCooldownDuration>0.f;
     Clean.bQuickCombatReserved=false;Clean.QuickCombatCooldown=Clean.QuickCombatCooldownDuration=0.f;
-    return AbandonedRain||AbandonedFireball||AbandonedIce||AbandonedIceWall||AbandonedBlizzard||AbandonedElectric||AbandonedDragon||AbandonedQuick;
+    return AbandonedRain||AbandonedFireball||AbandonedIce||AbandonedIceWall||AbandonedBlizzard||AbandonedAbsoluteZero||AbandonedElectric||AbandonedDragon||AbandonedQuick;
 }
 
 inline void AlchemyProgress(FColdSteelProfile& Into,const FColdSteelProfile& Other)

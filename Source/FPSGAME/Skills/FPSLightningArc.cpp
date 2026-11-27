@@ -159,6 +159,55 @@ void AFPSLightningArc::InitializeBladeArc(UNiagaraSystem* System,USceneComponent
     ImpactLight->SetIndirectLightingIntensity(0.f);ImpactLight->SetVolumetricScatteringIntensity(0.f);
     BaseLight=60.f;ImpactLight->SetIntensity(BaseLight*1.35f);ImpactLight->SetVisibility(true);
 }
+void AFPSLightningArc::InitializeCloudArc(UNiagaraSystem* System,USceneComponent* CloudAnchor,const FVector& LocalStart,const FVector& LocalEnd,const FLightningCast& Spell,float Width,float Brightness,bool bDetail,float DownBow)
+{
+    if(!IsValid(CloudAnchor)||!System){Destroy();return;}
+    SetReplicates(false);Tags.Add(TEXT("StormCloudArc"));
+    BoundBlade=CloudAnchor;bBladeAttached=false;bInitialized=true;
+    Age=0;Hold=FMath::Max(.02f,Spell.Duration);Fade=FMath::Max(.02f,Spell.Fade);
+    BaseBrightness=Brightness;BaseLight=0.f;
+    const FVector Delta=LocalEnd-LocalStart;const float Length=FMath::Max(1.f,float(Delta.Size()));
+    FVector Side,Up;Delta.GetSafeNormal().FindBestAxisVectors(Side,Up);
+    const int32 Count=FMath::Clamp(Spell.Segments,3,18);
+    Path->ClearSplinePoints(false);
+    FRandomStream Cosmetic{int32(FPlatformTime::Cycles()^GetUniqueID())};
+    for(int32 I=0;I<=Count;++I)
+    {
+        const float T=float(I)/Count;
+        const float Env=FMath::Sin(PI*T);
+        const float Amp=(I==0||I==Count)?0.f:FMath::Min(Length*.16f,Length*FMath::Max(.04f,Spell.Jitter))*Env;
+        const FVector P=Delta*T+(Side*Cosmetic.FRandRange(-1.f,1.f)+Up*Cosmetic.FRandRange(-1.f,1.f))*Amp-FVector::UpVector*(DownBow*Env);
+        Path->AddSplinePoint(P,ESplineCoordinateSpace::Local,false);
+        Path->SetSplinePointType(I,ESplinePointType::Linear,false);
+    }
+    Path->UpdateSpline();
+    AttachToComponent(CloudAnchor,FAttachmentTransformRules(EAttachmentRule::KeepRelative,EAttachmentRule::KeepWorld,EAttachmentRule::KeepWorld,false));
+    Path->SetAbsolute(false,true,true);
+    SetActorRelativeLocation(LocalStart);
+    SetActorRotation(FRotator::ZeroRotator);
+    FX->SetAsset(System);
+    const FBox Bounds=Path->CalcBounds(FTransform::Identity).GetBox().ExpandBy(90.f);
+    FX->SetSystemFixedBounds(Bounds);
+    for(const auto& Emitter:System->GetEmitterHandles())
+        if(Emitter.GetName()==TEXT("Detail")){FX->SetEmitterFixedBounds(TEXT("Detail"),Bounds);break;}
+    FX->SetVariableObject(TEXT("User.BladeSpline"),Path);
+    FX->SetVariableFloat(TEXT("User.Progress"),1.f);
+    FX->SetVariableFloat(TEXT("User._Width"),8.f*Width);
+    FX->SetVariableFloat(TEXT("User._Brightness"),BaseBrightness);
+    FX->SetVariableFloat(TEXT("User._ColorHue"),0.f);
+    FX->SetVariableFloat(TEXT("User.Jitter"),0.f);
+    FX->SetVariableFloat(TEXT("User._DetailSpeed"),.0013f);
+    FX->SetVariableFloat(TEXT("User.MainPowerSpeed"),8.f);
+    FX->SetVariableFloat(TEXT("User._DetailSpeedOffset"),6.f);
+    FX->SetVariableBool(TEXT("User.AddDetail"),bDetail);
+    FX->SetVariableBool(TEXT("User.AddMainPower"),true);
+    FX->Activate(true);
+    ImpactLight->SetIntensity(0.f);ImpactLight->SetVisibility(false);
+    PrimaryActorTick.TickGroup=TG_PostUpdateWork;
+    FX->SetTickBehavior(ENiagaraTickBehavior::UsePrereqs);
+    FX->AddTickPrerequisiteActor(this);
+    SetLifeSpan(Hold+Fade+.05f);
+}
 // 远端副本：复制字段就位后自载素材重演。kind0=链式电弧(闪电链资产)；kind1=雷枪柱(悬钟同款 ribbon+丝束+虹膜)。
 void AFPSLightningArc::NetInit()
 {
@@ -192,9 +241,10 @@ void AFPSLightningArc::SetBladeLightVisible(bool bVisible)
 }
 void AFPSLightningArc::Tick(float Delta)
 {
-    // 远端副本：首包到齐后 NetInit 自建表现；本地生成弧与刃弧直接走本地表现。
-    if(!HasAuthority()&&!bInitialized&&!bBladeAttached){NetInit();if(!bNetInit)return;}
-    if(bBladeAttached&&!BoundBlade.IsValid()){Destroy();return;}
+    // 远端副本：首包到齐后 NetInit 自建表现；本地生成弧、刃弧与云附着弧直接走本地表现。
+    const bool bCloudArc=Tags.Contains(TEXT("StormCloudArc"));
+    if(!HasAuthority()&&!bInitialized&&!bBladeAttached&&!bCloudArc){NetInit();if(!bNetInit)return;}
+    if((bBladeAttached||bCloudArc)&&!BoundBlade.IsValid()){Destroy();return;}
     Super::Tick(Delta);Age+=Delta;
     if(Tags.Contains(TEXT("ThunderLanceColumn")))
     {
@@ -220,7 +270,9 @@ void AFPSLightningArc::Tick(float Delta)
     if(bBladeAttached)SetActorRelativeRotation(FQuat(FVector::ForwardVector,Age*.7f));
     const float T=FMath::Clamp((Age-Hold)/Fade,0.f,1.f);
     const float Alpha=FMath::Min(1.f,Age/.06f)*FMath::Pow(1.f-T,1.7f);
-    const float Flash=BladeFlash();
+    const float Flash=bCloudArc
+        ?FMath::Clamp(FMath::Exp(-Age*26.f)+.50f*FMath::Exp(-FMath::Square((Age-Hold*.55f)/.018f)),0.f,1.f)
+        :BladeFlash();
     FX->SetVariableFloat(TEXT("User._Brightness"),BaseBrightness*Alpha*(1.f+.55f*Flash));
     ImpactLight->SetIntensity(BaseLight*Alpha*(bBladeAttached?.45f+.90f*Flash:FMath::Max(0.f,1-Age/.3f)));
     if(Age>=Hold+Fade){FX->DeactivateImmediate();Destroy();}

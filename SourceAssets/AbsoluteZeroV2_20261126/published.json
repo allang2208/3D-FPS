@@ -1,0 +1,24 @@
+{
+  "revision": "AbsoluteZeroV2_FrostCoverageAndPose_20261126",
+  "dest": "/Game/Skills/AbsoluteZero",
+  "frost_surface_material": "/Game/Skills/AbsoluteZero/M_FrostSurfaceSheet.M_FrostSurfaceSheet",
+  "sigil_material": "/Game/Skills/AbsoluteZero/M_AbsoluteZeroSigil.M_AbsoluteZeroSigil",
+  "inward_mist_system": "/Game/Skills/AbsoluteZero/NS_AbsoluteZeroInwardMist.NS_AbsoluteZeroInwardMist",
+  "reused_assets": [
+    "/Game/Skills/IceWall/FabIceV3/T_IceSurfaceColor",
+    "/Game/Skills/ElectricMagic/StormDomainV4/M_StormDomainSmoke",
+    "/Game/Skills/IceSpike/FrostV2/M_FrostCrystalSoft"
+  ],
+  "saved_assets": [
+    "/Game/Skills/AbsoluteZero/M_FrostSurfaceSheet.M_FrostSurfaceSheet",
+    "/Game/Skills/AbsoluteZero/M_AbsoluteZeroSigil.M_AbsoluteZeroSigil",
+    "/Game/Skills/AbsoluteZero/NS_AbsoluteZeroInwardMist.NS_AbsoluteZeroInwardMist"
+  ],
+  "sha256": {
+    "M_FrostSurfaceSheet.uasset": "93d969522e5fde04ee80bad55be1582bfc7fa81abdd71eb1dbc281f9a959707b",
+    "M_AbsoluteZeroSigil.uasset": "00cde11762355fae186653e3062798116cb8ffa981eb657095e49da2ef003085",
+    "NS_AbsoluteZeroInwardMist.uasset": "c13d44b215cf0860557eb77fae1c54d2d11d9d370d2c1411cd9c9b8388c7240e"
+  },
+  "gameplay_tested": false,
+  "rendered": false
+}

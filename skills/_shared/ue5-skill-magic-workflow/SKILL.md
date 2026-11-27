@@ -52,7 +52,9 @@ description: 开发和迁移 FPSGAME 的主动、被动技能与魔法，贯通�
 
 
 
-持杖举起／前挥、右手施法占用、火球／冰锥跟随至接触发射及预览不对线，读取 [持杖施法与瞄准](references/staff-cast-and-aim.md)：手势开始时选分支，同帧杖尖，松手确认与接触发射共用状态。
+持杖举起／前挥、右手施法占用、火球／冰锥跟随至接触发射及预览不对线，读取 [持杖施法与瞄准](references/staff-cast-and-aim.md)：手势开始时选分支，同帧杖尖，松手确认与接触发射共用状态。持法杖左键统一发射快捷键／轮盘积蓄魔法、右键纯归副手与预览归属／龙息冷资产防卡死，读取 [持法杖左键统一发射与轮盘防线](references/staff-cast-left-click-and-wheel.md)。
+
+2K 4 通道矢量精细法阵（`never_stream` / 径向分带随层辉光 / 3D 视差实测缩放 / 蓝紫青随机游走）与 UE 5.8 寒冰晶柱／写实雪尘粒子避坑（`DepthFade` `'Opacity'` 引脚、ISM 标志与无锁新建版本），读取 [矢量法阵与写实寒冰 VFX 规范](references/arcane-circle-and-frost-vfx.md)。
 
 陨星和灼锋焰甲等火场／武器附魔先读 [陨星与灼锋焰甲](references/fire-magic-migration.md)：原版数值、陨星法杖限定、非魔法附伤隔离、整次修炼与火把特效副本。2026-09-30 用户要求陨星与冰墙仅当前装备法杖可施放，其他技能的范围按明确要求和当前配置执行。
 

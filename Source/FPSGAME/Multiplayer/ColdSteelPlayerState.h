@@ -5,6 +5,7 @@
 #include "../UI/ColdSteelInventoryTypes.h"
 #include "../Skills/IceWallTypes.h"
 #include "../Skills/BlizzardTypes.h"
+#include "../Skills/AbsoluteZeroTypes.h"
 #include "../Skills/HolyLightTypes.h"
 #include "../Skills/IceArmorTypes.h"
 #include "../Skills/LightningHasteTypes.h"
@@ -678,6 +679,7 @@ private:
     // Authoritative paid-cast snapshots survive chain consumption until release.
     FIceWallCast PendingIceWallStats;
     FBlizzardCast PendingBlizzardStats;
+    FAbsoluteZeroCast PendingAbsoluteZeroStats;
     FHolyLightCast PendingHolyLightStats;
     FIceArmorCast PendingIceArmorStats;
     FLightningHasteCast PendingLightningHasteStats;

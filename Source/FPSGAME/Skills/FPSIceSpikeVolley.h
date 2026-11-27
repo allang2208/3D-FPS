@@ -29,6 +29,7 @@ public:
     void SetAimPreviewActive(bool bActive);
     /** Lock the target, keep following until the gesture launches the volley. */
     void CommitAimPreview();
+    FVector CommittedAimPoint(APawn* FallbackPawn);
     bool IsAimPreviewActive() const {return bAimPreview;}
     int32 RemainingCount() const;
     float CastSpeed() const {return Cast.CastSpeed;}
@@ -74,7 +75,7 @@ private:
     UPROPERTY(Replicated) TObjectPtr<UFPSIceSpikeComponent> NetSource;
     UPROPERTY(Replicated) bool bNetFlying=false;
     UPROPERTY(Replicated) int32 NetCount=0;
-    UPROPERTY(Replicated) float NetCastSpeed=1.f,NetSpeed=1600.f,NetGravity=400.f,NetHoverDuration=30.f;
+    UPROPERTY(Replicated) float NetCastSpeed=1.f,NetSpeed=1600.f,NetGravity=400.f,NetRange=1200.f,NetHoverDuration=30.f;
     UPROPERTY(ReplicatedUsing=OnRep_Spikes) TArray<FVector_NetQuantize> NetPos;
     UPROPERTY(ReplicatedUsing=OnRep_Spikes) TArray<FVector_NetQuantizeNormal> NetDir;
     UPROPERTY(ReplicatedUsing=OnRep_Spikes) uint32 NetAlive=0;

@@ -17,6 +17,8 @@
 #include "../../Items/FPSPotionUseComponent.h"
 #include "../../Skills/ColdSteelSkillRules.h"
 #include "../../Skills/FPSFireballComponent.h"
+#include "../../Skills/FPSFireMagicComponent.h"
+#include "../../Skills/FPSAbsoluteZeroComponent.h"
 #include "../../UI/ColdSteelStatusModel.h"
 #include "../../Monsters/FPSCombatHealthComponent.h"
 #include "../../Movement/FPSFootstepAudioComponent.h"
@@ -154,7 +156,9 @@ FStaffCastPose UStaffWeaponComponent::CarryPoseInCamera() const
 FStaffCastPose UStaffWeaponComponent::CastingPoseInCamera() const
 {
     const auto Carry=CarryPoseInCamera();
-    if(const auto* Magic=GetOwner()->FindComponentByClass<UFPSFireballComponent>();Magic&&Magic->IsStaffCasting())
+    if(const auto* AbsoluteZero=GetOwner()->FindComponentByClass<UFPSAbsoluteZeroComponent>();IsEquipped()&&AbsoluteZero&&AbsoluteZero->IsPresentingStaffSlam())
+        return AbsoluteZero->SampleStaffSlamPose(Carry);
+    if(const auto* Magic=GetOwner()->FindComponentByClass<UFPSFireballComponent>();IsEquipped()&&Magic&&Magic->IsStaffCasting())
         return Magic->SampleStaffMotion(Carry);
     return Carry;
 }
@@ -217,10 +221,17 @@ void UStaffWeaponComponent::GetCameraMotion(FVector& Location,FRotator& Rotation
     FVector Kick;FRotator Turn;
     StaffPrimaryAttackMotion::Camera(-1.f,ImpactAge,ImpactStrength,Kick,Turn);
     Location+=Kick;Rotation+=Turn;
+    if(const auto* AbsoluteZero=GetOwner()->FindComponentByClass<UFPSAbsoluteZeroComponent>();IsEquipped()&&AbsoluteZero&&AbsoluteZero->IsPresentingStaffSlam())
+    {
+        FVector AzLoc;FRotator AzRot;
+        AbsoluteZero->GetCameraMotion(AzLoc,AzRot,nullptr);
+        Location+=AzLoc;Rotation+=AzRot;
+    }
 }
 void UStaffWeaponComponent::BeginPrimaryAttack()
 {
     auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());if(!IsEquipped()||IsBusy()||!Pawn||!Staff||!Staff->IsVisible()||Pawn->IsSpellGestureBlocking()||Pawn->IsCastBlockingLeftHandAction())return;
+    if(const auto* FireMagic=Pawn->FindComponentByClass<UFPSFireMagicComponent>();FireMagic&&FireMagic->IsMeteorAimPreviewActive())return;
     if(const auto* Health=Pawn->FindComponentByClass<UFPSCombatHealthComponent>();Health&&Health->IsDead())return;
     auto* P=GetWorld()->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();const auto* I=P->Equipped();if(!I||I->InstanceId!=Instance)return;
     // Match ordinary punches: debit once on entry, including misses; failed

@@ -5,9 +5,11 @@
 #include "FPSIceWall.generated.h"
 
 class UBoxComponent;
+class UDynamicMeshComponent;
 class UInstancedStaticMeshComponent;
 class UMaterialInstanceDynamic;
 class UMaterialInterface;
+class UPointLightComponent;
 class UStaticMesh;
 class UParticleSystem;
 class USoundBase;
@@ -29,6 +31,7 @@ public:
     void Launch(const FVector& Origin,const FIceWallPlacement& Placement);
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     const FIceWallCast& Snapshot() const { return Tuning; }
+    const FIceWallPlacement& Placement() const { return Plan; }
     bool IsSolid() const;
     virtual float TakeDamage(float Damage,const FDamageEvent& Event,AController* EventInstigator,AActor* Causer) override;
     UPROPERTY(VisibleAnywhere,BlueprintReadOnly,Category="IceWall") float MaxHealth=300;
@@ -41,7 +44,18 @@ private:
     UPROPERTY(VisibleAnywhere) TObjectPtr<USceneComponent> Scene;
     UPROPERTY(VisibleAnywhere) TObjectPtr<UBoxComponent> Barrier;
     UPROPERTY(Transient) TArray<TObjectPtr<UInstancedStaticMeshComponent>> Blocks;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> WallMaterial;
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> GhostMaterial;
+    UPROPERTY(Transient) TObjectPtr<UDynamicMeshComponent> FrostSurface;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> FrostSurfaceMID;
+    UPROPERTY(Transient) TObjectPtr<UNiagaraComponent> FrostCrystals;
+    UPROPERTY(Transient) TObjectPtr<UPointLightComponent> WallLight;
+    bool bSolidVisualsActive=false;
+    bool bSettledTickRate=false;
+    float CrystalSweepPhase=0.f;
+    void ActivateSolidVisuals();
+    void UpdateSolidVisuals(float Delta);
+    void ClearSolidVisuals();
     UPROPERTY(Transient) TObjectPtr<UParticleSystem> BreakFX;
     UPROPERTY(Transient) TObjectPtr<USoundBase> BreakSound;
     TWeakObjectPtr<UFPSIceWallComponent> Component;

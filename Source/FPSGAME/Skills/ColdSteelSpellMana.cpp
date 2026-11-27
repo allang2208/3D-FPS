@@ -23,6 +23,7 @@ float UColdSteelStatusModel::SpellManaCost(FName Id,int32 AtLevel,bool bApplyFoc
     else if(Id==TEXT("iceSpike"))Cost=D->IceSpike.ManaCost+(L-1)*D->IceSpike.ManaCostPerLevel;
     else if(Id==TEXT("iceWall"))Cost=D->IceWall.ManaCost;
     else if(Id==TEXT("blizzard"))Cost=D->Blizzard.ManaCost;
+    else if(Id==TEXT("absoluteZero"))Cost=D->AbsoluteZero.ManaBase+(L-1)*D->AbsoluteZero.ManaPerLevel;
     else if(Id==TEXT("illuminationArrow"))Cost=D->IlluminationArrow.ManaCost;
     else if(Id==TEXT("magicArrowRain"))Cost=D->MagicArrowRain.ManaCost;
     else if(Id==TEXT("lightningStrike"))Cost=D->Lightning.ManaCost;

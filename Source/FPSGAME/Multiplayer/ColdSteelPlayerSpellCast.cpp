@@ -55,6 +55,7 @@
 #include "../Skills/FPSIceSpikeVolley.h"
 #include "../Skills/FPSIceWallComponent.h"
 #include "../Skills/FPSBlizzardComponent.h"
+#include "../Skills/FPSAbsoluteZeroComponent.h"
 #include "../Skills/FPSHolyLightComponent.h"
 #include "../Skills/FPSIceArmorComponent.h"
 #include "../Skills/FPSLightningHasteComponent.h"
@@ -65,6 +66,7 @@
 #include "../Skills/IceSpikeTypes.h"
 #include "../Skills/IceWallTypes.h"
 #include "../Skills/BlizzardTypes.h"
+#include "../Skills/AbsoluteZeroTypes.h"
 #include "../Skills/HolyLightTypes.h"
 #include "../Skills/LightningTypes.h"
 #include "../Skills/FireMagicTypes.h"
@@ -121,6 +123,7 @@ void AColdSteelPlayerState::CancelPendingNetworkCast()
     PendingCastSkill=NAME_None;PendingCastPaidMana=0.f;PendingCastPawn.Reset();PendingIdentifiedCastId=0;
     if(PendingCastOrb.IsValid())PendingCastOrb->Destroy();
     PendingCastOrb.Reset();
+    if(Skill==TEXT("absoluteZero"))if(auto* Pawn=GetPawn())if(auto* AZ=Pawn->FindComponentByClass<UFPSAbsoluteZeroComponent>())AZ->NetCancelChannel();
     if(ShadowModel)ShadowModel->RefundUnreleasedCast(Paid,Skill);
     bServerDirty=true;
 }
@@ -157,7 +160,7 @@ namespace
 // 各技能在服务端落地的最小校验：影子档扣账入口 + 对应组件指针。Phase1 的具体执行在组件侧。
 struct FNetCastSkill { FName Id; };
 const FNetCastSkill NetCastSkills[] = {
-    { TEXT("fireball") }, { TEXT("iceSpike") }, { TEXT("iceWall") }, { TEXT("blizzard") },
+    { TEXT("fireball") }, { TEXT("iceSpike") }, { TEXT("iceWall") }, { TEXT("blizzard") }, { TEXT("absoluteZero") },
     { TEXT("holyLight") }, { TEXT("lightning") }, { TEXT("meteor") }, { TEXT("flameArmor") }, { TEXT("iceArmor") }, { TEXT("lightningHaste") }, { TEXT("dragonBreath") },
     { TEXT("stormDomain") }, { TEXT("thunderLance") }, { TEXT("starMarrowCharge") },
 };
@@ -208,7 +211,9 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
         if (PendingCastSkill == Request.SkillId&&(!Identified||PendingIdentifiedCastId==Request.CastId))
         {
             if (PendingCastOrb.IsValid()) { PendingCastOrb->Destroy(); PendingCastOrb.Reset(); }
-            if (Request.Phase == 2||Request.SkillId==TEXT("blizzard")) ShadowModel->RefundUnreleasedCast(PendingCastPaidMana, Request.SkillId);
+            if (Request.SkillId == TEXT("absoluteZero") && Pawn)
+                if (auto* AZ = Pawn->FindComponentByClass<UFPSAbsoluteZeroComponent>()) AZ->NetCancelChannel();
+            if (Request.Phase == 2||Request.SkillId==TEXT("blizzard")||Request.SkillId==TEXT("absoluteZero")) ShadowModel->RefundUnreleasedCast(PendingCastPaidMana, Request.SkillId);
             else
             {
                 if (Request.SkillId == TEXT("fireball")) ShadowModel->FinishFireballCast();
@@ -277,6 +282,14 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
             if (PendingCastSkill != TEXT("blizzard")) { Reject(3); return; }
             auto* B = Pawn->FindComponentByClass<UFPSBlizzardComponent>();
             if (!B || !B->NetCommitZone(Pawn, Request, ShadowModel, PendingBlizzardStats)) { Reject(7); return; }
+            PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
+            Accept(); return;
+        }
+        if (Request.SkillId == TEXT("absoluteZero"))
+        {
+            if (PendingCastSkill != TEXT("absoluteZero")) { Reject(3); return; }
+            auto* A = Pawn->FindComponentByClass<UFPSAbsoluteZeroComponent>();
+            if (!A || !A->NetCommitNova(Pawn, Request, ShadowModel, PendingAbsoluteZeroStats)) { Reject(7); return; }
             PendingCastSkill = NAME_None; PendingCastPaidMana = 0.f;
             Accept(); return;
         }
@@ -370,6 +383,15 @@ void AColdSteelPlayerState::ExecuteCastRequest(const FColdSteelNetCastRequest& R
         if (!ShadowModel->BeginBlizzardCast(Stats)) { Reject(6); return; }
         PendingCastPaidMana = Stats.ManaCost;
         PendingBlizzardStats = Stats;
+    }
+    else if (Request.SkillId == TEXT("absoluteZero"))
+    {
+        const FAbsoluteZeroCast Stats = ShadowModel->AbsoluteZeroStats();
+        if (!ShadowModel->BeginAbsoluteZeroCast(Stats)) { Reject(6); return; }
+        auto* A = Pawn->FindComponentByClass<UFPSAbsoluteZeroComponent>();
+        if (!A || !A->NetBeginChannel(Pawn, Stats)) { ShadowModel->RefundUnreleasedCast(Stats.ManaCost, TEXT("absoluteZero")); Reject(7); return; }
+        PendingCastPaidMana = Stats.ManaCost;
+        PendingAbsoluteZeroStats = Stats;
     }
     else if(Request.SkillId==TEXT("lightningHaste"))
     {
@@ -469,6 +491,12 @@ void AColdSteelPlayerState::ClientCastResult_Implementation(FName SkillId, uint8
         auto* Blizzard=Pawn->FindComponentByClass<UFPSBlizzardComponent>();
         if(Blizzard&&Code==0&&Phase<2)Blizzard->NetCastAccepted(Phase);
         else Receipt(Blizzard);
+    }
+    else if (SkillId == TEXT("absoluteZero"))
+    {
+        auto* AZ=Pawn->FindComponentByClass<UFPSAbsoluteZeroComponent>();
+        if(AZ&&Code==0&&Phase<2)AZ->NetCastAccepted(Phase);
+        else Receipt(AZ);
     }
     else if (SkillId == TEXT("holyLight"))
     {

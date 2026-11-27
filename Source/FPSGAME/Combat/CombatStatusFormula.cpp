@@ -1,4 +1,5 @@
 #include "CombatStatusFormula.h"
+#include "../Skills/FPSAbsoluteZeroComponent.h"
 #include "../WorldGeneration/VillageHotOil.h"
 #include "../Monsters/UnknownSpellCombat.h"
 #include "CombatControlImmunity.h"
@@ -254,6 +255,10 @@ void UCombatStatusFormula::AddStunWithExtension(float BaseSeconds,float ExtraSec
 void UCombatStatusFormula::AddStun(float Seconds)
 {
     if(CombatControl::IsImmune(GetOwner())||Seconds<=0)return;
+    // Absolute Zero channeling grants light-stagger resistance (micro-stuns <=0.35s); hard CC still interrupts.
+    if(Seconds<=.35f)
+        if(const auto* AZ=GetOwner()->FindComponentByClass<UFPSAbsoluteZeroComponent>();AZ&&AZ->HasLightStaggerResistance())
+            return;
     // 玩家装备的眩晕抵抗按加法叠加，作为 0–100% 的免控概率；
     // 100% 必晕的攻击在 25% 抵抗下仍有 75% 概率生效。
     if(auto* Character=Cast<ACharacter>(GetOwner());Character&&Character->IsPlayerControlled()&&Character->HasAuthority())
@@ -585,6 +590,23 @@ void UCombatStatusFormula::AddChill(int32 Stacks,float Seconds,bool bRefreshDura
         UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("frozen"),Seconds,1);
     }
     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("chill"),ChillTime,ChillStacks);
+}
+void UCombatStatusFormula::ConsumeFrostForShatter(int32 ChillCost)
+{
+    if(!GetOwner()->HasAuthority())return;
+    auto* Display=UStatusEffectsComponent::GetOrCreate(GetOwner());
+    if(FrozenTime>0.f)
+    {
+        FrozenTime=0.f;
+        if(Display)Display->Remove(TEXT("frozen"));
+        return;
+    }
+    if(ChillCost>0&&ChillTime>0.f&&ChillStacks>0)
+    {
+        ChillStacks=FMath::Max(0,ChillStacks-ChillCost);
+        if(ChillStacks<=0){ChillStacks=0;ChillTime=0.f;if(Display)Display->Remove(TEXT("chill"));}
+        else if(Display)Display->SetTimed(TEXT("chill"),ChillTime,ChillStacks);
+    }
 }
 bool UCombatStatusFormula::AddElectrified(int32 Stacks,float Seconds,int32 OverloadThreshold,float BonusPerStack,int32 RetainedStacks)
 {

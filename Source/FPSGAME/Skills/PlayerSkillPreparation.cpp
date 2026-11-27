@@ -1,4 +1,5 @@
 #include "PlayerSkillPreparation.h"
+#include "Algo/StableSort.h"
 #include "../Weapons/PojunGrip.h"
 #include "PlayerSkillRenderPreparation.h"
 #include "../Diagnostics/FPSResourceLifecycle.h"
@@ -172,8 +173,39 @@ void FPlayerSkillPreparation::RefreshLearnedSkills()
         FJob Job;Job.Skill=Skill;Job.Name=Model->DevelopmentSkillDefinition(Skill).Name;Job.bMagic=bMagic;
         Jobs.Add(MoveTemp(Job));
     }
+    // Load the currently selected wheel spell and actively bound spells before unbound catalog entries.
+    const FName SelectedMagic=Model->SelectedMagicSkill();
+    const bool bStaffEquipped=Model->HasEquippedStaff();
+    TSet<FName> WheelSkills;
+    for(FName Skill:Model->MagicBindings())if(!Skill.IsNone())WheelSkills.Add(Skill);
+    TSet<FName> QuickSkills;
+    for(const auto& Binding:Model->QuickBindings())if(!Binding.Skill.IsNone())QuickSkills.Add(Binding.Skill);
+    auto PriorityTier=[&](const FJob& Job)->int32
+    {
+        if(!SelectedMagic.IsNone()&&Job.Skill==SelectedMagic)return bStaffEquipped?0:1;
+        if(bStaffEquipped&&WheelSkills.Contains(Job.Skill))return 1;
+        if(QuickSkills.Contains(Job.Skill))return 2;
+        if(WheelSkills.Contains(Job.Skill))return 3;
+        return Job.bMagic?5:4;
+    };
+    Algo::StableSortBy(Jobs,PriorityTier);
     for(auto It=ReadySkills.CreateIterator();It;++It)if(!KnownSkills.Contains(*It))It.RemoveCurrent();
     Progress=Jobs.IsEmpty()?1.f:0.f;
+}
+
+void FPlayerSkillPreparation::PrioritizeSkill(FName Skill)
+{
+    if(!bStarted||Skill.IsNone()||ReadySkills.Contains(Skill)||Cursor>=Jobs.Num())return;
+    int32 Found=INDEX_NONE;
+    for(int32 I=Cursor;I<Jobs.Num();++I)if(Jobs[I].Skill==Skill){Found=I;break;}
+    if(Found==INDEX_NONE||Found==Cursor)return;
+    // If the active cursor job has not started gathering yet, swap right into Cursor;
+    // otherwise place immediately next so the in-flight async asset handle completes cleanly.
+    const int32 Target=!Jobs[Cursor].bGathered&&!Pending.IsValid()?Cursor:Cursor+1;
+    if(Found<=Target||Target>=Jobs.Num())return;
+    FJob Promoted=MoveTemp(Jobs[Found]);
+    Jobs.RemoveAt(Found);
+    Jobs.Insert(MoveTemp(Promoted),Target);
 }
 
 void FPlayerSkillPreparation::CheckEquipmentChanges()

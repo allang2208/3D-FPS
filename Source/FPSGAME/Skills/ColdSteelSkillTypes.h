@@ -4,6 +4,7 @@
 #include "IceSpikeTypes.h"
 #include "IceWallTypes.h"
 #include "BlizzardTypes.h"
+#include "AbsoluteZeroTypes.h"
 #include "LightningTypes.h"
 #include "ElectricMagicTypes.h"
 #include "HolyLightTypes.h"
@@ -104,6 +105,7 @@ struct FColdSteelSkillDefinition
     FFireMagicTuning FireMagic;
     FIceWallTuning IceWall;
     FBlizzardTuning Blizzard;
+    FAbsoluteZeroTuning AbsoluteZero;
     FHeartPiercingArrowTuning HeartPiercingArrow;
     FMagicArrowRainTuning MagicArrowRain;
 };
@@ -257,11 +259,22 @@ struct FColdSteelSkillShot
     double HeavyReleaseTime=0.;
 };
 
+enum class EColdSteelNoticeTone : uint8
+{
+    Info = 0,
+    Success,
+    Warning,
+    Danger,
+};
+
 struct FColdSteelProgressNotice
 {
     FString Title, Detail, Icon;
     float Duration = 2.8f;
-    // game-dev top notice tones (2026-11-15): upgrades/unlocks use the gold 28px level-up format,
-    // everything else (PostNotice) the plate-less 20px info format.
+    // game-dev top notice tones (2026-11-15 / 2026-11-27):
+    // upgrades/unlocks use the gold 28px level-up format with fanfare;
+    // milestone/delivery banners share the FIFO slot with semantic tone & optional icon, no level-up flash/horn.
     bool bUpgrade = false;
+    bool bPlayAudio = true;
+    EColdSteelNoticeTone Tone = EColdSteelNoticeTone::Info;
 };

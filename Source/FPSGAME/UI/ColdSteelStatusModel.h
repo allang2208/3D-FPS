@@ -242,6 +242,16 @@ public:
     const FColdSteelSkillDefinition& BlizzardDefinition() const { return BlizzardSkill; }
     FColdSteelSkillProgress BlizzardProgress() const;
     FBlizzardCast BlizzardStats(int32 AtLevel=-1) const;
+    const FColdSteelSkillDefinition& AbsoluteZeroDefinition() const { return AbsoluteZeroSkill; }
+    FColdSteelSkillProgress AbsoluteZeroProgress() const;
+    FAbsoluteZeroCast AbsoluteZeroStats(int32 AtLevel=-1) const;
+    float AbsoluteZeroCooldown() const;
+    float AbsoluteZeroCooldownDuration() const;
+    bool BeginAbsoluteZeroCast(const FAbsoluteZeroCast& Spell);
+    bool CommitAbsoluteZeroRelease();
+    bool ApplyAbsoluteZeroNovaHit(APawn* Shooter,AActor* Target,const FAbsoluteZeroCast& Spell,float Distance,FAbsoluteZeroRewards& Rewards);
+    bool ApplyAbsoluteZeroWallShardHit(APawn* Shooter,AActor* Target,const FAbsoluteZeroCast& Spell,float HealthRatio,int32 TargetShardIndex,FAbsoluteZeroRewards& Rewards);
+    void FinishAbsoluteZeroCast(const FAbsoluteZeroRewards& Rewards);
     FIlluminationArrowCast IlluminationArrowStats(int32 AtLevel=-1) const;
     float IlluminationArrowCooldown() const;
     float IlluminationArrowCooldownDuration() const;
@@ -395,6 +405,7 @@ public:
     bool PressStaffMagic();
     void ReleaseStaffMagic();
     void CancelStaffMagic();
+    FName PreparedStaffMagicSkill() const;
     /**
      * Magic hold-to-preview: a press while the bound projectile hovers starts the red
      * trajectory preview instead of firing, and the matching release fires it. A quick tap
@@ -404,8 +415,12 @@ public:
     bool BeginSpellAimPreview(int32 Index);
     bool BeginSpellAimPreviewForSkill(FName Skill,int32 InputSource);
     bool EndSpellAimPreview(int32 Index);
+    /** Clears only the preview owned by InputSource without disturbing other in-progress spells. */
+    void CancelOwnedAimPreview(int32 InputSource);
     /** Clears any held preview, e.g. when a menu opens and the key release will not arrive. */
     void CancelSpellAimPreview();
+    /** Moves a still-queued learned skill to the front of background asset preparation. */
+    void PrioritizeSkillAssets(FName Skill) const;
     FColdSteelItem CreateItem(const FString& Definition, int64 Count=1) const;
     /**
      * Host-side admission check for an item instance arriving in a guest upload.
@@ -773,6 +788,7 @@ private:
     FColdSteelSkillDefinition LightningHasteSkill;
     FColdSteelSkillDefinition IceWallSkill;
     FColdSteelSkillDefinition BlizzardSkill;
+    FColdSteelSkillDefinition AbsoluteZeroSkill;
     TSet<TWeakObjectPtr<AActor>> KillStaminaVictims;
     struct FStatCacheKey
     {

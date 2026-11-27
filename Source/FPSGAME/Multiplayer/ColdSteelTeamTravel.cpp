@@ -15,6 +15,7 @@
 #include "../Skills/FPSIceSpikeComponent.h"
 #include "../Skills/FPSIceWallComponent.h"
 #include "../Skills/FPSBlizzardComponent.h"
+#include "../Skills/FPSAbsoluteZeroComponent.h"
 #include "../Skills/BowSkillLifecycle.h"
 #include "../SceneTestPortal.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -99,6 +100,7 @@ void AColdSteelPlayerState::ClientPrepareTeamTravel_Implementation(FGuid TravelI
             if(auto* C=Pawn->FindComponentByClass<UFPSIceSpikeComponent>())C->Cancel();
             if(auto* C=Pawn->FindComponentByClass<UFPSIceWallComponent>())C->Cancel();
             if(auto* C=Pawn->FindComponentByClass<UFPSBlizzardComponent>())C->CancelPending();
+            if(auto* C=Pawn->FindComponentByClass<UFPSAbsoluteZeroComponent>())C->CancelPending();
         }
     }
     if(auto* M=ColdSteelAuthority::Model(this))M->PostNotice(TEXT("准备传送"),TEXT("正在保存档案，请稍候"));
@@ -134,6 +136,7 @@ bool AColdSteelPlayerState::SaveTeamTravelParticipant()
     if(auto* Ice=GetPawn()->FindComponentByClass<UFPSLightningHasteComponent>())Ice->FinishForRemoval();
     if(auto* Electric=GetPawn()->FindComponentByClass<UFPSElectricMagicComponent>())Electric->FinishDomainForRemoval();
     if(auto* Blizzard=GetPawn()->FindComponentByClass<UFPSBlizzardComponent>())Blizzard->FinishZonesForRemoval();
+    if(auto* AZ=GetPawn()->FindComponentByClass<UFPSAbsoluteZeroComponent>())AZ->FinishNovasForRemoval();
     BowSkillLifecycle::FinishForRemoval(GetPawn());
     if(!CloseStationSessions()){AbortTeamTravel(TEXT("工作站结算或档案保存失败，请稍后重试"));return false;}
     M->SyncRuntime();

@@ -58,6 +58,8 @@ void AFPSFireballProjectile::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME(AFPSFireballProjectile,Shooter);
     DOREPLIFETIME(AFPSFireballProjectile,NetHoverDuration);
+    DOREPLIFETIME(AFPSFireballProjectile,NetSpeed);
+    DOREPLIFETIME(AFPSFireballProjectile,NetDropDelay);
     DOREPLIFETIME(AFPSFireballProjectile,NetGravity);
     DOREPLIFETIME(AFPSFireballProjectile,NetRange);
     DOREPLIFETIME(AFPSFireballProjectile,NetRadius);
@@ -70,7 +72,7 @@ void AFPSFireballProjectile::GetLifetimeReplicatedProps(TArray<FLifetimeProperty
 void AFPSFireballProjectile::Prepare(UFPSFireballComponent* Ability,APawn* Caster,const FFireballCast& Snapshot,UNiagaraSystem* CoreFX,UNiagaraSystem* TrailFX,UNiagaraSystem* ImpactFX,UMaterialInterface* WaveMaterial,USoundBase* HitSound)
 {
     Source=Ability;Shooter=Caster;Cast=Snapshot;Explosion=ImpactFX;Wave=WaveMaterial;ImpactSound=HitSound;
-    NetHoverDuration=Snapshot.HoverDuration;NetGravity=Snapshot.Gravity;NetRange=Snapshot.Range;NetRadius=Snapshot.Radius;
+    NetHoverDuration=Snapshot.HoverDuration;NetSpeed=Snapshot.Speed;NetDropDelay=Snapshot.DropDelay;NetGravity=Snapshot.Gravity;NetRange=Snapshot.Range;NetRadius=Snapshot.Radius;
     Core->SetAsset(CoreFX);Core->SetVariableFloat(TEXT("User.Flight"),0.f);Core->SetVariableFloat(TEXT("User.FlightAge"),0.f);
     Core->SetRelativeScale3D(FVector(.01f));Core->Activate(true);Trail->SetAsset(TrailFX);
     Core->AddTickPrerequisiteActor(this);Trail->AddTickPrerequisiteActor(this);
@@ -93,7 +95,7 @@ void AFPSFireballProjectile::SetPresentationAssets(UNiagaraSystem* CoreFX,UNiaga
 }
 void AFPSFireballProjectile::ResolveNetState()
 {
-    Cast.HoverDuration=NetHoverDuration;Cast.Gravity=NetGravity;Cast.Range=NetRange;Cast.Radius=NetRadius;
+    Cast.HoverDuration=NetHoverDuration;Cast.Speed=NetSpeed;Cast.DropDelay=NetDropDelay;Cast.Gravity=NetGravity;Cast.Range=NetRange;Cast.Radius=NetRadius;
     if(!Shooter)return;
     if(!Source.IsValid())Source=Shooter->FindComponentByClass<UFPSFireballComponent>();
     if(!Source.IsValid())return;
@@ -147,6 +149,16 @@ void AFPSFireballProjectile::CommitAimPreview()
     if(PreviewPoints.IsEmpty())RefreshAimPreview();
     SetAimPreviewActive(false);
     bPreviewLaunchLocked=true;
+}
+FVector AFPSFireballProjectile::CommittedAimPoint(APawn* FallbackPawn)
+{
+    if(bPreviewLaunchLocked)
+    {
+        const FVector Locked=PreviewAimPoint;
+        bPreviewLaunchLocked=false;
+        return Locked;
+    }
+    return FPSMagicPreview::AimPoint(IsValid(Shooter.Get())?Shooter.Get():FallbackPawn,this);
 }
 void AFPSFireballProjectile::RefreshAimPreview()
 {
@@ -214,6 +226,7 @@ void AFPSFireballProjectile::Tick(float Delta)
             UpdateFlightFX(ClientPrevPos);
             ClientPrevPos=GetActorLocation();
         }
+        else if(bAimPreview)RefreshAimPreview();
         return;
     }
     if(bFinished)

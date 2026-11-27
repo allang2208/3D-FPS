@@ -1,0 +1,44 @@
+{
+  "task": "SkillMagicCloseout-20261127",
+  "generated_at": "2026-11-27T20:42:26.193267+08:00",
+  "total_files": 75,
+  "total_bytes": 39330202,
+  "total_mb": 37.51,
+  "by_category": {
+    "work_arcane_previews": {
+      "count": 2,
+      "bytes": 3475023
+    },
+    "work_niagara_audit": {
+      "count": 6,
+      "bytes": 1328038
+    },
+    "blender_auto_backups": {
+      "count": 2,
+      "bytes": 1206094
+    },
+    "retired_draft_scripts": {
+      "count": 1,
+      "bytes": 16762
+    },
+    "conversation_scratch": {
+      "count": 44,
+      "bytes": 28448777
+    },
+    "f_artproduction_logs": {
+      "count": 20,
+      "bytes": 4855508
+    }
+  },
+  "trash_destinations": {
+    "d_trash": "D:/FPS3D/FPSGAME/trash/SkillMagicCloseout-20261127",
+    "f_trash": "F:/FPSGAMEData/trash/SkillMagicCloseout-20261127"
+  },
+  "local_manifest": "F:/FPSGAMEData/ArtProduction/Skills/SkillMagicCloseout-20261127/cleanup-manifest.json",
+  "preserved": [
+    "F:/FPSGAMEData/ArtProduction/{AbsoluteZero,ElectricMagic,IceSpike,IceWall,Skills,StormDomainCloud}/**/{Before,published.json}",
+    "D:/FPS3D/FPSGAME/SourceAssets/{ArcaneCirclesV3_20261127,AbsoluteZeroV2_20261126,AbsoluteZeroV3_20261127,IceWall20260930/GlacialV5,StormDomainCloudV4_20261126,ThunderLanceRay20261005}",
+    "D:/FPS3D/FPSGAME/Tools/Skills/{generate_arcane_circle_textures_v3,author_arcane_circles_v3_20261127,author_arcane_circles_v2_20261127,author_thunder_lance_charge_clarity_20261127,author_frost_polish_and_lods_20261127,author_absolute_zero_v3_meshes,author_absolute_zero_v3_assets,author_ice_wall_glacial_v5_meshes,author_ice_wall_v5_and_spike_color_fix_20261127,build_absolute_zero_v2_assets,build_storm_domain_v4,build_storm_domain_v3,import_absolute_zero_icon}.py"
+  ],
+  "errors": []
+}

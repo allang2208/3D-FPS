@@ -39,9 +39,41 @@
 #include "NiagaraComponent.h"
 #include "NiagaraSystem.h"
 #include "NiagaraFunctionLibrary.h"
+#include "NiagaraSystemInstanceController.h"
+#include "Materials/MaterialInterface.h"
+#include "MaterialShared.h"
+#include "SceneInterface.h"
+#include "Scalability.h"
+#include "RHIGlobals.h"
 #include "Sound/SoundBase.h"
 #include "Net/UnrealNetwork.h"
 #include "NetCastUtils.h"
+
+namespace
+{
+constexpr float StormVolumeBackgroundSimulationSeconds=.25f;
+int32 StormVolumeResolutionForQuality(int32 Quality)
+{
+    static constexpr int32 Resolutions[]={0,64,80,96,96};
+    return Resolutions[FMath::Clamp(Quality,0,4)];
+}
+bool StormVolumeRenderMaterialsReady(UNiagaraComponent* FX)
+{
+    if(!FX||!FX->GetSceneProxy()||!FX->GetWorld()||!FX->GetWorld()->Scene)return false;
+    TArray<UMaterialInterface*> UsedMaterials;FX->GetUsedMaterials(UsedMaterials);
+    if(UsedMaterials.IsEmpty())return false;
+    for(auto* Material:UsedMaterials)
+    {
+        const auto* Resource=Material?Material->GetMaterialResource(FX->GetWorld()->Scene->GetShaderPlatform()):nullptr;
+        const auto* ShaderMap=Resource?Resource->GetGameThreadShaderMap():nullptr;
+        if(!ShaderMap||!ShaderMap->IsValidForRendering())return false;
+#if WITH_EDITOR
+        if(!Resource->IsCompilationFinished())return false;
+#endif
+    }
+    return !FX->IsPSOPrecaching();
+}
+}
 
 UFPSElectricMagicComponent::UFPSElectricMagicComponent()
 {
@@ -57,21 +89,33 @@ void UFPSElectricMagicComponent::BeginPlay()
 {
     Super::BeginPlay();AddTickPrerequisiteActor(GetOwner());
     if(auto* H=Hands())AddTickPrerequisiteComponent(H);
-    const TCHAR* Paths[]={TEXT("/Game/Skills/StormClouds/RollingV1/NS_StormDomainCloud.NS_StormDomainCloud"),TEXT("/Game/Skills/Lightning/NS_LightningChain.NS_LightningChain"),
+    const TCHAR* Paths[]={TEXT("/Game/Skills/ElectricMagic/StormDomainV4/NS_StormDomainSmoke.NS_StormDomainSmoke"),TEXT("/Game/Skills/Lightning/NS_LightningChain.NS_LightningChain"),
         TEXT("/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceBeam.M_ThunderLanceBeam"),TEXT("/Game/Skills/ElectricMagic/NS_ThunderCharge.NS_ThunderCharge"),
         TEXT("/Game/Skills/ElectricMagic/NS_ElectricImpact.NS_ElectricImpact"),TEXT("/Game/Skills/ElectricMagic/S_ElectricCast1.S_ElectricCast1"),TEXT("/Game/Skills/ElectricMagic/S_ElectricCast2.S_ElectricCast2"),
         TEXT("/Game/Skills/ElectricMagic/ThunderLanceV2/M_ThunderLanceCircle.M_ThunderLanceCircle"),TEXT("/Engine/BasicShapes/Plane.Plane"),
         TEXT("/Game/Skills/ElectricMagic/LanceRay/FX/SM_ThunderLanceRibbon.SM_ThunderLanceRibbon"),TEXT("/Game/Skills/ElectricMagic/LanceRay/FX/SM_ThunderLanceIris.SM_ThunderLanceIris"),
         TEXT("/Game/Skills/ElectricMagic/LanceRay/Materials/M_ThunderLanceIris.M_ThunderLanceIris"),TEXT("/Game/Skills/ElectricMagic/LanceRay/NS_ThunderLanceGather.NS_ThunderLanceGather"),
         TEXT("/Game/Skills/ElectricMagic/S_ThunderLanceCharge.S_ThunderLanceCharge"),TEXT("/Game/Skills/ElectricMagic/S_ThunderLanceDischarge.S_ThunderLanceDischarge"),
-        TEXT("/Game/Skills/ElectricMagic/NS_ThunderLanceMuzzle.NS_ThunderLanceMuzzle")};
+        TEXT("/Game/Skills/ElectricMagic/NS_ThunderLanceMuzzle.NS_ThunderLanceMuzzle"),TEXT("/Game/Skills/ElectricMagic/StormDomainV3/NS_StormCloudArc.NS_StormCloudArc"),
+        TEXT("/Game/Skills/ElectricMagic/StormDomainV4/NS_StormDomainVolume.NS_StormDomainVolume")};
     TArray<FSoftObjectPath> Requests;for(const auto* Path:Paths)Requests.Emplace(Path);
     // Server requests may arrive before this pawn's cosmetic preload finishes.
     Assets.SetNum(Requests.Num());
     const auto Ready=FSimpleDelegate::CreateWeakLambda(this,[this,Requests]()
     {
         bAssetsReady=true;
-        for(int32 I=0;I<Requests.Num();++I){Assets[I]=Requests[I].ResolveObject();bAssetsReady&=Assets[I]!=nullptr;}
+        for(int32 I=0;I<Requests.Num();++I)
+        {
+            Assets[I]=Requests[I].ResolveObject();
+            // Tier 1 3D volumetric cloud (index 17) is opportunistic; Tier 2 rolling smoke (index 0) never blocks.
+            if(I<17)bAssetsReady&=Assets[I]!=nullptr;
+        }
+#if WITH_EDITOR
+        if(Assets.IsValidIndex(17))
+            if(auto* VolSys=Cast<UNiagaraSystem>(Assets[17].Get());VolSys&&!VolSys->IsReadyToRun()&&!VolSys->HasOutstandingCompilationRequests(true))
+                VolSys->RequestCompile(false);
+#endif
+        PrepareVolumeCloud();
         if(GetOwner()->HasAuthority())
         {if(bDomainActive&&!bDomainFading&&!CloudFX)SpawnDomainFX();PlayDomainStartSound();}
         else OnRep_Domain();
@@ -122,33 +166,56 @@ void UFPSElectricMagicComponent::UpdateChargeVisual()
 {
     const auto* Camera=GetOwner()->FindComponentByClass<UCameraComponent>();if(!Camera)return;
     const FVector Origin=CastOrigin();const FVector Fwd=Camera->GetForwardVector();
-    const FRotator Facing=FRotationMatrix::MakeFromZX(Fwd,Camera->GetRightVector()).Rotator();
+    const FVector Right=Camera->GetRightVector(),Up=Camera->GetUpVector();
+    const FRotator Facing=FRotationMatrix::MakeFromZX(Fwd,Right).Rotator();
     const float Charge=LanceChargeFraction();
+    // Enlarged aim-centered arcane aperture: frames the outer viewport (83-91% height) while keeping
+    // the central r < 0.60 crosshair corridor 100% glass-clear for crisp aiming.
+    const FVector CircleCenter=Camera->GetComponentLocation()+Fwd*66.f;
+    const float CircleScale=FMath::Lerp(.70f,.78f,Charge);
     if(ChargeFX){ChargeFX->SetWorldLocationAndRotation(Origin,Facing);ChargeFX->SetVariableFloat(TEXT("User.Charge"),Charge);}
-    if(ChargeCircle)ChargeCircle->SetWorldLocationAndRotation(Origin+Fwd*24.f,Facing);
-    if(ChargeCircleMaterial)ChargeCircleMaterial->SetScalarParameterValue(TEXT("Charge"),Charge);
-    // 悬钟式积蓄：内卷粒子塌缩 + 虹膜光斑 + 周围丝束随充能汇聚到发射点。
+    if(ChargeCircle)
+    {
+        ChargeCircle->SetWorldLocationAndRotation(CircleCenter,Facing);
+        ChargeCircle->SetWorldScale3D(FVector(CircleScale));
+    }
+    if(ChargeCircleMaterial)
+    {
+        ChargeCircleMaterial->SetScalarParameterValue(TEXT("Charge"),Charge);
+        ChargeCircleMaterial->SetScalarParameterValue(TEXT("ColorSeed"),ChargeColorSeed);
+    }
+    // Peripheral gathering particles aligned around the outer aperture ring (leaving center aim clear).
     if(GatherFX)
     {
-        GatherFX->SetWorldLocationAndRotation(Origin,FRotationMatrix::MakeFromX(Fwd).Rotator());
+        GatherFX->SetWorldLocationAndRotation(CircleCenter,FRotationMatrix::MakeFromX(Fwd).Rotator());
         GatherFX->SetVariableFloat(TEXT("User.Charge"),Charge);
     }
+    // Secondary receding 3D holographic parallax seal (+16 cm deeper along Fwd, 1.07x angular framing so its
+    // r < 0.562 clean aperture stays strictly outside the primary aiming corridor while adding true 3D depth).
     if(ChargeIris)
     {
-        ChargeIris->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(-Fwd).ToQuat(),Origin+Fwd*4.f,FVector(FVector::OneVector*(9.f+16.f*Charge))));
-        if(ChargeIrisMID){ChargeIrisMID->SetScalarParameterValue(TEXT("Strength"),.25f+.75f*Charge);ChargeIrisMID->SetScalarParameterValue(TEXT("Clock"),ChargeAge);ChargeIrisMID->SetScalarParameterValue(TEXT("FirePower"),Charge);}
+        const float IrisRadius=FMath::Lerp(46.5f,52.f,Charge);
+        ChargeIris->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(-Fwd).ToQuat(),CircleCenter+Fwd*16.f,FVector(IrisRadius)));
+        if(ChargeIrisMID)
+        {
+            ChargeIrisMID->SetScalarParameterValue(TEXT("Strength"),.22f+.26f*Charge);
+            ChargeIrisMID->SetScalarParameterValue(TEXT("Clock"),ChargeAge);
+            ChargeIrisMID->SetScalarParameterValue(TEXT("FirePower"),Charge*.65f);
+            ChargeIrisMID->SetScalarParameterValue(TEXT("ColorSeed"),ChargeColorSeed);
+        }
     }
-    // Lightning feeds converge into the cast point: real chain-bolt arcs
-    // strike inward every ~130 ms once charge is underway.
+    // Tangential rim lightning arcs jump along the outer rune ring (r ~ 0.84) — never crossing the clean crosshair center.
     const float Now=float(GetWorld()->GetTimeSeconds());
-    if(Charge>=.05f&&Now>=NextChargeArc)
+    if(Charge>=.08f&&Now>=NextChargeArc)
     {
-        NextChargeArc=Now+.13f;
-        const FVector Right=Camera->GetRightVector(),Up=Camera->GetUpVector();
-        const float A=FMath::FRandRange(0.f,2.f*PI),R=FMath::FRandRange(45.f,80.f);
-        const FVector From=Origin+(Right*FMath::Cos(A)+Up*FMath::Sin(A))*R+Fwd*FMath::FRandRange(-15.f,35.f);
-        FLightningCast Tendril;Tendril.Duration=.10f;Tendril.Fade=.16f;Tendril.Segments=6;Tendril.Jitter=.18f;
-        SpawnArc(From,Origin,Tendril,false,1.f,.55f,false,38.f);
+        NextChargeArc=Now+.18f;
+        const float RimR=CircleScale*50.f*.84f;
+        const float A1=FMath::FRandRange(0.f,2.f*PI);
+        const float A2=A1+(FMath::RandBool()?1.f:-1.f)*FMath::FRandRange(.42f,.82f);
+        const FVector From=CircleCenter+(Right*FMath::Cos(A1)+Up*FMath::Sin(A1))*RimR;
+        const FVector To=CircleCenter+(Right*FMath::Cos(A2)+Up*FMath::Sin(A2))*RimR;
+        FLightningCast Tendril;Tendril.Duration=.09f;Tendril.Fade=.16f;Tendril.Segments=6;Tendril.Jitter=.14f;
+        SpawnArc(From,To,Tendril,false,1.f,.28f,false,14.f);
     }
 }
 void UFPSElectricMagicComponent::DestroyChargeVisual()
@@ -230,17 +297,17 @@ void UFPSElectricMagicComponent::AtContact()
     {const FName Skill=CommittedSkill;CancelPending();Feedback(Skill,TEXT("需要法杖"));return;}
     if(IsCharging())
     {
-        bChargeAtContact=true;ChargeAge=0;
+        bChargeAtContact=true;ChargeAge=0;ChargeColorSeed=FMath::FRandRange(0.f,97.f);
         if(Hands())Hands()->ContinueSpellRelease(this,PendingCast.MaxCharge+.05f,false);
         ChargeFX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Cast<UNiagaraSystem>(Assets[3]),CastOrigin(),FRotator::ZeroRotator,FVector(1),true,false);
-        // 悬钟式积蓄粒子：内卷塌缩的电光粒子，复用 M09 凝视的 gather 配方。
-        if(Assets.IsValidIndex(12)&&Assets[12])GatherFX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Cast<UNiagaraSystem>(Assets[12]),CastOrigin(),FRotator::ZeroRotator,FVector(1.6f),true,false);
+        // Enlarged outer-rim gathering halo framing the clean center aperture.
+        if(Assets.IsValidIndex(12)&&Assets[12])GatherFX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Cast<UNiagaraSystem>(Assets[12]),CastOrigin(),FRotator::ZeroRotator,FVector(1.f),true,false);
         if(Assets.IsValidIndex(11)&&Assets.IsValidIndex(10)&&Assets[11]&&Assets[10])
         {
             ChargeIris=NewObject<UStaticMeshComponent>(GetOwner());GetOwner()->AddInstanceComponent(ChargeIris);
             ChargeIris->SetupAttachment(GetOwner()->GetRootComponent());ChargeIris->SetAbsolute(true,true,true);
             ChargeIris->SetStaticMesh(Cast<UStaticMesh>(Assets[10]));ChargeIris->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-            ChargeIris->SetCanEverAffectNavigation(false);ChargeIris->SetCastShadow(false);ChargeIris->SetReceivesDecals(false);
+            ChargeIris->SetCanEverAffectNavigation(false);ChargeIris->SetCastShadow(false);ChargeIris->SetOnlyOwnerSee(true);ChargeIris->SetReceivesDecals(false);
             ChargeIrisMID=UMaterialInstanceDynamic::Create(Cast<UMaterialInterface>(Assets[11]),this);
             ChargeIris->SetMaterial(0,ChargeIrisMID);ChargeIris->RegisterComponent();
         }
@@ -250,7 +317,7 @@ void UFPSElectricMagicComponent::AtContact()
         ChargeCircle->SetupAttachment(GetOwner()->FindComponentByClass<UCameraComponent>());
         ChargeCircle->SetStaticMesh(Cast<UStaticMesh>(Assets[8]));ChargeCircle->SetCollisionEnabled(ECollisionEnabled::NoCollision);
         ChargeCircle->SetCanEverAffectNavigation(false);ChargeCircle->SetCastShadow(false);ChargeCircle->SetOnlyOwnerSee(true);
-        ChargeCircle->SetReceivesDecals(false);ChargeCircle->SetWorldScale3D(FVector(.64f));
+        ChargeCircle->SetReceivesDecals(false);ChargeCircle->SetWorldScale3D(FVector(.70f));
         ChargeCircleMaterial=UMaterialInstanceDynamic::Create(Cast<UMaterialInterface>(Assets[7]),this);
         ChargeCircle->SetMaterial(0,ChargeCircleMaterial);ChargeCircle->RegisterComponent();
         UpdateChargeVisual();if(ChargeFX)ChargeFX->Activate(true);
@@ -269,22 +336,191 @@ void UFPSElectricMagicComponent::AtContact()
     if(Client)NetCast::Send(GetOwner(),ActivatedSkill,1,FVector::ZeroVector,FVector::UpVector,0,nullptr,0,FVector::ForwardVector,DomainLocalCastId);
     bNetPaid=false;
 }
-// 雷云 FX——本地/服务端/远端 OnRep 共用同一套参数。
+bool UFPSElectricMagicComponent::ShouldUseVolumeCloud() const
+{
+    if(GetNetMode()==NM_DedicatedServer||GUsingNullRHI)return false;
+    const auto* Pawn=Cast<APawn>(GetOwner());
+    if(!Pawn||!Pawn->IsLocallyControlled())return false;
+    return StormVolumeResolutionForQuality(Scalability::GetQualityLevels().EffectsQuality)>0;
+}
+bool UFPSElectricMagicComponent::IsVolumeCloudReady() const
+{
+    if(!ShouldUseVolumeCloud()||!VolumeCloudFX||!VolumeCloudFX->IsActive()||VolumeCloudFX->IsPSOPrecaching())return false;
+    const auto* VolSys=Assets.IsValidIndex(17)?Cast<UNiagaraSystem>(Assets[17].Get()):nullptr;
+    if(!VolSys||!VolSys->IsReadyToRun())return false;
+    const auto Instance=VolumeCloudFX->GetSystemInstanceController();
+    return Instance&&Instance->GetAreDataInterfacesInitialized()&&!Instance->IsPendingSpawn()
+        &&(VolumeCloudFX->IsPaused()||bVolumeCloudRunning||bVolumeCloudWarmed);
+}
+void UFPSElectricMagicComponent::ConfigureVolumeCloud(UNiagaraComponent* FX,float BaseVisualRadius,int32 Resolution) const
+{
+    if(!FX)return;
+    const float RX=FMath::Clamp(BaseVisualRadius,180.f,340.f);
+    const float RY=RX*.83f;
+    const FVector Domain(RX*2.50f,RY*2.50f,190.f);
+    const FVector Base=GetOwner()?GetOwner()->GetActorLocation():FVector::ZeroVector;
+    const auto* Capsule=GetOwner()?GetOwner()->FindComponentByClass<UCapsuleComponent>():nullptr;
+    const float Head=Capsule?Capsule->GetScaledCapsuleHalfHeight():96.f;
+    const float CenterZ=Head+24.f+48.f;
+    FX->SetWorldLocationAndRotation(Base+FVector(0,0,CenterZ),FRotator::ZeroRotator);
+    FX->SetVariableVec3(TEXT("User.WorldSpaceSize"),Domain);
+    FX->SetVariableInt(TEXT("User.ResolutionMaxAxis"),Resolution);
+    FX->SetVariableFloat(TEXT("User.CellSize"),float(Domain.GetMax())/FMath::Max(1,Resolution));
+    FX->SetVariableBool(TEXT("User.DrawBounds"),false);
+    FX->SetVariablePosition(TEXT("User.CurrentPosition"),Base);
+    FX->SetVariableFloat(TEXT("User.RadiusX"),RX);
+    FX->SetVariableFloat(TEXT("User.RadiusY"),RY);
+    FX->SetVariableFloat(TEXT("User.CloudHeight"),Head+24.f+96.f);
+    FX->SetVariableFloat(TEXT("User.CloudThickness"),96.f);
+    FX->SetVariableVec3(TEXT("User.Wind"),FVector(10,4,0));
+    FX->SetVariablePosition(TEXT("User.FlashPos"),Base+FVector(0,0,CenterZ));
+    FX->SetVariableFloat(TEXT("User.FlashPulse"),0.f);
+    FX->SetVariablePosition(TEXT("User.FlashPos2"),Base+FVector(0,0,CenterZ));
+    FX->SetVariableFloat(TEXT("User.FlashPulse2"),0.f);
+    const FVector HalfBounds=Domain*.5f+FVector(72.f);
+    FX->SetSystemFixedBounds(FBox(-HalfBounds,HalfBounds));
+}
+void UFPSElectricMagicComponent::ReleaseVolumeCloud(bool bDestroy)
+{
+    bVolumeCloudRunning=false;
+    if(!VolumeCloudFX)return;
+    if(bDestroy)
+    {
+        VolumeCloudFX->DestroyComponent();VolumeCloudFX=nullptr;
+        VolumeCloudResolution=0;bVolumeCloudWarmed=false;
+        return;
+    }
+    VolumeCloudFX->SetVariableFloat(TEXT("User.Strength"),0.f);
+    VolumeCloudFX->SetVariableFloat(TEXT("User.EmissionScale"),0.f);
+    VolumeCloudFX->SetVariableFloat(TEXT("User.FlashPulse"),0.f);
+    VolumeCloudFX->SetVariableFloat(TEXT("User.FlashPulse2"),0.f);
+    VolumeCloudFX->SetVisibility(false);
+    VolumeCloudFX->SetAllowScalability(false);
+    // Clear old density/flash heat without destroying GPU fluid interfaces; PrepareVolumeCloud re-pauses it cleanly.
+    VolumeCloudFX->ResetSystem();
+}
+void UFPSElectricMagicComponent::PrepareVolumeCloud()
+{
+    if(!GetOwner()||GetOwner()->IsActorBeingDestroyed()||!GetWorld()||GetWorld()->IsPaused())return;
+    const int32 DesiredRes=ShouldUseVolumeCloud()?StormVolumeResolutionForQuality(Scalability::GetQualityLevels().EffectsQuality):0;
+    if(DesiredRes<=0)
+    {
+        if(VolumeCloudFX&&!bVolumeCloudRunning)ReleaseVolumeCloud(true);
+        return;
+    }
+    if(bVolumeCloudRunning)return;
+    if(VolumeCloudFX&&VolumeCloudFX->IsActive()&&VolumeCloudFX->IsPaused())
+    {
+        if(VolumeCloudResolution==DesiredRes)return;
+        ReleaseVolumeCloud(true);
+    }
+    if(!bDomainActive&&!VolumeCloudFX)
+    {
+        const auto* Profile=Model();
+        if(!Profile||Profile->ElectricMagicProgress(TEXT("stormDomain")).Level<=0)return;
+    }
+    auto* VolSys=Assets.IsValidIndex(17)?Cast<UNiagaraSystem>(Assets[17].Get()):nullptr;
+    if(!VolSys)return;
+#if WITH_EDITOR
+    VolSys->PollForCompilationComplete(true);
+    if(VolSys->HasOutstandingCompilationRequests(true))return;
+#endif
+    if(!VolSys->IsReadyToRun())return;
+    if(!VolumeCloudFX)
+    {
+        VolumeCloudFX=NewObject<UNiagaraComponent>(GetOwner());
+        GetOwner()->AddInstanceComponent(VolumeCloudFX);
+        VolumeCloudFX->SetAutoActivate(false);VolumeCloudFX->SetAutoDestroy(false);
+        VolumeCloudFX->SetAsset(VolSys);
+        VolumeCloudFX->SetVariableFloat(TEXT("User.Strength"),0.f);
+        VolumeCloudFX->SetVisibility(true);
+        VolumeCloudFX->SetCastShadow(false);VolumeCloudFX->SetCanEverAffectNavigation(false);
+        VolumeCloudFX->SetAllowScalability(false);
+        VolumeCloudFX->RegisterComponent();
+        VolumeCloudFX->AddTickPrerequisiteComponent(this);
+        VolumeCloudFX->SetTickBehavior(ENiagaraTickBehavior::UsePrereqs);
+        VolumeCloudFX->PrecachePSOs();
+        VolumeCloudResolution=DesiredRes;bVolumeCloudWarmed=false;
+        return;
+    }
+    if(VolumeCloudFX->IsPSOPrecaching()||VolumeCloudFX->IsPaused())return;
+    if(!VolumeCloudFX->IsActive())
+    {
+        float BaseVisualRadius=240.f;
+        if(bDomainActive)BaseVisualRadius=FMath::Clamp(DomainCast.Radius*.36f,180.f,340.f);
+        else if(const auto* Profile=Model())BaseVisualRadius=FMath::Clamp(Profile->ElectricMagicStats(TEXT("stormDomain")).Radius*.36f,180.f,340.f);
+        VolumeCloudResolution=DesiredRes;
+        ConfigureVolumeCloud(VolumeCloudFX,BaseVisualRadius,DesiredRes);
+        VolumeCloudFX->SetVariableFloat(TEXT("User.Strength"),0.f);
+        VolumeCloudFX->SetVariableFloat(TEXT("User.EmissionScale"),.1f);
+        VolumeCloudFX->SetAllowScalability(false);VolumeCloudFX->SetVisibility(true);
+        VolumeCloudFX->Activate(false);
+        return;
+    }
+    if(!VolumeCloudFX->IsVisible())VolumeCloudFX->SetVisibility(true);
+    const auto Instance=VolumeCloudFX->GetSystemInstanceController();
+    if(!Instance||Instance->IsPendingSpawn()||!Instance->GetAreDataInterfacesInitialized()
+        ||Instance->GetAge()<StormVolumeBackgroundSimulationSeconds)return;
+    bool bHasEmission=false;
+    if(VolumeCloudFX->GetVariableFloat(TEXT("User.EmissionScale"),bHasEmission)>0.f&&bHasEmission)
+    {
+        VolumeCloudFX->SetVariableFloat(TEXT("User.EmissionScale"),0.f);
+        VolumeCloudFX->ResetSystem();
+        return;
+    }
+    if(!StormVolumeRenderMaterialsReady(VolumeCloudFX))return;
+    VolumeCloudFX->SetPaused(true);
+    VolumeCloudFX->SetVisibility(false);
+    bVolumeCloudWarmed=true;
+}
+void UFPSElectricMagicComponent::PulseCloudFlash(const FVector& WorldPos,float Intensity)
+{
+    const int32 Slot=NextCloudFlashSlot&1;
+    NextCloudFlashSlot=(Slot+1)&1;
+    CloudFlashPos[Slot]=WorldPos;
+    CloudFlashPulse[Slot]=FMath::Max(CloudFlashPulse[Slot],FMath::Clamp(Intensity,0.f,1.25f));
+}
+// 雷云 FX——Scheme C 顶配分级：本地中高画质就绪时启用 3D 体积流体云芯 + 云缘烟缕；低画质/远端/预热期无缝运行 Mantaflow 翻滚烟雾。
 void UFPSElectricMagicComponent::SpawnDomainFX()
 {
     if(CloudFX||GetNetMode()==NM_DedicatedServer||!bDomainActive||bDomainFading||!Assets.IsValidIndex(0)||!Assets[0])return;
-    CloudTop=330.f;CloudThickness=110.f;CloudRadiusX=DomainCast.Radius;CloudRadiusY=DomainCast.Radius*.78f;
+    const float BaseVisualRadius=FMath::Clamp(DomainCast.Radius*.36f,180.f,340.f);
+    CloudTop=220.f;CloudThickness=96.f;CloudRadiusX=BaseVisualRadius;CloudRadiusY=BaseVisualRadius*.83f;NextCloudArc=DomainVisualAge;
     CloudCeilingZ=TNumericLimits<double>::Max();
-    CloudFX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Cast<UNiagaraSystem>(Assets[0]),GetOwner()->GetActorLocation(),FRotator::ZeroRotator,FVector(1),true,false);
+    CloudFlashPulse[0]=CloudFlashPulse[1]=0.f;
+    const FVector Base=GetOwner()->GetActorLocation();
+    CloudFlashPos[0]=CloudFlashPos[1]=Base+FVector(0,0,CloudTop-CloudThickness*.5f);
+
+    const bool bUseVol=IsVolumeCloudReady();
+    if(bUseVol&&VolumeCloudFX)
+    {
+        if(bVolumeCloudRunning)VolumeCloudFX->ResetSystem();
+        const int32 DesiredRes=FMath::Max(64,VolumeCloudResolution);
+        ConfigureVolumeCloud(VolumeCloudFX,BaseVisualRadius,DesiredRes);
+        VolumeCloudFX->SetVariableFloat(TEXT("User.Strength"),.25f);
+        VolumeCloudFX->SetVariableFloat(TEXT("User.EmissionScale"),1.f);
+        VolumeCloudFX->SetVisibility(true);
+        VolumeCloudFX->SetAllowScalability(true);
+        if(const auto Instance=VolumeCloudFX->GetSystemInstanceController())Instance->SetLastRenderTime(GetWorld()->GetTimeSeconds());
+        VolumeCloudFX->SetPaused(false);
+        bVolumeCloudRunning=true;
+    }
+
+    CloudFX=UNiagaraFunctionLibrary::SpawnSystemAtLocation(GetWorld(),Cast<UNiagaraSystem>(Assets[0]),Base,FRotator::ZeroRotator,FVector(1),true,false);
     if(CloudFX)
     {
         CloudFX->AddTickPrerequisiteComponent(this);CloudFX->SetTickBehavior(ENiagaraTickBehavior::UsePrereqs);
-        CloudFX->SetVariablePosition(TEXT("User.CurrentPosition"),GetOwner()->GetActorLocation());
+        CloudFX->SetVariablePosition(TEXT("User.CurrentPosition"),Base);
         CloudFX->SetVariableVec3(TEXT("User.Side"),FVector::ForwardVector);CloudFX->SetVariableVec3(TEXT("User.Up"),FVector::RightVector);
         CloudFX->SetVariableVec3(TEXT("User.SurfaceNormal"),FVector::UpVector);CloudFX->SetVariableVec3(TEXT("User.Wind"),FVector(10,4,0));
         CloudFX->SetVariableFloat(TEXT("User.StormDuration"),DomainCast.Duration);
         CloudFX->SetVariableFloat(TEXT("User.CloudEmission"),1);CloudFX->SetVariableFloat(TEXT("User.Strength"),1);
         CloudFX->SetVariableFloat(TEXT("User.DetailReduction"),0);
+        CloudFX->SetVariableFloat(TEXT("User.WispOnly"),bUseVol?1.f:0.f);
+        CloudFX->SetVariablePosition(TEXT("User.FlashPos"),CloudFlashPos[0]);
+        CloudFX->SetVariableFloat(TEXT("User.FlashPulse"),0.f);
+        CloudFX->SetVariablePosition(TEXT("User.FlashPos2"),CloudFlashPos[1]);
+        CloudFX->SetVariableFloat(TEXT("User.FlashPulse2"),0.f);
     }
     UpdateDomainCloud(0.f,true);
     if(CloudFX)CloudFX->Activate(true);
@@ -294,7 +530,7 @@ void UFPSElectricMagicComponent::UpdateDomainCloud(float Delta,bool bForce)
     const FVector Base=GetOwner()->GetActorLocation();
     const auto* Capsule=GetOwner()->FindComponentByClass<UCapsuleComponent>();
     const float Head=Capsule?Capsule->GetScaledCapsuleHalfHeight():96.f;
-    constexpr float HeadGap=24.f,MaxThickness=110.f;
+    constexpr float HeadGap=24.f,MaxThickness=96.f;
     // A bounded environment sample, independent of the authoritative damage radius.
     // Recheck immediately after a large movement; otherwise at ~8 Hz while active.
     if(bForce||DomainVisualAge>=NextCloudProbe||FVector::DistSquared(Base,CloudProbePosition)>FMath::Square(60.f)||
@@ -305,7 +541,9 @@ void UFPSElectricMagicComponent::UpdateDomainCloud(float Delta,bool bForce)
         FCollisionQueryParams Q(SCENE_QUERY_STAT(StormCloudClearance),false,GetOwner());
         const FCollisionShape Probe=FCollisionShape::MakeSphere(8.f);
         const FVector ProbeStart=Base+FVector(0,0,ProbeHeight);
-        float RadiusX=DomainCast.Radius,RadiusY=DomainCast.Radius*.78f;
+        // Decouple compact overhead visual cloud footprint from the wide combat strike radius.
+        const float BaseVisualRadius=FMath::Clamp(DomainCast.Radius*.36f,180.f,340.f);
+        float RadiusX=BaseVisualRadius,RadiusY=BaseVisualRadius*.83f;
         for(int32 Axis=0;Axis<2;++Axis)
         {
             float& Radius=Axis==0?RadiusX:RadiusY;
@@ -344,11 +582,106 @@ void UFPSElectricMagicComponent::UpdateDomainCloud(float Delta,bool bForce)
     const float Thickness=float(FMath::Clamp(CloudCeilingZ-(Base.Z+Bottom),6.,double(MaxThickness)));
     CloudThickness=bForce||Thickness<CloudThickness?Thickness:FMath::FInterpTo(CloudThickness,Thickness,Delta,5.f);
     CloudTop=Bottom+CloudThickness;
+    const float FlashDecay=Delta>0.f?FMath::Exp(-Delta/.085f):1.f;
+    for(int32 I=0;I<2;++I)
+    {
+        CloudFlashPulse[I]*=FlashDecay;
+        if(CloudFlashPulse[I]<.002f)CloudFlashPulse[I]=0.f;
+    }
     if(CloudFX)
     {
         CloudFX->SetWorldLocation(Base);CloudFX->SetVariablePosition(TEXT("User.CurrentPosition"),Base);
         CloudFX->SetVariableFloat(TEXT("User.RadiusX"),CloudRadiusX);CloudFX->SetVariableFloat(TEXT("User.RadiusY"),CloudRadiusY);
         CloudFX->SetVariableFloat(TEXT("User.CloudHeight"),CloudTop);CloudFX->SetVariableFloat(TEXT("User.CloudThickness"),CloudThickness);
+        CloudFX->SetVariablePosition(TEXT("User.FlashPos"),CloudFlashPos[0]);CloudFX->SetVariableFloat(TEXT("User.FlashPulse"),CloudFlashPulse[0]);
+        CloudFX->SetVariablePosition(TEXT("User.FlashPos2"),CloudFlashPos[1]);CloudFX->SetVariableFloat(TEXT("User.FlashPulse2"),CloudFlashPulse[1]);
+    }
+    if(bVolumeCloudRunning&&VolumeCloudFX)
+    {
+        VolumeCloudFX->SetWorldLocationAndRotation(Base+FVector(0,0,CloudTop-CloudThickness*.5f),FRotator::ZeroRotator);
+        VolumeCloudFX->SetVariablePosition(TEXT("User.CurrentPosition"),Base);
+        VolumeCloudFX->SetVariableFloat(TEXT("User.RadiusX"),CloudRadiusX);VolumeCloudFX->SetVariableFloat(TEXT("User.RadiusY"),CloudRadiusY);
+        VolumeCloudFX->SetVariableFloat(TEXT("User.CloudHeight"),CloudTop);VolumeCloudFX->SetVariableFloat(TEXT("User.CloudThickness"),CloudThickness);
+        VolumeCloudFX->SetVariablePosition(TEXT("User.FlashPos"),CloudFlashPos[0]);VolumeCloudFX->SetVariableFloat(TEXT("User.FlashPulse"),CloudFlashPulse[0]);
+        VolumeCloudFX->SetVariablePosition(TEXT("User.FlashPos2"),CloudFlashPos[1]);VolumeCloudFX->SetVariableFloat(TEXT("User.FlashPulse2"),CloudFlashPulse[1]);
+        if(!bDomainFading)VolumeCloudFX->SetVariableFloat(TEXT("User.Strength"),FMath::Clamp(.25f+DomainVisualAge/.22f,0.f,1.f));
+    }
+}
+void UFPSElectricMagicComponent::ClearCloudArcs()
+{
+    for(auto& A:CloudArcs)if(A.IsValid())A->Destroy();
+    CloudArcs.Reset();
+}
+void UFPSElectricMagicComponent::UpdateDomainCloudArcs()
+{
+    if(GetNetMode()==NM_DedicatedServer||!CloudFX||DomainVisualAge<NextCloudArc)return;
+    auto* ArcSystem=Assets.IsValidIndex(16)&&Assets[16]?Cast<UNiagaraSystem>(Assets[16]):
+        (Assets.IsValidIndex(1)?Cast<UNiagaraSystem>(Assets[1]):nullptr);
+    USceneComponent* Anchor=GetOwner()?GetOwner()->GetRootComponent():nullptr;
+    if(!ArcSystem||!Anchor)return;
+    NextCloudArc=DomainVisualAge+FMath::FRandRange(.055f,.115f);
+    CloudArcs.RemoveAll([](const auto& A){return !A.IsValid();});
+    constexpr int32 MaxCloudArcs=16;
+    if(CloudArcs.Num()>=MaxCloudArcs)return;
+    const auto* Capsule=GetOwner()->FindComponentByClass<UCapsuleComponent>();
+    const float Head=Capsule?Capsule->GetScaledCapsuleHalfHeight():96.f;
+    const float Bottom=FMath::Max(Head+8.f,CloudTop-CloudThickness);
+    const float Band=FMath::Max(4.f,CloudTop-Bottom);
+    const float RX=FMath::Max(48.f,CloudRadiusX),RY=FMath::Max(48.f,CloudRadiusY);
+    const float MinR=FMath::Min(RX,RY);
+    auto SamplePoint=[&](float MinFrac,float MaxFrac,float MinZFrac,float MaxZFrac,float Angle)
+    {
+        const float R=FMath::Lerp(MinFrac,MaxFrac,FMath::Sqrt(FMath::FRand()));
+        return FVector(FMath::Cos(Angle)*RX*R,FMath::Sin(Angle)*RY*R,Bottom+Band*FMath::FRandRange(MinZFrac,MaxZFrac));
+    };
+    auto SpawnCloudBolt=[&](const FVector& Start,const FVector& End,float Hold,float Fade,int32 Segments,float Jitter,float Width,float Brightness,bool bDetail,float DownBow)
+    {
+        if(CloudArcs.Num()>=MaxCloudArcs||FVector::DistSquared(Start,End)<FMath::Square(28.f))return;
+        const FTransform SpawnXform(GetOwner()->GetActorLocation());
+        if(auto* Arc=GetWorld()->SpawnActorDeferred<AFPSLightningArc>(AFPSLightningArc::StaticClass(),SpawnXform,GetOwner(),Cast<APawn>(GetOwner()),ESpawnActorCollisionHandlingMethod::AlwaysSpawn))
+        {
+            Arc->SetReplicates(false);
+            Arc->FinishSpawning(SpawnXform);
+            FLightningCast Visual;Visual.Duration=Hold;Visual.Fade=Fade;Visual.Segments=Segments;Visual.Jitter=Jitter;
+            Arc->InitializeCloudArc(ArcSystem,Anchor,Start,End,Visual,Width,Brightness,bDetail,DownBow);
+            CloudArcs.Add(Arc);
+        }
+    };
+    // 1. Primary cloud-belly or rim bolt spanning visible dark storm underside.
+    const bool bRim=FMath::FRand()<.35f;
+    const float A0=FMath::FRandRange(0.f,2.f*PI);
+    const float Sweep=(FMath::RandBool()?1.f:-1.f)*FMath::FRandRange(bRim?.55f:1.25f,bRim?1.45f:2.55f);
+    const FVector P0=bRim?SamplePoint(.42f,.84f,.06f,.42f,A0):SamplePoint(.04f,.54f,.04f,.34f,A0);
+    const FVector P1=bRim?SamplePoint(.45f,.86f,.18f,.68f,A0+Sweep):SamplePoint(.32f,.86f,.06f,.44f,A0+Sweep);
+    const float MainHold=FMath::FRandRange(.08f,.15f),MainFade=FMath::FRandRange(.11f,.18f);
+    SpawnCloudBolt(P0,P1,MainHold,MainFade,FMath::RandRange(9,13),FMath::FRandRange(.14f,.19f),
+        FMath::FRandRange(.48f,.80f),FMath::FRandRange(44.f,64.f),true,bRim?0.f:Band*.08f);
+    PulseCloudFlash(GetOwner()->GetActorLocation()+(P0+P1)*.5f,1.f);
+    // 2. Branching fork sprouting from an interior point of the primary bolt (70% chance).
+    if(CloudArcs.Num()<MaxCloudArcs&&FMath::FRand()<.70f)
+    {
+        const float T=FMath::FRandRange(.25f,.72f);
+        const FVector ForkStart=FMath::Lerp(P0,P1,T);
+        const float BaseAngle=FMath::Atan2(P1.Y-P0.Y,P1.X-P0.X);
+        const float ForkAngle=BaseAngle+(FMath::RandBool()?1.f:-1.f)*FMath::FRandRange(.55f,1.35f);
+        const float ForkLen=MinR*FMath::FRandRange(.36f,.72f);
+        FVector ForkEnd=ForkStart+FVector(FMath::Cos(ForkAngle)*ForkLen,FMath::Sin(ForkAngle)*ForkLen,Band*FMath::FRandRange(-.10f,.20f));
+        ForkEnd.X=FMath::Clamp(ForkEnd.X,-RX*.88f,RX*.88f);
+        ForkEnd.Y=FMath::Clamp(ForkEnd.Y,-RY*.88f,RY*.88f);
+        ForkEnd.Z=FMath::Clamp(ForkEnd.Z,Bottom+Band*.04f,Bottom+Band*.64f);
+        SpawnCloudBolt(ForkStart,ForkEnd,FMath::FRandRange(.06f,.11f),FMath::FRandRange(.10f,.14f),
+            FMath::RandRange(7,9),.17f,FMath::FRandRange(.30f,.48f),FMath::FRandRange(36.f,52.f),false,Band*.04f);
+    }
+    // 3. Simultaneous opposite-quadrant crackle (45% chance) to keep dense storm activity across the canopy.
+    if(CloudArcs.Num()<MaxCloudArcs&&FMath::FRand()<.45f)
+    {
+        const float B0=A0+PI+FMath::FRandRange(-.65f,.65f);
+        const float BSweep=(FMath::RandBool()?1.f:-1.f)*FMath::FRandRange(.85f,1.85f);
+        const FVector Q0=SamplePoint(.08f,.62f,.05f,.36f,B0);
+        const FVector Q1=SamplePoint(.36f,.86f,.08f,.54f,B0+BSweep);
+        SpawnCloudBolt(Q0,Q1,FMath::FRandRange(.07f,.12f),FMath::FRandRange(.10f,.15f),
+            FMath::RandRange(8,11),.16f,FMath::FRandRange(.36f,.62f),FMath::FRandRange(38.f,56.f),true,Band*.05f);
+        PulseCloudFlash(GetOwner()->GetActorLocation()+(Q0+Q1)*.5f,.85f);
     }
 }
 FVector UFPSElectricMagicComponent::DomainStrikeOrigin(AActor* Target) const
@@ -396,6 +729,7 @@ void UFPSElectricMagicComponent::MuzzleFlashFX(const FVector& Start,const FVecto
         MuzzleIris->SetStaticMesh(Cast<UStaticMesh>(Assets[10]));MuzzleIris->SetCollisionEnabled(ECollisionEnabled::NoCollision);
         MuzzleIris->SetCanEverAffectNavigation(false);MuzzleIris->SetCastShadow(false);MuzzleIris->SetReceivesDecals(false);
         MuzzleIrisMID=UMaterialInstanceDynamic::Create(Cast<UMaterialInterface>(Assets[11]),this);
+        if(MuzzleIrisMID)MuzzleIrisMID->SetScalarParameterValue(TEXT("ColorSeed"),ChargeColorSeed);
         MuzzleIris->SetMaterial(0,MuzzleIrisMID);
         MuzzleIris->SetWorldTransform(FTransform(FRotationMatrix::MakeFromZ(-Dir).ToQuat(),Start+Dir*6.f,FVector(FVector::OneVector*26.f)));
         MuzzleIris->RegisterComponent();MuzzleFlashAge=0;MuzzleFlashScale=Visual;
@@ -631,7 +965,7 @@ void UFPSElectricMagicComponent::NetCastCancelled(uint8 /*Phase*/)
 }
 void UFPSElectricMagicComponent::ClearEffects()
 {
-    CancelPending();FinishDomain(false);
+    CancelPending();FinishDomain(false);ClearCloudArcs();ReleaseVolumeCloud(true);
     for(auto& A:Arcs)if(A.IsValid())A->Destroy();Arcs.Reset();
     for(auto& B:Bursts)if(B.IsValid())B->DestroyComponent();Bursts.Reset();
 }
@@ -639,6 +973,7 @@ void UFPSElectricMagicComponent::TickComponent(float Delta,ELevelTick Type,FActo
 {
     Super::TickComponent(Delta,Type,Tick);
     if(const auto* H=GetOwner()->FindComponentByClass<UFPSCombatHealthComponent>();H&&H->IsDead()){ClearEffects();return;}
+    PrepareVolumeCloud();
     const auto* PC=Cast<APlayerController>(Cast<APawn>(GetOwner())->GetController());const auto* S=GetOwner()->FindComponentByClass<UCombatStatusFormula>();
     if(!CommittedSkill.IsNone()&&((S&&(S->IsStunned()||S->IsFrozen()||S->IsPetrified()))||!Hands()||!Hands()->IsSpellGesture(this)||AFPSGAMEPlayerController::BlocksActionContinuation(PC)))CancelPending();
     // 蓄力/手势期间切走法杖：未释放取消并按原路退蓝清冷却（与冰墙一致）。
@@ -670,10 +1005,17 @@ void UFPSElectricMagicComponent::TickComponent(float Delta,ELevelTick Type,FActo
         if(!bDomainFading&&!CloudFX)SpawnDomainFX();
         PlayDomainStartSound();
         UpdateDomainCloud(Delta);
+        if(!bDomainFading)UpdateDomainCloudArcs();
         if(!bDomainFading&&DomainAge>=DomainCast.Duration)
             FadeDomain();
         if(bDomainFading)
-        {const float FadeAge=float(DomainClock()-DomainEndedAt);if(CloudFX)CloudFX->SetVariableFloat(TEXT("User.Strength"),FMath::Clamp(1-FadeAge/.6f,0.f,1.f));if(FadeAge>=.6f)FinishDomain(false);}
+        {
+            const float FadeAge=float(DomainClock()-DomainEndedAt);
+            const float FadeStrength=FMath::Clamp(1-FadeAge/.6f,0.f,1.f);
+            if(CloudFX)CloudFX->SetVariableFloat(TEXT("User.Strength"),FadeStrength);
+            if(bVolumeCloudRunning&&VolumeCloudFX)VolumeCloudFX->SetVariableFloat(TEXT("User.Strength"),FadeStrength);
+            if(FadeAge>=.6f)FinishDomain(false);
+        }
         else if(DomainAge>=NextStrike){Strike();NextStrike=DomainAge+DomainCast.StrikeSeconds;}
     }
 }

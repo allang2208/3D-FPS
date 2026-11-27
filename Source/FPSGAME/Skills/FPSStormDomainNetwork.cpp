@@ -20,7 +20,7 @@ void UFPSElectricMagicComponent::StartDomain(const FElectricMagicCast& Spell,uin
     FinishDomain(true);
     if(!CastId){CastId=++DomainAuthoritySerial;if(!CastId)CastId=++DomainAuthoritySerial;}
     DomainCast=Spell;DomainCastId=CastId;DomainRewardModel=RewardModel;
-    DomainRewards={};DomainAge=DomainVisualAge=NextStrike=0;
+    DomainRewards={};DomainAge=DomainVisualAge=NextStrike=NextCloudArc=0;
     DomainStartedAt=DomainClock();DomainEndedAt=0;
     bDomainActive=true;bDomainFading=false;
     if(GetOwner()->HasAuthority())
@@ -51,6 +51,7 @@ void UFPSElectricMagicComponent::FadeDomain()
         NetDomain.bActive=false;NetDomain.EndedAt=DomainEndedAt;GetOwner()->ForceNetUpdate();
     }
     if(CloudFX)CloudFX->SetVariableFloat(TEXT("User.CloudEmission"),0.f);
+    if(bVolumeCloudRunning&&VolumeCloudFX)VolumeCloudFX->SetVariableFloat(TEXT("User.EmissionScale"),0.f);
 }
 
 void UFPSElectricMagicComponent::FinishDomain(bool bTrain)
@@ -62,6 +63,8 @@ void UFPSElectricMagicComponent::FinishDomain(bool bTrain)
         NetDomain.bActive=false;NetDomain.EndedAt=DomainClock();GetOwner()->ForceNetUpdate();
     }
     if(CloudFX){CloudFX->DestroyComponent();CloudFX=nullptr;}
+    ReleaseVolumeCloud(false);
+    ClearCloudArcs();
 }
 
 void UFPSElectricMagicComponent::FinishDomainForRemoval()
@@ -89,16 +92,17 @@ void UFPSElectricMagicComponent::OnRep_Domain()
     // A late observer of an already-ended cast must not restart its cloud.
     if(!NetDomain.bActive&&(!bDomainActive||DomainCastId!=NetDomain.CastId))return;
     const bool Changed=DomainCastId!=NetDomain.CastId;
-    if(Changed&&CloudFX){CloudFX->DestroyComponent();CloudFX=nullptr;}
+    if(Changed&&(CloudFX||bVolumeCloudRunning)){if(CloudFX){CloudFX->DestroyComponent();CloudFX=nullptr;}ReleaseVolumeCloud(false);ClearCloudArcs();}
     DomainCast=NetDomain.Cast;DomainCastId=NetDomain.CastId;
     DomainStartedAt=NetDomain.StartedAt;DomainEndedAt=NetDomain.EndedAt;
     DomainAge=FMath::Max(0.f,float(DomainClock()-DomainStartedAt));
     bDomainActive=true;bDomainFading=!NetDomain.bActive||DomainAge>=DomainCast.Duration;
     if(bDomainFading&&DomainEndedAt<=0)DomainEndedAt=DomainStartedAt+DomainCast.Duration;
     if(bDomainFading&&DomainClock()>=DomainEndedAt+.6){FinishDomain(false);return;}
-    if(Changed)DomainVisualAge=0;
+    if(Changed){DomainVisualAge=0;NextCloudArc=0;}
     if(!CloudFX)SpawnDomainFX();
     if(CloudFX)CloudFX->SetVariableFloat(TEXT("User.CloudEmission"),bDomainFading?0.f:1.f);
+    if(bVolumeCloudRunning&&VolumeCloudFX)VolumeCloudFX->SetVariableFloat(TEXT("User.EmissionScale"),bDomainFading?0.f:1.f);
     PlayDomainStartSound();
 }
 
@@ -115,6 +119,8 @@ void UFPSElectricMagicComponent::PlayDomainStartSound()
 void UFPSElectricMagicComponent::MulticastDomainStrikeSound_Implementation(FVector_NetQuantize Point)
 {
     if(GetNetMode()==NM_DedicatedServer)return;
+    if(bDomainActive&&GetOwner())
+        PulseCloudFlash(GetOwner()->GetActorLocation()+FVector(0,0,CloudTop-CloudThickness*.45f),1.15f);
     if(auto* Sound=Assets.IsValidIndex(5)?Cast<USoundBase>(Assets[5]):nullptr)
         UGameplayStatics::PlaySoundAtLocation(this,Sound,Point,.35f);
 }

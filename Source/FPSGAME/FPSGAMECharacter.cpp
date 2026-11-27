@@ -47,6 +47,7 @@
 #include "Skills/FPSIceSpikeComponent.h"
 #include "Skills/FPSIceWallComponent.h"
 #include "Skills/FPSBlizzardComponent.h"
+#include "Skills/FPSAbsoluteZeroComponent.h"
 #include "Skills/FPSLightningComponent.h"
 #include "Skills/FPSElectricMagicComponent.h"
 #include "Weapons/FPSMeleeLightningComponent.h"
@@ -264,6 +265,7 @@ AFPSGAMECharacter::AFPSGAMECharacter(const FObjectInitializer& ObjectInitializer
     CreateDefaultSubobject<UFPSIceSpikeComponent>(TEXT("IceSpikeSkill"));
     CreateDefaultSubobject<UFPSIceWallComponent>(TEXT("IceWallSkill"));
     CreateDefaultSubobject<UFPSBlizzardComponent>(TEXT("BlizzardSkill"));
+    CreateDefaultSubobject<UFPSAbsoluteZeroComponent>(TEXT("AbsoluteZeroSkill"));
     CreateDefaultSubobject<UFPSLightningComponent>(TEXT("LightningSkill"));
     CreateDefaultSubobject<UFPSElectricMagicComponent>(TEXT("ElectricMagicSkills"));
     CreateDefaultSubobject<UFPSMeleeLightningComponent>(TEXT("MeleeLightningEnchantment"));
@@ -984,8 +986,9 @@ void AFPSGAMECharacter::Tick(float DeltaSeconds)
 bool AFPSGAMECharacter::IsMeleeSkillMovementLocked() const
 {
     const auto* Electric=FindComponentByClass<UFPSElectricMagicComponent>();
+    const auto* AbsoluteZero=FindComponentByClass<UFPSAbsoluteZeroComponent>();
     const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();
-    return UBoundCongregateCaptureComponent::IsCaptured(this)||(Electric&&Electric->IsCharging())||
+    return UBoundCongregateCaptureComponent::IsCaptured(this)||(Electric&&Electric->IsCharging())||(AbsoluteZero&&AbsoluteZero->IsChanneling())||
         (RuneSword && (RuneSword->IsWhirlwindActive() || RuneSword->IsDashAttackActive()))||
         (Kukri && (Kukri->IsDashAttackActive() || Kukri->IsWhirlwindActive()));
 }
@@ -1160,7 +1163,15 @@ void AFPSGAMECharacter::FirePressed()
         return;
     }
     // 弓：左键一次按下＝弦上空先搭箭、已搭箭开始拉开；只有真实松手才结算发射。
-    if(Staff&&Staff->IsEquipped()){ExitSprintForWeapon();Staff->BeginPrimaryAttack();return;}
+    if(Staff&&Staff->IsEquipped())
+    {
+        ExitSprintForWeapon();
+        auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
+        if(Model&&(!Model->PreparedStaffMagicSkill().IsNone()||!Model->SelectedMagicSkill().IsNone()))
+            Model->PressStaffMagic();
+        else Staff->BeginPrimaryAttack();
+        return;
+    }
     if(Bow&&Bow->IsEquipped()){ExitSprintForWeapon();Bow->SetTriggerHeld(true);Bow->BeginPrimaryAttack();return;}
     if(auto* Tools=FindComponentByClass<UProductionToolComponent>();Tools&&Tools->IsEquipped())
     {ExitSprintForWeapon();Tools->BeginUse();return;}
@@ -1191,7 +1202,11 @@ void AFPSGAMECharacter::FireInputReleased()
     if(auto* Use=FindComponentByClass<UFPSPotionUseComponent>();Use&&Use->HandlePrimaryRelease())return;
     // Releasing a tap completes its punch; only priority interruption cancels it.
     if(UnarmedIdle&&UnarmedIdle->IsEquipped()){UnarmedIdle->SetTriggerHeld(false);return;}
-    if(Staff&&Staff->IsEquipped())return;
+    if(Staff&&Staff->IsEquipped())
+    {
+        if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Model->ReleaseStaffMagic();
+        return;
+    }
     // 弯刀挥砍不受松键影响：真实松手不能落到 FireReleased 的取消路径。
     if(const auto* Kukri=FindComponentByClass<UKukriWeaponComponent>();Kukri&&Kukri->IsEquipped())return;
     // Only the physical input release may commit a charged sword attack.
@@ -1205,6 +1220,7 @@ void AFPSGAMECharacter::FireInputReleased()
 
 void AFPSGAMECharacter::FireReleased()
 {
+    if(IsLocallyControlled())if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Model->CancelStaffMagic();
     if(UnarmedIdle)UnarmedIdle->CancelAttack();
     if(Spellbook)Spellbook->CancelFocus();
     if(Staff)Staff->CancelAction();
@@ -3681,6 +3697,8 @@ void AFPSGAMECharacter::SuspendWeaponForMenu()
     if(auto* HolyLight=FindComponentByClass<UFPSHolyLightComponent>())HolyLight->Cancel();
     if(auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>())FireMagic->CancelPending();
     if(auto* Blizzard=FindComponentByClass<UFPSBlizzardComponent>())Blizzard->SuspendPreview();
+    if(auto* AbsoluteZero=FindComponentByClass<UFPSAbsoluteZeroComponent>())AbsoluteZero->CancelPending();
+    if(IsLocallyControlled())if(auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())Model->CancelSpellAimPreview();
 }
 bool AFPSGAMECharacter::IsCastBlockingLeftHandAction(bool bIgnoreDoorPush) const
 {
@@ -3708,6 +3726,7 @@ bool AFPSGAMECharacter::IsSpellGestureBlocking(bool bIgnoreDoorPush) const
     const auto* HolyLight=FindComponentByClass<UFPSHolyLightComponent>();
     if(const auto* FireMagic=FindComponentByClass<UFPSFireMagicComponent>();FireMagic&&FireMagic->HasQueuedAction())return true;
     if(const auto* Blizzard=FindComponentByClass<UFPSBlizzardComponent>();Blizzard&&Blizzard->HasQueuedAction())return true;
+    if(const auto* AbsoluteZero=FindComponentByClass<UFPSAbsoluteZeroComponent>();AbsoluteZero&&AbsoluteZero->HasQueuedAction())return true;
     return (Magic && Magic->BlocksNewLeftHandAction())||(Ice&&Ice->HasQueuedAction())||(Lightning&&Lightning->HasQueuedAction())||(HolyLight&&HolyLight->HasQueuedAction());
 }
 void AFPSGAMECharacter::ServiceReloadAfterCasting()

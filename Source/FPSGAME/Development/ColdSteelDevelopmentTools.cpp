@@ -62,7 +62,7 @@ const TArray<FName>& UColdSteelStatusModel::SkillCatalog() const
         TEXT("rifleMastery"),TEXT("pistolMastery"),TEXT("twoHandedMastery"),TEXT("oneHandedMastery"),TEXT("swordMastery"),TEXT("bluntMastery"),
         TEXT("machineGunMastery"),TEXT("shotgunMastery"),TEXT("bowMastery"),TEXT("heartPiercingArrow"),TEXT("illuminationArrow"),TEXT("magicArrowRain"),TEXT("elementalArrow"),
         TEXT("heavyStrike"),TEXT("swordUppercut"),TEXT("leapStrike"),TEXT("chainSlash"),TEXT("shadowStepSlash"),TEXT("whirlwind"),TEXT("dashAttack"),TEXT("criticalStrike"),TEXT("dodge"),
-        TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike"),TEXT("iceWall"),TEXT("blizzard"),TEXT("meteor"),TEXT("flameArmor"),TEXT("iceArmor"),TEXT("lightningHaste"),TEXT("dragonBreath"),TEXT("lightningStrike"),TEXT("stormDomain"),TEXT("thunderLance"),TEXT("holyLight"),TEXT("quickCombat")};
+        TEXT("dexterousHands"),TEXT("fireball"),TEXT("iceSpike"),TEXT("iceWall"),TEXT("blizzard"),TEXT("absoluteZero"),TEXT("meteor"),TEXT("flameArmor"),TEXT("iceArmor"),TEXT("lightningHaste"),TEXT("dragonBreath"),TEXT("lightningStrike"),TEXT("stormDomain"),TEXT("thunderLance"),TEXT("holyLight"),TEXT("quickCombat")};
     return Ids;
 }
 
@@ -77,6 +77,7 @@ const FColdSteelSkillDefinition& UColdSteelStatusModel::DevelopmentSkillDefiniti
     if(Id==TEXT("iceSpike"))return IceSpikeDefinition();
     if(Id==TEXT("iceWall"))return IceWallDefinition();
     if(Id==TEXT("blizzard"))return BlizzardDefinition();
+    if(Id==TEXT("absoluteZero"))return AbsoluteZeroDefinition();
     if(Id==TEXT("lightningStrike"))return LightningDefinition();
     if(ElectricMagic::IsSkill(Id))return ElectricMagicDefinition(Id);
     if(FireMagic::IsSkill(Id))return FireMagicDefinition(Id);
