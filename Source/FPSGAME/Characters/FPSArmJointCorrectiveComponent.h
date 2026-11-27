@@ -41,14 +41,19 @@ private:
         // Finger bases (index..pinky): metacarpal, proximal, middle phalanx and the bind angle.
         int32 Meta[4]={INDEX_NONE,INDEX_NONE,INDEX_NONE,INDEX_NONE},Prox[4]={INDEX_NONE,INDEX_NONE,INDEX_NONE,INDEX_NONE},Mid[4]={INDEX_NONE,INDEX_NONE,INDEX_NONE,INDEX_NONE};
         float RestMCP[4]={0.f,0.f,0.f,0.f};
-        struct FGrip{FName Name;float Extra[4]={0.f,0.f,0.f,0.f};};
+        struct FGrip{FName Name;float Extra[4]={0.f,0.f,0.f,0.f};float LastWeight=-1.f;};
         TArray<FGrip> Grips;
         // Pose examples (JC_Pose_<L|R>_<elbow>_<flex>_<dev>_<roll>_<index>_<middle>_<ring>_<pinky>, "m" = minus):
         // radial basis on the whole arm signature, for transitions (reload, melee, inspect) the grips miss.
         // Roll = hand roll about the forearm relative to lowerarm and bind.
         FQuat RelHand=FQuat::Identity;FVector AxisL=FVector::ForwardVector;
-        struct FPoseEx{FName Name;float Sig[8]={0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f};};
+        struct FPoseEx{FName Name;float Sig[8]={0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f};float LastWeight=-1.f;};
         TArray<FPoseEx> Poses;
+        float LastElbow[3]={-1.f,-1.f,-1.f};
+        float LastElbowExtension=-1.f;
+        float LastWrist[4]={-1.f,-1.f,-1.f,-1.f};
+        bool bHasLastSig=false;
+        float LastSig[8]={0.f,0.f,0.f,0.f,0.f,0.f,0.f,0.f};
         bool bValid=false;
     };
     struct FRig
@@ -56,11 +61,13 @@ private:
         // Pose source: the mesh itself, or the leader it follows.
         TWeakObjectPtr<USkeletalMeshComponent> Mesh;
         TWeakObjectPtr<const USkeletalMesh> Asset;
+        TArray<TWeakObjectPtr<const USkeletalMesh>> Carriers;
         FSide Sides[2];
     };
     void Rescan();
     static bool Build(USkeletalMeshComponent* Mesh,const TArray<const USkeletalMesh*>& Carriers,FRig& Out);
-    static void Drive(USkeletalMeshComponent* Mesh,const FSide& Side);
+    static void Drive(USkeletalMeshComponent* Mesh,FSide& Side);
     TArray<FRig> Rigs;
     float RescanTimer=0.f;
+    bool bWasEnabled=true;
 };

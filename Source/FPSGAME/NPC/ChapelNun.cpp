@@ -20,9 +20,17 @@
 #include "NiagaraComponent.h"
 #include "PhysicsEngine/PhysicsAsset.h"
 #include "PhysicsEngine/SkeletalBodySetup.h"
+#include "HAL/IConsoleManager.h"
 
 namespace ChapelNunAssets
 {
+static float GNunHairStrandsCullCm = 2200.f;
+static FAutoConsoleVariableRef CVarNunHairStrandsCullCm(
+    TEXT("fps.Hills.NunHairStrandsCullCm"),
+    GNunHairStrandsCullCm,
+    TEXT("Hide Chapel Nun core Groom strands beyond this distance in cm (+200cm hysteresis; <=0 keeps always visible)."),
+    ECVF_Default);
+
 static const TCHAR* Paths[]={
     TEXT("/Game/Characters/ChapelNun20261115/Meshes/SK_Nun_Body.SK_Nun_Body"),
     TEXT("/Game/Characters/ChapelNun20261115/RefinementR4/Meshes/SK_Nun_OriginalMeshyFace_Final.SK_Nun_OriginalMeshyFace_Final"),
@@ -187,6 +195,7 @@ void AChapelNun::AssembleAppearance()
         Hair->SimulationSettings.SimulationSetup.bLocalSimulation=true;
         Hair->SimulationSettings.SimulationSetup.LinearVelocityScale=.35f;
         Hair->SimulationSettings.SimulationSetup.AngularVelocityScale=.35f;
+        Hair->SetVisibleInRayTracing(false);
         if(auto* Material=Cast<UMaterialInterface>(Resolve(10)))Hair->SetMaterial(0,Material);
         Hair->AddTickPrerequisiteComponent(Head);
     }
@@ -231,8 +240,22 @@ void AChapelNun::Tick(float Delta)
     if(!bAppearanceReady)return;
     bool HasView=false;
     const double Distance=VillagePresentationView::Distance(*GetWorld(),GetActorLocation(),0.,&HasView);
-    UpdateCoreHairDetail(HasView?Distance:0.);
     const float DistanceSquared=HasView?float(FMath::Square(Distance)):MAX_flt;
+    const float CoreCullCm=ChapelNunAssets::GNunHairStrandsCullCm;
+    const bool CoreActive=CoreCullCm<=0.f
+        ? true
+        : (DistanceSquared<FMath::Square(bCoreHairActive?(CoreCullCm+200.f):CoreCullCm));
+    if(CoreActive!=bCoreHairActive)
+    {
+        bCoreHairActive=CoreActive;
+        HairCore->SetVisibility(CoreActive);
+        HairCore->SetCastShadow(CoreActive);
+        HairCore->SetComponentTickEnabled(CoreActive);
+        if(auto* Solver=HairCore->GetNiagaraComponent(0))Solver->SetPaused(!CoreActive);
+        if(CoreActive)HairCore->ResetSimulation();
+        else { BudgetedCoreGroup.SafeRelease(); CoreHairTier=INDEX_NONE; }
+    }
+    if(bCoreHairActive)UpdateCoreHairDetail(HasView?Distance:0.);
     FPSOutfitRobeCloth::UpdateAtDistance(Robe,Delta,DistanceSquared);
     const float Radius=bLooseHairActive?2200.f:1800.f;
     const bool Active=DistanceSquared<Radius*Radius;
@@ -243,6 +266,22 @@ void AChapelNun::Tick(float Delta)
         HairLoose->SetComponentTickEnabled(Active);
         if(auto* Solver=HairLoose->GetNiagaraComponent(0))Solver->SetPaused(!Active);
         if(Active)HairLoose->ResetSimulation();
+    }
+    const bool WantURO = DistanceSquared > FMath::Square(1600.f);
+    if (WantURO != bBodyURO)
+    {
+        bBodyURO = WantURO;
+        for (auto* Part : {Body.Get(), Head.Get(), Robe.Get(), Trim.Get(), Boots.Get(), NapeHair.Get()})
+            if (Part) Part->bEnableUpdateRateOptimizations = WantURO;
+    }
+    static const auto* RTDistCVar = IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Hills.ResidentRayTracingDistCm"));
+    const float LimitCm = RTDistCVar ? RTDistCVar->GetFloat() : 1800.f;
+    const bool WantRT = LimitCm <= 0.f || (HasView && Distance <= (bBodyRTVisible ? (double(LimitCm) + 300.) : double(LimitCm)));
+    if (WantRT != bBodyRTVisible)
+    {
+        bBodyRTVisible = WantRT;
+        for (auto* Part : {Body.Get(), Head.Get(), Robe.Get(), Trim.Get(), Boots.Get(), NapeHair.Get()})
+            if (Part) Part->SetVisibleInRayTracing(WantRT);
     }
     const bool Resting=DistanceSquared>FMath::Square(3600.f)&&Robe->IsClothingSimulationSuspended()
         &&!Body->WasRecentlyRendered(1.f)&&!Robe->WasRecentlyRendered(1.f);

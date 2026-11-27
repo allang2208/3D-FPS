@@ -6,6 +6,7 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Engine/StreamableManager.h"
 #include "Engine/World.h"
+#include "HAL/IConsoleManager.h"
 #include "Camera/PlayerCameraManager.h"
 #include "GameFramework/PlayerController.h"
 #include "Components/StaticMeshComponent.h"
@@ -13,6 +14,13 @@
 
 namespace
 {
+static float GResidentRTDistCm = 1800.f;
+static FAutoConsoleVariableRef CVarResidentRTDistCm(
+    TEXT("fps.Hills.ResidentRayTracingDistCm"),
+    GResidentRTDistCm,
+    TEXT("Max camera distance (cm, +300 cm hysteresis) for village residents to stay visible in Ray Tracing. <= 0 keeps RT always on."),
+    ECVF_Default);
+
 // Only a solid stationary surface counts as shelter. Transparent shopfronts,
 // an open door or a gap between modules must let the appearance request through.
 bool SolidCover(UWorld& World, const FVector& Eye, const FVector& End, const FCollisionQueryParams& Query)
@@ -76,14 +84,26 @@ void UVillageResidentDetail::Attach(AActor& Owner, TArray<FSoftObjectPath> Asset
     Detail->Refresh();
 }
 
+void UVillageResidentDetail::UpdateRayTracingVisibility(bool bVisible)
+{
+    if (bRTVisible == bVisible) return;
+    bRTVisible = bVisible;
+    for (int32 I = 0; I < Meshes.Num(); ++I)
+        if (auto* Mesh = Meshes[I].Get())
+            Mesh->SetVisibleInRayTracing(bVisible);
+}
+
 void UVillageResidentDetail::ReducePoseWork(bool bReduce)
 {
     if (bReduced == bReduce) return;
     bReduced = bReduce;
     for (int32 I = 0; I < Meshes.Num(); ++I)
         if (auto* Mesh = Meshes[I].Get())
+        {
+            Mesh->bEnableUpdateRateOptimizations = bReduce;
             Mesh->VisibilityBasedAnimTickOption = bReduce ? EVisibilityBasedAnimTickOption::OnlyTickPoseWhenRendered :
                 EVisibilityBasedAnimTickOption(OriginalTickOptions[I]);
+        }
 }
 
 void UVillageResidentDetail::Refresh()
@@ -120,7 +140,10 @@ void UVillageResidentDetail::Refresh()
         !CanSeeShop(*World, *Owner, Body->GetComponentLocation()));
     const bool bNear = !Owner->IsHidden() && !bSheltered;
     if (bNear || bGameplayPose || bInView) LastNeeded = Now;
-    ReducePoseWork(!bGameplayPose && (Owner->IsHidden() || !bHasCamera || (Distance > 2600. && !bInView)));
+    ReducePoseWork(!bGameplayPose && (Owner->IsHidden() || !bHasCamera || Distance > 1400.));
+    const bool bWantRT = GResidentRTDistCm <= 0.f
+        || (!Owner->IsHidden() && bHasCamera && Distance <= (bRTVisible ? (double(GResidentRTDistCm) + 300.) : double(GResidentRTDistCm)));
+    UpdateRayTracingVisibility(bWantRT);
     if ((bNear || bGameplayPose) && !Load)
         Load = ATemperateHillsWorld::RequestResidentAppearance(World, Paths, ApplyAppearance);
     if (Load && !bGameplayPose && !bInView && (Owner->IsHidden() || bSheltered) && Now - LastNeeded > 12.)

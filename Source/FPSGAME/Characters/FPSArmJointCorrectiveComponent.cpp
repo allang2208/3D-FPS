@@ -39,6 +39,15 @@ float Tent(float X,float A,float B,float C)
 {
     return X<=B?FMath::Clamp((X-A)/(B-A),0.f,1.f):FMath::Clamp((C-X)/(C-B),0.f,1.f);
 }
+
+void SetMorphCached(USkeletalMeshComponent* Mesh,FName Name,float& Cached,float Value)
+{
+    if(!FMath::IsNearlyEqual(Cached,Value,1e-4f))
+    {
+        Cached=Value;
+        Mesh->SetMorphTarget(Name,Value,true);
+    }
+}
 }
 
 UFPSArmJointCorrectiveComponent::UFPSArmJointCorrectiveComponent()
@@ -56,6 +65,8 @@ bool UFPSArmJointCorrectiveComponent::Build(USkeletalMeshComponent* Mesh,const T
     TArray<FTransform> Space=Ref.GetRefBonePose();
     for(int32 I=0;I<Space.Num();++I)if(const int32 P=Ref.GetParentIndex(I);P!=INDEX_NONE)Space[I]=Space[I]*Space[P];
     Out.Mesh=Mesh;Out.Asset=Asset;
+    Out.Carriers.Reset(Carriers.Num());
+    for(const USkeletalMesh* Carrier:Carriers)Out.Carriers.Add(Carrier);
     for(int32 S=0;S<2;++S)
     {
         const TCHAR* Suffix=S==0?TEXT("_l"):TEXT("_r");const TCHAR* Up=S==0?TEXT("_L"):TEXT("_R");
@@ -121,32 +132,46 @@ void UFPSArmJointCorrectiveComponent::Rescan()
         USkeletalMeshComponent* Source=Cast<USkeletalMeshComponent>(Mesh->LeaderPoseComponent.Get());
         Sources.FindOrAdd(Source?Source:Mesh).AddUnique(Asset);
     }
+    bool bSame=Rigs.Num()==Sources.Num();
+    if(bSame)
+    {
+        for(const auto& Pair:Sources)
+        {
+            const USkeletalMesh* SourceAsset=Pair.Key?Pair.Key->GetSkeletalMeshAsset():nullptr;
+            const FRig* Existing=Rigs.FindByPredicate([&](const FRig& Rig){return Rig.Mesh.Get()==Pair.Key&&Rig.Asset.Get()==SourceAsset;});
+            if(!Existing||Existing->Carriers.Num()!=Pair.Value.Num()){bSame=false;break;}
+            for(int32 I=0;I<Pair.Value.Num();++I)
+                if(Existing->Carriers[I].Get()!=Pair.Value[I]){bSame=false;break;}
+            if(!bSame)break;
+        }
+    }
+    if(bSame)return;
     Rigs.Reset();
     for(const auto& Pair:Sources){FRig Rig;if(Build(Pair.Key,Pair.Value,Rig))Rigs.Add(MoveTemp(Rig));}
 }
 
-void UFPSArmJointCorrectiveComponent::Drive(USkeletalMeshComponent* Mesh,const FSide& D)
+void UFPSArmJointCorrectiveComponent::Drive(USkeletalMeshComponent* Mesh,FSide& D)
 {
     const TArray<FTransform>& Pose=Mesh->GetComponentSpaceTransforms();
     if(!D.bValid||!Pose.IsValidIndex(D.Middle)||!Pose.IsValidIndex(D.Twist))return;
     const FVector U=(Pose[D.Lower].GetLocation()-Pose[D.Upper].GetLocation()).GetSafeNormal();
     const FVector F=(Pose[D.Hand].GetLocation()-Pose[D.Lower].GetLocation()).GetSafeNormal();
     const float Elbow=FMath::RadiansToDegrees(FMath::Acos(FMath::Clamp(U|F,-1.f,1.f)));
-    Mesh->SetMorphTarget(D.Elbow[0],Tent(Elbow,D.RestElbow,ElbowKeys[0],ElbowKeys[1]),true);
-    Mesh->SetMorphTarget(D.Elbow[1],Tent(Elbow,ElbowKeys[0],ElbowKeys[1],ElbowKeys[2]),true);
-    Mesh->SetMorphTarget(D.Elbow[2],FMath::Clamp((Elbow-ElbowKeys[1])/(ElbowKeys[2]-ElbowKeys[1]),0.f,1.f),true);
+    SetMorphCached(Mesh,D.Elbow[0],D.LastElbow[0],Tent(Elbow,D.RestElbow,ElbowKeys[0],ElbowKeys[1]));
+    SetMorphCached(Mesh,D.Elbow[1],D.LastElbow[1],Tent(Elbow,ElbowKeys[0],ElbowKeys[1],ElbowKeys[2]));
+    SetMorphCached(Mesh,D.Elbow[2],D.LastElbow[2],FMath::Clamp((Elbow-ElbowKeys[1])/(ElbowKeys[2]-ElbowKeys[1]),0.f,1.f));
     if(D.RestElbow>ElbowExtensionKey+1.f)
-        Mesh->SetMorphTarget(D.ElbowExtension,FMath::Clamp((D.RestElbow-Elbow)/(D.RestElbow-ElbowExtensionKey),0.f,1.f),true);
+        SetMorphCached(Mesh,D.ElbowExtension,D.LastElbowExtension,FMath::Clamp((D.RestElbow-Elbow)/(D.RestElbow-ElbowExtensionKey),0.f,1.f));
     const FVector H=Pose[D.Twist].GetRotation().UnrotateVector(Pose[D.Middle].GetLocation()-Pose[D.Hand].GetLocation()).GetSafeNormal();
     const float Along=H|D.F0;
     const float Flex=FMath::RadiansToDegrees(FMath::Atan2(-(H|D.Z0),Along));
     const float Dev=FMath::RadiansToDegrees(FMath::Atan2(H|D.R0,Along));
     // Unphysical swings (some sprint poses) fade the wrist keys out rather than apply a mismatched correction.
     const float Sane=1.f-FMath::SmoothStep(95.f,135.f,FMath::Max(FMath::Abs(Flex),FMath::Abs(Dev)));
-    Mesh->SetMorphTarget(D.Wrist[0],FMath::Clamp(Flex/FlexKey,0.f,1.f)*Sane,true);
-    Mesh->SetMorphTarget(D.Wrist[1],FMath::Clamp(-Flex/FlexKey,0.f,1.f)*Sane,true);
-    Mesh->SetMorphTarget(D.Wrist[2],FMath::Clamp(Dev/RadialKey,0.f,1.f)*Sane,true);
-    Mesh->SetMorphTarget(D.Wrist[3],FMath::Clamp(-Dev/UlnarKey,0.f,1.f)*Sane,true);
+    SetMorphCached(Mesh,D.Wrist[0],D.LastWrist[0],FMath::Clamp(Flex/FlexKey,0.f,1.f)*Sane);
+    SetMorphCached(Mesh,D.Wrist[1],D.LastWrist[1],FMath::Clamp(-Flex/FlexKey,0.f,1.f)*Sane);
+    SetMorphCached(Mesh,D.Wrist[2],D.LastWrist[2],FMath::Clamp(Dev/RadialKey,0.f,1.f)*Sane);
+    SetMorphCached(Mesh,D.Wrist[3],D.LastWrist[3],FMath::Clamp(-Dev/UlnarKey,0.f,1.f)*Sane);
     if(D.Grips.IsEmpty()&&D.Poses.IsEmpty())return;
     float Extra[4];
     for(int32 K=0;K<4;++K)
@@ -154,19 +179,31 @@ void UFPSArmJointCorrectiveComponent::Drive(USkeletalMeshComponent* Mesh,const F
         if(!Pose.IsValidIndex(D.Meta[K])||!Pose.IsValidIndex(D.Prox[K])||!Pose.IsValidIndex(D.Mid[K]))return;
         Extra[K]=FMath::Max(0.f,Angle(Pose[D.Prox[K]].GetLocation()-Pose[D.Meta[K]].GetLocation(),Pose[D.Mid[K]].GetLocation()-Pose[D.Prox[K]].GetLocation())-D.RestMCP[K]);
     }
-    for(const FSide::FGrip& Grip:D.Grips)
-    {
-        float Distance=0.f;
-        for(int32 K=0;K<4;++K)Distance+=FMath::Square((Extra[K]-Grip.Extra[K])/GripSigma);
-        const float Weight=FMath::Exp(-.5f*Distance);
-        Mesh->SetMorphTarget(Grip.Name,Weight<MinExampleWeight?0.f:Weight,true);
-    }
-    if(D.Poses.IsEmpty())return;
     FQuat Rel=Pose[D.Lower].GetRotation().Inverse()*Pose[D.Hand].GetRotation()*D.RelHand.Inverse();
     if(Rel.W<0.f)Rel=FQuat(-Rel.X,-Rel.Y,-Rel.Z,-Rel.W);
     const float Roll=(float)FMath::RadiansToDegrees(2.0*FMath::Atan2(FVector(Rel.X,Rel.Y,Rel.Z)|D.AxisL,(double)Rel.W));
     const float Sig[8]={Elbow,Flex,Dev,Roll,Extra[0],Extra[1],Extra[2],Extra[3]};
-    for(const FSide::FPoseEx& Ex:D.Poses)
+    if(D.bHasLastSig)
+    {
+        bool bPoseChanged=false;
+        for(int32 K=0;K<8;++K)
+        {
+            const float Delta=K==3?FMath::Abs(FMath::UnwindDegrees(Sig[K]-D.LastSig[K])):FMath::Abs(Sig[K]-D.LastSig[K]);
+            if(Delta>=0.05f){bPoseChanged=true;break;}
+        }
+        if(!bPoseChanged)return;
+    }
+    for(int32 K=0;K<8;++K)D.LastSig[K]=Sig[K];
+    D.bHasLastSig=true;
+    for(FSide::FGrip& Grip:D.Grips)
+    {
+        float Distance=0.f;
+        for(int32 K=0;K<4;++K)Distance+=FMath::Square((Extra[K]-Grip.Extra[K])/GripSigma);
+        const float Weight=FMath::Exp(-.5f*Distance);
+        SetMorphCached(Mesh,Grip.Name,Grip.LastWeight,Weight<MinExampleWeight?0.f:Weight);
+    }
+    if(D.Poses.IsEmpty())return;
+    for(FSide::FPoseEx& Ex:D.Poses)
     {
         float Distance=0.f;
         for(int32 K=0;K<8;++K)
@@ -176,7 +213,7 @@ void UFPSArmJointCorrectiveComponent::Drive(USkeletalMeshComponent* Mesh,const F
             Distance+=FMath::Square(Delta/PoseSigma[K]);
         }
         const float Weight=FMath::Exp(-.5f*Distance);
-        Mesh->SetMorphTarget(Ex.Name,Weight<MinExampleWeight?0.f:Weight,true);
+        SetMorphCached(Mesh,Ex.Name,Ex.LastWeight,Weight<MinExampleWeight?0.f:Weight);
     }
 }
 
@@ -206,23 +243,29 @@ void UFPSArmJointCorrectiveComponent::TickComponent(float DeltaTime,ELevelTick T
     }
     if((RescanTimer-=DeltaTime)<=0.f){RescanTimer=.25f;Rescan();}
     const bool bEnabled=CVarArmCorrectives.GetValueOnGameThread()!=0;
-    for(const FRig& Rig:Rigs)
+    for(FRig& Rig:Rigs)
     {
         USkeletalMeshComponent* Mesh=Rig.Mesh.Get();
         if(!Mesh||!Mesh->IsRegistered()||Mesh->GetSkeletalMeshAsset()!=Rig.Asset.Get())continue;
         if(!bEnabled)
         {
-            for(const FSide& D:Rig.Sides)
+            if(bWasEnabled)
             {
-                for(const FName& N:D.Elbow)Mesh->SetMorphTarget(N,0.f,true);
-                Mesh->SetMorphTarget(D.ElbowExtension,0.f,true);
-                for(const FName& N:D.Wrist)Mesh->SetMorphTarget(N,0.f,true);
-                for(const FSide::FGrip& Grip:D.Grips)Mesh->SetMorphTarget(Grip.Name,0.f,true);
-                for(const FSide::FPoseEx& Ex:D.Poses)Mesh->SetMorphTarget(Ex.Name,0.f,true);
+                for(FSide& D:Rig.Sides)
+                {
+                    for(int32 K=0;K<3;++K){D.LastElbow[K]=-1.f;Mesh->SetMorphTarget(D.Elbow[K],0.f,true);}
+                    D.LastElbowExtension=-1.f;
+                    Mesh->SetMorphTarget(D.ElbowExtension,0.f,true);
+                    for(int32 K=0;K<4;++K){D.LastWrist[K]=-1.f;Mesh->SetMorphTarget(D.Wrist[K],0.f,true);}
+                    for(FSide::FGrip& Grip:D.Grips){Grip.LastWeight=-1.f;Mesh->SetMorphTarget(Grip.Name,0.f,true);}
+                    for(FSide::FPoseEx& Ex:D.Poses){Ex.LastWeight=-1.f;Mesh->SetMorphTarget(Ex.Name,0.f,true);}
+                    D.bHasLastSig=false;
+                }
             }
             continue;
         }
         // No visibility test: a leader whose own skin sections are hidden still poses visible followers.
-        for(const FSide& D:Rig.Sides)Drive(Mesh,D);
+        for(FSide& D:Rig.Sides)Drive(Mesh,D);
     }
+    bWasEnabled=bEnabled;
 }

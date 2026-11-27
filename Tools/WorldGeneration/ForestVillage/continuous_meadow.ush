@@ -10,7 +10,15 @@ float3 micro;
 #if (PIXELSHADER || COMPUTESHADER) && !RAYHITGROUPSHADER
     float2 gx=ddx(uv),gy=ddy(uv);
     pigment=Texture2DSampleGrad(Detail,DetailSampler,uv,gx,gy).rgb;
-    micro=UnpackNormalMap(Texture2DSampleGrad(BladeN,BladeNSampler,uv,gx,gy));
+    float meadowFar=smoothstep(2400.,4000.,distance(CliffEye,P));
+    [branch] if(meadowFar<.999)
+    {
+        micro=UnpackNormalMap(Texture2DSampleGrad(BladeN,BladeNSampler,uv,gx,gy));
+    }
+    else
+    {
+        micro=float3(0.,0.,1.);
+    }
 #else
     pigment=Texture2DSampleLevel(Detail,DetailSampler,uv,2.).rgb;
     micro=UnpackNormalMap(Texture2DSampleLevel(BladeN,BladeNSampler,uv,2.));

@@ -1,15 +1,30 @@
 #include "VillageRoadLamp.h"
 #include "VillageShopTorches.h"
+#include "VillagePresentationView.h"
 #include "Components/SpotLightComponent.h"
 #include "Components/ChildActorComponent.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
+#include "Engine/World.h"
+#include "HAL/IConsoleManager.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "UObject/ConstructorHelpers.h"
 
 namespace
 {
 const FName FixedSupport(TEXT("VillageRoadLamp.FixedSupport"));
+static float GRoadLampShadowDistCm = 2200.f;
+static FAutoConsoleVariableRef CVarRoadLampShadowDistCm(
+    TEXT("fps.Hills.RoadLampShadowDistCm"),
+    GRoadLampShadowDistCm,
+    TEXT("Max camera distance (cm, +400 cm hysteresis) for village road lamps to cast dynamic VSM shadows. <= 0 keeps shadows always on."),
+    ECVF_Default);
+static int32 GRoadLampVolumetric = 0;
+static FAutoConsoleVariableRef CVarRoadLampVolumetric(
+    TEXT("fps.Hills.RoadLampVolumetric"),
+    GRoadLampVolumetric,
+    TEXT("0 = subtle volumetric scattering only while casting nearby shadows (default), 1 = always keep 0.04."),
+    ECVF_Default);
 }
 
 AVillageRoadLamp::AVillageRoadLamp(const FObjectInitializer& ObjectInitializer)
@@ -124,12 +139,49 @@ void AVillageRoadLamp::BeginPlay()
     SetSceneSpecularScale(VillageShopTorches::FixtureSpecular);
     Wick = TorchBody->CreateDynamicMaterialInstance(0);
     UpdateWick();
+    if (TorchLight) TorchLight->SetCastVolumetricShadow(false);
+    UpdateShadowBudget(true);
 }
 
 void AVillageRoadLamp::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
     UpdateWick();
+    UpdateShadowBudget(false);
+}
+
+void AVillageRoadLamp::UpdateShadowBudget(bool bForce)
+{
+    if (!TorchLight || !bLightCastsShadows || GetNetMode() == NM_DedicatedServer) return;
+    UWorld* World = GetWorld();
+    if (!World) return;
+    const double Now = World->GetTimeSeconds();
+    if (!bForce && Now < NextShadowBudgetAt) return;
+    NextShadowBudgetAt = Now + 0.5;
+
+    bool bWantShadow = false;
+    if (GetIgnitionAmount() > 0.001f)
+    {
+        if (GRoadLampShadowDistCm <= 0.f)
+        {
+            bWantShadow = true;
+        }
+        else
+        {
+            bool bHasView = false;
+            const double Dist = VillagePresentationView::Distance(*World, GetActorLocation(), 0., &bHasView);
+            const double Cutoff = bShadowBudgetActive ? (double(GRoadLampShadowDistCm) + 400.) : double(GRoadLampShadowDistCm);
+            bWantShadow = bHasView && Dist <= Cutoff;
+        }
+    }
+
+    if (bForce || bWantShadow != bShadowBudgetActive)
+    {
+        bShadowBudgetActive = bWantShadow;
+        TorchLight->SetCastShadows(bWantShadow);
+        TorchLight->SetCastVolumetricShadow(false);
+        TorchLight->SetVolumetricScatteringIntensity(GRoadLampVolumetric ? 0.04f : (bWantShadow ? 0.025f : 0.0f));
+    }
 }
 
 void AVillageRoadLamp::UpdateWick()

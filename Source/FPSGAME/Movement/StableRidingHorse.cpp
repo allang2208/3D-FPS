@@ -10,6 +10,8 @@
 #include "Engine/GameInstance.h"
 #include "../Combat/CombatStatusFormula.h"
 #include "../FPSGAMECharacter.h"
+#include "../WorldGeneration/VillagePresentationView.h"
+#include "HAL/IConsoleManager.h"
 #include "Animation/AnimSequence.h"
 #include "Materials/MaterialInterface.h"
 #include "Components/CapsuleComponent.h"
@@ -28,6 +30,12 @@ namespace StableGround
 {
     constexpr float WalkAngle=45.f;
     constexpr float CanterAngle=60.f;
+    static float GHorseRTDistCm=2200.f;
+    static FAutoConsoleVariableRef CVarHorseRTDistCm(
+        TEXT("fps.Hills.HorseRayTracingDistCm"),
+        GHorseRTDistCm,
+        TEXT("Max camera distance (cm, +300 cm hysteresis) for unridden stable horses to stay visible in Ray Tracing. <= 0 keeps RT always on."),
+        ECVF_Default);
 }
 
 namespace StableJump
@@ -176,6 +184,7 @@ void AStableRidingHorse::BeginPlay()
     }
     ApplyIndividualAppearance();
     RefreshTackVisuals();
+    UpdateHorseRayTracingVisibility(true);
     UStatusEffectsComponent::GetOrCreate(this);
     GetMesh()->SetAnimInstanceClass(UStableHorseAnimInstance::StaticClass());
     if(!bMarketShowcase)UpdateGait(0.f);
@@ -453,15 +462,43 @@ void AStableRidingHorse::PoseJump()
     }
     Skin->SetPosition(JumpAnimation->GetPlayLength()*Frame/StableJump::LastFrame,false);
 }
+void AStableRidingHorse::UpdateHorseRayTracingVisibility(bool bForce)
+{
+    if(GetNetMode()==NM_DedicatedServer)return;
+    UWorld* World=GetWorld();
+    if(!World)return;
+    const double Now=World->GetTimeSeconds();
+    if(!bForce && Now<NextHorseRTCheckAt)return;
+    NextHorseRTCheckAt=Now+0.5;
+
+    bool bWantRT=true;
+    if(!Rider && !bMarketShowcase && StableGround::GHorseRTDistCm>0.f)
+    {
+        bool bHasView=false;
+        const double Dist=VillagePresentationView::Distance(*World,GetActorLocation(),0.,&bHasView);
+        const double Cutoff=bHorseRTVisible?(double(StableGround::GHorseRTDistCm)+300.):double(StableGround::GHorseRTDistCm);
+        bWantRT=bHasView && Dist<=Cutoff;
+    }
+    if(bForce || bWantRT!=bHorseRTVisible)
+    {
+        bHorseRTVisible=bWantRT;
+        if(auto* Skin=GetMesh())Skin->SetVisibleInRayTracing(bWantRT);
+        if(Mane)Mane->SetVisibleInRayTracing(bWantRT);
+        for(const auto& Tack:TackVisuals)
+            if(auto* Comp=Tack.Get())Comp->SetVisibleInRayTracing(bWantRT);
+    }
+}
 void AStableRidingHorse::Tick(float Delta)
 {
     Super::Tick(Delta);
     if(bMarketShowcase)
     {
+        UpdateHorseRayTracingVisibility(false);
         TickShowcase(Delta);
         if(Mane)Mane->UpdateMotion(Delta);
         return;
     }
+    UpdateHorseRayTracingVisibility(false);
     if(RecentlyClearedRider.IsValid() && GetWorld())
         UpdateClearedRiderCollision(GetWorld()->GetTimeSeconds());
     if(IsRetreating())

@@ -41,3 +41,5 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 名册卡片与并排装备详情参见[名册卡片与并排装备详情](references/roster-cards-and-equipment-detail.md)。
 
 全界面按钮、栏位、下拉与拖拽组件统一交互音效（视口隔离、隐藏焦点防误触与 FPS 战斗 O(1) 零遍历快返）参见[全界面交互音效规范](references/ui-audio-feedback.md)。
+
+使用 `UInvalidationBox` 隔离主 HUD 重绘、防止文本/颜色/显隐/日晷/时间轴/进度条泄漏缓存以及状态模型版本键缓存，参见[HUD InvalidationBox 缓存与防击穿规范](references/hud-invalidation-caching.md)。

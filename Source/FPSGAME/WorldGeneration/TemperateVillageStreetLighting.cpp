@@ -1,4 +1,5 @@
 #include "TemperateHillsWorld.h"
+#include "VillageDistantGlow.h"
 #include "VillageRoadLamp.h"
 #include "Components/ChildActorComponent.h"
 
@@ -111,4 +112,5 @@ void ATemperateHillsWorld::RefreshVillageStreetLighting()
             Verge = -Verge;
         }
     }
+    if (VillageDistantGlow) VillageDistantGlow->RequestAnchorRefresh();
 }

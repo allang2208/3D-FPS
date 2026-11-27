@@ -4,6 +4,7 @@
 #include "Dom/JsonObject.h"
 #include "Engine/World.h"
 #include "GameFramework/Actor.h"
+#include "GameFramework/Pawn.h"
 #include "Materials/MaterialInstanceDynamic.h"
 
 USwordTasselMeshComponent::USwordTasselMeshComponent()
@@ -98,6 +99,10 @@ void USwordTasselMeshComponent::TickComponent(float Delta,ELevelTick Type,FActor
 {
     Super::TickComponent(Delta,Type,Tick);
     if(Rest.Num()!=8||!IsVisible()||bHiddenInGame||(GetOwner()&&GetOwner()->IsHidden())){bInitialized=false;return;}
+    const auto* OwnerPawn=Cast<APawn>(GetOwner());
+    const bool bOwnerHiddenIn1P=bOwnerNoSee&&OwnerPawn&&OwnerPawn->IsLocallyControlled();
+    const bool bShouldRenderGate=!IsRunningCommandlet()&&!GUsingNullRHI;
+    if(bOwnerHiddenIn1P||(bShouldRenderGate&&bInitialized&&!WasRecentlyRendered(0.25f))){bInitialized=false;return;}
     const FTransform Frame=GetComponentTransform();
     if(!bInitialized||Delta>.12f||FVector::DistSquared(Frame.GetLocation(),PreviousFrame.GetLocation())>6400.)
     {

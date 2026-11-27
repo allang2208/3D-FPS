@@ -774,4 +774,26 @@ private:
     FColdSteelSkillDefinition IceWallSkill;
     FColdSteelSkillDefinition BlizzardSkill;
     TSet<TWeakObjectPtr<AActor>> KillStaminaVictims;
+    struct FStatCacheKey
+    {
+        uint64 Version = 0;
+        int64 Generation = -1;
+        int32 Level = -1;
+        int32 ActiveWeaponSlot = -1;
+        int32 ItemCount = -1;
+        int32 InfectionStage = -1;
+        bool bSanityDepleted = false;
+        bool operator==(const FStatCacheKey& O) const = default;
+    };
+    uint64 StatCacheVersion = 0;
+    mutable FStatCacheKey CachedStatKey;
+    mutable TMap<FName, double> CachedEquipmentBonusMap;
+    mutable double CachedMaxHp = -1.0;
+    mutable double CachedMaxMp = -1.0;
+    mutable FStatCacheKey CachedManaMultKey;
+    mutable int32 CachedManaMultChain[2] = {-1, -1};
+    mutable bool CachedManaMultFocus[2] = {false, false};
+    mutable double CachedManaMultiplier[2] = {-1.0, -1.0};
+    FStatCacheKey MakeStatCacheKey() const;
+    void EnsureStatCacheFresh() const;
 };

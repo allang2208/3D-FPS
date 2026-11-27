@@ -258,7 +258,7 @@ void UColdSteelStatusModel::Initialize(FSubsystemCollectionBase& Collection)
 }
 void UColdSteelStatusModel::Deinitialize(){SaveNow();Super::Deinitialize();}
 FColdSteelProfile UColdSteelStatusModel::Snapshot() const {auto P=Current;P.Name=CharacterName;P.Class=CharacterClass;P.Level=Level;P.Points=AttributePoints;P.Attributes=Attributes;return P;}
-void UColdSteelStatusModel::Publish(const FColdSteelProfile& P){Current=P;CharacterName=P.Name;CharacterClass=P.Class;Level=P.Level;AttributePoints=P.Points;Attributes=P.Attributes;bTrainingDirty=false;TrainingFlushAccumulator=0.f;OnStaminaChanged.Broadcast();}
+void UColdSteelStatusModel::Publish(const FColdSteelProfile& P){Current=P;++StatCacheVersion;CharacterName=P.Name;CharacterClass=P.Class;Level=P.Level;AttributePoints=P.Points;Attributes=P.Attributes;bTrainingDirty=false;TrainingFlushAccumulator=0.f;OnStaminaChanged.Broadcast();}
 UColdSteelStatusModel* UColdSteelStatusModel::CreateEquipmentModel(const FColdSteelProfile& Profile)
 {
     UColdSteelStatusModel* Shadow=NewObject<UColdSteelStatusModel>(GetGameInstance()); // 子系统类 ClassWithin=UGameInstance：Outer 必须是 GameInstance，TransientPackage 会撞 UObjectGlobals 断言

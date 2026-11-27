@@ -82,4 +82,16 @@ private:
     bool bRecoveryStatusText=false;
     int32 LastCapture=-1;
     int32 PreviewFailures=0;
+    TWeakObjectPtr<const AFPSGAMECharacter> CachedPawn;
+    int32 CachedPawnComponents=INDEX_NONE;
+    TWeakObjectPtr<const class UBowWeaponComponent> CachedBow;
+    TWeakObjectPtr<const class UWoodenTorchComponent> CachedTorch;
+    TMap<const UTextBlock*,FLinearColor> CachedTextColors;
+    FVector2D LastSlotPosition=FVector2D(MAX_flt,MAX_flt);
+    bool bSlotAutoSizeSet=false;
+    TOptional<bool> LastDualVisible;
+    TOptional<bool> LastStaffVisible;
+
+    void SetTextIfChanged(UTextBlock* Block,const FString& Value);
+    void SetColorIfChanged(UTextBlock* Block,const FLinearColor& Color);
 };

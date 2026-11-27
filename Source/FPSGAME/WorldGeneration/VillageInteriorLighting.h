@@ -23,4 +23,5 @@ public:
     static float FullLumens();
     // Saved fixtures already carry their radius, exposure compensation and shadow settings.
     static void ApplyAppearance(UPointLightComponent* Light);
+    static void ApplyVolumetricBudget(UPointLightComponent* Light);
 };

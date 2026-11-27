@@ -89,7 +89,8 @@ void UColdSteelHUDWidget::RefreshAmmo()
     {
         { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_AmmoReadout); AmmoReadout->Refresh(Character,StatusModel,bInventoryOpen); }
         // The bottom-right weapon readout and the drawer share the right edge; hide it during the slide too.
-        if(bInventoryOpen||DrawerProgress>KINDA_SMALL_NUMBER||bExternalDrawerOpen)AmmoReadout->SetVisibility(ESlateVisibility::Collapsed);
+        if((bInventoryOpen||DrawerProgress>KINDA_SMALL_NUMBER||bExternalDrawerOpen) && AmmoReadout->GetVisibility()!=ESlateVisibility::Collapsed)
+            AmmoReadout->SetVisibility(ESlateVisibility::Collapsed);
         const float S=ColdSteelUI::PixelScale(this);
         FVector2D View=GetCachedGeometry().GetLocalSize();
         if(View.X<100)View=UWidgetLayoutLibrary::GetViewportSize(this)/S;

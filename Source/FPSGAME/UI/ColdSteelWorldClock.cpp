@@ -145,7 +145,8 @@ public:
     }
     void SetTime(int32 Day,float Fraction,bool Available)
     {
-        if(Dial->Fraction!=Fraction||Dial->Available!=Available){Dial->Fraction=Fraction;Dial->Available=Available;Dial->Invalidate(EInvalidateWidgetReason::Paint);}
+        const int32 DialStep=Available?FMath::Clamp(FMath::FloorToInt(Fraction*720.f),0,719):-1;
+        if(DialStep!=LastDialStep||Dial->Available!=Available){LastDialStep=DialStep;Dial->Fraction=Fraction;Dial->Available=Available;Dial->Invalidate(EInvalidateWidgetReason::Paint);}
         const int32 Minutes=Available?FMath::Clamp(FMath::FloorToInt(Fraction*1440.f),0,1439):-1;
         if(Minutes==LastMinute&&Day==LastDay&&Available==LastAvailable)return;
         LastMinute=Minutes;LastDay=Day;LastAvailable=Available;
@@ -166,7 +167,7 @@ private:
     TSharedPtr<SColdSteelSunDial> Dial;
     TSharedPtr<SColdSteelTimeSymbol> Symbol;
     TSharedPtr<STextBlock> TimeText,DayText,PeriodText;
-    int32 LastMinute=INDEX_NONE-1,LastDay=INDEX_NONE;
+    int32 LastMinute=INDEX_NONE-1,LastDay=INDEX_NONE,LastDialStep=INDEX_NONE-1;
     bool LastAvailable=false;
 };
 

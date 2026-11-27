@@ -36,6 +36,14 @@ void TimelineFill(UCanvasPanelSlot* Slot,const FAnchors& Anchors,FMargin Margin=
 {Slot->SetAnchors(Anchors);Slot->SetOffsets(Margin);Slot->SetZOrder(Z);}
 void TimelineOverlayFill(UOverlaySlot* Slot)
 {Slot->SetHorizontalAlignment(HAlign_Fill);Slot->SetVerticalAlignment(VAlign_Fill);}
+struct FTimelineLayoutCache
+{
+    FVector2D View=FVector2D::ZeroVector;
+    float Scale=0.f, Expansion=0.f, DetailMotion=0.f, ShownFraction=0.f;
+    float ExpandedDesiredY=0.f, MarkerDesiredX=0.f;
+    bool bCompact=true, bDetailsOpen=false, bDrawerOut=false, bScaleInit=false;
+};
+TMap<TWeakObjectPtr<const UColdSteelHUDWidget>,FTimelineLayoutCache> GTimelineLayoutCache;
 }
 
 UTextBlock* UColdSteelHUDWidget::MakeTimelineText(const FString& Text,float Pixels,const FLinearColor& Color,bool Numeric,bool Medium)
@@ -174,7 +182,8 @@ void UColdSteelHUDWidget::TickEventTimelinePresentation(float Delta)
 {
     TimelineExpansion=FMath::FInterpConstantTo(TimelineExpansion,bTimelineCompact?0.f:1.f,Delta,1/.16f);
     TimelineDetailMotion=FMath::FInterpConstantTo(TimelineDetailMotion,bTimelineDetailsOpen?1.f:0.f,Delta,1/.16f);
-    if(!FMath::IsNearlyEqual(TimelineEventFraction,TimelineEventMoveTarget,1.e-7f))
+    const bool bSnapActive=TimelineEventFraction<=0.041f && TimelineEventMoveTarget>0.041f;
+    if(bSnapActive || FMath::Abs(TimelineEventFraction-TimelineEventMoveTarget)>=0.002f)
     {TimelineEventMoveFrom=TimelineShownEventFraction;TimelineEventMoveTarget=TimelineEventFraction;TimelineEventMoveTime=0;}
     TimelineEventMoveTime=FMath::Min(.18f,TimelineEventMoveTime+Delta);
     TimelineShownEventFraction=FMath::Lerp(TimelineEventMoveFrom,TimelineEventMoveTarget,TimelineEventMoveTime/.18f);
@@ -187,7 +196,28 @@ void UColdSteelHUDWidget::UpdateEventTimelineLayout()
     const float S=ColdSteelUI::PixelScale(this),A=TimelineCSSEase(TimelineExpansion),D=TimelineCSSEase(TimelineDetailMotion);
     FVector2D View=GetCachedGeometry().GetLocalSize();if(View.X<100 || View.Y<100)View=UWidgetLayoutLibrary::GetViewportSize(this)/S;
     if(View.X<100 || View.Y<100)View=FVector2D(1280,720)/S;
-    const bool ScaleChanged=!FMath::IsNearlyEqual(TimelineScale,S,.001f);TimelineScale=S;
+    const bool DrawerOut=bInventoryOpen||DrawerProgress>KINDA_SMALL_NUMBER||bExternalDrawerOpen;
+    const float ExpandedDesiredY=TimelineExpandedContent?float(TimelineExpandedContent->GetDesiredSize().Y):0.f;
+    const float MarkerDesiredX=TimelineMarkerButton?float(TimelineMarkerButton->GetDesiredSize().X):0.f;
+    if(GTimelineLayoutCache.Num()>4)
+        for(auto It=GTimelineLayoutCache.CreateIterator();It;++It)
+            if(!It.Key().IsValid())It.RemoveCurrent();
+    auto& Cache=GTimelineLayoutCache.FindOrAdd(this);
+    const bool ScaleChanged=!FMath::IsNearlyEqual(TimelineScale,S,.001f);
+    if(Cache.bScaleInit && !ScaleChanged
+        && Cache.View.Equals(View,.05f)
+        && FMath::IsNearlyEqual(Cache.Scale,S,1e-4f)
+        && FMath::IsNearlyEqual(Cache.Expansion,A,1e-4f)
+        && FMath::IsNearlyEqual(Cache.DetailMotion,D,1e-4f)
+        && FMath::IsNearlyEqual(Cache.ShownFraction,TimelineShownEventFraction,1e-4f)
+        && FMath::IsNearlyEqual(Cache.ExpandedDesiredY,ExpandedDesiredY,.05f)
+        && FMath::IsNearlyEqual(Cache.MarkerDesiredX,MarkerDesiredX,.05f)
+        && Cache.bCompact==bTimelineCompact
+        && Cache.bDetailsOpen==bTimelineDetailsOpen
+        && Cache.bDrawerOut==DrawerOut)
+        return;
+    Cache={View,S,A,D,TimelineShownEventFraction,ExpandedDesiredY,MarkerDesiredX,bTimelineCompact,bTimelineDetailsOpen,DrawerOut,true};
+    TimelineScale=S;
     const FColdSteelHUDLayout Layout(View.X*S);
     const float Top=Layout.CornerTop/S;
     const float EventRight=(Layout.EventLeft+Layout.CornerWidth)/S;
@@ -242,7 +272,6 @@ void UColdSteelHUDWidget::UpdateEventTimelineLayout()
     const float PopY=FMath::Min(Top+PanelHeight+8/S,FMath::Max(12/S,float(View.Y)-140/S));
     const float PopHeight=FMath::Max(1.f,FMath::Min(420/S,float(View.Y)-PopY-12/S));
     auto* PopSlot=Cast<UCanvasPanelSlot>(TimelinePopover->Slot);PopSlot->SetPosition(FVector2D(FMath::Clamp(Left+(Width-PopWidth)*.5f,12/S,FMath::Max(12/S,float(View.X)-PopWidth-12/S)),PopY));PopSlot->SetSize(FVector2D(PopWidth,PopHeight));
-    const bool DrawerOut=bInventoryOpen||DrawerProgress>KINDA_SMALL_NUMBER||bExternalDrawerOpen;
     TimelineWidthBox->SetVisibility(DrawerOut?ESlateVisibility::Collapsed:ESlateVisibility::SelfHitTestInvisible);
     TimelinePopover->SetVisibility(!DrawerOut&&(TimelineDetailMotion>0 || bTimelineDetailsOpen)?(bTimelineDetailsOpen?ESlateVisibility::Visible:ESlateVisibility::HitTestInvisible):ESlateVisibility::Collapsed);
     TimelinePopover->SetRenderOpacity(D);TimelinePopover->SetRenderTranslation(FVector2D(0,4*(1-D)/S));

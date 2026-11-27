@@ -3,14 +3,17 @@
 #include "MonsterCombatComponent.h"
 #include "HumanoidKnockdownComponent.h"
 #include "MonsterCombatTuning.h"
+#include "MonsterRagdollPhysics.h"
 #include "AIController.h"
 #include "Animation/AnimSequence.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SkeletalMeshComponent.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine/DamageEvents.h"
 #include "PhysicsEngine/PhysicsAsset.h"
 #include "PhysicsEngine/BodyInstance.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Engine/World.h"
 #include "Kismet/GameplayStatics.h"
@@ -212,5 +215,20 @@ void AFatZombie::StartDeathRagdoll()
     if (!DeathClip)
         BodyMesh->AddImpulse(IncomingHitDirection.GetSafeNormal2D() * FMath::Clamp(RagdollImpulseSpeed, 0.f, 300.f), TEXT("Hips"), true);
     bRagdollActive = true;
+    GetWorldTimerManager().SetTimer(DeathRagdollTimer, this, &ThisClass::FreezeDeathRagdoll, 4.5f, false);
     UE_LOG(LogTemp, Display, TEXT("FAT_RAGDOLL_STARTED %s bodies=%d constraints=%d"), *GetName(), Physics->SkeletalBodySetups.Num(), Physics->ConstraintSetup.Num());
+}
+
+void AFatZombie::FreezeDeathRagdoll()
+{
+    if (State != ENurseState::Dead || !bRagdollActive) return;
+    auto* BodyMesh = GetMesh();
+    if (!BodyMesh) return;
+    BodyMesh->PutAllRigidBodiesToSleep();
+    BodyMesh->SetSimulatePhysics(false);
+    BodyMesh->SetAllBodiesSimulatePhysics(false);
+    BodyMesh->SetAllBodiesPhysicsBlendWeight(0.f);
+    GetCharacterMovement()->DisableMovement();
+    GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+    MonsterRagdollPhysics::RetireCorpseTicks(BodyMesh);
 }

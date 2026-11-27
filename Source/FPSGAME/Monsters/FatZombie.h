@@ -41,6 +41,7 @@ private:
     FVector IncomingHitDirection = FVector::ZeroVector;
     void SpawnDeathPus();
     void StartDeathRagdoll();
+    void FreezeDeathRagdoll();
     FTimerHandle DeathRagdollTimer;
     FTransform DeathPusAnchor;
 };

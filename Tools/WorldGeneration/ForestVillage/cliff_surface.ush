@@ -17,11 +17,15 @@ float2 rockOrigin=float2(-624.,-320.);
     float3 second=1.-last,middle=second-first;
     float hi=dot(first,f),mid=dot(middle,f),lo=dot(last,f);
     float4 bary=float4(1.-hi,hi-mid,mid-lo,lo);
-    float wet=saturate(Wet);float fine=1.-smoothstep(2800.,7800.,distance(CliffEye,P));
+    float cliffDist=distance(CliffEye,P);
+    float4 bw=bary*bary;
+    bw/=max(dot(bw,1.),.00001);
+    float cliffCut=smoothstep(2400.,5200.,cliffDist)*.18;
+    float wet=saturate(Wet);float fine=1.-smoothstep(2000.,4800.,cliffDist);
     float3 rgb=0.;float2 grad=0.;float hsum=0.,rsum=0.,mass=0.;
     [unroll] for(int j=0;j<4;j++)
     {
-        float w=bary[j]*bary[j];
+        float w=max(0.,bw[j]-cliffCut);
         [branch] if(w>.00012)
         {
             float3 key=cell+(j==0?float3(0,0,0):j==1?first:j==2?second:float3(1,1,1));

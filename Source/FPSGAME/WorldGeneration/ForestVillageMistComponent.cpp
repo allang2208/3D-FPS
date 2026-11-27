@@ -14,6 +14,8 @@ namespace
 {
 TAutoConsoleVariable<float> ForestMistStrength(TEXT("fps.Hills.ForestMist"),1.f,
     TEXT("Forest village local ground mist strength (0-2). Zero leaves the UDS reference fog alone."));
+TAutoConsoleVariable<float> ForestMistRangeCm(TEXT("fps.Hills.ForestMistRangeCm"),18000.f,
+    TEXT("Max range in cm for forest village local fog pockets (<= 0 restores 24500 cm)."));
 
 struct FMistSite
 {
@@ -134,12 +136,16 @@ void UForestVillageMistComponent::TickComponent(float DeltaTime,ELevelTick TickT
         for(auto It=GetWorld()->GetPlayerControllerIterator();It;++It)
             if(auto* PC=It->Get();PC && PC->IsLocalController() && PC->PlayerCameraManager)
                 Eyes.Add(PC->PlayerCameraManager->GetCameraLocation());
+    const float ConfiguredRangeCm = ForestMistRangeCm.GetValueOnGameThread();
+    const double MaxRangeCm = ConfiguredRangeCm > 0.f ? double(ConfiguredRangeCm) : 24500.;
+    const double MaxRangeSq = MaxRangeCm * MaxRangeCm;
+    const double FadeStartCm = MaxRangeCm * 0.7;
     for(ULocalFogVolumeComponent* Fog:Pockets)
     {
         double DistanceSq=DBL_MAX;
         for(const auto& Eye:Eyes) DistanceSq=FMath::Min(DistanceSq,FVector::DistSquared(Eye,Fog->GetComponentLocation()));
-        const float Amount=DistanceSq<24500.*24500. ?
-            LocalStrength*float(1.-FMath::SmoothStep(16000.,24500.,FMath::Sqrt(DistanceSq))) : 0.f;
+        const float Amount=DistanceSq<MaxRangeSq ?
+            LocalStrength*float(1.-FMath::SmoothStep(FadeStartCm,MaxRangeCm,FMath::Sqrt(DistanceSq))) : 0.f;
         const bool Visible=Amount>.008f;
         const float HeightExtinction=.40f*Amount;
         if(Visible && (!Fog->IsVisible() || FMath::Abs(Fog->HeightFogExtinction-HeightExtinction)>.002f))

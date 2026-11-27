@@ -1,0 +1,34 @@
+{
+  "task": "HillsPerfOpt-R50-R57-Closeout",
+  "generated_at": "2026-11-27T19:10:19.795938+08:00",
+  "total_files": 354,
+  "total_bytes": 542458935,
+  "total_mb": 517.33,
+  "by_category": {
+    "d_saved_logs": {
+      "count": 18,
+      "bytes": 6027814
+    },
+    "conversation_scratch": {
+      "count": 331,
+      "bytes": 535288816
+    },
+    "f_r50_logs": {
+      "count": 5,
+      "bytes": 1142305
+    }
+  },
+  "trash_destinations": {
+    "d_saved_logs": "D:/FPS3D/FPSGAME/trash/HillsPerfOpt-20261127/SavedLogs",
+    "conversation_scratch": "D:/FPS3D/FPSGAME/trash/HillsPerfOpt-20261127/ConversationScratch",
+    "f_r50_logs": "F:/FPSGAMEData/trash/HillsPerfOpt-20261127/HillsPerfOpt-R50-Logs"
+  },
+  "local_manifest": "F:/FPSGAMEData/ArtProduction/HillsForestPath/HillsPerfOptCloseout-20261127/cleanup-manifest.json",
+  "preserved": [
+    "F:/FPSGAMEData/ArtProduction/HillsForestPath/HillsPerfOpt-R{50,52,53,54,55}/{Before,published.json,compiled.json}",
+    "D:/FPS3D/FPSGAME/Saved/PerformanceReports/",
+    "D:/FPS3D/FPSGAME/Saved/Logs/HillsPerfOpt-R55-SM6.log",
+    "D:/FPS3D/FPSGAME/Tools/WorldGeneration/ForestVillage/optimize_hills_perf_r{48b,50,52,53,54,55}.py"
+  ],
+  "errors": []
+}

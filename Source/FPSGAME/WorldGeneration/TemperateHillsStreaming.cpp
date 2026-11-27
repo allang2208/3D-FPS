@@ -66,6 +66,104 @@ static int32 PreparingWorldCount=0;
 static bool EntryBudgetActive=false;
 static TArray<IConsoleVariable*> BudgetOverrides;
 static const FName BudgetTag(TEXT("FPSGAME.HillsStreaming"));
+static int32 GHillsQualityPreset = 1;
+static FAutoConsoleVariableRef CVarHillsQualityPreset(
+    TEXT("fps.Hills.QualityPreset"),
+    GHillsQualityPreset,
+    TEXT("Hills runtime quality preset: 0 = Epic baseline, 1 = Balanced TSR 75% + tuned Lumen (default), 2 = High-FPS Software Lumen."),
+    ECVF_Default);
+static TArray<IConsoleVariable*> QualityOverrides;
+static const FName QualityTag(TEXT("FPSGAME.HillsQualityPreset"));
+static int32 AppliedQualityPreset = -1;
+static bool bQualityCallbackBound = false;
+
+void UnsetQualityPreset()
+{
+    for(auto* C:QualityOverrides)if(C)C->Unset(ECVF_SetByPluginLowPriority,QualityTag);
+    QualityOverrides.Reset();
+    AppliedQualityPreset = -1;
+}
+
+void ApplyQualityPreset(bool bForce=false)
+{
+    if(BudgetWorldCount<=0 || IsRunningCommandlet() || GUsingNullRHI || IsRunningDedicatedServer())
+    {
+        if(!QualityOverrides.IsEmpty())UnsetQualityPreset();
+        return;
+    }
+    const int32 Preset = FMath::Clamp(GHillsQualityPreset, 0, 2);
+    if(!bForce && Preset == AppliedQualityPreset)return;
+    UnsetQualityPreset();
+    AppliedQualityPreset = Preset;
+    if(Preset == 0)
+    {
+        UE_LOG(LogTemp,Display,TEXT("HILLS_QUALITY preset=0 (Epic baseline restored)"));
+        return;
+    }
+    struct FQualitySetting { const TCHAR* Key; bool bInt; int32 IntVal; float FloatVal; };
+    TArray<FQualitySetting> Settings = {
+        {TEXT("r.ScreenPercentage"), false, 0, 75.f},
+        {TEXT("r.TSR.History.ScreenPercentage"), false, 0, 100.f},
+        {TEXT("r.Lumen.ScreenProbeGather.DownsampleFactor"), true, 32, 0.f},
+        {TEXT("r.Lumen.ScreenProbeGather.RadianceCache.ProbeResolution"), true, 16, 0.f},
+        {TEXT("r.Lumen.ScreenProbeGather.RadianceCache.NumProbesToTraceBudget"), true, 100, 0.f},
+        {TEXT("r.Lumen.ScreenProbeGather.ShortRangeAO.DownsampleFactor"), true, 2, 0.f},
+        {TEXT("r.Lumen.ScreenProbeGather.TwoSidedFoliageBackfaceDiffuse"), true, 0, 0.f},
+        {TEXT("r.Lumen.HardwareRayTracing.HitLighting.Allowed"), true, 0, 0.f},
+        {TEXT("r.LumenScene.SurfaceCache.AtlasSize"), true, 3584, 0.f},
+        {TEXT("r.LumenScene.DirectLighting.UpdateFactor"), true, 64, 0.f},
+        {TEXT("r.LumenScene.Radiosity.UpdateFactor"), true, 128, 0.f},
+        {TEXT("r.Lumen.Reflections.DownsampleFactor"), true, 2, 0.f},
+        {TEXT("r.Lumen.Reflections.MaxRoughnessToTraceForFoliage"), false, 0, 0.2f},
+        {TEXT("r.Lumen.ScreenProbeGather.MaxRoughnessToEvaluateRoughSpecularForFoliage"), false, 0, 0.4f},
+        // UE 5.8 enables CAS VRS (5.52 ms AsyncCompute) and uses 300 m RT culling by default; disable CAS VRS and tighten RT scene radius.
+        {TEXT("r.VRS.ContrastAdaptiveShading"), true, 0, 0.f},
+        {TEXT("r.VRS.EnableSoftware"), true, 0, 0.f},
+        {TEXT("r.RayTracing.Culling"), true, 3, 0.f},
+        {TEXT("r.RayTracing.Culling.Radius"), false, 0, Preset == 2 ? 10000.f : 15000.f},
+        {TEXT("r.RayTracing.Culling.Angle"), false, 0, Preset == 2 ? 3.0f : 2.0f},
+        {TEXT("r.RayTracing.Geometry.LandscapeGrass"), true, 0, 0.f},
+        {TEXT("r.LocalFogVolume.HalfResolution"), true, 1, 0.f},
+        {TEXT("r.TSR.History.UpdateQuality"), true, 2, 0.f},
+        {TEXT("r.TSR.RejectionAntiAliasingQuality"), true, 1, 0.f},
+    };
+    if(Preset == 2)
+    {
+        Settings.Add({TEXT("r.Lumen.HardwareRayTracing"), true, 0, 0.f});
+        Settings.Add({TEXT("r.Nanite.MaxPixelsPerEdge"), false, 0, 1.5f});
+    }
+    for(const FQualitySetting& Setting : Settings)
+    {
+        if(auto* C = IConsoleManager::Get().FindConsoleVariable(Setting.Key))
+        {
+            QualityOverrides.AddUnique(C);
+            if(Setting.bInt) C->Set(Setting.IntVal, ECVF_SetByPluginLowPriority, QualityTag);
+            else C->Set(Setting.FloatVal, ECVF_SetByPluginLowPriority, QualityTag);
+        }
+        else
+        {
+            UE_LOG(LogTemp,Warning,TEXT("HILLS_QUALITY missing cvar=%s"),Setting.Key);
+        }
+    }
+    const auto* ScreenPct = IConsoleManager::Get().FindConsoleVariable(TEXT("r.ScreenPercentage"));
+    const auto* HWRT = IConsoleManager::Get().FindConsoleVariable(TEXT("r.Lumen.HardwareRayTracing"));
+    const auto* Downsample = IConsoleManager::Get().FindConsoleVariable(TEXT("r.Lumen.ScreenProbeGather.DownsampleFactor"));
+    const auto* CAS = IConsoleManager::Get().FindConsoleVariable(TEXT("r.VRS.ContrastAdaptiveShading"));
+    const auto* RTCullRadius = IConsoleManager::Get().FindConsoleVariable(TEXT("r.RayTracing.Culling.Radius"));
+    const auto* LFVHalf = IConsoleManager::Get().FindConsoleVariable(TEXT("r.LocalFogVolume.HalfResolution"));
+    const auto* TSRUpdateQ = IConsoleManager::Get().FindConsoleVariable(TEXT("r.TSR.History.UpdateQuality"));
+    const auto* NaniteEdge = IConsoleManager::Get().FindConsoleVariable(TEXT("r.Nanite.MaxPixelsPerEdge"));
+    UE_LOG(LogTemp,Display,TEXT("HILLS_QUALITY preset=%d screen_pct=%.0f hwrt=%d downsample=%d cas=%d rt_rad=%.0f lfv_half=%d tsr_uq=%d nanite_edge=%.2f"),
+        Preset,
+        ScreenPct ? ScreenPct->GetFloat() : 0.f,
+        HWRT ? HWRT->GetInt() : -1,
+        Downsample ? Downsample->GetInt() : -1,
+        CAS ? CAS->GetInt() : -1,
+        RTCullRadius ? RTCullRadius->GetFloat() : -1.f,
+        LFVHalf ? LFVHalf->GetInt() : -1,
+        TSRUpdateQ ? TSRUpdateQ->GetInt() : -1,
+        NaniteEdge ? NaniteEdge->GetFloat() : -1.f);
+}
 
 void UpdateStreamingBudget(bool Force=false)
 {
@@ -91,8 +189,14 @@ void UpdateStreamingBudget(bool Force=false)
 
 void AcquireStreamingBudget()
 {
+    if(!bQualityCallbackBound)
+    {
+        bQualityCallbackBound=true;
+        CVarHillsQualityPreset->SetOnChangedCallback(FConsoleVariableDelegate::CreateLambda([](IConsoleVariable*){ApplyQualityPreset(true);}));
+    }
     ++BudgetWorldCount;++PreparingWorldCount;
     UpdateStreamingBudget(BudgetWorldCount==1);
+    ApplyQualityPreset(BudgetWorldCount==1);
 }
 
 void FinishEntryBudgetIfReady(bool& Preparing,bool Ready,bool Failed,const UTransitLoadingSubsystem* Loading)
@@ -109,6 +213,7 @@ void ReleaseStreamingBudget(bool Preparing)
     if(--BudgetWorldCount!=0){UpdateStreamingBudget();return;}
     for(auto* C:BudgetOverrides)C->Unset(ECVF_SetByPluginLowPriority,BudgetTag);
     BudgetOverrides.Reset();EntryBudgetActive=false;
+    UnsetQualityPreset();
 }
 
 }

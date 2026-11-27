@@ -240,7 +240,10 @@ void UColdSteelResourceMeter::SetMaxPoints(float InMaxPoints)
 void UColdSteelResourceMeter::SetSemanticValue(float InRatio, const FLinearColor& Fill, const FLinearColor& Deep, bool bInWarnOnLowFill)
 {
     const float Next = FMath::IsFinite(InRatio) ? FMath::Clamp(InRatio, 0.f, 1.f) : 0.f;
-    if (bHasValue && bSemantic && Value == Next && SemanticFill == Fill && SemanticDeep == Deep && bWarnOnLowFill == bInWarnOnLowFill) return;
+    const bool bBoundaryCross = (Next <= 0.f) != (Value <= 0.f) || (Next >= 1.f) != (Value >= 1.f)
+        || (Next <= 0.25f) != (Value <= 0.25f);
+    if (bHasValue && bSemantic && !bBoundaryCross && FMath::Abs(Value - Next) < 0.0025f
+        && SemanticFill == Fill && SemanticDeep == Deep && bWarnOnLowFill == bInWarnOnLowFill) return;
     const bool bSnap = !bHasValue;
     bHasValue = true;
     bSemantic = true;
@@ -275,7 +278,9 @@ void UColdSteelResourceMeter::SetStaminaValue(float InRatio)
 void UColdSteelResourceMeter::SetValue(float InRatio, bool bInMana)
 {
     const float Next = FMath::IsFinite(InRatio) ? FMath::Clamp(InRatio, 0.f, 1.f) : 0.f;
-    if (bHasValue && !bSemantic && Value == Next && bMana == bInMana) return;
+    const bool bBoundaryCross = (Next <= 0.f) != (Value <= 0.f) || (Next >= 1.f) != (Value >= 1.f)
+        || (!bInMana && ((Next <= 0.25f) != (Value <= 0.25f)));
+    if (bHasValue && !bSemantic && !bBoundaryCross && FMath::Abs(Value - Next) < 0.0025f && bMana == bInMana) return;
     const bool bSnap = !bHasValue;
     bHasValue = true;
     Value = Next;

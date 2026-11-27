@@ -275,4 +275,7 @@ private:
     bool PickShowcaseRoamTarget(FVector& OutWorldGoal, const AStableRidingHorse* AvoidBlocker = nullptr) const;
     void PlayShowcaseClip(UAnimSequence* Clip,float Rate=1.f,float Phase=-1.f);
     void TickShowcase(float Delta);
+    void UpdateHorseRayTracingVisibility(bool bForce = false);
+    bool bHorseRTVisible = true;
+    double NextHorseRTCheckAt = -1.;
 };

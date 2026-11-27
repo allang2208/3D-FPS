@@ -624,7 +624,7 @@ void UHumanoidKnockdownComponent::TickComponent(float Dt,ELevelTick Type,FActorC
         StableAge=bGrounded && bSlow?StableAge+ProbeDt:0.f;
         // Never freeze an airborne corpse solely because its wall-clock budget expired.
         if ((StableAge>(bCorpse?.65f:.35f) && PhaseAge>(bCorpse?2.f:.55f)) ||
-            (!bCorpse && bGrounded && PhaseAge>CorpseSettleDeadline))
+            (bGrounded && PhaseAge>CorpseSettleDeadline))
         {
             if (bCorpse) { FreezeCorpse(); return; }
             StopPhysicsWithPose(); Phase=EHumanoidKnockdownPhase::Downed; PhaseAge=0;

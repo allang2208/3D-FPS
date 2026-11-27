@@ -1,4 +1,5 @@
 #include "HillsTavernSite.h"
+#include "VillageDistantGlow.h"
 #include "ForestVillageRelief.h"
 #include "ForestVillageRegion.h"
 
@@ -41,6 +42,13 @@ void ATemperateHillsWorld::BindStreamedVillageBuildings()
     for (AActor* Actor : Level->Actors)
     {
         if (!IsValid(Actor)) continue;
+        if (bLocalSigns && Actor->GetClass() == AActor::StaticClass())
+        {
+            TInlineComponentArray<UPointLightComponent*> StaticLights(Actor);
+            for (UPointLightComponent* Light : StaticLights)
+                if (Light->VolumetricScatteringIntensity > 0.f)
+                    UVillageInteriorLighting::ApplyVolumetricBudget(Light);
+        }
         if (bLocalSigns && Actor->ActorHasTag(TEXT("VillageShop.HangingSign")))
             USmithSignMotion::BindToAssembly(*Actor);
         if (Actor->ActorHasTag(TEXT("VillageWindmill.Site"))) StreamedWindmill = Cast<AHillsWindmill>(Actor);
@@ -65,6 +73,7 @@ void ATemperateHillsWorld::BindStreamedVillageBuildings()
         }
         Site->Bind(*this);
     }
+    if (VillageDistantGlow) VillageDistantGlow->RequestAnchorRefresh();
 }
 
 void UHillsTavernSite::Bind(ATemperateHillsWorld& WorldOwner)

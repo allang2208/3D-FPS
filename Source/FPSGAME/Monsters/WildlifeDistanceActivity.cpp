@@ -21,6 +21,22 @@ UWildlifeDistanceActivity::UWildlifeDistanceActivity()
 void UWildlifeDistanceActivity::BeginPlay()
 {
     Super::BeginPlay();
+    if (auto* Animal = Cast<ACharacter>(GetOwner()))
+    {
+        if (auto* Mesh = Animal->GetMesh())
+        {
+            Mesh->bEnableUpdateRateOptimizations = true;
+            if (Animal->IsA<AColdSteelAnimal>())
+            {
+                Mesh->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::OnlyTickPoseWhenRendered;
+            }
+            if (GetNetMode() != NM_DedicatedServer)
+            {
+                Mesh->SetVisibleInRayTracing(false);
+            }
+            SavedAnimTickOption = uint8(Mesh->VisibilityBasedAnimTickOption);
+        }
+    }
     if (GetOwner()->HasAuthority())
     {
         const auto* Wolf = Cast<AWolfMonster>(GetOwner());
@@ -85,6 +101,8 @@ void UWildlifeDistanceActivity::ApplyPause(bool bPause)
     {
         bRestoreActorTick = Animal->IsActorTickEnabled();
         bRestoreMovementTick = Move->IsComponentTickEnabled();
+        bRestoreMeshTick = Mesh->IsComponentTickEnabled();
+        SavedAnimTickOption = uint8(Mesh->VisibilityBasedAnimTickOption);
         bRestoreAnimation = !Mesh->bPauseAnims;
         Animal->SetActorTickEnabled(false);
         if (Animal->HasAuthority()) PauseAI();
@@ -102,10 +120,15 @@ void UWildlifeDistanceActivity::ApplyPause(bool bPause)
         // also stop ticking movement or they can continue falling/extrapolating.
         Move->SetComponentTickEnabled(false);
         Mesh->bPauseAnims = true;
+        Mesh->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption::OnlyTickPoseWhenRendered;
+        Mesh->SetComponentTickEnabled(false);
+        if (GetNetMode() != NM_DedicatedServer) Mesh->SetVisibleInRayTracing(false);
     }
     else
     {
         if (bRestoreAnimation) Mesh->bPauseAnims = false;
+        Mesh->VisibilityBasedAnimTickOption = EVisibilityBasedAnimTickOption(SavedAnimTickOption);
+        if (bRestoreMeshTick) Mesh->SetComponentTickEnabled(true);
         if (bRestoreMovementTick) Move->SetComponentTickEnabled(true);
         if (auto* Combat = PausedCombatTick.Get()) Combat->SetComponentTickEnabled(true);
         PausedCombatTick.Reset();

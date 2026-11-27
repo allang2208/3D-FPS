@@ -18,6 +18,9 @@ namespace UDSBridge
     const TCHAR* PresetNames[]={TEXT("Clear_Skies"),TEXT("Cloudy"),TEXT("Rain_Light"),TEXT("Rain"),TEXT("Rain_Thunderstorm")};
     TAutoConsoleVariable<bool> Enabled(TEXT("fps.UDS.Bridge"),true,
         TEXT("Enable the FPS clock and server weather bridge to UDS/UDW. Disabling stops bridge writes and spawning."));
+    TAutoConsoleVariable<float> SkyClockStepUnits(TEXT("fps.UDS.SkyClockStepUnits"),0.5f,
+        TEXT("Minimum UDS Time Of Day delta (0..2400 units) before updating UDS sky/directional light. 0.5 units ~= 0.45s real time (~0.075 deg), allowing VSM static shadow pages to stay cached across frames. Set <= 0.01 for per-frame updates."),
+        ECVF_Default);
 
     FProperty* Property(UObject* Object,const TCHAR* Name)
     {
@@ -219,7 +222,13 @@ void UFPSUDSBridgeComponent::ApplyClock()
     auto* Sky=SkyActor.Get();
     if(!Sky||!TimeProperty.IsValid())return;
     const float Units=Weather->NormalizedDayTime*2400.f;
-    if(FMath::IsNearlyEqual(Units,LastDrivenClockUnits,.01f))return;
+    const float Step=FMath::Max(UDSBridge::SkyClockStepUnits.GetValueOnGameThread(),.01f);
+    if(LastDrivenClockUnits>=0.f)
+    {
+        const float RawDiff=FMath::Abs(Units-LastDrivenClockUnits);
+        const float WrapDiff=FMath::Min(RawDiff,2400.f-RawDiff);
+        if(WrapDiff<Step)return;
+    }
     UDSBridge::SetNumber(Sky,TimeProperty.Get(),Units);LastDrivenClockUnits=Units;
 }
 

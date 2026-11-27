@@ -307,6 +307,7 @@ public:
     UFUNCTION(BlueprintCallable, BlueprintAuthorityOnly, Category="Hills|Village")
     bool CompleteVillageCarpenterRepair(FText& FailureReason);
     UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsTavernRepaired() const { return (VillagePlansUnlocked & UTemperateHillsSave::TavernPlan) != 0; }
+    AActor* GetStreamedTavern() const { return StreamedTavern.Get(); }
     UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsHerbalistRepaired() const { return (VillagePlansUnlocked & UTemperateHillsSave::HerbalistPlan) != 0; }
     UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsWindmillRepaired() const { return (VillagePlansUnlocked & UTemperateHillsSave::WindmillPlan) != 0; }
     UFUNCTION(BlueprintPure, Category="Hills|Village") bool IsBakeryRepaired() const { return bVillageBakeryRepaired; }
@@ -564,6 +565,7 @@ private:
     UPROPERTY(Transient) TObjectPtr<AActor> ChapelDoor;
     UPROPERTY(Transient) TObjectPtr<AActor> ChapelShrine;
     void AssembleOldChapel();
+    UPROPERTY(Transient) TObjectPtr<class UVillageDistantGlowComponent> VillageDistantGlow;
 };
 
 UCLASS()

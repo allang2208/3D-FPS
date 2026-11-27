@@ -71,6 +71,7 @@ protected:
     virtual void BeginPlay() override;
     virtual void EndPlay(const EEndPlayReason::Type Reason) override;
     virtual void OnConstruction(const FTransform& Transform) override;
+    virtual bool ManagesOwnShadowBudget() const { return false; }
 
     UPROPERTY(VisibleAnywhere, Category="Torch")
     TObjectPtr<USceneComponent> SceneRoot;
@@ -189,9 +190,13 @@ private:
     bool bCachedClockValid = false;
     bool bLastReportedLit = false;
     bool bHasReported = false;
+    bool bTorchShadowBudgetActive = true;
+    bool bInteriorLightingManaged = false;
+    double NextTorchBudgetCheck = -1.;
 
     AFPSWeatherManager* ResolveWeatherManager();
     void RefreshClock(float DeltaSeconds);
     void ApplyVisuals(float DeltaSeconds);
     void ApplyComponentOffsets();
+    void UpdateTorchShadowBudget();
 };

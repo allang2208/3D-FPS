@@ -38,28 +38,47 @@ float UColdSteelStatusModel::SpellManaCost(FName Id,int32 AtLevel,bool bApplyFoc
 
 float UColdSteelStatusModel::AdjustedManaCost(float Cost,bool bApplyFocus) const
 {
+    const FStatCacheKey CacheKey=MakeStatCacheKey();
+    if(!(CachedManaMultKey==CacheKey))
+    {
+        CachedManaMultKey=CacheKey;
+        CachedManaMultiplier[0]=CachedManaMultiplier[1]=-1.0;
+        CachedManaMultChain[0]=CachedManaMultChain[1]=-1;
+        CachedManaMultFocus[0]=CachedManaMultFocus[1]=false;
+    }
+    const auto* Item=Equipped();
+    const bool bStaff=Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff");
+    const int32 Chain=bStaff?ColdSteelSpellCrafting::ChainSpellStacks(RuntimePawn()):0;
+    const auto* Book=bApplyFocus?ActiveSpellbook():nullptr;
+    bool bFocusActive=false;
+    if(Book)
+    {
+        const auto* Pawn=RuntimePawn();
+        const auto* Focus=Pawn?Pawn->FindComponentByClass<USpellbookComponent>():nullptr;
+        bFocusActive=Focus&&Focus->IsFocusEmpowered();
+    }
+    const int32 SlotIdx=bApplyFocus?1:0;
+    if(CachedManaMultiplier[SlotIdx]>=0.0 && CachedManaMultChain[SlotIdx]==Chain && CachedManaMultFocus[SlotIdx]==bFocusActive)
+    {
+        return float(ColdSteelResourceCost::Apply(Cost,CachedManaMultiplier[SlotIdx]));
+    }
+
     const auto Rune=ColdSteelMelee::EquippedModifiers(this);
     double StaffCost=0.,ChainCost=0.;
-    if(const auto* Item=Equipped();Item&&ColdSteelInventory::Text(*Item,TEXT("weaponType"))==TEXT("staff"))
+    if(bStaff)
         if(auto* E=GetGameInstance()->GetSubsystem<UColdSteelEnhancementSystem>())
         {
-            const int32 Chain=ColdSteelSpellCrafting::ChainSpellStacks(RuntimePawn());
             StaffCost=E->CraftEffect(*Item,TEXT("magicMpCostPercent"));
             ChainCost=Chain*E->CraftEffect(*Item,TEXT("chainSpellMpCostPercent"));
         }
 
     double FocusCost=1.;
-    if(const auto* Book=bApplyFocus?ActiveSpellbook():nullptr)
+    if(bFocusActive && Book)
     {
-        const auto* Pawn=RuntimePawn();
-        const auto* Focus=Pawn?Pawn->FindComponentByClass<USpellbookComponent>():nullptr;
-        if(Focus&&Focus->IsFocusEmpowered())
-        {
-            const auto Data=CombatItemFormula::ReadOnly(*Book);
-            const TSharedPtr<FJsonObject>* Effects=nullptr;
-            if(Data&&Data->TryGetObjectField(TEXT("focusEffects"),Effects))
-                (*Effects)->TryGetNumberField(TEXT("manaCostMultiplier"),FocusCost);
-        }
+        const auto Data=CombatItemFormula::ReadOnly(*Book);
+        const TSharedPtr<FJsonObject>* Effects=nullptr;
+        if(Data&&Data->TryGetObjectField(TEXT("focusEffects"),Effects))
+            (*Effects)->TryGetNumberField(TEXT("manaCostMultiplier"),FocusCost);
     }
 
     // EquipmentBonus already multiplies item factors with a 50% per-item cap.
@@ -70,5 +89,8 @@ float UColdSteelStatusModel::AdjustedManaCost(float Cost,bool bApplyFocus) const
     const double Multiplier=(Aurora?Aurora->Bow.ManaCost:1.)*Equipment*FMath::Max(0.,1.+StaffCost)
         *FMath::Max(0.,1.+ChainCost)*FMath::Max(0.,double(Rune.MagicCost))
         *FMath::Max(0.,FocusCost);
+    CachedManaMultChain[SlotIdx]=Chain;
+    CachedManaMultFocus[SlotIdx]=bFocusActive;
+    CachedManaMultiplier[SlotIdx]=Multiplier;
     return float(ColdSteelResourceCost::Apply(Cost,Multiplier));
 }

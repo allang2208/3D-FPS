@@ -27,5 +27,7 @@ private:
     TSharedPtr<FStreamableHandle> Load;
     double LastNeeded = 0.;
     bool bReduced = false;
+    bool bRTVisible = true;
     void ReducePoseWork(bool bReduce);
+    void UpdateRayTracingVisibility(bool bVisible);
 };

@@ -24,7 +24,7 @@ float2 key0=base+(upper?1.:0.);
 float3 weight=upper?float3(f.x+f.y-1.,1.-f.y,1.-f.x):float3(1.-f.x-f.y,f.x,f.y);
 weight*=weight;
 weight/=dot(weight,1.);
-float farMix=smoothstep(3800.,7200.,distance(P,Eye));
+float farMix=smoothstep(2200.,4200.,distance(P,Eye));
 float3 color=0,normal=0;
 float4 data=0;
 [branch] if(farMix<.999)

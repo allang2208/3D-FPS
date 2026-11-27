@@ -12,6 +12,7 @@
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
+#include "HAL/IConsoleManager.h"
 #include "TimerManager.h"
 #include "Materials/MaterialInterface.h"
 #include "NiagaraComponent.h"
@@ -114,6 +115,7 @@ void ABronzeTorch::BeginPlay()
     // 出生瞬间直接取目标状态：进关卡时不该先看到 6 秒的淡入。
     IgnitionAmount = ShouldBeLitNow() ? 1.0f : 0.0f;
     ApplyVisuals(0.0f);
+    UpdateTorchShadowBudget();
 }
 
 void ABronzeTorch::ApplyComponentOffsets()
@@ -144,7 +146,12 @@ void ABronzeTorch::ApplyComponentOffsets()
         TorchLight->SetSourceRadius(6.0f);
         TorchLight->SetSoftSourceRadius(8.0f);
         TorchLight->SetSpecularScale(SceneSpecularScale);
-        TorchLight->SetVolumetricScatteringIntensity(0.08f);
+        TorchLight->SetVolumetricScatteringIntensity(bLightCastsShadows ? 0.04f : 0.0f);
+        if (TorchLight->MaxDrawDistance <= 0.0f)
+        {
+            TorchLight->SetMaxDrawDistance(4500.0f);
+            TorchLight->SetMaxDistanceFadeRange(600.0f);
+        }
     }
 }
 
@@ -227,6 +234,7 @@ void ABronzeTorch::Tick(float DeltaSeconds)
         WokeAt = -1.;
     }
     RefreshClock(DeltaSeconds);
+    UpdateTorchShadowBudget();
 
     const bool bTargetLit = ShouldBeLitNow();
     if (IgnitionBlendSeconds > KINDA_SMALL_NUMBER)
@@ -362,6 +370,35 @@ void ABronzeTorch::ApplyVisuals(float DeltaSeconds)
     }
 }
 
+void ABronzeTorch::UpdateTorchShadowBudget()
+{
+    if (ManagesOwnShadowBudget() || bInteriorLightingManaged || !TorchLight || GetNetMode() == NM_DedicatedServer) return;
+    UWorld* World = GetWorld();
+    if (!World) return;
+    const double Now = World->GetTimeSeconds();
+    if (NextTorchBudgetCheck >= 0. && Now < NextTorchBudgetCheck) return;
+    NextTorchBudgetCheck = Now + 0.5;
+
+    static const auto* CVarShadowDist = IConsoleManager::Get().FindConsoleVariable(TEXT("fps.Hills.RoadLampShadowDistCm"));
+    const float ShadowDistCm = CVarShadowDist ? CVarShadowDist->GetFloat() : 2200.f;
+    bool bWantShadow = bLightCastsShadows;
+    if (bLightCastsShadows && ShadowDistCm > 0.f)
+    {
+        bool bHasView = false;
+        const double Range = VillagePresentationView::Distance(*World, GetActorLocation(), 0., &bHasView);
+        const double Cutoff = bTorchShadowBudgetActive ? (double(ShadowDistCm) + 400.) : double(ShadowDistCm);
+        bWantShadow = bHasView && Range <= Cutoff;
+    }
+
+    if (bWantShadow != bTorchShadowBudgetActive || TorchLight->CastShadows != (bWantShadow ? 1u : 0u))
+    {
+        bTorchShadowBudgetActive = bWantShadow;
+        TorchLight->SetCastShadows(bWantShadow);
+        TorchLight->SetCastVolumetricShadow(false);
+        TorchLight->SetVolumetricScatteringIntensity(bWantShadow ? 0.03f : 0.0f);
+    }
+}
+
 void ABronzeTorch::SetLit(bool bLit)
 {
     bAutomaticIgnition = false;
@@ -372,13 +409,17 @@ void ABronzeTorch::SetLit(bool bLit)
 void ABronzeTorch::ConfigureSceneLight(float Lumens,float RadiusCm,bool bShadows)
 {
     LightLumens=Lumens;LightRadiusCm=RadiusCm;bLightCastsShadows=bShadows;
+    bInteriorLightingManaged=false;
+    NextTorchBudgetCheck=-1.;
     TorchLight->SetAttenuationRadius(LightRadiusCm);
     TorchLight->SetCastShadows(bLightCastsShadows);
     TorchLight->SetIntensity(LightLumens*IgnitionAmount);
+    UpdateTorchShadowBudget();
 }
 
 void ABronzeTorch::ConfigureShopInterior(UNiagaraSystem* InteriorFlame)
 {
+    bInteriorLightingManaged = true;
     LightColor = UVillageInteriorLighting::GlowTint();
     LightLumens = UVillageInteriorLighting::FullLumens();
     LightRadiusCm = UStaffIlluminationProfile::RadiusCm;

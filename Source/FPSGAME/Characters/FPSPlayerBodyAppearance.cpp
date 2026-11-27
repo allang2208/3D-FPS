@@ -12,14 +12,39 @@
 #include "Components/SkeletalMeshComponent.h"
 #include "Components/LODSyncComponent.h"
 #include "Engine/AssetManager.h"
+#include "Engine/Engine.h"
 #include "Engine/GameInstance.h"
 #include "Engine/SkeletalMesh.h"
 #include "Engine/StreamableManager.h"
+#include "EngineUtils.h"
 #include "GroomComponent.h"
 #include "GroomAsset.h"
 #include "GroomBindingAsset.h"
+#include "HAL/IConsoleManager.h"
 #include "Materials/MaterialInterface.h"
+#include "NiagaraComponent.h"
 #include "Dom/JsonObject.h"
+
+namespace FPSBodyAppearanceCVars
+{
+static int32 GFirstPersonHideGrooms = 1;
+static void OnFirstPersonHideGroomsChanged(IConsoleVariable* /*Variable*/)
+{
+    if(!GEngine)return;
+    for(const FWorldContext& Context:GEngine->GetWorldContexts())
+        if(UWorld* World=Context.World())
+            for(TActorIterator<AFPSGAMECharacter> It(World);It;++It)
+                if(auto* Body=It->FindComponentByClass<UFPSPlayerBodyComponent>())
+                    Body->ApplyWorldBodyShadow();
+}
+static FAutoConsoleVariableRef CVarFirstPersonHideGrooms(
+    TEXT("fps.body.FirstPersonHideGrooms"),
+    GFirstPersonHideGrooms,
+    TEXT("1 = disable local first-person head groom rendering, shadow, ray tracing and Niagara simulation (default).\n")
+    TEXT("0 = keep first-person head grooms active for A/B testing."),
+    FConsoleVariableDelegate::CreateStatic(&OnFirstPersonHideGroomsChanged),
+    ECVF_Default);
+}
 
 namespace FPSBodyAppearance
 {
@@ -389,12 +414,12 @@ void UFPSPlayerBodyComponent::UpdateAppearanceVisibility()
         UpdateHeadEquipment(HeadEquipmentDefinition);
     const auto* Body=GetBodyMesh();if(!Body)return;
     const bool Visible=Body->IsVisible()&&!Body->bHiddenInGame;
+    const bool HideHead=Body->bOwnerNoSee||((IsDeathViewActive()||UHorseRiderComponent::IsRiding(Character.Get()))&&!IsThirdPersonViewEnabled());
+    const bool bSuppressLocalFirstPersonGrooms=HideHead&&Character.IsValid()&&Character->IsLocallyControlled()&&FPSBodyAppearanceCVars::GFirstPersonHideGrooms!=0;
     TArray<UPrimitiveComponent*> Parts;if(HeadMesh)Parts.Add(HeadMesh);
     if(HeadEquipment)Parts.Add(HeadEquipment);
-    for(auto Groom:HeadGrooms)if(Groom)Parts.Add(Groom);
     for(auto* Part:Parts)
     {
-        const bool HideHead=Body->bOwnerNoSee||((IsDeathViewActive()||UHorseRiderComponent::IsRiding(Character.Get()))&&!IsThirdPersonViewEnabled());
         FPSBodyEquipment::ApplyOwnerVisibilityFlags(Part,false,HideHead);
         FPSBodyEquipment::ApplyShadowFlags(Part,ShouldWorldBodyCastShadow()&&!bInitialAppearancePending);
         const bool PartVisible=Visible&&!(bHeadEquipmentCoversHair&&Part->ComponentHasTag(TEXT("HeadScalpHair")));
@@ -402,9 +427,45 @@ void UFPSPlayerBodyComponent::UpdateAppearanceVisibility()
         if(Part->bHiddenInGame==PartVisible)Part->SetHiddenInGame(!PartVisible);
         if(auto* Dynamic=Cast<UFPSHeadEquipmentMeshComponent>(Part))
             Dynamic->SetDynamicsVisible(PartVisible&&(!HideHead||!Character.IsValid()||!Character->IsLocallyControlled()||ShouldWorldBodyCastShadow()));
-        // UE 5.8 pauses/resets groom Niagara on visibility transitions. Keep
-        // native per-group physics; SetEnableSimulation requires full overrides
-        // and otherwise only logs a warning without changing the simulation.
+    }
+    for(auto Groom:HeadGrooms)
+    {
+        if(!Groom)continue;
+        const bool bGroomVisible=Visible&&!bSuppressLocalFirstPersonGrooms&&!(bHeadEquipmentCoversHair&&Groom->ComponentHasTag(TEXT("HeadScalpHair")));
+        FPSBodyEquipment::ApplyOwnerVisibilityFlags(Groom,false,HideHead);
+        FPSBodyEquipment::ApplyShadowFlags(Groom,!bSuppressLocalFirstPersonGrooms&&ShouldWorldBodyCastShadow()&&!bInitialAppearancePending);
+        if(Groom->bVisibleInRayTracing!=bGroomVisible)
+        {
+            Groom->bVisibleInRayTracing=bGroomVisible;
+            Groom->MarkRenderStateDirty();
+        }
+        if(Groom->IsVisible()!=bGroomVisible)Groom->SetVisibility(bGroomVisible);
+        if(Groom->bHiddenInGame==bGroomVisible)Groom->SetHiddenInGame(!bGroomVisible);
+        if(!bGroomVisible)
+        {
+            for(uint32 Group=0,Count=Groom->GetGroupCount();Group<Count;++Group)
+                if(UNiagaraComponent* NC=Groom->GetNiagaraComponent(static_cast<int32>(Group)))
+                {
+                    if(NC->IsActive())NC->DeactivateImmediate();
+                    if(NC->IsComponentTickEnabled())NC->SetComponentTickEnabled(false);
+                }
+            if(Groom->IsComponentTickEnabled())Groom->SetComponentTickEnabled(false);
+        }
+        else
+        {
+            const bool bWasSuppressed=!Groom->IsComponentTickEnabled();
+            if(bWasSuppressed)Groom->SetComponentTickEnabled(true);
+            if(bWasSuppressed&&Groom->ComponentHasTag(TEXT("BodyHairSimulation")))
+            {
+                for(uint32 Group=0,Count=Groom->GetGroupCount();Group<Count;++Group)
+                    if(UNiagaraComponent* NC=Groom->GetNiagaraComponent(static_cast<int32>(Group)))
+                    {
+                        NC->SetComponentTickEnabled(true);
+                        if(!NC->IsActive())NC->Activate(/*bReset=*/true);
+                    }
+                Groom->ResetSimulation();
+            }
+        }
     }
     if(HeadMesh)HeadMesh->VisibilityBasedAnimTickOption=Body->VisibilityBasedAnimTickOption;
 }

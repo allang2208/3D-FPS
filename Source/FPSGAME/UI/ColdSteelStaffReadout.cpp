@@ -113,6 +113,8 @@ void UColdSteelAmmoReadout::NativeDestruct()
 
 void UColdSteelAmmoReadout::SetStaffVisible(bool Visible)
 {
+    if(LastStaffVisible.IsSet()&&LastStaffVisible.GetValue()==Visible)return;
+    LastStaffVisible=Visible;
     StaffDetails->SetVisibility(Visible?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
     StaffMagicRow->SetVisibility(Visible?ESlateVisibility::HitTestInvisible:ESlateVisibility::Collapsed);
     if(!Visible)UpdateStaffMagicIcon(NAME_None,FString());
@@ -120,26 +122,25 @@ void UColdSteelAmmoReadout::SetStaffVisible(bool Visible)
 
 void UColdSteelAmmoReadout::PresentStaff(const FColdSteelItem& Staff,const UColdSteelStatusModel& Model,const AFPSGAMECharacter* Character,bool bHasOffhand)
 {
-    using ColdSteelStaffReadoutUI::Set;
     const auto Readout=Model.StaffManaReadout(Character);
     const FName SelectedSkill=Model.SelectedMagicSkill();
     const auto* Definition=Model.QuickSkillDefinition(SelectedSkill);
     const float Remaining=FMath::Max(0.f,Model.MagicCooldownRemaining(SelectedSkill));
-    Set(StaffMagicName,Definition?Definition->Name:TEXT("未选择魔法"));
-    Set(StaffMagicCooldown,Definition?FString::Printf(TEXT("%.1f s"),FMath::CeilToDouble(double(Remaining)*10.)/10.):TEXT("—"));
-    StaffMagicCooldown->SetColorAndOpacity(Remaining>0.f?ColdSteelUI::Warning:ColdSteelUI::TextSecondary);
+    SetTextIfChanged(StaffMagicName,Definition?Definition->Name:TEXT("未选择魔法"));
+    SetTextIfChanged(StaffMagicCooldown,Definition?FString::Printf(TEXT("%.1f s"),FMath::CeilToDouble(double(Remaining)*10.)/10.):TEXT("—"));
+    SetColorIfChanged(StaffMagicCooldown,Remaining>0.f?ColdSteelUI::Warning:ColdSteelUI::TextSecondary);
     UpdateStaffMagicIcon(Definition?SelectedSkill:NAME_None,Definition?Definition->Icon:FString());
     SetReserveStatusText(false);
-    Set(Weapon,(bHasOffhand?FString(TEXT("主手 · ")):FString())+ColdSteelInventory::Text(Staff,TEXT("name")));
-    Set(Calibre,SelectedSkill.IsNone()?TEXT("左键挥杖 · 长按 R 选择魔法"):TEXT("左键施法 · 长按 R 切换魔法"));
-    Set(MagazineLabel,TEXT("魔法"));Set(ReserveLabel,TEXT("每秒恢复"));
-    Set(Current,Readout.bInfinite?TEXT("∞ / ∞"):FString::Printf(TEXT("%.0f / %.0f"),FMath::FloorToDouble(Readout.Current),Readout.Maximum));
-    Current->SetColorAndOpacity(Readout.bInfinite?ColdSteelUI::TextPrimary:Readout.Current<=0.f?ColdSteelUI::Danger:
+    SetTextIfChanged(Weapon,(bHasOffhand?FString(TEXT("主手 · ")):FString())+ColdSteelInventory::Text(Staff,TEXT("name")));
+    SetTextIfChanged(Calibre,SelectedSkill.IsNone()?TEXT("左键挥杖 · 长按 R 选择魔法"):TEXT("左键施法 · 长按 R 切换魔法"));
+    SetTextIfChanged(MagazineLabel,TEXT("魔法"));SetTextIfChanged(ReserveLabel,TEXT("每秒恢复"));
+    SetTextIfChanged(Current,Readout.bInfinite?TEXT("∞ / ∞"):FString::Printf(TEXT("%.0f / %.0f"),FMath::FloorToDouble(Readout.Current),Readout.Maximum));
+    SetColorIfChanged(Current,Readout.bInfinite?ColdSteelUI::TextPrimary:Readout.Current<=0.f?ColdSteelUI::Danger:
         Readout.Current<=Readout.Maximum*.2f?ColdSteelUI::Warning:ColdSteelUI::TextPrimary);
-    Set(Spare,FString::Printf(TEXT("%.2f"),Readout.RecoveryPerSecond));
-    Spare->SetColorAndOpacity(ColdSteelUI::TextSecondary);
-    Set(CooldownValue,FString::Printf(TEXT("%.1f%%"),Readout.CooldownReductionPercent));
-    CooldownValue->SetColorAndOpacity(ColdSteelUI::TextPrimary);
+    SetTextIfChanged(Spare,FString::Printf(TEXT("%.2f"),Readout.RecoveryPerSecond));
+    SetColorIfChanged(Spare,ColdSteelUI::TextSecondary);
+    SetTextIfChanged(CooldownValue,FString::Printf(TEXT("%.1f%%"),Readout.CooldownReductionPercent));
+    SetColorIfChanged(CooldownValue,ColdSteelUI::TextPrimary);
     const bool StatusText=Readout.bRecoveryPaused||Readout.bRecoveryDisabled;
     if(bRecoveryStatusText!=StatusText)
     {
@@ -147,18 +148,17 @@ void UColdSteelAmmoReadout::PresentStaff(const FColdSteelItem& Staff,const UCold
         const float S=ColdSteelUI::PixelScale(this);
         RecoveryValue->SetFont(StatusText?ColdSteelUI::TextFont(16*.75f/S):ColdSteelUI::NumberFont(24*.75f/S));
     }
-    if(Readout.bRecoveryPaused)Set(RecoveryValue,TEXT("暂停恢复"));
-    else if(Readout.bRecoveryDisabled)Set(RecoveryValue,TEXT("不恢复"));
-    else Set(RecoveryValue,FString::Printf(TEXT("%.1f s"),FMath::CeilToDouble(double(Readout.FullRecoverySeconds)*10.)/10.));
-    RecoveryValue->SetColorAndOpacity(Readout.bRecoveryDisabled?ColdSteelUI::Warning:ColdSteelUI::TextSecondary);
+    if(Readout.bRecoveryPaused)SetTextIfChanged(RecoveryValue,TEXT("暂停恢复"));
+    else if(Readout.bRecoveryDisabled)SetTextIfChanged(RecoveryValue,TEXT("不恢复"));
+    else SetTextIfChanged(RecoveryValue,FString::Printf(TEXT("%.1f s"),FMath::CeilToDouble(double(Readout.FullRecoverySeconds)*10.)/10.));
+    SetColorIfChanged(RecoveryValue,Readout.bRecoveryDisabled?ColdSteelUI::Warning:ColdSteelUI::TextSecondary);
 }
 
 void UColdSteelAmmoReadout::PresentSpellbook(const FColdSteelItem& Book,const UColdSteelStatusModel& Model,const AFPSGAMECharacter* Character)
 {
-    using ColdSteelStaffReadoutUI::Set;
     const auto Readout=Model.SpellbookReadout(Character);
     const bool Empowered=Readout.State==EColdSteelFocusReadout::Empowered;
-    Set(OffhandName,TEXT("副手 · ")+ColdSteelInventory::Text(Book,TEXT("name")));
+    SetTextIfChanged(OffhandName,TEXT("副手 · ")+ColdSteelInventory::Text(Book,TEXT("name")));
     FString Status;
     switch(Readout.State)
     {
@@ -168,13 +168,13 @@ void UColdSteelAmmoReadout::PresentSpellbook(const FColdSteelItem& Book,const UC
         case EColdSteelFocusReadout::Interrupted:Status=TEXT("专注已中断 · 效果已结束");break;
         default:Status=TEXT("右键进入专注 · 专注效果预览");break;
     }
-    Set(OffhandCalibre,Status);
-    OffhandCalibre->SetColorAndOpacity(Empowered?ColdSteelUI::HUDGold:ColdSteelUI::TextSecondary);
-    Set(OffhandMagazineLabel,TEXT("专注施法速度"));Set(OffhandReserveLabel,TEXT("专注魔法消耗"));
-    Set(OffhandAmmo,FString::Printf(TEXT("%.2f×"),Readout.CastSpeedMultiplier));
-    Set(OffhandSpare,FString::Printf(TEXT("%.0f%%"),Readout.ManaCostMultiplier*100.f));
-    OffhandAmmo->SetColorAndOpacity(Empowered?ColdSteelUI::TextPrimary:ColdSteelUI::TextSecondary);
-    OffhandSpare->SetColorAndOpacity(Empowered?ColdSteelUI::TextPrimary:ColdSteelUI::TextSecondary);
-    Set(FocusEffects,FString::Printf(TEXT("移动速度为 %.0f%%\n受击中断并失去 %.0f%% 最大魔法"),
+    SetTextIfChanged(OffhandCalibre,Status);
+    SetColorIfChanged(OffhandCalibre,Empowered?ColdSteelUI::HUDGold:ColdSteelUI::TextSecondary);
+    SetTextIfChanged(OffhandMagazineLabel,TEXT("专注施法速度"));SetTextIfChanged(OffhandReserveLabel,TEXT("专注魔法消耗"));
+    SetTextIfChanged(OffhandAmmo,FString::Printf(TEXT("%.2f×"),Readout.CastSpeedMultiplier));
+    SetTextIfChanged(OffhandSpare,FString::Printf(TEXT("%.0f%%"),Readout.ManaCostMultiplier*100.f));
+    SetColorIfChanged(OffhandAmmo,Empowered?ColdSteelUI::TextPrimary:ColdSteelUI::TextSecondary);
+    SetColorIfChanged(OffhandSpare,Empowered?ColdSteelUI::TextPrimary:ColdSteelUI::TextSecondary);
+    SetTextIfChanged(FocusEffects,FString::Printf(TEXT("移动速度为 %.0f%%\n受击中断并失去 %.0f%% 最大魔法"),
         Readout.MovementMultiplier*100.f,Readout.InterruptMaxManaFraction*100.f));
 }

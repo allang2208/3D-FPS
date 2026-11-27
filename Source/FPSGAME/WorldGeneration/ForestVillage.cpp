@@ -3,6 +3,9 @@
 #include "AI/NavigationSystemBase.h"
 #include "ForestVillageRelief.h"
 #include "ForestVillageRegion.h"
+#include "VillageDistantGlow.h"
+#include "VillageInteriorLighting.h"
+#include "VillagePresentationView.h"
 #include "RiverPilotFXSubsystem.h"
 #include "TemperateHillsChapel.h"
 #include "TemperateHillsGroundLayers.h"
@@ -11,6 +14,7 @@
 #include "../UI/TransitLoadingSubsystem.h"
 #include "Components/BoxComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
+#include "Components/PointLightComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/SkeletalMesh.h"
 #include "TemperateHillsSurface.h"
@@ -91,6 +95,14 @@ bool ATemperateHillsWorld::LoadVillageSettlement()
         VillageSite.Ground.X,VillageSite.Ground.Y,VillageSite.Axis.X,VillageSite.Axis.Y));
     Level->OnLevelShown.AddDynamic(this,&ATemperateHillsWorld::BindStreamedVillageBuildings);
     if(Level->IsLevelVisible()) BindStreamedVillageBuildings();
+    if(GetNetMode()!=NM_DedicatedServer && VillageSite.bPlaced && !VillageDistantGlow)
+    {
+        VillageDistantGlow=NewObject<UVillageDistantGlowComponent>(this,TEXT("VillageDistantGlow"));
+        AddInstanceComponent(VillageDistantGlow);
+        VillageDistantGlow->SetupAttachment(RootComponent);
+        VillageDistantGlow->RegisterComponent();
+        VillageDistantGlow->InitializeForSite(VillageSite,[this](double X,double Y){ return Height(X,Y); });
+    }
     AssembleOldChapel();
     UpdateMechanicalWorkshop();
     return true;
@@ -195,12 +207,40 @@ void ATemperateHillsWorld::TickForestVillage()
                     }
                     if(!Canopy && !Mesh->GetName().StartsWith(TEXT("SM_CommonHazel_Forest_"))) continue;
                     const int32 End=Canopy?36000:16000;
-                    Part->SetWorldPositionOffsetDisableDistance(Canopy?8000:4000);
+                    Part->SetWorldPositionOffsetDisableDistance(Canopy?3500:2200);
                     Part->SetEvaluateWorldPositionOffsetInRayTracing(false);
+                    Part->ShadowCacheInvalidationBehavior=EShadowCacheInvalidationBehavior::Rigid;
                     if(!Canopy) Part->SetVisibleInRayTracing(false);
                     if(Part->InstanceEndCullDistance==0 || Part->InstanceEndCullDistance>End)
                         Part->SetCullDistances(End*3/4,End);
                 }
+        for(auto* Part:TInlineComponentArray<UInstancedStaticMeshComponent*>(S.ForestRegion.Get()))
+        {
+            const UStaticMesh* Mesh=Part?Part->GetStaticMesh():nullptr;
+            if(!Mesh) continue;
+            const FString MeshName=Mesh->GetName();
+            const bool Canopy=MeshName.StartsWith(TEXT("SM_EuropeanHornbeam_Forest_"));
+            const bool Hazel=MeshName.StartsWith(TEXT("SM_CommonHazel_Forest_"));
+            if(Canopy || Hazel)
+            {
+                const int32 WpoCap=Canopy?3500:2200;
+                if(Part->WorldPositionOffsetDisableDistance==0 || Part->WorldPositionOffsetDisableDistance>WpoCap)
+                    Part->SetWorldPositionOffsetDisableDistance(WpoCap);
+                Part->SetEvaluateWorldPositionOffsetInRayTracing(false);
+                Part->ShadowCacheInvalidationBehavior=EShadowCacheInvalidationBehavior::Rigid;
+                if(Hazel)
+                {
+                    Part->SetVisibleInRayTracing(false);
+                    if(Part->InstanceEndCullDistance==0 || Part->InstanceEndCullDistance>16000)
+                        Part->SetCullDistances(12000,16000);
+                }
+            }
+            else if(!Part->CastShadow)
+            {
+                Part->SetEvaluateWorldPositionOffsetInRayTracing(false);
+                Part->SetVisibleInRayTracing(false);
+            }
+        }
         ForestWaterPlan=S.ForestRegion->GetWoodlandWater();
         if(!ForestWaterPlan->Pools.IsEmpty() && GetNetMode()!=NM_DedicatedServer)
             if(auto* FX=GetWorld()->GetSubsystem<URiverPilotFXSubsystem>())

@@ -43,7 +43,10 @@ private:
     FFPSRobeHemEnvelope HemEnvelope;
     FFPSRobeStairSections BodyInner, BootInner;
     bool bAppearanceReady=false;
+    bool bCoreHairActive=true;
     bool bLooseHairActive=true;
+    bool bBodyRTVisible=true;
+    bool bBodyURO=false;
     TRefCountPtr<FRefCountedObject> BudgetedCoreGroup;
     int32 CoreHairTier=INDEX_NONE;
     FResidentConversationFacing ConversationFacing;

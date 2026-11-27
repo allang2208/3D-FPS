@@ -79,6 +79,21 @@
 #include "ColdSteelHUDPrivate.h"
 using namespace ColdSteelHUDPrivate;
 
+namespace
+{
+    struct FColdSteelTimelineVisualCache
+    {
+        FString MarkerTime, ToolTip, IconFile, WindowText, AllFilterText, WeatherFilterText;
+        bool bHasIcon = false;
+        bool bHasBrush = false;
+        bool bStormBrush = false;
+        bool bFilterInit = false;
+        bool bFilterWeather = false;
+        float FilterScale = 0.f;
+    };
+    static TMap<TWeakObjectPtr<UColdSteelHUDWidget>, FColdSteelTimelineVisualCache> GTimelineVisualCache;
+}
+
 void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
 {
     if (FParse::Param(FCommandLine::Get(), TEXT("EventTimelineUIAudit")))
@@ -254,28 +269,68 @@ void UColdSteelHUDWidget::RefreshEventTimeline(bool bForce)
                     : FString::Printf(TEXT("%.1f 天后"), GameHours / 24.0f);
             }
 
-            TimelineMarkerTimeText->SetText(FText::FromString(TimeLabel));
-            ColdSteelToolTip::Set(*TimelineMarkerButton, FText::FromString(FString::Printf(TEXT("%s\n%s · 持续 %s\n%s 至 %s\n%s · 点击查看完整预报"),
-                *TimelineEventLabel, *TimelineIntensityLabel, *TimelineDurationLabel, *TimelineStartLabel, *TimelineEndLabel,
-                bTimelineEventActive ? TEXT("正在发生") : TEXT("即将发生"))));
-            if (UTexture2D* EventTexture = LoadUiTexture(WeatherIconFile(DisplayState)))
+            if(GTimelineVisualCache.Num()>4)
+                for(auto It=GTimelineVisualCache.CreateIterator();It;++It)
+                    if(!It.Key().IsValid())It.RemoveCurrent();
+            auto& VisCache=GTimelineVisualCache.FindOrAdd(this);
+            if(bForce||VisCache.MarkerTime!=TimeLabel)
             {
-                TimelineMarkerImage->SetBrushFromTexture(EventTexture, true);
+                VisCache.MarkerTime=TimeLabel;
+                TimelineMarkerTimeText->SetText(FText::FromString(TimeLabel));
             }
-            TimelineEventLine->SetBrush(ColdSteelUI::RoundedBrush(bTimelineContainsStorm ? TimelineCriticalColor : TimelineWeatherColor, 0.0f, FLinearColor::Transparent, 0.0f));
+            const FString TipStr=FString::Printf(TEXT("%s\n%s · 持续 %s\n%s 至 %s\n%s · 点击查看完整预报"),
+                *TimelineEventLabel, *TimelineIntensityLabel, *TimelineDurationLabel, *TimelineStartLabel, *TimelineEndLabel,
+                bTimelineEventActive ? TEXT("正在发生") : TEXT("即将发生"));
+            if(bForce||VisCache.ToolTip!=TipStr)
+            {
+                VisCache.ToolTip=TipStr;
+                ColdSteelToolTip::Set(*TimelineMarkerButton, FText::FromString(TipStr));
+            }
+            const FString IconFile=WeatherIconFile(DisplayState);
+            if(bForce||!VisCache.bHasIcon||VisCache.IconFile!=IconFile)
+            {
+                if(UTexture2D* EventTexture = LoadUiTexture(IconFile))
+                {
+                    TimelineMarkerImage->SetBrushFromTexture(EventTexture, true);
+                    VisCache.IconFile=IconFile;
+                    VisCache.bHasIcon=true;
+                }
+            }
+            if(bForce||!VisCache.bHasBrush||VisCache.bStormBrush!=bTimelineContainsStorm)
+            {
+                VisCache.bHasBrush=true;
+                VisCache.bStormBrush=bTimelineContainsStorm;
+                TimelineEventLine->SetBrush(ColdSteelUI::RoundedBrush(bTimelineContainsStorm ? TimelineCriticalColor : TimelineWeatherColor, 0.0f, FLinearColor::Transparent, 0.0f));
+            }
         }
     }
 
+    if(GTimelineVisualCache.Num()>4)
+        for(auto It=GTimelineVisualCache.CreateIterator();It;++It)
+            if(!It.Key().IsValid())It.RemoveCurrent();
+    auto& VisCache=GTimelineVisualCache.FindOrAdd(this);
     const int32 EventCount = bTimelineHasEvent ? 1 : 0;
-    TimelineWindowText->SetText(FText::FromString(bTimelineWeatherFilter
+    const FString WindowStr = bTimelineWeatherFilter
         ? FString::Printf(TEXT("未来5日 · 显示%d/%d个事件"), EventCount, EventCount)
-        : FString::Printf(TEXT("未来5日 · %d个事件"), EventCount)));
-    TimelineAllFilterText->SetText(FText::FromString(FString::Printf(TEXT("全部 %d"), EventCount)));
-    TimelineWeatherFilterText->SetText(FText::FromString(FString::Printf(TEXT("天气 %d"), EventCount)));
-    UpdateEventTimelineFilterButtons();
-    TimelineMarkerButton->SetVisibility(bTimelineHasEvent ? ESlateVisibility::Visible : ESlateVisibility::Collapsed);
-    TimelineEventLine->SetVisibility(bTimelineHasEvent ? ESlateVisibility::HitTestInvisible : ESlateVisibility::Collapsed);
-    if (!bTimelineHasEvent) SetTimelineDetailsOpen(false);
+        : FString::Printf(TEXT("未来5日 · %d个事件"), EventCount);
+    if(bForce||VisCache.WindowText!=WindowStr){VisCache.WindowText=WindowStr;TimelineWindowText->SetText(FText::FromString(WindowStr));}
+    const FString AllStr = FString::Printf(TEXT("全部 %d"), EventCount);
+    if(bForce||VisCache.AllFilterText!=AllStr){VisCache.AllFilterText=AllStr;TimelineAllFilterText->SetText(FText::FromString(AllStr));}
+    const FString WeatherStr = FString::Printf(TEXT("天气 %d"), EventCount);
+    if(bForce||VisCache.WeatherFilterText!=WeatherStr){VisCache.WeatherFilterText=WeatherStr;TimelineWeatherFilterText->SetText(FText::FromString(WeatherStr));}
+    const float CurrentScale=ColdSteelUI::PixelScale(this);
+    if(bForce||!VisCache.bFilterInit||VisCache.bFilterWeather!=bTimelineWeatherFilter||!FMath::IsNearlyEqual(VisCache.FilterScale,CurrentScale,1e-4f))
+    {
+        VisCache.bFilterInit=true;
+        VisCache.bFilterWeather=bTimelineWeatherFilter;
+        VisCache.FilterScale=CurrentScale;
+        UpdateEventTimelineFilterButtons();
+    }
+    const ESlateVisibility MarkerVis = bTimelineHasEvent ? ESlateVisibility::Visible : ESlateVisibility::Collapsed;
+    if(TimelineMarkerButton->GetVisibility()!=MarkerVis)TimelineMarkerButton->SetVisibility(MarkerVis);
+    const ESlateVisibility LineVis = bTimelineHasEvent ? ESlateVisibility::HitTestInvisible : ESlateVisibility::Collapsed;
+    if(TimelineEventLine->GetVisibility()!=LineVis)TimelineEventLine->SetVisibility(LineVis);
+    if (!bTimelineHasEvent && bTimelineDetailsOpen) SetTimelineDetailsOpen(false);
 
     const FString NewSignature = FString::Printf(TEXT("%d|%d|%d|%s|%s|%s|%s|%s"), bTimelineHasEvent, bTimelineEventActive,
         bTimelineContainsStorm, *TimelineEventLabel, *TimelineStartLabel, *TimelineEndLabel, *TimelineWarningLabel, *TimelineIntensityLabel);
@@ -339,6 +394,7 @@ void UColdSteelHUDWidget::RebuildEventDetails()
 
 void UColdSteelHUDWidget::ApplyEventTimelineAuditFixture()
 {
+    GTimelineVisualCache.Remove(this);
     bTimelineHasEvent = true;
     bTimelineEventActive = false;
     bTimelineManual = false;

@@ -21,3 +21,5 @@ description: FPSGAME 户外地编构建入口，用于丘陵景观、道路景�
 - 改动村内地基、路肩和林床斑块，见[村内改址与林床点缀](../_shared/ue5-landscape-authoring/references/terrain-and-surfaces.md#村内改址与林床点缀)。按需参考[村庄交付复查](../../Docs/WorldGeneration/village-delivery-review-20261125.md)。
 
 修改扫描泥路的实物尺度和车辙裁剪，见[村外道路的扫描材质](../_shared/ue5-landscape-authoring/references/terrain-and-surfaces.md#村外道路的扫描材质)。迁移 Nanite、流送或核对客机树木与地面，见[迁移林图的渲染和联机预算](../_shared/ue5-landscape-authoring/references/ecology-and-atmosphere.md#迁移林图的渲染和联机预算)。
+
+丘陵/村庄预设质量 CVar 分级、VSM 阴影/灯具滞回预算、远景夜灯接地剪影及林带 ISM/骨骼性能优化规范，跨参[温带丘陵与村庄性能优化规范](../ue5-performance-packaging/references/hills-village-gpu-hud-perf.md)。

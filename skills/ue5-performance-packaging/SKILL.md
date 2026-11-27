@@ -7,6 +7,8 @@ description: UE5.6-UE5.8 performance budgeting, regression diagnosis, and packag
 
 **第一条（FPSGAME）　文件位置与引用路径。** 从当前工程的[制作目录与功能索引](../../Docs/Production/README.md)和[存储规则第 4.1 节](../../WORKFLOW.md#41-存储分配与文件操作边界)查找对应功能。先确定制作源、正式资产和输出目录，再创建或引入文件。工程 Content 资产用 `/Game/...` 包名引用，制作脚本从工程根或已配置的制作源根解析相对路径。交付时在同一功能条目登记实际位置、引用及备份状态。
 
+FPSGAME 的构建目标遵循[工程规则](../../AGENTS.md)。日常开发按需编译 `FPSGAMEEditor`，独立游戏 EXE 和打包仅在用户明确要求时执行。
+
 共用流程读取仓库发布快照：[ue5-performance-packaging](../_shared/ue5-performance-packaging/SKILL.md)，不要叠加旧镜像流程。 为什么：共用流程只维护一个来源，避免工程镜像与个人版本给出相互冲突的步骤。
 
 工程专属规则以当前 AGENTS.md、WORKFLOW.md 和本次用户要求为准。维护源不可用或需要查找未合入的工程经验时，读取[整理前工程资料](LOCAL-HISTORY.md)及原 references；其中历史测试与协调条款不构成执行授权。 为什么：当前用户授权决定操作范围，历史测试与协调记录不能自动成为新任务授权。
@@ -28,3 +30,7 @@ PIE、原工程与独立包性能对照，或资源不全/无怪但帧率更高�
 丘陵入场、自然 GC 后再次加入、导航批次和压草编译等待，读 [入场与 GC 资源生命周期](references/hills-entry-gc-and-join.md)。
 
 地图已经就绪但完整加载仍停在界面时，见[纹理预算与输入放行](../_shared/ue5-performance-packaging/references/entry-resource-preparation.md#纹理预算与输入放行)。
+
+## 温带丘陵与村庄 GPU / 光照 / 骨骼专项优化
+
+开放世界丘陵预设分级切换、关闭 CAS VRS、半分辨率局部体积雾与雾袋封顶、VSM 时钟步进与路灯/火把滞回阴影预算、远景接地夜灯剪影及 NPC/马匹 URO/RT 代理规范，读取[温带丘陵与村庄性能优化规范](references/hills-village-gpu-hud-perf.md)。

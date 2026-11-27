@@ -18,9 +18,13 @@ public:
 protected:
     virtual void PreRegisterAllComponents() override;
     virtual void BeginPlay() override;
+    virtual bool ManagesOwnShadowBudget() const override { return true; }
 
 private:
     void UpdateWick();
+    void UpdateShadowBudget(bool bForce = false);
     UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> Wick;
     float LastIgnition = -1.f;
+    bool bShadowBudgetActive = true;
+    double NextShadowBudgetAt = -1.;
 };

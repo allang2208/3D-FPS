@@ -36,6 +36,8 @@ private:
     bool bLeftForDeath = false;
     bool bRestoreActorTick = false;
     bool bRestoreMovementTick = false;
+    bool bRestoreMeshTick = true;
+    uint8 SavedAnimTickOption = 0;
     TWeakObjectPtr<UMonsterCombatComponent> PausedCombatTick;
     bool bRestoreAnimation = false;
     bool bRestoreControllerTick = false;

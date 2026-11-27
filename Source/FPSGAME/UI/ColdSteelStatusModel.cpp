@@ -18,20 +18,51 @@ float UColdSteelStatusModel::BerserkAttackSpeedMultiplier() const
     const auto* Status=CurrentPawn.IsValid()?CurrentPawn->FindComponentByClass<UCombatStatusFormula>():nullptr;
     return Status?Status->BerserkAttackSpeed():1.f;
 }
+UColdSteelStatusModel::FStatCacheKey UColdSteelStatusModel::MakeStatCacheKey() const
+{
+    FStatCacheKey Key;
+    Key.Version = StatCacheVersion;
+    Key.Generation = Current.Generation;
+    Key.Level = Current.Level;
+    Key.ActiveWeaponSlot = Current.ActiveWeaponSlot;
+    Key.ItemCount = Current.Items.Num();
+    Key.InfectionStage = static_cast<int32>(Current.Infection.Stage());
+    Key.bSanityDepleted = Current.Survival.IsSanityDepleted();
+    return Key;
+}
+void UColdSteelStatusModel::EnsureStatCacheFresh() const
+{
+    const FStatCacheKey NowKey = MakeStatCacheKey();
+    if (!(CachedStatKey == NowKey))
+    {
+        CachedStatKey = NowKey;
+        CachedEquipmentBonusMap.Reset();
+        CachedMaxHp = -1.0;
+        CachedMaxMp = -1.0;
+    }
+}
 double UColdSteelStatusModel::EquipmentBonus(FName Key) const
-{return EquipmentBonusFor(Current,Key);}
+{
+    EnsureStatCacheFresh();
+    if (const double* Cached = CachedEquipmentBonusMap.Find(Key)) return *Cached;
+    const double Val = EquipmentBonusFor(Current, Key);
+    CachedEquipmentBonusMap.Add(Key, Val);
+    return Val;
+}
 double UColdSteelStatusModel::EquipmentBonusFor(const FColdSteelProfile& State,FName Key)
 {
     double Sum=0,CostProduct=1;const FString Name=Key==TEXT("intt")?TEXT("int"):Key.ToString();
     const bool MultiplicativeCost=Key==TEXT("meleeStaminaCost")||Key==TEXT("magicCostPercent");
+    static const FString BonusFields[3]={TEXT("bonusStats"),TEXT("bonusPerEnhance"),TEXT("_enchantEffects")};
     for(const auto& Item:State.Items)if(Item.Place==1)
     {
         if(ColdSteelInventory::Text(Item,TEXT("weaponType"))==TEXT("shield")&&Item.Cell!=(State.ActiveWeaponSlot==6?8:11))continue;
         const auto O=CombatItemFormula::ReadOnly(Item);if(!O)continue;
         const double L=CombatItemFormula::EquipmentEnhancementLevel(O);
+        const double Scales[3]={1.,L,1.};
         double ItemBonus=0;
-        for(const auto& Pair:TArray<TPair<FString,double>>{{TEXT("bonusStats"),1},{TEXT("bonusPerEnhance"),L},{TEXT("_enchantEffects"),1}})
-        {const TSharedPtr<FJsonObject>* B=nullptr;double V=0;if(O->TryGetObjectField(Pair.Key,B)&&(*B)->TryGetNumberField(Name,V))ItemBonus+=V*Pair.Value;}
+        for(int32 Fi=0;Fi<3;++Fi)
+        {const TSharedPtr<FJsonObject>* B=nullptr;double V=0;if(O->TryGetObjectField(BonusFields[Fi],B)&&(*B)->TryGetNumberField(Name,V))ItemBonus+=V*Scales[Fi];}
         Sum+=ItemBonus;
         // Base, enhancement and enchantment add within one item. Different
         // items multiply remaining cost; each item can reduce at most 50%.
@@ -71,7 +102,7 @@ void UColdSteelStatusModel::SetSurvivalState(const FFPSSurvivalState& State,AAct
 {
     if(!Source||Source!=CurrentPawn.Get())return;
     const bool WasDepleted=Current.Survival.IsSanityDepleted();
-    Current.Survival=State;bTrainingDirty=true;
+    Current.Survival=State;bTrainingDirty=true;++StatCacheVersion;
     if(WasDepleted==Current.Survival.IsSanityDepleted())return;
     // Derived penalties never overwrite the allocated or equipped attributes.
     if(auto* Health=Source->FindComponentByClass<UFPSCombatHealthComponent>())
@@ -87,7 +118,7 @@ void UColdSteelStatusModel::SetSurvivalState(const FFPSSurvivalState& State,AAct
 }
 void UColdSteelStatusModel::SetInfectionState(const FInfectionState& State,bool bStageChanged)
 {
-    Current.Infection=State;
+    Current.Infection=State;++StatCacheVersion;
     bTrainingDirty=true; // Use the existing coalesced autosave; no per-tick disk writes.
     if(!bStageChanged)return;
     if(CurrentPawn.IsValid())if(auto* Health=CurrentPawn->FindComponentByClass<UFPSCombatHealthComponent>())
@@ -114,8 +145,18 @@ float UColdSteelStatusModel::Derived(FName Key) const
 {
     // These branches depend only on raw resources, not the full combat-stat tree.
     if (Key == TEXT("maxStamina")) return MaxStamina();
-    if (Key == TEXT("maxHp")) return ResourceMaximum(Current,false);
-    if (Key == TEXT("maxMp")) return ResourceMaximum(Current,true);
+    if (Key == TEXT("maxHp"))
+    {
+        EnsureStatCacheFresh();
+        if (CachedMaxHp < 0.0) CachedMaxHp = ResourceMaximum(Current, false);
+        return float(CachedMaxHp);
+    }
+    if (Key == TEXT("maxMp"))
+    {
+        EnsureStatCacheFresh();
+        if (CachedMaxMp < 0.0) CachedMaxMp = ResourceMaximum(Current, true);
+        return float(CachedMaxMp);
+    }
     if (Key == TEXT("hpRegen")) return (1+TributeEffect(TEXT("hpRegenFlat"))+DungeonEffect(TEXT("hpRegenFlat")))*TributeEffect(TEXT("hpRegenPercent"))*(1.+ActiveMountAura().PlayerHealthRegenBonus);
     auto Total=[&](FName Key){return Attribute(Key);};
     const CoreCombatFormula::Attributes A{Total(TEXT("str")),Total(TEXT("dex")),Total(TEXT("intt")),
