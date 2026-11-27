@@ -38,6 +38,7 @@ struct FBowArrowPresentation
     UPROPERTY() bool bFlameArmor=false;
     UPROPERTY() EArrowElement Element=EArrowElement::None;
     UPROPERTY() bool bIllumination=false;
+    UPROPERTY() bool bHeartPiercingArrow=false;
     UPROPERTY() bool bMountainEcho=false;
     UPROPERTY() TObjectPtr<UMaterialInterface> EchoMaterial=nullptr;
 };
@@ -152,6 +153,9 @@ private:
     UPROPERTY(ReplicatedUsing=OnRep_Presentation) FBowArrowPresentation Presentation;
     UFUNCTION() void OnRep_Presentation();
     UFUNCTION() void OnRep_Stuck();
+    void PlayRemotePiercingReleaseAudio();
+    bool bRemotePiercingReleaseSoundPlayed=false;
+    TSharedPtr<FStreamableHandle> PiercingAudioLoad;
 
     /** 无限备弹箭短暂保留，靠近可收走，但不返还真实库存。 */
     static constexpr float StickSeconds = 8.f;

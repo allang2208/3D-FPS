@@ -15,6 +15,7 @@
 #include "../Weapons/Staff/StaffWeaponComponent.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelUIAudio.h"
 #include "../Skills/FPSMagicArrowRainComponent.h"
 #include "../Skills/FPSElementalArrowComponent.h"
 #include "../Skills/FPSIlluminationArrowComponent.h"
@@ -590,6 +591,7 @@ FReply UColdSteelQuickSlot::NativeOnMouseButtonDown(const FGeometry&,const FPoin
     if(E.GetEffectingButton()!=EKeys::LeftMouseButton||!HUD.IsValid())return FReply::Unhandled();
     const auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(Model->QuickBinding(Index).IsEmpty())return FReply::Handled();
+    ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Slot);
     return FReply::Handled().CaptureMouse(TakeWidget()).DetectDrag(TakeWidget(),EKeys::LeftMouseButton);
 }
 FReply UColdSteelQuickSlot::NativeOnMouseButtonUp(const FGeometry&,const FPointerEvent&)
@@ -611,7 +613,17 @@ bool UColdSteelQuickSlot::NativeOnDrop(const FGeometry&,const FDragDropEvent&,UD
 {
     if(!FixedSkill.IsNone())return false;
     if(!HUD.IsValid())return false;
-    if(auto* D=Cast<UColdSteelQuickDrag>(Operation))return HUD->DropQuickDrag(D,Index);
-    if(auto* D=Cast<UColdSteelItemDrag>(Operation))return HUD->DropInventoryOnQuickBar(D,Index);
+    if(auto* D=Cast<UColdSteelQuickDrag>(Operation))
+    {
+        const bool bDropped=HUD->DropQuickDrag(D,Index);
+        if(bDropped)ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::SlotDrop);
+        return bDropped;
+    }
+    if(auto* D=Cast<UColdSteelItemDrag>(Operation))
+    {
+        const bool bDropped=HUD->DropInventoryOnQuickBar(D,Index);
+        if(bDropped)ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::SlotDrop);
+        return bDropped;
+    }
     return false;
 }

@@ -39,3 +39,5 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 新增村民对话、货架详情或排查无 RHI 的目录图标时，读[村民对话与商店预览](references/resident-dialogue-and-shop-previews.md)。
 
 名册卡片与并排装备详情参见[名册卡片与并排装备详情](references/roster-cards-and-equipment-detail.md)。
+
+全界面按钮、栏位、下拉与拖拽组件统一交互音效（视口隔离、隐藏焦点防误触与 FPS 战斗 O(1) 零遍历快返）参见[全界面交互音效规范](references/ui-audio-feedback.md)。

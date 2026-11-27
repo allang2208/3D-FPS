@@ -3,6 +3,7 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelUIAudio.h"
 #include "ColdSteelPlantingProgress.h"
 #include "Components/NativeWidgetHost.h"
 #include "Components/HorizontalBoxSlot.h"
@@ -237,6 +238,7 @@ FReply UColdSteelWorkbenchWidget::NativeOnPreviewMouseButtonDown(const FGeometry
             if(!bInputReady||!System||System->Pending())return FReply::Handled();
             SelectPlantingSlot(SlotIndex);
             if(PlantingSelectedSlots.IsEmpty())return FReply::Handled();
+            ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Slot);
             bPlantingDragging=true;PlantingDragStart=SlotIndex;PlantingDragEnd=SlotIndex;
             return FReply::Handled().CaptureMouse(TakeWidget());
         }

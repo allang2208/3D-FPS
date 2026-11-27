@@ -42,6 +42,7 @@
 - 新建或改造面板、页签、栏目、卡片与弹窗，先读 [面板与栏目工作流](UI-WORKFLOW.md) 和 [UE UI 技能](skills/ue5-ui-umg-slate/SKILL.md)，按 [规划模板](Docs/UI/panel-column-plan-template.md) 明确结构、响应布局、数据范围、状态和交互，再按授权阶段制作／接入。 为什么：「面板与栏目工作流」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 - 冷钢 UI 以 [正式设计规则](Docs/UI/ui-cold-steel-design-system.md) 为准：黑灰低透明度玻璃、Noto Sans SC／JetBrains Mono、统一按钮；冲突的旧字体、配色和抽屉条款由该文替换。共享 `ColdSteelUIStyle`，不再复制近似主题。 为什么：「正式设计规则」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 - 非枪械物品（药水、材料、弹药包装、卷轴）的图标、三视图、按精度分流的模型制作、材质与稀有度光效读 [ue5-item-asset-workflow](skills/ue5-item-asset-workflow/SKILL.md)。 为什么：装备强化和非装备稀有度是独立机制，混用会改变目录分类与界面含义。
+- 游戏音频（SFX、动画视频同步 Foley、环境循环、BGM、中英文 NPC 语音）的 Colab Ultra 远端生成、48 kHz/24-bit 本地母带化与 UE5 后台导入，先读 [音频工作流](skills/ue5-audio-workflow/SKILL.md)，工具入口在 `Tools/AudioPipeline/`；枪械、怪物、天气和喷泉的玩法挂载与时序继续遵守各自领域参考。遵循默认后台制作与用户选型拍板，不自动试听或启动 UE。 为什么：统一远端生成、溯源、母带与后台导入入口可避免各功能重复拼装音频脚本与凭证泄漏。
 - 怪物制作、混元管线、专用绑骨、动画、布娃娃、战斗和村庄刷怪读 [ue5-monster-workflow](skills/ue5-monster-workflow/SKILL.md)。手脑案例中的未通过项不作为已完成标准。 为什么：「ue5-monster-workflow」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 - **非人形死亡标准（用户指定，2026-10-05）**：后续采用螺柱 M-14 V19 的连续软体下落与摊地方式，按各模型制作独立代理和绑定；人形及类人双足暂不推广。具体范围、接入与重建工具见 [连续软体死亡标准](Docs/Monsters/continuous-soft-corpse-standard-20261005.md)。制作、构建与实际资产保存照常完成，不自动测试；本批其他怪物仍由用户体验。 为什么：「连续软体死亡标准」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 - 20 cm 体素建造（材质、放置构件、承重与倒塌数值）读 [体素建造工作流](Docs/Building/voxel-build-workflow.md)：任何材质的净跨 2 m 必须成立，改承重数值时保留 `Tools/Building/run_voxel_stress_probe.ps1` 作为用户明确要求检查时的离线入口；带资产的 USTRUCT 不要用热补丁改。 为什么：建造体素与运行时高度场不是同一系统，套用错误生成或材质路线会破坏现有场景。

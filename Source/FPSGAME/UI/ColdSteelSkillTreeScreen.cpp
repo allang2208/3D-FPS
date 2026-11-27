@@ -9,6 +9,7 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelUIAudio.h"
 #include "../Skills/ColdSteelSkillTree.h"
 #include "Engine/GameInstance.h"
 #include "Engine/Texture2D.h"
@@ -314,12 +315,12 @@ FReply UColdSteelSkillTreeScreen::NativeOnPreviewMouseButtonDown(const FGeometry
     if(Event.GetEffectingButton() == EKeys::RightMouseButton && Model)
         for(int32 I = 0; I < StripSlots.Num(); ++I)
             if(StripSlots[I] && StripSlots[I]->GetCachedGeometry().IsUnderLocation(At))
-            { const int32 Index = ColdSteelQuickBar::ItemOffset + I; if(!Model->QuickBinding(Index).IsEmpty()) Model->ClearQuickBinding(Index); return FReply::Handled(); }
+            { const int32 Index = ColdSteelQuickBar::ItemOffset + I; if(!Model->QuickBinding(Index).IsEmpty()) { ColdSteelUIAudio::Play(this, ColdSteelUIAudio::ECue::Button); Model->ClearQuickBinding(Index); } return FReply::Handled(); }
     if(Event.GetEffectingButton() == EKeys::LeftMouseButton && !bSpec && Model && TreeCanvas && TreeCanvas->GetTickSpaceGeometry().IsUnderLocation(At))
     {
         const FName Id = TreeCanvas->CardAtScreen(At);
         if(!Id.IsNone() && Model->CanBindQuickSkill(Id))
-        { PendingDrag = Id; return FReply::Handled().CaptureMouse(TakeWidget()).DetectDrag(TakeWidget(), EKeys::LeftMouseButton); }
+        { ColdSteelUIAudio::Play(this, ColdSteelUIAudio::ECue::Slot); PendingDrag = Id; return FReply::Handled().CaptureMouse(TakeWidget()).DetectDrag(TakeWidget(), EKeys::LeftMouseButton); }
     }
     return Super::NativeOnPreviewMouseButtonDown(Geometry, Event);
 }

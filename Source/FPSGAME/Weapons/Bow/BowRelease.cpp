@@ -346,7 +346,7 @@ bool UBowWeaponComponent::LooseArrow(float Ratio,bool bPerfect)
             ShotSound = SkillSound;
             ShotPitch = 1.f; // Preserve the selected E+F+G mix; do not layer the normal release again.
         }
-    if (ShotSound) UGameplayStatics::PlaySound2D(this, ShotSound, .6f, ShotPitch);
+    if (ShotSound) UGameplayStatics::PlaySound2D(this, ShotSound, bPiercing ? .95f : .6f, ShotPitch);
     if(Pawn->GetNetMode()!=NM_Client&&!bAurora&&ArrowElement==EArrowElement::None&&!bIllumination)Profile->SpendStamina(Cost);
     if(Pawn->GetNetMode()==NM_Client&&bIllumination)Light->PredictRelease();
     if(Pawn->GetNetMode()==NM_Client&&Element&&ArrowElement!=EArrowElement::None)Element->PredictRelease();

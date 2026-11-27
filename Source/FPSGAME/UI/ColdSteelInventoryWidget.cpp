@@ -8,6 +8,7 @@
 #include "ColdSteelStaffIcon.h"
 #include "../Weapons/GunsmithSystem.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelUIAudio.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/SizeBox.h"
 #include "Components/ScrollBox.h"
@@ -238,6 +239,7 @@ FReply UColdSteelInventoryWidget::NativeOnMouseButtonDown(const FGeometry& G,con
     if(Hit(G,E.GetScreenSpacePosition(),PressPlace,PressCell)){
         FocusPlace=PressPlace;FocusCell=PressCell;Selected=IdAt(PressPlace,PressCell);bConfirmDrop=false;InteractionMessage.Empty();
         if(E.GetEffectingButton()==EKeys::RightMouseButton){
+            if(!Selected.IsEmpty())ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Button);
             if(E.IsShiftDown()&&!Selected.IsEmpty())OpenItemMenu(E.GetScreenSpacePosition());
             else if(!Selected.IsEmpty())
             {
@@ -248,11 +250,11 @@ FReply UColdSteelInventoryWidget::NativeOnMouseButtonDown(const FGeometry& G,con
             }
             InteractionMessage=Model->ResultMessage();return FReply::Handled();
         }
-        if(!Selected.IsEmpty()&&E.GetEffectingButton()==EKeys::LeftMouseButton){PressedItem=Selected;PressPosition=E.GetScreenSpacePosition();bPendingClick=true;return FReply::Handled().DetectDrag(TakeWidget(),EKeys::LeftMouseButton);}
+        if(!Selected.IsEmpty()&&E.GetEffectingButton()==EKeys::LeftMouseButton){ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Slot);PressedItem=Selected;PressPosition=E.GetScreenSpacePosition();bPendingClick=true;return FReply::Handled().DetectDrag(TakeWidget(),EKeys::LeftMouseButton);}
         return FReply::Handled();
     }
     // 整理按钮共用迁移自原项目 gamedev 的 uiCues.buttonClick 确认音。
-    auto PlaySortClick=[this](){if(auto* S=LoadObject<USoundBase>(nullptr,TEXT("/Game/Audio/GamedevUI20261002/S_Button_Click.S_Button_Click")))UGameplayStatics::PlaySound2D(this,S,1.f,1.f);};
+    auto PlaySortClick=[this](){ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Button);};
     if(E.GetEffectingButton()==EKeys::LeftMouseButton&&P.X>=L.Width-60&&P.X<L.Width-12&&P.Y>=L.BagY-30&&P.Y<L.BagY-6){PlaySortClick();PerformAction(3);}
     if(E.GetEffectingButton()==EKeys::LeftMouseButton&&bCompSortHovered){PlaySortClick();PerformAction(8);}
     return FReply::Handled();
@@ -267,7 +269,7 @@ FReply UColdSteelInventoryWidget::NativeOnMouseButtonUp(const FGeometry& G,const
     }
     return FReply::Handled();
 }
-FReply UColdSteelInventoryWidget::NativeOnMouseButtonDoubleClick(const FGeometry& G,const FPointerEvent& E){bPendingClick=false;if(E.GetEffectingButton()!=EKeys::LeftMouseButton)return FReply::Unhandled();if(auto* HUD=TooltipHUD())HUD->HideItemTooltip(true);int32 P,C;if(Hit(G,E.GetScreenSpacePosition(),P,C)){Selected=IdAt(P,C);if(!Selected.IsEmpty())Model->DefaultAction(Selected);InteractionMessage=Model->ResultMessage();}return FReply::Handled();}
+FReply UColdSteelInventoryWidget::NativeOnMouseButtonDoubleClick(const FGeometry& G,const FPointerEvent& E){bPendingClick=false;if(E.GetEffectingButton()!=EKeys::LeftMouseButton)return FReply::Unhandled();if(auto* HUD=TooltipHUD())HUD->HideItemTooltip(true);int32 P,C;if(Hit(G,E.GetScreenSpacePosition(),P,C)){Selected=IdAt(P,C);if(!Selected.IsEmpty()){ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::SlotDrop);Model->DefaultAction(Selected);}InteractionMessage=Model->ResultMessage();}return FReply::Handled();}
 void UColdSteelInventoryWidget::PerformAction(int32 Action)
 {
     if(auto* HUD=TooltipHUD())HUD->HideItemTooltip(true);
@@ -299,7 +301,7 @@ FReply UColdSteelInventoryWidget::NativeOnKeyDown(const FGeometry& G,const FKeyE
     }
     if(K==EKeys::Enter){PerformAction(0);return FReply::Handled();}if(K==EKeys::X){PerformAction(1);return FReply::Handled();}if(K==EKeys::Delete){PerformAction(2);return FReply::Handled();}
     // G 已从键盘轮换武器改为符文长剑飞剑专用（面板内也不再消费它）。
-    if(K==EKeys::SpaceBar){if(KeyboardCarry.IsEmpty())KeyboardCarry=IdAt(FocusPlace,FocusCell);else {const bool OK=DropAt(KeyboardCarry,FocusPlace,FocusCell);InteractionMessage=Model->ResultMessage();if(OK){KeyboardCarry.Empty();PreviewPlace=-1;}}return FReply::Handled();}
+    if(K==EKeys::SpaceBar){if(KeyboardCarry.IsEmpty()){KeyboardCarry=IdAt(FocusPlace,FocusCell);if(!KeyboardCarry.IsEmpty())ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Slot);}else {const bool OK=DropAt(KeyboardCarry,FocusPlace,FocusCell);InteractionMessage=Model->ResultMessage();if(OK){ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::SlotDrop);KeyboardCarry.Empty();PreviewPlace=-1;}}return FReply::Handled();}
     if(K==EKeys::F){FocusPlace=bWarehouse?4:(FocusPlace==0?1:FocusPlace==1?(Model&&ColdSteelInventory::CompartmentCells(Model->Items())>0?ColdSteelCompartment::Place:0):0);FocusCell=StorageStart();}
     else if(K==EKeys::Left||K==EKeys::Right||K==EKeys::Up||K==EKeys::Down){
         if(FocusPlace==1)FocusCell=ColdSteelEquipmentLayout::StepSlot(FocusCell,K==EKeys::Left?-1:K==EKeys::Right?1:0,K==EKeys::Up?-1:K==EKeys::Down?1:0);
@@ -445,6 +447,7 @@ bool UColdSteelInventoryWidget::NativeOnDrop(const FGeometry& G,const FDragDropE
 {
     auto* D=Cast<UColdSteelItemDrag>(O);if(!D||!NativeOnDragOver(G,E,O))return false;bool Result=false;
     if(bPreviewValid)Result=DropAt(D->ItemId,PreviewPlace,PreviewCell,D->bRotated?1:0);
+    if(Result)ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::SlotDrop);
     InteractionMessage=Result?TEXT("物品操作已保存"):bPreviewValid?Model->ResultMessage():PreviewReason;
     PreviewPlace=-1;LoadIcons();return true;
 }

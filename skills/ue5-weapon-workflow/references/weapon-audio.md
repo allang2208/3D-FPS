@@ -314,3 +314,9 @@ v1/v2/v3 的脚本与输出已退役到 `trash/pkm-reload-debgm-attempts-2026092
 FPSGAME 疾雷采用六段非循环 Wave，在 MetaSound 内随机选择，使用 On Nearly Finished 提前衔接，避开最近片段且不跨实例共享随机状态。持续播放由既有释放、取消和换装生命周期结束；不要用游戏线程逐帧选段或磁盘读取替代音频图。 原因：环境的可见表现与实际状态更新需要同一时间依据，否则过渡和玩法消耗会偏离。
 
 用户素材及其衍生文件的再分发许可不能按程序原创或 CC0 处理。录音与源片段的相关匹配只证明播放链路，不证明用户认可听感；检查须有相应授权。
+
+## 本机案例与联机同步沉淀（2026-11-26/27，SVCh 全套 CC0 分层与穿心箭联机 3D 播音）
+
+- **SVCh 全套写实 CC0 棚录分层**（`SourceAssets/SVCHReplacement20261018/AudioRealCC0_20261126`）：基于多枪型真实 CC0 1.0 棚录（Mosin/SKS/Tikka/Savage/AR-15/AK-47）分层合成 14 条 48 kHz/24-bit 母带：4 条开火变体（`/Game/Weapons/SVCH/Audio/S_SVCH_Fire_01..04`）、4 条消音变体（`/Game/Weapons/RifleSuppressedAudio20261015/SVCh/S_SVCh_Suppressed_01..04`，注意子目录与文件大小写 `SVCh` 与 `RifleSuppressedAudioAssets::Bank("ue_svch")` 一致）及 6 条装备/换弹机械音（`EquipRaise`/`MagOut`/`MagInsert`/`MagSeat`/`ChargePull`/`ChargeRelease`）。上述音效全部纳入 `UFPSPlayerBodyComponent::DescribeGun` 的 `W.GunSounds`，联机远端观察者自动异步预载并带空间衰减与 `FireConcurrency(MaxCount=4)` 播放。
+- **穿心箭发射音与联机远端 3D 同步**（`SourceAssets/HeartPiercingArrowAudioCandidates20261026/ColabImpactV2_20261126`）：采用 Colab Ultra GPU 生成的超音速裂音/空气撕裂/次低频冲击/钢弦张力与真实弓弦基干分层，落地 `/Game/Skills/HeartPiercingArrow/Audio20261026/S_HeartPiercingArrow_Release`。发射者本机在 `BowRelease.cpp` 以 `0.95` 音量 2D 即时播放；联机同步通过 `FBowArrowPresentation::bHeartPiercingArrow` + `FlightStartServerTime` 在 Listen Server `ABowArrow::Configure` 与远端客户端 `OnRep_Presentation` 触发 55 m 空间衰减播放，自动跳过 `Shooter->IsLocallyControlled()`、过滤 `bStuck` 及 `Age > 0.75 s` 的迟到相关性箭，并加入 `PlayerSkillAssets::Gather` 异步预热。
+- **打包目录核对**：枪械与技能音频目录 `/Game/Weapons/SVCH`、`/Game/Weapons/RifleSuppressedAudio20261015`、`/Game/Skills/HeartPiercingArrow/Audio20261026` 均须在 `Config/DefaultGame.ini` 登记 `DirectoriesToAlwaysCook`。

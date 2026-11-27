@@ -6,12 +6,18 @@
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
 #include "../UI/ColdSteelStatusModel.h"
+#include "Components/AudioComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Engine/AssetManager.h"
+#include "Engine/StreamableManager.h"
 #include "EngineUtils.h"
 #include "Camera/PlayerCameraManager.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "NavigationSystem.h"
 #include "NavigationData.h"
+#include "Kismet/GameplayStatics.h"
+#include "Sound/SoundAttenuation.h"
+#include "Sound/SoundWave.h"
 
 namespace
 {
@@ -255,4 +261,97 @@ void UHorseRiderComponent::ServerToggleMount_Implementation(FVector_NetQuantize 
     if(!RecallingFar)Resident->RestoreCondition(Condition);
     OwnedHorse=Resident;LedHorse=Resident;Pawn->ForceNetUpdate();
     Resident->BeginVisit(EStableHorseVisit::Arriving,Pawn);
+    constexpr int32 WhistleCount=3;
+    int32 Variant=FMath::RandRange(0,WhistleCount-1);
+    if(WhistleCount>1 && LastSummonWhistleIndex>=0 && LastSummonWhistleIndex<WhistleCount)
+    {
+        Variant=FMath::RandRange(0,WhistleCount-2);
+        if(Variant>=LastSummonWhistleIndex)++Variant;
+    }
+    LastSummonWhistleIndex=Variant;
+    MulticastHorseSummonWhistle(Pawn->GetActorLocation()+FVector(0.f,0.f,Pawn->BaseEyeHeight),static_cast<uint8>(Variant));
+}
+
+namespace
+{
+const TArray<FSoftObjectPath>& SummonWhistleAssetPaths()
+{
+    static const TArray<FSoftObjectPath> Paths = {
+        FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/SW_Horse_SummonWhistle_01.SW_Horse_SummonWhistle_01")),
+        FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/SW_Horse_SummonWhistle_02.SW_Horse_SummonWhistle_02")),
+        FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/SW_Horse_SummonWhistle_03.SW_Horse_SummonWhistle_03")),
+        FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/VillageStable/Horses/Audio/ATT_HorseSummonWhistle.ATT_HorseSummonWhistle")),
+    };
+    return Paths;
+}
+
+TMap<TWeakObjectPtr<const UHorseRiderComponent>, TWeakObjectPtr<UAudioComponent>> GActiveWhistleVoices;
+}
+
+void UHorseRiderComponent::EnsureSummonWhistleAssets()
+{
+    if(SummonWhistleSounds.Num()==3 && SummonWhistleSounds[0] && SummonWhistleSounds[1] && SummonWhistleSounds[2] && SummonWhistleAttenuation)return;
+    const TArray<FSoftObjectPath>& Paths=SummonWhistleAssetPaths();
+    SummonWhistleSounds.SetNum(3);
+    bool bAllResolved=true;
+    for(int32 Index=0;Index<3;++Index)
+    {
+        if(!SummonWhistleSounds[Index])
+            SummonWhistleSounds[Index]=Cast<USoundWave>(Paths[Index].ResolveObject());
+        bAllResolved&=SummonWhistleSounds[Index]!=nullptr;
+    }
+    if(!SummonWhistleAttenuation)
+        SummonWhistleAttenuation=Cast<USoundAttenuation>(Paths[3].ResolveObject());
+    bAllResolved&=SummonWhistleAttenuation!=nullptr;
+    if(bAllResolved || IsRunningCommandlet())return;
+    if(UAssetManager::IsInitialized())
+    {
+        UAssetManager::GetStreamableManager().RequestAsyncLoad(Paths,
+            FStreamableDelegate::CreateWeakLambda(this,[this]()
+            {
+                const TArray<FSoftObjectPath>& AssetPaths=SummonWhistleAssetPaths();
+                SummonWhistleSounds.SetNum(3);
+                for(int32 Index=0;Index<3;++Index)
+                    if(!SummonWhistleSounds[Index])
+                        SummonWhistleSounds[Index]=Cast<USoundWave>(AssetPaths[Index].ResolveObject());
+                if(!SummonWhistleAttenuation)
+                    SummonWhistleAttenuation=Cast<USoundAttenuation>(AssetPaths[3].ResolveObject());
+            }));
+    }
+}
+
+void UHorseRiderComponent::MulticastHorseSummonWhistle_Implementation(FVector_NetQuantize Location,uint8 VariantIndex)
+{
+    if(GetNetMode()==NM_DedicatedServer)return;
+    EnsureSummonWhistleAssets();
+    const TArray<FSoftObjectPath>& Paths=SummonWhistleAssetPaths();
+    SummonWhistleSounds.SetNum(3);
+    // Fallback synchronous load only if triggered before BeginPlay's async preload completes.
+    for(int32 Index=0;Index<3;++Index)
+        if(!SummonWhistleSounds[Index])
+            SummonWhistleSounds[Index]=LoadObject<USoundWave>(nullptr,*Paths[Index].ToString());
+    if(!SummonWhistleAttenuation)
+        SummonWhistleAttenuation=LoadObject<USoundAttenuation>(nullptr,*Paths[3].ToString());
+    TArray<USoundWave*,TInlineAllocator<3>> Valid;
+    for(const TObjectPtr<USoundWave>& Entry:SummonWhistleSounds)if(Entry)Valid.Add(Entry.Get());
+    if(Valid.IsEmpty())return;
+    USoundWave* Sound=SummonWhistleSounds.IsValidIndex(VariantIndex)&&SummonWhistleSounds[VariantIndex]
+        ? SummonWhistleSounds[VariantIndex].Get() : Valid[VariantIndex%Valid.Num()];
+    for(auto It=GActiveWhistleVoices.CreateIterator();It;++It)
+        if(!It.Key().IsValid() || !It.Value().IsValid())It.RemoveCurrent();
+    if(TWeakObjectPtr<UAudioComponent>* Existing=GActiveWhistleVoices.Find(this))
+        if(UAudioComponent* Prev=Existing->Get(); Prev && Prev->IsPlaying())
+            Prev->FadeOut(0.04f,0.f);
+    const float Pitch=FMath::FRandRange(0.985f,1.015f);
+    UAudioComponent* Voice=nullptr;
+    if(Player.IsValid() && Player->IsLocallyControlled())
+        Voice=UGameplayStatics::SpawnSound2D(this,Sound,0.85f,Pitch,0.f,nullptr,false,true);
+    else if(Player.IsValid() && Player->GetRootComponent())
+        Voice=UGameplayStatics::SpawnSoundAttached(Sound,Player->GetRootComponent(),NAME_None,
+            FVector(0.f,0.f,Player->BaseEyeHeight),FRotator::ZeroRotator,EAttachLocation::KeepRelativeOffset,
+            true,0.90f,Pitch,0.f,SummonWhistleAttenuation.Get(),nullptr,true);
+    else
+        Voice=UGameplayStatics::SpawnSoundAtLocation(this,Sound,FVector(Location),FRotator::ZeroRotator,
+            0.90f,Pitch,0.f,SummonWhistleAttenuation.Get(),nullptr,true);
+    if(Voice)GActiveWhistleVoices.Add(this,Voice);
 }

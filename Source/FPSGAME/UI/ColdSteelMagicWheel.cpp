@@ -4,6 +4,7 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelQuickDrag.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelUIAudio.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/Spacer.h"
 #include "Engine/AssetManager.h"
@@ -129,11 +130,11 @@ FReply UColdSteelMagicWheel::NativeOnMouseButtonDown(const FGeometry& Geometry,c
 {
     if(!bConfiguration||!Model)return FReply::Unhandled();
     PointAt(Geometry,Event.GetScreenSpacePosition());
-    if(Event.GetEffectingButton()==EKeys::RightMouseButton&&Hover>=0)Model->ClearMagic(Hover);
+    if(Event.GetEffectingButton()==EKeys::RightMouseButton&&Hover>=0){ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Button);Model->ClearMagic(Hover);}
     else if(Event.GetEffectingButton()==EKeys::LeftMouseButton)
     {
-        if(ClearsSelection())Model->SelectMagic(INDEX_NONE);
-        else if(SelectedSlot()>=0)Model->SelectMagic(Hover);
+        if(ClearsSelection()){ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Slot);Model->SelectMagic(INDEX_NONE);}
+        else if(SelectedSlot()>=0){ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Slot);Model->SelectMagic(Hover);}
     }
     return FReply::Handled();
 }
@@ -153,7 +154,7 @@ bool UColdSteelMagicWheel::NativeOnDrop(const FGeometry& Geometry,const FDragDro
     auto* Drag=Cast<UColdSteelQuickDrag>(Operation);
     if(!bConfiguration||!HUD.IsValid()||!Drag)return false;
     PointAt(Geometry,Event.GetScreenSpacePosition());
-    const bool Handled=HUD->DropMagicDrag(Drag,Hover);ClearHover();return Handled;
+    const bool Handled=HUD->DropMagicDrag(Drag,Hover);if(Handled)ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::SlotDrop);ClearHover();return Handled;
 }
 
 int32 UColdSteelMagicWheel::NativePaint(const FPaintArgs& Args,const FGeometry& Geometry,const FSlateRect& Cull,FSlateWindowElementList& Out,int32 Layer,const FWidgetStyle& Style,bool Enabled) const

@@ -3,6 +3,7 @@
 #include "ColdSteelInventoryWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelUIAudio.h"
 #include "ColdSteelHorsePortrait.h"
 #include "SHorseMarketPlate.h"
 #include "Widgets/Notifications/SProgressBar.h"
@@ -380,9 +381,18 @@ bool UColdSteelMountGearPanel::HandleItemDrop(UColdSteelItemDrag* Drag,FVector2D
     DropIndex=INDEX_NONE;bDropAllowed=false;
     if(!Drag || !GetCachedGeometry().IsUnderLocation(Position))return false;
     if(Editable && Model.IsValid() && Drag->IsCurrent(Model.Get()))
+    {
+        const FString HorseBagKey=StableHorseAffixes::BagContainerKey(HorseId);
+        const bool bValidSource=Drag->SourcePlace==0 || Drag->SourcePlace==ColdSteelInventory::ColdSteelCompartment::Place ||
+            (Drag->SourcePlace==ColdSteelWarehouse::Place && Drag->SourceSnapshot.Container==HorseBagKey);
         for(int32 I=0;I<Buttons.Num();++I)
             if(Buttons[I]->GetCachedGeometry().IsUnderLocation(Position))
-            {Change(HorseId,I,Drag->ItemId,true);return true;}
+            {
+                if(Drag->bHasSourceSnapshot && bValidSource && StableHorseGear::SlotOf(Drag->SourceSnapshot.Definition)==I)
+                    ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::SlotDrop);
+                Change(HorseId,I,Drag->ItemId,true);return true;
+            }
+    }
     return false;
 }
 

@@ -1,0 +1,32 @@
+{
+  "task": "AudioSession-20261127",
+  "created_at": "2026-11-27T14:34:52+08:00",
+  "trash_root": "D:/FPS3D/FPSGAME/trash/AudioSession-20261127",
+  "full_manifest": "F:/FPSGAMEData/ArtProduction/ColdSteelUIAudio/AudioSessionCloseout-20261127/cleanup-manifest.json",
+  "archived_file_count": 106,
+  "archived_total_bytes": 146143170,
+  "archived_total_mb": 139.37,
+  "sha256_verified": true,
+  "buckets": [
+    {
+      "name": "SVCH_AudioRealCC0",
+      "contents": "8 audition PREVIEW_*.wav + 6 candidate directories (unselected V1/M2/S2 and duplicates of selected FinalMasters)",
+      "retained": "compose_svch_real_cc0.py, LICENSE_CC0.txt, FinalMasters/ (14 WAVs), RawCC0/, ComposedCandidates/manifest.json"
+    },
+    {
+      "name": "SVCH_EquipLeftBolt",
+      "contents": "2 review PNG screenshots, SavedReadback/ dense JSON dumps (~113 MB), __pycache__",
+      "retained": "author_equip_left_bolt.py, install_equip_left_bolt.py, run_publish_batch.ps1, authoring_audit.json, install_receipt.json, Profiles/"
+    },
+    {
+      "name": "HeartPiercingArrow_ColabImpactV2",
+      "contents": "4 audition PREVIEW_*.wav, 3 ComposedCandidates/ directories, unselected raw Colab GPU WAVs not referenced by compose_heartpiercing_v2.py",
+      "retained": "compose_heartpiercing_v2.py, FinalMasters/S_HeartPiercingArrow_Release.wav, 7 referenced Colab stems, 4 provenance.json, ComposedCandidates/manifest.json"
+    },
+    {
+      "name": "HorseSummonWhistle",
+      "contents": "Abandoned ColabRaw/ AI whistle candidates, 6 audition PREVIEW_*.wav, 15 unselected CC0 whistle downloads",
+      "retained": "compose_horse_whistle.py, LICENSE_CC0.txt, run_import_and_build.ps1, FinalMasters/ (3 WAVs), 3 selected CC0_Originals (151091, 499650, 320140), ComposedCandidates/manifest.json"
+    }
+  ]
+}

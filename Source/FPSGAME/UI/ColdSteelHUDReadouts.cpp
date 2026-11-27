@@ -35,6 +35,7 @@
 #include "../FPSWeatherManager.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelUIAudio.h"
 #include "GunsmithUIStyle.h"
 #include "ColdSteelWorldInteraction.h"
 
@@ -86,7 +87,7 @@ void UColdSteelHUDWidget::RefreshAmmo()
     const AFPSGAMECharacter* Character = GetOwningPlayerPawn<AFPSGAMECharacter>();
     if(AmmoReadout)
     {
-        AmmoReadout->Refresh(Character,StatusModel,bInventoryOpen);
+        { TRACE_CPUPROFILER_EVENT_SCOPE(ColdSteelHUD_AmmoReadout); AmmoReadout->Refresh(Character,StatusModel,bInventoryOpen); }
         // The bottom-right weapon readout and the drawer share the right edge; hide it during the slide too.
         if(bInventoryOpen||DrawerProgress>KINDA_SMALL_NUMBER||bExternalDrawerOpen)AmmoReadout->SetVisibility(ESlateVisibility::Collapsed);
         const float S=ColdSteelUI::PixelScale(this);
@@ -259,8 +260,7 @@ void UColdSteelHUDWidget::SetInventoryAuditState(int32 State)
 
 void UColdSteelHUDWidget::PlayButtonClick()
 {
-    if (auto* Sound = LoadObject<USoundBase>(nullptr, TEXT("/Game/Audio/GamedevUI20261002/S_Button_Click.S_Button_Click")))
-        UGameplayStatics::PlaySound2D(this, Sound, 1.f, 1.f);
+    ColdSteelUIAudio::PlayLegacyButtonClick(this);
 }
 
 void UColdSteelHUDWidget::HandleStatusTabClicked() { PlayButtonClick(); OpenStatus(); }

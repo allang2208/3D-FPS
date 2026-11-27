@@ -7,6 +7,7 @@
 #include "ColdSteelIncineratorWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelUIAudio.h"
 #include "Components/Border.h"
 #include "Components/BackgroundBlur.h"
 #include "Components/CanvasPanelSlot.h"
@@ -99,7 +100,10 @@ bool UColdSteelHUDWidget::NativeOnDrop(const FGeometry& Geometry,const FDragDrop
     {
         if(bMagicConfigurationOpen&&MagicConfigurationPanel&&MagicConfigurationPanel->GetCachedGeometry().IsUnderLocation(Event.GetScreenSpacePosition()))
             return DropMagicDrag(Quick,INDEX_NONE);
-        return DropQuickDrag(Quick,QuickBarDropIndex(Event.GetScreenSpacePosition()));
+        const int32 QuickTarget=QuickBarDropIndex(Event.GetScreenSpacePosition());
+        const bool bDropped=DropQuickDrag(Quick,QuickTarget);
+        if(bDropped&&QuickTarget>=0)ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::SlotDrop);
+        return bDropped;
     }
     auto* Drag=Cast<UColdSteelItemDrag>(Operation);
     if(!Drag||InventoryDrag.Get()!=Drag)return Super::NativeOnDrop(Geometry,Event,Operation);
@@ -127,6 +131,7 @@ bool UColdSteelHUDWidget::NativeOnDrop(const FGeometry& Geometry,const FDragDrop
     if(Target>=0&&CanDropOnHotbar(Drag)){
         auto* Model=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
         Model->BindQuickItem(Target,Drag->ItemId);
+        ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::SlotDrop);
         if(Drag->SourceBoard.IsValid())Drag->SourceBoard->InteractionMessage=Model->ResultMessage();
         RefreshAmmo();
     }
@@ -137,6 +142,7 @@ bool UColdSteelHUDWidget::NativeOnDrop(const FGeometry& Geometry,const FDragDrop
         const auto* Item=Model->FindItem(Drag->ItemId);
         if(Item&&(Item->Place<=1||Item->Place==ColdSteelCompartment::Place||(Item->Place==4&&(bWarehouseOpen||bMountDetailsOpen)))&&Item->Place==Drag->SourcePlace&&Item->Cell==Drag->SourceCell){
             const bool Dropped=Model->Drop(Drag->ItemId);
+            if(Dropped)ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::SlotDrop);
             if(Drag->SourceBoard.IsValid())Drag->SourceBoard->InteractionMessage=Dropped?TEXT("物品已放到脚边，可重新拾取"):Model->ResultMessage();
             RefreshAmmo();
         }

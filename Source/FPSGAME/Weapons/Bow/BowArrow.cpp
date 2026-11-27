@@ -19,16 +19,21 @@
 #include "../../Props/FPSPracticeTarget.h"
 #include "../../UI/ColdSteelStatusModel.h"
 #include "../../UI/ColdSteelWorldInteraction.h"
+#include "Components/AudioComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/SphereComponent.h"
 #include "Components/SceneComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Engine/AssetManager.h"
 #include "Engine/StaticMesh.h"
+#include "Engine/StreamableManager.h"
 #include "Engine/World.h"
 #include "Engine/GameInstance.h"
 #include "GameFramework/PlayerController.h"
 #include "GameFramework/GameStateBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "Sound/SoundAttenuation.h"
+#include "Sound/SoundBase.h"
 #include "TimerManager.h"
 #include "../../Monsters/FPSCombatHealthComponent.h"
 #include "../../Multiplayer/ColdSteelPlayerState.h"
@@ -99,11 +104,13 @@ void ABowArrow::Configure(float InDamage, float InSpeed, float InGravityCM, floa
     if(HasAuthority())
     {
         Presentation.bAuroraBeam=Shot.bAuroraBeam;
+        Presentation.bHeartPiercingArrow=Shot.bHeartPiercingArrow;
         if(Shot.bAuroraBeam)Presentation.AuroraOrigin=GetActorLocation();
         Presentation.FlightStartServerTime=GetWorld()->GetTimeSeconds();
         Presentation.Shaft=InShaftMesh;Presentation.Head=InHeadMesh;Presentation.Ammo=InAmmoId;Presentation.Radius=InRadiusCM;Presentation.Length=InLengthCM;
         const auto* Fire=GetInstigator()?GetInstigator()->FindComponentByClass<UFPSFireMagicComponent>():nullptr;
         Presentation.bFlameArmor=!Shot.bAuroraBeam&&Fire&&Fire->ArmorRemaining()>0.f;ForceNetUpdate();
+        if(GetNetMode()==NM_ListenServer)PlayRemotePiercingReleaseAudio();
     }
     RecoverySeconds = FMath::Clamp(InRecoverySeconds, 8.f, 300.f);
     if (const auto* Profile = GetGameInstance()->GetSubsystem<UColdSteelStatusModel>())
@@ -447,6 +454,7 @@ void ABowArrow::FinishStuck(const FHitResult& Hit)
 
 void ABowArrow::EndPlay(const EEndPlayReason::Type Reason)
 {
+    PiercingAudioLoad.Reset();
     if(AuroraBeam.IsValid())AuroraBeam->Release();
     GetWorldTimerManager().ClearTimer(EchoDelay);
     ReleaseMountainEchoVisual();
@@ -572,11 +580,57 @@ void ABowArrow::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetim
     DOREPLIFETIME(ABowArrow,MountainContact);
     DOREPLIFETIME(ABowArrow,AuroraContact);
 }
+void ABowArrow::PlayRemotePiercingReleaseAudio()
+{
+    if(bRemotePiercingReleaseSoundPlayed || !Presentation.bHeartPiercingArrow || bStuck || GetNetMode()==NM_DedicatedServer)return;
+    bRemotePiercingReleaseSoundPlayed=true;
+    if(const APawn* Shooter=GetInstigator(); Shooter && Shooter->IsLocallyControlled())return;
+    UWorld* World=GetWorld();
+    if(!World)return;
+    const AGameStateBase* GS=World->GetGameState();
+    const double Now=GS ? GS->GetServerWorldTimeSeconds() : World->GetTimeSeconds();
+    if(Now-Presentation.FlightStartServerTime>0.75)return;
+    const FVector Origin=GetActorLocation();
+    auto SpawnSpatial=[Origin](UWorld* TargetWorld,USoundBase* Sound)
+    {
+        if(!TargetWorld || !Sound)return;
+        auto* Audio=NewObject<UAudioComponent>(TargetWorld);
+        Audio->bAutoActivate=false;Audio->bAutoDestroy=true;
+        Audio->bIsUISound=false;Audio->bAllowSpatialization=true;
+        Audio->SetSound(Sound);Audio->SetVolumeMultiplier(0.92f);Audio->SetPitchMultiplier(1.0f);
+        FSoundAttenuationSettings Settings;
+        Settings.bAttenuate=true;Settings.bSpatialize=true;
+        Settings.AttenuationShapeExtents=FVector(250.f);
+        Settings.FalloffDistance=5500.f;
+        Audio->RegisterComponentWithWorld(TargetWorld);
+        Audio->SetWorldLocation(Origin);
+        Audio->AdjustAttenuation(Settings);
+        Audio->Play(0.f);
+    };
+    static const FSoftObjectPath PiercingSoundPath(TEXT("/Game/Skills/HeartPiercingArrow/Audio20261026/S_HeartPiercingArrow_Release.S_HeartPiercingArrow_Release"));
+    if(auto* Sound=Cast<USoundBase>(PiercingSoundPath.ResolveObject()))
+    {
+        SpawnSpatial(World,Sound);
+        return;
+    }
+    const double RequestedAt=Now;
+    PiercingAudioLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(PiercingSoundPath,
+        FStreamableDelegate::CreateWeakLambda(this,[this,Origin,RequestedAt,SpawnSpatial]()
+        {
+            UWorld* LiveWorld=GetWorld();
+            if(!LiveWorld)return;
+            const AGameStateBase* LiveGS=LiveWorld->GetGameState();
+            const double LiveNow=LiveGS ? LiveGS->GetServerWorldTimeSeconds() : LiveWorld->GetTimeSeconds();
+            if(LiveNow-RequestedAt>0.35)return;
+            if(auto* Loaded=Cast<USoundBase>(PiercingSoundPath.ResolveObject()))SpawnSpatial(LiveWorld,Loaded);
+        }));
+}
 void ABowArrow::OnRep_Presentation()
 {
     bFlightSettling = !bStuck && !MountainContact.bHit;
     Configure(1,600,0,400,FColdSteelSkillShot{},Presentation.Shaft,Presentation.Head,
         Presentation.Radius,Presentation.Length,Presentation.Ammo,bRecoverable,120);
+    PlayRemotePiercingReleaseAudio();
     ApplyEchoPresentation();OnRep_Stuck();OnRep_EchoPending();OnRep_MountainContact();
 }
 void ABowArrow::OnRep_Stuck()

@@ -4,6 +4,7 @@
 #include "ColdSteelNpcDialogueArtisans.h"
 #include "ColdSteelNpcDialogueSpeech.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelUIAudio.h"
 #include "../NPC/ChapelDialogueComponent.h"
 #include "../Tasks/BlacksmithLessonText.h"
 #include "../Tasks/CarpenterLessonText.h"
@@ -640,13 +641,19 @@ FReply UColdSteelNpcDialogue::NativeOnPreviewKeyDown(const FGeometry& Geometry, 
 FReply UColdSteelNpcDialogue::NativeOnMouseButtonDown(const FGeometry& Geometry, const FPointerEvent& Event)
 {
     if (Event.GetEffectingButton() == EKeys::LeftMouseButton && Speech && Speech->RevealOrAdvance())
+    {
+        ColdSteelUIAudio::Play(this, ColdSteelUIAudio::ECue::Button);
         return FReply::Handled();
+    }
     return Super::NativeOnMouseButtonDown(Geometry, Event);
 }
 
 FReply UColdSteelNpcDialogue::NativeOnMouseButtonDoubleClick(const FGeometry& Geometry, const FPointerEvent& Event)
 {
     if (Event.GetEffectingButton() == EKeys::LeftMouseButton && Speech && Speech->RevealOrAdvance())
+    {
+        ColdSteelUIAudio::Play(this, ColdSteelUIAudio::ECue::Button);
         return FReply::Handled();
+    }
     return Super::NativeOnMouseButtonDoubleClick(Geometry, Event);
 }

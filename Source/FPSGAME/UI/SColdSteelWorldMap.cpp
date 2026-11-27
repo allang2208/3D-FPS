@@ -2,6 +2,7 @@
 #include "ColdSteelTextToolTip.h"
 #include "ColdSteelWorldMapData.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelUIAudio.h"
 #include "SColdSteelMapMarkerEditor.h"
 #include "../Dungeons/DungeonRoomSubsystem.h"
 #include "../Dungeons/DungeonRunSubsystem.h"
@@ -344,6 +345,7 @@ namespace ColdSteelCartography
             }
             if (E.GetEffectingButton()==EKeys::RightMouseButton && !Data.bWaitingForDungeon)
             {
+                ColdSteelUIAudio::PlayFromSlate(ColdSteelUIAudio::ECue::Slot);
                 PickMarker(Local,G.GetLocalSize());
             }
             return FReply::Handled();
@@ -365,7 +367,7 @@ namespace ColdSteelCartography
         {
             if (HasMouseCapture() && E.GetEffectingButton()==EKeys::LeftMouseButton)
             {
-                if (!bDragging) PickMarker(G.AbsoluteToLocal(E.GetScreenSpacePosition()),G.GetLocalSize());
+                if (!bDragging) { ColdSteelUIAudio::PlayFromSlate(ColdSteelUIAudio::ECue::Slot); PickMarker(G.AbsoluteToLocal(E.GetScreenSpacePosition()),G.GetLocalSize()); }
                 return FReply::Handled().ReleaseMouseCapture();
             }
             return FReply::Handled();

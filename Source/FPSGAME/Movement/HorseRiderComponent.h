@@ -12,6 +12,8 @@ class AFPSGAMECharacter;
 class USkeletalMeshComponent;
 class UAnimSequence;
 class USkeletalMesh;
+class USoundWave;
+class USoundAttenuation;
 struct FMinimalViewInfo;
 
 UENUM()
@@ -100,6 +102,11 @@ private:
     bool ClaimHorse(AStableRidingHorse& Horse);
     bool FindRecallSpot(FVector Eye,FRotator Look,float HalfVerticalFov,const AStableRidingHorse* Existing,FTransform& Out) const;
     UFUNCTION(Server,Reliable) void ServerToggleMount(FVector_NetQuantize Eye,FRotator Look,float HalfVerticalFov);
+    UFUNCTION(NetMulticast,Unreliable) void MulticastHorseSummonWhistle(FVector_NetQuantize Location,uint8 VariantIndex);
+    void EnsureSummonWhistleAssets();
+    UPROPERTY(Transient) TArray<TObjectPtr<USoundWave>> SummonWhistleSounds;
+    UPROPERTY(Transient) TObjectPtr<USoundAttenuation> SummonWhistleAttenuation;
+    int32 LastSummonWhistleIndex=INDEX_NONE;
     int64 ServerUtcSample=0;
     double ClockSampleSeconds=0.;
     UFUNCTION(Server,Reliable) void ServerHorseJump(AStableRidingHorse* Target);

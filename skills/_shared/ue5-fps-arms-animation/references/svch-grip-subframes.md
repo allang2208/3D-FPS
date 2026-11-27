@@ -36,3 +36,8 @@ R7 恢复本枪 idle 握点后，运行时再次对局部骨链做入场/退出�
 R7 仍依赖 R6 压缩采样、R5 支撑工具、R4 基线/相机规则、R3 表面与手套修形、R2 源输入，以及旧 Wrist/RootClearance 导出器。旧目录有恢复依赖时不能整目录当废案移动；有效源与已否定候选分别记录。 原因：R7 仍依赖多轮采样和修形输入，版本号不足以判定目录可以退役。
 
 R7 五套姿态已保存，历史复查腕轴最大约 29°，独立帧间右链误差约 0.132 mm；这些数值不等于用户认可或所有视角无穿模。后续 376 项隔离检查和 12 个 UDP 表现场景也不能替代完整快速近战联网伤害流程。详见工程的 `Docs/Weapons/svch-followup-network-review-20261020.md`。
+
+## 左拉栓装备复用空仓换弹姿态层（2026-11-26，EquipLeftBolt）
+
+- **不改共享序列 `A_SVD_equip`**：SVCh 与 SVD 共用 `A_SVD_equip` 与 `WPN_bolt` 轨，直接改共享序列会破坏 SVD 右侧拉栓；必须把左手拉栓差量烘焙到 SVCh 全部 5 份 `UWeaponGripProfile`（`DA_SVCH_ElbowFitGrip` 及 4 个前握把 `angled`/`vertical`/`canted`/`prism`）的 `equip` 条目，并在 [FPSGAMECharacterActionPose.cpp](../../../Source/FPSGAME/FPSGAMECharacterActionPose.cpp#L401-L412) 让 `EquipAnimation` 走与 `ReloadAnimation`/`ReloadEmptyAnimation` 相同的原生握持 Profile 选择分支。
+- **直接复用空仓换弹手柄握姿与回位通道**：在 `f=54..94`（120 fps）直接复用 `reload_empty` 的左侧手柄握姿并刚性跟随 `WPN_bolt`，`f=8..54` 与 `f=94..166` 用 C2 样条平滑入出并保持右手锁死手枪握把；改完后逐资产验证其余 11 个 clip 字节等价、未写坏 `A_SVD_equip` 与 V9 手模，作者入口见 `SourceAssets/SVCHReplacement20261018/EquipLeftBolt20261126/author_equip_left_bolt.py`。

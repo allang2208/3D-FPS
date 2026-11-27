@@ -1,5 +1,6 @@
 #include "SColdSteelSkillTreeCanvas.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelUIAudio.h"
 #include "Fonts/FontMeasure.h"
 #include "Framework/Application/SlateApplication.h"
 #include "Rendering/DrawElements.h"
@@ -162,7 +163,7 @@ FReply SColdSteelSkillTreeCanvas::OnMouseButtonUp(const FGeometry& Geometry, con
 { using namespace ColdSteelSkillTreeLayout;
     if(Event.GetEffectingButton() != EKeys::LeftMouseButton || !bPressed) return FReply::Unhandled();
     bPressed = false;
-    if(!bPanning) { const FName Hit = HitCard(Geometry, Event.GetScreenSpacePosition()); if(!Hit.IsNone()) OnCardClicked.ExecuteIfBound(Hit); }
+    if(!bPanning) { const FName Hit = HitCard(Geometry, Event.GetScreenSpacePosition()); if(!Hit.IsNone()) { ColdSteelUIAudio::PlayFromSlate(ColdSteelUIAudio::ECue::Slot); OnCardClicked.ExecuteIfBound(Hit); } }
     bPanning = false;
     return FReply::Handled().ReleaseMouseCapture();
 }

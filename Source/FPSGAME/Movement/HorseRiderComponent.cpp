@@ -41,6 +41,7 @@ void UHorseRiderComponent::BeginPlay()
     Super::BeginPlay();
     Player=Cast<AFPSGAMECharacter>(GetOwner());
     ApplyState();
+    if(GetNetMode()!=NM_DedicatedServer)EnsureSummonWhistleAssets();
 }
 bool UHorseRiderComponent::IsRiding(const AActor* Actor)
 {

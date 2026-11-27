@@ -3,6 +3,7 @@
 #include "ColdSteelIncineratorWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelUIAudio.h"
 #include "Components/TextBlock.h"
 #include "Engine/GameInstance.h"
 #include "Widgets/Layout/SBorder.h"
@@ -21,8 +22,8 @@ FReply UColdSteelIncineratorAmmoSource::NativeOnMouseButtonDown(const FGeometry&
     auto* M=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
     if(!HUD||!M||!M->bIncineratorOpen||M->PouchCount(Ammo)<=0)return FReply::Handled();
     if(Event.GetEffectingButton()==EKeys::RightMouseButton)
-    {if(auto* Panel=HUD->IncineratorPanel())Panel->RequestAmmo(Ammo,M->PouchCount(Ammo));return FReply::Handled();}
-    if(Event.GetEffectingButton()==EKeys::LeftMouseButton)return FReply::Handled().DetectDrag(TakeWidget(),EKeys::LeftMouseButton);
+    {if(auto* Panel=HUD->IncineratorPanel()){ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Button);Panel->RequestAmmo(Ammo,M->PouchCount(Ammo));}return FReply::Handled();}
+    if(Event.GetEffectingButton()==EKeys::LeftMouseButton){ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Slot);return FReply::Handled().DetectDrag(TakeWidget(),EKeys::LeftMouseButton);}
     return FReply::Handled();
 }
 void UColdSteelIncineratorAmmoSource::NativeOnDragDetected(const FGeometry&,const FPointerEvent&,UDragDropOperation*& Out)

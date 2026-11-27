@@ -6,6 +6,7 @@
 #include "Engine/GameInstance.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelUIAudio.h"
 #include "ColdSteelEnhancementLayoutMetrics.h"
 #include "../Building/EnhancementWorldView.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
@@ -72,6 +73,7 @@ bool UColdSteelEnhancementWidget::HandleItemDrop(UColdSteelItemDrag* Drag,FVecto
     if(!Drag->IsCurrent(Profile())){Message=TEXT("物品已变化，请重新拖动");Refresh();return true;}
     const auto* Item=Profile()->FindItem(Drag->ItemId);
     if(!Item||!System()->Supports(*Item)){Message=TEXT("请放入可强化／附魔的装备");Refresh();return true;}
+    ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::SlotDrop);
     SelectItem(Drag->ItemId);return true;
 }
 bool UColdSteelEnhancementWidget::HitWorldItem(FVector2D Position) const
@@ -174,9 +176,9 @@ FReply UColdSteelEnhancementWidget::NativeOnMouseButtonDown(const FGeometry& G,c
         if(Stored&&!System()->Pending())
         {
             if(E.GetEffectingButton()==EKeys::RightMouseButton)
-            {const auto Snapshot=*Stored;RetrieveItem(Snapshot);return FReply::Handled();}
+            {ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Button);const auto Snapshot=*Stored;RetrieveItem(Snapshot);return FReply::Handled();}
             if(E.GetEffectingButton()==EKeys::LeftMouseButton)
-            {PressedBenchItem=*Stored;return FReply::Handled().DetectDrag(TakeWidget(),EKeys::LeftMouseButton);}
+            {ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Slot);PressedBenchItem=*Stored;return FReply::Handled().DetectDrag(TakeWidget(),EKeys::LeftMouseButton);}
         }
         return FReply::Handled();
     }

@@ -6,6 +6,7 @@
 #include "ColdSteelInventoryWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelUIAudio.h"
 #include "Blueprint/WidgetTree.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/BackgroundBlur.h"
@@ -314,7 +315,7 @@ bool UColdSteelShopWidget::HandleItemDrop(UColdSteelItemDrag* Drag,FVector2D Pos
 {
     if(!Drag||!GetCachedGeometry().IsUnderLocation(Position))return false;
     const auto* Status=GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();
-    if(!Model->IsPurchaseOnly()&&!IsConfirming()&&SaleArea->GetCachedGeometry().IsUnderLocation(Position)&&Drag->IsCurrent(Status))AddToSale(Drag->ItemId);
+    if(!Model->IsPurchaseOnly()&&!IsConfirming()&&SaleArea->GetCachedGeometry().IsUnderLocation(Position)&&Drag->IsCurrent(Status)){ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::SlotDrop);AddToSale(Drag->ItemId);}
     return true; // Never let a drop over the shop fall through to world-drop.
 }
 bool UColdSteelShopWidget::NativeOnDragOver(const FGeometry&,const FDragDropEvent&,UDragDropOperation* Op){return Cast<UColdSteelItemDrag>(Op)!=nullptr;}

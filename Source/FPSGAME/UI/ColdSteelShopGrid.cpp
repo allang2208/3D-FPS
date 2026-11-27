@@ -2,6 +2,7 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelItemTooltipData.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelUIAudio.h"
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelStaffIcon.h"
 #include "../Weapons/GunsmithSystem.h"
@@ -232,8 +233,8 @@ FReply UColdSteelShopGrid::NativeOnMouseButtonDown(const FGeometry& G,const FPoi
     if(auto* HUD=Shop->TooltipHUD())HUD->HideItemTooltip(true);
     const int32 Index=Hit(G,E.GetScreenSpacePosition());
     Selected=Entries.IsValidIndex(Index)?Entries[Index].Key:FString();InvalidateGridPaint();Shop->GridChanged(bSale,true);
-    if(Index!=INDEX_NONE&&E.GetEffectingButton()==EKeys::RightMouseButton)Shop->ActivateGridItem(bSale);
-    else if(Index!=INDEX_NONE)ShowItemDetails(Entries[Index].Line,E.GetScreenSpacePosition(),true);
+    if(Index!=INDEX_NONE&&E.GetEffectingButton()==EKeys::RightMouseButton){ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Button);Shop->ActivateGridItem(bSale);}
+    else if(Index!=INDEX_NONE){ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Slot);ShowItemDetails(Entries[Index].Line,E.GetScreenSpacePosition(),true);}
     return FReply::Handled();
 }
 FReply UColdSteelShopGrid::NativeOnMouseButtonDoubleClick(const FGeometry& G,const FPointerEvent& E)
@@ -242,7 +243,7 @@ FReply UColdSteelShopGrid::NativeOnMouseButtonDoubleClick(const FGeometry& G,con
     {
         if(auto* HUD=Shop->TooltipHUD())HUD->HideItemTooltip(true);
         const int32 Index=Hit(G,E.GetScreenSpacePosition());
-        if(Index!=INDEX_NONE){SelectKey(Entries[Index].Key,false);Shop->ActivateGridItem(bSale);}
+        if(Index!=INDEX_NONE){ColdSteelUIAudio::Play(this,ColdSteelUIAudio::ECue::Button);SelectKey(Entries[Index].Key,false);Shop->ActivateGridItem(bSale);}
         return FReply::Handled();
     }
     return Super::NativeOnMouseButtonDoubleClick(G,E);

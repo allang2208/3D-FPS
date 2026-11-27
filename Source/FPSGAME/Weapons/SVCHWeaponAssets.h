@@ -20,7 +20,7 @@ namespace SVCHWeaponAssets
     inline constexpr float OpticAlongCM = 9.918044f; // Same absolute optic mount; measured rear iron moved onto the rail.
     inline constexpr float Magnification = 1.f;
     inline constexpr bool bSingleShotTrigger = true;
-    inline constexpr int32 FireVariantCount = 1;
+    inline constexpr int32 FireVariantCount = 4;
     // Mechanical clock, in source seconds of the shared rifle clips.
     inline constexpr float MagazineOut = 52.f / 120.f;
     inline constexpr float MagazineInsert = 220.f / 120.f;
@@ -67,6 +67,14 @@ namespace SVCHWeaponAssets
     }
     // The weapon supplies its own sight pair because the shared WPN_* sight
     // bones sit at the M4 positions; same approach as AKMSoviet and SVD.
+    inline FString FireSoundPath(int32 Variant)
+    {
+        return FString::Printf(TEXT("/Game/Weapons/SVCH/Audio/S_SVCH_Fire_%02d.S_SVCH_Fire_%02d"), Variant, Variant);
+    }
+    inline FString MechanicalSoundPath(const TCHAR* Cue)
+    {
+        return FString::Printf(TEXT("/Game/Weapons/SVCH/Audio/S_SVCH_%s.S_SVCH_%s"), Cue, Cue);
+    }
     inline FString AnimationPath(const TCHAR* Clip)
     {
         return FString::Printf(
