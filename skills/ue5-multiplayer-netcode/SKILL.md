@@ -28,4 +28,6 @@ description: FPSGAME 联机源码入口、服务器权威、档案传输、动�
 19. `ColdSteelNet` 的描述符和源码已在 `.gitignore` 设例外；发布仍精确列路径，不默认 `git add -f` 整个插件。为什么：当前忽略规则允许源码发布，而二进制、资源及构建产物仍应按许可和用途单独处理。
 20. 构建、档案保存、源码审阅与主客机运行结果分别交付；历史命令只在用户要求相应检查时使用。为什么：已链接或旧取证成功不能证明当前版本的完整联机行为。
 
+21. 可站立移动载具（马车/平台）与随车 NPC 的双端零抖动同步（定名 `UBoxComponent`、`TG_PrePhysics` + `AddTickPrerequisiteActor`、180° 掉头保护、客机前馈 PD、随车 NPC 覆写 `OnRep_ReplicatedMovement` 防快照互抢及动态降频），参见 [可站立载具与随车 NPC 同步](references/ridable-moving-platform-and-npc-sync.md)。为什么：缺少 Tick 顺序与前馈/快照隔离会导致乘车抖动、掉头弹飞和客机车夫瞬移。
+
 当前源码入口：`Source/FPSGAME/Multiplayer/`、`Movement/FPSCharacterMovementComponent.*`、`Movement/FPSDodgeRootMotionSource.*`、`Characters/FPSPlayerBodyNetwork.cpp`、`Plugins/ColdSteelNet/Source/`。 为什么：把查阅范围限定在连接、移动和权威实现，避免从历史类名推断现有架构。

@@ -1,0 +1,50 @@
+{
+  "task": "LumberMillOps-R58-R62-Closeout",
+  "generated_at": "2026-11-28T00:06:49.613901+08:00",
+  "total_files": 746,
+  "total_bytes": 410693153,
+  "total_mb": 391.67,
+  "by_category": {
+    "conversation_scratch": {
+      "count": 141,
+      "bytes": 71148457
+    },
+    "d_saved_logs": {
+      "count": 8,
+      "bytes": 398710
+    },
+    "f_art_reviews": {
+      "count": 6,
+      "bytes": 3854465
+    },
+    "f_prod_r59": {
+      "count": 565,
+      "bytes": 323231264
+    },
+    "f_prod_r60": {
+      "count": 22,
+      "bytes": 10752079
+    },
+    "f_prod_r61": {
+      "count": 4,
+      "bytes": 1308178
+    }
+  },
+  "trash_destinations": {
+    "conversation_scratch": "D:/FPS3D/FPSGAME/trash/LumberMillOps-20261128/ConversationScratch",
+    "d_saved_logs": "D:/FPS3D/FPSGAME/trash/LumberMillOps-20261128/SavedLogs",
+    "f_art_reviews": "F:/FPSGAMEData/trash/LumberMillOps-20261128/ArtReviews",
+    "f_prod_r59": "F:/FPSGAMEData/trash/LumberMillOps-20261128/ArtProduction-R59",
+    "f_prod_r60": "F:/FPSGAMEData/trash/LumberMillOps-20261128/ArtProduction-R60",
+    "f_prod_r61": "F:/FPSGAMEData/trash/LumberMillOps-20261128/ArtProduction-R61"
+  },
+  "local_manifest": "F:/FPSGAMEData/ArtProduction/HillsForestPath/LumberMillCloseout-20261128/cleanup-manifest.json",
+  "preserved": [
+    "F:/FPSGAMEData/ArtProduction/HillsForestPath/LumberMillOps-R{58,59,60,61}/{Before,published.json,authored-*.json}",
+    "F:/FPSGAMEData/ArtProduction/HillsForestPath/LumberMillOps-R60/Workwear/{Before,published_workwear_r60b.json,master_artisan_armpit_audit.json,baked_all_workwear_r60.json}",
+    "F:/FPSGAMEData/ArtProduction/HillsForestPath/LumberMillOps-R59/Workwear/{baked_workwear_r59.json,workwear_armpit_audit.json}",
+    "D:/FPS3D/FPSGAME/Tools/WorldGeneration/ForestVillage/*.py",
+    "All Stage junctions untouched (zero modification to F:/FPSGAMEData/Content)"
+  ],
+  "errors": []
+}

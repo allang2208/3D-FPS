@@ -51,6 +51,7 @@ void UFPSPlayerBodyComponent::InitializeFirstPersonLowerBody()
     Lower->SetSkeletalMeshAsset(Mesh);
     Lower->SetupAttachment(Body);Lower->SetRelativeTransform(FTransform::Identity);
     Lower->SetCollisionEnabled(ECollisionEnabled::NoCollision);Lower->SetGenerateOverlapEvents(false);
+    Lower->SetReceivesDecals(false);
     Lower->SetOnlyOwnerSee(true);Lower->SetOwnerNoSee(false);
     Lower->SetCastShadow(false);Lower->bCastHiddenShadow=false;
     Lower->SetHiddenInSceneCapture(true);Lower->SetVisibleInRayTracing(false);

@@ -12,3 +12,5 @@ description: FPSGAME 玩家服装制作、上衣裤装衔接、扎腰、腰臀�
 - 腰带作为独立槽位接入、男女腰臀包络和侧挂箭袋，读取 [腰带与箭袋](../ue5-item-asset-workflow/references/belts-and-quivers.md)。 为什么：「腰带与箭袋」已有专属约束与实现入口，集中查阅可避免复制另一套不一致的处理方法。
 
 - 女体独立领口的头身表面、内折边及 LOD 配对见[ST6 女性领口](references/st6-female-collar.md)。 为什么：不同几何与变形需求需要不同制作路线，统一套用面数或生成参数会损失有效细节。
+
+- 连续工装上衣腋下体素桥撕裂修复（+46° 外展重裁、`|X| < 13.5 cm` 领口护栏、`boundary_loops == 3` 门禁与内层 `BodyMesh` 槽位遮罩），见[连续工装腋下修复](references/workwear-armpit-abduction-repair.md)。 为什么：A-pose 体素化粘连与领口误切会在抬臂动作反复暴露为腋下漏空。

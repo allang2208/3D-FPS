@@ -604,6 +604,7 @@ void UFPSModularOutfitComponent::UpdatePresentation(USkeletalMeshComponent* Sour
         Part->SetSkeletalMeshAsset(Cast<USkeletalMesh>(FSoftObjectPath(MeshPaths[I]).ResolveObject()));
         Part->SetupAttachment(Source);Part->SetRelativeTransform(FTransform::Identity);
         Part->SetCollisionEnabled(ECollisionEnabled::NoCollision);Part->SetGenerateOverlapEvents(false);
+        Part->SetReceivesDecals(false);
         Part->SetOnlyOwnerSee(Source->bOnlyOwnerSee);Part->SetOwnerNoSee(Source->bOwnerNoSee);
         Part->SetCastShadow(Source->CastShadow);Part->bCastHiddenShadow=Source->bCastHiddenShadow;
         Part->SetFirstPersonPrimitiveType(Source->FirstPersonPrimitiveType);

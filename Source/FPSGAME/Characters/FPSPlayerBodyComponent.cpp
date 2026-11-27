@@ -305,6 +305,7 @@ void UFPSPlayerBodyComponent::InitializeBody(bool bRefreshAppearance)
     Character->CacheInitialMeshOffset(Body->GetRelativeLocation(),Body->GetRelativeRotation());
     Body->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     Body->SetGenerateOverlapEvents(false);
+    Body->SetReceivesDecals(false);
     Body->SetOnlyOwnerSee(false);Body->SetOwnerNoSee(true);
     Body->SetCastShadow(true);Body->bCastHiddenShadow=true;
     const bool bHideAssembly=IsWorldBodyPresentationHidden()||bInitialAppearancePending;
