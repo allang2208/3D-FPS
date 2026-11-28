@@ -2,6 +2,7 @@
 #include "HighlandBreakSweep.h"
 #include "RingChainSweepMotion.h"
 #include "../Characters/FPSPlayerBodyComponent.h"
+#include "../WorldGeneration/VillageOilCarry.h"
 #include "HighlandRidgeThrust.h"
 #include "HighlandRidgeGatherComponent.h"
 #include "RuneSwordGuardTuning.h"
@@ -189,11 +190,11 @@ void URuneSwordComponent::TickComponent(float Delta,ELevelTick Type,FActorCompon
         }
         return;
     }
-    if((bUppercut || IsRisingDragonFinisher() || bCharging || bReturningCharge || bInspecting) && Character->IsCastBlockingLeftHandAction()){CancelAction();return;}
+    if((bUppercut || IsRisingDragonFinisher() || bCharging || bReturningCharge || bInspecting) && (Character->IsCastBlockingLeftHandAction() || UVillageOilCarry::IsBlockingWeaponActions(Character.Get()))){CancelAction();return;}
     if(RingPrimaryDownAt>=0.)AdvanceRingPrimaryHold();
     ImpactAge=FMath::Min(1.f,ImpactAge+Delta);
     if(!bChainSlash&&!HighlandBreakSweep::UsesRibbon(CurrentClip)&&!(bRiftUppercutReveal&&(bUppercut||IsRisingDragonFinisher())))TickRift(Delta);
-    TickWalkInspect(Delta);
+    if(!UVillageOilCarry::IsBlockingWeaponActions(Character.Get()))TickWalkInspect(Delta);
     if(bWhirlwind){TickWhirlwind(Delta);return;}
     if(!bChainSlash&&TickGuard(Delta))return;
     if(!CurrentAnimation)

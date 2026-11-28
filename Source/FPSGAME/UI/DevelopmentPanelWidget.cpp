@@ -24,6 +24,7 @@
 #include "Components/Overlay.h"
 #include "Components/OverlaySlot.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/SizeBox.h"
 #include "Components/SpinBox.h"
 #include "Components/TextBlock.h"
@@ -105,8 +106,8 @@ void UDevelopmentPanelWidget::NativeOnInitialized()
     EnvironmentTab->OnClicked.AddDynamic(this, &ThisClass::EnvironmentClicked);
     TuningTab->OnClicked.AddDynamic(this, &ThisClass::TuningClicked);
     PerformanceTab->OnClicked.AddDynamic(this, &ThisClass::PerformanceClicked);
-    auto* Scroll = WidgetTree->ConstructWidget<UScrollBox>();
-    Scroll->SetScrollbarThickness(FVector2D(6,6));
+    auto* Scroll = WidgetTree->ConstructWidget<UColdSteelScrollBox>();
+    ColdSteelUI::ConfigureGoldScrollBox(Scroll, 6.f);
     Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     Pages = WidgetTree->ConstructWidget<UWidgetSwitcher>(); Scroll->AddChild(Pages);
     auto* WeatherPage = WidgetTree->ConstructWidget<UVerticalBox>(); Pages->AddChild(WeatherPage);

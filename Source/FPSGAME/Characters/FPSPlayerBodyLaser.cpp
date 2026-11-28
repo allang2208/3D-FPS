@@ -3,11 +3,14 @@
 #include "../Weapons/TacticalDeviceComponent.h"
 #include "../Weapons/TacticalDeviceVariants.h"
 
+#include "../WorldGeneration/VillageOilCarry.h"
+
 void UFPSPlayerBodyComponent::CaptureLaserPresentation()
 {
     DisplayState.Lasers.Reset();
     if(DisplayState.Action==EFPSBodyAction::Dead||DisplayState.Motion==EFPSBodyMotion::Vault
-        ||DisplayState.Motion==EFPSBodyMotion::Mantle)return;
+        ||DisplayState.Motion==EFPSBodyMotion::Mantle
+        ||UVillageOilCarry::IsStowingEquipment(Character.Get()))return;
     // Cached alongside the equipment manifest; at most two guns/two slots each.
     // Device ticks publish the final physical ray after the weapon pose settles.
     for(int32 Rig=0;Rig<LocalWeapons.Num()&&Rig<2;++Rig)
@@ -61,7 +64,7 @@ bool UFPSPlayerBodyComponent::ResolveLaserSample(uint8 Rig,uint8 Part,uint32 Sch
 {
     if(!Character.IsValid()||Character->IsLocallyControlled()||ServerClock()-DisplayState.PresentationSampledAt>.6f
         ||DisplayState.Action==EFPSBodyAction::Dead||DisplayState.Motion==EFPSBodyMotion::Vault
-        ||ConsumableStowsTacticalEffects(Rig)
+        ||ConsumableStowsTacticalEffects(Rig)||UVillageOilCarry::IsStowingEquipment(Character.Get())
         ||DisplayState.Motion==EFPSBodyMotion::Mantle||!MotionBindings.IsValidIndex(Rig))return false;
     const auto& Weapon=MotionBindings[Rig].Definition;
     const FString& Instance=Weapon.AttachHand==1?DisplayState.OffhandInstance:DisplayState.WeaponInstance;

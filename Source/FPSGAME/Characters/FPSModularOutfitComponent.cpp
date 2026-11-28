@@ -104,6 +104,11 @@ void UFPSModularOutfitComponent::RefreshInventory()
     if(Next.OrderIndependentCompareEqual(Equipped))return;
     Equipped=MoveTemp(Next);bWorldPresentationReady=false;bDirty=true;DiscoverCountdown=0.f;
 }
+void UFPSModularOutfitComponent::RefreshSources(bool bDiscoverNow)
+{
+    bDirty=true;DiscoverCountdown=0.f;
+    if(bDiscoverNow&&Configuration&&!bEnding){bDirty=false;DiscoverCountdown=.1f;DiscoverSources();}
+}
 bool UFPSModularOutfitComponent::IsSteelGauntletEquipped() const
 {
     static const FName SteelGauntlets(TEXT("ue_steel_gauntlets"));

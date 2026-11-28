@@ -39,7 +39,8 @@ def wall_point(column, course, side):
     # the smaller relief above it come directly from the same scan as the keep.
     batter = 1. + 1.8 * max(0., 1. - max(z, 0.) / 95.)
     wear = .85 * math.sin(column * math.pi / 9) * math.sin(course * .82 + column + side)
-    y = side * (96.8 + batter + wear)
+    base_y = 96.8 if side < 0 else 163.8
+    y = side * (base_y + batter + wear)
     return (x, y, z)
 
 
@@ -93,8 +94,8 @@ def crown(wall, shards):
     strips = [
         ([(341.,-97.5,-88.,0.),(345.,-101.,-88.,0.),(351.,-101.,-88.,0.),
           (353.,-99.,-88.,0.)], CAP),
-        ([(351.,91.,98.,0.),(354.,91.,100.,0.),(358.,91.,100.,0.),
-          (359.7,91.,98.8,0.)], CAP),
+        ([(351.,158.,165.,0.),(354.,158.,167.,0.),(358.,158.,167.,0.),
+          (359.7,158.,165.8,0.)], CAP),
         ([(359.5,-97.5,-52.,0.),(388.,-97.5,-52.,0.)], STONE),
         ([(388.,-97.5,-52.,0.),(390.,-100.,-50.,0.),(393.,-100.,-50.,0.),
           (395.,-97.,-52.,0.)], CAP)]
@@ -120,7 +121,7 @@ def build(output):
     masonry_body(wall, shards)
     crown(wall, shards)
     # Retain the shipped five-box character, stair-snap and placement profile.
-    wall.collision(-150.,150.,-100.,100.,-28.,360.)
+    wall.collision(-150.,150.,-100.,167.,-28.,360.)
     wall.collision(-150.,150.,-98.,-52.,351.,393.)
     for a,b in MERLONS:
         wall.collision(a,b,-96.,-53.,392.,479.)

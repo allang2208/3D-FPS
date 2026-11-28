@@ -3,6 +3,7 @@
 #include "VillageBuildDefense.h"
 #include "Net/UnrealNetwork.h"
 #include "ColdSteelCampfire.h"
+#include "../WorldGeneration/VillageSmartTurret.h"
 #include "CastingToolRackComponent.h"
 #include "WoodworkingSawVisualComponent.h"
 #include "PotionWorkbenchVisualComponent.h"
@@ -133,6 +134,7 @@ bool AVoxelBuildPrefabActor::BeginFall(UStaticMesh* FallbackMesh,float LifeSecon
     if(LogicActor)
     {
         if(auto* Campfire=Cast<AColdSteelCampfire>(LogicActor))Campfire->Extinguish();
+        if(auto* Turret=Cast<AVillageSmartTurret>(LogicActor))Turret->EjectWeaponSafely(nullptr);
         // 逻辑构件只留外观：挂到刚体网格上跟随落体，停止交互、Tick，并让碰撞完全由刚体承担。
         LogicActor->AttachToComponent(MeshComponent,FAttachmentTransformRules::KeepWorldTransform);
         LogicActor->Tags.AddUnique(TEXT("VoxelDetached"));

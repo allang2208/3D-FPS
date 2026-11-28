@@ -1,4 +1,5 @@
 #include "StaffWeaponComponent.h"
+#include "../../WorldGeneration/VillageOilCarry.h"
 #include "StaffIlluminationProfile.h"
 #include "../../Skills/LightningHasteSpeed.h"
 #include "StaffAssembly.h"
@@ -109,7 +110,7 @@ void UStaffWeaponComponent::PublishIllumination()
     if(!CrystalLight)return;
     const auto* Pawn=Cast<AFPSGAMECharacter>(GetOwner());
     const auto* Body=Pawn?Pawn->FindComponentByClass<UFPSPlayerBodyComponent>():nullptr;
-    const bool Visible=Pawn&&Pawn->IsLocallyControlled()&&!Pawn->IsHidden()&&Staff&&Staff->IsVisible()&&(!Body||!Body->IsThirdPersonViewEnabled());
+    const bool Visible=Pawn&&Pawn->IsLocallyControlled()&&!Pawn->IsHidden()&&Staff&&Staff->IsVisible()&&(!Body||!Body->IsThirdPersonViewEnabled())&&!UVillageOilCarry::IsStowingEquipment(Pawn);
     const float Level=Visible?StaffCastMotion::Ease(IlluminationBlend):0.f;
     // Stable on/off states do not continually dirty the light or material proxies.
     if(Level==PublishedIllumination)return;

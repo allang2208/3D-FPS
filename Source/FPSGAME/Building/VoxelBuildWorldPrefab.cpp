@@ -10,6 +10,7 @@
 #include "../WorldGeneration/VillageDefenseSection.h"
 #include "../WorldGeneration/VillageDefenseStairs.h"
 #include "../WorldGeneration/VillageDefenseState.h"
+#include "../WorldGeneration/VillageSmartTurret.h"
 #include "ColdSteelCampfire.h"
 #include "../UI/ColdSteelIncineratorStorage.h"
 #include "../UI/ColdSteelStatusModel.h"
@@ -114,8 +115,10 @@ namespace
         static const FVector2D Chassis[]={{-219,-128},{-219,128},{-10,-128},{-10,128},{199,-128},{199,128}};
         const bool bTrebuchet=Id==VillageBuildDefense::Trebuchet;
         static const FVector2D OilFeet[]={{-66,-65},{-66,65},{66,-65},{66,65},{0,0}};
+        static const FVector2D TurretFeet[]={{-56,-56},{-56,56},{56,-56},{56,56},{0,0}};
         const TConstArrayView<FVector2D> Pads=bTrebuchet?MakeArrayView(Chassis):
-            Id==VillageBuildDefense::OilPot?MakeArrayView(OilFeet):MakeArrayView(Pedestal);
+            (Id==VillageBuildDefense::OilPot || Id==VillageBuildDefense::LightningSpire)?MakeArrayView(OilFeet):
+            Id==VillageBuildDefense::SmartTurret?MakeArrayView(TurretFeet):MakeArrayView(Pedestal);
         double Low=MAX_dbl,High=-MAX_dbl;
         bool AllFixed=true;
         TSet<FIntVector> Supports;
@@ -666,6 +669,8 @@ bool AVoxelBuildWorld::CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString
         if(!SiegeFooting(*this,Id,Pose,nullptr,FloorZ,nullptr,&BearingRoof))
         {Reason=Id==VillageBuildDefense::Trebuchet?TEXT("投石机底架需要连续平面 · 避开楼梯口和平台边缘"):
             TEXT("器械底座需要完整、平缓的平台或地面");return false;}
+        if(Id==VillageBuildDefense::LightningSpire && !BearingRoof)
+        {Reason=TEXT("符文引雷塔须建造在高塔楼顶或石城门平台上");return false;}
         FVector Foot=Pose.GetLocation();Foot.Z=FloorZ;
         Pose.SetLocation(Foot);
         Probe.WallDockPose=Pose;
@@ -676,7 +681,10 @@ bool AVoxelBuildWorld::CanPlacePrefab(FName Id,FIntVector Cell,int32 Yaw,FString
         if(!VillageDefenseFootprint::IsClear(*GetWorld(),VillageDefenseFootprint::Siege(Id),Pose,this,{},BearingRoof?2.:16.))
         {
             Reason=Id==VillageBuildDefense::Trebuchet?TEXT("机架或投臂摆动范围受阻 · 移动或旋转投石机"):
-                Id==VillageBuildDefense::OilPot?TEXT("热油锅底座或锅柄被挡住，请避开垛口和楼梯口"):TEXT("弩炮机架被挡住 · 请避开垛口、楼梯栏杆或其他物体");
+                Id==VillageBuildDefense::OilPot?TEXT("热油锅底座或锅柄被挡住，请避开垛口和楼梯口"):
+                Id==VillageBuildDefense::LightningSpire?TEXT("符文引雷塔塔身或操纵台被挡住，请避开垛口和楼梯口"):
+                Id==VillageBuildDefense::SmartTurret?TEXT("智能机枪塔三脚座或枪架回转范围被挡住，请避开垛口和楼梯口"):
+                TEXT("弩炮机架被挡住 · 请避开垛口、楼梯栏杆或其他物体");
             return false;
         }
     }
@@ -874,27 +882,57 @@ AVoxelBuildPrefabActor* AVoxelBuildWorld::SpawnPrefab(const FVoxelBuildPrefabIns
 
 void AVoxelBuildWorld::TryGrantWorkshopTower()
 {
-    if(!HasAuthority() || !bReady || bClosing || bWorkshopTowerGranted)return;
+    if(!HasAuthority() || !bReady || bClosing)return;
     auto* Hills=FindVillageConstructionWorld();
     if(!Hills || !Hills->GetVillageSite().bPlaced ||
         !WorldKey.EndsWith(TEXT("|")+Hills->WorldId.ToString(EGuidFormats::Digits)) ||
         !Hills->IsVillagePlanUnlocked(TEXT("village_construction")))return;
     const auto& Site=Hills->GetVillageSite();
-    for(const auto& Entry:Prefabs)
+    const FTransform SitePose=Site.WorkshopTowerPose();
+    const auto* Definition=Palette?Palette->FindComponent(VillageBuildDefense::HighTower):nullptr;
+    for(FVoxelBuildPrefabInstance& Entry:Prefabs)
     {
-        if(Entry.Id==VillageBuildDefense::HighTower && Site.IsWorkshopTowerPosition(VillageWallStairs::Placement(Entry).GetLocation()))
+        if(Entry.Id!=VillageBuildDefense::HighTower)continue;
+        const FVector ExistingLoc=VillageWallStairs::Placement(Entry).GetLocation();
+        if(Site.IsWorkshopTowerPosition(ExistingLoc))
         {
+            if(!bWorkshopTowerGranted)
+            {
+                bWorkshopTowerGranted=true;
+                MarkSaveDirty();
+            }
+            return;
+        }
+        if(Site.IsLegacyWorkshopTowerPosition(ExistingLoc))
+        {
+            if(auto* Found=PrefabActors.Find(Entry.Cell))
+            {
+                if(auto* Placed=Cast<AVoxelBuildPrefabActor>(Found->Get()))
+                {
+                    if(AActor* Logic=Placed->Logic())Logic->Destroy();
+                    Placed->Destroy();
+                }
+                else if(AActor* Actor=Found->Get())Actor->Destroy();
+                PrefabActors.Remove(Entry.Cell);
+            }
+            TArray<FIntVector> OldOccupied;
+            FillPrefabCells(Entry,OldOccupied);
+            RemovePrefabOccupancy(Entry.Cell,OldOccupied);
+            Entry.WallDockPose=SitePose;
+            Entry.Yaw=(FMath::RoundToInt(SitePose.Rotator().Yaw/90.)+4)%4;
+            if(Definition)Entry.Footprint=AVoxelBuildPrefabActor::RotatedFootprint(Definition->Footprint,Entry.Yaw);
+            Entry.Cell=ToCell(SitePose.GetLocation())-FIntVector(Entry.Footprint.X/2,Entry.Footprint.Y/2,0);
+            TArray<FIntVector> NewOccupied;
+            AddPrefabOccupancy(Entry,NewOccupied);
+            SpawnPrefab(Entry);
             bWorkshopTowerGranted=true;
             MarkSaveDirty();
             return;
         }
     }
-
-    const auto* Definition=Palette->FindComponent(VillageBuildDefense::HighTower);
-    if(!Definition)return;
+    if(bWorkshopTowerGranted || !Definition)return;
     FVoxelBuildPrefabInstance Tower;
     Tower.Id=VillageBuildDefense::HighTower;
-    const FTransform SitePose=Site.WorkshopTowerPose();
     Tower.WallDockPose=SitePose;
     Tower.Yaw=(FMath::RoundToInt(SitePose.Rotator().Yaw/90.)+4)%4;
     Tower.Footprint=AVoxelBuildPrefabActor::RotatedFootprint(Definition->Footprint,Tower.Yaw);
@@ -1072,7 +1110,12 @@ bool AVoxelBuildWorld::DismantlePrefab(AActor* Piece,bool bManual)
     // （与手动拆除一致，构件本就免料）。
     if(Target->IsFalling())
     {
-        if(AActor* Logic=Target->Logic())Logic->Destroy();
+        if(AActor* Logic=Target->Logic())
+        {
+            if(auto* Turret=Cast<AVillageSmartTurret>(Logic))
+                Turret->EjectWeaponSafely(nullptr);
+            Logic->Destroy();
+        }
         Target->Destroy();
         Message=TEXT("已清除正在坠落的构件");
         return true;
@@ -1130,7 +1173,12 @@ bool AVoxelBuildWorld::DismantlePrefab(AActor* Piece,bool bManual)
         // 占位记录是 AActor：逻辑构件（门）挂在上面，拆除时先销毁它再销毁占位。
         if(auto* Placed=Cast<AVoxelBuildPrefabActor>(Found->Get()))
         {
-            if(AActor* Logic=Placed->Logic())Logic->Destroy();
+            if(AActor* Logic=Placed->Logic())
+            {
+                if(auto* Turret=Cast<AVillageSmartTurret>(Logic))
+                    Turret->EjectWeaponSafely(nullptr);
+                Logic->Destroy();
+            }
             Placed->Destroy();
         }
         else if(AActor* Actor=Found->Get())Actor->Destroy();

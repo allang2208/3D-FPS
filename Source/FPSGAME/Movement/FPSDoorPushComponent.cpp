@@ -1,4 +1,5 @@
 #include "FPSDoorPushComponent.h"
+#include "../WorldGeneration/VillageOilCarry.h"
 #include "../WorldGeneration/VillageDefenseSection.h"
 #include "../WorldGeneration/HighVillageDefense.h"
 #include "../Skills/LightningHasteSpeed.h"
@@ -109,6 +110,7 @@ bool UFPSDoorPushComponent::CanStart(FString* OutReason) const
     // bIgnoreDoorPush=true：这里验证的就是"这次推"——同实例上 BeginPush 已置 bActive，
     // 含 DoorPush 项的谓词会把本次起手误当占用而恒拒（本机/主机必中）。并发已由
     // Advance 的 bActive 早退与服务端 ServerDoor 节流分管，不需要在这里再查一次。
+    if(UVillageOilCarry::IsBlockingWeaponActions(Player))return Fail(TEXT("端持热油锅"));
     if(Player->IsLeftHandBusyForCast(true))
         return Fail(*FString::Printf(TEXT("左手施法占用[%s]"),*Player->DescribeLeftHandBusy(true)));
     if(Player->IsCastBlockingLeftHandAction(true))return Fail(TEXT("施法挡左手"));
@@ -327,6 +329,7 @@ bool UFPSDoorPushComponent::ServerCanInteract(AActor* Target,bool bSprint,FStrin
     if(Player->IsDodging())return Fail(TEXT("闪避中"));
     if(Player->IsSliding())return Fail(TEXT("滑铲中"));
     if(Player->IsSwitchingWeapon())return Fail(TEXT("切枪中"));
+    if(UVillageOilCarry::IsBlockingWeaponActions(Player))return Fail(TEXT("端持热油锅"));
     if(Player->IsLeftHandBusyForCast(true))
         return Fail(*FString::Printf(TEXT("左手施法占用[%s]"),*Player->DescribeLeftHandBusy(true)));
     if(Player->IsCastBlockingLeftHandAction(true))return Fail(TEXT("施法挡左手"));

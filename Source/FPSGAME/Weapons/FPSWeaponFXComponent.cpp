@@ -419,9 +419,10 @@ FTransform UFPSWeaponFXComponent::MuzzleTransform() const
     if(bWorldGun&&WorldMuzzlePart.IsValid())
         return FTransform(WorldMuzzlePart->GetComponentQuat().RotateVector(WorldMuzzleAxis).Rotation(),
             WorldMuzzlePart->GetComponentTransform().TransformPosition(WorldMuzzleTip));
-    if(bWorldGun)return WorldMuzzleInRoot*WeaponMesh->GetSocketTransform(TEXT("WPN_root"));
+    if(bWorldGun)return IsValid(WeaponMesh)?WorldMuzzleInRoot*WeaponMesh->GetSocketTransform(TEXT("WPN_root")):MuzzleSnapshot;
     if(IsValid(IndependentExit))return PresentationFrame(IndependentExit->GetComponentTransform(),IndependentExit);
     if(bUseCharacterMuzzle)if(const auto* C=Cast<AFPSGAMECharacter>(GetOwner()))return C->GetEffectiveMuzzleTransform();
+    if(!IsValid(WeaponMesh))return MuzzleSnapshot;
     // Imported WPN local Y lies along the bore; mirrored source rigs need a sign correction.
     FVector Forward;
     if(bWorldGun||bIndependentPistol)Forward=(WeaponMesh->GetSocketLocation(TEXT("WPN_FrontSight"))-WeaponMesh->GetSocketLocation(TEXT("WPN_RearSight"))).GetSafeNormal();
@@ -623,12 +624,15 @@ void UFPSWeaponFXComponent::TickComponent(float DeltaTime, ELevelTick TickType, 
         FX->SetWorldLocationAndRotation(MuzzleLocation(),MuzzleForward().Rotation());
     DeltaTime = FMath::Max(0.0f, DeltaTime);
     if (FlashBirthFrame != GFrameCounter) FlashTime = FMath::Max(0.0f, FlashTime - DeltaTime);
-    if (FlashTime > 0.0f)
+    if (FlashLight)
     {
-        FlashLight->SetWorldLocation(MuzzleLocation() + MuzzleForward() * 2.0f);
-        FlashLight->SetIntensity(350.0f * FMath::Clamp(FlashScale, 0.0f, 2.0f) * LastADSMultiplier * LastWeaponFlashMultiplier * LastSuppression * FMath::Square(FlashTime / 0.045f));
+        if (FlashTime > 0.0f)
+        {
+            FlashLight->SetWorldLocation(MuzzleLocation() + MuzzleForward() * 2.0f);
+            FlashLight->SetIntensity(350.0f * FMath::Clamp(FlashScale, 0.0f, 2.0f) * LastADSMultiplier * LastWeaponFlashMultiplier * LastSuppression * FMath::Square(FlashTime / 0.045f));
+        }
+        else FlashLight->SetVisibility(false);
     }
-    else FlashLight->SetVisibility(false);
     const bool bHideCasings = ShouldHideCasings();
     for (FFPSWeaponFXParticle& P : Particles)
     {

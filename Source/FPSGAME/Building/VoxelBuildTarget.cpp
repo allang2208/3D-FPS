@@ -736,7 +736,9 @@ void UVoxelBuildComponent::UpdatePrefabTarget(bool bHit)
                 if(FMath::Abs(Frame.InverseTransformPosition(FloorPose.GetLocation()).Z-Deck->Bounds.Max.Z)>2.)continue;
                 PrefabCell=Site;
                 PrefabMessage=Prefab->Id==VillageBuildDefense::Trebuchet?TEXT("投石机已贴合附近的平台 · 滚轮旋转 · 左键建造"):
-                    Prefab->Id==VillageBuildDefense::OilPot?TEXT("热油锅已贴合附近的平台 · 滚轮旋转 · 左键建造"):TEXT("弩炮已贴合附近的平台 · 滚轮旋转 · 左键建造");
+                    Prefab->Id==VillageBuildDefense::OilPot?TEXT("热油锅已贴合附近的平台 · 滚轮旋转 · 左键建造"):
+                    Prefab->Id==VillageBuildDefense::LightningSpire?TEXT("符文引雷塔已贴合附近的平台 · 滚轮旋转 · 左键建造"):
+                    Prefab->Id==VillageBuildDefense::SmartTurret?TEXT("智能机枪塔已贴合附近的平台 · 滚轮旋转 · 左键建造"):TEXT("弩炮已贴合附近的平台 · 滚轮旋转 · 左键建造");
                 bPrefabValid=true;
                 break;
             }

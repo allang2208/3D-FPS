@@ -9,6 +9,10 @@ class ACharacter;
 class UNiagaraComponent;
 class ULevel;
 class UNiagaraSystem;
+class UPointLightComponent;
+class UAudioComponent;
+class USoundBase;
+class USoundAttenuation;
 class UPrimitiveComponent;
 class UStaticMeshComponent;
 class UInstancedStaticMeshComponent;
@@ -42,7 +46,13 @@ public:
     void EmitColdImpact(const FVector& Position,const FVector& Normal);
     void RegisterWaterBody(UPrimitiveComponent* Body);
     FFireParticleViews FireViews;
-    void SetOilFireDemand(UNiagaraComponent* Fire,float LowRate,float HighRate);
+    void SetOilFireDemand(UNiagaraComponent* Fire,float LowRate,float HighRate,float DetailRate=0.f,
+        UPointLightComponent* Light=nullptr,UAudioComponent* Audio=nullptr,
+        const FVector& Origin=FVector::ZeroVector,float IntensityWeight=0.f);
+    USoundBase* OilFireLoopSound() const {return OilFireLoop.Get();}
+    USoundAttenuation* OilFireAttenuation() const {return OilFireAtt.Get();}
+    USoundBase* OilIgniteSound() const {return OilIgniteCue.Get();}
+    USoundAttenuation* OilIgniteAttenuation() const {return OilIgniteAtt.Get();}
     void RegisterCampfire(AColdSteelCampfire* Fire);
     void UnregisterCampfire(AColdSteelCampfire* Fire);
 protected:
@@ -50,10 +60,19 @@ protected:
 private:
     struct FOilFireAllocation
     {
-        FVector2f Demand=FVector2f::ZeroVector;
-        FVector2f Applied=FVector2f::ZeroVector;
+        FVector3f Demand=FVector3f::ZeroVector;
+        FVector3f Applied=FVector3f(-1.f,-1.f,-1.f);
+        TWeakObjectPtr<UPointLightComponent> Light;
+        TWeakObjectPtr<UAudioComponent> Audio;
+        FVector Origin=FVector::ZeroVector;
+        float IntensityWeight=0.f;
     };
     TMap<TWeakObjectPtr<UNiagaraComponent>,FOilFireAllocation> OilFires;
+    TSharedPtr<FStreamableHandle> OilPresentationLoad;
+    UPROPERTY(Transient) TObjectPtr<USoundBase> OilFireLoop;
+    UPROPERTY(Transient) TObjectPtr<USoundAttenuation> OilFireAtt;
+    UPROPERTY(Transient) TObjectPtr<USoundBase> OilIgniteCue;
+    UPROPERTY(Transient) TObjectPtr<USoundAttenuation> OilIgniteAtt;
     bool bOilBudgetDirty=false;
     void FlushOilFireBudget();
     struct FWalker

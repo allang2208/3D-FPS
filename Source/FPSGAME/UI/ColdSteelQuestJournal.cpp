@@ -1,4 +1,5 @@
 #include "ColdSteelQuestJournal.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelHUDWidget.h"
 #include "SExpeditionButton.h"
@@ -79,7 +80,7 @@ TSharedRef<SWidget> UColdSteelQuestJournal::RebuildWidget()
     auto Detail = SNew(SVerticalBox)
         + SVerticalBox::Slot().AutoHeight().Padding(0,0,0,14)[SNew(SBox).MinDesiredHeight(ColdSteelUI::ActionHeight)[Toolbar]]
         + SVerticalBox::Slot().FillHeight(1)[
-            SAssignNew(DetailScroll,SScrollBox)
+            ColdSteelUI::ApplyGoldScroll(SAssignNew(DetailScroll,SScrollBox)
             + SScrollBox::Slot().Padding(2,0,8,4)[Title.ToSharedRef()]
             + SScrollBox::Slot().Padding(2,0,8,12)[Status.ToSharedRef()]
             + SScrollBox::Slot().Padding(0,0,6,8)[Section(INVTEXT("任务详情"),Introduction.ToSharedRef())]
@@ -87,12 +88,12 @@ TSharedRef<SWidget> UColdSteelQuestJournal::RebuildWidget()
                 SNew(SVerticalBox)
                 + SVerticalBox::Slot().AutoHeight()[SAssignNew(StepRows,SVerticalBox)]
                 + SVerticalBox::Slot().AutoHeight()[Hint.ToSharedRef()])]
-            + SScrollBox::Slot().Padding(0,0,6,4)[Section(INVTEXT("任务奖励"),Reward.ToSharedRef())]];
+            + SScrollBox::Slot().Padding(0,0,6,4)[Section(INVTEXT("任务奖励"),Reward.ToSharedRef())],FVector2D(5.5f,5.5f),FMargin(4,0,0,0),true)];
     return SNew(SDPIScaler).DPIScale_Lambda([this]{return 1.f / FMath::Max(.1f,UWidgetLayoutLibrary::GetViewportScale(this));})[
         SNew(SBox).Padding(FMargin(16,12))[
             SAssignNew(Pages,SWidgetSwitcher)
-            + SWidgetSwitcher::Slot()[SAssignNew(ListScroll,SScrollBox)
-                + SScrollBox::Slot().Padding(0,0,6,0)[SAssignNew(List,SVerticalBox)]]
+            + SWidgetSwitcher::Slot()[ColdSteelUI::ApplyGoldScroll(SAssignNew(ListScroll,SScrollBox)
+                + SScrollBox::Slot().Padding(0,0,6,0)[SAssignNew(List,SVerticalBox)],FVector2D(5.5f,5.5f),FMargin(4,0,0,0),true)]
             + SWidgetSwitcher::Slot()[Detail]]];
 }
 

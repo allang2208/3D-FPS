@@ -23,6 +23,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/DecalComponent.h"
 #include "Materials/MaterialInstanceDynamic.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/GameInstance.h"
@@ -130,6 +131,107 @@ void UVoxelBuildComponent::UpdateWallCutPreview()
     WallCutPreview->SetVisibility(true);
 }
 
+void UVoxelBuildComponent::HideSiegeRangePreview()
+{
+    if(SiegeRangeDecal && !SiegeRangeDecal->bHiddenInGame)
+    {
+        SiegeRangeDecal->SetHiddenInGame(true);
+        SiegeRangeDecal->SetVisibility(false);
+    }
+}
+
+void UVoxelBuildComponent::UpdateSiegeRangePreview(FName Recipe,const FVector& SiteWorld,bool bValid)
+{
+    if(!VillageBuildDefense::IsSiegeEngine(Recipe) || !PreviewActor)
+    {
+        HideSiegeRangePreview();
+        return;
+    }
+    if(!VillageWorld.IsValid())
+        for(TActorIterator<ATemperateHillsWorld> It(GetWorld());It;++It){VillageWorld=*It;break;}
+    const VillageSiegeUpgrades::FRanks Ranks=VillageWorld.IsValid()?VillageWorld->GetAllSiegeRanks():VillageSiegeUpgrades::FRanks{};
+
+    if((Recipe==VillageBuildDefense::Ballista || Recipe==VillageBuildDefense::SmartTurret) && FVector::DistSquared2D(SiteWorld,SiegeGroundSampleXY)>1600.)
+    {
+        SiegeGroundSampleXY=SiteWorld;
+        SiegeGroundElevCm=0.;
+        FHitResult GroundHit;
+        FCollisionQueryParams Q(SCENE_QUERY_STAT(SiegeRangeGround),false,PreviewActor.Get());
+        if(GetWorld()->LineTraceSingleByChannel(GroundHit,SiteWorld+FVector(0.,0.,40.),SiteWorld-FVector(0.,0.,4000.),ECC_WorldStatic,Q) &&
+           GroundHit.IsValidBlockingHit())
+            SiegeGroundElevCm=FMath::Max(0.,SiteWorld.Z-GroundHit.ImpactPoint.Z);
+    }
+    const double Elev=(Recipe==VillageBuildDefense::Ballista || Recipe==VillageBuildDefense::SmartTurret)?SiegeGroundElevCm:0.;
+
+    VillageBuildDefense::FVillageSiegeRangeSpec Spec;
+    if(!VillageBuildDefense::ComputeSiegeRange(Recipe,Ranks,Elev,Spec)){HideSiegeRangePreview();return;}
+
+    if(!SiegeRangeMaterial)
+        SiegeRangeMaterial=LoadObject<UMaterialInterface>(nullptr,
+            TEXT("/Game/WorldGeneration/TemperateHills/HighVillageDefense/PlacementPreview/M_SiegeRangeIndicator.M_SiegeRangeIndicator"));
+    if(!SiegeRangeMaterial){HideSiegeRangePreview();return;}
+
+    const bool bCreate=!SiegeRangeDecal;
+    if(bCreate)
+    {
+        SiegeRangeDecal=NewObject<UDecalComponent>(PreviewActor.Get(),TEXT("SiegePlacementRangeDecal"),RF_Transient);
+        PreviewActor->AddInstanceComponent(SiegeRangeDecal);
+        SiegeRangeDecal->SetupAttachment(PreviewActor->GetRootComponent());
+        SiegeRangeDecal->SetAbsolute(true,true,true);
+        SiegeRangeDecal->SetWorldRotation(FRotator(-90.f,0.f,0.f));
+        SiegeRangeDecal->SetFadeScreenSize(0.f);
+        SiegeRangeDecal->SortOrder=2;
+        SiegeRangeDecal->SetDecalMaterial(SiegeRangeMaterial);
+        SiegeRangeDecal->RegisterComponent();
+        SiegeRangeMID=SiegeRangeDecal->CreateDynamicMaterialInstance();
+    }
+    if(!SiegeRangeDecal)return;
+
+    const FVector DecalLoc(SiteWorld.X,SiteWorld.Y,SiteWorld.Z-700.);
+    if(bCreate || !SiegeRangeCenter.Equals(SiteWorld,1.))
+    {
+        SiegeRangeCenter=SiteWorld;
+        SiegeRangeDecal->SetWorldLocation(DecalLoc);
+        if(SiegeRangeMID)SiegeRangeMID->SetVectorParameterValue(TEXT("Center"),FLinearColor(DecalLoc));
+    }
+
+    if(bCreate || SiegeRangeRecipe!=Recipe || SiegeRangeRanks!=Ranks.Low || SiegeRangeExtraRanks!=Ranks.High || bSiegeRangeValid!=bValid ||
+       !FMath::IsNearlyEqual(SiegeRangeOuter,Spec.OuterRadiusCm,1.) ||
+       !FMath::IsNearlyEqual(SiegeRangeInner,Spec.InnerRadiusCm,1.))
+    {
+        SiegeRangeRecipe=Recipe;
+        SiegeRangeRanks=Ranks.Low;
+        SiegeRangeExtraRanks=Ranks.High;
+        SiegeRangeOuter=Spec.OuterRadiusCm;
+        SiegeRangeInner=Spec.InnerRadiusCm;
+        bSiegeRangeValid=bValid;
+
+        const FVector Box(3600.,Spec.OuterRadiusCm+120.,Spec.OuterRadiusCm+120.);
+        if(!SiegeRangeDecal->DecalSize.Equals(Box,1.f))
+        {
+            SiegeRangeDecal->DecalSize=Box;
+            SiegeRangeDecal->MarkRenderStateDirty();
+        }
+        if(SiegeRangeMID)
+        {
+            const FLinearColor Ring=bValid?Spec.RingColor:FLinearColor(.94f,.34f,.30f);
+            const FLinearColor Fill=bValid?Spec.FillColor:FLinearColor(.72f,.22f,.18f);
+            SiegeRangeMID->SetVectorParameterValue(TEXT("RingColor"),Ring);
+            SiegeRangeMID->SetVectorParameterValue(TEXT("FillColor"),Fill);
+            SiegeRangeMID->SetScalarParameterValue(TEXT("OuterRadius"),float(Spec.OuterRadiusCm));
+            SiegeRangeMID->SetScalarParameterValue(TEXT("InnerRadius"),float(Spec.InnerRadiusCm));
+            SiegeRangeMID->SetScalarParameterValue(TEXT("FillInner"),Spec.bFillInner?1.f:0.f);
+            SiegeRangeMID->SetScalarParameterValue(TEXT("VerticalSpan"),3500.f);
+            SiegeRangeMID->SetScalarParameterValue(TEXT("OpacityScale"),bValid?1.f:.62f);
+        }
+    }
+    if(SiegeRangeDecal->bHiddenInGame || !SiegeRangeDecal->IsVisible())
+    {
+        SiegeRangeDecal->SetHiddenInGame(false);
+        SiegeRangeDecal->SetVisibility(true);
+    }
+}
+
 void UVoxelBuildComponent::UpdatePrefabPreview()
 {
     if(!Preview)return;
@@ -137,7 +239,7 @@ void UVoxelBuildComponent::UpdatePrefabPreview()
     for(UInstancedStaticMeshComponent* G:{CellGhost,CellCutGhost45,CellCutGhost26L,CellCutGhost26U,CellCutGhostTent})if(G){G->ClearInstances();G->SetVisibility(false);}
     const FVoxelBuildPrefab* Prefab=SelectedPrefab();
     UStaticMesh* Mesh=Prefab?Prefab->Mesh.LoadSynchronous():nullptr;
-    if(!Prefab||!Mesh||!bPrefabAimHit){Preview->SetVisibility(false,true);return;}
+    if(!Prefab||!Mesh||!bPrefabAimHit){Preview->SetVisibility(false,true);HideSiegeRangePreview();return;}
     const bool NewMesh=Preview->GetStaticMesh()!=Mesh;
     Preview->SetStaticMesh(Mesh);
     // 逻辑构件（门）与普通构件的摆放口径不同：前者锚点在占格底面中心、构件自己往上搭，
@@ -235,10 +337,12 @@ void UVoxelBuildComponent::UpdatePrefabPreview()
         PreviewMID->SetVectorParameterValue(TEXT("PreviewOrigin"),FLinearColor(Min.X,Min.Y,Min.Z));
     }
     Preview->SetHiddenInGame(false);Preview->SetVisibility(true);
+    UpdateSiegeRangePreview(Prefab->Id,Transform.GetLocation(),bPrefabValid);
 }
 
 void UVoxelBuildComponent::UpdatePreview(FIntVector Size)
 {
+    HideSiegeRangePreview();
     if(EntrancePreview)EntrancePreview->SetVisibility(false);
     if(WallCutPreview)WallCutPreview->SetVisibility(false);
     for(UStaticMeshComponent* Part:VillageGatePreviewParts)Part->SetVisibility(false);

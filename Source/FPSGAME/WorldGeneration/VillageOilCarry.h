@@ -4,9 +4,13 @@
 #include "VillageOilCarry.generated.h"
 
 class AVillageOilKettle;
+class ATemperateHillsWorld;
 class UColdSteelStatusModel;
-class UForgeArmsMeshComponent;
+class UVillageOilArmsMeshComponent;
 class USkeletalMeshComponent;
+class UDecalComponent;
+class UMaterialInstanceDynamic;
+class UMaterialInterface;
 class AFPSGAMECharacter;
 class FPrimitiveComponentId;
 struct FInputKeyEventArgs;
@@ -28,6 +32,18 @@ class UVillageOilCarry final : public UActorComponent
 public:
     UVillageOilCarry();
     bool Occupied() const {return State.Phase!=EOilCarryPhase::Empty;}
+    USkeletalMeshComponent* GetFirstPersonArms() const;
+    UDecalComponent* GetPourPreviewDecal() const;
+    UMaterialInstanceDynamic* GetPourPreviewMID() const;
+    const FVector& GetCachedPreviewPoint() const {return CachedPreviewPoint;}
+    bool HasPreviewPoint() const {return bHasPreviewPoint;}
+    void RefreshPourPreview(float Delta);
+    bool IsPresentationActive() const {return Occupied() && !bLocalCancel;}
+    bool IsPendingOrOccupied() const {return (Occupied() || bTakePending) && !bLocalCancel;}
+    static bool IsStowingEquipment(const AActor* Owner);
+    static bool IsBlockingWeaponActions(const AActor* Owner);
+    bool CanTakeNow(FString* OutReason=nullptr) const;
+    bool ResolvePourTarget(FVector& OutGroundPoint,FVector& OutNormal) const;
     bool HandleInput(const FInputKeyEventArgs& Event);
     void Cancel();
     void RefreshEquipment(const UColdSteelStatusModel& Model);
@@ -47,27 +63,48 @@ private:
     UFUNCTION(Server,Reliable) void ServerCancel();
     UFUNCTION(Client,Reliable) void ClientTakeResult(bool Accepted);
     void SetState(EOilCarryPhase NewPhase);
-    bool CanTake() const;
-    bool HandsInUse() const;
+    bool CanTake(bool bAllowInspect=false,FString* OutReason=nullptr) const;
+    bool HandsInUse(bool bAllowInspect=false) const;
     void RememberEquipment();
+    void ClearStaleWeaponActions();
+    void AdvanceLocomotionFeedback(float Delta);
+    void UpdatePourPreview(float Delta);
+    void HidePourPreview();
     void UpdateVisual();
     void PrepareVisual();
     void PrepareWorldGrip(USkeletalMesh* BodyMesh);
-    FTransform PanPose(bool CameraSpace) const;
+    FTransform PanPose(bool CameraSpace,bool bIncludeLocalSway=true) const;
     AFPSGAMECharacter* Player() const;
     UPROPERTY() TObjectPtr<UStaticMeshComponent> ViewPot;
     UPROPERTY() TObjectPtr<UStaticMeshComponent> WorldPot;
     UPROPERTY() TObjectPtr<UStaticMeshComponent> ViewOil;
     UPROPERTY() TObjectPtr<UStaticMeshComponent> WorldOil;
-    UPROPERTY() TObjectPtr<UForgeArmsMeshComponent> Arms;
+    UPROPERTY() TObjectPtr<UVillageOilArmsMeshComponent> Arms;
+    UPROPERTY(Transient) TObjectPtr<UDecalComponent> PourPreviewDecal;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInstanceDynamic> PourPreviewMID;
+    UPROPERTY(Transient) TObjectPtr<UMaterialInterface> PourPreviewMaterial;
+    TWeakObjectPtr<ATemperateHillsWorld> CachedHillsWorld;
+    TArray<FTransform> BindPose;
     TArray<FTransform> RestPose;
     TArray<int32> ArmBones;
     FTransform BaseContact[2];
     TWeakObjectPtr<USkeletalMesh> WorldGripMesh;
+    TArray<FTransform> WorldBindPose;
     FTransform WorldHandleInWrist[2];
     TArray<int32> WorldFingers[2];
     TArray<FTransform> WorldFingerPose;
     int32 OffhandSlotAtTake=INDEX_NONE;
-    FString MainItemAtTake,OffhandItemAtTake;
-    bool bTakePending=false,bLeftPressed=false,bReleasedOil=false,bLocalCancel=false,bPourQueued=false;
+    FString MainItemAtTake,OffhandItemAtTake,ToolItemAtTake;
+    FVector2D LookSway=FVector2D::ZeroVector,LookSwayVel=FVector2D::ZeroVector;
+    FVector2D OilSlosh=FVector2D::ZeroVector,OilSloshVel=FVector2D::ZeroVector;
+    FVector2D PrevOilShake=FVector2D::ZeroVector;
+    FRotator PrevControlRot=FRotator::ZeroRotator;
+    float LandingDip=0.f,LandingDipVel=0.f;
+    double TakePendingSince=-100.,NextPreviewSampleAt=-100.;
+    FVector CachedPreviewPoint=FVector::ZeroVector,CachedPreviewNormal=FVector::UpVector;
+    FVector LastPreviewEye=FVector::ZeroVector;
+    FRotator LastPreviewAim=FRotator::ZeroRotator;
+    FVector2D CachedPreviewRadii=FVector2D::ZeroVector;
+    bool bHasPreviewPoint=false,bHasPreviewCamera=false,bHasPrevControlRot=false,bWasFalling=false;
+    bool bTakePending=false,bLeftPressed=false,bRightPressed=false,bReleasedOil=false,bLocalCancel=false,bPourQueued=false;
 };

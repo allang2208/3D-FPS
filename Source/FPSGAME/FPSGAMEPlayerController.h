@@ -33,12 +33,20 @@ public:
     class UVillageSiegeControl* GetSiegeControl() const { return SiegeControl; }
     void ToggleWeatherPanel();
     void ToggleDevelopmentPanel();
+    void OpenSmartTurretDrawer(class AVillageSmartTurret* Turret);
+    void CloseSmartTurretDrawer();
+    bool IsSmartTurretDrawerOpen() const { return SmartTurretDrawer.IsValid(); }
+    UFUNCTION(Server,Reliable) void ServerSmartTurretMount(class AVillageSmartTurret* Turret,const FString& ItemInstanceId);
+    UFUNCTION(Server,Reliable) void ServerSmartTurretUnmount(class AVillageSmartTurret* Turret);
+    UFUNCTION(Client,Reliable) void ClientSmartTurretResult(bool bSuccess,const FString& Message);
     UDevelopmentSpawnComponent* GetDevelopmentSpawner() const { return DevelopmentSpawner; }
     class UChapelDialogueComponent* GetChapelDialogue() const { return ChapelDialogue; }
     /** 开发面板打开期间与背包共用右侧 HUD 让位规则。 */
     UColdSteelHUDWidget* GetColdSteelHUD() const { return ColdSteelHUD; }
     /** 训练靶命中只回传给实际攻击者的 HUD，避免全服广播/客户端过滤。 */
     UFUNCTION(Client,Unreliable) void ClientPracticeHit(AActor* Target,FVector Point,float Damage,bool bBullseye,float MagicApplied);
+    /** 城防设施伤害浮字（服务端按合理可视距离分发给主机与客机玩家）。 */
+    UFUNCTION(Client,Unreliable) void ClientDefenseDamageNumber(AActor* Target,FVector_NetQuantize WorldPoint,float AppliedDamage,float MagicDamage,bool bCritical,bool bKilled,bool bBig);
     /** Live item thumbnails are only produced while a consuming panel is open. */
     bool IsItemIconPanelOpen() const;
     /** ALT exposes the HUD cursor without suspending the held weapon/action. */
@@ -80,6 +88,7 @@ public:
 
 protected:
     virtual void BeginPlay() override;
+    virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
     virtual void PlayerTick(float DeltaTime) override;
     virtual void UpdateRotation(float DeltaTime) override;
     virtual void UpdateHiddenComponents(const FVector& ViewLocation,TSet<FPrimitiveComponentId>& HiddenComponents) override;
@@ -137,4 +146,6 @@ private:
     bool bWoodworkingReturnToCursor=false;
     UPROPERTY(Transient) TObjectPtr<class UColdSteelAlchemyWidget> AlchemyPanel;
     bool bAlchemyReturnToCursor=false;
+    TSharedPtr<class SSmartTurretDrawer> SmartTurretDrawer;
+    TWeakObjectPtr<class AVillageSmartTurret> ActiveSmartTurret;
 };

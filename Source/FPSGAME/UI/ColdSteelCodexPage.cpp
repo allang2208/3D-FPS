@@ -5,6 +5,7 @@
 #include "../FPSGAMEPlayerController.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelInventoryTypes.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelMonsterPortraits.h"
@@ -558,9 +559,8 @@ TSharedRef<SWidget> UColdSteelCodexPage::BuildGrid()
         }
     }
     SAssignNew(GridScroll, SScrollBox);
-    GridScroll->SetScrollBarThickness(FVector2D(6.f / FMath::Max(Scale, .01f)));
-    // 与右侧详情列保持同一滚动条行为：按需出现，不常驻。两列一常驻一按需会让中缝宽度随滚动跳动。
     GridScroll->SetAllowOverscroll(EAllowOverscroll::No);
+    ColdSteelUI::ApplyGoldScroll(GridScroll.ToSharedRef(), FVector2D(6.f / FMath::Max(Scale, .01f)), FMargin(4.f / FMath::Max(Scale, .01f), 0.f, 0.f, 0.f), true);
     GridScroll->AddSlot()[ Rows ];
     SAssignNew(GridHost, SBox);
     GridHost->SetContent(GridScroll.ToSharedRef());
@@ -616,8 +616,8 @@ TSharedRef<SWidget> UColdSteelCodexPage::BuildDetail()
 
         TSharedPtr<SScrollBox> Scroll;
         SAssignNew(Scroll, SScrollBox);
-        Scroll->SetScrollBarThickness(FVector2D(6.f / FMath::Max(Scale, .01f)));
         Scroll->SetAllowOverscroll(EAllowOverscroll::No);
+        ColdSteelUI::ApplyGoldScroll(Scroll.ToSharedRef(), FVector2D(6.f / FMath::Max(Scale, .01f)), FMargin(4.f / FMath::Max(Scale, .01f), 0.f, 0.f, 0.f), true);
         Scroll->AddSlot().Padding(Pad, 0.f, Pad, Pad)[ Cards ];
         DetailScroll = Scroll;
         Detail->AddSlot().FillHeight(1.f)[ Scroll.ToSharedRef() ];

@@ -13,6 +13,7 @@
 #include "Components/ScaleBox.h"
 #include "Components/SizeBox.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
@@ -65,8 +66,8 @@ void UWeatherControlWidget::NativeOnInitialized()
     Title->SetFont(ColdSteelUI::TextFont(18 / PixelScale, true));
     Title->SetColorAndOpacity(ColdSteelUI::TextPrimary);
     Stack->AddChildToVerticalBox(Title)->SetPadding(FMargin(0, 0, 0, 12));
-    auto* Scroll = WidgetTree->ConstructWidget<UScrollBox>();
-    Scroll->SetScrollbarThickness(FVector2D(4, 4));
+    auto* Scroll = WidgetTree->ConstructWidget<UColdSteelScrollBox>();
+    ColdSteelUI::ConfigureGoldScrollBox(Scroll, 4.f);
     Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     auto* Presets = WidgetTree->ConstructWidget<UVerticalBox>();
     Scroll->AddChild(Presets);

@@ -1,6 +1,7 @@
 #include "ProductionToolComponent.h"
 #include "WarhammerInspectWalkCues.h"
 #include "../FPSGAMECharacter.h"
+#include "../WorldGeneration/VillageOilCarry.h"
 #include "Animation/AnimSequence.h"
 #include "GameFramework/CharacterMovementComponent.h"
 
@@ -44,7 +45,8 @@ void UProductionToolComponent::TickWalkInspect(float Delta)
     // Counts down only during an ordinary ground stride, never over an action
     // or the sprint-carry handoff.
     if(InspectElapsed>=0.f||!IsWarhammerEquipped()||!CanUse()||IsBusy()||SprintBlend>.001f||!Character.IsValid()||
-        Character->IsCastBlockingLeftHandAction()||!Motions.FindRef(TEXT("InspectWalk"))||!IsWalkInspectStride())return;
+        Character->IsCastBlockingLeftHandAction()||UVillageOilCarry::IsBlockingWeaponActions(Character.Get())||
+        !Motions.FindRef(TEXT("InspectWalk"))||!IsWalkInspectStride())return;
     WalkInspectDelay-=Delta;
     if(WalkInspectDelay>0.f)return;
     if(!BeginInspect(true))WalkInspectDelay=FMath::FRandRange(1.f,2.f);

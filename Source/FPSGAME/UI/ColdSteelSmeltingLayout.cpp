@@ -22,6 +22,7 @@
 #include "Components/OverlaySlot.h"
 #include "Components/ProgressBar.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/SizeBox.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
@@ -168,7 +169,7 @@ void UColdSteelSmeltingWidget::NativeOnInitialized()
     // —— 可冶炼原料列表 ——
     SectionTitle=Text(TEXT("可冶炼原料"),16,ColdSteelUI::TextPrimary,false,true);
     Body->AddChildToVerticalBox(SectionTitle)->SetPadding(FMargin(0,0,0,8/Scale));
-    RowsScroll=WidgetTree->ConstructWidget<UScrollBox>();RowsScroll->SetAllowOverscroll(false);
+    RowsScroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();RowsScroll->SetAllowOverscroll(false);ColdSteelUI::ConfigureGoldScrollBox(RowsScroll,5.5f);
     Body->AddChildToVerticalBox(RowsScroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     RowsBox=WidgetTree->ConstructWidget<UVerticalBox>();RowsScroll->AddChild(RowsBox);
     RowsEmpty=Text(TEXT("背包与仓库中没有可冶炼的原料"),12,ColdSteelUI::TextTertiary,false,false,true);

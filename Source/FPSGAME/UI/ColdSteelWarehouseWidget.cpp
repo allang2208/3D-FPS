@@ -19,6 +19,7 @@
 #include "Components/HorizontalBox.h"
 #include "Components/HorizontalBoxSlot.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/BackgroundBlur.h"
 #include "Engine/GameInstance.h"
 #include "Framework/Application/SlateApplication.h"
@@ -56,7 +57,7 @@ void UColdSteelWarehouseWidget::NativeOnInitialized()
     SortMenu=WidgetTree->ConstructWidget<UComboBoxString>();SortMenu->OnGenerateWidgetEvent.BindDynamic(this,&ThisClass::SortOption);
     for(const FString Option:{TEXT("整理仓库"),TEXT("按稀有度"),TEXT("按价值"),TEXT("近战武器"),TEXT("远程武器"),TEXT("盾牌"),TEXT("防具与饰品"),TEXT("消耗品"),TEXT("强化材料"),TEXT("材料"),TEXT("贡品"),TEXT("其他"),TEXT("魔法武器")})SortMenu->AddOption(Option);
     SortMenu->SetSelectedIndex(0);AddAction(SortMenu);SortMenu->OnSelectionChanged.AddDynamic(this,&ThisClass::SortChanged);
-    Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetAllowOverscroll(false);Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Never);Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+    Scroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();Scroll->SetAllowOverscroll(false);Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Never);ColdSteelUI::ConfigureGoldScrollBox(Scroll,5.5f);Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     Board=CreateWidget<UColdSteelInventoryWidget>(GetOwningPlayer());Board->ConfigureWarehouse(HUD);Scroll->AddChild(Board);
     auto* Footer=WidgetTree->ConstructWidget<UHorizontalBox>();FooterSlot=Stack->AddChildToVerticalBox(Footer);
     Previous=Button(TEXT("上一页"));Footer->AddChildToHorizontalBox(Previous);Previous->OnClicked.AddDynamic(this,&ThisClass::PreviousPage);

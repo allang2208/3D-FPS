@@ -2,6 +2,7 @@
 #include "ColdSteelTextToolTip.h"
 #include "ColdSteelInventoryWidget.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelUIAudio.h"
 #include "ColdSteelHorsePortrait.h"
@@ -355,7 +356,7 @@ TSharedRef<SWidget> UColdSteelMountGearPanel::Choices(int32 GearIndex)
     if(!List->NumSlots())List->AddSlot().Padding(8)[SNew(STextBlock).Font(ColdSteelUI::TextFont(12))
         .Text(FText::FromString(TEXT("背包中没有适用马具")))];
     return SNew(SBox).MinDesiredWidth(180).MaxDesiredHeight(236)
-        [SNew(SScrollBox).AllowOverscroll(EAllowOverscroll::No)+SScrollBox::Slot()[List]];
+        [ColdSteelUI::ApplyGoldScroll(SNew(SScrollBox).AllowOverscroll(EAllowOverscroll::No)+SScrollBox::Slot()[List],FVector2D(5,5),FMargin(3,0,0,0),true)];
 }
 
 FReply UColdSteelMountGearPanel::Change(FGuid Id,int32 GearIndex,FString Item,bool Equip)

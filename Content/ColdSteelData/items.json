@@ -7221,5 +7221,30 @@
     "price": 320,
     "ue_icon": "Icons/HorseTack/stable_saddlebags.png",
     "world_mesh": "/Game/WorldGeneration/TemperateHills/VillageStable/HorseTackR52/SM_Tack_Saddlebags.SM_Tack_Saddlebags"
+  },
+  "siege_blueprint_insulated_oil_pack": {
+    "id": "siege_blueprint_insulated_oil_pack",
+    "name": "隔热包装方案设计图",
+    "category": "material",
+    "type": "工程设计图",
+    "rarity": "legendary",
+    "grade": "legendary",
+    "desc": "记录了耐高温陶罐内衬与隔热封蜡配方的传说级工程卷轴。在东门机械工坊交予工匠大师，可解锁配重投石机的「热油」独特升级：攻击 3 次后，第 4 次攻击在命中地面形成热油火海，效果实时匹配热油锅当前等级且不对友方单位造成伤害。",
+    "grid_w": 1,
+    "grid_h": 2,
+    "stack": 1,
+    "stack_max": 9,
+    "maxStack": 9,
+    "price": 5000,
+    "sell_souls": 2500,
+    "icon": "Icons/magic_scroll_realistic_v1.png",
+    "ue_icon": "Icons/magic_scroll_realistic_v1.png",
+    "icon_fallback": "📜",
+    "world_mesh": "/Game/Items/MagicScroll/magic_scroll/SM_magic_scroll.SM_magic_scroll",
+    "stats": [
+      { "name": "用途", "value": "解锁配重投石机「热油」升级" },
+      { "name": "交付地点", "value": "村庄东门 · 机械工坊" },
+      { "name": "强化效果", "value": "每第 4 发落点形成友方免伤热油" }
+    ]
   }
 }

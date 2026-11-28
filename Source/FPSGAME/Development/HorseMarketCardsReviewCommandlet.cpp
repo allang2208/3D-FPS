@@ -39,6 +39,7 @@ int32 UHorseMarketCardsReviewCommandlet::Main(const FString& Params)
     }
     IFileManager::Get().MakeDirectory(*Output,true);
     if(FParse::Param(*Params,TEXT("SiegeWorkshop")))return FSiegeDrawerReview::Run(Output);
+    if(FParse::Param(*Params,TEXT("SmartTurretUI")))return FSiegeDrawerReview::RunSmartTurret(Output);
     FGuid Bought;
     int32 Requests=0;
     auto Panel=SNew(SColdSteelHorseMarket).OnDetails(SColdSteelHorseMarket::FOpenHorse::CreateLambda(

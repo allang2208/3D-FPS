@@ -9,6 +9,8 @@ class UNiagaraSystem;
 class UInstancedStaticMeshComponent;
 class UDynamicMeshComponent;
 class USplineMeshComponent;
+class UPointLightComponent;
+class UAudioComponent;
 
 USTRUCT()
 struct FVillageOilSurfacePacket
@@ -49,6 +51,7 @@ private:
     UPROPERTY() TObjectPtr<UStaticMeshComponent> Liquid;
     UPROPERTY() TObjectPtr<UInstancedStaticMeshComponent> Bubbles;
     UPROPERTY() TObjectPtr<UNiagaraComponent> Vapour;
+    UPROPERTY() TObjectPtr<UPointLightComponent> HearthGlow;
     UPROPERTY() TObjectPtr<class UMaterialInstanceDynamic> SurfaceMID;
     struct FBubble { FVector2D XY; double Born=-1.,Life=.5,Radius=2.; };
     TArray<FBubble> Boil;
@@ -76,10 +79,30 @@ private:
     UPROPERTY(Replicated) FVector_NetQuantize10 PourFrom;
     UPROPERTY(Replicated) double Started=0.;
     UPROPERTY(Replicated) uint16 FlowSeed=0;
+    UPROPERTY(Replicated) uint64 UpgradeRanks=0;
+    UPROPERTY(Replicated) bool bDirectSplash=false;
+    UPROPERTY(Replicated) bool bIgnoreFriendlies=false;
+    uint64 InitialUpgradeRanks=0;
     UPROPERTY(ReplicatedUsing=OnRep_Surface) FVillageOilSurfacePacket SurfacePacket;
+public:
+    void ConfigureTrebuchetSplash(const FVector& SplashOrigin,uint64 Ranks,bool bFriendlySafe)
+    {
+        Lip=SplashOrigin;
+        InitialUpgradeRanks=Ranks;
+        bDirectSplash=true;
+        bIgnoreFriendlies=bFriendlySafe;
+    }
+private:
+    float FieldDamage() const;
+    float FieldRadius() const;
+    float FieldLife() const;
+    int32 FieldBurnStacks() const;
     UFUNCTION() void OnRep_Surface();
     void PublishSurface();
     friend class UVillageOilSurveySubsystem;
+#if WITH_DEV_AUTOMATION_TESTS
+    friend class FVillageTrebuchetHotOilTest;
+#endif
     int32 SurveyStep(int32 Allowance);
     TUniquePtr<FVillageOilSpread> SurveyWork;
     double NextSupportCheck=0.;
@@ -92,25 +115,32 @@ private:
     TArray<FVector> SplashVelocity;
     void UpdateSplash(float WetAge);
     UPROPERTY() TObjectPtr<UNiagaraComponent> FireFront;
+    UPROPERTY() TObjectPtr<UPointLightComponent> FireLight;
+    UPROPERTY() TObjectPtr<UAudioComponent> FireAudio;
     struct FFireBand
     {
         FIntVector Path=FIntVector(-1,-1,-1);
-        FVector Points[5];
-        float Scale[5]={};
-        float Arrival[5]={};
+        FVector Points[3];
+        float Scale[3]={};
+        float Arrival[3]={};
         float LastBirth=0.f;
         int32 Richest=INDEX_NONE;
     };
     TArray<FFireBand> FireBands;
     TArray<int32> HotCells;
     TArray<FVector4> UploadedFireRoots;
+    TArray<FVector4> ScratchFireRoots;
+    TBitArray<> ScratchSeenBits;
     FVector4 FireView=FVector4(0,0,0,0);
     int32 ActiveBands=0,ActivePockets=0;
     TArray<float> FireEvents;
     int32 FireEventCursor=0;
     int32 FireSurveyExtent=INDEX_NONE;
     float NextFireUpdate=0.f;
+    float NextWindUpdate=0.f;
     bool bDetailedFire=false;
+    bool bIgniteSoundPlayed=false;
+    bool bFinalPulseDone=false;
     void BuildFireBands();
     void UpdateFireRoots(float WetAge);
     void UpdateFireFront(float WetAge);

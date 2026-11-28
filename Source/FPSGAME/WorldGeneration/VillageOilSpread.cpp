@@ -58,7 +58,7 @@ bool FVillageOilSpread::AdvanceSurvey(AActor& Field,float Age,int32& Budget)
 {
     if(Target<0)
     {
-        const int Want=FMath::Clamp(3+FMath::FloorToInt(FMath::Max(0.f,Age)*14.f),3,Half);
+        const int Want=FMath::Clamp(3+FMath::FloorToInt(FMath::Max(0.f,Age)*14.f),3,MaxExtent());
         if(Built>=Want)return false;
         Target=FMath::Min(Want,Built<0?1:Built+2);
         ColumnCursor=LinkCursor=CutCursor=0;bCutsPlanned=false;NeededCuts.Reset();
@@ -77,7 +77,7 @@ bool FVillageOilSpread::AdvanceSurvey(AActor& Field,float Age,int32& Budget)
         const int K=ColumnCursor++,X=K%Width-Target,Y=K/Width-Target;
         if(FMath::Max(FMath::Abs(X),FMath::Abs(Y))<=Built)continue;
         const FVector2D XY(X*Step,Y*Step);
-        if(XY.Size()>VillageHotOil::Radius+Step*1.6)continue;
+        if(XY.Size()>Radius+Step*1.6)continue;
         const FVector At=Center+FVector(XY,0);FHitResult H;
         --Budget;
         if(!Field.GetWorld()->LineTraceSingleByObjectType(H,At+FVector(0,0,83),At-FVector(0,0,450),Surface,Q)
@@ -153,7 +153,7 @@ float FVillageOilSpread::EdgeDistance(FVector P) const
     const FVector2D XY(P);
     const double A=FMath::Atan2(XY.Y,XY.X);
     const double Lobes=.055*FMath::Sin(3*A+Seed)+.045*FMath::Sin(5*A-Seed*.9)+.022*FMath::Sin(8*A+Seed*1.7);
-    const double Boundary=VillageHotOil::Radius*FMath::Clamp(.91+Lobes+.075*(XY.GetSafeNormal()|Incoming)
+    const double Boundary=Radius*FMath::Clamp(.91+Lobes+.075*(XY.GetSafeNormal()|Incoming)
         -.00065*FMath::Clamp(P.Z,-120.,120.)+.034*Grain(P.X*.35/Step,P.Y*.35/Step,Seed),.62,1.);
     return Boundary-XY.Size();
 }
@@ -397,7 +397,7 @@ void FVillageOilSpread::WriteMesh(UDynamicMeshComponent& Output) const
 }
 bool FVillageOilSpread::WetAt(FVector P,float Age) const
 {
-    if(Age<0 || Cells.IsEmpty() || P.SizeSquared2D()>FMath::Square(VillageHotOil::Radius))return false;
+    if(Age<0 || Cells.IsEmpty() || P.SizeSquared2D()>FMath::Square(Radius))return false;
     const double GX=P.X/Step+Half,GY=P.Y/Step+Half;
     const int X=FMath::FloorToInt(GX),Y=FMath::FloorToInt(GY);
     if(X<0||Y<0||X+1>=Side||Y+1>=Side)return false;
@@ -405,7 +405,7 @@ bool FVillageOilSpread::WetAt(FVector P,float Age) const
     const auto Covers=[&](const FCell& M,const FCell& N,const FCell& O,double L0,double L1,double L2)
     {
         return Age>=M.Arrival*L0+N.Arrival*L1+O.Arrival*L2 &&
-            M.Edge*L0+N.Edge*L1+O.Edge*L2>0. && FMath::Abs(P.Z-(M.P.Z*L0+N.P.Z*L1+O.P.Z*L2))<=16.;
+            M.Edge*L0+N.Edge*L1+O.Edge*L2>0. && FMath::Abs(P.Z-(M.P.Z*L0+N.P.Z*L1+O.P.Z*L2))<=22.;
     };
     if(Triangle(A,B,C))return Covers(Cells[A],Cells[B],Cells[C],1.-FMath::Max(U,V),FMath::Abs(U-V),FMath::Min(U,V));
     if(const auto* Cut=Shores.Find(A))for(const auto& T:*Cut)

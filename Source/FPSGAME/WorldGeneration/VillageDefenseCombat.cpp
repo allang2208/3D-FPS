@@ -1,10 +1,24 @@
 #include "VillageDefenseCombat.h"
+#include "../FPSGAMECharacter.h"
+#include "../FPSGAMEPlayerController.h"
+#include "../Monsters/MonsterCombatComponent.h"
 #include "../Monsters/MonsterTargeting.h"
+#include "../UI/ColdSteelDamageNumberSubsystem.h"
 #include "VillageDefenseSection.h"
 #include "ChapelShrine.h"
+#include "Camera/PlayerCameraManager.h"
 #include "Engine/World.h"
 #include "EngineUtils.h"
+#include "HAL/IConsoleManager.h"
 #include "NavigationSystem.h"
+
+namespace
+{
+    TAutoConsoleVariable<float> CVarDefenseDamageNumberRangeCm(
+        TEXT("fps.Village.DefenseDamageNumberRangeCm"),
+        6500.f,
+        TEXT("Maximum distance in cm at which village defense facility damage numbers are shown to host/clients."));
+}
 
 FVector VillageDefenseCombat::Aim(const AActor* Target,const FVector& From)
 {
@@ -47,3 +61,62 @@ AVillageDefenseSection* VillageDefenseCombat::Reachable(UWorld* World,const FVec
 }
 bool VillageDefenseCombat::HasRoute(UWorld* World,const FVector& From,const FVector& Goal,UNavigationSystemV1* Nav,const ANavigationData* Data)
 {FVector Approach;return Reachable(World,From,Goal,Nav,Data,Approach)!=nullptr;}
+
+float VillageDefenseCombat::DamageNumberMaxRangeCm()
+{
+    return FMath::Max(0.f,CVarDefenseDamageNumberRangeCm.GetValueOnGameThread());
+}
+
+void VillageDefenseCombat::BroadcastDamageNumber(UWorld* World,AActor* Target,const FVector& FallbackPoint,
+    float AppliedDamage,float MagicDamage,bool bCritical,bool bKilled)
+{
+    if(!World || World->GetNetMode()==NM_Client || AppliedDamage<=0.f)return;
+    if(Target)
+    {
+        if(Target->IsA<AFPSGAMECharacter>())return;
+        if(const auto* Pawn=Cast<APawn>(Target);Pawn && Pawn->IsPlayerControlled())return;
+    }
+    const float MaxRangeCm=DamageNumberMaxRangeCm();
+    if(MaxRangeCm<=0.f)return;
+
+    const FVector Anchor=IsValid(Target)?UColdSteelDamageNumberSubsystem::TargetTopAnchor(Target):FallbackPoint;
+    float Health=0.f,MaxHealth=0.f;FText Name;
+    bool bHasVitals=false;
+    if(IsValid(Target))
+        if(const auto* Combat=Target->FindComponentByClass<UMonsterCombatComponent>())
+            bHasVitals=Combat->GetVitals(Health,MaxHealth,Name);
+    const bool bBig=bCritical || AppliedDamage>=80.f || (bHasVitals && MaxHealth>0.f && AppliedDamage>=MaxHealth*0.10f);
+
+    for(FConstPlayerControllerIterator It=World->GetPlayerControllerIterator();It;++It)
+    {
+        auto* PC=Cast<AFPSGAMEPlayerController>(It->Get());
+        if(!PC)continue;
+        FVector ViewerLoc=FVector::ZeroVector;
+        if(PC->IsLocalController())
+        {
+            if(PC->PlayerCameraManager && PC->PlayerCameraManager->GetCameraCacheTime()>0.f)
+            {
+                FRotator ViewRot=FRotator::ZeroRotator;
+                PC->GetPlayerViewPoint(ViewerLoc,ViewRot);
+            }
+            else if(const APawn* P=PC->GetPawn())
+            {
+                ViewerLoc=P->GetActorLocation();
+            }
+            else
+            {
+                FRotator ViewRot=FRotator::ZeroRotator;
+                PC->GetPlayerViewPoint(ViewerLoc,ViewRot);
+            }
+        }
+        else
+        {
+            ViewerLoc=PC->GetPawn()?PC->GetPawn()->GetActorLocation():PC->GetFocalLocation();
+        }
+        const float ServerCullCm=PC->IsLocalController()?MaxRangeCm:(MaxRangeCm+900.f);
+        if(FVector::DistSquared(ViewerLoc,Anchor)<=FMath::Square(ServerCullCm))
+        {
+            PC->ClientDefenseDamageNumber(Target,Anchor,AppliedDamage,MagicDamage,bCritical,bKilled,bBig);
+        }
+    }
+}

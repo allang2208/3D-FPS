@@ -19,6 +19,7 @@
 #include "Components/Overlay.h"
 #include "Components/OverlaySlot.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/SizeBox.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
@@ -190,7 +191,7 @@ void UColdSteelShopWidget::NativeOnInitialized()
     auto* ConfirmSurface=ShopSurface(WidgetTree);ConfirmSurface->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint,10,ColdSteelUI::HUDGold,1));ConfirmationCard->SetContent(ConfirmSurface);
     auto* ConfirmBody=WidgetTree->ConstructWidget<UVerticalBox>();ConfirmSurface->SetContent(ConfirmBody);
     ConfirmBody->AddChildToVerticalBox(ShopText(WidgetTree,TEXT("确认出售这些物品？"),16,true));
-    auto* ConfirmScroll=WidgetTree->ConstructWidget<UScrollBox>();ConfirmScroll->SetAllowOverscroll(false);
+    auto* ConfirmScroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();ConfirmScroll->SetAllowOverscroll(false);ColdSteelUI::ConfigureGoldScrollBox(ConfirmScroll,5.5f);
     ConfirmBody->AddChildToVerticalBox(ConfirmScroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     ConfirmationSummary=ShopText(WidgetTree,TEXT(""));ConfirmationSummary->SetAutoWrapText(true);ConfirmScroll->AddChild(ConfirmationSummary);
     ConfirmationTotal=ShopText(WidgetTree,TEXT(""),16,true);ConfirmationTotal->SetColorAndOpacity(ColdSteelUI::HUDGoldLight);

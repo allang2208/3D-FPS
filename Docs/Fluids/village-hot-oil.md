@@ -18,7 +18,7 @@
 
 ## 玩法与复查
 
-投掷距离 3 米，最大可达半径 5 米，油在落地后持续 10 秒。服务器确定地表三角形、岸线高度和到达时间，客机从已复制的湿区快照生成油面。晚加入和重新进入相关范围时使用最新快照。油流到单位脚下后，每连续接触 0.25 秒结算一次 10 点基础魔法伤害和一层持续 5 秒的灼烧。取锅时检查双手和输入是否可用。持锅阶段按当前装备栏、两只手的实际物品和已执行的手部动作判断中断。短暂锁定视角、菜单光标、相同装备的显示刷新及未执行动作的按键均可保留手锅。友军和自身可受伤，城防设施免伤。
+投掷距离 3 米；初始蔓延半径削弱为 **2.75 米**，落地后基础持续 **10 秒**，每连续接触 0.25 秒造成 **10 点** 基础魔法伤害并施加 **1 层** 持续 5 秒的灼烧。解锁机械工坊后可通过「城防热油锅」升级卡分别强化：热油伤害（15 级，10 → 25）、蔓延范围（15 级，2.75 米 → 5 米）、持续时间（3 级，10 → 16 秒，`M_OilFilm` 由 CustomPrimitiveData 1 动态控制火光与油膜淡出）及灼烧堆叠层数（3 级，每次接触 1 → 4 层）。服务器确定地表三角形、岸线高度和到达时间，客机从已复制的湿区快照生成油面与动态范围/时长参数。晚加入和重新进入相关范围时使用最新快照。取锅时检查双手和输入是否可用。持锅阶段按当前装备栏、两只手的实际物品和已执行的手部动作判断中断。短暂锁定视角、菜单光标、相同装备的显示刷新及未执行动作的按键均可保留手锅。友军和自身可受伤，城防设施免伤。
 
 [火把发射器与油区接入](../../SourceAssets/HillsVillageHighWall20261120/HotOil/author_torch_field.py) · [地面火根与可见距离](../Publication/VillageDefense20261126/Implementation/Source/FPSGAME/WorldGeneration/VillageOilFireFront.cpp) · [材质制作源](../../SourceAssets/HillsVillageHighWall20261120/HotOil/author_oil_materials.py) · [地表扩散算法](../Publication/VillageDefense20261126/Implementation/Source/FPSGAME/WorldGeneration/VillageOilSpread.cpp) · [双手动作](../Publication/VillageDefense20261126/Implementation/Source/FPSGAME/WorldGeneration/VillageOilCarry.cpp) · [UE 复查记录](F:/FPSGAMEData/ArtReviews/HighVillageDefense/HotOilFlow-20261125/results.json)
 
@@ -54,3 +54,31 @@
 4. **按变化更新。** 地表采样范围扩展时更新受影响的短带，包括因新增绕行路径而改变到达时间的旧点。地形稳定后，沿排序的到达时间推进游标。只有根表、点燃数量、视距档位或衰减值改变时，才更新相应 Niagara 参数。
 
 首轮先改火根分布和两层分工，便于用同一火焰资产比较变化。后续性能对照固定分辨率、曝光和机位，分别看城楼俯视、贴地近景及坡面墙角。对比单片与四片同屏的透明渲染 GPU 耗时、Niagara 模拟耗时和帧时间 P95，同时观察远处油区轮廓、熄灭顺序及墙角是否串火。
+
+## 全流程优化与火海 V3（2026-11-26）
+
+2026-11-26 对热油系统完成四轮联动修复与表现/性能升级（尚待实机 PIE 与 GPU 帧耗验证，待备份）：
+
+1. **取锅遮蔽与防误取消**：`UVillageOilCarry::IsStowingEquipment` 同步隐藏枪械镭射/光点/战术手电（`TacticalDeviceComponent`、`FPSPlayerBodyLaser`）、法杖晶体点光（`StaffIllumination`）、木火把点光与火焰（`WoodenTorchComponent`）、弓箭瞄具及武器准星并切为单点居中准星（`ColdSteelCrosshair`）。`IsBlockingWeaponActions` 屏蔽持锅期间的开火/瞄准/换弹/检视/近战/滑铲/冲刺撞门，禁止隐藏剑锤自动触发步行检视，并取消本地对延后 `UFPSPlayerBodyComponent` 动作态的误取消；`bTakePending` 增设 1.5s 超时防卡死，切换副手、生产工具或按 E/鼠标交互不再误落锅。
+2. **非线性动作与人体工学**：重写 `VillageOilMotion.h`（蓄力回拉、爆发推举、快速倾角到位、尾段轻颤回弹与平稳归位）与 `VillageOilArmSolver.h`（双锁骨协同驱动、`lowerarm` 保持单自由度肘铰链，腕部旋前/旋后按节段距离渐变分配至前臂 twist 骨骼，兼容 1P/3P 骨架）；端锅状态叠加呼吸、步态同步起伏（`GetStridePhaseRadians`）、视角惯性阻尼弹簧、落地沉陷及碗内 2D 热油晃荡。
+3. **地面火海 V3 与分级预算**：重制 [材质制作源](../../SourceAssets/HillsVillageHighWall20261120/HotOil/author_oil_materials.py)（为 `M_OilFilm` 增加随前缘/油深/流纹脉动的火海自发光并在 8.6–10.45s 平滑熄灭，`M_OilStream` 增微弱高温余辉）并发布至 `FlowR2`；新增 [火海资产脚本](../../SourceAssets/HillsVillageHighWall20261120/HotOil/author_oil_sea_of_fire.py) 构建 `/Game/WorldGeneration/TemperateHills/HotOil/SeaOfFireV3/NS_OilSeaOfFire`（将 `NE_Flame_01`/`NE_Flame_02` 的 `Uniform Curve Scale` 从继承火把的 0.30 恢复至 `0.88`/`1.05`，加入 `NE_Sparkles` 火星层与本地随机散射、风场漂移）。C++ 侧改为 3 槽短带复用与零拷贝 `ScratchFireRoots`，`UFluidPresentationSubsystem` 按 `EffectsQuality` 分级限流（低/中/高总发射预算 `135/195/260`/s，全场景最多 `0/1/2` 盏无阴影火海点光与 `1/2/2` 路空间循环火声，异步预载音效/资产），油区延后 0.65s 销毁实现无突跳熄灭。
+4. **全链路与城防补齐**：倾倒落点支持从 18.2m 高塔俯视（最远 3200cm 射线及逐档缩进回退），本地通过 `GetLineBatcher` 绘制地面琥珀落点预警环；`Pulse`/`WetAt` 放宽大体型怪物与斜坡脚下判定至 22cm；`AVillageOilKettle` 增配低消耗炉膛无阴影点光；交互准星提示与底部持锅操作提示接入现行提示框（无运行期 PIE 实机验证）。
+
+[火海资产脚本](../../SourceAssets/HillsVillageHighWall20261120/HotOil/author_oil_sea_of_fire.py) · [材质制作源](../../SourceAssets/HillsVillageHighWall20261120/HotOil/author_oil_materials.py) · [火海与预算](../../Source/FPSGAME/WorldGeneration/VillageOilFireFront.cpp) · [双臂人体工学解算](../../Source/FPSGAME/WorldGeneration/VillageOilArmSolver.h) · [火海回执](F:/FPSGAMEData/ArtProduction/HighVillageDefense/HotOilUpgrade-20261126/delivery.json) · [材质发布回执](F:/FPSGAMEData/ArtProduction/HighVillageDefense/HotOilUpgrade-20261126/Surfaces/published.json) · [编辑器编译日志](F:/FPSGAMEData/ArtProduction/HighVillageDefense/HotOilUpgrade-20261126/EditorFinal.log)
+
+## 第一人称腕关节去扭曲与模块化穿衣适配（2026-11-26）
+
+2026-11-26 修复端油锅手臂腕部扭曲与缺少角色服装/手套的问题（待备份 · 未跑实机 PIE/多人联机）：
+
+1. **模块化服装与手套挂载**：原 `UForgeArmsMeshComponent` 继承自 `UPoseableMeshComponent`，被 `UFPSModularOutfitComponent::DiscoverSources()`（仅扫描 `USkeletalMeshComponent`）完全忽略。新增继承自 `USkeletalMeshComponent` 的 [第一人称油锅手臂组件](../../Source/FPSGAME/WorldGeneration/VillageOilArmsMeshComponent.h)（在 `FinalizeBoneTransform()` 注入解算姿态并维护扩编包围盒），并在 [UFPSModularOutfitComponent](../../Source/FPSGAME/Characters/FPSModularOutfitComponent.cpp) 新增 `RefreshSources(bool bDiscoverNow)`；`PrepareVisual()` 创建后立即触发发现，`UpdateVisual()` 显示/隐藏或取消时同步调用 `RefreshVisibilityForSource()` 保证零延迟显隐。
+2. **零扭曲腕关节与肘位重建**：重写 [VillageOilArmSolver.h](../../Source/FPSGAME/WorldGeneration/VillageOilArmSolver.h)，改由原骨架 `BindPose` 与实测手掌朝向协同求解 `LowerDeform` / `UpperDeform`（参考 `Super90SupportArmNode`），去除 `±68°` 截断及 `RestPose` 双重旋拧叠加；`lowerarm_aux`、前臂中段 `twist_02` 与腕端 `twist_01` 全部从原生 `BindPose` 重建，对称修正 `Grip()` 与 1P/3P 持锅下垂肘位，倾倒时右肘随推动平稳抬升。
+3. **离线复查结果**：通过 `FPSGAMEEditor Win64 Development` 编译与 `VillageOilMotionReview`（`-OilCarryOnly` 及 Jason / Kaitlin `-OilScreens -AllowCommandletRendering -RenderOffScreen -d3d12`）全部检查：1P/3P 四臂 `twist=0.00°`、`seam=0.00°`，`view_cm=0.0000`、`body_cm=0.0000`、`lip_cm=0.0000`，实穿 `ue_chainmail_shirt` + `ue_modern_tactical_gloves` 挂载 `visible_parts=3` 且取消即隐藏 `hidden_on_cancel=1`。[复查输出与对比截图](F:/FPSGAMEData/ArtReviews/HighVillageDefense/HotOilArmsOutfit-20261126) · [验证命令列](../../Source/FPSGAME/Development/VillageOilMotionReviewCommandlet.cpp)
+
+## 油锅与手锅模型材质升级及高帧率法术复用落点环（2026-11-26）
+
+2026-11-26 升级大小油锅几何与专用 PBR 材质，并将泼油地面落点预警环迁移至法术复用高帧率贴花方案（待备份 · 未跑实机 PIE/多人联机）：
+
+1. **模型精细度与顺滑法线重建**：重写 [author_oil.py](../../SourceAssets/HillsVillageHighWall20261120/HotOil/author_oil.py)，为 `SM_OilHearth`（7,472 面）与 `SM_OilHandPot`（5,688 面，均低于 8,000 面 Nanite 阈值以规避粗粒度回退网格）提供真实逐顶点顺滑法线与无缝柱面 UV；小手锅新增对齐 `VillageOilMotion::Lip` 的浇注嘴、黄铜底部导热底环、双腰箍、铆接鞍座、圆顶黄铜铆钉及对称炭栎木手柄（保持 `(0, ±18.9, 5.6)` 与 `r = 3.065 cm` 握点）；大油锅石砌火塘新增发红炭堆与交叉炭木，平衡炉膛点光至 `420 lm`、`EmberIntensity = 2.8`。
+2. **专用 1024×1024 PBR 与热油抛光**：通过 [author_oil_prop_textures.py](../../SourceAssets/HillsVillageHighWall20261120/HotOil/author_oil_prop_textures.py) 生成 `OilCastIron`、`OilAgedBrass`、`OilCharredOak`、`OilHearthEmbers` 四组 1024×1024 PBR 贴图并通过 [import_oil.py](../../SourceAssets/HillsVillageHighWall20261120/HotOil/import_oil.py) 发布至 `/Game/WorldGeneration/TemperateHills/HotOil/PropsR2/`（`M_OilCastIron`、`MI_OilCastIron_Kettle`、`MI_OilCastIron_HandPot`、`M_OilAgedBrass`、`M_OilCharredOak`、`M_OilHearthEmbers`）；同步微调 `FlowR2/M_OilBody` 与 `M_OilBubble` 的高光与深琥珀对流自发光（[author_oil_materials.py](../../SourceAssets/HillsVillageHighWall20261120/HotOil/author_oil_materials.py)）。
+3. **法术参数复用与高帧率预览环**：在 [VillageOilCarry.cpp](../../Source/FPSGAME/WorldGeneration/VillageOilCarry.cpp) 移除每帧 CPU 划线（`ULineBatchComponent`）及无条件 `TActorIterator`，改为懒创建并持续复用单个 `UDecalComponent` + `UMaterialInstanceDynamic`（`Arms` / `ViewPot` / `WorldPot` / `ViewOil` / `WorldOil` 关闭 `bReceivesDecals`），直接复用流星预览材质 `MeteorSpellAssets::Preview`（`/Game/Skills/FireMagic20260921/PreviewSurface20261022/M_MeteorAimPreview`）与 `FPSMagicPreview::LineColor()`（`Tint`、`Center`、`SurfaceNormal`、`ImpactRadius` 随工坊热油范围动态绑定 `275–500 cm`、`FieldRadius = min(92, OilRadius*0.36)`）；采用 `0.5 cm / 0.08°` 镜头增量脏检查与 `ATemperateHillsWorld` 弱引用缓存，静置帧零拷贝且无每帧分配。
+4. **离线复查结果**：通过 `FPSGAMEEditor Win64 Development` 编译与 `VillageOilMotionReview` 三轮审查（`-OilCarryOnly` 及 Jason / Kaitlin D3D12 离屏渲染均退出 `0`）：`OIL_PREVIEW init=1 tint=1 min_tracked=30 hide=1`（30/60/144 Hz 每档 30/30 帧同实例指针零重建跟踪通过）、`preview_ok=1`、`contact=1`、`twist=0.00°`、`seam=0.00°`、`visible_parts=3`、`hidden_on_cancel=1`。截图目视确认大锅光滑石砌与炭火、小手锅黄铜底环与双环地面贴花均正常渲染。[最终网格回执](F:/FPSGAMEData/ArtProduction/HighVillageDefense/HotOilPropsPreview-20261126/MeshesFinal/published.json) · [油面材质回执](F:/FPSGAMEData/ArtProduction/HighVillageDefense/HotOilPropsPreview-20261126/Surfaces/published.json) · [复查截图与日志](F:/FPSGAMEData/ArtReviews/HighVillageDefense/HotOilPropsPreview-20261126)

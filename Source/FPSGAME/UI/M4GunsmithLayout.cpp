@@ -7,6 +7,7 @@
 #include "SAttachmentSelectionPulse.h"
 #include "SFramedAttachmentIcon.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelScrollBar.h"
 #include "GunsmithUIStyle.h"
 #include "ColdSteelStatusModel.h"
 #include "../Weapons/GunsmithSystem.h"
@@ -221,8 +222,8 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
                 [SNew(SBox).WidthOverride(2)[SNew(SImage).Image(FCoreStyle::Get().GetBrush("WhiteBrush")).ColorAndOpacity(Silver)
                     .Visibility_Lambda([this,Enhance](){return SelectedCategory==Enhance?EVisibility::HitTestInvisible:EVisibility::Collapsed;})]]];
     }
-    RailContent=GlassPanel(SAssignNew(CategoryScroll,SScrollBox).ScrollBarThickness(FVector2D(6,6)).AllowOverscroll(EAllowOverscroll::No)
-        .ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)+SScrollBox::Slot()[Rail],FMargin(10));
+    RailContent=GlassPanel(ColdSteelUI::ApplyGoldScroll(SAssignNew(CategoryScroll,SScrollBox).AllowOverscroll(EAllowOverscroll::No)
+        .ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)+SScrollBox::Slot()[Rail],FVector2D(6,6),FMargin(4,0,0,0),true),FMargin(10));
     auto Header=SNew(SHorizontalBox)
         +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)
         [SNew(SVerticalBox)+SVerticalBox::Slot().AutoHeight()[Label(TEXT("装备改造"),20,GunsmithUI::Text,true)]
@@ -252,8 +253,8 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
         [SNew(STextBlock).Text_Lambda([this](){return FText::FromString(FString::Printf(TEXT("%d 项 · 滚轮浏览"),OptionsCount()));}).Font(GunsmithUI::TextFont(12)).ColorAndOpacity(Muted)];
     auto Options=SNew(SVerticalBox)+SVerticalBox::Slot().AutoHeight().Padding(0,0,0,10)[OptionsHeader]
         +SVerticalBox::Slot().AutoHeight()[SNew(SBox).HeightOverride(186)
-            [SAssignNew(OptionScroll,SScrollBox).Orientation(Orient_Horizontal).ScrollBarThickness(FVector2D(6,6)).ScrollBarAlwaysVisible(true)
-                .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::Always).WheelScrollMultiplier(2.f).AnimateWheelScrolling(false)]];
+            [ColdSteelUI::ApplyGoldScroll(SAssignNew(OptionScroll,SScrollBox).Orientation(Orient_Horizontal).ScrollBarAlwaysVisible(true)
+                .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::Always).WheelScrollMultiplier(2.f).AnimateWheelScrolling(false),FVector2D(6,6),FMargin(0,4,0,0),true)]];
     CenterContent=SNew(SVerticalBox)
         +SVerticalBox::Slot().FillHeight(1)[SNew(SBorder).BorderImage(&PanelBrush).Padding(1).Clipping(EWidgetClipping::ClipToBounds)[Surface]]
         +SVerticalBox::Slot().AutoHeight().Padding(0,12,0,0)[GlassPanel(Options)];
@@ -275,16 +276,16 @@ TSharedRef<SWidget> UM4GunsmithWidget::BuildWorkbench()
             +SHorizontalBox::Slot().FillWidth(1).Padding(0,0,4,0)[CompareButton(false)]
             +SHorizontalBox::Slot().FillWidth(1).Padding(4,0,0,0)[CompareButton(true)]]
         +SVerticalBox::Slot().AutoHeight()[TableHeader]
-        +SVerticalBox::Slot().FillHeight(1)[SAssignNew(OverviewScroll,SScrollBox).ScrollBarThickness(FVector2D(6,6)).AllowOverscroll(EAllowOverscroll::No)
-            .ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)+SScrollBox::Slot()[SAssignNew(OverviewList,SVerticalBox)]]
+        +SVerticalBox::Slot().FillHeight(1)[ColdSteelUI::ApplyGoldScroll(SAssignNew(OverviewScroll,SScrollBox).AllowOverscroll(EAllowOverscroll::No)
+            .ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)+SScrollBox::Slot()[SAssignNew(OverviewList,SVerticalBox)],FVector2D(6,6),FMargin(4,0,0,0),true)]
         +SVerticalBox::Slot().AutoHeight().Padding(0,8,0,0)[Label(TEXT("绿色 增强  /  红色 削弱  /  灰色 不变"),12,Muted)];
-    InspectorContent=GlassPanel(SAssignNew(InspectorScroll,SScrollBox).ScrollBarThickness(FVector2D(6,6))
+    InspectorContent=GlassPanel(ColdSteelUI::ApplyGoldScroll(SAssignNew(InspectorScroll,SScrollBox)
         .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
         +SScrollBox::Slot()[SNew(SVerticalBox)
             +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[Label(TEXT("当前配件详情"),16,GunsmithUI::Text,true)]
             +SVerticalBox::Slot().AutoHeight()[SNew(SBox).MinDesiredHeight(280).VAlign(VAlign_Top)[SAssignNew(ModificationList,SVerticalBox)]]
             +SVerticalBox::Slot().AutoHeight().Padding(0,16,0,0)
-            [SNew(SBox).HeightOverride_Lambda([this](){return OverviewSectionHeight();})[OverviewPanel]]]);
+            [SNew(SBox).HeightOverride_Lambda([this](){return OverviewSectionHeight();})[OverviewPanel]]],FVector2D(6,6),FMargin(4,0,0,0),true));
     FooterContent=SNew(SHorizontalBox)
         +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center).Padding(0,0,12,0)
         [SNew(STextBlock).Text_Lambda([this](){return FText::FromString(StatusText);}).Font(GunsmithUI::TextFont(14)).ColorAndOpacity(Secondary).AutoWrapText(true)]
@@ -330,8 +331,8 @@ void UM4GunsmithWidget::UpdateResponsiveLayout()
         }
         Flow->AddSlot().AutoHeight().Padding(0,12,0,0)
             [SNew(SBox).HeightOverride_Lambda([this](){return FMath::Max(820.f,float(BodyHost->GetCachedGeometry().GetLocalSize().Y));})[InspectorContent.ToSharedRef()]];
-        BodyHost->SetContent(SAssignNew(BodyScroll,SScrollBox).ScrollBarThickness(FVector2D(8,8)).AllowOverscroll(EAllowOverscroll::No)
-            .ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)+SScrollBox::Slot()[Flow]);
+        BodyHost->SetContent(ColdSteelUI::ApplyGoldScroll(SAssignNew(BodyScroll,SScrollBox).AllowOverscroll(EAllowOverscroll::No)
+            .ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)+SScrollBox::Slot()[Flow],FVector2D(8,8),FMargin(4,0,0,0),true));
     }
     PreviewMotion=1.f;
     UE_LOG(LogTemp,Display,TEXT("COLD_GLASS_LAYOUT mode=%d body=%.0fx%.0f rail=%.0f inspector=%.0f icons=%d"),Mode,Size.X,Size.Y,RailWidth,InspectorWidth,CategoryBrushes.Num());

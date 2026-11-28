@@ -288,7 +288,7 @@ void UTemperateVillageCheckCommandlet::ExerciseDefensePlacement(AVoxelBuildWorld
     const bool Matched=VillageWallStairs::MakeDock(VillageWallStairs::Id,Size,&GeneratedWall,GeneratedWall.GetActorLocation(),0,Exact)
         &&VillageWallStairs::FindDock(World,VillageWallStairs::Id,Size,Exact.Anchor,Exact.Yaw,Replayed,&GeneratedWall);
     Check(Matched&&Exact.Pose.Equals(Replayed.Pose,.01)
-        &&Exact.Pose.TransformPosition(FVector(80,-280,360)).Equals(GeneratedWall.GetActorTransform().TransformPosition(FVector(0,100,360)),.01),
+        &&Exact.Pose.TransformPosition(FVector(80,-280,360)).Equals(GeneratedWall.GetActorTransform().TransformPosition(FVector(0,167,360)),.01),
         TEXT("Generated rotated wall replays the exact landing seam at 360 cm"));
     ExerciseDefenseSupport(Build,Origin,Check);
 }

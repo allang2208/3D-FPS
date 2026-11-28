@@ -3,6 +3,7 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelScrollBar.h"
 #include "Engine/GameInstance.h"
 #include "Misc/Crc.h"
 #include "Widgets/SBoxPanel.h"
@@ -156,7 +157,7 @@ void UColdSteelAmmoPouchWidget::BuildPage(const FColdSteelAmmoPouchView& View,fl
     Surface->AddSlot().AutoHeight().Padding(16*U,14*U)[Label(TEXT("弹药袋"),20)];
     Surface->AddSlot().AutoHeight().Padding(16*U,0,16*U,12*U)[Label(TEXT("自动收纳 · 不占背包空间"),12,ColdSteelUI::TextSecondary)];
     Surface->AddSlot().AutoHeight().Padding(16*U,0,16*U,14*U)[Label(View.Caption,14)];
-    Surface->AddSlot().FillHeight(1).Padding(16*U,0)[SAssignNew(List,SScrollBox).AllowOverscroll(EAllowOverscroll::No)];
+    Surface->AddSlot().FillHeight(1).Padding(16*U,0)[ColdSteelUI::ApplyGoldScroll(SAssignNew(List,SScrollBox).AllowOverscroll(EAllowOverscroll::No),FVector2D(5.5f*U,5.5f*U),FMargin(4*U,0,0,0),true)];
     for(const auto& Group:View.Groups)
     {
         const FString Key=Group.Key;

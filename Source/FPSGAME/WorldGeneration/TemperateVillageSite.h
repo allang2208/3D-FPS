@@ -23,15 +23,32 @@ struct FTemperateVillageSite
     FVector2D WallHalfSize() const { return {PadHalfX-500.,PadHalfY-500.}; }
     static constexpr double WallCornerCut=600.;
     // The stable wagon gate is at (5250,1600), across the east street at Y=500.
-    inline static const FVector2D WorkshopCenter{5250.,-545.};
+    inline static const FVector2D WorkshopCenter{5183.,-545.};
+    inline static const FVector2D WarehouseCenter{4750.,-4280.};
     // Local survey of the player-built keep at the east gate. The workshop and keep have separate pivots.
     FTransform WorkshopTowerPose() const
+    {
+        return FTransform(FVector(Axis,0.).Rotation(),FVector(World(5806.,-605.260788747),Ground.Z));
+    }
+    FTransform LegacyWorkshopTowerPose() const
     {
         return FTransform(FVector(Axis,0.).Rotation(),FVector(World(5873.,-605.260788747),Ground.Z));
     }
     bool IsWorkshopTowerPosition(const FVector& Location) const
     {
         return bPlaced && Location.Equals(WorkshopTowerPose().GetLocation(),30.);
+    }
+    bool IsLegacyWorkshopTowerPosition(const FVector& Location) const
+    {
+        return bPlaced && Location.Equals(LegacyWorkshopTowerPose().GetLocation(),30.);
+    }
+    bool InsideWidenedHighWallFootprint(FVector2D Point,double Margin=0.) const
+    {
+        if(!bPlaced||!bHilltop)return false;
+        const FVector2D Half=WallHalfSize(),Abs=Point.GetAbs();
+        const double Cut=Half.X+Half.Y-WallCornerCut;
+        const double Signed=FMath::Max3(Abs.X-Half.X,Abs.Y-Half.Y,(Abs.X+Abs.Y-Cut)*UE_INV_SQRT_2);
+        return Signed>=-234.-Margin && Signed<=100.+Margin;
     }
     static double WorkshopEdge(FVector2D Local)
     {

@@ -118,65 +118,6 @@ FTransform GatePlacement(const ATemperateHillsWorld& Hills,int32 Side)
     return FTransform(FRotator(0,Yaw,0),FVector(P,Z));
 }
 
-using FStairShape=VillageDefenseFootprint::FShape;
-
-const FStairShape& StairShape()
-{
-    return VillageDefenseFootprint::Get(VillageWallStairs::Id,Cast<UStaticMesh>(AVillageDefenseStairs::StairMeshPath().ResolveObject()));
-}
-
-bool OverlapsStair(const FStairShape& Shape,const FTransform& Fixed,const FTransform& Placed)
-{
-    // All installed flights are upright. Projecting onto both sets of local axes
-    // tests the two oriented boxes exactly, including angled player construction.
-    const FTransform ToFixed=Placed.GetRelativeTransform(Fixed);
-    if(!Shape.Bounds.Intersect(Shape.Bounds.TransformBy(ToFixed)))return false;
-    const FTransform ToPlaced=Fixed.GetRelativeTransform(Placed);
-    const FBox Entry=VillageWallStairs::EntranceBounds();
-    const FBox EntryInPlaced=Entry.TransformBy(ToPlaced);
-    for(const FBox& Tread:Shape.Boxes)
-    {
-        const FBox Inset=Tread.ExpandBy(-.5);
-        const FBox InFixed=Inset.TransformBy(ToFixed);
-        if(Entry.Intersect(InFixed) && Inset.Intersect(EntryInPlaced))return true;
-        for(const FBox& Other:Shape.Boxes)
-            if(Other.Intersect(InFixed) && Inset.Intersect(Other.TransformBy(ToPlaced)))
-                return true;
-    }
-    return false;
-}
-
-bool HasPlacedStair(const ATemperateHillsWorld& Hills,const FTransform& Site,const FStairShape& Shape)
-{
-    // Destroyed masonry has no collision but its owner can still purchase a repair.
-    for(TActorIterator<AVillageDefenseStairs> It(Hills.GetWorld());It;++It)
-        if(It->GetOwner()==&Hills && It->IsPlayerBuilt() && !It->IsActorBeingDestroyed() &&
-            !It->ActorHasTag(TEXT("VoxelDetached")) && OverlapsStair(Shape,Site,It->GetActorTransform()))
-            return true;
-    return false;
-}
-
-TOptional<FTransform> AvailableFlight(const ATemperateHillsWorld& Hills,const FTransform& Gate,bool bWest,
-    const FStairShape& Shape,const AVillageDefenseStairs* Arriving=nullptr)
-{
-    for(bool bRightPier:{true,false})
-    {
-        const FTransform Site=VillageWallStairs::GatehouseFlight(Gate,bWest,bRightPier);
-        if(Arriving && OverlapsStair(Shape,Site,Arriving->GetActorTransform()))continue;
-        if(!HasPlacedStair(Hills,Site,Shape))return Site;
-    }
-    return {};
-}
-
-bool PawnInStair(UWorld& World,const FStairShape& Shape,const FTransform& Site)
-{
-    const auto Occupied=[&](const FBox& Box)
-    {
-        return World.OverlapAnyTestByObjectType(Site.TransformPosition(Box.GetCenter()),Site.GetRotation(),
-            FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeBox(Box.GetExtent()-FVector(.5)));
-    };
-    return Occupied(Shape.Bounds) && Shape.Boxes.ContainsByPredicate(Occupied);
-}
 }
 
 void ATemperateHillsWorld::ClearVillagePerimeter()
@@ -188,48 +129,17 @@ void ATemperateHillsWorld::ClearVillagePerimeter()
     VillageDefenseParts.Reset();
 }
 
-void ATemperateHillsWorld::RefreshVillageGateStairs(const AVillageDefenseStairs* Arriving)
+void ATemperateHillsWorld::RefreshVillageGateStairs(const AVillageDefenseStairs*)
 {
-    using namespace TemperateVillagePerimeter;
-    if(!HasAuthority() || IsActorBeingDestroyed() || !HasVillageHighWall() || VillageDefenseParts.IsEmpty())return;
-    const FStairShape& Shape=StairShape();
-    if(Shape.Boxes.IsEmpty())return;
-    for(int32 Side:{-1,1})
+    GetWorldTimerManager().ClearTimer(VillageGateStairRetry);
+    if(!HasAuthority() || IsActorBeingDestroyed() || VillageDefenseParts.IsEmpty())return;
+    for(int32 Index=VillageDefenseParts.Num()-1;Index>=0;--Index)
     {
-        const bool bWest=Side<0;
-        const int32 Id=bWest?51000:51001;
-        const FTransform Gate=GatePlacement(*this,Side);
-        if(Arriving && !OverlapsStair(Shape,VillageWallStairs::GatehouseFlight(Gate,bWest,true),Arriving->GetActorTransform()) &&
-            !OverlapsStair(Shape,VillageWallStairs::GatehouseFlight(Gate,bWest,false),Arriving->GetActorTransform()))continue;
-        const TOptional<FTransform> Site=AvailableFlight(*this,Gate,bWest,Shape,Arriving);
-        const int32 Index=VillageDefenseParts.IndexOfByPredicate([Id](const auto& Piece)
-            {return IsValid(Piece) && Piece->GetSectionId()==Id;});
-        if(Index!=INDEX_NONE)
+        AVillageDefenseSection* Part=VillageDefenseParts[Index].Get();
+        if(Part && (Part->GetSectionId()==51000 || Part->GetSectionId()==51001))
         {
-            auto* Existing=VillageDefenseParts[Index].Get();
-            if(Site.IsSet() && Existing->GetActorTransform().Equals(Site.GetValue(),.01))continue;
-            Existing->Destroy();
+            Part->Destroy();
             VillageDefenseParts.RemoveAtSwap(Index);
-        }
-        // Player-built flights keep their GUID and health, even if broken. Use
-        // the other pier if needed, and reserve both player sites when both are occupied.
-        if(!Site.IsSet())continue;
-        if(PawnInStair(*GetWorld(),Shape,Site.GetValue()) &&
-            GetWorld()->GetSubsystem<UVillageDefenseState>()->Restore(WorldId,Id,1200.f)>0.f)
-        {
-            // A player may be standing inside a just dismantled or previously broken flight.
-            if(!GetWorldTimerManager().IsTimerActive(VillageGateStairRetry))
-                GetWorldTimerManager().SetTimer(VillageGateStairRetry,FTimerDelegate::CreateWeakLambda(this,
-                    [this](){VillageGateStairRetry.Invalidate();RefreshVillageGateStairs();}),.5f,false);
-            continue;
-        }
-        auto* Stair=GetWorld()->SpawnActorDeferred<AVillageDefenseStairs>(AVillageDefenseStairs::StaticClass(),
-            Site.GetValue(),this,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
-        if(Stair)
-        {
-            Stair->Initialize(this,Id,AVillageDefenseStairs::StairMeshPath(),1200.f);
-            Stair->FinishSpawning(Site.GetValue());
-            VillageDefenseParts.Add(Stair);
         }
     }
 }
@@ -250,7 +160,11 @@ void ATemperateHillsWorld::BuildVillagePerimeter()
         Meshes.Add(FName(Piece.Role),Mesh);
     }
     if(HasAuthority())
-        SiegeRanks=GetWorld()->GetSubsystem<UVillageDefenseState>()->SelectGeneration(WorldId,VillageDefenseGeneration);
+    {
+        const auto Loaded=GetWorld()->GetSubsystem<UVillageDefenseState>()->SelectGeneration(WorldId,VillageDefenseGeneration);
+        SiegeRanks=Loaded.Low;
+        SiegeExtraRanks=Loaded.High;
+    }
     ClearVillagePerimeter();
     TMap<FName,UInstancedStaticMeshComponent*> Groups;
     int32 SectionId=0;
@@ -324,7 +238,7 @@ bool ATemperateHillsWorld::CompleteVillageHighWallUpgrade(FText& FailureReason)
     };
     for(const FPiece& Piece:Layout(VillageSite,Seed,true,true))
     {
-        if(Occupied(Placement(Piece,*this,true),FVector(0,0,240.),FVector(Piece.Length*.5,100.,240.)))
+        if(Occupied(Placement(Piece,*this,true),FVector(0.,33.5,240.),FVector(Piece.Length*.5,133.5,240.)))
         {
             FailureReason=FText::FromString(TEXT("墙边有人或动物，请让开高墙施工位置。"));
             return false;
@@ -333,19 +247,6 @@ bool ATemperateHillsWorld::CompleteVillageHighWallUpgrade(FText& FailureReason)
     for(int32 Side:{-1,1})
     {
         const FTransform Gate=GatePlacement(*this,Side);
-        const FStairShape& Shape=StairShape();
-        if(Shape.Boxes.IsEmpty())
-        {
-            FailureReason=FText::FromString(TEXT("门楼石阶正在加载，请稍后再升级。"));
-            return false;
-        }
-        const TOptional<FTransform> Stair=AvailableFlight(*this,Gate,Side<0,Shape);
-        if(Stair.IsSet() && (!VillageWallStairs::HasClearStairEntrance(*GetWorld(),Stair.GetValue()) ||
-            !VillageDefenseFootprint::IsClear(*GetWorld(),Shape,Stair.GetValue(),nullptr)))
-        {
-            FailureReason=FText::FromString(TEXT("请腾出门楼内侧石阶和阶前通道，移开占位的构件、人员和动物。"));
-            return false;
-        }
         const auto* Portal=Cast<UStaticMesh>(AHighVillageGate::PlacedPortalMeshPath(Side<0).ResolveObject());
         const auto* Grille=Cast<UStaticMesh>(AHighVillageGate::PlacedGrilleMeshPath(Side<0).ResolveObject());
         const auto* Body=Portal ? Portal->GetBodySetup() : nullptr;

@@ -30,6 +30,7 @@
 #include "Components/OverlaySlot.h"
 #include "Components/ProgressBar.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/SizeBox.h"
 #include "Components/SizeBoxSlot.h"
 #include "Components/TextBlock.h"
@@ -280,7 +281,7 @@ void UColdSteelGunAssemblyWidget::NativeOnInitialized()
     UTextBlock* CloseLabel=nullptr;auto* Close=Button(TEXT("×"),CloseLabel);Close->OnClicked.AddDynamic(this,&ThisClass::HandleClose);
     CloseSize=WidgetTree->ConstructWidget<USizeBox>();CloseSize->SetContent(Close);ButtonSizes.Add(CloseSize);Head->AddChildToHorizontalBox(CloseSize)->SetVerticalAlignment(VAlign_Center);
     BuildManufacturingNavigation(Stack);
-    Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+    Scroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);ColdSteelUI::ConfigureGoldScrollBox(Scroll,6/Scale);Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     Body=WidgetTree->ConstructWidget<UBorder>();Body->SetBrushColor(FLinearColor::Transparent);Scroll->AddChild(Body);
     ManufacturingPages=WidgetTree->ConstructWidget<UWidgetSwitcher>();Body->SetContent(ManufacturingPages);
     auto* AmmoContent=WidgetTree->ConstructWidget<UVerticalBox>();ManufacturingPages->AddChild(AmmoContent);
@@ -350,7 +351,7 @@ void UColdSteelGunAssemblyWidget::NativeOnInitialized()
     auto* Parameters=WidgetTree->ConstructWidget<UBorder>();Cards.Add(Parameters);
     PreviewParameterSlot=PreviewColumns->AddChildToHorizontalBox(Parameters);
     PreviewParameterSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-    auto* ParameterScroll=WidgetTree->ConstructWidget<UScrollBox>();Parameters->SetContent(ParameterScroll);
+    auto* ParameterScroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();ColdSteelUI::ConfigureGoldScrollBox(ParameterScroll,6/Scale);Parameters->SetContent(ParameterScroll);
     auto* ParameterContent=WidgetTree->ConstructWidget<UVerticalBox>();ParameterScroll->AddChild(ParameterContent);
     PreviewName=Text(TEXT("—"),16,false,true);Space(ParameterContent->AddChildToVerticalBox(PreviewName),FMargin(0,0,0,8));
     PreviewStage=Text(TEXT("配方基础参数 · 未计装配品质"),12);PreviewStage->SetColorAndOpacity(ColdSteelUI::TextSecondary);

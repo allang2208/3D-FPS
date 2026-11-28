@@ -90,7 +90,9 @@ void UHumanoidKnockdownComponent::BeginPlay()
 
 void UHumanoidKnockdownComponent::EndPlay(const EEndPlayReason::Type Reason)
 {
-    if (auto* Budget=GetWorld()->GetSubsystem<UHumanoidRagdollBudget>()) Budget->Release(this);
+    if (UWorld* World = GetWorld())
+        if (auto* Budget = World->GetSubsystem<UHumanoidRagdollBudget>())
+            Budget->Release(this);
     Super::EndPlay(Reason);
 }
 

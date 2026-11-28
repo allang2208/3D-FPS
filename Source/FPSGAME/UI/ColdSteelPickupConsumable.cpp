@@ -147,7 +147,7 @@ bool AColdSteelPickup::BuildConsumable(const FColdSteelItem& Item)
         return true;
     }
     const bool bMaterial=Id==TEXT("enhancement_stone")||Id==TEXT("magic_dust");
-    const bool bScroll=Id.StartsWith(TEXT("enchant_scroll_"));
+    const bool bScroll=Id.StartsWith(TEXT("enchant_scroll_"))||Id==TEXT("siege_blueprint_insulated_oil_pack");
     const bool bHealthPotion=Id==TEXT("hp_potion")||Id.StartsWith(TEXT("hp_potion_"));
     const bool bManaPotion=Id==TEXT("mp_potion")||Id.StartsWith(TEXT("mp_potion_"));
     const bool bWater=Id==TEXT("mineral_water");

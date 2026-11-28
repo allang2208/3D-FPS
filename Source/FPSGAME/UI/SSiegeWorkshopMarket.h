@@ -5,9 +5,12 @@
 #include "UObject/StrongObjectPtr.h"
 
 class SHorseMarketPlate;
+class SHorizontalBox;
 class STextBlock;
 class SButton;
 class SBox;
+class SBorder;
+class SImage;
 class SScrollBox;
 class UChapelDialogueComponent;
 class UTexture2D;
@@ -25,33 +28,52 @@ SLATE_BEGIN_ARGS(SSiegeWorkshopMarket) : _Conversation(nullptr) {}
     TSharedPtr<SWidget> FocusTarget() const;
 private:
     friend struct FSiegeDrawerReview;
+    struct FFacilityEntry
+    {
+        FString Id, Name, ShortName, Subtitle, ShortSub, PortraitFile;
+        int32 UpgradeOffset=INDEX_NONE;
+        bool bUnlocked=false;
+        TStrongObjectPtr<UTexture2D> Portrait;
+        FSlateBrush Brush;
+        TSharedPtr<SHorseMarketPlate> Plate;
+        TSharedPtr<SBorder> StateBadge, CompactFrame, CompactCornerTL, CompactCornerTR;
+        TSharedPtr<STextBlock> StateLabel, TotalRankLabel, CompactMeta;
+        TSharedPtr<SImage> PipImages[6];
+        float Reveal=0.f;
+    };
     struct FOffer
     {
         int32 Rank=0;
-        TSharedPtr<STextBlock> Title,Tier,Current,Next,Arrow,Cost,Full;
+        int32 MaxRank=3;
+        int32 BuiltTrackMax=0;
+        TSharedPtr<SBox> RowBox;
+        TSharedPtr<SBorder> CardFrame, FullBadge;
+        TSharedPtr<STextBlock> Title, Tier, Current, Next, Arrow, Delta, DetailText, RequirementText, Cost, Full, BuyLabel;
+        TSharedPtr<SHorizontalBox> LevelTrack;
+        TArray<TSharedPtr<SBorder>> TrackSegments;
         TSharedPtr<SButton> Buy;
     };
     TWeakObjectPtr<UChapelDialogueComponent> Conversation;
-    TStrongObjectPtr<UTexture2D> Portraits[2];
-    FSlateBrush Images[2];
-    TSharedPtr<SHorseMarketPlate> Plates[2];
-    TSharedPtr<SBox> Captions[2];
-    TSharedPtr<SButton> Tabs[2];
-    TSharedPtr<STextBlock> Balance,Feedback;
+    TArray<FFacilityEntry> Facilities;
+    TArray<TSharedPtr<SButton>> Tabs;
+    TSharedPtr<STextBlock> Balance, Feedback, ShareTag;
+    TSharedPtr<SBorder> FeedbackFrame;
+    TSharedPtr<SBox> SummaryHost, Drawer;
+    TSharedPtr<STextBlock> SummaryKeys[4], SummaryValues[4];
+    TSharedPtr<SScrollBox> FacilityScroll, OffersScroll;
     FSimpleDelegate OnBack;
-    TSharedPtr<SBox> Drawer;
-    TSharedPtr<SScrollBox> OffersScroll;
-    FOffer Offers[4];
-    float DrawerWidth=460.f;
-    float PhotoHeight=100.f;
+    FOffer Offers[6];
+    float DrawerWidth=490.f;
+    float PlateHeight=116.f;
     bool bCompactHeader=false;
     float OpenFraction=0.f;
     bool bClosing=false;
     bool bReturnQueued=false;
     int32 Selected=0;
-    float Reveal[2]={0,0};
-    TSharedRef<SWidget> MakeTab(int32 Index);
-    void SetTabReveal(int32 Index,float Fraction);
+    TSharedRef<SWidget> MakeFacilityCard(int32 Index);
+    TSharedRef<SWidget> MakeCompactTab(int32 Index);
     TSharedRef<SWidget> MakeOffer(int32 Stat);
-    virtual void Tick(const FGeometry& Geometry,double Time,float Delta) override;
+    void SetTabReveal(int32 Index, float Fraction);
+    float FacilityCardWidth(bool bCompact) const;
+    virtual void Tick(const FGeometry& Geometry, double Time, float Delta) override;
 };

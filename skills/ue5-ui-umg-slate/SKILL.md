@@ -45,3 +45,5 @@ description: Plan and implement UE5.6-UE5.8 panels, tabs, sections, cards and po
 使用 `UInvalidationBox` 隔离主 HUD 重绘、防止文本/颜色/显隐/日晷/时间轴/进度条泄漏缓存以及状态模型版本键缓存，参见[HUD InvalidationBox 缓存与防击穿规范](references/hud-invalidation-caching.md)。
 
 世界地图路线采用 `FRouteSilkCanvas` / `MakeCustomVerts` 7 站高斯羽化鎏金丝带替代硬边 `MakeLines`（含实车分段与局部红警盾），参见[Slate 自定义顶点丝带与冷钢地图路线](references/slate-custom-verts-supply-route.md)。
+
+滚动区统一接入 `ColdSteelScrollBar` 金色脉冲滚动条（Slate `ApplyGoldScroll`／UMG `UColdSteelScrollBox`，专服跳过、祖先链可见性与几何尺寸门控），以及实时数值抽屉的逐项脏检查，参见[冷钢金色脉冲滚动条与实时面板脏检查](references/gold-pulse-scrollbar-and-live-panels.md)。为什么：各面板复制样式会分叉，未门控的 30 Hz 失效会让隐藏面板持续重绘。

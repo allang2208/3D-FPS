@@ -31,6 +31,8 @@
 #include "Weapons/Bow/BowArrow.h"
 #include "UI/ColdSteelWorldInteraction.h"
 #include "WorldGeneration/HighVillageDefense.h"
+#include "WorldGeneration/VillageDefenseCombat.h"
+#include "Camera/PlayerCameraManager.h"
 #include "Monsters/FPSCombatHealthComponent.h"
 #include "NPC/ChapelNun.h"
 #include "NPC/VillageArtisanMerchant.h"
@@ -73,6 +75,8 @@ namespace
 #include "WorldGeneration/VillageSiegeControl.h"
 #include "WorldGeneration/VillageHotOil.h"
 #include "WorldGeneration/VillageOilCarry.h"
+#include "WorldGeneration/VillageSmartTurret.h"
+#include "UI/SSmartTurretDrawer.h"
 #include "InputCoreTypes.h"
 #include "Misc/CommandLine.h"
 #include "Misc/Paths.h"
@@ -216,6 +220,39 @@ void AFPSGAMEPlayerController::ClientPracticeHit_Implementation(AActor* Target,F
     if(auto* GI=GetGameInstance())
         if(auto* Numbers=GI->GetSubsystem<UColdSteelDamageNumberSubsystem>())
             Numbers->PushDamageNumber(Target,this,Point,Damage,bBullseye,false,bBullseye||Damage>=80.f,false,MagicApplied);
+}
+
+void AFPSGAMEPlayerController::ClientDefenseDamageNumber_Implementation(AActor* Target,FVector_NetQuantize WorldPoint,float AppliedDamage,float MagicDamage,bool bCritical,bool bKilled,bool bBig)
+{
+    if(!IsLocalController()||AppliedDamage<=0.f)return;
+    const FVector Anchor=IsValid(Target)?UColdSteelDamageNumberSubsystem::TargetTopAnchor(Target):FVector(WorldPoint);
+    const float MaxRangeCm=VillageDefenseCombat::DamageNumberMaxRangeCm();
+    if(MaxRangeCm<=0.f)return;
+    FVector ViewLoc=FVector::ZeroVector;
+    if(PlayerCameraManager && PlayerCameraManager->GetCameraCacheTime()>0.f)
+    {
+        FRotator ViewRot=FRotator::ZeroRotator;
+        GetPlayerViewPoint(ViewLoc,ViewRot);
+    }
+    else if(const APawn* P=GetPawn())
+    {
+        ViewLoc=P->GetActorLocation();
+    }
+    else
+    {
+        FRotator ViewRot=FRotator::ZeroRotator;
+        GetPlayerViewPoint(ViewLoc,ViewRot);
+    }
+    if(FVector::DistSquared(ViewLoc,Anchor)>FMath::Square(MaxRangeCm))return;
+    if(auto* GI=GetGameInstance())
+        if(auto* Numbers=GI->GetSubsystem<UColdSteelDamageNumberSubsystem>())
+            Numbers->PushDamageNumber(Target,this,Anchor,AppliedDamage,bCritical,bKilled,bBig,IsValid(Target),MagicDamage);
+}
+
+void AFPSGAMEPlayerController::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    CloseSmartTurretDrawer();
+    Super::EndPlay(EndPlayReason);
 }
 
 void AFPSGAMEPlayerController::BeginPlay()
@@ -477,6 +514,12 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
         if(Params.Event==IE_Pressed&&(Params.Key==EKeys::Escape||Params.Key==EKeys::Tab))WoodworkingPanel->RequestClose();
         return true;
     }
+    if(SmartTurretDrawer.IsValid())
+    {
+        if(Params.Event==IE_Pressed&&(Params.Key==EKeys::Escape||Params.Key==EKeys::Tab||Params.Key==EKeys::E))
+            SmartTurretDrawer->RequestClose();
+        return Params.Event==IE_Released?Super::InputKey(Params):true;
+    }
     if(ColdSteelHUD&&ColdSteelHUD->HandleGunAssemblyInput(Params))return true;
     if(ColdSteelHUD&&ColdSteelHUD->HandleWorldForgeInput(Params))return true;
     if (ExpeditionPanel)
@@ -609,6 +652,15 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
                 }
                 return true;
             }
+            if(auto* Turret=Cast<AVillageSmartTurret>(Target))
+            {
+                if(!IsInBuildMode() && Turret->GetHealth()>0.f)
+                {
+                    InterruptInspection();
+                    OpenSmartTurretDrawer(Turret);
+                }
+                return true;
+            }
             if(Focus.GateUse==EHighGateUse::Repair ||
                 (Focus.GateUse==EHighGateUse::Release && CastChecked<AHighVillageGate>(Target)->GetHealth()<=0.f))
                 return true;
@@ -698,7 +750,17 @@ bool AFPSGAMEPlayerController::InputKey(const FInputKeyEventArgs& Params)
 void AFPSGAMEPlayerController::PlayerTick(float DeltaTime)
 {
     Super::PlayerTick(DeltaTime);
-    if(IsLocalController()&&!(ChapelDialogue&&ChapelDialogue->IsOpen())&&!IsGameMenuOpen()&&!AlchemyPanel&&!WoodworkingPanel&&!ExpeditionPanel&&!GunsmithPanel&&!EnhancementPanel
+    if(SmartTurretDrawer.IsValid())
+    {
+        const AVillageSmartTurret* Turret=ActiveSmartTurret.Get();
+        const APawn* P=GetPawn();
+        if(!IsLocalController()||!IsValid(Turret)||Turret->GetHealth()<=0.f||!IsValid(P)
+            ||FVector::DistSquared(P->GetActorLocation(),Turret->GetActorLocation())>FMath::Square(460.))
+        {
+            SmartTurretDrawer->RequestClose();
+        }
+    }
+    if(IsLocalController()&&!(ChapelDialogue&&ChapelDialogue->IsOpen())&&!IsGameMenuOpen()&&!AlchemyPanel&&!WoodworkingPanel&&!ExpeditionPanel&&!GunsmithPanel&&!EnhancementPanel&&!SmartTurretDrawer.IsValid()
         &&(!ColdSteelHUD||(!ColdSteelHUD->IsWorldForging()&&!ColdSteelHUD->IsGunAssembly()))
         &&(!WeatherPanel||!WeatherPanel->IsPanelOpen())
         &&(!ColdSteelHUD||!ColdSteelHUD->IsInventoryOpen()))
@@ -742,7 +804,7 @@ bool AFPSGAMEPlayerController::IsItemIconPanelOpen() const
 bool AFPSGAMEPlayerController::IsCursorOnlyInteraction() const
 {
     return bShowMouseCursor && !IsGameMenuOpen() && !IsMoveInputIgnored() && !IsLookInputIgnored() &&
-        !AlchemyPanel && !WoodworkingPanel && !GunsmithPanel && !EnhancementPanel && !ExpeditionPanel && (!WeatherPanel || !WeatherPanel->IsPanelOpen()) &&
+        !AlchemyPanel && !WoodworkingPanel && !GunsmithPanel && !EnhancementPanel && !ExpeditionPanel && !SmartTurretDrawer.IsValid() && (!WeatherPanel || !WeatherPanel->IsPanelOpen()) &&
         ColdSteelHUD && !ColdSteelHUD->IsInventoryOpen() && (!VoxelBuilder || !VoxelBuilder->IsPanelOpen());
 }
 
@@ -758,7 +820,7 @@ bool AFPSGAMEPlayerController::BlocksOngoingActions(const APlayerController* Pla
 bool AFPSGAMEPlayerController::IsActionPreservingPanelOpen() const
 {
     if (GameMenu && GameMenu->IsWorldMapOpen()) return true;
-    if(IsGameMenuOpen()||AlchemyPanel||WoodworkingPanel)return false;
+    if(IsGameMenuOpen()||AlchemyPanel||WoodworkingPanel||SmartTurretDrawer.IsValid())return false;
     if(ColdSteelHUD&&(ColdSteelHUD->IsWorldForging()||ColdSteelHUD->IsGunAssembly()))return false;
     return (ColdSteelHUD&&(ColdSteelHUD->IsInventoryOpen()||ColdSteelHUD->IsSkillTreeOpen()))||GunsmithPanel||EnhancementPanel||ExpeditionPanel||
         (WeatherPanel&&WeatherPanel->IsPanelOpen());
@@ -776,7 +838,7 @@ void AFPSGAMEPlayerController::ToggleTimelineInteraction()
 {
     if (IsGameMenuOpen() || (ChapelDialogue && ChapelDialogue->IsOpen())) return;
     if(ColdSteelHUD&&(ColdSteelHUD->IsWorldForging()||ColdSteelHUD->IsGunAssembly()))return;
-    if (AlchemyPanel || WoodworkingPanel || GunsmithPanel || EnhancementPanel || ExpeditionPanel) return;
+    if (AlchemyPanel || WoodworkingPanel || GunsmithPanel || EnhancementPanel || ExpeditionPanel || SmartTurretDrawer.IsValid()) return;
     if (WeatherPanel && WeatherPanel->IsPanelOpen()) return;
     if (!ColdSteelHUD || ColdSteelHUD->IsInventoryOpen()) return;
     if (bShowMouseCursor)
@@ -911,6 +973,89 @@ void AFPSGAMEPlayerController::ServerUseApartmentControl_Implementation(AApartme
 
 void AFPSGAMEPlayerController::ServerUseHeQuePump_Implementation(AHeQuePumpControl* Control)
 {if(IsValid(Control))Control->ActivateFrom(this);}
+
+void AFPSGAMEPlayerController::OpenSmartTurretDrawer(AVillageSmartTurret* Turret)
+{
+    if(!IsLocalController()||GetNetMode()==NM_DedicatedServer||!IsValid(Turret)||Turret->GetHealth()<=0.f||IsInBuildMode())return;
+    CloseSmartTurretDrawer();
+    UGameViewportClient* VP=GetWorld()?GetWorld()->GetGameViewport():nullptr;
+    if(!VP)return;
+    UColdSteelStatusModel* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr;
+    TWeakObjectPtr<AVillageSmartTurret> WeakTurret=Turret;
+    SAssignNew(SmartTurretDrawer,SSmartTurretDrawer)
+        .Turret(Turret)
+        .Model(Model)
+        .OnMount_Lambda([this,WeakTurret](const FString& InstanceId)
+        {
+            if(WeakTurret.IsValid())ServerSmartTurretMount(WeakTurret.Get(),InstanceId);
+        })
+        .OnUnmount_Lambda([this,WeakTurret]()
+        {
+            if(WeakTurret.IsValid())ServerSmartTurretUnmount(WeakTurret.Get());
+        })
+        .OnClose_Lambda([this]()
+        {
+            CloseSmartTurretDrawer();
+        });
+    ActiveSmartTurret=Turret;
+    VP->AddViewportWidgetContent(SmartTurretDrawer.ToSharedRef(),45);
+    FlushPressedKeys();
+    SetIgnoreMoveInput(true);
+    SetIgnoreLookInput(true);
+    bShowMouseCursor=true;
+    FInputModeGameAndUI Mode;
+    Mode.SetLockMouseToViewportBehavior(EMouseLockMode::DoNotLock);
+    Mode.SetHideCursorDuringCapture(false);
+    SetInputMode(Mode);
+}
+
+void AFPSGAMEPlayerController::CloseSmartTurretDrawer()
+{
+    if(SmartTurretDrawer.IsValid())
+    {
+        if(UGameViewportClient* VP=GetWorld()?GetWorld()->GetGameViewport():nullptr)
+            VP->RemoveViewportWidgetContent(SmartTurretDrawer.ToSharedRef());
+        SmartTurretDrawer.Reset();
+        ActiveSmartTurret.Reset();
+        if(IsLocalController()&&GetNetMode()!=NM_DedicatedServer)
+        {
+            FlushPressedKeys();
+            SetIgnoreMoveInput(false);
+            SetIgnoreLookInput(false);
+            bShowMouseCursor=false;
+            SetInputMode(FInputModeGameOnly());
+        }
+    }
+}
+
+void AFPSGAMEPlayerController::ServerSmartTurretMount_Implementation(AVillageSmartTurret* Turret,const FString& ItemInstanceId)
+{
+    FString Message;
+    const bool bOk=IsValid(Turret)&&Turret->GetWorld()==GetWorld()&&Turret->ServerMountFromPlayer(GetPawn(),ItemInstanceId,Message);
+    if(!bOk && Message.IsEmpty())Message=TEXT("智能机枪塔状态异常，装载失败。");
+    ClientSmartTurretResult(bOk,Message);
+}
+
+void AFPSGAMEPlayerController::ServerSmartTurretUnmount_Implementation(AVillageSmartTurret* Turret)
+{
+    FString Message;
+    const bool bOk=IsValid(Turret)&&Turret->GetWorld()==GetWorld()&&Turret->ServerUnmountToPlayer(GetPawn(),Message);
+    if(!bOk && Message.IsEmpty())Message=TEXT("智能机枪塔状态异常，卸下失败。");
+    ClientSmartTurretResult(bOk,Message);
+}
+
+void AFPSGAMEPlayerController::ClientSmartTurretResult_Implementation(bool bSuccess,const FString& Message)
+{
+    if(SmartTurretDrawer.IsValid())
+    {
+        SmartTurretDrawer->SetFeedback(bSuccess,Message);
+        SmartTurretDrawer->RefreshAll();
+    }
+    if(auto* Model=GetGameInstance()?GetGameInstance()->GetSubsystem<UColdSteelStatusModel>():nullptr)
+    {
+        if(!Message.IsEmpty())Model->PostNotice(bSuccess?TEXT("智能机枪塔"):TEXT("操作失败"),Message);
+    }
+}
 
 
 void AFPSGAMEPlayerController::RefreshRegionMusic()

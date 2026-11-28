@@ -30,4 +30,6 @@ description: FPSGAME 联机源码入口、服务器权威、档案传输、动�
 
 21. 可站立移动载具（马车/平台）与随车 NPC 的双端零抖动同步（定名 `UBoxComponent`、`TG_PrePhysics` + `AddTickPrerequisiteActor`、180° 掉头保护、客机前馈 PD、随车 NPC 覆写 `OnRep_ReplicatedMovement` 防快照互抢及动态降频），参见 [可站立载具与随车 NPC 同步](references/ridable-moving-platform-and-npc-sync.md)。为什么：缺少 Tick 顺序与前馈/快照隔离会导致乘车抖动、掉头弹飞和客机车夫瞬移。
 
+22. 玩家把背包物品挂进世界设施（机枪塔等）时：高频数值不写复制物品结构体、`OnRep` 按外观指纹防重建、倒计时只复制服务器结束时刻；记录挂载者并在打爆／拆除／坍塌 `BeginFall`／`EndPlay` 四处退回原主；客机本地射线补曳光，服务端缓存与闲置降频。参见 [挂载物品的城防设施联机同步](references/mounted-item-defense-facility-sync.md)。为什么：逐发改复制结构体会整包重发并使客机重建枪模，按主机控制器退回会把客机物品寄给主机。
+
 当前源码入口：`Source/FPSGAME/Multiplayer/`、`Movement/FPSCharacterMovementComponent.*`、`Movement/FPSDodgeRootMotionSource.*`、`Characters/FPSPlayerBodyNetwork.cpp`、`Plugins/ColdSteelNet/Source/`。 为什么：把查阅范围限定在连接、移动和权威实现，避免从历史类名推断现有架构。

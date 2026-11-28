@@ -1,4 +1,5 @@
 #include "ColdSteelTreePanel.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelUIStyle.h"
 #include "SColdSteelSkillTreeCanvas.h"
 #include "Blueprint/UserWidget.h"
@@ -169,7 +170,7 @@ TSharedRef<SWidget> Action(const FString& Caption, const FButtonStyle* Style, bo
 TSharedRef<SWidget> DetailPage(TSharedRef<SWidget> Body, TSharedRef<SWidget> Actions, TSharedRef<SWidget> Note, float NoteGap)
 {
     return SNew(SVerticalBox)
-        + SVerticalBox::Slot().FillHeight(1)[SNew(SScrollBox) + SScrollBox::Slot().Padding(FMargin(28, 26, 28, 24))[Body]]
+        + SVerticalBox::Slot().FillHeight(1)[ColdSteelUI::ApplyGoldScroll(SNew(SScrollBox) + SScrollBox::Slot().Padding(FMargin(28, 26, 28, 24))[Body], FVector2D(5.5f, 5.5f), FMargin(4, 0, 0, 0), true)]
         + SVerticalBox::Slot().AutoHeight()[SNew(SBorder).BorderImage(FCoreStyle::Get().GetBrush("WhiteBrush")).BorderBackgroundColor(Gray(18, 160)).Padding(FMargin(28, 14, 28, 18))
             [SNew(SVerticalBox)
                 + SVerticalBox::Slot().AutoHeight()[Actions]

@@ -1,4 +1,6 @@
 #include "VillageSiegeEngine.h"
+#include "VillageDefenseCombat.h"
+#include "VillageHotOil.h"
 #include "VillageSiegeUpgrades.h"
 #include "TemperateHillsWorld.h"
 #include "../Combat/CombatFormulaRuntime.h"
@@ -22,6 +24,7 @@
 #include "Engine/OverlapResult.h"
 #include "Engine/StaticMesh.h"
 #include "Engine/World.h"
+#include "EngineUtils.h"
 #include "GameFramework/GameStateBase.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Kismet/GameplayStatics.h"
@@ -39,6 +42,7 @@ namespace
     const FVector SlingPin(-273,0,72);
     const FVector PouchSeat(-58,0,-20);
     constexpr double BoltAngle = 17.745;
+    constexpr double BallistaAuthoredReload = 3.27;
     constexpr double WinchStart=1.03,WinchEnd=3.08;
     constexpr double TrebuchetReleaseAt=1.08;
     constexpr double TrebuchetReloadSeconds=10.;
@@ -77,6 +81,39 @@ namespace
             return false;
         return !Pawn->IsA<AWolfMonster>() || !UWildlifeSubsystem::IsCatalogClass(FSoftObjectPath(Pawn->GetClass()));
     }
+
+    struct FWorldThreatCache
+    {
+        TWeakObjectPtr<UWorld> World;
+        double RefreshedAt = -100.;
+        TArray<TWeakObjectPtr<APawn>> Candidates;
+    };
+
+    const TArray<TWeakObjectPtr<APawn>>& CachedThreatCandidates(UWorld* World)
+    {
+        static FWorldThreatCache Cache;
+        const double Now = World ? World->GetTimeSeconds() : -100.;
+        if(Cache.World.Get()!=World || Now<Cache.RefreshedAt || (Now-Cache.RefreshedAt)>=0.35)
+        {
+            Cache.World=World;
+            Cache.RefreshedAt=Now;
+            Cache.Candidates.Reset();
+            if(World)
+            {
+                for(TActorIterator<APawn> It(World); It; ++It)
+                {
+                    APawn* Pawn=*It;
+                    if(!Pawn || Pawn->IsHidden() || Pawn->IsPlayerControlled() || Pawn->IsA<AVillageDefenseSection>() ||
+                        Pawn->ActorHasTag(TEXT("NPC")) || Pawn->ActorHasTag(TEXT("WildlifeSpawned")))
+                        continue;
+                    if(Pawn->IsA<AWolfMonster>() && UWildlifeSubsystem::IsCatalogClass(FSoftObjectPath(Pawn->GetClass())))
+                        continue;
+                    Cache.Candidates.Add(Pawn);
+                }
+            }
+        }
+        return Cache.Candidates;
+    }
     float GravityScale(bool bStone){return bStone?1.35f:.42f;}
     double FlightTime(bool bStone,const FVector& Start,const FVector& End)
     {
@@ -114,7 +151,7 @@ void AVillageSiegeEngine::BeginPlay()
     Super::BeginPlay();
     GetWorld()->GetSubsystem<UVillageSiegeUseTargets>()->Register(*this);
     if(HasAuthority())
-        GetWorldTimerManager().SetTimer(SearchTimer,this,&AVillageSiegeEngine::FindTarget,.85f,true,.15f+FMath::FRand()*.6f);
+        GetWorldTimerManager().SetTimer(SearchTimer,this,&AVillageSiegeEngine::FindTarget,IsLightningSpire()?.25f:.85f,true,.15f+FMath::FRand()*.6f);
     OnRep_Shot();
 }
 
@@ -130,6 +167,7 @@ void AVillageSiegeEngine::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& 
     DOREPLIFETIME(AVillageSiegeEngine,Shot);
     DOREPLIFETIME(AVillageSiegeEngine,OperatorPawn);
     DOREPLIFETIME(AVillageSiegeEngine,ManualBearing);
+    DOREPLIFETIME(AVillageSiegeEngine,HotOilShotCounter);
 }
 
 void AVillageSiegeEngine::AddPart(const TCHAR* Key,const TCHAR* Suffix)
@@ -147,9 +185,20 @@ void AVillageSiegeEngine::AddPart(const TCHAR* Key,const TCHAR* Suffix)
     Parts.Add(Key,Part);
 }
 
+bool AVillageSiegeEngine::IsThreatUnit(AActor* Actor,AActor* Engine)
+{
+    return IsThreat(Actor,Engine);
+}
+
+const TArray<TWeakObjectPtr<APawn>>& AVillageSiegeEngine::CachedThreatPawns(UWorld* World)
+{
+    return CachedThreatCandidates(World);
+}
+
 void AVillageSiegeEngine::OnRep_Setup()
 {
     if(MeshPath.IsNull())return;
+    if(IsLightningSpire()){Super::OnRep_Setup();return;}
     bStone=MeshPath==MeshAsset(TEXT("TrebuchetBase"));
     if(bStone && Masonry->GetAttachParent()!=Carriage)
         Masonry->AttachToComponent(Carriage,FAttachmentTransformRules::KeepRelativeTransform);
@@ -282,7 +331,8 @@ void AVillageSiegeEngine::UpdateSiegeAudio(double Elapsed)
         if(Elapsed<ReloadEnd)
         {
             const float BaseRate=bStone?HaulPlaybackRate:1.f;
-            ReloadAudio->SetPitchMultiplier(BaseRate*VillageSiegeUpgrades::Value(bStone,VillageSiegeUpgrades::Reload,0)/(Duration()-ReleaseAt()));
+            const double AuthoredReload=bStone?TrebuchetReloadSeconds:BallistaAuthoredReload;
+            ReloadAudio->SetPitchMultiplier(BaseRate*AuthoredReload/(Duration()-ReleaseAt()));
             ReloadAudio->Play((Elapsed-ReloadStart)*BaseRate);
         }
     }
@@ -371,10 +421,16 @@ FVector AVillageSiegeEngine::ReleaseOrigin(const FVillageSiegeShot& Plan) const
     return GetActorTransform().TransformPosition(Local);
 }
 
-uint16 AVillageSiegeEngine::CurrentRanks() const
+uint64 AVillageSiegeEngine::CurrentRanks() const
 {
     const auto* Village=Cast<ATemperateHillsWorld>(GetOwner());
     return Village ? Village->GetSiegeRanks() : 0;
+}
+
+VillageSiegeUpgrades::FRanks AVillageSiegeEngine::CurrentAllRanks() const
+{
+    const auto* Village=Cast<ATemperateHillsWorld>(GetOwner());
+    return Village ? Village->GetAllSiegeRanks() : VillageSiegeUpgrades::FRanks{};
 }
 
 double AVillageSiegeEngine::Range() const
@@ -395,7 +451,8 @@ double AVillageSiegeEngine::Duration() const
 double AVillageSiegeEngine::AnimationTime(double Elapsed) const
 {
     if(Elapsed<=ReleaseAt())return Elapsed;
-    return ReleaseAt()+(Elapsed-ReleaseAt())*VillageSiegeUpgrades::Value(bStone,VillageSiegeUpgrades::Reload,0)/(Duration()-ReleaseAt());
+    const double AuthoredReload=bStone?TrebuchetReloadSeconds:BallistaAuthoredReload;
+    return ReleaseAt()+(Elapsed-ReleaseAt())*AuthoredReload/(Duration()-ReleaseAt());
 }
 
 double AVillageSiegeEngine::ReleaseAt() const
@@ -553,9 +610,45 @@ void AVillageSiegeEngine::ManualSight(const APawn* Pawn,float Yaw,float Elevatio
     if(!Sight.Arc.IsEmpty())Sight.Arc.Last()=Sight.Impact;
 }
 
+void AVillageSiegeEngine::ComputeManualCamera(float Yaw,float Elevation,double CachedGroundZ,FVector& OutLocation,FRotator& OutRotation,FRotator& OutFacing) const
+{
+    const FTransform Frame=GetActorTransform();
+    const FVector Eye=GetActorLocation()+FVector(0.,0.,bStone?305.:145.);
+    const FRotator Horizontal(0.,ResolveAimYaw(Yaw),0.);
+    const FVector Forward=Frame.TransformVectorNoScale(Horizontal.Vector());
+    if(bStone)
+    {
+        const double Fraction=FMath::Clamp((Elevation+28.)/52.,0.,1.);
+        const double Distance=FMath::Lerp(MinimumRange()+5.,Range()-5.,Fraction);
+        OutLocation=Eye-Forward*560.+FVector(0.,0.,815.);
+        FVector LookTarget=Eye+Forward*Distance;
+        LookTarget.Z=CachedGroundZ+250.;
+        OutRotation=(LookTarget-OutLocation).Rotation();
+        OutFacing=FRotator(0.,Horizontal.Yaw,0.);
+        return;
+    }
+    const double ClampedElev=FMath::Clamp(double(Elevation),-48.,40.);
+    OutRotation=Frame.TransformRotation(FRotator(ClampedElev,Horizontal.Yaw,0.).Quaternion()).Rotator();
+    OutLocation=Eye+Forward*40.+FVector(0.,0.,45.);
+    OutFacing=FRotator(FMath::Clamp(ClampedElev-BoltAngle,-66.,23.),Horizontal.Yaw,0.);
+}
+
 void AVillageSiegeEngine::DisplaySight(const FVillageSiegeShot* Plan)
 {
-    if(Plan)LocalSightBearing.Emplace(Plan->Pitch,Plan->Yaw,0.);
+    if(Plan)
+    {
+        const FRotator Bearing(Plan->Pitch,Plan->Yaw,0.);
+        if(LocalSightBearing.IsSet() && LocalSightBearing.GetValue().Equals(Bearing,.02))return;
+        LocalSightBearing.Emplace(Bearing);
+        const bool bIdle=Shot.Started<0. || Clock()-Shot.Started>=Duration();
+        if(bIdle && GetHealth()>0.f && !MeshPath.IsNull() && Carriage)
+        {
+            const FVector Pivot=IsLightningSpire()?FVector(0.,0.,118.):(bStone?FVector::ZeroVector:Hinge);
+            const FRotator Facing=IsLightningSpire()?FRotator(0.,Bearing.Yaw,0.):Bearing;
+            Carriage->SetRelativeLocationAndRotation(Pivot,Facing);
+            return;
+        }
+    }
     else LocalSightBearing.Reset();
     OnRep_Shot();
 }
@@ -584,23 +677,20 @@ void AVillageSiegeEngine::FindTarget()
     if(IsOccupied() || GetHealth()<=0.f || ReloadRemaining()>0.)return;
     const auto* Carrier=Cast<AVoxelBuildPrefabActor>(GetAttachParentActor());
     if(!Carrier || Carrier->IsFalling())return;
+    const TArray<TWeakObjectPtr<APawn>>& Candidates=CachedThreatCandidates(GetWorld());
+    if(Candidates.IsEmpty())return;
     const double SearchRadius=Range();
     const double Minimum=MinimumRange();
     const FVector Eye=GetActorLocation()+FVector(0,0,bStone?305:145);
-    TArray<FOverlapResult> Hits;
     FCollisionQueryParams Params(SCENE_QUERY_STAT(VillageSiegeSearch),false,this);
     Params.AddIgnoredActor(Carrier);
-    GetWorld()->OverlapMultiByObjectType(Hits,Eye,FQuat::Identity,FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeSphere(SearchRadius),Params);
     FVillageSiegeShot Best;
     APawn* Target=nullptr;
-    TSet<AActor*> Seen;
     double Closest=SearchRadius*SearchRadius;
-    for(const auto& Hit:Hits)
+    for(const TWeakObjectPtr<APawn>& Candidate:Candidates)
     {
-        APawn* Unit=Cast<APawn>(Hit.GetActor());
-        if(!Unit || Seen.Contains(Unit))continue;
-        Seen.Add(Unit);
-        if(!IsThreat(Unit,this))continue;
+        APawn* Unit=Candidate.Get();
+        if(!Unit || !IsThreat(Unit,this))continue;
         const FVector Current=Unit->GetActorLocation();
         const double Distance=bStone?FVector::DistSquared2D(Current,Eye):FVector::DistSquared(Current,Eye);
         if(Distance>=Closest || Distance<Minimum*Minimum)continue;
@@ -661,8 +751,10 @@ void AVillageSiegeEngine::Release()
     if(Missile)
     {
         if(bManualShot)Missile->SetInstigator(OperatorPawn);
-        Missile->Launch(bStone,Velocity,Shot.UpgradeRanks);
+        const bool bHotOil=HasTrebuchetHotOil() && HotOilShotCounter>=3;
+        Missile->Launch(bStone,Velocity,Shot.UpgradeRanks,bHotOil);
         Missile->FinishSpawning(Transform);
+        if(HasTrebuchetHotOil())HotOilShotCounter=bHotOil?0:static_cast<uint8>(HotOilShotCounter+1);
         FlushNetDormancy();
         Shot.bReleased=true;
         ForceNetUpdate();
@@ -701,10 +793,11 @@ AVillageSiegeMissile::AVillageSiegeMissile()
     Movement->bForceSubStepping=true;
 }
 
-void AVillageSiegeMissile::Launch(bool bStoneShot,const FVector& InitialVelocity,uint16 Ranks)
+void AVillageSiegeMissile::Launch(bool bStoneShot,const FVector& InitialVelocity,uint64 Ranks,bool bHotOil)
 {
     UpgradeRanks=Ranks;
     bStone=bStoneShot;
+    bHotOilPayload=bStoneShot && bHotOil;
     FlightOrigin=GetActorLocation();
     FlightVelocity=InitialVelocity;
     const auto* State=GetWorld()->GetGameState();
@@ -748,6 +841,7 @@ void AVillageSiegeMissile::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>&
 {
     Super::GetLifetimeReplicatedProps(OutLifetimeProps);
     DOREPLIFETIME_CONDITION(AVillageSiegeMissile,bStone,COND_InitialOnly);
+    DOREPLIFETIME_CONDITION(AVillageSiegeMissile,bHotOilPayload,COND_InitialOnly);
     DOREPLIFETIME_CONDITION(AVillageSiegeMissile,FlightOrigin,COND_InitialOnly);
     DOREPLIFETIME_CONDITION(AVillageSiegeMissile,FlightVelocity,COND_InitialOnly);
     DOREPLIFETIME_CONDITION(AVillageSiegeMissile,FlightStart,COND_InitialOnly);
@@ -803,8 +897,13 @@ void AVillageSiegeMissile::Impact(const FHitResult& Hit)
             const double Penetration=VillageSiegeUpgrades::Installed(UpgradeRanks,false,VillageSiegeUpgrades::Special);
             const TGuardValue<const double*> ArmorContext(CombatFormulaRuntime::ActivePhysicalPenetration,&Penetration);
             const float Applied=UGameplayStatics::ApplyPointDamage(Target,Damage,GetActorForwardVector(),Hit,GetInstigatorController(),this,nullptr);
-            if(auto* Shooter=Cast<AFPSGAMECharacter>(GetInstigator());Applied>0.f && Shooter && Shooter->IsPlayerControlled())
-                Shooter->ClientBallistaHit(!Combat.IsValid() || Combat->IsDead() || Target->IsActorBeingDestroyed());
+            if(Applied>0.f)
+            {
+                const bool bKilled=!Combat.IsValid() || Combat->IsDead() || Target->IsActorBeingDestroyed();
+                VillageDefenseCombat::BroadcastDamageNumber(GetWorld(),Target,Hit.ImpactPoint,Applied,0.f,false,bKilled);
+                if(auto* Shooter=Cast<AFPSGAMECharacter>(GetInstigator());Shooter && Shooter->IsPlayerControlled())
+                    Shooter->ClientBallistaHit(bKilled);
+            }
         }
     }
     else
@@ -840,6 +939,7 @@ void AVillageSiegeMissile::Impact(const FHitResult& Hit)
         TArray<FOverlapResult> Hits;
         GetWorld()->OverlapMultiByObjectType(Hits,Point,FQuat::Identity,FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeSphere(Radius),Query);
         TSet<AActor*> Damaged;
+        bool bAnyApplied=false,bAnyKilled=false;
         for(const auto& Item:Hits)
         {
             AActor* Unit=Item.GetActor();
@@ -847,8 +947,46 @@ void AVillageSiegeMissile::Impact(const FHitResult& Hit)
             Damaged.Add(Unit);
             FCollisionQueryParams Trace=Query;Trace.AddIgnoredActor(Unit);
             if(Unit!=Hit.GetActor() && GetWorld()->LineTraceTestByChannel(TraceStart,Unit->GetActorLocation(),ECC_Visibility,Trace))continue;
+            const TWeakObjectPtr<UMonsterCombatComponent> Combat=Unit->FindComponentByClass<UMonsterCombatComponent>();
             const float Falloff=FMath::Clamp(1.-FVector::Distance(Point,Unit->GetActorLocation())/(2.*Radius),.5,1.);
-            UGameplayStatics::ApplyDamage(Unit,Damage*Falloff,GetInstigatorController(),this,nullptr);
+            const float Applied=UGameplayStatics::ApplyDamage(Unit,Damage*Falloff,GetInstigatorController(),this,nullptr);
+            if(Applied>0.f)
+            {
+                const bool bUnitKilled=!Combat.IsValid() || Combat->IsDead() || Unit->IsActorBeingDestroyed();
+                bAnyApplied=true;
+                bAnyKilled|=bUnitKilled;
+                VillageDefenseCombat::BroadcastDamageNumber(GetWorld(),Unit,Unit->GetActorLocation(),Applied,0.f,false,bUnitKilled);
+            }
+        }
+        if(auto* Shooter=Cast<AFPSGAMECharacter>(GetInstigator());bAnyApplied && Shooter && Shooter->IsPlayerControlled())
+            Shooter->ClientBallistaHit(bAnyKilled);
+        if(bHotOilPayload)
+        {
+            FVector OilGround=Surface.ImpactPoint;
+            bool bValidOilGround=bSurfaceHit && Surface.ImpactNormal.Z>=.60;
+            if(!bValidOilGround)
+            {
+                const FVector Probe=Hit.ImpactPoint+Hit.ImpactNormal*16.;
+                FCollisionQueryParams OilQ(SCENE_QUERY_STAT(VillageStoneOilFloor),false,this);
+                if(HitPawn)OilQ.AddIgnoredActor(HitPawn);
+                FCollisionObjectQueryParams Floors(ECC_WorldStatic);
+                Floors.AddObjectTypesToQuery(ECC_WorldDynamic);
+                FHitResult OilHit;
+                if(GetWorld()->LineTraceSingleByObjectType(OilHit,Probe,Probe-FVector(0.,0.,450.),Floors,OilQ) &&
+                   OilHit.IsValidBlockingHit() && OilHit.ImpactNormal.Z>=.60 &&
+                   (!Cast<APawn>(OilHit.GetActor()) || Cast<AVillageDefenseSection>(OilHit.GetActor())))
+                {OilGround=OilHit.ImpactPoint;bValidOilGround=true;}
+            }
+            if(bValidOilGround)
+            {
+                const FTransform OilAt(FRotator::ZeroRotator,OilGround);
+                if(auto* Oil=GetWorld()->SpawnActorDeferred<AVillageOilField>(AVillageOilField::StaticClass(),OilAt,
+                    GetOwner()?GetOwner():static_cast<AActor*>(this),GetInstigator(),ESpawnActorCollisionHandlingMethod::AlwaysSpawn))
+                {
+                    Oil->ConfigureTrebuchetSplash(OilGround-FlightVelocity.GetSafeNormal2D(UE_SMALL_NUMBER,FVector::ForwardVector)*85.+FVector(0.,0.,90.),UpgradeRanks,true);
+                    Oil->FinishSpawning(OilAt);
+                }
+            }
         }
     }
     Destroy();

@@ -5,6 +5,7 @@
 #include "ColdSteelSkillPage.h"
 #include "ColdSteelMagicQuickCast.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelQuickBarTypes.h"
 #include "../Skills/ColdSteelSkillTree.h"
@@ -259,7 +260,7 @@ TSharedRef<SWidget> UColdSteelSkillTreeScreen::BuildSpecDetail()
     Body->AddSlot().AutoHeight()[Section(TEXT("前置条件"), FString(), Reqs)];
     const FName Skill = SpecSkill, Node = SpecNode;
     return SNew(SVerticalBox)
-        + SVerticalBox::Slot().FillHeight(1)[SNew(SScrollBox) + SScrollBox::Slot().Padding(FMargin(28, 26, 28, 24))[Body]]
+        + SVerticalBox::Slot().FillHeight(1)[ColdSteelUI::ApplyGoldScroll(SNew(SScrollBox) + SScrollBox::Slot().Padding(FMargin(28, 26, 28, 24))[Body], FVector2D(5.5f, 5.5f), FMargin(4, 0, 0, 0), true)]
         + SVerticalBox::Slot().AutoHeight()[SNew(SBorder).BorderImage(FCoreStyle::Get().GetBrush("WhiteBrush")).BorderBackgroundColor(Gray(18, 160)).Padding(FMargin(28, 14, 28, 18))
             [SNew(SVerticalBox)
                 + SVerticalBox::Slot().AutoHeight()[SNew(SButton).ButtonStyle(&TreeStyle.Primary).IsEnabled(bCan).HAlign(HAlign_Center).OnClicked_Lambda([this, Skill, Node]

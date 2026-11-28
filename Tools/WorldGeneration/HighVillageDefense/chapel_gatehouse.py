@@ -433,7 +433,7 @@ def gate_shell(m, outer, front, rear, floor, roof, throat):
         def flank(ya,yb,low,high):
             m.block(a,b,ya,yb,low,high)
         # The low landing stays level through the full walk and stair sockets.
-        side_openings=[(hall_back-74.,180.,360.,628.),
+        side_openings=[(hall_back-74.,rear-45.,360.,628.),
                        (front+114.,front+148.,floor+150.,floor+252.)]
         pierced(front+45.,rear-45.,360.,roof-25.,side_openings,flank)
 

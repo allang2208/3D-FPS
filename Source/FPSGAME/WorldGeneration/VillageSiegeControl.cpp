@@ -2,17 +2,22 @@
 #include "../FPSGAMEPlayerController.h"
 #include "../FPSGAMECharacter.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
+#include "../UI/ColdSteelUIStyle.h"
 #include "../UI/ColdSteelWorldInteraction.h"
 #include "../Skills/FPSMagicPreview.h"
 #include "Components/LineBatchComponent.h"
 #include "Camera/CameraActor.h"
 #include "Camera/CameraComponent.h"
 #include "Components/PrimitiveComponent.h"
+#include "Engine/GameViewportClient.h"
+#include "Engine/LocalPlayer.h"
 #include "Engine/World.h"
 #include "GameFramework/PawnMovementComponent.h"
 #include "GameFramework/PlayerInput.h"
 #include "InputKeyEventArgs.h"
 #include "InputCoreTypes.h"
+#include "Widgets/SOverlay.h"
+#include "Widgets/Text/STextBlock.h"
 #include "../Building/VoxelBuildGrounding.h"
 #include "Net/UnrealNetwork.h"
 
@@ -183,6 +188,110 @@ void UVillageSiegeControl::ServerFire_Implementation(AVillageSiegeEngine* Engine
     Station->FireManual(SeatPawn.Get(),Yaw,Elevation);
 }
 
+float UVillageSiegeControl::BaseFieldOfView() const
+{
+    if(!IsValid(Station))return 64.f;
+    return Station->IsTrebuchet()?76.f:(Station->IsLightningSpire()?70.f:64.f);
+}
+
+void UVillageSiegeControl::ConfigureCameraPostProcess() const
+{
+    if(!IsValid(Camera))return;
+    UCameraComponent* Cam=Camera->GetCameraComponent();
+    if(!Cam)return;
+    const auto* PC=Cast<APlayerController>(GetOwner());
+    const APawn* Pawn=PC?PC->GetPawn():nullptr;
+    if(const auto* PawnCam=Pawn?Pawn->FindComponentByClass<UCameraComponent>():nullptr)
+        Cam->PostProcessSettings=PawnCam->PostProcessSettings;
+
+    Cam->bConstrainAspectRatio=false;
+    Cam->bOverrideAspectRatioAxisConstraint=true;
+    Cam->AspectRatioAxisConstraint=EAspectRatioAxisConstraint::AspectRatio_MaintainYFOV;
+    Cam->PostProcessBlendWeight=1.f;
+    Cam->FieldOfView=BaseFieldOfView();
+
+    FPostProcessSettings& S=Cam->PostProcessSettings;
+    S.bOverride_MotionBlurAmount=true;
+    S.MotionBlurAmount=0.f;
+    S.bOverride_MotionBlurMax=true;
+    S.MotionBlurMax=0.f;
+    S.bOverride_LensFlareIntensity=true;
+    S.LensFlareIntensity=0.f;
+    S.bOverride_BloomDirtMaskIntensity=true;
+    S.BloomDirtMaskIntensity=0.f;
+    S.bOverride_BloomMethod=true;
+    S.BloomMethod=BM_SOG;
+    S.bOverride_BloomIntensity=true;
+    S.BloomIntensity=0.15f;
+    S.bOverride_BloomGaussianIntensity=true;
+    S.BloomGaussianIntensity=1.f;
+    S.bOverride_BloomThreshold=true;
+    S.BloomThreshold=2.f;
+}
+
+void UVillageSiegeControl::CreateOverlay()
+{
+    DestroyOverlay();
+    auto* PC=Cast<APlayerController>(GetOwner());
+    auto* Player=PC?PC->GetLocalPlayer():nullptr;
+    if(!Player || !Player->ViewportClient || !IsValid(Station))return;
+    SiegeOverlay=SNew(SOverlay).Visibility(EVisibility::HitTestInvisible)
+        +SOverlay::Slot().HAlign(HAlign_Center).VAlign(VAlign_Bottom).Padding(8.f,0.f,8.f,32.f)
+        [
+            SAssignNew(HintTextBlock,STextBlock)
+            .Font(ColdSteelUI::TextFont(14.f*.75f))
+            .Justification(ETextJustify::Center)
+            .ShadowColorAndOpacity(FLinearColor::Black)
+            .ShadowOffset(FVector2D(1.,1.))
+            .Visibility(EVisibility::HitTestInvisible)
+        ];
+    LastHintHotOilCharge=-2;
+    UpdateOverlayHint();
+    Player->ViewportClient->AddViewportWidgetForPlayer(Player,SiegeOverlay.ToSharedRef(),22);
+}
+
+void UVillageSiegeControl::UpdateOverlayHint()
+{
+    if(!HintTextBlock.IsValid() || !IsValid(Station))return;
+    int32 State=-1;
+    if(Station->IsTrebuchet() && Station->HasTrebuchetHotOil())
+        State=Station->IsNextShotHotOil()?3:FMath::Clamp(Station->HotOilChargeCount(),0,2);
+    if(State==LastHintHotOilCharge)return;
+    LastHintHotOilCharge=State;
+    FString Hint;
+    FLinearColor Color(0.95f,0.95f,0.95f,0.88f);
+    if(Station->IsTrebuchet())
+    {
+        if(State==3)
+        {
+            Hint=TEXT("配重投石机  ·  【下一发：热油弹（友方免伤）】  ·  左键发射  ·  鼠标上下调节射程  ·  E / Esc 退出");
+            Color=ColdSteelUI::HUDGoldLight;
+        }
+        else if(State>=0)
+        {
+            Hint=FString::Printf(TEXT("配重投石机  ·  热油充能 %d/3  ·  左键发射  ·  鼠标上下调节射程  ·  E / Esc 退出"),State);
+        }
+        else Hint=TEXT("配重投石机  ·  左键发射  ·  鼠标上下调节射程  ·  E / Esc 退出");
+    }
+    else
+    {
+        Hint=FString::Printf(TEXT("%s  ·  左键发射  ·  长按右键缩放  ·  E / Esc 退出"),Station->DisplayName());
+    }
+    HintTextBlock->SetText(FText::FromString(Hint));
+    HintTextBlock->SetColorAndOpacity(Color);
+}
+
+void UVillageSiegeControl::DestroyOverlay()
+{
+    HintTextBlock.Reset();
+    LastHintHotOilCharge=-2;
+    if(!SiegeOverlay.IsValid())return;
+    if(const auto* PC=Cast<APlayerController>(GetOwner()))
+        if(auto* Player=PC->GetLocalPlayer();Player && Player->ViewportClient)
+            Player->ViewportClient->RemoveViewportWidgetForPlayer(Player,SiegeOverlay.ToSharedRef());
+    SiegeOverlay.Reset();
+}
+
 void UVillageSiegeControl::OnRep_Station()
 {
     auto* PC=CastChecked<AFPSGAMEPlayerController>(GetOwner());
@@ -193,6 +302,16 @@ void UVillageSiegeControl::OnRep_Station()
     AimYaw=EntryAim.Yaw;
     AimElevation=EntryAim.Pitch;
     LastBearingSend=-2.;
+    bZooming=false;
+    bFireHeld=false;
+    bAimDirty=true;
+    bHasTrebuchetGroundZ=false;
+    CachedTrebuchetGroundZ=Station->GetActorLocation().Z-200.;
+    NextPreview=-1.;
+    CachedHiddenStation.Reset();
+    CachedHiddenCamera.Reset();
+    CachedHiddenIds.Reset();
+    NextHiddenRefreshAt=-1.;
     PreviousView=PC->GetViewTarget();
     FActorSpawnParameters Spawn;
     Spawn.Owner=PC;
@@ -201,32 +320,60 @@ void UVillageSiegeControl::OnRep_Station()
     Spawn.SpawnCollisionHandlingOverride=ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
     Camera=GetWorld()->SpawnActor<ACameraActor>(ACameraActor::StaticClass(),Station->GetActorTransform(),Spawn);
     if(!Camera){ServerLeave(Station);return;}
-    Camera->GetCameraComponent()->bConstrainAspectRatio=false;
-    Camera->GetCameraComponent()->FieldOfView=Station->IsTrebuchet()?76.f:64.f;
+    ConfigureCameraPostProcess();
     ViewedStation=Station;
     if(auto* Character=Cast<AFPSGAMECharacter>(PC->GetPawn()))Character->SuspendWeaponForMenu();
     if(PC->PlayerInput)PC->PlayerInput->FlushPressedKeys();
     PC->SetIgnoreMoveInput(true);
     bMoveLocked=true;
-    UpdateSight();
+    CreateOverlay();
+    ApplyCameraPose(0.f);
+    UpdatePreviewOverlay(true);
     PC->SetViewTarget(Camera);
 }
 
 void UVillageSiegeControl::AddHiddenOperatorComponents(const AActor* ViewTarget,TSet<FPrimitiveComponentId>& Hidden) const
 {
     if(!Active() || !IsValid(Camera) || ViewTarget!=Camera)return;
-    const APawn* Operator=Camera->GetInstigator();
-    if(!IsValid(Operator))return;
-    // Start at each locally owned component root, including unattached first-person parts.
-    Operator->ForEachComponent<USceneComponent>(false,[&](USceneComponent* Part)
+    const double Now=GetWorld()?GetWorld()->GetTimeSeconds():0.;
+    if(CachedHiddenStation.Get()!=Station.Get() || CachedHiddenCamera.Get()!=Camera.Get() || Now>=NextHiddenRefreshAt)
     {
-        const USceneComponent* Parent=Part->GetAttachParent();
-        if(!Parent || Parent->GetOwner()!=Operator)HideAppearanceBranch(*Part,Hidden);
-    });
+        CachedHiddenStation=Station;
+        CachedHiddenCamera=Camera;
+        NextHiddenRefreshAt=Now+.5;
+        TSet<FPrimitiveComponentId> Fresh;
+        if(Station->IsLightningSpire())
+            Station->ForEachComponent<USceneComponent>(false,[&](USceneComponent* Part)
+            {
+                const USceneComponent* Parent=Part->GetAttachParent();
+                if(!Parent || Parent->GetOwner()!=Station)HideAppearanceBranch(*Part,Fresh);
+            });
+        const APawn* Operator=Camera->GetInstigator();
+        if(IsValid(Operator))
+        {
+            // Start at each locally owned component root, including unattached first-person parts.
+            Operator->ForEachComponent<USceneComponent>(false,[&](USceneComponent* Part)
+            {
+                const USceneComponent* Parent=Part->GetAttachParent();
+                if(!Parent || Parent->GetOwner()!=Operator)HideAppearanceBranch(*Part,Fresh);
+            });
+        }
+        CachedHiddenIds=Fresh.Array();
+    }
+    Hidden.Append(CachedHiddenIds);
 }
 
 void UVillageSiegeControl::RestoreView()
 {
+    DestroyOverlay();
+    bZooming=false;
+    bFireHeld=false;
+    bAimDirty=false;
+    bHasTrebuchetGroundZ=false;
+    CachedHiddenStation.Reset();
+    CachedHiddenCamera.Reset();
+    CachedHiddenIds.Reset();
+    NextHiddenRefreshAt=-1.;
     auto* PC=CastChecked<AFPSGAMEPlayerController>(GetOwner());
     if(bMoveLocked){PC->SetIgnoreMoveInput(false);bMoveLocked=false;}
     FPSMagicPreview::Clear(TrajectoryLines);
@@ -259,16 +406,17 @@ void UVillageSiegeControl::EndPlay(const EEndPlayReason::Type Reason)
 
 void UVillageSiegeControl::DrawImpactOutline(const FVector& Normal,double Now)
 {
-    // Terrain and roof lips need a surface contour; a single plane cuts through them.
+    // Terrain and roof lips need a surface contour; coalesce drag updates to keep high FPS.
     const double Radius=Station->BlastRadius();
+    const double SnapTol=bAimDirty?24.:3.;
     if(Now>=OutlineRefreshAt || OutlineRadius!=Radius || bOutlineHitUnit!=Sight.bHitUnit ||
-        !OutlineCenter.Equals(Sight.Impact,3.) || !OutlineNormal.Equals(Normal,.01))
+        !OutlineCenter.Equals(Sight.Impact,SnapTol) || !OutlineNormal.Equals(Normal,.02))
     {
         OutlineCenter=Sight.Impact;
         OutlineNormal=Normal;
         OutlineRadius=Radius;
         bOutlineHitUnit=Sight.bHitUnit;
-        OutlineRefreshAt=Now+.25;
+        OutlineRefreshAt=Now+(bAimDirty?.10:.25);
         FCollisionQueryParams Query(SCENE_QUERY_STAT(SiegeImpactOutline),false,Station);
         Query.AddIgnoredActor(Camera->GetInstigator());
         Query.AddIgnoredActor(Station->GetAttachParentActor());
@@ -277,15 +425,83 @@ void UVillageSiegeControl::DrawImpactOutline(const FVector& Normal,double Now)
     TrajectoryLines->DrawLines(ImpactOutline);
 }
 
-void UVillageSiegeControl::UpdateSight()
+void UVillageSiegeControl::SendBearingIfDue(double Now,const FRotator& Bearing)
 {
+    const double Elapsed=Now-LastBearingSend;
+    if(Elapsed>=.1 && (!Bearing.Equals(LastSentBearing,.25) || Elapsed>=1.))
+    {
+        LastBearingSend=Now;
+        LastSentBearing=Bearing;
+        ServerPointSiege(Station,Bearing);
+    }
+}
+
+void UVillageSiegeControl::ApplyCameraPose(float DeltaSeconds)
+{
+    if(!IsValid(Camera) || !IsValid(Station))return;
+    FVector CamLoc;
+    FRotator CamRot,Facing;
+    Station->ComputeManualCamera(AimYaw,AimElevation,CachedTrebuchetGroundZ,CamLoc,CamRot,Facing);
+    Camera->SetActorLocationAndRotation(CamLoc,CamRot);
+
+    if(auto* Cam=Camera->GetCameraComponent())
+    {
+        const float TargetFOV=(bZooming && !Station->IsTrebuchet())?(Station->IsLightningSpire()?46.f:42.f):BaseFieldOfView();
+        if(DeltaSeconds>0.f && !FMath::IsNearlyEqual(Cam->FieldOfView,TargetFOV,.05f))
+            Cam->SetFieldOfView(FMath::FInterpTo(Cam->FieldOfView,TargetFOV,DeltaSeconds,14.f));
+        else if(DeltaSeconds<=0.f)
+            Cam->SetFieldOfView(TargetFOV);
+    }
+
+    FVillageSiegeShot Plan;
+    Plan.Yaw=Facing.Yaw;
+    Plan.Pitch=Facing.Pitch;
+    Station->DisplaySight(&Plan);
+    SendBearingIfDue(GetWorld()->GetTimeSeconds(),Facing);
+}
+
+void UVillageSiegeControl::UpdatePreviewOverlay(bool bForce)
+{
+    if(!IsValid(Camera) || !IsValid(Station))return;
+    const double Now=GetWorld()->GetTimeSeconds();
+    const bool bMoved=bForce || bAimDirty ||
+        !FMath::IsNearlyEqual(LastPreviewYaw,AimYaw,.05f) ||
+        !FMath::IsNearlyEqual(LastPreviewElevation,AimElevation,.05f);
+
+    if(!Station->IsTrebuchet() && !Station->IsLightningSpire())
+    {
+        // Ballista needs zero raycasts while aiming; server verifies final impact on fire.
+        Sight.CanFire=true;
+        Sight.bHitUnit=false;
+        bAimDirty=false;
+        LastPreviewYaw=AimYaw;
+        LastPreviewElevation=AimElevation;
+        return;
+    }
+
+    const double Interval=Station->IsTrebuchet()?(1./20.):(1./15.);
+    const double Heartbeat=Station->IsTrebuchet()?.30:.16;
+    if(!bForce && Now<NextPreview)return;
+    if(!bMoved && Now<NextPreview+Heartbeat)return;
+
     const auto* PC=CastChecked<AFPSGAMEPlayerController>(GetOwner());
     Station->ManualSight(PC->GetPawn(),AimYaw,AimElevation,Sight,true);
-    Camera->SetActorLocationAndRotation(Sight.Camera,Sight.View);
-    Station->DisplaySight(&Sight.Plan);
-    const double Now=GetWorld()->GetTimeSeconds();
+    LastPreviewYaw=AimYaw;
+    LastPreviewElevation=AimElevation;
+    bAimDirty=false;
+    NextPreview=Now+Interval;
+
     if(Station->IsTrebuchet())
     {
+        if(Sight.HasImpact)
+        {
+            CachedTrebuchetGroundZ=bHasTrebuchetGroundZ
+                ?FMath::Lerp(CachedTrebuchetGroundZ,Sight.Impact.Z,.45)
+                :Sight.Impact.Z;
+            bHasTrebuchetGroundZ=true;
+            // Re-align camera smoothly once initial terrain elevation is sampled.
+            if(bForce)ApplyCameraPose(0.f);
+        }
         FPSMagicPreview::BeginRefresh(TrajectoryLines,Camera);
         TrajectoryLines->SetOnlyOwnerSee(true);
         if(Sight.HasImpact)
@@ -296,15 +512,19 @@ void UVillageSiegeControl::UpdateSight()
         }
         else OutlineRefreshAt=-1.;
     }
-    const FRotator Bearing(Sight.Plan.Pitch,Sight.Plan.Yaw,0.);
-    const double Elapsed=Now-LastBearingSend;
-    if(Elapsed>=.1 && (!Bearing.Equals(LastSentBearing,.2) || Elapsed>=1.))
-    {
-        LastBearingSend=Now;
-        LastSentBearing=Bearing;
-        ServerPointSiege(Station,Bearing);
-    }
-    NextPreview=Now+1./30.;
+}
+
+void UVillageSiegeControl::UpdateSight()
+{
+    ApplyCameraPose(0.f);
+    UpdatePreviewOverlay(true);
+}
+
+void UVillageSiegeControl::TryFireManual()
+{
+    if(!IsValid(Camera) || !IsValid(Station) || Station->ReloadRemaining()>0.)return;
+    UpdatePreviewOverlay(true);
+    if(Sight.CanFire)ServerFire(Station,AimYaw,AimElevation);
 }
 
 void UVillageSiegeControl::TickComponent(float Delta,ELevelTick Tick,FActorComponentTickFunction* Function)
@@ -312,28 +532,59 @@ void UVillageSiegeControl::TickComponent(float Delta,ELevelTick Tick,FActorCompo
     Super::TickComponent(Delta,Tick,Function);
     if(GetOwner()->HasAuthority() && !SessionValid()){ReleaseSeat();return;}
     if(!Active()){OnRep_Station();return;}
-    if(Camera && GetWorld()->GetTimeSeconds()>=NextPreview)UpdateSight();
+    if(!Camera)return;
+    ApplyCameraPose(Delta);
+    UpdatePreviewOverlay(false);
+    UpdateOverlayHint();
+    if(bFireHeld && Station->ReloadRemaining()<=0.)TryFireManual();
 }
 
 bool UVillageSiegeControl::HandleInput(const FInputKeyEventArgs& Event)
 {
     if(!Active())return false;
-    if(Event.Key==EKeys::MouseX)
-        AimYaw=Station->ResolveAimYaw(AimYaw+Event.AmountDepressed*.12);
-    else if(Event.Key==EKeys::MouseY)
+    const auto* PC=Cast<APlayerController>(GetOwner());
+    if(Event.Key==EKeys::MouseX || Event.Key==EKeys::MouseY)
     {
-        const bool Stone=Station->IsTrebuchet();
-        AimElevation=FMath::Clamp(AimElevation+float(Event.AmountDepressed)*.12f,Stone?-28.f:-48.f,Stone?24.f:40.f);
-    }
-    else if(Event.Event==IE_Pressed)
-    {
-        if(Event.Key==EKeys::E || Event.Key==EKeys::Escape)ServerLeave(Station);
-        else if(Event.Key==EKeys::LeftMouseButton && Camera)
+        double Scale=1.;
+        bool bInvert=false;
+        if(PC && PC->PlayerInput)
         {
-            UpdateSight();
-            if(Sight.CanFire && Station->ReloadRemaining()<=0.)ServerFire(Station,AimYaw,AimElevation);
+            FInputAxisProperties Props;
+            if(PC->PlayerInput->GetAxisProperties(Event.Key,Props))
+            {
+                Scale=FMath::Clamp(double(Props.Sensitivity)/.07,.25,3.);
+                bInvert=(Event.Key==EKeys::MouseY) && (Props.bInvert!=0);
+            }
         }
+        const double ZoomMul=bZooming?.52:1.;
+        const double Delta=Event.AmountDepressed*.12*Scale*ZoomMul*(bInvert?-1.:1.);
+        if(Event.Key==EKeys::MouseX)
+            AimYaw=Station->ResolveAimYaw(AimYaw+Delta);
+        else
+        {
+            const bool Stone=Station->IsTrebuchet();
+            const bool Spire=Station->IsLightningSpire();
+            AimElevation=FMath::Clamp(AimElevation+float(Delta),
+                Stone?-28.f:(Spire?-76.f:-48.f),Stone?24.f:(Spire?35.f:40.f));
+        }
+        bAimDirty=true;
+        ApplyCameraPose(0.f);
+        return true;
     }
+    if(Event.Key==EKeys::RightMouseButton)
+    {
+        if(Event.Event==IE_Pressed && !Station->IsTrebuchet())bZooming=true;
+        else if(Event.Event==IE_Released)bZooming=false;
+        return true;
+    }
+    if(Event.Key==EKeys::LeftMouseButton)
+    {
+        if(Event.Event==IE_Pressed){bFireHeld=true;TryFireManual();}
+        else if(Event.Event==IE_Released)bFireHeld=false;
+        return true;
+    }
+    if(Event.Event==IE_Pressed && (Event.Key==EKeys::E || Event.Key==EKeys::Escape))
+        ServerLeave(Station);
     return true;
 }
 

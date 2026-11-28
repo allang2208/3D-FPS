@@ -4,6 +4,7 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelInventoryWidget.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelUIStyle.h"
 #include "GunsmithUIStyle.h"
 #include "../Building/VoxelBuildPrefabActor.h"
@@ -38,8 +39,8 @@ public:
     TSharedRef<STextBlock> Label(const FString& Text,float Size,bool Bold=false)
     {return SNew(STextBlock).Text(SingleLine(Text)).Font(GunsmithUI::TextFont(Size/Scale,Bold)).ColorAndOpacity(ColdSteelUI::TextPrimary).AutoWrapText(false).WrapTextAt(0);}
     TSharedRef<SWidget> HorizontalText(const TSharedRef<SWidget>& Text)
-    {return SNew(SScrollBox).Orientation(Orient_Horizontal).AllowOverscroll(EAllowOverscroll::No)
-        .ScrollBarThickness(FVector2D(4/Scale)).Clipping(EWidgetClipping::ClipToBounds)+SScrollBox::Slot()[Text];}
+    {return ColdSteelUI::ApplyGoldScroll(SNew(SScrollBox).Orientation(Orient_Horizontal).AllowOverscroll(EAllowOverscroll::No)
+        .Clipping(EWidgetClipping::ClipToBounds)+SScrollBox::Slot()[Text],FVector2D(4/Scale),FMargin(0,2/Scale,0,0),true);}
     TSharedRef<SWidget> Action(const FString& Text,TFunction<FReply()> Function)
     {return SNew(SBox).HeightOverride(36/Scale).MinDesiredWidth(64/Scale)[SNew(SButton).ButtonStyle(&Buttons).HAlign(HAlign_Center).VAlign(VAlign_Center).ContentPadding(FMargin(8/Scale,0)).OnClicked_Lambda(MoveTemp(Function))[Label(Text,14)]];}
     void Build()
@@ -67,8 +68,8 @@ public:
         Contents->AddSlot().AutoHeight()[SNew(SBorder).BorderImage(&Header).Padding(FMargin(16/Scale,10/Scale))[Heading]];
         Contents->AddSlot().AutoHeight().Padding(16/Scale,8/Scale)[HorizontalText(Label(TEXT("待焚化物品 · 放入后仍可取回"),14,true))];
         Contents->AddSlot().FillHeight(1).Padding(4/Scale,0)
-            [SAssignNew(GridScroll,SScrollBox).AllowOverscroll(EAllowOverscroll::No).ScrollBarThickness(FVector2D(6/Scale))
-                +SScrollBox::Slot()[Owner->InputBoard()->TakeWidget()]];
+            [ColdSteelUI::ApplyGoldScroll(SAssignNew(GridScroll,SScrollBox).AllowOverscroll(EAllowOverscroll::No)
+                +SScrollBox::Slot()[Owner->InputBoard()->TakeWidget()],FVector2D(6/Scale),FMargin(4/Scale,0,0,0),true)];
         Contents->AddSlot().AutoHeight().Padding(16/Scale,4/Scale)[HorizontalText(Label(TEXT("拖动 / 右键取放 · Shift 单击拆分 · 拖动时 F 旋转"),12))];
         auto Yield=SNew(SVerticalBox);
         Yield->AddSlot().AutoHeight()[Label(TEXT("预计收获"),16,true)];
@@ -78,8 +79,8 @@ public:
         auto Confirmation=SNew(SVerticalBox);
         Confirmation->AddSlot().AutoHeight()[HorizontalText(Label(TEXT("确认焚化投入区内全部物品？"),16,true))];
         Confirmation->AddSlot().AutoHeight().Padding(0,6/Scale)[SNew(SBox).HeightOverride(112/Scale)
-            [SNew(SScrollBox).AllowOverscroll(EAllowOverscroll::No)+SScrollBox::Slot()
-                [SAssignNew(ConfirmText,STextBlock).Font(GunsmithUI::TextFont(14/Scale)).ColorAndOpacity(ColdSteelUI::Warning).AutoWrapText(true)]]];
+            [ColdSteelUI::ApplyGoldScroll(SNew(SScrollBox).AllowOverscroll(EAllowOverscroll::No)+SScrollBox::Slot()
+                [SAssignNew(ConfirmText,STextBlock).Font(GunsmithUI::TextFont(14/Scale)).ColorAndOpacity(ColdSteelUI::Warning).AutoWrapText(true)],FVector2D(5.5f/Scale),FMargin(4/Scale,0,0,0),true)]];
         Confirmation->AddSlot().AutoHeight()[SNew(SBox).HeightOverride(36/Scale)[ConfirmActions]];
         Contents->AddSlot().AutoHeight().Padding(12/Scale,0)[SAssignNew(ConfirmBox,SBorder).BorderImage(&Card).Padding(FMargin(12/Scale,8/Scale)).Visibility(EVisibility::Collapsed)[Confirmation]];
         auto AmmoControls=SNew(SVerticalBox);

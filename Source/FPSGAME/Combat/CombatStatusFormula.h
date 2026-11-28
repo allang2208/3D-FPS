@@ -72,7 +72,8 @@ public:
     float RiposteStaminaMultiplier()const{return RiposteTime>0?RiposteStamina:1;}
     UFUNCTION(BlueprintCallable) void AddBleeding(AActor* Source,int32 Stacks=1);
     void AddBleedingHit(AActor* Source,int32 Stacks,const FHitResult& Hit);
-    void AddOilBurn(AActor* Source,float MagicAttack);
+    void AddOilBurn(AActor* Source,float MagicAttack,int32 Stacks=1);
+    int32 BurnCount() const { return Burns.Num(); }
     UFUNCTION(BlueprintCallable) void AddBurn(AActor* Source,float MagicAttack,int32 Stacks=1,float Seconds=3,float DamageMultiplier=.5f,float TickSeconds=.5f);
     UFUNCTION(BlueprintCallable) void SetStatusImmune(bool Immune);
     bool IsImmune()const{return bImmune||ImmuneTime>0;}

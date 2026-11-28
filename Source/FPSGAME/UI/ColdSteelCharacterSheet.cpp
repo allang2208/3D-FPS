@@ -23,6 +23,7 @@
 #include "Components/HorizontalBoxSlot.h"
 #include "Components/ProgressBar.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/SizeBox.h"
 #include "Components/TextBlock.h"
 #include "Components/UniformGridPanel.h"
@@ -113,8 +114,8 @@ UColdSteelDetailRow* UColdSteelHUDWidget::AddCharacterRow(UVerticalBox* Parent, 
 
 UWidget* UColdSteelHUDWidget::BuildStatusPage()
 {
-    StatusScroll = WidgetTree->ConstructWidget<UScrollBox>();
-    StatusScroll->SetScrollbarThickness(FVector2D(ReferenceUnits(6), ReferenceUnits(6)));
+    StatusScroll = WidgetTree->ConstructWidget<UColdSteelScrollBox>();
+    ColdSteelUI::ConfigureGoldScrollBox(StatusScroll, ReferenceUnits(6));
     StatusScroll->SetAllowOverscroll(false);
     StatusScroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);
     auto* Content = WidgetTree->ConstructWidget<UVerticalBox>(); StatusScroll->AddChild(Content);

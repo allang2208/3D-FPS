@@ -73,7 +73,7 @@ struct FOilReviewCapture
         auto* C=Camera->GetCaptureComponent2D();
         C->PrimitiveRenderMode=ESceneCapturePrimitiveRenderMode::PRM_UseShowOnlyList;
         C->bCaptureEveryFrame=false;C->bCaptureOnMovement=false;C->CaptureSource=SCS_FinalColorLDR;
-        C->ShowFlags.SetMotionBlur(false);C->ShowFlags.SetTemporalAA(false);C->ShowFlags.SetBloom(true);
+        C->ShowFlags.SetMotionBlur(false);C->ShowFlags.SetTemporalAA(false);C->ShowFlags.SetBloom(true);C->ShowFlags.SetDecals(true);
         auto& PP=C->PostProcessSettings;PP.bOverride_AutoExposureMethod=true;PP.AutoExposureMethod=AEM_Manual;
         PP.bOverride_AutoExposureApplyPhysicalCameraExposure=true;PP.AutoExposureApplyPhysicalCameraExposure=false;
         PP.bOverride_AutoExposureBias=true;PP.AutoExposureBias=0.;
@@ -87,7 +87,12 @@ struct FOilReviewCapture
         for(auto* Component:Scenery)C->ShowOnlyComponent(Component);
         if(Actor)C->ShowOnlyActorComponents(Actor);
         TArray<bool> Flags;
-        for(auto* Part:Parts){Flags.Add(Part->bOnlyOwnerSee);Part->SetOnlyOwnerSee(false);C->ShowOnlyComponent(Part);}
+        for(auto* Part:Parts)
+        {
+            if(auto* Prim=Cast<UPrimitiveComponent>(Part)){Flags.Add(Prim->bOnlyOwnerSee);Prim->SetOnlyOwnerSee(false);}
+            else Flags.Add(false);
+            C->ShowOnlyComponent(Part);
+        }
         Camera->SetActorLocationAndRotation(From,Rot);C->FOVAngle=FOV;
         FAssetCompilingManager::Get().FinishAllCompilation();
         World->SendAllEndOfFrameUpdates();FlushRenderingCommands();C->CaptureScene();FlushRenderingCommands();

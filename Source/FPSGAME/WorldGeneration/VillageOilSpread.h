@@ -11,6 +11,8 @@ struct FVillageOilSpread
 {
     static constexpr int32 Half=12,Side=Half*2+1;
     static constexpr float Step=500.f/(Half-1);
+    float Radius=500.f;
+    int32 MaxExtent() const { return FMath::Clamp(FMath::CeilToInt((Radius+Step*1.6f)/Step),3,Half); }
     struct FCell
     {
         FVector P=FVector::ZeroVector,N=FVector::UpVector;

@@ -18,6 +18,7 @@
 #include "Components/ProgressBar.h"
 #include "Components/ScaleBox.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/SizeBox.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
@@ -84,8 +85,8 @@ void UColdSteelCampfirePanel::Build()
     auto* Title=Label(TEXT("篝火 · 共享烧烤"),20,false);Title->SetColorAndOpacity(ColdSteelUI::TextPrimary);
     auto* TS=Head->AddChildToHorizontalBox(Title);TS->SetSize(FSlateChildSize(ESlateSizeRule::Fill));TS->SetVerticalAlignment(VAlign_Center);
     auto* X=Button(TEXT("×"));X->OnClicked.AddDynamic(this,&ThisClass::Close);Head->AddChildToHorizontalBox(X);
-    auto* Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);
-    Scroll->SetScrollbarThickness(FVector2D(6/Scale));
+    auto* Scroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);
+    ColdSteelUI::ConfigureGoldScrollBox(Scroll,6/Scale);
     auto* SS=Root->AddChildToVerticalBox(Scroll);SS->SetSize(FSlateChildSize(ESlateSizeRule::Fill));SS->SetPadding(FMargin(12/Scale,8/Scale));
     auto* Body=WidgetTree->ConstructWidget<UVerticalBox>();Scroll->AddChild(Body);
     auto* Current=Section(Body,TEXT("当前加工"));StateText=Label(TEXT("等待篝火同步"),16);Current->AddChildToVerticalBox(StateText);

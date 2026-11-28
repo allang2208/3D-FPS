@@ -235,6 +235,11 @@ void UFPSWeaponFXComponent::OnShotAtMuzzle(bool bADS,const FTransform& ShotMuzzl
     const float ShotVariation=FMath::FRandRange(bScope ? .76f : .86f,1.18f);
     const bool Epic=SpawnEpicFX(MuzzleLocation(),MuzzleForward(),
         Scale*ShotVariation*(Suppression<1.f?.085f:(bScope?.25f:.27f)));
+    if (bTracersOnly)
+    {
+        if (SmokeImpulseSystem) SpawnSmokeImpulse(false);
+        return;
+    }
     for (int32 Layer = 0; !Epic && Layer < 2; ++Layer)
     {
         if (FFPSWeaponFXParticle* P = Acquire(Layer == 0 ? WeaponFX::FlashCore : WeaponFX::FlashTongue, CardMesh, FlashMaterial))
@@ -287,9 +292,12 @@ void UFPSWeaponFXComponent::OnShotAtMuzzle(bool bADS,const FTransform& ShotMuzzl
     else SpawnSmoke(true, 0.0f, MuzzleLocation(), MuzzleForward(), FMath::Min(1.0f, BarrelHeat + PendingHeat));
     FlashTime = Epic?0.f:0.045f;
     FlashBirthFrame = GFrameCounter;
-    FlashLight->SetWorldLocation(MuzzleLocation() + MuzzleForward() * 2.0f);
-    FlashLight->SetIntensity(350.0f * Scale * LastSuppression);
-    FlashLight->SetVisibility(!Epic && Scale > 0.0f);
+    if (FlashLight)
+    {
+        FlashLight->SetWorldLocation(MuzzleLocation() + MuzzleForward() * 2.0f);
+        FlashLight->SetIntensity(350.0f * Scale * LastSuppression);
+        FlashLight->SetVisibility(!Epic && Scale > 0.0f);
+    }
     SetComponentTickEnabled(true);
 }
 
@@ -325,7 +333,7 @@ void UFPSWeaponFXComponent::EjectPumpCasing()
 
 void UFPSWeaponFXComponent::SpawnCasing()
 {
-    if (ShouldHideCasings()) return;
+    if (ShouldHideCasings() || !IsValid(WeaponMesh) || !GetWorld()) return;
     const auto* Character = Cast<AFPSGAMECharacter>(GetOwner());
     const bool bRifle = bWorldGun?!bWorldPistol:(!bIndependentPistol && Character && !Character->IsPistolWeapon());
     const bool bSuper90=bRifle&&WeaponMesh&&WeaponMesh->GetSkeletalMeshAsset()

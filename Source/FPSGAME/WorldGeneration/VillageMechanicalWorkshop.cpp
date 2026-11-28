@@ -31,8 +31,8 @@ AVillageMechanicalWorkshop::AVillageMechanicalWorkshop()
     auto* ArtisanStation = CreateDefaultSubobject<UChildActorComponent>(TEXT("MasterArtisanStation"));
     ArtisanStation->SetupAttachment(AssemblyBay);
     ArtisanStation->SetIsReplicated(true);
-    // Stand beside the west bench, leaving the upgrade approach and central loading aisle clear.
-    ArtisanStation->SetRelativeLocationAndRotation(FVector(-119, 183, 91), FRotator(0, -56, 0));
+    // Stand beside the relocated east workbench, leaving the upgrade approach and central loading aisle clear.
+    ArtisanStation->SetRelativeLocationAndRotation(FVector(-32, 128, 91), FRotator(0, -56, 0));
     ArtisanStation->SetChildActorClass(AVillageMasterArtisan::StaticClass());
     static ConstructorHelpers::FObjectFinder<UStaticMesh> House(TEXT("/Game/WorldGeneration/TemperateHills/VillageMechanicalWorkshop/SM_GarrisonWorkshop"));
     static ConstructorHelpers::FObjectFinder<UStaticMesh> Fixtures(TEXT("/Game/WorldGeneration/TemperateHills/VillageMechanicalWorkshop/SM_GarrisonAssemblyBay"));
@@ -65,18 +65,18 @@ void AVillageMechanicalWorkshop::BeginPlay()
     // XY is the centre of each footprint, Z is its support surface. Preserve the source proportions.
     struct FProp { const TCHAR* Asset; FVector Foot; float Width; float Yaw; };
     static const FProp Props[]={
-        {TEXT("VillageCarpenter/InteriorR1/SM_CarpenterHingeTray"),{-211,168,91},56,81},
-        {TEXT("VillageCarpenter/InteriorR1/SM_CarpenterPegBin"),{-218,213,91},35,6},
-        {TEXT("VillageCarpenter/Props/SM_CarpenterTools"),{-205,6,91},49,78},
-        {TEXT("VillageCarpenter/YardDetail/SM_CarpenterBenchCurls"),{-212,43,91},32,22},
+        {TEXT("VillageCarpenter/InteriorR1/SM_CarpenterHingeTray"),{-111,103,91},56,81},
+        {TEXT("VillageCarpenter/InteriorR1/SM_CarpenterPegBin"),{-118,148,91},35,6},
+        {TEXT("VillageCarpenter/Props/SM_CarpenterTools"),{-105,-59,91},49,78},
+        {TEXT("VillageCarpenter/YardDetail/SM_CarpenterBenchCurls"),{-112,-22,91},32,22},
         {TEXT("VillageCarpenter/InteriorR1/SM_CarpenterHingeTray"),{218,-57,87},40,95},
         {TEXT("VillageBlacksmith/ArtPassR2/Meshes/SM_VillageIronStock"),{225,257,100},115,90},
         {TEXT("VillageCarpenter/InteriorR1/SM_CarpenterPegBin"),{225,402,100},55,94},
         {TEXT("VillageCarpenter/YardDetail/SM_CarpenterSeasoningBoards"),{226,319,180},170,90},
-        {TEXT("VillageCarpenter/YardDetail/SM_CarpenterOffcutCrib"),{-224,-332,0},150,90},
-        {TEXT("VillageCarpenter/YardDetail/SM_CarpenterHewingChips"),{-169,-240,0.5},77,18},
-        {TEXT("VillageCarpenter/YardDetail/SM_CarpenterBenchCurls"),{-170,186,0.6},43,125},
-        {TEXT("VillageBlacksmith/ArtPassR2/Meshes/SM_VillageOakStool"),{-145,254,0},38,13}
+        {TEXT("VillageCarpenter/YardDetail/SM_CarpenterOffcutCrib"),{-218,-488,0},122,90},
+        {TEXT("VillageCarpenter/YardDetail/SM_CarpenterHewingChips"),{-115,-350,0.5},77,18},
+        {TEXT("VillageCarpenter/YardDetail/SM_CarpenterBenchCurls"),{-80,178,0.6},43,125},
+        {TEXT("VillageBlacksmith/ArtPassR2/Meshes/SM_VillageOakStool"),{-124,208,0},38,13}
     };
     TMap<FString,UInstancedStaticMeshComponent*> Batches;
     for(const FProp& Item:Props)
@@ -136,14 +136,14 @@ void AVillageMechanicalWorkshop::BeginPlay()
     };
     if(auto* Vision=Cast<ABuildingDaylight>(Child(TEXT("RoomDaylight"),ABuildingDaylight::StaticClass(),FVector::ZeroVector,FRotator::ZeroRotator)))
     {
-        Vision->RoomMinimum={-276,-560,0};
+        Vision->RoomMinimum={-160,-560,0};
         Vision->RoomMaximum={276,560,310};
         Vision->EntranceTransitionCm=70.f;
         Vision->ExposureCompensation=1.f;
         Vision->OnConstruction(Vision->GetActorTransform());
     }
-    // The inner faces of the two opposite frame posts overlook the entrance and rear work bays.
-    Child(TEXT("DoorBayLight"),AVillageShopChainLamp::StaticClass(),{-275.5,-192,239},FRotator::ZeroRotator,AVillageShopChainLamp::AlwaysLit);
+    // Mount the east chain lamp onto the engaged Tower-wall pilaster opposite the west assembly bay post.
+    Child(TEXT("DoorBayLight"),AVillageShopChainLamp::StaticClass(),{-145.0,-192,239},FRotator::ZeroRotator,AVillageShopChainLamp::AlwaysLit);
     Child(TEXT("AssemblyBayLight"),AVillageShopChainLamp::StaticClass(),{275.5,192,239},FRotator(0,180,0),AVillageShopChainLamp::AlwaysLit);
 
     if(auto* Wear=LoadObject<UMaterialInterface>(nullptr,TEXT("/Game/WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/M_DefenseGroundWear.M_DefenseGroundWear")))
@@ -151,9 +151,9 @@ void AVillageMechanicalWorkshop::BeginPlay()
         auto* Decal=NewObject<UDecalComponent>(this);
         AddInstanceComponent(Decal);
         Decal->SetupAttachment(Shell);
-        Decal->SetRelativeLocationAndRotation({0,0,-18},FRotator(-90,0,0));
-        Decal->DecalSize={64,585+76,302+76};
-        Decal->SetDecalColor(FLinearColor(302.f/1024,585.f/1024,76.f/256,.5f));
+        Decal->SetRelativeLocationAndRotation({108,0,-18},FRotator(-90,0,0));
+        Decal->DecalSize={64,585+76,194+76};
+        Decal->SetDecalColor(FLinearColor(194.f/1024,585.f/1024,76.f/256,.5f));
         Decal->SetDecalMaterial(Wear);
         Decal->SetSortOrder(-1);
         Decal->RegisterComponent();
@@ -174,8 +174,8 @@ bool ATemperateHillsWorld::MechanicalWorkshopLotOccupied() const
 {
     const auto Pose=MechanicalWorkshopPose();
     TArray<FOverlapResult> Hits;
-    GetWorld()->OverlapMultiByObjectType(Hits,Pose.TransformPosition({0,-108,236}),Pose.GetRotation(),
-        FCollisionObjectQueryParams::AllObjects,FCollisionShape::MakeBox(FVector(338,730,250)),
+    GetWorld()->OverlapMultiByObjectType(Hits,Pose.TransformPosition({60,-108,236}),Pose.GetRotation(),
+        FCollisionObjectQueryParams::AllObjects,FCollisionShape::MakeBox(FVector(278,730,250)),
         FCollisionQueryParams(SCENE_QUERY_STAT(VillageWorkshopConstruction),false,this));
     for(const auto& Hit:Hits)
     {
@@ -201,7 +201,9 @@ bool ATemperateHillsWorld::PurchaseSiegeUpgrade(APawn* Payer,int32 Index,int32 E
     {Failure=FText::FromString(TEXT("机械工坊尚未开放。"));return false;}
     auto* State=GetWorld()->GetSubsystem<UVillageDefenseState>();
     const bool Bought=State->PurchaseUpgrade(WorldId,Index,ExpectedRank,Payer,Failure);
-    SiegeRanks=State->SelectGeneration(WorldId,VillageDefenseGeneration);
+    const auto Loaded=State->SelectGeneration(WorldId,VillageDefenseGeneration);
+    SiegeRanks=Loaded.Low;
+    SiegeExtraRanks=Loaded.High;
     ForceNetUpdate();
     return Bought;
 }
@@ -216,7 +218,9 @@ void ATemperateHillsWorld::UpdateMechanicalWorkshop()
         return;
     }
     if(!VillageSite.bPlaced || IsValid(MechanicalWorkshop))return;
-    SiegeRanks=GetWorld()->GetSubsystem<UVillageDefenseState>()->SelectGeneration(WorldId,VillageDefenseGeneration);
+    const auto Loaded=GetWorld()->GetSubsystem<UVillageDefenseState>()->SelectGeneration(WorldId,VillageDefenseGeneration);
+    SiegeRanks=Loaded.Low;
+    SiegeExtraRanks=Loaded.High;
     FActorSpawnParameters Spawn;
     Spawn.Owner=this;
     Spawn.OverrideLevel=GetLevel();

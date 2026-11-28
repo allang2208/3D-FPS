@@ -33,6 +33,7 @@ public:
         class UPoseableMeshComponent& GunMesh, class UBoxComponent* DropBody=nullptr,FTransform* OutMuzzleInMesh=nullptr);
     void InitializeSharedItem(const FColdSteelItem& Item);
     bool IsSharedPickup() const {return !SharedItem.InstanceId.IsEmpty();}
+    const FColdSteelItem& GetSharedItem() const {return SharedItem;}
     virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
     virtual void Tick(float DeltaSeconds) override;
     bool CanInteract(const APawn* Pawn) const;
@@ -44,6 +45,9 @@ private:
     UFUNCTION() void OnRep_SharedItem();
     friend class UColdSteelPickupStudio;
     friend class UEnhancementDisplayAuditCommandlet;
+#if WITH_DEV_AUTOMATION_TESTS
+    friend class FVillageTrebuchetHotOilTest;
+#endif
     bool BuildWeapon(const FColdSteelItem& Item,class UGameInstance* Context=nullptr);
     bool BuildConsumable(const FColdSteelItem& Item);
     bool BuildStaff(const FColdSteelItem& Item);

@@ -73,8 +73,7 @@ bool AllPlans(ATemperateHillsWorld* H,bool Enabled)
 }
 bool UpgradedGeometry(UWorld* World)
 {
-    return TActorIterator<AHighVillageGate>(World) && TActorIterator<AHighVillageWall>(World)
-        && TActorIterator<AVillageDefenseStairs>(World);
+    return TActorIterator<AHighVillageGate>(World) && TActorIterator<AHighVillageWall>(World);
 }
 int32 ChillOnTarget(const AActor& Wall)
 {

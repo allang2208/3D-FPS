@@ -28,6 +28,7 @@
 #include "Components/OverlaySlot.h"
 #include "Components/ProgressBar.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/SizeBox.h"
 #include "Components/SizeBoxSlot.h"
 #include "Components/TextBlock.h"
@@ -140,7 +141,7 @@ void UColdSteelWoodworkingManagementWidget::NativeOnInitialized()
     auto* Title=Text(TEXT("木工 · 工作台"),20,false,true);auto* TitleSlot=Head->AddChildToHorizontalBox(Title);TitleSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));TitleSlot->SetVerticalAlignment(VAlign_Center);
     UTextBlock* CloseLabel=nullptr;auto* Close=Button(TEXT("×"),CloseLabel);Close->OnClicked.AddDynamic(this,&ThisClass::HandleClose);
     CloseSize=WidgetTree->ConstructWidget<USizeBox>();CloseSize->SetContent(Close);ButtonSizes.Add(CloseSize);Head->AddChildToHorizontalBox(CloseSize)->SetVerticalAlignment(VAlign_Center);
-    Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
+    Scroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);ColdSteelUI::ConfigureGoldScrollBox(Scroll,6/Scale);Stack->AddChildToVerticalBox(Scroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     Body=WidgetTree->ConstructWidget<UBorder>();Body->SetBrushColor(FLinearColor::Transparent);Scroll->AddChild(Body);
     auto* Content=WidgetTree->ConstructWidget<UVerticalBox>();Body->SetContent(Content);
     auto* RecipeCard=Card(Content);
@@ -202,7 +203,7 @@ void UColdSteelWoodworkingManagementWidget::NativeOnInitialized()
     auto* Parameters=WidgetTree->ConstructWidget<UBorder>();Cards.Add(Parameters);
     PreviewParameterSlot=PreviewColumns->AddChildToHorizontalBox(Parameters);
     PreviewParameterSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-    auto* ParameterScroll=WidgetTree->ConstructWidget<UScrollBox>();Parameters->SetContent(ParameterScroll);
+    auto* ParameterScroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();ColdSteelUI::ConfigureGoldScrollBox(ParameterScroll,6/Scale);Parameters->SetContent(ParameterScroll);
     auto* ParameterContent=WidgetTree->ConstructWidget<UVerticalBox>();ParameterScroll->AddChild(ParameterContent);
     PreviewName=Text(TEXT("—"),16,false,true);Space(ParameterContent->AddChildToVerticalBox(PreviewName),FMargin(0,0,0,8));
     PreviewStage=Text(TEXT("配方基础参数 · 装备原始属性"),12);PreviewStage->SetColorAndOpacity(ColdSteelUI::TextSecondary);

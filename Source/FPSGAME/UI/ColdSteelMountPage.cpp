@@ -25,6 +25,7 @@
 #include "Components/HorizontalBox.h"
 #include "Components/HorizontalBoxSlot.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
@@ -159,10 +160,8 @@ UWidget* UColdSteelHUDWidget::BuildMountPage()
     HeaderRow->AddChildToHorizontalBox(MakeAction(TEXT("‹  返回名册"),EMountPageAction::Back))->SetVerticalAlignment(VAlign_Center);
     Shell->AddChildToVerticalBox(Header);
 
-    MountDetailsScroll=WidgetTree->ConstructWidget<UScrollBox>();MountDetailsScroll->SetAllowOverscroll(false);
-    auto ScrollStyle=MountDetailsScroll->GetWidgetStyle();
-    ScrollStyle.SetTopShadowBrush(FSlateNoResource()).SetBottomShadowBrush(FSlateNoResource());
-    MountDetailsScroll->SetWidgetStyle(ScrollStyle);
+    MountDetailsScroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();MountDetailsScroll->SetAllowOverscroll(false);
+    ColdSteelUI::ConfigureGoldScrollBox(MountDetailsScroll,5.5f);
     MountDetailsScroll->SetScrollBarVisibility(ESlateVisibility::Collapsed);
     auto* ScrollSlot=Shell->AddChildToVerticalBox(MountDetailsScroll);ScrollSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     ScrollSlot->SetPadding(FMargin(14/Scale,10/Scale));

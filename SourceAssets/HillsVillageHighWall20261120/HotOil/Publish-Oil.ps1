@@ -8,7 +8,7 @@ if($HandPotOnly){$roles=@('SM_OilHandPot')}
 if($SurfaceOnly){$roles=@('SM_OilSurface')}
 $env:VILLAGE_OIL_SURFACE_ONLY=if($SurfaceOnly){'1'}else{'0'}
 $env:VILLAGE_OIL_HAND_POT_ONLY=if($HandPotOnly){'1'}else{'0'}
-New-Item -ItemType Directory -Path "$Run/$rel","$Run/Config" -Force | Out-Null
+New-Item -ItemType Directory -Path "$Run/$rel/PropsR2/Textures","$Run/Config" -Force | Out-Null
 $src=Join-Path $project 'Content'
 $dst=Join-Path $Run 'Content'
 foreach($branch in 'WorldGeneration','TemperateHills','HotOil'){
@@ -36,16 +36,26 @@ $argsList=@(('"'+$Run+'/Workshop.uproject"'),'/Engine/Maps/Entry','-run=pythonsc
 $result=Start-Process $cmd -ArgumentList $argsList -WindowStyle Hidden -Wait -PassThru
 if($result.ExitCode -ne 0 -or !(Test-Path "$Run/oil-saved.json")){throw "Workshop authoring failed: $Run/author.log"}
 New-Item -ItemType Directory -Path "$project/$rel" -Force | Out-Null
-$files=@($roles | ForEach-Object {"$_.uasset"})
-foreach($file in $files){
-    $live=Join-Path "$project/$rel" $file
+
+function Publish-Asset([string]$RelSubPath){
+    $srcAsset = Join-Path $Run $RelSubPath
+    if(!(Test-Path -LiteralPath $srcAsset)){return}
+    $live = Join-Path $project $RelSubPath
     New-Item -ItemType Directory -Force -Path (Split-Path -Parent $live) | Out-Null
-    Copy-Item -LiteralPath "$Run/$rel/$file" -Destination "$live.$PID.pending"
+    Copy-Item -LiteralPath $srcAsset -Destination "$live.$PID.pending"
     if(Test-Path -LiteralPath $live){
-        New-Item -ItemType Directory -Force -Path (Split-Path -Parent "$Run/Before/$rel/$file") | Out-Null
-        $previous=Join-Path "$Run/Before/$rel" $file
-        if(!(Test-Path -LiteralPath $previous)){Copy-Item -LiteralPath $live -Destination $previous}
-        [IO.File]::Move("$live.$PID.pending",$live,$true)
-    } else { [IO.File]::Move("$live.$PID.pending",$live) }
+        $prev = Join-Path "$Run/Before" $RelSubPath
+        New-Item -ItemType Directory -Force -Path (Split-Path -Parent $prev) | Out-Null
+        if(!(Test-Path -LiteralPath $prev)){Copy-Item -LiteralPath $live -Destination $prev}
+        Move-Item -LiteralPath "$live.$PID.pending" -Destination $live -Force
+    } else { Move-Item -LiteralPath "$live.$PID.pending" -Destination $live }
+}
+
+foreach($role in $roles){ Publish-Asset "$rel/$role.uasset" }
+if(!$SurfaceOnly){
+    Get-ChildItem -Path "$Run/$rel/PropsR2" -Recurse -Filter '*.uasset' -ErrorAction SilentlyContinue | ForEach-Object {
+        $sub = $_.FullName.Substring($Run.Length).TrimStart('\','/')
+        Publish-Asset $sub
+    }
 }
 Copy-Item -LiteralPath "$Run/oil-saved.json" -Destination "$Run/published.json"

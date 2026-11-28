@@ -16,27 +16,38 @@ UVillageDefenseSave* UVillageDefenseState::Load(const FGuid& Id)
 {
     if(auto* Existing=Saves.Find(Id))return *Existing;
     auto* Save=Cast<UVillageDefenseSave>(UGameplayStatics::LoadGameFromSlot(Slot(Id),0));
-    if(!Save||Save->WorldId!=Id||Save->Version!=1)
-    {Save=NewObject<UVillageDefenseSave>(this);Save->WorldId=Id;}
+    if(!Save||Save->WorldId!=Id||(Save->Version!=1&&Save->Version!=2))
+    {Save=NewObject<UVillageDefenseSave>(this);Save->WorldId=Id;Save->Version=2;}
+    else if(Save->Version==1)
+    {
+        Save->SiegeRanksV2=VillageSiegeUpgrades::MigrateLegacyRanks(Save->SiegeRanks);
+        Save->SiegeRanks=0;
+        Save->Version=2;
+        Dirty.Add(Id);
+    }
     Saves.Add(Id,Save);return Save;
 }
-uint16 UVillageDefenseState::SelectGeneration(const FGuid& Id,const FGuid& Generation)
+VillageSiegeUpgrades::FRanks UVillageDefenseState::SelectGeneration(const FGuid& Id,const FGuid& Generation)
 {
     auto* Save=Load(Id);
     if(Save->Generation==Generation)
     {
         if(!bPurchasing && Save->PendingRepair.IsPending())RecoverRepair(*Save);
-        return Save->SiegeRanks;
+        return {Save->SiegeRanksV2, Save->SiegeRanksExtra};
     }
     // The hills slot has already committed this reset. Even after an interrupted
     // sidecar write, that slot selects a fresh set of health values on reload.
     Save->Generation=Generation;
     Save->DamagedSections.Reset();
+    Save->DamagedPlacedSections.Reset();
+    Save->SmartTurretWeapons.Reset();
     Save->SiegeRanks=0;
+    Save->SiegeRanksV2=0;
+    Save->SiegeRanksExtra=0;
     if(!Save->PendingRepair.PlacedId.IsValid())Save->PendingRepair={};
     else if(!bPurchasing)RecoverRepair(*Save);
     WriteNow(*Save);
-    return Save->SiegeRanks;
+    return {Save->SiegeRanksV2, Save->SiegeRanksExtra};
 }
 bool UVillageDefenseState::WriteNow(UVillageDefenseSave& Save)
 {
@@ -80,8 +91,14 @@ void UVillageDefenseState::ApplyPaidWork(UVillageDefenseSave& Save)
     const auto& Work=Save.PendingRepair;
     if(VillageSiegeUpgrades::Valid(Work.UpgradeIndex))
     {
-        if(VillageSiegeUpgrades::Rank(Save.SiegeRanks,Work.UpgradeIndex)<VillageSiegeUpgrades::MaxRank)
-            Save.SiegeRanks+=uint16(1u << (2*Work.UpgradeIndex));
+        VillageSiegeUpgrades::FRanks Ranks{Save.SiegeRanksV2, Save.SiegeRanksExtra};
+        const int32 Cur=VillageSiegeUpgrades::Rank(Ranks,Work.UpgradeIndex);
+        if(Cur<VillageSiegeUpgrades::MaxRank(Work.UpgradeIndex))
+        {
+            Ranks=VillageSiegeUpgrades::SetRank(Ranks,Work.UpgradeIndex,Cur+1);
+            Save.SiegeRanksV2=Ranks.Low;
+            Save.SiegeRanksExtra=Ranks.High;
+        }
     }
     else if(Work.PlacedId.IsValid())Save.DamagedPlacedSections.Remove(Work.PlacedId);
     else Save.DamagedSections.Remove(Work.Section);
@@ -89,11 +106,12 @@ void UVillageDefenseState::ApplyPaidWork(UVillageDefenseSave& Save)
 
 bool UVillageDefenseState::PurchaseUpgrade(const FGuid& Id,int32 Index,int32 ExpectedRank,APawn* Payer,FText& Failure)
 {
-    if(!VillageSiegeUpgrades::Valid(Index) || !VillageSiegeUpgrades::Price(ExpectedRank))
+    const int32 Cost=VillageSiegeUpgrades::Price(Index,ExpectedRank);
+    if(!VillageSiegeUpgrades::Valid(Index) || Cost<=0)
     { Failure=FText::FromString(TEXT("该项目无法继续升级。")); return false; }
     FVillagePendingRepair Work;
     Work.UpgradeIndex=Index;
-    return Purchase(Id,Payer,VillageSiegeUpgrades::Price(ExpectedRank),Work,ExpectedRank,Failure);
+    return Purchase(Id,Payer,Cost,Work,ExpectedRank,Failure);
 }
 
 bool UVillageDefenseState::PurchaseRepair(const FGuid& Id,int32 Section,APawn* Payer,int32 Cost,FText& Failure,const FGuid& PlacedId,float ExpectedHealth)
@@ -125,7 +143,7 @@ bool UVillageDefenseState::Purchase(const FGuid& Id,APawn* Payer,int32 Cost,cons
     {Failure=FText::FromString(TEXT("城防账本正在结算。"));return false;}
     if(Work.UpgradeIndex!=INDEX_NONE)
     {
-        if(VillageSiegeUpgrades::Rank(Save->SiegeRanks,Work.UpgradeIndex)!=int32(Expected))
+        if(VillageSiegeUpgrades::Rank({Save->SiegeRanksV2, Save->SiegeRanksExtra},Work.UpgradeIndex)!=int32(Expected))
         {Failure=FText::FromString(TEXT("该项目等级已变更，请按最新报价升级。"));return false;}
     }
     else
@@ -138,6 +156,27 @@ bool UVillageDefenseState::Purchase(const FGuid& Id,APawn* Payer,int32 Cost,cons
     auto Profile=Model->Snapshot();
     if(Profile.CampfireInventoryRevision==MAX_int64||(bGuest&&Profile.ServerSoulDebits>ColdSteelCurrency::MaxSouls-Cost))
     {Failure=FText::FromString(TEXT("灵魂账本无法结算。"));return false;}
+    if(const TCHAR* BlueprintId=Work.UpgradeIndex!=INDEX_NONE?VillageSiegeUpgrades::RequiredBlueprint(Work.UpgradeIndex):nullptr)
+    {
+        int64 Available=0;
+        for(const FColdSteelItem& Item:Profile.Items)
+            if(Item.Definition==BlueprintId && (Item.Place==0 || Item.Place==ColdSteelInventory::ColdSteelCompartment::Place || (Item.Place==4 && Item.Container.IsEmpty())))
+                Available+=Item.Count;
+        if(Available<1)
+        {Failure=FText::FromString(TEXT("需要持有「隔热包装方案设计图」才能解锁该项目。"));return false;}
+        int64 Left=1;
+        for(int32 ContainerPlace:{0,ColdSteelInventory::ColdSteelCompartment::Place,4})
+        {
+            for(int32 Index=Profile.Items.Num()-1;Index>=0 && Left>0;--Index)
+            {
+                FColdSteelItem& Item=Profile.Items[Index];
+                if(Item.Definition!=BlueprintId || Item.Place!=ContainerPlace || (ContainerPlace==4 && !Item.Container.IsEmpty()))continue;
+                const int64 Used=FMath::Min(Left,Item.Count);
+                Item.Count-=Used;Left-=Used;
+                if(Item.Count<=0)Profile.Items.RemoveAt(Index);
+            }
+        }
+    }
     if(!ColdSteelCurrency::Debit(Profile,Cost))
     {Failure=FText::FromString(TEXT("灵魂不足。"));return false;}
     if(bGuest)Profile.ServerSoulDebits+=Cost;
@@ -165,6 +204,7 @@ bool UVillageDefenseState::Purchase(const FGuid& Id,APawn* Payer,int32 Cost,cons
     ApplyPaidWork(*Save);
     Save->PendingRepair={};
     WriteNow(*Save);
+    if(bGuest && PS)PS->NotifyWarehouseUpgradeCommitted();
     return true;
 }
 float UVillageDefenseState::Restore(const FGuid& Id,int32 Section,float Default,const FGuid& PlacedId)
@@ -185,11 +225,43 @@ void UVillageDefenseState::Record(const FGuid& Id,int32 Section,float Health,con
     else if(!GetWorld()->GetTimerManager().IsTimerActive(SaveTimer))
         GetWorld()->GetTimerManager().SetTimer(SaveTimer,this,&UVillageDefenseState::Flush,2.f,false);
 }
+bool UVillageDefenseState::LoadTurretWeapon(const FGuid& Id,const FGuid& PlacedId,FColdSteelItem& OutItem)
+{
+    if(!Id.IsValid()||!PlacedId.IsValid())return false;
+    auto* Save=Load(Id);
+    if(const FColdSteelItem* Found=Save->SmartTurretWeapons.Find(PlacedId))
+    {
+        if(!Found->Definition.IsEmpty())
+        {
+            OutItem=*Found;
+            return true;
+        }
+    }
+    return false;
+}
+void UVillageDefenseState::SaveTurretWeapon(const FGuid& Id,const FGuid& PlacedId,const FColdSteelItem& Item)
+{
+    if(!Id.IsValid()||!PlacedId.IsValid()||GetWorld()->GetNetMode()==NM_Client)return;
+    auto* Save=Load(Id);
+    if(Item.Definition.IsEmpty())Save->SmartTurretWeapons.Remove(PlacedId);
+    else Save->SmartTurretWeapons.Add(PlacedId,Item);
+    WriteNow(*Save);
+}
+void UVillageDefenseState::ClearTurretWeapon(const FGuid& Id,const FGuid& PlacedId)
+{
+    if(!Id.IsValid()||!PlacedId.IsValid()||GetWorld()->GetNetMode()==NM_Client)return;
+    auto* Save=Load(Id);
+    if(Save->SmartTurretWeapons.Remove(PlacedId)>0)WriteNow(*Save);
+}
 void UVillageDefenseState::ForgetPlaced(const FGuid& Id,const TSet<FGuid>& Removed)
 {
     auto* Save=Load(Id);
     int32 Forgotten=0;
-    for(const auto& RemovedId:Removed)Forgotten+=Save->DamagedPlacedSections.Remove(RemovedId);
+    for(const auto& RemovedId:Removed)
+    {
+        Forgotten+=Save->DamagedPlacedSections.Remove(RemovedId);
+        Forgotten+=Save->SmartTurretWeapons.Remove(RemovedId);
+    }
     if(Forgotten)WriteNow(*Save);
 }
 void UVillageDefenseState::Flush()

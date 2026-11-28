@@ -399,6 +399,7 @@ void UVoxelBuildComponent::SetBuildMode(bool Enabled)
     if(Preview)Preview->SetVisibility(false,true);
     if(FoundationPreview)FoundationPreview->SetVisibility(false);
     for(UInstancedStaticMeshComponent* G:{CellGhost,CellCutGhost45,CellCutGhost26L,CellCutGhost26U,CellCutGhostTent})if(G)G->SetVisibility(false);
+    if(!Enabled)HideSiegeRangePreview();
     // The gold snapped-neighbour outline is not refreshed once build mode stops, so clear it here.
     ClearAimHighlight(PreviewActor);
     // Entering build mode opens the drawer with the cursor; picking an entry returns to aiming.
@@ -528,6 +529,7 @@ void UVoxelBuildComponent::TickComponent(float Delta,ELevelTick Type,FActorCompo
         // the gold outline behind. Costs one visibility query per frame while not building.
         if(AimEdgeComponent&&(AimEdgeComponent->IsVisible()||AimEdgeComponent->GetInstanceCount()>0))
             ClearAimHighlight(PreviewActor);
+        HideSiegeRangePreview();
         return;
     }
     auto* PC=Cast<APlayerController>(GetOwner());
@@ -556,6 +558,7 @@ void UVoxelBuildComponent::TickComponent(float Delta,ELevelTick Type,FActorCompo
         if(Preview)Preview->SetVisibility(false,true);
         if(FoundationPreview)FoundationPreview->SetVisibility(false);
         for(UInstancedStaticMeshComponent* G:{CellGhost,CellCutGhost45,CellCutGhost26L,CellCutGhost26U,CellCutGhostTent})if(G)G->SetVisibility(false);
+        HideSiegeRangePreview();
         UpdateWidget();
         return;
     }
@@ -587,5 +590,6 @@ void UVoxelBuildComponent::EndPlay(const EEndPlayReason::Type Reason)
     if(PreviewActor)PreviewActor->Destroy();if(Widget)Widget->RemoveFromParent();
     // The preview Actor owns the outline component, so both caches must not outlive it.
     AimEdgeComponent=nullptr;AimEdgeMaterial=nullptr;
+    SiegeRangeDecal=nullptr;SiegeRangeMID=nullptr;
     Super::EndPlay(Reason);
 }

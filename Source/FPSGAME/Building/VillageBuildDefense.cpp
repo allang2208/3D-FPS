@@ -1,5 +1,7 @@
 #include "VillageBuildDefense.h"
 #include "VoxelBuildPalette.h"
+#include "../WorldGeneration/VillageLightningSpire.h"
+#include "../WorldGeneration/VillageSmartTurret.h"
 #include "../WorldGeneration/VillageSiegeEngine.h"
 #include "../WorldGeneration/HighVillageDefense.h"
 #include "../WorldGeneration/TemperateHillsWorld.h"
@@ -54,6 +56,10 @@ AVillageDefenseSection* VillageBuildDefense::SpawnPlaced(const FVoxelBuildPrefab
         Wall->InitializeHighWall(&Hills,SectionId,InstanceId);
     else if(auto* TimberGate=Cast<AVillageDefenseGate>(Defense))
         TimberGate->InitializeGate(&Hills,SectionId,false,InstanceId);
+    else if(auto* Spire=Cast<AVillageLightningSpire>(Defense))
+        Spire->Initialize(&Hills,SectionId,AVillageLightningSpire::MeshAsset(TEXT("Base")),850.f,InstanceId);
+    else if(auto* Turret=Cast<AVillageSmartTurret>(Defense))
+        Turret->Initialize(&Hills,SectionId,AVillageSmartTurret::MeshAsset(TEXT("Base")),900.f,InstanceId);
     else if(auto* Siege=Cast<AVillageSiegeEngine>(Defense))
         Siege->Initialize(&Hills,SectionId,AVillageSiegeEngine::MeshAsset(
             Definition.Id==Trebuchet?TEXT("TrebuchetBase"):TEXT("BallistaBase")),Definition.Id==Trebuchet?1100.f:680.f,InstanceId);

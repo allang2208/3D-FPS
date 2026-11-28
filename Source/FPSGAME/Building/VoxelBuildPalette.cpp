@@ -1,6 +1,8 @@
 #include "VoxelBuildPalette.h"
 #include "VillageBuildDefense.h"
 #include "../WorldGeneration/VillageHotOil.h"
+#include "../WorldGeneration/VillageLightningSpire.h"
+#include "../WorldGeneration/VillageSmartTurret.h"
 #include "../WorldGeneration/VillageSiegeEngine.h"
 #include "../WorldGeneration/VillageMasonry.h"
 #include "Engine/StaticMesh.h"
@@ -48,7 +50,7 @@ void UVoxelBuildPalette::PostLoad()
         FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/VillageDefenses/SM_GateNarrow.SM_GateNarrow")),
         FIntVector(38,3,11),AVillageDefenseGate::StaticClass());
     RegisterVillagePiece(VillageBuildDefense::HighWall,NSLOCTEXT("VoxelBuilding","VillageHighWall","石砌高墙"),
-        AHighVillageWall::WallMeshPath(),FIntVector(15,10,24),AHighVillageWall::StaticClass());
+        AHighVillageWall::WallMeshPath(),FIntVector(15,14,24),AHighVillageWall::StaticClass());
     RegisterVillagePiece(VillageBuildDefense::StoneGate,NSLOCTEXT("VoxelBuilding","VillageStoneGate","石城门 · 升降铁闸"),
         AHighVillageGate::PlacedPortalMeshPath(),FIntVector(51,34,51),AHighVillageGate::StaticClass());
     RegisterVillagePiece(VillageBuildDefense::HighTower,NSLOCTEXT("VoxelBuilding","VillageHighTower","石砌高塔楼"),
@@ -60,6 +62,10 @@ void UVoxelBuildPalette::PostLoad()
         AVillageSiegeEngine::MeshAsset(TEXT("TrebuchetPreview")),FIntVector(37,19,38),AVillageSiegeEngine::StaticClass());
     RegisterVillagePiece(VillageBuildDefense::OilPot,NSLOCTEXT("VoxelBuilding","VillageOilPot","热油锅"),
         AVillageOilKettle::MeshPath(),FIntVector(8,9,5),AVillageOilKettle::StaticClass());
+    RegisterVillagePiece(VillageBuildDefense::LightningSpire,NSLOCTEXT("VoxelBuilding","VillageLightningSpire","符文引雷塔"),
+        AVillageLightningSpire::MeshAsset(TEXT("Preview")),FIntVector(9,9,19),AVillageLightningSpire::StaticClass());
+    RegisterVillagePiece(VillageBuildDefense::SmartTurret,NSLOCTEXT("VoxelBuilding","VillageSmartTurret","智能机枪塔"),
+        AVillageSmartTurret::MeshAsset(TEXT("Preview")),FIntVector(7,7,11),AVillageSmartTurret::StaticClass());
     RegisterVillagePiece(VillageWallStairs::Id,NSLOCTEXT("VoxelBuilding","VillageWallStairs","城墙石阶"),
         FSoftObjectPath(TEXT("/Game/WorldGeneration/TemperateHills/HighVillageDefense/SM_WallAccessStairs.SM_WallAccessStairs")),
         FIntVector(16,28,18),AVillageDefenseStairs::StaticClass());

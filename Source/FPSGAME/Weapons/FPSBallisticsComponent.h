@@ -25,6 +25,7 @@ struct FFPSFlyingRound
     bool bCosmeticOnly=false;
     bool bRiverEntryPlayed=false;
     int32 Piercing=0,Poison=0;
+    float TurretWeakpointCritMultiplier=1.f;
     FColdSteelSkillShot Training;
     TWeakObjectPtr<AActor> RicochetTarget;
     TArray<TWeakObjectPtr<AActor>> HitActors;
@@ -36,7 +37,7 @@ class FPSGAME_API UFPSBallisticsComponent : public UActorComponent
     GENERATED_BODY()
 public:
     UFPSBallisticsComponent();
-    void Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM=0,const FColdSteelItem* ShotItem=nullptr,bool bConverged=false,bool bCosmeticOnly=false,uint32 FireSequence=0,int32 FiredRounds=1);
+    void Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM=0,const FColdSteelItem* ShotItem=nullptr,bool bConverged=false,bool bCosmeticOnly=false,uint32 FireSequence=0,int32 FiredRounds=1,int32 BonusPiercing=0,float TurretWeakpointCritMultiplier=1.f);
     static float ScaledBulletSpeed(float SpeedCM);
     /** FlightSpeed is resolved by the server once per shot. Remote copies only draw the round. */
     void LaunchHostile(FVector Start,FVector Direction,float FlightSpeed,float RangeCM,float EffectiveRange,float Damage,

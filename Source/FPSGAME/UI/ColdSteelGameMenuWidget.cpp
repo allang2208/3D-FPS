@@ -5,6 +5,7 @@
 #include "../Dungeons/DungeonRoomSubsystem.h"
 #include "../Dungeons/DungeonRunSubsystem.h"
 #include "TimerManager.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelStatusModel.h"
 #include "../FPSGAMEPlayerController.h"
@@ -155,15 +156,15 @@ TSharedRef<SWidget> UColdSteelGameMenuWidget::RebuildWidget()
                         ]
                         + SVerticalBox::Slot().FillHeight(1)
                         [
-                            SAssignNew(VerticalScroll,SScrollBox).Orientation(Orient_Vertical).ScrollBarThickness(FVector2D(4,4))
+                            ColdSteelUI::ApplyGoldScroll(SAssignNew(VerticalScroll,SScrollBox).Orientation(Orient_Vertical)
                             + SScrollBox::Slot()
                             [
-                                SAssignNew(HorizontalScroll,SScrollBox).Orientation(Orient_Horizontal).ScrollBarThickness(FVector2D(4,4))
+                                ColdSteelUI::ApplyGoldScroll(SAssignNew(HorizontalScroll,SScrollBox).Orientation(Orient_Horizontal)
                                 + SScrollBox::Slot()
                                 [
                                     SNew(SBox).WidthOverride_Lambda([this]() { return Page==EPage::Main?288.f:528.f; })[Body.ToSharedRef()]
-                                ]
-                            ]
+                                ],FVector2D(4,4),FMargin(0,4,0,0),true)
+                            ],FVector2D(5,5),FMargin(4,0,0,0),true)
                         ]
                         + SVerticalBox::Slot().AutoHeight().Padding(4,12,4,0)
                         [

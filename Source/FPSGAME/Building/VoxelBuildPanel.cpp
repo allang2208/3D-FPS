@@ -324,6 +324,16 @@ void UVoxelBuildComponent::PushPanelContent()
                 Card.Subtitle=TEXT("村庄城防 · 热油锅");
                 Card.Note=TEXT("可在平地、塔顶或城门平台建造。按 E 取油，左键向前方 3 米泼洒。热油持续 10 秒，范围 5 米，友军和自己也会受伤。");
             }
+            else if(Entry.Id==VillageBuildDefense::LightningSpire)
+            {
+                Card.Subtitle=TEXT("村庄城防 · 符文引雷塔");
+                Card.Note=TEXT("须部署在高塔楼顶或石城门平台。自动劈下连锁闪电打断高速与跳跃怪并叠加感电，按 E 可手动瞄准蓄能直劈。");
+            }
+            else if(Entry.Id==VillageBuildDefense::SmartTurret)
+            {
+                Card.Subtitle=TEXT("村庄城防 · 智能机枪塔");
+                Card.Note=TEXT("可在平地、塔顶或城门平台建造。按 E 打开枪械挂载台，可将背包中的 16 款主战长枪装上自动索敌预判射击（无限备弹，真实弹匣换弹）。");
+            }
             else if(Entry.Id==VillageBuildDefense::Ballista)
             {
                 Card.Subtitle=TEXT("村庄城防 · 固定式弩炮");

@@ -47,6 +47,8 @@ public:
     void SetExternalWorldBody(USkeletalMeshComponent* Body) { ExternalWorldBody=Body; }
     void SetWorldOutfit(const TArray<FFPSBodyOutfitSlot>& Outfit);
     void RefreshInventory();
+    /** Marks component sources dirty so newly attached 1P rigs receive outfit followers right away. */
+    void RefreshSources(bool bDiscoverNow = false);
     /** Release only this body's followers before changing its source skeleton. */
     void ResetBodyPresentation();
     void SetBodyType(FName BodyId);

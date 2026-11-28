@@ -36,7 +36,7 @@ foreach($file in $files){
         New-Item -ItemType Directory -Force -Path (Split-Path -Parent "$Run/Before/$rel/$file") | Out-Null
         $previous=Join-Path "$Run/Before/$rel" $file
         if(!(Test-Path -LiteralPath $previous)){Copy-Item -LiteralPath $live -Destination $previous}
-        [IO.File]::Move("$live.$PID.pending",$live,$true)
-    } else { [IO.File]::Move("$live.$PID.pending",$live) }
+        Move-Item -LiteralPath "$live.$PID.pending" -Destination $live -Force
+    } else { Move-Item -LiteralPath "$live.$PID.pending" -Destination $live }
 }
 Copy-Item -LiteralPath "$Run/surface-saved.json" -Destination "$Run/published.json"

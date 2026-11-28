@@ -26,6 +26,7 @@
 #include "Components/Image.h"
 #include "Components/ScaleBox.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/SizeBox.h"
 #include "Components/SizeBoxSlot.h"
 #include "Components/TextBlock.h"
@@ -87,7 +88,7 @@ void UColdSteelWorkbenchWidget::NativeOnInitialized()
     Heading->AddChildToHorizontalBox(CloseSize)->SetVerticalAlignment(VAlign_Center);
 
     // —— 中段＝Scroll→Body→卡列（打铁/装配同款）：StatusCard 卡面 12px 内沿、卡距 8px、滚动条 6px。——
-    Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);
+    Scroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();Scroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);ColdSteelUI::ConfigureGoldScrollBox(Scroll,6/Scale);
     BodySlot=Stack->AddChildToVerticalBox(Scroll);BodySlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     Body=WidgetTree->ConstructWidget<UBorder>();Body->SetBrushColor(FLinearColor::Transparent);Scroll->AddChild(Body);
     auto* CardColumn=WidgetTree->ConstructWidget<UVerticalBox>();Body->SetContent(CardColumn);
@@ -159,7 +160,7 @@ void UColdSteelWorkbenchWidget::NativeOnInitialized()
     PreviewParameterCard=WidgetTree->ConstructWidget<UBorder>();Cards.Add(PreviewParameterCard);
     PreviewDetailsSlot=PreviewLayout->AddChildToGrid(PreviewParameterCard,0,1);
     PreviewDetailsSlot->SetHorizontalAlignment(HAlign_Fill);PreviewDetailsSlot->SetVerticalAlignment(VAlign_Fill);
-    PreviewScroll=WidgetTree->ConstructWidget<UScrollBox>();PreviewParameterCard->SetContent(PreviewScroll);
+    PreviewScroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();ColdSteelUI::ConfigureGoldScrollBox(PreviewScroll,6/Scale);PreviewParameterCard->SetContent(PreviewScroll);
     PreviewScroll->SetConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible);
     auto* ParameterContent=WidgetTree->ConstructWidget<UVerticalBox>();PreviewScroll->AddChild(ParameterContent);
     PreviewName=Text(TEXT("—"),16,ColdSteelUI::TextPrimary,false,true,true);Space(ParameterContent->AddChildToVerticalBox(PreviewName),FMargin(0,0,0,8));

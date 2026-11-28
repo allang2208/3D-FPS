@@ -6,12 +6,16 @@
 #include "../Movement/FurnitureRestAuditCommandlet.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../UI/ColdSteelWorldInteraction.h"
-#include "../Building/ForgeArmsMeshComponent.h"
+#include "../Characters/FPSModularOutfitComponent.h"
+#include "../WorldGeneration/VillageOilArmSolver.h"
+#include "../Skills/FPSMagicPreview.h"
 #include "../Weapons/WoodenTorchArmsComponent.h"
 #include "../Weapons/WeaponPresentationMaterials.h"
 #include "../Characters/FPSPlayerBodyGrip.h"
 #include "../WorldGeneration/VillageOilMotion.h"
 #include "Components/CapsuleComponent.h"
+#include "Components/DecalComponent.h"
+#include "Materials/MaterialInstanceDynamic.h"
 #include "Serialization/JsonSerializer.h"
 #include "Camera/CameraComponent.h"
 #include "Components/StaticMeshComponent.h"
@@ -26,6 +30,7 @@
 #include "Rendering/SkeletalMeshRenderData.h"
 #include "InputKeyEventArgs.h"
 #include "InputCoreTypes.h"
+#include "Containers/Ticker.h"
 #include "Misc/FileHelper.h"
 #include "Misc/ScopeExit.h"
 #include "VillageOilSurfaceReview.inl"
@@ -52,7 +57,7 @@ int32 UVillageOilMotionReviewCommandlet::Main(const FString& Params)
     TStrongObjectPtr<UGameInstance> GI(NewObject<UGameInstance>(GEngine));GI->InitializeStandalone(TEXT("OilMotionAudit"));
     FCommandLine::Set(*Cmd);
     UWorld* W=GI->GetWorld();
-    ON_SCOPE_EXIT{GI->Shutdown();if(W){GEngine->DestroyWorldContext(W);W->DestroyWorld(false);}};
+    ON_SCOPE_EXIT{if(W){for(TActorIterator<AActor> It(W);It;++It)It->Destroy();}GI->Shutdown();if(W){GEngine->DestroyWorldContext(W);W->DestroyWorld(false);}};
     auto* ProfileModel=GI->GetSubsystem<UColdSteelStatusModel>();
     if(!W || !ProfileModel || !ProfileModel->IsAudit() || ProfileModel->ProfileSlot()!=TEXT("ColdSteel_")+Profile)return 2;
     W->InitializeActorsForPlay(FURL());
@@ -64,6 +69,7 @@ int32 UVillageOilMotionReviewCommandlet::Main(const FString& Params)
     auto* PC=W->SpawnActor<AFPSGAMEPlayerController>();
     if(!P||!PC)return 3;
     PC->SetAsLocalPlayerController();PC->Possess(P);PC->SetInitialLocationAndRotation(P->GetPawnViewLocation(),FRotator::ZeroRotator);PC->SetViewTarget(P);PC->bShowMouseCursor=false;
+    if(!P->HasActorBegunPlay())P->DispatchBeginPlay();
     // The isolated pawn has no equipment startup. Start in the normal post-equip idle state.
     auto* Weapon=FindFProperty<FEnumProperty>(P->GetClass(),TEXT("WeaponState"));
     if(!Weapon)return 4;
@@ -130,9 +136,20 @@ int32 UVillageOilMotionReviewCommandlet::Main(const FString& Params)
     // Turn away from the supply kettle to pour onto the unobstructed floor.
     PlaceKettle(Eye-FVector(450,0,50));PC->SetControlRotation(FRotator::ZeroRotator);
     FAssetCompilingManager::Get().FinishAllCompilation();
-    auto* Arms=P->FindComponentByClass<UForgeArmsMeshComponent>();
+    auto* Arms=Carry->GetFirstPersonArms();
     auto* Native=Arms?Cast<USkeletalMesh>(Arms->GetSkinnedAsset()):nullptr;
     if(!Native)return 7;
+    TArray<FTransform> ViewBindPose,BodyBindPose;
+    VillageOilArmSolver::BuildBindPose(Native->GetRefSkeleton(),ViewBindPose);
+    VillageOilArmSolver::BuildBindPose(WorldSkin->GetRefSkeleton(),BodyBindPose);
+    const auto CollectArmsParts=[&](TArray<UPrimitiveComponent*>& Dest)
+    {
+        Dest.Add(Arms);
+        P->ForEachComponent<USkeletalMeshComponent>(false,[&](USkeletalMeshComponent* C)
+        {
+            if(C!=Arms && C->IsAttachedTo(Arms) && C->IsVisible() && !C->bHiddenInGame)Dest.Add(C);
+        });
+    };
     const auto& LOD=Native->GetResourceForRendering()->LODRenderData[0];
     TArray<uint32> Faces;auto* IB=LOD.MultiSizeIndexContainer.GetIndexBuffer();
     for(const auto& Section:LOD.RenderSections)
@@ -176,6 +193,8 @@ int32 UVillageOilMotionReviewCommandlet::Main(const FString& Params)
     constexpr int Click=30;
     int FieldFrames=0,FlowFrames=0;
     double WorstView=0.,WorstBody=0.,WorstLip=0.;bool bDryFlow=false;
+    double MaxViewTwist[2]={},MaxViewSwing[2]={},MaxViewSeam[2]={};
+    double MaxBodyTwist[2]={},MaxBodySwing[2]={},MaxBodySeam[2]={};
     for(int F=0;F<=Click+FMath::CeilToInt(VillageOilMotion::Finish*60.)+4;++F)
     {
         if(F==Click){Key(EKeys::LeftMouseButton,IE_Pressed);Key(EKeys::LeftMouseButton,IE_Released);}
@@ -194,6 +213,17 @@ int32 UVillageOilMotionReviewCommandlet::Main(const FString& Params)
             FTransform BodyWrist=BodyPose[BodyRig[Side].TargetHand];BodyWrist.SetScale3D(FVector::OneVector);
             const FVector BodyPalm=(Contacts[Side]*BodyRig[Side].Mount*BodyWrist*P->GetMesh()->GetComponentTransform()).GetLocation();
             BodyError[Side]=FVector::Dist(BodyPalm,WorldPot->GetComponentTransform().TransformPosition(FVector(0,Side?-18.9:18.9,5.6)));
+            if(Carry->Occupied())
+            {
+                const auto VMetrics=VillageOilArmSolver::MeasureWristAngles(Native->GetRefSkeleton(),ViewBindPose,Arms->GetComponentSpaceTransforms(),Side);
+                MaxViewTwist[Side]=FMath::Max(MaxViewTwist[Side],VMetrics.ForeTwistDeg);
+                MaxViewSwing[Side]=FMath::Max(MaxViewSwing[Side],VMetrics.WristSwingDeg);
+                MaxViewSeam[Side]=FMath::Max(MaxViewSeam[Side],VMetrics.Twist01SeamGapDeg);
+                const auto BMetrics=VillageOilArmSolver::MeasureWristAngles(WorldSkin->GetRefSkeleton(),BodyBindPose,BodyPose,Side);
+                MaxBodyTwist[Side]=FMath::Max(MaxBodyTwist[Side],BMetrics.ForeTwistDeg);
+                MaxBodySwing[Side]=FMath::Max(MaxBodySwing[Side],BMetrics.WristSwingDeg);
+                MaxBodySeam[Side]=FMath::Max(MaxBodySeam[Side],BMetrics.Twist01SeamGapDeg);
+            }
         }
         int Fields=0;bool HasStream=false;FVector Offset=FVector::ZeroVector;
         for(TActorIterator<AVillageOilField> It(W);It;++It)
@@ -219,8 +249,11 @@ int32 UVillageOilMotionReviewCommandlet::Main(const FString& Params)
         if(Capture.Camera)
         {
             if(F%3==0)
+            {
+                TArray<UPrimitiveComponent*> HandParts;CollectArmsParts(HandParts);HandParts.Add(Pot);HandParts.Add(Oil);
                 Capture.Shot(*FString::Printf(TEXT("hands-%03d"),F),Camera->GetComponentLocation(),Camera->GetComponentRotation(),90,
-                    {Arms,Pot,Oil},Fields?static_cast<AActor*>(*TActorIterator<AVillageOilField>(W)):nullptr);
+                    HandParts,Fields?static_cast<AActor*>(*TActorIterator<AVillageOilField>(W)):nullptr);
+            }
             if(Fields && F%4==0)
             {
                 auto* Field=*TActorIterator<AVillageOilField>(W);
@@ -231,6 +264,11 @@ int32 UVillageOilMotionReviewCommandlet::Main(const FString& Params)
             {
                 const FVector Aim=K->GetActorLocation()+FVector(0,0,87),Cam=Aim+FVector(107,-79,88);
                 Capture.Shot(*FString::Printf(TEXT("kettle-%03d"),F),Cam,(Aim-Cam).Rotation(),53,{},K);
+            }
+            if(F==24)
+            {
+                const FVector Aim=K->GetActorLocation()+FVector(0,0,50),Cam=Aim+FVector(165,-118,52);
+                Capture.Shot(TEXT("kettle-hearth"),Cam,(Aim-Cam).Rotation(),52,{},K);
             }
         }
         if(Fields)++FieldFrames;
@@ -299,11 +337,103 @@ int32 UVillageOilMotionReviewCommandlet::Main(const FString& Params)
         return !Carry->Occupied() && !Pot->IsVisible() && Fields==(WantField?1:0);
     };
     const bool Before=CancelPour(15,false),After=CancelPour(32,true);
-    UE_LOG(LogTemp,Display,TEXT("OIL_REVIEW complete=%d cancel_raise=%d cancel_tip=%d cancel_stream=%d"),Finished,Cancelled,Before,After);
-    const bool Contact=FlowFrames>0 && !bDryFlow && WorstView<.25 && WorstBody<.25 && WorstLip<.25;
+    // Verify high-FPS GPU pour preview decal reuse & parameter match with FPSMagicPreview/Meteor.
+    for(TActorIterator<AVillageOilField> It(W);It;++It)It->Destroy();
+    PlaceKettle(Eye+View.Vector()*155.-FVector(0,0,78));Key(EKeys::E,IE_Pressed);
+    bool bPreviewOK=Carry->Occupied();
+    if(bPreviewOK)
+    {
+        PlaceKettle(Eye-FVector(450,0,50));
+        PC->SetControlRotation(FRotator(-22,0,0));
+        Carry->RefreshPourPreview(1.f/60);
+        auto* OrigDecal=Carry->GetPourPreviewDecal();
+        auto* OrigMID=Carry->GetPourPreviewMID();
+        const bool bTintOK=OrigMID && OrigMID->K2_GetVectorParameterValue(TEXT("Tint")).Equals(FPSMagicPreview::LineColor(),.01f);
+        const bool bInitOK=OrigDecal && OrigMID && !OrigDecal->bHiddenInGame && bTintOK;
+        bPreviewOK=bInitOK;
+        int32 MinTracked=30;
+        for(int32 Hz:{30,60,144})
+        {
+            int32 Tracked=0;
+            for(int32 Frame=0;Frame<30;++Frame)
+            {
+                const FVector PrevPt=Carry->GetCachedPreviewPoint();
+                PC->SetControlRotation(FRotator(-24.f,Frame*.4f+float(Hz),0.f));
+                Carry->RefreshPourPreview(1.f/float(Hz));
+                if(Carry->HasPreviewPoint() && Carry->GetPourPreviewDecal()==OrigDecal && Carry->GetPourPreviewMID()==OrigMID
+                    && !Carry->GetCachedPreviewPoint().Equals(PrevPt,.01f)
+                    && OrigMID->K2_GetVectorParameterValue(TEXT("Center")).Equals(FLinearColor(Carry->GetCachedPreviewPoint()),.01f))
+                    ++Tracked;
+            }
+            MinTracked=FMath::Min(MinTracked,Tracked);
+            bPreviewOK&=(Tracked==30);
+        }
+        if(Capture.Camera)
+        {
+            PC->SetControlRotation(FRotator(-28,0,0));Carry->RefreshPourPreview(1.f/60);
+            const FVector RingAim=Carry->GetCachedPreviewPoint();
+            const FVector RingCam=RingAim+FVector(-340,-210,390);
+            Capture.Shot(TEXT("preview-ring"),RingCam,(RingAim-RingCam).Rotation(),72,{},P);
+        }
+        Carry->Cancel();
+        const bool bHideOK=!OrigDecal || OrigDecal->bHiddenInGame;
+        bPreviewOK&=bHideOK;
+        UE_LOG(LogTemp,Display,TEXT("OIL_PREVIEW init=%d tint=%d min_tracked=%d hide=%d has_pt=%d"),bInitOK,bTintOK,MinTracked,bHideOK,Carry->HasPreviewPoint());
+    }
+    UE_LOG(LogTemp,Display,TEXT("OIL_REVIEW complete=%d cancel_raise=%d cancel_tip=%d cancel_stream=%d preview_ok=%d"),Finished,Cancelled,Before,After,bPreviewOK);
+    UE_LOG(LogTemp,Display,TEXT("OIL_REVIEW wrist view_r(twist=%.2f swing=%.2f seam=%.2f) view_l(twist=%.2f swing=%.2f seam=%.2f) body_r(twist=%.2f swing=%.2f seam=%.2f) body_l(twist=%.2f swing=%.2f seam=%.2f)"),
+        MaxViewTwist[0],MaxViewSwing[0],MaxViewSeam[0],MaxViewTwist[1],MaxViewSwing[1],MaxViewSeam[1],
+        MaxBodyTwist[0],MaxBodySwing[0],MaxBodySeam[0],MaxBodyTwist[1],MaxBodySwing[1],MaxBodySeam[1]);
+    int32 VisibleOutfitParts=0;bool bOutfitHiddenOnCancel=false;
+    if(auto* Outfit=P->FindComponentByClass<UFPSModularOutfitComponent>())
+    {
+        for(TActorIterator<AVillageOilField> It(W);It;++It)It->Destroy();
+        auto EquippedState=ProfileModel->Snapshot();
+        EquippedState.Items.RemoveAll([](const auto& It){return It.Place==1&&(It.Cell==3||It.Cell==7);});
+        auto AddWear=[&](const TCHAR* Def,int32 Cell,const TCHAR* Id)
+        {
+            auto Item=ProfileModel->CreateItem(Def);Item.InstanceId=Id;Item.Place=1;Item.Cell=Cell;EquippedState.Items.Add(Item);
+        };
+        AddWear(TEXT("ue_chainmail_shirt"),7,TEXT("OilAudit_Shirt"));
+        AddWear(TEXT("ue_modern_tactical_gloves"),3,TEXT("OilAudit_Gloves"));
+        ProfileModel->AdoptNetMirror(EquippedState);
+        ProfileModel->NotifyChanged();
+        if(!BodyId.IsEmpty())Outfit->SetBodyType(FName(*BodyId));
+        Outfit->RefreshInventory();Outfit->RefreshSources(true);
+        PlaceKettle(Eye+View.Vector()*155.-FVector(0,0,78));Key(EKeys::E,IE_Pressed);
+        PlaceKettle(Eye-FVector(450,0,50));
+        for(int I=0;I<26;++I){FTSTicker::GetCoreTicker().Tick(0.05f);FlushAsyncLoading();FAssetCompilingManager::Get().FinishAllCompilation();Outfit->TickComponent(0.05f,LEVELTICK_All,nullptr);Step();}
+        TArray<UPrimitiveComponent*> ClothedParts;
+        P->ForEachComponent<USkeletalMeshComponent>(false,[&](USkeletalMeshComponent* C)
+        {
+            if(C!=Arms && C->IsAttachedTo(Arms) && C->ComponentHasTag(TEXT("ModularOutfit")) && C->IsVisible() && !C->bHiddenInGame)
+            {++VisibleOutfitParts;ClothedParts.Add(C);}
+        });
+        if(Capture.Camera)
+        {
+            TArray<UPrimitiveComponent*> CarryShot={Arms,Pot,Oil};CarryShot.Append(ClothedParts);
+            Capture.Shot(TEXT("hands-outfit-carry"),Camera->GetComponentLocation(),Camera->GetComponentRotation(),90,CarryShot);
+            Key(EKeys::LeftMouseButton,IE_Pressed);Key(EKeys::LeftMouseButton,IE_Released);
+            for(int I=0;I<24;++I){Outfit->TickComponent(1.f/60,LEVELTICK_All,nullptr);Step();}
+            TArray<UPrimitiveComponent*> PourShot={Arms,Pot,Oil};
+            P->ForEachComponent<USkeletalMeshComponent>(false,[&](USkeletalMeshComponent* C)
+            {if(C!=Arms && C->IsAttachedTo(Arms) && C->ComponentHasTag(TEXT("ModularOutfit")) && C->IsVisible() && !C->bHiddenInGame)PourShot.Add(C);});
+            Capture.Shot(TEXT("hands-outfit-pour"),Camera->GetComponentLocation(),Camera->GetComponentRotation(),90,PourShot);
+        }
+        P->InterruptActionsForPriority(true);Step();Outfit->TickComponent(1.f/60,LEVELTICK_All,nullptr);
+        bOutfitHiddenOnCancel=!Arms->IsVisible();
+        P->ForEachComponent<USkeletalMeshComponent>(false,[&](USkeletalMeshComponent* C)
+        {
+            if(C!=Arms && C->IsAttachedTo(Arms) && C->ComponentHasTag(TEXT("ModularOutfit")) && C->IsVisible() && !C->bHiddenInGame)
+                bOutfitHiddenOnCancel=false;
+        });
+    }
+    UE_LOG(LogTemp,Display,TEXT("OIL_REVIEW outfit visible_parts=%d hidden_on_cancel=%d"),VisibleOutfitParts,bOutfitHiddenOnCancel);
+    const bool Contact=FlowFrames>0 && !bDryFlow && WorstView<.25 && WorstBody<.25 && WorstLip<.25
+        && MaxViewSeam[0]<1.0 && MaxViewSeam[1]<1.0 && MaxBodySeam[0]<1.0 && MaxBodySeam[1]<1.0;
     UE_LOG(LogTemp,Display,TEXT("OIL_REVIEW contact=%d view_cm=%.4f body_cm=%.4f lip_cm=%.4f empty_flow=%d"),Contact,WorstView,WorstBody,WorstLip,bDryFlow);
     const bool FlowOK=CheckVillageOilSpread(*W,Out);
-    return Finished && Cancelled && Before && After && Contact && BubbleTransitions>0 && FlowOK?0:10;
+    return Finished && Cancelled && Before && After && bPreviewOK && Contact && BubbleTransitions>0 && FlowOK && VisibleOutfitParts>=2 && bOutfitHiddenOnCancel?0:10;
 #else
     return 1;
 #endif

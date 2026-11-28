@@ -5,6 +5,7 @@
 #include "../FPSGAMEPlayerController.h"
 #include "ColdSteelStatusModel.h"
 #include "ColdSteelInventoryTypes.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelWeaponIcons.h"
 #include "ColdSteelMonsterPortraits.h"
@@ -308,8 +309,8 @@ TSharedRef<SWidget> UColdSteelCodexPage::BuildStatusPage()
 
     TSharedPtr<SScrollBox> Scroll;
     SAssignNew(Scroll, SScrollBox);
-    Scroll->SetScrollBarThickness(FVector2D(6.f / FMath::Max(Scale, .01f)));
     Scroll->SetAllowOverscroll(EAllowOverscroll::No);
+    ColdSteelUI::ApplyGoldScroll(Scroll.ToSharedRef(), FVector2D(6.f / FMath::Max(Scale, .01f)), FMargin(4.f / FMath::Max(Scale, .01f), 0.f, 0.f, 0.f), true);
     SAssignNew(StatusCardsHost, SVerticalBox);
     Scroll->AddSlot()[ StatusCardsHost.ToSharedRef() ];
     RebuildStatusCards();
@@ -422,8 +423,8 @@ TSharedRef<SWidget> UColdSteelCodexPage::BuildTributePage()
 
     TSharedPtr<SScrollBox> Scroll;
     SAssignNew(Scroll, SScrollBox);
-    Scroll->SetScrollBarThickness(FVector2D(6.f / FMath::Max(Scale, .01f)));
     Scroll->SetAllowOverscroll(EAllowOverscroll::No);
+    ColdSteelUI::ApplyGoldScroll(Scroll.ToSharedRef(), FVector2D(6.f / FMath::Max(Scale, .01f)), FMargin(4.f / FMath::Max(Scale, .01f), 0.f, 0.f, 0.f), true);
     SAssignNew(TributeCardsHost, SVerticalBox);
     Scroll->AddSlot()[ TributeCardsHost.ToSharedRef() ];
     RebuildTributeCards();
@@ -561,8 +562,8 @@ TSharedRef<SWidget> UColdSteelCodexPage::BuildEnchantPage()
 
     TSharedPtr<SScrollBox> Scroll;
     SAssignNew(Scroll, SScrollBox);
-    Scroll->SetScrollBarThickness(FVector2D(6.f / FMath::Max(Scale, .01f)));
     Scroll->SetAllowOverscroll(EAllowOverscroll::No);
+    ColdSteelUI::ApplyGoldScroll(Scroll.ToSharedRef(), FVector2D(6.f / FMath::Max(Scale, .01f)), FMargin(4.f / FMath::Max(Scale, .01f), 0.f, 0.f, 0.f), true);
     SAssignNew(EnchantCardsHost, SVerticalBox);
     Scroll->AddSlot()[ EnchantCardsHost.ToSharedRef() ];
     RebuildEnchantCards();

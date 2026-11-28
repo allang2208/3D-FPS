@@ -8,6 +8,7 @@
 #include "ColdSteelProgressNotification.h"
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelUIAudio.h"
 #include "../Skills/ColdSteelSkillTree.h"
@@ -194,7 +195,7 @@ TSharedRef<SWidget> UColdSteelSkillTreeScreen::BuildSpecPage()
         return FText::FromString(FString::Printf(TEXT("可用专精点 %d　·　已投入 %d / 获得 %d"), Model->SpecPointsFree(SpecSkill),
             ColdSteelSkillTree::SpecPointsSpent(P, SpecSkill), ColdSteelSkillTree::SpecPointsEarned(P, SpecSkill)));
     };
-    return SNew(SScrollBox)
+    return ColdSteelUI::ApplyGoldScroll(SNew(SScrollBox)
     + SScrollBox::Slot()
     [
         SNew(SVerticalBox)
@@ -223,7 +224,7 @@ TSharedRef<SWidget> UColdSteelSkillTreeScreen::BuildSpecPage()
         ]
         + SVerticalBox::Slot().AutoHeight().Padding(0, 8)[SpecCanvas.ToSharedRef()]
         + SVerticalBox::Slot().AutoHeight().Padding(FMargin(18, 0, 18, 20))[SAssignNew(SpecPreview, SBox)]
-    ];
+    ], FVector2D(5.5f, 5.5f), FMargin(4, 0, 0, 0), true);
 }
 
 // ---- quickbar strip + staff magic wheel (2026-11-16, user picked layout A without a detail tab) ----

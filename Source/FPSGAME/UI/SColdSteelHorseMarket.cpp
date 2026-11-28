@@ -1,4 +1,5 @@
 #include "SColdSteelHorseMarket.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelTextToolTip.h"
 #include "SHorseMarketPlate.h"
 #include "ColdSteelHorsePortrait.h"
@@ -190,11 +191,12 @@ void SColdSteelHorseMarket::Construct(const FArguments& Args)
         ]
         +SVerticalBox::Slot().FillHeight(1)
         [
-            SAssignNew(Scroll,SScrollBox).Style(&MarketScroll)
-            .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::Always)
-            .ScrollBarVisibility(EVisibility::Collapsed).ScrollBarPadding(0)
-            .AnimateWheelScrolling(true).WheelScrollMultiplier(1.5f)
-            +SScrollBox::Slot()[SAssignNew(Grid,SVerticalBox)]
+            ColdSteelUI::ApplyGoldScroll(
+                SAssignNew(Scroll,SScrollBox).Style(&MarketScroll)
+                .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::Always)
+                .AnimateWheelScrolling(true).WheelScrollMultiplier(1.5f)
+                +SScrollBox::Slot()[SAssignNew(Grid,SVerticalBox)],
+                FVector2D(5.5f,5.5f),FMargin(4,0,0,0),true)
         ]
     ];
     RefreshSelection();

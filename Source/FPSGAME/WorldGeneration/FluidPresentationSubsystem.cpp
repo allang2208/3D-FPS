@@ -26,6 +26,9 @@
 #include "Engine/StreamableManager.h"
 #include "NiagaraSystem.h"
 #include "Components/AudioComponent.h"
+#include "Components/PointLightComponent.h"
+#include "Sound/SoundBase.h"
+#include "Sound/SoundAttenuation.h"
 #include "Sound/SoundWave.h"
 
 bool UFluidPresentationSubsystem::DoesSupportWorldType(EWorldType::Type Type) const
@@ -61,6 +64,24 @@ void UFluidPresentationSubsystem::OnWorldBeginPlay(UWorld& World)
         }
         TapMeshLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(Wants,
             FStreamableDelegate::CreateWeakLambda(this,[this](){TapAsset=TapTemplate.Get();}));
+    }
+    {
+        static const FSoftObjectPath OilPotPath(TEXT("/Game/WorldGeneration/TemperateHills/HotOil/SM_OilHandPot.SM_OilHandPot"));
+        static const FSoftObjectPath OilSeaPath(TEXT("/Game/WorldGeneration/TemperateHills/HotOil/SeaOfFireV3/NS_OilSeaOfFire.NS_OilSeaOfFire"));
+        static const FSoftObjectPath FireLoopPath(TEXT("/Game/Vefects/Free_Fire/Shared/Audio/SFX_FireBig_L.SFX_FireBig_L"));
+        static const FSoftObjectPath FireAttPath(TEXT("/Game/Vefects/Free_Fire/Shared/Audio/SA_FireBig.SA_FireBig"));
+        static const FSoftObjectPath IgniteCuePath(TEXT("/Game/Skills/Fireball/ImpactRealistic20260914/S_FireballImpactLayered.S_FireballImpactLayered"));
+        static const FSoftObjectPath IgniteAttPath(TEXT("/Game/Skills/Fireball/ImpactRealistic20260914/ATT_FireballImpact.ATT_FireballImpact"));
+        const TArray<FSoftObjectPath> OilWants{OilPotPath,OilSeaPath,FireLoopPath,FireAttPath,IgniteCuePath,IgniteAttPath};
+        OilPresentationLoad=UAssetManager::GetStreamableManager().RequestAsyncLoad(OilWants,
+            FStreamableDelegate::CreateWeakLambda(this,[this]()
+            {
+                OilFireLoop=Cast<USoundBase>(FSoftObjectPath(TEXT("/Game/Vefects/Free_Fire/Shared/Audio/SFX_FireBig_L.SFX_FireBig_L")).ResolveObject());
+                OilFireAtt=Cast<USoundAttenuation>(FSoftObjectPath(TEXT("/Game/Vefects/Free_Fire/Shared/Audio/SA_FireBig.SA_FireBig")).ResolveObject());
+                OilIgniteCue=Cast<USoundBase>(FSoftObjectPath(TEXT("/Game/Skills/Fireball/ImpactRealistic20260914/S_FireballImpactLayered.S_FireballImpactLayered")).ResolveObject());
+                OilIgniteAtt=Cast<USoundAttenuation>(FSoftObjectPath(TEXT("/Game/Skills/Fireball/ImpactRealistic20260914/ATT_FireballImpact.ATT_FireballImpact")).ResolveObject());
+                OilPresentationLoad.Reset();
+            }));
     }
 }
 
@@ -212,6 +233,7 @@ void UFluidPresentationSubsystem::Tick(float Delta)
     if(WindClock>=.2f)
     {
         WindClock=0;const double Now=GetWorld()->GetTimeSeconds();
+        if(!OilFires.IsEmpty())bOilBudgetDirty=true;
         UpdateVillageHearths();
         Smoke.RemoveAll([Now](const FSmoke& S){return !S.FX.IsValid()||Now>=S.Expires||!S.FX->IsActive();});
         for(auto& S:Smoke)if(auto* FX=S.FX.Get())
@@ -230,6 +252,8 @@ void UFluidPresentationSubsystem::Tick(float Delta)
 void UFluidPresentationSubsystem::Deinitialize()
 {
     OilFires.Reset();
+    if(OilPresentationLoad){OilPresentationLoad->CancelHandle();OilPresentationLoad.Reset();}
+    OilFireLoop=nullptr;OilFireAtt=nullptr;OilIgniteCue=nullptr;OilIgniteAtt=nullptr;
     bReady=false;
     Campfires.Reset();
     VillageHearths.Reset();

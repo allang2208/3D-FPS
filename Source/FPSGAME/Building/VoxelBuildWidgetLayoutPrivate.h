@@ -1,5 +1,6 @@
 #pragma once
 #include "Components/ScrollBox.h"
+#include "../UI/ColdSteelScrollBar.h"
 #include "Components/WrapBox.h"
 #include "Components/VerticalBoxSlot.h"
 namespace VoxelBuildWidgetLayoutPrivate
@@ -27,14 +28,15 @@ namespace VoxelBuildWidgetLayoutPrivate
         ScrollBox->SetAlwaysShowScrollbar(true);
         ScrollBox->SetScrollbarPadding(FMargin(0));
         ScrollBox->SetScrollbarThickness(FVector2D(BuildScrollbarWidth/Scale));
-        FScrollBoxStyle ScrollStyle=ScrollBox->GetWidgetStyle();
+        FScrollBoxStyle ScrollStyle=ColdSteelUI::GoldScrollBoxStyle();
         ScrollStyle.SetVerticalScrolledContentPadding(FMargin(0));
         ScrollBox->SetWidgetStyle(ScrollStyle);
         // The track brushes also contribute desired width; thickness alone does not constrain them.
-        FScrollBarStyle BarStyle=ScrollBox->GetWidgetBarStyle();
+        FScrollBarStyle BarStyle=ColdSteelUI::GoldScrollBarStyle();
         BarStyle.VerticalTopSlotImage.SetImageSize(FVector2D(BuildScrollbarWidth/Scale,BarStyle.VerticalTopSlotImage.GetImageSize().Y));
         BarStyle.VerticalBottomSlotImage.SetImageSize(FVector2D(BuildScrollbarWidth/Scale,BarStyle.VerticalBottomSlotImage.GetImageSize().Y));
         ScrollBox->SetWidgetBarStyle(BarStyle);
+        ScrollBox->SynchronizeProperties();
     }
 
     inline void ConfigureBuildGrid(UWrapBox* Grid,float DrawerWidth,float Scale,bool bIndented)

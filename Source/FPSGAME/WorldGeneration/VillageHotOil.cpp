@@ -1,20 +1,27 @@
 #include "VillageHotOil.h"
+#include "VillageDefenseCombat.h"
 #include "VillageOilCarry.h"
 #include "VillageOilMotion.h"
 #include "VillageOilSurveySubsystem.h"
+#include "TemperateHillsWorld.h"
+#include "VillageSiegeUpgrades.h"
 #include "../FPSGAMECharacter.h"
 #include "../Multiplayer/ColdSteelAuthorityContext.h"
+#include "../Weapons/FPSMeleeLightningComponent.h"
 #include "../UI/ColdSteelStatusModel.h"
 #include "../Monsters/MonsterCombatComponent.h"
 #include "../Monsters/FPSCombatHealthComponent.h"
 #include "../Characters/VillageArtisanVitalsComponent.h"
 #include "../Movement/StableRidingHorse.h"
 #include "../Movement/HorseRiderComponent.h"
+#include "EngineUtils.h"
 #include "Components/StaticMeshComponent.h"
 #include "Components/InstancedStaticMeshComponent.h"
 #include "Components/SplineMeshComponent.h"
 #include "Components/CapsuleComponent.h"
 #include "Components/DynamicMeshComponent.h"
+#include "Components/PointLightComponent.h"
+#include "Components/AudioComponent.h"
 #include "DynamicMesh/DynamicMesh3.h"
 #include "DynamicMesh/DynamicMeshAttributeSet.h"
 #include "Materials/MaterialInstanceDynamic.h"
@@ -84,6 +91,18 @@ AVillageOilKettle::AVillageOilKettle()
     Vapour->SetAutoActivate(false);
     static ConstructorHelpers::FObjectFinder<UNiagaraSystem> Smoke(TEXT("/Game/Fluids/FluidInteractions20260924/NS_WaterImpactSteam"));
     Vapour->SetAsset(Smoke.Object);
+    HearthGlow=CreateDefaultSubobject<UPointLightComponent>(TEXT("HearthGlow"));
+    HearthGlow->SetupAttachment(Masonry);
+    HearthGlow->SetRelativeLocation(FVector(0,0,56));
+    HearthGlow->SetIntensityUnits(ELightUnits::Lumens);
+    HearthGlow->SetIntensity(420.f);
+    HearthGlow->SetLightColor(FLinearColor(1.f,.46f,.14f));
+    HearthGlow->SetAttenuationRadius(280.f);
+    HearthGlow->SetCastShadows(false);
+    HearthGlow->SetVolumetricScatteringIntensity(0.15f);
+    HearthGlow->bAffectTranslucentLighting=false;
+    HearthGlow->SetMaxDrawDistance(2400.f);
+    HearthGlow->SetMaxDistanceFadeRange(400.f);
 }
 void AVillageOilKettle::BeginPlay()
 {
@@ -103,6 +122,7 @@ void AVillageOilKettle::ApplyHealth()
     Super::ApplyHealth();
     const bool Active=GetHealth()>0.f && GetNetMode()!=NM_DedicatedServer;
     Liquid->SetVisibility(Active);Bubbles->SetVisibility(Active);
+    if(HearthGlow)HearthGlow->SetVisibility(Active);
     if(IsActorBeginningPlay()||HasActorBegunPlay())
     {
         if(!Active)Vapour->DeactivateImmediate();
@@ -198,8 +218,22 @@ AVillageOilField::AVillageOilField()
     static ConstructorHelpers::FObjectFinder<UStaticMesh> DropMesh(TEXT("/Engine/BasicShapes/Sphere"));
     static ConstructorHelpers::FObjectFinder<UMaterialInterface> DropSkin(TEXT("/Game/WorldGeneration/TemperateHills/HotOil/FlowR2/M_OilBubble"));
     Splash->SetStaticMesh(DropMesh.Object);Splash->SetMaterial(0,DropSkin.Object);
-    static ConstructorHelpers::FObjectFinder<UNiagaraSystem> Flames(TEXT("/Game/WorldGeneration/TemperateHills/HotOil/TorchFieldR2/NS_OilTorchBands"));
+    static ConstructorHelpers::FObjectFinder<UNiagaraSystem> Flames(TEXT("/Game/WorldGeneration/TemperateHills/HotOil/SeaOfFireV3/NS_OilSeaOfFire"));
     FireFront->SetAsset(Flames.Object);
+    FireLight=CreateDefaultSubobject<UPointLightComponent>(TEXT("FireGlow"));
+    FireLight->SetupAttachment(RootComponent);
+    FireLight->SetRelativeLocation(FVector(0,0,48));
+    FireLight->SetIntensityUnits(ELightUnits::Lumens);
+    FireLight->SetIntensity(0.f);
+    FireLight->SetLightColor(FLinearColor(1.f,.44f,.12f));
+    FireLight->SetAttenuationRadius(520.f);
+    FireLight->SetCastShadows(false);
+    FireLight->bAffectTranslucentLighting=false;
+    FireLight->SetVisibility(false);
+    FireAudio=CreateDefaultSubobject<UAudioComponent>(TEXT("FireLoopAudio"));
+    FireAudio->SetupAttachment(RootComponent);
+    FireAudio->bAutoActivate=false;
+    FireAudio->bAllowSpatialization=true;
 }
 void AVillageOilField::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
 {
@@ -207,7 +241,26 @@ void AVillageOilField::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& Out
     DOREPLIFETIME_CONDITION(AVillageOilField,PourFrom,COND_InitialOnly);
     DOREPLIFETIME_CONDITION(AVillageOilField,Started,COND_InitialOnly);
     DOREPLIFETIME_CONDITION(AVillageOilField,FlowSeed,COND_InitialOnly);
+    DOREPLIFETIME_CONDITION(AVillageOilField,UpgradeRanks,COND_InitialOnly);
+    DOREPLIFETIME_CONDITION(AVillageOilField,bDirectSplash,COND_InitialOnly);
+    DOREPLIFETIME_CONDITION(AVillageOilField,bIgnoreFriendlies,COND_InitialOnly);
     DOREPLIFETIME(AVillageOilField,SurfacePacket);
+}
+float AVillageOilField::FieldDamage() const
+{
+    return float(VillageSiegeUpgrades::Installed(UpgradeRanks,VillageSiegeUpgrades::HotOil,VillageSiegeUpgrades::OilDamage));
+}
+float AVillageOilField::FieldRadius() const
+{
+    return float(VillageSiegeUpgrades::Installed(UpgradeRanks,VillageSiegeUpgrades::HotOil,VillageSiegeUpgrades::OilRadius));
+}
+float AVillageOilField::FieldLife() const
+{
+    return float(VillageSiegeUpgrades::Installed(UpgradeRanks,VillageSiegeUpgrades::HotOil,VillageSiegeUpgrades::OilDuration));
+}
+int32 AVillageOilField::FieldBurnStacks() const
+{
+    return FMath::RoundToInt(VillageSiegeUpgrades::Installed(UpgradeRanks,VillageSiegeUpgrades::HotOil,VillageSiegeUpgrades::OilBurnStacks));
 }
 void AVillageOilField::BeginPlay()
 {
@@ -215,12 +268,22 @@ void AVillageOilField::BeginPlay()
     if(HasAuthority())
     {
         PourFrom=Lip;Started=WorldClock(GetWorld());FlowSeed=FMath::RandHelper(65536);
-        if(const auto* Profile=ColdSteelAuthority::ForPawn(GetInstigator()))BurnMagicAttack=Profile->Derived(TEXT("matk"));
+        if(bDirectSplash && InitialUpgradeRanks!=0)UpgradeRanks=InitialUpgradeRanks;
+        else
+        {
+            bool bFoundVillage=false;
+            for(TActorIterator<ATemperateHillsWorld> It(GetWorld());It;++It){UpgradeRanks=It->GetSiegeRanks();bFoundVillage=true;break;}
+            if(!bFoundVillage)UpgradeRanks=InitialUpgradeRanks;
+        }
+        if(const APawn* Inst=GetInstigator();Inst && Inst->IsPlayerControlled())
+            if(const auto* Profile=ColdSteelAuthority::ForPawn(Inst))BurnMagicAttack=Profile->Derived(TEXT("matk"));
     }
     Spread.Seed=FlowSeed/1773.f;
-    DropSeconds=FMath::Clamp(.105+FMath::Sqrt(FMath::Max(0.,double(PourFrom.Z)-GetActorLocation().Z))*.009,.13,.42);
-    if(HasAuthority())SetLifeSpan(VillageHotOil::Life+DropSeconds+.06);
-    Spread.Incoming=FVector2D(GetActorLocation()-FVector(PourFrom)).GetSafeNormal();
+    Spread.Radius=FieldRadius();
+    DropSeconds=bDirectSplash?0.02:FMath::Clamp(.105+FMath::Sqrt(FMath::Max(0.,double(PourFrom.Z)-GetActorLocation().Z))*.009,.13,.42);
+    if(HasAuthority())SetLifeSpan(FieldLife()+DropSeconds+.85);
+    const FVector2D Delta2D(GetActorLocation()-FVector(PourFrom));
+    Spread.Incoming=Delta2D.IsNearlyZero()?FVector2D(1.,0.):Delta2D.GetSafeNormal();
     if(HasAuthority())
     {
         if(auto* Scheduler=GetWorld()->GetSubsystem<UVillageOilSurveySubsystem>())Scheduler->Add(this);
@@ -229,7 +292,7 @@ void AVillageOilField::BeginPlay()
     if(GetNetMode()!=NM_DedicatedServer)
     {
         FRandomStream R(GetTypeHash(FVector(PourFrom)-GetActorLocation()));
-        const FVector Into=(GetActorLocation()-FVector(PourFrom)).GetSafeNormal2D();
+        const FVector Into=(GetActorLocation()-FVector(PourFrom)).GetSafeNormal2D(UE_SMALL_NUMBER,FVector::ForwardVector);
         for(int I=0;I<16;++I)
         {
             const FVector Dir=Into.RotateAngleAxis(R.FRandRange(-145.f,145.f),FVector::UpVector);
@@ -237,22 +300,32 @@ void AVillageOilField::BeginPlay()
             Splash->AddInstance(FTransform(FQuat::Identity,FVector::ZeroVector,FVector(.001)));
         }
         Splash->SetVisibility(false);
-        const FVector Start=FVector(PourFrom)-GetActorLocation();
-        const FVector Forward=(-Start).GetSafeNormal2D();
-        Stream->SetStartAndEnd(Start,Forward*Start.Size2D()*.9,FVector::ZeroVector,FVector(0,0,-FMath::Max(80.,Start.Z)),false);
-        Stream->SetStartScale(FVector2D(.060,.035),false);Stream->SetEndScale(FVector2D(.115,.055),true);
         Pool->SetCustomPrimitiveDataFloat(0,float(WorldClock(GetWorld())-Started-DropSeconds));
-        if(const APawn* Source=GetInstigator())
-            if(auto* Hands=Source->FindComponentByClass<UVillageOilCarry>())AddTickPrerequisiteComponent(Hands);
-        SetActorTickInterval(0.f);
-        UpdateStream(WorldClock(GetWorld())-Started);
+        Pool->SetCustomPrimitiveDataFloat(1,FieldLife());
+        if(FireLight)FireLight->SetAttenuationRadius(FieldRadius()+40.f);
+        if(bDirectSplash)
+        {
+            Stream->SetVisibility(false);
+            SetActorTickInterval(.05f);
+        }
+        else
+        {
+            const FVector Start=FVector(PourFrom)-GetActorLocation();
+            const FVector Forward=(-Start).GetSafeNormal2D();
+            Stream->SetStartAndEnd(Start,Forward*Start.Size2D()*.9,FVector::ZeroVector,FVector(0,0,-FMath::Max(80.,Start.Z)),false);
+            Stream->SetStartScale(FVector2D(.060,.035),false);Stream->SetEndScale(FVector2D(.115,.055),true);
+            if(const APawn* Source=GetInstigator())
+                if(auto* Hands=Source->FindComponentByClass<UVillageOilCarry>())AddTickPrerequisiteComponent(Hands);
+            SetActorTickInterval(0.f);
+            UpdateStream(WorldClock(GetWorld())-Started);
+        }
     }
 }
 int32 AVillageOilField::SurveyStep(int32 Allowance)
 {
     const double Now=WorldClock(GetWorld());
     const float Age=float(Now-Started-DropSeconds);
-    if(Age>=VillageHotOil::Life)return 0;
+    if(Age>=FieldLife())return 0;
     if(Now>=NextSupportCheck)
     {
         NextSupportCheck=Now+.15;
@@ -262,7 +335,7 @@ int32 AVillageOilField::SurveyStep(int32 Allowance)
             SurveyWork.Reset();bSurfaceDirty=true;
         }
     }
-    const int Want=FMath::Clamp(3+FMath::FloorToInt(FMath::Max(0.f,Age)*14.f),3,Spread.Half);
+    const int Want=FMath::Clamp(3+FMath::FloorToInt(FMath::Max(0.f,Age)*14.f),3,Spread.MaxExtent());
     if(Spread.Built>=Want)return 0;
     if(!SurveyWork)SurveyWork=MakeUnique<FVillageOilSpread>(Spread);
     int Remaining=Allowance;
@@ -312,35 +385,55 @@ void AVillageOilField::PresentSurface()
 void AVillageOilField::Pulse(double Now)
 {
     if(!Spread.WetBounds.IsValid){NextContact.Reset();return;}
-    const FBox ContactBox=Spread.WetBounds.ExpandBy(17.); // WetAt accepts feet within 16 cm of a wet triangle.
+    const FBox ContactBox(Spread.WetBounds.Min-FVector(24.,24.,24.),Spread.WetBounds.Max+FVector(24.,24.,32.));
     TArray<FOverlapResult> Hits;
     GetWorld()->OverlapMultiByObjectType(Hits,GetActorLocation()+ContactBox.GetCenter(),FQuat::Identity,
         FCollisionObjectQueryParams(ECC_Pawn),FCollisionShape::MakeBox(ContactBox.GetExtent()));
     TSet<TWeakObjectPtr<APawn>> Present;
     bool bHit=false,bKilled=false;
+    const double ElapsedWet=Now-Started-DropSeconds;
+    const float Life=FieldLife();
+    const float Damage=FieldDamage();
+    const int32 BurnStacks=FieldBurnStacks();
+    const FVector LocalOrigin=GetActorLocation();
+    AActor* OwnerActor=GetOwner()?GetOwner():static_cast<AActor*>(this);
+    const auto IsHostileOilTarget=[OwnerActor](const APawn* Unit) -> bool
+    {
+        if(!Unit || Unit->IsPlayerControlled() || Unit->IsA<AFPSGAMECharacter>() || Unit->IsA<AStableRidingHorse>() || Unit->IsA<AVillageDefenseSection>())
+            return false;
+        if(Unit->FindComponentByClass<UVillageArtisanVitalsComponent>())return false;
+        if(Unit->ActorHasTag(TEXT("NPC")) || Unit->ActorHasTag(TEXT("Friendly")) || Unit->ActorHasTag(TEXT("Companion"))
+            || Unit->ActorHasTag(TEXT("Player")) || Unit->ActorHasTag(TEXT("Wildlife")) || Unit->ActorHasTag(TEXT("WildlifeSpawned")))
+            return false;
+        return UFPSMeleeLightningComponent::IsEnemy(const_cast<APawn*>(Unit),OwnerActor);
+    };
     for(const FOverlapResult& Hit:Hits)
     {
         APawn* Unit=Cast<APawn>(Hit.GetActor());
         if(!Unit || Present.Contains(Unit) || !Living(*Unit))continue;
+        if(bIgnoreFriendlies && !IsHostileOilTarget(Unit))continue;
         if(const auto* Rider=Unit->FindComponentByClass<UHorseRiderComponent>();Rider && Rider->Active())continue;
         const auto* Capsule=Unit->FindComponentByClass<UCapsuleComponent>();
         const FVector Feet=Capsule?Capsule->GetComponentLocation()-FVector(0,0,Capsule->GetScaledCapsuleHalfHeight()):Unit->GetNavAgentLocation();
-        if(!Spread.WetAt(Feet-GetActorLocation(),Now-Started-DropSeconds))continue;
-        // Floors and platforms can disappear during the ten-second field. A unit still needs real support.
+        // Floors and platforms can disappear during the oil field duration. Trace first so slopes and large feet match surface contact.
         FCollisionQueryParams Q(SCENE_QUERY_STAT(OilFootContact),false,Unit);
         FCollisionObjectQueryParams Terrain(ECC_WorldStatic);Terrain.AddObjectTypesToQuery(ECC_WorldDynamic);
         FHitResult Footing;
-        if(!GetWorld()->LineTraceSingleByObjectType(Footing,Feet+FVector(0,0,8),Feet-FVector(0,0,17),Terrain,Q) ||
-            !Footing.IsValidBlockingHit() || Footing.ImpactNormal.Z<.6)continue;
+        if(!GetWorld()->LineTraceSingleByObjectType(Footing,Feet+FVector(0,0,24),Feet-FVector(0,0,42),Terrain,Q) ||
+            !Footing.IsValidBlockingHit() || Footing.ImpactNormal.Z<.55)continue;
+        if(!Spread.WetAt(Footing.ImpactPoint-LocalOrigin,ElapsedWet) && !Spread.WetAt(Feet-LocalOrigin,ElapsedWet))continue;
         Present.Add(Unit);
         double& Next=NextContact.FindOrAdd(Unit,Now+VillageHotOil::Exposure);
-        while(Now+1.e-5>=Next && Next<=Started+DropSeconds+VillageHotOil::Life+1.e-5 && Living(*Unit))
+        while(Now+1.e-5>=Next && Next<=Started+DropSeconds+Life+1.e-5 && Living(*Unit))
         {
             Next+=VillageHotOil::Exposure;
-            const float Applied=UGameplayStatics::ApplyDamage(Unit,10.f,GetInstigatorController(),this,UVillageOilDamage::StaticClass());
+            const float Applied=UGameplayStatics::ApplyDamage(Unit,Damage,GetInstigatorController(),this,UVillageOilDamage::StaticClass());
             if(Applied<=0.f)continue;
             bHit=true;
-            if(Living(*Unit))UCombatStatusFormula::GetOrAdd(Unit)->AddOilBurn(GetInstigator(),BurnMagicAttack);
+            const bool bUnitKilled=!Living(*Unit);
+            if(IsHostileOilTarget(Unit))
+                VillageDefenseCombat::BroadcastDamageNumber(GetWorld(),Unit,Unit->GetActorLocation(),Applied,Applied,false,bUnitKilled);
+            if(!bUnitKilled)UCombatStatusFormula::GetOrAdd(Unit)->AddOilBurn(GetInstigator(),BurnMagicAttack,BurnStacks);
             else bKilled=true;
         }
     }
@@ -349,8 +442,9 @@ void AVillageOilField::Pulse(double Now)
 }
 void AVillageOilField::UpdateStream(double Age)
 {
+    if(bDirectSplash){Stream->SetVisibility(false);return;}
     constexpr double Duration=VillageOilMotion::Empty-VillageOilMotion::Release;
-    FVector SourceLip;
+    FVector SourceLip=FVector::ZeroVector;
     const auto* Source=GetInstigator();
     const auto* Hands=Source?Source->FindComponentByClass<UVillageOilCarry>():nullptr;
     const bool Following=Hands && Hands->PourLip(SourceLip);
@@ -394,11 +488,16 @@ void AVillageOilField::Tick(float Delta)
     const double Now=WorldClock(GetWorld()),Age=Now-Started;
     const double WetAge=Age-DropSeconds;
     if(bSurfaceDirty)PublishSurface();
-    if(HasAuthority() && WetAge>=0. && (Now>=NextSample || WetAge>=VillageHotOil::Life))
+    const float Life=FieldLife();
+    if(HasAuthority() && WetAge>=0.)
     {
-        NextSample=Now+.05;
-        Pulse(FMath::Min(Now,Started+DropSeconds+VillageHotOil::Life));
-        if(WetAge>=VillageHotOil::Life){Destroy();return;}
+        if(WetAge>=Life+.65){Destroy();return;}
+        if(!bFinalPulseDone && (Now>=NextSample || WetAge>=Life))
+        {
+            NextSample=Now+.05;
+            Pulse(FMath::Min(Now,Started+DropSeconds+Life));
+            if(WetAge>=Life){bFinalPulseDone=true;NextContact.Reset();}
+        }
     }
     if(GetNetMode()==NM_DedicatedServer)return;
     if(Stream->IsVisible())UpdateStream(Age);

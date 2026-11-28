@@ -30,7 +30,7 @@ if($result.ExitCode -ne 0 -or !(Test-Path "$Run/workshop-saved.json")){throw "Wo
 New-Item -ItemType Directory -Path "$project/$rel" -Force | Out-Null
 if($FrontageOnly){$roles=@('SM_GarrisonWorkshop')}
 $files=@(Get-ChildItem -LiteralPath "$Run/$rel/Frontage" -Recurse -File | ForEach-Object {
-    [IO.Path]::GetRelativePath("$Run/$rel",$_.FullName)
+    $_.FullName.Substring((Resolve-Path "$Run/$rel").Path.Length + 1)
 }) + @($roles | ForEach-Object {"$_.uasset"})
 foreach($file in $files){
     $live=Join-Path "$project/$rel" $file

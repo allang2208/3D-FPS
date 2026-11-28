@@ -1,4 +1,5 @@
 #include "ColdSteelExpeditionWidget.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelTextToolTip.h"
 #include "ColdSteelUIStyle.h"
 #include "SExpeditionButton.h"
@@ -160,8 +161,8 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::BuildCatalog()
                     .OnTextChanged_Lambda([this](const FText& Text) { Query = Text.ToString().TrimStartAndEnd(); RefreshList(); })]]
         +SVerticalBox::Slot().AutoHeight().Padding(0, 0, 0, 12)[Filters]
         +SVerticalBox::Slot().FillHeight(1)
-            [SNew(SScrollBox).ScrollBarThickness(FVector2D(6, 6)).ScrollBarVisibility(EVisibility::Visible).AllowOverscroll(EAllowOverscroll::No)
-                +SScrollBox::Slot()[SAssignNew(CatalogRows, SVerticalBox)]]);
+            [ColdSteelUI::ApplyGoldScroll(SNew(SScrollBox).AllowOverscroll(EAllowOverscroll::No)
+                +SScrollBox::Slot()[SAssignNew(CatalogRows, SVerticalBox)], FVector2D(6, 6), FMargin(4, 0, 0, 0), true)]);
 }
 
 TSharedRef<SWidget> UColdSteelExpeditionWidget::BuildDestinationSelector()
@@ -207,11 +208,11 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::BuildDetail()
         +SVerticalBox::Slot().AutoHeight()[Tabs]
         +SVerticalBox::Slot().AutoHeight().Padding(0,4,0,16)[Divider()]
         +SVerticalBox::Slot().FillHeight(1)
-            [SAssignNew(DetailScroll,SScrollBox).ScrollBarThickness(FVector2D(6,6)).AllowOverscroll(EAllowOverscroll::No)
+            [ColdSteelUI::ApplyGoldScroll(SAssignNew(DetailScroll,SScrollBox).AllowOverscroll(EAllowOverscroll::No)
                 +SScrollBox::Slot()
                     [SNew(SBox).MinDesiredHeight_Lambda([this](){
                         return !bStackOverview&&DetailScroll?FMath::Max(0.f,DetailScroll->GetCachedGeometry().GetLocalSize().Y-2.f):0.f;
-                    })[SAssignNew(DetailRows,SVerticalBox)]]];
+                    })[SAssignNew(DetailRows,SVerticalBox)]], FVector2D(6, 6), FMargin(4, 0, 0, 0), true)];
     TSharedRef<SWidget> Body=SNullWidget::NullWidget;
     if(bStackOverview)
     {
@@ -259,10 +260,10 @@ TSharedRef<SWidget> UColdSteelExpeditionWidget::BuildPreparation()
         Content->AddSlot().AutoHeight()[SAssignNew(PreparationRows,SVerticalBox)];
     else
         Content->AddSlot().FillHeight(1)
-            [SAssignNew(PreparationScroll,SScrollBox).ScrollBarThickness(FVector2D(6,6)).AllowOverscroll(EAllowOverscroll::No)
+            [ColdSteelUI::ApplyGoldScroll(SAssignNew(PreparationScroll,SScrollBox).AllowOverscroll(EAllowOverscroll::No)
                 +SScrollBox::Slot()[SNew(SBox).MinDesiredHeight_Lambda([this](){
                     return PreparationScroll?FMath::Max(0.f,PreparationScroll->GetCachedGeometry().GetLocalSize().Y-2.f):0.f;
-                })[SAssignNew(PreparationRows,SVerticalBox)]]];
+                })[SAssignNew(PreparationRows,SVerticalBox)]], FVector2D(6, 6), FMargin(4, 0, 0, 0), true)];
     return Card(Content,18);
 }
 

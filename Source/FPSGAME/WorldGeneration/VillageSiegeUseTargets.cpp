@@ -21,7 +21,7 @@ namespace
         return {Part, (A+B)*.5, FVector(Span.Size()*.5+4.,HalfWidth,HalfHeight), Span.Rotation().Quaternion()};
     }
 
-    TConstArrayView<FUseBox> UseBoxes(bool Trebuchet)
+    TConstArrayView<FUseBox> UseBoxes(const AVillageSiegeEngine& Engine)
     {
         static const FUseBox BallistaBoxes[] = {
             {NAME_None, {-6,1,17}, {82,82,17}},
@@ -54,7 +54,14 @@ namespace
             Beam(TEXT("Sling"), {0,0,0}, {-61,0,-35}, 20,14),
             {TEXT("Round"), {0,0,0}, {20,18,18}}
         };
-        if (Trebuchet) return MakeArrayView(TrebuchetBoxes);
+        static const FUseBox SpireBoxes[] = {
+            {NAME_None, {0,0,21}, {82,82,21}},
+            {NAME_None, {0,0,80}, {58,58,38}},
+            {NAME_None, {-74,0,98}, {18,28,28}},
+            {TEXT("Mast"), {0,0,120}, {48,48,120}}
+        };
+        if (Engine.IsLightningSpire()) return MakeArrayView(SpireBoxes);
+        if (Engine.IsTrebuchet()) return MakeArrayView(TrebuchetBoxes);
         return MakeArrayView(BallistaBoxes);
     }
 }
@@ -87,7 +94,7 @@ AVillageSiegeEngine* UVillageSiegeUseTargets::Trace(const FVector& Player, const
         const FVector End = Eye + Direction*RayLength;
         bool InReach = false;
         double First = TNumericLimits<double>::Max();
-        for (const FUseBox& Box : UseBoxes(Engine->IsTrebuchet()))
+        for (const FUseBox& Box : UseBoxes(*Engine))
         {
             FTransform PartFrame = Engine->GetMasonry()->GetComponentTransform();
             if (!Box.Part.IsNone())

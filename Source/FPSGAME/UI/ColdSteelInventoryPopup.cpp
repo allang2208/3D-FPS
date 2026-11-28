@@ -16,6 +16,7 @@
 #include "Components/Border.h"
 #include "Components/BackgroundBlur.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
 #include "Components/TextBlock.h"
@@ -43,7 +44,7 @@ void UColdSteelInventoryPopup::Open(UColdSteelInventoryWidget* Board,UColdSteelS
     const auto View=UWidgetLayoutLibrary::GetViewportWidgetGeometry(this);const auto Size=UWidgetLayoutLibrary::GetViewportSize(this)/Scale;auto At=View.AbsoluteToLocal(Anchor);
     const float Height=FMath::Min(SplitOnly?240.f:336.f,float(Size.Y*Scale)-24.f);
     PopupSlot->SetPosition(FVector2D(FMath::Clamp(At.X,8./Scale,FMath::Max(8./Scale,Size.X-328/Scale)),FMath::Clamp(At.Y,8./Scale,FMath::Max(8./Scale,Size.Y-(Height+8)/Scale))));PopupSlot->SetSize(FVector2D(320,Height)/Scale);
-    auto* Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetScrollbarThickness(FVector2D(5/Scale));Surface->SetContent(Scroll);
+    auto* Scroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();ColdSteelUI::ConfigureGoldScrollBox(Scroll,5/Scale);Surface->SetContent(Scroll);
     Stack=WidgetTree->ConstructWidget<UVerticalBox>();Scroll->AddChild(Stack);
     Stack->AddChildToVerticalBox(Label(Text(*I,TEXT("name")),true));
     if(!SplitOnly){const FString DepositLabel=FString::Printf(TEXT("存入%s"),Model->ActiveStorageCaption.IsEmpty()?TEXT("仓库"):*Model->ActiveStorageCaption);const bool Shop=Board->TooltipHUD()&&Board->TooltipHUD()->CanOfferShopSale();const bool StorageOpen=Model->bWarehouseOpen||Model->bIncineratorOpen||(Model->bMountBagOpen&&Model->OpenStorageCapacity()>0);Button(Shop?FString(TEXT("加入待售栏")):I->Place==4?FString(TEXT("取出到背包")):StorageOpen?DepositLabel:I->Place==1?FString(TEXT("卸下装备")):FString(TEXT("使用 / 穿戴")))->OnClicked.AddDynamic(this,&ThisClass::Use);

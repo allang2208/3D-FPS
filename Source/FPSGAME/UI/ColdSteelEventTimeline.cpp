@@ -16,6 +16,7 @@
 #include "Components/Overlay.h"
 #include "Components/OverlaySlot.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/SizeBox.h"
 #include "Components/TextBlock.h"
 #include "Components/VerticalBox.h"
@@ -84,8 +85,8 @@ void UColdSteelHUDWidget::BuildEventTimeline(UCanvasPanel* Root)
     auto* Column=WidgetTree->ConstructWidget<UVerticalBox>();TimelineContentPadding->SetContent(Column);
     TimelineExpandedClip=WidgetTree->ConstructWidget<USizeBox>();TimelineExpandedClip->SetHeightOverride(0);TimelineExpandedClip->SetClipping(EWidgetClipping::ClipToBoundsAlways);
     TimelineExpandedClip->SetVisibility(ESlateVisibility::Collapsed);Column->AddChildToVerticalBox(TimelineExpandedClip);
-    TimelineExpandedScroll=WidgetTree->ConstructWidget<UScrollBox>();TimelineExpandedScroll->SetAllowOverscroll(false);
-    TimelineExpandedScroll->SetScrollbarThickness(FVector2D(6/Scale));TimelineExpandedClip->SetContent(TimelineExpandedScroll);
+    TimelineExpandedScroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();TimelineExpandedScroll->SetAllowOverscroll(false);
+    ColdSteelUI::ConfigureGoldScrollBox(TimelineExpandedScroll,6/Scale);TimelineExpandedClip->SetContent(TimelineExpandedScroll);
     TimelineExpandedContent=WidgetTree->ConstructWidget<UVerticalBox>();TimelineExpandedScroll->AddChild(TimelineExpandedContent);
     auto* Heading=WidgetTree->ConstructWidget<UVerticalBox>();TimelineExpandedContent->AddChildToVerticalBox(Heading);
     auto* HeadingLabel=MakeTimelineText(TEXT("事件进度"),20,ColdSteelUI::TextPrimary,false,true);HeadingLabel->SetJustification(ETextJustify::Center);
@@ -172,7 +173,7 @@ void UColdSteelHUDWidget::BuildEventTimeline(UCanvasPanel* Root)
     TimelineDetailsClose=Button(TEXT("关闭"));TimelineDetailsClose->OnClicked.AddDynamic(this,&ThisClass::HandleTimelineDetailsCloseClicked);
     auto* CloseSize=WidgetTree->ConstructWidget<USizeBox>();CloseSize->SetWidthOverride(72/Scale);CloseSize->SetHeightOverride(36/Scale);CloseSize->SetContent(TimelineDetailsClose);TimelineButtonSizes.Add(CloseSize);
     DetailHeading->AddChildToHorizontalBox(CloseSize);
-    TimelineDetailScroll=WidgetTree->ConstructWidget<UScrollBox>();TimelineDetailScroll->SetAllowOverscroll(false);TimelineDetailScroll->SetScrollbarThickness(FVector2D(6/Scale));
+    TimelineDetailScroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();TimelineDetailScroll->SetAllowOverscroll(false);ColdSteelUI::ConfigureGoldScrollBox(TimelineDetailScroll,6/Scale);
     DetailColumn->AddChildToVerticalBox(TimelineDetailScroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     TimelineDetailContent=WidgetTree->ConstructWidget<UVerticalBox>();TimelineDetailScroll->AddChild(TimelineDetailContent);
     SetEventTimelineCompact(true);UpdateEventTimelineLayout();

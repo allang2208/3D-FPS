@@ -1,4 +1,5 @@
 #include "ColdSteelEnhancementWidget.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelTextToolTip.h"
 #include "ColdSteelUIStyle.h"
 #include "ColdSteelEnhancementLayoutMetrics.h"
@@ -132,9 +133,9 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
             [SNew(SSearchBox).Style(&EquipmentSearchStyle).HintText(FText::FromString(TEXT("搜索装备")))
                 .InitialText(FText::FromString(EquipmentSearch))
                 .OnTextChanged_Lambda([this](const FText& Value){EquipmentSearch=Value.ToString();Refresh();})]]
-        +SVerticalBox::Slot().FillHeight(1)[SAssignNew(RailScroll,SScrollBox).ScrollBarThickness(FVector2D(6,6))
+        +SVerticalBox::Slot().FillHeight(1)[ColdSteelUI::ApplyGoldScroll(SAssignNew(RailScroll,SScrollBox)
             .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
-            +SScrollBox::Slot()[SAssignNew(Rail,SVerticalBox)]]);
+            +SScrollBox::Slot()[SAssignNew(Rail,SVerticalBox)],FVector2D(6,6),FMargin(4,0,0,0),true)]);
 
     if(!WorkbenchPreview)WorkbenchPreview=CreateWidget<UM4GunsmithWidget>(GetOwningPlayer());
     ResetViewControl=Button(TEXT("水平复位"),[this](){WorkbenchPreview->SetSidePreview(true);});
@@ -209,11 +210,11 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
         +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,6)[ScrollFilters.ToSharedRef()]
         +SVerticalBox::Slot().AutoHeight()[SNew(SBox).HeightOverride(170)
             .Visibility_Lambda([this](){return bEnchant?EVisibility::Visible:EVisibility::Collapsed;})
-            [SAssignNew(OptionScroll,SScrollBox).Orientation(Orient_Horizontal).ScrollBarThickness(FVector2D(6,6))
+            [ColdSteelUI::ApplyGoldScroll(SAssignNew(OptionScroll,SScrollBox).Orientation(Orient_Horizontal)
                 .ScrollBarAlwaysVisible(false).AllowOverscroll(EAllowOverscroll::No)
                 .ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
                 .WheelScrollMultiplier(2.f).AnimateWheelScrolling(false)
-                +SScrollBox::Slot()[SAssignNew(Options,SHorizontalBox)]]]
+                +SScrollBox::Slot()[SAssignNew(Options,SHorizontalBox)],FVector2D(6,6),FMargin(0,4,0,0),true)]]
         +SVerticalBox::Slot().AutoHeight().Padding(0,10,0,6)[SNew(STextBlock)
             .Text(FText::FromString(TEXT("本次消耗"))).Font(GunsmithUI::TextFont(14,true))
             .ColorAndOpacity(ColdSteelUI::TextPrimary).AutoWrapText(false)
@@ -238,16 +239,16 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
             [SNew(STextBlock).Text_Lambda([this](){return FText::FromString(bEnchant?TEXT("附魔项目"):TEXT("强化项目"));})
                 .Font(GunsmithUI::TextFont(16,true)).ColorAndOpacity(ColdSteelUI::TextPrimary)]
         +SVerticalBox::Slot().AutoHeight()[SNew(SBox).HeightOverride_Lambda([this](){return bEnchant?144.f:76.f;})
-            [SNew(SScrollBox).ScrollBarThickness(FVector2D(6,6)).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
-                +SScrollBox::Slot()[SAssignNew(ProjectSummary,SVerticalBox)]]]
+            [ColdSteelUI::ApplyGoldScroll(SNew(SScrollBox).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
+                +SScrollBox::Slot()[SAssignNew(ProjectSummary,SVerticalBox)],FVector2D(6,6),FMargin(4,0,0,0),true)]]
         +SVerticalBox::Slot().AutoHeight().Padding(0,12,0,8)[SNew(STextBlock).Text_Lambda([this](){return FText::FromString(bEnchant?TEXT("附魔后数值"):TEXT("强化后数值"));}).Font(GunsmithUI::TextFont(16,true)).ColorAndOpacity(ColdSteelUI::TextPrimary)]
         +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,8)[SNew(SHorizontalBox)
             +SHorizontalBox::Slot().FillWidth(1).Padding(0,0,2,0)[CurrentCompare.ToSharedRef()]
             +SHorizontalBox::Slot().FillWidth(1).Padding(2,0,0,0)[BaseCompare.ToSharedRef()]]
         +SVerticalBox::Slot().AutoHeight()[TableHeader]
-        +SVerticalBox::Slot().FillHeight(1)[SAssignNew(OverviewScroll,SScrollBox).ScrollBarThickness(FVector2D(6,6))
+        +SVerticalBox::Slot().FillHeight(1)[ColdSteelUI::ApplyGoldScroll(SAssignNew(OverviewScroll,SScrollBox)
             .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
-            +SScrollBox::Slot()[SAssignNew(Inspector,SVerticalBox)]]
+            +SScrollBox::Slot()[SAssignNew(Inspector,SVerticalBox)],FVector2D(6,6),FMargin(4,0,0,0),true)]
         +SVerticalBox::Slot().AutoHeight().Padding(0,8,0,0)[Label(TEXT("绿色 增强 / 红色 削弱 / 灰色 不变"),12,ColdSteelUI::TextTertiary)]);
 
     ConfirmControl=Button(TEXT("确认强化"),[this](){Confirm();},true);
@@ -302,9 +303,9 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
                 +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center)[Label(TEXT("秘法工作台"),20,ColdSteelUI::TextPrimary)]
                 +SHorizontalBox::Slot().AutoWidth()[Button(TEXT("Esc 返回"),[this](){CastChecked<AFPSGAMEPlayerController>(GetOwningPlayer())->CloseEnhancement();})]]
             +SVerticalBox::Slot().AutoHeight().Padding(0,0,0,12)[OptionHeader]
-            +SVerticalBox::Slot().FillHeight(1)[SAssignNew(BodyScroll,SScrollBox).ScrollBarThickness(FVector2D(6,6))
+            +SVerticalBox::Slot().FillHeight(1)[ColdSteelUI::ApplyGoldScroll(SAssignNew(BodyScroll,SScrollBox)
                 .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
-                +SScrollBox::Slot()[WorldBody]]
+                +SScrollBox::Slot()[WorldBody],FVector2D(6,6),FMargin(4,0,0,0),true)]
             +SVerticalBox::Slot().AutoHeight().Padding(0,10,0,0)[SNew(STextBlock)
                 .Text_Lambda([this](){return FText::FromString(ItemId.IsEmpty()
                     ?TEXT("工作台为空 · 放入后可操作")
@@ -338,12 +339,12 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
                     .WidthOverride_Lambda([this](){return FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this)).PanelSize.X;})
                     .HeightOverride_Lambda([this](){return FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this)).PanelSize.Y;})
                     .Clipping(EWidgetClipping::ClipToBounds)
-                    [SNew(SScrollBox).Orientation(Orient_Horizontal).ScrollBarThickness(FVector2D(6,6))
+                    [ColdSteelUI::ApplyGoldScroll(SNew(SScrollBox).Orientation(Orient_Horizontal)
                         .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)
                         +SScrollBox::Slot()[SNew(SBox)
                             .WidthOverride_Lambda([this](){return FMath::Max(410.f,float(FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this)).PanelSize.X));})
                             .HeightOverride_Lambda([this](){return FMath::Max(1.f,float(FColdSteelEnhancementLayoutMetrics::ForViewport(UWidgetLayoutLibrary::GetViewportSize(this)).PanelSize.Y)-6.f);})
-                            [ManagementSurface.ToSharedRef()]]]]];
+                            [ManagementSurface.ToSharedRef()]],FVector2D(6,6),FMargin(0,4,0,0),true)]]];
     }
     auto FooterContent=SNew(SHorizontalBox)
         +SHorizontalBox::Slot().FillWidth(1).VAlign(VAlign_Center).Padding(0,0,12,0)
@@ -352,9 +353,9 @@ TSharedRef<SWidget> UColdSteelEnhancementWidget::RebuildWidget()
             [Button(TEXT("取消"),[this](){CastChecked<AFPSGAMEPlayerController>(GetOwningPlayer())->CloseEnhancement();})]]
         +SHorizontalBox::Slot().AutoWidth()[SNew(SBox).WidthOverride(152)[ConfirmControl.ToSharedRef()]];
     auto Content=SNew(SVerticalBox)
-        +SVerticalBox::Slot().AutoHeight().Padding(22,18,22,16)[SNew(SScrollBox).Orientation(Orient_Horizontal)
-            .ScrollBarThickness(FVector2D(4,4)).AllowOverscroll(EAllowOverscroll::No)
-            +SScrollBox::Slot()[SNew(SBox).MinDesiredWidth_Lambda([this](){return FMath::Max(640.f,float(BodyHost?BodyHost->GetCachedGeometry().GetLocalSize().X:0.f)-8.f);})[Header]]]
+        +SVerticalBox::Slot().AutoHeight().Padding(22,18,22,16)[ColdSteelUI::ApplyGoldScroll(SNew(SScrollBox).Orientation(Orient_Horizontal)
+            .AllowOverscroll(EAllowOverscroll::No)
+            +SScrollBox::Slot()[SNew(SBox).MinDesiredWidth_Lambda([this](){return FMath::Max(640.f,float(BodyHost?BodyHost->GetCachedGeometry().GetLocalSize().X:0.f)-8.f);})[Header]],FVector2D(4,4),FMargin(0,4,0,0),true)]
         +SVerticalBox::Slot().FillHeight(1).Padding(18,0)[SAssignNew(BodyHost,SBox)]
         +SVerticalBox::Slot().AutoHeight().Padding(22,14,22,18)[FooterContent];
     UpdateResponsiveLayout();
@@ -393,7 +394,7 @@ void UColdSteelEnhancementWidget::UpdateResponsiveLayout()
         }
         Flow->AddSlot().AutoHeight().Padding(0,12,0,0)
             [SNew(SBox).HeightOverride_Lambda([this](){return FMath::Max(700.f,float(BodyHost->GetCachedGeometry().GetLocalSize().Y));})[InspectorContent.ToSharedRef()]];
-        BodyHost->SetContent(SAssignNew(BodyScroll,SScrollBox).ScrollBarThickness(FVector2D(6,6))
-            .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)+SScrollBox::Slot()[Flow]);
+        BodyHost->SetContent(ColdSteelUI::ApplyGoldScroll(SAssignNew(BodyScroll,SScrollBox)
+            .AllowOverscroll(EAllowOverscroll::No).ConsumeMouseWheel(EConsumeMouseWheel::WhenScrollingPossible)+SScrollBox::Slot()[Flow],FVector2D(6,6),FMargin(4,0,0,0),true));
     }
 }

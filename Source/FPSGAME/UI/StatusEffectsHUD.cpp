@@ -11,6 +11,7 @@
 #include "Components/TextBlock.h"
 #include "Components/SizeBox.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/WrapBox.h"
 #include "Components/VerticalBox.h"
 #include "Components/VerticalBoxSlot.h"
@@ -152,12 +153,12 @@ void UStatusEffectsHUD::NativeOnInitialized()
 {
  Super::NativeOnInitialized();SetIsFocusable(false);SetVisibility(ESlateVisibility::SelfHitTestInvisible);
  Root=WidgetTree->ConstructWidget<UCanvasPanel>();Root->SetVisibility(ESlateVisibility::SelfHitTestInvisible);WidgetTree->RootWidget=Root;
- Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetScrollbarThickness({4,4});Scroll->SetScrollbarPadding(FMargin(2,0,0,0));
+ Scroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();ColdSteelUI::ConfigureGoldScrollBox(Scroll,4.f,FMargin(2,0,0,0));
  Scroll->SetAllowOverscroll(false);Scroll->SetClipping(EWidgetClipping::ClipToBounds);At(Root,Scroll,{12,12},{398,172});
  Wrap=WidgetTree->ConstructWidget<UWrapBox>();Wrap->SetExplicitWrapSize(true);Wrap->SetWrapSize(392);Wrap->SetInnerSlotPadding({TileGap,TileGap});Scroll->AddChild(Wrap);
  Tooltip=WidgetTree->ConstructWidget<UBorder>();Tooltip->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::Tooltip,8,ColdSteelUI::Border,1));Tooltip->SetPadding(FMargin(14,12));
  TipSize=WidgetTree->ConstructWidget<USizeBox>();TipSize->SetWidthOverride(292);TipSize->SetMaxDesiredHeight(320);Tooltip->SetContent(TipSize);
- TipScroll=WidgetTree->ConstructWidget<UScrollBox>();TipScroll->SetAllowOverscroll(false);TipScroll->SetScrollbarThickness({4,4});TipScroll->SetClipping(EWidgetClipping::ClipToBounds);TipSize->SetContent(TipScroll);
+ TipScroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();TipScroll->SetAllowOverscroll(false);ColdSteelUI::ConfigureGoldScrollBox(TipScroll,4.f,FMargin(2,0,0,0));TipScroll->SetClipping(EWidgetClipping::ClipToBounds);TipSize->SetContent(TipScroll);
  auto* Column=WidgetTree->ConstructWidget<UVerticalBox>();TipScroll->AddChild(Column);
  auto Text=[&](float Size,const FLinearColor& Color){auto* W=WidgetTree->ConstructWidget<UTextBlock>();W->SetFont(UiText(Size));W->SetColorAndOpacity(Color);W->SetAutoWrapText(true);Column->AddChildToVerticalBox(W)->SetPadding(FMargin(0,0,0,6));return W;};
  TipTitle=Text(16,ColdSteelUI::TextPrimary);TipDescription=Text(14,ColdSteelUI::TextSecondary);TipStacks=Text(12,ColdSteelUI::TextSecondary);TipTime=Text(12,ColdSteelUI::HUDGoldLight);

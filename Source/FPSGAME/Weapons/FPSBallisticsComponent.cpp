@@ -1,15 +1,23 @@
 #include "FPSBallisticsComponent.h"
+#include "../Combat/CombatFormulaRuntime.h"
 #include "../Combat/FPSAttackQuery.h"
+#include "../Monsters/MonsterCombatComponent.h"
 #include "../Monsters/UnknownHumanoid.h"
+#include "../Monsters/WildlifeAnimal.h"
 #include "../Combat/RangedAttackQuery.h"
 #include "WeaponDamageFalloff.h"
+#include "WeaponStatEvaluation.h"
 #include "../Skills/ColdSteelSkillRules.h"
 #include "../FPSGAMECharacter.h"
 #include "../Multiplayer/ColdSteelPlayerState.h"
+#include "../UI/ColdSteelEnhancementSystem.h"
+#include "../WorldGeneration/VillageDefenseCombat.h"
+#include "../WorldGeneration/VillageSmartTurret.h"
 #include "FPSWeaponFXComponent.h"
 #include "FPSShatterFXSubsystem.h"
 #include "ColdSteelEnchantmentCombat.h"
 #include "../WorldGeneration/RiverPilotFXSubsystem.h"
+#include "Engine/GameInstance.h"
 #include "Engine/World.h"
 #include "GameFramework/Pawn.h"
 #include "Kismet/GameplayStatics.h"
@@ -30,14 +38,29 @@ float UFPSBallisticsComponent::ScaledBulletSpeed(float SpeedCM)
 {
     return SpeedCM*FMath::Clamp(CVarBulletSpeedScale.GetValueOnGameThread(),.05f,10.f);
 }
-void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM,const FColdSteelItem* ShotItem,bool bConverged,bool bCosmeticOnly,uint32 FireSequence,int32 FiredRounds)
+void UFPSBallisticsComponent::Launch(FVector Start,FVector Direction,float SpeedCM,float RangeCM,float Damage,UFPSWeaponFXComponent* FX,USoundBase* Headshot,float EffectiveRangeCM,const FColdSteelItem* ShotItem,bool bConverged,bool bCosmeticOnly,uint32 FireSequence,int32 FiredRounds,int32 BonusPiercing,float TurretWeakpointCritMultiplier)
 {
     if(!GetWorld()||!FMath::IsFinite(SpeedCM)||SpeedCM<=0||RangeCM<=0||Direction.IsNearlyZero())return;
     LastLaunchStart=Start;
     WeaponFX=FX;HeadshotSound=Headshot;
     const int32 TracerInterval=FMath::Max(1,CVarTracerEvery.GetValueOnGameThread());
     const auto Effects=ColdSteelCombat::Snapshot(GetOwner(),ShotItem);
-    FFPSFlyingRound Round;Round.Id=NextRoundId++;Round.Training=ColdSteelSkills::Snapshot(GetOwner(),ShotItem,true);Round.Position=Start;Round.Direction=Direction.GetSafeNormal();Round.Speed=ScaledBulletSpeed(SpeedCM);Round.Remaining=RangeCM;Round.Damage=Damage;Round.Timestamp=GetWorld()->GetTimeSeconds();Round.Piercing=Effects.Piercing;Round.Poison=Effects.Poison;Rounds.Add(MoveTemp(Round));
+    FFPSFlyingRound Round;Round.Id=NextRoundId++;Round.Training=ColdSteelSkills::Snapshot(GetOwner(),ShotItem,true);Round.Position=Start;Round.Direction=Direction.GetSafeNormal();Round.Speed=ScaledBulletSpeed(SpeedCM);Round.Remaining=RangeCM;Round.Damage=Damage;Round.Timestamp=GetWorld()->GetTimeSeconds();Round.Piercing=Effects.Piercing+FMath::Max(0,BonusPiercing);Round.Poison=Effects.Poison;Round.TurretWeakpointCritMultiplier=FMath::Max(1.f,TurretWeakpointCritMultiplier);
+    if(ShotItem && GetOwner() && GetOwner()->IsA<AVillageSmartTurret>())
+    {
+        Round.Training.DamagePanel=ColdSteelWeaponStats::DamageParts(*ShotItem,nullptr,Damage);
+        float ArmorPen=float(ColdSteelInventory::Number(*ShotItem,TEXT("innate_armor_penetration")));
+        float MagicPen=0.f;
+        if(const auto* GI=GetWorld()->GetGameInstance())
+            if(const auto* Enhance=GI->GetSubsystem<UColdSteelEnhancementSystem>())
+            {
+                ArmorPen+=Enhance->CraftEffect(*ShotItem,TEXT("armorPenetrationPercent"))+Enhance->Effect(*ShotItem,TEXT("armorPenetrationPercent"));
+                MagicPen+=Enhance->CraftEffect(*ShotItem,TEXT("magicPenetrationPercent"))+Enhance->Effect(*ShotItem,TEXT("magicPenetrationPercent"));
+            }
+        Round.Training.ArmorPenetration=FMath::Clamp(ArmorPen,0.f,1.f);
+        Round.Training.MagicPenetration=FMath::Clamp(MagicPen,0.f,1.f);
+    }
+    Rounds.Add(MoveTemp(Round));
     Rounds.Last().Training.FireSequence=FireSequence;
     Rounds.Last().Training.FiredRounds=FMath::Max(1,FiredRounds);
     Rounds.Last().EffectiveRangeCM=EffectiveRangeCM;
@@ -95,6 +118,7 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
         const FVector Start=R.Position;
         const FVector End=R.Position+R.Direction*Distance;FHitResult Hit;
         FFPSAttackQuery Params(SCENE_QUERY_STAT(FlyingRound),true,GetOwner());Params.bReturnPhysicalMaterial=true;Params.bReturnFaceIndex=true;
+        if(AActor* Parent=GetOwner()?GetOwner()->GetAttachParentActor():nullptr)Params.AddIgnoredActor(Parent);
         for(const auto& A:R.HitActors)if(A.IsValid())Params.AddIgnoredActor(A.Get());
         bool Stopped=false;
         while(Unknown ? RangedAttackQuery::TraceToPlayer(GetWorld(),Unknown,Hit,R.Position,End,0.f,Params) :
@@ -109,22 +133,68 @@ void UFPSBallisticsComponent::TickComponent(float Delta,ELevelTick Type,FActorCo
             if(Hit.GetActor()&&!R.bCosmeticOnly)
             {
                 const float HitDistance=R.TraveledCM+FVector::Distance(Start,Hit.ImpactPoint);
-                const float HitDamage=R.Damage*WeaponDamageFalloff::Multiplier(HitDistance,R.EffectiveRangeCM);
+                float HitDamage=R.Damage*WeaponDamageFalloff::Multiplier(HitDistance,R.EffectiveRangeCM);
                 FWeaponDamageResult DamageResult;
                 // Network hit reports require the launch origin, not the last
                 // frame's short sweep segment, to reproduce full-range falloff.
                 Hit.TraceStart=R.LaunchOrigin;
-                const float Applied = Unknown ? Unknown->HitWithRound(Hit,HitDamage,R.Direction,R.Training.CriticalRoll) : ColdSteelSkills::ApplyHit(GetOwner(),Hit,HitDamage,R.Direction,R.Training,&DamageResult);
-                if(auto* Shooter=Cast<AFPSGAMECharacter>(GetOwner()))
+                const bool bTurretOwner=GetOwner()&&GetOwner()->IsA<AVillageSmartTurret>();
+                if(bTurretOwner)
                 {
-                    Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true,false);
-                    if(Shooter->HasAuthority()&&!Shooter->IsLocallyControlled())
-                        if(auto* PS=Shooter->GetPlayerState<AColdSteelPlayerState>())
-                        {
-                            FColdSteelNetHitReceipt Receipt;Receipt.bFirearm=true;Receipt.Target=Hit.GetActor();Receipt.Applied=Applied;Receipt.MagicApplied=DamageResult.Applied.MagicPortion(Applied);
-                            Receipt.bCritical=DamageResult.bCritical;Receipt.bKilled=DamageResult.bKilled;
-                            PS->ClientConfirmHit(Receipt);
-                        }
+                    const bool bWeakpointHit=ColdSteelSkills::IsCriticalHit(Hit);
+                    if(bWeakpointHit && R.TurretWeakpointCritMultiplier>1.f)
+                        HitDamage*=R.TurretWeakpointCritMultiplier;
+                    CombatFormulaRuntime::WeaponHit WeaponHit;
+                    WeaponHit.Target=Hit.GetActor();
+                    WeaponHit.Incoming=R.Training.DamagePanel.Total()>0.
+                        ?R.Training.DamagePanel.Scaled(HitDamage/R.Training.DamagePanel.Total())
+                        :FWeaponDamageParts{HitDamage,0.,0.,0.};
+                    WeaponHit.PhysicalPenetration=R.Training.ArmorPenetration;
+                    WeaponHit.MagicPenetration=R.Training.MagicPenetration;
+                    TGuardValue<CombatFormulaRuntime::WeaponHit*> DamageScope(CombatFormulaRuntime::ActiveWeaponHit,&WeaponHit);
+                    auto* Combat=Hit.GetActor()->FindComponentByClass<UMonsterCombatComponent>();
+                    UClass* DamageTypeClass=Hit.GetActor()->IsA<AColdSteelAnimal>()?UWildlifeGunDamage::StaticClass():nullptr;
+                    auto DealTurretDamage=[&]()
+                    {
+                        return UGameplayStatics::ApplyPointDamage(Hit.GetActor(),HitDamage,R.Direction,Hit,nullptr,GetOwner(),DamageTypeClass);
+                    };
+                    // Smart turret hits deal pure ballistic damage: never trigger hit stagger, toughness break, or stun.
+                    const float Applied=Combat
+                        ?Combat->ApplyHitWithReactionScale(0.f,[&]()
+                            {return Combat->ApplyHitWithToughnessScale(0.f,DealTurretDamage,0.f);})
+                        :DealTurretDamage();
+                    DamageResult.bResolved=true;
+                    DamageResult.bCritical=bWeakpointHit;
+                    DamageResult.Applied=WeaponHit.bResolved?WeaponHit.Mitigated.LimitedTo(Applied):WeaponHit.Incoming.LimitedTo(Applied);
+                    DamageResult.bKilled=(IsValid(Combat) && Combat->IsDead()) || !IsValid(Hit.GetActor()) || Hit.GetActor()->IsActorBeingDestroyed();
+                    if(Applied>0.f && GetOwner()->HasAuthority())
+                    {
+                        VillageDefenseCombat::BroadcastDamageNumber(
+                            GetWorld(),
+                            Hit.GetActor(),
+                            Hit.ImpactPoint,
+                            Applied,
+                            DamageResult.Applied.MagicPortion(Applied),
+                            DamageResult.bCritical,
+                            DamageResult.bKilled);
+                    }
+                }
+                else
+                {
+                    if(R.TurretWeakpointCritMultiplier>1.f && ColdSteelSkills::IsCriticalHit(Hit))
+                        HitDamage*=R.TurretWeakpointCritMultiplier;
+                    const float Applied = Unknown ? Unknown->HitWithRound(Hit,HitDamage,R.Direction,R.Training.CriticalRoll) : ColdSteelSkills::ApplyHit(GetOwner(),Hit,HitDamage,R.Direction,R.Training,&DamageResult);
+                    if(auto* Shooter=Cast<AFPSGAMECharacter>(GetOwner()))
+                    {
+                        Shooter->NotifyConfirmedWeaponHit(Hit.GetActor(),Applied,&DamageResult,true,false);
+                        if(Shooter->HasAuthority()&&!Shooter->IsLocallyControlled())
+                            if(auto* PS=Shooter->GetPlayerState<AColdSteelPlayerState>())
+                            {
+                                FColdSteelNetHitReceipt Receipt;Receipt.bFirearm=true;Receipt.Target=Hit.GetActor();Receipt.Applied=Applied;Receipt.MagicApplied=DamageResult.Applied.MagicPortion(Applied);
+                                Receipt.bCritical=DamageResult.bCritical;Receipt.bKilled=DamageResult.bKilled;
+                                PS->ClientConfirmHit(Receipt);
+                            }
+                    }
                 }
             }
             if(!Unknown&&!R.bCosmeticOnly)ColdSteelCombat::OnHit(Hit,GetOwner(),R.Poison);

@@ -30,6 +30,7 @@
 #include "Components/SizeBox.h"
 #include "Components/ScaleBox.h"
 #include "Components/ScrollBox.h"
+#include "ColdSteelScrollBar.h"
 #include "Components/Image.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/GameInstance.h"
@@ -85,7 +86,7 @@ void UColdSteelAlchemyWidget::Build()
     auto Panel=[this](TObjectPtr<UBorder>& Border,TWeakObjectPtr<UCanvasPanelSlot>& PanelSlot)
     {
         Border=WidgetTree->ConstructWidget<UBorder>();Border->SetBrush(ColdSteelUI::RoundedBrush(ColdSteelUI::GlassTint,10));Border->SetPadding(14/Scale);
-        PanelSlot=Canvas->AddChildToCanvas(Border);auto* Scroller=WidgetTree->ConstructWidget<UScrollBox>();Border->SetContent(Scroller);
+        PanelSlot=Canvas->AddChildToCanvas(Border);auto* Scroller=WidgetTree->ConstructWidget<UColdSteelScrollBox>();ColdSteelUI::ConfigureGoldScrollBox(Scroller,5.5f);Border->SetContent(Scroller);
         auto* Body=WidgetTree->ConstructWidget<UVerticalBox>();Scroller->AddChild(Body);return Body;
     };
     auto Label=[this](UVerticalBox* Parent,const FString& V,float Size,bool Wrap=false)

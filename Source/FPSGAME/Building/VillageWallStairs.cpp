@@ -17,11 +17,12 @@ namespace VillageWallStairs
     {
         const FIntVector StairFootprint(16,28,18);
         // Native art coordinates in centimetres. Both joins touch a 360 cm walking surface.
-        const FVector WallWalk(0.,100.,360.);
+        const FVector WallWalk(0.,167.,360.);
         const FVector StairExit(80.,-280.,360.);
         const FVector StairSide(160.,-200.,360.);
         constexpr double WallHalfLength=150.;
-        constexpr double WallHalfDepth=100.;
+        constexpr double WallOuterDepth=100.;
+        constexpr double WallInnerDepth=167.;
         constexpr double EastGateHalfWidth=VillageGateReplacement::PlacedPortalHalfWidth;
         constexpr double WestGateHalfWidth=534.;
         // Keep the original wall centreline and saved edge addresses. The new
@@ -128,13 +129,14 @@ namespace VillageWallStairs
             {
                 // Butt the short end to the perpendicular module's side. Meeting axis
                 // centrelines instead would interpenetrate both walls by half their thickness.
-                const double InnerDepth=WallHalfDepth*FMath::Abs(Host.GetScale3D().Y);
+                const double OuterDepth=WallOuterDepth*FMath::Abs(Host.GetScale3D().Y);
+                const double InnerDepth=WallInnerDepth*FMath::Abs(Host.GetScale3D().Y);
                 const bool bNewWalkFacesJoint=(Turn==1)==(Side==1);
                 // Meet one end against the open walking side of the other section.
                 // Connecting an end directly to the crenellated side blocks the walkway.
                 const FVector Offset=bNewWalkFacesJoint
-                    ? FVector(Side*WallHalfDepth,Moving.HalfWidth-InnerDepth,0.)
-                    : FVector(-Side*WallHalfDepth,InnerDepth+Moving.HalfWidth,0.);
+                    ? FVector(Side*WallInnerDepth,Moving.HalfWidth-OuterDepth,0.)
+                    : FVector(-Side*WallInnerDepth,InnerDepth+Moving.HalfWidth,0.);
                 return FTransform(Rot,End+HostRot.RotateVector(Offset));
             }
             const double MovingLineY=Moving.Piece==EPiece::Gate?GateWallLineY:0.;

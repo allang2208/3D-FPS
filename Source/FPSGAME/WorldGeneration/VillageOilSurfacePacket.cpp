@@ -32,9 +32,9 @@ bool FVillageOilSurfacePacket::NetSerialize(FArchive& Ar,UPackageMap*,bool& Succ
 void FVillageOilSpread::PackSurface(TArray<uint8>& Packet) const
 {
     TArray<uint8> Raw;FMemoryWriter W(Raw);
-    uint8 Extent=Built;float NoiseSeed=Seed;FVector2D Direction=Incoming;
+    uint8 Extent=Built;float SpreadRadius=Radius,NoiseSeed=Seed;FVector2D Direction=Incoming;
     uint16 Revision=SupportRevision;
-    W<<Extent<<Revision<<NoiseSeed<<Direction;
+    W<<Extent<<Revision<<SpreadRadius<<NoiseSeed<<Direction;
     for(int Y=-Built;Y<=Built;++Y)for(int X=-Built;X<=Built;++X)
     {
         const auto& C=Cells[(Y+Half)*Side+X+Half];
@@ -90,8 +90,8 @@ bool FVillageOilSpread::UnpackSurface(const TArray<uint8>& Packet)
         FMemory::Memcpy(Raw.GetData(),Packet.GetData()+sizeof(Size),Size);
     }
     FMemoryReader R(Raw);
-    uint8 Extent=0;R<<Extent<<SupportRevision<<Seed<<Incoming;
-    if(Extent>Half || R.IsError())return false;
+    uint8 Extent=0;R<<Extent<<SupportRevision<<Radius<<Seed<<Incoming;
+    if(Extent>Half || Radius<50.f || Radius>600.f || R.IsError())return false;
     Built=Extent;Cells.Reset();Cells.SetNum(Side*Side);EdgeCuts.Reset();
     for(int Y=-Built;Y<=Built;++Y)for(int X=-Built;X<=Built;++X)
     {

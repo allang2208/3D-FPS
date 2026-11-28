@@ -1,0 +1,39 @@
+{
+ "task": "VillageDefenseTurretWorkshop-20261128",
+ "generated_at": "2026-11-28T11:06:04.940300+08:00",
+ "total_files": 685,
+ "total_bytes": 327205568,
+ "total_mb": 312.05,
+ "by_category": {
+  "conversation_scratch": {
+   "count": 43,
+   "bytes": 5806643
+  },
+  "conversation_review_media": {
+   "count": 33,
+   "bytes": 31567552
+  },
+  "f_art_review_media": {
+   "count": 515,
+   "bytes": 286903909
+  },
+  "f_prod_headless_debris": {
+   "count": 94,
+   "bytes": 2927464
+  }
+ },
+ "trash_destinations": {
+  "conversation_scratch": "D:/FPS3D/FPSGAME/trash/VillageDefenseTurretWorkshop-20261128/ConversationScratch",
+  "conversation_review_media": "D:/FPS3D/FPSGAME/trash/VillageDefenseTurretWorkshop-20261128/ConversationReviews",
+  "f_art_review_media": "F:/FPSGAMEData/trash/VillageDefenseTurretWorkshop-20261128/ArtReviews",
+  "f_prod_headless_debris": "F:/FPSGAMEData/trash/VillageDefenseTurretWorkshop-20261128/ArtProduction"
+ },
+ "local_manifest": "F:/FPSGAMEData/ArtProduction/HighVillageDefense/Closeout-VillageDefenseTurretWorkshop-20261128/cleanup-manifest.json",
+ "preserved": [
+  "F:/FPSGAMEData/ArtProduction/HighVillageDefense/<batch>/{Before,published.json,workshop-saved.json,mesh-import.json,*.log}",
+  "F:/FPSGAMEData/ArtReviews/HighVillageDefense/<batch>/{*.json,*.log,*.md} structured evidence",
+  "All run-host junctions (Content -> F:/FPSGAMEData/Content) untouched",
+  "SourceAssets/HillsVillageHighWall20261120/{GarrisonWorkshop,SmartTurret,LightningSpire,HotOil}/ authoring sources"
+ ],
+ "errors": []
+}

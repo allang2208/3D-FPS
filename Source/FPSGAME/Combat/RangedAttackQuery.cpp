@@ -62,6 +62,12 @@ bool SkipFriendly(const AActor* Source, const FHitResult& Hit, FCollisionQueryPa
 
 bool RangedAttackQuery::IsFriendlyUnit(const AActor* Source, const AActor* Candidate)
 {
+    if (Source && Source->ActorHasTag(TEXT("VillageDefense")))
+    {
+        const AActor* To = AttachedUnit(Candidate);
+        if (!To || To->ActorHasTag(TEXT("VillageDefense"))) return false;
+        return Side(To) == 1;
+    }
     const AActor* From = AttachedUnit(Source);
     const AActor* To = AttachedUnit(Candidate);
     if (!From || !To) return false;

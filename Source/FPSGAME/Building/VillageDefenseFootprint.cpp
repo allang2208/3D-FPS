@@ -76,6 +76,8 @@ namespace VillageDefenseFootprint
     FBox2D SiegeBase(FName Recipe)
     {
         if(Recipe==VillageBuildDefense::OilPot)return FBox2D(FVector2D(-79,-77),FVector2D(79,77));
+        if(Recipe==VillageBuildDefense::LightningSpire)return FBox2D(FVector2D(-82,-82),FVector2D(82,82));
+        if(Recipe==VillageBuildDefense::SmartTurret)return FBox2D(FVector2D(-68,-68),FVector2D(68,68));
         return Recipe==VillageBuildDefense::Trebuchet
             ? FBox2D(FVector2D(-256,-176),FVector2D(231,176))
             : FBox2D(FVector2D(-87,-82),FVector2D(87,82));
@@ -94,6 +96,29 @@ namespace VillageDefenseFootprint
                 return S;
             }();
             return Kettle;
+        }
+        if(Recipe==VillageBuildDefense::LightningSpire)
+        {
+            static const FShape Spire=[](){
+                FShape S;
+                S.Boxes={FBox(FVector(-82,-82,0),FVector(82,82,42)),
+                    FBox(FVector(-58,-58,42),FVector(58,58,368)),
+                    FBox(FVector(-92,-28,70),FVector(-56,28,126))};
+                for(const FBox& Box:S.Boxes)S.Bounds+=Box;
+                return S;
+            }();
+            return Spire;
+        }
+        if(Recipe==VillageBuildDefense::SmartTurret)
+        {
+            static const FShape Turret=[](){
+                FShape S;
+                S.Boxes={FBox(FVector(-68,-68,0),FVector(68,68,95)),
+                    FBox(FVector(-52,-42,95),FVector(62,42,212))};
+                for(const FBox& Box:S.Boxes)S.Bounds+=Box;
+                return S;
+            }();
+            return Turret;
         }
         if(Recipe==VillageBuildDefense::Ballista)return Ballista();
         static const FShape Trebuchet=[]()

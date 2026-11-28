@@ -19,7 +19,7 @@ paths={"ChapelWall":hills+"HighVillageDefense/ChapelGatehouse/M_GatehouseChapelW
        "Footing":chapel+"Footing","Paving":chapel+"Flagstone","Coping":chapel+"YardCap",
        "Slate":chapel+"Slate","Plaster":chapel+"Limewash","Floorboard":chapel+"Timber",
        "Oak":smith+"ArtPassR2/Materials/M_VillageR2_Oak","Iron":smith+"SmeltingYard/Wear/M_SmithWornIron",
-       "Rope":hills+"VillageWindmill/Materials/MI_Prop_Rope_All_Windmill",
+       "Rope":hills+"VillageStable/PropsR43/Materials/M_StableWeatheredRope",
        "Bronze":"/Game/Props/RomanColumn20260915/M_Bronze"}
 materials={k:kit.require(v) for k,v in paths.items()}
 kit.PACK=dest+"/Frontage"
@@ -38,7 +38,7 @@ for role in (("SM_GarrisonWorkshop",) if front_only else ("SM_GarrisonWorkshop",
                     receipt_file=run/"mesh-import.json",preserve_silhouette=True)
 if not front_only:
     furniture=kit.require(dest+"/SM_GarrisonAssemblyBay")
-    for name,xyz,yaw in (("UpgradeWorkbench",(-212,95,91),0),("UpgradeApproach",(-105,95,0),180)):
+    for name,xyz,yaw in (("UpgradeWorkbench",(-112,30,91),0),("UpgradeApproach",(-15,30,0),180)):
         socket=furniture.find_socket(name)
         if not socket:
             socket=ue.StaticMeshSocket(outer=furniture)

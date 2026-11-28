@@ -2,6 +2,7 @@
 #include "ColdSteelTextToolTip.h"
 #include "ColdSteelForgeBoard.h"
 #include "ColdSteelUIStyle.h"
+#include "ColdSteelScrollBar.h"
 #include "Blueprint/WidgetTree.h"
 #include "Components/BackgroundBlur.h"
 #include "Components/Border.h"
@@ -74,7 +75,8 @@ void UColdSteelAlchemyWidget::BuildEntry()
     auto* TitleSlot=Head->AddChildToHorizontalBox(Title);TitleSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));TitleSlot->SetVerticalAlignment(VAlign_Center);
     EntryCloseSize=WidgetTree->ConstructWidget<USizeBox>();EntryCloseSize->SetContent(Button(TEXT("×"),1));ButtonSizes.Add(EntryCloseSize);
     Head->AddChildToHorizontalBox(EntryCloseSize)->SetVerticalAlignment(VAlign_Center);
-    EntryScroll=WidgetTree->ConstructWidget<UScrollBox>();EntryScroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);
+    EntryScroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();EntryScroll->SetConsumeMouseWheel(EConsumeMouseWheel::Always);
+    ColdSteelUI::ConfigureGoldScrollBox(EntryScroll,5.5f);
     Stack->AddChildToVerticalBox(EntryScroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     EntryBody=WidgetTree->ConstructWidget<UBorder>();EntryBody->SetBrushColor(FLinearColor::Transparent);EntryScroll->AddChild(EntryBody);
     auto* Content=WidgetTree->ConstructWidget<UVerticalBox>();EntryBody->SetContent(Content);
@@ -113,7 +115,7 @@ void UColdSteelAlchemyWidget::BuildEntry()
     Columns->AddChildToHorizontalBox(EntryPreview)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     auto* Parameters=WidgetTree->ConstructWidget<UBorder>();EntryCards.Add(Parameters);
     EntryParameterSlot=Columns->AddChildToHorizontalBox(Parameters);EntryParameterSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
-    auto* ParameterScroll=WidgetTree->ConstructWidget<UScrollBox>();Parameters->SetContent(ParameterScroll);
+    auto* ParameterScroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();ColdSteelUI::ConfigureGoldScrollBox(ParameterScroll,5.5f);Parameters->SetContent(ParameterScroll);
     auto* ParameterContent=WidgetTree->ConstructWidget<UVerticalBox>();ParameterScroll->AddChild(ParameterContent);
     EntryPreviewName=Text(TEXT("—"),16,false,false,true);EntrySpace(ParameterContent->AddChildToVerticalBox(EntryPreviewName),FMargin(0,0,0,8));
     EntryPreviewStage=Text(TEXT("配方基础参数"),12);EntryPreviewStage->SetColorAndOpacity(ColdSteelUI::TextSecondary);

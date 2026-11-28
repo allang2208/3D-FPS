@@ -5,7 +5,7 @@
 void UColdSteelDamageNumberSubsystem::PushDamageNumber(AActor* Target,APlayerController* Viewer,
     const FVector& WorldPoint,float Damage,bool bCritical,bool bKilled,bool bBig,bool bTrackTarget,float MagicDamage)
 {
-    if(!Target||!Viewer||Damage<=0.f||Damage>100000000.f)return;
+    if((!Target && bTrackTarget)||!Viewer||Damage<=0.f||Damage>100000000.f)return;
     if(Pending.Num()>=MaxPending)Pending.RemoveAt(0);
     FColdSteelDamageNumberEvent Event;
     Event.Target=Target;

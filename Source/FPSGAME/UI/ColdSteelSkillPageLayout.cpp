@@ -2,6 +2,7 @@
 #include "ColdSteelHUDWidget.h"
 #include "ColdSteelQuickDrag.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelUIStyle.h"
 #include "../Combat/CombatChill.h"
 #include "../Skills/ColdSteelSkillRules.h"
@@ -46,6 +47,7 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
                 .OnClicked_UObject(this,&ThisClass::SelectCategory,I)[Label(Captions[I],14,Category==I?ColdSteelUI::TextPrimary:ColdSteelUI::TextTertiary)]]];
         Column->AddSlot().AutoHeight().Padding(16/Scale,12/Scale)[Filters];
         SAssignNew(Scroll,SScrollBox).AllowOverscroll(EAllowOverscroll::No);
+        ColdSteelUI::ApplyGoldScroll(Scroll.ToSharedRef(),FVector2D(5.5f/Scale,5.5f/Scale),FMargin(4/Scale,0,0,0),true);
         if(Category<=1)for(FName Id:{FName(TEXT("twoHandedMastery")),FName(TEXT("oneHandedMastery")),FName(TEXT("swordMastery")),FName(TEXT("bluntMastery")),FName(TEXT("machineGunMastery")),FName(TEXT("shotgunMastery")),FName(TEXT("bowMastery")),FName(TEXT("heartPiercingArrow"))})
             Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[SNew(SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Fill).ContentPadding(16/Scale).OnClicked_UObject(this,&ThisClass::OpenDetail,Id)[Overview(true,Id)]];
         if(Category<=1) Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)
@@ -147,6 +149,7 @@ TSharedRef<SWidget> UColdSteelSkillPage::BuildPage()
             [SAssignNew(BackButton,SButton).ButtonStyle(&ActionStyle).HAlign(HAlign_Center).VAlign(VAlign_Center)
                 .OnClicked_Lambda([this]{GoBack();return FReply::Handled();})[Label(TEXT("返回技能列表"),14,ColdSteelUI::TextPrimary)]]];
         SAssignNew(Scroll,SScrollBox).AllowOverscroll(EAllowOverscroll::No).ScrollBarVisibility(bEmbedded?EVisibility::Collapsed:EVisibility::Visible);
+        ColdSteelUI::ApplyGoldScroll(Scroll.ToSharedRef(),FVector2D(5.5f/Scale,5.5f/Scale),FMargin(4/Scale,0,0,0),false);
         // Embedded in the skill tree, whose own header already shows icon, name, description, level and training
         // progress; rules and formulas (Note) stay on the full page only (2026-11-17).
         if(!bEmbedded)Scroll->AddSlot().Padding(16/Scale,0,16/Scale,12/Scale)[SNew(SBorder).BorderImage(&CardBrush).Padding(16/Scale)[Overview(false,SelectedSkill)]];

@@ -1,4 +1,5 @@
 #include "TacticalDeviceComponent.h"
+#include "../WorldGeneration/VillageOilCarry.h"
 #include "TacticalDeviceVariants.h"
 #include "HK416WeaponAssets.h"
 #include "HK416Attachments.h"
@@ -175,7 +176,7 @@ bool UTacticalDeviceComponent::DescribePart(const UStaticMeshComponent* Part,FNa
 bool UTacticalDeviceComponent::ReadLaserSample(FFPSBodyLaserSample& Out) const
 {
     if(bWorldPresentation||bPresentationHidden||!bLaserSampleValid||!IsComponentTickEnabled()
-        ||ConsumableStowsTacticalEffects(GetOwner(),Host)
+        ||ConsumableStowsTacticalEffects(GetOwner(),Host)||UVillageOilCarry::IsStowingEquipment(GetOwner())
         ||!GetWorld()||GetWorld()->GetTimeSeconds()-LaserSampleAt>.15)return false;
     Out.End=LaserSampleEnd;Out.Normal=LaserSampleNormal;Out.bDot=bLaserSampleDot;return true;
 }
@@ -324,7 +325,7 @@ void UTacticalDeviceComponent::TickComponent(float Delta,ELevelTick Type,FActorC
     // Food/drinks lower the offhand pistol or, for two-hand food, the whole rig.
     // Beam/dot/light are independent world primitives and do not inherit it.
     // Keep the configured switch state; normal emission resumes after recovery.
-    if(ConsumableStowsTacticalEffects(C,Host)){HideEffects();return;}
+    if(ConsumableStowsTacticalEffects(C,Host)||UVillageOilCarry::IsStowingEquipment(C)){HideEffects();return;}
     // Workbench views hide the pawn through PlayerController::HiddenActors, which
     // does not change AActor::IsHidden(). Beam/dot/light are independent world
     // primitives, so they must be hidden explicitly or a gold laser stays drawn

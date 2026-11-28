@@ -2,6 +2,8 @@
 #include "CoreMinimal.h"
 #include "GameFramework/SaveGame.h"
 #include "Subsystems/WorldSubsystem.h"
+#include "../UI/ColdSteelItemInstance.h"
+#include "VillageSiegeUpgrades.h"
 #include "VillageDefenseState.generated.h"
 
 class APawn;
@@ -26,12 +28,15 @@ class UVillageDefenseSave : public USaveGame
     GENERATED_BODY()
 public:
     UPROPERTY() FGuid WorldId;
-    UPROPERTY() int32 Version=1;
+    UPROPERTY() int32 Version=2;
     UPROPERTY() FGuid Generation;
     UPROPERTY() TMap<int32,float> DamagedSections;
     UPROPERTY() TMap<FGuid,float> DamagedPlacedSections;
     UPROPERTY() FVillagePendingRepair PendingRepair;
     UPROPERTY() uint16 SiegeRanks=0;
+    UPROPERTY() uint64 SiegeRanksV2=0;
+    UPROPERTY() uint64 SiegeRanksExtra=0;
+    UPROPERTY() TMap<FGuid, FColdSteelItem> SmartTurretWeapons;
 };
 
 UCLASS()
@@ -39,9 +44,12 @@ class UVillageDefenseState : public UWorldSubsystem
 {
     GENERATED_BODY()
 public:
-    uint16 SelectGeneration(const FGuid& Id,const FGuid& Generation);
+    VillageSiegeUpgrades::FRanks SelectGeneration(const FGuid& Id,const FGuid& Generation);
     float Restore(const FGuid& Id,int32 Section,float Default,const FGuid& PlacedId={});
     void Record(const FGuid& Id,int32 Section,float Health,const FGuid& PlacedId={});
+    bool LoadTurretWeapon(const FGuid& Id,const FGuid& PlacedId,FColdSteelItem& OutItem);
+    void SaveTurretWeapon(const FGuid& Id,const FGuid& PlacedId,const FColdSteelItem& Item);
+    void ClearTurretWeapon(const FGuid& Id,const FGuid& PlacedId);
     bool PurchaseRepair(const FGuid& Id,int32 Section,APawn* Payer,int32 Cost,FText& Failure,const FGuid& PlacedId={},float ExpectedHealth=0.f);
     bool PurchaseUpgrade(const FGuid& Id,int32 Index,int32 ExpectedRank,APawn* Payer,FText& Failure);
     void ForgetPlaced(const FGuid& Id,const TSet<FGuid>& Removed);

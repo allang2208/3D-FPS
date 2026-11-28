@@ -4,7 +4,27 @@
 #include "ColdSteelPickup.h"
 #include "../FPSGAMECharacter.h"
 #include "../Weapons/GunsmithSystem.h"
+#include "Components/ActorComponent.h"
 #include "Engine/GameInstance.h"
+
+namespace
+{
+void DestroyStudioRig(AFPSGAMECharacter* Rig)
+{
+    if(!IsValid(Rig))return;
+    if(Rig->HasActorBegunPlay())
+    {
+        Rig->RouteEndPlay(EEndPlayReason::Destroyed);
+    }
+    else
+    {
+        for(UActorComponent* Comp : Rig->GetComponents())
+            if(Comp && Comp->HasBegunPlay())
+                Comp->EndPlay(EEndPlayReason::Destroyed);
+    }
+    Rig->Destroy();
+}
+}
 
 void UColdSteelPickupStudio::Initialize(FSubsystemCollectionBase& Collection)
 {
@@ -21,7 +41,7 @@ void UColdSteelPickupStudio::ReleaseIdleRigs(bool bEnteringDungeon)
         const FString Key=RigUseOrder[Index];
         if(!bEnteringDungeon && Now-LastUseSeconds.FindRef(Key)<5.)continue;
         TRACE_CPUPROFILER_EVENT_SCOPE(FPS_Pickup_ReleaseIdleRig);
-        if(auto* Rig=Rigs.Find(Key);Rig&&IsValid(*Rig))(*Rig)->Destroy();
+        if(auto* Rig=Rigs.Find(Key);Rig&&IsValid(*Rig))DestroyStudioRig(*Rig);
         Rigs.Remove(Key);LastUseSeconds.Remove(Key);RigUseOrder.RemoveAt(Index);
         // At most one retirement per idle tick. Keep the empty world shell:
         // FPreviewScene destruction forces a full GC in this engine.
@@ -49,7 +69,7 @@ AFPSGAMECharacter* UColdSteelPickupStudio::Acquire(const FString& Definition,boo
     while(RigUseOrder.Num()>=2)
     {
         const FString Retired=RigUseOrder[0];RigUseOrder.RemoveAt(0);
-        if(auto* Old=Rigs.Find(Retired);Old&&IsValid(*Old))(*Old)->Destroy();
+        if(auto* Old=Rigs.Find(Retired);Old&&IsValid(*Old))DestroyStudioRig(*Old);
         Rigs.Remove(Retired);
         LastUseSeconds.Remove(Retired);
     }
@@ -92,6 +112,6 @@ void UColdSteelPickupStudio::Warm(const FColdSteelItem& Item, const FBox* Prepar
 void UColdSteelPickupStudio::Deinitialize()
 {
     FTSTicker::GetCoreTicker().RemoveTicker(IdleTicker);
-    for(auto& Pair:Rigs)if(IsValid(Pair.Value))Pair.Value->Destroy();
+    for(auto& Pair:Rigs)if(IsValid(Pair.Value))DestroyStudioRig(Pair.Value);
     Rigs.Empty();RigUseOrder.Empty();LastUseSeconds.Empty();Bounds.Empty();Studio.Reset();Super::Deinitialize();
 }

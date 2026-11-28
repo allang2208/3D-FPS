@@ -24,6 +24,7 @@
 #include "Components/ScaleBox.h"
 #include "Components/ScaleBoxSlot.h"
 #include "Components/ScrollBox.h"
+#include "../UI/ColdSteelScrollBar.h"
 #include "Components/SizeBox.h"
 #include "Components/SizeBoxSlot.h"
 #include "Components/TextBlock.h"
@@ -127,7 +128,7 @@ void UVoxelBuildWidget::NativeOnInitialized()
         TabSlot->SetPadding(FMargin(ColdSteelUI::ActionGap*.5f/Scale,0));
         Cast<UButtonSlot>(Entry->GetContent()->Slot)->SetPadding(FMargin(10/Scale,8/Scale));
     }
-    Scroll=WidgetTree->ConstructWidget<UScrollBox>();Scroll->SetAllowOverscroll(false);
+    Scroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();Scroll->SetAllowOverscroll(false);
     ConfigureBuildScroll(Scroll,Scale);
     auto* ScrollSlot=Body->AddChildToVerticalBox(Scroll);
     ScrollSlot->SetSize(FSlateChildSize(ESlateSizeRule::Fill));ScrollSlot->SetPadding(FMargin(BuildScrollLeft/Scale,0,BuildScrollRight/Scale,0));
@@ -166,8 +167,8 @@ void UVoxelBuildWidget::BuildTooltipCard()
     auto* CloseSize=WidgetTree->ConstructWidget<USizeBox>();
     CloseSize->SetWidthOverride(24/Scale);CloseSize->SetHeightOverride(24/Scale);CloseSize->SetContent(Close);
     Header->AddChildToHorizontalBox(CloseSize);
-    TooltipScroll=WidgetTree->ConstructWidget<UScrollBox>();TooltipScroll->SetAllowOverscroll(false);
-    TooltipScroll->SetScrollbarThickness(FVector2D(6/Scale));
+    TooltipScroll=WidgetTree->ConstructWidget<UColdSteelScrollBox>();TooltipScroll->SetAllowOverscroll(false);
+    ColdSteelUI::ConfigureGoldScrollBox(TooltipScroll,6/Scale);
     Column->AddChildToVerticalBox(TooltipScroll)->SetSize(FSlateChildSize(ESlateSizeRule::Fill));
     TooltipBox=WidgetTree->ConstructWidget<UVerticalBox>();TooltipScroll->AddChild(TooltipBox);
 }

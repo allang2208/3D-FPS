@@ -2,6 +2,7 @@
 #include "../FPSGAMEPlayerController.h"
 #include "../Monsters/WildlifeSubsystem.h"
 #include "ColdSteelStatusModel.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelUIStyle.h"
 #include "GameResourcePreparation.h"
 #include "../Skills/PlayerSkillPreparation.h"
@@ -124,7 +125,7 @@ void UTransitLoadingSubsystem::ShowStartupMenu(APlayerController* Controller)
             .WidthOverride_Lambda([WeakVP](){FVector2D Size(728,700);if(WeakVP.IsValid())WeakVP->GetViewportSize(Size);return FOptionalSize(FMath::Max(200.f,FMath::Min(560.f,float(Size.X)-48)));})
             .MaxDesiredHeight_Lambda([WeakVP](){FVector2D Size(728,700);if(WeakVP.IsValid())WeakVP->GetViewportSize(Size);return FOptionalSize(FMath::Max(120.f,float(Size.Y)-48));})
             [SNew(SBorder).BorderImage(&State->Panel).Padding(24)
-                [SNew(SScrollBox)+SScrollBox::Slot()[Content]]];
+                [ColdSteelUI::ApplyGoldScroll(SNew(SScrollBox)+SScrollBox::Slot()[Content],FVector2D(5.5f,5.5f),FMargin(4,0,0,0),true)]];
     };
     auto Eyebrow=[](const TCHAR* Text) -> TSharedRef<SWidget>
     {

@@ -53,6 +53,7 @@ namespace
 // Keep the same shadow-profile-first lookup at each combat entry point.
 UColdSteelStatusModel* SkillCombatModel(AActor* Shooter)
 {
+    if(Shooter&&Shooter->ActorHasTag(TEXT("VillageDefense")))return nullptr;
     UColdSteelStatusModel* Model=nullptr;
     if(const auto* Character=Cast<AFPSGAMECharacter>(Shooter))Model=Character->GetNetShadowProfile();
     if(!Model&&Shooter&&Shooter->GetGameInstance())Model=Shooter->GetGameInstance()->GetSubsystem<UColdSteelStatusModel>();

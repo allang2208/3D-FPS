@@ -91,33 +91,7 @@ int32 UTemperateVillageCheckCommandlet::CheckDefenseBlocks(const FString& Params
                 if(Part->GetSectionId()==Id)return Cast<AVillageDefenseStairs>(Part);
             return nullptr;
         };
-        {
-            auto* West=FixedFlight(51000);
-            auto* East=FixedFlight(51001);
-            if(!Check(West && East,TEXT("Upgrading creates one fixed switchback per gatehouse")))return;
-            const FTransform Original=West->GetActorTransform();
-            West->TakeDamage(135.f,FDamageEvent(),nullptr,nullptr);
-            const float Remaining=West->GetHealth();
-            const FGuid PlayerId=FGuid::NewGuid();
-            auto* Legacy=World->SpawnActorDeferred<AVillageDefenseStairs>(AVillageDefenseStairs::StaticClass(),
-                Original,Hills,nullptr,ESpawnActorCollisionHandlingMethod::AlwaysSpawn);
-            Legacy->Initialize(Hills,63510,AVillageDefenseStairs::StairMeshPath(),1200.f,PlayerId);
-            Legacy->FinishSpawning(Original);
-            Legacy->TakeDamage(210.f,FDamageEvent(),nullptr,nullptr);
-            auto AtAlternate=[&]()
-            {
-                auto* Fixed=FixedFlight(51000);
-                return Fixed && !Fixed->GetActorTransform().Equals(Original,.01) && Fixed->GetHealth()==Remaining &&
-                    Legacy->GetHealth()==990.f && Legacy->GetActorTransform().Equals(Original,.01);
-            };
-            Check(AtAlternate(),TEXT("A legacy player stair arriving after the perimeter keeps its site and independent health"));
-            Hills->BuildVillagePerimeter();
-            Check(AtAlternate(),TEXT("Rebuilding after the player stair selects the same alternate pier and restores both health records"));
-            Legacy->Destroy();
-            West=FixedFlight(51000);
-            Check(West && West->GetActorTransform().Equals(Original,.01) && West->GetHealth()==Remaining,
-                TEXT("Removing the legacy player stair releases its pier without healing the fixed section"));
-        }
+        if(!Check(!FixedFlight(51000) && !FixedFlight(51001),TEXT("Upgrading no longer pre-generates fixed gatehouse stairs")))return;
         TArray<AHighVillageWall*> Walls;
         TArray<AHighVillageGate*> Gates;
         TSet<int32> Ids;
@@ -134,26 +108,6 @@ int32 UTemperateVillageCheckCommandlet::CheckDefenseBlocks(const FString& Params
         Report->SetNumberField(TEXT("longest_bay_cm"),MaxSpan);
         if(!Check(OrdinaryParts>100&&Walls.Num()>100&&Gates.Num()==2&&Ids.Num()==Hills->VillageDefenseParts.Num()&&MaxSpan<305.,
             TEXT("Repaired and fortified perimeters use individually addressed bays and gates")))return;
-        for(auto* Gate:Gates)
-        {
-            const bool bWest=Gate->GetSectionId()==50000;
-            auto* Flight=FixedFlight(bWest?51000:51001);
-            if(!Check(Flight!=nullptr,TEXT("Generated gate retains its own stair section")))return;
-            const FTransform& Pose=Flight->GetActorTransform();
-            const FVector Join=Pose.TransformPosition(FVector(160.,-200.,360.));
-            const FVector Across=Pose.GetUnitAxis(EAxis::X);
-            auto Surface=[&](const FVector& At,const AActor* Expected)
-            {
-                FHitResult Hit;
-                return World->LineTraceSingleByChannel(Hit,At+FVector(0,0,12.),At-FVector(0,0,12.),
-                    ECC_Pawn,FCollisionQueryParams(SCENE_QUERY_STAT(FixedStairLanding),false)) &&
-                    Hit.GetActor()==Expected && FMath::Abs(Hit.ImpactPoint.Z-Join.Z)<.5;
-            };
-            const FVector Foot=Gate->GetActorTransform().InverseTransformPosition(Pose.TransformPosition(FVector(-80.,-120.,0.)));
-            Check(Foot.Y>400. && Foot.X>(bWest?430.:330.) && VillageWallStairs::HasClearStairEntrance(*World,Pose) &&
-                Surface(Join-Across*4.,Flight) && Surface(Join+Across*4.,Gate),
-                FString::Printf(TEXT("Gate %d has a courtyard approach and level collision across the gallery seam"),Gate->GetSectionId()));
-        }
         const FVector2D Mid=Hills->VillageSite.World(0.,-Hills->VillageSite.WallHalfSize().Y);
         Walls.Sort([&](const auto& A,const auto& B){return FVector2D::DistSquared(FVector2D(A.GetActorLocation()),Mid)
             <FVector2D::DistSquared(FVector2D(B.GetActorLocation()),Mid);});
@@ -293,7 +247,7 @@ int32 UTemperateVillageCheckCommandlet::CheckDefenseBlocks(const FString& Params
         if(!Check(Stair&&Stair->GetMasonry()->GetStaticMesh()&&Stair->GetActorTransform().Equals(Dock,.02),
             TEXT("Placed stairs have a damageable body at the preview pose")))return;
         const FVector Edge=Dock.TransformPosition(FVector(80.,-280.,360.));
-        const FVector WallEdge=Bay->GetActorTransform().TransformPosition(FVector(0,100.,360.));
+        const FVector WallEdge=Bay->GetActorTransform().TransformPosition(FVector(0,167.,360.));
         Report->SetNumberField(TEXT("dock_edge_distance_cm"),FVector::Distance(Edge,WallEdge));
         TArray<TSharedPtr<FJsonValue>> FloorSamples;
         auto FloorAt=[&](double Offset,AActor* Expected)

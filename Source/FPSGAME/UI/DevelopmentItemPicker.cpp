@@ -1,5 +1,6 @@
 #include "DevelopmentItemPicker.h"
 #include "ColdSteelTextToolTip.h"
+#include "ColdSteelScrollBar.h"
 #include "ColdSteelUIStyle.h"
 #include "GunsmithUIStyle.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
@@ -155,11 +156,10 @@ TSharedRef<SWidget> UDevelopmentItemPicker::BuildMenu()
         Rows->AddSlot().AutoHeight().Padding(FMargin(Entry.Subgroup.IsEmpty() ? 18.f : 28.f, 0.f, 6.f, 2.f) * InverseScale)[Item];
         if (!FocusItem || Entry.Definition == SelectedDefinition) FocusItem = Item;
     }
-    TSharedRef<SScrollBox> Scroll = SNew(SScrollBox)
-        .ScrollBarThickness(FVector2D(6.f, 6.f) / PixelScale)
+    TSharedRef<SScrollBox> Scroll = ColdSteelUI::ApplyGoldScroll(SNew(SScrollBox)
         .ScrollWhenFocusChanges(EScrollWhenFocusChanges::InstantScroll)
         .NavigationDestination(EDescendantScrollDestination::IntoView)
-        + SScrollBox::Slot()[Rows];
+        + SScrollBox::Slot()[Rows], FVector2D(6.f, 6.f) / PixelScale, FMargin(4.f / PixelScale, 0.f, 0.f, 0.f), true);
     Choice->SetMenuContentWidgetToFocus(FocusItem);
     if (FocusItem) Scroll->ScrollDescendantIntoView(FocusItem, false);
     return SNew(SBox).WidthOverride(Width).MaxDesiredHeight(Height)[Scroll];

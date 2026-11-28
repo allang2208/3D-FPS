@@ -16,7 +16,7 @@ if(Test-Path $live){
     foreach($folder in @($live,(Join-Path $live 'SquareKeep'))){
         if(Test-Path -LiteralPath $folder){
             foreach($f in Get-ChildItem -LiteralPath $folder -File -Filter '*.uasset'){
-                $key=[IO.Path]::GetRelativePath($live,$f.FullName).Replace('\','/')
+                $key=$f.FullName.Substring($live.Length).TrimStart('\','/').Replace('\','/')
                 $before[$key]=(Get-FileHash $f.FullName).Hash
             }
         }
@@ -68,8 +68,9 @@ if($proc.ExitCode -ne 0 -or !(Test-Path "$Run/saved.json")){
     Select-String -LiteralPath "$Run/author.log" -Pattern 'LogPython: Error|Fatal error' | Select-Object -Last 12
     throw "Gatehouse import failed at $Run"
 }
-$receipt=Get-Content "$Run/saved.json" -Raw | ConvertFrom-Json -AsHashtable
-$names=@(foreach($entry in $receipt.saved.Values){
+$receipt=Get-Content "$Run/saved.json" -Raw | ConvertFrom-Json
+$names=@(foreach($prop in $receipt.saved.PSObject.Properties){
+    $entry=$prop.Value
     $package=($entry.path -split '\.')[0]
     $base='/Game/WorldGeneration/TemperateHills/HighVillageDefense/ChapelGatehouse/'
     if(!$package.StartsWith($base)){throw "Unexpected saved package: $package"}

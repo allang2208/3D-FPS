@@ -219,7 +219,7 @@ void AVillageDefenseSection::ApplyHealth()
     Masonry->SetVisibility(Standing);
     Masonry->SetCollisionEnabled(Standing?ECollisionEnabled::QueryAndPhysics:ECollisionEnabled::NoCollision);
     Masonry->SetCanEverAffectNavigation(Standing);
-    GetWorld()->GetSubsystem<UVillageDefenseRepairTargets>()->Update(*this);
+    if (auto* Targets=GetWorld()->GetSubsystem<UVillageDefenseRepairTargets>()) Targets->Update(*this);
 }
 void AVillageDefenseSection::OnRep_Health()
 {

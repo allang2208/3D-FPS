@@ -1,5 +1,6 @@
 #include "CombatStatusFormula.h"
 #include "../Skills/FPSAbsoluteZeroComponent.h"
+#include "../WorldGeneration/VillageDefenseCombat.h"
 #include "../WorldGeneration/VillageHotOil.h"
 #include "../Monsters/UnknownSpellCombat.h"
 #include "CombatControlImmunity.h"
@@ -214,11 +215,12 @@ void UCombatStatusFormula::AddBurn(AActor* Source,float Matk,int32 Stacks,float 
     BurnInterval=TickSeconds;if(BurnTick<=0)BurnTick=BurnInterval;
     UStatusEffectsComponent::GetOrCreate(GetOwner())->SetTimed(TEXT("burn"),Seconds,Burns.Num());
 }
-void UCombatStatusFormula::AddOilBurn(AActor* Source,float MagicAttack)
+void UCombatStatusFormula::AddOilBurn(AActor* Source,float MagicAttack,int32 Stacks)
 {
+    const int32 Count=FMath::Max(1,Stacks);
     const int32 Before=Burns.Num();
-    AddBurn(Source,MagicAttack,1,5.f);
-    if(Burns.Num()>Before)Burns.Last().bOil=true;
+    AddBurn(Source,MagicAttack,Count,5.f);
+    for(int32 I=Before;I<Burns.Num();++I)Burns[I].bOil=true;
 }
 void UCombatStatusFormula::SetStatusImmune(bool Immune)
 {
@@ -552,7 +554,16 @@ void UCombatStatusFormula::TickComponent(float Delta,ELevelTick Type,FActorCompo
                 OtherDamage+=B.Damage;if(!OtherSource)OtherSource=B.Source.Get();
             }
             if(OtherDamage>0)Apply(OtherDamage,OtherSource,UFireballDamage::StaticClass());
-            for(const auto& Entry:OilDamage)Apply(Entry.Value,Entry.Key.Get(),UVillageOilDamage::StaticClass());
+            for(const auto& Entry:OilDamage)
+            {
+                const float Applied=Apply(Entry.Value,Entry.Key.Get(),UVillageOilDamage::StaticClass());
+                if(Applied>0.f && GetOwner())
+                    if(const auto* Combat=GetOwner()->FindComponentByClass<UMonsterCombatComponent>())
+                    {
+                        const bool bKilled=Combat->IsDead() || GetOwner()->IsActorBeingDestroyed();
+                        VillageDefenseCombat::BroadcastDamageNumber(GetWorld(),GetOwner(),GetOwner()->GetActorLocation(),Applied,Applied,false,bKilled);
+                    }
+            }
             BurnTick+=BurnInterval;
         }
         if(const int32 After=Burns.Num();After!=Before) // 层数变化才重发布；剩余时间由卡片 End 自然倒数
